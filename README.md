@@ -27,6 +27,7 @@
 * Kills multiple enemies significantly faster
 * Must be firing weapon to kill
 * Overheats while attempting to fire while meleeing
+* Cools down twice as fast
 * Cools down while not holding weapon
 * No longer automatically switched to weapon when picked up
 * No longer disassembles when overheated

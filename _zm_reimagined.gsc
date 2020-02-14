@@ -74,7 +74,6 @@ post_all_players_spawned()
 	electric_trap_always_kill();
 
 	jetgun_disable_explode_overheat();
-	//jetgun_increase_grind_range(); // not working
 
 	slipgun_always_kill();
 	slipgun_disable_reslip();
@@ -475,8 +474,6 @@ jetgun_fast_cooldown()
 		return;
 	}
 
-	val = 0;
-
 	while ( 1 )
 	{
 		if (!IsDefined(self.jetgun_heatval))
@@ -487,16 +484,35 @@ jetgun_fast_cooldown()
 
 		if ( self getcurrentweapon() == "jetgun_zm" )
 		{
-			if (self AttackButtonPressed() && self IsMeleeing())
+			if (self AttackButtonPressed())
 			{
-				self.jetgun_heatval += .85;
+				if (self IsMeleeing())
+				{
+					self.jetgun_heatval += .85;
+
+					if (self.jetgun_heatval > 100)
+					{
+						self.jetgun_heatval = 100;
+					}
+
+					self setweaponoverheating( self.jetgun_overheating, self.jetgun_heatval );
+				}
+			}
+			else
+			{
+				self.jetgun_heatval -= .05;
+
+				if (self.jetgun_heatval < 0)
+				{
+					self.jetgun_heatval = 0;
+				}
 
 				self setweaponoverheating( self.jetgun_overheating, self.jetgun_heatval );
 			}
 		}
 		else
 		{
-			self.jetgun_heatval -= .05;
+			self.jetgun_heatval -= .1;
 
 			if (self.jetgun_heatval < 0)
 			{
