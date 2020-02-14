@@ -69,7 +69,13 @@ post_all_players_spawned()
 
 	zone_changes();
 
+	electric_trap_always_kill();
+
 	jetgun_disable_explode_overheat();
+	//jetgun_increase_grind_range(); // not working
+
+	slipgun_always_kill();
+	slipgun_disable_reslip();
 
 	//disable_pers_upgrades(); // TODO
 
@@ -92,14 +98,6 @@ post_all_players_spawned()
 	level thread buried_enable_fountain_transport();
 
 	level thread tomb_remove_shovels_from_map();
-
-	// not working
-	//level.zombies_vars["jetgun_grind_range"] = 256;
-
-	level.etrap_damage = maps/mp/zombies/_zm::ai_zombie_health( 255 );
-
-	level.zombie_vars["slipgun_reslip_rate"] = 0;
-	level.slipgun_damage = maps/mp/zombies/_zm::ai_zombie_health( 255 );
 
 	//level.round_number = 115;
 	//level.zombie_move_speed = 105;
@@ -449,6 +447,16 @@ enemies_ignore_equipments()
 	maps/mp/zombies/_zm_equipment::enemies_ignore_equipment("riotshield_zm");
 }
 
+electric_trap_always_kill()
+{
+	level.etrap_damage = maps/mp/zombies/_zm::ai_zombie_health( 255 );
+}
+
+jetgun_increase_grind_range()
+{
+	level.zombies_vars["jetgun_grind_range"] = 256;
+}
+
 jetgun_fast_cooldown()
 {
 	self endon( "death_or_disconnect" );
@@ -589,6 +597,16 @@ jetgun_remove_forced_weapon_switch()
 
 		buildables_key = getNextArrayKey( buildables, buildables_key );
 	}
+}
+
+slipgun_always_kill()
+{
+	level.slipgun_damage = maps/mp/zombies/_zm::ai_zombie_health( 255 );
+}
+
+slipgun_disable_reslip()
+{
+	level.zombie_vars["slipgun_reslip_rate"] = 0;
 }
 
 on_equipment_placed()

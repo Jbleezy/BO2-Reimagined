@@ -77,7 +77,7 @@
 ### Tranzit
 * Pack-a-Punch door is automatically open whenever the power is on
 
-### Town
+#### Town
 * Moved Stamin-Up to its location on Tranzit
 
 #### Farm
