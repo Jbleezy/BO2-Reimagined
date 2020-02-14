@@ -14,6 +14,7 @@
 
 ## Players
 * Unlimited sprint
+* 100% backwards speed, strafe speed, and sprint strafe speed
 
 ## Zombies
 * Health capped at 1 million
@@ -33,7 +34,7 @@
 
 ### Sliquifier
 * Kills on any round (normally stops killing after round 100)
-* Removed additional goo being created by chain kills
+* Removed additional goo created by chain kills
 
 ## Perks
 

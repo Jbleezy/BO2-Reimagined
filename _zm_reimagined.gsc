@@ -34,6 +34,8 @@ onplayerspawned()
 			level thread post_all_players_spawned();
 		}
 
+		set_movement_dvars();
+
 		self setperk( "specialty_unlimitedsprint" );
 
 		self thread on_equipment_placed();
@@ -105,6 +107,13 @@ post_all_players_spawned()
 
 	//level.local_doors_stay_open = 1;
 	//level.power_local_doors_globally = 1;
+}
+
+set_movement_dvars()
+{
+	setdvar( "player_backSpeedScale", 1 );
+	setdvar( "player_strafeSpeedScale", 1 );
+	setdvar( "player_sprintStrafeSpeedScale", 1 );
 }
 
 disable_high_round_walkers()
