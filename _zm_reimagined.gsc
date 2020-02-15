@@ -488,7 +488,7 @@ jetgun_fast_cooldown()
 			{
 				if (self IsMeleeing())
 				{
-					self.jetgun_heatval += .85;
+					self.jetgun_heatval += .875; // have to add .025 if holding weapon
 
 					if (self.jetgun_heatval > 100)
 					{
@@ -500,7 +500,7 @@ jetgun_fast_cooldown()
 			}
 			else
 			{
-				self.jetgun_heatval -= .05;
+				self.jetgun_heatval -= .075; // have to add .025 if holding weapon
 
 				if (self.jetgun_heatval < 0)
 				{
@@ -541,7 +541,7 @@ jetgun_fast_spinlerp()
 		{
 			if (self AttackButtonPressed() && !self IsSwitchingWeapons())
 			{
-				previous_spinlerp -= 0.0165;
+				previous_spinlerp -= 0.0166667;
 				if (previous_spinlerp < -1)
 				{
 					previous_spinlerp = -1;

@@ -83,7 +83,7 @@
 * Moved Stamin-Up to its location on Tranzit
 
 #### Farm
-* Zombies now spawn in the Center zone when in the Farm zone
+* Zombies now spawn in the Center zone when in the Barn zone
 
 ### Die Rise
 * Zombies no longer spawn in the Skyscraper Tower zone when in the Trample Steam zone
