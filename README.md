@@ -82,7 +82,7 @@
 ## Maps
 
 ### Tranzit
-* Pack-a-Punch door is automatically open whenever the power is on
+* Any door that requires a Turbine to open is automatically open whenever the power is on
 
 #### Town
 * Moved Stamin-Up to its location on Tranzit

@@ -89,7 +89,7 @@ post_all_players_spawned()
 
 	level thread jetgun_remove_forced_weapon_switch();
 
-	level thread transit_power_pap_door_globally();
+	level thread transit_power_local_electric_doors_globally();
 
 	level thread town_move_staminup_machine();
 
@@ -903,14 +903,14 @@ zone_changes()
 	}
 }
 
-transit_power_pap_door_globally()
+transit_power_local_electric_doors_globally()
 {
 	if( !(is_classic() && level.scr_zm_map_start_location == "transit") )
 	{
 		return;	
 	}
 
-	local_power = undefined;
+	local_power = [];
 
 	for ( ;; )
 	{
@@ -921,20 +921,18 @@ transit_power_pap_door_globally()
 		{
 			if ( isDefined( zombie_doors[i].script_noteworthy ) && zombie_doors[i].script_noteworthy == "local_electric_door" )
 			{
-				if ( isDefined( zombie_doors[i].target ) && zombie_doors[i].target == "lab_secret_hatch" )
-				{
-					local_power = maps/mp/zombies/_zm_power::add_local_power( zombie_doors[i].origin, 16 );
-					break;
+				local_power[local_power.size] = maps/mp/zombies/_zm_power::add_local_power( zombie_doors[i].origin, 16 );
 				}
 			}
-		}
 
 		flag_waitopen( "power_on" );
 
-		if ( isDefined( local_power ) )
+		for (i = 0; i < local_power.size; i++)
 		{
-			maps/mp/zombies/_zm_power::end_local_power( local_power );
+			maps/mp/zombies/_zm_power::end_local_power( local_power[i] );
+			local_power[i] = undefined;
 		}
+		local_power = [];
 	}
 }
 
