@@ -42,9 +42,11 @@
 ### Speed Cola
 * Aim twice as fast
 * Switch weapons twice as fast
+* Throw grenades twice as fast
 
 ### Deadshot
 * Move faster while aiming
+* Decreased sprint recovery time
 
 ## Powerups
 

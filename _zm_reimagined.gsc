@@ -826,20 +826,24 @@ give_additional_perks()
 		{
 			self SetPerk("specialty_fastads");
 			self SetPerk("specialty_fastweaponswitch");
+			self Setperk( "specialty_fasttoss" );
 		}
 		else
 		{
 			self UnsetPerk("specialty_fastads");
 			self UnsetPerk("specialty_fastweaponswitch");
+			self Unsetperk( "specialty_fasttoss" );
 		}
 
 		if (self HasPerk("specialty_deadshot"))
 		{
 			self SetPerk("specialty_stalker");
+			self Setperk( "specialty_sprintrecovery" );
 		}
 		else
 		{
 			self UnsetPerk("specialty_stalker");
+			self Unsetperk( "specialty_sprintrecovery" );
 		}
 	}
 }
