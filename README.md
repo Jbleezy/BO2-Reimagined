@@ -44,6 +44,9 @@
 * Switch weapons twice as fast
 * Throw grenades twice as fast
 
+### Stamin-Up
+* Move faster (normally only sprint faster)
+
 ### Deadshot
 * Move faster while aiming
 * Decreased sprint recovery time

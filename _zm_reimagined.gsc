@@ -845,6 +845,15 @@ give_additional_perks()
 			self UnsetPerk("specialty_stalker");
 			self Unsetperk( "specialty_sprintrecovery" );
 		}
+
+		if (self HasPerk("specialty_longersprint"))
+		{
+			self Setperk( "specialty_movefaster" );
+	}
+		else
+		{
+			self Unsetperk( "specialty_movefaster" );
+}
 	}
 }
 
