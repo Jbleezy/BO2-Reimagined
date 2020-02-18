@@ -98,6 +98,7 @@ post_all_players_spawned()
 	level thread buried_deleteslothbarricades();
 	level thread buried_enable_fountain_transport();
 
+	level thread tomb_remove_weighted_random_perks();
 	level thread tomb_remove_shovels_from_map();
 
 	//level.round_number = 115;
@@ -1087,6 +1088,16 @@ buried_enable_fountain_transport()
 	wait 1;
 
 	level notify( "courtyard_fountain_open" );
+}
+
+tomb_remove_weighted_random_perks()
+{
+	if(!(is_classic() && level.scr_zm_map_start_location == "tomb"))
+	{
+		return;
+	}
+
+	level.custom_random_perk_weights = undefined;
 }
 
 tomb_remove_shovels_from_map()

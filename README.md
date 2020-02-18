@@ -104,3 +104,4 @@
 
 ### Origins
 * Shovels automatically picked up
+* Der Wunderfizz: all perks have an equal chance of being obtained
