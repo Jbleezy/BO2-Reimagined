@@ -304,6 +304,9 @@ buildbuildable( buildable )
 // MOTD/Origins style buildables
 buildcraftables()
 {
+	// need a wait or else some buildables dont build
+	wait 1;
+
 	if(is_classic())
 	{
 		if(level.scr_zm_map_start_location == "prison")
@@ -315,7 +318,39 @@ buildcraftables()
 		{
 			buildcraftable( "tomb_shield_zm" );
 			buildcraftable( "equip_dieseldrone_zm" );
+			takecraftableparts( "gramophone" );
 		}
+	}
+}
+
+takecraftableparts( buildable )
+{
+	player = get_players()[ 0 ];
+	_a197 = level.zombie_include_craftables;
+	_k197 = getFirstArrayKey( _a197 );
+	while ( isDefined( _k197 ) )
+	{
+		stub = _a197[ _k197 ];
+		if ( stub.name == buildable )
+		{
+			_a206 = stub.a_piecestubs;
+			_k206 = getFirstArrayKey( _a206 );
+			while ( isDefined( _k206 ) )
+			{
+				piece = _a206[ _k206 ];
+
+				piecespawn = piece.piecespawn;
+				if ( isDefined( piecespawn ) )
+				{
+					player player_take_piece( piecespawn );
+				}
+				
+				_k206 = getNextArrayKey( _a206, _k206 );
+			}
+
+			return;
+		}
+		_k197 = getNextArrayKey( _a197, _k197 );
 	}
 }
 
@@ -341,8 +376,6 @@ buildcraftable( buildable )
 				}
 				_k206 = getNextArrayKey( _a206, _k206 );
 			}
-
-			// TODO - auto build at crafting table
 
 			return;
 		}

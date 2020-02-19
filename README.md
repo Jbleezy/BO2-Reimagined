@@ -104,4 +104,5 @@
 
 ### Origins
 * Shovels automatically picked up
+* Gramophone and records automatically picked up
 * Der Wunderfizz: all perks have an equal chance of being obtained
