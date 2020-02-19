@@ -41,6 +41,8 @@ onplayerspawned()
 		self thread on_equipment_placed();
 		self thread give_additional_perks();
 
+		self thread screecher_remove_hint();
+
 		self thread jetgun_fast_cooldown();
 		self thread jetgun_fast_spinlerp();
 		self thread jetgun_overheated_fix();
@@ -90,6 +92,9 @@ post_all_players_spawned()
 	level thread jetgun_remove_forced_weapon_switch();
 
 	level thread transit_power_local_electric_doors_globally();
+
+	level thread screecher_decrease_health();
+	level thread screecher_remove_near_miss();
 
 	level thread town_move_staminup_machine();
 
@@ -935,6 +940,27 @@ zone_changes()
 			flag_set("OnFarm_enter");
 		}
 	}
+}
+
+screecher_remove_hint()
+{
+	self.screecher_seen_hint = 1;
+}
+
+screecher_remove_near_miss()
+{
+	level.near_miss = 2;
+}
+
+screecher_decrease_health()
+{
+	level.screecher_spawners = getentarray( "screecher_zombie_spawner", "script_noteworthy" );
+	array_thread( level.screecher_spawners, ::add_spawn_function, ::screecher_prespawn_decrease_health );
+}
+
+screecher_prespawn_decrease_health()
+{
+	self.player_score = 15;
 }
 
 transit_power_local_electric_doors_globally()
