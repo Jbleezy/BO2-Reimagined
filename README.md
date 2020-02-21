@@ -98,6 +98,8 @@
 
 #### Farm
 * Zombies now spawn in the Center zone when in the Barn zone
+* Survival: replaced Galvaknuckles wallbuy with Claymore wallbuy
+* Grief: added Claymore wallbuy
 
 ### Die Rise
 * Zombies no longer spawn in the Skyscraper Tower zone when in the Trample Steam zone
