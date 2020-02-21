@@ -78,6 +78,8 @@ post_all_players_spawned()
 	electric_trap_always_kill();
 
 	jetgun_disable_explode_overheat();
+	jetgun_remove_forced_weapon_switch();
+	jetgun_remove_drop_fn();
 
 	slipgun_always_kill();
 	slipgun_disable_reslip();
@@ -90,8 +92,6 @@ post_all_players_spawned()
 	level thread buildcraftables();
 
 	level thread zombie_health_fix();
-
-	level thread jetgun_remove_forced_weapon_switch();
 
 	level thread transit_power_local_electric_doors_globally();
 
@@ -697,6 +697,11 @@ jetgun_remove_forced_weapon_switch()
 
 		buildables_key = getNextArrayKey( buildables, buildables_key );
 	}
+}
+
+jetgun_remove_drop_fn()
+{
+	level.zombie_equipment["jetgun_zm"].drop_fn = undefined;
 }
 
 slipgun_always_kill()

@@ -37,6 +37,7 @@
 * Cools down twice as fast
 * Cools down while not holding weapon
 * No longer automatically switched to weapon when picked up
+* No longer dropped to the ground when another buildable is taken
 * No longer disassembles when overheated
 * Weapon is taken when overheated
 
