@@ -45,6 +45,7 @@
 * Removed additional goo created by chain kills
 
 ## Perks
+* No longer deactivated if the perk machine is powered off
 
 ### Speed Cola
 * Aim twice as fast

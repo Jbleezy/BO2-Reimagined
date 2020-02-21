@@ -66,6 +66,8 @@ post_all_players_spawned()
 
 	disable_high_round_walkers();
 
+	disable_perk_pause();
+
 	disable_carpenter();
 
 	disable_bank();
@@ -238,6 +240,40 @@ replace_wallbuy( replace_from, replace_to )
 			}
 		}
 	}
+}
+
+disable_perk_pause()
+{
+	for (i = 0; i < level.powered_items.size; i++)
+	{
+		item = level.powered_items[i];
+
+		if (IsDefined(item.target) && IsDefined(item.target.targetname) && item.target.targetname == "zombie_vending")
+		{
+			item.power_off_func = ::perk_power_off;
+		}
+	}
+}
+
+perk_power_off( origin, radius )
+{
+	notify_name = self.target maps/mp/zombies/_zm_perks::getvendingmachinenotify();
+	if ( isDefined( notify_name ) && notify_name == "revive" )
+	{
+		if ( level flag_exists( "solo_game" ) && flag( "solo_game" ) )
+		{
+			return;
+		}
+	}
+
+	self.target notify( "death" );
+	self.target thread maps/mp/zombies/_zm_perks::vending_trigger_think();
+	if ( isDefined( self.target.perk_hum ) )
+	{
+		self.target.perk_hum delete();
+	}
+	//maps/mp/zombies/_zm_perks::perk_pause( self.target.script_noteworthy );
+	level notify( self.target maps/mp/zombies/_zm_perks::getvendingmachinenotify() + "_off" );
 }
 
 buildbuildables()
