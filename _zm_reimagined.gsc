@@ -381,6 +381,7 @@ buildbuildables()
 			buildbuildable( "turret" ); // TODO - fix turret loop sound not going away when picked up
 			buildbuildable( "riotshield_zm" );
 			buildbuildable( "jetgun_zm" );
+			buildbuildable( "sq_common" );
 
 			// power switch is not showing up from forced build
 			show_powerswitch();
@@ -389,6 +390,7 @@ buildbuildables()
 		{
 			buildbuildable( "slipgun_zm" );
 			buildbuildable( "springpad_zm" );
+			buildbuildable( "sq_common" );
 		}
 		else if(level.scr_zm_map_start_location == "processing")
 		{
@@ -399,6 +401,7 @@ buildbuildables()
 			buildbuildable( "springpad_zm" );
 			buildbuildable( "subwoofer_zm" );
 			buildbuildable( "headchopper_zm" );
+			buildbuildable( "sq_common" );
 		}
 	}
 }

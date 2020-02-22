@@ -92,6 +92,7 @@
 
 ### Tranzit
 * Any door that requires a Turbine to open is automatically open whenever the power is on
+* Navcard table automatically crafted
 
 #### Town
 * Moved Stamin-Up to its location on Tranzit
@@ -104,6 +105,7 @@
 ### Die Rise
 * Zombies no longer spawn in the Skyscraper Tower zone when in the Trample Steam zone
 * Zombies no longer spawn in the zone next to the AN94 when in the AN94 zone while the debris is closed
+* Navcard table automatically crafted
 
 ### Mob of the Dead
 * Acid Trap kills on any round (normally stops killing after round 158 on PC)
@@ -114,6 +116,7 @@
 * Removed Turbine
 * Removed Sloth barricades
 * Fountain portal automatically active
+* Navcard table automatically crafted
 
 ### Origins
 * Shovels automatically picked up
