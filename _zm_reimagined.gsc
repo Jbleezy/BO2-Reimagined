@@ -67,6 +67,7 @@ post_all_players_spawned()
 	disable_high_round_walkers();
 
 	disable_perk_pause();
+	enable_free_perks_before_power();
 
 	disable_carpenter();
 
@@ -85,6 +86,8 @@ post_all_players_spawned()
 
 	slipgun_always_kill();
 	slipgun_disable_reslip();
+
+	buried_turn_power_on();
 
 	//disable_pers_upgrades(); // TODO
 
@@ -357,6 +360,11 @@ perk_power_off( origin, radius )
 	level notify( self.target maps/mp/zombies/_zm_perks::getvendingmachinenotify() + "_off" );
 }
 
+enable_free_perks_before_power()
+{
+	level.disable_free_perks_before_power = undefined;
+}
+
 buildbuildables()
 {
 	// need a wait or else some buildables dont build
@@ -384,12 +392,44 @@ buildbuildables()
 		}
 		else if(level.scr_zm_map_start_location == "processing")
 		{
-			buildbuildable( "turbine" );
+			level waittill( "buildables_setup" ); // wait for buildables to randomize
+			wait 0.05;
+
+			removebuildable( "turbine" );
 			buildbuildable( "springpad_zm" );
 			buildbuildable( "subwoofer_zm" );
 			buildbuildable( "headchopper_zm" );
 		}
 	}
+}
+
+removebuildable( buildable )
+{
+	player = get_players()[ 0 ];
+	_a197 = level.buildable_stubs;
+	_k197 = getFirstArrayKey( _a197 );
+	while ( isDefined( _k197 ) )
+	{
+		stub = _a197[ _k197 ];
+		if ( !isDefined( buildable ) || stub.equipname == buildable )
+		{
+			if ( isDefined( buildable ) || stub.persistent != 3 )
+			{
+				stub maps/mp/zombies/_zm_buildables::buildablestub_remove();
+				_a206 = stub.buildablezone.pieces;
+				_k206 = getFirstArrayKey( _a206 );
+				while ( isDefined( _k206 ) )
+				{
+					piece = _a206[ _k206 ];
+					piece maps/mp/zombies/_zm_buildables::piece_unspawn();
+					_k206 = getNextArrayKey( _a206, _k206 );
+		}
+				maps/mp/zombies/_zm_unitrigger::unregister_unitrigger( stub );
+				return;
+	}
+}
+		_k197 = getNextArrayKey( _a197, _k197 );
+	}	
 }
 
 buildbuildable( buildable )
@@ -1229,7 +1269,24 @@ prison_auto_refuel_plane()
 
 buried_turn_power_on()
 {
+	if(!(is_classic() && level.scr_zm_map_start_location == "processing"))
+	{
+		return;
+	}
 
+	trigger = getent( "use_elec_switch", "targetname" );
+	if ( isDefined( trigger ) )
+	{
+		trigger delete();
+}
+	master_switch = getent( "elec_switch", "targetname" );
+	if ( isDefined( master_switch ) )
+	{
+		master_switch notsolid();
+		master_switch rotateroll( -90, 0.3 );
+		clientnotify( "power_on" );
+		flag_set( "power_on" );
+	}
 }
 
 buried_deleteslothbarricades()

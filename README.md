@@ -110,6 +110,8 @@
 * Plane fuel automatically picked up
 
 ### Buried
+* Power automatically on
+* Removed Turbine
 * Removed Sloth barricades
 * Fountain portal automatically active
 
