@@ -41,6 +41,8 @@ onplayerspawned()
 		self thread on_equipment_placed();
 		self thread give_additional_perks();
 
+		self thread electric_cherry_unlimited();
+
 		self thread screecher_remove_hint();
 
 		self thread jetgun_fast_cooldown();
@@ -1058,6 +1060,19 @@ give_additional_perks()
 		{
 			self Unsetperk( "specialty_movefaster" );
 }
+	}
+}
+
+electric_cherry_unlimited()
+{
+	self endon( "death" );
+	self endon( "disconnect" );
+
+	for ( ;; )
+	{
+		self.consecutive_electric_cherry_attacks = 0;
+
+		wait 0.5;
 	}
 }
 

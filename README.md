@@ -60,6 +60,9 @@
 * Move faster while aiming
 * Decreased sprint recovery time
 
+### Electric Cherry
+* Removed cooldown after being used multiple times in a row
+
 ## Powerups
 
 ### Carpenter
