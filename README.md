@@ -123,6 +123,11 @@
 * Fountain portal automatically active
 * Navcard table automatically crafted
 
+### Borough
+* Moved Quick Revive to its location on Buried
+* Moved Speed Cola to its location on Buried
+* Moved Stamin-Up to Vulture Aid's location on Buried
+
 ### Origins
 * Shovels automatically picked up
 * Gramophone and records automatically picked up
