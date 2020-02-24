@@ -86,10 +86,11 @@
 * No longer needs to be powered by a Turbine
 
 ## Bank
-* Removed
+* Amount of points resets each game
+* Removed sharing points with other players
 
 ## Weapon Locker
-* Removed
+* Stored weapon resets each game
 
 ## Maps
 

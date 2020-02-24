@@ -36,6 +36,9 @@ onplayerspawned()
 
 		set_movement_dvars();
 
+		bank_clear_account_value();
+		weapon_locker_clear_stored_weapondata();
+
 		self setperk( "specialty_unlimitedsprint" );
 
 		self thread on_equipment_placed();
@@ -73,8 +76,7 @@ post_all_players_spawned()
 
 	disable_carpenter();
 
-	disable_bank();
-	disable_weapon_locker();
+	disable_bank_teller();
 
 	wallbuy_changes();
 
@@ -133,8 +135,9 @@ disable_high_round_walkers()
 	level.speed_change_round = undefined;
 }
 
-disable_bank()
+disable_bank_teller()
 {
+	/*
 	for(i = 0; i < level._unitriggers.trigger_stubs.size; i++)
 	{
 		if(IsDefined(level._unitriggers.trigger_stubs[i].targetname))
@@ -145,6 +148,7 @@ disable_bank()
 			}
 		}
 	}
+	*/
 
 	level notify( "stop_bank_teller" );
 	bank_teller_dmg_trig = getent( "bank_teller_tazer_trig", "targetname" );
@@ -154,6 +158,12 @@ disable_bank()
 		bank_teller_dmg_trig delete();
 		bank_teller_transfer_trig delete();
 	}
+}
+
+bank_clear_account_value()
+{
+	self.account_value = 0;
+	self maps/mp/zombies/_zm_stats::set_map_stat( "depositBox", player.account_value, level.banking_map );
 }
 
 disable_weapon_locker()
@@ -167,6 +177,18 @@ disable_weapon_locker()
 				maps/mp/zombies/_zm_unitrigger::unregister_unitrigger( level._unitriggers.trigger_stubs[i] );
 			}
 		}
+	}
+}
+
+weapon_locker_clear_stored_weapondata()
+{
+	if ( level.weapon_locker_online )
+	{
+		self maps/mp/zombies/_zm_stats::clear_stored_weapondata( level.weapon_locker_map );
+	}
+	else
+	{
+		self.stored_weapon_data = undefined;
 	}
 }
 
