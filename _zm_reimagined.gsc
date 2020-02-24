@@ -21,7 +21,7 @@ onplayerconnect()
 onplayerspawned()
 {
 	level endon( "game_ended" );
-    self endon( "disconnect" );
+	self endon( "disconnect" );
 	
 	for(;;)
 	{
@@ -216,11 +216,11 @@ wallbuy_changes()
 			if(level.scr_zm_ui_gametype == "zstandard")
 			{
 				remove_wallbuy("tazer_knuckles_zm");
-		}
+			}
 
 			add_wallbuy("claymore_zm");
+		}
 	}
-}
 }
 
 remove_wallbuy( name )
@@ -279,14 +279,14 @@ add_wallbuy( name )
 	unitrigger_stub.targetname = struct.targetname;
 	unitrigger_stub.cursor_hint = "HINT_NOICON";
 	if ( struct.targetname == "weapon_upgrade" )
-		{
+	{
 		unitrigger_stub.cost = maps/mp/zombies/_zm_weapons::get_weapon_cost( struct.zombie_weapon_upgrade );
 		if ( isDefined( level.monolingustic_prompt_format ) && !level.monolingustic_prompt_format )
-			{
+		{
 			unitrigger_stub.hint_string = maps/mp/zombies/_zm_weapons::get_weapon_hint( struct.zombie_weapon_upgrade );
 			unitrigger_stub.hint_parm1 = unitrigger_stub.cost;
 			return;
-			}
+		}
 		else
 		{
 			unitrigger_stub.hint_parm1 = maps/mp/zombies/_zm_weapons::get_weapon_display_name( struct.zombie_weapon_upgrade );
@@ -296,8 +296,8 @@ add_wallbuy( name )
 			}
 			unitrigger_stub.hint_parm2 = unitrigger_stub.cost;
 			unitrigger_stub.hint_string = &"ZOMBIE_WEAPONCOSTONLY";
-			}
 		}
+	}
 	unitrigger_stub.weapon_upgrade = struct.zombie_weapon_upgrade;
 	unitrigger_stub.script_unitrigger_type = "unitrigger_box_use";
 	unitrigger_stub.require_look_at = 1;
@@ -327,7 +327,7 @@ add_wallbuy( name )
 		maps/mp/zombies/_zm_unitrigger::register_static_unitrigger( unitrigger_stub, maps/mp/zombies/_zm_weapons::weapon_spawn_think );
 	}
 	else if ( unitrigger_stub.zombie_weapon_upgrade == "claymore_zm" )
-			{
+	{
 		unitrigger_stub.prompt_and_visibility_func = maps/mp/zombies/_zm_weap_claymore::claymore_unitrigger_update_prompt;
 		maps/mp/zombies/_zm_unitrigger::register_static_unitrigger( unitrigger_stub, maps/mp/zombies/_zm_weap_claymore::buy_claymores );
 		//model thread claymore_rotate_model_when_bought();
@@ -341,13 +341,13 @@ add_wallbuy( name )
 }
 
 claymore_rotate_model_when_bought()
-				{
+{
 	og_origin = self.origin;
 
 	while (og_origin == self.origin)
 	{
 		wait 0.05;
-				}
+	}
 
 	self.angles += ( 0, 90, 0 );
 }
@@ -452,11 +452,11 @@ removebuildable( buildable )
 					piece = _a206[ _k206 ];
 					piece maps/mp/zombies/_zm_buildables::piece_unspawn();
 					_k206 = getNextArrayKey( _a206, _k206 );
-		}
+				}
 				maps/mp/zombies/_zm_unitrigger::unregister_unitrigger( stub );
 				return;
-	}
-}
+			}
+		}
 		_k197 = getNextArrayKey( _a197, _k197 );
 	}	
 }
@@ -1079,11 +1079,11 @@ give_additional_perks()
 		if (self HasPerk("specialty_longersprint"))
 		{
 			self Setperk( "specialty_movefaster" );
-	}
+		}
 		else
 		{
 			self Unsetperk( "specialty_movefaster" );
-}
+		}
 	}
 }
 
@@ -1186,8 +1186,8 @@ transit_power_local_electric_doors_globally()
 			if ( isDefined( zombie_doors[i].script_noteworthy ) && zombie_doors[i].script_noteworthy == "local_electric_door" )
 			{
 				local_power[local_power.size] = maps/mp/zombies/_zm_power::add_local_power( zombie_doors[i].origin, 16 );
-				}
 			}
+		}
 
 		flag_waitopen( "power_on" );
 
@@ -1320,7 +1320,7 @@ buried_turn_power_on()
 	if ( isDefined( trigger ) )
 	{
 		trigger delete();
-}
+	}
 	master_switch = getent( "elec_switch", "targetname" );
 	if ( isDefined( master_switch ) )
 	{
@@ -1438,7 +1438,7 @@ tomb_soul_box_decrease_kill_requirement()
 		
 		self waittill( "robot_foot_stomp" );
 	}
-	}
+}
 
 test()
 {
