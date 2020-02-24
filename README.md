@@ -15,6 +15,7 @@
 ## Players
 * Unlimited sprint
 * 100% backwards speed, strafe speed, and sprint strafe speed
+* Start with semtex on maps that have semtex
 
 ## Zombies
 * Health capped at 1 million

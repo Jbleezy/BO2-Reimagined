@@ -34,10 +34,12 @@ onplayerspawned()
 			level thread post_all_players_spawned();
 		}
 
-		set_movement_dvars();
+		self set_movement_dvars();
 
-		bank_clear_account_value();
-		weapon_locker_clear_stored_weapondata();
+		self set_player_lethal_grenade_semtex();
+
+		self bank_clear_account_value();
+		self weapon_locker_clear_stored_weapondata();
 
 		self setperk( "specialty_unlimitedsprint" );
 
@@ -130,6 +132,19 @@ set_movement_dvars()
 	setdvar( "player_backSpeedScale", 1 );
 	setdvar( "player_strafeSpeedScale", 1 );
 	setdvar( "player_sprintStrafeSpeedScale", 1 );
+}
+
+set_player_lethal_grenade_semtex()
+{
+	if (level.script != "zm_transit" && level.script != "zm_nuked" && level.script != "zm_highrise" && level.script != "zm_tomb")
+	{
+		return;
+	}
+
+	self takeweapon( self get_player_lethal_grenade() );
+	self set_player_lethal_grenade( "sticky_grenade_zm" );
+	self giveweapon( self get_player_lethal_grenade() );
+	self setweaponammoclip( self get_player_lethal_grenade(), 0 );
 }
 
 disable_high_round_walkers()
