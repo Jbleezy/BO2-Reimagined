@@ -449,35 +449,16 @@ buildbuildables()
 			buildbuildable( "sq_common" );
 		}
 	}
-}
-
-removebuildable( buildable )
-{
-	player = get_players()[ 0 ];
-	_a197 = level.buildable_stubs;
-	_k197 = getFirstArrayKey( _a197 );
-	while ( isDefined( _k197 ) )
+	else
 	{
-		stub = _a197[ _k197 ];
-		if ( !isDefined( buildable ) || stub.equipname == buildable )
+		if(level.scr_zm_map_start_location == "street")
 		{
-			if ( isDefined( buildable ) || stub.persistent != 3 )
-			{
-				stub maps/mp/zombies/_zm_buildables::buildablestub_remove();
-				_a206 = stub.buildablezone.pieces;
-				_k206 = getFirstArrayKey( _a206 );
-				while ( isDefined( _k206 ) )
-				{
-					piece = _a206[ _k206 ];
-					piece maps/mp/zombies/_zm_buildables::piece_unspawn();
-					_k206 = getNextArrayKey( _a206, _k206 );
-				}
-				maps/mp/zombies/_zm_unitrigger::unregister_unitrigger( stub );
-				return;
-			}
+			flag_wait( "initial_blackscreen_passed" ); // wait for buildables to be built
+			wait 1;
+
+			removebuildableafterbuilt( "turbine" );
 		}
-		_k197 = getNextArrayKey( _a197, _k197 );
-	}	
+	}
 }
 
 buildbuildable( buildable )
@@ -508,6 +489,50 @@ buildbuildable( buildable )
 			}
 		}
 		_k197 = getNextArrayKey( _a197, _k197 );
+	}
+}
+
+removebuildable( buildable )
+{
+	player = get_players()[ 0 ];
+	_a197 = level.buildable_stubs;
+	_k197 = getFirstArrayKey( _a197 );
+	while ( isDefined( _k197 ) )
+	{
+		stub = _a197[ _k197 ];
+		if ( !isDefined( buildable ) || stub.equipname == buildable )
+		{
+			if ( isDefined( buildable ) || stub.persistent != 3 )
+			{
+				stub maps/mp/zombies/_zm_buildables::buildablestub_remove();
+				_a206 = stub.buildablezone.pieces;
+				_k206 = getFirstArrayKey( _a206 );
+				while ( isDefined( _k206 ) )
+				{
+					piece = _a206[ _k206 ];
+					piece maps/mp/zombies/_zm_buildables::piece_unspawn();
+					_k206 = getNextArrayKey( _a206, _k206 );
+				}
+				maps/mp/zombies/_zm_unitrigger::unregister_unitrigger( stub );
+				return;
+			}
+		}
+		_k197 = getNextArrayKey( _a197, _k197 );
+	}
+}
+
+removebuildableafterbuilt( buildable )
+{
+	stubs = level._unitriggers.trigger_stubs;
+	for(i = 0; i < stubs.size; i++)
+	{
+		stub = stubs[i];
+		if(IsDefined(stub.equipname) && stub.equipname == buildable)
+		{
+			stub.model hide();
+			maps/mp/zombies/_zm_unitrigger::unregister_unitrigger( stub );
+			return;
+		}
 	}
 }
 
