@@ -82,6 +82,9 @@ post_all_players_spawned()
 
 	zone_changes();
 
+	screecher_spawner_changes();
+	screecher_remove_near_miss();
+
 	electric_trap_always_kill();
 
 	jetgun_disable_explode_overheat();
@@ -103,9 +106,6 @@ post_all_players_spawned()
 	level thread zombie_health_fix();
 
 	level thread transit_power_local_electric_doors_globally();
-
-	level thread screecher_decrease_health();
-	level thread screecher_remove_near_miss();
 
 	level thread town_move_staminup_machine();
 
@@ -1156,7 +1156,7 @@ screecher_remove_near_miss()
 	level.near_miss = 2;
 }
 
-screecher_decrease_health()
+screecher_spawner_changes()
 {
 	level.screecher_spawners = getentarray( "screecher_zombie_spawner", "script_noteworthy" );
 	array_thread( level.screecher_spawners, ::add_spawn_function, ::screecher_prespawn_decrease_health );
@@ -1164,7 +1164,7 @@ screecher_decrease_health()
 
 screecher_prespawn_decrease_health()
 {
-	self.player_score = 15;
+	self.player_score = 12;
 }
 
 transit_power_local_electric_doors_globally()
