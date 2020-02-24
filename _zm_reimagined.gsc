@@ -93,6 +93,8 @@ post_all_players_spawned()
 
 	buried_turn_power_on();
 
+	tomb_soul_box_changes();
+
 	//disable_pers_upgrades(); // TODO
 
 	level thread buildbuildables();
@@ -1411,17 +1413,37 @@ tomb_give_shovel()
 	level setclientfield( "shovel_player" + n_player, 1 );
 }
 
-test()
+tomb_soul_box_changes()
 {
-	while (!IsDefined(level.staminup_struct))
+	if(!(is_classic() && level.scr_zm_map_start_location == "tomb"))
 	{
-		wait 0.05;
+		return;
 	}
 
+	a_boxes = getentarray( "foot_box", "script_noteworthy" );
+	array_thread( a_boxes, ::tomb_soul_box_decrease_kill_requirement );
+}
+
+tomb_soul_box_decrease_kill_requirement()
+{
+	self endon( "box_finished" );
+
+	while (1)
+	{
+		self waittill( "soul_absorbed" );
+
+		wait 0.05;
+
+		self.n_souls_absorbed += 10;
+		
+		self waittill( "robot_foot_stomp" );
+	}
+	}
+
+test()
+{
 	while(1)
 	{
-		iprintlnbold("distance: " + Distance(self.origin, level.staminup_struct.origin));
-
 		wait 1;
 	}
 }

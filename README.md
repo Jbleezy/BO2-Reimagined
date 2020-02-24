@@ -126,3 +126,4 @@
 * Shovels automatically picked up
 * Gramophone and records automatically picked up
 * Der Wunderfizz: all perks have an equal chance of being obtained
+* Soul boxes: decreased kill requirement from 30 to 20
