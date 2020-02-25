@@ -1450,7 +1450,9 @@ vulture_disable_stink_while_standing()
 
 		if (b_player_in_zombie_stink)
 		{
-			if (self getstance() != "stand")
+			vel = self GetVelocity();
+			magnitude = sqrt((vel[0] * vel[0]) + (vel[1] * vel[1]) + (vel[2] * vel[2]));
+			if (magnitude < 125)
 			{
 				self.perk_vulture.is_in_zombie_stink = 0;
 

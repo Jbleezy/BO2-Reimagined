@@ -65,7 +65,7 @@
 * Removed cooldown after being used multiple times in a row
 
 ### Vulture-Aid
-* Stink areas no longer activate while the player is standing
+* Stink areas no longer activate while the player is moving
 
 ## Powerups
 
