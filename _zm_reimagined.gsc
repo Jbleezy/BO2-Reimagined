@@ -54,6 +54,8 @@ onplayerspawned()
 		self thread jetgun_fast_spinlerp();
 		self thread jetgun_overheated_fix();
 
+		self thread vulture_disable_stink_while_standing();
+
 		self thread tomb_give_shovel();
 
 		//self thread test();
@@ -1412,6 +1414,59 @@ buried_enable_fountain_transport()
 	wait 1;
 
 	level notify( "courtyard_fountain_open" );
+}
+
+vulture_disable_stink_while_standing()
+{
+	if(!(is_classic() && level.scr_zm_map_start_location == "processing"))
+	{
+		return;
+	}
+
+	while(1)
+	{
+		self.perk_vulture.is_in_zombie_stink = 1;
+		self.perk_vulture.stink_time_entered = undefined;
+
+		b_player_in_zombie_stink = 0;
+		a_close_points = arraysort( level.perk_vulture.zombie_stink_array, self.origin, 1, 300 );
+		if ( a_close_points.size > 0 )
+		{
+			b_player_in_zombie_stink = self _is_player_in_zombie_stink( a_close_points );
+		}
+
+		if (b_player_in_zombie_stink)
+		{
+			if (self getstance() != "stand")
+			{
+				self.perk_vulture.is_in_zombie_stink = 0;
+
+				wait 0.25;
+
+				while (self.vulture_stink_value > 0)
+				{
+					wait 0.05;
+				}
+			}
+		}
+
+		wait 0.05;
+	}
+}
+
+_is_player_in_zombie_stink( a_points )
+{
+	b_is_in_stink = 0;
+	i = 0;
+	while ( i < a_points.size )
+	{
+		if ( distancesquared( a_points[ i ].origin, self.origin ) < 4900 )
+		{
+			b_is_in_stink = 1;
+		}
+		i++;
+	}
+	return b_is_in_stink;
 }
 
 borough_move_quickrevive_machine()
