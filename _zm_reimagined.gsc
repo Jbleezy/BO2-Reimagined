@@ -1418,13 +1418,26 @@ buried_enable_fountain_transport()
 
 vulture_disable_stink_while_standing()
 {
+	self endon( "disconnect" );
+
 	if(!(is_classic() && level.scr_zm_map_start_location == "processing"))
 	{
 		return;
 	}
 
+	while(!isDefined(self.perk_vulture))
+	{
+		wait 0.05;
+	}
+
 	while(1)
 	{
+		if (!self.perk_vulture.active)
+		{
+			wait 0.05;
+			continue;
+		}
+
 		self.perk_vulture.is_in_zombie_stink = 1;
 		self.perk_vulture.stink_time_entered = undefined;
 
