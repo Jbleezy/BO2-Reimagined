@@ -123,6 +123,7 @@
 * Power automatically on
 * Removed Turbine
 * Removed Sloth barricades
+* Sloth can no longer be unlocked
 * Fountain portal automatically active
 * Navcard table automatically crafted
 

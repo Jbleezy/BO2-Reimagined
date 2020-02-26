@@ -444,6 +444,7 @@ buildbuildables()
 			level waittill( "buildables_setup" ); // wait for buildables to randomize
 			wait 0.05;
 
+			removebuildable( "keys_zm" );
 			removebuildable( "turbine" );
 			buildbuildable( "springpad_zm" );
 			buildbuildable( "subwoofer_zm" );
@@ -496,7 +497,6 @@ buildbuildable( buildable )
 
 removebuildable( buildable )
 {
-	player = get_players()[ 0 ];
 	_a197 = level.buildable_stubs;
 	_k197 = getFirstArrayKey( _a197 );
 	while ( isDefined( _k197 ) )
