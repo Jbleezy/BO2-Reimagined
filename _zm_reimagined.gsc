@@ -467,68 +467,50 @@ buildbuildables()
 buildbuildable( buildable )
 {
 	player = get_players()[ 0 ];
-	_a197 = level.buildable_stubs;
-	_k197 = getFirstArrayKey( _a197 );
-	while ( isDefined( _k197 ) )
+	foreach (stub in level.buildable_stubs)
 	{
-		stub = _a197[ _k197 ];
 		if ( !isDefined( buildable ) || stub.equipname == buildable )
 		{
 			if ( isDefined( buildable ) || stub.persistent != 3 )
 			{
 				stub maps/mp/zombies/_zm_buildables::buildablestub_finish_build( player );
 				stub maps/mp/zombies/_zm_buildables::buildablestub_remove();
-				_a206 = stub.buildablezone.pieces;
-				_k206 = getFirstArrayKey( _a206 );
-				while ( isDefined( _k206 ) )
+				foreach (piece in stub.buildablezone.pieces)
 				{
-					piece = _a206[ _k206 ];
 					piece maps/mp/zombies/_zm_buildables::piece_unspawn();
-					_k206 = getNextArrayKey( _a206, _k206 );
 				}
 				stub.model notsolid();
 				stub.model show();
 				return;
 			}
 		}
-		_k197 = getNextArrayKey( _a197, _k197 );
 	}
 }
 
 removebuildable( buildable )
 {
-	_a197 = level.buildable_stubs;
-	_k197 = getFirstArrayKey( _a197 );
-	while ( isDefined( _k197 ) )
+	foreach (stub in level.buildable_stubs)
 	{
-		stub = _a197[ _k197 ];
 		if ( !isDefined( buildable ) || stub.equipname == buildable )
 		{
 			if ( isDefined( buildable ) || stub.persistent != 3 )
 			{
 				stub maps/mp/zombies/_zm_buildables::buildablestub_remove();
-				_a206 = stub.buildablezone.pieces;
-				_k206 = getFirstArrayKey( _a206 );
-				while ( isDefined( _k206 ) )
+				foreach (piece in stub.buildablezone.pieces)
 				{
-					piece = _a206[ _k206 ];
 					piece maps/mp/zombies/_zm_buildables::piece_unspawn();
-					_k206 = getNextArrayKey( _a206, _k206 );
 				}
 				maps/mp/zombies/_zm_unitrigger::unregister_unitrigger( stub );
 				return;
 			}
 		}
-		_k197 = getNextArrayKey( _a197, _k197 );
 	}
 }
 
 removebuildableafterbuilt( buildable )
 {
-	stubs = level._unitriggers.trigger_stubs;
-	for(i = 0; i < stubs.size; i++)
+	foreach (stub in level._unitriggers.trigger_stubs)
 	{
-		stub = stubs[i];
 		if(IsDefined(stub.equipname) && stub.equipname == buildable)
 		{
 			stub.model hide();
@@ -563,85 +545,59 @@ buildcraftables()
 takecraftableparts( buildable )
 {
 	player = get_players()[ 0 ];
-	_a197 = level.zombie_include_craftables;
-	_k197 = getFirstArrayKey( _a197 );
-	while ( isDefined( _k197 ) )
+	foreach (stub in level.zombie_include_craftables)
 	{
-		stub = _a197[ _k197 ];
 		if ( stub.name == buildable )
 		{
-			_a206 = stub.a_piecestubs;
-			_k206 = getFirstArrayKey( _a206 );
-			while ( isDefined( _k206 ) )
+			foreach (piece in stub.a_piecestubs)
 			{
-				piece = _a206[ _k206 ];
-
 				piecespawn = piece.piecespawn;
 				if ( isDefined( piecespawn ) )
 				{
 					player player_take_piece( piecespawn );
 				}
-				
-				_k206 = getNextArrayKey( _a206, _k206 );
 			}
 
 			return;
 		}
-		_k197 = getNextArrayKey( _a197, _k197 );
 	}
 }
 
 buildcraftable( buildable )
 {
 	player = get_players()[ 0 ];
-	_a197 = level.a_uts_craftables;
-	_k197 = getFirstArrayKey( _a197 );
-	while ( isDefined( _k197 ) )
+	foreach (stub in level.a_uts_craftables)
 	{
-		stub = _a197[ _k197 ];
 		if ( stub.craftablestub.name == buildable )
 		{
-			_a206 = stub.craftablespawn.a_piecespawns;
-			_k206 = getFirstArrayKey( _a206 );
-			while ( isDefined( _k206 ) )
+			foreach (piece in stub.craftablespawn.a_piecespawns)
 			{
-				piece = _a206[ _k206 ];
 				piecespawn = get_craftable_piece( stub.craftablestub.name, piece.piecename );
 				if ( isDefined( piecespawn ) )
 				{
 					player player_take_piece( piecespawn );
 				}
-				_k206 = getNextArrayKey( _a206, _k206 );
 			}
 
 			return;
 		}
-		_k197 = getNextArrayKey( _a197, _k197 );
 	}
 }
 
 get_craftable_piece( str_craftable, str_piece )
 {
-	_a3564 = level.a_uts_craftables;
-	_k3564 = getFirstArrayKey( _a3564 );
-	while ( isDefined( _k3564 ) )
+	foreach (uts_craftable in level.a_uts_craftables)
 	{
-		uts_craftable = _a3564[ _k3564 ];
 		if ( uts_craftable.craftablestub.name == str_craftable )
 		{
-			_a3568 = uts_craftable.craftablespawn.a_piecespawns;
-			_k3568 = getFirstArrayKey( _a3568 );
-			while ( isDefined( _k3568 ) )
+			foreach (piecespawn in uts_craftable.craftablespawn.a_piecespawns)
 			{
-				piecespawn = _a3568[ _k3568 ];
 				if ( piecespawn.piecename == str_piece )
 				{
 					return piecespawn;
 				}
-				_k3568 = getNextArrayKey( _a3568, _k3568 );
 			}
 		}
-		else _k3564 = getNextArrayKey( _a3564, _k3564 );
 	}
 	return undefined;
 }
@@ -698,12 +654,8 @@ piece_unspawn()
 
 remove_buildable_pieces( buildable_name )
 {
-	buildables = level.zombie_include_buildables;
-	buildables_key = getFirstArrayKey( buildables );
-	while(IsDefined(buildables_key))
+	foreach (buildable in level.zombie_include_buildables)
 	{
-		buildable = buildables[buildables_key];
-
 		if(IsDefined(buildable.name) && buildable.name == buildable_name)
 		{
 			pieces = buildable.buildablepieces;
@@ -713,8 +665,6 @@ remove_buildable_pieces( buildable_name )
 			}
 			return;
 		}
-
-		buildables_key = getNextArrayKey( buildables, buildables_key );
 	}
 }
 
@@ -879,19 +829,13 @@ jetgun_overheated_fix()
 
 jetgun_remove_forced_weapon_switch()
 {
-	buildables = level.zombie_include_buildables;
-	buildables_key = getFirstArrayKey( buildables );
-	while(IsDefined(buildables_key))
+	foreach (buildable in level.zombie_include_buildables)
 	{
-		buildable = buildables[buildables_key];
-
 		if(IsDefined(buildable.name) && buildable.name == "jetgun_zm")
 		{
 			buildable.onbuyweapon = undefined;
 			return;
 		}
-
-		buildables_key = getNextArrayKey( buildables, buildables_key );
 	}
 }
 
@@ -1253,13 +1197,10 @@ town_move_staminup_machine()
 		return;	
 	}
 
-	structs = getstructarray("zm_perk_machine", "targetname");
-	structs_key = getFirstArrayKey(structs);
 	perk_struct = undefined;
-	while (IsDefined(structs_key))
+	structs = getstructarray("zm_perk_machine", "targetname");
+	foreach (struct in structs)
 	{
-		struct = structs[structs_key];
-
 		if (IsDefined(struct.script_noteworthy) && IsDefined(struct.script_string))
 		{
 			if (struct.script_noteworthy == "specialty_longersprint" && IsSubStr(struct.script_string, "zclassic"))
@@ -1268,8 +1209,6 @@ town_move_staminup_machine()
 				break;
 			}
 		}
-
-		structs_key = getNextArrayKey(structs, structs_key);
 	}
 
 	if(!IsDefined(perk_struct))
@@ -1385,18 +1324,14 @@ buried_deleteslothbarricades()
 	}
 
 	sloth_trigs = getentarray( "sloth_barricade", "targetname" );
-	_a77 = sloth_trigs;
-	_k77 = getFirstArrayKey( _a77 );
-	while ( isDefined( _k77 ) )
+	foreach (trig in sloth_trigs)
 	{
-		trig = _a77[ _k77 ];
 		if ( isDefined( trig.script_flag ) && level flag_exists( trig.script_flag ) )
 		{
 			flag_set( trig.script_flag );
 		}
 		parts = getentarray( trig.target, "targetname" );
 		array_thread( parts, ::self_delete );
-		_k77 = getNextArrayKey( _a77, _k77 );
 	}
 
 	array_thread( sloth_trigs, ::self_delete );
@@ -1491,13 +1426,10 @@ borough_move_quickrevive_machine()
 		return;	
 	}
 
-	structs = getstructarray("zm_perk_machine", "targetname");
-	structs_key = getFirstArrayKey(structs);
 	perk_struct = undefined;
-	while (IsDefined(structs_key))
+	structs = getstructarray("zm_perk_machine", "targetname");
+	foreach (struct in structs)
 	{
-		struct = structs[structs_key];
-
 		if (IsDefined(struct.script_noteworthy) && IsDefined(struct.script_string))
 		{
 			if (struct.script_noteworthy == "specialty_quickrevive" && IsSubStr(struct.script_string, "zclassic"))
@@ -1506,8 +1438,6 @@ borough_move_quickrevive_machine()
 				break;
 			}
 		}
-
-		structs_key = getNextArrayKey(structs, structs_key);
 	}
 
 	if(!IsDefined(perk_struct))
@@ -1584,13 +1514,10 @@ borough_move_speedcola_machine()
 		return;	
 	}
 
-	structs = getstructarray("zm_perk_machine", "targetname");
-	structs_key = getFirstArrayKey(structs);
 	perk_struct = undefined;
-	while (IsDefined(structs_key))
+	structs = getstructarray("zm_perk_machine", "targetname");
+	foreach (struct in structs)
 	{
-		struct = structs[structs_key];
-
 		if (IsDefined(struct.script_noteworthy) && IsDefined(struct.script_string))
 		{
 			if (struct.script_noteworthy == "specialty_fastreload" && IsSubStr(struct.script_string, "zclassic"))
@@ -1599,8 +1526,6 @@ borough_move_speedcola_machine()
 				break;
 			}
 		}
-
-		structs_key = getNextArrayKey(structs, structs_key);
 	}
 
 	if(!IsDefined(perk_struct))
@@ -1677,14 +1602,11 @@ borough_move_staminup_machine()
 		return;	
 	}
 
-	structs = getstructarray("zm_perk_machine", "targetname");
-	structs_key = getFirstArrayKey(structs);
 	perk_struct = undefined;
 	perk_location_struct = undefined;
-	while (IsDefined(structs_key))
+	structs = getstructarray("zm_perk_machine", "targetname");
+	foreach (struct in structs)
 	{
-		struct = structs[structs_key];
-
 		if (IsDefined(struct.script_noteworthy) && IsDefined(struct.script_string))
 		{
 			if (struct.script_noteworthy == "specialty_longersprint" && IsSubStr(struct.script_string, "zclassic"))
@@ -1696,8 +1618,6 @@ borough_move_staminup_machine()
 				perk_location_struct = struct;
 			}
 		}
-
-		structs_key = getNextArrayKey(structs, structs_key);
 	}
 
 	if(!IsDefined(perk_struct) || !IsDefined(perk_location_struct))
