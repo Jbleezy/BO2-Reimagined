@@ -111,6 +111,7 @@
 * Grief: added Claymore wallbuy
 
 #### Bus Depot
+* Lava pit is now accessible
 * Grief: Turbine doors closed
 
 ### Die Rise

@@ -95,6 +95,7 @@ post_all_players_spawned()
 	jetgun_remove_forced_weapon_switch();
 	jetgun_remove_drop_fn();
 
+	depot_remove_lava_collision();
 	depot_grief_close_local_electric_doors();
 
 	town_move_staminup_machine();
@@ -118,6 +119,8 @@ post_all_players_spawned()
 	level thread zombie_health_fix();
 
 	level thread transit_power_local_electric_doors_globally();
+
+	level thread depot_grief_link_nodes();
 
 	level thread prison_auto_refuel_plane();
 
@@ -1192,6 +1195,54 @@ transit_power_local_electric_doors_globally()
 	}
 }
 
+depot_remove_lava_collision()
+{
+	if(!(!is_classic() && level.scr_zm_map_start_location == "transit"))
+	{
+		return;
+	}
+
+	ents = getEntArray( "script_model", "classname");
+	foreach (ent in ents)
+	{
+		if (IsDefined(ent.model))
+		{
+			if (ent.model == "zm_collision_transit_busdepot_survival")
+			{
+				ent delete();
+			}
+			else if (ent.model == "veh_t6_civ_smallwagon_dead" && ent.origin[0] == -6663.96 && ent.origin[1] == 4816.34)
+			{
+				ent delete();
+			}
+			else if (ent.model == "veh_t6_civ_microbus_dead" && ent.origin[0] == -6807.05 && ent.origin[1] == 4765.23)
+			{
+				ent delete();
+			}
+			else if (ent.model == "veh_t6_civ_movingtrk_cab_dead" && ent.origin[0] == -6652.9 && ent.origin[1] == 4767.7)
+			{
+				ent delete();
+			}
+			else if (ent.model == "p6_zm_rocks_small_cluster_01")
+			{
+				ent delete();
+			}
+		}
+	}
+
+	// spawn in new map edge collisions
+	// the lava collision and the map edge collisions are all the same entity
+	collision1 = spawn( "script_model", ( -5898, 4653, 0 ) );
+	collision1.angles = (0, 55, 0);
+	collision1 setmodel( "collision_wall_512x512x10_standard" );
+	collision2 = spawn( "script_model", ( -8062, 4700, 0 ) );
+	collision2.angles = (0, 70, 0);
+	collision2 setmodel( "collision_wall_512x512x10_standard" );
+	collision3 = spawn( "script_model", ( -7881, 5200, 0 ) );
+	collision3.angles = (0, 70, 0);
+	collision3 setmodel( "collision_wall_512x512x10_standard" );
+}
+
 depot_grief_close_local_electric_doors()
 {
 	if(!(level.scr_zm_ui_gametype == "zgrief" && level.scr_zm_map_start_location == "transit"))
@@ -1206,6 +1257,23 @@ depot_grief_close_local_electric_doors()
 		{
 			door delete();
 		}
+	}
+}
+
+depot_grief_link_nodes()
+{
+	if(!(level.scr_zm_ui_gametype == "zgrief" && level.scr_zm_map_start_location == "transit"))
+	{
+		return;
+	}
+
+	flag_wait( "initial_blackscreen_passed" );
+	wait 0.05;
+
+	nodes = getnodearray( "classic_only_traversal", "targetname" );
+	foreach (node in nodes)
+	{
+		link_nodes( node, getnode( node.target, "targetname" ) );
 	}
 }
 
