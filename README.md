@@ -110,6 +110,9 @@
 * Survival: replaced Galvaknuckles wallbuy with Claymore wallbuy
 * Grief: added Claymore wallbuy
 
+#### Bus Depot
+* Grief: Turbine doors closed
+
 ### Die Rise
 * Zombies no longer spawn in the Skyscraper Tower zone when in the Trample Steam zone
 * Zombies no longer spawn in the zone next to the AN94 when in the AN94 zone while the debris is closed

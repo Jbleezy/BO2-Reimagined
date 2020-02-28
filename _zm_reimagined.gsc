@@ -95,6 +95,10 @@ post_all_players_spawned()
 	jetgun_remove_forced_weapon_switch();
 	jetgun_remove_drop_fn();
 
+	depot_grief_close_local_electric_doors();
+
+	town_move_staminup_machine();
+
 	slipgun_always_kill();
 	slipgun_disable_reslip();
 
@@ -114,8 +118,6 @@ post_all_players_spawned()
 	level thread zombie_health_fix();
 
 	level thread transit_power_local_electric_doors_globally();
-
-	level thread town_move_staminup_machine();
 
 	level thread prison_auto_refuel_plane();
 
@@ -1187,6 +1189,23 @@ transit_power_local_electric_doors_globally()
 			local_power[i] = undefined;
 		}
 		local_power = [];
+	}
+}
+
+depot_grief_close_local_electric_doors()
+{
+	if(!(level.scr_zm_ui_gametype == "zgrief" && level.scr_zm_map_start_location == "transit"))
+	{
+		return;
+	}
+
+	zombie_doors = getentarray( "zombie_door", "targetname" );
+	foreach (door in zombie_doors)
+	{
+		if ( isDefined( door.script_noteworthy ) && door.script_noteworthy == "local_electric_door" )
+		{
+			door delete();
+		}
 	}
 }
 
