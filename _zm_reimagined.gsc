@@ -897,6 +897,11 @@ on_equipment_placed()
 			wait 0.05;
 
 			weapon.power_on = 1; // removes print statement made by equipment without power
+
+			if ( IsDefined(level.electrictrap_name) && weapname == level.electrictrap_name )
+			{
+				weapon.power_on_time -= 2000; // makes it so trap kills immediately when placed
+			}
 		}
 	}
 }

@@ -81,6 +81,7 @@
 * No longer needs to be powered by a Turbine
 * Gets destroyed after being deployed for 60 seconds
 * Kills on any round (normally stops killing after round 50)
+* Kills immediately after being deployed (normally waits 2 seconds)
 
 ### Turret
 * No longer needs to be powered by a Turbine
