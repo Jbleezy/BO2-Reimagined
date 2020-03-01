@@ -109,6 +109,7 @@ post_all_players_spawned()
 	borough_move_speedcola_machine();
 	borough_move_staminup_machine();
 
+	tomb_remove_weighted_random_perks();
 	tomb_challenges_changes();
 	tomb_soul_box_changes();
 
@@ -128,8 +129,8 @@ post_all_players_spawned()
 	level thread buried_deleteslothbarricades();
 	level thread buried_enable_fountain_transport();
 
-	level thread tomb_remove_weighted_random_perks();
 	level thread tomb_remove_shovels_from_map();
+	level thread tomb_zombie_blood_dig_changes();
 
 	//level.round_number = 115;
 	//level.zombie_move_speed = 105;
@@ -2039,6 +2040,54 @@ bottle_reject_sink( player )
 	self thread reward_sink( 0, 61, n_time );
 	wait n_time;
 	self delete();
+}
+
+tomb_zombie_blood_dig_changes()
+{
+	if(!(is_classic() && level.scr_zm_map_start_location == "tomb"))
+	{
+		return;
+	}
+
+	while (1)
+	{
+		for (i = 0; i < level.a_zombie_blood_entities.size; i++)
+		{
+			ent = level.a_zombie_blood_entities[i];
+			if (IsDefined(ent.e_unique_player))
+			{
+				if (!isDefined(ent.e_unique_player.initial_zombie_blood_dig))
+				{
+					ent.e_unique_player.initial_zombie_blood_dig = 0;
+				}
+
+				ent.e_unique_player.initial_zombie_blood_dig++;
+				iprintln(ent.e_unique_player.initial_zombie_blood_dig);
+				if (ent.e_unique_player.initial_zombie_blood_dig <= 2)
+				{
+					ent setvisibletoplayer(ent.e_unique_player);
+				}
+				else
+				{
+					ent thread set_visible_after_rounds(ent.e_unique_player, 3);
+				}
+
+				arrayremovevalue(level.a_zombie_blood_entities, ent);
+			}
+		}
+
+		wait .5;
+	}
+}
+
+set_visible_after_rounds(player, num)
+{
+	for (i = 0; i < num; i++)
+	{
+		level waittill( "end_of_round" );
+	}
+
+	self setvisibletoplayer(player);
 }
 
 tomb_soul_box_changes()
