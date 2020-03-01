@@ -109,6 +109,7 @@ post_all_players_spawned()
 	borough_move_speedcola_machine();
 	borough_move_staminup_machine();
 
+	tomb_challenges_changes();
 	tomb_soul_box_changes();
 
 	//disable_pers_upgrades(); // TODO
@@ -1815,6 +1816,229 @@ tomb_give_shovel()
 	self.dig_vars[ "has_shovel" ] = 1;
 	n_player = self getentitynumber() + 1;
 	level setclientfield( "shovel_player" + n_player, 1 );
+}
+
+tomb_challenges_changes()
+{
+	if(!(is_classic() && level.scr_zm_map_start_location == "tomb"))
+	{
+		return;
+	}
+
+	level._challenges.a_stats["zc_points_spent"].fp_give_reward = ::tomb_reward_random_perk;
+}
+
+tomb_reward_random_perk( player, s_stat )
+{
+	if (!isDefined(player.tomb_reward_perk))
+	{
+		player.tomb_reward_perk = player get_random_perk();
+	}
+	else if (isDefined( self.perk_purchased ) && self.perk_purchased == player.tomb_reward_perk)
+	{
+		player.tomb_reward_perk = player get_random_perk();
+	}
+	else if (self hasperk( player.tomb_reward_perk ) || self maps/mp/zombies/_zm_perks::has_perk_paused( player.tomb_reward_perk ))
+	{
+		player.tomb_reward_perk = player get_random_perk();
+	}
+
+	perk = player.tomb_reward_perk;
+	if (!isDefined(perk))
+	{
+		return 0;
+	}
+
+	model = get_perk_weapon_model(perk);
+	if (!isDefined(model))
+	{
+		return 0;
+	}
+
+	m_reward = spawn( "script_model", self.origin );
+	m_reward.angles = self.angles + vectorScale( ( 0, 1, 0 ), 180 );
+	m_reward setmodel( model );
+	m_reward playsound( "zmb_spawn_powerup" );
+	m_reward playloopsound( "zmb_spawn_powerup_loop", 0.5 );
+	wait_network_frame();
+	if ( !reward_rise_and_grab( m_reward, 50, 2, 2, 10 ) )
+	{
+		return 0;
+	}
+	if ( player hasperk( perk ) || player maps/mp/zombies/_zm_perks::has_perk_paused( perk ) )
+	{
+		m_reward thread bottle_reject_sink( player );
+		return 0;
+	}
+	m_reward stoploopsound( 0.1 );
+	player playsound( "zmb_powerup_grabbed" );
+	m_reward thread maps/mp/zombies/_zm_perks::vending_trigger_post_think( player, perk );
+	m_reward delete();
+	player increment_player_perk_purchase_limit();
+	player maps/mp/zombies/_zm_stats::increment_client_stat( "tomb_perk_extension", 0 );
+	player maps/mp/zombies/_zm_stats::increment_player_stat( "tomb_perk_extension" );
+	player thread player_perk_purchase_limit_fix();
+	return 1;
+}
+
+get_random_perk()
+{
+	perks = [];
+	for (i = 0; i < level._random_perk_machine_perk_list.size; i++)
+	{
+		perk = level._random_perk_machine_perk_list[ i ];
+		if ( isDefined( self.perk_purchased ) && self.perk_purchased == perk )
+		{
+			continue;
+		}
+		else
+		{
+			if ( !self hasperk( perk ) && !self maps/mp/zombies/_zm_perks::has_perk_paused( perk ) )
+			{
+				perks[ perks.size ] = perk;
+			}
+		}
+	}
+	if ( perks.size > 0 )
+	{
+		perks = array_randomize( perks );
+		random_perk = perks[ 0 ];
+		return random_perk;
+	}
+}
+
+get_perk_weapon_model( perk )
+{
+	switch( perk )
+	{
+		case "specialty_armorvest":
+		case "specialty_armorvest_upgrade":
+			weapon = level.machine_assets[ "juggernog" ].weapon;
+			break;
+		case "specialty_quickrevive":
+		case "specialty_quickrevive_upgrade":
+			weapon = level.machine_assets[ "revive" ].weapon;
+			break;
+		case "specialty_fastreload":
+		case "specialty_fastreload_upgrade":
+			weapon = level.machine_assets[ "speedcola" ].weapon;
+			break;
+		case "specialty_rof":
+		case "specialty_rof_upgrade":
+			weapon = level.machine_assets[ "doubletap" ].weapon;
+			break;
+		case "specialty_longersprint":
+		case "specialty_longersprint_upgrade":
+			weapon = level.machine_assets[ "marathon" ].weapon;
+			break;
+		case "specialty_flakjacket":
+		case "specialty_flakjacket_upgrade":
+			weapon = level.machine_assets[ "divetonuke" ].weapon;
+			break;
+		case "specialty_deadshot":
+		case "specialty_deadshot_upgrade":
+			weapon = level.machine_assets[ "deadshot" ].weapon;
+			break;
+		case "specialty_additionalprimaryweapon":
+		case "specialty_additionalprimaryweapon_upgrade":
+			weapon = level.machine_assets[ "additionalprimaryweapon" ].weapon;
+			break;
+		case "specialty_scavenger":
+		case "specialty_scavenger_upgrade":
+			weapon = level.machine_assets[ "tombstone" ].weapon;
+			break;
+		case "specialty_finalstand":
+		case "specialty_finalstand_upgrade":
+			weapon = level.machine_assets[ "whoswho" ].weapon;
+			break;
+	}
+	if ( isDefined( level._custom_perks[ perk ] ) && isDefined( level._custom_perks[ perk ].perk_bottle ) )
+	{
+		weapon = level._custom_perks[ perk ].perk_bottle;
+	}
+	return getweaponmodel( weapon );
+}
+
+increment_player_perk_purchase_limit()
+{
+	if ( !isDefined( self.player_perk_purchase_limit ) )
+	{
+		self.player_perk_purchase_limit = level.perk_purchase_limit;
+	}
+	self.player_perk_purchase_limit++;
+}
+
+player_perk_purchase_limit_fix()
+{
+	self endon("disconnect");
+
+	while (self.pers[ "tomb_perk_extension" ] < 5)
+	{
+		wait .5;
+	}
+
+	if (self.player_perk_purchase_limit < 9)
+	{
+		self.player_perk_purchase_limit = 9;
+	}
+}
+
+reward_rise_and_grab( m_reward, n_z, n_rise_time, n_delay, n_timeout )
+{
+	m_reward movez( n_z, n_rise_time );
+	wait n_rise_time;
+	if ( n_timeout > 0 )
+	{
+		m_reward thread reward_sink( n_delay, n_z, n_timeout + 1 );
+	}
+	self reward_grab_wait( n_timeout );
+	if ( self ent_flag( "reward_timeout" ) )
+	{
+		return 0;
+	}
+	return 1;
+}
+
+reward_sink( n_delay, n_z, n_time )
+{
+	if ( isDefined( n_delay ) )
+	{
+		wait n_delay;
+		if ( isDefined( self ) )
+		{
+			self movez( n_z * -1, n_time );
+		}
+	}
+}
+
+reward_grab_wait( n_timeout )
+{
+	if ( !isDefined( n_timeout ) )
+	{
+		n_timeout = 10;
+	}
+	self ent_flag_clear( "reward_timeout" );
+	self ent_flag_set( "waiting_for_grab" );
+	self endon( "waiting_for_grab" );
+	if ( n_timeout > 0 )
+	{
+		wait n_timeout;
+		self ent_flag_set( "reward_timeout" );
+		self ent_flag_clear( "waiting_for_grab" );
+	}
+	else
+	{
+		self ent_flag_waitopen( "waiting_for_grab" );
+	}
+}
+
+bottle_reject_sink( player )
+{
+	n_time = 1;
+	player playlocalsound( level.zmb_laugh_alias );
+	self thread reward_sink( 0, 61, n_time );
+	wait n_time;
+	self delete();
 }
 
 tomb_soul_box_changes()

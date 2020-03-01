@@ -140,4 +140,6 @@
 * Shovels automatically picked up
 * Gramophone and records automatically picked up
 * Der Wunderfizz: all perks have an equal chance of being obtained
+* Rituals of the Ancients: spend points challenge reward changed from Double Tap perk to a random perk that the player does not have (perk does not change if reward is reopened)
+* Rituals of the Ancients: spend points challenge reward now gives a permament perk slot
 * Soul boxes: decreased kill requirement from 30 to 20
