@@ -87,6 +87,7 @@
 * No longer needs to be powered by a Turbine
 * Gets destroyed after being deployed for 60 seconds
 * No longer damages players if they have Juggernog
+* Fixed a bug where the Turret sounds would continue playing after being picked up
 
 ### Subsurface Resonator
 * No longer needs to be powered by a Turbine

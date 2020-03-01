@@ -888,6 +888,8 @@ on_equipment_placed()
 				self thread turret_decay(weapon);
 
 				self thread turret_disable_team_damage(weapon);
+
+				self thread turret_stop_loop_sound(weapon);
 			}
 			else if ( IsDefined(level.electrictrap_name) && weapname == level.electrictrap_name )
 			{
@@ -998,6 +1000,23 @@ cleanupoldturret()
 	}
 	self.turret = undefined;
 	self notify( "turret_cleanup" );
+}
+
+turret_stop_loop_sound( weapon )
+{
+	while(isDefined(weapon))
+	{
+		wait 0.05;
+	}
+
+	if ( isDefined( self.buildableturret.sound_ent ) )
+	{
+		self.buildableturret.sound_ent stoploopsound();
+		self.buildableturret.sound_ent playsoundwithnotify( "wpn_zmb_turret_stop", "sound_done" );
+		self.buildableturret.sound_ent waittill( "sound_done" );
+		self.buildableturret.sound_ent delete();
+		self.buildableturret.sound_ent = undefined;
+	}
 }
 
 electrictrap_decay( weapon )
