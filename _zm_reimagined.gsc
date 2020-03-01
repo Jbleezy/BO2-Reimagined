@@ -893,6 +893,10 @@ on_equipment_placed()
 			{
 				self thread electrictrap_decay(weapon);
 			}
+
+			wait 0.05;
+
+			weapon.power_on = 1; // removes print statement made by equipment without power
 		}
 	}
 }
