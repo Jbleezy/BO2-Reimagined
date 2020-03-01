@@ -81,7 +81,8 @@ post_all_players_spawned()
 
 	disable_bank_teller();
 
-	wallbuy_changes();
+	wallbuy_increase_trigger_radius();
+	wallbuy_location_changes();
 
 	zone_changes();
 
@@ -129,6 +130,8 @@ post_all_players_spawned()
 
 	level thread buried_deleteslothbarricades();
 	level thread buried_enable_fountain_transport();
+
+	level thread wallbuy_dynamic_increase_trigger_radius();
 
 	level thread tomb_remove_shovels_from_map();
 	level thread tomb_zombie_blood_dig_changes();
@@ -236,7 +239,7 @@ disable_carpenter()
 	arrayremovevalue(level.zombie_powerup_array, "carpenter");
 }
 
-wallbuy_changes()
+wallbuy_location_changes()
 {
 	if(!is_classic())
 	{
@@ -287,11 +290,11 @@ add_wallbuy( name )
 	}
 
 	target_struct = getstruct( struct.target, "targetname" );
-	tempmodel = spawn( "script_model", ( 0, 0, 0 ) );
 	unitrigger_stub = spawnstruct();
 	unitrigger_stub.origin = struct.origin;
 	unitrigger_stub.angles = struct.angles;
 
+	tempmodel = spawn( "script_model", ( 0, 0, 0 ) );
 	tempmodel setmodel( target_struct.model );
 	tempmodel useweaponhidetags( struct.zombie_weapon_upgrade );
 	mins = tempmodel getmins();
@@ -299,11 +302,12 @@ add_wallbuy( name )
 	absmins = tempmodel getabsmins();
 	absmaxs = tempmodel getabsmaxs();
 	bounds = absmaxs - absmins;
-	unitrigger_stub.script_length = bounds[ 0 ] * 0.25;
-	unitrigger_stub.script_width = bounds[ 1 ];
-	unitrigger_stub.script_height = bounds[ 2 ];
+	tempmodel delete();
+	unitrigger_stub.script_length = 64;
+	unitrigger_stub.script_width = bounds[1];
+	unitrigger_stub.script_height = bounds[2];
 
-	unitrigger_stub.origin -= anglesToRight( unitrigger_stub.angles ) * ( unitrigger_stub.script_length * 0.4 );
+	unitrigger_stub.origin -= anglesToRight( unitrigger_stub.angles ) * ( ( bounds[0] * 0.25 ) * 0.4 );
 	unitrigger_stub.target = struct.target;
 	unitrigger_stub.targetname = struct.targetname;
 	unitrigger_stub.cursor_hint = "HINT_NOICON";
@@ -379,6 +383,49 @@ claymore_rotate_model_when_bought()
 	}
 
 	self.angles += ( 0, 90, 0 );
+}
+
+wallbuy_increase_trigger_radius()
+{
+	for(i = 0; i < level._unitriggers.trigger_stubs.size; i++)
+	{
+		if(IsDefined(level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade))
+		{
+			level._unitriggers.trigger_stubs[i].script_length = 64;
+		}
+	}
+}
+
+wallbuy_dynamic_increase_trigger_radius()
+{
+	if(!(is_classic() && level.scr_zm_map_start_location == "processing"))
+	{
+		return;
+	}
+
+	while (!isDefined(level.built_wallbuys))
+	{
+		wait 0.5;
+	}
+
+	prev_built_wallbuys = 0;
+
+	while (1)
+	{
+		if (level.built_wallbuys > prev_built_wallbuys)
+		{
+			prev_built_wallbuys = level.built_wallbuys;
+			wallbuy_increase_trigger_radius();
+		}
+
+		if (level.built_wallbuys == -100)
+		{
+			wallbuy_increase_trigger_radius();
+			return;
+		}
+
+		wait 0.5;
+	}
 }
 
 disable_perk_pause()

@@ -46,6 +46,9 @@
 * Kills on any round (normally stops killing after round 100)
 * Removed additional goo created by chain kills
 
+## Wallbuys
+* Increased trigger radius
+
 ## Perks
 * No longer deactivated if the perk machine is powered off
 
