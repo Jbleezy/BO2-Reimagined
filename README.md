@@ -75,6 +75,7 @@
 ## Buildables
 * Automatically crafted (Tranzit, Die Rise, Buried)
 * Parts automatically picked up (Mob of the Dead, Origins)
+* Zombies no longer attack buildables (except Zombie Shield)
 
 ### Electric Trap
 * No longer needs to be powered by a Turbine

@@ -6,7 +6,6 @@ init()
 {
 	level.inital_spawn = true;
 	thread onplayerconnect();
-	//SetDvar("r_enablePlayerShadow", 1); // Causes laser flickering
 }
 
 onplayerconnect()
@@ -85,6 +84,8 @@ post_all_players_spawned()
 	wallbuy_changes();
 
 	zone_changes();
+
+	enemies_ignore_equipments();
 
 	screecher_spawner_changes();
 	screecher_remove_near_miss();
@@ -677,10 +678,12 @@ remove_buildable_pieces( buildable_name )
 
 enemies_ignore_equipments()
 {
-	maps/mp/zombies/_zm_equipment::enemies_ignore_equipment("turbine");
-	maps/mp/zombies/_zm_equipment::enemies_ignore_equipment("electric_trap");
-	maps/mp/zombies/_zm_equipment::enemies_ignore_equipment("turret");
-	maps/mp/zombies/_zm_equipment::enemies_ignore_equipment("riotshield_zm");
+	equipment = getFirstArrayKey(level.zombie_include_equipment);
+	while (isDefined(equipment))
+	{
+		maps/mp/zombies/_zm_equipment::enemies_ignore_equipment(equipment);
+		equipment = getNextArrayKey(level.zombie_include_equipment, equipment);
+	}
 }
 
 electric_trap_always_kill()
