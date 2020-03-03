@@ -31,14 +31,17 @@
 
 ## Weapons
 
+### AN-94
+* Increased weapon cost from 1200 to 1500
+
 ### B23R
 * Changed weapon cost to 900 on all maps
 
-### Remington 870
-* Changed weapon cost to 1200 on all maps
-
 ### M1927
 * Decreased ammo cost from 800 to 750
+
+### Remington 870
+* Changed weapon cost to 1200 on all maps
 
 ### Jet Gun
 * Kills whenever the right gauge is above 20%
