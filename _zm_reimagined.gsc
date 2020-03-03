@@ -72,6 +72,8 @@ post_all_players_spawned()
 
 	wait 0.05;
 
+	disable_melee_lunge();
+
 	disable_high_round_walkers();
 
 	disable_perk_pause();
@@ -162,6 +164,11 @@ set_player_lethal_grenade_semtex()
 	self set_player_lethal_grenade( "sticky_grenade_zm" );
 	self giveweapon( self get_player_lethal_grenade() );
 	self setweaponammoclip( self get_player_lethal_grenade(), 0 );
+}
+
+disable_melee_lunge()
+{
+	setDvar( "aim_automelee_enabled", 0 );
 }
 
 disable_high_round_walkers()

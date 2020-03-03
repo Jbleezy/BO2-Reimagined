@@ -15,6 +15,7 @@
 ## Players
 * Unlimited sprint
 * 100% backwards speed, strafe speed, and sprint strafe speed
+* Disabled melee lunging
 * Start with semtex on maps that have semtex
 
 ## Zombies
