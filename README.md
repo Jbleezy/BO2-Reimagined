@@ -31,6 +31,15 @@
 
 ## Weapons
 
+### B23R
+* Changed weapon cost to 900 on all maps
+
+### Remington 870
+* Changed weapon cost to 1200 on all maps
+
+### M1927
+* Decreased ammo cost from 800 to 750
+
 ### Jet Gun
 * Kills whenever the right gauge is above 20%
 * Kills multiple enemies significantly faster

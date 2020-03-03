@@ -119,6 +119,8 @@ post_all_players_spawned()
 
 	//disable_pers_upgrades(); // TODO
 
+	level thread wallbuy_cost_changes();
+
 	level thread buildbuildables();
 	level thread buildcraftables();
 
@@ -390,6 +392,30 @@ claymore_rotate_model_when_bought()
 	}
 
 	self.angles += ( 0, 90, 0 );
+}
+
+wallbuy_cost_changes()
+{
+	flag_wait( "initial_blackscreen_passed" );
+
+	if (isDefined(level.zombie_weapons["beretta93r_zm"]))
+	{
+		cost = 900;
+		level.zombie_weapons["beretta93r_zm"].cost = cost;
+		level.zombie_weapons["beretta93r_zm"].ammo_cost = int(cost / 2);
+	}
+
+	if (isDefined(level.zombie_weapons["870mcs_zm"]))
+	{
+		cost = 1200;
+		level.zombie_weapons["870mcs_zm"].cost = cost;
+		level.zombie_weapons["870mcs_zm"].ammo_cost = int(cost / 2);
+	}
+
+	if (isDefined(level.zombie_weapons["thompson_zm"]))
+	{
+		level.zombie_weapons["thompson_zm"].ammo_cost = 750;
+	}
 }
 
 wallbuy_increase_trigger_radius()
