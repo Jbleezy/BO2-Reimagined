@@ -153,6 +153,7 @@
 * Moved Stamin-Up to Vulture Aid's location on Buried
 
 ### Origins
+* Door prices in solo now cost the same as in coop
 * Shovels automatically picked up
 * Gramophone and records automatically picked up
 * Der Wunderfizz: all perks have an equal chance of being obtained

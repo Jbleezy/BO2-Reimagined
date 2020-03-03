@@ -137,6 +137,7 @@ post_all_players_spawned()
 
 	level thread wallbuy_dynamic_increase_trigger_radius();
 
+	level thread tomb_increase_solo_door_prices();
 	level thread tomb_remove_shovels_from_map();
 	level thread tomb_zombie_blood_dig_changes();
 
@@ -1885,6 +1886,38 @@ borough_move_staminup_machine()
 	level thread maps/mp/zombies/_zm_perks::turn_marathon_on();
 	use_trigger thread maps/mp/zombies/_zm_perks::vending_trigger_think();
 	use_trigger thread maps/mp/zombies/_zm_perks::electric_perks_dialog();
+}
+
+tomb_increase_solo_door_prices()
+{
+	if(!(is_classic() && level.scr_zm_map_start_location == "tomb"))
+	{
+		return;
+	}
+
+	flag_wait( "initial_blackscreen_passed" );
+
+	if ( isDefined( level.is_forever_solo_game ) && level.is_forever_solo_game )
+	{
+		a_door_buys = getentarray( "zombie_door", "targetname" );
+		array_thread( a_door_buys, ::door_price_increase_for_solo );
+		a_debris_buys = getentarray( "zombie_debris", "targetname" );
+		array_thread( a_debris_buys, ::door_price_increase_for_solo );
+	}
+}
+
+door_price_increase_for_solo()
+{
+	self.zombie_cost += 250;
+
+	if ( self.targetname == "zombie_door" )
+	{
+		self set_hint_string( self, "default_buy_door", self.zombie_cost );
+	}
+	else
+	{
+		self set_hint_string( self, "default_buy_debris", self.zombie_cost );
+	}
 }
 
 tomb_remove_weighted_random_perks()
