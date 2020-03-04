@@ -31,6 +31,7 @@
 * Removed hint when player is first attacked on solo
 
 ## Weapons
+* Disabled sniper scope sway
 
 ### AN-94
 * Increased weapon cost from 1200 to 1500

@@ -42,6 +42,8 @@ onplayerspawned()
 
 		self setperk( "specialty_unlimitedsprint" );
 
+		self thread disable_sniper_scope_sway();
+
 		self thread on_equipment_placed();
 		self thread give_additional_perks();
 
@@ -1206,6 +1208,38 @@ give_additional_perks()
 		{
 			self Unsetperk( "specialty_movefaster" );
 		}
+	}
+}
+
+disable_sniper_scope_sway()
+{
+	self endon( "disconnect" );
+
+	self.sway_disabled = 0;
+
+	while (1)
+	{
+		if (!self hasPerk("specialty_deadshot"))
+		{
+			if (isads(self))
+			{
+				if (!self.sway_disabled)
+				{
+					self.sway_disabled = 1;
+					self setclientfieldtoplayer( "deadshot_perk", 1 );
+				}
+			}
+			else
+			{
+				if (self.sway_disabled)
+				{
+					self.sway_disabled = 0;
+					self setclientfieldtoplayer( "deadshot_perk", 0 );
+				}
+			}	
+		}
+
+		wait 0.05;
 	}
 }
 
