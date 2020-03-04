@@ -73,6 +73,7 @@ post_all_players_spawned()
 	wait 0.05;
 
 	disable_melee_lunge();
+	enable_friendly_fire();
 
 	disable_high_round_walkers();
 
@@ -172,6 +173,11 @@ set_player_lethal_grenade_semtex()
 disable_melee_lunge()
 {
 	setDvar( "aim_automelee_enabled", 0 );
+}
+
+enable_friendly_fire()
+{
+	setDvar( "g_friendlyfireDist", "0" );
 }
 
 disable_high_round_walkers()
