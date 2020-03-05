@@ -75,11 +75,18 @@
 ### Stamin-Up
 * Move faster (normally only sprint faster)
 
-### Deadshot
+### Deadshot Daiquiri
 * Double headshot damage
 * Move faster while aiming
 * Decreased sprint recovery time
 * Zombie heads always gib when killed
+
+### Tombstone Soda
+* Added in solo
+* Players keep all other perks when revived (except Quick Revive in solo)
+* Tombstone powerup no longer spawns until the player bleeds out
+* Unlimited time to pick up Tombstone powerup
+* Disabled suicide option when player is down
 
 ### Electric Cherry
 * Removed cooldown after being used multiple times in a row
