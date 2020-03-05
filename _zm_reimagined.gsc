@@ -37,6 +37,8 @@ onplayerspawned()
 
 		self set_player_lethal_grenade_semtex();
 
+		self disable_player_pers_upgrades();
+
 		self bank_clear_account_value();
 		self weapon_locker_clear_stored_weapondata();
 
@@ -120,7 +122,7 @@ post_all_players_spawned()
 	tomb_challenges_changes();
 	tomb_soul_box_changes();
 
-	//disable_pers_upgrades(); // TODO
+	disable_pers_upgrades();
 
 	level thread wallbuy_cost_changes();
 
@@ -248,6 +250,19 @@ disable_pers_upgrades()
 {
 	level.pers_upgrades_keys = [];
 	level.pers_upgrades = [];
+}
+
+disable_player_pers_upgrades()
+{
+	if (isDefined(self.pers_upgrades_awarded))
+	{
+		upgrade = getFirstArrayKey(self.pers_upgrades_awarded);
+		while (isDefined(upgrade))
+		{
+			self.pers_upgrades_awarded[upgrade] = 0;
+			upgrade = getNextArrayKey(self.pers_upgrades_awarded, upgrade);
+		}
+	}
 }
 
 disable_carpenter()
@@ -529,7 +544,7 @@ buildbuildables()
 			buildbuildable( "pap" );
 			buildbuildable( "turbine" );
 			buildbuildable( "electric_trap" );
-			buildbuildable( "turret" ); // TODO - fix turret loop sound not going away when picked up
+			buildbuildable( "turret" );
 			buildbuildable( "riotshield_zm" );
 			buildbuildable( "jetgun_zm" );
 			buildbuildable( "sq_common" );

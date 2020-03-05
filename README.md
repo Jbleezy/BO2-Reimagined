@@ -90,6 +90,9 @@
 ### Carpenter
 * Removed
 
+## Persistent Upgrades
+* Removed
+
 ## Buildables
 * Automatically crafted (Tranzit, Die Rise, Buried)
 * Parts automatically picked up (Mob of the Dead, Origins)
