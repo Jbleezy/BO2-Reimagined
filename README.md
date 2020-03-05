@@ -76,8 +76,10 @@
 * Move faster (normally only sprint faster)
 
 ### Deadshot
+* Double headshot damage
 * Move faster while aiming
 * Decreased sprint recovery time
+* Zombie heads always gib when killed
 
 ### Electric Cherry
 * Removed cooldown after being used multiple times in a row

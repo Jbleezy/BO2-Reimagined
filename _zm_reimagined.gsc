@@ -1208,11 +1208,13 @@ give_additional_perks()
 		{
 			self SetPerk("specialty_stalker");
 			self Setperk( "specialty_sprintrecovery" );
+			self.pers_upgrades_awarded["multikill_headshots"] = 1; // double headshot damage
 		}
 		else
 		{
 			self UnsetPerk("specialty_stalker");
 			self Unsetperk( "specialty_sprintrecovery" );
+			self.pers_upgrades_awarded["multikill_headshots"] = 0;
 		}
 
 		if (self HasPerk("specialty_longersprint"))
