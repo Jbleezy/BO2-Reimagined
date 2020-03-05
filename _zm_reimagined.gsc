@@ -21,6 +21,8 @@ onplayerspawned()
 {
 	level endon( "game_ended" );
 	self endon( "disconnect" );
+
+	self.initial_spawn = true;
 	
 	for(;;)
 	{
@@ -33,40 +35,45 @@ onplayerspawned()
 			level thread post_all_players_spawned();
 		}
 
+		if (self.initial_spawn)
+		{
+			self.initial_spawn = false;
+
+			self screecher_remove_hint();
+
+			self bank_clear_account_value();
+			self weapon_locker_clear_stored_weapondata();
+
+			self disable_player_pers_upgrades();
+
+			self tomb_give_shovel();
+
+			self thread on_equipment_placed();
+			self thread give_additional_perks();
+
+			self thread disable_sniper_scope_sway();
+
+			self thread jetgun_fast_cooldown();
+			self thread jetgun_fast_spinlerp();
+			self thread jetgun_overheated_fix();
+
+			self thread electric_cherry_unlimited();
+
+			self thread vulture_disable_stink_while_standing();
+
+			//self thread test();
+
+			//self.score = 1000000;
+			//maps/mp/zombies/_zm_perks::give_perk( "specialty_armorvest", 0 );
+			//self GiveWeapon("dsr50_zm");
+			//self GiveMaxAmmo("dsr50_zm");
+		}
+
 		self set_movement_dvars();
 
 		self set_player_lethal_grenade_semtex();
 
-		self disable_player_pers_upgrades();
-
-		self bank_clear_account_value();
-		self weapon_locker_clear_stored_weapondata();
-
 		self setperk( "specialty_unlimitedsprint" );
-
-		self thread disable_sniper_scope_sway();
-
-		self thread on_equipment_placed();
-		self thread give_additional_perks();
-
-		self thread electric_cherry_unlimited();
-
-		self thread screecher_remove_hint();
-
-		self thread jetgun_fast_cooldown();
-		self thread jetgun_fast_spinlerp();
-		self thread jetgun_overheated_fix();
-
-		self thread vulture_disable_stink_while_standing();
-
-		self thread tomb_give_shovel();
-
-		//self thread test();
-
-		//self.score = 1000000;
-		//maps/mp/zombies/_zm_perks::give_perk( "specialty_armorvest", 0 );
-		//self GiveWeapon("ray_gun_zm");
-		//self GiveMaxAmmo("ray_gun_zm");
 	}
 }
 
@@ -809,7 +816,7 @@ jetgun_increase_grind_range()
 
 jetgun_fast_cooldown()
 {
-	self endon( "death_or_disconnect" );
+	self endon( "disconnect" );
 
 	if ( !maps/mp/zombies/_zm_weapons::is_weapon_included( "jetgun_zm" ) )
 	{
@@ -868,7 +875,7 @@ jetgun_fast_cooldown()
 
 jetgun_fast_spinlerp()
 {
-	self endon( "death_or_disconnect" );
+	self endon( "disconnect" );
 
 	if ( !maps/mp/zombies/_zm_weapons::is_weapon_included( "jetgun_zm" ) )
 	{
@@ -977,7 +984,6 @@ slipgun_disable_reslip()
 
 on_equipment_placed()
 {
-	self endon( "death" );
 	self endon( "disconnect" );
 
 	//level.equipment_etrap_needs_power = 0;
@@ -1184,7 +1190,6 @@ cleanupoldtrap()
 
 give_additional_perks()
 {
-	self endon( "death" );
 	self endon( "disconnect" );
 
 	for ( ;; )
@@ -1262,7 +1267,6 @@ disable_sniper_scope_sway()
 
 electric_cherry_unlimited()
 {
-	self endon( "death" );
 	self endon( "disconnect" );
 
 	for ( ;; )
@@ -2282,7 +2286,6 @@ tomb_zombie_blood_dig_changes()
 				}
 
 				ent.e_unique_player.initial_zombie_blood_dig++;
-				iprintln(ent.e_unique_player.initial_zombie_blood_dig);
 				if (ent.e_unique_player.initial_zombie_blood_dig <= 2)
 				{
 					ent setvisibletoplayer(ent.e_unique_player);
