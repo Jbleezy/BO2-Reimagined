@@ -1540,6 +1540,9 @@ town_move_staminup_machine()
 	level thread maps/mp/zombies/_zm_perks::turn_marathon_on();
 	use_trigger thread maps/mp/zombies/_zm_perks::vending_trigger_think();
 	use_trigger thread maps/mp/zombies/_zm_perks::electric_perks_dialog();
+
+	powered_on = maps/mp/zombies/_zm_perks::get_perk_machine_start_state( use_trigger.script_noteworthy );
+	maps/mp/zombies/_zm_power::add_powered_item( maps/mp/zombies/_zm_power::perk_power_on, ::perk_power_off, maps/mp/zombies/_zm_power::perk_range, maps/mp/zombies/_zm_power::cost_low_if_local, 0, powered_on, use_trigger );
 }
 
 prison_auto_refuel_plane()
@@ -1770,6 +1773,9 @@ borough_move_quickrevive_machine()
 	level thread maps/mp/zombies/_zm_perks::turn_revive_on();
 	use_trigger thread maps/mp/zombies/_zm_perks::vending_trigger_think();
 	use_trigger thread maps/mp/zombies/_zm_perks::electric_perks_dialog();
+
+	powered_on = maps/mp/zombies/_zm_perks::get_perk_machine_start_state( use_trigger.script_noteworthy );
+	maps/mp/zombies/_zm_power::add_powered_item( maps/mp/zombies/_zm_power::perk_power_on, ::perk_power_off, maps/mp/zombies/_zm_power::perk_range, maps/mp/zombies/_zm_power::cost_low_if_local, 0, powered_on, use_trigger );
 }
 
 borough_move_speedcola_machine()
@@ -1858,6 +1864,9 @@ borough_move_speedcola_machine()
 	level thread maps/mp/zombies/_zm_perks::turn_sleight_on();
 	use_trigger thread maps/mp/zombies/_zm_perks::vending_trigger_think();
 	use_trigger thread maps/mp/zombies/_zm_perks::electric_perks_dialog();
+
+	powered_on = maps/mp/zombies/_zm_perks::get_perk_machine_start_state( use_trigger.script_noteworthy );
+	maps/mp/zombies/_zm_power::add_powered_item( maps/mp/zombies/_zm_power::perk_power_on, ::perk_power_off, maps/mp/zombies/_zm_power::perk_range, maps/mp/zombies/_zm_power::cost_low_if_local, 0, powered_on, use_trigger );
 }
 
 borough_move_staminup_machine()
@@ -1950,6 +1959,9 @@ borough_move_staminup_machine()
 	level thread maps/mp/zombies/_zm_perks::turn_marathon_on();
 	use_trigger thread maps/mp/zombies/_zm_perks::vending_trigger_think();
 	use_trigger thread maps/mp/zombies/_zm_perks::electric_perks_dialog();
+
+	powered_on = maps/mp/zombies/_zm_perks::get_perk_machine_start_state( use_trigger.script_noteworthy );
+	maps/mp/zombies/_zm_power::add_powered_item( maps/mp/zombies/_zm_power::perk_power_on, ::perk_power_off, maps/mp/zombies/_zm_power::perk_range, maps/mp/zombies/_zm_power::cost_low_if_local, 0, powered_on, use_trigger );
 }
 
 tomb_increase_solo_door_prices()
