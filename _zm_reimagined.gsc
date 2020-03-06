@@ -281,6 +281,22 @@ disable_player_pers_upgrades()
 			upgrade = getNextArrayKey(self.pers_upgrades_awarded, upgrade);
 		}
 	}
+
+	if (isDefined(level.pers_upgrades_keys))
+	{
+		index = 0;
+		while (index < level.pers_upgrades_keys.size)
+		{
+			str_name = level.pers_upgrades_keys[index];
+			stat_index = 0;
+			while (stat_index < level.pers_upgrades[str_name].stat_names.size)
+			{
+				self maps/mp/zombies/_zm_stats::zero_client_stat(level.pers_upgrades[str_name].stat_names[stat_index], 0);
+				stat_index++;
+			}
+			index++;
+		}
+	}
 }
 
 disable_carpenter()
