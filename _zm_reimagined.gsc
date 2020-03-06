@@ -1278,7 +1278,7 @@ disable_sniper_scope_sway()
 
 tombstone_disable_suicide()
 {
-	level.canplayersuicide = undefined;
+	level.playersuicideallowed = undefined;
 }
 
 tombstone_spawn_changes()
