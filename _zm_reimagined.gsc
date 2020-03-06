@@ -51,7 +51,7 @@ onplayerspawned()
 			self thread on_equipment_placed();
 			self thread give_additional_perks();
 
-			self thread disable_sniper_scope_sway();
+			//self thread disable_sniper_scope_sway(); // Buried does not load the clientfield
 
 			self thread jetgun_fast_cooldown();
 			self thread jetgun_fast_spinlerp();
