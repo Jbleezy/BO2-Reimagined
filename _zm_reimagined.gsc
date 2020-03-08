@@ -534,7 +534,10 @@ disable_perk_pause()
 
 		if (IsDefined(item.target) && IsDefined(item.target.targetname) && item.target.targetname == "zombie_vending")
 		{
-			item.power_off_func = ::perk_power_off;
+			if (item.target.script_noteworthy != "specialty_weapupgrade")
+			{
+				item.power_off_func = ::perk_power_off;
+			}
 		}
 	}
 }
