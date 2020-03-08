@@ -73,6 +73,8 @@ onplayerspawned()
 		}
 
 		self set_movement_dvars();
+		self disable_melee_lunge();
+		self enable_friendly_fire();
 
 		self set_player_lethal_grenade_semtex();
 
@@ -88,9 +90,6 @@ post_all_players_spawned()
 
 	wait 0.05;
 
-	disable_melee_lunge();
-	enable_friendly_fire();
-
 	disable_high_round_walkers();
 
 	disable_perk_pause();
@@ -103,8 +102,7 @@ post_all_players_spawned()
 	wallbuy_increase_trigger_radius();
 	wallbuy_location_changes();
 
-	tombstone_disable_suicide();
-	tombstone_spawn_changes();
+	disable_pers_upgrades();
 
 	zone_changes();
 
@@ -124,6 +122,9 @@ post_all_players_spawned()
 
 	town_move_staminup_machine();
 
+	tombstone_disable_suicide();
+	tombstone_spawn_changes();
+
 	slipgun_always_kill();
 	slipgun_disable_reslip();
 
@@ -136,8 +137,6 @@ post_all_players_spawned()
 	tomb_remove_weighted_random_perks();
 	tomb_challenges_changes();
 	tomb_soul_box_changes();
-
-	disable_pers_upgrades();
 
 	level thread wallbuy_cost_changes();
 
@@ -179,6 +178,16 @@ set_movement_dvars()
 	setdvar( "player_sprintStrafeSpeedScale", 1 );
 }
 
+disable_melee_lunge()
+{
+	setDvar( "aim_automelee_enabled", 0 );
+}
+
+enable_friendly_fire()
+{
+	setDvar( "g_friendlyfireDist", "0" );
+}
+
 set_player_lethal_grenade_semtex()
 {
 	if (level.script != "zm_transit" && level.script != "zm_nuked" && level.script != "zm_highrise" && level.script != "zm_tomb")
@@ -190,16 +199,6 @@ set_player_lethal_grenade_semtex()
 	self set_player_lethal_grenade( "sticky_grenade_zm" );
 	self giveweapon( self get_player_lethal_grenade() );
 	self setweaponammoclip( self get_player_lethal_grenade(), 0 );
-}
-
-disable_melee_lunge()
-{
-	setDvar( "aim_automelee_enabled", 0 );
-}
-
-enable_friendly_fire()
-{
-	setDvar( "g_friendlyfireDist", "0" );
 }
 
 disable_high_round_walkers()
