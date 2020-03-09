@@ -12,6 +12,9 @@
 
 ## Change Notes
 
+## HUD
+* Current zone displayed on bottom left of screen
+
 ## Players
 * Unlimited sprint
 * 100% backwards speed, strafe speed, and sprint strafe speed
