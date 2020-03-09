@@ -12,15 +12,16 @@
 
 ## Change Notes
 
-## HUD
-* Current zone displayed on bottom left of screen
-
 ## Players
 * Unlimited sprint
 * 100% backwards speed, strafe speed, and sprint strafe speed
 * Disabled melee lunging
 * Can shoot when looking at other players
 * Start with semtex on maps that have semtex
+
+## HUD
+* Health bar displayed on bottom left of screen
+* Current zone displayed on bottom left of screen
 
 ## Zombies
 * Health capped at 1 million

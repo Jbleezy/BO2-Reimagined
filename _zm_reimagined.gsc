@@ -1,3 +1,4 @@
+#include maps/mp/gametypes_zm/_hud_util;
 #include maps/mp/zombies/_zm_utility;
 #include common_scripts/utility;
 #include maps/mp/_utility;
@@ -48,6 +49,7 @@ onplayerspawned()
 
 			self tomb_give_shovel();
 
+			self thread health_bar_hud();
 			self thread zone_hud();
 
 			self thread on_equipment_placed();
@@ -188,6 +190,27 @@ disable_melee_lunge()
 enable_friendly_fire()
 {
 	setDvar( "g_friendlyfireDist", "0" );
+}
+
+health_bar_hud()
+{
+	self endon("disconnect");
+
+	flag_wait( "initial_blackscreen_passed" );
+
+	health_bar = self createprimaryprogressbar();
+	health_bar setpoint(undefined, "BOTTOM_LEFT", 65, 17.5);
+
+	health_bar_text = self createprimaryprogressbartext();
+	health_bar_text setpoint(undefined, "BOTTOM_LEFT", 65, 5);
+
+	while (1)
+	{
+		health_bar updatebar(self.health / self.maxhealth);
+		health_bar_text settext(self.health);
+
+		wait 0.05;
+	}
 }
 
 zone_hud()
