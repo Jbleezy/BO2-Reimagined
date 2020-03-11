@@ -95,6 +95,8 @@ post_all_players_spawned()
 
 	wait 0.05;
 
+	maps/mp/zombies/_zm::register_player_damage_callback( ::player_damage_override );
+
 	disable_high_round_walkers();
 
 	disable_perk_pause();
@@ -1309,6 +1311,17 @@ set_player_lethal_grenade_semtex()
 	self set_player_lethal_grenade( "sticky_grenade_zm" );
 	self giveweapon( self get_player_lethal_grenade() );
 	self setweaponammoclip( self get_player_lethal_grenade(), 0 );
+}
+
+player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime )
+{
+	if (smeansofdeath == "MOD_FALLING")
+	{
+		ratio = self.maxhealth / 100;
+		idamage = int(idamage / ratio);
+	}
+
+	return idamage;
 }
 
 disable_high_round_walkers()

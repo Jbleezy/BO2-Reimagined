@@ -15,6 +15,7 @@
 ## Players
 * Unlimited sprint
 * 100% backwards speed, strafe speed, and sprint strafe speed
+* Fall damage no longer increases when max health is increased
 * Disabled melee lunging
 * Can shoot when looking at other players
 * Mantle faster
