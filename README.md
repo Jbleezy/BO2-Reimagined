@@ -15,7 +15,14 @@
 ## Players
 * Unlimited sprint
 * 100% backwards speed, strafe speed, and sprint strafe speed
+* Decreased normal health regeneration delay from 2.4 seconds to 2 seconds
+* Decreased low health regeneration delay from 5 seconds to 4 seconds
+* Normal health regeneration rate is no longer instant
+* Changed health regeneration rate to 100 health per second (previously fully restored health in 0.5 seconds)
 * Fall damage no longer increases when max health is increased
+* Red screens start at 25% health (previously 20% health)
+* Red screens go away as soon as the player's health is above 25% (previously went away once the player reached full health)
+* Removed blur when getting damaged
 * Disabled melee lunging
 * Can shoot when looking at other players
 * Mantle faster
