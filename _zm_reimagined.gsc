@@ -83,6 +83,7 @@ onplayerspawned()
 		self set_player_lethal_grenade_semtex();
 
 		self setperk( "specialty_unlimitedsprint" );
+		self setperk( "specialty_fastmantle" );
 
 		self tombstone_reset_perks();
 	}
