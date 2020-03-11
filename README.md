@@ -157,6 +157,9 @@
 
 ### Mob of the Dead
 * Acid Trap kills on any round (normally stops killing after round 158 on PC)
+* Tower Trap kills on any round in 1 shot
+* Upgraded Tower Trap kills on any round in 1-2 shots
+* Upgraded Tower Trap stays upgraded until the end of the round
 * Plane fuel automatically picked up
 
 ### Buried
