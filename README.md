@@ -20,7 +20,7 @@
 * Start with semtex on maps that have semtex
 
 ## HUD
-* Health bar displayed on bottom left of screen
+* Health bar displayed on top center of screen
 * Current zone displayed on bottom left of screen
 
 ## Zombies
