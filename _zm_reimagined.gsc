@@ -165,7 +165,7 @@ post_all_players_spawned()
 	level thread transit_add_tombstone_machine_solo();
 	level thread transit_power_local_electric_doors_globally();
 
-	level thread town_add_tombstone_machine_solo();
+	level thread town_move_tombstone_machine();
 
 	level thread depot_grief_link_nodes();
 
@@ -3482,16 +3482,11 @@ transit_add_tombstone_machine_solo()
 	maps/mp/zombies/_zm_power::add_powered_item( maps/mp/zombies/_zm_power::perk_power_on, ::perk_power_off, maps/mp/zombies/_zm_power::perk_range, maps/mp/zombies/_zm_power::cost_low_if_local, 0, powered_on, use_trigger );
 }
 
-town_add_tombstone_machine_solo()
+town_move_tombstone_machine()
 {
 	if (!(!is_classic() && level.scr_zm_map_start_location == "town"))
 	{
 		return;	
-	}
-
-	if (!flag("solo_game"))
-	{
-		return;
 	}
 
 	perk_struct = undefined;
@@ -3513,23 +3508,37 @@ town_add_tombstone_machine_solo()
 		return;
 	}
 
-	level waittill( "tombstone_removed" ); // wait until inital machine is removed
+	// delete old machine
+	vending_triggers = getentarray( "zombie_vending", "targetname" );
+	for (i = 0; i < vending_trigger.size; i++)
+	{
+		trig = vending_triggers[i];
+		if (IsDefined(trig.script_noteworthy) && trig.script_noteworthy == "specialty_scavenger")
+		{
+			trig.clip delete();
+			trig.machine delete();
+			trig.bump delete();
+			trig delete();
+			break;
+		}
+	}
 
 	// spawn new machine
-	use_trigger = spawn( "trigger_radius_use", perk_struct.origin + vectorScale( ( 0, 0, 1 ), 30 ), 0, 40, 70 );
+	origin = (1852, -825, -56);
+	angles = (0, 180, 0);
+	use_trigger = spawn( "trigger_radius_use", origin + vectorScale( ( 0, 0, 1 ), 30 ), 0, 40, 70 );
 	use_trigger.targetname = "zombie_vending";
-	use_trigger.script_noteworthy = perk_struct.script_noteworthy;
 	use_trigger triggerignoreteam();
-	perk_machine = spawn( "script_model", perk_struct.origin );
-	perk_machine.angles = perk_struct.angles;
+	perk_machine = spawn( "script_model", origin );
+	perk_machine.angles = angles;
 	perk_machine setmodel( perk_struct.model );
-	bump_trigger = spawn( "trigger_radius", perk_struct.origin + AnglesToRight(perk_struct.angles) * 32, 0, 35, 32 );
+	bump_trigger = spawn( "trigger_radius", origin + AnglesToRight(angles) * 32, 0, 35, 32 );
 	bump_trigger.script_activated = 1;
 	bump_trigger.script_sound = "zmb_perks_bump_bottle";
 	bump_trigger.targetname = "audio_bump_trigger";
 	bump_trigger thread maps/mp/zombies/_zm_perks::thread_bump_trigger();
-	collision = spawn( "script_model", perk_struct.origin, 1 );
-	collision.angles = perk_struct.angles;
+	collision = spawn( "script_model", origin, 1 );
+	collision.angles = angles;
 	collision setmodel( "zm_collision_perks1" );
 	collision.script_noteworthy = "clip";
 	collision disconnectpaths();
@@ -3555,6 +3564,13 @@ town_add_tombstone_machine_solo()
 	perk_machine.script_string = "tombstone_perk";
 	perk_machine.targetname = "vending_tombstone";
 	bump_trigger.script_string = "tombstone_perk";
+
+	// wait until inital machine is removed
+	flag_wait( "initial_blackscreen_passed" );
+	wait 0.05;
+
+	// wait until after to set script_noteworthy so new machine isn't removed
+	use_trigger.script_noteworthy = perk_struct.script_noteworthy;
 
 	level thread maps/mp/zombies/_zm_perks::turn_tombstone_on();
 	use_trigger thread maps/mp/zombies/_zm_perks::vending_trigger_think();
