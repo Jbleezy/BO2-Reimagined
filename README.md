@@ -102,7 +102,7 @@
 
 ### Tombstone Soda
 * Added in solo
-* Players keep all other perks when revived (except Quick Revive in solo)
+* Players keep all other perks when revived
 * Tombstone powerup no longer spawns until the player bleeds out
 * Unlimited time to pick up Tombstone powerup
 * Disabled suicide option when player is down

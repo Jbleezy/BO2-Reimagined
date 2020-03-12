@@ -3116,7 +3116,6 @@ tombstone_restore_perks()
 		self waittill( "player_revived" );
 
 		player_has_mule_kick = 0;
-		discard_quickrevive = 0;
 		discard_tombstone = 0;
 		if ( isDefined( self.a_saved_perks ) && self.a_saved_perks.size >= 2 )
 		{
@@ -3124,11 +3123,7 @@ tombstone_restore_perks()
 			while ( i < self.a_saved_perks.size )
 			{
 				perk = self.a_saved_perks[ i ];
-				if ( perk == "specialty_quickrevive" && flag("solo_game") )
-				{
-					discard_quickrevive = 1;
-				}
-				else if ( perk == "specialty_scavenger" )
+				if ( perk == "specialty_scavenger" )
 				{
 					discard_tombstone = 1;
 				}
@@ -3141,33 +3136,29 @@ tombstone_restore_perks()
 			while ( i < size )
 			{
 				perk = self.a_saved_perks[ i ];
-				if ( discard_quickrevive == 1 && perk == "specialty_quickrevive" )
+
+				if ( perk == "specialty_scavenger" && discard_tombstone == 1 )
 				{
 					i++;
 					continue;
 				}
-				else if ( discard_tombstone == 1 && perk == "specialty_scavenger" )
+
+				if ( perk == "specialty_additionalprimaryweapon" )
 				{
-					i++;
-					continue;
+					player_has_mule_kick = 1;
 				}
-				else
+
+				if ( !(perk == "specialty_quickrevive" && flag("solo_game")) )
 				{
-					if ( perk == "specialty_additionalprimaryweapon" )
-					{
-						player_has_mule_kick = 1;
-					}
 					if ( self hasperk( perk ) )
 					{
 						i++;
 						continue;
 					}
-					else
-					{
-						self maps/mp/zombies/_zm_perks::give_perk( perk );
-						wait_network_frame();
-					}
 				}
+
+				self maps/mp/zombies/_zm_perks::give_perk( perk );
+				wait_network_frame();
 				i++;
 			}
 			self.a_restoring_perks = undefined;
