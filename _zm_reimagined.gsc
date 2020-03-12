@@ -2702,6 +2702,13 @@ solo_revive_trigger_fix()
 		new_trig.script_label = trig.script_label;
 		new_trig.target = trig.target;
 
+		if (is_classic() && level.scr_zm_map_start_location == "tomb")
+		{
+			new_trig.str_zone_name = trig.str_zone_name;
+			level.zone_capture.zones[trig.str_zone_name].perk_machines["revive"] = new_trig;
+			level.zone_capture.zones[trig.str_zone_name].perk_fx_func = undefined;
+		}
+
 		trig delete();
 
 		new_trig thread solo_revive_trigger_think();
@@ -2802,11 +2809,8 @@ solo_revive_trigger_think()
 					continue;
 				}
 			}
-			else
-			{
-				current_cost = cost;
-			}
 
+			current_cost = cost;
 			if ( player maps/mp/zombies/_zm_pers_upgrades_functions::is_pers_double_points_active() )
 			{
 				current_cost = player maps/mp/zombies/_zm_pers_upgrades_functions::pers_upgrade_double_points_cost( current_cost );
