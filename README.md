@@ -15,13 +15,13 @@
 ## Players
 * Unlimited sprint
 * 100% backwards speed, strafe speed, and sprint strafe speed
+* Automatically get 3 self revives in solo
 * Decreased normal health regeneration delay from 2.4 seconds to 2 seconds
 * Decreased low health regeneration delay from 5 seconds to 4 seconds
 * Normal health regeneration rate is no longer instant
 * Changed health regeneration rate to 100 health per second (previously fully restored health in 0.5 seconds)
 * Fall damage no longer increases when max health is increased
 * Red screens start at 25% health (previously 20% health)
-* Red screens go away as soon as the player's health is above 25% (previously went away once the player reached full health)
 * Removed blur when getting damaged
 * Disabled melee lunging
 * Can shoot when looking at other players
@@ -78,6 +78,14 @@
 
 ## Perks
 * No longer deactivated if the perk machine is powered off
+
+### Quick Revive
+* No longer automatically powered on in solo
+* Increased cost in solo from 500 to 1500
+* No longer gives an additional self revive in solo
+* Decreases normal health regeneration delay from 2 seconds to 1.5 seconds
+* Decreases low health regeneration delay from 4 seconds to 3 seconds
+* Increases health regeneration rate from 100 health per second to 125 health per second
 
 ### Speed Cola
 * Aim twice as fast
