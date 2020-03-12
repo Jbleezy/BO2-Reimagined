@@ -21,7 +21,6 @@
 * Normal health regeneration rate is no longer instant
 * Changed health regeneration rate to 100 health per second (previously fully restored health in 0.5 seconds)
 * Fall damage no longer increases when max health is increased
-* Red screens start at 25% health (previously 20% health)
 * Removed blur when getting damaged
 * Disabled melee lunging
 * Can shoot when looking at other players

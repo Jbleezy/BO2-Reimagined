@@ -1344,7 +1344,7 @@ playerhealthregen()
 	hurttime = 0;
 	newhealth = 0;
 	lastinvulratio = 1;
-	healthoverlaycutoff = 0.25;
+	healthoverlaycutoff = 0.2;
 
 	self thread maps/mp/zombies/_zm_playerhealth::playerhurtcheck();
 	if ( !isDefined( self.veryhurt ) )
