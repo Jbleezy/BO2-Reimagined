@@ -52,6 +52,8 @@ onplayerspawned()
 			self thread health_bar_hud();
 			self thread zone_hud();
 
+			self thread fall_velocity_check();
+
 			self thread solo_lives_fix();
 
 			self thread on_equipment_placed();
@@ -1532,12 +1534,56 @@ set_player_lethal_grenade_semtex()
 	self setweaponammoclip( self get_player_lethal_grenade(), 0 );
 }
 
+fall_velocity_check()
+{
+	self endon("disconnect");
+
+	while (1)
+	{
+		was_on_ground = 1;
+		self.fall_velocity = 0;
+
+		while (!self isOnGround())
+		{
+			was_on_ground = 0;
+			vel = self getVelocity();
+			self.fall_velocity = vel[2];
+			wait 0.05;
+		}
+
+		if (!was_on_ground)
+		{
+			continue;
+		}
+
+		wait 0.05;
+	}
+}
+
 player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime )
 {
 	if (smeansofdeath == "MOD_FALLING")
 	{
+		// remove fall damage being based off max health
 		ratio = self.maxhealth / 100;
 		idamage = int(idamage / ratio);
+
+		min_velocity = 420;
+		max_velocity = 740;
+		if (self.divetoprone)
+		{
+			min_velocity = 300;
+			max_velocity = 560;
+		}
+		diff_velocity = max_velocity - min_velocity;
+		velocity = abs(self.fall_velocity);
+		if (velocity < min_velocity)
+		{
+			velocity = min_velocity;
+		}
+
+		// increase fall damage beyond 110
+		idamage = int(((velocity - min_velocity) / diff_velocity) * 110);
 	}
 
 	return idamage;
