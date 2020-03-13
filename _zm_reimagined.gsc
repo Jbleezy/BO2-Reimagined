@@ -197,6 +197,10 @@ set_movement_dvars()
 	setdvar( "player_backSpeedScale", 1 );
 	setdvar( "player_strafeSpeedScale", 1 );
 	setdvar( "player_sprintStrafeSpeedScale", 1 );
+
+	setdvar( "dtp_post_move_pause", 0 );
+	setdvar( "dtp_exhaustion_window", 100 );
+	setdvar( "dtp_startup_delay", 100 );		
 }
 
 disable_melee_lunge()

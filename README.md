@@ -14,17 +14,20 @@
 
 ## Players
 * Unlimited sprint
-* 100% backwards speed, strafe speed, and sprint strafe speed
 * Automatically get 3 self revives in solo
+* 100% backwards speed, strafe speed, and sprint strafe speed
+* Can dive again right away after just diving
+* Can move after diving quicker
+* Decreased dive startup time
+* Disabled melee lunging
 * Decreased normal health regeneration delay from 2.4 seconds to 2 seconds
 * Decreased low health regeneration delay from 5 seconds to 4 seconds
 * Normal health regeneration rate is no longer instant
 * Changed health regeneration rate to 100 health per second (previously fully restored health in 0.5 seconds)
 * Fall damage no longer increases when max health is increased
 * Removed blur when getting damaged
-* Disabled melee lunging
-* Can shoot when looking at other players
-* Mantle faster
+* Can shoot while looking at other players
+* Increased mantle speed
 * Start with semtex on maps that have semtex
 
 ## HUD
