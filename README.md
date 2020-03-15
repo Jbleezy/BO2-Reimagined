@@ -162,7 +162,7 @@
 * Moved Tombstone Soda to the laundry room front door
 
 #### Farm
-* Zombies now spawn in the Center zone when in the Barn zone
+* Zombies now spawn in the Farm zone when in the Barn zone
 * Survival: replaced Galvaknuckles wallbuy with Claymore wallbuy
 * Grief: added Claymore wallbuy
 
@@ -171,7 +171,7 @@
 * Grief: Turbine doors closed
 
 ### Die Rise
-* Zombies no longer spawn in the Skyscraper Tower zone when in the Trample Steam zone
+* Zombies no longer spawn in the Upper Blue Highrise zone when in the Trample Steam zone
 * Zombies no longer spawn in the zone next to the AN94 when in the AN94 zone while the debris is closed
 * Navcard table automatically crafted
 
@@ -190,7 +190,7 @@
 * Fountain portal automatically active
 * Navcard table automatically crafted
 
-### Borough
+#### Borough
 * Moved Quick Revive to its location on Buried
 * Moved Speed Cola to its location on Buried
 * Moved Stamin-Up to Vulture Aid's location on Buried
