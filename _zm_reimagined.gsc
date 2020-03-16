@@ -2683,11 +2683,19 @@ solo_lives_fix()
 
 	self.lives = 3;
 	self.bought_solo_revive = 0;
-	self setPerk("specialty_quickrevive");
 
 	while (1)
 	{
 		self waittill_any("perk_acquired", "perk_lost");
+
+		if (self.perks_active.size < 1)
+		{
+			self unsetPerk("specialty_quickrevive");
+			self.bought_solo_revive = 0;
+			continue;
+		}
+
+		self setPerk("specialty_quickrevive");
 
 		has_revive = 0;
 		foreach (perk in self.perks_active)
@@ -2700,11 +2708,6 @@ solo_lives_fix()
 		}
 
 		self.bought_solo_revive = has_revive;
-
-		if (!has_revive)
-		{
-			self setPerk("specialty_quickrevive");
-		}
 	}
 }
 

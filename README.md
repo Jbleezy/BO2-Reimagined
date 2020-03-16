@@ -14,7 +14,7 @@
 
 ## Players
 * Unlimited sprint
-* Automatically get 3 self revives in solo
+* Self revives in solo are active whenever the player has at least 1 perk
 * 100% backwards speed, strafe speed, and sprint strafe speed
 * Can dive again right away after just diving
 * Can move after diving quicker
@@ -84,7 +84,6 @@
 ### Quick Revive
 * No longer automatically powered on in solo
 * Increased cost in solo from 500 to 1500
-* No longer gives an additional self revive in solo
 * Decreases normal health regeneration delay from 2 seconds to 1.5 seconds
 * Decreases low health regeneration delay from 4 seconds to 3 seconds
 * Increases health regeneration rate from 100 health per second to 125 health per second
