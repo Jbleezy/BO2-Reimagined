@@ -1969,14 +1969,14 @@ buildbuildables()
 	{
 		if(level.scr_zm_map_start_location == "transit")
 		{
-			buildbuildable( "powerswitch" );
-			buildbuildable( "pap" );
 			buildbuildable( "turbine" );
 			buildbuildable( "electric_trap" );
 			buildbuildable( "turret" );
 			buildbuildable( "riotshield_zm" );
 			buildbuildable( "jetgun_zm" );
-			buildbuildable( "sq_common" );
+			buildbuildable( "powerswitch", 1 );
+			buildbuildable( "pap", 1 );
+			buildbuildable( "sq_common", 1 );
 
 			// power switch is not showing up from forced build
 			show_powerswitch();
@@ -1985,19 +1985,21 @@ buildbuildables()
 		{
 			buildbuildable( "slipgun_zm" );
 			buildbuildable( "springpad_zm" );
-			buildbuildable( "sq_common" );
+			buildbuildable( "sq_common", 1 );
 		}
 		else if(level.scr_zm_map_start_location == "processing")
 		{
 			level waittill( "buildables_setup" ); // wait for buildables to randomize
 			wait 0.05;
 
+			level.buildables_available = array("subwoofer_zm", "springpad_zm", "headchopper_zm");
+
 			removebuildable( "keys_zm" );
-			removebuildable( "turbine" );
-			buildbuildable( "springpad_zm" );
+			buildbuildable( "turbine" );
 			buildbuildable( "subwoofer_zm" );
+			buildbuildable( "springpad_zm" );
 			buildbuildable( "headchopper_zm" );
-			buildbuildable( "sq_common" );
+			buildbuildable( "sq_common", 1 );
 		}
 	}
 	else
@@ -2007,13 +2009,18 @@ buildbuildables()
 			flag_wait( "initial_blackscreen_passed" ); // wait for buildables to be built
 			wait 1;
 
-			removebuildableafterbuilt( "turbine" );
+			removebuildable( "turbine", 1 );
 		}
 	}
 }
 
-buildbuildable( buildable )
+buildbuildable( buildable, craft )
 {
+	if (!isDefined(craft))
+	{
+		craft = 0;
+	}
+
 	player = get_players()[ 0 ];
 	foreach (stub in level.buildable_stubs)
 	{
@@ -2021,49 +2028,524 @@ buildbuildable( buildable )
 		{
 			if ( isDefined( buildable ) || stub.persistent != 3 )
 			{
-				stub maps/mp/zombies/_zm_buildables::buildablestub_finish_build( player );
-				stub maps/mp/zombies/_zm_buildables::buildablestub_remove();
+				if (craft)
+				{
+					stub maps/mp/zombies/_zm_buildables::buildablestub_finish_build( player );
+					stub maps/mp/zombies/_zm_buildables::buildablestub_remove();
+					stub.model notsolid();
+					stub.model show();
+				}
+				else
+				{
+					equipname = stub get_equipname();
+					level.zombie_buildables[stub.equipname].hint = "Hold ^3[{+activate}]^7 to craft " + equipname;
+					stub.prompt_and_visibility_func = ::buildabletrigger_update_prompt;
+				}
+
+				i = 0;
 				foreach (piece in stub.buildablezone.pieces)
 				{
 					piece maps/mp/zombies/_zm_buildables::piece_unspawn();
+					if (!craft && i > 0)
+					{
+						stub.buildablezone maps/mp/zombies/_zm_buildables::buildable_set_piece_built(piece);
+					}
+					i++;
 				}
-				stub.model notsolid();
-				stub.model show();
+
 				return;
 			}
 		}
 	}
 }
 
-removebuildable( buildable )
+get_equipname()
 {
-	foreach (stub in level.buildable_stubs)
+	if (self.equipname == "turbine")
 	{
-		if ( !isDefined( buildable ) || stub.equipname == buildable )
+		return "Turbine";
+	}
+	else if (self.equipname == "turret")
+	{
+		return "Turret";
+	}
+	else if (self.equipname == "electric_trap")
+	{
+		return "Electric Trap";
+	}
+	else if (self.equipname == "riotshield_zm")
+	{
+		return "Zombie Shield";
+	}
+	else if (self.equipname == "jetgun_zm")
+	{
+		return "Jet Gun";
+	}
+	else if (self.equipname == "slipgun_zm")
+	{
+		return "Sliquifier";
+	}
+	else if (self.equipname == "subwoofer_zm")
+	{
+		return "Subsurface Resonator";
+	}
+	else if (self.equipname == "springpad_zm")
+	{
+		return "Trample Steam";
+	}
+	else if (self.equipname == "headchopper_zm")
+	{
+		return "Head Chopper";
+	}
+}
+
+buildabletrigger_update_prompt( player )
+{
+	can_use = 0;
+	if (isDefined(level.buildablepools))
+	{
+		can_use = self.stub pooledbuildablestub_update_prompt( player, self );
+	}
+	else
+	{
+		can_use = self.stub buildablestub_update_prompt( player, self );
+	}
+	
+	self sethintstring( self.stub.hint_string );
+	if ( isDefined( self.stub.cursor_hint ) )
+	{
+		if ( self.stub.cursor_hint == "HINT_WEAPON" && isDefined( self.stub.cursor_hint_weapon ) )
 		{
-			if ( isDefined( buildable ) || stub.persistent != 3 )
+			self setcursorhint( self.stub.cursor_hint, self.stub.cursor_hint_weapon );
+		}
+		else
+		{
+			self setcursorhint( self.stub.cursor_hint );
+		}
+	}
+	return can_use;
+}
+
+buildablestub_update_prompt( player, trigger )
+{
+	if ( !self maps/mp/zombies/_zm_buildables::anystub_update_prompt( player ) )
+	{
+		return 0;
+	}
+
+	if ( isDefined( self.buildablestub_reject_func ) )
+	{
+		rval = self [[ self.buildablestub_reject_func ]]( player );
+		if ( rval )
+		{
+			return 0;
+		}
+	}
+
+	if ( isDefined( self.custom_buildablestub_update_prompt ) && !( self [[ self.custom_buildablestub_update_prompt ]]( player ) ) )
+	{
+		return 0;
+	}
+
+	self.cursor_hint = "HINT_NOICON";
+	self.cursor_hint_weapon = undefined;
+	if ( isDefined( self.built ) && !self.built )
+	{
+		slot = self.buildablestruct.buildable_slot;
+		piece = self.buildablezone.pieces[0];
+		player maps/mp/zombies/_zm_buildables::player_set_buildable_piece(piece, slot);
+
+		if ( !isDefined( player maps/mp/zombies/_zm_buildables::player_get_buildable_piece( slot ) ) )
+		{
+			if ( isDefined( level.zombie_buildables[ self.equipname ].hint_more ) )
 			{
-				stub maps/mp/zombies/_zm_buildables::buildablestub_remove();
-				foreach (piece in stub.buildablezone.pieces)
+				self.hint_string = level.zombie_buildables[ self.equipname ].hint_more;
+			}
+			else
+			{
+				self.hint_string = &"ZOMBIE_BUILD_PIECE_MORE";
+			}
+			return 0;
+		}
+		else
+		{
+			if ( !self.buildablezone maps/mp/zombies/_zm_buildables::buildable_has_piece( player maps/mp/zombies/_zm_buildables::player_get_buildable_piece( slot ) ) )
+			{
+				if ( isDefined( level.zombie_buildables[ self.equipname ].hint_wrong ) )
 				{
-					piece maps/mp/zombies/_zm_buildables::piece_unspawn();
+					self.hint_string = level.zombie_buildables[ self.equipname ].hint_wrong;
 				}
+				else
+				{
+					self.hint_string = &"ZOMBIE_BUILD_PIECE_WRONG";
+				}
+				return 0;
+			}
+			else
+			{
+				if ( isDefined( level.zombie_buildables[ self.equipname ].hint ) )
+				{
+					self.hint_string = level.zombie_buildables[ self.equipname ].hint;
+				}
+				else
+				{
+					self.hint_string = "Missing buildable hint";
+				}
+			}
+		}
+	}
+	else
+	{
+		if ( self.persistent == 1 )
+		{
+			if ( maps/mp/zombies/_zm_equipment::is_limited_equipment( self.weaponname ) && maps/mp/zombies/_zm_equipment::limited_equipment_in_use( self.weaponname ) )
+			{
+				self.hint_string = &"ZOMBIE_BUILD_PIECE_ONLY_ONE";
+				return 0;
+			}
+
+			if ( player has_player_equipment( self.weaponname ) )
+			{
+				self.hint_string = &"ZOMBIE_BUILD_PIECE_HAVE_ONE";
+				return 0;
+			}
+
+			self.hint_string = self.trigger_hintstring;
+		}
+		else if ( self.persistent == 2 )
+		{
+			if ( !maps/mp/zombies/_zm_weapons::limited_weapon_below_quota( self.weaponname, undefined ) )
+			{
+				self.hint_string = &"ZOMBIE_GO_TO_THE_BOX_LIMITED";
+				return 0;
+			}
+			else
+			{
+				if ( isDefined( self.bought ) && self.bought )
+				{
+					self.hint_string = &"ZOMBIE_GO_TO_THE_BOX";
+					return 0;
+				}
+			}
+			self.hint_string = self.trigger_hintstring;
+		}
+		else
+		{
+			self.hint_string = "";
+			return 0;
+		}
+	}
+	return 1;
+}
+
+pooledbuildablestub_update_prompt( player, trigger )
+{
+	if ( !self maps/mp/zombies/_zm_buildables::anystub_update_prompt( player ) )
+	{
+		return 0;
+	}
+
+	if ( isDefined( self.custom_buildablestub_update_prompt ) && !( self [[ self.custom_buildablestub_update_prompt ]]( player ) ) )
+	{
+		return 0;
+	}
+
+	self.cursor_hint = "HINT_NOICON";
+	self.cursor_hint_weapon = undefined;
+	if ( isDefined( self.built ) && !self.built )
+	{
+		trigger thread buildablestub_build_succeed();
+
+		if (level.buildables_available.size > 1)
+		{
+			self thread choose_open_buildable(player);
+		}
+
+		slot = self.buildablestruct.buildable_slot;
+
+		if (!isDefined(player maps/mp/zombies/_zm_buildables::player_get_buildable_piece(slot)))
+		{
+			if (self.buildables_available_index > level.buildables_available.size)
+			{
+				self.buildables_available_index = 0;
+			}
+
+			foreach (stub in level.buildable_stubs)
+			{
+				if (stub.buildablezone.buildable_name == level.buildables_available[self.buildables_available_index])
+				{
+					piece = stub.buildablezone.pieces[0];
+					break;
+				}
+			}
+
+			player maps/mp/zombies/_zm_buildables::player_set_buildable_piece(piece, slot);
+		}
+
+		piece = player maps/mp/zombies/_zm_buildables::player_get_buildable_piece(slot);
+
+		if ( !isDefined( piece ) )
+		{
+			if ( isDefined( level.zombie_buildables[ self.equipname ].hint_more ) )
+			{
+				self.hint_string = level.zombie_buildables[ self.equipname ].hint_more;
+			}
+			else
+			{
+				self.hint_string = &"ZOMBIE_BUILD_PIECE_MORE";
+			}
+
+			if ( isDefined( level.custom_buildable_need_part_vo ) )
+			{
+				player thread [[ level.custom_buildable_need_part_vo ]]();
+			}
+			return 0;
+		}
+		else
+		{
+			if ( isDefined( self.bound_to_buildable ) && !self.bound_to_buildable.buildablezone maps/mp/zombies/_zm_buildables::buildable_has_piece( piece ) )
+			{
+				if ( isDefined( level.zombie_buildables[ self.bound_to_buildable.equipname ].hint_wrong ) )
+				{
+					self.hint_string = level.zombie_buildables[ self.bound_to_buildable.equipname ].hint_wrong;
+				}
+				else
+				{
+					self.hint_string = &"ZOMBIE_BUILD_PIECE_WRONG";
+				}
+
+				if ( isDefined( level.custom_buildable_wrong_part_vo ) )
+				{
+					player thread [[ level.custom_buildable_wrong_part_vo ]]();
+				}
+				return 0;
+			}
+			else
+			{
+				if ( !isDefined( self.bound_to_buildable ) && !self.buildable_pool pooledbuildable_has_piece( piece ) )
+				{
+					if ( isDefined( level.zombie_buildables[ self.equipname ].hint_wrong ) )
+					{
+						self.hint_string = level.zombie_buildables[ self.equipname ].hint_wrong;
+					}
+					else
+					{
+						self.hint_string = &"ZOMBIE_BUILD_PIECE_WRONG";
+					}
+					return 0;
+				}
+				else
+				{
+					if ( isDefined( self.bound_to_buildable ) )
+					{
+						if ( isDefined( level.zombie_buildables[ piece.buildablename ].hint ) )
+						{
+							self.hint_string = level.zombie_buildables[ piece.buildablename ].hint;
+						}
+						else
+						{
+							self.hint_string = "Missing buildable hint";
+						}
+					}
+					
+					if ( isDefined( level.zombie_buildables[ piece.buildablename ].hint ) )
+					{
+						self.hint_string = level.zombie_buildables[ piece.buildablename ].hint;
+					}
+					else
+					{
+						self.hint_string = "Missing buildable hint";
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		return trigger [[ self.original_prompt_and_visibility_func ]]( player );
+	}
+	return 1;
+}
+
+pooledbuildable_has_piece( piece )
+{
+	return isDefined( self pooledbuildable_stub_for_piece( piece ) );
+}
+
+pooledbuildable_stub_for_piece( piece )
+{
+	foreach (stub in self.stubs)
+	{
+		if ( !isDefined( stub.bound_to_buildable ) )
+		{
+			if ( stub.buildablezone maps/mp/zombies/_zm_buildables::buildable_has_piece( piece ) )
+			{
+				return stub;
+			}
+		}
+	}
+
+	return undefined;
+}
+
+choose_open_buildable( player )
+{
+	self endon( "kill_choose_open_buildable" );
+
+	n_playernum = player getentitynumber();
+	b_got_input = 1;
+	hinttexthudelem = newclienthudelem( player );
+	hinttexthudelem.alignx = "center";
+	hinttexthudelem.aligny = "middle";
+	hinttexthudelem.horzalign = "center";
+	hinttexthudelem.vertalign = "bottom";
+	hinttexthudelem.y = -100;
+	hinttexthudelem.foreground = 1;
+	hinttexthudelem.font = "default";
+	hinttexthudelem.fontscale = 1;
+	hinttexthudelem.alpha = 1;
+	hinttexthudelem.color = ( 1, 1, 1 );
+	hinttexthudelem settext( "Press [{+actionslot 1}] or [{+actionslot 2}] to change item" );
+
+	if (!isDefined(player.buildables_available_index))
+	{
+		player.buildables_available_index = 0;
+	}
+
+	while ( isDefined( self.playertrigger[ n_playernum ] ) && !self.built )
+	{
+		if (!player isTouching(self.playertrigger[n_playernum]))
+		{
+			hinttexthudelem.alpha = 0;
+			wait 0.05;
+			continue;
+		}
+
+		hinttexthudelem.alpha = 1;
+
+		if ( player actionslotonebuttonpressed() )
+		{
+			player.buildables_available_index++;
+			b_got_input = 1;
+		}
+		else
+		{
+			if ( player actionslottwobuttonpressed() )
+			{
+				player.buildables_available_index--;
+
+				b_got_input = 1;
+			}
+		}
+		if ( player.buildables_available_index >= level.buildables_available.size )
+		{
+			player.buildables_available_index = 0;
+		}
+		else
+		{
+			if ( player.buildables_available_index < 0 )
+			{
+				player.buildables_available_index = level.buildables_available.size - 1;
+			}
+		}
+
+		if ( b_got_input )
+		{
+			piece = undefined;
+			foreach (stub in level.buildable_stubs)
+			{
+				if (stub.buildablezone.buildable_name == level.buildables_available[player.buildables_available_index])
+				{
+					piece = stub.buildablezone.pieces[0];
+					break;
+				}
+			}
+			slot = self.buildablestruct.buildable_slot;
+			player maps/mp/zombies/_zm_buildables::player_set_buildable_piece(piece, slot);
+
+			self.equipname = level.buildables_available[player.buildables_available_index];
+			self.hint_string = level.zombie_buildables[self.equipname].hint;
+			self.playertrigger[n_playernum] sethintstring(self.hint_string);
+			b_got_input = 0;
+		}
+
+		if ( player is_player_looking_at( self.playertrigger[n_playernum].origin, 0.76 ) )
+		{
+			hinttexthudelem.alpha = 1;
+		}
+		else
+		{
+			hinttexthudelem.alpha = 0;
+		}
+
+		wait 0.05;
+	}
+
+	hinttexthudelem destroy();
+}
+
+buildablestub_build_succeed()
+{
+	self notify("buildablestub_build_succeed");
+	self endon("buildablestub_build_succeed");
+
+	self waittill( "build_succeed" );
+
+	self.stub maps/mp/zombies/_zm_buildables::buildablestub_remove();
+	arrayremovevalue(level.buildables_available, self.stub.buildablezone.buildable_name);
+	if (level.buildables_available.size == 0)
+	{
+		foreach (stub in level.buildable_stubs)
+		{
+			switch(stub.equipname)
+			{
+				case "turbine":
+				case "subwoofer_zm":
+				case "springpad_zm":
+				case "headchopper_zm":
+					maps/mp/zombies/_zm_unitrigger::unregister_unitrigger(stub);
+					break;
+			}
+		}
+	}
+}
+
+removebuildable( buildable, after_built )
+{
+	if (!isDefined(after_built))
+	{
+		after_built = 0;
+	}
+
+	if (after_built)
+	{
+		foreach (stub in level._unitriggers.trigger_stubs)
+		{
+			if(IsDefined(stub.equipname) && stub.equipname == buildable)
+			{
+				stub.model hide();
 				maps/mp/zombies/_zm_unitrigger::unregister_unitrigger( stub );
 				return;
 			}
 		}
 	}
-}
-
-removebuildableafterbuilt( buildable )
-{
-	foreach (stub in level._unitriggers.trigger_stubs)
+	else
 	{
-		if(IsDefined(stub.equipname) && stub.equipname == buildable)
+		foreach (stub in level.buildable_stubs)
 		{
-			stub.model hide();
-			maps/mp/zombies/_zm_unitrigger::unregister_unitrigger( stub );
-			return;
+			if ( !isDefined( buildable ) || stub.equipname == buildable )
+			{
+				if ( isDefined( buildable ) || stub.persistent != 3 )
+				{
+					stub maps/mp/zombies/_zm_buildables::buildablestub_remove();
+					foreach (piece in stub.buildablezone.pieces)
+					{
+						piece maps/mp/zombies/_zm_buildables::piece_unspawn();
+					}
+					maps/mp/zombies/_zm_unitrigger::unregister_unitrigger( stub );
+					return;
+				}
+			}
 		}
 	}
 }

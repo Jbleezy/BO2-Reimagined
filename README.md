@@ -124,8 +124,7 @@
 * Removed
 
 ## Buildables
-* Automatically crafted (Tranzit, Die Rise, Buried)
-* Parts automatically picked up (Mob of the Dead, Origins)
+* Parts automatically picked up
 * Zombies no longer attack buildables (except Zombie Shield)
 
 ### Electric Trap
@@ -154,6 +153,8 @@
 
 ### Tranzit
 * Any door that requires a Turbine to open is automatically open whenever the power is on
+* Power switch automatically crafted
+* Pack-a-Punch automatically crafted
 * Navcard table automatically crafted
 
 #### Town
