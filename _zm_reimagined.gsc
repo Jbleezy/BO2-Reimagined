@@ -178,6 +178,7 @@ post_all_players_spawned()
 
 	level thread buried_deleteslothbarricades();
 	level thread buried_enable_fountain_transport();
+	level thread buried_disable_ghost_free_perk_on_damage();
 
 	level thread wallbuy_dynamic_increase_trigger_radius();
 
@@ -4471,6 +4472,37 @@ buried_enable_fountain_transport()
 	wait 1;
 
 	level notify( "courtyard_fountain_open" );
+}
+
+buried_disable_ghost_free_perk_on_damage()
+{
+	if(!(is_classic() && level.scr_zm_map_start_location == "processing"))
+	{
+		return;
+	}
+
+	while (1)
+	{
+		buried_disable_ghost_free_perk();
+	}
+}
+
+buried_disable_ghost_free_perk()
+{
+	level endon( "ghost_round_end" );
+
+	flag_wait( "spawn_ghosts" );
+
+	level waittill_any("ghost_drained_player", "ghost_damaged_player");
+
+	while (!isDefined(level.ghost_round_last_ghost_origin))
+	{
+		wait 0.05;
+	}
+
+	level.ghost_round_last_ghost_origin = undefined;
+
+	flag_waitopen( "spawn_ghosts" );
 }
 
 vulture_disable_stink_while_standing()
