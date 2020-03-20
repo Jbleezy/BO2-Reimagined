@@ -146,6 +146,7 @@ post_all_players_spawned()
 	prison_tower_trap_changes();
 
 	buried_turn_power_on();
+	buried_deleteslothbarricades();
 
 	borough_move_quickrevive_machine();
 	borough_move_speedcola_machine();
@@ -176,7 +177,6 @@ post_all_players_spawned()
 
 	level thread prison_auto_refuel_plane();
 
-	level thread buried_deleteslothbarricades();
 	level thread buried_enable_fountain_transport();
 	level thread buried_disable_ghost_free_perk_on_damage();
 
@@ -2264,24 +2264,21 @@ pooledbuildablestub_update_prompt( player, trigger )
 
 		slot = self.buildablestruct.buildable_slot;
 
-		if (!isDefined(player maps/mp/zombies/_zm_buildables::player_get_buildable_piece(slot)))
+		if (self.buildables_available_index >= level.buildables_available.size)
 		{
-			if (self.buildables_available_index > level.buildables_available.size)
-			{
-				self.buildables_available_index = 0;
-			}
-
-			foreach (stub in level.buildable_stubs)
-			{
-				if (stub.buildablezone.buildable_name == level.buildables_available[self.buildables_available_index])
-				{
-					piece = stub.buildablezone.pieces[0];
-					break;
-				}
-			}
-
-			player maps/mp/zombies/_zm_buildables::player_set_buildable_piece(piece, slot);
+			self.buildables_available_index = 0;
 		}
+
+		foreach (stub in level.buildable_stubs)
+		{
+			if (stub.buildablezone.buildable_name == level.buildables_available[self.buildables_available_index])
+			{
+				piece = stub.buildablezone.pieces[0];
+				break;
+			}
+		}
+
+		player maps/mp/zombies/_zm_buildables::player_set_buildable_piece(piece, slot);
 
 		piece = player maps/mp/zombies/_zm_buildables::player_get_buildable_piece(slot);
 
@@ -2408,9 +2405,9 @@ choose_open_buildable( player )
 	hinttexthudelem.color = ( 1, 1, 1 );
 	hinttexthudelem settext( "Press [{+actionslot 1}] or [{+actionslot 2}] to change item" );
 
-	if (!isDefined(player.buildables_available_index))
+	if (!isDefined(self.buildables_available_index))
 	{
-		player.buildables_available_index = 0;
+		self.buildables_available_index = 0;
 	}
 
 	while ( isDefined( self.playertrigger[ n_playernum ] ) && !self.built )
@@ -2426,27 +2423,28 @@ choose_open_buildable( player )
 
 		if ( player actionslotonebuttonpressed() )
 		{
-			player.buildables_available_index++;
+			self.buildables_available_index++;
 			b_got_input = 1;
 		}
 		else
 		{
 			if ( player actionslottwobuttonpressed() )
 			{
-				player.buildables_available_index--;
+				self.buildables_available_index--;
 
 				b_got_input = 1;
 			}
 		}
-		if ( player.buildables_available_index >= level.buildables_available.size )
+
+		if ( self.buildables_available_index >= level.buildables_available.size )
 		{
-			player.buildables_available_index = 0;
+			self.buildables_available_index = 0;
 		}
 		else
 		{
-			if ( player.buildables_available_index < 0 )
+			if ( self.buildables_available_index < 0 )
 			{
-				player.buildables_available_index = level.buildables_available.size - 1;
+				self.buildables_available_index = level.buildables_available.size - 1;
 			}
 		}
 
@@ -2455,7 +2453,7 @@ choose_open_buildable( player )
 			piece = undefined;
 			foreach (stub in level.buildable_stubs)
 			{
-				if (stub.buildablezone.buildable_name == level.buildables_available[player.buildables_available_index])
+				if (stub.buildablezone.buildable_name == level.buildables_available[self.buildables_available_index])
 				{
 					piece = stub.buildablezone.pieces[0];
 					break;
@@ -2464,7 +2462,7 @@ choose_open_buildable( player )
 			slot = self.buildablestruct.buildable_slot;
 			player maps/mp/zombies/_zm_buildables::player_set_buildable_piece(piece, slot);
 
-			self.equipname = level.buildables_available[player.buildables_available_index];
+			self.equipname = level.buildables_available[self.buildables_available_index];
 			self.hint_string = level.zombie_buildables[self.equipname].hint;
 			self.playertrigger[n_playernum] sethintstring(self.hint_string);
 			b_got_input = 0;
