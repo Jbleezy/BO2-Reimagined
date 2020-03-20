@@ -68,6 +68,9 @@ onplayerspawned()
 			self thread tombstone_save_perks();
 			self thread tombstone_restore_perks();
 
+			self thread additionalprimaryweapon_save_weapons();
+			self thread additionalprimaryweapon_restore_weapons();
+
 			self thread electric_cherry_unlimited();
 
 			self thread vulture_disable_stink_while_standing();
@@ -3659,18 +3662,11 @@ tombstone_save_perks()
 			else
 			{
 				self.a_saved_perks = self maps/mp/zombies/_zm_perks::get_perk_array( 0 );
-			}
-
-			self.a_saved_primaries = self getweaponslistprimaries();
-			self.a_saved_primaries_weapons = [];
-			foreach (weapon in self.a_saved_primaries)
-			{
-				self.a_saved_primaries_weapons[self.a_saved_primaries_weapons.size] = maps/mp/zombies/_zm_weapons::get_player_weapondata( self, weapon );
-			}
+			}	
 		}
 		else
 		{
-			self tombstone_reset_perks();
+			self.a_saved_perks = undefined;
 		}
 	}
 }
@@ -3683,7 +3679,6 @@ tombstone_restore_perks()
 	{
 		self waittill( "player_revived" );
 
-		player_has_mule_kick = 0;
 		discard_tombstone = 0;
 		if ( isDefined( self.a_saved_perks ) && self.a_saved_perks.size >= 2 )
 		{
@@ -3711,11 +3706,6 @@ tombstone_restore_perks()
 					continue;
 				}
 
-				if ( perk == "specialty_additionalprimaryweapon" )
-				{
-					player_has_mule_kick = 1;
-				}
-
 				if ( !(perk == "specialty_quickrevive" && flag("solo_game")) )
 				{
 					if ( self hasperk( perk ) )
@@ -3731,49 +3721,88 @@ tombstone_restore_perks()
 			}
 			self.a_restoring_perks = undefined;
 		}
-		if ( player_has_mule_kick )
-		{
-			a_current_weapons = self getweaponslistprimaries();
-			i = 0;
-			while ( i < self.a_saved_primaries_weapons.size )
-			{
-				saved_weapon = self.a_saved_primaries_weapons[ i ];
-				found = 0;
-				j = 0;
-				while ( j < a_current_weapons.size )
-				{
-					current_weapon = a_current_weapons[ j ];
-					if ( current_weapon == saved_weapon[ "name" ] )
-					{
-						found = 1;
-						break;
-					}
-					else
-					{
-						j++;
-					}
-				}
-				if ( found == 0 )
-				{
-					self maps/mp/zombies/_zm_weapons::weapondata_give( self.a_saved_primaries_weapons[ i ] );
-					self switchtoweapon( a_current_weapons[ 0 ] );
-					break;
-				}
-				else
-				{
-					i++;
-				}
-			}
-		}
-		self tombstone_reset_perks();
+
+		self.a_saved_perks = undefined;
 	}
 }
 
-tombstone_reset_perks()
+additionalprimaryweapon_save_weapons()
 {
-	self.a_saved_perks = undefined;
-	self.a_saved_primaries = undefined;
-	self.a_saved_primaries_weapons = undefined;
+	self endon("disconnect");
+
+	while (1)
+	{
+		if (!self hasPerk("specialty_additionalprimaryweapon"))
+		{
+			self waittill("perk_acquired");
+			wait 0.05;
+		}
+
+		if (self hasPerk("specialty_additionalprimaryweapon"))
+		{
+			primaries = self getweaponslistprimaries();
+			if (primaries.size >= 3)
+			{
+				weapon = primaries[primaries.size - 1];
+				self.a_saved_weapon = maps/mp/zombies/_zm_weapons::get_player_weapondata(self, weapon);
+			}
+			else
+			{
+				self.a_saved_weapon = undefined;
+			}
+		}
+
+		wait 0.05;
+	}
+}
+
+additionalprimaryweapon_restore_weapons()
+{
+	self endon("disconnect");
+
+	while (1)
+	{
+		self waittill("perk_acquired");
+
+		if (isDefined(self.a_saved_weapon) && self hasPerk("specialty_additionalprimaryweapon"))
+		{
+			pap_triggers = getentarray( "specialty_weapupgrade", "script_noteworthy" );
+
+			give_wep = 1;
+			if ( isDefined( self ) && self maps/mp/zombies/_zm_weapons::has_weapon_or_upgrade( self.a_saved_weapon["name"] ) )
+			{
+				give_wep = 0;
+			}
+			else if ( !maps/mp/zombies/_zm_weapons::limited_weapon_below_quota( self.a_saved_weapon["name"], self, pap_triggers ) )
+			{
+				give_wep = 0;
+			}
+			else if ( !self maps/mp/zombies/_zm_weapons::player_can_use_content( self.a_saved_weapon["name"] ) )
+			{
+				give_wep = 0;
+			}
+			else if ( isDefined( level.custom_magic_box_selection_logic ) )
+			{
+				if ( !( [[ level.custom_magic_box_selection_logic ]]( self.a_saved_weapon["name"], self, pap_triggers ) ) )
+				{
+					give_wep = 0;
+				}
+			}
+			else if ( isDefined( self ) && isDefined( level.special_weapon_magicbox_check ) )
+			{
+				give_wep = self [[ level.special_weapon_magicbox_check ]]( self.a_saved_weapon["name"] );
+			}
+
+			if (give_wep)
+			{
+				current_wep = self getCurrentWeapon();
+				self maps/mp/zombies/_zm_weapons::weapondata_give(self.a_saved_weapon);
+				self switchToWeapon(current_wep);
+			}
+
+			self.a_saved_weapon = undefined;
+		}
+	}
 }
 
 electric_cherry_unlimited()

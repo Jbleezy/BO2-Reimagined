@@ -102,6 +102,9 @@
 * Decreased sprint recovery time
 * Zombie heads always gib when killed
 
+### Mule Kick
+* Additional weapon is given back when perk is repurchased
+
 ### Tombstone Soda
 * Added in solo
 * Players keep all other perks when revived
