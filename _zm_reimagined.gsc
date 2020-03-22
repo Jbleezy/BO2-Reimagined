@@ -50,6 +50,7 @@ onplayerspawned()
 			self tomb_give_shovel();
 
 			//self thread enemy_counter_hud();
+			//self thread timer_hud();
 			self thread health_bar_hud();
 			self thread zone_hud();
 
@@ -297,6 +298,118 @@ enemy_counter_hud()
 
 		wait 0.05;
 	}
+}
+
+timer_hud()
+{
+	self endon("disconnect");
+
+	self thread round_timer_hud();
+
+	timer_hud = newClientHudElem(self);
+	timer_hud.alignx = "right";
+	timer_hud.aligny = "top";
+	timer_hud.horzalign = "user_right";
+	timer_hud.vertalign = "user_top";
+	timer_hud.x -= 5;
+	timer_hud.y += 2;
+	timer_hud.fontscale = 1.4;
+	timer_hud.alpha = 0;
+	timer_hud.color = ( 1, 1, 1 );
+	timer_hud.hidewheninmenu = 1;
+
+	timer_text = "Time: ";
+	timer_secs = 0;
+
+	flag_wait( "initial_blackscreen_passed" );
+	
+	timer_hud.alpha = 1;
+	while (1)
+	{
+		time = to_mins_short(timer_secs);
+		timer_hud setText(timer_text + time);
+
+		wait 1;
+
+		timer_secs++;
+	}
+}
+
+round_timer_hud()
+{
+	self endon("disconnect");
+
+	round_timer_hud = newClientHudElem(self);
+	round_timer_hud.alignx = "right";
+	round_timer_hud.aligny = "top";
+	round_timer_hud.horzalign = "user_right";
+	round_timer_hud.vertalign = "user_top";
+	round_timer_hud.x -= 5;
+	round_timer_hud.y += 17;
+	round_timer_hud.fontscale = 1.4;
+	round_timer_hud.alpha = 0;
+	round_timer_hud.color = ( 1, 1, 1 );
+	round_timer_hud.hidewheninmenu = 1;
+
+	round_timer_text = "Round Time: ";
+	total_timer_text = "Total Time: ";
+	round_timer_secs = 0;
+
+	flag_wait( "initial_blackscreen_passed" );
+
+	round_timer_hud.alpha = 1;
+	while (1)
+	{
+		round_time = to_mins_short(round_timer_secs);
+		round_timer_hud setText(round_timer_text + round_time);
+
+		wait 1;
+
+		round_timer_secs++;
+	}
+}
+
+to_mins_short(seconds)
+{
+	hours = 0;
+	minutes = 0;
+	if ( seconds > 59 )
+	{
+		minutes = int( seconds / 60 );
+		seconds = int( seconds * 1000 ) % 60000;
+		seconds *= 0.001;
+		if ( minutes > 59 )
+		{
+			hours = int( minutes / 60 );
+			minutes = int( minutes * 1000 ) % 60000;
+			minutes *= 0.001;
+		}
+	}
+	
+	if ( hours < 10 && hours > 0 )
+	{
+		hours = "0" + hours;
+	}
+	if ( minutes < 10 && minutes > 0 )
+	{
+		minutes = "0" + minutes;
+	}
+	seconds = int( seconds );
+	if ( seconds < 10 )
+	{
+		seconds = "0" + seconds;
+	}
+
+	comined = "";
+	if (hours > 0)
+	{
+		combined = "" + hours + ":" + minutes + ":" + seconds;
+	}
+	else
+	{
+		combined = "" + minutes + ":" + seconds;
+	}
+	return combined;
 }
 
 zone_hud()
@@ -5287,18 +5400,6 @@ test()
 {
 	while(1)
 	{
-		i = 0;
-		foreach (craftable in level.a_uts_craftables)
-		{
-			if (isDefined(craftable.origin) && Distance(craftable.origin, self.origin) < 128)
-			{
-				i++;
-				//iprintln(craftable.equipname);
-			}
-		}
-
-		iprintln(i);
-
 		wait 1;
 	}
 }
