@@ -32,6 +32,7 @@
 
 ## HUD
 * Health bar displayed on top center of screen
+* Enemy counter displayed on top left of screen
 * Current zone displayed on bottom left of screen
 
 ## Zombies

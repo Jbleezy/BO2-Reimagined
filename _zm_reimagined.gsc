@@ -50,6 +50,7 @@ onplayerspawned()
 			self tomb_give_shovel();
 
 			self thread health_bar_hud();
+			self thread enemy_counter_hud();
 			self thread zone_hud();
 
 			self thread fall_velocity_check();
@@ -91,8 +92,6 @@ onplayerspawned()
 
 		self setperk( "specialty_unlimitedsprint" );
 		self setperk( "specialty_fastmantle" );
-
-		self tombstone_reset_perks();
 
 		self thread playerhealthregen();
 	}
@@ -265,6 +264,41 @@ health_bar_hud()
 	}
 }
 
+enemy_counter_hud()
+{
+	self endon("disconnect");
+
+	enemy_counter_hud = newClientHudElem(self);
+	enemy_counter_hud.alignx = "left";
+	enemy_counter_hud.aligny = "top";
+	enemy_counter_hud.horzalign = "user_left";
+	enemy_counter_hud.vertalign = "user_top";
+	enemy_counter_hud.x += 5;
+	enemy_counter_hud.y += 2;
+	enemy_counter_hud.fontscale = 1.4;
+	enemy_counter_hud.alpha = 0;
+	enemy_counter_hud.color = ( 1, 1, 1 );
+	enemy_counter_hud.hidewheninmenu = 1;
+
+	flag_wait( "initial_blackscreen_passed" );
+
+	text = "Enemies Remaining: ";
+	enemy_counter_hud.alpha = 1;
+	while (1)
+	{
+		enemies = get_round_enemy_array().size + level.zombie_total;
+
+		if (enemies == 0)
+		{
+			enemies = "";
+		}
+
+		enemy_counter_hud setText(text + enemies);
+
+		wait 0.05;
+	}
+}
+
 zone_hud()
 {
 	self endon("disconnect");
@@ -274,7 +308,7 @@ zone_hud()
 	zone_hud.aligny = "bottom";
 	zone_hud.horzalign = "user_left";
 	zone_hud.vertalign = "user_bottom";
-	zone_hud.x += 7;
+	zone_hud.x += 5;
 	if (level.script == "zm_buried")
 	{
 		zone_hud.y -= 125;
