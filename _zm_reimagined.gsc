@@ -49,8 +49,8 @@ onplayerspawned()
 
 			self tomb_give_shovel();
 
+			//self thread enemy_counter_hud();
 			self thread health_bar_hud();
-			self thread enemy_counter_hud();
 			self thread zone_hud();
 
 			self thread fall_velocity_check();
