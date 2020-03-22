@@ -258,7 +258,7 @@ health_bar_hud()
 		}
 
 		health_bar updatebar(self.health / self.maxhealth);
-		health_bar_text settext(self.health);
+		health_bar_text setvalue(self.health);
 
 		wait 0.05;
 	}
