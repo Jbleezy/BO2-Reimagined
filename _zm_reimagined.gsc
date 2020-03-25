@@ -49,8 +49,7 @@ onplayerspawned()
 
 			self tomb_give_shovel();
 
-			//self thread enemy_counter_hud();
-			//self thread timer_hud();
+			self thread enemy_counter_hud();
 			self thread health_bar_hud();
 			self thread zone_hud();
 
@@ -280,10 +279,10 @@ enemy_counter_hud()
 	enemy_counter_hud.alpha = 0;
 	enemy_counter_hud.color = ( 1, 1, 1 );
 	enemy_counter_hud.hidewheninmenu = 1;
+	enemy_counter_hud.label = &"Enemies Remaining: ";
 
 	flag_wait( "initial_blackscreen_passed" );
 
-	text = "Enemies Remaining: ";
 	enemy_counter_hud.alpha = 1;
 	while (1)
 	{
@@ -291,10 +290,12 @@ enemy_counter_hud()
 
 		if (enemies == 0)
 		{
-			enemies = "";
+			enemy_counter_hud setText("");
 		}
-
-		enemy_counter_hud setText(text + enemies);
+		else
+		{
+			enemy_counter_hud setValue(enemies);
+		}
 
 		wait 0.05;
 	}
