@@ -45,8 +45,6 @@ onplayerspawned()
 			self bank_clear_account_value();
 			self weapon_locker_clear_stored_weapondata();
 
-			self disable_player_pers_upgrades();
-
 			self tomb_give_shovel();
 
 			self thread enemy_counter_hud();
@@ -60,6 +58,8 @@ onplayerspawned()
 
 			self thread on_equipment_placed();
 			self thread give_additional_perks();
+
+			self thread disable_player_pers_upgrades();
 
 			//self thread disable_sniper_scope_sway(); // Buried does not load the clientfield
 
@@ -120,8 +120,6 @@ post_all_players_spawned()
 	wallbuy_increase_trigger_radius();
 	wallbuy_location_changes();
 
-	disable_pers_upgrades();
-
 	zone_changes();
 
 	enemies_ignore_equipments();
@@ -163,6 +161,8 @@ post_all_players_spawned()
 
 	level thread buildbuildables();
 	level thread buildcraftables();
+
+	level thread disable_pers_upgrades();
 
 	level thread zombie_health_fix();
 
@@ -342,23 +342,12 @@ round_timer_hud()
 	round_timer_hud.alpha = 0;
 	round_timer_hud.color = ( 1, 1, 1 );
 	round_timer_hud.hidewheninmenu = 1;
-
-	round_timer_text = "Round Time: ";
-	total_timer_text = "Total Time: ";
-	round_timer_secs = 0;
+	round_timer_hud.label = &"Total Time: ";
 
 	flag_wait( "initial_blackscreen_passed" );
 
 	round_timer_hud.alpha = 1;
-	while (1)
-	{
-		round_time = to_mins_short(round_timer_secs);
-		round_timer_hud setText(round_timer_text + round_time);
-
-		wait 1;
-
-		round_timer_secs++;
-	}
+	round_timer_hud setTimerUp(0);
 }
 
 to_mins_short(seconds)
@@ -1801,12 +1790,16 @@ weapon_locker_clear_stored_weapondata()
 
 disable_pers_upgrades()
 {
+	level waittill("initial_disable_player_pers_upgrades");
+
 	level.pers_upgrades_keys = [];
 	level.pers_upgrades = [];
 }
 
 disable_player_pers_upgrades()
 {
+	flag_wait( "initial_blackscreen_passed" );
+
 	if (isDefined(self.pers_upgrades_awarded))
 	{
 		upgrade = getFirstArrayKey(self.pers_upgrades_awarded);
@@ -1832,6 +1825,8 @@ disable_player_pers_upgrades()
 			index++;
 		}
 	}
+
+	level notify("initial_disable_player_pers_upgrades");
 }
 
 disable_carpenter()
