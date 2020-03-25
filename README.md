@@ -32,6 +32,7 @@
 
 ## HUD
 * Enemy counter displayed on top left of screen
+* Timer displayed on top right of screen
 * Health bar displayed on top center of screen
 * Current zone displayed on bottom left of screen
 

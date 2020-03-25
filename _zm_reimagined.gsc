@@ -50,6 +50,7 @@ onplayerspawned()
 			self tomb_give_shovel();
 
 			self thread enemy_counter_hud();
+			self thread timer_hud();
 			self thread health_bar_hud();
 			self thread zone_hud();
 
@@ -305,7 +306,7 @@ timer_hud()
 {
 	self endon("disconnect");
 
-	self thread round_timer_hud();
+	//self thread round_timer_hud();
 
 	timer_hud = newClientHudElem(self);
 	timer_hud.alignx = "right";
@@ -318,22 +319,12 @@ timer_hud()
 	timer_hud.alpha = 0;
 	timer_hud.color = ( 1, 1, 1 );
 	timer_hud.hidewheninmenu = 1;
-
-	timer_text = "Time: ";
-	timer_secs = 0;
+	timer_hud.label = &"Time: ";
 
 	flag_wait( "initial_blackscreen_passed" );
 	
 	timer_hud.alpha = 1;
-	while (1)
-	{
-		time = to_mins_short(timer_secs);
-		timer_hud setText(timer_text + time);
-
-		wait 1;
-
-		timer_secs++;
-	}
+	timer_hud setTimerUp(0);
 }
 
 round_timer_hud()
