@@ -306,7 +306,7 @@ timer_hud()
 {
 	self endon("disconnect");
 
-	//self thread round_timer_hud();
+	self thread round_timer_hud();
 
 	timer_hud = newClientHudElem(self);
 	timer_hud.alignx = "right";
@@ -342,55 +342,38 @@ round_timer_hud()
 	round_timer_hud.alpha = 0;
 	round_timer_hud.color = ( 1, 1, 1 );
 	round_timer_hud.hidewheninmenu = 1;
-	round_timer_hud.label = &"Total Time: ";
+	round_timer_hud.label = &"Round Time: ";
 
 	flag_wait( "initial_blackscreen_passed" );
 
 	round_timer_hud.alpha = 1;
-	round_timer_hud setTimerUp(0);
+
+	while (1)
+	{
+		round_timer_hud setTimerUp(0);
+		start_time = int(getTime() / 1000);
+
+		level waittill( "end_of_round" );
+
+		end_time = int(getTime() / 1000);
+		time = end_time - start_time;
+
+		set_time_frozen(round_timer_hud, time);
+	}
 }
 
-to_mins_short(seconds)
+set_time_frozen(hud, time)
 {
-	hours = 0;
-	minutes = 0;
-	if ( seconds > 59 )
-	{
-		minutes = int( seconds / 60 );
-		seconds = int( seconds * 1000 ) % 60000;
-		seconds *= 0.001;
-		if ( minutes > 59 )
-		{
-			hours = int( minutes / 60 );
-			minutes = int( minutes * 1000 ) % 60000;
-			minutes *= 0.001;
-		}
-	}
-	
-	if ( hours < 10 && hours > 0 )
-	{
-		hours = "0" + hours;
-	}
-	if ( minutes < 10 && minutes > 0 )
-	{
-		minutes = "0" + minutes;
-	}
-	seconds = int( seconds );
-	if ( seconds < 10 )
-	{
-		seconds = "0" + seconds;
-	}
+	level endon( "start_of_round" );
 
-	comined = "";
-	if (hours > 0)
+	time -= .1; // need to set it below the number or it shows the next number
+
+	while (1)
 	{
-		combined = "" + hours + ":" + minutes + ":" + seconds;
+		hud setTimer(time);
+
+		wait 0.5;
 	}
-	else
-	{
-		combined = "" + minutes + ":" + seconds;
-	}
-	return combined;
 }
 
 zone_hud()
