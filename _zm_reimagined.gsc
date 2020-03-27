@@ -72,6 +72,7 @@ onplayerspawned()
 
 			self thread additionalprimaryweapon_save_weapons();
 			self thread additionalprimaryweapon_restore_weapons();
+			self thread additionalprimaryweapon_indicator();
 
 			self thread electric_cherry_unlimited();
 
@@ -3921,6 +3922,46 @@ additionalprimaryweapon_restore_weapons()
 			}
 
 			self.a_saved_weapon = undefined;
+		}
+	}
+}
+
+additionalprimaryweapon_indicator()
+{
+	self endon("disconnect");
+
+	additionalprimaryweapon_indicator_hud = newClientHudElem(self);
+	additionalprimaryweapon_indicator_hud.alignx = "right";
+	additionalprimaryweapon_indicator_hud.aligny = "bottom";
+	additionalprimaryweapon_indicator_hud.horzalign = "user_right";
+	additionalprimaryweapon_indicator_hud.vertalign = "user_bottom";
+	additionalprimaryweapon_indicator_hud.x -= 75;
+	additionalprimaryweapon_indicator_hud.y -= 80;
+	additionalprimaryweapon_indicator_hud.alpha = 0;
+	additionalprimaryweapon_indicator_hud.color = ( 1, 1, 1 );
+	additionalprimaryweapon_indicator_hud.hidewheninmenu = 1;
+	additionalprimaryweapon_indicator_hud setShader("specialty_additionalprimaryweapon_zombies", 24, 24);
+
+	while (1)
+	{
+		self waittill_any("weapon_change", "specialty_additionalprimaryweapon_stop");
+
+		if (!self hasPerk("specialty_additionalprimaryweapon"))
+		{
+			additionalprimaryweapon_indicator_hud fadeOverTime(0.5);
+			additionalprimaryweapon_indicator_hud.alpha = 0;
+			continue;
+		}
+
+		if (isDefined(self.a_saved_weapon) && self getCurrentWeapon() == self.a_saved_weapon["name"])
+		{
+			additionalprimaryweapon_indicator_hud fadeOverTime(0.5);
+			additionalprimaryweapon_indicator_hud.alpha = 1;
+		}
+		else
+		{
+			additionalprimaryweapon_indicator_hud fadeOverTime(0.5);
+			additionalprimaryweapon_indicator_hud.alpha = 0;
 		}
 	}
 }

@@ -105,6 +105,7 @@
 * Zombie heads always gib when killed
 
 ### Mule Kick
+* Added additional weapon indicator
 * Additional weapon is given back when perk is repurchased
 
 ### Tombstone Soda
