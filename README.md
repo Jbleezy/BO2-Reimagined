@@ -149,8 +149,7 @@
 * No longer needs to be powered by a Turbine
 
 ## Bank
-* Amount of points resets each game
-* Removed sharing points with other players
+* Disabled
 
 ## Weapon Locker
 * Stored weapon resets each game

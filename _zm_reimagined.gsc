@@ -116,7 +116,7 @@ post_all_players_spawned()
 
 	disable_carpenter();
 
-	disable_bank_teller();
+	disable_bank();
 
 	wallbuy_increase_trigger_radius();
 	wallbuy_location_changes();
@@ -1718,9 +1718,8 @@ disable_high_round_walkers()
 	level.speed_change_round = undefined;
 }
 
-disable_bank_teller()
+disable_bank()
 {
-	/*
 	for(i = 0; i < level._unitriggers.trigger_stubs.size; i++)
 	{
 		if(IsDefined(level._unitriggers.trigger_stubs[i].targetname))
@@ -1731,7 +1730,6 @@ disable_bank_teller()
 			}
 		}
 	}
-	*/
 
 	level notify( "stop_bank_teller" );
 	bank_teller_dmg_trig = getent( "bank_teller_tazer_trig", "targetname" );
