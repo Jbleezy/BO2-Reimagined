@@ -3327,9 +3327,16 @@ solo_lives_fix()
 
 		if (self hasPerk("specialty_finalstand"))
 		{
+			// fix for Who's Who giving Quick Revive when player hasn't purchased actual Quick Revive
+			if (!self.bought_solo_revive)
+			{
+				self unsetPerk("specialty_quickrevive");
+			}
+
 			self waittill_any("chugabud_effects_cleanup", "specialty_finalstand_stop");
+
+			// fix for Who's Who removing solo revives
 			self.lives = saved_lives;
-			continue;
 		}
 
 		saved_lives = self.lives;
