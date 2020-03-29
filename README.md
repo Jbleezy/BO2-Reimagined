@@ -115,6 +115,9 @@
 * Unlimited time to pick up Tombstone powerup
 * Disabled suicide option when player is down
 
+### Who's Who
+* Revive twice as fast when in Who's Who mode
+
 ### Electric Cherry
 * Removed cooldown after being used multiple times in a row
 

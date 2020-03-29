@@ -67,12 +67,14 @@ onplayerspawned()
 			self thread jetgun_fast_spinlerp();
 			self thread jetgun_overheated_fix();
 
-			self thread tombstone_save_perks();
-			self thread tombstone_restore_perks();
-
 			self thread additionalprimaryweapon_save_weapons();
 			self thread additionalprimaryweapon_restore_weapons();
 			self thread additionalprimaryweapon_indicator();
+
+			self thread tombstone_save_perks();
+			self thread tombstone_restore_perks();
+
+			self thread whos_who_fast_revive();
 
 			self thread electric_cherry_unlimited();
 
@@ -3978,6 +3980,22 @@ additionalprimaryweapon_indicator()
 			additionalprimaryweapon_indicator_hud fadeOverTime(0.5);
 			additionalprimaryweapon_indicator_hud.alpha = 0;
 		}
+	}
+}
+
+whos_who_fast_revive()
+{
+	self endon( "disconnect" );
+
+	while (1)
+	{
+		self waittill("fake_revive");
+
+		self.pers_upgrades_awarded["revive"] = 1;
+
+		self waittill("chugabud_effects_cleanup");
+
+		self.pers_upgrades_awarded["revive"] = 0;
 	}
 }
 
