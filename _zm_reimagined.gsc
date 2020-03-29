@@ -4014,8 +4014,21 @@ additionalprimaryweapon_indicator()
 	additionalprimaryweapon_indicator_hud.aligny = "bottom";
 	additionalprimaryweapon_indicator_hud.horzalign = "user_right";
 	additionalprimaryweapon_indicator_hud.vertalign = "user_bottom";
-	additionalprimaryweapon_indicator_hud.x -= 75;
-	additionalprimaryweapon_indicator_hud.y -= 80;
+	if (level.script == "zm_highrise")
+	{
+		additionalprimaryweapon_indicator_hud.x -= 100;
+		additionalprimaryweapon_indicator_hud.y -= 80;
+	}
+	else if (level.script == "zm_tomb")
+	{
+		additionalprimaryweapon_indicator_hud.x -= 75;
+		additionalprimaryweapon_indicator_hud.y -= 60;
+	}
+	else
+	{
+		additionalprimaryweapon_indicator_hud.x -= 75;
+		additionalprimaryweapon_indicator_hud.y -= 80;
+	}
 	additionalprimaryweapon_indicator_hud.alpha = 0;
 	additionalprimaryweapon_indicator_hud.color = ( 1, 1, 1 );
 	additionalprimaryweapon_indicator_hud.hidewheninmenu = 1;
