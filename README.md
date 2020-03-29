@@ -116,8 +116,9 @@
 * Disabled suicide option when player is down
 
 ### Who's Who
+* Gain all other perks the player had before going down when entering Who's Who mode
 * Revive twice as fast when in Who's Who mode
-* No longer gives the player claymores in Who's Who mode if the player purchased claymores
+* No longer gives the player claymores when entering Who's Who mode if the player purchased claymores
 
 ### Electric Cherry
 * Removed cooldown after being used multiple times in a row

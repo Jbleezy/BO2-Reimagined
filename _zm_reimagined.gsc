@@ -4060,6 +4060,11 @@ whos_who_spawn_changes()
 		self giveweapon("sticky_grenade_zm");
 		self setweaponammoclip("sticky_grenade_zm", 2);
 
+		foreach (perk in self.loadout.perks)
+		{
+			self maps/mp/zombies/_zm_perks::give_perk(perk);
+		}
+
 		self waittill("chugabud_effects_cleanup");
 
 		self.pers_upgrades_awarded["revive"] = 0;
