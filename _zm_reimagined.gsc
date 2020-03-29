@@ -74,7 +74,7 @@ onplayerspawned()
 			self thread tombstone_save_perks();
 			self thread tombstone_restore_perks();
 
-			self thread whos_who_fast_revive();
+			self thread whos_who_spawn_changes();
 
 			self thread electric_cherry_unlimited();
 
@@ -3983,7 +3983,7 @@ additionalprimaryweapon_indicator()
 	}
 }
 
-whos_who_fast_revive()
+whos_who_spawn_changes()
 {
 	self endon( "disconnect" );
 
@@ -3992,6 +3992,11 @@ whos_who_fast_revive()
 		self waittill("fake_revive");
 
 		self.pers_upgrades_awarded["revive"] = 1;
+
+		self takeweapon("frag_grenade_zm");
+		self takeweapon("claymore_zm");
+		self giveweapon("sticky_grenade_zm");
+		self setweaponammoclip("sticky_grenade_zm", 2);
 
 		self waittill("chugabud_effects_cleanup");
 

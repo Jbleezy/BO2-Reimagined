@@ -117,6 +117,7 @@
 
 ### Who's Who
 * Revive twice as fast when in Who's Who mode
+* No longer gives the player claymores in Who's Who mode if the player purchased claymores
 
 ### Electric Cherry
 * Removed cooldown after being used multiple times in a row
