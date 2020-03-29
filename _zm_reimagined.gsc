@@ -3319,10 +3319,20 @@ solo_lives_fix()
 
 	self.lives = 3;
 	self.bought_solo_revive = 0;
+	saved_lives = self.lives;
 
 	while (1)
 	{
-		self waittill_any("perk_acquired", "perk_lost");
+		self waittill_any("perk_acquired", "perk_lost", "player_revived");
+
+		if (self hasPerk("specialty_finalstand"))
+		{
+			self waittill_any("chugabud_effects_cleanup", "specialty_finalstand_stop");
+			self.lives = saved_lives;
+			continue;
+		}
+
+		saved_lives = self.lives;
 
 		if (self.perks_active.size < 1)
 		{
