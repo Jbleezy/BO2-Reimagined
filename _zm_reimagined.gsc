@@ -59,6 +59,8 @@ onplayerspawned()
 			self thread on_equipment_placed();
 			self thread give_additional_perks();
 
+			self thread buildable_piece_remove_on_last_stand();
+
 			self thread disable_player_pers_upgrades();
 
 			//self thread disable_sniper_scope_sway(); // Buried does not load the clientfield
@@ -2670,6 +2672,38 @@ removebuildable( buildable, after_built )
 				}
 			}
 		}
+	}
+}
+
+buildable_piece_remove_on_last_stand()
+{
+	self endon( "disconnect" );
+
+	self thread buildable_get_last_piece();
+
+	while (1)
+	{
+		self waittill("entering_last_stand");
+
+		if (isDefined(self.last_piece))
+		{
+			self.last_piece maps/mp/zombies/_zm_buildables::piece_unspawn();
+		}
+	}
+}
+
+buildable_get_last_piece()
+{
+	self endon( "disconnect" );
+
+	while (1)
+	{
+		if (!self maps/mp/zombies/_zm_laststand::player_is_in_laststand())
+		{
+			self.last_piece = maps/mp/zombies/_zm_buildables::player_get_buildable_piece(0);
+		}
+
+		wait 0.05;
 	}
 }
 
