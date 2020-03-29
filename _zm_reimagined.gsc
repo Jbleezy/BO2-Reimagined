@@ -3335,7 +3335,35 @@ solo_lives_fix()
 				self unsetPerk("specialty_quickrevive");
 			}
 
-			self waittill_any("chugabud_effects_cleanup", "specialty_finalstand_stop");
+			self waittill("fake_revive");
+
+			has_revive = 0;
+			foreach (perk in self.loadout.perks)
+			{
+				if (perk == "specialty_quickrevive")
+				{
+					has_revive = 1;
+					break;
+				}
+			}
+
+			self waittill("chugabud_effects_cleanup");
+
+			still_has_revive = 0;
+			foreach (perk in self.perks_active)
+			{
+				if (perk == "specialty_quickrevive")
+				{
+					still_has_revive = 1;
+					break;
+				}
+			}
+
+			// fix to remove a solo revive if auto revived from Who's Who due to having Quick Revive
+			if (has_revive && !still_has_revive && saved_lives > 0)
+			{
+				saved_lives--;
+			}
 
 			// fix for Who's Who removing solo revives
 			self.lives = saved_lives;
