@@ -19,7 +19,9 @@
 * Can dive again right away after just diving
 * Can move after diving quicker
 * Decreased dive startup time
+* Increased melee range
 * Disabled melee lunging
+* Removed ability to melee faster than intended by switching weapons while meleeing with an empty clip
 * Decreased normal health regeneration delay from 2.4 seconds to 2 seconds
 * Decreased low health regeneration delay from 5 seconds to 4 seconds
 * Normal health regeneration rate is no longer instant
