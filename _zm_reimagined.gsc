@@ -4396,7 +4396,7 @@ depot_grief_link_nodes()
 
 town_move_tombstone_machine()
 {
-	if (!(!is_classic() && level.scr_zm_map_start_location == "town"))
+	if (!(level.scr_zm_ui_gametype == "zstandard" && level.scr_zm_map_start_location == "town"))
 	{
 		return;	
 	}
