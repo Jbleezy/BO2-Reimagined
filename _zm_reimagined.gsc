@@ -93,6 +93,7 @@ onplayerspawned()
 		}
 
 		self set_movement_dvars();
+		self increase_melee_range();
 		self disable_melee_lunge();
 		self enable_friendly_fire();
 
@@ -213,6 +214,11 @@ set_movement_dvars()
 	setdvar( "dtp_post_move_pause", 0 );
 	setdvar( "dtp_exhaustion_window", 100 );
 	setdvar( "dtp_startup_delay", 100 );		
+}
+
+increase_melee_range()
+{
+	setDvar( "player_meleeRange", 64 );
 }
 
 disable_melee_lunge()
