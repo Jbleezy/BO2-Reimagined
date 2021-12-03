@@ -229,14 +229,26 @@ health_bar_hud()
 
 	flag_wait( "initial_blackscreen_passed" );
 
+	x = -360;
+	y = -70;
+	if (level.script == "zm_buried")
+	{
+		y -= 25;
+	}
+	else if (level.script == "zm_tomb")
+	{
+		y -= 60;
+	}
+
 	health_bar = self createprimaryprogressbar();
-	health_bar setpoint(undefined, "TOP", 0, -27.5);
+	health_bar setpoint(undefined, "BOTTOM", x, y);
 	health_bar.hidewheninmenu = 1;
 	health_bar.bar.hidewheninmenu = 1;
 	health_bar.barframe.hidewheninmenu = 1;
 
-	health_bar_text = self createprimaryprogressbartext();
-	health_bar_text setpoint(undefined, "TOP", 0, -15);
+	health_bar_text = self createsecondaryprogressbartext();
+	health_bar_text setpoint(undefined, "BOTTOM", x, y);
+	health_bar_text.color = ( 0.21, 0, 0 );
 	health_bar_text.hidewheninmenu = 1;
 
 	while (1)
@@ -392,24 +404,24 @@ zone_hud()
 {
 	self endon("disconnect");
 
+	x = 5;
+	y = -115;
+	if (level.script == "zm_buried")
+	{
+		y -= 25;
+	}
+	else if (level.script == "zm_tomb")
+	{
+		y -= 60;
+	}
+
 	zone_hud = newClientHudElem(self);
 	zone_hud.alignx = "left";
 	zone_hud.aligny = "bottom";
 	zone_hud.horzalign = "user_left";
 	zone_hud.vertalign = "user_bottom";
-	zone_hud.x += 5;
-	if (level.script == "zm_buried")
-	{
-		zone_hud.y -= 125;
-	}
-	else if (level.script == "zm_tomb")
-	{
-		zone_hud.y -= 160;
-	}
-	else
-	{
-		zone_hud.y -= 100;
-	}
+	zone_hud.x += x;
+	zone_hud.y += y;
 	zone_hud.fontscale = 1.4;
 	zone_hud.alpha = 0;
 	zone_hud.color = ( 1, 1, 1 );
