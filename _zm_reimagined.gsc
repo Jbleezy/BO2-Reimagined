@@ -54,6 +54,8 @@ onplayerspawned()
 
 			self thread fall_velocity_check();
 
+			self thread remove_fast_melee();
+
 			self thread solo_lives_fix();
 
 			self thread on_equipment_placed();
@@ -1697,6 +1699,33 @@ fall_velocity_check()
 
 		if (!was_on_ground)
 		{
+			continue;
+		}
+
+		wait 0.05;
+	}
+}
+
+remove_fast_melee()
+{
+	self endon("disconnect");
+
+	while (1)
+	{
+		if (self isMeleeing() && self getWeaponAmmoClip(self getCurrentWeapon()) == 0)
+		{
+			self disableWeaponCycling();
+
+			while (self isMeleeing())
+			{
+				wait 0.05;
+			}
+
+			if (is_player_valid(self) && !self.is_drinking)
+			{
+				self enableWeaponCycling();
+			}
+
 			continue;
 		}
 
