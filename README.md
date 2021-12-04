@@ -137,6 +137,7 @@
 * Removed
 
 ## Buildables
+* Added purchase cost
 * Parts automatically picked up
 * Zombies no longer attack buildables (except Zombie Shield)
 
