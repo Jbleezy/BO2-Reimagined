@@ -24,7 +24,7 @@ onplayerspawned()
 	self endon( "disconnect" );
 
 	self.initial_spawn = true;
-	
+
 	for(;;)
 	{
 		self waittill( "spawned_player" );
@@ -213,7 +213,7 @@ set_movement_dvars()
 
 	setdvar( "dtp_post_move_pause", 0 );
 	setdvar( "dtp_exhaustion_window", 100 );
-	setdvar( "dtp_startup_delay", 100 );		
+	setdvar( "dtp_startup_delay", 100 );
 }
 
 increase_melee_range()
@@ -270,7 +270,7 @@ health_bar_hud()
 				health_bar.barframe.alpha = 0;
 				health_bar_text.alpha = 0;
 			}
-			
+
 			wait 0.05;
 			continue;
 		}
@@ -354,7 +354,7 @@ timer_hud()
 	timer_hud.label = &"Time: ";
 
 	flag_wait( "initial_blackscreen_passed" );
-	
+
 	timer_hud.alpha = 1;
 	timer_hud setTimerUp(0);
 }
@@ -1506,7 +1506,7 @@ playerhealthregen()
 		self.veryhurt = 0;
 	}
 	self.bolthit = 0;
-	
+
 	if ( getDvar( "scr_playerInvulTimeScale" ) == "" )
 	{
 		setdvar( "scr_playerInvulTimeScale", 1 );
@@ -1637,7 +1637,7 @@ playerhealthregen()
 		oldratio = self.health / self.maxhealth;
 		self notify( "hit_again" );
 		hurttime = getTime();
-		
+
 		if ( !invulworthyhealthdrop || playerinvultimescale <= 0 )
 		{
 			continue;
@@ -2524,7 +2524,7 @@ buildabletrigger_update_prompt( player )
 	{
 		can_use = self.stub buildablestub_update_prompt( player, self );
 	}
-	
+
 	self sethintstring( self.stub.hint_string );
 	if ( isDefined( self.stub.cursor_hint ) )
 	{
@@ -2758,7 +2758,7 @@ pooledbuildablestub_update_prompt( player, trigger )
 							self.hint_string = "Missing buildable hint";
 						}
 					}
-					
+
 					if ( isDefined( level.zombie_buildables[ piece.buildablename ].hint ) )
 					{
 						self.hint_string = level.zombie_buildables[ piece.buildablename ].hint;
@@ -3888,7 +3888,7 @@ solo_revive_trigger_think()
 			{
 				current_cost = player maps/mp/zombies/_zm_pers_upgrades_functions::pers_upgrade_double_points_cost( current_cost );
 			}
-			
+
 			if ( player.score < current_cost )
 			{
 				self playsound( "evt_perk_deny" );
@@ -4026,7 +4026,7 @@ disable_sniper_scope_sway()
 					self.sway_disabled = 0;
 					self setclientfieldtoplayer( "deadshot_perk", 0 );
 				}
-			}	
+			}
 		}
 
 		wait 0.05;
@@ -4164,7 +4164,7 @@ tombstone_save_perks()
 			else
 			{
 				self.a_saved_perks = self maps/mp/zombies/_zm_perks::get_perk_array( 0 );
-			}	
+			}
 		}
 		else
 		{
@@ -4469,7 +4469,7 @@ transit_power_local_electric_doors_globally()
 {
 	if( !(is_classic() && level.scr_zm_map_start_location == "transit") )
 	{
-		return;	
+		return;
 	}
 
 	local_power = [];
@@ -4502,7 +4502,7 @@ transit_add_tombstone_machine_solo()
 {
 	if (!(is_classic() && level.scr_zm_map_start_location == "transit"))
 	{
-		return;	
+		return;
 	}
 
 	if (!flag("solo_game"))
@@ -4681,7 +4681,7 @@ town_move_tombstone_machine()
 {
 	if (!(level.scr_zm_ui_gametype == "zstandard" && level.scr_zm_map_start_location == "town"))
 	{
-		return;	
+		return;
 	}
 
 	perk_struct = undefined;
@@ -4779,7 +4779,7 @@ town_move_staminup_machine()
 {
 	if (!(!is_classic() && level.scr_zm_map_start_location == "town"))
 	{
-		return;	
+		return;
 	}
 
 	perk_struct = undefined;
@@ -4903,7 +4903,7 @@ prison_tower_trap_changes()
 
 prison_tower_trap_fires_override( zombies )
 {
-	
+
 }
 
 prison_tower_trap_trigger_think()
@@ -5185,7 +5185,7 @@ borough_move_quickrevive_machine()
 {
 	if (!(!is_classic() && level.scr_zm_map_start_location == "street"))
 	{
-		return;	
+		return;
 	}
 
 	perk_struct = undefined;
@@ -5276,7 +5276,7 @@ borough_move_speedcola_machine()
 {
 	if (!(!is_classic() && level.scr_zm_map_start_location == "street"))
 	{
-		return;	
+		return;
 	}
 
 	perk_struct = undefined;
@@ -5367,7 +5367,7 @@ borough_move_staminup_machine()
 {
 	if (!(!is_classic() && level.scr_zm_map_start_location == "street"))
 	{
-		return;	
+		return;
 	}
 
 	perk_struct = undefined;
@@ -5825,7 +5825,7 @@ tomb_soul_box_decrease_kill_requirement()
 		wait 0.05;
 
 		self.n_souls_absorbed += 10;
-		
+
 		self waittill( "robot_foot_stomp" );
 	}
 }
