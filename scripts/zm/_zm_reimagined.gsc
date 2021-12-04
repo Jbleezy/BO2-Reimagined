@@ -207,28 +207,28 @@ post_all_players_spawned()
 
 set_movement_dvars()
 {
-	setdvar( "player_backSpeedScale", 1 );
-	setdvar( "player_strafeSpeedScale", 1 );
-	setdvar( "player_sprintStrafeSpeedScale", 1 );
+	self setClientDvar( "player_backSpeedScale", 1 );
+	self setClientDvar( "player_strafeSpeedScale", 1 );
+	self setClientDvar( "player_sprintStrafeSpeedScale", 1 );
 
-	setdvar( "dtp_post_move_pause", 0 );
-	setdvar( "dtp_exhaustion_window", 100 );
-	setdvar( "dtp_startup_delay", 100 );
+	self setClientDvar( "dtp_post_move_pause", 0 );
+	self setClientDvar( "dtp_exhaustion_window", 100 );
+	self setClientDvar( "dtp_startup_delay", 100 );
 }
 
 increase_melee_range()
 {
-	setDvar( "player_meleeRange", 64 );
+	self setClientDvar( "player_meleeRange", 64 );
 }
 
 disable_melee_lunge()
 {
-	setDvar( "aim_automelee_enabled", 0 );
+	self setClientDvar( "aim_automelee_enabled", 0 );
 }
 
 enable_friendly_fire()
 {
-	setDvar( "g_friendlyfireDist", "0" );
+	self setClientDvar( "g_friendlyfireDist", 0 );
 }
 
 health_bar_hud()
