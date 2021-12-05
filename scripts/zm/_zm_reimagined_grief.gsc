@@ -401,6 +401,7 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 			}
 		}
 
+		self thread add_grief_score(eattacker);
 		self thread do_game_mode_shellshock();
 		self playsound( "zmb_player_hit_ding" );
 	}
@@ -409,6 +410,14 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 do_game_mode_shellshock()
 {
 	self shellshock( "grief_stab_zm", 0.5 );
+}
+
+add_grief_score(attacker)
+{
+	if(is_player_valid(attacker) && self.health < self.maxhealth)
+	{
+		attacker maps/mp/zombies/_zm_score::add_to_player_score(10);
+	}
 }
 
 unlimited_zombies()
