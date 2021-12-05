@@ -237,7 +237,7 @@ health_bar_hud()
 
 	flag_wait( "initial_blackscreen_passed" );
 
-	x = -360;
+	x = -364;
 	y = -70;
 	if (level.script == "zm_buried")
 	{
@@ -248,15 +248,15 @@ health_bar_hud()
 		y -= 60;
 	}
 
-	health_bar = self createprimaryprogressbar();
+	health_bar = self createbar((1, 1, 1), 110, 14);
 	health_bar setpoint(undefined, "BOTTOM", x, y);
 	health_bar.hidewheninmenu = 1;
 	health_bar.bar.hidewheninmenu = 1;
 	health_bar.barframe.hidewheninmenu = 1;
 
-	health_bar_text = self createsecondaryprogressbartext();
+	health_bar_text = createfontstring("objective", 1.4);
 	health_bar_text setpoint(undefined, "BOTTOM", x, y);
-	health_bar_text.color = ( 0.21, 0, 0 );
+	health_bar_text.color = (0.21, 0, 0);
 	health_bar_text.hidewheninmenu = 1;
 
 	while (1)
