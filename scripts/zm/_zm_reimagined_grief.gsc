@@ -16,13 +16,8 @@ init()
 		setDvar( "zombies_minplayers", 2 );
 	}
 
-	level.zombie_vars["zombie_health_start"] = 2000;
-	level.zombie_vars["zombie_spawn_delay"] = 0.5;
-	level.round_number = 0;
-	level.zombie_move_speed = 100;
-	level.player_starting_points = 10000;
-
 	level thread on_player_connect();
+	level thread set_grief_vars();
 	level thread unlimited_zombies();
 }
 
@@ -54,6 +49,18 @@ set_team()
 		self.pers[ "team" ] = "allies";
 		self._encounters_team = "B";
 	}
+}
+
+set_grief_vars()
+{
+	level.round_number = 0;
+	level.player_starting_points = 10000;
+	level.zombie_vars["zombie_health_start"] = 2000;
+	level.zombie_vars["zombie_spawn_delay"] = 0.5;
+
+	flag_wait( "start_zombie_round_logic" ); // needs a wait
+
+	level.zombie_move_speed = 100;
 }
 
 unlimited_zombies()
