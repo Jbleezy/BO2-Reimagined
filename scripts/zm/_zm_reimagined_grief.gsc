@@ -424,7 +424,10 @@ unlimited_zombies()
 {
 	while(1)
 	{
-		level.zombie_total = 100;
+		if(!level.isresetting_grief)
+		{
+			level.zombie_total = 100;
+		}
 
 		wait 1;
 	}
