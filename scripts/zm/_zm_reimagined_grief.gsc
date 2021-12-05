@@ -41,7 +41,7 @@ set_team()
 {
 	teamplayersallies = countplayers( "allies");
 	teamplayersaxis = countplayers( "axis");
-	if ( teamplayersallies > teamplayersaxis && !level.isresetting_grief )
+	if ( teamplayersallies > teamplayersaxis )
 	{
 		self.team = "axis";
 		self.sessionteam = "axis";
