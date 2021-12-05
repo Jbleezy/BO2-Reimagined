@@ -297,6 +297,11 @@ enemy_counter_hud()
 {
 	self endon("disconnect");
 
+	if ( getDvar( "g_gametype" ) == "zgrief" )
+    {
+		return;
+    }
+
 	enemy_counter_hud = newClientHudElem(self);
 	enemy_counter_hud.alignx = "left";
 	enemy_counter_hud.aligny = "top";
