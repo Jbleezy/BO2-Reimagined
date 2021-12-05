@@ -219,3 +219,12 @@
 * Soul boxes: decreased kill requirement from 30 to 20
 * Perk bottle dig spots: visible and diggable without Zombie Blood
 * Perk bottle dig spots: increased number of rounds for next dig spot to spawn from 1 to 4
+
+## Gamemodes
+
+### Grief
+* Unlimited zombies
+* 2000 health zombies
+* 0.5 second zombie spawn rate
+* Only sprinting zombies
+* Every player starts with 10000 points

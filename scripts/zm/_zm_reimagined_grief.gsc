@@ -11,12 +11,19 @@ init()
 		return;
     }
 
-	level thread on_player_connect();
-
 	if ( getDvarInt( "zombies_minplayers" ) < 2 || getDvarInt( "zombies_minplayers" ) == "" )
 	{
 		setDvar( "zombies_minplayers", 2 );
 	}
+
+	level.zombie_vars["zombie_health_start"] = 2000;
+	level.zombie_vars["zombie_spawn_delay"] = 0.5;
+	level.round_number = 0;
+	level.zombie_move_speed = 100;
+	level.player_starting_points = 10000;
+
+	level thread on_player_connect();
+	level thread unlimited_zombies();
 }
 
 on_player_connect()
@@ -46,5 +53,15 @@ set_team()
 		self.sessionteam = "allies";
 		self.pers[ "team" ] = "allies";
 		self._encounters_team = "B";
+	}
+}
+
+unlimited_zombies()
+{
+	while(1)
+	{
+		level.zombie_total = 100;
+
+		wait 1;
 	}
 }
