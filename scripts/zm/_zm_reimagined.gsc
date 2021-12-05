@@ -1987,15 +1987,12 @@ add_wallbuy( name )
 	}
 	unitrigger_stub.zombie_weapon_upgrade = struct.zombie_weapon_upgrade;
 
-	//unitrigger_stub.clientfieldname = clientfieldname;
-	unitrigger_stub.clientfieldname = undefined;
 	model = spawn( "script_model", struct.origin );
-	//model.angles = struct.angles;
-	model.angles = struct.angles + (0, 90, 0);
-	//model.targetname = struct.target;
+	model.angles = struct.angles;
+	model.targetname = struct.target;
 	model setmodel( target_struct.model );
 	model useweaponhidetags( struct.zombie_weapon_upgrade );
-	//model hide();
+	model hide();
 
 	maps/mp/zombies/_zm_unitrigger::unitrigger_force_per_player_triggers( unitrigger_stub, 1 );
 	if ( is_melee_weapon( unitrigger_stub.zombie_weapon_upgrade ) )
@@ -2010,7 +2007,7 @@ add_wallbuy( name )
 	{
 		unitrigger_stub.prompt_and_visibility_func = maps/mp/zombies/_zm_weap_claymore::claymore_unitrigger_update_prompt;
 		maps/mp/zombies/_zm_unitrigger::register_static_unitrigger( unitrigger_stub, maps/mp/zombies/_zm_weap_claymore::buy_claymores );
-		//model thread claymore_rotate_model_when_bought();
+		model thread claymore_rotate_model_when_bought();
 	}
 	else
 	{
@@ -2018,6 +2015,20 @@ add_wallbuy( name )
 		maps/mp/zombies/_zm_unitrigger::register_static_unitrigger( unitrigger_stub, maps/mp/zombies/_zm_weapons::weapon_spawn_think );
 	}
 	struct.trigger_stub = unitrigger_stub;
+
+	chalk_fx = name + "_fx";
+	thread playchalkfx( chalk_fx, struct.origin, struct.angles );
+}
+
+playchalkfx( effect, origin, angles )
+{
+	while ( 1 )
+	{
+		fx = SpawnFX( level._effect[ effect ], origin, AnglesToForward( angles ), AnglesToUp( angles ) );
+		TriggerFX( fx );
+		level waittill( "connected", player );
+		fx Delete();
+	}
 }
 
 claymore_rotate_model_when_bought()
