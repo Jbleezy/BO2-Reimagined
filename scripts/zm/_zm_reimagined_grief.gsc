@@ -221,8 +221,6 @@ wait_for_team_death_and_round_end()
 
 round_end(winner)
 {
-	level endon( "stop_round_end_check" );
-
 	team = "axis";
 	if(winner == "B")
 	{
