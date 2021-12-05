@@ -250,7 +250,88 @@ zombie_goto_round(target_round)
 		}
 	}
 
-	wait 1;
+	round_start_wait(5);
+}
+
+round_start_wait(time)
+{
+	players = get_players();
+	foreach(player in players)
+	{
+		player freezeControls(1);
+		player enableInvulnerability();
+	}
+
+	round_start_countdown_hud = round_start_countdown_hud(time);
+
+	wait time;
+
+	round_start_countdown_hud round_start_countdown_hud_destroy();
+
+	players = get_players();
+	foreach(player in players)
+	{
+		player freezeControls(0);
+		player disableInvulnerability();
+	}
+}
+
+round_start_countdown_hud(time)
+{
+	countdown = createServerFontString( "objective", 2.2 );
+    countdown setPoint( "CENTER", "CENTER", 0, 0 );
+    countdown.foreground = false;
+    countdown.alpha = 1;
+    countdown.color = ( 1, 1, 0 );
+    countdown.hidewheninmenu = true;
+    countdown maps/mp/gametypes_zm/_hud::fontpulseinit();
+    countdown thread round_start_countdown_hud_timer(time);
+
+	countdown.countdown_text = createServerFontString( "objective", 1.5 );
+    countdown.countdown_text setPoint( "CENTER", "CENTER", 0, -40 );
+    countdown.countdown_text.foreground = false;
+    countdown.countdown_text.alpha = 1;
+    countdown.countdown_text.color = ( 1.000, 1.000, 1.000 );
+    countdown.countdown_text.hidewheninmenu = true;
+    countdown.countdown_text.label = &"ROUND BEGINS IN";
+
+	return countdown;
+}
+
+round_start_countdown_hud_destroy()
+{
+	self.countdown_text destroy();
+	self destroy();
+}
+
+round_start_countdown_hud_timer(time)
+{
+    timer = time;
+    while ( true )
+    {
+        self setValue( timer );
+        wait 1;
+        timer--;
+        if ( timer <= 5 )
+        {
+            self thread countdown_pulse( self, timer );
+            break;
+        }
+    }
+}
+
+countdown_pulse( hud_elem, duration )
+{
+    level endon( "end_game" );
+    waittillframeend;
+    while ( duration > 0 && !level.gameended )
+    {
+        hud_elem thread maps/mp/gametypes_zm/_hud::fontpulse( level );
+        wait ( hud_elem.inframes * 0.05 );
+        hud_elem setvalue( duration );
+        duration--;
+        wait ( 1 - ( hud_elem.inframes * 0.05 ) );
+    }
 }
 
 round_end(winner)
