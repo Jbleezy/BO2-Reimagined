@@ -135,6 +135,7 @@ set_grief_vars()
 	level.zombie_vars["zombie_health_start"] = 2000;
 	level.zombie_vars["zombie_spawn_delay"] = 0.5;
 	level.custom_end_screen = ::custom_end_screen;
+	level._game_module_player_damage_callback = ::game_module_player_damage_callback;
 
 	level.grief_winning_score = 3;
 	level.grief_score = [];
@@ -341,6 +342,73 @@ custom_end_screen()
 		players[ i ].survived_hud.alpha = 1;
 		i++;
 	}
+}
+
+game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime )
+{
+	self.last_damage_from_zombie_or_player = 0;
+	if ( isDefined( eattacker ) )
+	{
+		if ( isplayer( eattacker ) && eattacker == self )
+		{
+			return;
+		}
+		if ( isDefined( eattacker.is_zombie ) || eattacker.is_zombie && isplayer( eattacker ) )
+		{
+			self.last_damage_from_zombie_or_player = 1;
+		}
+	}
+
+	if ( is_true( self._being_shellshocked ) || self maps/mp/zombies/_zm_laststand::player_is_in_laststand() )
+	{
+		return;
+	}
+
+	if ( isplayer( eattacker ) && isDefined( eattacker._encounters_team ) && eattacker._encounters_team != self._encounters_team )
+	{
+		if ( is_true( self.hasriotshield ) && isDefined( vdir ) )
+		{
+			if ( is_true( self.hasriotshieldequipped ) )
+			{
+				if ( self maps/mp/zombies/_zm::player_shield_facing_attacker( vdir, 0.2 ) && isDefined( self.player_shield_apply_damage ) )
+				{
+					return;
+				}
+			}
+			else if ( !isdefined( self.riotshieldentity ) )
+			{
+				if ( !self maps/mp/zombies/_zm::player_shield_facing_attacker( vdir, -0.2 ) && isdefined( self.player_shield_apply_damage ) )
+				{
+					return;
+				}
+			}
+		}
+
+		if ( isDefined( level._game_module_player_damage_grief_callback ) )
+		{
+			self [[ level._game_module_player_damage_grief_callback ]]( einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime );
+		}
+
+		if ( isDefined( level._effect[ "butterflies" ] ) )
+		{
+			if ( isDefined( sweapon ) && weapontype( sweapon ) == "grenade" )
+			{
+				playfx( level._effect[ "butterflies" ], self.origin + vectorScale( ( 1, 1, 1 ), 40 ) );
+			}
+			else
+			{
+				playfx( level._effect[ "butterflies" ], vpoint, vdir );
+			}
+		}
+
+		self thread do_game_mode_shellshock();
+		self playsound( "zmb_player_hit_ding" );
+	}
+}
+
+do_game_mode_shellshock()
+{
+	self shellshock( "grief_stab_zm", 0.5 );
 }
 
 unlimited_zombies()

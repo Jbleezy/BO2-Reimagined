@@ -228,5 +228,7 @@
 * 0.5 second zombie spawn rate
 * Only sprinting zombies
 * Every player starts with 10000 points
+* Decreased stun time by enemy players from 0.75 seconds to 0.5 seconds
+* Players can be stunned by enemy players while already stunned
 * Teams win rounds by getting all enemy players down
 * First team to win 3 rounds wins the game
