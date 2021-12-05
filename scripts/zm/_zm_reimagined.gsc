@@ -3,6 +3,11 @@
 #include common_scripts/utility;
 #include maps/mp/_utility;
 
+main()
+{
+	replaceFunc(maps/mp/zombies/_zm_playerhealth::playerhealthregen, ::playerhealthregen);
+}
+
 init()
 {
 	level.inital_spawn = true;
@@ -101,8 +106,6 @@ onplayerspawned()
 
 		self setperk( "specialty_unlimitedsprint" );
 		self setperk( "specialty_fastmantle" );
-
-		self thread playerhealthregen();
 	}
 }
 
@@ -1466,7 +1469,6 @@ get_zone_name()
 
 playerhealthregen()
 {
-	self notify( "noHealthOverlay" );
 	self notify( "playerHealthRegen" );
 	self endon( "playerHealthRegen" );
 	self endon( "death" );
