@@ -134,6 +134,7 @@ set_grief_vars()
 	level.player_starting_points = 10000;
 	level.zombie_vars["zombie_health_start"] = 2000;
 	level.zombie_vars["zombie_spawn_delay"] = 0.5;
+	level.custom_end_screen = ::custom_end_screen;
 
 	level.grief_winning_score = 3;
 	level.grief_score = [];
@@ -276,6 +277,71 @@ round_end(winner)
 		maps/mp/zombies/_zm_game_module::zombie_goto_round( level.round_number );
 		level thread maps/mp/zombies/_zm_game_module::reset_grief();
 		level thread maps/mp/zombies/_zm::round_think( 1 );
+	}
+}
+
+custom_end_screen()
+{
+	players = get_players();
+	i = 0;
+	while ( i < players.size )
+	{
+		players[ i ].game_over_hud = newclienthudelem( players[ i ] );
+		players[ i ].game_over_hud.alignx = "center";
+		players[ i ].game_over_hud.aligny = "middle";
+		players[ i ].game_over_hud.horzalign = "center";
+		players[ i ].game_over_hud.vertalign = "middle";
+		players[ i ].game_over_hud.y -= 130;
+		players[ i ].game_over_hud.foreground = 1;
+		players[ i ].game_over_hud.fontscale = 3;
+		players[ i ].game_over_hud.alpha = 0;
+		players[ i ].game_over_hud.color = ( 1, 1, 1 );
+		players[ i ].game_over_hud.hidewheninmenu = 1;
+		players[ i ].game_over_hud settext( &"ZOMBIE_GAME_OVER" );
+		players[ i ].game_over_hud fadeovertime( 1 );
+		players[ i ].game_over_hud.alpha = 1;
+		if ( players[ i ] issplitscreen() )
+		{
+			players[ i ].game_over_hud.fontscale = 2;
+			players[ i ].game_over_hud.y += 40;
+		}
+		players[ i ].survived_hud = newclienthudelem( players[ i ] );
+		players[ i ].survived_hud.alignx = "center";
+		players[ i ].survived_hud.aligny = "middle";
+		players[ i ].survived_hud.horzalign = "center";
+		players[ i ].survived_hud.vertalign = "middle";
+		players[ i ].survived_hud.y -= 100;
+		players[ i ].survived_hud.foreground = 1;
+		players[ i ].survived_hud.fontscale = 2;
+		players[ i ].survived_hud.alpha = 0;
+		players[ i ].survived_hud.color = ( 1, 1, 1 );
+		players[ i ].survived_hud.hidewheninmenu = 1;
+		if ( players[ i ] issplitscreen() )
+		{
+			players[ i ].survived_hud.fontscale = 1.5;
+			players[ i ].survived_hud.y += 40;
+		}
+		winner_text = "YOU WIN!";
+		loser_text = "YOU LOSE!";
+
+		if ( isDefined( level.host_ended_game ) && level.host_ended_game )
+		{
+			players[ i ].survived_hud settext( &"MP_HOST_ENDED_GAME" );
+		}
+		else
+		{
+			if ( isDefined( level.gamemodulewinningteam ) && players[ i ]._encounters_team == level.gamemodulewinningteam )
+			{
+				players[ i ].survived_hud settext( winner_text );
+			}
+			else
+			{
+				players[ i ].survived_hud settext( loser_text );
+			}
+		}
+		players[ i ].survived_hud fadeovertime( 1 );
+		players[ i ].survived_hud.alpha = 1;
+		i++;
 	}
 }
 
