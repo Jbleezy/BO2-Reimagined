@@ -228,3 +228,5 @@
 * 0.5 second zombie spawn rate
 * Only sprinting zombies
 * Every player starts with 10000 points
+* Teams win rounds by getting all enemy players down
+* First team to win 3 rounds wins the game
