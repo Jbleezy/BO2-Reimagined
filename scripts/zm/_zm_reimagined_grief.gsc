@@ -24,6 +24,7 @@ init()
 	level thread on_player_connect();
 	level thread grief_score_hud();
 	level thread set_grief_vars();
+	level thread init_round_start_wait(5);
 	level thread unlimited_zombies();
 }
 
@@ -145,6 +146,13 @@ set_grief_vars()
 	flag_wait( "start_zombie_round_logic" ); // needs a wait
 
 	level.zombie_move_speed = 100;
+}
+
+init_round_start_wait(time)
+{
+	flag_wait("initial_blackscreen_passed");
+
+	round_start_wait(time);
 }
 
 wait_for_team_death_and_round_end()
@@ -274,6 +282,8 @@ round_start_wait(time)
 		player freezeControls(0);
 		player disableInvulnerability();
 	}
+
+	level thread zombie_spawn_wait(5);
 }
 
 round_start_countdown_hud(time)
@@ -332,6 +342,15 @@ countdown_pulse( hud_elem, duration )
         duration--;
         wait ( 1 - ( hud_elem.inframes * 0.05 ) );
     }
+}
+
+zombie_spawn_wait(time)
+{
+	flag_clear("spawn_zombies");
+
+	wait time;
+
+	flag_set("spawn_zombies");
 }
 
 round_end(winner)
