@@ -292,12 +292,14 @@ round_end(winner)
 	{
 		wait 0.5;
 
-		// save weapons for alive players
 		players = get_players();
 		foreach(player in players)
 		{
 			if(is_player_valid(player))
 			{
+				// don't give perk
+				player notify("perk_abort_drinking");
+				// save weapons
 				player [[level._game_module_player_laststand_callback]]();
 			}
 		}
