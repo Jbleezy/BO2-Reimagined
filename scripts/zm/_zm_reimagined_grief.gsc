@@ -194,7 +194,7 @@ wait_for_team_death_and_round_end()
 			level.zombie_vars[ "spectators_respawn" ] = 1;
 			level notify( "keep_griefing" );
 			checking_for_round_end = 0;
-			maps/mp/zombies/_zm_game_module::zombie_goto_round( level.round_number );
+			zombie_goto_round( level.round_number );
 			level thread maps/mp/zombies/_zm_game_module::reset_grief();
 			level thread maps/mp/zombies/_zm::round_think( 1 );
 		}
@@ -218,6 +218,39 @@ wait_for_team_death_and_round_end()
 		}
 		wait 0.05;
 	}
+}
+
+zombie_goto_round(target_round)
+{
+	level notify( "restart_round" );
+
+	if ( target_round < 1 )
+	{
+		target_round = 1;
+	}
+
+	level.zombie_total = 0;
+	maps/mp/zombies/_zm::ai_calculate_health( target_round );
+	zombies = get_round_enemy_array();
+	if ( isDefined( zombies ) )
+	{
+		for ( i = 0; i < zombies.size; i++ )
+		{
+			zombies[ i ] dodamage( zombies[ i ].health + 666, zombies[ i ].origin );
+		}
+	}
+
+	maps/mp/zombies/_zm_game_module::respawn_players();
+	players = get_players();
+	foreach(player in players)
+	{
+		if(player.score < level.player_starting_points)
+		{
+			player maps/mp/zombies/_zm_score::add_to_player_score(level.player_starting_points - player.score);
+		}
+	}
+
+	wait 1;
 }
 
 round_end(winner)
@@ -273,7 +306,7 @@ round_end(winner)
 		level notify( "end_round_think" );
 		level.zombie_vars[ "spectators_respawn" ] = 1;
 		level notify( "keep_griefing" );
-		maps/mp/zombies/_zm_game_module::zombie_goto_round( level.round_number );
+		zombie_goto_round( level.round_number );
 		level thread maps/mp/zombies/_zm_game_module::reset_grief();
 		level thread maps/mp/zombies/_zm::round_think( 1 );
 	}
