@@ -176,6 +176,7 @@ kill_feed()
 	if(isDefined(self.last_griefed_by))
 	{
 		obituary(self, self.last_griefed_by.attacker, self.last_griefed_by.weapon, self.last_griefed_by.meansofdeath);
+		self.last_griefed_by = undefined;
 	}
 	else
 	{

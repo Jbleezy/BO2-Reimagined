@@ -28,6 +28,7 @@
 * Changed health regeneration rate to 100 health per second (previously fully restored health in 0.5 seconds)
 * Fall damage no longer increases when max health is increased
 * Removed blur when getting damaged
+* No longer killed when landing on top of another player
 * Can shoot while looking at other players
 * Increased mantle speed
 * Start with semtex on maps that have semtex
@@ -234,6 +235,7 @@
 * Decreased stun time by enemy players from 0.75 seconds to 0.5 seconds
 * Players can be stunned by enemy players while already stunned
 * Points awarded for stunning enemy players that are damaged
+* Landing on top of an enemy player downs them
 * Added player kill feed
 * Teams win rounds by getting all enemy players down
 * First team to win 3 rounds wins the game

@@ -6,6 +6,7 @@
 main()
 {
 	replaceFunc(maps/mp/zombies/_zm_playerhealth::playerhealthregen, ::playerhealthregen);
+	replaceFunc(maps/mp/zombies/_zm_utility::track_players_intersection_tracker, ::track_players_intersection_tracker);
 }
 
 init()
@@ -1694,6 +1695,105 @@ playerhealthregen()
 			}
 		}
 	}
+}
+
+track_players_intersection_tracker()
+{
+	self endon( "disconnect" );
+	self endon( "death" );
+	level endon( "end_game" );
+
+	wait 5;
+
+	while ( 1 )
+	{
+		killed_players = 0;
+		players = getPlayers();
+		i = 0;
+		while ( i < players.size )
+		{
+			if ( players[ i ] maps/mp/zombies/_zm_laststand::player_is_in_laststand() || players[ i ].sessionstate != "playing" )
+			{
+				i++;
+				continue;
+			}
+
+			j = 0;
+			while ( j < players.size )
+			{
+				if ( j == i || players[ j ] maps/mp/zombies/_zm_laststand::player_is_in_laststand() || players[ j ].sessionstate != "playing" )
+				{
+					j++;
+					continue;
+				}
+
+				playeri_origin = players[ i ].origin;
+				playerj_origin = players[ j ].origin;
+
+				if ( abs( playeri_origin[ 2 ] - playerj_origin[ 2 ] ) > 75 )
+				{
+					j++;
+					continue;
+				}
+
+				distance_apart = distance2d( playeri_origin, playerj_origin );
+				if ( abs( distance_apart ) > 18 )
+				{
+					j++;
+					continue;
+				}
+
+				if(players[i].origin[2] > players[j].origin[2])
+				{
+					if(getDvar("g_gametype") == "zgrief" && players[i]._encounters_team != players[j]._encounters_team)
+					{
+						players[j] notify("new_griefer");
+						if(!isDefined(players[j].last_griefed_by))
+						{
+							players[j].last_griefed_by = spawnStruct();
+						}
+						players[j].last_griefed_by.attacker = players[i];
+						players[j].last_griefed_by.weapon = "none";
+						players[j].last_griefed_by.meansofdeath = "MOD_FALLING";
+
+						players[j] dodamage( 1000, (0, 0, 0) );
+					}
+
+					players[i] random_push();
+				}
+				else
+				{
+					if(getDvar("g_gametype") == "zgrief" && players[i]._encounters_team != players[j]._encounters_team)
+					{
+						players[i] notify("new_griefer");
+						if(!isDefined(players[i].last_griefed_by))
+						{
+							players[i].last_griefed_by = spawnStruct();
+						}
+						players[i].last_griefed_by.attacker = players[j];
+						players[i].last_griefed_by.weapon = "none";
+						players[i].last_griefed_by.meansofdeath = "MOD_FALLING";
+
+						players[i] dodamage( 1000, (0, 0, 0) );
+					}
+
+					players[j] random_push();
+				}
+
+				j++;
+			}
+
+			i++;
+		}
+
+		wait 0.05;
+	}
+}
+
+random_push()
+{
+	vector = VectorNormalize((RandomIntRange(-100, 101), RandomIntRange(-100, 101), 0)) * (100, 100, 100);
+	self SetVelocity(vector);
 }
 
 set_player_lethal_grenade_semtex()
