@@ -395,6 +395,8 @@ round_end(winner)
 			}
 		}
 
+		level thread maps/mp/zombies/_zm_audio_announcer::leaderdialog( "grief_restarted" );
+
 		level.isresetting_grief = 1;
 		level notify( "end_round_think" );
 		level.zombie_vars[ "spectators_respawn" ] = 1;
