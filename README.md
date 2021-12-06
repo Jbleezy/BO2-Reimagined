@@ -179,12 +179,11 @@
 
 #### Farm
 * Zombies now spawn in the Farm zone when in the Barn zone
-* Survival: replaced Galvaknuckles wallbuy with Claymore wallbuy
-* Grief: added Claymore wallbuy
+* Added Claymore wallbuy
+* Survival: removed Galvaknuckles wallbuy
 
 #### Bus Depot
 * Lava pit is now accessible
-* Grief: Turbine doors closed
 
 ### Die Rise
 * Zombies no longer spawn in the Upper Blue Highrise zone when in the Trample Steam zone
@@ -208,6 +207,7 @@
 * Navcard table automatically crafted
 
 #### Borough
+* Added Bowie Knife wallbuy
 * Moved Quick Revive to its location on Buried
 * Moved Speed Cola to its location on Buried
 * Moved Stamin-Up to Vulture Aid's location on Buried

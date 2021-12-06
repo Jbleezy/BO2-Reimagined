@@ -2013,6 +2013,14 @@ wallbuy_location_changes()
 
 			add_wallbuy("claymore_zm");
 		}
+
+		if(level.scr_zm_map_start_location == "street")
+		{
+			if(level.scr_zm_ui_gametype == "zgrief")
+			{
+				add_wallbuy("bowie_knife_zm");
+			}
+		}
 	}
 }
 
@@ -2109,13 +2117,17 @@ add_wallbuy( name )
 	model hide();
 
 	maps/mp/zombies/_zm_unitrigger::unitrigger_force_per_player_triggers( unitrigger_stub, 1 );
-	if ( is_melee_weapon( unitrigger_stub.zombie_weapon_upgrade ) )
+	if ( unitrigger_stub.zombie_weapon_upgrade == "bowie_knife_zm" )
 	{
-		if ( unitrigger_stub.zombie_weapon_upgrade == "tazer_knuckles_zm" && isDefined( level.taser_trig_adjustment ) )
-		{
-			unitrigger_stub.origin += level.taser_trig_adjustment;
-		}
-		maps/mp/zombies/_zm_unitrigger::register_static_unitrigger( unitrigger_stub, maps/mp/zombies/_zm_weapons::weapon_spawn_think );
+		unitrigger_stub.cost = 3000;
+		unitrigger_stub.weapon_name = "bowie_knife_zm";
+		unitrigger_stub.vo_dialog_id = "bowie";
+		unitrigger_stub.flourish_weapon_name = "zombie_bowie_flourish";
+		unitrigger_stub.ballistic_weapon_name = "knife_ballistic_bowie_zm";
+		unitrigger_stub.ballistic_upgraded_weapon_name = "knife_ballistic_bowie_upgraded_zm";
+		unitrigger_stub.prompt_and_visibility_func = ::bowie_knife_update_prompt;
+		maps/mp/zombies/_zm_unitrigger::register_static_unitrigger( unitrigger_stub, maps/mp/zombies/_zm_melee_weapon::melee_weapon_think );
+
 	}
 	else if ( unitrigger_stub.zombie_weapon_upgrade == "claymore_zm" )
 	{
@@ -2155,6 +2167,20 @@ claymore_rotate_model_when_bought()
 	}
 
 	self.angles += ( 0, 90, 0 );
+}
+
+bowie_knife_update_prompt(player)
+{
+	if(player get_player_melee_weapon() == self.stub.weapon_name)
+	{
+		self sethintstring("");
+		self setcursorhint("HINT_NOICON");
+		return 0;
+	}
+
+	self sethintstring(&"ZOMBIE_WEAPON_BOWIE_BUY", self.stub.cost);
+	self setcursorhint("HINT_WEAPON", self.stub.weapon_name);
+	return 1;
 }
 
 wallbuy_cost_changes()
