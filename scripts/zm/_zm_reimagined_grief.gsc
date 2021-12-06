@@ -352,10 +352,10 @@ round_end(winner)
 	}
 
 	level.grief_score[winner]++;
-	level.grief_hud.score[team] setValue(level.grief_score[winner]);
 
 	if(level.grief_score[winner] == level.grief_winning_score)
 	{
+		level.grief_hud.score[team] setValue(level.grief_score[winner]);
 		level.gamemodulewinningteam = winner;
 		level.zombie_vars[ "spectators_respawn" ] = 0;
 		players = get_players();
@@ -380,6 +380,8 @@ round_end(winner)
 	else
 	{
 		wait 0.5;
+
+		level.grief_hud.score[team] setValue(level.grief_score[winner]);
 
 		players = get_players();
 		foreach(player in players)
