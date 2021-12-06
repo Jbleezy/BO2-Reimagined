@@ -2018,6 +2018,9 @@ wallbuy_location_changes()
 		{
 			if(level.scr_zm_ui_gametype == "zgrief")
 			{
+				add_wallbuy("beretta93r_zm");
+				add_wallbuy("m16_zm");
+				add_wallbuy("claymore_zm");
 				add_wallbuy("bowie_knife_zm");
 			}
 		}

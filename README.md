@@ -207,7 +207,7 @@
 * Navcard table automatically crafted
 
 #### Borough
-* Added Bowie Knife wallbuy
+* Added B23R, M16A1, Claymore, and Bowie Knife wallbuys
 * Moved Quick Revive to its location on Buried
 * Moved Speed Cola to its location on Buried
 * Moved Stamin-Up to Vulture Aid's location on Buried
