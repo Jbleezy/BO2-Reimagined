@@ -231,6 +231,7 @@
 * 0.5 second zombie spawn rate
 * Only sprinting zombies
 * Every player starts each round with at least 10000 points
+* 2 lethal grenades and mines awarded each round
 * Unlimited barrier rebuild points
 * Decreased stun time by enemy players from 0.75 seconds to 0.5 seconds
 * Players can be stunned by enemy players while already stunned

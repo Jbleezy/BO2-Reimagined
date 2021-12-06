@@ -274,12 +274,21 @@ zombie_goto_round(target_round)
 	}
 
 	maps/mp/zombies/_zm_game_module::respawn_players();
+	maps/mp/zombies/_zm::award_grenades_for_survivors();
 	players = get_players();
 	foreach(player in players)
 	{
 		if(player.score < level.player_starting_points)
 		{
 			player maps/mp/zombies/_zm_score::add_to_player_score(level.player_starting_points - player.score);
+		}
+
+		if(isDefined(player get_player_placeable_mine()))
+		{
+			player giveweapon(player get_player_placeable_mine());
+			player set_player_placeable_mine(player get_player_placeable_mine());
+			player setactionslot(4, "weapon", player get_player_placeable_mine());
+			player setweaponammoclip(player get_player_placeable_mine(), 2);
 		}
 	}
 
