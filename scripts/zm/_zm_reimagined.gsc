@@ -13,6 +13,8 @@ init()
 {
 	level.inital_spawn = true;
 	thread onplayerconnect();
+
+	set_lethal_grenade_init();
 }
 
 onplayerconnect()
@@ -103,8 +105,6 @@ onplayerspawned()
 		self increase_melee_range();
 		self disable_melee_lunge();
 		self enable_friendly_fire();
-
-		self set_player_lethal_grenade_semtex();
 
 		self setperk( "specialty_unlimitedsprint" );
 		self setperk( "specialty_fastmantle" );
@@ -1796,18 +1796,16 @@ random_push()
 	self SetVelocity(vector);
 }
 
-set_player_lethal_grenade_semtex()
+set_lethal_grenade_init()
 {
 	if (level.script != "zm_transit" && level.script != "zm_nuked" && level.script != "zm_highrise" && level.script != "zm_tomb")
 	{
 		return;
 	}
 
-	self takeweapon( self get_player_lethal_grenade() );
-	self set_player_lethal_grenade( "sticky_grenade_zm" );
-	self giveweapon( self get_player_lethal_grenade() );
-	self setweaponammoclip( self get_player_lethal_grenade(), 0 );
+	level.zombie_lethal_grenade_player_init = "sticky_grenade_zm";
 }
+
 
 fall_velocity_check()
 {
