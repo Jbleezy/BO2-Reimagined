@@ -26,6 +26,7 @@ init()
 	level thread set_grief_vars();
 	level thread init_round_start_wait(5);
 	level thread unlimited_zombies();
+	//level thread spawn_bots(7);
 }
 
 on_player_connect()
@@ -558,5 +559,17 @@ unlimited_zombies()
 		}
 
 		wait 1;
+	}
+}
+
+spawn_bots(num)
+{
+	level waittill( "connected", player );
+
+	for(i = 0; i < num; i++)
+	{
+		bot = addtestclient();
+
+		wait 0.5; // need wait or bots don't spawn at correct origin
 	}
 }
