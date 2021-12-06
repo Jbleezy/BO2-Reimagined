@@ -53,7 +53,7 @@ on_player_downed()
 
 	while(1)
 	{
-		self waittill( "player_downed" );
+		self waittill( "entering_last_stand" );
 
 		self thread kill_feed();
 	}
