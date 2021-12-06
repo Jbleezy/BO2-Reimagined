@@ -40,9 +40,23 @@ on_player_connect()
     while ( 1 )
     {
     	level waittill( "connected", player );
+
        	player set_team();
 		player [[ level.givecustomcharacters ]]();
+		player thread on_player_downed();
     }
+}
+
+on_player_downed()
+{
+	self endon( "disconnect" );
+
+	while(1)
+	{
+		self waittill( "player_downed" );
+
+		self thread kill_feed();
+	}
 }
 
 set_team()
@@ -150,10 +164,23 @@ set_grief_vars()
 	level.grief_score = [];
 	level.grief_score["A"] = 0;
 	level.grief_score["B"] = 0;
+	level.game_mode_shellshock_time = 0.5;
 
 	flag_wait( "start_zombie_round_logic" ); // needs a wait
 
 	level.zombie_move_speed = 100;
+}
+
+kill_feed()
+{
+	if(isDefined(self.last_griefed_by))
+	{
+		obituary(self, self.last_griefed_by.attacker, self.last_griefed_by.weapon, self.last_griefed_by.meansofdeath);
+	}
+	else
+	{
+		obituary(self, self, "none", "MOD_SUICIDE");
+	}
 }
 
 init_round_start_wait(time)
@@ -494,7 +521,7 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 		}
 	}
 
-	if ( is_true( self._being_shellshocked ) || self maps/mp/zombies/_zm_laststand::player_is_in_laststand() )
+	if ( self maps/mp/zombies/_zm_laststand::player_is_in_laststand() )
 	{
 		return;
 	}
@@ -536,15 +563,21 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 			}
 		}
 
-		self thread add_grief_score(eattacker);
 		self thread do_game_mode_shellshock();
 		self playsound( "zmb_player_hit_ding" );
+
+		self thread add_grief_score(eattacker);
+		self thread store_damage_info(eattacker, sweapon, smeansofdeath);
 	}
 }
 
 do_game_mode_shellshock()
 {
-	self shellshock( "grief_stab_zm", 0.5 );
+	self endon( "disconnect" );
+	self._being_shellshocked = 1;
+	self shellshock( "grief_stab_zm", level.game_mode_shellshock_time );
+	wait level.game_mode_shellshock_time;
+	self._being_shellshocked = 0;
 }
 
 add_grief_score(attacker)
@@ -553,6 +586,30 @@ add_grief_score(attacker)
 	{
 		attacker maps/mp/zombies/_zm_score::add_to_player_score(10);
 	}
+}
+
+store_damage_info(attacker, weapon, meansofdeath)
+{
+	self.last_griefed_by = spawnStruct();
+	self.last_griefed_by.attacker = attacker;
+	self.last_griefed_by.weapon = weapon;
+	self.last_griefed_by.meansofdeath = meansofdeath;
+
+	self thread remove_damage_info();
+}
+
+remove_damage_info()
+{
+	self notify("new_griefer");
+	self endon("new_griefer");
+	self endon("disconnect");
+
+	while(is_true(self._being_shellshocked) || self.health < self.maxhealth)
+	{
+		wait_network_frame();
+	}
+
+	self.last_griefed_by = undefined;
 }
 
 unlimited_zombies()
