@@ -131,6 +131,7 @@ grief_score_hud()
 
 set_grief_vars()
 {
+	level.noroundnumber = 1;
 	level.round_number = 0;
 	level.player_starting_points = 10000;
 	level.zombie_vars["zombie_health_start"] = 2000;
@@ -150,6 +151,8 @@ set_grief_vars()
 
 init_round_start_wait(time)
 {
+	flag_clear("spawn_zombies");
+
 	flag_wait("initial_blackscreen_passed");
 
 	round_start_wait(time);
@@ -263,6 +266,8 @@ zombie_goto_round(target_round)
 
 round_start_wait(time)
 {
+	level thread zombie_spawn_wait(time + 5);
+
 	players = get_players();
 	foreach(player in players)
 	{
@@ -282,8 +287,6 @@ round_start_wait(time)
 		player freezeControls(0);
 		player disableInvulnerability();
 	}
-
-	level thread zombie_spawn_wait(5);
 }
 
 round_start_countdown_hud(time)
