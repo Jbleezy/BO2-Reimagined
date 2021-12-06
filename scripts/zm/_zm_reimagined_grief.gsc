@@ -193,23 +193,8 @@ wait_for_team_death_and_round_end()
 			}
 			i++;
 		}
-		if ( cia_alive == 0 && cdc_alive == 0 && !level.isresetting_grief && !is_true( level.host_ended_game ) )
-		{
-			wait 0.5;
-			if ( isDefined( level._grief_reset_message ) )
-			{
-				level thread [[ level._grief_reset_message ]]();
-			}
-			level.isresetting_grief = 1;
-			level notify( "end_round_think" );
-			level.zombie_vars[ "spectators_respawn" ] = 1;
-			level notify( "keep_griefing" );
-			checking_for_round_end = 0;
-			zombie_goto_round( level.round_number );
-			level thread maps/mp/zombies/_zm_game_module::reset_grief();
-			level thread maps/mp/zombies/_zm::round_think( 1 );
-		}
-		else if ( !checking_for_round_end )
+
+		if ( !checking_for_round_end )
 		{
 			if ( cia_alive == 0 )
 			{
@@ -222,11 +207,13 @@ wait_for_team_death_and_round_end()
 				checking_for_round_end = 1;
 			}
 		}
+
 		if ( cia_alive > 0 && cdc_alive > 0 )
 		{
 			level notify( "stop_round_end_check" );
 			checking_for_round_end = 0;
 		}
+
 		wait 0.05;
 	}
 }
@@ -362,7 +349,6 @@ round_end(winner)
 	if(winner == "B")
 	{
 		team = "allies";
-
 	}
 
 	level.grief_score[winner]++;
