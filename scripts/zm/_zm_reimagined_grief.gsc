@@ -591,6 +591,12 @@ add_grief_score(attacker)
 
 store_damage_info(attacker, weapon, meansofdeath)
 {
+	// show weapon icon for impact damage
+	if(meansofdeath == "MOD_IMPACT")
+	{
+		meansofdeath = "MOD_UNKNOWN";
+	}
+
 	self.last_griefed_by = spawnStruct();
 	self.last_griefed_by.attacker = attacker;
 	self.last_griefed_by.weapon = weapon;
