@@ -402,6 +402,13 @@ round_timer_hud()
 		round_timer_hud setTimerUp(0);
 		start_time = int(getTime() / 1000);
 
+		if ( getDvar( "g_gametype" ) == "zgrief" )
+    	{
+			level waittill( "restart_round" );
+
+			continue;
+		}
+
 		level waittill( "end_of_round" );
 
 		end_time = int(getTime() / 1000);
