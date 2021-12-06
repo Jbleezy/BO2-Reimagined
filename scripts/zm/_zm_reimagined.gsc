@@ -98,6 +98,7 @@ onplayerspawned()
 		}
 
 		self set_movement_dvars();
+		self name_fade_changes();
 		self increase_melee_range();
 		self disable_melee_lunge();
 		self enable_friendly_fire();
@@ -217,6 +218,14 @@ set_movement_dvars()
 	self setClientDvar( "dtp_post_move_pause", 0 );
 	self setClientDvar( "dtp_exhaustion_window", 100 );
 	self setClientDvar( "dtp_startup_delay", 100 );
+}
+
+name_fade_changes()
+{
+	self setClientDvar( "cg_friendlyNameFadeIn", 0 );
+	self setClientDvar( "cg_friendlyNameFadeOut", 250 );
+	self setClientDvar( "cg_enemyNameFadeIn", 0 );
+	self setClientDvar( "cg_enemyNameFadeOut", 250 );
 }
 
 increase_melee_range()
