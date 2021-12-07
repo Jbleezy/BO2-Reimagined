@@ -191,7 +191,7 @@ init_round_start_wait(time)
 
 	flag_wait("initial_blackscreen_passed");
 
-	round_start_wait(time);
+	round_start_wait(time, true);
 }
 
 wait_for_team_death_and_round_end()
@@ -296,8 +296,18 @@ zombie_goto_round(target_round)
 	round_start_wait(5);
 }
 
-round_start_wait(time)
+round_start_wait(time, initial)
 {
+	if(!isDefined(initial))
+	{
+		initial = false;
+	}
+
+	if(!initial)
+	{
+		wait_network_frame(); // need a wait or players can move
+	}
+
 	level thread zombie_spawn_wait(time + 5);
 
 	players = get_players();
