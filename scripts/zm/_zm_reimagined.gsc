@@ -2122,6 +2122,7 @@ add_wallbuy( name )
 	maps/mp/zombies/_zm_unitrigger::unitrigger_force_per_player_triggers( unitrigger_stub, 1 );
 	if ( unitrigger_stub.zombie_weapon_upgrade == "bowie_knife_zm" )
 	{
+		model.origin -= anglesToForward( model.angles ) * 8; // original code adds 8
 		unitrigger_stub.cost = 3000;
 		unitrigger_stub.weapon_name = "bowie_knife_zm";
 		unitrigger_stub.vo_dialog_id = "bowie";
