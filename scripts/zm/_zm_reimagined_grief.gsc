@@ -603,7 +603,10 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 
 do_game_mode_shellshock()
 {
+	self notify( "do_game_mode_shellshock" );
+	self endon( "do_game_mode_shellshock" );
 	self endon( "disconnect" );
+
 	self._being_shellshocked = 1;
 	self shellshock( "grief_stab_zm", level.game_mode_shellshock_time );
 	wait level.game_mode_shellshock_time;
