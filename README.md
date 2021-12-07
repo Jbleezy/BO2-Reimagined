@@ -235,7 +235,7 @@
 * 2 lethal grenades and mines awarded each round
 * Unlimited barrier rebuild points
 * Decreased stun time by enemy players from 0.75 seconds to 0.5 seconds
-* Players can be stunned by enemy players while already stunned
+* Players can be stunned from melee by enemy players while already stunned
 * Points awarded for stunning enemy players that are damaged
 * Points awarded for downing enemy players
 * Landing on top of an enemy player downs them

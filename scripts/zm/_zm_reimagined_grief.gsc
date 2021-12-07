@@ -599,9 +599,16 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 			}
 		}
 
-		if ( isDefined( level._game_module_player_damage_grief_callback ) )
+		shellshock_override = false;
+		if ( isDefined( eattacker ) && isplayer( eattacker ) && eattacker != self && eattacker.team != self.team && smeansofdeath == "MOD_MELEE" )
 		{
-			self [[ level._game_module_player_damage_grief_callback ]]( einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime );
+			shellshock_override = true;
+			self applyknockback( idamage, vdir );
+		}
+
+		if ( is_true( self._being_shellshocked ) && !shellshock_override )
+		{
+			return;
 		}
 
 		if ( isDefined( level._effect[ "butterflies" ] ) )
