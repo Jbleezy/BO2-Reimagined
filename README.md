@@ -237,6 +237,7 @@
 * Decreased stun time by enemy players from 0.75 seconds to 0.5 seconds
 * Players can be stunned by enemy players while already stunned
 * Points awarded for stunning enemy players that are damaged
+* Points awarded for downing enemy players
 * Landing on top of an enemy player downs them
 * Added player kill feed
 * Teams win rounds by getting all enemy players down

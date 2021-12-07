@@ -55,7 +55,8 @@ on_player_downed()
 	{
 		self waittill( "entering_last_stand" );
 
-		self thread kill_feed();
+		self kill_feed();
+		self add_grief_downed_score();
 	}
 }
 
@@ -178,11 +179,18 @@ kill_feed()
 	if(isDefined(self.last_griefed_by))
 	{
 		obituary(self, self.last_griefed_by.attacker, self.last_griefed_by.weapon, self.last_griefed_by.meansofdeath);
-		self.last_griefed_by = undefined;
 	}
 	else
 	{
 		obituary(self, self, "none", "MOD_SUICIDE");
+	}
+}
+
+add_grief_downed_score()
+{
+	if(isDefined(self.score_lost_when_downed) && isDefined(self.last_griefed_by) && is_player_valid(self.last_griefed_by.attacker))
+	{
+		self.last_griefed_by.attacker maps/mp/zombies/_zm_score::add_to_player_score(self.score_lost_when_downed);
 	}
 }
 
@@ -608,7 +616,7 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 		self thread do_game_mode_shellshock();
 		self playsound( "zmb_player_hit_ding" );
 
-		self thread add_grief_score(eattacker);
+		self thread add_grief_stun_score(eattacker);
 		self thread store_damage_info(eattacker, sweapon, smeansofdeath);
 	}
 }
@@ -625,7 +633,7 @@ do_game_mode_shellshock()
 	self._being_shellshocked = 0;
 }
 
-add_grief_score(attacker)
+add_grief_stun_score(attacker)
 {
 	if(is_player_valid(attacker) && self.health < self.maxhealth)
 	{
@@ -655,7 +663,9 @@ remove_damage_info()
 	self endon("new_griefer");
 	self endon("disconnect");
 
-	while(is_true(self._being_shellshocked) || self.health < self.maxhealth)
+	wait_network_frame(); // need to wait at least one frame
+
+	while((is_true(self._being_shellshocked) || self.health < self.maxhealth) && is_player_valid(self))
 	{
 		wait_network_frame();
 	}

@@ -1747,15 +1747,7 @@ track_players_intersection_tracker()
 				{
 					if(getDvar("g_gametype") == "zgrief" && players[i]._encounters_team != players[j]._encounters_team)
 					{
-						players[j] notify("new_griefer");
-						if(!isDefined(players[j].last_griefed_by))
-						{
-							players[j].last_griefed_by = spawnStruct();
-						}
-						players[j].last_griefed_by.attacker = players[i];
-						players[j].last_griefed_by.weapon = "none";
-						players[j].last_griefed_by.meansofdeath = "MOD_FALLING";
-
+						players[j] scripts/zm/_zm_reimagined_grief::store_damage_info(players[i], "none", "MOD_FALLING");
 						players[j] dodamage( 1000, (0, 0, 0) );
 					}
 
@@ -1765,15 +1757,7 @@ track_players_intersection_tracker()
 				{
 					if(getDvar("g_gametype") == "zgrief" && players[i]._encounters_team != players[j]._encounters_team)
 					{
-						players[i] notify("new_griefer");
-						if(!isDefined(players[i].last_griefed_by))
-						{
-							players[i].last_griefed_by = spawnStruct();
-						}
-						players[i].last_griefed_by.attacker = players[j];
-						players[i].last_griefed_by.weapon = "none";
-						players[i].last_griefed_by.meansofdeath = "MOD_FALLING";
-
+						players[i] scripts/zm/_zm_reimagined_grief::store_damage_info(players[j], "none", "MOD_FALLING");
 						players[i] dodamage( 1000, (0, 0, 0) );
 					}
 
