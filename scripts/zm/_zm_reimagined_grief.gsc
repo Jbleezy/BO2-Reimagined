@@ -158,6 +158,7 @@ set_grief_vars()
 	level.player_restart_points = 5000;
 	level.zombie_vars["zombie_health_start"] = 2000;
 	level.zombie_vars["zombie_spawn_delay"] = 0.5;
+	level.global_damage_func = ::zombie_damage;
 	level.custom_end_screen = ::custom_end_screen;
 	level._game_module_player_damage_callback = ::game_module_player_damage_callback;
 
@@ -662,6 +663,127 @@ unlimited_zombies()
 
 		wait 1;
 	}
+}
+
+zombie_damage( mod, hit_location, hit_origin, player, amount, team )
+{
+	if ( is_magic_bullet_shield_enabled( self ) )
+	{
+		return;
+	}
+	player.use_weapon_type = mod;
+	if ( isDefined( self.marked_for_death ) )
+	{
+		return;
+	}
+	if ( !isDefined( player ) )
+	{
+		return;
+	}
+	if ( isDefined( hit_origin ) )
+	{
+		self.damagehit_origin = hit_origin;
+	}
+	else
+	{
+		self.damagehit_origin = player getweaponmuzzlepoint();
+	}
+	if ( self maps/mp/zombies/_zm_spawner::check_zombie_damage_callbacks( mod, hit_location, hit_origin, player, amount ) )
+	{
+		return;
+	}
+	else if ( self maps/mp/zombies/_zm_spawner::zombie_flame_damage( mod, player ) )
+	{
+		if ( self maps/mp/zombies/_zm_spawner::zombie_give_flame_damage_points() )
+		{
+			player maps/mp/zombies/_zm_score::player_add_points( "damage", mod, hit_location, self.isdog, team );
+		}
+	}
+	else if ( maps/mp/zombies/_zm_spawner::player_using_hi_score_weapon( player ) )
+	{
+		damage_type = "damage";
+	}
+	else
+	{
+		damage_type = "damage_light";
+	}
+	if ( !is_true( self.no_damage_points ) )
+	{
+		player maps/mp/zombies/_zm_score::player_add_points( damage_type, mod, hit_location, self.isdog, team, self.damageweapon );
+	}
+	if ( isDefined( self.zombie_damage_fx_func ) )
+	{
+		self [[ self.zombie_damage_fx_func ]]( mod, hit_location, hit_origin, player );
+	}
+	modname = remove_mod_from_methodofdeath( mod );
+	if ( is_placeable_mine( self.damageweapon ) )
+	{
+		damage = 2000;
+		if ( isDefined( self.zombie_damage_claymore_func ) )
+		{
+			self [[ self.zombie_damage_claymore_func ]]( mod, hit_location, hit_origin, player );
+		}
+		else if ( isDefined( player ) && isalive( player ) )
+		{
+			self dodamage( damage, self.origin, player, self, hit_location, mod );
+		}
+		else
+		{
+			self dodamage( damage, self.origin, undefined, self, hit_location, mod );
+		}
+	}
+	else if ( mod == "MOD_GRENADE" || mod == "MOD_GRENADE_SPLASH" )
+	{
+		damage = 150;
+		if ( isDefined( player ) && isalive( player ) )
+		{
+			player.grenade_multiattack_count++;
+			player.grenade_multiattack_ent = self;
+			self dodamage( damage, self.origin, player, self, hit_location, modname );
+		}
+		else
+		{
+			self dodamage( damage, self.origin, undefined, self, hit_location, modname );
+		}
+	}
+	else if ( mod != "MOD_PROJECTILE" || mod == "MOD_EXPLOSIVE" && mod == "MOD_PROJECTILE_SPLASH" )
+	{
+		damage = 1000;
+		if ( isDefined( player ) && isalive( player ) )
+		{
+			self dodamage( damage, self.origin, player, self, hit_location, modname );
+		}
+		else
+		{
+			self dodamage( damage, self.origin, undefined, self, hit_location, modname );
+		}
+	}
+	if ( isDefined( self.a.gib_ref ) && self.a.gib_ref == "no_legs" && isalive( self ) )
+	{
+		if ( isDefined( player ) )
+		{
+			rand = randomintrange( 0, 100 );
+			if ( rand < 10 )
+			{
+				player maps/mp/zombies/_zm_audio::create_and_play_dialog( "general", "crawl_spawn" );
+			}
+		}
+	}
+	else if ( isDefined( self.a.gib_ref ) || self.a.gib_ref == "right_arm" && self.a.gib_ref == "left_arm" )
+	{
+		if ( self.has_legs && isalive( self ) )
+		{
+			if ( isDefined( player ) )
+			{
+				rand = randomintrange( 0, 100 );
+				if ( rand < 7 )
+				{
+					player maps/mp/zombies/_zm_audio::create_and_play_dialog( "general", "shoot_arm" );
+				}
+			}
+		}
+	}
+	self thread maps/mp/zombies/_zm_powerups::check_for_instakill( player, mod, hit_location );
 }
 
 handle_post_board_repair_rewards( cost, zbarrier )
