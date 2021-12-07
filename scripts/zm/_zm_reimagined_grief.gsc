@@ -308,17 +308,19 @@ round_start_wait(time, initial)
 		initial = false;
 	}
 
-	if(!initial)
-	{
-		wait_network_frame(); // need a wait or players can move
-	}
-
 	level thread zombie_spawn_wait(time + 5);
 
 	players = get_players();
 	foreach(player in players)
 	{
-		player freezeControls(1);
+		if(!initial)
+		{
+			player thread wait_and_freeze_controls(1); // need a wait or players can move
+		}
+		else
+		{
+			player freezeControls(1);
+		}
 		player enableInvulnerability();
 	}
 
@@ -334,6 +336,15 @@ round_start_wait(time, initial)
 		player freezeControls(0);
 		player disableInvulnerability();
 	}
+}
+
+wait_and_freeze_controls(bool)
+{
+	self endon("disconnect");
+
+	wait_network_frame();
+
+	self freezeControls(bool);
 }
 
 round_start_countdown_hud(time)
