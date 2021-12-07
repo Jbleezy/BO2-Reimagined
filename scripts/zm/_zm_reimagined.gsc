@@ -2112,8 +2112,7 @@ add_wallbuy( name )
 	}
 	unitrigger_stub.zombie_weapon_upgrade = struct.zombie_weapon_upgrade;
 
-	model = spawn( "script_model", struct.origin );
-	model.angles = struct.angles;
+	model = spawn_weapon_model( struct.zombie_weapon_upgrade, undefined, target_struct.origin, target_struct.angles );
 	model.targetname = struct.target;
 	model setmodel( target_struct.model );
 	model useweaponhidetags( struct.zombie_weapon_upgrade );
@@ -2122,7 +2121,6 @@ add_wallbuy( name )
 	maps/mp/zombies/_zm_unitrigger::unitrigger_force_per_player_triggers( unitrigger_stub, 1 );
 	if ( unitrigger_stub.zombie_weapon_upgrade == "bowie_knife_zm" )
 	{
-		model.origin -= anglesToForward( model.angles ) * 8; // original code adds 8
 		unitrigger_stub.cost = 3000;
 		unitrigger_stub.weapon_name = "bowie_knife_zm";
 		unitrigger_stub.vo_dialog_id = "bowie";
@@ -2135,9 +2133,9 @@ add_wallbuy( name )
 	}
 	else if ( unitrigger_stub.zombie_weapon_upgrade == "claymore_zm" )
 	{
+		model.script_int = -90; // fix for model sliding right to left
 		unitrigger_stub.prompt_and_visibility_func = maps/mp/zombies/_zm_weap_claymore::claymore_unitrigger_update_prompt;
 		maps/mp/zombies/_zm_unitrigger::register_static_unitrigger( unitrigger_stub, maps/mp/zombies/_zm_weap_claymore::buy_claymores );
-		model thread claymore_rotate_model_when_bought();
 	}
 	else
 	{
@@ -2159,18 +2157,6 @@ playchalkfx( effect, origin, angles )
 		level waittill( "connected", player );
 		fx Delete();
 	}
-}
-
-claymore_rotate_model_when_bought()
-{
-	og_origin = self.origin;
-
-	while (og_origin == self.origin)
-	{
-		wait 0.05;
-	}
-
-	self.angles += ( 0, 90, 0 );
 }
 
 bowie_knife_update_prompt(player)
