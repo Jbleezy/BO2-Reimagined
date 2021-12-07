@@ -155,6 +155,7 @@ set_grief_vars()
 	level.noroundnumber = 1;
 	level.round_number = 0;
 	level.player_starting_points = 10000;
+	level.player_restart_points = 5000;
 	level.zombie_vars["zombie_health_start"] = 2000;
 	level.zombie_vars["zombie_spawn_delay"] = 0.5;
 	level.custom_end_screen = ::custom_end_screen;
@@ -278,9 +279,9 @@ zombie_goto_round(target_round)
 	players = get_players();
 	foreach(player in players)
 	{
-		if(player.score < level.player_starting_points)
+		if(player.score < level.player_restart_points)
 		{
-			player maps/mp/zombies/_zm_score::add_to_player_score(level.player_starting_points - player.score);
+			player maps/mp/zombies/_zm_score::add_to_player_score(level.player_restart_points - player.score);
 		}
 
 		if(isDefined(player get_player_placeable_mine()))
