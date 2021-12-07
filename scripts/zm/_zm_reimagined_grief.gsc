@@ -203,6 +203,8 @@ wait_for_team_death_and_round_end()
 	level.isresetting_grief = 0;
 	while ( 1 )
 	{
+		cdc_total = 0;
+		cia_total = 0;
 		cdc_alive = 0;
 		cia_alive = 0;
 		players = get_players();
@@ -216,6 +218,7 @@ wait_for_team_death_and_round_end()
 			}
 			if ( players[ i ]._encounters_team == "A" )
 			{
+				cia_total++;
 				if ( is_player_valid( players[ i ] ) )
 				{
 					cia_alive++;
@@ -223,6 +226,7 @@ wait_for_team_death_and_round_end()
 				i++;
 				continue;
 			}
+			cdc_total++;
 			if ( is_player_valid( players[ i ] ) )
 			{
 				cdc_alive++;
@@ -234,12 +238,12 @@ wait_for_team_death_and_round_end()
 		{
 			if ( cia_alive == 0 )
 			{
-				level thread round_end( "B" );
+				level thread round_end( "B", cia_total == 0 );
 				checking_for_round_end = 1;
 			}
 			else if ( cdc_alive == 0 )
 			{
-				level thread round_end( "A" );
+				level thread round_end( "A", cdc_total == 0 );
 				checking_for_round_end = 1;
 			}
 		}
@@ -398,8 +402,13 @@ zombie_spawn_wait(time)
 	flag_set("spawn_zombies");
 }
 
-round_end(winner)
+round_end(winner, force_win)
 {
+	if(!isDefined(force_win))
+	{
+		force_win = false;
+	}
+
 	team = "axis";
 	if(winner == "B")
 	{
@@ -408,7 +417,7 @@ round_end(winner)
 
 	level.grief_score[winner]++;
 
-	if(level.grief_score[winner] == level.grief_winning_score)
+	if(level.grief_score[winner] == level.grief_winning_score || force_win)
 	{
 		level.grief_hud.score[team] setValue(level.grief_score[winner]);
 		level.gamemodulewinningteam = winner;
