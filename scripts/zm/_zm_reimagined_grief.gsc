@@ -928,10 +928,21 @@ spawn_bots(num)
 {
 	level waittill( "connected", player );
 
+	level.bots = [];
+
 	for(i = 0; i < num; i++)
 	{
-		bot = addtestclient();
+		if(get_players().size == 8)
+		{
+			break;
+		}
 
-		wait 0.5; // need wait or bots don't spawn at correct origin
+		// fixes bot occasionally not spawning
+		while(!isDefined(level.bots[i]))
+		{
+			level.bots[i] = addtestclient();
+		}
+
+		wait 0.4; // need wait or bots don't spawn at correct origin
 	}
 }
