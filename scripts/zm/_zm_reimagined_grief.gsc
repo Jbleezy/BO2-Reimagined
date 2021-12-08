@@ -169,6 +169,7 @@ set_grief_vars()
 	level.grief_score["A"] = 0;
 	level.grief_score["B"] = 0;
 	level.game_mode_shellshock_time = 0.5;
+	level.game_mode_griefed_time = 2.5;
 
 	flag_wait( "start_zombie_round_logic" ); // needs a wait
 
@@ -691,10 +692,12 @@ remove_damage_info()
 	self endon("disconnect");
 
 	health = self.health;
+	time = getTime();
+	max_time = level.game_mode_griefed_time * 1000;
 
 	wait_network_frame(); // need to wait at least one frame
 
-	while((is_true(self._being_shellshocked) || self.health < health) && is_player_valid(self))
+	while(((getTime() - time) < max_time || self.health < health) && is_player_valid(self))
 	{
 		wait_network_frame();
 	}
