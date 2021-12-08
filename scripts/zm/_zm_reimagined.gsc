@@ -1747,7 +1747,7 @@ track_players_intersection_tracker()
 				{
 					if(getDvar("g_gametype") == "zgrief" && players[i]._encounters_team != players[j]._encounters_team)
 					{
-						players[j] scripts/zm/_zm_reimagined_grief::store_damage_info(players[i], "none", "MOD_FALLING");
+						players[j] [[level.store_player_damage_info_func]](players[i], "none", "MOD_FALLING");
 						players[j] dodamage( 1000, (0, 0, 0) );
 					}
 
@@ -1757,7 +1757,7 @@ track_players_intersection_tracker()
 				{
 					if(getDvar("g_gametype") == "zgrief" && players[i]._encounters_team != players[j]._encounters_team)
 					{
-						players[i] scripts/zm/_zm_reimagined_grief::store_damage_info(players[j], "none", "MOD_FALLING");
+						players[i] [[level.store_player_damage_info_func]](players[j], "none", "MOD_FALLING");
 						players[i] dodamage( 1000, (0, 0, 0) );
 					}
 

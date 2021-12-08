@@ -170,6 +170,7 @@ set_grief_vars()
 	level.grief_score["B"] = 0;
 	level.game_mode_shellshock_time = 0.5;
 	level.game_mode_griefed_time = 2.5;
+	level.store_player_damage_info_func = ::store_player_damage_info;
 
 	flag_wait( "start_zombie_round_logic" ); // needs a wait
 
@@ -645,7 +646,7 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 		self playsound( "zmb_player_hit_ding" );
 
 		self thread add_grief_stun_score(eattacker);
-		self thread store_damage_info(eattacker, sweapon, smeansofdeath);
+		self thread [[level.store_player_damage_info_func]](eattacker, sweapon, smeansofdeath);
 	}
 }
 
@@ -669,7 +670,7 @@ add_grief_stun_score(attacker)
 	}
 }
 
-store_damage_info(attacker, weapon, meansofdeath)
+store_player_damage_info(attacker, weapon, meansofdeath)
 {
 	// show weapon icon for impact damage
 	if(meansofdeath == "MOD_IMPACT")
@@ -682,10 +683,10 @@ store_damage_info(attacker, weapon, meansofdeath)
 	self.last_griefed_by.weapon = weapon;
 	self.last_griefed_by.meansofdeath = meansofdeath;
 
-	self thread remove_damage_info();
+	self thread remove_player_damage_info();
 }
 
-remove_damage_info()
+remove_player_damage_info()
 {
 	self notify("new_griefer");
 	self endon("new_griefer");
