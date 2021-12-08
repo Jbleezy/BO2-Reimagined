@@ -11,11 +11,13 @@ main()
 
 init()
 {
-	level.inital_spawn = true;
 	thread onplayerconnect();
 
 	setscoreboardcolumns_gametype();
 	set_lethal_grenade_init();
+	disable_solo_revive();
+
+	level thread post_all_players_spawned();
 }
 
 onplayerconnect()
@@ -37,13 +39,6 @@ onplayerspawned()
 	for(;;)
 	{
 		self waittill( "spawned_player" );
-
-		if(level.inital_spawn)
-		{
-			level.inital_spawn = false;
-
-			level thread post_all_players_spawned();
-		}
 
 		if (self.initial_spawn)
 		{
@@ -114,8 +109,6 @@ onplayerspawned()
 
 post_all_players_spawned()
 {
-	disable_solo_revive();
-
 	flag_wait( "start_zombie_round_logic" );
 
 	wait 0.05;
