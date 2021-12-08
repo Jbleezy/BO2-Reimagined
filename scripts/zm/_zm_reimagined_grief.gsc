@@ -270,6 +270,8 @@ wait_for_team_death_and_round_end()
 
 zombie_goto_round(target_round)
 {
+	level endon( "end_game" );
+
 	level notify( "restart_round" );
 
 	if ( target_round < 1 )
