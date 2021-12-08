@@ -14,6 +14,7 @@ init()
 	level.inital_spawn = true;
 	thread onplayerconnect();
 
+	setscoreboardcolumns_gametype();
 	set_lethal_grenade_init();
 }
 
@@ -1778,6 +1779,18 @@ random_push()
 {
 	vector = VectorNormalize((RandomIntRange(-100, 101), RandomIntRange(-100, 101), 0)) * (100, 100, 100);
 	self SetVelocity(vector);
+}
+
+setscoreboardcolumns_gametype()
+{
+	if(getDvar("g_gametype") == "zgrief")
+	{
+		setscoreboardcolumns("score", "kills", "killsconfirmed", "downs", "revives");
+	}
+	else
+	{
+		setscoreboardcolumns("score", "kills", "headshots", "downs", "revives");
+	}
 }
 
 set_lethal_grenade_init()

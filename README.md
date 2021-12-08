@@ -240,5 +240,6 @@
 * Points awarded for downing enemy players
 * Landing on top of an enemy player downs them
 * Added player kill feed
+* Added player kills on scoreboard
 * Teams win rounds by getting all enemy players down
 * First team to win 3 rounds wins the game

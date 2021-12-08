@@ -45,6 +45,7 @@ on_player_connect()
        	player set_team();
 		player [[ level.givecustomcharacters ]]();
 		player thread on_player_downed();
+		player.killsconfirmed = 0;
     }
 }
 
@@ -181,6 +182,7 @@ kill_feed()
 {
 	if(isDefined(self.last_griefed_by))
 	{
+		self.last_griefed_by.attacker.killsconfirmed++;
 		obituary(self, self.last_griefed_by.attacker, self.last_griefed_by.weapon, self.last_griefed_by.meansofdeath);
 	}
 	else
