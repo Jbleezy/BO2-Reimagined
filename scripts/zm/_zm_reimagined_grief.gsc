@@ -690,9 +690,11 @@ remove_damage_info()
 	self endon("new_griefer");
 	self endon("disconnect");
 
+	health = self.health;
+
 	wait_network_frame(); // need to wait at least one frame
 
-	while((is_true(self._being_shellshocked) || self.health < self.maxhealth) && is_player_valid(self))
+	while((is_true(self._being_shellshocked) || self.health <= health) && is_player_valid(self))
 	{
 		wait_network_frame();
 	}
