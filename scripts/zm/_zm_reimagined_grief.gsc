@@ -368,6 +368,7 @@ round_start_countdown_hud(time)
     countdown.hidewheninmenu = true;
     countdown maps/mp/gametypes_zm/_hud::fontpulseinit();
     countdown thread round_start_countdown_hud_timer(time);
+	countdown thread round_start_countdown_hud_end_game_watcher();
 
 	countdown.countdown_text = createServerFontString( "objective", 1.5 );
     countdown.countdown_text setPoint( "CENTER", "CENTER", 0, -40 );
@@ -386,8 +387,19 @@ round_start_countdown_hud_destroy()
 	self destroy();
 }
 
+round_start_countdown_hud_end_game_watcher()
+{
+	self endon("death");
+
+	level waittill( "end_game" );
+
+	self round_start_countdown_hud_destroy();
+}
+
 round_start_countdown_hud_timer(time)
 {
+	level endon( "end_game" );
+
     timer = time;
     while ( true )
     {
@@ -405,7 +417,9 @@ round_start_countdown_hud_timer(time)
 countdown_pulse( hud_elem, duration )
 {
     level endon( "end_game" );
+
     waittillframeend;
+
     while ( duration > 0 && !level.gameended )
     {
         hud_elem thread maps/mp/gametypes_zm/_hud::fontpulse( level );
