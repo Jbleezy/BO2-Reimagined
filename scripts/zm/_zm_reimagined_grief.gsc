@@ -694,7 +694,7 @@ remove_damage_info()
 
 	wait_network_frame(); // need to wait at least one frame
 
-	while((is_true(self._being_shellshocked) || self.health <= health) && is_player_valid(self))
+	while((is_true(self._being_shellshocked) || self.health < health) && is_player_valid(self))
 	{
 		wait_network_frame();
 	}
