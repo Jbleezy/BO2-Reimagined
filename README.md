@@ -136,6 +136,9 @@
 ### Carpenter
 * Removed
 
+### Nuke
+* Kills all zombies instantly
+
 ## Persistent Upgrades
 * Removed
 
