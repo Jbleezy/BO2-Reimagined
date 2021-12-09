@@ -352,7 +352,7 @@ timer_hud()
 	timer_hud.horzalign = "user_right";
 	timer_hud.vertalign = "user_top";
 	timer_hud.x -= 5;
-	timer_hud.y += 2;
+	timer_hud.y += 12;
 	timer_hud.fontscale = 1.4;
 	timer_hud.alpha = 0;
 	timer_hud.color = ( 1, 1, 1 );
@@ -375,7 +375,7 @@ round_timer_hud()
 	round_timer_hud.horzalign = "user_right";
 	round_timer_hud.vertalign = "user_top";
 	round_timer_hud.x -= 5;
-	round_timer_hud.y += 17;
+	round_timer_hud.y += 27;
 	round_timer_hud.fontscale = 1.4;
 	round_timer_hud.alpha = 0;
 	round_timer_hud.color = ( 1, 1, 1 );
