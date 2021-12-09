@@ -357,7 +357,7 @@ timer_hud()
 	timer_hud.alpha = 0;
 	timer_hud.color = ( 1, 1, 1 );
 	timer_hud.hidewheninmenu = 1;
-	timer_hud.label = &"Time: ";
+	timer_hud.label = &"Total: ";
 
 	flag_wait( "initial_blackscreen_passed" );
 
@@ -380,7 +380,7 @@ round_timer_hud()
 	round_timer_hud.alpha = 0;
 	round_timer_hud.color = ( 1, 1, 1 );
 	round_timer_hud.hidewheninmenu = 1;
-	round_timer_hud.label = &"Round Time: ";
+	round_timer_hud.label = &"Round: ";
 
 	flag_wait( "initial_blackscreen_passed" );
 
