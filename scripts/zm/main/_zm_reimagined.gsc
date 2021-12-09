@@ -1701,13 +1701,15 @@ track_players_intersection_tracker()
 
 	while ( 1 )
 	{
-		killed_players = 0;
 		players = getPlayers();
 		i = 0;
 		while ( i < players.size )
 		{
+			playeri_on_top = 0;
+
 			if ( players[ i ] maps/mp/zombies/_zm_laststand::player_is_in_laststand() || players[ i ].sessionstate != "playing" )
 			{
+				players[i].time_on_top_of_player = undefined;
 				i++;
 				continue;
 			}
@@ -1745,20 +1747,24 @@ track_players_intersection_tracker()
 						players[j] dodamage( 1000, (0, 0, 0) );
 					}
 
-					players[i] random_push();
-				}
-				else
-				{
-					if(getDvar("g_gametype") == "zgrief" && players[i]._encounters_team != players[j]._encounters_team)
+					playeri_on_top = 1;
+					if(!isDefined(players[i].time_on_top_of_player))
 					{
-						players[i] [[level.store_player_damage_info_func]](players[j], "none", "MOD_FALLING");
-						players[i] dodamage( 1000, (0, 0, 0) );
+						players[i].time_on_top_of_player = getTime();
 					}
 
-					players[j] random_push();
+					if((getTime() - players[i].time_on_top_of_player) >= 1000)
+					{
+						players[i] random_push();
+					}
 				}
 
 				j++;
+			}
+
+			if(!playeri_on_top)
+			{
+				players[i].time_on_top_of_player = undefined;
 			}
 
 			i++;
