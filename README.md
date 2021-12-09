@@ -226,12 +226,13 @@
 ## Gamemodes
 
 ### Grief
+* Teams win rounds by getting all enemy players down
+* First team to win 3 rounds wins the game
 * Unlimited zombies
 * 2000 health zombies
 * 0.5 second zombie spawn rate
 * Only sprinting zombies
-* Every player starts each game with 10000 points
-* Every player starts each round with at least 5000 points
+* Players start each round with at least 10000 points
 * 2 lethal grenades and mines awarded each round
 * Unlimited barrier rebuild points
 * Decreased stun time by enemy players from 0.75 seconds to 0.5 seconds
@@ -241,5 +242,3 @@
 * Landing on top of an enemy player downs them
 * Added player kill feed
 * Added player kills on scoreboard
-* Teams win rounds by getting all enemy players down
-* First team to win 3 rounds wins the game

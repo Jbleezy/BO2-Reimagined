@@ -166,7 +166,7 @@ set_grief_vars()
 	level.noroundnumber = 1;
 	level.round_number = 0;
 	level.player_starting_points = 10000;
-	level.player_restart_points = 5000;
+	level.player_restart_points = 10000;
 	level.zombie_vars["zombie_health_start"] = 2000;
 	level.zombie_vars["zombie_spawn_delay"] = 0.5;
 	level.global_damage_func = ::zombie_damage;
