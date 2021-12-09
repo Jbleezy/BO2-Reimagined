@@ -647,7 +647,7 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 		self thread do_game_mode_shellshock();
 		self playsound( "zmb_player_hit_ding" );
 
-		self thread add_grief_stun_score(eattacker);
+		self thread stun_score_steal(eattacker, 10);
 		self thread [[level.store_player_damage_info_func]](eattacker, sweapon, smeansofdeath);
 	}
 }
@@ -664,11 +664,20 @@ do_game_mode_shellshock()
 	self._being_shellshocked = 0;
 }
 
-add_grief_stun_score(attacker)
+stun_score_steal(attacker, score)
 {
 	if(is_player_valid(attacker) && self.health < self.maxhealth)
 	{
-		attacker maps/mp/zombies/_zm_score::add_to_player_score(10);
+		attacker maps/mp/zombies/_zm_score::add_to_player_score(score);
+	}
+
+	if(self.score < score)
+	{
+		self maps/mp/zombies/_zm_score::minus_to_player_score(self.score);
+	}
+	else
+	{
+		self maps/mp/zombies/_zm_score::minus_to_player_score(score);
 	}
 }
 
