@@ -18,6 +18,9 @@ init()
 	set_lethal_grenade_init();
 	disable_solo_revive();
 
+	prison_plane_set_need_all_pieces();
+	prison_plane_set_pieces_shared();
+
 	level thread post_all_players_spawned();
 }
 
@@ -179,7 +182,7 @@ post_all_players_spawned()
 
 	level thread highrise_solo_revive_fix();
 
-	level thread prison_auto_refuel_plane();
+	level thread prison_plane_auto_refuel();
 
 	level thread buried_enable_fountain_transport();
 	level thread buried_disable_ghost_free_perk_on_damage();
@@ -5046,7 +5049,38 @@ town_move_staminup_machine()
 	maps/mp/zombies/_zm_power::add_powered_item( maps/mp/zombies/_zm_power::perk_power_on, ::perk_power_off, maps/mp/zombies/_zm_power::perk_range, maps/mp/zombies/_zm_power::cost_low_if_local, 0, powered_on, use_trigger );
 }
 
-prison_auto_refuel_plane()
+prison_plane_set_need_all_pieces()
+{
+	if(!(is_classic() && level.scr_zm_map_start_location == "prison"))
+	{
+		return;
+	}
+
+	level.zombie_craftablestubs["plane"].need_all_pieces = 1;
+	level.zombie_craftablestubs["refuelable_plane"].need_all_pieces = 1;
+}
+
+prison_plane_set_pieces_shared()
+{
+	if(!(is_classic() && level.scr_zm_map_start_location == "prison"))
+	{
+		return;
+	}
+
+	foreach(stub in level.zombie_include_craftables)
+	{
+		if(stub.name == "plane" || stub.name == "refuelable_plane")
+		{
+			foreach(piece in stub.a_piecestubs)
+			{
+				piece.is_shared = 1;
+				piece.client_field_state = undefined;
+			}
+		}
+	}
+}
+
+prison_plane_auto_refuel()
 {
 	if(!(is_classic() && level.scr_zm_map_start_location == "prison"))
 	{

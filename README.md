@@ -198,6 +198,8 @@
 * Tower Trap kills on any round in 1 shot
 * Upgraded Tower Trap kills on any round in 1-2 shots
 * Upgraded Tower Trap stays upgraded until the end of the round
+* Plane parts are shared in coop
+* Plane parts must be all acquired to craft
 * Plane fuel automatically picked up
 
 ### Buried
