@@ -211,7 +211,7 @@
 
 #### Borough
 * Added B23R, M16A1, Claymore, and Bowie Knife wallbuys
-* Moved Quick Revive to its location on Buried
+* Moved Quick Revive to Speed Cola's location on Borough
 * Moved Speed Cola to its location on Buried
 * Moved Stamin-Up to Vulture Aid's location on Buried
 

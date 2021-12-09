@@ -991,20 +991,24 @@ borough_move_quickrevive_machine()
 	}
 
 	perk_struct = undefined;
+	perk_location_struct = undefined;
 	structs = getstructarray("zm_perk_machine", "targetname");
 	foreach (struct in structs)
 	{
 		if (IsDefined(struct.script_noteworthy) && IsDefined(struct.script_string))
 		{
-			if (struct.script_noteworthy == "specialty_quickrevive" && IsSubStr(struct.script_string, "zclassic"))
+			if (struct.script_noteworthy == "specialty_quickrevive" && IsSubStr(struct.script_string, "zgrief"))
 			{
 				perk_struct = struct;
-				break;
+			}
+			else if (struct.script_noteworthy == "specialty_fastreload" && IsSubStr(struct.script_string, "zgrief"))
+			{
+				perk_location_struct = struct;
 			}
 		}
 	}
 
-	if(!IsDefined(perk_struct))
+	if(!IsDefined(perk_struct) || !IsDefined(perk_location_struct))
 	{
 		return;
 	}
@@ -1025,20 +1029,21 @@ borough_move_quickrevive_machine()
 	}
 
 	// spawn new machine
-	use_trigger = spawn( "trigger_radius_use", perk_struct.origin + vectorScale( ( 0, 0, 1 ), 30 ), 0, 40, 70 );
+	perk_location_struct.origin += (0, -30, 0); // fix for location being slightly off
+	use_trigger = spawn( "trigger_radius_use", perk_location_struct.origin + vectorScale( ( 0, 0, 1 ), 30 ), 0, 40, 70 );
 	use_trigger.targetname = "zombie_vending";
 	use_trigger.script_noteworthy = perk_struct.script_noteworthy;
 	use_trigger triggerignoreteam();
-	perk_machine = spawn( "script_model", perk_struct.origin );
-	perk_machine.angles = perk_struct.angles;
+	perk_machine = spawn( "script_model", perk_location_struct.origin );
+	perk_machine.angles = perk_location_struct.angles;
 	perk_machine setmodel( perk_struct.model );
-	bump_trigger = spawn( "trigger_radius", perk_struct.origin + AnglesToRight(perk_struct.angles) * 32, 0, 35, 32 );
+	bump_trigger = spawn( "trigger_radius", perk_location_struct.origin + AnglesToRight(perk_location_struct.angles) * 32, 0, 35, 32 );
 	bump_trigger.script_activated = 1;
 	bump_trigger.script_sound = "zmb_perks_bump_bottle";
 	bump_trigger.targetname = "audio_bump_trigger";
 	bump_trigger thread maps/mp/zombies/_zm_perks::thread_bump_trigger();
-	collision = spawn( "script_model", perk_struct.origin, 1 );
-	collision.angles = perk_struct.angles;
+	collision = spawn( "script_model", perk_location_struct.origin, 1 );
+	collision.angles = perk_location_struct.angles;
 	collision setmodel( "zm_collision_perks1" );
 	collision.script_noteworthy = "clip";
 	collision disconnectpaths();
@@ -1179,7 +1184,7 @@ borough_move_staminup_machine()
 	{
 		if (IsDefined(struct.script_noteworthy) && IsDefined(struct.script_string))
 		{
-			if (struct.script_noteworthy == "specialty_longersprint" && IsSubStr(struct.script_string, "zclassic"))
+			if (struct.script_noteworthy == "specialty_longersprint" && IsSubStr(struct.script_string, "zgrief"))
 			{
 				perk_struct = struct;
 			}
