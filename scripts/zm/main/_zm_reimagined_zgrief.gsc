@@ -584,12 +584,12 @@ update_players_on_downed(excluded_player)
 			other_team = player.team;
 			if ( players_remaining < 1 )
 			{
-				player thread maps/mp/gametypes_zm/zgrief::show_grief_hud_msg( &"ZOMBIE_ZGRIEF_ALL_PLAYERS_DOWN", undefined, undefined, 1 );
-				player maps/mp/gametypes_zm/zgrief::delay_thread_watch_host_migrate( 2, maps/mp/gametypes_zm/zgrief::show_grief_hud_msg, &"ZOMBIE_ZGRIEF_SURVIVE", undefined, 30, 1 );
+				player thread show_grief_hud_msg( &"ZOMBIE_ZGRIEF_ALL_PLAYERS_DOWN", undefined, undefined );
+				player thread show_grief_hud_msg( &"ZOMBIE_ZGRIEF_SURVIVE", undefined, 30, 2 );
 				i++;
 				continue;
 			}
-			player thread maps/mp/gametypes_zm/zgrief::show_grief_hud_msg( &"ZOMBIE_ZGRIEF_PLAYER_BLED_OUT", players_remaining );
+			player thread show_grief_hud_msg( &"ZOMBIE_ZGRIEF_PLAYER_BLED_OUT", players_remaining );
 		}
 		i++;
 	}
@@ -607,7 +607,7 @@ update_players_on_downed(excluded_player)
 		return;
 	}
 
-		level thread maps/mp/zombies/_zm_audio_announcer::leaderdialog( players_remaining + "_player_left", other_team );
+	level thread maps/mp/zombies/_zm_audio_announcer::leaderdialog( players_remaining + "_player_left", other_team );
 }
 
 update_players_on_bleedout(excluded_player)
@@ -649,6 +649,121 @@ update_players_on_disconnect(excluded_player)
 	if(is_player_valid(excluded_player))
 	{
 		update_players_on_downed(excluded_player);
+	}
+}
+
+show_grief_hud_msg( msg, msg_parm, offset, delay )
+{
+	if(!isDefined(delay))
+	{
+		self notify( "show_grief_hud_msg" );
+	}
+
+	self endon( "disconnect" );
+
+	zgrief_hudmsg = newclienthudelem( self );
+	zgrief_hudmsg.alignx = "center";
+	zgrief_hudmsg.aligny = "middle";
+	zgrief_hudmsg.horzalign = "center";
+	zgrief_hudmsg.vertalign = "middle";
+	zgrief_hudmsg.y -= 130;
+
+	if ( self issplitscreen() )
+	{
+		zgrief_hudmsg.y += 70;
+	}
+
+	if ( isDefined( offset ) )
+	{
+		zgrief_hudmsg.y += offset;
+	}
+
+	zgrief_hudmsg.foreground = 1;
+	zgrief_hudmsg.fontscale = 5;
+	zgrief_hudmsg.alpha = 0;
+	zgrief_hudmsg.color = ( 1, 1, 1 );
+	zgrief_hudmsg.hidewheninmenu = 1;
+	zgrief_hudmsg.font = "default";
+
+	zgrief_hudmsg endon( "death" );
+
+	zgrief_hudmsg thread show_grief_hud_msg_cleanup(self);
+
+	while ( isDefined( level.hostmigrationtimer ) )
+	{
+		wait 0.05;
+	}
+
+	if(isDefined(delay))
+	{
+		wait delay;
+	}
+
+	if ( isDefined( msg_parm ) )
+	{
+		zgrief_hudmsg settext( msg, msg_parm );
+	}
+	else
+	{
+		zgrief_hudmsg settext( msg );
+	}
+
+	zgrief_hudmsg changefontscaleovertime( 0.25 );
+	zgrief_hudmsg fadeovertime( 0.25 );
+	zgrief_hudmsg.alpha = 1;
+	zgrief_hudmsg.fontscale = 2;
+
+	wait 3.25;
+
+	zgrief_hudmsg changefontscaleovertime( 1 );
+	zgrief_hudmsg fadeovertime( 1 );
+	zgrief_hudmsg.alpha = 0;
+	zgrief_hudmsg.fontscale = 5;
+
+	wait 1;
+
+	if ( isDefined( zgrief_hudmsg ) )
+	{
+		zgrief_hudmsg destroy();
+	}
+}
+
+show_grief_hud_msg_cleanup(player)
+{
+	self endon( "death" );
+
+	self thread show_grief_hud_msg_cleanup_restart_round();
+	self thread show_grief_hud_msg_cleanup_end_game();
+
+	player waittill( "show_grief_hud_msg" );
+
+	if ( isDefined( self ) )
+	{
+		self destroy();
+	}
+}
+
+show_grief_hud_msg_cleanup_restart_round()
+{
+	self endon( "death" );
+
+	level waittill( "restart_round" );
+
+	if ( isDefined( self ) )
+	{
+		self destroy();
+	}
+}
+
+show_grief_hud_msg_cleanup_end_game()
+{
+	self endon( "death" );
+
+	level waittill( "end_game" );
+
+	if ( isDefined( self ) )
+	{
+		self destroy();
 	}
 }
 
