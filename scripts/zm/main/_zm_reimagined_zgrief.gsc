@@ -30,6 +30,8 @@ init()
 		setDvar( "zombies_minplayers", 2 );
 	}
 
+	setroundsplayed(level.round_number); // don't show first round animation
+
 	depot_close_local_electric_doors();
 
 	borough_move_quickrevive_machine();
@@ -139,9 +141,10 @@ grief_score_hud()
 set_grief_vars()
 {
 	level.noroundnumber = 1;
-	level.round_number = 0;
 	level.player_starting_points = 10000;
 	level.zombie_vars["zombie_health_start"] = 2000;
+	level.zombie_vars["zombie_health_increase"] = 0;
+	level.zombie_vars["zombie_health_increase_multiplier"] = 0;
 	level.zombie_vars["zombie_spawn_delay"] = 0.5;
 	level.brutus_health = 20000;
 	level.brutus_expl_dmg_req = 12000;
@@ -282,7 +285,7 @@ init_round_start_wait(time)
 
 	flag_wait("initial_blackscreen_passed");
 
-	round_start_wait(time, true);
+	level thread round_start_wait(time, true);
 }
 
 wait_for_team_death_and_round_end()
@@ -359,7 +362,6 @@ zombie_goto_round(target_round)
 	}
 
 	level.zombie_total = 0;
-	maps/mp/zombies/_zm::ai_calculate_health( target_round );
 	zombies = get_round_enemy_array();
 	if ( isDefined( zombies ) )
 	{
@@ -388,7 +390,7 @@ zombie_goto_round(target_round)
 		}
 	}
 
-	round_start_wait(5);
+	level thread round_start_wait(5);
 }
 
 round_start_wait(time, initial)
@@ -598,6 +600,9 @@ round_end(winner, force_win)
 		level.zombie_vars[ "spectators_respawn" ] = 1;
 		level notify( "keep_griefing" );
 		level notify( "restart_round" );
+
+		level.round_number++;
+		setroundsplayed(level.round_number);
 
 		level thread maps/mp/zombies/_zm_audio_announcer::leaderdialog( "grief_restarted" );
 		if(!winner_alive)
