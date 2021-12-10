@@ -23,6 +23,8 @@ init()
 		return;
     }
 
+	precacheStatusIcon( "waypoint_revive" );
+
 	if ( getDvarInt( "zombies_minplayers" ) < 2 || getDvarInt( "zombies_minplayers" ) == "" )
 	{
 		setDvar( "zombies_minplayers", 2 );
@@ -185,6 +187,7 @@ on_player_downed()
 	{
 		self waittill( "entering_last_stand" );
 
+		self.statusicon = "waypoint_revive";
 		self kill_feed();
 		self add_grief_downed_score();
 		level thread update_players_on_downed( self );
@@ -199,6 +202,7 @@ on_player_bleedout()
 	{
 		self waittill( "bled_out" );
 
+		self.statusicon = "hud_status_dead";
 		self bleedout_feed();
 		level thread update_players_on_bleedout( self );
 	}
@@ -212,6 +216,7 @@ on_player_revived()
 	{
 		self waittill( "player_revived", reviver );
 
+		self.statusicon = "";
 		self revive_feed( reviver );
 	}
 }
@@ -1584,14 +1589,5 @@ spawn_bots(num)
 		}
 
 		wait 0.4; // need wait or bots don't spawn at correct origin
-	}
-
-	flag_wait( "initial_blackscreen_passed" );
-
-	wait 10;
-
-	foreach(bot in level.bots)
-	{
-		bot enableInvulnerability();
 	}
 }
