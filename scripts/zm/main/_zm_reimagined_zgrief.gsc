@@ -139,9 +139,10 @@ set_grief_vars()
 	level.noroundnumber = 1;
 	level.round_number = 0;
 	level.player_starting_points = 10000;
-	level.player_restart_points = 10000;
 	level.zombie_vars["zombie_health_start"] = 2000;
 	level.zombie_vars["zombie_spawn_delay"] = 0.5;
+	level.brutus_health = 20000;
+	level.brutus_expl_dmg_req = 12000;
 	level.global_damage_func = ::zombie_damage;
 	level.custom_end_screen = ::custom_end_screen;
 	level.game_module_onplayerconnect = ::grief_onplayerconnect;
@@ -354,9 +355,9 @@ zombie_goto_round(target_round)
 	players = get_players();
 	foreach(player in players)
 	{
-		if(player.score < level.player_restart_points)
+		if(player.score < level.player_starting_points)
 		{
-			player maps/mp/zombies/_zm_score::add_to_player_score(level.player_restart_points - player.score);
+			player maps/mp/zombies/_zm_score::add_to_player_score(level.player_starting_points - player.score);
 		}
 
 		if(isDefined(player get_player_placeable_mine()))
@@ -1583,5 +1584,14 @@ spawn_bots(num)
 		}
 
 		wait 0.4; // need wait or bots don't spawn at correct origin
+	}
+
+	flag_wait( "initial_blackscreen_passed" );
+
+	wait 10;
+
+	foreach(bot in level.bots)
+	{
+		bot enableInvulnerability();
 	}
 }

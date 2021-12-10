@@ -253,3 +253,4 @@
 * Enemies remaining audio and text displays when enemy players down instead of when enemy players bleed out
 * Enemies remaining text is removed when new text is displayed
 * Added new audio when enemy players bleed out
+* 20000 health Brutus
