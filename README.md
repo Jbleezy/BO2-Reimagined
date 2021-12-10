@@ -247,5 +247,6 @@
 * Landing on top of an enemy player downs them
 * Added player kill feed
 * Added player kills on scoreboard
+* Last player alive audio only plays for the player who is alive instead of every player on the team
 * Enemies remaining audio and text displays when enemy players down instead of when enemy players bleed out
 * Added new audio when enemy players bleed out

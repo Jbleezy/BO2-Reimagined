@@ -540,9 +540,11 @@ round_end(winner, force_win)
 
 update_players_on_downed(excluded_player)
 {
-	other_team = undefined;
-	players = get_players();
 	players_remaining = 0;
+	last_player = undefined;
+	other_team = undefined;
+
+	players = get_players();
 	i = 0;
 
 	while ( i < players.size )
@@ -558,6 +560,7 @@ update_players_on_downed(excluded_player)
 			if ( is_player_valid( player ) )
 			{
 				players_remaining++;
+				last_player = player;
 			}
 			i++;
 			continue;
@@ -593,7 +596,10 @@ update_players_on_downed(excluded_player)
 
 	if ( players_remaining == 1 )
 	{
-		level thread maps/mp/zombies/_zm_audio_announcer::leaderdialog( "last_player", excluded_player.team );
+		if(isDefined(last_player))
+		{
+			last_player thread maps/mp/zombies/_zm_audio_announcer::leaderdialogonplayer( "last_player" );
+		}
 	}
 
 	if ( !isDefined( other_team ) )
@@ -601,14 +607,7 @@ update_players_on_downed(excluded_player)
 		return;
 	}
 
-	if ( players_remaining < 1 )
-	{
-		level thread maps/mp/zombies/_zm_audio_announcer::leaderdialog( "4_player_down", other_team );
-	}
-	else
-	{
 		level thread maps/mp/zombies/_zm_audio_announcer::leaderdialog( players_remaining + "_player_left", other_team );
-	}
 }
 
 update_players_on_bleedout(excluded_player)
