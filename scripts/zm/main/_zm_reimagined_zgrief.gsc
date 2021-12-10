@@ -299,8 +299,6 @@ zombie_goto_round(target_round)
 {
 	level endon( "end_game" );
 
-	level notify( "restart_round" );
-
 	if ( target_round < 1 )
 	{
 		target_round = 1;
@@ -473,17 +471,36 @@ round_end(winner, force_win)
 		force_win = false;
 	}
 
+	winner_alive = 0;
 	team = "axis";
 	if(winner == "B")
 	{
 		team = "allies";
 	}
 
-	level.grief_score[winner]++;
+	if(!force_win)
+	{
+		wait 5;
+	}
+
+	players = get_players();
+	foreach(player in players)
+	{
+		if(is_player_valid(player) && player.team == team)
+		{
+			winner_alive = 1;
+			break;
+		}
+	}
+
+	if(winner_alive)
+	{
+		level.grief_score[winner]++;
+		level.grief_hud.score[team] setValue(level.grief_score[winner]);
+	}
 
 	if(level.grief_score[winner] == level.grief_winning_score || force_win)
 	{
-		level.grief_hud.score[team] setValue(level.grief_score[winner]);
 		level.gamemodulewinningteam = winner;
 		level.zombie_vars[ "spectators_respawn" ] = 0;
 		players = get_players();
@@ -507,10 +524,6 @@ round_end(winner, force_win)
 	}
 	else
 	{
-		wait 0.5;
-
-		level.grief_hud.score[team] setValue(level.grief_score[winner]);
-
 		players = get_players();
 		foreach(player in players)
 		{
@@ -526,12 +539,21 @@ round_end(winner, force_win)
 			}
 		}
 
-		level thread maps/mp/zombies/_zm_audio_announcer::leaderdialog( "grief_restarted" );
-
 		level.isresetting_grief = 1;
 		level notify( "end_round_think" );
 		level.zombie_vars[ "spectators_respawn" ] = 1;
 		level notify( "keep_griefing" );
+		level notify( "restart_round" );
+
+		level thread maps/mp/zombies/_zm_audio_announcer::leaderdialog( "grief_restarted" );
+		if(!winner_alive)
+		{
+			foreach(player in players)
+			{
+				player thread show_grief_hud_msg( &"ZOMBIE_GRIEF_RESET" );
+			}
+		}
+
 		zombie_goto_round( level.round_number );
 		level thread maps/mp/zombies/_zm_game_module::reset_grief();
 		level thread maps/mp/zombies/_zm::round_think( 1 );
@@ -584,7 +606,7 @@ update_players_on_downed(excluded_player)
 			other_team = player.team;
 			if ( players_remaining < 1 )
 			{
-				player thread show_grief_hud_msg( &"ZOMBIE_ZGRIEF_ALL_PLAYERS_DOWN", undefined, undefined );
+				player thread show_grief_hud_msg( &"ZOMBIE_ZGRIEF_ALL_PLAYERS_DOWN" );
 				player thread show_grief_hud_msg( &"ZOMBIE_ZGRIEF_SURVIVE", undefined, 30, 2 );
 				i++;
 				continue;

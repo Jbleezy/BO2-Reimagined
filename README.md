@@ -233,6 +233,7 @@
 ### Grief
 * Teams win rounds by getting all enemy players down
 * First team to win 3 rounds wins the game
+* Tie round if both teams die within 5 seconds of eachother
 * Unlimited zombies
 * 2000 health zombies
 * 0.5 second zombie spawn rate
