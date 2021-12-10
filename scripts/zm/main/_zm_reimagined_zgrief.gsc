@@ -34,7 +34,6 @@ init()
 	borough_move_speedcola_machine();
 	borough_move_staminup_machine();
 
-	level thread on_player_connect();
 	level thread grief_score_hud();
 	level thread set_grief_vars();
 	level thread init_round_start_wait(5);
@@ -42,32 +41,6 @@ init()
 	//level thread spawn_bots(7);
 
 	level thread depot_link_nodes();
-}
-
-on_player_connect()
-{
-    while ( 1 )
-    {
-    	level waittill( "connected", player );
-
-       	player set_team();
-		player [[ level.givecustomcharacters ]]();
-		player thread on_player_downed();
-		player.killsconfirmed = 0;
-    }
-}
-
-on_player_downed()
-{
-	self endon( "disconnect" );
-
-	while(1)
-	{
-		self waittill( "entering_last_stand" );
-
-		self kill_feed();
-		self add_grief_downed_score();
-	}
 }
 
 set_team()
@@ -171,6 +144,8 @@ set_grief_vars()
 	level.zombie_vars["zombie_spawn_delay"] = 0.5;
 	level.global_damage_func = ::zombie_damage;
 	level.custom_end_screen = ::custom_end_screen;
+	level.game_module_onplayerconnect = ::grief_onplayerconnect;
+	level.game_mode_custom_onplayerdisconnect = ::grief_onplayerdisconnect;
 	level._game_module_player_damage_callback = ::game_module_player_damage_callback;
 
 	level.grief_winning_score = 3;
@@ -184,6 +159,46 @@ set_grief_vars()
 	flag_wait( "start_zombie_round_logic" ); // needs a wait
 
 	level.zombie_move_speed = 100;
+}
+
+grief_onplayerconnect()
+{
+	self set_team();
+	self [[ level.givecustomcharacters ]]();
+	self thread on_player_downed();
+	self thread on_player_bleedout();
+	self.killsconfirmed = 0;
+}
+
+grief_onplayerdisconnect(disconnecting_player)
+{
+	level thread update_players_on_disconnect(disconnecting_player);
+}
+
+on_player_downed()
+{
+	self endon( "disconnect" );
+
+	while(1)
+	{
+		self waittill( "entering_last_stand" );
+
+		self kill_feed();
+		self add_grief_downed_score();
+		level thread update_players_on_downed( self );
+	}
+}
+
+on_player_bleedout()
+{
+	self endon( "disconnect" );
+
+	while(1)
+	{
+		self waittill( "bled_out" );
+
+		level thread update_players_on_bleedout( self );
+	}
 }
 
 kill_feed()
@@ -520,6 +535,121 @@ round_end(winner, force_win)
 		zombie_goto_round( level.round_number );
 		level thread maps/mp/zombies/_zm_game_module::reset_grief();
 		level thread maps/mp/zombies/_zm::round_think( 1 );
+	}
+}
+
+update_players_on_downed(excluded_player)
+{
+	other_team = undefined;
+	players = get_players();
+	players_remaining = 0;
+	i = 0;
+
+	while ( i < players.size )
+	{
+		player = players[i];
+		if ( player == excluded_player )
+		{
+			i++;
+			continue;
+		}
+		if ( player.team == excluded_player.team )
+		{
+			if ( is_player_valid( player ) )
+			{
+				players_remaining++;
+			}
+			i++;
+			continue;
+		}
+		i++;
+	}
+
+	i = 0;
+
+	while ( i < players.size )
+	{
+		player = players[i];
+
+		if ( player == excluded_player )
+		{
+			i++;
+			continue;
+		}
+		if ( player.team != excluded_player.team )
+		{
+			other_team = player.team;
+			if ( players_remaining < 1 )
+			{
+				player thread maps/mp/gametypes_zm/zgrief::show_grief_hud_msg( &"ZOMBIE_ZGRIEF_ALL_PLAYERS_DOWN", undefined, undefined, 1 );
+				player maps/mp/gametypes_zm/zgrief::delay_thread_watch_host_migrate( 2, maps/mp/gametypes_zm/zgrief::show_grief_hud_msg, &"ZOMBIE_ZGRIEF_SURVIVE", undefined, 30, 1 );
+				i++;
+				continue;
+			}
+			player thread maps/mp/gametypes_zm/zgrief::show_grief_hud_msg( &"ZOMBIE_ZGRIEF_PLAYER_BLED_OUT", players_remaining );
+		}
+		i++;
+	}
+
+	if ( players_remaining == 1 )
+	{
+		level thread maps/mp/zombies/_zm_audio_announcer::leaderdialog( "last_player", excluded_player.team );
+	}
+
+	if ( !isDefined( other_team ) )
+	{
+		return;
+	}
+
+	if ( players_remaining < 1 )
+	{
+		level thread maps/mp/zombies/_zm_audio_announcer::leaderdialog( "4_player_down", other_team );
+	}
+	else
+	{
+		level thread maps/mp/zombies/_zm_audio_announcer::leaderdialog( players_remaining + "_player_left", other_team );
+	}
+}
+
+update_players_on_bleedout(excluded_player)
+{
+	other_team = undefined;
+	team_downed = 0;
+	players = get_players();
+	i = 0;
+
+	while(i < players.size)
+	{
+		player = players[i];
+
+		if(player.team == excluded_player.team)
+		{
+			if(player maps/mp/zombies/_zm_laststand::player_is_in_laststand() || player.sessionstate != "playing")
+			{
+				team_downed++;
+			}
+		}
+		else
+		{
+			other_team = player.team;
+		}
+
+		i++;
+	}
+
+	if(!isDefined(other_team))
+	{
+		return;
+	}
+
+	level thread maps/mp/zombies/_zm_audio_announcer::leaderdialog(team_downed + "_player_down", other_team);
+}
+
+update_players_on_disconnect(excluded_player)
+{
+	if(is_player_valid(excluded_player))
+	{
+		update_players_on_downed(excluded_player);
 	}
 }
 
