@@ -635,7 +635,7 @@ update_players_on_downed(excluded_player)
 update_players_on_bleedout(excluded_player)
 {
 	other_team = undefined;
-	team_downed = 0;
+	team_bledout = 0;
 	players = get_players();
 	i = 0;
 
@@ -645,9 +645,9 @@ update_players_on_bleedout(excluded_player)
 
 		if(player.team == excluded_player.team)
 		{
-			if(player.sessionstate != "playing")
+			if(player == excluded_player || player.sessionstate != "playing")
 			{
-				team_downed++;
+				team_bledout++;
 			}
 		}
 		else
@@ -663,7 +663,7 @@ update_players_on_bleedout(excluded_player)
 		return;
 	}
 
-	level thread maps/mp/zombies/_zm_audio_announcer::leaderdialog(team_downed + "_player_down", other_team);
+	level thread maps/mp/zombies/_zm_audio_announcer::leaderdialog(team_bledout + "_player_down", other_team);
 }
 
 update_players_on_disconnect(excluded_player)
