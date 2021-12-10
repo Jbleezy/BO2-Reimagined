@@ -167,6 +167,7 @@ grief_onplayerconnect()
 	self [[ level.givecustomcharacters ]]();
 	self thread on_player_downed();
 	self thread on_player_bleedout();
+	self thread on_player_revived();
 	self.killsconfirmed = 0;
 }
 
@@ -197,7 +198,20 @@ on_player_bleedout()
 	{
 		self waittill( "bled_out" );
 
+		self bleedout_feed();
 		level thread update_players_on_bleedout( self );
+	}
+}
+
+on_player_revived()
+{
+	self endon( "disconnect" );
+
+	while(1)
+	{
+		self waittill( "player_revived", reviver );
+
+		self revive_feed( reviver );
 	}
 }
 
@@ -206,11 +220,31 @@ kill_feed()
 	if(isDefined(self.last_griefed_by))
 	{
 		self.last_griefed_by.attacker.killsconfirmed++;
+
+		// show weapon icon for impact damage
+		if(self.last_griefed_by.meansofdeath == "MOD_IMPACT")
+		{
+			self.last_griefed_by.meansofdeath = "MOD_UNKNOWN";
+		}
+
 		obituary(self, self.last_griefed_by.attacker, self.last_griefed_by.weapon, self.last_griefed_by.meansofdeath);
 	}
 	else
 	{
 		obituary(self, self, "none", "MOD_SUICIDE");
+	}
+}
+
+bleedout_feed()
+{
+	obituary(self, self, "none", "MOD_CRUSH");
+}
+
+revive_feed(reviver)
+{
+	if(isDefined(reviver) && reviver != self)
+	{
+		obituary(self, reviver, level.revive_tool, "MOD_IMPACT");
 	}
 }
 
@@ -957,12 +991,6 @@ stun_score_steal(attacker, score)
 
 store_player_damage_info(attacker, weapon, meansofdeath)
 {
-	// show weapon icon for impact damage
-	if(meansofdeath == "MOD_IMPACT")
-	{
-		meansofdeath = "MOD_UNKNOWN";
-	}
-
 	self.last_griefed_by = spawnStruct();
 	self.last_griefed_by.attacker = attacker;
 	self.last_griefed_by.weapon = weapon;

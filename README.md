@@ -246,7 +246,7 @@
 * Stunning enemy players steals 10 points from them
 * Downing enemy players awards 5% of their current points
 * Landing on top of an enemy player downs them
-* Added player kill feed
+* Added kill feed (includes downs, revives, and bleedouts)
 * Added player kills on scoreboard
 * Announcer audio always plays
 * Last player alive audio only plays for the player who is alive instead of every player on the team
