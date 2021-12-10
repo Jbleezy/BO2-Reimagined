@@ -786,6 +786,8 @@ playleaderdialogonplayer( dialog, team, waittime )
 		}
 		self playlocalsound( full_alias );
 	}
+
+	/*
 	if ( isDefined( waittime ) )
 	{
 		wait waittime;
@@ -794,6 +796,8 @@ playleaderdialogonplayer( dialog, team, waittime )
 	{
 		wait 4;
 	}
+	*/
+
 	self.zmbdialogactive = 0;
 	self.zmbdialoggroup = "";
 	if ( self.zmbdialogqueue.size > 0 && level.allowzmbannouncer )
@@ -804,7 +808,7 @@ playleaderdialogonplayer( dialog, team, waittime )
 			self.zmbdialogqueue[ i - 1 ] = self.zmbdialogqueue[ i ];
 		}
 		self.zmbdialogqueue[ i - 1 ] = undefined;
-		self thread maps/mp/zombies/_zm_audio_announcer::playleaderdialogonplayer( nextdialog, team );
+		self thread playleaderdialogonplayer( nextdialog, team );
 	}
 }
 
