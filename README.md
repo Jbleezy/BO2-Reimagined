@@ -245,6 +245,7 @@
 * Players can be stunned from melee by enemy players while already stunned
 * Stunning enemy players steals 10 points from them
 * Downing enemy players awards 5% of their current points
+* Bleeding out enemy players awards 10% of your current points to all teammates
 * Landing on top of an enemy player downs them
 * Added kill feed (includes downs, revives, and bleedouts)
 * Added player kills on scoreboard

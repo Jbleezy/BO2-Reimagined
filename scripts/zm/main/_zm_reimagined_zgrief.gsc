@@ -204,6 +204,7 @@ on_player_bleedout()
 
 		self.statusicon = "hud_status_dead";
 		self bleedout_feed();
+		self add_grief_bleedout_score();
 		level thread update_players_on_bleedout( self );
 	}
 }
@@ -259,6 +260,19 @@ add_grief_downed_score()
 	if(isDefined(self.score_lost_when_downed) && isDefined(self.last_griefed_by) && is_player_valid(self.last_griefed_by.attacker))
 	{
 		self.last_griefed_by.attacker maps/mp/zombies/_zm_score::add_to_player_score(self.score_lost_when_downed);
+	}
+}
+
+add_grief_bleedout_score()
+{
+	players = get_players();
+	foreach(player in players)
+	{
+		if(is_player_valid(player) && player.team != self.team)
+		{
+			points = round_up_to_ten(int(player.score * level.zombie_vars["penalty_no_revive"]));
+			player maps/mp/zombies/_zm_score::add_to_player_score(points);
+		}
 	}
 }
 
