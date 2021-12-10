@@ -645,7 +645,7 @@ update_players_on_bleedout(excluded_player)
 
 		if(player.team == excluded_player.team)
 		{
-			if(player maps/mp/zombies/_zm_laststand::player_is_in_laststand() || player.sessionstate != "playing")
+			if(player.sessionstate != "playing")
 			{
 				team_downed++;
 			}
