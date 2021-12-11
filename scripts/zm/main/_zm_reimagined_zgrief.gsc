@@ -995,14 +995,19 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 			}
 		}
 
-		shellshock_override = false;
+		is_melee = false;
 		if ( isDefined( eattacker ) && isplayer( eattacker ) && eattacker != self && eattacker.team != self.team && smeansofdeath == "MOD_MELEE" )
 		{
-			shellshock_override = true;
+			is_melee = true;
 			self applyknockback( idamage, vdir );
+
+			if(self getstance() == "prone")
+			{
+				self setStance("crouch");
+			}
 		}
 
-		if ( is_true( self._being_shellshocked ) && !shellshock_override )
+		if ( is_true( self._being_shellshocked ) && !is_melee )
 		{
 			return;
 		}
