@@ -236,7 +236,7 @@
 * Tie round if both teams die within 5 seconds of eachother
 * Unlimited zombies
 * 2000 health zombies
-* 0.5 second zombie spawn rate
+* 1 second zombie spawn rate
 * Only sprinting zombies
 * Players start each round with at least 10000 points
 * 2 lethal grenades and mines awarded each round

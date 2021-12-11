@@ -145,7 +145,7 @@ set_grief_vars()
 	level.zombie_vars["zombie_health_start"] = 2000;
 	level.zombie_vars["zombie_health_increase"] = 0;
 	level.zombie_vars["zombie_health_increase_multiplier"] = 0;
-	level.zombie_vars["zombie_spawn_delay"] = 0.5;
+	level.zombie_vars["zombie_spawn_delay"] = 1;
 	level.brutus_health = 20000;
 	level.brutus_expl_dmg_req = 12000;
 	level.global_damage_func = ::zombie_damage;
