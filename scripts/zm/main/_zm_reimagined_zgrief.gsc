@@ -158,7 +158,7 @@ set_grief_vars()
 	level.grief_score = [];
 	level.grief_score["A"] = 0;
 	level.grief_score["B"] = 0;
-	level.game_mode_shellshock_time = 0.5;
+	level.game_mode_shellshock_time = 0.75;
 	level.game_mode_griefed_time = 2.5;
 	level.store_player_damage_info_func = ::store_player_damage_info;
 

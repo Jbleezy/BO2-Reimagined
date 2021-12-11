@@ -241,7 +241,6 @@
 * Players start each round with at least 10000 points
 * 2 lethal grenades and mines awarded each round
 * Unlimited barrier rebuild points
-* Decreased stun time by enemy players from 0.75 seconds to 0.5 seconds
 * Players can be stunned from melee by enemy players while already stunned
 * Stunning enemy players steals 10 points from them
 * Downing enemy players awards 5% of their current points
