@@ -174,6 +174,7 @@ grief_onplayerconnect()
 	self thread on_player_downed();
 	self thread on_player_bleedout();
 	self thread on_player_revived();
+	self thread maps/mp/gametypes_zm/zmeat::create_item_meat_watcher();
 	self.killsconfirmed = 0;
 }
 
