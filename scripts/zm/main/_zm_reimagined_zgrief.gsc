@@ -160,7 +160,6 @@ set_grief_vars()
 	level.grief_score["B"] = 0;
 	level.game_mode_shellshock_time = 0.75;
 	level.game_mode_griefed_time = 2.5;
-	level.store_player_damage_info_func = ::store_player_damage_info;
 
 	flag_wait( "start_zombie_round_logic" ); // needs a wait
 
@@ -174,6 +173,7 @@ grief_onplayerconnect()
 	self thread on_player_downed();
 	self thread on_player_bleedout();
 	self thread on_player_revived();
+	self thread headstomp_watcher();
 	self thread maps/mp/gametypes_zm/zmeat::create_item_meat_watcher();
 	self.killsconfirmed = 0;
 }
@@ -277,6 +277,47 @@ add_grief_bleedout_score()
 			points = round_up_to_ten(int(player.score * level.zombie_vars["penalty_no_revive"]));
 			player maps/mp/zombies/_zm_score::add_to_player_score(points);
 		}
+	}
+}
+
+headstomp_watcher()
+{
+	self endon("disconnect");
+
+	while(1)
+	{
+		if(self.sessionstate != "playing")
+		{
+			wait 0.05;
+			continue;
+		}
+
+		players = get_players();
+		foreach(player in players)
+		{
+			if(player != self && player.team != self.team && is_player_valid(player) && self.origin[2] > player.origin[2])
+			{
+				max_horz_dist = 24;
+				max_vert_dist = 68;
+
+				if(player getStance() == "crouch")
+				{
+					max_vert_dist = 52;
+				}
+				else if(player getStance() == "prone")
+				{
+					max_vert_dist = 36;
+				}
+
+				if(distance2d(self.origin, player.origin) <= max_horz_dist && (self.origin[2] - player.origin[2]) <= max_vert_dist)
+				{
+					player store_player_damage_info(self, "none", "MOD_FALLING");
+					player dodamage( 1000, (0, 0, 0) );
+				}
+			}
+		}
+
+		wait 0.05;
 	}
 }
 
@@ -982,7 +1023,7 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 		self playsound( "zmb_player_hit_ding" );
 
 		self thread stun_score_steal(eattacker, 10);
-		self thread [[level.store_player_damage_info_func]](eattacker, sweapon, smeansofdeath);
+		self thread store_player_damage_info(eattacker, sweapon, smeansofdeath);
 	}
 }
 
