@@ -1693,12 +1693,6 @@ track_players_intersection_tracker()
 	// BO2 has built in push mechanic
 }
 
-random_push()
-{
-	vector = VectorNormalize((RandomIntRange(-100, 101), RandomIntRange(-100, 101), 0)) * (100, 100, 100);
-	self SetVelocity(vector);
-}
-
 nuke_powerup( drop_item, player_team )
 {
 	location = drop_item.origin;

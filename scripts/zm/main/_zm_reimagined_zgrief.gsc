@@ -295,7 +295,7 @@ headstomp_watcher()
 		players = get_players();
 		foreach(player in players)
 		{
-			if(player != self && player.team != self.team && is_player_valid(player) && self.origin[2] > player.origin[2])
+			if(player != self && player.team != self.team && is_player_valid(player) && player isOnGround() && player getStance() == "prone" && self.origin[2] > player.origin[2])
 			{
 				max_horz_dist = 24;
 				max_vert_dist = 68;
