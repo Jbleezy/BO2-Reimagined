@@ -145,7 +145,9 @@
 ## Buildables
 * Added purchase cost
 * Parts automatically picked up
-* Zombies no longer attack buildables (except Zombie Shield)
+* Zombies no longer attack (except Zombie Shield)
+* Destroyed by taking 1500 damage
+* No longer destroyed by 2 grenades
 
 ### Electric Trap
 * No longer needs to be powered by a Turbine
