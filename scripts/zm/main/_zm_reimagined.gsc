@@ -67,7 +67,6 @@ onplayerspawned()
 
 			self thread solo_lives_fix();
 
-			self thread on_equipment_placed();
 			self thread give_additional_perks();
 
 			self thread buildable_piece_remove_on_last_stand();
@@ -132,9 +131,9 @@ post_all_players_spawned()
 	wallbuy_increase_trigger_radius();
 	wallbuy_location_changes();
 
-	zone_changes();
+	equipment_no_power_required();
 
-	enemies_ignore_equipments();
+	zone_changes();
 
 	screecher_spawner_changes();
 	screecher_remove_near_miss();
@@ -1815,7 +1814,7 @@ placed_equipment_think( model, equipname, origin, angles, tradius, toffset )
 	pickupmodel.stub.model = pickupmodel;
 	pickupmodel.stub.equipname = equipname;
 	pickupmodel.equipname = equipname;
-	pickupmodel thread maps/mp/zombies/_zm_equipment::item_attract_zombies();
+	//pickupmodel thread maps/mp/zombies/_zm_equipment::item_attract_zombies();
 	pickupmodel thread item_watch_damage();
 	if ( maps/mp/zombies/_zm_equipment::is_limited_equipment( equipname ) )
 	{
@@ -3399,14 +3398,11 @@ remove_buildable_pieces( buildable_name )
 	}
 }
 
-enemies_ignore_equipments()
+equipment_no_power_required()
 {
-	equipment = getFirstArrayKey(level.zombie_include_equipment);
-	while (isDefined(equipment))
-	{
-		maps/mp/zombies/_zm_equipment::enemies_ignore_equipment(equipment);
-		equipment = getNextArrayKey(level.zombie_include_equipment, equipment);
-	}
+	level.equipment_etrap_needs_power = 0;
+	level.equipment_turret_needs_power = 0;
+	level.equipment_subwoofer_needs_power = 0;
 }
 
 electric_trap_always_kill()
@@ -3585,212 +3581,6 @@ slipgun_always_kill()
 slipgun_disable_reslip()
 {
 	level.zombie_vars["slipgun_reslip_rate"] = 0;
-}
-
-on_equipment_placed()
-{
-	self endon( "disconnect" );
-
-	//level.equipment_etrap_needs_power = 0;
-	//level.equipment_turret_needs_power = 0;
-	//level.equipment_subwoofer_needs_power = 0;
-
-	for ( ;; )
-	{
-		self waittill( "equipment_placed", weapon, weapname );
-
-		if ( (IsDefined(level.turret_name) && weapname == level.turret_name) || (IsDefined(level.electrictrap_name) && weapname == level.electrictrap_name) || (IsDefined(level.subwoofer_name) && weapname == level.subwoofer_name) )
-		{
-			weapon.local_power = maps/mp/zombies/_zm_power::add_local_power( weapon.origin, 16 );
-
-			weapon thread remove_local_power_on_death(weapon.local_power);
-
-			if ( IsDefined(level.turret_name) && weapname == level.turret_name )
-			{
-				self thread turret_decay(weapon);
-
-				self thread turret_disable_team_damage(weapon);
-
-				self thread turret_stop_loop_sound(weapon);
-			}
-			else if ( IsDefined(level.electrictrap_name) && weapname == level.electrictrap_name )
-			{
-				self thread electrictrap_decay(weapon);
-			}
-
-			wait 0.05;
-
-			weapon.power_on = 1; // removes print statement made by equipment without power
-
-			if ( IsDefined(level.electrictrap_name) && weapname == level.electrictrap_name )
-			{
-				weapon.power_on_time -= 2000; // makes it so trap kills immediately when placed
-			}
-		}
-	}
-}
-
-remove_local_power_on_death( local_power )
-{
-	while ( isDefined(self) )
-	{
-		wait 0.05;
-	}
-
-	maps/mp/zombies/_zm_power::end_local_power( local_power );
-}
-
-turret_disable_team_damage( weapon )
-{
-	self endon ( "death" );
-	weapon endon( "death" );
-
-	while ( !IsDefined( weapon.turret ) )
-	{
-		wait 0.05;
-	}
-
-	weapon.turret.damage_own_team = 0;
-}
-
-turret_decay( weapon )
-{
-	self endon( "death" );
-	self endon( "disconnect" );
-
-	if ( !isDefined( self.turret_health ) )
-	{
-		self.turret_health = 60;
-	}
-
-	while ( isDefined( weapon ) )
-	{
-		if ( weapon.power_on )
-		{
-			self.turret_health--;
-
-			if ( self.turret_health <= 0 )
-			{
-				self thread turret_expired( weapon );
-				return;
-			}
-		}
-		wait 1;
-	}
-}
-
-turret_expired( weapon )
-{
-	maps/mp/zombies/_zm_equipment::equipment_disappear_fx( weapon.origin );
-	self cleanupoldturret();
-	self maps/mp/zombies/_zm_equipment::equipment_release( level.turret_name );
-	self.turret_health = undefined;
-}
-
-cleanupoldturret()
-{
-	if ( isDefined( self.buildableturret ) )
-	{
-		if ( isDefined( self.buildableturret.stub ) )
-		{
-			thread maps/mp/zombies/_zm_unitrigger::unregister_unitrigger( self.buildableturret.stub );
-			self.buildableturret.stub = undefined;
-		}
-		if ( isDefined( self.buildableturret.turret ) )
-		{
-			if ( isDefined( self.buildableturret.turret.sound_ent ) )
-			{
-				self.buildableturret.turret.sound_ent delete();
-			}
-			self.buildableturret.turret delete();
-		}
-		if ( isDefined( self.buildableturret.sound_ent ) )
-		{
-			self.buildableturret.sound_ent delete();
-			self.buildableturret.sound_ent = undefined;
-		}
-		self.buildableturret delete();
-		self.turret_health = undefined;
-	}
-	else
-	{
-		if ( isDefined( self.turret ) )
-		{
-			self.turret notify( "stop_burst_fire_unmanned" );
-			self.turret delete();
-		}
-	}
-	self.turret = undefined;
-	self notify( "turret_cleanup" );
-}
-
-turret_stop_loop_sound( weapon )
-{
-	while(isDefined(weapon))
-	{
-		wait 0.05;
-	}
-
-	if ( isDefined( self.buildableturret.sound_ent ) )
-	{
-		self.buildableturret.sound_ent stoploopsound();
-		self.buildableturret.sound_ent playsoundwithnotify( "wpn_zmb_turret_stop", "sound_done" );
-		self.buildableturret.sound_ent waittill( "sound_done" );
-		self.buildableturret.sound_ent delete();
-		self.buildableturret.sound_ent = undefined;
-	}
-}
-
-electrictrap_decay( weapon )
-{
-	self endon( "death" );
-	self endon( "disconnect" );
-
-	if ( !isDefined( self.electrictrap_health ) )
-	{
-		self.electrictrap_health = 60;
-	}
-
-	while ( isDefined( weapon ) )
-	{
-		if ( weapon.power_on )
-		{
-			self.electrictrap_health--;
-
-			if ( self.electrictrap_health <= 0 )
-			{
-				self thread electrictrap_expired( weapon );
-				return;
-			}
-		}
-		wait 1;
-	}
-}
-
-electrictrap_expired( weapon )
-{
-	maps/mp/zombies/_zm_equipment::equipment_disappear_fx( weapon.origin );
-	self cleanupoldtrap();
-	self maps/mp/zombies/_zm_equipment::equipment_release( level.electrictrap_name );
-	self.electrictrap_health = undefined;
-}
-
-cleanupoldtrap()
-{
-	if ( isDefined( self.buildableelectrictrap ) )
-	{
-		if ( isDefined( self.buildableelectrictrap.stub ) )
-		{
-			thread maps/mp/zombies/_zm_unitrigger::unregister_unitrigger( self.buildableelectrictrap.stub );
-			self.buildableelectrictrap.stub = undefined;
-		}
-		self.buildableelectrictrap delete();
-	}
-	if ( isDefined( level.electrap_sound_ent ) )
-	{
-		level.electrap_sound_ent delete();
-		level.electrap_sound_ent = undefined;
-	}
 }
 
 give_additional_perks()
