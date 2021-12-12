@@ -40,7 +40,7 @@ init()
 
 	level thread grief_score_hud();
 	level thread set_grief_vars();
-	level thread init_round_start_wait(5);
+	level thread round_start_wait(5, true);
 	level thread unlimited_zombies();
 	//level thread spawn_bots(7);
 
@@ -321,15 +321,6 @@ headstomp_watcher()
 	}
 }
 
-init_round_start_wait(time)
-{
-	flag_clear("spawn_zombies");
-
-	flag_wait("initial_blackscreen_passed");
-
-	level thread round_start_wait(time, true);
-}
-
 wait_for_team_death_and_round_end()
 {
 	level endon( "game_module_ended" );
@@ -442,20 +433,29 @@ round_start_wait(time, initial)
 		initial = false;
 	}
 
+	if(initial)
+	{
+		flag_clear("spawn_zombies");
+
+		flag_wait( "start_zombie_round_logic" );
+
+		players = get_players();
+		foreach(player in players)
+		{
+			player disableWeapons();
+		}
+
+		flag_wait("initial_blackscreen_passed");
+	}
+
 	level thread zombie_spawn_wait(time + 5);
 
 	players = get_players();
 	foreach(player in players)
 	{
-		if(!initial)
-		{
-			player thread wait_and_freeze_controls(1); // need a wait or players can move
-		}
-		else
-		{
-			player freezeControls(1);
-		}
+		player thread wait_and_freeze_controls(1); // need a wait or players can move
 		player enableInvulnerability();
+		player disableWeapons();
 	}
 
 	round_start_countdown_hud = round_start_countdown_hud(time);
@@ -469,6 +469,7 @@ round_start_wait(time, initial)
 	{
 		player freezeControls(0);
 		player disableInvulnerability();
+		player enableWeapons();
 	}
 }
 
