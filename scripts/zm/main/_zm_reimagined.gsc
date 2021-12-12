@@ -63,7 +63,7 @@ onplayerspawned()
 
 			self thread fall_velocity_check();
 
-			self thread remove_fast_melee();
+			//self thread remove_fast_melee(); // Removed until melee weapon can be added
 
 			self thread solo_lives_fix();
 
