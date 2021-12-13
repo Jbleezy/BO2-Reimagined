@@ -26,7 +26,7 @@ init()
 
 	precacheStatusIcon( "waypoint_revive" );
 
-	if ( getDvarInt( "zombies_minplayers" ) < 2 || getDvarInt( "zombies_minplayers" ) == "" )
+	if ( getDvarInt( "zombies_minplayers" ) < 2 || getDvar( "zombies_minplayers" ) == "" )
 	{
 		setDvar( "zombies_minplayers", 2 );
 	}
@@ -1094,7 +1094,7 @@ unlimited_zombies()
 {
 	while(1)
 	{
-		if(!level.isresetting_grief)
+		if(!is_true(level.isresetting_grief))
 		{
 			level.zombie_total = 100;
 		}
