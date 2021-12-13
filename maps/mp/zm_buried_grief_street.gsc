@@ -13,6 +13,9 @@
 
 precache()
 {
+	precachemodel( "collision_wall_128x128x10_standard" );
+	precachemodel( "collision_wall_256x256x10_standard" );
+	precachemodel( "collision_wall_512x512x10_standard" );
 	precachemodel( "zm_collision_buried_street_grief" );
 	precachemodel( "p6_zm_bu_buildable_bench_tarp" );
 	level.chalk_buildable_pieces_hide = 1;
@@ -29,14 +32,14 @@ street_treasure_chest_init()
 {
 	start_chest = getstruct( "start_chest", "script_noteworthy" );
 	court_chest = getstruct( "courtroom_chest1", "script_noteworthy" );
-	tunnel_chest = getstruct( "tunnels_chest1", "script_noteworthy" );
+	//tunnel_chest = getstruct( "tunnels_chest1", "script_noteworthy" );
 	jail_chest = getstruct( "jail_chest1", "script_noteworthy" );
 	gun_chest = getstruct( "gunshop_chest", "script_noteworthy" );
 	setdvar( "disableLookAtEntityLogic", 1 );
 	level.chests = [];
 	level.chests[ level.chests.size ] = start_chest;
 	level.chests[ level.chests.size ] = court_chest;
-	level.chests[ level.chests.size ] = tunnel_chest;
+	//level.chests[ level.chests.size ] = tunnel_chest;
 	level.chests[ level.chests.size ] = jail_chest;
 	level.chests[ level.chests.size ] = gun_chest;
 	maps/mp/zombies/_zm_magicbox::treasure_chest_init( "start_chest" );
@@ -54,6 +57,7 @@ main()
 	deletebuildabletarp( "bar" );
 	deletebuildabletarp( "generalstore" );
 	deleteslothbarricades();
+	disable_tunnels();
 	powerswitchstate( 1 );
 	level.enemy_location_override_func = ::enemy_location_override;
 	spawnmapcollision( "zm_collision_buried_street_grief" );
@@ -105,4 +109,105 @@ buildbuildables()
 	buildbuildable( "springpad_zm" );
 	buildbuildable( "subwoofer_zm" );
 	buildbuildable( "turbine" );
+}
+
+disable_tunnels()
+{
+	// stables tunnel entrance
+	origin = (-1502, -262, 26);
+	angles = ( 0, 90, 5 );
+	collision = spawn( "script_model", origin + anglesToUp(angles) * 64 );
+	collision.angles = angles;
+	collision setmodel( "collision_wall_128x128x10_standard" );
+	model = spawn( "script_model", origin + (0, 60, 0) );
+	model.angles = angles;
+	model setmodel( "p6_zm_bu_wood_door_bare" );
+	model = spawn( "script_model", origin + (0, -60, 0) );
+	model.angles = angles;
+	model setmodel( "p6_zm_bu_wood_door_bare_right" );
+
+	// stables tunnel exit
+	origin = (-22, -1912, 269);
+	angles = ( 0, -90, -10 );
+	collision = spawn( "script_model", origin + anglesToUp(angles) * 128 );
+	collision.angles = angles;
+	collision setmodel( "collision_wall_256x256x10_standard" );
+	model = spawn( "script_model", origin );
+	model.angles = angles;
+	model setmodel( "p6_zm_bu_sloth_blocker_medium" );
+
+	// saloon tunnel entrance
+	origin = (488, -1778, 188);
+	angles = ( 0, 0, -10 );
+	collision = spawn( "script_model", origin + anglesToUp(angles) * 64 );
+	collision.angles = angles;
+	collision setmodel( "collision_wall_128x128x10_standard" );
+	model = spawn( "script_model", origin );
+	model.angles = angles;
+	model setmodel( "p6_zm_bu_sloth_blocker_medium" );
+
+	// saloon tunnel exit
+	origin = (120, -1984, 228);
+	angles = ( 0, 45, -10 );
+	collision = spawn( "script_model", origin + anglesToUp(angles) * 128 );
+	collision.angles = angles;
+	collision setmodel( "collision_wall_256x256x10_standard" );
+	model = spawn( "script_model", origin );
+	model.angles = angles;
+	model setmodel( "p6_zm_bu_sloth_blocker_medium" );
+
+	// main tunnel saloon side
+	origin = (770, -863, 320);
+	angles = ( 0, 180, -35 );
+	collision = spawn( "script_model", origin + anglesToUp(angles) * 128 );
+	collision.angles = angles;
+	collision setmodel( "collision_wall_256x256x10_standard" );
+	model = spawn( "script_model", origin );
+	model.angles = angles;
+	model setmodel( "p6_zm_bu_sloth_blocker_medium" );
+
+	// main tunnel courthouse side
+	origin = (349, 579, 240);
+	angles = ( 0, 0, -10 );
+	collision = spawn( "script_model", origin + anglesToUp(angles) * 64 );
+	collision.angles = angles;
+	collision setmodel( "collision_wall_128x128x10_standard" );
+	model = spawn( "script_model", origin );
+	model.angles = angles;
+	model setmodel( "p6_zm_bu_sloth_blocker_medium" );
+
+	// main tunnel above general store
+	origin = (-123, -801, 296);
+	angles = ( 0, 0, 90 );
+	collision = spawn( "script_model", origin );
+	collision.angles = angles;
+	collision setmodel( "collision_wall_128x128x10_standard" );
+
+	// main tunnel above jail
+	origin = (-852, 408, 379);
+	angles = ( 0, 0, 90 );
+	collision = spawn( "script_model", origin );
+	collision.angles = angles;
+	collision setmodel( "collision_wall_512x512x10_standard" );
+
+	// gunsmith debris
+	debris_trigs = getentarray( "zombie_debris", "targetname" );
+	foreach ( debris_trig in debris_trigs )
+	{
+		if ( debris_trig.target == "pf728_auto2534" )
+		{
+			debris_trig delete();
+		}
+	}
+
+	// stables tunnel spawners
+	level.zones["zone_tunnel_gun2stables2"].is_enabled = 0;
+	level.zones["zone_tunnel_gun2stables2"].is_spawning_allowed = 0;
+	foreach ( spawn_location in level.zones["zone_stables"].spawn_locations )
+	{
+		if ( spawn_location.origin == ( -1551, -611, 36.69 ) )
+		{
+			spawn_location.is_enabled = false;
+		}
+	}
 }
