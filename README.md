@@ -173,6 +173,7 @@
 ## Maps
 
 ### Tranzit
+* Lava in starting area activates after the power is on
 * Any door that requires a Turbine to open is automatically open whenever the power is on
 * Power switch automatically crafted
 * Pack-a-Punch automatically crafted
@@ -183,13 +184,14 @@
 * Moved Tombstone Soda to the laundry room front door
 
 #### Farm
-* Zombies now spawn in the Farm zone when in the Barn zone
+* Zombies spawn in the Farm zone when in the Barn zone
 * Added Claymore wallbuy
 * Survival: removed Galvaknuckles wallbuy
 
 #### Bus Depot
+* Lava in starting area activates immediately
 * Power doors open when door is opened
-* Lava pit is now accessible
+* Lava pit is accessible
 
 ### Die Rise
 * Zombies no longer spawn in the Upper Blue Highrise zone when in the Trample Steam zone
@@ -222,12 +224,12 @@
 * Moved Stamin-Up to Vulture Aid's location on Buried
 
 ### Origins
-* Door prices in solo now cost the same as in coop
+* Door prices in solo cost the same as in coop
 * Shovels automatically picked up
 * Gramophone and records automatically picked up
 * Der Wunderfizz: all perks have an equal chance of being obtained
 * Rituals of the Ancients: spend points challenge reward changed from Double Tap perk to a random perk that the player does not have (perk does not change if reward is reopened)
-* Rituals of the Ancients: spend points challenge reward now gives a permament perk slot
+* Rituals of the Ancients: spend points challenge reward gives a permament perk slot
 * Soul boxes: decreased kill requirement from 30 to 20
 * Perk bottle dig spots: visible and diggable without Zombie Blood
 * Perk bottle dig spots: increased number of rounds for next dig spot to spawn from 1 to 4

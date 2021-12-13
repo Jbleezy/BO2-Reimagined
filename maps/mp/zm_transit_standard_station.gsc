@@ -33,6 +33,16 @@ main()
 	flag_set( "power_on" );
 	level setclientfield( "zombie_power_on", 1 );
     level thread open_electric_doors_on_door_opened();
+
+	// electric doors showing hintstring
+	zombie_doors = getentarray( "zombie_door", "targetname" );
+	foreach ( door in zombie_doors )
+	{
+		if ( isDefined( door.script_noteworthy ) && door.script_noteworthy == "local_electric_door" )
+		{
+			door trigger_off();
+		}
+	}
 }
 
 enemy_location_override( zombie, enemy )
