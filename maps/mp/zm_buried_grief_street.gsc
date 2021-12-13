@@ -4,6 +4,7 @@
 #include maps/mp/zombies/_zm_equip_subwoofer;
 #include maps/mp/zombies/_zm_equip_springpad;
 #include maps/mp/zombies/_zm_equip_turbine;
+//#include maps/mp/zombies/_zm_equip_headchopper;
 #include maps/mp/zm_buried_buildables;
 #include maps/mp/zm_buried_gamemodes;
 #include maps/mp/zombies/_zm_race_utility;
@@ -13,6 +14,12 @@
 
 precache()
 {
+	// trig = getent("turbine_buildable_trigger", "targetname");
+    // if(isDefined(trig))
+    // {
+    //     trig.targetname = "headchopper_buildable_trigger";
+    // }
+
 	precachemodel( "collision_wall_128x128x10_standard" );
 	precachemodel( "collision_wall_256x256x10_standard" );
 	precachemodel( "collision_wall_512x512x10_standard" );
@@ -20,12 +27,14 @@ precache()
 	precachemodel( "p6_zm_bu_buildable_bench_tarp" );
 	level.chalk_buildable_pieces_hide = 1;
 	griefbuildables = array( "chalk", "turbine", "springpad_zm", "subwoofer_zm" );
+	//griefbuildables = array( "chalk", "headchopper_zm", "springpad_zm", "subwoofer_zm" );
 	maps/mp/zm_buried_buildables::include_buildables( griefbuildables );
 	maps/mp/zm_buried_buildables::init_buildables( griefbuildables );
 	maps/mp/zombies/_zm_equip_turbine::init();
 	maps/mp/zombies/_zm_equip_turbine::init_animtree();
 	maps/mp/zombies/_zm_equip_springpad::init( &"ZM_BURIED_EQ_SP_PHS", &"ZM_BURIED_EQ_SP_HTS" );
 	maps/mp/zombies/_zm_equip_subwoofer::init( &"ZM_BURIED_EQ_SW_PHS", &"ZM_BURIED_EQ_SW_HTS" );
+    //maps/mp/zombies/_zm_equip_headchopper::init( &"ZM_BURIED_EQ_HC_PHS", &"ZM_BURIED_EQ_HC_HTS" );
 }
 
 street_treasure_chest_init()
@@ -106,6 +115,21 @@ builddynamicwallbuys()
 
 buildbuildables()
 {
+    // hack for headchopper model
+    // foreach(stub in level.buildable_stubs)
+	// {
+	// 	if(stub.equipname == "headchopper_zm")
+    //     {
+    //         origin_offset = (anglesToRight(stub.angles) * 8.57037) + (anglesToUp(stub.angles) * 17.78);
+    //         angles_offset = (61.5365, 90.343, 0.216167);
+
+    //         stub.model setModel("t6_wpn_zmb_chopper");
+    //         stub.model.origin += origin_offset;
+    //         stub.model.angles = stub.angles + angles_offset;
+    //     }
+    // }
+
+	//buildbuildable( "headchopper_zm" );
 	buildbuildable( "springpad_zm" );
 	buildbuildable( "subwoofer_zm" );
 	buildbuildable( "turbine" );
