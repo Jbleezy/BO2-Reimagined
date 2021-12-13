@@ -188,6 +188,7 @@
 * Survival: removed Galvaknuckles wallbuy
 
 #### Bus Depot
+* Power doors open when door is opened
 * Lava pit is now accessible
 
 ### Die Rise

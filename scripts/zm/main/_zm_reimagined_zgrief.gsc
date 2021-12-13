@@ -33,8 +33,6 @@ init()
 
 	setroundsplayed(level.round_number); // don't show first round animation
 
-	depot_close_local_electric_doors();
-
 	borough_move_quickrevive_machine();
 	borough_move_speedcola_machine();
 	borough_move_staminup_machine();
@@ -44,8 +42,6 @@ init()
 	level thread round_start_wait(5, true);
 	level thread unlimited_zombies();
 	//level thread spawn_bots(7);
-
-	level thread depot_link_nodes();
 }
 
 set_team()
@@ -1363,40 +1359,6 @@ handle_post_board_repair_rewards( cost, zbarrier )
 	if ( isDefined( self.board_repair ) )
 	{
 		self.board_repair += 1;
-	}
-}
-
-depot_close_local_electric_doors()
-{
-	if(level.scr_zm_map_start_location != "transit")
-	{
-		return;
-	}
-
-	zombie_doors = getentarray( "zombie_door", "targetname" );
-	foreach (door in zombie_doors)
-	{
-		if ( isDefined( door.script_noteworthy ) && door.script_noteworthy == "local_electric_door" )
-		{
-			door delete();
-		}
-	}
-}
-
-depot_link_nodes()
-{
-	if(level.scr_zm_map_start_location != "transit")
-	{
-		return;
-	}
-
-	flag_wait( "initial_blackscreen_passed" );
-	wait 0.05;
-
-	nodes = getnodearray( "classic_only_traversal", "targetname" );
-	foreach (node in nodes)
-	{
-		link_nodes( node, getnode( node.target, "targetname" ) );
 	}
 }
 
