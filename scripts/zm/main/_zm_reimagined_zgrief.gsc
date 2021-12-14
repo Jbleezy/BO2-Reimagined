@@ -160,7 +160,6 @@ set_grief_vars()
 	level.grief_score = [];
 	level.grief_score["A"] = 0;
 	level.grief_score["B"] = 0;
-	level.game_mode_shellshock_time = 0.75;
 	level.game_mode_griefed_time = 2.5;
 	level.crash_delay = 20;
 
@@ -1050,7 +1049,7 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 			}
 		}
 
-		self thread do_game_mode_shellshock();
+		self thread do_game_mode_shellshock(is_melee, maps/mp/zombies/_zm_weapons::is_weapon_upgraded(sweapon));
 		self playsound( "zmb_player_hit_ding" );
 
 		self thread stun_score_steal(eattacker, 10);
@@ -1058,15 +1057,21 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 	}
 }
 
-do_game_mode_shellshock()
+do_game_mode_shellshock(is_melee, is_upgraded)
 {
 	self notify( "do_game_mode_shellshock" );
 	self endon( "do_game_mode_shellshock" );
 	self endon( "disconnect" );
 
+	time = 0.5;
+	if(is_melee || is_upgraded)
+	{
+		time = 0.75;
+	}
+
 	self._being_shellshocked = 1;
-	self shellshock( "grief_stab_zm", level.game_mode_shellshock_time );
-	wait level.game_mode_shellshock_time;
+	self shellshock( "grief_stab_zm", time );
+	wait time;
 	self._being_shellshocked = 0;
 }
 
