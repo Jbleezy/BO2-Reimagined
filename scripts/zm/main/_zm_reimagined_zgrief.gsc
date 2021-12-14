@@ -1105,7 +1105,7 @@ unlimited_zombies()
 
 onallplayersready()
 {
-	while ( getPlayers().size == 0 )
+	while ( getPlayers().size < getDvarInt( "zombies_minplayers" ) )
 	{
 		wait 0.1;
 	}
