@@ -1080,7 +1080,7 @@ do_game_mode_shellshock(is_melee, is_upgraded)
 
 stun_score_steal(attacker, score)
 {
-	score *= maps/mp/zombies/_zm_score::get_points_multiplier(player);
+	score *= maps/mp/zombies/_zm_score::get_points_multiplier(attacker);
 
 	if(is_player_valid(attacker))
 	{
