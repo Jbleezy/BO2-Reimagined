@@ -46,6 +46,7 @@ init()
 	level thread set_grief_vars();
 	level thread round_start_wait(5, true);
 	level thread unlimited_zombies();
+	level thread remove_status_icons_on_end_game();
 	//level thread spawn_bots(7);
 }
 
@@ -189,6 +190,7 @@ grief_onplayerdisconnect(disconnecting_player)
 
 on_player_spawned()
 {
+	level endon("end_game");
 	self endon( "disconnect" );
 
 	while(1)
@@ -201,6 +203,7 @@ on_player_spawned()
 
 on_player_spectate()
 {
+	level endon("end_game");
 	self endon( "disconnect" );
 
 	while(1)
@@ -1676,6 +1679,19 @@ borough_move_staminup_machine()
 
 	powered_on = maps/mp/zombies/_zm_perks::get_perk_machine_start_state( use_trigger.script_noteworthy );
 	maps/mp/zombies/_zm_power::add_powered_item( maps/mp/zombies/_zm_power::perk_power_on, scripts/zm/main/_zm_reimagined::perk_power_off, maps/mp/zombies/_zm_power::perk_range, maps/mp/zombies/_zm_power::cost_low_if_local, 0, powered_on, use_trigger );
+}
+
+remove_status_icons_on_end_game()
+{
+	level waittill("end_game");
+
+	wait 5;
+
+	players = get_players();
+	foreach(player in players)
+	{
+		player.statusicon = "";
+	}
 }
 
 spawn_bots(num)
