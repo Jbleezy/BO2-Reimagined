@@ -149,6 +149,7 @@ set_grief_vars()
 	level.zombie_vars["zombie_health_increase"] = 0;
 	level.zombie_vars["zombie_health_increase_multiplier"] = 0;
 	level.zombie_vars["zombie_spawn_delay"] = 0.5;
+	level.zombie_powerups["meat_stink"].func_should_drop_with_regular_powerups = ::func_should_drop_meat;
 	level.brutus_health = 20000;
 	level.brutus_expl_dmg_req = 12000;
 	level.global_damage_func = ::zombie_damage;
@@ -1592,6 +1593,25 @@ handle_post_board_repair_rewards( cost, zbarrier )
 	{
 		self.board_repair += 1;
 	}
+}
+
+func_should_drop_meat()
+{
+	players = get_players();
+	foreach(player in players)
+	{
+		if(player getCurrentWeapon() == "meat_zm")
+		{
+			return 0;
+		}
+	}
+
+	if(isDefined(level.item_meat) || is_true(level.meat_on_ground))
+	{
+		return 0;
+	}
+
+	return 1;
 }
 
 borough_move_quickrevive_machine()
