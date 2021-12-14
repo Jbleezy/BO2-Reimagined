@@ -19,9 +19,8 @@
 * Can dive again right away after just diving
 * Can move after diving quicker
 * Decreased dive startup time
-* Increased melee range
+* Increased melee range by 16% (same as Black Ops 1)
 * Disabled melee lunging
-* Removed ability to melee faster than intended by switching weapons while meleeing with an empty clip
 * Decreased normal health regeneration delay from 2.4 seconds to 2 seconds
 * Decreased low health regeneration delay from 5 seconds to 4 seconds
 * Normal health regeneration rate is no longer instant
@@ -248,7 +247,6 @@
 * 2 lethal grenades and mines awarded each round
 * Unlimited barrier rebuild points
 * Meleeing enemy players that are already stunned will stun them again
-* Meleeing enemy players that are prone will make them crouch
 * Stunning enemy players steals 10 points from them
 * Downing enemy players awards 5% of their current points
 * Bleeding out enemy players awards 10% of your current points to all teammates

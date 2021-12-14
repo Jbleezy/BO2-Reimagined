@@ -1031,11 +1031,6 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 		{
 			is_melee = true;
 			self applyknockback( idamage, vdir );
-
-			if(self getstance() == "prone")
-			{
-				self setStance("crouch");
-			}
 		}
 
 		if ( is_true( self._being_shellshocked ) && !is_melee )
