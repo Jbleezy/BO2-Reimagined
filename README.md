@@ -247,7 +247,8 @@
 * Players start each round with at least 10000 points
 * 2 lethal grenades and mines awarded each round
 * Unlimited barrier rebuild points
-* Decreased stun time of unupgraded weapons from 0.75 to 0.5
+* Decreased stun time of unupgraded weapons by 50%
+* Decreased stun time of upgraded weapons by 33%
 * Meleeing enemy players pushes 17% farther for every 500 damage that melee weapon deals
 * Meleeing enemy players that are crouched pushes 50% of the amount when standing
 * Meleeing enemy players that are prone pushes 25% of the amount when standing
