@@ -241,12 +241,13 @@
 * Tie round if both teams die within 5 seconds of eachother
 * Unlimited zombies
 * 2000 health zombies
-* 1 second zombie spawn rate
+* 0.5 second zombie spawn rate
 * Only sprinting zombies
+* Zombies start spawning 10 seconds after the round starts
 * Players start each round with at least 10000 points
 * 2 lethal grenades and mines awarded each round
 * Unlimited barrier rebuild points
-* Decrease stun time of unupgraded weapons from 0.75 to 0.5
+* Decreased stun time of unupgraded weapons from 0.75 to 0.5
 * Meleeing enemy players that are already stunned will push them
 * Stunning enemy players steals 10 points from them
 * Downing enemy players awards 5% of their current points
