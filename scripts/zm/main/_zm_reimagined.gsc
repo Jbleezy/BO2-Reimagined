@@ -5,6 +5,7 @@
 
 main()
 {
+	replaceFunc(maps/mp/zombies/_zm::check_quickrevive_for_hotjoin, ::check_quickrevive_for_hotjoin);
 	replaceFunc(maps/mp/zombies/_zm_playerhealth::playerhealthregen, ::playerhealthregen);
 	replaceFunc(maps/mp/zombies/_zm_utility::track_players_intersection_tracker, ::track_players_intersection_tracker);
 	replaceFunc(maps/mp/zombies/_zm_powerups::nuke_powerup, ::nuke_powerup);
@@ -1476,6 +1477,11 @@ get_zone_name()
 	}
 
 	return name;
+}
+
+check_quickrevive_for_hotjoin(disconnecting_player)
+{
+	// always use coop quick revive
 }
 
 playerhealthregen()
