@@ -1035,7 +1035,18 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 		if ( isDefined( eattacker ) && isplayer( eattacker ) && eattacker != self && eattacker.team != self.team && smeansofdeath == "MOD_MELEE" )
 		{
 			is_melee = true;
-			self applyknockback( idamage, vdir );
+
+			amount = 450 + (75 * int(idamage / 500));
+			if(self getStance() == "crouch")
+			{
+				amount /= 2;
+			}
+			else if(self getStance() == "prone")
+			{
+				amount /= 4;
+			}
+
+			self setVelocity( amount * vdir );
 		}
 
 		if ( is_true( self._being_shellshocked ) )

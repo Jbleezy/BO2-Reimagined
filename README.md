@@ -248,6 +248,9 @@
 * 2 lethal grenades and mines awarded each round
 * Unlimited barrier rebuild points
 * Decreased stun time of unupgraded weapons from 0.75 to 0.5
+* Meleeing enemy players pushes 17% farther for every 500 damage that melee weapon deals
+* Meleeing enemy players that are crouched pushes 50% of the amount when standing
+* Meleeing enemy players that are prone pushes 25% of the amount when standing
 * Meleeing enemy players that are already stunned will push them
 * Stunning enemy players steals 10 points from them
 * Downing enemy players awards 5% of their current points
