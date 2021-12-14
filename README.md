@@ -246,7 +246,7 @@
 * Players start each round with at least 10000 points
 * 2 lethal grenades and mines awarded each round
 * Unlimited barrier rebuild points
-* Meleeing enemy players that are already stunned will stun them again
+* Meleeing enemy players that are already stunned will push them
 * Stunning enemy players steals 10 points from them
 * Downing enemy players awards 5% of their current points
 * Bleeding out enemy players awards 10% of your current points to all teammates

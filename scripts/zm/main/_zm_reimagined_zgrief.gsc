@@ -1033,7 +1033,7 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 			self applyknockback( idamage, vdir );
 		}
 
-		if ( is_true( self._being_shellshocked ) && !is_melee )
+		if ( is_true( self._being_shellshocked ) )
 		{
 			return;
 		}
