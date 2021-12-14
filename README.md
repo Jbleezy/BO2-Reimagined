@@ -263,4 +263,5 @@
 * Enemies remaining audio and text displays when enemy players down instead of when enemy players bleed out
 * Enemies remaining text is removed when new text is displayed
 * Added new audio when enemy players bleed out
+* Round reset properly restores dual wield weapon left clip ammo, alternative weapon ammo, and equipment
 * 20000 health Brutus

@@ -1132,14 +1132,23 @@ remove_player_damage_info()
 grief_laststand_weapon_save( einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration )
 {
 	self.grief_savedweapon_weapons = self getweaponslist();
-	self.grief_savedweapon_weaponsammo_stock = [];
 	self.grief_savedweapon_weaponsammo_clip = [];
+	self.grief_savedweapon_weaponsammo_clip_dualwield = [];
+	self.grief_savedweapon_weaponsammo_stock = [];
+	self.grief_savedweapon_weaponsammo_clip_alt = [];
+	self.grief_savedweapon_weaponsammo_stock_alt = [];
 	self.grief_savedweapon_currentweapon = self getcurrentweapon();
 	self.grief_savedweapon_grenades = self get_player_lethal_grenade();
 	self.grief_savedweapon_tactical = self get_player_tactical_grenade();
 	self.grief_hasriotshield = undefined;
 	self.grief_savedweapon_claymore = undefined;
 	self.grief_savedweapon_equipment = undefined;
+
+	// can't switch to alt weapon
+	if(is_alt_weapon(self.grief_savedweapon_currentweapon))
+	{
+		self.grief_savedweapon_currentweapon = maps/mp/zombies/_zm_weapons::get_nonalternate_weapon(self.grief_savedweapon_currentweapon);
+	}
 
 	if ( isDefined( self.grief_savedweapon_grenades ) )
 	{
@@ -1154,7 +1163,10 @@ grief_laststand_weapon_save( einflictor, attacker, idamage, smeansofdeath, sweap
 	for ( i = 0; i < self.grief_savedweapon_weapons.size; i++ )
 	{
 		self.grief_savedweapon_weaponsammo_clip[ i ] = self getweaponammoclip( self.grief_savedweapon_weapons[ i ] );
+		self.grief_savedweapon_weaponsammo_clip_dualwield[ i ] = self getweaponammoclip(weaponDualWieldWeaponName( self.grief_savedweapon_weapons[ i ] ) );
 		self.grief_savedweapon_weaponsammo_stock[ i ] = self getweaponammostock( self.grief_savedweapon_weapons[ i ] );
+		self.grief_savedweapon_weaponsammo_clip_alt[i] = self getweaponammoclip(weaponAltWeaponName(self.grief_savedweapon_weapons[i]));
+		self.grief_savedweapon_weaponsammo_stock_alt[i] = self getweaponammostock(weaponAltWeaponName(self.grief_savedweapon_weapons[i]));
 	}
 
 	if ( isDefined( self.hasriotshield ) && self.hasriotshield )
@@ -1220,9 +1232,24 @@ grief_laststand_weapons_return()
 			self setweaponammoclip( self.grief_savedweapon_weapons[ i ], self.grief_savedweapon_weaponsammo_clip[ i ] );
 		}
 
+		if ( isdefined( self.grief_savedweapon_weaponsammo_clip_dualwield[ i ] ) )
+		{
+			self setweaponammoclip( weaponDualWieldWeaponName( self.grief_savedweapon_weapons[ i ] ), self.grief_savedweapon_weaponsammo_clip_dualwield[ i ] );
+		}
+
 		if ( isdefined( self.grief_savedweapon_weaponsammo_stock[ i ] ) )
 		{
 			self setweaponammostock( self.grief_savedweapon_weapons[ i ], self.grief_savedweapon_weaponsammo_stock[ i ] );
+		}
+
+		if ( isdefined( self.grief_savedweapon_weaponsammo_clip_alt[ i ] ) )
+		{
+			self setweaponammoclip( weaponAltWeaponName( self.grief_savedweapon_weapons[ i ] ), self.grief_savedweapon_weaponsammo_clip_alt[ i ] );
+		}
+
+		if ( isdefined( self.grief_savedweapon_weaponsammo_stock_alt[ i ] ) )
+		{
+			self setweaponammostock( weaponAltWeaponName( self.grief_savedweapon_weapons[ i ] ), self.grief_savedweapon_weaponsammo_stock_alt[ i ] );
 		}
 
 		i++;
