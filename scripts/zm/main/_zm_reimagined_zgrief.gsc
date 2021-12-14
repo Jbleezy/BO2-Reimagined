@@ -31,6 +31,11 @@ init()
 		setDvar( "zombies_minplayers", 2 );
 	}
 
+	setDvar( "ui_scorelimit", 3 );
+
+	setteamscore("axis", 0);
+	setteamscore("allies", 0);
+
 	setroundsplayed(level.round_number); // don't show first round animation
 
 	borough_move_quickrevive_machine();
@@ -620,6 +625,7 @@ round_end(winner, force_win)
 	{
 		level.grief_score[winner]++;
 		level.grief_hud.score[team] setValue(level.grief_score[winner]);
+		setteamscore(team, level.grief_score[winner]);
 	}
 
 	if(level.grief_score[winner] == level.grief_winning_score || force_win)
