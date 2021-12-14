@@ -4333,16 +4333,9 @@ additionalprimaryweapon_indicator()
 
 	while (1)
 	{
-		self waittill_any("weapon_change", "specialty_additionalprimaryweapon_stop");
+		self waittill_any("weapon_change", "specialty_additionalprimaryweapon_stop", "spawned_player");
 
-		if (!self hasPerk("specialty_additionalprimaryweapon"))
-		{
-			additionalprimaryweapon_indicator_hud fadeOverTime(0.5);
-			additionalprimaryweapon_indicator_hud.alpha = 0;
-			continue;
-		}
-
-		if (isDefined(self.a_saved_weapon) && self getCurrentWeapon() == self.a_saved_weapon["name"])
+		if (self hasPerk("specialty_additionalprimaryweapon") && isDefined(self.a_saved_weapon) && self getCurrentWeapon() == self.a_saved_weapon["name"])
 		{
 			additionalprimaryweapon_indicator_hud fadeOverTime(0.5);
 			additionalprimaryweapon_indicator_hud.alpha = 1;
