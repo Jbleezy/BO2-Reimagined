@@ -219,6 +219,7 @@ on_player_spectate()
 
 on_player_downed()
 {
+	level endon("end_game");
 	self endon( "disconnect" );
 
 	while(1)
@@ -234,6 +235,7 @@ on_player_downed()
 
 on_player_bleedout()
 {
+	level endon("end_game");
 	self endon( "disconnect" );
 
 	while(1)
@@ -249,6 +251,7 @@ on_player_bleedout()
 
 on_player_revived()
 {
+	level endon("end_game");
 	self endon( "disconnect" );
 
 	while(1)
