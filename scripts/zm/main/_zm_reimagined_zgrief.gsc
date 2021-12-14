@@ -168,6 +168,8 @@ grief_onplayerconnect()
 {
 	self set_team();
 	self [[ level.givecustomcharacters ]]();
+	self thread on_player_spawned();
+	self thread on_player_spectate();
 	self thread on_player_downed();
 	self thread on_player_bleedout();
 	self thread on_player_revived();
@@ -179,6 +181,30 @@ grief_onplayerconnect()
 grief_onplayerdisconnect(disconnecting_player)
 {
 	level thread update_players_on_disconnect(disconnecting_player);
+}
+
+on_player_spawned()
+{
+	self endon( "disconnect" );
+
+	while(1)
+	{
+		self waittill( "spawned_player" );
+
+		self.statusicon = "";
+	}
+}
+
+on_player_spectate()
+{
+	self endon( "disconnect" );
+
+	while(1)
+	{
+		self waittill( "spawned_spectator" );
+
+		self.statusicon = "hud_status_dead";
+	}
 }
 
 on_player_downed()
