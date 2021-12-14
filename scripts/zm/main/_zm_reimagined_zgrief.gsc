@@ -1072,6 +1072,8 @@ do_game_mode_shellshock()
 
 stun_score_steal(attacker, score)
 {
+	score *= maps/mp/zombies/_zm_score::get_points_multiplier(player);
+
 	if(is_player_valid(attacker))
 	{
 		attacker maps/mp/zombies/_zm_score::add_to_player_score(score);
