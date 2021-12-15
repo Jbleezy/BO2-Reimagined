@@ -231,7 +231,7 @@ disable_tunnels()
 		}
 	}
 
-	// stables tunnel spawners
+	// zombie spawns
 	level.zones["zone_tunnel_gun2stables2"].is_enabled = 0;
 	level.zones["zone_tunnel_gun2stables2"].is_spawning_allowed = 0;
 	foreach ( spawn_location in level.zones["zone_stables"].spawn_locations )
@@ -239,6 +239,17 @@ disable_tunnels()
 		if ( spawn_location.origin == ( -1551, -611, 36.69 ) )
 		{
 			spawn_location.is_enabled = false;
+		}
+	}
+
+	// player spawns
+	invalid_zones = array("zone_start", "zone_tunnels_center", "zone_tunnels_north", "zone_tunnels_south");
+	spawn_points = maps/mp/gametypes_zm/_zm_gametype::get_player_spawns_for_gametype();
+	foreach(spawn_point in spawn_points)
+	{
+		if(isinarray(invalid_zones, spawn_point.script_noteworthy))
+		{
+			spawn_point.locked = 1;
 		}
 	}
 }
