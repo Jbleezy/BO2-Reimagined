@@ -201,7 +201,7 @@ disable_tunnels()
 	model setmodel( "p6_zm_bu_sloth_blocker_medium" );
 
 	// main tunnel above general store
-	origin = (-123, -801, 296);
+	origin = (-123, -801, 326);
 	angles = ( 0, 0, 90 );
 	collision = spawn( "script_model", origin );
 	collision.angles = angles;
@@ -213,6 +213,13 @@ disable_tunnels()
 	collision = spawn( "script_model", origin );
 	collision.angles = angles;
 	collision setmodel( "collision_wall_512x512x10_standard" );
+
+	// main tunnel above stables
+	origin = (-713, -313, 287);
+	angles = ( 0, 0, 90 );
+	collision = spawn( "script_model", origin );
+	collision.angles = angles;
+	collision setmodel( "collision_wall_128x128x10_standard" );
 
 	// gunsmith debris
 	debris_trigs = getentarray( "zombie_debris", "targetname" );
