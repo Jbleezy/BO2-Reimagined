@@ -14,6 +14,9 @@ main()
 
 init()
 {
+	level.zombie_last_stand = ::last_stand_pistol_swap;
+	level.zombie_last_stand_ammo_return = ::last_stand_restore_pistol_ammo;
+
 	setscoreboardcolumns_gametype();
 	set_lethal_grenade_init();
 	disable_solo_revive();
@@ -1519,6 +1522,131 @@ get_zone_name()
 	}
 
 	return name;
+}
+
+last_stand_pistol_swap()
+{
+	if ( self has_powerup_weapon() )
+	{
+		self.lastactiveweapon = "none";
+	}
+	if ( !self hasweapon( self.laststandpistol ) )
+	{
+		self giveweapon( self.laststandpistol );
+	}
+
+	ammoclip = weaponclipsize( self.laststandpistol );
+	doubleclip = ammoclip * 2;
+	if(weapondualwieldweaponname(self.laststandpistol) != "none")
+	{
+		ammoclip += weaponclipsize(weapondualwieldweaponname(self.laststandpistol));
+		doubleclip = ammoclip;
+	}
+
+	if ( is_true( self._special_solo_pistol_swap ) ||  self.laststandpistol == level.default_solo_laststandpistol && !self.hadpistol )
+	{
+		self._special_solo_pistol_swap = 0;
+		self.hadpistol = 0;
+		self setweaponammostock( self.laststandpistol, doubleclip );
+	}
+	else if ( flag( "solo_game" ) && self.laststandpistol == level.default_solo_laststandpistol )
+	{
+		self setweaponammostock(self.laststandpistol, doubleclip);
+	}
+	else if ( self.laststandpistol == level.default_laststandpistol )
+	{
+		self setweaponammostock( self.laststandpistol, doubleclip );
+	}
+	else if ( self.laststandpistol == "ray_gun_zm" || self.laststandpistol == "ray_gun_upgraded_zm" )
+	{
+		if ( self.stored_weapon_info[ self.laststandpistol ].total_amt >= ammoclip )
+		{
+			amt = ammoclip - self.stored_weapon_info[self.laststandpistol].clip_amt;
+			self setWeaponAmmoStock(self.laststandpistol, amt);
+			self.stored_weapon_info[self.laststandpistol].given_amt = amt;
+		}
+		else
+		{
+			amt = self.stored_weapon_info[self.laststandpistol].total_amt - self.stored_weapon_info[self.laststandpistol].clip_amt;
+			self setWeaponAmmoStock(self.laststandpistol, amt);
+			self.stored_weapon_info[self.laststandpistol].given_amt = amt;
+		}
+	}
+	else if ( self.stored_weapon_info[ self.laststandpistol ].total_amt >= (ammoclip + doubleclip) )
+	{
+		amt = (ammoclip + doubleclip) - (self.stored_weapon_info[self.laststandpistol].clip_amt + self.stored_weapon_info[self.laststandpistol].left_clip_amt);
+		self setweaponammostock( self.laststandpistol, amt );
+		self.stored_weapon_info[ self.laststandpistol ].given_amt = amt;
+	}
+	else
+	{
+		amt = self.stored_weapon_info[self.laststandpistol].total_amt - (self.stored_weapon_info[self.laststandpistol].clip_amt + self.stored_weapon_info[self.laststandpistol].left_clip_amt);
+		self setweaponammostock( self.laststandpistol, amt );
+		self.stored_weapon_info[ self.laststandpistol ].given_amt = amt;
+	}
+	self switchtoweapon( self.laststandpistol );
+}
+
+last_stand_restore_pistol_ammo()
+{
+	self.weapon_taken_by_losing_specialty_additionalprimaryweapon = undefined;
+	if ( !isDefined( self.stored_weapon_info ) )
+	{
+		return;
+	}
+	weapon_inventory = self getweaponslist( 1 );
+	weapon_to_restore = getarraykeys( self.stored_weapon_info );
+	i = 0;
+	while ( i < weapon_inventory.size )
+	{
+		weapon = weapon_inventory[ i ];
+		if(weapon != self.laststandpistol)
+		{
+			i++;
+			continue;
+		}
+		for ( j = 0; j < weapon_to_restore.size; j++ )
+		{
+			check_weapon = weapon_to_restore[ j ];
+			if ( weapon == check_weapon )
+			{
+				dual_wield_name = weapondualwieldweaponname( weapon_to_restore[ j ] );
+				if ( weapon != level.default_laststandpistol )
+				{
+					last_clip = self getweaponammoclip( weapon );
+					last_left_clip = 0;
+					if( "none" != dual_wield_name )
+					{
+						last_left_clip = self getweaponammoclip( dual_wield_name );
+					}
+					last_stock = self getweaponammostock( weapon );
+					last_total = last_clip + last_left_clip + last_stock;
+					used_amt = self.stored_weapon_info[ weapon ].given_amt - last_total;
+					if ( used_amt >= self.stored_weapon_info[ weapon ].stock_amt )
+					{
+						used_amt = used_amt - self.stored_weapon_info[weapon].stock_amt;
+						self.stored_weapon_info[ weapon ].stock_amt = 0;
+						self.stored_weapon_info[ weapon ].clip_amt = self.stored_weapon_info[ weapon ].clip_amt - used_amt;
+						if ( self.stored_weapon_info[ weapon ].clip_amt < 0 )
+						{
+							self.stored_weapon_info[ weapon ].clip_amt = 0;
+						}
+					}
+					else
+					{
+						new_stock_amt = self.stored_weapon_info[ weapon ].stock_amt - used_amt;
+						if ( new_stock_amt < self.stored_weapon_info[ weapon ].stock_amt )
+						{
+							self.stored_weapon_info[ weapon ].stock_amt = new_stock_amt;
+						}
+					}
+				}
+				self setweaponammostock( weapon_to_restore[ j ], self.stored_weapon_info[weapon_to_restore[ j ] ].stock_amt );
+				break;
+			}
+		}
+		i++;
+	}
 }
 
 check_quickrevive_for_hotjoin(disconnecting_player)
