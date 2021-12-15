@@ -205,6 +205,7 @@
 * Plane parts are shared in coop
 * Plane parts must be all acquired to craft
 * Plane fuel automatically picked up
+* Players no longer respawn in the Acid Trap
 
 ### Buried
 * Power automatically on

@@ -14,15 +14,15 @@ main()
 
 init()
 {
-	thread onplayerconnect();
-
 	setscoreboardcolumns_gametype();
 	set_lethal_grenade_init();
 	disable_solo_revive();
 
+	prison_remove_acid_trap_player_spawn();
 	prison_plane_set_need_all_pieces();
 	prison_plane_set_pieces_shared();
 
+	level thread onplayerconnect();
 	level thread post_all_players_spawned();
 }
 
@@ -4773,6 +4773,31 @@ town_move_staminup_machine()
 
 	powered_on = maps/mp/zombies/_zm_perks::get_perk_machine_start_state( use_trigger.script_noteworthy );
 	maps/mp/zombies/_zm_power::add_powered_item( maps/mp/zombies/_zm_power::perk_power_on, ::perk_power_off, maps/mp/zombies/_zm_power::perk_range, maps/mp/zombies/_zm_power::cost_low_if_local, 0, powered_on, use_trigger );
+}
+
+prison_remove_acid_trap_player_spawn()
+{
+	if(level.script != "zm_prison")
+	{
+		return;
+	}
+
+	spawn_points = maps/mp/gametypes_zm/_zm_gametype::get_player_spawns_for_gametype();
+	foreach(spawn_point in spawn_points)
+	{
+		if(spawn_point.script_noteworthy == "zone_cafeteria")
+		{
+			spawn_array = getstructarray( spawn_point.target, "targetname" );
+			foreach(spawn in spawn_array)
+			{
+				if(spawn.origin == (2536, 9704, 1360))
+				{
+					arrayremovevalue(spawn_array, spawn);
+					return;
+				}
+			}
+		}
+	}
 }
 
 prison_plane_set_need_all_pieces()
