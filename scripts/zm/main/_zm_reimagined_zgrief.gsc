@@ -479,6 +479,7 @@ round_start_wait(time, initial)
 		players = get_players();
 		foreach(player in players)
 		{
+			player.hostmigrationcontrolsfrozen = 1; // fixes players being able to move for a frame after initial_blackscreen_passed
 			player disableWeapons();
 		}
 
@@ -504,6 +505,7 @@ round_start_wait(time, initial)
 	players = get_players();
 	foreach(player in players)
 	{
+		player.hostmigrationcontrolsfrozen = 0;
 		player freezeControls(0);
 		player disableInvulnerability();
 		player enableWeapons();
