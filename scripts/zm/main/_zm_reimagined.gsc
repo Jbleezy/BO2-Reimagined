@@ -364,6 +364,12 @@ timer_hud()
 	flag_wait( "initial_blackscreen_passed" );
 
 	timer_hud.alpha = 1;
+
+	if ( getDvar( "g_gametype" ) == "zgrief" )
+    {
+		set_time_frozen(timer_hud, 0);
+	}
+
 	timer_hud setTimerUp(0);
 }
 
@@ -388,6 +394,11 @@ round_timer_hud()
 
 	round_timer_hud.alpha = 1;
 
+	if ( getDvar( "g_gametype" ) == "zgrief" )
+    {
+		set_time_frozen(round_timer_hud, 0);
+	}
+
 	while (1)
 	{
 		round_timer_hud setTimerUp(0);
@@ -396,11 +407,11 @@ round_timer_hud()
 		if ( getDvar( "g_gametype" ) == "zgrief" )
     	{
 			level waittill( "restart_round" );
-
-			continue;
 		}
-
-		level waittill( "end_of_round" );
+		else
+		{
+			level waittill( "end_of_round" );
+		}
 
 		end_time = int(getTime() / 1000);
 		time = end_time - start_time;
@@ -411,13 +422,30 @@ round_timer_hud()
 
 set_time_frozen(hud, time)
 {
-	level endon( "start_of_round" );
+	if ( getDvar( "g_gametype" ) == "zgrief" )
+	{
+		level endon( "restart_round_start" );
+	}
+	else
+	{
+		level endon( "start_of_round" );
+	}
 
-	time -= .1; // need to set it below the number or it shows the next number
+	if(time != 0)
+	{
+		time -= .1; // need to set it below the number or it shows the next number
+	}
 
 	while (1)
 	{
-		hud setTimer(time);
+		if(time == 0)
+		{
+			hud setTimerUp(time);
+		}
+		else
+		{
+			hud setTimer(time);
+		}
 
 		wait 0.5;
 	}

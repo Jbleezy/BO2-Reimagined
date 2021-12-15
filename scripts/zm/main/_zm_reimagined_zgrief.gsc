@@ -508,6 +508,8 @@ round_start_wait(time, initial)
 		player disableInvulnerability();
 		player enableWeapons();
 	}
+
+	level notify("restart_round_start");
 }
 
 wait_and_freeze_controls(bool)
