@@ -32,6 +32,7 @@ onplayerconnect()
 	{
 		level waittill("connecting", player);
 		player thread onplayerspawned();
+		player thread onplayerdowned();
 	}
 }
 
@@ -109,6 +110,19 @@ onplayerspawned()
 
 		self setperk( "specialty_unlimitedsprint" );
 		self setperk( "specialty_fastmantle" );
+	}
+}
+
+onplayerdowned()
+{
+	level endon( "game_ended" );
+	self endon( "disconnect" );
+
+	while(1)
+	{
+		self waittill( "entering_last_stand" );
+
+		self.health = self.maxhealth;
 	}
 }
 
