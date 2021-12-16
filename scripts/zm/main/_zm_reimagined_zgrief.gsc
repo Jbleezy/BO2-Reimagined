@@ -1952,7 +1952,7 @@ random_map_rotation()
 	}
 
 	num = randomInt(rotation_data.location.size);
-	rotation_string = va( "exec zm_%s_%s.cfg map %s", "grief", rotation_data.location[num], rotation_data.mapname[num] );
+	rotation_string = "exec zm_grief_" + rotation_data.location[num] + ".cfg map " + rotation_data.mapname[num];
 	setDvar( "sv_maprotation", rotation_string );
 	setDvar( "sv_maprotationCurrent", rotation_string );
 }
