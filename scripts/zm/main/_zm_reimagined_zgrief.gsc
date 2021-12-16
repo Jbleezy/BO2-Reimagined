@@ -47,6 +47,7 @@ init()
 	level thread round_start_wait(5, true);
 	level thread unlimited_zombies();
 	level thread remove_status_icons_on_end_game();
+	level thread random_map_rotation();
 	//level thread spawn_bots(7);
 }
 
@@ -1929,6 +1930,31 @@ remove_status_icons_on_end_game()
 	{
 		player.statusicon = "";
 	}
+}
+
+random_map_rotation()
+{
+	level waittill("end_game");
+
+	rotation_data = spawnStruct();
+	rotation_data.location = array("town", "farm", "transit", "cellblock", "street");
+	rotation_data.mapname = array("zm_transit", "zm_transit", "zm_transit", "zm_prison", "zm_buried");
+
+	// remove current map
+	for(i = 0; i < rotation_data.location.size; i++)
+	{
+		if(level.scr_zm_map_start_location == rotation_data.location[i] && level.script == rotation_data.mapname[i])
+		{
+			arrayRemoveIndex(rotation_data.location, i);
+			arrayRemoveIndex(rotation_data.mapname, i);
+			break;
+		}
+	}
+
+	num = randomInt(rotation_data.location.size);
+	rotation_string = va( "exec zm_%s_%s.cfg map %s", "grief", rotation_data.location[num], rotation_data.mapname[num] );
+	setDvar( "sv_maprotation", rotation_string );
+	setDvar( "sv_maprotationCurrent", rotation_string );
 }
 
 spawn_bots(num)

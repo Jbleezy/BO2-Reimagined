@@ -271,4 +271,5 @@
 * Enemies remaining text is removed when new text is displayed
 * Added new audio when enemy players bleed out
 * Round reset properly restores dual wield weapon left clip ammo, alternative weapon ammo, and equipment
+* Random map rotation
 * 20000 health Brutus
