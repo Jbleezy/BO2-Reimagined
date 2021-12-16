@@ -258,12 +258,13 @@
 * Stunning enemy players steals 10 points from them
 * Downing enemy players awards 5% of their current points
 * Bleeding out enemy players awards 10% of your current points to all teammates
-* Landing on top of an enemy player that is prone downs them
+* Landing on top of an enemy player that is prone downs the bottom player
 * Increased max radius for landing on top of an enemy player by 33%
 * Decreased max height for landing on top of an enemy player by 40%
 * Added kill feed (includes downs, revives, and bleedouts)
 * Added player kills on scoreboard
 * Added player downed and bled out icons on scoreboard
+* Removed Monkey Bombs from the Mystery Box
 * Meat powerup is able to drop when players are down
 * Announcer audio always plays
 * Last player alive audio only plays for the player who is alive instead of every player on the team
