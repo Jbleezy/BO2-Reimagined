@@ -4,10 +4,10 @@
 
 brutus_health_increases()
 {
-    if(level.scr_zm_ui_gametype == "zgrief")
+	if(level.scr_zm_ui_gametype == "zgrief")
 	{
-        return;
-    }
+		return;
+	}
 
 	if ( level.round_number > level.brutus_last_spawn_round )
 	{

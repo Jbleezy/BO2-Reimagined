@@ -6,5 +6,5 @@
 
 main()
 {
-    //replaceFunc(maps/mp/zombies/_zm_equip_subwoofer::startsubwooferdecay, scripts/zm/replaced/_zm_equip_subwoofer::startsubwooferdecay);
+	//replaceFunc(maps/mp/zombies/_zm_equip_subwoofer::startsubwooferdecay, scripts/zm/replaced/_zm_equip_subwoofer::startsubwooferdecay);
 }

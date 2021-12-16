@@ -308,9 +308,9 @@ enemy_counter_hud()
 	self endon("disconnect");
 
 	if ( getDvar( "g_gametype" ) == "zgrief" )
-    {
+	{
 		return;
-    }
+	}
 
 	enemy_counter_hud = newClientHudElem(self);
 	enemy_counter_hud.alignx = "left";
@@ -376,7 +376,7 @@ timer_hud()
 	timer_hud.alpha = 1;
 
 	if ( getDvar( "g_gametype" ) == "zgrief" )
-    {
+	{
 		set_time_frozen(timer_hud, 0);
 	}
 
@@ -405,7 +405,7 @@ round_timer_hud()
 	round_timer_hud.alpha = 1;
 
 	if ( getDvar( "g_gametype" ) == "zgrief" )
-    {
+	{
 		set_time_frozen(round_timer_hud, 0);
 	}
 
@@ -415,7 +415,7 @@ round_timer_hud()
 		start_time = int(getTime() / 1000);
 
 		if ( getDvar( "g_gametype" ) == "zgrief" )
-    	{
+		{
 			level waittill( "restart_round" );
 		}
 		else
@@ -5203,7 +5203,8 @@ set_visible_after_rounds(player, num)
 	{
 		level waittill( "end_of_round" );
 	}
-
+	test();
+	tes2();
 	self setvisibletoplayer(player);
 }
 

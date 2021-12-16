@@ -12,9 +12,9 @@
 main()
 {
 	if ( getDvar( "g_gametype" ) != "zgrief" )
-    {
+	{
 		return;
-    }
+	}
 
 	replaceFunc(maps/mp/zombies/_zm::onallplayersready, scripts/zm/replaced/_zm::onallplayersready);
 	replaceFunc(maps/mp/zombies/_zm_audio_announcer::playleaderdialogonplayer, scripts/zm/replaced/_zm_audio_announcer::playleaderdialogonplayer);
@@ -24,10 +24,10 @@ main()
 
 init()
 {
-    if ( getDvar( "g_gametype" ) != "zgrief" )
-    {
+	if ( getDvar( "g_gametype" ) != "zgrief" )
+	{
 		return;
-    }
+	}
 
 	precacheStatusIcon( "waypoint_revive" );
 
@@ -428,22 +428,22 @@ wait_and_freeze_controls(bool)
 round_start_countdown_hud(time)
 {
 	countdown = createServerFontString( "objective", 2.2 );
-    countdown setPoint( "CENTER", "CENTER", 0, 0 );
-    countdown.foreground = false;
-    countdown.alpha = 1;
-    countdown.color = ( 1, 1, 0 );
-    countdown.hidewheninmenu = true;
-    countdown maps/mp/gametypes_zm/_hud::fontpulseinit();
-    countdown thread round_start_countdown_hud_timer(time);
+	countdown setPoint( "CENTER", "CENTER", 0, 0 );
+	countdown.foreground = false;
+	countdown.alpha = 1;
+	countdown.color = ( 1, 1, 0 );
+	countdown.hidewheninmenu = true;
+	countdown maps/mp/gametypes_zm/_hud::fontpulseinit();
+	countdown thread round_start_countdown_hud_timer(time);
 	countdown thread round_start_countdown_hud_end_game_watcher();
 
 	countdown.countdown_text = createServerFontString( "objective", 1.5 );
-    countdown.countdown_text setPoint( "CENTER", "CENTER", 0, -40 );
-    countdown.countdown_text.foreground = false;
-    countdown.countdown_text.alpha = 1;
-    countdown.countdown_text.color = ( 1.000, 1.000, 1.000 );
-    countdown.countdown_text.hidewheninmenu = true;
-    countdown.countdown_text.label = &"ROUND BEGINS IN";
+	countdown.countdown_text setPoint( "CENTER", "CENTER", 0, -40 );
+	countdown.countdown_text.foreground = false;
+	countdown.countdown_text.alpha = 1;
+	countdown.countdown_text.color = ( 1.000, 1.000, 1.000 );
+	countdown.countdown_text.hidewheninmenu = true;
+	countdown.countdown_text.label = &"ROUND BEGINS IN";
 
 	return countdown;
 }
@@ -467,34 +467,34 @@ round_start_countdown_hud_timer(time)
 {
 	level endon( "end_game" );
 
-    timer = time;
-    while ( true )
-    {
-        self setValue( timer );
-        wait 1;
-        timer--;
-        if ( timer <= 5 )
-        {
-            self thread countdown_pulse( self, timer );
-            break;
-        }
-    }
+	timer = time;
+	while ( true )
+	{
+		self setValue( timer );
+		wait 1;
+		timer--;
+		if ( timer <= 5 )
+		{
+			self thread countdown_pulse( self, timer );
+			break;
+		}
+	}
 }
 
 countdown_pulse( hud_elem, duration )
 {
-    level endon( "end_game" );
+	level endon( "end_game" );
 
-    waittillframeend;
+	waittillframeend;
 
-    while ( duration > 0 && !level.gameended )
-    {
-        hud_elem thread maps/mp/gametypes_zm/_hud::fontpulse( level );
-        wait ( hud_elem.inframes * 0.05 );
-        hud_elem setvalue( duration );
-        duration--;
-        wait ( 1 - ( hud_elem.inframes * 0.05 ) );
-    }
+	while ( duration > 0 && !level.gameended )
+	{
+		hud_elem thread maps/mp/gametypes_zm/_hud::fontpulse( level );
+		wait ( hud_elem.inframes * 0.05 );
+		hud_elem setvalue( duration );
+		duration--;
+		wait ( 1 - ( hud_elem.inframes * 0.05 ) );
+	}
 }
 
 zombie_spawn_wait(time)

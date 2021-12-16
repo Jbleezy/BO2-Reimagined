@@ -24,7 +24,7 @@ startsubwooferdeploy( weapon, armed )
 	}
 	if ( isDefined( weapon ) )
 	{
-        weapon subwoofer_power_on();
+		weapon subwoofer_power_on();
 		if ( weapon.power_on )
 		{
 			self thread maps/mp/zombies/_zm_equip_subwoofer::subwooferthink( weapon, armed );
@@ -216,12 +216,12 @@ subwooferthink( weapon, armed )
 			}
 			_k681 = getNextArrayKey( _a681, _k681 );
 		}
-        /*
+		/*
 		if ( weapon.subwoofer_kills >= 45 )
 		{
 			self thread subwoofer_expired( weapon );
 		}
-        */
+		*/
 	}
 }
 
@@ -234,7 +234,7 @@ startsubwooferdecay( weapon )
 	{
 		if ( weapon.power_on )
 		{
-            self.subwoofer_kills = 0;
+			self.subwoofer_kills = 0;
 			self.subwoofer_health--;
 
 			if ( self.subwoofer_health <= 0 )
@@ -245,9 +245,9 @@ startsubwooferdecay( weapon )
 		wait 1;
 	}
 
-    self thread maps/mp/zombies/_zm_equip_subwoofer::subwoofer_expired( weapon );
+	self thread maps/mp/zombies/_zm_equip_subwoofer::subwoofer_expired( weapon );
 
-    /*
+	/*
 	if ( isDefined( weapon ) )
 	{
 		self maps/mp/zombies/_zm_equip_subwoofer::destroy_placed_subwoofer();
@@ -261,5 +261,5 @@ startsubwooferdecay( weapon )
 	self.subwoofer_emped = undefined;
 	self.subwoofer_emp_time = undefined;
 	self maps/mp/zombies/_zm_equip_subwoofer::cleanupoldsubwoofer();
-    */
+	*/
 }
