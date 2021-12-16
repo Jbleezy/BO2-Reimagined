@@ -4,6 +4,11 @@
 #include maps\mp\gametypes_zm\_hud_util;
 #include maps\mp\gametypes_zm\_hud_message;
 
+#include scripts/zm/replaced/_zm;
+#include scripts/zm/replaced/_zm_audio_announcer;
+#include scripts/zm/replaced/_zm_game_module;
+#include scripts/zm/replaced/_zm_blockers;
+
 main()
 {
 	if ( getDvar( "g_gametype" ) != "zgrief" )
@@ -11,10 +16,10 @@ main()
 		return;
     }
 
-	replaceFunc(maps/mp/zombies/_zm::onallplayersready, ::onallplayersready);
-	replaceFunc(maps/mp/zombies/_zm_audio_announcer::playleaderdialogonplayer, ::playleaderdialogonplayer);
-	replaceFunc(maps/mp/zombies/_zm_game_module::wait_for_team_death_and_round_end, ::wait_for_team_death_and_round_end);
-	replaceFunc(maps/mp/zombies/_zm_blockers::handle_post_board_repair_rewards, ::handle_post_board_repair_rewards);
+	replaceFunc(maps/mp/zombies/_zm::onallplayersready, scripts/zm/replaced/_zm::onallplayersready);
+	replaceFunc(maps/mp/zombies/_zm_audio_announcer::playleaderdialogonplayer, scripts/zm/replaced/_zm_audio_announcer::playleaderdialogonplayer);
+	replaceFunc(maps/mp/zombies/_zm_game_module::wait_for_team_death_and_round_end, scripts/zm/replaced/_zm_game_module::wait_for_team_death_and_round_end);
+	replaceFunc(maps/mp/zombies/_zm_blockers::handle_post_board_repair_rewards, scripts/zm/replaced/_zm_blockers::handle_post_board_repair_rewards);
 }
 
 init()
@@ -360,111 +365,6 @@ headstomp_watcher()
 	}
 }
 
-wait_for_team_death_and_round_end()
-{
-	level endon( "game_module_ended" );
-	level endon( "end_game" );
-
-	checking_for_round_end = 0;
-	level.isresetting_grief = 0;
-	while ( 1 )
-	{
-		cdc_total = 0;
-		cia_total = 0;
-		cdc_alive = 0;
-		cia_alive = 0;
-		players = get_players();
-		i = 0;
-		while ( i < players.size )
-		{
-			if ( !isDefined( players[ i ]._encounters_team ) )
-			{
-				i++;
-				continue;
-			}
-			if ( players[ i ]._encounters_team == "A" )
-			{
-				cia_total++;
-				if ( is_player_valid( players[ i ] ) )
-				{
-					cia_alive++;
-				}
-				i++;
-				continue;
-			}
-			cdc_total++;
-			if ( is_player_valid( players[ i ] ) )
-			{
-				cdc_alive++;
-			}
-			i++;
-		}
-
-		if ( !checking_for_round_end )
-		{
-			if ( cia_alive == 0 )
-			{
-				level thread round_end( "B", cia_total == 0 );
-				checking_for_round_end = 1;
-			}
-			else if ( cdc_alive == 0 )
-			{
-				level thread round_end( "A", cdc_total == 0 );
-				checking_for_round_end = 1;
-			}
-		}
-
-		if ( cia_alive > 0 && cdc_alive > 0 )
-		{
-			level notify( "stop_round_end_check" );
-			checking_for_round_end = 0;
-		}
-
-		wait 0.05;
-	}
-}
-
-zombie_goto_round(target_round)
-{
-	level endon( "end_game" );
-
-	if ( target_round < 1 )
-	{
-		target_round = 1;
-	}
-
-	level.zombie_total = 0;
-	zombies = get_round_enemy_array();
-	if ( isDefined( zombies ) )
-	{
-		for ( i = 0; i < zombies.size; i++ )
-		{
-			zombies[ i ] dodamage( zombies[ i ].health + 666, zombies[ i ].origin );
-		}
-	}
-
-	maps/mp/zombies/_zm_game_module::respawn_players();
-	maps/mp/zombies/_zm::award_grenades_for_survivors();
-	players = get_players();
-	foreach(player in players)
-	{
-		if(player.score < level.player_starting_points)
-		{
-			player maps/mp/zombies/_zm_score::add_to_player_score(level.player_starting_points - player.score);
-		}
-
-		if(isDefined(player get_player_placeable_mine()))
-		{
-			player giveweapon(player get_player_placeable_mine());
-			player set_player_placeable_mine(player get_player_placeable_mine());
-			player setactionslot(4, "weapon", player get_player_placeable_mine());
-			player setweaponammoclip(player get_player_placeable_mine(), 2);
-		}
-	}
-
-	level thread round_start_wait(5);
-}
-
 round_start_wait(time, initial)
 {
 	if(!isDefined(initial))
@@ -604,106 +504,6 @@ zombie_spawn_wait(time)
 	wait time;
 
 	flag_set("spawn_zombies");
-}
-
-round_end(winner, force_win)
-{
-	if(!isDefined(force_win))
-	{
-		force_win = false;
-	}
-
-	winner_alive = 0;
-	team = "axis";
-	if(winner == "B")
-	{
-		team = "allies";
-	}
-
-	if(!force_win)
-	{
-		wait 5;
-	}
-
-	players = get_players();
-	foreach(player in players)
-	{
-		if(is_player_valid(player) && player.team == team)
-		{
-			winner_alive = 1;
-			break;
-		}
-	}
-
-	if(winner_alive)
-	{
-		level.grief_score[winner]++;
-		level.grief_hud.score[team] setValue(level.grief_score[winner]);
-		setteamscore(team, level.grief_score[winner]);
-	}
-
-	if(level.grief_score[winner] == level.grief_winning_score || force_win)
-	{
-		level.gamemodulewinningteam = winner;
-		level.zombie_vars[ "spectators_respawn" ] = 0;
-		players = get_players();
-		i = 0;
-		while ( i < players.size )
-		{
-			players[ i ] freezecontrols( 1 );
-			if ( players[ i ]._encounters_team == winner )
-			{
-				players[ i ] thread maps/mp/zombies/_zm_audio_announcer::leaderdialogonplayer( "grief_won" );
-				i++;
-				continue;
-			}
-			players[ i ] thread maps/mp/zombies/_zm_audio_announcer::leaderdialogonplayer( "grief_lost" );
-			i++;
-		}
-		level notify( "game_module_ended", winner );
-		level._game_module_game_end_check = undefined;
-		maps/mp/gametypes_zm/_zm_gametype::track_encounters_win_stats( level.gamemodulewinningteam );
-		level notify( "end_game" );
-	}
-	else
-	{
-		players = get_players();
-		foreach(player in players)
-		{
-			// don't give score back from down
-			player.pers["score"] = player.score;
-
-			if(is_player_valid(player))
-			{
-				// don't give perk
-				player notify("perk_abort_drinking");
-				// save weapons
-				player [[level._game_module_player_laststand_callback]]();
-			}
-		}
-
-		level.isresetting_grief = 1;
-		level notify( "end_round_think" );
-		level.zombie_vars[ "spectators_respawn" ] = 1;
-		level notify( "keep_griefing" );
-		level notify( "restart_round" );
-
-		level.round_number++;
-		setroundsplayed(level.round_number);
-
-		level thread maps/mp/zombies/_zm_audio_announcer::leaderdialog( "grief_restarted" );
-		if(!winner_alive)
-		{
-			foreach(player in players)
-			{
-				player thread show_grief_hud_msg( &"ZOMBIE_GRIEF_RESET" );
-			}
-		}
-
-		zombie_goto_round( level.round_number );
-		level thread maps/mp/zombies/_zm_game_module::reset_grief();
-		level thread maps/mp/zombies/_zm::round_think( 1 );
-	}
 }
 
 update_players_on_downed(excluded_player)
@@ -1360,124 +1160,6 @@ unlimited_zombies()
 	}
 }
 
-onallplayersready()
-{
-	while ( getPlayers().size < getDvarInt( "zombies_minplayers" ) )
-	{
-		wait 0.1;
-	}
-	game[ "state" ] = "playing";
-	wait_for_all_players_to_connect( level.crash_delay );
-	setinitialplayersconnected();
-	flag_set( "initial_players_connected" );
-	while ( !aretexturesloaded() )
-	{
-		wait 0.05;
-	}
-	thread maps/mp/zombies/_zm::start_zombie_logic_in_x_sec( 3 );
-	maps/mp/zombies/_zm::fade_out_intro_screen_zm( 5, 1.5, 1 );
-}
-
-wait_for_all_players_to_connect( max_wait )
-{
-	timeout = int( max_wait * 10 );
-	cur_time = 0;
-	player_count_actual = 0;
-	while ( getnumconnectedplayers() < getnumexpectedplayers() || player_count_actual != getnumexpectedplayers() )
-	{
-		players = getPlayers();
-		player_count_actual = 0;
-		for ( i = 0; i < players.size; i++ )
-		{
-			players[ i ] freezecontrols( 1 );
-			if ( players[ i ].sessionstate == "playing" )
-			{
-				player_count_actual++;
-			}
-		}
-		wait 0.1;
-		cur_time++;
-		if ( cur_time >= timeout )
-		{
-			return;
-		}
-	}
-}
-
-playleaderdialogonplayer( dialog, team, waittime )
-{
-	self endon( "disconnect" );
-
-	if ( level.allowzmbannouncer )
-	{
-		if ( !isDefined( game[ "zmbdialog" ][ dialog ] ) )
-		{
-			return;
-		}
-	}
-	self.zmbdialogactive = 1;
-	if ( isDefined( self.zmbdialoggroups[ dialog ] ) )
-	{
-		group = dialog;
-		dialog = self.zmbdialoggroups[ group ];
-		self.zmbdialoggroups[ group ] = undefined;
-		self.zmbdialoggroup = group;
-	}
-	if ( level.allowzmbannouncer )
-	{
-		alias = game[ "zmbdialog" ][ "prefix" ] + "_" + game[ "zmbdialog" ][ dialog ];
-		variant = self maps/mp/zombies/_zm_audio_announcer::getleaderdialogvariant( alias );
-		if ( !isDefined( variant ) )
-		{
-			full_alias = alias + "_" + "0";
-			if ( level.script == "zm_prison" )
-			{
-				dialogType = strtok( game[ "zmbdialog" ][ dialog ], "_" );
-				switch ( dialogType[ 0 ] )
-				{
-					case "powerup":
-						full_alias = alias;
-						break;
-					case "grief":
-						full_alias = alias + "_" + "0";
-						break;
-					default:
-						full_alias = alias;
-				}
-			}
-		}
-		else
-		{
-			full_alias =  alias + "_" + variant;
-		}
-		self playlocalsound( full_alias );
-	}
-
-	/*
-	if ( isDefined( waittime ) )
-	{
-		wait waittime;
-	}
-	else
-	{
-		wait 4;
-	}
-	*/
-
-	self.zmbdialogactive = 0;
-	self.zmbdialoggroup = "";
-	if ( self.zmbdialogqueue.size > 0 && level.allowzmbannouncer )
-	{
-		nextdialog = self.zmbdialogqueue[0];
-		for( i = 1; i < self.zmbdialogqueue.size; i++ )
-		{
-			self.zmbdialogqueue[ i - 1 ] = self.zmbdialogqueue[ i ];
-		}
-		self.zmbdialogqueue[ i - 1 ] = undefined;
-		self thread playleaderdialogonplayer( nextdialog, team );
-	}
-}
-
 zombie_damage( mod, hit_location, hit_origin, player, amount, team )
 {
 	if ( is_magic_bullet_shield_enabled( self ) )
@@ -1597,26 +1279,6 @@ zombie_damage( mod, hit_location, hit_origin, player, amount, team )
 		}
 	}
 	self thread maps/mp/zombies/_zm_powerups::check_for_instakill( player, mod, hit_location );
-}
-
-handle_post_board_repair_rewards( cost, zbarrier )
-{
-	self maps/mp/zombies/_zm_stats::increment_client_stat( "boards" );
-	self maps/mp/zombies/_zm_stats::increment_player_stat( "boards" );
-	if ( isDefined( self.pers[ "boards" ] ) && ( self.pers[ "boards" ] % 10 ) == 0 )
-	{
-		self thread do_player_general_vox( "general", "reboard", 90 );
-	}
-	self maps/mp/zombies/_zm_pers_upgrades_functions::pers_boards_updated( zbarrier );
-	self.rebuild_barrier_reward += cost;
-
-	self maps/mp/zombies/_zm_score::player_add_points( "rebuild_board", cost );
-	self play_sound_on_ent( "purchase" );
-
-	if ( isDefined( self.board_repair ) )
-	{
-		self.board_repair += 1;
-	}
 }
 
 func_should_drop_meat()
