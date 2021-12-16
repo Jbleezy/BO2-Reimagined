@@ -60,7 +60,7 @@ set_team()
 {
 	teamplayersallies = countplayers( "allies");
 	teamplayersaxis = countplayers( "axis");
-	if ( teamplayersallies > teamplayersaxis )
+	if ( teamplayersallies > teamplayersaxis || ( teamplayersallies == teamplayersaxis && randomInt(100) < 50 ) )
 	{
 		self.team = "axis";
 		self.sessionteam = "axis";
