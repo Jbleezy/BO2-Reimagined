@@ -14,14 +14,11 @@ main()
 
 init()
 {
-	level.zombie_last_stand = ::last_stand_pistol_swap;
-	level.zombie_last_stand_ammo_return = ::last_stand_restore_pistol_ammo;
+	level.using_solo_revive = 0;
 
 	setscoreboardcolumns_gametype();
 	set_lethal_grenade_init();
-	disable_solo_revive();
 
-	prison_remove_acid_trap_player_spawn();
 	prison_plane_set_need_all_pieces();
 	prison_plane_set_pieces_shared();
 
@@ -54,7 +51,7 @@ onplayerspawned()
 		{
 			self.initial_spawn = false;
 
-			self screecher_remove_hint();
+			self.screecher_seen_hint = 1;
 
 			self bank_clear_account_value();
 			self weapon_locker_clear_stored_weapondata();
@@ -105,14 +102,8 @@ onplayerspawned()
 			//self GiveMaxAmmo("dsr50_zm");
 		}
 
-		self set_movement_dvars();
-		self name_fade_changes();
-		self increase_melee_range();
-		self disable_melee_lunge();
-		self enable_friendly_fire();
-
-		self setperk( "specialty_unlimitedsprint" );
-		self setperk( "specialty_fastmantle" );
+		self set_dvars();
+		self set_perks();
 	}
 }
 
@@ -137,10 +128,26 @@ post_all_players_spawned()
 
 	maps/mp/zombies/_zm::register_player_damage_callback( ::player_damage_override );
 
-	disable_high_round_walkers();
+	level.near_miss = 2; // makes screecher not run away first time on solo
+	level.equipment_etrap_needs_power = 0;
+	level.equipment_turret_needs_power = 0;
+	level.equipment_subwoofer_needs_power = 0;
+	level.zombie_vars["slipgun_reslip_rate"] = 0;
+	level.zombie_equipment["jetgun_zm"].drop_fn = undefined;
+	level.explode_overheated_jetgun = 0;
+	level.unbuild_overheated_jetgun = 0;
+	level.take_overheated_jetgun = 1;
+	level.speed_change_round = undefined;
+	level.playersuicideallowed = undefined;
+	level.disable_free_perks_before_power = undefined;
+	level.custom_random_perk_weights = undefined;
+	level.etrap_damage = maps/mp/zombies/_zm::ai_zombie_health( 255 );
+	level.slipgun_damage = maps/mp/zombies/_zm::ai_zombie_health( 255 );
+	level.tombstone_spawn_func = ::tombstone_spawn;
+	level.zombie_last_stand = ::last_stand_pistol_swap;
+	level.zombie_last_stand_ammo_return = ::last_stand_restore_pistol_ammo;
 
 	disable_perk_pause();
-	enable_free_perks_before_power();
 
 	disable_carpenter();
 
@@ -149,33 +156,20 @@ post_all_players_spawned()
 	wallbuy_increase_trigger_radius();
 	wallbuy_location_changes();
 
-	equipment_no_power_required();
-
 	zone_changes();
 
 	screecher_spawner_changes();
-	screecher_remove_near_miss();
 
-	electric_trap_always_kill();
-
-	jetgun_disable_explode_overheat();
 	jetgun_remove_forced_weapon_switch();
-	jetgun_remove_drop_fn();
 
 	town_move_staminup_machine();
 
-	tombstone_disable_suicide();
-	tombstone_spawn_changes();
-
-	slipgun_always_kill();
-	slipgun_disable_reslip();
-
+	prison_remove_acid_trap_player_spawn();
 	prison_tower_trap_changes();
 
 	buried_turn_power_on();
 	buried_deleteslothbarricades();
 
-	tomb_remove_weighted_random_perks();
 	tomb_challenges_changes();
 	tomb_soul_box_changes();
 
@@ -217,7 +211,7 @@ post_all_players_spawned()
 	//level.power_local_doors_globally = 1;
 }
 
-set_movement_dvars()
+set_dvars()
 {
 	self setClientDvar( "player_backSpeedScale", 1 );
 	self setClientDvar( "player_strafeSpeedScale", 1 );
@@ -226,29 +220,22 @@ set_movement_dvars()
 	self setClientDvar( "dtp_post_move_pause", 0 );
 	self setClientDvar( "dtp_exhaustion_window", 100 );
 	self setClientDvar( "dtp_startup_delay", 100 );
-}
 
-name_fade_changes()
-{
 	self setClientDvar( "cg_friendlyNameFadeIn", 0 );
 	self setClientDvar( "cg_friendlyNameFadeOut", 250 );
 	self setClientDvar( "cg_enemyNameFadeIn", 0 );
 	self setClientDvar( "cg_enemyNameFadeOut", 250 );
-}
 
-increase_melee_range()
-{
 	self setClientDvar( "player_meleeRange", 64 );
-}
-
-disable_melee_lunge()
-{
 	self setClientDvar( "aim_automelee_enabled", 0 );
+
+	self setClientDvar( "g_friendlyfireDist", 0 );
 }
 
-enable_friendly_fire()
+set_perks()
 {
-	self setClientDvar( "g_friendlyfireDist", 0 );
+	self setperk( "specialty_unlimitedsprint" );
+	self setperk( "specialty_fastmantle" );
 }
 
 health_bar_hud()
@@ -2126,11 +2113,6 @@ player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, 
 	return idamage;
 }
 
-disable_high_round_walkers()
-{
-	level.speed_change_round = undefined;
-}
-
 disable_bank()
 {
 	for(i = 0; i < level._unitriggers.trigger_stubs.size; i++)
@@ -2516,11 +2498,6 @@ perk_power_off( origin, radius )
 	}
 	//maps/mp/zombies/_zm_perks::perk_pause( self.target.script_noteworthy );
 	level notify( self.target maps/mp/zombies/_zm_perks::getvendingmachinenotify() + "_off" );
-}
-
-enable_free_perks_before_power()
-{
-	level.disable_free_perks_before_power = undefined;
 }
 
 buildbuildables()
@@ -3570,18 +3547,6 @@ remove_buildable_pieces( buildable_name )
 	}
 }
 
-equipment_no_power_required()
-{
-	level.equipment_etrap_needs_power = 0;
-	level.equipment_turret_needs_power = 0;
-	level.equipment_subwoofer_needs_power = 0;
-}
-
-electric_trap_always_kill()
-{
-	level.etrap_damage = maps/mp/zombies/_zm::ai_zombie_health( 255 );
-}
-
 jetgun_increase_grind_range()
 {
 	level.zombies_vars["jetgun_grind_range"] = 256;
@@ -3697,13 +3662,6 @@ jetgun_fast_spinlerp()
 	}
 }
 
-jetgun_disable_explode_overheat()
-{
-	level.explode_overheated_jetgun = false;
-	level.unbuild_overheated_jetgun = false;
-	level.take_overheated_jetgun = true;
-}
-
 jetgun_overheated_fix()
 {
 	self endon( "disconnect" );
@@ -3738,21 +3696,6 @@ jetgun_remove_forced_weapon_switch()
 			return;
 		}
 	}
-}
-
-jetgun_remove_drop_fn()
-{
-	level.zombie_equipment["jetgun_zm"].drop_fn = undefined;
-}
-
-slipgun_always_kill()
-{
-	level.slipgun_damage = maps/mp/zombies/_zm::ai_zombie_health( 255 );
-}
-
-slipgun_disable_reslip()
-{
-	level.zombie_vars["slipgun_reslip_rate"] = 0;
 }
 
 give_additional_perks()
@@ -3798,11 +3741,6 @@ give_additional_perks()
 			self Unsetperk( "specialty_movefaster" );
 		}
 	}
-}
-
-disable_solo_revive()
-{
-	level.using_solo_revive = 0;
 }
 
 solo_lives_fix()
@@ -4204,16 +4142,6 @@ disable_sniper_scope_sway()
 	}
 }
 
-tombstone_disable_suicide()
-{
-	level.playersuicideallowed = undefined;
-}
-
-tombstone_spawn_changes()
-{
-	level.tombstone_spawn_func = ::tombstone_spawn;
-}
-
 tombstone_spawn()
 {
 	self endon("disconnect");
@@ -4606,16 +4534,6 @@ zone_changes()
 			flag_set("OnFarm_enter");
 		}
 	}
-}
-
-screecher_remove_hint()
-{
-	self.screecher_seen_hint = 1;
-}
-
-screecher_remove_near_miss()
-{
-	level.near_miss = 2;
 }
 
 screecher_spawner_changes()
@@ -5347,16 +5265,6 @@ door_price_increase_for_solo()
 	{
 		self set_hint_string( self, "default_buy_debris", self.zombie_cost );
 	}
-}
-
-tomb_remove_weighted_random_perks()
-{
-	if(!(is_classic() && level.scr_zm_map_start_location == "tomb"))
-	{
-		return;
-	}
-
-	level.custom_random_perk_weights = undefined;
 }
 
 tomb_remove_shovels_from_map()
