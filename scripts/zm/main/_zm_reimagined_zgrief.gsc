@@ -204,11 +204,20 @@ on_player_spawned()
 	level endon("end_game");
 	self endon( "disconnect" );
 
+	self.grief_initial_spawn = true;
+
 	while(1)
 	{
 		self waittill( "spawned_player" );
 
 		self.statusicon = "";
+
+		if(self.grief_initial_spawn)
+		{
+			self.grief_initial_spawn = false;
+
+			self thread grief_intro_text();
+		}
 	}
 }
 
@@ -619,6 +628,23 @@ update_players_on_disconnect(excluded_player)
 	{
 		update_players_on_downed(excluded_player);
 	}
+}
+
+grief_intro_text()
+{
+	flag_wait( "initial_blackscreen_passed" );
+
+	self iPrintLn("Welcome to Grief!");
+	wait 3;
+	self iPrintLn("Your goal is to get all enemy players down.");
+	wait 3;
+	self iPrintLn("Shooting enemy players slows them down.");
+	wait 3;
+	self iPrintLn("Meleeing enemy players pushes them.");
+	wait 3;
+	self iPrintLn("First team to win 3 rounds wins the game.");
+	wait 3;
+	self iPrintLn("Good luck!");
 }
 
 show_grief_hud_msg( msg, msg_parm, offset, delay )

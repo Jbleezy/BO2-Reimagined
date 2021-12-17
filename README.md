@@ -266,6 +266,7 @@
 * Added player downed and bled out icons on scoreboard
 * Removed Monkey Bombs from the Mystery Box
 * Meat powerup is able to drop when players are down
+* Added intro text
 * Announcer audio always plays
 * Last player alive audio only plays for the player who is alive instead of every player on the team
 * Enemies remaining audio and text displays when enemy players down instead of when enemy players bleed out
