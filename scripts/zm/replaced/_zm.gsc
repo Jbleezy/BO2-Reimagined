@@ -9,7 +9,7 @@ check_quickrevive_for_hotjoin(disconnecting_player)
 
 onallplayersready()
 {
-	while ( getPlayers().size < getDvarInt( "zombies_minplayers" ) )
+	while ( getPlayers().size == 0 )
 	{
 		wait 0.1;
 	}
@@ -42,8 +42,14 @@ wait_for_all_players_to_connect( max_wait )
 				player_count_actual++;
 			}
 		}
+
 		wait 0.1;
-		cur_time++;
+
+		if ( getPlayers().size >= getDvarInt( "zombies_minplayers" ) )
+		{
+			cur_time++;
+		}
+
 		if ( cur_time >= timeout )
 		{
 			return;
