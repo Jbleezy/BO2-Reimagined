@@ -60,19 +60,40 @@ set_team()
 {
 	teamplayersallies = countplayers("allies");
 	teamplayersaxis = countplayers("axis");
-	if((teamplayersallies == teamplayersaxis && randomInt(100) < 50) || teamplayersallies > teamplayersaxis)
+
+	if(teamplayersallies == teamplayersaxis)
 	{
-		self.team = "axis";
-		self.sessionteam = "axis";
-	 	self.pers["team"] = "axis";
-		self._encounters_team = "A";
+		if(randomInt(100) < 50)
+		{
+			self.team = "axis";
+			self.sessionteam = "axis";
+			self.pers["team"] = "axis";
+			self._encounters_team = "A";
+		}
+		else
+		{
+			self.team = "allies";
+			self.sessionteam = "allies";
+			self.pers["team"] = "allies";
+			self._encounters_team = "B";
+		}
 	}
 	else
 	{
-		self.team = "allies";
-		self.sessionteam = "allies";
-		self.pers["team"] = "allies";
-		self._encounters_team = "B";
+		if(teamplayersallies > teamplayersaxis)
+		{
+			self.team = "axis";
+			self.sessionteam = "axis";
+			self.pers["team"] = "axis";
+			self._encounters_team = "A";
+		}
+		else
+		{
+			self.team = "allies";
+			self.sessionteam = "allies";
+			self.pers["team"] = "allies";
+			self._encounters_team = "B";
+		}
 	}
 }
 
