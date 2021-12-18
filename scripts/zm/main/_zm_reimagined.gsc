@@ -8,6 +8,7 @@
 #include scripts/zm/replaced/_zm_utility;
 #include scripts/zm/replaced/_zm_powerups;
 #include scripts/zm/replaced/_zm_equipment;
+#include scripts/zm/replaced/_zm_ai_basic;
 
 main()
 {
@@ -16,6 +17,7 @@ main()
 	replaceFunc(maps/mp/zombies/_zm_utility::track_players_intersection_tracker, scripts/zm/replaced/_zm_utility::track_players_intersection_tracker);
 	replaceFunc(maps/mp/zombies/_zm_powerups::nuke_powerup, scripts/zm/replaced/_zm_powerups::nuke_powerup);
 	replaceFunc(maps/mp/zombies/_zm_equipment::placed_equipment_think, scripts/zm/replaced/_zm_equipment::placed_equipment_think);
+	replaceFunc(maps/mp/zombies/_zm_ai_basic::inert_wakeup, scripts/zm/replaced/_zm_ai_basic::inert_wakeup);
 }
 
 init()

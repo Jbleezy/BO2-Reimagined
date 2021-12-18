@@ -69,6 +69,7 @@
 ### EMP Grenade
 * Decreased perk EMP time from 90 seconds to 60 seconds
 * Decreased zombie EMP radius by 30% (same radius as perk EMP)
+* Sprinting no longer wakes up EMP'd zombies
 * No longer effects players
 
 ### Jet Gun

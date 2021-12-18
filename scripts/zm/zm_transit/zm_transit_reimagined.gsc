@@ -3,6 +3,7 @@
 #include maps\mp\zombies\_zm_utility;
 
 #include scripts/zm/replaced/zm_transit;
+#include scripts/zm/replaced/_zm_weap_emp_bomb;
 #include scripts/zm/replaced/_zm_equip_electrictrap;
 #include scripts/zm/replaced/_zm_equip_turret;
 
