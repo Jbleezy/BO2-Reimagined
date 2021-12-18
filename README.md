@@ -66,6 +66,9 @@
 ### Remington 870
 * Changed weapon cost to 1200 on all maps
 
+### EMP Grenade
+* No longer effects players
+
 ### Jet Gun
 * Kills whenever the right gauge is above 20%
 * Kills multiple enemies significantly faster
