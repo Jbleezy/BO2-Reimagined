@@ -1329,7 +1329,7 @@ func_should_drop_meat()
 	players = get_players();
 	foreach(player in players)
 	{
-		if(player getCurrentWeapon() == "meat_zm")
+		if(player getCurrentWeapon() == "item_meat_zm")
 		{
 			return 0;
 		}
