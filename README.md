@@ -225,6 +225,7 @@
 * Ghosts no longer spawn a free perk powerup if any player gets damaged by the ghosts
 * Fountain portal automatically active
 * Navcard table automatically crafted
+* Players can no longer get into the corner next to Juggernog
 
 #### Borough
 * Tunnels disabled
