@@ -8,6 +8,7 @@
 #include scripts/zm/replaced/_zm_audio_announcer;
 #include scripts/zm/replaced/_zm_game_module;
 #include scripts/zm/replaced/_zm_blockers;
+#include scripts/zm/replaced/zgrief;
 
 main()
 {
@@ -20,6 +21,7 @@ main()
 	replaceFunc(maps/mp/zombies/_zm_audio_announcer::playleaderdialogonplayer, scripts/zm/replaced/_zm_audio_announcer::playleaderdialogonplayer);
 	replaceFunc(maps/mp/zombies/_zm_game_module::wait_for_team_death_and_round_end, scripts/zm/replaced/_zm_game_module::wait_for_team_death_and_round_end);
 	replaceFunc(maps/mp/zombies/_zm_blockers::handle_post_board_repair_rewards, scripts/zm/replaced/_zm_blockers::handle_post_board_repair_rewards);
+	replaceFunc(maps/mp/gametypes_zm/zgrief::meat_stink_on_ground, scripts/zm/replaced/zgrief::meat_stink_on_ground);
 }
 
 init()

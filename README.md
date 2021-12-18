@@ -145,6 +145,9 @@
 ### Nuke
 * Kills all zombies instantly
 
+### Meat
+* Decreased time on ground from 16 seconds to 10 seconds
+
 ## Persistent Upgrades
 * Removed
 
