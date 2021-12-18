@@ -138,6 +138,8 @@ post_all_players_spawned()
 	level.equipment_etrap_needs_power = 0;
 	level.equipment_turret_needs_power = 0;
 	level.equipment_subwoofer_needs_power = 0;
+	level.zombie_vars["emp_stun_range"] = 420;
+	level.zombie_vars["emp_perk_off_time"] = 60;
 	level.zombie_vars["slipgun_reslip_rate"] = 0;
 	level.zombie_equipment["jetgun_zm"].drop_fn = undefined;
 	level.explode_overheated_jetgun = 0;
@@ -5203,8 +5205,7 @@ set_visible_after_rounds(player, num)
 	{
 		level waittill( "end_of_round" );
 	}
-	test();
-	tes2();
+
 	self setvisibletoplayer(player);
 }
 

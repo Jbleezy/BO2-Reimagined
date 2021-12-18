@@ -67,6 +67,8 @@
 * Changed weapon cost to 1200 on all maps
 
 ### EMP Grenade
+* Decreased perk EMP time from 90 seconds to 60 seconds
+* Decreased zombie EMP radius by 30% (same radius as perk EMP)
 * No longer effects players
 
 ### Jet Gun
