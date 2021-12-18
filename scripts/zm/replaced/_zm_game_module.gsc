@@ -152,7 +152,21 @@ round_end(winner, force_win)
 		setroundsplayed(level.round_number);
 
 		level thread maps/mp/zombies/_zm_audio_announcer::leaderdialog( "grief_restarted" );
-		if(!winner_alive)
+		if(winner_alive)
+		{
+			foreach(player in players)
+			{
+				if(player.team == team)
+				{
+					player thread scripts/zm/main/_zm_reimagined_zgrief::show_grief_hud_msg( "You won the round" );
+				}
+				else
+				{
+					player thread scripts/zm/main/_zm_reimagined_zgrief::show_grief_hud_msg( "You lost the round" );
+				}
+			}
+		}
+		else
 		{
 			foreach(player in players)
 			{
