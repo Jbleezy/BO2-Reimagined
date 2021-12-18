@@ -649,15 +649,17 @@ grief_intro_text()
 	flag_wait( "initial_blackscreen_passed" );
 
 	self iPrintLn("Welcome to Grief!");
-	wait 3;
-	self iPrintLn("Your goal is to get all enemy players down.");
-	wait 3;
-	self iPrintLn("Damaging enemy players stuns them.");
-	wait 3;
-	self iPrintLn("Meleeing enemy players pushes them.");
-	wait 3;
+	wait 2.5;
+	self iPrintLn("Win rounds by getting all enemy players down.");
+	wait 2.5;
+	self iPrintLn("Damage enemy players to stun them.");
+	wait 2.5;
+	self iPrintLn("Melee enemy players to push them.");
+	wait 2.5;
+	self iPrintLn("There are unlimited zombies at high health.");
+	wait 2.5;
 	self iPrintLn("First team to win 3 rounds wins the game.");
-	wait 3;
+	wait 2.5;
 	self iPrintLn("Good luck!");
 }
 
