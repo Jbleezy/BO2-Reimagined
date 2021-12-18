@@ -377,6 +377,8 @@ headstomp_watcher()
 
 round_start_wait(time, initial)
 {
+	level endon("end_game");
+
 	if(!isDefined(initial))
 	{
 		initial = false;
@@ -509,6 +511,9 @@ countdown_pulse( hud_elem, duration )
 
 zombie_spawn_wait(time)
 {
+	level endon("end_game");
+	level endon( "restart_round" );
+
 	flag_clear("spawn_zombies");
 
 	wait time;
