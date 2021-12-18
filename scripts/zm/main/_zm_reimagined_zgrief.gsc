@@ -524,12 +524,12 @@ zombie_spawn_wait(time)
 update_players_on_downed(excluded_player)
 {
 	players_remaining = 0;
+	other_players_remaining = 0;
 	last_player = undefined;
 	other_team = undefined;
 
 	players = get_players();
 	i = 0;
-
 	while ( i < players.size )
 	{
 		player = players[i];
@@ -538,21 +538,24 @@ update_players_on_downed(excluded_player)
 			i++;
 			continue;
 		}
-		if ( player.team == excluded_player.team )
+
+		if ( is_player_valid( player ) )
 		{
-			if ( is_player_valid( player ) )
+			if ( player.team == excluded_player.team )
 			{
 				players_remaining++;
 				last_player = player;
 			}
-			i++;
-			continue;
+			else
+			{
+				other_players_remaining++;
+			}
 		}
+
 		i++;
 	}
 
 	i = 0;
-
 	while ( i < players.size )
 	{
 		player = players[i];
@@ -562,18 +565,24 @@ update_players_on_downed(excluded_player)
 			i++;
 			continue;
 		}
+
 		if ( player.team != excluded_player.team )
 		{
 			other_team = player.team;
 			if ( players_remaining < 1 )
 			{
-				player thread show_grief_hud_msg( &"ZOMBIE_ZGRIEF_ALL_PLAYERS_DOWN" );
-				player thread show_grief_hud_msg( &"ZOMBIE_ZGRIEF_SURVIVE", undefined, 30, 2 );
-				i++;
-				continue;
+				if( other_players_remaining >= 1 )
+				{
+					player thread show_grief_hud_msg( &"ZOMBIE_ZGRIEF_ALL_PLAYERS_DOWN" );
+					player thread show_grief_hud_msg( &"ZOMBIE_ZGRIEF_SURVIVE", undefined, 30, 1 );
+				}
 			}
-			player thread show_grief_hud_msg( &"ZOMBIE_ZGRIEF_PLAYER_BLED_OUT", players_remaining );
+			else
+			{
+				player thread show_grief_hud_msg( &"ZOMBIE_ZGRIEF_PLAYER_BLED_OUT", players_remaining );
+			}
 		}
+
 		i++;
 	}
 
