@@ -638,7 +638,7 @@ grief_intro_text()
 	wait 3;
 	self iPrintLn("Your goal is to get all enemy players down.");
 	wait 3;
-	self iPrintLn("Shooting enemy players slows them down.");
+	self iPrintLn("Damaging enemy players stuns them.");
 	wait 3;
 	self iPrintLn("Meleeing enemy players pushes them.");
 	wait 3;
