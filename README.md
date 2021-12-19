@@ -229,6 +229,7 @@
 
 #### Borough
 * Tunnels disabled
+* Players initially spawn in the Stables zone
 * Added B23R, M16A1, Claymore, and Bowie Knife wallbuys
 * Moved Quick Revive to Speed Cola's location on Borough
 * Moved Speed Cola to its location on Buried

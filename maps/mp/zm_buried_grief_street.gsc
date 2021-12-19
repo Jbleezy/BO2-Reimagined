@@ -67,6 +67,7 @@ main()
 	deletebuildabletarp( "generalstore" );
 	deleteslothbarricades();
 	disable_tunnels();
+	override_spawn_init();
 	powerswitchstate( 1 );
 	level.enemy_location_override_func = ::enemy_location_override;
 	spawnmapcollision( "zm_collision_buried_street_grief" );
@@ -251,5 +252,52 @@ disable_tunnels()
 		{
 			spawn_point.locked = 1;
 		}
+	}
+}
+
+override_spawn_init()
+{
+	// remove existing initial spawns
+	structs = getstructarray("initial_spawn", "script_noteworthy");
+	foreach(struct in structs)
+	{
+		if(isDefined(struct.script_string))
+		{
+			tokens = strtok(struct.script_string, " ");
+			foreach(token in tokens)
+			{
+				if(token == "zgrief_street")
+				{
+					struct.script_string = undefined;
+				}
+			}
+		}
+	}
+
+	// set new initial spawns to be same as respawns at zone_stables
+	ind = 0;
+	spawn_points = maps/mp/gametypes_zm/_zm_gametype::get_player_spawns_for_gametype();
+	for(i = 0; i < spawn_points.size; i++)
+	{
+		if(spawn_points[i].script_noteworthy == "zone_stables")
+		{
+			ind = i;
+			break;
+		}
+	}
+
+	init_spawn_array = getstructarray(spawn_points[ind].target, "targetname");
+	foreach(init_spawn in init_spawn_array)
+	{
+		struct = spawnStruct();
+		struct.origin = init_spawn.origin;
+		struct.angles = init_spawn.angles;
+		struct.radius = init_spawn.radius;
+		struct.script_int = init_spawn.script_int;
+		struct.script_noteworthy = "initial_spawn";
+		struct.script_string = "zgrief_street";
+
+		size = level.struct_class_names["script_noteworthy"][struct.script_noteworthy].size;
+		level.struct_class_names["script_noteworthy"][struct.script_noteworthy][size] = struct;
 	}
 }
