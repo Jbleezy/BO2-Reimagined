@@ -7,6 +7,7 @@
 #include scripts/zm/replaced/_zm;
 #include scripts/zm/replaced/_zm_audio_announcer;
 #include scripts/zm/replaced/_zm_game_module;
+#include scripts/zm/replaced/_zm_gametype;
 #include scripts/zm/replaced/_zm_blockers;
 #include scripts/zm/replaced/zgrief;
 
@@ -18,6 +19,7 @@ main()
 	}
 
 	replaceFunc(maps/mp/zombies/_zm::onallplayersready, scripts/zm/replaced/_zm::onallplayersready);
+	replaceFunc(maps/mp/gametypes_zm/_zm_gametype::onspawnplayer, scripts/zm/replaced/_zm_gametype::onspawnplayer);
 	replaceFunc(maps/mp/zombies/_zm_audio_announcer::playleaderdialogonplayer, scripts/zm/replaced/_zm_audio_announcer::playleaderdialogonplayer);
 	replaceFunc(maps/mp/zombies/_zm_game_module::wait_for_team_death_and_round_end, scripts/zm/replaced/_zm_game_module::wait_for_team_death_and_round_end);
 	replaceFunc(maps/mp/zombies/_zm_blockers::handle_post_board_repair_rewards, scripts/zm/replaced/_zm_blockers::handle_post_board_repair_rewards);
@@ -60,6 +62,13 @@ init()
 
 set_team()
 {
+	if(isDefined(self.team_set))
+	{
+		return;
+	}
+
+	self.team_set = true;
+
 	teamplayersallies = countplayers("allies");
 	teamplayersaxis = countplayers("axis");
 
@@ -77,6 +86,8 @@ set_team()
 		self.pers["team"] = "allies";
 		self._encounters_team = "B";
 	}
+
+	self [[ level.givecustomcharacters ]]();
 }
 
 grief_score_hud()
@@ -182,7 +193,6 @@ set_grief_vars()
 grief_onplayerconnect()
 {
 	self set_team();
-	self [[ level.givecustomcharacters ]]();
 	self thread on_player_spawned();
 	self thread on_player_spectate();
 	self thread on_player_downed();
