@@ -259,22 +259,10 @@ override_spawn_init()
 {
 	// remove existing initial spawns
 	structs = getstructarray("initial_spawn", "script_noteworthy");
-	foreach(struct in structs)
-	{
-		if(isDefined(struct.script_string))
-		{
-			tokens = strtok(struct.script_string, " ");
-			foreach(token in tokens)
-			{
-				if(token == "zgrief_street")
-				{
-					struct.script_string = undefined;
-				}
-			}
-		}
-	}
+	array_delete(structs, true);
+	level.struct_class_names["script_noteworthy"]["initial_spawn"] = [];
 
-	// set new initial spawns to be same as respawns at zone_stables
+	// set new initial spawns to be same as respawns already on map
 	ind = 0;
 	spawn_points = maps/mp/gametypes_zm/_zm_gametype::get_player_spawns_for_gametype();
 	for(i = 0; i < spawn_points.size; i++)
