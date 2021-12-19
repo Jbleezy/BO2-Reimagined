@@ -153,7 +153,7 @@ grief_score_hud()
 set_grief_vars()
 {
 	level.noroundnumber = 1;
-	level.player_starting_points = 10000;
+	level.zombie_move_speed = 100;
 	level.zombie_vars["zombie_health_start"] = 2000;
 	level.zombie_vars["zombie_health_increase"] = 0;
 	level.zombie_vars["zombie_health_increase_multiplier"] = 0;
@@ -162,6 +162,7 @@ set_grief_vars()
 	level.zombie_powerups["meat_stink"].func_should_drop_with_regular_powerups = ::func_should_drop_meat;
 	level.brutus_health = 20000;
 	level.brutus_expl_dmg_req = 12000;
+	level.player_starting_points = 10000;
 	level.global_damage_func = ::zombie_damage;
 	level.custom_end_screen = ::custom_end_screen;
 	level.game_module_onplayerconnect = ::grief_onplayerconnect;
@@ -176,10 +177,6 @@ set_grief_vars()
 	level.grief_score["B"] = 0;
 	level.game_mode_griefed_time = 2.5;
 	level.crash_delay = 20;
-
-	flag_wait( "start_zombie_round_logic" ); // needs a wait
-
-	level.zombie_move_speed = 100;
 }
 
 grief_onplayerconnect()

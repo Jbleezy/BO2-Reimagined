@@ -27,69 +27,13 @@ zgrief_preinit()
 zgrief_init()
 {
 	encounter_init();
-	flag_wait( "start_zombie_round_logic" );
-	if ( level.round_number < 4 && level.gamedifficulty != 0 )
-	{
-		level.zombie_move_speed = 35;
-	}
 }
 
 encounter_init()
 {
-	level._game_module_player_laststand_callback = ::alcatraz_grief_laststand_weapon_save;
 	level.precachecustomcharacters = ::precache_team_characters;
 	level.givecustomcharacters = ::give_team_characters;
 	level.gamemode_post_spawn_logic = ::give_player_shiv;
-}
-
-alcatraz_grief_laststand_weapon_save( einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration ) //checked changed to match cerberus output
-{
-	if ( self hasperk( "specialty_additionalprimaryweapon" ) )
-	{
-		primary_weapons_that_can_be_taken = [];
-		primaryweapons = self getweaponslistprimaries();
-		for ( i = 0; i < primaryweapons.size; i++ )
-		{
-			if ( maps/mp/zombies/_zm_weapons::is_weapon_included( primaryweapons[ i ] ) || maps/mp/zombies/_zm_weapons::is_weapon_upgraded( primaryweapons[ i ] ) )
-			{
-				primary_weapons_that_can_be_taken[ primary_weapons_that_can_be_taken.size ] = primaryweapons[ i ];
-			}
-		}
-		if ( primary_weapons_that_can_be_taken.size >= 3 )
-		{
-			weapon_to_take = primary_weapons_that_can_be_taken[ primary_weapons_that_can_be_taken.size - 1 ];
-			self takeweapon( weapon_to_take );
-			self.weapon_taken_by_losing_specialty_additionalprimaryweapon = weapon_to_take;
-		}
-	}
-	self.grief_savedweapon_weapons = self getweaponslist();
-	self.grief_savedweapon_weaponsammo_stock = [];
-	self.grief_savedweapon_weaponsammo_clip = [];
-	self.grief_savedweapon_currentweapon = self getcurrentweapon();
-	self.grief_savedweapon_grenades = self get_player_lethal_grenade();
-	if ( isDefined( self.grief_savedweapon_grenades ) )
-	{
-		self.grief_savedweapon_grenades_clip = self getweaponammoclip( self.grief_savedweapon_grenades );
-	}
-	self.grief_savedweapon_tactical = self get_player_tactical_grenade();
-	if ( isDefined( self.grief_savedweapon_tactical ) )
-	{
-		self.grief_savedweapon_tactical_clip = self getweaponammoclip( self.grief_savedweapon_tactical );
-	}
-	for ( i = 0; i < self.grief_savedweapon_weapons.size; i++ )
-	{
-		self.grief_savedweapon_weaponsammo_clip[ i ] = self getweaponammoclip( self.grief_savedweapon_weapons[ i ] );
-		self.grief_savedweapon_weaponsammo_stock[ i ] = self getweaponammostock( self.grief_savedweapon_weapons[ i ] );
-	}
-	if ( isDefined( self.hasriotshield ) && self.hasriotshield )
-	{
-		self.grief_hasriotshield = 1;
-	}
-	if ( self hasweapon( "claymore_zm" ) )
-	{
-		self.grief_savedweapon_claymore = 1;
-		self.grief_savedweapon_claymore_clip = self getweaponammoclip( "claymore_zm" );
-	}
 }
 
 precache_team_characters()
