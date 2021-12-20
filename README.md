@@ -71,6 +71,7 @@
 * Decreased zombie EMP radius by 30% (same radius as perk EMP)
 * Sprinting no longer wakes up EMP'd zombies
 * No longer effects players
+* Grief: makes downed enemy players bleed out
 
 ### Jet Gun
 * Kills whenever the right gauge is above 20%
@@ -272,7 +273,7 @@
 * Landing on top of an enemy player that is prone downs the bottom player
 * Increased max radius for landing on top of an enemy player by 33%
 * Decreased max height for landing on top of an enemy player by 40%
-* Added kill feed (includes downs, revives, and bleedouts)
+* Added kill feed (includes downs, revives, and bleed outs)
 * Added player kills on scoreboard
 * Added player downed and bled out icons on scoreboard
 * Removed Monkey Bombs from the Mystery Box

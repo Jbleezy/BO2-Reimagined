@@ -26,7 +26,7 @@ onspawnplayer( predictedspawn )
 	}
 	else
 	{
-        self scripts/zm/main/_zm_reimagined_zgrief::set_team();
+		self scripts/zm/main/_zm_reimagined_zgrief::set_team();
 
 		if ( flag( "start_zombie_round_logic" ) )
 		{
