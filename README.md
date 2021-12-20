@@ -41,6 +41,9 @@
 * Health bar displayed on bottom left of screen
 * Current zone displayed on bottom left of screen
 
+## Settings
+* In-game menu no longer disabled instantly when the game ends
+
 ## Zombies
 * Health capped at 1 million
 * Removed walkers in high rounds
