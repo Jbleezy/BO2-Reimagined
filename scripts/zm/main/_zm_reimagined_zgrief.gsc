@@ -892,6 +892,8 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 			}
 		}
 
+		self thread store_player_damage_info(eattacker, sweapon, smeansofdeath);
+
 		is_melee = false;
 		if ( isDefined( eattacker ) && isplayer( eattacker ) && eattacker != self && eattacker.team != self.team && smeansofdeath == "MOD_MELEE" )
 		{
@@ -931,7 +933,6 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 		self playsound( "zmb_player_hit_ding" );
 
 		self thread stun_score_steal(eattacker, 10);
-		self thread store_player_damage_info(eattacker, sweapon, smeansofdeath);
 	}
 }
 
