@@ -17,6 +17,7 @@ main()
 	replaceFunc(maps/mp/zombies/_zm::end_game, scripts/zm/replaced/_zm::end_game);
 	replaceFunc(maps/mp/zombies/_zm_playerhealth::playerhealthregen, scripts/zm/replaced/_zm_playerhealth::playerhealthregen);
 	replaceFunc(maps/mp/zombies/_zm_utility::track_players_intersection_tracker, scripts/zm/replaced/_zm_utility::track_players_intersection_tracker);
+	replaceFunc(maps/mp/zombies/_zm_utility::is_headshot, scripts/zm/replaced/_zm_utility::is_headshot);
 	replaceFunc(maps/mp/zombies/_zm_powerups::nuke_powerup, scripts/zm/replaced/_zm_powerups::nuke_powerup);
 	replaceFunc(maps/mp/zombies/_zm_equipment::placed_equipment_think, scripts/zm/replaced/_zm_equipment::placed_equipment_think);
 	replaceFunc(maps/mp/zombies/_zm_ai_basic::inert_wakeup, scripts/zm/replaced/_zm_ai_basic::inert_wakeup);

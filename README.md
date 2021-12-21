@@ -47,6 +47,7 @@
 ## Zombies
 * Health capped at 1 million
 * Removed walkers in high rounds
+* Neck counts as headshot
 
 ### Screechers
 * Decreased minimum number of melees to kill from 5 to 3
