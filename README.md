@@ -117,7 +117,6 @@
 * Double headshot damage
 * Move faster while aiming
 * Decreased sprint recovery time
-* Zombie heads always gib when killed
 
 ### Mule Kick
 * Added additional weapon indicator

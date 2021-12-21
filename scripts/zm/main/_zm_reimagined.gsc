@@ -13,6 +13,7 @@
 main()
 {
 	replaceFunc(maps/mp/zombies/_zm::check_quickrevive_for_hotjoin, scripts/zm/replaced/_zm::check_quickrevive_for_hotjoin);
+	replaceFunc(maps/mp/zombies/_zm::actor_damage_override, scripts/zm/replaced/_zm::actor_damage_override);
 	replaceFunc(maps/mp/zombies/_zm::end_game, scripts/zm/replaced/_zm::end_game);
 	replaceFunc(maps/mp/zombies/_zm_playerhealth::playerhealthregen, scripts/zm/replaced/_zm_playerhealth::playerhealthregen);
 	replaceFunc(maps/mp/zombies/_zm_utility::track_players_intersection_tracker, scripts/zm/replaced/_zm_utility::track_players_intersection_tracker);
@@ -3381,13 +3382,11 @@ give_additional_perks()
 		{
 			self SetPerk("specialty_stalker");
 			self Setperk( "specialty_sprintrecovery" );
-			self.pers_upgrades_awarded["multikill_headshots"] = 1; // double headshot damage
 		}
 		else
 		{
 			self UnsetPerk("specialty_stalker");
 			self Unsetperk( "specialty_sprintrecovery" );
-			self.pers_upgrades_awarded["multikill_headshots"] = 0;
 		}
 
 		if (self HasPerk("specialty_longersprint"))
