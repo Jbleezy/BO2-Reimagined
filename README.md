@@ -189,8 +189,9 @@
 ## Maps
 
 ### Tranzit
-* Lava in starting area activates after the power is on
 * Any door that requires a Turbine to open is automatically open whenever the power is on
+* Lava in starting area activates after the power is on
+* Lava destroys grenades instantly
 * Power switch automatically crafted
 * Pack-a-Punch automatically crafted
 * Navcard table automatically crafted
