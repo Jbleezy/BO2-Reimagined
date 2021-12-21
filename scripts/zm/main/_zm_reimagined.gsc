@@ -33,6 +33,9 @@ init()
 
 	level thread onplayerconnect();
 	level thread post_all_players_spawned();
+
+	level thread enemy_counter_hud();
+	level thread timer_hud();
 }
 
 onplayerconnect()
@@ -67,8 +70,6 @@ onplayerspawned()
 
 			self tomb_give_shovel();
 
-			self thread enemy_counter_hud();
-			self thread timer_hud();
 			self thread health_bar_hud();
 			self thread zone_hud();
 
@@ -310,14 +311,12 @@ health_bar_hud()
 
 enemy_counter_hud()
 {
-	self endon("disconnect");
-
 	if ( getDvar( "g_gametype" ) == "zgrief" )
 	{
 		return;
 	}
 
-	enemy_counter_hud = newClientHudElem(self);
+	enemy_counter_hud = newHudElem();
 	enemy_counter_hud.alignx = "left";
 	enemy_counter_hud.aligny = "top";
 	enemy_counter_hud.horzalign = "user_left";
@@ -359,12 +358,10 @@ enemy_counter_hud()
 
 timer_hud()
 {
-	level endon("end_game");
-	self endon("disconnect");
 
-	self thread round_timer_hud();
+	level thread round_timer_hud();
 
-	timer_hud = newClientHudElem(self);
+	timer_hud = newHudElem();
 	timer_hud.alignx = "right";
 	timer_hud.aligny = "top";
 	timer_hud.horzalign = "user_right";
@@ -377,7 +374,7 @@ timer_hud()
 	timer_hud.hidewheninmenu = 1;
 	timer_hud.label = &"Total: ";
 
-	self thread set_time_frozen_on_end_game(timer_hud);
+	level thread set_time_frozen_on_end_game(timer_hud);
 
 	flag_wait( "initial_blackscreen_passed" );
 
@@ -394,10 +391,7 @@ timer_hud()
 
 round_timer_hud()
 {
-	level endon("end_game");
-	self endon("disconnect");
-
-	round_timer_hud = newClientHudElem(self);
+	round_timer_hud = newHudElem();
 	round_timer_hud.alignx = "right";
 	round_timer_hud.aligny = "top";
 	round_timer_hud.horzalign = "user_right";
@@ -410,7 +404,7 @@ round_timer_hud()
 	round_timer_hud.hidewheninmenu = 1;
 	round_timer_hud.label = &"Round: ";
 
-	self thread set_time_frozen_on_end_game(round_timer_hud);
+	level thread set_time_frozen_on_end_game(round_timer_hud);
 
 	flag_wait( "initial_blackscreen_passed" );
 
@@ -445,8 +439,6 @@ round_timer_hud()
 
 set_time_frozen_on_end_game(hud)
 {
-	self endon("disconnect");
-
 	level waittill("end_game");
 
 	if(!isDefined(hud.end_time))
