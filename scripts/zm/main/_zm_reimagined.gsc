@@ -89,6 +89,8 @@ onplayerspawned()
 
 			//self thread disable_sniper_scope_sway(); // Buried does not load the clientfield
 
+			self thread war_machine_explode_on_impact();
+
 			self thread jetgun_fast_cooldown();
 			self thread jetgun_fast_spinlerp();
 			self thread jetgun_overheated_fix();
@@ -3205,6 +3207,32 @@ remove_buildable_pieces( buildable_name )
 			return;
 		}
 	}
+}
+
+war_machine_explode_on_impact()
+{
+	self endon("disconnect");
+
+	while(1)
+	{
+		self waittill("grenade_launcher_fire", grenade, weapname);
+
+		if(weapname == "m32_zm")
+		{
+			grenade thread grenade_explode_on_impact();
+		}
+	}
+}
+
+grenade_explode_on_impact()
+{
+	self endon("death");
+
+	self waittill("grenade_bounce", pos);
+
+	self.origin = pos; // need this or position is slightly off
+
+	self resetmissiledetonationtime(0);
 }
 
 jetgun_increase_grind_range()

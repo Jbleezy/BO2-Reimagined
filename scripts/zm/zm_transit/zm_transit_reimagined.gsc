@@ -14,3 +14,23 @@ main()
 	replaceFunc(maps/mp/zombies/_zm_equip_electrictrap::startelectrictrapdeploy, scripts/zm/replaced/_zm_equip_electrictrap::startelectrictrapdeploy);
 	replaceFunc(maps/mp/zombies/_zm_equip_turret::startturretdeploy, scripts/zm/replaced/_zm_equip_turret::startturretdeploy);
 }
+
+init()
+{
+	level.grenade_safe_to_bounce = ::grenade_safe_to_bounce;
+}
+
+grenade_safe_to_bounce( player, weapname )
+{
+	if ( !is_offhand_weapon( weapname ) )
+	{
+		return 1;
+	}
+
+	if ( self maps/mp/zm_transit_lava::object_touching_lava() )
+	{
+		return 0;
+	}
+
+	return 1;
+}

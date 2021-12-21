@@ -70,6 +70,9 @@
 ### Remington 870
 * Changed weapon cost to 1200 on all maps
 
+### War Machine
+* Unupgraded: grenades explode on impact
+
 ### EMP Grenade
 * Decreased perk EMP time from 90 seconds to 60 seconds
 * Decreased zombie EMP radius by 30% (same radius as perk EMP)
