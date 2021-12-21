@@ -70,6 +70,9 @@
 ### Remington 870
 * Changed weapon cost to 1200 on all maps
 
+### SMR
+* Increased damage by 100%
+
 ### War Machine
 * Unupgraded: grenades explode on impact
 
