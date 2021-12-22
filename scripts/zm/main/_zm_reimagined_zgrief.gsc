@@ -169,6 +169,7 @@ set_grief_vars()
 	level.zombie_vars["zombie_health_increase"] = 0;
 	level.zombie_vars["zombie_health_increase_multiplier"] = 0;
 	level.zombie_vars["zombie_spawn_delay"] = 0.5;
+	level.zombie_weapons["raygun_mark2_zm"].is_in_box = 0;
 	level.zombie_weapons["cymbal_monkey_zm"].is_in_box = 0;
 	level.zombie_powerups["meat_stink"].func_should_drop_with_regular_powerups = ::func_should_drop_meat;
 	level.brutus_health = 20000;

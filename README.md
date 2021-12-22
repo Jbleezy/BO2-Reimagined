@@ -287,7 +287,7 @@
 * Added kill feed (includes downs, revives, and bleed outs)
 * Added player kills on scoreboard
 * Added player downed and bled out icons on scoreboard
-* Removed Monkey Bombs from the Mystery Box
+* Removed Ray Gun Mark 2 and Monkey Bombs from the Mystery Box
 * Meat powerup is able to drop when players are down
 * Added intro text
 * Announcer audio always plays
