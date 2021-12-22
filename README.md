@@ -81,7 +81,9 @@
 * Decreased zombie EMP radius by 30% (same radius as perk EMP)
 * Sprinting no longer wakes up EMP'd zombies
 * No longer effects players
-* Grief: makes downed enemy players bleed out
+
+### Ray Gun
+* No longer limited to 4 players
 
 ### Jet Gun
 * Kills whenever the right gauge is above 20%
@@ -287,6 +289,7 @@
 * Added kill feed (includes downs, revives, and bleed outs)
 * Added player kills on scoreboard
 * Added player downed and bled out icons on scoreboard
+* EMP Grenades make downed enemy players bleed out
 * Removed Ray Gun Mark 2 and Monkey Bombs from the Mystery Box
 * Meat powerup is able to drop when players are down
 * Added intro text

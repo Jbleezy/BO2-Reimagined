@@ -149,6 +149,7 @@ post_all_players_spawned()
 	level.equipment_etrap_needs_power = 0;
 	level.equipment_turret_needs_power = 0;
 	level.equipment_subwoofer_needs_power = 0;
+	level.limited_weapons["ray_gun_zm"] = undefined;
 	level.zombie_vars["emp_stun_range"] = 420;
 	level.zombie_vars["emp_perk_off_time"] = 60;
 	level.zombie_vars["slipgun_reslip_rate"] = 0;
