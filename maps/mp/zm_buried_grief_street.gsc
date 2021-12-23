@@ -233,6 +233,8 @@ disable_tunnels()
 	}
 
 	// zombie spawns
+	level.zones["zone_tunnel_gun2saloon"].is_enabled = 0;
+	level.zones["zone_tunnel_gun2saloon"].is_spawning_allowed = 0;
 	level.zones["zone_tunnel_gun2stables2"].is_enabled = 0;
 	level.zones["zone_tunnel_gun2stables2"].is_spawning_allowed = 0;
 	foreach ( spawn_location in level.zones["zone_stables"].spawn_locations )
