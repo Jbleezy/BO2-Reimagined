@@ -231,6 +231,9 @@
 * Plane fuel automatically picked up
 * Players no longer respawn in the Acid Trap
 
+#### Cell Block
+* Added Smoke Grenades to the Mystery Box
+
 ### Buried
 * Power automatically on
 * Removed Turbine
