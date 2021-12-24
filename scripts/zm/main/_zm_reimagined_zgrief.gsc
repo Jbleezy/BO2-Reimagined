@@ -1437,7 +1437,7 @@ borough_move_quickrevive_machine()
 	}
 
 	// spawn new machine
-	perk_location_struct.origin += (0, -30, 0); // fix for location being slightly off
+	perk_location_struct.origin += (0, -32, 0); // fix for location being off
 	use_trigger = spawn( "trigger_radius_use", perk_location_struct.origin + vectorScale( ( 0, 0, 1 ), 30 ), 0, 40, 70 );
 	use_trigger.targetname = "zombie_vending";
 	use_trigger.script_noteworthy = perk_struct.script_noteworthy;
