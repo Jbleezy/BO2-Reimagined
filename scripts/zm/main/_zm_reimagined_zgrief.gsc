@@ -938,6 +938,7 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 			is_melee = true;
 
 			amount = 450 + (75 * int(idamage / 500));
+
 			if(self getStance() == "crouch")
 			{
 				amount /= 2;
@@ -945,6 +946,11 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 			else if(self getStance() == "prone")
 			{
 				amount /= 4;
+			}
+
+			if(self maps/mp/zombies/_zm_laststand::is_reviving_any())
+			{
+				amount /= 2;
 			}
 
 			self setVelocity( amount * vdir );
