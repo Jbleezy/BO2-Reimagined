@@ -203,6 +203,7 @@
 * Navcard table automatically crafted
 
 #### Town
+* Moved Quick Revive to Stamin-Up's location on Town
 * Moved Stamin-Up to its location on Tranzit
 * Moved Tombstone Soda to the laundry room front door
 
