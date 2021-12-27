@@ -454,6 +454,20 @@ override_spawn_init()
 	foreach(spawnpoint in spawnpoints)
 	{
 		if(spawnpoint.origin == (704, 9672, 1470) || spawnpoint.origin == (1008, 9684, 1470))
-		arrayremovevalue(level.struct_class_names["script_noteworthy"]["initial_spawn"], spawnpoint);
+		{
+			arrayremovevalue(level.struct_class_names["script_noteworthy"]["initial_spawn"], spawnpoint);
+		}
+	}
+
+	foreach(spawnpoint in level.struct_class_names["script_noteworthy"]["initial_spawn"])
+	{
+		if(spawnpoint.origin == (704, 9712, 1471) || spawnpoint.origin == (1008, 9720, 1470))
+		{
+			spawnpoint.origin += (0, -16, 0);
+		}
+		else if(spawnpoint.origin == (704, 9632, 1470) || spawnpoint.origin == (1008, 9640, 1470))
+		{
+			spawnpoint.origin += (0, 16, 0);
+		}
 	}
 }
