@@ -299,6 +299,10 @@
 * EMP Grenades make downed enemy players bleed out
 * Removed Ray Gun Mark 2 and Monkey Bombs from the Mystery Box
 * Meat powerup is able to drop when players are down
+* Message shows when the meat is on a player
+* Meleeing while the meat is moving no longer grabs the meat
+* Meleeing while the meat is moving throws the meat
+* Meleeing while the meat is moving activates more consistently
 * Added intro text
 * Announcer audio always plays
 * Last player alive audio only plays for the player who is alive instead of every player on the team

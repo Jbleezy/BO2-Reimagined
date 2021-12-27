@@ -19,3 +19,36 @@ meat_stink_on_ground(position_to_play)
 	wait 10;
 	level.meat_on_ground = undefined;
 }
+
+meat_stink_player( who )
+{
+	level notify( "new_meat_stink_player" );
+	level endon( "new_meat_stink_player" );
+	who.ignoreme = 0;
+	players = get_players();
+	foreach ( player in players )
+	{
+		player thread maps/mp/gametypes_zm/zgrief::meat_stink_player_cleanup();
+		if ( player != who )
+		{
+			player.ignoreme = 1;
+		}
+
+		if(player.team == who.team)
+		{
+			player iprintln("^8" + who.name + " has the meat");
+		}
+		else
+		{
+			player iprintln("^9" + who.name + " has the meat");
+		}
+	}
+	who thread maps/mp/gametypes_zm/zgrief::meat_stink_player_create();
+	who waittill_any_or_timeout( 30, "disconnect", "player_downed", "bled_out" );
+	players = get_players();
+	foreach ( player in players )
+	{
+		player thread maps/mp/gametypes_zm/zgrief::meat_stink_player_cleanup();
+		player.ignoreme = 0;
+	}
+}

@@ -10,6 +10,7 @@
 #include scripts/zm/replaced/_zm_gametype;
 #include scripts/zm/replaced/_zm_blockers;
 #include scripts/zm/replaced/zgrief;
+#include scripts/zm/replaced/zmeat;
 
 main()
 {
@@ -24,6 +25,10 @@ main()
 	replaceFunc(maps/mp/zombies/_zm_game_module::wait_for_team_death_and_round_end, scripts/zm/replaced/_zm_game_module::wait_for_team_death_and_round_end);
 	replaceFunc(maps/mp/zombies/_zm_blockers::handle_post_board_repair_rewards, scripts/zm/replaced/_zm_blockers::handle_post_board_repair_rewards);
 	replaceFunc(maps/mp/gametypes_zm/zgrief::meat_stink_on_ground, scripts/zm/replaced/zgrief::meat_stink_on_ground);
+	replaceFunc(maps/mp/gametypes_zm/zgrief::meat_stink_player, scripts/zm/replaced/zgrief::meat_stink_player);
+	replaceFunc(maps/mp/gametypes_zm/zmeat::item_meat_watch_trigger, scripts/zm/replaced/zmeat::item_meat_watch_trigger);
+	replaceFunc(maps/mp/gametypes_zm/zmeat::kick_meat_monitor, scripts/zm/replaced/zmeat::kick_meat_monitor);
+	replaceFunc(maps/mp/gametypes_zm/zmeat::last_stand_meat_nudge, scripts/zm/replaced/zmeat::last_stand_meat_nudge);
 }
 
 init()
