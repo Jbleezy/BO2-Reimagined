@@ -105,6 +105,7 @@ main()
 	array_thread( level.zombie_spawners, ::add_spawn_function, ::remove_zombie_hats_for_grief );
 	maps/mp/zombies/_zm_ai_brutus::precache();
 	maps/mp/zombies/_zm_ai_brutus::init();
+	override_spawn_init();
 	level.enemy_location_override_func = ::enemy_location_override;
 	level._effect[ "butterflies" ] = loadfx( "maps/zombie_alcatraz/fx_alcatraz_skull_elec" );
 	a_t_door_triggers = getentarray( "zombie_door", "targetname" );
@@ -417,5 +418,42 @@ turn_afterlife_interact_on()
 	else
 	{
 		self delete();
+	}
+}
+
+override_spawn_init()
+{
+	match_string = "";
+	location = level.scr_zm_map_start_location;
+	if ( ( location == "default" || location == "" ) && isDefined( level.default_start_location ) )
+	{
+		location = level.default_start_location;
+	}
+	match_string = level.scr_zm_ui_gametype + "_" + location;
+	spawnpoints = [];
+	structs = getstructarray("initial_spawn", "script_noteworthy");
+
+	if ( isdefined( structs ) )
+	{
+		for ( i = 0; i < structs.size; i++ )
+		{
+			if ( isdefined( structs[ i ].script_string ) )
+			{
+				tokens = strtok( structs[ i ].script_string, " " );
+				foreach ( token in tokens )
+				{
+					if ( token == match_string )
+					{
+						spawnpoints[ spawnpoints.size ] = structs[ i ];
+					}
+				}
+			}
+		}
+	}
+
+	foreach(spawnpoint in spawnpoints)
+	{
+		if(spawnpoint.origin == (704, 9672, 1470) || spawnpoint.origin == (1008, 9684, 1470))
+		arrayremovevalue(level.struct_class_names["script_noteworthy"]["initial_spawn"], spawnpoint);
 	}
 }
