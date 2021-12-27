@@ -948,11 +948,6 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 				amount /= 4;
 			}
 
-			if(self maps/mp/zombies/_zm_laststand::is_reviving_any())
-			{
-				amount /= 2;
-			}
-
 			self setVelocity( amount * vdir );
 		}
 
