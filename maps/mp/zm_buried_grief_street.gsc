@@ -283,7 +283,20 @@ override_spawn_init()
 		struct.origin = init_spawn.origin;
 		struct.angles = init_spawn.angles;
 		struct.radius = init_spawn.radius;
-		struct.script_int = init_spawn.script_int;
+
+		if(struct.origin == (-722.02, -151.75, 124.14))
+		{
+			struct.script_int = 1;
+		}
+		else if(struct.origin == (-891.27, -209.95, 137.94))
+		{
+			struct.script_int = 2;
+		}
+		else
+		{
+			struct.script_int = init_spawn.script_int;
+		}
+
 		struct.script_noteworthy = "initial_spawn";
 		struct.script_string = "zgrief_street";
 
