@@ -12,6 +12,16 @@
 
 ## Change Notes
 
+## General
+* Increased level of detail at longer distances
+* In-game menu no longer disabled instantly when the game ends
+
+## HUD
+* Enemy counter displayed on top left of screen
+* Timer displayed on top right of screen
+* Health bar displayed on bottom left of screen
+* Current zone displayed on bottom left of screen
+
 ## Players
 * Unlimited sprint
 * Self revives in solo are active whenever the player has at least 1 perk
@@ -34,15 +44,6 @@
 * Entering and exiting last stand no longer refills last stand weapon clip automatically
 * Decreased friendly player name fade out time from 1.5 seconds to 0.25 seconds
 * Removed enemy player name fade in time
-
-## HUD
-* Enemy counter displayed on top left of screen
-* Timer displayed on top right of screen
-* Health bar displayed on bottom left of screen
-* Current zone displayed on bottom left of screen
-
-## Settings
-* In-game menu no longer disabled instantly when the game ends
 
 ## Zombies
 * Health capped at 1 million
