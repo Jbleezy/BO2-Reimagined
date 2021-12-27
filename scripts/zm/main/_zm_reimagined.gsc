@@ -253,8 +253,8 @@ set_dvars()
 
 	self setClientDvar( "g_friendlyfireDist", 0 );
 
-    self setClientDvar( "r_lodBiasRigid", -1000 );
-    self setClientDvar( "r_lodBiasSkinned", -1000 );
+	self setClientDvar( "r_lodBiasRigid", -1000 );
+	self setClientDvar( "r_lodBiasSkinned", -1000 );
 }
 
 set_perks()

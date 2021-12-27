@@ -288,9 +288,11 @@
 * Stunning enemy players steals 10 points from them
 * Downing enemy players awards 5% of their current points
 * Bleeding out enemy players awards 10% of your current points to all teammates
-* Landing on top of an enemy player that is prone downs the bottom player
+* Landing on top of an enemy player downs only the bottom player
+* Landing on top of an enemy player can be done at any stance
 * Increased max radius for landing on top of an enemy player by 33%
-* Decreased max height for landing on top of an enemy player by 40%
+* Decreased max height for landing on top of an enemy player that is prone by 40%
+* Decreased max height for landing on top of an enemy player that is crouched by 13%
 * Added kill feed (includes downs, revives, and bleed outs)
 * Added player kills on scoreboard
 * Added player downed and bled out icons on scoreboard
