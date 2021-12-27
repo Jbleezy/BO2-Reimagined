@@ -28,45 +28,41 @@ onspawnplayer( predictedspawn )
 	{
 		self scripts/zm/main/_zm_reimagined_zgrief::set_team();
 
-		if ( flag( "start_zombie_round_logic" ) )
+		location = level.scr_zm_map_start_location;
+		if ( ( location == "default" || location == "" ) && isDefined( level.default_start_location ) )
 		{
-			spawnpoint = maps/mp/zombies/_zm::check_for_valid_spawn_near_team( self, 1 );
+			location = level.default_start_location;
 		}
-		if ( !isDefined( spawnpoint ) )
+
+		match_string = level.scr_zm_ui_gametype + "_" + location;
+		spawnpoints = [];
+		structs = getstructarray( "initial_spawn", "script_noteworthy" );
+
+		if ( isdefined( structs ) )
 		{
-			match_string = "";
-			location = level.scr_zm_map_start_location;
-			if ( ( location == "default" || location == "" ) && isDefined( level.default_start_location ) )
+			for ( i = 0; i < structs.size; i++ )
 			{
-				location = level.default_start_location;
-			}
-			match_string = level.scr_zm_ui_gametype + "_" + location;
-			spawnpoints = [];
-			structs = getstructarray( "initial_spawn", "script_noteworthy" );
-			if ( isdefined( structs ) )
-			{
-				for ( i = 0; i < structs.size; i++ )
+				if ( isdefined( structs[ i ].script_string ) )
 				{
-					if ( isdefined( structs[ i ].script_string ) )
+					tokens = strtok( structs[ i ].script_string, " " );
+					foreach ( token in tokens )
 					{
-						tokens = strtok( structs[ i ].script_string, " " );
-						foreach ( token in tokens )
+						if ( token == match_string )
 						{
-							if ( token == match_string )
-							{
-								spawnpoints[ spawnpoints.size ] = structs[ i ];
-							}
+							spawnpoints[ spawnpoints.size ] = structs[ i ];
 						}
 					}
 				}
 			}
-			if ( !isDefined( spawnpoints ) || spawnpoints.size == 0 )
-			{
-				spawnpoints = getstructarray( "initial_spawn_points", "targetname" );
-			}
-			spawnpoint = maps/mp/zombies/_zm::getfreespawnpoint( spawnpoints, self );
-
 		}
+
+		if ( !isDefined( spawnpoints ) || spawnpoints.size == 0 )
+		{
+			spawnpoints = getstructarray( "initial_spawn_points", "targetname" );
+		}
+
+		spawnpoint = maps/mp/zombies/_zm::getfreespawnpoint( spawnpoints, self );
+
 		if ( predictedspawn )
 		{
 			self predictspawnpoint( spawnpoint.origin, spawnpoint.angles );
@@ -77,6 +73,7 @@ onspawnplayer( predictedspawn )
 			self spawn( spawnpoint.origin, spawnpoint.angles, "zsurvival" );
 		}
 	}
+
 	self.entity_num = self getentitynumber();
 	self thread maps/mp/zombies/_zm::onplayerspawned();
 	self thread maps/mp/zombies/_zm::player_revive_monitor();
@@ -91,11 +88,13 @@ onspawnplayer( predictedspawn )
 	self.zombification_time = 0;
 	self.enabletext = 1;
 	self thread maps/mp/zombies/_zm_blockers::rebuild_barrier_reward_reset();
+
 	if ( !is_true( level.host_ended_game ) )
 	{
 		self freeze_player_controls( 0 );
 		self enableweapons();
 	}
+
 	if ( isDefined( level.game_mode_spawn_player_logic ) )
 	{
 		spawn_in_spectate = [[ level.game_mode_spawn_player_logic ]]();
@@ -104,5 +103,6 @@ onspawnplayer( predictedspawn )
 			self delay_thread( 0.05, maps/mp/zombies/_zm::spawnspectator );
 		}
 	}
+
 	pixendevent();
 }
