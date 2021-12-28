@@ -202,6 +202,7 @@
 * Power switch automatically crafted
 * Pack-a-Punch automatically crafted
 * Navcard table automatically crafted
+* Fixed a zombie pathing exploit at Town in Bookstore
 
 #### Town
 * Moved Quick Revive to Stamin-Up's location on Town
