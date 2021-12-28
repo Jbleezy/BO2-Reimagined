@@ -100,18 +100,67 @@ enemy_location_override( zombie, enemy )
 
 builddynamicwallbuys()
 {
-	builddynamicwallbuy( "bank", "beretta93r_zm" );
-	builddynamicwallbuy( "bar", "pdw57_zm" );
-	builddynamicwallbuy( "church", "ak74u_zm" );
-	builddynamicwallbuy( "courthouse", "mp5k_zm" );
-	builddynamicwallbuy( "generalstore", "m16_zm" );
+	builddynamicwallbuy( "morgue", "pdw57_zm" );
+	builddynamicwallbuy( "church", "svu_zm" );
 	builddynamicwallbuy( "mansion", "an94_zm" );
-	builddynamicwallbuy( "morgue", "svu_zm" );
-	builddynamicwallbuy( "prison", "claymore_zm" );
-	builddynamicwallbuy( "stables", "bowie_knife_zm" );
-	builddynamicwallbuy( "stablesroof", "frag_grenade_zm" );
-	builddynamicwallbuy( "toystore", "tazer_knuckles_zm" );
-	builddynamicwallbuy( "candyshop", "870mcs_zm" );
+
+	scripts/zm/main/_zm_reimagined::wallbuy_increase_trigger_radius();
+	scripts/zm/main/_zm_reimagined::wallbuy_decrease_upgraded_ammo_cost();
+}
+
+builddynamicwallbuy( location, weaponname )
+{
+	foreach ( stub in level.chalk_builds )
+	{
+		wallbuy = getstruct( stub.target, "targetname" );
+
+		if ( isDefined( wallbuy.script_location ) && wallbuy.script_location == location )
+		{
+			spawned_wallbuy = undefined;
+			for ( i = 0; i < level._spawned_wallbuys.size; i++ )
+			{
+				if ( level._spawned_wallbuys[ i ].target == wallbuy.targetname )
+				{
+					spawned_wallbuy = level._spawned_wallbuys[ i ];
+					break;
+				}
+			}
+
+			if ( !isDefined( spawned_wallbuy ) )
+			{
+				origin = wallbuy.origin;
+
+				// center wallbuy chalk and model, and adjust wallbuy trigger
+				if(weaponname == "pdw57_zm")
+				{
+					origin += anglesToForward(wallbuy.angles) * 12;
+					wallbuy.origin += anglesToForward(wallbuy.angles) * 3;
+				}
+				else if(weaponname == "svu_zm")
+				{
+					origin += anglesToForward(wallbuy.angles) * 24;
+					wallbuy.origin += anglesToForward(wallbuy.angles) * 15;
+				}
+
+				struct = spawnStruct();
+				struct.target = wallbuy.targetname;
+				level._spawned_wallbuys[level._spawned_wallbuys.size] = struct;
+
+				// move model foreward so it always shows in front of chalk
+				model = spawn_weapon_model( weaponname, undefined, origin + anglesToRight(wallbuy.angles) * -0.25, wallbuy.angles );
+				model.targetname = struct.target;
+				model setmodel( getWeaponModel(weaponname) );
+				model useweaponhidetags( weaponname );
+				model hide();
+
+				chalk_fx = weaponname + "_fx";
+				thread scripts/zm/main/_zm_reimagined::playchalkfx( chalk_fx, origin, wallbuy.angles );
+			}
+
+			maps/mp/zombies/_zm_weapons::add_dynamic_wallbuy( weaponname, wallbuy.targetname, 1 );
+			thread wait_and_remove( stub, stub.buildablezone.pieces[ 0 ] );
+		}
+	}
 }
 
 buildbuildables()

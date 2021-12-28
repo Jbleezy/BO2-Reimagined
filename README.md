@@ -248,8 +248,10 @@
 
 #### Borough
 * Tunnels disabled
-* Players initially spawn in the Stables zone
-* Added B23R, M16A1, Claymore, and Bowie Knife wallbuys
+* Players spawn at Stables
+* Added B23R, M16, Claymore, and Bowie Knife wallbuys at their locations on Buried
+* Added PDW wallbuy at Morgue
+* Added SVU wallbuy at Church
 * Moved Quick Revive to Speed Cola's location on Borough
 * Moved Speed Cola to its location on Buried
 * Moved Stamin-Up to Vulture Aid's location on Buried
