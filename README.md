@@ -288,6 +288,7 @@
 * Meleeing enemy players that are crouched pushes 50% of the amount when standing
 * Meleeing enemy players that are prone pushes 25% of the amount when standing
 * Meleeing enemy players that are already stunned will push them
+* Stun fx is linked to the player
 * Stun fx shows in the correct position for projectiles
 * Stunning enemy players steals 10 points from them
 * Downing enemy players awards 5% of their current points

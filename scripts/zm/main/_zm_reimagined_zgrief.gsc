@@ -963,19 +963,26 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 
 		if ( isDefined( level._effect[ "butterflies" ] ) )
 		{
+			pos = vpoint;
+			angle = vectorToAngles(eattacker getCentroid() - self getCentroid());
+
 			if ( (isDefined( sweapon ) && weapontype( sweapon ) == "grenade") || (isDefined( sweapon ) && weapontype( sweapon ) == "projectile") )
 			{
 				pos_offset = vectorNormalize(vpoint - self getCentroid()) * 8;
 				pos_offset = (pos_offset[0], pos_offset[1], 0);
 				pos = self getCentroid() + pos_offset;
 				angle = vectorToAngles(vpoint - self getCentroid());
+			}
 
-				playfx( level._effect[ "butterflies" ], pos, angle );
-			}
-			else
-			{
-				playfx( level._effect[ "butterflies" ], vpoint, vdir );
-			}
+			angle = (0, angle[1], 0);
+
+			stun_fx = spawn("script_model", pos);
+			stun_fx.angles = angle;
+			stun_fx setModel("tag_origin");
+			stun_fx linkTo(self);
+			stun_fx thread deleteaftertime(3);
+
+			playFXOnTag(level._effect["butterflies"], stun_fx, "tag_origin");
 		}
 
 		self thread do_game_mode_shellshock(is_melee, maps/mp/zombies/_zm_weapons::is_weapon_upgraded(sweapon));
