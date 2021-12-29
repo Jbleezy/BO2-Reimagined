@@ -935,8 +935,6 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 			}
 		}
 
-		self thread store_player_damage_info(eattacker, sweapon, smeansofdeath);
-
 		is_melee = false;
 		if ( isDefined( eattacker ) && isplayer( eattacker ) && eattacker != self && eattacker.team != self.team && smeansofdeath == "MOD_MELEE" )
 		{
@@ -954,6 +952,8 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 			}
 
 			self setVelocity( amount * vdir );
+
+			self store_player_damage_info(eattacker, sweapon, smeansofdeath);
 		}
 
 		if ( is_true( self._being_shellshocked ) )
@@ -976,7 +976,12 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 		self thread do_game_mode_shellshock(is_melee, maps/mp/zombies/_zm_weapons::is_weapon_upgraded(sweapon));
 		self playsound( "zmb_player_hit_ding" );
 
-		self thread stun_score_steal(eattacker, 10);
+		self stun_score_steal(eattacker, 10);
+
+		if(!is_melee)
+		{
+			self store_player_damage_info(eattacker, sweapon, smeansofdeath);
+		}
 	}
 }
 
