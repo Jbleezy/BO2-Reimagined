@@ -963,7 +963,7 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 
 		if ( isDefined( level._effect[ "butterflies" ] ) )
 		{
-			if ( isDefined( sweapon ) && weapontype( sweapon ) == "grenade" )
+			if ( (isDefined( sweapon ) && weapontype( sweapon ) == "grenade") || (isDefined( sweapon ) && weapontype( sweapon ) == "projectile") )
 			{
 				playfx( level._effect[ "butterflies" ], self.origin + vectorScale( ( 1, 1, 1 ), 40 ) );
 			}
