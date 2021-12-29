@@ -371,21 +371,21 @@ headstomp_watcher()
 		players = get_players();
 		foreach(player in players)
 		{
-			if(player != self && player.team != self.team && is_player_valid(player) && player isOnGround() && self.origin[2] > player.origin[2])
+			if(player != self && player.team != self.team && is_player_valid(player) && player isOnGround() && self.origin[2] > player getCentroid()[2])
 			{
 				max_horz_dist = 24;
-				max_vert_dist = 68;
+				max_vert_dist = 36;
 
 				if(player getStance() == "crouch")
 				{
-					max_vert_dist = 52;
+					max_vert_dist -= 10;
 				}
 				else if(player getStance() == "prone")
 				{
-					max_vert_dist = 36;
+					max_vert_dist -= 20;
 				}
 
-				if(distance2d(self.origin, player.origin) <= max_horz_dist && (self.origin[2] - player.origin[2]) <= max_vert_dist)
+				if(distance2d(self.origin, player.origin) <= max_horz_dist && (self.origin[2] - player getCentroid()[2]) <= max_vert_dist)
 				{
 					player store_player_damage_info(self, "none", "MOD_FALLING");
 					player dodamage( 1000, (0, 0, 0) );

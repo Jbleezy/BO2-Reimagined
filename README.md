@@ -296,8 +296,8 @@
 * Landing on top of an enemy player downs only the bottom player
 * Landing on top of an enemy player can be done at any stance
 * Increased max radius for landing on top of an enemy player by 33%
-* Decreased max height for landing on top of an enemy player that is prone by 40%
 * Decreased max height for landing on top of an enemy player that is crouched by 13%
+* Decreased max height for landing on top of an enemy player that is prone by 47%
 * Added kill feed (includes downs, revives, and bleed outs)
 * Added player kills on scoreboard
 * Added player downed and bled out icons on scoreboard
