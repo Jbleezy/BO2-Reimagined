@@ -68,7 +68,7 @@ init()
 	level thread unlimited_zombies();
 	level thread remove_status_icons_on_end_game();
 	level thread random_map_rotation();
-	//level thread spawn_bots(7);
+	level thread spawn_bots(7);
 }
 
 set_team()
@@ -1776,6 +1776,11 @@ random_map_rotation()
 
 spawn_bots(num)
 {
+	if(getDvar("sv_hostname") != "Private Match")
+	{
+		return;
+	}
+
 	level waittill( "connected", player );
 
 	level.bots = [];
