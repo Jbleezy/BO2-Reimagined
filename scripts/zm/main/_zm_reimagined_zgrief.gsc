@@ -1711,27 +1711,67 @@ remove_status_icons_on_end_game()
 
 random_map_rotation()
 {
-	level waittill("end_game");
+	if(getDvar("sv_hostname") == "Private Match")
+	{
+		return;
+	}
 
+	initial_map = 0;
 	rotation_data = spawnStruct();
 	rotation_data.location = array("town", "farm", "transit", "cellblock", "street");
 	rotation_data.mapname = array("zm_transit", "zm_transit", "zm_transit", "zm_prison", "zm_buried");
 
-	// remove current map
+	if(getDvar("sv_mapRotationNum") == "")
+	{
+		initial_map = 1;
+		setDvar("sv_mapRotationNum", rotation_data.location.size);
+	}
+
+	num = getDvarInt("sv_mapRotationNum");
+	if(num < rotation_data.location.size - 1)
+	{
+		num++;
+		setDvar("sv_mapRotationNum", num);
+		return;
+	}
+
+	num = 0;
+	setDvar("sv_mapRotationNum", num);
+
+	// randomize maps
 	for(i = 0; i < rotation_data.location.size; i++)
 	{
-		if(level.scr_zm_map_start_location == rotation_data.location[i] && level.script == rotation_data.mapname[i])
+		num = randomInt(rotation_data.location.size);
+		rotation_data.location = array_swap(rotation_data.location, i, num);
+		rotation_data.mapname = array_swap(rotation_data.mapname, i, num);
+	}
+
+	// make sure current map isn't first
+	if(level.scr_zm_map_start_location == rotation_data.location[0] && level.script == rotation_data.mapname[0])
+	{
+		num = randomIntRange(1, rotation_data.location.size);
+		rotation_data.location = array_swap(rotation_data.location, 0, num);
+		rotation_data.mapname = array_swap(rotation_data.mapname, 0, num);
+	}
+
+	rotation_string = "";
+	for(i = 0; i < rotation_data.location.size; i++)
+	{
+		rotation_string += "exec zm_grief_" + rotation_data.location[i] + ".cfg map " + rotation_data.mapname[i];
+
+		if(i < rotation_data.location.size - 1)
 		{
-			arrayRemoveIndex(rotation_data.location, i);
-			arrayRemoveIndex(rotation_data.mapname, i);
-			break;
+			rotation_string += " ";
 		}
 	}
 
-	num = randomInt(rotation_data.location.size);
-	rotation_string = "exec zm_grief_" + rotation_data.location[num] + ".cfg map " + rotation_data.mapname[num];
-	setDvar( "sv_maprotation", rotation_string );
-	setDvar( "sv_maprotationCurrent", rotation_string );
+	setDvar("sv_mapRotation", rotation_string);
+
+	// make initial map random
+	if(initial_map)
+	{
+		exitLevel(0);
+	}
 }
 
 spawn_bots(num)
