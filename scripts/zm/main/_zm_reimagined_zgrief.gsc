@@ -1717,18 +1717,28 @@ random_map_rotation()
 	}
 
 	initial_map = 0;
-	rotation_data = spawnStruct();
-	rotation_data.location = array("town", "farm", "transit", "cellblock", "street");
-	rotation_data.mapname = array("zm_transit", "zm_transit", "zm_transit", "zm_prison", "zm_buried");
+	rotation_array = [];
+	rotation_string = getDvar("sv_mapRotation");
+
+	tokens = strTok(rotation_string, " ");
+	for(i = 0; i < tokens.size; i += 4)
+	{
+		rotation_array[rotation_array.size] = tokens[i] + " " + tokens[i+1] + " " + tokens[i+2] + " " + tokens[i+3];
+	}
+
+	if(rotation_array.size < 2)
+	{
+		return;
+	}
 
 	if(getDvar("sv_mapRotationNum") == "")
 	{
 		initial_map = 1;
-		setDvar("sv_mapRotationNum", rotation_data.location.size);
+		setDvar("sv_mapRotationNum", rotation_array.size);
 	}
 
 	num = getDvarInt("sv_mapRotationNum");
-	if(num < rotation_data.location.size - 1)
+	if(num < rotation_array.size - 1)
 	{
 		num++;
 		setDvar("sv_mapRotationNum", num);
@@ -1739,31 +1749,35 @@ random_map_rotation()
 	setDvar("sv_mapRotationNum", num);
 
 	// randomize maps
-	for(i = 0; i < rotation_data.location.size; i++)
-	{
-		num = randomInt(rotation_data.location.size);
-		rotation_data.location = array_swap(rotation_data.location, i, num);
-		rotation_data.mapname = array_swap(rotation_data.mapname, i, num);
-	}
+	rotation_array = array_randomize(rotation_array);
 
 	// make sure current map isn't first
 	// except for initially since map hasn't been played
 	if(!initial_map)
 	{
-		if(level.scr_zm_map_start_location == rotation_data.location[0] && level.script == rotation_data.mapname[0])
+		tokens = strTok(rotation_array[0], " ");
+
+		location = tokens[1]; // zm_gamemode_location.cfg
+		location = strTok(location, ".");
+		location = location[0]; // zm_gamemode_location
+		location = strTok(location, "_");
+		location = location[2]; // location
+
+		mapname = tokens[3];
+
+		if(level.scr_zm_map_start_location == location && level.script == mapname)
 		{
-			num = randomIntRange(1, rotation_data.location.size);
-			rotation_data.location = array_swap(rotation_data.location, 0, num);
-			rotation_data.mapname = array_swap(rotation_data.mapname, 0, num);
+			num = randomIntRange(1, rotation_array.size);
+			rotation_array = array_swap(rotation_array, 0, num);
 		}
 	}
 
 	rotation_string = "";
-	for(i = 0; i < rotation_data.location.size; i++)
+	for(i = 0; i < rotation_array.size; i++)
 	{
-		rotation_string += "exec zm_grief_" + rotation_data.location[i] + ".cfg map " + rotation_data.mapname[i];
+		rotation_string += rotation_array[i];
 
-		if(i < rotation_data.location.size - 1)
+		if(i < rotation_array.size - 1)
 		{
 			rotation_string += " ";
 		}
