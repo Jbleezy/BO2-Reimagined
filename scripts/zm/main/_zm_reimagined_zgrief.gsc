@@ -1784,6 +1784,7 @@ random_map_rotation()
 	}
 
 	setDvar("sv_mapRotation", rotation_string);
+	setDvar("sv_mapRotationCurrent", rotation_string);
 
 	// make initial map random
 	if(initial_map)
