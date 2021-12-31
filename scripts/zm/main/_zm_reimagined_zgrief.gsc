@@ -1747,11 +1747,15 @@ random_map_rotation()
 	}
 
 	// make sure current map isn't first
-	if(level.scr_zm_map_start_location == rotation_data.location[0] && level.script == rotation_data.mapname[0])
+	// except for initially since map hasn't been played
+	if(!initial_map)
 	{
-		num = randomIntRange(1, rotation_data.location.size);
-		rotation_data.location = array_swap(rotation_data.location, 0, num);
-		rotation_data.mapname = array_swap(rotation_data.mapname, 0, num);
+		if(level.scr_zm_map_start_location == rotation_data.location[0] && level.script == rotation_data.mapname[0])
+		{
+			num = randomIntRange(1, rotation_data.location.size);
+			rotation_data.location = array_swap(rotation_data.location, 0, num);
+			rotation_data.mapname = array_swap(rotation_data.mapname, 0, num);
+		}
 	}
 
 	rotation_string = "";
