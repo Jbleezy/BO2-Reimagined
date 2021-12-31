@@ -232,6 +232,16 @@ zombie_goto_round(target_round)
 	}
 
 	maps/mp/zombies/_zm_game_module::respawn_players();
+
+	level thread player_respawn_award();
+
+	level thread scripts/zm/main/_zm_reimagined_zgrief::round_start_wait(5);
+}
+
+player_respawn_award()
+{
+	wait 0.05; // let all players fully respawn
+
 	maps/mp/zombies/_zm::award_grenades_for_survivors();
 	players = get_players();
 	foreach(player in players)
@@ -249,6 +259,4 @@ zombie_goto_round(target_round)
 			player setweaponammoclip(player get_player_placeable_mine(), 2);
 		}
 	}
-
-	level thread scripts/zm/main/_zm_reimagined_zgrief::round_start_wait(5);
 }
