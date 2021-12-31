@@ -4,7 +4,6 @@
 #include maps\mp\gametypes_zm\_hud_util;
 #include maps\mp\gametypes_zm\_hud_message;
 
-#include scripts/zm/replaced/_zm;
 #include scripts/zm/replaced/_zm_audio_announcer;
 #include scripts/zm/replaced/_zm_game_module;
 #include scripts/zm/replaced/_zm_gametype;
@@ -19,7 +18,6 @@ main()
 		return;
 	}
 
-	replaceFunc(maps/mp/zombies/_zm::onallplayersready, scripts/zm/replaced/_zm::onallplayersready);
 	replaceFunc(maps/mp/gametypes_zm/_zm_gametype::onspawnplayer, scripts/zm/replaced/_zm_gametype::onspawnplayer);
 	replaceFunc(maps/mp/zombies/_zm_audio_announcer::playleaderdialogonplayer, scripts/zm/replaced/_zm_audio_announcer::playleaderdialogonplayer);
 	replaceFunc(maps/mp/zombies/_zm_game_module::wait_for_team_death_and_round_end, scripts/zm/replaced/_zm_game_module::wait_for_team_death_and_round_end);
@@ -45,7 +43,8 @@ init()
 		setDvar( "zombies_minplayers", 2 );
 	}
 
-	setDvar( "ui_scorelimit", 3 );
+	setDvar("sv_connectTimeout", 30);
+	setDvar("ui_scorelimit", 3);
 
 	setteamscore("axis", 0);
 	setteamscore("allies", 0);
@@ -199,7 +198,6 @@ set_grief_vars()
 	level.grief_score["A"] = 0;
 	level.grief_score["B"] = 0;
 	level.game_mode_griefed_time = 2.5;
-	level.crash_delay = 20;
 }
 
 grief_onplayerconnect()
