@@ -1717,9 +1717,19 @@ random_map_rotation()
 	}
 
 	initial_map = 0;
+	if(getDvar("sv_mapRotationRandom") == "")
+	{
+		initial_map = 1;
+		setDvar("sv_mapRotationRandom", 1);
+	}
+
+	if(!initial_map && getDvar("sv_mapRotationCurrent") != "")
+	{
+		return;
+	}
+
 	rotation_array = [];
 	rotation_string = getDvar("sv_mapRotation");
-
 	tokens = strTok(rotation_string, " ");
 	for(i = 0; i < tokens.size; i += 4)
 	{
@@ -1730,23 +1740,6 @@ random_map_rotation()
 	{
 		return;
 	}
-
-	if(getDvar("sv_mapRotationNum") == "")
-	{
-		initial_map = 1;
-		setDvar("sv_mapRotationNum", rotation_array.size);
-	}
-
-	num = getDvarInt("sv_mapRotationNum");
-	if(num < rotation_array.size - 1)
-	{
-		num++;
-		setDvar("sv_mapRotationNum", num);
-		return;
-	}
-
-	num = 0;
-	setDvar("sv_mapRotationNum", num);
 
 	// randomize maps
 	rotation_array = array_randomize(rotation_array);
