@@ -116,6 +116,125 @@ actor_damage_override( inflictor, attacker, damage, flags, meansofdeath, weapon,
 	return int( final_damage );
 }
 
+getfreespawnpoint( spawnpoints, player )
+{
+	if ( !isDefined( spawnpoints ) )
+	{
+		return undefined;
+	}
+	if ( !isDefined( game[ "spawns_randomized" ] ) )
+	{
+		game[ "spawns_randomized" ] = 1;
+		spawnpoints = array_randomize( spawnpoints );
+		random_chance = randomint( 100 );
+		if ( random_chance > 50 )
+		{
+			set_game_var( "side_selection", 1 );
+		}
+		else
+		{
+			set_game_var( "side_selection", 2 );
+		}
+	}
+	side_selection = get_game_var( "side_selection" );
+	if ( get_game_var( "switchedsides" ) )
+	{
+		if ( side_selection == 2 )
+		{
+			side_selection = 1;
+		}
+		else
+		{
+			if ( side_selection == 1 )
+			{
+				side_selection = 2;
+			}
+		}
+	}
+	if ( isdefined( player ) && isdefined( player.team ) )
+	{
+		i = 0;
+		while ( isdefined( spawnpoints ) && i < spawnpoints.size )
+		{
+			if ( side_selection == 1 )
+			{
+				if ( player.team != "allies" && isdefined( spawnpoints[ i ].script_int ) && spawnpoints[ i ].script_int == 1 )
+				{
+					arrayremovevalue( spawnpoints, spawnpoints[ i ] );
+					i = 0;
+				}
+				else if ( player.team == "allies" && isdefined( spawnpoints[ i ].script_int) && spawnpoints[ i ].script_int == 2 )
+				{
+					arrayremovevalue( spawnpoints, spawnpoints[ i ] );
+					i = 0;
+				}
+				else
+				{
+					i++;
+				}
+			}
+			else
+			{
+				if ( player.team == "allies" && isdefined( spawnpoints[ i ].script_int ) && spawnpoints[ i ].script_int == 1 )
+				{
+					arrayremovevalue(spawnpoints, spawnpoints[i]);
+					i = 0;
+				}
+				else if ( player.team != "allies" && isdefined( spawnpoints[ i ].script_int ) && spawnpoints[ i ].script_int == 2 )
+				{
+					arrayremovevalue( spawnpoints, spawnpoints[ i ] );
+					i = 0;
+				}
+				else
+				{
+					i++;
+				}
+			}
+		}
+	}
+	if ( !isdefined( self.playernum ) )
+	{
+		num = 0;
+		players = get_players();
+
+		for(num = 0; num < 4; num++)
+		{
+			valid_num = true;
+
+			foreach(player in players)
+			{
+				if(player != self && player.team == self.team && player.playernum == num)
+				{
+					valid_num = false;
+					break;
+				}
+			}
+
+			if(valid_num)
+			{
+				break;
+			}
+		}
+
+		self.playernum = num;
+	}
+	for ( j = 0; j < spawnpoints.size; j++ )
+	{
+		if ( !isdefined( spawnpoints[ j ].en_num ) )
+		{
+			for ( m = 0; m < spawnpoints.size; m++ )
+			{
+				spawnpoints[ m ].en_num = m;
+			}
+		}
+		else if ( spawnpoints[ j ].en_num == self.playernum )
+		{
+			return spawnpoints[ j ];
+		}
+	}
+	return spawnpoints[ 0 ];
+}
+
 end_game()
 {
 	level waittill( "end_game" );

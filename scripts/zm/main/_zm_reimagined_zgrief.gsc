@@ -4,6 +4,7 @@
 #include maps\mp\gametypes_zm\_hud_util;
 #include maps\mp\gametypes_zm\_hud_message;
 
+#include scripts/zm/replaced/_zm;
 #include scripts/zm/replaced/_zm_audio_announcer;
 #include scripts/zm/replaced/_zm_game_module;
 #include scripts/zm/replaced/_zm_gametype;
@@ -18,6 +19,7 @@ main()
 		return;
 	}
 
+	replaceFunc(maps/mp/zombies/_zm::getfreespawnpoint, scripts/zm/replaced/_zm::getfreespawnpoint);
 	replaceFunc(maps/mp/gametypes_zm/_zm_gametype::onspawnplayer, scripts/zm/replaced/_zm_gametype::onspawnplayer);
 	replaceFunc(maps/mp/zombies/_zm_audio_announcer::playleaderdialogonplayer, scripts/zm/replaced/_zm_audio_announcer::playleaderdialogonplayer);
 	replaceFunc(maps/mp/zombies/_zm_game_module::wait_for_team_death_and_round_end, scripts/zm/replaced/_zm_game_module::wait_for_team_death_and_round_end);
