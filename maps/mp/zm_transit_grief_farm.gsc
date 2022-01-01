@@ -25,6 +25,9 @@ main()
 	maps/mp/gametypes_zm/_zm_gametype::setup_standard_objects( "farm" );
 	init_standard_farm();
 	farm_treasure_chest_init();
+
+    override_spawn_init();
+
 	level.enemy_location_override_func = ::enemy_location_override;
 	flag_wait( "initial_blackscreen_passed" );
 	level thread maps/mp/zombies/_zm_zonemgr::enable_zone( "zone_far_ext" );
@@ -85,4 +88,50 @@ enemy_location_override( zombie, enemy )
 		}
 	}
 	return location;
+}
+
+override_spawn_init()
+{
+	match_string = "";
+	location = level.scr_zm_map_start_location;
+	if ( ( location == "default" || location == "" ) && isDefined( level.default_start_location ) )
+	{
+		location = level.default_start_location;
+	}
+	match_string = level.scr_zm_ui_gametype + "_" + location;
+	spawnpoints = [];
+	structs = getstructarray("initial_spawn", "script_noteworthy");
+
+	if ( isdefined( structs ) )
+	{
+		for ( i = 0; i < structs.size; i++ )
+		{
+			if ( isdefined( structs[ i ].script_string ) )
+			{
+				tokens = strtok( structs[ i ].script_string, " " );
+				foreach ( token in tokens )
+				{
+					if ( token == match_string )
+					{
+						spawnpoints[ spawnpoints.size ] = structs[ i ];
+					}
+				}
+			}
+		}
+	}
+
+	foreach(spawnpoint in spawnpoints)
+	{
+		if(spawnpoint.origin == (7211, -5800, -17.93) || spawnpoint.origin == (7152, -5663, -18.53))
+		{
+			arrayremovevalue(structs, spawnpoint);
+		}
+
+        if(spawnpoint.origin == (8379, -5693, 73.71))
+		{
+			spawnpoint.origin = (7785, -5922, 53);
+            spawnpoint.angles = (0, 80, 0);
+            spawnpoint.script_int = 2;
+		}
+	}
 }

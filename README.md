@@ -213,6 +213,7 @@
 * Zombies spawn in the Farm zone when in the Barn zone
 * Added Claymore wallbuy
 * Survival: removed Galvaknuckles wallbuy
+* Grief: removed player spawns near gate
 
 #### Bus Depot
 * Lava in starting area activates immediately
@@ -318,5 +319,6 @@
 * Round reset properly restores dual wield weapon left clip ammo, alternative weapon ammo, and equipment
 * Players always respawn at initial spawn points
 * Fixed an issue where players initially spawned in the incorrect positions
+* Decreased connection timeout from 90 seconds to 30 seconds
 * Random map rotation
 * 20000 health Brutus
