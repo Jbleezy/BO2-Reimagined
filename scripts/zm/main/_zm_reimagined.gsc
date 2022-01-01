@@ -287,8 +287,7 @@ health_bar_hud()
 	health_bar.barframe.hidewheninmenu = 1;
 
 	health_bar_text = createfontstring("objective", 1.4);
-	health_bar_text setpoint(undefined, "BOTTOM", x, y);
-	health_bar_text.color = (0.21, 0, 0);
+	health_bar_text setpoint(undefined, "BOTTOM", x + 69, y);
 	health_bar_text.hidewheninmenu = 1;
 
 	while (1)
