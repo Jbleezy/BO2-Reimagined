@@ -77,22 +77,42 @@ set_team()
 
 	self.team_set = true;
 
-	teamplayersallies = countplayers("allies");
+	teamplayersallies = countplayers("allies") - 1; // always sets self to "allies" initially
 	teamplayersaxis = countplayers("axis");
 
-	if(teamplayersallies > teamplayersaxis)
+	if(teamplayersallies == teamplayersaxis)
 	{
-		self.team = "axis";
-		self.sessionteam = "axis";
-		self.pers["team"] = "axis";
-		self._encounters_team = "A";
+		if(cointoss())
+		{
+			self.team = "axis";
+			self.sessionteam = "axis";
+			self.pers["team"] = "axis";
+			self._encounters_team = "A";
+		}
+		else
+		{
+			self.team = "allies";
+			self.sessionteam = "allies";
+			self.pers["team"] = "allies";
+			self._encounters_team = "B";
+		}
 	}
 	else
 	{
-		self.team = "allies";
-		self.sessionteam = "allies";
-		self.pers["team"] = "allies";
-		self._encounters_team = "B";
+		if(teamplayersallies > teamplayersaxis)
+		{
+			self.team = "axis";
+			self.sessionteam = "axis";
+			self.pers["team"] = "axis";
+			self._encounters_team = "A";
+		}
+		else
+		{
+			self.team = "allies";
+			self.sessionteam = "allies";
+			self.pers["team"] = "allies";
+			self._encounters_team = "B";
+		}
 	}
 
 	self [[ level.givecustomcharacters ]]();
