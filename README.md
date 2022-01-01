@@ -251,6 +251,7 @@
 #### Borough
 * Tunnels disabled
 * Players spawn at Stables
+* Mystery Box initially spawns at a random location
 * Added B23R, M16, Claymore, and Bowie Knife wallbuys at their locations on Buried
 * Added PDW wallbuy at Morgue
 * Added SVU wallbuy at Church

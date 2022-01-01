@@ -41,17 +41,18 @@ street_treasure_chest_init()
 {
 	start_chest = getstruct( "start_chest", "script_noteworthy" );
 	court_chest = getstruct( "courtroom_chest1", "script_noteworthy" );
-	//tunnel_chest = getstruct( "tunnels_chest1", "script_noteworthy" );
 	jail_chest = getstruct( "jail_chest1", "script_noteworthy" );
 	gun_chest = getstruct( "gunshop_chest", "script_noteworthy" );
 	setdvar( "disableLookAtEntityLogic", 1 );
 	level.chests = [];
 	level.chests[ level.chests.size ] = start_chest;
 	level.chests[ level.chests.size ] = court_chest;
-	//level.chests[ level.chests.size ] = tunnel_chest;
 	level.chests[ level.chests.size ] = jail_chest;
 	level.chests[ level.chests.size ] = gun_chest;
-	maps/mp/zombies/_zm_magicbox::treasure_chest_init( "start_chest" );
+
+	chest_names = array("start_chest", "courtroom_chest1", "jail_chest1", "gunshop_chest");
+	chest_name = random(chest_names);
+	maps/mp/zombies/_zm_magicbox::treasure_chest_init( chest_name );
 }
 
 main()
