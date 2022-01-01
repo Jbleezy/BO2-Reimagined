@@ -216,6 +216,7 @@ set_grief_vars()
 	level.grief_score["A"] = 0;
 	level.grief_score["B"] = 0;
 	level.game_mode_griefed_time = 2.5;
+	level.stun_fx_amount = 3;
 }
 
 grief_onplayerconnect()
@@ -1001,13 +1002,28 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 
 			angle = (0, angle[1], 0);
 
-			stun_fx = spawn("script_model", pos);
-			stun_fx.angles = angle;
-			stun_fx setModel("tag_origin");
-			stun_fx linkTo(self);
-			stun_fx thread deleteaftertime(3);
+			if(!isDefined(self.stun_fx))
+			{
+				// spawning in model right before playfx causes the fx not to play occasionally
+				// stun fx lasts longer than stun time, so alternate between different models
+				self.stun_fx = [];
+				self.stun_fx_ind = 0;
 
-			playFXOnTag(level._effect["butterflies"], stun_fx, "tag_origin");
+				for(i = 0; i < level.stun_fx_amount; i++)
+				{
+					self.stun_fx[i] = spawn("script_model", pos);
+					self.stun_fx[i] setModel("tag_origin");
+				}
+			}
+
+			self.stun_fx[self.stun_fx_ind] unlink();
+			self.stun_fx[self.stun_fx_ind].origin = pos;
+			self.stun_fx[self.stun_fx_ind].angles = angle;
+			self.stun_fx[self.stun_fx_ind] linkTo(self);
+
+			playFXOnTag(level._effect["butterflies"], self.stun_fx[self.stun_fx_ind], "tag_origin");
+
+			self.stun_fx_ind = (self.stun_fx_ind + 1) % level.stun_fx_amount;
 		}
 
 		self thread do_game_mode_shellshock(is_melee, maps/mp/zombies/_zm_weapons::is_weapon_upgraded(sweapon));
