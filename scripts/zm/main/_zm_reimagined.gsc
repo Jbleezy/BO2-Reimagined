@@ -1760,23 +1760,24 @@ player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, 
 		idamage = int(idamage / ratio);
 
 		// increase fall damage beyond 110
-		if (idamage >= 110)
+		max_damage = 110;
+		if (idamage >= max_damage)
 		{
-			min_velocity = 420;
-			max_velocity = 740;
+			velocity = abs(self.fall_velocity);
+			min_velocity = getDvarInt("bg_fallDamageMinHeight") * 3.25;
+			max_velocity = getDvarInt("bg_fallDamageMaxHeight") * 2.5;
 			if (self.divetoprone)
 			{
-				min_velocity = 300;
-				max_velocity = 560;
-			}
-			diff_velocity = max_velocity - min_velocity;
-			velocity = abs(self.fall_velocity);
-			if (velocity < min_velocity)
-			{
-				velocity = min_velocity;
+				min_velocity = getDvarInt("dtp_fall_damage_min_height") * 4.5;
+				max_velocity = getDvarInt("dtp_fall_damage_max_height") * 2.75;
 			}
 
-			idamage = int(((velocity - min_velocity) / diff_velocity) * 110);
+			idamage = int(((velocity - min_velocity) / (max_velocity - min_velocity)) * max_damage);
+
+			if(idamage < max_damage)
+			{
+				idamage = max_damage;
+			}
 		}
 	}
 
