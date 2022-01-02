@@ -318,8 +318,9 @@
 * Added text when rounds are won/lost
 * Added new audio when enemy players bleed out
 * Round reset properly restores dual wield weapon left clip ammo, alternative weapon ammo, and equipment
-* Players always respawn at initial spawn points
-* Fixed an issue where players initially spawned in the incorrect positions
+* Spawn points are assigned to a team
+* Teams switch spawn points each round
+* Players respawn at initial spawn points
 * Decreased connection timeout from 90 seconds to 30 seconds
 * Random map rotation
 * 20000 health Brutus

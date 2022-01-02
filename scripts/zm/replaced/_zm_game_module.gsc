@@ -231,6 +231,8 @@ zombie_goto_round(target_round)
 		}
 	}
 
+	set_game_var("switchedsides", !get_game_var("switchedsides"));
+
 	maps/mp/zombies/_zm_game_module::respawn_players();
 
 	level thread player_respawn_award();
