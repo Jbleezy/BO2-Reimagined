@@ -191,11 +191,11 @@ round_end(winner, force_win)
 		{
 			if(player.team == team)
 			{
-				player thread scripts/zm/main/_zm_reimagined_zgrief::show_grief_hud_msg( "You won the round" );
+				player thread scripts/zm/zgrief/zgrief_reimagined::show_grief_hud_msg( "You won the round" );
 			}
 			else
 			{
-				player thread scripts/zm/main/_zm_reimagined_zgrief::show_grief_hud_msg( "You lost the round" );
+				player thread scripts/zm/zgrief/zgrief_reimagined::show_grief_hud_msg( "You lost the round" );
 			}
 		}
 	}
@@ -203,7 +203,7 @@ round_end(winner, force_win)
 	{
 		foreach(player in players)
 		{
-			player thread scripts/zm/main/_zm_reimagined_zgrief::show_grief_hud_msg( &"ZOMBIE_GRIEF_RESET" );
+			player thread scripts/zm/zgrief/zgrief_reimagined::show_grief_hud_msg( &"ZOMBIE_GRIEF_RESET" );
 		}
 	}
 
@@ -239,7 +239,7 @@ zombie_goto_round(target_round)
 
 	level thread player_respawn_award();
 
-	level thread scripts/zm/main/_zm_reimagined_zgrief::round_start_wait(5);
+	level thread scripts/zm/zgrief/zgrief_reimagined::round_start_wait(5);
 }
 
 player_respawn_award()
