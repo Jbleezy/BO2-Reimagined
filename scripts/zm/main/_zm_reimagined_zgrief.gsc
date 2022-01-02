@@ -72,12 +72,8 @@ init()
 
 set_team()
 {
-	if(isDefined(self.team_set))
-	{
-		return;
-	}
-
 	self.team_set = true;
+	self notify("team_set");
 
 	teamplayersallies = countplayers("allies") - 1; // always sets self to "allies" initially
 	teamplayersaxis = countplayers("axis");
@@ -1709,5 +1705,7 @@ spawn_bots(num)
 		{
 			level.bots[i] = addtestclient();
 		}
+
+		wait 0.4;
 	}
 }

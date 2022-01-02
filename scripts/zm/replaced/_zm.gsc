@@ -122,6 +122,7 @@ getfreespawnpoint( spawnpoints, player )
 	{
 		return undefined;
 	}
+
 	if ( !isDefined( game[ "spawns_randomized" ] ) )
 	{
 		game[ "spawns_randomized" ] = 1;
@@ -136,6 +137,7 @@ getfreespawnpoint( spawnpoints, player )
 			set_game_var( "side_selection", 2 );
 		}
 	}
+
 	side_selection = get_game_var( "side_selection" );
 	if ( get_game_var( "switchedsides" ) )
 	{
@@ -151,6 +153,12 @@ getfreespawnpoint( spawnpoints, player )
 			}
 		}
 	}
+
+	if(!is_true(self.team_set))
+	{
+		self waittill("team_set");
+	}
+
 	if ( isdefined( player ) && isdefined( player.team ) )
 	{
 		i = 0;
@@ -192,6 +200,7 @@ getfreespawnpoint( spawnpoints, player )
 			}
 		}
 	}
+
 	if ( !isdefined( self.playernum ) )
 	{
 		num = 0;
@@ -218,6 +227,7 @@ getfreespawnpoint( spawnpoints, player )
 
 		self.playernum = num;
 	}
+
 	for ( j = 0; j < spawnpoints.size; j++ )
 	{
 		if ( !isdefined( spawnpoints[ j ].en_num ) )
@@ -232,6 +242,7 @@ getfreespawnpoint( spawnpoints, player )
 			return spawnpoints[ j ];
 		}
 	}
+
 	return spawnpoints[ 0 ];
 }
 

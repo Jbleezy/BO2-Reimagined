@@ -26,8 +26,6 @@ onspawnplayer( predictedspawn )
 	}
 	else
 	{
-		self scripts/zm/main/_zm_reimagined_zgrief::set_team();
-
 		location = level.scr_zm_map_start_location;
 		if ( ( location == "default" || location == "" ) && isDefined( level.default_start_location ) )
 		{
