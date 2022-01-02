@@ -1568,7 +1568,5 @@ spawn_bots(num)
 		{
 			level.bots[i] = addtestclient();
 		}
-
-		wait 0.4; // need wait or bots don't spawn at correct origin
 	}
 }

@@ -203,7 +203,7 @@ getfreespawnpoint( spawnpoints, player )
 
 			foreach(player in players)
 			{
-				if(player != self && player.team == self.team && player.playernum == num)
+				if(player != self && isDefined(player.team_set) && player.team == self.team && player.playernum == num)
 				{
 					valid_num = false;
 					break;
