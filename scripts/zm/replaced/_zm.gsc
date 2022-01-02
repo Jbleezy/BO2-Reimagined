@@ -123,10 +123,11 @@ getfreespawnpoint( spawnpoints, player )
 		return undefined;
 	}
 
+	spawnpoints = array_randomize( spawnpoints );
+
 	if ( !isDefined( game[ "spawns_randomized" ] ) )
 	{
 		game[ "spawns_randomized" ] = 1;
-		spawnpoints = array_randomize( spawnpoints );
 		random_chance = randomint( 100 );
 		if ( random_chance > 50 )
 		{
@@ -230,14 +231,17 @@ getfreespawnpoint( spawnpoints, player )
 
 	for ( j = 0; j < spawnpoints.size; j++ )
 	{
-		if ( !isdefined( spawnpoints[ j ].en_num ) )
+		if ( !isdefined( game[ self.team + "_spawnpoints_randomized" ] ) )
 		{
+			game[ self.team + "_spawnpoints_randomized" ] = 1;
+
 			for ( m = 0; m < spawnpoints.size; m++ )
 			{
 				spawnpoints[ m ].en_num = m;
 			}
 		}
-		else if ( spawnpoints[ j ].en_num == self.playernum )
+
+		if ( spawnpoints[ j ].en_num == self.playernum )
 		{
 			return spawnpoints[ j ];
 		}

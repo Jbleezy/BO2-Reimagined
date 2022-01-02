@@ -231,6 +231,8 @@ zombie_goto_round(target_round)
 		}
 	}
 
+	game["axis_spawnpoints_randomized"] = undefined;
+	game["allies_spawnpoints_randomized"] = undefined;
 	set_game_var("switchedsides", !get_game_var("switchedsides"));
 
 	maps/mp/zombies/_zm_game_module::respawn_players();
