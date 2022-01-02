@@ -59,6 +59,8 @@ init()
 		level.zombie_weapons["willy_pete_zm"].is_in_box = 1;
 	}
 
+	player_spawn_override();
+
 	level thread grief_score_hud();
 	level thread set_grief_vars();
 	level thread round_start_wait(5, true);
@@ -217,6 +219,145 @@ set_grief_vars()
 	level.grief_score["B"] = 0;
 	level.game_mode_griefed_time = 2.5;
 	level.stun_fx_amount = 3;
+}
+
+player_spawn_override()
+{
+	match_string = "";
+	location = level.scr_zm_map_start_location;
+	if ( ( location == "default" || location == "" ) && isDefined( level.default_start_location ) )
+	{
+		location = level.default_start_location;
+	}
+	match_string = level.scr_zm_ui_gametype + "_" + location;
+	spawnpoints = [];
+	structs = getstructarray( "initial_spawn", "script_noteworthy" );
+	if ( isdefined( structs ) )
+	{
+		for ( i = 0; i < structs.size; i++ )
+		{
+			if ( isdefined( structs[ i ].script_string ) )
+			{
+				tokens = strtok( structs[ i ].script_string, " " );
+				foreach ( token in tokens )
+				{
+					if ( token == match_string )
+					{
+						spawnpoints[ spawnpoints.size ] = structs[ i ];
+					}
+				}
+			}
+		}
+	}
+
+	if(level.script == "zm_transit" && level.scr_zm_map_start_location == "transit")
+	{
+		foreach(spawnpoint in spawnpoints)
+		{
+			if(spawnpoint.origin == (-6538, 5200, -28) || spawnpoint.origin == (-6713, 5079, -28) || spawnpoint.origin == (-6929, 5444, -28.92) || spawnpoint.origin == (-7144, 5264, -28))
+			{
+				arrayremovevalue(structs, spawnpoint);
+			}
+		}
+	}
+	else if(level.script == "zm_transit" && level.scr_zm_map_start_location == "farm")
+	{
+		foreach(spawnpoint in spawnpoints)
+		{
+			if(spawnpoint.origin == (7211, -5800, -17.93) || spawnpoint.origin == (7152, -5663, -18.53))
+			{
+				arrayremovevalue(structs, spawnpoint);
+			}
+			else if(spawnpoint.origin == (8379, -5693, 73.71))
+			{
+				spawnpoint.origin = (7785, -5922, 53);
+				spawnpoint.angles = (0, 80, 0);
+				spawnpoint.script_int = 2;
+			}
+		}
+	}
+	else if(level.script == "zm_transit" && level.scr_zm_map_start_location == "town")
+	{
+		foreach(spawnpoint in spawnpoints)
+		{
+			if(spawnpoint.origin == (1585.5, -754.8, -32.04) || spawnpoint.origin == (1238.5, -303, -31.76))
+			{
+				arrayremovevalue(structs, spawnpoint);
+			}
+			else if(spawnpoint.origin == (1544, -188, -34))
+			{
+				spawnpoint.angles = (0, 245, 0);
+			}
+			else if(spawnpoint.origin == (1430.5, -159, -34))
+			{
+				spawnpoint.angles = (0, 270, 0);
+			}
+		}
+	}
+	else if(level.script == "zm_prison" && level.scr_zm_map_start_location == "cellblock")
+	{
+		foreach(spawnpoint in spawnpoints)
+		{
+			if(spawnpoint.origin == (704, 9672, 1470) || spawnpoint.origin == (1008, 9684, 1470))
+			{
+				arrayremovevalue(structs, spawnpoint);
+			}
+			else if(spawnpoint.origin == (704, 9712, 1471) || spawnpoint.origin == (1008, 9720, 1470))
+			{
+				spawnpoint.origin += (0, -16, 0);
+			}
+			else if(spawnpoint.origin == (704, 9632, 1470) || spawnpoint.origin == (1008, 9640, 1470))
+			{
+				spawnpoint.origin += (0, 16, 0);
+			}
+		}
+	}
+	else if(level.script == "zm_buried" && level.scr_zm_map_start_location == "street")
+	{
+		// remove existing initial spawns
+		array_delete(structs, true);
+		level.struct_class_names["script_noteworthy"]["initial_spawn"] = [];
+
+		// set new initial spawns to be same as respawns already on map
+		ind = 0;
+		respawnpoints = maps/mp/gametypes_zm/_zm_gametype::get_player_spawns_for_gametype();
+		for(i = 0; i < respawnpoints.size; i++)
+		{
+			if(respawnpoints[i].script_noteworthy == "zone_stables")
+			{
+				ind = i;
+				break;
+			}
+		}
+
+		respawn_array = getstructarray(respawnpoints[ind].target, "targetname");
+		foreach(respawn in respawn_array)
+		{
+			struct = spawnStruct();
+			struct.origin = respawn.origin;
+			struct.angles = respawn.angles;
+			struct.radius = respawn.radius;
+
+			if(struct.origin == (-722.02, -151.75, 124.14))
+			{
+				struct.script_int = 1;
+			}
+			else if(struct.origin == (-891.27, -209.95, 137.94))
+			{
+				struct.script_int = 2;
+			}
+			else
+			{
+				struct.script_int = respawn.script_int;
+			}
+
+			struct.script_noteworthy = "initial_spawn";
+			struct.script_string = "zgrief_street";
+
+			size = level.struct_class_names["script_noteworthy"][struct.script_noteworthy].size;
+			level.struct_class_names["script_noteworthy"][struct.script_noteworthy][size] = struct;
+		}
+	}
 }
 
 grief_onplayerconnect()

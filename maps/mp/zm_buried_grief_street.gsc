@@ -72,7 +72,6 @@ main()
 	move_quickrevive_machine();
 	move_speedcola_machine();
 	move_staminup_machine();
-	override_spawn_init();
 
 	powerswitchstate( 1 );
 	level.enemy_location_override_func = ::enemy_location_override;
@@ -592,52 +591,4 @@ move_staminup_machine()
 
 	powered_on = maps/mp/zombies/_zm_perks::get_perk_machine_start_state( use_trigger.script_noteworthy );
 	maps/mp/zombies/_zm_power::add_powered_item( maps/mp/zombies/_zm_power::perk_power_on, scripts/zm/main/_zm_reimagined::perk_power_off, maps/mp/zombies/_zm_power::perk_range, maps/mp/zombies/_zm_power::cost_low_if_local, 0, powered_on, use_trigger );
-}
-
-override_spawn_init()
-{
-	// remove existing initial spawns
-	structs = getstructarray("initial_spawn", "script_noteworthy");
-	array_delete(structs, true);
-	level.struct_class_names["script_noteworthy"]["initial_spawn"] = [];
-
-	// set new initial spawns to be same as respawns already on map
-	ind = 0;
-	spawn_points = maps/mp/gametypes_zm/_zm_gametype::get_player_spawns_for_gametype();
-	for(i = 0; i < spawn_points.size; i++)
-	{
-		if(spawn_points[i].script_noteworthy == "zone_stables")
-		{
-			ind = i;
-			break;
-		}
-	}
-
-	init_spawn_array = getstructarray(spawn_points[ind].target, "targetname");
-	foreach(init_spawn in init_spawn_array)
-	{
-		struct = spawnStruct();
-		struct.origin = init_spawn.origin;
-		struct.angles = init_spawn.angles;
-		struct.radius = init_spawn.radius;
-
-		if(struct.origin == (-722.02, -151.75, 124.14))
-		{
-			struct.script_int = 1;
-		}
-		else if(struct.origin == (-891.27, -209.95, 137.94))
-		{
-			struct.script_int = 2;
-		}
-		else
-		{
-			struct.script_int = init_spawn.script_int;
-		}
-
-		struct.script_noteworthy = "initial_spawn";
-		struct.script_string = "zgrief_street";
-
-		size = level.struct_class_names["script_noteworthy"][struct.script_noteworthy].size;
-		level.struct_class_names["script_noteworthy"][struct.script_noteworthy][size] = struct;
-	}
 }
