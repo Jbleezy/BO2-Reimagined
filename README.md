@@ -108,6 +108,7 @@
 
 ## Mystery Box
 * Decreased weapon pickup time from 12 seconds to 9 seconds
+* Moves to new location instantly
 
 ## Perks
 * No longer deactivated if the perk machine is powered off
