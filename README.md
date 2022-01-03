@@ -106,6 +106,9 @@
 * Increased trigger radius
 * Decreased upgraded ammo cost from 4500 to 2500
 
+## Mystery Box
+* Decreased weapon pickup time from 12 seconds to 9 seconds
+
 ## Perks
 * No longer deactivated if the perk machine is powered off
 

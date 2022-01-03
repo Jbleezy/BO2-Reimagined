@@ -7,6 +7,7 @@
 #include scripts/zm/replaced/_zm_playerhealth;
 #include scripts/zm/replaced/_zm_utility;
 #include scripts/zm/replaced/_zm_weapons;
+#include scripts/zm/replaced/_zm_magicbox;
 #include scripts/zm/replaced/_zm_powerups;
 #include scripts/zm/replaced/_zm_equipment;
 #include scripts/zm/replaced/_zm_ai_basic;
@@ -21,6 +22,8 @@ main()
 	replaceFunc(maps/mp/zombies/_zm_utility::is_headshot, scripts/zm/replaced/_zm_utility::is_headshot);
 	replaceFunc(maps/mp/zombies/_zm_weapons::get_upgraded_ammo_cost, scripts/zm/replaced/_zm_weapons::get_upgraded_ammo_cost);
 	replaceFunc(maps/mp/zombies/_zm_weapons::makegrenadedudanddestroy, scripts/zm/replaced/_zm_weapons::makegrenadedudanddestroy);
+	replaceFunc(maps/mp/zombies/_zm_magicbox::treasure_chest_timeout, scripts/zm/replaced/_zm_magicbox::treasure_chest_timeout);
+	replaceFunc(maps/mp/zombies/_zm_magicbox::timer_til_despawn, scripts/zm/replaced/_zm_magicbox::timer_til_despawn);
 	replaceFunc(maps/mp/zombies/_zm_powerups::nuke_powerup, scripts/zm/replaced/_zm_powerups::nuke_powerup);
 	replaceFunc(maps/mp/zombies/_zm_equipment::placed_equipment_think, scripts/zm/replaced/_zm_equipment::placed_equipment_think);
 	replaceFunc(maps/mp/zombies/_zm_ai_basic::inert_wakeup, scripts/zm/replaced/_zm_ai_basic::inert_wakeup);
@@ -146,6 +149,7 @@ post_all_players_spawned()
 	maps/mp/zombies/_zm::register_player_damage_callback( ::player_damage_override );
 
 	level.near_miss = 2; // makes screecher not run away first time on solo
+	level.magicbox_timeout = 9;
 	level.equipment_etrap_needs_power = 0;
 	level.equipment_turret_needs_power = 0;
 	level.equipment_subwoofer_needs_power = 0;
