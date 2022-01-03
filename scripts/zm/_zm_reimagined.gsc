@@ -1743,28 +1743,21 @@ melee_weapon_switch_watcher()
 		melee_wep = self get_player_melee_weapon();
 		curr_wep = self getCurrentWeapon();
 
+		if(curr_wep != "none" && !is_offhand_weapon(curr_wep))
+		{
+			prev_wep = curr_wep;
+		}
+
 		if(self actionSlotTwoButtonPressed() && !self hasWeapon("equip_dieseldrone_zm"))
 		{
 			if(curr_wep != melee_wep)
 			{
-				prev_wep = curr_wep;
 				self switchToWeapon(melee_wep);
 			}
 			else
 			{
-				if(isDefined(prev_wep) && self hasWeapon(prev_wep))
-				{
-					self switchToWeapon(prev_wep);
-				}
-				else
-				{
-					self switchToWeapon(self getWeaponsListPrimaries()[0]);
-				}
-
-				prev_wep = undefined;
+				self maps/mp/zombies/_zm_weapons::switch_back_primary_weapon(prev_wep);
 			}
-
-			self waittill("weapon_change");
 		}
 
 		wait 0.05;
