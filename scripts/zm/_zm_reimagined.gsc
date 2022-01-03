@@ -150,6 +150,7 @@ post_all_players_spawned()
 
 	level.near_miss = 2; // makes screecher not run away first time on solo
 	level.magicbox_timeout = 9;
+	level.packapunch_timeout = 12;
 	level.equipment_etrap_needs_power = 0;
 	level.equipment_turret_needs_power = 0;
 	level.equipment_subwoofer_needs_power = 0;

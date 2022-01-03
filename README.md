@@ -154,6 +154,9 @@
 ### Vulture-Aid
 * Stink areas no longer activate while the player is moving
 
+## Pack-a-Punch
+* Decreased weapon pickup time from 15 seconds to 12 seconds
+
 ## Powerups
 
 ### Carpenter
