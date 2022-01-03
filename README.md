@@ -195,6 +195,9 @@
 ### Subsurface Resonator
 * No longer needs to be powered by a Turbine
 
+### Maxis Drone
+* Switches back to correct weapon after deploying
+
 ## Bank
 * Disabled
 

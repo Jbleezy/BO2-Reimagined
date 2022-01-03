@@ -2,6 +2,13 @@
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 
+#include scripts/zm/replaced/zm_tomb_craftables;
+
+main()
+{
+	replaceFunc(maps/mp/zm_tomb_craftables::quadrotor_control_thread, scripts/zm/replaced/zm_tomb_craftables::quadrotor_control_thread);
+}
+
 init()
 {
 	level.custom_magic_box_timer_til_despawn = ::custom_magic_box_timer_til_despawn;
