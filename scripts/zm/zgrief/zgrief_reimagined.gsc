@@ -1255,16 +1255,26 @@ grief_laststand_weapon_save( einflictor, attacker, idamage, smeansofdeath, sweap
 	self.grief_savedweapon_weaponsammo_clip_alt = [];
 	self.grief_savedweapon_weaponsammo_stock_alt = [];
 	self.grief_savedweapon_currentweapon = self getcurrentweapon();
+	self.grief_savedweapon_melee = self get_player_melee_weapon();
 	self.grief_savedweapon_grenades = self get_player_lethal_grenade();
 	self.grief_savedweapon_tactical = self get_player_tactical_grenade();
+	self.grief_savedweapon_mine = self get_player_placeable_mine();
+	self.grief_savedweapon_equipment = self get_player_equipment();
 	self.grief_hasriotshield = undefined;
-	self.grief_savedweapon_claymore = undefined;
-	self.grief_savedweapon_equipment = undefined;
 
 	// can't switch to alt weapon
 	if(is_alt_weapon(self.grief_savedweapon_currentweapon))
 	{
 		self.grief_savedweapon_currentweapon = maps/mp/zombies/_zm_weapons::get_nonalternate_weapon(self.grief_savedweapon_currentweapon);
+	}
+
+	for ( i = 0; i < self.grief_savedweapon_weapons.size; i++ )
+	{
+		self.grief_savedweapon_weaponsammo_clip[ i ] = self getweaponammoclip( self.grief_savedweapon_weapons[ i ] );
+		self.grief_savedweapon_weaponsammo_clip_dualwield[ i ] = self getweaponammoclip(weaponDualWieldWeaponName( self.grief_savedweapon_weapons[ i ] ) );
+		self.grief_savedweapon_weaponsammo_stock[ i ] = self getweaponammostock( self.grief_savedweapon_weapons[ i ] );
+		self.grief_savedweapon_weaponsammo_clip_alt[i] = self getweaponammoclip(weaponAltWeaponName(self.grief_savedweapon_weapons[i]));
+		self.grief_savedweapon_weaponsammo_stock_alt[i] = self getweaponammostock(weaponAltWeaponName(self.grief_savedweapon_weapons[i]));
 	}
 
 	if ( isDefined( self.grief_savedweapon_grenades ) )
@@ -1277,29 +1287,14 @@ grief_laststand_weapon_save( einflictor, attacker, idamage, smeansofdeath, sweap
 		self.grief_savedweapon_tactical_clip = self getweaponammoclip( self.grief_savedweapon_tactical );
 	}
 
-	for ( i = 0; i < self.grief_savedweapon_weapons.size; i++ )
+	if ( isDefined( self.grief_savedweapon_mine ) )
 	{
-		self.grief_savedweapon_weaponsammo_clip[ i ] = self getweaponammoclip( self.grief_savedweapon_weapons[ i ] );
-		self.grief_savedweapon_weaponsammo_clip_dualwield[ i ] = self getweaponammoclip(weaponDualWieldWeaponName( self.grief_savedweapon_weapons[ i ] ) );
-		self.grief_savedweapon_weaponsammo_stock[ i ] = self getweaponammostock( self.grief_savedweapon_weapons[ i ] );
-		self.grief_savedweapon_weaponsammo_clip_alt[i] = self getweaponammoclip(weaponAltWeaponName(self.grief_savedweapon_weapons[i]));
-		self.grief_savedweapon_weaponsammo_stock_alt[i] = self getweaponammostock(weaponAltWeaponName(self.grief_savedweapon_weapons[i]));
+		self.grief_savedweapon_mine_clip = self getweaponammoclip( self.grief_savedweapon_mine );
 	}
 
 	if ( isDefined( self.hasriotshield ) && self.hasriotshield )
 	{
 		self.grief_hasriotshield = 1;
-	}
-
-	if ( self hasweapon( "claymore_zm" ) )
-	{
-		self.grief_savedweapon_claymore = 1;
-		self.grief_savedweapon_claymore_clip = self getweaponammoclip( "claymore_zm" );
-	}
-
-	if ( isDefined( self.current_equipment ) )
-	{
-		self.grief_savedweapon_equipment = self.current_equipment;
 	}
 }
 
@@ -1314,6 +1309,8 @@ grief_laststand_weapons_return()
 	{
 		return 0;
 	}
+
+	self takeAllWeapons(); // fixes player always having knife_zm
 
 	primary_weapons_returned = 0;
 	i = 0;
@@ -1372,9 +1369,15 @@ grief_laststand_weapons_return()
 		i++;
 	}
 
+	if ( isDefined( self.grief_savedweapon_melee ) )
+	{
+		self set_player_melee_weapon( self.grief_savedweapon_melee );
+	}
+
 	if ( isDefined( self.grief_savedweapon_grenades ) )
 	{
 		self giveweapon( self.grief_savedweapon_grenades );
+		self set_player_lethal_grenade( self.grief_savedweapon_grenades );
 
 		if ( isDefined( self.grief_savedweapon_grenades_clip ) )
 		{
@@ -1385,11 +1388,20 @@ grief_laststand_weapons_return()
 	if ( isDefined( self.grief_savedweapon_tactical ) )
 	{
 		self giveweapon( self.grief_savedweapon_tactical );
+		self set_player_tactical_grenade( self.grief_savedweapon_tactical );
 
 		if ( isDefined( self.grief_savedweapon_tactical_clip ) )
 		{
 			self setweaponammoclip( self.grief_savedweapon_tactical, self.grief_savedweapon_tactical_clip );
 		}
+	}
+
+	if ( isDefined( self.grief_savedweapon_mine ) )
+	{
+		self giveweapon( self.grief_savedweapon_mine );
+		self set_player_placeable_mine( self.grief_savedweapon_mine );
+		self setactionslot( 4, "weapon", self.grief_savedweapon_mine );
+		self setweaponammoclip( self.grief_savedweapon_mine, self.grief_savedweapon_mine_clip );
 	}
 
 	if ( isDefined( self.current_equipment ) )
@@ -1410,14 +1422,6 @@ grief_laststand_weapons_return()
 		{
 			self [[ self.player_shield_reset_health ]]();
 		}
-	}
-
-	if ( isDefined( self.grief_savedweapon_claymore ) && self.grief_savedweapon_claymore )
-	{
-		self giveweapon( "claymore_zm" );
-		self set_player_placeable_mine( "claymore_zm" );
-		self setactionslot( 4, "weapon", "claymore_zm" );
-		self setweaponammoclip( "claymore_zm", self.grief_savedweapon_claymore_clip );
 	}
 
 	primaries = self getweaponslistprimaries();
