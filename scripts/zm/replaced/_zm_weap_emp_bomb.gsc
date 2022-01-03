@@ -22,7 +22,7 @@ emp_detonate(grenade)
 		return;
 	}
 
-	level notify( "emp_detonate" );
+	level notify( "emp_detonate", origin, emp_radius );
 	self thread maps/mp/zombies/_zm_weap_emp_bomb::emp_detonate_zombies( grenade_origin, grenade_owner );
 
 	if ( isDefined( level.custom_emp_detonate ) )
