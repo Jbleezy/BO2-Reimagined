@@ -19,7 +19,445 @@ init()
 {
 	level.grenade_safe_to_bounce = ::grenade_safe_to_bounce;
 
+	screecher_spawner_changes();
+
+    town_move_quickrevive_machine();
+	town_move_staminup_machine();
+	town_move_tombstone_machine();
+
 	path_exploit_fixes();
+
+	level thread add_tombstone_machine_solo();
+	level thread power_local_electric_doors_globally();
+	level thread b23r_hint_string_fix();
+}
+
+screecher_spawner_changes()
+{
+	level.screecher_spawners = getentarray( "screecher_zombie_spawner", "script_noteworthy" );
+	array_thread( level.screecher_spawners, ::add_spawn_function, ::screecher_prespawn_decrease_health );
+}
+
+screecher_prespawn_decrease_health()
+{
+	self.player_score = 12;
+}
+
+power_local_electric_doors_globally()
+{
+	if( !(is_classic() && level.scr_zm_map_start_location == "transit") )
+	{
+		return;
+	}
+
+	for ( ;; )
+	{
+		flag_wait( "power_on" );
+
+		local_power = [];
+		zombie_doors = getentarray( "zombie_door", "targetname" );
+		for ( i = 0; i < zombie_doors.size; i++ )
+		{
+			if ( isDefined( zombie_doors[i].script_noteworthy ) && zombie_doors[i].script_noteworthy == "local_electric_door" )
+			{
+				local_power[local_power.size] = maps/mp/zombies/_zm_power::add_local_power( zombie_doors[i].origin, 16 );
+			}
+		}
+
+		flag_waitopen( "power_on" );
+
+		for (i = 0; i < local_power.size; i++)
+		{
+			maps/mp/zombies/_zm_power::end_local_power( local_power[i] );
+			local_power[i] = undefined;
+		}
+	}
+}
+
+add_tombstone_machine_solo()
+{
+	if (!(is_classic() && level.scr_zm_map_start_location == "transit"))
+	{
+		return;
+	}
+
+	if (!flag("solo_game"))
+	{
+		return;
+	}
+
+	perk_struct = undefined;
+	structs = getstructarray("zm_perk_machine", "targetname");
+	foreach (struct in structs)
+	{
+		if (IsDefined(struct.script_noteworthy) && IsDefined(struct.script_string))
+		{
+			if (struct.script_noteworthy == "specialty_scavenger" && IsSubStr(struct.script_string, "zclassic"))
+			{
+				perk_struct = struct;
+				break;
+			}
+		}
+	}
+
+	if(!IsDefined(perk_struct))
+	{
+		return;
+	}
+
+	// spawn new machine
+	use_trigger = spawn( "trigger_radius_use", perk_struct.origin + vectorScale( ( 0, 0, 1 ), 30 ), 0, 40, 70 );
+	use_trigger.targetname = "zombie_vending";
+	use_trigger.script_noteworthy = perk_struct.script_noteworthy;
+	use_trigger triggerignoreteam();
+	perk_machine = spawn( "script_model", perk_struct.origin );
+	perk_machine.angles = perk_struct.angles;
+	perk_machine setmodel( perk_struct.model );
+	bump_trigger = spawn( "trigger_radius", perk_struct.origin + AnglesToRight(perk_struct.angles) * 32, 0, 35, 32 );
+	bump_trigger.script_activated = 1;
+	bump_trigger.script_sound = "zmb_perks_bump_bottle";
+	bump_trigger.targetname = "audio_bump_trigger";
+	bump_trigger thread maps/mp/zombies/_zm_perks::thread_bump_trigger();
+	collision = spawn( "script_model", perk_struct.origin, 1 );
+	collision.angles = perk_struct.angles;
+	collision setmodel( "zm_collision_perks1" );
+	collision.script_noteworthy = "clip";
+	collision disconnectpaths();
+	use_trigger.clip = collision;
+	use_trigger.machine = perk_machine;
+	use_trigger.bump = bump_trigger;
+	if ( isDefined( perk_struct.blocker_model ) )
+	{
+		use_trigger.blocker_model = perk_struct.blocker_model;
+	}
+	if ( isDefined( perk_struct.script_int ) )
+	{
+		perk_machine.script_int = perk_struct.script_int;
+	}
+	if ( isDefined( perk_struct.turn_on_notify ) )
+	{
+		perk_machine.turn_on_notify = perk_struct.turn_on_notify;
+	}
+	use_trigger.script_sound = "mus_perks_tombstone_jingle";
+	use_trigger.script_string = "tombstone_perk";
+	use_trigger.script_label = "mus_perks_tombstone_sting";
+	use_trigger.target = "vending_tombstone";
+	perk_machine.script_string = "tombstone_perk";
+	perk_machine.targetname = "vending_tombstone";
+	bump_trigger.script_string = "tombstone_perk";
+
+	level thread maps/mp/zombies/_zm_perks::turn_tombstone_on();
+	use_trigger thread maps/mp/zombies/_zm_perks::vending_trigger_think();
+	use_trigger thread maps/mp/zombies/_zm_perks::electric_perks_dialog();
+
+	powered_on = maps/mp/zombies/_zm_perks::get_perk_machine_start_state( use_trigger.script_noteworthy );
+	maps/mp/zombies/_zm_power::add_powered_item( maps/mp/zombies/_zm_power::perk_power_on, maps/mp/zombies/_zm_power::perk_power_off, maps/mp/zombies/_zm_power::perk_range, maps/mp/zombies/_zm_power::cost_low_if_local, 0, powered_on, use_trigger );
+}
+
+b23r_hint_string_fix()
+{
+	flag_wait( "initial_blackscreen_passed" );
+	wait 0.05;
+
+	trigs = getentarray("weapon_upgrade", "targetname");
+	foreach (trig in trigs)
+	{
+		if (trig.zombie_weapon_upgrade == "beretta93r_zm")
+		{
+			hint = maps/mp/zombies/_zm_weapons::get_weapon_hint(trig.zombie_weapon_upgrade);
+			cost = level.zombie_weapons[trig.zombie_weapon_upgrade].cost;
+			trig sethintstring(hint, cost);
+		}
+	}
+}
+
+town_move_quickrevive_machine()
+{
+	if (!(!is_classic() && level.scr_zm_map_start_location == "town"))
+	{
+		return;
+	}
+
+	perk_struct = undefined;
+	perk_location_struct = undefined;
+	structs = getstructarray("zm_perk_machine", "targetname");
+	foreach (struct in structs)
+	{
+		if (IsDefined(struct.script_noteworthy) && IsDefined(struct.script_string))
+		{
+			if (struct.script_noteworthy == "specialty_quickrevive" && IsSubStr(struct.script_string, "zstandard"))
+			{
+				perk_struct = struct;
+			}
+			else if (struct.script_noteworthy == "specialty_longersprint" && IsSubStr(struct.script_string, "zstandard"))
+			{
+				perk_location_struct = struct;
+			}
+		}
+	}
+
+	if(!IsDefined(perk_struct) || !IsDefined(perk_location_struct))
+	{
+		return;
+	}
+
+	// delete old machine
+	vending_triggers = getentarray( "zombie_vending", "targetname" );
+	for (i = 0; i < vending_trigger.size; i++)
+	{
+		trig = vending_triggers[i];
+		if (IsDefined(trig.script_noteworthy) && trig.script_noteworthy == "specialty_quickrevive")
+		{
+			trig.clip delete();
+			trig.machine delete();
+			trig.bump delete();
+			trig delete();
+			break;
+		}
+	}
+
+	// spawn new machine
+    perk_location_struct.origin += anglesToRight(perk_location_struct.angles) * 4;
+	use_trigger = spawn( "trigger_radius_use", perk_location_struct.origin + vectorScale( ( 0, 0, 1 ), 30 ), 0, 40, 70 );
+	use_trigger.targetname = "zombie_vending";
+	use_trigger.script_noteworthy = perk_struct.script_noteworthy;
+	use_trigger triggerignoreteam();
+	perk_machine = spawn( "script_model", perk_location_struct.origin );
+	perk_machine.angles = perk_location_struct.angles;
+	perk_machine setmodel( perk_struct.model );
+	bump_trigger = spawn( "trigger_radius", perk_location_struct.origin + AnglesToRight(perk_location_struct.angles) * 32, 0, 35, 32 );
+	bump_trigger.script_activated = 1;
+	bump_trigger.script_sound = "zmb_perks_bump_bottle";
+	bump_trigger.targetname = "audio_bump_trigger";
+	bump_trigger thread maps/mp/zombies/_zm_perks::thread_bump_trigger();
+	collision = spawn( "script_model", perk_location_struct.origin, 1 );
+	collision.angles = perk_location_struct.angles;
+	collision setmodel( "zm_collision_perks1" );
+	collision.script_noteworthy = "clip";
+	collision disconnectpaths();
+	use_trigger.clip = collision;
+	use_trigger.machine = perk_machine;
+	use_trigger.bump = bump_trigger;
+	if ( isDefined( perk_struct.blocker_model ) )
+	{
+		use_trigger.blocker_model = perk_struct.blocker_model;
+	}
+	if ( isDefined( perk_struct.script_int ) )
+	{
+		perk_machine.script_int = perk_struct.script_int;
+	}
+	if ( isDefined( perk_struct.turn_on_notify ) )
+	{
+		perk_machine.turn_on_notify = perk_struct.turn_on_notify;
+	}
+
+	use_trigger.script_sound = "mus_perks_revive_jingle";
+	use_trigger.script_string = "revive_perk";
+	use_trigger.script_label = "mus_perks_revive_sting";
+	use_trigger.target = "vending_revive";
+	perk_machine.script_string = "revive_perk";
+	perk_machine.targetname = "vending_revive";
+	bump_trigger.script_string = "revive_perk";
+
+	level thread maps/mp/zombies/_zm_perks::turn_revive_on();
+	use_trigger thread maps/mp/zombies/_zm_perks::vending_trigger_think();
+	use_trigger thread maps/mp/zombies/_zm_perks::electric_perks_dialog();
+
+	powered_on = maps/mp/zombies/_zm_perks::get_perk_machine_start_state( use_trigger.script_noteworthy );
+	maps/mp/zombies/_zm_power::add_powered_item( maps/mp/zombies/_zm_power::perk_power_on, maps/mp/zombies/_zm_power::perk_power_off, maps/mp/zombies/_zm_power::perk_range, maps/mp/zombies/_zm_power::cost_low_if_local, 0, powered_on, use_trigger );
+}
+
+town_move_staminup_machine()
+{
+	if (!(!is_classic() && level.scr_zm_map_start_location == "town"))
+	{
+		return;
+	}
+
+	perk_struct = undefined;
+	structs = getstructarray("zm_perk_machine", "targetname");
+	foreach (struct in structs)
+	{
+		if (IsDefined(struct.script_noteworthy) && IsDefined(struct.script_string))
+		{
+			if (struct.script_noteworthy == "specialty_longersprint" && IsSubStr(struct.script_string, "zclassic"))
+			{
+				perk_struct = struct;
+				break;
+			}
+		}
+	}
+
+	if(!IsDefined(perk_struct))
+	{
+		return;
+	}
+
+	// delete old machine
+	vending_triggers = getentarray( "zombie_vending", "targetname" );
+	for (i = 0; i < vending_trigger.size; i++)
+	{
+		trig = vending_triggers[i];
+		if (IsDefined(trig.script_noteworthy) && trig.script_noteworthy == "specialty_longersprint")
+		{
+			trig.clip delete();
+			trig.machine delete();
+			trig.bump delete();
+			trig delete();
+			break;
+		}
+	}
+
+	// spawn new machine
+	use_trigger = spawn( "trigger_radius_use", perk_struct.origin + vectorScale( ( 0, 0, 1 ), 30 ), 0, 40, 70 );
+	use_trigger.targetname = "zombie_vending";
+	use_trigger.script_noteworthy = perk_struct.script_noteworthy;
+	use_trigger triggerignoreteam();
+	perk_machine = spawn( "script_model", perk_struct.origin );
+	perk_machine.angles = perk_struct.angles;
+	perk_machine setmodel( perk_struct.model );
+	bump_trigger = spawn( "trigger_radius", perk_struct.origin + AnglesToRight(perk_struct.angles) * 32, 0, 35, 32 );
+	bump_trigger.script_activated = 1;
+	bump_trigger.script_sound = "zmb_perks_bump_bottle";
+	bump_trigger.targetname = "audio_bump_trigger";
+	bump_trigger thread maps/mp/zombies/_zm_perks::thread_bump_trigger();
+	collision = spawn( "script_model", perk_struct.origin, 1 );
+	collision.angles = perk_struct.angles;
+	collision setmodel( "zm_collision_perks1" );
+	collision.script_noteworthy = "clip";
+	collision disconnectpaths();
+	use_trigger.clip = collision;
+	use_trigger.machine = perk_machine;
+	use_trigger.bump = bump_trigger;
+	if ( isDefined( perk_struct.blocker_model ) )
+	{
+		use_trigger.blocker_model = perk_struct.blocker_model;
+	}
+	if ( isDefined( perk_struct.script_int ) )
+	{
+		perk_machine.script_int = perk_struct.script_int;
+	}
+	if ( isDefined( perk_struct.turn_on_notify ) )
+	{
+		perk_machine.turn_on_notify = perk_struct.turn_on_notify;
+	}
+	use_trigger.script_sound = "mus_perks_stamin_jingle";
+	use_trigger.script_string = "marathon_perk";
+	use_trigger.script_label = "mus_perks_stamin_sting";
+	use_trigger.target = "vending_marathon";
+	perk_machine.script_string = "marathon_perk";
+	perk_machine.targetname = "vending_marathon";
+	bump_trigger.script_string = "marathon_perk";
+
+	level thread maps/mp/zombies/_zm_perks::turn_marathon_on();
+	use_trigger thread maps/mp/zombies/_zm_perks::vending_trigger_think();
+	use_trigger thread maps/mp/zombies/_zm_perks::electric_perks_dialog();
+
+	powered_on = maps/mp/zombies/_zm_perks::get_perk_machine_start_state( use_trigger.script_noteworthy );
+	maps/mp/zombies/_zm_power::add_powered_item( maps/mp/zombies/_zm_power::perk_power_on, maps/mp/zombies/_zm_power::perk_power_off, maps/mp/zombies/_zm_power::perk_range, maps/mp/zombies/_zm_power::cost_low_if_local, 0, powered_on, use_trigger );
+}
+
+town_move_tombstone_machine()
+{
+	if (!(level.scr_zm_ui_gametype == "zstandard" && level.scr_zm_map_start_location == "town"))
+	{
+		return;
+	}
+
+	perk_struct = undefined;
+	structs = getstructarray("zm_perk_machine", "targetname");
+	foreach (struct in structs)
+	{
+		if (IsDefined(struct.script_noteworthy) && IsDefined(struct.script_string))
+		{
+			if (struct.script_noteworthy == "specialty_scavenger" && IsSubStr(struct.script_string, "zstandard"))
+			{
+				perk_struct = struct;
+				break;
+			}
+		}
+	}
+
+	if(!IsDefined(perk_struct))
+	{
+		return;
+	}
+
+	// delete old machine
+	vending_triggers = getentarray( "zombie_vending", "targetname" );
+	for (i = 0; i < vending_trigger.size; i++)
+	{
+		trig = vending_triggers[i];
+		if (IsDefined(trig.script_noteworthy) && trig.script_noteworthy == "specialty_scavenger")
+		{
+			trig.clip delete();
+			trig.machine delete();
+			trig.bump delete();
+			trig delete();
+			break;
+		}
+	}
+
+	// spawn new machine
+	origin = (1852, -825, -56);
+	angles = (0, 180, 0);
+	use_trigger = spawn( "trigger_radius_use", origin + vectorScale( ( 0, 0, 1 ), 30 ), 0, 40, 70 );
+	use_trigger.targetname = "zombie_vending";
+	use_trigger triggerignoreteam();
+	perk_machine = spawn( "script_model", origin );
+	perk_machine.angles = angles;
+	perk_machine setmodel( perk_struct.model );
+	bump_trigger = spawn( "trigger_radius", origin + AnglesToRight(angles) * 32, 0, 35, 32 );
+	bump_trigger.script_activated = 1;
+	bump_trigger.script_sound = "zmb_perks_bump_bottle";
+	bump_trigger.targetname = "audio_bump_trigger";
+	bump_trigger thread maps/mp/zombies/_zm_perks::thread_bump_trigger();
+	collision = spawn( "script_model", origin, 1 );
+	collision.angles = angles;
+	collision setmodel( "zm_collision_perks1" );
+	collision.script_noteworthy = "clip";
+	collision disconnectpaths();
+	use_trigger.clip = collision;
+	use_trigger.machine = perk_machine;
+	use_trigger.bump = bump_trigger;
+	if ( isDefined( perk_struct.blocker_model ) )
+	{
+		use_trigger.blocker_model = perk_struct.blocker_model;
+	}
+	if ( isDefined( perk_struct.script_int ) )
+	{
+		perk_machine.script_int = perk_struct.script_int;
+	}
+	if ( isDefined( perk_struct.turn_on_notify ) )
+	{
+		perk_machine.turn_on_notify = perk_struct.turn_on_notify;
+	}
+	use_trigger.script_sound = "mus_perks_tombstone_jingle";
+	use_trigger.script_string = "tombstone_perk";
+	use_trigger.script_label = "mus_perks_tombstone_sting";
+	use_trigger.target = "vending_tombstone";
+	perk_machine.script_string = "tombstone_perk";
+	perk_machine.targetname = "vending_tombstone";
+	bump_trigger.script_string = "tombstone_perk";
+
+	level thread tombstone_machine_set_script_noteworthy_later(use_trigger);
+}
+
+tombstone_machine_set_script_noteworthy_later(use_trigger)
+{
+	// wait until inital machine is removed
+	flag_wait( "initial_blackscreen_passed" );
+	wait 0.05;
+
+	// wait until after to set script_noteworthy so new machine isn't removed
+	use_trigger.script_noteworthy = perk_struct.script_noteworthy;
+
+	level thread maps/mp/zombies/_zm_perks::turn_tombstone_on();
+	use_trigger thread maps/mp/zombies/_zm_perks::vending_trigger_think();
+	use_trigger thread maps/mp/zombies/_zm_perks::electric_perks_dialog();
+
+	powered_on = maps/mp/zombies/_zm_perks::get_perk_machine_start_state( use_trigger.script_noteworthy );
+	maps/mp/zombies/_zm_power::add_powered_item( maps/mp/zombies/_zm_power::perk_power_on, maps/mp/zombies/_zm_power::perk_power_off, maps/mp/zombies/_zm_power::perk_range, maps/mp/zombies/_zm_power::cost_low_if_local, 0, powered_on, use_trigger );
 }
 
 grenade_safe_to_bounce( player, weapname )
