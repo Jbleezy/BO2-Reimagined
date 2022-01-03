@@ -85,7 +85,7 @@ onplayerspawned()
 
 			self thread fall_velocity_check();
 
-			//self thread remove_fast_melee(); // Removed until melee weapon can be added
+			self thread melee_weapon_switch_watcher();
 
 			self thread solo_lives_fix();
 
@@ -1725,6 +1725,74 @@ fall_velocity_check()
 		if (!was_on_ground)
 		{
 			continue;
+		}
+
+		wait 0.05;
+	}
+}
+
+melee_weapon_switch_watcher()
+{
+	self endon("disconnect");
+
+	self thread melee_weapon_disable_weapon_trading();
+
+	prev_wep = undefined;
+	while(1)
+	{
+		melee_wep = self get_player_melee_weapon();
+		curr_wep = self getCurrentWeapon();
+
+		if(self actionSlotTwoButtonPressed() && !self hasWeapon("equip_dieseldrone_zm"))
+		{
+			if(curr_wep != melee_wep)
+			{
+				prev_wep = curr_wep;
+				self switchToWeapon(melee_wep);
+			}
+			else
+			{
+				if(isDefined(prev_wep) && self hasWeapon(prev_wep))
+				{
+					self switchToWeapon(prev_wep);
+				}
+				else
+				{
+					self switchToWeapon(self getWeaponsListPrimaries()[0]);
+				}
+
+				prev_wep = undefined;
+			}
+
+			self waittill("weapon_change");
+		}
+
+		wait 0.05;
+	}
+}
+
+melee_weapon_disable_weapon_trading()
+{
+	self endon("disconnect");
+
+	while(1)
+	{
+		melee_wep = self get_player_melee_weapon();
+		curr_wep = self getCurrentWeapon();
+
+		if(curr_wep == melee_wep && self getWeaponsListPrimaries().size >= 1)
+		{
+			self.is_drinking = 1;
+
+			while(curr_wep == melee_wep && self getWeaponsListPrimaries().size >= 1)
+			{
+				melee_wep = self get_player_melee_weapon();
+				curr_wep = self getCurrentWeapon();
+
+				wait 0.05;
+			}
+
+			self.is_drinking = 0;
 		}
 
 		wait 0.05;
