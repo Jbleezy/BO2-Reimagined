@@ -26,6 +26,7 @@ main()
 	replaceFunc(maps/mp/zombies/_zm_magicbox::treasure_chest_timeout, scripts/zm/replaced/_zm_magicbox::treasure_chest_timeout);
 	replaceFunc(maps/mp/zombies/_zm_magicbox::timer_til_despawn, scripts/zm/replaced/_zm_magicbox::timer_til_despawn);
 	replaceFunc(maps/mp/zombies/_zm_powerups::nuke_powerup, scripts/zm/replaced/_zm_powerups::nuke_powerup);
+	replaceFunc(maps/mp/zombies/_zm_equipment::show_equipment_hint, scripts/zm/replaced/_zm_equipment::show_equipment_hint);
 	replaceFunc(maps/mp/zombies/_zm_equipment::placed_equipment_think, scripts/zm/replaced/_zm_equipment::placed_equipment_think);
 	replaceFunc(maps/mp/zombies/_zm_ai_basic::inert_wakeup, scripts/zm/replaced/_zm_ai_basic::inert_wakeup);
 }

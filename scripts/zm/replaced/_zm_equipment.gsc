@@ -2,6 +2,24 @@
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 
+show_equipment_hint( equipment )
+{
+	if ( is_true( self.do_not_display_equipment_pickup_hint ) )
+	{
+		return;
+	}
+
+	self notify( "kill_previous_show_equipment_hint_thread" );
+	self endon( "kill_previous_show_equipment_hint_thread" );
+	self endon( "death" );
+	self endon( "disconnect" );
+
+	wait 0.5;
+
+	text = maps/mp/zombies/_zm_equipment::get_equipment_howto_hint( equipment );
+	self maps/mp/zombies/_zm_equipment::show_equipment_hint_text( text );
+}
+
 placed_equipment_think( model, equipname, origin, angles, tradius, toffset )
 {
 	pickupmodel = spawn( "script_model", origin );
