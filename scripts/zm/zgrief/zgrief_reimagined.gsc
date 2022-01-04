@@ -663,47 +663,15 @@ round_start_countdown_hud(time)
 		level.countdown_hud.countdown_text = createServerFontString( "objective", 1.5 );
 		level.countdown_hud.countdown_text setPoint( "CENTER", "CENTER", 0, -40 );
 		level.countdown_hud.countdown_text.foreground = false;
-		level.countdown_hud.countdown_text.color = ( 0.42, 0, 0 );
+		level.countdown_hud.countdown_text.color = ( 1, 1, 1 );
 		level.countdown_hud.countdown_text.hidewheninmenu = true;
-
-		level.countdown_hud.countdown_text2 = createServerFontString( "objective", 1.5 );
-		level.countdown_hud.countdown_text2 setPoint( "CENTER", "CENTER", 0, -40 );
-		level.countdown_hud.countdown_text2.foreground = false;
-		level.countdown_hud.countdown_text2.color = ( 1, 1, 1 );
-		level.countdown_hud.countdown_text2.hidewheninmenu = true;
-	}
-
-	buffer = "";
-	buffer_amount = 0;
-	num = level.round_number;
-	while(num > 0)
-	{
-		digit = num % 10;
-
-		if(digit == 1)
-		{
-			buffer_amount += 1;
-		}
-		else
-		{
-			buffer_amount += 2;
-		}
-
-		num = int(num / 10);
-	}
-
-	for(i = 0; i < buffer_amount; i++)
-	{
-		buffer += " ";
 	}
 
 	level.countdown_hud thread round_start_countdown_hud_timer(time);
-	level.countdown_hud.countdown_text setText("ROUND " + level.round_number + "                  ");
-	level.countdown_hud.countdown_text2 setText(buffer + "              BEGINS IN");
+	level.countdown_hud.countdown_text setText("ROUND " + level.round_number + " BEGINS IN");
 
 	level.countdown_hud.alpha = 1;
 	level.countdown_hud.countdown_text.alpha = 1;
-	level.countdown_hud.countdown_text2.alpha = 1;
 
 	return level.countdown_hud;
 }
