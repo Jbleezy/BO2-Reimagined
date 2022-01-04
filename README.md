@@ -113,6 +113,7 @@
 
 ## Perks
 * No longer deactivated if the perk machine is powered off
+* Added high qualty perk icons to all maps
 
 ### Quick Revive
 * No longer automatically powered on in solo
@@ -144,6 +145,7 @@
 * Tombstone powerup no longer spawns until the player bleeds out
 * Unlimited time to pick up Tombstone powerup
 * Disabled suicide option when player is down
+* Flipped perk icon
 
 ### Who's Who
 * Gain all other perks the player had before going down when entering Who's Who mode
