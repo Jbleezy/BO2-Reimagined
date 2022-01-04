@@ -1,6 +1,7 @@
 #include maps\mp\_utility;
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
+#include maps\mp\gametypes_zm\_hud_util;
 
 check_quickrevive_for_hotjoin(disconnecting_player)
 {
@@ -248,6 +249,59 @@ getfreespawnpoint( spawnpoints, player )
 	}
 
 	return spawnpoints[ 0 ];
+}
+
+wait_and_revive()
+{
+	flag_set( "wait_and_revive" );
+	if ( isDefined( self.waiting_to_revive ) && self.waiting_to_revive == 1 )
+	{
+		return;
+	}
+	if ( is_true( self.pers_upgrades_awarded[ "perk_lose" ] ) )
+	{
+		self maps/mp/zombies/_zm_pers_upgrades_functions::pers_upgrade_perk_lose_save();
+	}
+	self.waiting_to_revive = 1;
+	if ( isDefined( level.exit_level_func ) )
+	{
+		self thread [[ level.exit_level_func ]]();
+	}
+	else if ( get_players().size == 1 )
+	{
+		self thread maps/mp/zombies/_zm::default_exit_level();
+	}
+	solo_revive_time = 10;
+	self.revive_hud settext( &"ZOMBIE_REVIVING_SOLO", self );
+	self maps/mp/zombies/_zm_laststand::revive_hud_show_n_fade( solo_revive_time );
+	if ( !isDefined( self.beingrevivedprogressbar ) )
+	{
+		self.beingrevivedprogressbar = self createprimaryprogressbar();
+        self.beingrevivedprogressbar setpoint(undefined, "CENTER", level.primaryprogressbarx, -1 * level.primaryprogressbary);
+        self.beingrevivedprogressbar.bar.color = (0.5, 0.5, 1);
+        self.beingrevivedprogressbar.hidewheninmenu = 1;
+        self.beingrevivedprogressbar.bar.hidewheninmenu = 1;
+        self.beingrevivedprogressbar.barframe.hidewheninmenu = 1;
+	}
+	self.beingrevivedprogressbar updatebar( 0.01, 1 / solo_revive_time );
+	flag_wait_or_timeout( "instant_revive", solo_revive_time );
+	if ( flag( "instant_revive" ) )
+	{
+		self maps/mp/zombies/_zm_laststand::revive_hud_show_n_fade( 1 );
+	}
+	if ( isDefined( self.beingrevivedprogressbar ) )
+	{
+		self.beingrevivedprogressbar destroyelem();
+	}
+	flag_clear( "wait_and_revive" );
+	self maps/mp/zombies/_zm_laststand::auto_revive( self );
+	self.lives--;
+
+	self.waiting_to_revive = 0;
+	if ( is_true( self.pers_upgrades_awarded[ "perk_lose" ] ) )
+	{
+		self thread maps/mp/zombies/_zm_pers_upgrades_functions::pers_upgrade_perk_lose_restore();
+	}
 }
 
 end_game()
