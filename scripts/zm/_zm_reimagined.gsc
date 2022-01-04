@@ -248,7 +248,7 @@ health_bar_hud()
 	flag_wait( "initial_blackscreen_passed" );
 
 	x = -364;
-	y = -70;
+	y = -68;
 	if (level.script == "zm_buried")
 	{
 		y -= 25;
@@ -258,13 +258,13 @@ health_bar_hud()
 		y -= 60;
 	}
 
-	health_bar = self createbar((1, 1, 1), 110, 14);
+	health_bar = self createbar((1, 1, 1), 110, 10);
 	health_bar setpoint(undefined, "BOTTOM", x, y);
 	health_bar.hidewheninmenu = 1;
 	health_bar.bar.hidewheninmenu = 1;
 	health_bar.barframe.hidewheninmenu = 1;
 
-	health_bar_text = createfontstring("objective", 1.4);
+	health_bar_text = createfontstring("objective", 1.2);
 	health_bar_text setpoint("LEFT", "BOTTOM", x + 60, y);
 	health_bar_text.hidewheninmenu = 1;
 
@@ -477,7 +477,7 @@ zone_hud()
 	self endon("disconnect");
 
 	x = 5;
-	y = -115;
+	y = -111;
 	if (level.script == "zm_buried")
 	{
 		y -= 25;
