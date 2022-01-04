@@ -84,6 +84,7 @@ onplayerspawned()
 			self weapon_locker_clear_stored_weapondata();
 
 			self thread health_bar_hud();
+			self thread bleedout_bar_hud();
 			self thread zone_hud();
 
 			self thread fall_velocity_check();
@@ -258,7 +259,7 @@ health_bar_hud()
 		y -= 60;
 	}
 
-	health_bar = self createbar((1, 1, 1), 110, 10);
+	health_bar = self createbar((1, 1, 1), level.primaryprogressbarwidth - 10, level.primaryprogressbarheight);
 	health_bar setpoint(undefined, "BOTTOM", x, y);
 	health_bar.hidewheninmenu = 1;
 	health_bar.bar.hidewheninmenu = 1;
@@ -270,26 +271,18 @@ health_bar_hud()
 
 	while (1)
 	{
-		if (isDefined(self.e_afterlife_corpse))
+		if(isDefined(self.e_afterlife_corpse))
 		{
-			if (health_bar.alpha != 0)
+			health_bar hideelem();
+			health_bar_text hideelem();
+
+			while(isDefined(self.e_afterlife_corpse))
 			{
-				health_bar.alpha = 0;
-				health_bar.bar.alpha = 0;
-				health_bar.barframe.alpha = 0;
-				health_bar_text.alpha = 0;
+				wait 0.05;
 			}
 
-			wait 0.05;
-			continue;
-		}
-
-		if (health_bar.alpha != 1)
-		{
-			health_bar.alpha = 1;
-			health_bar.bar.alpha = 1;
-			health_bar.barframe.alpha = 1;
-			health_bar_text.alpha = 1;
+			health_bar showelem();
+			health_bar_text showelem();
 		}
 
 		health_bar updatebar(self.health / self.maxhealth);
@@ -1526,6 +1519,70 @@ get_zone_name()
 	}
 
 	return name;
+}
+
+bleedout_bar_hud()
+{
+	self endon("disconnect");
+
+	flag_wait( "initial_blackscreen_passed" );
+
+	bleedout_bar = self createbar((1, 0, 0), level.secondaryprogressbarwidth * 2, level.secondaryprogressbarheight);
+	bleedout_bar setpoint(undefined, "CENTER", level.secondaryprogressbarx, -1 * level.secondaryprogressbary);
+	bleedout_bar.hidewheninmenu = 1;
+	bleedout_bar.bar.hidewheninmenu = 1;
+	bleedout_bar.barframe.hidewheninmenu = 1;
+	bleedout_bar hideelem();
+
+	while (1)
+	{
+		self waittill("entering_last_stand");
+
+		self thread bleedout_bar_hud_updatebar(bleedout_bar);
+
+		bleedout_bar showelem();
+
+		self waittill_any("player_revived", "bled_out");
+
+		bleedout_bar hideelem();
+	}
+}
+
+// scaleovertime doesn't work past 30 seconds so here is a workaround
+bleedout_bar_hud_updatebar(bleedout_bar)
+{
+	self endon("player_revived");
+	self endon("bled_out");
+
+	bleedout_time = getDvarInt("player_lastStandBleedoutTime");
+	interval_time = 30;
+	interval_frac = interval_time / bleedout_time;
+	num_intervals = int(bleedout_time / interval_time) + 1;
+
+	bleedout_bar updatebar(1);
+
+	for(i = 0; i < num_intervals; i++)
+	{
+		time = bleedout_time;
+		if(time > interval_time)
+		{
+			time = interval_time;
+		}
+
+		frac = 0.99 - ((i + 1) * interval_frac);
+
+		barwidth = int((bleedout_bar.width * frac) + 0.5);
+		if(barwidth < 1)
+		{
+			barwidth = 1;
+		}
+
+		bleedout_bar.bar scaleovertime(time, barwidth, bleedout_bar.height);
+
+		wait time;
+
+		bleedout_time -= time;
+	}
 }
 
 last_stand_pistol_swap()

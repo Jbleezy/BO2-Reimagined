@@ -21,6 +21,7 @@
 * Timer displayed on top right of screen
 * Health bar displayed on bottom left of screen
 * Current zone displayed on bottom left of screen
+* Bleedout bar displayed when downed
 
 ## Players
 * Unlimited sprint
