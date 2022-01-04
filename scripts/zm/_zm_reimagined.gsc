@@ -1542,6 +1542,12 @@ bleedout_bar_hud()
 	{
 		self waittill("entering_last_stand");
 
+		// don't show for last player downed
+		if(!self maps/mp/zombies/_zm_laststand::player_is_in_laststand())
+		{
+			continue;
+		}
+
 		self thread bleedout_bar_hud_updatebar(bleedout_bar);
 
 		bleedout_bar showelem();
