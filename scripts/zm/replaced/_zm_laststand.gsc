@@ -148,3 +148,69 @@ laststand_clean_up_on_disconnect( playerbeingrevived, revivergun )
 	}
 	self maps/mp/zombies/_zm_laststand::revive_give_back_weapons( revivergun );
 }
+
+revive_hud_think()
+{
+	self endon( "disconnect" );
+
+	while ( 1 )
+	{
+		wait 0.1;
+		if ( !maps/mp/zombies/_zm_laststand::player_any_player_in_laststand() )
+		{
+			continue;
+		}
+		players = get_players();
+		playertorevive = undefined;
+		i = 0;
+		while ( i < players.size )
+		{
+			if ( !isDefined( players[ i ].revivetrigger ) || !isDefined( players[ i ].revivetrigger.createtime ) )
+			{
+				i++;
+				continue;
+			}
+			if ( !isDefined( playertorevive ) || playertorevive.revivetrigger.createtime > players[ i ].revivetrigger.createtime )
+			{
+				playertorevive = players[ i ];
+			}
+			i++;
+		}
+		if ( isDefined( playertorevive ) )
+		{
+			i = 0;
+			while ( i < players.size )
+			{
+				if ( players[ i ] maps/mp/zombies/_zm_laststand::player_is_in_laststand() )
+				{
+					i++;
+					continue;
+				}
+				if ( getDvar( "g_gametype" ) == "vs" )
+				{
+					if ( players[ i ].team != playertorevive.team )
+					{
+						i++;
+						continue;
+					}
+				}
+				if ( is_encounter() )
+				{
+					if ( players[ i ].sessionteam != playertorevive.sessionteam )
+					{
+						i++;
+						continue;
+					}
+					if ( is_true( level.hide_revive_message ) )
+					{
+						i++;
+						continue;
+					}
+				}
+				players[ i ] thread maps/mp/zombies/_zm_laststand::faderevivemessageover( playertorevive, 3 );
+				i++;
+			}
+			playertorevive.revivetrigger.createtime = undefined;
+		}
+	}
+}

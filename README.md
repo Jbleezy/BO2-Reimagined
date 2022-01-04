@@ -24,6 +24,7 @@
 * Bleedout bar displayed when downed
 * Revive bar displayed for downed player
 * Changed revive bar color to blue
+* Player needs to be revived text updates to new player instantly
 
 ## Players
 * Unlimited sprint
