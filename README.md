@@ -303,9 +303,9 @@
 * Meleeing enemy players that are already stunned will push them
 * Stun fx is linked to the player
 * Stun fx shows in the correct position for projectiles
-* Stunning enemy players steals 10 points from them
-* Downing enemy players awards 5% of their current points
-* Bleeding out enemy players awards 10% of your current points to all teammates
+* Stunning enemy players steals 100 points from them
+* Downing enemy players awards 500 points
+* Bleeding out enemy players awards 1000 points to all teammates
 * Landing on top of an enemy player downs only the bottom player
 * Landing on top of an enemy player can be done at any stance
 * Increased max radius for landing on top of an enemy player by 33%

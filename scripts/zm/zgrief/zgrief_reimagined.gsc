@@ -215,6 +215,9 @@ set_grief_vars()
 	level.grief_score["B"] = 0;
 	level.game_mode_griefed_time = 2.5;
 	level.stun_fx_amount = 3;
+	level.stun_award_points = 100;
+	level.downed_award_points = 500;
+	level.bleedout_award_points = 1000;
 }
 
 player_spawn_override()
@@ -497,9 +500,9 @@ revive_feed(reviver)
 
 add_grief_downed_score()
 {
-	if(isDefined(self.score_lost_when_downed) && isDefined(self.last_griefed_by) && is_player_valid(self.last_griefed_by.attacker))
+	if(isDefined(self.last_griefed_by) && is_player_valid(self.last_griefed_by.attacker))
 	{
-		self.last_griefed_by.attacker maps/mp/zombies/_zm_score::add_to_player_score(self.score_lost_when_downed);
+		self.last_griefed_by.attacker maps/mp/zombies/_zm_score::add_to_player_score(level.downed_award_points);
 	}
 }
 
@@ -510,8 +513,7 @@ add_grief_bleedout_score()
 	{
 		if(is_player_valid(player) && player.team != self.team)
 		{
-			points = round_up_to_ten(int(player.score * level.zombie_vars["penalty_no_revive"]));
-			player maps/mp/zombies/_zm_score::add_to_player_score(points);
+			player maps/mp/zombies/_zm_score::add_to_player_score(level.bleedout_award_points);
 		}
 	}
 }
@@ -1170,7 +1172,7 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 		self thread do_game_mode_shellshock(is_melee, maps/mp/zombies/_zm_weapons::is_weapon_upgraded(sweapon));
 		self playsound( "zmb_player_hit_ding" );
 
-		self stun_score_steal(eattacker, 10);
+		self stun_score_steal(eattacker, level.stun_award_points);
 
 		if(!is_melee)
 		{
