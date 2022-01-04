@@ -382,6 +382,12 @@ on_player_spawned()
 
 	self.grief_initial_spawn = true;
 
+	// player spawns for a frame when hotjoining
+	if(flag("start_zombie_round_logic"))
+	{
+		self waittill( "spawned_spectator" );
+	}
+
 	while(1)
 	{
 		self waittill( "spawned_player" );
