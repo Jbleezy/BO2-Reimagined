@@ -22,6 +22,7 @@
 * Health bar displayed on bottom left of screen
 * Current zone displayed on bottom left of screen
 * Bleedout bar displayed when downed
+* Changed revive bar color to blue
 
 ## Players
 * Unlimited sprint
