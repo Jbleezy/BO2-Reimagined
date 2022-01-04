@@ -3,10 +3,12 @@
 #include maps\mp\zombies\_zm_utility;
 
 #include scripts/zm/replaced/zm_tomb_craftables;
+#include scripts/zm/replaced/zm_tomb_dig;
 
 main()
 {
 	replaceFunc(maps/mp/zm_tomb_craftables::quadrotor_control_thread, scripts/zm/replaced/zm_tomb_craftables::quadrotor_control_thread);
+	replaceFunc(maps/mp/zm_tomb_dig::dig_disconnect_watch, scripts/zm/replaced/zm_tomb_dig::dig_disconnect_watch);
 }
 
 init()
