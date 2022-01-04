@@ -1532,6 +1532,11 @@ bleedout_bar_hud()
 
 	flag_wait( "initial_blackscreen_passed" );
 
+	if(flag("solo_game"))
+	{
+		return;
+	}
+
 	bleedout_bar = self createbar((1, 0, 0), level.secondaryprogressbarwidth * 2, level.secondaryprogressbarheight);
 	bleedout_bar setpoint(undefined, "CENTER", level.secondaryprogressbarx, -1 * level.secondaryprogressbary);
 	bleedout_bar.hidewheninmenu = 1;
