@@ -24,6 +24,15 @@ revive_do_revive( playerbeingrevived, revivergun )
 	{
 		playerbeingrevived startrevive( self );
 	}
+    if ( !isDefined( playerbeingrevived.beingrevivedprogressbar ) )
+	{
+		playerbeingrevived.beingrevivedprogressbar = playerbeingrevived createprimaryprogressbar();
+        playerbeingrevived.beingrevivedprogressbar setpoint(undefined, "CENTER", level.primaryprogressbarx, -1 * level.primaryprogressbary);
+        playerbeingrevived.beingrevivedprogressbar.bar.color = (0.5, 0.5, 1);
+        playerbeingrevived.beingrevivedprogressbar.hidewheninmenu = 1;
+        playerbeingrevived.beingrevivedprogressbar.bar.hidewheninmenu = 1;
+        playerbeingrevived.beingrevivedprogressbar.barframe.hidewheninmenu = 1;
+	}
 	if ( !isDefined( self.reviveprogressbar ) )
 	{
 		self.reviveprogressbar = self createprimaryprogressbar();
@@ -41,6 +50,7 @@ revive_do_revive( playerbeingrevived, revivergun )
 	self.is_reviving_any++;
 	self thread maps/mp/zombies/_zm_laststand::laststand_clean_up_reviving_any( playerbeingrevived );
 	self.reviveprogressbar updatebar( 0.01, 1 / revivetime );
+    playerbeingrevived.beingrevivedprogressbar updatebar( 0.01, 1 / revivetime );
 	self.revivetexthud.alignx = "center";
 	self.revivetexthud.aligny = "middle";
 	self.revivetexthud.horzalign = "center";
@@ -80,6 +90,10 @@ revive_do_revive( playerbeingrevived, revivergun )
 			break;
 		}
 	}
+    if ( isDefined( playerbeingrevived.beingrevivedprogressbar ) )
+	{
+		playerbeingrevived.beingrevivedprogressbar destroyelem();
+	}
 	if ( isDefined( self.reviveprogressbar ) )
 	{
 		self.reviveprogressbar destroyelem();
@@ -108,4 +122,29 @@ revive_do_revive( playerbeingrevived, revivergun )
 		playerbeingrevived thread maps/mp/zombies/_zm_laststand::checkforbleedout( self );
 	}
 	return revived;
+}
+
+laststand_clean_up_on_disconnect( playerbeingrevived, revivergun )
+{
+	self endon( "do_revive_ended_normally" );
+	revivetrigger = playerbeingrevived.revivetrigger;
+	playerbeingrevived waittill( "disconnect" );
+	if ( isDefined( revivetrigger ) )
+	{
+		revivetrigger delete();
+	}
+	self maps/mp/zombies/_zm_laststand::cleanup_suicide_hud();
+    if ( isDefined( playerbeingrevived.beingrevivedprogressbar ) )
+	{
+		playerbeingrevived.beingrevivedprogressbar destroyelem();
+	}
+	if ( isDefined( self.reviveprogressbar ) )
+	{
+		self.reviveprogressbar destroyelem();
+	}
+	if ( isDefined( self.revivetexthud ) )
+	{
+		self.revivetexthud destroy();
+	}
+	self maps/mp/zombies/_zm_laststand::revive_give_back_weapons( revivergun );
 }
