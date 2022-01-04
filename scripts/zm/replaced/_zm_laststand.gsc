@@ -36,6 +36,7 @@ revive_do_revive( playerbeingrevived, revivergun )
 	if ( !isDefined( self.reviveprogressbar ) )
 	{
 		self.reviveprogressbar = self createprimaryprogressbar();
+        self.reviveprogressbar setpoint(undefined, "CENTER", level.primaryprogressbarx, -1 * level.primaryprogressbary);
         self.reviveprogressbar.bar.color = (0.5, 0.5, 1);
 	}
 	if ( !isDefined( self.revivetexthud ) )
