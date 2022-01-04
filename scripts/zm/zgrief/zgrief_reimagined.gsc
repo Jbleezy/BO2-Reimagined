@@ -617,7 +617,14 @@ round_start_wait(time, initial)
 	players = get_players();
 	foreach(player in players)
 	{
-		player thread wait_and_freeze_controls(1); // need a wait or players can move
+		// fixes players being frozen at wrong position and angle after respawn
+		if(!initial)
+		{
+			player setOrigin(player.spectator_respawn.origin);
+			player setPlayerAngles(player.spectator_respawn.angles);
+		}
+
+		player freezeControls(1);
 		player enableInvulnerability();
 		player disableWeapons();
 	}
@@ -638,15 +645,6 @@ round_start_wait(time, initial)
 	}
 
 	level notify("restart_round_start");
-}
-
-wait_and_freeze_controls(bool)
-{
-	self endon("disconnect");
-
-	wait_network_frame();
-
-	self freezeControls(bool);
 }
 
 round_start_countdown_hud(time)

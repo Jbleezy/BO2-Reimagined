@@ -237,6 +237,8 @@ zombie_goto_round(target_round)
 
 	maps/mp/zombies/_zm_game_module::respawn_players();
 
+	wait 0.05; // let all players fully respawn
+
 	level thread player_respawn_award();
 
 	level thread scripts/zm/zgrief/zgrief_reimagined::round_start_wait(5);
@@ -244,8 +246,6 @@ zombie_goto_round(target_round)
 
 player_respawn_award()
 {
-	wait 0.05; // let all players fully respawn
-
 	maps/mp/zombies/_zm::award_grenades_for_survivors();
 	players = get_players();
 	foreach(player in players)
