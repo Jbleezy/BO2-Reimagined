@@ -51,8 +51,6 @@ init()
 	setteamscore("axis", 0);
 	setteamscore("allies", 0);
 
-	setroundsplayed(level.round_number); // don't show first round animation
-
 	if(isDefined(level.zombie_weapons["willy_pete_zm"]))
 	{
 		register_tactical_grenade_for_level( "willy_pete_zm" );
@@ -65,6 +63,7 @@ init()
 	level thread set_grief_vars();
 	level thread round_start_wait(5, true);
 	level thread unlimited_zombies();
+	level thread remove_round_number();
 	level thread remove_status_icons_on_end_game();
 	level thread random_map_rotation();
 	level thread spawn_bots(7);
@@ -1600,6 +1599,18 @@ func_should_drop_meat()
 	}
 
 	return 1;
+}
+
+remove_round_number()
+{
+	level endon("end_game");
+
+	while(1)
+	{
+		level waittill("start_of_round");
+
+		setroundsplayed(0);
+	}
 }
 
 remove_status_icons_on_end_game()

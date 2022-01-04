@@ -182,7 +182,6 @@ round_end(winner, force_win)
 	level notify( "restart_round" );
 
 	level.round_number++;
-	setroundsplayed(level.round_number);
 
 	level thread maps/mp/zombies/_zm_audio_announcer::leaderdialog( "grief_restarted" );
 	if(isDefined(winner))
