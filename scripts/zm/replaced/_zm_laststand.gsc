@@ -5,6 +5,7 @@
 
 revive_do_revive( playerbeingrevived, revivergun )
 {
+    self thread revive_weapon_switch_watcher();
 	revivetime = 3;
 	if ( self hasperk( "specialty_quickrevive" ) )
 	{
@@ -125,6 +126,27 @@ revive_do_revive( playerbeingrevived, revivergun )
 	return revived;
 }
 
+revive_weapon_switch_watcher()
+{
+    self endon( "disconnect" );
+    self endon( "do_revive_ended_normally" );
+
+    self.revive_weapon_switched = undefined;
+
+    while(1)
+    {
+        self waittill("weapon_change");
+
+        curr_wep = self getCurrentWeapon();
+        if(curr_wep != "none" && curr_wep != level.revive_tool)
+        {
+            break;
+        }
+    }
+
+    self.revive_weapon_switched = 1;
+}
+
 laststand_clean_up_on_disconnect( playerbeingrevived, revivergun )
 {
 	self endon( "do_revive_ended_normally" );
@@ -152,13 +174,12 @@ laststand_clean_up_on_disconnect( playerbeingrevived, revivergun )
 
 revive_give_back_weapons( gun )
 {
-    current_wep = self getCurrentWeapon();
 	self takeweapon( level.revive_tool );
 	if ( self maps/mp/zombies/_zm_laststand::player_is_in_laststand() )
 	{
 		return;
 	}
-    if(current_wep != "none" && current_wep != level.revive_tool)
+    if(is_true(self.revive_weapon_switched))
     {
         return;
     }
