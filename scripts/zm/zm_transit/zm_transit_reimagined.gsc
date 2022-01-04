@@ -440,10 +440,10 @@ town_move_tombstone_machine()
 	perk_machine.targetname = "vending_tombstone";
 	bump_trigger.script_string = "tombstone_perk";
 
-	level thread tombstone_machine_set_script_noteworthy_later(use_trigger);
+	level thread tombstone_machine_set_script_noteworthy_later(use_trigger, perk_struct);
 }
 
-tombstone_machine_set_script_noteworthy_later(use_trigger)
+tombstone_machine_set_script_noteworthy_later(use_trigger, perk_struct)
 {
 	// wait until inital machine is removed
 	flag_wait( "initial_blackscreen_passed" );

@@ -4,10 +4,10 @@
 
 init()
 {
-    level thread highrise_solo_revive_fix();
+    level thread elevator_solo_revive_fix();
 }
 
-highrise_solo_revive_fix()
+elevator_solo_revive_fix()
 {
 	if (!(is_classic() && level.scr_zm_map_start_location == "rooftop"))
 	{
