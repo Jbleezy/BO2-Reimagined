@@ -23,6 +23,7 @@ main()
 	replaceFunc(maps/mp/zombies/_zm_utility::track_players_intersection_tracker, scripts/zm/replaced/_zm_utility::track_players_intersection_tracker);
 	replaceFunc(maps/mp/zombies/_zm_utility::is_headshot, scripts/zm/replaced/_zm_utility::is_headshot);
 	replaceFunc(maps/mp/zombies/_zm_laststand::revive_do_revive, scripts/zm/replaced/_zm_laststand::revive_do_revive);
+	replaceFunc(maps/mp/zombies/_zm_laststand::revive_give_back_weapons, scripts/zm/replaced/_zm_laststand::revive_give_back_weapons);
 	replaceFunc(maps/mp/zombies/_zm_laststand::revive_hud_think, scripts/zm/replaced/_zm_laststand::revive_hud_think);
 	replaceFunc(maps/mp/zombies/_zm_weapons::get_upgraded_ammo_cost, scripts/zm/replaced/_zm_weapons::get_upgraded_ammo_cost);
 	replaceFunc(maps/mp/zombies/_zm_weapons::makegrenadedudanddestroy, scripts/zm/replaced/_zm_weapons::makegrenadedudanddestroy);

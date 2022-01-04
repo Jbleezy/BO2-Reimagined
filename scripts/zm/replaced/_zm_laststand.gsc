@@ -150,6 +150,32 @@ laststand_clean_up_on_disconnect( playerbeingrevived, revivergun )
 	self maps/mp/zombies/_zm_laststand::revive_give_back_weapons( revivergun );
 }
 
+revive_give_back_weapons( gun )
+{
+    current_wep = self getCurrentWeapon();
+	self takeweapon( level.revive_tool );
+	if ( self maps/mp/zombies/_zm_laststand::player_is_in_laststand() )
+	{
+		return;
+	}
+    if(current_wep != "none" && current_wep != level.revive_tool)
+    {
+        return;
+    }
+	if ( gun != "none" && !is_placeable_mine( gun ) && gun != "equip_gasmask_zm" && gun != "lower_equip_gasmask_zm" && self hasweapon( gun ) )
+	{
+		self switchtoweapon( gun );
+	}
+	else
+	{
+		primaryweapons = self getweaponslistprimaries();
+		if ( isDefined( primaryweapons ) && primaryweapons.size > 0 )
+		{
+			self switchtoweapon( primaryweapons[ 0 ] );
+		}
+	}
+}
+
 revive_hud_think()
 {
 	self endon( "disconnect" );
