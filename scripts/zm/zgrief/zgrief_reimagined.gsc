@@ -634,7 +634,7 @@ round_start_wait(time, initial)
 
 	wait time;
 
-	round_start_countdown_hud round_start_countdown_hud_destroy();
+	round_start_countdown_hud round_start_countdown_hud_hide();
 
 	players = get_players();
 	foreach(player in players)
@@ -650,31 +650,69 @@ round_start_wait(time, initial)
 
 round_start_countdown_hud(time)
 {
-	countdown = createServerFontString( "objective", 2.2 );
-	countdown setPoint( "CENTER", "CENTER", 0, 0 );
-	countdown.foreground = false;
-	countdown.alpha = 1;
-	countdown.color = ( 1, 1, 0 );
-	countdown.hidewheninmenu = true;
-	countdown maps/mp/gametypes_zm/_hud::fontpulseinit();
-	countdown thread round_start_countdown_hud_timer(time);
-	countdown thread round_start_countdown_hud_end_game_watcher();
+	if(!isDefined(level.countdown_hud))
+	{
+		level.countdown_hud = createServerFontString( "objective", 2.2 );
+		level.countdown_hud setPoint( "CENTER", "CENTER", 0, 0 );
+		level.countdown_hud.foreground = false;
+		level.countdown_hud.color = ( 1, 1, 0 );
+		level.countdown_hud.hidewheninmenu = true;
+		level.countdown_hud maps/mp/gametypes_zm/_hud::fontpulseinit();
+		level.countdown_hud thread round_start_countdown_hud_end_game_watcher();
 
-	countdown.countdown_text = createServerFontString( "objective", 1.5 );
-	countdown.countdown_text setPoint( "CENTER", "CENTER", 0, -40 );
-	countdown.countdown_text.foreground = false;
-	countdown.countdown_text.alpha = 1;
-	countdown.countdown_text.color = ( 1.000, 1.000, 1.000 );
-	countdown.countdown_text.hidewheninmenu = true;
-	countdown.countdown_text.label = &"ROUND BEGINS IN";
+		level.countdown_hud.countdown_text = createServerFontString( "objective", 1.5 );
+		level.countdown_hud.countdown_text setPoint( "CENTER", "CENTER", 0, -40 );
+		level.countdown_hud.countdown_text.foreground = false;
+		level.countdown_hud.countdown_text.color = ( 0.42, 0, 0 );
+		level.countdown_hud.countdown_text.hidewheninmenu = true;
 
-	return countdown;
+		level.countdown_hud.countdown_text2 = createServerFontString( "objective", 1.5 );
+		level.countdown_hud.countdown_text2 setPoint( "CENTER", "CENTER", 0, -40 );
+		level.countdown_hud.countdown_text2.foreground = false;
+		level.countdown_hud.countdown_text2.color = ( 1, 1, 1 );
+		level.countdown_hud.countdown_text2.hidewheninmenu = true;
+	}
+
+	buffer = "";
+	buffer_amount = 0;
+	num = level.round_number;
+	while(num > 0)
+	{
+		digit = num % 10;
+
+		if(digit == 1)
+		{
+			buffer_amount += 1;
+		}
+		else
+		{
+			buffer_amount += 2;
+		}
+
+		num = int(num / 10);
+	}
+
+	for(i = 0; i < buffer_amount; i++)
+	{
+		buffer += " ";
+	}
+
+	level.countdown_hud thread round_start_countdown_hud_timer(time);
+	level.countdown_hud.countdown_text setText("ROUND " + level.round_number + "                  ");
+	level.countdown_hud.countdown_text2 setText(buffer + "              BEGINS IN");
+
+	level.countdown_hud.alpha = 1;
+	level.countdown_hud.countdown_text.alpha = 1;
+	level.countdown_hud.countdown_text2.alpha = 1;
+
+	return level.countdown_hud;
 }
 
-round_start_countdown_hud_destroy()
+round_start_countdown_hud_hide()
 {
-	self.countdown_text destroy();
-	self destroy();
+	self.countdown_text.alpha = 0;
+	self.countdown_text2.alpha = 0;
+	self.alpha = 0;
 }
 
 round_start_countdown_hud_end_game_watcher()
@@ -683,7 +721,7 @@ round_start_countdown_hud_end_game_watcher()
 
 	level waittill( "end_game" );
 
-	self round_start_countdown_hud_destroy();
+	self round_start_countdown_hud_hide();
 }
 
 round_start_countdown_hud_timer(time)
