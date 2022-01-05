@@ -51,7 +51,7 @@ emp_players(origin, radius, owner)
 	{
 		if(distancesquared(origin, player.origin) < rsquared)
 		{
-			player thread player_emp_on_and_off(2);
+			player shellshock( "frag_grenade_mp", 2 );
 
 			if(is_player_valid(player))
 			{
@@ -63,19 +63,6 @@ emp_players(origin, radius, owner)
 			}
 		}
 	}
-}
-
-player_emp_on_and_off(time)
-{
-	self notify("player_emp_on_and_off");
-	self endon("player_emp_on_and_off");
-	self endon("disconnect");
-
-	self maps/mp/zombies/_zm_weap_emp_bomb::player_emp_on();
-
-	wait time + 0.05; // stops shellshock too early
-
-	self maps/mp/zombies/_zm_weap_emp_bomb::player_emp_off();
 }
 
 player_perk_pause_and_unpause_all_perks(time)
