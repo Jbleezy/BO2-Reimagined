@@ -402,6 +402,11 @@ on_player_spawned()
 
 			self thread grief_intro_text();
 		}
+
+		// round_start_wait resets these
+		self freezeControls(1);
+		self enableInvulnerability();
+		self disableWeapons();
 	}
 }
 
@@ -608,29 +613,13 @@ round_start_wait(time, initial)
 		players = get_players();
 		foreach(player in players)
 		{
-			player.hostmigrationcontrolsfrozen = 1; // fixes players being able to move for a frame after initial_blackscreen_passed
-			player disableWeapons();
+			player.hostmigrationcontrolsfrozen = 1; // fixes players being able to move after initial_blackscreen_passed
 		}
 
 		flag_wait("initial_blackscreen_passed");
 	}
 
 	level thread zombie_spawn_wait(time + 10);
-
-	players = get_players();
-	foreach(player in players)
-	{
-		// fixes players being frozen at wrong position and angle after respawn
-		if(!initial)
-		{
-			player setOrigin(player.spectator_respawn.origin);
-			player setPlayerAngles(player.spectator_respawn.angles);
-		}
-
-		player freezeControls(1);
-		player enableInvulnerability();
-		player disableWeapons();
-	}
 
 	round_start_countdown_hud = round_start_countdown_hud(time);
 
@@ -641,7 +630,11 @@ round_start_wait(time, initial)
 	players = get_players();
 	foreach(player in players)
 	{
-		player.hostmigrationcontrolsfrozen = 0;
+		if(initial)
+		{
+			player.hostmigrationcontrolsfrozen = 0;
+		}
+
 		player freezeControls(0);
 		player disableInvulnerability();
 		player enableWeapons();
