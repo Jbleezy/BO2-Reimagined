@@ -89,7 +89,8 @@
 * Decreased perk EMP time from 90 seconds to 60 seconds
 * Decreased zombie EMP radius by 30% (same radius as perk EMP)
 * Sprinting no longer wakes up EMP'd zombies
-* No longer effects players
+* Makes downed players bleed out
+* No longer effects alive players
 
 ### Ray Gun
 * No longer limited to 4 players
@@ -183,7 +184,12 @@
 * Kills all zombies instantly
 
 ### Meat
+* Able to drop when players are down
 * Decreased time on ground from 16 seconds to 10 seconds
+* Message shows when the meat is on a player
+* Meleeing while the meat is moving no longer grabs the meat
+* Meleeing while the meat is moving throws the meat
+* Meleeing while the meat is moving activates more consistently
 
 ## Persistent Upgrades
 * Removed
@@ -332,12 +338,6 @@
 * Added kill feed (includes downs, revives, and bleed outs)
 * Added player kills on scoreboard
 * Added player downed and bled out icons on scoreboard
-* EMP Grenades make downed enemy players bleed out
-* Meat powerup is able to drop when players are down
-* Message shows when the meat is on a player
-* Meleeing while the meat is moving no longer grabs the meat
-* Meleeing while the meat is moving throws the meat
-* Meleeing while the meat is moving activates more consistently
 * Added intro text
 * Announcer audio always plays
 * Last player alive audio only plays for the player who is alive instead of every player on the team

@@ -49,7 +49,7 @@ emp_players(origin, radius, owner)
 	players = get_players();
 	foreach(player in players)
 	{
-		if (player maps/mp/zombies/_zm_laststand::player_is_in_laststand() && player.team != owner.team && distancesquared(origin, player.origin) < rsquared)
+		if (player maps/mp/zombies/_zm_laststand::player_is_in_laststand() && distancesquared(origin, player.origin) < rsquared)
 		{
 			player.bleedout_time = 0;
 		}
