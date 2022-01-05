@@ -4182,7 +4182,7 @@ tombstone_timeout()
 
 	self thread maps/mp/zombies/_zm_tombstone::playtombstonetimeraudio();
 
-	player waittill("bled_out");
+	self waittill("bled_out");
 
 	self tombstone_remove();
 }
