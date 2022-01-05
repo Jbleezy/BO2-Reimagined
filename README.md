@@ -153,6 +153,7 @@
 * Unlimited time to pick up powerup
 * Changed powerup fx color to blue
 * Powerup gets destroyed by EMP Grenades
+* Restores all weapons properly
 * Disabled suicide option when player is down
 * Flipped perk icon
 

@@ -182,6 +182,7 @@ post_all_players_spawned()
 	level.etrap_damage = maps/mp/zombies/_zm::ai_zombie_health( 255 );
 	level.slipgun_damage = maps/mp/zombies/_zm::ai_zombie_health( 255 );
 	level.tombstone_spawn_func = ::tombstone_spawn;
+	level.tombstone_laststand_func = ::tombstone_save;
 	level.zombie_last_stand = ::last_stand_pistol_swap;
 	level.zombie_last_stand_ammo_return = ::last_stand_restore_pistol_ammo;
 
@@ -4221,7 +4222,7 @@ tombstone_grab()
 					{
 						playfx( level._effect[ "powerup_grabbed_solo" ], self.origin );
 						playfx( level._effect[ "powerup_grabbed_wave_solo" ], self.origin );
-						players[ i ] maps/mp/zombies/_zm_tombstone::tombstone_give();
+						players[ i ] tombstone_give();
 						wait 0.1;
 						playsoundatposition( "zmb_tombstone_grab", self.origin );
 						self stoploopsound();
@@ -4256,6 +4257,216 @@ tombstone_delete()
 	self.icon unlink();
 	self.icon delete();
 	self delete();
+}
+
+tombstone_save()
+{
+	self.tombstone_savedweapon_weapons = self getweaponslist();
+	self.tombstone_savedweapon_weaponsammo_clip = [];
+	self.tombstone_savedweapon_weaponsammo_clip_dualwield = [];
+	self.tombstone_savedweapon_weaponsammo_stock = [];
+	self.tombstone_savedweapon_weaponsammo_clip_alt = [];
+	self.tombstone_savedweapon_weaponsammo_stock_alt = [];
+	self.tombstone_savedweapon_currentweapon = self getcurrentweapon();
+	self.tombstone_savedweapon_melee = self get_player_melee_weapon();
+	self.tombstone_savedweapon_grenades = self get_player_lethal_grenade();
+	self.tombstone_savedweapon_tactical = self get_player_tactical_grenade();
+	self.tombstone_savedweapon_mine = self get_player_placeable_mine();
+	self.tombstone_savedweapon_equipment = self get_player_equipment();
+	self.tombstone_hasriotshield = undefined;
+	self.tombstone_perks = maps/mp/zombies/_zm_tombstone::tombstone_save_perks(self);
+
+	// can't switch to alt weapon
+	if(is_alt_weapon(self.tombstone_savedweapon_currentweapon))
+	{
+		self.tombstone_savedweapon_currentweapon = maps/mp/zombies/_zm_weapons::get_nonalternate_weapon(self.tombstone_savedweapon_currentweapon);
+	}
+
+	for ( i = 0; i < self.tombstone_savedweapon_weapons.size; i++ )
+	{
+		self.tombstone_savedweapon_weaponsammo_clip[ i ] = self getweaponammoclip( self.tombstone_savedweapon_weapons[ i ] );
+		self.tombstone_savedweapon_weaponsammo_clip_dualwield[ i ] = self getweaponammoclip(weaponDualWieldWeaponName( self.tombstone_savedweapon_weapons[ i ] ) );
+		self.tombstone_savedweapon_weaponsammo_stock[ i ] = self getweaponammostock( self.tombstone_savedweapon_weapons[ i ] );
+		self.tombstone_savedweapon_weaponsammo_clip_alt[i] = self getweaponammoclip(weaponAltWeaponName(self.tombstone_savedweapon_weapons[i]));
+		self.tombstone_savedweapon_weaponsammo_stock_alt[i] = self getweaponammostock(weaponAltWeaponName(self.tombstone_savedweapon_weapons[i]));
+	}
+
+	if ( isDefined( self.tombstone_savedweapon_grenades ) )
+	{
+		self.tombstone_savedweapon_grenades_clip = self getweaponammoclip( self.tombstone_savedweapon_grenades );
+	}
+
+	if ( isDefined( self.tombstone_savedweapon_tactical ) )
+	{
+		self.tombstone_savedweapon_tactical_clip = self getweaponammoclip( self.tombstone_savedweapon_tactical );
+	}
+
+	if ( isDefined( self.tombstone_savedweapon_mine ) )
+	{
+		self.tombstone_savedweapon_mine_clip = self getweaponammoclip( self.tombstone_savedweapon_mine );
+	}
+
+	if ( isDefined( self.hasriotshield ) && self.hasriotshield )
+	{
+		self.tombstone_hasriotshield = 1;
+	}
+}
+
+tombstone_give()
+{
+	if ( !isDefined( self.tombstone_savedweapon_weapons ) )
+	{
+		return ;
+	}
+
+	self takeAllWeapons(); // fixes player always having knife_zm
+
+	primary_weapons_returned = 0;
+	i = 0;
+	while ( i < self.tombstone_savedweapon_weapons.size )
+	{
+		if ( isdefined( self.tombstone_savedweapon_grenades ) && self.tombstone_savedweapon_weapons[ i ] == self.tombstone_savedweapon_grenades || ( isdefined( self.tombstone_savedweapon_tactical ) && self.tombstone_savedweapon_weapons[ i ] == self.tombstone_savedweapon_tactical ) )
+		{
+			i++;
+			continue;
+		}
+
+		if ( isweaponprimary( self.tombstone_savedweapon_weapons[ i ] ) )
+		{
+			if ( primary_weapons_returned >= 2 )
+			{
+				i++;
+				continue;
+			}
+
+			primary_weapons_returned++;
+		}
+
+		if ( "item_meat_zm" == self.tombstone_savedweapon_weapons[ i ] )
+		{
+			i++;
+			continue;
+		}
+
+		self giveweapon( self.tombstone_savedweapon_weapons[ i ], 0, self maps/mp/zombies/_zm_weapons::get_pack_a_punch_weapon_options( self.tombstone_savedweapon_weapons[ i ] ) );
+
+		if ( isdefined( self.tombstone_savedweapon_weaponsammo_clip[ i ] ) )
+		{
+			self setweaponammoclip( self.tombstone_savedweapon_weapons[ i ], self.tombstone_savedweapon_weaponsammo_clip[ i ] );
+		}
+
+		if ( isdefined( self.tombstone_savedweapon_weaponsammo_clip_dualwield[ i ] ) )
+		{
+			self setweaponammoclip( weaponDualWieldWeaponName( self.tombstone_savedweapon_weapons[ i ] ), self.tombstone_savedweapon_weaponsammo_clip_dualwield[ i ] );
+		}
+
+		if ( isdefined( self.tombstone_savedweapon_weaponsammo_stock[ i ] ) )
+		{
+			self setweaponammostock( self.tombstone_savedweapon_weapons[ i ], self.tombstone_savedweapon_weaponsammo_stock[ i ] );
+		}
+
+		if ( isdefined( self.tombstone_savedweapon_weaponsammo_clip_alt[ i ] ) )
+		{
+			self setweaponammoclip( weaponAltWeaponName( self.tombstone_savedweapon_weapons[ i ] ), self.tombstone_savedweapon_weaponsammo_clip_alt[ i ] );
+		}
+
+		if ( isdefined( self.tombstone_savedweapon_weaponsammo_stock_alt[ i ] ) )
+		{
+			self setweaponammostock( weaponAltWeaponName( self.tombstone_savedweapon_weapons[ i ] ), self.tombstone_savedweapon_weaponsammo_stock_alt[ i ] );
+		}
+
+		i++;
+	}
+
+	if ( isDefined( self.tombstone_savedweapon_melee ) )
+	{
+		self set_player_melee_weapon( self.tombstone_savedweapon_melee );
+	}
+
+	if ( isDefined( self.tombstone_savedweapon_grenades ) )
+	{
+		self giveweapon( self.tombstone_savedweapon_grenades );
+		self set_player_lethal_grenade( self.tombstone_savedweapon_grenades );
+
+		if ( isDefined( self.tombstone_savedweapon_grenades_clip ) )
+		{
+			self setweaponammoclip( self.tombstone_savedweapon_grenades, self.tombstone_savedweapon_grenades_clip );
+		}
+	}
+
+	if ( isDefined( self.tombstone_savedweapon_tactical ) )
+	{
+		self giveweapon( self.tombstone_savedweapon_tactical );
+		self set_player_tactical_grenade( self.tombstone_savedweapon_tactical );
+
+		if ( isDefined( self.tombstone_savedweapon_tactical_clip ) )
+		{
+			self setweaponammoclip( self.tombstone_savedweapon_tactical, self.tombstone_savedweapon_tactical_clip );
+		}
+	}
+
+	if ( isDefined( self.tombstone_savedweapon_mine ) )
+	{
+		self giveweapon( self.tombstone_savedweapon_mine );
+		self set_player_placeable_mine( self.tombstone_savedweapon_mine );
+		self setactionslot( 4, "weapon", self.tombstone_savedweapon_mine );
+		self setweaponammoclip( self.tombstone_savedweapon_mine, self.tombstone_savedweapon_mine_clip );
+	}
+
+	if ( isDefined( self.current_equipment ) )
+	{
+		self maps/mp/zombies/_zm_equipment::equipment_take( self.current_equipment );
+	}
+
+	if ( isDefined( self.tombstone_savedweapon_equipment ) )
+	{
+		self.do_not_display_equipment_pickup_hint = 1;
+		self maps/mp/zombies/_zm_equipment::equipment_give( self.tombstone_savedweapon_equipment );
+		self.do_not_display_equipment_pickup_hint = undefined;
+	}
+
+	if ( isDefined( self.tombstone_hasriotshield ) && self.tombstone_hasriotshield )
+	{
+		if ( isDefined( self.player_shield_reset_health ) )
+		{
+			self [[ self.player_shield_reset_health ]]();
+		}
+	}
+
+	primaries = self getweaponslistprimaries();
+	switched = 0;
+	foreach ( weapon in primaries )
+	{
+		if ( isDefined( self.tombstone_savedweapon_currentweapon ) && self.tombstone_savedweapon_currentweapon == weapon )
+		{
+			switched = 1;
+			self switchtoweapon( weapon );
+		}
+	}
+
+	if(!switched)
+	{
+		if ( primaries.size > 0 )
+		{
+			self switchtoweapon( primaries[ 0 ] );
+		}
+	}
+
+	if ( isDefined( self.tombstone_perks ) && self.tombstone_perks.size > 0 )
+	{
+		i = 0;
+		while ( i < self.tombstone_perks.size )
+		{
+			if ( self hasperk( self.tombstone_perks[ i ] ) )
+			{
+				i++;
+				continue;
+			}
+
+			self maps/mp/zombies/_zm_perks::give_perk( self.tombstone_perks[ i ] );
+			i++;
+		}
+	}
 }
 
 additionalprimaryweapon_save_weapons()
