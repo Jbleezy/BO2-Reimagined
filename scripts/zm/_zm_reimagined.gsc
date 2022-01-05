@@ -4115,7 +4115,7 @@ tombstone_spawn()
 {
 	if(isDefined(self.tombstone_powerup))
 	{
-		self.tombstone_powerup tombstone_remove();
+		self.tombstone_powerup tombstone_delete();
 	}
 
 	dc = spawn( "script_model", self.origin + vectorScale( ( 0, 0, 1 ), 40 ) );
@@ -4132,13 +4132,13 @@ tombstone_spawn()
 
 	self thread maps/mp/zombies/_zm_tombstone::tombstone_clear();
 	dc thread tombstone_wobble();
-	dc thread maps/mp/zombies/_zm_tombstone::tombstone_revived( self );
+	dc thread tombstone_emp();
 
 	result = self waittill_any_return( "player_revived", "spawned_player", "disconnect" );
 
 	if (result == "disconnect")
 	{
-		dc tombstone_remove();
+		dc tombstone_delete();
 		return;
 	}
 	else if(result == "player_revived")
@@ -4146,7 +4146,7 @@ tombstone_spawn()
 		tombstone = level.tombstones[self.tombstone_index];
 		if(tombstone.perk.size == 1)
 		{
-			dc tombstone_remove();
+			dc tombstone_delete();
 			return;
 		}
 
@@ -4176,6 +4176,27 @@ tombstone_wobble()
 	}
 }
 
+tombstone_emp()
+{
+	self endon( "tombstone_timedout" );
+	self endon( "tombstone_grabbed" );
+
+	if ( !should_watch_for_emp() )
+	{
+		return;
+	}
+
+	while ( 1 )
+	{
+		level waittill( "emp_detonate", origin, radius );
+		if ( distancesquared( origin, self.origin ) < ( radius * radius ) )
+		{
+			playfx( level._effect[ "powerup_off" ], self.origin );
+			self thread tombstone_delete();
+		}
+	}
+}
+
 tombstone_timeout()
 {
 	self endon( "tombstone_grabbed" );
@@ -4184,7 +4205,7 @@ tombstone_timeout()
 
 	self waittill("bled_out");
 
-	self tombstone_remove();
+	self tombstone_delete();
 }
 
 tombstone_grab()
@@ -4240,7 +4261,7 @@ tombstone_perks_only()
 	self.zombie_cymbal_monkey_count = undefined;
 }
 
-tombstone_remove()
+tombstone_delete()
 {
 	self notify( "tombstone_timedout" );
 	self.icon unlink();

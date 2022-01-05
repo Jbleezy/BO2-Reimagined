@@ -149,9 +149,10 @@
 
 ### Tombstone Soda
 * Added in solo
-* Tombstone powerup no longer removed when revived
-* Unlimited time to pick up Tombstone powerup
-* Changed Tombstone powerup fx color to blue
+* Powerup no longer removed when revived
+* Unlimited time to pick up powerup
+* Changed powerup fx color to blue
+* Powerup gets destroyed by EMP Grenades
 * Disabled suicide option when player is down
 * Flipped perk icon
 
@@ -288,7 +289,6 @@
 * Der Wunderfizz: increased cost from 1500 to 2500
 * Der Wunderfizz: all perks have an equal chance of being obtained
 * Rituals of the Ancients: spend points challenge reward changed from Double Tap perk to a random perk that the player does not have (perk does not change if reward is reopened)
-* Rituals of the Ancients: spend points challenge reward gives a permament perk slot
 * Soul boxes: decreased kill requirement from 30 to 20
 * Perk bottle dig spots: give random perk
 * Perk bottle dig spots: visible and diggable without Zombie Blood
