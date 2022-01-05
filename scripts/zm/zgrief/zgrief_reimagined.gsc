@@ -335,22 +335,44 @@ player_spawn_override()
 			struct.origin = respawn.origin;
 			struct.angles = respawn.angles;
 			struct.radius = respawn.radius;
+			struct.script_int = respawn.script_int;
+			struct.script_noteworthy = "initial_spawn";
+			struct.script_string = "zgrief_street";
 
-			if(struct.origin == (-722.02, -151.75, 124.14))
+			if(struct.origin == (-875.5, -33.85, 139.25))
 			{
-				struct.script_int = 1;
+				struct.angles = (0, 10, 0);
+			}
+			else if(struct.origin == (-910.13, -90.16, 139.59))
+			{
+				struct.angles = (0, 20, 0);
+			}
+			else if(struct.origin == (-921.9, -134.67, 140.62))
+			{
+				struct.angles = (0, 30, 0);
 			}
 			else if(struct.origin == (-891.27, -209.95, 137.94))
 			{
+				struct.angles = (0, 55, 0);
 				struct.script_int = 2;
 			}
-			else
+			else if(struct.origin == (-836.66, -257.92, 133.16))
 			{
-				struct.script_int = respawn.script_int;
+				struct.angles = (0, 65, 0);
 			}
-
-			struct.script_noteworthy = "initial_spawn";
-			struct.script_string = "zgrief_street";
+			else if(struct.origin == (-763, -259.07, 127.72))
+			{
+				struct.angles = (0, 90, 0);
+			}
+			else if(struct.origin == (-737.98, -212.92, 125.4))
+			{
+				struct.angles = (0, 85, 0);
+			}
+			else if(struct.origin == (-722.02, -151.75, 124.14))
+			{
+				struct.angles = (0, 80, 0);
+				struct.script_int = 1;
+			}
 
 			size = level.struct_class_names["script_noteworthy"][struct.script_noteworthy].size;
 			level.struct_class_names["script_noteworthy"][struct.script_noteworthy][size] = struct;
