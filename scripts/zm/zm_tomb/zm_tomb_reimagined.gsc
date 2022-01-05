@@ -8,6 +8,7 @@
 main()
 {
 	replaceFunc(maps/mp/zm_tomb_craftables::quadrotor_control_thread, scripts/zm/replaced/zm_tomb_craftables::quadrotor_control_thread);
+	replaceFunc(maps/mp/zm_tomb_dig::increment_player_perk_purchase_limit, scripts/zm/replaced/zm_tomb_dig::increment_player_perk_purchase_limit);
 	replaceFunc(maps/mp/zm_tomb_dig::dig_disconnect_watch, scripts/zm/replaced/zm_tomb_dig::dig_disconnect_watch);
 }
 
@@ -152,10 +153,6 @@ reward_random_perk( player, s_stat )
 	player playsound( "zmb_powerup_grabbed" );
 	m_reward thread maps/mp/zombies/_zm_perks::vending_trigger_post_think( player, perk );
 	m_reward delete();
-	player increment_player_perk_purchase_limit();
-	player maps/mp/zombies/_zm_stats::increment_client_stat( "tomb_perk_extension", 0 );
-	player maps/mp/zombies/_zm_stats::increment_player_stat( "tomb_perk_extension" );
-	player thread player_perk_purchase_limit_fix();
 	return 1;
 }
 
@@ -182,30 +179,6 @@ get_random_perk()
 		perks = array_randomize( perks );
 		random_perk = perks[ 0 ];
 		return random_perk;
-	}
-}
-
-increment_player_perk_purchase_limit()
-{
-	if ( !isDefined( self.player_perk_purchase_limit ) )
-	{
-		self.player_perk_purchase_limit = level.perk_purchase_limit;
-	}
-	self.player_perk_purchase_limit++;
-}
-
-player_perk_purchase_limit_fix()
-{
-	self endon("disconnect");
-
-	while (self.pers[ "tomb_perk_extension" ] < 5)
-	{
-		wait .5;
-	}
-
-	if (self.player_perk_purchase_limit < 9)
-	{
-		self.player_perk_purchase_limit = 9;
 	}
 }
 

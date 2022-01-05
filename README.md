@@ -118,6 +118,7 @@
 * Moves to new location instantly
 
 ## Perks
+* Removed perk limit
 * No longer deactivated if the perk machine is powered off
 * Added high qualty perk icons to all maps
 
@@ -282,10 +283,12 @@
 * Door prices in solo cost the same as in coop
 * Shovels automatically picked up
 * Gramophone and records automatically picked up
+* Der Wunderfizz: increased cost from 1500 to 2500
 * Der Wunderfizz: all perks have an equal chance of being obtained
 * Rituals of the Ancients: spend points challenge reward changed from Double Tap perk to a random perk that the player does not have (perk does not change if reward is reopened)
 * Rituals of the Ancients: spend points challenge reward gives a permament perk slot
 * Soul boxes: decreased kill requirement from 30 to 20
+* Perk bottle dig spots: give random perk
 * Perk bottle dig spots: visible and diggable without Zombie Blood
 * Perk bottle dig spots: increased number of rounds for next dig spot to spawn from 1 to 4
 
