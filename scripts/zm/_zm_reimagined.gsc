@@ -11,6 +11,7 @@
 #include scripts/zm/replaced/_zm_magicbox;
 #include scripts/zm/replaced/_zm_perks;
 #include scripts/zm/replaced/_zm_powerups;
+#include scripts/zm/replaced/_zm_pers_upgrades;
 #include scripts/zm/replaced/_zm_equipment;
 #include scripts/zm/replaced/_zm_ai_basic;
 
@@ -33,6 +34,7 @@ main()
 	replaceFunc(maps/mp/zombies/_zm_magicbox::timer_til_despawn, scripts/zm/replaced/_zm_magicbox::timer_til_despawn);
 	replaceFunc(maps/mp/zombies/_zm_perks::perk_pause, scripts/zm/replaced/_zm_perks::perk_pause);
 	replaceFunc(maps/mp/zombies/_zm_powerups::nuke_powerup, scripts/zm/replaced/_zm_powerups::nuke_powerup);
+	replaceFunc(maps/mp/zombies/_zm_pers_upgrades::pers_upgrade_init, scripts/zm/replaced/_zm_pers_upgrades::pers_upgrade_init);
 	replaceFunc(maps/mp/zombies/_zm_equipment::show_equipment_hint, scripts/zm/replaced/_zm_equipment::show_equipment_hint);
 	replaceFunc(maps/mp/zombies/_zm_equipment::placed_equipment_think, scripts/zm/replaced/_zm_equipment::placed_equipment_think);
 	replaceFunc(maps/mp/zombies/_zm_ai_basic::inert_wakeup, scripts/zm/replaced/_zm_ai_basic::inert_wakeup);
@@ -103,8 +105,6 @@ onplayerspawned()
 			self thread give_additional_perks();
 
 			self thread buildable_piece_remove_on_last_stand();
-
-			self thread disable_player_pers_upgrades();
 
 			//self thread disable_sniper_scope_sway(); // Buried does not load the clientfield
 
@@ -201,8 +201,6 @@ post_all_players_spawned()
 
 	level thread buildbuildables();
 	level thread buildcraftables();
-
-	level thread disable_pers_upgrades();
 
 	level thread zombie_health_fix();
 
@@ -1965,47 +1963,6 @@ weapon_locker_clear_stored_weapondata()
 	{
 		self.stored_weapon_data = undefined;
 	}
-}
-
-disable_pers_upgrades()
-{
-	level waittill("initial_disable_player_pers_upgrades");
-
-	level.pers_upgrades_keys = [];
-	level.pers_upgrades = [];
-}
-
-disable_player_pers_upgrades()
-{
-	flag_wait( "initial_blackscreen_passed" );
-
-	if (isDefined(self.pers_upgrades_awarded))
-	{
-		upgrade = getFirstArrayKey(self.pers_upgrades_awarded);
-		while (isDefined(upgrade))
-		{
-			self.pers_upgrades_awarded[upgrade] = 0;
-			upgrade = getNextArrayKey(self.pers_upgrades_awarded, upgrade);
-		}
-	}
-
-	if (isDefined(level.pers_upgrades_keys))
-	{
-		index = 0;
-		while (index < level.pers_upgrades_keys.size)
-		{
-			str_name = level.pers_upgrades_keys[index];
-			stat_index = 0;
-			while (stat_index < level.pers_upgrades[str_name].stat_names.size)
-			{
-				self maps/mp/zombies/_zm_stats::zero_client_stat(level.pers_upgrades[str_name].stat_names[stat_index], 0);
-				stat_index++;
-			}
-			index++;
-		}
-	}
-
-	level notify("initial_disable_player_pers_upgrades");
 }
 
 disable_carpenter()
