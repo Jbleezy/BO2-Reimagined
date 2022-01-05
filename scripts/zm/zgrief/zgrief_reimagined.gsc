@@ -406,7 +406,6 @@ on_player_spawned()
 		// round_start_wait resets these
 		self freezeControls(1);
 		self enableInvulnerability();
-		self disableWeapons();
 	}
 }
 
@@ -637,7 +636,6 @@ round_start_wait(time, initial)
 
 		player freezeControls(0);
 		player disableInvulnerability();
-		player enableWeapons();
 	}
 
 	level notify("restart_round_start");
