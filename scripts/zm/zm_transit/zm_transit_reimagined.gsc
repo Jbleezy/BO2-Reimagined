@@ -359,7 +359,7 @@ town_move_staminup_machine()
 
 town_move_tombstone_machine()
 {
-	if (!(level.scr_zm_ui_gametype == "zstandard" && level.scr_zm_map_start_location == "town"))
+	if (!(!is_classic() && level.scr_zm_map_start_location == "town"))
 	{
 		return;
 	}
@@ -383,18 +383,21 @@ town_move_tombstone_machine()
 		return;
 	}
 
-	// delete old machine
-	vending_triggers = getentarray( "zombie_vending", "targetname" );
-	for (i = 0; i < vending_trigger.size; i++)
+	// delete old machine (only on Survival)
+	if(level.scr_zm_ui_gametype == "zstandard")
 	{
-		trig = vending_triggers[i];
-		if (IsDefined(trig.script_noteworthy) && trig.script_noteworthy == "specialty_scavenger")
+		vending_triggers = getentarray( "zombie_vending", "targetname" );
+		for (i = 0; i < vending_trigger.size; i++)
 		{
-			trig.clip delete();
-			trig.machine delete();
-			trig.bump delete();
-			trig delete();
-			break;
+			trig = vending_triggers[i];
+			if (IsDefined(trig.script_noteworthy) && trig.script_noteworthy == "specialty_scavenger")
+			{
+				trig.clip delete();
+				trig.machine delete();
+				trig.bump delete();
+				trig delete();
+				break;
+			}
 		}
 	}
 
