@@ -51,12 +51,6 @@ init()
 	setteamscore("axis", 0);
 	setteamscore("allies", 0);
 
-	if(isDefined(level.zombie_weapons["willy_pete_zm"]))
-	{
-		register_tactical_grenade_for_level( "willy_pete_zm" );
-		level.zombie_weapons["willy_pete_zm"].is_in_box = 1;
-	}
-
 	player_spawn_override();
 
 	level thread grief_score_hud();
@@ -194,8 +188,6 @@ set_grief_vars()
 	level.zombie_vars["zombie_health_increase"] = 0;
 	level.zombie_vars["zombie_health_increase_multiplier"] = 0;
 	level.zombie_vars["zombie_spawn_delay"] = 0.5;
-	level.zombie_weapons["raygun_mark2_zm"].is_in_box = 0;
-	level.zombie_weapons["cymbal_monkey_zm"].is_in_box = 0;
 	level.zombie_powerups["meat_stink"].func_should_drop_with_regular_powerups = ::func_should_drop_meat;
 	level.brutus_health = 20000;
 	level.brutus_expl_dmg_req = 12000;
@@ -207,6 +199,24 @@ set_grief_vars()
 	level._game_module_player_damage_callback = ::game_module_player_damage_callback;
 	level._game_module_player_laststand_callback = ::grief_laststand_weapon_save;
 	level.onplayerspawned_restore_previous_weapons = ::grief_laststand_weapons_return;
+
+	if(isDefined(level.zombie_weapons["knife_ballistic_zm"]))
+	{
+		level.zombie_weapons["knife_ballistic_zm"].is_in_box = 1;
+	}
+	if(isDefined(level.zombie_weapons["ray_gun_zm"]))
+	{
+		level.zombie_weapons["ray_gun_zm"].is_in_box = 1;
+	}
+	if(isDefined(level.zombie_weapons["raygun_mark2_zm"]))
+	{
+		level.zombie_weapons["raygun_mark2_zm"].is_in_box = 1;
+	}
+	if(isDefined(level.zombie_weapons["willy_pete_zm"]))
+	{
+		register_tactical_grenade_for_level( "willy_pete_zm" );
+		level.zombie_weapons["willy_pete_zm"].is_in_box = 1;
+	}
 
 	level.grief_winning_score = 3;
 	level.grief_score = [];
@@ -1747,4 +1757,9 @@ spawn_bots(num)
 			level.bots[i] = addtestclient();
 		}
 	}
+
+	flag_wait( "initial_blackscreen_passed" );
+
+	iprintln("defined: " + isDefined(level.zombie_weapons["raygun_mark2_zm"]));
+	iprintln("in box: " + level.zombie_weapons["raygun_mark2_zm"].is_in_box);
 }

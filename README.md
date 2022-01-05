@@ -94,6 +94,9 @@
 ### Ray Gun
 * No longer limited to 4 players
 
+### Ray Gun Mark 2
+* Limited to 1 player on all maps
+
 ### Jet Gun
 * Kills whenever the right gauge is above 20%
 * Kills multiple enemies significantly faster
@@ -226,6 +229,7 @@
 * Pack-a-Punch automatically crafted
 * Navcard table automatically crafted
 * Fixed a zombie pathing exploit at Town in Bookstore
+* Grief: added Ballistic Knife, Ray Gun, and Ray Gun Mark 2 to the Mystery Box
 
 #### Town
 * Moved Quick Revive to Stamin-Up's location on Town
@@ -329,7 +333,6 @@
 * Added player kills on scoreboard
 * Added player downed and bled out icons on scoreboard
 * EMP Grenades make downed enemy players bleed out
-* Removed Ray Gun Mark 2 and Monkey Bombs from the Mystery Box
 * Meat powerup is able to drop when players are down
 * Message shows when the meat is on a player
 * Meleeing while the meat is moving no longer grabs the meat

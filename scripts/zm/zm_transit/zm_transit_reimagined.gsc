@@ -13,6 +13,8 @@ main()
 	replaceFunc(maps/mp/zombies/_zm_weap_emp_bomb::emp_detonate, scripts/zm/replaced/_zm_weap_emp_bomb::emp_detonate);
 	replaceFunc(maps/mp/zombies/_zm_equip_electrictrap::startelectrictrapdeploy, scripts/zm/replaced/_zm_equip_electrictrap::startelectrictrapdeploy);
 	replaceFunc(maps/mp/zombies/_zm_equip_turret::startturretdeploy, scripts/zm/replaced/_zm_equip_turret::startturretdeploy);
+
+	include_weapons_grief();
 }
 
 init()
@@ -30,6 +32,38 @@ init()
 	level thread add_tombstone_machine_solo();
 	level thread power_local_electric_doors_globally();
 	level thread b23r_hint_string_fix();
+}
+
+include_weapons_grief()
+{
+	if ( getDvar( "g_gametype" ) != "zgrief" )
+	{
+		return;
+	}
+
+	include_weapon( "ray_gun_zm" );
+	include_weapon( "ray_gun_upgraded_zm", 0 );
+	include_weapon( "tazer_knuckles_zm", 0 );
+	include_weapon( "knife_ballistic_no_melee_zm", 0 );
+	include_weapon( "knife_ballistic_no_melee_upgraded_zm", 0 );
+	include_weapon( "knife_ballistic_zm" );
+	include_weapon( "knife_ballistic_upgraded_zm", 0 );
+	include_weapon( "knife_ballistic_bowie_zm", 0 );
+	include_weapon( "knife_ballistic_bowie_upgraded_zm", 0 );
+	level._uses_retrievable_ballisitic_knives = 1;
+	maps/mp/zombies/_zm_weapons::add_limited_weapon( "knife_ballistic_zm", 1 );
+	maps/mp/zombies/_zm_weapons::add_limited_weapon( "ray_gun_zm", 4 );
+	maps/mp/zombies/_zm_weapons::add_limited_weapon( "ray_gun_upgraded_zm", 4 );
+	maps/mp/zombies/_zm_weapons::add_limited_weapon( "knife_ballistic_upgraded_zm", 0 );
+	maps/mp/zombies/_zm_weapons::add_limited_weapon( "knife_ballistic_no_melee_zm", 0 );
+	maps/mp/zombies/_zm_weapons::add_limited_weapon( "knife_ballistic_no_melee_upgraded_zm", 0 );
+	maps/mp/zombies/_zm_weapons::add_limited_weapon( "knife_ballistic_bowie_zm", 0 );
+	maps/mp/zombies/_zm_weapons::add_limited_weapon( "knife_ballistic_bowie_upgraded_zm", 0 );
+	include_weapon( "raygun_mark2_zm" );
+	include_weapon( "raygun_mark2_upgraded_zm", 0 );
+	maps/mp/zombies/_zm_weapons::add_weapon_to_content( "raygun_mark2_zm", "dlc3" );
+	maps/mp/zombies/_zm_weapons::add_limited_weapon( "raygun_mark2_zm", 1 );
+	maps/mp/zombies/_zm_weapons::add_limited_weapon( "raygun_mark2_upgraded_zm", 1 );
 }
 
 screecher_spawner_changes()
