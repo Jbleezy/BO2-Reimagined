@@ -4141,17 +4141,6 @@ tombstone_spawn()
 		dc tombstone_delete();
 		return;
 	}
-	else if(result == "player_revived")
-	{
-		tombstone = level.tombstones[self.tombstone_index];
-		if(tombstone.perk.size == 1)
-		{
-			dc tombstone_delete();
-			return;
-		}
-
-		tombstone tombstone_perks_only();
-	}
 
 	dc thread tombstone_timeout();
 	dc thread tombstone_grab();
