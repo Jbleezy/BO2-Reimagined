@@ -43,6 +43,7 @@
 * Fall damage no longer increases when max health is increased
 * Removed blur when getting damaged
 * No longer killed when landing on top of another player
+* Ignored by enemies for 1 second after being revived
 * Weapon is no longer switched after reviving if player switched weapons during revive
 * Can shoot while looking at other players
 * Increased mantle speed

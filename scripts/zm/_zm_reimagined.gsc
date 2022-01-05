@@ -92,6 +92,8 @@ onplayerspawned()
 			self thread bleedout_bar_hud();
 			self thread zone_hud();
 
+			self thread ignoreme_after_revived();
+
 			self thread fall_velocity_check();
 
 			self thread melee_weapon_switch_watcher();
@@ -1750,6 +1752,21 @@ set_lethal_grenade_init()
 	level.zombie_lethal_grenade_player_init = "sticky_grenade_zm";
 }
 
+ignoreme_after_revived()
+{
+	self endon( "disconnect" );
+
+	while(1)
+	{
+		self waittill( "player_revived", reviver );
+
+		self.ignoreme = 1;
+
+		wait 1;
+
+		self.ignoreme = 0;
+	}
+}
 
 fall_velocity_check()
 {
