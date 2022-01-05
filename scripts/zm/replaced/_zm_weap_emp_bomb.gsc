@@ -59,7 +59,7 @@ emp_players(origin, radius, owner)
 			}
 			else if(player maps/mp/zombies/_zm_laststand::player_is_in_laststand())
 			{
-				player.bleedout_time = 0;
+				player thread player_suicide();
 			}
 		}
 	}
@@ -211,4 +211,13 @@ player_perk_unpause( perk )
 	}
 
 	self notify("perk_lost");
+}
+
+player_suicide()
+{
+	self notify( "player_suicide" );
+
+	wait_network_frame();
+
+	self maps/mp/zombies/_zm_laststand::bleed_out();
 }

@@ -477,7 +477,7 @@ on_player_bleedout()
 
 	while(1)
 	{
-		self waittill( "bled_out" );
+		self waittill_any( "bled_out", "player_suicide" );
 
 		self.statusicon = "hud_status_dead";
 		self bleedout_feed();

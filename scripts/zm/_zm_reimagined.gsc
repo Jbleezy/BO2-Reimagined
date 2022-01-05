@@ -1559,7 +1559,7 @@ bleedout_bar_hud()
 
 		bleedout_bar showelem();
 
-		self waittill_any("player_revived", "bled_out");
+		self waittill_any("player_revived", "bled_out", "player_suicide");
 
 		bleedout_bar hideelem();
 	}
@@ -1570,6 +1570,7 @@ bleedout_bar_hud_updatebar(bleedout_bar)
 {
 	self endon("player_revived");
 	self endon("bled_out");
+	self endon("player_suicide");
 
 	bleedout_time = getDvarInt("player_lastStandBleedoutTime");
 	interval_time = 30;
@@ -4194,7 +4195,7 @@ tombstone_timeout()
 
 	self thread maps/mp/zombies/_zm_tombstone::playtombstonetimeraudio();
 
-	self waittill("bled_out");
+	self waittill_any("bled_out", "player_suicide");
 
 	self tombstone_delete();
 }
