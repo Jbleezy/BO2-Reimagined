@@ -118,9 +118,6 @@ onplayerspawned()
 			self thread additionalprimaryweapon_restore_weapons();
 			self thread additionalprimaryweapon_indicator();
 
-			self thread tombstone_save_perks();
-			self thread tombstone_restore_perks();
-
 			self thread whos_who_spawn_changes();
 
 			self thread electric_cherry_unlimited();
@@ -4159,10 +4156,10 @@ disable_sniper_scope_sway()
 
 tombstone_spawn()
 {
-	self endon("disconnect");
-	self endon("player_revived");
-
-	self waittill("bled_out");
+	if(isDefined(self.tombstone_powerup))
+	{
+		self.tombstone_powerup tombstone_remove();
+	}
 
 	dc = spawn( "script_model", self.origin + vectorScale( ( 0, 0, 1 ), 40 ) );
 	dc.angles = self.angles;
@@ -4174,43 +4171,69 @@ tombstone_spawn()
 	dc.icon = dc_icon;
 	dc.script_noteworthy = "player_tombstone_model";
 	dc.player = self;
+	self.tombstone_powerup = dc;
+
 	self thread maps/mp/zombies/_zm_tombstone::tombstone_clear();
-	dc thread maps/mp/zombies/_zm_tombstone::tombstone_wobble();
+	dc thread tombstone_wobble();
 	dc thread maps/mp/zombies/_zm_tombstone::tombstone_revived( self );
+
 	result = self waittill_any_return( "player_revived", "spawned_player", "disconnect" );
-	if ( result == "player_revived" || result == "disconnect" )
+
+	if (result == "disconnect")
 	{
-		dc notify( "tombstone_timedout" );
-		dc_icon unlink();
-		dc_icon delete();
-		dc delete();
+		dc tombstone_remove();
 		return;
 	}
+	else if(result == "player_revived")
+	{
+		tombstone = level.tombstones[self.tombstone_index];
+		if(tombstone.perk.size == 1)
+		{
+			dc tombstone_remove();
+			return;
+		}
+
+		tombstone tombstone_perks_only();
+	}
+
 	dc thread tombstone_timeout();
 	dc thread tombstone_grab();
+}
+
+tombstone_wobble()
+{
+	self endon( "tombstone_grabbed" );
+	self endon( "tombstone_timedout" );
+
+	if ( isDefined( self ) )
+	{
+		playfxontag( level._effect[ "powerup_on_solo" ], self, "tag_origin" );
+		self playsound( "zmb_tombstone_spawn" );
+		self playloopsound( "zmb_tombstone_looper" );
+	}
+
+	while ( isDefined( self ) )
+	{
+		self rotateyaw( 360, 3 );
+		wait 2.9;
+	}
 }
 
 tombstone_timeout()
 {
 	self endon( "tombstone_grabbed" );
 
-	player = self.player;
-	result = player waittill_any_return("bled_out", "disconnect");
+	self thread maps/mp/zombies/_zm_tombstone::playtombstonetimeraudio();
 
-	if (result != "disconnect")
-	{
-		player playsoundtoplayer( "zmb_tombstone_timer_out", player );
-	}
-	self notify( "tombstone_timedout" );
-	self.icon unlink();
-	self.icon delete();
-	self delete();
+	player waittill("bled_out");
+
+	self tombstone_remove();
 }
 
 tombstone_grab()
 {
 	self endon( "tombstone_timedout" );
-	wait 1;
+
 	while ( isDefined( self ) )
 	{
 		players = get_players();
@@ -4229,8 +4252,8 @@ tombstone_grab()
 					dist = distance( players[ i ].origin, self.origin );
 					if ( dist < 64 )
 					{
-						playfx( level._effect[ "powerup_grabbed" ], self.origin );
-						playfx( level._effect[ "powerup_grabbed_wave" ], self.origin );
+						playfx( level._effect[ "powerup_grabbed_solo" ], self.origin );
+						playfx( level._effect[ "powerup_grabbed_wave_solo" ], self.origin );
 						players[ i ] maps/mp/zombies/_zm_tombstone::tombstone_give();
 						wait 0.1;
 						playsoundatposition( "zmb_tombstone_grab", self.origin );
@@ -4250,96 +4273,22 @@ tombstone_grab()
 	}
 }
 
-tombstone_save_perks()
+tombstone_perks_only()
 {
-	self endon("disconnect");
-
-	while (1)
-	{
-		self waittill_any("perk_acquired", "perk_lost");
-
-		if ( self maps/mp/zombies/_zm_laststand::player_is_in_laststand() )
-		{
-			continue;
-		}
-
-		if (isDefined(self.a_restoring_perks))
-		{
-			continue;
-		}
-
-		if (self hasPerk("specialty_scavenger"))
-		{
-			if ( isDefined( self.perks_active ) )
-			{
-				self.a_saved_perks = [];
-				self.a_saved_perks = arraycopy( self.perks_active );
-			}
-			else
-			{
-				self.a_saved_perks = self maps/mp/zombies/_zm_perks::get_perk_array( 0 );
-			}
-		}
-		else
-		{
-			self.a_saved_perks = undefined;
-		}
-	}
+	self.weapon = [];
+	self.hasriotshield = undefined;
+	self.hasclaymore = undefined;
+	self.hasemp = undefined;
+	self.grenade = undefined;
+	self.zombie_cymbal_monkey_count = undefined;
 }
 
-tombstone_restore_perks()
+tombstone_remove()
 {
-	self endon("disconnect");
-
-	while (1)
-	{
-		self waittill( "player_revived" );
-
-		discard_tombstone = 0;
-		if ( isDefined( self.a_saved_perks ) && self.a_saved_perks.size >= 2 )
-		{
-			i = 0;
-			while ( i < self.a_saved_perks.size )
-			{
-				perk = self.a_saved_perks[ i ];
-				if ( perk == "specialty_scavenger" )
-				{
-					discard_tombstone = 1;
-				}
-				i++;
-			}
-
-			self.a_restoring_perks = 1;
-			size = self.a_saved_perks.size;
-			i = 0;
-			while ( i < size )
-			{
-				perk = self.a_saved_perks[ i ];
-
-				if ( perk == "specialty_scavenger" && discard_tombstone == 1 )
-				{
-					i++;
-					continue;
-				}
-
-				if ( !(perk == "specialty_quickrevive" && flag("solo_game")) )
-				{
-					if ( self hasperk( perk ) )
-					{
-						i++;
-						continue;
-					}
-				}
-
-				self maps/mp/zombies/_zm_perks::give_perk( perk );
-				wait_network_frame();
-				i++;
-			}
-			self.a_restoring_perks = undefined;
-		}
-
-		self.a_saved_perks = undefined;
-	}
+	self notify( "tombstone_timedout" );
+	self.icon unlink();
+	self.icon delete();
+	self delete();
 }
 
 additionalprimaryweapon_save_weapons()

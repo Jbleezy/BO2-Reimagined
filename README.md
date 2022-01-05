@@ -149,9 +149,9 @@
 
 ### Tombstone Soda
 * Added in solo
-* Players keep all other perks when revived
-* Tombstone powerup no longer spawns until the player bleeds out
+* Tombstone powerup no longer removed when revived
 * Unlimited time to pick up Tombstone powerup
+* Changed Tombstone powerup fx color to blue
 * Disabled suicide option when player is down
 * Flipped perk icon
 
