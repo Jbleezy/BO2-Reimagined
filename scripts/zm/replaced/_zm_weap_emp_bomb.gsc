@@ -49,9 +49,151 @@ emp_players(origin, radius, owner)
 	players = get_players();
 	foreach(player in players)
 	{
-		if (player maps/mp/zombies/_zm_laststand::player_is_in_laststand() && distancesquared(origin, player.origin) < rsquared)
+		if(distancesquared(origin, player.origin) < rsquared)
 		{
-			player.bleedout_time = 0;
+			if(is_player_valid(player))
+			{
+				player thread player_perk_pause_and_unpause_all_perks(30);
+			}
+			else if(player maps/mp/zombies/_zm_laststand::player_is_in_laststand())
+			{
+				player.bleedout_time = 0;
+			}
 		}
 	}
+}
+
+player_perk_pause_and_unpause_all_perks(time)
+{
+	self notify("player_perk_pause_and_unpause_all_perks");
+	self endon("player_perk_pause_and_unpause_all_perks");
+	self endon("disconnect");
+
+	self player_perk_pause_all_perks();
+	self thread player_perk_pause_all_perks_acquired(time);
+
+	wait time;
+
+	self player_perk_unpause_all_perks();
+}
+
+player_perk_pause_all_perks_acquired(time)
+{
+	self endon("player_perk_pause_all_perks_acquired_timeout");
+	self endon("player_perk_pause_and_unpause_all_perks");
+	self endon("disconnect");
+
+	self thread player_perk_pause_all_perks_acquired_timeout(time);
+
+	while(1)
+	{
+		self waittill("perk_acquired");
+
+		wait 0.05;
+
+		self player_perk_pause_all_perks();
+	}
+}
+
+player_perk_pause_all_perks_acquired_timeout(time)
+{
+	self endon("player_perk_pause_and_unpause_all_perks");
+	self endon("disconnect");
+
+	wait 30;
+
+	self notify("player_perk_pause_all_perks_acquired_timeout");
+}
+
+player_perk_pause_all_perks()
+{
+	vending_triggers = getentarray( "zombie_vending", "targetname" );
+	foreach ( trigger in vending_triggers )
+	{
+		self player_perk_pause( trigger.script_noteworthy );
+	}
+}
+
+player_perk_unpause_all_perks()
+{
+	vending_triggers = getentarray( "zombie_vending", "targetname" );
+	foreach ( trigger in vending_triggers )
+	{
+		self player_perk_unpause( trigger.script_noteworthy );
+	}
+}
+
+player_perk_pause( perk )
+{
+	if ( perk == "Pack_A_Punch" || perk == "specialty_weapupgrade" )
+	{
+		return;
+	}
+
+	if ( !isDefined( self.disabled_perks ) )
+	{
+		self.disabled_perks = [];
+	}
+	if ( !is_true( self.disabled_perks[ perk ] ) )
+	{
+		self.disabled_perks[ perk ] = self hasperk( perk );
+	}
+	if ( self.disabled_perks[ perk ] )
+	{
+		self unsetperk( perk );
+		self maps/mp/zombies/_zm_perks::set_perk_clientfield( perk, 2 );
+		if ( perk == "specialty_armorvest" || perk == "specialty_armorvest_upgrade" )
+		{
+			self setmaxhealth( self.premaxhealth );
+			if ( self.health > self.maxhealth )
+			{
+				self.health = self.maxhealth;
+			}
+		}
+		if ( perk == "specialty_additionalprimaryweapon" || perk == "specialty_additionalprimaryweapon_upgrade" )
+		{
+			self maps/mp/zombies/_zm::take_additionalprimaryweapon();
+		}
+		if ( issubstr( perk, "specialty_scavenger" ) )
+		{
+			self.hasperkspecialtytombstone = 0;
+		}
+		if ( isDefined( level._custom_perks[ perk ] ) && isDefined( level._custom_perks[ perk ].player_thread_take ) )
+		{
+			self thread [[ level._custom_perks[ perk ].player_thread_take ]]();
+		}
+	}
+
+	self notify("perk_acquired");
+}
+
+player_perk_unpause( perk )
+{
+	if ( !isDefined( perk ) )
+	{
+		return;
+	}
+
+	if ( perk == "Pack_A_Punch" )
+	{
+		return;
+	}
+
+	if ( isDefined( self.disabled_perks ) && is_true( self.disabled_perks[ perk ] ) )
+	{
+		self.disabled_perks[ perk ] = 0;
+		self maps/mp/zombies/_zm_perks::set_perk_clientfield( perk, 1 );
+		self setperk( perk );
+		if ( issubstr( perk, "specialty_scavenger" ) )
+		{
+			self.hasperkspecialtytombstone = 1;
+		}
+		self maps/mp/zombies/_zm_perks::perk_set_max_health_if_jugg( perk, 0, 0 );
+		if ( isDefined( level._custom_perks[ perk ] ) && isDefined( level._custom_perks[ perk ].player_thread_give ) )
+		{
+			self thread [[ level._custom_perks[ perk ].player_thread_give ]]();
+		}
+	}
+
+	self notify("perk_lost");
 }

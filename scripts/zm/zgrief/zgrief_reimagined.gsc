@@ -1757,9 +1757,4 @@ spawn_bots(num)
 			level.bots[i] = addtestclient();
 		}
 	}
-
-	flag_wait( "initial_blackscreen_passed" );
-
-	iprintln("defined: " + isDefined(level.zombie_weapons["raygun_mark2_zm"]));
-	iprintln("in box: " + level.zombie_weapons["raygun_mark2_zm"].is_in_box);
 }

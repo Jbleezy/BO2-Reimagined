@@ -86,11 +86,12 @@
 * Unupgraded: grenades explode on impact
 
 ### EMP Grenade
+* No longer disables HUD
+* Disables player's perks for 30 seconds
+* Makes downed players bleed out
 * Decreased perk EMP time from 90 seconds to 60 seconds
 * Decreased zombie EMP radius by 30% (same radius as perk EMP)
 * Sprinting no longer wakes up EMP'd zombies
-* Makes downed players bleed out
-* No longer effects alive players
 
 ### Ray Gun
 * No longer limited to 4 players
