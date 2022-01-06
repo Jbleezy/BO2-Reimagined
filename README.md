@@ -349,6 +349,6 @@
 * Spawn points are assigned to a team
 * Teams switch spawn points each round
 * Players respawn at initial spawn points
-* Decreased connection timeout from 90 seconds to 30 seconds
+* Decreased connection timeout from 90 seconds to 45 seconds
 * Random map rotation
 * 20000 health Brutus

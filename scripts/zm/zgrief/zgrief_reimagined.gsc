@@ -45,7 +45,7 @@ init()
 		setDvar( "zombies_minplayers", 2 );
 	}
 
-	setDvar("sv_connectTimeout", 30);
+	setDvar("sv_connectTimeout", 45);
 	setDvar("ui_scorelimit", 3);
 
 	setteamscore("axis", 0);
