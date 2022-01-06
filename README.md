@@ -153,6 +153,7 @@
 
 ### Tombstone Soda
 * Added in solo
+* Added powerup waypoint
 * Powerup no longer removed when revived
 * Unlimited time to pick up powerup
 * Changed powerup fx color to blue

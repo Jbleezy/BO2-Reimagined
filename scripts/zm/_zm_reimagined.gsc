@@ -4134,6 +4134,7 @@ tombstone_spawn()
 	self.tombstone_powerup = dc;
 
 	self thread maps/mp/zombies/_zm_tombstone::tombstone_clear();
+	dc thread tombstone_waypoint();
 	dc thread tombstone_wobble();
 	dc thread tombstone_emp();
 
@@ -4185,6 +4186,42 @@ tombstone_emp()
 		{
 			playfx( level._effect[ "powerup_off" ], self.origin );
 			self thread tombstone_delete();
+		}
+	}
+}
+
+tombstone_waypoint()
+{
+	height_offset = 40;
+	hud_elem = newClientHudElem(self.player);
+	hud_elem.x = self.origin[0];
+	hud_elem.y = self.origin[1];
+	hud_elem.z = self.origin[2] + height_offset;
+	hud_elem.hidewheninmenu = 1;
+	hud_elem.fadewhentargeted = 1;
+	hud_elem setWaypoint(1, "specialty_tombstone_zombies");
+	self thread tombstone_waypoint_hide_when_down(hud_elem);
+
+	self waittill_any("tombstone_grabbed", "tombstone_timedout");
+
+	hud_elem destroy();
+}
+
+tombstone_waypoint_hide_when_down(hud_elem)
+{
+	hud_elem endon("death");
+
+	while(1)
+	{
+		result = self.player waittill_any_return("player_downed", "player_revived", "spawned_player");
+
+		if(result == "player_downed")
+		{
+			hud_elem.alpha = 0;
+		}
+		else
+		{
+			hud_elem.alpha = 0.6;
 		}
 	}
 }
@@ -4241,16 +4278,6 @@ tombstone_grab()
 		}
 		wait_network_frame();
 	}
-}
-
-tombstone_perks_only()
-{
-	self.weapon = [];
-	self.hasriotshield = undefined;
-	self.hasclaymore = undefined;
-	self.hasemp = undefined;
-	self.grenade = undefined;
-	self.zombie_cymbal_monkey_count = undefined;
 }
 
 tombstone_delete()
