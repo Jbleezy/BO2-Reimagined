@@ -186,6 +186,7 @@
 
 ### Meat
 * Able to drop when players are down
+* Changed powerup fx color to blue
 * Decreased time on ground from 16 seconds to 10 seconds
 * Message shows when the meat is on a player
 * Meleeing while the meat is moving no longer grabs the meat
