@@ -626,7 +626,7 @@ headstomp_watcher()
 		{
 			if(player != self && player.team != self.team && is_player_valid(player) && player isOnGround() && self.origin[2] > player getCentroid()[2])
 			{
-				max_horz_dist = 24;
+				max_horz_dist = 21;
 				max_vert_dist = 36;
 
 				if(player getStance() == "crouch")

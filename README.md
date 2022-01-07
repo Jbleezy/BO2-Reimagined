@@ -337,7 +337,7 @@
 * Bleeding out enemy players awards 1000 points to all teammates
 * Landing on top of an enemy player downs only the bottom player
 * Landing on top of an enemy player can be done at any stance
-* Increased max radius for landing on top of an enemy player by 33%
+* Increased max radius for landing on top of an enemy player by 16.67%
 * Decreased max height for landing on top of an enemy player that is crouched by 13%
 * Decreased max height for landing on top of an enemy player that is prone by 47%
 * Added kill feed (includes downs, revives, and bleed outs)
