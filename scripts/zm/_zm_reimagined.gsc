@@ -1853,33 +1853,6 @@ melee_weapon_disable_weapon_trading()
 	}
 }
 
-remove_fast_melee()
-{
-	self endon("disconnect");
-
-	while (1)
-	{
-		if (self isMeleeing() && self getWeaponAmmoClip(self getCurrentWeapon()) == 0)
-		{
-			self disableWeaponCycling();
-
-			while (self isMeleeing())
-			{
-				wait 0.05;
-			}
-
-			if (is_player_valid(self) && !self.is_drinking)
-			{
-				self enableWeaponCycling();
-			}
-
-			continue;
-		}
-
-		wait 0.05;
-	}
-}
-
 player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime )
 {
 	if (smeansofdeath == "MOD_FALLING")
