@@ -911,7 +911,7 @@ update_players_on_bleedout(excluded_player)
 
 		if(player.team == excluded_player.team)
 		{
-			if(player == excluded_player || player.sessionstate != "playing")
+			if(player == excluded_player || player.sessionstate != "playing" || is_true(player.playersuicided))
 			{
 				team_bledout++;
 			}

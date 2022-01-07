@@ -202,9 +202,11 @@ player_perk_unpause( perk )
 
 player_suicide()
 {
+	self.playersuicided = 1;
 	self notify( "player_suicide" );
 
 	wait_network_frame();
 
 	self maps/mp/zombies/_zm_laststand::bleed_out();
+	self.playersuicided = undefined;
 }
