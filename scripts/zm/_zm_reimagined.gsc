@@ -6,6 +6,7 @@
 #include scripts/zm/replaced/_zm;
 #include scripts/zm/replaced/_zm_playerhealth;
 #include scripts/zm/replaced/_zm_utility;
+#include scripts/zm/replaced/_zm_score;
 #include scripts/zm/replaced/_zm_laststand;
 #include scripts/zm/replaced/_zm_weapons;
 #include scripts/zm/replaced/_zm_magicbox;
@@ -24,6 +25,8 @@ main()
 	replaceFunc(maps/mp/zombies/_zm_playerhealth::playerhealthregen, scripts/zm/replaced/_zm_playerhealth::playerhealthregen);
 	replaceFunc(maps/mp/zombies/_zm_utility::track_players_intersection_tracker, scripts/zm/replaced/_zm_utility::track_players_intersection_tracker);
 	replaceFunc(maps/mp/zombies/_zm_utility::is_headshot, scripts/zm/replaced/_zm_utility::is_headshot);
+	replaceFunc(maps/mp/zombies/_zm_score::add_to_player_score, scripts/zm/replaced/_zm_score::add_to_player_score);
+	replaceFunc(maps/mp/zombies/_zm_score::minus_to_player_score, scripts/zm/replaced/_zm_score::minus_to_player_score);
 	replaceFunc(maps/mp/zombies/_zm_laststand::revive_do_revive, scripts/zm/replaced/_zm_laststand::revive_do_revive);
 	replaceFunc(maps/mp/zombies/_zm_laststand::revive_give_back_weapons, scripts/zm/replaced/_zm_laststand::revive_give_back_weapons);
 	replaceFunc(maps/mp/zombies/_zm_laststand::revive_hud_think, scripts/zm/replaced/_zm_laststand::revive_hud_think);
@@ -34,7 +37,10 @@ main()
 	replaceFunc(maps/mp/zombies/_zm_magicbox::timer_til_despawn, scripts/zm/replaced/_zm_magicbox::timer_til_despawn);
 	replaceFunc(maps/mp/zombies/_zm_perks::perk_pause, scripts/zm/replaced/_zm_perks::perk_pause);
 	replaceFunc(maps/mp/zombies/_zm_perks::destroy_weapon_in_blackout, scripts/zm/replaced/_zm_perks::destroy_weapon_in_blackout);
+	replaceFunc(maps/mp/zombies/_zm_powerups::full_ammo_powerup, scripts/zm/replaced/_zm_powerups::full_ammo_powerup);
 	replaceFunc(maps/mp/zombies/_zm_powerups::nuke_powerup, scripts/zm/replaced/_zm_powerups::nuke_powerup);
+	replaceFunc(maps/mp/zombies/_zm_powerups::insta_kill_powerup, scripts/zm/replaced/_zm_powerups::insta_kill_powerup);
+	replaceFunc(maps/mp/zombies/_zm_powerups::double_points_powerup, scripts/zm/replaced/_zm_powerups::double_points_powerup);
 	replaceFunc(maps/mp/zombies/_zm_pers_upgrades::pers_upgrade_init, scripts/zm/replaced/_zm_pers_upgrades::pers_upgrade_init);
 	replaceFunc(maps/mp/zombies/_zm_equipment::show_equipment_hint, scripts/zm/replaced/_zm_equipment::show_equipment_hint);
 	replaceFunc(maps/mp/zombies/_zm_equipment::placed_equipment_think, scripts/zm/replaced/_zm_equipment::placed_equipment_think);

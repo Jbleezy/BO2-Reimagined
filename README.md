@@ -340,6 +340,10 @@
 * Increased max radius for landing on top of an enemy player by 16.67%
 * Decreased max height for landing on top of an enemy player that is crouched by 13%
 * Decreased max height for landing on top of an enemy player that is prone by 47%
+* Max Ammo: unloads clip of all enemy players' weapons
+* Double Points: enemy players gain half points for 30 seconds
+* Insta Kill: enemy players deal half damage for 30 seconds
+* Nuke: deals 80 damage to all enemy players
 * Added kill feed (includes downs, revives, and bleed outs)
 * Added player kills on scoreboard
 * Added player downed and bled out icons on scoreboard

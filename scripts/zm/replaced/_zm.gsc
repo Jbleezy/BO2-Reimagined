@@ -97,6 +97,11 @@ actor_damage_override( inflictor, attacker, damage, flags, meansofdeath, weapon,
 		final_damage *= 2;
 	}
 
+	if(is_true(level.zombie_vars[attacker.team]["zombie_half_damage"]))
+	{
+		final_damage /= 2;
+	}
+
 	if ( is_true( level.headshots_only ) && isDefined( attacker ) && isplayer( attacker ) )
 	{
 		if ( meansofdeath == "MOD_MELEE" && shitloc == "head" || meansofdeath == "MOD_MELEE" && shitloc == "helmet" )
