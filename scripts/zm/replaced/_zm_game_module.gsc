@@ -167,6 +167,9 @@ round_end(winner, force_win)
 		// don't give score back from down
 		player.pers["score"] = player.score;
 
+		// don't spawn tombstone powerup on next down
+		player.hasperkspecialtytombstone = undefined;
+
 		if(is_player_valid(player))
 		{
 			// don't give perk
