@@ -43,13 +43,13 @@ revive_do_revive( playerbeingrevived, revivergun )
 	{
 		self.revivetexthud = newclienthudelem( self );
 	}
-	self thread maps/mp/zombies/_zm_laststand::laststand_clean_up_on_disconnect( playerbeingrevived, revivergun );
+	self thread laststand_clean_up_on_disconnect( playerbeingrevived, revivergun );
 	if ( !isDefined( self.is_reviving_any ) )
 	{
 		self.is_reviving_any = 0;
 	}
 	self.is_reviving_any++;
-	self thread maps/mp/zombies/_zm_laststand::laststand_clean_up_reviving_any( playerbeingrevived );
+	self thread laststand_clean_up_reviving_any( playerbeingrevived );
 	self.reviveprogressbar updatebar( 0.01, 1 / revivetime );
     playerbeingrevived.beingrevivedprogressbar updatebar( 0.01, 1 / revivetime );
 	self.revivetexthud.alignx = "center";
@@ -125,6 +125,52 @@ revive_do_revive( playerbeingrevived, revivergun )
 	return revived;
 }
 
+laststand_clean_up_on_disconnect( playerbeingrevived, revivergun )
+{
+	self endon( "do_revive_ended_normally" );
+
+	revivetrigger = playerbeingrevived.revivetrigger;
+
+	playerbeingrevived waittill( "disconnect" );
+
+	if ( isDefined( revivetrigger ) )
+	{
+		revivetrigger delete();
+	}
+
+	self maps/mp/zombies/_zm_laststand::cleanup_suicide_hud();
+
+	if ( isDefined( self.reviveprogressbar ) )
+	{
+		self.reviveprogressbar destroyelem();
+	}
+
+	if ( isDefined( self.revivetexthud ) )
+	{
+		self.revivetexthud destroy();
+	}
+
+	self maps/mp/zombies/_zm_laststand::revive_give_back_weapons( revivergun );
+}
+
+laststand_clean_up_reviving_any( playerbeingrevived ) //checked changed to match cerberus output
+{
+	self endon( "do_revive_ended_normally" );
+
+	playerbeingrevived waittill_any( "disconnect", "zombified", "stop_revive_trigger" );
+
+	self.is_reviving_any--;
+	if ( self.is_reviving_any < 0 )
+	{
+		self.is_reviving_any = 0;
+	}
+
+	if ( isDefined( playerbeingrevived.beingrevivedprogressbar ) )
+	{
+		playerbeingrevived.beingrevivedprogressbar destroyelem();
+	}
+}
+
 revive_weapon_switch_watcher()
 {
     self endon( "disconnect" );
@@ -144,31 +190,6 @@ revive_weapon_switch_watcher()
     }
 
     self.revive_weapon_switched = 1;
-}
-
-laststand_clean_up_on_disconnect( playerbeingrevived, revivergun )
-{
-	self endon( "do_revive_ended_normally" );
-	revivetrigger = playerbeingrevived.revivetrigger;
-	playerbeingrevived waittill( "disconnect" );
-	if ( isDefined( revivetrigger ) )
-	{
-		revivetrigger delete();
-	}
-	self maps/mp/zombies/_zm_laststand::cleanup_suicide_hud();
-    if ( isDefined( playerbeingrevived.beingrevivedprogressbar ) )
-	{
-		playerbeingrevived.beingrevivedprogressbar destroyelem();
-	}
-	if ( isDefined( self.reviveprogressbar ) )
-	{
-		self.reviveprogressbar destroyelem();
-	}
-	if ( isDefined( self.revivetexthud ) )
-	{
-		self.revivetexthud destroy();
-	}
-	self maps/mp/zombies/_zm_laststand::revive_give_back_weapons( revivergun );
 }
 
 revive_give_back_weapons( gun )
