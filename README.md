@@ -155,6 +155,7 @@
 * Added in solo
 * Added powerup waypoint
 * Powerup no longer removed when revived
+* Powerup removed when downed
 * Unlimited time to pick up powerup
 * Changed powerup fx color to blue
 * Powerup gets destroyed by EMP Grenades

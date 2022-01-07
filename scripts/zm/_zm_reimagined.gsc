@@ -4116,11 +4116,6 @@ disable_sniper_scope_sway()
 
 tombstone_spawn()
 {
-	if(isDefined(self.tombstone_powerup))
-	{
-		self.tombstone_powerup tombstone_delete();
-	}
-
 	dc = spawn( "script_model", self.origin + vectorScale( ( 0, 0, 1 ), 40 ) );
 	dc.angles = self.angles;
 	dc setmodel( "tag_origin" );
@@ -4131,10 +4126,8 @@ tombstone_spawn()
 	dc.icon = dc_icon;
 	dc.script_noteworthy = "player_tombstone_model";
 	dc.player = self;
-	self.tombstone_powerup = dc;
 
 	self thread maps/mp/zombies/_zm_tombstone::tombstone_clear();
-	dc thread tombstone_waypoint();
 	dc thread tombstone_wobble();
 	dc thread tombstone_emp();
 
@@ -4146,6 +4139,7 @@ tombstone_spawn()
 		return;
 	}
 
+	dc thread tombstone_waypoint();
 	dc thread tombstone_timeout();
 	dc thread tombstone_grab();
 }
@@ -4197,33 +4191,14 @@ tombstone_waypoint()
 	hud_elem.x = self.origin[0];
 	hud_elem.y = self.origin[1];
 	hud_elem.z = self.origin[2] + height_offset;
+	hud_elem.alpha = 0.6;
 	hud_elem.hidewheninmenu = 1;
 	hud_elem.fadewhentargeted = 1;
 	hud_elem setWaypoint(1, "specialty_tombstone_zombies");
-	self thread tombstone_waypoint_hide_when_down(hud_elem);
 
 	self waittill_any("tombstone_grabbed", "tombstone_timedout");
 
 	hud_elem destroy();
-}
-
-tombstone_waypoint_hide_when_down(hud_elem)
-{
-	hud_elem endon("death");
-
-	while(1)
-	{
-		result = self.player waittill_any_return("player_downed", "player_revived", "spawned_player");
-
-		if(result == "player_downed")
-		{
-			hud_elem.alpha = 0;
-		}
-		else
-		{
-			hud_elem.alpha = 0.6;
-		}
-	}
 }
 
 tombstone_timeout()
@@ -4232,7 +4207,7 @@ tombstone_timeout()
 
 	self thread maps/mp/zombies/_zm_tombstone::playtombstonetimeraudio();
 
-	self waittill_any("bled_out", "player_suicide");
+	self.player waittill("player_downed");
 
 	self tombstone_delete();
 }
