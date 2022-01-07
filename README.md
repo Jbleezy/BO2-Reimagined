@@ -328,6 +328,7 @@
 * Meleeing enemy players that are crouched pushes 37.5% of the amount when standing
 * Meleeing enemy players that are prone pushes 18.75% of the amount when standing
 * Meleeing enemy players that are already stunned will push them
+* Ballistic knife projectile pushes enemy players
 * Stun fx is linked to the player
 * Stun fx shows in the correct position for projectiles
 * Stunning enemy players steals 100 points from them

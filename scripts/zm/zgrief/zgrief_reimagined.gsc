@@ -1180,7 +1180,7 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 		}
 
 		is_melee = false;
-		if ( isDefined( eattacker ) && isplayer( eattacker ) && eattacker != self && eattacker.team != self.team && smeansofdeath == "MOD_MELEE" )
+		if(isDefined(eattacker) && isplayer(eattacker) && eattacker != self && eattacker.team != self.team && (smeansofdeath == "MOD_MELEE" || issubstr(sweapon, "knife_ballistic")))
 		{
 			is_melee = true;
 			dir = vdir;
