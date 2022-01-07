@@ -1666,6 +1666,17 @@ zombie_damage( mod, hit_location, hit_origin, player, amount, team )
 	self thread maps/mp/zombies/_zm_powerups::check_for_instakill( player, mod, hit_location );
 }
 
+player_suicide()
+{
+	self.playersuicided = 1;
+	self notify( "player_suicide" );
+
+	wait_network_frame();
+
+	self maps/mp/zombies/_zm_laststand::bleed_out();
+	self.playersuicided = undefined;
+}
+
 func_should_drop_meat()
 {
 	players = get_players();
