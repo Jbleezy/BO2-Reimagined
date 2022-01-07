@@ -87,6 +87,7 @@
 ### EMP Grenade
 * No longer disables HUD
 * Disables player's perks for 30 seconds
+* Added fx to EMP'd players
 * Makes downed players bleed out
 * Decreased perk EMP time from 90 seconds to 60 seconds
 * Decreased zombie EMP radius by 30% (same radius as perk EMP)

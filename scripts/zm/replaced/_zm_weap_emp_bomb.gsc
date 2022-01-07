@@ -55,13 +55,32 @@ emp_players(origin, radius, owner)
 
 			if(is_player_valid(player))
 			{
-				player thread player_perk_pause_and_unpause_all_perks(30);
+				time = 30;
+				player thread player_perk_pause_and_unpause_all_perks(time);
+				player thread player_emp_fx(time);
 			}
 			else if(player maps/mp/zombies/_zm_laststand::player_is_in_laststand())
 			{
 				player thread player_suicide();
 			}
 		}
+	}
+}
+
+player_emp_fx(time)
+{
+	self notify("player_emp_fx");
+	self endon("player_emp_fx");
+	self endon("disconnect");
+	self endon("bled_out");
+	self endon("player_suicide");
+
+	wait_time = 3;
+	for(i = 0; i < time; i += wait_time)
+	{
+		playfxontag( level._effect[ "elec_torso" ], self, "J_SpineLower" );
+
+		wait wait_time;
 	}
 }
 
