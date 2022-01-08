@@ -8,6 +8,44 @@ check_quickrevive_for_hotjoin(disconnecting_player)
 	// always use coop quick revive
 }
 
+last_stand_pistol_rank_init()
+{
+	level.pistol_values = [];
+	level.pistol_values[ level.pistol_values.size ] = "m1911_zm";
+	level.pistol_values[ level.pistol_values.size ] = "c96_zm";
+	level.pistol_values[ level.pistol_values.size ] = "cz75_zm";
+	level.pistol_values[ level.pistol_values.size ] = "cz75dw_zm";
+	level.pistol_values[ level.pistol_values.size ] = "kard_zm";
+	level.pistol_values[ level.pistol_values.size ] = "fiveseven_zm";
+	level.pistol_values[ level.pistol_values.size ] = "beretta93r_zm";
+	level.pistol_values[ level.pistol_values.size ] = "beretta93r_extclip_zm";
+	level.pistol_values[ level.pistol_values.size ] = "fivesevendw_zm";
+	level.pistol_values[ level.pistol_values.size ] = "rnma_zm";
+	level.pistol_values[ level.pistol_values.size ] = "python_zm";
+	level.pistol_values[ level.pistol_values.size ] = "judge_zm";
+	level.pistol_values[ level.pistol_values.size ] = "cz75_upgraded_zm";
+	level.pistol_values[ level.pistol_values.size ] = "cz75dw_upgraded_zm";
+	level.pistol_values[ level.pistol_values.size ] = "kard_upgraded_zm";
+	level.pistol_values[ level.pistol_values.size ] = "fiveseven_upgraded_zm";
+	level.pistol_values[ level.pistol_values.size ] = "c96_upgraded_zm";
+	level.pistol_values[ level.pistol_values.size ] = "beretta93r_upgraded_zm";
+	level.pistol_values[ level.pistol_values.size ] = "beretta93r_extclip_upgraded_zm";
+	level.pistol_values[ level.pistol_values.size ] = "fivesevendw_upgraded_zm";
+	level.pistol_values[ level.pistol_values.size ] = "rnma_upgraded_zm";
+	level.pistol_values[ level.pistol_values.size ] = "python_upgraded_zm";
+	level.pistol_values[ level.pistol_values.size ] = "judge_upgraded_zm";
+	level.pistol_values[ level.pistol_values.size ] = "ray_gun_zm";
+	level.pistol_values[ level.pistol_values.size ] = "ray_gun_upgraded_zm";
+	level.pistol_value_solo_replace_below = level.pistol_values.size - 1;
+	level.pistol_values[ level.pistol_values.size ] = "m1911_upgraded_zm";
+	level.pistol_values[ level.pistol_values.size ] = "raygun_mark2_zm";
+	level.pistol_values[ level.pistol_values.size ] = "raygun_mark2_upgraded_zm";
+	level.pistol_values[ level.pistol_values.size ] = "freezegun_zm";
+	level.pistol_values[ level.pistol_values.size ] = "freezegun_upgraded_zm";
+	level.pistol_values[ level.pistol_values.size ] = "microwavegundw_zm";
+	level.pistol_values[ level.pistol_values.size ] = "microwavegundw_upgraded_zm";
+}
+
 actor_damage_override( inflictor, attacker, damage, flags, meansofdeath, weapon, vpoint, vdir, shitloc, psoffsettime, boneindex )
 {
 	if ( !isDefined( self ) || !isDefined( attacker ) )

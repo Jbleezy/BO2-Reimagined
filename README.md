@@ -72,6 +72,9 @@
 ### B23R
 * Changed weapon cost to 900 on all maps
 
+### M1911
+* Upgraded: given as last stand pistol above all others except Ray Gun Mark 2
+
 ### M1927
 * Decreased ammo cost from 800 to 750
 
