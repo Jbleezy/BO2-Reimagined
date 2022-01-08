@@ -332,8 +332,8 @@
 * Decreased stun time of unupgraded weapons from 0.75 seconds to 0.5 seconds
 * Decreased stun time of upgraded weapons rom 0.75 seconds to 0.625 seconds
 * Meleeing enemy players pushes 16.67% farther for every 500 damage that melee weapon deals
-* Meleeing enemy players that are crouched pushes 37.5% of the amount when standing
-* Meleeing enemy players that are prone pushes 18.75% of the amount when standing
+* Meleeing enemy players that are crouched pushes 33.33% of the amount when standing
+* Meleeing enemy players that are prone pushes 16.67% of the amount when standing
 * Meleeing enemy players that are already stunned will push them
 * Ballistic knife projectile pushes enemy players
 * Stun fx is linked to the player

@@ -1330,8 +1330,8 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 		{
 			is_melee = true;
 			dir = vdir;
-			amount = 425; // 48 units
-			amount += (amount / 7) * int(idamage / 500); // 16.67% increase every 500 damage
+			amount = 420; // 48 units
+			amount += (amount / 6.875) * int(idamage / 500); // 16.67% increase every 500 damage
 
 			if(self isOnGround())
 			{
@@ -1340,16 +1340,15 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 
 				if(self getStance() == "crouch")
 				{
-					amount /= 2.25; // 37.5%
+					amount /= 2.4; // 33.33%
 				}
 				else if(self getStance() == "prone")
 				{
-					amount /= 3.5; // 18.75%
+					amount /= 3.75; // 16.67%
 				}
 			}
 
 			dir = vectorNormalize(dir);
-
 			self setVelocity(amount * dir);
 
 			self store_player_damage_info(eattacker, sweapon, smeansofdeath);
