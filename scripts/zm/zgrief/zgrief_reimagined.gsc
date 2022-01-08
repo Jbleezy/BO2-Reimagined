@@ -55,6 +55,7 @@ init()
 
 	level thread grief_score_hud();
 	level thread set_grief_vars();
+	level thread powerup_hud_overlay();
 	level thread round_start_wait(5, true);
 	level thread unlimited_zombies();
 	level thread remove_round_number();
@@ -291,6 +292,139 @@ set_grief_vars()
 	level.zombie_vars["allies"]["zombie_half_damage"] = 0;
 	level.zombie_vars["allies"]["zombie_powerup_half_damage_on"] = 0;
 	level.zombie_vars["allies"]["zombie_powerup_half_damage_time"] = 30;
+}
+
+powerup_hud_overlay()
+{
+	level.active_powerup_hud_array = [];
+	level.active_powerup_hud_array["axis"] = [];
+	level.active_powerup_hud_array["allies"] = [];
+	struct_array = [];
+
+	struct = spawnStruct();
+	struct.on = "zombie_powerup_point_halfer_on";
+	struct.time = "zombie_powerup_point_halfer_time";
+	struct.shader = "specialty_doublepoints_zombies";
+	struct_array[struct_array.size] = struct;
+
+	struct = spawnStruct();
+	struct.on = "zombie_powerup_half_damage_on";
+	struct.time = "zombie_powerup_half_damage_time";
+	struct.shader = "specialty_instakill_zombies";
+	struct_array[struct_array.size] = struct;
+
+	foreach(struct in struct_array)
+	{
+		hudelem = newTeamHudElem("axis");
+		hudelem.hidewheninmenu = 1;
+		hudelem.alignX = "center";
+		hudelem.alignY = "bottom";
+		hudelem.horzAlign = "user_center";
+		hudelem.vertAlign = "user_bottom";
+		hudelem.y = -37;
+		hudelem.color = (0.21, 0, 0);
+		hudelem.alpha = 0;
+		hudelem.team = "axis";
+		hudelem.on_string = struct.on;
+		hudelem.time_string = struct.time;
+		hudelem setShader(struct.shader, 32, 32);
+		hudelem thread powerup_hud_think();
+
+		hudelem = newTeamHudElem("allies");
+		hudelem.hidewheninmenu = 1;
+		hudelem.alignX = "center";
+		hudelem.alignY = "bottom";
+		hudelem.horzAlign = "user_center";
+		hudelem.vertAlign = "user_bottom";
+		hudelem.y = -37;
+		hudelem.color = (0.21, 0, 0);
+		hudelem.alpha = 0;
+		hudelem.team = "allies";
+		hudelem.on_string = struct.on;
+		hudelem.time_string = struct.time;
+		hudelem setShader(struct.shader, 32, 32);
+		hudelem thread powerup_hud_think();
+	}
+}
+
+powerup_hud_think()
+{
+	while(1)
+	{
+		if(level.zombie_vars[self.team][self.time_string] < 5 )
+		{
+			wait(0.1);
+			self fadeOverTime( 0.1 );
+			self.alpha = 0;
+			wait(0.1);
+			self fadeOverTime( 0.1 );
+			self.alpha = 1;
+		}
+		else if(level.zombie_vars[self.team][self.time_string] < 10 )
+		{
+			wait(0.2);
+			self fadeOverTime( 0.2 );
+			self.alpha = 0;
+			wait(0.2);
+			self fadeOverTime( 0.2 );
+			self.alpha = 1;
+		}
+
+		if(level.zombie_vars[self.team][self.on_string])
+		{
+			if(!isInArray(level.active_powerup_hud_array[self.team], self))
+			{
+				level.active_powerup_hud_array[self.team][level.active_powerup_hud_array[self.team].size] = self;
+
+				self thread powerup_hud_move();
+
+				self.alpha = 1;
+			}
+		}
+		else
+		{
+			if(isInArray(level.active_powerup_hud_array[self.team], self))
+			{
+				arrayRemoveValue(level.active_powerup_hud_array[self.team], self);
+
+				self thread powerup_hud_move();
+
+				self thread powerup_fade_over_time();
+			}
+		}
+
+		wait 0.05;
+	}
+}
+
+powerup_hud_move()
+{
+	dist = 37;
+
+	offset_x = dist;
+	if((level.active_powerup_hud_array[self.team].size % 2) == 0)
+	{
+		offset_x /= 2;
+	}
+
+	start_x = int(level.active_powerup_hud_array[self.team].size / 2) * (-1 * offset_x);
+
+	for(i = 0; i < level.active_powerup_hud_array[self.team].size; i++)
+	{
+		level.active_powerup_hud_array[self.team][i] moveOverTime(0.5);
+		level.active_powerup_hud_array[self.team][i].x = start_x + (i * dist);
+	}
+}
+
+powerup_fade_over_time()
+{
+	wait 0.1;
+
+	if(!level.zombie_vars[self.team][self.on_string])
+	{
+		self fadeOverTime( 0.5 );
+		self.alpha = 0;
+	}
 }
 
 player_spawn_override()
