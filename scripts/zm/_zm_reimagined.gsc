@@ -188,6 +188,7 @@ post_all_players_spawned()
 	level.playersuicideallowed = undefined;
 	level.disable_free_perks_before_power = undefined;
 	level.custom_random_perk_weights = undefined;
+	level.callbackplayerdamage = scripts/zm/replaced/_zm::callback_playerdamage;
 	level.etrap_damage = maps/mp/zombies/_zm::ai_zombie_health( 255 );
 	level.slipgun_damage = maps/mp/zombies/_zm::ai_zombie_health( 255 );
 	level.tombstone_spawn_func = ::tombstone_spawn;
