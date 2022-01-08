@@ -120,6 +120,16 @@ actor_damage_override( inflictor, attacker, damage, flags, meansofdeath, weapon,
 
 	attacker thread maps/mp/gametypes_zm/_weapons::checkhit( weapon );
 
+	if(weapon == "ray_gun_zm" && meansofdeath == "MOD_PROJECTILE")
+	{
+		final_damage = 1500;
+	}
+
+	if(weapon == "ray_gun_upgraded_zm" && meansofdeath == "MOD_PROJECTILE")
+	{
+		final_damage = 2000;
+	}
+
 	if(maps/mp/zombies/_zm_weapons::get_base_weapon_name(weapon, 1) == "saritch_zm")
 	{
 		final_damage *= 2;

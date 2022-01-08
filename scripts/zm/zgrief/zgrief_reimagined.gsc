@@ -1772,7 +1772,7 @@ zombie_damage( mod, hit_location, hit_origin, player, amount, team )
 			self dodamage( damage, self.origin, undefined, self, hit_location, modname );
 		}
 	}
-	else if ( mod != "MOD_PROJECTILE" || mod == "MOD_EXPLOSIVE" && mod == "MOD_PROJECTILE_SPLASH" )
+	else if ( mod == "MOD_PROJECTILE" || mod == "MOD_PROJECTILE_SPLASH" || mod == "MOD_EXPLOSIVE" )
 	{
 		damage = 1000;
 		if ( isDefined( player ) && isalive( player ) )
@@ -1968,4 +1968,9 @@ spawn_bots(num)
 			level.bots[i] = addtestclient();
 		}
 	}
+
+	flag_wait( "initial_blackscreen_passed" );
+
+	player giveWeapon("ray_gun_zm");
+	player giveMaxAmmo("ray_gun_zm");
 }

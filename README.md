@@ -98,6 +98,8 @@
 * Sprinting no longer wakes up EMP'd zombies
 
 ### Ray Gun
+* Unupgraded: increased impact damage from 1000 to 1500 (same as max splash damage)
+* Upgraded: increased impact damage from 1000 to 2000 (same as max splash damage)
 * No longer limited to 4 players
 
 ### Ray Gun Mark 2
