@@ -52,13 +52,7 @@ full_ammo_powerup( drop_item, player )
 
 	if(level.scr_zm_ui_gametype == "zgrief")
 	{
-		other_team = "axis";
-		if(player.team == other_team)
-		{
-			other_team = "allies";
-		}
-
-		level thread empty_clip_powerup( drop_item, other_team );
+		level thread empty_clip_powerup( drop_item, getOtherTeam(player.team) );
 	}
 }
 
@@ -206,13 +200,7 @@ nuke_powerup( drop_item, player_team )
 
 	if(level.scr_zm_ui_gametype == "zgrief")
 	{
-		other_team = "axis";
-		if(player_team == other_team)
-		{
-			other_team = "allies";
-		}
-
-		players = get_players(other_team);
+		players = get_players(getOtherTeam(player_team));
 		for(i = 0; i < players.size; i++)
 		{
 			if(is_player_valid(players[i]))
@@ -242,13 +230,7 @@ insta_kill_powerup( drop_item, player )
 
 	if(level.scr_zm_ui_gametype == "zgrief")
 	{
-		other_team = "axis";
-		if(other_team == team)
-		{
-			other_team = "allies";
-		}
-
-		level thread half_damage_powerup( drop_item, other_team );
+		level thread half_damage_powerup( drop_item, getOtherTeam(team) );
 	}
 
 	level thread maps/mp/zombies/_zm_powerups::insta_kill_on_hud( drop_item, team );
@@ -309,13 +291,7 @@ double_points_powerup( drop_item, player )
 
 	if(level.scr_zm_ui_gametype == "zgrief")
 	{
-		other_team = "axis";
-		if(other_team == team)
-		{
-			other_team = "allies";
-		}
-
-		level thread half_points_powerup( drop_item, other_team );
+		level thread half_points_powerup( drop_item, getOtherTeam(team) );
 	}
 
 	if(!level.zombie_vars[ team ][ "zombie_powerup_point_doubler_on" ])
