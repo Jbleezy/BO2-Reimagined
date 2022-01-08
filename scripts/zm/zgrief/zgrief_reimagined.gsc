@@ -1968,9 +1968,4 @@ spawn_bots(num)
 			level.bots[i] = addtestclient();
 		}
 	}
-
-	flag_wait( "initial_blackscreen_passed" );
-
-	player giveWeapon("ray_gun_zm");
-	player giveMaxAmmo("ray_gun_zm");
 }
