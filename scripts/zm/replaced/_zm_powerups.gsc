@@ -78,6 +78,8 @@ empty_clip_powerup( drop_item, player_team )
 		foreach(weapon in primaries)
 		{
 			players[i] setweaponammoclip(weapon, 0);
+			players[i] setweaponammoclip(weaponDualWieldWeaponName(weapon), 0);
+			players[i] setweaponammoclip(weaponAltWeaponName(weapon), 0);
 		}
 
 		i++;
