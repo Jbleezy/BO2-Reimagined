@@ -508,7 +508,10 @@ zone_hud()
 
 	flag_wait( "initial_blackscreen_passed" );
 
-	prev_zone = "";
+	prev_zone = self get_zone_name();
+	zone_hud settext(prev_zone);
+	zone_hud.alpha = 1;
+
 	while (1)
 	{
 		zone = self get_zone_name();
