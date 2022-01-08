@@ -7,6 +7,7 @@
 main()
 {
 	replaceFunc(maps/mp/zombies/_zm_ai_brutus::brutus_health_increases, scripts/zm/replaced/_zm_ai_brutus::brutus_health_increases);
+	replaceFunc(maps/mp/zombies/_zm_ai_brutus::brutus_cleanup_at_end_of_grief_round, scripts/zm/replaced/_zm_ai_brutus::brutus_cleanup_at_end_of_grief_round);
 }
 
 init()

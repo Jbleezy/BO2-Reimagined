@@ -31,3 +31,8 @@ brutus_health_increases()
 		level.brutus_last_spawn_round = level.round_number;
 	}
 }
+
+brutus_cleanup_at_end_of_grief_round()
+{
+	// stays on map
+}
