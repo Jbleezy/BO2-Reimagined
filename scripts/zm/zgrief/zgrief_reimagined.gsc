@@ -755,6 +755,7 @@ add_grief_bleedout_score()
 
 headstomp_watcher()
 {
+	level endon("end_game");
 	self endon("disconnect");
 
 	while(1)
@@ -796,6 +797,7 @@ headstomp_watcher()
 
 smoke_grenade_cluster_watcher()
 {
+	level endon("end_game");
 	self endon("disconnect");
 
 	while(1)
