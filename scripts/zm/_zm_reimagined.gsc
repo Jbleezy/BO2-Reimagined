@@ -548,7 +548,7 @@ get_zone_name()
 
 	name = zone;
 
-	if (level.script == "zm_transit")
+	if (level.script == "zm_transit" || level.script == "zm_transit_dr")
 	{
 		if (zone == "zone_pri")
 		{
