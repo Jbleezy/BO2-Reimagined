@@ -4310,7 +4310,16 @@ tombstone_give()
 		return ;
 	}
 
-	self takeAllWeapons(); // fixes player always having knife_zm
+	primary_weapons = self getWeaponsListPrimaries();
+	foreach(weapon in primary_weapons)
+	{
+		self takeWeapon(weapon);
+	}
+
+	self takeWeapon(self get_player_melee_weapon());
+	self takeWeapon(self get_player_lethal_grenade());
+	self takeWeapon(self get_player_tactical_grenade());
+	self takeWeapon(self get_player_placeable_mine());
 
 	primary_weapons_returned = 0;
 	i = 0;
@@ -4424,22 +4433,26 @@ tombstone_give()
 		}
 	}
 
-	primaries = self getweaponslistprimaries();
-	switched = 0;
-	foreach ( weapon in primaries )
+	current_wep = self getCurrentWeapon();
+	if(!isSubStr(current_wep, "perk_bottle") && !isSubStr(current_wep, "knuckle_crack") && !isSubStr(current_wep, "flourish"))
 	{
-		if ( isDefined( self.tombstone_savedweapon_currentweapon ) && self.tombstone_savedweapon_currentweapon == weapon )
+		switched = 0;
+		primaries = self getweaponslistprimaries();
+		foreach ( weapon in primaries )
 		{
-			switched = 1;
-			self switchtoweapon( weapon );
+			if ( isDefined( self.tombstone_savedweapon_currentweapon ) && self.tombstone_savedweapon_currentweapon == weapon )
+			{
+				switched = 1;
+				self switchtoweapon( weapon );
+			}
 		}
-	}
 
-	if(!switched)
-	{
-		if ( primaries.size > 0 )
+		if(!switched)
 		{
-			self switchtoweapon( primaries[ 0 ] );
+			if ( primaries.size > 0 )
+			{
+				self switchtoweapon( primaries[ 0 ] );
+			}
 		}
 	}
 
