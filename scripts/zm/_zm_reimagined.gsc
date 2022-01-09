@@ -3,6 +3,7 @@
 #include maps\mp\zombies\_zm_utility;
 #include maps\mp\gametypes_zm\_hud_util;
 
+#include scripts/zm/replaced/utility;
 #include scripts/zm/replaced/_zm;
 #include scripts/zm/replaced/_zm_playerhealth;
 #include scripts/zm/replaced/_zm_utility;
@@ -18,6 +19,7 @@
 
 main()
 {
+	replaceFunc(common_scripts/utility::struct_class_init, scripts/zm/replaced/utility::struct_class_init);
 	replaceFunc(maps/mp/zombies/_zm::check_quickrevive_for_hotjoin, scripts/zm/replaced/_zm::check_quickrevive_for_hotjoin);
 	replaceFunc(maps/mp/zombies/_zm::last_stand_pistol_rank_init, scripts/zm/replaced/_zm::last_stand_pistol_rank_init);
 	replaceFunc(maps/mp/zombies/_zm::actor_damage_override, scripts/zm/replaced/_zm::actor_damage_override);
