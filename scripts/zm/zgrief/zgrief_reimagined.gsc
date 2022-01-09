@@ -849,6 +849,14 @@ round_start_wait(time, initial)
 
 		flag_wait("initial_blackscreen_passed");
 	}
+	else
+	{
+		players = get_players();
+		foreach(player in players)
+		{
+			player setPlayerAngles(player.spectator_respawn.angles); // fixes angles if player was looking around while spawning in
+		}
+	}
 
 	level thread zombie_spawn_wait(time + 10);
 
