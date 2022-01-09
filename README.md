@@ -186,11 +186,17 @@
 
 ## Powerups
 
-### Carpenter
-* Removed
+### Insta Kill
+* Grabbing while already active adds 30 seconds to timer instead of resetting timer to 30 seconds
+
+### Double Points
+* Grabbing while already active adds 30 seconds to timer instead of resetting timer to 30 seconds
 
 ### Nuke
 * Kills all zombies instantly
+
+### Carpenter
+* Removed
 
 ### Meat
 * Able to drop when players are down
