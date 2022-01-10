@@ -42,6 +42,7 @@ main()
     treasure_chest_init();
 	init_wallbuys();
 	init_barriers();
+    disable_zombie_spawn_locations();
 	scripts/zm/locs/common::common_init();
 }
 
@@ -67,4 +68,43 @@ init_barriers()
 	collision = spawn( "script_model", ( -5000, -6700, 0 ), 1 );
 	collision setmodel( "zm_collision_transit_diner_survival" );
 	collision disconnectpaths();
+}
+
+disable_zombie_spawn_locations()
+{
+	for ( z = 0; z < level.zone_keys.size; z++ )
+	{
+		zone = level.zones[ level.zone_keys[ z ] ];
+
+        i = 0;
+        while ( i < zone.spawn_locations.size )
+        {
+            if ( zone.spawn_locations[ i ].targetname == "zone_trans_diner_spawners")
+            {
+                zone.spawn_locations[ i ].is_enabled = false;
+            }
+            else if ( zone.spawn_locations[ i ].targetname == "zone_trans_diner2_spawners")
+            {
+                zone.spawn_locations[ i ].is_enabled = false;
+            }
+            else if ( zone.spawn_locations[ i ].origin == ( -3825, -6576, -52.7 ) )
+            {
+                zone.spawn_locations[ i ].is_enabled = false;
+            }
+            else if ( zone.spawn_locations[ i ].origin == ( -5130, -6512, -35.4 ) )
+            {
+                zone.spawn_locations[ i ].is_enabled = false;
+            }
+            else if ( zone.spawn_locations[ i ].origin == ( -6462, -7159, -64 ) )
+            {
+                zone.spawn_locations[ i ].is_enabled = false;
+            }
+            else if ( zone.spawn_locations[ i ].origin == ( -6531, -6613, -54.4 ) )
+            {
+                zone.spawn_locations[ i ].is_enabled = false;
+            }
+
+            i++;
+		}
+	}
 }
