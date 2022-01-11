@@ -12,6 +12,7 @@
 #include scripts/zm/replaced/_zm_weapons;
 #include scripts/zm/replaced/_zm_magicbox;
 #include scripts/zm/replaced/_zm_perks;
+#include scripts/zm/replaced/_zm_power;
 #include scripts/zm/replaced/_zm_powerups;
 #include scripts/zm/replaced/_zm_pers_upgrades;
 #include scripts/zm/replaced/_zm_equipment;
@@ -40,6 +41,8 @@ main()
 	replaceFunc(maps/mp/zombies/_zm_magicbox::timer_til_despawn, scripts/zm/replaced/_zm_magicbox::timer_til_despawn);
 	replaceFunc(maps/mp/zombies/_zm_perks::perk_pause, scripts/zm/replaced/_zm_perks::perk_pause);
 	replaceFunc(maps/mp/zombies/_zm_perks::destroy_weapon_in_blackout, scripts/zm/replaced/_zm_perks::destroy_weapon_in_blackout);
+	replaceFunc(maps/mp/zombies/_zm_perks::give_perk, scripts/zm/replaced/_zm_perks::give_perk);
+	replaceFunc(maps/mp/zombies/_zm_power::standard_powered_items, scripts/zm/replaced/_zm_power::standard_powered_items);
 	replaceFunc(maps/mp/zombies/_zm_powerups::full_ammo_powerup, scripts/zm/replaced/_zm_powerups::full_ammo_powerup);
 	replaceFunc(maps/mp/zombies/_zm_powerups::nuke_powerup, scripts/zm/replaced/_zm_powerups::nuke_powerup);
 	replaceFunc(maps/mp/zombies/_zm_powerups::insta_kill_powerup, scripts/zm/replaced/_zm_powerups::insta_kill_powerup);
@@ -100,6 +103,8 @@ onplayerspawned()
 			self bank_clear_account_value();
 			self weapon_locker_clear_stored_weapondata();
 
+			self thread give_solo_lives();
+
 			self thread health_bar_hud();
 			self thread bleedout_bar_hud();
 			self thread zone_hud();
@@ -109,8 +114,6 @@ onplayerspawned()
 			self thread fall_velocity_check();
 
 			self thread melee_weapon_switch_watcher();
-
-			self thread solo_lives_fix();
 
 			self thread give_additional_perks();
 
@@ -190,6 +193,8 @@ post_all_players_spawned()
 	level.disable_free_perks_before_power = undefined;
 	level.custom_random_perk_weights = undefined;
 	level.callbackplayerdamage = scripts/zm/replaced/_zm::callback_playerdamage;
+	level.overrideplayerdamage = scripts/zm/replaced/_zm::player_damage_override;
+	level.playerlaststand_func = scripts/zm/replaced/_zm::player_laststand;
 	level.etrap_damage = maps/mp/zombies/_zm::ai_zombie_health( 255 );
 	level.slipgun_damage = maps/mp/zombies/_zm::ai_zombie_health( 255 );
 	level.tombstone_spawn_func = ::tombstone_spawn;
@@ -215,8 +220,6 @@ post_all_players_spawned()
 	level thread buildcraftables();
 
 	level thread zombie_health_fix();
-
-	level thread solo_revive_trigger_fix();
 
 	level thread wallbuy_dynamic_update();
 
@@ -256,6 +259,16 @@ set_perks()
 {
 	self setperk( "specialty_unlimitedsprint" );
 	self setperk( "specialty_fastmantle" );
+}
+
+give_solo_lives()
+{
+	flag_wait( "initial_players_connected" );
+
+	if(flag("solo_game"))
+	{
+		self.lives = 3;
+	}
 }
 
 health_bar_hud()
@@ -3747,325 +3760,6 @@ give_additional_perks()
 			self Unsetperk( "specialty_movefaster" );
 		}
 	}
-}
-
-solo_lives_fix()
-{
-	self endon("disconnect");
-
-	if (!(is_classic() || is_standard()))
-	{
-		return;
-	}
-
-	if (isDefined(level.zombiemode_using_afterlife) && level.zombiemode_using_afterlife)
-	{
-		return;
-	}
-
-	flag_wait( "start_zombie_round_logic" );
-
-	if (!flag("solo_game"))
-	{
-		return;
-	}
-
-	self.lives = 3;
-	self.bought_solo_revive = 0;
-	saved_lives = self.lives;
-
-	while (1)
-	{
-		self waittill_any("perk_acquired", "perk_lost", "player_revived");
-
-		if (self hasPerk("specialty_finalstand"))
-		{
-			// fix for Who's Who giving Quick Revive when player hasn't purchased actual Quick Revive
-			if (!self.bought_solo_revive)
-			{
-				self unsetPerk("specialty_quickrevive");
-			}
-
-			self waittill("fake_revive");
-
-			has_revive = 0;
-			foreach (perk in self.loadout.perks)
-			{
-				if (perk == "specialty_quickrevive")
-				{
-					has_revive = 1;
-					break;
-				}
-			}
-
-			self waittill("chugabud_effects_cleanup");
-
-			still_has_revive = 0;
-			foreach (perk in self.perks_active)
-			{
-				if (perk == "specialty_quickrevive")
-				{
-					still_has_revive = 1;
-					break;
-				}
-			}
-
-			// fix to remove a solo revive if auto revived from Who's Who due to having Quick Revive
-			if (has_revive && !still_has_revive && saved_lives > 0)
-			{
-				saved_lives--;
-			}
-
-			// fix for Who's Who removing solo revives
-			self.lives = saved_lives;
-		}
-
-		saved_lives = self.lives;
-
-		if (self.perks_active.size < 1)
-		{
-			self unsetPerk("specialty_quickrevive");
-			self.bought_solo_revive = 0;
-			continue;
-		}
-
-		self setPerk("specialty_quickrevive");
-
-		has_revive = 0;
-		foreach (perk in self.perks_active)
-		{
-			if (perk == "specialty_quickrevive")
-			{
-				has_revive = 1;
-				break;
-			}
-		}
-
-		self.bought_solo_revive = has_revive;
-	}
-}
-
-solo_revive_trigger_fix()
-{
-	if (!(is_classic() || is_standard()))
-	{
-		return;
-	}
-
-	if (isDefined(level.zombiemode_using_afterlife) && level.zombiemode_using_afterlife)
-	{
-		return;
-	}
-
-	flag_wait( "start_zombie_round_logic" );
-
-	if (!flag("solo_game"))
-	{
-		return;
-	}
-
-	if (level.script == "zm_nuked")
-	{
-		while (!isDefined(level.revive_machine_spawned) || !level.revive_machine_spawned)
-		{
-			wait 0.05;
-		}
-	}
-
-	revive_triggers = getentarray("specialty_quickrevive", "script_noteworthy");
-	foreach (trig in revive_triggers)
-	{
-		new_trig = spawn( "trigger_radius_use", trig.origin, 0, 40, 70 );
-		new_trig.targetname = trig.targetname;
-		new_trig.script_noteworthy = trig.script_noteworthy;
-		new_trig triggerignoreteam();
-		new_trig.clip = trig.clip;
-		new_trig.machine = trig.machine;
-		new_trig.bump = trig.bump;
-		new_trig.blocker_model = trig.blocker_model;
-		new_trig.script_int = trig.script_int;
-		new_trig.turn_on_notify = trig.turn_on_notify;
-		new_trig.script_sound = trig.script_sound;
-		new_trig.script_string = trig.script_string;
-		new_trig.script_label = trig.script_label;
-		new_trig.target = trig.target;
-
-		if (is_classic() && level.scr_zm_map_start_location == "tomb")
-		{
-			new_trig.str_zone_name = trig.str_zone_name;
-			level.zone_capture.zones[trig.str_zone_name].perk_machines["revive"] = new_trig;
-			level.zone_capture.zones[trig.str_zone_name].perk_fx_func = undefined;
-		}
-
-		trig delete();
-
-		new_trig thread solo_revive_trigger_think();
-		new_trig thread maps/mp/zombies/_zm_perks::electric_perks_dialog();
-
-		powered_on = maps/mp/zombies/_zm_perks::get_perk_machine_start_state( new_trig.script_noteworthy );
-		power_struct = maps/mp/zombies/_zm_power::add_powered_item( maps/mp/zombies/_zm_power::perk_power_on, ::perk_power_off_solo_revive, maps/mp/zombies/_zm_power::perk_range, maps/mp/zombies/_zm_power::cost_low_if_local, 0, powered_on, new_trig );
-	}
-}
-
-solo_revive_trigger_think()
-{
-	self endon( "death" );
-
-	wait 0.01;
-	perk = self.script_noteworthy;
-	solo = 0;
-	start_on = 0;
-	level.revive_machine_is_solo = 0;
-
-	self sethintstring( &"ZOMBIE_NEED_POWER" );
-	self setcursorhint( "HINT_NOICON" );
-	self usetriggerrequirelookat();
-	cost = 1500;
-	self.cost = cost;
-
-	if ( !start_on )
-	{
-		notify_name = perk + "_power_on";
-		level waittill( notify_name );
-	}
-
-	if ( !isDefined( level._perkmachinenetworkchoke ) )
-	{
-		level._perkmachinenetworkchoke = 0;
-	}
-	else
-	{
-		level._perkmachinenetworkchoke++;
-	}
-
-	i = 0;
-	while ( i < level._perkmachinenetworkchoke )
-	{
-		wait_network_frame();
-		i++;
-	}
-
-	self thread maps/mp/zombies/_zm_audio::perks_a_cola_jingle_timer();
-	self thread check_player_has_solo_revive( perk );
-	self sethintstring( &"ZOMBIE_PERK_QUICKREVIVE", cost );
-
-	for ( ;; )
-	{
-		self waittill( "trigger", player );
-		index = maps/mp/zombies/_zm_weapons::get_player_index( player );
-		if ( player maps/mp/zombies/_zm_laststand::player_is_in_laststand() || isDefined( player.intermission ) && player.intermission )
-		{
-			continue;
-		}
-		else
-		{
-			if ( player in_revive_trigger() )
-			{
-				continue;
-			}
-			else if ( !player maps/mp/zombies/_zm_magicbox::can_buy_weapon() )
-			{
-				wait 0.1;
-				continue;
-			}
-			else if ( player isthrowinggrenade() )
-			{
-				wait 0.1;
-				continue;
-			}
-			else if ( player isswitchingweapons() )
-			{
-				wait 0.1;
-				continue;
-			}
-			else if ( player.is_drinking > 0 )
-			{
-				wait 0.1;
-				continue;
-			}
-			else if ( player.bought_solo_revive )
-			{
-				self playsound( "deny" );
-				player maps/mp/zombies/_zm_audio::create_and_play_dialog( "general", "perk_deny", undefined, 1 );
-				continue;
-			}
-			else if ( isDefined( level.custom_perk_validation ) )
-			{
-				valid = self [[ level.custom_perk_validation ]]( player );
-				if ( !valid )
-				{
-					continue;
-				}
-			}
-
-			current_cost = cost;
-			if ( player maps/mp/zombies/_zm_pers_upgrades_functions::is_pers_double_points_active() )
-			{
-				current_cost = player maps/mp/zombies/_zm_pers_upgrades_functions::pers_upgrade_double_points_cost( current_cost );
-			}
-
-			if ( player.score < current_cost )
-			{
-				self playsound( "evt_perk_deny" );
-				player maps/mp/zombies/_zm_audio::create_and_play_dialog( "general", "perk_deny", undefined, 0 );
-				continue;
-			}
-			else if ( player.num_perks >= player get_player_perk_purchase_limit() )
-			{
-				self playsound( "evt_perk_deny" );
-				player maps/mp/zombies/_zm_audio::create_and_play_dialog( "general", "sigh" );
-				continue;
-			}
-			else
-			{
-				sound = "evt_bottle_dispense";
-				playsoundatposition( sound, self.origin );
-				player maps/mp/zombies/_zm_score::minus_to_player_score( current_cost, 1 );
-				player.perk_purchased = perk;
-				self thread maps/mp/zombies/_zm_audio::play_jingle_or_stinger( self.script_label );
-				self thread maps/mp/zombies/_zm_perks::vending_trigger_post_think( player, perk );
-			}
-		}
-	}
-}
-
-check_player_has_solo_revive( perk )
-{
-	self endon( "death" );
-
-	dist = 16384;
-	while ( 1 )
-	{
-		players = get_players();
-		foreach (player in players)
-		{
-			if ( distancesquared( player.origin, self.origin ) < dist )
-			{
-				if ( !player.bought_solo_revive && !player in_revive_trigger() && !is_equipment_that_blocks_purchase( player getcurrentweapon() ) && !player hacker_active() )
-				{
-					self setinvisibletoplayer( player, 0 );
-				}
-				else
-				{
-					self setinvisibletoplayer( player, 1 );
-				}
-			}
-		}
-
-		wait 0.05;
-	}
-}
-
-perk_power_off_solo_revive(origin, radius)
-{
-	self.target notify( "death" );
-	self.target thread maps/mp/zombies/_zm_perks::vending_trigger_think();
-	if ( isDefined( self.target.perk_hum ) )
-	{
-		self.target.perk_hum delete();
-	}
-	maps/mp/zombies/_zm_perks::perk_pause( self.target.script_noteworthy );
-	level notify( self.target maps/mp/zombies/_zm_perks::getvendingmachinenotify() + "_off" );
 }
 
 disable_sniper_scope_sway()

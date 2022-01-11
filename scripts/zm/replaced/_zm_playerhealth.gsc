@@ -61,23 +61,7 @@ playerhealthregen()
 		regularregendelay = 2000;
 		longregendelay = 4000;
 
-		has_revive = 0;
-		if (flag("solo_game"))
-		{
-			if (isDefined(self.bought_solo_revive) && self.bought_solo_revive)
-			{
-				has_revive = 1;
-			}
-		}
-		else
-		{
-			if (self hasPerk("specialty_quickrevive"))
-			{
-				has_revive = 1;
-			}
-		}
-
-		if (has_revive)
+		if (self hasPerk("specialty_quickrevive"))
 		{
 			regenrate *= 1.25;
 			regularregendelay *= 0.75;
