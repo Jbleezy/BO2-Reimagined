@@ -19,9 +19,9 @@ chugabud_bleed_timeout( delay, corpse )
 		}
 	}
 
-    if ( flag( "solo_game" ) && self.lives > 0 && isDefined( self.loadout.perks ) && self.loadout.perks.size > 0 )
+    if ( flag( "solo_game" ) && self.solo_lives_given < 3 )
 	{
-        self.lives--;
+        self.solo_lives_given++;
         corpse notify( "player_revived" );
         return;
     }

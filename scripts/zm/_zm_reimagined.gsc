@@ -98,12 +98,11 @@ onplayerspawned()
 		{
 			self.initial_spawn = false;
 
+			self.solo_lives_given = 0;
 			self.screecher_seen_hint = 1;
 
 			self bank_clear_account_value();
 			self weapon_locker_clear_stored_weapondata();
-
-			self thread give_solo_lives();
 
 			self thread health_bar_hud();
 			self thread bleedout_bar_hud();
@@ -139,7 +138,7 @@ onplayerspawned()
 
 			//self thread test();
 
-			//self.score = 1000000;
+			self.score = 1000000;
 			//maps/mp/zombies/_zm_perks::give_perk( "specialty_armorvest", 0 );
 			//self GiveWeapon("dsr50_zm");
 			//self GiveMaxAmmo("dsr50_zm");
@@ -259,16 +258,6 @@ set_perks()
 {
 	self setperk( "specialty_unlimitedsprint" );
 	self setperk( "specialty_fastmantle" );
-}
-
-give_solo_lives()
-{
-	flag_wait( "initial_players_connected" );
-
-	if(flag("solo_game"))
-	{
-		self.lives = 3;
-	}
 }
 
 health_bar_hud()

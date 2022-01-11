@@ -610,7 +610,7 @@ player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, 
 	}
 	if ( count < players.size || isDefined( level._game_module_game_end_check ) && ![[ level._game_module_game_end_check ]]() )
 	{
-		if ( isDefined( self.lives ) && self.lives > 0 && is_true( level.force_solo_quick_revive ) && self hasperk( "specialty_quickrevive" ) )
+		if ( isDefined( self.solo_lives_given ) && self.solo_lives_given < 3 && is_true( level.force_solo_quick_revive ) && self hasperk( "specialty_quickrevive" ) )
 		{
 			self thread maps/mp/zombies/_zm::wait_and_revive();
 		}
@@ -679,7 +679,7 @@ is_solo_death( self, players )
 {
 	if ( players.size == 1 && flag( "solo_game" ) )
 	{
-		if(self.lives == 0)
+		if(self.solo_lives_given >= 3)
 		{
 			return 1;
 		}
@@ -737,7 +737,7 @@ player_laststand( einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, s
 	players = get_players();
 	if ( players.size == 1 && flag( "solo_game" ) )
 	{
-		if ( self.lives > 0 )
+		if ( self.solo_lives_given < 3 )
 		{
 			active_perks = 0;
 			if(isDefined(self.perks_active))
@@ -862,7 +862,7 @@ wait_and_revive()
 	}
 	flag_clear( "wait_and_revive" );
 	self maps/mp/zombies/_zm_laststand::auto_revive( self );
-	self.lives--;
+	self.solo_lives_given++;
 
 	self.waiting_to_revive = 0;
 	if ( is_true( self.pers_upgrades_awarded[ "perk_lose" ] ) )

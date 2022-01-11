@@ -53,7 +53,7 @@ insta_kill_player( perks_can_respawn_player, kill_if_falling )
 		self thread blood_splat();
 		if ( getnumconnectedplayers() == 1 )
 		{
-			if ( isDefined( self.lives ) && self.lives > 0 )
+			if ( isDefined( self.solo_lives_given ) && self.solo_lives_given < 3 )
 			{
 				self.waiting_to_revive = 1;
 				points = getstruct( "zone_green_start", "script_noteworthy" );
