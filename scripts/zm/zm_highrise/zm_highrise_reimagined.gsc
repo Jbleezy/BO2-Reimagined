@@ -2,6 +2,15 @@
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 
+#include scripts/zm/replaced/zm_highrise_classic;
+#include scripts/zm/replaced/_zm_chugabud;
+
+main()
+{
+	replaceFunc(maps/mp/zm_highrise_classic::insta_kill_player, scripts/zm/replaced/zm_highrise_classic::insta_kill_player);
+	replaceFunc(maps/mp/zombies/_zm_chugabud::chugabud_bleed_timeout, scripts/zm/replaced/_zm_chugabud::chugabud_bleed_timeout);
+}
+
 init()
 {
     level thread elevator_solo_revive_fix();
