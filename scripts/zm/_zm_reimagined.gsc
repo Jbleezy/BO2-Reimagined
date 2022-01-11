@@ -179,7 +179,6 @@ post_all_players_spawned()
 	level.limited_weapons["ray_gun_zm"] = undefined;
 	level.limited_weapons["raygun_mark2_zm"] = 1;
 	level.zombie_vars["emp_stun_range"] = 420;
-	level.zombie_vars["emp_perk_off_time"] = 60;
 	//level.zombies_vars["jetgun_grind_range"] = 256; // TODO: get this to work
 	level.zombie_vars["slipgun_reslip_rate"] = 0;
 	level.zombie_equipment["jetgun_zm"].drop_fn = undefined;
