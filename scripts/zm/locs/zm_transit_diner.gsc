@@ -58,7 +58,7 @@ treasure_chest_init()
 init_wallbuys()
 {
 	scripts/zm/replaced/utility::wallbuy( ( 0, 0, 0 ), ( -5085, -7807, -5 ), "rottweil72_zm_fx", "rottweil72_zm", "t6_wpn_shotty_olympia_world", "olympia", "weapon_upgrade" );
-    scripts/zm/replaced/utility::wallbuy( (0, 90, 0 ), ( -4578, -7748, 18 ), "m14_zm_fx", "m14_zm", "t6_wpn_ar_m14_world", "m14", "weapon_upgrade" );
+    scripts/zm/replaced/utility::wallbuy( (0, 90, 0 ), ( -4576, -7748, 18 ), "m14_zm_fx", "m14_zm", "t6_wpn_ar_m14_world", "m14", "weapon_upgrade" );
 	scripts/zm/replaced/utility::wallbuy( ( 0, 1, 0 ), ( -5489, -7982.7, 62 ), "mp5k_zm_fx", "mp5k_zm", "t6_wpn_smg_mp5_world", "mp5", "weapon_upgrade" );
 }
 
