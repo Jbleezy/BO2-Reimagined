@@ -169,23 +169,23 @@ register_map_initial_spawnpoint( spawnpoint_coordinates, spawnpoint_angles )
 
 wallbuy( weapon_angles, weapon_coordinates, chalk_fx, weapon_name, weapon_model, target, targetname )
 {
-	tempmodel = spawn( "script_model", ( 0, 0, 0 ) );
 	precachemodel( weapon_model );
 	unitrigger_stub = spawnstruct();
 	unitrigger_stub.origin = weapon_coordinates;
 	unitrigger_stub.angles = weapon_angles;
-	tempmodel.origin = weapon_coordinates;
-	tempmodel.angles = weapon_angles;
+	// move model foreward so it always shows in front of chalk
+	wallmodel = spawn_weapon_model( weapon_name, undefined, weapon_coordinates + anglesToRight(weapon_angles) * -0.4, weapon_angles );
+	wallmodel.targetname = target;
 	mins = undefined;
 	maxs = undefined;
 	absmins = undefined;
 	absmaxs = undefined;
-	tempmodel setmodel( weapon_model );
-	tempmodel useweaponhidetags( weapon_name );
-	mins = tempmodel getmins();
-	maxs = tempmodel getmaxs();
-	absmins = tempmodel getabsmins();
-	absmaxs = tempmodel getabsmaxs();
+	wallmodel setmodel( weapon_model );
+	wallmodel useweaponhidetags( weapon_name );
+	mins = wallmodel getmins();
+	maxs = wallmodel getmaxs();
+	absmins = wallmodel getabsmins();
+	absmaxs = wallmodel getabsmaxs();
 	bounds = absmaxs - absmins;
 	unitrigger_stub.script_length = bounds[ 0 ] * 0.25;
 	unitrigger_stub.script_width = bounds[ 1 ];
@@ -237,7 +237,7 @@ wallbuy( weapon_angles, weapon_coordinates, chalk_fx, weapon_name, weapon_model,
 		unitrigger_stub.prompt_and_visibility_func = ::wall_weapon_update_prompt;
 		maps/mp/zombies/_zm_unitrigger::register_static_unitrigger( unitrigger_stub, ::weapon_spawn_think );
 	}
-	tempmodel delete();
+	wallmodel hide();
 	thread playchalkfx( chalk_fx, weapon_coordinates, weapon_angles );
 }
 
