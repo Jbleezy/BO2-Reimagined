@@ -16,6 +16,7 @@
 #include scripts/zm/replaced/_zm_powerups;
 #include scripts/zm/replaced/_zm_pers_upgrades;
 #include scripts/zm/replaced/_zm_equipment;
+#include scripts/zm/replaced/_zm_banking;
 #include scripts/zm/replaced/_zm_weapon_locker;
 #include scripts/zm/replaced/_zm_ai_basic;
 
@@ -51,6 +52,10 @@ main()
 	replaceFunc(maps/mp/zombies/_zm_pers_upgrades::is_pers_system_disabled, scripts/zm/replaced/_zm_pers_upgrades::is_pers_system_disabled);
 	replaceFunc(maps/mp/zombies/_zm_equipment::show_equipment_hint, scripts/zm/replaced/_zm_equipment::show_equipment_hint);
 	replaceFunc(maps/mp/zombies/_zm_equipment::placed_equipment_think, scripts/zm/replaced/_zm_equipment::placed_equipment_think);
+	replaceFunc(maps/mp/zombies/_zm_banking::init, scripts/zm/replaced/_zm_banking::init);
+	replaceFunc(maps/mp/zombies/_zm_banking::bank_deposit_box, scripts/zm/replaced/_zm_banking::bank_deposit_box);
+	replaceFunc(maps/mp/zombies/_zm_banking::bank_deposit_unitrigger, scripts/zm/replaced/_zm_banking::bank_deposit_unitrigger);
+	replaceFunc(maps/mp/zombies/_zm_banking::bank_withdraw_unitrigger, scripts/zm/replaced/_zm_banking::bank_withdraw_unitrigger);
 	replaceFunc(maps/mp/zombies/_zm_weapon_locker::main, scripts/zm/replaced/_zm_weapon_locker::main);
 	replaceFunc(maps/mp/zombies/_zm_ai_basic::inert_wakeup, scripts/zm/replaced/_zm_ai_basic::inert_wakeup);
 }
@@ -101,7 +106,6 @@ onplayerspawned()
 			self.initial_spawn = false;
 
 			self.solo_lives_given = 0;
-			self.account_value = 0;
 			self.stored_weapon_data = undefined;
 			self.screecher_seen_hint = 1;
 
@@ -139,7 +143,7 @@ onplayerspawned()
 
 			//self thread test();
 
-			self.score = 1000000;
+			//self.score = 1000000;
 			//maps/mp/zombies/_zm_perks::give_perk( "specialty_armorvest", 0 );
 			//self GiveWeapon("dsr50_zm");
 			//self GiveMaxAmmo("dsr50_zm");

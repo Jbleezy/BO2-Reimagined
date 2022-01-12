@@ -235,7 +235,10 @@
 * Switches back to correct weapon after deploying
 
 ## Bank
-* Stored points resets each game
+* Deposited points resets each game
+* Gain 10% interest on deposited points at the end of each round
+* No longer costs 100 points to withdraw
+* Account value is shown when depositing, withdrawing, and going near the triggers
 * Disabled trading points
 
 ## Weapon Locker
