@@ -123,34 +123,34 @@ add_struct( s_struct )
 	}
 }
 
-register_perk_struct( perk_name, perk_model, perk_angles, perk_coordinates )
+register_perk_struct( name, model, origin, angles )
 {
 	perk_struct = spawnStruct();
-	perk_struct.script_noteworthy = perk_name;
-	perk_struct.model = perk_model;
-	perk_struct.angles = perk_angles;
-	perk_struct.origin = perk_coordinates;
+	perk_struct.script_noteworthy = name;
+	perk_struct.model = model;
+	perk_struct.angles = angles;
+	perk_struct.origin = origin;
 	perk_struct.targetname = "zm_perk_machine";
-	// if ( perk_name == "specialty_weapupgrade" )
+	// if ( name == "specialty_weapupgrade" )
 	// {
 	// 	perk_struct.target = "weapupgrade_flag_targ";
 	// 	flag = spawnStruct();
 	// 	flag.targetname = "weapupgrade_flag_targ";
 	// 	flag.model = "zombie_sign_please_wait";
-	// 	flag.angles = ( 0, perk_angles[ 1 ] - 180, perk_angles[ 2 ] - 180 );
-	// 	flag.origin = ( perk_coordinates[ 0 ] + 13.5, perk_coordinates[ 1 ] - 29, perk_coordinates[ 2 ] + 49.5 );
+	// 	flag.angles = ( 0, angles[ 1 ] - 180, angles[ 2 ] - 180 );
+	// 	flag.origin = ( origin[ 0 ] + 13.5, origin[ 1 ] - 29, origin[ 2 ] + 49.5 );
 	// 	add_struct( flag );
 	// }
 	add_struct( perk_struct );
 }
 
-register_map_initial_spawnpoint( spawnpoint_coordinates, spawnpoint_angles )
+register_map_initial_spawnpoint( origin, angles )
 {
 	spawnpoint_struct = spawnStruct();
-	spawnpoint_struct.origin = spawnpoint_coordinates;
-	if ( isDefined( spawnpoint_angles ) )
+	spawnpoint_struct.origin = origin;
+	if ( isDefined( angles ) )
 	{
-		spawnpoint_struct.angles = spawnpoint_angles;
+		spawnpoint_struct.angles = angles;
 	}
 	else
 	{
@@ -167,20 +167,20 @@ register_map_initial_spawnpoint( spawnpoint_coordinates, spawnpoint_angles )
 	level.struct_class_names[ "script_noteworthy" ][ "initial_spawn" ][ player_initial_spawnpoint_size ] = spawnpoint_struct;
 }
 
-wallbuy( weapon_angles, weapon_coordinates, chalk_fx, weapon_name, weapon_model, target, targetname )
+wallbuy( weapon_name, target, targetname, origin, angles )
 {
-	precachemodel( weapon_model );
+	precachemodel( getweaponmodel( weapon_name ) );
 	unitrigger_stub = spawnstruct();
-	unitrigger_stub.origin = weapon_coordinates;
-	unitrigger_stub.angles = weapon_angles;
+	unitrigger_stub.origin = origin;
+	unitrigger_stub.angles = angles;
 	// move model foreward so it always shows in front of chalk
-	wallmodel = spawn_weapon_model( weapon_name, undefined, weapon_coordinates + anglesToRight(weapon_angles) * -0.4, weapon_angles );
+	wallmodel = spawn_weapon_model( weapon_name, undefined, origin + anglesToRight(angles) * -0.4, angles );
 	wallmodel.targetname = target;
 	mins = undefined;
 	maxs = undefined;
 	absmins = undefined;
 	absmaxs = undefined;
-	wallmodel setmodel( weapon_model );
+	wallmodel setmodel( getweaponmodel( weapon_name ) );
 	wallmodel useweaponhidetags( weapon_name );
 	mins = wallmodel getmins();
 	maxs = wallmodel getmaxs();
@@ -238,7 +238,8 @@ wallbuy( weapon_angles, weapon_coordinates, chalk_fx, weapon_name, weapon_model,
 		maps/mp/zombies/_zm_unitrigger::register_static_unitrigger( unitrigger_stub, ::weapon_spawn_think );
 	}
 	wallmodel hide();
-	thread playchalkfx( chalk_fx, weapon_coordinates, weapon_angles );
+	chalk_fx = weapon_name + "_fx";
+	level thread playchalkfx( chalk_fx, origin, angles );
 }
 
 playchalkfx( effect, origin, angles )
@@ -252,16 +253,16 @@ playchalkfx( effect, origin, angles )
 	}
 }
 
-barrier( barrier_coordinates, barrier_model, barrier_angles, not_solid )
+barrier( model, origin, angles, not_solid )
 {
 	if ( !isDefined( level.survival_barriers ) )
 	{
 		level.survival_barriers = [];
 		level.survival_barriers_index = 0;
 	}
-	level.survival_barriers[ level.survival_barriers_index ] = spawn( "script_model", barrier_coordinates );
-	level.survival_barriers[ level.survival_barriers_index ] setModel( barrier_model );
-	level.survival_barriers[ level.survival_barriers_index ] rotateTo( barrier_angles, 0.1 );
+	level.survival_barriers[ level.survival_barriers_index ] = spawn( "script_model", origin );
+	level.survival_barriers[ level.survival_barriers_index ] setModel( model );
+	level.survival_barriers[ level.survival_barriers_index ] rotateTo( angles, 0.1 );
 	level.survival_barriers[ level.survival_barriers_index ] disconnectPaths();
 	if ( is_true( not_solid ) )
 	{
