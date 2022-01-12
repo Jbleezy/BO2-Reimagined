@@ -16,6 +16,7 @@
 #include scripts/zm/replaced/_zm_powerups;
 #include scripts/zm/replaced/_zm_pers_upgrades;
 #include scripts/zm/replaced/_zm_equipment;
+#include scripts/zm/replaced/_zm_weapon_locker;
 #include scripts/zm/replaced/_zm_ai_basic;
 
 main()
@@ -50,6 +51,7 @@ main()
 	replaceFunc(maps/mp/zombies/_zm_pers_upgrades::is_pers_system_disabled, scripts/zm/replaced/_zm_pers_upgrades::is_pers_system_disabled);
 	replaceFunc(maps/mp/zombies/_zm_equipment::show_equipment_hint, scripts/zm/replaced/_zm_equipment::show_equipment_hint);
 	replaceFunc(maps/mp/zombies/_zm_equipment::placed_equipment_think, scripts/zm/replaced/_zm_equipment::placed_equipment_think);
+	replaceFunc(maps/mp/zombies/_zm_weapon_locker::main, scripts/zm/replaced/_zm_weapon_locker::main);
 	replaceFunc(maps/mp/zombies/_zm_ai_basic::inert_wakeup, scripts/zm/replaced/_zm_ai_basic::inert_wakeup);
 }
 
@@ -99,10 +101,9 @@ onplayerspawned()
 			self.initial_spawn = false;
 
 			self.solo_lives_given = 0;
+			self.account_value = 0;
+			self.stored_weapon_data = undefined;
 			self.screecher_seen_hint = 1;
-
-			self bank_clear_account_value();
-			self weapon_locker_clear_stored_weapondata();
 
 			self thread health_bar_hud();
 			self thread bleedout_bar_hud();
@@ -203,7 +204,7 @@ post_all_players_spawned()
 
 	disable_carpenter();
 
-	disable_bank();
+	disable_bank_teller();
 
 	wallbuy_increase_trigger_radius();
 	wallbuy_decrease_upgraded_ammo_cost();
@@ -1901,19 +1902,8 @@ player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, 
 	return idamage;
 }
 
-disable_bank()
+disable_bank_teller()
 {
-	for(i = 0; i < level._unitriggers.trigger_stubs.size; i++)
-	{
-		if(IsDefined(level._unitriggers.trigger_stubs[i].targetname))
-		{
-			if(level._unitriggers.trigger_stubs[i].targetname == "bank_deposit" || level._unitriggers.trigger_stubs[i].targetname == "bank_withdraw")
-			{
-				maps/mp/zombies/_zm_unitrigger::unregister_unitrigger( level._unitriggers.trigger_stubs[i] );
-			}
-		}
-	}
-
 	level notify( "stop_bank_teller" );
 	bank_teller_dmg_trig = getent( "bank_teller_tazer_trig", "targetname" );
 	if(IsDefined(bank_teller_dmg_trig))
@@ -1921,38 +1911,6 @@ disable_bank()
 		bank_teller_transfer_trig = getent( bank_teller_dmg_trig.target, "targetname" );
 		bank_teller_dmg_trig delete();
 		bank_teller_transfer_trig delete();
-	}
-}
-
-bank_clear_account_value()
-{
-	self.account_value = 0;
-	self maps/mp/zombies/_zm_stats::set_map_stat( "depositBox", player.account_value, level.banking_map );
-}
-
-disable_weapon_locker()
-{
-	for(i = 0; i < level._unitriggers.trigger_stubs.size; i++)
-	{
-		if(IsDefined(level._unitriggers.trigger_stubs[i].targetname))
-		{
-			if(level._unitriggers.trigger_stubs[i].targetname == "weapon_locker")
-			{
-				maps/mp/zombies/_zm_unitrigger::unregister_unitrigger( level._unitriggers.trigger_stubs[i] );
-			}
-		}
-	}
-}
-
-weapon_locker_clear_stored_weapondata()
-{
-	if ( level.weapon_locker_online )
-	{
-		self maps/mp/zombies/_zm_stats::clear_stored_weapondata( level.weapon_locker_map );
-	}
-	else
-	{
-		self.stored_weapon_data = undefined;
 	}
 }
 

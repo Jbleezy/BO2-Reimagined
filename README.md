@@ -235,7 +235,8 @@
 * Switches back to correct weapon after deploying
 
 ## Bank
-* Disabled
+* Stored points resets each game
+* Disabled trading points
 
 ## Weapon Locker
 * Stored weapon resets each game
