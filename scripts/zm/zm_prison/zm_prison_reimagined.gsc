@@ -2,16 +2,22 @@
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 
+#include scripts/zm/replaced/zm_alcatraz_classic;
+#include scripts/zm/replaced/_zm_afterlife;
 #include scripts/zm/replaced/_zm_ai_brutus;
 
 main()
 {
+	replaceFunc(maps/mp/zm_alcatraz_classic::give_afterlife, scripts/zm/replaced/zm_alcatraz_classic::give_afterlife);
+	replaceFunc(maps/mp/zombies/_zm_afterlife::afterlife_add, scripts/zm/replaced/_zm_afterlife::afterlife_add);
 	replaceFunc(maps/mp/zombies/_zm_ai_brutus::brutus_health_increases, scripts/zm/replaced/_zm_ai_brutus::brutus_health_increases);
 	replaceFunc(maps/mp/zombies/_zm_ai_brutus::brutus_cleanup_at_end_of_grief_round, scripts/zm/replaced/_zm_ai_brutus::brutus_cleanup_at_end_of_grief_round);
 }
 
 init()
 {
+	level.round_prestart_func = scripts/zm/replaced/_zm_afterlife::afterlife_start_zombie_logic;
+
 	remove_acid_trap_player_spawn();
 
 	tower_trap_changes();

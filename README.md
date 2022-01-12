@@ -61,8 +61,8 @@
 * Decreased minimum number of melees to kill from 5 to 3
 * Decreased minimum number of melees to kill with Bowie Knife from 3 to 2
 * Decreased minimum number of melees to kill with Galvaknuckles from 2 to 1
-* No longer automatically runs away when player is first attacked on solo
-* Removed hint when player is first attacked on solo
+* No longer automatically runs away when player is first attacked in solo
+* Removed hint when player is first attacked in solo
 
 ## Weapons
 * Switch to melee weapon by pressing the new melee weapon button (same button as the Maxis Drone on Origins)
@@ -280,6 +280,7 @@
 * Navcard table automatically crafted
 
 ### Mob of the Dead
+* 1 afterlife max in solo
 * Acid Trap kills on any round (normally stops killing after round 158 on PC)
 * Tower Trap kills on any round in 1 shot
 * Upgraded Tower Trap kills on any round in 1-2 shots
