@@ -135,7 +135,6 @@ trigger_withdraw_think()
 			{
 				player thread do_player_general_vox( "general", "exert_laugh", 10, 50 );
 			}
-			player thread player_withdraw_fee();
 			if ( player.account_value <= 0 )
 			{
 				self sethintstring( "" );

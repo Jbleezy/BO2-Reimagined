@@ -4,11 +4,16 @@
 
 #include scripts/zm/replaced/zm_highrise_classic;
 #include scripts/zm/replaced/_zm_chugabud;
+#include scripts/zm/replaced/_zm_banking;
 
 main()
 {
 	replaceFunc(maps/mp/zm_highrise_classic::insta_kill_player, scripts/zm/replaced/zm_highrise_classic::insta_kill_player);
 	replaceFunc(maps/mp/zombies/_zm_chugabud::chugabud_bleed_timeout, scripts/zm/replaced/_zm_chugabud::chugabud_bleed_timeout);
+	replaceFunc(maps/mp/zombies/_zm_banking::init, scripts/zm/replaced/_zm_banking::init);
+	replaceFunc(maps/mp/zombies/_zm_banking::bank_deposit_box, scripts/zm/replaced/_zm_banking::bank_deposit_box);
+	replaceFunc(maps/mp/zombies/_zm_banking::bank_deposit_unitrigger, scripts/zm/replaced/_zm_banking::bank_deposit_unitrigger);
+	replaceFunc(maps/mp/zombies/_zm_banking::bank_withdraw_unitrigger, scripts/zm/replaced/_zm_banking::bank_withdraw_unitrigger);
 }
 
 init()

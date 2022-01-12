@@ -16,8 +16,6 @@
 #include scripts/zm/replaced/_zm_powerups;
 #include scripts/zm/replaced/_zm_pers_upgrades;
 #include scripts/zm/replaced/_zm_equipment;
-#include scripts/zm/replaced/_zm_banking;
-#include scripts/zm/replaced/_zm_weapon_locker;
 #include scripts/zm/replaced/_zm_ai_basic;
 
 main()
@@ -52,11 +50,6 @@ main()
 	replaceFunc(maps/mp/zombies/_zm_pers_upgrades::is_pers_system_disabled, scripts/zm/replaced/_zm_pers_upgrades::is_pers_system_disabled);
 	replaceFunc(maps/mp/zombies/_zm_equipment::show_equipment_hint, scripts/zm/replaced/_zm_equipment::show_equipment_hint);
 	replaceFunc(maps/mp/zombies/_zm_equipment::placed_equipment_think, scripts/zm/replaced/_zm_equipment::placed_equipment_think);
-	replaceFunc(maps/mp/zombies/_zm_banking::init, scripts/zm/replaced/_zm_banking::init);
-	replaceFunc(maps/mp/zombies/_zm_banking::bank_deposit_box, scripts/zm/replaced/_zm_banking::bank_deposit_box);
-	replaceFunc(maps/mp/zombies/_zm_banking::bank_deposit_unitrigger, scripts/zm/replaced/_zm_banking::bank_deposit_unitrigger);
-	replaceFunc(maps/mp/zombies/_zm_banking::bank_withdraw_unitrigger, scripts/zm/replaced/_zm_banking::bank_withdraw_unitrigger);
-	replaceFunc(maps/mp/zombies/_zm_weapon_locker::main, scripts/zm/replaced/_zm_weapon_locker::main);
 	replaceFunc(maps/mp/zombies/_zm_ai_basic::inert_wakeup, scripts/zm/replaced/_zm_ai_basic::inert_wakeup);
 }
 
@@ -176,6 +169,7 @@ post_all_players_spawned()
 	maps/mp/zombies/_zm::register_player_damage_callback( ::player_damage_override );
 
 	level.near_miss = 2; // makes screecher not run away first time on solo
+	level.weapon_locker_online = 0;
 	level.magicbox_timeout = 9;
 	level.packapunch_timeout = 12;
 	level.perk_purchase_limit = 9;
