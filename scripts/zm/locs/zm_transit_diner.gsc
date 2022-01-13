@@ -9,13 +9,11 @@
 
 struct_init()
 {
-	if ( !is_true( level.ctsm_disable_custom_perk_locations ) )
-	{
-		scripts/zm/replaced/utility::register_perk_struct( "specialty_armorvest", "zombie_vending_jugg", ( -3563, -7196, -59 ), ( 0, 0, 0 ) );
-        scripts/zm/replaced/utility::register_perk_struct( "specialty_quickrevive", "zombie_vending_quickrevive", ( -6207, -6544, -46 ), ( 0, 60, 0 ) );
-        scripts/zm/replaced/utility::register_perk_struct( "specialty_fastreload", "zombie_vending_sleight", ( -5470, -7859.5, 0 ), ( 0, 270, 0 ) );
-		scripts/zm/replaced/utility::register_perk_struct( "specialty_rof", "zombie_vending_doubletap2", ( -4170, -7592, -63 ), ( 0, 270, 0 ) );
-	}
+	scripts/zm/replaced/utility::register_perk_struct( "specialty_armorvest", "zombie_vending_jugg", ( -3563, -7196, -59 ), ( 0, 0, 0 ) );
+    scripts/zm/replaced/utility::register_perk_struct( "specialty_quickrevive", "zombie_vending_quickrevive", ( -6207, -6544, -46 ), ( 0, 60, 0 ) );
+    scripts/zm/replaced/utility::register_perk_struct( "specialty_fastreload", "zombie_vending_sleight", ( -5470, -7859.5, 0 ), ( 0, 270, 0 ) );
+    scripts/zm/replaced/utility::register_perk_struct( "specialty_rof", "zombie_vending_doubletap2", ( -4170, -7592, -63 ), ( 0, 270, 0 ) );
+
 	coordinates = array( ( -3991, -7317, -63 ), ( -4231, -7395, -60 ), ( -4127, -6757, -54 ), ( -4465, -7346, -58 ),
 						 ( -5770, -6600, -55 ), ( -6135, -6671, -56 ), ( -6182, -7120, -60 ), ( -5882, -7174, -61 ) );
 	angles = array( ( 0, 161, 0 ), ( 0, 120, 0 ), ( 0, 217, 0 ), ( 0, 173, 0 ), ( 0, -106, 0 ), ( 0, -46, 0 ), ( 0, 51, 0 ), ( 0, 99, 0 ) );
@@ -23,6 +21,7 @@ struct_init()
 	{
 		scripts/zm/replaced/utility::register_map_initial_spawnpoint( coordinates[ i ], angles[ i ] );
 	}
+
 	gameObjects = getEntArray( "script_model", "classname" );
 	foreach ( object in gameObjects )
 	{
@@ -60,6 +59,7 @@ init_wallbuys()
 	scripts/zm/replaced/utility::wallbuy( "rottweil72_zm", "olympia", "weapon_upgrade", ( -5085, -7807, -5 ), ( 0, 0, 0 ) );
     scripts/zm/replaced/utility::wallbuy( "m14_zm", "m14", "weapon_upgrade", ( -4576, -7748, 18 ), ( 0, 90, 0 ) );
     scripts/zm/replaced/utility::wallbuy( "mp5k_zm", "mp5", "weapon_upgrade", ( -5489, -7982.7, 62 ), ( 0, 1, 0 ) );
+    scripts/zm/replaced/utility::wallbuy( "tazer_knuckles_zm", "tazer_knuckles", "tazer_upgrade", ( -6265, -7941, 100 ), ( 0, 90, 0 ) );
 }
 
 init_barriers()

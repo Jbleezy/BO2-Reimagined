@@ -221,10 +221,38 @@ wallbuy( weapon_name, target, targetname, origin, angles )
 	maps/mp/zombies/_zm_unitrigger::unitrigger_force_per_player_triggers( unitrigger_stub, 1 );
 	if ( is_melee_weapon( weapon_name ) )
 	{
-		if ( weapon_name == "tazer_knuckles_zm" && isDefined( level.taser_trig_adjustment ) )
+		melee_weapon = undefined;
+		foreach(melee_weapon in level._melee_weapons)
 		{
-			unitrigger_stub.origin += level.taser_trig_adjustment;
+			if(melee_weapon.weapon_name == weapon_name)
+			{
+				break;
+			}
 		}
+
+		if(isDefined(melee_weapon))
+		{
+			unitrigger_stub.weapon_name = melee_weapon.weapon_name;
+			unitrigger_stub.flourish_weapon_name = melee_weapon.flourish_weapon_name;
+			unitrigger_stub.ballistic_weapon_name = melee_weapon.allistic_weapon_name;
+			unitrigger_stub.ballistic_upgraded_weapon_name = melee_weapon.ballistic_upgraded_weapon_name;
+			unitrigger_stub.cost = melee_weapon.cost;
+			unitrigger_stub.wallbuy_targetname = melee_weapon.wallbuy_targetname;
+			unitrigger_stub.vo_dialog_id = melee_weapon.vo_dialog_id;
+			unitrigger_stub.flourish_fn = melee_weapon.flourish_fn;
+			unitrigger_stub.hint_string = &"ZOMBIE_WEAPONCOSTONLY";
+			unitrigger_stub.hint_parm1 = get_weapon_display_name( melee_weapon.weapon_name );
+			unitrigger_stub.hint_parm2 = melee_weapon.cost;
+		}
+
+		if (weapon_name == "tazer_knuckles_zm")
+		{
+			unitrigger_stub.origin += anglesToForward(angles) * -7;
+			unitrigger_stub.origin += anglesToRight(angles) * -2;
+		}
+
+		wallmodel.origin += anglesToForward(angles) * -8; // _zm_melee_weapon::melee_weapon_show moves this back
+
 		maps/mp/zombies/_zm_unitrigger::register_static_unitrigger( unitrigger_stub, ::melee_weapon_think );
 	}
 	else if ( weapon_name == "claymore_zm" )
