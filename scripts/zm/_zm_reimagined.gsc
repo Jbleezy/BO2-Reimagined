@@ -59,6 +59,7 @@ init()
 
 	setscoreboardcolumns_gametype();
 	set_lethal_grenade_init();
+	set_dvars();
 
 	level thread onplayerconnect();
 	level thread post_all_players_spawned();
@@ -142,7 +143,7 @@ onplayerspawned()
 			//self GiveMaxAmmo("dsr50_zm");
 		}
 
-		self set_dvars();
+		self set_client_dvars();
 		self set_perks();
 	}
 }
@@ -231,6 +232,11 @@ post_all_players_spawned()
 
 set_dvars()
 {
+	setDvar( "g_friendlyfireDist", 0 );
+}
+
+set_client_dvars()
+{
 	self setClientDvar( "player_backSpeedScale", 1 );
 	self setClientDvar( "player_strafeSpeedScale", 1 );
 	self setClientDvar( "player_sprintStrafeSpeedScale", 1 );
@@ -246,8 +252,6 @@ set_dvars()
 
 	self setClientDvar( "player_meleeRange", 64 );
 	self setClientDvar( "aim_automelee_enabled", 0 );
-
-	self setClientDvar( "g_friendlyfireDist", 0 );
 
 	self setClientDvar( "r_lodBiasRigid", -1000 );
 	self setClientDvar( "r_lodBiasSkinned", -1000 );
