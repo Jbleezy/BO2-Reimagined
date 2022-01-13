@@ -35,6 +35,7 @@ struct_init()
 precache()
 {
     precacheModel( "zm_collision_transit_diner_survival" );
+    precacheModel( "collision_wall_128x128x10_standard" );
     precacheModel( "p6_zm_buildable_bench_tarp" );
 }
 
@@ -69,6 +70,10 @@ init_barriers()
 	collision = spawn( "script_model", ( -5000, -6700, 0 ), 1 );
 	collision setmodel( "zm_collision_transit_diner_survival" );
 	collision disconnectpaths();
+
+    collision = spawn( "script_model", ( -5569, -6385, 25 ) );
+    collision.angles = ( 0, 0, 0 );
+	collision setmodel( "collision_wall_128x128x10_standard" );
 }
 
 generatebuildabletarps()
