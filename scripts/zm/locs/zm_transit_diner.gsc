@@ -34,7 +34,8 @@ struct_init()
 
 precache()
 {
-
+    precacheModel( "zm_collision_transit_diner_survival" );
+    precacheModel( "p6_zm_buildable_bench_tarp" );
 }
 
 main()
@@ -42,6 +43,7 @@ main()
     treasure_chest_init();
 	init_wallbuys();
 	init_barriers();
+    generatebuildabletarps();
     disable_zombie_spawn_locations();
 	scripts/zm/locs/common::common_init();
 }
@@ -64,10 +66,16 @@ init_wallbuys()
 
 init_barriers()
 {
-	precacheModel( "zm_collision_transit_diner_survival" );
 	collision = spawn( "script_model", ( -5000, -6700, 0 ), 1 );
 	collision setmodel( "zm_collision_transit_diner_survival" );
 	collision disconnectpaths();
+}
+
+generatebuildabletarps()
+{
+    tarp = spawn( "script_model", ( -4688, -7974, -64 ) );
+    tarp.angles = ( 0, 0, 0 );
+	tarp setModel( "p6_zm_buildable_bench_tarp" );
 }
 
 disable_zombie_spawn_locations()

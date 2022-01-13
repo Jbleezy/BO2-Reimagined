@@ -245,7 +245,7 @@ wallbuy( weapon_name, target, targetname, origin, angles )
 			unitrigger_stub.hint_parm2 = melee_weapon.cost;
 		}
 
-		if (weapon_name == "tazer_knuckles_zm")
+		if(weapon_name == "tazer_knuckles_zm")
 		{
 			unitrigger_stub.origin += anglesToForward(angles) * -7;
 			unitrigger_stub.origin += anglesToRight(angles) * -2;
