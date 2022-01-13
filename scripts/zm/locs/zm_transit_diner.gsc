@@ -14,13 +14,27 @@ struct_init()
     scripts/zm/replaced/utility::register_perk_struct( "specialty_fastreload", "zombie_vending_sleight", ( -5470, -7859.5, 0 ), ( 0, 270, 0 ) );
     scripts/zm/replaced/utility::register_perk_struct( "specialty_rof", "zombie_vending_doubletap2", ( -4170, -7592, -63 ), ( 0, 270, 0 ) );
 
-	coordinates = array( ( -3991, -7317, -63 ), ( -4231, -7395, -60 ), ( -4127, -6757, -54 ), ( -4465, -7346, -58 ),
-						 ( -5770, -6600, -55 ), ( -6135, -6671, -56 ), ( -6182, -7120, -60 ), ( -5882, -7174, -61 ) );
-	angles = array( ( 0, 161, 0 ), ( 0, 120, 0 ), ( 0, 217, 0 ), ( 0, 173, 0 ), ( 0, -106, 0 ), ( 0, -46, 0 ), ( 0, 51, 0 ), ( 0, 99, 0 ) );
-	for ( i = 0; i < coordinates.size; i++ )
-	{
-		scripts/zm/replaced/utility::register_map_initial_spawnpoint( coordinates[ i ], angles[ i ] );
-	}
+    ind = 0;
+    respawnpoints = maps/mp/gametypes_zm/_zm_gametype::get_player_spawns_for_gametype();
+    for(i = 0; i < respawnpoints.size; i++)
+    {
+        if(respawnpoints[i].script_noteworthy == "zone_gas")
+        {
+            ind = i;
+            break;
+        }
+    }
+
+    respawn_array = getstructarray(respawnpoints[ind].target, "targetname");
+    foreach(respawn in respawn_array)
+    {
+        if(respawn.script_int == 2)
+        {
+            respawn.angles += (0, 180, 0);
+        }
+
+        scripts/zm/replaced/utility::register_map_initial_spawnpoint( respawn.origin, respawn.angles, respawn.script_int );
+    }
 
 	gameObjects = getEntArray( "script_model", "classname" );
 	foreach ( object in gameObjects )

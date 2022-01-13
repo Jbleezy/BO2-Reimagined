@@ -257,11 +257,15 @@
 * Fixed a zombie pathing exploit at Town in Bookstore
 * Grief: added Ballistic Knife, Ray Gun, and Ray Gun Mark 2 to the Mystery Box
 
-#### Town
-* Moved Quick Revive to Stamin-Up's location on Town
-* Moved Stamin-Up to its location on Tranzit
-* Moved Tombstone Soda to the laundry room front door
-* Grief: added Tombstone Soda
+#### Bus Depot
+* Lava in starting area activates immediately
+* Power doors open when door is opened
+* Lava pit is accessible
+
+#### Diner
+* Added Survival and Grief gamemodes
+* Wallbuys: M14, Olympia, MP5, Galvaknuckles
+* Perks: Juggernog, Quick Revive, Speed Cola, Double Tap
 
 #### Farm
 * Zombies spawn in the Farm zone when in the Barn zone
@@ -269,10 +273,11 @@
 * Survival: removed Galvaknuckles wallbuy
 * Grief: removed player spawns near gate
 
-#### Bus Depot
-* Lava in starting area activates immediately
-* Power doors open when door is opened
-* Lava pit is accessible
+#### Town
+* Moved Quick Revive to Stamin-Up's location on Town
+* Moved Stamin-Up to its location on Tranzit
+* Moved Tombstone Soda to the laundry room front door
+* Grief: added Tombstone Soda
 
 ### Die Rise
 * Zombies no longer spawn in the Upper Blue Highrise zone when in the Trample Steam zone

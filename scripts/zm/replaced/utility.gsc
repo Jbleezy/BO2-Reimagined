@@ -144,7 +144,7 @@ register_perk_struct( name, model, origin, angles )
 	add_struct( perk_struct );
 }
 
-register_map_initial_spawnpoint( origin, angles )
+register_map_initial_spawnpoint( origin, angles, team_num )
 {
 	spawnpoint_struct = spawnStruct();
 	spawnpoint_struct.origin = origin;
@@ -158,7 +158,7 @@ register_map_initial_spawnpoint( origin, angles )
 	}
 	spawnpoint_struct.radius = 32;
 	spawnpoint_struct.script_noteworthy = "initial_spawn";
-	spawnpoint_struct.script_int = 2048;
+	spawnpoint_struct.script_int = team_num;
 	spawnpoint_struct.script_string = getDvar( "g_gametype" ) + "_" + getDvar( "ui_zm_mapstartlocation" );
 	spawnpoint_struct.locked = 0;
 	player_respawn_point_size = level.struct_class_names[ "targetname" ][ "player_respawn_point" ].size;
