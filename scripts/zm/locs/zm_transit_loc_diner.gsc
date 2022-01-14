@@ -48,9 +48,7 @@ struct_init()
 
 precache()
 {
-    precacheModel( "zm_collision_transit_diner_survival" );
-    precacheModel( "collision_wall_128x128x10_standard" );
-    precacheModel( "p6_zm_buildable_bench_tarp" );
+
 }
 
 main()
