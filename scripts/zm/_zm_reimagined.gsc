@@ -666,11 +666,11 @@ get_zone_name()
 		}
 		else if (zone == "zone_trans_7")
 		{
-			name = "Upper Fog Before Power";
+			name = "Upper Fog Before Power Station";
 		}
 		else if (zone == "zone_trans_pow_ext1")
 		{
-			name = "Fog Before Power";
+			name = "Fog Before Power Station";
 		}
 		else if (zone == "zone_pow")
 		{
@@ -682,7 +682,7 @@ get_zone_name()
 		}
 		else if (zone == "zone_pcr")
 		{
-			name = "Power Control Room";
+			name = "Power Station Control Room";
 		}
 		else if (zone == "zone_pow_warehouse")
 		{
@@ -690,7 +690,7 @@ get_zone_name()
 		}
 		else if (zone == "zone_trans_8")
 		{
-			name = "Fog After Power";
+			name = "Fog After Power Station";
 		}
 		else if (zone == "zone_amb_power2town")
 		{
@@ -927,15 +927,15 @@ get_zone_name()
 		}
 		else if (zone == "zone_cellblock_west")
 		{
-			name = "Cellblock 2nd Floor";
+			name = "Cell Block 2nd Floor";
 		}
 		else if (zone == "zone_cellblock_west_gondola")
 		{
-			name = "Cellblock 3rd Floor";
+			name = "Cell Block 3rd Floor";
 		}
 		else if (zone == "zone_cellblock_west_gondola_dock")
 		{
-			name = "Cellblock Gondola";
+			name = "Cell Block Gondola";
 		}
 		else if (zone == "zone_cellblock_west_barber")
 		{
