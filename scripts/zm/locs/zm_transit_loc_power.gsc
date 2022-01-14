@@ -6,7 +6,7 @@
 #include maps/mp/zombies/_zm_zonemgr;
 
 #include scripts/zm/replaced/utility;
-#include scripts/zm/locs/common;
+#include scripts/zm/locs/loc_common;
 
 struct_init()
 {
@@ -50,7 +50,7 @@ main()
     show_powerswitch();
     disable_zombie_spawn_locations();
     level thread maps/mp/zm_transit::falling_death_init();
-	scripts/zm/locs/common::common_init();
+	scripts/zm/locs/loc_common::init();
 }
 
 treasure_chest_init()

@@ -13,8 +13,8 @@
 #include maps/mp/_utility;
 #include common_scripts/utility;
 
-#include scripts/zm/locs/zm_transit_diner;
-#include scripts/zm/locs/zm_transit_power;
+#include scripts/zm/locs/zm_transit_loc_diner;
+#include scripts/zm/locs/zm_transit_loc_power;
 
 init()
 {
@@ -27,17 +27,17 @@ init()
 	add_map_location_gamemode( "zstandard", "transit", maps/mp/zm_transit_standard_station::precache, maps/mp/zm_transit_standard_station::main );
 	add_map_location_gamemode( "zstandard", "farm", maps/mp/zm_transit_standard_farm::precache, maps/mp/zm_transit_standard_farm::main );
 	add_map_location_gamemode( "zstandard", "town", maps/mp/zm_transit_standard_town::precache, maps/mp/zm_transit_standard_town::main );
-    add_map_location_gamemode( "zstandard", "diner", scripts/zm/locs/zm_transit_diner::precache, scripts/zm/locs/zm_transit_diner::main );
-	add_map_location_gamemode( "zstandard", "power", scripts/zm/locs/zm_transit_power::precache, scripts/zm/locs/zm_transit_power::main );
+    add_map_location_gamemode( "zstandard", "diner", scripts/zm/locs/zm_transit_loc_diner::precache, scripts/zm/locs/zm_transit_loc_diner::main );
+	add_map_location_gamemode( "zstandard", "power", scripts/zm/locs/zm_transit_loc_power::precache, scripts/zm/locs/zm_transit_loc_power::main );
 
 	add_map_location_gamemode( "zgrief", "transit", maps/mp/zm_transit_grief_station::precache, maps/mp/zm_transit_grief_station::main );
 	add_map_location_gamemode( "zgrief", "farm", maps/mp/zm_transit_grief_farm::precache, maps/mp/zm_transit_grief_farm::main );
 	add_map_location_gamemode( "zgrief", "town", maps/mp/zm_transit_grief_town::precache, maps/mp/zm_transit_grief_town::main );
-    add_map_location_gamemode( "zgrief", "diner", scripts/zm/locs/zm_transit_diner::precache, scripts/zm/locs/zm_transit_diner::main );
-	add_map_location_gamemode( "zgrief", "power", scripts/zm/locs/zm_transit_power::precache, scripts/zm/locs/zm_transit_power::main );
+    add_map_location_gamemode( "zgrief", "diner", scripts/zm/locs/zm_transit_loc_diner::precache, scripts/zm/locs/zm_transit_loc_diner::main );
+	add_map_location_gamemode( "zgrief", "power", scripts/zm/locs/zm_transit_loc_power::precache, scripts/zm/locs/zm_transit_loc_power::main );
 
-    scripts/zm/replaced/utility::add_struct_location_gamemode_func( "zstandard", "diner", scripts/zm/locs/zm_transit_diner::struct_init );
-    scripts/zm/replaced/utility::add_struct_location_gamemode_func( "zgrief", "diner", scripts/zm/locs/zm_transit_diner::struct_init );
-	scripts/zm/replaced/utility::add_struct_location_gamemode_func( "zstandard", "power", scripts/zm/locs/zm_transit_power::struct_init );
-    scripts/zm/replaced/utility::add_struct_location_gamemode_func( "zgrief", "power", scripts/zm/locs/zm_transit_power::struct_init );
+    scripts/zm/replaced/utility::add_struct_location_gamemode_func( "zstandard", "diner", scripts/zm/locs/zm_transit_loc_diner::struct_init );
+    scripts/zm/replaced/utility::add_struct_location_gamemode_func( "zgrief", "diner", scripts/zm/locs/zm_transit_loc_diner::struct_init );
+	scripts/zm/replaced/utility::add_struct_location_gamemode_func( "zstandard", "power", scripts/zm/locs/zm_transit_loc_power::struct_init );
+    scripts/zm/replaced/utility::add_struct_location_gamemode_func( "zgrief", "power", scripts/zm/locs/zm_transit_loc_power::struct_init );
 }

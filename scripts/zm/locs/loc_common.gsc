@@ -2,7 +2,7 @@
 #include maps/mp/zombies/_zm_utility;
 #include common_scripts/utility;
 
-common_init()
+init()
 {
 	level.enemy_location_override_func = ::enemy_location_override;
 	flag_wait( "initial_blackscreen_passed" );
