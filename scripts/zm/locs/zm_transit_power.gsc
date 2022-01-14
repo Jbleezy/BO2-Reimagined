@@ -47,6 +47,7 @@ main()
     treasure_chest_init();
 	init_wallbuys();
 	init_barriers();
+    show_powerswitch();
     disable_zombie_spawn_locations();
     level thread maps/mp/zm_transit::falling_death_init();
 	scripts/zm/locs/common::common_init();
@@ -82,6 +83,21 @@ init_barriers()
 	scripts/zm/replaced/utility::barrier( "collision_player_wall_128x128x10", ( 10170, 7292, -505 ), ( 0, 140, 0 ) );
 	scripts/zm/replaced/utility::barrier( "collision_player_wall_256x256x10", ( 10030, 7216, -569 ), ( 0, 49, 0 ) );
 	scripts/zm/replaced/utility::barrier( "collision_player_wall_256x256x10", ( 10563, 8630, -344 ), ( 0, 270, 0 ) );
+}
+
+show_powerswitch()
+{
+    body = spawn( "script_model", ( 12237.4, 8512, -749.9 ) );
+    body.angles = ( 0, 0, 0 );
+	body setModel( "p6_zm_buildable_pswitch_body" );
+
+    lever = spawn( "script_model", ( 12237.4, 8503, -703.65 ) );
+    lever.angles = ( 0, 0, 0 );
+	lever setModel( "p6_zm_buildable_pswitch_lever" );
+
+    hand = spawn( "script_model", ( 12237.7, 8503.1, -684.55 ) );
+    hand.angles = ( 0, 270, 0 );
+	hand setModel( "p6_zm_buildable_pswitch_hand" );
 }
 
 disable_zombie_spawn_locations()
