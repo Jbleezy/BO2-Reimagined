@@ -232,26 +232,24 @@ post_all_players_spawned()
 
 set_dvars()
 {
+	setDvar( "player_backSpeedScale", 1 );
+
+	setDvar( "dtp_startup_delay", 100 );
+	setDvar( "dtp_exhaustion_window", 100 );
+
+	setDvar( "player_meleeRange", 64 );
+
 	setDvar( "g_friendlyfireDist", 0 );
 }
 
 set_client_dvars()
 {
-	self setClientDvar( "player_backSpeedScale", 1 );
-	self setClientDvar( "player_strafeSpeedScale", 1 );
-	self setClientDvar( "player_sprintStrafeSpeedScale", 1 );
-
-	self setClientDvar( "dtp_post_move_pause", 0 );
-	self setClientDvar( "dtp_exhaustion_window", 100 );
-	self setClientDvar( "dtp_startup_delay", 100 );
+	self setClientDvar( "aim_automelee_enabled", 0 );
 
 	self setClientDvar( "cg_friendlyNameFadeIn", 0 );
 	self setClientDvar( "cg_friendlyNameFadeOut", 250 );
 	self setClientDvar( "cg_enemyNameFadeIn", 0 );
 	self setClientDvar( "cg_enemyNameFadeOut", 250 );
-
-	self setClientDvar( "player_meleeRange", 64 );
-	self setClientDvar( "aim_automelee_enabled", 0 );
 
 	self setClientDvar( "r_lodBiasRigid", -1000 );
 	self setClientDvar( "r_lodBiasSkinned", -1000 );
