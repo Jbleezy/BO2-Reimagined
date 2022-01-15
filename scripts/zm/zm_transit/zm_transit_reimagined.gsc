@@ -36,6 +36,7 @@ init()
 
 	level thread power_local_electric_doors_globally();
 	level thread b23r_hint_string_fix();
+	level thread power_station_vision_change();
 }
 
 include_weapons_grief()
@@ -154,4 +155,89 @@ path_exploit_fixes()
 	player_trigger_radius = 72;
 	zombie_goto_point = ( 1098, -1521, 128 );
 	level thread maps/mp/zombies/_zm_ffotd::path_exploit_fix( zombie_trigger_origin, zombie_trigger_radius, zombie_trigger_height, player_trigger_origin, player_trigger_radius, zombie_goto_point );
+}
+
+power_station_vision_change()
+{
+	level.default_r_exposureValue = 3;
+	level.changed_r_exposureValue = 4;
+	time = 1;
+
+	while(1)
+	{
+		players = get_players();
+		foreach(player in players)
+		{
+			if(!isDefined(player.power_station_vision_set))
+			{
+				player.power_station_vision_set = 0;
+				player.r_exposureValue = level.default_r_exposureValue;
+				player setClientDvar("r_exposureTweak", 1);
+				player setClientDvar("r_exposureValue", level.default_r_exposureValue);
+			}
+
+			if(!player.power_station_vision_set)
+			{
+				if(player maps/mp/zombies/_zm_zonemgr::entity_in_zone("zone_prr") || player maps/mp/zombies/_zm_zonemgr::entity_in_zone("zone_pcr"))
+				{
+					player.power_station_vision_set = 1;
+					player thread change_dvar_over_time("r_exposureValue", level.changed_r_exposureValue, time, 1);
+				}
+			}
+			else
+			{
+				if(!(player maps/mp/zombies/_zm_zonemgr::entity_in_zone("zone_prr") || player maps/mp/zombies/_zm_zonemgr::entity_in_zone("zone_pcr")))
+				{
+					player.power_station_vision_set = 0;
+					player thread change_dvar_over_time("r_exposureValue", level.default_r_exposureValue, time, 0);
+				}
+			}
+		}
+
+		wait 0.05;
+	}
+}
+
+change_dvar_over_time(dvar, val, time, increment)
+{
+	self notify("change_dvar_over_time");
+	self endon("change_dvar_over_time");
+
+	intervals = time * 20;
+	rate = (level.changed_r_exposureValue - level.default_r_exposureValue) / intervals;
+
+	i = 0;
+	while(i < intervals)
+	{
+		if(increment)
+		{
+			self.r_exposureValue += rate;
+
+			if(self.r_exposureValue > val)
+			{
+				self.r_exposureValue = val;
+			}
+		}
+		else
+		{
+			self.r_exposureValue -= rate;
+
+			if(self.r_exposureValue < val)
+			{
+				self.r_exposureValue = val;
+			}
+		}
+
+		self setClientDvar(dvar, self.r_exposureValue);
+
+		if(self.r_exposureValue == val)
+		{
+			return;
+		}
+
+		i++;
+		wait 0.05;
+	}
+
+	self setClientDvar(dvar, val);
 }

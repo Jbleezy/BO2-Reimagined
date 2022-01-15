@@ -251,6 +251,7 @@
 * Any door that requires a Turbine to open is automatically open whenever the power is on
 * Lava in starting area activates after the power is on
 * Lava destroys grenades instantly
+* Decreased brightness at Power Station
 * Power switch automatically crafted
 * Pack-a-Punch automatically crafted
 * Navcard table automatically crafted
