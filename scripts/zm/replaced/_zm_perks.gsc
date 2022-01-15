@@ -115,3 +115,114 @@ give_perk( perk, bought )
 	self notify( "perk_acquired" );
 	self thread perk_think( perk );
 }
+
+// modifying this function because it is right before perk_machine_spawn_init and has a lot less code
+initialize_custom_perk_arrays()
+{
+	if(!isDefined(level._custom_perks))
+	{
+		level._custom_perks = [];
+	}
+
+	struct = spawnStruct();
+	struct.script_noteworthy = "specialty_longersprint";
+	struct.scr_zm_ui_gametype = "zstandard";
+	struct.scr_zm_map_start_location = "town";
+	struct.origin_offset = (-4, 0, 0);
+	move_perk_machine("zm_transit", "town", "specialty_quickrevive", struct);
+
+	struct = spawnStruct();
+	struct.script_noteworthy = "specialty_longersprint";
+	struct.scr_zm_ui_gametype = "zclassic";
+	struct.scr_zm_map_start_location = "transit";
+	move_perk_machine("zm_transit", "town", "specialty_longersprint", struct);
+
+	struct = spawnStruct();
+	struct.origin = (1852, -825, -56);
+	struct.angles = (0, 180, 0);
+	struct.script_string = "zgrief";
+	move_perk_machine("zm_transit", "town", "specialty_scavenger", struct);
+
+	struct = spawnStruct();
+	struct.script_noteworthy = "specialty_quickrevive";
+	struct.scr_zm_ui_gametype = "zgrief";
+	struct.scr_zm_map_start_location = "street";
+	move_perk_machine("zm_buried", "street", "specialty_longersprint", struct);
+
+	struct = spawnStruct();
+	struct.script_noteworthy = "specialty_fastreload";
+	struct.scr_zm_ui_gametype = "zgrief";
+	struct.scr_zm_map_start_location = "street";
+	struct.origin_offset = (0, -32, 0);
+	move_perk_machine("zm_buried", "street", "specialty_quickrevive", struct);
+
+	struct = spawnStruct();
+	struct.script_noteworthy = "specialty_fastreload";
+	struct.scr_zm_ui_gametype = "zclassic";
+	struct.scr_zm_map_start_location = "processing";
+	move_perk_machine("zm_buried", "street", "specialty_fastreload", struct);
+}
+
+move_perk_machine(map, location, perk, move_struct)
+{
+	if(!(level.script == map && level.scr_zm_map_start_location == location))
+	{
+		return;
+	}
+
+	perk_struct = undefined;
+	structs = getStructArray("zm_perk_machine", "targetname");
+
+	foreach(struct in structs)
+	{
+		if(isDefined(struct.script_noteworthy) && struct.script_noteworthy == perk)
+		{
+			if(isDefined(struct.script_string) && isSubStr(struct.script_string, "perks_" + location))
+			{
+				perk_struct = struct;
+				break;
+			}
+		}
+	}
+
+	if(!isDefined(perk_struct))
+	{
+		return;
+	}
+
+	if(isDefined(move_struct.script_string))
+	{
+		gametypes = strTok(move_struct.script_string, " ");
+		foreach(gametype in gametypes)
+		{
+			perk_struct.script_string += " " + gametype + "_perks_" + location;
+		}
+	}
+
+	if(isDefined(move_struct.origin))
+	{
+		perk_struct.origin = move_struct.origin;
+		perk_struct.angles = move_struct.angles;
+
+		return;
+	}
+
+	foreach(struct in structs)
+	{
+		if(isDefined(struct.script_noteworthy) && struct.script_noteworthy == move_struct.script_noteworthy)
+		{
+			if(isDefined(struct.script_string) && isSubStr(struct.script_string, move_struct.scr_zm_ui_gametype + "_perks_" + move_struct.scr_zm_map_start_location))
+			{
+				perk_struct.origin = struct.origin;
+				perk_struct.angles = struct.angles;
+
+				if(isDefined(move_struct.origin_offset))
+				{
+					perk_struct.origin += move_struct.origin_offset;
+				}
+
+				break;
+			}
+		}
+	}
+}
