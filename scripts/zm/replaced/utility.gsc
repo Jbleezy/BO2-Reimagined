@@ -232,17 +232,14 @@ wallbuy( weapon_name, target, targetname, origin, angles )
 
 		if(isDefined(melee_weapon))
 		{
+			unitrigger_stub.cost = melee_weapon.cost;
+			unitrigger_stub.hint_string = melee_weapon.hint_string;
 			unitrigger_stub.weapon_name = melee_weapon.weapon_name;
 			unitrigger_stub.flourish_weapon_name = melee_weapon.flourish_weapon_name;
-			unitrigger_stub.ballistic_weapon_name = melee_weapon.allistic_weapon_name;
+			unitrigger_stub.ballistic_weapon_name = melee_weapon.ballistic_weapon_name;
 			unitrigger_stub.ballistic_upgraded_weapon_name = melee_weapon.ballistic_upgraded_weapon_name;
-			unitrigger_stub.cost = melee_weapon.cost;
-			unitrigger_stub.wallbuy_targetname = melee_weapon.wallbuy_targetname;
 			unitrigger_stub.vo_dialog_id = melee_weapon.vo_dialog_id;
 			unitrigger_stub.flourish_fn = melee_weapon.flourish_fn;
-			unitrigger_stub.hint_string = &"ZOMBIE_WEAPONCOSTONLY";
-			unitrigger_stub.hint_parm1 = get_weapon_display_name( melee_weapon.weapon_name );
-			unitrigger_stub.hint_parm2 = melee_weapon.cost;
 		}
 
 		if(weapon_name == "tazer_knuckles_zm")
