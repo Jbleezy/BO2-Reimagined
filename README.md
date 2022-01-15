@@ -46,6 +46,7 @@
 * Weapon is no longer switched after reviving if player switched weapons during revive
 * Can shoot while looking at other players
 * Increased mantle speed
+* Increased ladder climb speed
 * Start with semtex on maps that have semtex
 * Entering and exiting last stand no longer refills last stand weapon clip automatically
 * Decreased friendly player name fade out time from 1.5 seconds to 0.25 seconds

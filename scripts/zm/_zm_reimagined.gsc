@@ -259,6 +259,7 @@ set_perks()
 {
 	self setperk( "specialty_unlimitedsprint" );
 	self setperk( "specialty_fastmantle" );
+	self setperk( "specialty_fastladderclimb" );
 }
 
 health_bar_hud()
