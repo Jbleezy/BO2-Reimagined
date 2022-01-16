@@ -516,6 +516,9 @@ player_spawn_override()
 			{
 				spawnpoint.origin += (0, 16, 0);
 			}
+
+			// prevents spawning up top in 3rd Floor zone due to not being enough height clearance
+			spawnpoint.origin += (0, 0, -16);
 		}
 	}
 	else if(level.script == "zm_buried" && level.scr_zm_map_start_location == "street")
@@ -1953,6 +1956,7 @@ random_map_rotation()
 
 spawn_bots(num)
 {
+	num = 2;
 	if(getDvar("sv_hostname") != "Private Match")
 	{
 		return;
@@ -1974,5 +1978,12 @@ spawn_bots(num)
 		{
 			level.bots[i] = addtestclient();
 		}
+	}
+
+	while(1)
+	{
+		player iprintln("player.origin: " + player.origin);
+
+		wait 1;
 	}
 }
