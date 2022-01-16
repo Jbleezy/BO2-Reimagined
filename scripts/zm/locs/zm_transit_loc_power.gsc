@@ -48,6 +48,7 @@ main()
 	init_wallbuys();
 	init_barriers();
     show_powerswitch();
+	generatebuildabletarps();
     disable_zombie_spawn_locations();
     level thread maps/mp/zm_transit::falling_death_init();
 	scripts/zm/locs/loc_common::init();
@@ -98,6 +99,19 @@ show_powerswitch()
     hand = spawn( "script_model", ( 12237.7, 8503.1, -684.55 ) );
     hand.angles = ( 0, 270, 0 );
 	hand setModel( "p6_zm_buildable_pswitch_hand" );
+}
+
+generatebuildabletarps()
+{
+	// power switch
+    tarp = spawn( "script_model", ( 12169, 8498, -752 ) );
+    tarp.angles = ( 0, 180, 0 );
+	tarp setModel( "p6_zm_buildable_bench_tarp" );
+
+	// trap
+	tarp = spawn( "script_model", ( 11325, 8170, -488 ) );
+    tarp.angles = ( 0, 0, 0 );
+	tarp setModel( "p6_zm_buildable_bench_tarp" );
 }
 
 disable_zombie_spawn_locations()
