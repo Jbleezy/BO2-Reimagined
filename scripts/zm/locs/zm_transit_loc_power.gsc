@@ -72,18 +72,19 @@ init_wallbuys()
 
 init_barriers()
 {
-	scripts/zm/replaced/utility::barrier( "veh_t6_civ_60s_coupe_dead", ( 9965, 8133, -556 ), ( 15, 5, 0 ) );
-	scripts/zm/replaced/utility::barrier( "collision_player_wall_256x256x10", ( 9955, 8105, -575 ), ( 0, 0, 0 ) );
-	scripts/zm/replaced/utility::barrier( "veh_t6_civ_bus_zombie", ( 10056, 8350, -584 ), ( 0, 340, 0 ), 1 );
-	scripts/zm/replaced/utility::barrier( "collision_player_wall_256x256x10", ( 10267, 8194, -556 ), ( 0, 340, 0 ) );
-	scripts/zm/replaced/utility::barrier( "collision_player_wall_512x512x10", ( 10409, 8220, -181 ), ( 0, 250, 0 ) );
-	scripts/zm/replaced/utility::barrier( "collision_player_wall_128x128x10", ( 10409, 8220, -556 ), ( 0, 250, 0 ) );
-	scripts/zm/replaced/utility::barrier( "veh_t6_civ_microbus_dead", ( 10281, 7257, -575 ), ( 0, 13, 0 ) );
-	scripts/zm/replaced/utility::barrier( "collision_player_wall_256x256x10", ( 10268, 7294, -569 ), ( 0, 13, 0 ) );
-	scripts/zm/replaced/utility::barrier( "veh_t6_civ_60s_coupe_dead", ( 10100, 7238, -575 ), ( 0, 52, 0 ) );
-	scripts/zm/replaced/utility::barrier( "collision_player_wall_128x128x10", ( 10170, 7292, -505 ), ( 0, 140, 0 ) );
-	scripts/zm/replaced/utility::barrier( "collision_player_wall_256x256x10", ( 10030, 7216, -569 ), ( 0, 49, 0 ) );
-	scripts/zm/replaced/utility::barrier( "collision_player_wall_256x256x10", ( 10563, 8630, -344 ), ( 0, 270, 0 ) );
+	// fog before power station
+	origin = ( 10215, 7265, -570 );
+	angles = ( 0, 0, 0 );
+	scripts/zm/replaced/utility::barrier( "collision_player_wall_512x512x10", origin + (anglesToUp(angles) * 256), angles );
+	scripts/zm/replaced/utility::barrier( "veh_t6_civ_microbus_dead", origin + (anglesToForward(angles) * 96) + (anglesToRight(angles) * 48), angles );
+	scripts/zm/replaced/utility::barrier( "veh_t6_civ_60s_coupe_dead", origin + (anglesToForward(angles) * -112) + (anglesToRight(angles) * 80), angles + (0, 30, 0) );
+
+	// fog after power station
+	origin = ( 10215, 8670, -579 );
+	angles = ( 0, 7.5, 0 );
+	scripts/zm/replaced/utility::barrier( "collision_player_wall_512x512x10", origin + (anglesToForward(angles) * -128) + (anglesToUp(angles) * 256), angles );
+	scripts/zm/replaced/utility::barrier( "collision_player_wall_512x512x10", origin + (anglesToForward(angles) * 64) + (anglesToUp(angles) * 256), angles );
+	scripts/zm/replaced/utility::barrier( "p6_zm_rocks_large_cluster_01", origin + (anglesToForward(angles) * -176) + (anglesToRight(angles) * -368) + (anglesToUp(angles) * 256), angles  + (0, -15, 0) );
 }
 
 show_powerswitch()
