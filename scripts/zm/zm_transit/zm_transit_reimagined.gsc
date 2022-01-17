@@ -31,7 +31,7 @@ init()
 	level.grenade_safe_to_bounce = ::grenade_safe_to_bounce;
 
 	screecher_spawner_changes();
-
+	zombie_spawn_location_changes();
 	path_exploit_fixes();
 
 	level thread power_local_electric_doors_globally();
@@ -143,6 +143,25 @@ grenade_safe_to_bounce( player, weapname )
 	}
 
 	return 1;
+}
+
+zombie_spawn_location_changes()
+{
+	for ( z = 0; z < level.zone_keys.size; z++ )
+	{
+		zone = level.zones[ level.zone_keys[ z ] ];
+
+        i = 0;
+        while ( i < zone.spawn_locations.size )
+        {
+            if ( zone.spawn_locations[ i ].origin == ( 9963, 8025, -554.9 ) )
+            {
+                zone.spawn_locations[ i ].origin += ( 0, 0, -32 );
+            }
+
+            i++;
+		}
+	}
 }
 
 path_exploit_fixes()

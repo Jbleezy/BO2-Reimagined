@@ -113,7 +113,7 @@ disable_zombie_spawn_locations()
     level.zones["zone_trans_8"].is_spawning_allowed = 0;
 }
 
-transit_power_zone_init()
+transit_loc_power_zone_init()
 {
     flag_init( "always_on" );
 	flag_set( "always_on" );
@@ -128,7 +128,7 @@ transit_power_zone_init()
 
 manage_zones( initial_zone )
 {
-    level.zone_manager_init_func = ::transit_power_zone_init;
+    level.zone_manager_init_func = ::transit_loc_power_zone_init;
     initial_zone = [];
     initial_zone[0] = "zone_pow";
     initial_zone[1] = "zone_trans_8";

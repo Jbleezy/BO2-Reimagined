@@ -1956,7 +1956,6 @@ random_map_rotation()
 
 spawn_bots(num)
 {
-	num = 2;
 	if(getDvar("sv_hostname") != "Private Match")
 	{
 		return;
@@ -1978,12 +1977,5 @@ spawn_bots(num)
 		{
 			level.bots[i] = addtestclient();
 		}
-	}
-
-	while(1)
-	{
-		player iprintln("player.origin: " + player.origin);
-
-		wait 1;
 	}
 }
