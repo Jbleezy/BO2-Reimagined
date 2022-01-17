@@ -19,22 +19,14 @@ struct_init()
     scripts/zm/replaced/utility::register_perk_struct( "specialty_scavenger", "zombie_vending_tombstone", ( 10946, 8308.77, -408 ), ( 0, 270, 0 ) );
     scripts/zm/replaced/utility::register_perk_struct( "specialty_weapupgrade", "p6_anim_zm_buildable_pap_on", ( 12333, 8158, -752 ), ( 0, 180, 0 ) );
 
-    ind = 0;
-    respawnpoints = maps/mp/gametypes_zm/_zm_gametype::get_player_spawns_for_gametype();
-    for(i = 0; i < respawnpoints.size; i++)
-    {
-        if(respawnpoints[i].script_noteworthy == "zone_pow")
-        {
-            ind = i;
-            break;
-        }
-    }
-
-    respawn_array = getstructarray(respawnpoints[ind].target, "targetname");
-    foreach(respawn in respawn_array)
-    {
-        scripts/zm/replaced/utility::register_map_initial_spawnpoint( respawn.origin, respawn.angles, respawn.script_int );
-    }
+    scripts/zm/replaced/utility::register_map_initial_spawnpoint( (10160, 8060, -554), (0, 0, 0), 1 );
+	scripts/zm/replaced/utility::register_map_initial_spawnpoint( (10160, 7996, -554), (0, 0, 0), 1 );
+	scripts/zm/replaced/utility::register_map_initial_spawnpoint( (10160, 7932, -554), (0, 0, 0), 1 );
+	scripts/zm/replaced/utility::register_map_initial_spawnpoint( (10160, 7868, -554), (0, 0, 0), 1 );
+	scripts/zm/replaced/utility::register_map_initial_spawnpoint( (10160, 7772, -554), (0, 0, 0), 2 );
+	scripts/zm/replaced/utility::register_map_initial_spawnpoint( (10160, 7708, -554), (0, 0, 0), 2 );
+	scripts/zm/replaced/utility::register_map_initial_spawnpoint( (10160, 7644, -554), (0, 0, 0), 2 );
+	scripts/zm/replaced/utility::register_map_initial_spawnpoint( (10160, 7580, -554), (0, 0, 0), 2 );
 }
 
 precache()
