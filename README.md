@@ -275,6 +275,12 @@
 * Survival: removed Galvaknuckles wallbuy
 * Grief: removed player spawns near gate
 
+#### Power Station
+* Added Survival and Grief gamemodes
+* Wallbuys: M14, Olympia, AK74u, MP5, Bowie Knife
+* Perks: Juggernog, Quick Revive, Speed Cola, Double Tap, Tombstone Soda
+* Pack-a-Punch
+
 #### Town
 * Moved Quick Revive to Stamin-Up's location on Town
 * Moved Stamin-Up to its location on Tranzit

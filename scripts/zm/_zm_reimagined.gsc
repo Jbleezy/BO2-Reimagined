@@ -630,7 +630,7 @@ get_zone_name()
 		}
 		else if (zone == "zone_town_church")
 		{
-			name = "Upper South Town";
+			name = "Outside Church To Town";
 		}
 		else if (zone == "zone_trans_5")
 		{
@@ -662,7 +662,7 @@ get_zone_name()
 		}
 		else if (zone == "zone_cornfield_prototype")
 		{
-			name = "Nacht";
+			name = "Prototype";
 		}
 		else if (zone == "zone_trans_7")
 		{
