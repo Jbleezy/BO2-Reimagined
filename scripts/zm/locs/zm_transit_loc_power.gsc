@@ -64,10 +64,11 @@ treasure_chest_init()
 
 init_wallbuys()
 {
-	scripts/zm/replaced/utility::wallbuy( "m14_zm", "m14", "weapon_upgrade", ( 10559, 8226, -504 ), ( 0, 90, 0) );
-    scripts/zm/replaced/utility::wallbuy( "rottweil72_zm", "olympia", "weapon_upgrade", ( 11769, 7662, -701 ), ( 0, 170, 0 ) );
-    scripts/zm/replaced/utility::wallbuy( "m16_zm", "m16", "weapon_upgrade", ( 10859, 8146, -353 ), ( 0, 0, 0 ) );
-    scripts/zm/replaced/utility::wallbuy( "mp5k_zm", "mp5", "weapon_upgrade", ( 11452, 8692, -521 ), ( 0, 90, 0 ) );
+	scripts/zm/replaced/utility::wallbuy( "m14_zm", "m14", "weapon_upgrade", ( 10559, 8220, -495 ), ( 0, 90, 0) );
+	scripts/zm/replaced/utility::wallbuy( "rottweil72_zm", "olympia", "weapon_upgrade", ( 10678, 8135, -476 ), ( 0, 180, 0 ) );
+	scripts/zm/replaced/utility::wallbuy( "870mcs_zm", "870mcs", "weapon_upgrade", ( 11778, 7664, -697 ), ( 0, 170, 0 ) );
+	scripts/zm/replaced/utility::wallbuy( "mp5k_zm", "mp5", "weapon_upgrade", ( 11452, 8692, -521 ), ( 0, 90, 0 ) );
+	scripts/zm/replaced/utility::wallbuy( "bowie_knife_zm", "bowie_knife", "bowie_upgrade", ( 10835, 8145, -353 ), ( 0, 0, 0 ) );
 }
 
 init_barriers()
