@@ -2519,7 +2519,7 @@ buildbuildable( buildable, craft )
 			if ( isDefined( buildable ) || stub.persistent != 3 )
 			{
 				displayname = stub get_equipment_display_name();
-				stub.cost = 1000;
+				stub.cost = stub get_equipment_cost();
 				stub.trigger_hintstring = "Hold ^3[{+activate}]^7 for " + displayname + " [Cost: " + stub.cost + "]";
 				stub.trigger_func = ::buildable_place_think;
 
@@ -2591,6 +2591,24 @@ get_equipment_display_name()
 	{
 		return "Head Chopper";
 	}
+}
+
+get_equipment_cost()
+{
+	if (self.equipname == "turbine")
+	{
+		return 500;
+	}
+	else if (self.equipname == "jetgun_zm")
+	{
+		return 5000;
+	}
+	else if (self.equipname == "slipgun_zm")
+	{
+		return 5000;
+	}
+
+	return 1000;
 }
 
 buildable_place_think()
