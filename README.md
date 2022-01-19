@@ -218,9 +218,10 @@
 
 ### Electric Trap
 * No longer needs to be powered by a Turbine
-* Gets destroyed after being deployed for 60 seconds
+* Gets destroyed after being deployed for 30 seconds
 * Kills on any round (normally stops killing after round 50)
-* Kills immediately after being deployed (normally waits 2 seconds)
+* Can kill unlimited zombies at once
+* Decreased startup time from 2 seconds to 0.5 seconds
 
 ### Turret
 * No longer needs to be powered by a Turbine
