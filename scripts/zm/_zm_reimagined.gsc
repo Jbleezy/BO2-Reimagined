@@ -2518,9 +2518,9 @@ buildbuildable( buildable, craft )
 		{
 			if ( isDefined( buildable ) || stub.persistent != 3 )
 			{
-				equipname = stub get_equipname();
+				displayname = stub get_equipment_display_name();
 				stub.cost = 1000;
-				stub.trigger_hintstring = "Hold ^3[{+activate}]^7 for " + equipname + " [Cost: " + stub.cost + "]";
+				stub.trigger_hintstring = "Hold ^3[{+activate}]^7 for " + displayname + " [Cost: " + stub.cost + "]";
 				stub.trigger_func = ::buildable_place_think;
 
 				if (craft)
@@ -2532,7 +2532,7 @@ buildbuildable( buildable, craft )
 				}
 				else
 				{
-					level.zombie_buildables[stub.equipname].hint = "Hold ^3[{+activate}]^7 to craft " + equipname;
+					level.zombie_buildables[stub.equipname].hint = "Hold ^3[{+activate}]^7 to craft " + displayname;
 					stub.prompt_and_visibility_func = ::buildabletrigger_update_prompt;
 				}
 
@@ -2553,7 +2553,7 @@ buildbuildable( buildable, craft )
 	}
 }
 
-get_equipname()
+get_equipment_display_name()
 {
 	if (self.equipname == "turbine")
 	{
@@ -3235,9 +3235,9 @@ updatebuildables()
 	{
 		if(IsDefined(stub.equipname))
 		{
-			equipname = stub get_equipname();
+			displayname = stub get_equipment_display_name();
 			stub.cost = 1000;
-			stub.trigger_hintstring = "Hold ^3[{+activate}]^7 for " + equipname + " [Cost: " + stub.cost + "]";
+			stub.trigger_hintstring = "Hold ^3[{+activate}]^7 for " + displayname + " [Cost: " + stub.cost + "]";
 			stub.trigger_func = ::buildable_place_think;
 		}
 	}
