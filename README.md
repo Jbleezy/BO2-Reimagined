@@ -221,6 +221,8 @@
 * Gets destroyed after being deployed for 30 seconds
 * Kills on any round (normally stops killing after round 50)
 * Can kill unlimited zombies at once
+* No longer kills players without Juggernog instantly
+* Decreased player damage from 75 to 25
 * Decreased startup time from 2 seconds to 0.5 seconds
 
 ### Turret
