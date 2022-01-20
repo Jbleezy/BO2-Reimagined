@@ -131,16 +131,18 @@ register_perk_struct( name, model, origin, angles )
 	perk_struct.angles = angles;
 	perk_struct.origin = origin;
 	perk_struct.targetname = "zm_perk_machine";
-	// if ( name == "specialty_weapupgrade" )
-	// {
-	// 	perk_struct.target = "weapupgrade_flag_targ";
-	// 	flag = spawnStruct();
-	// 	flag.targetname = "weapupgrade_flag_targ";
-	// 	flag.model = "zombie_sign_please_wait";
-	// 	flag.angles = ( 0, angles[ 1 ] - 180, angles[ 2 ] - 180 );
-	// 	flag.origin = ( origin[ 0 ] + 13.5, origin[ 1 ] - 29, origin[ 2 ] + 49.5 );
-	// 	add_struct( flag );
-	// }
+
+	if ( name == "specialty_weapupgrade" )
+	{
+		flag_struct = spawnStruct();
+		flag_struct.targetname = "weapupgrade_flag_targ";
+		flag_struct.model = "zombie_sign_please_wait";
+		flag_struct.angles = angles + ( 0, 180, 180 );
+		flag_struct.origin = origin + ( anglesToForward( angles ) * 29 ) + ( anglesToRight( angles ) * -13.5 ) + ( anglesToUp( angles ) * 49.5 );
+		perk_struct.target = flag_struct.targetname;
+		add_struct( flag_struct );
+	}
+
 	add_struct( perk_struct );
 }
 
