@@ -24,6 +24,8 @@ destroy_weapon_in_blackout( player )
 		}
 		self.worldgun delete();
 	}
+
+	self.perk_machine.wait_flag rotateTo( self.perk_machine.angles + (0, 180, 180), 0.25, 0, 0 );
 }
 
 give_perk( perk, bought )
