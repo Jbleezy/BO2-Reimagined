@@ -1,6 +1,7 @@
 #include maps\mp\_utility;
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
+#include maps/mp/zombies/_zm_spawner;
 
 zombie_damage( mod, hit_location, hit_origin, player, amount, team )
 {
@@ -151,4 +152,73 @@ zombie_damage( mod, hit_location, hit_origin, player, amount, team )
 	}
 
 	self thread maps/mp/zombies/_zm_powerups::check_for_instakill( player, mod, hit_location );
+}
+
+head_should_gib( attacker, type, point )
+{
+	if ( !is_mature() )
+	{
+		return 0;
+	}
+
+	if ( self.head_gibbed )
+	{
+		return 0;
+	}
+
+	if ( !isDefined( attacker ) || !isplayer( attacker ) )
+	{
+		return 0;
+	}
+
+	weapon = attacker getcurrentweapon();
+
+    if ( type != "MOD_RIFLE_BULLET" && type != "MOD_PISTOL_BULLET" )
+    {
+        if ( type == "MOD_GRENADE" || type == "MOD_GRENADE_SPLASH" )
+        {
+            if ( ( distance( point, self gettagorigin( "j_head" ) ) > 55 ) || ( self.health > 0 ) )
+            {
+                return 0;
+            }
+            else
+            {
+                return 1;
+            }
+        }
+        else if ( type == "MOD_PROJECTILE" )
+        {
+            if ( ( distance( point, self gettagorigin( "j_head" ) ) > 10 ) || ( self.health > 0 ) )
+            {
+                return 0;
+            }
+            else
+            {
+                return 1;
+            }
+        }
+        else if ( weaponclass( weapon ) != "spread" )
+        {
+            return 0;
+        }
+    }
+
+	if ( !self maps/mp/animscripts/zm_utility::damagelocationisany( "head", "helmet", "neck" ) )
+	{
+		return 0;
+	}
+
+	if ( weapon == "none" || weapon == level.start_weapon || weaponisgasweapon( self.weapon ) )
+	{
+		return 0;
+	}
+
+    self zombie_hat_gib( attacker, type );
+
+	if ( self.health > 0 )
+	{
+		return 0;
+	}
+
+	return 1;
 }

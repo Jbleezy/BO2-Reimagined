@@ -55,6 +55,7 @@
 ## Zombies
 * Health capped at 100,000
 * Removed walkers in high rounds
+* Removed headless zombies
 * Neck counts as headshot
 
 ### Screechers
