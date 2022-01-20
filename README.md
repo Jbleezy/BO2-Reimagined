@@ -232,7 +232,9 @@
 
 ### Turret
 * No longer needs to be powered by a Turbine
-* Gets destroyed after being deployed for 60 seconds
+* Gets destroyed after being deployed for 30 seconds
+* Kills on any round in 1-4 shots (normally does 1200 damage max)
+* Fire type changed from burst fire to continuous fire
 * No longer damages players if they have Juggernog
 * Fixed a bug where the Turret sounds would continue playing after being picked up
 

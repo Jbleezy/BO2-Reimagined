@@ -10,7 +10,7 @@ startturretdeploy( weapon )
 	self thread maps/mp/zombies/_zm_equip_turret::watchforcleanup();
 	if ( !isDefined( self.turret_health ) )
 	{
-		self.turret_health = 60;
+		self.turret_health = 30;
 	}
 	if ( isDefined( weapon ) )
 	{
@@ -48,6 +48,8 @@ startturretdeploy( weapon )
 		turret.team = self.team;
 		turret.damage_own_team = 0;
 		turret.turret_active = 1;
+		turret.script_burst_min = self.turret_health;
+		turret.script_burst_max = self.turret_health;
 		weapon.turret = turret;
 		self.turret = turret;
 		weapon turret_power_on();

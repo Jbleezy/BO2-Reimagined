@@ -82,6 +82,17 @@ actor_damage_override( inflictor, attacker, damage, flags, meansofdeath, weapon,
 		}
 	}
 
+	if ( weapon == "zombie_bullet_crouch_zm" && meansofdeath == "MOD_RIFLE_BULLET" )
+	{
+		damage_scalar = damage / 600;
+		min_damage = int( damage_scalar * level.zombie_health ) + 1;
+
+		if ( damage < min_damage )
+		{
+			damage = min_damage;
+		}
+	}
+
 	if ( !isplayer( attacker ) && !isplayer( self ) )
 	{
 		return damage;
