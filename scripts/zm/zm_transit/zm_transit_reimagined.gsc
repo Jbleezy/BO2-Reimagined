@@ -184,6 +184,8 @@ power_station_vision_change()
 	level.changed_r_exposureValue = 4;
 	time = 1;
 
+	flag_wait( "start_zombie_round_logic" );
+
 	while(1)
 	{
 		players = get_players();
