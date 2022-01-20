@@ -66,8 +66,9 @@
 * Removed hint when player is first attacked in solo
 
 ## Weapons
-* Switch to melee weapon by pressing the new melee weapon button (same button as the Maxis Drone on Origins)
-* Changed grenade damage scalar to 150 (normally random number between 100 and 200 added by round number)
+* Switch to melee weapon by pressing the new melee weapon button (same button as the Time Bomb and Maxis Drone)
+* Changed grenade damage scalar to 50 multiplied by round number (normally random number between 100 and 200 added by round number)
+* Capped grenade damage scalar at 3000
 * Changed projectile weapon damage scalar to 50 multiplied by round number (normally random number between 0 and 100 multiplied by round number)
 * Capped projectile weapon damage scalar at 3000
 * Changed placeable mine damage scalar to 150 multiplied by round number (normally random number between 100 and 200 multiplied by round number)
