@@ -23,7 +23,7 @@ player_elec_damage()
 
 		self shellshock( "electrocution", shocktime );
 		self playsound( "zmb_zombie_arc" );
-        radiusdamage( self.origin, 10, 25, 25 );
+        radiusdamage( self.origin + (0, 0, 5), 10, 25, 25 );
 
         wait 0.1;
 

@@ -207,7 +207,7 @@ nuke_powerup( drop_item, player_team )
 		{
 			if(is_player_valid(players[i]))
 			{
-				radiusDamage(players[i].origin, 10, 80, 80);
+				radiusDamage(players[i].origin + (0, 0, 5), 10, 80, 80);
 			}
 		}
 	}

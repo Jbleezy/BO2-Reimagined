@@ -227,6 +227,7 @@
 * Can kill unlimited zombies at once
 * No longer kills players without Juggernog instantly
 * Decreased player damage from 75 to 25
+* Decreased player shellshock time from 2.5 seconds to 1.25 seconds
 * Decreased startup time from 2 seconds to 0.5 seconds
 
 ### Turret
