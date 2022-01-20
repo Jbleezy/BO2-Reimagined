@@ -37,7 +37,7 @@
 * Decreased normal health regeneration delay from 2.4 seconds to 2 seconds
 * Decreased low health regeneration delay from 5 seconds to 4 seconds
 * Normal health regeneration rate is no longer instant
-* Changed health regeneration rate to 100 health per second (previously fully restored health in 0.5 seconds)
+* Changed health regeneration rate to 100 health per second (normally fully restored health in 0.5 seconds)
 * Fall damage no longer increases when max health is increased
 * Removed blur when getting damaged
 * Removed shellshock when getting damaged from grenades
@@ -66,6 +66,11 @@
 
 ## Weapons
 * Switch to melee weapon by pressing the new melee weapon button (same button as the Maxis Drone on Origins)
+* Changed grenade damage scalar to 150 (normally random number between 100 and 200 added by round number)
+* Changed projectile weapon damage scalar to 50 multiplied by round number (normally random number between 0 and 100 multiplied by round number)
+* Capped projectile weapon damage scalar at 3000
+* Changed placeable mine damage scalar to 150 multiplied by round number (normally random number between 100 and 200 multiplied by round number)
+* Capped placeable mine damage scalar at 9000
 
 ### AN-94
 * Increased weapon cost from 1200 to 1500

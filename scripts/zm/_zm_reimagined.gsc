@@ -18,6 +18,7 @@
 #include scripts/zm/replaced/_zm_traps;
 #include scripts/zm/replaced/_zm_equipment;
 #include scripts/zm/replaced/_zm_ai_basic;
+#include scripts/zm/replaced/_zm_spawner;
 
 main()
 {
@@ -194,6 +195,7 @@ post_all_players_spawned()
 	level.playersuicideallowed = undefined;
 	level.disable_free_perks_before_power = undefined;
 	level.custom_random_perk_weights = undefined;
+	level.global_damage_func = scripts/zm/replaced/_zm_spawner::zombie_damage;
 	level.callbackplayerdamage = scripts/zm/replaced/_zm::callback_playerdamage;
 	level.overrideplayerdamage = scripts/zm/replaced/_zm::player_damage_override;
 	level.playerlaststand_func = scripts/zm/replaced/_zm::player_laststand;
