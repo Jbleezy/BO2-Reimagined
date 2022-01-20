@@ -136,9 +136,7 @@
 ### Quick Revive
 * No longer automatically powered on in solo
 * Increased cost in solo from 500 to 1500
-* Decreases normal health regeneration delay from 2 seconds to 1.5 seconds
-* Decreases low health regeneration delay from 4 seconds to 3 seconds
-* Increases health regeneration rate from 100 health per second to 125 health per second
+* Decreases health regeneration delay by 25%
 
 ### Speed Cola
 * Aim twice as fast

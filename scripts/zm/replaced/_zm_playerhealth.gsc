@@ -63,7 +63,6 @@ playerhealthregen()
 
 		if (self hasPerk("specialty_quickrevive"))
 		{
-			regenrate *= 1.25;
 			regularregendelay *= 0.75;
 			longregendelay *= 0.75;
 		}
