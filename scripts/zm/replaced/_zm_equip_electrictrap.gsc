@@ -82,10 +82,23 @@ electrictrapdecay( weapon )
 	}
 }
 
-etrap_destroy()
+cleanupoldtrap()
 {
-	maps/mp/zombies/_zm_equipment::equipment_disappear_fx( self.weapon.origin, undefined, self.weapon.angles );
-	self.electrictrap_health = undefined;
+	if ( isDefined( self.buildableelectrictrap ) )
+	{
+		if ( isDefined( self.buildableelectrictrap.stub ) )
+		{
+			thread maps/mp/zombies/_zm_unitrigger::unregister_unitrigger( self.buildableelectrictrap.stub );
+			self.buildableelectrictrap.stub = undefined;
+		}
+		self.buildableelectrictrap delete();
+		self.electrictrap_health = undefined;
+	}
+	if ( isDefined( level.electrap_sound_ent ) )
+	{
+		level.electrap_sound_ent delete();
+		level.electrap_sound_ent = undefined;
+	}
 }
 
 etrap_choke()

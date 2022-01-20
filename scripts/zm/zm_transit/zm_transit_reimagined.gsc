@@ -17,6 +17,7 @@ main()
 	replaceFunc(maps/mp/zm_transit_utility::solo_tombstone_removal, scripts/zm/replaced/zm_transit_utility::solo_tombstone_removal);
 	replaceFunc(maps/mp/zombies/_zm_weap_emp_bomb::emp_detonate, scripts/zm/replaced/_zm_weap_emp_bomb::emp_detonate);
 	replaceFunc(maps/mp/zombies/_zm_equip_electrictrap::startelectrictrapdeploy, scripts/zm/replaced/_zm_equip_electrictrap::startelectrictrapdeploy);
+	replaceFunc(maps/mp/zombies/_zm_equip_electrictrap::cleanupoldtrap, scripts/zm/replaced/_zm_equip_electrictrap::cleanupoldtrap);
 	replaceFunc(maps/mp/zombies/_zm_equip_electrictrap::etrap_choke, scripts/zm/replaced/_zm_equip_electrictrap::etrap_choke);
 	replaceFunc(maps/mp/zombies/_zm_equip_turret::startturretdeploy, scripts/zm/replaced/_zm_equip_turret::startturretdeploy);
 	replaceFunc(maps/mp/zombies/_zm_banking::init, scripts/zm/replaced/_zm_banking::init);
@@ -30,7 +31,6 @@ main()
 init()
 {
 	level.grenade_safe_to_bounce = ::grenade_safe_to_bounce;
-	level.placeable_equipment_destroy_fn["equip_electrictrap_zm"] = scripts/zm/replaced/_zm_equip_electrictrap::etrap_destroy;
 
 	screecher_spawner_changes();
 	zombie_spawn_location_changes();
