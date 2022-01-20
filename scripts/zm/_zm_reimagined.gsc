@@ -221,7 +221,7 @@ post_all_players_spawned()
 	level thread buildbuildables();
 	level thread buildcraftables();
 
-	level thread zombie_health_fix();
+	level thread zombie_health_cap();
 
 	level thread wallbuy_dynamic_update();
 
@@ -4298,17 +4298,19 @@ electric_cherry_unlimited()
 	}
 }
 
-zombie_health_fix()
+zombie_health_cap()
 {
+	max_health = 100000;
+
 	for ( ;; )
 	{
 		level waittill( "start_of_round" );
 
 		wait 0.05;
 
-		if(level.zombie_health > 1000000)
+		if(level.zombie_health > max_health)
 		{
-			level.zombie_health = 1000000;
+			level.zombie_health = max_health;
 		}
 	}
 }

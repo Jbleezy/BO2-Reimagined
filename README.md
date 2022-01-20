@@ -53,7 +53,7 @@
 * Removed enemy player name fade in time
 
 ## Zombies
-* Health capped at 1 million
+* Health capped at 100,000
 * Removed walkers in high rounds
 * Neck counts as headshot
 
