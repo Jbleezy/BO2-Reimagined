@@ -1832,7 +1832,7 @@ melee_weapon_switch_watcher()
 			prev_wep = curr_wep;
 		}
 
-		if(self actionSlotTwoButtonPressed() && !self hasWeapon("equip_dieseldrone_zm"))
+		if(self actionSlotTwoButtonPressed() && !self hasWeapon("time_bomb_zm") && !self hasWeapon("time_bomb_detonator_zm") && !self hasWeapon("equip_dieseldrone_zm"))
 		{
 			if(curr_wep != melee_wep)
 			{
