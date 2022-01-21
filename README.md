@@ -99,7 +99,6 @@
 * No longer disables HUD
 * Disables player's perks for 30 seconds
 * Added fx to EMP'd players
-* Makes downed players bleed out
 * Decreased zombie EMP radius by 30% (same radius as perk EMP)
 * Sprinting no longer wakes up EMP'd zombies
 
@@ -384,7 +383,7 @@
 * Max Ammo: unloads clip of all enemy players' weapons
 * Double Points: enemy players gain half points for 30 seconds
 * Insta Kill: enemy players deal half damage for 30 seconds
-* Nuke: deals 80 damage to all enemy players
+* Nuke: deals 80 damage to all alive enemy players and makes all downed enemy players bleed out
 * Added kill feed (includes downs, revives, and bleed outs)
 * Added player kills on scoreboard
 * Added player downed and bled out icons on scoreboard

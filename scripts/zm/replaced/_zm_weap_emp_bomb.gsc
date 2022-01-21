@@ -51,17 +51,12 @@ emp_players(origin, radius, owner)
 	{
 		if(distancesquared(origin, player.origin) < rsquared)
 		{
-			player shellshock( "frag_grenade_mp", 2 );
-
-			if(is_player_valid(player))
+			if(is_player_valid(player) || player maps/mp/zombies/_zm_laststand::player_is_in_laststand())
 			{
 				time = 30;
+				player shellshock( "frag_grenade_mp", 2 );
 				player thread player_perk_pause_and_unpause_all_perks(time);
 				player thread player_emp_fx(time);
-			}
-			else if(player maps/mp/zombies/_zm_laststand::player_is_in_laststand())
-			{
-				player thread scripts/zm/zgrief/zgrief_reimagined::player_suicide();
 			}
 		}
 	}

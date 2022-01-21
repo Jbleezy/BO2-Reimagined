@@ -209,6 +209,10 @@ nuke_powerup( drop_item, player_team )
 			{
 				radiusDamage(players[i].origin + (0, 0, 5), 10, 80, 80);
 			}
+			else if(players[i] maps/mp/zombies/_zm_laststand::player_is_in_laststand())
+			{
+				players[i] thread scripts/zm/zgrief/zgrief_reimagined::player_suicide();
+			}
 		}
 	}
 }
