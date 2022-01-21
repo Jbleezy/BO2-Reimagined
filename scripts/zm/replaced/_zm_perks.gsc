@@ -8,6 +8,11 @@ perk_pause( perk )
 	// disabled
 }
 
+perk_unpause( perk )
+{
+	// disabled
+}
+
 destroy_weapon_in_blackout( player )
 {
 	self endon( "pap_timeout" );
