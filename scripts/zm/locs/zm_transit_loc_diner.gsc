@@ -137,6 +137,12 @@ init_barriers()
 	collision = spawn( "script_model", ( -5000, -6700, 0 ), 1 );
 	collision setmodel( "zm_collision_transit_diner_survival" );
 	collision disconnectpaths();
+
+    origin = ( -6350, -7046, -60 );
+	angles = ( 0, 165, 0 );
+	scripts/zm/replaced/utility::barrier( "collision_player_wall_64x64x10", origin + (anglesToUp(angles) * 32), angles );
+    scripts/zm/replaced/utility::barrier( "collision_player_wall_64x64x10", origin + (anglesToUp(angles) * 96), angles );
+    scripts/zm/replaced/utility::barrier( "afr_barrel_biohazard_white_rust", origin + (anglesToForward(angles) * -24) + (anglesToRight(angles) * -16) + (anglesToUp(angles) * 14), angles + (0, 90, 90) );
 }
 
 generatebuildabletarps()
