@@ -84,6 +84,12 @@ struct_init()
                     object.origin += anglesToUp(object.angles) * -65;
                     object.origin += anglesToForward(object.angles) * 100;
                 }
+                else if(object.origin == (-3978.4, -6484.9, 0.8))
+                {
+                    object setModel("veh_t6_civ_smallwagon_dead");
+                    object.origin += anglesToUp(object.angles) * -60;
+                    object.origin += anglesToForward(object.angles) * 125;
+                }
                 else if(object.origin == (-3902.4, -6884.9, 0.8))
                 {
                     object setModel("veh_t6_civ_microbus_dead");
