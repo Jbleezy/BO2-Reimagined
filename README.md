@@ -167,6 +167,9 @@
 * No longer deactivated if the perk machine is powered off
 * Added high qualty perk icons to all maps
 
+### Juggernog
+* Increases current health by 100 upon purchase (normally sets current health to max)
+
 ### Quick Revive
 * No longer automatically powered on in solo
 * Increased cost in solo from 500 to 1500

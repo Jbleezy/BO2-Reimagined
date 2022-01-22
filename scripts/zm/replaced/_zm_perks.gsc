@@ -187,6 +187,66 @@ perk_think( perk )
 	self notify( "perk_lost" );
 }
 
+perk_set_max_health_if_jugg( perk, set_premaxhealth, clamp_health_to_max_health )
+{
+	max_total_health = undefined;
+	if ( perk == "specialty_armorvest" )
+	{
+		if ( set_premaxhealth )
+		{
+			self.premaxhealth = self.maxhealth;
+		}
+		max_total_health = level.zombie_vars[ "zombie_perk_juggernaut_health" ];
+	}
+	else if ( perk == "specialty_armorvest_upgrade" )
+	{
+		if ( set_premaxhealth )
+		{
+			self.premaxhealth = self.maxhealth;
+		}
+		max_total_health = level.zombie_vars[ "zombie_perk_juggernaut_health_upgrade" ];
+	}
+	else if ( perk == "jugg_upgrade" )
+	{
+		if ( set_premaxhealth )
+		{
+			self.premaxhealth = self.maxhealth;
+		}
+		if ( self hasperk( "specialty_armorvest" ) )
+		{
+			max_total_health = level.zombie_vars[ "zombie_perk_juggernaut_health" ];
+		}
+		else
+		{
+			max_total_health = 100;
+		}
+	}
+	else
+	{
+		if ( perk == "health_reboot" )
+		{
+			max_total_health = 100;
+		}
+	}
+	if ( isDefined( max_total_health ) )
+	{
+		if ( self maps/mp/zombies/_zm_pers_upgrades_functions::pers_jugg_active() )
+		{
+			max_total_health += level.pers_jugg_upgrade_health_bonus;
+		}
+		missinghealth = self.maxhealth - self.health;
+		self setmaxhealth( max_total_health );
+		self.health -= missinghealth;
+		if ( isDefined( clamp_health_to_max_health ) && clamp_health_to_max_health == 1 )
+		{
+			if ( self.health > self.maxhealth )
+			{
+				self.health = self.maxhealth;
+			}
+		}
+	}
+}
+
 // modifying this function because it is right before perk_machine_spawn_init and has a lot less code
 initialize_custom_perk_arrays()
 {

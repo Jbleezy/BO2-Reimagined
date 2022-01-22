@@ -46,6 +46,7 @@ main()
 	replaceFunc(maps/mp/zombies/_zm_perks::destroy_weapon_in_blackout, scripts/zm/replaced/_zm_perks::destroy_weapon_in_blackout);
 	replaceFunc(maps/mp/zombies/_zm_perks::give_perk, scripts/zm/replaced/_zm_perks::give_perk);
 	replaceFunc(maps/mp/zombies/_zm_perks::perk_think, scripts/zm/replaced/_zm_perks::perk_think);
+	replaceFunc(maps/mp/zombies/_zm_perks::perk_set_max_health_if_jugg, scripts/zm/replaced/_zm_perks::perk_set_max_health_if_jugg);
 	replaceFunc(maps/mp/zombies/_zm_perks::initialize_custom_perk_arrays, scripts/zm/replaced/_zm_perks::initialize_custom_perk_arrays);
 	replaceFunc(maps/mp/zombies/_zm_power::standard_powered_items, scripts/zm/replaced/_zm_power::standard_powered_items);
 	replaceFunc(maps/mp/zombies/_zm_powerups::full_ammo_powerup, scripts/zm/replaced/_zm_powerups::full_ammo_powerup);
