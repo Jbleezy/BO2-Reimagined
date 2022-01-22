@@ -45,6 +45,7 @@ main()
 	replaceFunc(maps/mp/zombies/_zm_perks::perk_unpause, scripts/zm/replaced/_zm_perks::perk_unpause);
 	replaceFunc(maps/mp/zombies/_zm_perks::destroy_weapon_in_blackout, scripts/zm/replaced/_zm_perks::destroy_weapon_in_blackout);
 	replaceFunc(maps/mp/zombies/_zm_perks::give_perk, scripts/zm/replaced/_zm_perks::give_perk);
+	replaceFunc(maps/mp/zombies/_zm_perks::perk_think, scripts/zm/replaced/_zm_perks::perk_think);
 	replaceFunc(maps/mp/zombies/_zm_perks::initialize_custom_perk_arrays, scripts/zm/replaced/_zm_perks::initialize_custom_perk_arrays);
 	replaceFunc(maps/mp/zombies/_zm_power::standard_powered_items, scripts/zm/replaced/_zm_power::standard_powered_items);
 	replaceFunc(maps/mp/zombies/_zm_powerups::full_ammo_powerup, scripts/zm/replaced/_zm_powerups::full_ammo_powerup);
@@ -148,6 +149,8 @@ onplayerspawned()
 			//self GiveWeapon("dsr50_zm");
 			//self GiveMaxAmmo("dsr50_zm");
 		}
+
+		self thread wait_and_set_max_health();
 
 		self set_client_dvars();
 		self set_perks();
@@ -275,6 +278,13 @@ set_perks()
 	self setperk( "specialty_unlimitedsprint" );
 	self setperk( "specialty_fastmantle" );
 	self setperk( "specialty_fastladderclimb" );
+}
+
+wait_and_set_max_health()
+{
+	wait 0.05;
+
+	self setMaxHealth(150);
 }
 
 health_bar_hud()

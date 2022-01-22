@@ -123,6 +123,70 @@ give_perk( perk, bought )
 	self thread perk_think( perk );
 }
 
+perk_think( perk )
+{
+	perk_str = perk + "_stop";
+	result = self waittill_any_return( "fake_death", "death", "player_downed", perk_str );
+	do_retain = 1;
+	if ( use_solo_revive() && perk == "specialty_quickrevive" )
+	{
+		do_retain = 0;
+	}
+	if ( do_retain )
+	{
+		if ( is_true( self._retain_perks ) )
+		{
+			return;
+		}
+		else if ( isDefined( self._retain_perks_array ) && is_true( self._retain_perks_array[ perk ] ) )
+		{
+			return;
+		}
+	}
+	self unsetperk( perk );
+	self.num_perks--;
+
+	switch( perk )
+	{
+		case "specialty_armorvest":
+			self setmaxhealth( self.premaxhealth );
+			break;
+		case "specialty_additionalprimaryweapon":
+			if ( result == perk_str )
+			{
+				self maps/mp/zombies/_zm::take_additionalprimaryweapon();
+			}
+			break;
+		case "specialty_deadshot":
+			if ( !is_true( level.disable_deadshot_clientfield ) )
+			{
+				self setclientfieldtoplayer( "deadshot_perk", 0 );
+			}
+			break;
+		case "specialty_deadshot_upgrade":
+			if ( !is_true( level.disable_deadshot_clientfield ) )
+			{
+				self setclientfieldtoplayer( "deadshot_perk", 0 );
+			}
+			break;
+	}
+	if ( isDefined( level._custom_perks[ perk ] ) && isDefined( level._custom_perks[ perk ].player_thread_take ) )
+	{
+		self thread [[ level._custom_perks[ perk ].player_thread_take ]]();
+	}
+	self set_perk_clientfield( perk, 0 );
+	self.perk_purchased = undefined;
+	if ( isDefined( level.perk_lost_func ) )
+	{
+		self [[ level.perk_lost_func ]]( perk );
+	}
+	if ( isDefined( self.perks_active ) && isinarray( self.perks_active, perk ) )
+	{
+		arrayremovevalue( self.perks_active, perk, 0 );
+	}
+	self notify( "perk_lost" );
+}
+
 // modifying this function because it is right before perk_machine_spawn_init and has a lot less code
 initialize_custom_perk_arrays()
 {

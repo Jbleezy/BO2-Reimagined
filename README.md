@@ -28,6 +28,7 @@
 
 ## Players
 * Unlimited sprint
+* Increased health from 100 to 150
 * Self revives in solo are active whenever the player has at least 1 perk
 * 100% backwards move speed
 * Decreased sprint time needed to be able to dive from 0.25 seconds to 0.1 seconds
