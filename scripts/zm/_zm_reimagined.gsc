@@ -124,6 +124,8 @@ onplayerspawned()
 
 			self thread give_additional_perks();
 
+			self thread weapon_locker_give_ammo_after_rounds();
+
 			self thread buildable_piece_remove_on_last_stand();
 
 			//self thread disable_sniper_scope_sway(); // Buried does not load the clientfield
@@ -3786,6 +3788,36 @@ disable_sniper_scope_sway()
 		}
 
 		wait 0.05;
+	}
+}
+
+weapon_locker_give_ammo_after_rounds()
+{
+	self endon("disconnect");
+
+	while(1)
+	{
+		level waittill("end_of_round");
+
+		if(isDefined(self.stored_weapon_data))
+		{
+			if(self.stored_weapon_data["name"] != "none")
+			{
+				self.stored_weapon_data["clip"] = weaponClipSize(self.stored_weapon_data["name"]);
+				self.stored_weapon_data["stock"] = weaponMaxAmmo(self.stored_weapon_data["name"]);
+			}
+
+			if(self.stored_weapon_data["dw_name"] != "none")
+			{
+				self.stored_weapon_data["lh_clip"] = weaponClipSize(self.stored_weapon_data["dw_name"]);
+			}
+
+			if(self.stored_weapon_data["alt_name"] != "none")
+			{
+				self.stored_weapon_data["alt_clip"] = weaponClipSize(self.stored_weapon_data["alt_name"]);
+				self.stored_weapon_data["alt_stock"] = weaponMaxAmmo(self.stored_weapon_data["alt_name"]);
+			}
+		}
 	}
 }
 
