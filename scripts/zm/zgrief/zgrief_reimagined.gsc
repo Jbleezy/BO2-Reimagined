@@ -1757,7 +1757,7 @@ remove_status_icons_on_end_game()
 
 random_map_rotation()
 {
-	if(getDvar("sv_hostname") == "Private Match")
+	if(!isDedicated())
 	{
 		return;
 	}
@@ -1834,7 +1834,7 @@ random_map_rotation()
 
 spawn_bots(num)
 {
-	if(getDvar("sv_hostname") != "Private Match")
+	if(isDedicated())
 	{
 		return;
 	}
