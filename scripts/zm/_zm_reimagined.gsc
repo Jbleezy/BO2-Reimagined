@@ -181,6 +181,8 @@ post_all_players_spawned()
 	maps/mp/zombies/_zm::register_player_damage_callback( ::player_damage_override );
 
 	level.near_miss = 2; // makes screecher not run away first time on solo
+	level.ta_vaultfee = 0;
+	level.ta_tellerfee = 0;
 	level.weapon_locker_online = 0;
 	level.magicbox_timeout = 9;
 	level.packapunch_timeout = 12;

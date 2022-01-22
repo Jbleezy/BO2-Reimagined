@@ -6,8 +6,14 @@
 init()
 {
 	onplayerconnect_callback( ::onplayerconnect_bank_deposit_box );
-	level.ta_vaultfee = 0;
-	level.ta_tellerfee = 0;
+	if ( !isDefined( level.ta_vaultfee ) )
+	{
+		level.ta_vaultfee = 100;
+	}
+	if ( !isDefined( level.ta_tellerfee ) )
+	{
+		level.ta_tellerfee = 100;
+	}
 }
 
 onplayerconnect_bank_deposit_box()
@@ -174,5 +180,5 @@ trigger_withdraw_update_prompt( player )
 
 show_balance()
 {
-	self iprintlnbold("Account Value: " + round_up_to_ten(int(self.account_value * level.bank_deposit_ddl_increment_amount)));
+	self iprintlnbold("Account Balance: " + round_up_to_ten(int(self.account_value * level.bank_deposit_ddl_increment_amount)));
 }
