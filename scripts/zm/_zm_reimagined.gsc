@@ -1903,7 +1903,7 @@ melee_weapon_disable_weapon_trading()
 
 player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime )
 {
-	if (smeansofdeath == "MOD_FALLING")
+	if(smeansofdeath == "MOD_FALLING")
 	{
 		// remove fall damage being based off max health
 		ratio = self.maxhealth / 100;
@@ -1911,12 +1911,12 @@ player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, 
 
 		// increase fall damage beyond 110
 		max_damage = 110;
-		if (idamage >= max_damage)
+		if(idamage >= max_damage)
 		{
 			velocity = abs(self.fall_velocity);
 			min_velocity = getDvarInt("bg_fallDamageMinHeight") * 3.25;
 			max_velocity = getDvarInt("bg_fallDamageMaxHeight") * 2.5;
-			if (self.divetoprone)
+			if(self.divetoprone)
 			{
 				min_velocity = getDvarInt("dtp_fall_damage_min_height") * 4.5;
 				max_velocity = getDvarInt("dtp_fall_damage_max_height") * 2.75;
@@ -1929,6 +1929,12 @@ player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, 
 				idamage = max_damage;
 			}
 		}
+	}
+
+	// fix turrets damaging players
+	if(sweapon == "zombie_bullet_crouch_zm" && smeansofdeath == "MOD_RIFLE_BULLET")
+	{
+		idamage = 0;
 	}
 
 	return idamage;
