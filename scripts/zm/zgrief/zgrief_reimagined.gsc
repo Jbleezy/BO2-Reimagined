@@ -238,14 +238,14 @@ set_grief_vars()
 {
 	level.noroundnumber = 1;
 	level.zombie_move_speed = 100;
-	level.zombie_vars["zombie_health_start"] = 2000;
+	level.zombie_vars["zombie_health_start"] = 2500;
 	level.zombie_vars["zombie_health_increase"] = 0;
 	level.zombie_vars["zombie_health_increase_multiplier"] = 0;
 	level.zombie_vars["zombie_spawn_delay"] = 0.5;
 	level.zombie_powerups["meat_stink"].solo = 1;
 	level.zombie_powerups["meat_stink"].func_should_drop_with_regular_powerups = ::func_should_drop_meat;
-	level.brutus_health = 20000;
-	level.brutus_expl_dmg_req = 12000;
+	level.brutus_health = 25000;
+	level.brutus_expl_dmg_req = 15000;
 	level.player_starting_points = 10000;
 	level.custom_end_screen = ::custom_end_screen;
 	level.game_module_onplayerconnect = ::grief_onplayerconnect;

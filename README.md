@@ -386,7 +386,7 @@
 * First team to win 3 rounds wins the game
 * Tie round if both teams die within 5 seconds of eachother
 * Unlimited zombies
-* 2000 health zombies
+* 2500 health zombies
 * 0.5 second zombie spawn rate
 * Only sprinting zombies
 * Zombies start spawning 10 seconds after the round starts
@@ -430,4 +430,4 @@
 * Players respawn at initial spawn points
 * Decreased connection timeout from 90 seconds to 45 seconds
 * Random map rotation
-* 20000 health Brutus
+* 25000 health Brutus
