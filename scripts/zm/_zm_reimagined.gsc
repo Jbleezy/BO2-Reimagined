@@ -266,6 +266,8 @@ set_client_dvars()
 
 	self setClientDvar( "r_lodBiasRigid", -1000 );
 	self setClientDvar( "r_lodBiasSkinned", -1000 );
+
+	self setClientDvar( "cg_ufo_scaler", 1 );
 }
 
 set_perks()
