@@ -64,6 +64,7 @@ main()
 init()
 {
 	level.using_solo_revive = 0;
+	level.player_starting_health = 150;
 
 	setscoreboardcolumns_gametype();
 	set_lethal_grenade_init();
@@ -285,7 +286,7 @@ wait_and_set_max_health()
 {
 	wait 0.05;
 
-	self setMaxHealth(150);
+	self setMaxHealth(level.player_starting_health);
 }
 
 health_bar_hud()

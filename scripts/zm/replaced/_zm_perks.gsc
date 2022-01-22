@@ -218,14 +218,14 @@ perk_set_max_health_if_jugg( perk, set_premaxhealth, clamp_health_to_max_health 
 		}
 		else
 		{
-			max_total_health = 100;
+			max_total_health = level.player_starting_health;
 		}
 	}
 	else
 	{
 		if ( perk == "health_reboot" )
 		{
-			max_total_health = 100;
+			max_total_health = level.player_starting_health;
 		}
 	}
 	if ( isDefined( max_total_health ) )
