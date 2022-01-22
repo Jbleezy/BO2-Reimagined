@@ -146,9 +146,20 @@ actor_damage_override( inflictor, attacker, damage, flags, meansofdeath, weapon,
 		final_damage *= 2;
 	}
 
-	if(attacker HasPerk("specialty_deadshot") && is_headshot(weapon, shitloc, meansofdeath) && WeaponClass(weapon) != "spread" && WeaponClass(weapon) != "pistol spread")
+	if(attacker HasPerk("specialty_rof"))
 	{
-		final_damage *= 2;
+		if(meansofdeath == "MOD_PISTOL_BULLET" || meansofdeath == "MOD_RIFLE_BULLET")
+		{
+			final_damage *= 0.75; // TODO: change to 1.5 once fixed
+		}
+	}
+
+	if(attacker HasPerk("specialty_deadshot"))
+	{
+		if(is_headshot(weapon, shitloc, meansofdeath) && WeaponClass(weapon) != "spread" && WeaponClass(weapon) != "pistol spread")
+		{
+			final_damage *= 2;
+		}
 	}
 
 	if ( attacker maps/mp/zombies/_zm_pers_upgrades_functions::pers_mulit_kill_headshot_active() && is_headshot( weapon, shitloc, meansofdeath ) )

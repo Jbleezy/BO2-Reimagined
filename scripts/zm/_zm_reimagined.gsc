@@ -247,6 +247,11 @@ set_dvars()
 	setDvar( "player_meleeRange", 64 );
 
 	setDvar( "g_friendlyfireDist", 0 );
+
+	setDvar( "perk_weapRateEnhanced", 0 );
+
+	setDvar( "sv_patch_zm_weapons", 0 );
+	setDvar( "sv_fix_zm_weapons", 1 );
 }
 
 set_client_dvars()

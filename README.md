@@ -80,17 +80,43 @@
 ### B23R
 * Changed weapon cost to 900 on all maps
 
+### Executioner
+* Increased penetration
+
+### HAMR
+* Decreased recoil
+
+### M1216
+* Increased penetration
+
 ### M1911
 * Upgraded: given as last stand pistol above all others except Ray Gun Mark 2
 
 ### M1927
 * Decreased ammo cost from 800 to 750
 
+### M8A1
+* Decreased recoil
+
+### MTAR
+* Decreased recoil
+
 ### Remington 870
 * Changed weapon cost to 1200 on all maps
+* Increased penetration
+
+### RPD
+* Decreased recoil
+
+### S12
+* Increased penetration
 
 ### SMR
 * Increased damage by 100%
+* Removed ADS spread
+
+### Type 25
+* Decreased recoil
 
 ### War Machine
 * Unupgraded: grenades explode on impact
@@ -148,6 +174,10 @@
 * Aim twice as fast
 * Switch weapons twice as fast
 * Throw grenades twice as fast
+
+### Double Tap
+* Removed shooting 2 bullets for every shot
+* Increases bullet damage by 50%
 
 ### Stamin-Up
 * Move faster (normally only sprint faster)
