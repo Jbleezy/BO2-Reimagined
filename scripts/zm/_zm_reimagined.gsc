@@ -4364,7 +4364,19 @@ refill_after_time(primary)
 	self endon("spawned_player");
 
 	reload_time = weaponReloadTime(primary);
-	if(reload_time < 1)
+	reload_amount = undefined;
+
+	if(primary == "m32_zm" || primary == "python_zm" || maps/mp/zombies/_zm_weapons::get_base_weapon_name(primary, 1) == "judge_zm" || maps/mp/zombies/_zm_weapons::get_base_weapon_name(primary, 1) == "870mcs_zm" || maps/mp/zombies/_zm_weapons::get_base_weapon_name(primary, 1) == "ksg_zm")
+	{
+		reload_amount = 1;
+
+		if(maps/mp/zombies/_zm_weapons::get_base_weapon_name(primary, 1) == "ksg_zm" && maps/mp/zombies/_zm_weapons::is_weapon_upgraded(primary))
+		{
+			reload_amount = 2;
+		}
+	}
+
+	if(!isDefined(reload_amount) && reload_time < 1)
 	{
 		reload_time = 1;
 	}
@@ -4378,11 +4390,16 @@ refill_after_time(primary)
 
 	ammo_clip = self getWeaponAmmoClip(primary);
 	ammo_stock = self getWeaponAmmoStock(primary);
-
 	missing_clip = weaponClipSize(primary) - ammo_clip;
+
 	if(missing_clip > ammo_stock)
 	{
 		missing_clip = ammo_stock;
+	}
+
+	if(isDefined(reload_amount) && missing_clip > reload_amount)
+	{
+		missing_clip = reload_amount;
 	}
 
 	self setWeaponAmmoClip(primary, ammo_clip + missing_clip);
@@ -4393,8 +4410,8 @@ refill_after_time(primary)
 	{
 		ammo_clip = self getWeaponAmmoClip(dw_primary);
 		ammo_stock = self getWeaponAmmoStock(dw_primary);
-
 		missing_clip = weaponClipSize(dw_primary) - ammo_clip;
+
 		if(missing_clip > ammo_stock)
 		{
 			missing_clip = ammo_stock;
@@ -4409,8 +4426,8 @@ refill_after_time(primary)
 	{
 		ammo_clip = self getWeaponAmmoClip(alt_primary);
 		ammo_stock = self getWeaponAmmoStock(alt_primary);
-
 		missing_clip = weaponClipSize(alt_primary) - ammo_clip;
+
 		if(missing_clip > ammo_stock)
 		{
 			missing_clip = ammo_stock;
@@ -4418,6 +4435,11 @@ refill_after_time(primary)
 
 		self setWeaponAmmoClip(alt_primary, ammo_clip + missing_clip);
 		self setWeaponAmmoStock(alt_primary, ammo_stock - missing_clip);
+	}
+
+	if(isDefined(reload_amount) && self getWeaponAmmoStock(primary) > 0 && self getWeaponAmmoClip(primary) < weaponClipSize(primary))
+	{
+		self refill_after_time(primary);
 	}
 }
 
