@@ -156,9 +156,15 @@ actor_damage_override( inflictor, attacker, damage, flags, meansofdeath, weapon,
 
 	if(attacker HasPerk("specialty_deadshot"))
 	{
-		if(is_headshot(weapon, shitloc, meansofdeath) && WeaponClass(weapon) != "spread" && WeaponClass(weapon) != "pistol spread")
+		if(is_headshot(weapon, shitloc, meansofdeath))
 		{
-			final_damage *= 2;
+			if(meansofdeath == "MOD_PISTOL_BULLET" || meansofdeath == "MOD_RIFLE_BULLET")
+			{
+				if(!isSubStr(weaponClass(weapon), "spread") || maps/mp/zombies/_zm_weapons::get_base_weapon_name(weapon, 1) == "ksg_zm")
+				{
+					final_damage *= 2;
+				}
+			}
 		}
 	}
 

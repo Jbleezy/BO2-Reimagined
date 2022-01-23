@@ -188,7 +188,7 @@
 * Move faster (normally only sprint faster)
 
 ### Deadshot Daiquiri
-* Increases headshot damage by 100%
+* Increases bullet headshot damage by 100%
 * Move faster while aiming
 * Decreases sprint recovery time
 
