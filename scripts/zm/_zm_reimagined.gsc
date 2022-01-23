@@ -4331,7 +4331,7 @@ additionalprimaryweapon_stowed_weapon_refill()
 
 	while (1)
 	{
-		self waittill_any("weapon_change", "specialty_additionalprimaryweapon_stop", "spawned_player");
+		string = self waittill_any_return("weapon_change", "weapon_change_complete", "specialty_additionalprimaryweapon_stop", "spawned_player");
 
 		if(self hasPerk("specialty_additionalprimaryweapon"))
 		{
@@ -4346,7 +4346,10 @@ additionalprimaryweapon_stowed_weapon_refill()
 			{
 				if(primary != maps/mp/zombies/_zm_weapons::get_nonalternate_weapon(curr_wep))
 				{
-					self thread refill_after_time(primary);
+					if(string != "weapon_change")
+					{
+						self thread refill_after_time(primary);
+					}
 				}
 				else
 				{
