@@ -1903,7 +1903,7 @@ melee_weapon_disable_weapon_trading()
 
 player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime )
 {
-	if(smeansofdeath == "MOD_FALLING")
+	if(smeansofdeath == "MOD_FALLING" && !self hasPerk("specialty_flakjacket"))
 	{
 		// remove fall damage being based off max health
 		ratio = self.maxhealth / 100;
