@@ -139,6 +139,7 @@ onplayerspawned()
 			self thread additionalprimaryweapon_save_weapons();
 			self thread additionalprimaryweapon_restore_weapons();
 			self thread additionalprimaryweapon_indicator();
+			self thread additionalprimaryweapon_stowed_weapon_refill();
 
 			self thread whos_who_spawn_changes();
 
@@ -4321,6 +4322,102 @@ additionalprimaryweapon_indicator()
 			additionalprimaryweapon_indicator_hud fadeOverTime(0.5);
 			additionalprimaryweapon_indicator_hud.alpha = 0;
 		}
+	}
+}
+
+additionalprimaryweapon_stowed_weapon_refill()
+{
+	self endon("disconnect");
+
+	while (1)
+	{
+		self waittill_any("weapon_change", "specialty_additionalprimaryweapon_stop", "spawned_player");
+
+		if(self hasPerk("specialty_additionalprimaryweapon"))
+		{
+			curr_wep = self getCurrentWeapon();
+			if(curr_wep == "none")
+			{
+				continue;
+			}
+
+			primaries = self getWeaponsListPrimaries();
+			foreach(primary in primaries)
+			{
+				if(primary != maps/mp/zombies/_zm_weapons::get_nonalternate_weapon(curr_wep))
+				{
+					self thread refill_after_time(primary);
+				}
+				else
+				{
+					self notify(primary + "_reload_stop");
+				}
+			}
+		}
+	}
+}
+
+refill_after_time(primary)
+{
+	self endon(primary + "_reload_stop");
+	self endon("specialty_additionalprimaryweapon_stop");
+	self endon("spawned_player");
+
+	reload_time = weaponReloadTime(primary);
+	if(reload_time < 1)
+	{
+		reload_time = 1;
+	}
+
+	if(self hasPerk("specialty_fastreload"))
+	{
+		reload_time *= getDvarFloat("perk_weapReloadMultiplier");
+	}
+
+	wait reload_time;
+
+	ammo_clip = self getWeaponAmmoClip(primary);
+	ammo_stock = self getWeaponAmmoStock(primary);
+
+	missing_clip = weaponClipSize(primary) - ammo_clip;
+	if(missing_clip > ammo_stock)
+	{
+		missing_clip = ammo_stock;
+	}
+
+	self setWeaponAmmoClip(primary, ammo_clip + missing_clip);
+	self setWeaponAmmoStock(primary, ammo_stock - missing_clip);
+
+	dw_primary = weaponDualWieldWeaponName(primary);
+	if(dw_primary != "none")
+	{
+		ammo_clip = self getWeaponAmmoClip(dw_primary);
+		ammo_stock = self getWeaponAmmoStock(dw_primary);
+
+		missing_clip = weaponClipSize(dw_primary) - ammo_clip;
+		if(missing_clip > ammo_stock)
+		{
+			missing_clip = ammo_stock;
+		}
+
+		self setWeaponAmmoClip(dw_primary, ammo_clip + missing_clip);
+		self setWeaponAmmoStock(dw_primary, ammo_stock - missing_clip);
+	}
+
+	alt_primary = weaponAltWeaponName(primary);
+	if(alt_primary != "none")
+	{
+		ammo_clip = self getWeaponAmmoClip(alt_primary);
+		ammo_stock = self getWeaponAmmoStock(alt_primary);
+
+		missing_clip = weaponClipSize(alt_primary) - ammo_clip;
+		if(missing_clip > ammo_stock)
+		{
+			missing_clip = ammo_stock;
+		}
+
+		self setWeaponAmmoClip(alt_primary, ammo_clip + missing_clip);
+		self setWeaponAmmoStock(alt_primary, ammo_stock - missing_clip);
 	}
 }
 

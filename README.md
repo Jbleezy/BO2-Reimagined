@@ -188,13 +188,14 @@
 * Move faster (normally only sprint faster)
 
 ### Deadshot Daiquiri
-* Double headshot damage
+* Increases headshot damage by 100%
 * Move faster while aiming
-* Decreased sprint recovery time
+* Decreases sprint recovery time
 
 ### Mule Kick
 * Added additional weapon indicator
 * Additional weapon is given back when perk is repurchased
+* Stowed weapons refill ammo from stock over time
 
 ### Tombstone Soda
 * Added in solo
