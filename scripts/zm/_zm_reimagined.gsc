@@ -3825,7 +3825,8 @@ tombstone_waypoint()
 	hud_elem.x = self.origin[0];
 	hud_elem.y = self.origin[1];
 	hud_elem.z = self.origin[2] + height_offset;
-	hud_elem.alpha = 0.6;
+	hud_elem.alpha = 1;
+	hud_elem.color = (0.5, 0.5, 0.5);
 	hud_elem.hidewheninmenu = 1;
 	hud_elem.fadewhentargeted = 1;
 	hud_elem setWaypoint(1, "specialty_tombstone_zombies");
