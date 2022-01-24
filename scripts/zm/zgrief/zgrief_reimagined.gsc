@@ -57,6 +57,7 @@ init()
 	level thread set_grief_vars();
 	level thread powerup_hud_overlay();
 	level thread round_start_wait(5, true);
+	level thread sudden_death();
 	level thread unlimited_zombies();
 	level thread remove_round_number();
 	level thread remove_status_icons_on_end_game();
@@ -1115,6 +1116,10 @@ show_grief_hud_msg( msg, msg_parm, offset, delay )
 	{
 		self notify( "show_grief_hud_msg" );
 	}
+	else
+	{
+		self notify( "show_grief_hud_msg2" );
+	}
 
 	self endon( "disconnect" );
 
@@ -1144,7 +1149,7 @@ show_grief_hud_msg( msg, msg_parm, offset, delay )
 
 	zgrief_hudmsg endon( "death" );
 
-	zgrief_hudmsg thread show_grief_hud_msg_cleanup(self);
+	zgrief_hudmsg thread show_grief_hud_msg_cleanup(self, delay);
 
 	while ( isDefined( level.hostmigrationtimer ) )
 	{
@@ -1185,14 +1190,21 @@ show_grief_hud_msg( msg, msg_parm, offset, delay )
 	}
 }
 
-show_grief_hud_msg_cleanup(player)
+show_grief_hud_msg_cleanup(player, delay)
 {
 	self endon( "death" );
 
 	self thread show_grief_hud_msg_cleanup_restart_round();
 	self thread show_grief_hud_msg_cleanup_end_game();
 
-	player waittill( "show_grief_hud_msg" );
+	if(!isDefined(delay))
+	{
+		player waittill( "show_grief_hud_msg" );
+	}
+	else
+	{
+		player waittill( "show_grief_hud_msg2" );
+	}
 
 	if ( isDefined( self ) )
 	{
@@ -1679,6 +1691,47 @@ grief_laststand_weapons_return()
 	}
 
 	return 0;
+}
+
+sudden_death()
+{
+	level endon("end_game");
+
+	level.sudden_death = 0;
+	level.sudden_death_time = 300;
+	level.sudden_death_health_loss = 100;
+
+	while(1)
+	{
+		level waittill("restart_round_start");
+
+		level.sudden_death = 0;
+
+		time = level waittill_notify_or_timeout("restart_round", level.sudden_death_time);
+
+		if(!isDefined(time))
+		{
+			continue;
+		}
+
+		level.sudden_death = 1;
+
+		players = get_players();
+		foreach(player in players)
+		{
+			player thread show_grief_hud_msg( "Sudden Death!" );
+			player thread show_grief_hud_msg( "Lose " + level.sudden_death_health_loss + " Health!", undefined, 30, 1 );
+
+			health = player.health;
+			player setMaxHealth(player.maxhealth - level.sudden_death_health_loss);
+			if(player.health > health)
+			{
+				player.health = health;
+			}
+
+			player.premaxhealth -= level.sudden_death_health_loss;
+		}
+	}
 }
 
 unlimited_zombies()

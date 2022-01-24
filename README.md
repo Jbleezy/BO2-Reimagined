@@ -395,6 +395,7 @@
 * Teams win rounds by getting all enemy players down
 * First team to win 3 rounds wins the game
 * Tie round if both teams die within 5 seconds of eachother
+* Sudden death after 5 minute round (all players lose 100 health)
 * Unlimited zombies
 * 2500 health zombies
 * 0.5 second zombie spawn rate
