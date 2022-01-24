@@ -308,8 +308,8 @@ health_bar_hud()
 
 	flag_wait( "initial_blackscreen_passed" );
 
-	x = -364;
-	y = -68;
+	x = 5;
+	y = -104;
 	if (level.script == "zm_buried")
 	{
 		y -= 25;
@@ -320,7 +320,24 @@ health_bar_hud()
 	}
 
 	health_bar = self createbar((1, 1, 1), level.primaryprogressbarwidth - 10, level.primaryprogressbarheight);
-	health_bar setpoint(undefined, "BOTTOM", x, y);
+	health_bar.alignx = "left";
+	health_bar.bar.alignx = "left";
+	health_bar.barframe.alignx = "left";
+	health_bar.aligny = "middle";
+	health_bar.bar.aligny = "middle";
+	health_bar.barframe.aligny = "middle";
+	health_bar.horzalign = "user_left";
+	health_bar.bar.horzalign = "user_left";
+	health_bar.barframe.horzalign = "user_left";
+	health_bar.vertalign = "user_bottom";
+	health_bar.bar.vertalign = "user_bottom";
+	health_bar.barframe.vertalign = "user_bottom";
+	health_bar.x += x;
+	health_bar.bar.x += x + ((health_bar.width + 4) / 2);
+	health_bar.barframe.x += x;
+	health_bar.y += y;
+	health_bar.bar.y += y;
+	health_bar.barframe.y += y;
 	health_bar.hidewheninmenu = 1;
 	health_bar.bar.hidewheninmenu = 1;
 	health_bar.barframe.hidewheninmenu = 1;
@@ -329,7 +346,12 @@ health_bar_hud()
 	health_bar.barframe.foreground = 1;
 
 	health_bar_text = createfontstring("objective", 1.2);
-	health_bar_text setpoint("LEFT", "BOTTOM", x + 60, y);
+	health_bar_text.alignx = "left";
+	health_bar_text.aligny = "middle";
+	health_bar_text.horzalign = "user_left";
+	health_bar_text.vertalign = "user_bottom";
+	health_bar_text.x += x + health_bar.width + 7;
+	health_bar_text.y += y;
 	health_bar_text.hidewheninmenu = 1;
 	health_bar_text.foreground = 1;
 
@@ -537,7 +559,7 @@ zone_hud()
 	self endon("disconnect");
 
 	x = 5;
-	y = -111;
+	y = -119;
 	if (level.script == "zm_buried")
 	{
 		y -= 25;
@@ -549,7 +571,7 @@ zone_hud()
 
 	zone_hud = newClientHudElem(self);
 	zone_hud.alignx = "left";
-	zone_hud.aligny = "bottom";
+	zone_hud.aligny = "middle";
 	zone_hud.horzalign = "user_left";
 	zone_hud.vertalign = "user_bottom";
 	zone_hud.x += x;
