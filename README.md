@@ -40,6 +40,7 @@
 * Normal health regeneration rate is no longer instant
 * Changed health regeneration rate to 100 health per second (normally fully restored health in 0.5 seconds)
 * Fall damage no longer increases when max health is increased
+* Added blood fx when at or below 20% health
 * Removed blur when getting damaged
 * Removed shellshock when getting damaged from grenades
 * No longer killed when landing on top of another player

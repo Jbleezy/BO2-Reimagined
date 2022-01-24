@@ -116,6 +116,8 @@ onplayerspawned()
 			self thread bleedout_bar_hud();
 			self thread zone_hud();
 
+			self thread veryhurt_blood_fx();
+
 			self thread ignoreme_after_revived();
 
 			self thread fall_velocity_check();
@@ -1797,6 +1799,27 @@ set_lethal_grenade_init()
 	}
 
 	level.zombie_lethal_grenade_player_init = "sticky_grenade_zm";
+}
+
+veryhurt_blood_fx()
+{
+	self endon( "disconnect" );
+
+	while(1)
+	{
+		health_ratio = self.health / self.maxhealth;
+
+		if(health_ratio <= 0.2)
+		{
+			playFXOnTag(level._effect["zombie_guts_explosion"], self, "J_SpineLower");
+
+			wait 1;
+
+			continue;
+		}
+
+		wait 0.05;
+	}
 }
 
 ignoreme_after_revived()
