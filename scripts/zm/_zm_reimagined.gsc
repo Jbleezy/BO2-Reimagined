@@ -324,10 +324,14 @@ health_bar_hud()
 	health_bar.hidewheninmenu = 1;
 	health_bar.bar.hidewheninmenu = 1;
 	health_bar.barframe.hidewheninmenu = 1;
+	health_bar.foreground = 1;
+	health_bar.bar.foreground = 1;
+	health_bar.barframe.foreground = 1;
 
 	health_bar_text = createfontstring("objective", 1.2);
 	health_bar_text setpoint("LEFT", "BOTTOM", x + 60, y);
 	health_bar_text.hidewheninmenu = 1;
+	health_bar_text.foreground = 1;
 
 	while (1)
 	{
@@ -377,6 +381,7 @@ enemy_counter_hud()
 	enemy_counter_hud.alpha = 0;
 	enemy_counter_hud.color = ( 1, 1, 1 );
 	enemy_counter_hud.hidewheninmenu = 1;
+	enemy_counter_hud.foreground = 1;
 	enemy_counter_hud.label = &"Enemies Remaining: ";
 
 	flag_wait( "initial_blackscreen_passed" );
@@ -415,6 +420,7 @@ timer_hud()
 	timer_hud.alpha = 0;
 	timer_hud.color = ( 1, 1, 1 );
 	timer_hud.hidewheninmenu = 1;
+	timer_hud.foreground = 1;
 	timer_hud.label = &"Total: ";
 
 	level thread set_time_frozen_on_end_game(timer_hud);
@@ -445,6 +451,7 @@ round_timer_hud()
 	round_timer_hud.alpha = 0;
 	round_timer_hud.color = ( 1, 1, 1 );
 	round_timer_hud.hidewheninmenu = 1;
+	round_timer_hud.foreground = 1;
 	round_timer_hud.label = &"Round: ";
 
 	level thread set_time_frozen_on_end_game(round_timer_hud);
@@ -551,6 +558,7 @@ zone_hud()
 	zone_hud.alpha = 0;
 	zone_hud.color = ( 1, 1, 1 );
 	zone_hud.hidewheninmenu = 1;
+	zone_hud.foreground = 1;
 
 	flag_wait( "initial_blackscreen_passed" );
 

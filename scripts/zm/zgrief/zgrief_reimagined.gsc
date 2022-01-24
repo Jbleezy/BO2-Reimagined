@@ -135,6 +135,7 @@ grief_score_hud()
 	level.grief_hud.team["axis"].icon["axis"].x -= 67.5;
 	level.grief_hud.team["axis"].icon["axis"].y += 2;
 	level.grief_hud.team["axis"].icon["axis"].hideWhenInMenu = 1;
+	level.grief_hud.team["axis"].icon["axis"].foreground = 1;
 	level.grief_hud.team["axis"].icon["axis"].alpha = 0;
 	level.grief_hud.team["axis"].icon["axis"] setShader(icon["axis"], 32, 32);
 
@@ -146,6 +147,7 @@ grief_score_hud()
 	level.grief_hud.team["axis"].icon["allies"].x += 67.5;
 	level.grief_hud.team["axis"].icon["allies"].y += 2;
 	level.grief_hud.team["axis"].icon["allies"].hideWhenInMenu = 1;
+	level.grief_hud.team["axis"].icon["allies"].foreground = 1;
 	level.grief_hud.team["axis"].icon["allies"].alpha = 0;
 	level.grief_hud.team["axis"].icon["allies"] setShader(icon["allies"], 32, 32);
 
@@ -159,6 +161,7 @@ grief_score_hud()
 	level.grief_hud.team["axis"].score["axis"].fontscale = 3.5;
 	level.grief_hud.team["axis"].score["axis"].color = (0.21, 0, 0);
 	level.grief_hud.team["axis"].score["axis"].hideWhenInMenu = 1;
+	level.grief_hud.team["axis"].score["axis"].foreground = 1;
 	level.grief_hud.team["axis"].score["axis"].alpha = 0;
 	level.grief_hud.team["axis"].score["axis"] setValue(0);
 
@@ -172,6 +175,7 @@ grief_score_hud()
 	level.grief_hud.team["axis"].score["allies"].fontscale = 3.5;
 	level.grief_hud.team["axis"].score["allies"].color = (0.21, 0, 0);
 	level.grief_hud.team["axis"].score["allies"].hideWhenInMenu = 1;
+	level.grief_hud.team["axis"].score["allies"].foreground = 1;
 	level.grief_hud.team["axis"].score["allies"].alpha = 0;
 	level.grief_hud.team["axis"].score["allies"] setValue(0);
 
@@ -183,6 +187,7 @@ grief_score_hud()
 	level.grief_hud.team["allies"].icon["axis"].x += 67.5;
 	level.grief_hud.team["allies"].icon["axis"].y += 2;
 	level.grief_hud.team["allies"].icon["axis"].hideWhenInMenu = 1;
+	level.grief_hud.team["allies"].icon["axis"].foreground = 1;
 	level.grief_hud.team["allies"].icon["axis"].alpha = 0;
 	level.grief_hud.team["allies"].icon["axis"] setShader(icon["axis"], 32, 32);
 
@@ -194,6 +199,7 @@ grief_score_hud()
 	level.grief_hud.team["allies"].icon["allies"].x -= 67.5;
 	level.grief_hud.team["allies"].icon["allies"].y += 2;
 	level.grief_hud.team["allies"].icon["allies"].hideWhenInMenu = 1;
+	level.grief_hud.team["allies"].icon["allies"].foreground = 1;
 	level.grief_hud.team["allies"].icon["allies"].alpha = 0;
 	level.grief_hud.team["allies"].icon["allies"] setShader(icon["allies"], 32, 32);
 
@@ -207,6 +213,7 @@ grief_score_hud()
 	level.grief_hud.team["allies"].score["axis"].fontscale = 3.5;
 	level.grief_hud.team["allies"].score["axis"].color = (0.21, 0, 0);
 	level.grief_hud.team["allies"].score["axis"].hideWhenInMenu = 1;
+	level.grief_hud.team["allies"].score["axis"].foreground = 1;
 	level.grief_hud.team["allies"].score["axis"].alpha = 0;
 	level.grief_hud.team["allies"].score["axis"] setValue(0);
 
@@ -220,6 +227,7 @@ grief_score_hud()
 	level.grief_hud.team["allies"].score["allies"].fontscale = 3.5;
 	level.grief_hud.team["allies"].score["allies"].color = (0.21, 0, 0);
 	level.grief_hud.team["allies"].score["allies"].hideWhenInMenu = 1;
+	level.grief_hud.team["allies"].score["allies"].foreground = 1;
 	level.grief_hud.team["allies"].score["allies"].alpha = 0;
 	level.grief_hud.team["allies"].score["allies"] setValue(0);
 
@@ -890,7 +898,7 @@ round_start_countdown_hud(time)
 	{
 		level.countdown_hud = createServerFontString( "objective", 2.2 );
 		level.countdown_hud setPoint( "CENTER", "CENTER", 0, 0 );
-		level.countdown_hud.foreground = false;
+		level.countdown_hud.foreground = 1;
 		level.countdown_hud.color = ( 1, 1, 0 );
 		level.countdown_hud.hidewheninmenu = true;
 		level.countdown_hud maps/mp/gametypes_zm/_hud::fontpulseinit();
@@ -898,7 +906,7 @@ round_start_countdown_hud(time)
 
 		level.countdown_hud.countdown_text = createServerFontString( "objective", 1.5 );
 		level.countdown_hud.countdown_text setPoint( "CENTER", "CENTER", 0, -40 );
-		level.countdown_hud.countdown_text.foreground = false;
+		level.countdown_hud.countdown_text.foreground = 1;
 		level.countdown_hud.countdown_text.color = ( 1, 1, 1 );
 		level.countdown_hud.countdown_text.hidewheninmenu = true;
 	}
