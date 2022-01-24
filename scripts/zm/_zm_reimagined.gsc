@@ -276,6 +276,12 @@ set_client_dvars()
 	self setClientDvar( "cg_enemyNameFadeIn", 0 );
 	self setClientDvar( "cg_enemyNameFadeOut", 250 );
 
+	self setClientDvar( "waypointOffscreenPointerDistance", 30);
+	self setClientDvar( "waypointOffscreenPadTop", 32);
+	self setClientDvar( "waypointOffscreenPadBottom", 32);
+	self setClientDvar( "waypointPlayerOffsetStand", 30);
+	self setClientDvar( "waypointPlayerOffsetCrouch", 30);
+
 	self setClientDvar( "r_lodBiasRigid", -1000 );
 	self setClientDvar( "r_lodBiasSkinned", -1000 );
 

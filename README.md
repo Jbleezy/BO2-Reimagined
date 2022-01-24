@@ -21,6 +21,9 @@
 * Timer displayed on top right of screen
 * Health bar displayed on bottom left of screen
 * Current zone displayed on bottom left of screen
+* Increased waypoint offset from top of screen
+* Changed player waypoint location to be center of player instead of top of player
+* Increased distance between revive waypoint arrow and icon
 * Bleedout bar displayed when downed
 * Revive bar displayed for downed player
 * Changed revive bar color to blue
