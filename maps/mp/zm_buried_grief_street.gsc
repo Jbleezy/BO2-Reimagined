@@ -156,7 +156,7 @@ builddynamicwallbuy( location, weaponname )
 				model hide();
 
 				chalk_fx = weaponname + "_fx";
-				thread scripts/zm/_zm_reimagined::playchalkfx( chalk_fx, origin, wallbuy.angles );
+				thread scripts/zm/replaced/utility::playchalkfx( chalk_fx, origin, wallbuy.angles );
 			}
 
 			maps/mp/zombies/_zm_weapons::add_dynamic_wallbuy( weaponname, wallbuy.targetname, 1 );
