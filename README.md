@@ -173,6 +173,7 @@
 ## Wallbuys
 * Increased trigger radius
 * Decreased upgraded ammo cost from 4500 to 2500
+* Lethal grenade hint string no longer displays "ammo" after purchasing
 
 ## Mystery Box
 * Decreased weapon pickup time from 12 seconds to 9 seconds

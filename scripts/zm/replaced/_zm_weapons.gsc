@@ -1,6 +1,19 @@
 #include maps\mp\_utility;
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
+#include maps\mp\zombies\_zm_weapons;
+
+lethal_grenade_update_prompt( player )
+{
+	weapon = self.stub.zombie_weapon_upgrade;
+	hint = level.zombie_weapons[weapon].hint;
+	self.stub.hint_string = hint;
+	self sethintstring( self.stub.hint_string, cost );
+	self.stub.cursor_hint = "HINT_WEAPON";
+	self.stub.cursor_hint_weapon = weapon;
+	self setcursorhint( self.stub.cursor_hint, self.stub.cursor_hint_weapon );
+	return 1;
+}
 
 get_upgraded_ammo_cost( weapon_name )
 {
