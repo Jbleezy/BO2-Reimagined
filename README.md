@@ -139,6 +139,7 @@
 
 ### Claymore
 * Can be repurchased
+* Increased max amount that can be placed from 12 to 20
 
 ### Ray Gun
 * Unupgraded: increased impact damage from 1000 to 1500 (same as max splash damage)

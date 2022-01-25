@@ -67,6 +67,7 @@ init()
 {
 	level.using_solo_revive = 0;
 	level.player_starting_health = 150;
+	level.claymores_max_per_player = 20;
 
 	setscoreboardcolumns_gametype();
 	set_lethal_grenade_init();
