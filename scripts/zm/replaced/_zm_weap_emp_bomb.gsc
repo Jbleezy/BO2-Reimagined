@@ -70,7 +70,7 @@ player_emp_fx(time)
 	self endon("bled_out");
 	self endon("player_suicide");
 
-	wait_time = 3;
+	wait_time = 2.5;
 	for(i = 0; i < time; i += wait_time)
 	{
 		playfxontag( level._effect[ "elec_torso" ], self, "J_SpineLower" );
