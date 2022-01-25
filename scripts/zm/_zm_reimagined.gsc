@@ -355,6 +355,11 @@ health_bar_hud()
 	health_bar_text.hidewheninmenu = 1;
 	health_bar_text.foreground = 1;
 
+	health_bar endon("death");
+
+	health_bar thread destroy_on_intermission();
+	health_bar_text thread destroy_on_intermission();
+
 	while (1)
 	{
 		if(isDefined(self.e_afterlife_corpse))
@@ -406,6 +411,10 @@ enemy_counter_hud()
 	enemy_counter_hud.foreground = 1;
 	enemy_counter_hud.label = &"Enemies Remaining: ";
 
+	enemy_counter_hud endon("death");
+
+	enemy_counter_hud thread destroy_on_intermission();
+
 	flag_wait( "initial_blackscreen_passed" );
 
 	enemy_counter_hud.alpha = 1;
@@ -428,7 +437,6 @@ enemy_counter_hud()
 
 timer_hud()
 {
-
 	level thread round_timer_hud();
 
 	timer_hud = newHudElem();
@@ -444,6 +452,10 @@ timer_hud()
 	timer_hud.hidewheninmenu = 1;
 	timer_hud.foreground = 1;
 	timer_hud.label = &"Total: ";
+
+	timer_hud endon("death");
+
+	timer_hud thread destroy_on_intermission();
 
 	level thread set_time_frozen_on_end_game(timer_hud);
 
@@ -475,6 +487,10 @@ round_timer_hud()
 	round_timer_hud.hidewheninmenu = 1;
 	round_timer_hud.foreground = 1;
 	round_timer_hud.label = &"Round: ";
+
+	round_timer_hud endon("death");
+
+	round_timer_hud thread destroy_on_intermission();
 
 	level thread set_time_frozen_on_end_game(round_timer_hud);
 
@@ -581,6 +597,10 @@ zone_hud()
 	zone_hud.color = ( 1, 1, 1 );
 	zone_hud.hidewheninmenu = 1;
 	zone_hud.foreground = 1;
+
+	zone_hud endon("death");
+
+	zone_hud thread destroy_on_intermission();
 
 	flag_wait( "initial_blackscreen_passed" );
 
@@ -4537,6 +4557,21 @@ vulture_disable_stink_while_standing()
 
 		wait 0.05;
 	}
+}
+
+destroy_on_intermission()
+{
+	self endon("death");
+
+	level waittill("intermission");
+
+	if(self.elemtype == "bar")
+	{
+		self.bar destroy();
+		self.barframe destroy();
+	}
+
+	self destroy();
 }
 
 test()

@@ -60,7 +60,7 @@ init()
 	level thread sudden_death();
 	level thread unlimited_zombies();
 	level thread remove_round_number();
-	level thread remove_status_icons_on_end_game();
+	level thread remove_status_icons_on_intermission();
 	level thread random_map_rotation();
 	level thread spawn_bots(7);
 }
@@ -231,6 +231,8 @@ grief_score_hud()
 	level.grief_hud.team["allies"].score["allies"].alpha = 0;
 	level.grief_hud.team["allies"].score["allies"] setValue(0);
 
+	level thread destroy_grief_score_hud_on_intermission();
+
 	flag_wait( "initial_blackscreen_passed" );
 
 	level.grief_hud.team["axis"].icon["axis"].alpha = 1;
@@ -241,6 +243,20 @@ grief_score_hud()
 	level.grief_hud.team["allies"].icon["allies"].alpha = 1;
 	level.grief_hud.team["allies"].score["axis"].alpha = 1;
 	level.grief_hud.team["allies"].score["allies"].alpha = 1;
+}
+
+destroy_grief_score_hud_on_intermission()
+{
+	level waittill("intermission");
+
+	level.grief_hud.team["axis"].icon["axis"] destroy();
+	level.grief_hud.team["axis"].icon["allies"] destroy();
+	level.grief_hud.team["axis"].score["axis"] destroy();
+	level.grief_hud.team["axis"].score["allies"] destroy();
+	level.grief_hud.team["allies"].icon["axis"] destroy();
+	level.grief_hud.team["allies"].icon["allies"] destroy();
+	level.grief_hud.team["allies"].score["axis"] destroy();
+	level.grief_hud.team["allies"].score["allies"] destroy();
 }
 
 set_grief_vars()
@@ -1797,11 +1813,9 @@ remove_round_number()
 	}
 }
 
-remove_status_icons_on_end_game()
+remove_status_icons_on_intermission()
 {
-	level waittill("end_game");
-
-	wait 5;
+	level waittill("intermission");
 
 	players = get_players();
 	foreach(player in players)
