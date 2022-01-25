@@ -10,7 +10,8 @@ main()
 {
 	precachemodel( "collision_wall_128x128x10_standard" );
 
-	//replaceFunc(maps/mp/zombies/_zm_equip_subwoofer::startsubwooferdecay, scripts/zm/replaced/_zm_equip_subwoofer::startsubwooferdecay);
+	replaceFunc(maps/mp/zombies/_zm_equip_subwoofer::startsubwooferdecay, scripts/zm/replaced/_zm_equip_subwoofer::startsubwooferdecay);
+	replaceFunc(maps/mp/zombies/_zm_equip_subwoofer::subwoofer_network_choke, scripts/zm/replaced/_zm_equip_subwoofer::subwoofer_network_choke);
 	replaceFunc(maps/mp/zombies/_zm_weap_slowgun::watch_reset_anim_rate, scripts/zm/replaced/_zm_weap_slowgun::watch_reset_anim_rate);
 	replaceFunc(maps/mp/zombies/_zm_banking::init, scripts/zm/replaced/_zm_banking::init);
 	replaceFunc(maps/mp/zombies/_zm_banking::bank_deposit_box, scripts/zm/replaced/_zm_banking::bank_deposit_box);

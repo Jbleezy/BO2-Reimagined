@@ -293,6 +293,9 @@
 
 ### Subsurface Resonator
 * No longer needs to be powered by a Turbine
+* No longer gets destroyed from kills
+* Gets destroyed after being deployed for 30 seconds
+* Fires every 2 seconds (normally has a longer delay depending on the amount of kills from the previous fire)
 
 ### Maxis Drone
 * Switches back to correct weapon after deploying
