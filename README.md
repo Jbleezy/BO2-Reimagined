@@ -89,6 +89,11 @@
 ### B23R
 * Changed weapon cost to 900 on all maps
 
+### Ballistic Knife
+* Projectiles are no longer picked up by other players
+* Projectiles can be picked up while the weapon is not reloaded
+* Projectiles can be picked up while the player is not on the ground
+
 ### Executioner
 * Increased penetration
 

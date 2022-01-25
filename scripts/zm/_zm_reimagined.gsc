@@ -19,6 +19,7 @@
 #include scripts/zm/replaced/_zm_equipment;
 #include scripts/zm/replaced/_zm_spawner;
 #include scripts/zm/replaced/_zm_ai_basic;
+#include scripts/zm/replaced/_zm_weap_ballistic_knife;
 #include scripts/zm/replaced/_zm_weap_claymore;
 
 main()
@@ -39,6 +40,7 @@ main()
 	replaceFunc(maps/mp/zombies/_zm_laststand::revive_hud_think, scripts/zm/replaced/_zm_laststand::revive_hud_think);
 	replaceFunc(maps/mp/zombies/_zm_weapons::get_upgraded_ammo_cost, scripts/zm/replaced/_zm_weapons::get_upgraded_ammo_cost);
 	replaceFunc(maps/mp/zombies/_zm_weapons::makegrenadedudanddestroy, scripts/zm/replaced/_zm_weapons::makegrenadedudanddestroy);
+	replaceFunc(maps/mp/zombies/_zm_weapons::createballisticknifewatcher_zm, scripts/zm/replaced/_zm_weapons::createballisticknifewatcher_zm);
 	replaceFunc(maps/mp/zombies/_zm_magicbox::treasure_chest_move, scripts/zm/replaced/_zm_magicbox::treasure_chest_move);
 	replaceFunc(maps/mp/zombies/_zm_magicbox::treasure_chest_timeout, scripts/zm/replaced/_zm_magicbox::treasure_chest_timeout);
 	replaceFunc(maps/mp/zombies/_zm_magicbox::timer_til_despawn, scripts/zm/replaced/_zm_magicbox::timer_til_despawn);
@@ -60,6 +62,7 @@ main()
 	replaceFunc(maps/mp/zombies/_zm_equipment::placed_equipment_think, scripts/zm/replaced/_zm_equipment::placed_equipment_think);
 	replaceFunc(maps/mp/zombies/_zm_spawner::head_should_gib, scripts/zm/replaced/_zm_spawner::head_should_gib);
 	replaceFunc(maps/mp/zombies/_zm_ai_basic::inert_wakeup, scripts/zm/replaced/_zm_ai_basic::inert_wakeup);
+	replaceFunc(maps/mp/zombies/_zm_weap_ballistic_knife::watch_use_trigger, scripts/zm/replaced/_zm_weap_ballistic_knife::watch_use_trigger);
 	replaceFunc(maps/mp/zombies/_zm_weap_claymore::claymore_detonation, scripts/zm/replaced/_zm_weap_claymore::claymore_detonation);
 }
 
