@@ -229,6 +229,7 @@ post_all_players_spawned()
 
 	wallbuy_increase_trigger_radius();
 	wallbuy_decrease_upgraded_ammo_cost();
+	wallbuy_claymore_changes();
 	wallbuy_location_changes();
 
 	zone_changes();
@@ -2154,6 +2155,18 @@ wallbuy_decrease_upgraded_ammo_cost()
 		if(isDefined(level._unitriggers.trigger_stubs[i].trigger_func) && level._unitriggers.trigger_stubs[i].trigger_func == maps/mp/zombies/_zm_weapons::weapon_spawn_think)
 		{
 			level._unitriggers.trigger_stubs[i].trigger_func = ::weapon_spawn_think;
+		}
+	}
+}
+
+wallbuy_claymore_changes()
+{
+	for(i = 0; i < level._unitriggers.trigger_stubs.size; i++)
+	{
+		if(isDefined(level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade) && level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade == "claymore_zm")
+		{
+			level._unitriggers.trigger_stubs[i].prompt_and_visibility_func = scripts/zm/replaced/_zm_weap_claymore::claymore_unitrigger_update_prompt;
+			level._unitriggers.trigger_stubs[i].trigger_func = scripts/zm/replaced/_zm_weap_claymore::buy_claymores;
 		}
 	}
 }

@@ -280,8 +280,8 @@ wallbuy( weapon_name, target, targetname, origin, angles )
 		wallmodel.angles += (0, 90, 0);
 		wallmodel.script_int = 90; // fix for model sliding right to left
 
-		unitrigger_stub.prompt_and_visibility_func = ::claymore_unitrigger_update_prompt;
-		maps/mp/zombies/_zm_unitrigger::register_static_unitrigger( unitrigger_stub, ::buy_claymores );
+		unitrigger_stub.prompt_and_visibility_func = scripts/zm/replaced/_zm_weap_claymore::claymore_unitrigger_update_prompt;
+		maps/mp/zombies/_zm_unitrigger::register_static_unitrigger( unitrigger_stub, scripts/zm/replaced/_zm_weap_claymore::buy_claymores );
 	}
 	else
 	{

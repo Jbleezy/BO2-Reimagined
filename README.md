@@ -137,6 +137,9 @@
 * Decreased zombie EMP radius by 30% (same radius as perk EMP)
 * Sprinting no longer wakes up EMP'd zombies
 
+### Claymore
+* Can be repurchased
+
 ### Ray Gun
 * Unupgraded: increased impact damage from 1000 to 1500 (same as max splash damage)
 * Upgraded: increased impact damage from 1000 to 2000 (same as max splash damage)
@@ -201,7 +204,7 @@
 
 ### Mule Kick
 * Added additional weapon indicator
-* Additional weapon is given back when perk is repurchased
+* Additional weapon is given back when perk is reacquired
 * Stowed weapons refill ammo from stock over time
 
 ### Tombstone Soda
