@@ -19,6 +19,7 @@
 #include scripts/zm/replaced/_zm_equipment;
 #include scripts/zm/replaced/_zm_spawner;
 #include scripts/zm/replaced/_zm_ai_basic;
+#include scripts/zm/replaced/_zm_melee_weapon;
 #include scripts/zm/replaced/_zm_weap_ballistic_knife;
 #include scripts/zm/replaced/_zm_weap_claymore;
 
@@ -62,6 +63,7 @@ main()
 	replaceFunc(maps/mp/zombies/_zm_equipment::placed_equipment_think, scripts/zm/replaced/_zm_equipment::placed_equipment_think);
 	replaceFunc(maps/mp/zombies/_zm_spawner::head_should_gib, scripts/zm/replaced/_zm_spawner::head_should_gib);
 	replaceFunc(maps/mp/zombies/_zm_ai_basic::inert_wakeup, scripts/zm/replaced/_zm_ai_basic::inert_wakeup);
+	replaceFunc(maps/mp/zombies/_zm_melee_weapon::change_melee_weapon, scripts/zm/replaced/_zm_melee_weapon::change_melee_weapon);
 	replaceFunc(maps/mp/zombies/_zm_weap_ballistic_knife::watch_use_trigger, scripts/zm/replaced/_zm_weap_ballistic_knife::watch_use_trigger);
 	replaceFunc(maps/mp/zombies/_zm_weap_claymore::claymore_detonation, scripts/zm/replaced/_zm_weap_claymore::claymore_detonation);
 }
