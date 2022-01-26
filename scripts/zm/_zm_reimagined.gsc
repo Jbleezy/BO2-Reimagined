@@ -211,7 +211,6 @@ post_all_players_spawned()
 	level.zombie_vars["emp_stun_range"] = 420;
 	//level.zombies_vars["jetgun_grind_range"] = 256; // TODO: get this to work
 	level.zombie_vars["slipgun_reslip_rate"] = 0;
-	level.zombie_equipment["jetgun_zm"].drop_fn = undefined;
 	level.zombie_ai_limit_screecher = 1;
 	level.explode_overheated_jetgun = 0;
 	level.unbuild_overheated_jetgun = 0;
