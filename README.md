@@ -171,6 +171,12 @@
 * Kills on any round (normally stops killing after round 100)
 * Removed additional goo created by chain kills
 
+### Blundergat
+* Kills on any round
+
+### Acid Gat
+* Kills on any round
+
 ## Wallbuys
 * Increased trigger radius
 * Decreased upgraded ammo cost from 4500 to 2500

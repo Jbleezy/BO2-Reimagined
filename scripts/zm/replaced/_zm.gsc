@@ -165,6 +165,11 @@ actor_damage_override( inflictor, attacker, damage, flags, meansofdeath, weapon,
 
 	attacker thread maps/mp/gametypes_zm/_weapons::checkhit( weapon );
 
+	if(maps/mp/zombies/_zm_weapons::get_base_weapon_name(weapon, 1) == "saritch_zm")
+	{
+		final_damage *= 2;
+	}
+
 	if(weapon == "ray_gun_zm" && meansofdeath == "MOD_PROJECTILE")
 	{
 		final_damage = 1500;
@@ -175,9 +180,26 @@ actor_damage_override( inflictor, attacker, damage, flags, meansofdeath, weapon,
 		final_damage = 2000;
 	}
 
-	if(maps/mp/zombies/_zm_weapons::get_base_weapon_name(weapon, 1) == "saritch_zm")
+	if(weapon == "blundergat_zm" || weapon == "blundergat_upgraded_zm")
 	{
-		final_damage *= 2;
+		if(!is_true(self.is_brutus))
+		{
+			damage_scalar = final_damage / 1000;
+			min_damage = int(damage_scalar * level.zombie_health) + 1;
+
+			if(final_damage < min_damage)
+			{
+				final_damage = min_damage;
+			}
+		}
+	}
+
+	if(weapon == "blundersplat_explosive_dart_zm")
+	{
+		if(!is_true(self.is_brutus))
+		{
+			final_damage = level.zombie_health;
+		}
 	}
 
 	if(attacker HasPerk("specialty_rof"))
