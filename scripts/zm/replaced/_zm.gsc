@@ -8,6 +8,40 @@ check_quickrevive_for_hotjoin(disconnecting_player)
 	// always use coop quick revive
 }
 
+ai_calculate_health( round_number )
+{
+	level.zombie_health = level.zombie_vars[ "zombie_health_start" ];
+	max_health = 100000;
+	i = 2;
+
+	while ( i <= round_number )
+	{
+		if( level.zombie_health > max_health )
+		{
+			level.zombie_health = max_health;
+			return;
+		}
+
+		if ( i >= 10 )
+		{
+			old_health = level.zombie_health;
+			level.zombie_health = level.zombie_health + int( level.zombie_health * level.zombie_vars[ "zombie_health_increase_multiplier" ] );
+
+			if ( level.zombie_health < old_health )
+			{
+				level.zombie_health = old_health;
+				return;
+			}
+
+			i++;
+			continue;
+		}
+
+		level.zombie_health = int( level.zombie_health + level.zombie_vars[ "zombie_health_increase" ] );
+		i++;
+	}
+}
+
 last_stand_pistol_rank_init()
 {
 	level.pistol_values = [];

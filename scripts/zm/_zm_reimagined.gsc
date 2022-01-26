@@ -27,6 +27,7 @@ main()
 {
 	replaceFunc(common_scripts/utility::struct_class_init, scripts/zm/replaced/utility::struct_class_init);
 	replaceFunc(maps/mp/zombies/_zm::check_quickrevive_for_hotjoin, scripts/zm/replaced/_zm::check_quickrevive_for_hotjoin);
+	replaceFunc(maps/mp/zombies/_zm::ai_calculate_health, scripts/zm/replaced/_zm::ai_calculate_health);
 	replaceFunc(maps/mp/zombies/_zm::last_stand_pistol_rank_init, scripts/zm/replaced/_zm::last_stand_pistol_rank_init);
 	replaceFunc(maps/mp/zombies/_zm::actor_damage_override, scripts/zm/replaced/_zm::actor_damage_override);
 	replaceFunc(maps/mp/zombies/_zm::wait_and_revive, scripts/zm/replaced/_zm::wait_and_revive);
@@ -248,8 +249,6 @@ post_all_players_spawned()
 
 	level thread buildbuildables();
 	level thread buildcraftables();
-
-	level thread zombie_health_cap();
 
 	level thread wallbuy_dynamic_update();
 
@@ -4486,23 +4485,6 @@ electric_cherry_unlimited()
 		self.consecutive_electric_cherry_attacks = 0;
 
 		wait 0.5;
-	}
-}
-
-zombie_health_cap()
-{
-	max_health = 100000;
-
-	for ( ;; )
-	{
-		level waittill( "start_of_round" );
-
-		wait 0.05;
-
-		if(level.zombie_health > max_health)
-		{
-			level.zombie_health = max_health;
-		}
 	}
 }
 
