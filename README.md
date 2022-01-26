@@ -59,6 +59,7 @@
 
 ## Zombies
 * Health capped at 100,000
+* Attracted towards points of interest immediately
 * Removed walkers in high rounds
 * Removed headless zombies
 * Neck counts as headshot
