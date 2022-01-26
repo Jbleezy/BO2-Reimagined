@@ -2,6 +2,8 @@
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 
+#include scripts/zm/replaced/zm_buried_buildables;
+#include scripts/zm/replaced/_zm_buildables_pooled;
 #include scripts/zm/replaced/_zm_equip_subwoofer;
 #include scripts/zm/replaced/_zm_banking;
 #include scripts/zm/replaced/_zm_weap_slowgun;
@@ -10,6 +12,8 @@ main()
 {
 	precachemodel( "collision_wall_128x128x10_standard" );
 
+	replaceFunc(maps/mp/zm_buried_buildables::init_buildables, scripts/zm/replaced/zm_buried_buildables::init_buildables);
+	replaceFunc(maps/mp/zombies/_zm_buildables_pooled::add_buildable_to_pool, scripts/zm/replaced/_zm_buildables_pooled::add_buildable_to_pool);
 	replaceFunc(maps/mp/zombies/_zm_equip_subwoofer::startsubwooferdecay, scripts/zm/replaced/_zm_equip_subwoofer::startsubwooferdecay);
 	replaceFunc(maps/mp/zombies/_zm_equip_subwoofer::subwoofer_network_choke, scripts/zm/replaced/_zm_equip_subwoofer::subwoofer_network_choke);
 	replaceFunc(maps/mp/zombies/_zm_weap_slowgun::watch_reset_anim_rate, scripts/zm/replaced/_zm_weap_slowgun::watch_reset_anim_rate);

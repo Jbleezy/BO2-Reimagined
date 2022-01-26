@@ -382,6 +382,7 @@
 * Fountain portal automatically active
 * Navcard table automatically crafted
 * Players can no longer get into the corner next to Juggernog
+* Fixed hint strings on buildables when purchased
 
 #### Borough
 * Tunnels disabled
