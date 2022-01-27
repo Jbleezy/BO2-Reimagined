@@ -154,6 +154,8 @@
 * No longer limited to 4 players
 
 ### Ray Gun Mark 2
+* Same probability to obtain as other weapons
+* Can be obtained if player has Ray Gun
 * Limited to 1 player on all maps
 
 ### Jet Gun

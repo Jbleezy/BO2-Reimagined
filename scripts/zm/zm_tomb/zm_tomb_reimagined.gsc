@@ -15,6 +15,7 @@ main()
 init()
 {
 	level.map_on_player_connect = ::on_player_connect;
+	level.special_weapon_magicbox_check = ::tomb_special_weapon_magicbox_check;
 	level.custom_magic_box_timer_til_despawn = ::custom_magic_box_timer_til_despawn;
 
 	challenges_changes();
@@ -28,6 +29,29 @@ init()
 on_player_connect()
 {
 	self thread give_shovel();
+}
+
+tomb_special_weapon_magicbox_check(weapon)
+{
+	if ( weapon == "beacon_zm" )
+	{
+		if ( isDefined( self.beacon_ready ) && self.beacon_ready )
+		{
+			return 1;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+	if ( isDefined( level.zombie_weapons[ weapon ].shared_ammo_weapon ) )
+	{
+		if ( self has_weapon_or_upgrade( level.zombie_weapons[ weapon ].shared_ammo_weapon ) )
+		{
+			return 0;
+		}
+	}
+	return 1;
 }
 
 increase_solo_door_prices()

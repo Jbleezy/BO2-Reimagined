@@ -18,7 +18,14 @@ main()
 
 init()
 {
+	level.special_weapon_magicbox_check = ::highrise_special_weapon_magicbox_check;
+
     level thread elevator_solo_revive_fix();
+}
+
+highrise_special_weapon_magicbox_check(weapon)
+{
+	return 1;
 }
 
 elevator_solo_revive_fix()

@@ -1,6 +1,7 @@
 #include maps\mp\_utility;
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
+#include maps/mp/zm_alcatraz_utility;
 
 #include scripts/zm/replaced/zm_alcatraz_classic;
 #include scripts/zm/replaced/_zm_afterlife;
@@ -17,6 +18,7 @@ main()
 
 init()
 {
+	level.special_weapon_magicbox_check = ::check_for_special_weapon_limit_exist;
 	level.round_prestart_func = scripts/zm/replaced/_zm_afterlife::afterlife_start_zombie_logic;
 
 	remove_acid_trap_player_spawn();
@@ -27,6 +29,62 @@ init()
 	plane_set_pieces_shared();
 
 	level thread plane_auto_refuel();
+}
+
+check_for_special_weapon_limit_exist(weapon)
+{
+	if ( weapon != "blundergat_zm" && weapon != "minigun_alcatraz_zm" )
+	{
+		return 1;
+	}
+	players = get_players();
+	count = 0;
+	if ( weapon == "blundergat_zm" )
+	{
+		if ( self maps/mp/zombies/_zm_weapons::has_weapon_or_upgrade( "blundersplat_zm" ) )
+		{
+			return 0;
+		}
+		if ( self afterlife_weapon_limit_check( "blundergat_zm" ) )
+		{
+			return 0;
+		}
+		limit = level.limited_weapons[ "blundergat_zm" ];
+	}
+	else
+	{
+		if ( self afterlife_weapon_limit_check( "minigun_alcatraz_zm" ) )
+		{
+			return 0;
+		}
+		limit = level.limited_weapons[ "minigun_alcatraz_zm" ];
+	}
+	i = 0;
+	while ( i < players.size )
+	{
+		if ( weapon == "blundergat_zm" )
+		{
+			if ( players[ i ] maps/mp/zombies/_zm_weapons::has_weapon_or_upgrade( "blundersplat_zm" ) || isDefined( players[ i ].is_pack_splatting ) && players[ i ].is_pack_splatting )
+			{
+				count++;
+				i++;
+				continue;
+			}
+		}
+		else
+		{
+			if ( players[ i ] afterlife_weapon_limit_check( weapon ) )
+			{
+				count++;
+			}
+		}
+		i++;
+	}
+	if ( count >= limit )
+	{
+		return 0;
+	}
+	return 1;
 }
 
 remove_acid_trap_player_spawn()

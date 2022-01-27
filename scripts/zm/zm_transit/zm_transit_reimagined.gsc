@@ -36,6 +36,7 @@ main()
 
 init()
 {
+	level.special_weapon_magicbox_check = ::transit_special_weapon_magicbox_check;
 	level.grenade_safe_to_bounce = ::grenade_safe_to_bounce;
 
 	screecher_spawner_changes();
@@ -77,6 +78,11 @@ include_weapons_grief()
 	maps/mp/zombies/_zm_weapons::add_weapon_to_content( "raygun_mark2_zm", "dlc3" );
 	maps/mp/zombies/_zm_weapons::add_limited_weapon( "raygun_mark2_zm", 1 );
 	maps/mp/zombies/_zm_weapons::add_limited_weapon( "raygun_mark2_upgraded_zm", 1 );
+}
+
+transit_special_weapon_magicbox_check(weapon)
+{
+	return 1;
 }
 
 screecher_spawner_changes()

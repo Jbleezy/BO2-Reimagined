@@ -25,6 +25,7 @@ main()
 
 init()
 {
+	level.special_weapon_magicbox_check = ::buried_special_weapon_magicbox_check;
 	level._is_player_in_zombie_stink = maps/mp/zombies/_zm_perk_vulture::_is_player_in_zombie_stink;
 
 	turn_power_on();
@@ -34,6 +35,24 @@ init()
 
 	level thread enable_fountain_transport();
 	level thread disable_ghost_free_perk_on_damage();
+}
+
+buried_special_weapon_magicbox_check(weapon)
+{
+	if ( weapon == "time_bomb_zm" )
+	{
+		players = get_players();
+		i = 0;
+		while ( i < players.size )
+		{
+			if ( is_player_valid( players[ i ], undefined, 1 ) && players[ i ] is_player_tactical_grenade( weapon ) )
+			{
+				return 0;
+			}
+			i++;
+		}
+	}
+	return 1;
 }
 
 turn_power_on()
