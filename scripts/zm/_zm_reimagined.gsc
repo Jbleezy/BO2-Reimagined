@@ -1921,6 +1921,18 @@ fall_velocity_check()
 
 		if (!was_on_ground)
 		{
+			// fall damage does not register when player's max health is less than 100 and has PHD Flopper
+			if(self.maxhealth < 100 && self hasPerk("specialty_flakjacket"))
+			{
+				if(is_true(self.divetoprone) && self.fall_velocity <= -300)
+				{
+					if(isDefined(level.zombiemode_divetonuke_perk_func))
+					{
+						[[level.zombiemode_divetonuke_perk_func]](self, self.origin);
+					}
+				}
+			}
+
 			continue;
 		}
 
