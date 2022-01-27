@@ -145,7 +145,6 @@ onplayerspawned()
 			self thread war_machine_explode_on_impact();
 
 			self thread jetgun_heatval_changes();
-			self thread jetgun_overheated_fix();
 
 			self thread additionalprimaryweapon_save_weapons();
 			self thread additionalprimaryweapon_restore_weapons();
@@ -208,7 +207,6 @@ post_all_players_spawned()
 	level.limited_weapons["ray_gun_zm"] = undefined;
 	level.limited_weapons["raygun_mark2_zm"] = 1;
 	level.zombie_vars["emp_stun_range"] = 420;
-	//level.zombies_vars["jetgun_grind_range"] = 256; // TODO: get this to work
 	level.zombie_vars["slipgun_reslip_rate"] = 0;
 	level.zombie_ai_limit_screecher = 1;
 	level.explode_overheated_jetgun = 0;
@@ -3634,30 +3632,6 @@ jetgun_heatval_changes()
 		prev_heatval = self.jetgun_heatval;
 
 		wait 0.05;
-	}
-}
-
-jetgun_overheated_fix()
-{
-	self endon( "disconnect" );
-
-	if ( !maps/mp/zombies/_zm_weapons::is_weapon_included( "jetgun_zm" ) )
-	{
-		return;
-	}
-
-	while ( 1 )
-	{
-		self waittill( "jetgun_overheated" );
-
-		weapon_org = self gettagorigin( "tag_weapon" );
-		self dodamage( 50, weapon_org );
-		self playsound( "wpn_jetgun_explo" );
-
-		wait 0.05;
-
-		self.jetgun_heatval = 100;
-		self.jetgun_overheating = 0;
 	}
 }
 
