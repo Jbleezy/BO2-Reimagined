@@ -5,6 +5,7 @@
 #include scripts/zm/replaced/zm_transit;
 #include scripts/zm/replaced/zm_transit_gamemodes;
 #include scripts/zm/replaced/zm_transit_utility;
+#include scripts/zm/replaced/_zm_weap_jetgun;
 #include scripts/zm/replaced/_zm_weap_emp_bomb;
 #include scripts/zm/replaced/_zm_equip_electrictrap;
 #include scripts/zm/replaced/_zm_equip_turret;
@@ -15,6 +16,8 @@ main()
 	replaceFunc(maps/mp/zm_transit::lava_damage_depot, scripts/zm/replaced/zm_transit::lava_damage_depot);
 	replaceFunc(maps/mp/zm_transit_gamemodes::init, scripts/zm/replaced/zm_transit_gamemodes::init);
 	replaceFunc(maps/mp/zm_transit_utility::solo_tombstone_removal, scripts/zm/replaced/zm_transit_utility::solo_tombstone_removal);
+	replaceFunc(maps/mp/zombies/_zm_weap_jetgun::jetgun_grind_zombie, scripts/zm/replaced/_zm_weap_jetgun::jetgun_grind_zombie);
+	replaceFunc(maps/mp/zombies/_zm_weap_jetgun::jetgun_network_choke, scripts/zm/replaced/_zm_weap_jetgun::jetgun_network_choke);
 	replaceFunc(maps/mp/zombies/_zm_weap_emp_bomb::emp_detonate, scripts/zm/replaced/_zm_weap_emp_bomb::emp_detonate);
 	replaceFunc(maps/mp/zombies/_zm_equip_electrictrap::startelectrictrapdeploy, scripts/zm/replaced/_zm_equip_electrictrap::startelectrictrapdeploy);
 	replaceFunc(maps/mp/zombies/_zm_equip_electrictrap::cleanupoldtrap, scripts/zm/replaced/_zm_equip_electrictrap::cleanupoldtrap);

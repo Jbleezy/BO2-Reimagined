@@ -144,8 +144,7 @@ onplayerspawned()
 
 			self thread war_machine_explode_on_impact();
 
-			self thread jetgun_fast_cooldown();
-			self thread jetgun_fast_spinlerp();
+			self thread jetgun_heatval_changes();
 			self thread jetgun_overheated_fix();
 
 			self thread additionalprimaryweapon_save_weapons();
@@ -254,6 +253,7 @@ post_all_players_spawned()
 	//level.round_number = 115;
 	//level.zombie_move_speed = 105;
 	//level.zombie_vars[ "zombie_spawn_delay" ] = 0.08;
+	//level.zombie_ai_limit = 1;
 
 	//level.local_doors_stay_open = 1;
 	//level.power_local_doors_globally = 1;
@@ -3579,111 +3579,59 @@ grenade_explode_on_impact()
 	self resetmissiledetonationtime(0);
 }
 
-jetgun_fast_cooldown()
+jetgun_heatval_changes()
 {
-	self endon( "disconnect" );
+	self endon("disconnect");
 
-	if ( !maps/mp/zombies/_zm_weapons::is_weapon_included( "jetgun_zm" ) )
+	if(!maps/mp/zombies/_zm_weapons::is_weapon_included("jetgun_zm"))
 	{
 		return;
 	}
 
-	while ( 1 )
+	prev_heatval = 0;
+	cooldown_amount = 0.1;
+	overheat_amount = 0.85;
+
+	while(1)
 	{
-		if (!IsDefined(self.jetgun_heatval))
+		if(!IsDefined(self.jetgun_heatval))
 		{
+			prev_heatval = 0;
 			wait 0.05;
 			continue;
 		}
 
-		if ( self getcurrentweapon() == "jetgun_zm" )
+		curr_heatval = self.jetgun_heatval;
+		diff_heatval = curr_heatval - prev_heatval;
+
+		if(self getCurrentWeapon() != "jetgun_zm")
 		{
-			if (self AttackButtonPressed())
-			{
-				if (self IsMeleeing())
-				{
-					self.jetgun_heatval += .875; // have to add .025 if holding weapon
-
-					if (self.jetgun_heatval > 100)
-					{
-						self.jetgun_heatval = 100;
-					}
-
-					self setweaponoverheating( self.jetgun_overheating, self.jetgun_heatval );
-				}
-			}
-			else
-			{
-				self.jetgun_heatval -= .075; // have to add .025 if holding weapon
-
-				if (self.jetgun_heatval < 0)
-				{
-					self.jetgun_heatval = 0;
-				}
-
-				self setweaponoverheating( self.jetgun_overheating, self.jetgun_heatval );
-			}
+			self.jetgun_heatval -= cooldown_amount;
 		}
-		else
+		else if(self getCurrentWeapon() == "jetgun_zm" && self attackButtonPressed() && self isMeleeing())
 		{
-			self.jetgun_heatval -= .1;
-
-			if (self.jetgun_heatval < 0)
-			{
-				self.jetgun_heatval = 0;
-			}
+			self.jetgun_heatval += overheat_amount;
+		}
+		else if(diff_heatval < 0)
+		{
+			self.jetgun_heatval -= abs(diff_heatval);
 		}
 
-		wait 0.05;
-	}
-}
-
-jetgun_fast_spinlerp()
-{
-	self endon( "disconnect" );
-
-	if ( !maps/mp/zombies/_zm_weapons::is_weapon_included( "jetgun_zm" ) )
-	{
-		return;
-	}
-
-	previous_spinlerp = 0;
-
-	while ( 1 )
-	{
-		if ( self getcurrentweapon() == "jetgun_zm" )
+		if(self.jetgun_heatval < 0)
 		{
-			if (self AttackButtonPressed() && !self IsSwitchingWeapons())
-			{
-				previous_spinlerp -= 0.0166667;
-				if (previous_spinlerp < -1)
-				{
-					previous_spinlerp = -1;
-				}
-
-				if (self IsMeleeing())
-				{
-					self setcurrentweaponspinlerp(previous_spinlerp / 2);
-				}
-				else
-				{
-					self setcurrentweaponspinlerp(previous_spinlerp);
-				}
-			}
-			else
-			{
-				previous_spinlerp += 0.01;
-				if (previous_spinlerp > 0)
-				{
-					previous_spinlerp = 0;
-				}
-				self setcurrentweaponspinlerp(0);
-			}
+			self.jetgun_heatval = 0;
 		}
-		else
+		else if(self.jetgun_heatval > 99.9)
 		{
-			previous_spinlerp = 0;
+			self.jetgun_heatval = 99.9;
 		}
+
+		if(self.jetgun_heatval != curr_heatval)
+		{
+			self setweaponoverheating(self.jetgun_overheating, self.jetgun_heatval);
+		}
+
+		prev_heatval = self.jetgun_heatval;
 
 		wait 0.05;
 	}

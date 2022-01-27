@@ -156,12 +156,10 @@
 * Limited to 1 player on all maps
 
 ### Jet Gun
-* Kills whenever the right gauge is above 20%
 * Kills multiple enemies significantly faster
-* Must be firing weapon to kill
-* Overheats while attempting to fire while meleeing
 * Cools down twice as fast
 * Cools down while not holding weapon
+* Overheats while attempting to fire while meleeing
 * No longer automatically switched to weapon when picked up
 * No longer disassembles when overheated
 * Weapon is taken when overheated
