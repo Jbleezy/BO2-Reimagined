@@ -83,6 +83,7 @@
 * Capped projectile weapon damage scalar at 3000
 * Changed placeable mine damage scalar to 150 multiplied by round number (normally random number between 100 and 200 multiplied by round number)
 * Capped placeable mine damage scalar at 9000
+* Disabled sniper scope sway
 
 ### AN-94
 * Increased weapon cost from 1200 to 1500

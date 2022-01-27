@@ -140,8 +140,6 @@ onplayerspawned()
 
 			self thread buildable_piece_remove_on_last_stand();
 
-			//self thread disable_sniper_scope_sway(); // Buried does not load the clientfield
-
 			self thread war_machine_explode_on_impact();
 
 			self thread jetgun_heatval_changes();
@@ -265,6 +263,7 @@ set_dvars()
 	setDvar( "dtp_exhaustion_window", 100 );
 
 	setDvar( "player_meleeRange", 64 );
+	setDvar( "player_breath_gasp_lerp", 0 );
 
 	setDvar( "g_friendlyfireDist", 0 );
 
@@ -277,6 +276,8 @@ set_dvars()
 set_client_dvars()
 {
 	self setClientDvar( "aim_automelee_enabled", 0 );
+
+	self setClientDvar( "cg_drawBreathHint", 0 );
 
 	self setClientDvar( "cg_friendlyNameFadeIn", 0 );
 	self setClientDvar( "cg_friendlyNameFadeOut", 250 );
@@ -3687,38 +3688,6 @@ give_additional_perks()
 		{
 			self Unsetperk( "specialty_movefaster" );
 		}
-	}
-}
-
-disable_sniper_scope_sway()
-{
-	self endon( "disconnect" );
-
-	self.sway_disabled = 0;
-
-	while (1)
-	{
-		if (!self hasPerk("specialty_deadshot"))
-		{
-			if (isads(self))
-			{
-				if (!self.sway_disabled)
-				{
-					self.sway_disabled = 1;
-					self setclientfieldtoplayer( "deadshot_perk", 1 );
-				}
-			}
-			else
-			{
-				if (self.sway_disabled)
-				{
-					self.sway_disabled = 0;
-					self setclientfieldtoplayer( "deadshot_perk", 0 );
-				}
-			}
-		}
-
-		wait 0.05;
 	}
 }
 
