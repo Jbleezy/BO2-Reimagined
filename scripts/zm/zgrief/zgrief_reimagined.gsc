@@ -316,6 +316,18 @@ set_grief_vars()
 	level.zombie_vars["allies"]["zombie_half_damage"] = 0;
 	level.zombie_vars["allies"]["zombie_powerup_half_damage_on"] = 0;
 	level.zombie_vars["allies"]["zombie_powerup_half_damage_time"] = 30;
+
+	if(getDvar("ui_gametype_obj") == "")
+	{
+		setDvar("ui_gametype_obj", "zgrief");
+	}
+
+	level.scr_zm_ui_gametype_obj = getDvar("ui_gametype_obj");
+
+	if(level.scr_zm_ui_gametype_obj != "zgrief")
+	{
+		setDvar("player_lastStandBleedoutTime", 10);
+	}
 }
 
 powerup_hud_overlay()
@@ -660,9 +672,16 @@ on_player_spawned()
 			self thread grief_intro_text();
 		}
 
-		// round_start_wait resets these
-		self freezeControls(1);
-		self enableInvulnerability();
+		if(level.scr_zm_ui_gametype_obj == "zgrief")
+		{
+			// round_start_wait resets these
+			self freezeControls(1);
+			self enableInvulnerability();
+		}
+		else
+		{
+			self [[level.onplayerspawned_restore_previous_weapons]]();
+		}
 	}
 }
 
@@ -692,6 +711,16 @@ on_player_downed()
 		self kill_feed();
 		self add_grief_downed_score();
 		level thread update_players_on_downed( self );
+
+		if(level.scr_zm_ui_gametype_obj != "zgrief")
+		{
+			wait 10;
+
+			// don't give score back from down
+			self.pers["score"] = self.score;
+
+			self maps/mp/zombies/_zm::spectator_respawn();
+		}
 	}
 }
 
@@ -705,10 +734,14 @@ on_player_bleedout()
 		self waittill_any( "bled_out", "player_suicide" );
 
 		self.statusicon = "hud_status_dead";
-		self.grief_savedweapon_weapons = undefined;
-		self bleedout_feed();
-		self add_grief_bleedout_score();
-		level thread update_players_on_bleedout( self );
+
+		if(level.scr_zm_ui_gametype_obj == "zgrief")
+		{
+			self.grief_savedweapon_weapons = undefined;
+			self bleedout_feed();
+			self add_grief_bleedout_score();
+			level thread update_players_on_bleedout( self );
+		}
 	}
 }
 
@@ -929,7 +962,15 @@ round_start_countdown_hud(time)
 	}
 
 	level.countdown_hud thread round_start_countdown_hud_timer(time);
-	level.countdown_hud.countdown_text setText("ROUND " + level.round_number + " BEGINS IN");
+
+	if(level.scr_zm_ui_gametype_obj == "zgrief")
+	{
+		level.countdown_hud.countdown_text setText("ROUND " + level.round_number + " BEGINS IN");
+	}
+	else
+	{
+		level.countdown_hud.countdown_text setText("MATCH BEGINS IN");
+	}
 
 	level.countdown_hud.alpha = 1;
 	level.countdown_hud.countdown_text.alpha = 1;
@@ -1001,6 +1042,11 @@ zombie_spawn_wait(time)
 
 update_players_on_downed(excluded_player)
 {
+	if(level.scr_zm_ui_gametype_obj != "zgrief")
+	{
+		return;
+	}
+
 	players_remaining = 0;
 	other_players_remaining = 0;
 	last_player = undefined;
@@ -1082,6 +1128,11 @@ update_players_on_downed(excluded_player)
 
 update_players_on_bleedout(excluded_player)
 {
+	if(level.scr_zm_ui_gametype_obj != "zgrief")
+	{
+		return;
+	}
+
 	other_team = undefined;
 	team_bledout = 0;
 	players = get_players();
@@ -1126,13 +1177,36 @@ grief_intro_text()
 {
 	flag_wait( "initial_blackscreen_passed" );
 
-	self iPrintLn("Welcome to Grief!");
-	wait 5;
-	self iPrintLn("Win rounds by getting all enemy players down.");
-	wait 5;
-	self iPrintLn("First team to win 3 rounds wins the game.");
-	wait 5;
-	self iPrintLn("Good luck!");
+	if(level.scr_zm_ui_gametype_obj == "zgrief")
+	{
+		self iPrintLn("Welcome to Grief!");
+		wait 5;
+		self iPrintLn("Win rounds by getting all enemy players down.");
+		wait 5;
+		self iPrintLn("First team to win 3 rounds wins the game.");
+		wait 5;
+		self iPrintLn("Good luck!");
+	}
+	else if(level.scr_zm_ui_gametype_obj == "zrace")
+	{
+		self iPrintLn("Welcome to Race!");
+		wait 5;
+		self iPrintLn("Gain score by getting kills.");
+		wait 5;
+		self iPrintLn("First team to get 500 kills wins the game.");
+		wait 5;
+		self iPrintLn("Good luck!");
+	}
+	else if(level.scr_zm_ui_gametype_obj == "zcontainment")
+	{
+		self iPrintLn("Welcome to Containment!");
+		wait 5;
+		self iPrintLn("Gain score by being the only team in the containment zone.");
+		wait 5;
+		self iPrintLn("First team to gain 250 score wins the game.");
+		wait 5;
+		self iPrintLn("Good luck!");
+	}
 }
 
 show_grief_hud_msg( msg, msg_parm, offset, delay )
@@ -1780,10 +1854,7 @@ unlimited_zombies()
 {
 	while(1)
 	{
-		if(!is_true(level.isresetting_grief))
-		{
-			level.zombie_total = 100;
-		}
+		level.zombie_total = 100;
 
 		wait 1;
 	}

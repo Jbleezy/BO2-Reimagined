@@ -483,6 +483,11 @@ timer_hud()
 
 round_timer_hud()
 {
+	if(isDefined(level.scr_zm_ui_gametype_obj) && level.scr_zm_ui_gametype_obj != "zgrief")
+	{
+		return;
+	}
+
 	round_timer_hud = newHudElem();
 	round_timer_hud.alignx = "right";
 	round_timer_hud.aligny = "top";

@@ -7,6 +7,11 @@ wait_for_team_death_and_round_end()
 	level endon( "game_module_ended" );
 	level endon( "end_game" );
 
+	if(level.scr_zm_ui_gametype_obj != "zgrief")
+	{
+		return;
+	}
+
 	checking_for_round_end = 0;
 	checking_for_round_tie = 0;
 	level.isresetting_grief = 0;
