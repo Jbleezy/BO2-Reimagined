@@ -52,6 +52,7 @@ init()
 	setteamscore("allies", 0);
 
 	player_spawn_override();
+	maps/mp/zombies/_zm_weapons::add_custom_limited_weapon_check(::grief_loadout_limited_weapon_check);
 
 	level thread grief_score_hud();
 	level thread set_grief_vars();
@@ -1698,6 +1699,8 @@ grief_laststand_weapons_return()
 		}
 	}
 
+	self.grief_savedweapon_weapons = undefined;
+
 	primaries = self getweaponslistprimaries();
 	foreach ( weapon in primaries )
 	{
@@ -1799,6 +1802,32 @@ func_should_drop_meat()
 	}
 
 	return 1;
+}
+
+grief_loadout_limited_weapon_check(weapon)
+{
+	count = 0;
+	i = 0;
+	players = get_players();
+
+	while(i < players.size)
+	{
+		if(isDefined(players[i].grief_savedweapon_weapons))
+		{
+			foreach(grief_savedweapon in players[i].grief_savedweapon_weapons)
+			{
+				if(grief_savedweapon == weapon)
+				{
+					count++;
+					break;
+				}
+			}
+		}
+
+		i++;
+	}
+
+	return count;
 }
 
 remove_round_number()

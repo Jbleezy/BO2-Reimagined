@@ -465,6 +465,7 @@
 * Added text when rounds are won/lost
 * Added new audio when enemy players bleed out
 * Round reset properly restores dual wield weapon left clip ammo, alternative weapon ammo, and equipment
+* Limited weapons can no longer be obtained if another player had the weapon when they bled out
 * Spawn points are assigned to a team
 * Teams switch spawn points each round
 * Players respawn at initial spawn points
