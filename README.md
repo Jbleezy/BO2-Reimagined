@@ -188,6 +188,8 @@
 ## Mystery Box
 * Decreased weapon pickup time from 12 seconds to 9 seconds
 * Moves to new location instantly
+* Special sound no longer plays when obtaining the Ray Gun
+* Special sound plays when obtaining a limited weapon
 
 ## Perks
 * Removed perk limit

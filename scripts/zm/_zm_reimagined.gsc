@@ -41,6 +41,7 @@ main()
 	replaceFunc(maps/mp/zombies/_zm_laststand::revive_do_revive, scripts/zm/replaced/_zm_laststand::revive_do_revive);
 	replaceFunc(maps/mp/zombies/_zm_laststand::revive_give_back_weapons, scripts/zm/replaced/_zm_laststand::revive_give_back_weapons);
 	replaceFunc(maps/mp/zombies/_zm_laststand::revive_hud_think, scripts/zm/replaced/_zm_laststand::revive_hud_think);
+	replaceFunc(maps/mp/zombies/_zm_weapons::weapon_give, scripts/zm/replaced/_zm_weapons::weapon_give);
 	replaceFunc(maps/mp/zombies/_zm_weapons::get_upgraded_ammo_cost, scripts/zm/replaced/_zm_weapons::get_upgraded_ammo_cost);
 	replaceFunc(maps/mp/zombies/_zm_weapons::makegrenadedudanddestroy, scripts/zm/replaced/_zm_weapons::makegrenadedudanddestroy);
 	replaceFunc(maps/mp/zombies/_zm_weapons::createballisticknifewatcher_zm, scripts/zm/replaced/_zm_weapons::createballisticknifewatcher_zm);
