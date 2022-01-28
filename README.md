@@ -462,7 +462,6 @@
 * Last player alive audio only plays for the player who is alive instead of every player on the team
 * Enemies remaining audio and text displays when enemy players down instead of when enemy players bleed out
 * Enemies remaining text is removed when new text is displayed
-* Added text when rounds are won/lost
 * Added new audio when enemy players bleed out
 * Players do not get their weapons back on round reset if they bled out
 * Round reset properly restores dual wield weapon left clip ammo, alternative weapon ammo, and equipment

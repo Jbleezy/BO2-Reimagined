@@ -1748,6 +1748,7 @@ sudden_death()
 		{
 			player thread show_grief_hud_msg( "Sudden Death!" );
 			player thread show_grief_hud_msg( "Lose " + level.sudden_death_health_loss + " Health!", undefined, 30, 1 );
+			player thread red_flashing_overlay_loop();
 
 			health = player.health;
 			player setMaxHealth(player.maxhealth - level.sudden_death_health_loss);
@@ -1758,6 +1759,20 @@ sudden_death()
 
 			player.premaxhealth -= level.sudden_death_health_loss;
 		}
+	}
+}
+
+red_flashing_overlay_loop()
+{
+	level endon("restart_round");
+	self endon("disconnect");
+
+	while(1)
+	{
+		self notify( "hit_again" );
+		self player_flag_set( "player_has_red_flashing_overlay" );
+
+		wait 1;
 	}
 }
 
