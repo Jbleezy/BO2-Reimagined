@@ -1996,10 +1996,39 @@ containment_init()
 	level.containment_zones = [];
 	if(level.script == "zm_transit")
 	{
-		// TODO: add zones for all maps
-		if(level.scr_zm_map_start_location == "farm")
+		if(level.scr_zm_map_start_location == "transit")
+		{
+			level.containment_zones = array("zone_pri", "zone_pri2", "zone_station_ext", "zone_trans_2b");
+		}
+		else if(level.scr_zm_map_start_location == "diner")
+		{
+			level.containment_zones = array("zone_roadside_west", "zone_gas", "zone_roadside_east", "zone_gar", "zone_din");
+		}
+		else if(level.scr_zm_map_start_location == "farm")
 		{
 			level.containment_zones = array("zone_far_ext", "zone_brn", "zone_farm_house");
+		}
+		else if(level.scr_zm_map_start_location == "power")
+		{
+			level.containment_zones = array("zone_pow", "zone_trans_8", "zone_prr", "zone_pcr", "zone_pow_warehouse");
+		}
+		else if(level.scr_zm_map_start_location == "town")
+		{
+			level.containment_zones = array("zone_tow", "zone_town_north", "zone_town_south", "zone_town_east", "zone_town_west", "zone_bar", "zone_town_barber", "zone_ban");
+		}
+	}
+	else if(level.script == "zm_prison")
+	{
+		if(level.scr_zm_map_start_location == "cellblock")
+		{
+			level.containment_zones = array("zone_cellblock_west", "zone_cellblock_west_gondola", "zone_cellblock_west_barber", "zone_cellblock_east", "zone_start", "zone_library", "zone_cafeteria", "zone_warden_office");
+		}
+	}
+	else if(level.script == "zm_buried")
+	{
+		if(level.scr_zm_map_start_location == "borough")
+		{
+			level.containment_zones = array("zone_street_lightwest", "zone_street_darkwest", "zone_street_darkeast", "zone_stables", "zone_general_store", "zone_gun_store", "zone_underground_bar", "zone_underground_courthouse", "zone_street_fountain", "zone_church_main", "zone_mansion_lawn");
 		}
 	}
 	level.containment_zones = array_randomize(level.containment_zones);
