@@ -2026,7 +2026,7 @@ containment_init()
 	}
 	else if(level.script == "zm_buried")
 	{
-		if(level.scr_zm_map_start_location == "borough")
+		if(level.scr_zm_map_start_location == "street")
 		{
 			level.containment_zones = array("zone_street_lightwest", "zone_street_darkwest", "zone_street_darkeast", "zone_stables", "zone_general_store", "zone_gun_store", "zone_underground_bar", "zone_underground_courthouse", "zone_street_fountain", "zone_church_main", "zone_mansion_lawn");
 		}
