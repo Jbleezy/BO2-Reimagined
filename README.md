@@ -422,7 +422,7 @@
 ## Gamemodes
 
 ### Grief
-* Teams win rounds by getting all enemy players down
+* Win rounds by getting all enemy players down
 * First team to win 3 rounds wins the game
 * Tie round if both teams die within 5 seconds of eachother
 * Sudden death after 5 minute round (all players lose 100 health)
@@ -473,3 +473,7 @@
 * Decreased connection timeout from 90 seconds to 45 seconds
 * Random map rotation
 * 25000 health Brutus
+
+### Containment
+* Gain score by being the only team in the containment zone
+* First team to gain 250 score wins the game
