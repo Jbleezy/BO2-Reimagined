@@ -1947,6 +1947,34 @@ containment_init()
 {
 	level.containment_time = 60;
 
+	level.containment_zone_hud = newHudElem();
+	level.containment_zone_hud.alignx = "left";
+	level.containment_zone_hud.aligny = "top";
+	level.containment_zone_hud.horzalign = "user_left";
+	level.containment_zone_hud.vertalign = "user_top";
+	level.containment_zone_hud.x += 7;
+	level.containment_zone_hud.y += 2;
+	level.containment_zone_hud.fontscale = 1.4;
+	level.containment_zone_hud.alpha = 0;
+	level.containment_zone_hud.color = (1, 1, 1);
+	level.containment_zone_hud.hidewheninmenu = 1;
+	level.containment_zone_hud.foreground = 1;
+	level.containment_zone_hud.label = &"Containment Zone: ";
+
+	level.containment_time_hud = newHudElem();
+	level.containment_time_hud.alignx = "left";
+	level.containment_time_hud.aligny = "top";
+	level.containment_time_hud.horzalign = "user_left";
+	level.containment_time_hud.vertalign = "user_top";
+	level.containment_time_hud.x += 7;
+	level.containment_time_hud.y += 17;
+	level.containment_time_hud.fontscale = 1.4;
+	level.containment_time_hud.alpha = 0;
+	level.containment_time_hud.color = (1, 1, 1);
+	level.containment_time_hud.hidewheninmenu = 1;
+	level.containment_time_hud.foreground = 1;
+	level.containment_time_hud.label = &"Containment Time: ";
+
 	level.containment_waypoint = [];
 	level.containment_waypoint["axis"] = newTeamHudElem("axis");
 	level.containment_waypoint["axis"].alpha = 0;
@@ -1962,7 +1990,8 @@ containment_init()
 	level.containment_waypoint["allies"].fadewhentargeted = 1;
 	level.containment_waypoint["allies"].foreground = 1;
 	level.containment_waypoint["allies"] setWaypoint(1, "waypoint_revive");
-	level thread containment_waypoint_destroy_on_end_game();
+
+	level thread containment_hud_destroy_on_end_game();
 
 	level.containment_zones = [];
 	if(level.script == "zm_transit")
@@ -1978,17 +2007,29 @@ containment_init()
 	level thread containment_think();
 }
 
-containment_waypoint_destroy_on_end_game()
+containment_hud_destroy_on_end_game()
 {
 	level waittill("end_game");
 
+	level.containment_zone_hud setText("");
+	level.containment_time_hud setText("");
 	level.containment_waypoint["axis"] destroy();
 	level.containment_waypoint["allies"] destroy();
+
+	level waittill("intermission");
+
+	level.containment_zone_hud destroy();
+	level.containment_time_hud destroy();
 }
 
 containment_think()
 {
 	level endon("end_game");
+
+	flag_wait("initial_blackscreen_passed");
+
+	level.containment_zone_hud.alpha = 1;
+	level.containment_time_hud.alpha = 1;
 
 	level waittill("restart_round_start");
 
@@ -1998,7 +2039,11 @@ containment_think()
 	while(1)
 	{
 		zone_name = level.containment_zones[i];
+		zone_display_name = scripts/zm/_zm_reimagined::get_zone_display_name(zone_name);
 		zone = level.zones[zone_name];
+
+		level.containment_zone_hud setText(zone_display_name);
+		level.containment_time_hud setTimer(level.containment_time);
 
 		level.containment_waypoint["axis"].x = zone.volumes[0].origin[0];
 		level.containment_waypoint["axis"].y = zone.volumes[0].origin[1];
@@ -2077,6 +2122,9 @@ containment_think()
 
 			wait 0.05;
 		}
+
+		level.containment_zone_hud setText("");
+		level.containment_time_hud setText("");
 
 		level.containment_waypoint["axis"].alpha = 0;
 		level.containment_waypoint["allies"].alpha = 0;

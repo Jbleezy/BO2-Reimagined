@@ -618,23 +618,25 @@ zone_hud()
 
 	flag_wait( "initial_blackscreen_passed" );
 
-	prev_zone = self get_zone_name();
-	zone_hud settext(prev_zone);
+	zone = self get_current_zone();
+	prev_zone_name = get_zone_display_name(zone);
+	zone_hud settext(prev_zone_name);
 	zone_hud.alpha = 1;
 
 	while (1)
 	{
-		zone = self get_zone_name();
+		zone = self get_current_zone();
+		zone_name = get_zone_display_name(zone);
 
-		if(prev_zone != zone)
+		if(prev_zone_name != zone_name)
 		{
-			prev_zone = zone;
+			prev_zone_name = zone_name;
 
 			zone_hud fadeovertime(0.25);
 			zone_hud.alpha = 0;
 			wait 0.25;
 
-			zone_hud settext(zone);
+			zone_hud settext(zone_name);
 
 			zone_hud fadeovertime(0.25);
 			zone_hud.alpha = 1;
@@ -647,9 +649,8 @@ zone_hud()
 	}
 }
 
-get_zone_name()
+get_zone_display_name(zone)
 {
-	zone = self get_current_zone();
 	if (!isDefined(zone))
 	{
 		return "";
