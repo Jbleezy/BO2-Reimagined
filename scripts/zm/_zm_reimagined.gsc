@@ -309,7 +309,10 @@ wait_and_set_max_health()
 {
 	wait 0.05;
 
-	self setMaxHealth(level.player_starting_health);
+	if(!self hasPerk("specialty_armorvest"))
+	{
+		self setMaxHealth(level.player_starting_health);
+	}
 }
 
 health_bar_hud()

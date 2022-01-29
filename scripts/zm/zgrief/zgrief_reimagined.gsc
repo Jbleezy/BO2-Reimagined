@@ -664,6 +664,11 @@ grief_onplayerconnect()
 	self thread smoke_grenade_cluster_watcher();
 	self thread maps/mp/gametypes_zm/zmeat::create_item_meat_watcher();
 	self.killsconfirmed = 0;
+
+	if(level.scr_zm_ui_gametype_obj == "zcontainment")
+	{
+		self._retain_perks = 1;
+	}
 }
 
 grief_onplayerdisconnect(disconnecting_player)
@@ -705,7 +710,7 @@ on_player_spawned()
 		}
 		else
 		{
-			self [[level.onplayerspawned_restore_previous_weapons]]();
+			self thread wait_and_restore_weapons();
 		}
 	}
 }
@@ -736,16 +741,6 @@ on_player_downed()
 		self kill_feed();
 		self add_grief_downed_score();
 		level thread update_players_on_downed( self );
-
-		if(level.scr_zm_ui_gametype_obj != "zgrief")
-		{
-			wait 10;
-
-			// don't give score back from down
-			self.pers["score"] = self.score;
-
-			self maps/mp/zombies/_zm::spectator_respawn();
-		}
 	}
 }
 
@@ -766,6 +761,11 @@ on_player_bleedout()
 			self bleedout_feed();
 			self add_grief_bleedout_score();
 			level thread update_players_on_bleedout( self );
+		}
+
+		if(level.scr_zm_ui_gametype_obj == "zcontainment")
+		{
+			self maps/mp/zombies/_zm::spectator_respawn();
 		}
 	}
 }
@@ -837,6 +837,13 @@ add_grief_bleedout_score()
 			player maps/mp/zombies/_zm_score::add_to_player_score(score);
 		}
 	}
+}
+
+wait_and_restore_weapons()
+{
+	wait 0.05;
+
+	self [[level.onplayerspawned_restore_previous_weapons]]();
 }
 
 headstomp_watcher()
@@ -1670,15 +1677,12 @@ grief_laststand_weapon_save( einflictor, attacker, idamage, smeansofdeath, sweap
 	{
 		self.grief_hasriotshield = 1;
 	}
+
+	self.grief_savedperks = self.perks_active;
 }
 
 grief_laststand_weapons_return()
 {
-	if ( isDefined( level.isresetting_grief ) && !level.isresetting_grief )
-	{
-		return 0;
-	}
-
 	if ( !isDefined( self.grief_savedweapon_weapons ) )
 	{
 		return 0;
@@ -1795,6 +1799,18 @@ grief_laststand_weapons_return()
 		if ( isDefined( self.player_shield_reset_health ) )
 		{
 			self [[ self.player_shield_reset_health ]]();
+		}
+	}
+
+	if(level.scr_zm_ui_gametype_obj == "zcontainment")
+	{
+		if(isDefined(self.grief_savedperks))
+		{
+			self.perks_active = [];
+			foreach(perk in self.grief_savedperks)
+			{
+				self maps/mp/zombies/_zm_perks::give_perk(perk);
+			}
 		}
 	}
 
@@ -1975,22 +1991,6 @@ containment_init()
 	level.containment_time_hud.foreground = 1;
 	level.containment_time_hud.label = &"Containment Time: ";
 
-	level.containment_waypoint = [];
-	level.containment_waypoint["axis"] = newTeamHudElem("axis");
-	level.containment_waypoint["axis"].alpha = 0;
-	level.containment_waypoint["axis"].color = (1, 1, 1);
-	level.containment_waypoint["axis"].hidewheninmenu = 1;
-	level.containment_waypoint["axis"].fadewhentargeted = 1;
-	level.containment_waypoint["axis"].foreground = 1;
-	level.containment_waypoint["axis"] setWaypoint(1, "waypoint_revive");
-	level.containment_waypoint["allies"] = newTeamHudElem("allies");
-	level.containment_waypoint["allies"].alpha = 0;
-	level.containment_waypoint["allies"].color = (1, 1, 1);
-	level.containment_waypoint["allies"].hidewheninmenu = 1;
-	level.containment_waypoint["allies"].fadewhentargeted = 1;
-	level.containment_waypoint["allies"].foreground = 1;
-	level.containment_waypoint["allies"] setWaypoint(1, "waypoint_revive");
-
 	level thread containment_hud_destroy_on_end_game();
 
 	level.containment_zones = [];
@@ -2007,14 +2007,37 @@ containment_init()
 	level thread containment_think();
 }
 
+containment_waypoint_init()
+{
+	containment_waypoint = [];
+	containment_waypoint = newClientHudElem(self);
+	containment_waypoint.alignx = "center";
+	containment_waypoint.aligny = "middle";
+	containment_waypoint.horzalign = "user_center";
+	containment_waypoint.vertalign = "user_center";
+	containment_waypoint.alpha = 0.5;
+	containment_waypoint.hidewheninmenu = 1;
+	containment_waypoint.fadewhentargeted = 1;
+	containment_waypoint.foreground = 1;
+
+	return containment_waypoint;
+}
+
 containment_hud_destroy_on_end_game()
 {
 	level waittill("end_game");
 
 	level.containment_zone_hud setText("");
 	level.containment_time_hud setText("");
-	level.containment_waypoint["axis"] destroy();
-	level.containment_waypoint["allies"] destroy();
+
+	players = get_players();
+	foreach(player in players)
+	{
+		if(isDefined(player.containment_waypoint))
+		{
+			player.containment_waypoint destroy();
+		}
+	}
 
 	level waittill("intermission");
 
@@ -2045,15 +2068,6 @@ containment_think()
 		level.containment_zone_hud setText(zone_display_name);
 		level.containment_time_hud setTimer(level.containment_time);
 
-		level.containment_waypoint["axis"].x = zone.volumes[0].origin[0];
-		level.containment_waypoint["axis"].y = zone.volumes[0].origin[1];
-		level.containment_waypoint["axis"].z = zone.volumes[0].origin[2];
-		level.containment_waypoint["axis"].alpha = 0.5;
-		level.containment_waypoint["allies"].x = zone.volumes[0].origin[0];
-		level.containment_waypoint["allies"].y = zone.volumes[0].origin[1];
-		level.containment_waypoint["allies"].z = zone.volumes[0].origin[2];
-		level.containment_waypoint["allies"].alpha = 0.5;
-
 		held_time = [];
 		held_time["axis"] = undefined;
 		held_time["allies"] = undefined;
@@ -2067,23 +2081,78 @@ containment_think()
 			players = get_players();
 			foreach(player in players)
 			{
-				if(is_player_valid(player) && player get_current_zone() == zone_name)
+				if(!isDefined(player.containment_waypoint))
 				{
-					in_containment_zone[player.team]++;
+					player.containment_waypoint = player containment_waypoint_init();
+				}
+
+				if(player get_current_zone() == zone_name)
+				{
+					if(is_player_valid(player))
+					{
+						in_containment_zone[player.team]++;
+
+						if(isads(player))
+						{
+							player.containment_waypoint fadeOverTime(0.25);
+							player.containment_waypoint.alpha = 0.25;
+						}
+						else
+						{
+							player.containment_waypoint.alpha = 0.5;
+						}
+					}
+					else
+					{
+						player.containment_waypoint.alpha = 0;
+					}
+
+					player.containment_waypoint.x = 0;
+					player.containment_waypoint.y = -100;
+					player.containment_waypoint.z = 0;
+					player.containment_waypoint setShader("waypoint_revive", getDvarInt("waypointIconWidth"), getDvarInt("waypointIconHeight"));
+				}
+				else
+				{
+					if(is_player_valid(player))
+					{
+						player.containment_waypoint.alpha = 0.5;
+					}
+					else
+					{
+						player.containment_waypoint.alpha = 0;
+					}
+
+					player.containment_waypoint.x = zone.volumes[0].origin[0];
+					player.containment_waypoint.y = zone.volumes[0].origin[1];
+					player.containment_waypoint.z = zone.volumes[0].origin[2];
+					player.containment_waypoint setWaypoint(1, "waypoint_revive");
 				}
 			}
 
 			if(in_containment_zone["axis"] > 0 && in_containment_zone["allies"] > 0)
 			{
-				level.containment_waypoint["axis"].color = (1, 1, 0);
-				level.containment_waypoint["allies"].color = (1, 1, 0);
+				foreach(player in players)
+				{
+					player.containment_waypoint.color = (1, 1, 0);
+				}
+
 				held_time["axis"] = undefined;
 				held_time["allies"] = undefined;
 			}
 			else if(in_containment_zone["axis"] > 0)
 			{
-				level.containment_waypoint["axis"].color = (0, 1, 0);
-				level.containment_waypoint["allies"].color = (1, 0, 0);
+				foreach(player in players)
+				{
+					if(player.team == "axis")
+					{
+						player.containment_waypoint.color = (0, 1, 0);
+					}
+					else
+					{
+						player.containment_waypoint.color = (1, 0, 0);
+					}
+				}
 
 				if(!isDefined(held_time["axis"]))
 				{
@@ -2098,8 +2167,17 @@ containment_think()
 			}
 			else if(in_containment_zone["allies"] > 0)
 			{
-				level.containment_waypoint["axis"].color = (1, 0, 0);
-				level.containment_waypoint["allies"].color = (0, 1, 0);
+				foreach(player in players)
+				{
+					if(player.team == "axis")
+					{
+						player.containment_waypoint.color = (1, 0, 0);
+					}
+					else
+					{
+						player.containment_waypoint.color = (0, 1, 0);
+					}
+				}
 
 				if(!isDefined(held_time["allies"]))
 				{
@@ -2114,8 +2192,11 @@ containment_think()
 			}
 			else
 			{
-				level.containment_waypoint["axis"].color = (1, 1, 1);
-				level.containment_waypoint["allies"].color = (1, 1, 1);
+				foreach(player in players)
+				{
+					player.containment_waypoint.color = (1, 1, 1);
+				}
+
 				held_time["axis"] = undefined;
 				held_time["allies"] = undefined;
 			}
@@ -2126,8 +2207,14 @@ containment_think()
 		level.containment_zone_hud setText("");
 		level.containment_time_hud setText("");
 
-		level.containment_waypoint["axis"].alpha = 0;
-		level.containment_waypoint["allies"].alpha = 0;
+		players = get_players();
+		foreach(player in players)
+		{
+			if(isDefined(player.containment_waypoint))
+			{
+				player.containment_waypoint.alpha = 0;
+			}
+		}
 
 		wait 5;
 
