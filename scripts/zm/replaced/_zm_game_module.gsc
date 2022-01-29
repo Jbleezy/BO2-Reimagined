@@ -169,9 +169,6 @@ round_end(winner, force_win)
 	players = get_players();
 	foreach(player in players)
 	{
-		// don't give score back from down
-		player.pers["score"] = player.score;
-
 		// don't spawn tombstone powerup on next down
 		player.hasperkspecialtytombstone = undefined;
 

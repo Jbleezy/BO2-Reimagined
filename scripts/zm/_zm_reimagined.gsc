@@ -31,6 +31,7 @@ main()
 	replaceFunc(maps/mp/zombies/_zm::last_stand_pistol_rank_init, scripts/zm/replaced/_zm::last_stand_pistol_rank_init);
 	replaceFunc(maps/mp/zombies/_zm::actor_damage_override, scripts/zm/replaced/_zm::actor_damage_override);
 	replaceFunc(maps/mp/zombies/_zm::wait_and_revive, scripts/zm/replaced/_zm::wait_and_revive);
+	replaceFunc(maps/mp/zombies/_zm::player_revive_monitor, scripts/zm/replaced/_zm::player_revive_monitor);
 	replaceFunc(maps/mp/zombies/_zm::end_game, scripts/zm/replaced/_zm::end_game);
 	replaceFunc(maps/mp/zombies/_zm_playerhealth::playerhealthregen, scripts/zm/replaced/_zm_playerhealth::playerhealthregen);
 	replaceFunc(maps/mp/zombies/_zm_utility::track_players_intersection_tracker, scripts/zm/replaced/_zm_utility::track_players_intersection_tracker);

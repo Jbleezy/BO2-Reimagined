@@ -955,6 +955,33 @@ wait_and_revive()
 	}
 }
 
+player_revive_monitor()
+{
+	self endon( "disconnect" );
+	self notify( "stop_player_revive_monitor" );
+	self endon( "stop_player_revive_monitor" );
+	while ( 1 )
+	{
+		self waittill( "player_revived", reviver );
+		self playsoundtoplayer( "zmb_character_revived", self );
+		if ( isDefined( level.isresetting_grief ) && level.isresetting_grief )
+		{
+			continue;
+		}
+		bbprint( "zombie_playerdeaths", "round %d playername %s deathtype %s x %f y %f z %f", level.round_number, self.name, "revived", self.origin );
+		if ( isDefined( reviver ) )
+		{
+			self maps/mp/zombies/_zm_audio::create_and_play_dialog( "general", "revive_up" );
+			if(reviver != self)
+			{
+				points = self.score_lost_when_downed;
+				reviver maps/mp/zombies/_zm_score::player_add_points( "reviver", points );
+			}
+			self.score_lost_when_downed = 0;
+		}
+	}
+}
+
 end_game()
 {
 	level waittill( "end_game" );

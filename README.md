@@ -49,6 +49,7 @@
 * No longer killed when landing on top of another player
 * Ignored by enemies for 1 second after being revived
 * Weapon is no longer switched after reviving if player switched weapons during revive
+* No longer gain points back on self revives
 * Can shoot while looking at other players
 * Increased mantle speed
 * Increased ladder climb speed
