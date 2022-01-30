@@ -105,6 +105,72 @@ onspawnplayer( predictedspawn )
 	pixendevent();
 }
 
+onplayerspawned()
+{
+	level endon( "end_game" );
+	self endon( "disconnect" );
+	for ( ;; )
+	{
+		self waittill_either( "spawned_player", "fake_spawned_player" );
+		if ( isDefined( level.match_is_ending ) && level.match_is_ending )
+		{
+			return;
+		}
+		if ( self maps/mp/zombies/_zm_laststand::player_is_in_laststand() )
+		{
+			self thread maps/mp/zombies/_zm_laststand::auto_revive( self );
+		}
+		if ( isDefined( level.custom_player_fake_death_cleanup ) )
+		{
+			self [[ level.custom_player_fake_death_cleanup ]]();
+		}
+		self setstance( "stand" );
+		self.zmbdialogqueue = [];
+		self.zmbdialogactive = 0;
+		self.zmbdialoggroups = [];
+		self.zmbdialoggroup = "";
+		if ( is_encounter() )
+		{
+			if ( self.team == "axis" )
+			{
+				self.characterindex = 0;
+				self._encounters_team = "A";
+				self._team_name = &"ZOMBIE_RACE_TEAM_1";
+			}
+			else
+			{
+				self.characterindex = 1;
+				self._encounters_team = "B";
+				self._team_name = &"ZOMBIE_RACE_TEAM_2";
+			}
+		}
+		self takeallweapons();
+		if ( isDefined( level.givecustomcharacters ) )
+		{
+			self [[ level.givecustomcharacters ]]();
+		}
+		self giveweapon( "knife_zm" );
+		if ( isDefined( level.onplayerspawned_restore_previous_weapons ) )
+		{
+			weapons_restored = self [[ level.onplayerspawned_restore_previous_weapons ]]();
+		}
+		if ( isDefined( weapons_restored ) && !weapons_restored || !isDefined( weapons_restored ) )
+		{
+			self give_start_weapon( 1 );
+		}
+		weapons_restored = 0;
+		if ( isDefined( level._team_loadout ) )
+		{
+			self giveweapon( level._team_loadout );
+			self switchtoweapon( level._team_loadout );
+		}
+		if ( isDefined( level.gamemode_post_spawn_logic ) )
+		{
+			self [[ level.gamemode_post_spawn_logic ]]();
+		}
+	}
+}
+
 hide_gump_loading_for_hotjoiners()
 {
 	if(isDefined(level.scr_zm_ui_gametype_obj) && level.scr_zm_ui_gametype_obj != "zgrief")

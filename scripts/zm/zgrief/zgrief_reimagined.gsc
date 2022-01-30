@@ -21,6 +21,7 @@ main()
 
 	replaceFunc(maps/mp/zombies/_zm::getfreespawnpoint, scripts/zm/replaced/_zm::getfreespawnpoint);
 	replaceFunc(maps/mp/gametypes_zm/_zm_gametype::onspawnplayer, scripts/zm/replaced/_zm_gametype::onspawnplayer);
+	replaceFunc(maps/mp/gametypes_zm/_zm_gametype::onplayerspawned, scripts/zm/replaced/_zm_gametype::onplayerspawned);
 	replaceFunc(maps/mp/gametypes_zm/_zm_gametype::hide_gump_loading_for_hotjoiners, scripts/zm/replaced/_zm_gametype::hide_gump_loading_for_hotjoiners);
 	replaceFunc(maps/mp/zombies/_zm_audio_announcer::playleaderdialogonplayer, scripts/zm/replaced/_zm_audio_announcer::playleaderdialogonplayer);
 	replaceFunc(maps/mp/zombies/_zm_game_module::wait_for_team_death_and_round_end, scripts/zm/replaced/_zm_game_module::wait_for_team_death_and_round_end);
@@ -713,10 +714,6 @@ on_player_spawned()
 			self freezeControls(1);
 			self enableInvulnerability();
 		}
-		else
-		{
-			self thread wait_and_restore_weapons();
-		}
 	}
 }
 
@@ -842,13 +839,6 @@ add_grief_bleedout_score()
 			player maps/mp/zombies/_zm_score::add_to_player_score(score);
 		}
 	}
-}
-
-wait_and_restore_weapons()
-{
-	wait 0.05;
-
-	self [[level.onplayerspawned_restore_previous_weapons]]();
 }
 
 headstomp_watcher()
