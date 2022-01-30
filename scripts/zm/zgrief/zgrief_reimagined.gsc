@@ -2121,6 +2121,7 @@ containment_think()
 					if(is_player_valid(player))
 					{
 						in_containment_zone[player.team]++;
+						player.ignoreme = 0;
 
 						if(isads(player))
 						{
@@ -2146,6 +2147,7 @@ containment_think()
 				{
 					if(is_player_valid(player))
 					{
+						player.ignoreme = 1;
 						player.containment_waypoint.alpha = 0.5;
 					}
 					else
@@ -2224,6 +2226,10 @@ containment_think()
 			{
 				foreach(player in players)
 				{
+					if(is_player_valid(player))
+					{
+						player.ignoreme = 0;
+					}
 					player.containment_waypoint.color = (1, 1, 1);
 				}
 
@@ -2240,6 +2246,11 @@ containment_think()
 		players = get_players();
 		foreach(player in players)
 		{
+			if(is_player_valid(player))
+			{
+				player.ignoreme = 0;
+			}
+
 			if(isDefined(player.containment_waypoint))
 			{
 				player.containment_waypoint.alpha = 0;
