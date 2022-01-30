@@ -221,12 +221,14 @@ perk_set_max_health_if_jugg( perk, set_premaxhealth, clamp_health_to_max_health 
 			max_total_health = level.player_starting_health;
 		}
 	}
-	else
+	else if ( perk == "health_reboot" )
 	{
-		if ( perk == "health_reboot" )
+		if(isDefined(level.scr_zm_ui_gametype_obj) && level.scr_zm_ui_gametype_obj == "zcontainment")
 		{
-			max_total_health = level.player_starting_health;
+			return;
 		}
+
+		max_total_health = level.player_starting_health;
 	}
 	if ( isDefined( max_total_health ) )
 	{
