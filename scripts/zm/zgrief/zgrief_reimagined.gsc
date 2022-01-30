@@ -2089,6 +2089,12 @@ containment_think()
 		zone_display_name = scripts/zm/_zm_reimagined::get_zone_display_name(zone_name);
 		zone = level.zones[zone_name];
 
+		players = get_players();
+		foreach(player in players)
+		{
+			player thread show_grief_hud_msg("New Containment Zone!");
+		}
+
 		level.containment_zone_hud setText(zone_display_name);
 		level.containment_time_hud setTimer(level.containment_time);
 
