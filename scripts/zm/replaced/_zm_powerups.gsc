@@ -211,7 +211,14 @@ nuke_powerup( drop_item, player_team )
 			}
 			else if(players[i] maps/mp/zombies/_zm_laststand::player_is_in_laststand())
 			{
-				players[i] thread scripts/zm/zgrief/zgrief_reimagined::player_suicide();
+				if(isDefined(level.scr_zm_ui_gametype_obj) && level.scr_zm_ui_gametype_obj == "zgrief")
+				{
+					players[i] thread scripts/zm/zgrief/zgrief_reimagined::player_suicide();
+				}
+				else
+				{
+					players[i] maps/mp/zombies/_zm::spectator_respawn();
+				}
 			}
 		}
 	}
