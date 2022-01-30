@@ -2098,6 +2098,15 @@ containment_think()
 		level.containment_zone_hud setText(zone_display_name);
 		level.containment_time_hud setTimer(level.containment_time);
 
+		spawn_points = maps/mp/gametypes_zm/_zm_gametype::get_player_spawns_for_gametype();
+		foreach(spawn_point in spawn_points)
+		{
+			if(spawn_point.script_noteworthy == zone_name)
+			{
+				spawn_point.locked = 1;
+			}
+		}
+
 		held_time = [];
 		held_time["axis"] = undefined;
 		held_time["allies"] = undefined;
@@ -2120,8 +2129,8 @@ containment_think()
 				{
 					if(is_player_valid(player))
 					{
-						in_containment_zone[player.team]++;
 						player.ignoreme = 0;
+						in_containment_zone[player.team]++;
 
 						if(isads(player))
 						{
@@ -2254,6 +2263,15 @@ containment_think()
 			if(isDefined(player.containment_waypoint))
 			{
 				player.containment_waypoint.alpha = 0;
+			}
+		}
+
+		spawn_points = maps/mp/gametypes_zm/_zm_gametype::get_player_spawns_for_gametype();
+		foreach(spawn_point in spawn_points)
+		{
+			if(spawn_point.script_noteworthy == zone_name)
+			{
+				spawn_point.locked = 0;
 			}
 		}
 
