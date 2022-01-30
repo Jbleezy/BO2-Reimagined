@@ -709,6 +709,11 @@ on_player_spawned()
 			self.grief_initial_spawn = false;
 
 			self thread grief_intro_text();
+
+			if(level.scr_zm_ui_gametype_obj != "zgrief" && flag("start_zombie_round_logic"))
+			{
+				self thread wait_and_award_grenades();
+			}
 		}
 
 		if(level.scr_zm_ui_gametype_obj == "zgrief")
@@ -1202,6 +1207,16 @@ update_players_on_disconnect(excluded_player)
 	{
 		update_players_on_downed(excluded_player);
 	}
+}
+
+wait_and_award_grenades()
+{
+	self endon("disconnect");
+
+	wait 0.05;
+
+	self giveWeapon(self get_player_lethal_grenade());
+	self setWeaponAmmoClip(self get_player_lethal_grenade(), 2);
 }
 
 grief_intro_text()
