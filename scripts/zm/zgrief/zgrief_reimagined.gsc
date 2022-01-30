@@ -21,6 +21,7 @@ main()
 
 	replaceFunc(maps/mp/zombies/_zm::getfreespawnpoint, scripts/zm/replaced/_zm::getfreespawnpoint);
 	replaceFunc(maps/mp/gametypes_zm/_zm_gametype::onspawnplayer, scripts/zm/replaced/_zm_gametype::onspawnplayer);
+	replaceFunc(maps/mp/gametypes_zm/_zm_gametype::hide_gump_loading_for_hotjoiners, scripts/zm/replaced/_zm_gametype::hide_gump_loading_for_hotjoiners);
 	replaceFunc(maps/mp/zombies/_zm_audio_announcer::playleaderdialogonplayer, scripts/zm/replaced/_zm_audio_announcer::playleaderdialogonplayer);
 	replaceFunc(maps/mp/zombies/_zm_game_module::wait_for_team_death_and_round_end, scripts/zm/replaced/_zm_game_module::wait_for_team_death_and_round_end);
 	replaceFunc(maps/mp/zombies/_zm_blockers::handle_post_board_repair_rewards, scripts/zm/replaced/_zm_blockers::handle_post_board_repair_rewards);
@@ -289,6 +290,7 @@ set_grief_vars()
 	level._game_module_player_damage_callback = ::game_module_player_damage_callback;
 	level._game_module_player_laststand_callback = ::grief_laststand_weapon_save;
 	level.onplayerspawned_restore_previous_weapons = ::grief_laststand_weapons_return;
+	level.game_mode_spawn_player_logic = scripts/zm/replaced/zgrief::game_mode_spawn_player_logic;
 
 	if(isDefined(level.zombie_weapons["knife_ballistic_zm"]))
 	{

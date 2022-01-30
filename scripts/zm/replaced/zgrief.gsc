@@ -2,6 +2,22 @@
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 
+game_mode_spawn_player_logic()
+{
+	if(isDefined(level.scr_zm_ui_gametype_obj) && level.scr_zm_ui_gametype_obj != "zgrief")
+	{
+		return 0;
+	}
+
+	if ( flag( "start_zombie_round_logic" ) && !isDefined( self.is_hotjoin ) )
+	{
+		self.is_hotjoin = 1;
+		return 1;
+	}
+
+	return 0;
+}
+
 meat_stink_on_ground(position_to_play)
 {
 	level.meat_on_ground = 1;

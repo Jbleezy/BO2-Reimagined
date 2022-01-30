@@ -104,3 +104,32 @@ onspawnplayer( predictedspawn )
 
 	pixendevent();
 }
+
+hide_gump_loading_for_hotjoiners()
+{
+	if(isDefined(level.scr_zm_ui_gametype_obj) && level.scr_zm_ui_gametype_obj != "zgrief")
+	{
+		return;
+	}
+
+	self endon( "disconnect" );
+	self.rebuild_barrier_reward = 1;
+	self.is_hotjoining = 1;
+	num = self getsnapshotackindex();
+	while ( num == self getsnapshotackindex() )
+	{
+		wait 0.25;
+	}
+	wait 0.5;
+	self maps/mp/zombies/_zm::spawnspectator();
+	self.is_hotjoining = 0;
+	self.is_hotjoin = 1;
+	if ( is_true( level.intermission ) || is_true( level.host_ended_game ) )
+	{
+		setclientsysstate( "levelNotify", "zi", self );
+		self setclientthirdperson( 0 );
+		self resetfov();
+		self.health = 100;
+		self thread [[ level.custom_intermission ]]();
+	}
+}
