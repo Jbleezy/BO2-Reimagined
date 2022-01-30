@@ -902,6 +902,22 @@ player_laststand( einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, s
 	}
 }
 
+player_spawn_protection()
+{
+	self endon( "disconnect" );
+
+	self.spawn_protection = 1;
+
+	for ( x = 0; x < 60; x++ )
+	{
+		self.ignoreme = 1;
+		wait 0.05;
+	}
+
+	self.ignoreme = 0;
+	self.spawn_protection = 0;
+}
+
 wait_and_revive()
 {
 	flag_set( "wait_and_revive" );

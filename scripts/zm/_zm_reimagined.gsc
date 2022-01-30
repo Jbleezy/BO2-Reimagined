@@ -30,6 +30,7 @@ main()
 	replaceFunc(maps/mp/zombies/_zm::ai_calculate_health, scripts/zm/replaced/_zm::ai_calculate_health);
 	replaceFunc(maps/mp/zombies/_zm::last_stand_pistol_rank_init, scripts/zm/replaced/_zm::last_stand_pistol_rank_init);
 	replaceFunc(maps/mp/zombies/_zm::actor_damage_override, scripts/zm/replaced/_zm::actor_damage_override);
+	replaceFunc(maps/mp/zombies/_zm::player_spawn_protection, scripts/zm/replaced/_zm::player_spawn_protection);
 	replaceFunc(maps/mp/zombies/_zm::wait_and_revive, scripts/zm/replaced/_zm::wait_and_revive);
 	replaceFunc(maps/mp/zombies/_zm::player_revive_monitor, scripts/zm/replaced/_zm::player_revive_monitor);
 	replaceFunc(maps/mp/zombies/_zm::end_game, scripts/zm/replaced/_zm::end_game);
@@ -1899,18 +1900,30 @@ veryhurt_blood_fx()
 
 ignoreme_after_revived()
 {
-	self endon( "disconnect" );
+	self endon("disconnect");
 
 	while(1)
 	{
-		self waittill( "player_revived", reviver );
+		self waittill("player_revived", reviver);
 
-		self.ignoreme = 1;
-
-		wait 1;
-
-		self.ignoreme = 0;
+		self thread player_revive_protection();
 	}
+}
+
+player_revive_protection()
+{
+	self endon("disconnect");
+
+	self.revive_protection = 1;
+
+	for(i = 0; i < 20; i++)
+	{
+		self.ignoreme = 1;
+		wait 0.05;
+	}
+
+	self.ignoreme = 0;
+	self.revive_protection = 0;
 }
 
 fall_velocity_check()

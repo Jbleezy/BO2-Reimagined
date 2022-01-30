@@ -2199,7 +2199,11 @@ containment_think()
 				{
 					if(is_player_valid(player))
 					{
-						player.ignoreme = 0;
+						if(!is_true(player.spawn_protection) && !is_true(player.revive_protection))
+						{
+							player.ignoreme = 0;
+						}
+
 						in_containment_zone[player.team]++;
 
 						if(isads(player))
@@ -2307,7 +2311,10 @@ containment_think()
 				{
 					if(is_player_valid(player))
 					{
-						player.ignoreme = 0;
+						if(!is_true(player.spawn_protection) && !is_true(player.revive_protection))
+						{
+							player.ignoreme = 0;
+						}
 					}
 					player.containment_waypoint.color = (1, 1, 1);
 				}
@@ -2327,7 +2334,10 @@ containment_think()
 		{
 			if(is_player_valid(player))
 			{
-				player.ignoreme = 0;
+				if(!is_true(player.spawn_protection) && !is_true(player.revive_protection))
+				{
+					player.ignoreme = 0;
+				}
 			}
 
 			if(isDefined(player.containment_waypoint))
