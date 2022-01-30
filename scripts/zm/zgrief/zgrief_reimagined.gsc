@@ -66,6 +66,7 @@ init()
 	level thread round_start_wait(5, true);
 	level thread sudden_death();
 	level thread unlimited_zombies();
+	level thread unlimited_powerups();
 	level thread remove_round_number();
 	level thread remove_status_icons_on_intermission();
 	level thread random_map_rotation();
@@ -354,6 +355,8 @@ set_grief_vars()
 		level.brutus_expl_dmg_req = 15000;
 		level.player_starting_points = 10000;
 	}
+
+	level.zombie_vars["zombie_powerup_drop_increment"] = level.player_starting_points * 4;
 
 	if(level.scr_zm_ui_gametype_obj == "zrace" || level.scr_zm_ui_gametype_obj == "zcontainment")
 	{
@@ -1931,6 +1934,16 @@ unlimited_zombies()
 	while(1)
 	{
 		level.zombie_total = 100;
+
+		wait 1;
+	}
+}
+
+unlimited_powerups()
+{
+	while(1)
+	{
+		level.powerup_drop_count = 0;
 
 		wait 1;
 	}

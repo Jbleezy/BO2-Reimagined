@@ -434,6 +434,7 @@
 * Zombies start spawning 10 seconds after the round starts
 * Players start each round with at least 10000 points
 * 2 lethal grenades and mines awarded each round
+* Unlimited powerups
 * Unlimited barrier rebuild points
 * Decreased stun time of unupgraded weapons from 0.75 seconds to 0.5 seconds
 * Decreased stun time of upgraded weapons rom 0.75 seconds to 0.625 seconds
