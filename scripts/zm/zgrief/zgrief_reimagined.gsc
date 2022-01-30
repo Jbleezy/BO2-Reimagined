@@ -768,6 +768,7 @@ on_player_bleedout()
 		if(level.scr_zm_ui_gametype_obj == "zcontainment")
 		{
 			self maps/mp/zombies/_zm::spectator_respawn();
+			self.revives--;
 		}
 	}
 }

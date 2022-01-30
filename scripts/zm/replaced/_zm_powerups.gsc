@@ -218,6 +218,7 @@ nuke_powerup( drop_item, player_team )
 				else
 				{
 					players[i] maps/mp/zombies/_zm::spectator_respawn();
+					players[i].revives--;
 				}
 			}
 		}
