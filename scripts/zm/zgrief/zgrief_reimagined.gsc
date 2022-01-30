@@ -1754,6 +1754,16 @@ grief_laststand_weapons_return()
 
 		if ( isDefined( self.grief_savedweapon_grenades_clip ) )
 		{
+			if(level.scr_zm_ui_gametype_obj == "zcontainment")
+			{
+				self.grief_savedweapon_grenades_clip += 2;
+
+				if(self.grief_savedweapon_grenades_clip > weaponClipSize(self.grief_savedweapon_grenades))
+				{
+					self.grief_savedweapon_grenades_clip = weaponClipSize(self.grief_savedweapon_grenades);
+				}
+			}
+
 			self setweaponammoclip( self.grief_savedweapon_grenades, self.grief_savedweapon_grenades_clip );
 		}
 	}
@@ -1769,33 +1779,9 @@ grief_laststand_weapons_return()
 		}
 	}
 
-	if ( isDefined( self.grief_savedweapon_mine ) )
-	{
-		self giveweapon( self.grief_savedweapon_mine );
-		self set_player_placeable_mine( self.grief_savedweapon_mine );
-		self setactionslot( 4, "weapon", self.grief_savedweapon_mine );
-		self setweaponammoclip( self.grief_savedweapon_mine, self.grief_savedweapon_mine_clip );
-	}
-
-	if ( isDefined( self.current_equipment ) )
-	{
-		self maps/mp/zombies/_zm_equipment::equipment_take( self.current_equipment );
-	}
-
-	if ( isDefined( self.grief_savedweapon_equipment ) )
-	{
-		self.do_not_display_equipment_pickup_hint = 1;
-		self maps/mp/zombies/_zm_equipment::equipment_give( self.grief_savedweapon_equipment );
-		self.do_not_display_equipment_pickup_hint = undefined;
-	}
-
-	if ( isDefined( self.grief_hasriotshield ) && self.grief_hasriotshield )
-	{
-		if ( isDefined( self.player_shield_reset_health ) )
-		{
-			self [[ self.player_shield_reset_health ]]();
-		}
-	}
+	// mines and equipment get taken away if given too early
+	self thread wait_and_return_mine();
+	self thread wait_and_return_equipment();
 
 	if(level.scr_zm_ui_gametype_obj == "zcontainment")
 	{
@@ -1828,6 +1814,54 @@ grief_laststand_weapons_return()
 	}
 
 	return 0;
+}
+
+wait_and_return_mine()
+{
+	wait 0.05;
+
+	if ( isDefined( self.grief_savedweapon_mine ) )
+	{
+		if(level.scr_zm_ui_gametype_obj == "zcontainment")
+		{
+			self.grief_savedweapon_mine_clip += 2;
+
+			if(self.grief_savedweapon_mine_clip > weaponClipSize(self.grief_savedweapon_mine))
+			{
+				self.grief_savedweapon_mine_clip = weaponClipSize(self.grief_savedweapon_mine);
+			}
+		}
+
+		self giveweapon( self.grief_savedweapon_mine );
+		self set_player_placeable_mine( self.grief_savedweapon_mine );
+		self setactionslot( 4, "weapon", self.grief_savedweapon_mine );
+		self setweaponammoclip( self.grief_savedweapon_mine, self.grief_savedweapon_mine_clip );
+	}
+}
+
+wait_and_return_equipment()
+{
+	wait 0.05;
+
+	if ( isDefined( self.current_equipment ) )
+	{
+		self maps/mp/zombies/_zm_equipment::equipment_take( self.current_equipment );
+	}
+
+	if ( isDefined( self.grief_savedweapon_equipment ) )
+	{
+		self.do_not_display_equipment_pickup_hint = 1;
+		self maps/mp/zombies/_zm_equipment::equipment_give( self.grief_savedweapon_equipment );
+		self.do_not_display_equipment_pickup_hint = undefined;
+	}
+
+	if ( isDefined( self.grief_hasriotshield ) && self.grief_hasriotshield )
+	{
+		if ( isDefined( self.player_shield_reset_health ) )
+		{
+			self [[ self.player_shield_reset_health ]]();
+		}
+	}
 }
 
 sudden_death()
