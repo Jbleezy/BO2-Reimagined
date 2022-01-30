@@ -1228,7 +1228,7 @@ grief_intro_text()
 	{
 		self iPrintLn("Welcome to Containment!");
 		wait 5;
-		self iPrintLn("Gain score by being the only team in the containment zone.");
+		self iPrintLn("Gain score by being in the containment zone.");
 		wait 5;
 		self iPrintLn("First team to gain 250 score wins the game.");
 		wait 5;
@@ -2162,7 +2162,7 @@ containment_think()
 				}
 			}
 
-			if(in_containment_zone["axis"] > 0 && in_containment_zone["allies"] > 0)
+			if(in_containment_zone["axis"] == in_containment_zone["allies"] && in_containment_zone["axis"] > 0 && in_containment_zone["allies"] > 0)
 			{
 				foreach(player in players)
 				{
@@ -2172,7 +2172,7 @@ containment_think()
 				held_time["axis"] = undefined;
 				held_time["allies"] = undefined;
 			}
-			else if(in_containment_zone["axis"] > 0)
+			else if(in_containment_zone["axis"] > in_containment_zone["allies"])
 			{
 				foreach(player in players)
 				{
@@ -2197,7 +2197,7 @@ containment_think()
 					increment_score("axis");
 				}
 			}
-			else if(in_containment_zone["allies"] > 0)
+			else if(in_containment_zone["allies"] > in_containment_zone["axis"])
 			{
 				foreach(player in players)
 				{

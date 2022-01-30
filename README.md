@@ -476,7 +476,7 @@
 * 25000 health Brutus
 
 ### Containment
-* Gain score by being the only team in the containment zone
+* Gain score by being the team with the most alive players in the containment zone
 * First team to gain 250 score wins the game
 * Zombies only go after players in the containment zone
 * Players respawn after being down for 10 seconds
