@@ -48,7 +48,7 @@ init()
 	}
 
 	setDvar("sv_connectTimeout", 45);
-	setDvar("ui_scorelimit", 3);
+	setDvar("ui_scorelimit", 1);
 
 	setteamscore("axis", 0);
 	setteamscore("allies", 0);
@@ -692,12 +692,6 @@ on_player_spawned()
 
 	self.grief_initial_spawn = true;
 
-	// player spawns for a frame when hotjoining
-	if(flag("start_zombie_round_logic"))
-	{
-		self waittill( "spawned_spectator" );
-	}
-
 	while(1)
 	{
 		self waittill( "spawned_player" );
@@ -1221,6 +1215,13 @@ wait_and_award_grenades()
 
 grief_intro_text()
 {
+	// player spawns for a frame when hotjoining
+	if(is_true(self.is_hotjoining))
+	{
+		self waittill( "spawned_spectator" );
+		self waittill( "spawned_player" );
+	}
+
 	flag_wait( "initial_blackscreen_passed" );
 
 	if(level.scr_zm_ui_gametype_obj == "zgrief")
@@ -1837,6 +1838,8 @@ grief_laststand_weapons_return()
 
 wait_and_return_mine()
 {
+	self endon("disconnect");
+
 	wait 0.05;
 
 	if ( isDefined( self.grief_savedweapon_mine ) )
@@ -1860,6 +1863,8 @@ wait_and_return_mine()
 
 wait_and_return_equipment()
 {
+	self endon("disconnect");
+
 	wait 0.05;
 
 	if ( isDefined( self.current_equipment ) )
