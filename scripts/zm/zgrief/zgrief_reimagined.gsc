@@ -938,6 +938,8 @@ round_start_wait(time, initial)
 			player.hostmigrationcontrolsfrozen = 1; // fixes players being able to move after initial_blackscreen_passed
 		}
 
+		level thread freeze_hotjoin_players();
+
 		flag_wait("initial_blackscreen_passed");
 	}
 	else
@@ -970,6 +972,37 @@ round_start_wait(time, initial)
 	}
 
 	level notify("restart_round_start");
+}
+
+freeze_hotjoin_players()
+{
+	level endon("restart_round_start");
+
+	while(1)
+	{
+		players = get_players();
+		foreach(player in players)
+		{
+			if(!is_true(player.hostmigrationcontrolsfrozen))
+			{
+				player.hostmigrationcontrolsfrozen = 1;
+
+				player thread wait_and_freeze();
+				player enableInvulnerability();
+			}
+		}
+
+		wait 0.05;
+	}
+}
+
+wait_and_freeze()
+{
+	self endon("disconnect");
+
+	wait 0.05;
+
+	self freezeControls(1);
 }
 
 round_start_countdown_hud(time)
