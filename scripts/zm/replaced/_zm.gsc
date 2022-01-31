@@ -206,7 +206,7 @@ actor_damage_override( inflictor, attacker, damage, flags, meansofdeath, weapon,
 	{
 		if(meansofdeath == "MOD_PISTOL_BULLET" || meansofdeath == "MOD_RIFLE_BULLET")
 		{
-			final_damage *= 0.75; // TODO: change to 1.5 once fixed
+			final_damage *= 1.5;
 		}
 	}
 
