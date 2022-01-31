@@ -172,6 +172,7 @@
 * Weapon is taken when overheated
 
 ### Sliquifier
+* Added upgraded version
 * Kills on any round (normally stops killing after round 100)
 * Removed additional goo created by chain kills
 
