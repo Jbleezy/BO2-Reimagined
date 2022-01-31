@@ -2311,6 +2311,18 @@ containment_think()
 					held_time["allies"] = getTime();
 					held_prev = "cont";
 				}
+				else
+				{
+					if((level.grief_score["A"] + 1) >= level.grief_winning_score)
+					{
+						held_time["axis"] = getTime();
+					}
+
+					if((level.grief_score["B"] + 1) >= level.grief_winning_score)
+					{
+						held_time["allies"] = getTime();
+					}
+				}
 			}
 			else if(in_containment_zone["axis"] > in_containment_zone["allies"])
 			{
