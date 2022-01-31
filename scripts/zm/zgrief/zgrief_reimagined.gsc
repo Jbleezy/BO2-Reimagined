@@ -2222,11 +2222,21 @@ containment_think()
 		start_time = getTime();
 		while((getTime() - start_time) <= (level.containment_time * 1000))
 		{
+			players = get_players();
 			in_containment_zone = [];
 			in_containment_zone["axis"] = 0;
 			in_containment_zone["allies"] = 0;
 
-			players = get_players();
+			meat_stink_player = 0;
+			foreach(player in players)
+			{
+				if(isDefined(player.meat_stink_3p))
+				{
+					meat_stink_player = 1;
+					break;
+				}
+			}
+
 			foreach(player in players)
 			{
 				if(!isDefined(player.containment_waypoint))
@@ -2238,7 +2248,7 @@ containment_think()
 				{
 					if(is_player_valid(player))
 					{
-						if(!is_true(player.spawn_protection) && !is_true(player.revive_protection))
+						if(!meat_stink_player && !is_true(player.spawn_protection) && !is_true(player.revive_protection))
 						{
 							player.ignoreme = 0;
 						}
@@ -2269,7 +2279,11 @@ containment_think()
 				{
 					if(is_player_valid(player))
 					{
-						player.ignoreme = 1;
+						if(!meat_stink_player)
+						{
+							player.ignoreme = 1;
+						}
+
 						player.containment_waypoint.alpha = 0.5;
 					}
 					else
@@ -2352,7 +2366,7 @@ containment_think()
 				{
 					if(is_player_valid(player))
 					{
-						if(!is_true(player.spawn_protection) && !is_true(player.revive_protection))
+						if(!meat_stink_player && !is_true(player.spawn_protection) && !is_true(player.revive_protection))
 						{
 							player.ignoreme = 0;
 						}
@@ -2406,7 +2420,7 @@ containment_think()
 		{
 			if(is_player_valid(player))
 			{
-				if(!is_true(player.spawn_protection) && !is_true(player.revive_protection))
+				if(!meat_stink_player && !is_true(player.spawn_protection) && !is_true(player.revive_protection))
 				{
 					player.ignoreme = 0;
 				}

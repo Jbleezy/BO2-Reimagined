@@ -479,6 +479,7 @@
 ### Containment
 * Gain score by being the team with the most alive players in the containment zone
 * First team to gain 250 score wins the game
+* Both teams gain score if both teams have the same amount of alive players in the containment zone
 * Zombies only go after players in the containment zone
 * Players respawn after being down for 10 seconds
 * Players retain perks
