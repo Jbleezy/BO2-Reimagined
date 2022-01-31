@@ -682,6 +682,29 @@ grief_onplayerconnect()
 
 grief_onplayerdisconnect(disconnecting_player)
 {
+	players = get_players();
+	count = 0;
+	foreach(player in players)
+	{
+		if(player != disconnecting_player && player.team == disconnecting_player.team)
+		{
+			count++;
+		}
+	}
+
+	if(count == 0)
+	{
+		encounters_team = "A";
+		if(getOtherTeam(disconnecting_player.team) == "allies")
+		{
+			encounters_team = "B";
+		}
+
+		scripts/zm/replaced/_zm_game_module::game_won(encounters_team);
+
+		return;
+	}
+
 	level thread update_players_on_disconnect(disconnecting_player);
 }
 
@@ -2494,29 +2517,9 @@ increment_score(team)
 	level.grief_hud.team["allies"].score[team] setValue(level.grief_score[encounters_team]);
 	setteamscore(team, level.grief_score[encounters_team]);
 
-	if(level.grief_score[encounters_team] == level.grief_winning_score)
+	if(level.grief_score[encounters_team] >= level.grief_winning_score)
 	{
-		level.gamemodulewinningteam = encounters_team;
-		level.zombie_vars[ "spectators_respawn" ] = 0;
-		players = get_players();
-		i = 0;
-		while ( i < players.size )
-		{
-			players[ i ] freezecontrols( 1 );
-			if ( players[ i ]._encounters_team == encounters_team )
-			{
-				players[ i ] thread maps/mp/zombies/_zm_audio_announcer::leaderdialogonplayer( "grief_won" );
-				i++;
-				continue;
-			}
-			players[ i ] thread maps/mp/zombies/_zm_audio_announcer::leaderdialogonplayer( "grief_lost" );
-			i++;
-		}
-		level notify( "game_module_ended", encounters_team );
-		level._game_module_game_end_check = undefined;
-		maps/mp/gametypes_zm/_zm_gametype::track_encounters_win_stats( level.gamemodulewinningteam );
-		level notify( "end_game" );
-		return;
+		scripts/zm/replaced/_zm_game_module::game_won(encounters_team);
 	}
 }
 
