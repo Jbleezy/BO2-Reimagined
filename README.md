@@ -482,5 +482,6 @@
 * Contested if both teams have the same amount of players alive in the containment zone
 * Both teams gain score at half-rate when contested
 * Zombies only go after players in the containment zone
+* Players gain points for being in the containment zone
 * Players respawn after being down for 10 seconds
 * Players retain perks

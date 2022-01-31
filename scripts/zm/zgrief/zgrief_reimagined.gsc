@@ -2060,6 +2060,7 @@ remove_status_icons_on_intermission()
 containment_init()
 {
 	level.containment_time = 60;
+	level.containment_points = 100;
 
 	level.containment_zone_hud = newHudElem();
 	level.containment_zone_hud.alignx = "left";
@@ -2220,8 +2221,8 @@ containment_think()
 		{
 			players = get_players();
 			in_containment_zone = [];
-			in_containment_zone["axis"] = 0;
-			in_containment_zone["allies"] = 0;
+			in_containment_zone["axis"] = [];
+			in_containment_zone["allies"] = [];
 
 			meat_stink_player = 0;
 			foreach(player in players)
@@ -2249,7 +2250,7 @@ containment_think()
 							player.ignoreme = 0;
 						}
 
-						in_containment_zone[player.team]++;
+						in_containment_zone[player.team][in_containment_zone[player.team].size] = player;
 
 						if(isads(player))
 						{
@@ -2294,7 +2295,7 @@ containment_think()
 				}
 			}
 
-			if(in_containment_zone["axis"] == in_containment_zone["allies"] && in_containment_zone["axis"] > 0 && in_containment_zone["allies"] > 0)
+			if(in_containment_zone["axis"].size == in_containment_zone["allies"].size && in_containment_zone["axis"].size > 0 && in_containment_zone["allies"].size > 0)
 			{
 				foreach(player in players)
 				{
@@ -2321,7 +2322,7 @@ containment_think()
 					}
 				}
 			}
-			else if(in_containment_zone["axis"] > in_containment_zone["allies"])
+			else if(in_containment_zone["axis"].size > in_containment_zone["allies"].size)
 			{
 				foreach(player in players)
 				{
@@ -2346,7 +2347,7 @@ containment_think()
 					held_prev = "axis";
 				}
 			}
-			else if(in_containment_zone["allies"] > in_containment_zone["axis"])
+			else if(in_containment_zone["allies"].size > in_containment_zone["axis"].size)
 			{
 				foreach(player in players)
 				{
@@ -2401,6 +2402,11 @@ containment_think()
 
 					if((held_prev != "cont") || ((level.grief_score["A"] + 1) < level.grief_winning_score))
 					{
+						foreach(player in in_containment_zone["axis"])
+						{
+							player maps/mp/zombies/_zm_score::add_to_player_score(level.containment_points);
+						}
+
 						increment_score("axis");
 					}
 				}
@@ -2415,6 +2421,11 @@ containment_think()
 
 					if((held_prev != "cont") || ((level.grief_score["B"] + 1) < level.grief_winning_score))
 					{
+						foreach(player in in_containment_zone["allies"])
+						{
+							player maps/mp/zombies/_zm_score::add_to_player_score(level.containment_points);
+						}
+
 						increment_score("allies");
 					}
 				}
