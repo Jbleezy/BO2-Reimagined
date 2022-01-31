@@ -1999,15 +1999,14 @@ unlimited_powerups()
 
 player_suicide()
 {
+	self notify( "player_suicide" );
+
 	if(level.scr_zm_ui_gametype_obj != "zgrief")
 	{
-		self maps/mp/zombies/_zm::spectator_respawn();
-		self.revives--;
 		return;
 	}
 
 	self.playersuicided = 1;
-	self notify( "player_suicide" );
 
 	wait_network_frame();
 
