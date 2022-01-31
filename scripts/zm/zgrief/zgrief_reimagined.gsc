@@ -1795,6 +1795,51 @@ grief_laststand_weapons_return()
 		i++;
 	}
 
+	self thread grief_laststand_items_return();
+
+	if(level.scr_zm_ui_gametype_obj == "zcontainment")
+	{
+		if(isDefined(self.grief_savedperks))
+		{
+			self.perks_active = [];
+			foreach(perk in self.grief_savedperks)
+			{
+				self maps/mp/zombies/_zm_perks::give_perk(perk);
+			}
+		}
+	}
+
+	self.grief_savedweapon_weapons = undefined;
+
+	primaries = self getweaponslistprimaries();
+	foreach ( weapon in primaries )
+	{
+		if ( isDefined( self.grief_savedweapon_currentweapon ) && self.grief_savedweapon_currentweapon == weapon )
+		{
+			self switchtoweapon( weapon );
+			return 1;
+		}
+	}
+
+	if ( primaries.size > 0 )
+	{
+		self switchtoweapon( primaries[ 0 ] );
+		return 1;
+	}
+
+	return 0;
+}
+
+grief_laststand_items_return()
+{
+	self endon("disconnect");
+
+	if(level.scr_zm_ui_gametype_obj == "zcontainment")
+	{
+		// needs a wait or some items aren't given back on respawn
+		wait 0.05;
+	}
+
 	if ( isDefined( self.grief_savedweapon_melee ) )
 	{
 		self set_player_melee_weapon( self.grief_savedweapon_melee );
@@ -1832,49 +1877,6 @@ grief_laststand_weapons_return()
 		}
 	}
 
-	// mines and equipment get taken away if given too early
-	self thread wait_and_return_mine();
-	self thread wait_and_return_equipment();
-
-	if(level.scr_zm_ui_gametype_obj == "zcontainment")
-	{
-		if(isDefined(self.grief_savedperks))
-		{
-			self.perks_active = [];
-			foreach(perk in self.grief_savedperks)
-			{
-				self maps/mp/zombies/_zm_perks::give_perk(perk);
-			}
-		}
-	}
-
-	self.grief_savedweapon_weapons = undefined;
-
-	primaries = self getweaponslistprimaries();
-	foreach ( weapon in primaries )
-	{
-		if ( isDefined( self.grief_savedweapon_currentweapon ) && self.grief_savedweapon_currentweapon == weapon )
-		{
-			self switchtoweapon( weapon );
-			return 1;
-		}
-	}
-
-	if ( primaries.size > 0 )
-	{
-		self switchtoweapon( primaries[ 0 ] );
-		return 1;
-	}
-
-	return 0;
-}
-
-wait_and_return_mine()
-{
-	self endon("disconnect");
-
-	wait 0.05;
-
 	if ( isDefined( self.grief_savedweapon_mine ) )
 	{
 		if(level.scr_zm_ui_gametype_obj == "zcontainment")
@@ -1892,13 +1894,6 @@ wait_and_return_mine()
 		self setactionslot( 4, "weapon", self.grief_savedweapon_mine );
 		self setweaponammoclip( self.grief_savedweapon_mine, self.grief_savedweapon_mine_clip );
 	}
-}
-
-wait_and_return_equipment()
-{
-	self endon("disconnect");
-
-	wait 0.05;
 
 	if ( isDefined( self.current_equipment ) )
 	{
