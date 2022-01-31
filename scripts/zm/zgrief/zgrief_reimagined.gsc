@@ -2210,6 +2210,7 @@ containment_think()
 			}
 		}
 
+		obj_time = 1000;
 		held_time = [];
 		held_time["axis"] = undefined;
 		held_time["allies"] = undefined;
@@ -2302,6 +2303,7 @@ containment_think()
 
 				if(held_prev != "cont")
 				{
+					obj_time = 2000;
 					held_time["axis"] = getTime();
 					held_time["allies"] = getTime();
 					held_prev = "cont";
@@ -2335,6 +2337,7 @@ containment_think()
 
 				if(held_prev != "axis")
 				{
+					obj_time = 1000;
 					if(held_prev != "cont")
 					{
 						held_time["axis"] = getTime();
@@ -2359,6 +2362,7 @@ containment_think()
 
 				if(held_prev != "allies")
 				{
+					obj_time = 1000;
 					if(held_prev != "cont")
 					{
 						held_time["allies"] = getTime();
@@ -2391,7 +2395,7 @@ containment_think()
 
 			if(isDefined(held_time["axis"]))
 			{
-				if((getTime() - held_time["axis"]) >= 1000)
+				if((getTime() - held_time["axis"]) >= obj_time)
 				{
 					held_time["axis"] = getTime();
 
@@ -2404,7 +2408,7 @@ containment_think()
 
 			if(isDefined(held_time["allies"]))
 			{
-				if((getTime() - held_time["allies"]) >= 1000)
+				if((getTime() - held_time["allies"]) >= obj_time)
 				{
 					held_time["allies"] = getTime();
 
