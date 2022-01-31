@@ -2403,7 +2403,8 @@ containment_think()
 					{
 						foreach(player in in_containment_zone["axis"])
 						{
-							player maps/mp/zombies/_zm_score::add_to_player_score(level.containment_points);
+							score = level.containment_points * maps/mp/zombies/_zm_score::get_points_multiplier(player);
+							player maps/mp/zombies/_zm_score::add_to_player_score(score);
 						}
 
 						increment_score("axis");
@@ -2422,7 +2423,8 @@ containment_think()
 					{
 						foreach(player in in_containment_zone["allies"])
 						{
-							player maps/mp/zombies/_zm_score::add_to_player_score(level.containment_points);
+							score = level.containment_points * maps/mp/zombies/_zm_score::get_points_multiplier(player);
+							player maps/mp/zombies/_zm_score::add_to_player_score(score);
 						}
 
 						increment_score("allies");
