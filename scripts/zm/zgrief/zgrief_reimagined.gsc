@@ -1797,18 +1797,6 @@ grief_laststand_weapons_return()
 
 	self thread grief_laststand_items_return();
 
-	if(level.scr_zm_ui_gametype_obj == "zcontainment")
-	{
-		if(isDefined(self.grief_savedperks))
-		{
-			self.perks_active = [];
-			foreach(perk in self.grief_savedperks)
-			{
-				self maps/mp/zombies/_zm_perks::give_perk(perk);
-			}
-		}
-	}
-
 	self.grief_savedweapon_weapons = undefined;
 
 	primaries = self getweaponslistprimaries();
@@ -1912,6 +1900,18 @@ grief_laststand_items_return()
 		if ( isDefined( self.player_shield_reset_health ) )
 		{
 			self [[ self.player_shield_reset_health ]]();
+		}
+	}
+
+	if(is_true(self._retain_perks))
+	{
+		if(isDefined(self.grief_savedperks))
+		{
+			self.perks_active = [];
+			foreach(perk in self.grief_savedperks)
+			{
+				self maps/mp/zombies/_zm_perks::give_perk(perk);
+			}
 		}
 	}
 }
