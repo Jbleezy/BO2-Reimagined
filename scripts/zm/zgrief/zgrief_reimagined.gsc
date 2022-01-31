@@ -2373,7 +2373,11 @@ containment_think()
 				if((getTime() - held_time["axis"]) >= 1000)
 				{
 					held_time["axis"] = getTime();
-					increment_score("axis");
+
+					if((held_prev != "cont") || ((level.grief_score["A"] + 1) < level.grief_winning_score))
+					{
+						increment_score("axis");
+					}
 				}
 			}
 
@@ -2382,7 +2386,12 @@ containment_think()
 				if((getTime() - held_time["allies"]) >= 1000)
 				{
 					held_time["allies"] = getTime();
-					increment_score("allies");
+
+
+					if((held_prev != "cont") || ((level.grief_score["B"] + 1) < level.grief_winning_score))
+					{
+						increment_score("allies");
+					}
 				}
 			}
 
