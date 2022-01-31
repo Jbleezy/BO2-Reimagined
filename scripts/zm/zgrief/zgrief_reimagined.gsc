@@ -2218,6 +2218,7 @@ containment_think()
 		held_time = [];
 		held_time["axis"] = undefined;
 		held_time["allies"] = undefined;
+		held_prev = "none";
 		start_time = getTime();
 		while((getTime() - start_time) <= (level.containment_time * 1000))
 		{
@@ -2290,8 +2291,12 @@ containment_think()
 					player.containment_waypoint.color = (1, 1, 0);
 				}
 
-				held_time["axis"] = undefined;
-				held_time["allies"] = undefined;
+				if(held_prev != "cont")
+				{
+					held_time["axis"] = getTime();
+					held_time["allies"] = getTime();
+					held_prev = "cont";
+				}
 			}
 			else if(in_containment_zone["axis"] > in_containment_zone["allies"])
 			{
@@ -2307,15 +2312,14 @@ containment_think()
 					}
 				}
 
-				if(!isDefined(held_time["axis"]))
+				if(held_prev != "axis")
 				{
-					held_time["axis"] = getTime();
-				}
-
-				if((getTime() - held_time["axis"]) >= 1000)
-				{
-					held_time["axis"] = getTime();
-					increment_score("axis");
+					if(held_prev != "cont")
+					{
+						held_time["axis"] = getTime();
+					}
+					held_time["allies"] = undefined;
+					held_prev = "axis";
 				}
 			}
 			else if(in_containment_zone["allies"] > in_containment_zone["axis"])
@@ -2332,15 +2336,14 @@ containment_think()
 					}
 				}
 
-				if(!isDefined(held_time["allies"]))
+				if(held_prev != "allies")
 				{
-					held_time["allies"] = getTime();
-				}
-
-				if((getTime() - held_time["allies"]) >= 1000)
-				{
-					held_time["allies"] = getTime();
-					increment_score("allies");
+					if(held_prev != "cont")
+					{
+						held_time["allies"] = getTime();
+					}
+					held_time["axis"] = undefined;
+					held_prev = "allies";
 				}
 			}
 			else
@@ -2357,8 +2360,30 @@ containment_think()
 					player.containment_waypoint.color = (1, 1, 1);
 				}
 
-				held_time["axis"] = undefined;
-				held_time["allies"] = undefined;
+				if(held_prev != "none")
+				{
+					held_time["axis"] = undefined;
+					held_time["allies"] = undefined;
+					held_prev = "none";
+				}
+			}
+
+			if(isDefined(held_time["axis"]))
+			{
+				if((getTime() - held_time["axis"]) >= 1000)
+				{
+					held_time["axis"] = getTime();
+					increment_score("axis");
+				}
+			}
+
+			if(isDefined(held_time["allies"]))
+			{
+				if((getTime() - held_time["allies"]) >= 1000)
+				{
+					held_time["allies"] = getTime();
+					increment_score("allies");
+				}
 			}
 
 			wait 0.05;
