@@ -35,6 +35,7 @@
 * Self revives in solo are active whenever the player has at least 1 perk
 * 100% backwards move speed
 * Decreased sprint time needed to be able to dive from 0.25 seconds to 0.1 seconds
+* Can move immediately after diving
 * Can dive again right away after just diving
 * Increased melee range by 16% (same as Black Ops 1)
 * Disabled melee lunging

@@ -264,6 +264,7 @@ set_dvars()
 {
 	setDvar( "player_backSpeedScale", 1 );
 
+	setDvar( "dtp_post_move_pause", 0 );
 	setDvar( "dtp_startup_delay", 100 );
 	setDvar( "dtp_exhaustion_window", 100 );
 
@@ -280,6 +281,12 @@ set_dvars()
 
 set_client_dvars()
 {
+	self setClientDvar( "player_lastStandBleedoutTime", getDvarInt( "player_lastStandBleedoutTime" ) );
+
+	self setClientDvar( "dtp_post_move_pause", getDvarInt( "dtp_post_move_pause" ) );
+	self setClientDvar( "dtp_startup_delay", getDvarInt( "dtp_startup_delay" ) );
+	self setClientDvar( "dtp_exhaustion_window", getDvarInt( "dtp_exhaustion_window" ) );
+
 	self setClientDvar( "aim_automelee_enabled", 0 );
 
 	self setClientDvar( "cg_drawBreathHint", 0 );
