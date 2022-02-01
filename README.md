@@ -463,6 +463,12 @@
 * Random map rotation
 * 25000 health Brutus
 
+#### Grief
+* Gain score by making enemy players bleed out
+* First team to make 25 enemy players bleed out wins the game
+* Players respawn after being down for 10 seconds
+* Players retain perks
+
 #### Search & Rezurrect
 * Win rounds by getting all enemy players down
 * First team to win 3 rounds wins the game

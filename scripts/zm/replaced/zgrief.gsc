@@ -4,7 +4,7 @@
 
 game_mode_spawn_player_logic()
 {
-	if(isDefined(level.scr_zm_ui_gametype_obj) && level.scr_zm_ui_gametype_obj != "zsnr")
+	if(scripts/zm/zgrief/zgrief_reimagined::is_respawn_gamemode())
 	{
 		return 0;
 	}

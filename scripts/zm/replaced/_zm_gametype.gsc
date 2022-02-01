@@ -173,7 +173,7 @@ onplayerspawned()
 
 hide_gump_loading_for_hotjoiners()
 {
-	if(isDefined(level.scr_zm_ui_gametype_obj) && level.scr_zm_ui_gametype_obj != "zsnr")
+	if(scripts/zm/zgrief/zgrief_reimagined::is_respawn_gamemode())
 	{
 		return;
 	}

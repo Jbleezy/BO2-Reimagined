@@ -366,7 +366,11 @@ set_grief_vars()
 	level.zombie_vars["allies"]["zombie_powerup_half_damage_on"] = 0;
 	level.zombie_vars["allies"]["zombie_powerup_half_damage_time"] = 30;
 
-	if(level.scr_zm_ui_gametype_obj == "zsnr")
+	if(level.scr_zm_ui_gametype_obj == "zgrief")
+	{
+		level.grief_winning_score = 25;
+	}
+	else if(level.scr_zm_ui_gametype_obj == "zsnr")
 	{
 		level.grief_winning_score = 3;
 	}
@@ -379,7 +383,7 @@ set_grief_vars()
 		level.grief_winning_score = 250;
 	}
 
-	if(level.scr_zm_ui_gametype_obj == "zsnr" || level.scr_zm_ui_gametype_obj == "zcontainment")
+	if(level.scr_zm_ui_gametype_obj == "zgrief" || level.scr_zm_ui_gametype_obj == "zsnr" || level.scr_zm_ui_gametype_obj == "zcontainment")
 	{
 		level.zombie_move_speed = 100;
 		level.zombie_vars["zombie_health_start"] = 2500;
@@ -393,7 +397,7 @@ set_grief_vars()
 
 	level.zombie_vars["zombie_powerup_drop_increment"] = level.player_starting_points * 4;
 
-	if(level.scr_zm_ui_gametype_obj == "zrace" || level.scr_zm_ui_gametype_obj == "zcontainment")
+	if(is_respawn_gamemode())
 	{
 		setDvar("player_lastStandBleedoutTime", 10);
 	}
@@ -709,7 +713,7 @@ grief_onplayerconnect()
 	self thread maps/mp/gametypes_zm/zmeat::create_item_meat_watcher();
 	self.killsconfirmed = 0;
 
-	if(level.scr_zm_ui_gametype_obj == "zcontainment")
+	if(level.scr_zm_ui_gametype_obj == "zgrief" || level.scr_zm_ui_gametype_obj == "zcontainment")
 	{
 		self._retain_perks = 1;
 	}
@@ -762,7 +766,7 @@ on_player_spawned()
 
 			self thread grief_intro_text();
 
-			if(level.scr_zm_ui_gametype_obj != "zsnr" && flag("start_zombie_round_logic"))
+			if(is_respawn_gamemode() && flag("start_zombie_round_logic"))
 			{
 				self thread wait_and_award_grenades();
 			}
@@ -817,6 +821,11 @@ on_player_bleedout()
 
 		self.statusicon = "hud_status_dead";
 
+		if(level.scr_zm_ui_gametype_obj == "zgrief")
+		{
+			increment_score(getOtherTeam(self.team));
+		}
+
 		if(level.scr_zm_ui_gametype_obj == "zsnr")
 		{
 			self.grief_savedweapon_weapons = undefined;
@@ -825,7 +834,7 @@ on_player_bleedout()
 			level thread update_players_on_bleedout( self );
 		}
 
-		if(level.scr_zm_ui_gametype_obj == "zcontainment")
+		if(is_respawn_gamemode())
 		{
 			self maps/mp/zombies/_zm::spectator_respawn();
 			self.revives--;
@@ -1318,25 +1327,32 @@ grief_intro_text()
 	self iPrintLn("Welcome to " + get_gamemode_display_name() +  "!");
 	wait 5;
 
-	if(level.scr_zm_ui_gametype_obj == "zsnr")
+	if(level.scr_zm_ui_gametype_obj == "zgrief")
+	{
+		self iPrintLn("Gain score by making enemy players bleed out.");
+		wait 5;
+		self iPrintLn("Make " + level.grief_winning_score + " enemy players bleed out to win the game.");
+		wait 5;
+	}
+	else if(level.scr_zm_ui_gametype_obj == "zsnr")
 	{
 		self iPrintLn("Win rounds by getting all enemy players down.");
 		wait 5;
-		self iPrintLn("First team to win " + level.grief_winning_score + " rounds wins the game.");
+		self iPrintLn("Win " + level.grief_winning_score + " rounds to win the game.");
 		wait 5;
 	}
 	else if(level.scr_zm_ui_gametype_obj == "zrace")
 	{
 		self iPrintLn("Gain score by getting kills.");
 		wait 5;
-		self iPrintLn("First team to get " + level.grief_winning_score + " kills wins the game.");
+		self iPrintLn("Get " + level.grief_winning_score + " kills to win the game.");
 		wait 5;
 	}
 	else if(level.scr_zm_ui_gametype_obj == "zcontainment")
 	{
 		self iPrintLn("Gain score by being in the containment zone.");
 		wait 5;
-		self iPrintLn("First team to gain " + level.grief_winning_score + " score wins the game.");
+		self iPrintLn("Gain " + level.grief_winning_score + " score to win the game.");
 		wait 5;
 	}
 
@@ -1365,6 +1381,21 @@ get_gamemode_display_name()
 	{
 		return "Containment";
 	}
+}
+
+is_respawn_gamemode()
+{
+	if(!isDefined(level.scr_zm_ui_gametype_obj))
+	{
+		return 0;
+	}
+
+	if(level.scr_zm_ui_gametype_obj == "zgrief" || level.scr_zm_ui_gametype_obj == "zrace" || level.scr_zm_ui_gametype_obj == "zmeat" || level.scr_zm_ui_gametype_obj == "zcontainment")
+	{
+		return 1;
+	}
+
+	return 0;
 }
 
 show_grief_hud_msg( msg, msg_parm, offset, delay )
@@ -1900,7 +1931,7 @@ grief_laststand_items_return()
 {
 	self endon("disconnect");
 
-	if(level.scr_zm_ui_gametype_obj == "zcontainment")
+	if(is_respawn_gamemode())
 	{
 		// needs a wait or some items aren't given back on respawn
 		wait 0.05;
@@ -1918,7 +1949,7 @@ grief_laststand_items_return()
 
 		if ( isDefined( self.grief_savedweapon_grenades_clip ) )
 		{
-			if(level.scr_zm_ui_gametype_obj == "zcontainment")
+			if(is_respawn_gamemode())
 			{
 				self.grief_savedweapon_grenades_clip += 2;
 
@@ -1945,7 +1976,7 @@ grief_laststand_items_return()
 
 	if ( isDefined( self.grief_savedweapon_mine ) )
 	{
-		if(level.scr_zm_ui_gametype_obj == "zcontainment")
+		if(is_respawn_gamemode())
 		{
 			self.grief_savedweapon_mine_clip += 2;
 
@@ -2079,7 +2110,7 @@ player_suicide()
 {
 	self notify( "player_suicide" );
 
-	if(level.scr_zm_ui_gametype_obj != "zsnr")
+	if(is_respawn_gamemode())
 	{
 		return;
 	}
