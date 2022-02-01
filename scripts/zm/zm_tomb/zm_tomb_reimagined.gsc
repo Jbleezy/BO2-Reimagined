@@ -46,7 +46,7 @@ tomb_special_weapon_magicbox_check(weapon)
 	}
 	if ( isDefined( level.zombie_weapons[ weapon ].shared_ammo_weapon ) )
 	{
-		if ( self has_weapon_or_upgrade( level.zombie_weapons[ weapon ].shared_ammo_weapon ) )
+		if ( self maps/mp/zombies/_zm_weapons::has_weapon_or_upgrade( level.zombie_weapons[ weapon ].shared_ammo_weapon ) )
 		{
 			return 0;
 		}
