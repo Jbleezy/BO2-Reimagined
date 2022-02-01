@@ -115,8 +115,8 @@ round_end(winner)
 	if(isDefined(winner))
 	{
 		level.grief_score[winner]++;
-		level.grief_hud["axis"].score[team] setValue(level.grief_score[winner]);
-		level.grief_hud["allies"].score[team] setValue(level.grief_score[winner]);
+		level.grief_score_hud["axis"].score[team] setValue(level.grief_score[winner]);
+		level.grief_score_hud["allies"].score[team] setValue(level.grief_score[winner]);
 		setteamscore(team, level.grief_score[winner]);
 
 		if(level.grief_score[winner] == level.grief_winning_score)
