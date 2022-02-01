@@ -313,10 +313,11 @@ set_grief_vars()
 {
 	if(getDvar("ui_gametype_obj") == "")
 	{
-		setDvar("ui_gametype_obj", "zsnr");
+		setDvar("ui_gametype_obj", "zgrief zsnr zrace zmeat zcontainment");
 	}
 
-	level.scr_zm_ui_gametype_obj = getDvar("ui_gametype_obj");
+	gamemodes = strTok(getDvar("ui_gametype_obj"), " ");
+	level.scr_zm_ui_gametype_obj = random(gamemodes);
 
 	level.noroundnumber = 1;
 	level.zombie_powerups["meat_stink"].solo = 1;

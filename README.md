@@ -465,13 +465,13 @@
 
 #### Grief
 * Gain score by making enemy players bleed out
-* First team to make 25 enemy players bleed out wins the game
+* Make 25 enemy players bleed out to win the game
 * Players respawn after being down for 10 seconds
 * Players retain perks
 
 #### Search & Rezurrect
 * Win rounds by getting all enemy players down
-* First team to win 3 rounds wins the game
+* Win 3 rounds to win the game
 * Tie round if both teams die within 5 seconds of eachother
 * Sudden death after 5 minute round (all players lose 100 health)
 * Players start each round with at least 10000 points
@@ -486,7 +486,7 @@
 
 #### Containment
 * Gain score by being the team with the most players alive in the containment zone
-* First team to gain 250 score wins the game
+* Gain 250 score to win the game
 * Contested if both teams have the same amount of players alive in the containment zone
 * Both teams gain score at half-rate when contested
 * Zombies only go after players in the containment zone
