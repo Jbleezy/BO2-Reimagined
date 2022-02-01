@@ -4,7 +4,7 @@
 
 game_mode_spawn_player_logic()
 {
-	if(isDefined(level.scr_zm_ui_gametype_obj) && level.scr_zm_ui_gametype_obj != "zgrief")
+	if(isDefined(level.scr_zm_ui_gametype_obj) && level.scr_zm_ui_gametype_obj != "zsnr")
 	{
 		return 0;
 	}

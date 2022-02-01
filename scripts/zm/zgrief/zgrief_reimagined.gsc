@@ -313,7 +313,7 @@ set_grief_vars()
 {
 	if(getDvar("ui_gametype_obj") == "")
 	{
-		setDvar("ui_gametype_obj", "zgrief");
+		setDvar("ui_gametype_obj", "zsnr");
 	}
 
 	level.scr_zm_ui_gametype_obj = getDvar("ui_gametype_obj");
@@ -366,7 +366,7 @@ set_grief_vars()
 	level.zombie_vars["allies"]["zombie_powerup_half_damage_on"] = 0;
 	level.zombie_vars["allies"]["zombie_powerup_half_damage_time"] = 30;
 
-	if(level.scr_zm_ui_gametype_obj == "zgrief")
+	if(level.scr_zm_ui_gametype_obj == "zsnr")
 	{
 		level.grief_winning_score = 3;
 	}
@@ -379,7 +379,7 @@ set_grief_vars()
 		level.grief_winning_score = 250;
 	}
 
-	if(level.scr_zm_ui_gametype_obj == "zgrief" || level.scr_zm_ui_gametype_obj == "zcontainment")
+	if(level.scr_zm_ui_gametype_obj == "zsnr" || level.scr_zm_ui_gametype_obj == "zcontainment")
 	{
 		level.zombie_move_speed = 100;
 		level.zombie_vars["zombie_health_start"] = 2500;
@@ -762,13 +762,13 @@ on_player_spawned()
 
 			self thread grief_intro_text();
 
-			if(level.scr_zm_ui_gametype_obj != "zgrief" && flag("start_zombie_round_logic"))
+			if(level.scr_zm_ui_gametype_obj != "zsnr" && flag("start_zombie_round_logic"))
 			{
 				self thread wait_and_award_grenades();
 			}
 		}
 
-		if(level.scr_zm_ui_gametype_obj == "zgrief")
+		if(level.scr_zm_ui_gametype_obj == "zsnr")
 		{
 			// round_start_wait resets these
 			self freezeControls(1);
@@ -817,7 +817,7 @@ on_player_bleedout()
 
 		self.statusicon = "hud_status_dead";
 
-		if(level.scr_zm_ui_gametype_obj == "zgrief")
+		if(level.scr_zm_ui_gametype_obj == "zsnr")
 		{
 			self.grief_savedweapon_weapons = undefined;
 			self bleedout_feed();
@@ -1084,7 +1084,7 @@ round_start_countdown_hud(time)
 
 	level.countdown_hud thread round_start_countdown_hud_timer(time);
 
-	if(level.scr_zm_ui_gametype_obj == "zgrief")
+	if(level.scr_zm_ui_gametype_obj == "zsnr")
 	{
 		level.countdown_hud.countdown_text setText("ROUND " + level.round_number + " BEGINS IN");
 	}
@@ -1163,7 +1163,7 @@ zombie_spawn_wait(time)
 
 update_players_on_downed(excluded_player)
 {
-	if(level.scr_zm_ui_gametype_obj != "zgrief")
+	if(level.scr_zm_ui_gametype_obj != "zsnr")
 	{
 		return;
 	}
@@ -1249,7 +1249,7 @@ update_players_on_downed(excluded_player)
 
 update_players_on_bleedout(excluded_player)
 {
-	if(level.scr_zm_ui_gametype_obj != "zgrief")
+	if(level.scr_zm_ui_gametype_obj != "zsnr")
 	{
 		return;
 	}
@@ -1318,25 +1318,25 @@ grief_intro_text()
 	self iPrintLn("Welcome to " + get_gamemode_display_name() +  "!");
 	wait 5;
 
-	if(level.scr_zm_ui_gametype_obj == "zgrief")
+	if(level.scr_zm_ui_gametype_obj == "zsnr")
 	{
 		self iPrintLn("Win rounds by getting all enemy players down.");
 		wait 5;
-		self iPrintLn("First team to win 3 rounds wins the game.");
+		self iPrintLn("First team to win " + level.grief_winning_score + " rounds wins the game.");
 		wait 5;
 	}
 	else if(level.scr_zm_ui_gametype_obj == "zrace")
 	{
 		self iPrintLn("Gain score by getting kills.");
 		wait 5;
-		self iPrintLn("First team to get 500 kills wins the game.");
+		self iPrintLn("First team to get " + level.grief_winning_score + " kills wins the game.");
 		wait 5;
 	}
 	else if(level.scr_zm_ui_gametype_obj == "zcontainment")
 	{
 		self iPrintLn("Gain score by being in the containment zone.");
 		wait 5;
-		self iPrintLn("First team to gain 250 score wins the game.");
+		self iPrintLn("First team to gain " + level.grief_winning_score + " score wins the game.");
 		wait 5;
 	}
 
@@ -1998,7 +1998,7 @@ sudden_death()
 {
 	level endon("end_game");
 
-	if(level.scr_zm_ui_gametype_obj != "zgrief")
+	if(level.scr_zm_ui_gametype_obj != "zsnr")
 	{
 		return;
 	}
@@ -2079,7 +2079,7 @@ player_suicide()
 {
 	self notify( "player_suicide" );
 
-	if(level.scr_zm_ui_gametype_obj != "zgrief")
+	if(level.scr_zm_ui_gametype_obj != "zsnr")
 	{
 		return;
 	}

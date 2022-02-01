@@ -160,7 +160,7 @@ onplayerspawned()
 
 			//self thread test();
 
-			//self.score = 1000000;
+			//self.score = 100000;
 			//maps/mp/zombies/_zm_perks::give_perk( "specialty_armorvest", 0 );
 			//self GiveWeapon("dsr50_zm");
 			//self GiveMaxAmmo("dsr50_zm");
@@ -490,7 +490,7 @@ timer_hud()
 
 round_timer_hud()
 {
-	if(isDefined(level.scr_zm_ui_gametype_obj) && level.scr_zm_ui_gametype_obj != "zgrief")
+	if(isDefined(level.scr_zm_ui_gametype_obj) && level.scr_zm_ui_gametype_obj != "zsnr")
 	{
 		return;
 	}

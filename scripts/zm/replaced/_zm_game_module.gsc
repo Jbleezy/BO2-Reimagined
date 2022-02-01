@@ -7,7 +7,7 @@ wait_for_team_death_and_round_end()
 	level endon( "game_module_ended" );
 	level endon( "end_game" );
 
-	if(level.scr_zm_ui_gametype_obj != "zgrief")
+	if(level.scr_zm_ui_gametype_obj != "zsnr")
 	{
 		return;
 	}

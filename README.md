@@ -421,20 +421,14 @@
 * Perk bottle dig spots: visible and diggable without Zombie Blood
 * Perk bottle dig spots: increased number of rounds for next dig spot to spawn from 1 to 4
 
-## Gamemodes
+## Game Modes
 
-### Grief
-* Win rounds by getting all enemy players down
-* First team to win 3 rounds wins the game
-* Tie round if both teams die within 5 seconds of eachother
-* Sudden death after 5 minute round (all players lose 100 health)
+### Encounter
+* Group of competitive game modes
 * Unlimited zombies
 * 2500 health zombies
 * 0.5 second zombie spawn rate
 * Only sprinting zombies
-* Zombies start spawning 10 seconds after the round starts
-* Players start each round with at least 10000 points
-* 2 lethal grenades and mines awarded each round
 * Unlimited powerups
 * Unlimited barrier rebuild points
 * Decreased stun time of unupgraded weapons from 0.75 seconds to 0.5 seconds
@@ -460,11 +454,21 @@
 * Insta Kill: enemy players deal half damage for 30 seconds
 * Nuke: deals 80 damage to all alive enemy players and makes all downed enemy players bleed out
 * Added kill feed (includes downs, revives, and bleed outs)
-* Added player kills on scoreboard
+* Added player kills on scoreboard (replaces headshots)
 * Added player downed and bled out icons on scoreboard
 * Added intro text
 * Announcer audio always plays
 * Last player alive audio only plays for the player who is alive instead of every player on the team
+* Decreased connection timeout from 90 seconds to 45 seconds
+* Random map rotation
+* 25000 health Brutus
+
+#### Search & Rezurrect
+* Win rounds by getting all enemy players down
+* First team to win 3 rounds wins the game
+* Tie round if both teams die within 5 seconds of eachother
+* Sudden death after 5 minute round (all players lose 100 health)
+* Players start each round with at least 10000 points
 * Enemies remaining audio and text displays when enemy players down instead of when enemy players bleed out
 * Enemies remaining text is removed when new text is displayed
 * Added new audio when enemy players bleed out
@@ -473,11 +477,8 @@
 * Spawn points are assigned to a team
 * Teams switch spawn points each round
 * Players respawn at initial spawn points
-* Decreased connection timeout from 90 seconds to 45 seconds
-* Random map rotation
-* 25000 health Brutus
 
-### Containment
+#### Containment
 * Gain score by being the team with the most players alive in the containment zone
 * First team to gain 250 score wins the game
 * Contested if both teams have the same amount of players alive in the containment zone
