@@ -121,10 +121,9 @@ set_team()
 
 grief_score_hud()
 {
-	level.grief_hud = spawnStruct();
-	level.grief_hud.team = [];
-	level.grief_hud.team["axis"] = spawnStruct();
-	level.grief_hud.team["allies"] = spawnStruct();
+	level.grief_hud = [];
+	level.grief_hud["axis"] = spawnStruct();
+	level.grief_hud["allies"] = spawnStruct();
 
 	icon = [];
 	icon["axis"] = "faction_cia";
@@ -138,109 +137,109 @@ grief_score_hud()
 	score_distance = 27.5;
 	icon_distance = 72.5;
 
-	level.grief_hud.team["axis"].icon["axis"] = newTeamHudElem("axis");
-	level.grief_hud.team["axis"].icon["axis"].alignx = "center";
-	level.grief_hud.team["axis"].icon["axis"].aligny = "top";
-	level.grief_hud.team["axis"].icon["axis"].horzalign = "user_center";
-	level.grief_hud.team["axis"].icon["axis"].vertalign = "user_top";
-	level.grief_hud.team["axis"].icon["axis"].x -= icon_distance;
-	level.grief_hud.team["axis"].icon["axis"].y += 2;
-	level.grief_hud.team["axis"].icon["axis"].hideWhenInMenu = 1;
-	level.grief_hud.team["axis"].icon["axis"].foreground = 1;
-	level.grief_hud.team["axis"].icon["axis"].alpha = 0;
-	level.grief_hud.team["axis"].icon["axis"] setShader(icon["axis"], 32, 32);
+	level.grief_hud["axis"].icon["axis"] = newTeamHudElem("axis");
+	level.grief_hud["axis"].icon["axis"].alignx = "center";
+	level.grief_hud["axis"].icon["axis"].aligny = "top";
+	level.grief_hud["axis"].icon["axis"].horzalign = "user_center";
+	level.grief_hud["axis"].icon["axis"].vertalign = "user_top";
+	level.grief_hud["axis"].icon["axis"].x -= icon_distance;
+	level.grief_hud["axis"].icon["axis"].y += 2;
+	level.grief_hud["axis"].icon["axis"].hideWhenInMenu = 1;
+	level.grief_hud["axis"].icon["axis"].foreground = 1;
+	level.grief_hud["axis"].icon["axis"].alpha = 0;
+	level.grief_hud["axis"].icon["axis"] setShader(icon["axis"], 32, 32);
 
-	level.grief_hud.team["axis"].icon["allies"] = newTeamHudElem("axis");
-	level.grief_hud.team["axis"].icon["allies"].alignx = "center";
-	level.grief_hud.team["axis"].icon["allies"].aligny = "top";
-	level.grief_hud.team["axis"].icon["allies"].horzalign = "user_center";
-	level.grief_hud.team["axis"].icon["allies"].vertalign = "user_top";
-	level.grief_hud.team["axis"].icon["allies"].x += icon_distance;
-	level.grief_hud.team["axis"].icon["allies"].y += 2;
-	level.grief_hud.team["axis"].icon["allies"].hideWhenInMenu = 1;
-	level.grief_hud.team["axis"].icon["allies"].foreground = 1;
-	level.grief_hud.team["axis"].icon["allies"].alpha = 0;
-	level.grief_hud.team["axis"].icon["allies"] setShader(icon["allies"], 32, 32);
+	level.grief_hud["axis"].icon["allies"] = newTeamHudElem("axis");
+	level.grief_hud["axis"].icon["allies"].alignx = "center";
+	level.grief_hud["axis"].icon["allies"].aligny = "top";
+	level.grief_hud["axis"].icon["allies"].horzalign = "user_center";
+	level.grief_hud["axis"].icon["allies"].vertalign = "user_top";
+	level.grief_hud["axis"].icon["allies"].x += icon_distance;
+	level.grief_hud["axis"].icon["allies"].y += 2;
+	level.grief_hud["axis"].icon["allies"].hideWhenInMenu = 1;
+	level.grief_hud["axis"].icon["allies"].foreground = 1;
+	level.grief_hud["axis"].icon["allies"].alpha = 0;
+	level.grief_hud["axis"].icon["allies"] setShader(icon["allies"], 32, 32);
 
-	level.grief_hud.team["axis"].score["axis"] = newTeamHudElem("axis");
-	level.grief_hud.team["axis"].score["axis"].alignx = "center";
-	level.grief_hud.team["axis"].score["axis"].aligny = "top";
-	level.grief_hud.team["axis"].score["axis"].horzalign = "user_center";
-	level.grief_hud.team["axis"].score["axis"].vertalign = "user_top";
-	level.grief_hud.team["axis"].score["axis"].x -= score_distance;
-	level.grief_hud.team["axis"].score["axis"].y -= 4;
-	level.grief_hud.team["axis"].score["axis"].fontscale = 3.5;
-	level.grief_hud.team["axis"].score["axis"].color = (0.21, 0, 0);
-	level.grief_hud.team["axis"].score["axis"].hideWhenInMenu = 1;
-	level.grief_hud.team["axis"].score["axis"].foreground = 1;
-	level.grief_hud.team["axis"].score["axis"].alpha = 0;
-	level.grief_hud.team["axis"].score["axis"] setValue(0);
+	level.grief_hud["axis"].score["axis"] = newTeamHudElem("axis");
+	level.grief_hud["axis"].score["axis"].alignx = "center";
+	level.grief_hud["axis"].score["axis"].aligny = "top";
+	level.grief_hud["axis"].score["axis"].horzalign = "user_center";
+	level.grief_hud["axis"].score["axis"].vertalign = "user_top";
+	level.grief_hud["axis"].score["axis"].x -= score_distance;
+	level.grief_hud["axis"].score["axis"].y -= 4;
+	level.grief_hud["axis"].score["axis"].fontscale = 3.5;
+	level.grief_hud["axis"].score["axis"].color = (0.21, 0, 0);
+	level.grief_hud["axis"].score["axis"].hideWhenInMenu = 1;
+	level.grief_hud["axis"].score["axis"].foreground = 1;
+	level.grief_hud["axis"].score["axis"].alpha = 0;
+	level.grief_hud["axis"].score["axis"] setValue(0);
 
-	level.grief_hud.team["axis"].score["allies"] = newTeamHudElem("axis");
-	level.grief_hud.team["axis"].score["allies"].alignx = "center";
-	level.grief_hud.team["axis"].score["allies"].aligny = "top";
-	level.grief_hud.team["axis"].score["allies"].horzalign = "user_center";
-	level.grief_hud.team["axis"].score["allies"].vertalign = "user_top";
-	level.grief_hud.team["axis"].score["allies"].x += score_distance;
-	level.grief_hud.team["axis"].score["allies"].y -= 4;
-	level.grief_hud.team["axis"].score["allies"].fontscale = 3.5;
-	level.grief_hud.team["axis"].score["allies"].color = (0.21, 0, 0);
-	level.grief_hud.team["axis"].score["allies"].hideWhenInMenu = 1;
-	level.grief_hud.team["axis"].score["allies"].foreground = 1;
-	level.grief_hud.team["axis"].score["allies"].alpha = 0;
-	level.grief_hud.team["axis"].score["allies"] setValue(0);
+	level.grief_hud["axis"].score["allies"] = newTeamHudElem("axis");
+	level.grief_hud["axis"].score["allies"].alignx = "center";
+	level.grief_hud["axis"].score["allies"].aligny = "top";
+	level.grief_hud["axis"].score["allies"].horzalign = "user_center";
+	level.grief_hud["axis"].score["allies"].vertalign = "user_top";
+	level.grief_hud["axis"].score["allies"].x += score_distance;
+	level.grief_hud["axis"].score["allies"].y -= 4;
+	level.grief_hud["axis"].score["allies"].fontscale = 3.5;
+	level.grief_hud["axis"].score["allies"].color = (0.21, 0, 0);
+	level.grief_hud["axis"].score["allies"].hideWhenInMenu = 1;
+	level.grief_hud["axis"].score["allies"].foreground = 1;
+	level.grief_hud["axis"].score["allies"].alpha = 0;
+	level.grief_hud["axis"].score["allies"] setValue(0);
 
-	level.grief_hud.team["allies"].icon["axis"] = newTeamHudElem("allies");
-	level.grief_hud.team["allies"].icon["axis"].alignx = "center";
-	level.grief_hud.team["allies"].icon["axis"].aligny = "top";
-	level.grief_hud.team["allies"].icon["axis"].horzalign = "user_center";
-	level.grief_hud.team["allies"].icon["axis"].vertalign = "user_top";
-	level.grief_hud.team["allies"].icon["axis"].x += icon_distance;
-	level.grief_hud.team["allies"].icon["axis"].y += 2;
-	level.grief_hud.team["allies"].icon["axis"].hideWhenInMenu = 1;
-	level.grief_hud.team["allies"].icon["axis"].foreground = 1;
-	level.grief_hud.team["allies"].icon["axis"].alpha = 0;
-	level.grief_hud.team["allies"].icon["axis"] setShader(icon["axis"], 32, 32);
+	level.grief_hud["allies"].icon["axis"] = newTeamHudElem("allies");
+	level.grief_hud["allies"].icon["axis"].alignx = "center";
+	level.grief_hud["allies"].icon["axis"].aligny = "top";
+	level.grief_hud["allies"].icon["axis"].horzalign = "user_center";
+	level.grief_hud["allies"].icon["axis"].vertalign = "user_top";
+	level.grief_hud["allies"].icon["axis"].x += icon_distance;
+	level.grief_hud["allies"].icon["axis"].y += 2;
+	level.grief_hud["allies"].icon["axis"].hideWhenInMenu = 1;
+	level.grief_hud["allies"].icon["axis"].foreground = 1;
+	level.grief_hud["allies"].icon["axis"].alpha = 0;
+	level.grief_hud["allies"].icon["axis"] setShader(icon["axis"], 32, 32);
 
-	level.grief_hud.team["allies"].icon["allies"] = newTeamHudElem("allies");
-	level.grief_hud.team["allies"].icon["allies"].alignx = "center";
-	level.grief_hud.team["allies"].icon["allies"].aligny = "top";
-	level.grief_hud.team["allies"].icon["allies"].horzalign = "user_center";
-	level.grief_hud.team["allies"].icon["allies"].vertalign = "user_top";
-	level.grief_hud.team["allies"].icon["allies"].x -= icon_distance;
-	level.grief_hud.team["allies"].icon["allies"].y += 2;
-	level.grief_hud.team["allies"].icon["allies"].hideWhenInMenu = 1;
-	level.grief_hud.team["allies"].icon["allies"].foreground = 1;
-	level.grief_hud.team["allies"].icon["allies"].alpha = 0;
-	level.grief_hud.team["allies"].icon["allies"] setShader(icon["allies"], 32, 32);
+	level.grief_hud["allies"].icon["allies"] = newTeamHudElem("allies");
+	level.grief_hud["allies"].icon["allies"].alignx = "center";
+	level.grief_hud["allies"].icon["allies"].aligny = "top";
+	level.grief_hud["allies"].icon["allies"].horzalign = "user_center";
+	level.grief_hud["allies"].icon["allies"].vertalign = "user_top";
+	level.grief_hud["allies"].icon["allies"].x -= icon_distance;
+	level.grief_hud["allies"].icon["allies"].y += 2;
+	level.grief_hud["allies"].icon["allies"].hideWhenInMenu = 1;
+	level.grief_hud["allies"].icon["allies"].foreground = 1;
+	level.grief_hud["allies"].icon["allies"].alpha = 0;
+	level.grief_hud["allies"].icon["allies"] setShader(icon["allies"], 32, 32);
 
-	level.grief_hud.team["allies"].score["axis"] = newTeamHudElem("allies");
-	level.grief_hud.team["allies"].score["axis"].alignx = "center";
-	level.grief_hud.team["allies"].score["axis"].aligny = "top";
-	level.grief_hud.team["allies"].score["axis"].horzalign = "user_center";
-	level.grief_hud.team["allies"].score["axis"].vertalign = "user_top";
-	level.grief_hud.team["allies"].score["axis"].x += score_distance;
-	level.grief_hud.team["allies"].score["axis"].y -= 4;
-	level.grief_hud.team["allies"].score["axis"].fontscale = 3.5;
-	level.grief_hud.team["allies"].score["axis"].color = (0.21, 0, 0);
-	level.grief_hud.team["allies"].score["axis"].hideWhenInMenu = 1;
-	level.grief_hud.team["allies"].score["axis"].foreground = 1;
-	level.grief_hud.team["allies"].score["axis"].alpha = 0;
-	level.grief_hud.team["allies"].score["axis"] setValue(0);
+	level.grief_hud["allies"].score["axis"] = newTeamHudElem("allies");
+	level.grief_hud["allies"].score["axis"].alignx = "center";
+	level.grief_hud["allies"].score["axis"].aligny = "top";
+	level.grief_hud["allies"].score["axis"].horzalign = "user_center";
+	level.grief_hud["allies"].score["axis"].vertalign = "user_top";
+	level.grief_hud["allies"].score["axis"].x += score_distance;
+	level.grief_hud["allies"].score["axis"].y -= 4;
+	level.grief_hud["allies"].score["axis"].fontscale = 3.5;
+	level.grief_hud["allies"].score["axis"].color = (0.21, 0, 0);
+	level.grief_hud["allies"].score["axis"].hideWhenInMenu = 1;
+	level.grief_hud["allies"].score["axis"].foreground = 1;
+	level.grief_hud["allies"].score["axis"].alpha = 0;
+	level.grief_hud["allies"].score["axis"] setValue(0);
 
-	level.grief_hud.team["allies"].score["allies"] = newTeamHudElem("allies");
-	level.grief_hud.team["allies"].score["allies"].alignx = "center";
-	level.grief_hud.team["allies"].score["allies"].aligny = "top";
-	level.grief_hud.team["allies"].score["allies"].horzalign = "user_center";
-	level.grief_hud.team["allies"].score["allies"].vertalign = "user_top";
-	level.grief_hud.team["allies"].score["allies"].x -= score_distance;
-	level.grief_hud.team["allies"].score["allies"].y -= 4;
-	level.grief_hud.team["allies"].score["allies"].fontscale = 3.5;
-	level.grief_hud.team["allies"].score["allies"].color = (0.21, 0, 0);
-	level.grief_hud.team["allies"].score["allies"].hideWhenInMenu = 1;
-	level.grief_hud.team["allies"].score["allies"].foreground = 1;
-	level.grief_hud.team["allies"].score["allies"].alpha = 0;
-	level.grief_hud.team["allies"].score["allies"] setValue(0);
+	level.grief_hud["allies"].score["allies"] = newTeamHudElem("allies");
+	level.grief_hud["allies"].score["allies"].alignx = "center";
+	level.grief_hud["allies"].score["allies"].aligny = "top";
+	level.grief_hud["allies"].score["allies"].horzalign = "user_center";
+	level.grief_hud["allies"].score["allies"].vertalign = "user_top";
+	level.grief_hud["allies"].score["allies"].x -= score_distance;
+	level.grief_hud["allies"].score["allies"].y -= 4;
+	level.grief_hud["allies"].score["allies"].fontscale = 3.5;
+	level.grief_hud["allies"].score["allies"].color = (0.21, 0, 0);
+	level.grief_hud["allies"].score["allies"].hideWhenInMenu = 1;
+	level.grief_hud["allies"].score["allies"].foreground = 1;
+	level.grief_hud["allies"].score["allies"].alpha = 0;
+	level.grief_hud["allies"].score["allies"] setValue(0);
 
 	level thread grief_score_hud_wait_and_show();
 	level thread grief_score_hud_destroy_on_intermission();
@@ -250,28 +249,28 @@ grief_score_hud_wait_and_show()
 {
 	flag_wait( "initial_blackscreen_passed" );
 
-	level.grief_hud.team["axis"].icon["axis"].alpha = 1;
-	level.grief_hud.team["axis"].icon["allies"].alpha = 1;
-	level.grief_hud.team["axis"].score["axis"].alpha = 1;
-	level.grief_hud.team["axis"].score["allies"].alpha = 1;
-	level.grief_hud.team["allies"].icon["axis"].alpha = 1;
-	level.grief_hud.team["allies"].icon["allies"].alpha = 1;
-	level.grief_hud.team["allies"].score["axis"].alpha = 1;
-	level.grief_hud.team["allies"].score["allies"].alpha = 1;
+	level.grief_hud["axis"].icon["axis"].alpha = 1;
+	level.grief_hud["axis"].icon["allies"].alpha = 1;
+	level.grief_hud["axis"].score["axis"].alpha = 1;
+	level.grief_hud["axis"].score["allies"].alpha = 1;
+	level.grief_hud["allies"].icon["axis"].alpha = 1;
+	level.grief_hud["allies"].icon["allies"].alpha = 1;
+	level.grief_hud["allies"].score["axis"].alpha = 1;
+	level.grief_hud["allies"].score["allies"].alpha = 1;
 }
 
 grief_score_hud_destroy_on_intermission()
 {
 	level waittill("intermission");
 
-	level.grief_hud.team["axis"].icon["axis"] destroy();
-	level.grief_hud.team["axis"].icon["allies"] destroy();
-	level.grief_hud.team["axis"].score["axis"] destroy();
-	level.grief_hud.team["axis"].score["allies"] destroy();
-	level.grief_hud.team["allies"].icon["axis"] destroy();
-	level.grief_hud.team["allies"].icon["allies"] destroy();
-	level.grief_hud.team["allies"].score["axis"] destroy();
-	level.grief_hud.team["allies"].score["allies"] destroy();
+	level.grief_hud["axis"].icon["axis"] destroy();
+	level.grief_hud["axis"].icon["allies"] destroy();
+	level.grief_hud["axis"].score["axis"] destroy();
+	level.grief_hud["axis"].score["allies"] destroy();
+	level.grief_hud["allies"].icon["axis"] destroy();
+	level.grief_hud["allies"].icon["allies"] destroy();
+	level.grief_hud["allies"].score["axis"] destroy();
+	level.grief_hud["allies"].score["allies"] destroy();
 }
 
 set_grief_vars()
@@ -2513,8 +2512,8 @@ increment_score(team)
 	}
 
 	level.grief_score[encounters_team]++;
-	level.grief_hud.team["axis"].score[team] setValue(level.grief_score[encounters_team]);
-	level.grief_hud.team["allies"].score[team] setValue(level.grief_score[encounters_team]);
+	level.grief_hud["axis"].score[team] setValue(level.grief_score[encounters_team]);
+	level.grief_hud["allies"].score[team] setValue(level.grief_score[encounters_team]);
 	setteamscore(team, level.grief_score[encounters_team]);
 
 	if(level.grief_score[encounters_team] >= level.grief_winning_score)
