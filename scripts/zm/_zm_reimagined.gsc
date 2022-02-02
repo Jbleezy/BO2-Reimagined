@@ -29,6 +29,7 @@ main()
 	replaceFunc(maps/mp/zombies/_zm::check_quickrevive_for_hotjoin, scripts/zm/replaced/_zm::check_quickrevive_for_hotjoin);
 	replaceFunc(maps/mp/zombies/_zm::ai_calculate_health, scripts/zm/replaced/_zm::ai_calculate_health);
 	replaceFunc(maps/mp/zombies/_zm::last_stand_pistol_rank_init, scripts/zm/replaced/_zm::last_stand_pistol_rank_init);
+	replaceFunc(maps/mp/zombies/_zm::check_for_valid_spawn_near_team, scripts/zm/replaced/_zm::check_for_valid_spawn_near_team);
 	replaceFunc(maps/mp/zombies/_zm::actor_damage_override, scripts/zm/replaced/_zm::actor_damage_override);
 	replaceFunc(maps/mp/zombies/_zm::player_spawn_protection, scripts/zm/replaced/_zm::player_spawn_protection);
 	replaceFunc(maps/mp/zombies/_zm::wait_and_revive, scripts/zm/replaced/_zm::wait_and_revive);

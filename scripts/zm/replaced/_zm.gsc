@@ -2,6 +2,7 @@
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 #include maps\mp\gametypes_zm\_hud_util;
+#include maps/mp/zombies/_zm;
 
 check_quickrevive_for_hotjoin(disconnecting_player)
 {
@@ -459,6 +460,82 @@ getfreespawnpoint( spawnpoints, player )
 	}
 
 	return spawnpoints[ 0 ];
+}
+
+check_for_valid_spawn_near_team( revivee, return_struct )
+{
+	if ( isDefined( level.check_for_valid_spawn_near_team_callback ) )
+	{
+		spawn_location = [[ level.check_for_valid_spawn_near_team_callback ]]( revivee, return_struct );
+		return spawn_location;
+	}
+
+	players = array_randomize(get_players());
+	spawn_points = maps/mp/gametypes_zm/_zm_gametype::get_player_spawns_for_gametype();
+	closest_group = undefined;
+	closest_distance = 100000000;
+	backup_group = undefined;
+	backup_distance = 100000000;
+
+	if ( spawn_points.size == 0 )
+	{
+		return undefined;
+	}
+
+	for ( i = 0; i < players.size; i++ )
+	{
+		if ( maps/mp/zombies/_zm_utility::is_player_valid( players[ i ], undefined, 1 ) && players[ i ] != self )
+		{
+			for ( j = 0; j < spawn_points.size; j++ )
+			{
+				if ( isdefined( spawn_points[ j ].script_int ) )
+				{
+					ideal_distance = spawn_points[ j ].script_int;
+				}
+				else
+				{
+					ideal_distance = 1000;
+				}
+
+				if ( spawn_points[ j ].locked == 0 )
+				{
+					plyr_dist = distancesquared( players[ i ].origin, spawn_points[ j ].origin );
+					if ( plyr_dist < ideal_distance * ideal_distance )
+					{
+						if ( plyr_dist < closest_distance )
+						{
+							closest_distance = plyr_dist;
+							closest_group = j;
+						}
+					}
+					else
+					{
+						if ( plyr_dist < backup_distance )
+						{
+							backup_group = j;
+							backup_distance = plyr_dist;
+						}
+					}
+				}
+			}
+		}
+
+		if ( !isdefined( closest_group ) )
+		{
+			closest_group = backup_group;
+		}
+
+		if ( isdefined( closest_group ) )
+		{
+			spawn_location = get_valid_spawn_location( revivee, spawn_points, closest_group, return_struct );
+			if ( isdefined( spawn_location ) )
+			{
+				return spawn_location;
+			}
+		}
+	}
+
+	return undefined;
 }
 
 player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime )

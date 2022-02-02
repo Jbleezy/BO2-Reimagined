@@ -51,6 +51,7 @@
 * Ignored by enemies for 1 second after being revived
 * Weapon is no longer switched after reviving if player switched weapons during revive
 * No longer gain points back on self revives
+* Respawn near random player (normally respawns near the same player every time)
 * Can shoot while looking at other players
 * Increased mantle speed
 * Increased ladder climb speed

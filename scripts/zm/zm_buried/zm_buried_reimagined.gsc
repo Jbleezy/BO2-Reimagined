@@ -28,6 +28,11 @@ init()
 	level.special_weapon_magicbox_check = ::buried_special_weapon_magicbox_check;
 	level._is_player_in_zombie_stink = maps/mp/zombies/_zm_perk_vulture::_is_player_in_zombie_stink;
 
+	if(is_gametype_active("zgrief"))
+	{
+		level.check_for_valid_spawn_near_team_callback = ::zgrief_respawn_override;
+	}
+
 	turn_power_on();
 	deleteslothbarricades();
 
@@ -53,6 +58,117 @@ buried_special_weapon_magicbox_check(weapon)
 		}
 	}
 	return 1;
+}
+
+zgrief_respawn_override( revivee, return_struct )
+{
+	players = array_randomize(get_players());
+	spawn_points = maps/mp/gametypes_zm/_zm_gametype::get_player_spawns_for_gametype();
+	grief_initial = getstructarray( "street_standard_player_spawns", "targetname" );
+
+	foreach ( struct in grief_initial )
+	{
+		if ( isDefined( struct.script_int ) && struct.script_int == 2000 )
+		{
+			spawn_points[ spawn_points.size ] = struct;
+			initial_point = struct;
+			initial_point.locked = 0;
+		}
+	}
+
+	if ( spawn_points.size == 0 )
+	{
+		return undefined;
+	}
+
+	closest_group = undefined;
+	closest_distance = 100000000;
+	backup_group = undefined;
+	backup_distance = 100000000;
+	i = 0;
+
+	while ( i < players.size )
+	{
+		if ( is_player_valid( players[ i ], undefined, 1 ) && players[ i ] != self )
+		{
+			j = 0;
+			while ( j < spawn_points.size )
+			{
+				if ( isDefined( spawn_points[ j ].script_int ) )
+				{
+					ideal_distance = spawn_points[ j ].script_int;
+				}
+				else
+				{
+					ideal_distance = 1000;
+				}
+
+				if ( spawn_points[ j ].locked == 0 )
+				{
+					plyr_dist = distancesquared( players[ i ].origin, spawn_points[ j ].origin );
+					if ( plyr_dist < ( ideal_distance * ideal_distance ) )
+					{
+						if ( plyr_dist < closest_distance )
+						{
+							closest_distance = plyr_dist;
+							closest_group = j;
+						}
+						j++;
+						continue;
+					}
+					else
+					{
+						if ( plyr_dist < backup_distance )
+						{
+							backup_group = j;
+							backup_distance = plyr_dist;
+						}
+					}
+				}
+				j++;
+			}
+		}
+
+		if ( !isDefined( closest_group ) )
+		{
+			closest_group = backup_group;
+		}
+
+		if ( isDefined( closest_group ) )
+		{
+			spawn_location = maps/mp/zombies/_zm::get_valid_spawn_location( revivee, spawn_points, closest_group, return_struct );
+			if ( isDefined( spawn_location ) && !positionwouldtelefrag( spawn_location.origin ) )
+			{
+				if ( isDefined( spawn_location.plyr ) && spawn_location.plyr != revivee getentitynumber() )
+				{
+					i++;
+					continue;
+				}
+				else
+				{
+					return spawn_location;
+				}
+			}
+		}
+		i++;
+	}
+
+	if ( isDefined( initial_point ) )
+	{
+		k = 0;
+		while ( k < spawn_points.size )
+		{
+			if ( spawn_points[ k ] == initial_point )
+			{
+				closest_group = k;
+				spawn_location = maps/mp/zombies/_zm::get_valid_spawn_location( revivee, spawn_points, closest_group, return_struct );
+				return spawn_location;
+			}
+			k++;
+		}
+	}
+
+	return undefined;
 }
 
 turn_power_on()
