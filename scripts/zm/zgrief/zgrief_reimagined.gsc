@@ -722,6 +722,11 @@ grief_onplayerconnect()
 
 grief_onplayerdisconnect(disconnecting_player)
 {
+	if(!flag("initial_players_connected"))
+	{
+		return;
+	}
+
 	players = get_players();
 	count = 0;
 	foreach(player in players)
