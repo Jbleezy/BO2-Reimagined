@@ -2206,7 +2206,7 @@ containment_init()
 	{
 		if(level.scr_zm_map_start_location == "transit")
 		{
-			level.containment_zones = array("zone_pri", "zone_pri2", "zone_station_ext", "zone_trans_2b");
+			level.containment_zones = array("zone_pri", "zone_pri2", "zone_trans_2b");
 		}
 		else if(level.scr_zm_map_start_location == "diner")
 		{
@@ -2218,11 +2218,11 @@ containment_init()
 		}
 		else if(level.scr_zm_map_start_location == "power")
 		{
-			level.containment_zones = array("zone_pow", "zone_trans_8", "zone_prr", "zone_pcr", "zone_pow_warehouse");
+			level.containment_zones = array("zone_trans_8", "zone_prr", "zone_pcr", "zone_pow_warehouse");
 		}
 		else if(level.scr_zm_map_start_location == "town")
 		{
-			level.containment_zones = array("zone_tow", "zone_town_north", "zone_town_south", "zone_town_east", "zone_town_west", "zone_bar", "zone_town_barber", "zone_ban");
+			level.containment_zones = array("zone_town_north", "zone_town_south", "zone_town_east", "zone_town_west", "zone_bar", "zone_town_barber", "zone_ban");
 		}
 	}
 	else if(level.script == "zm_prison")
