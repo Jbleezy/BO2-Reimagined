@@ -2197,6 +2197,9 @@ race_think()
 
 	setroundsplayed(level.round_number);
 
+	level.brutus_health = int(level.brutus_health_increase * level.round_number);
+	level.brutus_expl_dmg_req = int(level.brutus_explosive_damage_increase * level.round_number);
+
 	while(1)
 	{
 		wait level.race_round_increment_time;
@@ -2217,6 +2220,9 @@ race_think()
 		{
 			level.zombie_vars["zombie_spawn_delay"] = 0.08;
 		}
+
+		level.brutus_health = int(level.brutus_health_increase * level.round_number);
+		level.brutus_expl_dmg_req = int(level.brutus_explosive_damage_increase * level.round_number);
 
 		level.player_starting_points = level.round_number * 500;
 
