@@ -167,8 +167,6 @@ onplayerspawned()
 			//self GiveMaxAmmo("dsr50_zm");
 		}
 
-		self thread wait_and_set_max_health();
-
 		self set_client_dvars();
 		self set_perks();
 	}
@@ -314,18 +312,6 @@ set_perks()
 	self setperk( "specialty_unlimitedsprint" );
 	self setperk( "specialty_fastmantle" );
 	self setperk( "specialty_fastladderclimb" );
-}
-
-wait_and_set_max_health()
-{
-	self endon("disconnect");
-
-	wait 0.05;
-
-	if(!self hasPerk("specialty_armorvest"))
-	{
-		self setMaxHealth(level.player_starting_health);
-	}
 }
 
 health_bar_hud()
