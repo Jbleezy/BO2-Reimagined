@@ -486,6 +486,13 @@
 * Teams switch spawn points each round
 * Players respawn at initial spawn points
 
+#### Race
+* Gain score by getting kills
+* Get 500 kills to win the game
+* Starts at round 1
+* Round increments every 60 seconds (up to round 20)
+* Players respawn after being down for 10 seconds
+
 #### Containment
 * Gain score by being the team with the most players alive in the containment zone
 * Gain 250 score to win the game

@@ -59,6 +59,11 @@ init()
 	grief_score_hud();
 	player_spawn_override();
 
+	if(level.scr_zm_ui_gametype_obj == "zrace")
+	{
+		race_init();
+	}
+
 	if(level.scr_zm_ui_gametype_obj == "zcontainment")
 	{
 		containment_init();
@@ -717,6 +722,11 @@ grief_onplayerconnect()
 	if(level.scr_zm_ui_gametype_obj == "zgrief" || level.scr_zm_ui_gametype_obj == "zcontainment")
 	{
 		self._retain_perks = 1;
+	}
+
+	if(level.scr_zm_ui_gametype_obj == "zrace")
+	{
+		self thread race_check_for_kills();
 	}
 }
 
@@ -2168,6 +2178,98 @@ remove_status_icons_on_intermission()
 	foreach(player in players)
 	{
 		player.statusicon = "";
+	}
+}
+
+race_init()
+{
+	level.race_round_increment_time = 60;
+	level.race_round_max = 20;
+
+	level thread race_think();
+}
+
+race_think()
+{
+	level endon("end_game");
+
+	level waittill("restart_round_start");
+
+	setroundsplayed(level.round_number);
+
+	while(1)
+	{
+		wait level.race_round_increment_time;
+
+		level.round_number++;
+
+		setroundsplayed(level.round_number);
+
+		level.old_music_state = undefined;
+		level thread maps/mp/zombies/_zm_audio::change_zombie_music("round_end");
+
+		maps/mp/zombies/_zm::ai_calculate_health(level.round_number);
+
+		level.zombie_move_speed = level.round_number * level.zombie_vars["zombie_move_speed_multiplier"];
+
+		level.zombie_vars["zombie_spawn_delay"] *= 0.95;
+		if(level.zombie_vars["zombie_spawn_delay"] < 0.08)
+		{
+			level.zombie_vars["zombie_spawn_delay"] = 0.08;
+		}
+
+		level.player_starting_points = level.round_number * 500;
+
+		zombies = get_round_enemy_array();
+		if(isDefined(zombies))
+		{
+			for(i = 0; i < zombies.size; i++)
+			{
+				zombies[i] set_zombie_run_cycle();
+
+				if(zombies[i].health == zombies[i].maxhealth)
+				{
+					zombies[i].maxhealth = level.zombie_health;
+					zombies[i].health = zombies[i].maxhealth;
+				}
+			}
+		}
+
+		maps/mp/zombies/_zm::award_grenades_for_survivors();
+		players = get_players();
+		foreach(player in players)
+		{
+			if(isDefined(player get_player_placeable_mine()))
+			{
+				player giveweapon(player get_player_placeable_mine());
+				player set_player_placeable_mine(player get_player_placeable_mine());
+				player setactionslot(4, "weapon", player get_player_placeable_mine());
+				player setweaponammoclip(player get_player_placeable_mine(), 2);
+			}
+		}
+
+		if(level.round_number >= level.race_round_max)
+		{
+			foreach(player in players)
+			{
+				player thread show_grief_hud_msg("Final Round!");
+			}
+
+			return;
+		}
+	}
+}
+
+race_check_for_kills()
+{
+	level endon("end_game");
+	self endon( "disconnect" );
+
+	while(1)
+	{
+		self waittill("zom_kill");
+
+		increment_score(self.team);
 	}
 }
 

@@ -64,7 +64,7 @@ zombie_damage( mod, hit_location, hit_origin, player, amount, team )
 	modname = remove_mod_from_methodofdeath( mod );
 
     round_scalar = level.round_number;
-    if(level.scr_zm_ui_gametype == "zgrief")
+    if(level.scr_zm_ui_gametype == "zgrief" && isDefined(level.scr_zm_ui_gametype_obj) && level.scr_zm_ui_gametype_obj != "zrace")
 	{
         round_scalar = 20;
     }
