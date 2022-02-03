@@ -318,6 +318,8 @@ set_perks()
 
 wait_and_set_max_health()
 {
+	self endon("disconnect");
+
 	wait 0.05;
 
 	if(!self hasPerk("specialty_armorvest"))

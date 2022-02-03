@@ -2384,6 +2384,7 @@ containment_think()
 					player.containment_waypoint.x = 0;
 					player.containment_waypoint.y = -100;
 					player.containment_waypoint.z = 0;
+
 					player.containment_waypoint setShader("waypoint_revive", getDvarInt("waypointIconWidth"), getDvarInt("waypointIconHeight"));
 				}
 				else
@@ -2402,9 +2403,20 @@ containment_think()
 						player.containment_waypoint.alpha = 0;
 					}
 
-					player.containment_waypoint.x = zone.volumes[0].origin[0];
-					player.containment_waypoint.y = zone.volumes[0].origin[1];
-					player.containment_waypoint.z = zone.volumes[0].origin[2];
+					if(level.script == "zm_transit" && level.scr_zm_map_start_location == "power" && zone_name == "zone_trans_8")
+					{
+						other_zone = level.zones["zone_pow_warehouse"];
+						player.containment_waypoint.x = (zone.volumes[0].origin[0] + other_zone.volumes[0].origin[0]) / 2;
+						player.containment_waypoint.y = (zone.volumes[0].origin[1] + other_zone.volumes[0].origin[1]) / 2;
+						player.containment_waypoint.z = (zone.volumes[0].origin[2] + other_zone.volumes[0].origin[2]) / 2;
+					}
+					else
+					{
+						player.containment_waypoint.x = zone.volumes[0].origin[0];
+						player.containment_waypoint.y = zone.volumes[0].origin[1];
+						player.containment_waypoint.z = zone.volumes[0].origin[2];
+					}
+
 					player.containment_waypoint setWaypoint(1, "waypoint_revive");
 				}
 			}
