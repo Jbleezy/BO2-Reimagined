@@ -218,6 +218,7 @@
 * Increases bullet damage by 50%
 
 ### Stamin-Up
+* Increased cost from 2000 to 2500
 * Move faster (normally only sprint faster)
 
 ### Deadshot Daiquiri

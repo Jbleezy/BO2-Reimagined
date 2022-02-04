@@ -248,13 +248,15 @@ perk_set_max_health_if_jugg( perk, set_premaxhealth, clamp_health_to_max_health 
 	}
 }
 
-// modifying this function because it is right before perk_machine_spawn_init and has a lot less code
 initialize_custom_perk_arrays()
 {
 	if(!isDefined(level._custom_perks))
 	{
 		level._custom_perks = [];
 	}
+
+	level._custom_perks["specialty_longersprint"] = spawnStruct();
+	level._custom_perks["specialty_longersprint"].cost = 2500;
 
 	struct = spawnStruct();
 	struct.script_noteworthy = "specialty_longersprint";
