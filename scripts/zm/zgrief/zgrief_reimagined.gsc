@@ -1038,7 +1038,17 @@ round_start_wait(time, initial)
 		}
 	}
 
-	level thread zombie_spawn_wait(time + 10);
+	zombie_spawn_time = time;
+	if(level.scr_zm_ui_gametype_obj == "zrace")
+	{
+		zombie_spawn_time += 5;
+	}
+	else
+	{
+		zombie_spawn_time += 10;
+	}
+
+	level thread zombie_spawn_wait(zombie_spawn_time);
 
 	round_start_countdown_hud = round_start_countdown_hud(time);
 
