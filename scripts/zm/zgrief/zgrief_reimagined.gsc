@@ -361,16 +361,20 @@ set_grief_vars()
 	level.stun_award_points = 100;
 	level.downed_award_points = 500;
 	level.bleedout_award_points = 1000;
+	level.zombie_vars["axis"]["zombie_powerup_insta_kill_time"] = 15;
+	level.zombie_vars["allies"]["zombie_powerup_insta_kill_time"] = 15;
+	level.zombie_vars["axis"]["zombie_powerup_point_doubler_time"] = 15;
+	level.zombie_vars["allies"]["zombie_powerup_point_doubler_time"] = 15;
 	level.zombie_vars["axis"]["zombie_powerup_point_halfer_on"] = 0;
-	level.zombie_vars["axis"]["zombie_powerup_point_halfer_time"] = 30;
+	level.zombie_vars["axis"]["zombie_powerup_point_halfer_time"] = 15;
 	level.zombie_vars["allies"]["zombie_powerup_point_halfer_on"] = 0;
-	level.zombie_vars["allies"]["zombie_powerup_point_halfer_time"] = 30;
+	level.zombie_vars["allies"]["zombie_powerup_point_halfer_time"] = 15;
 	level.zombie_vars["axis"]["zombie_half_damage"] = 0;
 	level.zombie_vars["axis"]["zombie_powerup_half_damage_on"] = 0;
-	level.zombie_vars["axis"]["zombie_powerup_half_damage_time"] = 30;
+	level.zombie_vars["axis"]["zombie_powerup_half_damage_time"] = 15;
 	level.zombie_vars["allies"]["zombie_half_damage"] = 0;
 	level.zombie_vars["allies"]["zombie_powerup_half_damage_on"] = 0;
-	level.zombie_vars["allies"]["zombie_powerup_half_damage_time"] = 30;
+	level.zombie_vars["allies"]["zombie_powerup_half_damage_time"] = 15;
 
 	if(level.scr_zm_ui_gametype_obj == "zgrief")
 	{
