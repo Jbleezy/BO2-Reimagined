@@ -1432,6 +1432,7 @@ show_grief_hud_msg( msg, msg_parm, offset, delay )
 	zgrief_hudmsg.aligny = "middle";
 	zgrief_hudmsg.horzalign = "center";
 	zgrief_hudmsg.vertalign = "middle";
+	zgrief_hudmsg.sort = 1;
 	zgrief_hudmsg.y -= 130;
 
 	if ( self issplitscreen() )
@@ -2368,6 +2369,7 @@ containment_waypoint_init()
 	containment_waypoint.alpha = 0.5;
 	containment_waypoint.hidewheninmenu = 1;
 	containment_waypoint.fadewhentargeted = 1;
+	containment_waypoint.foreground = 1;
 
 	return containment_waypoint;
 }
@@ -2491,7 +2493,6 @@ containment_think()
 					player.containment_waypoint.x = 0;
 					player.containment_waypoint.y = -100;
 					player.containment_waypoint.z = 0;
-					player.containment_waypoint.foreground = 1;
 					player.containment_waypoint setShader("waypoint_revive", getDvarInt("waypointIconWidth"), getDvarInt("waypointIconHeight"));
 				}
 				else
@@ -2524,7 +2525,6 @@ containment_think()
 						player.containment_waypoint.z = zone.volumes[0].origin[2];
 					}
 
-					player.containment_waypoint.foreground = 0;
 					player.containment_waypoint setWaypoint(1, "waypoint_revive");
 				}
 			}
