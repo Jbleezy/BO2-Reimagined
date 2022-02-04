@@ -538,6 +538,36 @@ check_for_valid_spawn_near_team( revivee, return_struct )
 	return undefined;
 }
 
+get_valid_spawn_location( revivee, spawn_points, closest_group, return_struct )
+{
+	spawn_array = getstructarray( spawn_points[ closest_group ].target, "targetname" );
+	spawn_array = array_randomize( spawn_array );
+	k = 0;
+
+	while ( k < spawn_array.size )
+	{
+		if ( positionwouldtelefrag( spawn_array[ k ].origin ) )
+		{
+			k++;
+			continue;
+		}
+
+		if ( is_true( return_struct ) )
+		{
+			return spawn_array[ k ];
+		}
+
+		return spawn_array[ k ].origin;
+	}
+
+	if ( is_true( return_struct ) )
+	{
+		return spawn_array[ 0 ];
+	}
+
+	return spawn_array[ 0 ].origin;
+}
+
 player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime )
 {
 	if ( isDefined( level._game_module_player_damage_callback ) )
