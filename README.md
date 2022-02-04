@@ -451,10 +451,14 @@
 * Increased max radius for landing on top of an enemy player by 16.67%
 * Decreased max height for landing on top of an enemy player that is crouched by 13%
 * Decreased max height for landing on top of an enemy player that is prone by 47%
+* Max Ammo: decreased amount of ammo given from max stock to one clip
 * Max Ammo: unloads clip of all enemy players' weapons
-* Double Points: enemy players gain half points for 30 seconds
-* Insta Kill: enemy players deal half damage for 30 seconds
-* Nuke: deals 80 damage to all alive enemy players and makes all downed enemy players bleed out
+* Double Points: decreased duration from 30 seconds to 15 seconds
+* Double Points: enemy players gain half points
+* Insta Kill: decreased duration from 30 seconds to 15 seconds
+* Insta Kill: enemy players deal half damage
+* Nuke: deals 80 damage to all alive enemy players
+* Nuke: makes all downed enemy players bleed out
 * Added kill feed (includes downs, revives, and bleed outs)
 * Added player kills on scoreboard (replaces headshots)
 * Added player downed and bled out icons on scoreboard

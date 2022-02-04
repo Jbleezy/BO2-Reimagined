@@ -4,6 +4,13 @@
 
 full_ammo_powerup( drop_item, player )
 {
+	clip_only = 0;
+	if(level.scr_zm_ui_gametype == "zgrief")
+	{
+		clip_only = 1;
+		drop_item.hint = &"Clip Ammo!";
+	}
+
 	players = get_players( player.team );
 	if ( isdefined( level._get_game_module_players ) )
 	{
@@ -18,10 +25,15 @@ full_ammo_powerup( drop_item, player )
 			continue;
 		}
 		primary_weapons = players[ i ] getweaponslist( 1 );
-		players[ i ] notify( "zmb_max_ammo" );
-		players[ i ] notify( "zmb_lost_knife" );
-		players[ i ] notify( "zmb_disable_claymore_prompt" );
-		players[ i ] notify( "zmb_disable_spikemore_prompt" );
+
+		if(!clip_only)
+		{
+			players[ i ] notify( "zmb_max_ammo" );
+			players[ i ] notify( "zmb_lost_knife" );
+			players[ i ] notify( "zmb_disable_claymore_prompt" );
+			players[ i ] notify( "zmb_disable_spikemore_prompt" );
+		}
+
 		x = 0;
 		while ( x < primary_weapons.size )
 		{
@@ -42,7 +54,20 @@ full_ammo_powerup( drop_item, player )
 			}
 			if ( players[ i ] hasweapon( primary_weapons[ x ] ) )
 			{
-				players[ i ] givemaxammo( primary_weapons[ x ] );
+				if(clip_only)
+				{
+					new_ammo = players[i] getWeaponAmmoStock(primary_weapons[x]) + weaponClipSize(primary_weapons[x]);
+					if(new_ammo > weaponMaxAmmo(primary_weapons[x]))
+					{
+						new_ammo = weaponMaxAmmo(primary_weapons[x]);
+					}
+
+					players[i] setWeaponAmmoStock(primary_weapons[x], new_ammo);
+				}
+				else
+				{
+					players[i] givemaxammo(primary_weapons[x]);
+				}
 			}
 			x++;
 		}
@@ -108,7 +133,7 @@ empty_clip_on_hud( drop_item, team )
 	hudelem.alpha = 0;
 	hudelem fadeovertime( 0.5 );
 	hudelem.alpha = 1;
-	hudelem.label = &"Empty Clip!";
+	hudelem.label = &"Clip Empty!";
 	hudelem thread empty_clip_move_hud( team );
 }
 
@@ -232,14 +257,16 @@ insta_kill_powerup( drop_item, player )
 
 	team = player.team;
 
+	time = 30;
 	if(level.scr_zm_ui_gametype == "zgrief")
 	{
+		time = 15;
 		level thread half_damage_powerup( drop_item, player );
 	}
 
 	if ( level.zombie_vars[ team ][ "zombie_powerup_insta_kill_on" ] )
 	{
-		level.zombie_vars[ team ][ "zombie_powerup_insta_kill_time" ] += 30;
+		level.zombie_vars[ team ][ "zombie_powerup_insta_kill_time" ] += time;
 		return;
 	}
 
@@ -257,7 +284,7 @@ insta_kill_powerup( drop_item, player )
 
 	level.zombie_vars[ team ][ "zombie_insta_kill" ] = 0;
 	level.zombie_vars[ team ][ "zombie_powerup_insta_kill_on" ] = 0;
-	level.zombie_vars[ team ][ "zombie_powerup_insta_kill_time" ] = 30;
+	level.zombie_vars[ team ][ "zombie_powerup_insta_kill_time" ] = time;
 
 	get_players()[ 0 ] playsoundtoteam( "zmb_insta_kill", team );
 	temp_enta stoploopsound( 2 );
@@ -279,9 +306,11 @@ half_damage_powerup( drop_item, player )
 {
 	team = getOtherTeam(player.team);
 
+	time = 15;
+
 	if ( level.zombie_vars[ team ][ "zombie_powerup_half_damage_on" ] )
 	{
-		level.zombie_vars[ team ][ "zombie_powerup_half_damage_time" ] += 30;
+		level.zombie_vars[ team ][ "zombie_powerup_half_damage_time" ] += time;
 		return;
 	}
 
@@ -296,21 +325,23 @@ half_damage_powerup( drop_item, player )
 
 	level.zombie_vars[ team ][ "zombie_half_damage" ] = 0;
 	level.zombie_vars[ team ][ "zombie_powerup_half_damage_on" ] = 0;
-	level.zombie_vars[ team ][ "zombie_powerup_half_damage_time" ] = 30;
+	level.zombie_vars[ team ][ "zombie_powerup_half_damage_time" ] = time;
 }
 
 double_points_powerup( drop_item, player )
 {
 	team = player.team;
 
+	time = 30;
 	if(level.scr_zm_ui_gametype == "zgrief")
 	{
+		time = 15;
 		level thread half_points_powerup( drop_item, player );
 	}
 
 	if ( level.zombie_vars[ team ][ "zombie_powerup_point_doubler_on" ] )
 	{
-		level.zombie_vars[ team ][ "zombie_powerup_point_doubler_time" ] += 30;
+		level.zombie_vars[ team ][ "zombie_powerup_point_doubler_time" ] += time;
 		return;
 	}
 
@@ -354,7 +385,7 @@ double_points_powerup( drop_item, player )
 
 	level.zombie_vars[ team ][ "zombie_point_scalar" ] /= 2;
 	level.zombie_vars[ team ][ "zombie_powerup_point_doubler_on" ] = 0;
-	level.zombie_vars[ team ][ "zombie_powerup_point_doubler_time" ] = 30;
+	level.zombie_vars[ team ][ "zombie_powerup_point_doubler_time" ] = time;
 
 	temp_ent stoploopsound( 2 );
 	temp_ent delete();
@@ -373,9 +404,11 @@ half_points_powerup( drop_item, player )
 {
 	team = getOtherTeam(player.team);
 
+	time = 15;
+
 	if ( level.zombie_vars[ team ][ "zombie_powerup_point_halfer_on" ] )
 	{
-		level.zombie_vars[ team ][ "zombie_powerup_point_halfer_time" ] += 30;
+		level.zombie_vars[ team ][ "zombie_powerup_point_halfer_time" ] += time;
 		return;
 	}
 
@@ -390,5 +423,5 @@ half_points_powerup( drop_item, player )
 
 	level.zombie_vars[ team ][ "zombie_point_scalar" ] *= 2;
 	level.zombie_vars[ team ][ "zombie_powerup_point_halfer_on" ] = 0;
-	level.zombie_vars[ team ][ "zombie_powerup_point_halfer_time" ] = 30;
+	level.zombie_vars[ team ][ "zombie_powerup_point_halfer_time" ] = time;
 }
