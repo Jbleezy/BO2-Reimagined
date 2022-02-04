@@ -18,10 +18,30 @@ main()
 
 init()
 {
+	level.zombie_init_done = ::zombie_init_done;
 	level.special_weapon_magicbox_check = ::highrise_special_weapon_magicbox_check;
 	level.check_for_valid_spawn_near_team_callback = ::highrise_respawn_override;
 
     level thread elevator_solo_revive_fix();
+}
+
+zombie_init_done()
+{
+	self.allowpain = 0;
+	self.zombie_path_bad = 0;
+	self thread maps/mp/zm_highrise_distance_tracking::escaped_zombies_cleanup_init();
+	self thread maps/mp/zm_highrise::elevator_traverse_watcher();
+	if ( self.classname == "actor_zm_highrise_basic_03" )
+	{
+		health_bonus = int( self.maxhealth * 0.05 );
+		self.maxhealth += health_bonus;
+		if ( self.headmodel == "c_zom_zombie_chinese_head3_helmet" )
+		{
+			self.maxhealth += health_bonus;
+		}
+		self.health = self.maxhealth;
+	}
+	self setphysparams( 15, 0, 64 );
 }
 
 highrise_special_weapon_magicbox_check(weapon)

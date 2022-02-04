@@ -18,6 +18,7 @@ main()
 
 init()
 {
+	level.zombie_init_done = ::zombie_init_done;
 	level.special_weapon_magicbox_check = ::check_for_special_weapon_limit_exist;
 	level.round_prestart_func = scripts/zm/replaced/_zm_afterlife::afterlife_start_zombie_logic;
 
@@ -29,6 +30,12 @@ init()
 	plane_set_pieces_shared();
 
 	level thread plane_auto_refuel();
+}
+
+zombie_init_done()
+{
+	self.allowpain = 0;
+	self setphysparams( 15, 0, 64 );
 }
 
 check_for_special_weapon_limit_exist(weapon)

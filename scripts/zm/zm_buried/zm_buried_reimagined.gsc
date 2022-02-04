@@ -25,6 +25,7 @@ main()
 
 init()
 {
+	level.zombie_init_done = ::zombie_init_done;
 	level.special_weapon_magicbox_check = ::buried_special_weapon_magicbox_check;
 	level._is_player_in_zombie_stink = maps/mp/zombies/_zm_perk_vulture::_is_player_in_zombie_stink;
 
@@ -40,6 +41,14 @@ init()
 
 	level thread enable_fountain_transport();
 	level thread disable_ghost_free_perk_on_damage();
+}
+
+zombie_init_done()
+{
+	self.allowpain = 0;
+	self.zombie_path_bad = 0;
+	self thread maps/mp/zm_buried_distance_tracking::escaped_zombies_cleanup_init();
+	self setphysparams( 15, 0, 64 );
 }
 
 buried_special_weapon_magicbox_check(weapon)

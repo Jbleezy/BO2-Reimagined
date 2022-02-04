@@ -15,6 +15,7 @@ main()
 init()
 {
 	level.map_on_player_connect = ::on_player_connect;
+	level.zombie_init_done = ::zombie_init_done;
 	level.special_weapon_magicbox_check = ::tomb_special_weapon_magicbox_check;
 	level.custom_magic_box_timer_til_despawn = ::custom_magic_box_timer_til_despawn;
 
@@ -29,6 +30,13 @@ init()
 on_player_connect()
 {
 	self thread give_shovel();
+}
+
+zombie_init_done()
+{
+	self.allowpain = 0;
+	self thread maps/mp/zm_tomb_distance_tracking::escaped_zombies_cleanup_init();
+	self setphysparams( 15, 0, 64 );
 }
 
 tomb_special_weapon_magicbox_check(weapon)
