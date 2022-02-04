@@ -141,16 +141,19 @@ zombie_damage( mod, hit_location, hit_origin, player, amount, team )
 			}
 		}
 	}
-	else if ( isDefined( self.a.gib_ref ) || self.a.gib_ref == "right_arm" && self.a.gib_ref == "left_arm" )
+	else if ( isDefined( self.a.gib_ref ) )
 	{
-		if ( self.has_legs && isalive( self ) )
+		if ( self.a.gib_ref == "right_arm" || self.a.gib_ref == "left_arm" )
 		{
-			if ( isDefined( player ) )
+			if ( self.has_legs && isalive( self ) )
 			{
-				rand = randomintrange( 0, 100 );
-				if ( rand < 7 )
+				if ( isDefined( player ) )
 				{
-					player maps/mp/zombies/_zm_audio::create_and_play_dialog( "general", "shoot_arm" );
+					rand = randomintrange( 0, 100 );
+					if ( rand < 7 )
+					{
+						player maps/mp/zombies/_zm_audio::create_and_play_dialog( "general", "shoot_arm" );
+					}
 				}
 			}
 		}

@@ -936,6 +936,8 @@ headstomp_watcher()
 	level endon("end_game");
 	self endon("disconnect");
 
+	flag_wait( "initial_blackscreen_passed" );
+
 	while(1)
 	{
 		if(self.sessionstate != "playing")
@@ -1141,7 +1143,6 @@ round_start_countdown_hud(time)
 round_start_countdown_hud_hide()
 {
 	self.countdown_text.alpha = 0;
-	self.countdown_text2.alpha = 0;
 	self.alpha = 0;
 }
 
@@ -1345,6 +1346,8 @@ wait_and_award_grenades()
 
 grief_intro_text()
 {
+	self endon("disconnect");
+
 	// player spawns for a frame when hotjoining
 	if(is_true(self.is_hotjoining))
 	{

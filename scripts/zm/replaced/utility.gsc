@@ -171,8 +171,6 @@ register_map_initial_spawnpoint( origin, angles, team_num )
 
 wallbuy( weapon_name, target, targetname, origin, angles )
 {
-	precachemodel( getweaponmodel( weapon_name ) );
-
 	unitrigger_stub = spawnstruct();
 	unitrigger_stub.origin = origin;
 	unitrigger_stub.angles = angles;
@@ -314,7 +312,6 @@ barrier( model, origin, angles, not_solid )
 	level.survival_barriers[ level.survival_barriers_index ] = spawn( "script_model", origin );
 	level.survival_barriers[ level.survival_barriers_index ] setModel( model );
 	level.survival_barriers[ level.survival_barriers_index ] rotateTo( angles, 0.1 );
-	level.survival_barriers[ level.survival_barriers_index ] disconnectPaths();
 	if ( is_true( not_solid ) )
 	{
 		level.survival_barriers[ level.survival_barriers_index ] notSolid();

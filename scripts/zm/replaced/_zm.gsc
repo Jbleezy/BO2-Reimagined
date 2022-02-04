@@ -1051,7 +1051,7 @@ wait_and_revive()
 	if ( !isDefined( self.beingrevivedprogressbar ) )
 	{
 		self.beingrevivedprogressbar = self createprimaryprogressbar();
-        self.beingrevivedprogressbar setpoint(undefined, "CENTER", level.primaryprogressbarx, -1 * level.primaryprogressbary);
+        self.beingrevivedprogressbar setpoint("CENTER", undefined, level.primaryprogressbarx, -1 * level.primaryprogressbary);
         self.beingrevivedprogressbar.bar.color = (0.5, 0.5, 1);
         self.beingrevivedprogressbar.hidewheninmenu = 1;
         self.beingrevivedprogressbar.bar.hidewheninmenu = 1;

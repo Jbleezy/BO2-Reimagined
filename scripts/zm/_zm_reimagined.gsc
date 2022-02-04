@@ -545,6 +545,8 @@ round_timer_hud()
 
 set_time_frozen_on_end_game(hud)
 {
+	level endon("intermission");
+
 	level waittill("end_game");
 
 	if(!isDefined(hud.end_time))
@@ -1665,7 +1667,7 @@ bleedout_bar_hud()
 	}
 
 	bleedout_bar = self createbar((1, 0, 0), level.secondaryprogressbarwidth * 2, level.secondaryprogressbarheight);
-	bleedout_bar setpoint(undefined, "CENTER", level.secondaryprogressbarx, -1 * level.secondaryprogressbary);
+	bleedout_bar setpoint("CENTER", undefined, level.secondaryprogressbarx, -1 * level.secondaryprogressbary);
 	bleedout_bar.hidewheninmenu = 1;
 	bleedout_bar.bar.hidewheninmenu = 1;
 	bleedout_bar.barframe.hidewheninmenu = 1;
@@ -2077,8 +2079,6 @@ disable_bank_teller()
 
 disable_carpenter()
 {
-	arrayremoveindex(level.zombie_include_powerups, "carpenter");
-	arrayremoveindex(level.zombie_powerups, "carpenter");
 	arrayremovevalue(level.zombie_powerup_array, "carpenter");
 }
 
@@ -4212,6 +4212,11 @@ additionalprimaryweapon_indicator()
 {
 	self endon("disconnect");
 
+	if(!is_true(level.zombiemode_using_additionalprimaryweapon_perk))
+	{
+		return;
+	}
+
 	additionalprimaryweapon_indicator_hud = newClientHudElem(self);
 	additionalprimaryweapon_indicator_hud.alignx = "right";
 	additionalprimaryweapon_indicator_hud.aligny = "bottom";
@@ -4506,7 +4511,7 @@ destroy_on_intermission()
 
 	level waittill("intermission");
 
-	if(self.elemtype == "bar")
+	if(isDefined(self.elemtype) && self.elemtype == "bar")
 	{
 		self.bar destroy();
 		self.barframe destroy();

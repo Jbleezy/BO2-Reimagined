@@ -28,7 +28,7 @@ revive_do_revive( playerbeingrevived, revivergun )
     if ( !isDefined( playerbeingrevived.beingrevivedprogressbar ) )
 	{
 		playerbeingrevived.beingrevivedprogressbar = playerbeingrevived createprimaryprogressbar();
-        playerbeingrevived.beingrevivedprogressbar setpoint(undefined, "CENTER", level.primaryprogressbarx, -1 * level.primaryprogressbary);
+        playerbeingrevived.beingrevivedprogressbar setpoint("CENTER", undefined, level.primaryprogressbarx, -1 * level.primaryprogressbary);
         playerbeingrevived.beingrevivedprogressbar.bar.color = (0.5, 0.5, 1);
         playerbeingrevived.beingrevivedprogressbar.hidewheninmenu = 1;
         playerbeingrevived.beingrevivedprogressbar.bar.hidewheninmenu = 1;
