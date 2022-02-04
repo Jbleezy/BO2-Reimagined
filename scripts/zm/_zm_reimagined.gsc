@@ -1764,33 +1764,33 @@ last_stand_pistol_swap()
 	{
 		self setweaponammostock( self.laststandpistol, doubleclip );
 	}
-	else if ( self.laststandpistol == "ray_gun_zm" || self.laststandpistol == "ray_gun_upgraded_zm" )
+	else if ( self.laststandpistol == "ray_gun_zm" || self.laststandpistol == "ray_gun_upgraded_zm" || self.laststandpistol == "raygun_mark2_zm" || self.laststandpistol == "raygun_mark2_upgraded_zm" || self.laststandpistol == "m1911_upgraded_zm" )
 	{
-		if ( self.stored_weapon_info[ self.laststandpistol ].total_amt >= ammoclip )
+		amt = ammoclip;
+		if(amt > self.stored_weapon_info[self.laststandpistol].total_amt)
 		{
-			amt = ammoclip - self.stored_weapon_info[self.laststandpistol].clip_amt;
-			self setWeaponAmmoStock(self.laststandpistol, amt);
-			self.stored_weapon_info[self.laststandpistol].given_amt = amt;
+			amt = self.stored_weapon_info[self.laststandpistol].total_amt;
 		}
-		else
-		{
-			amt = self.stored_weapon_info[self.laststandpistol].total_amt - self.stored_weapon_info[self.laststandpistol].clip_amt;
-			self setWeaponAmmoStock(self.laststandpistol, amt);
-			self.stored_weapon_info[self.laststandpistol].given_amt = amt;
-		}
-	}
-	else if ( self.stored_weapon_info[ self.laststandpistol ].total_amt >= (ammoclip + doubleclip) )
-	{
-		amt = (ammoclip + doubleclip) - (self.stored_weapon_info[self.laststandpistol].clip_amt + self.stored_weapon_info[self.laststandpistol].left_clip_amt);
-		self setweaponammostock( self.laststandpistol, amt );
-		self.stored_weapon_info[ self.laststandpistol ].given_amt = amt;
+
+		amt -= (self.stored_weapon_info[self.laststandpistol].clip_amt + self.stored_weapon_info[self.laststandpistol].left_clip_amt);
+
+		self setWeaponAmmoStock(self.laststandpistol, amt);
+		self.stored_weapon_info[self.laststandpistol].given_amt = amt;
 	}
 	else
 	{
-		amt = self.stored_weapon_info[self.laststandpistol].total_amt - (self.stored_weapon_info[self.laststandpistol].clip_amt + self.stored_weapon_info[self.laststandpistol].left_clip_amt);
+		amt = ammoclip + doubleclip;
+		if(amt > self.stored_weapon_info[self.laststandpistol].total_amt)
+		{
+			amt = self.stored_weapon_info[self.laststandpistol].total_amt;
+		}
+
+		amt -= (self.stored_weapon_info[self.laststandpistol].clip_amt + self.stored_weapon_info[self.laststandpistol].left_clip_amt);
+
 		self setweaponammostock( self.laststandpistol, amt );
 		self.stored_weapon_info[ self.laststandpistol ].given_amt = amt;
 	}
+
 	self switchtoweapon( self.laststandpistol );
 }
 

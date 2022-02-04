@@ -111,6 +111,7 @@
 
 ### M1911
 * Upgraded: given as last stand pistol above all others except Ray Gun Mark 2
+* Upgraded: decreased last stand ammo from 2 clips to 1 clip
 
 ### M1927
 * Decreased ammo cost from 800 to 750
@@ -161,6 +162,7 @@
 * Same probability to obtain as other weapons
 * Can be obtained if player has Ray Gun
 * Limited to 1 player on all maps
+* Decreased last stand ammo from 3 clips to 1 clip
 
 ### Jet Gun
 * Kills multiple enemies significantly faster
