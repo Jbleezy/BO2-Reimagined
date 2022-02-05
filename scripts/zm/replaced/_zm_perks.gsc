@@ -190,12 +190,14 @@ perk_think( perk )
 perk_set_max_health_if_jugg( perk, set_premaxhealth, clamp_health_to_max_health )
 {
 	max_total_health = undefined;
+
 	if ( perk == "specialty_armorvest" )
 	{
 		if ( set_premaxhealth )
 		{
 			self.premaxhealth = self.maxhealth;
 		}
+
 		max_total_health = level.zombie_vars[ "zombie_perk_juggernaut_health" ];
 	}
 	else if ( perk == "specialty_armorvest_upgrade" )
@@ -204,6 +206,7 @@ perk_set_max_health_if_jugg( perk, set_premaxhealth, clamp_health_to_max_health 
 		{
 			self.premaxhealth = self.maxhealth;
 		}
+
 		max_total_health = level.zombie_vars[ "zombie_perk_juggernaut_health_upgrade" ];
 	}
 	else if ( perk == "jugg_upgrade" )
@@ -212,6 +215,7 @@ perk_set_max_health_if_jugg( perk, set_premaxhealth, clamp_health_to_max_health 
 		{
 			self.premaxhealth = self.maxhealth;
 		}
+
 		if ( self hasperk( "specialty_armorvest" ) )
 		{
 			max_total_health = level.zombie_vars[ "zombie_perk_juggernaut_health" ];
@@ -223,21 +227,32 @@ perk_set_max_health_if_jugg( perk, set_premaxhealth, clamp_health_to_max_health 
 	}
 	else if ( perk == "health_reboot" )
 	{
-		max_total_health = level.player_starting_health;
+		if ( self hasperk( "specialty_armorvest" ) )
+		{
+			max_total_health = level.zombie_vars[ "zombie_perk_juggernaut_health" ];
+		}
+		else
+		{
+			max_total_health = level.player_starting_health;
+		}
 	}
+
 	if ( isDefined( max_total_health ) )
 	{
 		if ( self maps/mp/zombies/_zm_pers_upgrades_functions::pers_jugg_active() )
 		{
 			max_total_health += level.pers_jugg_upgrade_health_bonus;
 		}
+
 		if ( is_true( level.sudden_death ) && isDefined( level.sudden_death_health_loss ) )
 		{
 			max_total_health -= level.sudden_death_health_loss;
 		}
+
 		missinghealth = self.maxhealth - self.health;
 		self setmaxhealth( max_total_health );
 		self.health -= missinghealth;
+
 		if ( isDefined( clamp_health_to_max_health ) && clamp_health_to_max_health == 1 )
 		{
 			if ( self.health > self.maxhealth )
