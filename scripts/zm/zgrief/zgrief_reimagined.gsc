@@ -2212,6 +2212,7 @@ remove_status_icons_on_intermission()
 race_init()
 {
 	level.race_round_increment_time = 60;
+	level.race_round_increment_points = 500;
 	level.race_round_max = 20;
 
 	level thread race_think();
@@ -2274,6 +2275,12 @@ race_think()
 		players = get_players();
 		foreach(player in players)
 		{
+			if(is_player_valid(player))
+			{
+				score = level.race_round_increment_points * maps/mp/zombies/_zm_score::get_points_multiplier(player);
+				player maps/mp/zombies/_zm_score::add_to_player_score(score);
+			}
+
 			if(isDefined(player get_player_placeable_mine()))
 			{
 				player giveweapon(player get_player_placeable_mine());
