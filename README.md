@@ -264,13 +264,14 @@
 ## Powerups
 
 ### Insta Kill
-* Grabbing while already active adds 30 seconds to timer instead of resetting timer to 30 seconds
+* Grabbing while already active adds to timer instead of resetting timer
 
 ### Double Points
-* Grabbing while already active adds 30 seconds to timer instead of resetting timer to 30 seconds
+* Grabbing while already active adds to timer instead of resetting timer
 
 ### Nuke
 * Kills all zombies instantly
+* Counts as kills for player who grabbed it
 
 ### Carpenter
 * Removed

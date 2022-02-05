@@ -152,6 +152,7 @@ empty_clip_move_hud( team )
 nuke_powerup( drop_item, player_team )
 {
 	location = drop_item.origin;
+	player = getClosest(location, get_players(player_team));
 	playfx( drop_item.fx, location );
 	level thread maps/mp/zombies/_zm_powerups::nuke_flash( player_team );
 	wait 0.5;
@@ -216,7 +217,8 @@ nuke_powerup( drop_item, player_team )
 			}
 			zombies_nuked[ i ] playsound("evt_nuked");
 		}
-		zombies_nuked[ i ] dodamage(zombies_nuked[i].health + 666, zombies_nuked[ i ].origin );
+		zombies_nuked[ i ].deathpoints_already_given = 1;
+		zombies_nuked[ i ] dodamage(zombies_nuked[i].health + 666, zombies_nuked[ i ].origin, player );
 		i++;
 	}
 	players = get_players( player_team );
