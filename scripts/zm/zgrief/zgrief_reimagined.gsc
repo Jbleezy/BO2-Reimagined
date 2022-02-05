@@ -2300,7 +2300,7 @@ race_check_for_kills()
 containment_init()
 {
 	level.containment_time = 60;
-	level.containment_points = 100;
+	level.containment_points = 50;
 
 	level.containment_zone_hud = newHudElem();
 	level.containment_zone_hud.alignx = "left";
