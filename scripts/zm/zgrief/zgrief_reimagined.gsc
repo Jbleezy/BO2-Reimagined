@@ -75,6 +75,7 @@ init()
 	level thread unlimited_powerups();
 	level thread remove_round_number();
 	level thread remove_status_icons_on_intermission();
+	level thread all_voice_on_intermission();
 	level thread random_map_rotation();
 	level thread spawn_bots();
 }
@@ -2207,6 +2208,13 @@ remove_status_icons_on_intermission()
 	{
 		player.statusicon = "";
 	}
+}
+
+all_voice_on_intermission()
+{
+	level waittill("intermission");
+
+	setDvar("sv_voice", 1);
 }
 
 race_init()

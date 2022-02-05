@@ -277,6 +277,8 @@ set_dvars()
 
 	setDvar( "sv_patch_zm_weapons", 0 );
 	setDvar( "sv_fix_zm_weapons", 1 );
+
+	setDvar( "sv_voice", 2 );
 }
 
 set_client_dvars()
