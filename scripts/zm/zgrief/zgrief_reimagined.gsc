@@ -736,9 +736,19 @@ grief_onplayerconnect()
 
 grief_onplayerdisconnect(disconnecting_player)
 {
+	level endon("end_game");
+
 	if(!flag("initial_players_connected"))
 	{
 		return;
+	}
+
+	if(level.scr_zm_ui_gametype_obj == "zgrief")
+	{
+		if(disconnecting_player maps/mp/zombies/_zm_laststand::player_is_in_laststand())
+		{
+			increment_score(getOtherTeam(disconnecting_player.team));
+		}
 	}
 
 	players = get_players();
