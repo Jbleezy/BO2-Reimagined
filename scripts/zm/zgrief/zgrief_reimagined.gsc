@@ -76,7 +76,7 @@ init()
 	level thread remove_round_number();
 	level thread remove_status_icons_on_intermission();
 	level thread random_map_rotation();
-	level thread spawn_bots(7);
+	level thread spawn_bots();
 }
 
 set_team()
@@ -2829,18 +2829,15 @@ random_map_rotation()
 	}
 }
 
-spawn_bots(num)
+spawn_bots()
 {
-	if(isDedicated())
-	{
-		return;
-	}
+	bot_amount = getDvarIntDefault("scr_bot_count_zm", 0);
 
 	level waittill( "connected", player );
 
 	level.bots = [];
 
-	for(i = 0; i < num; i++)
+	for(i = 0; i < bot_amount; i++)
 	{
 		if(get_players().size == 8)
 		{
