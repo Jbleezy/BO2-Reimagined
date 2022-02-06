@@ -2744,12 +2744,6 @@ containment_think()
 		if(i >= level.containment_zones.size)
 		{
 			i = 0;
-			level.containment_zones = array_randomize(level.containment_zones);
-			if(level.containment_zones[0] == zone_name)
-			{
-				num = randomIntRange(1, level.containment_zones.size);
-				level.containment_zones = array_swap(level.containment_zones, 0, num);
-			}
 		}
 	}
 }
