@@ -2214,7 +2214,7 @@ all_voice_on_intermission()
 
 race_init()
 {
-	level.race_round_increment_time = 60;
+	level.race_round_increment_time = 30;
 	level.race_round_increment_points = 500;
 	level.race_round_max = 20;
 

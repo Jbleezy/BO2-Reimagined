@@ -500,8 +500,8 @@
 * Gain score by getting kills
 * Get 500 kills to win the game
 * Starts at round 1
-* Round increments every 60 seconds (up to round 20)
-* Players gain points at the beginning of each round
+* Round increments every 30 seconds (up to round 20)
+* Players gain 500 points at the beginning of each round
 * Players respawn after being down for 10 seconds
 
 #### Containment
@@ -510,6 +510,6 @@
 * Contested if both teams have the same amount of players alive in the containment zone
 * Both teams gain score at half-rate when contested
 * Zombies only go after players in the containment zone
-* Players gain points for being in the containment zone
+* Players in the containment zone gain 50 points when their team gains score
 * Players respawn after being down for 10 seconds
 * Players retain perks
