@@ -42,11 +42,6 @@ init()
 
 	precacheStatusIcon( "waypoint_revive" );
 
-	if ( getDvarInt( "zombies_minplayers" ) < 2 || getDvar( "zombies_minplayers" ) == "" )
-	{
-		setDvar( "zombies_minplayers", 2 );
-	}
-
 	setDvar("sv_connectTimeout", 45);
 	setDvar("ui_scorelimit", 1);
 
