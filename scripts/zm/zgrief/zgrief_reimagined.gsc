@@ -2765,6 +2765,29 @@ increment_score(team)
 	{
 		scripts/zm/replaced/_zm_game_module::game_won(encounters_team);
 	}
+
+	if(level.scr_zm_ui_gametype_obj == "zgrief")
+	{
+		if(level.grief_score[encounters_team] <= 3)
+		{
+			level thread maps/mp/zombies/_zm_audio_announcer::leaderdialog(level.grief_score[encounters_team] + "_player_down", team);
+		}
+		else
+		{
+			score_left = level.grief_winning_score - level.grief_score[encounters_team];
+
+			if(score_left <= 3)
+			{
+				players = get_players(team);
+				foreach(player in players)
+				{
+					player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_PLAYER_BLED_OUT", score_left);
+				}
+
+				level thread maps/mp/zombies/_zm_audio_announcer::leaderdialog(score_left + "_player_left", team);
+			}
+		}
+	}
 }
 
 random_map_rotation()
