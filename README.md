@@ -80,7 +80,8 @@
 * No longer receives additional damage from Ray Gun Mark 2
 
 ## Weapons
-* Switch to melee weapon by pressing the new melee weapon button (same button as the Time Bomb and Maxis Drone)
+* Switch to melee weapon by pressing the Previous Scorestreak button (same button as the Time Bomb and Maxis Drone)
+* Inspect weapon by pressing the Alt Fire button
 * Changed grenade damage scalar to 25 multiplied by round number (normally random number between 100 and 200 added by round number)
 * Capped grenade damage scalar at 1500
 * Changed projectile weapon damage scalar to 50 multiplied by round number (normally random number between 0 and 100 multiplied by round number)

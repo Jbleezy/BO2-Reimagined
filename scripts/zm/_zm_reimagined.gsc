@@ -110,6 +110,8 @@ onplayerconnect()
 
 		player thread onplayerspawned();
 		player thread onplayerdowned();
+
+		player thread weapon_inspect_watcher();
 	}
 }
 
@@ -2584,6 +2586,44 @@ wallbuy_dynamic_update()
 		}
 
 		wait 0.5;
+	}
+}
+
+weapon_inspect_watcher()
+{
+	level endon( "end_game" );
+	self endon( "disconnect" );
+
+	while(1)
+	{
+		wait 0.05;
+
+		if(self isSwitchingWeapons())
+		{
+			continue;
+		}
+
+		curr_wep = self getCurrentWeapon();
+
+		is_primary = 0;
+		foreach(wep in self getWeaponsListPrimaries())
+		{
+			if(wep == curr_wep)
+			{
+				is_primary = 1;
+				break;
+			}
+		}
+
+		if(!is_primary)
+		{
+			continue;
+		}
+
+		if(self actionSlotThreeButtonPressed() && self getWeaponAmmoClip(curr_wep) != 0)
+		{
+			self initialWeaponRaise(curr_wep);
+		}
 	}
 }
 
