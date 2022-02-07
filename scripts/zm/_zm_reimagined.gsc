@@ -77,6 +77,7 @@ main()
 
 init()
 {
+	level.reimagined_version = "";
 	level.using_solo_revive = 0;
 	level.player_starting_health = 150;
 	level.claymores_max_per_player = 20;
@@ -87,6 +88,10 @@ init()
 
 	level thread onplayerconnect();
 	level thread post_all_players_spawned();
+
+	level thread server_message_watcher();
+	level thread start_game_message();
+	level thread end_game_message();
 
 	level thread enemy_counter_hud();
 	level thread timer_hud();
@@ -316,6 +321,63 @@ set_perks()
 	self setperk( "specialty_unlimitedsprint" );
 	self setperk( "specialty_fastmantle" );
 	self setperk( "specialty_fastladderclimb" );
+}
+
+server_message_watcher()
+{
+	while(1)
+	{
+		level waittill("say", message, player);
+
+		server_message(message);
+	}
+}
+
+server_message(message)
+{
+	if(message == "version")
+	{
+		iprintln("Reimagined Loaded");
+	}
+	else if(message == "changelog")
+	{
+		iprintln("View changelog: github.com/Jbleezy/BO2-Reimagined");
+	}
+	else if(message == "discord")
+	{
+		iprintln("Join the Discord: discord.io/Jbleezy");
+	}
+	else if(message == "donate")
+	{
+		iprintln("Donate: paypal.me/Jbleezy");
+	}
+}
+
+start_game_message()
+{
+	flag_wait("initial_players_connected");
+
+	server_message("version");
+
+	if(!isDedicated())
+	{
+		return;
+	}
+
+	server_message("changelog");
+}
+
+end_game_message()
+{
+	if(!isDedicated())
+	{
+		return;
+	}
+
+	level waittill("end_game");
+
+	server_message("discord");
+	server_message("donate");
 }
 
 health_bar_hud()
