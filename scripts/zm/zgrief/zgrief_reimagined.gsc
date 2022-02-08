@@ -71,7 +71,6 @@ init()
 	level thread remove_round_number();
 	level thread remove_status_icons_on_intermission();
 	level thread all_voice_on_intermission();
-	level thread random_map_rotation();
 	level thread spawn_bots();
 }
 
@@ -771,6 +770,11 @@ grief_onplayerdisconnect(disconnecting_player)
 	}
 
 	level thread update_players_on_disconnect(disconnecting_player);
+
+	if(isDefined(level.grief_update_records))
+	{
+		[[level.grief_update_records]](disconnecting_player);
+	}
 }
 
 on_player_spawned()
@@ -2750,6 +2754,8 @@ containment_think()
 
 increment_score(team)
 {
+	level endon("end_game");
+
 	encounters_team = "A";
 	if(team == "allies")
 	{
@@ -2787,83 +2793,6 @@ increment_score(team)
 				level thread maps/mp/zombies/_zm_audio_announcer::leaderdialog(score_left + "_player_left", team);
 			}
 		}
-	}
-}
-
-random_map_rotation()
-{
-	if(!isDedicated())
-	{
-		return;
-	}
-
-	initial_map = 0;
-	if(getDvar("sv_mapRotationRandom") == "")
-	{
-		initial_map = 1;
-		setDvar("sv_mapRotationRandom", 1);
-	}
-
-	if(!initial_map && getDvar("sv_mapRotationCurrent") != "")
-	{
-		return;
-	}
-
-	rotation_array = [];
-	rotation_string = getDvar("sv_mapRotation");
-	tokens = strTok(rotation_string, " ");
-	for(i = 0; i < tokens.size; i += 4)
-	{
-		rotation_array[rotation_array.size] = tokens[i] + " " + tokens[i+1] + " " + tokens[i+2] + " " + tokens[i+3];
-	}
-
-	if(rotation_array.size < 2)
-	{
-		return;
-	}
-
-	// randomize maps
-	rotation_array = array_randomize(rotation_array);
-
-	// make sure current map isn't first
-	// except for initially since map hasn't been played
-	if(!initial_map)
-	{
-		tokens = strTok(rotation_array[0], " ");
-
-		location = tokens[1]; // zm_gamemode_location.cfg
-		location = strTok(location, ".");
-		location = location[0]; // zm_gamemode_location
-		location = strTok(location, "_");
-		location = location[2]; // location
-
-		mapname = tokens[3];
-
-		if(level.scr_zm_map_start_location == location && level.script == mapname)
-		{
-			num = randomIntRange(1, rotation_array.size);
-			rotation_array = array_swap(rotation_array, 0, num);
-		}
-	}
-
-	rotation_string = "";
-	for(i = 0; i < rotation_array.size; i++)
-	{
-		rotation_string += rotation_array[i];
-
-		if(i < rotation_array.size - 1)
-		{
-			rotation_string += " ";
-		}
-	}
-
-	setDvar("sv_mapRotation", rotation_string);
-	setDvar("sv_mapRotationCurrent", rotation_string);
-
-	// make initial map random
-	if(initial_map)
-	{
-		exitLevel(0);
 	}
 }
 
