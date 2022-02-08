@@ -2816,5 +2816,7 @@ spawn_bots()
 		{
 			level.bots[i] = addtestclient();
 		}
+
+		level.bots[i].pers["isBot"] = 1;
 	}
 }
