@@ -64,7 +64,7 @@ init()
 		containment_init();
 	}
 
-	level thread round_start_wait(5, true);
+	level thread round_start_wait(15, true);
 	level thread sudden_death();
 	level thread unlimited_zombies();
 	level thread unlimited_powerups();
