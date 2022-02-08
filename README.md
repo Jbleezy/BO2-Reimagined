@@ -458,8 +458,8 @@
 * Landing on top of an enemy player downs only the bottom player
 * Landing on top of an enemy player can be done at any stance
 * Increased max radius for landing on top of an enemy player by 16.67%
-* Decreased max height for landing on top of an enemy player that is crouched by 13%
-* Decreased max height for landing on top of an enemy player that is prone by 47%
+* Decreased max height for landing on top of an enemy player that is crouched by 8.33%
+* Decreased max height for landing on top of an enemy player that is prone by 50%
 * Max Ammo: decreased amount of ammo given from max stock to one clip
 * Max Ammo: unloads clip of all enemy players' weapons
 * Double Points: decreased duration from 30 seconds to 15 seconds
