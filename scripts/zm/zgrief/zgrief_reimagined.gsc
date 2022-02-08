@@ -1356,6 +1356,7 @@ wait_and_award_grenades()
 
 grief_intro_text()
 {
+	level endon("end_game");
 	self endon("disconnect");
 
 	// player spawns for a frame when hotjoining
@@ -1363,6 +1364,10 @@ grief_intro_text()
 	{
 		self waittill( "spawned_spectator" );
 		self waittill( "spawned_player" );
+	}
+	else
+	{
+		wait 5;
 	}
 
 	flag_wait( "initial_blackscreen_passed" );
