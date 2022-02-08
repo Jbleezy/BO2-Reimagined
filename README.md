@@ -8,7 +8,9 @@
 
 [Twitter](https://twitter.com/ItsJbleezy)
 
-[Donate](https://streamlabs.com/jbleezy)
+[Discord](https://discord.io/Jbleezy)
+
+[Donate](https://paypal.me/Jbleezy)
 
 ## Change Notes
 
