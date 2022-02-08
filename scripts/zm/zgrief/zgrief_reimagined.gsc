@@ -42,7 +42,7 @@ init()
 
 	precacheStatusIcon( "waypoint_revive" );
 
-	setDvar("sv_connectTimeout", 45);
+	setDvar("sv_connectTimeout", 60);
 	setDvar("ui_scorelimit", 1);
 
 	setteamscore("axis", 0);

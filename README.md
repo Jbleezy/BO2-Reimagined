@@ -474,7 +474,7 @@
 * Added intro text
 * Announcer audio always plays
 * Last player alive audio only plays for the player who is alive instead of every player on the team
-* Decreased connection timeout from 90 seconds to 45 seconds
+* Decreased connection timeout from 90 seconds to 60 seconds
 * Random map rotation
 * 25000 health Brutus
 
