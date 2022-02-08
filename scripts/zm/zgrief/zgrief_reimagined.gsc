@@ -738,6 +738,11 @@ grief_onplayerdisconnect(disconnecting_player)
 		return;
 	}
 
+	if(isDefined(level.grief_update_records))
+	{
+		[[level.grief_update_records]](disconnecting_player);
+	}
+
 	if(level.scr_zm_ui_gametype_obj == "zgrief")
 	{
 		if(disconnecting_player maps/mp/zombies/_zm_laststand::player_is_in_laststand())
@@ -770,11 +775,6 @@ grief_onplayerdisconnect(disconnecting_player)
 	}
 
 	level thread update_players_on_disconnect(disconnecting_player);
-
-	if(isDefined(level.grief_update_records))
-	{
-		[[level.grief_update_records]](disconnecting_player);
-	}
 }
 
 on_player_spawned()
