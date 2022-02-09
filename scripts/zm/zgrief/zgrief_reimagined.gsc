@@ -1161,35 +1161,14 @@ round_start_countdown_hud_end_game_watcher()
 
 round_start_countdown_hud_timer(time)
 {
-	level endon( "end_game" );
+	level endon("end_game");
 
-	timer = time;
-	while ( true )
+	while(time > 0)
 	{
-		self setValue( timer );
+		self setvalue(time);
+		self thread maps/mp/gametypes_zm/_hud::fontpulse(level);
 		wait 1;
-		timer--;
-		if ( timer <= 5 )
-		{
-			self thread countdown_pulse( self, timer );
-			break;
-		}
-	}
-}
-
-countdown_pulse( hud_elem, duration )
-{
-	level endon( "end_game" );
-
-	waittillframeend;
-
-	while ( duration > 0 && !level.gameended )
-	{
-		hud_elem thread maps/mp/gametypes_zm/_hud::fontpulse( level );
-		wait ( hud_elem.inframes * 0.05 );
-		hud_elem setvalue( duration );
-		duration--;
-		wait ( 1 - ( hud_elem.inframes * 0.05 ) );
+		time--;
 	}
 }
 
