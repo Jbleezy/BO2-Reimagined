@@ -26,13 +26,10 @@ full_ammo_powerup( drop_item, player )
 		}
 		primary_weapons = players[ i ] getweaponslist( 1 );
 
-		if(!clip_only)
-		{
-			players[ i ] notify( "zmb_max_ammo" );
-			players[ i ] notify( "zmb_lost_knife" );
-			players[ i ] notify( "zmb_disable_claymore_prompt" );
-			players[ i ] notify( "zmb_disable_spikemore_prompt" );
-		}
+		players[ i ] notify( "zmb_max_ammo" );
+		players[ i ] notify( "zmb_lost_knife" );
+		players[ i ] notify( "zmb_disable_claymore_prompt" );
+		players[ i ] notify( "zmb_disable_spikemore_prompt" );
 
 		x = 0;
 		while ( x < primary_weapons.size )
@@ -57,6 +54,11 @@ full_ammo_powerup( drop_item, player )
 				if(clip_only)
 				{
 					new_ammo = players[i] getWeaponAmmoStock(primary_weapons[x]) + weaponClipSize(primary_weapons[x]);
+					if(weaponDualWieldWeaponName(primary_weapons[x]) != "none")
+					{
+						new_ammo += weaponClipSize(weaponDualWieldWeaponName(primary_weapons[x]));
+					}
+
 					if(new_ammo > weaponMaxAmmo(primary_weapons[x]))
 					{
 						new_ammo = weaponMaxAmmo(primary_weapons[x]);
