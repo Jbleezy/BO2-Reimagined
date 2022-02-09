@@ -42,7 +42,6 @@ init()
 
 	precacheStatusIcon( "waypoint_revive" );
 
-	setDvar("sv_connectTimeout", 60);
 	setDvar("ui_scorelimit", 1);
 
 	setteamscore("axis", 0);
@@ -65,10 +64,10 @@ init()
 	}
 
 	level thread round_start_wait(15, true);
-	level thread sudden_death();
+	level thread remove_round_number();
 	level thread unlimited_zombies();
 	level thread unlimited_powerups();
-	level thread remove_round_number();
+	level thread sudden_death();
 	level thread remove_status_icons_on_intermission();
 	level thread all_voice_on_intermission();
 	level thread spawn_bots();
