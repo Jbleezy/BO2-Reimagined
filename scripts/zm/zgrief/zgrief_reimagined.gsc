@@ -737,6 +737,11 @@ grief_onplayerdisconnect(disconnecting_player)
 		return;
 	}
 
+	if(isDefined(level.gamemodulewinningteam))
+	{
+		return;
+	}
+
 	if(isDefined(level.grief_update_records))
 	{
 		[[level.grief_update_records]](disconnecting_player);

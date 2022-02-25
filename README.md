@@ -437,7 +437,7 @@
 ### Encounter
 * Group of competitive game modes
 * Unlimited zombies
-* 2500 health zombies
+* 2500 health zombies (25000 health Brutus)
 * 0.5 second zombie spawn rate
 * Only sprinting zombies
 * Unlimited powerups
@@ -474,9 +474,6 @@
 * Added intro text
 * Announcer audio always plays
 * Last player alive audio only plays for the player who is alive instead of every player on the team
-* Decreased connection timeout from 90 seconds to 60 seconds
-* Random map rotation
-* 25000 health Brutus
 
 #### Grief
 * Gain score by making enemy players bleed out
