@@ -443,7 +443,7 @@
 * Unlimited powerups
 * Unlimited barrier rebuild points
 * Decreased stun time of unupgraded weapons from 0.75 seconds to 0.5 seconds
-* Decreased stun time of upgraded weapons rom 0.75 seconds to 0.625 seconds
+* Decreased stun time of upgraded weapons from 0.75 seconds to 0.625 seconds
 * Meleeing enemy players pushes 16.67% farther for every 500 damage that melee weapon deals
 * Meleeing enemy players that are crouched pushes 33.33% of the amount when standing
 * Meleeing enemy players that are prone pushes 16.67% of the amount when standing
@@ -456,10 +456,9 @@
 * Downing enemy players awards 500 points
 * Bleeding out enemy players awards 1000 points to all teammates
 * Landing on top of an enemy player downs only the bottom player
-* Landing on top of an enemy player can be done at any stance
+* Landing on top of an enemy player only occurs if the bottom player is prone
 * Increased max radius for landing on top of an enemy player by 16.67%
-* Decreased max height for landing on top of an enemy player that is crouched by 8.33%
-* Decreased max height for landing on top of an enemy player that is prone by 50%
+* Decreased max height for landing on top of an enemy player by 50%
 * Max Ammo: decreased amount of ammo given from max stock to one clip
 * Max Ammo: unloads clip of all enemy players' weapons
 * Double Points: decreased duration from 30 seconds to 15 seconds

@@ -963,13 +963,9 @@ headstomp_watcher()
 		players = get_players();
 		foreach(player in players)
 		{
-			player_top_origin = player getEye();
-			if(player getStance() == "prone")
-			{
-				player_top_origin = player getCentroid();
-			}
+			player_top_origin = player getCentroid();
 
-			if(player != self && player.team != self.team && is_player_valid(player) && player isOnGround() && self.origin[2] > player_top_origin[2])
+			if(player != self && player.team != self.team && is_player_valid(player) && player getStance() == "prone" && player isOnGround() && self.origin[2] > player_top_origin[2])
 			{
 				if(distance2d(self.origin, player.origin) <= 21 && (self.origin[2] - player_top_origin[2]) <= 15)
 				{
@@ -2784,6 +2780,8 @@ spawn_bots()
 
 	level waittill( "connected", player );
 
+	wait 5;
+
 	level.bots = [];
 
 	for(i = 0; i < bot_amount; i++)
@@ -2800,5 +2798,32 @@ spawn_bots()
 		}
 
 		level.bots[i].pers["isBot"] = 1;
+	}
+
+	while(1)
+	{
+		if (player useButtonPressed())
+		{
+			for (i = 0; i < level.bots.size; i++)
+			{
+				level.bots[i] setStance("prone");
+			}
+		}
+		else if (player adsButtonPressed())
+		{
+			for (i = 0; i < level.bots.size; i++)
+			{
+				level.bots[i] setStance("crouch");
+			}
+		}
+		else if (player attackButtonPressed())
+		{
+			for (i = 0; i < level.bots.size; i++)
+			{
+				level.bots[i] setStance("stand");
+			}
+		}
+
+		wait 0.05;
 	}
 }
