@@ -484,7 +484,6 @@
 * Win rounds by getting all enemy players down
 * Win 3 rounds to win the game
 * Tie round if both teams die within 5 seconds of eachother
-* Sudden death after 5 minute round (all players lose 100 health)
 * Players start each round with at least 10000 points
 * Enemies remaining audio and text displays when enemy players down instead of when enemy players bleed out
 * Enemies remaining text is removed when new text is displayed

@@ -67,7 +67,6 @@ init()
 	level thread remove_round_number();
 	level thread unlimited_zombies();
 	level thread unlimited_powerups();
-	level thread sudden_death();
 	level thread remove_status_icons_on_intermission();
 	level thread all_voice_on_intermission();
 	level thread spawn_bots();
@@ -2780,7 +2779,7 @@ spawn_bots()
 
 	level waittill( "connected", player );
 
-	wait 5;
+	wait 1;
 
 	level.bots = [];
 
