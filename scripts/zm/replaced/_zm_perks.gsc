@@ -2,6 +2,7 @@
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 #include maps/mp/zombies/_zm_perks;
+#include maps/mp/zombies/_zm_power;
 
 perk_pause( perk )
 {
@@ -270,8 +271,14 @@ initialize_custom_perk_arrays()
 		level._custom_perks = [];
 	}
 
-	level._custom_perks["specialty_longersprint"] = spawnStruct();
-	level._custom_perks["specialty_longersprint"].cost = 2500;
+	level._custom_perks["specialty_movefaster"] = spawnStruct();
+	level._custom_perks["specialty_movefaster"].cost = 2500;
+	level._custom_perks["specialty_movefaster"].alias = "marathon";
+	level._custom_perks["specialty_movefaster"].hint_string = &"ZOMBIE_PERK_MARATHON";
+	level._custom_perks["specialty_movefaster"].perk_bottle = "zombie_perk_bottle_marathon";
+	level._custom_perks["specialty_movefaster"].perk_machine_thread = ::turn_movefaster_on;
+	level._custom_perks["specialty_movefaster"].player_thread_give = ::give_movefaster;
+	level._custom_perks["specialty_movefaster"].player_thread_take = ::take_movefaster;
 
 	struct = spawnStruct();
 	struct.script_noteworthy = "specialty_longersprint";
@@ -373,5 +380,62 @@ move_perk_machine(map, location, perk, move_struct)
 				break;
 			}
 		}
+	}
+}
+
+turn_movefaster_on()
+{
+	while ( 1 )
+	{
+		machine = getentarray( "vending_marathon", "targetname" );
+		machine_triggers = getentarray( "vending_marathon", "target" );
+		i = 0;
+		while ( i < machine.size )
+		{
+			machine[ i ] setmodel( level.machine_assets[ "marathon" ].off_model );
+			i++;
+		}
+		array_thread( machine_triggers, ::set_power_on, 0 );
+		level thread do_initial_power_off_callback( machine, "marathon" );
+		level waittill( "marathon_on" );
+		i = 0;
+		while ( i < machine.size )
+		{
+			machine[ i ] setmodel( level.machine_assets[ "marathon" ].on_model );
+			machine[ i ] vibrate( vectorScale( ( 0, -1, 0 ), 100 ), 0,3, 0,4, 3 );
+			machine[ i ] playsound( "zmb_perks_power_on" );
+			machine[ i ] thread perk_fx( "marathon_light" );
+			machine[ i ] thread play_loop_on_machine();
+			i++;
+		}
+		level notify( "specialty_movefaster_power_on" );
+		array_thread( machine_triggers, ::set_power_on, 1 );
+		if ( isDefined( level.machine_assets[ "marathon" ].power_on_callback ) )
+		{
+			array_thread( machine, level.machine_assets[ "marathon" ].power_on_callback );
+		}
+		level waittill( "marathon_off" );
+		if ( isDefined( level.machine_assets[ "marathon" ].power_off_callback ) )
+		{
+			array_thread( machine, level.machine_assets[ "marathon" ].power_off_callback );
+		}
+		array_thread( machine, ::turn_perk_off );
+	}
+}
+
+give_movefaster()
+{
+	self set_perk_clientfield("specialty_longersprint", 1);
+}
+
+take_movefaster()
+{
+	if (IsDefined(self.disabled_perks) && IsDefined(self.disabled_perks["specialty_movefaster"]) && self.disabled_perks["specialty_movefaster"])
+	{
+		self set_perk_clientfield("specialty_longersprint", 2);
+	}
+	else
+	{
+		self set_perk_clientfield( "specialty_longersprint", 0 );
 	}
 }

@@ -93,6 +93,8 @@ init()
 
 	level thread enemy_counter_hud();
 	level thread timer_hud();
+
+	level thread swap_staminup_perk();
 }
 
 initial_print()
@@ -1891,6 +1893,29 @@ set_lethal_grenade_init()
 	}
 
 	level.zombie_lethal_grenade_player_init = "sticky_grenade_zm";
+}
+
+swap_staminup_perk()
+{
+	vending_triggers = getentarray("zombie_vending", "targetname");
+	foreach (trigger in vending_triggers)
+	{
+		if (trigger.script_noteworthy == "specialty_longersprint")
+		{
+			trigger.script_noteworthy = "specialty_movefaster";
+		}
+	}
+
+	if (isDefined(level._random_perk_machine_perk_list))
+	{
+		for (i = 0; i < level._random_perk_machine_perk_list.size; i++)
+		{
+			if (level._random_perk_machine_perk_list[i] == "specialty_longersprint")
+			{
+				level._random_perk_machine_perk_list[i] = "specialty_movefaster";
+			}
+		}
+	}
 }
 
 veryhurt_blood_fx()
@@ -3766,15 +3791,6 @@ give_additional_perks()
 		{
 			self UnsetPerk("specialty_stalker");
 			self Unsetperk( "specialty_sprintrecovery" );
-		}
-
-		if (self HasPerk("specialty_longersprint"))
-		{
-			self Setperk( "specialty_movefaster" );
-		}
-		else
-		{
-			self Unsetperk( "specialty_movefaster" );
 		}
 	}
 }
