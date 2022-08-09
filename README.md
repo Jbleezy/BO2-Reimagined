@@ -444,9 +444,10 @@
 * Unlimited barrier rebuild points
 * Decreased stun time of unupgraded weapons from 0.75 seconds to 0.5 seconds
 * Decreased stun time of upgraded weapons from 0.75 seconds to 0.625 seconds
-* Meleeing enemy players pushes 16.67% farther for every 500 damage that melee weapon deals
-* Meleeing enemy players that are crouched pushes 33.33% of the amount when standing
-* Meleeing enemy players that are prone pushes 16.67% of the amount when standing
+* Meleeing enemy players pushes 16.67% more for every 500 damage that melee weapon deals
+* Meleeing enemy players that are reviving pushes 50% less
+* Meleeing enemy players that are crouched pushes 50% less
+* Meleeing enemy players that are prone pushes 75% less
 * Meleeing enemy players that are already stunned will push them
 * Ballistic knife projectile pushes enemy players
 * Claymores are no longer triggered by enemy players

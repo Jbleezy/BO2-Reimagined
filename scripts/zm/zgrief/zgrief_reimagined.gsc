@@ -1658,6 +1658,11 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 			amount = 420; // 48 units
 			amount += (amount / 6.875) * int(idamage / 500); // 16.67% increase every 500 damage
 
+			if(self maps/mp/zombies/_zm_laststand::is_reviving_any())
+			{
+				amount /= 1.775; // 50%
+			}
+
 			if(self isOnGround())
 			{
 				// don't move vertically if on ground
@@ -1665,13 +1670,15 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 
 				if(self getStance() == "crouch")
 				{
-					amount /= 2.4; // 33.33%
+					amount /= 1.775; // 50%
 				}
 				else if(self getStance() == "prone")
 				{
-					amount /= 3.75; // 16.67%
+					amount /= 2.95; // 25%
 				}
 			}
+
+			//self thread origin_test();
 
 			dir = vectorNormalize(dir);
 			self setVelocity(amount * dir);
@@ -2799,23 +2806,37 @@ spawn_bots()
 		level.bots[i].pers["isBot"] = 1;
 	}
 
+	//player thread stance_test();
+}
+
+origin_test()
+{
+	org = self.origin;
+
+	wait .5;
+
+	iprintln(distance(org, self.origin));
+}
+
+stance_test()
+{
 	while(1)
 	{
-		if (player useButtonPressed())
+		if (self useButtonPressed())
 		{
 			for (i = 0; i < level.bots.size; i++)
 			{
 				level.bots[i] setStance("prone");
 			}
 		}
-		else if (player adsButtonPressed())
+		else if (self adsButtonPressed())
 		{
 			for (i = 0; i < level.bots.size; i++)
 			{
 				level.bots[i] setStance("crouch");
 			}
 		}
-		else if (player attackButtonPressed())
+		else if (self attackButtonPressed())
 		{
 			for (i = 0; i < level.bots.size; i++)
 			{
