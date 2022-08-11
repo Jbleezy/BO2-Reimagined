@@ -128,7 +128,7 @@ grief_gamemode_hud()
 	level.grief_gamemode_hud.horzalign = "user_center";
 	level.grief_gamemode_hud.vertalign = "user_top";
 	level.grief_gamemode_hud.y += 34;
-	level.grief_gamemode_hud.fontscale = 1.4;
+	level.grief_gamemode_hud.fontscale = 1.2;
 	level.grief_gamemode_hud.hideWhenInMenu = 1;
 	level.grief_gamemode_hud.foreground = 1;
 	level.grief_gamemode_hud.alpha = 0;
