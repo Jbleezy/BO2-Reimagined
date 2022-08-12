@@ -1674,7 +1674,7 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 
 			if(self maps/mp/zombies/_zm_laststand::is_reviving_any())
 			{
-				amount /= 1.775; // 50%
+				amount /= 2.95; // 25%
 			}
 
 			if(self isOnGround())
@@ -1684,11 +1684,11 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 
 				if(self getStance() == "crouch")
 				{
-					amount /= 1.775; // 50%
+					amount /= 1.275; // 75%
 				}
 				else if(self getStance() == "prone")
 				{
-					amount /= 2.95; // 25%
+					amount /= 1.775; // 50%
 				}
 			}
 
