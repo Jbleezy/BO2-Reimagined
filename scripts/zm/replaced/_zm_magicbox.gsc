@@ -2,6 +2,62 @@
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 
+treasure_chest_init( start_chest_name )
+{
+	flag_init( "moving_chest_enabled" );
+	flag_init( "moving_chest_now" );
+	flag_init( "chest_has_been_used" );
+	level.chest_moves = 0;
+	level.chest_level = 0;
+	if ( level.chests.size == 0 )
+	{
+		return;
+	}
+	i = 0;
+	while ( i < level.chests.size )
+	{
+		level.chests[ i ].box_hacks = [];
+		level.chests[ i ].orig_origin = level.chests[ i ].origin;
+		level.chests[ i ] maps/mp/zombies/_zm_magicbox::get_chest_pieces();
+		if ( isDefined( level.chests[ i ].zombie_cost ) )
+		{
+			level.chests[ i ].old_cost = level.chests[ i ].zombie_cost;
+			i++;
+			continue;
+		}
+		else
+		{
+			level.chests[ i ].old_cost = 950;
+		}
+		i++;
+	}
+	if ( (getDvar("g_gametype") == "zgrief" && getDvarIntDefault("ui_gametype_pro", 0)) || !level.enable_magic )
+	{
+		_a102 = level.chests;
+		_k102 = getFirstArrayKey( _a102 );
+		while ( isDefined( _k102 ) )
+		{
+			chest = _a102[ _k102 ];
+			chest maps/mp/zombies/_zm_magicbox::hide_chest();
+			_k102 = getNextArrayKey( _a102, _k102 );
+		}
+		return;
+	}
+	level.chest_accessed = 0;
+	if ( level.chests.size > 1 )
+	{
+		flag_set( "moving_chest_enabled" );
+		level.chests = array_randomize( level.chests );
+	}
+	else
+	{
+		level.chest_index = 0;
+		level.chests[ 0 ].no_fly_away = 1;
+	}
+	maps/mp/zombies/_zm_magicbox::init_starting_chest_location( start_chest_name );
+	array_thread( level.chests, maps/mp/zombies/_zm_magicbox::treasure_chest_think );
+}
+
 treasure_chest_move( player_vox )
 {
 	level waittill( "weapon_fly_away_start" );

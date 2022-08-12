@@ -14,7 +14,16 @@ struct_init()
 
     scripts/zm/replaced/utility::register_perk_struct( "specialty_armorvest", "zombie_vending_jugg", ( 10952, 8055, -565 ), ( 0, 270, 0 ) );
     scripts/zm/replaced/utility::register_perk_struct( "specialty_quickrevive", "zombie_vending_quickrevive", ( 11855, 7308, -758 ), ( 0, 220, 0 ) );
-    scripts/zm/replaced/utility::register_perk_struct( "specialty_fastreload", "zombie_vending_sleight", ( 11571, 7723, -757 ), ( 0, 0, 0 ) );
+
+	if(getDvar("g_gametype") == "zgrief" && getDvarIntDefault("ui_gametype_pro", 0))
+	{
+		scripts/zm/replaced/utility::register_perk_struct( "specialty_fastreload", "zombie_vending_sleight", ( 11030, 7410, -573 ), ( 0, 215, 0 ) );
+	}
+	else
+	{
+		scripts/zm/replaced/utility::register_perk_struct( "specialty_fastreload", "zombie_vending_sleight", ( 11571, 7723, -757 ), ( 0, 0, 0 ) );
+	}
+
     scripts/zm/replaced/utility::register_perk_struct( "specialty_rof", "zombie_vending_doubletap2", ( 11414, 8930, -352 ), ( 0, 0, 0 ) );
     scripts/zm/replaced/utility::register_perk_struct( "specialty_scavenger", "zombie_vending_tombstone", ( 10946, 8308.77, -408 ), ( 0, 270, 0 ) );
     scripts/zm/replaced/utility::register_perk_struct( "specialty_weapupgrade", "p6_anim_zm_buildable_pap_on", ( 12333, 8158, -752 ), ( 0, 180, 0 ) );
@@ -79,6 +88,18 @@ init_barriers()
 	scripts/zm/replaced/utility::barrier( "collision_player_wall_512x512x10", origin + (anglesToForward(angles) * -128) + (anglesToUp(angles) * 256), angles );
 	scripts/zm/replaced/utility::barrier( "collision_player_wall_512x512x10", origin + (anglesToForward(angles) * 64) + (anglesToUp(angles) * 256), angles );
 	scripts/zm/replaced/utility::barrier( "p6_zm_rocks_large_cluster_01", origin + (anglesToForward(angles) * -176) + (anglesToRight(angles) * -368) + (anglesToUp(angles) * 256), angles + (0, -15, 0) );
+
+	if(getDvar("g_gametype") == "zgrief" && getDvarIntDefault("ui_gametype_pro", 0))
+	{
+		door_trigs = getentarray( "zombie_door", "targetname" );
+		foreach ( door_trig in door_trigs )
+		{
+			if ( door_trig.target == "pow_door_rr" )
+			{
+				door_trig delete();
+			}
+		}
+	}
 }
 
 show_powerswitch()

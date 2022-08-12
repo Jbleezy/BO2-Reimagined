@@ -49,6 +49,7 @@ main()
 	replaceFunc(maps/mp/zombies/_zm_weapons::get_upgraded_ammo_cost, scripts/zm/replaced/_zm_weapons::get_upgraded_ammo_cost);
 	replaceFunc(maps/mp/zombies/_zm_weapons::makegrenadedudanddestroy, scripts/zm/replaced/_zm_weapons::makegrenadedudanddestroy);
 	replaceFunc(maps/mp/zombies/_zm_weapons::createballisticknifewatcher_zm, scripts/zm/replaced/_zm_weapons::createballisticknifewatcher_zm);
+	replaceFunc(maps/mp/zombies/_zm_magicbox::treasure_chest_init, scripts/zm/replaced/_zm_magicbox::treasure_chest_init);
 	replaceFunc(maps/mp/zombies/_zm_magicbox::treasure_chest_move, scripts/zm/replaced/_zm_magicbox::treasure_chest_move);
 	replaceFunc(maps/mp/zombies/_zm_magicbox::treasure_chest_timeout, scripts/zm/replaced/_zm_magicbox::treasure_chest_timeout);
 	replaceFunc(maps/mp/zombies/_zm_magicbox::timer_til_despawn, scripts/zm/replaced/_zm_magicbox::timer_til_despawn);
@@ -79,8 +80,16 @@ init()
 {
 	level.reimagined_version = "";
 	level.using_solo_revive = 0;
-	level.player_starting_health = 150;
 	level.claymores_max_per_player = 20;
+
+	if(getDvar("g_gametype") == "zgrief" && is_true(level.scr_zm_ui_gametype_pro))
+	{
+		level.player_starting_health = 100;
+	}
+	else
+	{
+		level.player_starting_health = 150;
+	}
 
 	setscoreboardcolumns_gametype();
 	set_lethal_grenade_init();

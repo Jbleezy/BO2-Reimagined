@@ -181,10 +181,46 @@ buildbuildables()
     //     }
     // }
 
-	//buildbuildable( "headchopper_zm" );
-	buildbuildable( "springpad_zm" );
-	buildbuildable( "subwoofer_zm" );
-	buildbuildable( "turbine" );
+	if(is_true(level.scr_zm_ui_gametype_pro))
+	{
+		//removebuildable( "headchopper_zm" );
+		removebuildable( "springpad_zm" );
+		removebuildable( "subwoofer_zm" );
+		removebuildable( "turbine" );
+	}
+	else
+	{
+		//buildbuildable( "headchopper_zm" );
+		buildbuildable( "springpad_zm" );
+		buildbuildable( "subwoofer_zm" );
+		buildbuildable( "turbine" );
+	}
+}
+
+removebuildable( buildable )
+{
+	player = get_players()[ 0 ];
+	_a197 = level.buildable_stubs;
+	_k197 = getFirstArrayKey( _a197 );
+	while ( isDefined( _k197 ) )
+	{
+		stub = _a197[ _k197 ];
+		if ( !isDefined( buildable ) || stub.equipname == buildable )
+		{
+			if ( isDefined( buildable ) || stub.persistent != 3 )
+			{
+				_a206 = stub.buildablezone.pieces;
+				_k206 = getFirstArrayKey( _a206 );
+				while ( isDefined( _k206 ) )
+				{
+					piece = _a206[ _k206 ];
+					piece maps/mp/zombies/_zm_buildables::piece_unspawn();
+					_k206 = getNextArrayKey( _a206, _k206 );
+				}
+			}
+		}
+		_k197 = getNextArrayKey( _a197, _k197 );
+	}
 }
 
 disable_tunnels()

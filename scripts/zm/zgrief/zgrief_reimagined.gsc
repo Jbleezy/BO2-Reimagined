@@ -316,6 +316,7 @@ set_grief_vars()
 
 	gamemodes = strTok(getDvar("ui_gametype_obj"), " ");
 	level.scr_zm_ui_gametype_obj = random(gamemodes);
+	level.scr_zm_ui_gametype_pro = getDvarIntDefault("ui_gametype_pro", 0);
 
 	level.noroundnumber = 1;
 	level.zombie_powerups["meat_stink"].solo = 1;
@@ -396,6 +397,11 @@ set_grief_vars()
 		level.brutus_health = 25000;
 		level.brutus_expl_dmg_req = 15000;
 		level.player_starting_points = 10000;
+	}
+
+	if(level.scr_zm_ui_gametype_pro)
+	{
+		level.zombie_vars["zombie_powerup_drop_max_per_round"] = 0;
 	}
 
 	level.zombie_vars["zombie_powerup_drop_increment"] = level.player_starting_points * 4;
@@ -1381,26 +1387,34 @@ grief_intro_text()
 
 get_gamemode_display_name()
 {
+	name = "";
 	if(level.scr_zm_ui_gametype_obj == "zgrief")
 	{
-		return "Grief";
+		name = "Grief";
 	}
 	else if(level.scr_zm_ui_gametype_obj == "zsnr")
 	{
-		return "Search & Rezurrect";
+		name = "Search & Rezurrect";
 	}
 	else if(level.scr_zm_ui_gametype_obj == "zrace")
 	{
-		return "Race";
+		name = "Race";
 	}
 	else if(level.scr_zm_ui_gametype_obj == "zmeat")
 	{
-		return "Meat";
+		name = "Meat";
 	}
 	else if(level.scr_zm_ui_gametype_obj == "zcontainment")
 	{
-		return "Containment";
+		name = "Containment";
 	}
+
+	if(level.scr_zm_ui_gametype_pro)
+	{
+		name += " Pro";
+	}
+
+	return name;
 }
 
 is_respawn_gamemode()

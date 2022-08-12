@@ -512,3 +512,13 @@
 * Players in the containment zone gain 50 points when their team gains score
 * Players respawn after being down for 10 seconds
 * Players retain perks
+
+### Encounter Pro
+* 100 player health
+* Added Juggernog and Speed Cola on all maps
+* Removed all perks except for Juggernog and Speed Cola
+* Removed Pack-a-Punch
+* Removed Mystery Box
+* Removed powerups
+* Removed buildables
+* Power Station: disabled door to Power Station zone
