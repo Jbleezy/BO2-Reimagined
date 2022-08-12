@@ -328,6 +328,8 @@ set_client_dvars()
 	self setClientDvar( "waypointPlayerOffsetStand", 30);
 	self setClientDvar( "waypointPlayerOffsetCrouch", 30);
 
+	self setClientDvar( "r_fog", 0 );
+
 	self setClientDvar( "r_lodBiasRigid", -1000 );
 	self setClientDvar( "r_lodBiasSkinned", -1000 );
 
