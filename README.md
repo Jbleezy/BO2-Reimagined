@@ -449,7 +449,7 @@
 * Meleeing enemy players that are reviving pushes 25% of the amount when standing
 * Meleeing enemy players that are crouched pushes 75% of the amount when standing
 * Meleeing enemy players that are prone pushes 50% of the amount when standing
-* Meleeing enemy players that are already stunned will push them
+* Meleeing enemy players that are already stunned from weapons will push and restun them
 * Ballistic knife projectile pushes enemy players
 * Claymores are no longer triggered by enemy players
 * Stun fx is linked to the player

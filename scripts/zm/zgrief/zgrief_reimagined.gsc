@@ -1664,6 +1664,11 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 			}
 		}
 
+		if ( is_true( self._being_pushed ) )
+		{
+			return;
+		}
+
 		is_melee = false;
 		if(isDefined(eattacker) && isplayer(eattacker) && eattacker != self && eattacker.team != self.team && (smeansofdeath == "MOD_MELEE" || issubstr(sweapon, "knife_ballistic")))
 		{
@@ -1700,7 +1705,7 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 			self store_player_damage_info(eattacker, sweapon, smeansofdeath);
 		}
 
-		if ( is_true( self._being_shellshocked ) )
+		if ( is_true( self._being_shellshocked ) && !is_melee )
 		{
 			return;
 		}
@@ -1774,9 +1779,11 @@ do_game_mode_shellshock(is_melee, is_upgraded)
 	}
 
 	self._being_shellshocked = 1;
+	self._being_pushed = is_melee;
 	self shellshock( "grief_stab_zm", time );
 	wait 0.75;
 	self._being_shellshocked = 0;
+	self._being_pushed = 0;
 }
 
 stun_score_steal(attacker, score)
