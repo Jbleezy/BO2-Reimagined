@@ -338,7 +338,11 @@ set_client_dvars()
 
 set_perks()
 {
-	self setperk( "specialty_unlimitedsprint" );
+	if(!(getDvar("g_gametype") == "zgrief" && getDvarIntDefault("ui_gametype_pro", 0)))
+	{
+		self setperk( "specialty_unlimitedsprint" );
+	}
+
 	self setperk( "specialty_fastmantle" );
 	self setperk( "specialty_fastladderclimb" );
 }

@@ -522,4 +522,5 @@
 * Removed Mystery Box
 * Removed powerups
 * Removed buildables
+* Removed unlimited sprint
 * Power Station: disabled door to Power Station zone
