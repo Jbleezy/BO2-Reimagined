@@ -2161,6 +2161,11 @@ wallbuy_location_changes()
 				add_wallbuy("bowie_knife_zm");
 			}
 		}
+
+		if(level.scr_zm_ui_gametype == "zgrief" && is_true(level.scr_zm_ui_gametype_pro))
+		{
+			remove_wallbuy("claymore_zm");
+		}
 	}
 }
 

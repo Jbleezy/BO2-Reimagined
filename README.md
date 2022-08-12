@@ -254,7 +254,7 @@
 ### Who's Who
 * Gain all other perks the player had before going down when entering Who's Who mode
 * Revive twice as fast when in Who's Who mode
-* No longer gives the player claymores when entering Who's Who mode if the player purchased claymores
+* No longer gives the player Claymores when entering Who's Who mode if the player purchased Claymores
 
 ### Electric Cherry
 * Removed cooldown after being used multiple times in a row
@@ -523,4 +523,5 @@
 * Removed powerups
 * Removed buildables
 * Removed unlimited sprint
+* Disabled Claymores
 * Power Station: disabled door to Power Station zone
