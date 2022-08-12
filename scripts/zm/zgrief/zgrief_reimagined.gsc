@@ -1763,14 +1763,14 @@ do_game_mode_shellshock(is_melee, is_upgraded)
 	self endon( "do_game_mode_shellshock" );
 	self endon( "disconnect" );
 
-	time = 0.5;
+	time = 0.375;
 	if(is_melee)
 	{
 		time = 0.75;
 	}
 	else if(is_upgraded)
 	{
-		time = 0.625;
+		time = 0.5;
 	}
 
 	self._being_shellshocked = 1;
