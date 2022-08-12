@@ -63,7 +63,7 @@ init()
 		containment_init();
 	}
 
-	level thread round_start_wait(15, true);
+	level thread round_start_wait(5, true);
 	level thread remove_round_number();
 	level thread unlimited_zombies();
 	level thread unlimited_powerups();
