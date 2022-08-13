@@ -58,7 +58,7 @@
 * Can shoot while looking at other players
 * Increased mantle speed
 * Increased ladder climb speed
-* Start with semtex on maps that have semtex
+* Start with Semtex on maps that have Semtex
 * Entering and exiting last stand no longer refills last stand weapon clip automatically
 * Decreased friendly player name fade out time from 1.5 seconds to 0.25 seconds
 * Removed enemy player name fade in time
@@ -379,6 +379,12 @@
 * Moved Stamin-Up to its location on Tranzit
 * Moved Tombstone Soda to the laundry room front door
 * Grief: added Tombstone Soda
+
+#### Tunnel
+* Added Survival and Grief gamemodes
+* Wallbuys: M14, Olympia, M16, MP5, Semtex
+* Perks: Juggernog, Quick Revive, Speed Cola, Double Tap, Stamin-Up
+* Pack-a-Punch
 
 ### Die Rise
 * Zombies no longer spawn in the Upper Blue Highrise zone when in the Trample Steam zone

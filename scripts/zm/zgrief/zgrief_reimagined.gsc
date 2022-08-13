@@ -2385,6 +2385,10 @@ containment_init()
 		{
 			level.containment_zones = array("zone_town_north", "zone_town_south", "zone_town_east", "zone_town_west", "zone_bar", "zone_town_barber", "zone_ban");
 		}
+		else if(level.scr_zm_map_start_location == "tunnel")
+		{
+			level.containment_zones = array("zone_amb_tunnel");
+		}
 	}
 	else if(level.script == "zm_prison")
 	{

@@ -176,9 +176,13 @@ wallbuy( weapon_name, target, targetname, origin, angles )
 	unitrigger_stub.angles = angles;
 
 	model_name = undefined;
-	if ( weapon_name == "claymore_zm" )
+	if ( weapon_name == "sticky_grenade_zm" )
 	{
-		model_name = "t6_wpn_claymore_world"; // getWeaponModel for claymore is wrong model
+		model_name = "semtex_bag";
+	}
+	else if ( weapon_name == "claymore_zm" )
+	{
+		model_name = "t6_wpn_claymore_world";
 	}
 
 	wallmodel = spawn_weapon_model( weapon_name, model_name, origin, angles );
@@ -197,7 +201,7 @@ wallbuy( weapon_name, target, targetname, origin, angles )
 	unitrigger_stub.targetname = targetname;
 	unitrigger_stub.cursor_hint = "HINT_NOICON";
 
-	// move model foreward so it always shows in front of chalk
+	// move model forward so it always shows in front of chalk
 	move_amount = anglesToRight( wallmodel.angles ) * -0.3;
 	wallmodel.origin += move_amount;
 	unitrigger_stub.origin += move_amount;
@@ -289,6 +293,11 @@ wallbuy( weapon_name, target, targetname, origin, angles )
 
 	chalk_fx = weapon_name + "_fx";
 	level thread playchalkfx( chalk_fx, origin, angles );
+
+	if(weaponType(weapon_name) == "grenade")
+	{
+		unitrigger_stub thread wallbuy_grenade_model_fix();
+	}
 }
 
 playchalkfx( effect, origin, angles )
@@ -300,6 +309,21 @@ playchalkfx( effect, origin, angles )
 		level waittill( "connected", player );
 		fx Delete();
 	}
+}
+
+
+// fixes grenade wallbuy model doing first trigger animation everytime
+wallbuy_grenade_model_fix()
+{
+	model = getent(self.target, "targetname");
+	if(!isDefined(model))
+	{
+		return;
+	}
+
+	model waittill("movedone");
+
+	self.target = undefined;
 }
 
 barrier( model, origin, angles, not_solid )
