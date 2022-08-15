@@ -1677,11 +1677,6 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 			amount = 420; // 48 units
 			amount += (amount / 6.875) * int(idamage / 500); // 16.67% increase every 500 damage
 
-			if(self maps/mp/zombies/_zm_laststand::is_reviving_any())
-			{
-				amount /= 2.95; // 25%
-			}
-
 			if(self isOnGround())
 			{
 				// don't move vertically if on ground
@@ -1689,11 +1684,11 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 
 				if(self getStance() == "crouch")
 				{
-					amount /= 1.275; // 75%
+					amount /= 1.775; // 50%
 				}
 				else if(self getStance() == "prone")
 				{
-					amount /= 1.775; // 50%
+					amount /= 2.95; // 25%
 				}
 			}
 
