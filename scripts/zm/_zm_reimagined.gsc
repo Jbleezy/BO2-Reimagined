@@ -1937,6 +1937,11 @@ veryhurt_blood_fx()
 {
 	self endon( "disconnect" );
 
+	if(level.scr_zm_ui_gametype == "zgrief" && is_true(level.scr_zm_ui_gametype_pro))
+	{
+		return;
+	}
+
 	while(1)
 	{
 		health_ratio = self.health / self.maxhealth;
