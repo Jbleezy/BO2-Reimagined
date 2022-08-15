@@ -528,5 +528,7 @@
 * Removed powerups
 * Removed buildables
 * Removed unlimited sprint
+* Removed health bar
+* Removed low health blood fx
 * Disabled Claymores
 * Power Station: disabled door to Power Station zone
