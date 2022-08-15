@@ -1677,6 +1677,11 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 			amount = 420; // 48 units
 			amount += (amount / 6.875) * int(idamage / 500); // 16.67% increase every 500 damage
 
+			if(self maps/mp/zombies/_zm_laststand::is_reviving_any())
+			{
+				amount /= 1.775; // 50%
+			}
+
 			if(self isOnGround())
 			{
 				// don't move vertically if on ground
