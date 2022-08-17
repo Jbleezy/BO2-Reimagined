@@ -353,11 +353,6 @@ health_bar_hud()
 
 	flag_wait( "initial_blackscreen_passed" );
 
-	if(level.scr_zm_ui_gametype == "zgrief" && is_true(level.scr_zm_ui_gametype_pro))
-	{
-		return;
-	}
-
 	x = 5;
 	y = -104;
 	if (level.script == "zm_buried")
