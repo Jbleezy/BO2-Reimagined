@@ -1676,18 +1676,9 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 			is_melee = true;
 			dir = vdir;
 			amount = 420; // 48 units
-			amount += (amount / 6.875) * int(idamage / 500); // 16.67% increase every 500 damage
 
 			if(self maps/mp/zombies/_zm_laststand::is_reviving_any())
 			{
-				amount /= 1.775; // 50%
-			}
-
-			if(self isOnGround())
-			{
-				// don't move vertically if on ground
-				dir = (dir[0], dir[1], 0);
-
 				if(self getStance() == "crouch")
 				{
 					amount /= 1.775; // 50%
@@ -1696,6 +1687,13 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 				{
 					amount /= 2.95; // 25%
 				}
+			}
+			else if(self isOnGround())
+			{
+				// don't move vertically if on ground
+				dir = (dir[0], dir[1], 0);
+
+				self setStance("stand");
 			}
 
 			//self thread origin_test();
@@ -1779,10 +1777,6 @@ do_game_mode_shellshock(is_melee, is_upgraded)
 	if(is_melee)
 	{
 		time = 0.75;
-	}
-	else if(is_upgraded)
-	{
-		time = 0.5;
 	}
 
 	self._being_shellshocked = 1;
