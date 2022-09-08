@@ -352,7 +352,8 @@ set_grief_vars()
 	level.grief_score["B"] = 0;
 	level.game_mode_griefed_time = 2.5;
 	level.stun_fx_amount = 3;
-	level.stun_award_points = 100;
+	level.stun_award_points = 50;
+	level.stun_melee_award_points = 100;
 	level.downed_award_points = 500;
 	level.bleedout_award_points = 1000;
 	level.zombie_vars["axis"]["zombie_powerup_insta_kill_time"] = 15;
@@ -1752,7 +1753,13 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 		self thread do_game_mode_shellshock(is_melee, maps/mp/zombies/_zm_weapons::is_weapon_upgraded(sweapon));
 		self playsound( "zmb_player_hit_ding" );
 
-		score = level.stun_award_points * maps/mp/zombies/_zm_score::get_points_multiplier(eattacker);
+		score = level.stun_award_points;
+		if(is_melee)
+		{
+			score = level.stun_melee_award_points;
+		}
+
+		score *= maps/mp/zombies/_zm_score::get_points_multiplier(eattacker);
 		self stun_score_steal(eattacker, score);
 
 		if(!is_melee)

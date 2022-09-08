@@ -460,7 +460,8 @@
 * Claymores are no longer triggered by enemy players
 * Stun fx is linked to the player
 * Stun fx shows in the correct position for projectiles
-* Stunning enemy players steals 100 points from them
+* Stunning enemy players steals 50 points from them
+* Meleeing enemy players steals 100 points from them
 * Downing enemy players awards 500 points
 * Bleeding out enemy players awards 1000 points to all teammates
 * Landing on top of an enemy player downs only the bottom player
