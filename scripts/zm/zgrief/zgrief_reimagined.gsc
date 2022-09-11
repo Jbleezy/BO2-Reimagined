@@ -1695,8 +1695,6 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 			{
 				// don't move vertically if on ground
 				dir = (dir[0], dir[1], 0);
-
-				self setStance("stand");
 			}
 
 			//self thread origin_test();
@@ -1780,14 +1778,26 @@ do_game_mode_shellshock(is_melee, is_upgraded)
 	if(is_melee)
 	{
 		time = 0.75;
+
+		self setStance("stand");
+		self allowCrouch(0);
+		self allowProne(0);
 	}
 
 	self._being_shellshocked = 1;
 	self._being_pushed = is_melee;
 	self shellshock( "grief_stab_zm", time );
+
 	wait 0.75;
+
 	self._being_shellshocked = 0;
 	self._being_pushed = 0;
+
+	if(is_melee && is_player_valid(self))
+	{
+		self allowCrouch(1);
+		self allowProne(1);
+	}
 }
 
 stun_score_steal(attacker, score)
