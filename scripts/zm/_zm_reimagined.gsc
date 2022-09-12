@@ -4015,7 +4015,7 @@ tombstone_save()
 	self.tombstone_savedweapon_mine = self get_player_placeable_mine();
 	self.tombstone_savedweapon_equipment = self get_player_equipment();
 	self.tombstone_hasriotshield = undefined;
-	self.tombstone_perks = maps/mp/zombies/_zm_tombstone::tombstone_save_perks(self);
+	self.tombstone_perks = tombstone_save_perks(self);
 
 	// can't switch to alt weapon
 	if(is_alt_weapon(self.tombstone_savedweapon_currentweapon))
@@ -4051,6 +4051,40 @@ tombstone_save()
 	{
 		self.tombstone_hasriotshield = 1;
 	}
+}
+
+tombstone_save_perks( ent )
+{
+	perk_array = [];
+	if ( ent hasperk( "specialty_armorvest" ) )
+	{
+		perk_array[ perk_array.size ] = "specialty_armorvest";
+	}
+	if ( ent hasperk( "specialty_deadshot" ) )
+	{
+		perk_array[ perk_array.size ] = "specialty_deadshot";
+	}
+	if ( ent hasperk( "specialty_fastreload" ) )
+	{
+		perk_array[ perk_array.size ] = "specialty_fastreload";
+	}
+	if ( ent hasperk( "specialty_flakjacket" ) )
+	{
+		perk_array[ perk_array.size ] = "specialty_flakjacket";
+	}
+	if ( ent hasperk( "specialty_movefaster" ) )
+	{
+		perk_array[ perk_array.size ] = "specialty_movefaster";
+	}
+	if ( ent hasperk( "specialty_quickrevive" ) )
+	{
+		perk_array[ perk_array.size ] = "specialty_quickrevive";
+	}
+	if ( ent hasperk( "specialty_rof" ) )
+	{
+		perk_array[ perk_array.size ] = "specialty_rof";
+	}
+	return perk_array;
 }
 
 tombstone_give()
