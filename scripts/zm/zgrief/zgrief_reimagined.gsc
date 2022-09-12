@@ -1674,6 +1674,7 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 		}
 
 		is_melee = false;
+		is_reviving = false;
 		if(isDefined(eattacker) && isplayer(eattacker) && eattacker != self && eattacker.team != self.team && (smeansofdeath == "MOD_MELEE" || issubstr(sweapon, "knife_ballistic")))
 		{
 			is_melee = true;
@@ -1682,6 +1683,8 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 
 			if(self maps/mp/zombies/_zm_laststand::is_reviving_any())
 			{
+				is_reviving = true;
+
 				if(self getStance() == "crouch")
 				{
 					amount /= 1.775; // 50%
@@ -1749,7 +1752,7 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 			self.stun_fx_ind = (self.stun_fx_ind + 1) % level.stun_fx_amount;
 		}
 
-		self thread do_game_mode_shellshock(is_melee, maps/mp/zombies/_zm_weapons::is_weapon_upgraded(sweapon));
+		self thread do_game_mode_shellshock(is_melee, is_reviving);
 		self playsound( "zmb_player_hit_ding" );
 
 		score = level.stun_award_points;
@@ -1768,7 +1771,7 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 	}
 }
 
-do_game_mode_shellshock(is_melee, is_upgraded)
+do_game_mode_shellshock(is_melee, is_reviving)
 {
 	self notify( "do_game_mode_shellshock" );
 	self endon( "do_game_mode_shellshock" );
@@ -1779,9 +1782,12 @@ do_game_mode_shellshock(is_melee, is_upgraded)
 	{
 		time = 0.75;
 
-		self setStance("stand");
-		self allowCrouch(0);
-		self allowProne(0);
+		if(!is_reviving)
+		{
+			self setStance("stand");
+			self allowCrouch(0);
+			self allowProne(0);
+		}
 	}
 
 	self._being_shellshocked = 1;
@@ -1793,7 +1799,7 @@ do_game_mode_shellshock(is_melee, is_upgraded)
 	self._being_shellshocked = 0;
 	self._being_pushed = 0;
 
-	if(is_melee && is_player_valid(self))
+	if(is_melee && !is_reviving && is_player_valid(self))
 	{
 		self allowCrouch(1);
 		self allowProne(1);
