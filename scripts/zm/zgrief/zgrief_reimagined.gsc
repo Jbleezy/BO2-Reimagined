@@ -1687,14 +1687,15 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 
 				if(self getStance() == "crouch")
 				{
-					amount /= 1.775; // 50%
+					amount = 142.5; // 12 units
 				}
 				else if(self getStance() == "prone")
 				{
-					amount /= 2.95; // 25%
+					amount = 95; // 6 units
 				}
 			}
-			else if(self isOnGround())
+
+			if(self isOnGround())
 			{
 				// don't move vertically if on ground
 				dir = (dir[0], dir[1], 0);
