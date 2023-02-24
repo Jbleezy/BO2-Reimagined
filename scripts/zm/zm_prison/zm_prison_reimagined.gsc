@@ -6,6 +6,8 @@
 #include scripts\zm\replaced\zm_alcatraz_classic;
 #include scripts\zm\replaced\_zm_afterlife;
 #include scripts\zm\replaced\_zm_ai_brutus;
+#include scripts\zm\replaced\zgrief;
+#include scripts\zm\replaced\zmeat;
 
 main()
 {
@@ -14,6 +16,11 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_ai_brutus::brutus_spawn, scripts\zm\replaced\_zm_ai_brutus::brutus_spawn);
 	replaceFunc(maps\mp\zombies\_zm_ai_brutus::brutus_health_increases, scripts\zm\replaced\_zm_ai_brutus::brutus_health_increases);
 	replaceFunc(maps\mp\zombies\_zm_ai_brutus::brutus_cleanup_at_end_of_grief_round, scripts\zm\replaced\_zm_ai_brutus::brutus_cleanup_at_end_of_grief_round);
+	replaceFunc(maps\mp\gametypes_zm\zgrief::meat_stink_on_ground, scripts\zm\replaced\zgrief::meat_stink_on_ground);
+	replaceFunc(maps\mp\gametypes_zm\zgrief::meat_stink_player, scripts\zm\replaced\zgrief::meat_stink_player);
+	replaceFunc(maps\mp\gametypes_zm\zmeat::item_meat_watch_trigger, scripts\zm\replaced\zmeat::item_meat_watch_trigger);
+	replaceFunc(maps\mp\gametypes_zm\zmeat::kick_meat_monitor, scripts\zm\replaced\zmeat::kick_meat_monitor);
+	replaceFunc(maps\mp\gametypes_zm\zmeat::last_stand_meat_nudge, scripts\zm\replaced\zmeat::last_stand_meat_nudge);
 }
 
 init()
@@ -21,6 +28,8 @@ init()
 	level.zombie_init_done = ::zombie_init_done;
 	level.special_weapon_magicbox_check = ::check_for_special_weapon_limit_exist;
 	level.round_prestart_func = scripts\zm\replaced\_zm_afterlife::afterlife_start_zombie_logic;
+	level.zgrief_meat_stink_player_create = maps\mp\gametypes_zm\zgrief::meat_stink_player_create;
+	level.zmeat_create_item_meat_watcher = maps\mp\gametypes_zm\zmeat::create_item_meat_watcher;
 
 	remove_acid_trap_player_spawn();
 

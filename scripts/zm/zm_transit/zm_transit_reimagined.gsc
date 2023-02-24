@@ -10,6 +10,8 @@
 #include scripts\zm\replaced\_zm_equip_electrictrap;
 #include scripts\zm\replaced\_zm_equip_turret;
 #include scripts\zm\replaced\_zm_banking;
+#include scripts\zm\replaced\zgrief;
+#include scripts\zm\replaced\zmeat;
 
 main()
 {
@@ -30,6 +32,11 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_banking::bank_deposit_box, scripts\zm\replaced\_zm_banking::bank_deposit_box);
 	replaceFunc(maps\mp\zombies\_zm_banking::bank_deposit_unitrigger, scripts\zm\replaced\_zm_banking::bank_deposit_unitrigger);
 	replaceFunc(maps\mp\zombies\_zm_banking::bank_withdraw_unitrigger, scripts\zm\replaced\_zm_banking::bank_withdraw_unitrigger);
+	replaceFunc(maps\mp\gametypes_zm\zgrief::meat_stink_on_ground, scripts\zm\replaced\zgrief::meat_stink_on_ground);
+	replaceFunc(maps\mp\gametypes_zm\zgrief::meat_stink_player, scripts\zm\replaced\zgrief::meat_stink_player);
+	replaceFunc(maps\mp\gametypes_zm\zmeat::item_meat_watch_trigger, scripts\zm\replaced\zmeat::item_meat_watch_trigger);
+	replaceFunc(maps\mp\gametypes_zm\zmeat::kick_meat_monitor, scripts\zm\replaced\zmeat::kick_meat_monitor);
+	replaceFunc(maps\mp\gametypes_zm\zmeat::last_stand_meat_nudge, scripts\zm\replaced\zmeat::last_stand_meat_nudge);
 
 	include_weapons_grief();
 }
@@ -39,6 +46,9 @@ init()
 	level.zombie_init_done = ::zombie_init_done;
 	level.special_weapon_magicbox_check = ::transit_special_weapon_magicbox_check;
 	level.grenade_safe_to_bounce = ::grenade_safe_to_bounce;
+	level.zgrief_meat_stink_player_create = maps\mp\gametypes_zm\zgrief::meat_stink_player_create;
+	level.zgrief_meat_stink_player_cleanup = maps\mp\gametypes_zm\zgrief::meat_stink_player_cleanup;
+	level.zmeat_create_item_meat_watcher = maps\mp\gametypes_zm\zmeat::create_item_meat_watcher;
 
 	screecher_spawner_changes();
 	zombie_spawn_location_changes();

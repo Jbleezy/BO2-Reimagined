@@ -9,8 +9,6 @@
 #include scripts\zm\replaced\_zm_game_module;
 #include scripts\zm\replaced\_zm_gametype;
 #include scripts\zm\replaced\_zm_blockers;
-#include scripts\zm\replaced\zgrief;
-#include scripts\zm\replaced\zmeat;
 
 main()
 {
@@ -26,11 +24,6 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_audio_announcer::playleaderdialogonplayer, scripts\zm\replaced\_zm_audio_announcer::playleaderdialogonplayer);
 	replaceFunc(maps\mp\zombies\_zm_game_module::wait_for_team_death_and_round_end, scripts\zm\replaced\_zm_game_module::wait_for_team_death_and_round_end);
 	replaceFunc(maps\mp\zombies\_zm_blockers::handle_post_board_repair_rewards, scripts\zm\replaced\_zm_blockers::handle_post_board_repair_rewards);
-	replaceFunc(maps\mp\gametypes_zm\zgrief::meat_stink_on_ground, scripts\zm\replaced\zgrief::meat_stink_on_ground);
-	replaceFunc(maps\mp\gametypes_zm\zgrief::meat_stink_player, scripts\zm\replaced\zgrief::meat_stink_player);
-	replaceFunc(maps\mp\gametypes_zm\zmeat::item_meat_watch_trigger, scripts\zm\replaced\zmeat::item_meat_watch_trigger);
-	replaceFunc(maps\mp\gametypes_zm\zmeat::kick_meat_monitor, scripts\zm\replaced\zmeat::kick_meat_monitor);
-	replaceFunc(maps\mp\gametypes_zm\zmeat::last_stand_meat_nudge, scripts\zm\replaced\zmeat::last_stand_meat_nudge);
 }
 
 init()
@@ -720,7 +713,7 @@ grief_onplayerconnect()
 	self thread on_player_revived();
 	self thread headstomp_watcher();
 	self thread smoke_grenade_cluster_watcher();
-	self thread maps\mp\gametypes_zm\zmeat::create_item_meat_watcher();
+	self thread [[level.zmeat_create_item_meat_watcher]]();
 	self.killsconfirmed = 0;
 
 	if(level.scr_zm_ui_gametype_obj == "zgrief" || level.scr_zm_ui_gametype_obj == "zcontainment")
