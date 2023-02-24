@@ -807,8 +807,8 @@ player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, 
 		}
 		return finaldamage;
 	}
-	solo_death = is_solo_death( self, players );
-	non_solo_death = is_non_solo_death( self, players, count );
+	solo_death = self is_solo_death( players );
+	non_solo_death = self is_non_solo_death( players, count );
 	if ( ( solo_death || non_solo_death ) && !is_true( level.no_end_game_check ) )
 	{
 		level notify( "stop_suicide_trigger" );
@@ -866,7 +866,7 @@ player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, 
 	}
 }
 
-is_solo_death( self, players )
+is_solo_death( players )
 {
 	if ( players.size == 1 && flag( "solo_game" ) )
 	{
@@ -896,7 +896,7 @@ is_solo_death( self, players )
 	return 0;
 }
 
-is_non_solo_death( self, players, count )
+is_non_solo_death( players, count )
 {
 	if ( count > 1 || players.size == 1 && !flag( "solo_game" ) )
 	{
