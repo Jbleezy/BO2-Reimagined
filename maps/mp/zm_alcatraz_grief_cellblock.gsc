@@ -394,6 +394,8 @@ magicbox_face_spawn()
 	}
 }
 
+#using_animtree("fxanim_props");
+
 turn_afterlife_interact_on()
 {
 	if ( self.script_string == "cell_1_powerup_activate" || self.script_string == "intro_powerup_activate" || self.script_string == "cell_2_powerup_activate" || self.script_string == "wires_shower_door" )
