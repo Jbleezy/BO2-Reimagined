@@ -163,6 +163,7 @@ lethal_grenade_update_prompt( player )
 {
 	weapon = self.stub.zombie_weapon_upgrade;
 	hint = level.zombie_weapons[weapon].hint;
+	cost = level.zombie_weapons[weapon].cost;
 	self.stub.hint_string = hint;
 	self sethintstring( self.stub.hint_string, cost );
 	self.stub.cursor_hint = "HINT_WEAPON";
