@@ -7,7 +7,7 @@ startturretdeploy( weapon )
 	self endon( "death" );
 	self endon( "disconnect" );
 	self endon( "equip_turret_zm_taken" );
-	self thread maps/mp/zombies/_zm_equip_turret::watchforcleanup();
+	self thread maps\mp\zombies\_zm_equip_turret::watchforcleanup();
 	if ( !isDefined( self.turret_health ) )
 	{
 		self.turret_health = 30;
@@ -55,14 +55,14 @@ startturretdeploy( weapon )
 		weapon turret_power_on();
 		if ( weapon.power_on )
 		{
-			turret thread maps/mp/zombies/_zm_mgturret::burst_fire_unmanned();
+			turret thread maps\mp\zombies\_zm_mgturret::burst_fire_unmanned();
 		}
 		else
 		{
 			self iprintlnbold( &"ZOMBIE_NEED_LOCAL_POWER" );
 		}
 		self thread turretdecay( weapon );
-		self thread maps/mp/zombies/_zm_buildables::delete_on_disconnect( weapon );
+		self thread maps\mp\zombies\_zm_buildables::delete_on_disconnect( weapon );
 		weapon waittill("death");
 		if ( isDefined( self.buildableturret.sound_ent ) )
 		{
@@ -84,7 +84,7 @@ startturretdeploy( weapon )
 turret_power_on()
 {
 	self.power_on = 1;
-	self.turret thread maps/mp/zombies/_zm_mgturret::burst_fire_unmanned();
+	self.turret thread maps\mp\zombies\_zm_mgturret::burst_fire_unmanned();
 	player = self.turret.owner;
 	if ( !isDefined( player.buildableturret.sound_ent ) )
 	{
@@ -107,9 +107,9 @@ turretdecay( weapon )
 
 			if ( self.turret_health <= 0 )
 			{
-				maps/mp/zombies/_zm_equipment::equipment_disappear_fx( weapon.origin, undefined, weapon.angles );
-				self maps/mp/zombies/_zm_equip_turret::cleanupoldturret();
-				self thread maps/mp/zombies/_zm_equipment::equipment_release( level.turret_name );
+				maps\mp\zombies\_zm_equipment::equipment_disappear_fx( weapon.origin, undefined, weapon.angles );
+				self maps\mp\zombies\_zm_equip_turret::cleanupoldturret();
+				self thread maps\mp\zombies\_zm_equipment::equipment_release( level.turret_name );
 				return;
 			}
 		}

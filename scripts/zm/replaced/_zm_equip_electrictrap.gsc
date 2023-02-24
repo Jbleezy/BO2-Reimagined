@@ -8,7 +8,7 @@ startelectrictrapdeploy( weapon )
 	self endon( "disconnect" );
 	self endon( "equip_electrictrap_zm_taken" );
 
-	self thread maps/mp/zombies/_zm_equip_electrictrap::watchforcleanup();
+	self thread maps\mp\zombies\_zm_equip_electrictrap::watchforcleanup();
 	electricradius = 45;
 	self.weapon = weapon;
 
@@ -22,9 +22,9 @@ startelectrictrapdeploy( weapon )
 		wait 0.5;
 
 		self trap_power_on( weapon );
-		self thread maps/mp/zombies/_zm_equip_electrictrap::electrictrapthink( weapon, electricradius );
+		self thread maps\mp\zombies\_zm_equip_electrictrap::electrictrapthink( weapon, electricradius );
 		self thread electrictrapdecay( weapon );
-		self thread maps/mp/zombies/_zm_buildables::delete_on_disconnect( weapon );
+		self thread maps\mp\zombies\_zm_buildables::delete_on_disconnect( weapon );
 
 		weapon waittill( "death" );
 
@@ -52,7 +52,7 @@ trap_power_on( weapon )
 
 	level.electrap_sound_ent playsound( "wpn_zmb_electrap_start" );
 	level.electrap_sound_ent playloopsound( "wpn_zmb_electrap_loop", 2 );
-	weapon thread maps/mp/zombies/_zm_equip_electrictrap::trapfx();
+	weapon thread maps\mp\zombies\_zm_equip_electrictrap::trapfx();
 }
 
 electrictrapdecay( weapon )
@@ -69,10 +69,10 @@ electrictrapdecay( weapon )
 
 			if ( self.electrictrap_health <= 0 )
 			{
-				maps/mp/zombies/_zm_equipment::equipment_disappear_fx( weapon.origin, undefined, weapon.angles );
-				self maps/mp/zombies/_zm_equip_electrictrap::cleanupoldtrap();
+				maps\mp\zombies\_zm_equipment::equipment_disappear_fx( weapon.origin, undefined, weapon.angles );
+				self maps\mp\zombies\_zm_equip_electrictrap::cleanupoldtrap();
 				self.electrictrap_health = undefined;
-				self thread maps/mp/zombies/_zm_equipment::equipment_release( level.electrictrap_name );
+				self thread maps\mp\zombies\_zm_equipment::equipment_release( level.electrictrap_name );
 
 				return;
 			}
@@ -88,7 +88,7 @@ cleanupoldtrap()
 	{
 		if ( isDefined( self.buildableelectrictrap.stub ) )
 		{
-			thread maps/mp/zombies/_zm_unitrigger::unregister_unitrigger( self.buildableelectrictrap.stub );
+			thread maps\mp\zombies\_zm_unitrigger::unregister_unitrigger( self.buildableelectrictrap.stub );
 			self.buildableelectrictrap.stub = undefined;
 		}
 		self.buildableelectrictrap delete();

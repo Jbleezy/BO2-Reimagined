@@ -149,18 +149,18 @@ round_end(winner)
 
 	level.round_number++;
 
-	level thread maps/mp/zombies/_zm_audio_announcer::leaderdialog( "grief_restarted" );
+	level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog( "grief_restarted" );
 	if(isDefined(winner))
 	{
 		foreach(player in players)
 		{
 			if(player.team == team)
 			{
-				player thread scripts/zm/zgrief/zgrief_reimagined::show_grief_hud_msg( "You won the round" );
+				player thread scripts\zm\zgrief\zgrief_reimagined::show_grief_hud_msg( "You won the round" );
 			}
 			else
 			{
-				player thread scripts/zm/zgrief/zgrief_reimagined::show_grief_hud_msg( "You lost the round" );
+				player thread scripts\zm\zgrief\zgrief_reimagined::show_grief_hud_msg( "You lost the round" );
 			}
 		}
 	}
@@ -168,13 +168,13 @@ round_end(winner)
 	{
 		foreach(player in players)
 		{
-			player thread scripts/zm/zgrief/zgrief_reimagined::show_grief_hud_msg( &"ZOMBIE_GRIEF_RESET" );
+			player thread scripts\zm\zgrief\zgrief_reimagined::show_grief_hud_msg( &"ZOMBIE_GRIEF_RESET" );
 		}
 	}
 
 	zombie_goto_round( level.round_number );
-	level thread maps/mp/zombies/_zm_game_module::reset_grief();
-	level thread maps/mp/zombies/_zm::round_think( 1 );
+	level thread maps\mp\zombies\_zm_game_module::reset_grief();
+	level thread maps\mp\zombies\_zm::round_think( 1 );
 }
 
 game_won(winner)
@@ -188,16 +188,16 @@ game_won(winner)
 		players[ i ] freezecontrols( 1 );
 		if ( players[ i ]._encounters_team == winner )
 		{
-			players[ i ] thread maps/mp/zombies/_zm_audio_announcer::leaderdialogonplayer( "grief_won" );
+			players[ i ] thread maps\mp\zombies\_zm_audio_announcer::leaderdialogonplayer( "grief_won" );
 			i++;
 			continue;
 		}
-		players[ i ] thread maps/mp/zombies/_zm_audio_announcer::leaderdialogonplayer( "grief_lost" );
+		players[ i ] thread maps\mp\zombies\_zm_audio_announcer::leaderdialogonplayer( "grief_lost" );
 		i++;
 	}
 	level notify( "game_module_ended", winner );
 	level._game_module_game_end_check = undefined;
-	maps/mp/gametypes_zm/_zm_gametype::track_encounters_win_stats( level.gamemodulewinningteam );
+	maps\mp\gametypes_zm\_zm_gametype::track_encounters_win_stats( level.gamemodulewinningteam );
 	level notify( "end_game" );
 }
 
@@ -224,24 +224,24 @@ zombie_goto_round(target_round)
 	game["allies_spawnpoints_randomized"] = undefined;
 	set_game_var("switchedsides", !get_game_var("switchedsides"));
 
-	maps/mp/zombies/_zm_game_module::respawn_players();
+	maps\mp\zombies\_zm_game_module::respawn_players();
 
 	wait 0.05; // let all players fully respawn
 
 	level thread player_respawn_award();
 
-	level thread scripts/zm/zgrief/zgrief_reimagined::round_start_wait(5);
+	level thread scripts\zm\zgrief\zgrief_reimagined::round_start_wait(5);
 }
 
 player_respawn_award()
 {
-	maps/mp/zombies/_zm::award_grenades_for_survivors();
+	maps\mp\zombies\_zm::award_grenades_for_survivors();
 	players = get_players();
 	foreach(player in players)
 	{
 		if(player.score < level.player_starting_points)
 		{
-			player maps/mp/zombies/_zm_score::add_to_player_score(level.player_starting_points - player.score);
+			player maps\mp\zombies\_zm_score::add_to_player_score(level.player_starting_points - player.score);
 		}
 
 		if(isDefined(player get_player_placeable_mine()))

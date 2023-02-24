@@ -23,7 +23,7 @@ playerhealthregen()
 
 	self player_flag_clear( "player_has_red_flashing_overlay" );
 	self player_flag_clear( "player_is_invulnerable" );
-	self thread maps/mp/zombies/_zm_playerhealth::healthoverlay();
+	self thread maps\mp\zombies\_zm_playerhealth::healthoverlay();
 
 	level.playerhealth_regularregendelay = 2000;
 	level.longregentime = 4000;
@@ -37,7 +37,7 @@ playerhealthregen()
 	lastinvulratio = 1;
 	healthoverlaycutoff = 0.2;
 
-	self thread maps/mp/zombies/_zm_playerhealth::playerhurtcheck();
+	self thread maps\mp\zombies\_zm_playerhealth::playerhurtcheck();
 	if ( !isDefined( self.veryhurt ) )
 	{
 		self.veryhurt = 0;
@@ -187,7 +187,7 @@ playerhealthregen()
 				}
 				invultime *= playerinvultimescale;
 				lastinvulratio = self.health / self.maxhealth;
-				self thread maps/mp/zombies/_zm_playerhealth::playerinvul( invultime );
+				self thread maps\mp\zombies\_zm_playerhealth::playerinvul( invultime );
 			}
 		}
 	}

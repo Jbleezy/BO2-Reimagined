@@ -1,16 +1,16 @@
 #include maps\mp\_utility;
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
-#include maps/mp/zm_buried_buildables;
-#include maps/mp/zombies/_zm_buildables;
+#include maps\mp\zm_buried_buildables;
+#include maps\mp\zombies\_zm_buildables;
 
 init_buildables( buildablesenabledlist )
 {
 	registerclientfield( "scriptmover", "buildable_glint_fx", 12000, 1, "int" );
 	precacheitem( "chalk_draw_zm" );
 	precacheitem( "no_hands_zm" );
-	level._effect[ "wallbuy_replace" ] = loadfx( "maps/zombie_buried/fx_buried_booze_candy_spawn" );
-	level._effect[ "wallbuy_drawing" ] = loadfx( "maps/zombie/fx_zmb_wall_dyn_chalk_drawing" );
+	level._effect[ "wallbuy_replace" ] = loadfx( "maps\zombie_buried\fx_buried_booze_candy_spawn" );
+	level._effect[ "wallbuy_drawing" ] = loadfx( "maps\zombie\fx_zmb_wall_dyn_chalk_drawing" );
 	level.str_buildables_build = &"ZOMBIE_BUILD_SQ_COMMON";
 	level.str_buildables_building = &"ZOMBIE_BUILDING_SQ_COMMON";
 	level.str_buildables_grab_part = &"ZOMBIE_BUILD_PIECE_GRAB";

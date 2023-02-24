@@ -1,8 +1,8 @@
 #include maps\mp\_utility;
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
-#include maps/mp/zombies/_zm_perks;
-#include maps/mp/zombies/_zm_power;
+#include maps\mp\zombies\_zm_perks;
+#include maps\mp\zombies\_zm_power;
 
 perk_pause( perk )
 {
@@ -40,14 +40,14 @@ give_perk( perk, bought )
 	self.num_perks++;
 	if ( isDefined( bought ) && bought )
 	{
-		self maps/mp/zombies/_zm_audio::playerexert( "burp" );
+		self maps\mp\zombies\_zm_audio::playerexert( "burp" );
 		if ( isDefined( level.remove_perk_vo_delay ) && level.remove_perk_vo_delay )
 		{
-			self maps/mp/zombies/_zm_audio::perk_vox( perk );
+			self maps\mp\zombies\_zm_audio::perk_vox( perk );
 		}
 		else
 		{
-			self delay_thread( 1.5, maps/mp/zombies/_zm_audio::perk_vox, perk );
+			self delay_thread( 1.5, maps\mp\zombies\_zm_audio::perk_vox, perk );
 		}
 		self setblur( 4, 0.1 );
 		wait 0.1;
@@ -105,11 +105,11 @@ give_perk( perk, bought )
 		self thread [[ level._custom_perks[ perk ].player_thread_give ]]();
 	}
 	self set_perk_clientfield( perk, 1 );
-	maps/mp/_demo::bookmark( "zm_player_perk", getTime(), self );
-	self maps/mp/zombies/_zm_stats::increment_client_stat( "perks_drank" );
-	self maps/mp/zombies/_zm_stats::increment_client_stat( perk + "_drank" );
-	self maps/mp/zombies/_zm_stats::increment_player_stat( perk + "_drank" );
-	self maps/mp/zombies/_zm_stats::increment_player_stat( "perks_drank" );
+	maps\mp\_demo::bookmark( "zm_player_perk", getTime(), self );
+	self maps\mp\zombies\_zm_stats::increment_client_stat( "perks_drank" );
+	self maps\mp\zombies\_zm_stats::increment_client_stat( perk + "_drank" );
+	self maps\mp\zombies\_zm_stats::increment_player_stat( perk + "_drank" );
+	self maps\mp\zombies\_zm_stats::increment_player_stat( "perks_drank" );
 	if ( !isDefined( self.perk_history ) )
 	{
 		self.perk_history = [];
@@ -155,7 +155,7 @@ perk_think( perk )
 		case "specialty_additionalprimaryweapon":
 			if ( result == perk_str )
 			{
-				self maps/mp/zombies/_zm::take_additionalprimaryweapon();
+				self maps\mp\zombies\_zm::take_additionalprimaryweapon();
 			}
 			break;
 		case "specialty_deadshot":
@@ -240,7 +240,7 @@ perk_set_max_health_if_jugg( perk, set_premaxhealth, clamp_health_to_max_health 
 
 	if ( isDefined( max_total_health ) )
 	{
-		if ( self maps/mp/zombies/_zm_pers_upgrades_functions::pers_jugg_active() )
+		if ( self maps\mp\zombies\_zm_pers_upgrades_functions::pers_jugg_active() )
 		{
 			max_total_health += level.pers_jugg_upgrade_health_bonus;
 		}

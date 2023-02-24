@@ -1,7 +1,7 @@
 #include maps\mp\_utility;
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
-#include maps/mp/zm_highrise_classic;
+#include maps\mp\zm_highrise_classic;
 
 insta_kill_player( perks_can_respawn_player, kill_if_falling )
 {
@@ -17,7 +17,7 @@ insta_kill_player( perks_can_respawn_player, kill_if_falling )
 			self unsetperk( "specialty_finalstand" );
 		}
 	}
-	self maps/mp/zombies/_zm_buildables::player_return_piece_to_original_spawn();
+	self maps\mp\zombies\_zm_buildables::player_return_piece_to_original_spawn();
 	if ( isDefined( self.insta_killed ) && self.insta_killed )
 	{
 		return;
@@ -46,7 +46,7 @@ insta_kill_player( perks_can_respawn_player, kill_if_falling )
 		self.insta_killed = 1;
 		in_last_stand = 0;
 		self notify( "chugabud_effects_cleanup" );
-		if ( self maps/mp/zombies/_zm_laststand::player_is_in_laststand() )
+		if ( self maps\mp\zombies\_zm_laststand::player_is_in_laststand() )
 		{
 			in_last_stand = 1;
 		}
@@ -77,7 +77,7 @@ insta_kill_player( perks_can_respawn_player, kill_if_falling )
 				}
 				else
 				{
-					self thread maps/mp/zombies/_zm_laststand::auto_revive( self );
+					self thread maps\mp\zombies\_zm_laststand::auto_revive( self );
 					self.waiting_to_revive = 0;
 					self.solo_respawn = 0;
 					self.lives--;

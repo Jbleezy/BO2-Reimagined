@@ -1,7 +1,7 @@
 #include maps\mp\_utility;
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
-#include maps/mp/zombies/_zm_equip_subwoofer;
+#include maps\mp\zombies\_zm_equip_subwoofer;
 
 startsubwooferdecay( weapon )
 {

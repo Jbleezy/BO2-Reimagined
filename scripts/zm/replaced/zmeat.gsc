@@ -2,12 +2,12 @@
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 
-#include maps/mp/zombies/_zm_game_module_meat_utility;
+#include maps\mp\zombies\_zm_game_module_meat_utility;
 
 item_meat_watch_trigger( meat_id, trigger, callback, playersoundonuse, npcsoundonuse )
 {
 	self endon( "death" );
-	self thread maps/mp/gametypes_zm/zmeat::item_quick_trigger( meat_id, trigger );
+	self thread maps\mp\gametypes_zm\zmeat::item_quick_trigger( meat_id, trigger );
 	while ( 1 )
 	{
 		trigger waittill( "usetrigger", player );
@@ -23,7 +23,7 @@ item_meat_watch_trigger( meat_id, trigger, callback, playersoundonuse, npcsoundo
 		{
 			continue;
 		}
-		if ( player maps/mp/zombies/_zm_laststand::is_reviving_any() )
+		if ( player maps\mp\zombies\_zm_laststand::is_reviving_any() )
 		{
 			continue;
 		}
@@ -38,19 +38,19 @@ item_meat_watch_trigger( meat_id, trigger, callback, playersoundonuse, npcsoundo
 		player.volley_meat = volley;
 		if ( is_true( self._fake_meat ) )
 		{
-			maps/mp/gametypes_zm/zmeat::add_meat_event( "player_fake_take", player, self );
+			maps\mp\gametypes_zm\zmeat::add_meat_event( "player_fake_take", player, self );
 		}
 		else if ( volley )
 		{
-			maps/mp/gametypes_zm/zmeat::add_meat_event( "player_volley", player, self );
+			maps\mp\gametypes_zm\zmeat::add_meat_event( "player_volley", player, self );
 		}
 		else if ( self.meat_is_moving )
 		{
-			maps/mp/gametypes_zm/zmeat::add_meat_event( "player_catch", player, self );
+			maps\mp\gametypes_zm\zmeat::add_meat_event( "player_catch", player, self );
 		}
 		else
 		{
-			maps/mp/gametypes_zm/zmeat::add_meat_event( "player_take", player, self );
+			maps\mp\gametypes_zm\zmeat::add_meat_event( "player_take", player, self );
 		}
 		if ( is_true( self._fake_meat ) )
 		{
@@ -60,11 +60,11 @@ item_meat_watch_trigger( meat_id, trigger, callback, playersoundonuse, npcsoundo
 			{
 				return;
 			}
-			self maps/mp/gametypes_zm/zmeat::cleanup_meat();
+			self maps\mp\gametypes_zm\zmeat::cleanup_meat();
 			return;
 		}
 		curr_weap = player getcurrentweapon();
-		if ( !maps/mp/gametypes_zm/zmeat::is_meat( curr_weap ) )
+		if ( !maps\mp\gametypes_zm\zmeat::is_meat( curr_weap ) )
 		{
 			player.pre_meat_weapon = curr_weap;
 		}
@@ -72,14 +72,14 @@ item_meat_watch_trigger( meat_id, trigger, callback, playersoundonuse, npcsoundo
 		{
 			if ( volley )
 			{
-				self maps/mp/gametypes_zm/zmeat::item_meat_volley( player );
+				self maps\mp\gametypes_zm\zmeat::item_meat_volley( player );
 			}
 			else
 			{
-				self maps/mp/gametypes_zm/zmeat::item_meat_caught( player, self.meat_is_flying );
+				self maps\mp\gametypes_zm\zmeat::item_meat_caught( player, self.meat_is_flying );
 			}
 		}
-		self maps/mp/gametypes_zm/zmeat::item_meat_pickup();
+		self maps\mp\gametypes_zm\zmeat::item_meat_pickup();
 		if ( isDefined( playersoundonuse ) )
 		{
 			player playlocalsound( playersoundonuse );
@@ -97,7 +97,7 @@ item_meat_watch_trigger( meat_id, trigger, callback, playersoundonuse, npcsoundo
 			self thread [[ callback ]]( player );
 			if ( !isDefined( player._meat_hint_shown ) )
 			{
-				player thread maps/mp/gametypes_zm/zmeat::show_meat_throw_hint();
+				player thread maps\mp\gametypes_zm\zmeat::show_meat_throw_hint();
 				player._meat_hint_shown = 1;
 			}
 		}
@@ -117,7 +117,7 @@ spike_the_meat( meat )
 	vel = meat getvelocity();
 	if ( !is_true( meat._fake_meat ) )
 	{
-		meat maps/mp/gametypes_zm/zmeat::cleanup_meat();
+		meat maps\mp\gametypes_zm\zmeat::cleanup_meat();
 		level._last_person_to_throw_meat = self;
 		level._last_person_to_throw_meat_time = getTime();
 		level._meat_splitter_activated = 0;
@@ -125,7 +125,7 @@ spike_the_meat( meat )
 	else
 	{
 		fake_meat = 1;
-		meat maps/mp/gametypes_zm/zmeat::cleanup_meat();
+		meat maps\mp\gametypes_zm\zmeat::cleanup_meat();
 	}
 	kickangles = self.angles;
 	launchdir = anglesToForward( kickangles );
@@ -133,11 +133,11 @@ spike_the_meat( meat )
 	launchvel = vectorScale( launchdir, speed );
 	grenade = self magicgrenadetype( get_gamemode_var( "item_meat_name" ), org, ( launchvel[ 0 ], launchvel[ 1 ], 120 ) );
 	grenade playsound( "zmb_meat_meat_tossed" );
-	grenade thread maps/mp/gametypes_zm/zmeat::waittill_loopstart();
+	grenade thread maps\mp\gametypes_zm\zmeat::waittill_loopstart();
 	if ( fake_meat )
 	{
 		grenade._fake_meat = 1;
-		grenade thread maps/mp/gametypes_zm/zmeat::delete_on_real_meat_pickup();
+		grenade thread maps\mp\gametypes_zm\zmeat::delete_on_real_meat_pickup();
 		level._kicked_meat = grenade;
 	}
 	wait 0.1;

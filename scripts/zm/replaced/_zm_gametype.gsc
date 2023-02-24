@@ -59,7 +59,7 @@ onspawnplayer( predictedspawn )
 			spawnpoints = getstructarray( "initial_spawn_points", "targetname" );
 		}
 
-		spawnpoint = maps/mp/zombies/_zm::getfreespawnpoint( spawnpoints, self );
+		spawnpoint = maps\mp\zombies\_zm::getfreespawnpoint( spawnpoints, self );
 
 		if ( predictedspawn )
 		{
@@ -73,11 +73,11 @@ onspawnplayer( predictedspawn )
 	}
 
 	self.entity_num = self getentitynumber();
-	self thread maps/mp/zombies/_zm::onplayerspawned();
-	self thread maps/mp/zombies/_zm::player_revive_monitor();
+	self thread maps\mp\zombies\_zm::onplayerspawned();
+	self thread maps\mp\zombies\_zm::player_revive_monitor();
 	self freezecontrols( 1 );
 	self.spectator_respawn = spawnpoint;
-	self.score = self maps/mp/gametypes_zm/_globallogic_score::getpersstat( "score" );
+	self.score = self maps\mp\gametypes_zm\_globallogic_score::getpersstat( "score" );
 	self.pers[ "participation" ] = 0;
 
 	self.score_total = self.score;
@@ -85,7 +85,7 @@ onspawnplayer( predictedspawn )
 	self.player_initialized = 0;
 	self.zombification_time = 0;
 	self.enabletext = 1;
-	self thread maps/mp/zombies/_zm_blockers::rebuild_barrier_reward_reset();
+	self thread maps\mp\zombies\_zm_blockers::rebuild_barrier_reward_reset();
 
 	if ( !is_true( level.host_ended_game ) )
 	{
@@ -98,7 +98,7 @@ onspawnplayer( predictedspawn )
 		spawn_in_spectate = [[ level.game_mode_spawn_player_logic ]]();
 		if ( spawn_in_spectate )
 		{
-			self delay_thread( 0.05, maps/mp/zombies/_zm::spawnspectator );
+			self delay_thread( 0.05, maps\mp\zombies\_zm::spawnspectator );
 		}
 	}
 
@@ -116,9 +116,9 @@ onplayerspawned()
 		{
 			return;
 		}
-		if ( self maps/mp/zombies/_zm_laststand::player_is_in_laststand() )
+		if ( self maps\mp\zombies\_zm_laststand::player_is_in_laststand() )
 		{
-			self thread maps/mp/zombies/_zm_laststand::auto_revive( self );
+			self thread maps\mp\zombies\_zm_laststand::auto_revive( self );
 		}
 		if ( isDefined( level.custom_player_fake_death_cleanup ) )
 		{
@@ -173,7 +173,7 @@ onplayerspawned()
 
 hide_gump_loading_for_hotjoiners()
 {
-	if(scripts/zm/zgrief/zgrief_reimagined::is_respawn_gamemode())
+	if(scripts\zm\zgrief\zgrief_reimagined::is_respawn_gamemode())
 	{
 		return;
 	}
@@ -187,7 +187,7 @@ hide_gump_loading_for_hotjoiners()
 		wait 0.25;
 	}
 	wait 0.5;
-	self maps/mp/zombies/_zm::spawnspectator();
+	self maps\mp\zombies\_zm::spawnspectator();
 	self.is_hotjoining = 0;
 	self.is_hotjoin = 1;
 	if ( is_true( level.intermission ) || is_true( level.host_ended_game ) )

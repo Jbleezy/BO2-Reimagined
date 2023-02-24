@@ -1,7 +1,7 @@
 #include maps\mp\_utility;
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
-#include maps/mp/zombies/_zm_weap_claymore;
+#include maps\mp\zombies\_zm_weap_claymore;
 
 buy_claymores()
 {
@@ -36,13 +36,13 @@ buy_claymores()
 				if ( !who is_player_placeable_mine( "claymore_zm" ) || who getWeaponAmmoStock( "claymore_zm" ) < 2 )
 				{
 					play_sound_at_pos( "purchase", self.origin );
-					who maps/mp/zombies/_zm_score::minus_to_player_score( self.zombie_cost );
+					who maps\mp\zombies\_zm_score::minus_to_player_score( self.zombie_cost );
                     if ( !who is_player_placeable_mine( "claymore_zm" ) )
                     {
                         who thread show_claymore_hint( "claymore_purchased" );
                     }
 					who thread claymore_setup();
-					who thread maps/mp/zombies/_zm_audio::create_and_play_dialog( "weapon_pickup", "grenade" );
+					who thread maps\mp\zombies\_zm_audio::create_and_play_dialog( "weapon_pickup", "grenade" );
 					if ( isDefined( self.stub ) )
 					{
 						self.claymores_triggered = self.stub.claymores_triggered;
@@ -52,7 +52,7 @@ buy_claymores()
 						model = getent( self.target, "targetname" );
 						if ( isDefined( model ) )
 						{
-							model thread maps/mp/zombies/_zm_weapons::weapon_show( who );
+							model thread maps\mp\zombies\_zm_weapons::weapon_show( who );
 						}
 						else
 						{
@@ -72,7 +72,7 @@ buy_claymores()
 			else
 			{
 				who play_sound_on_ent( "no_purchase" );
-				who maps/mp/zombies/_zm_audio::create_and_play_dialog( "general", "no_money_weapon" );
+				who maps\mp\zombies\_zm_audio::create_and_play_dialog( "general", "no_money_weapon" );
 			}
 		}
 	}

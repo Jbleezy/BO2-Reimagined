@@ -9,8 +9,8 @@ inert_wakeup()
 
 	wait 0.1;
 
-	self thread maps/mp/zombies/_zm_ai_basic::inert_damage();
-	self thread maps/mp/zombies/_zm_ai_basic::inert_bump();
+	self thread maps\mp\zombies\_zm_ai_basic::inert_damage();
+	self thread maps\mp\zombies\_zm_ai_basic::inert_bump();
 
 	while ( 1 )
 	{
@@ -21,7 +21,7 @@ inert_wakeup()
 			dist_sq = distancesquared( self.origin, player.origin );
 			if ( dist_sq < 4096 )
 			{
-				self maps/mp/zombies/_zm_ai_basic::stop_inert();
+				self maps\mp\zombies\_zm_ai_basic::stop_inert();
 				return;
 			}
 
@@ -29,7 +29,7 @@ inert_wakeup()
 			{
 				if ( ( current_time - player.lastfiretime ) < 100 )
 				{
-					self maps/mp/zombies/_zm_ai_basic::stop_inert();
+					self maps\mp\zombies\_zm_ai_basic::stop_inert();
 					return;
 				}
 			}

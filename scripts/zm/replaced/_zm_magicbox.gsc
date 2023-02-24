@@ -18,7 +18,7 @@ treasure_chest_init( start_chest_name )
 	{
 		level.chests[ i ].box_hacks = [];
 		level.chests[ i ].orig_origin = level.chests[ i ].origin;
-		level.chests[ i ] maps/mp/zombies/_zm_magicbox::get_chest_pieces();
+		level.chests[ i ] maps\mp\zombies\_zm_magicbox::get_chest_pieces();
 		if ( isDefined( level.chests[ i ].zombie_cost ) )
 		{
 			level.chests[ i ].old_cost = level.chests[ i ].zombie_cost;
@@ -38,7 +38,7 @@ treasure_chest_init( start_chest_name )
 		while ( isDefined( _k102 ) )
 		{
 			chest = _a102[ _k102 ];
-			chest maps/mp/zombies/_zm_magicbox::hide_chest();
+			chest maps\mp\zombies\_zm_magicbox::hide_chest();
 			_k102 = getNextArrayKey( _a102, _k102 );
 		}
 		return;
@@ -54,30 +54,30 @@ treasure_chest_init( start_chest_name )
 		level.chest_index = 0;
 		level.chests[ 0 ].no_fly_away = 1;
 	}
-	maps/mp/zombies/_zm_magicbox::init_starting_chest_location( start_chest_name );
-	array_thread( level.chests, maps/mp/zombies/_zm_magicbox::treasure_chest_think );
+	maps\mp\zombies\_zm_magicbox::init_starting_chest_location( start_chest_name );
+	array_thread( level.chests, maps\mp\zombies\_zm_magicbox::treasure_chest_think );
 }
 
 treasure_chest_move( player_vox )
 {
 	level waittill( "weapon_fly_away_start" );
 	players = get_players();
-	array_thread( players, maps/mp/zombies/_zm_magicbox::play_crazi_sound );
+	array_thread( players, maps\mp\zombies\_zm_magicbox::play_crazi_sound );
 	if ( isDefined( player_vox ) )
 	{
-		player_vox delay_thread( randomintrange( 2, 7 ), maps/mp/zombies/_zm_audio::create_and_play_dialog, "general", "box_move" );
+		player_vox delay_thread( randomintrange( 2, 7 ), maps\mp\zombies\_zm_audio::create_and_play_dialog, "general", "box_move" );
 	}
 	level waittill( "weapon_fly_away_end" );
 	if ( isDefined( self.zbarrier ) )
 	{
-		self maps/mp/zombies/_zm_magicbox::hide_chest( 1 );
+		self maps\mp\zombies\_zm_magicbox::hide_chest( 1 );
 	}
 	wait 0.1;
 	if ( level.zombie_vars[ "zombie_powerup_fire_sale_on" ] == 1 && self [[ level._zombiemode_check_firesale_loc_valid_func ]]() )
 	{
 		current_sale_time = level.zombie_vars[ "zombie_powerup_fire_sale_time" ];
 		wait_network_frame();
-		self thread maps/mp/zombies/_zm_magicbox::fire_sale_fix();
+		self thread maps\mp\zombies\_zm_magicbox::fire_sale_fix();
 		level.zombie_vars[ "zombie_powerup_fire_sale_time" ] = current_sale_time;
 		while ( level.zombie_vars[ "zombie_powerup_fire_sale_time" ] > 0 )
 		{
@@ -91,14 +91,14 @@ treasure_chest_move( player_vox )
 	}
 	else
 	{
-		maps/mp/zombies/_zm_magicbox::default_box_move_logic();
+		maps\mp\zombies\_zm_magicbox::default_box_move_logic();
 	}
 	if ( isDefined( level.chests[ level.chest_index ].box_hacks[ "summon_box" ] ) )
 	{
 		level.chests[ level.chest_index ] [[ level.chests[ level.chest_index ].box_hacks[ "summon_box" ] ]]( 0 );
 	}
 	playfx( level._effect[ "poltergeist" ], level.chests[ level.chest_index ].zbarrier.origin );
-	level.chests[ level.chest_index ] maps/mp/zombies/_zm_magicbox::show_chest();
+	level.chests[ level.chest_index ] maps\mp\zombies\_zm_magicbox::show_chest();
 	flag_clear( "moving_chest_now" );
 	self.zbarrier.chest_moving = 0;
 }

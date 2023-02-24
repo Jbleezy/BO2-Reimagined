@@ -2,32 +2,32 @@
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 
-#include scripts/zm/replaced/zm_buried_buildables;
-#include scripts/zm/replaced/_zm_buildables_pooled;
-#include scripts/zm/replaced/_zm_equip_subwoofer;
-#include scripts/zm/replaced/_zm_banking;
-#include scripts/zm/replaced/_zm_weap_slowgun;
+#include scripts\zm\replaced\zm_buried_buildables;
+#include scripts\zm\replaced\_zm_buildables_pooled;
+#include scripts\zm\replaced\_zm_equip_subwoofer;
+#include scripts\zm\replaced\_zm_banking;
+#include scripts\zm\replaced\_zm_weap_slowgun;
 
 main()
 {
 	precachemodel( "collision_wall_128x128x10_standard" );
 
-	replaceFunc(maps/mp/zm_buried_buildables::init_buildables, scripts/zm/replaced/zm_buried_buildables::init_buildables);
-	replaceFunc(maps/mp/zombies/_zm_buildables_pooled::add_buildable_to_pool, scripts/zm/replaced/_zm_buildables_pooled::add_buildable_to_pool);
-	replaceFunc(maps/mp/zombies/_zm_equip_subwoofer::startsubwooferdecay, scripts/zm/replaced/_zm_equip_subwoofer::startsubwooferdecay);
-	replaceFunc(maps/mp/zombies/_zm_equip_subwoofer::subwoofer_network_choke, scripts/zm/replaced/_zm_equip_subwoofer::subwoofer_network_choke);
-	replaceFunc(maps/mp/zombies/_zm_weap_slowgun::watch_reset_anim_rate, scripts/zm/replaced/_zm_weap_slowgun::watch_reset_anim_rate);
-	replaceFunc(maps/mp/zombies/_zm_banking::init, scripts/zm/replaced/_zm_banking::init);
-	replaceFunc(maps/mp/zombies/_zm_banking::bank_deposit_box, scripts/zm/replaced/_zm_banking::bank_deposit_box);
-	replaceFunc(maps/mp/zombies/_zm_banking::bank_deposit_unitrigger, scripts/zm/replaced/_zm_banking::bank_deposit_unitrigger);
-	replaceFunc(maps/mp/zombies/_zm_banking::bank_withdraw_unitrigger, scripts/zm/replaced/_zm_banking::bank_withdraw_unitrigger);
+	replaceFunc(maps\mp\zm_buried_buildables::init_buildables, scripts\zm\replaced\zm_buried_buildables::init_buildables);
+	replaceFunc(maps\mp\zombies\_zm_buildables_pooled::add_buildable_to_pool, scripts\zm\replaced\_zm_buildables_pooled::add_buildable_to_pool);
+	replaceFunc(maps\mp\zombies\_zm_equip_subwoofer::startsubwooferdecay, scripts\zm\replaced\_zm_equip_subwoofer::startsubwooferdecay);
+	replaceFunc(maps\mp\zombies\_zm_equip_subwoofer::subwoofer_network_choke, scripts\zm\replaced\_zm_equip_subwoofer::subwoofer_network_choke);
+	replaceFunc(maps\mp\zombies\_zm_weap_slowgun::watch_reset_anim_rate, scripts\zm\replaced\_zm_weap_slowgun::watch_reset_anim_rate);
+	replaceFunc(maps\mp\zombies\_zm_banking::init, scripts\zm\replaced\_zm_banking::init);
+	replaceFunc(maps\mp\zombies\_zm_banking::bank_deposit_box, scripts\zm\replaced\_zm_banking::bank_deposit_box);
+	replaceFunc(maps\mp\zombies\_zm_banking::bank_deposit_unitrigger, scripts\zm\replaced\_zm_banking::bank_deposit_unitrigger);
+	replaceFunc(maps\mp\zombies\_zm_banking::bank_withdraw_unitrigger, scripts\zm\replaced\_zm_banking::bank_withdraw_unitrigger);
 }
 
 init()
 {
 	level.zombie_init_done = ::zombie_init_done;
 	level.special_weapon_magicbox_check = ::buried_special_weapon_magicbox_check;
-	level._is_player_in_zombie_stink = maps/mp/zombies/_zm_perk_vulture::_is_player_in_zombie_stink;
+	level._is_player_in_zombie_stink = maps\mp\zombies\_zm_perk_vulture::_is_player_in_zombie_stink;
 
 	if(is_gametype_active("zgrief"))
 	{
@@ -47,7 +47,7 @@ zombie_init_done()
 {
 	self.allowpain = 0;
 	self.zombie_path_bad = 0;
-	self thread maps/mp/zm_buried_distance_tracking::escaped_zombies_cleanup_init();
+	self thread maps\mp\zm_buried_distance_tracking::escaped_zombies_cleanup_init();
 	self setphysparams( 15, 0, 64 );
 }
 
@@ -72,7 +72,7 @@ buried_special_weapon_magicbox_check(weapon)
 zgrief_respawn_override( revivee, return_struct )
 {
 	players = array_randomize(get_players());
-	spawn_points = maps/mp/gametypes_zm/_zm_gametype::get_player_spawns_for_gametype();
+	spawn_points = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
 	grief_initial = getstructarray( "street_standard_player_spawns", "targetname" );
 
 	foreach ( struct in grief_initial )
@@ -145,7 +145,7 @@ zgrief_respawn_override( revivee, return_struct )
 
 		if ( isDefined( closest_group ) )
 		{
-			spawn_location = maps/mp/zombies/_zm::get_valid_spawn_location( revivee, spawn_points, closest_group, return_struct );
+			spawn_location = maps\mp\zombies\_zm::get_valid_spawn_location( revivee, spawn_points, closest_group, return_struct );
 			if ( isDefined( spawn_location ) && !positionwouldtelefrag( spawn_location.origin ) )
 			{
 				if ( isDefined( spawn_location.plyr ) && spawn_location.plyr != revivee getentitynumber() )
@@ -170,7 +170,7 @@ zgrief_respawn_override( revivee, return_struct )
 			if ( spawn_points[ k ] == initial_point )
 			{
 				closest_group = k;
-				spawn_location = maps/mp/zombies/_zm::get_valid_spawn_location( revivee, spawn_points, closest_group, return_struct );
+				spawn_location = maps\mp\zombies\_zm::get_valid_spawn_location( revivee, spawn_points, closest_group, return_struct );
 				return spawn_location;
 			}
 			k++;

@@ -4,7 +4,7 @@
 
 game_mode_spawn_player_logic()
 {
-	if(scripts/zm/zgrief/zgrief_reimagined::is_respawn_gamemode())
+	if(scripts\zm\zgrief\zgrief_reimagined::is_respawn_gamemode())
 	{
 		return 0;
 	}
@@ -30,7 +30,7 @@ meat_stink_on_ground(position_to_play)
 	attractor_point create_zombie_point_of_interest( 1536, 32, 10000 );
 	attractor_point.attract_to_origin = 1;
 	attractor_point thread create_zombie_point_of_interest_attractor_positions( 4, 45 );
-	attractor_point thread maps/mp/zombies/_zm_weap_cymbal_monkey::wait_for_attractor_positions_complete();
+	attractor_point thread maps\mp\zombies\_zm_weap_cymbal_monkey::wait_for_attractor_positions_complete();
 	attractor_point delay_thread( 10, ::self_delete );
 	wait 10;
 	level.meat_on_ground = undefined;
@@ -44,7 +44,7 @@ meat_stink_player( who )
 	players = get_players();
 	foreach ( player in players )
 	{
-		player thread maps/mp/gametypes_zm/zgrief::meat_stink_player_cleanup();
+		player thread maps\mp\gametypes_zm\zgrief::meat_stink_player_cleanup();
 		if ( player != who )
 		{
 			player.ignoreme = 1;
@@ -59,12 +59,12 @@ meat_stink_player( who )
 			player iprintln("^9" + who.name + " has the meat");
 		}
 	}
-	who thread maps/mp/gametypes_zm/zgrief::meat_stink_player_create();
+	who thread maps\mp\gametypes_zm\zgrief::meat_stink_player_create();
 	who waittill_any_or_timeout( 30, "disconnect", "player_downed", "bled_out" );
 	players = get_players();
 	foreach ( player in players )
 	{
-		player thread maps/mp/gametypes_zm/zgrief::meat_stink_player_cleanup();
+		player thread maps\mp\gametypes_zm\zgrief::meat_stink_player_cleanup();
 		player.ignoreme = 0;
 	}
 }

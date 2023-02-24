@@ -4,13 +4,13 @@
 #include maps\mp\gametypes_zm\_hud_util;
 #include maps\mp\gametypes_zm\_hud_message;
 
-#include scripts/zm/replaced/_zm;
-#include scripts/zm/replaced/_zm_audio_announcer;
-#include scripts/zm/replaced/_zm_game_module;
-#include scripts/zm/replaced/_zm_gametype;
-#include scripts/zm/replaced/_zm_blockers;
-#include scripts/zm/replaced/zgrief;
-#include scripts/zm/replaced/zmeat;
+#include scripts\zm\replaced\_zm;
+#include scripts\zm\replaced\_zm_audio_announcer;
+#include scripts\zm\replaced\_zm_game_module;
+#include scripts\zm\replaced\_zm_gametype;
+#include scripts\zm\replaced\_zm_blockers;
+#include scripts\zm\replaced\zgrief;
+#include scripts\zm\replaced\zmeat;
 
 main()
 {
@@ -19,18 +19,18 @@ main()
 		return;
 	}
 
-	replaceFunc(maps/mp/zombies/_zm::getfreespawnpoint, scripts/zm/replaced/_zm::getfreespawnpoint);
-	replaceFunc(maps/mp/gametypes_zm/_zm_gametype::onspawnplayer, scripts/zm/replaced/_zm_gametype::onspawnplayer);
-	replaceFunc(maps/mp/gametypes_zm/_zm_gametype::onplayerspawned, scripts/zm/replaced/_zm_gametype::onplayerspawned);
-	replaceFunc(maps/mp/gametypes_zm/_zm_gametype::hide_gump_loading_for_hotjoiners, scripts/zm/replaced/_zm_gametype::hide_gump_loading_for_hotjoiners);
-	replaceFunc(maps/mp/zombies/_zm_audio_announcer::playleaderdialogonplayer, scripts/zm/replaced/_zm_audio_announcer::playleaderdialogonplayer);
-	replaceFunc(maps/mp/zombies/_zm_game_module::wait_for_team_death_and_round_end, scripts/zm/replaced/_zm_game_module::wait_for_team_death_and_round_end);
-	replaceFunc(maps/mp/zombies/_zm_blockers::handle_post_board_repair_rewards, scripts/zm/replaced/_zm_blockers::handle_post_board_repair_rewards);
-	replaceFunc(maps/mp/gametypes_zm/zgrief::meat_stink_on_ground, scripts/zm/replaced/zgrief::meat_stink_on_ground);
-	replaceFunc(maps/mp/gametypes_zm/zgrief::meat_stink_player, scripts/zm/replaced/zgrief::meat_stink_player);
-	replaceFunc(maps/mp/gametypes_zm/zmeat::item_meat_watch_trigger, scripts/zm/replaced/zmeat::item_meat_watch_trigger);
-	replaceFunc(maps/mp/gametypes_zm/zmeat::kick_meat_monitor, scripts/zm/replaced/zmeat::kick_meat_monitor);
-	replaceFunc(maps/mp/gametypes_zm/zmeat::last_stand_meat_nudge, scripts/zm/replaced/zmeat::last_stand_meat_nudge);
+	replaceFunc(maps\mp\zombies\_zm::getfreespawnpoint, scripts\zm\replaced\_zm::getfreespawnpoint);
+	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::onspawnplayer, scripts\zm\replaced\_zm_gametype::onspawnplayer);
+	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::onplayerspawned, scripts\zm\replaced\_zm_gametype::onplayerspawned);
+	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::hide_gump_loading_for_hotjoiners, scripts\zm\replaced\_zm_gametype::hide_gump_loading_for_hotjoiners);
+	replaceFunc(maps\mp\zombies\_zm_audio_announcer::playleaderdialogonplayer, scripts\zm\replaced\_zm_audio_announcer::playleaderdialogonplayer);
+	replaceFunc(maps\mp\zombies\_zm_game_module::wait_for_team_death_and_round_end, scripts\zm\replaced\_zm_game_module::wait_for_team_death_and_round_end);
+	replaceFunc(maps\mp\zombies\_zm_blockers::handle_post_board_repair_rewards, scripts\zm\replaced\_zm_blockers::handle_post_board_repair_rewards);
+	replaceFunc(maps\mp\gametypes_zm\zgrief::meat_stink_on_ground, scripts\zm\replaced\zgrief::meat_stink_on_ground);
+	replaceFunc(maps\mp\gametypes_zm\zgrief::meat_stink_player, scripts\zm\replaced\zgrief::meat_stink_player);
+	replaceFunc(maps\mp\gametypes_zm\zmeat::item_meat_watch_trigger, scripts\zm\replaced\zmeat::item_meat_watch_trigger);
+	replaceFunc(maps\mp\gametypes_zm\zmeat::kick_meat_monitor, scripts\zm\replaced\zmeat::kick_meat_monitor);
+	replaceFunc(maps\mp\gametypes_zm\zmeat::last_stand_meat_nudge, scripts\zm\replaced\zmeat::last_stand_meat_nudge);
 }
 
 init()
@@ -327,7 +327,7 @@ set_grief_vars()
 	level._game_module_player_damage_callback = ::game_module_player_damage_callback;
 	level._game_module_player_laststand_callback = ::grief_laststand_weapon_save;
 	level.onplayerspawned_restore_previous_weapons = ::grief_laststand_weapons_return;
-	level.game_mode_spawn_player_logic = scripts/zm/replaced/zgrief::game_mode_spawn_player_logic;
+	level.game_mode_spawn_player_logic = scripts\zm\replaced\zgrief::game_mode_spawn_player_logic;
 
 	if(isDefined(level.zombie_weapons["knife_ballistic_zm"]))
 	{
@@ -648,7 +648,7 @@ player_spawn_override()
 
 		// set new initial spawns to be same as respawns already on map
 		ind = 0;
-		respawnpoints = maps/mp/gametypes_zm/_zm_gametype::get_player_spawns_for_gametype();
+		respawnpoints = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
 		for(i = 0; i < respawnpoints.size; i++)
 		{
 			if(respawnpoints[i].script_noteworthy == "zone_stables")
@@ -720,7 +720,7 @@ grief_onplayerconnect()
 	self thread on_player_revived();
 	self thread headstomp_watcher();
 	self thread smoke_grenade_cluster_watcher();
-	self thread maps/mp/gametypes_zm/zmeat::create_item_meat_watcher();
+	self thread maps\mp\gametypes_zm\zmeat::create_item_meat_watcher();
 	self.killsconfirmed = 0;
 
 	if(level.scr_zm_ui_gametype_obj == "zgrief" || level.scr_zm_ui_gametype_obj == "zcontainment")
@@ -755,7 +755,7 @@ grief_onplayerdisconnect(disconnecting_player)
 
 	if(level.scr_zm_ui_gametype_obj == "zgrief")
 	{
-		if(disconnecting_player maps/mp/zombies/_zm_laststand::player_is_in_laststand())
+		if(disconnecting_player maps\mp\zombies\_zm_laststand::player_is_in_laststand())
 		{
 			increment_score(getOtherTeam(disconnecting_player.team));
 		}
@@ -779,7 +779,7 @@ grief_onplayerdisconnect(disconnecting_player)
 			encounters_team = "B";
 		}
 
-		scripts/zm/replaced/_zm_game_module::game_won(encounters_team);
+		scripts\zm\replaced\_zm_game_module::game_won(encounters_team);
 
 		return;
 	}
@@ -876,7 +876,7 @@ on_player_bleedout()
 
 		if(is_respawn_gamemode())
 		{
-			self maps/mp/zombies/_zm::spectator_respawn();
+			self maps\mp\zombies\_zm::spectator_respawn();
 			self.revives--;
 		}
 	}
@@ -933,8 +933,8 @@ add_grief_downed_score()
 {
 	if(isDefined(self.last_griefed_by) && is_player_valid(self.last_griefed_by.attacker))
 	{
-		score = level.downed_award_points * maps/mp/zombies/_zm_score::get_points_multiplier(self.last_griefed_by.attacker);
-		self.last_griefed_by.attacker maps/mp/zombies/_zm_score::add_to_player_score(score);
+		score = level.downed_award_points * maps\mp\zombies\_zm_score::get_points_multiplier(self.last_griefed_by.attacker);
+		self.last_griefed_by.attacker maps\mp\zombies\_zm_score::add_to_player_score(score);
 	}
 }
 
@@ -945,8 +945,8 @@ add_grief_bleedout_score()
 	{
 		if(is_player_valid(player) && player.team != self.team)
 		{
-			score = level.bleedout_award_points * maps/mp/zombies/_zm_score::get_points_multiplier(player);
-			player maps/mp/zombies/_zm_score::add_to_player_score(score);
+			score = level.bleedout_award_points * maps\mp\zombies\_zm_score::get_points_multiplier(player);
+			player maps\mp\zombies\_zm_score::add_to_player_score(score);
 		}
 	}
 }
@@ -1126,7 +1126,7 @@ round_start_countdown_hud(time)
 		level.countdown_hud.foreground = 1;
 		level.countdown_hud.color = ( 1, 1, 0 );
 		level.countdown_hud.hidewheninmenu = true;
-		level.countdown_hud maps/mp/gametypes_zm/_hud::fontpulseinit();
+		level.countdown_hud maps\mp\gametypes_zm\_hud::fontpulseinit();
 		level.countdown_hud thread round_start_countdown_hud_end_game_watcher();
 
 		level.countdown_hud.countdown_text = createServerFontString( "objective", 1.5 );
@@ -1175,7 +1175,7 @@ round_start_countdown_hud_timer(time)
 	while(time > 0)
 	{
 		self setvalue(time);
-		self thread maps/mp/gametypes_zm/_hud::fontpulse(level);
+		self thread maps\mp\gametypes_zm\_hud::fontpulse(level);
 		wait 1;
 		time--;
 	}
@@ -1267,7 +1267,7 @@ update_players_on_downed(excluded_player)
 	{
 		if(isDefined(last_player))
 		{
-			last_player thread maps/mp/zombies/_zm_audio_announcer::leaderdialogonplayer( "last_player" );
+			last_player thread maps\mp\zombies\_zm_audio_announcer::leaderdialogonplayer( "last_player" );
 		}
 	}
 
@@ -1276,7 +1276,7 @@ update_players_on_downed(excluded_player)
 		return;
 	}
 
-	level thread maps/mp/zombies/_zm_audio_announcer::leaderdialog( players_remaining + "_player_left", other_team );
+	level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog( players_remaining + "_player_left", other_team );
 }
 
 update_players_on_bleedout(excluded_player)
@@ -1315,7 +1315,7 @@ update_players_on_bleedout(excluded_player)
 		return;
 	}
 
-	level thread maps/mp/zombies/_zm_audio_announcer::leaderdialog(team_bledout + "_player_down", other_team);
+	level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog(team_bledout + "_player_down", other_team);
 }
 
 update_players_on_disconnect(excluded_player)
@@ -1643,7 +1643,7 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 		}
 	}
 
-	if ( self maps/mp/zombies/_zm_laststand::player_is_in_laststand() )
+	if ( self maps\mp\zombies\_zm_laststand::player_is_in_laststand() )
 	{
 		return;
 	}
@@ -1654,14 +1654,14 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 		{
 			if ( is_true( self.hasriotshieldequipped ) )
 			{
-				if ( self maps/mp/zombies/_zm::player_shield_facing_attacker( vdir, 0.2 ) && isDefined( self.player_shield_apply_damage ) )
+				if ( self maps\mp\zombies\_zm::player_shield_facing_attacker( vdir, 0.2 ) && isDefined( self.player_shield_apply_damage ) )
 				{
 					return;
 				}
 			}
 			else if ( !isdefined( self.riotshieldentity ) )
 			{
-				if ( !self maps/mp/zombies/_zm::player_shield_facing_attacker( vdir, -0.2 ) && isdefined( self.player_shield_apply_damage ) )
+				if ( !self maps\mp\zombies\_zm::player_shield_facing_attacker( vdir, -0.2 ) && isdefined( self.player_shield_apply_damage ) )
 				{
 					return;
 				}
@@ -1681,7 +1681,7 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 			dir = vdir;
 			amount = 420; // 48 units
 
-			if(self maps/mp/zombies/_zm_laststand::is_reviving_any())
+			if(self maps\mp\zombies\_zm_laststand::is_reviving_any())
 			{
 				is_reviving = true;
 
@@ -1762,7 +1762,7 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 			score = level.stun_melee_award_points;
 		}
 
-		score *= maps/mp/zombies/_zm_score::get_points_multiplier(eattacker);
+		score *= maps\mp\zombies\_zm_score::get_points_multiplier(eattacker);
 		self stun_score_steal(eattacker, score);
 
 		if(!is_melee)
@@ -1811,16 +1811,16 @@ stun_score_steal(attacker, score)
 {
 	if(is_player_valid(attacker))
 	{
-		attacker maps/mp/zombies/_zm_score::add_to_player_score(score);
+		attacker maps\mp\zombies\_zm_score::add_to_player_score(score);
 	}
 
 	if(self.score < score)
 	{
-		self maps/mp/zombies/_zm_score::minus_to_player_score(self.score);
+		self maps\mp\zombies\_zm_score::minus_to_player_score(self.score);
 	}
 	else
 	{
-		self maps/mp/zombies/_zm_score::minus_to_player_score(score);
+		self maps\mp\zombies\_zm_score::minus_to_player_score(score);
 	}
 }
 
@@ -1873,7 +1873,7 @@ grief_laststand_weapon_save( einflictor, attacker, idamage, smeansofdeath, sweap
 	// can't switch to alt weapon
 	if(is_alt_weapon(self.grief_savedweapon_currentweapon))
 	{
-		self.grief_savedweapon_currentweapon = maps/mp/zombies/_zm_weapons::get_nonalternate_weapon(self.grief_savedweapon_currentweapon);
+		self.grief_savedweapon_currentweapon = maps\mp\zombies\_zm_weapons::get_nonalternate_weapon(self.grief_savedweapon_currentweapon);
 	}
 
 	for ( i = 0; i < self.grief_savedweapon_weapons.size; i++ )
@@ -1944,7 +1944,7 @@ grief_laststand_weapons_return()
 			continue;
 		}
 
-		self giveweapon( self.grief_savedweapon_weapons[ i ], 0, self maps/mp/zombies/_zm_weapons::get_pack_a_punch_weapon_options( self.grief_savedweapon_weapons[ i ] ) );
+		self giveweapon( self.grief_savedweapon_weapons[ i ], 0, self maps\mp\zombies\_zm_weapons::get_pack_a_punch_weapon_options( self.grief_savedweapon_weapons[ i ] ) );
 
 		if ( isdefined( self.grief_savedweapon_weaponsammo_clip[ i ] ) )
 		{
@@ -1983,7 +1983,7 @@ grief_laststand_weapons_return()
 			self.perks_active = [];
 			foreach(perk in self.grief_savedperks)
 			{
-				self maps/mp/zombies/_zm_perks::give_perk(perk);
+				self maps\mp\zombies\_zm_perks::give_perk(perk);
 			}
 		}
 	}
@@ -2076,13 +2076,13 @@ grief_laststand_items_return()
 
 	if ( isDefined( self.current_equipment ) )
 	{
-		self maps/mp/zombies/_zm_equipment::equipment_take( self.current_equipment );
+		self maps\mp\zombies\_zm_equipment::equipment_take( self.current_equipment );
 	}
 
 	if ( isDefined( self.grief_savedweapon_equipment ) )
 	{
 		self.do_not_display_equipment_pickup_hint = 1;
-		self maps/mp/zombies/_zm_equipment::equipment_give( self.grief_savedweapon_equipment );
+		self maps\mp\zombies\_zm_equipment::equipment_give( self.grief_savedweapon_equipment );
 		self.do_not_display_equipment_pickup_hint = undefined;
 	}
 
@@ -2189,7 +2189,7 @@ player_suicide()
 
 	wait_network_frame();
 
-	self maps/mp/zombies/_zm_laststand::bleed_out();
+	self maps\mp\zombies\_zm_laststand::bleed_out();
 	self.playersuicided = undefined;
 }
 
@@ -2274,9 +2274,9 @@ race_think()
 		setroundsplayed(level.round_number);
 
 		level.old_music_state = undefined;
-		level thread maps/mp/zombies/_zm_audio::change_zombie_music("round_end");
+		level thread maps\mp\zombies\_zm_audio::change_zombie_music("round_end");
 
-		maps/mp/zombies/_zm::ai_calculate_health(level.round_number);
+		maps\mp\zombies\_zm::ai_calculate_health(level.round_number);
 
 		level.zombie_move_speed = level.zombie_starting_move_speed + ((level.round_number - 1) * level.zombie_vars["zombie_move_speed_multiplier"]);
 
@@ -2304,14 +2304,14 @@ race_think()
 			}
 		}
 
-		maps/mp/zombies/_zm::award_grenades_for_survivors();
+		maps\mp\zombies\_zm::award_grenades_for_survivors();
 		players = get_players();
 		foreach(player in players)
 		{
 			if(is_player_valid(player))
 			{
-				score = level.race_round_increment_points * maps/mp/zombies/_zm_score::get_points_multiplier(player);
-				player maps/mp/zombies/_zm_score::add_to_player_score(score);
+				score = level.race_round_increment_points * maps\mp\zombies\_zm_score::get_points_multiplier(player);
+				player maps\mp\zombies\_zm_score::add_to_player_score(score);
 			}
 
 			if(isDefined(player get_player_placeable_mine()))
@@ -2485,7 +2485,7 @@ containment_think()
 	while(1)
 	{
 		zone_name = level.containment_zones[i];
-		zone_display_name = scripts/zm/_zm_reimagined::get_zone_display_name(zone_name);
+		zone_display_name = scripts\zm\_zm_reimagined::get_zone_display_name(zone_name);
 		zone = level.zones[zone_name];
 
 		players = get_players();
@@ -2497,7 +2497,7 @@ containment_think()
 		level.containment_zone_hud setText(zone_display_name);
 		level.containment_time_hud setTimer(level.containment_time);
 
-		spawn_points = maps/mp/gametypes_zm/_zm_gametype::get_player_spawns_for_gametype();
+		spawn_points = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
 		foreach(spawn_point in spawn_points)
 		{
 			if(spawn_point.script_noteworthy == zone_name)
@@ -2710,8 +2710,8 @@ containment_think()
 					{
 						foreach(player in in_containment_zone["axis"])
 						{
-							score = level.containment_points * maps/mp/zombies/_zm_score::get_points_multiplier(player);
-							player maps/mp/zombies/_zm_score::add_to_player_score(score);
+							score = level.containment_points * maps\mp\zombies\_zm_score::get_points_multiplier(player);
+							player maps\mp\zombies\_zm_score::add_to_player_score(score);
 						}
 
 						increment_score("axis");
@@ -2730,8 +2730,8 @@ containment_think()
 					{
 						foreach(player in in_containment_zone["allies"])
 						{
-							score = level.containment_points * maps/mp/zombies/_zm_score::get_points_multiplier(player);
-							player maps/mp/zombies/_zm_score::add_to_player_score(score);
+							score = level.containment_points * maps\mp\zombies\_zm_score::get_points_multiplier(player);
+							player maps\mp\zombies\_zm_score::add_to_player_score(score);
 						}
 
 						increment_score("allies");
@@ -2762,7 +2762,7 @@ containment_think()
 			}
 		}
 
-		spawn_points = maps/mp/gametypes_zm/_zm_gametype::get_player_spawns_for_gametype();
+		spawn_points = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
 		foreach(spawn_point in spawn_points)
 		{
 			if(spawn_point.script_noteworthy == zone_name)
@@ -2799,14 +2799,14 @@ increment_score(team)
 
 	if(level.grief_score[encounters_team] >= level.grief_winning_score)
 	{
-		scripts/zm/replaced/_zm_game_module::game_won(encounters_team);
+		scripts\zm\replaced\_zm_game_module::game_won(encounters_team);
 	}
 
 	if(level.scr_zm_ui_gametype_obj == "zgrief")
 	{
 		if(level.grief_score[encounters_team] <= 3)
 		{
-			level thread maps/mp/zombies/_zm_audio_announcer::leaderdialog(level.grief_score[encounters_team] + "_player_down", team);
+			level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog(level.grief_score[encounters_team] + "_player_down", team);
 		}
 		else
 		{
@@ -2820,7 +2820,7 @@ increment_score(team)
 					player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_PLAYER_BLED_OUT", score_left);
 				}
 
-				level thread maps/mp/zombies/_zm_audio_announcer::leaderdialog(score_left + "_player_left", team);
+				level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog(score_left + "_player_left", team);
 			}
 		}
 	}

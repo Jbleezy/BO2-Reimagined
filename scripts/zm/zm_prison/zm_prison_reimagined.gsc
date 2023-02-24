@@ -1,26 +1,26 @@
 #include maps\mp\_utility;
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
-#include maps/mp/zm_alcatraz_utility;
+#include maps\mp\zm_alcatraz_utility;
 
-#include scripts/zm/replaced/zm_alcatraz_classic;
-#include scripts/zm/replaced/_zm_afterlife;
-#include scripts/zm/replaced/_zm_ai_brutus;
+#include scripts\zm\replaced\zm_alcatraz_classic;
+#include scripts\zm\replaced\_zm_afterlife;
+#include scripts\zm\replaced\_zm_ai_brutus;
 
 main()
 {
-	replaceFunc(maps/mp/zm_alcatraz_classic::give_afterlife, scripts/zm/replaced/zm_alcatraz_classic::give_afterlife);
-	replaceFunc(maps/mp/zombies/_zm_afterlife::afterlife_add, scripts/zm/replaced/_zm_afterlife::afterlife_add);
-	replaceFunc(maps/mp/zombies/_zm_ai_brutus::brutus_spawn, scripts/zm/replaced/_zm_ai_brutus::brutus_spawn);
-	replaceFunc(maps/mp/zombies/_zm_ai_brutus::brutus_health_increases, scripts/zm/replaced/_zm_ai_brutus::brutus_health_increases);
-	replaceFunc(maps/mp/zombies/_zm_ai_brutus::brutus_cleanup_at_end_of_grief_round, scripts/zm/replaced/_zm_ai_brutus::brutus_cleanup_at_end_of_grief_round);
+	replaceFunc(maps\mp\zm_alcatraz_classic::give_afterlife, scripts\zm\replaced\zm_alcatraz_classic::give_afterlife);
+	replaceFunc(maps\mp\zombies\_zm_afterlife::afterlife_add, scripts\zm\replaced\_zm_afterlife::afterlife_add);
+	replaceFunc(maps\mp\zombies\_zm_ai_brutus::brutus_spawn, scripts\zm\replaced\_zm_ai_brutus::brutus_spawn);
+	replaceFunc(maps\mp\zombies\_zm_ai_brutus::brutus_health_increases, scripts\zm\replaced\_zm_ai_brutus::brutus_health_increases);
+	replaceFunc(maps\mp\zombies\_zm_ai_brutus::brutus_cleanup_at_end_of_grief_round, scripts\zm\replaced\_zm_ai_brutus::brutus_cleanup_at_end_of_grief_round);
 }
 
 init()
 {
 	level.zombie_init_done = ::zombie_init_done;
 	level.special_weapon_magicbox_check = ::check_for_special_weapon_limit_exist;
-	level.round_prestart_func = scripts/zm/replaced/_zm_afterlife::afterlife_start_zombie_logic;
+	level.round_prestart_func = scripts\zm\replaced\_zm_afterlife::afterlife_start_zombie_logic;
 
 	remove_acid_trap_player_spawn();
 
@@ -48,7 +48,7 @@ check_for_special_weapon_limit_exist(weapon)
 	count = 0;
 	if ( weapon == "blundergat_zm" )
 	{
-		if ( self maps/mp/zombies/_zm_weapons::has_weapon_or_upgrade( "blundersplat_zm" ) )
+		if ( self maps\mp\zombies\_zm_weapons::has_weapon_or_upgrade( "blundersplat_zm" ) )
 		{
 			return 0;
 		}
@@ -71,7 +71,7 @@ check_for_special_weapon_limit_exist(weapon)
 	{
 		if ( weapon == "blundergat_zm" )
 		{
-			if ( players[ i ] maps/mp/zombies/_zm_weapons::has_weapon_or_upgrade( "blundersplat_zm" ) || isDefined( players[ i ].is_pack_splatting ) && players[ i ].is_pack_splatting )
+			if ( players[ i ] maps\mp\zombies\_zm_weapons::has_weapon_or_upgrade( "blundersplat_zm" ) || isDefined( players[ i ].is_pack_splatting ) && players[ i ].is_pack_splatting )
 			{
 				count++;
 				i++;
@@ -96,7 +96,7 @@ check_for_special_weapon_limit_exist(weapon)
 
 remove_acid_trap_player_spawn()
 {
-	spawn_points = maps/mp/gametypes_zm/_zm_gametype::get_player_spawns_for_gametype();
+	spawn_points = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
 	foreach(spawn_point in spawn_points)
 	{
 		if(spawn_point.script_noteworthy == "zone_cafeteria")
@@ -231,7 +231,7 @@ tower_trap_magicbullet_think( org, target, zombietarget )
 		{
 			if ( !isDefined( target.no_gib ) || !target.no_gib )
 			{
-				target maps/mp/zombies/_zm_spawner::zombie_head_gib();
+				target maps\mp\zombies\_zm_spawner::zombie_head_gib();
 			}
 			target dodamage( target.health + 1000, target.origin );
 		}
@@ -301,6 +301,6 @@ plane_auto_refuel()
 
 		wait 0.05;
 
-		scripts/zm/_zm_reimagined::buildcraftable( "refuelable_plane" );
+		scripts\zm\_zm_reimagined::buildcraftable( "refuelable_plane" );
 	}
 }

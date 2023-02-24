@@ -1,12 +1,12 @@
-#include maps/mp/_utility;
-#include maps/mp/zombies/_zm_utility;
-#include common_scripts/utility;
+#include maps\mp\_utility;
+#include maps\mp\zombies\_zm_utility;
+#include common_scripts\utility;
 
 init()
 {
 	level.enemy_location_override_func = ::enemy_location_override;
 	flag_wait( "initial_blackscreen_passed" );
-	maps/mp/zombies/_zm_game_module::turn_power_on_and_open_doors();
+	maps\mp\zombies\_zm_game_module::turn_power_on_and_open_doors();
 	flag_wait( "start_zombie_round_logic" );
 	wait 1;
 	level notify( "revive_on" );

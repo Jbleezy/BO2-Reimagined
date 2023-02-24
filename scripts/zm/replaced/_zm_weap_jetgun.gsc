@@ -1,7 +1,7 @@
 #include maps\mp\_utility;
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
-#include maps/mp/zombies/_zm_weap_jetgun;
+#include maps\mp\zombies\_zm_weap_jetgun;
 
 is_jetgun_firing()
 {
@@ -105,7 +105,7 @@ jetgun_grind_zombie( player )
 		}
 		self.nodeathragdoll = 1;
 		self.handle_death_notetracks = ::jetgun_handle_death_notetracks;
-        player maps/mp/zombies/_zm_score::add_to_player_score(50 * maps/mp/zombies/_zm_score::get_points_multiplier(player));
+        player maps\mp\zombies\_zm_score::add_to_player_score(50 * maps\mp\zombies\_zm_score::get_points_multiplier(player));
 		self dodamage( self.health + 666, player.origin, player );
 	}
 }
@@ -123,20 +123,20 @@ handle_overheated_jetgun()
 
 			if ( isDefined( level.explode_overheated_jetgun ) && level.explode_overheated_jetgun )
 			{
-				self thread maps/mp/zombies/_zm_equipment::equipment_release( "jetgun_zm" );
+				self thread maps\mp\zombies\_zm_equipment::equipment_release( "jetgun_zm" );
 				pcount = get_players().size;
 				pickup_time = 360 / pcount;
-				maps/mp/zombies/_zm_buildables::player_explode_buildable( "jetgun_zm", weapon_org, 250, 1, pickup_time );
+				maps\mp\zombies\_zm_buildables::player_explode_buildable( "jetgun_zm", weapon_org, 250, 1, pickup_time );
 			}
 			else if ( isDefined( level.unbuild_overheated_jetgun ) && level.unbuild_overheated_jetgun )
 			{
-                self thread maps/mp/zombies/_zm_equipment::equipment_release( "jetgun_zm" );
-                maps/mp/zombies/_zm_buildables::unbuild_buildable( "jetgun_zm", 1 );
+                self thread maps\mp\zombies\_zm_equipment::equipment_release( "jetgun_zm" );
+                maps\mp\zombies\_zm_buildables::unbuild_buildable( "jetgun_zm", 1 );
                 self dodamage( 50, weapon_org );
 			}
             else if ( isDefined( level.take_overheated_jetgun ) && level.take_overheated_jetgun )
             {
-                self thread maps/mp/zombies/_zm_equipment::equipment_release( "jetgun_zm" );
+                self thread maps\mp\zombies\_zm_equipment::equipment_release( "jetgun_zm" );
                 self dodamage( 50, weapon_org );
             }
             else

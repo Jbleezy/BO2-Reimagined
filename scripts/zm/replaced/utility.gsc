@@ -1,15 +1,15 @@
-#include maps/mp/zombies/_load;
-#include maps/mp/_utility;
-#include common_scripts/utility;
-#include maps/mp/zombies/_zm_zonemgr;
-#include maps/mp/gametypes_zm/_zm_gametype;
-#include maps/mp/zombies/_zm_utility;
-#include maps/mp/zombies/_zm_weapons;
-#include maps/mp/zombies/_zm_melee_weapon;
-#include maps/mp/zombies/_zm_weap_claymore;
-#include maps/mp/zombies/_zm_weap_ballistic_knife;
-#include maps/mp/zombies/_zm_equipment;
-#include maps/mp/zombies/_zm_magicbox;
+#include maps\mp\zombies\_load;
+#include maps\mp\_utility;
+#include common_scripts\utility;
+#include maps\mp\zombies\_zm_zonemgr;
+#include maps\mp\gametypes_zm\_zm_gametype;
+#include maps\mp\zombies\_zm_utility;
+#include maps\mp\zombies\_zm_weapons;
+#include maps\mp\zombies\_zm_melee_weapon;
+#include maps\mp\zombies\_zm_weap_claymore;
+#include maps\mp\zombies\_zm_weap_ballistic_knife;
+#include maps\mp\zombies\_zm_equipment;
+#include maps\mp\zombies\_zm_magicbox;
 
 struct_class_init()
 {
@@ -231,7 +231,7 @@ wallbuy( weapon_name, target, targetname, origin, angles )
 	unitrigger_stub.require_look_at = 1;
 	unitrigger_stub.require_look_from = 0;
 	unitrigger_stub.zombie_weapon_upgrade = weapon_name;
-	maps/mp/zombies/_zm_unitrigger::unitrigger_force_per_player_triggers( unitrigger_stub, 1 );
+	maps\mp\zombies\_zm_unitrigger::unitrigger_force_per_player_triggers( unitrigger_stub, 1 );
 
 	if ( is_melee_weapon( weapon_name ) )
 	{
@@ -275,20 +275,20 @@ wallbuy( weapon_name, target, targetname, origin, angles )
 
 		wallmodel.origin += anglesToForward(angles) * -8; // _zm_melee_weapon::melee_weapon_show moves this back
 
-		maps/mp/zombies/_zm_unitrigger::register_static_unitrigger( unitrigger_stub, ::melee_weapon_think );
+		maps\mp\zombies\_zm_unitrigger::register_static_unitrigger( unitrigger_stub, ::melee_weapon_think );
 	}
 	else if ( weapon_name == "claymore_zm" )
 	{
 		wallmodel.angles += (0, 90, 0);
 		wallmodel.script_int = 90; // fix for model sliding right to left
 
-		unitrigger_stub.prompt_and_visibility_func = scripts/zm/replaced/_zm_weap_claymore::claymore_unitrigger_update_prompt;
-		maps/mp/zombies/_zm_unitrigger::register_static_unitrigger( unitrigger_stub, scripts/zm/replaced/_zm_weap_claymore::buy_claymores );
+		unitrigger_stub.prompt_and_visibility_func = scripts\zm\replaced\_zm_weap_claymore::claymore_unitrigger_update_prompt;
+		maps\mp\zombies\_zm_unitrigger::register_static_unitrigger( unitrigger_stub, scripts\zm\replaced\_zm_weap_claymore::buy_claymores );
 	}
 	else
 	{
 		unitrigger_stub.prompt_and_visibility_func = ::wall_weapon_update_prompt;
-		maps/mp/zombies/_zm_unitrigger::register_static_unitrigger( unitrigger_stub, ::weapon_spawn_think );
+		maps\mp\zombies\_zm_unitrigger::register_static_unitrigger( unitrigger_stub, ::weapon_spawn_think );
 	}
 
 	chalk_fx = weapon_name + "_fx";

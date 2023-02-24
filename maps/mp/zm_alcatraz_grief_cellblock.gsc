@@ -1,16 +1,16 @@
-#include maps/mp/gametypes_zm/zmeat;
-#include maps/mp/zm_alcatraz_traps;
-#include maps/mp/zombies/_zm_game_module;
-#include maps/mp/zombies/_zm_blockers;
-#include maps/mp/zombies/_zm_ai_brutus;
-#include maps/mp/gametypes_zm/_zm_gametype;
-#include maps/mp/zombies/_zm_magicbox;
-#include maps/mp/zombies/_zm_weapons;
-#include maps/mp/zm_prison;
-#include maps/mp/zombies/_zm_race_utility;
-#include maps/mp/zombies/_zm_utility;
-#include common_scripts/utility;
-#include maps/mp/_utility;
+#include maps\mp\gametypes_zm\zmeat;
+#include maps\mp\zm_alcatraz_traps;
+#include maps\mp\zombies\_zm_game_module;
+#include maps\mp\zombies\_zm_blockers;
+#include maps\mp\zombies\_zm_ai_brutus;
+#include maps\mp\gametypes_zm\_zm_gametype;
+#include maps\mp\zombies\_zm_magicbox;
+#include maps\mp\zombies\_zm_weapons;
+#include maps\mp\zm_prison;
+#include maps\mp\zombies\_zm_race_utility;
+#include maps\mp\zombies\_zm_utility;
+#include common_scripts\utility;
+#include maps\mp\_utility;
 
 precache()
 {
@@ -20,7 +20,7 @@ precache()
 zgrief_preinit()
 {
 	registerclientfield( "toplayer", "meat_stink", 1, 1, "int" );
-	level.givecustomloadout = maps/mp/zm_prison::givecustomloadout;
+	level.givecustomloadout = maps\mp\zm_prison::givecustomloadout;
 	zgrief_init();
 }
 
@@ -94,19 +94,19 @@ grief_treasure_chest_init()
 	level.chests = [];
 	level.chests[ level.chests.size ] = chest1;
 	level.chests[ level.chests.size ] = chest2;
-	maps/mp/zombies/_zm_magicbox::treasure_chest_init( "start_chest" );
+	maps\mp\zombies\_zm_magicbox::treasure_chest_init( "start_chest" );
 }
 
 main()
 {
-	maps/mp/gametypes_zm/_zm_gametype::setup_standard_objects( "cellblock" );
+	maps\mp\gametypes_zm\_zm_gametype::setup_standard_objects( "cellblock" );
 	grief_treasure_chest_init();
 	precacheshader( "zm_al_wth_zombie" );
 	array_thread( level.zombie_spawners, ::add_spawn_function, ::remove_zombie_hats_for_grief );
-	maps/mp/zombies/_zm_ai_brutus::precache();
-	maps/mp/zombies/_zm_ai_brutus::init();
+	maps\mp\zombies\_zm_ai_brutus::precache();
+	maps\mp\zombies\_zm_ai_brutus::init();
 	level.enemy_location_override_func = ::enemy_location_override;
-	level._effect[ "butterflies" ] = loadfx( "maps/zombie_alcatraz/fx_alcatraz_skull_elec" );
+	level._effect[ "butterflies" ] = loadfx( "maps\zombie_alcatraz\fx_alcatraz_skull_elec" );
 	a_t_door_triggers = getentarray( "zombie_door", "targetname" );
 	triggers = a_t_door_triggers;
 	i = 0;
@@ -145,7 +145,7 @@ main()
 		{
 			if ( t_door.script_flag == "activate_cellblock_east_west" || t_door.script_flag == "activate_cellblock_barber" )
 			{
-				t_door maps/mp/zombies/_zm_blockers::door_opened( self.zombie_cost );
+				t_door maps\mp\zombies\_zm_blockers::door_opened( self.zombie_cost );
 			}
 		}
 	}
@@ -325,10 +325,10 @@ main()
 		wait 0.1;
 	}
 	flag_wait( "initial_blackscreen_passed" );
-	maps/mp/zombies/_zm_game_module::turn_power_on_and_open_doors();
+	maps\mp\zombies\_zm_game_module::turn_power_on_and_open_doors();
 	flag_wait( "start_zombie_round_logic" );
-	level thread maps/mp/zm_alcatraz_traps::init_fan_trap_trigs();
-	level thread maps/mp/zm_alcatraz_traps::init_acid_trap_trigs();
+	level thread maps\mp\zm_alcatraz_traps::init_fan_trap_trigs();
+	level thread maps\mp\zm_alcatraz_traps::init_acid_trap_trigs();
 	wait 1;
 	level notify( "sleight_on" );
 	wait_network_frame();

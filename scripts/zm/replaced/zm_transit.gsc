@@ -23,7 +23,7 @@ lava_damage_depot()
 
 	flag_wait( "power_on" );
 
-	while ( !volume maps/mp/zm_transit::depot_lava_seen() )
+	while ( !volume maps\mp\zm_transit::depot_lava_seen() )
 	{
 		wait 0.05;
 	}

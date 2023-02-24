@@ -1,8 +1,8 @@
 #include maps\mp\_utility;
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
-#include maps/mp/zombies/_zm_ai_brutus;
-#include maps/mp/zombies/_zm_score;
+#include maps\mp\zombies\_zm_ai_brutus;
+#include maps\mp\zombies\_zm_score;
 
 brutus_spawn( starting_health, has_helmet, helmet_hits, explosive_dmg_taken, zone_name )
 {
@@ -66,10 +66,10 @@ brutus_spawn( starting_health, has_helmet, helmet_hits, explosive_dmg_taken, zon
 	self.allowpain = 0;
 	self animmode( "normal" );
 	self orientmode( "face enemy" );
-	self maps/mp/zombies/_zm_spawner::zombie_setup_attack_properties();
+	self maps\mp\zombies\_zm_spawner::zombie_setup_attack_properties();
 	self setfreecameralockonallowed( 0 );
-	level thread maps/mp/zombies/_zm_spawner::zombie_death_event( self );
-	self thread maps/mp/zombies/_zm_spawner::enemy_death_detection();
+	level thread maps\mp\zombies\_zm_spawner::zombie_death_event( self );
+	self thread maps\mp\zombies\_zm_spawner::enemy_death_detection();
 	if ( isDefined( zone_name ) && zone_name == "zone_golden_gate_bridge" )
 	{
 		wait randomfloat( 1.5 );
@@ -97,7 +97,7 @@ brutus_spawn( starting_health, has_helmet, helmet_hits, explosive_dmg_taken, zon
 		self detach( "c_zom_cellbreaker_helmet" );
 	}
 	level.brutus_count++;
-	self maps/mp/zombies/_zm_spawner::zombie_complete_emerging_into_playable_area();
+	self maps\mp\zombies\_zm_spawner::zombie_complete_emerging_into_playable_area();
 	self thread snddelayedmusic();
 	self thread brutus_death();
 	self thread brutus_check_zone();
@@ -111,13 +111,13 @@ brutus_spawn( starting_health, has_helmet, helmet_hits, explosive_dmg_taken, zon
 	playfx( level._effect[ "brutus_spawn" ], self.origin );
 	playsoundatposition( "zmb_ai_brutus_spawn", self.origin );
 	self animscripted( spawn_pos.origin, spawn_pos.angles, "zm_spawn" );
-	self thread maps/mp/animscripts/zm_shared::donotetracks( "spawn_anim" );
+	self thread maps\mp\animscripts\zm_shared::donotetracks( "spawn_anim" );
 	self waittillmatch( "spawn_anim" );
 	self.not_interruptable = 0;
 	self.cant_melee = 0;
 	self thread brutus_chest_flashlight();
 	self thread brutus_find_flesh();
-	self thread maps/mp/zombies/_zm_spawner::delayed_zombie_eye_glow();
+	self thread maps\mp\zombies\_zm_spawner::delayed_zombie_eye_glow();
 	level notify( "brutus_spawned", self, "spawn_complete" );
 	logline1 = "INFO: _zm_ai_brutus.gsc brutus_spawn() completed its operation " + "\n";
 	logprint( logline1 );
@@ -170,7 +170,7 @@ brutus_damage_override( inflictor, attacker, damage, flags, meansofdeath, weapon
 				}
 				else
 				{
-					multiplier = maps/mp/zombies/_zm_score::get_points_multiplier( self );
+					multiplier = maps\mp\zombies\_zm_score::get_points_multiplier( self );
 					player_points = multiplier * round_up_score( level.brutus_points_for_helmet, 5 );
 				}
 				if ( isDefined( attacker ) && isplayer( attacker ) )
@@ -192,7 +192,7 @@ brutus_damage_override( inflictor, attacker, damage, flags, meansofdeath, weapon
 		if ( weapon == "alcatraz_shield_zm" )
 		{
 			shield_damage = level.zombie_vars[ "riotshield_fling_damage_shield" ];
-			inflictor maps/mp/zombies/_zm_weap_riotshield_prison::player_damage_shield( shield_damage, 0 );
+			inflictor maps\mp\zombies\_zm_weap_riotshield_prison::player_damage_shield( shield_damage, 0 );
 			return 0;
 		}
 	}
@@ -221,7 +221,7 @@ brutus_damage_override( inflictor, attacker, damage, flags, meansofdeath, weapon
 			}
 			else
 			{
-				multiplier = maps/mp/zombies/_zm_score::get_points_multiplier( self );
+				multiplier = maps\mp\zombies\_zm_score::get_points_multiplier( self );
 				player_points = multiplier * round_up_score( level.brutus_points_for_helmet, 5 );
 			}
 			attacker add_to_player_score( player_points );

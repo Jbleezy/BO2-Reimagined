@@ -1,7 +1,7 @@
 #include maps\mp\_utility;
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
-#include maps/mp/zombies/_zm_spawner;
+#include maps\mp\zombies\_zm_spawner;
 
 zombie_damage( mod, hit_location, hit_origin, player, amount, team )
 {
@@ -31,18 +31,18 @@ zombie_damage( mod, hit_location, hit_origin, player, amount, team )
 		self.damagehit_origin = player getweaponmuzzlepoint();
 	}
 
-	if ( self maps/mp/zombies/_zm_spawner::check_zombie_damage_callbacks( mod, hit_location, hit_origin, player, amount ) )
+	if ( self maps\mp\zombies\_zm_spawner::check_zombie_damage_callbacks( mod, hit_location, hit_origin, player, amount ) )
 	{
 		return;
 	}
-	else if ( self maps/mp/zombies/_zm_spawner::zombie_flame_damage( mod, player ) )
+	else if ( self maps\mp\zombies\_zm_spawner::zombie_flame_damage( mod, player ) )
 	{
-		if ( self maps/mp/zombies/_zm_spawner::zombie_give_flame_damage_points() )
+		if ( self maps\mp\zombies\_zm_spawner::zombie_give_flame_damage_points() )
 		{
-			player maps/mp/zombies/_zm_score::player_add_points( "damage", mod, hit_location, self.isdog, team );
+			player maps\mp\zombies\_zm_score::player_add_points( "damage", mod, hit_location, self.isdog, team );
 		}
 	}
-	else if ( maps/mp/zombies/_zm_spawner::player_using_hi_score_weapon( player ) )
+	else if ( maps\mp\zombies\_zm_spawner::player_using_hi_score_weapon( player ) )
 	{
 		damage_type = "damage";
 	}
@@ -53,7 +53,7 @@ zombie_damage( mod, hit_location, hit_origin, player, amount, team )
 
 	if ( !is_true( self.no_damage_points ) )
 	{
-		player maps/mp/zombies/_zm_score::player_add_points( damage_type, mod, hit_location, self.isdog, team, self.damageweapon );
+		player maps\mp\zombies\_zm_score::player_add_points( damage_type, mod, hit_location, self.isdog, team, self.damageweapon );
 	}
 
 	if ( isDefined( self.zombie_damage_fx_func ) )
@@ -137,7 +137,7 @@ zombie_damage( mod, hit_location, hit_origin, player, amount, team )
 			rand = randomintrange( 0, 100 );
 			if ( rand < 10 )
 			{
-				player maps/mp/zombies/_zm_audio::create_and_play_dialog( "general", "crawl_spawn" );
+				player maps\mp\zombies\_zm_audio::create_and_play_dialog( "general", "crawl_spawn" );
 			}
 		}
 	}
@@ -152,14 +152,14 @@ zombie_damage( mod, hit_location, hit_origin, player, amount, team )
 					rand = randomintrange( 0, 100 );
 					if ( rand < 7 )
 					{
-						player maps/mp/zombies/_zm_audio::create_and_play_dialog( "general", "shoot_arm" );
+						player maps\mp\zombies\_zm_audio::create_and_play_dialog( "general", "shoot_arm" );
 					}
 				}
 			}
 		}
 	}
 
-	self thread maps/mp/zombies/_zm_powerups::check_for_instakill( player, mod, hit_location );
+	self thread maps\mp\zombies\_zm_powerups::check_for_instakill( player, mod, hit_location );
 }
 
 head_should_gib( attacker, type, point )
@@ -211,7 +211,7 @@ head_should_gib( attacker, type, point )
         }
     }
 
-	if ( !self maps/mp/animscripts/zm_utility::damagelocationisany( "head", "helmet", "neck" ) )
+	if ( !self maps\mp\animscripts\zm_utility::damagelocationisany( "head", "helmet", "neck" ) )
 	{
 		return 0;
 	}

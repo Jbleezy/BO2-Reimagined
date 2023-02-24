@@ -1,8 +1,8 @@
 #include maps\mp\_utility;
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
-#include maps/mp/zombies/_zm_melee_weapon;
-#include maps/mp/zombies/_zm_weapons;
+#include maps\mp\zombies\_zm_melee_weapon;
+#include maps\mp\zombies\_zm_weapons;
 
 change_melee_weapon( weapon_name, current_weapon )
 {
@@ -53,7 +53,7 @@ change_melee_weapon( weapon_name, current_weapon )
 			{
 				current_weapon = new_ballistic;
 			}
-			self giveweapon( new_ballistic, 0, self maps/mp/zombies/_zm_weapons::get_pack_a_punch_weapon_options( new_ballistic ) );
+			self giveweapon( new_ballistic, 0, self maps\mp\zombies\_zm_weapons::get_pack_a_punch_weapon_options( new_ballistic ) );
 		}
 		else
 		{

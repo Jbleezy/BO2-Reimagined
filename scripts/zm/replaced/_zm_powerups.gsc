@@ -19,7 +19,7 @@ full_ammo_powerup( drop_item, player )
 	i = 0;
 	while ( i < players.size )
 	{
-		if ( players[ i ] maps/mp/zombies/_zm_laststand::player_is_in_laststand() )
+		if ( players[ i ] maps\mp\zombies\_zm_laststand::player_is_in_laststand() )
 		{
 			i++;
 			continue;
@@ -75,7 +75,7 @@ full_ammo_powerup( drop_item, player )
 		}
 		i++;
 	}
-	level thread maps/mp/zombies/_zm_powerups::full_ammo_on_hud( drop_item, player.team );
+	level thread maps\mp\zombies\_zm_powerups::full_ammo_on_hud( drop_item, player.team );
 
 	if(level.scr_zm_ui_gametype == "zgrief")
 	{
@@ -91,7 +91,7 @@ empty_clip_powerup( drop_item, player )
 	players = get_players(team);
 	while(i < players.size)
 	{
-		if ( players[ i ] maps/mp/zombies/_zm_laststand::player_is_in_laststand() )
+		if ( players[ i ] maps\mp\zombies\_zm_laststand::player_is_in_laststand() )
 		{
 			i++;
 			continue;
@@ -109,7 +109,7 @@ empty_clip_powerup( drop_item, player )
 				stock_ammo = players[i] getweaponammostock(weapon, 0);
 				stock_ammo_alt = players[i] getweaponammostock(alt_weapon, 0);
 				players[i] takeweapon(weapon);
-				players[i] giveweapon(weapon, 0, players[i] maps/mp/zombies/_zm_weapons::get_pack_a_punch_weapon_options(weapon));
+				players[i] giveweapon(weapon, 0, players[i] maps\mp\zombies\_zm_weapons::get_pack_a_punch_weapon_options(weapon));
 				players[i] setweaponammostock(weapon, stock_ammo);
 				players[i] setweaponammostock(alt_weapon, stock_ammo_alt);
 				players[i] setweaponammoclip(dual_wield_weapon, 0);
@@ -128,8 +128,8 @@ empty_clip_powerup( drop_item, player )
 empty_clip_on_hud( drop_item, team )
 {
 	self endon( "disconnect" );
-	hudelem = maps/mp/gametypes_zm/_hud_util::createserverfontstring( "objective", 2, team );
-	hudelem maps/mp/gametypes_zm/_hud_util::setpoint( "TOP", undefined, 0, level.zombie_vars[ "zombie_timer_offset" ] - ( level.zombie_vars[ "zombie_timer_offset_interval" ] * 2 ) );
+	hudelem = maps\mp\gametypes_zm\_hud_util::createserverfontstring( "objective", 2, team );
+	hudelem maps\mp\gametypes_zm\_hud_util::setpoint( "TOP", undefined, 0, level.zombie_vars[ "zombie_timer_offset" ] - ( level.zombie_vars[ "zombie_timer_offset_interval" ] * 2 ) );
 	hudelem.sort = 0.5;
 	hudelem.color = (0.21, 0, 0);
 	hudelem.alpha = 0;
@@ -156,7 +156,7 @@ nuke_powerup( drop_item, player_team )
 	location = drop_item.origin;
 	player = getClosest(location, get_players(player_team));
 	playfx( drop_item.fx, location );
-	level thread maps/mp/zombies/_zm_powerups::nuke_flash( player_team );
+	level thread maps\mp\zombies\_zm_powerups::nuke_flash( player_team );
 	wait 0.5;
 	zombies = getaiarray( level.zombie_team );
 	zombies = arraysort( zombies, location );
@@ -209,13 +209,13 @@ nuke_powerup( drop_item, player_team )
 		}
 		if ( i < 5 && !zombies_nuked[ i ].isdog )
 		{
-			zombies_nuked[ i ] thread maps/mp/animscripts/zm_death::flame_death_fx();
+			zombies_nuked[ i ] thread maps\mp\animscripts\zm_death::flame_death_fx();
 		}
 		if ( !zombies_nuked[ i ].isdog )
 		{
 			if ( !is_true( zombies_nuked[ i ].no_gib ) )
 			{
-				zombies_nuked[ i ] maps/mp/zombies/_zm_spawner::zombie_head_gib();
+				zombies_nuked[ i ] maps\mp\zombies\_zm_spawner::zombie_head_gib();
 			}
 			zombies_nuked[ i ] playsound("evt_nuked");
 		}
@@ -226,7 +226,7 @@ nuke_powerup( drop_item, player_team )
 	players = get_players( player_team );
 	for ( i = 0; i < players.size; i++ )
 	{
-		players[ i ] maps/mp/zombies/_zm_score::player_add_points( "nuke_powerup", 400 );
+		players[ i ] maps\mp\zombies\_zm_score::player_add_points( "nuke_powerup", 400 );
 	}
 
 	if(level.scr_zm_ui_gametype == "zgrief")
@@ -238,9 +238,9 @@ nuke_powerup( drop_item, player_team )
 			{
 				radiusDamage(players[i].origin + (0, 0, 5), 10, 80, 80);
 			}
-			else if(players[i] maps/mp/zombies/_zm_laststand::player_is_in_laststand())
+			else if(players[i] maps\mp\zombies\_zm_laststand::player_is_in_laststand())
 			{
-				players[i] thread scripts/zm/zgrief/zgrief_reimagined::player_suicide();
+				players[i] thread scripts\zm\zgrief\zgrief_reimagined::player_suicide();
 			}
 		}
 	}
@@ -256,7 +256,7 @@ insta_kill_powerup( drop_item, player )
 
 	if ( is_classic() )
 	{
-		player thread maps/mp/zombies/_zm_pers_upgrades_functions::pers_upgrade_insta_kill_upgrade_check();
+		player thread maps\mp\zombies\_zm_pers_upgrades_functions::pers_upgrade_insta_kill_upgrade_check();
 	}
 
 	team = player.team;
@@ -351,7 +351,7 @@ double_points_powerup( drop_item, player )
 
 	if ( is_true( level.pers_upgrade_double_points ) )
 	{
-		player thread maps/mp/zombies/_zm_pers_upgrades_functions::pers_upgrade_double_points_pickup_start();
+		player thread maps\mp\zombies\_zm_pers_upgrades_functions::pers_upgrade_double_points_pickup_start();
 	}
 
 	if ( isDefined( level.current_game_module ) && level.current_game_module == 2 )

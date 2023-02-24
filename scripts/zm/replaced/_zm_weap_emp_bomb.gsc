@@ -23,7 +23,7 @@ emp_detonate(grenade)
 	}
 
 	level notify( "emp_detonate", origin, emp_radius );
-	self thread maps/mp/zombies/_zm_weap_emp_bomb::emp_detonate_zombies( grenade_origin, grenade_owner );
+	self thread maps\mp\zombies\_zm_weap_emp_bomb::emp_detonate_zombies( grenade_origin, grenade_owner );
 
 	if ( isDefined( level.custom_emp_detonate ) )
 	{
@@ -32,15 +32,15 @@ emp_detonate(grenade)
 
 	if ( isDefined( grenade_owner ) )
 	{
-		grenade_owner thread maps/mp/zombies/_zm_weap_emp_bomb::destroyequipment( origin, emp_radius );
+		grenade_owner thread maps\mp\zombies\_zm_weap_emp_bomb::destroyequipment( origin, emp_radius );
 	}
 
 	emp_players( origin, emp_radius, grenade_owner );
-	disabled_list = maps/mp/zombies/_zm_power::change_power_in_radius( -1, origin, emp_radius );
+	disabled_list = maps\mp\zombies\_zm_power::change_power_in_radius( -1, origin, emp_radius );
 
 	wait emp_time;
 
-	maps/mp/zombies/_zm_power::revert_power_to_list( 1, origin, emp_radius, disabled_list );
+	maps\mp\zombies\_zm_power::revert_power_to_list( 1, origin, emp_radius, disabled_list );
 }
 
 emp_players(origin, radius, owner)
@@ -51,7 +51,7 @@ emp_players(origin, radius, owner)
 	{
 		if(distancesquared(origin, player.origin) < rsquared)
 		{
-			if(is_player_valid(player) || player maps/mp/zombies/_zm_laststand::player_is_in_laststand())
+			if(is_player_valid(player) || player maps\mp\zombies\_zm_laststand::player_is_in_laststand())
 			{
 				time = 30;
 				player shellshock( "frag_grenade_mp", 2 );
@@ -147,7 +147,7 @@ player_perk_pause( perk )
 	if ( self.disabled_perks[ perk ] )
 	{
 		self unsetperk( perk );
-		self maps/mp/zombies/_zm_perks::set_perk_clientfield( perk, 2 );
+		self maps\mp\zombies\_zm_perks::set_perk_clientfield( perk, 2 );
 		if ( perk == "specialty_armorvest" || perk == "specialty_armorvest_upgrade" )
 		{
 			self setmaxhealth( self.premaxhealth );
@@ -158,7 +158,7 @@ player_perk_pause( perk )
 		}
 		if ( perk == "specialty_additionalprimaryweapon" || perk == "specialty_additionalprimaryweapon_upgrade" )
 		{
-			self maps/mp/zombies/_zm::take_additionalprimaryweapon();
+			self maps\mp\zombies\_zm::take_additionalprimaryweapon();
 		}
 		if ( issubstr( perk, "specialty_scavenger" ) )
 		{
@@ -188,13 +188,13 @@ player_perk_unpause( perk )
 	if ( isDefined( self.disabled_perks ) && is_true( self.disabled_perks[ perk ] ) )
 	{
 		self.disabled_perks[ perk ] = 0;
-		self maps/mp/zombies/_zm_perks::set_perk_clientfield( perk, 1 );
+		self maps\mp\zombies\_zm_perks::set_perk_clientfield( perk, 1 );
 		self setperk( perk );
 		if ( issubstr( perk, "specialty_scavenger" ) )
 		{
 			self.hasperkspecialtytombstone = 1;
 		}
-		self maps/mp/zombies/_zm_perks::perk_set_max_health_if_jugg( perk, 0, 0 );
+		self maps\mp\zombies\_zm_perks::perk_set_max_health_if_jugg( perk, 0, 0 );
 		if ( isDefined( level._custom_perks[ perk ] ) && isDefined( level._custom_perks[ perk ].player_thread_give ) )
 		{
 			self thread [[ level._custom_perks[ perk ].player_thread_give ]]();

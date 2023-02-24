@@ -1,7 +1,7 @@
 #include maps\mp\_utility;
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
-#include maps/mp/zombies/_zm_buildables_pooled;
+#include maps\mp\zombies\_zm_buildables_pooled;
 
 add_buildable_to_pool( stub, poolname )
 {

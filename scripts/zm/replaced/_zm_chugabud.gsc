@@ -1,7 +1,7 @@
 #include maps\mp\_utility;
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
-#include maps/mp/zombies/_zm_chugabud;
+#include maps\mp\zombies\_zm_chugabud;
 
 chugabud_bleed_timeout( delay, corpse )
 {

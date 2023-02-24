@@ -11,7 +11,7 @@ revive_do_revive( playerbeingrevived, revivergun )
 	{
 		revivetime /= 1.5;
 	}
-	if ( self maps/mp/zombies/_zm_pers_upgrades_functions::pers_revive_active() )
+	if ( self maps\mp\zombies\_zm_pers_upgrades_functions::pers_revive_active() )
 	{
 		revivetime *= 0.5;
 	}
@@ -19,7 +19,7 @@ revive_do_revive( playerbeingrevived, revivergun )
 	revived = 0;
 	playerbeingrevived.revivetrigger.beingrevived = 1;
 	playerbeingrevived.revive_hud settext( &"ZOMBIE_PLAYER_IS_REVIVING_YOU", self );
-	playerbeingrevived maps/mp/zombies/_zm_laststand::revive_hud_show_n_fade( 3 );
+	playerbeingrevived maps\mp\zombies\_zm_laststand::revive_hud_show_n_fade( 3 );
 	playerbeingrevived.revivetrigger sethintstring( "" );
 	if ( isplayer( playerbeingrevived ) )
 	{
@@ -67,17 +67,17 @@ revive_do_revive( playerbeingrevived, revivergun )
 	self.revivetexthud.alpha = 1;
 	self.revivetexthud.color = ( 1, 1, 1 );
 	self.revivetexthud.hidewheninmenu = 1;
-	if ( self maps/mp/zombies/_zm_pers_upgrades_functions::pers_revive_active() )
+	if ( self maps\mp\zombies\_zm_pers_upgrades_functions::pers_revive_active() )
 	{
 		self.revivetexthud.color = ( 0.5, 0.5, 1 );
 	}
 	self.revivetexthud settext( &"ZOMBIE_REVIVING" );
-	self thread maps/mp/zombies/_zm_laststand::check_for_failed_revive( playerbeingrevived );
-	while ( self maps/mp/zombies/_zm_laststand::is_reviving( playerbeingrevived ) )
+	self thread maps\mp\zombies\_zm_laststand::check_for_failed_revive( playerbeingrevived );
+	while ( self maps\mp\zombies\_zm_laststand::is_reviving( playerbeingrevived ) )
 	{
 		wait 0.05;
 		timer += 0.05;
-		if ( self maps/mp/zombies/_zm_laststand::player_is_in_laststand() )
+		if ( self maps\mp\zombies\_zm_laststand::player_is_in_laststand() )
 		{
 			break;
 		}
@@ -120,7 +120,7 @@ revive_do_revive( playerbeingrevived, revivergun )
 
 	if ( !revived )
 	{
-		playerbeingrevived thread maps/mp/zombies/_zm_laststand::checkforbleedout( self );
+		playerbeingrevived thread maps\mp\zombies\_zm_laststand::checkforbleedout( self );
 	}
 	return revived;
 }
@@ -138,7 +138,7 @@ laststand_clean_up_on_disconnect( playerbeingrevived, revivergun )
 		revivetrigger delete();
 	}
 
-	self maps/mp/zombies/_zm_laststand::cleanup_suicide_hud();
+	self maps\mp\zombies\_zm_laststand::cleanup_suicide_hud();
 
 	if ( isDefined( self.reviveprogressbar ) )
 	{
@@ -150,7 +150,7 @@ laststand_clean_up_on_disconnect( playerbeingrevived, revivergun )
 		self.revivetexthud destroy();
 	}
 
-	self maps/mp/zombies/_zm_laststand::revive_give_back_weapons( revivergun );
+	self maps\mp\zombies\_zm_laststand::revive_give_back_weapons( revivergun );
 }
 
 laststand_clean_up_reviving_any( playerbeingrevived ) //checked changed to match cerberus output
@@ -195,7 +195,7 @@ revive_weapon_switch_watcher()
 revive_give_back_weapons( gun )
 {
 	self takeweapon( level.revive_tool );
-	if ( self maps/mp/zombies/_zm_laststand::player_is_in_laststand() )
+	if ( self maps\mp\zombies\_zm_laststand::player_is_in_laststand() )
 	{
 		return;
 	}
@@ -224,7 +224,7 @@ revive_hud_think()
 	while ( 1 )
 	{
 		wait 0.1;
-		if ( !maps/mp/zombies/_zm_laststand::player_any_player_in_laststand() )
+		if ( !maps\mp\zombies\_zm_laststand::player_any_player_in_laststand() )
 		{
 			continue;
 		}
@@ -249,7 +249,7 @@ revive_hud_think()
 			i = 0;
 			while ( i < players.size )
 			{
-				if ( players[ i ] maps/mp/zombies/_zm_laststand::player_is_in_laststand() )
+				if ( players[ i ] maps\mp\zombies\_zm_laststand::player_is_in_laststand() )
 				{
 					i++;
 					continue;
@@ -275,7 +275,7 @@ revive_hud_think()
 						continue;
 					}
 				}
-				players[ i ] thread maps/mp/zombies/_zm_laststand::faderevivemessageover( playertorevive, 3 );
+				players[ i ] thread maps\mp\zombies\_zm_laststand::faderevivemessageover( playertorevive, 3 );
 				i++;
 			}
 			playertorevive.revivetrigger.createtime = undefined;

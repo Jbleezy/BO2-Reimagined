@@ -13,7 +13,7 @@ zombie_init_done()
 	self.allowpain = 0;
 	if ( isDefined( self.script_parameters ) && self.script_parameters == "crater" )
 	{
-		self thread maps/mp/zm_nuked::zombie_crater_locomotion();
+		self thread maps\mp\zm_nuked::zombie_crater_locomotion();
 	}
     self setphysparams( 15, 0, 64 );
 }

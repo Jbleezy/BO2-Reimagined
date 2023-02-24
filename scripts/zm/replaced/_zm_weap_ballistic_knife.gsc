@@ -1,7 +1,7 @@
 #include maps\mp\_utility;
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
-#include maps/mp/zombies/_zm_weap_ballistic_knife;
+#include maps\mp\zombies\_zm_weap_ballistic_knife;
 
 on_spawn( watcher, player )
 {
@@ -10,11 +10,11 @@ on_spawn( watcher, player )
 	player endon( "zmb_lost_knife" );
 	level endon( "game_ended" );
 
-    is_upgraded = player maps/mp/zombies/_zm_melee_weapon::has_upgraded_ballistic_knife();
+    is_upgraded = player maps\mp\zombies\_zm_melee_weapon::has_upgraded_ballistic_knife();
 
 	self waittill( "stationary", endpos, normal, angles, attacker, prey, bone );
 
-    if( is_upgraded && isDefined( prey ) && isplayer( prey ) && prey.team == player.team && prey maps/mp/zombies/_zm_laststand::player_is_in_laststand() )
+    if( is_upgraded && isDefined( prey ) && isplayer( prey ) && prey.team == player.team && prey maps\mp\zombies\_zm_laststand::player_is_in_laststand() )
     {
         return;
     }

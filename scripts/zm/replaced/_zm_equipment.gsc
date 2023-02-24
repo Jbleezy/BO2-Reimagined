@@ -16,8 +16,8 @@ show_equipment_hint( equipment )
 
 	wait 0.5;
 
-	text = maps/mp/zombies/_zm_equipment::get_equipment_howto_hint( equipment );
-	self maps/mp/zombies/_zm_equipment::show_equipment_hint_text( text );
+	text = maps\mp\zombies\_zm_equipment::get_equipment_howto_hint( equipment );
+	self maps\mp\zombies\_zm_equipment::show_equipment_hint_text( text );
 }
 
 placed_equipment_think( model, equipname, origin, angles, tradius, toffset )
@@ -32,9 +32,9 @@ placed_equipment_think( model, equipname, origin, angles, tradius, toffset )
 	{
 		if ( !( self [[ level.equipment_safe_to_drop ]]( pickupmodel ) ) )
 		{
-			maps/mp/zombies/_zm_equipment::equipment_disappear_fx( pickupmodel.origin, undefined, pickupmodel.angles );
+			maps\mp\zombies\_zm_equipment::equipment_disappear_fx( pickupmodel.origin, undefined, pickupmodel.angles );
 			pickupmodel delete();
-			self maps/mp/zombies/_zm_equipment::equipment_take( equipname );
+			self maps\mp\zombies\_zm_equipment::equipment_take( equipname );
 			return undefined;
 		}
 	}
@@ -47,7 +47,7 @@ placed_equipment_think( model, equipname, origin, angles, tradius, toffset )
 	{
 		hint = &"MP_GENERIC_PICKUP";
 	}
-	icon = maps/mp/zombies/_zm_equipment::get_equipment_icon( equipname );
+	icon = maps\mp\zombies\_zm_equipment::get_equipment_icon( equipname );
 	if ( !isDefined( tradius ) )
 	{
 		tradius = 32;
@@ -60,13 +60,13 @@ placed_equipment_think( model, equipname, origin, angles, tradius, toffset )
 	}
 	tup = anglesToUp( angles );
 	eq_unitrigger_offset = 12 * tup;
-	pickupmodel.stub = maps/mp/zombies/_zm_equipment::generate_equipment_unitrigger( "trigger_radius_use", torigin + eq_unitrigger_offset, angles, 0, tradius, 64, hint, equipname, maps/mp/zombies/_zm_equipment::placed_equipment_unitrigger_think, pickupmodel.canmove );
+	pickupmodel.stub = maps\mp\zombies\_zm_equipment::generate_equipment_unitrigger( "trigger_radius_use", torigin + eq_unitrigger_offset, angles, 0, tradius, 64, hint, equipname, maps\mp\zombies\_zm_equipment::placed_equipment_unitrigger_think, pickupmodel.canmove );
 	pickupmodel.stub.model = pickupmodel;
 	pickupmodel.stub.equipname = equipname;
 	pickupmodel.equipname = equipname;
-	//pickupmodel thread maps/mp/zombies/_zm_equipment::item_attract_zombies();
+	//pickupmodel thread maps\mp\zombies\_zm_equipment::item_attract_zombies();
 	pickupmodel thread item_watch_damage();
-	if ( maps/mp/zombies/_zm_equipment::is_limited_equipment( equipname ) )
+	if ( maps\mp\zombies\_zm_equipment::is_limited_equipment( equipname ) )
 	{
 		if ( !isDefined( level.dropped_equipment ) )
 		{
@@ -74,11 +74,11 @@ placed_equipment_think( model, equipname, origin, angles, tradius, toffset )
 		}
 		if ( isDefined( level.dropped_equipment[ equipname ] ) && isDefined( level.dropped_equipment[ equipname ].model ) )
 		{
-			level.dropped_equipment[ equipname ].model maps/mp/zombies/_zm_equipment::dropped_equipment_destroy( 1 );
+			level.dropped_equipment[ equipname ].model maps\mp\zombies\_zm_equipment::dropped_equipment_destroy( 1 );
 		}
 		level.dropped_equipment[ equipname ] = pickupmodel.stub;
 	}
-	maps/mp/zombies/_zm_equipment::destructible_equipment_list_add( pickupmodel );
+	maps\mp\zombies\_zm_equipment::destructible_equipment_list_add( pickupmodel );
 	return pickupmodel;
 }
 
@@ -90,6 +90,6 @@ item_watch_damage()
 	{
 		self.health = 1000000;
 		self waittill( "damage", amount );
-		self maps/mp/zombies/_zm_equipment::item_damage( amount );
+		self maps\mp\zombies\_zm_equipment::item_damage( amount );
 	}
 }

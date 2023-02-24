@@ -2,18 +2,18 @@
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 
-#include scripts/zm/replaced/zm_highrise_classic;
-#include scripts/zm/replaced/_zm_chugabud;
-#include scripts/zm/replaced/_zm_banking;
+#include scripts\zm\replaced\zm_highrise_classic;
+#include scripts\zm\replaced\_zm_chugabud;
+#include scripts\zm\replaced\_zm_banking;
 
 main()
 {
-	replaceFunc(maps/mp/zm_highrise_classic::insta_kill_player, scripts/zm/replaced/zm_highrise_classic::insta_kill_player);
-	replaceFunc(maps/mp/zombies/_zm_chugabud::chugabud_bleed_timeout, scripts/zm/replaced/_zm_chugabud::chugabud_bleed_timeout);
-	replaceFunc(maps/mp/zombies/_zm_banking::init, scripts/zm/replaced/_zm_banking::init);
-	replaceFunc(maps/mp/zombies/_zm_banking::bank_deposit_box, scripts/zm/replaced/_zm_banking::bank_deposit_box);
-	replaceFunc(maps/mp/zombies/_zm_banking::bank_deposit_unitrigger, scripts/zm/replaced/_zm_banking::bank_deposit_unitrigger);
-	replaceFunc(maps/mp/zombies/_zm_banking::bank_withdraw_unitrigger, scripts/zm/replaced/_zm_banking::bank_withdraw_unitrigger);
+	replaceFunc(maps\mp\zm_highrise_classic::insta_kill_player, scripts\zm\replaced\zm_highrise_classic::insta_kill_player);
+	replaceFunc(maps\mp\zombies\_zm_chugabud::chugabud_bleed_timeout, scripts\zm\replaced\_zm_chugabud::chugabud_bleed_timeout);
+	replaceFunc(maps\mp\zombies\_zm_banking::init, scripts\zm\replaced\_zm_banking::init);
+	replaceFunc(maps\mp\zombies\_zm_banking::bank_deposit_box, scripts\zm\replaced\_zm_banking::bank_deposit_box);
+	replaceFunc(maps\mp\zombies\_zm_banking::bank_deposit_unitrigger, scripts\zm\replaced\_zm_banking::bank_deposit_unitrigger);
+	replaceFunc(maps\mp\zombies\_zm_banking::bank_withdraw_unitrigger, scripts\zm\replaced\_zm_banking::bank_withdraw_unitrigger);
 }
 
 init()
@@ -29,8 +29,8 @@ zombie_init_done()
 {
 	self.allowpain = 0;
 	self.zombie_path_bad = 0;
-	self thread maps/mp/zm_highrise_distance_tracking::escaped_zombies_cleanup_init();
-	self thread maps/mp/zm_highrise::elevator_traverse_watcher();
+	self thread maps\mp\zm_highrise_distance_tracking::escaped_zombies_cleanup_init();
+	self thread maps\mp\zm_highrise::elevator_traverse_watcher();
 	if ( self.classname == "actor_zm_highrise_basic_03" )
 	{
 		health_bonus = int( self.maxhealth * 0.05 );
@@ -52,7 +52,7 @@ highrise_special_weapon_magicbox_check(weapon)
 highrise_respawn_override( revivee, return_struct )
 {
 	players = array_randomize(get_players());
-	spawn_points = maps/mp/gametypes_zm/_zm_gametype::get_player_spawns_for_gametype();
+	spawn_points = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
 
 	if ( spawn_points.size == 0 )
 	{
@@ -73,7 +73,7 @@ highrise_respawn_override( revivee, return_struct )
 						if ( players[ i ] istouching( zone.volumes[ k ] ) )
 						{
 							closest_group = j;
-							spawn_location = maps/mp/zombies/_zm::get_valid_spawn_location( revivee, spawn_points, closest_group, return_struct );
+							spawn_location = maps\mp\zombies\_zm::get_valid_spawn_location( revivee, spawn_points, closest_group, return_struct );
 							if ( isDefined( spawn_location ) )
 							{
 								return spawn_location;
@@ -116,11 +116,11 @@ elevator_solo_revive_fix()
 
 	revive_elevator.body.elevator_stop = 1;
 	revive_elevator.body.lock_doors = 1;
-	revive_elevator.body maps/mp/zm_highrise_elevators::perkelevatordoor(0);
+	revive_elevator.body maps\mp\zm_highrise_elevators::perkelevatordoor(0);
 
 	flag_wait( "power_on" );
 
 	revive_elevator.body.elevator_stop = 0;
 	revive_elevator.body.lock_doors = 0;
-	revive_elevator.body maps/mp/zm_highrise_elevators::perkelevatordoor(1);
+	revive_elevator.body maps\mp\zm_highrise_elevators::perkelevatordoor(1);
 }

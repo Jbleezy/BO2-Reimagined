@@ -41,8 +41,8 @@ quadrotor_control_thread()
 			}
 
 			qr = spawnvehicle( "veh_t6_dlc_zm_quadrotor", "quadrotor_ai", str_vehicle, self.origin + vectorScale( ( 0, 0, 1 ), 96 ), self.angles );
-			level thread maps/mp/zm_tomb_craftables::quadrotor_death_watcher( qr );
-			qr thread maps/mp/zm_tomb_craftables::quadrotor_instance_watcher( self );
+			level thread maps\mp\zm_tomb_craftables::quadrotor_death_watcher( qr );
+			qr thread maps\mp\zm_tomb_craftables::quadrotor_instance_watcher( self );
 			return;
 		}
 

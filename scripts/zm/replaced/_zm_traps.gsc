@@ -14,7 +14,7 @@ player_elec_damage()
 
 		if ( is_true( level.trap_electric_visionset_registered ) )
 		{
-			maps/mp/_visionset_mgr::vsmgr_activate( "overlay", "zm_trap_electric", self, shocktime, shocktime );
+			maps\mp\_visionset_mgr::vsmgr_activate( "overlay", "zm_trap_electric", self, shocktime, shocktime );
 		}
 		else
 		{

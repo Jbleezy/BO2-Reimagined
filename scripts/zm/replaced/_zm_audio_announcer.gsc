@@ -1,7 +1,7 @@
 #include maps\mp\_utility;
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
-#include maps/mp/zombies/_zm_audio_announcer;
+#include maps\mp\zombies\_zm_audio_announcer;
 
 playleaderdialogonplayer( dialog, team, waittime )
 {

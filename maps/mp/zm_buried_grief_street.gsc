@@ -1,16 +1,16 @@
-#include maps/mp/gametypes_zm/_zm_gametype;
-#include maps/mp/zombies/_zm_buildables;
-#include maps/mp/zombies/_zm_magicbox;
-#include maps/mp/zombies/_zm_equip_subwoofer;
-#include maps/mp/zombies/_zm_equip_springpad;
-#include maps/mp/zombies/_zm_equip_turbine;
-//#include maps/mp/zombies/_zm_equip_headchopper;
-#include maps/mp/zm_buried_buildables;
-#include maps/mp/zm_buried_gamemodes;
-#include maps/mp/zombies/_zm_race_utility;
-#include maps/mp/zombies/_zm_utility;
-#include common_scripts/utility;
-#include maps/mp/_utility;
+#include maps\mp\gametypes_zm\_zm_gametype;
+#include maps\mp\zombies\_zm_buildables;
+#include maps\mp\zombies\_zm_magicbox;
+#include maps\mp\zombies\_zm_equip_subwoofer;
+#include maps\mp\zombies\_zm_equip_springpad;
+#include maps\mp\zombies\_zm_equip_turbine;
+//#include maps\mp\zombies\_zm_equip_headchopper;
+#include maps\mp\zm_buried_buildables;
+#include maps\mp\zm_buried_gamemodes;
+#include maps\mp\zombies\_zm_race_utility;
+#include maps\mp\zombies\_zm_utility;
+#include common_scripts\utility;
+#include maps\mp\_utility;
 
 precache()
 {
@@ -28,13 +28,13 @@ precache()
 	level.chalk_buildable_pieces_hide = 1;
 	griefbuildables = array( "chalk", "turbine", "springpad_zm", "subwoofer_zm" );
 	//griefbuildables = array( "chalk", "headchopper_zm", "springpad_zm", "subwoofer_zm" );
-	maps/mp/zm_buried_buildables::include_buildables( griefbuildables );
-	maps/mp/zm_buried_buildables::init_buildables( griefbuildables );
-	maps/mp/zombies/_zm_equip_turbine::init();
-	maps/mp/zombies/_zm_equip_turbine::init_animtree();
-	maps/mp/zombies/_zm_equip_springpad::init( &"ZM_BURIED_EQ_SP_PHS", &"ZM_BURIED_EQ_SP_HTS" );
-	maps/mp/zombies/_zm_equip_subwoofer::init( &"ZM_BURIED_EQ_SW_PHS", &"ZM_BURIED_EQ_SW_HTS" );
-    //maps/mp/zombies/_zm_equip_headchopper::init( &"ZM_BURIED_EQ_HC_PHS", &"ZM_BURIED_EQ_HC_HTS" );
+	maps\mp\zm_buried_buildables::include_buildables( griefbuildables );
+	maps\mp\zm_buried_buildables::init_buildables( griefbuildables );
+	maps\mp\zombies\_zm_equip_turbine::init();
+	maps\mp\zombies\_zm_equip_turbine::init_animtree();
+	maps\mp\zombies\_zm_equip_springpad::init( &"ZM_BURIED_EQ_SP_PHS", &"ZM_BURIED_EQ_SP_HTS" );
+	maps\mp\zombies\_zm_equip_subwoofer::init( &"ZM_BURIED_EQ_SW_PHS", &"ZM_BURIED_EQ_SW_HTS" );
+    //maps\mp\zombies\_zm_equip_headchopper::init( &"ZM_BURIED_EQ_HC_PHS", &"ZM_BURIED_EQ_HC_HTS" );
 }
 
 street_treasure_chest_init()
@@ -52,15 +52,15 @@ street_treasure_chest_init()
 
 	chest_names = array("start_chest", "courtroom_chest1", "jail_chest1", "gunshop_chest");
 	chest_name = random(chest_names);
-	maps/mp/zombies/_zm_magicbox::treasure_chest_init( chest_name );
+	maps\mp\zombies\_zm_magicbox::treasure_chest_init( chest_name );
 }
 
 main()
 {
 	level.buildables_built[ "pap" ] = 1;
 	level.equipment_team_pick_up = 1;
-	level thread maps/mp/zombies/_zm_buildables::think_buildables();
-	maps/mp/gametypes_zm/_zm_gametype::setup_standard_objects( "street" );
+	level thread maps\mp\zombies\_zm_buildables::think_buildables();
+	maps\mp\gametypes_zm\_zm_gametype::setup_standard_objects( "street" );
 	street_treasure_chest_init();
 	generatebuildabletarps();
 	deletebuildabletarp( "courthouse" );
@@ -106,8 +106,8 @@ builddynamicwallbuys()
 	builddynamicwallbuy( "church", "svu_zm" );
 	builddynamicwallbuy( "mansion", "an94_zm" );
 
-	scripts/zm/_zm_reimagined::wallbuy_increase_trigger_radius();
-	scripts/zm/_zm_reimagined::wallbuy_decrease_upgraded_ammo_cost();
+	scripts\zm\_zm_reimagined::wallbuy_increase_trigger_radius();
+	scripts\zm\_zm_reimagined::wallbuy_decrease_upgraded_ammo_cost();
 }
 
 builddynamicwallbuy( location, weaponname )
@@ -156,10 +156,10 @@ builddynamicwallbuy( location, weaponname )
 				model hide();
 
 				chalk_fx = weaponname + "_fx";
-				thread scripts/zm/replaced/utility::playchalkfx( chalk_fx, origin, wallbuy.angles );
+				thread scripts\zm\replaced\utility::playchalkfx( chalk_fx, origin, wallbuy.angles );
 			}
 
-			maps/mp/zombies/_zm_weapons::add_dynamic_wallbuy( weaponname, wallbuy.targetname, 1 );
+			maps\mp\zombies\_zm_weapons::add_dynamic_wallbuy( weaponname, wallbuy.targetname, 1 );
 			thread wait_and_remove( stub, stub.buildablezone.pieces[ 0 ] );
 		}
 	}
@@ -214,7 +214,7 @@ removebuildable( buildable )
 				while ( isDefined( _k206 ) )
 				{
 					piece = _a206[ _k206 ];
-					piece maps/mp/zombies/_zm_buildables::piece_unspawn();
+					piece maps\mp\zombies\_zm_buildables::piece_unspawn();
 					_k206 = getNextArrayKey( _a206, _k206 );
 				}
 			}
@@ -334,7 +334,7 @@ disable_tunnels()
 
 	// player spawns
 	invalid_zones = array("zone_start", "zone_tunnels_center", "zone_tunnels_north", "zone_tunnels_south");
-	spawn_points = maps/mp/gametypes_zm/_zm_gametype::get_player_spawns_for_gametype();
+	spawn_points = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
 	foreach(spawn_point in spawn_points)
 	{
 		if(isinarray(invalid_zones, spawn_point.script_noteworthy))

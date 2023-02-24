@@ -2,14 +2,14 @@
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 
-#include scripts/zm/replaced/zm_tomb_craftables;
-#include scripts/zm/replaced/zm_tomb_dig;
+#include scripts\zm\replaced\zm_tomb_craftables;
+#include scripts\zm\replaced\zm_tomb_dig;
 
 main()
 {
-	replaceFunc(maps/mp/zm_tomb_craftables::quadrotor_control_thread, scripts/zm/replaced/zm_tomb_craftables::quadrotor_control_thread);
-	replaceFunc(maps/mp/zm_tomb_dig::increment_player_perk_purchase_limit, scripts/zm/replaced/zm_tomb_dig::increment_player_perk_purchase_limit);
-	replaceFunc(maps/mp/zm_tomb_dig::dig_disconnect_watch, scripts/zm/replaced/zm_tomb_dig::dig_disconnect_watch);
+	replaceFunc(maps\mp\zm_tomb_craftables::quadrotor_control_thread, scripts\zm\replaced\zm_tomb_craftables::quadrotor_control_thread);
+	replaceFunc(maps\mp\zm_tomb_dig::increment_player_perk_purchase_limit, scripts\zm\replaced\zm_tomb_dig::increment_player_perk_purchase_limit);
+	replaceFunc(maps\mp\zm_tomb_dig::dig_disconnect_watch, scripts\zm\replaced\zm_tomb_dig::dig_disconnect_watch);
 }
 
 init()
@@ -35,7 +35,7 @@ on_player_connect()
 zombie_init_done()
 {
 	self.allowpain = 0;
-	self thread maps/mp/zm_tomb_distance_tracking::escaped_zombies_cleanup_init();
+	self thread maps\mp\zm_tomb_distance_tracking::escaped_zombies_cleanup_init();
 	self setphysparams( 15, 0, 64 );
 }
 
@@ -54,7 +54,7 @@ tomb_special_weapon_magicbox_check(weapon)
 	}
 	if ( isDefined( level.zombie_weapons[ weapon ].shared_ammo_weapon ) )
 	{
-		if ( self maps/mp/zombies/_zm_weapons::has_weapon_or_upgrade( level.zombie_weapons[ weapon ].shared_ammo_weapon ) )
+		if ( self maps\mp\zombies\_zm_weapons::has_weapon_or_upgrade( level.zombie_weapons[ weapon ].shared_ammo_weapon ) )
 		{
 			return 0;
 		}
@@ -110,7 +110,7 @@ remove_shovels_from_map()
 		if(IsDefined(stub.e_shovel))
 		{
 			stub.e_shovel delete();
-			maps/mp/zombies/_zm_unitrigger::unregister_unitrigger( stub );
+			maps\mp\zombies\_zm_unitrigger::unregister_unitrigger( stub );
 		}
 	}
 }
@@ -149,7 +149,7 @@ reward_random_perk( player, s_stat )
 	{
 		player.tomb_reward_perk = player get_random_perk();
 	}
-	else if (self hasperk( player.tomb_reward_perk ) || self maps/mp/zombies/_zm_perks::has_perk_paused( player.tomb_reward_perk ))
+	else if (self hasperk( player.tomb_reward_perk ) || self maps\mp\zombies\_zm_perks::has_perk_paused( player.tomb_reward_perk ))
 	{
 		player.tomb_reward_perk = player get_random_perk();
 	}
@@ -160,7 +160,7 @@ reward_random_perk( player, s_stat )
 		return 0;
 	}
 
-	model = maps/mp/zombies/_zm_perk_random::get_perk_weapon_model(perk);
+	model = maps\mp\zombies\_zm_perk_random::get_perk_weapon_model(perk);
 	if (!isDefined(model))
 	{
 		return 0;
@@ -172,18 +172,18 @@ reward_random_perk( player, s_stat )
 	m_reward playsound( "zmb_spawn_powerup" );
 	m_reward playloopsound( "zmb_spawn_powerup_loop", 0.5 );
 	wait_network_frame();
-	if ( !maps/mp/zombies/_zm_challenges::reward_rise_and_grab( m_reward, 50, 2, 2, 10 ) )
+	if ( !maps\mp\zombies\_zm_challenges::reward_rise_and_grab( m_reward, 50, 2, 2, 10 ) )
 	{
 		return 0;
 	}
-	if ( player hasperk( perk ) || player maps/mp/zombies/_zm_perks::has_perk_paused( perk ) )
+	if ( player hasperk( perk ) || player maps\mp\zombies\_zm_perks::has_perk_paused( perk ) )
 	{
-		m_reward thread maps/mp/zm_tomb_challenges::bottle_reject_sink( player );
+		m_reward thread maps\mp\zm_tomb_challenges::bottle_reject_sink( player );
 		return 0;
 	}
 	m_reward stoploopsound( 0.1 );
 	player playsound( "zmb_powerup_grabbed" );
-	m_reward thread maps/mp/zombies/_zm_perks::vending_trigger_post_think( player, perk );
+	m_reward thread maps\mp\zombies\_zm_perks::vending_trigger_post_think( player, perk );
 	m_reward delete();
 	return 1;
 }
@@ -200,7 +200,7 @@ get_random_perk()
 		}
 		else
 		{
-			if ( !self hasperk( perk ) && !self maps/mp/zombies/_zm_perks::has_perk_paused( perk ) )
+			if ( !self hasperk( perk ) && !self maps\mp\zombies\_zm_perks::has_perk_paused( perk ) )
 			{
 				perks[ perks.size ] = perk;
 			}

@@ -3,77 +3,77 @@
 #include maps\mp\zombies\_zm_utility;
 #include maps\mp\gametypes_zm\_hud_util;
 
-#include scripts/zm/replaced/utility;
-#include scripts/zm/replaced/_zm;
-#include scripts/zm/replaced/_zm_playerhealth;
-#include scripts/zm/replaced/_zm_utility;
-#include scripts/zm/replaced/_zm_score;
-#include scripts/zm/replaced/_zm_laststand;
-#include scripts/zm/replaced/_zm_weapons;
-#include scripts/zm/replaced/_zm_magicbox;
-#include scripts/zm/replaced/_zm_perks;
-#include scripts/zm/replaced/_zm_power;
-#include scripts/zm/replaced/_zm_powerups;
-#include scripts/zm/replaced/_zm_pers_upgrades;
-#include scripts/zm/replaced/_zm_traps;
-#include scripts/zm/replaced/_zm_equipment;
-#include scripts/zm/replaced/_zm_spawner;
-#include scripts/zm/replaced/_zm_ai_basic;
-#include scripts/zm/replaced/_zm_melee_weapon;
-#include scripts/zm/replaced/_zm_weap_ballistic_knife;
-#include scripts/zm/replaced/_zm_weap_claymore;
+#include scripts\zm\replaced\utility;
+#include scripts\zm\replaced\_zm;
+#include scripts\zm\replaced\_zm_playerhealth;
+#include scripts\zm\replaced\_zm_utility;
+#include scripts\zm\replaced\_zm_score;
+#include scripts\zm\replaced\_zm_laststand;
+#include scripts\zm\replaced\_zm_weapons;
+#include scripts\zm\replaced\_zm_magicbox;
+#include scripts\zm\replaced\_zm_perks;
+#include scripts\zm\replaced\_zm_power;
+#include scripts\zm\replaced\_zm_powerups;
+#include scripts\zm\replaced\_zm_pers_upgrades;
+#include scripts\zm\replaced\_zm_traps;
+#include scripts\zm\replaced\_zm_equipment;
+#include scripts\zm\replaced\_zm_spawner;
+#include scripts\zm\replaced\_zm_ai_basic;
+#include scripts\zm\replaced\_zm_melee_weapon;
+#include scripts\zm\replaced\_zm_weap_ballistic_knife;
+#include scripts\zm\replaced\_zm_weap_claymore;
 
 main()
 {
-	replaceFunc(common_scripts/utility::struct_class_init, scripts/zm/replaced/utility::struct_class_init);
-	replaceFunc(maps/mp/zombies/_zm::check_quickrevive_for_hotjoin, scripts/zm/replaced/_zm::check_quickrevive_for_hotjoin);
-	replaceFunc(maps/mp/zombies/_zm::ai_calculate_health, scripts/zm/replaced/_zm::ai_calculate_health);
-	replaceFunc(maps/mp/zombies/_zm::last_stand_pistol_rank_init, scripts/zm/replaced/_zm::last_stand_pistol_rank_init);
-	replaceFunc(maps/mp/zombies/_zm::check_for_valid_spawn_near_team, scripts/zm/replaced/_zm::check_for_valid_spawn_near_team);
-	replaceFunc(maps/mp/zombies/_zm::get_valid_spawn_location, scripts/zm/replaced/_zm::get_valid_spawn_location);
-	replaceFunc(maps/mp/zombies/_zm::actor_damage_override, scripts/zm/replaced/_zm::actor_damage_override);
-	replaceFunc(maps/mp/zombies/_zm::player_spawn_protection, scripts/zm/replaced/_zm::player_spawn_protection);
-	replaceFunc(maps/mp/zombies/_zm::wait_and_revive, scripts/zm/replaced/_zm::wait_and_revive);
-	replaceFunc(maps/mp/zombies/_zm::player_revive_monitor, scripts/zm/replaced/_zm::player_revive_monitor);
-	replaceFunc(maps/mp/zombies/_zm::end_game, scripts/zm/replaced/_zm::end_game);
-	replaceFunc(maps/mp/zombies/_zm_playerhealth::playerhealthregen, scripts/zm/replaced/_zm_playerhealth::playerhealthregen);
-	replaceFunc(maps/mp/zombies/_zm_utility::track_players_intersection_tracker, scripts/zm/replaced/_zm_utility::track_players_intersection_tracker);
-	replaceFunc(maps/mp/zombies/_zm_utility::is_headshot, scripts/zm/replaced/_zm_utility::is_headshot);
-	replaceFunc(maps/mp/zombies/_zm_utility::create_zombie_point_of_interest_attractor_positions, scripts/zm/replaced/_zm_utility::create_zombie_point_of_interest_attractor_positions);
-	replaceFunc(maps/mp/zombies/_zm_score::add_to_player_score, scripts/zm/replaced/_zm_score::add_to_player_score);
-	replaceFunc(maps/mp/zombies/_zm_score::minus_to_player_score, scripts/zm/replaced/_zm_score::minus_to_player_score);
-	replaceFunc(maps/mp/zombies/_zm_laststand::revive_do_revive, scripts/zm/replaced/_zm_laststand::revive_do_revive);
-	replaceFunc(maps/mp/zombies/_zm_laststand::revive_give_back_weapons, scripts/zm/replaced/_zm_laststand::revive_give_back_weapons);
-	replaceFunc(maps/mp/zombies/_zm_laststand::revive_hud_think, scripts/zm/replaced/_zm_laststand::revive_hud_think);
-	replaceFunc(maps/mp/zombies/_zm_weapons::weapon_give, scripts/zm/replaced/_zm_weapons::weapon_give);
-	replaceFunc(maps/mp/zombies/_zm_weapons::get_upgraded_ammo_cost, scripts/zm/replaced/_zm_weapons::get_upgraded_ammo_cost);
-	replaceFunc(maps/mp/zombies/_zm_weapons::makegrenadedudanddestroy, scripts/zm/replaced/_zm_weapons::makegrenadedudanddestroy);
-	replaceFunc(maps/mp/zombies/_zm_weapons::createballisticknifewatcher_zm, scripts/zm/replaced/_zm_weapons::createballisticknifewatcher_zm);
-	replaceFunc(maps/mp/zombies/_zm_magicbox::treasure_chest_init, scripts/zm/replaced/_zm_magicbox::treasure_chest_init);
-	replaceFunc(maps/mp/zombies/_zm_magicbox::treasure_chest_move, scripts/zm/replaced/_zm_magicbox::treasure_chest_move);
-	replaceFunc(maps/mp/zombies/_zm_magicbox::treasure_chest_timeout, scripts/zm/replaced/_zm_magicbox::treasure_chest_timeout);
-	replaceFunc(maps/mp/zombies/_zm_magicbox::timer_til_despawn, scripts/zm/replaced/_zm_magicbox::timer_til_despawn);
-	replaceFunc(maps/mp/zombies/_zm_perks::perk_pause, scripts/zm/replaced/_zm_perks::perk_pause);
-	replaceFunc(maps/mp/zombies/_zm_perks::perk_unpause, scripts/zm/replaced/_zm_perks::perk_unpause);
-	replaceFunc(maps/mp/zombies/_zm_perks::destroy_weapon_in_blackout, scripts/zm/replaced/_zm_perks::destroy_weapon_in_blackout);
-	replaceFunc(maps/mp/zombies/_zm_perks::give_perk, scripts/zm/replaced/_zm_perks::give_perk);
-	replaceFunc(maps/mp/zombies/_zm_perks::perk_think, scripts/zm/replaced/_zm_perks::perk_think);
-	replaceFunc(maps/mp/zombies/_zm_perks::perk_set_max_health_if_jugg, scripts/zm/replaced/_zm_perks::perk_set_max_health_if_jugg);
-	replaceFunc(maps/mp/zombies/_zm_perks::initialize_custom_perk_arrays, scripts/zm/replaced/_zm_perks::initialize_custom_perk_arrays);
-	replaceFunc(maps/mp/zombies/_zm_power::standard_powered_items, scripts/zm/replaced/_zm_power::standard_powered_items);
-	replaceFunc(maps/mp/zombies/_zm_powerups::full_ammo_powerup, scripts/zm/replaced/_zm_powerups::full_ammo_powerup);
-	replaceFunc(maps/mp/zombies/_zm_powerups::nuke_powerup, scripts/zm/replaced/_zm_powerups::nuke_powerup);
-	replaceFunc(maps/mp/zombies/_zm_powerups::insta_kill_powerup, scripts/zm/replaced/_zm_powerups::insta_kill_powerup);
-	replaceFunc(maps/mp/zombies/_zm_powerups::double_points_powerup, scripts/zm/replaced/_zm_powerups::double_points_powerup);
-	replaceFunc(maps/mp/zombies/_zm_pers_upgrades::is_pers_system_disabled, scripts/zm/replaced/_zm_pers_upgrades::is_pers_system_disabled);
-	replaceFunc(maps/mp/zombies/_zm_traps::player_elec_damage, scripts/zm/replaced/_zm_traps::player_elec_damage);
-	replaceFunc(maps/mp/zombies/_zm_equipment::show_equipment_hint, scripts/zm/replaced/_zm_equipment::show_equipment_hint);
-	replaceFunc(maps/mp/zombies/_zm_equipment::placed_equipment_think, scripts/zm/replaced/_zm_equipment::placed_equipment_think);
-	replaceFunc(maps/mp/zombies/_zm_spawner::head_should_gib, scripts/zm/replaced/_zm_spawner::head_should_gib);
-	replaceFunc(maps/mp/zombies/_zm_ai_basic::inert_wakeup, scripts/zm/replaced/_zm_ai_basic::inert_wakeup);
-	replaceFunc(maps/mp/zombies/_zm_melee_weapon::change_melee_weapon, scripts/zm/replaced/_zm_melee_weapon::change_melee_weapon);
-	replaceFunc(maps/mp/zombies/_zm_weap_ballistic_knife::watch_use_trigger, scripts/zm/replaced/_zm_weap_ballistic_knife::watch_use_trigger);
-	replaceFunc(maps/mp/zombies/_zm_weap_claymore::claymore_detonation, scripts/zm/replaced/_zm_weap_claymore::claymore_detonation);
+	replaceFunc(common_scripts\utility::struct_class_init, scripts\zm\replaced\utility::struct_class_init);
+	replaceFunc(maps\mp\zombies\_zm::check_quickrevive_for_hotjoin, scripts\zm\replaced\_zm::check_quickrevive_for_hotjoin);
+	replaceFunc(maps\mp\zombies\_zm::ai_calculate_health, scripts\zm\replaced\_zm::ai_calculate_health);
+	replaceFunc(maps\mp\zombies\_zm::last_stand_pistol_rank_init, scripts\zm\replaced\_zm::last_stand_pistol_rank_init);
+	replaceFunc(maps\mp\zombies\_zm::check_for_valid_spawn_near_team, scripts\zm\replaced\_zm::check_for_valid_spawn_near_team);
+	replaceFunc(maps\mp\zombies\_zm::get_valid_spawn_location, scripts\zm\replaced\_zm::get_valid_spawn_location);
+	replaceFunc(maps\mp\zombies\_zm::actor_damage_override, scripts\zm\replaced\_zm::actor_damage_override);
+	replaceFunc(maps\mp\zombies\_zm::player_spawn_protection, scripts\zm\replaced\_zm::player_spawn_protection);
+	replaceFunc(maps\mp\zombies\_zm::wait_and_revive, scripts\zm\replaced\_zm::wait_and_revive);
+	replaceFunc(maps\mp\zombies\_zm::player_revive_monitor, scripts\zm\replaced\_zm::player_revive_monitor);
+	replaceFunc(maps\mp\zombies\_zm::end_game, scripts\zm\replaced\_zm::end_game);
+	replaceFunc(maps\mp\zombies\_zm_playerhealth::playerhealthregen, scripts\zm\replaced\_zm_playerhealth::playerhealthregen);
+	replaceFunc(maps\mp\zombies\_zm_utility::track_players_intersection_tracker, scripts\zm\replaced\_zm_utility::track_players_intersection_tracker);
+	replaceFunc(maps\mp\zombies\_zm_utility::is_headshot, scripts\zm\replaced\_zm_utility::is_headshot);
+	replaceFunc(maps\mp\zombies\_zm_utility::create_zombie_point_of_interest_attractor_positions, scripts\zm\replaced\_zm_utility::create_zombie_point_of_interest_attractor_positions);
+	replaceFunc(maps\mp\zombies\_zm_score::add_to_player_score, scripts\zm\replaced\_zm_score::add_to_player_score);
+	replaceFunc(maps\mp\zombies\_zm_score::minus_to_player_score, scripts\zm\replaced\_zm_score::minus_to_player_score);
+	replaceFunc(maps\mp\zombies\_zm_laststand::revive_do_revive, scripts\zm\replaced\_zm_laststand::revive_do_revive);
+	replaceFunc(maps\mp\zombies\_zm_laststand::revive_give_back_weapons, scripts\zm\replaced\_zm_laststand::revive_give_back_weapons);
+	replaceFunc(maps\mp\zombies\_zm_laststand::revive_hud_think, scripts\zm\replaced\_zm_laststand::revive_hud_think);
+	replaceFunc(maps\mp\zombies\_zm_weapons::weapon_give, scripts\zm\replaced\_zm_weapons::weapon_give);
+	replaceFunc(maps\mp\zombies\_zm_weapons::get_upgraded_ammo_cost, scripts\zm\replaced\_zm_weapons::get_upgraded_ammo_cost);
+	replaceFunc(maps\mp\zombies\_zm_weapons::makegrenadedudanddestroy, scripts\zm\replaced\_zm_weapons::makegrenadedudanddestroy);
+	replaceFunc(maps\mp\zombies\_zm_weapons::createballisticknifewatcher_zm, scripts\zm\replaced\_zm_weapons::createballisticknifewatcher_zm);
+	replaceFunc(maps\mp\zombies\_zm_magicbox::treasure_chest_init, scripts\zm\replaced\_zm_magicbox::treasure_chest_init);
+	replaceFunc(maps\mp\zombies\_zm_magicbox::treasure_chest_move, scripts\zm\replaced\_zm_magicbox::treasure_chest_move);
+	replaceFunc(maps\mp\zombies\_zm_magicbox::treasure_chest_timeout, scripts\zm\replaced\_zm_magicbox::treasure_chest_timeout);
+	replaceFunc(maps\mp\zombies\_zm_magicbox::timer_til_despawn, scripts\zm\replaced\_zm_magicbox::timer_til_despawn);
+	replaceFunc(maps\mp\zombies\_zm_perks::perk_pause, scripts\zm\replaced\_zm_perks::perk_pause);
+	replaceFunc(maps\mp\zombies\_zm_perks::perk_unpause, scripts\zm\replaced\_zm_perks::perk_unpause);
+	replaceFunc(maps\mp\zombies\_zm_perks::destroy_weapon_in_blackout, scripts\zm\replaced\_zm_perks::destroy_weapon_in_blackout);
+	replaceFunc(maps\mp\zombies\_zm_perks::give_perk, scripts\zm\replaced\_zm_perks::give_perk);
+	replaceFunc(maps\mp\zombies\_zm_perks::perk_think, scripts\zm\replaced\_zm_perks::perk_think);
+	replaceFunc(maps\mp\zombies\_zm_perks::perk_set_max_health_if_jugg, scripts\zm\replaced\_zm_perks::perk_set_max_health_if_jugg);
+	replaceFunc(maps\mp\zombies\_zm_perks::initialize_custom_perk_arrays, scripts\zm\replaced\_zm_perks::initialize_custom_perk_arrays);
+	replaceFunc(maps\mp\zombies\_zm_power::standard_powered_items, scripts\zm\replaced\_zm_power::standard_powered_items);
+	replaceFunc(maps\mp\zombies\_zm_powerups::full_ammo_powerup, scripts\zm\replaced\_zm_powerups::full_ammo_powerup);
+	replaceFunc(maps\mp\zombies\_zm_powerups::nuke_powerup, scripts\zm\replaced\_zm_powerups::nuke_powerup);
+	replaceFunc(maps\mp\zombies\_zm_powerups::insta_kill_powerup, scripts\zm\replaced\_zm_powerups::insta_kill_powerup);
+	replaceFunc(maps\mp\zombies\_zm_powerups::double_points_powerup, scripts\zm\replaced\_zm_powerups::double_points_powerup);
+	replaceFunc(maps\mp\zombies\_zm_pers_upgrades::is_pers_system_disabled, scripts\zm\replaced\_zm_pers_upgrades::is_pers_system_disabled);
+	replaceFunc(maps\mp\zombies\_zm_traps::player_elec_damage, scripts\zm\replaced\_zm_traps::player_elec_damage);
+	replaceFunc(maps\mp\zombies\_zm_equipment::show_equipment_hint, scripts\zm\replaced\_zm_equipment::show_equipment_hint);
+	replaceFunc(maps\mp\zombies\_zm_equipment::placed_equipment_think, scripts\zm\replaced\_zm_equipment::placed_equipment_think);
+	replaceFunc(maps\mp\zombies\_zm_spawner::head_should_gib, scripts\zm\replaced\_zm_spawner::head_should_gib);
+	replaceFunc(maps\mp\zombies\_zm_ai_basic::inert_wakeup, scripts\zm\replaced\_zm_ai_basic::inert_wakeup);
+	replaceFunc(maps\mp\zombies\_zm_melee_weapon::change_melee_weapon, scripts\zm\replaced\_zm_melee_weapon::change_melee_weapon);
+	replaceFunc(maps\mp\zombies\_zm_weap_ballistic_knife::watch_use_trigger, scripts\zm\replaced\_zm_weap_ballistic_knife::watch_use_trigger);
+	replaceFunc(maps\mp\zombies\_zm_weap_claymore::claymore_detonation, scripts\zm\replaced\_zm_weap_claymore::claymore_detonation);
 }
 
 init()
@@ -186,7 +186,7 @@ onplayerspawned()
 			//self thread test();
 
 			//self.score = 100000;
-			//maps/mp/zombies/_zm_perks::give_perk( "specialty_armorvest", 0 );
+			//maps\mp\zombies\_zm_perks::give_perk( "specialty_armorvest", 0 );
 			//self GiveWeapon("dsr50_zm");
 			//self GiveMaxAmmo("dsr50_zm");
 		}
@@ -215,7 +215,7 @@ post_all_players_spawned()
 
 	wait 0.05;
 
-	maps/mp/zombies/_zm::register_player_damage_callback( ::player_damage_override );
+	maps\mp\zombies\_zm::register_player_damage_callback( ::player_damage_override );
 
 	level.near_miss = 2; // makes screecher not run away first time on solo
 	level.ta_vaultfee = 0;
@@ -242,12 +242,12 @@ post_all_players_spawned()
 	level.playersuicideallowed = undefined;
 	level.disable_free_perks_before_power = undefined;
 	level.custom_random_perk_weights = undefined;
-	level.global_damage_func = scripts/zm/replaced/_zm_spawner::zombie_damage;
-	level.callbackplayerdamage = scripts/zm/replaced/_zm::callback_playerdamage;
-	level.overrideplayerdamage = scripts/zm/replaced/_zm::player_damage_override;
-	level.playerlaststand_func = scripts/zm/replaced/_zm::player_laststand;
-	level.etrap_damage = maps/mp/zombies/_zm::ai_zombie_health( 255 );
-	level.slipgun_damage = maps/mp/zombies/_zm::ai_zombie_health( 255 );
+	level.global_damage_func = scripts\zm\replaced\_zm_spawner::zombie_damage;
+	level.callbackplayerdamage = scripts\zm\replaced\_zm::callback_playerdamage;
+	level.overrideplayerdamage = scripts\zm\replaced\_zm::player_damage_override;
+	level.playerlaststand_func = scripts\zm\replaced\_zm::player_laststand;
+	level.etrap_damage = maps\mp\zombies\_zm::ai_zombie_health( 255 );
+	level.slipgun_damage = maps\mp\zombies\_zm::ai_zombie_health( 255 );
 	level.tombstone_spawn_func = ::tombstone_spawn;
 	level.tombstone_laststand_func = ::tombstone_save;
 	level.zombie_last_stand = ::last_stand_pistol_swap;
@@ -1715,7 +1715,7 @@ bleedout_bar_hud()
 		self waittill("entering_last_stand");
 
 		// don't show for last player downed
-		if(!self maps/mp/zombies/_zm_laststand::player_is_in_laststand())
+		if(!self maps\mp\zombies\_zm_laststand::player_is_in_laststand())
 		{
 			continue;
 		}
@@ -2055,7 +2055,7 @@ melee_weapon_switch_watcher()
 			}
 			else
 			{
-				self maps/mp/zombies/_zm_weapons::switch_back_primary_weapon(prev_wep);
+				self maps\mp\zombies\_zm_weapons::switch_back_primary_weapon(prev_wep);
 			}
 		}
 
@@ -2185,7 +2185,7 @@ remove_wallbuy( name )
 	{
 		if(IsDefined(level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade) && level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade == name)
 		{
-			maps/mp/zombies/_zm_unitrigger::unregister_unitrigger( level._unitriggers.trigger_stubs[i] );
+			maps\mp\zombies\_zm_unitrigger::unregister_unitrigger( level._unitriggers.trigger_stubs[i] );
 		}
 	}
 }
@@ -2213,7 +2213,7 @@ add_wallbuy( name )
 		return;
 	}
 
-	scripts/zm/replaced/utility::wallbuy( name, struct.target, struct.targetname, struct.origin, struct.angles );
+	scripts\zm\replaced\utility::wallbuy( name, struct.target, struct.targetname, struct.origin, struct.angles );
 }
 
 wallbuy_cost_changes()
@@ -2262,7 +2262,7 @@ wallbuy_decrease_upgraded_ammo_cost()
 {
 	for(i = 0; i < level._unitriggers.trigger_stubs.size; i++)
 	{
-		if(isDefined(level._unitriggers.trigger_stubs[i].trigger_func) && level._unitriggers.trigger_stubs[i].trigger_func == maps/mp/zombies/_zm_weapons::weapon_spawn_think)
+		if(isDefined(level._unitriggers.trigger_stubs[i].trigger_func) && level._unitriggers.trigger_stubs[i].trigger_func == maps\mp\zombies\_zm_weapons::weapon_spawn_think)
 		{
 			level._unitriggers.trigger_stubs[i].trigger_func = ::weapon_spawn_think;
 		}
@@ -2275,7 +2275,7 @@ wallbuy_lethal_grenade_changes()
 	{
 		if(IsDefined(level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade) && is_lethal_grenade(level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade))
 		{
-			level._unitriggers.trigger_stubs[i].prompt_and_visibility_func = scripts/zm/replaced/_zm_weapons::lethal_grenade_update_prompt;
+			level._unitriggers.trigger_stubs[i].prompt_and_visibility_func = scripts\zm\replaced\_zm_weapons::lethal_grenade_update_prompt;
 		}
 	}
 }
@@ -2286,16 +2286,16 @@ wallbuy_claymore_changes()
 	{
 		if(isDefined(level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade) && level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade == "claymore_zm")
 		{
-			level._unitriggers.trigger_stubs[i].prompt_and_visibility_func = scripts/zm/replaced/_zm_weap_claymore::claymore_unitrigger_update_prompt;
-			level._unitriggers.trigger_stubs[i].trigger_func = scripts/zm/replaced/_zm_weap_claymore::buy_claymores;
+			level._unitriggers.trigger_stubs[i].prompt_and_visibility_func = scripts\zm\replaced\_zm_weap_claymore::claymore_unitrigger_update_prompt;
+			level._unitriggers.trigger_stubs[i].trigger_func = scripts\zm\replaced\_zm_weap_claymore::buy_claymores;
 		}
 	}
 }
 
 weapon_spawn_think()
 {
-	cost = maps/mp/zombies/_zm_weapons::get_weapon_cost( self.zombie_weapon_upgrade );
-	ammo_cost = maps/mp/zombies/_zm_weapons::get_ammo_cost( self.zombie_weapon_upgrade );
+	cost = maps\mp\zombies\_zm_weapons::get_weapon_cost( self.zombie_weapon_upgrade );
+	ammo_cost = maps\mp\zombies\_zm_weapons::get_ammo_cost( self.zombie_weapon_upgrade );
 	shared_ammo_weapon = undefined;
 	second_endon = undefined;
 
@@ -2313,17 +2313,17 @@ weapon_spawn_think()
 
 	if ( isDefined( self.stub ) && is_true( self.stub.trigger_per_player ) )
 	{
-		self thread maps/mp/zombies/_zm_magicbox::decide_hide_show_hint( "stop_hint_logic", second_endon, self.parent_player );
+		self thread maps\mp\zombies\_zm_magicbox::decide_hide_show_hint( "stop_hint_logic", second_endon, self.parent_player );
 	}
 	else
 	{
-		self thread maps/mp/zombies/_zm_magicbox::decide_hide_show_hint( "stop_hint_logic", second_endon );
+		self thread maps\mp\zombies\_zm_magicbox::decide_hide_show_hint( "stop_hint_logic", second_endon );
 	}
 
 	if ( is_grenade )
 	{
 		self.first_time_triggered = 0;
-		hint = maps/mp/zombies/_zm_weapons::get_weapon_hint( self.zombie_weapon_upgrade );
+		hint = maps\mp\zombies\_zm_weapons::get_weapon_hint( self.zombie_weapon_upgrade );
 		self sethintstring( hint, cost );
 	}
 	else if ( !isDefined( self.first_time_triggered ) )
@@ -2338,7 +2338,7 @@ weapon_spawn_think()
 	{
 		if ( is_true( level.use_legacy_weapon_prompt_format ) )
 		{
-			self maps/mp/zombies/_zm_weapons::weapon_set_first_time_hint( cost, maps/mp/zombies/_zm_weapons::get_ammo_cost( self.zombie_weapon_upgrade ) );
+			self maps\mp\zombies\_zm_weapons::weapon_set_first_time_hint( cost, maps\mp\zombies\_zm_weapons::get_ammo_cost( self.zombie_weapon_upgrade ) );
 		}
 	}
 
@@ -2352,7 +2352,7 @@ weapon_spawn_think()
 			continue;
 		}
 
-		if ( !player maps/mp/zombies/_zm_magicbox::can_buy_weapon() )
+		if ( !player maps\mp\zombies\_zm_magicbox::can_buy_weapon() )
 		{
 			wait 0.1;
 			continue;
@@ -2375,10 +2375,10 @@ weapon_spawn_think()
 			continue;
 		}
 
-		player_has_weapon = player maps/mp/zombies/_zm_weapons::has_weapon_or_upgrade( self.zombie_weapon_upgrade );
+		player_has_weapon = player maps\mp\zombies\_zm_weapons::has_weapon_or_upgrade( self.zombie_weapon_upgrade );
 		if ( !player_has_weapon && is_true( level.weapons_using_ammo_sharing ) )
 		{
-			shared_ammo_weapon = player maps/mp/zombies/_zm_weapons::get_shared_ammo_weapon( self.zombie_weapon_upgrade );
+			shared_ammo_weapon = player maps\mp\zombies\_zm_weapons::get_shared_ammo_weapon( self.zombie_weapon_upgrade );
 			if ( isDefined( shared_ammo_weapon ) )
 			{
 				player_has_weapon = 1;
@@ -2387,11 +2387,11 @@ weapon_spawn_think()
 
 		if ( is_true( level.pers_upgrade_nube ) )
 		{
-			player_has_weapon = maps/mp/zombies/_zm_pers_upgrades_functions::pers_nube_should_we_give_raygun( player_has_weapon, player, self.zombie_weapon_upgrade );
+			player_has_weapon = maps\mp\zombies\_zm_pers_upgrades_functions::pers_nube_should_we_give_raygun( player_has_weapon, player, self.zombie_weapon_upgrade );
 		}
 
-		cost = maps/mp/zombies/_zm_weapons::get_weapon_cost( self.zombie_weapon_upgrade );
-		if ( player maps/mp/zombies/_zm_pers_upgrades_functions::is_pers_double_points_active() )
+		cost = maps\mp\zombies\_zm_weapons::get_weapon_cost( self.zombie_weapon_upgrade );
+		if ( player maps\mp\zombies\_zm_pers_upgrades_functions::is_pers_double_points_active() )
 		{
 			cost = int( cost / 2 );
 		}
@@ -2402,16 +2402,16 @@ weapon_spawn_think()
 			{
 				if ( self.first_time_triggered == 0 )
 				{
-					self maps/mp/zombies/_zm_weapons::show_all_weapon_buys( player, cost, ammo_cost, is_grenade );
+					self maps\mp\zombies\_zm_weapons::show_all_weapon_buys( player, cost, ammo_cost, is_grenade );
 				}
 
-				player maps/mp/zombies/_zm_score::minus_to_player_score( cost, 1 );
+				player maps\mp\zombies\_zm_score::minus_to_player_score( cost, 1 );
 				bbprint( "zombie_uses", "playername %s playerscore %d round %d cost %d name %s x %f y %f z %f type %s", player.name, player.score, level.round_number, cost, self.zombie_weapon_upgrade, self.origin, "weapon" );
 				level notify( "weapon_bought", player, self.zombie_weapon_upgrade );
 
 				if ( self.zombie_weapon_upgrade == "riotshield_zm" )
 				{
-					player maps/mp/zombies/_zm_equipment::equipment_give( "riotshield_zm" );
+					player maps\mp\zombies\_zm_equipment::equipment_give( "riotshield_zm" );
 					if ( isDefined( player.player_shield_reset_health ) )
 					{
 						player [[ player.player_shield_reset_health ]]();
@@ -2419,7 +2419,7 @@ weapon_spawn_think()
 				}
 				else if ( self.zombie_weapon_upgrade == "jetgun_zm" )
 				{
-					player maps/mp/zombies/_zm_equipment::equipment_give( "jetgun_zm" );
+					player maps\mp\zombies\_zm_equipment::equipment_give( "jetgun_zm" );
 				}
 				else if ( is_lethal_grenade( self.zombie_weapon_upgrade ) )
 				{
@@ -2431,17 +2431,17 @@ weapon_spawn_think()
 
 				if ( is_true( level.pers_upgrade_nube ) )
 				{
-					str_weapon = maps/mp/zombies/_zm_pers_upgrades_functions::pers_nube_weapon_upgrade_check( player, str_weapon );
+					str_weapon = maps\mp\zombies\_zm_pers_upgrades_functions::pers_nube_weapon_upgrade_check( player, str_weapon );
 				}
 
-				player maps/mp/zombies/_zm_weapons::weapon_give( str_weapon );
-				player maps/mp/zombies/_zm_stats::increment_client_stat( "wallbuy_weapons_purchased" );
-				player maps/mp/zombies/_zm_stats::increment_player_stat( "wallbuy_weapons_purchased" );
+				player maps\mp\zombies\_zm_weapons::weapon_give( str_weapon );
+				player maps\mp\zombies\_zm_stats::increment_client_stat( "wallbuy_weapons_purchased" );
+				player maps\mp\zombies\_zm_stats::increment_player_stat( "wallbuy_weapons_purchased" );
 			}
 			else
 			{
 				play_sound_on_ent( "no_purchase" );
-				player maps/mp/zombies/_zm_audio::create_and_play_dialog( "general", "no_money_weapon" );
+				player maps\mp\zombies\_zm_audio::create_and_play_dialog( "general", "no_money_weapon" );
 			}
 		}
 		else
@@ -2455,35 +2455,35 @@ weapon_spawn_think()
 
 			if ( is_true( level.pers_upgrade_nube ) )
 			{
-				str_weapon = maps/mp/zombies/_zm_pers_upgrades_functions::pers_nube_weapon_ammo_check( player, str_weapon );
+				str_weapon = maps\mp\zombies\_zm_pers_upgrades_functions::pers_nube_weapon_ammo_check( player, str_weapon );
 			}
 
 			if ( is_true( self.hacked ) )
 			{
-				if ( !player maps/mp/zombies/_zm_weapons::has_upgrade( str_weapon ) )
+				if ( !player maps\mp\zombies\_zm_weapons::has_upgrade( str_weapon ) )
 				{
-					ammo_cost = maps/mp/zombies/_zm_weapons::get_upgraded_ammo_cost( str_weapon );
+					ammo_cost = maps\mp\zombies\_zm_weapons::get_upgraded_ammo_cost( str_weapon );
 				}
 				else
 				{
-					ammo_cost = maps/mp/zombies/_zm_weapons::get_ammo_cost( str_weapon );
+					ammo_cost = maps\mp\zombies\_zm_weapons::get_ammo_cost( str_weapon );
 				}
 			}
-			else if ( player maps/mp/zombies/_zm_weapons::has_upgrade( str_weapon ) )
+			else if ( player maps\mp\zombies\_zm_weapons::has_upgrade( str_weapon ) )
 			{
-				ammo_cost = maps/mp/zombies/_zm_weapons::get_upgraded_ammo_cost( str_weapon );
+				ammo_cost = maps\mp\zombies\_zm_weapons::get_upgraded_ammo_cost( str_weapon );
 			}
 			else
 			{
-				ammo_cost = maps/mp/zombies/_zm_weapons::get_ammo_cost( str_weapon );
+				ammo_cost = maps\mp\zombies\_zm_weapons::get_ammo_cost( str_weapon );
 			}
 
 			if ( is_true( player.pers_upgrades_awarded[ "nube" ] ) )
 			{
-				ammo_cost = maps/mp/zombies/_zm_pers_upgrades_functions::pers_nube_override_ammo_cost( player, self.zombie_weapon_upgrade, ammo_cost );
+				ammo_cost = maps\mp\zombies\_zm_pers_upgrades_functions::pers_nube_override_ammo_cost( player, self.zombie_weapon_upgrade, ammo_cost );
 			}
 
-			if ( player maps/mp/zombies/_zm_pers_upgrades_functions::is_pers_double_points_active() )
+			if ( player maps\mp\zombies\_zm_pers_upgrades_functions::is_pers_double_points_active() )
 			{
 				ammo_cost = int( ammo_cost / 2 );
 			}
@@ -2496,18 +2496,18 @@ weapon_spawn_think()
 			{
 				if ( self.first_time_triggered == 0 )
 				{
-					self maps/mp/zombies/_zm_weapons::show_all_weapon_buys( player, cost, ammo_cost, is_grenade );
+					self maps\mp\zombies\_zm_weapons::show_all_weapon_buys( player, cost, ammo_cost, is_grenade );
 				}
 
-				if ( player maps/mp/zombies/_zm_weapons::has_upgrade( str_weapon ) )
+				if ( player maps\mp\zombies\_zm_weapons::has_upgrade( str_weapon ) )
 				{
-					player maps/mp/zombies/_zm_stats::increment_client_stat( "upgraded_ammo_purchased" );
-					player maps/mp/zombies/_zm_stats::increment_player_stat( "upgraded_ammo_purchased" );
+					player maps\mp\zombies\_zm_stats::increment_client_stat( "upgraded_ammo_purchased" );
+					player maps\mp\zombies\_zm_stats::increment_player_stat( "upgraded_ammo_purchased" );
 				}
 				else
 				{
-					player maps/mp/zombies/_zm_stats::increment_client_stat( "ammo_purchased" );
-					player maps/mp/zombies/_zm_stats::increment_player_stat( "ammo_purchased" );
+					player maps\mp\zombies\_zm_stats::increment_client_stat( "ammo_purchased" );
+					player maps\mp\zombies\_zm_stats::increment_player_stat( "ammo_purchased" );
 				}
 
 				if ( str_weapon == "riotshield_zm" )
@@ -2521,18 +2521,18 @@ weapon_spawn_think()
 						ammo_given = 0;
 					}
 				}
-				else if ( player maps/mp/zombies/_zm_weapons::has_upgrade( str_weapon ) )
+				else if ( player maps\mp\zombies\_zm_weapons::has_upgrade( str_weapon ) )
 				{
-					ammo_given = player maps/mp/zombies/_zm_weapons::ammo_give( level.zombie_weapons[ str_weapon ].upgrade_name );
+					ammo_given = player maps\mp\zombies\_zm_weapons::ammo_give( level.zombie_weapons[ str_weapon ].upgrade_name );
 				}
 				else
 				{
-					ammo_given = player maps/mp/zombies/_zm_weapons::ammo_give( str_weapon );
+					ammo_given = player maps\mp\zombies\_zm_weapons::ammo_give( str_weapon );
 				}
 
 				if ( ammo_given )
 				{
-					player maps/mp/zombies/_zm_score::minus_to_player_score( ammo_cost, 1 );
+					player maps\mp\zombies\_zm_score::minus_to_player_score( ammo_cost, 1 );
 					bbprint( "zombie_uses", "playername %s playerscore %d round %d cost %d name %s x %f y %f z %f type %s", player.name, player.score, level.round_number, ammo_cost, str_weapon, self.origin, "ammo" );
 				}
 			}
@@ -2546,7 +2546,7 @@ weapon_spawn_think()
 				}
 				else
 				{
-					player maps/mp/zombies/_zm_audio::create_and_play_dialog( "general", "no_money_weapon" );
+					player maps\mp\zombies\_zm_audio::create_and_play_dialog( "general", "no_money_weapon" );
 				}
 			}
 		}
@@ -2706,8 +2706,8 @@ buildbuildable( buildable, craft )
 
 				if (craft)
 				{
-					stub maps/mp/zombies/_zm_buildables::buildablestub_finish_build( player );
-					stub maps/mp/zombies/_zm_buildables::buildablestub_remove();
+					stub maps\mp\zombies\_zm_buildables::buildablestub_finish_build( player );
+					stub maps\mp\zombies\_zm_buildables::buildablestub_remove();
 					stub.model notsolid();
 					stub.model show();
 				}
@@ -2720,10 +2720,10 @@ buildbuildable( buildable, craft )
 				i = 0;
 				foreach (piece in stub.buildablezone.pieces)
 				{
-					piece maps/mp/zombies/_zm_buildables::piece_unspawn();
+					piece maps\mp\zombies\_zm_buildables::piece_unspawn();
 					if (!craft && i > 0)
 					{
-						stub.buildablezone maps/mp/zombies/_zm_buildables::buildable_set_piece_built(piece);
+						stub.buildablezone maps\mp\zombies\_zm_buildables::buildable_set_piece_built(piece);
 					}
 					i++;
 				}
@@ -2811,7 +2811,7 @@ buildable_place_think()
 		{
 			player thread ignore_triggers( 0.5 );
 		}
-		status = player maps/mp/zombies/_zm_buildables::player_can_build( self.stub.buildablezone );
+		status = player maps\mp\zombies\_zm_buildables::player_can_build( self.stub.buildablezone );
 		if ( !status )
 		{
 			self.stub.hint_string = "";
@@ -2828,7 +2828,7 @@ buildable_place_think()
 			{
 				self.stub [[ self.stub.onbeginuse ]]( player );
 			}
-			result = self maps/mp/zombies/_zm_buildables::buildable_use_hold_think( player );
+			result = self maps\mp\zombies\_zm_buildables::buildable_use_hold_think( player );
 			team = player.pers[ "team" ];
 			if ( isDefined( self.stub.onenduse ) )
 			{
@@ -2842,7 +2842,7 @@ buildable_place_think()
 			{
 				self.stub [[ self.stub.onuse ]]( player );
 			}
-			prompt = player maps/mp/zombies/_zm_buildables::player_build( self.stub.buildablezone );
+			prompt = player maps\mp\zombies\_zm_buildables::player_build( self.stub.buildablezone );
 			player_built = player;
 			self.stub.hint_string = prompt;
 			self sethintstring( self.stub.hint_string );
@@ -2853,13 +2853,13 @@ buildable_place_think()
 	}
 	if ( self.stub.persistent == 0 )
 	{
-		self.stub maps/mp/zombies/_zm_buildables::buildablestub_remove();
-		thread maps/mp/zombies/_zm_unitrigger::unregister_unitrigger( self.stub );
+		self.stub maps\mp\zombies\_zm_buildables::buildablestub_remove();
+		thread maps\mp\zombies\_zm_unitrigger::unregister_unitrigger( self.stub );
 		return;
 	}
 	if ( self.stub.persistent == 3 )
 	{
-		maps/mp/zombies/_zm_buildables::stub_unbuild_buildable( self.stub, 1 );
+		maps\mp\zombies\_zm_buildables::stub_unbuild_buildable( self.stub, 1 );
 		return;
 	}
 	if ( self.stub.persistent == 2 )
@@ -2868,7 +2868,7 @@ buildable_place_think()
 		{
 			self buildabletrigger_update_prompt( player_built );
 		}
-		if ( !maps/mp/zombies/_zm_weapons::limited_weapon_below_quota( self.stub.weaponname, undefined ) )
+		if ( !maps\mp\zombies\_zm_weapons::limited_weapon_below_quota( self.stub.weaponname, undefined ) )
 		{
 			self.stub.hint_string = &"ZOMBIE_GO_TO_THE_BOX_LIMITED";
 			self sethintstring( self.stub.hint_string );
@@ -2892,7 +2892,7 @@ buildable_place_think()
 			{
 				continue;
 			}
-			if ( !maps/mp/zombies/_zm_weapons::limited_weapon_below_quota( self.stub.weaponname, undefined ) )
+			if ( !maps\mp\zombies\_zm_weapons::limited_weapon_below_quota( self.stub.weaponname, undefined ) )
 			{
 				self.stub.hint_string = &"ZOMBIE_GO_TO_THE_BOX_LIMITED";
 				self sethintstring( self.stub.hint_string );
@@ -2919,20 +2919,20 @@ buildable_place_think()
 				continue;
 			}
 
-			player maps/mp/zombies/_zm_score::minus_to_player_score( self.stub.cost );
+			player maps\mp\zombies\_zm_score::minus_to_player_score( self.stub.cost );
 			self play_sound_on_ent( "purchase" );
 
 			self.stub.bought = 1;
 			if ( isDefined( self.stub.model ) )
 			{
-				self.stub.model thread maps/mp/zombies/_zm_buildables::model_fly_away();
+				self.stub.model thread maps\mp\zombies\_zm_buildables::model_fly_away();
 			}
-			player maps/mp/zombies/_zm_weapons::weapon_give( self.stub.weaponname );
+			player maps\mp\zombies\_zm_weapons::weapon_give( self.stub.weaponname );
 			if ( isDefined( level.zombie_include_buildables[ self.stub.equipname ].onbuyweapon ) )
 			{
 				self [[ level.zombie_include_buildables[ self.stub.equipname ].onbuyweapon ]]( player );
 			}
-			if ( !maps/mp/zombies/_zm_weapons::limited_weapon_below_quota( self.stub.weaponname, undefined ) )
+			if ( !maps\mp\zombies\_zm_weapons::limited_weapon_below_quota( self.stub.weaponname, undefined ) )
 			{
 				self.stub.hint_string = &"ZOMBIE_GO_TO_THE_BOX_LIMITED";
 			}
@@ -2941,7 +2941,7 @@ buildable_place_think()
 				self.stub.hint_string = &"ZOMBIE_GO_TO_THE_BOX";
 			}
 			self sethintstring( self.stub.hint_string );
-			player maps/mp/zombies/_zm_buildables::track_buildables_pickedup( self.stub.weaponname );
+			player maps\mp\zombies\_zm_buildables::track_buildables_pickedup( self.stub.weaponname );
 		}
 	}
 	else while ( !isDefined( player_built ) || self buildabletrigger_update_prompt( player_built ) )
@@ -2981,12 +2981,12 @@ buildable_place_think()
 				self play_sound_on_ent( "no_purchase" );
 				continue;
 			}
-			if ( !maps/mp/zombies/_zm_equipment::is_limited_equipment( self.stub.weaponname ) || !maps/mp/zombies/_zm_equipment::limited_equipment_in_use( self.stub.weaponname ) )
+			if ( !maps\mp\zombies\_zm_equipment::is_limited_equipment( self.stub.weaponname ) || !maps\mp\zombies\_zm_equipment::limited_equipment_in_use( self.stub.weaponname ) )
 			{
-				player maps/mp/zombies/_zm_score::minus_to_player_score( self.stub.cost );
+				player maps\mp\zombies\_zm_score::minus_to_player_score( self.stub.cost );
 				self play_sound_on_ent( "purchase" );
 
-				player maps/mp/zombies/_zm_equipment::equipment_buy( self.stub.weaponname );
+				player maps\mp\zombies\_zm_equipment::equipment_buy( self.stub.weaponname );
 				player giveweapon( self.stub.weaponname );
 				player setweaponammoclip( self.stub.weaponname, 1 );
 				if ( isDefined( level.zombie_include_buildables[ self.stub.equipname ].onbuyweapon ) )
@@ -3006,7 +3006,7 @@ buildable_place_think()
 					self.stub.hint_string = "";
 				}
 				self sethintstring( self.stub.hint_string );
-				player maps/mp/zombies/_zm_buildables::track_buildables_pickedup( self.stub.weaponname );
+				player maps\mp\zombies\_zm_buildables::track_buildables_pickedup( self.stub.weaponname );
 				continue;
 			}
 			else
@@ -3047,7 +3047,7 @@ buildabletrigger_update_prompt( player )
 
 buildablestub_update_prompt( player, trigger )
 {
-	if ( !self maps/mp/zombies/_zm_buildables::anystub_update_prompt( player ) )
+	if ( !self maps\mp\zombies\_zm_buildables::anystub_update_prompt( player ) )
 	{
 		return 0;
 	}
@@ -3072,9 +3072,9 @@ buildablestub_update_prompt( player, trigger )
 	{
 		slot = self.buildablestruct.buildable_slot;
 		piece = self.buildablezone.pieces[0];
-		player maps/mp/zombies/_zm_buildables::player_set_buildable_piece(piece, slot);
+		player maps\mp\zombies\_zm_buildables::player_set_buildable_piece(piece, slot);
 
-		if ( !isDefined( player maps/mp/zombies/_zm_buildables::player_get_buildable_piece( slot ) ) )
+		if ( !isDefined( player maps\mp\zombies\_zm_buildables::player_get_buildable_piece( slot ) ) )
 		{
 			if ( isDefined( level.zombie_buildables[ self.equipname ].hint_more ) )
 			{
@@ -3088,7 +3088,7 @@ buildablestub_update_prompt( player, trigger )
 		}
 		else
 		{
-			if ( !self.buildablezone maps/mp/zombies/_zm_buildables::buildable_has_piece( player maps/mp/zombies/_zm_buildables::player_get_buildable_piece( slot ) ) )
+			if ( !self.buildablezone maps\mp\zombies\_zm_buildables::buildable_has_piece( player maps\mp\zombies\_zm_buildables::player_get_buildable_piece( slot ) ) )
 			{
 				if ( isDefined( level.zombie_buildables[ self.equipname ].hint_wrong ) )
 				{
@@ -3117,7 +3117,7 @@ buildablestub_update_prompt( player, trigger )
 	{
 		if ( self.persistent == 1 )
 		{
-			if ( maps/mp/zombies/_zm_equipment::is_limited_equipment( self.weaponname ) && maps/mp/zombies/_zm_equipment::limited_equipment_in_use( self.weaponname ) )
+			if ( maps\mp\zombies\_zm_equipment::is_limited_equipment( self.weaponname ) && maps\mp\zombies\_zm_equipment::limited_equipment_in_use( self.weaponname ) )
 			{
 				self.hint_string = &"ZOMBIE_BUILD_PIECE_ONLY_ONE";
 				return 0;
@@ -3133,7 +3133,7 @@ buildablestub_update_prompt( player, trigger )
 		}
 		else if ( self.persistent == 2 )
 		{
-			if ( !maps/mp/zombies/_zm_weapons::limited_weapon_below_quota( self.weaponname, undefined ) )
+			if ( !maps\mp\zombies\_zm_weapons::limited_weapon_below_quota( self.weaponname, undefined ) )
 			{
 				self.hint_string = &"ZOMBIE_GO_TO_THE_BOX_LIMITED";
 				return 0;
@@ -3159,7 +3159,7 @@ buildablestub_update_prompt( player, trigger )
 
 pooledbuildablestub_update_prompt( player, trigger )
 {
-	if ( !self maps/mp/zombies/_zm_buildables::anystub_update_prompt( player ) )
+	if ( !self maps\mp\zombies\_zm_buildables::anystub_update_prompt( player ) )
 	{
 		return 0;
 	}
@@ -3196,9 +3196,9 @@ pooledbuildablestub_update_prompt( player, trigger )
 			}
 		}
 
-		player maps/mp/zombies/_zm_buildables::player_set_buildable_piece(piece, slot);
+		player maps\mp\zombies\_zm_buildables::player_set_buildable_piece(piece, slot);
 
-		piece = player maps/mp/zombies/_zm_buildables::player_get_buildable_piece(slot);
+		piece = player maps\mp\zombies\_zm_buildables::player_get_buildable_piece(slot);
 
 		if ( !isDefined( piece ) )
 		{
@@ -3219,7 +3219,7 @@ pooledbuildablestub_update_prompt( player, trigger )
 		}
 		else
 		{
-			if ( isDefined( self.bound_to_buildable ) && !self.bound_to_buildable.buildablezone maps/mp/zombies/_zm_buildables::buildable_has_piece( piece ) )
+			if ( isDefined( self.bound_to_buildable ) && !self.bound_to_buildable.buildablezone maps\mp\zombies\_zm_buildables::buildable_has_piece( piece ) )
 			{
 				if ( isDefined( level.zombie_buildables[ self.bound_to_buildable.equipname ].hint_wrong ) )
 				{
@@ -3294,7 +3294,7 @@ pooledbuildable_stub_for_piece( piece )
 	{
 		if ( !isDefined( stub.bound_to_buildable ) )
 		{
-			if ( stub.buildablezone maps/mp/zombies/_zm_buildables::buildable_has_piece( piece ) )
+			if ( stub.buildablezone maps\mp\zombies\_zm_buildables::buildable_has_piece( piece ) )
 			{
 				return stub;
 			}
@@ -3378,7 +3378,7 @@ choose_open_buildable( player )
 				}
 			}
 			slot = self.buildablestruct.buildable_slot;
-			player maps/mp/zombies/_zm_buildables::player_set_buildable_piece(piece, slot);
+			player maps\mp\zombies\_zm_buildables::player_set_buildable_piece(piece, slot);
 
 			self.equipname = level.buildables_available[self.buildables_available_index];
 			self.hint_string = level.zombie_buildables[self.equipname].hint;
@@ -3408,7 +3408,7 @@ buildablestub_build_succeed()
 
 	self waittill( "build_succeed" );
 
-	self.stub maps/mp/zombies/_zm_buildables::buildablestub_remove();
+	self.stub maps\mp\zombies\_zm_buildables::buildablestub_remove();
 	arrayremovevalue(level.buildables_available, self.stub.buildablezone.buildable_name);
 	if (level.buildables_available.size == 0)
 	{
@@ -3420,7 +3420,7 @@ buildablestub_build_succeed()
 				case "subwoofer_zm":
 				case "springpad_zm":
 				case "headchopper_zm":
-					maps/mp/zombies/_zm_unitrigger::unregister_unitrigger(stub);
+					maps\mp\zombies\_zm_unitrigger::unregister_unitrigger(stub);
 					break;
 			}
 		}
@@ -3456,7 +3456,7 @@ removebuildable( buildable, after_built )
 			if(IsDefined(stub.equipname) && stub.equipname == buildable)
 			{
 				stub.model hide();
-				maps/mp/zombies/_zm_unitrigger::unregister_unitrigger( stub );
+				maps\mp\zombies\_zm_unitrigger::unregister_unitrigger( stub );
 				return;
 			}
 		}
@@ -3469,12 +3469,12 @@ removebuildable( buildable, after_built )
 			{
 				if ( isDefined( buildable ) || stub.persistent != 3 )
 				{
-					stub maps/mp/zombies/_zm_buildables::buildablestub_remove();
+					stub maps\mp\zombies\_zm_buildables::buildablestub_remove();
 					foreach (piece in stub.buildablezone.pieces)
 					{
-						piece maps/mp/zombies/_zm_buildables::piece_unspawn();
+						piece maps\mp\zombies\_zm_buildables::piece_unspawn();
 					}
-					maps/mp/zombies/_zm_unitrigger::unregister_unitrigger( stub );
+					maps\mp\zombies\_zm_unitrigger::unregister_unitrigger( stub );
 					return;
 				}
 			}
@@ -3494,7 +3494,7 @@ buildable_piece_remove_on_last_stand()
 
 		if (isDefined(self.last_piece))
 		{
-			self.last_piece maps/mp/zombies/_zm_buildables::piece_unspawn();
+			self.last_piece maps\mp\zombies\_zm_buildables::piece_unspawn();
 		}
 	}
 }
@@ -3505,16 +3505,16 @@ buildable_get_last_piece()
 
 	while (1)
 	{
-		if (!self maps/mp/zombies/_zm_laststand::player_is_in_laststand())
+		if (!self maps\mp\zombies\_zm_laststand::player_is_in_laststand())
 		{
-			self.last_piece = maps/mp/zombies/_zm_buildables::player_get_buildable_piece(0);
+			self.last_piece = maps\mp\zombies\_zm_buildables::player_get_buildable_piece(0);
 		}
 
 		wait 0.05;
 	}
 }
 
-// MOTD/Origins style buildables
+// MOTD\Origins style buildables
 buildcraftables()
 {
 	// need a wait or else some buildables dont build
@@ -3674,7 +3674,7 @@ piece_unspawn()
 	self.model = undefined;
 	if ( isDefined( self.unitrigger ) )
 	{
-		thread maps/mp/zombies/_zm_unitrigger::unregister_unitrigger( self.unitrigger );
+		thread maps\mp\zombies\_zm_unitrigger::unregister_unitrigger( self.unitrigger );
 	}
 	self.unitrigger = undefined;
 }
@@ -3688,7 +3688,7 @@ remove_buildable_pieces( buildable_name )
 			pieces = buildable.buildablepieces;
 			for(i = 0; i < pieces.size; i++)
 			{
-				pieces[i] maps/mp/zombies/_zm_buildables::piece_unspawn();
+				pieces[i] maps\mp\zombies\_zm_buildables::piece_unspawn();
 			}
 			return;
 		}
@@ -3725,7 +3725,7 @@ jetgun_heatval_changes()
 {
 	self endon("disconnect");
 
-	if(!maps/mp/zombies/_zm_weapons::is_weapon_included("jetgun_zm"))
+	if(!maps\mp\zombies\_zm_weapons::is_weapon_included("jetgun_zm"))
 	{
 		return;
 	}
@@ -3868,7 +3868,7 @@ tombstone_spawn()
 	dc.script_noteworthy = "player_tombstone_model";
 	dc.player = self;
 
-	self thread maps/mp/zombies/_zm_tombstone::tombstone_clear();
+	self thread maps\mp\zombies\_zm_tombstone::tombstone_clear();
 	dc thread tombstone_wobble();
 	dc thread tombstone_emp();
 
@@ -3947,7 +3947,7 @@ tombstone_timeout()
 {
 	self endon( "tombstone_grabbed" );
 
-	self thread maps/mp/zombies/_zm_tombstone::playtombstonetimeraudio();
+	self thread maps\mp\zombies\_zm_tombstone::playtombstonetimeraudio();
 
 	self.player waittill("player_downed");
 
@@ -4025,7 +4025,7 @@ tombstone_save()
 	// can't switch to alt weapon
 	if(is_alt_weapon(self.tombstone_savedweapon_currentweapon))
 	{
-		self.tombstone_savedweapon_currentweapon = maps/mp/zombies/_zm_weapons::get_nonalternate_weapon(self.tombstone_savedweapon_currentweapon);
+		self.tombstone_savedweapon_currentweapon = maps\mp\zombies\_zm_weapons::get_nonalternate_weapon(self.tombstone_savedweapon_currentweapon);
 	}
 
 	for ( i = 0; i < self.tombstone_savedweapon_weapons.size; i++ )
@@ -4137,7 +4137,7 @@ tombstone_give()
 			continue;
 		}
 
-		self giveweapon( self.tombstone_savedweapon_weapons[ i ], 0, self maps/mp/zombies/_zm_weapons::get_pack_a_punch_weapon_options( self.tombstone_savedweapon_weapons[ i ] ) );
+		self giveweapon( self.tombstone_savedweapon_weapons[ i ], 0, self maps\mp\zombies\_zm_weapons::get_pack_a_punch_weapon_options( self.tombstone_savedweapon_weapons[ i ] ) );
 
 		if ( isdefined( self.tombstone_savedweapon_weaponsammo_clip[ i ] ) )
 		{
@@ -4204,13 +4204,13 @@ tombstone_give()
 
 	if ( isDefined( self.current_equipment ) )
 	{
-		self maps/mp/zombies/_zm_equipment::equipment_take( self.current_equipment );
+		self maps\mp\zombies\_zm_equipment::equipment_take( self.current_equipment );
 	}
 
 	if ( isDefined( self.tombstone_savedweapon_equipment ) )
 	{
 		self.do_not_display_equipment_pickup_hint = 1;
-		self maps/mp/zombies/_zm_equipment::equipment_give( self.tombstone_savedweapon_equipment );
+		self maps\mp\zombies\_zm_equipment::equipment_give( self.tombstone_savedweapon_equipment );
 		self.do_not_display_equipment_pickup_hint = undefined;
 	}
 
@@ -4256,7 +4256,7 @@ tombstone_give()
 				continue;
 			}
 
-			self maps/mp/zombies/_zm_perks::give_perk( self.tombstone_perks[ i ] );
+			self maps\mp\zombies\_zm_perks::give_perk( self.tombstone_perks[ i ] );
 			i++;
 		}
 	}
@@ -4280,7 +4280,7 @@ additionalprimaryweapon_save_weapons()
 			if (primaries.size >= 3)
 			{
 				weapon = primaries[primaries.size - 1];
-				self.a_saved_weapon = maps/mp/zombies/_zm_weapons::get_player_weapondata(self, weapon);
+				self.a_saved_weapon = maps\mp\zombies\_zm_weapons::get_player_weapondata(self, weapon);
 			}
 			else
 			{
@@ -4305,15 +4305,15 @@ additionalprimaryweapon_restore_weapons()
 			pap_triggers = getentarray( "specialty_weapupgrade", "script_noteworthy" );
 
 			give_wep = 1;
-			if ( isDefined( self ) && self maps/mp/zombies/_zm_weapons::has_weapon_or_upgrade( self.a_saved_weapon["name"] ) )
+			if ( isDefined( self ) && self maps\mp\zombies\_zm_weapons::has_weapon_or_upgrade( self.a_saved_weapon["name"] ) )
 			{
 				give_wep = 0;
 			}
-			else if ( !maps/mp/zombies/_zm_weapons::limited_weapon_below_quota( self.a_saved_weapon["name"], self, pap_triggers ) )
+			else if ( !maps\mp\zombies\_zm_weapons::limited_weapon_below_quota( self.a_saved_weapon["name"], self, pap_triggers ) )
 			{
 				give_wep = 0;
 			}
-			else if ( !self maps/mp/zombies/_zm_weapons::player_can_use_content( self.a_saved_weapon["name"] ) )
+			else if ( !self maps\mp\zombies\_zm_weapons::player_can_use_content( self.a_saved_weapon["name"] ) )
 			{
 				give_wep = 0;
 			}
@@ -4332,7 +4332,7 @@ additionalprimaryweapon_restore_weapons()
 			if (give_wep)
 			{
 				current_wep = self getCurrentWeapon();
-				self maps/mp/zombies/_zm_weapons::weapondata_give(self.a_saved_weapon);
+				self maps\mp\zombies\_zm_weapons::weapondata_give(self.a_saved_weapon);
 				self switchToWeapon(current_wep);
 			}
 
@@ -4411,7 +4411,7 @@ additionalprimaryweapon_stowed_weapon_refill()
 			primaries = self getWeaponsListPrimaries();
 			foreach(primary in primaries)
 			{
-				if(primary != maps/mp/zombies/_zm_weapons::get_nonalternate_weapon(curr_wep))
+				if(primary != maps\mp\zombies\_zm_weapons::get_nonalternate_weapon(curr_wep))
 				{
 					if(string != "weapon_change")
 					{
@@ -4436,11 +4436,11 @@ refill_after_time(primary)
 	reload_time = weaponReloadTime(primary);
 	reload_amount = undefined;
 
-	if(primary == "m32_zm" || primary == "python_zm" || maps/mp/zombies/_zm_weapons::get_base_weapon_name(primary, 1) == "judge_zm" || maps/mp/zombies/_zm_weapons::get_base_weapon_name(primary, 1) == "870mcs_zm" || maps/mp/zombies/_zm_weapons::get_base_weapon_name(primary, 1) == "ksg_zm")
+	if(primary == "m32_zm" || primary == "python_zm" || maps\mp\zombies\_zm_weapons::get_base_weapon_name(primary, 1) == "judge_zm" || maps\mp\zombies\_zm_weapons::get_base_weapon_name(primary, 1) == "870mcs_zm" || maps\mp\zombies\_zm_weapons::get_base_weapon_name(primary, 1) == "ksg_zm")
 	{
 		reload_amount = 1;
 
-		if(maps/mp/zombies/_zm_weapons::get_base_weapon_name(primary, 1) == "ksg_zm" && maps/mp/zombies/_zm_weapons::is_weapon_upgraded(primary))
+		if(maps\mp\zombies\_zm_weapons::get_base_weapon_name(primary, 1) == "ksg_zm" && maps\mp\zombies\_zm_weapons::is_weapon_upgraded(primary))
 		{
 			reload_amount = 2;
 		}
@@ -4530,7 +4530,7 @@ whos_who_spawn_changes()
 
 		foreach (perk in self.loadout.perks)
 		{
-			self maps/mp/zombies/_zm_perks::give_perk(perk);
+			self maps\mp\zombies\_zm_perks::give_perk(perk);
 		}
 
 		self waittill("chugabud_effects_cleanup");
