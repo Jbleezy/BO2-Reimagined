@@ -56,6 +56,11 @@ init()
 		containment_init();
 	}
 
+	if(level.scr_zm_ui_gametype_obj == "zmeat")
+	{
+		meat_init();
+	}
+
 	level thread round_start_wait(5, true);
 	level thread remove_round_number();
 	level thread unlimited_zombies();
@@ -304,7 +309,7 @@ set_grief_vars()
 {
 	if(getDvar("ui_gametype_obj") == "")
 	{
-		setDvar("ui_gametype_obj", "zgrief zsnr zrace zcontainment"); // zmeat
+		setDvar("ui_gametype_obj", "zgrief zsnr zrace zcontainment zmeat");
 	}
 
 	gamemodes = strTok(getDvar("ui_gametype_obj"), " ");
@@ -380,8 +385,12 @@ set_grief_vars()
 	{
 		level.grief_winning_score = 250;
 	}
+	else if(level.scr_zm_ui_gametype_obj == "zmeat")
+	{
+		level.grief_winning_score = 250;
+	}
 
-	if(level.scr_zm_ui_gametype_obj == "zgrief" || level.scr_zm_ui_gametype_obj == "zsnr" || level.scr_zm_ui_gametype_obj == "zcontainment")
+	if(level.scr_zm_ui_gametype_obj == "zgrief" || level.scr_zm_ui_gametype_obj == "zsnr" || level.scr_zm_ui_gametype_obj == "zcontainment"|| level.scr_zm_ui_gametype_obj == "zmeat")
 	{
 		level.zombie_move_speed = 100;
 		level.zombie_vars["zombie_health_start"] = 2500;
@@ -1378,6 +1387,13 @@ grief_intro_text()
 		self iPrintLn("Gain " + level.grief_winning_score + " score to win the game.");
 		wait 5;
 	}
+	else if(level.scr_zm_ui_gametype_obj == "zmeat")
+	{
+		self iPrintLn("Gain score by holding the meat.");
+		wait 5;
+		self iPrintLn("Gain " + level.grief_winning_score + " score to win the game.");
+		wait 5;
+	}
 
 	self iPrintLn("Good luck!");
 }
@@ -1421,7 +1437,7 @@ is_respawn_gamemode()
 		return 0;
 	}
 
-	if(level.scr_zm_ui_gametype_obj == "zgrief" || level.scr_zm_ui_gametype_obj == "zrace" || level.scr_zm_ui_gametype_obj == "zmeat" || level.scr_zm_ui_gametype_obj == "zcontainment")
+	if(level.scr_zm_ui_gametype_obj == "zgrief" || level.scr_zm_ui_gametype_obj == "zrace" || level.scr_zm_ui_gametype_obj == "zcontainment" || level.scr_zm_ui_gametype_obj == "zmeat")
 	{
 		return 1;
 	}
@@ -2188,10 +2204,15 @@ player_suicide()
 
 func_should_drop_meat()
 {
+	if(level.scr_zm_ui_gametype_obj == "zmeat")
+	{
+		return 0;
+	}
+
 	players = get_players();
 	foreach(player in players)
 	{
-		if(player getCurrentWeapon() == "item_meat_zm")
+		if(player hasWeapon("item_meat_zm"))
 		{
 			return 0;
 		}
@@ -2718,7 +2739,6 @@ containment_think()
 				{
 					held_time["allies"] = getTime();
 
-
 					if((held_prev != "cont") || ((level.grief_score["B"] + 1) < level.grief_winning_score))
 					{
 						foreach(player in in_containment_zone["allies"])
@@ -2772,6 +2792,102 @@ containment_think()
 		{
 			i = 0;
 		}
+	}
+}
+
+meat_init()
+{
+	level.meat_points = 100;
+
+	level thread meat_powerup_drop_think();
+	level thread meat_score_think();
+}
+
+meat_powerup_drop_think()
+{
+	level endon("end_game");
+
+	while(1)
+	{
+		level.zombie_powerup_ape = "meat_stink";
+		level.zombie_vars["zombie_drop_item"] = 1;
+
+		level waittill( "powerup_dropped", powerup );
+
+		if (powerup.powerup_name != "meat_stink")
+		{
+			continue;
+		}
+
+		meat_active = true;
+		while (meat_active)
+		{
+			wait 0.05;
+
+			meat_active = false;
+
+			players = get_players();
+			foreach(player in players)
+			{
+				if(player hasWeapon("item_meat_zm"))
+				{
+					meat_active = true;
+				}
+			}
+
+			if(isDefined(powerup) || isDefined(level.item_meat) || is_true(level.meat_on_ground))
+			{
+				meat_active = true;
+			}
+		}
+	}
+}
+
+meat_score_think()
+{
+	level endon("end_game");
+
+	meat_player = undefined;
+	held_time = undefined;
+	obj_time = 1000;
+
+	while(1)
+	{
+		if (!isDefined(meat_player))
+		{
+			players = get_players();
+			foreach (player in players)
+			{
+				if (player getCurrentWeapon() == "item_meat_zm")
+				{
+					meat_player = player;
+					held_time = getTime();
+					break;
+				}
+			}
+		}
+
+		if (isDefined(meat_player))
+		{
+			if (meat_player getCurrentWeapon() != "item_meat_zm")
+			{
+				meat_player = undefined;
+				held_time = undefined;
+				continue;
+			}
+
+			if ((getTime() - held_time) >= obj_time)
+			{
+				held_time = getTime();
+
+				score = level.meat_points * maps\mp\zombies\_zm_score::get_points_multiplier(meat_player);
+				meat_player maps\mp\zombies\_zm_score::add_to_player_score(score);
+
+				increment_score(meat_player.team);
+			}
+		}
+
+		wait 0.05;
 	}
 }
 
