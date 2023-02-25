@@ -2799,8 +2799,10 @@ meat_init()
 {
 	level.meat_points = 100;
 
+	level thread meat_hud_destroy_on_end_game();
+
 	level thread meat_powerup_drop_think();
-	level thread meat_score_think();
+	level thread meat_think();
 }
 
 meat_powerup_drop_think()
@@ -2843,7 +2845,7 @@ meat_powerup_drop_think()
 	}
 }
 
-meat_score_think()
+meat_think()
 {
 	level endon("end_game");
 
@@ -2862,6 +2864,9 @@ meat_score_think()
 				{
 					meat_player = player;
 					held_time = getTime();
+
+					level thread meat_stink_player(meat_player);
+
 					break;
 				}
 			}
@@ -2871,9 +2876,30 @@ meat_score_think()
 		{
 			if (meat_player getCurrentWeapon() != "item_meat_zm")
 			{
+				level thread meat_unstink_player(meat_player);
+
 				meat_player = undefined;
 				held_time = undefined;
+
+				players = get_players();
+				foreach (player in players)
+				{
+					if (!is_true(player.spawn_protection) && !is_true(player.revive_protection))
+					{
+						player.ignoreme = 0;
+					}
+				}
+
 				continue;
+			}
+
+			players = get_players();
+			foreach (player in players)
+			{
+				if (player != meat_player)
+				{
+					player.ignoreme = 1;
+				}
 			}
 
 			if ((getTime() - held_time) >= obj_time)
@@ -2889,6 +2915,124 @@ meat_score_think()
 
 		wait 0.05;
 	}
+}
+
+meat_stink_player(meat_player)
+{
+	if (!isDefined(player.meat_waypoint))
+	{
+		meat_player.meat_waypoint_origin = spawn( "script_model", meat_player.origin + (0, 0, 72) );
+		meat_player.meat_waypoint_origin setmodel( "tag_origin" );
+		meat_player.meat_waypoint_origin linkto( meat_player );
+	}
+
+	players = get_players();
+	foreach (player in players)
+	{
+		if (!isDefined(player.meat_waypoint))
+		{
+			player.meat_waypoint = player meat_waypoint_init();
+		}
+
+		if (player == meat_player)
+		{
+			player.meat_waypoint.alpha = 0;
+		}
+		else
+		{
+			player.meat_waypoint.alpha = 1;
+
+			if (player.team == meat_player.team)
+			{
+				player.meat_waypoint.color = (0, 1, 0);
+			}
+			else
+			{
+				player.meat_waypoint.color = (1, 0, 0);
+			}
+
+			player.meat_waypoint setTargetEnt(meat_player.meat_waypoint_origin);
+			player.meat_waypoint setWaypoint(1, "waypoint_revive");
+		}
+
+		player thread meat_stink_player_cleanup();
+	}
+
+	meat_player thread meat_stink_player_create();
+}
+
+meat_unstink_player(meat_player)
+{
+	if (isDefined(meat_player.meat_waypoint_origin))
+	{
+		meat_player.meat_waypoint_origin unlink();
+    	meat_player.meat_waypoint_origin delete();
+	}
+
+	players = get_players();
+	foreach (player in players)
+	{
+		if(isDefined(player.meat_waypoint))
+		{
+			player.meat_waypoint.alpha = 0;
+		}
+
+		player thread meat_stink_player_cleanup();
+	}
+}
+
+meat_stink_player_create()
+{
+    self maps\mp\zombies\_zm_stats::increment_client_stat( "contaminations_received" );
+    self endon( "disconnect" );
+    self endon( "death" );
+    tagname = "J_SpineLower";
+    self.meat_stink_3p = spawn( "script_model", self gettagorigin( tagname ) );
+    self.meat_stink_3p setmodel( "tag_origin" );
+    self.meat_stink_3p linkto( self, tagname );
+    wait 0.5;
+    playfxontag( level._effect["meat_stink_torso"], self.meat_stink_3p, "tag_origin" );
+    self setclientfieldtoplayer( "meat_stink", 1 );
+}
+
+meat_stink_player_cleanup()
+{
+    if ( isdefined( self.meat_stink_3p ) )
+    {
+        self.meat_stink_3p unlink();
+        self.meat_stink_3p delete();
+    }
+
+    self setclientfieldtoplayer( "meat_stink", 0 );
+}
+
+meat_hud_destroy_on_end_game()
+{
+	level waittill("end_game");
+
+	players = get_players();
+	foreach(player in players)
+	{
+		if(isDefined(player.meat_waypoint))
+		{
+			player.meat_waypoint destroy();
+		}
+	}
+}
+
+meat_waypoint_init()
+{
+	meat_waypoint = [];
+	meat_waypoint = newClientHudElem(self);
+	meat_waypoint.alignx = "center";
+	meat_waypoint.aligny = "middle";
+	meat_waypoint.horzalign = "user_center";
+	meat_waypoint.vertalign = "user_center";
+	meat_waypoint.alpha = 1;
+	meat_waypoint.hidewheninmenu = 1;
+	meat_waypoint.foreground = 1;
+
+	return meat_waypoint;
 }
 
 increment_score(team)

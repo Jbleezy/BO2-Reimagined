@@ -523,6 +523,7 @@
 * Gain score by being the team holding the meat
 * Gain 250 score to win the game
 * Meat always spawns from first zombie killed
+* All zombies go after player holding meat
 * Player holding the meat gains 100 points when their team gains score
 * Players respawn after being down for 10 seconds
 * Players retain perks
