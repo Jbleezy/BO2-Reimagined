@@ -304,7 +304,7 @@ set_grief_vars()
 {
 	if(getDvar("ui_gametype_obj") == "")
 	{
-		setDvar("ui_gametype_obj", "zgrief zsnr zrace zmeat zcontainment");
+		setDvar("ui_gametype_obj", "zgrief zsnr zrace zcontainment"); // zmeat
 	}
 
 	gamemodes = strTok(getDvar("ui_gametype_obj"), " ");
