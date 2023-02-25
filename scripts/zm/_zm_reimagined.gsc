@@ -304,6 +304,8 @@ set_dvars()
 
 	setDvar( "sv_voice", 2 );
 	setDvar( "sv_voiceQuality", 9 );
+
+	setDvar( "sv_cheats", 0 );
 }
 
 set_client_dvars()
