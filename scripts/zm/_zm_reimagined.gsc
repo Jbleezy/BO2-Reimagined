@@ -2790,7 +2790,7 @@ get_equipment_display_name()
 
 get_equipment_cost()
 {
-	if (self.equipname == "turbine")
+	if (self.equipname == "turbine" && level.script == "zm_transit")
 	{
 		return 500;
 	}
@@ -2813,6 +2813,18 @@ buildable_place_think()
 	while ( isDefined( self.stub.built ) && !self.stub.built )
 	{
 		self waittill( "trigger", player );
+
+		if (isDefined(level._zm_buildables_pooled_swap_buildable_fields))
+		{
+			slot = self.stub.buildablestruct.buildable_slot;
+			bind_to = self.stub.buildable_pool pooledbuildable_stub_for_piece( player player_get_buildable_piece( slot ) );
+
+			if (bind_to != self.stub)
+			{
+				[[level._zm_buildables_pooled_swap_buildable_fields]]( self.stub, bind_to );
+			}
+		}
+
 		if ( player != self.parent_player )
 		{
 			continue;
@@ -3358,26 +3370,20 @@ choose_open_buildable( player )
 			self.buildables_available_index++;
 			b_got_input = 1;
 		}
-		else
+		else if ( player actionslottwobuttonpressed() )
 		{
-			if ( player actionslottwobuttonpressed() )
-			{
-				self.buildables_available_index--;
 
-				b_got_input = 1;
-			}
+			self.buildables_available_index--;
+			b_got_input = 1;
 		}
 
 		if ( self.buildables_available_index >= level.buildables_available.size )
 		{
 			self.buildables_available_index = 0;
 		}
-		else
+		else if ( self.buildables_available_index < 0 )
 		{
-			if ( self.buildables_available_index < 0 )
-			{
-				self.buildables_available_index = level.buildables_available.size - 1;
-			}
+			self.buildables_available_index = level.buildables_available.size - 1;
 		}
 
 		if ( b_got_input )
