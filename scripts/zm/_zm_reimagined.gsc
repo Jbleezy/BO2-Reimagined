@@ -78,7 +78,6 @@ main()
 
 init()
 {
-	level.reimagined_version = "";
 	level.using_solo_revive = 0;
 	level.claymores_max_per_player = 20;
 
@@ -286,6 +285,8 @@ post_all_players_spawned()
 
 set_dvars()
 {
+	setDvar( "zm_reimagined_version", "1.0.0" );
+
 	setDvar( "player_backSpeedScale", 1 );
 
 	setDvar( "dtp_post_move_pause", 0 );
