@@ -106,8 +106,7 @@ builddynamicwallbuys()
 	builddynamicwallbuy( "church", "svu_zm" );
 	builddynamicwallbuy( "mansion", "an94_zm" );
 
-	scripts\zm\_zm_reimagined::wallbuy_increase_trigger_radius();
-	scripts\zm\_zm_reimagined::wallbuy_decrease_upgraded_ammo_cost();
+    level notify("dynamicwallbuysbuilt");
 }
 
 builddynamicwallbuy( location, weaponname )

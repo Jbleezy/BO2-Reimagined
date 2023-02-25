@@ -273,6 +273,7 @@ post_all_players_spawned()
 	level thread buildcraftables();
 
 	level thread wallbuy_dynamic_update();
+	level thread wallbuy_dynamic_zgrief_update();
 
 	//level.round_number = 115;
 	//level.zombie_move_speed = 105;
@@ -2590,6 +2591,19 @@ wallbuy_dynamic_update()
 
 		wait 0.5;
 	}
+}
+
+wallbuy_dynamic_zgrief_update()
+{
+	if(!(level.scr_zm_ui_gametype == "zgrief" && level.scr_zm_map_start_location == "street"))
+	{
+		return;
+	}
+
+	level waittill("dynamicwallbuysbuilt");
+
+	wallbuy_increase_trigger_radius();
+	wallbuy_decrease_upgraded_ammo_cost();
 }
 
 weapon_inspect_watcher()
