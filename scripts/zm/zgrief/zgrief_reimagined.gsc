@@ -2993,6 +2993,8 @@ meat_stink_player(meat_player)
 	}
 
 	meat_player thread meat_stink_player_create();
+
+	meat_player thread meat_powerup_drop_on_downed();
 }
 
 meat_unstink_player(meat_player)
@@ -3015,6 +3017,8 @@ meat_unstink_player(meat_player)
 
 		player thread meat_stink_player_cleanup();
 	}
+
+	meat_player notify("meat_unstink_player");
 }
 
 meat_stink_player_create()
@@ -3040,6 +3044,31 @@ meat_stink_player_cleanup()
     }
 
     self setclientfieldtoplayer( "meat_stink", 0 );
+}
+
+meat_powerup_drop_on_downed()
+{
+	self endon("disconnect");
+	self endon("bled_out");
+	self endon("meat_unstink_player");
+
+	self waittill("player_downed");
+
+	valid_drop = 0;
+	playable_area = getentarray("player_volume", "script_noteworthy");
+    for (i = 0; i < playable_area.size; i++)
+    {
+        if (self isTouching(playable_area[i]))
+		{
+			valid_drop = 1;
+			break;
+		}
+    }
+
+	if (valid_drop)
+	{
+		maps\mp\zombies\_zm_powerups::specific_powerup_drop( "meat_stink", self.origin );
+	}
 }
 
 meat_hud_destroy_on_end_game()
