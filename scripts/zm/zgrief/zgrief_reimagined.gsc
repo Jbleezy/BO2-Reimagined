@@ -2841,18 +2841,84 @@ meat_powerup_drop_think()
 
 			meat_active = false;
 
-			players = get_players();
-			foreach(player in players)
+			if (!meat_active)
 			{
-				if(player hasWeapon("item_meat_zm"))
+				if (isDefined(level.item_meat))
 				{
 					meat_active = true;
+
+					if (!isDefined(level.item_meat.meat_waypoint_origin))
+					{
+						level.item_meat.meat_waypoint_origin = spawn( "script_model", level.item_meat.origin );
+						level.item_meat.meat_waypoint_origin setmodel( "tag_origin" );
+
+						level.item_meat thread meat_waypoint_origin_destroy_on_death();
+					}
+
+					level.item_meat.meat_waypoint_origin.origin = level.item_meat.origin + (0, 0, 32);
+
+					players = get_players();
+					foreach (player in players)
+					{
+						if (!isDefined(player.meat_waypoint))
+						{
+							player.meat_waypoint = player meat_waypoint_init();
+						}
+
+						player.meat_waypoint.alpha = 1;
+						player.meat_waypoint.color = (1, 1, 1);
+						player.meat_waypoint setTargetEnt(level.item_meat.meat_waypoint_origin);
+					}
 				}
 			}
 
-			if(isDefined(powerup) || isDefined(level.item_meat) || is_true(level.meat_on_ground))
+			if (!meat_active)
 			{
-				meat_active = true;
+				players = get_players();
+				foreach(player in players)
+				{
+					if(player hasWeapon("item_meat_zm"))
+					{
+						meat_active = true;
+					}
+				}
+			}
+
+			if (!meat_active)
+			{
+				if (isDefined(powerup))
+				{
+					meat_active = true;
+
+					if (!isDefined(powerup.meat_waypoint_origin))
+					{
+						powerup.meat_waypoint_origin = spawn( "script_model", powerup.origin + (0, 0, 32) );
+						powerup.meat_waypoint_origin setmodel( "tag_origin" );
+
+						powerup thread meat_waypoint_origin_destroy_on_death();
+					}
+
+					players = get_players();
+					foreach (player in players)
+					{
+						if (!isDefined(player.meat_waypoint))
+						{
+							player.meat_waypoint = player meat_waypoint_init();
+						}
+
+						player.meat_waypoint.alpha = 1;
+						player.meat_waypoint.color = (1, 1, 1);
+						player.meat_waypoint setTargetEnt(powerup.meat_waypoint_origin);
+					}
+				}
+			}
+
+			if (!meat_active)
+			{
+				if (is_true(level.meat_on_ground))
+				{
+					meat_active = true;
+				}
 			}
 		}
 
@@ -2875,6 +2941,17 @@ meat_powerup_dropped_check()
 	}
 }
 
+meat_waypoint_origin_destroy_on_death()
+{
+	self waittill("death");
+
+	if (isDefined(self.meat_waypoint_origin))
+	{
+		self.meat_waypoint_origin unlink();
+    	self.meat_waypoint_origin delete();
+	}
+}
+
 meat_think()
 {
 	level endon("end_game");
@@ -2890,7 +2967,7 @@ meat_think()
 			players = get_players();
 			foreach (player in players)
 			{
-				if (player getCurrentWeapon() == "item_meat_zm")
+				if (player hasWeapon("item_meat_zm"))
 				{
 					meat_player = player;
 					held_time = getTime();
@@ -2904,7 +2981,7 @@ meat_think()
 
 		if (isDefined(meat_player))
 		{
-			if (meat_player getCurrentWeapon() != "item_meat_zm")
+			if (!meat_player hasWeapon("item_meat_zm"))
 			{
 				level thread meat_unstink_player(meat_player);
 
@@ -2986,7 +3063,6 @@ meat_stink_player(meat_player)
 			}
 
 			player.meat_waypoint setTargetEnt(meat_player.meat_waypoint_origin);
-			player.meat_waypoint setWaypoint(1, "waypoint_revive");
 		}
 
 		player thread meat_stink_player_cleanup();
@@ -3096,6 +3172,7 @@ meat_waypoint_init()
 	meat_waypoint.alpha = 1;
 	meat_waypoint.hidewheninmenu = 1;
 	meat_waypoint.foreground = 1;
+	meat_waypoint setWaypoint(1, "waypoint_revive");
 
 	return meat_waypoint;
 }
