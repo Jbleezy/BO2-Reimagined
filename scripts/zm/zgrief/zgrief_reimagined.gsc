@@ -727,7 +727,7 @@ grief_onplayerconnect()
 	self thread [[level.zmeat_create_item_meat_watcher]]();
 	self.killsconfirmed = 0;
 
-	if(level.scr_zm_ui_gametype_obj == "zgrief" || level.scr_zm_ui_gametype_obj == "zcontainment")
+	if(level.scr_zm_ui_gametype_obj == "zgrief" || level.scr_zm_ui_gametype_obj == "zcontainment" || level.scr_zm_ui_gametype_obj == "zmeat")
 	{
 		self._retain_perks = 1;
 	}
