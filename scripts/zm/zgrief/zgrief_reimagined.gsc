@@ -2966,6 +2966,8 @@ meat_stink_player(meat_player)
 			player.meat_waypoint = player meat_waypoint_init();
 		}
 
+		scripts\zm\replaced\zgrief::print_meat_msg(player, meat_player);
+
 		if (player == meat_player)
 		{
 			player.meat_waypoint.alpha = 0;

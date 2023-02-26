@@ -63,14 +63,7 @@ meat_stink_player( who )
 			player.ignoreme = 1;
 		}
 
-		if(player.team == who.team)
-		{
-			player iprintln("^8" + who.name + " has the meat");
-		}
-		else
-		{
-			player iprintln("^9" + who.name + " has the meat");
-		}
+		print_meat_msg(player, who);
 	}
 	who thread [[level.zgrief_meat_stink_player_create]]();
 	who waittill_any_or_timeout( 30, "disconnect", "player_downed", "bled_out" );
@@ -80,4 +73,19 @@ meat_stink_player( who )
 		player thread [[level.zgrief_meat_stink_player_cleanup]]();
 		player.ignoreme = 0;
 	}
+}
+
+print_meat_msg(player, meat_player)
+{
+	color = "";
+	if(player.team == meat_player.team)
+	{
+		color = "^8";
+	}
+	else
+	{
+		color = "^9";
+	}
+
+	player iprintln(color + meat_player.name + " has the meat");
 }
