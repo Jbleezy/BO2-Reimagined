@@ -20,6 +20,12 @@ game_mode_spawn_player_logic()
 
 meat_stink_on_ground(position_to_play)
 {
+	if(level.scr_zm_ui_gametype_obj == "zmeat")
+	{
+		maps\mp\zombies\_zm_powerups::specific_powerup_drop( "meat_stink", position_to_play );
+		return;
+	}
+
 	level.meat_on_ground = 1;
 	attractor_point = spawn( "script_model", position_to_play );
 	attractor_point setmodel( "tag_origin" );
@@ -40,6 +46,13 @@ meat_stink_player( who )
 {
 	level notify( "new_meat_stink_player" );
 	level endon( "new_meat_stink_player" );
+
+	if(level.scr_zm_ui_gametype_obj == "zmeat")
+	{
+		level thread [[level.zgrief_meat_stink]](who);
+		return;
+	}
+
 	who.ignoreme = 0;
 	players = get_players();
 	foreach ( player in players )

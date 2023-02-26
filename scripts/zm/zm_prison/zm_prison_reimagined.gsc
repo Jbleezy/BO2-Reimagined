@@ -28,7 +28,9 @@ init()
 	level.zombie_init_done = ::zombie_init_done;
 	level.special_weapon_magicbox_check = ::check_for_special_weapon_limit_exist;
 	level.round_prestart_func = scripts\zm\replaced\_zm_afterlife::afterlife_start_zombie_logic;
+	level.zgrief_meat_stink = maps\mp\gametypes_zm\zgrief::meat_stink;
 	level.zgrief_meat_stink_player_create = maps\mp\gametypes_zm\zgrief::meat_stink_player_create;
+	level.zgrief_meat_stink_player_cleanup = maps\mp\gametypes_zm\zgrief::meat_stink_player_cleanup;
 	level.zmeat_create_item_meat_watcher = maps\mp\gametypes_zm\zmeat::create_item_meat_watcher;
 
 	remove_acid_trap_player_spawn();

@@ -34,7 +34,9 @@ init()
 	level.special_weapon_magicbox_check = ::buried_special_weapon_magicbox_check;
 	level._is_player_in_zombie_stink = maps\mp\zombies\_zm_perk_vulture::_is_player_in_zombie_stink;
 	level._zm_buildables_pooled_swap_buildable_fields = maps\mp\zombies\_zm_buildables_pooled::swap_buildable_fields;
+	level.zgrief_meat_stink = maps\mp\gametypes_zm\zgrief::meat_stink;
 	level.zgrief_meat_stink_player_create = maps\mp\gametypes_zm\zgrief::meat_stink_player_create;
+	level.zgrief_meat_stink_player_cleanup = maps\mp\gametypes_zm\zgrief::meat_stink_player_cleanup;
 	level.zmeat_create_item_meat_watcher = maps\mp\gametypes_zm\zmeat::create_item_meat_watcher;
 
 	if(is_gametype_active("zgrief"))

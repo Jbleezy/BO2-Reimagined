@@ -522,8 +522,10 @@
 #### Meat
 * Gain score by being the team holding the meat
 * Gain 250 score to win the game
-* Meat always spawns from first zombie killed
+* Meat powerup always spawns from the first zombie killed
 * All zombies go after player holding meat
+* Throwing the meat on the ground makes it a grabbable powerup
+* Throwing the meat onto another player makes them hold the meat
 * Player holding the meat gains 100 points when their team gains score
 * Players respawn after being down for 10 seconds
 * Players retain perks

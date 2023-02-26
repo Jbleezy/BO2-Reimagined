@@ -61,6 +61,8 @@ init()
 		meat_init();
 	}
 
+	level._powerup_grab_check = ::meat_can_player_grab;
+
 	level thread round_start_wait(5, true);
 	level thread remove_round_number();
 	level thread unlimited_zombies();
@@ -2811,15 +2813,26 @@ meat_powerup_drop_think()
 
 	while(1)
 	{
-		level.zombie_powerup_ape = "meat_stink";
-		level.zombie_vars["zombie_drop_item"] = 1;
-
-		level waittill( "powerup_dropped", powerup );
-
-		if (powerup.powerup_name != "meat_stink")
+		powerup = undefined;
+		if (isDefined(level.new_meat_powerup))
 		{
-			continue;
+			powerup = level.new_meat_powerup;
+			level.new_meat_powerup = undefined;
 		}
+		else
+		{
+			level.zombie_powerup_ape = "meat_stink";
+			level.zombie_vars["zombie_drop_item"] = 1;
+
+			level waittill( "powerup_dropped", powerup );
+
+			if (powerup.powerup_name != "meat_stink")
+			{
+				continue;
+			}
+		}
+
+		level thread meat_powerup_dropped_check();
 
 		meat_active = true;
 		while (meat_active)
@@ -2841,6 +2854,23 @@ meat_powerup_drop_think()
 			{
 				meat_active = true;
 			}
+		}
+
+		level notify("meat_inactive");
+	}
+}
+
+meat_powerup_dropped_check()
+{
+	level endon("meat_inactive");
+
+	while(1)
+	{
+		level waittill( "powerup_dropped", powerup );
+
+		if (powerup == "meat_stink")
+		{
+			level.new_meat_powerup = powerup;
 		}
 	}
 }
@@ -3033,6 +3063,19 @@ meat_waypoint_init()
 	meat_waypoint.foreground = 1;
 
 	return meat_waypoint;
+}
+
+meat_can_player_grab(player)
+{
+	if (self.powerup_name == "meat_stink")
+	{
+		if (player hasWeapon("item_meat_zm") || is_true(player.dont_touch_the_meat))
+		{
+			return false;
+		}
+	}
+
+	return true;
 }
 
 increment_score(team)
