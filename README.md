@@ -526,6 +526,7 @@
 * All zombies go after player holding meat
 * Throwing the meat on the ground makes it a grabbable powerup
 * Throwing the meat onto another player makes them hold the meat
+* Player holding the meat moves at 60% speed
 * Player holding the meat gains 100 points when their team gains score
 * Players respawn after being down for 10 seconds
 * Players retain perks

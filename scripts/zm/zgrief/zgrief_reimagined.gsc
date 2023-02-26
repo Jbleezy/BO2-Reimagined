@@ -2956,6 +2956,8 @@ meat_stink_player(meat_player)
 		meat_player.meat_waypoint_origin linkto( meat_player );
 	}
 
+	meat_player setMoveSpeedScale(0.6);
+
 	players = get_players();
 	foreach (player in players)
 	{
@@ -2998,6 +3000,8 @@ meat_unstink_player(meat_player)
 		meat_player.meat_waypoint_origin unlink();
     	meat_player.meat_waypoint_origin delete();
 	}
+
+	meat_player setMoveSpeedScale(1);
 
 	players = get_players();
 	foreach (player in players)
