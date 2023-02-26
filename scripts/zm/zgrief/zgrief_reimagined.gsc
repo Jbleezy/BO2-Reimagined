@@ -77,8 +77,18 @@ set_team()
 	self.team_set = true;
 	self notify("team_set");
 
-	teamplayersallies = countplayers("allies") - 1; // always sets self to "allies" initially
 	teamplayersaxis = countplayers("axis");
+	teamplayersallies = countplayers("allies");
+
+	// don't count self
+	if (self.team == "axis")
+	{
+		teamplayersaxis--;
+	}
+	else
+	{
+		teamplayersallies--;
+	}
 
 	if(teamplayersallies == teamplayersaxis)
 	{
