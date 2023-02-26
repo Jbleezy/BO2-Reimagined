@@ -2949,7 +2949,7 @@ meat_think()
 
 meat_stink_player(meat_player)
 {
-	if (!isDefined(player.meat_waypoint))
+	if (!isDefined(meat_player.meat_waypoint_origin))
 	{
 		meat_player.meat_waypoint_origin = spawn( "script_model", meat_player.origin + (0, 0, 72) );
 		meat_player.meat_waypoint_origin setmodel( "tag_origin" );
