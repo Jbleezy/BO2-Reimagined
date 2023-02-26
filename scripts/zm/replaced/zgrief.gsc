@@ -22,6 +22,12 @@ meat_stink_on_ground(position_to_play)
 {
 	if(level.scr_zm_ui_gametype_obj == "zmeat")
 	{
+		players = get_players();
+		foreach (player in players)
+		{
+			player thread show_grief_hud_msg("Meat dropped!");
+		}
+
 		level.meat_powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop( "meat_stink", groundpos(position_to_play) );
 		return;
 	}

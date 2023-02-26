@@ -2821,6 +2821,16 @@ meat_powerup_drop_think()
 {
 	level endon("end_game");
 
+	level waittill("restart_round_start");
+
+	wait 10;
+
+	players = get_players();
+	foreach(player in players)
+	{
+		player thread show_grief_hud_msg("Kill a zombie to begin the game!");
+	}
+
 	while(1)
 	{
 		level.zombie_powerup_ape = "meat_stink";
@@ -2831,6 +2841,12 @@ meat_powerup_drop_think()
 		if (powerup.powerup_name != "meat_stink")
 		{
 			continue;
+		}
+
+		players = get_players();
+		foreach (player in players)
+		{
+			player thread show_grief_hud_msg("Meat dropped!");
 		}
 
 		level.meat_powerup = powerup;
@@ -2913,6 +2929,12 @@ meat_powerup_drop_think()
 					}
 				}
 			}
+		}
+
+		players = get_players();
+		foreach (player in players)
+		{
+			player thread show_grief_hud_msg("Meat reset!");
 		}
 
 		level notify("meat_inactive");
@@ -3023,6 +3045,15 @@ meat_stink_player(meat_player)
 
 		scripts\zm\replaced\zgrief::print_meat_msg(player, meat_player);
 
+		if (player.team == meat_player.team)
+		{
+			player thread show_grief_hud_msg(&"ZOMBIE_YOUR_TEAM_MEAT");
+		}
+		else
+		{
+			player thread show_grief_hud_msg(&"ZOMBIE_OTHER_TEAM_MEAT");
+		}
+
 		if (player == meat_player)
 		{
 			player.meat_waypoint.alpha = 0;
@@ -3121,6 +3152,12 @@ meat_powerup_drop_on_downed()
 
 	if (valid_drop)
 	{
+		players = get_players();
+		foreach (player in players)
+		{
+			player thread show_grief_hud_msg("Meat dropped!");
+		}
+
 		level.meat_powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop( "meat_stink", groundpos(self.origin) );
 	}
 }
