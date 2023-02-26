@@ -2813,26 +2813,17 @@ meat_powerup_drop_think()
 
 	while(1)
 	{
-		powerup = undefined;
-		if (isDefined(level.new_meat_powerup))
-		{
-			powerup = level.new_meat_powerup;
-			level.new_meat_powerup = undefined;
-		}
-		else
-		{
-			level.zombie_powerup_ape = "meat_stink";
-			level.zombie_vars["zombie_drop_item"] = 1;
+		level.zombie_powerup_ape = "meat_stink";
+		level.zombie_vars["zombie_drop_item"] = 1;
 
-			level waittill( "powerup_dropped", powerup );
+		level waittill( "powerup_dropped", powerup );
 
-			if (powerup.powerup_name != "meat_stink")
-			{
-				continue;
-			}
+		if (powerup.powerup_name != "meat_stink")
+		{
+			continue;
 		}
 
-		level thread meat_powerup_dropped_check();
+		level.meat_powerup = powerup;
 
 		meat_active = true;
 		while (meat_active)
@@ -2886,16 +2877,16 @@ meat_powerup_drop_think()
 
 			if (!meat_active)
 			{
-				if (isDefined(powerup))
+				if (isDefined(level.meat_powerup))
 				{
 					meat_active = true;
 
-					if (!isDefined(powerup.meat_waypoint_origin))
+					if (!isDefined(level.meat_powerup.meat_waypoint_origin))
 					{
-						powerup.meat_waypoint_origin = spawn( "script_model", powerup.origin + (0, 0, 32) );
-						powerup.meat_waypoint_origin setmodel( "tag_origin" );
+						level.meat_powerup.meat_waypoint_origin = spawn( "script_model", level.meat_powerup.origin + (0, 0, 32) );
+						level.meat_powerup.meat_waypoint_origin setmodel( "tag_origin" );
 
-						powerup thread meat_waypoint_origin_destroy_on_death();
+						level.meat_powerup thread meat_waypoint_origin_destroy_on_death();
 					}
 
 					players = get_players();
@@ -2908,36 +2899,13 @@ meat_powerup_drop_think()
 
 						player.meat_waypoint.alpha = 1;
 						player.meat_waypoint.color = (1, 1, 1);
-						player.meat_waypoint setTargetEnt(powerup.meat_waypoint_origin);
+						player.meat_waypoint setTargetEnt(level.meat_powerup.meat_waypoint_origin);
 					}
-				}
-			}
-
-			if (!meat_active)
-			{
-				if (is_true(level.meat_on_ground))
-				{
-					meat_active = true;
 				}
 			}
 		}
 
 		level notify("meat_inactive");
-	}
-}
-
-meat_powerup_dropped_check()
-{
-	level endon("meat_inactive");
-
-	while(1)
-	{
-		level waittill( "powerup_dropped", powerup );
-
-		if (powerup == "meat_stink")
-		{
-			level.new_meat_powerup = powerup;
-		}
 	}
 }
 
@@ -3143,7 +3111,7 @@ meat_powerup_drop_on_downed()
 
 	if (valid_drop)
 	{
-		maps\mp\zombies\_zm_powerups::specific_powerup_drop( "meat_stink", self.origin );
+		level.meat_powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop( "meat_stink", groundpos(self.origin) );
 	}
 }
 
