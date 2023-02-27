@@ -3158,7 +3158,7 @@ meat_powerup_drop_on_downed()
 			player thread show_grief_hud_msg("Meat dropped!");
 		}
 
-		level.meat_powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop( "meat_stink", groundpos(self.origin) );
+		level.meat_powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop( "meat_stink", self.origin );
 	}
 }
 
