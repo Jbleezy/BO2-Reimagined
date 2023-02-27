@@ -168,50 +168,43 @@ grief_score_hud()
 	level.grief_score_hud["axis"] = spawnStruct();
 	level.grief_score_hud["allies"] = spawnStruct();
 
-	icon = [];
-	icon["axis"] = "faction_cia";
-	icon["allies"] = "faction_cdc";
 	if(level.script == "zm_prison")
 	{
-		icon["axis"] = "faction_inmates";
-		icon["allies"] = "faction_guards";
+		game["icons"]["axis"] = "faction_inmates";
+		game["icons"]["allies"] = "faction_guards";
 	}
-
-	score_distance = 27.5;
-	icon_distance = 72.5;
-	y_offest = 2;
 
 	level.grief_score_hud["axis"].icon["axis"] = newTeamHudElem("axis");
 	level.grief_score_hud["axis"].icon["axis"].alignx = "center";
 	level.grief_score_hud["axis"].icon["axis"].aligny = "top";
 	level.grief_score_hud["axis"].icon["axis"].horzalign = "user_center";
 	level.grief_score_hud["axis"].icon["axis"].vertalign = "user_top";
-	level.grief_score_hud["axis"].icon["axis"].x -= icon_distance;
-	level.grief_score_hud["axis"].icon["axis"].y += y_offest;
+	level.grief_score_hud["axis"].icon["axis"].x -= 72.5;
+	level.grief_score_hud["axis"].icon["axis"].y += 2;
 	level.grief_score_hud["axis"].icon["axis"].hideWhenInMenu = 1;
 	level.grief_score_hud["axis"].icon["axis"].foreground = 1;
 	level.grief_score_hud["axis"].icon["axis"].alpha = 0;
-	level.grief_score_hud["axis"].icon["axis"] setShader(icon["axis"], 32, 32);
+	level.grief_score_hud["axis"].icon["axis"] setShader(game["icons"]["axis"], 32, 32);
 
 	level.grief_score_hud["axis"].icon["allies"] = newTeamHudElem("axis");
 	level.grief_score_hud["axis"].icon["allies"].alignx = "center";
 	level.grief_score_hud["axis"].icon["allies"].aligny = "top";
 	level.grief_score_hud["axis"].icon["allies"].horzalign = "user_center";
 	level.grief_score_hud["axis"].icon["allies"].vertalign = "user_top";
-	level.grief_score_hud["axis"].icon["allies"].x += icon_distance;
-	level.grief_score_hud["axis"].icon["allies"].y += y_offest;
+	level.grief_score_hud["axis"].icon["allies"].x += 72.5;
+	level.grief_score_hud["axis"].icon["allies"].y += 2;
 	level.grief_score_hud["axis"].icon["allies"].hideWhenInMenu = 1;
 	level.grief_score_hud["axis"].icon["allies"].foreground = 1;
 	level.grief_score_hud["axis"].icon["allies"].alpha = 0;
-	level.grief_score_hud["axis"].icon["allies"] setShader(icon["allies"], 32, 32);
+	level.grief_score_hud["axis"].icon["allies"] setShader(game["icons"]["allies"], 32, 32);
 
 	level.grief_score_hud["axis"].score["axis"] = newTeamHudElem("axis");
 	level.grief_score_hud["axis"].score["axis"].alignx = "center";
 	level.grief_score_hud["axis"].score["axis"].aligny = "top";
 	level.grief_score_hud["axis"].score["axis"].horzalign = "user_center";
 	level.grief_score_hud["axis"].score["axis"].vertalign = "user_top";
-	level.grief_score_hud["axis"].score["axis"].x -= score_distance;
-	level.grief_score_hud["axis"].score["axis"].y += y_offest - 6;
+	level.grief_score_hud["axis"].score["axis"].x -= 27.5;
+	level.grief_score_hud["axis"].score["axis"].y -= 4;
 	level.grief_score_hud["axis"].score["axis"].fontscale = 3.5;
 	level.grief_score_hud["axis"].score["axis"].color = (0.21, 0, 0);
 	level.grief_score_hud["axis"].score["axis"].hideWhenInMenu = 1;
@@ -224,8 +217,8 @@ grief_score_hud()
 	level.grief_score_hud["axis"].score["allies"].aligny = "top";
 	level.grief_score_hud["axis"].score["allies"].horzalign = "user_center";
 	level.grief_score_hud["axis"].score["allies"].vertalign = "user_top";
-	level.grief_score_hud["axis"].score["allies"].x += score_distance;
-	level.grief_score_hud["axis"].score["allies"].y += y_offest - 6;
+	level.grief_score_hud["axis"].score["allies"].x += 27.5;
+	level.grief_score_hud["axis"].score["allies"].y -= 4;
 	level.grief_score_hud["axis"].score["allies"].fontscale = 3.5;
 	level.grief_score_hud["axis"].score["allies"].color = (0.21, 0, 0);
 	level.grief_score_hud["axis"].score["allies"].hideWhenInMenu = 1;
@@ -238,32 +231,32 @@ grief_score_hud()
 	level.grief_score_hud["allies"].icon["axis"].aligny = "top";
 	level.grief_score_hud["allies"].icon["axis"].horzalign = "user_center";
 	level.grief_score_hud["allies"].icon["axis"].vertalign = "user_top";
-	level.grief_score_hud["allies"].icon["axis"].x += icon_distance;
-	level.grief_score_hud["allies"].icon["axis"].y += y_offest;
+	level.grief_score_hud["allies"].icon["axis"].x += 72.5;
+	level.grief_score_hud["allies"].icon["axis"].y += 2;
 	level.grief_score_hud["allies"].icon["axis"].hideWhenInMenu = 1;
 	level.grief_score_hud["allies"].icon["axis"].foreground = 1;
 	level.grief_score_hud["allies"].icon["axis"].alpha = 0;
-	level.grief_score_hud["allies"].icon["axis"] setShader(icon["axis"], 32, 32);
+	level.grief_score_hud["allies"].icon["axis"] setShader(game["icons"]["axis"], 32, 32);
 
 	level.grief_score_hud["allies"].icon["allies"] = newTeamHudElem("allies");
 	level.grief_score_hud["allies"].icon["allies"].alignx = "center";
 	level.grief_score_hud["allies"].icon["allies"].aligny = "top";
 	level.grief_score_hud["allies"].icon["allies"].horzalign = "user_center";
 	level.grief_score_hud["allies"].icon["allies"].vertalign = "user_top";
-	level.grief_score_hud["allies"].icon["allies"].x -= icon_distance;
-	level.grief_score_hud["allies"].icon["allies"].y += y_offest;
+	level.grief_score_hud["allies"].icon["allies"].x -= 72.5;
+	level.grief_score_hud["allies"].icon["allies"].y += 2;
 	level.grief_score_hud["allies"].icon["allies"].hideWhenInMenu = 1;
 	level.grief_score_hud["allies"].icon["allies"].foreground = 1;
 	level.grief_score_hud["allies"].icon["allies"].alpha = 0;
-	level.grief_score_hud["allies"].icon["allies"] setShader(icon["allies"], 32, 32);
+	level.grief_score_hud["allies"].icon["allies"] setShader(game["icons"]["allies"], 32, 32);
 
 	level.grief_score_hud["allies"].score["axis"] = newTeamHudElem("allies");
 	level.grief_score_hud["allies"].score["axis"].alignx = "center";
 	level.grief_score_hud["allies"].score["axis"].aligny = "top";
 	level.grief_score_hud["allies"].score["axis"].horzalign = "user_center";
 	level.grief_score_hud["allies"].score["axis"].vertalign = "user_top";
-	level.grief_score_hud["allies"].score["axis"].x += score_distance;
-	level.grief_score_hud["allies"].score["axis"].y += y_offest - 6;
+	level.grief_score_hud["allies"].score["axis"].x += 27.5;
+	level.grief_score_hud["allies"].score["axis"].y -= 4;
 	level.grief_score_hud["allies"].score["axis"].fontscale = 3.5;
 	level.grief_score_hud["allies"].score["axis"].color = (0.21, 0, 0);
 	level.grief_score_hud["allies"].score["axis"].hideWhenInMenu = 1;
@@ -276,8 +269,8 @@ grief_score_hud()
 	level.grief_score_hud["allies"].score["allies"].aligny = "top";
 	level.grief_score_hud["allies"].score["allies"].horzalign = "user_center";
 	level.grief_score_hud["allies"].score["allies"].vertalign = "user_top";
-	level.grief_score_hud["allies"].score["allies"].x -= score_distance;
-	level.grief_score_hud["allies"].score["allies"].y += y_offest - 6;
+	level.grief_score_hud["allies"].score["allies"].x -= 27.5;
+	level.grief_score_hud["allies"].score["allies"].y -= 4;
 	level.grief_score_hud["allies"].score["allies"].fontscale = 3.5;
 	level.grief_score_hud["allies"].score["allies"].color = (0.21, 0, 0);
 	level.grief_score_hud["allies"].score["allies"].hideWhenInMenu = 1;
@@ -360,12 +353,6 @@ set_grief_vars()
 	level.grief_score = [];
 	level.grief_score["A"] = 0;
 	level.grief_score["B"] = 0;
-	level.game_mode_griefed_time = 2.5;
-	level.stun_fx_amount = 3;
-	level.stun_award_points = 50;
-	level.stun_melee_award_points = 100;
-	level.downed_award_points = 500;
-	level.bleedout_award_points = 1000;
 	level.zombie_vars["axis"]["zombie_powerup_insta_kill_time"] = 15;
 	level.zombie_vars["allies"]["zombie_powerup_insta_kill_time"] = 15;
 	level.zombie_vars["axis"]["zombie_powerup_point_doubler_time"] = 15;
@@ -381,28 +368,7 @@ set_grief_vars()
 	level.zombie_vars["allies"]["zombie_powerup_half_damage_on"] = 0;
 	level.zombie_vars["allies"]["zombie_powerup_half_damage_time"] = 15;
 
-	if(level.scr_zm_ui_gametype_obj == "zgrief")
-	{
-		level.grief_winning_score = 25;
-	}
-	else if(level.scr_zm_ui_gametype_obj == "zsnr")
-	{
-		level.grief_winning_score = 3;
-	}
-	else if(level.scr_zm_ui_gametype_obj == "zrace")
-	{
-		level.grief_winning_score = 500;
-	}
-	else if(level.scr_zm_ui_gametype_obj == "zcontainment")
-	{
-		level.grief_winning_score = 250;
-	}
-	else if(level.scr_zm_ui_gametype_obj == "zmeat")
-	{
-		level.grief_winning_score = 250;
-	}
-
-	if(level.scr_zm_ui_gametype_obj == "zgrief" || level.scr_zm_ui_gametype_obj == "zsnr" || level.scr_zm_ui_gametype_obj == "zcontainment"|| level.scr_zm_ui_gametype_obj == "zmeat")
+	if(level.scr_zm_ui_gametype_obj == "zgrief" || level.scr_zm_ui_gametype_obj == "zsnr" || level.scr_zm_ui_gametype_obj == "zcontainment" || level.scr_zm_ui_gametype_obj == "zmeat")
 	{
 		level.zombie_move_speed = 100;
 		level.zombie_vars["zombie_health_start"] = 2500;
@@ -947,7 +913,7 @@ add_grief_downed_score()
 {
 	if(isDefined(self.last_griefed_by) && is_player_valid(self.last_griefed_by.attacker))
 	{
-		score = level.downed_award_points * maps\mp\zombies\_zm_score::get_points_multiplier(self.last_griefed_by.attacker);
+		score = 500 * maps\mp\zombies\_zm_score::get_points_multiplier(self.last_griefed_by.attacker);
 		self.last_griefed_by.attacker maps\mp\zombies\_zm_score::add_to_player_score(score);
 	}
 }
@@ -959,7 +925,7 @@ add_grief_bleedout_score()
 	{
 		if(is_player_valid(player) && player.team != self.team)
 		{
-			score = level.bleedout_award_points * maps\mp\zombies\_zm_score::get_points_multiplier(player);
+			score = 1000 * maps\mp\zombies\_zm_score::get_points_multiplier(player);
 			player maps\mp\zombies\_zm_score::add_to_player_score(score);
 		}
 	}
@@ -1083,7 +1049,7 @@ round_start_wait(time, initial)
 
 	wait time;
 
-	round_start_countdown_hud round_start_countdown_hud_hide();
+	round_start_countdown_hud round_start_countdown_hud_destroy();
 
 	players = get_players();
 	foreach(player in players)
@@ -1133,44 +1099,41 @@ wait_and_freeze()
 
 round_start_countdown_hud(time)
 {
-	if(!isDefined(level.countdown_hud))
-	{
-		level.countdown_hud = createServerFontString( "objective", 2.2 );
-		level.countdown_hud setPoint( "CENTER", "CENTER", 0, 0 );
-		level.countdown_hud.foreground = 1;
-		level.countdown_hud.color = ( 1, 1, 0 );
-		level.countdown_hud.hidewheninmenu = true;
-		level.countdown_hud maps\mp\gametypes_zm\_hud::fontpulseinit();
-		level.countdown_hud thread round_start_countdown_hud_end_game_watcher();
+	countdown_hud = createServerFontString( "objective", 2.2 );
+	countdown_hud setPoint( "CENTER", "CENTER", 0, 0 );
+	countdown_hud.foreground = 1;
+	countdown_hud.color = ( 1, 1, 0 );
+	countdown_hud.hidewheninmenu = true;
+	countdown_hud maps\mp\gametypes_zm\_hud::fontpulseinit();
+	countdown_hud thread round_start_countdown_hud_end_game_watcher();
 
-		level.countdown_hud.countdown_text = createServerFontString( "objective", 1.5 );
-		level.countdown_hud.countdown_text setPoint( "CENTER", "CENTER", 0, -40 );
-		level.countdown_hud.countdown_text.foreground = 1;
-		level.countdown_hud.countdown_text.color = ( 1, 1, 1 );
-		level.countdown_hud.countdown_text.hidewheninmenu = true;
-	}
+	countdown_hud.countdown_text = createServerFontString( "objective", 1.5 );
+	countdown_hud.countdown_text setPoint( "CENTER", "CENTER", 0, -40 );
+	countdown_hud.countdown_text.foreground = 1;
+	countdown_hud.countdown_text.color = ( 1, 1, 1 );
+	countdown_hud.countdown_text.hidewheninmenu = true;
 
-	level.countdown_hud thread round_start_countdown_hud_timer(time);
+	countdown_hud thread round_start_countdown_hud_timer(time);
 
 	if(level.scr_zm_ui_gametype_obj == "zsnr")
 	{
-		level.countdown_hud.countdown_text setText("ROUND " + level.round_number + " BEGINS IN");
+		countdown_hud.countdown_text setText("ROUND " + level.round_number + " BEGINS IN");
 	}
 	else
 	{
-		level.countdown_hud.countdown_text setText("MATCH BEGINS IN");
+		countdown_hud.countdown_text setText("MATCH BEGINS IN");
 	}
 
-	level.countdown_hud.alpha = 1;
-	level.countdown_hud.countdown_text.alpha = 1;
+	countdown_hud.alpha = 1;
+	countdown_hud.countdown_text.alpha = 1;
 
-	return level.countdown_hud;
+	return countdown_hud;
 }
 
-round_start_countdown_hud_hide()
+round_start_countdown_hud_destroy()
 {
-	self.countdown_text.alpha = 0;
-	self.alpha = 0;
+	self.countdown_text destroy();
+	self destroy();
 }
 
 round_start_countdown_hud_end_game_watcher()
@@ -1179,7 +1142,7 @@ round_start_countdown_hud_end_game_watcher()
 
 	level waittill( "end_game" );
 
-	self round_start_countdown_hud_hide();
+	self round_start_countdown_hud_destroy();
 }
 
 round_start_countdown_hud_timer(time)
@@ -1375,35 +1338,35 @@ grief_intro_text()
 	{
 		self iPrintLn("Gain score by making enemy players bleed out.");
 		wait 5;
-		self iPrintLn("Make " + level.grief_winning_score + " enemy players bleed out to win the game.");
+		self iPrintLn("Make " + get_gamemode_winning_score() + " enemy players bleed out to win the game.");
 		wait 5;
 	}
 	else if(level.scr_zm_ui_gametype_obj == "zsnr")
 	{
 		self iPrintLn("Win rounds by getting all enemy players down.");
 		wait 5;
-		self iPrintLn("Win " + level.grief_winning_score + " rounds to win the game.");
+		self iPrintLn("Win " + get_gamemode_winning_score() + " rounds to win the game.");
 		wait 5;
 	}
 	else if(level.scr_zm_ui_gametype_obj == "zrace")
 	{
 		self iPrintLn("Gain score by getting kills.");
 		wait 5;
-		self iPrintLn("Get " + level.grief_winning_score + " kills to win the game.");
+		self iPrintLn("Get " + get_gamemode_winning_score() + " kills to win the game.");
 		wait 5;
 	}
 	else if(level.scr_zm_ui_gametype_obj == "zcontainment")
 	{
 		self iPrintLn("Gain score by being in the containment zone.");
 		wait 5;
-		self iPrintLn("Gain " + level.grief_winning_score + " score to win the game.");
+		self iPrintLn("Gain " + get_gamemode_winning_score() + " score to win the game.");
 		wait 5;
 	}
 	else if(level.scr_zm_ui_gametype_obj == "zmeat")
 	{
 		self iPrintLn("Gain score by holding the meat.");
 		wait 5;
-		self iPrintLn("Gain " + level.grief_winning_score + " score to win the game.");
+		self iPrintLn("Gain " + get_gamemode_winning_score() + " score to win the game.");
 		wait 5;
 	}
 
@@ -1425,13 +1388,13 @@ get_gamemode_display_name()
 	{
 		name = "Race";
 	}
-	else if(level.scr_zm_ui_gametype_obj == "zmeat")
-	{
-		name = "Meat";
-	}
 	else if(level.scr_zm_ui_gametype_obj == "zcontainment")
 	{
 		name = "Containment";
+	}
+	else if(level.scr_zm_ui_gametype_obj == "zmeat")
+	{
+		name = "Meat";
 	}
 
 	if(level.scr_zm_ui_gametype_pro)
@@ -1440,6 +1403,30 @@ get_gamemode_display_name()
 	}
 
 	return name;
+}
+
+get_gamemode_winning_score()
+{
+	if(level.scr_zm_ui_gametype_obj == "zgrief")
+	{
+		return 25;
+	}
+	else if(level.scr_zm_ui_gametype_obj == "zsnr")
+	{
+		return 3;
+	}
+	else if(level.scr_zm_ui_gametype_obj == "zrace")
+	{
+		return 500;
+	}
+	else if(level.scr_zm_ui_gametype_obj == "zcontainment")
+	{
+		return 250;
+	}
+	else if(level.scr_zm_ui_gametype_obj == "zmeat")
+	{
+		return 250;
+	}
 }
 
 is_respawn_gamemode()
@@ -1749,6 +1736,7 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 			}
 
 			angle = (0, angle[1], 0);
+			stun_fx_amount = 3;
 
 			if(!isDefined(self.stun_fx))
 			{
@@ -1757,7 +1745,7 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 				self.stun_fx = [];
 				self.stun_fx_ind = 0;
 
-				for(i = 0; i < level.stun_fx_amount; i++)
+				for(i = 0; i < stun_fx_amount; i++)
 				{
 					self.stun_fx[i] = spawn("script_model", pos);
 					self.stun_fx[i] setModel("tag_origin");
@@ -1771,16 +1759,16 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 
 			playFXOnTag(level._effect["butterflies"], self.stun_fx[self.stun_fx_ind], "tag_origin");
 
-			self.stun_fx_ind = (self.stun_fx_ind + 1) % level.stun_fx_amount;
+			self.stun_fx_ind = (self.stun_fx_ind + 1) % stun_fx_amount;
 		}
 
 		self thread do_game_mode_shellshock(is_melee, is_reviving);
 		self playsound( "zmb_player_hit_ding" );
 
-		score = level.stun_award_points;
+		score = 50;
 		if(is_melee)
 		{
-			score = level.stun_melee_award_points;
+			score = 100;
 		}
 
 		score *= maps\mp\zombies\_zm_score::get_points_multiplier(eattacker);
@@ -1863,7 +1851,7 @@ remove_player_damage_info()
 
 	health = self.health;
 	time = getTime();
-	max_time = level.game_mode_griefed_time * 1000;
+	max_time = 2.5 * 1000;
 
 	wait_network_frame(); // need to wait at least one frame
 
@@ -2270,10 +2258,6 @@ all_voice_on_intermission()
 
 race_init()
 {
-	level.race_round_increment_time = 30;
-	level.race_round_increment_points = 500;
-	level.race_round_max = 20;
-
 	level thread race_think();
 }
 
@@ -2282,6 +2266,10 @@ race_think()
 	level endon("end_game");
 
 	level waittill("restart_round_start");
+
+	race_round_increment_time = 30;
+	race_round_increment_points = 500;
+	race_round_max = 20;
 
 	setroundsplayed(level.round_number);
 
@@ -2293,7 +2281,7 @@ race_think()
 
 	while(1)
 	{
-		wait level.race_round_increment_time;
+		wait race_round_increment_time;
 
 		level.round_number++;
 
@@ -2336,7 +2324,7 @@ race_think()
 		{
 			if(is_player_valid(player))
 			{
-				score = level.race_round_increment_points * maps\mp\zombies\_zm_score::get_points_multiplier(player);
+				score = race_round_increment_points * maps\mp\zombies\_zm_score::get_points_multiplier(player);
 				player maps\mp\zombies\_zm_score::add_to_player_score(score);
 			}
 
@@ -2349,7 +2337,7 @@ race_think()
 			}
 		}
 
-		if(level.round_number >= level.race_round_max)
+		if(level.round_number >= race_round_max)
 		{
 			foreach(player in players)
 			{
@@ -2376,9 +2364,6 @@ race_check_for_kills()
 
 containment_init()
 {
-	level.containment_time = 60;
-	level.containment_points = 50;
-
 	level.containment_zone_hud = newHudElem();
 	level.containment_zone_hud.alignx = "left";
 	level.containment_zone_hud.aligny = "top";
@@ -2408,50 +2393,6 @@ containment_init()
 	level.containment_time_hud.label = &"Time: ";
 
 	level thread containment_hud_destroy_on_end_game();
-
-	level.containment_zones = [];
-	if(level.script == "zm_transit")
-	{
-		if(level.scr_zm_map_start_location == "transit")
-		{
-			level.containment_zones = array("zone_pri", "zone_pri2", "zone_trans_2b");
-		}
-		else if(level.scr_zm_map_start_location == "diner")
-		{
-			level.containment_zones = array("zone_roadside_west", "zone_gas", "zone_roadside_east", "zone_gar", "zone_din");
-		}
-		else if(level.scr_zm_map_start_location == "farm")
-		{
-			level.containment_zones = array("zone_far_ext", "zone_brn", "zone_farm_house");
-		}
-		else if(level.scr_zm_map_start_location == "power")
-		{
-			level.containment_zones = array("zone_trans_8", "zone_prr", "zone_pcr", "zone_pow_warehouse");
-		}
-		else if(level.scr_zm_map_start_location == "town")
-		{
-			level.containment_zones = array("zone_town_north", "zone_town_south", "zone_town_east", "zone_town_west", "zone_bar", "zone_town_barber", "zone_ban");
-		}
-		else if(level.scr_zm_map_start_location == "tunnel")
-		{
-			level.containment_zones = array("zone_amb_tunnel");
-		}
-	}
-	else if(level.script == "zm_prison")
-	{
-		if(level.scr_zm_map_start_location == "cellblock")
-		{
-			level.containment_zones = array("zone_cellblock_west", "zone_cellblock_west_gondola", "zone_cellblock_west_barber", "zone_cellblock_east", "zone_start", "zone_library", "zone_cafeteria", "zone_warden_office");
-		}
-	}
-	else if(level.script == "zm_buried")
-	{
-		if(level.scr_zm_map_start_location == "street")
-		{
-			level.containment_zones = array("zone_street_lightwest", "zone_street_darkwest", "zone_street_darkeast", "zone_stables", "zone_general_store", "zone_gun_store", "zone_underground_bar", "zone_underground_courthouse", "zone_toy_store", "zone_candy_store", "zone_street_fountain", "zone_church_main", "zone_mansion_lawn");
-		}
-	}
-	level.containment_zones = array_randomize(level.containment_zones);
 
 	level thread containment_think();
 }
@@ -2507,10 +2448,14 @@ containment_think()
 
 	wait 10;
 
+	containment_time = 60;
+	containment_points = 50;
+	containment_zones = containment_get_zones();
 	i = 0;
+
 	while(1)
 	{
-		zone_name = level.containment_zones[i];
+		zone_name = containment_zones[i];
 		zone_display_name = scripts\zm\_zm_reimagined::get_zone_display_name(zone_name);
 		zone = level.zones[zone_name];
 
@@ -2521,7 +2466,7 @@ containment_think()
 		}
 
 		level.containment_zone_hud setText(zone_display_name);
-		level.containment_time_hud setTimer(level.containment_time);
+		level.containment_time_hud setTimer(containment_time);
 
 		spawn_points = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
 		foreach(spawn_point in spawn_points)
@@ -2538,7 +2483,7 @@ containment_think()
 		held_time["allies"] = undefined;
 		held_prev = "none";
 		start_time = getTime();
-		while((getTime() - start_time) <= (level.containment_time * 1000))
+		while((getTime() - start_time) <= (containment_time * 1000))
 		{
 			players = get_players();
 			in_containment_zone = [];
@@ -2643,12 +2588,12 @@ containment_think()
 				}
 				else
 				{
-					if((level.grief_score["A"] + 1) >= level.grief_winning_score)
+					if((level.grief_score["A"] + 1) >= get_gamemode_winning_score())
 					{
 						held_time["axis"] = getTime();
 					}
 
-					if((level.grief_score["B"] + 1) >= level.grief_winning_score)
+					if((level.grief_score["B"] + 1) >= get_gamemode_winning_score())
 					{
 						held_time["allies"] = getTime();
 					}
@@ -2732,11 +2677,11 @@ containment_think()
 				{
 					held_time["axis"] = getTime();
 
-					if((held_prev != "cont") || ((level.grief_score["A"] + 1) < level.grief_winning_score))
+					if((held_prev != "cont") || ((level.grief_score["A"] + 1) < get_gamemode_winning_score()))
 					{
 						foreach(player in in_containment_zone["axis"])
 						{
-							score = level.containment_points * maps\mp\zombies\_zm_score::get_points_multiplier(player);
+							score = containment_points * maps\mp\zombies\_zm_score::get_points_multiplier(player);
 							player maps\mp\zombies\_zm_score::add_to_player_score(score);
 						}
 
@@ -2751,11 +2696,11 @@ containment_think()
 				{
 					held_time["allies"] = getTime();
 
-					if((held_prev != "cont") || ((level.grief_score["B"] + 1) < level.grief_winning_score))
+					if((held_prev != "cont") || ((level.grief_score["B"] + 1) < get_gamemode_winning_score()))
 					{
 						foreach(player in in_containment_zone["allies"])
 						{
-							score = level.containment_points * maps\mp\zombies\_zm_score::get_points_multiplier(player);
+							score = containment_points * maps\mp\zombies\_zm_score::get_points_multiplier(player);
 							player maps\mp\zombies\_zm_score::add_to_player_score(score);
 						}
 
@@ -2800,17 +2745,66 @@ containment_think()
 
 		i++;
 
-		if(i >= level.containment_zones.size)
+		if(i >= containment_zones.size)
 		{
 			i = 0;
 		}
 	}
 }
 
+containment_get_zones()
+{
+	containment_zones = [];
+
+	if(level.script == "zm_transit")
+	{
+		if(level.scr_zm_map_start_location == "transit")
+		{
+			containment_zones = array("zone_pri", "zone_pri2", "zone_trans_2b");
+		}
+		else if(level.scr_zm_map_start_location == "diner")
+		{
+			containment_zones = array("zone_roadside_west", "zone_gas", "zone_roadside_east", "zone_gar", "zone_din");
+		}
+		else if(level.scr_zm_map_start_location == "farm")
+		{
+			containment_zones = array("zone_far_ext", "zone_brn", "zone_farm_house");
+		}
+		else if(level.scr_zm_map_start_location == "power")
+		{
+			containment_zones = array("zone_trans_8", "zone_prr", "zone_pcr", "zone_pow_warehouse");
+		}
+		else if(level.scr_zm_map_start_location == "town")
+		{
+			containment_zones = array("zone_town_north", "zone_town_south", "zone_town_east", "zone_town_west", "zone_bar", "zone_town_barber", "zone_ban");
+		}
+		else if(level.scr_zm_map_start_location == "tunnel")
+		{
+			containment_zones = array("zone_amb_tunnel");
+		}
+	}
+	else if(level.script == "zm_prison")
+	{
+		if(level.scr_zm_map_start_location == "cellblock")
+		{
+			containment_zones = array("zone_cellblock_west", "zone_cellblock_west_gondola", "zone_cellblock_west_barber", "zone_cellblock_east", "zone_start", "zone_library", "zone_cafeteria", "zone_warden_office");
+		}
+	}
+	else if(level.script == "zm_buried")
+	{
+		if(level.scr_zm_map_start_location == "street")
+		{
+			containment_zones = array("zone_street_lightwest", "zone_street_darkwest", "zone_street_darkeast", "zone_stables", "zone_general_store", "zone_gun_store", "zone_underground_bar", "zone_underground_courthouse", "zone_toy_store", "zone_candy_store", "zone_street_fountain", "zone_church_main", "zone_mansion_lawn");
+		}
+	}
+
+	containment_zones = array_randomize(containment_zones);
+
+	return containment_zones;
+}
+
 meat_init()
 {
-	level.meat_points = 100;
-
 	level thread meat_hud_destroy_on_end_game();
 
 	level thread meat_powerup_drop_think();
@@ -2956,6 +2950,7 @@ meat_think()
 {
 	level endon("end_game");
 
+	meat_points = 100;
 	meat_player = undefined;
 	held_time = undefined;
 	obj_time = 1000;
@@ -3013,7 +3008,7 @@ meat_think()
 			{
 				held_time = getTime();
 
-				score = level.meat_points * maps\mp\zombies\_zm_score::get_points_multiplier(meat_player);
+				score = meat_points * maps\mp\zombies\_zm_score::get_points_multiplier(meat_player);
 				meat_player maps\mp\zombies\_zm_score::add_to_player_score(score);
 
 				increment_score(meat_player.team);
@@ -3230,7 +3225,7 @@ increment_score(team)
 	level.grief_score_hud["allies"].score[team] setValue(level.grief_score[encounters_team]);
 	setteamscore(team, level.grief_score[encounters_team]);
 
-	if(level.grief_score[encounters_team] >= level.grief_winning_score)
+	if(level.grief_score[encounters_team] >= get_gamemode_winning_score())
 	{
 		scripts\zm\replaced\_zm_game_module::game_won(encounters_team);
 	}
@@ -3243,7 +3238,7 @@ increment_score(team)
 		}
 		else
 		{
-			score_left = level.grief_winning_score - level.grief_score[encounters_team];
+			score_left = get_gamemode_winning_score() - level.grief_score[encounters_team];
 
 			if(score_left <= 3)
 			{

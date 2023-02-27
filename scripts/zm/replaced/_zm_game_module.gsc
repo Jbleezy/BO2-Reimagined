@@ -119,7 +119,7 @@ round_end(winner)
 		level.grief_score_hud["allies"].score[team] setValue(level.grief_score[winner]);
 		setteamscore(team, level.grief_score[winner]);
 
-		if(level.grief_score[winner] == level.grief_winning_score)
+		if(level.grief_score[winner] == scripts\zm\zgrief\zgrief_reimagined::get_gamemode_winning_score())
 		{
 			game_won(winner);
 			return;
