@@ -3139,6 +3139,16 @@ meat_powerup_drop_on_downed()
 
 	self waittill("player_downed");
 
+	if (isDefined(level.item_meat))
+	{
+		return;
+	}
+
+	if (isDefined(level.meat_powerup))
+	{
+		return;
+	}
+
 	valid_drop = 0;
 	playable_area = getentarray("player_volume", "script_noteworthy");
     for (i = 0; i < playable_area.size; i++)

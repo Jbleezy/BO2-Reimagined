@@ -22,6 +22,11 @@ meat_stink_on_ground(position_to_play)
 {
 	if(level.scr_zm_ui_gametype_obj == "zmeat")
 	{
+		if (isDefined(level.meat_powerup))
+		{
+			return;
+		}
+
 		players = get_players();
 		foreach (player in players)
 		{
