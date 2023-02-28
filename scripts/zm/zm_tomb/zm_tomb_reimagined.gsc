@@ -313,10 +313,9 @@ updatecraftables()
 	{
 		if(IsDefined(stub.equipname))
 		{
-			hint_string = stub scripts\zm\_zm_reimagined::get_equipment_hint_string();
 			stub.cost = stub scripts\zm\_zm_reimagined::get_equipment_cost();
-			stub.trigger_hintstring = hint_string + " [Cost: " + stub.cost + "]";
 			stub.trigger_func = ::craftable_place_think;
+			stub.prompt_and_visibility_func = ::craftabletrigger_update_prompt;
 		}
 	}
 }
@@ -574,6 +573,22 @@ craftable_place_think()
             }
         }
     }
+}
+
+craftabletrigger_update_prompt( player )
+{
+    can_use = self.stub craftablestub_update_prompt( player );
+
+	if (can_use && is_true(self.stub.crafted))
+	{
+		self sethintstring( self.stub.hint_string, " [Cost: " + self.stub.cost + "]" );
+	}
+	else
+	{
+		self sethintstring( self.stub.hint_string );
+	}
+
+    return can_use;
 }
 
 setup_quadrotor_purchase( player )

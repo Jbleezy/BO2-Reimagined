@@ -2714,10 +2714,9 @@ buildbuildable( buildable, craft )
 		{
 			if ( isDefined( buildable ) || stub.persistent != 3 )
 			{
-				hint_string = stub get_equipment_hint_string();
 				stub.cost = stub get_equipment_cost();
-				stub.trigger_hintstring = hint_string + " [Cost: " + stub.cost + "]";
 				stub.trigger_func = ::buildable_place_think;
+				stub.prompt_and_visibility_func = ::buildabletrigger_update_prompt;
 
 				if (craft)
 				{
@@ -2729,7 +2728,6 @@ buildbuildable( buildable, craft )
 				else
 				{
 					level.zombie_buildables[stub.equipname].hint = "Hold ^3[{+activate}]^7 to craft " + stub get_equipment_display_name();
-					stub.prompt_and_visibility_func = ::buildabletrigger_update_prompt;
 				}
 
 				i = 0;
@@ -2747,20 +2745,6 @@ buildbuildable( buildable, craft )
 			}
 		}
 	}
-}
-
-get_equipment_hint_string()
-{
-	if (self.equipname == "packasplat")
-	{
-		return "Hold ^3[{+activate}]^7 to convert Blundergat into Acidgat";
-	}
-	else if (self.equipname == "equip_dieseldrone_zm")
-	{
-		return "Hold ^3[{+activate}]^7 to take the Maxis Drone";
-	}
-
-	return "Hold ^3[{+activate}]^7 for " + get_equipment_display_name();
 }
 
 get_equipment_display_name()
@@ -3075,7 +3059,15 @@ buildabletrigger_update_prompt( player )
 		can_use = self.stub buildablestub_update_prompt( player, self );
 	}
 
-	self sethintstring( self.stub.hint_string );
+	if (can_use && is_true(self.stub.built))
+	{
+		self sethintstring( self.stub.hint_string, " [Cost: " + self.stub.cost + "]" );
+	}
+	else
+	{
+		self sethintstring( self.stub.hint_string );
+	}
+
 	if ( isDefined( self.stub.cursor_hint ) )
 	{
 		if ( self.stub.cursor_hint == "HINT_WEAPON" && isDefined( self.stub.cursor_hint_weapon ) )
@@ -3473,10 +3465,9 @@ updatebuildables()
 	{
 		if(IsDefined(stub.equipname))
 		{
-			hint_string = stub get_equipment_hint_string();
 			stub.cost = stub get_equipment_cost();
-			stub.trigger_hintstring = hint_string + " [Cost: " + stub.cost + "]";
 			stub.trigger_func = ::buildable_place_think;
+			stub.prompt_and_visibility_func = ::buildabletrigger_update_prompt;
 		}
 	}
 }

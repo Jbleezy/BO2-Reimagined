@@ -29,7 +29,16 @@ add_buildable_to_pool( stub, poolname )
 pooledbuildabletrigger_update_prompt( player )
 {
 	can_use = self.stub pooledbuildablestub_update_prompt( player, self );
-	self sethintstring( self.stub.hint_string );
+
+	if (can_use && is_true(self.stub.built))
+	{
+		self sethintstring( self.stub.hint_string, " [Cost: " + self.stub.cost + "]" );
+	}
+	else
+	{
+		self sethintstring( self.stub.hint_string );
+	}
+
 	if ( isDefined( self.stub.cursor_hint ) )
 	{
 		if ( self.stub.cursor_hint == "HINT_WEAPON" && isDefined( self.stub.cursor_hint_weapon ) )
