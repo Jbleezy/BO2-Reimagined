@@ -358,7 +358,7 @@
 * Lava pit is accessible
 
 #### Diner
-* Added Survival and Grief gamemodes
+* Added Survival and Grief game modes
 * Wallbuys: M14, Olympia, MP5, Galvaknuckles
 * Perks: Juggernog, Quick Revive, Speed Cola, Double Tap
 
@@ -369,7 +369,7 @@
 * Grief: removed player spawns near gate
 
 #### Power Station
-* Added Survival and Grief gamemodes
+* Added Survival and Grief game modes
 * Wallbuys: M14, Olympia, AK74u, MP5, Bowie Knife
 * Perks: Juggernog, Quick Revive, Speed Cola, Double Tap, Tombstone Soda
 * Pack-a-Punch
@@ -381,7 +381,7 @@
 * Grief: added Tombstone Soda
 
 #### Tunnel
-* Added Survival and Grief gamemodes
+* Added Survival and Grief game modes
 * Wallbuys: M14, Olympia, M16, MP5, Semtex
 * Perks: Juggernog, Quick Revive, Speed Cola, Double Tap, Stamin-Up
 * Pack-a-Punch
@@ -524,7 +524,7 @@
 * Gain score by being the team holding the meat
 * Gain 250 score to win the game
 * Meat powerup always spawns from the first zombie killed
-* All zombies go after player holding meat
+* All zombies go after the player holding the meat
 * Player holding the meat moves at 60% speed
 * Player holding the meat gains 100 points when their team gains score
 * Downing while holding the meat drops it as a powerup
@@ -567,3 +567,23 @@
 
 ### Grief on Tunnel
 * ```g_gametype zgrief; ui_gametype zgrief; ui_zm_gamemodegroup zencounter; ui_zm_mapstartlocation tunnel; map zm_transit```
+
+## Launching New Game Modes
+
+* By default, a random game mode will be chosen when launching Grief
+* Copy and paste the following commands into the console to choose a specific game mode
+
+### Grief
+* ```set ui_gametype_obj zgrief```
+
+### Search & Rezurrect
+* ```set ui_gametype_obj zsnr```
+
+### Race
+* ```set ui_gametype_obj zrace```
+
+### Containment
+* ```set ui_gametype_obj zcontainment```
+
+### Meat
+* ```set ui_gametype_obj zmeat```
