@@ -404,6 +404,7 @@
 
 #### Cell Block
 * Added Smoke Grenades to the Mystery Box
+* Added Richtofen Head meat powerup model
 
 ### Buried
 * Power automatically on
