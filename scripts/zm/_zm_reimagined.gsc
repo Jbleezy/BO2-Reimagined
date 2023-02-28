@@ -2799,11 +2799,11 @@ get_equipment_cost()
 	}
 	else if (self.equipname == "jetgun_zm")
 	{
-		return 5000;
+		return 10000;
 	}
 	else if (self.equipname == "slipgun_zm")
 	{
-		return 5000;
+		return 10000;
 	}
 
 	return 1000;
