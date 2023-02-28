@@ -63,15 +63,14 @@ zombie_damage( mod, hit_location, hit_origin, player, amount, team )
 
 	modname = remove_mod_from_methodofdeath( mod );
 
-    round_scalar = level.round_number;
-    if(level.scr_zm_ui_gametype == "zgrief" && isDefined(level.scr_zm_ui_gametype_obj) && level.scr_zm_ui_gametype_obj != "zrace")
-	{
-        round_scalar = 20;
-    }
-
 	if ( is_placeable_mine( self.damageweapon ) )
 	{
-		damage = round_scalar * 150;
+		damage = level.round_number * 100;
+		if(level.scr_zm_ui_gametype == "zgrief" && isDefined(level.scr_zm_ui_gametype_obj) && level.scr_zm_ui_gametype_obj != "zrace")
+		{
+			damage = 2000;
+		}
+
         max_damage = 9000;
         if(damage > max_damage)
         {
@@ -93,7 +92,12 @@ zombie_damage( mod, hit_location, hit_origin, player, amount, team )
 	}
 	else if ( mod == "MOD_GRENADE" || mod == "MOD_GRENADE_SPLASH" )
 	{
-		damage = round_scalar * 25;
+		damage = level.round_number * 25;
+		if(level.scr_zm_ui_gametype == "zgrief" && isDefined(level.scr_zm_ui_gametype_obj) && level.scr_zm_ui_gametype_obj != "zrace")
+		{
+			damage = 500;
+		}
+
         max_damage = 1500;
         if(damage > max_damage)
         {
@@ -113,7 +117,12 @@ zombie_damage( mod, hit_location, hit_origin, player, amount, team )
 	}
 	else if ( mod == "MOD_PROJECTILE" || mod == "MOD_PROJECTILE_SPLASH" || mod == "MOD_EXPLOSIVE" )
 	{
-		damage = round_scalar * 50;
+		damage = level.round_number * 50;
+		if(level.scr_zm_ui_gametype == "zgrief" && isDefined(level.scr_zm_ui_gametype_obj) && level.scr_zm_ui_gametype_obj != "zrace")
+		{
+			damage = 1000;
+		}
+
         max_damage = 3000;
         if(damage > max_damage)
         {
