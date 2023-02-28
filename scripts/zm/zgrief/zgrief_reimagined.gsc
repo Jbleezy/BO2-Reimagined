@@ -1709,8 +1709,6 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 				dir = (dir[0], dir[1], 0);
 			}
 
-			//self thread origin_test();
-
 			dir = vectorNormalize(dir);
 			self setVelocity(amount * dir);
 
@@ -3306,46 +3304,5 @@ spawn_bots()
 		}
 
 		level.bots[i].pers["isBot"] = 1;
-	}
-
-	//player thread stance_test();
-}
-
-origin_test()
-{
-	org = self.origin;
-
-	wait .5;
-
-	iprintln(distance(org, self.origin));
-}
-
-stance_test()
-{
-	while(1)
-	{
-		if (self useButtonPressed())
-		{
-			for (i = 0; i < level.bots.size; i++)
-			{
-				level.bots[i] setStance("prone");
-			}
-		}
-		else if (self adsButtonPressed())
-		{
-			for (i = 0; i < level.bots.size; i++)
-			{
-				level.bots[i] setStance("crouch");
-			}
-		}
-		else if (self attackButtonPressed())
-		{
-			for (i = 0; i < level.bots.size; i++)
-			{
-				level.bots[i] setStance("stand");
-			}
-		}
-
-		wait 0.05;
 	}
 }

@@ -182,8 +182,6 @@ onplayerspawned()
 
 			self thread vulture_disable_stink_while_standing();
 
-			//self thread test();
-
 			//self.score = 100000;
 			//maps\mp\zombies\_zm_perks::give_perk( "specialty_armorvest", 0 );
 			//self GiveWeapon("dsr50_zm");
@@ -4674,12 +4672,4 @@ destroy_on_intermission()
 	}
 
 	self destroy();
-}
-
-test()
-{
-	while(1)
-	{
-		wait 1;
-	}
 }
