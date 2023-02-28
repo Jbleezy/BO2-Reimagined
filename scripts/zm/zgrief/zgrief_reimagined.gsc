@@ -2267,10 +2267,6 @@ race_think()
 
 	level waittill("restart_round_start");
 
-	race_round_increment_time = 30;
-	race_round_increment_points = 500;
-	race_round_max = 20;
-
 	setroundsplayed(level.round_number);
 
 	level.zombie_starting_move_speed = 35;
@@ -2281,7 +2277,7 @@ race_think()
 
 	while(1)
 	{
-		wait race_round_increment_time;
+		wait 30;
 
 		level.round_number++;
 
@@ -2324,7 +2320,7 @@ race_think()
 		{
 			if(is_player_valid(player))
 			{
-				score = race_round_increment_points * maps\mp\zombies\_zm_score::get_points_multiplier(player);
+				score = 500 * maps\mp\zombies\_zm_score::get_points_multiplier(player);
 				player maps\mp\zombies\_zm_score::add_to_player_score(score);
 			}
 
@@ -2337,7 +2333,7 @@ race_think()
 			}
 		}
 
-		if(level.round_number >= race_round_max)
+		if(level.round_number >= 20)
 		{
 			foreach(player in players)
 			{
@@ -2448,8 +2444,6 @@ containment_think()
 
 	wait 10;
 
-	containment_time = 60;
-	containment_points = 50;
 	containment_zones = containment_get_zones();
 	i = 0;
 
@@ -2462,11 +2456,11 @@ containment_think()
 		players = get_players();
 		foreach(player in players)
 		{
-			player thread show_grief_hud_msg("New Containment Zone!");
+			player thread show_grief_hud_msg("New containment zone!");
 		}
 
 		level.containment_zone_hud setText(zone_display_name);
-		level.containment_time_hud setTimer(containment_time);
+		level.containment_time_hud setTimer(60);
 
 		spawn_points = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
 		foreach(spawn_point in spawn_points)
@@ -2483,7 +2477,7 @@ containment_think()
 		held_time["allies"] = undefined;
 		held_prev = "none";
 		start_time = getTime();
-		while((getTime() - start_time) <= (containment_time * 1000))
+		while((getTime() - start_time) <= (60 * 1000))
 		{
 			players = get_players();
 			in_containment_zone = [];
@@ -2585,6 +2579,11 @@ containment_think()
 					held_time["axis"] = getTime();
 					held_time["allies"] = getTime();
 					held_prev = "cont";
+
+					foreach(player in players)
+					{
+						player thread show_grief_hud_msg("Containment zone contested!");
+					}
 				}
 				else
 				{
@@ -2622,6 +2621,18 @@ containment_think()
 					}
 					held_time["allies"] = undefined;
 					held_prev = "axis";
+
+					foreach(player in players)
+					{
+						if(player.team == "axis")
+						{
+							player thread show_grief_hud_msg("Your team controls the containment zone!");
+						}
+						else
+						{
+							player thread show_grief_hud_msg("Other team controls the containment zone!");
+						}
+					}
 				}
 			}
 			else if(in_containment_zone["allies"].size > in_containment_zone["axis"].size)
@@ -2647,6 +2658,18 @@ containment_think()
 					}
 					held_time["axis"] = undefined;
 					held_prev = "allies";
+
+					foreach(player in players)
+					{
+						if(player.team == "axis")
+						{
+							player thread show_grief_hud_msg("Other team controls the containment zone!");
+						}
+						else
+						{
+							player thread show_grief_hud_msg("Your team controls the containment zone!");
+						}
+					}
 				}
 			}
 			else
@@ -2660,6 +2683,7 @@ containment_think()
 							player.ignoreme = 0;
 						}
 					}
+
 					player.containment_waypoint.color = (1, 1, 1);
 				}
 
@@ -2668,6 +2692,11 @@ containment_think()
 					held_time["axis"] = undefined;
 					held_time["allies"] = undefined;
 					held_prev = "none";
+
+					foreach(player in players)
+					{
+						player thread show_grief_hud_msg("Containment zone uncontrolled!");
+					}
 				}
 			}
 
@@ -2681,7 +2710,7 @@ containment_think()
 					{
 						foreach(player in in_containment_zone["axis"])
 						{
-							score = containment_points * maps\mp\zombies\_zm_score::get_points_multiplier(player);
+							score = 50 * maps\mp\zombies\_zm_score::get_points_multiplier(player);
 							player maps\mp\zombies\_zm_score::add_to_player_score(score);
 						}
 
@@ -2700,7 +2729,7 @@ containment_think()
 					{
 						foreach(player in in_containment_zone["allies"])
 						{
-							score = containment_points * maps\mp\zombies\_zm_score::get_points_multiplier(player);
+							score = 50 * maps\mp\zombies\_zm_score::get_points_multiplier(player);
 							player maps\mp\zombies\_zm_score::add_to_player_score(score);
 						}
 
@@ -2950,7 +2979,6 @@ meat_think()
 {
 	level endon("end_game");
 
-	meat_points = 100;
 	meat_player = undefined;
 	held_time = undefined;
 	obj_time = 1000;
@@ -3008,7 +3036,7 @@ meat_think()
 			{
 				held_time = getTime();
 
-				score = meat_points * maps\mp\zombies\_zm_score::get_points_multiplier(meat_player);
+				score = 100 * maps\mp\zombies\_zm_score::get_points_multiplier(meat_player);
 				meat_player maps\mp\zombies\_zm_score::add_to_player_score(score);
 
 				increment_score(meat_player.team);
