@@ -2714,9 +2714,9 @@ buildbuildable( buildable, craft )
 		{
 			if ( isDefined( buildable ) || stub.persistent != 3 )
 			{
-				displayname = stub get_equipment_display_name();
+				hint_string = stub get_equipment_hint_string();
 				stub.cost = stub get_equipment_cost();
-				stub.trigger_hintstring = "Hold ^3[{+activate}]^7 for " + displayname + " [Cost: " + stub.cost + "]";
+				stub.trigger_hintstring = hint_string + " [Cost: " + stub.cost + "]";
 				stub.trigger_func = ::buildable_place_think;
 
 				if (craft)
@@ -2728,7 +2728,7 @@ buildbuildable( buildable, craft )
 				}
 				else
 				{
-					level.zombie_buildables[stub.equipname].hint = "Hold ^3[{+activate}]^7 to craft " + displayname;
+					level.zombie_buildables[stub.equipname].hint = "Hold ^3[{+activate}]^7 to craft " + stub get_equipment_display_name();
 					stub.prompt_and_visibility_func = ::buildabletrigger_update_prompt;
 				}
 
@@ -2749,6 +2749,20 @@ buildbuildable( buildable, craft )
 	}
 }
 
+get_equipment_hint_string()
+{
+	if (self.equipname == "packasplat")
+	{
+		return "Hold ^3[{+activate}]^7 to convert Blundergat into Acidgat";
+	}
+	else if (self.equipname == "equip_dieseldrone_zm")
+	{
+		return "Hold ^3[{+activate}]^7 to take the Maxis Drone";
+	}
+
+	return "Hold ^3[{+activate}]^7 for " + get_equipment_display_name();
+}
+
 get_equipment_display_name()
 {
 	if (self.equipname == "turbine")
@@ -2763,7 +2777,7 @@ get_equipment_display_name()
 	{
 		return "Electric Trap";
 	}
-	else if (self.equipname == "riotshield_zm")
+	else if (self.equipname == "riotshield_zm" || self.equipname == "alcatraz_shield_zm" || self.equipname ==  "tomb_shield_zm")
 	{
 		return "Zombie Shield";
 	}
@@ -2802,6 +2816,10 @@ get_equipment_cost()
 	else if (self.equipname == "slipgun_zm")
 	{
 		return 10000;
+	}
+	else if (self.equipname == "packasplat")
+	{
+		return 2500;
 	}
 
 	return 1000;
@@ -3455,9 +3473,9 @@ updatebuildables()
 	{
 		if(IsDefined(stub.equipname))
 		{
-			displayname = stub get_equipment_display_name();
-			stub.cost = 1000;
-			stub.trigger_hintstring = "Hold ^3[{+activate}]^7 for " + displayname + " [Cost: " + stub.cost + "]";
+			hint_string = stub get_equipment_hint_string();
+			stub.cost = stub get_equipment_cost();
+			stub.trigger_hintstring = hint_string + " [Cost: " + stub.cost + "]";
 			stub.trigger_func = ::buildable_place_think;
 		}
 	}

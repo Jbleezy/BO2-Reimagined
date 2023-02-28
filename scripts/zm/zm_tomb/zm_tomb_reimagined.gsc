@@ -1,6 +1,7 @@
 #include maps\mp\_utility;
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
+#include maps\mp\zombies\_zm_craftables;
 
 #include scripts\zm\replaced\zm_tomb_craftables;
 #include scripts\zm\replaced\zm_tomb_dig;
@@ -18,6 +19,7 @@ init()
 	level.zombie_init_done = ::zombie_init_done;
 	level.special_weapon_magicbox_check = ::tomb_special_weapon_magicbox_check;
 	level.custom_magic_box_timer_til_despawn = ::custom_magic_box_timer_til_despawn;
+	level.zombie_custom_equipment_setup = ::setup_quadrotor_purchase;
 
 	challenges_changes();
 	soul_box_changes();
@@ -25,6 +27,7 @@ init()
 	level thread increase_solo_door_prices();
 	level thread remove_shovels_from_map();
 	level thread zombie_blood_dig_changes();
+	level thread updatecraftables();
 }
 
 on_player_connect()
@@ -298,4 +301,311 @@ custom_magic_box_timer_til_despawn( magic_box )
 	{
 		self delete();
 	}
+}
+
+updatecraftables()
+{
+	flag_wait( "start_zombie_round_logic" );
+
+	wait 1;
+
+	foreach (stub in level._unitriggers.trigger_stubs)
+	{
+		if(IsDefined(stub.equipname))
+		{
+			hint_string = stub scripts\zm\_zm_reimagined::get_equipment_hint_string();
+			stub.cost = stub scripts\zm\_zm_reimagined::get_equipment_cost();
+			stub.trigger_hintstring = hint_string + " [Cost: " + stub.cost + "]";
+			stub.trigger_func = ::craftable_place_think;
+		}
+	}
+}
+
+craftable_place_think()
+{
+    self endon( "kill_trigger" );
+    player_crafted = undefined;
+
+    while ( !( isdefined( self.stub.crafted ) && self.stub.crafted ) )
+    {
+        self waittill( "trigger", player );
+
+        if ( isdefined( level.custom_craftable_validation ) )
+        {
+            valid = self [[ level.custom_craftable_validation ]]( player );
+
+            if ( !valid )
+                continue;
+        }
+
+        if ( player != self.parent_player )
+            continue;
+
+        if ( isdefined( player.screecher_weapon ) )
+            continue;
+
+        if ( !is_player_valid( player ) )
+        {
+            player thread ignore_triggers( 0.5 );
+            continue;
+        }
+
+        status = player player_can_craft( self.stub.craftablespawn );
+
+        if ( !status )
+        {
+            self.stub.hint_string = "";
+            self sethintstring( self.stub.hint_string );
+
+            if ( isdefined( self.stub.oncantuse ) )
+                self.stub [[ self.stub.oncantuse ]]( player );
+        }
+        else
+        {
+            if ( isdefined( self.stub.onbeginuse ) )
+                self.stub [[ self.stub.onbeginuse ]]( player );
+
+            result = self craftable_use_hold_think( player );
+            team = player.pers["team"];
+
+            if ( isdefined( self.stub.onenduse ) )
+                self.stub [[ self.stub.onenduse ]]( team, player, result );
+
+            if ( !result )
+                continue;
+
+            if ( isdefined( self.stub.onuse ) )
+                self.stub [[ self.stub.onuse ]]( player );
+
+            prompt = player player_craft( self.stub.craftablespawn );
+            player_crafted = player;
+            self.stub.hint_string = prompt;
+            self sethintstring( self.stub.hint_string );
+        }
+    }
+
+    if ( isdefined( self.stub.craftablestub.onfullycrafted ) )
+    {
+        b_result = self.stub [[ self.stub.craftablestub.onfullycrafted ]]();
+
+        if ( !b_result )
+            return;
+    }
+
+    if ( isdefined( player_crafted ) )
+    {
+
+    }
+
+    if ( self.stub.persistent == 0 )
+    {
+        self.stub craftablestub_remove();
+        thread maps\mp\zombies\_zm_unitrigger::unregister_unitrigger( self.stub );
+        return;
+    }
+
+    if ( self.stub.persistent == 3 )
+    {
+        stub_uncraft_craftable( self.stub, 1 );
+        return;
+    }
+
+    if ( self.stub.persistent == 2 )
+    {
+        if ( isdefined( player_crafted ) )
+            self craftabletrigger_update_prompt( player_crafted );
+
+        if ( !maps\mp\zombies\_zm_weapons::limited_weapon_below_quota( self.stub.weaponname, undefined ) )
+        {
+            self.stub.hint_string = &"ZOMBIE_GO_TO_THE_BOX_LIMITED";
+            self sethintstring( self.stub.hint_string );
+            return;
+        }
+
+        if ( isdefined( self.stub.str_taken ) && self.stub.str_taken )
+        {
+            self.stub.hint_string = &"ZOMBIE_GO_TO_THE_BOX";
+            self sethintstring( self.stub.hint_string );
+            return;
+        }
+
+        if ( isdefined( self.stub.model ) )
+        {
+            self.stub.model notsolid();
+            self.stub.model show();
+        }
+
+        while ( self.stub.persistent == 2 )
+        {
+            self waittill( "trigger", player );
+
+            if ( isdefined( player.screecher_weapon ) )
+                continue;
+
+            if ( isdefined( level.custom_craftable_validation ) )
+            {
+                valid = self [[ level.custom_craftable_validation ]]( player );
+
+                if ( !valid )
+                    continue;
+            }
+
+            if ( !( isdefined( self.stub.crafted ) && self.stub.crafted ) )
+            {
+                self.stub.hint_string = "";
+                self sethintstring( self.stub.hint_string );
+                return;
+            }
+
+            if ( player != self.parent_player )
+                continue;
+
+            if ( !is_player_valid( player ) )
+            {
+                player thread ignore_triggers( 0.5 );
+                continue;
+            }
+
+            self.stub.bought = 1;
+
+            if ( isdefined( self.stub.model ) )
+                self.stub.model thread model_fly_away( self );
+
+            player maps\mp\zombies\_zm_weapons::weapon_give( self.stub.weaponname );
+
+            if ( isdefined( level.zombie_include_craftables[self.stub.equipname].onbuyweapon ) )
+                self [[ level.zombie_include_craftables[self.stub.equipname].onbuyweapon ]]( player );
+
+            if ( !maps\mp\zombies\_zm_weapons::limited_weapon_below_quota( self.stub.weaponname, undefined ) )
+                self.stub.hint_string = &"ZOMBIE_GO_TO_THE_BOX_LIMITED";
+            else
+                self.stub.hint_string = &"ZOMBIE_GO_TO_THE_BOX";
+
+            self sethintstring( self.stub.hint_string );
+            player track_craftables_pickedup( self.stub.craftablespawn );
+        }
+    }
+    else if ( !isdefined( player_crafted ) || self craftabletrigger_update_prompt( player_crafted ) )
+    {
+        if ( isdefined( self.stub.model ) )
+        {
+            self.stub.model notsolid();
+            self.stub.model show();
+        }
+
+        while ( self.stub.persistent == 1 )
+        {
+            self waittill( "trigger", player );
+
+            if ( isdefined( player.screecher_weapon ) )
+                continue;
+
+            if ( isdefined( level.custom_craftable_validation ) )
+            {
+                valid = self [[ level.custom_craftable_validation ]]( player );
+
+                if ( !valid )
+                    continue;
+            }
+
+            if ( !( isdefined( self.stub.crafted ) && self.stub.crafted ) )
+            {
+                self.stub.hint_string = "";
+                self sethintstring( self.stub.hint_string );
+                return;
+            }
+
+            if ( player != self.parent_player )
+                continue;
+
+            if ( !is_player_valid( player ) )
+            {
+                player thread ignore_triggers( 0.5 );
+                continue;
+            }
+
+			if (player.score < self.stub.cost)
+			{
+				self play_sound_on_ent( "no_purchase" );
+				continue;
+			}
+
+            if ( player has_player_equipment( self.stub.weaponname ) )
+                continue;
+
+            if ( isdefined( level.zombie_craftable_persistent_weapon ) )
+            {
+                if ( self [[ level.zombie_craftable_persistent_weapon ]]( player ) )
+                    continue;
+            }
+
+            if ( isdefined( level.zombie_custom_equipment_setup ) )
+            {
+                if ( self [[ level.zombie_custom_equipment_setup ]]( player ) )
+                    continue;
+            }
+
+            if ( !maps\mp\zombies\_zm_equipment::is_limited_equipment( self.stub.weaponname ) || !maps\mp\zombies\_zm_equipment::limited_equipment_in_use( self.stub.weaponname ) )
+            {
+				player maps\mp\zombies\_zm_score::minus_to_player_score( self.stub.cost );
+				self play_sound_on_ent( "purchase" );
+
+                player maps\mp\zombies\_zm_equipment::equipment_buy( self.stub.weaponname );
+                player giveweapon( self.stub.weaponname );
+                player setweaponammoclip( self.stub.weaponname, 1 );
+
+                if ( isdefined( level.zombie_include_craftables[self.stub.equipname].onbuyweapon ) )
+                    self [[ level.zombie_include_craftables[self.stub.equipname].onbuyweapon ]]( player );
+                else if ( self.stub.weaponname != "keys_zm" )
+                    player setactionslot( 1, "weapon", self.stub.weaponname );
+
+                if ( isdefined( level.zombie_craftablestubs[self.stub.equipname].str_taken ) )
+                    self.stub.hint_string = level.zombie_craftablestubs[self.stub.equipname].str_taken;
+                else
+                    self.stub.hint_string = "";
+
+                self sethintstring( self.stub.hint_string );
+                player track_craftables_pickedup( self.stub.craftablespawn );
+            }
+            else
+            {
+                self.stub.hint_string = "";
+                self sethintstring( self.stub.hint_string );
+            }
+        }
+    }
+}
+
+setup_quadrotor_purchase( player )
+{
+    if ( self.stub.weaponname == "equip_dieseldrone_zm" )
+    {
+        if ( players_has_weapon( "equip_dieseldrone_zm" ) )
+            return true;
+
+        quadrotor = getentarray( "quadrotor_ai", "targetname" );
+
+        if ( quadrotor.size >= 1 )
+            return true;
+
+		player maps\mp\zombies\_zm_score::minus_to_player_score( self.stub.cost );
+		self play_sound_on_ent( "purchase" );
+
+        quadrotor_set_unavailable();
+        player giveweapon( "equip_dieseldrone_zm" );
+        player setweaponammoclip( "equip_dieseldrone_zm", 1 );
+        player playsoundtoplayer( "zmb_buildable_pickup_complete", player );
+
+        if ( isdefined( self.stub.craftablestub.use_actionslot ) )
+            player setactionslot( self.stub.craftablestub.use_actionslot, "weapon", "equip_dieseldrone_zm" );
+        else
+            player setactionslot( 2, "weapon", "equip_dieseldrone_zm" );
+
+        player notify( "equip_dieseldrone_zm_given" );
+        level thread quadrotor_watcher( player );
+        player thread maps\mp\zombies\_zm_audio::create_and_play_dialog( "general", "build_dd_plc" );
+        return true;
+    }
+
+    return false;
 }
