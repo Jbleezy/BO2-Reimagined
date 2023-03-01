@@ -236,6 +236,7 @@ post_all_players_spawned()
 	level.unbuild_overheated_jetgun = 0;
 	level.take_overheated_jetgun = 1;
 	level.dont_allow_meat_interaction = 1;
+	level.players_can_damage_riotshields = 1;
 	level.speed_change_round = undefined;
 	level.playersuicideallowed = undefined;
 	level.disable_free_perks_before_power = undefined;
@@ -298,6 +299,12 @@ set_dvars()
 	setDvar( "g_friendlyfireDist", 0 );
 
 	setDvar( "perk_weapRateEnhanced", 0 );
+
+	setDvar( "riotshield_melee_damage_scale", 1 );
+	setDvar( "riotshield_bullet_damage_scale", 1 );
+	setDvar( "riotshield_explosive_damage_scale", 1 );
+	setDvar( "riotshield_projectile_damage_scale", 1 );
+	setDvar( "riotshield_deployed_health", 1500 );
 
 	setDvar( "sv_patch_zm_weapons", 0 );
 	setDvar( "sv_fix_zm_weapons", 1 );
