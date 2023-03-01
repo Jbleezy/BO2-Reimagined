@@ -185,6 +185,9 @@
 * Kills on any round (normally stops killing after round 100)
 * Removed additional goo created by chain kills
 
+### Paralyzer
+* Kills on any round
+
 ### Blundergat
 * Kills on any round
 
