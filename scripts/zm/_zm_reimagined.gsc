@@ -235,6 +235,7 @@ post_all_players_spawned()
 	level.explode_overheated_jetgun = 0;
 	level.unbuild_overheated_jetgun = 0;
 	level.take_overheated_jetgun = 1;
+	level.dont_allow_meat_interaction = 1;
 	level.speed_change_round = undefined;
 	level.playersuicideallowed = undefined;
 	level.disable_free_perks_before_power = undefined;

@@ -288,6 +288,7 @@
 * Meleeing while the meat is moving no longer grabs the meat
 * Meleeing while the meat is moving throws the meat
 * Meleeing while the meat is moving activates more consistently
+* Removed pick up trigger
 
 ## Persistent Upgrades
 * Removed
