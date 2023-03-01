@@ -318,11 +318,19 @@
 * Fire type changed from burst fire to continuous fire
 * Fixed a bug where the Turret sounds would continue playing after being picked up
 
+### Trample Steam
+* No longer gets destroyed from kills
+* Gets destroyed after activating 15 times
+
 ### Subsurface Resonator
 * No longer needs to be powered by a Turbine
 * No longer gets destroyed from kills
 * Gets destroyed after being deployed for 30 seconds
 * Fires every 2 seconds (normally has a longer delay depending on the amount of kills from the previous fire)
+
+### Head Chopper
+* No longer gets destroyed from kills
+* Gets destroyed after activating 15 times
 
 ### Maxis Drone
 * Switches back to correct weapon after deploying
