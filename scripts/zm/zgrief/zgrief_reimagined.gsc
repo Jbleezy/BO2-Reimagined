@@ -2950,6 +2950,14 @@ meat_powerup_drop_think()
 					}
 				}
 			}
+
+			if (!meat_active)
+			{
+				if (is_true(level.meat_on_ground))
+				{
+					meat_active = true;
+				}
+			}
 		}
 
 		players = get_players();
@@ -3189,7 +3197,9 @@ meat_powerup_drop_on_downed()
 			player thread show_grief_hud_msg("Meat dropped!");
 		}
 
+		level.meat_on_ground = 1;
 		level.meat_powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop( "meat_stink", self.origin );
+		level.meat_on_ground = undefined;
 	}
 }
 
