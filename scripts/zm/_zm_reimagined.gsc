@@ -2161,6 +2161,9 @@ wallbuy_location_changes()
 				remove_wallbuy("tazer_knuckles_zm");
 			}
 
+			remove_wallbuy("rottweil72_zm");
+
+			add_wallbuy("870mcs_zm", "zclassic");
 			add_wallbuy("claymore_zm");
 		}
 
@@ -2193,7 +2196,7 @@ remove_wallbuy( name )
 	}
 }
 
-add_wallbuy( name )
+add_wallbuy( name, script_noteworthy )
 {
 	struct = undefined;
 	spawnable_weapon_spawns = getstructarray( "weapon_upgrade", "targetname" );
@@ -2206,6 +2209,11 @@ add_wallbuy( name )
 	{
 		if(IsDefined(spawnable_weapon_spawns[i].zombie_weapon_upgrade) && spawnable_weapon_spawns[i].zombie_weapon_upgrade == name)
 		{
+			if(isDefined(script_noteworthy) && isDefined(spawnable_weapon_spawns[i].script_noteworthy) && !isSubStr(spawnable_weapon_spawns[i].script_noteworthy, script_noteworthy))
+			{
+				continue;
+			}
+
 			struct = spawnable_weapon_spawns[i];
 			break;
 		}

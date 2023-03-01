@@ -365,8 +365,8 @@
 
 #### Farm
 * Zombies spawn in the Farm zone when in the Barn zone
-* Added Claymore wallbuy
-* Survival: removed Galvaknuckles wallbuy
+* Replaced Olympia wallbuy with Remington 870 wallbuy
+* Replaced Galvaknuckles wallbuy with Claymore wallbuy (also added to Grief)
 * Grief: removed player spawns near gate
 
 #### Power Station
