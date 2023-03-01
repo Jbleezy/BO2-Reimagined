@@ -388,6 +388,7 @@
 * Pack-a-Punch
 
 ### Die Rise
+* Moved weapon locker to the downstairs fridge
 * Zombies no longer spawn in the Upper Blue Highrise zone when in the Trample Steam zone
 * Zombies no longer spawn in the zone next to the AN94 when in the AN94 zone while the debris is closed
 * Navcard table automatically crafted
