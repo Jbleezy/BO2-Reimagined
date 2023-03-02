@@ -195,6 +195,7 @@
 * Kills on any round
 
 ### Staffs
+* Upgrade only requires getting kills in The Crazy Place
 * Max ammo no longer fills clip ammo
 
 ## Wallbuys
