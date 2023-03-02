@@ -2387,7 +2387,6 @@ containment_init()
 	level.containment_time_hud.label = &"Time: ";
 
 	level thread containment_hud_destroy_on_end_game();
-
 	level thread containment_think();
 }
 
@@ -2833,9 +2832,9 @@ containment_get_zones()
 meat_init()
 {
 	level thread meat_hud_destroy_on_end_game();
-
 	level thread meat_powerup_drop_think();
 	level thread meat_think();
+	level thread meat_thrown_hud_msg();
 }
 
 meat_powerup_drop_think()
@@ -3203,16 +3202,18 @@ meat_powerup_drop_on_downed()
 	}
 }
 
-meat_hud_destroy_on_end_game()
+meat_thrown_hud_msg()
 {
-	level waittill("end_game");
+	level endon("end_game");
 
-	players = get_players();
-	foreach(player in players)
+	while (1)
 	{
-		if(isDefined(player.meat_waypoint))
+		level waittill("meat_thrown", player);
+
+		players = get_players();
+		foreach (player in players)
 		{
-			player.meat_waypoint destroy();
+			player thread show_grief_hud_msg("Meat thrown!");
 		}
 	}
 }
@@ -3244,6 +3245,20 @@ meat_can_player_grab(player)
 	}
 
 	return true;
+}
+
+meat_hud_destroy_on_end_game()
+{
+	level waittill("end_game");
+
+	players = get_players();
+	foreach(player in players)
+	{
+		if(isDefined(player.meat_waypoint))
+		{
+			player.meat_waypoint destroy();
+		}
+	}
 }
 
 increment_score(team)
