@@ -2831,6 +2831,8 @@ containment_get_zones()
 
 meat_init()
 {
+	level._powerup_timeout_custom_time = ::meat_powerup_custom_time;
+
 	level thread meat_hud_destroy_on_end_game();
 	level thread meat_powerup_drop_think();
 	level thread meat_think();
@@ -3200,6 +3202,16 @@ meat_powerup_drop_on_downed()
 		level.meat_powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop( "meat_stink", self.origin );
 		level.meat_on_ground = undefined;
 	}
+}
+
+meat_powerup_custom_time(powerup)
+{
+	if (powerup.powerup_name == "meat_stink")
+	{
+		return 5;
+	}
+
+    return 15;
 }
 
 meat_thrown_hud_msg()
