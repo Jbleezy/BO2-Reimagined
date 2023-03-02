@@ -3,16 +3,25 @@
 #include maps\mp\zombies\_zm_utility;
 #include maps\mp\zombies\_zm_craftables;
 
+#include scripts\zm\replaced\zm_tomb_main_quest;
+#include scripts\zm\replaced\zm_tomb_quest_air;
+#include scripts\zm\replaced\zm_tomb_quest_elec;
+#include scripts\zm\replaced\zm_tomb_quest_fire;
+#include scripts\zm\replaced\zm_tomb_quest_ice;
 #include scripts\zm\replaced\zm_tomb_craftables;
 #include scripts\zm\replaced\zm_tomb_dig;
 
 main()
 {
+	replaceFunc(maps\mp\zm_tomb_main_quest::main_quest_init, scripts\zm\replaced\zm_tomb_main_quest::main_quest_init);
+	replaceFunc(maps\mp\zm_tomb_main_quest::staff_upgraded_reload, scripts\zm\replaced\zm_tomb_main_quest::staff_upgraded_reload);
 	replaceFunc(maps\mp\zm_tomb_main_quest::watch_staff_ammo_reload, scripts\zm\replaced\zm_tomb_main_quest::watch_staff_ammo_reload);
 	replaceFunc(maps\mp\zm_tomb_quest_air::air_puzzle_1_run, scripts\zm\replaced\zm_tomb_quest_air::air_puzzle_1_run);
 	replaceFunc(maps\mp\zm_tomb_quest_elec::electric_puzzle_1_run, scripts\zm\replaced\zm_tomb_quest_elec::electric_puzzle_1_run);
 	replaceFunc(maps\mp\zm_tomb_quest_fire::fire_puzzle_1_run, scripts\zm\replaced\zm_tomb_quest_fire::fire_puzzle_1_run);
 	replaceFunc(maps\mp\zm_tomb_quest_ice::ice_puzzle_1_run, scripts\zm\replaced\zm_tomb_quest_ice::ice_puzzle_1_run);
+	replaceFunc(maps\mp\zm_tomb_ee_main_step_2::create_robot_head_trigger, scripts\zm\replaced\zm_tomb_ee_main_step_2::create_robot_head_trigger);
+	replaceFunc(maps\mp\zm_tomb_craftables::is_unclaimed_staff_weapon, scripts\zm\replaced\zm_tomb_craftables::is_unclaimed_staff_weapon);
 	replaceFunc(maps\mp\zm_tomb_craftables::quadrotor_control_thread, scripts\zm\replaced\zm_tomb_craftables::quadrotor_control_thread);
 	replaceFunc(maps\mp\zm_tomb_dig::increment_player_perk_purchase_limit, scripts\zm\replaced\zm_tomb_dig::increment_player_perk_purchase_limit);
 	replaceFunc(maps\mp\zm_tomb_dig::dig_disconnect_watch, scripts\zm\replaced\zm_tomb_dig::dig_disconnect_watch);
@@ -25,6 +34,7 @@ init()
 	level.special_weapon_magicbox_check = ::tomb_special_weapon_magicbox_check;
 	level.custom_magic_box_timer_til_despawn = ::custom_magic_box_timer_til_despawn;
 	level.zombie_custom_equipment_setup = ::setup_quadrotor_purchase;
+	level.custom_craftable_validation = ::tomb_custom_craftable_validation;
 
 	challenges_changes();
 	soul_box_changes();
@@ -276,8 +286,8 @@ soul_box_changes()
 		return;
 	}
 
-	a_boxes = getentarray( "foot_box", "script_noteworthy" );
-	array_thread( a_boxes, ::soul_box_decrease_kill_requirement );
+	boxes = getentarray( "foot_box", "script_noteworthy" );
+	array_thread( boxes, ::soul_box_decrease_kill_requirement );
 }
 
 soul_box_decrease_kill_requirement()
@@ -628,4 +638,42 @@ setup_quadrotor_purchase( player )
     }
 
     return false;
+}
+
+tomb_custom_craftable_validation( player )
+{
+    if ( self.stub.equipname == "equip_dieseldrone_zm" )
+    {
+        level.quadrotor_status.pickup_trig = self.stub;
+
+        if ( level.quadrotor_status.crafted )
+            return !level.quadrotor_status.picked_up && !flag( "quadrotor_cooling_down" );
+    }
+
+    if ( !issubstr( self.stub.weaponname, "staff" ) )
+        return 1;
+
+    if ( !( isdefined( level.craftables_crafted[self.stub.equipname] ) && level.craftables_crafted[self.stub.equipname] ) )
+        return 1;
+
+    if ( !player can_pickup_staff() )
+        return 0;
+
+	e_upgraded_staff = maps\mp\zm_tomb_craftables::get_staff_info_from_weapon_name( self.stub.weaponname );
+
+	if (is_true(e_upgraded_staff.ee_in_use))
+	{
+		return 0;
+	}
+
+    s_elemental_staff = get_staff_info_from_weapon_name( self.stub.weaponname, 0 );
+    weapons = player getweaponslistprimaries();
+
+    foreach ( weapon in weapons )
+    {
+        if ( issubstr( weapon, "staff" ) && weapon != s_elemental_staff.weapname )
+            player takeweapon( weapon );
+    }
+
+    return 1;
 }

@@ -195,7 +195,9 @@
 * Kills on any round
 
 ### Staffs
-* Upgrade only requires getting kills in The Crazy Place
+* Upgrade only requires collecting souls in The Crazy Place
+* Can no longer collect souls in The Crazy Place from staff kills
+* Can collect souls in The Crazy Place after upgrading to fill 5% of max ammo per soul
 * Max ammo no longer fills clip ammo
 
 ## Wallbuys
@@ -323,7 +325,7 @@
 * Kills on any round in 1-4 shots (normally does 1200 damage max)
 * No longer damages players
 * Fire type changed from burst fire to continuous fire
-* Fixed a bug where the Turret sounds would continue playing after being picked up
+* Fixed an issue where the Turret sounds would continue playing after being picked up
 
 ### Trample Steam
 * No longer gets destroyed from kills
@@ -456,6 +458,8 @@
 * Perk bottle dig spots: give random perk
 * Perk bottle dig spots: visible and diggable without Zombie Blood
 * Perk bottle dig spots: increased number of rounds for next dig spot to spawn from 1 to 4
+* Ascend from darkness quest step: staffs can be placed at any staff holder
+* Ascend from darkness quest step: fixed an issue where staffs were able to be picked up at their build location when placed in the staff holders
 
 ## Game Modes
 
