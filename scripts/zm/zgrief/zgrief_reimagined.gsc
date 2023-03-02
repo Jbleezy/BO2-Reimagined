@@ -61,7 +61,8 @@ init()
 		meat_init();
 	}
 
-	level._powerup_grab_check = ::meat_can_player_grab;
+	level.can_revive_game_module = ::can_revive;
+	level._powerup_grab_check = ::powerup_can_player_grab;
 
 	level thread round_start_wait(5, true);
 	level thread remove_round_number();
@@ -3246,11 +3247,21 @@ meat_waypoint_init()
 	return meat_waypoint;
 }
 
-meat_can_player_grab(player)
+can_revive(revivee)
+{
+    if (self hasweapon(get_gamemode_var("item_meat_name")))
+	{
+		return false;
+	}
+
+    return true;
+}
+
+powerup_can_player_grab(player)
 {
 	if (self.powerup_name == "meat_stink")
 	{
-		if (player hasWeapon("item_meat_zm") || is_true(player.dont_touch_the_meat))
+		if (player hasWeapon(get_gamemode_var("item_meat_name")) || is_true(player.dont_touch_the_meat))
 		{
 			return false;
 		}
