@@ -33,13 +33,9 @@ treasure_chest_init( start_chest_name )
 	}
 	if ( (getDvar("g_gametype") == "zgrief" && getDvarIntDefault("ui_gametype_pro", 0)) || !level.enable_magic )
 	{
-		_a102 = level.chests;
-		_k102 = getFirstArrayKey( _a102 );
-		while ( isDefined( _k102 ) )
+		foreach (chest in level.chests)
 		{
-			chest = _a102[ _k102 ];
 			chest maps\mp\zombies\_zm_magicbox::hide_chest();
-			_k102 = getNextArrayKey( _a102, _k102 );
 		}
 		return;
 	}

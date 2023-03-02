@@ -34,21 +34,14 @@ afterlife_start_zombie_logic()
 	while ( isDefined( b_everyone_alive ) && !b_everyone_alive )
 	{
 		b_everyone_alive = 1;
-		a_players = getplayers();
-		_a192 = a_players;
-		_k192 = getFirstArrayKey( _a192 );
-		while ( isDefined( _k192 ) )
+		players = getplayers();
+		foreach (player in players)
 		{
-			player = _a192[ _k192 ];
 			if ( isDefined( player.afterlife ) && player.afterlife )
 			{
 				b_everyone_alive = 0;
 				wait 0.05;
 				break;
-			}
-			else
-			{
-				_k192 = getNextArrayKey( _a192, _k192 );
 			}
 		}
 	}
