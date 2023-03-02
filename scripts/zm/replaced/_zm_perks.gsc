@@ -245,9 +245,9 @@ perk_set_max_health_if_jugg( perk, set_premaxhealth, clamp_health_to_max_health 
 			max_total_health += level.pers_jugg_upgrade_health_bonus;
 		}
 
-		if ( is_true( level.sudden_death ) && isDefined( level.sudden_death_health_loss ) )
+		if ( is_true( level.sudden_death ) )
 		{
-			max_total_health -= level.sudden_death_health_loss;
+			max_total_health -= 100;
 		}
 
 		missinghealth = self.maxhealth - self.health;

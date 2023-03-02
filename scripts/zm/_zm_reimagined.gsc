@@ -4653,17 +4653,17 @@ vulture_disable_stink_while_standing()
 		self.perk_vulture.is_in_zombie_stink = 1;
 		self.perk_vulture.stink_time_entered = undefined;
 
-		b_player_in_zombie_stink = 0;
-		a_close_points = arraysort( level.perk_vulture.zombie_stink_array, self.origin, 1, 300 );
-		if ( a_close_points.size > 0 )
+		player_in_zombie_stink = 0;
+		close_points = arraysort( level.perk_vulture.zombie_stink_array, self.origin, 1, 300 );
+		if ( close_points.size > 0 )
 		{
 			if(isDefined(level._is_player_in_zombie_stink))
 			{
-				b_player_in_zombie_stink = self [[level._is_player_in_zombie_stink]]( a_close_points );
+				player_in_zombie_stink = self [[level._is_player_in_zombie_stink]]( close_points );
 			}
 		}
 
-		if (b_player_in_zombie_stink)
+		if (player_in_zombie_stink)
 		{
 			vel = self GetVelocity();
 			magnitude = sqrt((vel[0] * vel[0]) + (vel[1] * vel[1]) + (vel[2] * vel[2]));

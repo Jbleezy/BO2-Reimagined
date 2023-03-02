@@ -248,11 +248,11 @@ brutus_health_increases()
 
 	if ( level.round_number > level.brutus_last_spawn_round )
 	{
-		a_players = getplayers();
+		players = getplayers();
 		n_player_modifier = 1;
-		if ( a_players.size > 1 )
+		if ( players.size > 1 )
 		{
-			n_player_modifier = a_players.size * 0.75;
+			n_player_modifier = players.size * 0.75;
 		}
 		level.brutus_round_count++;
 		level.brutus_health = int( level.brutus_health_increase * n_player_modifier * level.brutus_round_count );

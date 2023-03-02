@@ -131,8 +131,6 @@ set_team()
 
 grief_gamemode_hud()
 {
-	gamemode_display_name = get_gamemode_display_name();
-
 	level.grief_gamemode_hud = newHudElem();
 	level.grief_gamemode_hud.alignx = "center";
 	level.grief_gamemode_hud.aligny = "top";
@@ -143,7 +141,7 @@ grief_gamemode_hud()
 	level.grief_gamemode_hud.hideWhenInMenu = 1;
 	level.grief_gamemode_hud.foreground = 1;
 	level.grief_gamemode_hud.alpha = 0;
-	level.grief_gamemode_hud setText(gamemode_display_name);
+	level.grief_gamemode_hud setText(get_gamemode_display_name());
 
 	level thread grief_gamemode_hud_wait_and_show();
 	level thread grief_gamemode_hud_destroy_on_intermission();
@@ -499,9 +497,7 @@ powerup_hud_think()
 
 powerup_hud_move()
 {
-	dist = 37;
-
-	offset_x = dist;
+	offset_x = 37;
 	if((level.active_powerup_hud_array[self.team].size % 2) == 0)
 	{
 		offset_x /= 2;
@@ -512,7 +508,7 @@ powerup_hud_move()
 	for(i = 0; i < level.active_powerup_hud_array[self.team].size; i++)
 	{
 		level.active_powerup_hud_array[self.team][i] moveOverTime(0.5);
-		level.active_powerup_hud_array[self.team][i].x = start_x + (i * dist);
+		level.active_powerup_hud_array[self.team][i].x = start_x + (i * 37);
 	}
 }
 
@@ -1267,12 +1263,9 @@ update_players_on_bleedout(excluded_player)
 	other_team = undefined;
 	team_bledout = 0;
 	players = get_players();
-	i = 0;
 
-	while(i < players.size)
+	foreach(player in players)
 	{
-		player = players[i];
-
 		if(player.team == excluded_player.team)
 		{
 			if(player == excluded_player || player.sessionstate != "playing" || is_true(player.playersuicided))
@@ -1284,8 +1277,6 @@ update_players_on_bleedout(excluded_player)
 		{
 			other_team = player.team;
 		}
-
-		i++;
 	}
 
 	if(!isDefined(other_team))
@@ -2113,8 +2104,6 @@ sudden_death()
 	}
 
 	level.sudden_death = 0;
-	level.sudden_death_time = 300;
-	level.sudden_death_health_loss = 100;
 
 	while(1)
 	{
@@ -2122,7 +2111,7 @@ sudden_death()
 
 		level.sudden_death = 0;
 
-		time = level waittill_notify_or_timeout("restart_round", level.sudden_death_time);
+		time = level waittill_notify_or_timeout("restart_round", 300);
 
 		if(!isDefined(time))
 		{
@@ -2135,17 +2124,17 @@ sudden_death()
 		foreach(player in players)
 		{
 			player thread show_grief_hud_msg( "Sudden Death!" );
-			player thread show_grief_hud_msg( "Lose " + level.sudden_death_health_loss + " Health!", undefined, 30, 1 );
+			player thread show_grief_hud_msg( "Lose 100 Health!", undefined, 30, 1 );
 			player thread red_flashing_overlay_loop();
 
 			health = player.health;
-			player setMaxHealth(player.maxhealth - level.sudden_death_health_loss);
+			player setMaxHealth(player.maxhealth - 100);
 			if(player.health > health)
 			{
 				player.health = health;
 			}
 
-			player.premaxhealth -= level.sudden_death_health_loss;
+			player.premaxhealth -= 100;
 		}
 	}
 }
@@ -2417,9 +2406,9 @@ containment_hud_destroy_on_end_game()
 	players = get_players();
 	foreach(player in players)
 	{
-		if(isDefined(player.containment_waypoint))
+		if(isDefined(player.obj_waypoint))
 		{
-			player.containment_waypoint destroy();
+			player.obj_waypoint destroy();
 		}
 	}
 
@@ -2494,9 +2483,9 @@ containment_think()
 
 			foreach(player in players)
 			{
-				if(!isDefined(player.containment_waypoint))
+				if(!isDefined(player.obj_waypoint))
 				{
-					player.containment_waypoint = player containment_waypoint_init();
+					player.obj_waypoint = player containment_waypoint_init();
 				}
 
 				if(player get_current_zone() == zone_name)
@@ -2512,23 +2501,23 @@ containment_think()
 
 						if(isads(player))
 						{
-							player.containment_waypoint fadeOverTime(0.25);
-							player.containment_waypoint.alpha = 0.25;
+							player.obj_waypoint fadeOverTime(0.25);
+							player.obj_waypoint.alpha = 0.25;
 						}
 						else
 						{
-							player.containment_waypoint.alpha = 0.5;
+							player.obj_waypoint.alpha = 0.5;
 						}
 					}
 					else
 					{
-						player.containment_waypoint.alpha = 0;
+						player.obj_waypoint.alpha = 0;
 					}
 
-					player.containment_waypoint.x = 0;
-					player.containment_waypoint.y = -100;
-					player.containment_waypoint.z = 0;
-					player.containment_waypoint setShader("waypoint_revive", getDvarInt("waypointIconWidth"), getDvarInt("waypointIconHeight"));
+					player.obj_waypoint.x = 0;
+					player.obj_waypoint.y = -100;
+					player.obj_waypoint.z = 0;
+					player.obj_waypoint setShader("waypoint_revive", getDvarInt("waypointIconWidth"), getDvarInt("waypointIconHeight"));
 				}
 				else
 				{
@@ -2539,28 +2528,28 @@ containment_think()
 							player.ignoreme = 1;
 						}
 
-						player.containment_waypoint.alpha = 0.5;
+						player.obj_waypoint.alpha = 0.5;
 					}
 					else
 					{
-						player.containment_waypoint.alpha = 0;
+						player.obj_waypoint.alpha = 0;
 					}
 
 					if(level.script == "zm_transit" && level.scr_zm_map_start_location == "power" && zone_name == "zone_trans_8")
 					{
 						other_zone = level.zones["zone_pow_warehouse"];
-						player.containment_waypoint.x = (zone.volumes[0].origin[0] + other_zone.volumes[0].origin[0]) / 2;
-						player.containment_waypoint.y = (zone.volumes[0].origin[1] + other_zone.volumes[0].origin[1]) / 2;
-						player.containment_waypoint.z = (zone.volumes[0].origin[2] + other_zone.volumes[0].origin[2]) / 2;
+						player.obj_waypoint.x = (zone.volumes[0].origin[0] + other_zone.volumes[0].origin[0]) / 2;
+						player.obj_waypoint.y = (zone.volumes[0].origin[1] + other_zone.volumes[0].origin[1]) / 2;
+						player.obj_waypoint.z = (zone.volumes[0].origin[2] + other_zone.volumes[0].origin[2]) / 2;
 					}
 					else
 					{
-						player.containment_waypoint.x = zone.volumes[0].origin[0];
-						player.containment_waypoint.y = zone.volumes[0].origin[1];
-						player.containment_waypoint.z = zone.volumes[0].origin[2];
+						player.obj_waypoint.x = zone.volumes[0].origin[0];
+						player.obj_waypoint.y = zone.volumes[0].origin[1];
+						player.obj_waypoint.z = zone.volumes[0].origin[2];
 					}
 
-					player.containment_waypoint setWaypoint(1, "waypoint_revive");
+					player.obj_waypoint setWaypoint(1, "waypoint_revive");
 				}
 			}
 
@@ -2568,7 +2557,7 @@ containment_think()
 			{
 				foreach(player in players)
 				{
-					player.containment_waypoint.color = (1, 1, 0);
+					player.obj_waypoint.color = (1, 1, 0);
 				}
 
 				if(held_prev != "cont")
@@ -2602,11 +2591,11 @@ containment_think()
 				{
 					if(player.team == "axis")
 					{
-						player.containment_waypoint.color = (0, 1, 0);
+						player.obj_waypoint.color = (0, 1, 0);
 					}
 					else
 					{
-						player.containment_waypoint.color = (1, 0, 0);
+						player.obj_waypoint.color = (1, 0, 0);
 					}
 				}
 
@@ -2639,11 +2628,11 @@ containment_think()
 				{
 					if(player.team == "axis")
 					{
-						player.containment_waypoint.color = (1, 0, 0);
+						player.obj_waypoint.color = (1, 0, 0);
 					}
 					else
 					{
-						player.containment_waypoint.color = (0, 1, 0);
+						player.obj_waypoint.color = (0, 1, 0);
 					}
 				}
 
@@ -2682,7 +2671,7 @@ containment_think()
 						}
 					}
 
-					player.containment_waypoint.color = (1, 1, 1);
+					player.obj_waypoint.color = (1, 1, 1);
 				}
 
 				if(held_prev != "none")
@@ -2753,9 +2742,9 @@ containment_think()
 				}
 			}
 
-			if(isDefined(player.containment_waypoint))
+			if(isDefined(player.obj_waypoint))
 			{
-				player.containment_waypoint.alpha = 0;
+				player.obj_waypoint.alpha = 0;
 			}
 		}
 
@@ -2887,27 +2876,27 @@ meat_powerup_drop_think()
 				{
 					meat_active = true;
 
-					if (!isDefined(level.item_meat.meat_waypoint_origin))
+					if (!isDefined(level.item_meat.obj_waypoint_origin))
 					{
-						level.item_meat.meat_waypoint_origin = spawn( "script_model", level.item_meat.origin );
-						level.item_meat.meat_waypoint_origin setmodel( "tag_origin" );
+						level.item_meat.obj_waypoint_origin = spawn( "script_model", level.item_meat.origin );
+						level.item_meat.obj_waypoint_origin setmodel( "tag_origin" );
 
 						level.item_meat thread meat_waypoint_origin_destroy_on_death();
 					}
 
-					level.item_meat.meat_waypoint_origin.origin = level.item_meat.origin + (0, 0, 32);
+					level.item_meat.obj_waypoint_origin.origin = level.item_meat.origin + (0, 0, 32);
 
 					players = get_players();
 					foreach (player in players)
 					{
-						if (!isDefined(player.meat_waypoint))
+						if (!isDefined(player.obj_waypoint))
 						{
-							player.meat_waypoint = player meat_waypoint_init();
+							player.obj_waypoint = player meat_waypoint_init();
 						}
 
-						player.meat_waypoint.alpha = 1;
-						player.meat_waypoint.color = (1, 1, 1);
-						player.meat_waypoint setTargetEnt(level.item_meat.meat_waypoint_origin);
+						player.obj_waypoint.alpha = 1;
+						player.obj_waypoint.color = (1, 1, 1);
+						player.obj_waypoint setTargetEnt(level.item_meat.obj_waypoint_origin);
 					}
 				}
 			}
@@ -2930,10 +2919,10 @@ meat_powerup_drop_think()
 				{
 					meat_active = true;
 
-					if (!isDefined(level.meat_powerup.meat_waypoint_origin))
+					if (!isDefined(level.meat_powerup.obj_waypoint_origin))
 					{
-						level.meat_powerup.meat_waypoint_origin = spawn( "script_model", level.meat_powerup.origin + (0, 0, 32) );
-						level.meat_powerup.meat_waypoint_origin setmodel( "tag_origin" );
+						level.meat_powerup.obj_waypoint_origin = spawn( "script_model", level.meat_powerup.origin + (0, 0, 32) );
+						level.meat_powerup.obj_waypoint_origin setmodel( "tag_origin" );
 
 						level.meat_powerup thread meat_waypoint_origin_destroy_on_death();
 					}
@@ -2941,14 +2930,14 @@ meat_powerup_drop_think()
 					players = get_players();
 					foreach (player in players)
 					{
-						if (!isDefined(player.meat_waypoint))
+						if (!isDefined(player.obj_waypoint))
 						{
-							player.meat_waypoint = player meat_waypoint_init();
+							player.obj_waypoint = player meat_waypoint_init();
 						}
 
-						player.meat_waypoint.alpha = 1;
-						player.meat_waypoint.color = (1, 1, 1);
-						player.meat_waypoint setTargetEnt(level.meat_powerup.meat_waypoint_origin);
+						player.obj_waypoint.alpha = 1;
+						player.obj_waypoint.color = (1, 1, 1);
+						player.obj_waypoint setTargetEnt(level.meat_powerup.obj_waypoint_origin);
 					}
 				}
 			}
@@ -2976,10 +2965,10 @@ meat_waypoint_origin_destroy_on_death()
 {
 	self waittill("death");
 
-	if (isDefined(self.meat_waypoint_origin))
+	if (isDefined(self.obj_waypoint_origin))
 	{
-		self.meat_waypoint_origin unlink();
-    	self.meat_waypoint_origin delete();
+		self.obj_waypoint_origin unlink();
+    	self.obj_waypoint_origin delete();
 	}
 }
 
@@ -3057,11 +3046,11 @@ meat_think()
 
 meat_stink_player(meat_player)
 {
-	if (!isDefined(meat_player.meat_waypoint_origin))
+	if (!isDefined(meat_player.obj_waypoint_origin))
 	{
-		meat_player.meat_waypoint_origin = spawn( "script_model", meat_player.origin + (0, 0, 72) );
-		meat_player.meat_waypoint_origin setmodel( "tag_origin" );
-		meat_player.meat_waypoint_origin linkto( meat_player );
+		meat_player.obj_waypoint_origin = spawn( "script_model", meat_player.origin + (0, 0, 72) );
+		meat_player.obj_waypoint_origin setmodel( "tag_origin" );
+		meat_player.obj_waypoint_origin linkto( meat_player );
 	}
 
 	meat_player setMoveSpeedScale(0.6);
@@ -3069,9 +3058,9 @@ meat_stink_player(meat_player)
 	players = get_players();
 	foreach (player in players)
 	{
-		if (!isDefined(player.meat_waypoint))
+		if (!isDefined(player.obj_waypoint))
 		{
-			player.meat_waypoint = player meat_waypoint_init();
+			player.obj_waypoint = player meat_waypoint_init();
 		}
 
 		scripts\zm\replaced\zgrief::print_meat_msg(player, meat_player);
@@ -3087,22 +3076,22 @@ meat_stink_player(meat_player)
 
 		if (player == meat_player)
 		{
-			player.meat_waypoint.alpha = 0;
+			player.obj_waypoint.alpha = 0;
 		}
 		else
 		{
-			player.meat_waypoint.alpha = 1;
+			player.obj_waypoint.alpha = 1;
 
 			if (player.team == meat_player.team)
 			{
-				player.meat_waypoint.color = (0, 1, 0);
+				player.obj_waypoint.color = (0, 1, 0);
 			}
 			else
 			{
-				player.meat_waypoint.color = (1, 0, 0);
+				player.obj_waypoint.color = (1, 0, 0);
 			}
 
-			player.meat_waypoint setTargetEnt(meat_player.meat_waypoint_origin);
+			player.obj_waypoint setTargetEnt(meat_player.obj_waypoint_origin);
 		}
 
 		player thread meat_stink_player_cleanup();
@@ -3115,10 +3104,10 @@ meat_stink_player(meat_player)
 
 meat_unstink_player(meat_player)
 {
-	if (isDefined(meat_player.meat_waypoint_origin))
+	if (isDefined(meat_player.obj_waypoint_origin))
 	{
-		meat_player.meat_waypoint_origin unlink();
-    	meat_player.meat_waypoint_origin delete();
+		meat_player.obj_waypoint_origin unlink();
+    	meat_player.obj_waypoint_origin delete();
 	}
 
 	meat_player setMoveSpeedScale(1);
@@ -3126,9 +3115,9 @@ meat_unstink_player(meat_player)
 	players = get_players();
 	foreach (player in players)
 	{
-		if(isDefined(player.meat_waypoint))
+		if(isDefined(player.obj_waypoint))
 		{
-			player.meat_waypoint.alpha = 0;
+			player.obj_waypoint.alpha = 0;
 		}
 
 		player thread meat_stink_player_cleanup();
@@ -3277,9 +3266,9 @@ meat_hud_destroy_on_end_game()
 	players = get_players();
 	foreach(player in players)
 	{
-		if(isDefined(player.meat_waypoint))
+		if(isDefined(player.obj_waypoint))
 		{
-			player.meat_waypoint destroy();
+			player.obj_waypoint destroy();
 		}
 	}
 }

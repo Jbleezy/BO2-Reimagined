@@ -202,9 +202,8 @@ wallbuy( weapon_name, target, targetname, origin, angles )
 	unitrigger_stub.cursor_hint = "HINT_NOICON";
 
 	// move model forward so it always shows in front of chalk
-	move_amount = anglesToRight( wallmodel.angles ) * -0.3;
-	wallmodel.origin += move_amount;
-	unitrigger_stub.origin += move_amount;
+	wallmodel.origin += anglesToRight( wallmodel.angles ) * -0.3;
+	unitrigger_stub.origin += anglesToRight( wallmodel.angles ) * -0.3;
 
 	if ( unitrigger_stub.targetname == "weapon_upgrade" )
 	{

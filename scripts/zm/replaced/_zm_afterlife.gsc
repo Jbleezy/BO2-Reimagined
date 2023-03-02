@@ -30,16 +30,16 @@ afterlife_start_zombie_logic()
 {
 	flag_wait( "start_zombie_round_logic" );
 	wait 0.5;
-	b_everyone_alive = 0;
-	while ( isDefined( b_everyone_alive ) && !b_everyone_alive )
+	everyone_alive = 0;
+	while ( isDefined( everyone_alive ) && !everyone_alive )
 	{
-		b_everyone_alive = 1;
+		everyone_alive = 1;
 		players = getplayers();
 		foreach (player in players)
 		{
 			if ( isDefined( player.afterlife ) && player.afterlife )
 			{
-				b_everyone_alive = 0;
+				everyone_alive = 0;
 				wait 0.05;
 				break;
 			}

@@ -10,14 +10,14 @@ give_afterlife()
 	onplayerconnect_callback( scripts\zm\replaced\_zm_afterlife::init_player );
 	flag_wait( "initial_players_connected" );
 	wait 0.5;
-	n_start_pos = 1;
-	a_players = getplayers();
-	foreach ( player in a_players )
+	start_pos = 1;
+	players = getplayers();
+	foreach ( player in players )
 	{
 		if ( isDefined( player.afterlife ) && !player.afterlife )
 		{
-			player thread fake_kill_player( n_start_pos );
-			n_start_pos++;
+			player thread fake_kill_player( start_pos );
+			start_pos++;
 		}
 	}
 }
