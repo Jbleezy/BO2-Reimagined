@@ -8,6 +8,7 @@
 
 main()
 {
+	replaceFunc(maps\mp\zm_tomb_main_quest::watch_staff_ammo_reload, scripts\zm\replaced\zm_tomb_main_quest::watch_staff_ammo_reload);
 	replaceFunc(maps\mp\zm_tomb_craftables::quadrotor_control_thread, scripts\zm\replaced\zm_tomb_craftables::quadrotor_control_thread);
 	replaceFunc(maps\mp\zm_tomb_dig::increment_player_perk_purchase_limit, scripts\zm\replaced\zm_tomb_dig::increment_player_perk_purchase_limit);
 	replaceFunc(maps\mp\zm_tomb_dig::dig_disconnect_watch, scripts\zm\replaced\zm_tomb_dig::dig_disconnect_watch);

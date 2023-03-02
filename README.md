@@ -194,6 +194,9 @@
 ### Acid Gat
 * Kills on any round
 
+### Staffs
+* Max ammo no longer fills clip ammo
+
 ## Wallbuys
 * Increased trigger radius
 * Decreased upgraded ammo cost from 4500 to 2500
