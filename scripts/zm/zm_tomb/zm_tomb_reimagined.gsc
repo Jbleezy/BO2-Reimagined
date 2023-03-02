@@ -584,7 +584,7 @@ craftabletrigger_update_prompt( player )
 {
     can_use = self.stub craftablestub_update_prompt( player );
 
-	if (can_use && is_true(self.stub.crafted))
+	if (can_use && is_true(self.stub.crafted) && !isSubStr(self.stub.craftablespawn.craftable_name, "staff"))
 	{
 		self sethintstring( self.stub.hint_string, " [Cost: " + self.stub.cost + "]" );
 	}
