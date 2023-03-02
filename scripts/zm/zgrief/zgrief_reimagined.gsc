@@ -1417,7 +1417,7 @@ get_gamemode_winning_score()
 	}
 	else if(level.scr_zm_ui_gametype_obj == "zmeat")
 	{
-		return 250;
+		return 200;
 	}
 }
 

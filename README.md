@@ -543,7 +543,7 @@
 
 #### Meat
 * Gain score by being the team holding the meat
-* Gain 250 score to win the game
+* Gain 200 score to win the game
 * Meat powerup always spawns from the first zombie killed
 * All zombies go after the player holding the meat
 * Player holding the meat moves at 60% speed
