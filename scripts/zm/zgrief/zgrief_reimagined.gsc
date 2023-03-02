@@ -3169,6 +3169,11 @@ meat_powerup_drop_on_downed()
 		return;
 	}
 
+	if (is_true(level.meat_on_ground))
+	{
+		return;
+	}
+
 	valid_drop = 0;
 	playable_area = getentarray("player_volume", "script_noteworthy");
     for (i = 0; i < playable_area.size; i++)

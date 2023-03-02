@@ -27,6 +27,11 @@ meat_stink_on_ground(position_to_play)
 			return;
 		}
 
+		if (is_true(level.meat_on_ground))
+		{
+			return;
+		}
+
 		level.meat_on_ground = 1;
 		level.meat_powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop( "meat_stink", position_to_play );
 		level.meat_on_ground = undefined;
