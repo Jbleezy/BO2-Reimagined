@@ -695,6 +695,7 @@ grief_onplayerconnect()
 	self thread on_player_downed();
 	self thread on_player_bleedout();
 	self thread on_player_revived();
+	self thread team_player_waypoint();
 	self thread headstomp_watcher();
 	self thread smoke_grenade_cluster_watcher();
 	self thread [[level.zmeat_create_item_meat_watcher]]();
@@ -714,6 +715,12 @@ grief_onplayerconnect()
 grief_onplayerdisconnect(disconnecting_player)
 {
 	level endon("end_game");
+
+	if (isDefined(self.player_waypoint_origin))
+	{
+		self.player_waypoint_origin unlink();
+		self.player_waypoint_origin delete();
+	}
 
 	if(!flag("initial_players_connected"))
 	{
@@ -776,6 +783,7 @@ on_player_spawned()
 		self waittill( "spawned_player" );
 
 		self.statusicon = "";
+		self.player_waypoint.alpha = 1;
 
 		if(self.grief_initial_spawn)
 		{
@@ -808,6 +816,7 @@ on_player_spectate()
 		self waittill( "spawned_spectator" );
 
 		self.statusicon = "hud_status_dead";
+		self.player_waypoint.alpha = 0;
 	}
 }
 
@@ -821,6 +830,7 @@ on_player_downed()
 		self waittill( "entering_last_stand" );
 
 		self.statusicon = "waypoint_revive";
+		self.player_waypoint.alpha = 0;
 		self kill_feed();
 		self add_grief_downed_score();
 		level thread update_players_on_downed( self );
@@ -837,6 +847,7 @@ on_player_bleedout()
 		self waittill_any( "bled_out", "player_suicide" );
 
 		self.statusicon = "hud_status_dead";
+		self.player_waypoint.alpha = 0;
 
 		if(level.scr_zm_ui_gametype_obj == "zgrief")
 		{
@@ -869,6 +880,7 @@ on_player_revived()
 		self waittill( "player_revived", reviver );
 
 		self.statusicon = "";
+		self.player_waypoint.alpha = 1;
 		self revive_feed( reviver );
 	}
 }
@@ -926,6 +938,27 @@ add_grief_bleedout_score()
 			player maps\mp\zombies\_zm_score::add_to_player_score(score);
 		}
 	}
+}
+
+team_player_waypoint()
+{
+	flag_wait( "initial_blackscreen_passed" );
+
+	self.player_waypoint_origin = spawn( "script_model", self.origin + (0, 0, 72) );
+	self.player_waypoint_origin setmodel( "tag_origin" );
+	self.player_waypoint_origin linkto( self );
+
+	self.player_waypoint = [];
+	self.player_waypoint = newTeamHudElem(self.team);
+	self.player_waypoint.alignx = "center";
+	self.player_waypoint.aligny = "middle";
+	self.player_waypoint.horzalign = "user_center";
+	self.player_waypoint.vertalign = "user_center";
+	self.player_waypoint.alpha = 1;
+	self.player_waypoint.hidewheninmenu = 1;
+	self.player_waypoint setShader(game["icons"][self.team], 6, 6);
+	self.player_waypoint setWaypoint(1);
+	self.player_waypoint setTargetEnt(self.player_waypoint_origin);
 }
 
 headstomp_watcher()
@@ -3065,6 +3098,8 @@ meat_stink_player(meat_player)
 
 	meat_player setMoveSpeedScale(0.6);
 
+	meat_player.player_waypoint.alpha = 0;
+
 	players = get_players();
 	foreach (player in players)
 	{
@@ -3121,6 +3156,11 @@ meat_unstink_player(meat_player)
 	}
 
 	meat_player setMoveSpeedScale(1);
+
+	if (is_player_valid(player))
+	{
+		meat_player.player_waypoint.alpha = 1;
+	}
 
 	players = get_players();
 	foreach (player in players)

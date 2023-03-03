@@ -497,6 +497,7 @@
 * Insta Kill: enemy players deal half damage
 * Nuke: deals 80 damage to all alive enemy players
 * Nuke: makes all downed enemy players bleed out
+* Added teammate waypoint icons
 * Added kill feed (includes downs, revives, and bleed outs)
 * Added player kills on scoreboard (replaces headshots)
 * Added player downed and bled out icons on scoreboard
