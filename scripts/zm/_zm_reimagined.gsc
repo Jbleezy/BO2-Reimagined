@@ -363,11 +363,6 @@ health_bar_hud()
 
 	flag_wait( "initial_blackscreen_passed" );
 
-	if(getDvar("g_gametype") == "zgrief" && is_true(level.scr_zm_ui_gametype_pro))
-	{
-		return;
-	}
-
 	x = 5;
 	y = -104;
 	if (level.script == "zm_buried")
@@ -1952,11 +1947,6 @@ veryhurt_blood_fx()
 {
 	self endon( "disconnect" );
 
-	if(level.scr_zm_ui_gametype == "zgrief" && is_true(level.scr_zm_ui_gametype_pro))
-	{
-		return;
-	}
-
 	while(1)
 	{
 		health_ratio = self.health / self.maxhealth;
@@ -2183,11 +2173,6 @@ wallbuy_location_changes()
 				add_wallbuy("claymore_zm");
 				add_wallbuy("bowie_knife_zm");
 			}
-		}
-
-		if(level.scr_zm_ui_gametype == "zgrief" && is_true(level.scr_zm_ui_gametype_pro))
-		{
-			remove_wallbuy("claymore_zm");
 		}
 	}
 }
