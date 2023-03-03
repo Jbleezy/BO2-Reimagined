@@ -460,6 +460,7 @@
 * Perk bottle dig spots: increased number of rounds for next dig spot to spawn from 1 to 4
 * Ascend from darkness quest step: staffs can be placed at any staff holder
 * Ascend from darkness quest step: fixed an issue where staffs were able to be picked up at their build location when placed in the staff holders
+* Rain fire quest step: button no longer deactivates
 
 ## Game Modes
 
