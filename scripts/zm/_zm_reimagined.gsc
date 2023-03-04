@@ -446,45 +446,45 @@ enemy_counter_hud()
 		return;
 	}
 
-	enemy_counter_hud = newHudElem();
-	enemy_counter_hud.alignx = "left";
-	enemy_counter_hud.aligny = "top";
-	enemy_counter_hud.horzalign = "user_left";
-	enemy_counter_hud.vertalign = "user_top";
-	enemy_counter_hud.x += 5;
+	hud = newHudElem();
+	hud.alignx = "left";
+	hud.aligny = "top";
+	hud.horzalign = "user_left";
+	hud.vertalign = "user_top";
+	hud.x += 5;
 	if (level.script == "zm_tomb")
 	{
-		enemy_counter_hud.y += 49;
+		hud.y += 49;
 	}
 	else
 	{
-		enemy_counter_hud.y += 2;
+		hud.y += 2;
 	}
-	enemy_counter_hud.fontscale = 1.4;
-	enemy_counter_hud.alpha = 0;
-	enemy_counter_hud.color = ( 1, 1, 1 );
-	enemy_counter_hud.hidewheninmenu = 1;
-	enemy_counter_hud.foreground = 1;
-	enemy_counter_hud.label = &"Enemies Remaining: ";
+	hud.fontscale = 1.4;
+	hud.alpha = 0;
+	hud.color = ( 1, 1, 1 );
+	hud.hidewheninmenu = 1;
+	hud.foreground = 1;
+	hud.label = &"Enemies Remaining: ";
 
-	enemy_counter_hud endon("death");
+	hud endon("death");
 
-	enemy_counter_hud thread destroy_on_intermission();
+	hud thread destroy_on_intermission();
 
 	flag_wait( "initial_blackscreen_passed" );
 
-	enemy_counter_hud.alpha = 1;
+	hud.alpha = 1;
 	while (1)
 	{
 		enemies = get_round_enemy_array().size + level.zombie_total;
 
 		if (enemies == 0)
 		{
-			enemy_counter_hud setText("");
+			hud setText("");
 		}
 		else
 		{
-			enemy_counter_hud setValue(enemies);
+			hud setValue(enemies);
 		}
 
 		wait 0.05;
@@ -495,37 +495,37 @@ timer_hud()
 {
 	level thread round_timer_hud();
 
-	timer_hud = newHudElem();
-	timer_hud.alignx = "right";
-	timer_hud.aligny = "top";
-	timer_hud.horzalign = "user_right";
-	timer_hud.vertalign = "user_top";
-	timer_hud.x -= 5;
-	timer_hud.y += 12;
-	timer_hud.fontscale = 1.4;
-	timer_hud.alpha = 0;
-	timer_hud.color = ( 1, 1, 1 );
-	timer_hud.hidewheninmenu = 1;
-	timer_hud.foreground = 1;
-	timer_hud.label = &"Total: ";
+	hud = newHudElem();
+	hud.alignx = "right";
+	hud.aligny = "top";
+	hud.horzalign = "user_right";
+	hud.vertalign = "user_top";
+	hud.x -= 5;
+	hud.y += 12;
+	hud.fontscale = 1.4;
+	hud.alpha = 0;
+	hud.color = ( 1, 1, 1 );
+	hud.hidewheninmenu = 1;
+	hud.foreground = 1;
+	hud.label = &"Total: ";
 
-	timer_hud endon("death");
+	hud endon("death");
 
-	timer_hud thread destroy_on_intermission();
+	hud thread destroy_on_intermission();
 
-	level thread set_time_frozen_on_end_game(timer_hud);
+	level thread set_time_frozen_on_end_game(hud);
 
 	flag_wait( "initial_blackscreen_passed" );
 
-	timer_hud.alpha = 1;
+	hud.alpha = 1;
 
 	if ( getDvar( "g_gametype" ) == "zgrief" )
 	{
-		set_time_frozen(timer_hud, 0);
+		set_time_frozen(hud, 0);
 	}
 
-	timer_hud setTimerUp(0);
-	timer_hud.start_time = int(getTime() / 1000);
+	hud setTimerUp(0);
+	hud.start_time = int(getTime() / 1000);
 }
 
 round_timer_hud()
@@ -535,40 +535,40 @@ round_timer_hud()
 		return;
 	}
 
-	round_timer_hud = newHudElem();
-	round_timer_hud.alignx = "right";
-	round_timer_hud.aligny = "top";
-	round_timer_hud.horzalign = "user_right";
-	round_timer_hud.vertalign = "user_top";
-	round_timer_hud.x -= 5;
-	round_timer_hud.y += 27;
-	round_timer_hud.fontscale = 1.4;
-	round_timer_hud.alpha = 0;
-	round_timer_hud.color = ( 1, 1, 1 );
-	round_timer_hud.hidewheninmenu = 1;
-	round_timer_hud.foreground = 1;
-	round_timer_hud.label = &"Round: ";
+	hud = newHudElem();
+	hud.alignx = "right";
+	hud.aligny = "top";
+	hud.horzalign = "user_right";
+	hud.vertalign = "user_top";
+	hud.x -= 5;
+	hud.y += 27;
+	hud.fontscale = 1.4;
+	hud.alpha = 0;
+	hud.color = ( 1, 1, 1 );
+	hud.hidewheninmenu = 1;
+	hud.foreground = 1;
+	hud.label = &"Round: ";
 
-	round_timer_hud endon("death");
+	hud endon("death");
 
-	round_timer_hud thread destroy_on_intermission();
+	hud thread destroy_on_intermission();
 
-	level thread set_time_frozen_on_end_game(round_timer_hud);
+	level thread set_time_frozen_on_end_game(hud);
 
 	flag_wait( "initial_blackscreen_passed" );
 
-	round_timer_hud.alpha = 1;
+	hud.alpha = 1;
 
 	if ( getDvar( "g_gametype" ) == "zgrief" )
 	{
-		set_time_frozen(round_timer_hud, 0);
+		set_time_frozen(hud, 0);
 	}
 
 	while (1)
 	{
-		round_timer_hud setTimerUp(0);
-		round_timer_hud.start_time = int(getTime() / 1000);
-		round_timer_hud.end_time = undefined;
+		hud setTimerUp(0);
+		hud.start_time = int(getTime() / 1000);
+		hud.end_time = undefined;
 
 		if ( getDvar( "g_gametype" ) == "zgrief" )
 		{
@@ -579,10 +579,10 @@ round_timer_hud()
 			level waittill( "end_of_round" );
 		}
 
-		round_timer_hud.end_time = int(getTime() / 1000);
-		time = round_timer_hud.end_time - round_timer_hud.start_time;
+		hud.end_time = int(getTime() / 1000);
+		time = hud.end_time - hud.start_time;
 
-		set_time_frozen(round_timer_hud, time);
+		set_time_frozen(hud, time);
 	}
 }
 
@@ -648,29 +648,29 @@ zone_hud()
 		y -= 60;
 	}
 
-	zone_hud = newClientHudElem(self);
-	zone_hud.alignx = "left";
-	zone_hud.aligny = "middle";
-	zone_hud.horzalign = "user_left";
-	zone_hud.vertalign = "user_bottom";
-	zone_hud.x += x;
-	zone_hud.y += y;
-	zone_hud.fontscale = 1.4;
-	zone_hud.alpha = 0;
-	zone_hud.color = ( 1, 1, 1 );
-	zone_hud.hidewheninmenu = 1;
-	zone_hud.foreground = 1;
+	hud = newClientHudElem(self);
+	hud.alignx = "left";
+	hud.aligny = "middle";
+	hud.horzalign = "user_left";
+	hud.vertalign = "user_bottom";
+	hud.x += x;
+	hud.y += y;
+	hud.fontscale = 1.4;
+	hud.alpha = 0;
+	hud.color = ( 1, 1, 1 );
+	hud.hidewheninmenu = 1;
+	hud.foreground = 1;
 
-	zone_hud endon("death");
+	hud endon("death");
 
-	zone_hud thread destroy_on_intermission();
+	hud thread destroy_on_intermission();
 
 	flag_wait( "initial_blackscreen_passed" );
 
 	zone = self get_current_zone();
 	prev_zone_name = get_zone_display_name(zone);
-	zone_hud settext(prev_zone_name);
-	zone_hud.alpha = 1;
+	hud settext(prev_zone_name);
+	hud.alpha = 1;
 
 	while (1)
 	{
@@ -681,14 +681,14 @@ zone_hud()
 		{
 			prev_zone_name = zone_name;
 
-			zone_hud fadeovertime(0.25);
-			zone_hud.alpha = 0;
+			hud fadeovertime(0.25);
+			hud.alpha = 0;
 			wait 0.25;
 
-			zone_hud settext(zone_name);
+			hud settext(zone_name);
 
-			zone_hud fadeovertime(0.25);
-			zone_hud.alpha = 1;
+			hud fadeovertime(0.25);
+			hud.alpha = 1;
 			wait 0.25;
 
 			continue;
@@ -3353,47 +3353,47 @@ choose_open_buildable( player )
 {
 	self endon( "kill_choose_open_buildable" );
 
-	n_playernum = player getentitynumber();
-	b_got_input = 1;
-	hinttexthudelem = newclienthudelem( player );
-	hinttexthudelem.alignx = "center";
-	hinttexthudelem.aligny = "middle";
-	hinttexthudelem.horzalign = "center";
-	hinttexthudelem.vertalign = "bottom";
-	hinttexthudelem.y = -100;
-	hinttexthudelem.foreground = 1;
-	hinttexthudelem.font = "default";
-	hinttexthudelem.fontscale = 1;
-	hinttexthudelem.alpha = 1;
-	hinttexthudelem.color = ( 1, 1, 1 );
-	hinttexthudelem settext( "Press [{+actionslot 1}] or [{+actionslot 2}] to change item" );
+	num = player getentitynumber();
+	got_input = 1;
+	hud = newclienthudelem( player );
+	hud.alignx = "center";
+	hud.aligny = "middle";
+	hud.horzalign = "center";
+	hud.vertalign = "bottom";
+	hud.y = -100;
+	hud.foreground = 1;
+	hud.font = "default";
+	hud.fontscale = 1;
+	hud.alpha = 1;
+	hud.color = ( 1, 1, 1 );
+	hud settext( "Press [{+actionslot 1}] or [{+actionslot 2}] to change item" );
 
 	if (!isDefined(self.buildables_available_index))
 	{
 		self.buildables_available_index = 0;
 	}
 
-	while ( isDefined( self.playertrigger[ n_playernum ] ) && !self.built )
+	while ( isDefined( self.playertrigger[ num ] ) && !self.built )
 	{
-		if (!player isTouching(self.playertrigger[n_playernum]))
+		if (!player isTouching(self.playertrigger[num]))
 		{
-			hinttexthudelem.alpha = 0;
+			hud.alpha = 0;
 			wait 0.05;
 			continue;
 		}
 
-		hinttexthudelem.alpha = 1;
+		hud.alpha = 1;
 
 		if ( player actionslotonebuttonpressed() )
 		{
 			self.buildables_available_index++;
-			b_got_input = 1;
+			got_input = 1;
 		}
 		else if ( player actionslottwobuttonpressed() )
 		{
 
 			self.buildables_available_index--;
-			b_got_input = 1;
+			got_input = 1;
 		}
 
 		if ( self.buildables_available_index >= level.buildables_available.size )
@@ -3405,7 +3405,7 @@ choose_open_buildable( player )
 			self.buildables_available_index = level.buildables_available.size - 1;
 		}
 
-		if ( b_got_input )
+		if ( got_input )
 		{
 			piece = undefined;
 			foreach (stub in level.buildable_stubs)
@@ -3421,23 +3421,23 @@ choose_open_buildable( player )
 
 			self.equipname = level.buildables_available[self.buildables_available_index];
 			self.hint_string = level.zombie_buildables[self.equipname].hint;
-			self.playertrigger[n_playernum] sethintstring(self.hint_string);
-			b_got_input = 0;
+			self.playertrigger[num] sethintstring(self.hint_string);
+			got_input = 0;
 		}
 
-		if ( player is_player_looking_at( self.playertrigger[n_playernum].origin, 0.76 ) )
+		if ( player is_player_looking_at( self.playertrigger[num].origin, 0.76 ) )
 		{
-			hinttexthudelem.alpha = 1;
+			hud.alpha = 1;
 		}
 		else
 		{
-			hinttexthudelem.alpha = 0;
+			hud.alpha = 0;
 		}
 
 		wait 0.05;
 	}
 
-	hinttexthudelem destroy();
+	hud destroy();
 }
 
 buildablestub_build_succeed()

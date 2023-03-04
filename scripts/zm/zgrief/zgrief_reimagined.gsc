@@ -78,20 +78,14 @@ set_team()
 	self.team_set = true;
 	self notify("team_set");
 
-	teamplayersaxis = countplayers("axis");
-	teamplayersallies = countplayers("allies");
+	teamplayers = [];
+	teamplayers["axis"] = countplayers("axis");
+	teamplayers["allies"] = countplayers("allies");
 
 	// don't count self
-	if (self.team == "axis")
-	{
-		teamplayersaxis--;
-	}
-	else
-	{
-		teamplayersallies--;
-	}
+	teamplayers[self.team]--;
 
-	if(teamplayersallies == teamplayersaxis)
+	if(teamplayers["allies"] == teamplayers["axis"])
 	{
 		if(cointoss())
 		{
@@ -110,7 +104,7 @@ set_team()
 	}
 	else
 	{
-		if(teamplayersallies > teamplayersaxis)
+		if(teamplayers["allies"] > teamplayers["axis"])
 		{
 			self.team = "axis";
 			self.sessionteam = "axis";
@@ -2423,17 +2417,17 @@ containment_init()
 
 containment_waypoint_init()
 {
-	containment_waypoint = [];
-	containment_waypoint = newClientHudElem(self);
-	containment_waypoint.alignx = "center";
-	containment_waypoint.aligny = "middle";
-	containment_waypoint.horzalign = "user_center";
-	containment_waypoint.vertalign = "user_center";
-	containment_waypoint.alpha = 0.5;
-	containment_waypoint.hidewheninmenu = 1;
-	containment_waypoint.foreground = 1;
+	hud = [];
+	hud = newClientHudElem(self);
+	hud.alignx = "center";
+	hud.aligny = "middle";
+	hud.horzalign = "user_center";
+	hud.vertalign = "user_center";
+	hud.alpha = 0.5;
+	hud.hidewheninmenu = 1;
+	hud.foreground = 1;
 
-	return containment_waypoint;
+	return hud;
 }
 
 containment_hud_destroy_on_end_game()
@@ -3274,18 +3268,18 @@ meat_thrown_hud_msg()
 
 meat_waypoint_init()
 {
-	meat_waypoint = [];
-	meat_waypoint = newClientHudElem(self);
-	meat_waypoint.alignx = "center";
-	meat_waypoint.aligny = "middle";
-	meat_waypoint.horzalign = "user_center";
-	meat_waypoint.vertalign = "user_center";
-	meat_waypoint.alpha = 0.5;
-	meat_waypoint.hidewheninmenu = 1;
-	meat_waypoint.foreground = 1;
-	meat_waypoint setWaypoint(1, "waypoint_revive");
+	hud = [];
+	hud = newClientHudElem(self);
+	hud.alignx = "center";
+	hud.aligny = "middle";
+	hud.horzalign = "user_center";
+	hud.vertalign = "user_center";
+	hud.alpha = 0.5;
+	hud.hidewheninmenu = 1;
+	hud.foreground = 1;
+	hud setWaypoint(1, "waypoint_revive");
 
-	return meat_waypoint;
+	return hud;
 }
 
 can_revive(revivee)
