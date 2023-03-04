@@ -566,6 +566,7 @@
 * Removed powerups
 * Removed buildables
 * Removed unlimited sprint
+* Disabled Semtex and Claymore wallbuys
 
 ## Launching New Maps
 

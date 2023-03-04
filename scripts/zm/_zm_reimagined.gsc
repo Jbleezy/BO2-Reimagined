@@ -2175,6 +2175,12 @@ wallbuy_location_changes()
 				add_wallbuy("bowie_knife_zm");
 			}
 		}
+
+		if(is_true(level.scr_zm_ui_gametype_pro))
+		{
+			remove_wallbuy("sticky_grenade_zm");
+			remove_wallbuy("claymore_zm");
+		}
 	}
 }
 
