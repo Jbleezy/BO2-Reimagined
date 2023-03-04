@@ -959,11 +959,19 @@ team_player_waypoint()
 	self.player_waypoint.aligny = "middle";
 	self.player_waypoint.horzalign = "user_center";
 	self.player_waypoint.vertalign = "user_center";
-	self.player_waypoint.alpha = 1;
 	self.player_waypoint.hidewheninmenu = 1;
 	self.player_waypoint setShader(game["icons"][self.team], 6, 6);
 	self.player_waypoint setWaypoint(1);
 	self.player_waypoint setTargetEnt(self.player_waypoint_origin);
+
+	if (is_player_valid(self))
+	{
+		self.player_waypoint.alpha = 1;
+	}
+	else
+	{
+		self.player_waypoint.alpha = 0;
+	}
 }
 
 headstomp_watcher()
@@ -3160,7 +3168,7 @@ meat_unstink_player(meat_player)
 
 	meat_player setMoveSpeedScale(1);
 
-	if (is_player_valid(player))
+	if (is_player_valid(meat_player))
 	{
 		meat_player.player_waypoint.alpha = 1;
 	}
