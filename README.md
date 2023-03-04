@@ -16,6 +16,7 @@
 
 ## General
 * Removed fog
+* Disabled depth of field
 * Increased level of detail at longer distances
 * In-game menu no longer disabled instantly when the game ends
 

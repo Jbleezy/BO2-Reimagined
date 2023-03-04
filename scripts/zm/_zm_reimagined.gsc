@@ -340,6 +340,7 @@ set_client_dvars()
 
 	self setClientDvar( "r_fog", 0 );
 
+	self setClientDvar( "r_dof_enable", 0 );
 	self setClientDvar( "r_lodBiasRigid", -1000 );
 	self setClientDvar( "r_lodBiasSkinned", -1000 );
 
