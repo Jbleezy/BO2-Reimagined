@@ -2436,7 +2436,6 @@ containment_waypoint_init()
 	containment_waypoint.vertalign = "user_center";
 	containment_waypoint.alpha = 0.5;
 	containment_waypoint.hidewheninmenu = 1;
-	containment_waypoint.fadewhentargeted = 1;
 	containment_waypoint.foreground = 1;
 
 	return containment_waypoint;
@@ -2545,15 +2544,7 @@ containment_think()
 
 						in_containment_zone[player.team][in_containment_zone[player.team].size] = player;
 
-						if(isads(player))
-						{
-							player.obj_waypoint fadeOverTime(0.25);
-							player.obj_waypoint.alpha = 0.25;
-						}
-						else
-						{
-							player.obj_waypoint.alpha = 0.5;
-						}
+						player.obj_waypoint.alpha = 0.5;
 					}
 					else
 					{
