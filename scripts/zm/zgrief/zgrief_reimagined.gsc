@@ -2369,11 +2369,6 @@ race_think()
 
 		if(level.round_number >= 20)
 		{
-			foreach(player in players)
-			{
-				player thread show_grief_hud_msg("Final Round!");
-			}
-
 			return;
 		}
 	}
