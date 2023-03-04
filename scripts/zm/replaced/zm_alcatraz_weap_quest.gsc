@@ -3,6 +3,55 @@
 #include maps\mp\zombies\_zm_utility;
 #include maps\mp\zm_alcatraz_weap_quest;
 
+#using_animtree("fxanim_props");
+
+grief_soul_catcher_state_manager()
+{
+    wait 1;
+
+    if (is_true(level.scr_zm_ui_gametype_pro))
+	{
+        for (i = 0; i < level.soul_catchers.size; i++)
+        {
+            level.soul_catchers[i].is_charged = 1;
+        }
+
+        return;
+    }
+
+    while ( true )
+    {
+        level setclientfield( self.script_parameters, 0 );
+
+        self waittill( "first_zombie_killed_in_zone" );
+
+        if ( isdefined( level.soul_catcher_clip[self.script_noteworthy] ) )
+            level.soul_catcher_clip[self.script_noteworthy] setvisibletoall();
+
+        level setclientfield( self.script_parameters, 1 );
+        anim_length = getanimlength( %o_zombie_dreamcatcher_intro );
+        wait( anim_length );
+
+        while ( !self.is_charged )
+        {
+            level setclientfield( self.script_parameters, 2 );
+            self waittill_either( "fully_charged", "finished_eating" );
+        }
+
+        level setclientfield( self.script_parameters, 6 );
+        anim_length = getanimlength( %o_zombie_dreamcatcher_outtro );
+        wait( anim_length );
+
+        if ( isdefined( level.soul_catcher_clip[self.script_noteworthy] ) )
+            level.soul_catcher_clip[self.script_noteworthy] delete();
+
+        self.souls_received = 0;
+        level thread wolf_spit_out_powerup();
+        wait 20;
+        self thread soul_catcher_check();
+    }
+}
+
 wolf_spit_out_powerup()
 {
     if ( !( isdefined( level.enable_magic ) && level.enable_magic ) )
