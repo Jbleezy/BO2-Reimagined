@@ -180,38 +180,10 @@ buildbuildables()
     //     }
     // }
 
-	if(is_true(level.scr_zm_ui_gametype_pro))
-	{
-		//removebuildable( "headchopper_zm" );
-		removebuildable( "springpad_zm" );
-		removebuildable( "subwoofer_zm" );
-		removebuildable( "turbine" );
-	}
-	else
-	{
-		//buildbuildable( "headchopper_zm" );
-		buildbuildable( "springpad_zm" );
-		buildbuildable( "subwoofer_zm" );
-		buildbuildable( "turbine" );
-	}
-}
-
-removebuildable( buildable )
-{
-	player = get_players()[ 0 ];
-	foreach (stub in level.buildable_stubs)
-	{
-		if ( !isDefined( buildable ) || stub.equipname == buildable )
-		{
-			if ( isDefined( buildable ) || stub.persistent != 3 )
-			{
-				foreach (piece in stub.buildablezone.pieces)
-				{
-					piece maps\mp\zombies\_zm_buildables::piece_unspawn();
-				}
-			}
-		}
-	}
+	//buildbuildable( "headchopper_zm" );
+	buildbuildable( "springpad_zm" );
+	buildbuildable( "subwoofer_zm" );
+	buildbuildable( "turbine" );
 }
 
 disable_tunnels()
