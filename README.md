@@ -572,22 +572,22 @@
 * Copy and paste the following commands into the console
 
 ### Survival on Diner
-* ```g_gametype zstandard; ui_gametype zstandard; ui_zm_gamemodegroup zsurvival; ui_zm_mapstartlocation diner; map zm_transit```
+* ```g_gametype zstandard; ui_gametype zstandard; ui_zm_gamemodegroup zsurvival; ui_zm_mapstartlocation diner```
 
 ### Survival on Power Station
-* ```g_gametype zstandard; ui_gametype zstandard; ui_zm_gamemodegroup zsurvival; ui_zm_mapstartlocation power; map zm_transit```
+* ```g_gametype zstandard; ui_gametype zstandard; ui_zm_gamemodegroup zsurvival; ui_zm_mapstartlocation power```
 
 ### Survival on Tunnel
-* ```g_gametype zstandard; ui_gametype zstandard; ui_zm_gamemodegroup zsurvival; ui_zm_mapstartlocation tunnel; map zm_transit```
+* ```g_gametype zstandard; ui_gametype zstandard; ui_zm_gamemodegroup zsurvival; ui_zm_mapstartlocation tunnel```
 
 ### Grief on Diner
-* ```g_gametype zgrief; ui_gametype zgrief; ui_zm_gamemodegroup zencounter; ui_zm_mapstartlocation diner; map zm_transit```
+* ```g_gametype zgrief; ui_gametype zgrief; ui_zm_gamemodegroup zencounter; ui_zm_mapstartlocation diner```
 
 ### Grief on Power Station
-* ```g_gametype zgrief; ui_gametype zgrief; ui_zm_gamemodegroup zencounter; ui_zm_mapstartlocation power; map zm_transit```
+* ```g_gametype zgrief; ui_gametype zgrief; ui_zm_gamemodegroup zencounter; ui_zm_mapstartlocation power```
 
 ### Grief on Tunnel
-* ```g_gametype zgrief; ui_gametype zgrief; ui_zm_gamemodegroup zencounter; ui_zm_mapstartlocation tunnel; map zm_transit```
+* ```g_gametype zgrief; ui_gametype zgrief; ui_zm_gamemodegroup zencounter; ui_zm_mapstartlocation tunnel```
 
 ## Launching New Game Modes
 
