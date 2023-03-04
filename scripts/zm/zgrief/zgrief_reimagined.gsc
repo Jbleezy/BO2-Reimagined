@@ -2935,7 +2935,7 @@ meat_powerup_drop_think()
 							player.obj_waypoint = player meat_waypoint_init();
 						}
 
-						player.obj_waypoint.alpha = 1;
+						player.obj_waypoint.alpha = 0.5;
 						player.obj_waypoint.color = (1, 1, 1);
 						player.obj_waypoint setTargetEnt(level.item_meat.obj_waypoint_origin);
 					}
@@ -2976,7 +2976,7 @@ meat_powerup_drop_think()
 							player.obj_waypoint = player meat_waypoint_init();
 						}
 
-						player.obj_waypoint.alpha = 1;
+						player.obj_waypoint.alpha = 0.5;
 						player.obj_waypoint.color = (1, 1, 1);
 						player.obj_waypoint setTargetEnt(level.meat_powerup.obj_waypoint_origin);
 					}
@@ -3123,7 +3123,7 @@ meat_stink_player(meat_player)
 		}
 		else
 		{
-			player.obj_waypoint.alpha = 1;
+			player.obj_waypoint.alpha = 0.5;
 
 			if (player.team == meat_player.team)
 			{
@@ -3281,7 +3281,7 @@ meat_waypoint_init()
 	meat_waypoint.aligny = "middle";
 	meat_waypoint.horzalign = "user_center";
 	meat_waypoint.vertalign = "user_center";
-	meat_waypoint.alpha = 1;
+	meat_waypoint.alpha = 0.5;
 	meat_waypoint.hidewheninmenu = 1;
 	meat_waypoint.foreground = 1;
 	meat_waypoint setWaypoint(1, "waypoint_revive");
