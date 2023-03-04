@@ -106,7 +106,7 @@ main()
 	maps\mp\zombies\_zm_ai_brutus::precache();
 	maps\mp\zombies\_zm_ai_brutus::init();
 	level.enemy_location_override_func = ::enemy_location_override;
-	level._effect[ "butterflies" ] = loadfx( "maps\zombie_alcatraz\fx_alcatraz_skull_elec" );
+	level._effect[ "butterflies" ] = loadfx( "maps/zombie_alcatraz/fx_alcatraz_skull_elec" );
 	a_t_door_triggers = getentarray( "zombie_door", "targetname" );
 	triggers = a_t_door_triggers;
 	i = 0;
