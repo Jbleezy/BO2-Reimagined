@@ -716,10 +716,15 @@ grief_onplayerdisconnect(disconnecting_player)
 {
 	level endon("end_game");
 
-	if (isDefined(self.player_waypoint_origin))
+	if (isDefined(self.player_waypoint))
 	{
-		self.player_waypoint_origin unlink();
-		self.player_waypoint_origin delete();
+		if (isDefined(self.player_waypoint_origin))
+		{
+			self.player_waypoint_origin unlink();
+			self.player_waypoint_origin delete();
+		}
+
+		self.player_waypoint destroy();
 	}
 
 	if(!flag("initial_players_connected"))
