@@ -1382,7 +1382,7 @@ grief_intro_text()
 	}
 	else if(level.scr_zm_ui_gametype_obj == "zcontainment")
 	{
-		self iPrintLn("Gain score by being in the containment zone.");
+		self iPrintLn("Gain score by controlling the containment zone.");
 		wait 5;
 		self iPrintLn("Gain " + get_gamemode_winning_score() + " score to win the game.");
 		wait 5;
@@ -2789,8 +2789,6 @@ containment_think()
 				spawn_point.locked = 0;
 			}
 		}
-
-		wait 5;
 
 		i++;
 
