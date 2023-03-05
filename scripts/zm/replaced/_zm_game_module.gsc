@@ -146,11 +146,11 @@ round_end(winner)
 		{
 			if(player.team == team)
 			{
-				player thread scripts\zm\zgrief\zgrief_reimagined::show_grief_hud_msg( "You won the round" );
+				player thread scripts\zm\zgrief\zgrief_reimagined::show_grief_hud_msg( "You won the round!" );
 			}
 			else
 			{
-				player thread scripts\zm\zgrief\zgrief_reimagined::show_grief_hud_msg( "You lost the round" );
+				player thread scripts\zm\zgrief\zgrief_reimagined::show_grief_hud_msg( "You lost the round!" );
 			}
 		}
 	}
