@@ -99,6 +99,8 @@ check_for_round_end(winner)
 
 round_end(winner)
 {
+	level endon("end_game");
+
 	team = undefined;
 	if(isDefined(winner))
 	{
@@ -110,20 +112,8 @@ round_end(winner)
 		{
 			team = "allies";
 		}
-	}
 
-	if(isDefined(winner))
-	{
-		level.grief_score[winner]++;
-		level.grief_score_hud["axis"].score[team] setValue(level.grief_score[winner]);
-		level.grief_score_hud["allies"].score[team] setValue(level.grief_score[winner]);
-		setteamscore(team, level.grief_score[winner]);
-
-		if(level.grief_score[winner] == scripts\zm\zgrief\zgrief_reimagined::get_gamemode_winning_score())
-		{
-			game_won(winner);
-			return;
-		}
+		scripts\zm\zgrief\zgrief_reimagined::increment_score(team);
 	}
 
 	players = get_players();

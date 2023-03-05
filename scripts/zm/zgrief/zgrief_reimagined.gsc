@@ -1478,7 +1478,7 @@ is_respawn_gamemode()
 
 show_grief_hud_msg( msg, msg_parm, offset, delay )
 {
-	if(!isDefined(delay))
+	if(!isDefined(offset))
 	{
 		self notify( "show_grief_hud_msg" );
 	}
@@ -1516,7 +1516,7 @@ show_grief_hud_msg( msg, msg_parm, offset, delay )
 
 	zgrief_hudmsg endon( "death" );
 
-	zgrief_hudmsg thread show_grief_hud_msg_cleanup(self, delay);
+	zgrief_hudmsg thread show_grief_hud_msg_cleanup(self, offset);
 
 	while ( isDefined( level.hostmigrationtimer ) )
 	{
@@ -1557,15 +1557,15 @@ show_grief_hud_msg( msg, msg_parm, offset, delay )
 	}
 }
 
-show_grief_hud_msg_cleanup(player, delay)
+show_grief_hud_msg_cleanup(player, offset)
 {
 	self endon( "death" );
 
-	self thread show_grief_hud_msg_cleanup_restart_round();
 	self thread show_grief_hud_msg_cleanup_end_game();
 
-	if(!isDefined(delay))
+	if(!isDefined(offset))
 	{
+		self thread show_grief_hud_msg_cleanup_restart_round();
 		player waittill( "show_grief_hud_msg" );
 	}
 	else
@@ -3358,6 +3358,30 @@ increment_score(team)
 				}
 
 				level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog(score_left + "_player_left", team);
+			}
+		}
+	}
+
+	if (!isDefined(level.prev_leader) || (level.prev_leader != encounters_team && level.grief_score[encounters_team] > level.grief_score[level.prev_leader]))
+	{
+		level.prev_leader = encounters_team;
+
+		delay = 0;
+		if (level.scr_zm_ui_gametype_obj == "zsnr")
+		{
+			delay = 1;
+		}
+
+		players = get_players();
+		foreach (player in players)
+		{
+			if (player.team == team)
+			{
+				player thread show_grief_hud_msg("Your team gained the lead", undefined, 30, delay);
+			}
+			else
+			{
+				player thread show_grief_hud_msg("Your team lost the lead", undefined, 30, delay);
 			}
 		}
 	}
