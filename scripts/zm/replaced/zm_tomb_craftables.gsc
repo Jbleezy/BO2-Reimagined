@@ -13,34 +13,6 @@
 #include maps\mp\zombies\_zm_equipment;
 #include maps\mp\zm_tomb_craftables;
 
-is_unclaimed_staff_weapon( str_weapon )
-{
-    if ( !maps\mp\zombies\_zm_equipment::is_limited_equipment( str_weapon ) )
-	{
-		return true;
-	}
-
-    s_elemental_staff = get_staff_info_from_weapon_name( str_weapon, 0 );
-	players = get_players();
-
-	foreach ( player in players )
-	{
-		if ( isdefined( player ) && player has_weapon_or_upgrade( s_elemental_staff.weapname ) )
-		{
-			return false;
-		}
-	}
-
-	e_upgraded_staff = maps\mp\zm_tomb_craftables::get_staff_info_from_weapon_name( str_weapon );
-
-	if (is_true(e_upgraded_staff.ee_in_use))
-	{
-		return false;
-	}
-
-    return true;
-}
-
 quadrotor_control_thread()
 {
 	self endon( "bled_out" );

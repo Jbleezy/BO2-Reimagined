@@ -63,35 +63,70 @@ robot_head_trigger_think()
 
     str_weap_staffs = array("staff_air_upgraded_zm", "staff_lightning_upgraded_zm", "staff_fire_upgraded_zm", "staff_water_upgraded_zm");
 
-    e_upgraded_staffs = [];
-    for (i = 0; i < str_weap_staffs.size; i++)
-    {
-        e_upgraded_staffs[i] = maps\mp\zm_tomb_craftables::get_staff_info_from_weapon_name( str_weap_staffs[i] );
-    }
-
-    staff_placed = 0;
-
-    while ( !staff_placed )
+    while ( true )
     {
         self waittill( "trigger", player );
+
+        if (is_true(self.stub.staff_placed))
+        {
+            continue;
+        }
 
         for (i = 0; i < str_weap_staffs.size; i++)
         {
             if ( player hasweapon( str_weap_staffs[i] ) )
             {
-                staff_placed = 1;
-                e_upgraded_staffs[i].ee_in_use = 1;
+                self.stub.staff_placed = 1;
+
+                e_upgraded_staff = maps\mp\zm_tomb_craftables::get_staff_info_from_weapon_name( str_weap_staffs[i] );
+
+                for (j = 0; j < level.a_elemental_staffs_upgraded.size; j++)
+                {
+                    if (level.a_elemental_staffs_upgraded[j].weapname == str_weap_staffs[i])
+                    {
+                        level.a_elemental_staffs_upgraded[j].ee_in_use = 1;
+
+                    }
+                }
+
                 player takeweapon( str_weap_staffs[i] );
                 maps\mp\zm_tomb_craftables::clear_player_staff( str_weap_staffs[i] );
                 level.n_ee_robot_staffs_planted++;
 
                 if ( level.n_ee_robot_staffs_planted == 4 )
+                {
                     flag_set( "ee_all_staffs_placed" );
+                }
 
-                e_upgraded_staffs[i] thread place_staff( self.stub.m_plinth );
-
-                break;
+                e_upgraded_staff thread place_staff( self.stub.m_plinth );
             }
         }
     }
+}
+
+remove_plinth()
+{
+    playfx( level._effect["teleport_1p"], self.m_plinth.origin );
+    playsoundatposition( "zmb_footprintbox_disappear", self.m_plinth.origin );
+    wait 3;
+
+    if ( isdefined( self.m_plinth.m_staff ) )
+    {
+        self.m_plinth.m_staff unlink();
+        self.m_plinth.m_staff.origin = self.m_plinth.v_old_origin;
+        self.m_plinth.m_staff.angles = self.m_plinth.v_old_angles;
+
+        for (i = 0; i < level.a_elemental_staffs_upgraded.size; i++)
+        {
+            if (level.a_elemental_staffs_upgraded[i].weapname == self.m_plinth.e_staff.upgrade.weapname)
+            {
+                level.a_elemental_staffs_upgraded[i].ee_in_use = undefined;
+            }
+        }
+    }
+
+    self.m_sign delete();
+    self.m_plinth delete();
+    self.m_coll delete();
+    unregister_unitrigger( self );
 }
