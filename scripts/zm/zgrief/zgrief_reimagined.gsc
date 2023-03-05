@@ -2423,7 +2423,7 @@ containment_waypoint_init()
 	hud.aligny = "middle";
 	hud.horzalign = "user_center";
 	hud.vertalign = "user_center";
-	hud.alpha = 0.5;
+	hud.alpha = 1;
 	hud.hidewheninmenu = 1;
 	hud.foreground = 1;
 
@@ -2533,7 +2533,15 @@ containment_think()
 
 						in_containment_zone[player.team][in_containment_zone[player.team].size] = player;
 
-						player.obj_waypoint.alpha = 0.5;
+						if(isads(player))
+						{
+							player.obj_waypoint fadeOverTime(0.25);
+							player.obj_waypoint.alpha = 0.25;
+						}
+						else
+						{
+							player.obj_waypoint.alpha = 1;
+						}
 					}
 					else
 					{
@@ -2541,7 +2549,7 @@ containment_think()
 					}
 
 					player.obj_waypoint.x = 0;
-					player.obj_waypoint.y = -100;
+					player.obj_waypoint.y = 100;
 					player.obj_waypoint.z = 0;
 					player.obj_waypoint setShader("waypoint_revive", getDvarInt("waypointIconWidth"), getDvarInt("waypointIconHeight"));
 				}
@@ -2554,7 +2562,7 @@ containment_think()
 							player.ignoreme = 1;
 						}
 
-						player.obj_waypoint.alpha = 0.5;
+						player.obj_waypoint.alpha = 1;
 					}
 					else
 					{
@@ -2928,7 +2936,7 @@ meat_powerup_drop_think()
 							player.obj_waypoint = player meat_waypoint_init();
 						}
 
-						player.obj_waypoint.alpha = 0.5;
+						player.obj_waypoint.alpha = 1;
 						player.obj_waypoint.color = (1, 1, 1);
 						player.obj_waypoint setTargetEnt(level.item_meat.obj_waypoint_origin);
 					}
@@ -2969,7 +2977,7 @@ meat_powerup_drop_think()
 							player.obj_waypoint = player meat_waypoint_init();
 						}
 
-						player.obj_waypoint.alpha = 0.5;
+						player.obj_waypoint.alpha = 1;
 						player.obj_waypoint.color = (1, 1, 1);
 						player.obj_waypoint setTargetEnt(level.meat_powerup.obj_waypoint_origin);
 					}
@@ -3116,7 +3124,7 @@ meat_stink_player(meat_player)
 		}
 		else
 		{
-			player.obj_waypoint.alpha = 0.5;
+			player.obj_waypoint.alpha = 1;
 
 			if (player.team == meat_player.team)
 			{
@@ -3274,7 +3282,7 @@ meat_waypoint_init()
 	hud.aligny = "middle";
 	hud.horzalign = "user_center";
 	hud.vertalign = "user_center";
-	hud.alpha = 0.5;
+	hud.alpha = 1;
 	hud.hidewheninmenu = 1;
 	hud.foreground = 1;
 	hud setWaypoint(1, "waypoint_revive");
