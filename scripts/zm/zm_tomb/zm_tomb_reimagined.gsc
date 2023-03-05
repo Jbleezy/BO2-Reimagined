@@ -24,6 +24,7 @@ main()
 	replaceFunc(maps\mp\zm_tomb_ee_main_step_3::fire_link_cooldown, scripts\zm\replaced\zm_tomb_ee_main_step_3::fire_link_cooldown);
 	replaceFunc(maps\mp\zm_tomb_craftables::is_unclaimed_staff_weapon, scripts\zm\replaced\zm_tomb_craftables::is_unclaimed_staff_weapon);
 	replaceFunc(maps\mp\zm_tomb_craftables::quadrotor_control_thread, scripts\zm\replaced\zm_tomb_craftables::quadrotor_control_thread);
+	replaceFunc(maps\mp\zm_tomb_challenges::challenges_init, scripts\zm\replaced\zm_tomb_challenges::challenges_init);
 	replaceFunc(maps\mp\zm_tomb_dig::increment_player_perk_purchase_limit, scripts\zm\replaced\zm_tomb_dig::increment_player_perk_purchase_limit);
 	replaceFunc(maps\mp\zm_tomb_dig::dig_disconnect_watch, scripts\zm\replaced\zm_tomb_dig::dig_disconnect_watch);
 }
@@ -36,9 +37,6 @@ init()
 	level.custom_magic_box_timer_til_despawn = ::custom_magic_box_timer_til_despawn;
 	level.zombie_custom_equipment_setup = ::setup_quadrotor_purchase;
 	level.custom_craftable_validation = ::tomb_custom_craftable_validation;
-
-	challenges_changes();
-	soul_box_changes();
 
 	level thread increase_solo_door_prices();
 	level thread remove_shovels_from_map();
@@ -148,91 +146,6 @@ give_shovel()
 	level setclientfield( "shovel_player" + n_player, 1 );
 }
 
-challenges_changes()
-{
-	if(!(is_classic() && level.scr_zm_map_start_location == "tomb"))
-	{
-		return;
-	}
-
-	level._challenges.a_stats["zc_points_spent"].fp_give_reward = ::reward_random_perk;
-}
-
-reward_random_perk( player, s_stat )
-{
-	if (!isDefined(player.tomb_reward_perk))
-	{
-		player.tomb_reward_perk = player get_random_perk();
-	}
-	else if (isDefined( self.perk_purchased ) && self.perk_purchased == player.tomb_reward_perk)
-	{
-		player.tomb_reward_perk = player get_random_perk();
-	}
-	else if (self hasperk( player.tomb_reward_perk ) || self maps\mp\zombies\_zm_perks::has_perk_paused( player.tomb_reward_perk ))
-	{
-		player.tomb_reward_perk = player get_random_perk();
-	}
-
-	perk = player.tomb_reward_perk;
-	if (!isDefined(perk))
-	{
-		return 0;
-	}
-
-	model = maps\mp\zombies\_zm_perk_random::get_perk_weapon_model(perk);
-	if (!isDefined(model))
-	{
-		return 0;
-	}
-
-	m_reward = spawn( "script_model", self.origin );
-	m_reward.angles = self.angles + vectorScale( ( 0, 1, 0 ), 180 );
-	m_reward setmodel( model );
-	m_reward playsound( "zmb_spawn_powerup" );
-	m_reward playloopsound( "zmb_spawn_powerup_loop", 0.5 );
-	wait_network_frame();
-	if ( !maps\mp\zombies\_zm_challenges::reward_rise_and_grab( m_reward, 50, 2, 2, 10 ) )
-	{
-		return 0;
-	}
-	if ( player hasperk( perk ) || player maps\mp\zombies\_zm_perks::has_perk_paused( perk ) )
-	{
-		m_reward thread maps\mp\zm_tomb_challenges::bottle_reject_sink( player );
-		return 0;
-	}
-	m_reward stoploopsound( 0.1 );
-	player playsound( "zmb_powerup_grabbed" );
-	m_reward thread maps\mp\zombies\_zm_perks::vending_trigger_post_think( player, perk );
-	m_reward delete();
-	return 1;
-}
-
-get_random_perk()
-{
-	perks = [];
-	for (i = 0; i < level._random_perk_machine_perk_list.size; i++)
-	{
-		perk = level._random_perk_machine_perk_list[ i ];
-		if ( isDefined( self.perk_purchased ) && self.perk_purchased == perk )
-		{
-			continue;
-		}
-		else
-		{
-			if ( !self hasperk( perk ) && !self maps\mp\zombies\_zm_perks::has_perk_paused( perk ) )
-			{
-				perks[ perks.size ] = perk;
-			}
-		}
-	}
-	if ( perks.size > 0 )
-	{
-		perks = array_randomize( perks );
-		random_perk = perks[ 0 ];
-		return random_perk;
-	}
-}
-
 zombie_blood_dig_changes()
 {
 	if(!(is_classic() && level.scr_zm_map_start_location == "tomb"))
@@ -278,33 +191,6 @@ set_visible_after_rounds(player, num)
 	}
 
 	self setvisibletoplayer(player);
-}
-
-soul_box_changes()
-{
-	if(!(is_classic() && level.scr_zm_map_start_location == "tomb"))
-	{
-		return;
-	}
-
-	boxes = getentarray( "foot_box", "script_noteworthy" );
-	array_thread( boxes, ::soul_box_decrease_kill_requirement );
-}
-
-soul_box_decrease_kill_requirement()
-{
-	self endon( "box_finished" );
-
-	while (1)
-	{
-		self waittill( "soul_absorbed" );
-
-		wait 0.05;
-
-		self.n_souls_absorbed += 10;
-
-		self waittill( "robot_foot_stomp" );
-	}
 }
 
 custom_magic_box_timer_til_despawn( magic_box )
