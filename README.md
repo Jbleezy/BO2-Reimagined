@@ -474,9 +474,9 @@
 * Unlimited powerups
 * Unlimited barrier rebuild points
 * Decreased stun time of weapons from 0.75 seconds to 0.375 seconds
-* Meleeing enemy players that are not reviving changes their stance to standing
-* Meleeing enemy players that are reviving and crouched pushes 25% of the amount when standing
-* Meleeing enemy players that are reviving and prone pushes 12.5% of the amount when standing
+* Meleeing enemy players that are crouched pushes 25% less
+* Meleeing enemy players that are prone pushes 50% less
+* Meleeing enemy players that are reviving pushes 50% less
 * Meleeing enemy players that are already stunned from weapons will push and restun them
 * Ballistic knife projectile pushes enemy players
 * Claymores are no longer triggered by enemy players

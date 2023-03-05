@@ -1720,18 +1720,27 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 			is_melee = true;
 			dir = vdir;
 			amount = 420; // 48 units
+			if(self getStance() == "crouch")
+			{
+				amount = 327.5; // 36 units
+			}
+			else if(self getStance() == "prone")
+			{
+				amount = 235; // 24 units
+			}
 
 			if(self maps\mp\zombies\_zm_laststand::is_reviving_any())
 			{
 				is_reviving = true;
 
+				amount = 235; // 24 units
 				if(self getStance() == "crouch")
 				{
-					amount = 142.5; // 12 units
+					amount = 187.5; // 18 units
 				}
 				else if(self getStance() == "prone")
 				{
-					amount = 95; // 6 units
+					amount = 142.5; // 12 units
 				}
 			}
 
@@ -1821,13 +1830,6 @@ do_game_mode_shellshock(is_melee, is_reviving)
 	if(is_melee)
 	{
 		time = 0.75;
-
-		if(!is_reviving)
-		{
-			self setStance("stand");
-			self allowCrouch(0);
-			self allowProne(0);
-		}
 	}
 
 	self._being_shellshocked = 1;
@@ -1838,12 +1840,6 @@ do_game_mode_shellshock(is_melee, is_reviving)
 
 	self._being_shellshocked = 0;
 	self._being_pushed = 0;
-
-	if(is_melee && !is_reviving && is_player_valid(self))
-	{
-		self allowCrouch(1);
-		self allowProne(1);
-	}
 }
 
 stun_score_steal(attacker, score)
