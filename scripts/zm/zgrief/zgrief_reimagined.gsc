@@ -943,9 +943,10 @@ team_player_waypoint()
 {
 	flag_wait( "initial_blackscreen_passed" );
 
-	self.player_waypoint_origin = spawn( "script_model", self.origin + (0, 0, 72) );
+	self.player_waypoint_origin = spawn( "script_model", self.origin );
 	self.player_waypoint_origin setmodel( "tag_origin" );
 	self.player_waypoint_origin linkto( self );
+	self thread team_player_waypoint_origin_think();
 
 	self.player_waypoint = [];
 	self.player_waypoint = newTeamHudElem(self.team);
@@ -965,6 +966,38 @@ team_player_waypoint()
 	else
 	{
 		self.player_waypoint.alpha = 0;
+	}
+}
+
+team_player_waypoint_origin_think()
+{
+	prev_stance = "none";
+
+	while (isDefined(self.player_waypoint_origin))
+	{
+		if (self getStance() != prev_stance)
+		{
+			prev_stance = self getStance();
+
+			self.player_waypoint_origin unlink();
+
+			if (self getStance() == "stand")
+			{
+				self.player_waypoint_origin.origin = self.origin + (0, 0, 72);
+			}
+			else if (self getStance() == "crouch")
+			{
+				self.player_waypoint_origin.origin = self.origin + (0, 0, 56);
+			}
+			else if (self getStance() == "prone")
+			{
+				self.player_waypoint_origin.origin = self.origin + (0, 0, 30);
+			}
+
+			self.player_waypoint_origin linkto(self);
+		}
+
+		wait 0.05;
 	}
 }
 
