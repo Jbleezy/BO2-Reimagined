@@ -486,8 +486,7 @@
 * Meleeing enemy players steals 100 points from them
 * Downing enemy players awards 500 points
 * Bleeding out enemy players awards 1000 points to all teammates
-* Landing on top of an enemy player downs both players
-* Landing on top of an enemy player only occurs if the bottom player is prone
+* Landing on top of an enemy player that is prone downs them
 * Increased max radius for landing on top of an enemy player by 16.67%
 * Decreased max height for landing on top of an enemy player by 50%
 * Max Ammo: decreased amount of ammo given from max stock to one clip

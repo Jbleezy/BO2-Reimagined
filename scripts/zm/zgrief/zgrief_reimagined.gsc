@@ -1025,9 +1025,6 @@ headstomp_watcher()
 			{
 				if(distance2d(self.origin, player.origin) <= 21 && (self.origin[2] - player_top_origin[2]) <= 15)
 				{
-					self store_player_damage_info(player, "none", "MOD_FALLING");
-					self dodamage( 1000, (0, 0, 0) );
-
 					player store_player_damage_info(self, "none", "MOD_FALLING");
 					player dodamage( 1000, (0, 0, 0) );
 				}
