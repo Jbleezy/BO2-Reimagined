@@ -199,6 +199,7 @@
 * Upgrade only requires collecting souls in The Crazy Place
 * Can no longer collect souls in The Crazy Place from staff kills
 * Can collect souls in The Crazy Place after upgrading to fill 5% of max ammo per soul
+* Get full ammo when initially picked up after upgrading (normally missing one clip)
 * Max ammo no longer fills clip ammo
 
 ## Wallbuys

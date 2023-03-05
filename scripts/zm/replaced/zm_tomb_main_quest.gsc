@@ -253,6 +253,49 @@ waittill_staff_inserted()
     }
 }
 
+watch_for_player_pickup_staff()
+{
+    staff_picked_up = 0;
+    pickup_message = self staff_get_pickup_message();
+    self.trigger set_unitrigger_hint_string( pickup_message );
+    self show();
+    self.trigger trigger_on();
+
+    while ( !staff_picked_up )
+    {
+        self.trigger waittill( "trigger", player );
+
+        self notify( "retrieved", player );
+
+        if ( player can_pickup_staff() )
+        {
+            weapon_drop = player getcurrentweapon();
+            a_weapons = player getweaponslistprimaries();
+            n_max_other_weapons = get_player_weapon_limit( player ) - 1;
+
+            if ( a_weapons.size > n_max_other_weapons || issubstr( weapon_drop, "staff" ) )
+                player takeweapon( weapon_drop );
+
+            player thread watch_staff_ammo_reload();
+            self ghost();
+            self setinvisibletoall();
+            player giveweapon( self.weapname );
+            player switchtoweapon( self.weapname );
+            clip_size = weaponclipsize( self.weapname );
+            player setweaponammoclip( self.weapname, clip_size );
+            player givemaxammo( self.weapname );
+            self.owner = player;
+            level notify( "stop_staff_sound" );
+            self notify( "staff_equip" );
+            staff_picked_up = 1;
+            self.charger.is_inserted = 0;
+            self setclientfield( "staff_charger", 0 );
+            self.charger.full = 1;
+            maps\mp\zm_tomb_craftables::set_player_staff( self.weapname, player );
+        }
+    }
+}
+
 staff_upgraded_reload()
 {
     self endon( "staff_equip" );
