@@ -291,6 +291,9 @@ swap_buildable_fields( stub1, stub2 )
     twn = stub2.weaponname;
     stub2.weaponname = stub1.weaponname;
     stub1.weaponname = twn;
+	tc = stub2.cost;
+	stub2.cost = stub1.cost;
+    stub1.cost = tc;
     pav = stub2.original_prompt_and_visibility_func;
     stub2.original_prompt_and_visibility_func = stub1.original_prompt_and_visibility_func;
     stub1.original_prompt_and_visibility_func = pav;
@@ -298,34 +301,34 @@ swap_buildable_fields( stub1, stub2 )
     bench2 = undefined;
     transfer_pos_as_is = 1;
 
-    if ( isdefined( stub1.model.target ) && isdefined( stub2.model.target ) )
-    {
-        bench1 = find_bench( stub1.model.target );
-        bench2 = find_bench( stub2.model.target );
+	if ( isdefined( stub1.model.target ) && isdefined( stub2.model.target ) )
+	{
+		bench1 = find_bench( stub1.model.target );
+		bench2 = find_bench( stub2.model.target );
 
-        if ( isdefined( bench1 ) && isdefined( bench2 ) )
-        {
-            transfer_pos_as_is = 0;
-            w2lo1 = bench1 worldtolocalcoords( stub1.model.origin );
-            w2la1 = stub1.model.angles - bench1.angles;
-            w2lo2 = bench2 worldtolocalcoords( stub2.model.origin );
-            w2la2 = stub2.model.angles - bench2.angles;
-            stub1.model.origin = bench2 localtoworldcoords( w2lo1 );
-            stub1.model.angles = bench2.angles + w2la1;
-            stub2.model.origin = bench1 localtoworldcoords( w2lo2 );
-            stub2.model.angles = bench1.angles + w2la2;
-        }
+		if ( isdefined( bench1 ) && isdefined( bench2 ) )
+		{
+			transfer_pos_as_is = 0;
+			w2lo1 = bench1 worldtolocalcoords( stub1.model.origin );
+			w2la1 = stub1.model.angles - bench1.angles;
+			w2lo2 = bench2 worldtolocalcoords( stub2.model.origin );
+			w2la2 = stub2.model.angles - bench2.angles;
+			stub1.model.origin = bench2 localtoworldcoords( w2lo1 );
+			stub1.model.angles = bench2.angles + w2la1;
+			stub2.model.origin = bench1 localtoworldcoords( w2lo2 );
+			stub2.model.angles = bench1.angles + w2la2;
+		}
 
-        tmt = stub2.model.target;
-        stub2.model.target = stub1.model.target;
-        stub1.model.target = tmt;
-    }
+		tmt = stub2.model.target;
+		stub2.model.target = stub1.model.target;
+		stub1.model.target = tmt;
+	}
 
     tm = stub2.model;
     stub2.model = stub1.model;
     stub1.model = tm;
 
-    if ( transfer_pos_as_is )
+	if ( transfer_pos_as_is )
     {
         tmo = stub2.model.origin;
         tma = stub2.model.angles;
@@ -333,11 +336,164 @@ swap_buildable_fields( stub1, stub2 )
         stub2.model.angles = stub1.model.angles;
         stub1.model.origin = tmo;
         stub1.model.angles = tma;
-    }
 
-	tc = stub2.cost;
-	stub2.cost = stub1.cost;
-    stub1.cost = tc;
+		swap_buildable_fields_model_offset(stub1, stub2);
+    }
+}
+
+swap_buildable_fields_model_offset(stub1, stub2)
+{
+	origin_offset = (0, 0, 0);
+	angle_offset = (0, 0, 0);
+	origin_offset2 = undefined;
+
+	if (stub1.weaponname == "equip_turbine_zm")
+	{
+		if (stub2.weaponname == "riotshield_zm")
+		{
+			origin_offset = (-6, 6, -27);
+			angle_offset = (0, -180, 0);
+		}
+		else if (stub2.weaponname == "equip_turret_zm")
+		{
+			origin_offset = (-7, 5, 0);
+			angle_offset = (0, -90, 0);
+		}
+		else if (stub2.weaponname == "equip_electrictrap_zm")
+		{
+			origin_offset = (-8, 2, 0);
+			angle_offset = (0, 90, 0);
+		}
+		else if (stub2.weaponname == "jetgun_zm")
+		{
+			origin_offset = (3, -4, -24);
+			angle_offset = (0, -90, 0);
+		}
+	}
+	else if (stub1.weaponname == "riotshield_zm")
+	{
+		if (stub2.weaponname == "equip_turbine_zm")
+		{
+			origin_offset = (6, -6, 27);
+			angle_offset = (0, 180, 0);
+		}
+		else if (stub2.weaponname == "equip_turret_zm")
+		{
+			origin_offset = (-1, -1, 27);
+			angle_offset = (0, 90, 0);
+		}
+		else if (stub2.weaponname == "equip_electrictrap_zm")
+		{
+			origin_offset = (-2, -4, 27);
+			angle_offset = (0, -90, 0);
+		}
+		else if (stub2.weaponname == "jetgun_zm")
+		{
+			origin_offset = (9, -10, 3);
+			angle_offset = (0, 90, 0);
+		}
+	}
+	else if (stub1.weaponname == "equip_turret_zm")
+	{
+		if (stub2.weaponname == "equip_turbine_zm")
+		{
+			origin_offset = (7, -5, 0);
+			angle_offset = (0, 90, 0);
+		}
+		else if (stub2.weaponname == "riotshield_zm")
+		{
+			origin_offset = (1, 1, -27);
+			angle_offset = (0, -90, 0);
+		}
+		else if (stub2.weaponname == "equip_electrictrap_zm")
+		{
+			origin_offset = (1, -3, 0);
+			angle_offset = (0, 180, 0);
+		}
+		else if (stub2.weaponname == "jetgun_zm")
+		{
+			origin_offset = (-4, 0, -24);
+			angle_offset = (0, 0, 0);
+		}
+	}
+	else if (stub1.weaponname == "equip_electrictrap_zm")
+	{
+		if (stub2.weaponname == "equip_turbine_zm")
+		{
+			origin_offset = (8, -2, 0);
+			angle_offset = (0, -90, 0);
+		}
+		else if (stub2.weaponname == "riotshield_zm")
+		{
+			origin_offset = (2, 4, -27);
+			angle_offset = (0, 90, 0);
+		}
+		else if (stub2.weaponname == "equip_turret_zm")
+		{
+			origin_offset = (1, 3, 0);
+			angle_offset = (0, 180, 0);
+		}
+		else if (stub2.weaponname == "jetgun_zm")
+		{
+			origin_offset = (-6, -3, -24);
+			angle_offset = (0, 180, 0);
+		}
+	}
+	else if (stub1.weaponname == "jetgun_zm")
+	{
+		if (stub2.weaponname == "equip_turbine_zm")
+		{
+			origin_offset = (3, -4, 24);
+			angle_offset = (0, 90, 0);
+		}
+		else if (stub2.weaponname == "riotshield_zm")
+		{
+			origin_offset = (-9, 10, -3);
+			angle_offset = (0, -90, 0);
+		}
+		else if (stub2.weaponname == "equip_turret_zm")
+		{
+			origin_offset = (-4, 0, 24);
+			angle_offset = (0, 0, 0);
+		}
+		else if (stub2.weaponname == "equip_electrictrap_zm")
+		{
+			origin_offset = (-6, -3, 24);
+			angle_offset = (0, 180, 0);
+		}
+	}
+	else if (stub1.weaponname == "equip_springpad_zm")
+	{
+		if (stub2.weaponname == "slipgun_zm")
+		{
+			origin_offset = (6, 14, -2);
+			angle_offset = (64.2, 90, 0);
+			origin_offset2 = (-14, 0, -2);
+		}
+	}
+	else if (stub1.weaponname == "slipgun_zm")
+	{
+		if (stub2.weaponname == "equip_springpad_zm")
+		{
+			origin_offset = (14, 0, 2);
+			angle_offset = (-64.2, -90, 0);
+			origin_offset2 = (-6, -14, 2);
+		}
+	}
+
+	stub1.model.origin += origin_offset;
+	stub1.model.angles += angle_offset;
+
+	if (isDefined(origin_offset2))
+	{
+		stub2.model.origin -= origin_offset2;
+	}
+	else
+	{
+		stub2.model.origin -= origin_offset;
+	}
+
+	stub2.model.angles -= angle_offset;
 }
 
 pooled_buildable_place_think()

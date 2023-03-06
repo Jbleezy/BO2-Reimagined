@@ -307,6 +307,7 @@
 ## Buildables
 * Added purchase cost
 * Parts automatically picked up
+* Can be built at any table on all maps
 * Zombies no longer attack (except Zombie Shield)
 * Destroyed by taking 1500 damage
 * No longer destroyed by 2 grenades
@@ -361,7 +362,6 @@
 ## Maps
 
 ### Tranzit
-* Buildables can be built at any table
 * Any door that requires a Turbine to open is automatically open whenever the power is on
 * Lava in starting area activates after the power is on
 * Lava destroys grenades instantly
@@ -408,7 +408,6 @@
 * Pack-a-Punch
 
 ### Die Rise
-* Buildables can be built at any table
 * Moved weapon locker to the downstairs fridge
 * Zombies no longer spawn in the Upper Blue Highrise zone when in the Trample Steam zone
 * Zombies no longer spawn in the zone next to the AN94 when in the AN94 zone while the debris is closed
