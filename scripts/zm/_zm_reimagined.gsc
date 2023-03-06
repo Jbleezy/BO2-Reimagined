@@ -3076,17 +3076,8 @@ buildabletrigger_update_prompt( player )
 		self sethintstring( self.stub.hint_string );
 	}
 
-	if ( isDefined( self.stub.cursor_hint ) )
-	{
-		if ( self.stub.cursor_hint == "HINT_WEAPON" && isDefined( self.stub.cursor_hint_weapon ) )
-		{
-			self setcursorhint( self.stub.cursor_hint, self.stub.cursor_hint_weapon );
-		}
-		else
-		{
-			self setcursorhint( self.stub.cursor_hint );
-		}
-	}
+	self setcursorhint( "HINT_NOICON" );
+
 	return can_use;
 }
 
