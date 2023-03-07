@@ -788,7 +788,7 @@ on_player_spawned()
 		{
 			self.grief_initial_spawn = false;
 
-			self thread grief_intro_text();
+			//self thread grief_intro_text();
 
 			if(is_respawn_gamemode() && flag("start_zombie_round_logic"))
 			{

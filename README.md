@@ -507,7 +507,6 @@
 * Added kill feed (includes downs, revives, and bleed outs)
 * Added player kills on scoreboard (replaces headshots)
 * Added player downed and bled out icons on scoreboard
-* Added intro text
 * Announcer audio always plays
 * Last player alive audio only plays for the player who is alive instead of every player on the team
 
@@ -523,7 +522,6 @@
 * Tie round if both teams die within 5 seconds of eachother
 * Players start each round with at least 10000 points
 * Enemies remaining audio and text displays when enemy players down instead of when enemy players bleed out
-* Enemies remaining text is removed when new text is displayed
 * Added new audio when enemy players bleed out
 * Players do not get their weapons back on round reset if they bled out
 * Round reset properly restores dual wield weapon left clip ammo, alternative weapon ammo, and equipment
@@ -543,7 +541,7 @@
 * Gain score by being the team with the most players alive in the containment zone
 * Gain 250 score to win the game
 * Contested if both teams have the same amount of players alive in the containment zone
-* Both teams gain score at half-rate when contested
+* Both teams gain score at half rate when contested
 * Zombies only go after players in the containment zone
 * Players in the containment zone gain 50 points when their team gains score
 * Players respawn after being down for 10 seconds
@@ -558,7 +556,7 @@
 * Player holding the meat gains 100 points when their team gains score
 * Downing while holding the meat drops it as a powerup
 * Throwing the meat on the ground drops it as a powerup
-* Throwing the meat onto another player makes them hold the meat
+* Throwing the meat onto another player makes them grab the meat
 * Players respawn after being down for 10 seconds
 * Players retain perks
 
