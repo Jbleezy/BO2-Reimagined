@@ -2707,7 +2707,7 @@ buildbuildables()
 			wait 1;
 
 			updatebuildables();
-			removebuildable( "turbine", 1 );
+			removebuildable( "turbine", "buried" );
 		}
 	}
 }
@@ -2805,7 +2805,7 @@ get_equipment_display_name()
 
 get_equipment_cost()
 {
-	if (self.equipname == "turbine" && level.script == "zm_transit")
+	if (self.equipname == "turbine")
 	{
 		return 500;
 	}
@@ -2839,16 +2839,11 @@ updatebuildables()
 	}
 }
 
-removebuildable( buildable, after_built )
+removebuildable( buildable, poolname )
 {
-	if (!isDefined(after_built))
+	if (isDefined(poolname))
 	{
-		after_built = 0;
-	}
-
-	if (after_built)
-	{
-		foreach (stub in level._unitriggers.trigger_stubs)
+		foreach (stub in level.buildablepools[poolname].stubs)
 		{
 			if(IsDefined(stub.equipname) && stub.equipname == buildable)
 			{

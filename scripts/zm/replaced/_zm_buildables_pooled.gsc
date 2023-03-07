@@ -100,11 +100,6 @@ pooledbuildabletrigger_update_prompt( player )
 
 	self setcursorhint( "HINT_NOICON" );
 
-	if(can_use)
-	{
-		self thread pooledbuildabletrigger_wait_and_update_prompt( player );
-	}
-
 	return can_use;
 }
 
@@ -133,8 +128,6 @@ pooledbuildablestub_update_prompt( player, trigger )
 
     if ( !( isdefined( self.built ) && self.built ) )
     {
-		trigger thread pooledbuildablestub_build_succeed();
-
 		if (level.buildables_available.size > 1)
 		{
 			if (!is_true(self.open_buildable_checking_input))
@@ -490,8 +483,6 @@ pooled_buildable_place_think()
     if ( isdefined( self.stub.built ) && self.stub.built )
         return scripts\zm\replaced\_zm_buildables::buildable_place_think();
 
-    player_built = undefined;
-
     while ( !( isdefined( self.stub.built ) && self.stub.built ) )
     {
         self waittill( "trigger", player );
@@ -566,49 +557,27 @@ pooled_buildable_place_think()
             if ( isdefined( player player_get_buildable_piece( slot ) ) )
             {
                 prompt = player player_build( self.stub.buildablezone );
-                player_built = player;
-                self.stub.hint_string = prompt;
-                self sethintstring( self.stub.hint_string );
+                self.stub.hint_string = self.stub.trigger_hintstring;
+				self pooledbuildabletrigger_update_prompt( player );
             }
         }
     }
 
-    switch ( self.stub.persistent )
-    {
-        case 1:
-            self scripts\zm\replaced\_zm_buildables::bptrigger_think_persistent( player_built );
-            break;
-        case 0:
-            self bptrigger_think_one_time( player_built );
-            break;
-        case 3:
-            self bptrigger_think_unbuild( player_built );
-            break;
-        case 2:
-            self scripts\zm\replaced\_zm_buildables::bptrigger_think_one_use_and_fly( player_built );
-            break;
-        case 4:
-            self [[ self.stub.custom_completion_callback ]]( player_built );
-            break;
-    }
-}
-
-pooledbuildablestub_build_succeed()
-{
-	self notify("pooledbuildablestub_build_succeed");
-	self endon("pooledbuildablestub_build_succeed");
-
-	self waittill( "build_succeed" );
-
 	self.stub maps\mp\zombies\_zm_buildables::buildablestub_remove();
 	arrayremovevalue(level.buildables_available, self.stub.equipname);
+
 	if (level.buildables_available.size == 0)
 	{
 		foreach (stub in level.buildable_stubs)
 		{
-			maps\mp\zombies\_zm_unitrigger::unregister_unitrigger(stub);
+			if (isDefined(stub.buildable_pool) && stub.buildable_pool == self.stub.buildable_pool)
+			{
+				maps\mp\zombies\_zm_unitrigger::unregister_unitrigger(stub);
+			}
 		}
 	}
+
+	scripts\zm\replaced\_zm_buildables::buildable_place_think();
 }
 
 choose_open_buildable( player )

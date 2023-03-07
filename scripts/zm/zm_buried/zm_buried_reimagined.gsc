@@ -50,16 +50,12 @@ init()
 		level.check_for_valid_spawn_near_team_callback = ::zgrief_respawn_override;
 	}
 
-	level.zombie_buildables["turbine"].bought = &"ZOMBIE_BUILD_PIECE_HAVE_ONE";
-	level.zombie_buildables["springpad_zm"].bought = &"ZOMBIE_BUILD_PIECE_HAVE_ONE";
-	level.zombie_buildables["subwoofer_zm"].bought = &"ZOMBIE_BUILD_PIECE_HAVE_ONE";
-	level.zombie_buildables["headchopper_zm"].bought = &"ZOMBIE_BUILD_PIECE_HAVE_ONE";
-
 	turn_power_on();
 	deleteslothbarricades();
 
 	add_jug_collision();
 
+	level thread update_buildable_stubs();
 	level thread enable_fountain_transport();
 	level thread disable_ghost_free_perk_on_damage();
 }
@@ -242,6 +238,21 @@ deleteslothbarricades()
 	}
 
 	array_thread( sloth_trigs, ::self_delete );
+}
+
+update_buildable_stubs()
+{
+	flag_wait( "initial_blackscreen_passed" );
+
+	wait 1;
+
+	foreach (stub in level.buildablepools["buried"].stubs)
+	{
+		if (isDefined(level.zombie_buildables[stub.equipname]))
+		{
+			level.zombie_buildables[stub.equipname].bought = "Took " + stub scripts\zm\_zm_reimagined::get_equipment_display_name();
+		}
+	}
 }
 
 enable_fountain_transport()
