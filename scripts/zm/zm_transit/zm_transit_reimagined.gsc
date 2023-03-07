@@ -5,6 +5,7 @@
 #include scripts\zm\replaced\zm_transit;
 #include scripts\zm\replaced\zm_transit_gamemodes;
 #include scripts\zm\replaced\zm_transit_utility;
+#include scripts\zm\replaced\zm_transit_bus;
 #include scripts\zm\replaced\_zm_weap_jetgun;
 #include scripts\zm\replaced\_zm_weap_emp_bomb;
 #include scripts\zm\replaced\_zm_equip_electrictrap;
@@ -18,6 +19,7 @@ main()
 	replaceFunc(maps\mp\zm_transit::lava_damage_depot, scripts\zm\replaced\zm_transit::lava_damage_depot);
 	replaceFunc(maps\mp\zm_transit_gamemodes::init, scripts\zm\replaced\zm_transit_gamemodes::init);
 	replaceFunc(maps\mp\zm_transit_utility::solo_tombstone_removal, scripts\zm\replaced\zm_transit_utility::solo_tombstone_removal);
+	replaceFunc(maps\mp\zm_transit_bus::busupdateplayers, scripts\zm\replaced\zm_transit_bus::busupdateplayers);
 	replaceFunc(maps\mp\zombies\_zm_weap_jetgun::is_jetgun_firing, scripts\zm\replaced\_zm_weap_jetgun::is_jetgun_firing);
 	replaceFunc(maps\mp\zombies\_zm_weap_jetgun::jetgun_check_enemies_in_range, scripts\zm\replaced\_zm_weap_jetgun::jetgun_check_enemies_in_range);
 	replaceFunc(maps\mp\zombies\_zm_weap_jetgun::jetgun_grind_zombie, scripts\zm\replaced\_zm_weap_jetgun::jetgun_grind_zombie);

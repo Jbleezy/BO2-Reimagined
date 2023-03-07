@@ -365,6 +365,7 @@
 
 ### Tranzit
 * Any door that requires a Turbine to open is automatically open whenever the power is on
+* Players can sprint and go prone on the bus
 * Lava in starting area activates after the power is on
 * Lava destroys grenades instantly
 * Decreased brightness at Power Station
