@@ -152,6 +152,7 @@
 * Disables player's perks for 30 seconds
 * Added fx to EMP'd players
 * Decreased zombie EMP radius by 30% (same radius as perk EMP)
+* Can destroy placed Zombie Shields
 * Sprinting no longer wakes up EMP'd zombies
 
 ### Claymore

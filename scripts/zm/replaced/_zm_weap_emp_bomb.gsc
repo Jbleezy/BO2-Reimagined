@@ -1,6 +1,7 @@
 #include maps\mp\_utility;
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
+#include maps\mp\zombies\_zm_weap_emp_bomb;
 
 emp_detonate(grenade)
 {
@@ -32,7 +33,7 @@ emp_detonate(grenade)
 
 	if ( isDefined( grenade_owner ) )
 	{
-		grenade_owner thread maps\mp\zombies\_zm_weap_emp_bomb::destroyequipment( origin, emp_radius );
+		grenade_owner thread destroyequipment( origin, emp_radius );
 	}
 
 	emp_players( origin, emp_radius, grenade_owner );
@@ -41,6 +42,65 @@ emp_detonate(grenade)
 	wait emp_time;
 
 	maps\mp\zombies\_zm_power::revert_power_to_list( 1, origin, emp_radius, disabled_list );
+}
+
+destroyequipment( origin, radius )
+{
+    grenades = getentarray( "grenade", "classname" );
+    rsquared = radius * radius;
+
+    for ( i = 0; i < grenades.size; i++ )
+    {
+        item = grenades[i];
+
+        if ( distancesquared( origin, item.origin ) > rsquared )
+            continue;
+
+        if ( !isdefined( item.name ) )
+            continue;
+
+        if ( !is_offhand_weapon( item.name ) )
+            continue;
+
+        watcher = item.owner getwatcherforweapon( item.name );
+
+        if ( !isdefined( watcher ) )
+            continue;
+
+        watcher thread waitanddetonate( item, 0.0, self, "emp_grenade_zm" );
+    }
+
+    equipment = maps\mp\zombies\_zm_equipment::get_destructible_equipment_list();
+
+    for ( i = 0; i < equipment.size; i++ )
+    {
+        item = equipment[i];
+
+        if ( !isdefined( item ) )
+            continue;
+
+        if ( distancesquared( origin, item.origin ) > rsquared )
+            continue;
+
+        waitanddamage( item, 1505 );
+    }
+}
+
+waitanddamage( object, damage )
+{
+    object endon( "death" );
+    object endon( "hacked" );
+    object.stun_fx = 1;
+
+    if ( isdefined( level._equipment_emp_destroy_fx ) )
+        playfx( level._equipment_emp_destroy_fx, object.origin + vectorscale( ( 0, 0, 1 ), 5.0 ), ( 0, randomfloat( 360 ), 0 ) );
+
+    delay = 1.1;
+
+    if ( delay )
+        wait( delay );
+
+    object thread scripts\zm\replaced\_zm_equipment::item_damage( damage );
 }
 
 emp_players(origin, radius, owner)

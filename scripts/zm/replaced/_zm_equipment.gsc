@@ -103,7 +103,9 @@ item_damage( damage )
             self [[ level.deployed_riotshield_damage_callback ]]( damage );
     }
     else if ( isdefined( self.owner ) )
-        self.owner player_damage_equipment( self.equipname, damage, self.origin, self.stub );
+	{
+		self.owner player_damage_equipment( self.equipname, damage, self.origin, self.stub );
+	}
     else
     {
         if ( !isdefined( self.damage ) )
