@@ -311,6 +311,7 @@
 * Zombies no longer attack (except Zombie Shield)
 * Destroyed by taking 1500 damage
 * No longer destroyed by 2 grenades
+* Can no longer be picked up after being destroyed
 
 ### Electric Trap
 * No longer needs to be powered by a Turbine
