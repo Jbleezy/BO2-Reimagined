@@ -450,6 +450,7 @@
 * Moved Quick Revive to Speed Cola's location on Borough
 * Moved Speed Cola to its location on Buried
 * Moved Stamin-Up to Vulture Aid's location on Buried
+* Added better randomization for buildables
 
 ### Origins
 * Door prices in solo cost the same as in coop

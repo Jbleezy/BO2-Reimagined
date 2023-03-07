@@ -54,26 +54,13 @@ randomize_pooled_buildables( poolname )
 
         if ( count > 1 )
         {
-            targets = [];
-
             for ( i = 0; i < count; i++ )
             {
-                while ( true )
-                {
-                    p = randomint( count );
-
-                    if ( !isdefined( targets[p] ) )
-                    {
-                        targets[p] = i;
-                        break;
-                    }
-                }
-            }
-
-            for ( i = 0; i < count; i++ )
-            {
-                if ( isdefined( targets[i] ) && targets[i] != i )
-                    swap_buildable_fields( level.buildablepools[poolname].stubs[i], level.buildablepools[poolname].stubs[targets[i]] );
+				rand = randomint(count);
+                if ( rand != i )
+				{
+					swap_buildable_fields( level.buildablepools[poolname].stubs[i], level.buildablepools[poolname].stubs[rand] );
+				}
             }
         }
     }
