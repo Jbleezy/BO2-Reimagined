@@ -457,6 +457,7 @@
 
 ### Origins
 * Door prices in solo cost the same as in coop
+* Players can go prone on the tank
 * Shovels automatically picked up
 * Gramophone and records automatically picked up
 * Der Wunderfizz: increased cost from 1500 to 2500
