@@ -181,6 +181,7 @@
 * No longer automatically switched to weapon when picked up
 * No longer disassembles when overheated
 * Weapon is taken when overheated
+* Buildable table model no longer shows when player has weapon
 
 ### Sliquifier
 * Added upgraded version

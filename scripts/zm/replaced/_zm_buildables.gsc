@@ -208,6 +208,19 @@ buildable_place_think()
 			self.stub.model show();
 		}
 
+		if ( !isDefined( self.stub.stand_model ) && maps\mp\zombies\_zm_equipment::is_limited_equipment( self.stub.weaponname ) )
+		{
+			self.stub.stand_model = spawn( "script_model", self.stub.model.origin );
+			self.stub.stand_model.angles = self.stub.model.angles;
+
+			if ( self.stub.weaponname == "jetgun_zm" )
+			{
+				self.stub.stand_model setModel( "p6_zm_buildable_sq_electric_box" );
+				self.stub.stand_model.origin += (0, 0, -23);
+				self.stub.stand_model.angles += (0, 90, 90);
+			}
+		}
+
 		while ( self.stub.persistent == 1 )
 		{
 			self waittill( "trigger", player );
@@ -254,6 +267,14 @@ buildable_place_think()
 				player giveweapon( self.stub.weaponname );
 				player setweaponammoclip( self.stub.weaponname, 1 );
 
+				if ( maps\mp\zombies\_zm_equipment::is_limited_equipment( self.stub.weaponname ) )
+				{
+					if ( isDefined( self.stub.model ) )
+					{
+						self.stub.model thread model_go_away(self.stub.weaponname);
+					}
+				}
+
 				if ( isDefined( level.zombie_include_buildables[ self.stub.equipname ].onbuyweapon ) )
 				{
 					self [[ level.zombie_include_buildables[ self.stub.equipname ].onbuyweapon ]]( player );
@@ -286,6 +307,18 @@ buildable_place_think()
 	}
 }
 
+model_go_away(weaponname)
+{
+	self hide();
+
+	while (maps\mp\zombies\_zm_equipment::limited_equipment_in_use(weaponname))
+	{
+		wait 0.05;
+	}
+
+	self show();
+}
+
 model_fly_away(weaponname)
 {
 	origin = self.origin;
@@ -307,10 +340,10 @@ model_fly_away(weaponname)
 	self hide();
 	playfx( level._effect["poltergeist"], self.origin );
 
-	self thread model_think(weaponname);
+	self thread model_fly_away_think(weaponname);
 }
 
-model_think(weaponname)
+model_fly_away_think(weaponname)
 {
 	joker_model = spawn( "script_model", self.origin - (0, 0, 14) );
 	joker_model.angles = self.angles + (0, 90, 0);

@@ -551,12 +551,7 @@ craftablestub_update_prompt( player, unitrigger )
 
         if ( self.equipname == "equip_dieseldrone_zm" )
         {
-            if ( player hasWeapon( self.equipname ) || ( isDefined( level.maxis_quadrotor ) && isDefined( level.maxis_quadrotor.player_owner ) && level.maxis_quadrotor.player_owner == player ) )
-            {
-                self.hint_string = &"ZOMBIE_BUILD_PIECE_HAVE_ONE";
-                return false;
-            }
-            else if (level.quadrotor_status.picked_up)
+            if (level.quadrotor_status.picked_up)
             {
                 self.hint_string = &"ZOMBIE_BUILD_PIECE_ONLY_ONE";
                 return false;
