@@ -152,7 +152,7 @@
 * Disables player's perks for 30 seconds
 * Added fx to EMP'd players
 * Decreased zombie EMP radius by 30% (same radius as perk EMP)
-* Can destroy placed Zombie Shields
+* Can destroy deployed Zombie Shields
 * Sprinting no longer wakes up EMP'd zombies
 
 ### Claymore
@@ -310,9 +310,22 @@
 * Parts automatically picked up
 * Can be built at any table on all maps
 * Zombies no longer attack (except Zombie Shield)
-* Destroyed by taking 1500 damage
+* Can be destroyed by taking 1500 damage
 * No longer destroyed by 2 grenades
 * Can no longer be picked up after being destroyed
+
+### Zombie Shield
+* Can be destroyed by player damage when deployed
+* Destroyed sound plays when player is holding
+* Deployed damage sound plays on shield instead of player
+
+### Turret
+* No longer needs to be powered by a Turbine
+* Gets destroyed after being deployed for 30 seconds
+* Kills on any round in 1-4 shots (normally does 1200 damage max)
+* No longer damages players
+* Fire type changed from burst fire to continuous fire
+* Fixed an issue where the Turret sounds would continue playing after being picked up
 
 ### Electric Trap
 * No longer needs to be powered by a Turbine
@@ -324,23 +337,15 @@
 * Decreased player shellshock time from 2.5 seconds to 1.25 seconds
 * Decreased startup time from 2 seconds to 0.5 seconds
 
-### Turret
-* No longer needs to be powered by a Turbine
-* Gets destroyed after being deployed for 30 seconds
-* Kills on any round in 1-4 shots (normally does 1200 damage max)
-* No longer damages players
-* Fire type changed from burst fire to continuous fire
-* Fixed an issue where the Turret sounds would continue playing after being picked up
-
-### Trample Steam
-* No longer gets destroyed from kills
-* Gets destroyed after activating 15 times
-
 ### Subsurface Resonator
 * No longer needs to be powered by a Turbine
 * No longer gets destroyed from kills
 * Gets destroyed after being deployed for 30 seconds
 * Fires every 2 seconds (normally has a longer delay depending on the amount of kills from the previous fire)
+
+### Trample Steam
+* No longer gets destroyed from kills
+* Gets destroyed after activating 15 times
 
 ### Head Chopper
 * No longer gets destroyed from kills
