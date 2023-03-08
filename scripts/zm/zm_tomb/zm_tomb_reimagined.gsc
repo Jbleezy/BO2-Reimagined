@@ -28,6 +28,7 @@ main()
 	replaceFunc(maps\mp\zm_tomb_ee_main_step_2::remove_plinth, scripts\zm\replaced\zm_tomb_ee_main_step_2::remove_plinth);
 	replaceFunc(maps\mp\zm_tomb_ee_main_step_3::fire_link_cooldown, scripts\zm\replaced\zm_tomb_ee_main_step_3::fire_link_cooldown);
 	replaceFunc(maps\mp\zm_tomb_craftables::quadrotor_control_thread, scripts\zm\replaced\zm_tomb_craftables::quadrotor_control_thread);
+    replaceFunc(maps\mp\zm_tomb_craftables::quadrotor_set_unavailable, scripts\zm\replaced\zm_tomb_craftables::quadrotor_set_unavailable);
 	replaceFunc(maps\mp\zm_tomb_challenges::challenges_init, scripts\zm\replaced\zm_tomb_challenges::challenges_init);
 	replaceFunc(maps\mp\zm_tomb_dig::increment_player_perk_purchase_limit, scripts\zm\replaced\zm_tomb_dig::increment_player_perk_purchase_limit);
 	replaceFunc(maps\mp\zm_tomb_dig::dig_disconnect_watch, scripts\zm\replaced\zm_tomb_dig::dig_disconnect_watch);
@@ -44,8 +45,8 @@ init()
 	level.zombie_init_done = ::zombie_init_done;
 	level.special_weapon_magicbox_check = ::tomb_special_weapon_magicbox_check;
 	level.custom_magic_box_timer_til_despawn = ::custom_magic_box_timer_til_despawn;
-	level.zombie_custom_equipment_setup = ::setup_quadrotor_purchase;
-	level.custom_craftable_validation = ::tomb_custom_craftable_validation;
+	level.zombie_custom_equipment_setup = scripts\zm\replaced\zm_tomb_craftables::setup_quadrotor_purchase;
+	level.custom_craftable_validation = scripts\zm\replaced\zm_tomb_craftables::tomb_custom_craftable_validation;
 
 	level thread increase_solo_door_prices();
 	level thread remove_shovels_from_map();
@@ -502,74 +503,93 @@ craftabletrigger_update_prompt( player )
     return can_use;
 }
 
-setup_quadrotor_purchase( player )
+craftablestub_update_prompt( player, unitrigger )
 {
-    if ( self.stub.weaponname == "equip_dieseldrone_zm" )
-    {
-        if ( players_has_weapon( "equip_dieseldrone_zm" ) )
-            return true;
+    if ( !self anystub_update_prompt( player ) )
+        return false;
 
-        quadrotor = getentarray( "quadrotor_ai", "targetname" );
-
-        if ( quadrotor.size >= 1 )
-            return true;
-
-		player maps\mp\zombies\_zm_score::minus_to_player_score( self.stub.cost );
-		self play_sound_on_ent( "purchase" );
-
-        quadrotor_set_unavailable();
-        player giveweapon( "equip_dieseldrone_zm" );
-        player setweaponammoclip( "equip_dieseldrone_zm", 1 );
-        player playsoundtoplayer( "zmb_buildable_pickup_complete", player );
-
-        if ( isdefined( self.stub.craftablestub.use_actionslot ) )
-            player setactionslot( self.stub.craftablestub.use_actionslot, "weapon", "equip_dieseldrone_zm" );
-        else
-            player setactionslot( 2, "weapon", "equip_dieseldrone_zm" );
-
-        player notify( "equip_dieseldrone_zm_given" );
-        level thread quadrotor_watcher( player );
-        player thread maps\mp\zombies\_zm_audio::create_and_play_dialog( "general", "build_dd_plc" );
+    if ( isdefined( self.is_locked ) && self.is_locked )
         return true;
-    }
 
-    return false;
-}
+    can_use = 1;
 
-tomb_custom_craftable_validation( player )
-{
-    if ( self.stub.equipname == "equip_dieseldrone_zm" )
+    if ( isdefined( self.custom_craftablestub_update_prompt ) && !self [[ self.custom_craftablestub_update_prompt ]]( player ) )
+        return false;
+
+    if ( !( isdefined( self.crafted ) && self.crafted ) )
     {
-        level.quadrotor_status.pickup_trig = self.stub;
+        if ( !self.craftablespawn craftable_can_use_shared_piece() )
+        {
+            if ( !isdefined( player.current_craftable_piece ) )
+            {
+                self.hint_string = &"ZOMBIE_BUILD_PIECE_MORE";
+                return false;
+            }
+            else if ( !self.craftablespawn craftable_has_piece( player.current_craftable_piece ) )
+            {
+                self.hint_string = &"ZOMBIE_BUILD_PIECE_WRONG";
+                return false;
+            }
+        }
 
-        if ( level.quadrotor_status.crafted )
-            return !level.quadrotor_status.picked_up && !flag( "quadrotor_cooling_down" );
+        assert( isdefined( level.zombie_craftablestubs[self.equipname].str_to_craft ), "Missing craftable hint" );
+        self.hint_string = level.zombie_craftablestubs[self.equipname].str_to_craft;
     }
-
-    if ( !issubstr( self.stub.weaponname, "staff" ) )
-        return 1;
-
-    if ( !( isdefined( level.craftables_crafted[self.stub.equipname] ) && level.craftables_crafted[self.stub.equipname] ) )
-        return 1;
-
-    if ( !player can_pickup_staff() )
-        return 0;
-
-	e_upgraded_staff = maps\mp\zm_tomb_craftables::get_staff_info_from_weapon_name( self.stub.weaponname );
-
-	if (is_true(e_upgraded_staff.ee_in_use))
-	{
-		return 0;
-	}
-
-    s_elemental_staff = get_staff_info_from_weapon_name( self.stub.weaponname, 0 );
-    weapons = player getweaponslistprimaries();
-
-    foreach ( weapon in weapons )
+    else if ( self.persistent == 1 )
     {
-        if ( issubstr( weapon, "staff" ) && weapon != s_elemental_staff.weapname )
-            player takeweapon( weapon );
+        if ( maps\mp\zombies\_zm_equipment::is_limited_equipment( self.weaponname ) && maps\mp\zombies\_zm_equipment::limited_equipment_in_use( self.weaponname ) )
+        {
+            self.hint_string = &"ZOMBIE_BUILD_PIECE_ONLY_ONE";
+            return false;
+        }
+
+        if ( player has_player_equipment( self.weaponname ) )
+        {
+            self.hint_string = &"ZOMBIE_BUILD_PIECE_HAVE_ONE";
+            return false;
+        }
+
+        if ( self.equipname == "equip_dieseldrone_zm" )
+        {
+            if ( player hasWeapon( self.equipname ) || ( isDefined( level.maxis_quadrotor ) && isDefined( level.maxis_quadrotor.player_owner ) && level.maxis_quadrotor.player_owner == player ) )
+            {
+                self.hint_string = &"ZOMBIE_BUILD_PIECE_HAVE_ONE";
+                return false;
+            }
+            else if (level.quadrotor_status.picked_up)
+            {
+                self.hint_string = &"ZOMBIE_BUILD_PIECE_ONLY_ONE";
+                return false;
+            }
+            else if (flag( "quadrotor_cooling_down" ))
+            {
+                self.hint_string = "Cooling down";
+                return false;
+            }
+        }
+
+        self.hint_string = self.trigger_hintstring;
+    }
+    else if ( self.persistent == 2 )
+    {
+        if ( !maps\mp\zombies\_zm_weapons::limited_weapon_below_quota( self.weaponname, undefined ) )
+        {
+            self.hint_string = &"ZOMBIE_GO_TO_THE_BOX_LIMITED";
+            return false;
+        }
+        else if ( isdefined( self.str_taken ) && self.str_taken )
+        {
+            self.hint_string = &"ZOMBIE_GO_TO_THE_BOX";
+            return false;
+        }
+
+        self.hint_string = self.trigger_hintstring;
+    }
+    else
+    {
+        self.hint_string = "";
+        return false;
     }
 
-    return 1;
+    return true;
 }

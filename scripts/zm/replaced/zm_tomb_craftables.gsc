@@ -60,3 +60,85 @@ quadrotor_control_thread()
 		wait 0.05;
 	}
 }
+
+setup_quadrotor_purchase( player )
+{
+    if ( self.stub.weaponname == "equip_dieseldrone_zm" )
+    {
+        if ( players_has_weapon( "equip_dieseldrone_zm" ) )
+            return true;
+
+        quadrotor = getentarray( "quadrotor_ai", "targetname" );
+
+        if ( quadrotor.size >= 1 )
+            return true;
+
+		player maps\mp\zombies\_zm_score::minus_to_player_score( self.stub.cost );
+		self play_sound_on_ent( "purchase" );
+
+        quadrotor_set_unavailable();
+        player giveweapon( "equip_dieseldrone_zm" );
+        player setweaponammoclip( "equip_dieseldrone_zm", 1 );
+        player playsoundtoplayer( "zmb_buildable_pickup_complete", player );
+
+        if ( isdefined( self.stub.craftablestub.use_actionslot ) )
+            player setactionslot( self.stub.craftablestub.use_actionslot, "weapon", "equip_dieseldrone_zm" );
+        else
+            player setactionslot( 2, "weapon", "equip_dieseldrone_zm" );
+
+        player notify( "equip_dieseldrone_zm_given" );
+        level thread quadrotor_watcher( player );
+        player thread maps\mp\zombies\_zm_audio::create_and_play_dialog( "general", "build_dd_plc" );
+
+		self.stub.hint_string = "Took Maxis Drone";
+		self sethintstring(self.stub.hint_string);
+
+        return true;
+    }
+
+    return false;
+}
+
+tomb_custom_craftable_validation( player )
+{
+    if ( self.stub.equipname == "equip_dieseldrone_zm" )
+    {
+        level.quadrotor_status.pickup_trig = self.stub;
+
+        if ( level.quadrotor_status.crafted )
+            return !level.quadrotor_status.picked_up && !flag( "quadrotor_cooling_down" );
+    }
+
+    if ( !issubstr( self.stub.weaponname, "staff" ) )
+        return 1;
+
+    if ( !( isdefined( level.craftables_crafted[self.stub.equipname] ) && level.craftables_crafted[self.stub.equipname] ) )
+        return 1;
+
+    if ( !player can_pickup_staff() )
+        return 0;
+
+	e_upgraded_staff = maps\mp\zm_tomb_craftables::get_staff_info_from_weapon_name( self.stub.weaponname );
+
+	if (is_true(e_upgraded_staff.ee_in_use))
+	{
+		return 0;
+	}
+
+    s_elemental_staff = get_staff_info_from_weapon_name( self.stub.weaponname, 0 );
+    weapons = player getweaponslistprimaries();
+
+    foreach ( weapon in weapons )
+    {
+        if ( issubstr( weapon, "staff" ) && weapon != s_elemental_staff.weapname )
+            player takeweapon( weapon );
+    }
+
+    return 1;
+}
+
+quadrotor_set_unavailable()
+{
+    level.quadrotor_status.picked_up = 1;
+	level.quadrotor_status.pickup_trig.model ghost();
+}
