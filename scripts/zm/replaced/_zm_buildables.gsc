@@ -170,7 +170,7 @@ buildable_place_think()
 
 			if ( isDefined( self.stub.model ) )
 			{
-				self.stub.model thread maps\mp\zombies\_zm_buildables::model_fly_away();
+				self.stub.model thread model_fly_away(self.stub.weaponname);
 			}
 
 			player maps\mp\zombies\_zm_weapons::weapon_give( self.stub.weaponname );
@@ -283,5 +283,55 @@ buildable_place_think()
 				self sethintstring( self.stub.hint_string );
 			}
 		}
+	}
+}
+
+model_fly_away(weaponname)
+{
+	origin = self.origin;
+    self moveto( self.origin + vectorscale( ( 0, 0, 1 ), 40.0 ), 3 );
+    direction = self.origin;
+    direction = ( direction[1], direction[0], 0 );
+
+    if ( direction[1] < 0 || direction[0] > 0 && direction[1] > 0 )
+        direction = ( direction[0], direction[1] * -1, 0 );
+    else if ( direction[0] < 0 )
+        direction = ( direction[0] * -1, direction[1], 0 );
+
+    self vibrate( direction, 10, 0.5, 3 );
+
+    self waittill( "movedone" );
+
+	self.origin = origin;
+	self.angles = (0, self.angles[1], 0);
+	self hide();
+	playfx( level._effect["poltergeist"], self.origin );
+
+	self thread model_think(weaponname);
+}
+
+model_think(weaponname)
+{
+	joker_model = spawn( "script_model", self.origin - (0, 0, 14) );
+	joker_model.angles = self.angles + (0, 90, 0);
+	joker_model setModel(level.chest_joker_model);
+
+	while (1)
+	{
+		while (!maps\mp\zombies\_zm_weapons::limited_weapon_below_quota( weaponname, undefined ))
+		{
+			wait 0.05;
+		}
+
+		joker_model.angles += (90, 0, 0);
+		playfx( level._effect["poltergeist"], self.origin );
+
+		while (maps\mp\zombies\_zm_weapons::limited_weapon_below_quota( weaponname, undefined ))
+		{
+			wait 0.05;
+		}
+
+		joker_model.angles -= (90, 0, 0);
+		playfx( level._effect["poltergeist"], self.origin );
 	}
 }
