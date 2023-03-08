@@ -3,6 +3,7 @@
 #include maps\mp\zombies\_zm_utility;
 #include maps\mp\zombies\_zm_craftables;
 
+#include scripts\zm\replaced\_zm_riotshield_tomb;
 #include scripts\zm\replaced\_zm_weap_riotshield_tomb;
 #include scripts\zm\replaced\zm_tomb_main_quest;
 #include scripts\zm\replaced\zm_tomb_quest_air;
@@ -15,8 +16,6 @@
 
 main()
 {
-    replaceFunc(maps\mp\zombies\_zm_weap_riotshield_tomb::init, scripts\zm\replaced\_zm_weap_riotshield_tomb::init);
-	replaceFunc(maps\mp\zombies\_zm_weap_riotshield_tomb::player_damage_shield, scripts\zm\replaced\_zm_weap_riotshield_tomb::player_damage_shield);
 	replaceFunc(maps\mp\zm_tomb_main_quest::main_quest_init, scripts\zm\replaced\zm_tomb_main_quest::main_quest_init);
 	replaceFunc(maps\mp\zm_tomb_main_quest::watch_for_player_pickup_staff, scripts\zm\replaced\zm_tomb_main_quest::watch_for_player_pickup_staff);
 	replaceFunc(maps\mp\zm_tomb_main_quest::staff_upgraded_reload, scripts\zm\replaced\zm_tomb_main_quest::staff_upgraded_reload);
@@ -33,6 +32,10 @@ main()
 	replaceFunc(maps\mp\zm_tomb_dig::increment_player_perk_purchase_limit, scripts\zm\replaced\zm_tomb_dig::increment_player_perk_purchase_limit);
 	replaceFunc(maps\mp\zm_tomb_dig::dig_disconnect_watch, scripts\zm\replaced\zm_tomb_dig::dig_disconnect_watch);
     replaceFunc(maps\mp\zm_tomb_tank::players_on_tank_update, scripts\zm\replaced\zm_tomb_tank::players_on_tank_update);
+    replaceFunc(maps\mp\zombies\_zm_riotshield_tomb::doriotshielddeploy, scripts\zm\replaced\_zm_riotshield_tomb::doriotshielddeploy);
+    replaceFunc(maps\mp\zombies\_zm_riotshield_tomb::trackriotshield, scripts\zm\replaced\_zm_riotshield_tomb::trackriotshield);
+    replaceFunc(maps\mp\zombies\_zm_weap_riotshield_tomb::init, scripts\zm\replaced\_zm_weap_riotshield_tomb::init);
+	replaceFunc(maps\mp\zombies\_zm_weap_riotshield_tomb::player_damage_shield, scripts\zm\replaced\_zm_weap_riotshield_tomb::player_damage_shield);
 }
 
 init()

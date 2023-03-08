@@ -318,6 +318,7 @@
 * Can be destroyed by player damage when deployed
 * Destroyed sound plays when player is holding
 * Deployed damage sound plays on shield instead of player
+* Switches back to correct weapon after deploying
 
 ### Turret
 * No longer needs to be powered by a Turbine
