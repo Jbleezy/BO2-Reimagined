@@ -7,6 +7,7 @@
 #include scripts\zm\replaced\zm_alcatraz_classic;
 #include scripts\zm\replaced\_zm_afterlife;
 #include scripts\zm\replaced\_zm_ai_brutus;
+#include scripts\zm\replaced\_zm_craftables;
 #include scripts\zm\replaced\_zm_riotshield_prison;
 #include scripts\zm\replaced\_zm_weap_riotshield_prison;
 #include scripts\zm\replaced\zgrief;
@@ -21,6 +22,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_ai_brutus::brutus_spawn, scripts\zm\replaced\_zm_ai_brutus::brutus_spawn);
 	replaceFunc(maps\mp\zombies\_zm_ai_brutus::brutus_health_increases, scripts\zm\replaced\_zm_ai_brutus::brutus_health_increases);
 	replaceFunc(maps\mp\zombies\_zm_ai_brutus::brutus_cleanup_at_end_of_grief_round, scripts\zm\replaced\_zm_ai_brutus::brutus_cleanup_at_end_of_grief_round);
+	replaceFunc(maps\mp\zombies\_zm_craftables::choose_open_craftable, scripts\zm\replaced\_zm_craftables::choose_open_craftable);
 	replaceFunc(maps\mp\zombies\_zm_riotshield_prison::doriotshielddeploy, scripts\zm\replaced\_zm_riotshield_prison::doriotshielddeploy);
 	replaceFunc(maps\mp\zombies\_zm_riotshield_prison::trackriotshield, scripts\zm\replaced\_zm_riotshield_prison::trackriotshield);
 	replaceFunc(maps\mp\zombies\_zm_weap_riotshield_prison::init, scripts\zm\replaced\_zm_weap_riotshield_prison::init);
