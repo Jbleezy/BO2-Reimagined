@@ -356,15 +356,15 @@ model_fly_away_think(weaponname)
 			wait 0.05;
 		}
 
-		joker_model.angles += (90, 0, 0);
-		playfx( level._effect["poltergeist"], self.origin );
+		joker_model rotateto( joker_model.angles + (90, 0, 0), 0.5 );
+        joker_model waittill( "rotatedone" );
 
 		while (maps\mp\zombies\_zm_weapons::limited_weapon_below_quota( weaponname, undefined ))
 		{
 			wait 0.05;
 		}
 
-		joker_model.angles -= (90, 0, 0);
-		playfx( level._effect["poltergeist"], self.origin );
+		joker_model rotateto( joker_model.angles - (90, 0, 0), 0.5 );
+        joker_model waittill( "rotatedone" );
 	}
 }

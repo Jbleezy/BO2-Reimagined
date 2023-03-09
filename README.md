@@ -357,7 +357,7 @@
 * Gets destroyed after activating 15 times
 
 ### Maxis Drone
-* Added hint strings for purchased, already have one, can only be one, and cooling down
+* Added hint strings for purchased, can only be one, and cooling down
 * Switches back to correct weapon after deploying
 
 ## Bank
