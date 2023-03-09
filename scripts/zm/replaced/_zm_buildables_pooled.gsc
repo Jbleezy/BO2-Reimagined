@@ -325,28 +325,27 @@ swap_buildable_fields_model_offset(stub1, stub2)
 {
 	origin_offset = (0, 0, 0);
 	angle_offset = (0, 0, 0);
-	origin_offset2 = undefined;
 
 	if (stub1.weaponname == "equip_turbine_zm")
 	{
 		if (stub2.weaponname == "riotshield_zm")
 		{
-			origin_offset = (-6, 6, -27);
+			origin_offset = (6, -6, -27);
 			angle_offset = (0, -180, 0);
 		}
 		else if (stub2.weaponname == "equip_turret_zm")
 		{
-			origin_offset = (-7, 5, 0);
+			origin_offset = (-7, -5, 0);
 			angle_offset = (0, -90, 0);
 		}
 		else if (stub2.weaponname == "equip_electrictrap_zm")
 		{
-			origin_offset = (-8, 2, 0);
+			origin_offset = (-2, 8, 0);
 			angle_offset = (0, 90, 0);
 		}
 		else if (stub2.weaponname == "jetgun_zm")
 		{
-			origin_offset = (3, -4, -24);
+			origin_offset = (-3, -4, -24);
 			angle_offset = (0, -90, 0);
 		}
 	}
@@ -354,22 +353,22 @@ swap_buildable_fields_model_offset(stub1, stub2)
 	{
 		if (stub2.weaponname == "equip_turbine_zm")
 		{
-			origin_offset = (6, -6, 27);
+			origin_offset = (-6, 6, 27);
 			angle_offset = (0, 180, 0);
 		}
 		else if (stub2.weaponname == "equip_turret_zm")
 		{
-			origin_offset = (-1, -1, 27);
+			origin_offset = (-1, 1, 27);
 			angle_offset = (0, 90, 0);
 		}
 		else if (stub2.weaponname == "equip_electrictrap_zm")
 		{
-			origin_offset = (-2, -4, 27);
+			origin_offset = (2, -4, 27);
 			angle_offset = (0, -90, 0);
 		}
 		else if (stub2.weaponname == "jetgun_zm")
 		{
-			origin_offset = (9, -10, 3);
+			origin_offset = (-2, 5, 3);
 			angle_offset = (0, 90, 0);
 		}
 	}
@@ -377,22 +376,22 @@ swap_buildable_fields_model_offset(stub1, stub2)
 	{
 		if (stub2.weaponname == "equip_turbine_zm")
 		{
-			origin_offset = (7, -5, 0);
+			origin_offset = (7, 5, 0);
 			angle_offset = (0, 90, 0);
 		}
 		else if (stub2.weaponname == "riotshield_zm")
 		{
-			origin_offset = (1, 1, -27);
+			origin_offset = (1, -1, -27);
 			angle_offset = (0, -90, 0);
 		}
 		else if (stub2.weaponname == "equip_electrictrap_zm")
 		{
-			origin_offset = (1, -3, 0);
-			angle_offset = (0, 180, 0);
+			origin_offset = (2, -2, 0);
+			angle_offset = (0, -180, 0);
 		}
 		else if (stub2.weaponname == "jetgun_zm")
 		{
-			origin_offset = (-4, 0, -24);
+			origin_offset = (4, 0, -24);
 			angle_offset = (0, 0, 0);
 		}
 	}
@@ -400,22 +399,22 @@ swap_buildable_fields_model_offset(stub1, stub2)
 	{
 		if (stub2.weaponname == "equip_turbine_zm")
 		{
-			origin_offset = (8, -2, 0);
+			origin_offset = (2, -8, 0);
 			angle_offset = (0, -90, 0);
 		}
 		else if (stub2.weaponname == "riotshield_zm")
 		{
-			origin_offset = (2, 4, -27);
+			origin_offset = (-2, 4, -27);
 			angle_offset = (0, 90, 0);
 		}
 		else if (stub2.weaponname == "equip_turret_zm")
 		{
-			origin_offset = (1, 3, 0);
+			origin_offset = (-2, 2, 0);
 			angle_offset = (0, 180, 0);
 		}
 		else if (stub2.weaponname == "jetgun_zm")
 		{
-			origin_offset = (-6, -3, -24);
+			origin_offset = (-6, 3, -24);
 			angle_offset = (0, 180, 0);
 		}
 	}
@@ -423,12 +422,12 @@ swap_buildable_fields_model_offset(stub1, stub2)
 	{
 		if (stub2.weaponname == "equip_turbine_zm")
 		{
-			origin_offset = (3, -4, 24);
+			origin_offset = (3, 4, 24);
 			angle_offset = (0, 90, 0);
 		}
 		else if (stub2.weaponname == "riotshield_zm")
 		{
-			origin_offset = (-9, 10, -3);
+			origin_offset = (2, -5, -3);
 			angle_offset = (0, -90, 0);
 		}
 		else if (stub2.weaponname == "equip_turret_zm")
@@ -438,42 +437,44 @@ swap_buildable_fields_model_offset(stub1, stub2)
 		}
 		else if (stub2.weaponname == "equip_electrictrap_zm")
 		{
-			origin_offset = (-6, -3, 24);
-			angle_offset = (0, 180, 0);
+			origin_offset = (6, -3, 24);
+			angle_offset = (0, -180, 0);
 		}
 	}
 	else if (stub1.weaponname == "equip_springpad_zm")
 	{
 		if (stub2.weaponname == "slipgun_zm")
 		{
-			origin_offset = (6, 14, -2);
+			origin_offset = (-14, 2, -2);
 			angle_offset = (64.2, 90, 0);
-			origin_offset2 = (-14, 0, -2);
 		}
 	}
 	else if (stub1.weaponname == "slipgun_zm")
 	{
 		if (stub2.weaponname == "equip_springpad_zm")
 		{
-			origin_offset = (14, 0, 2);
+			origin_offset = (14, -2, 2);
 			angle_offset = (-64.2, -90, 0);
-			origin_offset2 = (-6, -14, 2);
 		}
 	}
 
-	stub1.model.origin += origin_offset;
 	stub1.model.angles += angle_offset;
+	stub2.model.angles -= angle_offset;
 
-	if (isDefined(origin_offset2))
+	model1_angle = (0, stub1.model.angles[1], 0);
+	model2_angle = (0, stub2.model.angles[1], 0);
+
+	if (angle_offset[1] < 0)
 	{
-		stub2.model.origin -= origin_offset2;
+		model1_angle -= (0, angle_offset[1], 0);
 	}
 	else
 	{
-		stub2.model.origin -= origin_offset;
+		model2_angle += (0, angle_offset[1], 0);
 	}
 
-	stub2.model.angles -= angle_offset;
+	stub1.model.origin += (anglesToForward(model1_angle) * origin_offset[0]) + (anglesToRight(model1_angle) * origin_offset[1]) + (anglesToUp(model1_angle) * origin_offset[2]);
+	stub2.model.origin -= (anglesToForward(model2_angle) * origin_offset[0]) + (anglesToRight(model2_angle) * origin_offset[1]) + (anglesToUp(model2_angle) * origin_offset[2]);
 }
 
 pooled_buildable_place_think()
