@@ -654,8 +654,8 @@ choose_open_buildable( player )
 			slot = self.buildablestruct.buildable_slot;
 			player maps\mp\zombies\_zm_buildables::player_set_buildable_piece(piece, slot);
 
-			self.equipname = level.buildables_available[self.buildables_available_index];
-			self.hint_string = level.zombie_buildables[self.equipname].hint;
+			equipname = level.buildables_available[self.buildables_available_index];
+			self.hint_string = level.zombie_buildables[equipname].hint;
 			self.playertrigger[num] sethintstring(self.hint_string);
 			got_input = 0;
 		}
