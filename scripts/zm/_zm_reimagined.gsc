@@ -381,65 +381,65 @@ health_bar_hud()
 		y -= 60;
 	}
 
-	health_bar = self createbar((1, 1, 1), level.primaryprogressbarwidth - 10, level.primaryprogressbarheight);
-	health_bar.alignx = "left";
-	health_bar.bar.alignx = "left";
-	health_bar.barframe.alignx = "left";
-	health_bar.aligny = "middle";
-	health_bar.bar.aligny = "middle";
-	health_bar.barframe.aligny = "middle";
-	health_bar.horzalign = "user_left";
-	health_bar.bar.horzalign = "user_left";
-	health_bar.barframe.horzalign = "user_left";
-	health_bar.vertalign = "user_bottom";
-	health_bar.bar.vertalign = "user_bottom";
-	health_bar.barframe.vertalign = "user_bottom";
-	health_bar.x += x;
-	health_bar.bar.x += x + ((health_bar.width + 4) / 2);
-	health_bar.barframe.x += x;
-	health_bar.y += y;
-	health_bar.bar.y += y;
-	health_bar.barframe.y += y;
-	health_bar.hidewheninmenu = 1;
-	health_bar.bar.hidewheninmenu = 1;
-	health_bar.barframe.hidewheninmenu = 1;
-	health_bar.foreground = 1;
-	health_bar.bar.foreground = 1;
-	health_bar.barframe.foreground = 1;
+	hud = self createbar((1, 1, 1), level.primaryprogressbarwidth - 10, level.primaryprogressbarheight);
+	hud.alignx = "left";
+	hud.bar.alignx = "left";
+	hud.barframe.alignx = "left";
+	hud.aligny = "middle";
+	hud.bar.aligny = "middle";
+	hud.barframe.aligny = "middle";
+	hud.horzalign = "user_left";
+	hud.bar.horzalign = "user_left";
+	hud.barframe.horzalign = "user_left";
+	hud.vertalign = "user_bottom";
+	hud.bar.vertalign = "user_bottom";
+	hud.barframe.vertalign = "user_bottom";
+	hud.x += x;
+	hud.bar.x += x + ((hud.width + 4) / 2);
+	hud.barframe.x += x;
+	hud.y += y;
+	hud.bar.y += y;
+	hud.barframe.y += y;
+	hud.hidewheninmenu = 1;
+	hud.bar.hidewheninmenu = 1;
+	hud.barframe.hidewheninmenu = 1;
+	hud.foreground = 1;
+	hud.bar.foreground = 1;
+	hud.barframe.foreground = 1;
 
-	health_bar_text = createfontstring("objective", 1.2);
-	health_bar_text.alignx = "left";
-	health_bar_text.aligny = "middle";
-	health_bar_text.horzalign = "user_left";
-	health_bar_text.vertalign = "user_bottom";
-	health_bar_text.x += x + health_bar.width + 7;
-	health_bar_text.y += y;
-	health_bar_text.hidewheninmenu = 1;
-	health_bar_text.foreground = 1;
+	hud_text = createfontstring("objective", 1.2);
+	hud_text.alignx = "left";
+	hud_text.aligny = "middle";
+	hud_text.horzalign = "user_left";
+	hud_text.vertalign = "user_bottom";
+	hud_text.x += x + hud.width + 7;
+	hud_text.y += y;
+	hud_text.hidewheninmenu = 1;
+	hud_text.foreground = 1;
 
-	health_bar endon("death");
+	hud endon("death");
 
-	health_bar thread destroy_on_intermission();
-	health_bar_text thread destroy_on_intermission();
+	hud thread destroy_on_intermission();
+	hud_text thread destroy_on_intermission();
 
 	while (1)
 	{
 		if(isDefined(self.e_afterlife_corpse))
 		{
-			health_bar hideelem();
-			health_bar_text hideelem();
+			hud hideelem();
+			hud_text hideelem();
 
 			while(isDefined(self.e_afterlife_corpse))
 			{
 				wait 0.05;
 			}
 
-			health_bar showelem();
-			health_bar_text showelem();
+			hud showelem();
+			hud_text showelem();
 		}
 
-		health_bar updatebar(self.health / self.maxhealth);
-		health_bar_text setvalue(self.health);
+		hud updatebar(self.health / self.maxhealth);
+		hud_text setvalue(self.health);
 
 		wait 0.05;
 	}
@@ -673,25 +673,27 @@ zone_hud()
 
 	flag_wait( "initial_blackscreen_passed" );
 
-	zone = self get_current_zone();
-	prev_zone_name = get_zone_display_name(zone);
-	hud settext(prev_zone_name);
+	vars = [];
+
+	vars["zone"] = self get_current_zone();
+	vars["prev_zone_name"] = get_zone_display_name(vars["zone"]);
+	hud settext(vars["prev_zone_name"]);
 	hud.alpha = 1;
 
 	while (1)
 	{
-		zone = self get_current_zone();
-		zone_name = get_zone_display_name(zone);
+		vars["zone"] = self get_current_zone();
+		vars["zone_name"] = get_zone_display_name(vars["zone"]);
 
-		if(prev_zone_name != zone_name)
+		if(vars["prev_zone_name"] != vars["zone_name"])
 		{
-			prev_zone_name = zone_name;
+			vars["prev_zone_name"] = vars["zone_name"];
 
 			hud fadeovertime(0.25);
 			hud.alpha = 0;
 			wait 0.25;
 
-			hud settext(zone_name);
+			hud settext(vars["zone_name"]);
 
 			hud fadeovertime(0.25);
 			hud.alpha = 1;
@@ -1715,12 +1717,12 @@ bleedout_bar_hud()
 		return;
 	}
 
-	bleedout_bar = self createbar((1, 0, 0), level.secondaryprogressbarwidth * 2, level.secondaryprogressbarheight);
-	bleedout_bar setpoint("CENTER", undefined, level.secondaryprogressbarx, -1 * level.secondaryprogressbary);
-	bleedout_bar.hidewheninmenu = 1;
-	bleedout_bar.bar.hidewheninmenu = 1;
-	bleedout_bar.barframe.hidewheninmenu = 1;
-	bleedout_bar hideelem();
+	hud = self createbar((1, 0, 0), level.secondaryprogressbarwidth * 2, level.secondaryprogressbarheight);
+	hud setpoint("CENTER", undefined, level.secondaryprogressbarx, -1 * level.secondaryprogressbary);
+	hud.hidewheninmenu = 1;
+	hud.bar.hidewheninmenu = 1;
+	hud.barframe.hidewheninmenu = 1;
+	hud hideelem();
 
 	while (1)
 	{
@@ -1732,51 +1734,53 @@ bleedout_bar_hud()
 			continue;
 		}
 
-		self thread bleedout_bar_hud_updatebar(bleedout_bar);
+		self thread bleedout_bar_hud_updatebar(hud);
 
-		bleedout_bar showelem();
+		hud showelem();
 
 		self waittill_any("player_revived", "bled_out", "player_suicide");
 
-		bleedout_bar hideelem();
+		hud hideelem();
 	}
 }
 
 // scaleovertime doesn't work past 30 seconds so here is a workaround
-bleedout_bar_hud_updatebar(bleedout_bar)
+bleedout_bar_hud_updatebar(hud)
 {
 	self endon("player_revived");
 	self endon("bled_out");
 	self endon("player_suicide");
 
-	bleedout_time = getDvarInt("player_lastStandBleedoutTime");
-	interval_time = 30;
-	interval_frac = interval_time / bleedout_time;
-	num_intervals = int(bleedout_time / interval_time) + 1;
+	vars = [];
 
-	bleedout_bar updatebar(1);
+	vars["bleedout_time"] = getDvarInt("player_lastStandBleedoutTime");
+	vars["interval_time"] = 30;
+	vars["interval_frac"] = vars["interval_time"] / vars["bleedout_time"];
+	vars["num_intervals"] = int(vars["bleedout_time"] / vars["interval_time"]) + 1;
 
-	for(i = 0; i < num_intervals; i++)
+	hud updatebar(1);
+
+	for(i = 0; i < vars["num_intervals"]; i++)
 	{
-		time = bleedout_time;
-		if(time > interval_time)
+		vars["time"] = vars["bleedout_time"];
+		if(vars["time"] > vars["interval_time"])
 		{
-			time = interval_time;
+			vars["time"] = vars["interval_time"];
 		}
 
-		frac = 0.99 - ((i + 1) * interval_frac);
+		vars["frac"] = 0.99 - ((i + 1) * vars["interval_frac"]);
 
-		barwidth = int((bleedout_bar.width * frac) + 0.5);
+		barwidth = int((hud.width * vars["frac"]) + 0.5);
 		if(barwidth < 1)
 		{
 			barwidth = 1;
 		}
 
-		bleedout_bar.bar scaleovertime(time, barwidth, bleedout_bar.height);
+		hud.bar scaleovertime(vars["time"], barwidth, hud.height);
 
-		wait time;
+		wait vars["time"];
 
-		bleedout_time -= time;
+		vars["bleedout_time"] -= vars["time"];
 	}
 }
 
@@ -2003,20 +2007,22 @@ fall_velocity_check()
 {
 	self endon("disconnect");
 
+	vars = [];
+
 	while (1)
 	{
-		was_on_ground = 1;
+		vars["was_on_ground"] = 1;
 		self.fall_velocity = 0;
 
 		while (!self isOnGround())
 		{
-			was_on_ground = 0;
+			vars["was_on_ground"] = 0;
 			vel = self getVelocity();
 			self.fall_velocity = vel[2];
 			wait 0.05;
 		}
 
-		if (!was_on_ground)
+		if (!vars["was_on_ground"])
 		{
 			// fall damage does not register when player's max health is less than 100 and has PHD Flopper
 			if(self.maxhealth < 100 && self hasPerk("specialty_flakjacket"))
@@ -2043,26 +2049,28 @@ melee_weapon_switch_watcher()
 
 	self thread melee_weapon_disable_weapon_trading();
 
-	prev_wep = undefined;
+	vars = [];
+	vars["prev_wep"] = undefined;
+
 	while(1)
 	{
-		melee_wep = self get_player_melee_weapon();
-		curr_wep = self getCurrentWeapon();
+		vars["melee_wep"] = self get_player_melee_weapon();
+		vars["curr_wep"] = self getCurrentWeapon();
 
-		if(curr_wep != "none" && !is_offhand_weapon(curr_wep))
+		if(vars["curr_wep"] != "none" && !is_offhand_weapon(vars["curr_wep"]))
 		{
-			prev_wep = curr_wep;
+			vars["prev_wep"] = vars["curr_wep"];
 		}
 
 		if(self actionSlotTwoButtonPressed() && !self hasWeapon("time_bomb_zm") && !self hasWeapon("time_bomb_detonator_zm") && !self hasWeapon("equip_dieseldrone_zm"))
 		{
-			if(curr_wep != melee_wep)
+			if(vars["curr_wep"] != vars["melee_wep"])
 			{
-				self switchToWeapon(melee_wep);
+				self switchToWeapon(vars["melee_wep"]);
 			}
 			else
 			{
-				self maps\mp\zombies\_zm_weapons::switch_back_primary_weapon(prev_wep);
+				self maps\mp\zombies\_zm_weapons::switch_back_primary_weapon(vars["prev_wep"]);
 			}
 		}
 
@@ -2074,19 +2082,21 @@ melee_weapon_disable_weapon_trading()
 {
 	self endon("disconnect");
 
+	vars = [];
+
 	while(1)
 	{
-		melee_wep = self get_player_melee_weapon();
-		curr_wep = self getCurrentWeapon();
+		vars["melee_wep"] = self get_player_melee_weapon();
+		vars["curr_wep"] = self getCurrentWeapon();
 
-		if(curr_wep == melee_wep && self getWeaponsListPrimaries().size >= 1)
+		if(vars["curr_wep"] == vars["melee_wep"] && self getWeaponsListPrimaries().size >= 1)
 		{
 			self.is_drinking = 1;
 
-			while(curr_wep == melee_wep && self getWeaponsListPrimaries().size >= 1)
+			while(vars["curr_wep"] == vars["melee_wep"] && self getWeaponsListPrimaries().size >= 1)
 			{
-				melee_wep = self get_player_melee_weapon();
-				curr_wep = self getCurrentWeapon();
+				vars["melee_wep"] = self get_player_melee_weapon();
+				vars["curr_wep"] = self getCurrentWeapon();
 
 				wait 0.05;
 			}
@@ -2100,30 +2110,32 @@ melee_weapon_disable_weapon_trading()
 
 player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime )
 {
+	vars = [];
+
 	if(smeansofdeath == "MOD_FALLING" && !self hasPerk("specialty_flakjacket"))
 	{
 		// remove fall damage being based off max health
-		ratio = self.maxhealth / 100;
-		idamage = int(idamage / ratio);
+		vars["ratio"] = self.maxhealth / 100;
+		idamage = int(idamage / vars["ratio"]);
 
 		// increase fall damage beyond 110
-		max_damage = 110;
-		if(idamage >= max_damage)
+		vars["max_damage"] = 110;
+		if(idamage >= vars["max_damage"])
 		{
-			velocity = abs(self.fall_velocity);
-			min_velocity = getDvarInt("bg_fallDamageMinHeight") * 3.25;
-			max_velocity = getDvarInt("bg_fallDamageMaxHeight") * 2.5;
+			vars["velocity"] = abs(self.fall_velocity);
+			vars["min_velocity"] = getDvarInt("bg_fallDamageMinHeight") * 3.25;
+			vars["max_velocity"] = getDvarInt("bg_fallDamageMaxHeight") * 2.5;
 			if(self.divetoprone)
 			{
-				min_velocity = getDvarInt("dtp_fall_damage_min_height") * 4.5;
-				max_velocity = getDvarInt("dtp_fall_damage_max_height") * 2.75;
+				vars["min_velocity"] = getDvarInt("dtp_fall_damage_min_height") * 4.5;
+				vars["max_velocity"] = getDvarInt("dtp_fall_damage_max_height") * 2.75;
 			}
 
-			idamage = int(((velocity - min_velocity) / (max_velocity - min_velocity)) * max_damage);
+			idamage = int(((vars["velocity"] - vars["min_velocity"]) / (vars["max_velocity"] - vars["min_velocity"])) * vars["max_damage"]);
 
-			if(idamage < max_damage)
+			if(idamage < vars["max_damage"])
 			{
-				idamage = max_damage;
+				idamage = vars["max_damage"];
 			}
 		}
 	}
@@ -2586,13 +2598,15 @@ wallbuy_dynamic_update()
 		wait 0.5;
 	}
 
-	prev_built_wallbuys = 0;
+	vars = [];
+
+	vars["prev_built_wallbuys"] = 0;
 
 	while (1)
 	{
-		if (level.built_wallbuys > prev_built_wallbuys)
+		if (level.built_wallbuys > vars["prev_built_wallbuys"])
 		{
-			prev_built_wallbuys = level.built_wallbuys;
+			vars["prev_built_wallbuys"] = level.built_wallbuys;
 			wallbuy_increase_trigger_radius();
 			wallbuy_decrease_upgraded_ammo_cost();
 		}
@@ -2626,6 +2640,8 @@ weapon_inspect_watcher()
 	level endon( "end_game" );
 	self endon( "disconnect" );
 
+	vars = [];
+
 	while(1)
 	{
 		wait 0.05;
@@ -2635,26 +2651,26 @@ weapon_inspect_watcher()
 			continue;
 		}
 
-		curr_wep = self getCurrentWeapon();
+		vars["curr_wep"] = self getCurrentWeapon();
 
-		is_primary = 0;
+		vars["is_primary"] = 0;
 		foreach(wep in self getWeaponsListPrimaries())
 		{
-			if(wep == curr_wep)
+			if(wep == vars["curr_wep"])
 			{
-				is_primary = 1;
+				vars["is_primary"] = 1;
 				break;
 			}
 		}
 
-		if(!is_primary)
+		if(!vars["is_primary"])
 		{
 			continue;
 		}
 
-		if(self actionSlotThreeButtonPressed() && self getWeaponAmmoClip(curr_wep) != 0)
+		if(self actionSlotThreeButtonPressed() && self getWeaponAmmoClip(vars["curr_wep"]) != 0)
 		{
-			self initialWeaponRaise(curr_wep);
+			self initialWeaponRaise(vars["curr_wep"]);
 		}
 	}
 }
@@ -2807,6 +2823,8 @@ get_equipment_display_name()
 	{
 		return "Head Chopper";
 	}
+
+	return "";
 }
 
 get_equipment_cost()
@@ -3024,6 +3042,7 @@ get_craftable_piece( str_craftable, str_piece )
 			}
 		}
 	}
+
 	return undefined;
 }
 
@@ -3128,33 +3147,35 @@ jetgun_heatval_changes()
 		return;
 	}
 
-	prev_heatval = 0;
-	cooldown_amount = 0.1;
-	overheat_amount = 0.85;
+	vars = [];
+
+	vars["prev_heatval"] = 0;
+	vars["cooldown_amount"] = 0.1;
+	vars["overheat_amount"] = 0.85;
 
 	while(1)
 	{
 		if(!IsDefined(self.jetgun_heatval))
 		{
-			prev_heatval = 0;
+			vars["prev_heatval"] = 0;
 			wait 0.05;
 			continue;
 		}
 
-		curr_heatval = self.jetgun_heatval;
-		diff_heatval = curr_heatval - prev_heatval;
+		vars["curr_heatval"] = self.jetgun_heatval;
+		vars["diff_heatval"] = vars["curr_heatval"] - vars["prev_heatval"];
 
 		if(self getCurrentWeapon() != "jetgun_zm")
 		{
-			self.jetgun_heatval -= cooldown_amount;
+			self.jetgun_heatval -= vars["cooldown_amount"];
 		}
 		else if(self getCurrentWeapon() == "jetgun_zm" && self attackButtonPressed() && self isMeleeing())
 		{
-			self.jetgun_heatval += overheat_amount;
+			self.jetgun_heatval += vars["overheat_amount"];
 		}
-		else if(diff_heatval < 0)
+		else if(vars["diff_heatval"] < 0)
 		{
-			self.jetgun_heatval -= abs(diff_heatval);
+			self.jetgun_heatval -= abs(vars["diff_heatval"]);
 		}
 
 		if(self.jetgun_heatval < 0)
@@ -3166,12 +3187,12 @@ jetgun_heatval_changes()
 			self.jetgun_heatval = 99.9;
 		}
 
-		if(self.jetgun_heatval != curr_heatval)
+		if(self.jetgun_heatval != vars["curr_heatval"])
 		{
 			self setweaponoverheating(self.jetgun_overheating, self.jetgun_heatval);
 		}
 
-		prev_heatval = self.jetgun_heatval;
+		vars["prev_heatval"] = self.jetgun_heatval;
 
 		wait 0.05;
 	}
@@ -3255,32 +3276,34 @@ weapon_locker_give_ammo_after_rounds()
 
 tombstone_spawn()
 {
-	dc = spawn( "script_model", self.origin + vectorScale( ( 0, 0, 1 ), 40 ) );
-	dc.angles = self.angles;
-	dc setmodel( "tag_origin" );
-	dc_icon = spawn( "script_model", self.origin + vectorScale( ( 0, 0, 1 ), 40 ) );
-	dc_icon.angles = self.angles;
-	dc_icon setmodel( "ch_tombstone1" );
-	dc_icon linkto( dc );
-	dc.icon = dc_icon;
-	dc.script_noteworthy = "player_tombstone_model";
-	dc.player = self;
+	vars = [];
+
+	vars["powerup"] = spawn( "script_model", self.origin + vectorScale( ( 0, 0, 1 ), 40 ) );
+	vars["powerup"].angles = self.angles;
+	vars["powerup"] setmodel( "tag_origin" );
+	vars["icon"] = spawn( "script_model", self.origin + vectorScale( ( 0, 0, 1 ), 40 ) );
+	vars["icon"].angles = self.angles;
+	vars["icon"] setmodel( "ch_tombstone1" );
+	vars["icon"] linkto( vars["powerup"] );
+	vars["powerup"].icon = vars["icon"];
+	vars["powerup"].script_noteworthy = "player_tombstone_model";
+	vars["powerup"].player = self;
 
 	self thread maps\mp\zombies\_zm_tombstone::tombstone_clear();
-	dc thread tombstone_wobble();
-	dc thread tombstone_emp();
+	vars["powerup"] thread tombstone_wobble();
+	vars["powerup"] thread tombstone_emp();
 
 	result = self waittill_any_return( "player_revived", "spawned_player", "disconnect" );
 
 	if (result == "disconnect")
 	{
-		dc tombstone_delete();
+		vars["powerup"] tombstone_delete();
 		return;
 	}
 
-	dc thread tombstone_waypoint();
-	dc thread tombstone_timeout();
-	dc thread tombstone_grab();
+	vars["powerup"] thread tombstone_waypoint();
+	vars["powerup"] thread tombstone_timeout();
+	vars["powerup"] thread tombstone_grab();
 }
 
 tombstone_wobble()
@@ -3325,20 +3348,19 @@ tombstone_emp()
 
 tombstone_waypoint()
 {
-	height_offset = 40;
-	hud_elem = newClientHudElem(self.player);
-	hud_elem.x = self.origin[0];
-	hud_elem.y = self.origin[1];
-	hud_elem.z = self.origin[2] + height_offset;
-	hud_elem.alpha = 1;
-	hud_elem.color = (0.5, 0.5, 0.5);
-	hud_elem.hidewheninmenu = 1;
-	hud_elem.fadewhentargeted = 1;
-	hud_elem setWaypoint(1, "specialty_tombstone_zombies");
+	hud = newClientHudElem(self.player);
+	hud.x = self.origin[0];
+	hud.y = self.origin[1];
+	hud.z = self.origin[2] + 40;
+	hud.alpha = 1;
+	hud.color = (0.5, 0.5, 0.5);
+	hud.hidewheninmenu = 1;
+	hud.fadewhentargeted = 1;
+	hud setWaypoint(1, "specialty_tombstone_zombies");
 
 	self waittill_any("tombstone_grabbed", "tombstone_timedout");
 
-	hud_elem destroy();
+	hud destroy();
 }
 
 tombstone_timeout()
@@ -3748,30 +3770,30 @@ additionalprimaryweapon_indicator()
 		return;
 	}
 
-	additionalprimaryweapon_indicator_hud = newClientHudElem(self);
-	additionalprimaryweapon_indicator_hud.alignx = "right";
-	additionalprimaryweapon_indicator_hud.aligny = "bottom";
-	additionalprimaryweapon_indicator_hud.horzalign = "user_right";
-	additionalprimaryweapon_indicator_hud.vertalign = "user_bottom";
+	hud = newClientHudElem(self);
+	hud.alignx = "right";
+	hud.aligny = "bottom";
+	hud.horzalign = "user_right";
+	hud.vertalign = "user_bottom";
 	if (level.script == "zm_highrise")
 	{
-		additionalprimaryweapon_indicator_hud.x -= 100;
-		additionalprimaryweapon_indicator_hud.y -= 80;
+		hud.x -= 100;
+		hud.y -= 80;
 	}
 	else if (level.script == "zm_tomb")
 	{
-		additionalprimaryweapon_indicator_hud.x -= 75;
-		additionalprimaryweapon_indicator_hud.y -= 60;
+		hud.x -= 75;
+		hud.y -= 60;
 	}
 	else
 	{
-		additionalprimaryweapon_indicator_hud.x -= 75;
-		additionalprimaryweapon_indicator_hud.y -= 80;
+		hud.x -= 75;
+		hud.y -= 80;
 	}
-	additionalprimaryweapon_indicator_hud.alpha = 0;
-	additionalprimaryweapon_indicator_hud.color = ( 1, 1, 1 );
-	additionalprimaryweapon_indicator_hud.hidewheninmenu = 1;
-	additionalprimaryweapon_indicator_hud setShader("specialty_additionalprimaryweapon_zombies", 24, 24);
+	hud.alpha = 0;
+	hud.color = ( 1, 1, 1 );
+	hud.hidewheninmenu = 1;
+	hud setShader("specialty_additionalprimaryweapon_zombies", 24, 24);
 
 	while (1)
 	{
@@ -3779,13 +3801,13 @@ additionalprimaryweapon_indicator()
 
 		if (self hasPerk("specialty_additionalprimaryweapon") && isDefined(self.a_saved_weapon) && self getCurrentWeapon() == self.a_saved_weapon["name"])
 		{
-			additionalprimaryweapon_indicator_hud fadeOverTime(0.5);
-			additionalprimaryweapon_indicator_hud.alpha = 1;
+			hud fadeOverTime(0.5);
+			hud.alpha = 1;
 		}
 		else
 		{
-			additionalprimaryweapon_indicator_hud fadeOverTime(0.5);
-			additionalprimaryweapon_indicator_hud.alpha = 0;
+			hud fadeOverTime(0.5);
+			hud.alpha = 0;
 		}
 	}
 }
@@ -3794,14 +3816,16 @@ additionalprimaryweapon_stowed_weapon_refill()
 {
 	self endon("disconnect");
 
+	vars = [];
+
 	while (1)
 	{
-		string = self waittill_any_return("weapon_change", "weapon_change_complete", "specialty_additionalprimaryweapon_stop", "spawned_player");
+		vars["string"] = self waittill_any_return("weapon_change", "weapon_change_complete", "specialty_additionalprimaryweapon_stop", "spawned_player");
 
 		if(self hasPerk("specialty_additionalprimaryweapon"))
 		{
-			curr_wep = self getCurrentWeapon();
-			if(curr_wep == "none")
+			vars["curr_wep"] = self getCurrentWeapon();
+			if(vars["curr_wep"] == "none")
 			{
 				continue;
 			}
@@ -3809,9 +3833,9 @@ additionalprimaryweapon_stowed_weapon_refill()
 			primaries = self getWeaponsListPrimaries();
 			foreach(primary in primaries)
 			{
-				if(primary != maps\mp\zombies\_zm_weapons::get_nonalternate_weapon(curr_wep))
+				if(primary != maps\mp\zombies\_zm_weapons::get_nonalternate_weapon(vars["curr_wep"]))
 				{
-					if(string != "weapon_change")
+					if(vars["string"] != "weapon_change")
 					{
 						self thread refill_after_time(primary);
 					}
@@ -3831,81 +3855,83 @@ refill_after_time(primary)
 	self endon("specialty_additionalprimaryweapon_stop");
 	self endon("spawned_player");
 
-	reload_time = weaponReloadTime(primary);
-	reload_amount = undefined;
+	vars = [];
+
+	vars["reload_time"] = weaponReloadTime(primary);
+	vars["reload_amount"] = undefined;
 
 	if(primary == "m32_zm" || primary == "python_zm" || maps\mp\zombies\_zm_weapons::get_base_weapon_name(primary, 1) == "judge_zm" || maps\mp\zombies\_zm_weapons::get_base_weapon_name(primary, 1) == "870mcs_zm" || maps\mp\zombies\_zm_weapons::get_base_weapon_name(primary, 1) == "ksg_zm")
 	{
-		reload_amount = 1;
+		vars["reload_amount"] = 1;
 
 		if(maps\mp\zombies\_zm_weapons::get_base_weapon_name(primary, 1) == "ksg_zm" && maps\mp\zombies\_zm_weapons::is_weapon_upgraded(primary))
 		{
-			reload_amount = 2;
+			vars["reload_amount"] = 2;
 		}
 	}
 
-	if(!isDefined(reload_amount) && reload_time < 1)
+	if(!isDefined(vars["reload_amount"]) && vars["reload_time"] < 1)
 	{
-		reload_time = 1;
+		vars["reload_time"] = 1;
 	}
 
 	if(self hasPerk("specialty_fastreload"))
 	{
-		reload_time *= getDvarFloat("perk_weapReloadMultiplier");
+		vars["reload_time"] *= getDvarFloat("perk_weapReloadMultiplier");
 	}
 
-	wait reload_time;
+	wait vars["reload_time"];
 
-	ammo_clip = self getWeaponAmmoClip(primary);
-	ammo_stock = self getWeaponAmmoStock(primary);
-	missing_clip = weaponClipSize(primary) - ammo_clip;
+	vars["ammo_clip"] = self getWeaponAmmoClip(primary);
+	vars["ammo_stock"] = self getWeaponAmmoStock(primary);
+	vars["missing_clip"] = weaponClipSize(primary) - vars["ammo_clip"];
 
-	if(missing_clip > ammo_stock)
+	if(vars["missing_clip"] > vars["ammo_stock"])
 	{
-		missing_clip = ammo_stock;
+		vars["missing_clip"] = vars["ammo_stock"];
 	}
 
-	if(isDefined(reload_amount) && missing_clip > reload_amount)
+	if(isDefined(vars["reload_amount"]) && vars["missing_clip"] > vars["reload_amount"])
 	{
-		missing_clip = reload_amount;
+		vars["missing_clip"] = vars["reload_amount"];
 	}
 
-	self setWeaponAmmoClip(primary, ammo_clip + missing_clip);
-	self setWeaponAmmoStock(primary, ammo_stock - missing_clip);
+	self setWeaponAmmoClip(primary, vars["ammo_clip"] + vars["missing_clip"]);
+	self setWeaponAmmoStock(primary, vars["ammo_stock"] - vars["missing_clip"]);
 
-	dw_primary = weaponDualWieldWeaponName(primary);
-	if(dw_primary != "none")
+	vars["dw_primary"] = weaponDualWieldWeaponName(primary);
+	if(vars["dw_primary"] != "none")
 	{
-		ammo_clip = self getWeaponAmmoClip(dw_primary);
-		ammo_stock = self getWeaponAmmoStock(dw_primary);
-		missing_clip = weaponClipSize(dw_primary) - ammo_clip;
+		vars["ammo_clip"] = self getWeaponAmmoClip(vars["dw_primary"]);
+		vars["ammo_stock"] = self getWeaponAmmoStock(vars["dw_primary"]);
+		vars["missing_clip"] = weaponClipSize(vars["dw_primary"]) - vars["ammo_clip"];
 
-		if(missing_clip > ammo_stock)
+		if(vars["missing_clip"] > vars["ammo_stock"])
 		{
-			missing_clip = ammo_stock;
+			vars["missing_clip"] = vars["ammo_stock"];
 		}
 
-		self setWeaponAmmoClip(dw_primary, ammo_clip + missing_clip);
-		self setWeaponAmmoStock(dw_primary, ammo_stock - missing_clip);
+		self setWeaponAmmoClip(vars["dw_primary"], vars["ammo_clip"] + vars["missing_clip"]);
+		self setWeaponAmmoStock(vars["dw_primary"], vars["ammo_stock"] - vars["missing_clip"]);
 	}
 
-	alt_primary = weaponAltWeaponName(primary);
-	if(alt_primary != "none")
+	vars["alt_primary"] = weaponAltWeaponName(primary);
+	if(vars["alt_primary"] != "none")
 	{
-		ammo_clip = self getWeaponAmmoClip(alt_primary);
-		ammo_stock = self getWeaponAmmoStock(alt_primary);
-		missing_clip = weaponClipSize(alt_primary) - ammo_clip;
+		vars["ammo_clip"] = self getWeaponAmmoClip(vars["alt_primary"]);
+		vars["ammo_stock"] = self getWeaponAmmoStock(vars["alt_primary"]);
+		vars["missing_clip"]= weaponClipSize(vars["alt_primary"]) - vars["ammo_clip"];
 
-		if(missing_clip > ammo_stock)
+		if(vars["missing_clip"]> vars["ammo_stock"])
 		{
-			missing_clip = ammo_stock;
+			vars["missing_clip"]= vars["ammo_stock"];
 		}
 
-		self setWeaponAmmoClip(alt_primary, ammo_clip + missing_clip);
-		self setWeaponAmmoStock(alt_primary, ammo_stock - missing_clip);
+		self setWeaponAmmoClip(vars["alt_primary"], vars["ammo_clip"] + vars["missing_clip"]);
+		self setWeaponAmmoStock(vars["alt_primary"], vars["ammo_stock"] - vars["missing_clip"]);
 	}
 
-	if(isDefined(reload_amount) && self getWeaponAmmoStock(primary) > 0 && self getWeaponAmmoClip(primary) < weaponClipSize(primary))
+	if(isDefined(vars["reload_amount"]) && self getWeaponAmmoStock(primary) > 0 && self getWeaponAmmoClip(primary) < weaponClipSize(primary))
 	{
 		self refill_after_time(primary);
 	}

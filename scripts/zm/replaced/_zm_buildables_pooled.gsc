@@ -233,50 +233,50 @@ find_bench( bench_name )
 
 swap_buildable_fields( stub1, stub2 )
 {
-    tbz = stub2.buildablezone;
+    temp = stub2.buildablezone;
     stub2.buildablezone = stub1.buildablezone;
     stub2.buildablezone.stub = stub2;
-    stub1.buildablezone = tbz;
+    stub1.buildablezone = temp;
     stub1.buildablezone.stub = stub1;
-    tbs = stub2.buildablestruct;
+    temp = stub2.buildablestruct;
     stub2.buildablestruct = stub1.buildablestruct;
-    stub1.buildablestruct = tbs;
-    te = stub2.equipname;
+    stub1.buildablestruct = temp;
+    temp = stub2.equipname;
     stub2.equipname = stub1.equipname;
-    stub1.equipname = te;
-    th = stub2.hint_string;
+    stub1.equipname = temp;
+    temp = stub2.hint_string;
     stub2.hint_string = stub1.hint_string;
-    stub1.hint_string = th;
-    ths = stub2.trigger_hintstring;
+    stub1.hint_string = temp;
+    temp = stub2.trigger_hintstring;
     stub2.trigger_hintstring = stub1.trigger_hintstring;
-    stub1.trigger_hintstring = ths;
-    tp = stub2.persistent;
+    stub1.trigger_hintstring = temp;
+    temp = stub2.persistent;
     stub2.persistent = stub1.persistent;
-    stub1.persistent = tp;
-    tobu = stub2.onbeginuse;
+    stub1.persistent = temp;
+    temp = stub2.onbeginuse;
     stub2.onbeginuse = stub1.onbeginuse;
-    stub1.onbeginuse = tobu;
-    tocu = stub2.oncantuse;
+    stub1.onbeginuse = temp;
+    temp = stub2.oncantuse;
     stub2.oncantuse = stub1.oncantuse;
-    stub1.oncantuse = tocu;
-    toeu = stub2.onenduse;
+    stub1.oncantuse = temp;
+    temp = stub2.onenduse;
     stub2.onenduse = stub1.onenduse;
-    stub1.onenduse = toeu;
-    tt = stub2.target;
+    stub1.onenduse = temp;
+    temp = stub2.target;
     stub2.target = stub1.target;
-    stub1.target = tt;
-    ttn = stub2.targetname;
+    stub1.target = temp;
+    temp = stub2.targetname;
     stub2.targetname = stub1.targetname;
-    stub1.targetname = ttn;
-    twn = stub2.weaponname;
+    stub1.targetname = temp;
+    temp = stub2.weaponname;
     stub2.weaponname = stub1.weaponname;
-    stub1.weaponname = twn;
-	tc = stub2.cost;
+    stub1.weaponname = temp;
+	temp = stub2.cost;
 	stub2.cost = stub1.cost;
-    stub1.cost = tc;
-    pav = stub2.original_prompt_and_visibility_func;
+    stub1.cost = temp;
+    temp = stub2.original_prompt_and_visibility_func;
     stub2.original_prompt_and_visibility_func = stub1.original_prompt_and_visibility_func;
-    stub1.original_prompt_and_visibility_func = pav;
+    stub1.original_prompt_and_visibility_func = temp;
     bench1 = undefined;
     bench2 = undefined;
     transfer_pos_as_is = 1;
@@ -289,33 +289,35 @@ swap_buildable_fields( stub1, stub2 )
 		if ( isdefined( bench1 ) && isdefined( bench2 ) )
 		{
 			transfer_pos_as_is = 0;
-			w2lo1 = bench1 worldtolocalcoords( stub1.model.origin );
-			w2la1 = stub1.model.angles - bench1.angles;
-			w2lo2 = bench2 worldtolocalcoords( stub2.model.origin );
-			w2la2 = stub2.model.angles - bench2.angles;
-			stub1.model.origin = bench2 localtoworldcoords( w2lo1 );
-			stub1.model.angles = bench2.angles + w2la1;
-			stub2.model.origin = bench1 localtoworldcoords( w2lo2 );
-			stub2.model.angles = bench1.angles + w2la2;
+			temp = [];
+			temp[0] = bench1 worldtolocalcoords( stub1.model.origin );
+			temp[1] = stub1.model.angles - bench1.angles;
+			temp[2] = bench2 worldtolocalcoords( stub2.model.origin );
+			temp[3] = stub2.model.angles - bench2.angles;
+			stub1.model.origin = bench2 localtoworldcoords( temp[0] );
+			stub1.model.angles = bench2.angles + temp[1];
+			stub2.model.origin = bench1 localtoworldcoords( temp[2] );
+			stub2.model.angles = bench1.angles + temp[3];
 		}
 
-		tmt = stub2.model.target;
+		temp = stub2.model.target;
 		stub2.model.target = stub1.model.target;
-		stub1.model.target = tmt;
+		stub1.model.target = temp;
 	}
 
-    tm = stub2.model;
+    temp = stub2.model;
     stub2.model = stub1.model;
-    stub1.model = tm;
+    stub1.model = temp;
 
 	if ( transfer_pos_as_is )
     {
-        tmo = stub2.model.origin;
-        tma = stub2.model.angles;
+		temp = [];
+        temp[0] = stub2.model.origin;
+        temp[1] = stub2.model.angles;
         stub2.model.origin = stub1.model.origin;
         stub2.model.angles = stub1.model.angles;
-        stub1.model.origin = tmo;
-        stub1.model.angles = tma;
+        stub1.model.origin = temp[0];
+        stub1.model.angles = temp[1];
 
 		swap_buildable_fields_model_offset(stub1, stub2);
     }
