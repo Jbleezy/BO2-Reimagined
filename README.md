@@ -371,6 +371,7 @@
 ## Weapon Locker
 * Stored weapon resets each game
 * Stored weapon gains max ammo at the end of each round
+* Stored weapon is shown
 
 ## Maps
 
