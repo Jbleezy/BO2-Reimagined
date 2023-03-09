@@ -365,7 +365,7 @@
 * Gain 10% interest on deposited points at the end of each round
 * No longer costs 100 points to withdraw
 * Players can deposit and withdraw less than 1000 points
-* Account balance is shown when depositing, withdrawing, and going near the triggers
+* Account balance is shown
 * Disabled trading points
 
 ## Weapon Locker

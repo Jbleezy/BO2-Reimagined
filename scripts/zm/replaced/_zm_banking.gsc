@@ -104,7 +104,7 @@ trigger_deposit_think()
 		{
 			player thread do_player_general_vox( "general", "exert_sigh", 10, 50 );
 		}
-		player show_balance();
+		self thread show_balance(player);
 	}
 }
 
@@ -150,13 +150,13 @@ trigger_withdraw_think()
 		{
 			player thread do_player_general_vox( "general", "exert_sigh", 10, 50 );
 		}
-		player show_balance();
+		self thread show_balance(player);
 	}
 }
 
 trigger_deposit_update_prompt( player )
 {
-	player show_balance();
+	self thread show_balance(player);
 	if ( (player.score <= 0) || (player.account_value >= level.bank_account_max) )
 	{
 		self sethintstring( "" );
@@ -168,7 +168,7 @@ trigger_deposit_update_prompt( player )
 
 trigger_withdraw_update_prompt( player )
 {
-	player show_balance();
+	self thread show_balance(player);
 	if ( player.account_value <= 0 )
 	{
 		self sethintstring( "" );
@@ -178,7 +178,52 @@ trigger_withdraw_update_prompt( player )
 	return 1;
 }
 
-show_balance()
+show_balance(player)
 {
-	self iprintlnbold("Account Balance: " + round_up_to_ten(int(self.account_value * level.bank_deposit_ddl_increment_amount)));
+	stub = self.stub;
+
+	if (!isDefined(stub.bankbalancehud))
+	{
+		stub.bankbalancehud = [];
+	}
+
+	num = player getentitynumber();
+
+	if (isDefined(stub.bankbalancehud[num]))
+	{
+		stub.bankbalancehud[num] settext( "Account Balance: " + round_up_to_ten(int(player.account_value * level.bank_deposit_ddl_increment_amount)) );
+		return;
+	}
+
+	hud = newclienthudelem( player );
+	hud.alignx = "center";
+	hud.aligny = "middle";
+	hud.horzalign = "center";
+	hud.vertalign = "bottom";
+	hud.y = -100;
+	hud.foreground = 1;
+	hud.hidewheninmenu = 1;
+	hud.font = "default";
+	hud.fontscale = 1;
+	hud.alpha = 1;
+	hud.color = ( 1, 1, 1 );
+	hud settext( "Account Balance: " + round_up_to_ten(int(player.account_value * level.bank_deposit_ddl_increment_amount)) );
+	stub.bankbalancehud[num] = hud;
+
+	while ( isDefined( self ) )
+	{
+		if (!player isTouching(self))
+		{
+			hud.alpha = 0;
+			wait 0.05;
+			continue;
+		}
+
+		hud.alpha = 1;
+
+		wait 0.05;
+	}
+
+	stub.bankbalancehud[num] destroy();
+	stub.bankbalancehud[num] = undefined;
 }
