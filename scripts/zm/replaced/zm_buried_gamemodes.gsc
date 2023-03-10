@@ -13,6 +13,18 @@
 #include maps\mp\zombies\_zm_unitrigger;
 #include maps\mp\zm_buried_gamemodes;
 
+#include scripts\zm\replaced\zm_buried_grief_street;
+
+init()
+{
+    add_map_gamemode( "zclassic", maps\mp\zm_buried::zclassic_preinit, undefined, undefined );
+    add_map_gamemode( "zcleansed", maps\mp\zm_buried::zcleansed_preinit, undefined, undefined );
+    add_map_gamemode( "zgrief", maps\mp\zm_buried::zgrief_preinit, undefined, undefined );
+    add_map_location_gamemode( "zclassic", "processing", maps\mp\zm_buried_classic::precache, maps\mp\zm_buried_classic::main );
+    add_map_location_gamemode( "zcleansed", "street", maps\mp\zm_buried_turned_street::precache, maps\mp\zm_buried_turned_street::main );
+    add_map_location_gamemode( "zgrief", "street", scripts\zm\replaced\zm_buried_grief_street::precache, scripts\zm\replaced\zm_buried_grief_street::main );
+}
+
 buildbuildable( buildable )
 {
     player = get_players()[0];
