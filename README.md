@@ -300,10 +300,13 @@
 * Removed
 
 ### Meat
+* All zombies go after player holding the meat
+* 60% move speed while holding the meat
+* Decreased time on ground from 16 seconds to 10 seconds
+* Bounces off walls when thrown
 * Able to drop when players are down
 * Changed powerup fx color to blue
-* Decreased time on ground from 16 seconds to 10 seconds
-* Message shows when the meat is on a player
+* Message shows when the meat is grabbed and thrown on a player
 * Meleeing while the meat is moving no longer grabs the meat
 * Meleeing while the meat is moving throws the meat
 * Meleeing while the meat is moving activates more consistently
@@ -571,8 +574,6 @@
 * Gain score by being the team holding the meat
 * Gain 200 score to win the game
 * Meat powerup always spawns from the first zombie killed
-* All zombies go after the player holding the meat
-* Player holding the meat moves at 60% speed
 * Player holding the meat gains 100 points when their team gains score
 * Downing while holding the meat drops it as a powerup
 * Throwing the meat on the ground drops it as a powerup

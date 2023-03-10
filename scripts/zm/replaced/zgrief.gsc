@@ -18,27 +18,232 @@ game_mode_spawn_player_logic()
 	return 0;
 }
 
-meat_stink_on_ground(position_to_play)
+meat_bounce_override( pos, normal, ent, bounce )
 {
-	if(level.scr_zm_ui_gametype_obj == "zmeat")
+    if ( isdefined( ent ) && isplayer( ent ) )
+    {
+        if ( is_player_valid(ent) )
+        {
+            level thread meat_stink_player( ent );
+
+            if ( isdefined( self.owner ) )
+            {
+                maps\mp\_demo::bookmark( "zm_player_meat_stink", gettime(), ent, self.owner, 0, self );
+                self.owner maps\mp\zombies\_zm_stats::increment_client_stat( "contaminations_given" );
+            }
+
+			self delete();
+
+			return;
+        }
+    }
+    else
+    {
+        players = getplayers();
+        closest_player = undefined;
+        closest_player_dist = 10000.0;
+
+		foreach (player in players)
+		{
+			if ( self.owner == player )
+                continue;
+
+            if ( !is_player_valid(player) )
+                continue;
+
+            distsq = distancesquared( pos, player.origin );
+
+            if ( distsq < closest_player_dist )
+            {
+                closest_player = player;
+                closest_player_dist = distsq;
+            }
+		}
+
+        if ( isdefined( closest_player ) )
+        {
+            level thread meat_stink_player( closest_player );
+
+            if ( isdefined( self.owner ) )
+            {
+                maps\mp\_demo::bookmark( "zm_player_meat_stink", gettime(), closest_player, self.owner, 0, self );
+                self.owner maps\mp\zombies\_zm_stats::increment_client_stat( "contaminations_given" );
+            }
+
+			self delete();
+
+			return;
+        }
+
+        playfx( level._effect["meat_impact"], self.origin );
+    }
+
+	if (is_true(bounce))
 	{
-		if (isDefined(level.meat_powerup))
+		landed_on = self getgroundent();
+
+		if (!isDefined(landed_on) || isAI(landed_on))
 		{
 			return;
 		}
+	}
 
-		if (is_true(level.meat_on_ground))
+	valid_poi = check_point_in_enabled_zone( pos, undefined, undefined );
+
+	if ( valid_poi )
+	{
+		self hide();
+
+		if (level.scr_zm_ui_gametype_obj == "zmeat")
 		{
-			return;
+			level.meat_powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop( "meat_stink", self.origin );
+		}
+		else
+		{
+			level thread meat_stink_on_ground( self.origin );
+		}
+	}
+	else
+	{
+		level notify("meat_inactive");
+	}
+
+	self delete();
+}
+
+meat_stink( who )
+{
+    weapons = who getweaponslist();
+    has_meat = 0;
+
+    foreach ( weapon in weapons )
+    {
+        if ( weapon == "item_meat_zm" )
+            has_meat = 1;
+    }
+
+    if ( has_meat )
+        return;
+
+    who.pre_meat_weapon = who getcurrentweapon();
+    level notify( "meat_grabbed" );
+    who notify( "meat_grabbed" );
+    who playsound( "zmb_pickup_meat" );
+    who increment_is_drinking();
+    who giveweapon( "item_meat_zm" );
+    who switchtoweapon( "item_meat_zm" );
+    who setweaponammoclip( "item_meat_zm", 1 );
+	who setMoveSpeedScale(0.6);
+	level.meat_player = who;
+
+	players = get_players();
+	foreach (player in players)
+	{
+		player thread maps\mp\gametypes_zm\zgrief::meat_stink_player_cleanup();
+		if (player != who)
+		{
+			player.ignoreme = 1;
 		}
 
-		level.meat_on_ground = 1;
-		level.meat_powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop( "meat_stink", position_to_play );
-		level.meat_on_ground = undefined;
+		player print_meat_msg(who, "grabbed");
 
+		if (level.scr_zm_ui_gametype_obj == "zmeat")
+		{
+			if (player.team == who.team)
+			{
+				player thread scripts\zm\zgrief\zgrief_reimagined::show_grief_hud_msg(&"ZOMBIE_YOUR_TEAM_MEAT");
+			}
+			else
+			{
+				player thread scripts\zm\zgrief\zgrief_reimagined::show_grief_hud_msg(&"ZOMBIE_OTHER_TEAM_MEAT");
+			}
+		}
+	}
+
+	who thread maps\mp\gametypes_zm\zgrief::meat_stink_player_create();
+
+	if (level.scr_zm_ui_gametype_obj == "zmeat")
+	{
+		who thread meat_powerup_drop_on_downed();
+		who thread meat_powerup_reset_on_disconnect();
+	}
+}
+
+meat_powerup_drop_on_downed()
+{
+	self endon("disconnect");
+	self endon("bled_out");
+	self endon("meat_unstink_player");
+
+	self waittill("player_downed");
+
+	if (isDefined(level.item_meat))
+	{
 		return;
 	}
 
+	if (isDefined(level.meat_powerup))
+	{
+		return;
+	}
+
+	level.meat_player = undefined;
+
+	self setMoveSpeedScale(1);
+
+	players = get_players();
+	foreach (player in players)
+	{
+		player thread maps\mp\gametypes_zm\zgrief::meat_stink_player_cleanup();
+
+		if (is_player_valid(player) && !is_true(player.spawn_protection) && !is_true(player.revive_protection))
+		{
+			player.ignoreme = 0;
+		}
+	}
+
+	valid_drop = check_point_in_enabled_zone( self.origin, undefined, undefined );
+
+	if (valid_drop)
+	{
+		players = get_players();
+		foreach (player in players)
+		{
+			player thread scripts\zm\zgrief\zgrief_reimagined::show_grief_hud_msg("Meat dropped!");
+		}
+
+		level.meat_powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop( "meat_stink", self.origin );
+	}
+	else
+	{
+		level notify("meat_inactive");
+	}
+}
+
+meat_powerup_reset_on_disconnect()
+{
+    level endon("meat_thrown");
+	self endon("player_downed");
+	self endon("bled_out");
+
+    self waittill("disconnect");
+
+	level.meat_player = undefined;
+
+	players = get_players();
+	foreach (player in players)
+	{
+		if (is_player_valid(player) && !is_true(player.spawn_protection) && !is_true(player.revive_protection))
+		{
+			player.ignoreme = 0;
+		}
+	}
+
+    level notify("meat_inactive");
+}
+
+meat_stink_on_ground(position_to_play)
+{
 	level.meat_on_ground = 1;
 	attractor_point = spawn( "script_model", position_to_play );
 	attractor_point setmodel( "tag_origin" );
@@ -62,7 +267,7 @@ meat_stink_player( who )
 
 	if(level.scr_zm_ui_gametype_obj == "zmeat")
 	{
-		level thread maps\mp\gametypes_zm\zgrief::meat_stink(who);
+		level thread meat_stink(who);
 		return;
 	}
 
@@ -76,7 +281,7 @@ meat_stink_player( who )
 			player.ignoreme = 1;
 		}
 
-		print_meat_msg(player, who);
+		player print_meat_msg(who, "has");
 	}
 	who thread maps\mp\gametypes_zm\zgrief::meat_stink_player_create();
 	who waittill_any_or_timeout( 30, "disconnect", "player_downed", "bled_out" );
@@ -88,10 +293,10 @@ meat_stink_player( who )
 	}
 }
 
-print_meat_msg(player, meat_player)
+print_meat_msg(meat_player, verb)
 {
 	color = "";
-	if(player.team == meat_player.team)
+	if(self.team == meat_player.team)
 	{
 		color = "^8";
 	}
@@ -100,5 +305,5 @@ print_meat_msg(player, meat_player)
 		color = "^9";
 	}
 
-	player iprintln(color + meat_player.name + " has the meat");
+	self iprintln(color + meat_player.name + " " + verb + " the meat");
 }

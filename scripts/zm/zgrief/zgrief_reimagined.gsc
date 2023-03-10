@@ -26,11 +26,14 @@ main()
 	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::onspawnplayer, scripts\zm\replaced\_zm_gametype::onspawnplayer);
 	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::onplayerspawned, scripts\zm\replaced\_zm_gametype::onplayerspawned);
 	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::hide_gump_loading_for_hotjoiners, scripts\zm\replaced\_zm_gametype::hide_gump_loading_for_hotjoiners);
+	replaceFunc(maps\mp\gametypes_zm\zgrief::meat_stink, scripts\zm\replaced\zgrief::meat_stink);
 	replaceFunc(maps\mp\gametypes_zm\zgrief::meat_stink_on_ground, scripts\zm\replaced\zgrief::meat_stink_on_ground);
 	replaceFunc(maps\mp\gametypes_zm\zgrief::meat_stink_player, scripts\zm\replaced\zgrief::meat_stink_player);
 	replaceFunc(maps\mp\gametypes_zm\zmeat::item_meat_watch_trigger, scripts\zm\replaced\zmeat::item_meat_watch_trigger);
 	replaceFunc(maps\mp\gametypes_zm\zmeat::kick_meat_monitor, scripts\zm\replaced\zmeat::kick_meat_monitor);
 	replaceFunc(maps\mp\gametypes_zm\zmeat::last_stand_meat_nudge, scripts\zm\replaced\zmeat::last_stand_meat_nudge);
+	replaceFunc(maps\mp\gametypes_zm\zmeat::item_meat_on_spawn_retrieve_trigger, scripts\zm\replaced\zmeat::item_meat_on_spawn_retrieve_trigger);
+	replaceFunc(maps\mp\gametypes_zm\zmeat::item_meat_watch_bounce, scripts\zm\replaced\zmeat::item_meat_watch_bounce);
 }
 
 init()
@@ -70,6 +73,7 @@ init()
 
 	level.can_revive_game_module = ::can_revive;
 	level._powerup_grab_check = ::powerup_can_player_grab;
+	level.meat_bounce_override = scripts\zm\replaced\zgrief::meat_bounce_override;
 
 	level.is_respawn_gamemode_func = ::is_respawn_gamemode;
 	level.round_start_wait_func = ::round_start_wait;
@@ -703,9 +707,10 @@ grief_onplayerconnect()
 	self thread on_player_bleedout();
 	self thread on_player_revived();
 	self thread team_player_waypoint();
+	self thread obj_waypoint();
 	self thread headstomp_watcher();
 	self thread smoke_grenade_cluster_watcher();
-	self thread maps\mp\gametypes_zm\zmeat::create_item_meat_watcher();
+	self thread scripts\zm\replaced\zmeat::create_item_meat_watcher();
 	self.killsconfirmed = 0;
 
 	if(level.scr_zm_ui_gametype_obj == "zgrief" || level.scr_zm_ui_gametype_obj == "zcontainment" || level.scr_zm_ui_gametype_obj == "zmeat")
@@ -1011,6 +1016,34 @@ team_player_waypoint_origin_think()
 		}
 
 		wait 0.05;
+	}
+}
+
+obj_waypoint()
+{
+	self.obj_waypoint = [];
+	self.obj_waypoint = newClientHudElem(self);
+	self.obj_waypoint.alignx = "center";
+	self.obj_waypoint.aligny = "middle";
+	self.obj_waypoint.horzalign = "user_center";
+	self.obj_waypoint.vertalign = "user_center";
+	self.obj_waypoint.alpha = 0;
+	self.obj_waypoint.hidewheninmenu = 1;
+	self.obj_waypoint.foreground = 1;
+	self.obj_waypoint setWaypoint(1, "waypoint_revive");
+
+	self thread obj_waypoint_destroy_on_end_game();
+}
+
+obj_waypoint_destroy_on_end_game()
+{
+	self endon("disconnect");
+
+	level waittill("end_game");
+
+	if(isDefined(self.obj_waypoint))
+	{
+		self.obj_waypoint destroy();
 	}
 }
 
@@ -2454,36 +2487,12 @@ containment_init()
 	level thread containment_think();
 }
 
-containment_waypoint_init()
-{
-	hud = [];
-	hud = newClientHudElem(self);
-	hud.alignx = "center";
-	hud.aligny = "middle";
-	hud.horzalign = "user_center";
-	hud.vertalign = "user_center";
-	hud.alpha = 1;
-	hud.hidewheninmenu = 1;
-	hud.foreground = 1;
-
-	return hud;
-}
-
 containment_hud_destroy_on_end_game()
 {
 	level waittill("end_game");
 
 	level.containment_zone_hud setText("");
 	level.containment_time_hud setText("");
-
-	players = get_players();
-	foreach(player in players)
-	{
-		if(isDefined(player.obj_waypoint))
-		{
-			player.obj_waypoint destroy();
-		}
-	}
 
 	level waittill("intermission");
 
@@ -2556,11 +2565,6 @@ containment_think()
 
 			foreach(player in players)
 			{
-				if(!isDefined(player.obj_waypoint))
-				{
-					player.obj_waypoint = player containment_waypoint_init();
-				}
-
 				if(player get_current_zone() == zone_name)
 				{
 					if(is_player_valid(player))
@@ -2886,10 +2890,9 @@ meat_init()
 {
 	level._powerup_timeout_custom_time = ::meat_powerup_custom_time;
 
-	level thread meat_hud_destroy_on_end_game();
 	level thread meat_powerup_drop_think();
+	level thread meat_powerup_drop_watcher();
 	level thread meat_think();
-	level thread meat_thrown_hud_msg();
 }
 
 meat_powerup_drop_think()
@@ -2936,102 +2939,38 @@ meat_powerup_drop_think()
 
 		level.meat_powerup = powerup;
 
-		meat_active = true;
-		while (meat_active)
-		{
-			wait 0.05;
-
-			meat_active = false;
-
-			if (!meat_active)
-			{
-				if (isDefined(level.item_meat))
-				{
-					meat_active = true;
-
-					if (!isDefined(level.item_meat.obj_waypoint_origin))
-					{
-						level.item_meat.obj_waypoint_origin = spawn( "script_model", level.item_meat.origin );
-						level.item_meat.obj_waypoint_origin setmodel( "tag_origin" );
-
-						level.item_meat thread meat_waypoint_origin_destroy_on_death();
-					}
-
-					level.item_meat.obj_waypoint_origin.origin = level.item_meat.origin + (0, 0, 32);
-
-					players = get_players();
-					foreach (player in players)
-					{
-						if (!isDefined(player.obj_waypoint))
-						{
-							player.obj_waypoint = player meat_waypoint_init();
-						}
-
-						player.obj_waypoint.alpha = 1;
-						player.obj_waypoint.color = (1, 1, 1);
-						player.obj_waypoint setTargetEnt(level.item_meat.obj_waypoint_origin);
-					}
-				}
-			}
-
-			if (!meat_active)
-			{
-				players = get_players();
-				foreach(player in players)
-				{
-					if(player hasWeapon("item_meat_zm"))
-					{
-						meat_active = true;
-					}
-				}
-			}
-
-			if (!meat_active)
-			{
-				if (isDefined(level.meat_powerup))
-				{
-					meat_active = true;
-
-					if (!isDefined(level.meat_powerup.obj_waypoint_origin))
-					{
-						level.meat_powerup.obj_waypoint_origin = spawn( "script_model", level.meat_powerup.origin + (0, 0, 32) );
-						level.meat_powerup.obj_waypoint_origin setmodel( "tag_origin" );
-
-						level.meat_powerup thread meat_waypoint_origin_destroy_on_death();
-					}
-
-					players = get_players();
-					foreach (player in players)
-					{
-						if (!isDefined(player.obj_waypoint))
-						{
-							player.obj_waypoint = player meat_waypoint_init();
-						}
-
-						player.obj_waypoint.alpha = 1;
-						player.obj_waypoint.color = (1, 1, 1);
-						player.obj_waypoint setTargetEnt(level.meat_powerup.obj_waypoint_origin);
-					}
-				}
-			}
-
-			if (!meat_active)
-			{
-				if (is_true(level.meat_on_ground))
-				{
-					meat_active = true;
-				}
-			}
-		}
+		level waittill("meat_inactive");
 
 		players = get_players();
 		foreach (player in players)
 		{
 			player thread show_grief_hud_msg("Meat reset!");
 		}
-
-		level notify("meat_inactive");
 	}
+}
+
+meat_powerup_drop_watcher()
+{
+	while (1)
+	{
+		level waittill( "powerup_dropped", powerup );
+
+		if (powerup.powerup_name != "meat_stink")
+		{
+			continue;
+		}
+
+		powerup thread meat_powerup_reset_on_timeout();
+	}
+}
+
+meat_powerup_reset_on_timeout()
+{
+	self endon("powerup_grabbed");
+
+	self waittill("powerup_timedout");
+
+	level notify("meat_inactive");
 }
 
 meat_waypoint_origin_destroy_on_death()
@@ -3055,50 +2994,34 @@ meat_think()
 
 	while(1)
 	{
-		if (!isDefined(meat_player))
+		if (isDefined(level.meat_player))
 		{
-			players = get_players();
+			if (!isDefined(held_time))
+			{
+				held_time = getTime();
+
+				level.meat_player.player_waypoint.alpha = 0;
+				level.meat_player.obj_waypoint.alpha = 0;
+
+				level.meat_player thread show_player_waypoint_on_meat_drop();
+			}
+
 			foreach (player in players)
 			{
-				if (player hasWeapon("item_meat_zm"))
+				if (player != level.meat_player)
 				{
-					meat_player = player;
-					held_time = getTime();
+					player.obj_waypoint.alpha = 1;
 
-					level thread meat_stink_player(meat_player);
-
-					break;
-				}
-			}
-		}
-
-		if (isDefined(meat_player))
-		{
-			if (!meat_player hasWeapon("item_meat_zm"))
-			{
-				level thread meat_unstink_player(meat_player);
-
-				meat_player = undefined;
-				held_time = undefined;
-
-				players = get_players();
-				foreach (player in players)
-				{
-					if (!is_true(player.spawn_protection) && !is_true(player.revive_protection))
+					if (player.team == level.meat_player.team)
 					{
-						player.ignoreme = 0;
+						player.obj_waypoint.color = (0, 1, 0);
 					}
-				}
+					else
+					{
+						player.obj_waypoint.color = (1, 0, 0);
+					}
 
-				continue;
-			}
-
-			players = get_players();
-			foreach (player in players)
-			{
-				if (player != meat_player)
-				{
-					player.ignoreme = 1;
+					player.obj_waypoint setTargetEnt(level.meat_player.player_waypoint_origin);
 				}
 			}
 
@@ -3106,10 +3029,63 @@ meat_think()
 			{
 				held_time = getTime();
 
-				score = 100 * maps\mp\zombies\_zm_score::get_points_multiplier(meat_player);
-				meat_player maps\mp\zombies\_zm_score::add_to_player_score(score);
+				score = 100 * maps\mp\zombies\_zm_score::get_points_multiplier(level.meat_player);
+				level.meat_player maps\mp\zombies\_zm_score::add_to_player_score(score);
 
-				increment_score(meat_player.team);
+				increment_score(level.meat_player.team);
+			}
+		}
+		else
+		{
+			held_time = undefined;
+
+			if (isDefined(level.item_meat))
+			{
+				if (!isDefined(level.item_meat.obj_waypoint_origin))
+				{
+					level.item_meat.obj_waypoint_origin = spawn( "script_model", level.item_meat.origin );
+					level.item_meat.obj_waypoint_origin setmodel( "tag_origin" );
+
+					level.item_meat thread meat_waypoint_origin_destroy_on_death();
+				}
+
+				level.item_meat.obj_waypoint_origin.origin = level.item_meat.origin + (0, 0, 32);
+
+				players = get_players();
+				foreach (player in players)
+				{
+					player.obj_waypoint.alpha = 1;
+					player.obj_waypoint.color = (1, 1, 1);
+					player.obj_waypoint setTargetEnt(level.item_meat.obj_waypoint_origin);
+				}
+			}
+			else if (isDefined(level.meat_powerup))
+			{
+				meat_active = true;
+
+				if (!isDefined(level.meat_powerup.obj_waypoint_origin))
+				{
+					level.meat_powerup.obj_waypoint_origin = spawn( "script_model", level.meat_powerup.origin + (0, 0, 32) );
+					level.meat_powerup.obj_waypoint_origin setmodel( "tag_origin" );
+
+					level.meat_powerup thread meat_waypoint_origin_destroy_on_death();
+				}
+
+				players = get_players();
+				foreach (player in players)
+				{
+					player.obj_waypoint.alpha = 1;
+					player.obj_waypoint.color = (1, 1, 1);
+					player.obj_waypoint setTargetEnt(level.meat_powerup.obj_waypoint_origin);
+				}
+			}
+			else
+			{
+				players = get_players();
+				foreach (player in players)
+				{
+					player.obj_waypoint.alpha = 0;
+				}
 			}
 		}
 
@@ -3117,166 +3093,14 @@ meat_think()
 	}
 }
 
-meat_stink_player(meat_player)
+show_player_waypoint_on_meat_drop()
 {
-	if (!isDefined(meat_player.obj_waypoint_origin))
+	while (isDefined(level.meat_player))
 	{
-		meat_player.obj_waypoint_origin = spawn( "script_model", meat_player.origin + (0, 0, 72) );
-		meat_player.obj_waypoint_origin setmodel( "tag_origin" );
-		meat_player.obj_waypoint_origin linkto( meat_player );
+		wait 0.05;
 	}
 
-	meat_player setMoveSpeedScale(0.6);
-
-	meat_player.player_waypoint.alpha = 0;
-
-	players = get_players();
-	foreach (player in players)
-	{
-		if (!isDefined(player.obj_waypoint))
-		{
-			player.obj_waypoint = player meat_waypoint_init();
-		}
-
-		scripts\zm\replaced\zgrief::print_meat_msg(player, meat_player);
-
-		if (player.team == meat_player.team)
-		{
-			player thread show_grief_hud_msg(&"ZOMBIE_YOUR_TEAM_MEAT");
-		}
-		else
-		{
-			player thread show_grief_hud_msg(&"ZOMBIE_OTHER_TEAM_MEAT");
-		}
-
-		if (player == meat_player)
-		{
-			player.obj_waypoint.alpha = 0;
-		}
-		else
-		{
-			player.obj_waypoint.alpha = 1;
-
-			if (player.team == meat_player.team)
-			{
-				player.obj_waypoint.color = (0, 1, 0);
-			}
-			else
-			{
-				player.obj_waypoint.color = (1, 0, 0);
-			}
-
-			player.obj_waypoint setTargetEnt(meat_player.obj_waypoint_origin);
-		}
-
-		player thread meat_stink_player_cleanup();
-	}
-
-	meat_player thread meat_stink_player_create();
-
-	meat_player thread meat_powerup_drop_on_downed();
-}
-
-meat_unstink_player(meat_player)
-{
-	if (isDefined(meat_player.obj_waypoint_origin))
-	{
-		meat_player.obj_waypoint_origin unlink();
-    	meat_player.obj_waypoint_origin delete();
-	}
-
-	meat_player setMoveSpeedScale(1);
-
-	if (is_player_valid(meat_player))
-	{
-		meat_player.player_waypoint.alpha = 1;
-	}
-
-	players = get_players();
-	foreach (player in players)
-	{
-		if(isDefined(player.obj_waypoint))
-		{
-			player.obj_waypoint.alpha = 0;
-		}
-
-		player thread meat_stink_player_cleanup();
-	}
-
-	meat_player notify("meat_unstink_player");
-}
-
-meat_stink_player_create()
-{
-    self maps\mp\zombies\_zm_stats::increment_client_stat( "contaminations_received" );
-    self endon( "disconnect" );
-    self endon( "death" );
-    tagname = "J_SpineLower";
-    self.meat_stink_3p = spawn( "script_model", self gettagorigin( tagname ) );
-    self.meat_stink_3p setmodel( "tag_origin" );
-    self.meat_stink_3p linkto( self, tagname );
-    wait 0.5;
-    playfxontag( level._effect["meat_stink_torso"], self.meat_stink_3p, "tag_origin" );
-    self setclientfieldtoplayer( "meat_stink", 1 );
-}
-
-meat_stink_player_cleanup()
-{
-    if ( isdefined( self.meat_stink_3p ) )
-    {
-        self.meat_stink_3p unlink();
-        self.meat_stink_3p delete();
-    }
-
-    self setclientfieldtoplayer( "meat_stink", 0 );
-}
-
-meat_powerup_drop_on_downed()
-{
-	self endon("disconnect");
-	self endon("bled_out");
-	self endon("meat_unstink_player");
-
-	self waittill("player_downed");
-
-	if (isDefined(level.item_meat))
-	{
-		return;
-	}
-
-	if (isDefined(level.meat_powerup))
-	{
-		return;
-	}
-
-	if (is_true(level.meat_on_ground))
-	{
-		return;
-	}
-
-	valid_drop = 0;
-	playable_area = getentarray("player_volume", "script_noteworthy");
-    for (i = 0; i < playable_area.size; i++)
-    {
-        if (self isTouching(playable_area[i]))
-		{
-			valid_drop = 1;
-			break;
-		}
-    }
-
-	if (valid_drop)
-	{
-		players = get_players();
-		foreach (player in players)
-		{
-			player thread show_grief_hud_msg("Meat dropped!");
-		}
-
-		level.meat_on_ground = 1;
-		level.meat_powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop( "meat_stink", self.origin );
-		level.meat_on_ground = undefined;
-	}
+	self.player_waypoint.alpha = 0;
 }
 
 meat_powerup_custom_time(powerup)
@@ -3287,38 +3111,6 @@ meat_powerup_custom_time(powerup)
 	}
 
     return 15;
-}
-
-meat_thrown_hud_msg()
-{
-	level endon("end_game");
-
-	while (1)
-	{
-		level waittill("meat_thrown", player);
-
-		players = get_players();
-		foreach (player in players)
-		{
-			player thread show_grief_hud_msg("Meat thrown!");
-		}
-	}
-}
-
-meat_waypoint_init()
-{
-	hud = [];
-	hud = newClientHudElem(self);
-	hud.alignx = "center";
-	hud.aligny = "middle";
-	hud.horzalign = "user_center";
-	hud.vertalign = "user_center";
-	hud.alpha = 1;
-	hud.hidewheninmenu = 1;
-	hud.foreground = 1;
-	hud setWaypoint(1, "waypoint_revive");
-
-	return hud;
 }
 
 can_revive(revivee)
@@ -3342,20 +3134,6 @@ powerup_can_player_grab(player)
 	}
 
 	return true;
-}
-
-meat_hud_destroy_on_end_game()
-{
-	level waittill("end_game");
-
-	players = get_players();
-	foreach(player in players)
-	{
-		if(isDefined(player.obj_waypoint))
-		{
-			player.obj_waypoint destroy();
-		}
-	}
 }
 
 increment_score(team)
