@@ -43,6 +43,64 @@ ai_calculate_health( round_number )
 	}
 }
 
+onallplayersready()
+{
+    timeout = gettime() + 5000;
+
+    while ( getnumexpectedplayers() == 0 && gettime() < timeout )
+        wait 0.1;
+
+    player_count_actual = 0;
+
+    while ( getnumconnectedplayers() < getnumexpectedplayers() || player_count_actual != getnumexpectedplayers() )
+    {
+        players = get_players();
+        player_count_actual = 0;
+
+        for ( i = 0; i < players.size; i++ )
+        {
+            players[i] freezecontrols( 1 );
+
+            if ( players[i].sessionstate == "playing" )
+                player_count_actual++;
+        }
+
+        wait 0.1;
+    }
+
+    setinitialplayersconnected();
+
+    if ( 1 == getnumconnectedplayers() && getdvarint( "scr_zm_enable_bots" ) == 1 )
+    {
+        level thread add_bots();
+        flag_set( "initial_players_connected" );
+    }
+    else
+    {
+        players = get_players();
+
+        if ( players.size == 1 && level.scr_zm_ui_gametype != "zgrief" )
+        {
+            flag_set( "solo_game" );
+            level.solo_lives_given = 0;
+
+            foreach ( player in players )
+                player.lives = 0;
+
+            level maps\mp\zombies\_zm::set_default_laststand_pistol( 1 );
+        }
+
+        flag_set( "initial_players_connected" );
+
+        while ( !aretexturesloaded() )
+            wait 0.05;
+
+        thread start_zombie_logic_in_x_sec( 3.0 );
+    }
+
+    fade_out_intro_screen_zm( 5.0, 1.5, 1 );
+}
+
 last_stand_pistol_rank_init()
 {
 	level.pistol_values = [];
