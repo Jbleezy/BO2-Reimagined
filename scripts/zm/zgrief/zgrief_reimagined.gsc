@@ -9,6 +9,8 @@
 #include scripts\zm\replaced\_zm_game_module;
 #include scripts\zm\replaced\_zm_gametype;
 #include scripts\zm\replaced\_zm_blockers;
+#include scripts\zm\replaced\zgrief;
+#include scripts\zm\replaced\zmeat;
 
 main()
 {
@@ -18,12 +20,17 @@ main()
 	}
 
 	replaceFunc(maps\mp\zombies\_zm::getfreespawnpoint, scripts\zm\replaced\_zm::getfreespawnpoint);
-	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::onspawnplayer, scripts\zm\replaced\_zm_gametype::onspawnplayer);
-	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::onplayerspawned, scripts\zm\replaced\_zm_gametype::onplayerspawned);
-	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::hide_gump_loading_for_hotjoiners, scripts\zm\replaced\_zm_gametype::hide_gump_loading_for_hotjoiners);
 	replaceFunc(maps\mp\zombies\_zm_audio_announcer::playleaderdialogonplayer, scripts\zm\replaced\_zm_audio_announcer::playleaderdialogonplayer);
 	replaceFunc(maps\mp\zombies\_zm_game_module::wait_for_team_death_and_round_end, scripts\zm\replaced\_zm_game_module::wait_for_team_death_and_round_end);
 	replaceFunc(maps\mp\zombies\_zm_blockers::handle_post_board_repair_rewards, scripts\zm\replaced\_zm_blockers::handle_post_board_repair_rewards);
+	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::onspawnplayer, scripts\zm\replaced\_zm_gametype::onspawnplayer);
+	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::onplayerspawned, scripts\zm\replaced\_zm_gametype::onplayerspawned);
+	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::hide_gump_loading_for_hotjoiners, scripts\zm\replaced\_zm_gametype::hide_gump_loading_for_hotjoiners);
+	replaceFunc(maps\mp\gametypes_zm\zgrief::meat_stink_on_ground, scripts\zm\replaced\zgrief::meat_stink_on_ground);
+	replaceFunc(maps\mp\gametypes_zm\zgrief::meat_stink_player, scripts\zm\replaced\zgrief::meat_stink_player);
+	replaceFunc(maps\mp\gametypes_zm\zmeat::item_meat_watch_trigger, scripts\zm\replaced\zmeat::item_meat_watch_trigger);
+	replaceFunc(maps\mp\gametypes_zm\zmeat::kick_meat_monitor, scripts\zm\replaced\zmeat::kick_meat_monitor);
+	replaceFunc(maps\mp\gametypes_zm\zmeat::last_stand_meat_nudge, scripts\zm\replaced\zmeat::last_stand_meat_nudge);
 }
 
 init()
@@ -63,6 +70,12 @@ init()
 
 	level.can_revive_game_module = ::can_revive;
 	level._powerup_grab_check = ::powerup_can_player_grab;
+
+	level.is_respawn_gamemode_func = ::is_respawn_gamemode;
+	level.round_start_wait_func = ::round_start_wait;
+	level.increment_score_func = ::increment_score;
+	level.show_grief_hud_msg_func = ::show_grief_hud_msg;
+	level.player_suicide_func = ::player_suicide;
 
 	level thread round_start_wait(5, true);
 	level thread remove_round_number();
@@ -692,7 +705,7 @@ grief_onplayerconnect()
 	self thread team_player_waypoint();
 	self thread headstomp_watcher();
 	self thread smoke_grenade_cluster_watcher();
-	self thread [[level.zmeat_create_item_meat_watcher]]();
+	self thread maps\mp\gametypes_zm\zmeat::create_item_meat_watcher();
 	self.killsconfirmed = 0;
 
 	if(level.scr_zm_ui_gametype_obj == "zgrief" || level.scr_zm_ui_gametype_obj == "zcontainment" || level.scr_zm_ui_gametype_obj == "zmeat")

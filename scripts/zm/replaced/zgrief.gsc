@@ -4,7 +4,7 @@
 
 game_mode_spawn_player_logic()
 {
-	if(scripts\zm\zgrief\zgrief_reimagined::is_respawn_gamemode())
+	if(isDefined(level.is_respawn_gamemode_func) && [[level.is_respawn_gamemode_func]]())
 	{
 		return 0;
 	}
@@ -62,7 +62,7 @@ meat_stink_player( who )
 
 	if(level.scr_zm_ui_gametype_obj == "zmeat")
 	{
-		level thread [[level.zgrief_meat_stink]](who);
+		level thread maps\mp\gametypes_zm\zgrief::meat_stink(who);
 		return;
 	}
 
@@ -70,7 +70,7 @@ meat_stink_player( who )
 	players = get_players();
 	foreach ( player in players )
 	{
-		player thread [[level.zgrief_meat_stink_player_cleanup]]();
+		player thread maps\mp\gametypes_zm\zgrief::meat_stink_player_cleanup();
 		if ( player != who )
 		{
 			player.ignoreme = 1;
@@ -78,12 +78,12 @@ meat_stink_player( who )
 
 		print_meat_msg(player, who);
 	}
-	who thread [[level.zgrief_meat_stink_player_create]]();
+	who thread maps\mp\gametypes_zm\zgrief::meat_stink_player_create();
 	who waittill_any_or_timeout( 30, "disconnect", "player_downed", "bled_out" );
 	players = get_players();
 	foreach ( player in players )
 	{
-		player thread [[level.zgrief_meat_stink_player_cleanup]]();
+		player thread maps\mp\gametypes_zm\zgrief::meat_stink_player_cleanup();
 		player.ignoreme = 0;
 	}
 }
