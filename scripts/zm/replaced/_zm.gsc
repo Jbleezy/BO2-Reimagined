@@ -1079,7 +1079,11 @@ player_spawn_protection()
 		wait 0.05;
 	}
 
-	self.ignoreme = 0;
+	if (!isDefined(level.meat_player))
+	{
+		self.ignoreme = 0;
+	}
+
 	self.spawn_protection = 0;
 }
 

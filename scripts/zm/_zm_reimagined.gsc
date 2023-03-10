@@ -2002,7 +2002,11 @@ player_revive_protection()
 		wait 0.05;
 	}
 
-	self.ignoreme = 0;
+	if (!isDefined(level.meat_player))
+	{
+		self.ignoreme = 0;
+	}
+
 	self.revive_protection = 0;
 }
 
