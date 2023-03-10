@@ -2505,11 +2505,11 @@ containment_think()
 	wait 10;
 
 	containment_zones = containment_get_zones();
-	i = 0;
+	ind = 0;
 
 	while(1)
 	{
-		zone_name = containment_zones[i];
+		zone_name = containment_zones[ind];
 		zone_display_name = scripts\zm\_zm_reimagined::get_zone_display_name(zone_name);
 		zone = level.zones[zone_name];
 
@@ -2801,23 +2801,15 @@ containment_think()
 			wait 0.05;
 		}
 
-		level.containment_zone_hud setText("");
-		level.containment_time_hud setText("");
-
-		players = get_players();
-		foreach(player in players)
+		zombies = get_round_enemy_array();
+		if (isDefined(zombies))
 		{
-			if(is_player_valid(player))
+			for (i = 0; i < zombies.size; i++)
 			{
-				if(!meat_stink_player && !is_true(player.spawn_protection) && !is_true(player.revive_protection))
+				if (zombies[i] get_current_zone() == zone_name)
 				{
-					player.ignoreme = 0;
+					zombies[i] dodamage(zombies[i].health + 666, zombies[i].origin);
 				}
-			}
-
-			if(isDefined(player.obj_waypoint))
-			{
-				player.obj_waypoint.alpha = 0;
 			}
 		}
 
@@ -2830,11 +2822,11 @@ containment_think()
 			}
 		}
 
-		i++;
+		ind++;
 
-		if(i >= containment_zones.size)
+		if(ind >= containment_zones.size)
 		{
-			i = 0;
+			ind = 0;
 		}
 	}
 }
