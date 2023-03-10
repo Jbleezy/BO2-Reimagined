@@ -2931,10 +2931,13 @@ meat_powerup_drop_think()
 			level.zombie_vars["zombie_powerup_drop_max_per_round"] = 0;
 		}
 
-		players = get_players();
-		foreach (player in players)
+		if (!isDefined(level.meat_player))
 		{
-			player thread show_grief_hud_msg("Meat dropped!");
+			players = get_players();
+			foreach (player in players)
+			{
+				player thread show_grief_hud_msg("Meat dropped!");
+			}
 		}
 
 		level.meat_powerup = powerup;
