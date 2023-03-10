@@ -96,6 +96,7 @@
 
 ### AN-94
 * Increased weapon cost from 1200 to 1500
+* Upgraded: decreased stock ammo from 600 to 450
 
 ### B23R
 * Changed weapon cost to 900 on all maps
@@ -115,6 +116,7 @@
 * Increased penetration
 
 ### M1911
+* Upgraded: decreased stock ammo from 50 to 48
 * Upgraded: given as last stand pistol above all others except Ray Gun Mark 2
 * Upgraded: decreased last stand ammo from 2 clips to 1 clip
 
@@ -186,6 +188,7 @@
 ### Sliquifier
 * Added upgraded version
 * Kills on any round (normally stops killing after round 100)
+* Decreased stock ammo from 40 to 20
 * Removed additional goo created by chain kills
 * Added teddy bear to buildable table after weapon is taken from it
 * Teddy bear standing up means weapon is not available from Mystery Box
@@ -509,6 +512,7 @@
 * Landing on top of an enemy player that is prone downs them
 * Increased max radius for landing on top of an enemy player by 16.67%
 * Decreased max height for landing on top of an enemy player by 50%
+* M1911 upgraded: decreased stock ammo from 50 to 24
 * Max Ammo: decreased amount of ammo given from max stock to one clip
 * Max Ammo: unloads clip of all enemy players' weapons
 * Double Points: decreased duration from 30 seconds to 15 seconds

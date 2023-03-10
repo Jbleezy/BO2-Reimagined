@@ -500,3 +500,77 @@ take_movefaster()
 		self set_perk_clientfield( "specialty_longersprint", 0 );
 	}
 }
+
+wait_for_player_to_take( player, weapon, packa_timer, upgrade_as_attachment )
+{
+    current_weapon = self.current_weapon;
+    upgrade_name = self.upgrade_name;
+    upgrade_weapon = upgrade_name;
+    self endon( "pap_timeout" );
+    level endon( "Pack_A_Punch_off" );
+
+    while ( true )
+    {
+        packa_timer playloopsound( "zmb_perks_packa_ticktock" );
+
+        self waittill( "trigger", trigger_player );
+
+        if ( isdefined( level.pap_grab_by_anyone ) && level.pap_grab_by_anyone )
+            player = trigger_player;
+
+        packa_timer stoploopsound( 0.05 );
+
+        if ( trigger_player == player )
+        {
+            player maps\mp\zombies\_zm_stats::increment_client_stat( "pap_weapon_grabbed" );
+            player maps\mp\zombies\_zm_stats::increment_player_stat( "pap_weapon_grabbed" );
+            current_weapon = player getcurrentweapon();
+
+            if ( is_player_valid( player ) && !( player.is_drinking > 0 ) && !is_placeable_mine( current_weapon ) && !is_equipment( current_weapon ) && level.revive_tool != current_weapon && "none" != current_weapon && !player hacker_active() )
+            {
+                maps\mp\_demo::bookmark( "zm_player_grabbed_packapunch", gettime(), player );
+                self notify( "pap_taken" );
+                player notify( "pap_taken" );
+                player.pap_used = 1;
+
+                if ( !( isdefined( upgrade_as_attachment ) && upgrade_as_attachment ) )
+                    player thread do_player_general_vox( "general", "pap_arm", 15, 100 );
+                else
+                    player thread do_player_general_vox( "general", "pap_arm2", 15, 100 );
+
+                weapon_limit = get_player_weapon_limit( player );
+                player maps\mp\zombies\_zm_weapons::take_fallback_weapon();
+                primaries = player getweaponslistprimaries();
+
+                if ( isdefined( primaries ) && primaries.size >= weapon_limit )
+                    player maps\mp\zombies\_zm_weapons::weapon_give( upgrade_weapon );
+                else
+                {
+                    player giveweapon( upgrade_weapon, 0, player maps\mp\zombies\_zm_weapons::get_pack_a_punch_weapon_options( upgrade_weapon ) );
+                    player givestartammo( upgrade_weapon );
+					player scripts\zm\_zm_reimagined::change_weapon_ammo(upgrade_weapon);
+                }
+
+                player switchtoweapon( upgrade_weapon );
+
+                if ( isdefined( player.restore_ammo ) && player.restore_ammo )
+                {
+                    new_clip = player.restore_clip + weaponclipsize( upgrade_weapon ) - player.restore_clip_size;
+                    new_stock = player.restore_stock + weaponmaxammo( upgrade_weapon ) - player.restore_max;
+                    player setweaponammostock( upgrade_weapon, new_stock );
+                    player setweaponammoclip( upgrade_weapon, new_clip );
+                }
+
+                player.restore_ammo = undefined;
+                player.restore_clip = undefined;
+                player.restore_stock = undefined;
+                player.restore_max = undefined;
+                player.restore_clip_size = undefined;
+                player maps\mp\zombies\_zm_weapons::play_weapon_vo( upgrade_weapon );
+                return;
+            }
+        }
+
+        wait 0.05;
+    }
+}

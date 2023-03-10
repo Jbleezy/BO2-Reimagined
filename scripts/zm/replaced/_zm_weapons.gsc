@@ -157,7 +157,55 @@ weapon_give( weapon, is_upgrade, magic_box, nosound )
 		}
 	}
 	self play_weapon_vo( weapon, magic_box );
+
+	self scripts\zm\_zm_reimagined::change_weapon_ammo(weapon);
 }
+
+ammo_give( weapon )
+{
+    give_ammo = 0;
+
+    if ( !is_offhand_weapon( weapon ) )
+    {
+        weapon = get_weapon_with_attachments( weapon );
+
+        if ( isdefined( weapon ) )
+        {
+            stockmax = 0;
+            stockmax = weaponstartammo( weapon );
+            clipcount = self getweaponammoclip( weapon );
+            currstock = self getammocount( weapon );
+
+            if ( currstock - clipcount >= stockmax )
+                give_ammo = 0;
+            else
+                give_ammo = 1;
+        }
+    }
+    else if ( self has_weapon_or_upgrade( weapon ) )
+    {
+        if ( self getammocount( weapon ) < weaponmaxammo( weapon ) )
+            give_ammo = 1;
+    }
+
+    if ( give_ammo )
+    {
+        self play_sound_on_ent( "purchase" );
+        self givemaxammo( weapon );
+        alt_weap = weaponaltweaponname( weapon );
+
+        if ( "none" != alt_weap )
+            self givemaxammo( alt_weap );
+
+		self scripts\zm\_zm_reimagined::change_weapon_ammo(weapon);
+
+        return true;
+    }
+
+    if ( !give_ammo )
+        return false;
+}
+
 
 lethal_grenade_update_prompt( player )
 {

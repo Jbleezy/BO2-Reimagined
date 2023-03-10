@@ -27,6 +27,8 @@ init()
 	level.special_weapon_magicbox_check = ::highrise_special_weapon_magicbox_check;
 	level.check_for_valid_spawn_near_team_callback = ::highrise_respawn_override;
 
+	slipgun_change_ammo();
+
     level thread elevator_solo_revive_fix();
 }
 
@@ -89,6 +91,26 @@ highrise_respawn_override( revivee, return_struct )
 			}
 		}
 	}
+}
+
+slipgun_change_ammo()
+{
+	foreach (buildable in level.zombie_include_buildables)
+	{
+		if(IsDefined(buildable.name) && buildable.name == "slipgun_zm")
+		{
+			buildable.onbuyweapon = ::onbuyweapon_slipgun;
+			return;
+		}
+	}
+}
+
+onbuyweapon_slipgun( player )
+{
+    player givestartammo( self.stub.weaponname );
+    player switchtoweapon( self.stub.weaponname );
+	player scripts\zm\_zm_reimagined::change_weapon_ammo(self.stub.weaponname);
+    level notify( "slipgun_bought", player );
 }
 
 elevator_solo_revive_fix()

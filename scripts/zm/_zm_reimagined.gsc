@@ -46,6 +46,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_laststand::revive_give_back_weapons, scripts\zm\replaced\_zm_laststand::revive_give_back_weapons);
 	replaceFunc(maps\mp\zombies\_zm_laststand::revive_hud_think, scripts\zm\replaced\_zm_laststand::revive_hud_think);
 	replaceFunc(maps\mp\zombies\_zm_weapons::weapon_give, scripts\zm\replaced\_zm_weapons::weapon_give);
+	replaceFunc(maps\mp\zombies\_zm_weapons::ammo_give, scripts\zm\replaced\_zm_weapons::ammo_give);
 	replaceFunc(maps\mp\zombies\_zm_weapons::get_upgraded_ammo_cost, scripts\zm\replaced\_zm_weapons::get_upgraded_ammo_cost);
 	replaceFunc(maps\mp\zombies\_zm_weapons::makegrenadedudanddestroy, scripts\zm\replaced\_zm_weapons::makegrenadedudanddestroy);
 	replaceFunc(maps\mp\zombies\_zm_weapons::createballisticknifewatcher_zm, scripts\zm\replaced\_zm_weapons::createballisticknifewatcher_zm);
@@ -60,6 +61,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_perks::perk_think, scripts\zm\replaced\_zm_perks::perk_think);
 	replaceFunc(maps\mp\zombies\_zm_perks::perk_set_max_health_if_jugg, scripts\zm\replaced\_zm_perks::perk_set_max_health_if_jugg);
 	replaceFunc(maps\mp\zombies\_zm_perks::initialize_custom_perk_arrays, scripts\zm\replaced\_zm_perks::initialize_custom_perk_arrays);
+	replaceFunc(maps\mp\zombies\_zm_perks::wait_for_player_to_take, scripts\zm\replaced\_zm_perks::wait_for_player_to_take);
 	replaceFunc(maps\mp\zombies\_zm_power::standard_powered_items, scripts\zm\replaced\_zm_power::standard_powered_items);
 	replaceFunc(maps\mp\zombies\_zm_powerups::full_ammo_powerup, scripts\zm\replaced\_zm_powerups::full_ammo_powerup);
 	replaceFunc(maps\mp\zombies\_zm_powerups::nuke_powerup, scripts\zm\replaced\_zm_powerups::nuke_powerup);
@@ -2164,6 +2166,47 @@ disable_bank_teller()
 disable_carpenter()
 {
 	arrayremovevalue(level.zombie_powerup_array, "carpenter");
+}
+
+change_weapon_ammo(weapon)
+{
+	max_ammo = 0;
+
+	if (isSubStr(weapon, "m1911"))
+	{
+		if (is_weapon_upgraded(weapon))
+		{
+			if (level.scr_zm_ui_gametype == "zgrief")
+			{
+				max_ammo = 24;
+			}
+			else
+			{
+				max_ammo = 48;
+			}
+		}
+	}
+	else if (isSubStr(weapon, "an94"))
+	{
+		if (is_weapon_upgraded(weapon))
+		{
+			max_ammo = 450;
+		}
+	}
+	else if (isSubStr(weapon, "slipgun"))
+	{
+		max_ammo = 20;
+	}
+
+	if (max_ammo == 0)
+	{
+		return;
+	}
+
+	if (self getWeaponAmmoStock(weapon) > max_ammo)
+	{
+		self setWeaponAmmoStock(weapon, max_ammo);
+	}
 }
 
 wallbuy_location_changes()

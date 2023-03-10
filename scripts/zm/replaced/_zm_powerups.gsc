@@ -70,6 +70,8 @@ full_ammo_powerup( drop_item, player )
 				{
 					players[i] givemaxammo(primary_weapons[x]);
 				}
+
+				players[i] scripts\zm\_zm_reimagined::change_weapon_ammo(primary_weapons[x]);
 			}
 			x++;
 		}
