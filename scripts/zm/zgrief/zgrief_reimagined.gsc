@@ -3416,11 +3416,11 @@ increment_score(team)
 		{
 			if (player.team == team)
 			{
-				player thread show_grief_hud_msg("Your team gained the lead!", undefined, 30, delay);
+				player thread show_grief_hud_msg("Gained the lead!", undefined, 30, delay);
 			}
 			else
 			{
-				player thread show_grief_hud_msg("Your team lost the lead!", undefined, 30, delay);
+				player thread show_grief_hud_msg("Lost the lead!", undefined, 30, delay);
 			}
 		}
 	}
