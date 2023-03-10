@@ -2774,6 +2774,7 @@ buildbuildables()
 
 			updatebuildables();
 			removebuildable( "turbine", "buried" );
+			removebuildable( "headchopper_zm", "buried" ); // TODO - remove line when headchopper anims work on Borough
 		}
 	}
 }

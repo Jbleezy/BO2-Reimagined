@@ -468,6 +468,7 @@
 * Moved Quick Revive to Speed Cola's location on Borough
 * Moved Speed Cola to its location on Buried
 * Moved Stamin-Up to Vulture Aid's location on Buried
+* Buildables can spawn at Church bench
 * Added better randomization for buildables
 
 ### Origins
