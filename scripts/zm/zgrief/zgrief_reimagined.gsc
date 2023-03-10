@@ -2588,7 +2588,7 @@ containment_think()
 					}
 
 					player.obj_waypoint.x = 0;
-					player.obj_waypoint.y = 100;
+					player.obj_waypoint.y = 140;
 					player.obj_waypoint.z = 0;
 					player.obj_waypoint setShader("waypoint_revive", getDvarInt("waypointIconWidth"), getDvarInt("waypointIconHeight"));
 				}
