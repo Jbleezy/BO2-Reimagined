@@ -65,6 +65,7 @@ main()
 {
 	level.buildables_built[ "pap" ] = 1;
 	level.equipment_team_pick_up = 1;
+	level.zones["zone_mansion"].is_enabled = 0;
 	level thread maps\mp\zombies\_zm_buildables::think_buildables();
 	maps\mp\gametypes_zm\_zm_gametype::setup_standard_objects( "street" );
 	street_treasure_chest_init();
@@ -273,8 +274,23 @@ disable_tunnels()
 	// zombie spawns
 	level.zones["zone_tunnel_gun2saloon"].is_enabled = 0;
 	level.zones["zone_tunnel_gun2saloon"].is_spawning_allowed = 0;
+	level.zones["zone_tunnel_gun2stables"].is_enabled = 0;
+	level.zones["zone_tunnel_gun2stables"].is_spawning_allowed = 0;
 	level.zones["zone_tunnel_gun2stables2"].is_enabled = 0;
 	level.zones["zone_tunnel_gun2stables2"].is_spawning_allowed = 0;
+	level.zones["zone_tunnels_center"].is_enabled = 0;
+	level.zones["zone_tunnels_center"].is_spawning_allowed = 0;
+	level.zones["zone_tunnels_north"].is_enabled = 0;
+	level.zones["zone_tunnels_north"].is_spawning_allowed = 0;
+	level.zones["zone_tunnels_north2"].is_enabled = 0;
+	level.zones["zone_tunnels_north2"].is_spawning_allowed = 0;
+	level.zones["zone_tunnels_south"].is_enabled = 0;
+	level.zones["zone_tunnels_south"].is_spawning_allowed = 0;
+	level.zones["zone_tunnels_south2"].is_enabled = 0;
+	level.zones["zone_tunnels_south2"].is_spawning_allowed = 0;
+	level.zones["zone_tunnels_south3"].is_enabled = 0;
+	level.zones["zone_tunnels_south3"].is_spawning_allowed = 0;
+
 	foreach ( spawn_location in level.zones["zone_stables"].spawn_locations )
 	{
 		if ( spawn_location.origin == ( -1551, -611, 36.69 ) )
