@@ -41,7 +41,8 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_banking::bank_withdraw_unitrigger, scripts\zm\replaced\_zm_banking::bank_withdraw_unitrigger);
 	replaceFunc(maps\mp\zombies\_zm_weapon_locker::triggerweaponslockerisvalidweaponpromptupdate, scripts\zm\replaced\_zm_weapon_locker::triggerweaponslockerisvalidweaponpromptupdate);
 
-	include_weapons_grief();
+	grief_include_weapons();
+	electric_door_changes();
 }
 
 init()
@@ -59,7 +60,7 @@ init()
 	level thread power_station_vision_change();
 }
 
-include_weapons_grief()
+grief_include_weapons()
 {
 	if ( getDvar( "g_gametype" ) != "zgrief" )
 	{
@@ -111,6 +112,47 @@ screecher_spawner_changes()
 screecher_prespawn_decrease_health()
 {
 	self.player_score = 12;
+}
+
+electric_door_changes()
+{
+	if( is_classic() && level.scr_zm_map_start_location == "transit" )
+	{
+		return;
+	}
+
+	zombie_doors = getentarray( "zombie_door", "targetname" );
+	for ( i = 0; i < zombie_doors.size; i++ )
+	{
+		if ( isDefined( zombie_doors[i].script_noteworthy ) && (zombie_doors[i].script_noteworthy == "local_electric_door" || zombie_doors[i].script_noteworthy == "electric_door") )
+		{
+			zombie_doors[i].script_noteworthy = "default";
+			zombie_doors[i].zombie_cost = 750;
+
+			// link Bus Depot and Farm electric doors together
+			new_target = undefined;
+			if (zombie_doors[i].target == "pf1766_auto2353")
+			{
+				new_target = "pf1766_auto2352";
+
+			}
+			else if (zombie_doors[i].target == "pf1766_auto2358")
+			{
+				new_target = "pf1766_auto2357";
+			}
+
+			if (isDefined(new_target))
+			{
+				targets = getentarray( zombie_doors[i].target, "targetname" );
+				zombie_doors[i].target = new_target;
+
+				foreach (target in targets)
+				{
+					target.targetname = zombie_doors[i].target;
+				}
+			}
+		}
+	}
 }
 
 power_local_electric_doors_globally()

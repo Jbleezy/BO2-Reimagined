@@ -390,6 +390,7 @@
 * Power switch automatically crafted
 * Pack-a-Punch automatically crafted
 * Navcard table automatically crafted
+* Survival & Grief: power doors are buyable doors
 * Grief: added Ballistic Knife, Ray Gun, and Ray Gun Mark 2 to the Mystery Box
 * Fixed a zombie riser spawn point at Outside Power Station being too high above ground
 * Fixed a zombie pathing exploit at Town in Bookstore
