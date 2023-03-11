@@ -88,24 +88,28 @@ meat_bounce_override( pos, normal, ent, bounce )
 		}
 	}
 
-	valid_poi = check_point_in_enabled_zone( pos, undefined, undefined );
-
-	if ( valid_poi )
+	if (!isDefined(level.meat_powerup) && !isDefined(level.meat_player))
 	{
-		self hide();
+		valid_poi = check_point_in_enabled_zone( pos, undefined, undefined );
 
-		if (level.scr_zm_ui_gametype_obj == "zmeat")
+		if ( valid_poi )
 		{
-			level.meat_powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop( "meat_stink", self.origin );
+			self hide();
+
+			if (level.scr_zm_ui_gametype_obj == "zmeat")
+			{
+				level notify("meat_powerup_drop");
+				level.meat_powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop( "meat_stink", self.origin );
+			}
+			else
+			{
+				level thread meat_stink_on_ground( self.origin );
+			}
 		}
 		else
 		{
-			level thread meat_stink_on_ground( self.origin );
+			level notify("meat_inactive");
 		}
-	}
-	else
-	{
-		level notify("meat_inactive");
 	}
 
 	self delete();
@@ -171,9 +175,9 @@ meat_stink( who )
 
 meat_powerup_drop_on_downed()
 {
+	level endon("meat_thrown");
 	self endon("disconnect");
 	self endon("bled_out");
-	self endon("meat_unstink_player");
 
 	self waittill("player_downed");
 
@@ -229,6 +233,11 @@ meat_powerup_reset_on_disconnect()
     self waittill("disconnect");
 
 	level.meat_player = undefined;
+
+	if (isDefined(level.meat_powerup))
+	{
+		return;
+	}
 
 	players = get_players();
 	foreach (player in players)
