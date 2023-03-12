@@ -5,7 +5,6 @@
 
 revive_do_revive( playerbeingrevived, revivergun )
 {
-    self thread revive_weapon_switch_watcher();
 	revivetime = 3;
 	if ( self hasperk( "specialty_quickrevive" ) )
 	{
@@ -171,38 +170,27 @@ laststand_clean_up_reviving_any( playerbeingrevived ) //checked changed to match
 	}
 }
 
-revive_weapon_switch_watcher()
-{
-    self endon( "disconnect" );
-    self endon( "do_revive_ended_normally" );
-
-    self.revive_weapon_switched = undefined;
-
-    while(1)
-    {
-        self waittill("weapon_change");
-
-        curr_wep = self getCurrentWeapon();
-        if(curr_wep != "none" && curr_wep != level.revive_tool)
-        {
-            break;
-        }
-    }
-
-    self.revive_weapon_switched = 1;
-}
-
 revive_give_back_weapons( gun )
 {
+	cur_wep = self getCurrentWeapon();
+
 	self takeweapon( level.revive_tool );
+
 	if ( self maps\mp\zombies\_zm_laststand::player_is_in_laststand() )
 	{
 		return;
 	}
-    if(is_true(self.revive_weapon_switched))
+
+    if (cur_wep != level.revive_tool)
     {
         return;
     }
+
+	if (self hasWeapon("item_meat_zm"))
+    {
+        return;
+    }
+
 	if ( gun != "none" && !is_placeable_mine( gun ) && gun != "equip_gasmask_zm" && gun != "lower_equip_gasmask_zm" && self hasweapon( gun ) )
 	{
 		self switchtoweapon( gun );
