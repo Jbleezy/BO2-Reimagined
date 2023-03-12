@@ -317,14 +317,7 @@ player_wait_take_meat( meat_name )
         }
     }
 
-	if (is_melee_weapon(self.pre_meat_weapon))
-	{
-		self waittill_notify_or_timeout( "weapon_change", 3 );
-	}
-	else
-	{
-		self waittill_notify_or_timeout( "weapon_change_complete", 3 );
-	}
+	self waittill_notify_or_timeout( "weapon_change", 3 );
 
     self takeweapon( meat_name );
     self.pre_meat_weapon = undefined;
