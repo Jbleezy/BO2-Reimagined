@@ -117,17 +117,10 @@ meat_bounce_override( pos, normal, ent, bounce )
 
 meat_stink( who )
 {
-    weapons = who getweaponslist();
-    has_meat = 0;
-
-    foreach ( weapon in weapons )
-    {
-        if ( weapon == "item_meat_zm" )
-            has_meat = 1;
-    }
-
-    if ( has_meat )
-        return;
+	if (who hasWeapon("item_meat_zm"))
+	{
+		return;
+	}
 
     who.pre_meat_weapon = who getcurrentweapon();
     level notify( "meat_grabbed" );
@@ -166,6 +159,8 @@ meat_stink( who )
 
 	who thread maps\mp\gametypes_zm\zgrief::meat_stink_player_create();
 
+	who thread meat_stink_cleanup_on_downed();
+
 	if (level.scr_zm_ui_gametype_obj == "zmeat")
 	{
 		who thread meat_powerup_drop_on_downed();
@@ -173,23 +168,13 @@ meat_stink( who )
 	}
 }
 
-meat_powerup_drop_on_downed()
+meat_stink_cleanup_on_downed()
 {
 	level endon("meat_thrown");
 	self endon("disconnect");
 	self endon("bled_out");
 
 	self waittill("player_downed");
-
-	if (isDefined(level.item_meat))
-	{
-		return;
-	}
-
-	if (isDefined(level.meat_powerup))
-	{
-		return;
-	}
 
 	level.meat_player = undefined;
 
@@ -205,6 +190,15 @@ meat_powerup_drop_on_downed()
 			player.ignoreme = 0;
 		}
 	}
+}
+
+meat_powerup_drop_on_downed()
+{
+	level endon("meat_thrown");
+	self endon("disconnect");
+	self endon("bled_out");
+
+	self waittill("player_downed");
 
 	valid_drop = check_point_in_enabled_zone( self.origin, undefined, undefined );
 
@@ -233,11 +227,6 @@ meat_powerup_reset_on_disconnect()
     self waittill("disconnect");
 
 	level.meat_player = undefined;
-
-	if (isDefined(level.meat_powerup))
-	{
-		return;
-	}
 
 	players = get_players();
 	foreach (player in players)
