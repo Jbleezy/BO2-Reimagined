@@ -3068,8 +3068,8 @@ meat_think()
 				score = 100 * maps\mp\zombies\_zm_score::get_points_multiplier(level.meat_player);
 				level.meat_player maps\mp\zombies\_zm_score::add_to_player_score(score);
 
-				increment_score(level.meat_player.team);
 				level.meat_player.captures++;
+				increment_score(level.meat_player.team);
 			}
 		}
 		else
