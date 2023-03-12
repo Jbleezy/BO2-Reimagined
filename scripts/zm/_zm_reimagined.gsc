@@ -298,6 +298,10 @@ set_dvars()
 
 	setDvar( "player_backSpeedScale", 1 );
 
+	// can't set to exactly 90 or else looking completely up or down will cause the player to move in the opposite direction
+	setDvar( "player_view_pitch_up", 89.9999 );
+	setDvar( "player_view_pitch_down", 89.9999 );
+
 	setDvar( "dtp_post_move_pause", 0 );
 	setDvar( "dtp_startup_delay", 100 );
 	setDvar( "dtp_exhaustion_window", 100 );
