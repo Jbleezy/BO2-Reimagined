@@ -713,6 +713,8 @@ grief_onplayerconnect()
 	self thread smoke_grenade_cluster_watcher();
 	self thread scripts\zm\replaced\zmeat::create_item_meat_watcher();
 	self.killsconfirmed = 0;
+	self.killsdenied = 0;
+	self.captures = 0;
 
 	if(level.scr_zm_ui_gametype_obj == "zgrief" || level.scr_zm_ui_gametype_obj == "zcontainment" || level.scr_zm_ui_gametype_obj == "zmeat")
 	{
@@ -1873,6 +1875,7 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 
 		score *= maps\mp\zombies\_zm_score::get_points_multiplier(eattacker);
 		self stun_score_steal(eattacker, score);
+		eattacker.killsdenied++;
 
 		if(!is_melee)
 		{
@@ -2761,6 +2764,7 @@ containment_think()
 						{
 							score = 50 * maps\mp\zombies\_zm_score::get_points_multiplier(player);
 							player maps\mp\zombies\_zm_score::add_to_player_score(score);
+							player.captures++;
 						}
 
 						increment_score("axis");
@@ -2780,6 +2784,7 @@ containment_think()
 						{
 							score = 50 * maps\mp\zombies\_zm_score::get_points_multiplier(player);
 							player maps\mp\zombies\_zm_score::add_to_player_score(score);
+							player.captures++;
 						}
 
 						increment_score("allies");
@@ -3017,6 +3022,7 @@ meat_think()
 				level.meat_player maps\mp\zombies\_zm_score::add_to_player_score(score);
 
 				increment_score(level.meat_player.team);
+				level.meat_player.captures++;
 			}
 		}
 		else
