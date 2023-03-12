@@ -2875,13 +2875,14 @@ meat_init()
 	level._powerup_timeout_custom_time = ::meat_powerup_custom_time;
 
 	level thread meat_powerup_drop_think();
-	level thread meat_powerup_drop_watcher();
 	level thread meat_think();
 }
 
 meat_powerup_drop_think()
 {
 	level endon("end_game");
+
+	level thread meat_powerup_drop_watcher();
 
 	level waittill("restart_round_start");
 
