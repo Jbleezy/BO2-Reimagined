@@ -30,10 +30,11 @@ main()
 	replaceFunc(maps\mp\gametypes_zm\zgrief::meat_stink_on_ground, scripts\zm\replaced\zgrief::meat_stink_on_ground);
 	replaceFunc(maps\mp\gametypes_zm\zgrief::meat_stink_player, scripts\zm\replaced\zgrief::meat_stink_player);
 	replaceFunc(maps\mp\gametypes_zm\zmeat::item_meat_watch_trigger, scripts\zm\replaced\zmeat::item_meat_watch_trigger);
-	replaceFunc(maps\mp\gametypes_zm\zmeat::kick_meat_monitor, scripts\zm\replaced\zmeat::kick_meat_monitor);
-	replaceFunc(maps\mp\gametypes_zm\zmeat::last_stand_meat_nudge, scripts\zm\replaced\zmeat::last_stand_meat_nudge);
 	replaceFunc(maps\mp\gametypes_zm\zmeat::item_meat_on_spawn_retrieve_trigger, scripts\zm\replaced\zmeat::item_meat_on_spawn_retrieve_trigger);
 	replaceFunc(maps\mp\gametypes_zm\zmeat::item_meat_watch_bounce, scripts\zm\replaced\zmeat::item_meat_watch_bounce);
+	replaceFunc(maps\mp\gametypes_zm\zmeat::player_wait_take_meat, scripts\zm\replaced\zmeat::player_wait_take_meat);
+	replaceFunc(maps\mp\gametypes_zm\zmeat::kick_meat_monitor, scripts\zm\replaced\zmeat::kick_meat_monitor);
+	replaceFunc(maps\mp\gametypes_zm\zmeat::last_stand_meat_nudge, scripts\zm\replaced\zmeat::last_stand_meat_nudge);
 }
 
 init()

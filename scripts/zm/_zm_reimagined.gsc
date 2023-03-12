@@ -2084,7 +2084,7 @@ melee_weapon_switch_watcher()
 			vars["prev_wep"] = vars["curr_wep"];
 		}
 
-		if(self actionSlotTwoButtonPressed() && !self hasWeapon("time_bomb_zm") && !self hasWeapon("time_bomb_detonator_zm") && !self hasWeapon("equip_dieseldrone_zm"))
+		if(self actionSlotTwoButtonPressed() && !self hasWeapon("time_bomb_zm") && !self hasWeapon("time_bomb_detonator_zm") && !self hasWeapon("equip_dieseldrone_zm") && !self hasWeapon("item_meat_zm"))
 		{
 			if(vars["curr_wep"] != vars["melee_wep"])
 			{
@@ -2123,7 +2123,10 @@ melee_weapon_disable_weapon_trading()
 				wait 0.05;
 			}
 
-			self.is_drinking = 0;
+			if (!self hasWeapon("item_meat_zm"))
+			{
+				self.is_drinking = 0;
+			}
 		}
 
 		wait 0.05;

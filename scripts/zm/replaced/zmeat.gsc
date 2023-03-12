@@ -298,6 +298,43 @@ item_meat_watch_stationary()
 	self delete();
 }
 
+player_wait_take_meat( meat_name )
+{
+    self.dont_touch_the_meat = 1;
+
+    if ( isdefined( self.pre_meat_weapon ) && self hasweapon( self.pre_meat_weapon ) )
+        self switchtoweapon( self.pre_meat_weapon );
+    else
+    {
+        primaryweapons = self getweaponslistprimaries();
+
+        if ( isdefined( primaryweapons ) && primaryweapons.size > 0 )
+            self switchtoweapon( primaryweapons[0] );
+        else
+        {
+            assert( 0, "Player has no weapon" );
+            self maps\mp\zombies\_zm_weapons::give_fallback_weapon();
+        }
+    }
+
+	if (is_melee_weapon(self.pre_meat_weapon))
+	{
+		self waittill_notify_or_timeout( "weapon_change", 3 );
+	}
+	else
+	{
+		self waittill_notify_or_timeout( "weapon_change_complete", 3 );
+	}
+
+    self takeweapon( meat_name );
+    self.pre_meat_weapon = undefined;
+
+    if ( self.is_drinking )
+        self decrement_is_drinking();
+
+    self.dont_touch_the_meat = 0;
+}
+
 kick_meat_monitor()
 {
 	// no kick
