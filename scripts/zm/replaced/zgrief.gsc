@@ -20,22 +20,19 @@ game_mode_spawn_player_logic()
 
 meat_bounce_override( pos, normal, ent, bounce )
 {
-    if ( isdefined( ent ) && isplayer( ent ) )
+    if ( isdefined( ent ) && isplayer( ent ) && is_player_valid(ent) && !ent hasWeapon("item_meat_zm") && !is_true(ent.dont_touch_the_meat) )
     {
-        if ( is_player_valid(ent) )
-        {
-            level thread meat_stink_player( ent );
+		level thread meat_stink_player( ent );
 
-            if ( isdefined( self.owner ) )
-            {
-                maps\mp\_demo::bookmark( "zm_player_meat_stink", gettime(), ent, self.owner, 0, self );
-                self.owner maps\mp\zombies\_zm_stats::increment_client_stat( "contaminations_given" );
-            }
+		if ( isdefined( self.owner ) )
+		{
+			maps\mp\_demo::bookmark( "zm_player_meat_stink", gettime(), ent, self.owner, 0, self );
+			self.owner maps\mp\zombies\_zm_stats::increment_client_stat( "contaminations_given" );
+		}
 
-			self delete();
+		self delete();
 
-			return;
-        }
+		return;
     }
     else
     {
@@ -45,11 +42,14 @@ meat_bounce_override( pos, normal, ent, bounce )
 
 		foreach (player in players)
 		{
-			if ( self.owner == player )
-                continue;
-
             if ( !is_player_valid(player) )
                 continue;
+
+			if ( player hasWeapon("item_meat_zm") )
+                 continue;
+
+			if ( is_true(player.dont_touch_the_meat) )
+                 continue;
 
             distsq = distancesquared( pos, player.origin );
 
@@ -74,9 +74,9 @@ meat_bounce_override( pos, normal, ent, bounce )
 
 			return;
         }
-
-        playfx( level._effect["meat_impact"], self.origin );
     }
+
+	playfx( level._effect["meat_impact"], self.origin );
 
 	if (is_true(bounce))
 	{
@@ -88,28 +88,24 @@ meat_bounce_override( pos, normal, ent, bounce )
 		}
 	}
 
-	if (!isDefined(level.meat_powerup) && !isDefined(level.meat_player))
+	valid_poi = check_point_in_enabled_zone( pos, undefined, undefined );
+
+	if ( valid_poi )
 	{
-		valid_poi = check_point_in_enabled_zone( pos, undefined, undefined );
+		self hide();
 
-		if ( valid_poi )
+		if (level.scr_zm_ui_gametype_obj == "zmeat")
 		{
-			self hide();
-
-			if (level.scr_zm_ui_gametype_obj == "zmeat")
-			{
-				level notify("meat_powerup_drop");
-				level.meat_powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop( "meat_stink", self.origin );
-			}
-			else
-			{
-				level thread meat_stink_on_ground( self.origin );
-			}
+			level.meat_powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop( "meat_stink", self.origin );
 		}
 		else
 		{
-			level notify("meat_inactive");
+			level thread meat_stink_on_ground( self.origin );
 		}
+	}
+	else
+	{
+		level notify("meat_inactive");
 	}
 
 	self delete();

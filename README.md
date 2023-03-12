@@ -302,6 +302,7 @@
 ### Meat
 * All zombies go after player holding the meat
 * 60% move speed while holding the meat
+* Player who threw the meat can meat themself
 * Decreased time on ground from 16 seconds to 10 seconds
 * Bounces off walls when thrown
 * Able to drop when players are down
