@@ -131,6 +131,7 @@ meat_stink( who )
     who switchtoweapon( "item_meat_zm" );
     who setweaponammoclip( "item_meat_zm", 1 );
 	who setMoveSpeedScale(0.6);
+	who.ignoreme = 0;
 	level.meat_player = who;
 
 	players = get_players();
