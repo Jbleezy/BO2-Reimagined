@@ -503,7 +503,9 @@
 * Only sprinting zombies
 * Unlimited powerups
 * Unlimited barrier rebuild points
-* Decreased stun time of weapons from 0.75 seconds to 0.375 seconds
+* Unupgraded weapons stun enemy players for 0.375 seconds
+* Upgraded weapons stun enemy players for 0.5 seconds
+* Melee weapons stun enemy players for 0.75 seconds
 * Meleeing enemy players that are crouched pushes 25% less
 * Meleeing enemy players that are prone pushes 50% less
 * Meleeing enemy players that are reviving pushes 50% less
