@@ -2986,11 +2986,6 @@ meat_think()
 			if (!isDefined(held_time))
 			{
 				held_time = getTime();
-
-				level.meat_player.player_waypoint.alpha = 0;
-				level.meat_player.obj_waypoint.alpha = 0;
-
-				level.meat_player thread show_player_waypoint_on_meat_drop();
 			}
 
 			foreach (player in players)
@@ -3078,16 +3073,6 @@ meat_think()
 
 		wait 0.05;
 	}
-}
-
-show_player_waypoint_on_meat_drop()
-{
-	while (isDefined(level.meat_player))
-	{
-		wait 0.05;
-	}
-
-	self.player_waypoint.alpha = 0;
 }
 
 meat_powerup_custom_time(powerup)

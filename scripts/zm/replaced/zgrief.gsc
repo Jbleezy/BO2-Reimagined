@@ -134,6 +134,11 @@ meat_stink( who )
 	who.ignoreme = 0;
 	level.meat_player = who;
 
+	if (level.scr_zm_ui_gametype_obj == "zmeat")
+	{
+		who.player_waypoint.alpha = 0;
+	}
+
 	players = get_players();
 	foreach (player in players)
 	{

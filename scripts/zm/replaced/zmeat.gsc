@@ -201,6 +201,11 @@ item_meat_on_spawn_retrieve_trigger( watcher, player, weaponname )
 
 	player setMoveSpeedScale(1);
 
+	if (level.scr_zm_ui_gametype_obj == "zmeat")
+	{
+		player.player_waypoint.alpha = 1;
+	}
+
 	players = get_players();
 	foreach (other_player in players)
 	{
