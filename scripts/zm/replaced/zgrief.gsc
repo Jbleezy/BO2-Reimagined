@@ -130,6 +130,11 @@ meat_stink( who )
 	who.ignoreme = 0;
 	level.meat_player = who;
 
+	if (who attackbuttonpressed())
+	{
+		who thread meat_disable_weapons();
+	}
+
 	if (level.scr_zm_ui_gametype_obj == "zmeat")
 	{
 		who.player_waypoint.alpha = 0;
@@ -170,6 +175,26 @@ meat_stink( who )
 	}
 }
 
+meat_disable_weapons()
+{
+	level endon("meat_thrown");
+	self endon("disconnect");
+	self endon("player_downed");
+
+	self.meat_weapons_disabled = 1;
+
+	self disableWeapons();
+
+	while (self attackbuttonpressed())
+	{
+		wait 0.05;
+	}
+
+	self enableWeapons();
+
+	self.meat_weapons_disabled = undefined;
+}
+
 meat_stink_cleanup_on_downed()
 {
 	level endon("meat_thrown");
@@ -181,6 +206,12 @@ meat_stink_cleanup_on_downed()
 	level.meat_player = undefined;
 
 	self setMoveSpeedScale(1);
+
+	if (is_true(self.meat_weapons_disabled))
+	{
+		self.meat_weapons_disabled = undefined;
+		self enableWeapons();
+	}
 
 	players = get_players();
 	foreach (player in players)
