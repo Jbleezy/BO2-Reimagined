@@ -1069,7 +1069,11 @@ player_laststand( einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, s
 
 player_spawn_protection()
 {
-	self endon( "disconnect" );
+	self endon("disconnect");
+	self endon("player_downed");
+	self endon("meat_grabbed");
+
+	self thread player_spawn_protection_timeout();
 
 	self.spawn_protection = 1;
 
@@ -1083,6 +1087,17 @@ player_spawn_protection()
 	{
 		self.ignoreme = 0;
 	}
+
+	self.spawn_protection = 0;
+	self notify("player_spawn_protection_end");
+}
+
+player_spawn_protection_timeout()
+{
+	self endon("disconnect");
+	self endon("player_spawn_protection_end");
+
+	self waittill_any("player_downed", "meat_grabbed");
 
 	self.spawn_protection = 0;
 }
@@ -1328,6 +1343,7 @@ end_game()
 	{
 		players[ i ] cameraactivate( 0 );
 	}
+
 	exitlevel( 0 );
 	wait 666;
 }

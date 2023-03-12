@@ -1993,6 +1993,10 @@ ignoreme_after_revived()
 player_revive_protection()
 {
 	self endon("disconnect");
+	self endon("player_downed");
+	self endon("meat_grabbed");
+
+	self thread player_revive_protection_timeout();
 
 	self.revive_protection = 1;
 
@@ -2006,6 +2010,17 @@ player_revive_protection()
 	{
 		self.ignoreme = 0;
 	}
+
+	self.revive_protection = 0;
+	self notify("player_revive_protection_end");
+}
+
+player_revive_protection_timeout()
+{
+	self endon("disconnect");
+	self endon("player_revive_protection_end");
+
+	self waittill_any("player_downed", "meat_grabbed");
 
 	self.revive_protection = 0;
 }
