@@ -989,31 +989,15 @@ team_player_waypoint()
 
 team_player_waypoint_origin_think()
 {
-	prev_stance = "none";
+	self endon("disconnect");
 
 	while (isDefined(self.player_waypoint_origin))
 	{
-		if (self getStance() != prev_stance)
-		{
-			prev_stance = self getStance();
+		self.player_waypoint_origin unlink();
 
-			self.player_waypoint_origin unlink();
+		self.player_waypoint_origin.origin = self getEye() + (0, 0, 12);
 
-			if (self getStance() == "stand")
-			{
-				self.player_waypoint_origin.origin = self.origin + (0, 0, 72);
-			}
-			else if (self getStance() == "crouch")
-			{
-				self.player_waypoint_origin.origin = self.origin + (0, 0, 56);
-			}
-			else if (self getStance() == "prone")
-			{
-				self.player_waypoint_origin.origin = self.origin + (0, 0, 30);
-			}
-
-			self.player_waypoint_origin linkto(self);
-		}
+		self.player_waypoint_origin linkto(self);
 
 		wait 0.05;
 	}
