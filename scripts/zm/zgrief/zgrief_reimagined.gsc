@@ -1777,33 +1777,76 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 		}
 
 		is_melee = false;
-		is_reviving = false;
 		if(isDefined(eattacker) && isplayer(eattacker) && eattacker != self && eattacker.team != self.team && (smeansofdeath == "MOD_MELEE" || issubstr(sweapon, "knife_ballistic")))
 		{
 			is_melee = true;
 			dir = vdir;
-			amount = 420; // 48 units
-			if(self getStance() == "crouch")
-			{
-				amount = 327.5; // 36 units
-			}
-			else if(self getStance() == "prone")
-			{
-				amount = 235; // 24 units
-			}
+			amount = 0;
 
-			if(self maps\mp\zombies\_zm_laststand::is_reviving_any())
+			if (self maps\mp\zombies\_zm_laststand::is_reviving_any())
 			{
-				is_reviving = true;
-
-				amount = 235; // 24 units
-				if(self getStance() == "crouch")
+				if (idamage >= 500)
 				{
-					amount = 187.5; // 18 units
+					if (self getStance() == "stand")
+					{
+						amount = 280; // 30 units
+					}
+					if (self getStance() == "crouch")
+					{
+						amount = 225; // 22.5 units
+					}
+					else if (self getStance() == "prone")
+					{
+						amount = 166.25; // 15 units
+					}
 				}
-				else if(self getStance() == "prone")
+				else
 				{
-					amount = 142.5; // 12 units
+					if (self getStance() == "stand")
+					{
+						amount = 235; // 24 units
+					}
+					if (self getStance() == "crouch")
+					{
+						amount = 187.5; // 18 units
+					}
+					else if (self getStance() == "prone")
+					{
+						amount = 142.5; // 12 units
+					}
+				}
+			}
+			else
+			{
+				if (idamage >= 500)
+				{
+					if (self getStance() == "stand")
+					{
+						amount = 510; // 60 units
+					}
+					if (self getStance() == "crouch")
+					{
+						amount = 395; // 45 units
+					}
+					else if (self getStance() == "prone")
+					{
+						amount = 280; // 30 units
+					}
+				}
+				else
+				{
+					if (self getStance() == "stand")
+					{
+						amount = 420; // 48 units
+					}
+					if (self getStance() == "crouch")
+					{
+						amount = 327.5; // 36 units
+					}
+					else if (self getStance() == "prone")
+					{
+						amount = 235; // 24 units
+					}
 				}
 			}
 

@@ -506,6 +506,7 @@
 * Unupgraded weapons stun enemy players for 0.375 seconds
 * Upgraded weapons stun enemy players for 0.5 seconds
 * Melee weapons stun enemy players for 0.75 seconds
+* Meleeing enemy players with an upgraded melee weapon pushes 25% more
 * Meleeing enemy players that are crouched pushes 25% less
 * Meleeing enemy players that are prone pushes 50% less
 * Meleeing enemy players that are reviving pushes 50% less
