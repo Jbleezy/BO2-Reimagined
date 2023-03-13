@@ -118,6 +118,31 @@ meat_stink( who )
 		return;
 	}
 
+	if (!is_player_valid(who))
+	{
+		if (level.scr_zm_ui_gametype_obj == "zmeat")
+		{
+			valid_drop = check_point_in_enabled_zone( who.origin, undefined, undefined );
+
+			if (valid_drop)
+			{
+				players = get_players();
+				foreach (player in players)
+				{
+					player thread scripts\zm\zgrief\zgrief_reimagined::show_grief_hud_msg("Meat dropped!");
+				}
+
+				level.meat_powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop( "meat_stink", self.origin );
+			}
+			else
+			{
+				level notify("meat_inactive");
+			}
+		}
+
+		return;
+	}
+
     who.pre_meat_weapon = who getcurrentweapon();
     level notify( "meat_grabbed" );
     who notify( "meat_grabbed" );
@@ -129,6 +154,7 @@ meat_stink( who )
 	who setMoveSpeedScale(0.6);
 	who.ignoreme = 0;
 	level.meat_player = who;
+	level.meat_powerup = undefined;
 
 	if (who attackbuttonpressed())
 	{
@@ -170,7 +196,6 @@ meat_stink( who )
 
 	if (level.scr_zm_ui_gametype_obj == "zmeat")
 	{
-		who thread meat_powerup_drop_on_downed();
 		who thread meat_powerup_reset_on_disconnect();
 	}
 }
@@ -198,6 +223,7 @@ meat_disable_weapons()
 meat_stink_cleanup_on_downed()
 {
 	level endon("meat_thrown");
+	level endon("meat_grabbed");
 	self endon("disconnect");
 	self endon("bled_out");
 
@@ -223,47 +249,32 @@ meat_stink_cleanup_on_downed()
 			player.ignoreme = 0;
 		}
 	}
-}
 
-meat_powerup_drop_on_downed()
-{
-	level endon("meat_thrown");
-	self endon("disconnect");
-	self endon("bled_out");
-
-	self waittill("player_downed");
-
-	if (isDefined(level.item_meat))
+	if (level.scr_zm_ui_gametype_obj == "zmeat")
 	{
-		return;
-	}
+		valid_drop = check_point_in_enabled_zone( self.origin, undefined, undefined );
 
-	if (isDefined(level.meat_powerup))
-	{
-		return;
-	}
-
-	valid_drop = check_point_in_enabled_zone( self.origin, undefined, undefined );
-
-	if (valid_drop)
-	{
-		players = get_players();
-		foreach (player in players)
+		if (valid_drop)
 		{
-			player thread scripts\zm\zgrief\zgrief_reimagined::show_grief_hud_msg("Meat dropped!");
-		}
+			players = get_players();
+			foreach (player in players)
+			{
+				player thread scripts\zm\zgrief\zgrief_reimagined::show_grief_hud_msg("Meat dropped!");
+			}
 
-		level.meat_powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop( "meat_stink", self.origin );
-	}
-	else
-	{
-		level notify("meat_inactive");
+			level.meat_powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop( "meat_stink", self.origin );
+		}
+		else
+		{
+			level notify("meat_inactive");
+		}
 	}
 }
 
 meat_powerup_reset_on_disconnect()
 {
     level endon("meat_thrown");
+	level endon("meat_grabbed");
 	self endon("player_downed");
 	self endon("bled_out");
 
