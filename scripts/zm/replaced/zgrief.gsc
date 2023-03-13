@@ -233,6 +233,16 @@ meat_powerup_drop_on_downed()
 
 	self waittill("player_downed");
 
+	if (isDefined(level.item_meat))
+	{
+		return;
+	}
+
+	if (isDefined(level.meat_powerup))
+	{
+		return;
+	}
+
 	valid_drop = check_point_in_enabled_zone( self.origin, undefined, undefined );
 
 	if (valid_drop)
