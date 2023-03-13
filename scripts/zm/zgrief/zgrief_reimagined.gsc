@@ -328,8 +328,16 @@ set_grief_vars()
 		setDvar("ui_gametype_obj", "zgrief zsnr zrace zcontainment zmeat");
 	}
 
-	gamemodes = strTok(getDvar("ui_gametype_obj"), " ");
-	level.scr_zm_ui_gametype_obj = random(gamemodes);
+	if(getDvar("ui_gametype_obj_cur") != "")
+	{
+		level.scr_zm_ui_gametype_obj = getDvar("ui_gametype_obj_cur");
+	}
+	else
+	{
+		gamemodes = strTok(getDvar("ui_gametype_obj"), " ");
+		level.scr_zm_ui_gametype_obj = random(gamemodes);
+	}
+
 	level.scr_zm_ui_gametype_pro = getDvarIntDefault("ui_gametype_pro", 0);
 
 	level.noroundnumber = 1;
@@ -1468,26 +1476,26 @@ grief_intro_text()
 	self iPrintLn("Good luck!");
 }
 
-get_gamemode_display_name()
+get_gamemode_display_name(gamemode = level.scr_zm_ui_gametype_obj)
 {
 	name = "";
-	if(level.scr_zm_ui_gametype_obj == "zgrief")
+	if(gamemode == "zgrief")
 	{
 		name = "Grief";
 	}
-	else if(level.scr_zm_ui_gametype_obj == "zsnr")
+	else if(gamemode == "zsnr")
 	{
 		name = "Search & Rezurrect";
 	}
-	else if(level.scr_zm_ui_gametype_obj == "zrace")
+	else if(gamemode == "zrace")
 	{
 		name = "Race";
 	}
-	else if(level.scr_zm_ui_gametype_obj == "zcontainment")
+	else if(gamemode == "zcontainment")
 	{
 		name = "Containment";
 	}
-	else if(level.scr_zm_ui_gametype_obj == "zmeat")
+	else if(gamemode == "zmeat")
 	{
 		name = "Meat";
 	}
