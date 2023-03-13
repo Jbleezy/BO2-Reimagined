@@ -306,8 +306,9 @@
 * Player who threw the meat can meat themself
 * Decreased time on ground from 16 seconds to 10 seconds
 * Bounces off walls when thrown
-* Able to drop when players are down
 * Changed powerup fx color to blue
+* Able to drop when players are down
+* Fixed being able to drop when another meat powerup was already dropped
 * Message shows when the meat is grabbed and thrown on a player
 * Meleeing while the meat is moving no longer grabs the meat
 * Meleeing while the meat is moving throws the meat
@@ -450,7 +451,7 @@
 
 #### Cell Block
 * Added Smoke Grenades to the Mystery Box
-* Added Richtofen Head meat powerup model
+* Added Richtofen's Head meat powerup model
 
 ### Buried
 * Power automatically on

@@ -2339,21 +2339,29 @@ player_suicide()
 
 func_should_drop_meat()
 {
-	if(level.scr_zm_ui_gametype_obj == "zmeat")
+	if (level.scr_zm_ui_gametype_obj == "zmeat")
 	{
 		return 0;
 	}
 
-	players = get_players();
-	foreach(player in players)
+	foreach (powerup in level.active_powerups)
 	{
-		if(player hasWeapon("item_meat_zm"))
+		if (powerup.powerup_name == "meat_stink")
 		{
 			return 0;
 		}
 	}
 
-	if(isDefined(level.item_meat) || is_true(level.meat_on_ground))
+	players = get_players();
+	foreach (player in players)
+	{
+		if (player hasWeapon("item_meat_zm"))
+		{
+			return 0;
+		}
+	}
+
+	if (isDefined(level.item_meat) || is_true(level.meat_on_ground))
 	{
 		return 0;
 	}
