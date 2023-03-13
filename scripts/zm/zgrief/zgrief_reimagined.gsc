@@ -3052,7 +3052,11 @@ meat_think()
 
 			foreach (player in players)
 			{
-				if (player != level.meat_player)
+				if (player == level.meat_player)
+				{
+					player.obj_waypoint.alpha = 0;
+				}
+				else
 				{
 					player.obj_waypoint.alpha = 1;
 
