@@ -393,6 +393,9 @@
 * Power switch automatically crafted
 * Pack-a-Punch automatically crafted
 * Navcard table automatically crafted
+* Zombies spawn in the Warehouse zone when in the Outside Power Station zone before the Warehouse door is opened
+* Zombies spawn in the Outside Power Station zone when in the Fog After Power Station zone
+* Zombies spawn in the Warehouse zone when in the Fog After Power Station zone
 * Survival & Grief: power doors are buyable doors
 * Grief: added Ballistic Knife, Ray Gun, and Ray Gun Mark 2 to the Mystery Box
 * Fixed a zombie riser spawn point at Outside Power Station being too high above ground
@@ -451,7 +454,7 @@
 
 #### Cell Block
 * Added Smoke Grenades to the Mystery Box
-* Added Richtofen's Head meat powerup model
+* Added Richtofen Head meat powerup model
 
 ### Buried
 * Power automatically on
