@@ -567,7 +567,6 @@
 * Get 500 kills to win the game
 * Starts at round 1
 * Round increments every 30 seconds (up to round 20)
-* Players gain 500 points at the beginning of each round
 * Players respawn after being down for 10 seconds
 
 #### Containment

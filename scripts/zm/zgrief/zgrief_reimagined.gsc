@@ -2420,8 +2420,8 @@ race_think()
 
 	setroundsplayed(level.round_number);
 
-	level.zombie_starting_move_speed = 35;
-	level.zombie_move_speed = level.zombie_starting_move_speed;
+	level.zombie_move_speed = 36;
+	level.zombie_vars["zombie_spawn_delay"] = 0.5;
 
 	level.brutus_health = int(level.brutus_health_increase * level.round_number);
 	level.brutus_expl_dmg_req = int(level.brutus_explosive_damage_increase * level.round_number);
@@ -2439,12 +2439,10 @@ race_think()
 
 		maps\mp\zombies\_zm::ai_calculate_health(level.round_number);
 
-		level.zombie_move_speed = level.zombie_starting_move_speed + ((level.round_number - 1) * level.zombie_vars["zombie_move_speed_multiplier"]);
-
-		level.zombie_vars["zombie_spawn_delay"] *= 0.95;
-		if(level.zombie_vars["zombie_spawn_delay"] < 0.08)
+		move_speed = level.round_number * level.zombie_vars["zombie_move_speed_multiplier"];
+		if (move_speed > level.zombie_move_speed)
 		{
-			level.zombie_vars["zombie_spawn_delay"] = 0.08;
+			level.zombie_move_speed = move_speed;
 		}
 
 		level.brutus_health = int(level.brutus_health_increase * level.round_number);
@@ -2469,12 +2467,6 @@ race_think()
 		players = get_players();
 		foreach(player in players)
 		{
-			if(is_player_valid(player))
-			{
-				score = 500 * maps\mp\zombies\_zm_score::get_points_multiplier(player);
-				player maps\mp\zombies\_zm_score::add_to_player_score(score);
-			}
-
 			if(isDefined(player get_player_placeable_mine()))
 			{
 				player giveweapon(player get_player_placeable_mine());
