@@ -431,42 +431,33 @@ powerup_hud_overlay()
 	struct.shader = "specialty_instakill_zombies";
 	struct_array[struct_array.size] = struct;
 
-	foreach(struct in struct_array)
+	foreach (struct in struct_array)
 	{
-		hudelem = newTeamHudElem("axis");
-		hudelem.hidewheninmenu = 1;
-		hudelem.alignX = "center";
-		hudelem.alignY = "bottom";
-		hudelem.horzAlign = "user_center";
-		hudelem.vertAlign = "user_bottom";
-		hudelem.y = -37;
-		hudelem.color = (0.21, 0, 0);
-		hudelem.alpha = 0;
-		hudelem.team = "axis";
-		hudelem.on_string = struct.on;
-		hudelem.time_string = struct.time;
-		hudelem setShader(struct.shader, 32, 32);
-		hudelem thread powerup_hud_think();
-
-		hudelem = newTeamHudElem("allies");
-		hudelem.hidewheninmenu = 1;
-		hudelem.alignX = "center";
-		hudelem.alignY = "bottom";
-		hudelem.horzAlign = "user_center";
-		hudelem.vertAlign = "user_bottom";
-		hudelem.y = -37;
-		hudelem.color = (0.21, 0, 0);
-		hudelem.alpha = 0;
-		hudelem.team = "allies";
-		hudelem.on_string = struct.on;
-		hudelem.time_string = struct.time;
-		hudelem setShader(struct.shader, 32, 32);
-		hudelem thread powerup_hud_think();
+		foreach (team in level.teams)
+		{
+			hudelem = newTeamHudElem(team);
+			hudelem.hidewheninmenu = 1;
+			hudelem.alignX = "center";
+			hudelem.alignY = "bottom";
+			hudelem.horzAlign = "user_center";
+			hudelem.vertAlign = "user_bottom";
+			hudelem.y = -37;
+			hudelem.color = (0.21, 0, 0);
+			hudelem.alpha = 0;
+			hudelem.team = team;
+			hudelem.on_string = struct.on;
+			hudelem.time_string = struct.time;
+			hudelem setShader(struct.shader, 32, 32);
+			hudelem thread powerup_hud_think();
+			hudelem thread powerup_hud_destroy_on_intermission();
+		}
 	}
 }
 
 powerup_hud_think()
 {
+	level endon("intermission");
+
 	while(1)
 	{
 		if(level.zombie_vars[self.team][self.time_string] < 5 )
@@ -513,6 +504,13 @@ powerup_hud_think()
 
 		wait 0.05;
 	}
+}
+
+powerup_hud_destroy_on_intermission()
+{
+	level waittill("intermission");
+
+	self destroy();
 }
 
 powerup_hud_move()
