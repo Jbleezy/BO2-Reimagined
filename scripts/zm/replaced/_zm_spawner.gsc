@@ -171,6 +171,173 @@ zombie_damage( mod, hit_location, hit_origin, player, amount, team )
 	self thread maps\mp\zombies\_zm_powerups::check_for_instakill( player, mod, hit_location );
 }
 
+zombie_gib_on_damage()
+{
+    while ( true )
+    {
+        self waittill( "damage", amount, attacker, direction_vec, point, type, tagname, modelname, partname, weaponname );
+
+        if ( !isdefined( self ) )
+            return;
+
+        if ( !self zombie_should_gib( amount, attacker, type ) )
+            continue;
+
+        if ( self head_should_gib( attacker, type, point ) && type != "MOD_BURNED" )
+        {
+            self zombie_head_gib( attacker, type );
+            continue;
+        }
+
+        if ( !self.gibbed )
+        {
+            if ( self maps\mp\animscripts\zm_utility::damagelocationisany( "head", "helmet", "neck" ) )
+                continue;
+
+            refs = [];
+
+            switch ( self.damagelocation )
+            {
+                case "torso_upper":
+                case "torso_lower":
+                    refs[refs.size] = "guts";
+                    refs[refs.size] = "right_arm";
+                    break;
+                case "right_hand":
+                case "right_arm_upper":
+                case "right_arm_lower":
+                    refs[refs.size] = "right_arm";
+                    break;
+                case "left_hand":
+                case "left_arm_upper":
+                case "left_arm_lower":
+                    refs[refs.size] = "left_arm";
+                    break;
+                case "right_leg_upper":
+                case "right_leg_lower":
+                case "right_foot":
+                    if ( self.health <= 0 )
+                    {
+                        refs[refs.size] = "right_leg";
+                        refs[refs.size] = "right_leg";
+                        refs[refs.size] = "right_leg";
+                        refs[refs.size] = "no_legs";
+                    }
+
+                    break;
+                case "left_leg_upper":
+                case "left_leg_lower":
+                case "left_foot":
+                    if ( self.health <= 0 )
+                    {
+                        refs[refs.size] = "left_leg";
+                        refs[refs.size] = "left_leg";
+                        refs[refs.size] = "left_leg";
+                        refs[refs.size] = "no_legs";
+                    }
+
+                    break;
+                default:
+                    if ( self.damagelocation == "none" )
+                    {
+                        if ( type == "MOD_GRENADE" || type == "MOD_GRENADE_SPLASH" || type == "MOD_PROJECTILE" || type == "MOD_PROJECTILE_SPLASH" )
+                        {
+                            refs = self derive_damage_refs( point );
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        refs[refs.size] = "guts";
+                        refs[refs.size] = "right_arm";
+                        refs[refs.size] = "left_arm";
+                        refs[refs.size] = "right_leg";
+                        refs[refs.size] = "left_leg";
+                        refs[refs.size] = "no_legs";
+                        break;
+                    }
+            }
+
+            if ( isdefined( level.custom_derive_damage_refs ) )
+                refs = self [[ level.custom_derive_damage_refs ]]( refs, point, weaponname );
+
+            if ( refs.size )
+            {
+                self.a.gib_ref = maps\mp\animscripts\zm_death::get_random( refs );
+
+                if ( ( self.a.gib_ref == "no_legs" || self.a.gib_ref == "right_leg" || self.a.gib_ref == "left_leg" ) && self.health > 0 )
+                {
+                    self.has_legs = 0;
+                    self allowedstances( "crouch" );
+                    self setphysparams( 15, 0, 24 );
+                    self allowpitchangle( 1 );
+                    self setpitchorient();
+                    health = self.health;
+                    health *= 0.1;
+                    self thread maps\mp\animscripts\zm_run::needsdelayedupdate();
+
+					if (level.scr_zm_ui_gametype == "zgrief")
+					{
+						self thread bleedout_watcher();
+					}
+
+                    if ( isdefined( self.crawl_anim_override ) )
+                        self [[ self.crawl_anim_override ]]();
+                }
+            }
+
+            if ( self.health > 0 )
+            {
+                self thread maps\mp\animscripts\zm_death::do_gib();
+
+                if ( isdefined( level.gib_on_damage ) )
+                    self thread [[ level.gib_on_damage ]]();
+            }
+        }
+    }
+}
+
+bleedout_watcher()
+{
+	self endon("death");
+
+	self thread melee_watcher();
+
+	self.bleedout_time = getTime();
+	health = self.health;
+
+	while (1)
+	{
+		if (health > self.health)
+		{
+			health = self.health;
+			self.bleedout_time = getTime();
+		}
+
+		if (getTime() - self.bleedout_time > 30000)
+		{
+			level.zombie_total++;
+			self.no_powerups = 1;
+			self dodamage(self.health + 100, self.origin);
+			return;
+		}
+
+		wait 0.05;
+	}
+}
+
+melee_watcher()
+{
+	self endon("death");
+
+	while (1)
+	{
+		self waittill("melee_anim");
+
+		self.bleedout_time = getTime();
+	}
+}
+
 head_should_gib( attacker, type, point )
 {
 	if ( !is_mature() )

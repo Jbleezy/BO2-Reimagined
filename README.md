@@ -28,7 +28,7 @@
 * Increased waypoint offset from top of screen
 * Changed player waypoint location to be center of player instead of top of player
 * Increased distance between revive waypoint arrow and icon
-* Bleedout bar displayed when downed
+* Bleed out bar displayed when downed
 * Revive bar displayed for downed player
 * Changed revive bar color to blue
 * Player needs to be revived text updates to new player instantly
@@ -504,6 +504,7 @@
 * 2500 health zombies (25000 health Brutus)
 * 0.5 second zombie spawn rate
 * Only sprinting zombies
+* Crawlers bleed out if they have not dealt or taken damage within 30 seconds
 * Unlimited powerups
 * Unlimited barrier rebuild points
 * Unupgraded weapons stun enemy players for 0.375 seconds
