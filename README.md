@@ -528,7 +528,7 @@
 * Decreased max height for landing on top of an enemy player by 50%
 * M1911 upgraded: decreased stock ammo from 50 to 24
 * Max Ammo: decreased amount of ammo given from max stock to one clip
-* Max Ammo: unloads clip of all enemy players' weapons
+* Max Ammo: unloads clip of all enemy players' weapons and takes away their grenades and claymores
 * Double Points: decreased duration from 30 seconds to 15 seconds
 * Double Points: enemy players gain half points
 * Insta Kill: decreased duration from 30 seconds to 15 seconds

@@ -121,6 +121,10 @@ empty_clip_powerup( drop_item, player )
 			players[i] setweaponammoclip(alt_weapon, 0);
 		}
 
+		players[i] setweaponammoclip(players[i] get_player_lethal_grenade(), 0);
+		players[i] setweaponammoclip(players[i] get_player_tactical_grenade(), 0);
+		players[i] setweaponammoclip(players[i] get_player_placeable_mine(), 0);
+
 		i++;
 	}
 
