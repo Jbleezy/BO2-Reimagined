@@ -295,7 +295,6 @@
 
 ### Nuke
 * Kills all zombies instantly
-* Counts as kills for player who grabbed it
 
 ### Carpenter
 * Removed

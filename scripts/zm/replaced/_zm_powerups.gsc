@@ -226,7 +226,7 @@ nuke_powerup( drop_item, player_team )
 			zombies_nuked[ i ] playsound("evt_nuked");
 		}
 		zombies_nuked[ i ].deathpoints_already_given = 1;
-		zombies_nuked[ i ] dodamage(zombies_nuked[i].health + 666, zombies_nuked[ i ].origin, player );
+		zombies_nuked[ i ] dodamage(zombies_nuked[i].health + 666, zombies_nuked[ i ].origin );
 		i++;
 	}
 	players = get_players( player_team );
