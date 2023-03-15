@@ -323,6 +323,7 @@ meat_stink_player( who )
 		return;
 	}
 
+	level.meat_player = who;
 	who.ignoreme = 0;
 	players = get_players();
 	foreach ( player in players )
@@ -343,6 +344,7 @@ meat_stink_player( who )
 		player thread maps\mp\gametypes_zm\zgrief::meat_stink_player_cleanup();
 		player.ignoreme = 0;
 	}
+	level.meat_player = undefined;
 }
 
 print_meat_msg(meat_player, verb)

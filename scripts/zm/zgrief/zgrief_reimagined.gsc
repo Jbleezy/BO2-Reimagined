@@ -2599,23 +2599,13 @@ containment_think()
 			in_containment_zone["allies"] = [];
 			min_team_size = min(countplayers("axis"), countplayers("allies"));
 
-			meat_stink_player = 0;
-			foreach(player in players)
-			{
-				if(isDefined(player.meat_stink_3p))
-				{
-					meat_stink_player = 1;
-					break;
-				}
-			}
-
 			foreach(player in players)
 			{
 				if(player get_current_zone() == zone_name)
 				{
 					if(is_player_valid(player))
 					{
-						if(!meat_stink_player && !is_true(player.spawn_protection) && !is_true(player.revive_protection))
+						if(!isDefined(level.meat_player) && !is_true(player.spawn_protection) && !is_true(player.revive_protection))
 						{
 							player.ignoreme = 0;
 						}
@@ -2646,7 +2636,7 @@ containment_think()
 				{
 					if(is_player_valid(player))
 					{
-						if(!meat_stink_player)
+						if(!isDefined(level.meat_player))
 						{
 							player.ignoreme = 1;
 						}
@@ -2788,7 +2778,7 @@ containment_think()
 				{
 					if(is_player_valid(player))
 					{
-						if(!meat_stink_player && !is_true(player.spawn_protection) && !is_true(player.revive_protection))
+						if(!isDefined(level.meat_player) && !is_true(player.spawn_protection) && !is_true(player.revive_protection))
 						{
 							player.ignoreme = 0;
 						}
