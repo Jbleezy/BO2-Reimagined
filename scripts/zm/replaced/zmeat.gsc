@@ -68,7 +68,10 @@ item_meat_on_spawn_retrieve_trigger( watcher, player, weaponname )
 
 		if (level.scr_zm_ui_gametype_obj == "zmeat")
 		{
-			other_player thread scripts\zm\zgrief\zgrief_reimagined::show_grief_hud_msg("Meat thrown!");
+            if (!is_true(player._kicking_meat))
+            {
+                other_player thread scripts\zm\zgrief\zgrief_reimagined::show_grief_hud_msg("Meat thrown!");
+            }
 		}
 	}
 
