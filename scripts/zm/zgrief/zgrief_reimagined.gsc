@@ -2597,6 +2597,7 @@ containment_think()
 			in_containment_zone = [];
 			in_containment_zone["axis"] = [];
 			in_containment_zone["allies"] = [];
+			min_team_size = min(countplayers("axis"), countplayers("allies"));
 
 			meat_stink_player = 0;
 			foreach(player in players)
@@ -2675,7 +2676,7 @@ containment_think()
 				}
 			}
 
-			if(in_containment_zone["axis"].size == in_containment_zone["allies"].size && in_containment_zone["axis"].size > 0 && in_containment_zone["allies"].size > 0)
+			if(min(in_containment_zone["axis"].size, min_team_size) == min(in_containment_zone["allies"].size, min_team_size) && in_containment_zone["axis"].size > 0 && in_containment_zone["allies"].size > 0)
 			{
 				foreach(player in players)
 				{
