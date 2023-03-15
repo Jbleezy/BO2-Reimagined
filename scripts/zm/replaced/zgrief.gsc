@@ -22,7 +22,16 @@ meat_bounce_override( pos, normal, ent, bounce )
 {
     if ( isdefined( ent ) && isplayer( ent ) && is_player_valid(ent) && !ent hasWeapon("item_meat_zm") && !is_true(ent.dont_touch_the_meat) )
     {
-		level thread meat_stink_player( ent );
+		if (ent isMeleeing()) // && ent is_player_looking_at(pos, 0.5, 0)
+		{
+			ent thread maps\mp\gametypes_zm\zmeat::spike_the_meat(self);
+
+			return;
+		}
+		else
+		{
+			level thread meat_stink_player( ent );
+		}
 
 		if ( isdefined( self.owner ) )
 		{
@@ -62,7 +71,16 @@ meat_bounce_override( pos, normal, ent, bounce )
 
         if ( isdefined( closest_player ) )
         {
-            level thread meat_stink_player( closest_player );
+			if (closest_player isMeleeing()) // && ent is_player_looking_at(pos, 0.5, 0)
+			{
+				closest_player thread maps\mp\gametypes_zm\zmeat::spike_the_meat(self);
+
+				return;
+			}
+			else
+			{
+				level thread meat_stink_player( closest_player );
+			}
 
             if ( isdefined( self.owner ) )
             {
