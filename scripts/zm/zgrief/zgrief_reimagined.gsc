@@ -975,6 +975,7 @@ team_player_waypoint()
 	self.player_waypoint.horzalign = "user_center";
 	self.player_waypoint.vertalign = "user_center";
 	self.player_waypoint.hidewheninmenu = 1;
+	self.player_waypoint.fadewhentargeted = 1;
 	self.player_waypoint setShader(game["icons"][self.team], 6, 6);
 	self.player_waypoint setWaypoint(1);
 	self.player_waypoint setTargetEnt(self.player_waypoint_origin);
@@ -1035,6 +1036,7 @@ obj_waypoint()
 	self.obj_waypoint.vertalign = "user_center";
 	self.obj_waypoint.alpha = 0;
 	self.obj_waypoint.hidewheninmenu = 1;
+	self.obj_waypoint.fadewhentargeted = 1;
 	self.obj_waypoint.foreground = 1;
 	self.obj_waypoint setWaypoint(1, "waypoint_revive");
 
@@ -2624,20 +2626,16 @@ containment_think()
 						}
 
 						in_containment_zone[player.team][in_containment_zone[player.team].size] = player;
+					}
 
-						if(isads(player))
-						{
-							player.obj_waypoint fadeOverTime(0.25);
-							player.obj_waypoint.alpha = 0.25;
-						}
-						else
-						{
-							player.obj_waypoint.alpha = 1;
-						}
+					if(isads(player))
+					{
+						player.obj_waypoint fadeOverTime(0.25);
+						player.obj_waypoint.alpha = 0.25;
 					}
 					else
 					{
-						player.obj_waypoint.alpha = 0;
+						player.obj_waypoint.alpha = 1;
 					}
 
 					player.obj_waypoint.x = 0;
@@ -2653,13 +2651,9 @@ containment_think()
 						{
 							player.ignoreme = 1;
 						}
+					}
 
-						player.obj_waypoint.alpha = 1;
-					}
-					else
-					{
-						player.obj_waypoint.alpha = 0;
-					}
+					player.obj_waypoint.alpha = 1;
 
 					if(level.script == "zm_transit" && level.scr_zm_map_start_location == "power" && zone_name == "zone_trans_8")
 					{
