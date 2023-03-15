@@ -2822,7 +2822,7 @@ containment_think()
 							player.captures++;
 						}
 
-						increment_score("axis");
+						increment_score("axis", !isDefined(held_time["allies"]));
 					}
 				}
 			}
@@ -2842,7 +2842,7 @@ containment_think()
 							player.captures++;
 						}
 
-						increment_score("allies");
+						increment_score("allies", !isDefined(held_time["axis"]));
 					}
 				}
 			}
@@ -3175,7 +3175,7 @@ powerup_can_player_grab(player)
 	return true;
 }
 
-increment_score(team)
+increment_score(team, show_lead_msg = true)
 {
 	level endon("end_game");
 
@@ -3218,26 +3218,29 @@ increment_score(team)
 		}
 	}
 
-	if (!isDefined(level.prev_leader) || (level.prev_leader != encounters_team && level.grief_score[encounters_team] > level.grief_score[level.prev_leader]))
+	if (show_lead_msg)
 	{
-		level.prev_leader = encounters_team;
-
-		delay = 0;
-		if (level.scr_zm_ui_gametype_obj == "zsnr")
+		if (!isDefined(level.prev_leader) || (level.prev_leader != encounters_team && level.grief_score[encounters_team] > level.grief_score[level.prev_leader]))
 		{
-			delay = 1;
-		}
+			level.prev_leader = encounters_team;
 
-		players = get_players();
-		foreach (player in players)
-		{
-			if (player.team == team)
+			delay = 0;
+			if (level.scr_zm_ui_gametype_obj == "zsnr")
 			{
-				player thread show_grief_hud_msg("Gained the lead!", undefined, 30, delay);
+				delay = 1;
 			}
-			else
+
+			players = get_players();
+			foreach (player in players)
 			{
-				player thread show_grief_hud_msg("Lost the lead!", undefined, 30, delay);
+				if (player.team == team)
+				{
+					player thread show_grief_hud_msg("Gained the lead!", undefined, 30, delay);
+				}
+				else
+				{
+					player thread show_grief_hud_msg("Lost the lead!", undefined, 30, delay);
+				}
 			}
 		}
 	}
