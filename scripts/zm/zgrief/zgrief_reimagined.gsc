@@ -2547,15 +2547,19 @@ containment_think()
 
 	flag_wait("initial_blackscreen_passed");
 
+	ind = 0;
+	containment_zones = containment_get_zones();
+
 	level.containment_zone_hud.alpha = 1;
-	level.containment_time_hud.alpha = 1;
+
+	if (containment_zones.size > 1)
+	{
+		level.containment_time_hud.alpha = 1;
+	}
 
 	level waittill("restart_round_start");
 
 	wait 10;
-
-	containment_zones = containment_get_zones();
-	ind = 0;
 
 	while(1)
 	{
@@ -2587,7 +2591,7 @@ containment_think()
 		held_time["allies"] = undefined;
 		held_prev = "none";
 		start_time = getTime();
-		while((getTime() - start_time) <= (60 * 1000))
+		while((getTime() - start_time) <= 60000 || containment_zones.size == 1)
 		{
 			players = get_players();
 			in_containment_zone = [];
