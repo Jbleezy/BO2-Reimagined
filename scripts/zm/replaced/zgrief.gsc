@@ -208,7 +208,7 @@ meat_stink( who )
 		}
 	}
 
-	who thread maps\mp\gametypes_zm\zgrief::meat_stink_player_create();
+	who thread meat_stink_player_create();
 
 	who thread meat_stink_cleanup_on_downed();
 
@@ -354,7 +354,7 @@ meat_stink_player( who )
 
 		player print_meat_msg(who, "has");
 	}
-	who thread maps\mp\gametypes_zm\zgrief::meat_stink_player_create();
+	who thread meat_stink_player_create();
 	who waittill_any_or_timeout( 30, "disconnect", "player_downed", "bled_out" );
 	players = get_players();
 	foreach ( player in players )
@@ -363,6 +363,19 @@ meat_stink_player( who )
 		player.ignoreme = 0;
 	}
 	level.meat_player = undefined;
+}
+
+meat_stink_player_create()
+{
+    self maps\mp\zombies\_zm_stats::increment_client_stat( "contaminations_received" );
+    self endon( "disconnect" );
+    self endon( "death" );
+    tagname = "J_SpineLower";
+    self.meat_stink_3p = spawn( "script_model", self gettagorigin( tagname ) );
+    self.meat_stink_3p setmodel( "tag_origin" );
+    self.meat_stink_3p linkto( self, tagname );
+    playfxontag( level._effect["meat_stink_torso"], self.meat_stink_3p, "tag_origin" );
+    self setclientfieldtoplayer( "meat_stink", 1 );
 }
 
 print_meat_msg(meat_player, verb)
