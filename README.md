@@ -423,7 +423,7 @@
 
 #### Power Station
 * Added Survival and Grief game modes
-* Wallbuys: M14, Olympia, MP5, Ak74u, Remington 870, Bowie Knife
+* Wallbuys: M14, Olympia, MP5, AK74u, Remington 870, Bowie Knife
 * Perks: Juggernog, Quick Revive, Speed Cola, Double Tap, Tombstone Soda
 * Pack-a-Punch
 
@@ -435,14 +435,14 @@
 
 #### Tunnel
 * Added Survival and Grief game modes
-* Wallbuys: M14, Olympia, MP5, M16, Semtex
+* Wallbuys: M14, Olympia, AK74u, M16, Semtex
 * No Mystery Box
 * Perks: Juggernog, Quick Revive, Speed Cola, Double Tap, Stamin-Up
 * Pack-a-Punch
 
 #### Cornfield
 * Added Survival and Grief game modes
-* Wallbuys: M14, Olympia, B23R, MP5, Ak74u, M16, Remington 870, Semtex, Claymore
+* Wallbuys: M14, Olympia, B23R, MP5, AK74u, M16, Remington 870, Semtex, Claymore
 * 2 Mystery Box locations
 * No perks
 * Pack-a-Punch
