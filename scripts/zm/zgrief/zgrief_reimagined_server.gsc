@@ -45,7 +45,6 @@ precache_map_strings()
     precachestring(&"ZMUI_TOWN");
     precachestring(&"ZMUI_DINER");
     precachestring(&"ZMUI_TUNNEL");
-    precachestring(&"ZMUI_POWER");
     precachestring(&"ZMUI_CELLBLOCK");
     precachestring(&"ZMUI_STREET_LOC");
 }
@@ -57,6 +56,7 @@ precache_map_images()
     preCacheShader("loadscreen_zm_transit_zgrief_town");
     preCacheShader("loadscreen_zm_transit_zgrief_power");
     preCacheShader("loadscreen_zm_transit_zgrief_tunnel");
+    preCacheShader("loadscreen_zm_transit_zgrief_cornfield");
     preCacheShader("loadscreen_zm_transit_dr_zcleansed_diner");
     preCacheShader("loadscreen_zm_prison_zgrief_cellblock");
     preCacheShader("loadscreen_zm_buried_zgrief_street");
@@ -544,6 +544,10 @@ get_name_for_loc(locname)
     else if (locname == "tunnel")
     {
         return &"ZMUI_TUNNEL";
+    }
+    else if (locname == "cornfield")
+    {
+        return "Cornfield";
     }
     else if (locname == "cellblock")
     {

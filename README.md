@@ -413,6 +413,7 @@
 * Added Survival and Grief game modes
 * Wallbuys: M14, Olympia, MP5, Galvaknuckles
 * Perks: Juggernog, Quick Revive, Speed Cola, Double Tap
+* No Pack-a-Punch
 
 #### Farm
 * Zombies spawn in the Farm zone when in the Barn zone
@@ -422,7 +423,7 @@
 
 #### Power Station
 * Added Survival and Grief game modes
-* Wallbuys: M14, Olympia, AK74u, MP5, Bowie Knife
+* Wallbuys: M14, Olympia, MP5, Ak74u, Remington 870, Bowie Knife
 * Perks: Juggernog, Quick Revive, Speed Cola, Double Tap, Tombstone Soda
 * Pack-a-Punch
 
@@ -434,8 +435,16 @@
 
 #### Tunnel
 * Added Survival and Grief game modes
-* Wallbuys: M14, Olympia, M16, MP5, Semtex
+* Wallbuys: M14, Olympia, MP5, M16, Semtex
+* No Mystery Box
 * Perks: Juggernog, Quick Revive, Speed Cola, Double Tap, Stamin-Up
+* Pack-a-Punch
+
+#### Cornfield
+* Added Survival and Grief game modes
+* Wallbuys: M14, Olympia, B23R, MP5, Ak74u, M16, Remington 870, Semtex, Claymore
+* 2 Mystery Box locations
+* No perks
 * Pack-a-Punch
 
 ### Die Rise

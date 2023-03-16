@@ -2915,6 +2915,10 @@ containment_get_zones()
 		{
 			containment_zones = array("zone_amb_tunnel");
 		}
+		else if(level.scr_zm_map_start_location == "cornfield")
+		{
+			containment_zones = array("zone_cornfield_prototype");
+		}
 	}
 	else if(level.script == "zm_prison")
 	{

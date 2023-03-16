@@ -351,6 +351,28 @@ add_missing_perk_machines()
 				}
 			}
 		}
+		else if((level.script == "zm_transit" && level.scr_zm_map_start_location == "cornfield"))
+		{
+			if(isDefined(struct.script_noteworthy) && struct.script_noteworthy == "specialty_armorvest")
+			{
+				if(isDefined(struct.script_string) && isSubStr(struct.script_string, "zclassic_perks_transit"))
+				{
+					struct.script_string += " zgrief_perks_cornfield";
+					struct.origin = (9985, -91, -213);
+					struct.angles = (0, 30, 0);
+				}
+			}
+
+			if(isDefined(struct.script_noteworthy) && struct.script_noteworthy == "specialty_fastreload")
+			{
+				if(isDefined(struct.script_string) && isSubStr(struct.script_string, "zclassic_perks_transit"))
+				{
+					struct.script_string += " zgrief_perks_cornfield";
+					struct.origin = (10257, -1802, -212);
+					struct.angles = (0, 180, 0);
+				}
+			}
+		}
 		else if((level.script == "zm_prison" && level.scr_zm_map_start_location == "cellblock"))
 		{
 			if(isDefined(struct.script_noteworthy) && struct.script_noteworthy == "specialty_rof")
