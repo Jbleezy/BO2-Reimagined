@@ -10,8 +10,6 @@
 
 struct_init()
 {
-    replaceFunc(maps\mp\zombies\_zm_zonemgr::manage_zones, ::manage_zones);
-
     scripts\zm\replaced\utility::register_perk_struct( "specialty_armorvest", "zombie_vending_jugg", ( -11541, -2630, 194 ), ( 0, -180, 0 ) );
     scripts\zm\replaced\utility::register_perk_struct( "specialty_quickrevive", "zombie_vending_quickrevive", ( -10780, -2565, 224 ), ( 0, 270, 0 ) );
     scripts\zm\replaced\utility::register_perk_struct( "specialty_fastreload", "zombie_vending_sleight", ( -11373, -1674, 192 ), ( 0, -89, 0 ) );
@@ -80,10 +78,6 @@ init_barriers()
 
 disable_zombie_spawn_locations()
 {
-    wait 10;
-    player = get_players()[0];
-    player notify( "stop_player_out_of_playable_area_monitor" );
-
 	for ( z = 0; z < level.zone_keys.size; z++ )
 	{
 		zone = level.zones[ level.zone_keys[ z ] ];
@@ -124,135 +118,5 @@ disable_zombie_spawn_locations()
                 i++;
             }
         }
-	}
-}
-
-manage_zones( initial_zone )
-{
-    initial_zone = [];
-    initial_zone[0] = "zone_amb_tunnel";
-
-	deactivate_initial_barrier_goals();
-	zone_choke = 0;
-	spawn_points = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
-	for ( i = 0; i < spawn_points.size; i++ )
-	{
-		spawn_points[ i ].locked = 1;
-	}
-	if ( isDefined( level.zone_manager_init_func ) )
-	{
-		[[ level.zone_manager_init_func ]]();
-	}
-
-	if ( isarray( initial_zone ) )
-	{
-		for ( i = 0; i < initial_zone.size; i++ )
-		{
-			zone_init( initial_zone[ i ] );
-			enable_zone( initial_zone[ i ] );
-		}
-	}
-	else
-	{
-		zone_init( initial_zone );
-		enable_zone( initial_zone );
-	}
-	setup_zone_flag_waits();
-	zkeys = getarraykeys( level.zones );
-	level.zone_keys = zkeys;
-	level.newzones = [];
-	for ( z = 0; z < zkeys.size; z++ )
-	{
-		level.newzones[ zkeys[ z ] ] = spawnstruct();
-	}
-	oldzone = undefined;
-	flag_set( "zones_initialized" );
-	flag_wait( "begin_spawning" );
-	while ( getDvarInt( "noclip" ) == 0 || getDvarInt( "notarget" ) != 0 )
-	{
-		for( z = 0; z < zkeys.size; z++ )
-		{
-			level.newzones[ zkeys[ z ] ].is_active = 0;
-			level.newzones[ zkeys[ z ] ].is_occupied = 0;
-		}
-		a_zone_is_active = 0;
-		a_zone_is_spawning_allowed = 0;
-		level.zone_scanning_active = 1;
-		z = 0;
-		while ( z < zkeys.size )
-		{
-			zone = level.zones[ zkeys[ z ] ];
-			newzone = level.newzones[ zkeys[ z ] ];
-			if( !zone.is_enabled )
-			{
-				z++;
-				continue;
-			}
-			if ( isdefined(level.zone_occupied_func ) )
-			{
-				newzone.is_occupied = [[ level.zone_occupied_func ]]( zkeys[ z ] );
-			}
-			else
-			{
-				newzone.is_occupied = player_in_zone( zkeys[ z ] );
-			}
-			if ( newzone.is_occupied )
-			{
-				newzone.is_active = 1;
-				a_zone_is_active = 1;
-				if ( zone.is_spawning_allowed )
-				{
-					a_zone_is_spawning_allowed = 1;
-				}
-				if ( !isdefined(oldzone) || oldzone != newzone )
-				{
-					level notify( "newzoneActive", zkeys[ z ] );
-					oldzone = newzone;
-				}
-				azkeys = getarraykeys( zone.adjacent_zones );
-				for ( az = 0; az < zone.adjacent_zones.size; az++ )
-				{
-					if ( zone.adjacent_zones[ azkeys[ az ] ].is_connected && level.zones[ azkeys[ az ] ].is_enabled )
-					{
-						level.newzones[ azkeys[ az ] ].is_active = 1;
-						if ( level.zones[ azkeys[ az ] ].is_spawning_allowed )
-						{
-							a_zone_is_spawning_allowed = 1;
-						}
-					}
-				}
-			}
-			zone_choke++;
-			if ( zone_choke >= 3 )
-			{
-				zone_choke = 0;
-				wait 0.05;
-			}
-			z++;
-		}
-		level.zone_scanning_active = 0;
-		for ( z = 0; z < zkeys.size; z++ )
-		{
-			level.zones[ zkeys[ z ] ].is_active = level.newzones[ zkeys[ z ] ].is_active;
-			level.zones[ zkeys[ z ] ].is_occupied = level.newzones[ zkeys[ z ] ].is_occupied;
-		}
-		if ( !a_zone_is_active || !a_zone_is_spawning_allowed )
-		{
-			if ( isarray( initial_zone ) )
-			{
-				level.zones[ initial_zone[ 0 ] ].is_active = 1;
-				level.zones[ initial_zone[ 0 ] ].is_occupied = 1;
-				level.zones[ initial_zone[ 0 ] ].is_spawning_allowed = 1;
-			}
-			else
-			{
-				level.zones[ initial_zone ].is_active = 1;
-				level.zones[ initial_zone ].is_occupied = 1;
-				level.zones[ initial_zone ].is_spawning_allowed = 1;
-			}
-		}
-		[[ level.create_spawner_list_func ]]( zkeys );
-		level.active_zone_names = maps\mp\zombies\_zm_zonemgr::get_active_zone_names();
-		wait 1;
 	}
 }

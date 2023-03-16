@@ -339,7 +339,12 @@ change_dvar_over_time(dvar, val, time, increment)
 
 manage_zones( initial_zone )
 {
-    level.zone_manager_init_func = ::transit_zone_init;
+	level.zone_manager_init_func = ::transit_zone_init;
+
+	if (!isInArray(initial_zone, "zone_amb_tunnel"))
+	{
+		initial_zone[initial_zone.size] = "zone_amb_tunnel";
+	}
 
 	deactivate_initial_barrier_goals();
 	zone_choke = 0;
