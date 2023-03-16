@@ -24,6 +24,7 @@ struct_init()
         }
     }
 
+    level.struct_class_names["targetname"]["player_respawn_point"] = [];
 	level.struct_class_names["script_noteworthy"]["initial_spawn"] = [];
 
     respawn_array = getstructarray(respawnpoints[ind].target, "targetname");
