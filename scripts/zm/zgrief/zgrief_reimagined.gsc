@@ -331,7 +331,11 @@ set_grief_vars()
 		level.scr_zm_ui_gametype_obj = random(gamemodes);
 	}
 
-	level.scr_zm_ui_gametype_pro = getDvarIntDefault("ui_gametype_pro", 0);
+	if(getDvar("ui_gametype_pro") == "")
+	{
+		setDvar("ui_gametype_pro", 0);
+	}
+	level.scr_zm_ui_gametype_pro = getDvarInt("ui_gametype_pro");
 
 	level.noroundnumber = 1;
 	level.zombie_powerups["meat_stink"].solo = 1;
@@ -2616,7 +2620,8 @@ containment_think()
 
 			foreach(player in players)
 			{
-				if(player get_current_zone() == zone_name)
+				player_zone_name = player get_current_zone();
+				if(isDefined(player_zone_name) && player_zone_name == zone_name)
 				{
 					if(is_player_valid(player))
 					{
@@ -2855,7 +2860,7 @@ containment_think()
 		{
 			for (i = 0; i < zombies.size; i++)
 			{
-				if (zombies[i] get_current_zone() == zone_name)
+				if (!isDefined(zombies[i] get_current_zone()) || zombies[i] get_current_zone() == zone_name)
 				{
 					zombies[i] dodamage(zombies[i].health + 666, zombies[i].origin);
 				}
