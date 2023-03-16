@@ -346,6 +346,16 @@ manage_zones( initial_zone )
 		initial_zone[initial_zone.size] = "zone_amb_tunnel";
 	}
 
+	if (!isInArray(initial_zone, "zone_amb_cornfield"))
+	{
+		initial_zone[initial_zone.size] = "zone_amb_cornfield";
+	}
+
+	if (!isInArray(initial_zone, "zone_cornfield_prototype"))
+	{
+		initial_zone[initial_zone.size] = "zone_cornfield_prototype";
+	}
+
 	deactivate_initial_barrier_goals();
 	zone_choke = 0;
 	spawn_points = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
@@ -520,7 +530,6 @@ transit_zone_init()
     add_adjacent_zone( "zone_gas", "zone_din", "OnGasDoorDin" );
     add_adjacent_zone( "zone_gas", "zone_gar", "OnGasDoorGar" );
     add_adjacent_zone( "zone_diner_roof", "zone_din", "OnGasDoorDin", 1 );
-    add_adjacent_zone( "zone_amb_cornfield", "zone_cornfield_prototype", "always_on" );
     add_adjacent_zone( "zone_tow", "zone_bar", "always_on", 1 );
     add_adjacent_zone( "zone_bar", "zone_tow", "OnTowDoorBar", 1 );
     add_adjacent_zone( "zone_tow", "zone_ban", "OnTowDoorBan" );

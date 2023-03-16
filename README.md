@@ -394,6 +394,8 @@
 * Power switch automatically crafted
 * Pack-a-Punch automatically crafted
 * Navcard table automatically crafted
+* Zombies no longer spawn in the Prototype zone when in the Cornfield zone
+* Zombies no longer spawn in the Cornfield zone when in the Prototype zone
 * Zombies spawn in the Warehouse zone when in the Outside Power Station zone before the Warehouse door is opened
 * Zombies spawn in the Outside Power Station zone when in the Fog After Power Station zone
 * Zombies spawn in the Warehouse zone when in the Fog After Power Station zone
