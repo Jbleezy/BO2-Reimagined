@@ -35,6 +35,8 @@ gain_interest_after_rounds()
 		{
 			self.account_value = level.bank_account_max;
 		}
+
+		self notify("update_account_value");
 	}
 }
 
@@ -191,7 +193,7 @@ show_balance(player)
 
 	if (isDefined(stub.bankbalancehud[num]))
 	{
-		stub.bankbalancehud[num] settext( "Account Balance: " + round_up_to_ten(int(player.account_value * level.bank_deposit_ddl_increment_amount)) );
+		player notify("update_account_value");
 		return;
 	}
 
@@ -207,8 +209,9 @@ show_balance(player)
 	hud.fontscale = 1;
 	hud.alpha = 1;
 	hud.color = ( 1, 1, 1 );
-	hud settext( "Account Balance: " + round_up_to_ten(int(player.account_value * level.bank_deposit_ddl_increment_amount)) );
 	stub.bankbalancehud[num] = hud;
+
+	hud thread update_balance(player);
 
 	while ( isDefined( self ) )
 	{
@@ -226,4 +229,16 @@ show_balance(player)
 
 	stub.bankbalancehud[num] destroy();
 	stub.bankbalancehud[num] = undefined;
+}
+
+update_balance(player)
+{
+	self endon("death");
+
+	while (1)
+	{
+		self settext( "Account Balance: " + round_up_to_ten(int(player.account_value * level.bank_deposit_ddl_increment_amount)) );
+
+		player waittill("update_account_value");
+	}
 }
