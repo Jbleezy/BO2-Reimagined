@@ -81,42 +81,40 @@ disable_zombie_spawn_locations()
 	for ( z = 0; z < level.zone_keys.size; z++ )
 	{
 		zone = level.zones[ level.zone_keys[ z ] ];
-        if(zone == "zone_amb_tunnel")
-        {
-            i = 0;
-            while ( i < zone.spawn_locations.size )
-            {
-                if ( zone.spawn_locations[ i ].origin == ( -11447, -3424, 254.2 ) )
-                {
-                    zone.spawn_locations[ i ].is_enabled = false;
-                }
-                else if ( zone.spawn_locations[ i ].origin == ( -11093, 393, 192 ) )
-                {
-                    zone.spawn_locations[ i ].is_enabled = false;
-                }
-                else if ( zone.spawn_locations[ i ].origin == ( -10944, -3846, 221.14 ) )
-                {
-                    zone.spawn_locations[ i ].is_enabled = false;
-                }
-                else if ( zone.spawn_locations[ i ].origin == ( -10836, 1195, 209.7 ) )
-                {
-                    zone.spawn_locations[ i ].is_enabled = false;
-                }
-                else if ( zone.spawn_locations[ i ].origin == ( -11251, -4397, 200.02 ) )
-                {
-                    zone.spawn_locations[ i ].is_enabled = false;
-                }
-                else if ( zone.spawn_locations[ i ].origin == ( -11334, -5280, 212.7 ) )
-                {
-                    zone.spawn_locations[ i ].is_enabled = false;
-                }
-                else if ( zone.spawn_locations[ i ].origin == ( -11347, -3134, 283.9 ) )
-                {
-                    zone.spawn_locations[ i ].is_enabled = false;
-                }
 
-                i++;
+        i = 0;
+        while ( i < zone.spawn_locations.size )
+        {
+            if ( zone.spawn_locations[ i ].origin == ( -11447, -3424, 254.2 ) )
+            {
+                zone.spawn_locations[ i ].is_enabled = false;
             }
+            else if ( zone.spawn_locations[ i ].origin == ( -11093, 393, 192 ) )
+            {
+                zone.spawn_locations[ i ].is_enabled = false;
+            }
+            else if ( zone.spawn_locations[ i ].origin == ( -10944, -3846, 221.14 ) )
+            {
+                zone.spawn_locations[ i ].is_enabled = false;
+            }
+            else if ( zone.spawn_locations[ i ].origin == ( -10836, 1195, 209.7 ) )
+            {
+                zone.spawn_locations[ i ].is_enabled = false;
+            }
+            else if ( zone.spawn_locations[ i ].origin == ( -11251, -4397, 200.02 ) )
+            {
+                zone.spawn_locations[ i ].is_enabled = false;
+            }
+            else if ( zone.spawn_locations[ i ].origin == ( -11334, -5280, 212.7 ) )
+            {
+                zone.spawn_locations[ i ].is_enabled = false;
+            }
+            else if ( zone.spawn_locations[ i ].origin == ( -11347, -3134, 283.9 ) )
+            {
+                zone.spawn_locations[ i ].is_enabled = false;
+            }
+
+            i++;
         }
 	}
 }

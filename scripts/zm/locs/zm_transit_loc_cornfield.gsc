@@ -216,21 +216,17 @@ disable_zombie_spawn_locations()
 {
 	for ( z = 0; z < level.zone_keys.size; z++ )
 	{
-        zone_name = level.zone_keys[z];
-        if(zone_name == "zone_amb_cornfield")
+        zone = level.zones[ level.zone_keys[ z ] ];
+
+        i = 0;
+        while ( i < zone.spawn_locations.size )
         {
-            zone = level.zones[ zone_name ];
-
-            i = 0;
-            while ( i < zone.spawn_locations.size )
+            if (zone.spawn_locations[i].origin == (8394, -2545, -205.16))
             {
-                if (zone.spawn_locations[i].origin == (8394, -2545, -205.16))
-                {
-                    zone.spawn_locations[i].is_enabled = false;
-                }
-
-                i++;
+                zone.spawn_locations[i].is_enabled = false;
             }
+
+            i++;
         }
 	}
 }

@@ -405,8 +405,8 @@
 * Fixed a zombie pathing exploit at Town in Bookstore
 
 #### Bus Depot
+* Added Grief game mode
 * Lava in starting area activates immediately
-* Power doors open when door is opened
 * Lava pit is accessible
 
 #### Diner
