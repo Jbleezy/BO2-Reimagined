@@ -44,6 +44,30 @@ wait_for_team_death_and_round_end()
 			i++;
 		}
 
+		if (players.size == 1)
+		{
+			if ( !checking_for_round_tie )
+			{
+				if(cia_alive == 0 && cdc_alive == 0)
+				{
+					level notify( "stop_round_end_check" );
+					level thread check_for_round_end();
+					checking_for_round_tie = 1;
+					checking_for_round_end = 1;
+				}
+			}
+
+			if ( cia_alive > 0 || cdc_alive > 0 )
+			{
+				level notify( "stop_round_end_check" );
+				checking_for_round_end = 0;
+				checking_for_round_tie = 0;
+			}
+
+			wait 0.05;
+			continue;
+		}
+
 		if ( !checking_for_round_tie )
 		{
 			if(cia_alive == 0 && cdc_alive == 0)
