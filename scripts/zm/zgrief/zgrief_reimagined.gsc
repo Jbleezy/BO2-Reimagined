@@ -2480,19 +2480,6 @@ race_think()
 			}
 		}
 
-		maps\mp\zombies\_zm::award_grenades_for_survivors();
-		players = get_players();
-		foreach(player in players)
-		{
-			if(isDefined(player get_player_placeable_mine()))
-			{
-				player giveweapon(player get_player_placeable_mine());
-				player set_player_placeable_mine(player get_player_placeable_mine());
-				player setactionslot(4, "weapon", player get_player_placeable_mine());
-				player setweaponammoclip(player get_player_placeable_mine(), 2);
-			}
-		}
-
 		if(level.round_number >= 20)
 		{
 			return;
