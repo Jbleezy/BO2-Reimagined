@@ -181,14 +181,20 @@ map_vote()
     rotation_array = rotation_string_to_array(rotation_string);
     rotation_array = array_randomize(rotation_array);
 
+    location = level.scr_zm_map_start_location;
+    if (level.scr_zm_map_start_location == "cellblock" && getDvar("ui_zm_mapstartlocation_fake") == "docks")
+    {
+        location = getDvar("ui_zm_mapstartlocation_fake");
+    }
+
     for (i = 0; i < 3; i++)
     {
         maps[i] = [];
     }
 
-    maps[1]["rotation_string"] = "exec zm_grief_" + level.scr_zm_map_start_location + ".cfg map " + level.script;
+    maps[1]["rotation_string"] = "exec zm_grief_" + location + ".cfg map " + level.script;
     maps[1]["map_name"] = level.script;
-    maps[1]["loc_name"] = level.scr_zm_map_start_location;
+    maps[1]["loc_name"] = location;
     maps[1]["gametype_name"] = level.scr_zm_ui_gametype_obj;
     exclude_locs[exclude_locs.size] = maps[1]["loc_name"];
 
@@ -549,6 +555,10 @@ get_name_for_loc(locname)
     else if (locname == "cellblock")
     {
         return &"ZMUI_CELLBLOCK";
+    }
+    else if (locname == "docks")
+    {
+        return "Docks";
     }
     else if (locname == "street")
     {
