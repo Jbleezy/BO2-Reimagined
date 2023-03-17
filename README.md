@@ -212,8 +212,10 @@
 * Max ammo no longer fills clip ammo
 
 ## Wallbuys
+* Purchasing ammo refills clip ammo
 * Increased trigger radius
 * Decreased upgraded ammo cost from 4500 to 2500
+* Ammo can be purchased if only alt weapon ammo has been used
 * Lethal grenade hint string no longer displays "ammo" after purchasing
 
 ## Mystery Box

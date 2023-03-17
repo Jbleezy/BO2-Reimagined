@@ -171,15 +171,25 @@ ammo_give( weapon )
 
         if ( isdefined( weapon ) )
         {
-            stockmax = 0;
             stockmax = weaponstartammo( weapon );
-            clipcount = self getweaponammoclip( weapon );
-            currstock = self getammocount( weapon );
+			clipmax = weaponclipsize( weapon );
+            ammocount = self getammocount( weapon );
 
-            if ( currstock - clipcount >= stockmax )
-                give_ammo = 0;
-            else
-                give_ammo = 1;
+			give_ammo = ammocount < (stockmax + clipmax);
+
+			if (!give_ammo)
+			{
+				alt_weap = weaponaltweaponname( weapon );
+
+				if ( "none" != alt_weap )
+				{
+					stockmax = weaponstartammo( alt_weap );
+					clipmax = weaponclipsize( alt_weap );
+					ammocount = self getammocount( alt_weap );
+
+					give_ammo = ammocount < (stockmax + clipmax);
+				}
+			}
         }
     }
     else if ( self has_weapon_or_upgrade( weapon ) )
@@ -192,10 +202,14 @@ ammo_give( weapon )
     {
         self play_sound_on_ent( "purchase" );
         self givemaxammo( weapon );
+		self setWeaponAmmoClip( weapon, weaponClipSize(weapon) );
         alt_weap = weaponaltweaponname( weapon );
 
         if ( "none" != alt_weap )
-            self givemaxammo( alt_weap );
+		{
+			self givemaxammo( alt_weap );
+			self setWeaponAmmoClip( alt_weap, weaponClipSize(alt_weap) );
+		}
 
 		self scripts\zm\_zm_reimagined::change_weapon_ammo(weapon);
 
