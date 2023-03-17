@@ -14,7 +14,11 @@
 
 precache()
 {
-
+	if (getDvar("ui_zm_mapstartlocation_fake") == "docks")
+	{
+		scripts\zm\locs\zm_prison_loc_docks::precache();
+		return;
+	}
 }
 
 zgrief_preinit()
@@ -99,6 +103,12 @@ grief_treasure_chest_init()
 
 main()
 {
+	if (getDvar("ui_zm_mapstartlocation_fake") == "docks")
+	{
+		scripts\zm\locs\zm_prison_loc_docks::main();
+		return;
+	}
+
 	maps\mp\gametypes_zm\_zm_gametype::setup_standard_objects( "cellblock" );
 	grief_treasure_chest_init();
 	precacheshader( "zm_al_wth_zombie" );

@@ -93,6 +93,12 @@ wolf_spit_out_powerup()
         }
     }
 
+    if (level.scr_zm_map_start_location == "docks")
+    {
+        power_origin_struct = spawnStruct();
+        power_origin_struct.origin = ( 41.4695, 6096.17, -102.9326 );
+    }
+
     spawn_infinite_powerup_drop( power_origin_struct.origin, level.zombie_powerup_array[level.zombie_powerup_index] );
     power_ups = get_array_of_closest( power_origin_struct.origin, level.active_powerups, undefined, undefined, 100 );
 

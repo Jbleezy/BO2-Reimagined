@@ -2,6 +2,7 @@
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 #include maps\mp\zombies\_zm_craftables;
+#include maps\mp\zombies\_zm_zonemgr;
 #include maps\mp\zm_alcatraz_utility;
 
 #include scripts\zm\replaced\zm_alcatraz_classic;
@@ -40,6 +41,8 @@ init()
 	level.round_prestart_func = scripts\zm\replaced\_zm_afterlife::afterlife_start_zombie_logic;
 
 	level.zombie_powerups["meat_stink"].model_name = "t6_wpn_zmb_severedhead_world";
+
+	add_adjacent_zone( "zone_dock", "zone_dock_puzzle", "always_on" ); // "docks_inner_gate_unlocked"
 
 	remove_acid_trap_player_spawn();
 

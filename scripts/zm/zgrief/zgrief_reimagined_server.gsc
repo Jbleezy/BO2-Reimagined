@@ -54,9 +54,6 @@ precache_map_images()
     preCacheShader("loadscreen_zm_transit_zgrief_transit");
     preCacheShader("loadscreen_zm_transit_zgrief_farm");
     preCacheShader("loadscreen_zm_transit_zgrief_town");
-    preCacheShader("loadscreen_zm_transit_zgrief_power");
-    preCacheShader("loadscreen_zm_transit_zgrief_tunnel");
-    preCacheShader("loadscreen_zm_transit_zgrief_cornfield");
     preCacheShader("loadscreen_zm_transit_dr_zcleansed_diner");
     preCacheShader("loadscreen_zm_prison_zgrief_cellblock");
     preCacheShader("loadscreen_zm_buried_zgrief_street");
@@ -566,6 +563,14 @@ get_image_for_loc(mapname, locname)
     if (locname == "diner")
     {
         return "loadscreen_zm_transit_dr_zcleansed_diner";
+    }
+    else if (locname == "power" || locname == "tunnel" || locname == "cornfield")
+    {
+        return "loadscreen_zm_transit_zgrief_transit";
+    }
+    else if (locname == "docks")
+    {
+        return "loadscreen_zm_prison_zgrief_cellblock";
     }
 
     return "loadscreen_" + mapname + "_zgrief_" + locname;

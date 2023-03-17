@@ -2647,7 +2647,7 @@ containment_think()
 
 					player.obj_waypoint.alpha = 1;
 
-					if(level.script == "zm_transit" && level.scr_zm_map_start_location == "power" && zone_name == "zone_trans_8")
+					if(level.script == "zm_transit" && zone_name == "zone_trans_8")
 					{
 						other_zone = level.zones["zone_pow_warehouse"];
 						player.obj_waypoint.x = (zone.volumes[0].origin[0] + other_zone.volumes[0].origin[0]) / 2;
@@ -2659,6 +2659,11 @@ containment_think()
 						player.obj_waypoint.x = zone.volumes[0].origin[0];
 						player.obj_waypoint.y = zone.volumes[0].origin[1];
 						player.obj_waypoint.z = zone.volumes[0].origin[2];
+					}
+
+					if(level.script == "zm_prison" && zone_name == "zone_dock_gondola")
+					{
+						player.obj_waypoint.z += 200;
 					}
 
 					player.obj_waypoint setWaypoint(1, "waypoint_revive");
@@ -2911,7 +2916,14 @@ containment_get_zones()
 	{
 		if(level.scr_zm_map_start_location == "cellblock")
 		{
-			containment_zones = array("zone_cellblock_west", "zone_cellblock_west_gondola", "zone_cellblock_west_barber", "zone_cellblock_east", "zone_start", "zone_library", "zone_cafeteria", "zone_warden_office");
+			if (getDvar("ui_zm_mapstartlocation_fake") == "docks")
+			{
+				containment_zones = array("zone_dock_gondola", "zone_studio", "zone_citadel_basement_building");
+			}
+			else
+			{
+				containment_zones = array("zone_cellblock_west", "zone_cellblock_west_gondola", "zone_cellblock_west_barber", "zone_cellblock_east", "zone_start", "zone_library", "zone_cafeteria", "zone_warden_office");
+			}
 		}
 	}
 	else if(level.script == "zm_buried")

@@ -471,6 +471,12 @@
 * Added Smoke Grenades to the Mystery Box
 * Added Richtofen Head meat powerup model
 
+#### Docks
+* Added Grief game mode
+* Wallbuys: M14, Olympia, MP5, Uzi, M1927
+* Perks: Juggernog
+* Pack-a-Punch
+
 ### Buried
 * Power automatically on
 * Removed Turbine
