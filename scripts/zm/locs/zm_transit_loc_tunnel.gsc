@@ -49,7 +49,7 @@ main()
 {
 	init_wallbuys();
 	init_barriers();
-    thread disable_zombie_spawn_locations();
+    disable_zombie_spawn_locations();
 	scripts\zm\locs\loc_common::init();
 }
 

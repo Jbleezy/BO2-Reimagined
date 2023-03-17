@@ -121,9 +121,9 @@ main()
 {
 	init_wallbuys();
 	init_barriers();
+    disable_zombie_spawn_locations();
     setup_standard_objects("cornfield");
     maps\mp\zombies\_zm_magicbox::treasure_chest_init( random( array( "start_chest", "depot_chest" ) ) );
-    thread disable_zombie_spawn_locations();
 	scripts\zm\locs\loc_common::init();
 }
 
