@@ -48,6 +48,23 @@ struct_init()
 
         i++;
     }
+
+    level.struct_class_names[ "targetname" ][ "intermission" ] = [];
+
+    intermission_cam = spawnStruct();
+    intermission_cam.origin = (402, 6197, 142);
+    intermission_cam.angles = (0, 190, 0);
+    intermission_cam.targetname = "intermission";
+    intermission_cam.script_string = "cellblock";
+    intermission_cam.speed = 30;
+    intermission_cam.target = "intermission_cellblock_end";
+    scripts\zm\replaced\utility::add_struct(intermission_cam);
+
+    intermission_cam_end = spawnStruct();
+    intermission_cam_end.origin = (-1043, 5931, -47);
+    intermission_cam_end.angles = (0, 190, 0);
+    intermission_cam_end.targetname = "intermission_cellblock_end";
+    scripts\zm\replaced\utility::add_struct(intermission_cam_end);
 }
 
 precache()
