@@ -54,6 +54,7 @@ init()
 
 	screecher_spawner_changes();
 	zombie_spawn_location_changes();
+	cornfield_spawn_path_nodes();
 	path_exploit_fixes();
 
 	level thread power_local_electric_doors_globally();
@@ -234,6 +235,40 @@ zombie_spawn_location_changes()
             }
 
             i++;
+		}
+	}
+}
+
+cornfield_spawn_path_nodes()
+{
+	new_origins = array((7040, -256, -196), (7040, -384, -196), (7040, -512, -196), (7040, -640, -196), (7040, -768, -196), (7168, -256, -196), (7168, -384, -196), (7168, -512, -196), (7168, -640, -196), (7168, -768, -196));
+
+	foreach (origin in new_origins)
+	{
+		spawn_path_node(origin, (0, 0, 0));
+	}
+
+	for (i = level._spawned_path_nodes.size - 1; i >= level._spawned_path_nodes.size - (new_origins.size + 1); i--)
+	{
+		node = level._spawned_path_nodes[i];
+
+		nodes = getNodesInRadius( node.origin, 256, 0, 512, "Path" );
+		foreach (other_node in nodes)
+		{
+			if (node.origin[0] - 128 == other_node.origin[0] || node.origin[0] + 128 == other_node.origin[0] || node.origin[1] - 128 == other_node.origin[1] || node.origin[1] + 128 == other_node.origin[1])
+			{
+				link_nodes(node, other_node);
+			}
+		}
+
+		for (j = i; j >= level._spawned_path_nodes.size - (new_origins.size + 1); j--)
+		{
+			other_node = level._spawned_path_nodes[j];
+
+			if (node.origin[0] - 128 == other_node.origin[0] || node.origin[0] + 128 == other_node.origin[0] || node.origin[1] - 128 == other_node.origin[1] || node.origin[1] + 128 == other_node.origin[1])
+			{
+				link_nodes(node, other_node);
+			}
 		}
 	}
 }
