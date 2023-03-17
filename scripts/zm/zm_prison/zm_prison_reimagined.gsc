@@ -30,6 +30,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_riotshield_prison::trackriotshield, scripts\zm\replaced\_zm_riotshield_prison::trackriotshield);
 	replaceFunc(maps\mp\zombies\_zm_weap_riotshield_prison::init, scripts\zm\replaced\_zm_weap_riotshield_prison::init);
 	replaceFunc(maps\mp\zombies\_zm_weap_riotshield_prison::player_damage_shield, scripts\zm\replaced\_zm_weap_riotshield_prison::player_damage_shield);
+	replaceFunc(maps\mp\zombies\_zm_zonemgr::manage_zones, ::manage_zones);
 }
 
 init()
@@ -41,8 +42,6 @@ init()
 	level.round_prestart_func = scripts\zm\replaced\_zm_afterlife::afterlife_start_zombie_logic;
 
 	level.zombie_powerups["meat_stink"].model_name = "t6_wpn_zmb_severedhead_world";
-
-	add_adjacent_zone( "zone_dock", "zone_dock_puzzle", "always_on" ); // "docks_inner_gate_unlocked"
 
 	remove_acid_trap_player_spawn();
 
@@ -614,4 +613,242 @@ craftabletrigger_update_prompt( player )
 	}
 
     return can_use;
+}
+
+manage_zones( initial_zone )
+{
+	level.zone_manager_init_func = ::working_zone_init;
+
+    deactivate_initial_barrier_goals();
+    zone_choke = 0;
+    spawn_points = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
+
+    for ( i = 0; i < spawn_points.size; i++ )
+    {
+        assert( isdefined( spawn_points[i].script_noteworthy ), "player_respawn_point: You must specify a script noteworthy with the zone name" );
+        spawn_points[i].locked = 1;
+    }
+
+    if ( isdefined( level.zone_manager_init_func ) )
+        [[ level.zone_manager_init_func ]]();
+
+    if ( isarray( initial_zone ) )
+    {
+        for ( i = 0; i < initial_zone.size; i++ )
+        {
+            zone_init( initial_zone[i] );
+            enable_zone( initial_zone[i] );
+        }
+    }
+    else
+    {
+        zone_init( initial_zone );
+        enable_zone( initial_zone );
+    }
+
+    setup_zone_flag_waits();
+    zkeys = getarraykeys( level.zones );
+    level.zone_keys = zkeys;
+    level.newzones = [];
+
+    for ( z = 0; z < zkeys.size; z++ )
+        level.newzones[zkeys[z]] = spawnstruct();
+
+    oldzone = undefined;
+    flag_set( "zones_initialized" );
+    flag_wait( "begin_spawning" );
+
+    while ( getdvarint( _hash_10873CCA ) == 0 || getdvarint( _hash_762F1309 ) != 0 )
+    {
+        for ( z = 0; z < zkeys.size; z++ )
+        {
+            level.newzones[zkeys[z]].is_active = 0;
+            level.newzones[zkeys[z]].is_occupied = 0;
+        }
+
+        a_zone_is_active = 0;
+        a_zone_is_spawning_allowed = 0;
+        level.zone_scanning_active = 1;
+
+        for ( z = 0; z < zkeys.size; z++ )
+        {
+            zone = level.zones[zkeys[z]];
+            newzone = level.newzones[zkeys[z]];
+
+            if ( !zone.is_enabled )
+                continue;
+
+            if ( isdefined( level.zone_occupied_func ) )
+                newzone.is_occupied = [[ level.zone_occupied_func ]]( zkeys[z] );
+            else
+                newzone.is_occupied = player_in_zone( zkeys[z] );
+
+            if ( newzone.is_occupied )
+            {
+                newzone.is_active = 1;
+                a_zone_is_active = 1;
+
+                if ( zone.is_spawning_allowed )
+                    a_zone_is_spawning_allowed = 1;
+
+                if ( !isdefined( oldzone ) || oldzone != newzone )
+                {
+                    level notify( "newzoneActive", zkeys[z] );
+                    oldzone = newzone;
+                }
+
+                azkeys = getarraykeys( zone.adjacent_zones );
+
+                for ( az = 0; az < zone.adjacent_zones.size; az++ )
+                {
+                    if ( zone.adjacent_zones[azkeys[az]].is_connected && level.zones[azkeys[az]].is_enabled )
+                    {
+                        level.newzones[azkeys[az]].is_active = 1;
+
+                        if ( level.zones[azkeys[az]].is_spawning_allowed )
+                            a_zone_is_spawning_allowed = 1;
+                    }
+                }
+            }
+
+            zone_choke++;
+
+            if ( zone_choke >= 3 )
+            {
+                zone_choke = 0;
+                wait 0.05;
+            }
+        }
+
+        level.zone_scanning_active = 0;
+
+        for ( z = 0; z < zkeys.size; z++ )
+        {
+            level.zones[zkeys[z]].is_active = level.newzones[zkeys[z]].is_active;
+            level.zones[zkeys[z]].is_occupied = level.newzones[zkeys[z]].is_occupied;
+        }
+
+        if ( !a_zone_is_active || !a_zone_is_spawning_allowed )
+        {
+            if ( isarray( initial_zone ) )
+            {
+                level.zones[initial_zone[0]].is_active = 1;
+                level.zones[initial_zone[0]].is_occupied = 1;
+                level.zones[initial_zone[0]].is_spawning_allowed = 1;
+            }
+            else
+            {
+                level.zones[initial_zone].is_active = 1;
+                level.zones[initial_zone].is_occupied = 1;
+                level.zones[initial_zone].is_spawning_allowed = 1;
+            }
+        }
+
+        [[ level.create_spawner_list_func ]]( zkeys );
+
+        level.active_zone_names = maps\mp\zombies\_zm_zonemgr::get_active_zone_names();
+        wait 1;
+    }
+}
+
+working_zone_init()
+{
+    flag_init( "always_on" );
+    flag_set( "always_on" );
+
+    if ( is_gametype_active( "zgrief" ) )
+    {
+        a_s_spawner = getstructarray( "zone_cellblock_west_roof_spawner", "targetname" );
+
+        foreach ( spawner in a_s_spawner )
+        {
+            if ( isdefined( spawner.script_parameters ) && spawner.script_parameters == "zclassic_prison" )
+                spawner structdelete();
+        }
+    }
+
+    if ( is_classic() )
+        add_adjacent_zone( "zone_library", "zone_start", "always_on" );
+    else
+    {
+        add_adjacent_zone( "zone_library", "zone_cellblock_west", "activate_cellblock_west" );
+        add_adjacent_zone( "zone_library", "zone_start", "activate_cellblock_west" );
+        add_adjacent_zone( "zone_cellblock_east", "zone_start", "activate_cellblock_east" );
+        add_adjacent_zone( "zone_library", "zone_start", "activate_cellblock_east" );
+    }
+
+    add_adjacent_zone( "zone_library", "zone_cellblock_west", "activate_cellblock_west" );
+    add_adjacent_zone( "zone_cellblock_west", "zone_cellblock_west_barber", "activate_cellblock_barber" );
+    add_adjacent_zone( "zone_cellblock_west_warden", "zone_cellblock_west_barber", "activate_cellblock_barber" );
+    add_adjacent_zone( "zone_cellblock_west_warden", "zone_cellblock_west_barber", "activate_cellblock_gondola" );
+    add_adjacent_zone( "zone_cellblock_west", "zone_cellblock_west_gondola", "activate_cellblock_gondola" );
+    add_adjacent_zone( "zone_cellblock_west_barber", "zone_cellblock_west_gondola", "activate_cellblock_gondola" );
+    add_adjacent_zone( "zone_cellblock_west_gondola", "zone_cellblock_west_barber", "activate_cellblock_gondola" );
+    add_adjacent_zone( "zone_cellblock_west_gondola", "zone_cellblock_east", "activate_cellblock_gondola" );
+    add_adjacent_zone( "zone_cellblock_west_gondola", "zone_infirmary", "activate_cellblock_infirmary" );
+    add_adjacent_zone( "zone_infirmary_roof", "zone_infirmary", "activate_cellblock_infirmary" );
+    add_adjacent_zone( "zone_cellblock_west_gondola", "zone_cellblock_west_barber", "activate_cellblock_infirmary" );
+    add_adjacent_zone( "zone_cellblock_west_gondola", "zone_cellblock_west", "activate_cellblock_infirmary" );
+    add_adjacent_zone( "zone_start", "zone_cellblock_east", "activate_cellblock_east" );
+    add_adjacent_zone( "zone_cellblock_west_barber", "zone_cellblock_west_warden", "activate_cellblock_infirmary" );
+    add_adjacent_zone( "zone_cellblock_west_barber", "zone_cellblock_east", "activate_cellblock_east_west" );
+    add_adjacent_zone( "zone_cellblock_west_barber", "zone_cellblock_west_warden", "activate_cellblock_east_west" );
+    add_adjacent_zone( "zone_cellblock_west_warden", "zone_warden_office", "activate_warden_office" );
+    add_adjacent_zone( "zone_cellblock_west_warden", "zone_citadel_warden", "activate_cellblock_citadel" );
+    add_adjacent_zone( "zone_cellblock_west_warden", "zone_cellblock_west_barber", "activate_cellblock_citadel" );
+    add_adjacent_zone( "zone_citadel", "zone_citadel_warden", "activate_cellblock_citadel" );
+    add_adjacent_zone( "zone_citadel", "zone_citadel_shower", "activate_cellblock_citadel" );
+    add_adjacent_zone( "zone_cellblock_east", "zone_cafeteria", "activate_cafeteria" );
+    add_adjacent_zone( "zone_cafeteria", "zone_cafeteria_end", "activate_cafeteria" );
+    add_adjacent_zone( "zone_cellblock_east", "cellblock_shower", "activate_shower_room" );
+    add_adjacent_zone( "cellblock_shower", "zone_citadel_shower", "activate_shower_citadel" );
+    add_adjacent_zone( "zone_citadel_shower", "zone_citadel", "activate_shower_citadel" );
+    add_adjacent_zone( "zone_citadel", "zone_citadel_warden", "activate_shower_citadel" );
+    add_adjacent_zone( "zone_cafeteria", "zone_infirmary", "activate_infirmary" );
+    add_adjacent_zone( "zone_cafeteria", "zone_cafeteria_end", "activate_infirmary" );
+    add_adjacent_zone( "zone_infirmary_roof", "zone_infirmary", "activate_infirmary" );
+    add_adjacent_zone( "zone_roof", "zone_roof_infirmary", "activate_roof" );
+    add_adjacent_zone( "zone_roof_infirmary", "zone_infirmary_roof", "activate_roof" );
+    add_adjacent_zone( "zone_citadel", "zone_citadel_stairs", "activate_citadel_stair" );
+    add_adjacent_zone( "zone_citadel", "zone_citadel_shower", "activate_citadel_stair" );
+    add_adjacent_zone( "zone_citadel", "zone_citadel_warden", "activate_citadel_stair" );
+    add_adjacent_zone( "zone_citadel_stairs", "zone_citadel_basement", "activate_citadel_basement" );
+    add_adjacent_zone( "zone_citadel_basement", "zone_citadel_basement_building", "activate_citadel_basement" );
+    add_adjacent_zone( "zone_citadel_basement", "zone_citadel_basement_building", "activate_basement_building" );
+    add_adjacent_zone( "zone_citadel_basement_building", "zone_studio", "activate_basement_building" );
+    add_adjacent_zone( "zone_citadel_basement", "zone_studio", "activate_basement_building" );
+    add_adjacent_zone( "zone_citadel_basement_building", "zone_dock_gondola", "activate_basement_gondola" );
+    add_adjacent_zone( "zone_citadel_basement", "zone_citadel_basement_building", "activate_basement_gondola" );
+    add_adjacent_zone( "zone_dock", "zone_dock_gondola", "activate_basement_gondola" );
+    add_adjacent_zone( "zone_studio", "zone_dock", "activate_dock_sally" );
+    add_adjacent_zone( "zone_dock_gondola", "zone_dock", "activate_dock_sally" );
+    add_adjacent_zone( "zone_dock", "zone_dock_gondola", "gondola_roof_to_dock" );
+    add_adjacent_zone( "zone_cellblock_west", "zone_cellblock_west_gondola", "gondola_dock_to_roof" );
+    add_adjacent_zone( "zone_cellblock_west_barber", "zone_cellblock_west_gondola", "gondola_dock_to_roof" );
+    add_adjacent_zone( "zone_cellblock_west_barber", "zone_cellblock_west_warden", "gondola_dock_to_roof" );
+    add_adjacent_zone( "zone_cellblock_west_gondola", "zone_cellblock_east", "gondola_dock_to_roof" );
+
+    if ( is_classic() )
+        add_adjacent_zone( "zone_gondola_ride", "zone_gondola_ride", "gondola_ride_zone_enabled" );
+
+    if ( is_classic() )
+    {
+        add_adjacent_zone( "zone_cellblock_west_gondola", "zone_cellblock_west_gondola_dock", "activate_cellblock_infirmary" );
+        add_adjacent_zone( "zone_cellblock_west_gondola", "zone_cellblock_west_gondola_dock", "activate_cellblock_gondola" );
+        add_adjacent_zone( "zone_cellblock_west_gondola", "zone_cellblock_west_gondola_dock", "gondola_dock_to_roof" );
+    }
+    // else if ( is_gametype_active( "zgrief" ) )
+    // {
+    //     playable_area = getentarray( "player_volume", "script_noteworthy" );
+
+    //     foreach ( area in playable_area )
+    //     {
+    //         if ( isdefined( area.script_parameters ) && area.script_parameters == "classic_only" )
+    //             area delete();
+    //     }
+    // }
+
+    add_adjacent_zone( "zone_golden_gate_bridge", "zone_golden_gate_bridge", "activate_player_zone_bridge" );
+
+	add_adjacent_zone( "zone_dock", "zone_dock_puzzle", "docks_inner_gate_unlocked" );
 }

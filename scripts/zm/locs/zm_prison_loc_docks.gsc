@@ -59,7 +59,7 @@ precache()
 
 main()
 {
-	enable_zones();
+    flag_set("gondola_roof_to_dock");
     init_wallbuys();
     init_barriers();
     set_box_weapons();
@@ -88,16 +88,6 @@ set_box_weapons()
 	{
 		level.zombie_weapons["beretta93r_zm"].is_in_box = 1;
 	}
-}
-
-enable_zones()
-{
-	zone_init( "zone_dock" );
-	enable_zone( "zone_dock" );
-	zone_init( "zone_dock_gondola" );
-	enable_zone( "zone_dock_gondola" );
-    zone_init( "zone_dock_puzzle" );
-	flag_set( "gondola_roof_to_dock" );
 }
 
 init_wallbuys()

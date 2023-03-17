@@ -466,6 +466,8 @@
 * Plane parts must be all acquired to craft
 * Plane fuel automatically picked up
 * Players no longer respawn in the Acid Trap
+* Zombies spawn in the Docks zone when in the Docks Gates zone
+* Zombies spawn in the Docks Gates zone when in the Docks zone
 
 #### Cell Block
 * Added Smoke Grenades to the Mystery Box
