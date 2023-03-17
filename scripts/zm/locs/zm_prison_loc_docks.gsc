@@ -80,13 +80,13 @@ main()
 
 set_box_weapons()
 {
-    if(isDefined(level.zombie_weapons["knife_ballistic_zm"]))
+    if(isDefined(level.zombie_weapons["thompson_zm"]))
 	{
-		level.zombie_weapons["knife_ballistic_zm"].is_in_box = 1;
+		level.zombie_weapons["thompson_zm"].is_in_box = 0;
 	}
-	if(isDefined(level.zombie_weapons["ray_gun_zm"]))
+	if(isDefined(level.zombie_weapons["beretta93r_zm"]))
 	{
-		level.zombie_weapons["ray_gun_zm"].is_in_box = 1;
+		level.zombie_weapons["beretta93r_zm"].is_in_box = 1;
 	}
 }
 
