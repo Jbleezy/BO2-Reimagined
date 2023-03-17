@@ -94,6 +94,7 @@ item_meat_on_spawn_retrieve_trigger( watcher, player, weaponname )
     self.item_meat_pick_up_trigger linkto( self );
     self.item_meat_pick_up_trigger triggerignoreteam();
     level.item_meat_pick_up_trigger = self.item_meat_pick_up_trigger;
+    self thread item_meat_watch_below();
     self thread item_meat_watch_shutdown();
     self.meat_id = indexinarray( level._fake_meats, self );
 
@@ -143,6 +144,26 @@ item_meat_watch_stationary()
     self.meat_is_moving = 0;
 
 	self delete();
+}
+
+item_meat_watch_below()
+{
+    self endon( "death" );
+    self endon( "picked_up" );
+
+    og_origin = self.origin;
+
+    while ((self.origin[2] - og_origin[2]) > -1000)
+    {
+        wait 0.05;
+    }
+
+    if ( isdefined( level.meat_bounce_override ) )
+	{
+		self thread [[ level.meat_bounce_override ]]( self.origin, undefined, undefined, false );
+	}
+
+    self delete();
 }
 
 player_wait_take_meat( meat_name )
