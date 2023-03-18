@@ -3030,7 +3030,10 @@ meat_powerup_reset_on_timeout()
 {
 	self endon("powerup_grabbed");
 
-	self waittill("powerup_timedout");
+	while (isDefined(self))
+	{
+		wait 0.05;
+	}
 
 	level notify("meat_inactive");
 }
