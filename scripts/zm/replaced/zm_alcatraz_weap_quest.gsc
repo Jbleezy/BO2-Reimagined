@@ -93,7 +93,7 @@ wolf_spit_out_powerup()
         }
     }
 
-    if (level.scr_zm_map_start_location == "docks")
+    if (getDvar("ui_zm_mapstartlocation_fake") == "docks")
     {
         power_origin_struct = spawnStruct();
         power_origin_struct.origin = ( 41.4695, 6096.17, -102.9326 );
