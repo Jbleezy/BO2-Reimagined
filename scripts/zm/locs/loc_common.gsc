@@ -21,6 +21,8 @@ init()
 	wait_network_frame();
 	level notify( "tombstone_on" );
 	wait_network_frame();
+	level notify( "additionalprimaryweapon_on" );
+	wait_network_frame();
 	level notify( "Pack_A_Punch_on" );
 }
 

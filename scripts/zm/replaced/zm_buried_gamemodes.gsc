@@ -14,15 +14,24 @@
 #include maps\mp\zm_buried_gamemodes;
 
 #include scripts\zm\replaced\zm_buried_grief_street;
+#include scripts\zm\locs\zm_buried_loc_maze;
 
 init()
 {
     add_map_gamemode( "zclassic", maps\mp\zm_buried::zclassic_preinit, undefined, undefined );
     add_map_gamemode( "zcleansed", maps\mp\zm_buried::zcleansed_preinit, undefined, undefined );
     add_map_gamemode( "zgrief", maps\mp\zm_buried::zgrief_preinit, undefined, undefined );
+
     add_map_location_gamemode( "zclassic", "processing", maps\mp\zm_buried_classic::precache, maps\mp\zm_buried_classic::main );
+
     add_map_location_gamemode( "zcleansed", "street", maps\mp\zm_buried_turned_street::precache, maps\mp\zm_buried_turned_street::main );
+
     add_map_location_gamemode( "zgrief", "street", scripts\zm\replaced\zm_buried_grief_street::precache, scripts\zm\replaced\zm_buried_grief_street::main );
+
+    if (getDvar("ui_zm_mapstartlocation_fake") == "maze")
+	{
+        scripts\zm\replaced\utility::add_struct_location_gamemode_func( "zgrief", "street", scripts\zm\locs\zm_buried_loc_maze::struct_init );
+    }
 }
 
 buildbuildable( buildable )

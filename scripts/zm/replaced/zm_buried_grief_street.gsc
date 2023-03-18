@@ -14,6 +14,12 @@
 
 precache()
 {
+	if (getDvar("ui_zm_mapstartlocation_fake") == "maze")
+	{
+		scripts\zm\locs\zm_buried_loc_maze::precache();
+		return;
+	}
+
 	precachemodel( "collision_wall_128x128x10_standard" );
 	precachemodel( "collision_wall_256x256x10_standard" );
 	precachemodel( "collision_wall_512x512x10_standard" );
@@ -43,26 +49,14 @@ precache()
     maps\mp\zombies\_zm_equip_headchopper::init( &"ZM_BURIED_EQ_HC_PHS", &"ZM_BURIED_EQ_HC_HTS" );
 }
 
-street_treasure_chest_init()
-{
-	start_chest = getstruct( "start_chest", "script_noteworthy" );
-	court_chest = getstruct( "courtroom_chest1", "script_noteworthy" );
-	jail_chest = getstruct( "jail_chest1", "script_noteworthy" );
-	gun_chest = getstruct( "gunshop_chest", "script_noteworthy" );
-	setdvar( "disableLookAtEntityLogic", 1 );
-	level.chests = [];
-	level.chests[ level.chests.size ] = start_chest;
-	level.chests[ level.chests.size ] = court_chest;
-	level.chests[ level.chests.size ] = jail_chest;
-	level.chests[ level.chests.size ] = gun_chest;
-
-	chest_names = array("start_chest", "courtroom_chest1", "jail_chest1", "gunshop_chest");
-	chest_name = random(chest_names);
-	maps\mp\zombies\_zm_magicbox::treasure_chest_init( chest_name );
-}
-
 main()
 {
+	if (getDvar("ui_zm_mapstartlocation_fake") == "maze")
+	{
+		scripts\zm\locs\zm_buried_loc_maze::main();
+		return;
+	}
+
 	level.buildables_built[ "pap" ] = 1;
 	level.equipment_team_pick_up = 1;
 	level.zones["zone_mansion"].is_enabled = 0;
@@ -70,9 +64,7 @@ main()
 	maps\mp\gametypes_zm\_zm_gametype::setup_standard_objects( "street" );
 	street_treasure_chest_init();
 	deleteslothbarricades();
-
 	disable_tunnels();
-
 	powerswitchstate( 1 );
 	level.enemy_location_override_func = ::enemy_location_override;
 	spawnmapcollision( "zm_collision_buried_street_grief" );
@@ -101,6 +93,24 @@ enemy_location_override( zombie, enemy )
 		}
 	}
 	return location;
+}
+
+street_treasure_chest_init()
+{
+	start_chest = getstruct( "start_chest", "script_noteworthy" );
+	court_chest = getstruct( "courtroom_chest1", "script_noteworthy" );
+	jail_chest = getstruct( "jail_chest1", "script_noteworthy" );
+	gun_chest = getstruct( "gunshop_chest", "script_noteworthy" );
+	setdvar( "disableLookAtEntityLogic", 1 );
+	level.chests = [];
+	level.chests[ level.chests.size ] = start_chest;
+	level.chests[ level.chests.size ] = court_chest;
+	level.chests[ level.chests.size ] = jail_chest;
+	level.chests[ level.chests.size ] = gun_chest;
+
+	chest_names = array("start_chest", "courtroom_chest1", "jail_chest1", "gunshop_chest");
+	chest_name = random(chest_names);
+	maps\mp\zombies\_zm_magicbox::treasure_chest_init( chest_name );
 }
 
 builddynamicwallbuys()

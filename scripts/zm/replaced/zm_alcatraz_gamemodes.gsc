@@ -9,6 +9,7 @@
 #include maps\mp\zm_alcatraz_gamemodes;
 
 #include scripts\zm\replaced\zm_alcatraz_grief_cellblock;
+#include scripts\zm\locs\zm_prison_loc_docks;
 
 init()
 {

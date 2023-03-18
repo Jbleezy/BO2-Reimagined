@@ -564,6 +564,10 @@ get_name_for_loc(locname)
     {
         return &"ZMUI_STREET_LOC";
     }
+    else if (locname == "maze")
+    {
+        return "Maze";
+    }
 
     return "";
 }
@@ -581,6 +585,10 @@ get_image_for_loc(mapname, locname)
     else if (locname == "docks")
     {
         return "loadscreen_zm_prison_zgrief_cellblock";
+    }
+    else if (locname == "maze")
+    {
+        return "loadscreen_zm_buried_zgrief_street";
     }
 
     return "loadscreen_" + mapname + "_zgrief_" + locname;

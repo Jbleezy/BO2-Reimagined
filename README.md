@@ -504,6 +504,13 @@
 * Buildables can spawn at Church bench
 * Added better randomization for buildables
 
+#### Maze
+* Added Grief game mode
+* Wallbuys: M14, Olympia, B23R, MP5, PDW, M16
+* Perks: Juggernog, Quick Revive, Speed Cola, Double Tap, Stamin-Up, Mule Kick
+* Pack-a-Punch
+* Perk and wallbuy locations within the maze are randomized each game
+
 ### Origins
 * Door prices in solo cost the same as in coop
 * Players can go prone on the tank
@@ -656,6 +663,9 @@
 
 ### Grief on Docks
 * ```g_gametype zgrief; ui_gametype zgrief; ui_zm_gamemodegroup zencounter; ui_zm_mapstartlocation cellblock; set ui_zm_mapstartlocation_fake docks```
+
+### Grief on Maze
+* ```g_gametype zgrief; ui_gametype zgrief; ui_zm_gamemodegroup zencounter; ui_zm_mapstartlocation street; set ui_zm_mapstartlocation_fake maze```
 
 ## Launching New Game Modes
 

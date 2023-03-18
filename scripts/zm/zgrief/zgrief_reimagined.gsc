@@ -611,7 +611,7 @@ player_spawn_override()
 			}
 		}
 	}
-	else if(level.script == "zm_prison" && level.scr_zm_map_start_location == "cellblock")
+	else if(level.script == "zm_prison" && level.scr_zm_map_start_location == "cellblock" && getDvar("ui_zm_mapstartlocation_fake") != "docks")
 	{
 		foreach(spawnpoint in spawnpoints)
 		{
@@ -632,7 +632,7 @@ player_spawn_override()
 			spawnpoint.origin += (0, 0, -16);
 		}
 	}
-	else if(level.script == "zm_buried" && level.scr_zm_map_start_location == "street")
+	else if(level.script == "zm_buried" && level.scr_zm_map_start_location == "street" && getDvar("ui_zm_mapstartlocation_fake") != "maze")
 	{
 		// remove existing initial spawns
 		array_delete(structs, true);
@@ -2935,7 +2935,14 @@ containment_get_zones()
 	{
 		if(level.scr_zm_map_start_location == "street")
 		{
-			containment_zones = array("zone_street_lightwest", "zone_street_darkwest", "zone_street_darkeast", "zone_stables", "zone_general_store", "zone_gun_store", "zone_underground_bar", "zone_underground_courthouse", "zone_toy_store", "zone_candy_store", "zone_street_fountain", "zone_church_main", "zone_mansion_lawn");
+			if (getDvar("ui_zm_mapstartlocation_fake") == "maze")
+			{
+				containment_zones = array("zone_mansion_backyard", "zone_maze_staircase");
+			}
+			else
+			{
+				containment_zones = array("zone_street_lightwest", "zone_street_darkwest", "zone_street_darkeast", "zone_stables", "zone_general_store", "zone_gun_store", "zone_underground_bar", "zone_underground_courthouse", "zone_toy_store", "zone_candy_store", "zone_street_fountain", "zone_church_main", "zone_mansion_lawn");
+			}
 		}
 	}
 
