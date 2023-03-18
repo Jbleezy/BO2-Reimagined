@@ -639,6 +639,9 @@
 ### Survival on Tunnel
 * ```g_gametype zstandard; ui_gametype zstandard; ui_zm_gamemodegroup zsurvival; ui_zm_mapstartlocation tunnel```
 
+### Survival on Cornfield
+* ```g_gametype zstandard; ui_gametype zstandard; ui_zm_gamemodegroup zsurvival; ui_zm_mapstartlocation cornfield```
+
 ### Grief on Diner
 * ```g_gametype zgrief; ui_gametype zgrief; ui_zm_gamemodegroup zencounter; ui_zm_mapstartlocation diner```
 
@@ -647,6 +650,12 @@
 
 ### Grief on Tunnel
 * ```g_gametype zgrief; ui_gametype zgrief; ui_zm_gamemodegroup zencounter; ui_zm_mapstartlocation tunnel```
+
+### Grief on Cornfield
+* ```g_gametype zgrief; ui_gametype zgrief; ui_zm_gamemodegroup zencounter; ui_zm_mapstartlocation cornfield```
+
+### Grief on Docks
+* ```g_gametype zgrief; ui_gametype zgrief; ui_zm_gamemodegroup zencounter; ui_zm_mapstartlocation cellblock; set ui_zm_mapstartlocation_fake docks```
 
 ## Launching New Game Modes
 

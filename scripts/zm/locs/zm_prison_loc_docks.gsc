@@ -12,6 +12,11 @@ struct_init()
 	scripts\zm\replaced\utility::register_perk_struct( "specialty_armorvest", "zombie_vending_jugg", ( 473.92, 6638.99, 208 ), ( 0, 102, 0 ) );
     scripts\zm\replaced\utility::register_perk_struct( "specialty_weapupgrade", "p6_zm_al_vending_pap_on", ( -1769, 5391, -72 ), ( 0, 100, 0 ) );
 
+    if (getDvarInt("ui_gametype_pro"))
+    {
+        scripts\zm\replaced\utility::register_perk_struct( "specialty_fastreload", "zombie_vending_sleight", (-629, 6984, 64), ( 0, 100, 0 ) );
+    }
+
     ind = 0;
     respawnpoints = getstructarray( "player_respawn_point", "targetname" );
     for(i = 0; i < respawnpoints.size; i++)
@@ -79,11 +84,16 @@ main()
     flag_set("gondola_roof_to_dock");
     init_wallbuys();
     init_barriers();
+    generatebuildabletarps();
     set_box_weapons();
     disable_zombie_spawn_locations();
     disable_player_spawn_locations();
+    disable_gondola_call_triggers();
+    disable_craftable_triggers();
+    disable_afterlife_props();
     create_key_door_unitrigger( 4, 98, 112, 108 );
     level thread open_inner_gate();
+    level thread turn_afterlife_interacts_on();
 	maps\mp\gametypes_zm\_zm_gametype::setup_standard_objects( "cellblock" );
 	maps\mp\zombies\_zm_magicbox::treasure_chest_init( "dock_chest" );
 	precacheshader( "zm_al_wth_zombie" );
@@ -145,6 +155,13 @@ init_barriers()
     model setmodel("collision_clip_wall_128x128x10");
 }
 
+generatebuildabletarps()
+{
+    model = spawn( "script_model", (432.836, 6238.03, 55.997));
+    model.angles = (0, 100, 0);
+    model setmodel("p6_zm_buildable_bench_tarp");
+}
+
 disable_zombie_spawn_locations()
 {
 	for ( z = 0; z < level.zone_keys.size; z++ )
@@ -177,6 +194,67 @@ disable_player_spawn_locations()
         {
             spawn_point.script_noteworthy = "none";
         }
+    }
+}
+
+disable_gondola_call_triggers()
+{
+    t_call_triggers = getentarray( "gondola_call_trigger", "targetname" );
+    foreach ( trigger in t_call_triggers )
+	{
+		trigger delete();
+	}
+}
+
+disable_craftable_triggers()
+{
+    t_crafting_table = getentarray( "open_craftable_trigger", "targetname" );
+	foreach ( trigger in t_crafting_table )
+	{
+		trigger delete();
+	}
+}
+
+disable_afterlife_props()
+{
+    a_afterlife_props = getentarray( "afterlife_show", "targetname" );
+	foreach ( m_prop in a_afterlife_props )
+	{
+		m_prop delete();
+	}
+}
+
+turn_afterlife_interacts_on()
+{
+    a_afterlife_interact = getentarray( "afterlife_interact", "targetname" );
+	foreach ( model in a_afterlife_interact )
+	{
+        if ( model.script_string == "juggernog_on" )
+        {
+            model turn_afterlife_interact_on();
+		    wait 0.1;
+        }
+	}
+
+    m_docks_shockbox = getent( "docks_panel", "targetname" );
+    m_docks_shockbox turn_afterlife_interact_on();
+}
+
+#using_animtree("fxanim_props");
+
+turn_afterlife_interact_on()
+{
+    if ( !isDefined( level.shockbox_anim ) )
+    {
+        level.shockbox_anim[ "on" ] = %fxanim_zom_al_shock_box_on_anim;
+        level.shockbox_anim[ "off" ] = %fxanim_zom_al_shock_box_off_anim;
+    }
+
+    if ( issubstr( self.model, "p6_zm_al_shock_box" ) )
+    {
+        self useanimtree( -1 );
+        self setmodel( "p6_zm_al_shock_box_on" );
+        self setanim( level.shockbox_anim[ "on" ] );
     }
 }
 
@@ -220,16 +298,23 @@ master_key_door_trigger_thread()
     {
         self waittill( "trigger", e_triggerer );
 
-        if ( is_player_valid(e_triggerer) && e_triggerer.score >= self.stub.cost )
+        if ( is_player_valid(e_triggerer) )
         {
-            e_triggerer maps\mp\zombies\_zm_score::minus_to_player_score( self.stub.cost );
-			e_triggerer play_sound_on_ent( "purchase" );
+            if ( e_triggerer.score >= self.stub.cost )
+            {
+                e_triggerer maps\mp\zombies\_zm_score::minus_to_player_score( self.stub.cost );
+                e_triggerer play_sound_on_ent( "purchase" );
 
-            self.stub.master_key_door_opened = 1;
-            self.stub maps\mp\zombies\_zm_unitrigger::run_visibility_function_for_all_triggers();
-            level thread open_custom_door_master_key( n_door_index, e_triggerer );
-            self playsound( "evt_quest_door_open" );
-            b_door_open = 1;
+                self.stub.master_key_door_opened = 1;
+                self.stub maps\mp\zombies\_zm_unitrigger::run_visibility_function_for_all_triggers();
+                level thread open_custom_door_master_key( n_door_index, e_triggerer );
+                self playsound( "evt_quest_door_open" );
+                b_door_open = 1;
+            }
+            else
+            {
+                play_sound_at_pos( "no_purchase", self.stub.origin );
+            }
         }
     }
 
@@ -280,5 +365,4 @@ open_inner_gate()
     gate_2_monsterclip.origin += vectorscale( ( 0, 0, 1 ), 256.0 );
     gate_2_monsterclip disconnectpaths();
     gate_2_monsterclip.origin -= vectorscale( ( 0, 0, 1 ), 256.0 );
-    m_gate_02 playsound( "zmb_chainlink_close" );
 }
