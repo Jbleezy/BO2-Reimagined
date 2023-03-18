@@ -2599,6 +2599,7 @@ containment_think()
 		start_time = getTime();
 		while((getTime() - start_time) <= 60000 || containment_zones.size == 1)
 		{
+			zombies = get_round_enemy_array();
 			players = get_players();
 			in_containment_zone = [];
 			in_containment_zone["axis"] = [];
@@ -2637,12 +2638,11 @@ containment_think()
 				}
 				else
 				{
-					if(is_player_valid(player))
+					if(is_player_valid(player) && !isDefined(level.meat_player))
 					{
-						if(!isDefined(level.meat_player))
-						{
-							player.ignoreme = 1;
-						}
+						close_zombies = get_array_of_closest(player.origin, zombies, undefined, 1, 64);
+
+						player.ignoreme = close_zombies.size == 0;
 					}
 
 					player.obj_waypoint.alpha = 1;
@@ -3056,6 +3056,8 @@ meat_think()
 
 	while(1)
 	{
+		players = get_players();
+
 		if (isDefined(level.meat_player))
 		{
 			if (!isDefined(held_time))
@@ -3113,7 +3115,6 @@ meat_think()
 
 				level.item_meat.obj_waypoint_origin.origin = level.item_meat.origin + (0, 0, 32);
 
-				players = get_players();
 				foreach (player in players)
 				{
 					player.obj_waypoint.alpha = 1;
@@ -3133,7 +3134,6 @@ meat_think()
 					level.meat_powerup thread meat_waypoint_origin_destroy_on_death();
 				}
 
-				players = get_players();
 				foreach (player in players)
 				{
 					player.obj_waypoint.alpha = 1;
@@ -3143,7 +3143,6 @@ meat_think()
 			}
 			else
 			{
-				players = get_players();
 				foreach (player in players)
 				{
 					player.obj_waypoint.alpha = 0;

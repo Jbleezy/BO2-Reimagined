@@ -208,6 +208,8 @@ meat_stink( who )
 		}
 	}
 
+	who thread meat_stink_ignoreme_think();
+
 	who thread meat_stink_player_create();
 
 	who thread meat_stink_cleanup_on_downed();
@@ -236,6 +238,40 @@ meat_disable_weapons()
 	self enableWeapons();
 
 	self.meat_weapons_disabled = undefined;
+}
+
+meat_stink_ignoreme_think()
+{
+	level endon("meat_thrown");
+	level endon("meat_grabbed");
+	self endon("disconnect");
+	self endon("player_downed");
+	self endon("bled_out");
+
+	while (1)
+	{
+		zombies = get_round_enemy_array();
+
+		players = get_players();
+		foreach (player in players)
+		{
+			if (player == self)
+			{
+				continue;
+			}
+
+			if (!is_player_valid(player))
+			{
+				continue;
+			}
+
+			close_zombies = get_array_of_closest(player.origin, zombies, undefined, 1, 64);
+
+			player.ignoreme = close_zombies.size == 0;
+		}
+
+		wait 0.05;
+	}
 }
 
 meat_stink_cleanup_on_downed()
@@ -354,6 +390,7 @@ meat_stink_player( who )
 
 		player print_meat_msg(who, "has");
 	}
+	who thread meat_stink_ignoreme_think();
 	who thread meat_stink_player_create();
 	who waittill_any_or_timeout( 30, "disconnect", "player_downed", "bled_out" );
 	players = get_players();
