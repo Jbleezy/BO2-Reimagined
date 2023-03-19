@@ -190,10 +190,16 @@ init_wallbuys()
 	{
 		if (isDefined(struct.script_noteworthy) && isSubStr(struct.script_noteworthy, "maze"))
 		{
-			struct.origin += anglesToRight(struct.angles) * 32;
 			og_weapon_structs[og_weapon_structs.size] = struct;
 		}
 	}
+
+	og_weapon_structs[0].origin += anglesToRight(og_weapon_structs[0].angles) * 28;
+	og_weapon_structs[1].origin += anglesToRight(og_weapon_structs[1].angles) * 50;
+	og_weapon_structs[2].origin += anglesToRight(og_weapon_structs[2].angles) * -18;
+	og_weapon_structs[3].origin += anglesToRight(og_weapon_structs[3].angles) * 46;
+	og_weapon_structs[4].origin += anglesToRight(og_weapon_structs[4].angles) * 33;
+	og_weapon_structs[5].origin += anglesToRight(og_weapon_structs[5].angles) * 36;
 
 	og_weapon_structs = array_randomize(og_weapon_structs);
 
@@ -202,7 +208,7 @@ init_wallbuys()
 	scripts\zm\replaced\utility::wallbuy( "beretta93r_zm", "beretta93r", "weapon_upgrade", og_weapon_structs[2].origin, og_weapon_structs[2].angles );
 	scripts\zm\replaced\utility::wallbuy( "mp5k_zm", "mp5", "weapon_upgrade", og_weapon_structs[3].origin, og_weapon_structs[3].angles );
 	scripts\zm\replaced\utility::wallbuy( "pdw57_zm", "pdw57", "weapon_upgrade", og_weapon_structs[4].origin, og_weapon_structs[4].angles );
-	scripts\zm\replaced\utility::wallbuy( "m16_zm", "m16", "weapon_upgrade", og_weapon_structs[5].origin, og_weapon_structs[5].angles );
+	scripts\zm\replaced\utility::wallbuy( "an94_zm", "an94", "weapon_upgrade", og_weapon_structs[5].origin, og_weapon_structs[5].angles );
 }
 
 disable_player_spawn_locations()

@@ -506,7 +506,7 @@
 
 #### Maze
 * Added Grief game mode
-* Wallbuys: M14, Olympia, B23R, MP5, PDW, M16
+* Wallbuys: M14, Olympia, B23R, MP5, PDW, AN94
 * Perks: Juggernog, Quick Revive, Speed Cola, Double Tap, Stamin-Up, Mule Kick
 * Pack-a-Punch
 * Perk and wallbuy locations within the maze are randomized each game
