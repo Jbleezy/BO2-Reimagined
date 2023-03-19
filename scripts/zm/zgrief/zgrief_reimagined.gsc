@@ -720,7 +720,7 @@ grief_onplayerconnect()
 	self.killsdenied = 0;
 	self.captures = 0;
 
-	if(level.scr_zm_ui_gametype_obj == "zgrief" || level.scr_zm_ui_gametype_obj == "zcontainment" || level.scr_zm_ui_gametype_obj == "zmeat")
+	if(level.scr_zm_ui_gametype_obj == "zgrief" || level.scr_zm_ui_gametype_obj == "zrace" || level.scr_zm_ui_gametype_obj == "zcontainment" || level.scr_zm_ui_gametype_obj == "zmeat")
 	{
 		self._retain_perks = 1;
 	}

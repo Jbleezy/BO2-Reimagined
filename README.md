@@ -599,6 +599,7 @@
 * Starts at round 1
 * Round increments every 30 seconds (up to round 20)
 * Players respawn after being down for 10 seconds
+* Players retain perks
 
 #### Containment
 * Gain score by being the team with the most players alive in the containment zone
