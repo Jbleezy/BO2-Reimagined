@@ -1182,6 +1182,58 @@ player_revive_monitor()
 	}
 }
 
+player_out_of_playable_area_monitor()
+{
+    self notify( "stop_player_out_of_playable_area_monitor" );
+    self endon( "stop_player_out_of_playable_area_monitor" );
+    self endon( "disconnect" );
+    level endon( "end_game" );
+
+    while ( !isdefined( self.characterindex ) )
+        wait 0.05;
+
+    wait( 0.15 * self.characterindex );
+
+    while ( true )
+    {
+        if ( self.sessionstate == "spectator" )
+        {
+            wait( get_player_out_of_playable_area_monitor_wait_time() );
+            continue;
+        }
+
+        if ( is_true( level.hostmigration_occured ) )
+        {
+            wait( get_player_out_of_playable_area_monitor_wait_time() );
+            continue;
+        }
+
+        if ( !self in_life_brush() && ( self in_kill_brush() || !self in_enabled_playable_area() ) )
+        {
+            if ( !isdefined( level.player_out_of_playable_area_monitor_callback ) || self [[ level.player_out_of_playable_area_monitor_callback ]]() )
+            {
+                self maps\mp\zombies\_zm_stats::increment_map_cheat_stat( "cheat_out_of_playable" );
+                self maps\mp\zombies\_zm_stats::increment_client_stat( "cheat_out_of_playable", 0 );
+                self maps\mp\zombies\_zm_stats::increment_client_stat( "cheat_total", 0 );
+                self playlocalsound( level.zmb_laugh_alias );
+                wait 0.5;
+
+                if ( get_players().size == 1 && flag( "solo_game" ) && ( isdefined( self.waiting_to_revive ) && self.waiting_to_revive ) )
+                    level notify( "end_game" );
+                else
+                {
+                    //self disableinvulnerability();
+                    self.lives = 0;
+                    self dodamage( self.health + 1000, self.origin );
+                    self.bleedout_time = 0;
+                }
+            }
+        }
+
+        wait( get_player_out_of_playable_area_monitor_wait_time() );
+    }
+}
+
 end_game()
 {
 	level waittill( "end_game" );
