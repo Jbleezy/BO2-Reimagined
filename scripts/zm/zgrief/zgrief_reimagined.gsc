@@ -3219,24 +3219,21 @@ increment_score(team, show_lead_msg = true)
 
 	if(level.scr_zm_ui_gametype_obj == "zgrief")
 	{
+		score_left = get_gamemode_winning_score() - level.grief_score[encounters_team];
+
+		players = get_players(team);
+		foreach(player in players)
+		{
+			player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_PLAYER_BLED_OUT", score_left);
+		}
+
 		if(level.grief_score[encounters_team] <= 3)
 		{
 			level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog(level.grief_score[encounters_team] + "_player_down", team);
 		}
-		else
+		else if(score_left <= 3)
 		{
-			score_left = get_gamemode_winning_score() - level.grief_score[encounters_team];
-
-			if(score_left <= 3)
-			{
-				players = get_players(team);
-				foreach(player in players)
-				{
-					player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_PLAYER_BLED_OUT", score_left);
-				}
-
-				level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog(score_left + "_player_left", team);
-			}
+			level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog(score_left + "_player_left", team);
 		}
 	}
 
@@ -3247,7 +3244,7 @@ increment_score(team, show_lead_msg = true)
 			level.prev_leader = encounters_team;
 
 			delay = 0;
-			if (level.scr_zm_ui_gametype_obj == "zsnr")
+			if (level.scr_zm_ui_gametype_obj == "zsnr" || level.scr_zm_ui_gametype_obj == "zgrief")
 			{
 				delay = 1;
 			}
