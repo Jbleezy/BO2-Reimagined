@@ -97,6 +97,23 @@ struct_init()
 			scripts\zm\replaced\utility::register_map_initial_spawnpoint( point.origin, point.angles, point.script_int );
 		}
 	}
+
+	level.struct_class_names[ "targetname" ][ "intermission" ] = [];
+
+	intermission_cam = spawnStruct();
+    intermission_cam.origin = (3694, 569, 253);
+    intermission_cam.angles = (30, 0, 0);
+    intermission_cam.targetname = "intermission";
+    intermission_cam.script_string = "street";
+    intermission_cam.speed = 30;
+    intermission_cam.target = "intermission_street_end";
+    scripts\zm\replaced\utility::add_struct(intermission_cam);
+
+    intermission_cam_end = spawnStruct();
+    intermission_cam_end.origin = (5856, 569, 253);
+    intermission_cam_end.angles = (30, 0, 0);
+    intermission_cam_end.targetname = "intermission_street_end";
+    scripts\zm\replaced\utility::add_struct(intermission_cam_end);
 }
 
 precache()
