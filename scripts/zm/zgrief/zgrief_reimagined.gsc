@@ -75,6 +75,7 @@ init()
 	level.show_grief_hud_msg_func = ::show_grief_hud_msg;
 	level.player_suicide_func = ::player_suicide;
 
+	level thread grief_intro_msg();
 	level thread round_start_wait(5, true);
 	level thread remove_round_number();
 	level thread unlimited_zombies();
@@ -812,8 +813,6 @@ on_player_spawned()
 		{
 			self.grief_initial_spawn = false;
 
-			//self thread grief_intro_text();
-
 			if(is_respawn_gamemode() && flag("start_zombie_round_logic"))
 			{
 				self thread wait_and_award_grenades();
@@ -1433,64 +1432,89 @@ wait_and_award_grenades()
 	self setWeaponAmmoClip(self get_player_lethal_grenade(), 2);
 }
 
-grief_intro_text()
+grief_intro_msg()
 {
 	level endon("end_game");
-	self endon("disconnect");
 
-	// player spawns for a frame when hotjoining
-	if(is_true(self.is_hotjoining))
-	{
-		self waittill( "spawned_spectator" );
-		self waittill( "spawned_player" );
-	}
-	else
-	{
-		wait 5;
-	}
+	level waittill("restart_round_start");
 
-	flag_wait( "initial_blackscreen_passed" );
-
-	self iPrintLn("Welcome to " + get_gamemode_display_name() +  "!");
-	wait 5;
+	players = get_players();
 
 	if(level.scr_zm_ui_gametype_obj == "zgrief")
 	{
-		self iPrintLn("Gain score by making enemy players bleed out.");
-		wait 5;
-		self iPrintLn("Make " + get_gamemode_winning_score() + " enemy players bleed out to win the game.");
-		wait 5;
+		foreach (player in players)
+		{
+			player thread show_grief_hud_msg( "Make enemy players bleed out to gain score!" );
+		}
 	}
 	else if(level.scr_zm_ui_gametype_obj == "zsnr")
 	{
-		self iPrintLn("Win rounds by getting all enemy players down.");
-		wait 5;
-		self iPrintLn("Win " + get_gamemode_winning_score() + " rounds to win the game.");
-		wait 5;
+		foreach (player in players)
+		{
+			player thread show_grief_hud_msg( "Get all enemy players down to win a round!" );
+		}
 	}
 	else if(level.scr_zm_ui_gametype_obj == "zrace")
 	{
-		self iPrintLn("Gain score by getting kills.");
-		wait 5;
-		self iPrintLn("Get " + get_gamemode_winning_score() + " kills to win the game.");
-		wait 5;
+		foreach (player in players)
+		{
+			player thread show_grief_hud_msg( "Kill zombies to gain score!" );
+		}
 	}
 	else if(level.scr_zm_ui_gametype_obj == "zcontainment")
 	{
-		self iPrintLn("Gain score by controlling the containment zone.");
-		wait 5;
-		self iPrintLn("Gain " + get_gamemode_winning_score() + " score to win the game.");
-		wait 5;
+		foreach (player in players)
+		{
+			player thread show_grief_hud_msg( "Control the containment zone to gain score!" );
+		}
 	}
 	else if(level.scr_zm_ui_gametype_obj == "zmeat")
 	{
-		self iPrintLn("Gain score by holding the meat.");
-		wait 5;
-		self iPrintLn("Gain " + get_gamemode_winning_score() + " score to win the game.");
-		wait 5;
+		foreach (player in players)
+		{
+			player thread show_grief_hud_msg( "Hold the meat to gain score!" );
+		}
 	}
 
-	self iPrintLn("Good luck!");
+	wait 5;
+
+	players = get_players();
+
+	if(level.scr_zm_ui_gametype_obj == "zgrief")
+	{
+		foreach (player in players)
+		{
+			player thread show_grief_hud_msg( "" + get_gamemode_winning_score() + " score to win the game!" );
+		}
+	}
+	else if(level.scr_zm_ui_gametype_obj == "zsnr")
+	{
+		foreach (player in players)
+		{
+			player thread show_grief_hud_msg( "" + get_gamemode_winning_score() + " round wins to win the game!" );
+		}
+	}
+	else if(level.scr_zm_ui_gametype_obj == "zrace")
+	{
+		foreach (player in players)
+		{
+			player thread show_grief_hud_msg( "" + get_gamemode_winning_score() + " score to win the game!" );
+		}
+	}
+	else if(level.scr_zm_ui_gametype_obj == "zcontainment")
+	{
+		foreach (player in players)
+		{
+			player thread show_grief_hud_msg( "" + get_gamemode_winning_score() + " score to win the game!" );
+		}
+	}
+	else if(level.scr_zm_ui_gametype_obj == "zmeat")
+	{
+		foreach (player in players)
+		{
+			player thread show_grief_hud_msg( "" + get_gamemode_winning_score() + " score to win the game!" );
+		}
+	}
 }
 
 get_gamemode_display_name(gamemode = level.scr_zm_ui_gametype_obj)
