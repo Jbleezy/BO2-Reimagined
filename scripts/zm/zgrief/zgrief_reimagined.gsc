@@ -2894,7 +2894,7 @@ containment_get_zones()
 		}
 		else if(level.scr_zm_map_start_location == "diner")
 		{
-			containment_zones = array("zone_roadside_west", "zone_gas", "zone_roadside_east", "zone_gar", "zone_din");
+			containment_zones = array("zone_roadside_west", "zone_roadside_east", "zone_gar", "zone_din");
 		}
 		else if(level.scr_zm_map_start_location == "farm")
 		{
