@@ -186,6 +186,10 @@ map_vote()
     {
         location = getDvar("ui_zm_mapstartlocation_fake");
     }
+    if (level.scr_zm_map_start_location == "street" && getDvar("ui_zm_mapstartlocation_fake") == "maze")
+    {
+        location = getDvar("ui_zm_mapstartlocation_fake");
+    }
 
     for (i = 0; i < 3; i++)
     {
