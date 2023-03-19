@@ -3217,10 +3217,10 @@ increment_score(team, show_lead_msg = true)
 		scripts\zm\replaced\_zm_game_module::game_won(encounters_team);
 	}
 
+	score_left = get_gamemode_winning_score() - level.grief_score[encounters_team];
+
 	if(level.scr_zm_ui_gametype_obj == "zgrief")
 	{
-		score_left = get_gamemode_winning_score() - level.grief_score[encounters_team];
-
 		players = get_players(team);
 		foreach(player in players)
 		{
@@ -3234,6 +3234,18 @@ increment_score(team, show_lead_msg = true)
 		else if(score_left <= 3)
 		{
 			level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog(score_left + "_player_left", team);
+		}
+	}
+
+	if(level.scr_zm_ui_gametype_obj == "zrace")
+	{
+		if (score_left % 50 == 0)
+		{
+			players = get_players(team);
+			foreach(player in players)
+			{
+				player thread show_grief_hud_msg(&"ZOMBIE_RACE_ZOMBIES_LEFT", score_left);
+			}
 		}
 	}
 
