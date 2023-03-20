@@ -247,6 +247,7 @@ meat_stink_ignoreme_think()
 	self endon("disconnect");
 	self endon("player_downed");
 	self endon("bled_out");
+	self endon("meat_stink_player_end");
 
 	while (1)
 	{
@@ -390,9 +391,13 @@ meat_stink_player( who )
 
 		player print_meat_msg(who, "has");
 	}
+
 	who thread meat_stink_ignoreme_think();
 	who thread meat_stink_player_create();
+
 	who waittill_any_or_timeout( 30, "disconnect", "player_downed", "bled_out" );
+
+	who notify( "meat_stink_player_end" );
 	players = get_players();
 	foreach ( player in players )
 	{
