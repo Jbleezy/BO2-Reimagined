@@ -39,6 +39,17 @@ init()
 
 	precacheStatusIcon( "waypoint_revive" );
 
+	if (level.script == "zm_prison")
+	{
+		precacheShader( "waypoint_kill_red" );
+		level.obj_waypoint_icon = "waypoint_kill_red";
+	}
+	else
+	{
+		precacheShader( "hud_status_dead" );
+		level.obj_waypoint_icon = "hud_status_dead";
+	}
+
 	setDvar("ui_scorelimit", 1);
 
 	setteamscore("axis", 0);
@@ -1041,7 +1052,7 @@ obj_waypoint()
 	self.obj_waypoint.hidewheninmenu = 1;
 	self.obj_waypoint.fadewhentargeted = 1;
 	self.obj_waypoint.foreground = 1;
-	self.obj_waypoint setWaypoint(1, "waypoint_revive");
+	self.obj_waypoint setWaypoint(1, level.obj_waypoint_icon);
 
 	self thread obj_waypoint_destroy_on_end_game();
 }
@@ -2658,7 +2669,7 @@ containment_think()
 					player.obj_waypoint.x = 0;
 					player.obj_waypoint.y = 140;
 					player.obj_waypoint.z = 0;
-					player.obj_waypoint setShader("waypoint_revive", getDvarInt("waypointIconWidth"), getDvarInt("waypointIconHeight"));
+					player.obj_waypoint setShader(level.obj_waypoint_icon, getDvarInt("waypointIconWidth"), getDvarInt("waypointIconHeight"));
 				}
 				else
 				{
@@ -2695,7 +2706,7 @@ containment_think()
 						player.obj_waypoint.z -= 250;
 					}
 
-					player.obj_waypoint setWaypoint(1, "waypoint_revive");
+					player.obj_waypoint setWaypoint(1, level.obj_waypoint_icon);
 				}
 			}
 
