@@ -423,7 +423,6 @@
 * Zombies spawn in the Farm zone when in the Barn zone
 * Replaced Olympia wallbuy with Remington 870 wallbuy
 * Replaced Galvaknuckles wallbuy with Claymore wallbuy (also added to Grief)
-* Grief: removed player spawns near gate
 
 #### Power Station
 * Added Survival and Grief game modes
@@ -469,10 +468,8 @@
 * Players no longer respawn in the Acid Trap
 * Zombies spawn in the Docks zone when in the Docks Gates zone
 * Zombies spawn in the Docks Gates zone when in the Docks zone
-
-#### Cell Block
-* Added Smoke Grenades to the Mystery Box
-* Added Richtofen Head meat powerup model
+* Grief: added Smoke Grenades to the Mystery Box
+* Grief: added Richtofen Head meat powerup model
 
 #### Docks
 * Added Grief game mode
@@ -565,6 +562,7 @@
 * Double Points: enemy players gain half points
 * Insta Kill: decreased duration from 30 seconds to 15 seconds
 * Insta Kill: enemy players deal half damage
+* Nuke: enemy players lose 400 points
 * Nuke: deals 80 damage to all alive enemy players
 * Nuke: makes all downed enemy players bleed out
 * Added teammate waypoint icons

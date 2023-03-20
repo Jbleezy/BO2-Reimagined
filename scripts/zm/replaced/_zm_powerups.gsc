@@ -242,6 +242,17 @@ nuke_powerup( drop_item, player_team )
 		{
 			if(is_player_valid(players[i]))
 			{
+				score = 400 * maps\mp\zombies\_zm_score::get_points_multiplier(player);
+
+				if(players[i].score < score)
+				{
+					players[i] maps\mp\zombies\_zm_score::minus_to_player_score(players[i].score);
+				}
+				else
+				{
+					players[i] maps\mp\zombies\_zm_score::minus_to_player_score(score);
+				}
+
 				radiusDamage(players[i].origin + (0, 0, 5), 10, 80, 80);
 			}
 			else if(players[i] maps\mp\zombies\_zm_laststand::player_is_in_laststand())
