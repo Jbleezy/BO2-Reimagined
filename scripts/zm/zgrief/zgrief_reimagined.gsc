@@ -2084,11 +2084,44 @@ grief_laststand_weapon_save( einflictor, attacker, idamage, smeansofdeath, sweap
 
 	for ( i = 0; i < self.grief_savedweapon_weapons.size; i++ )
 	{
-		self.grief_savedweapon_weaponsammo_clip[ i ] = self getweaponammoclip( self.grief_savedweapon_weapons[ i ] );
-		self.grief_savedweapon_weaponsammo_clip_dualwield[ i ] = self getweaponammoclip(weaponDualWieldWeaponName( self.grief_savedweapon_weapons[ i ] ) );
-		self.grief_savedweapon_weaponsammo_stock[ i ] = self getweaponammostock( self.grief_savedweapon_weapons[ i ] );
+		self.grief_savedweapon_weaponsammo_clip[i] = self getweaponammoclip(self.grief_savedweapon_weapons[i]);
+		self.grief_savedweapon_weaponsammo_clip_dualwield[i] = self getweaponammoclip(weaponDualWieldWeaponName(self.grief_savedweapon_weapons[i]));
+		self.grief_savedweapon_weaponsammo_stock[i] = self getweaponammostock(self.grief_savedweapon_weapons[i]);
 		self.grief_savedweapon_weaponsammo_clip_alt[i] = self getweaponammoclip(weaponAltWeaponName(self.grief_savedweapon_weapons[i]));
 		self.grief_savedweapon_weaponsammo_stock_alt[i] = self getweaponammostock(weaponAltWeaponName(self.grief_savedweapon_weapons[i]));
+
+		if (isDefined(self.grief_savedweapon_weaponsammo_clip[i]))
+		{
+			clip_missing = weaponClipSize(self.grief_savedweapon_weapons[i]) - self.grief_savedweapon_weaponsammo_clip[i];
+			if (clip_missing > self.grief_savedweapon_weaponsammo_stock[i])
+			{
+				clip_missing = self.grief_savedweapon_weaponsammo_stock[i];
+			}
+			self.grief_savedweapon_weaponsammo_clip[i] += clip_missing;
+			self.grief_savedweapon_weaponsammo_stock[i] -= clip_missing;
+		}
+
+		if (isDefined(self.grief_savedweapon_weaponsammo_clip_dualwield[i]) && weaponDualWieldWeaponName(self.grief_savedweapon_weapons[i]) != "none")
+		{
+			clip_dualwield_missing = weaponClipSize(weaponDualWieldWeaponName(self.grief_savedweapon_weapons[i])) - self.grief_savedweapon_weaponsammo_clip_dualwield[i];
+			if (clip_dualwield_missing > self.grief_savedweapon_weaponsammo_stock[i])
+			{
+				clip_dualwield_missing = self.grief_savedweapon_weaponsammo_stock[i];
+			}
+			self.grief_savedweapon_weaponsammo_clip_dualwield[i] += clip_dualwield_missing;
+			self.grief_savedweapon_weaponsammo_stock[i] -= clip_dualwield_missing;
+		}
+
+		if (isDefined(self.grief_savedweapon_weaponsammo_clip_alt[i]) && weaponAltWeaponName(self.grief_savedweapon_weapons[i]) != "none")
+		{
+			clip_alt_missing = weaponClipSize(weaponAltWeaponName(self.grief_savedweapon_weapons[i])) - self.grief_savedweapon_weaponsammo_clip_alt[i];
+			if (clip_alt_missing > self.grief_savedweapon_weaponsammo_stock_alt[i])
+			{
+				clip_alt_missing = self.grief_savedweapon_weaponsammo_stock_alt[i];
+			}
+			self.grief_savedweapon_weaponsammo_clip_alt[i] += clip_alt_missing;
+			self.grief_savedweapon_weaponsammo_stock_alt[i] -= clip_alt_missing;
+		}
 	}
 
 	if ( isDefined( self.grief_savedweapon_grenades ) )
