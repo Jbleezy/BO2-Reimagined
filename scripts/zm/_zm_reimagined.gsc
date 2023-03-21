@@ -415,6 +415,9 @@ health_bar_hud()
 	hud.foreground = 1;
 	hud.bar.foreground = 1;
 	hud.barframe.foreground = 1;
+	hud.sort = 0;
+	hud.bar.sort = 1;
+	hud.barframe.sort = 2;
 
 	hud_text = createfontstring("objective", 1.2);
 	hud_text.alignx = "left";
