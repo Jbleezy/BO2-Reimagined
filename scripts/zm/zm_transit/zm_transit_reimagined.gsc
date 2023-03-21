@@ -51,6 +51,7 @@ init()
 	level.zombie_init_done = ::zombie_init_done;
 	level.special_weapon_magicbox_check = ::transit_special_weapon_magicbox_check;
 	level.grenade_safe_to_bounce = ::grenade_safe_to_bounce;
+	level.object_touching_lava = maps\mp\zm_transit_lava::object_touching_lava;
 
 	screecher_spawner_changes();
 	zombie_spawn_location_changes();

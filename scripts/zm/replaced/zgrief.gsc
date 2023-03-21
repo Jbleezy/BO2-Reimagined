@@ -106,6 +106,15 @@ meat_bounce_override( pos, normal, ent, bounce )
 		}
 	}
 
+	if (isDefined(level.object_touching_lava) && self [[level.object_touching_lava]]())
+	{
+		level notify("meat_inactive");
+
+		self delete();
+
+		return;
+	}
+
 	valid_poi = check_point_in_enabled_zone( pos, undefined, undefined );
 
 	if ( valid_poi )
