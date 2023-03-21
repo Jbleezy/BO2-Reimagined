@@ -1733,6 +1733,8 @@ bleedout_bar_hud()
 	hud.barframe.hidewheninmenu = 1;
 	hud hideelem();
 
+	hud thread destroy_on_intermission();
+
 	while (1)
 	{
 		self waittill("entering_last_stand");

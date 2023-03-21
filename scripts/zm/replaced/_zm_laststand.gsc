@@ -32,11 +32,13 @@ revive_do_revive( playerbeingrevived, revivergun )
         playerbeingrevived.beingrevivedprogressbar.hidewheninmenu = 1;
         playerbeingrevived.beingrevivedprogressbar.bar.hidewheninmenu = 1;
         playerbeingrevived.beingrevivedprogressbar.barframe.hidewheninmenu = 1;
+		playerbeingrevived.beingrevivedprogressbar thread scripts\zm\_zm_reimagined::destroy_on_intermission();
 	}
 	if ( !isDefined( self.reviveprogressbar ) )
 	{
 		self.reviveprogressbar = self createprimaryprogressbar();
         self.reviveprogressbar.bar.color = (0.5, 0.5, 1);
+		self.reviveprogressbar thread scripts\zm\_zm_reimagined::destroy_on_intermission();
 	}
 	if ( !isDefined( self.revivetexthud ) )
 	{
