@@ -377,6 +377,8 @@ map_vote()
 
     vote_timer_hud.alpha = 0;
 
+    setDvar("ui_gametype_obj_cur", maps[gametype_won_ind]["gametype_name"]);
+
     if (map_won_ind == 1)
     {
         level.map_restart = 1;
@@ -385,8 +387,6 @@ map_vote()
     {
         makeDvarServerInfo("ui_zm_mapstartlocation", maps[map_won_ind]["loc_name"]);
         setDvar("ui_zm_mapstartlocation", maps[map_won_ind]["loc_name"]);
-
-        setDvar("ui_gametype_obj_cur", maps[gametype_won_ind]["gametype_name"]);
 
         // can only map_restart() from and to added Tranzit maps, others get client field mismatch
         added_maps = array("diner", "power", "tunnel", "cornfield");
