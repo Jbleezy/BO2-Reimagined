@@ -22,7 +22,7 @@ meat_bounce_override( pos, normal, ent, bounce )
 {
     if ( isdefined( ent ) && isplayer( ent ) && is_player_valid(ent) && !ent hasWeapon("item_meat_zm") && !is_true(ent.dont_touch_the_meat) )
     {
-		if (ent isMeleeing())
+		if (ent isMeleeing() && level.scr_zm_ui_gametype_obj != "zmeat")
 		{
 			ent thread maps\mp\gametypes_zm\zmeat::spike_the_meat(self);
 
@@ -71,7 +71,7 @@ meat_bounce_override( pos, normal, ent, bounce )
 
         if ( isdefined( closest_player ) )
         {
-			if (closest_player isMeleeing())
+			if (closest_player isMeleeing() && level.scr_zm_ui_gametype_obj != "zmeat")
 			{
 				closest_player thread maps\mp\gametypes_zm\zmeat::spike_the_meat(self);
 
