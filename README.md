@@ -571,7 +571,7 @@
 * Added player downed and bled out icons on scoreboard
 * Announcer audio always plays
 * Last player alive audio only plays for the player who is alive instead of every player on the team
-* Added map voting on servers
+* Added map and game mode voting on servers
 
 #### Grief
 * Gain score by making enemy players bleed out

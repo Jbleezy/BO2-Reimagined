@@ -173,6 +173,8 @@ get_mapname_from_rotation(rotation)
 
 map_vote()
 {
+    level.vote_time = (level.zombie_vars["zombie_intermission_time"] / 2) - 0.25;
+
     level waittill("intermission");
 
     maps = [];
@@ -199,7 +201,6 @@ map_vote()
     maps[1]["rotation_string"] = "exec zm_grief_" + location + ".cfg map " + level.script;
     maps[1]["map_name"] = level.script;
     maps[1]["loc_name"] = location;
-    maps[1]["gametype_name"] = level.scr_zm_ui_gametype_obj;
     exclude_locs[exclude_locs.size] = maps[1]["loc_name"];
 
     rotation = undefined;
@@ -214,7 +215,6 @@ map_vote()
     maps[0]["rotation_string"] = rotation;
     maps[0]["map_name"] = get_mapname_from_rotation(rotation);
     maps[0]["loc_name"] = get_location_from_rotation(rotation);
-    maps[0]["gametype_name"] = random(strTok(getDvar("ui_gametype_obj"), " "));
     exclude_locs[exclude_locs.size] = maps[0]["loc_name"];
 
     rotation = undefined;
@@ -229,7 +229,14 @@ map_vote()
     maps[2]["rotation_string"] = rotation;
     maps[2]["map_name"] = get_mapname_from_rotation(rotation);
     maps[2]["loc_name"] = get_location_from_rotation(rotation);
-    maps[2]["gametype_name"] = random(strTok(getDvar("ui_gametype_obj"), " "));
+
+    gametype_array = array_randomize(strTok(getDvar("ui_gametype_obj"), " "));
+
+    maps[1]["gametype_name"] = level.scr_zm_ui_gametype_obj;
+    arrayRemoveValue(gametype_array, maps[1]["gametype_name"]);
+
+    maps[0]["gametype_name"] = gametype_array[0];
+    maps[2]["gametype_name"] = gametype_array[1];
 
     image_hud = [];
     image_hud[0] = create_map_image_hud(get_image_for_loc(maps[0]["map_name"], maps[0]["loc_name"]), -200, 170);
@@ -241,11 +248,6 @@ map_vote()
     name_hud[1] = create_map_name_hud(get_name_for_loc(maps[1]["loc_name"]), 0, 170);
     name_hud[2] = create_map_name_hud(get_name_for_loc(maps[2]["loc_name"]), 200, 170);
 
-    gametype_hud = [];
-    gametype_hud[0] = create_map_gametype_hud(scripts\zm\zgrief\zgrief_reimagined::get_gamemode_display_name(maps[0]["gametype_name"]), -200, 187.5);
-    gametype_hud[1] = create_map_gametype_hud(scripts\zm\zgrief\zgrief_reimagined::get_gamemode_display_name(maps[1]["gametype_name"]), 0, 187.5);
-    gametype_hud[2] = create_map_gametype_hud(scripts\zm\zgrief\zgrief_reimagined::get_gamemode_display_name(maps[2]["gametype_name"]), 200, 187.5);
-
     level.map_votes = [];
     level.map_votes[0] = 0;
     level.map_votes[1] = 0;
@@ -256,9 +258,11 @@ map_vote()
     level.vote_hud[1] = create_map_vote_hud(0, 205);
     level.vote_hud[2] = create_map_vote_hud(200, 205);
 
+    vote_timer_hud = create_map_vote_timer_hud(0, 230);
+
     array_thread( get_players(), ::player_choose_map );
 
-    level waittill("stop_intermission");
+    wait level.vote_time;
 
     map_won_ind = get_map_winner();
 
@@ -268,23 +272,110 @@ map_vote()
         {
             image_hud[i].alpha = 0;
             name_hud[i].alpha = 0;
+            level.vote_hud[i].alpha = 0;
+        }
+    }
+
+    map_won_ind_x = undefined;
+
+    if (map_won_ind != 1)
+    {
+        map_won_ind_x = image_hud[map_won_ind].x;
+
+        image_hud[map_won_ind] moveOverTime(0.5);
+        name_hud[map_won_ind] moveOverTime(0.5);
+        level.vote_hud[map_won_ind] moveOverTime(0.5);
+
+        image_hud[map_won_ind].x = 0;
+        name_hud[map_won_ind].x = 0;
+        level.vote_hud[map_won_ind].x = 0;
+    }
+
+    players = get_players();
+    foreach (player in players)
+    {
+        player.map_select_hud.alpha = 0;
+    }
+
+    wait 0.5;
+
+    for (i = 0; i < 3; i++)
+    {
+        if (i != map_won_ind)
+        {
+            image_hud[i] setShader(get_image_for_loc(maps[map_won_ind]["map_name"], maps[map_won_ind]["loc_name"]), 175, 100);
+            name_hud[i] setText(get_name_for_loc(maps[map_won_ind]["loc_name"]));
+
+            image_hud[i].alpha = 1;
+            name_hud[i].alpha = 1;
+        }
+    }
+
+    if (isDefined(map_won_ind_x))
+    {
+        image_hud[map_won_ind].x = map_won_ind_x;
+        name_hud[map_won_ind].x = map_won_ind_x;
+        level.vote_hud[map_won_ind].x = map_won_ind_x;
+    }
+
+    for (i = 0; i < level.vote_hud.size; i++)
+    {
+        level.map_votes[i] = 0;
+        level.vote_hud[i] setValue(0);
+        level.vote_hud[i].alpha = 1;
+    }
+
+    players = get_players();
+    foreach (player in players)
+    {
+        player.map_select_hud.x = 0;
+        player.map_select_hud.alpha = 1;
+        player.map_select_ind = 1;
+        player.map_selected = 0;
+    }
+
+    gametype_hud = [];
+    gametype_hud[0] = create_map_gametype_hud(scripts\zm\zgrief\zgrief_reimagined::get_gamemode_display_name(maps[0]["gametype_name"]), -200, 187.5);
+    gametype_hud[1] = create_map_gametype_hud(scripts\zm\zgrief\zgrief_reimagined::get_gamemode_display_name(maps[1]["gametype_name"]), 0, 187.5);
+    gametype_hud[2] = create_map_gametype_hud(scripts\zm\zgrief\zgrief_reimagined::get_gamemode_display_name(maps[2]["gametype_name"]), 200, 187.5);
+
+    vote_timer_hud setTimer(level.vote_time);
+
+    level waittill("stop_intermission");
+
+    gametype_won_ind = get_map_winner();
+
+    for (i = 0; i < 3; i++)
+    {
+        if (i != gametype_won_ind)
+        {
+            image_hud[i].alpha = 0;
+            name_hud[i].alpha = 0;
             gametype_hud[i].alpha = 0;
             level.vote_hud[i].alpha = 0;
         }
     }
 
-    if (map_won_ind != 1)
+    if (gametype_won_ind != 1)
     {
-        image_hud[map_won_ind] moveOverTime(0.5);
-        name_hud[map_won_ind] moveOverTime(0.5);
-        gametype_hud[map_won_ind] moveOverTime(0.5);
-        level.vote_hud[map_won_ind] moveOverTime(0.5);
+        image_hud[gametype_won_ind] moveOverTime(0.5);
+        name_hud[gametype_won_ind] moveOverTime(0.5);
+        gametype_hud[gametype_won_ind] moveOverTime(0.5);
+        level.vote_hud[gametype_won_ind] moveOverTime(0.5);
 
-        image_hud[map_won_ind].x = 0;
-        name_hud[map_won_ind].x = 0;
-        gametype_hud[map_won_ind].x = 0;
-        level.vote_hud[map_won_ind].x = 0;
+        image_hud[gametype_won_ind].x = 0;
+        name_hud[gametype_won_ind].x = 0;
+        gametype_hud[gametype_won_ind].x = 0;
+        level.vote_hud[gametype_won_ind].x = 0;
     }
+
+    players = get_players();
+    foreach (player in players)
+    {
+        player.map_select_hud.alpha = 0;
+    }
+
+    vote_timer_hud.alpha = 0;
 
     if (map_won_ind == 1)
     {
@@ -295,7 +386,7 @@ map_vote()
         makeDvarServerInfo("ui_zm_mapstartlocation", maps[map_won_ind]["loc_name"]);
         setDvar("ui_zm_mapstartlocation", maps[map_won_ind]["loc_name"]);
 
-        setDvar("ui_gametype_obj_cur", maps[map_won_ind]["gametype_name"]);
+        setDvar("ui_gametype_obj_cur", maps[gametype_won_ind]["gametype_name"]);
 
         // can only map_restart() from and to added Tranzit maps, others get client field mismatch
         added_maps = array("diner", "power", "tunnel", "cornfield");
@@ -374,6 +465,23 @@ create_map_vote_hud(x, y)
     hud.aligny = "middle";
     hud.alpha = 1;
     hud setValue(0);
+
+    return hud;
+}
+
+create_map_vote_timer_hud(x, y)
+{
+    hud = newHudElem();
+    hud.x = 0;
+    hud.y = y;
+    hud.font = "objective";
+    hud.fontscale = 1.2;
+    hud.horzalign = "center";
+    hud.vertalign = "middle";
+    hud.alignx = "center";
+    hud.aligny = "middle";
+    hud.alpha = 1;
+    hud setTimer(level.vote_time);
 
     return hud;
 }
