@@ -820,6 +820,8 @@ on_player_spawned()
 		self.statusicon = "";
 		self.player_waypoint.alpha = 1;
 
+		self thread scripts\zm\replaced\_zm::player_spawn_protection();
+
 		if(self.grief_initial_spawn)
 		{
 			self.grief_initial_spawn = false;
@@ -2744,7 +2746,7 @@ containment_think()
 				}
 				else
 				{
-					if(is_player_valid(player) && !isDefined(level.meat_player))
+					if(is_player_valid(player) && !isDefined(level.meat_player) && !is_true(player.spawn_protection) && !is_true(player.revive_protection))
 					{
 						close_zombies = get_array_of_closest(player.origin, zombies, undefined, 1, 64);
 
