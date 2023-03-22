@@ -1839,6 +1839,8 @@ last_stand_pistol_swap()
 			amt = self.stored_weapon_info[self.laststandpistol].total_amt;
 		}
 
+		self.stored_weapon_info[self.laststandpistol].total_given_amt = amt;
+
 		amt -= (self.stored_weapon_info[self.laststandpistol].clip_amt + self.stored_weapon_info[self.laststandpistol].left_clip_amt);
 
 		self setWeaponAmmoStock(self.laststandpistol, amt);
@@ -1852,6 +1854,8 @@ last_stand_pistol_swap()
 			amt = self.stored_weapon_info[self.laststandpistol].total_amt;
 		}
 
+		self.stored_weapon_info[self.laststandpistol].total_given_amt = amt;
+
 		amt -= (self.stored_weapon_info[self.laststandpistol].clip_amt + self.stored_weapon_info[self.laststandpistol].left_clip_amt);
 
 		self setweaponammostock( self.laststandpistol, amt );
@@ -1861,13 +1865,14 @@ last_stand_pistol_swap()
 	self switchtoweapon( self.laststandpistol );
 }
 
-last_stand_restore_pistol_ammo()
+last_stand_restore_pistol_ammo(only_store_info = false)
 {
 	self.weapon_taken_by_losing_specialty_additionalprimaryweapon = undefined;
 	if ( !isDefined( self.stored_weapon_info ) )
 	{
 		return;
 	}
+
 	weapon_inventory = self getweaponslist( 1 );
 	weapon_to_restore = getarraykeys( self.stored_weapon_info );
 	i = 0;
@@ -1879,12 +1884,14 @@ last_stand_restore_pistol_ammo()
 			i++;
 			continue;
 		}
+
 		for ( j = 0; j < weapon_to_restore.size; j++ )
 		{
 			check_weapon = weapon_to_restore[ j ];
 			if ( weapon == check_weapon )
 			{
 				dual_wield_name = weapondualwieldweaponname( weapon_to_restore[ j ] );
+
 				if ( weapon != level.default_laststandpistol )
 				{
 					last_clip = self getweaponammoclip( weapon );
@@ -1896,6 +1903,13 @@ last_stand_restore_pistol_ammo()
 					last_stock = self getweaponammostock( weapon );
 					last_total = last_clip + last_left_clip + last_stock;
 					used_amt = self.stored_weapon_info[ weapon ].given_amt - last_total;
+					self.stored_weapon_info[ weapon ].total_used_amt = self.stored_weapon_info[ weapon ].total_given_amt - last_total;
+
+					if (only_store_info)
+					{
+						break;
+					}
+
 					if ( used_amt >= self.stored_weapon_info[ weapon ].stock_amt )
 					{
 						used_amt = used_amt - self.stored_weapon_info[weapon].stock_amt;
@@ -1915,6 +1929,7 @@ last_stand_restore_pistol_ammo()
 						}
 					}
 				}
+
 				self setweaponammostock( weapon_to_restore[ j ], self.stored_weapon_info[weapon_to_restore[ j ] ].stock_amt );
 				break;
 			}

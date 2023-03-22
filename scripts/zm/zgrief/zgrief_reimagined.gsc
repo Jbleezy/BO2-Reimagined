@@ -882,6 +882,11 @@ on_player_bleedout()
 		self.statusicon = "hud_status_dead";
 		self.player_waypoint.alpha = 0;
 
+		if(isDefined(level.zombie_last_stand_ammo_return))
+		{
+			self [[level.zombie_last_stand_ammo_return]](1);
+		}
+
 		if(level.scr_zm_ui_gametype_obj == "zgrief")
 		{
 			increment_score(getOtherTeam(self.team));
@@ -2154,8 +2159,6 @@ grief_laststand_weapons_return()
 		return 0;
 	}
 
-	self takeAllWeapons(); // fixes player always having knife_zm
-
 	primary_weapons_returned = 0;
 	i = 0;
 	while ( i < self.grief_savedweapon_weapons.size )
@@ -2181,6 +2184,41 @@ grief_laststand_weapons_return()
 		{
 			i++;
 			continue;
+		}
+
+		if (isDefined(self.stored_weapon_info[self.grief_savedweapon_weapons[i]]) && isDefined(self.stored_weapon_info[self.grief_savedweapon_weapons[i]].total_used_amt))
+		{
+			used_amt = self.stored_weapon_info[self.grief_savedweapon_weapons[i]].total_used_amt;
+
+			if (used_amt >= self.grief_savedweapon_weaponsammo_stock[i])
+			{
+				used_amt = used_amt - self.grief_savedweapon_weaponsammo_stock[i];
+				self.grief_savedweapon_weaponsammo_stock[i] = 0;
+
+				if (used_amt >= self.grief_savedweapon_weaponsammo_clip[i])
+				{
+					used_amt -= self.grief_savedweapon_weaponsammo_clip[i];
+					self.grief_savedweapon_weaponsammo_clip[i] = 0;
+
+					if (used_amt >= self.grief_savedweapon_weaponsammo_clip_dualwield[i])
+					{
+						used_amt -= self.grief_savedweapon_weaponsammo_clip_dualwield[i];
+						self.grief_savedweapon_weaponsammo_clip_dualwield[i] = 0;
+					}
+					else
+					{
+						self.grief_savedweapon_weaponsammo_clip_dualwield[i] -= used_amt;
+					}
+				}
+				else
+				{
+					self.grief_savedweapon_weaponsammo_clip[i] -= used_amt;
+				}
+			}
+			else
+			{
+				self.grief_savedweapon_weaponsammo_stock[i] -= used_amt;
+			}
 		}
 
 		self giveweapon( self.grief_savedweapon_weapons[ i ], 0, self maps\mp\zombies\_zm_weapons::get_pack_a_punch_weapon_options( self.grief_savedweapon_weapons[ i ] ) );
