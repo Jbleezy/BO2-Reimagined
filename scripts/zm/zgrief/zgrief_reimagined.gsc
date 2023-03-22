@@ -2598,9 +2598,15 @@ race_check_for_kills()
 
 	while(1)
 	{
-		self waittill("zom_kill");
+		self waittill("zom_kill", zombie);
 
-		increment_score(self.team);
+		amount = 1;
+		if (zombie.animname == "brutus_zombie")
+		{
+			amount = 10;
+		}
+
+		increment_score(self.team, amount);
 	}
 }
 
@@ -2928,7 +2934,7 @@ containment_think()
 							player.captures++;
 						}
 
-						increment_score("axis", !isDefined(held_time["allies"]));
+						increment_score("axis", undefined, !isDefined(held_time["allies"]));
 					}
 				}
 			}
@@ -2948,7 +2954,7 @@ containment_think()
 							player.captures++;
 						}
 
-						increment_score("allies", !isDefined(held_time["axis"]));
+						increment_score("allies", undefined, !isDefined(held_time["axis"]));
 					}
 				}
 			}
@@ -3301,7 +3307,7 @@ powerup_can_player_grab(player)
 	return true;
 }
 
-increment_score(team, show_lead_msg = true)
+increment_score(team, amount = 1, show_lead_msg = true)
 {
 	level endon("end_game");
 
@@ -3311,7 +3317,12 @@ increment_score(team, show_lead_msg = true)
 		encounters_team = "B";
 	}
 
-	level.grief_score[encounters_team]++;
+	level.grief_score[encounters_team] += amount;
+	if (level.grief_score[encounters_team] > get_gamemode_winning_score())
+	{
+		level.grief_score[encounters_team] = get_gamemode_winning_score();
+	}
+
 	level.grief_score_hud["axis"].score[team] setValue(level.grief_score[encounters_team]);
 	level.grief_score_hud["allies"].score[team] setValue(level.grief_score[encounters_team]);
 	setteamscore(team, level.grief_score[encounters_team]);
