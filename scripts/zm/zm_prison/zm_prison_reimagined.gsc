@@ -52,6 +52,7 @@ init()
 
 	level thread plane_auto_refuel();
 	level thread updatecraftables();
+    level thread grief_brutus_spawn_after_time();
 }
 
 zombie_init_done()
@@ -613,6 +614,27 @@ craftabletrigger_update_prompt( player )
 	}
 
     return can_use;
+}
+
+grief_brutus_spawn_after_time()
+{
+    if ( !is_gametype_active( "zgrief" ) )
+    {
+        return;
+    }
+
+    level endon("end_game");
+
+    level waittill("restart_round_start");
+
+    while (1)
+    {
+        time = randomIntRange(240, 360);
+
+        wait time;
+
+        level notify( "spawn_brutus", 1 );
+    }
 }
 
 manage_zones( initial_zone )
