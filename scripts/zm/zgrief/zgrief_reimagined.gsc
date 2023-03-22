@@ -1176,11 +1176,7 @@ round_start_wait(time, initial)
 	}
 
 	zombie_spawn_time = time;
-	if(level.scr_zm_ui_gametype_obj == "zrace")
-	{
-		zombie_spawn_time += 5;
-	}
-	else
+	if(level.scr_zm_ui_gametype_obj != "zrace")
 	{
 		zombie_spawn_time += 10;
 	}
