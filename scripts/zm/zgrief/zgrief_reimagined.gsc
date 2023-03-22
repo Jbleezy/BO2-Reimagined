@@ -1502,35 +1502,35 @@ grief_intro_msg()
 	{
 		foreach (player in players)
 		{
-			player thread show_grief_hud_msg( "" + get_gamemode_winning_score() + " score to win the game!" );
+			player thread show_grief_hud_msg( "Gain " + get_gamemode_winning_score() + " score to win the game!" );
 		}
 	}
 	else if(level.scr_zm_ui_gametype_obj == "zsnr")
 	{
 		foreach (player in players)
 		{
-			player thread show_grief_hud_msg( "" + get_gamemode_winning_score() + " round wins to win the game!" );
+			player thread show_grief_hud_msg( "Win " + get_gamemode_winning_score() + " rounds to win the game!" );
 		}
 	}
 	else if(level.scr_zm_ui_gametype_obj == "zrace")
 	{
 		foreach (player in players)
 		{
-			player thread show_grief_hud_msg( "" + get_gamemode_winning_score() + " score to win the game!" );
+			player thread show_grief_hud_msg( "Gain " + get_gamemode_winning_score() + " score to win the game!" );
 		}
 	}
 	else if(level.scr_zm_ui_gametype_obj == "zcontainment")
 	{
 		foreach (player in players)
 		{
-			player thread show_grief_hud_msg( "" + get_gamemode_winning_score() + " score to win the game!" );
+			player thread show_grief_hud_msg( "Gain " + get_gamemode_winning_score() + " score to win the game!" );
 		}
 	}
 	else if(level.scr_zm_ui_gametype_obj == "zmeat")
 	{
 		foreach (player in players)
 		{
-			player thread show_grief_hud_msg( "" + get_gamemode_winning_score() + " score to win the game!" );
+			player thread show_grief_hud_msg( "Gain " + get_gamemode_winning_score() + " score to win the game!" );
 		}
 	}
 }
