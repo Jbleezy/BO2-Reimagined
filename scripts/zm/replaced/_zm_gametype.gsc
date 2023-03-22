@@ -153,12 +153,9 @@ onplayerspawned()
 		{
 			weapons_restored = self [[ level.onplayerspawned_restore_previous_weapons ]]();
 		}
-		else
-		{
-			self giveweapon( "knife_zm" );
-		}
 		if ( isDefined( weapons_restored ) && !weapons_restored || !isDefined( weapons_restored ) )
 		{
+			self giveweapon( "knife_zm" );
 			self give_start_weapon( 1 );
 		}
 		weapons_restored = 0;
