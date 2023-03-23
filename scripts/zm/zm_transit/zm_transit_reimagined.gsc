@@ -129,6 +129,11 @@ electric_door_changes()
 	{
 		if ( isDefined( zombie_doors[i].script_noteworthy ) && (zombie_doors[i].script_noteworthy == "local_electric_door" || zombie_doors[i].script_noteworthy == "electric_door") )
 		{
+			if (zombie_doors[i].target == "lab_secret_hatch")
+			{
+				continue;
+			}
+
 			zombie_doors[i].script_noteworthy = "default";
 			zombie_doors[i].zombie_cost = 750;
 
