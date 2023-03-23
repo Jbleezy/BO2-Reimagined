@@ -43,7 +43,7 @@ springpadthink( weapon, electricradius, armed )
 
         if ( isdefined( weapon.fling_targets ) && weapon.fling_targets.size > 0 )
         {
-            weapon notify( "fling", weapon.zombies_only );
+            weapon notify( "fling", 1 );
             weapon.is_armed = 0;
             weapon.zombies_only = 1;
 

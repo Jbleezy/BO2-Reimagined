@@ -366,6 +366,7 @@
 ### Trample Steam
 * No longer gets destroyed from kills
 * Gets destroyed after activating 15 times
+* Uses fast cooldown when player activates
 
 ### Head Chopper
 * No longer gets destroyed from kills
