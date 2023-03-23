@@ -189,7 +189,6 @@ power_local_electric_doors_globally()
 		for (i = 0; i < local_power.size; i++)
 		{
 			maps\mp\zombies\_zm_power::end_local_power( local_power[i] );
-			local_power[i] = undefined;
 		}
 	}
 }
