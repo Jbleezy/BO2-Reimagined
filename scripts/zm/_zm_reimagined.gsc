@@ -3900,9 +3900,18 @@ additionalprimaryweapon_indicator()
 	hud.hidewheninmenu = 1;
 	hud setShader("specialty_additionalprimaryweapon_zombies", 24, 24);
 
+	hud thread destroy_on_intermission();
+
 	while (1)
 	{
-		self waittill_any("weapon_change", "specialty_additionalprimaryweapon_stop", "spawned_player");
+		self waittill_any("weapon_change", "specialty_additionalprimaryweapon_stop", "player_downed", "spawned_player");
+
+		if (!is_player_valid(self))
+		{
+			hud fadeOverTime(0.5);
+			hud.alpha = 0;
+			continue;
+		}
 
 		if (self hasPerk("specialty_additionalprimaryweapon") && isDefined(self.a_saved_weapon) && self getCurrentWeapon() == self.a_saved_weapon["name"])
 		{
