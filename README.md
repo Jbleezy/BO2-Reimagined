@@ -72,6 +72,7 @@
 * Removed walkers in high rounds
 * Removed headless zombies
 * Neck counts as headshot
+* All body shot kills award 50 points
 
 ### Denizens
 * Decreased maximum amount that can be spawned at once from 2 to 1
@@ -471,7 +472,7 @@
 * Zombies spawn in the Docks zone when in the Docks Gates zone
 * Zombies spawn in the Docks Gates zone when in the Docks zone
 * Grief: added Smoke Grenades to the Mystery Box
-* Grief: added Richtofen Head meat powerup model
+* Grief: added Richtofen's Head meat powerup model
 * Grief: Brutus spawns every 4-6 minutes
 * Grief: Brutus can lock perks and the Mystery Box
 * Fixed being able to hit a death barrier when jumping off the Upper Docks
