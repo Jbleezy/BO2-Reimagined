@@ -14,6 +14,7 @@
 #include scripts\zm\replaced\_zm_craftables;
 #include scripts\zm\replaced\_zm_riotshield_prison;
 #include scripts\zm\replaced\_zm_weap_riotshield_prison;
+#include scripts\zm\replaced\_zm_weap_blundersplat;
 
 main()
 {
@@ -32,6 +33,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_riotshield_prison::trackriotshield, scripts\zm\replaced\_zm_riotshield_prison::trackriotshield);
 	replaceFunc(maps\mp\zombies\_zm_weap_riotshield_prison::init, scripts\zm\replaced\_zm_weap_riotshield_prison::init);
 	replaceFunc(maps\mp\zombies\_zm_weap_riotshield_prison::player_damage_shield, scripts\zm\replaced\_zm_weap_riotshield_prison::player_damage_shield);
+    replaceFunc(maps\mp\zombies\_zm_weap_blundersplat::_titus_target_animate_and_die, scripts\zm\replaced\_zm_weap_blundersplat::_titus_target_animate_and_die);
 	replaceFunc(maps\mp\zombies\_zm_zonemgr::manage_zones, ::manage_zones);
 }
 

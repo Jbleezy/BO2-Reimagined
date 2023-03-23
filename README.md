@@ -203,6 +203,7 @@
 
 ### Acid Gat
 * Kills on any round
+* Stuck zombie counts as a kill
 
 ### Staffs
 * Upgrade only requires collecting souls in The Crazy Place
