@@ -404,6 +404,7 @@
 * Zombies spawn in the Warehouse zone when in the Fog After Power Station zone
 * Survival & Grief: power doors are buyable doors
 * Grief: added Ballistic Knife, Ray Gun, and Ray Gun Mark 2 to the Mystery Box
+* Added collision to area at Cornfield that was considered out of the map
 * Fixed zombie pathing at Cornfield behind the tower
 * Fixed a zombie riser spawn point at Outside Power Station being too high above ground
 * Fixed a zombie pathing exploit at Town in Bookstore

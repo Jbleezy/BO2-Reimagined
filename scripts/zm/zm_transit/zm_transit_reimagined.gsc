@@ -55,6 +55,7 @@ init()
 
 	screecher_spawner_changes();
 	zombie_spawn_location_changes();
+	cornfield_add_collision();
 	cornfield_spawn_path_nodes();
 	path_exploit_fixes();
 
@@ -242,6 +243,13 @@ zombie_spawn_location_changes()
             i++;
 		}
 	}
+}
+
+cornfield_add_collision()
+{
+	model = spawn( "script_model", (10536, -595, -145));
+	model.angles = (0, -35, 0);
+	model setmodel("collision_clip_wall_128x128x10");
 }
 
 cornfield_spawn_path_nodes()
