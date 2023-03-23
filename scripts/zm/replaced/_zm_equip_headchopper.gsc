@@ -13,6 +13,18 @@
 #include maps\mp\animscripts\zm_run;
 #include maps\mp\zombies\_zm_audio;
 
+#using_animtree("zombie_headchopper");
+
+init_anim_slice_times()
+{
+    level.headchopper_slice_times = [];
+    slice_times = getnotetracktimes( %o_zmb_chopper_slice_slow, "slice" );
+    animlength = getanimlength( %o_zmb_chopper_slice_slow );
+
+    foreach ( frac in slice_times )
+        level.headchopper_slice_times[level.headchopper_slice_times.size] = animlength * frac;
+}
+
 headchopperthink( weapon, electricradius, armed )
 {
     self endon( "death" );
@@ -60,7 +72,7 @@ headchopperthink( weapon, electricradius, armed )
 
             while ( isdefined( is_slicing ) && is_slicing )
             {
-                weapon notify( "chop", weapon.zombies_only );
+                weapon notify( "chop", 1 );
                 weapon.is_armed = 0;
                 weapon.zombies_only = 1;
 
@@ -117,17 +129,14 @@ headchopperattack( weapon, ent )
 
     if ( isplayer( ent ) )
     {
-        if ( isdefined( weapon.deployed_time ) && gettime() - weapon.deployed_time <= 2000 )
-            return;
-
-        if ( isdefined( is_headchop ) && is_headchop && !ent hasperk( "specialty_armorvest" ) )
-            ent dodamage( ent.health, weapon.origin );
-        else if ( isdefined( is_torsochop ) && is_torsochop )
-            ent dodamage( 50, weapon.origin );
-        else if ( isdefined( is_footchop ) && is_footchop )
-            ent dodamage( 25, weapon.origin );
+        if ( isdefined( is_headchop ) && is_headchop )
+        {
+            radiusdamage( ent.origin + (0, 0, 5), 10, 50, 50, weapon, "MOD_MELEE" );
+        }
         else
-            ent dodamage( 10, weapon.origin );
+        {
+            radiusdamage( ent.origin + (0, 0, 5), 10, 25, 25, weapon, "MOD_MELEE" );
+        }
     }
     else
     {

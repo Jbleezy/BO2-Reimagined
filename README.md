@@ -371,6 +371,10 @@
 ### Head Chopper
 * No longer gets destroyed from kills
 * Gets destroyed after activating 15 times
+* Does multiple swings when player activates
+* No longer deals damage during retract animations
+* Changed player head chop damage to 50 (normally instantly kills without Juggernog or deals 15 damage with Juggernog)
+* Changed player body chop damage to 25 (normally deals 75 damage to torso or 37 damage to feet)
 
 ### Maxis Drone
 * Added hint strings for purchased, can only be one, and cooling down
