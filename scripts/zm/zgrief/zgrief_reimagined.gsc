@@ -905,6 +905,12 @@ on_player_bleedout()
 
 		if(is_respawn_gamemode())
 		{
+			if (self.bleedout_time > 0)
+			{
+				wait self.bleedout_time;
+				self.sessionstate = "playing";
+			}
+
 			self maps\mp\zombies\_zm::spectator_respawn();
 			self.revives--;
 		}
@@ -2452,12 +2458,12 @@ unlimited_powerups()
 
 player_suicide()
 {
-	self notify( "player_suicide" );
-
-	if(is_respawn_gamemode())
+	if (self.bleedout_time <= 0)
 	{
-		return;
+		self.bleedout_time = 1;
 	}
+
+	self notify( "player_suicide" );
 
 	self.playersuicided = 1;
 
