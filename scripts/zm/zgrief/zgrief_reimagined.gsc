@@ -3145,12 +3145,9 @@ meat_powerup_drop_watcher()
 
 meat_powerup_reset_on_timeout()
 {
-	self endon("powerup_grabbed");
+	level endon("meat_grabbed");
 
-	while (isDefined(self))
-	{
-		wait 0.05;
-	}
+	self waittill("powerup_timedout");
 
 	level notify("meat_inactive");
 }
