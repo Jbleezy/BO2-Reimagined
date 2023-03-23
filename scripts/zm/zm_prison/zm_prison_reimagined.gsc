@@ -45,6 +45,8 @@ init()
 
 	level.zombie_powerups["meat_stink"].model_name = "t6_wpn_zmb_severedhead_world";
 
+    maps\mp\zombies\_zm::spawn_life_brush( (94, 6063, 240), 256, 256 );
+
 	remove_acid_trap_player_spawn();
 
 	tower_trap_changes();
