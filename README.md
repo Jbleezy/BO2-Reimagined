@@ -471,6 +471,7 @@
 * Grief: added Smoke Grenades to the Mystery Box
 * Grief: added Richtofen Head meat powerup model
 * Grief: Brutus spawns every 4-6 minutes
+* Grief: Brutus can lock perks and the Mystery Box
 
 #### Docks
 * Added Grief game mode
