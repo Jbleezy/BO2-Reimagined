@@ -79,6 +79,7 @@ init()
 	level.can_revive_game_module = ::can_revive;
 	level._powerup_grab_check = ::powerup_can_player_grab;
 	level.meat_bounce_override = scripts\zm\replaced\zgrief::meat_bounce_override;
+	level.custom_spectate_permissions = undefined;
 
 	level.is_respawn_gamemode_func = ::is_respawn_gamemode;
 	level.round_start_wait_func = ::round_start_wait;
