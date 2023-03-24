@@ -2700,6 +2700,16 @@ containment_think()
 		zone_display_name = scripts\zm\_zm_reimagined::get_zone_display_name(zone_name);
 		zone = level.zones[zone_name];
 
+		zone_name_to_lock = zone_name;
+		if (zone_name == "zone_mansion_lawn")
+		{
+			zone_name_to_lock = "zone_mansion";
+		}
+		else if (zone_name == "zone_mansion_backyard")
+		{
+			zone_name_to_lock = "zone_maze";
+		}
+
 		players = get_players();
 		foreach(player in players)
 		{
@@ -2709,15 +2719,6 @@ containment_think()
 		level.containment_zone_hud setText(zone_display_name);
 		level.containment_time_hud setTimer(60);
 
-		spawn_points = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
-		foreach(spawn_point in spawn_points)
-		{
-			if(spawn_point.script_noteworthy == zone_name)
-			{
-				spawn_point.locked = 1;
-			}
-		}
-
 		obj_time = 1000;
 		held_time = [];
 		held_time["axis"] = undefined;
@@ -2726,6 +2727,18 @@ containment_think()
 		start_time = getTime();
 		while((getTime() - start_time) <= 60000 || containment_zones.size == 1)
 		{
+			if (containment_zones.size > 1)
+			{
+				spawn_points = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
+				foreach(spawn_point in spawn_points)
+				{
+					if(spawn_point.script_noteworthy == zone_name_to_lock)
+					{
+						spawn_point.locked = 1;
+					}
+				}
+			}
+
 			zombies = get_round_enemy_array();
 			players = get_players();
 			in_containment_zone = [];
@@ -2994,7 +3007,7 @@ containment_think()
 		spawn_points = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
 		foreach(spawn_point in spawn_points)
 		{
-			if(spawn_point.script_noteworthy == zone_name)
+			if(spawn_point.script_noteworthy == zone_name_to_lock)
 			{
 				spawn_point.locked = 0;
 			}
