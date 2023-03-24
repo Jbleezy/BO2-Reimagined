@@ -2518,7 +2518,7 @@ func_should_drop_meat()
 		}
 	}
 
-	if (isDefined(level.item_meat) || is_true(level.meat_on_ground))
+	if (isDefined(level.item_meat) || is_true(level.meat_on_ground) || isDefined(level.meat_player))
 	{
 		return 0;
 	}
