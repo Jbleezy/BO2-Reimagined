@@ -626,11 +626,6 @@ get_map_winner()
         }
     }
 
-    if (winner_ind.size > 1 && isInArray(winner_ind, 1))
-    {
-        arrayRemoveValue(winner_ind, 1);
-    }
-
     return random(winner_ind);
 }
 
