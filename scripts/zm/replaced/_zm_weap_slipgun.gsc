@@ -58,3 +58,141 @@ slipgun_zombie_death_response()
     self explode_into_goo( self.attacker, 0 );
     return true;
 }
+
+slipgun_zombie_1st_hit_response( upgraded, player )
+{
+    self notify( "stop_find_flesh" );
+    self notify( "zombie_acquire_enemy" );
+    self orientmode( "face default" );
+    self.ignoreall = 1;
+    self.gibbed = 1;
+
+    if ( isalive( self ) )
+    {
+        if ( !isdefined( self.goo_chain_depth ) )
+            self.goo_chain_depth = 0;
+
+        self.goo_upgraded = upgraded;
+
+        if ( self.health > 0 )
+        {
+            if ( player maps\mp\zombies\_zm_powerups::is_insta_kill_active() )
+                self.health = 1;
+
+            self dodamage( level.slipgun_damage, self.origin, player, player, "none", level.slipgun_damage_mod, 0, "slip_goo_zm" );
+        }
+    }
+}
+
+explode_into_goo( player, chain_depth )
+{
+    if ( isdefined( self.marked_for_insta_upgraded_death ) )
+        return;
+
+    tag = "J_SpineLower";
+
+    if ( is_true( self.isdog ) )
+        tag = "tag_origin";
+
+    self.guts_explosion = 1;
+    self playsound( "wpn_slipgun_zombie_explode" );
+
+    if ( isdefined( level._effect["slipgun_explode"] ) )
+        playfx( level._effect["slipgun_explode"], self gettagorigin( tag ) );
+
+    if ( !is_true( self.isdog ) )
+        wait 0.1;
+
+    self ghost();
+
+    if ( !isdefined( self.goo_chain_depth ) )
+        self.goo_chain_depth = chain_depth;
+
+    chain_radius = level.zombie_vars["slipgun_chain_radius"];
+    level thread explode_to_near_zombies( player, self.origin, chain_radius, self.goo_chain_depth, self.goo_upgraded );
+}
+
+explode_to_near_zombies( player, origin, radius, chain_depth, goo_upgraded )
+{
+    if ( level.zombie_vars["slipgun_max_kill_chain_depth"] > 0 && chain_depth > level.zombie_vars["slipgun_max_kill_chain_depth"] )
+        return;
+
+    enemies = get_round_enemy_array();
+    enemies = get_array_of_closest( origin, enemies );
+
+    minchainwait = level.zombie_vars["slipgun_chain_wait_min"];
+    maxchainwait = level.zombie_vars["slipgun_chain_wait_max"];
+    if (is_true(goo_upgraded))
+    {
+        minchainwait /= 1.5;
+        maxchainwait /= 1.5;
+    }
+
+    rsquared = radius * radius;
+    tag = "J_Head";
+    marked_zombies = [];
+
+    if ( isdefined( enemies ) && enemies.size )
+    {
+        index = 0;
+
+        for ( enemy = enemies[index]; distancesquared( enemy.origin, origin ) < rsquared; enemy = enemies[index] )
+        {
+            if ( isalive( enemy ) && !is_true( enemy.guts_explosion ) && !is_true( enemy.nuked ) && !isdefined( enemy.slipgun_sizzle ) )
+            {
+                trace = bullettrace( origin + vectorscale( ( 0, 0, 1 ), 50.0 ), enemy.origin + vectorscale( ( 0, 0, 1 ), 50.0 ), 0, undefined, 1 );
+
+                if ( isdefined( trace["fraction"] ) && trace["fraction"] == 1 )
+                {
+                    enemy.slipgun_sizzle = playfxontag( level._effect["slipgun_simmer"], enemy, tag );
+                    marked_zombies[marked_zombies.size] = enemy;
+                }
+            }
+
+            index++;
+
+            if ( index >= enemies.size )
+                break;
+        }
+    }
+
+    if ( isdefined( marked_zombies ) && marked_zombies.size )
+    {
+        foreach ( enemy in marked_zombies )
+        {
+            if ( isalive( enemy ) && !is_true( enemy.guts_explosion ) && !is_true( enemy.nuked ) )
+            {
+                wait( randomfloatrange( minchainwait, maxchainwait ) );
+
+                if ( isalive( enemy ) && !is_true( enemy.guts_explosion ) && !is_true( enemy.nuked ) )
+                {
+                    if ( !isdefined( enemy.goo_chain_depth ) )
+                        enemy.goo_chain_depth = chain_depth;
+
+                    enemy.goo_upgraded = goo_upgraded;
+
+                    if ( enemy.health > 0 )
+                    {
+                        if ( player maps\mp\zombies\_zm_powerups::is_insta_kill_active() )
+                            enemy.health = 1;
+
+                        enemy dodamage( level.slipgun_damage, origin, player, player, "none", level.slipgun_damage_mod, 0, "slip_goo_zm" );
+                    }
+
+                    if ( level.slippery_spot_count < level.zombie_vars["slipgun_reslip_max_spots"] )
+                    {
+                        if ( ( !isdefined( enemy.slick_count ) || enemy.slick_count == 0 ) && enemy.health <= 0 )
+                        {
+                            if ( level.zombie_vars["slipgun_reslip_rate"] > 0 && randomint( level.zombie_vars["slipgun_reslip_rate"] ) == 0 )
+                            {
+                                startpos = origin;
+                                duration = 24;
+                                thread add_slippery_spot( enemy.origin, duration, startpos );
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
