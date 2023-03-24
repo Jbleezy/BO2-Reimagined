@@ -42,12 +42,19 @@ init()
 	if (level.script == "zm_prison")
 	{
 		precacheShader( "waypoint_kill_red" );
+		level._effect["afterlife_teleport"] = loadfx( "maps/zombie_alcatraz/fx_alcatraz_afterlife_zmb_tport" );
+
 		level.obj_waypoint_icon = "waypoint_kill_red";
+		level.player_spawn_fx = "afterlife_teleport";
+		level.player_spawn_sound = "zmb_afterlife_zombie_warp_in";
 	}
 	else
 	{
 		precacheShader( "hud_status_dead" );
+
 		level.obj_waypoint_icon = "hud_status_dead";
+		level.player_spawn_fx = "grenade_samantha_steal";
+		level.player_spawn_sound = "zmb_spawn_powerup";
 	}
 
 	setDvar("ui_scorelimit", 1);
@@ -912,6 +919,10 @@ on_player_bleedout()
 			}
 
 			self maps\mp\zombies\_zm::spectator_respawn();
+			playfx(level._effect[level.player_spawn_fx], self.origin);
+    		playsoundatposition(level.player_spawn_sound, self.origin);
+			earthquake(0.5, 0.75, self.origin, 100);
+			playrumbleonposition("explosion_generic", self.origin);
 		}
 	}
 }
