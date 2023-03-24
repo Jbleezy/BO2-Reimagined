@@ -1808,7 +1808,14 @@ last_stand_pistol_swap()
 	}
 	if ( !self hasweapon( self.laststandpistol ) )
 	{
-		self giveweapon( self.laststandpistol );
+		if ( !is_weapon_upgraded( self.laststandpistol ) )
+		{
+			self giveweapon( self.laststandpistol );
+		}
+		else
+		{
+			self giveweapon( self.laststandpistol, 0, self get_pack_a_punch_weapon_options( self.laststandpistol ) );
+		}
 	}
 
 	ammoclip = weaponclipsize( self.laststandpistol );
