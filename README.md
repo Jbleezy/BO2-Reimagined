@@ -610,6 +610,7 @@
 * Get 500 kills to win the game
 * Starts at round 1
 * Round increments every 30 seconds (up to round 20)
+* 1 second initial zombie spawn rate (increases every round)
 * Players respawn after being down for 10 seconds
 * Players retain perks
 

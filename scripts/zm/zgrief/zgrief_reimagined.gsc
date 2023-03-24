@@ -2559,7 +2559,7 @@ race_think()
 	setroundsplayed(level.round_number);
 
 	level.zombie_move_speed = 36;
-	level.zombie_vars["zombie_spawn_delay"] = 0.5;
+	level.zombie_vars["zombie_spawn_delay"] = 1;
 
 	level.brutus_health = int(level.brutus_health_increase * level.round_number);
 	level.brutus_expl_dmg_req = int(level.brutus_explosive_damage_increase * level.round_number);
@@ -2582,6 +2582,8 @@ race_think()
 		{
 			level.zombie_move_speed = move_speed;
 		}
+
+		level.zombie_vars["zombie_spawn_delay"] *= 0.95;
 
 		level.brutus_health = int(level.brutus_health_increase * level.round_number);
 		level.brutus_expl_dmg_req = int(level.brutus_explosive_damage_increase * level.round_number);
