@@ -2468,10 +2468,7 @@ unlimited_powerups()
 
 player_suicide()
 {
-	if (self.bleedout_time <= 0)
-	{
-		self.bleedout_time = 1;
-	}
+	self.bleedout_time += 1;
 
 	self notify( "player_suicide" );
 

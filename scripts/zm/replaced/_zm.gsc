@@ -1269,16 +1269,29 @@ player_out_of_playable_area_monitor()
                     level notify( "end_game" );
                 else
                 {
-                    //self disableinvulnerability();
                     self.lives = 0;
                     self dodamage( self.health + 1000, self.origin );
-                    self.bleedout_time = 0;
+
+					if (isDefined(level.player_suicide_func))
+					{
+						wait 0.05;
+						self thread [[level.player_suicide_func]]();
+					}
+					else
+					{
+						self.bleedout_time = 0;
+					}
                 }
             }
         }
 
         wait( get_player_out_of_playable_area_monitor_wait_time() );
     }
+}
+
+get_player_out_of_playable_area_monitor_wait_time()
+{
+    return 1;
 }
 
 end_game()
