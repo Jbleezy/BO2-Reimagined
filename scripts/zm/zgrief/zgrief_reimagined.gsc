@@ -1584,7 +1584,7 @@ get_gamemode_winning_score()
 {
 	if(level.scr_zm_ui_gametype_obj == "zgrief")
 	{
-		return 25;
+		return 15;
 	}
 	else if(level.scr_zm_ui_gametype_obj == "zsnr")
 	{
