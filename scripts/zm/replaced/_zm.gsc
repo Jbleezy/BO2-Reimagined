@@ -593,6 +593,53 @@ check_for_valid_spawn_near_team( revivee, return_struct )
 		}
 	}
 
+	for ( j = 0; j < spawn_points.size; j++ )
+	{
+		if ( isdefined( spawn_points[ j ].script_int ) )
+		{
+			ideal_distance = spawn_points[ j ].script_int;
+		}
+		else
+		{
+			ideal_distance = 1000;
+		}
+
+		if ( spawn_points[ j ].locked == 0 )
+		{
+			plyr_dist = distancesquared( self.origin, spawn_points[ j ].origin );
+			if ( plyr_dist < ideal_distance * ideal_distance )
+			{
+				if ( plyr_dist < closest_distance )
+				{
+					closest_distance = plyr_dist;
+					closest_group = j;
+				}
+			}
+			else
+			{
+				if ( plyr_dist < backup_distance )
+				{
+					backup_group = j;
+					backup_distance = plyr_dist;
+				}
+			}
+		}
+	}
+
+	if ( !isdefined( closest_group ) )
+	{
+		closest_group = backup_group;
+	}
+
+	if ( isdefined( closest_group ) )
+	{
+		spawn_location = get_valid_spawn_location( revivee, spawn_points, closest_group, return_struct );
+		if ( isdefined( spawn_location ) )
+		{
+			return spawn_location;
+		}
+	}
+
 	return undefined;
 }
 
