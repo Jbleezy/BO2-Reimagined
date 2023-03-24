@@ -292,7 +292,7 @@
 * Removed cooldown after being used multiple times in a row
 
 ### Vulture-Aid
-* Stink areas no longer activate while the player is moving
+* Stink areas no longer activate while the player is standing
 
 ## Pack-a-Punch
 * Decreased weapon pickup time from 15 seconds to 12 seconds

@@ -189,8 +189,6 @@ onplayerspawned()
 
 			self thread electric_cherry_unlimited();
 
-			self thread vulture_disable_stink_while_standing();
-
 			//self.score = 100000;
 			//maps\mp\zombies\_zm_perks::give_perk( "specialty_armorvest", 0 );
 			//self GiveWeapon("dsr50_zm");
@@ -4127,62 +4125,6 @@ zone_changes()
 			// Barn to Farm
 			flag_set("OnFarm_enter");
 		}
-	}
-}
-
-vulture_disable_stink_while_standing()
-{
-	self endon( "disconnect" );
-
-	if(!(is_classic() && level.scr_zm_map_start_location == "processing"))
-	{
-		return;
-	}
-
-	while(!isDefined(self.perk_vulture))
-	{
-		wait 0.05;
-	}
-
-	while(1)
-	{
-		if (!self.perk_vulture.active)
-		{
-			wait 0.05;
-			continue;
-		}
-
-		self.perk_vulture.is_in_zombie_stink = 1;
-		self.perk_vulture.stink_time_entered = undefined;
-
-		player_in_zombie_stink = 0;
-		close_points = arraysort( level.perk_vulture.zombie_stink_array, self.origin, 1, 300 );
-		if ( close_points.size > 0 )
-		{
-			if(isDefined(level._is_player_in_zombie_stink))
-			{
-				player_in_zombie_stink = self [[level._is_player_in_zombie_stink]]( close_points );
-			}
-		}
-
-		if (player_in_zombie_stink)
-		{
-			vel = self GetVelocity();
-			magnitude = sqrt((vel[0] * vel[0]) + (vel[1] * vel[1]) + (vel[2] * vel[2]));
-			if (magnitude < 125)
-			{
-				self.perk_vulture.is_in_zombie_stink = 0;
-
-				wait 0.25;
-
-				while (self.vulture_stink_value > 0)
-				{
-					wait 0.05;
-				}
-			}
-		}
-
-		wait 0.05;
 	}
 }
 
