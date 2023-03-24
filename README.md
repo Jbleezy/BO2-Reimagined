@@ -153,6 +153,9 @@
 ### War Machine
 * Unupgraded: grenades explode on impact
 
+### Monkey Bomb
+* Fixed an issue where a Monkey Bomb wouldn't activate if the previously thrown Monkey Bomb hadn't activated yet
+
 ### EMP Grenade
 * No longer disables HUD
 * Disables player's perks for 30 seconds
