@@ -846,6 +846,20 @@ on_player_spawned()
 			self freezeControls(1);
 			self enableInvulnerability();
 		}
+
+		if (is_respawn_gamemode())
+		{
+			min_points = level.player_starting_points;
+			if (min_points > 1500)
+			{
+				min_points = 1500;
+			}
+
+			if (self.score < min_points)
+			{
+				self.score = min_points;
+			}
+		}
 	}
 }
 
