@@ -109,8 +109,8 @@ headchopperattack( weapon, ent )
     foot_position = ent.origin[2];
     length_head_to_toe = abs( head_position - foot_position );
     length_head_to_toe_25_percent = length_head_to_toe * 0.25;
-    is_headchop = weapon.origin[2] <= head_position && weapon.origin[2] >= head_position - length_head_to_toe_25_percent;
-    is_torsochop = weapon.origin[2] <= head_position - length_head_to_toe_25_percent && weapon.origin[2] >= foot_position + length_head_to_toe_25_percent;
+    is_headchop = weapon.origin[2] >= head_position - length_head_to_toe_25_percent;
+    is_torsochop = weapon.origin[2] >= foot_position + length_head_to_toe_25_percent;
     is_footchop = abs( foot_position - weapon.origin[2] ) <= length_head_to_toe_25_percent;
     trace_point = undefined;
 
