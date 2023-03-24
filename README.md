@@ -378,7 +378,7 @@
 
 ### Head Chopper
 * No longer gets destroyed from kills
-* Gets destroyed after activating 15 times
+* Gets destroyed after activating 10 times
 * Does multiple swings when player activates
 * Kills zombies when placed on a ceiling
 * No longer deals damage during retract animations

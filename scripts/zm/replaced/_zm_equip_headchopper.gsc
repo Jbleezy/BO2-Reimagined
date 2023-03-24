@@ -67,7 +67,7 @@ headchopperthink( weapon, electricradius, armed )
 
             weapon.headchopper_kills++;
 
-            if ( weapon.headchopper_kills >= 15 )
+            if ( weapon.headchopper_kills >= 10 )
                 self thread headchopper_expired( weapon );
 
             while ( isdefined( is_slicing ) && is_slicing )
