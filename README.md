@@ -197,6 +197,7 @@
 * Kills on any round (normally stops killing after round 100)
 * Decreased stock ammo from 40 to 20
 * Removed additional goo created by chain kills
+* Continues to chain while put away
 * Added teddy bear to buildable table after weapon is taken from it
 * Teddy bear standing up means weapon is not available from Mystery Box
 * Teddy bear lying down means weapon is available from Mystery Box
