@@ -912,7 +912,6 @@ on_player_bleedout()
 			}
 
 			self maps\mp\zombies\_zm::spectator_respawn();
-			self.revives--;
 		}
 	}
 }

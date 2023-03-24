@@ -64,6 +64,7 @@
 * Entering and exiting last stand no longer refills last stand weapon clip automatically
 * Decreased friendly player name fade out time from 1.5 seconds to 0.25 seconds
 * Removed enemy player name fade in time
+* Scoreboard no longer counts self revives as revives
 
 ## Zombies
 * Health capped at 100,000

@@ -272,3 +272,55 @@ revive_hud_think()
 		}
 	}
 }
+
+auto_revive( reviver, dont_enable_weapons )
+{
+    if ( isdefined( self.revivetrigger ) )
+    {
+        self.revivetrigger.auto_revive = 1;
+
+        if ( self.revivetrigger.beingrevived == 1 )
+        {
+            while ( true )
+            {
+                if ( self.revivetrigger.beingrevived == 0 )
+                    break;
+
+                wait_network_frame();
+            }
+        }
+
+        self.revivetrigger.auto_trigger = 0;
+    }
+
+    self reviveplayer();
+    self maps\mp\zombies\_zm_perks::perk_set_max_health_if_jugg( "health_reboot", 1, 0 );
+    setclientsysstate( "lsm", "0", self );
+    self notify( "stop_revive_trigger" );
+
+    if ( isdefined( self.revivetrigger ) )
+    {
+        self.revivetrigger delete();
+        self.revivetrigger = undefined;
+    }
+
+    self cleanup_suicide_hud();
+
+    if ( !isdefined( dont_enable_weapons ) || dont_enable_weapons == 0 )
+        self laststand_enable_player_weapons();
+
+    self allowjump( 1 );
+    self.ignoreme = 0;
+    self.laststand = undefined;
+
+    if ( reviver != self )
+    {
+        reviver.revives++;
+        reviver maps\mp\zombies\_zm_stats::increment_client_stat( "revives" );
+        reviver maps\mp\zombies\_zm_stats::increment_player_stat( "revives" );
+        self recordplayerrevivezombies( reviver );
+        maps\mp\_demo::bookmark( "zm_player_revived", gettime(), self, reviver );
+    }
+
+    self notify( "player_revived", reviver );
+}
