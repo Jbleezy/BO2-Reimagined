@@ -41,7 +41,6 @@ main()
 	generatebuildabletarps();
     disable_zombie_spawn_locations();
 	level thread activate_core();
-    level thread maps\mp\zm_transit::falling_death_init();
 	scripts\zm\locs\loc_common::init();
 }
 
