@@ -159,7 +159,7 @@ meat_stink( who )
 					player thread scripts\zm\zgrief\zgrief_reimagined::show_grief_hud_msg("Meat dropped!");
 				}
 
-				level.meat_powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop( "meat_stink", self.origin );
+				level.meat_powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop( "meat_stink", who.origin );
 			}
 			else
 			{
