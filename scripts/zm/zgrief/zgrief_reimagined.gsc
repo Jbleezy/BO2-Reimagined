@@ -2188,6 +2188,18 @@ grief_laststand_weapons_return()
 		return 0;
 	}
 
+	if(is_true(self._retain_perks))
+	{
+		if(isDefined(self.grief_savedperks))
+		{
+			self.perks_active = [];
+			foreach(perk in self.grief_savedperks)
+			{
+				self maps\mp\zombies\_zm_perks::give_perk(perk);
+			}
+		}
+	}
+
 	primary_weapons_returned = 0;
 	i = 0;
 	while ( i < self.grief_savedweapon_weapons.size )
@@ -2200,7 +2212,7 @@ grief_laststand_weapons_return()
 
 		if ( isweaponprimary( self.grief_savedweapon_weapons[ i ] ) )
 		{
-			if ( primary_weapons_returned >= 2 )
+			if ( primary_weapons_returned >= get_player_weapon_limit( self ) )
 			{
 				i++;
 				continue;
@@ -2281,18 +2293,6 @@ grief_laststand_weapons_return()
 	}
 
 	self thread grief_laststand_items_return();
-
-	if(is_true(self._retain_perks))
-	{
-		if(isDefined(self.grief_savedperks))
-		{
-			self.perks_active = [];
-			foreach(perk in self.grief_savedperks)
-			{
-				self maps\mp\zombies\_zm_perks::give_perk(perk);
-			}
-		}
-	}
 
 	self.grief_savedweapon_weapons = undefined;
 
