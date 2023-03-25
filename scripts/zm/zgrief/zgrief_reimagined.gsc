@@ -2631,7 +2631,7 @@ race_check_for_kills()
 		self waittill("zom_kill", zombie);
 
 		amount = 1;
-		if (zombie.animname == "brutus_zombie")
+		if (is_true(zombie.is_brutus))
 		{
 			amount = 10;
 		}

@@ -174,16 +174,22 @@ laststand_clean_up_reviving_any( playerbeingrevived ) //checked changed to match
 
 revive_give_back_weapons( gun )
 {
+	revive_tool = level.revive_tool;
+	if ( is_true( self.afterlife ) )
+    {
+		revive_tool = level.afterlife_revive_tool;
+	}
+
 	cur_wep = self getCurrentWeapon();
 
-	self takeweapon( level.revive_tool );
+	self takeweapon( revive_tool );
 
 	if ( self maps\mp\zombies\_zm_laststand::player_is_in_laststand() )
 	{
 		return;
 	}
 
-    if (cur_wep != level.revive_tool)
+    if (cur_wep != revive_tool)
     {
         return;
     }
