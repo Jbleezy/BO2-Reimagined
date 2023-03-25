@@ -86,6 +86,9 @@
 
 ### Brutus
 * No longer receives additional damage from Ray Gun Mark 2
+* Teleports away less frequently
+* Grief: spawns every 4-6 minutes
+* Grief: can lock perks and the Mystery Box
 
 ## Weapons
 * Switch to melee weapon by pressing the Previous Scorestreak button (same button as the Time Bomb and Maxis Drone)
@@ -487,8 +490,6 @@
 * Zombies spawn in the Docks Gates zone when in the Docks zone
 * Grief: added Smoke Grenades to the Mystery Box
 * Grief: added Richtofen's Head meat powerup model
-* Grief: Brutus spawns every 4-6 minutes
-* Grief: Brutus can lock perks and the Mystery Box
 * Fixed being able to hit a death barrier when jumping off the Upper Docks
 
 #### Docks

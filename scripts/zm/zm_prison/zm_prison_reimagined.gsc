@@ -45,6 +45,7 @@ init()
 	level.special_weapon_magicbox_check = ::check_for_special_weapon_limit_exist;
 	level.round_prestart_func = scripts\zm\replaced\_zm_afterlife::afterlife_start_zombie_logic;
 
+    level.brutus_failed_paths_to_teleport = 10;
 	level.zombie_powerups["meat_stink"].model_name = "t6_wpn_zmb_severedhead_world";
 
     maps\mp\zombies\_zm::spawn_life_brush( (94, 6063, 240), 256, 256 );
