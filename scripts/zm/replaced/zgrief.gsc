@@ -403,6 +403,7 @@ meat_stink_player( who )
 
 	who thread meat_stink_ignoreme_think();
 	who thread meat_stink_player_create();
+	who notify( "meat_stink_player_start" );
 
 	who waittill_any_or_timeout( 30, "disconnect", "player_downed", "bled_out" );
 

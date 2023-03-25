@@ -1119,6 +1119,7 @@ player_spawn_protection()
 	self endon("disconnect");
 	self endon("player_downed");
 	self endon("meat_grabbed");
+	self endon("meat_stink_player_start");
 
 	self thread player_spawn_protection_timeout();
 
