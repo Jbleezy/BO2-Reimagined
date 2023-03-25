@@ -194,6 +194,7 @@ main()
 	maps\mp\zombies\_zm::spawn_kill_brush( (4919, 575, -511), 128, 300 );
 	maps\mp\zombies\_zm::spawn_kill_brush( (6751, 568, -785), 256, 400 );
 	init_wallbuys();
+	init_barriers();
 	disable_player_spawn_locations();
 	disable_mansion();
 	scripts\zm\locs\loc_common::init();
@@ -226,6 +227,19 @@ init_wallbuys()
 	scripts\zm\replaced\utility::wallbuy( "mp5k_zm", "mp5", "weapon_upgrade", og_weapon_structs[3].origin, og_weapon_structs[3].angles );
 	scripts\zm\replaced\utility::wallbuy( "pdw57_zm", "pdw57", "weapon_upgrade", og_weapon_structs[4].origin, og_weapon_structs[4].angles );
 	scripts\zm\replaced\utility::wallbuy( "an94_zm", "an94", "weapon_upgrade", og_weapon_structs[5].origin, og_weapon_structs[5].angles );
+}
+
+init_barriers()
+{
+	scripts\zm\replaced\utility::barrier( "collision_geo_64x64x128_standard", (3398, 898, 116), (0, 0, 0) );
+	scripts\zm\replaced\utility::barrier( "collision_geo_64x64x128_standard", (3398, 898, 244), (0, 0, 0) );
+	scripts\zm\replaced\utility::barrier( "collision_geo_64x64x128_standard", (3398, 898, 372), (0, 0, 0) );
+
+	structs = getstructarray( "zm_perk_machine", "targetname" );
+	foreach (struct in structs)
+    {
+		scripts\zm\replaced\utility::barrier( "collision_geo_64x64x128_standard", struct.origin + (anglesToRight(struct.angles) * -9) + (0, 0, 320), struct.angles );
+	}
 }
 
 disable_player_spawn_locations()
