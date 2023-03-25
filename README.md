@@ -491,6 +491,7 @@
 * Grief: added Smoke Grenades to the Mystery Box
 * Grief: added Richtofen's Head meat powerup model
 * Fixed being able to hit a death barrier when jumping off the Upper Docks
+* Fixed locked hint string not showing on Blundergat Upgrade buildable table
 
 #### Docks
 * Added Grief game mode

@@ -71,7 +71,7 @@ init()
     level thread maps\mp\zombies\_zm_ai_brutus::get_brutus_interest_points();
 
 	level.custom_perk_validation = maps\mp\zombies\_zm_ai_brutus::check_perk_machine_valid;
-	level.custom_craftable_validation = maps\mp\zombies\_zm_ai_brutus::check_craftable_table_valid;
+	level.custom_craftable_validation = ::check_craftable_table_valid;
 	level.custom_plane_validation = maps\mp\zombies\_zm_ai_brutus::check_plane_valid;
 }
 
@@ -177,6 +177,51 @@ setup_interaction_matrix()
         assert( !isdefined( level.interaction_priority[interaction.priority] ) );
         level.interaction_priority[interaction.priority] = int_type;
     }
+}
+
+craftable_table_lock()
+{
+    self endon( "death" );
+    table_struct = self.priority_item;
+
+    if ( !isdefined( table_struct ) )
+	{
+		return;
+	}
+
+    craftable_table = table_struct get_trigger_for_craftable();
+    int_struct = level.interaction_types["craftable_table"];
+    craftable_table.lock_fx = spawn( "script_model", table_struct.origin );
+    craftable_table.lock_fx.angles = table_struct.angles;
+    craftable_table.lock_fx = offset_fx_struct( int_struct, craftable_table.lock_fx );
+    craftable_table.lock_fx setmodel( "tag_origin" );
+    playfxontag( level._effect["brutus_lockdown_lg"], craftable_table.lock_fx, "tag_origin" );
+    craftable_table.lock_fx playsound( "zmb_ai_brutus_clang" );
+    craftable_table.is_locked = 1;
+    craftable_table.locked_cost = get_scaling_lock_cost( "craftable_table", craftable_table );
+    craftable_table.hint_string = get_lock_hint_string( craftable_table.locked_cost );
+
+    if ( !isdefined( craftable_table.equipname ) )
+	{
+		craftable_table sethintstring( craftable_table.hint_string );
+	}
+
+    if ( isdefined( craftable_table.targetname ) && craftable_table.targetname == "blundergat_upgrade" )
+	{
+		level.lockdown_track["craft_kit"] = 1;
+
+		t_upgrade = getent( "blundergat_upgrade", "targetname" );
+		t_upgrade.is_locked = 1;
+		t_upgrade sethintstring( craftable_table.hint_string );
+	}
+
+    if ( isdefined( craftable_table.weaponname ) && craftable_table.weaponname == "alcatraz_shield_zm" )
+	{
+		level.lockdown_track["craft_shield"] = 1;
+	}
+
+    level notify( "brutus_locked_object" );
+    self.priority_item = undefined;
 }
 
 brutus_find_flesh()
