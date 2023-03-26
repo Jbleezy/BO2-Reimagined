@@ -61,8 +61,6 @@ zombie_damage( mod, hit_location, hit_origin, player, amount, team )
 		self [[ self.zombie_damage_fx_func ]]( mod, hit_location, hit_origin, player );
 	}
 
-	modname = remove_mod_from_methodofdeath( mod );
-
 	if ( is_placeable_mine( self.damageweapon ) )
 	{
 		damage = level.round_number * 100;
@@ -83,11 +81,11 @@ zombie_damage( mod, hit_location, hit_origin, player, amount, team )
 		}
 		else if ( isDefined( player ) && isalive( player ) )
 		{
-			self dodamage( damage, self.origin, player, self, hit_location, mod );
+			self dodamage( damage, self.origin, player, self, hit_location, mod, 0, self.damageweapon );
 		}
 		else
 		{
-			self dodamage( damage, self.origin, undefined, self, hit_location, mod );
+			self dodamage( damage, self.origin, undefined, self, hit_location, mod, 0, self.damageweapon );
 		}
 	}
 	else if ( mod == "MOD_GRENADE" || mod == "MOD_GRENADE_SPLASH" )
@@ -108,11 +106,11 @@ zombie_damage( mod, hit_location, hit_origin, player, amount, team )
 		{
 			player.grenade_multiattack_count++;
 			player.grenade_multiattack_ent = self;
-			self dodamage( damage, self.origin, player, self, hit_location, modname );
+			self dodamage( damage, self.origin, player, self, hit_location, mod, 0, self.damageweapon );
 		}
 		else
 		{
-			self dodamage( damage, self.origin, undefined, self, hit_location, modname );
+			self dodamage( damage, self.origin, undefined, self, hit_location, mod, 0, self.damageweapon );
 		}
 	}
 	else if ( mod == "MOD_PROJECTILE" || mod == "MOD_PROJECTILE_SPLASH" || mod == "MOD_EXPLOSIVE" )
@@ -131,11 +129,11 @@ zombie_damage( mod, hit_location, hit_origin, player, amount, team )
 
 		if ( isDefined( player ) && isalive( player ) )
 		{
-			self dodamage( damage, self.origin, player, self, hit_location, modname );
+			self dodamage( damage, self.origin, player, self, hit_location, mod, 0, self.damageweapon );
 		}
 		else
 		{
-			self dodamage( damage, self.origin, undefined, self, hit_location, modname );
+			self dodamage( damage, self.origin, undefined, self, hit_location, mod, 0, self.damageweapon );
 		}
 	}
 
