@@ -170,6 +170,12 @@
 * Can destroy deployed Zombie Shields
 * Sprinting no longer wakes up EMP'd zombies
 
+### Hell's Retriever
+* No longer ricochets to other zombies if not charged
+* Every charge increases total zombies attacked by 3
+* Unupgraded: changed damage to 2000 (normally does 1000-2000 damage based on number of charges)
+* Upgraded: kills on any round when not charged
+
 ### Claymore
 * Can be repurchased
 * Increased max amount that can be placed from 12 to 20
