@@ -3,18 +3,20 @@
 #include maps\mp\zombies\_zm_utility;
 #include maps\mp\zombies\_zm_craftables;
 
-#include scripts\zm\replaced\_zm_craftables;
-#include scripts\zm\replaced\_zm_riotshield_tomb;
-#include scripts\zm\replaced\_zm_weap_riotshield_tomb;
 #include scripts\zm\replaced\zm_tomb_main_quest;
 #include scripts\zm\replaced\zm_tomb_quest_air;
 #include scripts\zm\replaced\zm_tomb_quest_elec;
 #include scripts\zm\replaced\zm_tomb_quest_fire;
 #include scripts\zm\replaced\zm_tomb_quest_ice;
-#include scripts\zm\replaced\_zm_ai_mechz;
+#include scripts\zm\replaced\zm_tomb_challenges;
 #include scripts\zm\replaced\zm_tomb_craftables;
 #include scripts\zm\replaced\zm_tomb_dig;
 #include scripts\zm\replaced\zm_tomb_tank;
+#include scripts\zm\replaced\_zm_ai_mechz;
+#include scripts\zm\replaced\_zm_craftables;
+#include scripts\zm\replaced\_zm_powerup_zombie_blood;
+#include scripts\zm\replaced\_zm_riotshield_tomb;
+#include scripts\zm\replaced\_zm_weap_riotshield_tomb;
 
 main()
 {
@@ -29,14 +31,15 @@ main()
 	replaceFunc(maps\mp\zm_tomb_ee_main_step_2::create_robot_head_trigger, scripts\zm\replaced\zm_tomb_ee_main_step_2::create_robot_head_trigger);
 	replaceFunc(maps\mp\zm_tomb_ee_main_step_2::remove_plinth, scripts\zm\replaced\zm_tomb_ee_main_step_2::remove_plinth);
 	replaceFunc(maps\mp\zm_tomb_ee_main_step_3::fire_link_cooldown, scripts\zm\replaced\zm_tomb_ee_main_step_3::fire_link_cooldown);
+    replaceFunc(maps\mp\zm_tomb_challenges::challenges_init, scripts\zm\replaced\zm_tomb_challenges::challenges_init);
 	replaceFunc(maps\mp\zm_tomb_craftables::quadrotor_control_thread, scripts\zm\replaced\zm_tomb_craftables::quadrotor_control_thread);
     replaceFunc(maps\mp\zm_tomb_craftables::quadrotor_set_unavailable, scripts\zm\replaced\zm_tomb_craftables::quadrotor_set_unavailable);
-	replaceFunc(maps\mp\zm_tomb_challenges::challenges_init, scripts\zm\replaced\zm_tomb_challenges::challenges_init);
 	replaceFunc(maps\mp\zm_tomb_dig::increment_player_perk_purchase_limit, scripts\zm\replaced\zm_tomb_dig::increment_player_perk_purchase_limit);
 	replaceFunc(maps\mp\zm_tomb_dig::dig_disconnect_watch, scripts\zm\replaced\zm_tomb_dig::dig_disconnect_watch);
     replaceFunc(maps\mp\zm_tomb_tank::players_on_tank_update, scripts\zm\replaced\zm_tomb_tank::players_on_tank_update);
     replaceFunc(maps\mp\zombies\_zm_ai_mechz::mechz_set_starting_health, scripts\zm\replaced\_zm_ai_mechz::mechz_set_starting_health);
     replaceFunc(maps\mp\zombies\_zm_craftables::choose_open_craftable, scripts\zm\replaced\_zm_craftables::choose_open_craftable);
+    replaceFunc(maps\mp\zombies\_zm_powerup_zombie_blood::zombie_blood_powerup, scripts\zm\replaced\_zm_powerup_zombie_blood::zombie_blood_powerup);
     replaceFunc(maps\mp\zombies\_zm_riotshield_tomb::doriotshielddeploy, scripts\zm\replaced\_zm_riotshield_tomb::doriotshielddeploy);
     replaceFunc(maps\mp\zombies\_zm_riotshield_tomb::trackriotshield, scripts\zm\replaced\_zm_riotshield_tomb::trackriotshield);
     replaceFunc(maps\mp\zombies\_zm_weap_riotshield_tomb::init, scripts\zm\replaced\_zm_weap_riotshield_tomb::init);

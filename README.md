@@ -318,6 +318,10 @@
 ### Carpenter
 * Removed
 
+### Zombie Blood
+* No longer makes zombies ignore the player
+* Makes the player invulnerable to zombie melee swipes
+
 ### Meat
 * All zombies go after player holding the meat
 * 60% move speed while holding the meat
