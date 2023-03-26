@@ -90,6 +90,9 @@
 * Grief: spawns every 4-6 minutes
 * Grief: can lock perks and the Mystery Box
 
+### Panzersoldat
+* No longer receives additional damage from Boomhilda or Ray Gun Mark 2
+
 ## Weapons
 * Switch to melee weapon by pressing the Previous Scorestreak button (same button as the Time Bomb and Maxis Drone)
 * Inspect weapon by pressing the Alt Fire button
