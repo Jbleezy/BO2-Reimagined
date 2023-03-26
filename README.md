@@ -171,7 +171,7 @@
 * Sprinting no longer wakes up EMP'd zombies
 
 ### Hell's Retriever
-* No longer ricochets to other zombies if not charged
+* No longer ricochets to other zombies when not charged
 * Every charge increases total zombies attacked by 3
 * Unupgraded: changed damage to 2000 (normally does 1000-2000 damage based on number of charges)
 * Upgraded: kills on any round when not charged
@@ -241,6 +241,7 @@
 * Lethal grenade hint string no longer displays "ammo" after purchasing
 
 ## Mystery Box
+* Players will now get every weapon they can before getting duplicates
 * Decreased weapon pickup time from 12 seconds to 9 seconds
 * Moves to new location instantly
 * Special sound no longer plays when obtaining the Ray Gun

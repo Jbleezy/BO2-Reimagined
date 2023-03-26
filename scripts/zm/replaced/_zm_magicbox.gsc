@@ -118,3 +118,38 @@ timer_til_despawn( v_float )
 		self delete();
 	}
 }
+
+treasure_chest_chooseweightedrandomweapon( player )
+{
+    keys = array_randomize( getarraykeys( level.zombie_weapons ) );
+
+    if ( isdefined( level.customrandomweaponweights ) )
+        keys = player [[ level.customrandomweaponweights ]]( keys );
+
+    pap_triggers = getentarray( "specialty_weapupgrade", "script_noteworthy" );
+
+	if (!isDefined(player.random_weapons_acquired))
+	{
+		player.random_weapons_acquired = [];
+	}
+
+    for ( i = 0; i < keys.size; i++ )
+    {
+        if ( treasure_chest_canplayerreceiveweapon( player, keys[i], pap_triggers ) )
+		{
+			if (!isInArray(player.random_weapons_acquired, keys[i]))
+			{
+				player.random_weapons_acquired[player.random_weapons_acquired.size] = keys[i];
+				return keys[i];
+			}
+		}
+    }
+
+	if (player.random_weapons_acquired.size > 0)
+	{
+		player.random_weapons_acquired = [];
+		return treasure_chest_chooseweightedrandomweapon(player);
+	}
+
+    return keys[0];
+}
