@@ -1099,7 +1099,7 @@ get_zone_display_name(zone)
 		}
 		else if (zone == "zone_cellblock_west")
 		{
-			name = "Cell Block 2nd Floor";
+			name = "Cell Block 2nd Floor & C-D Street";
 		}
 		else if (zone == "zone_cellblock_west_gondola")
 		{
@@ -1107,7 +1107,7 @@ get_zone_display_name(zone)
 		}
 		else if (zone == "zone_cellblock_west_gondola_dock")
 		{
-			name = "Cell Block Gondola";
+			name = "Upper Gondola Platform";
 		}
 		else if (zone == "zone_cellblock_west_barber")
 		{
@@ -1191,7 +1191,7 @@ get_zone_display_name(zone)
 		}
 		else if (zone == "zone_dock_gondola")
 		{
-			name = "Upper Docks";
+			name = "Docks Bridge";
 		}
 		else if (zone == "zone_golden_gate_bridge")
 		{
