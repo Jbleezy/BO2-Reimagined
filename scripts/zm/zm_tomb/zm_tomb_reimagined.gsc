@@ -34,6 +34,7 @@ main()
     replaceFunc(maps\mp\zm_tomb_challenges::challenges_init, scripts\zm\replaced\zm_tomb_challenges::challenges_init);
 	replaceFunc(maps\mp\zm_tomb_craftables::quadrotor_control_thread, scripts\zm\replaced\zm_tomb_craftables::quadrotor_control_thread);
     replaceFunc(maps\mp\zm_tomb_craftables::quadrotor_set_unavailable, scripts\zm\replaced\zm_tomb_craftables::quadrotor_set_unavailable);
+    replaceFunc(maps\mp\zm_tomb_craftables::vinyl_add_pickup, scripts\zm\replaced\zm_tomb_craftables::vinyl_add_pickup);
 	replaceFunc(maps\mp\zm_tomb_dig::increment_player_perk_purchase_limit, scripts\zm\replaced\zm_tomb_dig::increment_player_perk_purchase_limit);
 	replaceFunc(maps\mp\zm_tomb_dig::dig_disconnect_watch, scripts\zm\replaced\zm_tomb_dig::dig_disconnect_watch);
     replaceFunc(maps\mp\zm_tomb_tank::players_on_tank_update, scripts\zm\replaced\zm_tomb_tank::players_on_tank_update);

@@ -337,6 +337,156 @@ staff_glow_fx()
     e_staff_standard.e_fx delete();
 }
 
+chambers_init()
+{
+    flag_init( "gramophone_placed" );
+    array_thread( getentarray( "trigger_death_floor", "targetname" ), ::monitor_chamber_death_trigs );
+    a_stargate_gramophones = getstructarray( "stargate_gramophone_pos", "targetname" );
+    array_thread( a_stargate_gramophones, ::run_gramophone_teleporter );
+    a_door_main = getentarray( "chamber_entrance", "targetname" );
+    array_thread( a_door_main, ::run_gramophone_door, "vinyl_master" );
+}
+
+run_gramophone_teleporter( str_vinyl_record )
+{
+    self.has_vinyl = 0;
+    self.gramophone_model = undefined;
+    self thread watch_gramophone_vinyl_pickup();
+    t_gramophone = tomb_spawn_trigger_radius( self.origin, 60.0, 1 );
+    t_gramophone set_unitrigger_hint_string( &"ZOMBIE_BUILD_PIECE_MORE" );
+
+    level waittill( "gramophone_vinyl_player_picked_up" );
+
+    str_craftablename = "gramophone";
+    t_gramophone set_unitrigger_hint_string( &"ZM_TOMB_RU" );
+
+    while ( !self.has_vinyl )
+        wait 0.05;
+
+    t_gramophone set_unitrigger_hint_string( &"ZM_TOMB_PLGR" );
+
+    while ( true )
+    {
+        t_gramophone waittill( "trigger", player );
+
+        if ( !isdefined( self.gramophone_model ) )
+        {
+            if ( !flag( "gramophone_placed" ) )
+            {
+                self.gramophone_model = spawn( "script_model", self.origin );
+                self.gramophone_model.angles = self.angles;
+                self.gramophone_model setmodel( "p6_zm_tm_gramophone" );
+                //level setclientfield( "piece_record_zm_player", 0 );
+                flag_set( "gramophone_placed" );
+                t_gramophone set_unitrigger_hint_string( "" );
+                t_gramophone trigger_off();
+                str_song_id = self get_gramophone_song();
+                self.gramophone_model playsound( str_song_id );
+                player thread maps\mp\zm_tomb_vo::play_gramophone_place_vo();
+                maps\mp\zm_tomb_teleporter::stargate_teleport_enable( self.script_int );
+                flag_wait( "teleporter_building_" + self.script_int );
+                flag_waitopen( "teleporter_building_" + self.script_int );
+                t_gramophone trigger_on();
+                t_gramophone set_unitrigger_hint_string( &"ZM_TOMB_PUGR" );
+
+                if ( isdefined( self.script_flag ) )
+                    flag_set( self.script_flag );
+            }
+            else
+                player door_gramophone_elsewhere_hint();
+        }
+        else
+        {
+            self.gramophone_model delete();
+            self.gramophone_model = undefined;
+            player playsound( "zmb_craftable_pickup" );
+            flag_clear( "gramophone_placed" );
+            //level setclientfield( "piece_record_zm_player", 1 );
+            maps\mp\zm_tomb_teleporter::stargate_teleport_disable( self.script_int );
+            t_gramophone set_unitrigger_hint_string( &"ZM_TOMB_PLGR" );
+        }
+    }
+}
+
+run_gramophone_door( str_vinyl_record )
+{
+    flag_init( self.targetname + "_opened" );
+    trig_position = getstruct( self.targetname + "_position", "targetname" );
+    trig_position.has_vinyl = 0;
+    trig_position.gramophone_model = undefined;
+    trig_position thread watch_gramophone_vinyl_pickup();
+    trig_position thread door_watch_open_sesame();
+    t_door = tomb_spawn_trigger_radius( trig_position.origin, 60.0, 1 );
+    t_door set_unitrigger_hint_string( &"ZOMBIE_BUILD_PIECE_MORE" );
+    level waittill_any( "gramophone_vinyl_player_picked_up", "open_sesame", "open_all_gramophone_doors" );
+    str_craftablename = "gramophone";
+    t_door set_unitrigger_hint_string( &"ZM_TOMB_RU" );
+    trig_position.trigger = t_door;
+
+    while ( !trig_position.has_vinyl )
+        wait 0.05;
+
+    t_door set_unitrigger_hint_string( &"ZM_TOMB_PLGR" );
+
+    while ( true )
+    {
+        t_door waittill( "trigger", player );
+
+        if ( !isdefined( trig_position.gramophone_model ) )
+        {
+            if ( !flag( "gramophone_placed" ) || isdefined( level.b_open_all_gramophone_doors ) && level.b_open_all_gramophone_doors )
+            {
+                if ( !( isdefined( level.b_open_all_gramophone_doors ) && level.b_open_all_gramophone_doors ) )
+                {
+                    trig_position.gramophone_model = spawn( "script_model", trig_position.origin );
+                    trig_position.gramophone_model.angles = trig_position.angles;
+                    trig_position.gramophone_model setmodel( "p6_zm_tm_gramophone" );
+                    flag_set( "gramophone_placed" );
+                    //level setclientfield( "piece_record_zm_player", 0 );
+                }
+
+                t_door trigger_off();
+                str_song = trig_position get_gramophone_song();
+                playsoundatposition( str_song, self.origin );
+                self playsound( "zmb_crypt_stairs" );
+                wait 6.0;
+                chamber_blocker();
+                flag_set( self.targetname + "_opened" );
+
+                if ( isdefined( trig_position.script_flag ) )
+                    flag_set( trig_position.script_flag );
+
+                level setclientfield( "crypt_open_exploder", 1 );
+                self movez( -260, 10.0, 1.0, 1.0 );
+
+                self waittill( "movedone" );
+
+                self connectpaths();
+                self delete();
+                t_door trigger_on();
+                t_door set_unitrigger_hint_string( &"ZM_TOMB_PUGR" );
+
+                if ( isdefined( level.b_open_all_gramophone_doors ) && level.b_open_all_gramophone_doors )
+                    break;
+            }
+            else
+                player door_gramophone_elsewhere_hint();
+        }
+        else
+        {
+            trig_position.gramophone_model delete();
+            trig_position.gramophone_model = undefined;
+            flag_clear( "gramophone_placed" );
+            player playsound( "zmb_craftable_pickup" );
+            //level setclientfield( "piece_record_zm_player", 1 );
+            break;
+        }
+    }
+
+    t_door tomb_unitrigger_delete();
+    trig_position.trigger = undefined;
+}
+
 watch_staff_ammo_reload()
 {
     // removed max ammo clip fill

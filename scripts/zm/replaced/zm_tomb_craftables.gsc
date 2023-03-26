@@ -13,6 +13,19 @@
 #include maps\mp\zombies\_zm_equipment;
 #include maps\mp\zm_tomb_craftables;
 
+vinyl_add_pickup( str_craftable_name, str_piece_name, str_model_name, str_bit_clientfield, str_quest_clientfield, str_vox_id )
+{
+    if (str_bit_clientfield == "piece_record_zm_player" || str_bit_clientfield == "piece_record_zm_vinyl_master")
+    {
+        str_bit_clientfield = undefined;
+    }
+
+    b_one_time_vo = 1;
+    craftable = generate_zombie_craftable_piece( str_craftable_name, str_piece_name, str_model_name, 32, 62, 0, undefined, ::onpickup_common, ::ondrop_common, undefined, undefined, undefined, undefined, str_bit_clientfield, 1, str_vox_id, b_one_time_vo );
+    craftable thread watch_part_pickup( str_quest_clientfield, 1 );
+    return craftable;
+}
+
 quadrotor_control_thread()
 {
 	self endon( "bled_out" );

@@ -492,6 +492,7 @@
 * Plane parts are shared in coop
 * Plane parts must be all acquired to craft
 * Plane fuel automatically picked up
+* Key no longer shows on HUD
 * Players no longer respawn in the Acid Trap
 * Zombies spawn in the Docks zone when in the Docks Gates zone
 * Zombies spawn in the Docks Gates zone when in the Docks zone
@@ -543,6 +544,7 @@
 * Players can go prone on the tank
 * Shovels automatically picked up
 * Gramophone and records automatically picked up
+* Gramophone and master record no longer show on HUD
 * Der Wunderfizz: increased cost from 1500 to 2500
 * Der Wunderfizz: all perks have an equal chance of being obtained
 * Rituals of the Ancients: spend points challenge reward changed from Double Tap perk to a random perk that the player does not have (perk does not change if reward is reopened)

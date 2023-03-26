@@ -474,14 +474,7 @@ enemy_counter_hud()
 	hud.horzalign = "user_left";
 	hud.vertalign = "user_top";
 	hud.x += 5;
-	if (level.script == "zm_tomb")
-	{
-		hud.y += 49;
-	}
-	else
-	{
-		hud.y += 2;
-	}
+	hud.y += 2;
 	hud.fontscale = 1.4;
 	hud.alpha = 0;
 	hud.color = ( 1, 1, 1 );
