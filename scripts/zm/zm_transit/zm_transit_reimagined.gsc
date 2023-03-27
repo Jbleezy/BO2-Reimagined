@@ -7,6 +7,7 @@
 #include scripts\zm\replaced\zm_transit_utility;
 #include scripts\zm\replaced\zm_transit_bus;
 #include scripts\zm\replaced\_zm_riotshield;
+#include scripts\zm\replaced\_zm_ai_screecher;
 #include scripts\zm\replaced\_zm_weap_riotshield;
 #include scripts\zm\replaced\_zm_weap_jetgun;
 #include scripts\zm\replaced\_zm_weap_emp_bomb;
@@ -21,6 +22,8 @@ main()
 	replaceFunc(maps\mp\zm_transit_gamemodes::init, scripts\zm\replaced\zm_transit_gamemodes::init);
 	replaceFunc(maps\mp\zm_transit_utility::solo_tombstone_removal, scripts\zm\replaced\zm_transit_utility::solo_tombstone_removal);
 	replaceFunc(maps\mp\zm_transit_bus::busupdateplayers, scripts\zm\replaced\zm_transit_bus::busupdateplayers);
+	replaceFunc(maps\mp\zombies\_zm_ai_screecher::screecher_detach, scripts\zm\replaced\_zm_ai_screecher::screecher_detach);
+	replaceFunc(maps\mp\zombies\_zm_ai_screecher::screecher_cleanup, scripts\zm\replaced\_zm_ai_screecher::screecher_cleanup);
 	replaceFunc(maps\mp\zombies\_zm_riotshield::doriotshielddeploy, scripts\zm\replaced\_zm_riotshield::doriotshielddeploy);
 	replaceFunc(maps\mp\zombies\_zm_riotshield::trackriotshield, scripts\zm\replaced\_zm_riotshield::trackriotshield);
 	replaceFunc(maps\mp\zombies\_zm_weap_riotshield::init, scripts\zm\replaced\_zm_weap_riotshield::init);
