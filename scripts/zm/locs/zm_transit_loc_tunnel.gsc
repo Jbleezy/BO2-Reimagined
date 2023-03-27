@@ -56,10 +56,11 @@ main()
 init_wallbuys()
 {
 	scripts\zm\replaced\utility::wallbuy( "m14_zm", "m14", "weapon_upgrade", ( -11166, -2844, 247 ), ( 0, -86, 0 ) );
-    scripts\zm\replaced\utility::wallbuy( "rottweil72_zm", "olympia", "weapon_upgrade", ( -10787, -1430, 247 ), ( 0, 88, 0 ) );
+    scripts\zm\replaced\utility::wallbuy( "rottweil72_zm", "olympia", "weapon_upgrade", ( -10790, -1896, 247 ), ( 0, 88, 0 ) );
     scripts\zm\replaced\utility::wallbuy( "ak74u_zm", "ak74u", "weapon_upgrade", ( -10656, -752, 247 ), ( 0, 83, 0 ) );
     scripts\zm\replaced\utility::wallbuy( "m16_zm", "m16", "weapon_upgrade", ( -11839, -1695.1, 287 ), ( 0, 270, 0 ) );
     scripts\zm\replaced\utility::wallbuy( "sticky_grenade_zm", "sticky_grenade", "weapon_upgrade", ( -11839, -2406, 283 ), ( 0, -93, 0 ) );
+    scripts\zm\replaced\utility::wallbuy( "bowie_knife_zm", "bowie_knife", "bowie_upgrade", ( -10787, -1430, 247 ), ( 0, 88, 0 ) );
 }
 
 init_barriers()

@@ -472,7 +472,7 @@
 
 #### Tunnel
 * Added Survival and Grief game modes
-* Wallbuys: M14, Olympia, AK74u, M16, Semtex
+* Wallbuys: M14, Olympia, AK74u, M16, Semtex, Bowie Knife
 * No Mystery Box
 * Perks: Juggernog, Quick Revive, Speed Cola, Double Tap, Stamin-Up
 * Pack-a-Punch
