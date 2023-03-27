@@ -210,9 +210,11 @@ b23r_hint_string_fix()
 	{
 		if (trig.zombie_weapon_upgrade == "beretta93r_zm")
 		{
-			hint = maps\mp\zombies\_zm_weapons::get_weapon_hint(trig.zombie_weapon_upgrade);
+			level.zombie_weapons[trig.zombie_weapon_upgrade].hint = "Hold ^3[{+activate}]^7 for &&1 [Cost: &&2], Ammo [Cost: &&3],   \n             Upgraded Ammo [Cost: &&4]";
+			hint = level.zombie_weapons[trig.zombie_weapon_upgrade].hint;
 			cost = level.zombie_weapons[trig.zombie_weapon_upgrade].cost;
-			trig sethintstring(hint, cost);
+			display_name = getweapondisplayname(trig.zombie_weapon_upgrade);
+			trig sethintstring(hint, display_name, cost, cost / 2, 2500);
 		}
 	}
 }
