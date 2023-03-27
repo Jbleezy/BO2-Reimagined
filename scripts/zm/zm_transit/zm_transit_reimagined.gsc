@@ -67,6 +67,7 @@ init()
 	level thread power_local_electric_doors_globally();
 	level thread b23r_hint_string_fix();
 	level thread power_station_vision_change();
+	level thread attach_powerups_to_bus();
 }
 
 grief_include_weapons()
@@ -388,6 +389,43 @@ change_dvar_over_time(dvar, val, time, increment)
 	}
 
 	self setClientDvar(dvar, val);
+}
+
+attach_powerups_to_bus()
+{
+	if (!isDefined(level.the_bus))
+	{
+		return;
+	}
+
+	while (1)
+	{
+		level waittill("powerup_dropped", powerup);
+
+		attachpoweruptobus(powerup);
+	}
+}
+
+attachpoweruptobus( powerup )
+{
+    if ( !isdefined( powerup ) || !isdefined( level.the_bus ) )
+        return;
+
+    distanceoutsideofbus = 50.0;
+    pos = powerup.origin;
+    posinbus = pointonsegmentnearesttopoint( level.the_bus.frontworld, level.the_bus.backworld, pos );
+    posdist2 = distance2dsquared( pos, posinbus );
+
+    if ( posdist2 > level.the_bus.radius * level.the_bus.radius )
+    {
+        radiusplus = level.the_bus.radius + distanceoutsideofbus;
+
+        if ( posdist2 > radiusplus * radiusplus )
+            return;
+    }
+
+	powerup enablelinkto();
+    powerup linkto( level.the_bus );
 }
 
 manage_zones( initial_zone )
