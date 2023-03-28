@@ -532,6 +532,7 @@ buspathblockersetup()
     self.buyable_weapon = trig;
     level._spawned_wallbuys[level._spawned_wallbuys.size] = trig;
     weapon_model = getent( trig.target, "targetname" );
+    weapon_model.origin += (0, 0, 1);
     weapon_model linkto( self, "", self worldtolocalcoords( weapon_model.origin ), weapon_model.angles + self.angles );
     weapon_model setmovingplatformenabled( 1 );
     weapon_model._linked_ent = trig;
