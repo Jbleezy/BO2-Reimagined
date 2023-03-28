@@ -2789,45 +2789,12 @@ buildcraftables()
 		{
 			buildcraftable( "alcatraz_shield_zm" );
 			buildcraftable( "packasplat" );
-			changecraftableoption( 0 );
 		}
 		else if(level.scr_zm_map_start_location == "tomb")
 		{
 			buildcraftable( "tomb_shield_zm" );
 			buildcraftable( "equip_dieseldrone_zm" );
 			takecraftableparts( "gramophone" );
-		}
-	}
-}
-
-changecraftableoption( index )
-{
-	foreach (craftable in level.a_uts_craftables)
-	{
-		if (craftable.equipname == "open_table")
-		{
-			craftable thread setcraftableoption( index );
-		}
-	}
-}
-
-setcraftableoption( index )
-{
-	self endon("death");
-
-	while (self.a_uts_open_craftables_available.size <= 0)
-	{
-		wait 0.05;
-	}
-
-	if (self.a_uts_open_craftables_available.size > 1)
-	{
-		self.n_open_craftable_choice = index;
-		self.equipname = self.a_uts_open_craftables_available[self.n_open_craftable_choice].equipname;
-		self.hint_string = self.a_uts_open_craftables_available[self.n_open_craftable_choice].hint_string;
-		foreach (trig in self.playertrigger)
-		{
-			trig sethintstring( self.hint_string );
 		}
 	}
 }
