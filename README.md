@@ -78,9 +78,9 @@
 
 ### Denizens
 * Decreased maximum amount that can be spawned at once from 2 to 1
-* Decreased minimum number of melees to kill from 5 to 3
-* Decreased minimum number of melees to kill with Bowie Knife from 3 to 2
-* Decreased minimum number of melees to kill with Galvaknuckles from 2 to 1
+* Decreased number of melees to kill from 5 to 3
+* Decreased number of melees to kill with Bowie Knife from 3 to 2
+* Decreased number of melees to kill with Galvaknuckles from 2 to 1
 * No longer automatically runs away when player is first attacked in solo
 * Removed hint when player is first attacked in solo
 

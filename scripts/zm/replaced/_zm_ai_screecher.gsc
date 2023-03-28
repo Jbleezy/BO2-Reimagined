@@ -10,6 +10,49 @@
 #include maps\mp\zombies\_zm_audio;
 #include maps\mp\zombies\_zm_stats;
 
+screecher_melee_damage( player )
+{
+    melee_score = 0;
+    if ( player hasweapon( "tazer_knuckles_zm" ) )
+    {
+        melee_score = 30;
+    }
+    else if ( player hasweapon( "bowie_knife_zm" ) )
+    {
+        melee_score = 15;
+    }
+    else
+    {
+        melee_score = 10;
+    }
+
+    if ( self.screecher_score > 0 )
+    {
+        if ( melee_score > self.screecher_score )
+        {
+            self.screecher_score = 0;
+        }
+        else
+        {
+            self.screecher_score -= melee_score;
+        }
+    }
+
+    if ( self.screecher_score <= 0 )
+    {
+        self.player_score += melee_score;
+    }
+
+    self playsound( "zmb_vocals_screecher_pain" );
+
+    if ( level.zombie_vars[player.team]["zombie_insta_kill"] )
+        self.player_score = 30;
+    else
+        player thread do_player_general_vox( "general", "screecher_cut" );
+
+    self screecher_check_score();
+}
+
 screecher_detach( player )
 {
     self endon( "death" );

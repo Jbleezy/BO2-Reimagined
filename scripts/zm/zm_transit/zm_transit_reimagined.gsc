@@ -23,6 +23,7 @@ main()
 	replaceFunc(maps\mp\zm_transit_utility::solo_tombstone_removal, scripts\zm\replaced\zm_transit_utility::solo_tombstone_removal);
 	replaceFunc(maps\mp\zm_transit_bus::bussetup, scripts\zm\replaced\zm_transit_bus::bussetup);
 	replaceFunc(maps\mp\zm_transit_bus::busscheduleadd, scripts\zm\replaced\zm_transit_bus::busscheduleadd);
+	replaceFunc(maps\mp\zombies\_zm_ai_screecher::screecher_melee_damage, scripts\zm\replaced\_zm_ai_screecher::screecher_melee_damage);
 	replaceFunc(maps\mp\zombies\_zm_ai_screecher::screecher_detach, scripts\zm\replaced\_zm_ai_screecher::screecher_detach);
 	replaceFunc(maps\mp\zombies\_zm_ai_screecher::screecher_cleanup, scripts\zm\replaced\_zm_ai_screecher::screecher_cleanup);
 	replaceFunc(maps\mp\zombies\_zm_riotshield::doriotshielddeploy, scripts\zm\replaced\_zm_riotshield::doriotshielddeploy);
@@ -57,7 +58,6 @@ init()
 	level.grenade_safe_to_bounce = ::grenade_safe_to_bounce;
 	level.object_touching_lava = maps\mp\zm_transit_lava::object_touching_lava;
 
-	screecher_spawner_changes();
 	zombie_spawn_location_changes();
 	cornfield_add_collision();
 	cornfield_spawn_path_nodes();
@@ -109,17 +109,6 @@ zombie_init_done()
 transit_special_weapon_magicbox_check(weapon)
 {
 	return 1;
-}
-
-screecher_spawner_changes()
-{
-	level.screecher_spawners = getentarray( "screecher_zombie_spawner", "script_noteworthy" );
-	array_thread( level.screecher_spawners, ::add_spawn_function, ::screecher_prespawn_decrease_health );
-}
-
-screecher_prespawn_decrease_health()
-{
-	self.player_score = 12;
 }
 
 electric_door_changes()
