@@ -426,6 +426,7 @@
 * Increased bus speed by 100%
 * Powerups dropped within the bus are linked to the bus
 * Players can sprint and go prone on the bus
+* Bus wallbuy trigger functions the same as other wallbuy triggers
 * Lava in starting area activates after the power is on
 * Lava destroys grenades instantly
 * Decreased brightness at Power Station

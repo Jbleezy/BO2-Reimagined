@@ -169,7 +169,7 @@ register_map_initial_spawnpoint( origin, angles, team_num )
 	level.struct_class_names[ "script_noteworthy" ][ "initial_spawn" ][ player_initial_spawnpoint_size ] = spawnpoint_struct;
 }
 
-wallbuy( weapon_name, target, targetname, origin, angles )
+wallbuy( weapon_name, target, targetname, origin, angles, play_chalk_fx = 1 )
 {
 	unitrigger_stub = spawnstruct();
 	unitrigger_stub.origin = origin;
@@ -290,12 +290,15 @@ wallbuy( weapon_name, target, targetname, origin, angles )
 		maps\mp\zombies\_zm_unitrigger::register_static_unitrigger( unitrigger_stub, ::weapon_spawn_think );
 	}
 
-	chalk_fx = weapon_name + "_fx";
-	level thread playchalkfx( chalk_fx, origin, angles );
-
 	if(weaponType(weapon_name) == "grenade")
 	{
 		unitrigger_stub thread wallbuy_grenade_model_fix();
+	}
+
+	if (play_chalk_fx)
+	{
+		chalk_fx = weapon_name + "_fx";
+		level thread playchalkfx( chalk_fx, origin, angles );
 	}
 }
 

@@ -23,7 +23,6 @@ main()
 	replaceFunc(maps\mp\zm_transit_utility::solo_tombstone_removal, scripts\zm\replaced\zm_transit_utility::solo_tombstone_removal);
 	replaceFunc(maps\mp\zm_transit_bus::bussetup, scripts\zm\replaced\zm_transit_bus::bussetup);
 	replaceFunc(maps\mp\zm_transit_bus::busscheduleadd, scripts\zm\replaced\zm_transit_bus::busscheduleadd);
-	replaceFunc(maps\mp\zm_transit_bus::busupdateplayers, scripts\zm\replaced\zm_transit_bus::busupdateplayers);
 	replaceFunc(maps\mp\zombies\_zm_ai_screecher::screecher_detach, scripts\zm\replaced\_zm_ai_screecher::screecher_detach);
 	replaceFunc(maps\mp\zombies\_zm_ai_screecher::screecher_cleanup, scripts\zm\replaced\_zm_ai_screecher::screecher_cleanup);
 	replaceFunc(maps\mp\zombies\_zm_riotshield::doriotshielddeploy, scripts\zm\replaced\_zm_riotshield::doriotshielddeploy);
@@ -65,7 +64,6 @@ init()
 	path_exploit_fixes();
 
 	level thread power_local_electric_doors_globally();
-	level thread b23r_hint_string_fix();
 	level thread power_station_vision_change();
 	level thread attach_powerups_to_bus();
 }
@@ -196,25 +194,6 @@ power_local_electric_doors_globally()
 		for (i = 0; i < local_power.size; i++)
 		{
 			maps\mp\zombies\_zm_power::end_local_power( local_power[i] );
-		}
-	}
-}
-
-b23r_hint_string_fix()
-{
-	flag_wait( "initial_blackscreen_passed" );
-	wait 0.05;
-
-	trigs = getentarray("weapon_upgrade", "targetname");
-	foreach (trig in trigs)
-	{
-		if (trig.zombie_weapon_upgrade == "beretta93r_zm")
-		{
-			level.zombie_weapons[trig.zombie_weapon_upgrade].hint = "Hold ^3[{+activate}]^7 for &&1 [Cost: &&2], Ammo [Cost: &&3],   \n             Upgraded Ammo [Cost: &&4]";
-			hint = level.zombie_weapons[trig.zombie_weapon_upgrade].hint;
-			cost = level.zombie_weapons[trig.zombie_weapon_upgrade].cost;
-			display_name = getweapondisplayname(trig.zombie_weapon_upgrade);
-			trig sethintstring(hint, display_name, cost, cost / 2, 2500);
 		}
 	}
 }

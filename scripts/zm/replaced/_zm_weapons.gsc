@@ -3,6 +3,18 @@
 #include maps\mp\zombies\_zm_utility;
 #include maps\mp\zombies\_zm_weapons;
 
+init_weapon_upgrade()
+{
+    init_spawnable_weapon_upgrade();
+    weapon_spawns = [];
+    weapon_spawns = getentarray( "weapon_upgrade", "targetname" );
+
+    for ( i = 0; i < weapon_spawns.size; i++ )
+    {
+		scripts\zm\replaced\utility::wallbuy( weapon_spawns[i].zombie_weapon_upgrade, weapon_spawns[i].target + "_weapon_upgrade", weapon_spawns[i].targetname, weapon_spawns[i].origin, weapon_spawns[i].angles, 0 );
+    }
+}
+
 weapon_give( weapon, is_upgrade, magic_box, nosound )
 {
 	primaryweapons = self getweaponslistprimaries();

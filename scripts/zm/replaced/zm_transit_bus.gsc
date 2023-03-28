@@ -441,6 +441,103 @@ begin_arrival_slowdown()
     self setspeed( 10, 10, 10 );
 }
 
+buspathblockersetup()
+{
+    self.path_blockers = getentarray( "bus_path_blocker", "targetname" );
+
+    for ( i = 0; i < self.path_blockers.size; i++ )
+        self.path_blockers[i] linkto( self, "", self worldtolocalcoords( self.path_blockers[i].origin ), self.path_blockers[i].angles + self.angles );
+
+    cow_catcher_blocker = getent( "cow_catcher_path_blocker", "targetname" );
+
+    if ( isdefined( cow_catcher_blocker ) )
+        cow_catcher_blocker linkto( self, "", self worldtolocalcoords( cow_catcher_blocker.origin ), cow_catcher_blocker.angles + self.angles );
+
+    trig = getent( "bus_buyable_weapon1", "script_noteworthy" );
+    trig enablelinkto();
+    trig linkto( self, "", self worldtolocalcoords( trig.origin ), ( 0, 0, 0 ) );
+    trig setinvisibletoall();
+    self.buyable_weapon = trig;
+    level._spawned_wallbuys[level._spawned_wallbuys.size] = trig;
+    weapon_model = getent( trig.target, "targetname" );
+    weapon_model linkto( self, "", self worldtolocalcoords( weapon_model.origin ), weapon_model.angles + self.angles );
+    weapon_model setmovingplatformenabled( 1 );
+    weapon_model._linked_ent = trig;
+    weapon_model hide();
+
+    self thread bus_buyable_weapon_unitrigger_setup(trig);
+}
+
+bus_buyable_weapon_unitrigger_setup(trig)
+{
+    unitrigger = undefined;
+    while (!isDefined(unitrigger))
+    {
+        for(i = 0; i < level._unitriggers.trigger_stubs.size; i++)
+        {
+            if(IsDefined(level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade) && level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade == "beretta93r_zm")
+            {
+                unitrigger = level._unitriggers.trigger_stubs[i];
+                break;
+            }
+        }
+
+        wait 1;
+    }
+
+    unitrigger.origin_parent = trig;
+    unitrigger.link_parent = trig;
+    unitrigger.originfunc = ::bus_buyable_weapon_get_unitrigger_origin;
+    unitrigger.onspawnfunc = ::bus_buyable_weapon_on_spawn_trigger;
+
+    unitrigger.target = undefined; // remove other wallbuy weapon model from showing
+}
+
+bus_buyable_weapon_get_unitrigger_origin()
+{
+    return self.origin_parent.origin + (0, 0, -32);
+}
+
+bus_buyable_weapon_on_spawn_trigger(trigger)
+{
+    trigger enablelinkto();
+    trigger linkto(self.link_parent);
+    trigger setmovingplatformenabled(1);
+}
+
+busthink()
+{
+    no_danger = 0;
+    self thread busupdatechasers();
+    self thread busupdateplayers();
+    self thread busupdatenearzombies();
+
+    while ( true )
+    {
+        waittillframeend;
+        self busupdatespeed();
+        self busupdateignorewindows();
+
+        if ( self.ismoving )
+            self busupdatenearequipment();
+
+        if ( !( isdefined( level.bus_zombie_danger ) && level.bus_zombie_danger ) && ( self.numplayersonroof || self.numplayersinsidebus ) )
+        {
+            no_danger++;
+
+            if ( no_danger > 40 )
+            {
+                level thread do_player_bus_zombie_vox( "bus_zom_none", 40, 60 );
+                no_danger = 0;
+            }
+        }
+        else
+            no_danger = 0;
+
+        wait 0.1;
+    }
+}
+
 busupdateplayers()
 {
     level endon( "end_game" );
@@ -532,7 +629,6 @@ busupdateplayers()
                     if ( !playerisinbus && ( isdefined( player.isonbus ) && player.isonbus ) )
                     {
                         bbprint( "zombie_events", "category %s type %s round %d playername %s", "BUS", "player_exit", level.round_number, player.name );
-                        self.buyable_weapon setinvisibletoplayer( player );
                         player setclientplayerpushamount( 1 );
                         player notify( "left bus" );
                         player clientnotify( "LBS" );
@@ -551,12 +647,10 @@ busupdateplayers()
 
             if ( isdefined( player.isonbusroof ) && player.isonbusroof )
             {
-                self.buyable_weapon setinvisibletoplayer( player );
                 self.numplayersonroof++;
             }
             else if ( isdefined( player.isonbus ) && player.isonbus )
             {
-                self.buyable_weapon setvisibletoplayer( player );
                 self.numplayersinsidebus++;
             }
 
