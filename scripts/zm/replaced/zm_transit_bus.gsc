@@ -282,6 +282,8 @@ busschedulethink()
 
         waittimeatdestination = self.waittimeatdestination;
 
+        self thread busshowleavinghud( waittimeatdestination );
+
         self waittill_any_timeout( waittimeatdestination, "depart_early" );
 
         self notify( "ready_to_depart" );
@@ -295,6 +297,76 @@ busschedulethink()
         self busstartmoving( targetspeed );
         self notify( "departing" );
         self setclientfield( "bus_flashing_lights", 0 );
+    }
+}
+
+busshowleavinghud( time )
+{
+    self endon("depart_early");
+
+    self thread busshowleavinghud_destroy_on_depart_early();
+
+    while (time > 0)
+    {
+        players = get_players();
+        foreach (player in players)
+        {
+            if (!isDefined(player.busleavehud))
+            {
+                hud = newclienthudelem( player );
+                hud.alignx = "center";
+                hud.aligny = "middle";
+                hud.horzalign = "center";
+                hud.vertalign = "bottom";
+                hud.y = -75;
+                hud.foreground = 1;
+                hud.hidewheninmenu = 1;
+                hud.font = "default";
+                hud.fontscale = 1;
+                hud.alpha = 1;
+                hud.color = ( 1, 1, 1 );
+                hud.label = &"Bus departs in: ";
+                hud setTimer( time );
+                player.busleavehud = hud;
+            }
+
+            if (!is_true(player.isonbus))
+            {
+                player.busleavehud.alpha = 0;
+            }
+            else
+            {
+                player.busleavehud.alpha = 1;
+            }
+        }
+
+        time -= 0.05;
+        wait 0.05;
+    }
+
+    players = get_players();
+    foreach (player in players)
+    {
+        if (isDefined(player.busleavehud))
+        {
+            player.busleavehud destroy();
+            player.busleavehud = undefined;
+        }
+    }
+}
+
+busshowleavinghud_destroy_on_depart_early()
+{
+    self waittill("depart_early");
+
+    players = get_players();
+    foreach (player in players)
+    {
+        if (isDefined(player.busleavehud))
+        {
+            player.busleavehud destroy();
+            player.busleavehud = undefined;
+        }
     }
 }
 

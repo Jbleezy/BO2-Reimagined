@@ -424,6 +424,7 @@
 ### Tranzit
 * Any door that requires a Turbine to open is automatically open whenever the power is on
 * Increased bus speed by 100%
+* Added bus depart timer on HUD when player is on bus
 * Powerups dropped within the bus are linked to the bus
 * Players can sprint and go prone on the bus
 * Bus wallbuy trigger functions the same as other wallbuy triggers
