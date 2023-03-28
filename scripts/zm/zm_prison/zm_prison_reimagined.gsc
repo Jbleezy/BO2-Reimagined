@@ -9,6 +9,7 @@
 #include scripts\zm\replaced\zm_alcatraz_craftables;
 #include scripts\zm\replaced\zm_alcatraz_gamemodes;
 #include scripts\zm\replaced\zm_alcatraz_utility;
+#include scripts\zm\replaced\zm_alcatraz_sq;
 #include scripts\zm\replaced\zm_alcatraz_weap_quest;
 #include scripts\zm\replaced\_zm_afterlife;
 #include scripts\zm\replaced\_zm_ai_brutus;
@@ -21,9 +22,12 @@
 main()
 {
 	replaceFunc(maps\mp\zm_alcatraz_classic::give_afterlife, scripts\zm\replaced\zm_alcatraz_classic::give_afterlife);
+    replaceFunc(maps\mp\zm_alcatraz_craftables::init_craftables, scripts\zm\replaced\zm_alcatraz_craftables::init_craftables);
     replaceFunc(maps\mp\zm_alcatraz_craftables::include_craftables, scripts\zm\replaced\zm_alcatraz_craftables::include_craftables);
 	replaceFunc(maps\mp\zm_alcatraz_gamemodes::init, scripts\zm\replaced\zm_alcatraz_gamemodes::init);
 	replaceFunc(maps\mp\zm_alcatraz_utility::blundergat_upgrade_station, scripts\zm\replaced\zm_alcatraz_utility::blundergat_upgrade_station);
+    replaceFunc(maps\mp\zm_alcatraz_sq::track_quest_status_thread, scripts\zm\replaced\zm_alcatraz_sq::track_quest_status_thread);
+    replaceFunc(maps\mp\zm_alcatraz_sq::plane_flight_thread, scripts\zm\replaced\zm_alcatraz_sq::plane_flight_thread);
 	replaceFunc(maps\mp\zm_alcatraz_weap_quest::grief_soul_catcher_state_manager, scripts\zm\replaced\zm_alcatraz_weap_quest::grief_soul_catcher_state_manager);
 	replaceFunc(maps\mp\zombies\_zm_afterlife::afterlife_add, scripts\zm\replaced\_zm_afterlife::afterlife_add);
     replaceFunc(maps\mp\zombies\_zm_ai_brutus::init, scripts\zm\replaced\_zm_ai_brutus::init);
@@ -61,10 +65,6 @@ init()
 
 	tower_trap_changes();
 
-	plane_set_need_all_pieces();
-	plane_set_pieces_shared();
-
-	level thread plane_auto_refuel();
 	level thread updatecraftables();
     level thread grief_brutus_spawn_after_time();
 }
@@ -291,54 +291,6 @@ tower_upgrade_trigger_think()
 		self.upgraded = 1;
 		level waittill( "between_round_over" );
 		self.upgraded = undefined;
-	}
-}
-
-plane_set_need_all_pieces()
-{
-	if(!(is_classic() && level.scr_zm_map_start_location == "prison"))
-	{
-		return;
-	}
-
-	level.zombie_craftablestubs["plane"].need_all_pieces = 1;
-	level.zombie_craftablestubs["refuelable_plane"].need_all_pieces = 1;
-}
-
-plane_set_pieces_shared()
-{
-	if(!(is_classic() && level.scr_zm_map_start_location == "prison"))
-	{
-		return;
-	}
-
-	foreach(stub in level.zombie_include_craftables)
-	{
-		if(stub.name == "plane" || stub.name == "refuelable_plane")
-		{
-			foreach(piece in stub.a_piecestubs)
-			{
-				piece.is_shared = 1;
-				piece.client_field_state = undefined;
-			}
-		}
-	}
-}
-
-plane_auto_refuel()
-{
-	if(!(is_classic() && level.scr_zm_map_start_location == "prison"))
-	{
-		return;
-	}
-
-	for ( ;; )
-	{
-		flag_wait( "spawn_fuel_tanks" );
-
-		wait 0.05;
-
-		scripts\zm\_zm_reimagined::buildcraftable( "refuelable_plane" );
 	}
 }
 
