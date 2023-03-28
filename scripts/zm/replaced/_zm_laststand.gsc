@@ -199,6 +199,11 @@ revive_give_back_weapons( gun )
         return;
     }
 
+	if (self hasWeapon("screecher_arms_zm"))
+    {
+        return;
+    }
+
 	if ( gun != "none" && !is_placeable_mine( gun ) && gun != "equip_gasmask_zm" && gun != "lower_equip_gasmask_zm" && self hasweapon( gun ) )
 	{
 		self switchtoweapon( gun );
