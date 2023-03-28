@@ -103,7 +103,7 @@ setup_quadrotor_purchase( player )
         level thread quadrotor_watcher( player );
         player thread maps\mp\zombies\_zm_audio::create_and_play_dialog( "general", "build_dd_plc" );
 
-		self.stub.hint_string = "Took " + getWeaponDisplayName(self.weaponname);
+		self.stub.hint_string = "Took " + getWeaponDisplayName(self.stub.weaponname);
 		self sethintstring(self.stub.hint_string);
 
         return true;
