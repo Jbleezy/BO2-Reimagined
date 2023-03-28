@@ -251,7 +251,6 @@ post_all_players_spawned()
 	level.zombie_vars["riotshield_hit_points"] = 1500;
 	level.zombie_vars["emp_stun_range"] = 420;
 	level.zombie_vars["slipgun_reslip_rate"] = 0;
-	level.zombie_ai_limit_screecher = 1;
 	level.explode_overheated_jetgun = 0;
 	level.unbuild_overheated_jetgun = 0;
 	level.take_overheated_jetgun = 1;

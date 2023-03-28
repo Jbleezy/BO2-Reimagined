@@ -10,6 +10,112 @@
 #include maps\mp\zombies\_zm_audio;
 #include maps\mp\zombies\_zm_stats;
 
+screecher_spawning_logic()
+{
+    level endon( "intermission" );
+
+    if ( level.intermission )
+        return;
+
+    if ( level.screecher_spawners.size < 1 )
+    {
+        return;
+    }
+
+    while ( true )
+    {
+        while ( !isdefined( level.zombie_screecher_locations ) || level.zombie_screecher_locations.size <= 0 )
+            wait 0.1;
+
+        while ( getdvarint( _hash_B0C0D38F ) )
+            wait 0.1;
+
+        if ( !flag( "spawn_zombies" ) )
+            flag_wait( "spawn_zombies" );
+
+        valid_players_in_screecher_zone = 0;
+        valid_players = [];
+
+        while ( valid_players_in_screecher_zone <= level.zombie_screecher_count )
+        {
+            players = getplayers();
+            valid_players_in_screecher_zone = 0;
+
+            for ( p = 0; p < players.size; p++ )
+            {
+                if ( is_player_valid( players[p] ) && player_in_screecher_zone( players[p] ) && !isdefined( players[p].screecher ) )
+                {
+                    valid_players_in_screecher_zone++;
+                    valid_players[valid_players.size] = players[p];
+                }
+            }
+
+            wait 0.1;
+        }
+
+        if ( !isdefined( level.zombie_screecher_locations ) || level.zombie_screecher_locations.size <= 0 )
+            continue;
+
+        valid_players = array_randomize( valid_players );
+
+        spawn_points = get_array_of_closest( valid_players[0].origin, level.zombie_screecher_locations );
+        spawn_point = undefined;
+
+        if ( !isdefined( spawn_points ) || spawn_points.size == 0 )
+        {
+            wait 0.1;
+            continue;
+        }
+
+        if ( !isdefined( level.last_spawn ) )
+        {
+            level.last_spawn_index = 0;
+            level.last_spawn = [];
+            level.last_spawn[level.last_spawn_index] = spawn_points[0];
+            level.last_spawn_index = 1;
+            spawn_point = spawn_points[0];
+        }
+        else
+        {
+            foreach ( point in spawn_points )
+            {
+                if ( point == level.last_spawn[0] )
+                    continue;
+
+                if ( isdefined( level.last_spawn[1] ) && point == level.last_spawn[1] )
+                    continue;
+
+                spawn_point = point;
+                level.last_spawn[level.last_spawn_index] = spawn_point;
+                level.last_spawn_index++;
+
+                if ( level.last_spawn_index > 1 )
+                    level.last_spawn_index = 0;
+
+                break;
+            }
+        }
+
+        if ( !isdefined( spawn_point ) )
+            spawn_point = spawn_points[0];
+
+        if ( isdefined( level.screecher_spawners ) )
+        {
+            spawner = random( level.screecher_spawners );
+            ai = spawn_zombie( spawner, spawner.targetname, spawn_point );
+        }
+
+        if ( isdefined( ai ) )
+        {
+            ai.spawn_point = spawn_point;
+            level.zombie_screecher_count++;
+        }
+
+        wait( level.zombie_vars["zombie_spawn_delay"] );
+        wait 0.1;
+    }
+}
+
 screecher_melee_damage( player )
 {
     melee_score = 0;

@@ -23,6 +23,7 @@ main()
 	replaceFunc(maps\mp\zm_transit_utility::solo_tombstone_removal, scripts\zm\replaced\zm_transit_utility::solo_tombstone_removal);
 	replaceFunc(maps\mp\zm_transit_bus::bussetup, scripts\zm\replaced\zm_transit_bus::bussetup);
 	replaceFunc(maps\mp\zm_transit_bus::busscheduleadd, scripts\zm\replaced\zm_transit_bus::busscheduleadd);
+	replaceFunc(maps\mp\zombies\_zm_ai_screecher::screecher_spawning_logic, scripts\zm\replaced\_zm_ai_screecher::screecher_spawning_logic);
 	replaceFunc(maps\mp\zombies\_zm_ai_screecher::screecher_melee_damage, scripts\zm\replaced\_zm_ai_screecher::screecher_melee_damage);
 	replaceFunc(maps\mp\zombies\_zm_ai_screecher::screecher_detach, scripts\zm\replaced\_zm_ai_screecher::screecher_detach);
 	replaceFunc(maps\mp\zombies\_zm_ai_screecher::screecher_cleanup, scripts\zm\replaced\_zm_ai_screecher::screecher_cleanup);
