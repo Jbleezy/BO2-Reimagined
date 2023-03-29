@@ -557,7 +557,7 @@
 * Players can go prone on the tank
 * Shovels automatically picked up
 * Gramophone and records automatically picked up
-* Gramophone and master record no longer show on HUD
+* Musical parts no longer show on HUD
 * Der Wunderfizz: increased cost from 1500 to 2500
 * Der Wunderfizz: all perks have an equal chance of being obtained
 * Rituals of the Ancients: spend points challenge reward changed from Double Tap perk to a random perk that the player does not have (perk does not change if reward is reopened)
