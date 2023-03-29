@@ -37,8 +37,8 @@ main()
 	replaceFunc(maps\mp\zm_tomb_craftables::quadrotor_control_thread, scripts\zm\replaced\zm_tomb_craftables::quadrotor_control_thread);
     replaceFunc(maps\mp\zm_tomb_craftables::quadrotor_set_unavailable, scripts\zm\replaced\zm_tomb_craftables::quadrotor_set_unavailable);
     replaceFunc(maps\mp\zm_tomb_craftables::vinyl_add_pickup, scripts\zm\replaced\zm_tomb_craftables::vinyl_add_pickup);
+    replaceFunc(maps\mp\zm_tomb_dig::init_shovel, scripts\zm\replaced\zm_tomb_dig::init_shovel);
 	replaceFunc(maps\mp\zm_tomb_dig::increment_player_perk_purchase_limit, scripts\zm\replaced\zm_tomb_dig::increment_player_perk_purchase_limit);
-	replaceFunc(maps\mp\zm_tomb_dig::dig_disconnect_watch, scripts\zm\replaced\zm_tomb_dig::dig_disconnect_watch);
     replaceFunc(maps\mp\zm_tomb_tank::players_on_tank_update, scripts\zm\replaced\zm_tomb_tank::players_on_tank_update);
     replaceFunc(maps\mp\zombies\_zm_ai_mechz::mechz_set_starting_health, scripts\zm\replaced\_zm_ai_mechz::mechz_set_starting_health);
     replaceFunc(maps\mp\zombies\_zm_craftables::choose_open_craftable, scripts\zm\replaced\_zm_craftables::choose_open_craftable);
@@ -53,7 +53,6 @@ main()
 
 init()
 {
-	level.map_on_player_connect = ::on_player_connect;
 	level.zombie_init_done = ::zombie_init_done;
 	level.special_weapon_magicbox_check = ::tomb_special_weapon_magicbox_check;
 	level.custom_magic_box_timer_til_despawn = ::custom_magic_box_timer_til_despawn;
@@ -61,14 +60,8 @@ init()
 	level.custom_craftable_validation = scripts\zm\replaced\zm_tomb_craftables::tomb_custom_craftable_validation;
 
 	level thread increase_solo_door_prices();
-	level thread remove_shovels_from_map();
 	level thread zombie_blood_dig_changes();
 	level thread updatecraftables();
-}
-
-on_player_connect()
-{
-	self thread give_shovel();
 }
 
 zombie_init_done()
@@ -131,41 +124,6 @@ door_price_increase_for_solo()
 	{
 		self set_hint_string( self, "default_buy_debris", self.zombie_cost );
 	}
-}
-
-remove_shovels_from_map()
-{
-	if(!(is_classic() && level.scr_zm_map_start_location == "tomb"))
-	{
-		return;
-	}
-
-	flag_wait( "initial_blackscreen_passed" );
-
-	stubs = level._unitriggers.trigger_stubs;
-	for(i = 0; i < stubs.size; i++)
-	{
-		stub = stubs[i];
-		if(IsDefined(stub.e_shovel))
-		{
-			stub.e_shovel delete();
-			maps\mp\zombies\_zm_unitrigger::unregister_unitrigger( stub );
-		}
-	}
-}
-
-give_shovel()
-{
-	if(!(is_classic() && level.scr_zm_map_start_location == "tomb"))
-	{
-		return;
-	}
-
-	self waittill("spawned_player");
-
-	self.dig_vars[ "has_shovel" ] = 1;
-	n_player = self getentitynumber() + 1;
-	level setclientfield( "shovel_player" + n_player, 1 );
 }
 
 zombie_blood_dig_changes()

@@ -134,11 +134,6 @@ onplayerconnect()
 	{
 		level waittill("connecting", player);
 
-		if(isDefined(level.map_on_player_connect))
-		{
-			player thread [[level.map_on_player_connect]]();
-		}
-
 		player thread onplayerspawned();
 		player thread onplayerdowned();
 
