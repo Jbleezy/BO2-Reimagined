@@ -232,6 +232,7 @@
 * Can collect souls in The Crazy Place after upgrading to fill 5% of max ammo per soul
 * Get full ammo when initially picked up after upgrading (normally missing one clip)
 * Max ammo no longer fills clip ammo
+* Upgraded: kill on any round
 
 ## Wallbuys
 * Purchasing ammo refills clip ammo
