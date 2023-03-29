@@ -353,17 +353,16 @@ run_gramophone_teleporter( str_vinyl_record )
     self.gramophone_model = undefined;
     self thread watch_gramophone_vinyl_pickup();
     t_gramophone = tomb_spawn_trigger_radius( self.origin, 60.0, 1 );
-    t_gramophone set_unitrigger_hint_string( &"ZOMBIE_BUILD_PIECE_MORE" );
+    t_gramophone set_unitrigger_hint_string( &"ZM_TOMB_PLGR" );
+
+    if (!isDefined(level.gramophone_teleporter_triggers))
+    {
+        level.gramophone_teleporter_triggers = [];
+    }
+
+    level.gramophone_teleporter_triggers[level.gramophone_teleporter_triggers.size] = t_gramophone;
 
     level waittill( "gramophone_vinyl_player_picked_up" );
-
-    str_craftablename = "gramophone";
-    t_gramophone set_unitrigger_hint_string( &"ZM_TOMB_RU" );
-
-    while ( !self.has_vinyl )
-        wait 0.05;
-
-    t_gramophone set_unitrigger_hint_string( &"ZM_TOMB_PLGR" );
 
     while ( true )
     {
@@ -378,6 +377,15 @@ run_gramophone_teleporter( str_vinyl_record )
                 self.gramophone_model setmodel( "p6_zm_tm_gramophone" );
                 //level setclientfield( "piece_record_zm_player", 0 );
                 flag_set( "gramophone_placed" );
+
+                foreach (trigger in level.gramophone_teleporter_triggers)
+                {
+                    if (trigger != t_gramophone)
+                    {
+                        trigger set_unitrigger_hint_string( &"ZM_TOMB_GREL" );
+                    }
+                }
+
                 t_gramophone set_unitrigger_hint_string( "" );
                 t_gramophone trigger_off();
                 str_song_id = self get_gramophone_song();
@@ -393,19 +401,35 @@ run_gramophone_teleporter( str_vinyl_record )
                     flag_set( self.script_flag );
             }
             else
-                player door_gramophone_elsewhere_hint();
+            {
+                t_gramophone set_unitrigger_hint_string( &"ZM_TOMB_GREL" );
+            }
         }
         else
         {
-            self.gramophone_model delete();
-            self.gramophone_model = undefined;
+            self.gramophone_model stopsounds();
             player playsound( "zmb_craftable_pickup" );
             flag_clear( "gramophone_placed" );
             //level setclientfield( "piece_record_zm_player", 1 );
-            maps\mp\zm_tomb_teleporter::stargate_teleport_disable( self.script_int );
-            t_gramophone set_unitrigger_hint_string( &"ZM_TOMB_PLGR" );
+            break;
         }
     }
+
+    arrayremovevalue(level.gramophone_teleporter_triggers, t_gramophone);
+    foreach (trigger in level.gramophone_teleporter_triggers)
+    {
+        if (trigger != t_gramophone)
+        {
+            trigger set_unitrigger_hint_string( &"ZM_TOMB_PLGR" );
+        }
+    }
+
+    t_gramophone tomb_unitrigger_delete();
+
+    wait 0.05;
+
+    self.gramophone_model delete();
+    self.gramophone_model = undefined;
 }
 
 run_gramophone_door( str_vinyl_record )
@@ -414,68 +438,62 @@ run_gramophone_door( str_vinyl_record )
     trig_position = getstruct( self.targetname + "_position", "targetname" );
     trig_position.has_vinyl = 0;
     trig_position.gramophone_model = undefined;
+    trig_position.script_int = randomIntRange(1, 5);
     trig_position thread watch_gramophone_vinyl_pickup();
     trig_position thread door_watch_open_sesame();
     t_door = tomb_spawn_trigger_radius( trig_position.origin, 60.0, 1 );
-    t_door set_unitrigger_hint_string( &"ZOMBIE_BUILD_PIECE_MORE" );
+    t_door set_unitrigger_hint_string( &"ZM_TOMB_PLGR" );
     level waittill_any( "gramophone_vinyl_player_picked_up", "open_sesame", "open_all_gramophone_doors" );
-    str_craftablename = "gramophone";
-    t_door set_unitrigger_hint_string( &"ZM_TOMB_RU" );
     trig_position.trigger = t_door;
 
     while ( !trig_position.has_vinyl )
         wait 0.05;
 
-    t_door set_unitrigger_hint_string( &"ZM_TOMB_PLGR" );
+    t_door.initial_placed = 1;
+    trig_position.gramophone_model = spawn( "script_model", trig_position.origin );
+    trig_position.gramophone_model.angles = trig_position.angles;
+    trig_position.gramophone_model setmodel( "p6_zm_tm_gramophone" );
+    flag_set( "gramophone_placed" );
+    //level setclientfield( "piece_record_zm_player", 0 );
+
+    foreach (trigger in level.gramophone_teleporter_triggers)
+    {
+        trigger set_unitrigger_hint_string( &"ZM_TOMB_GREL" );
+    }
 
     while ( true )
     {
         t_door waittill( "trigger", player );
 
-        if ( !isdefined( trig_position.gramophone_model ) )
+        if ( is_true( t_door.initial_placed ) )
         {
-            if ( !flag( "gramophone_placed" ) || isdefined( level.b_open_all_gramophone_doors ) && level.b_open_all_gramophone_doors )
-            {
-                if ( !( isdefined( level.b_open_all_gramophone_doors ) && level.b_open_all_gramophone_doors ) )
-                {
-                    trig_position.gramophone_model = spawn( "script_model", trig_position.origin );
-                    trig_position.gramophone_model.angles = trig_position.angles;
-                    trig_position.gramophone_model setmodel( "p6_zm_tm_gramophone" );
-                    flag_set( "gramophone_placed" );
-                    //level setclientfield( "piece_record_zm_player", 0 );
-                }
+            t_door.initial_placed = 0;
+            t_door set_unitrigger_hint_string( "" );
+            t_door trigger_off();
+            str_song = trig_position get_gramophone_song();
+            trig_position.gramophone_model playsound(str_song);
 
-                t_door trigger_off();
-                str_song = trig_position get_gramophone_song();
-                playsoundatposition( str_song, self.origin );
-                self playsound( "zmb_crypt_stairs" );
-                wait 6.0;
-                chamber_blocker();
-                flag_set( self.targetname + "_opened" );
+            self playsound( "zmb_crypt_stairs" );
+            wait 6.0;
+            chamber_blocker();
+            flag_set( self.targetname + "_opened" );
 
-                if ( isdefined( trig_position.script_flag ) )
-                    flag_set( trig_position.script_flag );
+            if ( isdefined( trig_position.script_flag ) )
+                flag_set( trig_position.script_flag );
 
-                level setclientfield( "crypt_open_exploder", 1 );
-                self movez( -260, 10.0, 1.0, 1.0 );
+            level setclientfield( "crypt_open_exploder", 1 );
+            self movez( -260, 10.0, 1.0, 1.0 );
 
-                self waittill( "movedone" );
+            self waittill( "movedone" );
 
-                self connectpaths();
-                self delete();
-                t_door trigger_on();
-                t_door set_unitrigger_hint_string( &"ZM_TOMB_PUGR" );
-
-                if ( isdefined( level.b_open_all_gramophone_doors ) && level.b_open_all_gramophone_doors )
-                    break;
-            }
-            else
-                player door_gramophone_elsewhere_hint();
+            self connectpaths();
+            self delete();
+            t_door trigger_on();
+            t_door set_unitrigger_hint_string( &"ZM_TOMB_PUGR" );
         }
         else
         {
-            trig_position.gramophone_model delete();
-            trig_position.gramophone_model = undefined;
+            trig_position.gramophone_model stopsounds();
             flag_clear( "gramophone_placed" );
             player playsound( "zmb_craftable_pickup" );
             //level setclientfield( "piece_record_zm_player", 1 );
@@ -483,8 +501,18 @@ run_gramophone_door( str_vinyl_record )
         }
     }
 
+    foreach (trigger in level.gramophone_teleporter_triggers)
+    {
+        trigger set_unitrigger_hint_string( &"ZM_TOMB_PLGR" );
+    }
+
     t_door tomb_unitrigger_delete();
     trig_position.trigger = undefined;
+
+    wait 0.05;
+
+    trig_position.gramophone_model delete();
+    trig_position.gramophone_model = undefined;
 }
 
 watch_staff_ammo_reload()

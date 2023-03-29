@@ -12,6 +12,7 @@
 #include scripts\zm\replaced\zm_tomb_craftables;
 #include scripts\zm\replaced\zm_tomb_dig;
 #include scripts\zm\replaced\zm_tomb_tank;
+#include scripts\zm\replaced\zm_tomb_teleporter;
 #include scripts\zm\replaced\_zm_ai_mechz;
 #include scripts\zm\replaced\_zm_craftables;
 #include scripts\zm\replaced\_zm_powerup_zombie_blood;
@@ -39,6 +40,7 @@ main()
     replaceFunc(maps\mp\zm_tomb_dig::init_shovel, scripts\zm\replaced\zm_tomb_dig::init_shovel);
 	replaceFunc(maps\mp\zm_tomb_dig::increment_player_perk_purchase_limit, scripts\zm\replaced\zm_tomb_dig::increment_player_perk_purchase_limit);
     replaceFunc(maps\mp\zm_tomb_tank::players_on_tank_update, scripts\zm\replaced\zm_tomb_tank::players_on_tank_update);
+    replaceFunc(maps\mp\zm_tomb_teleporter::teleporter_init, scripts\zm\replaced\zm_tomb_teleporter::teleporter_init);
     replaceFunc(maps\mp\zombies\_zm_ai_mechz::mechz_set_starting_health, scripts\zm\replaced\_zm_ai_mechz::mechz_set_starting_health);
     replaceFunc(maps\mp\zombies\_zm_craftables::choose_open_craftable, scripts\zm\replaced\_zm_craftables::choose_open_craftable);
     replaceFunc(maps\mp\zombies\_zm_powerup_zombie_blood::zombie_blood_powerup, scripts\zm\replaced\_zm_powerup_zombie_blood::zombie_blood_powerup);

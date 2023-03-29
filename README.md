@@ -556,7 +556,10 @@
 * Door prices in solo cost the same as in coop
 * Players can go prone on the tank
 * Shovels automatically picked up
-* Gramophone and records automatically picked up
+* Records automatically picked up
+* Gramophone initially spawns at Excavation Site gramophone table
+* Teleporters stay active after picking up gramophone
+* Teleporters in The Crazy Place become active when placing gramophone
 * Musical parts no longer show on HUD
 * Der Wunderfizz: increased cost from 1500 to 2500
 * Der Wunderfizz: all perks have an equal chance of being obtained

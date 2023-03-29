@@ -111,8 +111,8 @@ include_craftables()
     level thread add_craftable_cheat( staff );
     count_staff_piece_pickup( array( staff_water_upper_staff, staff_water_middle_staff, staff_water_lower_staff ) );
     craftable_name = "gramophone";
-    vinyl_pickup_player = vinyl_add_pickup( craftable_name, "vinyl_player", "p6_zm_tm_gramophone", "piece_record_zm_player", undefined, "gramophone" );
-    vinyl_pickup_master = vinyl_add_pickup( craftable_name, "vinyl_master", "p6_zm_tm_record_master", "piece_record_zm_vinyl_master", undefined, "record" );
+    vinyl_pickup_player = vinyl_add_pickup( craftable_name, "vinyl_player", "p6_zm_tm_gramophone", undefined, undefined, "gramophone" );
+    vinyl_pickup_master = vinyl_add_pickup( craftable_name, "vinyl_master", "p6_zm_tm_record_master", undefined, undefined, "record" );
     vinyl_pickup_air = vinyl_add_pickup( craftable_name, "vinyl_air", "p6_zm_tm_record_wind", "piece_record_zm_vinyl_air", "quest_state2", "record" );
     vinyl_pickup_ice = vinyl_add_pickup( craftable_name, "vinyl_ice", "p6_zm_tm_record_ice", "piece_record_zm_vinyl_water", "quest_state4", "record" );
     vinyl_pickup_fire = vinyl_add_pickup( craftable_name, "vinyl_fire", "p6_zm_tm_record_fire", "piece_record_zm_vinyl_fire", "quest_state1", "record" );
@@ -149,19 +149,6 @@ include_craftables()
     level thread maps\mp\zm_tomb_vo::samantha_discourage_think();
     level thread maps\mp\zm_tomb_vo::samantha_encourage_think();
     level thread craftable_add_glow_fx();
-}
-
-vinyl_add_pickup( str_craftable_name, str_piece_name, str_model_name, str_bit_clientfield, str_quest_clientfield, str_vox_id )
-{
-    if (str_bit_clientfield == "piece_record_zm_player" || str_bit_clientfield == "piece_record_zm_vinyl_master")
-    {
-        str_bit_clientfield = undefined;
-    }
-
-    b_one_time_vo = 1;
-    craftable = generate_zombie_craftable_piece( str_craftable_name, str_piece_name, str_model_name, 32, 62, 0, undefined, ::onpickup_common, ::ondrop_common, undefined, undefined, undefined, undefined, str_bit_clientfield, 1, str_vox_id, b_one_time_vo );
-    craftable thread watch_part_pickup( str_quest_clientfield, 1 );
-    return craftable;
 }
 
 quadrotor_control_thread()
