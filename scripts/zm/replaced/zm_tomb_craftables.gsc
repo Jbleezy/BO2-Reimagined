@@ -259,6 +259,68 @@ quadrotor_set_unavailable()
 	level.quadrotor_status.pickup_trig.model ghost();
 }
 
+tomb_check_crafted_weapon_persistence( player )
+{
+    if ( self.stub.equipname == "equip_dieseldrone_zm" )
+    {
+        if ( level.quadrotor_status.picked_up )
+            return true;
+        else if ( level.quadrotor_status.crafted )
+            return false;
+    }
+    else if ( self.stub.weaponname == "staff_air_zm" || self.stub.weaponname == "staff_fire_zm" || self.stub.weaponname == "staff_lightning_zm" || self.stub.weaponname == "staff_water_zm" )
+    {
+        if ( self is_unclaimed_staff_weapon( self.stub.weaponname ) )
+        {
+            s_elemental_staff = get_staff_info_from_weapon_name( self.stub.weaponname, 0 );
+            player maps\mp\zombies\_zm_weapons::weapon_give( s_elemental_staff.weapname, 0, 0 );
+
+            if ( isdefined( s_elemental_staff.prev_ammo_stock ) && isdefined( s_elemental_staff.prev_ammo_clip ) )
+            {
+                clip_size = weaponclipsize( s_elemental_staff.weapname );
+
+                if ( s_elemental_staff.prev_ammo_clip < clip_size )
+                {
+                    clip_add = clip_size - s_elemental_staff.prev_ammo_clip;
+
+                    if (clip_add > s_elemental_staff.prev_ammo_stock)
+                    {
+                        clip_add = s_elemental_staff.prev_ammo_stock;
+                    }
+
+                    s_elemental_staff.prev_ammo_clip += clip_add;
+                    s_elemental_staff.prev_ammo_stock -= clip_add;
+                }
+
+                player setweaponammostock( s_elemental_staff.weapname, s_elemental_staff.prev_ammo_stock );
+                player setweaponammoclip( s_elemental_staff.weapname, s_elemental_staff.prev_ammo_clip );
+            }
+
+            if ( isdefined( level.zombie_craftablestubs[self.stub.equipname].str_taken ) )
+                self.stub.hint_string = level.zombie_craftablestubs[self.stub.equipname].str_taken;
+            else
+                self.stub.hint_string = "";
+
+            self sethintstring( self.stub.hint_string );
+            player track_craftables_pickedup( self.stub.craftablespawn );
+            model = getent( "craftable_" + self.stub.weaponname, "targetname" );
+            model ghost();
+            self.stub thread track_crafted_staff_trigger();
+            self.stub thread track_staff_weapon_respawn( player );
+            set_player_staff( self.stub.weaponname, player );
+        }
+        else
+        {
+            self.stub.hint_string = "";
+            self sethintstring( self.stub.hint_string );
+        }
+
+        return true;
+    }
+
+    return false;
+}
+
 tomb_custom_craftable_validation( player )
 {
     if ( self.stub.equipname == "equip_dieseldrone_zm" )

@@ -133,8 +133,8 @@ main_quest_init()
 
     foreach ( staff in level.a_elemental_staffs )
     {
-        staff.prev_ammo_clip = weaponclipsize( staff_upgraded.weapname );
-        staff.prev_ammo_stock = weaponmaxammo( staff_upgraded.weapname );
+        staff.prev_ammo_clip = weaponclipsize( staff.weapname );
+        staff.prev_ammo_stock = weaponmaxammo( staff.weapname );
         staff.upgrade.downgrade = staff;
         staff.upgrade useweaponmodel( staff.weapname );
         staff.upgrade showallparts();
@@ -299,12 +299,27 @@ watch_for_player_pickup_staff()
 staff_upgraded_reload()
 {
     self endon( "staff_equip" );
+
+    clip_size = weaponclipsize( self.weapname );
     max_ammo = weaponmaxammo( self.weapname );
     n_count = int( max_ammo / 20 );
     b_reloaded = 0;
 
     while ( true )
     {
+        if ( self.prev_ammo_clip < clip_size )
+        {
+            clip_add = clip_size - self.prev_ammo_clip;
+
+            if (clip_add > self.prev_ammo_stock)
+            {
+                clip_add = self.prev_ammo_stock;
+            }
+
+            self.prev_ammo_clip += clip_add;
+            self.prev_ammo_stock -= clip_add;
+        }
+
         if ( self.prev_ammo_stock >= max_ammo )
         {
             self.prev_ammo_stock = max_ammo;

@@ -57,8 +57,9 @@ init()
 	level.zombie_init_done = ::zombie_init_done;
 	level.special_weapon_magicbox_check = ::tomb_special_weapon_magicbox_check;
 	level.custom_magic_box_timer_til_despawn = ::custom_magic_box_timer_til_despawn;
-	level.zombie_custom_equipment_setup = scripts\zm\replaced\zm_tomb_craftables::setup_quadrotor_purchase;
-	level.custom_craftable_validation = scripts\zm\replaced\zm_tomb_craftables::tomb_custom_craftable_validation;
+    level.zombie_craftable_persistent_weapon = scripts\zm\replaced\zm_tomb_craftables::tomb_check_crafted_weapon_persistence;
+    level.custom_craftable_validation = scripts\zm\replaced\zm_tomb_craftables::tomb_custom_craftable_validation;
+    level.zombie_custom_equipment_setup = scripts\zm\replaced\zm_tomb_craftables::setup_quadrotor_purchase;
 
 	level thread increase_solo_door_prices();
 	level thread zombie_blood_dig_changes();
