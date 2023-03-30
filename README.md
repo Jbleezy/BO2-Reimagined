@@ -230,6 +230,7 @@
 * Upgrade only requires collecting souls in The Crazy Place
 * Can no longer collect souls in The Crazy Place from staff kills
 * Can collect souls in The Crazy Place after upgrading to fill 5% of max ammo per soul
+* Fixed triggers for inserting and picking up staffs in The Crazy Place
 * Get full ammo when initially picked up after upgrading (normally missing one clip)
 * Max ammo no longer fills clip ammo
 * Upgraded: kill on any round
@@ -355,8 +356,8 @@
 * Parts automatically picked up
 * Can be built at any table on all maps
 * Zombies no longer attack (except Zombie Shield)
+* Can no longer be destroyed by 2 grenades
 * Can be destroyed by taking 1500 damage
-* No longer destroyed by 2 grenades
 * Can no longer be picked up after being destroyed
 
 ### Zombie Shield
@@ -511,7 +512,7 @@
 * Zombies spawn in the Docks Gates zone when in the Docks zone
 * Grief: added Smoke Grenades to the Mystery Box
 * Grief: added Richtofen's Head meat powerup model
-* Fixed being able to hit a death barrier when jumping off the Upper Docks
+* Fixed being able to hit a death barrier when jumping off the Docks Bridge
 * Fixed locked hint string not showing on Blundergat Upgrade buildable table
 
 #### Docks
@@ -623,7 +624,7 @@
 
 #### Grief
 * Gain score by making enemy players bleed out
-* Make 25 enemy players bleed out to win the game
+* Make 15 enemy players bleed out to win the game
 * Players respawn after being down for 10 seconds
 * Players retain perks
 

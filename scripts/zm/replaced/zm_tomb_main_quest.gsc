@@ -214,6 +214,27 @@ zombie_killed_override( einflictor, attacker, idamage, smeansofdeath, sweapon, v
     }
 }
 
+place_staff_in_charger()
+{
+    flag_set( "charger_ready_" + self.enum );
+    v_trigger_pos = self.charger.origin;
+    v_trigger_pos = ( v_trigger_pos[0], v_trigger_pos[1], v_trigger_pos[2] - 30.0 );
+
+    if ( !isDefined( self.charge_trigger ) )
+    {
+        self.charge_trigger = tomb_spawn_trigger_radius( v_trigger_pos, 120, 1, ::staff_charger_get_player_msg );
+        self.charge_trigger.require_look_at = 1;
+        self.charge_trigger.staff_data = self;
+    }
+
+    self.trigger set_unitrigger_hint_string( "" );
+    insert_message = self staff_get_insert_message();
+    self.charge_trigger set_unitrigger_hint_string( insert_message );
+    self.charge_trigger trigger_on();
+
+    waittill_staff_inserted();
+}
+
 waittill_staff_inserted()
 {
     while ( true )
@@ -235,6 +256,7 @@ waittill_staff_inserted()
             self.charger.is_inserted = 1;
             self thread debug_staff_charge();
             maps\mp\zm_tomb_craftables::clear_player_staff( self.weapname );
+            self.charge_trigger set_unitrigger_hint_string( "" );
             self.charge_trigger trigger_off();
 
             if ( isdefined( self.charger.angles ) )
@@ -423,6 +445,7 @@ run_gramophone_teleporter( str_vinyl_record )
         else
         {
             self.gramophone_model stopsounds();
+            self.gramophone_model ghost();
             player playsound( "zmb_craftable_pickup" );
             flag_clear( "gramophone_placed" );
             //level setclientfield( "piece_record_zm_player", 1 );
@@ -509,6 +532,7 @@ run_gramophone_door( str_vinyl_record )
         else
         {
             trig_position.gramophone_model stopsounds();
+            trig_position.gramophone_model ghost();
             flag_clear( "gramophone_placed" );
             player playsound( "zmb_craftable_pickup" );
             //level setclientfield( "piece_record_zm_player", 1 );
