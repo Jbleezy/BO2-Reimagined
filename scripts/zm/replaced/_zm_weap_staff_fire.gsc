@@ -25,7 +25,7 @@ flame_damage_fx( damageweapon, e_attacker, pct_damage = 1.0 )
     n_initial_dmg = get_impact_damage( damageweapon ) * pct_damage;
     is_upgraded = damageweapon == "staff_fire_upgraded_zm" || damageweapon == "staff_fire_upgraded2_zm" || damageweapon == "staff_fire_upgraded3_zm";
 
-    if ( is_upgraded && pct_damage > 0.5 )
+    if ( is_upgraded )
     {
         self do_damage_network_safe( e_attacker, self.health, damageweapon, "MOD_BURNED" );
 
@@ -46,4 +46,21 @@ flame_damage_fx( damageweapon, e_attacker, pct_damage = 1.0 )
 
     if ( n_initial_dmg > 0 )
         self do_damage_network_safe( e_attacker, n_initial_dmg, damageweapon, "MOD_BURNED" );
+}
+
+get_impact_damage( damageweapon )
+{
+    switch ( damageweapon )
+    {
+        case "staff_fire_zm":
+            return 2050;
+        case "staff_fire_upgraded_zm":
+        case "staff_fire_upgraded2_zm":
+        case "staff_fire_upgraded3_zm":
+            return 3300;
+        case "one_inch_punch_fire_zm":
+            return 0;
+        default:
+            return 0;
+    }
 }

@@ -235,7 +235,8 @@
 * Get full ammo when initially picked up after upgrading (normally missing one clip)
 * Max ammo no longer fills clip ammo
 * Upgraded: kill on any round
-* Lightning upgraded: damages Panzersoldat
+* Lightning upgraded: charged shots damage Panzersoldat
+* Fire upgraded: charged shots no longer deal additional damage to Panzersoldat
 
 ## Wallbuys
 * Purchasing ammo refills clip ammo
