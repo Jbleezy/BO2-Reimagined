@@ -50,7 +50,7 @@ main()
     replaceFunc(maps\mp\zombies\_zm_weap_riotshield_tomb::init, scripts\zm\replaced\_zm_weap_riotshield_tomb::init);
 	replaceFunc(maps\mp\zombies\_zm_weap_riotshield_tomb::player_damage_shield, scripts\zm\replaced\_zm_weap_riotshield_tomb::player_damage_shield);
     replaceFunc(maps\mp\zombies\_zm_weap_staff_fire::flame_damage_fx, scripts\zm\replaced\_zm_weap_staff_fire::flame_damage_fx);
-    replaceFunc(maps\mp\zombies\_zm_weap_staff_lightning::staff_lightning_ball_damage_over_time, scripts\zm\replaced\_zm_weap_staff_lightning::staff_lightning_ball_damage_over_time);
+    replaceFunc(maps\mp\zombies\_zm_weap_staff_lightning::staff_lightning_ball_kill_zombies, scripts\zm\replaced\_zm_weap_staff_lightning::staff_lightning_ball_kill_zombies);
 }
 
 init()
