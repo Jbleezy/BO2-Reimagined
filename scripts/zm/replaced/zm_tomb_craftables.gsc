@@ -13,6 +13,44 @@
 #include maps\mp\zombies\_zm_equipment;
 #include maps\mp\zm_tomb_craftables;
 
+init_craftables()
+{
+    precachemodel( "p6_zm_tm_quadrotor_stand" );
+    flag_init( "quadrotor_cooling_down" );
+    level.craftable_piece_count = 4;
+    flag_init( "any_crystal_picked_up" );
+    flag_init( "staff_air_zm_enabled" );
+    flag_init( "staff_fire_zm_enabled" );
+    flag_init( "staff_lightning_zm_enabled" );
+    flag_init( "staff_water_zm_enabled" );
+    register_clientfields();
+    add_zombie_craftable( "equip_dieseldrone_zm", &"ZM_TOMB_CRQ", &"ZM_TOMB_CRQ", &"ZM_TOMB_TQ", ::onfullycrafted_quadrotor, 1 );
+    add_zombie_craftable_vox_category( "equip_dieseldrone_zm", "build_dd" );
+    make_zombie_craftable_open( "equip_dieseldrone_zm", "veh_t6_dlc_zm_quadrotor", ( 0, 0, 0 ), ( 0, -4, 10 ) );
+    add_zombie_craftable( "tomb_shield_zm", &"ZM_TOMB_CRRI", undefined, &"ZOMBIE_BOUGHT_RIOT", undefined, 1 );
+    add_zombie_craftable_vox_category( "tomb_shield_zm", "build_zs" );
+    make_zombie_craftable_open( "tomb_shield_zm", "t6_wpn_zmb_shield_dlc4_dmg0_world", vectorscale( ( 0, -1, 0 ), 90.0 ), ( 0, 0, level.riotshield_placement_zoffset ) );
+    add_zombie_craftable( "elemental_staff_fire", &"ZM_TOMB_CRF", &"ZM_TOMB_INS", &"ZM_TOMB_BOF", ::staff_fire_fullycrafted, 1 );
+    add_zombie_craftable_vox_category( "elemental_staff_fire", "fire_staff" );
+    add_zombie_craftable( "elemental_staff_air", &"ZM_TOMB_CRA", &"ZM_TOMB_INS", &"ZM_TOMB_BOA", ::staff_air_fullycrafted, 1 );
+    add_zombie_craftable_vox_category( "elemental_staff_air", "air_staff" );
+    add_zombie_craftable( "elemental_staff_lightning", &"ZM_TOMB_CRL", &"ZM_TOMB_INS", &"ZM_TOMB_BOL", ::staff_lightning_fullycrafted, 1 );
+    add_zombie_craftable_vox_category( "elemental_staff_lightning", "light_staff" );
+    add_zombie_craftable( "elemental_staff_water", &"ZM_TOMB_CRW", &"ZM_TOMB_INS", &"ZM_TOMB_BOW", ::staff_water_fullycrafted, 1 );
+    add_zombie_craftable_vox_category( "elemental_staff_water", "ice_staff" );
+    add_zombie_craftable( "gramophone", &"ZM_TOMB_CRAFT_GRAMOPHONE", &"ZM_TOMB_CRAFT_GRAMOPHONE", &"ZM_TOMB_BOUGHT_GRAMOPHONE", undefined, 0 );
+    add_zombie_craftable_vox_category( "gramophone", "gramophone" );
+    level.zombie_craftable_persistent_weapon = ::tomb_check_crafted_weapon_persistence;
+    level.custom_craftable_validation = ::tomb_custom_craftable_validation;
+    level.zombie_custom_equipment_setup = ::setup_quadrotor_purchase;
+    level thread hide_staff_model();
+    level.quadrotor_status = spawnstruct();
+    level.quadrotor_status.crafted = 0;
+    level.quadrotor_status.picked_up = 0;
+    level.num_staffpieces_picked_up = [];
+    level.n_staffs_crafted = 0;
+}
+
 include_craftables()
 {
     level thread run_craftables_devgui();
@@ -149,6 +187,26 @@ include_craftables()
     level thread maps\mp\zm_tomb_vo::samantha_discourage_think();
     level thread maps\mp\zm_tomb_vo::samantha_encourage_think();
     level thread craftable_add_glow_fx();
+}
+
+onfullycrafted_quadrotor( player )
+{
+    if (is_true(level.quadrotor_status.crafted))
+    {
+        return 1;
+    }
+
+    level.quadrotor_status.crafted = 1;
+    pickup_trig = level.quadrotor_status.pickup_trig;
+    level.quadrotor_status.str_zone = maps\mp\zombies\_zm_zonemgr::get_zone_from_position( pickup_trig.origin, 1 );
+    level.quadrotor_status.pickup_indicator = spawn( "script_model", pickup_trig.model.origin + vectorscale( ( 0, 0, -1 ), 10.0 ) );
+    level.quadrotor_status.pickup_indicator.angles = pickup_trig.model.angles;
+    level.quadrotor_status.pickup_indicator setmodel( "p6_zm_tm_quadrotor_stand" );
+    pickup_trig.model.origin += (0, 0, 6.5);
+    pickup_trig.model.angles += (0, -90, 0);
+
+    level notify( "quest_progressed", player, 1 );
+    return 1;
 }
 
 quadrotor_control_thread()

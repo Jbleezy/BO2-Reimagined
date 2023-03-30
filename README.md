@@ -409,6 +409,8 @@
 
 ### Maxis Drone
 * Added hint strings for purchased, can only be one, and cooling down
+* Buildable table model sits on top of the stand
+* Rotated buildable table model 90 degrees
 * Switches back to correct weapon after deploying
 
 ## Bank
@@ -546,7 +548,7 @@
 * Moved Quick Revive to Speed Cola's location on Borough
 * Moved Speed Cola to its location on Buried
 * Moved Stamin-Up to Vulture Aid's location on Buried
-* Buildables can spawn at Church bench
+* Buildables can spawn at Church buildable table
 * Added better randomization for buildables
 
 #### Maze

@@ -36,8 +36,8 @@ main()
 	replaceFunc(maps\mp\zm_tomb_ee_main_step_2::remove_plinth, scripts\zm\replaced\zm_tomb_ee_main_step_2::remove_plinth);
 	replaceFunc(maps\mp\zm_tomb_ee_main_step_3::fire_link_cooldown, scripts\zm\replaced\zm_tomb_ee_main_step_3::fire_link_cooldown);
     replaceFunc(maps\mp\zm_tomb_challenges::challenges_init, scripts\zm\replaced\zm_tomb_challenges::challenges_init);
+    replaceFunc(maps\mp\zm_tomb_craftables::init_craftables, scripts\zm\replaced\zm_tomb_craftables::init_craftables);
     replaceFunc(maps\mp\zm_tomb_craftables::include_craftables, scripts\zm\replaced\zm_tomb_craftables::include_craftables);
-	replaceFunc(maps\mp\zm_tomb_craftables::quadrotor_control_thread, scripts\zm\replaced\zm_tomb_craftables::quadrotor_control_thread);
     replaceFunc(maps\mp\zm_tomb_dig::init_shovel, scripts\zm\replaced\zm_tomb_dig::init_shovel);
 	replaceFunc(maps\mp\zm_tomb_dig::increment_player_perk_purchase_limit, scripts\zm\replaced\zm_tomb_dig::increment_player_perk_purchase_limit);
     replaceFunc(maps\mp\zm_tomb_tank::players_on_tank_update, scripts\zm\replaced\zm_tomb_tank::players_on_tank_update);
@@ -59,9 +59,6 @@ init()
 	level.zombie_init_done = ::zombie_init_done;
 	level.special_weapon_magicbox_check = ::tomb_special_weapon_magicbox_check;
 	level.custom_magic_box_timer_til_despawn = ::custom_magic_box_timer_til_despawn;
-    level.zombie_craftable_persistent_weapon = scripts\zm\replaced\zm_tomb_craftables::tomb_check_crafted_weapon_persistence;
-    level.custom_craftable_validation = scripts\zm\replaced\zm_tomb_craftables::tomb_custom_craftable_validation;
-    level.zombie_custom_equipment_setup = scripts\zm\replaced\zm_tomb_craftables::setup_quadrotor_purchase;
 
     change_stargate_teleport_return_player_angles();
 
