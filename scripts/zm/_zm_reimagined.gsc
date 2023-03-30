@@ -227,6 +227,7 @@ post_all_players_spawned()
 	level.ta_vaultfee = 0;
 	level.ta_tellerfee = 0;
 	level.weapon_locker_online = 0;
+	level.dont_link_common_wallbuys = 1;
 	level.magicbox_timeout = 9;
 	level.packapunch_timeout = 12;
 	level.perk_purchase_limit = 9;

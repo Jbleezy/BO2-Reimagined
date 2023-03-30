@@ -243,6 +243,7 @@
 * Increased trigger radius
 * Decreased upgraded ammo cost from 4500 to 2500
 * Ammo can be purchased if only alt weapon ammo has been used
+* Purchasing no longer shows the weapon model at other wallbuys of the same weapon
 * Lethal grenade hint string no longer displays "ammo" after purchasing
 
 ## Mystery Box
