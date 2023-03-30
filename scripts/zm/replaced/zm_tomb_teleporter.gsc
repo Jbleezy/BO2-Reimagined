@@ -149,3 +149,58 @@ run_chamber_exit( n_enum )
     e_portal_frame playloopsound( "zmb_teleporter_loop_post", 1 );
     s_portal thread teleporter_radius_think();
 }
+
+teleporter_radius_think( radius = 120.0 )
+{
+    self endon( "teleporter_radius_stop" );
+    radius_sq = radius * radius;
+
+    while ( true )
+    {
+        a_players = getplayers();
+
+        foreach ( e_player in a_players )
+        {
+            dist_sq = distancesquared( e_player.origin, self.origin );
+
+            if ( !is_true(e_player.divetoprone) && dist_sq < radius_sq && !( isdefined( e_player.teleporting ) && e_player.teleporting ) )
+            {
+                if ( e_player getstance() == "prone" )
+                {
+                    e_player setstance( "crouch" );
+                }
+
+                playfx( level._effect["teleport_3p"], self.origin, ( 1, 0, 0 ), ( 0, 0, 1 ) );
+                playsoundatposition( "zmb_teleporter_tele_3d", self.origin );
+                level thread stargate_teleport_player( self.target, e_player );
+            }
+        }
+
+        wait_network_frame();
+    }
+}
+
+stargate_teleport_think()
+{
+    self endon( "death" );
+    level endon( "disable_teleporter_" + self.script_int );
+    e_potal = level.a_teleport_models[self.script_int];
+
+    while ( true )
+    {
+        self.trigger_stub waittill( "trigger", e_player );
+
+        if ( !is_true(e_player.divetoprone) && !( isdefined( e_player.teleporting ) && e_player.teleporting ) )
+        {
+            if ( e_player getstance() == "prone" )
+            {
+                e_player setstance( "crouch" );
+            }
+
+            playfx( level._effect["teleport_3p"], self.origin, ( 1, 0, 0 ), ( 0, 0, 1 ) );
+            playsoundatposition( "zmb_teleporter_tele_3d", self.origin );
+            level notify( "player_teleported", e_player, self.script_int );
+            level thread stargate_teleport_player( self.target, e_player );
+        }
+    }
+}
