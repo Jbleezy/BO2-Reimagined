@@ -8,6 +8,7 @@
 #include scripts\zm\replaced\zm_tomb_quest_elec;
 #include scripts\zm\replaced\zm_tomb_quest_fire;
 #include scripts\zm\replaced\zm_tomb_quest_ice;
+#include scripts\zm\replaced\zm_tomb_capture_zones;
 #include scripts\zm\replaced\zm_tomb_challenges;
 #include scripts\zm\replaced\zm_tomb_craftables;
 #include scripts\zm\replaced\zm_tomb_dig;
@@ -35,6 +36,7 @@ main()
 	replaceFunc(maps\mp\zm_tomb_ee_main_step_2::create_robot_head_trigger, scripts\zm\replaced\zm_tomb_ee_main_step_2::create_robot_head_trigger);
 	replaceFunc(maps\mp\zm_tomb_ee_main_step_2::remove_plinth, scripts\zm\replaced\zm_tomb_ee_main_step_2::remove_plinth);
 	replaceFunc(maps\mp\zm_tomb_ee_main_step_3::fire_link_cooldown, scripts\zm\replaced\zm_tomb_ee_main_step_3::fire_link_cooldown);
+    replaceFunc(maps\mp\zm_tomb_capture_zones::setup_capture_zones, scripts\zm\replaced\zm_tomb_capture_zones::setup_capture_zones);
     replaceFunc(maps\mp\zm_tomb_challenges::challenges_init, scripts\zm\replaced\zm_tomb_challenges::challenges_init);
     replaceFunc(maps\mp\zm_tomb_craftables::init_craftables, scripts\zm\replaced\zm_tomb_craftables::init_craftables);
     replaceFunc(maps\mp\zm_tomb_craftables::include_craftables, scripts\zm\replaced\zm_tomb_craftables::include_craftables);

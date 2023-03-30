@@ -565,11 +565,15 @@
 * Shovels automatically picked up
 * Records automatically picked up
 * Gramophone initially spawns at Excavation Site gramophone table
-* Teleporters stay active after picking up gramophone
-* Teleporters in The Crazy Place become active when placing gramophone
-* Players face away from the teleporters when returning from The Crazy Place
-* Players can teleport while prone
 * Musical parts no longer show on HUD
+* Generators: increased capture reward points from 100 to 200
+* Generators: always give back refund points if player was in the generator zone when captured
+* Generators: recapture round zombies only drop Max Ammo if killed before taking first generator
+* Generators: fixed an issue where recapture sound and fx would play twice
+* Teleporters: stay active after picking up gramophone
+* Teleporters: placing gramophone activates The Crazy Place teleporters
+* Teleporters: players face away from the teleporters when returning from The Crazy Place
+* Teleporters: players can teleport while prone
 * Der Wunderfizz: increased cost from 1500 to 2500
 * Der Wunderfizz: all perks have an equal chance of being obtained
 * Rituals of the Ancients: spend points challenge reward changed from Double Tap perk to a random perk that the player does not have (perk does not change if reward is reopened)
