@@ -564,6 +564,7 @@
 * Gramophone initially spawns at Excavation Site gramophone table
 * Teleporters stay active after picking up gramophone
 * Teleporters in The Crazy Place become active when placing gramophone
+* Players face away from the teleporters when returning from The Crazy Place
 * Musical parts no longer show on HUD
 * Der Wunderfizz: increased cost from 1500 to 2500
 * Der Wunderfizz: all perks have an equal chance of being obtained

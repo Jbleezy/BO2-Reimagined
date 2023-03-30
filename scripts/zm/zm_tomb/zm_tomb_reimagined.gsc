@@ -63,6 +63,8 @@ init()
     level.custom_craftable_validation = scripts\zm\replaced\zm_tomb_craftables::tomb_custom_craftable_validation;
     level.zombie_custom_equipment_setup = scripts\zm\replaced\zm_tomb_craftables::setup_quadrotor_purchase;
 
+    change_stargate_teleport_return_player_angles();
+
 	level thread increase_solo_door_prices();
 	level thread zombie_blood_dig_changes();
 	level thread updatecraftables();
@@ -96,6 +98,33 @@ tomb_special_weapon_magicbox_check(weapon)
 		}
 	}
 	return 1;
+}
+
+change_stargate_teleport_return_player_angles()
+{
+    struct = getstructarray( "air_teleport_return", "targetname" );
+    foreach (pos in struct)
+    {
+        pos.angles = (0, -120, 0);
+    }
+
+    struct = getstructarray( "elec_teleport_return", "targetname" );
+    foreach (pos in struct)
+    {
+        pos.angles = (0, 0, 0);
+    }
+
+    struct = getstructarray( "fire_teleport_return", "targetname" );
+    foreach (pos in struct)
+    {
+        pos.angles = (0, -130, 0);
+    }
+
+    struct = getstructarray( "ice_teleport_return", "targetname" );
+    foreach (pos in struct)
+    {
+        pos.angles = (0, -110, 0);
+    }
 }
 
 increase_solo_door_prices()
