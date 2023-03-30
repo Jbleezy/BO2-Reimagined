@@ -315,7 +315,34 @@ watch_for_player_pickup_staff()
             self.charger.full = 1;
             maps\mp\zm_tomb_craftables::set_player_staff( self.weapname, player );
         }
+        else
+        {
+            self.trigger thread swap_staff_hint_charger(player);
+        }
     }
+}
+
+can_pickup_staff()
+{
+    b_has_staff = self player_has_staff();
+    b_staff_equipped = issubstr( self getcurrentweapon(), "staff" ) && self getcurrentweapon() != "staff_revive_zm";
+
+    return !b_has_staff || b_staff_equipped;
+}
+
+swap_staff_hint_charger(player)
+{
+    num = player getentitynumber();
+
+    self.playertrigger[num] notify("swap_staff_hint_charger");
+    self.playertrigger[num] endon("swap_staff_hint_charger");
+    self.playertrigger[num] endon("death");
+
+    self.playertrigger[num] sethintstring(&"ZM_TOMB_OSO");
+
+    wait 3;
+
+    self.playertrigger[num] sethintstring(self.hint_string);
 }
 
 staff_upgraded_reload()

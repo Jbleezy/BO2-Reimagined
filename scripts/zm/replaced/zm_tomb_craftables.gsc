@@ -337,8 +337,11 @@ tomb_custom_craftable_validation( player )
     if ( !( isdefined( level.craftables_crafted[self.stub.equipname] ) && level.craftables_crafted[self.stub.equipname] ) )
         return 1;
 
-    if ( !player can_pickup_staff() )
+    if ( !player scripts\zm\replaced\zm_tomb_main_quest::can_pickup_staff() )
+    {
+        self thread swap_staff_hint_craftable();
         return 0;
+    }
 
 	e_upgraded_staff = maps\mp\zm_tomb_craftables::get_staff_info_from_weapon_name( self.stub.weaponname );
 
@@ -357,4 +360,17 @@ tomb_custom_craftable_validation( player )
     }
 
     return 1;
+}
+
+swap_staff_hint_craftable()
+{
+    self notify("swap_staff_hint_craftable");
+    self endon("swap_staff_hint_craftable");
+    self endon("death");
+
+    self sethintstring(&"ZM_TOMB_OSO");
+
+    wait 3;
+
+    self sethintstring(self.stub.hint_string);
 }
