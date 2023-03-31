@@ -180,6 +180,9 @@
 * Can be repurchased
 * Increased max amount that can be placed from 12 to 20
 
+### One Inch Punch
+* Upgraded: elemental punch changes based on which staff the player currently has
+
 ### Ray Gun
 * Unupgraded: increased impact damage from 1000 to 1500 (same as max splash damage)
 * Upgraded: increased impact damage from 1000 to 2000 (same as max splash damage)
