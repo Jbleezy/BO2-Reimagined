@@ -29,7 +29,10 @@ flame_damage_fx( damageweapon, e_attacker, pct_damage = 1.0 )
     {
         self do_damage_network_safe( e_attacker, self.health, damageweapon, "MOD_BURNED" );
 
-        self thread zombie_gib_guts();
+        if ( cointoss() )
+            self thread zombie_gib_all();
+        else
+            self thread zombie_gib_guts();
 
         return;
     }
