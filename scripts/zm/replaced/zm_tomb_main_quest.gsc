@@ -295,8 +295,17 @@ watch_for_player_pickup_staff()
             a_weapons = player getweaponslistprimaries();
             n_max_other_weapons = get_player_weapon_limit( player ) - 1;
 
-            if ( a_weapons.size > n_max_other_weapons || issubstr( weapon_drop, "staff" ) )
+            if ( issubstr( weapon_drop, "staff" ) )
+            {
+                n_index = get_staff_enum_from_element_weapon( weapon_drop );
+                e_staff_standard = get_staff_info_from_element_index( n_index );
+                e_staff_standard_upgraded = e_staff_standard.upgrade;
+                e_staff_standard_upgraded.charge_trigger notify( "trigger", player );
+            }
+            else if ( a_weapons.size > n_max_other_weapons )
+            {
                 player takeweapon( weapon_drop );
+            }
 
             player thread watch_staff_ammo_reload();
             self ghost();
@@ -320,6 +329,28 @@ watch_for_player_pickup_staff()
             self.trigger thread swap_staff_hint_charger(player);
         }
     }
+}
+
+get_staff_enum_from_element_weapon(weapon_drop)
+{
+    if (isSubStr(weapon_drop, "fire"))
+    {
+        return 1;
+    }
+    else if (isSubStr(weapon_drop, "air"))
+    {
+        return 2;
+    }
+    else if (isSubStr(weapon_drop, "lightning"))
+    {
+        return 3;
+    }
+    else if (isSubStr(weapon_drop, "water"))
+    {
+        return 4;
+    }
+
+    return 1;
 }
 
 can_pickup_staff()

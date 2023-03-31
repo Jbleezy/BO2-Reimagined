@@ -230,6 +230,7 @@
 * Upgrade only requires collecting souls in The Crazy Place
 * Can no longer collect souls in The Crazy Place from staff kills
 * Can collect souls in The Crazy Place after upgrading to fill 5% of max ammo per soul
+* Picking up a staff at The Crazy Place while holding a staff places the other staff at The Crazy Place
 * Fixed triggers for inserting and picking up staffs in The Crazy Place
 * Fixed being able to carry multiple staffs by picking up a staff with staff revive weapon out
 * Get full ammo when initially picked up after upgrading (normally missing one clip)
