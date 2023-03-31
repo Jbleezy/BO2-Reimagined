@@ -251,7 +251,7 @@
 * Lethal grenade hint string no longer displays "ammo" after purchasing
 
 ## Mystery Box
-* Players will now get every weapon they can before getting duplicates
+* Players will get every weapon they can before getting duplicates
 * Decreased weapon pickup time from 12 seconds to 9 seconds
 * Moves to new location instantly
 * Special sound no longer plays when obtaining the Ray Gun
@@ -578,15 +578,17 @@
 * Der Wunderfizz: increased cost from 1500 to 2500
 * Der Wunderfizz: all perks have an equal chance of being obtained
 * Rituals of the Ancients: spend points challenge reward changed from Double Tap perk to a random perk that the player does not have (perk does not change if reward is reopened)
-* Soul boxes: decreased kill requirement from 30 to 20
+* Soul boxes: decreased number of souls to close from 30 to 20
 * Dig spots: decreased number of digs to obtain golden shovel from 30 to 20
 * Dig spots: changed number of digs to obtain golden helmet to 40 (normally 5% chance to obtain after obtaining golden shovel)
 * Perk bottle dig spots: give random perk
 * Perk bottle dig spots: visible and diggable without Zombie Blood
 * Perk bottle dig spots: increased number of rounds for next dig spot to spawn from 1 to 4
-* Ascend from darkness quest step: staffs can be placed at any staff holder
-* Ascend from darkness quest step: fixed an issue where staffs were able to be picked up at their build location when placed in the staff holders
-* Rain fire quest step: button no longer deactivates
+* Quest (ascend from darkness step): staffs can be placed at any staff holder
+* Quest (ascend from darkness step): fixed an issue where staffs were able to be picked up at their build location when placed in the staff holders
+* Quest (rain fire step): button no longer deactivates
+* Quest (raise hell step): zombies in The Crazy Place get knocked down during the screen flash after collecting all souls
+* Quest (freedom step): teleport trigger can be triggered without looking at it
 
 ## Game Modes
 
