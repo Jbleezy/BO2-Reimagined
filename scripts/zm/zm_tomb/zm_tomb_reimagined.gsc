@@ -12,6 +12,7 @@
 #include scripts\zm\replaced\zm_tomb_challenges;
 #include scripts\zm\replaced\zm_tomb_craftables;
 #include scripts\zm\replaced\zm_tomb_dig;
+#include scripts\zm\replaced\zm_tomb_giant_robot;
 #include scripts\zm\replaced\zm_tomb_tank;
 #include scripts\zm\replaced\zm_tomb_teleporter;
 #include scripts\zm\replaced\_zm_ai_mechz;
@@ -42,6 +43,7 @@ main()
     replaceFunc(maps\mp\zm_tomb_craftables::include_craftables, scripts\zm\replaced\zm_tomb_craftables::include_craftables);
     replaceFunc(maps\mp\zm_tomb_dig::init_shovel, scripts\zm\replaced\zm_tomb_dig::init_shovel);
 	replaceFunc(maps\mp\zm_tomb_dig::increment_player_perk_purchase_limit, scripts\zm\replaced\zm_tomb_dig::increment_player_perk_purchase_limit);
+    replaceFunc(maps\mp\zm_tomb_giant_robot::robot_cycling, scripts\zm\replaced\zm_tomb_giant_robot::robot_cycling);
     replaceFunc(maps\mp\zm_tomb_tank::players_on_tank_update, scripts\zm\replaced\zm_tomb_tank::players_on_tank_update);
     replaceFunc(maps\mp\zm_tomb_teleporter::teleporter_init, scripts\zm\replaced\zm_tomb_teleporter::teleporter_init);
     replaceFunc(maps\mp\zombies\_zm_ai_mechz::mechz_set_starting_health, scripts\zm\replaced\_zm_ai_mechz::mechz_set_starting_health);
