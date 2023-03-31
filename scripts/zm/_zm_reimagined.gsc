@@ -2258,6 +2258,13 @@ change_weapon_ammo(weapon)
 			max_ammo = 450;
 		}
 	}
+	else if (isSubStr(weapon, "mp44"))
+	{
+		if (is_weapon_upgraded(weapon))
+		{
+			max_ammo = 300;
+		}
+	}
 	else if (isSubStr(weapon, "slipgun"))
 	{
 		max_ammo = 20;

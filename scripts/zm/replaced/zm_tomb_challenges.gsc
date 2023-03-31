@@ -33,6 +33,35 @@ tomb_challenges_add_stats()
     add_stat( "zc_boxes_filled", 1, &"ZM_TOMB_CHT", n_boxes_filled, undefined, ::reward_one_inch_punch, ::init_box_footprints );
 }
 
+reward_packed_weapon( player, s_stat )
+{
+    if ( !isdefined( s_stat.str_reward_weapon ) )
+    {
+        a_weapons = array( "scar_zm", "galil_zm", "mp44_zm" );
+        s_stat.str_reward_weapon = maps\mp\zombies\_zm_weapons::get_upgrade_weapon( random( a_weapons ) );
+    }
+
+    m_weapon = spawn( "script_model", self.origin );
+    m_weapon.angles = self.angles + vectorscale( ( 0, 1, 0 ), 180.0 );
+    m_weapon playsound( "zmb_spawn_powerup" );
+    m_weapon playloopsound( "zmb_spawn_powerup_loop", 0.5 );
+    str_model = getweaponmodel( s_stat.str_reward_weapon );
+    options = player maps\mp\zombies\_zm_weapons::get_pack_a_punch_weapon_options( s_stat.str_reward_weapon );
+    m_weapon useweaponmodel( s_stat.str_reward_weapon, str_model, options );
+    wait_network_frame();
+
+    if ( !reward_rise_and_grab( m_weapon, 50, 2, 2, 10 ) )
+        return false;
+
+    player maps\mp\zombies\_zm_weapons::weapon_give( s_stat.str_reward_weapon );
+
+    player switchtoweapon( s_stat.str_reward_weapon );
+    m_weapon stoploopsound( 0.1 );
+    player playsound( "zmb_powerup_grabbed" );
+    m_weapon delete();
+    return true;
+}
+
 reward_random_perk( player, s_stat )
 {
 	if (!isDefined(player.tomb_reward_perk))

@@ -153,6 +153,9 @@
 * Increased damage by 100%
 * Removed ADS spread
 
+### STG-44
+* Upgraded: decreased stock ammo from 330 to 300
+
 ### Type 25
 * Decreased recoil
 
