@@ -432,3 +432,113 @@ swap_staff_hint_craftable()
 
     self sethintstring(self.stub.hint_string);
 }
+
+track_staff_weapon_respawn( player )
+{
+    self notify( "kill_track_staff_weapon_respawn" );
+    self endon( "kill_track_staff_weapon_respawn" );
+    player endon( "disconnect" );
+
+    self thread track_staff_weapon_respawn_player_disconnect_monitor( player );
+
+    s_elemental_staff = get_staff_info_from_weapon_name( self.weaponname, 1 );
+    s_upgraded_staff = s_elemental_staff.upgrade;
+
+    if ( !isdefined( self.base_weaponname ) )
+        self.base_weaponname = s_elemental_staff.weapname;
+
+    flag_clear( self.base_weaponname + "_enabled" );
+
+    for ( has_weapon = 0; isalive( player ); has_weapon = 0 )
+    {
+        if ( isdefined( s_elemental_staff.charger.is_inserted ) && s_elemental_staff.charger.is_inserted || isdefined( s_upgraded_staff.charger.is_inserted ) && s_upgraded_staff.charger.is_inserted || isdefined( s_upgraded_staff.ee_in_use ) && s_upgraded_staff.ee_in_use )
+            has_weapon = 1;
+        else
+        {
+            weapons = player getweaponslistprimaries();
+
+            foreach ( weapon in weapons )
+            {
+                n_melee_element = 0;
+
+                if ( weapon == self.base_weaponname )
+                {
+                    s_elemental_staff.prev_ammo_stock = player getweaponammostock( weapon );
+                    s_elemental_staff.prev_ammo_clip = player getweaponammoclip( weapon );
+                    has_weapon = 1;
+                }
+                else if ( weapon == s_upgraded_staff.weapname )
+                {
+                    s_upgraded_staff.prev_ammo_stock = player getweaponammostock( weapon );
+                    s_upgraded_staff.prev_ammo_clip = player getweaponammoclip( weapon );
+                    has_weapon = 1;
+                    n_melee_element = s_upgraded_staff.enum;
+                }
+
+                if ( player hasweapon( "staff_revive_zm" ) )
+                {
+                    s_upgraded_staff.revive_ammo_stock = player getweaponammostock( "staff_revive_zm" );
+                    s_upgraded_staff.revive_ammo_clip = player getweaponammoclip( "staff_revive_zm" );
+                }
+
+                if ( has_weapon )
+                {
+                    cur_weapon = player getcurrentweapon();
+                    cur_melee_weapon = player get_player_melee_weapon();
+
+                    if ( !issubstr( cur_melee_weapon, "one_inch_punch" ) && n_melee_element != 0 )
+                    {
+                        if ( cur_weapon != weapon && ( isdefined( player.use_staff_melee ) && player.use_staff_melee ) )
+                        {
+                            player update_staff_accessories( 0 );
+                            continue;
+                        }
+
+                        if ( cur_weapon == weapon && !( isdefined( player.use_staff_melee ) && player.use_staff_melee ) )
+                            player update_staff_accessories( n_melee_element );
+                    }
+                }
+            }
+        }
+
+        if ( !has_weapon )
+            break;
+
+        wait 0.5;
+    }
+
+    b_staff_in_use = 0;
+    a_players = getplayers();
+
+    foreach ( check_player in a_players )
+    {
+        weapons = check_player getweaponslistprimaries();
+
+        foreach ( weapon in weapons )
+        {
+            if ( weapon == self.base_weaponname || weapon == s_upgraded_staff.weapname )
+                b_staff_in_use = 1;
+        }
+    }
+
+    if ( !b_staff_in_use )
+    {
+        model = getent( "craftable_" + self.base_weaponname, "targetname" );
+        model show();
+        flag_set( self.base_weaponname + "_enabled" );
+    }
+
+    clear_player_staff( self.base_weaponname, player );
+}
+
+track_staff_weapon_respawn_player_disconnect_monitor( player )
+{
+    self notify( "track_staff_weapon_respawn_player_disconnect_monitor" );
+    self endon( "track_staff_weapon_respawn_player_disconnect_monitor" );
+
+    player waittill( "disconnect" );
+
+    model = getent( "craftable_" + self.base_weaponname, "targetname" );
+    model show();
+    flag_set( self.base_weaponname + "_enabled" );
+}
