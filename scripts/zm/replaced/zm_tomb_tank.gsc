@@ -56,3 +56,15 @@ players_on_tank_update()
         wait 0.05;
     }
 }
+
+wait_for_tank_cooldown()
+{
+    self thread snd_fuel();
+
+    self.n_cooldown_timer = 30;
+
+    wait( self.n_cooldown_timer );
+    level notify( "stp_cd" );
+    self playsound( "zmb_tank_ready" );
+    self playloopsound( "zmb_tank_idle" );
+}

@@ -562,16 +562,17 @@
 
 ### Origins
 * Door prices in solo cost the same as in coop
-* Players can go prone on the tank
 * Shovels automatically picked up
 * Records automatically picked up
 * Gramophone initially spawns at Excavation Site gramophone table
 * Musical parts no longer show on HUD
-* Giant Robots: each robot has an openable foot when 3 robots are active
 * Generators: increased capture reward points from 100 to 200
 * Generators: always give back refund points if player was in the generator zone when captured
 * Generators: recapture round zombies only drop Max Ammo if killed before taking first generator
 * Generators: fixed an issue where recapture sound and fx would play twice
+* Giant Robots: each robot has an openable foot when 3 robots are active
+* Tank: players can go prone
+* Tank: changed cooldown to 30 seconds (normally 2-120 seconds depending on how long players were on the tank)
 * Teleporters: stay active after picking up gramophone
 * Teleporters: placing gramophone activates The Crazy Place teleporters
 * Teleporters: players face away from the teleporters when returning from The Crazy Place
