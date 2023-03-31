@@ -12,7 +12,16 @@ zombie_blood_powerup( m_powerup, e_player )
     e_player endon( "disconnect" );
     e_player thread powerup_vo( "zombie_blood" );
     e_player._show_solo_hud = 1;
-    e_player.zombie_vars["zombie_powerup_zombie_blood_time"] = 30;
+
+    if (is_true(e_player.zombie_vars["zombie_powerup_zombie_blood_on"]))
+    {
+        e_player.zombie_vars["zombie_powerup_zombie_blood_time"] += 30;
+    }
+    else
+    {
+        e_player.zombie_vars["zombie_powerup_zombie_blood_time"] = 30;
+    }
+
     e_player.zombie_vars["zombie_powerup_zombie_blood_on"] = 1;
     level notify( "player_zombie_blood", e_player );
     maps\mp\_visionset_mgr::vsmgr_activate( "visionset", "zm_powerup_zombie_blood_visionset", e_player );

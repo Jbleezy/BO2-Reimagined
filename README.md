@@ -318,12 +318,7 @@
 * Decreased weapon pickup time from 15 seconds to 12 seconds
 
 ## Powerups
-
-### Insta Kill
-* Grabbing while already active adds to timer instead of resetting timer
-
-### Double Points
-* Grabbing while already active adds to timer instead of resetting timer
+* Grabbing time based powerups that are already active add to timer instead of resetting timer
 
 ### Nuke
 * Kills all zombies instantly
