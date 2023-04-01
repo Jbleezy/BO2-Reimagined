@@ -3541,32 +3541,7 @@ additionalprimaryweapon_restore_weapons()
 		{
 			pap_triggers = getentarray( "specialty_weapupgrade", "script_noteworthy" );
 
-			give_wep = 1;
-			if ( isDefined( self ) && self maps\mp\zombies\_zm_weapons::has_weapon_or_upgrade( self.a_saved_weapon["name"] ) )
-			{
-				give_wep = 0;
-			}
-			else if ( !maps\mp\zombies\_zm_weapons::limited_weapon_below_quota( self.a_saved_weapon["name"], self, pap_triggers ) )
-			{
-				give_wep = 0;
-			}
-			else if ( !self maps\mp\zombies\_zm_weapons::player_can_use_content( self.a_saved_weapon["name"] ) )
-			{
-				give_wep = 0;
-			}
-			else if ( isDefined( level.custom_magic_box_selection_logic ) )
-			{
-				if ( !( [[ level.custom_magic_box_selection_logic ]]( self.a_saved_weapon["name"], self, pap_triggers ) ) )
-				{
-					give_wep = 0;
-				}
-			}
-			else if ( isDefined( self ) && isDefined( level.special_weapon_magicbox_check ) )
-			{
-				give_wep = self [[ level.special_weapon_magicbox_check ]]( self.a_saved_weapon["name"] );
-			}
-
-			if (give_wep)
+			if (additionalprimaryweapon_canplayerreceiveweapon(self, self.a_saved_weapon["name"], pap_triggers))
 			{
 				current_wep = self getCurrentWeapon();
 				self maps\mp\zombies\_zm_weapons::weapondata_give(self.a_saved_weapon);
@@ -3576,6 +3551,47 @@ additionalprimaryweapon_restore_weapons()
 			self.a_saved_weapon = undefined;
 		}
 	}
+}
+
+additionalprimaryweapon_canplayerreceiveweapon( player, weapon, pap_triggers )
+{
+	if ( isDefined( player ) && self maps\mp\zombies\_zm_weapons::has_weapon_or_upgrade( weapon ) )
+	{
+		return 0;
+	}
+
+	if ( !maps\mp\zombies\_zm_weapons::limited_weapon_below_quota( weapon, player, pap_triggers ) )
+	{
+		return 0;
+	}
+
+	if ( !player maps\mp\zombies\_zm_weapons::player_can_use_content( weapon ) )
+	{
+		return 0;
+	}
+
+	if ( isDefined( level.custom_magic_box_selection_logic ) )
+	{
+		if ( !( [[ level.custom_magic_box_selection_logic ]]( weapon, player, pap_triggers ) ) )
+		{
+			return 0;
+		}
+	}
+
+	if ( isDefined( player ) && isDefined( level.special_weapon_magicbox_check ) )
+	{
+		if ( !player [[ level.special_weapon_magicbox_check ]]( weapon ) )
+		{
+			return 0;
+		}
+	}
+
+	if ( isSubStr( weapon, "staff" ) )
+	{
+		return 0;
+	}
+
+	return 1;
 }
 
 additionalprimaryweapon_indicator()
