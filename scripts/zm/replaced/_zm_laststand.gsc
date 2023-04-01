@@ -154,7 +154,7 @@ laststand_clean_up_on_disconnect( playerbeingrevived, revivergun )
 	self maps\mp\zombies\_zm_laststand::revive_give_back_weapons( revivergun );
 }
 
-laststand_clean_up_reviving_any( playerbeingrevived ) //checked changed to match cerberus output
+laststand_clean_up_reviving_any( playerbeingrevived )
 {
 	self endon( "do_revive_ended_normally" );
 

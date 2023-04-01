@@ -508,14 +508,14 @@
 ### Mob of the Dead
 * 1 afterlife max in solo
 * Entering afterlife no longer takes 2 additional seconds if the player had Electric Cherry
-* Acid Trap kills on any round (normally stops killing after round 158 on PC)
-* Tower Trap kills on any round in 1 shot
-* Upgraded Tower Trap kills on any round in 1-2 shots
-* Upgraded Tower Trap stays upgraded until the end of the round
 * Plane parts are shared in coop
 * Plane parts must be all acquired to craft
 * Plane no longer has to be refueled after first use
 * Key no longer shows on HUD
+* Acid Trap kills on any round (normally stops killing after round 158 on PC)
+* Tower Trap kills on any round in 1 shot
+* Upgraded Tower Trap kills on any round in 1-2 shots
+* Upgraded Tower Trap stays upgraded until the end of the round
 * Players no longer respawn in the Acid Trap
 * Zombies spawn in the Docks zone when in the Docks Gates zone
 * Zombies spawn in the Docks Gates zone when in the Docks zone

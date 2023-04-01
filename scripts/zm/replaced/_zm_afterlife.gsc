@@ -162,3 +162,143 @@ afterlife_fake_death()
     playfx( level._effect["afterlife_enter"], self.origin );
     self freezecontrols( 1 );
 }
+
+afterlife_revive_do_revive( playerbeingrevived, revivergun )
+{
+    assert( self is_reviving_afterlife( playerbeingrevived ) );
+    revivetime = 3;
+    playloop = 0;
+
+    if ( isdefined( self.afterlife ) && self.afterlife )
+    {
+        playloop = 1;
+        revivetime = 1;
+    }
+
+    timer = 0;
+    revived = 0;
+    playerbeingrevived.revivetrigger.beingrevived = 1;
+    playerbeingrevived.revive_hud settext( &"GAME_PLAYER_IS_REVIVING_YOU", self );
+    playerbeingrevived revive_hud_show_n_fade( 3.0 );
+    playerbeingrevived.revivetrigger sethintstring( "" );
+
+    if ( isplayer( playerbeingrevived ) )
+	{
+		playerbeingrevived startrevive( self );
+	}
+
+	if ( !isDefined( playerbeingrevived.beingrevivedprogressbar ) )
+	{
+		playerbeingrevived.beingrevivedprogressbar = playerbeingrevived createprimaryprogressbar();
+        playerbeingrevived.beingrevivedprogressbar setpoint("CENTER", undefined, level.primaryprogressbarx, -1 * level.primaryprogressbary);
+        playerbeingrevived.beingrevivedprogressbar.bar.color = (0.5, 0.5, 1);
+        playerbeingrevived.beingrevivedprogressbar.hidewheninmenu = 1;
+        playerbeingrevived.beingrevivedprogressbar.bar.hidewheninmenu = 1;
+        playerbeingrevived.beingrevivedprogressbar.barframe.hidewheninmenu = 1;
+		playerbeingrevived.beingrevivedprogressbar thread scripts\zm\_zm_reimagined::destroy_on_intermission();
+	}
+
+    if ( !isdefined( self.reviveprogressbar ) )
+	{
+		self.reviveprogressbar = self createprimaryprogressbar();
+		self.reviveprogressbar.bar.color = (0.5, 0.5, 1);
+		self.reviveprogressbar thread scripts\zm\_zm_reimagined::destroy_on_intermission();
+	}
+
+    if ( !isdefined( self.revivetexthud ) )
+        self.revivetexthud = newclienthudelem( self );
+
+    self thread revive_clean_up_on_gameover();
+    self thread laststand_clean_up_on_disconnect( playerbeingrevived, revivergun );
+
+    if ( !isdefined( self.is_reviving_any ) )
+        self.is_reviving_any = 0;
+
+    self.is_reviving_any++;
+    self thread laststand_clean_up_reviving_any( playerbeingrevived );
+	self.reviveprogressbar updatebar( 0.01, 1 / revivetime );
+    playerbeingrevived.beingrevivedprogressbar updatebar( 0.01, 1 / revivetime );
+    self.revivetexthud.alignx = "center";
+    self.revivetexthud.aligny = "middle";
+    self.revivetexthud.horzalign = "center";
+    self.revivetexthud.vertalign = "bottom";
+    self.revivetexthud.y = -113;
+
+    if ( self issplitscreen() )
+        self.revivetexthud.y = -347;
+
+    self.revivetexthud.foreground = 1;
+    self.revivetexthud.font = "default";
+    self.revivetexthud.fontscale = 1.8;
+    self.revivetexthud.alpha = 1;
+    self.revivetexthud.color = ( 1, 1, 1 );
+    self.revivetexthud.hidewheninmenu = 1;
+
+    if ( self maps\mp\zombies\_zm_pers_upgrades_functions::pers_revive_active() )
+        self.revivetexthud.color = ( 0.5, 0.5, 1.0 );
+
+    self.revivetexthud settext( &"GAME_REVIVING" );
+    self thread check_for_failed_revive( playerbeingrevived );
+    e_fx = spawn( "script_model", playerbeingrevived.revivetrigger.origin );
+    e_fx setmodel( "tag_origin" );
+    e_fx thread revive_fx_clean_up_on_disconnect( playerbeingrevived );
+    playfxontag( level._effect["afterlife_leave"], e_fx, "tag_origin" );
+
+    if ( isdefined( playloop ) && playloop )
+        e_fx playloopsound( "zmb_afterlife_reviving", 0.05 );
+
+    while ( self is_reviving_afterlife( playerbeingrevived ) )
+    {
+        wait 0.05;
+        timer += 0.05;
+
+        if ( self player_is_in_laststand() )
+            break;
+
+        if ( isdefined( playerbeingrevived.revivetrigger.auto_revive ) && playerbeingrevived.revivetrigger.auto_revive == 1 )
+            break;
+
+        if ( timer >= revivetime )
+        {
+            revived = 1;
+            break;
+        }
+    }
+
+    e_fx delete();
+
+	if ( isDefined( playerbeingrevived.beingrevivedprogressbar ) )
+	{
+		playerbeingrevived.beingrevivedprogressbar destroyelem();
+	}
+
+    if ( isdefined( self.reviveprogressbar ) )
+	{
+		self.reviveprogressbar destroyelem();
+	}
+
+    if ( isdefined( self.revivetexthud ) )
+	{
+		self.revivetexthud destroy();
+	}
+
+    if ( isdefined( playerbeingrevived.revivetrigger.auto_revive ) && playerbeingrevived.revivetrigger.auto_revive == 1 )
+    {
+
+    }
+    else if ( !revived )
+    {
+        if ( isplayer( playerbeingrevived ) )
+            playerbeingrevived stoprevive( self );
+    }
+
+    playerbeingrevived.revivetrigger sethintstring( &"GAME_BUTTON_TO_REVIVE_PLAYER" );
+    playerbeingrevived.revivetrigger.beingrevived = 0;
+    self notify( "do_revive_ended_normally" );
+    self.is_reviving_any--;
+
+    if ( !revived )
+        playerbeingrevived thread checkforbleedout( self );
+
+    return revived;
+}
