@@ -440,12 +440,12 @@ health_bar_hud()
 
 	while (1)
 	{
-		if(isDefined(self.e_afterlife_corpse))
+		if (is_true(self.afterlife))
 		{
 			hud hideelem();
 			hud_text hideelem();
 
-			while(isDefined(self.e_afterlife_corpse))
+			while (is_true(self.afterlife))
 			{
 				wait 0.05;
 			}
