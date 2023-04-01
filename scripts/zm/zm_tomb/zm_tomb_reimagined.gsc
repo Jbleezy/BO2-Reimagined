@@ -8,6 +8,7 @@
 #include scripts\zm\replaced\zm_tomb_quest_elec;
 #include scripts\zm\replaced\zm_tomb_quest_fire;
 #include scripts\zm\replaced\zm_tomb_quest_ice;
+#include scripts\zm\replaced\zm_tomb_ee_main;
 #include scripts\zm\replaced\zm_tomb_ee_main_step_2;
 #include scripts\zm\replaced\zm_tomb_ee_main_step_3;
 #include scripts\zm\replaced\zm_tomb_ee_main_step_8;
@@ -39,6 +40,7 @@ main()
 	replaceFunc(maps\mp\zm_tomb_quest_elec::electric_puzzle_1_run, scripts\zm\replaced\zm_tomb_quest_elec::electric_puzzle_1_run);
 	replaceFunc(maps\mp\zm_tomb_quest_fire::fire_puzzle_1_run, scripts\zm\replaced\zm_tomb_quest_fire::fire_puzzle_1_run);
 	replaceFunc(maps\mp\zm_tomb_quest_ice::ice_puzzle_1_run, scripts\zm\replaced\zm_tomb_quest_ice::ice_puzzle_1_run);
+    replaceFunc(maps\mp\zm_tomb_ee_main::all_staffs_inserted_in_puzzle_room, scripts\zm\replaced\zm_tomb_ee_main::all_staffs_inserted_in_puzzle_room);
 	replaceFunc(maps\mp\zm_tomb_ee_main_step_2::create_robot_head_trigger, scripts\zm\replaced\zm_tomb_ee_main_step_2::create_robot_head_trigger);
 	replaceFunc(maps\mp\zm_tomb_ee_main_step_2::remove_plinth, scripts\zm\replaced\zm_tomb_ee_main_step_2::remove_plinth);
 	replaceFunc(maps\mp\zm_tomb_ee_main_step_3::fire_link_cooldown, scripts\zm\replaced\zm_tomb_ee_main_step_3::fire_link_cooldown);
