@@ -380,3 +380,28 @@ recapture_round_start()
     flag_clear( "recapture_event_in_progress" );
     flag_clear( "generator_under_attack" );
 }
+
+magic_box_stub_update_prompt( player )
+{
+    self setcursorhint( "HINT_NOICON" );
+
+    if ( !self trigger_visible_to_player( player ) )
+        return false;
+
+    self.stub.hint_parm1 = undefined;
+
+    if ( isdefined( self.stub.trigger_target.grab_weapon_hint ) && self.stub.trigger_target.grab_weapon_hint )
+        self.stub.hint_string = &"ZOMBIE_TRADE_WEAPON";
+    else if ( !level.zone_capture.zones[self.stub.zone] ent_flag( "player_controlled" ) )
+    {
+        self.stub.hint_string = &"ZM_TOMB_ZC";
+        return false;
+    }
+    else
+    {
+        self.stub.hint_parm1 = self.stub.trigger_target.zombie_cost;
+        self.stub.hint_string = get_hint_string( self, "default_treasure_chest" );
+    }
+
+    return true;
+}

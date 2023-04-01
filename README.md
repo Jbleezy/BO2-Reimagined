@@ -410,6 +410,9 @@
 * Changed player head chop damage to 50 (normally instantly kills without Juggernog or deals 15 damage with Juggernog)
 * Changed player body chop damage to 25 (normally deals 75 damage to torso or 37 damage to feet)
 
+### Blundergat Upgrade
+* Buildable table trigger requires look at
+
 ### Maxis Drone
 * Added hint strings for purchased, can only be one, and cooling down
 * Buildable table model sits on top of the stand
@@ -580,6 +583,7 @@
 * Teleporters: placing gramophone activates The Crazy Place teleporters
 * Teleporters: players face away from the teleporters when returning from The Crazy Place
 * Teleporters: players can teleport while prone
+* Mystery Box: uses the same trade weapon hint string as other maps
 * Der Wunderfizz: increased cost from 1500 to 2500
 * Der Wunderfizz: all perks have an equal chance of being obtained
 * Rituals of the Ancients: spend points challenge reward changed from Double Tap perk to a random perk that the player does not have (perk does not change if reward is reopened)

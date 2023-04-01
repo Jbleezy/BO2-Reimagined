@@ -46,6 +46,7 @@ main()
 	replaceFunc(maps\mp\zm_tomb_ee_main_step_3::ready_to_activate, scripts\zm\replaced\zm_tomb_ee_main_step_3::ready_to_activate);
     replaceFunc(maps\mp\zm_tomb_ee_main_step_8::init, scripts\zm\replaced\zm_tomb_ee_main_step_8::init);
     replaceFunc(maps\mp\zm_tomb_capture_zones::setup_capture_zones, scripts\zm\replaced\zm_tomb_capture_zones::setup_capture_zones);
+    replaceFunc(maps\mp\zm_tomb_capture_zones::magic_box_stub_update_prompt, scripts\zm\replaced\zm_tomb_capture_zones::magic_box_stub_update_prompt);
     replaceFunc(maps\mp\zm_tomb_challenges::challenges_init, scripts\zm\replaced\zm_tomb_challenges::challenges_init);
     replaceFunc(maps\mp\zm_tomb_craftables::init_craftables, scripts\zm\replaced\zm_tomb_craftables::init_craftables);
     replaceFunc(maps\mp\zm_tomb_craftables::include_craftables, scripts\zm\replaced\zm_tomb_craftables::include_craftables);
