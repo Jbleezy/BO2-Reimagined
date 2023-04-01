@@ -102,3 +102,49 @@ create_zombie_point_of_interest_attractor_positions( num_attract_dists, diff_per
 		level notify( "attractor_positions_generated" );
 	}
 }
+
+check_point_in_life_brush( origin )
+{
+    life_brushes = getentarray( "life_brush", "script_noteworthy" );
+
+    if ( !isdefined( life_brushes ) )
+        return false;
+
+    check_model = spawn( "script_model", origin + vectorscale( ( 0, 0, 1 ), 40.0 ) );
+    valid_point = 0;
+
+    for ( i = 0; i < life_brushes.size; i++ )
+    {
+        if ( check_model istouching( life_brushes[i] ) )
+		{
+			valid_point = 1;
+			break;
+		}
+    }
+
+    check_model delete();
+    return valid_point;
+}
+
+check_point_in_kill_brush( origin )
+{
+    kill_brushes = getentarray( "kill_brush", "script_noteworthy" );
+
+    if ( !isdefined( kill_brushes ) )
+        return false;
+
+    check_model = spawn( "script_model", origin + vectorscale( ( 0, 0, 1 ), 40.0 ) );
+    valid_point = 0;
+
+    for ( i = 0; i < kill_brushes.size; i++ )
+    {
+        if ( check_model istouching( kill_brushes[i] ) )
+		{
+			valid_point = 1;
+			break;
+		}
+    }
+
+    check_model delete();
+    return valid_point;
+}

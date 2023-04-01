@@ -192,7 +192,6 @@ main()
 	flag_set("mansion_door1");
 	level.zones["zone_mansion"].is_enabled = 0;
 	maps\mp\zombies\_zm::spawn_kill_brush( (4919, 575, -511), 128, 300 );
-	maps\mp\zombies\_zm::spawn_kill_brush( (6751, 568, -785), 256, 400 );
 	init_wallbuys();
 	init_barriers();
 	disable_player_spawn_locations();
