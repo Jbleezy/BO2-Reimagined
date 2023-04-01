@@ -3643,8 +3643,7 @@ additionalprimaryweapon_indicator()
 
 		if (self hasPerk("specialty_additionalprimaryweapon") && isDefined(self.a_saved_weapon) && self getCurrentWeapon() == self.a_saved_weapon["name"])
 		{
-			hud fadeOverTime(0.5);
-			hud.alpha = 1;
+			self thread additionalprimaryweapon_indicator_show_and_hide(hud);
 		}
 		else
 		{
@@ -3652,6 +3651,23 @@ additionalprimaryweapon_indicator()
 			hud.alpha = 0;
 		}
 	}
+}
+
+additionalprimaryweapon_indicator_show_and_hide(hud)
+{
+	self endon("disconnect");
+	self endon("player_downed");
+	self endon("spawned_player");
+	self endon("weapon_change");
+	self endon("specialty_additionalprimaryweapon_stop");
+
+	hud fadeOverTime(0.5);
+	hud.alpha = 1;
+
+	wait 1.5;
+
+	hud fadeOverTime(0.5);
+	hud.alpha = 0;
 }
 
 additionalprimaryweapon_stowed_weapon_refill()
