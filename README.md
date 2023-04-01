@@ -530,6 +530,7 @@
 * Zombies spawn in the Docks Gates zone when in the Docks zone
 * Grief: added Smoke Grenades to the Mystery Box
 * Grief: added Richtofen's Head meat powerup model
+* Fixed initial weapon raise animation happening after exiting afterlife
 * Fixed being able to hit a death barrier when jumping off the Docks Bridge
 * Fixed locked hint string not showing on Blundergat Upgrade buildable table
 

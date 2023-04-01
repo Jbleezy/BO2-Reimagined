@@ -132,11 +132,11 @@ afterlife_laststand( b_electric_chair = 0 )
     self.e_afterlife_corpse waittill( "player_revived", e_reviver );
 
     self notify( "player_revived" );
-    self seteverhadweaponall( 1 );
     self enableinvulnerability();
     self.afterlife_revived = 1;
     playsoundatposition( "zmb_afterlife_spawn_leave", self.e_afterlife_corpse.origin );
     self afterlife_leave();
+    self seteverhadweaponall( 1 );
     self thread afterlife_revive_invincible();
     self playsound( "zmb_afterlife_revived_gasp" );
 }
@@ -161,6 +161,14 @@ afterlife_fake_death()
 
     playfx( level._effect["afterlife_enter"], self.origin );
     self freezecontrols( 1 );
+}
+
+afterlife_revive_invincible()
+{
+    self endon( "disconnect" );
+    wait 2;
+    self disableinvulnerability();
+    self.afterlife_revived = undefined;
 }
 
 afterlife_revive_do_revive( playerbeingrevived, revivergun )
