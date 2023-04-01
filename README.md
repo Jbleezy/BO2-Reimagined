@@ -507,6 +507,7 @@
 
 ### Mob of the Dead
 * 1 afterlife max in solo
+* Entering afterlife no longer takes 2 additional seconds if the player had Electric Cherry
 * Acid Trap kills on any round (normally stops killing after round 158 on PC)
 * Tower Trap kills on any round in 1 shot
 * Upgraded Tower Trap kills on any round in 1-2 shots
