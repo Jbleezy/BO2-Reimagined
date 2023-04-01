@@ -12,6 +12,7 @@ blundergat_upgrade_station()
     t_upgrade.equipname = "packasplat";
     t_upgrade.cost = t_upgrade scripts\zm\_zm_reimagined::get_equipment_cost();
     t_upgrade sethintstring( &"ZM_PRISON_CONVERT_START", " [Cost: " + t_upgrade.cost + "]" );
+    t_upgrade usetriggerrequirelookat();
     waittill_crafted( "packasplat" );
     m_converter = t_upgrade.m_upgrade_machine;
     v_angles = m_converter gettagangles( "tag_origin" );
