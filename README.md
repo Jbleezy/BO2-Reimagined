@@ -432,6 +432,11 @@
 * Stored weapon gains max ammo at the end of each round
 * Stored weapon is shown
 
+## NAV Table
+* Costs 100000 points
+* Ends the game
+* Removed NAV cards on HUD
+
 ## Maps
 
 ### Tranzit

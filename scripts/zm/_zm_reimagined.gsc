@@ -96,6 +96,7 @@ init()
 {
 	level.using_solo_revive = 0;
 	level.claymores_max_per_player = 20;
+	level.navcards = undefined; // removes navcards on HUD
 
 	if(getDvar("g_gametype") == "zgrief" && is_true(level.scr_zm_ui_gametype_pro))
 	{

@@ -11,11 +11,13 @@
 #include scripts\zm\replaced\_zm_weap_slowgun;
 #include scripts\zm\replaced\_zm_banking;
 #include scripts\zm\replaced\_zm_weapon_locker;
+#include scripts\zm\replaced\_zm_sq;
 
 main()
 {
 	precachemodel( "collision_wall_128x128x10_standard" );
 
+	replaceFunc(maps\mp\zm_buried_sq::navcomputer_waitfor_navcard, scripts\zm\replaced\_zm_sq::navcomputer_waitfor_navcard);
 	replaceFunc(maps\mp\zm_buried_gamemodes::init, scripts\zm\replaced\zm_buried_gamemodes::init);
 	replaceFunc(maps\mp\zm_buried_gamemodes::buildbuildable, scripts\zm\replaced\zm_buried_gamemodes::buildbuildable);
 	replaceFunc(maps\mp\zombies\_zm_buildables_pooled::add_buildable_to_pool, scripts\zm\replaced\_zm_buildables_pooled::add_buildable_to_pool);

@@ -15,9 +15,11 @@
 #include scripts\zm\replaced\_zm_equip_turret;
 #include scripts\zm\replaced\_zm_banking;
 #include scripts\zm\replaced\_zm_weapon_locker;
+#include scripts\zm\replaced\_zm_sq;
 
 main()
 {
+	replaceFunc(maps\mp\zm_transit_sq::navcomputer_waitfor_navcard, scripts\zm\replaced\_zm_sq::navcomputer_waitfor_navcard);
 	replaceFunc(maps\mp\zm_transit::lava_damage_depot, scripts\zm\replaced\zm_transit::lava_damage_depot);
 	replaceFunc(maps\mp\zm_transit_gamemodes::init, scripts\zm\replaced\zm_transit_gamemodes::init);
 	replaceFunc(maps\mp\zm_transit_utility::solo_tombstone_removal, scripts\zm\replaced\zm_transit_utility::solo_tombstone_removal);

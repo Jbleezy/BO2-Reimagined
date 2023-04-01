@@ -3,25 +3,29 @@
 #include maps\mp\zombies\_zm_utility;
 
 #include scripts\zm\replaced\zm_highrise_classic;
+#include scripts\zm\replaced\zm_highrise_sq;
 #include scripts\zm\replaced\_zm_chugabud;
 #include scripts\zm\replaced\_zm_equip_springpad;
+#include scripts\zm\replaced\_zm_weap_slipgun;
 #include scripts\zm\replaced\_zm_banking;
 #include scripts\zm\replaced\_zm_weapon_locker;
-#include scripts\zm\replaced\_zm_weap_slipgun;
+#include scripts\zm\replaced\_zm_sq;
 
 main()
 {
+	replaceFunc(maps\mp\zm_highrise_sq::navcomputer_waitfor_navcard, scripts\zm\replaced\_zm_sq::navcomputer_waitfor_navcard);
+	replaceFunc(maps\mp\zm_highrise_sq::init, scripts\zm\replaced\zm_highrise_sq::init);
 	replaceFunc(maps\mp\zm_highrise_gamemodes::init, scripts\zm\replaced\zm_highrise_gamemodes::init);
 	replaceFunc(maps\mp\zm_highrise_classic::insta_kill_player, scripts\zm\replaced\zm_highrise_classic::insta_kill_player);
 	replaceFunc(maps\mp\zombies\_zm_chugabud::chugabud_bleed_timeout, scripts\zm\replaced\_zm_chugabud::chugabud_bleed_timeout);
 	replaceFunc(maps\mp\zombies\_zm_equip_springpad::springpadthink, scripts\zm\replaced\_zm_equip_springpad::springpadthink);
+	replaceFunc(maps\mp\zombies\_zm_weap_slipgun::init, scripts\zm\replaced\_zm_weap_slipgun::init);
+	replaceFunc(maps\mp\zombies\_zm_weap_slipgun::slipgun_zombie_1st_hit_response, scripts\zm\replaced\_zm_weap_slipgun::slipgun_zombie_1st_hit_response);
 	replaceFunc(maps\mp\zombies\_zm_banking::init, scripts\zm\replaced\_zm_banking::init);
 	replaceFunc(maps\mp\zombies\_zm_banking::bank_deposit_box, scripts\zm\replaced\_zm_banking::bank_deposit_box);
 	replaceFunc(maps\mp\zombies\_zm_banking::bank_deposit_unitrigger, scripts\zm\replaced\_zm_banking::bank_deposit_unitrigger);
 	replaceFunc(maps\mp\zombies\_zm_banking::bank_withdraw_unitrigger, scripts\zm\replaced\_zm_banking::bank_withdraw_unitrigger);
 	replaceFunc(maps\mp\zombies\_zm_weapon_locker::triggerweaponslockerisvalidweaponpromptupdate, scripts\zm\replaced\_zm_weapon_locker::triggerweaponslockerisvalidweaponpromptupdate);
-	replaceFunc(maps\mp\zombies\_zm_weap_slipgun::init, scripts\zm\replaced\_zm_weap_slipgun::init);
-	replaceFunc(maps\mp\zombies\_zm_weap_slipgun::slipgun_zombie_1st_hit_response, scripts\zm\replaced\_zm_weap_slipgun::slipgun_zombie_1st_hit_response);
 }
 
 init()
