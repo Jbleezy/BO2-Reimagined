@@ -40,8 +40,6 @@ track_quest_status_thread()
 
         level notify( "bridge_empty" );
 
-        level waittill( "start_of_round" );
-
         if ( level.n_quest_iteration_count == 2 )
             vo_play_four_part_conversation( level.four_part_convos["alcatraz_return_alt" + randomintrange( 0, 2 )] );
 
