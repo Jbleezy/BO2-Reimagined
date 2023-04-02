@@ -126,6 +126,8 @@ give_perk( perk, bought )
 
 perk_think( perk )
 {
+	self endon( "disconnect" );
+
 	perk_str = perk + "_stop";
 	result = self waittill_any_return( "fake_death", "death", "player_downed", perk_str );
 	do_retain = 1;
