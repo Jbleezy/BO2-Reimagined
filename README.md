@@ -384,7 +384,7 @@
 * No longer needs to be powered by a Turbine
 * Gets destroyed after being deployed for 30 seconds
 * Kills on any round (normally stops killing after round 50)
-* Can kill unlimited zombies at once
+* Kills zombies instantly
 * No longer kills players without Juggernog instantly
 * Decreased player damage from 75 to 25
 * Decreased player shellshock time from 2.5 seconds to 1.25 seconds
@@ -522,6 +522,9 @@
 * Plane reappears immediately after coming back from the Golden Gate Bridge
 * Key no longer shows on HUD
 * Acid Trap: kills on any round (normally stops killing after round 158 on PC)
+* Acid Trap: kills zombies instantly
+* Acid Trap: decreased player damage from 75% of max health to 50% of max health
+* Acid Trap: increased time between player damage from 1 second to 1.5 seconds
 * Tower Trap: kills on any round in 1 shot
 * Tower Trap (upgraded): kills on any round in 1 shot
 * Tower Trap (upgraded): stays upgraded until the end of the round

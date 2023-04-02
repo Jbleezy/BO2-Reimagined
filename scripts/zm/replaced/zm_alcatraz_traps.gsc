@@ -9,6 +9,45 @@
 #include maps\mp\zombies\_zm_ai_brutus;
 #include maps\mp\zm_alcatraz_traps;
 
+zombie_acid_damage()
+{
+    self endon( "death" );
+    self setclientfield( "acid_trap_death_fx", 1 );
+
+    if ( !isdefined( self.is_brutus ) )
+    {
+        self.a.gib_ref = random( array( "right_arm", "left_arm", "head", "right_leg", "left_leg", "no_legs" ) );
+        self thread maps\mp\animscripts\zm_death::do_gib();
+    }
+
+    self dodamage( self.health + 1000, self.origin );
+}
+
+player_acid_damage( t_damage )
+{
+    self endon( "death" );
+    self endon( "disconnect" );
+    t_damage endon( "acid_trap_finished" );
+
+    if ( !isdefined( self.is_in_acid ) && !self player_is_in_laststand() )
+    {
+        self.is_in_acid = 1;
+        self thread player_acid_damage_cooldown();
+
+        self dodamage( self.maxhealth / 2, self.origin, t_damage, t_damage, "none", "MOD_UNKNOWN", 0, "none" );
+        wait 1.5;
+    }
+}
+
+player_acid_damage_cooldown()
+{
+    self endon( "disconnect" );
+    wait 1.5;
+
+    if ( isdefined( self ) )
+        self.is_in_acid = undefined;
+}
+
 tower_trap_trigger_think()
 {
     self.range_trigger = getent( self.target, "targetname" );
