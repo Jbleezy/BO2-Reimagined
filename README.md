@@ -554,6 +554,7 @@
 * Ghosts no longer spawn a free perk powerup if any player gets damaged by the ghosts
 * Fountain portal automatically active
 * Navcard table automatically crafted
+* Players no longer take fall damage after using the fountain teleporter
 * Players can no longer get into the corner next to Juggernog
 * Removed buildable table hint icons
 * Added buildable table hint strings on buildable purchase
