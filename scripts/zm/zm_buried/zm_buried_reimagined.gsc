@@ -2,9 +2,11 @@
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 
+#include scripts\zm\replaced\zm_buried_buildables;
 #include scripts\zm\replaced\zm_buried_gamemodes;
 #include scripts\zm\replaced\zm_buried_ffotd;
 #include scripts\zm\replaced\zm_buried_fountain;
+#include scripts\zm\replaced\_zm_ai_sloth;
 #include scripts\zm\replaced\_zm_buildables_pooled;
 #include scripts\zm\replaced\_zm_equip_subwoofer;
 #include scripts\zm\replaced\_zm_equip_springpad;
@@ -18,10 +20,15 @@
 main()
 {
 	replaceFunc(maps\mp\zm_buried_sq::navcomputer_waitfor_navcard, scripts\zm\replaced\_zm_sq::navcomputer_waitfor_navcard);
+	replaceFunc(maps\mp\zm_buried_buildables::watch_cell_open_close, scripts\zm\replaced\zm_buried_buildables::watch_cell_open_close);
 	replaceFunc(maps\mp\zm_buried_gamemodes::init, scripts\zm\replaced\zm_buried_gamemodes::init);
 	replaceFunc(maps\mp\zm_buried_gamemodes::buildbuildable, scripts\zm\replaced\zm_buried_gamemodes::buildbuildable);
 	replaceFunc(maps\mp\zm_buried_ffotd::spawned_life_triggers, scripts\zm\replaced\zm_buried_ffotd::spawned_life_triggers);
 	replaceFunc(maps\mp\zm_buried_fountain::transport_player_to_start_zone, scripts\zm\replaced\zm_buried_fountain::transport_player_to_start_zone);
+	replaceFunc(maps\mp\zombies\_zm_ai_sloth::sloth_init_start_funcs, scripts\zm\replaced\_zm_ai_sloth::sloth_init_start_funcs);
+	replaceFunc(maps\mp\zombies\_zm_ai_sloth::sloth_init_update_funcs, scripts\zm\replaced\_zm_ai_sloth::sloth_init_update_funcs);
+	replaceFunc(maps\mp\zombies\_zm_ai_sloth::sloth_check_ragdolls, scripts\zm\replaced\_zm_ai_sloth::sloth_check_ragdolls);
+	replaceFunc(maps\mp\zombies\_zm_ai_sloth::sloth_ragdoll_zombie, scripts\zm\replaced\_zm_ai_sloth::sloth_ragdoll_zombie);
 	replaceFunc(maps\mp\zombies\_zm_buildables_pooled::add_buildable_to_pool, scripts\zm\replaced\_zm_buildables_pooled::add_buildable_to_pool);
 	replaceFunc(maps\mp\zombies\_zm_buildables_pooled::randomize_pooled_buildables, scripts\zm\replaced\_zm_buildables_pooled::randomize_pooled_buildables);
 	replaceFunc(maps\mp\zombies\_zm_equip_subwoofer::startsubwooferdecay, scripts\zm\replaced\_zm_equip_subwoofer::startsubwooferdecay);
@@ -60,6 +67,7 @@ init()
 	level thread update_buildable_stubs();
 	level thread enable_fountain_transport();
 	level thread disable_ghost_free_perk_on_damage();
+	level thread sloth_trap();
 }
 
 zombie_init_done()
@@ -306,4 +314,96 @@ add_jug_collision()
 	collision = spawn( "script_model", origin + anglesToUp(angles) * 64 );
 	collision.angles = angles;
 	collision setmodel( "collision_wall_128x128x10_standard" );
+}
+
+sloth_trap()
+{
+	trig = spawn( "trigger_box_use", level.cell_door.origin, 0, 64, 64, 64 );
+	trig.cost = 1000;
+	trig setcursorhint( "HINT_NOICON" );
+	level.sloth_trap_trig = trig;
+
+	flag_wait( "initial_blackscreen_passed" );
+
+	level.sloth.actor_damage_func = ::sloth_damage_func;
+
+	level.candy_context = [];
+	maps\mp\zombies\_zm_ai_sloth::register_candy_context( "protect", 100, maps\mp\zombies\_zm_ai_sloth::protect_condition, maps\mp\zombies\_zm_ai_sloth::protect_start, maps\mp\zombies\_zm_ai_sloth::protect_update, maps\mp\zombies\_zm_ai_sloth::protect_action );
+
+	while (1)
+	{
+		trig sethintstring( &"ZM_BURIED_CANDY_GV", " [Cost: " + trig.cost + "]" );
+
+		trig waittill( "trigger", who );
+
+		if ( !is_player_valid( who ) )
+        {
+			continue;
+		}
+
+		if ( who.score < trig.cost )
+		{
+			play_sound_at_pos( "no_purchase", trig.origin );
+			who maps\mp\zombies\_zm_audio::create_and_play_dialog( "general", "door_deny" );
+			continue;
+		}
+
+		trig sethintstring( "" );
+
+		who maps\mp\zombies\_zm_score::minus_to_player_score( trig.cost );
+		play_sound_at_pos( "purchase", trig.origin );
+
+		who maps\mp\zombies\_zm_stats::increment_client_stat( "buried_sloth_candy_protect", 0 );
+		who maps\mp\zombies\_zm_stats::increment_player_stat( "buried_sloth_candy_protect" );
+		who thread maps\mp\zombies\_zm_audio::create_and_play_dialog( "general", "sloth_generic_feed" );
+
+		who maps\mp\zm_buried_buildables::onuseplantobject_key( who );
+
+		level.sloth maps\mp\zombies\_zm_ai_sloth::sloth_set_state( "eat", who );
+
+		wait 30;
+
+		level.sloth maps\mp\zombies\_zm_ai_sloth::sloth_set_state( "jail_run", 0 );
+
+		while (level.sloth.state == "jail_run")
+		{
+			wait 0.05;
+		}
+
+		level.sloth notify( "stop_action" );
+		level.sloth dance_action();
+
+		level.sloth maps\mp\zombies\_zm_ai_sloth::sloth_set_state( "jail_wait" );
+	}
+}
+
+sloth_damage_func()
+{
+	return 0;
+}
+
+dance_action()
+{
+    self endon( "death" );
+    self endon( "stop_action" );
+    self setclientfield( "sloth_vomit", 0 );
+    self.dance_end = gettime() + 30000;
+    level.sloth_protect = 0;
+	self.dance_action = 1;
+
+    while ( true )
+    {
+        if ( gettime() >= self.dance_end )
+            break;
+
+        self animscripted( self.origin, self.jail_start.angles, "zm_dance" );
+        maps\mp\animscripts\zm_shared::donotetracks( "dance_anim", maps\mp\zombies\_zm_ai_sloth::vomit_notetrack );
+        wait 0.1;
+    }
+
+    self notify( "stop_dance" );
+    self animscripted( self.origin, self.jail_start.angles, "zm_vomit" );
+    maps\mp\animscripts\zm_shared::donotetracks( "vomit_anim", maps\mp\zombies\_zm_ai_sloth::vomit_notetrack );
+    self.context_done = 1;
+	self.dance_action = 0;
 }

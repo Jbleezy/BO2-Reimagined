@@ -2564,6 +2564,9 @@ buildbuildables()
 			level.buildables_available = array("subwoofer_zm", "springpad_zm", "headchopper_zm");
 
 			removebuildable( "keys_zm" );
+			removebuildable( "booze" );
+			removebuildable( "candy" );
+			removebuildable( "sloth" );
 			buildbuildable( "turbine" );
 			buildbuildable( "subwoofer_zm" );
 			buildbuildable( "springpad_zm" );
