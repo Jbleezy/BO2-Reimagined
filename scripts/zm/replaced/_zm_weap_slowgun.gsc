@@ -91,6 +91,25 @@ zombie_paralyzed( player, upgraded )
     self zombie_slow_for_time( 0.2 );
 }
 
+player_slow_for_time( time )
+{
+    self notify( "player_slow_for_time" );
+    self endon( "player_slow_for_time" );
+    self endon( "disconnect" );
+
+    if ( !is_true( self.slowgun_flying ) )
+        self thread player_fly_rumble();
+
+    self setclientfieldtoplayer( "slowgun_fx", 1 );
+    self set_anim_rate( 0.2 );
+
+    wait( time );
+
+    self set_anim_rate( 1.0 );
+    self setclientfieldtoplayer( "slowgun_fx", 0 );
+    self.slowgun_flying = 0;
+}
+
 watch_reset_anim_rate()
 {
 	self set_anim_rate( 1 );
