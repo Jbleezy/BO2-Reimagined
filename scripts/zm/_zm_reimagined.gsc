@@ -61,10 +61,10 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_weapons::weapon_spawn_think, scripts\zm\replaced\_zm_weapons::weapon_spawn_think);
 	replaceFunc(maps\mp\zombies\_zm_weapons::weapon_set_first_time_hint, scripts\zm\replaced\_zm_weapons::weapon_set_first_time_hint);
 	replaceFunc(maps\mp\zombies\_zm_magicbox::treasure_chest_init, scripts\zm\replaced\_zm_magicbox::treasure_chest_init);
+	replaceFunc(maps\mp\zombies\_zm_magicbox::treasure_chest_weapon_spawn, scripts\zm\replaced\_zm_magicbox::treasure_chest_weapon_spawn);
 	replaceFunc(maps\mp\zombies\_zm_magicbox::treasure_chest_move, scripts\zm\replaced\_zm_magicbox::treasure_chest_move);
 	replaceFunc(maps\mp\zombies\_zm_magicbox::treasure_chest_timeout, scripts\zm\replaced\_zm_magicbox::treasure_chest_timeout);
 	replaceFunc(maps\mp\zombies\_zm_magicbox::timer_til_despawn, scripts\zm\replaced\_zm_magicbox::timer_til_despawn);
-	replaceFunc(maps\mp\zombies\_zm_magicbox::treasure_chest_chooseweightedrandomweapon, scripts\zm\replaced\_zm_magicbox::treasure_chest_chooseweightedrandomweapon);
 	replaceFunc(maps\mp\zombies\_zm_perks::perk_pause, scripts\zm\replaced\_zm_perks::perk_pause);
 	replaceFunc(maps\mp\zombies\_zm_perks::perk_unpause, scripts\zm\replaced\_zm_perks::perk_unpause);
 	replaceFunc(maps\mp\zombies\_zm_perks::destroy_weapon_in_blackout, scripts\zm\replaced\_zm_perks::destroy_weapon_in_blackout);
