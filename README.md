@@ -183,6 +183,9 @@
 * Can be repurchased
 * Increased max amount that can be placed from 12 to 20
 
+### Time Bomb
+* Can have with Monkey Bombs
+
 ### One Inch Punch
 * Upgraded: elemental punch changes based on which staff the player currently has
 * Fixed an issue where a player's melee weapon wouldn't reset if the player bled out in the Giant Robots

@@ -13,6 +13,7 @@
 #include scripts\zm\replaced\_zm_equip_headchopper;
 #include scripts\zm\replaced\_zm_perk_vulture;
 #include scripts\zm\replaced\_zm_weap_slowgun;
+#include scripts\zm\replaced\_zm_weap_time_bomb;
 #include scripts\zm\replaced\_zm_banking;
 #include scripts\zm\replaced\_zm_weapon_locker;
 #include scripts\zm\replaced\_zm_sq;
@@ -41,6 +42,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_weap_slowgun::zombie_paralyzed, scripts\zm\replaced\_zm_weap_slowgun::zombie_paralyzed);
 	replaceFunc(maps\mp\zombies\_zm_weap_slowgun::player_slow_for_time, scripts\zm\replaced\_zm_weap_slowgun::player_slow_for_time);
 	replaceFunc(maps\mp\zombies\_zm_weap_slowgun::watch_reset_anim_rate, scripts\zm\replaced\_zm_weap_slowgun::watch_reset_anim_rate);
+	replaceFunc(maps\mp\zombies\_zm_weap_time_bomb::init_time_bomb, scripts\zm\replaced\_zm_weap_time_bomb::init_time_bomb);
 	replaceFunc(maps\mp\zombies\_zm_banking::init, scripts\zm\replaced\_zm_banking::init);
 	replaceFunc(maps\mp\zombies\_zm_banking::bank_deposit_box, scripts\zm\replaced\_zm_banking::bank_deposit_box);
 	replaceFunc(maps\mp\zombies\_zm_banking::bank_deposit_unitrigger, scripts\zm\replaced\_zm_banking::bank_deposit_unitrigger);
