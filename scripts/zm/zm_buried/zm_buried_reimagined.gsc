@@ -128,7 +128,7 @@ sloth_barricades_buyable()
 			continue;
 		}
 
-		debris_trig = spawn( "trigger_box_use", trig.origin, 0, 192, 192, 128 );
+		debris_trig = spawn( "trigger_box_use", trig.origin, 0, 128, 128, 128 );
 		debris_trig.targetname = "zombie_debris";
 		debris_trig.target = trig.target;
 		debris_trig.script_noteworthy = trig.script_noteworthy;
