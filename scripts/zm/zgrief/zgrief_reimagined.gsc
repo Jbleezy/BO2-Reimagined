@@ -1844,6 +1844,50 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 		return;
 	}
 
+	if ( isDefined( sweapon ) && isSubStr( sweapon, "tower_trap" ) )
+	{
+		if ( is_true( self._being_pushed ) )
+		{
+			return 0;
+		}
+
+		if ( isDefined( level._effect[ "butterflies" ] ) )
+		{
+			pos = vpoint;
+			angle = vectorToAngles(eattacker getCentroid() - self getCentroid());
+
+			angle = (0, angle[1], 0);
+			stun_fx_amount = 3;
+
+			if(!isDefined(self.stun_fx))
+			{
+				// spawning in model right before playfx causes the fx not to play occasionally
+				// stun fx lasts longer than stun time, so alternate between different models
+				self.stun_fx = [];
+				self.stun_fx_ind = 0;
+
+				for(i = 0; i < stun_fx_amount; i++)
+				{
+					self.stun_fx[i] = spawn("script_model", pos);
+					self.stun_fx[i] setModel("tag_origin");
+				}
+			}
+
+			self.stun_fx[self.stun_fx_ind] unlink();
+			self.stun_fx[self.stun_fx_ind].origin = pos;
+			self.stun_fx[self.stun_fx_ind].angles = angle;
+			self.stun_fx[self.stun_fx_ind] linkTo(self);
+
+			playFXOnTag(level._effect["butterflies"], self.stun_fx[self.stun_fx_ind], "tag_origin");
+
+			self.stun_fx_ind = (self.stun_fx_ind + 1) % stun_fx_amount;
+		}
+
+		self thread do_game_mode_shellshock();
+
+		return 0;
+	}
+
 	if ( isplayer( eattacker ) && isDefined( eattacker._encounters_team ) && eattacker._encounters_team != self._encounters_team )
 	{
 		if ( is_true( self.hasriotshield ) && isDefined( vdir ) )
@@ -2020,7 +2064,7 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 	}
 }
 
-do_game_mode_shellshock(is_melee, is_upgraded)
+do_game_mode_shellshock(is_melee = 0, is_upgraded = 0)
 {
 	self notify( "do_game_mode_shellshock" );
 	self endon( "do_game_mode_shellshock" );

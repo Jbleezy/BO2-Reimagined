@@ -186,6 +186,14 @@ actor_damage_override( inflictor, attacker, damage, flags, meansofdeath, weapon,
 		}
 	}
 
+	if ( isSubStr( weapon, "tower_trap" ) )
+	{
+		if (!is_true(self.is_brutus))
+		{
+			damage = level.zombie_health;
+		}
+	}
+
 	if ( !isplayer( attacker ) && !isplayer( self ) )
 	{
 		return damage;
@@ -677,7 +685,12 @@ player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, 
 {
 	if ( isDefined( level._game_module_player_damage_callback ) )
 	{
-		self [[ level._game_module_player_damage_callback ]]( einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime );
+		new_damage = self [[ level._game_module_player_damage_callback ]]( einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime );
+
+		if (isDefined(new_damage))
+		{
+			idamage = new_damage;
+		}
 	}
 	idamage = self maps\mp\zombies\_zm::check_player_damage_callbacks( einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime );
 	if ( is_true( self.use_adjusted_grenade_damage ) )

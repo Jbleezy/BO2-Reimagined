@@ -521,15 +521,16 @@
 * Plane no longer has to be refueled after first use
 * Plane reappears immediately after coming back from the Golden Gate Bridge
 * Key no longer shows on HUD
-* Acid Trap kills on any round (normally stops killing after round 158 on PC)
-* Tower Trap kills on any round in 1 shot
-* Upgraded Tower Trap kills on any round in 1-2 shots
-* Upgraded Tower Trap stays upgraded until the end of the round
+* Acid Trap: kills on any round (normally stops killing after round 158 on PC)
+* Tower Trap: kills on any round in 1 shot
+* Tower Trap (upgraded): kills on any round in 1 shot
+* Tower Trap (upgraded): stays upgraded until the end of the round
 * Players no longer respawn in the Acid Trap
 * Zombies spawn in the Docks zone when in the Docks Gates zone
 * Zombies spawn in the Docks Gates zone when in the Docks zone
 * Grief: added Smoke Grenades to the Mystery Box
 * Grief: added Richtofen's Head meat powerup model
+* Grief: Tower Trap targets and stuns players
 * Fixed initial weapon raise animation happening after exiting afterlife
 * Fixed being able to hit a death barrier when jumping off the Docks Bridge
 * Fixed locked hint string not showing on Blundergat Upgrade buildable table
