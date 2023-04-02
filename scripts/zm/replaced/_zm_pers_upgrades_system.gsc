@@ -2,7 +2,7 @@
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 
-is_pers_system_disabled()
+check_pers_upgrade( pers_upgrade )
 {
-	return 1;
+    return 0;
 }
