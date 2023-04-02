@@ -363,6 +363,11 @@ sloth_trap()
 
 		level.sloth maps\mp\zombies\_zm_ai_sloth::sloth_set_state( "eat", who );
 
+		while (level.sloth.state == "eat")
+		{
+			wait 0.05;
+		}
+
 		wait 30;
 
 		level.sloth maps\mp\zombies\_zm_ai_sloth::sloth_set_state( "jail_run", 0 );

@@ -90,6 +90,9 @@
 * Grief: spawns every 4-6 minutes
 * Grief: can lock perks and the Mystery Box
 
+### Arthur
+* Can be purchased as a trap that runs around and kills zombies for 30 seconds
+
 ### Panzersoldat
 * No longer receives additional damage from Boomhilda or Ray Gun Mark 2
 
@@ -553,7 +556,6 @@
 * Power automatically on
 * Removed Turbine
 * Arthur barricades are buyable debris
-* Arthur can be purchased as a trap that runs around and kills zombies for 30 seconds
 * Ghosts no longer spawn a free perk powerup if any player gets damaged by the ghosts
 * Fountain portal automatically active
 * Navcard table automatically crafted
