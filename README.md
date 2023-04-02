@@ -90,9 +90,6 @@
 * Grief: spawns every 4-6 minutes
 * Grief: can lock perks and the Mystery Box
 
-### Arthur
-* Can be purchased as a trap that runs around and kills zombies for 30 seconds
-
 ### Panzersoldat
 * No longer receives additional damage from Boomhilda or Ray Gun Mark 2
 
@@ -441,6 +438,7 @@
 * Stored weapon is shown
 
 ## NAV Table
+* Automatically crafted
 * Costs 100000 points
 * Ends the game
 * Removed NAV cards on HUD
@@ -458,9 +456,7 @@
 * Lava in starting area activates after the power is on
 * Lava destroys grenades instantly
 * Decreased brightness at Power Station
-* Power switch automatically crafted
-* Pack-a-Punch automatically crafted
-* Navcard table automatically crafted
+* Power switch and Pack-a-Punch automatically crafted
 * Zombies no longer spawn in the Prototype zone when in the Cornfield zone
 * Zombies no longer spawn in the Cornfield zone when in the Prototype zone
 * Zombies spawn in the Warehouse zone when in the Outside Power Station zone before the Warehouse door is opened
@@ -519,7 +515,6 @@
 * Moved weapon locker to the downstairs fridge
 * Zombies no longer spawn in the Upper Blue Highrise zone when in the Trample Steam zone
 * Zombies no longer spawn in the zone next to the AN94 when in the AN94 zone while the debris is closed
-* Navcard table automatically crafted
 
 ### Mob of the Dead
 * 1 afterlife max in solo
@@ -554,11 +549,11 @@
 
 ### Buried
 * Power automatically on
-* Removed Turbine
+* Removed Turbine, keys, booze, and candy
 * Arthur barricades are buyable debris
+* Arthur can be purchased to feed him candy and make him run around and kill zombies for 30 seconds
 * Ghosts no longer spawn a free perk powerup if any player gets damaged by the ghosts
 * Fountain portal automatically active
-* Navcard table automatically crafted
 * Players no longer take fall damage after using the fountain teleporter
 * Players can no longer get into the corner next to Juggernog
 * Removed buildable table hint icons

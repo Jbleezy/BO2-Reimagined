@@ -320,6 +320,11 @@ add_jug_collision()
 
 sloth_trap()
 {
+	if (!is_gametype_active("zclassic"))
+	{
+		return;
+	}
+
 	trig = spawn( "trigger_box_use", level.cell_door.origin, 0, 64, 64, 64 );
 	trig.cost = 1000;
 	trig setcursorhint( "HINT_NOICON" );
