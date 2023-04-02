@@ -160,6 +160,7 @@ buildable_place_think()
 			if (player.score < self.stub.cost)
 			{
 				self play_sound_on_ent( "no_purchase" );
+				player maps\mp\zombies\_zm_audio::create_and_play_dialog( "general", "no_money_weapon" );
 				continue;
 			}
 
@@ -255,6 +256,7 @@ buildable_place_think()
 			if (player.score < self.stub.cost)
 			{
 				self play_sound_on_ent( "no_purchase" );
+				player maps\mp\zombies\_zm_audio::create_and_play_dialog( "general", "no_money_weapon" );
 				continue;
 			}
 
