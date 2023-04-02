@@ -549,8 +549,8 @@
 ### Buried
 * Power automatically on
 * Removed Turbine
-* Removed Sloth barricades
-* Sloth can no longer be unlocked
+* Arthur barricades are buyable debris
+* Arthur can no longer be unlocked
 * Ghosts no longer spawn a free perk powerup if any player gets damaged by the ghosts
 * Fountain portal automatically active
 * Navcard table automatically crafted

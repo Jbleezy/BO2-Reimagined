@@ -16,8 +16,6 @@
 
 main()
 {
-	precachemodel( "collision_wall_128x128x10_standard" );
-
 	replaceFunc(maps\mp\zm_buried_sq::navcomputer_waitfor_navcard, scripts\zm\replaced\_zm_sq::navcomputer_waitfor_navcard);
 	replaceFunc(maps\mp\zm_buried_gamemodes::init, scripts\zm\replaced\zm_buried_gamemodes::init);
 	replaceFunc(maps\mp\zm_buried_gamemodes::buildbuildable, scripts\zm\replaced\zm_buried_gamemodes::buildbuildable);
@@ -43,6 +41,8 @@ main()
 
 init()
 {
+	precachemodel( "collision_wall_128x128x10_standard" );
+
 	level.zombie_init_done = ::zombie_init_done;
 	level.special_weapon_magicbox_check = ::buried_special_weapon_magicbox_check;
 
@@ -52,8 +52,7 @@ init()
 	}
 
 	turn_power_on();
-	deleteslothbarricades();
-
+	sloth_barricades_buyable();
 	add_jug_collision();
 
 	level thread update_buildable_stubs();
@@ -89,7 +88,7 @@ buried_special_weapon_magicbox_check(weapon)
 
 turn_power_on()
 {
-	if(!(is_classic() && level.scr_zm_map_start_location == "processing"))
+	if (!is_gametype_active("zclassic"))
 	{
 		return;
 	}
@@ -109,9 +108,9 @@ turn_power_on()
 	}
 }
 
-deleteslothbarricades()
+sloth_barricades_buyable()
 {
-	if(!(is_classic() && level.scr_zm_map_start_location == "processing"))
+	if (!is_gametype_active("zclassic"))
 	{
 		return;
 	}
@@ -119,15 +118,123 @@ deleteslothbarricades()
 	sloth_trigs = getentarray( "sloth_barricade", "targetname" );
 	foreach (trig in sloth_trigs)
 	{
-		if ( isDefined( trig.script_flag ) && level flag_exists( trig.script_flag ) )
+		if (isDefined(trig.script_noteworthy) && trig.script_noteworthy == "courtyard_fountain")
 		{
-			flag_set( trig.script_flag );
+			parts = getentarray( trig.target, "targetname" );
+            array_thread( parts, ::self_delete );
+
+			continue;
 		}
-		parts = getentarray( trig.target, "targetname" );
-		array_thread( parts, ::self_delete );
+
+		debris_trig = spawn( "trigger_box_use", trig.origin, 0, 192, 192, 128 );
+		debris_trig.targetname = "zombie_debris";
+		debris_trig.target = trig.target;
+		debris_trig.script_noteworthy = trig.script_noteworthy;
+		debris_trig.script_int = trig.script_int;
+		debris_trig.script_flag = trig.script_flag;
+		debris_trig.script_location = trig.script_location;
+
+		switch(debris_trig.script_location)
+		{
+			case "juggernaut_alley":
+			case "stables_alley":
+			debris_trig.zombie_cost = 750;
+			break;
+
+			case "jail":
+			case "gunstore":
+			case "mansion":
+			debris_trig.zombie_cost = 1000;
+			break;
+
+			case "candystore_alley":
+			case "church":
+			debris_trig.zombie_cost = 1250;
+			break;
+
+			default:
+			debris_trig.zombie_cost = 1000;
+			break;
+		}
+
+		debris_trig thread sloth_barricade_think();
 	}
 
-	array_thread( sloth_trigs, ::self_delete );
+	maps\mp\zm_buried_gamemodes::deleteslothbarricades(1);
+}
+
+sloth_barricade_think()
+{
+	self sethintstring( &"ZOMBIE_BUTTON_BUY_CLEAR_DEBRIS_COST", self.zombie_cost );
+	self setcursorhint( "HINT_NOICON" );
+
+	while (1)
+	{
+		self waittill( "trigger", who );
+
+		if ( who in_revive_trigger() )
+			continue;
+
+		if ( is_player_valid( who ) )
+        {
+			if ( who.score >= self.zombie_cost )
+            {
+                who maps\mp\zombies\_zm_score::minus_to_player_score( self.zombie_cost );
+            }
+            else
+            {
+                play_sound_at_pos( "no_purchase", self.origin );
+                who maps\mp\zombies\_zm_audio::create_and_play_dialog( "general", "door_deny" );
+                continue;
+            }
+
+			self hide();
+
+			if ( isdefined( self.script_flag ) && level flag_exists( self.script_flag ) )
+            {
+                flag_set( self.script_flag );
+
+                if ( self.script_flag == "jail_door1" )
+                    level notify( "jail_barricade_down" );
+            }
+
+			pieces = getentarray( self.target, "targetname" );
+			pieces[1] sloth_barricade_move();
+
+            if ( isdefined( self.script_int ) )
+                exploder( self.script_int );
+
+            foreach ( piece in pieces )
+            {
+                piece delete();
+            }
+
+            self thread maps\mp\zombies\_zm_equip_headchopper::destroyheadchopperstouching( 0 );
+            self playsound( "zmb_sloth_barrier_break" );
+            level notify( "sloth_breaks_barrier" );
+
+            self delete();
+
+            break;
+        }
+	}
+}
+
+sloth_barricade_move()
+{
+	self play_sound_on_ent( "debris_move" );
+	playsoundatposition( "zmb_lightning_l", self.origin );
+	playfx( level._effect["poltergeist"], self.origin );
+
+	num = randomintrange( 3, 5 );
+	og_angles = self.angles;
+	for ( i = 0; i < num; i++ )
+	{
+		angles = og_angles + ( -5 + randomfloat( 10 ), -5 + randomfloat( 10 ), -5 + randomfloat( 10 ) );
+		time = randomfloatrange( 0.1, 0.4 );
+		self rotateto( angles, time );
+		wait( time - 0.05 );
+	}
 }
 
 update_buildable_stubs()
@@ -147,7 +254,7 @@ update_buildable_stubs()
 
 enable_fountain_transport()
 {
-	if(!(is_classic() && level.scr_zm_map_start_location == "processing"))
+	if (!is_gametype_active("zclassic"))
 	{
 		return;
 	}
@@ -161,7 +268,7 @@ enable_fountain_transport()
 
 disable_ghost_free_perk_on_damage()
 {
-	if(!(is_classic() && level.scr_zm_map_start_location == "processing"))
+	if (!is_gametype_active("zclassic"))
 	{
 		return;
 	}
