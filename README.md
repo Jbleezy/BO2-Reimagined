@@ -296,6 +296,7 @@
 
 ### PHD Flopper
 * Deals same damage on all maps
+* Damages all zombies at once on all maps
 
 ### Deadshot Daiquiri
 * Increases bullet headshot damage by 100%

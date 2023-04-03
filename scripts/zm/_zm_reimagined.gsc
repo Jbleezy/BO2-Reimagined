@@ -235,6 +235,7 @@ post_all_players_spawned()
 	level.packapunch_timeout = 12;
 	level.perk_purchase_limit = 9;
 	level._random_zombie_perk_cost = 2500;
+	level.flopper_network_optimized = 0;
 	level.equipment_etrap_needs_power = 0;
 	level.equipment_turret_needs_power = 0;
 	level.equipment_subwoofer_needs_power = 0;
