@@ -294,6 +294,9 @@
 * Increased cost from 2000 to 2500
 * Move 7% faster (normally only sprint 10% faster)
 
+### PHD Flopper
+* Deals same damage on all maps
+
 ### Deadshot Daiquiri
 * Increases bullet headshot damage by 100%
 * Move faster while aiming
