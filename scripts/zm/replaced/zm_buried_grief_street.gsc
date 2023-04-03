@@ -281,6 +281,33 @@ disable_tunnels()
 		}
 	}
 
+	// bank top
+	model = spawn( "script_model", (-371.839, -448.016, 224.125));
+	model.angles = (0, 180, -90);
+	model setmodel("p6_zm_bu_wood_planks_106x171");
+	model = spawn( "script_model", (-381.252, -443.056, 144.125), 1);
+	model.angles = (0, 0, 0);
+	model setmodel("collision_clip_wall_128x128x10");
+	model disconnectpaths();
+
+	// bank tunnel
+	model = spawn( "script_model", (-54.6069, -1129.47, 6.125));
+	model.angles = (0, 0, 0);
+	model setmodel("p6_zm_bu_wood_planks_106x171");
+	model = spawn( "script_model", (-92.6853, -1075.92, 8.125));
+	model.angles = (0, 140, 0);
+	model setmodel("p6_zm_bu_sloth_blocker_medium");
+	model = spawn( "script_model", (-40.3028, -1158.31, 3.125));
+	model.angles = (0, -90, -15);
+	model setmodel("p6_zm_bu_victorian_couch");
+	model = spawn( "script_model", (-75.4725, -1156.37, 52.125));
+	model.angles = (0, 0, 180);
+	model setmodel("p6_zm_work_bench");
+	model = spawn( "script_model", (-53.4637, -1165.89, 8.125), 1);
+	model.angles = (0, 0, 0);
+	model setmodel("collision_clip_64x64x128");
+	model disconnectpaths();
+
 	// zombie spawns
 	level.zones["zone_tunnel_gun2saloon"].is_enabled = 0;
 	level.zones["zone_tunnel_gun2saloon"].is_spawning_allowed = 0;
@@ -300,6 +327,8 @@ disable_tunnels()
 	level.zones["zone_tunnels_south2"].is_spawning_allowed = 0;
 	level.zones["zone_tunnels_south3"].is_enabled = 0;
 	level.zones["zone_tunnels_south3"].is_spawning_allowed = 0;
+	level.zones["zone_bank"].is_enabled = 0;
+	level.zones["zone_bank"].is_spawning_allowed = 0;
 
 	foreach ( spawn_location in level.zones["zone_stables"].spawn_locations )
 	{

@@ -567,7 +567,7 @@
 * Added buildable table hint strings on buildable purchase
 
 #### Borough
-* Tunnels disabled
+* Tunnels and bank area disabled
 * Players spawn at Stables
 * Mystery Box initially spawns at a random location
 * Added B23R, M16, Claymore, and Bowie Knife wallbuys at their locations on Buried
