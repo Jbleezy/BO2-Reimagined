@@ -94,6 +94,21 @@ headchopperthink( weapon, electricradius, armed )
     }
 }
 
+wait_for_targets( weapon )
+{
+    weapon endon( "hi_priority_target" );
+
+    while ( isdefined( weapon ) )
+    {
+        if ( isdefined( weapon.chop_targets ) && weapon.chop_targets.size > 0 )
+        {
+            return;
+        }
+
+        wait 0.05;
+    }
+}
+
 headchopperattack( weapon, ent )
 {
     self endon( "death" );

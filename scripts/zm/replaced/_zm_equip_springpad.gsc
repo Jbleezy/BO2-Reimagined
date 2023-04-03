@@ -101,3 +101,18 @@ springpadthink( weapon, electricradius, armed )
             wait 0.1;
     }
 }
+
+wait_for_targets( weapon )
+{
+    weapon endon( "hi_priority_target" );
+
+    while ( isdefined( weapon ) )
+    {
+        if ( isdefined( weapon.fling_targets ) && weapon.fling_targets.size > 0 )
+        {
+            return;
+        }
+
+        wait 0.05;
+    }
+}
