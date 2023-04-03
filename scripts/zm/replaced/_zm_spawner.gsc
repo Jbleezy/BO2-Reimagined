@@ -106,11 +106,11 @@ zombie_damage( mod, hit_location, hit_origin, player, amount, team )
 		{
 			player.grenade_multiattack_count++;
 			player.grenade_multiattack_ent = self;
-			self dodamage( damage, self.origin, player, self, hit_location, mod, 0, self.damageweapon );
+			self dodamage( damage, self.origin, player, self, hit_location, "MOD_GRENADE_SPLASH", 0, self.damageweapon );
 		}
 		else
 		{
-			self dodamage( damage, self.origin, undefined, self, hit_location, mod, 0, self.damageweapon );
+			self dodamage( damage, self.origin, undefined, self, hit_location, "MOD_GRENADE_SPLASH", 0, self.damageweapon );
 		}
 	}
 	else if ( mod == "MOD_PROJECTILE" || mod == "MOD_PROJECTILE_SPLASH" || mod == "MOD_EXPLOSIVE" )
@@ -129,11 +129,11 @@ zombie_damage( mod, hit_location, hit_origin, player, amount, team )
 
 		if ( isDefined( player ) && isalive( player ) )
 		{
-			self dodamage( damage, self.origin, player, self, hit_location, mod, 0, self.damageweapon );
+			self dodamage( damage, self.origin, player, self, hit_location, "MOD_PROJECTILE_SPLASH", 0, self.damageweapon );
 		}
 		else
 		{
-			self dodamage( damage, self.origin, undefined, self, hit_location, mod, 0, self.damageweapon );
+			self dodamage( damage, self.origin, undefined, self, hit_location, "MOD_PROJECTILE_SPLASH", 0, self.damageweapon );
 		}
 	}
 
