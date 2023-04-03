@@ -141,6 +141,11 @@ last_stand_pistol_rank_init()
 
 actor_damage_override( inflictor, attacker, damage, flags, meansofdeath, weapon, vpoint, vdir, shitloc, psoffsettime, boneindex )
 {
+	if ( is_true( self.is_sloth ) )
+	{
+		return 0;
+	}
+
 	if ( !isDefined( self ) || !isDefined( attacker ) )
 	{
 		return damage;
