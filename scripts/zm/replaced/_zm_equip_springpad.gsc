@@ -47,6 +47,8 @@ springpadthink( weapon, electricradius, armed )
             weapon.is_armed = 0;
             weapon.zombies_only = 1;
 
+            weapon.springpad_kills++;
+
             foreach ( ent in weapon.fling_targets )
             {
                 if ( isplayer( ent ) )
@@ -86,16 +88,17 @@ springpadthink( weapon, electricradius, armed )
                 }
             }
 
-			weapon.springpad_kills++;
-
-            if ( weapon.springpad_kills >= 15 )
-                self thread springpad_expired( weapon );
-
             weapon.fling_targets = [];
 
             weapon waittill( "armed" );
 
             weapon.is_armed = 1;
+
+            if ( weapon.springpad_kills >= 15 )
+            {
+                self thread springpad_expired( weapon );
+                return;
+            }
         }
         else
             wait 0.1;
