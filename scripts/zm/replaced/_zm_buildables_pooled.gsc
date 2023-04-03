@@ -125,43 +125,57 @@ pooledbuildablestub_update_prompt( player, trigger )
 
     self.cursor_hint = "HINT_NOICON";
     self.cursor_hint_weapon = undefined;
+	piece = undefined;
 
     if ( !( isdefined( self.built ) && self.built ) )
     {
-		if (level.buildables_available.size > 1)
+		if (is_true(self.solo_pool))
 		{
-			if (!is_true(self.open_buildable_checking_input))
+			foreach (stub in level.buildable_stubs)
 			{
-				self thread choose_open_buildable(player);
+				if (stub.buildablezone.buildable_name == self.equipname)
+				{
+					piece = stub.buildablezone.pieces[0];
+					break;
+				}
 			}
 		}
 		else
 		{
-			self notify( "kill_choose_open_buildable" );
-			self.open_buildable_checking_input = 0;
-
-			if ( isdefined( self.openbuildablehudelem ) )
-            {
-                self.openbuildablehudelem destroy();
-                self.openbuildablehudelem = undefined;
-            }
-
-			self.buildables_available_index = 0;
-			self.equipname = level.buildables_available[self.buildables_available_index];
-		}
-
-		if (self.buildables_available_index >= level.buildables_available.size)
-		{
-			self.buildables_available_index = 0;
-		}
-
-		piece = undefined;
-		foreach (stub in level.buildable_stubs)
-		{
-			if (stub.buildablezone.buildable_name == level.buildables_available[self.buildables_available_index])
+			if (level.buildables_available.size > 1)
 			{
-				piece = stub.buildablezone.pieces[0];
-				break;
+				if (!is_true(self.open_buildable_checking_input))
+				{
+					self thread choose_open_buildable(player);
+				}
+			}
+			else
+			{
+				self notify( "kill_choose_open_buildable" );
+				self.open_buildable_checking_input = 0;
+
+				if ( isdefined( self.openbuildablehudelem ) )
+				{
+					self.openbuildablehudelem destroy();
+					self.openbuildablehudelem = undefined;
+				}
+
+				self.buildables_available_index = 0;
+				self.equipname = level.buildables_available[self.buildables_available_index];
+			}
+
+			if (self.buildables_available_index >= level.buildables_available.size)
+			{
+				self.buildables_available_index = 0;
+			}
+
+			foreach (stub in level.buildable_stubs)
+			{
+				if (stub.buildablezone.buildable_name == level.buildables_available[self.buildables_available_index])
+				{
+					piece = stub.buildablezone.pieces[0];
+					break;
+				}
 			}
 		}
 

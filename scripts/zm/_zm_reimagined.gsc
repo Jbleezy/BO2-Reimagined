@@ -2577,6 +2577,8 @@ buildbuildables()
 			buildbuildable( "springpad_zm" );
 			buildbuildable( "headchopper_zm" );
 			buildbuildable( "sq_common", 1 );
+			buildbuildable( "buried_sq_bt_m_tower", 0, 1, ::onuseplantobject_mtower );
+			buildbuildable( "buried_sq_bt_r_tower", 0, 1, ::onuseplantobject_rtower );
 		}
 	}
 	else
@@ -2593,14 +2595,9 @@ buildbuildables()
 	}
 }
 
-buildbuildable( buildable, craft )
+buildbuildable( buildable, craft = 0, solo_pool = 0, onuse )
 {
-	if (!isDefined(craft))
-	{
-		craft = 0;
-	}
-
-	player = get_players()[ 0 ];
+	player = get_players()[0];
 	foreach (stub in level.buildable_stubs)
 	{
 		if ( !isDefined( buildable ) || stub.equipname == buildable )
@@ -2609,6 +2606,11 @@ buildbuildable( buildable, craft )
 			{
 				stub.cost = stub get_equipment_cost();
 				stub.trigger_func = scripts\zm\replaced\_zm_buildables_pooled::pooled_buildable_place_think;
+
+				if (isDefined(onuse))
+				{
+					stub.buildablestruct.onuseplantobject = onuse;
+				}
 
 				if (craft)
 				{
@@ -2619,7 +2621,15 @@ buildbuildable( buildable, craft )
 				}
 				else
 				{
-					if (level.script != "zm_buried")
+					if (level.script == "zm_buried")
+					{
+						if (solo_pool)
+						{
+							stub.solo_pool = 1;
+							scripts\zm\replaced\_zm_buildables_pooled::add_buildable_to_pool(stub, stub.equipname);
+						}
+					}
+					else
 					{
 						scripts\zm\replaced\_zm_buildables_pooled::add_buildable_to_pool(stub, level.script);
 					}
@@ -2681,6 +2691,14 @@ get_equipment_display_name()
 	else if (self.equipname == "headchopper_zm")
 	{
 		return "Head Chopper";
+	}
+	else if (self.equipname == "buried_sq_bt_r_tower")
+	{
+		return "Guillotine";
+	}
+	else if (self.equipname == "buried_sq_bt_m_tower")
+	{
+		return "Noose";
 	}
 
 	return "";
@@ -2786,6 +2804,56 @@ buildable_get_last_piece()
 		}
 
 		wait 0.05;
+	}
+}
+
+onuseplantobject_mtower( player )
+{
+	level setclientfield( "sq_gl_b_vt", 1 );
+	level setclientfield( "sq_gl_b_bb", 1 );
+	level setclientfield( "sq_gl_b_a", 1 );
+	level setclientfield( "sq_gl_b_ws", 1 );
+	level notify( "mtower_object_planted" );
+
+	self maps\mp\zombies\_zm_buildables::buildablestub_finish_build( player );
+	player playsound( "zmb_buildable_complete" );
+
+	level thread unregister_tower_unitriggers();
+}
+
+onuseplantobject_rtower( player )
+{
+    m_tower = getent( "sq_guillotine", "targetname" );
+	m_tower sq_tower_spawn_attachment( "p6_zm_bu_sq_crystal", "j_crystal_01" );
+	m_tower sq_tower_spawn_attachment( "p6_zm_bu_sq_satellite_dish", "j_satellite" );
+	m_tower sq_tower_spawn_attachment( "p6_zm_bu_sq_antenna", "j_antenna" );
+	m_tower sq_tower_spawn_attachment( "p6_zm_bu_sq_wire_spool", "j_spool" );
+	level notify( "rtower_object_planted" );
+
+	self maps\mp\zombies\_zm_buildables::buildablestub_finish_build( player );
+	player playsound( "zmb_buildable_complete" );
+
+	level thread unregister_tower_unitriggers();
+}
+
+sq_tower_spawn_attachment( str_model, str_tag )
+{
+    m_part = spawn( "script_model", self gettagorigin( str_tag ) );
+    m_part.angles = self gettagangles( str_tag );
+    m_part setmodel( str_model );
+}
+
+unregister_tower_unitriggers()
+{
+	foreach (stub in level.buildable_stubs)
+	{
+		if (isDefined(stub.equipname))
+		{
+			if (stub.equipname == "buried_sq_bt_m_tower" || stub.equipname == "buried_sq_bt_r_tower")
+			{
+				maps\mp\zombies\_zm_unitrigger::unregister_unitrigger( stub );
+			}
+		}
 	}
 }
 
