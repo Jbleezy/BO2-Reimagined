@@ -184,6 +184,8 @@
 * Increased max amount that can be placed from 12 to 20
 
 ### Time Bomb
+* No longer sends players back in time
+* Kills all zombies
 * Can have with Monkey Bombs
 
 ### One Inch Punch
