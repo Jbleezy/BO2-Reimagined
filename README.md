@@ -424,6 +424,7 @@
 * Buildable table trigger requires look at
 
 ### Maxis Drone
+* Kills on any round in 1-4 shots (normally does 12000 damage max)
 * Added hint strings for purchased, can only be one, and cooling down
 * Buildable table model sits on top of the stand
 * Rotated buildable table model 90 degrees
