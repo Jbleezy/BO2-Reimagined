@@ -288,6 +288,14 @@ actor_damage_override( inflictor, attacker, damage, flags, meansofdeath, weapon,
 		}
 	}
 
+	if (weapon == "staff_revive_zm")
+	{
+		if (!is_true(self.is_mechz))
+		{
+			final_damage = level.zombie_health;
+		}
+	}
+
 	if(attacker HasPerk("specialty_rof"))
 	{
 		if(meansofdeath == "MOD_PISTOL_BULLET" || meansofdeath == "MOD_RIFLE_BULLET")
