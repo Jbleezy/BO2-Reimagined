@@ -85,13 +85,21 @@ update_staff_accessories( n_element_index )
         self setactionslot( 3, "weapon", "staff_revive_zm" );
         self giveweapon( "staff_revive_zm" );
 
-        if ( isdefined( staff_info ) )
+        if ( isdefined( staff_info ) && isdefined( staff_info.upgrade.revive_ammo_stock ) )
         {
-            if ( isdefined( staff_info.upgrade.revive_ammo_stock ) )
+            if ( staff_info.upgrade.revive_ammo_clip < 1 && staff_info.upgrade.revive_ammo_stock >= 1 )
             {
-                self setweaponammostock( "staff_revive_zm", staff_info.upgrade.revive_ammo_stock );
-                self setweaponammoclip( "staff_revive_zm", staff_info.upgrade.revive_ammo_clip );
+                staff_info.upgrade.revive_ammo_clip += 1;
+                staff_info.upgrade.revive_ammo_stock -= 1;
             }
+
+            self setweaponammostock( "staff_revive_zm", staff_info.upgrade.revive_ammo_stock );
+            self setweaponammoclip( "staff_revive_zm", staff_info.upgrade.revive_ammo_clip );
+        }
+        else
+        {
+            self setweaponammostock( "staff_revive_zm", 3 );
+            self setweaponammoclip( "staff_revive_zm", 1 );
         }
     }
 }

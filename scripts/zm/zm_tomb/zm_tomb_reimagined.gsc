@@ -29,6 +29,7 @@
 #include scripts\zm\replaced\_zm_weap_staff_air;
 #include scripts\zm\replaced\_zm_weap_staff_fire;
 #include scripts\zm\replaced\_zm_weap_staff_lightning;
+#include scripts\zm\replaced\_zm_weap_staff_revive;
 
 main()
 {
@@ -72,6 +73,7 @@ main()
     replaceFunc(maps\mp\zombies\_zm_weap_staff_fire::flame_damage_fx, scripts\zm\replaced\_zm_weap_staff_fire::flame_damage_fx);
     replaceFunc(maps\mp\zombies\_zm_weap_staff_fire::get_impact_damage, scripts\zm\replaced\_zm_weap_staff_fire::get_impact_damage);
     replaceFunc(maps\mp\zombies\_zm_weap_staff_lightning::staff_lightning_ball_kill_zombies, scripts\zm\replaced\_zm_weap_staff_lightning::staff_lightning_ball_kill_zombies);
+    replaceFunc(maps\mp\zombies\_zm_weap_staff_revive::watch_staff_revive_fired, scripts\zm\replaced\_zm_weap_staff_revive::watch_staff_revive_fired);
 }
 
 init()
