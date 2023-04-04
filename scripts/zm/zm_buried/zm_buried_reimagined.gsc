@@ -70,6 +70,7 @@ init()
 	add_jug_collision();
 
 	level thread update_buildable_stubs();
+	level thread remove_chalk_draw_points();
 	level thread enable_fountain_transport();
 	level thread disable_ghost_free_perk_on_damage();
 	level thread sloth_trap();
@@ -265,6 +266,60 @@ update_buildable_stubs()
 			level.zombie_buildables[stub.equipname].bought = "Took " + stub scripts\zm\_zm_reimagined::get_equipment_display_name();
 		}
 	}
+}
+
+remove_chalk_draw_points()
+{
+	flag_wait( "initial_blackscreen_passed" );
+
+	wait 1;
+
+	foreach (stub in level.buildable_stubs)
+	{
+		if ( stub.equipname == "chalk" )
+		{
+			stub.buildablestruct.onuseplantobject = ::onuseplantobject_chalk;
+		}
+	}
+}
+
+onuseplantobject_chalk( entity )
+{
+    piece = entity maps\mp\zombies\_zm_buildables::player_get_buildable_piece( 1 );
+
+    if ( isdefined( piece ) )
+    {
+        weapon = piece.script_noteworthy;
+
+        if ( isdefined( weapon ) )
+        {
+            origin = self.origin;
+            angles = self.angles;
+
+            if ( isdefined( level._effect["wallbuy_replace"] ) )
+                playfx( level._effect["wallbuy_replace"], origin, anglestoforward( angles ) );
+
+            maps\mp\zombies\_zm_weapons::add_dynamic_wallbuy( weapon, self.target, 1 );
+
+            if ( !isdefined( level.built_wallbuys ) )
+                level.built_wallbuys = 0;
+
+            level.built_wallbuys++;
+
+            if ( isplayer( entity ) )
+            {
+                entity maps\mp\zombies\_zm_stats::increment_client_stat( "buried_wallbuy_placed", 0 );
+                entity maps\mp\zombies\_zm_stats::increment_player_stat( "buried_wallbuy_placed" );
+                entity maps\mp\zombies\_zm_stats::increment_client_stat( "buried_wallbuy_placed_" + weapon, 0 );
+                entity maps\mp\zombies\_zm_stats::increment_player_stat( "buried_wallbuy_placed_" + weapon );
+            }
+
+            if ( level.built_wallbuys >= 6 )
+            {
+                level.built_wallbuys = -100;
+            }
+        }
+    }
 }
 
 enable_fountain_transport()

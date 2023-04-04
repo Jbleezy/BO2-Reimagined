@@ -558,6 +558,7 @@
 * Power automatically on
 * Noose and Guillotine parts automatically picked up
 * Removed Turbine, keys, booze, and candy
+* Drawing weapons no longer gives points
 * Arthur barricades are buyable debris
 * Arthur can be purchased to feed him candy and make him run around and kill zombies for 30 seconds
 * Ghosts no longer spawn a free perk powerup if any player gets damaged by the ghosts
