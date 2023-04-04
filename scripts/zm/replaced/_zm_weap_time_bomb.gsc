@@ -181,9 +181,6 @@ time_bomb_detonation()
 {
     level setclientfield( "time_bomb_lua_override", 1 );
 
-    if ( isdefined( level._time_bomb.functionality_override ) && level._time_bomb.functionality_override )
-        return;
-
     playsoundatposition( "zmb_timebomb_timechange_2d", ( 0, 0, 0 ) );
     _time_bomb_show_overlay();
     time_bomb_clears_global_data();
@@ -197,7 +194,22 @@ time_bomb_detonation()
     flag_set( "spawn_zombies" );
     delete_time_bomb_model();
     _time_bomb_hide_overlay();
+    level thread set_time_bomb_restore_active();
     level setclientfield( "time_bomb_lua_override", 0 );
+
+    if ( isdefined( level._time_bomb.functionality_override ) && level._time_bomb.functionality_override )
+        return;
+
+    level notify( "time_bomb_detonation_complete" );
+}
+
+set_time_bomb_restore_active()
+{
+    flag_set( "time_bomb_restore_active" );
+
+    wait 0.05;
+
+    flag_clear( "time_bomb_restore_active" );
 }
 
 _time_bomb_kill_all_active_enemies()

@@ -109,3 +109,35 @@ sq_bp_button_pressed( str_tag, trig )
     sq_bp_light_on( str_tag, "green" );
     level notify( "sq_bp_correct_button" );
 }
+
+sq_ml_puzzle_logic()
+{
+    a_levers = getentarray( "sq_ml_lever", "targetname" );
+    level.sq_ml_curr_lever = 0;
+    a_levers = array_randomize( a_levers );
+
+    for ( i = 0; i < a_levers.size; i++ )
+        a_levers[i].n_lever_order = i;
+
+    while ( true )
+    {
+        level.sq_ml_curr_lever = 0;
+        sq_ml_puzzle_wait_for_levers();
+        n_correct = 0;
+
+        foreach ( m_lever in a_levers )
+        {
+            playfxontag( level._effect["sq_spark"], m_lever, "tag_origin" );
+            n_correct++;
+            m_lever playsound( "zmb_sq_maze_correct_spark" );
+        }
+
+        if ( n_correct == a_levers.size )
+            flag_set( "sq_ip_puzzle_complete" );
+
+        level waittill( "zm_buried_maze_changed" );
+
+        level notify( "sq_ml_reset_levers" );
+        wait 1;
+    }
+}

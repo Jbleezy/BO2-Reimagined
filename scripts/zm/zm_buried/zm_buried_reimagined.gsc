@@ -36,7 +36,7 @@ main()
 	replaceFunc(maps\mp\zm_buried_sq_bt::stage_vo_watch_gallows, scripts\zm\replaced\zm_buried_sq_bt::stage_vo_watch_gallows);
 	replaceFunc(maps\mp\zm_buried_sq_bt::stage_vo_watch_guillotine, scripts\zm\replaced\zm_buried_sq_bt::stage_vo_watch_guillotine);
 	replaceFunc(maps\mp\zm_buried_sq_ts::ts_sign_damage_watch, scripts\zm\replaced\zm_buried_sq_ts::ts_sign_damage_watch);
-	replaceFunc(maps\mp\zm_buried_sq_tpo::stage_logic_maxis, scripts\zm\replaced\zm_buried_sq_tpo::stage_logic_maxis);
+	replaceFunc(maps\mp\zm_buried_sq_tpo::init, scripts\zm\replaced\zm_buried_sq_tpo::init);
 	replaceFunc(maps\mp\zm_buried_sq_ip::init, scripts\zm\replaced\zm_buried_sq_ip::init);
 	replaceFunc(maps\mp\zm_buried_sq_ows::ows_targets_start, scripts\zm\replaced\zm_buried_sq_ows::ows_targets_start);
 	replaceFunc(maps\mp\zombies\_zm_ai_sloth::sloth_init_start_funcs, scripts\zm\replaced\_zm_ai_sloth::sloth_init_start_funcs);

@@ -560,7 +560,7 @@
 ### Buried
 * Power automatically on
 * Noose and Guillotine parts automatically picked up
-* Removed Turbine, keys, booze, and candy
+* Removed Turbine, key, booze, and candy
 * Drawing weapons no longer gives points
 * Arthur barricades are buyable debris
 * Arthur can be purchased to feed him candy and make him run around and kill zombies for 30 seconds
@@ -571,11 +571,13 @@
 * Removed buildable table hint icons
 * Added buildable table hint strings on buildable purchase
 * Quest: all 5 signs must be meleed for wisp to spawn
-* Quest: no longer need to activate the Time Bomb to be able to spawn the 2nd wisp
-* Quest: no longer need to activate the lever in the Mansion before activating the bells
-* Quest: bells can be activated in any order
 * Quest: changed number of targets that need to be hit to 20 multiplied by the amount of player
 * Quest: completion button always activatable after completing the quest
+* Quest (Maxis): no longer need to activate the Time Bomb to be able to spawn the 2nd wisp
+* Quest (Maxis): no longer need to activate the lever in the Mansion before activating the bells
+* Quest (Maxis): bells can be activated in any order
+* Quest (Richtofen): can enter round infinity without having all players next to the Guillotine
+* Quest (Richtofen): Maze levers can be activated in an order
 
 #### Borough
 * Tunnels and bank area disabled

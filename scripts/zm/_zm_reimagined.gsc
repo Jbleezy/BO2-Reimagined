@@ -2820,9 +2820,13 @@ onuseplantobject_mtower( player )
 	self maps\mp\zombies\_zm_buildables::buildablestub_finish_build( player );
 	player playsound( "zmb_buildable_complete" );
 
-	slot = self.buildablestruct.buildable_slot;
-	piece = player player_get_buildable_piece( slot );
-	player player_destroy_piece( piece );
+	players = get_players();
+	foreach (other_player in players)
+	{
+		slot = self.buildablestruct.buildable_slot;
+		piece = other_player player_get_buildable_piece( slot );
+		other_player player_destroy_piece( piece );
+	}
 
 	level thread unregister_tower_unitriggers();
 }
@@ -2839,9 +2843,13 @@ onuseplantobject_rtower( player )
 	self maps\mp\zombies\_zm_buildables::buildablestub_finish_build( player );
 	player playsound( "zmb_buildable_complete" );
 
-	slot = self.buildablestruct.buildable_slot;
-	piece = player player_get_buildable_piece( slot );
-	player player_destroy_piece( piece );
+	players = get_players();
+	foreach (other_player in players)
+	{
+		slot = self.buildablestruct.buildable_slot;
+		piece = other_player player_get_buildable_piece( slot );
+		other_player player_destroy_piece( piece );
+	}
 
 	level thread unregister_tower_unitriggers();
 }
