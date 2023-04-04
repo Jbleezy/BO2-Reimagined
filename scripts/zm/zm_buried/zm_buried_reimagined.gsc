@@ -6,7 +6,12 @@
 #include scripts\zm\replaced\zm_buried_gamemodes;
 #include scripts\zm\replaced\zm_buried_ffotd;
 #include scripts\zm\replaced\zm_buried_fountain;
+#include scripts\zm\replaced\zm_buried_sq;
 #include scripts\zm\replaced\zm_buried_sq_bt;
+#include scripts\zm\replaced\zm_buried_sq_ts;
+#include scripts\zm\replaced\zm_buried_sq_tpo;
+#include scripts\zm\replaced\zm_buried_sq_ip;
+#include scripts\zm\replaced\zm_buried_sq_ows;
 #include scripts\zm\replaced\_zm_ai_sloth;
 #include scripts\zm\replaced\_zm_buildables_pooled;
 #include scripts\zm\replaced\_zm_equip_subwoofer;
@@ -27,8 +32,13 @@ main()
 	replaceFunc(maps\mp\zm_buried_gamemodes::buildbuildable, scripts\zm\replaced\zm_buried_gamemodes::buildbuildable);
 	replaceFunc(maps\mp\zm_buried_ffotd::spawned_life_triggers, scripts\zm\replaced\zm_buried_ffotd::spawned_life_triggers);
 	replaceFunc(maps\mp\zm_buried_fountain::transport_player_to_start_zone, scripts\zm\replaced\zm_buried_fountain::transport_player_to_start_zone);
+	replaceFunc(maps\mp\zm_buried_sq::sq_metagame, scripts\zm\replaced\zm_buried_sq::sq_metagame);
 	replaceFunc(maps\mp\zm_buried_sq_bt::stage_vo_watch_gallows, scripts\zm\replaced\zm_buried_sq_bt::stage_vo_watch_gallows);
 	replaceFunc(maps\mp\zm_buried_sq_bt::stage_vo_watch_guillotine, scripts\zm\replaced\zm_buried_sq_bt::stage_vo_watch_guillotine);
+	replaceFunc(maps\mp\zm_buried_sq_ts::ts_sign_damage_watch, scripts\zm\replaced\zm_buried_sq_ts::ts_sign_damage_watch);
+	replaceFunc(maps\mp\zm_buried_sq_tpo::stage_logic_maxis, scripts\zm\replaced\zm_buried_sq_tpo::stage_logic_maxis);
+	replaceFunc(maps\mp\zm_buried_sq_ip::init, scripts\zm\replaced\zm_buried_sq_ip::init);
+	replaceFunc(maps\mp\zm_buried_sq_ows::ows_targets_start, scripts\zm\replaced\zm_buried_sq_ows::ows_targets_start);
 	replaceFunc(maps\mp\zombies\_zm_ai_sloth::sloth_init_start_funcs, scripts\zm\replaced\_zm_ai_sloth::sloth_init_start_funcs);
 	replaceFunc(maps\mp\zombies\_zm_ai_sloth::sloth_init_update_funcs, scripts\zm\replaced\_zm_ai_sloth::sloth_init_update_funcs);
 	replaceFunc(maps\mp\zombies\_zm_ai_sloth::sloth_check_ragdolls, scripts\zm\replaced\_zm_ai_sloth::sloth_check_ragdolls);

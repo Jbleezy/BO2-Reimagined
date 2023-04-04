@@ -570,6 +570,12 @@
 * Players can no longer get into the corner next to Juggernog
 * Removed buildable table hint icons
 * Added buildable table hint strings on buildable purchase
+* Quest: all 5 signs must be meleed for wisp to spawn
+* Quest: no longer need to activate the Time Bomb to be able to spawn the 2nd wisp
+* Quest: no longer need to activate the lever in the Mansion before activating the bells
+* Quest: bells can be activated in any order
+* Quest: changed number of targets that need to be hit to 20 multiplied by the amount of player
+* Quest: completion button always activatable after completing the quest
 
 #### Borough
 * Tunnels and bank area disabled
