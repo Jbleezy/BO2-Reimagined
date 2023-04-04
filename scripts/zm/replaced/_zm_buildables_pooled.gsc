@@ -147,6 +147,7 @@ pooledbuildablestub_update_prompt( player, trigger )
 				if (!is_true(self.open_buildable_checking_input))
 				{
 					self thread choose_open_buildable(player);
+					return 1;
 				}
 			}
 			else
