@@ -19,10 +19,34 @@ init_anim_slice_times()
 {
     level.headchopper_slice_times = [];
     slice_times = getnotetracktimes( %o_zmb_chopper_slice_slow, "slice" );
+    retract_times = getnotetracktimes( %o_zmb_chopper_slice_slow, "retract" );
     animlength = getanimlength( %o_zmb_chopper_slice_slow );
 
+    i = 0;
     foreach ( frac in slice_times )
+    {
+        if ( i != 6 )
+        {
+            i++;
+            continue;
+        }
+
         level.headchopper_slice_times[level.headchopper_slice_times.size] = animlength * frac;
+        i++;
+    }
+
+    i = 0;
+    foreach ( frac in retract_times )
+    {
+        if ( i == 0 || i == 6 )
+        {
+            i++;
+            continue;
+        }
+
+        level.headchopper_slice_times[level.headchopper_slice_times.size] = animlength * frac;
+        i++;
+    }
 }
 
 headchopperthink( weapon, electricradius, armed )
@@ -35,7 +59,7 @@ headchopperthink( weapon, electricradius, armed )
     traceposition = weapon getcentroid() + anglestoforward( flat_angle( weapon.angles ) ) * -15;
     trace = bullettrace( traceposition, traceposition + vectorscale( ( 0, 0, -1 ), 48.0 ), 1, weapon );
     trigger_origin = weapon gettagorigin( "TAG_SAW" );
-    trigger = spawn( "trigger_box", trigger_origin, 1, 8, 128, 64 );
+    trigger = spawn( "trigger_box", trigger_origin, 1, 16, 128, 64 );
     trigger.origin += anglestoup( weapon.angles ) * 32.0;
     trigger.angles = weapon.angles;
     trigger enablelinkto();
@@ -73,15 +97,19 @@ headchopperthink( weapon, electricradius, armed )
                 weapon.is_armed = 0;
                 weapon.zombies_only = 1;
 
+                self headchopper_add_chop_ents( weapon, trigger );
+
                 foreach ( ent in weapon.chop_targets )
                     self thread headchopperattack( weapon, ent );
 
                 weapon.chop_targets = [];
                 weapon waittill_any( "slicing", "end" );
-                weapon notify( "slice_done" );
+
                 slice_count++;
                 is_slicing = weapon.is_slicing;
             }
+
+            weapon notify( "slice_done" );
 
             while ( !( isdefined( weapon.is_armed ) && weapon.is_armed ) )
                 wait 0.05;
@@ -94,6 +122,59 @@ headchopperthink( weapon, electricradius, armed )
         }
         else
             wait 0.1;
+    }
+}
+
+targeting_thread( weapon, trigger )
+{
+    self endon( "death" );
+    self endon( "disconnect" );
+    self endon( "equip_headchopper_zm_taken" );
+    weapon endon( "death" );
+    weapon.zombies_only = 1;
+
+    while ( isdefined( weapon ) )
+    {
+        if ( weapon.is_armed || isdefined( weapon.is_slicing ) && weapon.is_slicing )
+        {
+            if ( isdefined( weapon.is_slicing ) && weapon.is_slicing )
+                weapon waittill( "slice_done" );
+
+            self headchopper_add_chop_ents( weapon, trigger );
+
+            if ( !weapon.zombies_only )
+                weapon notify( "hi_priority_target" );
+        }
+
+        wait 0.05;
+    }
+}
+
+headchopper_add_chop_ents( weapon, trigger )
+{
+    zombies = getaiarray( level.zombie_team );
+
+    foreach ( zombie in zombies )
+    {
+        if ( !isdefined( zombie ) || !isalive( zombie ) )
+            continue;
+
+        if ( isdefined( zombie.ignore_headchopper ) && zombie.ignore_headchopper )
+            continue;
+
+        if ( zombie istouching( trigger ) )
+            weapon headchopper_add_chop_ent( zombie );
+    }
+
+    players = get_players();
+
+    foreach ( player in players )
+    {
+        if ( is_player_valid( player ) && player istouching( trigger ) )
+        {
+            weapon headchopper_add_chop_ent( player );
+            weapon.zombies_only = 0;
+        }
     }
 }
 

@@ -417,9 +417,11 @@
 * Gets destroyed after activating 10 times
 * Does multiple swings when player activates
 * Kills zombies when placed on a ceiling
+* Increased damage trigger width by 100%
 * No longer deals damage during retract animations
 * Changed player head chop damage to 50 (normally instantly kills without Juggernog or deals 15 damage with Juggernog)
 * Changed player body chop damage to 25 (normally deals 75 damage to torso or 37 damage to feet)
+* Fixed an issue where each chop would only damage entities that were touching the damage trigger during the previous chop
 
 ### Blundergat Upgrade
 * Buildable table trigger requires look at
