@@ -148,3 +148,8 @@ check_point_in_kill_brush( origin )
     check_model delete();
     return valid_point;
 }
+
+wait_network_frame()
+{
+    wait 0.1;
+}
