@@ -179,6 +179,9 @@
 * Unupgraded: changed damage to 2000 (normally does 1000-2000 damage based on number of charges)
 * Upgraded: kills on any round when not charged
 
+### G-Strike Beacon
+* Kills on any round
+
 ### Claymore
 * Can be repurchased
 * Increased max amount that can be placed from 12 to 20
