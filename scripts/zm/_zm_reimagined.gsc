@@ -500,6 +500,14 @@ enemy_counter_hud()
 	while (1)
 	{
 		enemies = get_round_enemy_array().size + level.zombie_total;
+		if (level flag_exists("spawn_ghosts") && flag("spawn_ghosts"))
+		{
+			enemies = get_current_ghost_count();
+		}
+		else if (level flag_exists("sq_tpo_special_round_active") && flag("sq_tpo_special_round_active"))
+		{
+			enemies = 0;
+		}
 
 		if (enemies == 0)
 		{
@@ -512,6 +520,20 @@ enemy_counter_hud()
 
 		wait 0.05;
 	}
+}
+
+get_current_ghost_count()
+{
+    ghost_count = 0;
+    ais = getaiarray( level.zombie_team );
+
+    foreach ( ai in ais )
+    {
+        if ( isdefined( ai.is_ghost ) && ai.is_ghost )
+            ghost_count++;
+    }
+
+    return ghost_count;
 }
 
 timer_hud()
