@@ -32,7 +32,6 @@ sq_metagame()
     if ( !is_true( level.buried_sq_maxis_complete ) && !is_true( level.buried_sq_richtofen_complete ) )
         level waittill( "buried_sidequest_achieved" );
 
-    level thread sq_metagame_turn_off_watcher();
     m_endgame_machine = getstruct( "sq_endgame_machine", "targetname" );
     a_stat = [];
     a_stat[0] = "sq_transit_last_completed";
@@ -88,4 +87,33 @@ sq_metagame()
         level notify( "end_game_reward_starts_maxis" );
     else
         level notify( "end_game_reward_starts_richtofen" );
+}
+
+make_richtofen_zombie()
+{
+    self endon( "death" );
+    level.sq_richtofen_zombie.spawned = 1;
+    self setclientfield( "buried_sq_maxis_ending_update_eyeball_color", 1 );
+    self thread richtofen_zombie_watch_death();
+
+    self waittill( "completed_emerging_into_playable_area" );
+
+    self thread richtofen_zombie_vo_watcher();
+    self.deathfunction_old = self.deathfunction;
+    self.deathfunction = ::richtofen_zombie_deathfunction_override;
+}
+
+richtofen_zombie_deathfunction_override()
+{
+    if ( isdefined( self.attacker ) && isplayer( self.attacker ) )
+    {
+        if ( !( isdefined( self.turning_into_ghost ) && self.turning_into_ghost ) )
+        {
+            self force_random_powerup_drop();
+
+            self.attacker maps\mp\zombies\_zm_score::add_to_player_score( 500 );
+        }
+    }
+
+    return self [[ self.deathfunction_old ]]();
 }

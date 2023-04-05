@@ -578,6 +578,7 @@
 * Quest (Maxis): bells can be activated in any order
 * Quest (Richtofen): can enter round infinity without having all players next to the Guillotine
 * Quest (Richtofen): Maze levers can be activated in an order
+* Quest (Richtofen): Richtofen zombie can only drop powerup if killed by a player
 
 #### Borough
 * Tunnels and bank area disabled

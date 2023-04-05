@@ -33,6 +33,7 @@ main()
 	replaceFunc(maps\mp\zm_buried_ffotd::spawned_life_triggers, scripts\zm\replaced\zm_buried_ffotd::spawned_life_triggers);
 	replaceFunc(maps\mp\zm_buried_fountain::transport_player_to_start_zone, scripts\zm\replaced\zm_buried_fountain::transport_player_to_start_zone);
 	replaceFunc(maps\mp\zm_buried_sq::sq_metagame, scripts\zm\replaced\zm_buried_sq::sq_metagame);
+	replaceFunc(maps\mp\zm_buried_sq::make_richtofen_zombie, scripts\zm\replaced\zm_buried_sq::make_richtofen_zombie);
 	replaceFunc(maps\mp\zm_buried_sq_bt::stage_vo_watch_gallows, scripts\zm\replaced\zm_buried_sq_bt::stage_vo_watch_gallows);
 	replaceFunc(maps\mp\zm_buried_sq_bt::stage_vo_watch_guillotine, scripts\zm\replaced\zm_buried_sq_bt::stage_vo_watch_guillotine);
 	replaceFunc(maps\mp\zm_buried_sq_ts::ts_sign_damage_watch, scripts\zm\replaced\zm_buried_sq_ts::ts_sign_damage_watch);
