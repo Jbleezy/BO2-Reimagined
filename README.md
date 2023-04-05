@@ -526,6 +526,14 @@
 * Moved weapon locker to the downstairs fridge
 * Zombies no longer spawn in the Upper Blue Highrise zone when in the Trample Steam zone
 * Zombies no longer spawn in the zone next to the AN94 when in the AN94 zone while the debris is closed
+* Quest: elevator symbols can be activated without players on every symbol
+* Quest: elevator symbols stay active after activating once
+* Quest: floor symbols can be activated in any order
+* Quest: Trample Steam step only requires one Trample Steam to be placed in the correct position
+* Quest: tower legs can be punched in any order
+* Quest (Maxis): no longer have to shoot the upgraded Ballistic Knife after collecting the corpses
+* Quest (Maxis): ball no longer requires a Trample Steam on the other side
+* Quest (Richtofen): decreased number of Sliquifier shots required for each ball from 20 to 10
 
 ### Mob of the Dead
 * 1 afterlife max in solo

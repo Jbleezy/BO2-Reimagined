@@ -10,11 +10,20 @@
 #include scripts\zm\replaced\_zm_banking;
 #include scripts\zm\replaced\_zm_weapon_locker;
 #include scripts\zm\replaced\_zm_sq;
+#include scripts\zm\replaced\_zm_sq_atd;
+#include scripts\zm\replaced\_zm_sq_ssp;
+#include scripts\zm\replaced\_zm_sq_pts;
 
 main()
 {
 	replaceFunc(maps\mp\zm_highrise_sq::navcomputer_waitfor_navcard, scripts\zm\replaced\_zm_sq::navcomputer_waitfor_navcard);
 	replaceFunc(maps\mp\zm_highrise_sq::init, scripts\zm\replaced\zm_highrise_sq::init);
+	replaceFunc(maps\mp\zm_highrise_sq_atd::init, scripts\zm\replaced\zm_highrise_sq_atd::init);
+	replaceFunc(maps\mp\zm_highrise_sq_ssp::ssp1_watch_ball, scripts\zm\replaced\zm_highrise_sq_ssp::ssp1_watch_ball);
+	replaceFunc(maps\mp\zm_highrise_sq_ssp::init_2, scripts\zm\replaced\zm_highrise_sq_ssp::init_2);
+	replaceFunc(maps\mp\zm_highrise_sq_pts::init_1, scripts\zm\replaced\zm_highrise_sq_pts::init_1);
+	replaceFunc(maps\mp\zm_highrise_sq_pts::init_2, scripts\zm\replaced\zm_highrise_sq_pts::init_2);
+	replaceFunc(maps\mp\zm_highrise_sq_pts::pts_should_player_create_trigs, scripts\zm\replaced\zm_highrise_sq_pts::pts_should_player_create_trigs);
 	replaceFunc(maps\mp\zm_highrise_gamemodes::init, scripts\zm\replaced\zm_highrise_gamemodes::init);
 	replaceFunc(maps\mp\zm_highrise_classic::insta_kill_player, scripts\zm\replaced\zm_highrise_classic::insta_kill_player);
 	replaceFunc(maps\mp\zombies\_zm_chugabud::chugabud_bleed_timeout, scripts\zm\replaced\_zm_chugabud::chugabud_bleed_timeout);

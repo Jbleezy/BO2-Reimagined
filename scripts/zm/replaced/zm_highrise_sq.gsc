@@ -89,3 +89,134 @@ sidequest_logic()
     else if ( flag( "sq_max_tower_complete" ) )
         update_sidequest_stats( "sq_highrise_maxis_complete" );
 }
+
+tower_punch_watcher()
+{
+    level thread playtoweraudio();
+    a_leg_trigs = [];
+
+    foreach ( str_wind in level.a_wind_order )
+        a_leg_trigs[a_leg_trigs.size] = "sq_tower_" + str_wind;
+
+    level.n_cur_leg = 0;
+    level.sq_leg_punches = 0;
+
+    foreach ( str_leg in a_leg_trigs )
+    {
+        t_leg = getent( str_leg, "script_noteworthy" );
+        t_leg thread tower_punch_watch_leg( a_leg_trigs );
+    }
+
+    flag_wait( "sq_tower_active" );
+
+    if ( flag( "sq_ric_tower_complete" ) )
+    {
+        exploder_stop( 1002 );
+        exploder_stop( 903 );
+        exploder( 1003 );
+    }
+    else
+    {
+        exploder_stop( 902 );
+        exploder_stop( 1003 );
+        exploder( 903 );
+    }
+
+    wait 1;
+    level thread tower_in_sync_lightning();
+    wait 1;
+    level thread sq_give_all_perks();
+}
+
+tower_punch_watch_leg( a_leg_trigs )
+{
+    level.legs_hit = [];
+
+    while ( !flag( "sq_tower_active" ) )
+    {
+        self waittill( "trigger", who );
+
+        if ( !isinarray( level.legs_hit, self.script_noteworthy ) && isplayer( who ) && ( who.current_melee_weapon == "tazer_knuckles_zm" || who.current_melee_weapon == "tazer_knuckles_upgraded_zm" ) )
+        {
+            level.legs_hit[level.legs_hit.size] = self.script_noteworthy;
+            self playsound( "zmb_sq_leg_powerup_" + level.legs_hit.size );
+
+            if ( level.legs_hit.size == 4 )
+                flag_set( "sq_tower_active" );
+
+            return;
+        }
+    }
+}
+
+sq_give_all_perks()
+{
+    vending_triggers = getentarray( "zombie_vending", "targetname" );
+    perks = [];
+
+    for ( i = 0; i < vending_triggers.size; i++ )
+    {
+        perk = vending_triggers[i].script_noteworthy;
+
+        if ( perk == "specialty_weapupgrade" )
+            continue;
+
+        perks[perks.size] = perk;
+    }
+
+    if ( flag( "sq_ric_tower_complete" ) )
+    {
+        v_fireball_start_loc = ( 1946, 608, 3338 );
+        n_fireball_exploder = 1001;
+    }
+    else
+    {
+        v_fireball_start_loc = ( 1068, -1362, 3340.5 );
+        n_fireball_exploder = 901;
+    }
+
+    players = getplayers();
+
+    foreach ( player in players )
+    {
+        player thread sq_give_player_perks( perks, v_fireball_start_loc, n_fireball_exploder );
+
+        level waittill( "sq_fireball_hit_player" );
+    }
+}
+
+sq_give_player_perks( perks, v_fireball_start_loc, n_fireball_exploder )
+{
+    exploder( n_fireball_exploder );
+    m_fireball = spawn( "script_model", v_fireball_start_loc );
+    m_fireball setmodel( "tag_origin" );
+    playfxontag( level._effect["sidequest_dragon_fireball_max"], m_fireball, "tag_origin" );
+
+    do
+    {
+        wait_network_frame();
+        v_to_player = vectornormalize( self gettagorigin( "J_SpineLower" ) - m_fireball.origin );
+        v_move_spot = m_fireball.origin + v_to_player * 48;
+        m_fireball.origin = v_move_spot;
+    }
+    while ( distancesquared( m_fireball.origin, self gettagorigin( "J_SpineLower" ) ) > 2304 );
+
+    m_fireball.origin = self gettagorigin( "J_SpineLower" );
+    m_fireball linkto( self, "J_SpineLower" );
+    wait 1.5;
+    playfx( level._effect["sidequest_flash"], m_fireball.origin );
+    m_fireball delete();
+    level notify( "sq_fireball_hit_player" );
+
+    foreach ( perk in perks )
+    {
+        if ( isdefined( self.perk_purchased ) && self.perk_purchased == perk )
+            continue;
+
+        if ( self hasperk( perk ) || self maps\mp\zombies\_zm_perks::has_perk_paused( perk ) )
+            continue;
+
+        self maps\mp\zombies\_zm_perks::give_perk( perk, 0 );
+        wait 0.25;
+    }
+}

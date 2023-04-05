@@ -43,7 +43,7 @@ springpadthink( weapon, electricradius, armed )
 
         if ( isdefined( weapon.fling_targets ) && weapon.fling_targets.size > 0 )
         {
-            weapon notify( "fling", 1 );
+            weapon notify( "fling", weapon.zombies_only );
             weapon.is_armed = 0;
             weapon.zombies_only = 1;
 
@@ -117,5 +117,64 @@ wait_for_targets( weapon )
         }
 
         wait 0.05;
+    }
+}
+
+#using_animtree("zombie_springpad");
+
+springpad_animate( weapon, armed )
+{
+    self endon( "death" );
+    self endon( "disconnect" );
+    self endon( "equip_springpad_zm_taken" );
+    weapon endon( "death" );
+    weapon useanimtree( #animtree );
+    f_animlength = getanimlength( %o_zombie_buildable_tramplesteam_reset_zombie );
+    r_animlength = getanimlength( %o_zombie_buildable_tramplesteam_reset );
+    l_animlength = getanimlength( %o_zombie_buildable_tramplesteam_launch );
+    weapon thread springpad_audio();
+    prearmed = 0;
+
+    if ( isdefined( armed ) && armed )
+        prearmed = 1;
+
+    fast_reset = 0;
+
+    while ( isdefined( weapon ) )
+    {
+        if ( !prearmed )
+        {
+            if ( fast_reset )
+            {
+                weapon setanim( %o_zombie_buildable_tramplesteam_reset_zombie );
+                weapon thread playspringpadresetaudio( f_animlength );
+                wait( f_animlength );
+            }
+            else
+            {
+                weapon setanim( %o_zombie_buildable_tramplesteam_reset );
+                weapon thread playspringpadresetaudio( r_animlength );
+                wait( r_animlength );
+            }
+        }
+        else
+            wait 0.05;
+
+        prearmed = 0;
+        weapon notify( "armed" );
+        fast_reset = 1;
+
+        if ( isdefined( weapon ) )
+        {
+            weapon setanim( %o_zombie_buildable_tramplesteam_compressed_idle );
+
+            weapon waittill( "fling", fast );
+        }
+
+        if ( isdefined( weapon ) )
+        {
+            weapon setanim( %o_zombie_buildable_tramplesteam_launch );
+            wait( l_animlength );
+        }
     }
 }
