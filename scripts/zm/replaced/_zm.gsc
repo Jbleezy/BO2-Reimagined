@@ -139,6 +139,47 @@ last_stand_pistol_rank_init()
 	level.pistol_values[ level.pistol_values.size ] = "microwavegundw_upgraded_zm";
 }
 
+can_track_ammo( weap )
+{
+    if ( !isdefined( weap ) )
+        return false;
+
+    switch ( weap )
+    {
+        case "zombie_tazer_flourish":
+        case "zombie_sickle_flourish":
+        case "zombie_knuckle_crack":
+        case "zombie_fists_zm":
+        case "zombie_builder_zm":
+        case "zombie_bowie_flourish":
+        case "time_bomb_zm":
+        case "time_bomb_detonator_zm":
+        case "tazer_knuckles_zm":
+        case "tazer_knuckles_upgraded_zm":
+        case "slowgun_zm":
+        case "slowgun_upgraded_zm":
+        case "screecher_arms_zm":
+        case "riotshield_zm":
+        case "none":
+        case "no_hands_zm":
+        case "lower_equip_gasmask_zm":
+        case "humangun_zm":
+        case "humangun_upgraded_zm":
+        case "equip_gasmask_zm":
+        case "equip_dieseldrone_zm":
+        case "death_throe_zm":
+        case "chalk_draw_zm":
+        case "alcatraz_shield_zm":
+		case "tomb_shield_zm":
+            return false;
+        default:
+            if ( is_melee_weapon( weap ) || is_zombie_perk_bottle( weap ) || is_placeable_mine( weap ) || is_equipment( weap ) || issubstr( weap, "knife_ballistic_" ) || getsubstr( weap, 0, 3 ) == "gl_" || weaponfuellife( weap ) > 0 || weap == level.revive_tool )
+                return false;
+    }
+
+    return true;
+}
+
 actor_damage_override( inflictor, attacker, damage, flags, meansofdeath, weapon, vpoint, vdir, shitloc, psoffsettime, boneindex )
 {
 	if ( is_true( self.is_sloth ) )
