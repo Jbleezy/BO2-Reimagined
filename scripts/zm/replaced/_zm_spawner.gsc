@@ -404,3 +404,14 @@ head_should_gib( attacker, type, point )
 
 	return 1;
 }
+
+zombie_can_drop_powerups( zombie )
+{
+    if ( !flag( "zombie_drop_powerups" ) )
+        return false;
+
+    if ( isdefined( zombie.no_powerups ) && zombie.no_powerups )
+        return false;
+
+    return true;
+}

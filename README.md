@@ -163,6 +163,7 @@
 * Unupgraded: grenades explode on impact
 
 ### Monkey Bomb
+* Zombies killed can drop powerups
 * Fixed an issue where a Monkey Bomb wouldn't activate if the previously thrown Monkey Bomb hadn't activated yet
 
 ### EMP Grenade
