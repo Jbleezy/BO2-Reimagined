@@ -143,6 +143,7 @@ onplayerconnect()
 		player thread onplayerspawned();
 		player thread onplayerdowned();
 
+		player thread reset_sq_completed();
 		player thread weapon_inspect_watcher();
 	}
 }
@@ -384,6 +385,13 @@ set_perks()
 
 	self setperk( "specialty_fastmantle" );
 	self setperk( "specialty_fastladderclimb" );
+}
+
+reset_sq_completed()
+{
+	player maps\mp\zombies\_zm_stats::set_global_stat( "sq_transit_last_completed", 0 );
+	player maps\mp\zombies\_zm_stats::set_global_stat( "sq_highrise_last_completed", 0 );
+	player maps\mp\zombies\_zm_stats::set_global_stat( "sq_buried_last_completed", 0 );
 }
 
 health_bar_hud()
