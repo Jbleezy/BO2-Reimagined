@@ -6,6 +6,7 @@
 #include scripts\zm\replaced\utility;
 #include scripts\zm\replaced\zm_melee;
 #include scripts\zm\replaced\_zm;
+#include scripts\zm\replaced\_zm_stats;
 #include scripts\zm\replaced\_zm_playerhealth;
 #include scripts\zm\replaced\_zm_utility;
 #include scripts\zm\replaced\_zm_score;
@@ -44,6 +45,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm::player_revive_monitor, scripts\zm\replaced\_zm::player_revive_monitor);
 	replaceFunc(maps\mp\zombies\_zm::player_out_of_playable_area_monitor, scripts\zm\replaced\_zm::player_out_of_playable_area_monitor);
 	replaceFunc(maps\mp\zombies\_zm::end_game, scripts\zm\replaced\_zm::end_game);
+	replaceFunc(maps\mp\zombies\_zm_stats::set_global_stat, scripts\zm\replaced\_zm_stats::set_global_stat);
 	replaceFunc(maps\mp\zombies\_zm_playerhealth::playerhealthregen, scripts\zm\replaced\_zm_playerhealth::playerhealthregen);
 	replaceFunc(maps\mp\zombies\_zm_utility::track_players_intersection_tracker, scripts\zm\replaced\_zm_utility::track_players_intersection_tracker);
 	replaceFunc(maps\mp\zombies\_zm_utility::is_headshot, scripts\zm\replaced\_zm_utility::is_headshot);
@@ -143,7 +145,6 @@ onplayerconnect()
 		player thread onplayerspawned();
 		player thread onplayerdowned();
 
-		player thread reset_sq_completed();
 		player thread weapon_inspect_watcher();
 	}
 }
@@ -385,13 +386,6 @@ set_perks()
 
 	self setperk( "specialty_fastmantle" );
 	self setperk( "specialty_fastladderclimb" );
-}
-
-reset_sq_completed()
-{
-	player maps\mp\zombies\_zm_stats::set_global_stat( "sq_transit_last_completed", 0 );
-	player maps\mp\zombies\_zm_stats::set_global_stat( "sq_highrise_last_completed", 0 );
-	player maps\mp\zombies\_zm_stats::set_global_stat( "sq_buried_last_completed", 0 );
 }
 
 health_bar_hud()
