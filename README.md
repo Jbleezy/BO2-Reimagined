@@ -252,6 +252,7 @@
 * Upgraded: charged shots damage Panzersoldat
 * Upgraded: decreased alt weapon reload time to 0.5 seconds
 * Fire upgraded: charged shots no longer deal additional damage to Panzersoldat
+* Ice upgraded: fixed melee sound
 
 ## Wallbuys
 * Purchasing ammo refills clip ammo

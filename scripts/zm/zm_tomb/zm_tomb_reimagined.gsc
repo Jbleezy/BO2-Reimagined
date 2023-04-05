@@ -33,6 +33,7 @@
 
 main()
 {
+    replaceFunc(maps\mp\zm_tomb::sndmeleewpn_isstaff, scripts\zm\replaced\zm_tomb::sndmeleewpn_isstaff);
 	replaceFunc(maps\mp\zm_tomb_main_quest::main_quest_init, scripts\zm\replaced\zm_tomb_main_quest::main_quest_init);
     replaceFunc(maps\mp\zm_tomb_main_quest::place_staff_in_charger, scripts\zm\replaced\zm_tomb_main_quest::place_staff_in_charger);
 	replaceFunc(maps\mp\zm_tomb_main_quest::watch_for_player_pickup_staff, scripts\zm\replaced\zm_tomb_main_quest::watch_for_player_pickup_staff);
