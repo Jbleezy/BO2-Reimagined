@@ -2148,6 +2148,12 @@ melee_weapon_switch_watcher()
 
 	while(1)
 	{
+		if (is_true(self.use_staff_melee))
+		{
+			wait 0.05;
+			continue;
+		}
+
 		vars["melee_wep"] = self get_player_melee_weapon();
 		vars["curr_wep"] = self getCurrentWeapon();
 
