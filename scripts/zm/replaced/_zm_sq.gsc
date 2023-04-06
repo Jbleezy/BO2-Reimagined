@@ -20,7 +20,6 @@ navcomputer_waitfor_navcard()
             if ( who.score >= navcomputer_use_trig.cost )
             {
 				who maps\mp\zombies\_zm_score::minus_to_player_score( navcomputer_use_trig.cost );
-				self play_sound_on_ent( "purchase" );
 
                 navcomputer_use_trig sethintstring( &"ZOMBIE_NAVCARD_SUCCESS" );
                 navcomputer_use_trig playsound( "zmb_sq_navcard_success" );
@@ -37,7 +36,7 @@ navcomputer_waitfor_navcard()
             }
 			else
 			{
-				navcomputer_use_trig play_sound_on_ent( "no_purchase" );
+                navcomputer_use_trig playsound( "zmb_sq_navcard_fail" );
 			}
         }
     }
