@@ -111,8 +111,7 @@ screecher_spawning_logic()
             level.zombie_screecher_count++;
         }
 
-        wait( level.zombie_vars["zombie_spawn_delay"] );
-        wait 0.1;
+        wait 5;
     }
 }
 
