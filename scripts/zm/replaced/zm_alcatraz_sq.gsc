@@ -169,3 +169,81 @@ plane_flight_thread()
         flag_clear( "plane_crashed" );
     }
 }
+
+manage_electric_chairs()
+{
+    level notify( "manage_electric_chairs" );
+    level endon( "manage_electric_chairs" );
+
+    while ( true )
+    {
+        flag_wait( "plane_approach_bridge" );
+
+        for ( i = 1; i < 5; i++ )
+        {
+            str_trigger_targetname = "trigger_electric_chair_" + i;
+            t_electric_chair = getent( str_trigger_targetname, "targetname" );
+
+            if ( isdefined( level.electric_chair_trigger_thread_custom_func ) )
+                t_electric_chair thread [[ level.electric_chair_trigger_thread_custom_func ]]( i );
+            else
+                t_electric_chair thread electric_chair_trigger_thread( i );
+
+            t_electric_chair setcursorhint( "HINT_NOICON" );
+            t_electric_chair sethintstring( &"ZM_PRISON_ELECTRIC_CHAIR_ACTIVATE" );
+            t_electric_chair usetriggerrequirelookat();
+        }
+
+        if ( level.final_flight_activated )
+        {
+            level.revive_trigger_should_ignore_sight_checks = maps\mp\zm_prison_sq_final::revive_trigger_should_ignore_sight_checks;
+
+            for ( j = 0; j < level.final_flight_players.size; j++ )
+            {
+                m_electric_chair = getent( "electric_chair_" + ( j + 1 ), "targetname" );
+                corpse = level.final_flight_players[j].e_afterlife_corpse;
+                corpse linkto( m_electric_chair, "tag_origin", ( 0, 0, 0 ), ( 0, 0, 0 ) );
+                corpse maps\mp\zombies\_zm_clone::clone_animate( "chair" );
+                wait 1;
+                corpse.revivetrigger unlink();
+                corpse.revivetrigger.origin = m_electric_chair.origin + ( 64, 0, 32 );
+            }
+
+            for ( j = 1; j < 5; j++ )
+            {
+                str_trigger_targetname = "trigger_electric_chair_" + j;
+                t_electric_chair = getent( str_trigger_targetname, "targetname" );
+                t_electric_chair trigger_off();
+            }
+        }
+        else
+        {
+            for ( i = 1; i < 5; i++ )
+            {
+                m_electric_chair = getent( "electric_chair_" + i, "targetname" );
+                m_electric_chair hide();
+                str_trigger_targetname = "trigger_electric_chair_" + i;
+                t_electric_chair = getent( str_trigger_targetname, "targetname" );
+                t_electric_chair trigger_off();
+            }
+
+            flag_wait( "plane_crashed" );
+            exploder( 666 );
+
+            for ( i = 1; i < 5; i++ )
+            {
+                m_electric_chair = getent( "electric_chair_" + i, "targetname" );
+                m_electric_chair show();
+                m_electric_chair thread snddelayedchairaudio( i );
+                str_trigger_targetname = "trigger_electric_chair_" + i;
+                t_electric_chair = getent( str_trigger_targetname, "targetname" );
+                t_electric_chair trigger_on();
+            }
+
+            wait 3;
+            electric_chair_vo();
+        }
+
+        flag_waitopen( "plane_approach_bridge" );
+    }
+}

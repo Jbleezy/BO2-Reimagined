@@ -557,6 +557,7 @@
 * Plane parts must be all acquired to craft
 * Plane no longer has to be refueled after first use
 * Plane reappears immediately after coming back from the Golden Gate Bridge
+* Electric chairs appear immediately after crashing at the Golden Gate Bridge
 * Key no longer shows on HUD
 * Acid Trap: kills on any round (normally stops killing after round 158 on PC)
 * Acid Trap: kills zombies instantly
