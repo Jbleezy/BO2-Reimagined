@@ -187,6 +187,8 @@ player_perk_unpause_all_perks()
 	{
 		self player_perk_unpause( trigger.script_noteworthy );
 	}
+
+	self.disabled_perks = [];
 }
 
 player_perk_pause( perk )
