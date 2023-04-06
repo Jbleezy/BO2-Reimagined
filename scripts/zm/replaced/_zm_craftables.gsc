@@ -39,6 +39,14 @@ choose_open_craftable( player )
 
     self.opencraftablehudelem[n_playernum] = hinttexthudelem;
 
+    if ( self.n_open_craftable_choice < 0 )
+    {
+        self.n_open_craftable_choice = self.a_uts_open_craftables_available.size - 1;
+        self.equipname = self.a_uts_open_craftables_available[self.n_open_craftable_choice].equipname;
+        self.hint_string = self.a_uts_open_craftables_available[self.n_open_craftable_choice].hint_string;
+        self.playertrigger[n_playernum] sethintstring( self.hint_string );
+    }
+
     while ( isdefined( self.playertrigger[n_playernum] ) && !self.crafted )
     {
         if (!player isTouching(self.playertrigger[n_playernum]) || !player is_player_looking_at( self.playertrigger[n_playernum].origin, 0.76 ) || player isSprinting() || player isThrowingGrenade())
