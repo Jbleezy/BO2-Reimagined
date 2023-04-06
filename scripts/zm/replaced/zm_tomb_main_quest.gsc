@@ -245,7 +245,7 @@ waittill_staff_inserted()
 
         if ( isdefined( player ) )
         {
-            weapon_available = player hasweapon( self.weapname );
+            weapon_available = player getcurrentweapon() == self.weapname;
 
             if ( weapon_available )
                 player takeweapon( self.weapname );
@@ -271,6 +271,10 @@ waittill_staff_inserted()
             self show();
             self playsound( "zmb_squest_charge_place_staff" );
             return;
+        }
+        else
+        {
+            self.charge_trigger thread insert_staff_hint_charger(player, self.enum);
         }
     }
 }
@@ -360,6 +364,39 @@ can_pickup_staff()
     b_staff_equipped = issubstr( self getcurrentweapon(), "staff" ) && self getcurrentweapon() != "staff_revive_zm";
 
     return !b_has_staff || b_staff_equipped;
+}
+
+insert_staff_hint_charger(player, enum)
+{
+    num = player getentitynumber();
+
+    self.playertrigger[num] notify("insert_staff_hint_charger");
+    self.playertrigger[num] endon("insert_staff_hint_charger");
+    self.playertrigger[num] endon("death");
+
+    element = "";
+    if (enum == 1)
+    {
+        element = "Fire";
+    }
+    else if (enum == 2)
+    {
+        element = "Wind";
+    }
+    else if (enum == 3)
+    {
+        element = "Lightning";
+    }
+    else if (enum == 4)
+    {
+        element = "Ice";
+    }
+
+    self.playertrigger[num] sethintstring(element + " Staff Required");
+
+    wait 3;
+
+    self.playertrigger[num] sethintstring(self.hint_string);
 }
 
 swap_staff_hint_charger(player)
