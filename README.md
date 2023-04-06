@@ -431,7 +431,9 @@
 * Fixed an issue where each chop would only damage entities that were touching the damage trigger during the previous chop
 
 ### Blundergat Upgrade
-* Buildable table trigger requires look at
+* Does knuckle crack animation on conversion
+* Requires player's current weapon to be the Blundergat to convert
+* Requires player to be looking at the table to use
 
 ### Maxis Drone
 * Kills on any round in 1-4 shots (normally does 12000 damage max)

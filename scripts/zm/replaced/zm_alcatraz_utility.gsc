@@ -42,13 +42,6 @@ blundergat_upgrade_station()
                 continue;
         }
 
-        str_valid_weapon = undefined;
-
-        if ( player hasweapon( "blundergat_zm" ) )
-            str_valid_weapon = "blundergat_zm";
-        else if ( player hasweapon( "blundergat_upgraded_zm" ) )
-            str_valid_weapon = "blundergat_upgraded_zm";
-
         if (player.score < t_upgrade.cost)
         {
             self play_sound_on_ent( "no_purchase" );
@@ -56,12 +49,13 @@ blundergat_upgrade_station()
             continue;
         }
 
-        if ( isdefined( str_valid_weapon ) )
+        str_valid_weapon = player getcurrentweapon();
+        if ( str_valid_weapon == "blundergat_zm" || str_valid_weapon == "blundergat_upgraded_zm" )
         {
             player maps\mp\zombies\_zm_score::minus_to_player_score( t_upgrade.cost );
 			t_upgrade play_sound_on_ent( "purchase" );
 
-            player takeweapon( str_valid_weapon );
+            player thread maps\mp\zombies\_zm_perks::do_knuckle_crack();
             player.is_pack_splatting = 1;
             t_upgrade setinvisibletoall();
             m_converter.worldgun = spawn_weapon_model( str_valid_weapon, undefined, m_converter.v_weapon_origin, m_converter.v_weapon_angles );
@@ -71,7 +65,7 @@ blundergat_upgrade_station()
             if ( isdefined( player ) )
             {
                 t_upgrade setvisibletoplayer( player );
-                t_upgrade thread wait_for_player_to_take( player, str_valid_weapon );
+                t_upgrade thread maps\mp\zm_alcatraz_utility::wait_for_player_to_take( player, str_valid_weapon );
             }
 
             t_upgrade thread wait_for_timeout();
