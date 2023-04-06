@@ -249,7 +249,7 @@ quadrotor_control_thread()
 
 			qr = spawnvehicle( "veh_t6_dlc_zm_quadrotor", "quadrotor_ai", str_vehicle, self.origin + vectorScale( ( 0, 0, 1 ), 96 ), self.angles );
 			level thread maps\mp\zm_tomb_craftables::quadrotor_death_watcher( qr );
-			qr thread maps\mp\zm_tomb_craftables::quadrotor_instance_watcher( self );
+			qr thread quadrotor_instance_watcher( self );
 			return;
 		}
 
@@ -315,6 +315,67 @@ quadrotor_set_unavailable()
 {
     level.quadrotor_status.picked_up = 1;
 	level.quadrotor_status.pickup_trig.model ghost();
+}
+
+quadrotor_set_available()
+{
+    playfx( level._effect["tesla_elec_kill"], level.quadrotor_status.pickup_trig.model.origin );
+    level.quadrotor_status.pickup_trig.model playsound( "zmb_qrdrone_leave" );
+    level.quadrotor_status.picked_up = 0;
+    level.quadrotor_status.pickup_trig.model show();
+    flag_set( "quadrotor_cooling_down" );
+    str_zone = level.quadrotor_status.str_zone;
+
+    switch ( str_zone )
+    {
+        case "zone_nml_9":
+            setclientfield( "cooldown_steam", 1 );
+            break;
+        case "zone_bunker_5a":
+            setclientfield( "cooldown_steam", 2 );
+            break;
+        case "zone_village_1":
+            setclientfield( "cooldown_steam", 3 );
+            break;
+    }
+
+    vox_line = "vox_maxi_drone_cool_down_3";
+    thread maxissay( vox_line, level.quadrotor_status.pickup_trig.model );
+    wait 30;
+    flag_clear( "quadrotor_cooling_down" );
+    setclientfield( "cooldown_steam", 0 );
+    level.quadrotor_status.pickup_trig trigger_on();
+    vox_line = "vox_maxi_drone_cool_down_4";
+    maxissay( vox_line, level.quadrotor_status.pickup_trig.model );
+}
+
+quadrotor_timer()
+{
+    self endon( "death" );
+    level endon( "drone_available" );
+    wait 50;
+    vox_line = "vox_maxi_drone_cool_down_" + randomintrange( 0, 2 );
+    self thread maps\mp\zm_tomb_vo::maxissay( vox_line, self );
+    wait 10;
+    vox_line = "vox_maxi_drone_cool_down_2";
+    self thread maps\mp\zm_tomb_vo::maxissay( vox_line, self );
+    level notify( "drone_should_return" );
+}
+
+quadrotor_instance_watcher( player_owner )
+{
+    self endon( "death" );
+    self.player_owner = player_owner;
+    self.health = 200;
+    level.maxis_quadrotor = self;
+    self makevehicleunusable();
+    self thread maps\mp\zombies\_zm_ai_quadrotor::quadrotor_think();
+    self thread follow_ent( player_owner );
+    self thread quadrotor_timer();
+
+    level waittill( "drone_should_return" );
+
+    self quadrotor_fly_back_to_table();
 }
 
 tomb_check_crafted_weapon_persistence( player )
