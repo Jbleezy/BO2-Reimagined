@@ -71,6 +71,8 @@ blundergat_upgrade_station()
             t_upgrade thread wait_for_timeout();
             t_upgrade waittill_any( "acid_timeout", "acid_taken" );
 
+            t_upgrade setinvisibletoall();
+
             if ( isdefined( player ) )
                 player.is_pack_splatting = undefined;
 

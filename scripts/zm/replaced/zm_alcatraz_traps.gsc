@@ -9,6 +9,178 @@
 #include maps\mp\zombies\_zm_ai_brutus;
 #include maps\mp\zm_alcatraz_traps;
 
+init_fan_trap_trigs()
+{
+    trap_trigs = getentarray( "fan_trap_use_trigger", "targetname" );
+    array_thread( trap_trigs, ::fan_trap_think );
+    init_fan_fxanim( "wardens_office" );
+}
+
+fan_trap_think()
+{
+    triggers = getentarray( self.targetname, "targetname" );
+    self.cost = 1000;
+    self.in_use = 0;
+    self.is_available = 1;
+    self.has_been_used = 0;
+    self.zombie_dmg_trig = getent( self.target, "targetname" );
+    self.zombie_dmg_trig.script_string = self.script_string;
+    self.zombie_dmg_trig.in_use = 0;
+    self.rumble_trig = getent( "fan_trap_rumble", "targetname" );
+    light_name = self get_trap_light_name();
+    zapper_light_red( light_name );
+    self sethintstring( &"ZM_PRISON_FAN_TRAP_UNAVAILABLE" );
+    flag_wait( "activate_warden_office" );
+    zapper_light_green( light_name );
+    self hint_string( &"ZM_PRISON_FAN_TRAP", self.cost );
+
+    while ( true )
+    {
+        self waittill( "trigger", who );
+
+        if ( who in_revive_trigger() )
+            continue;
+
+        if ( !isdefined( self.is_available ) )
+            continue;
+
+        if ( is_player_valid( who ) )
+        {
+            if ( who.score >= self.cost )
+            {
+                if ( !self.zombie_dmg_trig.in_use )
+                {
+                    if ( !self.has_been_used )
+                    {
+                        self.has_been_used = 1;
+                        level thread maps\mp\zombies\_zm_audio::sndmusicstingerevent( "trap" );
+                        who do_player_general_vox( "general", "discover_trap" );
+                    }
+                    else
+                        who do_player_general_vox( "general", "start_trap" );
+
+                    array_thread( triggers, ::hint_string, &"ZOMBIE_TRAP_ACTIVE" );
+                    self.zombie_dmg_trig.in_use = 1;
+                    self.zombie_dmg_trig.active = 1;
+                    self playsound( "zmb_trap_activate" );
+                    self thread fan_trap_move_switch( self );
+
+                    self waittill( "switch_activated" );
+
+                    who minus_to_player_score( self.cost );
+                    level.trapped_track["fan"] = 1;
+                    level notify( "trap_activated" );
+                    who maps\mp\zombies\_zm_stats::increment_client_stat( "prison_fan_trap_used", 0 );
+                    self.zombie_dmg_trig setvisibletoall();
+                    self thread activate_fan_trap();
+
+                    self.zombie_dmg_trig waittill( "trap_finished_" + self.script_string );
+
+                    clientnotify( self.script_string + "off" );
+                    self.zombie_dmg_trig notify( "fan_trap_finished" );
+                    self.zombie_dmg_trig.active = 0;
+                    self.zombie_dmg_trig setinvisibletoall();
+                    array_thread( triggers, ::hint_string, &"ZOMBIE_TRAP_COOLDOWN" );
+                    wait 25;
+                    self playsound( "zmb_trap_available" );
+                    self notify( "available" );
+                    self.zombie_dmg_trig.in_use = 0;
+                    array_thread( triggers, ::hint_string, &"ZM_PRISON_FAN_TRAP", self.cost );
+                }
+            }
+        }
+    }
+}
+
+init_acid_trap_trigs()
+{
+    trap_trigs = getentarray( "acid_trap_trigger", "targetname" );
+    array_thread( trap_trigs, ::acid_trap_think );
+    level thread acid_trap_host_migration_listener();
+}
+
+acid_trap_think()
+{
+    triggers = getentarray( self.targetname, "targetname" );
+    self.is_available = 1;
+    self.has_been_used = 0;
+    self.cost = 1000;
+    self.in_use = 0;
+    self.zombie_dmg_trig = getent( self.target, "targetname" );
+    self.zombie_dmg_trig.in_use = 0;
+    light_name = self get_trap_light_name();
+    zapper_light_red( light_name );
+    self sethintstring( &"ZM_PRISON_ACID_TRAP_UNAVAILABLE" );
+    flag_wait_any( "activate_cafeteria", "activate_infirmary" );
+    zapper_light_green( light_name );
+    self hint_string( &"ZM_PRISON_ACID_TRAP", self.cost );
+
+    while ( true )
+    {
+        self waittill( "trigger", who );
+
+        if ( who in_revive_trigger() )
+            continue;
+
+        if ( !isdefined( self.is_available ) )
+            continue;
+
+        if ( is_player_valid( who ) )
+        {
+            if ( who.score >= self.cost )
+            {
+                if ( !self.zombie_dmg_trig.in_use )
+                {
+                    if ( !self.has_been_used )
+                    {
+                        self.has_been_used = 1;
+                        level thread maps\mp\zombies\_zm_audio::sndmusicstingerevent( "trap" );
+                        who do_player_general_vox( "general", "discover_trap" );
+                    }
+                    else
+                        who do_player_general_vox( "general", "start_trap" );
+
+                    array_thread( triggers, ::hint_string, &"ZOMBIE_TRAP_ACTIVE" );
+                    self.zombie_dmg_trig.in_use = 1;
+                    self.zombie_dmg_trig.active = 1;
+                    self playsound( "zmb_trap_activate" );
+                    self thread acid_trap_move_switch( self );
+
+                    self waittill( "switch_activated" );
+
+                    who minus_to_player_score( self.cost );
+                    level.trapped_track["acid"] = 1;
+                    level notify( "trap_activated" );
+                    who maps\mp\zombies\_zm_stats::increment_client_stat( "prison_acid_trap_used", 0 );
+                    self thread activate_acid_trap();
+
+                    self.zombie_dmg_trig waittill( "acid_trap_fx_done" );
+
+                    clientnotify( self.script_string + "off" );
+
+                    if ( isdefined( self.fx_org ) )
+                        self.fx_org delete();
+
+                    if ( isdefined( self.zapper_fx_org ) )
+                        self.zapper_fx_org delete();
+
+                    if ( isdefined( self.zapper_fx_switch_org ) )
+                        self.zapper_fx_switch_org delete();
+
+                    self.zombie_dmg_trig notify( "acid_trap_finished" );
+                    self.zombie_dmg_trig.active = 0;
+                    array_thread( triggers, ::hint_string, &"ZOMBIE_TRAP_COOLDOWN" );
+                    wait 25;
+                    self playsound( "zmb_trap_available" );
+                    self notify( "available" );
+                    self.zombie_dmg_trig.in_use = 0;
+                    array_thread( triggers, ::hint_string, &"ZM_PRISON_ACID_TRAP", self.cost );
+                }
+            }
+        }
+    }
+}
+
 zombie_acid_damage()
 {
     self endon( "death" );
@@ -90,6 +262,7 @@ tower_trap_trigger_think()
                     else
                         who do_player_general_vox( "general", "start_trap" );
 
+                    self hint_string( &"ZOMBIE_TRAP_ACTIVE" );
                     self.in_use = 1;
                     self.active = 1;
                     play_sound_at_pos( "purchase", who.origin );
@@ -102,7 +275,6 @@ tower_trap_trigger_think()
                     level.trapped_track["tower"] = 1;
                     level notify( "trap_activated" );
                     who maps\mp\zombies\_zm_stats::increment_client_stat( "prison_sniper_tower_used", 0 );
-                    self hint_string( &"ZOMBIE_TRAP_ACTIVE" );
                     self.sndtowerent playsound( "zmb_trap_tower_start" );
                     self.sndtowerent playloopsound( "zmb_trap_tower_loop", 1 );
                     self thread activate_tower_trap();
