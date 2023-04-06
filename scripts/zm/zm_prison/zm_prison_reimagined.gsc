@@ -13,6 +13,7 @@
 #include scripts\zm\replaced\zm_alcatraz_traps;
 #include scripts\zm\replaced\zm_alcatraz_travel;
 #include scripts\zm\replaced\zm_alcatraz_weap_quest;
+#include scripts\zm\replaced\zm_prison_sq_bg;
 #include scripts\zm\replaced\zm_prison_sq_final;
 #include scripts\zm\replaced\_zm_afterlife;
 #include scripts\zm\replaced\_zm_ai_brutus;
@@ -39,7 +40,8 @@ main()
     replaceFunc(maps\mp\zm_alcatraz_traps::tower_trap_trigger_think, scripts\zm\replaced\zm_alcatraz_traps::tower_trap_trigger_think);
     replaceFunc(maps\mp\zm_alcatraz_travel::move_gondola, scripts\zm\replaced\zm_alcatraz_travel::move_gondola);
 	replaceFunc(maps\mp\zm_alcatraz_weap_quest::grief_soul_catcher_state_manager, scripts\zm\replaced\zm_alcatraz_weap_quest::grief_soul_catcher_state_manager);
-	replaceFunc(maps\mp\zm_prison_sq_final::stage_one, scripts\zm\replaced\zm_prison_sq_final::stage_one);
+    replaceFunc(maps\mp\zm_prison_sq_bg::give_sq_bg_reward, scripts\zm\replaced\zm_prison_sq_bg::give_sq_bg_reward);
+    replaceFunc(maps\mp\zm_prison_sq_final::stage_one, scripts\zm\replaced\zm_prison_sq_final::stage_one);
     replaceFunc(maps\mp\zm_prison_sq_final::final_flight_trigger, scripts\zm\replaced\zm_prison_sq_final::final_flight_trigger);
     replaceFunc(maps\mp\zombies\_zm_afterlife::afterlife_add, scripts\zm\replaced\_zm_afterlife::afterlife_add);
     replaceFunc(maps\mp\zombies\_zm_afterlife::afterlife_laststand, scripts\zm\replaced\_zm_afterlife::afterlife_laststand);
