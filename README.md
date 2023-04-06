@@ -477,6 +477,13 @@
 * Zombies spawn in the Warehouse zone when in the Outside Power Station zone before the Warehouse door is opened
 * Zombies spawn in the Outside Power Station zone when in the Fog After Power Station zone
 * Zombies spawn in the Warehouse zone when in the Fog After Power Station zone
+* Quest: players gain all perks on completion
+* Quest (Maxis): Avogadro step only requires 1 Turbine under the pylon
+* Quest (Maxis): Turbine can get destroyed by the EMP during the Avogadro step and it will still count as completed
+* Quest (Maxis): lamp posts step requires all 8 lamp posts to get powered by a Turbine
+* Quest (Maxis): lamp posts step no longer requires all Turbines to be placed at the same time
+* Quest (Richtofen): lamp posts step requires all 8 lamp posts to get powered off by an EMP
+* Quest (Richtofen): lamp posts step no longer requires all lamp posts to be powered off at the same time
 * Survival & Grief: power doors are buyable doors
 * Grief: added Ballistic Knife, Ray Gun, and Ray Gun Mark 2 to the Mystery Box
 * Added collision to area at Cornfield that was considered out of the map

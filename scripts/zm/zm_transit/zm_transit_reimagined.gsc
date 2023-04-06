@@ -3,6 +3,7 @@
 #include maps\mp\zombies\_zm_utility;
 
 #include scripts\zm\replaced\zm_transit;
+#include scripts\zm\replaced\zm_transit_sq;
 #include scripts\zm\replaced\zm_transit_gamemodes;
 #include scripts\zm\replaced\zm_transit_utility;
 #include scripts\zm\replaced\zm_transit_bus;
@@ -20,6 +21,13 @@
 main()
 {
 	replaceFunc(maps\mp\zm_transit_sq::navcomputer_waitfor_navcard, scripts\zm\replaced\_zm_sq::navcomputer_waitfor_navcard);
+	replaceFunc(maps\mp\zm_transit_sq::maxis_sidequest_a, scripts\zm\replaced\zm_transit_sq::maxis_sidequest_a);
+	replaceFunc(maps\mp\zm_transit_sq::maxis_sidequest_b, scripts\zm\replaced\zm_transit_sq::maxis_sidequest_b);
+	replaceFunc(maps\mp\zm_transit_sq::maxis_sidequest_c, scripts\zm\replaced\zm_transit_sq::maxis_sidequest_c);
+	replaceFunc(maps\mp\zm_transit_sq::maxis_sidequest_complete, scripts\zm\replaced\zm_transit_sq::maxis_sidequest_complete);
+	replaceFunc(maps\mp\zm_transit_sq::richtofen_sidequest_c, scripts\zm\replaced\zm_transit_sq::richtofen_sidequest_c);
+	replaceFunc(maps\mp\zm_transit_sq::richtofen_sidequest_complete, scripts\zm\replaced\zm_transit_sq::richtofen_sidequest_complete);
+	replaceFunc(maps\mp\zm_transit_sq::droppowerup, scripts\zm\replaced\zm_transit_sq::droppowerup);
 	replaceFunc(maps\mp\zm_transit::lava_damage_depot, scripts\zm\replaced\zm_transit::lava_damage_depot);
 	replaceFunc(maps\mp\zm_transit_gamemodes::init, scripts\zm\replaced\zm_transit_gamemodes::init);
 	replaceFunc(maps\mp\zm_transit_utility::solo_tombstone_removal, scripts\zm\replaced\zm_transit_utility::solo_tombstone_removal);
