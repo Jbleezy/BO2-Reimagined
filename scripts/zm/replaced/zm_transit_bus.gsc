@@ -558,12 +558,11 @@ bus_buyable_weapon_unitrigger_setup(trig)
         wait 1;
     }
 
+    unitrigger.target = trig.target;
     unitrigger.origin_parent = trig;
     unitrigger.link_parent = trig;
     unitrigger.originfunc = ::bus_buyable_weapon_get_unitrigger_origin;
     unitrigger.onspawnfunc = ::bus_buyable_weapon_on_spawn_trigger;
-
-    unitrigger.target = undefined; // remove other wallbuy weapon model from showing
 }
 
 bus_buyable_weapon_get_unitrigger_origin()
