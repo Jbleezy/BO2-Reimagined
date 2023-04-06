@@ -6,6 +6,7 @@
 #include scripts\zm\replaced\zm_transit_sq;
 #include scripts\zm\replaced\zm_transit_gamemodes;
 #include scripts\zm\replaced\zm_transit_utility;
+#include scripts\zm\replaced\zm_transit_ai_screecher;
 #include scripts\zm\replaced\zm_transit_bus;
 #include scripts\zm\replaced\_zm_riotshield;
 #include scripts\zm\replaced\_zm_ai_screecher;
@@ -31,6 +32,7 @@ main()
 	replaceFunc(maps\mp\zm_transit::lava_damage_depot, scripts\zm\replaced\zm_transit::lava_damage_depot);
 	replaceFunc(maps\mp\zm_transit_gamemodes::init, scripts\zm\replaced\zm_transit_gamemodes::init);
 	replaceFunc(maps\mp\zm_transit_utility::solo_tombstone_removal, scripts\zm\replaced\zm_transit_utility::solo_tombstone_removal);
+	replaceFunc(maps\mp\zm_transit_ai_screecher::player_wait_land, scripts\zm\replaced\zm_transit_ai_screecher::player_wait_land);
 	replaceFunc(maps\mp\zm_transit_bus::bussetup, scripts\zm\replaced\zm_transit_bus::bussetup);
 	replaceFunc(maps\mp\zm_transit_bus::busscheduleadd, scripts\zm\replaced\zm_transit_bus::busscheduleadd);
 	replaceFunc(maps\mp\zombies\_zm_ai_screecher::screecher_spawning_logic, scripts\zm\replaced\_zm_ai_screecher::screecher_spawning_logic);

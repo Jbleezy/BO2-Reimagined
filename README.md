@@ -471,6 +471,7 @@
 * Powerups dropped within the bus are linked to the bus
 * Players can sprint and go prone on the bus
 * Bus wallbuy trigger functions the same as other wallbuy triggers
+* Lamp post portals stay active after activating once
 * Players can be revived in the fog easier
 * Lava in starting area activates after the power is on
 * Lava destroys grenades instantly
