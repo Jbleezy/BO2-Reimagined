@@ -277,23 +277,14 @@ set_screecher_zone_origin_and_notify( script_noteworthy, notify_str )
 
 droppowerup( story )
 {
-	vending_triggers = getentarray( "zombie_vending", "targetname" );
-    perks = [];
+    players = get_players();
 
-    for ( i = 0; i < vending_triggers.size; i++ )
+    foreach ( player in players )
     {
-        perk = vending_triggers[i].script_noteworthy;
-
-        if ( perk == "specialty_weapupgrade" )
-            continue;
-
-        perks[perks.size] = perk;
-    }
-
-	players = get_players();
-	foreach ( player in players )
-    {
-        player thread sq_give_player_perks( perks );
+        if ( is_player_valid( player ) )
+        {
+            player thread scripts\zm\replaced\_zm_sq::sq_give_player_all_perks();
+        }
     }
 
     center_struct = getstruct( "sq_common_tower_fx", "targetname" );

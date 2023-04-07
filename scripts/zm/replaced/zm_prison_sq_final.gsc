@@ -75,6 +75,16 @@ stage_two()
     t_plane_fly_afterlife = getent( "plane_fly_afterlife_trigger", "script_noteworthy" );
     t_plane_fly_afterlife playsound( "zmb_easteregg_laugh" );
     t_plane_fly_afterlife trigger_on();
+
+    players = get_players();
+
+    foreach ( player in players )
+    {
+        if ( is_player_valid( player ) )
+        {
+            player thread scripts\zm\replaced\_zm_sq::sq_give_player_all_perks();
+        }
+    }
 }
 
 final_flight_trigger()

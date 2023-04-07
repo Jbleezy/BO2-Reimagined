@@ -117,3 +117,21 @@ richtofen_zombie_deathfunction_override()
 
     return self [[ self.deathfunction_old ]]();
 }
+
+sq_give_player_rewards()
+{
+    players = get_players();
+
+    foreach ( player in players )
+    {
+        if ( is_player_valid( player ) )
+        {
+            player thread scripts\zm\replaced\_zm_sq::sq_give_player_all_perks();
+        }
+    }
+}
+
+mule_kick_allows_4_weapons()
+{
+    level.additionalprimaryweapon_limit = 4;
+}

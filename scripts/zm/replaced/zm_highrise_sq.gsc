@@ -187,6 +187,8 @@ sq_give_all_perks()
 
 sq_give_player_perks( perks, v_fireball_start_loc, n_fireball_exploder )
 {
+    self endon("disconnect");
+
     exploder( n_fireball_exploder );
     m_fireball = spawn( "script_model", v_fireball_start_loc );
     m_fireball setmodel( "tag_origin" );
@@ -208,15 +210,8 @@ sq_give_player_perks( perks, v_fireball_start_loc, n_fireball_exploder )
     m_fireball delete();
     level notify( "sq_fireball_hit_player" );
 
-    foreach ( perk in perks )
+    if ( is_player_valid( self ) )
     {
-        if ( isdefined( self.perk_purchased ) && self.perk_purchased == perk )
-            continue;
-
-        if ( self hasperk( perk ) || self maps\mp\zombies\_zm_perks::has_perk_paused( perk ) )
-            continue;
-
-        self maps\mp\zombies\_zm_perks::give_perk( perk, 0 );
-        wait 0.25;
+        self thread scripts\zm\replaced\_zm_sq::sq_give_player_all_perks();
     }
 }

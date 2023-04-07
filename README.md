@@ -469,6 +469,7 @@
 
 ## Maps
 * All quests can be completed with any amount of players
+* All quests give players all perks on completion
 
 ### Tranzit
 * Any door that requires a Turbine to open is automatically open whenever the power is on
@@ -488,7 +489,6 @@
 * Zombies spawn in the Warehouse zone when in the Outside Power Station zone before the Warehouse door is opened
 * Zombies spawn in the Outside Power Station zone when in the Fog After Power Station zone
 * Zombies spawn in the Warehouse zone when in the Fog After Power Station zone
-* Quest: players gain all perks on completion
 * Quest (Maxis): Avogadro step only requires 1 Turbine under the pylon
 * Quest (Maxis): Turbine can get destroyed by the EMP during the Avogadro step and it will still count as completed
 * Quest (Maxis): lamp posts step requires all 8 lamp posts to get powered by a Turbine
@@ -609,6 +609,7 @@
 * Added buildable table hint strings on buildable purchase
 * Quest: all 5 signs must be meleed for wisp to spawn
 * Quest: changed number of targets that need to be hit to 20 multiplied by the amount of player
+* Quest: perks given on completion are no longer permament
 * Quest: completion button always activatable after completing the quest
 * Quest (Maxis): no longer need to activate the Time Bomb to be able to spawn the 2nd wisp
 * Quest (Maxis): no longer need to activate the lever in the Mansion before activating the bells

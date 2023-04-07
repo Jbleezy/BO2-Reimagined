@@ -41,3 +41,29 @@ navcomputer_waitfor_navcard()
         }
     }
 }
+
+sq_give_player_all_perks()
+{
+    machines = array_randomize( getentarray( "zombie_vending", "targetname" ) );
+    perks = [];
+
+    for ( i = 0; i < machines.size; i++ )
+    {
+        if ( machines[i].script_noteworthy == "specialty_weapupgrade" )
+            continue;
+
+        perks[perks.size] = machines[i].script_noteworthy;
+    }
+
+    foreach ( perk in perks )
+    {
+        if ( isdefined( self.perk_purchased ) && self.perk_purchased == perk )
+            continue;
+
+        if ( self hasperk( perk ) || self maps\mp\zombies\_zm_perks::has_perk_paused( perk ) )
+            continue;
+
+        self maps\mp\zombies\_zm_perks::give_perk( perk, 0 );
+        wait 0.25;
+    }
+}
