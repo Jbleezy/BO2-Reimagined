@@ -105,6 +105,17 @@ springpadthink( weapon, electricradius, armed )
     }
 }
 
+player_fling( origin, angles, velocity, weapon )
+{
+    torigin = ( self.origin[0], self.origin[1], origin[2] );
+    aorigin = ( origin + torigin ) * 0.5;
+    trace = physicstrace( origin, torigin, vectorscale( ( -1, -1, 0 ), 15.0 ), ( 15, 15, 30 ), self );
+
+    self setorigin( aorigin );
+    wait_network_frame();
+    self setvelocity( velocity );
+}
+
 wait_for_targets( weapon )
 {
     weapon endon( "hi_priority_target" );
