@@ -88,6 +88,30 @@ _titus_locate_target( is_not_upgraded = 1, count )
     e_dart thread _titus_reset_grenade_fuse( n_fuse_timer );
 }
 
+_titus_reset_grenade_fuse( n_fuse_timer = randomfloatrange( 1, 1.5 ), is_not_upgraded = 1 )
+{
+    self waittill( "death" );
+
+    a_grenades = getentarray( "grenade", "classname" );
+
+    foreach ( e_grenade in a_grenades )
+    {
+        if ( isdefined( e_grenade.model ) && e_grenade.model == "t6_wpn_zmb_projectile_blundergat" && !isdefined( e_grenade.fuse_reset ) )
+        {
+            e_grenade.fuse_reset = 1;
+            e_grenade.fuse_time = n_fuse_timer;
+            e_grenade resetmissiledetonationtime( n_fuse_timer );
+
+            if ( is_not_upgraded )
+                e_grenade create_zombie_point_of_interest( 250, 15, 10000 );
+            else
+                e_grenade create_zombie_point_of_interest( 500, 30, 10000 );
+
+            return;
+        }
+    }
+}
+
 _titus_target_animate_and_die( n_fuse_timer, inflictor )
 {
     self endon( "death" );
