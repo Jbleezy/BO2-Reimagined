@@ -152,7 +152,7 @@
 
 ### SMR
 * Increased damage by 100%
-* Removed ADS spread
+* Removed aim spread
 
 ### STG-44
 * Upgraded: decreased stock ammo from 330 to 300
@@ -242,6 +242,9 @@
 
 ### Acid Gat
 * Kills on any round
+* Vastly improved accuracy
+* Aiming and Deadshot improve accuracy
+* Projectile no longer seeks toward zombies
 * Stuck zombie counts as a kill
 
 ### Staffs
