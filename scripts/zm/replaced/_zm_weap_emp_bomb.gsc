@@ -127,8 +127,7 @@ player_emp_fx(time)
 	self notify("player_emp_fx");
 	self endon("player_emp_fx");
 	self endon("disconnect");
-	self endon("bled_out");
-	self endon("player_suicide");
+	self endon("player_perk_pause_timeout");
 
 	wait_time = 2.5;
 	for(i = 0; i < time; i += wait_time)
@@ -148,14 +147,14 @@ player_perk_pause_and_unpause_all_perks(time)
 	self player_perk_pause_all_perks();
 	self thread player_perk_pause_all_perks_acquired(time);
 
-	self waittill_any_or_timeout(time, "bled_out", "player_suicide");
+	self waittill_any_or_timeout(time, "spawned_player", "bled_out", "player_suicide");
 
 	self player_perk_unpause_all_perks();
 }
 
 player_perk_pause_all_perks_acquired(time)
 {
-	self endon("player_perk_pause_all_perks_acquired_timeout");
+	self endon("player_perk_pause_timeout");
 	self endon("player_perk_pause_and_unpause_all_perks");
 	self endon("disconnect");
 
@@ -180,7 +179,7 @@ player_perk_pause_all_perks()
 
 player_perk_unpause_all_perks()
 {
-	self notify("player_perk_pause_all_perks_acquired_timeout");
+	self notify("player_perk_pause_timeout");
 
 	vending_triggers = getentarray( "zombie_vending", "targetname" );
 	foreach ( trigger in vending_triggers )
