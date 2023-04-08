@@ -1396,6 +1396,7 @@ end_game()
 	}
 	for ( i = 0; i < players.size; i++ )
 	{
+		players[ i ] enableInvulnerability();
 		if ( players[ i ] maps\mp\zombies\_zm_laststand::player_is_in_laststand() )
 		{
 			players[ i ] recordplayerdeathzombies();
