@@ -104,14 +104,16 @@ treasure_chest_weapon_spawn( chest, player, respin )
         angles = (angles[0], angles[1], -360 - angles[2] );
     }
 
+    dw_offset = (anglesToForward(angles) * -3) + (anglesToRight(angles) * -3) + (anglesToUp(angles) * -3);
+
 	self.weapon_model = spawn("script_model", start_origin);
 	self.weapon_model.angles = angles;
-	self.weapon_model_dw = spawn("script_model", self.weapon_model.origin - ( 3, 3, 3 ));
+	self.weapon_model_dw = spawn("script_model", self.weapon_model.origin + dw_offset);
 	self.weapon_model_dw.angles = self.weapon_model.angles;
 	self.weapon_model_dw hide();
 
     self.weapon_model moveto( end_origin, 3, 2, 0.9 );
-	self.weapon_model_dw moveto( end_origin - ( 3, 3, 3 ), 3, 2, 0.9 );
+	self.weapon_model_dw moveto( end_origin + dw_offset, 3, 2, 0.9 );
 
     for ( i = 0; i < number_cycles; i++ )
     {
