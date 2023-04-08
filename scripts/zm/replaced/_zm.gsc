@@ -998,7 +998,7 @@ player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, 
 	if ( ( solo_death || non_solo_death ) && !is_true( level.no_end_game_check ) )
 	{
 		level notify( "stop_suicide_trigger" );
-		self thread maps\mp\zombies\_zm_laststand::playerlaststand( einflictor, eattacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime );
+		self thread scripts\zm\replaced\_zm_laststand::playerlaststand( einflictor, eattacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime );
 		if ( !isDefined( vdir ) )
 		{
 			vdir = ( 1, 0, 0 );
@@ -1193,6 +1193,12 @@ player_laststand( einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, s
 	{
 		visionsetlaststand( "zombie_last_stand", 1 );
 	}
+}
+
+callback_playerlaststand( einflictor, eattacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration )
+{
+    self endon( "disconnect" );
+    [[ scripts\zm\replaced\_zm_laststand::playerlaststand ]]( einflictor, eattacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration );
 }
 
 player_spawn_protection()

@@ -335,3 +335,67 @@ auto_revive( reviver, dont_enable_weapons )
 
     self notify( "player_revived", reviver );
 }
+
+playerlaststand( einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration )
+{
+    self notify( "entering_last_stand" );
+
+    if ( isdefined( level._game_module_player_laststand_callback ) )
+        self [[ level._game_module_player_laststand_callback ]]( einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration );
+
+    if ( self player_is_in_laststand() )
+        return;
+
+    if ( isdefined( self.in_zombify_call ) && self.in_zombify_call )
+        return;
+
+    self thread player_last_stand_stats( einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration );
+
+    if ( isdefined( level.playerlaststand_func ) )
+        [[ level.playerlaststand_func ]]( einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration );
+
+    self.health = 1;
+    self.laststand = 1;
+    self.ignoreme = 1;
+    self thread maps\mp\gametypes_zm\_gameobjects::onplayerlaststand();
+    self thread maps\mp\zombies\_zm_buildables::onplayerlaststand();
+
+    if ( !( isdefined( self.no_revive_trigger ) && self.no_revive_trigger ) )
+        self revive_trigger_spawn();
+    else
+        self undolaststand();
+
+    if ( isdefined( self.is_zombie ) && self.is_zombie )
+    {
+        self takeallweapons();
+
+        if ( isdefined( attacker ) && isplayer( attacker ) && attacker != self )
+            attacker notify( "killed_a_zombie_player", einflictor, self, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration );
+    }
+    else
+    {
+        self laststand_disable_player_weapons();
+        self laststand_give_pistol();
+    }
+
+    if ( isdefined( level.playersuicideallowed ) && level.playersuicideallowed && get_players().size > 1 )
+    {
+        if ( !isdefined( level.canplayersuicide ) || self [[ level.canplayersuicide ]]() )
+            self thread suicide_trigger_spawn();
+    }
+
+    if ( level.laststandgetupallowed )
+        self thread laststand_getup();
+    else
+    {
+        bleedout_time = getdvarfloat( "player_lastStandBleedoutTime" );
+        self thread laststand_bleedout( bleedout_time );
+    }
+
+    if ( "zcleansed" != level.gametype )
+        maps\mp\_demo::bookmark( "zm_player_downed", gettime(), self );
+
+    self notify( "player_downed" );
+    self thread refire_player_downed();
+    self thread cleanup_laststand_on_disconnect();
+}
