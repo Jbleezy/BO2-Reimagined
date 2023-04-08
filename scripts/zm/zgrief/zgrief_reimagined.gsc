@@ -1619,6 +1619,11 @@ get_gamemode_winning_score()
 
 is_respawn_gamemode()
 {
+	if (is_true(level.intermission))
+	{
+		return 0;
+	}
+
 	if(!isDefined(level.scr_zm_ui_gametype_obj))
 	{
 		return 0;
