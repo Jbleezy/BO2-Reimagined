@@ -76,49 +76,80 @@ treasure_chest_weapon_spawn( chest, player, respin )
     self thread clean_up_hacked_box();
     assert( isdefined( player ) );
     self.weapon_string = undefined;
-    modelname = undefined;
     rand = undefined;
-    number_cycles = 40;
+    number_cycles = 37;
 
-    if ( isdefined( chest.zbarrier ) )
-    {
-        if ( isdefined( level.custom_magic_box_do_weapon_rise ) )
-            chest.zbarrier thread [[ level.custom_magic_box_do_weapon_rise ]]();
-        else
-            chest.zbarrier thread magic_box_do_weapon_rise();
-    }
-
-    for ( i = 0; i < number_cycles; i++ )
-    {
-        if ( i < 20 )
-        {
-            wait 0.05;
-            continue;
-        }
-
-        if ( i < 30 )
-        {
-            wait 0.1;
-            continue;
-        }
-
-        if ( i < 35 )
-        {
-            wait 0.2;
-            continue;
-        }
-
-        if ( i < 38 )
-            wait 0.3;
-    }
+    if ( isdefined( level.custom_magicbox_float_height ) )
+		v_float = anglestoup( self.angles ) * level.custom_magicbox_float_height;
+	else
+		v_float = anglestoup( self.angles ) * 40;
 
     if ( isdefined( level.custom_magic_box_weapon_wait ) )
         [[ level.custom_magic_box_weapon_wait ]]();
 
-	if ( isdefined( level.custom_magicbox_float_height ) )
-		v_float = anglestoup( self.angles ) * level.custom_magicbox_float_height;
-	else
-		v_float = anglestoup( self.angles ) * 40;
+    start_origin = self.origin;
+    end_origin = self.origin + v_float;
+    angles = self.angles + (0, 180, 0);
+
+    if (level.script == "zm_tomb")
+    {
+        v_move = anglestoright( self.angles ) * -20;
+        start_origin = self.origin + v_float + v_move;
+        angles = self.angles;
+    }
+
+    // angle is opposite of what it should be on upside down box
+    if (angles[2] < 0)
+    {
+        angles = (angles[0], angles[1], -360 - angles[2] );
+    }
+
+	self.weapon_model = spawn("script_model", start_origin);
+	self.weapon_model.angles = angles;
+	self.weapon_model_dw = spawn("script_model", self.weapon_model.origin - ( 3, 3, 3 ));
+	self.weapon_model_dw.angles = self.weapon_model.angles;
+	self.weapon_model_dw hide();
+
+    self.weapon_model moveto( end_origin, 3, 2, 0.9 );
+	self.weapon_model_dw moveto( end_origin - ( 3, 3, 3 ), 3, 2, 0.9 );
+
+    for ( i = 0; i < number_cycles; i++ )
+    {
+        rand = treasure_chest_chooseweightedrandomweapon( player, rand, 0 );
+	    modelname = getweaponmodel( rand );
+
+		if ( isdefined( self.weapon_model ) )
+		{
+			self.weapon_model useweaponmodel( rand, modelname );
+
+			if ( weapondualwieldweaponname( rand ) != "none" )
+			{
+				self.weapon_model_dw useweaponmodel( weapondualwieldweaponname( rand ), modelname );
+				self.weapon_model_dw show();
+			}
+			else
+			{
+				self.weapon_model_dw hide();
+			}
+		}
+
+        if ( i < 20 )
+        {
+            wait 0.05;
+        }
+        else if ( i < 30 )
+        {
+            wait 0.1;
+        }
+        else if ( i < 35 )
+        {
+            wait 0.2;
+        }
+        else
+        {
+            wait 0.3;
+        }
+    }
 
     wait 0.1;
 
@@ -175,9 +206,14 @@ treasure_chest_weapon_spawn( chest, player, respin )
         if ( chance_of_joker > random )
         {
             self.weapon_string = undefined;
-			self.weapon_model = spawn( "script_model", self.origin + v_float );
-			self.weapon_model.angles = self.angles + vectorscale( ( 0, 1, 0 ), 90.0 );
+
+            // delete and respawn the joker model so that it faces the correct angle right away
+            origin = self.weapon_model.origin;
+            self.weapon_model delete();
+            self.weapon_model = spawn("script_model", origin);
+			self.weapon_model.angles = angles + vectorscale( ( 0, 1, 0 ), 90.0 );
 			self.weapon_model setmodel( level.chest_joker_model );
+            self.weapon_model_dw hide();
 
             self.chest_moving = 1;
             flag_set( "moving_chest_now" );
@@ -191,13 +227,21 @@ treasure_chest_weapon_spawn( chest, player, respin )
         if ( isdefined( player.pers_upgrades_awarded["box_weapon"] ) && player.pers_upgrades_awarded["box_weapon"] )
             rand = maps\mp\zombies\_zm_pers_upgrades_functions::pers_treasure_chest_choosespecialweapon( player );
         else
-            rand = treasure_chest_chooseweightedrandomweapon( player );
+            rand = treasure_chest_chooseweightedrandomweapon( player, rand );
 
+        modelname = getweaponmodel( rand );
         self.weapon_string = rand;
-		self.weapon_model = spawn_weapon_model( rand, undefined, self.origin + v_float, self.angles + vectorscale( ( 0, 1, 0 ), 180.0 ) );
+		self.weapon_model useweaponmodel( rand, modelname );
 
-        if ( weapon_is_dual_wield( rand ) )
-            self.weapon_model_dw = spawn_weapon_model( rand, get_left_hand_weapon_model_name( rand ), self.weapon_model.origin - vectorscale( ( 1, 1, 1 ), 3.0 ), self.weapon_model.angles );
+        if ( weapondualwieldweaponname( rand ) != "none" )
+        {
+            self.weapon_model_dw useweaponmodel( weapondualwieldweaponname( rand ), modelname );
+			self.weapon_model_dw show();
+        }
+        else
+        {
+            self.weapon_model_dw hide();
+        }
     }
 
     self notify( "randomization_done" );
@@ -291,7 +335,7 @@ treasure_chest_weapon_spawn( chest, player, respin )
     self notify( "box_spin_done" );
 }
 
-treasure_chest_chooseweightedrandomweapon( player )
+treasure_chest_chooseweightedrandomweapon( player, prev_weapon, add_to_acquired = 1 )
 {
     keys = array_randomize( getarraykeys( level.zombie_weapons ) );
 
@@ -311,10 +355,29 @@ treasure_chest_chooseweightedrandomweapon( player )
 		{
 			if (!isInArray(player.random_weapons_acquired, keys[i]))
 			{
-				player.random_weapons_acquired[player.random_weapons_acquired.size] = keys[i];
+                if (isDefined(prev_weapon) && prev_weapon == keys[i])
+                {
+                    continue;
+                }
+
+                if (add_to_acquired)
+                {
+                    player.random_weapons_acquired[player.random_weapons_acquired.size] = keys[i];
+                }
+
 				return keys[i];
 			}
 		}
+    }
+
+    if (isDefined(prev_weapon))
+    {
+        if (add_to_acquired)
+        {
+            player.random_weapons_acquired[player.random_weapons_acquired.size] = prev_weapon;
+        }
+
+        return prev_weapon;
     }
 
 	if (player.random_weapons_acquired.size > 0)

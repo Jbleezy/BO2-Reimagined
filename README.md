@@ -272,7 +272,8 @@
 * Lethal grenade hint string no longer displays "ammo" after purchasing
 
 ## Mystery Box
-* Players will get every weapon they can before getting duplicates
+* Players get every weapon they can before getting duplicates
+* Players only see weapons rising up that they can currently obtain
 * Decreased weapon pickup time from 12 seconds to 9 seconds
 * Moves to new location instantly
 * Special sound no longer plays when obtaining the Ray Gun
@@ -548,6 +549,7 @@
 * Moved weapon locker to the downstairs fridge
 * Zombies no longer spawn in the Upper Blue Highrise zone when in the Trample Steam zone
 * Zombies no longer spawn in the zone next to the AN94 when in the AN94 zone while the debris is closed
+* Fixed weapon model angle on upside down Mystery Box
 * Quest: elevator symbols can be activated without players on every symbol
 * Quest: elevator symbols stay active after activating once
 * Quest: floor symbols can be activated in any order
@@ -655,6 +657,7 @@
 * Teleporters: placing gramophone activates The Crazy Place teleporters
 * Teleporters: players face away from the teleporters when returning from The Crazy Place
 * Teleporters: players can teleport while prone
+* Mystery Box: rotated weapon model angle 180 degrees
 * Mystery Box: uses the same trade weapon hint string as other maps
 * Der Wunderfizz: increased cost from 1500 to 2500
 * Der Wunderfizz: all perks have an equal chance of being obtained
