@@ -508,6 +508,48 @@ turn_movefaster_on()
 	}
 }
 
+turn_tombstone_on()
+{
+    level endon( "tombstone_removed" );
+
+    while ( true )
+    {
+        machine = getentarray( "vending_tombstone", "targetname" );
+        machine_triggers = getentarray( "vending_tombstone", "target" );
+
+        for ( i = 0; i < machine.size; i++ )
+            machine[i] setmodel( level.machine_assets["tombstone"].off_model );
+
+        level thread do_initial_power_off_callback( machine, "tombstone" );
+        array_thread( machine_triggers, ::set_power_on, 0 );
+
+        level waittill( "tombstone_on" );
+
+        for ( i = 0; i < machine.size; i++ )
+        {
+            machine[i] setmodel( level.machine_assets["tombstone"].on_model );
+            machine[i] vibrate( vectorscale( ( 0, -1, 0 ), 100.0 ), 0.3, 0.4, 3 );
+            machine[i] playsound( "zmb_perks_power_on" );
+            machine[i] thread perk_fx( "tombstone_light" );
+            machine[i] thread play_loop_on_machine();
+        }
+
+        level notify( "specialty_scavenger_power_on" );
+        array_thread( machine_triggers, ::set_power_on, 1 );
+
+        if ( isdefined( level.machine_assets["tombstone"].power_on_callback ) )
+            array_thread( machine, level.machine_assets["tombstone"].power_on_callback );
+
+        level waittill( "tombstone_off" );
+
+        if ( isdefined( level.machine_assets["tombstone"].power_off_callback ) )
+            array_thread( machine, level.machine_assets["tombstone"].power_off_callback );
+
+        array_thread( machine, ::turn_perk_off );
+        players = get_players();
+    }
+}
+
 give_movefaster()
 {
 	self set_perk_clientfield("specialty_longersprint", 1);
