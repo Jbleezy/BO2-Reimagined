@@ -298,3 +298,110 @@ headchopperattack( weapon, ent )
         }
     }
 }
+
+setupwatchers()
+{
+    self waittill( "weapon_watchers_created" );
+
+    watcher = maps\mp\gametypes_zm\_weaponobjects::getweaponobjectwatcher( "equip_headchopper" );
+    watcher.onspawnretrievetriggers = ::equipment_onspawnretrievableweaponobject;
+}
+
+equipment_onspawnretrievableweaponobject( watcher, player )
+{
+    self.plant_parent = self;
+    iswallmount = isdefined( level.placeable_equipment_type[self.name] ) && level.placeable_equipment_type[self.name] == "wallmount";
+
+    if ( !isdefined( player.turret_placement ) || !player.turret_placement["result"] )
+    {
+        if ( iswallmount || !getdvarint( "tu11_zombie_turret_placement_ignores_bodies" ) )
+        {
+            self waittill( "stationary" );
+
+            waittillframeend;
+
+            if ( iswallmount )
+            {
+                if ( isdefined( player.planted_wallmount_on_a_zombie ) && player.planted_wallmount_on_a_zombie )
+                {
+                    equip_name = self.name;
+                    equipment_disappear_fx( self.origin, undefined, self.angles );
+                    self delete();
+
+                    player maps\mp\zombies\_zm_equipment::equipment_take( equip_name );
+                    player maps\mp\zombies\_zm_equipment::equipment_give( equip_name );
+
+                    player.planted_wallmount_on_a_zombie = undefined;
+                    return;
+                }
+            }
+        }
+        else
+        {
+            self.plant_parent = player;
+            self.origin = player.origin;
+            self.angles = player.angles;
+            wait_network_frame();
+        }
+    }
+
+    equipment = watcher.name + "_zm";
+
+    if ( isdefined( player.current_equipment ) && player.current_equipment == equipment )
+        player equipment_to_deployed( equipment );
+
+    if ( isdefined( level.zombie_equipment[equipment].place_fn ) )
+    {
+        if ( isdefined( player.turret_placement ) && player.turret_placement["result"] )
+        {
+            plant_origin = player.turret_placement["origin"];
+            plant_angles = player.turret_placement["angles"];
+        }
+        else if ( isdefined( level.placeable_equipment_type[self.name] ) && level.placeable_equipment_type[self.name] == "wallmount" )
+        {
+            plant_origin = self.origin;
+            plant_angles = self.angles;
+        }
+        else
+        {
+            plant_origin = self.origin;
+            plant_angles = self.angles;
+        }
+
+        if ( isdefined( level.check_force_deploy_origin ) )
+        {
+            if ( player [[ level.check_force_deploy_origin ]]( self, plant_origin, plant_angles ) )
+            {
+                plant_origin = player.origin;
+                plant_angles = player.angles;
+                self.plant_parent = player;
+            }
+        }
+        else if ( isdefined( level.check_force_deploy_z ) )
+        {
+            if ( player [[ level.check_force_deploy_z ]]( self, plant_origin, plant_angles ) )
+                plant_origin = ( plant_origin[0], plant_origin[1], player.origin[2] + 10 );
+        }
+
+        if ( isdefined( iswallmount ) && iswallmount )
+            self ghost();
+
+        replacement = player [[ level.zombie_equipment[equipment].place_fn ]]( plant_origin, plant_angles );
+
+        if ( isdefined( replacement ) )
+        {
+            replacement.owner = player;
+            replacement.original_owner = player;
+            replacement.name = self.name;
+            player notify( "equipment_placed", replacement, self.name );
+
+            if ( isdefined( level.equipment_planted ) )
+                player [[ level.equipment_planted ]]( replacement, equipment, self.plant_parent );
+
+            player maps\mp\zombies\_zm_buildables::track_buildables_planted( self );
+        }
+
+        if ( isdefined( self ) )
+            self delete();
+    }
+}
