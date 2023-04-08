@@ -1058,7 +1058,7 @@ team_player_waypoint_origin_think()
 
 			self.player_waypoint_origin unlink();
 
-			if (cur_stance == "stand")
+			if (cur_stance == "stand" || !self isOnGround())
 			{
 				self.player_waypoint_origin.origin = self.origin + (0, 0, 72);
 			}
