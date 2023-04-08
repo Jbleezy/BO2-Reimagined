@@ -18,8 +18,7 @@ buildable_place_think()
 	{
 		self waittill( "trigger", player );
 
-		slot = self.stub.buildablestruct.buildable_slot;
-		bind_to = self.stub.buildable_pool scripts\zm\replaced\_zm_buildables_pooled::pooledbuildable_stub_for_piece( player player_get_buildable_piece( slot ) );
+		bind_to = self.stub.buildable_pool scripts\zm\replaced\_zm_buildables_pooled::pooledbuildable_stub_for_equipname( self.stub );
 
 		if ( player != self.parent_player )
 		{
@@ -34,7 +33,7 @@ buildable_place_think()
 			player thread ignore_triggers( 0.5 );
 		}
 
-		status = player maps\mp\zombies\_zm_buildables::player_can_build( self.stub.buildablezone );
+		status = player player_can_build( self.stub.buildablezone );
 		if ( !status )
 		{
 			self.stub.hint_string = "";
@@ -51,7 +50,7 @@ buildable_place_think()
 			{
 				self.stub [[ self.stub.onbeginuse ]]( player );
 			}
-			result = self maps\mp\zombies\_zm_buildables::buildable_use_hold_think( player );
+			result = self buildable_use_hold_think( player );
 			team = player.pers[ "team" ];
 			if ( isDefined( self.stub.onenduse ) )
 			{
@@ -307,6 +306,203 @@ buildable_place_think()
 			}
 		}
 	}
+}
+
+player_can_build( buildable, continuing )
+{
+    if ( !isdefined( buildable ) )
+        return false;
+
+    if ( isdefined( continuing ) && continuing )
+    {
+        if ( buildable buildable_is_piece_built( buildable.pieces[0] ) )
+            return false;
+    }
+    else if ( buildable buildable_is_piece_built_or_building( buildable.pieces[0] ) )
+        return false;
+
+    if ( isdefined( buildable.stub ) && isdefined( buildable.stub.custom_buildablestub_update_prompt ) && isdefined( buildable.stub.playertrigger[0] ) && isdefined( buildable.stub.playertrigger[0].stub ) && !buildable.stub.playertrigger[0].stub [[ buildable.stub.custom_buildablestub_update_prompt ]]( self, 1, buildable.stub.playertrigger[0] ) )
+        return false;
+
+    return true;
+}
+
+buildable_use_hold_think( player, bind_stub = self.stub )
+{
+    self thread buildable_play_build_fx( player );
+    self thread buildable_use_hold_think_internal( player, bind_stub );
+    retval = self waittill_any_return( "build_succeed", "build_failed" );
+
+    if ( retval == "build_succeed" )
+        return true;
+
+    return false;
+}
+
+buildable_use_hold_think_internal( player, bind_stub = self.stub )
+{
+    wait 0.01;
+
+    if ( !isdefined( self ) )
+    {
+        self notify( "build_failed" );
+
+        if ( isdefined( player.buildableaudio ) )
+        {
+            player.buildableaudio delete();
+            player.buildableaudio = undefined;
+        }
+
+        return;
+    }
+
+    if ( !isdefined( self.usetime ) )
+        self.usetime = int( 3000 );
+
+    self.build_time = self.usetime;
+    self.build_start_time = gettime();
+    build_time = self.build_time;
+    build_start_time = self.build_start_time;
+    player disable_player_move_states( 1 );
+    player increment_is_drinking();
+    orgweapon = player getcurrentweapon();
+    build_weapon = "zombie_builder_zm";
+
+    if ( isdefined( bind_stub.build_weapon ) )
+        build_weapon = bind_stub.build_weapon;
+
+    player giveweapon( build_weapon );
+    player switchtoweapon( build_weapon );
+    bind_stub.buildablezone buildable_set_piece_building( bind_stub.buildablezone.pieces[0] );
+    player thread player_progress_bar( build_start_time, build_time, bind_stub.building_prompt );
+
+    if ( isdefined( level.buildable_build_custom_func ) )
+        player thread [[ level.buildable_build_custom_func ]]( self.stub );
+
+    while ( isdefined( self ) && player player_continue_building( bind_stub.buildablezone, self.stub ) && gettime() - self.build_start_time < self.build_time )
+        wait 0.05;
+
+    player notify( "buildable_progress_end" );
+    player maps\mp\zombies\_zm_weapons::switch_back_primary_weapon( orgweapon );
+    player takeweapon( "zombie_builder_zm" );
+
+    if ( isdefined( player.is_drinking ) && player.is_drinking )
+        player decrement_is_drinking();
+
+    player enable_player_move_states();
+
+    if ( isdefined( self ) && player player_continue_building( bind_stub.buildablezone, self.stub ) && gettime() - self.build_start_time >= self.build_time )
+    {
+        buildable_clear_piece_building( bind_stub.buildablezone.pieces[0] );
+        self notify( "build_succeed" );
+    }
+    else
+    {
+        if ( isdefined( player.buildableaudio ) )
+        {
+            player.buildableaudio delete();
+            player.buildableaudio = undefined;
+        }
+
+        buildable_clear_piece_building( bind_stub.buildablezone.pieces[0] );
+        self notify( "build_failed" );
+    }
+}
+
+player_continue_building( buildablezone, build_stub = buildablezone.stub )
+{
+    if ( self maps\mp\zombies\_zm_laststand::player_is_in_laststand() || self in_revive_trigger() )
+        return false;
+
+    if ( self isthrowinggrenade() )
+        return false;
+
+    if ( !self player_can_build( buildablezone, 1 ) )
+        return false;
+
+    if ( isdefined( self.screecher ) )
+        return false;
+
+    if ( !self usebuttonpressed() )
+        return false;
+
+    if ( !buildablezone buildable_is_piece_building( buildablezone.pieces[0] ) )
+        return false;
+
+    trigger = build_stub maps\mp\zombies\_zm_unitrigger::unitrigger_trigger( self );
+
+    if ( build_stub.script_unitrigger_type == "unitrigger_radius_use" )
+    {
+        torigin = build_stub unitrigger_origin();
+        porigin = self geteye();
+        radius_sq = 2.25 * build_stub.test_radius_sq;
+
+        if ( distance2dsquared( torigin, porigin ) > radius_sq )
+            return false;
+    }
+    else if ( !isdefined( trigger ) || !trigger istouching( self ) )
+        return false;
+
+    if ( isdefined( build_stub.require_look_at ) && build_stub.require_look_at && !self is_player_looking_at( trigger.origin, 0.4 ) )
+        return false;
+
+    return true;
+}
+
+player_build( buildable, pieces )
+{
+	foreach ( piece in buildable.pieces )
+	{
+		buildable buildable_set_piece_built( piece );
+	}
+
+    if ( isdefined( buildable.stub.model ) )
+    {
+        for ( i = 0; i < buildable.pieces.size; i++ )
+        {
+            if ( isdefined( buildable.pieces[i].part_name ) )
+            {
+                buildable.stub.model notsolid();
+
+                if ( !( isdefined( buildable.pieces[i].built ) && buildable.pieces[i].built ) )
+                {
+                    buildable.stub.model hidepart( buildable.pieces[i].part_name );
+                    continue;
+                }
+
+                buildable.stub.model show();
+                buildable.stub.model showpart( buildable.pieces[i].part_name );
+            }
+        }
+    }
+
+    if ( isplayer( self ) )
+        self track_buildable_pieces_built( buildable );
+
+    if ( buildable buildable_all_built() )
+    {
+        self player_finish_buildable( buildable );
+        buildable.stub buildablestub_finish_build( self );
+
+        if ( isplayer( self ) )
+            self track_buildables_built( buildable );
+
+        if ( isdefined( level.buildable_built_custom_func ) )
+            self thread [[ level.buildable_built_custom_func ]]( buildable );
+
+        alias = sndbuildablecompletealias( buildable.buildable_name );
+        self playsound( alias );
+    }
+    else
+    {
+        self playsound( "zmb_buildable_piece_add" );
+        assert( isdefined( level.zombie_buildables[buildable.buildable_name].building ), "Missing builing hint" );
+
+        if ( isdefined( level.zombie_buildables[buildable.buildable_name].building ) )
+            return level.zombie_buildables[buildable.buildable_name].building;
+    }
+
+    return "";
 }
 
 model_go_away(weaponname)

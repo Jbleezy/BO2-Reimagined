@@ -185,8 +185,6 @@ onplayerspawned()
 
 			self thread weapon_locker_give_ammo_after_rounds();
 
-			self thread buildable_piece_remove_on_last_stand();
-
 			self thread war_machine_explode_on_impact();
 
 			self thread jetgun_heatval_changes();
@@ -2671,15 +2669,9 @@ buildbuildable( buildable, craft = 0, solo_pool = 0, onuse )
 					level.zombie_buildables[stub.equipname].hint = "Hold ^3[{+activate}]^7 to craft " + stub get_equipment_display_name();
 				}
 
-				i = 0;
 				foreach (piece in stub.buildablezone.pieces)
 				{
 					piece maps\mp\zombies\_zm_buildables::piece_unspawn();
-					if (!craft && i > 0)
-					{
-						stub.buildablezone maps\mp\zombies\_zm_buildables::buildable_set_piece_built(piece);
-					}
-					i++;
 				}
 
 				return;
@@ -2809,38 +2801,6 @@ removebuildable( buildable, poolname )
 	}
 }
 
-buildable_piece_remove_on_last_stand()
-{
-	self endon( "disconnect" );
-
-	self thread buildable_get_last_piece();
-
-	while (1)
-	{
-		self waittill("entering_last_stand");
-
-		if (isDefined(self.last_piece))
-		{
-			self.last_piece maps\mp\zombies\_zm_buildables::piece_unspawn();
-		}
-	}
-}
-
-buildable_get_last_piece()
-{
-	self endon( "disconnect" );
-
-	while (1)
-	{
-		if (!self maps\mp\zombies\_zm_laststand::player_is_in_laststand())
-		{
-			self.last_piece = maps\mp\zombies\_zm_buildables::player_get_buildable_piece(0);
-		}
-
-		wait 0.05;
-	}
-}
-
 onuseplantobject_mtower( player )
 {
 	level setclientfield( "sq_gl_b_vt", 1 );
@@ -2851,14 +2811,6 @@ onuseplantobject_mtower( player )
 
 	self maps\mp\zombies\_zm_buildables::buildablestub_finish_build( player );
 	player playsound( "zmb_buildable_complete" );
-
-	players = get_players();
-	foreach (other_player in players)
-	{
-		slot = self.buildablestruct.buildable_slot;
-		piece = other_player player_get_buildable_piece( slot );
-		other_player player_destroy_piece( piece );
-	}
 
 	level thread unregister_tower_unitriggers();
 }
@@ -2874,14 +2826,6 @@ onuseplantobject_rtower( player )
 
 	self maps\mp\zombies\_zm_buildables::buildablestub_finish_build( player );
 	player playsound( "zmb_buildable_complete" );
-
-	players = get_players();
-	foreach (other_player in players)
-	{
-		slot = self.buildablestruct.buildable_slot;
-		piece = other_player player_get_buildable_piece( slot );
-		other_player player_destroy_piece( piece );
-	}
 
 	level thread unregister_tower_unitriggers();
 }

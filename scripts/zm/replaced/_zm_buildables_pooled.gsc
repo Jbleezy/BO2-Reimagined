@@ -66,25 +66,6 @@ randomize_pooled_buildables( poolname )
     }
 }
 
-pooledbuildable_has_piece( piece )
-{
-    return isdefined( self pooledbuildable_stub_for_piece( piece ) );
-}
-
-pooledbuildable_stub_for_piece( piece )
-{
-    foreach ( stub in self.stubs )
-    {
-        if ( isdefined( stub.bound_to_buildable ) )
-            continue;
-
-        if ( stub.buildablezone buildable_has_piece( piece ) )
-            return stub;
-    }
-
-    return undefined;
-}
-
 pooledbuildabletrigger_update_prompt( player )
 {
 	can_use = self.stub pooledbuildablestub_update_prompt( player, self );
@@ -129,18 +110,7 @@ pooledbuildablestub_update_prompt( player, trigger )
 
     if ( !( isdefined( self.built ) && self.built ) )
     {
-		if (is_true(self.solo_pool))
-		{
-			foreach (stub in level.buildable_stubs)
-			{
-				if (stub.buildablezone.buildable_name == self.equipname)
-				{
-					piece = stub.buildablezone.pieces[0];
-					break;
-				}
-			}
-		}
-		else
+		if (!is_true(self.solo_pool))
 		{
 			if (level.buildables_available.size > 1)
 			{
@@ -169,71 +139,12 @@ pooledbuildablestub_update_prompt( player, trigger )
 			{
 				self.buildables_available_index = 0;
 			}
-
-			foreach (stub in level.buildable_stubs)
-			{
-				if (stub.buildablezone.buildable_name == level.buildables_available[self.buildables_available_index])
-				{
-					piece = stub.buildablezone.pieces[0];
-					break;
-				}
-			}
 		}
 
-		slot = self.buildablestruct.buildable_slot;
-		player maps\mp\zombies\_zm_buildables::player_set_buildable_piece(piece, slot);
-
-        if ( !isdefined( player player_get_buildable_piece( slot ) ) )
-        {
-            if ( isdefined( level.zombie_buildables[self.equipname].hint_more ) )
-                self.hint_string = level.zombie_buildables[self.equipname].hint_more;
-            else
-                self.hint_string = &"ZOMBIE_BUILD_PIECE_MORE";
-
-            if ( isdefined( level.custom_buildable_need_part_vo ) )
-                player thread [[ level.custom_buildable_need_part_vo ]]();
-
-            return 0;
-        }
-        else if ( isdefined( self.bound_to_buildable ) && !self.bound_to_buildable.buildablezone buildable_has_piece( player player_get_buildable_piece( slot ) ) )
-        {
-            if ( isdefined( level.zombie_buildables[self.bound_to_buildable.equipname].hint_wrong ) )
-                self.hint_string = level.zombie_buildables[self.bound_to_buildable.equipname].hint_wrong;
-            else
-                self.hint_string = &"ZOMBIE_BUILD_PIECE_WRONG";
-
-            if ( isdefined( level.custom_buildable_wrong_part_vo ) )
-                player thread [[ level.custom_buildable_wrong_part_vo ]]();
-
-            return 0;
-        }
-        else if ( !isdefined( self.bound_to_buildable ) && !self.buildable_pool pooledbuildable_has_piece( player player_get_buildable_piece( slot ) ) )
-        {
-            if ( isdefined( level.zombie_buildables[self.equipname].hint_wrong ) )
-                self.hint_string = level.zombie_buildables[self.equipname].hint_wrong;
-            else
-                self.hint_string = &"ZOMBIE_BUILD_PIECE_WRONG";
-
-            return 0;
-        }
-        else if ( isdefined( self.bound_to_buildable ) )
-        {
-            assert( isdefined( level.zombie_buildables[self.equipname].hint ), "Missing buildable hint" );
-
-            if ( isdefined( level.zombie_buildables[self.equipname].hint ) )
-                self.hint_string = level.zombie_buildables[self.equipname].hint;
-            else
-                self.hint_string = "Missing buildable hint";
-        }
-        else
-        {
-            assert( isdefined( level.zombie_buildables[self.equipname].hint ), "Missing buildable hint" );
-
-            if ( isdefined( level.zombie_buildables[self.equipname].hint ) )
-                self.hint_string = level.zombie_buildables[self.equipname].hint;
-            else
-                self.hint_string = "Missing buildable hint";
-        }
+        if ( isdefined( level.zombie_buildables[self.equipname].hint ) )
+			self.hint_string = level.zombie_buildables[self.equipname].hint;
+		else
+			self.hint_string = "Missing buildable hint";
     }
     else
         return trigger [[ self.original_prompt_and_visibility_func ]]( player );
@@ -517,8 +428,7 @@ pooled_buildable_place_think()
             continue;
         }
 
-		slot = bind_to.buildablestruct.buildable_slot;
-		bind_to = self.stub.buildable_pool pooledbuildable_stub_for_piece( player player_get_buildable_piece( slot ) );
+		bind_to = self.stub.buildable_pool pooledbuildable_stub_for_equipname( level.buildables_available[self.stub.buildables_available_index] );
 
         if ( !isdefined( bind_to ) || isdefined( self.stub.bound_to_buildable ) && self.stub.bound_to_buildable != bind_to || isdefined( bind_to.bound_to_buildable ) && self.stub != bind_to.bound_to_buildable )
         {
@@ -531,7 +441,7 @@ pooled_buildable_place_think()
             continue;
         }
 
-        status = player player_can_build( bind_to.buildablezone );
+        status = player scripts\zm\replaced\_zm_buildables::player_can_build( bind_to.buildablezone );
 
         if ( !status )
         {
@@ -546,7 +456,7 @@ pooled_buildable_place_think()
             if ( isdefined( bind_to.onbeginuse ) )
                 self.stub [[ bind_to.onbeginuse ]]( player );
 
-            result = self buildable_use_hold_think( player, bind_to );
+            result = self scripts\zm\replaced\_zm_buildables::buildable_use_hold_think( player, bind_to );
             team = player.pers["team"];
 
             if ( result )
@@ -572,12 +482,9 @@ pooled_buildable_place_think()
             if ( isdefined( self.stub.onuse ) )
                 self.stub [[ self.stub.onuse ]]( player );
 
-            if ( isdefined( player player_get_buildable_piece( slot ) ) )
-            {
-                prompt = player player_build( self.stub.buildablezone );
-                self.stub.hint_string = self.stub.trigger_hintstring;
-				self pooledbuildabletrigger_update_prompt( player );
-            }
+            prompt = player scripts\zm\replaced\_zm_buildables::player_build( self.stub.buildablezone );
+			self.stub.hint_string = self.stub.trigger_hintstring;
+			self pooledbuildabletrigger_update_prompt( player );
         }
     }
 
@@ -596,6 +503,20 @@ pooled_buildable_place_think()
 	}
 
 	scripts\zm\replaced\_zm_buildables::buildable_place_think();
+}
+
+pooledbuildable_stub_for_equipname( equipname )
+{
+	foreach ( stub in self.stubs )
+    {
+        if ( isdefined( stub.bound_to_buildable ) )
+            continue;
+
+        if ( stub.equipname == equipname )
+            return stub;
+    }
+
+    return undefined;
 }
 
 choose_open_buildable( player )
@@ -658,19 +579,6 @@ choose_open_buildable( player )
 
 		if ( got_input )
 		{
-			piece = undefined;
-			foreach (stub in level.buildable_stubs)
-			{
-				if (stub.buildablezone.buildable_name == level.buildables_available[self.buildables_available_index])
-				{
-					piece = stub.buildablezone.pieces[0];
-					break;
-				}
-			}
-
-			slot = self.buildablestruct.buildable_slot;
-			player maps\mp\zombies\_zm_buildables::player_set_buildable_piece(piece, slot);
-
 			equipname = level.buildables_available[self.buildables_available_index];
 			self.hint_string = level.zombie_buildables[equipname].hint;
 			self.playertrigger[num] sethintstring(self.hint_string);
