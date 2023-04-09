@@ -432,8 +432,6 @@ sloth_trap()
 		who maps\mp\zombies\_zm_score::minus_to_player_score( trig.cost );
 		play_sound_at_pos( "purchase", trig.origin );
 
-		who maps\mp\zombies\_zm_stats::increment_client_stat( "buried_sloth_candy_protect", 0 );
-		who maps\mp\zombies\_zm_stats::increment_player_stat( "buried_sloth_candy_protect" );
 		who thread maps\mp\zombies\_zm_audio::create_and_play_dialog( "general", "sloth_generic_feed" );
 
 		who maps\mp\zm_buried_buildables::onuseplantobject_key( who );
@@ -446,6 +444,11 @@ sloth_trap()
 		}
 
 		wait 30;
+
+		while (level.sloth maps\mp\zombies\_zm_ai_sloth_utility::sloth_is_traversing())
+		{
+			wait 0.05;
+		}
 
 		level.sloth maps\mp\zombies\_zm_ai_sloth::sloth_set_state( "jail_run", 0 );
 
