@@ -2,17 +2,19 @@
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 
-#include scripts\zm\replaced\zm_highrise_classic;
 #include scripts\zm\replaced\zm_highrise_sq;
+#include scripts\zm\replaced\zm_highrise_atd;
+#include scripts\zm\replaced\zm_highrise_ssp;
+#include scripts\zm\replaced\zm_highrise_pts;
+#include scripts\zm\replaced\zm_highrise_gamemodes;
+#include scripts\zm\replaced\zm_highrise_classic;
+#include scripts\zm\replaced\zm_highrise_buildables;
 #include scripts\zm\replaced\_zm_chugabud;
 #include scripts\zm\replaced\_zm_equip_springpad;
 #include scripts\zm\replaced\_zm_weap_slipgun;
 #include scripts\zm\replaced\_zm_banking;
 #include scripts\zm\replaced\_zm_weapon_locker;
 #include scripts\zm\replaced\_zm_sq;
-#include scripts\zm\replaced\_zm_sq_atd;
-#include scripts\zm\replaced\_zm_sq_ssp;
-#include scripts\zm\replaced\_zm_sq_pts;
 
 main()
 {
@@ -26,6 +28,8 @@ main()
 	replaceFunc(maps\mp\zm_highrise_sq_pts::pts_should_player_create_trigs, scripts\zm\replaced\zm_highrise_sq_pts::pts_should_player_create_trigs);
 	replaceFunc(maps\mp\zm_highrise_gamemodes::init, scripts\zm\replaced\zm_highrise_gamemodes::init);
 	replaceFunc(maps\mp\zm_highrise_classic::insta_kill_player, scripts\zm\replaced\zm_highrise_classic::insta_kill_player);
+	replaceFunc(maps\mp\zm_highrise_buildables::init_buildables, scripts\zm\replaced\zm_highrise_buildables::init_buildables);
+	replaceFunc(maps\mp\zm_highrise_buildables::include_buildables, scripts\zm\replaced\zm_highrise_buildables::include_buildables);
 	replaceFunc(maps\mp\zombies\_zm_chugabud::chugabud_bleed_timeout, scripts\zm\replaced\_zm_chugabud::chugabud_bleed_timeout);
 	replaceFunc(maps\mp\zombies\_zm_equip_springpad::springpadthink, scripts\zm\replaced\_zm_equip_springpad::springpadthink);
 	replaceFunc(maps\mp\zombies\_zm_weap_slipgun::init, scripts\zm\replaced\_zm_weap_slipgun::init);
@@ -45,6 +49,8 @@ init()
 
 	slipgun_change_ammo();
 
+	level thread elevator_call();
+	level thread escape_pod_call();
     level thread elevator_solo_revive_fix();
 }
 
@@ -127,6 +133,111 @@ onbuyweapon_slipgun( player )
     player switchtoweapon( self.stub.weaponname );
 	player scripts\zm\_zm_reimagined::change_weapon_ammo(self.stub.weaponname);
     level notify( "slipgun_bought", player );
+}
+
+elevator_call()
+{
+	trigs = getentarray( "elevator_key_console_trigger", "targetname" );
+	foreach (trig in trigs)
+	{
+		trig thread elevator_call_think();
+	}
+}
+
+elevator_call_think()
+{
+	self sethintstring( &"ZM_HIGHRISE_BUILD_KEYS" );
+	self trigger_off();
+
+	elevatorname = self.script_noteworthy;
+
+	if ( isdefined( elevatorname ) && isdefined( self.script_parameters ) )
+	{
+		elevator = level.elevators[elevatorname];
+		floor = int( self.script_parameters );
+		flevel = elevator maps\mp\zm_highrise_elevators::elevator_level_for_floor( floor );
+		self.elevator = elevator;
+		self.floor = flevel;
+	}
+
+	flag_wait( "power_on" );
+
+	self thread watch_elevator_prompt();
+
+	while ( 1 )
+	{
+		while ( self.elevator maps\mp\zm_highrise_elevators::elevator_is_on_floor( self.floor ) )
+		{
+			self.elevator waittill( "floor_changed" );
+		}
+
+		self trigger_on();
+
+		self waittill( "trigger", who );
+
+		if ( !is_player_valid( who ) )
+        {
+			continue;
+		}
+
+		self trigger_off();
+
+		self maps\mp\zm_highrise_buildables::onuseplantobject_elevatorkey( who );
+
+		while ( !self.elevator maps\mp\zm_highrise_elevators::elevator_is_on_floor( self.floor ) )
+		{
+			self.elevator waittill( "floor_changed" );
+		}
+	}
+}
+
+watch_elevator_prompt()
+{
+    while ( 1 )
+    {
+        self.elevator waittill( "floor_changed" );
+
+        if ( self.elevator maps\mp\zm_highrise_elevators::elevator_is_on_floor( self.floor ) )
+		{
+			self trigger_off();
+		}
+		else
+		{
+			self trigger_on();
+		}
+    }
+}
+
+escape_pod_call()
+{
+	trig = getent( "escape_pod_key_console_trigger", "targetname" );
+	trig thread escape_pod_call_think();
+}
+
+escape_pod_call_think()
+{
+	self sethintstring( &"ZM_HIGHRISE_BUILD_KEYS" );
+	self trigger_off();
+
+	while ( 1 )
+	{
+		flag_wait( "escape_pod_needs_reset" );
+
+		self trigger_on();
+
+		self waittill( "trigger", who );
+
+		if ( !is_player_valid( who ) )
+        {
+			continue;
+		}
+
+		self trigger_off();
+
+		self maps\mp\zm_highrise_buildables::onuseplantobject_escapepodkey( who );
+
+		flag_waitopen( "escape_pod_needs_reset" );
+	}
 }
 
 elevator_solo_revive_fix()

@@ -547,9 +547,11 @@
 * Pack-a-Punch
 
 ### Die Rise
+* Removed key
+* Elevators and escape pod can be called without key
 * Moved weapon locker to the downstairs fridge
-* Zombies no longer spawn in the Upper Blue Highrise zone when in the Trample Steam zone
-* Zombies no longer spawn in the zone next to the AN94 when in the AN94 zone while the debris is closed
+* Zombies no longer spawn in the Upper Blue Highrise zone when in the Green Highrise zone
+* Zombies no longer spawn in the zone next to the Lower Orange Highrise zone when in the Lower Orange Highrise zone while the debris is closed
 * Fixed weapon model angle on upside down Mystery Box
 * Quest: elevator symbols can be activated without players on every symbol
 * Quest: elevator symbols stay active after activating once
