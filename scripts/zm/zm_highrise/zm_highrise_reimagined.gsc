@@ -9,6 +9,7 @@
 #include scripts\zm\replaced\zm_highrise_gamemodes;
 #include scripts\zm\replaced\zm_highrise_classic;
 #include scripts\zm\replaced\zm_highrise_buildables;
+#include scripts\zm\replaced\zm_highrise_elevators;
 #include scripts\zm\replaced\_zm_chugabud;
 #include scripts\zm\replaced\_zm_equip_springpad;
 #include scripts\zm\replaced\_zm_weap_slipgun;
@@ -31,6 +32,7 @@ main()
 	replaceFunc(maps\mp\zm_highrise_classic::insta_kill_player, scripts\zm\replaced\zm_highrise_classic::insta_kill_player);
 	replaceFunc(maps\mp\zm_highrise_buildables::init_buildables, scripts\zm\replaced\zm_highrise_buildables::init_buildables);
 	replaceFunc(maps\mp\zm_highrise_buildables::include_buildables, scripts\zm\replaced\zm_highrise_buildables::include_buildables);
+	replaceFunc(maps\mp\zm_highrise_elevators::faller_location_logic, scripts\zm\replaced\zm_highrise_elevators::faller_location_logic);
 	replaceFunc(maps\mp\zombies\_zm_chugabud::chugabud_bleed_timeout, scripts\zm\replaced\_zm_chugabud::chugabud_bleed_timeout);
 	replaceFunc(maps\mp\zombies\_zm_equip_springpad::springpadthink, scripts\zm\replaced\_zm_equip_springpad::springpadthink);
 	replaceFunc(maps\mp\zombies\_zm_weap_slipgun::init, scripts\zm\replaced\_zm_weap_slipgun::init);
