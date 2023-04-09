@@ -51,7 +51,7 @@
 * Fall damage no longer increases when max health is increased
 * Added blood fx when at or below 20% health
 * Removed blur when getting damaged
-* Removed shellshock when getting damaged from grenades
+* Removed shellshock from explosive damage
 * No longer killed when landing on top of another player
 * Ignored by enemies for 1 second after being revived
 * Weapon is no longer switched after reviving if player switched weapons during revive

@@ -449,16 +449,6 @@ callback_playerdamage( einflictor, eattacker, idamage, idflags, smeansofdeath, s
 		shitloc = "torso_upper";
 	}
 
-	// remove grenade shellshock
-	if(smeansofdeath == "MOD_GRENADE")
-	{
-		smeansofdeath = "MOD_PROJECTILE";
-	}
-	else if(smeansofdeath == "MOD_GRENADE_SPLASH")
-	{
-		smeansofdeath = "MOD_PROJECTILE_SPLASH";
-	}
-
 	self maps\mp\zombies\_zm::finishplayerdamagewrapper( einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime, boneindex );
 }
 

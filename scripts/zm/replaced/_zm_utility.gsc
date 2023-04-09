@@ -22,6 +22,53 @@ is_headshot( sweapon, shitloc, smeansofdeath )
 	return 0;
 }
 
+shock_onpain()
+{
+    self endon( "death" );
+    self endon( "disconnect" );
+    self notify( "stop_shock_onpain" );
+    self endon( "stop_shock_onpain" );
+
+    if ( getdvar( "blurpain" ) == "" )
+        setdvar( "blurpain", "on" );
+
+    while ( true )
+    {
+        oldhealth = self.health;
+
+        self waittill( "damage", damage, attacker, direction_vec, point, mod );
+
+        if ( isdefined( level.shock_onpain ) && !level.shock_onpain )
+            continue;
+
+        if ( isdefined( self.shock_onpain ) && !self.shock_onpain )
+            continue;
+
+        if ( self.health < 1 )
+            continue;
+
+        if ( mod == "MOD_PROJECTILE" || mod == "MOD_PROJECTILE_SPLASH" || mod == "MOD_GRENADE_SPLASH" || mod == "MOD_GRENADE" || mod == "MOD_EXPLOSIVE" )
+        {
+            if ( is_true( self.is_burning ) )
+            {
+				self shock_onexplosion( damage, "lava", "lava_small" );
+            }
+			else if ( mod == "MOD_EXPLOSIVE" )
+			{
+				self shock_onexplosion( damage );
+			}
+			else
+			{
+				self shellshock( "pain", 0.5 );
+			}
+        }
+        else if ( getdvar( "blurpain" ) == "on" )
+		{
+			self shellshock( "pain", 0.5 );
+		}
+    }
+}
+
 create_zombie_point_of_interest_attractor_positions( num_attract_dists, diff_per_dist, attractor_width )
 {
 	self endon( "death" );
