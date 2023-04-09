@@ -149,6 +149,54 @@ check_point_in_kill_brush( origin )
     return valid_point;
 }
 
+get_current_zone( return_zone )
+{
+    flag_wait( "zones_initialized" );
+
+	if ( isDefined( self.prev_zone ) )
+	{
+		for ( i = 0; i < self.prev_zone.volumes.size; i++ )
+        {
+            if ( self istouching( self.prev_zone.volumes[i] ) )
+            {
+				if ( isdefined( return_zone ) && return_zone )
+				{
+					return self.prev_zone;
+				}
+
+                return self.prev_zone_name;
+			}
+		}
+	}
+
+    for ( z = 0; z < level.zone_keys.size; z++ )
+    {
+        zone_name = level.zone_keys[z];
+        zone = level.zones[zone_name];
+
+        for ( i = 0; i < zone.volumes.size; i++ )
+        {
+            if ( self istouching( zone.volumes[i] ) )
+            {
+				self.prev_zone = zone;
+				self.prev_zone_name = zone_name;
+
+                if ( isdefined( return_zone ) && return_zone )
+				{
+					return zone;
+				}
+
+                return zone_name;
+            }
+        }
+    }
+
+	self.prev_zone = undefined;
+	self.prev_zone_name = undefined;
+
+    return undefined;
+}
+
 wait_network_frame()
 {
     wait 0.1;
