@@ -185,13 +185,11 @@ time_bomb_detonation()
     _time_bomb_show_overlay();
     time_bomb_clears_global_data();
     time_bomb_clears_player_data();
-    flag_clear( "spawn_zombies" );
 
     wait 4;
 
     _time_bomb_kill_all_active_enemies();
 
-    flag_set( "spawn_zombies" );
     delete_time_bomb_model();
     _time_bomb_hide_overlay();
     level thread set_time_bomb_restore_active();
