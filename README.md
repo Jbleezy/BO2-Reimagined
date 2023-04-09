@@ -568,6 +568,7 @@
 * Plane reappears immediately after coming back from the Golden Gate Bridge
 * Electric chairs appear immediately after crashing at the Golden Gate Bridge
 * Key no longer shows on HUD
+* Brutus no longer spawns if no doors have been opened
 * Acid Trap: kills on any round (normally stops killing after round 158 on PC)
 * Acid Trap: kills zombies instantly
 * Acid Trap: decreased player damage from 75% of max health to 50% of max health

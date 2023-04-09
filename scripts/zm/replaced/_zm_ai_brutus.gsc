@@ -179,6 +179,43 @@ setup_interaction_matrix()
     }
 }
 
+brutus_round_tracker()
+{
+    level.next_brutus_round = level.round_number + randomintrange( level.brutus_min_round_fq, level.brutus_max_round_fq );
+    old_spawn_func = level.round_spawn_func;
+    old_wait_func = level.round_wait_func;
+
+	flag_wait_any( "activate_cellblock_east", "activate_cellblock_west" );
+
+    while ( true )
+    {
+        level waittill( "between_round_over" );
+
+        players = get_players();
+
+        if ( level.round_number < 9 && ( isdefined( level.is_forever_solo_game ) && level.is_forever_solo_game ) )
+            continue;
+        else if ( level.next_brutus_round <= level.round_number )
+        {
+            if ( maps\mp\zm_alcatraz_utility::is_team_on_golden_gate_bridge() )
+            {
+                level.next_brutus_round = level.round_number + 1;
+                continue;
+            }
+
+            wait( randomfloatrange( level.brutus_min_spawn_delay, level.brutus_max_spawn_delay ) );
+
+            if ( attempt_brutus_spawn( level.brutus_zombie_per_round ) )
+            {
+                level.music_round_override = 1;
+                level thread maps\mp\zombies\_zm_audio::change_zombie_music( "brutus_round_start" );
+                level thread sndforcewait();
+                level.next_brutus_round = level.round_number + randomintrange( level.brutus_min_round_fq, level.brutus_max_round_fq );
+            }
+        }
+    }
+}
+
 craftable_table_lock()
 {
     self endon( "death" );
