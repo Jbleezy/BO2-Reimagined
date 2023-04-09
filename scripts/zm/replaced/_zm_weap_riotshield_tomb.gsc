@@ -107,3 +107,126 @@ player_wait_and_take_riotshield()
     playsoundatposition( "wpn_riotshield_zm_destroy", shield_origin );
     self thread player_take_riotshield();
 }
+
+watchriotshieldmelee()
+{
+    for (;;)
+    {
+        self waittill( "weapon_melee", weapon );
+
+        if ( weapon == level.riotshield_name )
+            self riotshield_melee();
+    }
+}
+
+riotshield_melee()
+{
+    if ( !isdefined( level.riotshield_knockdown_enemies ) )
+    {
+        level.riotshield_knockdown_enemies = [];
+        level.riotshield_knockdown_gib = [];
+        level.riotshield_fling_enemies = [];
+        level.riotshield_fling_vecs = [];
+    }
+
+    self riotshield_get_enemies_in_range();
+    shield_damage = 0;
+    level.riotshield_network_choke_count = 0;
+
+    for ( i = 0; i < level.riotshield_fling_enemies.size; i++ )
+    {
+        riotshield_network_choke();
+
+        if ( isdefined( level.riotshield_fling_enemies[i] ) )
+        {
+            level.riotshield_fling_enemies[i] thread riotshield_fling_zombie( self, level.riotshield_fling_vecs[i], i );
+            shield_damage += level.zombie_vars["riotshield_fling_damage_shield"];
+        }
+    }
+
+    for ( i = 0; i < level.riotshield_knockdown_enemies.size; i++ )
+    {
+        riotshield_network_choke();
+        level.riotshield_knockdown_enemies[i] thread riotshield_knockdown_zombie( self, level.riotshield_knockdown_gib[i] );
+        shield_damage += level.zombie_vars["riotshield_knockdown_damage_shield"];
+    }
+
+    level.riotshield_knockdown_enemies = [];
+    level.riotshield_knockdown_gib = [];
+    level.riotshield_fling_enemies = [];
+    level.riotshield_fling_vecs = [];
+
+    if ( shield_damage )
+        self player_damage_shield( shield_damage, 0 );
+}
+
+riotshield_fling_zombie( player, fling_vec, index )
+{
+    if ( !isdefined( self ) || !isalive( self ) )
+        return;
+
+    if ( isdefined( self.ignore_riotshield ) && self.ignore_riotshield )
+        return;
+
+    if ( isdefined( self.riotshield_fling_func ) )
+    {
+        self [[ self.riotshield_fling_func ]]( player );
+        return;
+    }
+
+    damage = 2500;
+    self dodamage( damage, player.origin, player, player, 0, "MOD_MELEE", 0, level.riotshield_name );
+
+    if ( self.health < 1 )
+    {
+        self.riotshield_death = 1;
+        player maps\mp\zombies\_zm_score::player_add_points( "death", "MOD_MELEE" );
+        self startragdoll();
+        self launchragdoll( fling_vec );
+    }
+    else
+    {
+        player maps\mp\zombies\_zm_score::player_add_points( "damage_light" );
+    }
+}
+
+zombie_knockdown( player, gib )
+{
+    if ( isdefined( level.override_riotshield_damage_func ) )
+        self [[ level.override_riotshield_damage_func ]]( player, gib );
+    else
+    {
+        if ( gib )
+        {
+            self.a.gib_ref = random( level.riotshield_gib_refs );
+            self thread maps\mp\animscripts\zm_death::do_gib();
+        }
+    }
+}
+
+riotshield_knockdown_zombie( player, gib )
+{
+    self endon( "death" );
+    playsoundatposition( "vox_riotshield_forcehit", self.origin );
+    playsoundatposition( "wpn_riotshield_proj_impact", self.origin );
+
+    if ( !isdefined( self ) || !isalive( self ) )
+        return;
+
+    if ( isdefined( self.riotshield_knockdown_func ) )
+        self [[ self.riotshield_knockdown_func ]]( player, gib );
+    else
+        self zombie_knockdown( player, gib );
+
+    self dodamage( level.zombie_vars["riotshield_knockdown_damage"], player.origin, player, player, 0, "MOD_MELEE", 0, level.riotshield_name );
+    self playsound( "fly_riotshield_forcehit" );
+
+    if ( self.health < 1 )
+    {
+        player maps\mp\zombies\_zm_score::player_add_points( "death", "MOD_MELEE" );
+    }
+    else
+    {
+        player maps\mp\zombies\_zm_score::player_add_points( "damage_light" );
+    }
+}

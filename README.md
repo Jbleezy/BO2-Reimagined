@@ -390,6 +390,7 @@
 * Can no longer be picked up after being destroyed
 
 ### Zombie Shield
+* Awards points for kills and damage
 * Can be destroyed by player damage when deployed
 * Destroyed sound plays when player is holding
 * Deployed damage sound plays on shield instead of player
