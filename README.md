@@ -335,6 +335,8 @@
 ### Who's Who
 * Gain all other perks the player had before going down when entering Who's Who mode
 * Revive twice as fast when in Who's Who mode
+* Changed revive waypoint icon to Who's Who perk icon
+* Revive waypoint shows offscreen
 * No longer gives the player Claymores when entering Who's Who mode if the player purchased Claymores
 
 ### Electric Cherry

@@ -33,6 +33,9 @@ main()
 	replaceFunc(maps\mp\zm_highrise_buildables::init_buildables, scripts\zm\replaced\zm_highrise_buildables::init_buildables);
 	replaceFunc(maps\mp\zm_highrise_buildables::include_buildables, scripts\zm\replaced\zm_highrise_buildables::include_buildables);
 	replaceFunc(maps\mp\zm_highrise_elevators::faller_location_logic, scripts\zm\replaced\zm_highrise_elevators::faller_location_logic);
+	replaceFunc(maps\mp\zombies\_zm_chugabud::chugabud_fake_death, scripts\zm\replaced\_zm_chugabud::chugabud_fake_death);
+	replaceFunc(maps\mp\zombies\_zm_chugabud::chugabud_corpse_revive_icon, scripts\zm\replaced\_zm_chugabud::chugabud_corpse_revive_icon);
+	replaceFunc(maps\mp\zombies\_zm_chugabud::chugabud_corpse_cleanup, scripts\zm\replaced\_zm_chugabud::chugabud_corpse_cleanup);
 	replaceFunc(maps\mp\zombies\_zm_chugabud::chugabud_bleed_timeout, scripts\zm\replaced\_zm_chugabud::chugabud_bleed_timeout);
 	replaceFunc(maps\mp\zombies\_zm_equip_springpad::springpadthink, scripts\zm\replaced\_zm_equip_springpad::springpadthink);
 	replaceFunc(maps\mp\zombies\_zm_weap_slipgun::init, scripts\zm\replaced\_zm_weap_slipgun::init);
@@ -46,6 +49,8 @@ main()
 
 init()
 {
+	precacheshader( "specialty_chugabud_zombies" );
+
 	level.zombie_init_done = ::zombie_init_done;
 	level.special_weapon_magicbox_check = ::highrise_special_weapon_magicbox_check;
 	level.check_for_valid_spawn_near_team_callback = ::highrise_respawn_override;

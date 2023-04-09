@@ -14,6 +14,10 @@ revive_do_revive( playerbeingrevived, revivergun )
 	{
 		revivetime *= 0.5;
 	}
+	if ( isdefined( self.e_chugabud_corpse ) )
+	{
+		revivetime *= 0.5;
+	}
 	timer = 0;
 	revived = 0;
 	playerbeingrevived.revivetrigger.beingrevived = 1;

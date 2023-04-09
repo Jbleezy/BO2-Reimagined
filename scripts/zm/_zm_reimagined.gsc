@@ -3878,8 +3878,6 @@ whos_who_spawn_changes()
 	{
 		self waittill("fake_revive");
 
-		self.pers_upgrades_awarded["revive"] = 1;
-
 		self takeweapon("frag_grenade_zm");
 		self takeweapon("claymore_zm");
 		self giveweapon("sticky_grenade_zm");
@@ -3891,8 +3889,6 @@ whos_who_spawn_changes()
 		}
 
 		self waittill("chugabud_effects_cleanup");
-
-		self.pers_upgrades_awarded["revive"] = 0;
 	}
 }
 
