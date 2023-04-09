@@ -12,6 +12,7 @@
 #include scripts\zm\replaced\zm_buried_sq_tpo;
 #include scripts\zm\replaced\zm_buried_sq_ip;
 #include scripts\zm\replaced\zm_buried_sq_ows;
+#include scripts\zm\replaced\_zm_ai_ghost;
 #include scripts\zm\replaced\_zm_ai_sloth;
 #include scripts\zm\replaced\_zm_buildables_pooled;
 #include scripts\zm\replaced\_zm_equip_subwoofer;
@@ -42,6 +43,7 @@ main()
 	replaceFunc(maps\mp\zm_buried_sq_tpo::init, scripts\zm\replaced\zm_buried_sq_tpo::init);
 	replaceFunc(maps\mp\zm_buried_sq_ip::init, scripts\zm\replaced\zm_buried_sq_ip::init);
 	replaceFunc(maps\mp\zm_buried_sq_ows::ows_targets_start, scripts\zm\replaced\zm_buried_sq_ows::ows_targets_start);
+	replaceFunc(maps\mp\zombies\_zm_ai_ghost::should_last_ghost_drop_powerup, scripts\zm\replaced\_zm_ai_ghost::should_last_ghost_drop_powerup);
 	replaceFunc(maps\mp\zombies\_zm_ai_sloth::sloth_init_start_funcs, scripts\zm\replaced\_zm_ai_sloth::sloth_init_start_funcs);
 	replaceFunc(maps\mp\zombies\_zm_ai_sloth::sloth_init_update_funcs, scripts\zm\replaced\_zm_ai_sloth::sloth_init_update_funcs);
 	replaceFunc(maps\mp\zombies\_zm_ai_sloth::sloth_check_ragdolls, scripts\zm\replaced\_zm_ai_sloth::sloth_check_ragdolls);
@@ -367,16 +369,13 @@ disable_ghost_free_perk()
 {
 	level endon( "ghost_round_end" );
 
+	level.ghost_round_no_damage = 1;
+
 	flag_wait( "spawn_ghosts" );
 
 	level waittill_any("ghost_drained_player", "ghost_damaged_player");
 
-	while (!isDefined(level.ghost_round_last_ghost_origin))
-	{
-		wait 0.05;
-	}
-
-	level.ghost_round_last_ghost_origin = undefined;
+	level.ghost_round_no_damage = 0;
 
 	flag_waitopen( "spawn_ghosts" );
 }
