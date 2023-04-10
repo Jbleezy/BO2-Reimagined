@@ -197,8 +197,6 @@ onplayerspawned()
 			self thread additionalprimaryweapon_indicator();
 			self thread additionalprimaryweapon_stowed_weapon_refill();
 
-			self thread whos_who_spawn_changes();
-
 			self thread electric_cherry_unlimited();
 
 			//self.score = 100000;
@@ -3618,14 +3616,56 @@ additionalprimaryweapon_restore_weapons()
 
 			if (additionalprimaryweapon_canplayerreceiveweapon(self, self.a_saved_weapon["name"], pap_triggers))
 			{
-				current_wep = self getCurrentWeapon();
-				self maps\mp\zombies\_zm_weapons::weapondata_give(self.a_saved_weapon);
-				self switchToWeapon(current_wep);
+				self additionalprimaryweapon_restore_weapon(self.a_saved_weapon);
+				self seteverhadweaponall( 1 );
 			}
 
 			self.a_saved_weapon = undefined;
 		}
 	}
+}
+
+additionalprimaryweapon_restore_weapon( weapondata )
+{
+	current = get_player_weapon_with_same_base( weapondata["name"] );
+
+    if ( isdefined( current ) )
+    {
+        curweapondata = get_player_weapondata( self, current );
+        self takeweapon( current );
+        weapondata = merge_weapons( curweapondata, weapondata );
+    }
+
+    name = weapondata["name"];
+
+    if ( !is_weapon_upgraded( name ) )
+        self giveweapon( name );
+    else
+        self giveweapon( name, 0, self get_pack_a_punch_weapon_options( name ) );
+
+    dw_name = weapondualwieldweaponname( name );
+    alt_name = weaponaltweaponname( name );
+
+    if ( name != "none" )
+    {
+        self setweaponammoclip( name, weapondata["clip"] );
+        self setweaponammostock( name, weapondata["stock"] );
+
+        if ( isdefined( weapondata["fuel"] ) )
+            self setweaponammofuel( name, weapondata["fuel"] );
+
+        if ( isdefined( weapondata["heat"] ) && isdefined( weapondata["overheat"] ) )
+            self setweaponoverheating( weapondata["overheat"], weapondata["heat"], name );
+    }
+
+    if ( dw_name != "none" )
+        self setweaponammoclip( dw_name, weapondata["lh_clip"] );
+
+    if ( alt_name != "none" )
+    {
+        self setweaponammoclip( alt_name, weapondata["alt_clip"] );
+        self setweaponammostock( alt_name, weapondata["alt_stock"] );
+    }
 }
 
 additionalprimaryweapon_canplayerreceiveweapon( player, weapon, pap_triggers )
@@ -3867,28 +3907,6 @@ refill_after_time(primary)
 	if(isDefined(vars["reload_amount"]) && self getWeaponAmmoStock(primary) > 0 && self getWeaponAmmoClip(primary) < weaponClipSize(primary))
 	{
 		self refill_after_time(primary);
-	}
-}
-
-whos_who_spawn_changes()
-{
-	self endon( "disconnect" );
-
-	while (1)
-	{
-		self waittill("fake_revive");
-
-		self takeweapon("frag_grenade_zm");
-		self takeweapon("claymore_zm");
-		self giveweapon("sticky_grenade_zm");
-		self setweaponammoclip("sticky_grenade_zm", 2);
-
-		foreach (perk in self.loadout.perks)
-		{
-			self maps\mp\zombies\_zm_perks::give_perk(perk);
-		}
-
-		self waittill("chugabud_effects_cleanup");
 	}
 }
 
