@@ -32,6 +32,8 @@ main()
 	replaceFunc(maps\mp\zm_highrise_classic::insta_kill_player, scripts\zm\replaced\zm_highrise_classic::insta_kill_player);
 	replaceFunc(maps\mp\zm_highrise_buildables::init_buildables, scripts\zm\replaced\zm_highrise_buildables::init_buildables);
 	replaceFunc(maps\mp\zm_highrise_buildables::include_buildables, scripts\zm\replaced\zm_highrise_buildables::include_buildables);
+	replaceFunc(maps\mp\zm_highrise_elevators::init_elevator_perks, scripts\zm\replaced\zm_highrise_elevators::init_elevator_perks);
+	replaceFunc(maps\mp\zm_highrise_elevators::elevator_think, scripts\zm\replaced\zm_highrise_elevators::elevator_think);
 	replaceFunc(maps\mp\zm_highrise_elevators::faller_location_logic, scripts\zm\replaced\zm_highrise_elevators::faller_location_logic);
 	replaceFunc(maps\mp\zombies\_zm_equip_springpad::springpadthink, scripts\zm\replaced\_zm_equip_springpad::springpadthink);
 	replaceFunc(maps\mp\zombies\_zm_weap_slipgun::init, scripts\zm\replaced\_zm_weap_slipgun::init);
@@ -56,7 +58,6 @@ init()
 
 	level thread elevator_call();
 	level thread escape_pod_call();
-    level thread elevator_solo_revive_fix();
 }
 
 zombie_init_done()
@@ -243,43 +244,4 @@ escape_pod_call_think()
 
 		flag_waitopen( "escape_pod_needs_reset" );
 	}
-}
-
-elevator_solo_revive_fix()
-{
-	if (!(is_classic() && level.scr_zm_map_start_location == "rooftop"))
-	{
-		return;
-	}
-
-	flag_wait( "start_zombie_round_logic" );
-
-	if (!flag("solo_game"))
-	{
-		return;
-	}
-
-	flag_wait( "perks_ready" );
-	flag_wait( "initial_blackscreen_passed" );
-	wait 1;
-
-	revive_elevator = undefined;
-	foreach (elevator in level.elevators)
-	{
-		if (elevator.body.perk_type == "vending_revive")
-		{
-			revive_elevator = elevator;
-			break;
-		}
-	}
-
-	revive_elevator.body.elevator_stop = 1;
-	revive_elevator.body.lock_doors = 1;
-	revive_elevator.body maps\mp\zm_highrise_elevators::perkelevatordoor(0);
-
-	flag_wait( "power_on" );
-
-	revive_elevator.body.elevator_stop = 0;
-	revive_elevator.body.lock_doors = 0;
-	revive_elevator.body maps\mp\zm_highrise_elevators::perkelevatordoor(1);
 }
