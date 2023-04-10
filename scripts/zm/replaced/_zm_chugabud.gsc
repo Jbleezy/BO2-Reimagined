@@ -8,6 +8,13 @@ chugabud_laststand()
     self endon( "player_suicide" );
     self endon( "disconnect" );
     self endon( "chugabud_bleedout" );
+
+	if ( isdefined( self.e_chugabud_corpse ) )
+	{
+		self notify( "chugabud_handle_multiple_instances" );
+		return;
+	}
+
     self maps\mp\zombies\_zm_laststand::increment_downed_stat();
     self.ignore_insta_kill = 1;
     self.health = self.maxhealth;
@@ -294,9 +301,17 @@ chugabud_handle_multiple_instances( corpse )
 {
     corpse endon( "death" );
 
-    self waittill( "perk_chugabud_activated" );
+	self waittill( "chugabud_handle_multiple_instances" );
 
+	self thread chugabud_laststand_wait( corpse );
     self chugabud_corpse_cleanup( corpse, 0 );
+}
+
+chugabud_laststand_wait( corpse )
+{
+	corpse waittill( "death" );
+
+	self chugabud_laststand();
 }
 
 chugabud_corpse_cleanup_on_disconnect( player )

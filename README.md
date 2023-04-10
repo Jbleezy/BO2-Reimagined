@@ -334,9 +334,12 @@
 
 ### Who's Who
 * Keep weapons when entering Who's Who mode
+* Keep any perks obtained in Who's Who mode when exiting Who's Who mode
+* Revive twice as fast in Who's Who mode
 * Invulnerable for 2 seconds after entering and exiting Who's Who mode
 * Controls are frozen for 0.5 seconds after exiting Who's Who mode
-* Revive twice as fast when in Who's Who mode
+* Purchasing Who's Who in Who's Who mode no longer destroys the clone
+* Downing with Who's Who in Who's Who mode destroys the clone
 * Changed revive waypoint icon to Who's Who perk icon
 * Revive waypoint shows offscreen
 
