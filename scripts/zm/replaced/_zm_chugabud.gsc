@@ -29,7 +29,6 @@ chugabud_corpse_revive_icon( player )
     self endon( "death" );
     height_offset = 30;
     index = player.clientid;
-
 	self.revive_waypoint_origin = spawn( "script_model", self.origin + (0, 0, height_offset) );
 	self.revive_waypoint_origin setmodel( "tag_origin" );
 	self.revive_waypoint_origin linkto( self );
@@ -75,7 +74,7 @@ chugabud_corpse_cleanup( corpse, was_revived )
 
 	if ( isdefined( corpse.revive_waypoint_origin ) )
     {
-        corpse.revive_waypoint_origin destroy();
+        corpse.revive_waypoint_origin delete();
         corpse.revive_waypoint_origin = undefined;
     }
 

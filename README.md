@@ -591,6 +591,7 @@
 * Quest: can enter the plane in afterlife without Weasel
 * Quest: if Weasel is the only player in the game, the cycle breaks immediately after reviving yourself on the Golden Gate Bridge
 * Quest: if Weasel is not in the game, the cycle continues immediately immediately after everyone revives themselves on the Golden Gate Bridge
+* Quest: showdown target waypoint shows offscreen
 * Grief: added Smoke Grenades to the Mystery Box
 * Grief: added Richtofen's Head meat powerup model
 * Grief: Tower Trap targets and stuns players
