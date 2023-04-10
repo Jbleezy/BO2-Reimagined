@@ -75,6 +75,119 @@ prep_for_new_quest()
     flag_clear( "plane_is_away" );
 }
 
+plane_boarding_thread()
+{
+    self endon( "death_or_disconnect" );
+    flag_set( "plane_is_away" );
+    self thread player_disconnect_watcher();
+    self thread player_death_watcher();
+
+    flag_set( "plane_boarded" );
+    self setclientfieldtoplayer( "effects_escape_flight", 1 );
+    level.brutus_respawn_after_despawn = 0;
+    a_nml_teleport_targets = [];
+
+    for ( i = 1; i < 6; i++ )
+        a_nml_teleport_targets[i - 1] = getstruct( "nml_telepoint_" + i, "targetname" );
+
+    level.characters_in_nml[level.characters_in_nml.size] = self.character_name;
+    self.on_a_plane = 1;
+    level.someone_has_visited_nml = 1;
+    self.n_passenger_index = level.characters_in_nml.size;
+    m_plane_craftable = getent( "plane_craftable", "targetname" );
+    m_plane_about_to_crash = getent( "plane_about_to_crash", "targetname" );
+    veh_plane_flyable = getent( "plane_flyable", "targetname" );
+    t_plane_fly = getent( "plane_fly_trigger", "targetname" );
+    t_plane_fly sethintstring( &"ZM_PRISON_PLANE_BOARD" );
+    self enableinvulnerability();
+    self playerlinktodelta( m_plane_craftable, "tag_player_crouched_" + ( self.n_passenger_index + 1 ) );
+    self allowstand( 0 );
+    flag_wait( "plane_departed" );
+    level notify( "sndStopBrutusLoop" );
+    self clientnotify( "sndPS" );
+    self playsoundtoplayer( "zmb_plane_takeoff", self );
+    level thread maps\mp\zombies\_zm_audio::sndmusicstingerevent( "plane_takeoff", self );
+    self playerlinktodelta( veh_plane_flyable, "tag_player_crouched_" + ( self.n_passenger_index + 1 ) );
+    self setclientfieldtoplayer( "effects_escape_flight", 2 );
+    flag_wait( "plane_approach_bridge" );
+    self thread snddelayedimp();
+    self setclientfieldtoplayer( "effects_escape_flight", 3 );
+    self unlink();
+    self playerlinktoabsolute( veh_plane_flyable, "tag_player_crouched_" + ( self.n_passenger_index + 1 ) );
+    flag_wait( "plane_zapped" );
+    flag_set( "activate_player_zone_bridge" );
+    self playsoundtoplayer( "zmb_plane_fall", self );
+    self setclientfieldtoplayer( "effects_escape_flight", 4 );
+    self.dontspeak = 1;
+    self setclientfieldtoplayer( "isspeaking", 1 );
+    self playerlinktodelta( m_plane_about_to_crash, "tag_player_crouched_" + ( self.n_passenger_index + 1 ), 1, 0, 0, 0, 0, 1 );
+    self forcegrenadethrow();
+    str_current_weapon = self getcurrentweapon();
+    self giveweapon( "falling_hands_zm" );
+    self switchtoweaponimmediate( "falling_hands_zm" );
+    self setweaponammoclip( "falling_hands_zm", 0 );
+    players = getplayers();
+
+    foreach ( player in players )
+    {
+        if ( player != self )
+            player setinvisibletoplayer( self );
+    }
+
+    flag_wait( "plane_crashed" );
+    self setclientfieldtoplayer( "effects_escape_flight", 5 );
+    self takeweapon( "falling_hands_zm" );
+
+    if ( isdefined( str_current_weapon ) && str_current_weapon != "none" )
+        self switchtoweaponimmediate( str_current_weapon );
+
+    self thread fadetoblackforxsec( 0, 2, 0, 0.5, "black" );
+    self thread snddelayedmusic();
+    self unlink();
+    self allowstand( 1 );
+    self setstance( "stand" );
+    players = getplayers();
+
+    foreach ( player in players )
+    {
+        if ( player != self )
+            player setvisibletoplayer( self );
+    }
+
+    flag_clear( "spawn_zombies" );
+    self setorigin( a_nml_teleport_targets[self.n_passenger_index].origin );
+    e_poi = getstruct( "plane_crash_poi", "targetname" );
+    vec_to_target = e_poi.origin - self.origin;
+    vec_to_target = vectortoangles( vec_to_target );
+    vec_to_target = ( 0, vec_to_target[1], 0 );
+    self setplayerangles( vec_to_target );
+    n_shellshock_duration = 5;
+    self shellshock( "explosion", n_shellshock_duration );
+    self.dontspeak = 0;
+    self setclientfieldtoplayer( "isspeaking", 0 );
+    self notify( "player_at_bridge" );
+    wait( n_shellshock_duration );
+    self disableinvulnerability();
+    self.on_a_plane = 0;
+
+    if ( level.characters_in_nml.size == 1 )
+        self thread vo_bridge_soliloquy();
+    else if ( level.characters_in_nml.size == 4 )
+        level thread vo_bridge_four_part_convo();
+
+    self playsoundtoplayer( "zmb_ggb_swarm_start", self );
+    flag_set( "spawn_zombies" );
+    level.brutus_respawn_after_despawn = 1;
+    character_name = level.characters_in_nml[randomintrange( 0, level.characters_in_nml.size )];
+    players = getplayers();
+
+    foreach ( player in players )
+    {
+        if ( isdefined( player ) && player.character_name == character_name )
+            player thread do_player_general_vox( "quest", "zombie_arrive_gg", undefined, 100 );
+    }
+}
+
 plane_flight_thread()
 {
     while ( true )
@@ -152,7 +265,6 @@ plane_flight_thread()
         veh_plane_flyable waittill( "reached_end_node" );
 
         veh_plane_flyable setinvisibletoall();
-        wait 20;
 
         if ( !level.final_flight_activated )
         {

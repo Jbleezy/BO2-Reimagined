@@ -31,6 +31,7 @@ main()
 	replaceFunc(maps\mp\zm_alcatraz_gamemodes::init, scripts\zm\replaced\zm_alcatraz_gamemodes::init);
 	replaceFunc(maps\mp\zm_alcatraz_utility::blundergat_upgrade_station, scripts\zm\replaced\zm_alcatraz_utility::blundergat_upgrade_station);
     replaceFunc(maps\mp\zm_alcatraz_sq::track_quest_status_thread, scripts\zm\replaced\zm_alcatraz_sq::track_quest_status_thread);
+    replaceFunc(maps\mp\zm_alcatraz_sq::plane_boarding_thread, scripts\zm\replaced\zm_alcatraz_sq::plane_boarding_thread);
     replaceFunc(maps\mp\zm_alcatraz_sq::plane_flight_thread, scripts\zm\replaced\zm_alcatraz_sq::plane_flight_thread);
     replaceFunc(maps\mp\zm_alcatraz_sq::manage_electric_chairs, scripts\zm\replaced\zm_alcatraz_sq::manage_electric_chairs);
     replaceFunc(maps\mp\zm_alcatraz_traps::init_fan_trap_trigs, scripts\zm\replaced\zm_alcatraz_traps::init_fan_trap_trigs);

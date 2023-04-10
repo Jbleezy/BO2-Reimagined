@@ -574,6 +574,7 @@
 * Plane no longer has to be refueled after first use
 * Plane reappears immediately after coming back from the Golden Gate Bridge
 * Electric chairs appear immediately after crashing at the Golden Gate Bridge
+* Zombies spawn sooner after crashing at the Golden Gate Bridge
 * Key no longer shows on HUD
 * Brutus no longer spawns if no doors have been opened
 * Acid Trap: kills on any round (normally stops killing after round 158 on PC)
@@ -591,6 +592,7 @@
 * Quest: can enter the plane in afterlife without Weasel
 * Quest: if Weasel is the only player in the game, the cycle breaks immediately after reviving yourself on the Golden Gate Bridge
 * Quest: if Weasel is not in the game, the cycle continues immediately immediately after everyone revives themselves on the Golden Gate Bridge
+* Quest: players no longer get moved to different positions when starting the showdown
 * Quest: showdown target waypoint shows offscreen
 * Grief: added Smoke Grenades to the Mystery Box
 * Grief: added Richtofen's Head meat powerup model
