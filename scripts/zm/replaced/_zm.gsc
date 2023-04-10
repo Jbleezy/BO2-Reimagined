@@ -750,7 +750,9 @@ player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, 
 			idamage = new_damage;
 		}
 	}
+
 	idamage = self maps\mp\zombies\_zm::check_player_damage_callbacks( einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime );
+
 	if ( is_true( self.use_adjusted_grenade_damage ) )
 	{
 		self.use_adjusted_grenade_damage = undefined;
@@ -759,14 +761,17 @@ player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, 
 			return idamage;
 		}
 	}
+
 	if ( !idamage )
 	{
 		return 0;
 	}
+
 	if ( self maps\mp\zombies\_zm_laststand::player_is_in_laststand() )
 	{
 		return 0;
 	}
+
 	if ( isDefined( einflictor ) )
 	{
 		if ( is_true( einflictor.water_damage ) )
@@ -774,6 +779,7 @@ player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, 
 			return 0;
 		}
 	}
+
 	if ( isDefined( eattacker ) && is_true( eattacker.is_zombie ) || isplayer( eattacker ) )
 	{
 		if ( is_true( self.hasriotshield ) && isDefined( vdir ) )
@@ -796,20 +802,24 @@ player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, 
 			}
 		}
 	}
+
 	if ( isDefined( eattacker ) )
 	{
 		if ( isDefined( self.ignoreattacker ) && self.ignoreattacker == eattacker )
 		{
 			return 0;
 		}
+
 		if ( is_true( self.is_zombie ) && is_true( eattacker.is_zombie ) )
 		{
 			return 0;
 		}
+
 		if ( is_true( eattacker.is_zombie ) )
 		{
 			self.ignoreattacker = eattacker;
 			self thread maps\mp\zombies\_zm::remove_ignore_attacker();
+
 			if ( isDefined( eattacker.custom_damage_func ) )
 			{
 				idamage = eattacker [[ eattacker.custom_damage_func ]]( self );
@@ -823,14 +833,18 @@ player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, 
 				idamage = 50;
 			}
 		}
+
 		eattacker notify( "hit_player" );
+
 		if ( smeansofdeath != "MOD_FALLING" )
 		{
 			self thread maps\mp\zombies\_zm::playswipesound( smeansofdeath, eattacker );
+
 			if ( is_true( eattacker.is_zombie ) || isplayer( eattacker ) )
 			{
 				self playrumbleonentity( "damage_heavy" );
 			}
+
 			canexert = 1;
 			if ( is_true( level.pers_upgrade_flopper ) )
 			{
@@ -842,6 +856,7 @@ player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, 
 					}
 				}
 			}
+
 			if ( is_true( canexert ) )
 			{
 				if ( randomintrange( 0, 1 ) == 0 )
@@ -855,15 +870,25 @@ player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, 
 			}
 		}
 	}
+
 	finaldamage = idamage;
+
 	if ( is_placeable_mine( sweapon ) || sweapon == "freezegun_zm" || sweapon == "freezegun_upgraded_zm" )
 	{
 		return 0;
 	}
+
+	// fix turrets damaging players
+	if(sweapon == "zombie_bullet_crouch_zm" && smeansofdeath == "MOD_RIFLE_BULLET")
+	{
+		return 0;
+	}
+
 	if ( isDefined( self.player_damage_override ) )
 	{
 		self thread [[ self.player_damage_override ]]( einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime );
 	}
+
 	if ( smeansofdeath == "MOD_FALLING" )
 	{
 		if ( self hasperk( "specialty_flakjacket" ) && isDefined( self.divetoprone ) && self.divetoprone == 1 )
@@ -872,14 +897,47 @@ player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, 
 			{
 				[[ level.zombiemode_divetonuke_perk_func ]]( self, self.origin );
 			}
+
 			return 0;
 		}
+
 		if ( is_true( level.pers_upgrade_flopper ) )
 		{
 			if ( self maps\mp\zombies\_zm_pers_upgrades_functions::pers_upgrade_flopper_damage_check( smeansofdeath, idamage ) )
 			{
 				return 0;
 			}
+		}
+
+		vars = [];
+		if (!self hasPerk("specialty_flakjacket"))
+		{
+			// remove fall damage being based off max health
+			vars["ratio"] = self.maxhealth / 100;
+			idamage = int(idamage / vars["ratio"]);
+
+			// increase fall damage beyond 110
+			vars["max_damage"] = 110;
+			if (idamage >= vars["max_damage"])
+			{
+				vars["velocity"] = abs(self.fall_velocity);
+				vars["min_velocity"] = getDvarInt("bg_fallDamageMinHeight") * 3.25;
+				vars["max_velocity"] = getDvarInt("bg_fallDamageMaxHeight") * 2.5;
+				if (self.divetoprone)
+				{
+					vars["min_velocity"] = getDvarInt("dtp_fall_damage_min_height") * 4.5;
+					vars["max_velocity"] = getDvarInt("dtp_fall_damage_max_height") * 2.75;
+				}
+
+				idamage = int(((vars["velocity"] - vars["min_velocity"]) / (vars["max_velocity"] - vars["min_velocity"])) * vars["max_damage"]);
+
+				if (idamage < vars["max_damage"])
+				{
+					idamage = vars["max_damage"];
+				}
+			}
+
+			finaldamage = idamage;
 		}
 	}
 	if ( smeansofdeath == "MOD_PROJECTILE" || smeansofdeath == "MOD_PROJECTILE_SPLASH" || smeansofdeath == "MOD_GRENADE" || smeansofdeath == "MOD_GRENADE_SPLASH" )
@@ -888,6 +946,7 @@ player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, 
 		{
 			return 0;
 		}
+
 		if ( is_true( level.pers_upgrade_flopper ) )
 		{
 			if ( is_true( self.pers_upgrades_awarded[ "flopper" ] ) )
@@ -895,11 +954,13 @@ player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, 
 				return 0;
 			}
 		}
+
 		if ( self.health > 75 && !is_true( self.is_zombie ) )
 		{
 			return 75;
 		}
 	}
+
 	if ( idamage < self.health )
 	{
 		if ( isDefined( eattacker ) )
@@ -912,6 +973,7 @@ player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, 
 			{
 				eattacker.sound_damage_player = self;
 			}
+
 			if ( !is_true( eattacker.has_legs ) )
 			{
 				self maps\mp\zombies\_zm_audio::create_and_play_dialog( "general", "crawl_hit" );
@@ -921,6 +983,7 @@ player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, 
 				self maps\mp\zombies\_zm_audio::create_and_play_dialog( "general", "monkey_hit" );
 			}
 		}
+
 		return finaldamage;
 	}
 	if ( isDefined( eattacker ) )
@@ -936,11 +999,14 @@ player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, 
 			self maps\mp\zombies\_zm_stats::increment_player_stat( "killed_by_avogadro" );
 		}
 	}
+
 	self thread maps\mp\zombies\_zm::clear_path_timers();
+
 	if ( level.intermission )
 	{
 		level waittill( "forever" );
 	}
+
 	if ( level.scr_zm_ui_gametype == "zcleansed" && idamage > 0 )
 	{
 		if ( (!is_true( self.laststand ) && !self maps\mp\zombies\_zm_laststand::player_is_in_laststand()) || !isDefined( self.last_player_attacker ) )
@@ -951,6 +1017,7 @@ player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, 
 				{
 					eattacker.health = eattacker.maxhealth;
 				}
+
 				if ( isDefined( level.player_kills_player ) )
 				{
 					self thread [[ level.player_kills_player ]]( einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime );
@@ -958,6 +1025,7 @@ player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, 
 			}
 		}
 	}
+
 	if ( self hasperk( "specialty_finalstand" ) )
 	{
 		if ( isDefined( level.chugabud_laststand_func ) )
@@ -966,6 +1034,7 @@ player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, 
 			return 0;
 		}
 	}
+
 	players = get_players();
 	count = 0;
 	for ( i = 0; i < players.size; i++ )
@@ -975,6 +1044,7 @@ player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, 
 			count++;
 		}
 	}
+
 	if ( count < players.size || isDefined( level._game_module_game_end_check ) && ![[ level._game_module_game_end_check ]]() )
 	{
 		if ( isDefined( self.solo_lives_given ) && self.solo_lives_given < 3 && is_true( level.force_solo_quick_revive ) && self hasperk( "specialty_quickrevive" ) )
@@ -983,17 +1053,21 @@ player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, 
 		}
 		return finaldamage;
 	}
+
 	solo_death = self is_solo_death( players );
 	non_solo_death = self is_non_solo_death( players, count );
 	if ( ( solo_death || non_solo_death ) && !is_true( level.no_end_game_check ) )
 	{
 		level notify( "stop_suicide_trigger" );
 		self thread scripts\zm\replaced\_zm_laststand::playerlaststand( einflictor, eattacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime );
+
 		if ( !isDefined( vdir ) )
 		{
 			vdir = ( 1, 0, 0 );
 		}
+
 		self fakedamagefrom( vdir );
+
 		if ( isDefined( level.custom_player_fake_death ) )
 		{
 			self thread [[ level.custom_player_fake_death ]]( vdir, smeansofdeath );
@@ -1003,6 +1077,7 @@ player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, 
 			self thread maps\mp\zombies\_zm::player_fake_death();
 		}
 	}
+
 	if ( count == players.size && !is_true( level.no_end_game_check ) )
 	{
 		if ( players.size == 1 && flag( "solo_game" ) )
@@ -1012,10 +1087,12 @@ player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, 
 				self.lives = 0;
 				level notify( "pre_end_game" );
 				wait_network_frame();
+
 				if ( flag( "dog_round" ) )
 				{
 					maps\mp\zombies\_zm::increment_dog_round_stat( "lost" );
 				}
+
 				level notify( "end_game" );
 			}
 			else
@@ -1027,12 +1104,15 @@ player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, 
 		{
 			level notify( "pre_end_game" );
 			wait_network_frame();
+
 			if ( flag( "dog_round" ) )
 			{
 				maps\mp\zombies\_zm::increment_dog_round_stat( "lost" );
 			}
+
 			level notify( "end_game" );
 		}
+
 		return 0;
 	}
 	else

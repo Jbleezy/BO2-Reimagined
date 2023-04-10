@@ -229,8 +229,6 @@ post_all_players_spawned()
 
 	wait 0.05;
 
-	maps\mp\zombies\_zm::register_player_damage_callback( ::player_damage_override );
-
 	level.near_miss = 2; // makes screecher not run away first time on solo
 	level.ta_vaultfee = 0;
 	level.ta_tellerfee = 0;
@@ -2213,47 +2211,6 @@ melee_weapon_disable_weapon_trading()
 
 		wait 0.05;
 	}
-}
-
-player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime )
-{
-	vars = [];
-
-	if(smeansofdeath == "MOD_FALLING" && !self hasPerk("specialty_flakjacket"))
-	{
-		// remove fall damage being based off max health
-		vars["ratio"] = self.maxhealth / 100;
-		idamage = int(idamage / vars["ratio"]);
-
-		// increase fall damage beyond 110
-		vars["max_damage"] = 110;
-		if(idamage >= vars["max_damage"])
-		{
-			vars["velocity"] = abs(self.fall_velocity);
-			vars["min_velocity"] = getDvarInt("bg_fallDamageMinHeight") * 3.25;
-			vars["max_velocity"] = getDvarInt("bg_fallDamageMaxHeight") * 2.5;
-			if(self.divetoprone)
-			{
-				vars["min_velocity"] = getDvarInt("dtp_fall_damage_min_height") * 4.5;
-				vars["max_velocity"] = getDvarInt("dtp_fall_damage_max_height") * 2.75;
-			}
-
-			idamage = int(((vars["velocity"] - vars["min_velocity"]) / (vars["max_velocity"] - vars["min_velocity"])) * vars["max_damage"]);
-
-			if(idamage < vars["max_damage"])
-			{
-				idamage = vars["max_damage"];
-			}
-		}
-	}
-
-	// fix turrets damaging players
-	if(sweapon == "zombie_bullet_crouch_zm" && smeansofdeath == "MOD_RIFLE_BULLET")
-	{
-		idamage = 0;
-	}
-
-	return idamage;
 }
 
 disable_bank_teller()
