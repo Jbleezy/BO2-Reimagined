@@ -69,7 +69,7 @@
 
 ## Zombies
 * Health capped at 100,000
-* Changed height to 64 on all maps (normally either 48 or 72)
+* Changed height to 60 on all maps (normally either 48 or 72)
 * Attracted towards points of interest immediately
 * Removed walkers in high rounds
 * Removed headless zombies

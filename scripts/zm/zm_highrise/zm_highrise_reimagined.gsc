@@ -76,7 +76,7 @@ zombie_init_done()
 		}
 		self.health = self.maxhealth;
 	}
-	self setphysparams( 15, 0, 64 );
+	self setphysparams( 15, 0, 60 );
 }
 
 highrise_special_weapon_magicbox_check(weapon)
