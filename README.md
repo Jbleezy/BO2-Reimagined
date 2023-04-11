@@ -354,6 +354,7 @@
 
 ## Powerups
 * Grabbing time based powerups that are already active add to timer instead of resetting timer
+* An fx plays when a powerup drops if it is the last powerup of a cycle
 
 ### Nuke
 * Kills all zombies instantly

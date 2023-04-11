@@ -2,6 +2,42 @@
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 
+get_next_powerup()
+{
+    powerup = level.zombie_powerup_array[level.zombie_powerup_index];
+    level.zombie_powerup_index++;
+
+    if ( level.zombie_powerup_index >= level.zombie_powerup_array.size )
+    {
+        level.zombie_powerup_index = 0;
+        randomize_powerups();
+		level thread play_fx_on_powerup_dropped();
+    }
+
+    return powerup;
+}
+
+play_fx_on_powerup_dropped()
+{
+	level waittill( "powerup_dropped", powerup );
+
+	if ( powerup.solo )
+	{
+		playfx( level._effect["powerup_grabbed_solo"], powerup.origin );
+		playfx( level._effect["powerup_grabbed_wave_solo"], powerup.origin );
+	}
+	else if ( powerup.caution )
+	{
+		playfx( level._effect["powerup_grabbed_caution"], powerup.origin );
+		playfx( level._effect["powerup_grabbed_wave_caution"], powerup.origin );
+	}
+	else
+	{
+		playfx( level._effect["powerup_grabbed"], powerup.origin );
+		playfx( level._effect["powerup_grabbed_wave"], powerup.origin );
+	}
+}
+
 powerup_grab( powerup_team )
 {
     if ( isdefined( self ) && self.zombie_grabbable )
