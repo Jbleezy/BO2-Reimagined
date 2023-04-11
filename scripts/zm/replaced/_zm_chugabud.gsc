@@ -237,6 +237,35 @@ chugabud_give_perks()
     }
 }
 
+chugabud_spawn_corpse()
+{
+    corpse = maps\mp\zombies\_zm_clone::spawn_player_clone( self, self.origin, undefined, self.whos_who_shader );
+    corpse.angles = self.angles;
+    corpse maps\mp\zombies\_zm_clone::clone_give_weapon( "m1911_zm" );
+    corpse maps\mp\zombies\_zm_clone::clone_animate( "laststand" );
+    corpse.revive_hud = self chugabud_revive_hud_create();
+    corpse thread maps\mp\zombies\_zm_laststand::revive_trigger_spawn();
+    return corpse;
+}
+
+chugabud_revive_hud_create()
+{
+	self.old_revive_hud = self.revive_hud;
+    self.revive_hud = newclienthudelem( self );
+    self.revive_hud.alignx = "center";
+    self.revive_hud.aligny = "middle";
+    self.revive_hud.horzalign = "center";
+    self.revive_hud.vertalign = "bottom";
+    self.revive_hud.y = -50;
+    self.revive_hud.foreground = 1;
+    self.revive_hud.font = "default";
+    self.revive_hud.fontscale = 1.5;
+    self.revive_hud.alpha = 0;
+    self.revive_hud.color = ( 1, 1, 1 );
+    self.revive_hud settext( "" );
+    return self.revive_hud;
+}
+
 chugabud_corpse_revive_icon( player )
 {
     self endon( "death" );
@@ -277,6 +306,13 @@ chugabud_corpse_cleanup( corpse, was_revived )
         corpse notify( "stop_revive_trigger" );
         corpse.revivetrigger delete();
         corpse.revivetrigger = undefined;
+    }
+
+	if ( isdefined( corpse.revive_hud ) )
+    {
+		self.revive_hud = self.old_revive_hud;
+        corpse.revive_hud destroy();
+        corpse.revive_hud = undefined;
     }
 
     if ( isdefined( corpse.revive_hud_elem ) )
