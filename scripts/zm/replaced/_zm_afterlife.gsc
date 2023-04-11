@@ -141,6 +141,31 @@ afterlife_laststand( b_electric_chair = 0 )
     self playsound( "zmb_afterlife_revived_gasp" );
 }
 
+afterlife_spawn_corpse()
+{
+    if ( isdefined( self.is_on_gondola ) && self.is_on_gondola && level.e_gondola.destination == "roof" )
+        corpse = maps\mp\zombies\_zm_clone::spawn_player_clone( self, self.origin, undefined );
+    else
+    {
+        trace_start = self.origin;
+        trace_end = self.origin + vectorscale( ( 0, 0, -1 ), 500.0 );
+        corpse_trace = playerphysicstrace( trace_start, trace_end );
+        corpse = spawn_player_clone( self, corpse_trace, undefined );
+    }
+
+    corpse.angles = self.angles;
+    corpse.ignoreme = 1;
+    corpse maps\mp\zombies\_zm_clone::clone_give_weapon( "m1911_zm" );
+    corpse maps\mp\zombies\_zm_clone::clone_animate( "afterlife" );
+    corpse.revive_hud = self afterlife_revive_hud_create();
+    corpse thread afterlife_revive_trigger_spawn();
+
+    if ( get_players().size == 1 )
+       corpse thread afterlife_corpse_create_pois();
+
+    return corpse;
+}
+
 afterlife_fake_death()
 {
     level notify( "fake_death" );
@@ -162,6 +187,13 @@ afterlife_fake_death()
     playfx( level._effect["afterlife_enter"], self.origin );
     self freezecontrols( 1 );
 }
+
+    collision = spawn( "script_model", corpse.origin + ( 0, 0, 16 ) );
+    collision.angles = corpse.angles;
+    collision setmodel( "collision_clip_32x32x32" );
+    collision linkto( corpse );
+    collision ghost();
+    corpse.collision = collision;
 
 afterlife_revive_invincible()
 {
@@ -309,4 +341,32 @@ afterlife_revive_do_revive( playerbeingrevived, revivergun )
         playerbeingrevived thread checkforbleedout( self );
 
     return revived;
+}
+
+afterlife_corpse_cleanup( corpse )
+{
+    playsoundatposition( "zmb_afterlife_revived", corpse.origin );
+
+    if ( isdefined( corpse.revivetrigger ) )
+    {
+        corpse notify( "stop_revive_trigger" );
+        corpse.revivetrigger delete();
+        corpse.revivetrigger = undefined;
+    }
+
+    if ( isdefined( corpse.collision ) )
+    {
+        corpse.collision delete();
+        corpse.collision = undefined;
+    }
+
+    self.e_afterlife_corpse = undefined;
+    corpse setclientfield( "player_corpse_id", 0 );
+    corpse afterlife_corpse_remove_pois();
+    corpse ghost();
+    self.loadout = undefined;
+    wait_network_frame();
+    wait_network_frame();
+    wait_network_frame();
+    corpse delete();
 }
