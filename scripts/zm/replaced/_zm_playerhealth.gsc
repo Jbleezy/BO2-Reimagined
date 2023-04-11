@@ -58,8 +58,8 @@ playerhealthregen()
 		health_ratio = self.health / self.maxhealth;
 		maxhealthratio = self.maxhealth / 100;
 		regenrate = 0.05 / maxhealthratio;
-		regularregendelay = 2000;
-		longregendelay = 4000;
+		regularregendelay = level.playerhealth_regularregendelay;
+		longregendelay = level.longregentime;
 
 		if (self hasPerk("specialty_quickrevive"))
 		{
@@ -79,6 +79,7 @@ playerhealthregen()
 
 			if ( self.health == self.maxhealth )
 			{
+				oldratio = 1;
 				continue;
 			}
 		}
