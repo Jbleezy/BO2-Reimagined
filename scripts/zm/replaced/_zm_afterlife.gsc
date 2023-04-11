@@ -160,6 +160,13 @@ afterlife_spawn_corpse()
     corpse.revive_hud = self afterlife_revive_hud_create();
     corpse thread afterlife_revive_trigger_spawn();
 
+    collision = spawn( "script_model", corpse.origin + ( 0, 0, 16 ) );
+    collision.angles = corpse.angles;
+    collision setmodel( "collision_clip_32x32x32" );
+    collision linkto( corpse );
+    collision ghost();
+    corpse.collision = collision;
+
     if ( get_players().size == 1 )
        corpse thread afterlife_corpse_create_pois();
 
@@ -187,13 +194,6 @@ afterlife_fake_death()
     playfx( level._effect["afterlife_enter"], self.origin );
     self freezecontrols( 1 );
 }
-
-    collision = spawn( "script_model", corpse.origin + ( 0, 0, 16 ) );
-    collision.angles = corpse.angles;
-    collision setmodel( "collision_clip_32x32x32" );
-    collision linkto( corpse );
-    collision ghost();
-    corpse.collision = collision;
 
 afterlife_revive_invincible()
 {

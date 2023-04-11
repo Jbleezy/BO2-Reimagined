@@ -575,6 +575,7 @@
 ### Mob of the Dead
 * 1 afterlife max in solo
 * Entering afterlife no longer takes 2 additional seconds if the player had Electric Cherry
+* Afterlife player model has collision
 * Plane parts are shared in coop
 * Plane parts must be all acquired to craft
 * Plane no longer has to be refueled after first use
