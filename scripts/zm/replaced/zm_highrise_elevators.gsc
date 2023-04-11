@@ -148,6 +148,9 @@ elevator_think( elevator )
                 elevator.body setanim( level.perk_elevators_anims[elevator.body.perk_type][1] );
         }
 
+        if ( isdefined( elevator.body.force_starting_floor ) )
+            skipinitialwait = 1;
+
         next = elevator_next_floor( elevator, next, 0 );
 
         if ( isdefined( elevator.floors["" + ( next + 1 )] ) )
