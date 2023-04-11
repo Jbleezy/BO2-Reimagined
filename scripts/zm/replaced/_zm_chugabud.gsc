@@ -188,7 +188,9 @@ chugabud_give_loadout()
         self switchtoweapon( loadout.weapons[loadout.current_weapon]["name"] );
 
     self giveweapon( "knife_zm" );
+	self.do_not_display_equipment_pickup_hint = 1;
     self maps\mp\zombies\_zm_equipment::equipment_give( self.loadout.equipment );
+	self.do_not_display_equipment_pickup_hint = undefined;
     loadout restore_weapons_for_chugabud( self );
     self chugabud_restore_claymore();
     self.score = loadout.score;

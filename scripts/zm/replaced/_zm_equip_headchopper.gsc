@@ -328,8 +328,10 @@ equipment_onspawnretrievableweaponobject( watcher, player )
                     equipment_disappear_fx( self.origin, undefined, self.angles );
                     self delete();
 
+                    player.do_not_display_equipment_pickup_hint = 1;
                     player maps\mp\zombies\_zm_equipment::equipment_take( equip_name );
                     player maps\mp\zombies\_zm_equipment::equipment_give( equip_name );
+                    player.do_not_display_equipment_pickup_hint = undefined;
 
                     player.planted_wallmount_on_a_zombie = undefined;
                     return;
