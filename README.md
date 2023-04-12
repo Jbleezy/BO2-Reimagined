@@ -76,6 +76,7 @@
 * Removed headless zombies
 * Neck counts as headshot
 * All body shot kills award 50 points
+* 4 round and 5 round special rounds happen more equally
 
 ### Denizens
 * Changed max amount that can be spawned at once from 2 total to 1 per player in the fog
@@ -85,6 +86,9 @@
 * Decreased number of melees to kill with Galvaknuckles from 2 to 1
 * No longer automatically runs away when player is first attacked in solo
 * Removed hint when player is first attacked in solo
+
+### Leapers
+* Initial leaper round always happens on round 5 or 6
 
 ### Brutus
 * No longer receives additional damage from Ray Gun Mark 2

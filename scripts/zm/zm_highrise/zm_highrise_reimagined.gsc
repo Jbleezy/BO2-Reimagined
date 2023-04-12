@@ -10,6 +10,7 @@
 #include scripts\zm\replaced\zm_highrise_classic;
 #include scripts\zm\replaced\zm_highrise_buildables;
 #include scripts\zm\replaced\zm_highrise_elevators;
+#include scripts\zm\replaced\_zm_ai_leaper;
 #include scripts\zm\replaced\_zm_chugabud;
 #include scripts\zm\replaced\_zm_equip_springpad;
 #include scripts\zm\replaced\_zm_weap_slipgun;
@@ -35,6 +36,7 @@ main()
 	replaceFunc(maps\mp\zm_highrise_elevators::init_elevator_perks, scripts\zm\replaced\zm_highrise_elevators::init_elevator_perks);
 	replaceFunc(maps\mp\zm_highrise_elevators::elevator_think, scripts\zm\replaced\zm_highrise_elevators::elevator_think);
 	replaceFunc(maps\mp\zm_highrise_elevators::faller_location_logic, scripts\zm\replaced\zm_highrise_elevators::faller_location_logic);
+	replaceFunc(maps\mp\zombies\_zm_ai_leaper::leaper_round_tracker, scripts\zm\replaced\_zm_ai_leaper::leaper_round_tracker);
 	replaceFunc(maps\mp\zombies\_zm_equip_springpad::springpadthink, scripts\zm\replaced\_zm_equip_springpad::springpadthink);
 	replaceFunc(maps\mp\zombies\_zm_weap_slipgun::init, scripts\zm\replaced\_zm_weap_slipgun::init);
 	replaceFunc(maps\mp\zombies\_zm_weap_slipgun::slipgun_zombie_1st_hit_response, scripts\zm\replaced\_zm_weap_slipgun::slipgun_zombie_1st_hit_response);
