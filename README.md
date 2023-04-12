@@ -499,6 +499,7 @@
 * Zombies spawn in the Warehouse zone when in the Outside Power Station zone before the Warehouse door is opened
 * Zombies spawn in the Outside Power Station zone when in the Fog After Power Station zone
 * Zombies spawn in the Warehouse zone when in the Fog After Power Station zone
+* Quest: increased pylon powerup spawn rate from 4-12 minutes to 2-6 minutes
 * Quest (Maxis): Avogadro step only requires 1 Turbine under the pylon
 * Quest (Maxis): Turbine can get destroyed by the EMP during the Avogadro step and it will still count as completed
 * Quest (Maxis): lamp posts step requires all 8 lamp posts to get powered by a Turbine

@@ -290,8 +290,8 @@ droppowerup( story )
     center_struct = getstruct( "sq_common_tower_fx", "targetname" );
     trace = bullettrace( center_struct.origin, center_struct.origin - vectorscale( ( 0, 0, 1 ), 999999.0 ), 0, undefined );
     poweruporigin = trace["position"] + vectorscale( ( 0, 0, 1 ), 25.0 );
-    mintime = 240;
-    maxtime = 720;
+    mintime = 120;
+    maxtime = 360;
 
     while ( true )
     {
