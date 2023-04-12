@@ -37,8 +37,6 @@ init()
 		return;
 	}
 
-	precacheStatusIcon( "waypoint_revive" );
-
 	if (level.script == "zm_prison")
 	{
 		precacheShader( "waypoint_kill_red" );
@@ -99,7 +97,6 @@ init()
 	level thread remove_round_number();
 	level thread unlimited_zombies();
 	level thread unlimited_powerups();
-	level thread remove_status_icons_on_intermission();
 	level thread all_voice_on_intermission();
 	level thread spawn_bots();
 }
@@ -825,7 +822,6 @@ on_player_spawned()
 	{
 		self waittill( "spawned_player" );
 
-		self.statusicon = "";
 		self.player_waypoint.alpha = 1;
 
 		self thread scripts\zm\replaced\_zm::player_spawn_protection();
@@ -872,7 +868,6 @@ on_player_spectate()
 	{
 		self waittill( "spawned_spectator" );
 
-		self.statusicon = "hud_status_dead";
 		self.player_waypoint.alpha = 0;
 	}
 }
@@ -886,7 +881,6 @@ on_player_downed()
 	{
 		self waittill( "entering_last_stand" );
 
-		self.statusicon = "waypoint_revive";
 		self.player_waypoint.alpha = 0;
 		self kill_feed();
 		self add_grief_downed_score();
@@ -903,7 +897,6 @@ on_player_bleedout()
 	{
 		self waittill_any( "bled_out", "player_suicide" );
 
-		self.statusicon = "hud_status_dead";
 		self.player_waypoint.alpha = 0;
 
 		if(isDefined(level.zombie_last_stand_ammo_return))
@@ -951,7 +944,6 @@ on_player_revived()
 	{
 		self waittill( "player_revived", reviver );
 
-		self.statusicon = "";
 		self.player_waypoint.alpha = 1;
 		self revive_feed( reviver );
 	}
@@ -2583,17 +2575,6 @@ remove_round_number()
 		level waittill("start_of_round");
 
 		setroundsplayed(0);
-	}
-}
-
-remove_status_icons_on_intermission()
-{
-	level waittill("intermission");
-
-	players = get_players();
-	foreach(player in players)
-	{
-		player.statusicon = "";
 	}
 }
 

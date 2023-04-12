@@ -108,6 +108,18 @@ main()
 
 init()
 {
+	precacheStatusIcon( "waypoint_revive" );
+
+	if ( is_true( level.zombiemode_using_chugabud_perk ) )
+	{
+		precacheStatusIcon( "specialty_chugabud_zombies" );
+	}
+
+	if ( is_true( level.zombiemode_using_afterlife ) )
+	{
+		precacheStatusIcon( "waypoint_revive_afterlife" );
+	}
+
 	level.using_solo_revive = 0;
 	level.claymores_max_per_player = 20;
 	level.navcards = undefined; // removes navcards on HUD
@@ -127,13 +139,15 @@ init()
 
 	level thread initial_print();
 
-	level thread onplayerconnect();
+	level thread on_player_connect();
 	level thread post_all_players_spawned();
 
 	level thread enemy_counter_hud();
 	level thread timer_hud();
 
 	level thread swap_staminup_perk();
+
+	level thread remove_status_icons_on_intermission();
 }
 
 initial_print()
@@ -143,20 +157,25 @@ initial_print()
 	iprintln("Reimagined Loaded");
 }
 
-onplayerconnect()
+on_player_connect()
 {
 	while(true)
 	{
 		level waittill("connecting", player);
 
-		player thread onplayerspawned();
-		player thread onplayerdowned();
+		player thread on_player_spawned();
+		player thread on_player_spectate();
+		player thread on_player_downed();
+		player thread on_player_bleedout();
+		player thread on_player_revived();
+		player thread on_player_fake_revive();
+		player thread on_player_chugabud_effects_cleanup();
 
 		player thread weapon_inspect_watcher();
 	}
 }
 
-onplayerspawned()
+on_player_spawned()
 {
 	level endon( "game_ended" );
 	self endon( "disconnect" );
@@ -208,12 +227,27 @@ onplayerspawned()
 			//self GiveMaxAmmo("dsr50_zm");
 		}
 
+		self.statusicon = "";
+
 		self set_client_dvars();
 		self set_perks();
 	}
 }
 
-onplayerdowned()
+on_player_spectate()
+{
+	level endon("end_game");
+	self endon( "disconnect" );
+
+	while(1)
+	{
+		self waittill( "spawned_spectator" );
+
+		self.statusicon = "hud_status_dead";
+	}
+}
+
+on_player_downed()
 {
 	level endon( "game_ended" );
 	self endon( "disconnect" );
@@ -222,7 +256,70 @@ onplayerdowned()
 	{
 		self waittill( "entering_last_stand" );
 
+		self.statusicon = "waypoint_revive";
 		self.health = self.maxhealth;
+	}
+}
+
+on_player_bleedout()
+{
+	level endon("end_game");
+	self endon( "disconnect" );
+
+	while(1)
+	{
+		self waittill_any( "bled_out", "player_suicide" );
+
+		self.statusicon = "hud_status_dead";
+	}
+}
+
+on_player_revived()
+{
+	level endon("end_game");
+	self endon( "disconnect" );
+
+	while(1)
+	{
+		self waittill( "player_revived", reviver );
+
+		self.statusicon = "";
+	}
+}
+
+on_player_fake_revive()
+{
+	level endon("end_game");
+	self endon( "disconnect" );
+
+	while(1)
+	{
+		self waittill( "fake_revive" );
+
+		if ( is_true( level.zombiemode_using_chugabud_perk ) )
+		{
+			self.statusicon = "specialty_chugabud_zombies";
+		}
+		else if ( is_true( level.zombiemode_using_afterlife ) )
+		{
+			self.statusicon = "waypoint_revive_afterlife";
+		}
+	}
+}
+
+on_player_chugabud_effects_cleanup()
+{
+	level endon("end_game");
+	self endon( "disconnect" );
+
+	while(1)
+	{
+		self waittill( "chugabud_effects_cleanup" );
+
+		if ( is_player_valid( self ) )
+		{
+			self.statusicon = "";
+		}
 	}
 }
 
@@ -3910,6 +4007,17 @@ zone_changes()
 			// Barn to Farm
 			flag_set("OnFarm_enter");
 		}
+	}
+}
+
+remove_status_icons_on_intermission()
+{
+	level waittill("intermission");
+
+	players = get_players();
+	foreach(player in players)
+	{
+		player.statusicon = "";
 	}
 }
 

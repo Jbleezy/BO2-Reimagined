@@ -66,6 +66,7 @@
 * Upgraded weapon camo is applied in last stand
 * Decreased friendly player name fade out time from 1.5 seconds to 0.25 seconds
 * Removed enemy player name fade in time
+* Added icons on scoreboard when player is downed, bled out, in Who's Who mode, or in afterlife
 * Scoreboard no longer counts self revives as revives
 
 ## Zombies
@@ -750,7 +751,6 @@
 * Added teammate waypoint icons
 * Added kill feed (includes downs, revives, and bleed outs)
 * Added player kills on scoreboard (replaces headshots)
-* Added player downed and bled out icons on scoreboard
 * Announcer audio always plays
 * Last player alive audio only plays for the player who is alive instead of every player on the team
 * Can only spectate own team
