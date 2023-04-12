@@ -209,11 +209,17 @@ treasure_chest_weapon_spawn( chest, player, respin )
         {
             self.weapon_string = undefined;
 
+            joker_angles = angles - vectorscale( ( 0, 1, 0 ), 90.0 );
+            if ( angles[2] < 0 )
+            {
+                joker_angles = angles + vectorscale( ( 0, 1, 0 ), 90.0 );
+            }
+
             // delete and respawn the joker model so that it faces the correct angle right away
             origin = self.weapon_model.origin;
             self.weapon_model delete();
             self.weapon_model = spawn("script_model", origin);
-			self.weapon_model.angles = angles + vectorscale( ( 0, 1, 0 ), 90.0 );
+			self.weapon_model.angles = joker_angles;
 			self.weapon_model setmodel( level.chest_joker_model );
             self.weapon_model_dw hide();
 
