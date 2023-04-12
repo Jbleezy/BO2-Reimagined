@@ -350,6 +350,7 @@
 * Stink areas no longer activate while the player is standing
 
 ## Pack-a-Punch
+* No longer costs 2000 points to change attachments on an upgraded weapon
 * Decreased weapon pickup time from 15 seconds to 12 seconds
 
 ## Powerups

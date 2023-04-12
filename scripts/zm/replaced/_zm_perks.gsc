@@ -227,7 +227,7 @@ vending_weapon_upgrade()
         if ( player maps\mp\zombies\_zm_pers_upgrades_functions::is_pers_double_points_active() )
             current_cost = player maps\mp\zombies\_zm_pers_upgrades_functions::pers_upgrade_double_points_cost( current_cost );
 
-        if ( player.score < current_cost )
+        if ( !upgrade_as_attachment && player.score < current_cost )
         {
             self playsound( "deny" );
 
@@ -246,7 +246,12 @@ vending_weapon_upgrade()
         player maps\mp\zombies\_zm_stats::increment_player_stat( "use_pap" );
         self thread destroy_weapon_in_blackout( player );
         self thread destroy_weapon_on_disconnect( player );
-        player maps\mp\zombies\_zm_score::minus_to_player_score( current_cost, 1 );
+
+		if ( !upgrade_as_attachment )
+		{
+			player maps\mp\zombies\_zm_score::minus_to_player_score( current_cost, 1 );
+		}
+
         sound = "evt_bottle_dispense";
         playsoundatposition( sound, self.origin );
         self thread maps\mp\zombies\_zm_audio::play_jingle_or_stinger( "mus_perks_packa_sting" );
