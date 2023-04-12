@@ -556,6 +556,12 @@
 * No perks
 * Pack-a-Punch
 
+### Nuketown
+* Initial perk is no longer always Quick Revive in solo
+* Initial perk no longer always spawns in the starting area in solo
+* Initial perk spawns at round 1 in coop
+* Perks spawn every 5th round
+
 ### Die Rise
 * Removed key
 * Elevators and escape pod can be called without key
