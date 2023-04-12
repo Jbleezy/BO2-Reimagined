@@ -15,6 +15,7 @@
 ## Change Notes
 
 ## General
+* Removed round cap
 * Removed fog
 * Disabled depth of field
 * Increased level of detail at longer distances
