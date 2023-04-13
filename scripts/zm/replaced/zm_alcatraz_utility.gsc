@@ -116,3 +116,8 @@ blundergat_change_hintstring( hint_string, hint_string_cost )
         self sethintstring( hint_string );
     }
 }
+
+check_solo_status()
+{
+    level.is_forever_solo_game = 0;
+}

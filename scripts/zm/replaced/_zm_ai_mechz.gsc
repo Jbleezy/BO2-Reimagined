@@ -199,3 +199,83 @@ mechz_damage_override( inflictor, attacker, damage, flags, meansofdeath, weapon,
 
     return final_damage;
 }
+
+mechz_round_tracker()
+{
+    maps\mp\zombies\_zm_ai_mechz_ffotd::mechz_round_tracker_start();
+    level.num_mechz_spawned = 0;
+    old_spawn_func = level.round_spawn_func;
+    old_wait_func = level.round_wait_func;
+
+    while ( !isdefined( level.zombie_mechz_locations ) )
+        wait 0.05;
+
+    flag_wait( "activate_zone_nml" );
+    mech_start_round_num = 8;
+
+    if ( isdefined( level.is_forever_solo_game ) && level.is_forever_solo_game )
+        mech_start_round_num = 8;
+
+    while ( level.round_number < mech_start_round_num )
+        level waittill( "between_round_over" );
+
+    level.next_mechz_round = level.round_number;
+    level thread debug_print_mechz_round();
+
+    while ( true )
+    {
+        maps\mp\zombies\_zm_ai_mechz_ffotd::mechz_round_tracker_loop_start();
+
+        if ( level.num_mechz_spawned > 0 )
+            level.mechz_should_drop_powerup = 1;
+
+        if ( level.next_mechz_round <= level.round_number )
+        {
+            a_zombies = getaispeciesarray( level.zombie_team, "all" );
+
+            foreach ( zombie in a_zombies )
+            {
+                if ( isdefined( zombie.is_mechz ) && zombie.is_mechz && isalive( zombie ) )
+                {
+                    level.next_mechz_round++;
+                    break;
+                }
+            }
+        }
+
+        if ( level.mechz_left_to_spawn == 0 && level.next_mechz_round <= level.round_number )
+        {
+            mechz_health_increases();
+
+            if ( get_players().size == 1 )
+                level.mechz_zombie_per_round = 1;
+            else if ( level.mechz_round_count < 2 )
+                level.mechz_zombie_per_round = 1;
+            else if ( level.mechz_round_count < 5 )
+                level.mechz_zombie_per_round = 2;
+            else
+                level.mechz_zombie_per_round = 3;
+
+            level.mechz_left_to_spawn = level.mechz_zombie_per_round;
+            mechz_spawning = level.mechz_left_to_spawn;
+            wait( randomfloatrange( 10.0, 15.0 ) );
+            level notify( "spawn_mechz" );
+
+            if ( isdefined( level.is_forever_solo_game ) && level.is_forever_solo_game )
+                n_round_gap = randomintrange( level.mechz_min_round_fq_solo, level.mechz_max_round_fq_solo );
+            else
+                n_round_gap = randomintrange( level.mechz_min_round_fq, level.mechz_max_round_fq );
+
+            level.next_mechz_round = level.round_number + n_round_gap;
+            level.mechz_round_count++;
+            level thread debug_print_mechz_round();
+            level.num_mechz_spawned += mechz_spawning;
+        }
+
+        maps\mp\zombies\_zm_ai_mechz_ffotd::mechz_round_tracker_loop_end();
+
+        level waittill( "between_round_over" );
+
+        mechz_clear_spawns();
+    }
+}

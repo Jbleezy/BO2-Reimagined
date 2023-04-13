@@ -64,7 +64,9 @@ main()
     replaceFunc(maps\mp\zm_tomb_tank::wait_for_tank_cooldown, scripts\zm\replaced\zm_tomb_tank::wait_for_tank_cooldown);
     replaceFunc(maps\mp\zm_tomb_teleporter::teleporter_init, scripts\zm\replaced\zm_tomb_teleporter::teleporter_init);
     replaceFunc(maps\mp\zm_tomb_utility::update_staff_accessories, scripts\zm\replaced\zm_tomb_utility::update_staff_accessories);
+    replaceFunc(maps\mp\zm_tomb_utility::check_solo_status, scripts\zm\replaced\zm_tomb_utility::check_solo_status);
     replaceFunc(maps\mp\zombies\_zm_ai_mechz::mechz_set_starting_health, scripts\zm\replaced\_zm_ai_mechz::mechz_set_starting_health);
+    replaceFunc(maps\mp\zombies\_zm_ai_mechz::mechz_round_tracker, scripts\zm\replaced\_zm_ai_mechz::mechz_round_tracker);
     replaceFunc(maps\mp\zombies\_zm_craftables::choose_open_craftable, scripts\zm\replaced\_zm_craftables::choose_open_craftable);
     replaceFunc(maps\mp\zombies\_zm_powerup_zombie_blood::zombie_blood_powerup, scripts\zm\replaced\_zm_powerup_zombie_blood::zombie_blood_powerup);
     replaceFunc(maps\mp\zombies\_zm_riotshield_tomb::doriotshielddeploy, scripts\zm\replaced\_zm_riotshield_tomb::doriotshielddeploy);
@@ -88,7 +90,6 @@ init()
 
     change_stargate_teleport_return_player_angles();
 
-	level thread increase_solo_door_prices();
 	level thread zombie_blood_dig_changes();
 	level thread updatecraftables();
 }
@@ -148,24 +149,6 @@ change_stargate_teleport_return_player_angles()
     {
         pos.angles = (0, -110, 0);
     }
-}
-
-increase_solo_door_prices()
-{
-	if(!(is_classic() && level.scr_zm_map_start_location == "tomb"))
-	{
-		return;
-	}
-
-	flag_wait( "initial_blackscreen_passed" );
-
-	if ( isDefined( level.is_forever_solo_game ) && level.is_forever_solo_game )
-	{
-		a_door_buys = getentarray( "zombie_door", "targetname" );
-		array_thread( a_door_buys, ::door_price_increase_for_solo );
-		a_debris_buys = getentarray( "zombie_debris", "targetname" );
-		array_thread( a_debris_buys, ::door_price_increase_for_solo );
-	}
 }
 
 door_price_increase_for_solo()

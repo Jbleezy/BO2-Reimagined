@@ -125,3 +125,8 @@ get_punch_element_from_index(ind)
 
     return "upgraded";
 }
+
+check_solo_status()
+{
+    level.is_forever_solo_game = 0;
+}
