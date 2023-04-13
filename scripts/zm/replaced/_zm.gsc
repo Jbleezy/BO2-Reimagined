@@ -1853,6 +1853,11 @@ end_game()
 
 check_quickrevive_for_hotjoin(disconnecting_player)
 {
+	if ( level.scr_zm_ui_gametype == "zgrief" )
+	{
+		return;
+	}
+
 	subtract_num = 0;
 
 	if ( isdefined( disconnecting_player ) )
