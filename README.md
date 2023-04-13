@@ -80,6 +80,9 @@
 * All body shot kills award 50 points
 * 4 round and 5 round special rounds happen more equally
 
+### Avogadro
+* Decreased minimum distance away from players to be able to attack
+
 ### Denizens
 * Changed max amount that can be spawned at once from 2 total to 1 per player in the fog
 * Changed spawn rate to 5 seconds (normally same spawn rate as zombies)
