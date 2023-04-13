@@ -2843,6 +2843,11 @@ containment_think()
 						player.obj_waypoint.z = zone.volumes[0].origin[2];
 					}
 
+					if(level.script == "zm_prison" && zone_name == "zone_dock")
+					{
+						player.obj_waypoint.z -= 100;
+					}
+
 					if(level.script == "zm_prison" && zone_name == "zone_dock_gondola")
 					{
 						player.obj_waypoint.z += 200;
@@ -3105,7 +3110,7 @@ containment_get_zones()
 		{
 			if (getDvar("ui_zm_mapstartlocation_fake") == "docks")
 			{
-				containment_zones = array("zone_dock_gondola", "zone_dock_puzzle", "zone_studio", "zone_citadel_basement_building");
+				containment_zones = array("zone_dock", "zone_dock_gondola", "zone_dock_puzzle", "zone_studio", "zone_citadel_basement_building");
 			}
 			else
 			{
