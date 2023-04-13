@@ -182,10 +182,6 @@ screecher_detach( player )
 
         if ( isdefined( player.screecher_weapon ) && player.screecher_weapon != "none" && is_player_valid( player ) && !is_equipment_that_blocks_purchase( player.screecher_weapon ) )
             player switchtoweapon( player.screecher_weapon );
-        else if ( flag( "solo_game" ) && player hasperk( "specialty_quickrevive" ) )
-        {
-
-        }
         else if ( !player maps\mp\zombies\_zm_laststand::player_is_in_laststand() )
         {
             primaryweapons = player getweaponslistprimaries();

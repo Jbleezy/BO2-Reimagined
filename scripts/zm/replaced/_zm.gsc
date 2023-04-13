@@ -1853,5 +1853,19 @@ end_game()
 
 check_quickrevive_for_hotjoin(disconnecting_player)
 {
-	// always use coop quick revive
+	subtract_num = 0;
+
+	if ( isdefined( disconnecting_player ) )
+        subtract_num = 1;
+
+	players = get_players();
+
+    if ( players.size - subtract_num == 1 )
+    {
+        flag_set( "solo_game" );
+    }
+    else
+    {
+        flag_clear( "solo_game" );
+    }
 }
