@@ -123,6 +123,7 @@ init()
 	level.using_solo_revive = 0;
 	level.claymores_max_per_player = 20;
 	level.navcards = undefined; // removes navcards on HUD
+	level.player_too_many_players_check = 0;
 
 	if(getDvar("g_gametype") == "zgrief" && is_true(level.scr_zm_ui_gametype_pro))
 	{
@@ -371,7 +372,6 @@ post_all_players_spawned()
 	level.playerlaststand_func = scripts\zm\replaced\_zm::player_laststand;
 	level.callbackplayerlaststand = scripts\zm\replaced\_zm::callback_playerlaststand;
 	level.player_too_many_weapons_monitor_func = scripts\zm\replaced\_zm::player_too_many_weapons_monitor;
-	level.player_too_many_players_check_func = undefined;
 	level.etrap_damage = maps\mp\zombies\_zm::ai_zombie_health( 255 );
 	level.slipgun_damage = maps\mp\zombies\_zm::ai_zombie_health( 255 );
 	level.tombstone_spawn_func = ::tombstone_spawn;
@@ -3782,21 +3782,18 @@ additionalprimaryweapon_indicator()
 	hud.aligny = "bottom";
 	hud.horzalign = "user_right";
 	hud.vertalign = "user_bottom";
+
 	if (level.script == "zm_highrise")
 	{
-		hud.x -= 100;
-		hud.y -= 80;
-	}
-	else if (level.script == "zm_tomb")
-	{
-		hud.x -= 75;
-		hud.y -= 60;
+		hud.x -= 60;
+		hud.y -= 55;
 	}
 	else
 	{
-		hud.x -= 75;
+		hud.x -= 60;
 		hud.y -= 80;
 	}
+
 	hud.alpha = 0;
 	hud.color = ( 1, 1, 1 );
 	hud.hidewheninmenu = 1;
