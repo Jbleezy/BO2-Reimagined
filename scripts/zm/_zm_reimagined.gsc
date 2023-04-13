@@ -370,6 +370,8 @@ post_all_players_spawned()
 	level.overrideplayerdamage = scripts\zm\replaced\_zm::player_damage_override;
 	level.playerlaststand_func = scripts\zm\replaced\_zm::player_laststand;
 	level.callbackplayerlaststand = scripts\zm\replaced\_zm::callback_playerlaststand;
+	level.player_too_many_weapons_monitor_func = scripts\zm\replaced\_zm::player_too_many_weapons_monitor;
+	level.player_too_many_players_check_func = undefined;
 	level.etrap_damage = maps\mp\zombies\_zm::ai_zombie_health( 255 );
 	level.slipgun_damage = maps\mp\zombies\_zm::ai_zombie_health( 255 );
 	level.tombstone_spawn_func = ::tombstone_spawn;
@@ -3463,7 +3465,7 @@ tombstone_give()
 {
 	if ( !isDefined( self.tombstone_savedweapon_weapons ) )
 	{
-		return ;
+		return;
 	}
 
 	primary_weapons = self getWeaponsListPrimaries();

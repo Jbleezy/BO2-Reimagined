@@ -1618,6 +1618,64 @@ get_player_out_of_playable_area_monitor_wait_time()
     return 1;
 }
 
+player_too_many_weapons_monitor()
+{
+    self notify( "stop_player_too_many_weapons_monitor" );
+    self endon( "stop_player_too_many_weapons_monitor" );
+    self endon( "disconnect" );
+    level endon( "end_game" );
+    scalar = self.characterindex;
+
+    if ( !isdefined( scalar ) )
+        scalar = self getentitynumber();
+
+    wait( 0.15 * scalar );
+
+    while ( true )
+    {
+        if ( self has_powerup_weapon() || self maps\mp\zombies\_zm_laststand::player_is_in_laststand() || self.sessionstate == "spectator" )
+        {
+            wait( get_player_too_many_weapons_monitor_wait_time() );
+            continue;
+        }
+
+        weapon_limit = get_player_weapon_limit( self );
+        primaryweapons = self getweaponslistprimaries();
+
+        if ( primaryweapons.size > weapon_limit )
+        {
+            self maps\mp\zombies\_zm_weapons::take_fallback_weapon();
+            primaryweapons = self getweaponslistprimaries();
+        }
+
+        primary_weapons_to_take = [];
+
+        for ( i = 0; i < primaryweapons.size; i++ )
+        {
+            if ( maps\mp\zombies\_zm_weapons::is_weapon_included( primaryweapons[i] ) || maps\mp\zombies\_zm_weapons::is_weapon_upgraded( primaryweapons[i] ) )
+                primary_weapons_to_take[primary_weapons_to_take.size] = primaryweapons[i];
+        }
+
+        if ( primary_weapons_to_take.size > weapon_limit )
+        {
+            if ( !isdefined( level.player_too_many_weapons_monitor_callback ) || self [[ level.player_too_many_weapons_monitor_callback ]]( primary_weapons_to_take ) )
+            {
+                self maps\mp\zombies\_zm_stats::increment_map_cheat_stat( "cheat_too_many_weapons" );
+                self maps\mp\zombies\_zm_stats::increment_client_stat( "cheat_too_many_weapons", 0 );
+                self maps\mp\zombies\_zm_stats::increment_client_stat( "cheat_total", 0 );
+                self takeweapon( primary_weapons_to_take[ primary_weapons_to_take.size - 1 ] );
+            }
+        }
+
+        wait( get_player_too_many_weapons_monitor_wait_time() );
+    }
+}
+
+get_player_too_many_weapons_monitor_wait_time()
+{
+    return 1;
+}
+
 end_game()
 {
 	level waittill( "end_game" );
