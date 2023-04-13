@@ -98,7 +98,7 @@ zombie_init_done()
 {
 	self.allowpain = 0;
 	self thread maps\mp\zm_tomb_distance_tracking::escaped_zombies_cleanup_init();
-	self setphysparams( 15, 0, 60 );
+	self setphysparams( 15, 0, 48 );
 }
 
 tomb_special_weapon_magicbox_check(weapon)

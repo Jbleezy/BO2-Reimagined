@@ -71,7 +71,7 @@
 
 ## Zombies
 * Health capped at 100,000
-* Changed height to 60 on all maps (normally either 48 or 72)
+* Changed height to 48 on all maps (normally either 48 or 72)
 * Attracted towards points of interest immediately
 * Removed walkers in high rounds
 * Removed headless zombies
@@ -612,7 +612,7 @@
 * Quest: can enter the plane in afterlife with any amount of players
 * Quest: can enter the plane in afterlife without Weasel
 * Quest: if Weasel is the only player in the game, the cycle breaks immediately after reviving yourself on the Golden Gate Bridge
-* Quest: if Weasel is not in the game, the cycle continues immediately immediately after everyone revives themselves on the Golden Gate Bridge
+* Quest: if Weasel is not in the game, the cycle continues immediately after everyone revives themselves on the Golden Gate Bridge
 * Quest: players no longer get moved to different positions when starting the showdown
 * Quest: showdown target waypoint shows offscreen
 * Grief: added Smoke Grenades to the Mystery Box

@@ -93,7 +93,7 @@ init()
 zombie_init_done()
 {
 	self.allowpain = 0;
-	self setphysparams( 15, 0, 60 );
+	self setphysparams( 15, 0, 48 );
 }
 
 check_for_special_weapon_limit_exist(weapon)
