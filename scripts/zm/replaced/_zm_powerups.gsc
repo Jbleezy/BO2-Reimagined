@@ -395,68 +395,52 @@ nuke_powerup( drop_item, player_team )
 	zombies = getaiarray( level.zombie_team );
 	zombies = arraysort( zombies, location );
 	zombies_nuked = [];
-	i = 0;
-	while ( i < zombies.size )
-	{
-		if ( is_true( zombies[ i ].ignore_nuke ) )
-		{
-			i++;
-			continue;
-		}
-		if ( is_true( zombies[ i ].marked_for_death ) )
-		{
-			i++;
-			continue;
-		}
-		if ( isdefined( zombies[ i ].nuke_damage_func ) )
-		{
-			zombies[ i ] thread [[ zombies[ i ].nuke_damage_func ]]();
-			i++;
-			continue;
-		}
-		if ( is_magic_bullet_shield_enabled( zombies[ i ] ) )
-		{
-			i++;
-			continue;
-		}
-		zombies[ i ].marked_for_death = 1;
-		//imported from bo3 _zm_powerup_nuke.gsc
-		if ( !zombies[ i ].nuked && !is_magic_bullet_shield_enabled( zombies[ i ] ) )
-		{
-			zombies[ i ].nuked = 1;
-			zombies_nuked[ zombies_nuked.size ] = zombies[ i ];
-		}
-		i++;
-	}
-	i = 0;
-	while ( i < zombies_nuked.size )
-	{
-		if ( !isdefined( zombies_nuked[ i ] ) )
-		{
-			i++;
-			continue;
-		}
-		if ( is_magic_bullet_shield_enabled( zombies_nuked[ i ] ) )
-		{
-			i++;
-			continue;
-		}
-		if ( i < 5 && !zombies_nuked[ i ].isdog )
-		{
-			zombies_nuked[ i ] thread maps\mp\animscripts\zm_death::flame_death_fx();
-		}
-		if ( !zombies_nuked[ i ].isdog )
-		{
-			if ( !is_true( zombies_nuked[ i ].no_gib ) )
-			{
-				zombies_nuked[ i ] maps\mp\zombies\_zm_spawner::zombie_head_gib();
-			}
-			zombies_nuked[ i ] playsound("evt_nuked");
-		}
-		zombies_nuked[ i ].deathpoints_already_given = 1;
-		zombies_nuked[ i ] dodamage(zombies_nuked[i].health + 666, zombies_nuked[ i ].origin, player );
-		i++;
-	}
+
+	for ( i = 0; i < zombies.size; i++ )
+    {
+        if ( isdefined( zombies[i].ignore_nuke ) && zombies[i].ignore_nuke )
+            continue;
+
+        if ( isdefined( zombies[i].marked_for_death ) && zombies[i].marked_for_death )
+            continue;
+
+        if ( isdefined( zombies[i].nuke_damage_func ) )
+        {
+            zombies[i] thread [[ zombies[i].nuke_damage_func ]]();
+            continue;
+        }
+
+        if ( is_magic_bullet_shield_enabled( zombies[i] ) )
+            continue;
+
+        zombies[i].marked_for_death = 1;
+        zombies[i].nuked = 1;
+        zombies_nuked[zombies_nuked.size] = zombies[i];
+    }
+
+	for ( i = 0; i < zombies_nuked.size; i++ )
+    {
+        if ( !isdefined( zombies_nuked[i] ) )
+            continue;
+
+        if ( is_magic_bullet_shield_enabled( zombies_nuked[i] ) )
+            continue;
+
+        if ( i < 5 && !zombies_nuked[i].isdog )
+            zombies_nuked[i] thread maps\mp\animscripts\zm_death::flame_death_fx();
+
+        if ( !zombies_nuked[i].isdog )
+        {
+            if ( !( isdefined( zombies_nuked[i].no_gib ) && zombies_nuked[i].no_gib ) )
+                zombies_nuked[i] maps\mp\zombies\_zm_spawner::zombie_head_gib();
+
+            zombies_nuked[i] playsound( "evt_nuked" );
+        }
+
+		zombies_nuked[i].deathpoints_already_given = 1;
+		zombies_nuked[i] dodamage( zombies_nuked[i].health + 666, zombies_nuked[i].origin, player, player, "none", "MOD_UNKNOWN", 0, "none" );
+    }
+
 	players = get_players( player_team );
 	for ( i = 0; i < players.size; i++ )
 	{
