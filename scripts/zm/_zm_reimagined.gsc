@@ -1947,23 +1947,25 @@ last_stand_pistol_swap()
 		}
 	}
 
+	curclip = self getweaponammoclip(self.laststandpistol);
 	ammoclip = weaponclipsize( self.laststandpistol );
 	doubleclip = ammoclip * 2;
 	if(weapondualwieldweaponname(self.laststandpistol) != "none")
 	{
+		curclip += self getweaponammoclip(weapondualwieldweaponname(self.laststandpistol));
 		ammoclip += weaponclipsize(weapondualwieldweaponname(self.laststandpistol));
 		doubleclip = ammoclip;
 	}
 
-	if ( is_true( self._special_solo_pistol_swap ) ||  self.laststandpistol == level.default_solo_laststandpistol && !self.hadpistol )
+	if ( is_true( self._special_solo_pistol_swap ) || self.laststandpistol == level.default_solo_laststandpistol && !self.hadpistol )
 	{
 		self._special_solo_pistol_swap = 0;
 		self.hadpistol = 0;
-		self setweaponammostock( self.laststandpistol, doubleclip );
+		self setweaponammostock( self.laststandpistol, doubleclip - curclip );
 	}
 	else if ( flag( "solo_game" ) && self.laststandpistol == level.default_solo_laststandpistol )
 	{
-		self setweaponammostock(self.laststandpistol, doubleclip);
+		self setweaponammostock(self.laststandpistol, doubleclip - curclip);
 	}
 	else if ( self.laststandpistol == level.default_laststandpistol )
 	{
