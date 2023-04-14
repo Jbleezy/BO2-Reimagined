@@ -81,6 +81,7 @@
 * 4 round and 5 round special rounds happen more equally
 
 ### Avogadro
+* Drops a random powerup when killed
 * Decreased minimum distance away from players to be able to attack
 
 ### Denizens

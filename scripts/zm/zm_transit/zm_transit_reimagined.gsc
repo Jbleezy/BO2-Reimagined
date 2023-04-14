@@ -37,6 +37,7 @@ main()
 	replaceFunc(maps\mp\zm_transit_bus::bussetup, scripts\zm\replaced\zm_transit_bus::bussetup);
 	replaceFunc(maps\mp\zm_transit_bus::busscheduleadd, scripts\zm\replaced\zm_transit_bus::busscheduleadd);
 	replaceFunc(maps\mp\zombies\_zm_ai_avogadro::check_range_attack, scripts\zm\replaced\_zm_ai_avogadro::check_range_attack);
+	replaceFunc(maps\mp\zombies\_zm_ai_avogadro::avogadro_exit, scripts\zm\replaced\_zm_ai_avogadro::avogadro_exit);
 	replaceFunc(maps\mp\zombies\_zm_ai_screecher::screecher_spawning_logic, scripts\zm\replaced\_zm_ai_screecher::screecher_spawning_logic);
 	replaceFunc(maps\mp\zombies\_zm_ai_screecher::screecher_melee_damage, scripts\zm\replaced\_zm_ai_screecher::screecher_melee_damage);
 	replaceFunc(maps\mp\zombies\_zm_ai_screecher::screecher_detach, scripts\zm\replaced\_zm_ai_screecher::screecher_detach);
