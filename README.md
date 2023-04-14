@@ -602,6 +602,7 @@
 * Electric chairs appear immediately after crashing at the Golden Gate Bridge
 * Zombies spawn sooner after crashing at the Golden Gate Bridge
 * Key no longer shows on HUD
+* Opening one of the starting room doors no longer opens the other one
 * Brutus no longer spawns if no doors have been opened
 * Acid Trap: kills on any round (normally stops killing after round 158 on PC)
 * Acid Trap: kills zombies instantly

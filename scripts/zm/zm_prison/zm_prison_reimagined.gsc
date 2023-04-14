@@ -68,6 +68,8 @@ main()
     replaceFunc(maps\mp\zombies\_zm_weap_tomahawk::tomahawk_attack_zombies, scripts\zm\replaced\_zm_weap_tomahawk::tomahawk_attack_zombies);
     replaceFunc(maps\mp\zombies\_zm_weap_tomahawk::tomahawk_return_player, scripts\zm\replaced\_zm_weap_tomahawk::tomahawk_return_player);
 	replaceFunc(maps\mp\zombies\_zm_zonemgr::manage_zones, ::manage_zones);
+
+    door_changes();
 }
 
 init()
@@ -88,6 +90,23 @@ init()
 
 	level thread updatecraftables();
     level thread grief_brutus_spawn_after_time();
+}
+
+door_changes()
+{
+    num = 0;
+    targets = getentarray( "cellblock_start_door", "targetname" );
+	zombie_doors = getentarray( "zombie_door", "targetname" );
+	for ( i = 0; i < zombie_doors.size; i++ )
+	{
+        if ( isdefined( zombie_doors[i].target ) && zombie_doors[i].target == "cellblock_start_door" )
+        {
+            zombie_doors[i].target += num;
+            targets[num].targetname += num;
+            targets[num + 2].targetname += num;
+            num++;
+        }
+	}
 }
 
 zombie_init_done()
