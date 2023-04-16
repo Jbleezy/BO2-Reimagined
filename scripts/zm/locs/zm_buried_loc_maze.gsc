@@ -256,17 +256,20 @@ disable_player_spawn_locations()
 disable_mansion()
 {
 	// left
-	model = spawn( "script_model", (3386.42, 548.859, 239.727));
-	model.angles = (0, -90, 0);
-	model setmodel("p6_zm_bu_sloth_blocker_medium");
+	model = spawn( "script_model", (3368.72, 561.516, 234.577));
+	model.angles = (179, 90, 38);
+	model setmodel("p6_zm_bu_conservatory_tree_roots_a_close");
 	model = spawn( "script_model", (3396.1, 556.795, 246.125));
 	model.angles = (0, 90, 0);
 	model setmodel("collision_clip_wall_128x128x10");
 
 	// right
-	model = spawn( "script_model", (3476.37, 1045.68, 56.6861));
-	model.angles = (0, -96, 8);
-	model setmodel("p6_zm_bu_sloth_blocker_medium");
+	model = spawn( "script_model", (3447.32, 1058.31, 30.6045));
+	model.angles = (0, 270, 240);
+	model setmodel("p6_zm_bu_conservatory_tree_roots_a");
+	model = spawn( "script_model", (3417.32, 1058.31, 200.605));
+	model.angles = (-170, 270, 220);
+	model setmodel("p6_zm_bu_conservatory_tree_roots_a");
 	model = spawn( "script_model", (3332.03, 1123.32, 51.4592));
 	model.angles = (-15, 0, 0);
 	model setmodel("collision_clip_256x256x256");
