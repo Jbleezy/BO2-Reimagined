@@ -578,7 +578,7 @@
 * Escape pod can be used with any amount of players
 * Moved weapon locker to the downstairs fridge
 * Quick Revive elevator randomizes with Speed Cola and Who's Who elevators
-* Zombies no longer spawn in an elevator when the elevator is within 1 floor of the spawn location
+* Zombies are no longer killed while spawning in a stationary elevator
 * Zombies no longer spawn in the Upper Blue Highrise zone when in the Green Highrise zone
 * Zombies no longer spawn in the zone next to the Lower Orange Highrise zone when in the Lower Orange Highrise zone while the debris is closed
 * Fixed weapon model angle on upside down Mystery Box

@@ -255,7 +255,7 @@ faller_location_logic()
     faller_spawn_points = getstructarray( "faller_location", "script_noteworthy" );
     leaper_spawn_points = getstructarray( "leaper_location", "script_noteworthy" );
     spawn_points = arraycombine( faller_spawn_points, leaper_spawn_points, 1, 0 );
-    dist_check = 65536;
+    dist_check = 16384;
     elevator_names = getarraykeys( level.elevators );
     elevators = [];
 
@@ -320,6 +320,44 @@ faller_location_logic()
 
             if ( should_disable )
                 disable_elevator_spawners( volume, spawn_points );
+        }
+
+        wait 0.05;
+    }
+}
+
+watch_for_elevator_during_faller_spawn()
+{
+    self endon( "death" );
+    self endon( "risen" );
+    self endon( "spawn_anim" );
+
+    while ( true )
+    {
+        should_gib = 0;
+
+        foreach ( elevator in level.elevators )
+        {
+            if ( is_true( elevator.body.is_moving ) && self istouching( elevator.body ) )
+                should_gib = 1;
+        }
+
+        if ( should_gib )
+        {
+            playfx( level._effect["zomb_gib"], self.origin );
+
+            if ( !( isdefined( self.has_been_damaged_by_player ) && self.has_been_damaged_by_player ) && !( isdefined( self.is_leaper ) && self.is_leaper ) )
+                level.zombie_total++;
+
+            if ( isdefined( self.is_leaper ) && self.is_leaper )
+            {
+                self maps\mp\zombies\_zm_ai_leaper::leaper_cleanup();
+                self dodamage( self.health + 100, self.origin );
+            }
+            else
+                self delete();
+
+            break;
         }
 
         wait 0.05;
