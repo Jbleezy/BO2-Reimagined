@@ -10,7 +10,7 @@ struct_init()
     level.struct_class_names[ "targetname" ][ "zm_perk_machine" ] = [];
 
 	scripts\zm\replaced\utility::register_perk_struct( "specialty_armorvest", "zombie_vending_jugg", ( 473.92, 6638.99, 208 ), ( 0, 102, 0 ) );
-    scripts\zm\replaced\utility::register_perk_struct( "specialty_weapupgrade", "p6_zm_al_vending_pap_on", ( -1769, 5391, -72 ), ( 0, 100, 0 ) );
+    scripts\zm\replaced\utility::register_perk_struct( "specialty_weapupgrade", "p6_zm_al_vending_pap_on", ( -1769, 5395, -72 ), ( 0, 100, 0 ) );
 
     if (getDvarInt("ui_gametype_pro"))
     {
