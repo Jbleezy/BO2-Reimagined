@@ -602,7 +602,8 @@
 * Electric chairs appear immediately after crashing at the Golden Gate Bridge
 * Zombies spawn sooner after crashing at the Golden Gate Bridge
 * Key no longer shows on HUD
-* Opening one of the starting room doors no longer opens the other one
+* Decreased starting room doors cost from 1000 to 750
+* Opening one of the starting room doors no longer opens the other
 * Brutus no longer spawns if no doors have been opened
 * Acid Trap: kills on any round (normally stops killing after round 158 on PC)
 * Acid Trap: kills zombies instantly

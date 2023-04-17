@@ -101,6 +101,7 @@ door_changes()
 	{
         if ( isdefined( zombie_doors[i].target ) && zombie_doors[i].target == "cellblock_start_door" )
         {
+            zombie_doors[i].zombie_cost = 750;
             zombie_doors[i].target += num;
             targets[num].targetname += num;
             targets[num + 2].targetname += num;
