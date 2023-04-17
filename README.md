@@ -253,6 +253,7 @@
 
 ### Acid Gat
 * Kills on any round
+* Increased player damage from 10 to 25
 * Vastly improved accuracy
 * Aiming and Deadshot improve accuracy
 * Projectile no longer seeks toward zombies

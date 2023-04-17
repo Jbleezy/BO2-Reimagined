@@ -22,6 +22,57 @@
 #include maps\mp\zombies\_zm_ai_basic;
 #include maps\mp\zombies\_zm_afterlife;
 
+init()
+{
+    level.zombiemode_using_afterlife = 1;
+    flag_init( "afterlife_start_over" );
+    level.afterlife_revive_tool = "syrette_afterlife_zm";
+    precacheitem( level.afterlife_revive_tool );
+    precachemodel( "drone_collision" );
+    maps\mp\_visionset_mgr::vsmgr_register_info( "visionset", "zm_afterlife", 9000, 120, 1, 1 );
+    maps\mp\_visionset_mgr::vsmgr_register_info( "overlay", "zm_afterlife_filter", 9000, 120, 1, 1 );
+
+    if ( isdefined( level.afterlife_player_damage_override ) )
+        maps\mp\zombies\_zm::register_player_damage_callback( level.afterlife_player_damage_override );
+    else
+        maps\mp\zombies\_zm::register_player_damage_callback( ::afterlife_player_damage_callback );
+
+    registerclientfield( "toplayer", "player_lives", 9000, 2, "int" );
+    registerclientfield( "toplayer", "player_in_afterlife", 9000, 1, "int" );
+    registerclientfield( "toplayer", "player_afterlife_mana", 9000, 5, "float" );
+    registerclientfield( "allplayers", "player_afterlife_fx", 9000, 1, "int" );
+    registerclientfield( "toplayer", "clientfield_afterlife_audio", 9000, 1, "int" );
+    registerclientfield( "toplayer", "player_afterlife_refill", 9000, 1, "int" );
+    registerclientfield( "scriptmover", "player_corpse_id", 9000, 3, "int" );
+    afterlife_load_fx();
+    level thread afterlife_hostmigration();
+    precachemodel( "c_zom_ghost_viewhands" );
+    precachemodel( "c_zom_hero_ghost_fb" );
+    precacheitem( "lightning_hands_zm" );
+    precachemodel( "p6_zm_al_shock_box_on" );
+    precacheshader( "waypoint_revive_afterlife" );
+    a_afterlife_interact = getentarray( "afterlife_interact", "targetname" );
+    array_thread( a_afterlife_interact, ::afterlife_interact_object_think );
+    level.zombie_spawners = getentarray( "zombie_spawner", "script_noteworthy" );
+    array_thread( level.zombie_spawners, ::add_spawn_function, ::afterlife_zombie_damage );
+    a_afterlife_triggers = getstructarray( "afterlife_trigger", "targetname" );
+
+    foreach ( struct in a_afterlife_triggers )
+        afterlife_trigger_create( struct );
+
+    level.afterlife_interact_dist = 256;
+    level.is_player_valid_override = ::is_player_valid_afterlife;
+    level.can_revive = ::can_revive_override;
+    level.round_prestart_func = ::afterlife_start_zombie_logic;
+    level.custom_pap_validation = ::is_player_valid_afterlife;
+    level.player_out_of_playable_area_monitor_callback = ::player_out_of_playable_area;
+    level thread afterlife_gameover_cleanup();
+    level.afterlife_get_spawnpoint = ::afterlife_get_spawnpoint;
+    level.afterlife_zapped = ::afterlife_zapped;
+    level.afterlife_give_loadout = ::afterlife_give_loadout;
+    level.afterlife_save_loadout = ::afterlife_save_loadout;
+}
+
 init_player()
 {
 	flag_wait( "initial_players_connected" );
@@ -369,4 +420,111 @@ afterlife_corpse_cleanup( corpse )
     wait_network_frame();
     wait_network_frame();
     corpse delete();
+}
+
+afterlife_player_damage_callback( einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime )
+{
+    if ( isdefined( eattacker ) )
+    {
+        if ( isdefined( eattacker.is_zombie ) && eattacker.is_zombie )
+        {
+            if ( isdefined( eattacker.custom_damage_func ) )
+                idamage = eattacker [[ eattacker.custom_damage_func ]]( self );
+            else if ( isdefined( eattacker.meleedamage ) && smeansofdeath != "MOD_GRENADE_SPLASH" )
+                idamage = eattacker.meleedamage;
+
+            if ( isdefined( self.afterlife ) && self.afterlife )
+            {
+                self afterlife_reduce_mana( 10 );
+                self clientnotify( "al_d" );
+                return 0;
+            }
+        }
+    }
+
+    if ( isdefined( self.afterlife ) && self.afterlife )
+        return 0;
+
+    if ( self maps\mp\zombies\_zm_laststand::player_is_in_laststand() )
+        return 0;
+
+    if ( isdefined( eattacker ) && ( isdefined( eattacker.is_zombie ) && eattacker.is_zombie || isplayer( eattacker ) ) )
+    {
+        if ( isdefined( self.hasriotshield ) && self.hasriotshield && isdefined( vdir ) )
+        {
+            item_dmg = 100;
+
+            if ( isdefined( eattacker.custom_item_dmg ) )
+                item_dmg = eattacker.custom_item_dmg;
+
+            if ( isdefined( self.hasriotshieldequipped ) && self.hasriotshieldequipped )
+            {
+                if ( self player_shield_facing_attacker( vdir, 0.2 ) && isdefined( self.player_shield_apply_damage ) )
+                {
+                    self [[ self.player_shield_apply_damage ]]( item_dmg, 0 );
+                    return 0;
+                }
+            }
+            else if ( !isdefined( self.riotshieldentity ) )
+            {
+                if ( !self player_shield_facing_attacker( vdir, -0.2 ) && isdefined( self.player_shield_apply_damage ) )
+                {
+                    self [[ self.player_shield_apply_damage ]]( item_dmg, 0 );
+                    return 0;
+                }
+            }
+        }
+    }
+
+    if ( sweapon == "tower_trap_zm" || sweapon == "tower_trap_upgraded_zm" || sweapon == "none" && shitloc == "riotshield" && !( isdefined( eattacker.is_zombie ) && eattacker.is_zombie ) )
+    {
+        self.use_adjusted_grenade_damage = 1;
+        return 0;
+    }
+
+    if ( smeansofdeath == "MOD_PROJECTILE" || smeansofdeath == "MOD_PROJECTILE_SPLASH" || smeansofdeath == "MOD_GRENADE" || smeansofdeath == "MOD_GRENADE_SPLASH" )
+    {
+        if ( sweapon == "blundersplat_explosive_dart_zm" )
+        {
+            if ( self hasperk( "specialty_flakjacket" ) )
+            {
+                self.use_adjusted_grenade_damage = 1;
+                idamage = 0;
+            }
+
+            if ( isalive( self ) && !( isdefined( self.is_zombie ) && self.is_zombie ) )
+            {
+                self.use_adjusted_grenade_damage = 1;
+                idamage = 25;
+            }
+        }
+        else
+        {
+            if ( self hasperk( "specialty_flakjacket" ) )
+                return 0;
+
+            if ( self.health > 75 && !( isdefined( self.is_zombie ) && self.is_zombie ) )
+                idamage = 75;
+        }
+    }
+
+    if ( idamage >= self.health && ( isdefined( level.intermission ) && !level.intermission ) )
+    {
+        if ( self.lives > 0 && ( isdefined( self.afterlife ) && !self.afterlife ) )
+        {
+            self playsoundtoplayer( "zmb_afterlife_death", self );
+            self afterlife_remove();
+            self.afterlife = 1;
+            self thread afterlife_laststand();
+
+            if ( self.health <= 1 )
+                return 0;
+            else
+                idamage = self.health - 1;
+        }
+        else
+            self thread last_stand_conscience_vo();
+    }
+
+    return idamage;
 }
