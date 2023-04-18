@@ -8,6 +8,7 @@
 #include scripts\zm\replaced\zm_transit_utility;
 #include scripts\zm\replaced\zm_transit_ai_screecher;
 #include scripts\zm\replaced\zm_transit_bus;
+#include scripts\zm\replaced\zm_transit_distance_tracking;
 #include scripts\zm\replaced\_zm_riotshield;
 #include scripts\zm\replaced\_zm_ai_avogadro;
 #include scripts\zm\replaced\_zm_ai_screecher;
@@ -36,6 +37,7 @@ main()
 	replaceFunc(maps\mp\zm_transit_ai_screecher::player_wait_land, scripts\zm\replaced\zm_transit_ai_screecher::player_wait_land);
 	replaceFunc(maps\mp\zm_transit_bus::bussetup, scripts\zm\replaced\zm_transit_bus::bussetup);
 	replaceFunc(maps\mp\zm_transit_bus::busscheduleadd, scripts\zm\replaced\zm_transit_bus::busscheduleadd);
+	replaceFunc(maps\mp\zm_transit_distance_tracking::delete_zombie_noone_looking, scripts\zm\replaced\zm_transit_distance_tracking::delete_zombie_noone_looking);
 	replaceFunc(maps\mp\zombies\_zm_ai_avogadro::check_range_attack, scripts\zm\replaced\_zm_ai_avogadro::check_range_attack);
 	replaceFunc(maps\mp\zombies\_zm_ai_avogadro::avogadro_exit, scripts\zm\replaced\_zm_ai_avogadro::avogadro_exit);
 	replaceFunc(maps\mp\zombies\_zm_ai_screecher::screecher_spawning_logic, scripts\zm\replaced\_zm_ai_screecher::screecher_spawning_logic);

@@ -72,6 +72,7 @@
 ## Zombies
 * Health capped at 100,000
 * Amount of zombies scales linearly with the amount of players
+* Zombies that are deleted due to being too far away always respawn
 * Changed height to 48 on all maps (normally either 48 or 72)
 * Attracted towards points of interest immediately
 * Removed walkers in high rounds
