@@ -3102,7 +3102,7 @@ jetgun_heatval_changes()
 
 	vars["prev_heatval"] = 0;
 	vars["cooldown_amount"] = 0.1;
-	vars["overheat_amount"] = 0.85;
+	vars["melee_overheat_amount"] = 0.475;
 
 	while(1)
 	{
@@ -3122,7 +3122,11 @@ jetgun_heatval_changes()
 		}
 		else if(self getCurrentWeapon() == "jetgun_zm" && self attackButtonPressed() && self isMeleeing())
 		{
-			self.jetgun_heatval += vars["overheat_amount"];
+			self.jetgun_heatval += vars["melee_overheat_amount"];
+		}
+		else if(self getCurrentWeapon() == "jetgun_zm" && self attackButtonPressed())
+		{
+			self.jetgun_heatval -= abs(vars["diff_heatval"]) / 2;
 		}
 		else if(vars["diff_heatval"] < 0)
 		{

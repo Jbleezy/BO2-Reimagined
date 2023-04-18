@@ -226,6 +226,7 @@
 * Awards points for kills
 * Cools down twice as fast
 * Cools down while not holding weapon
+* Heats up half as fast
 * Heats up when firing while meleeing
 * No longer kills when not firing
 * No longer automatically switched to weapon when picked up
