@@ -62,6 +62,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_laststand::revive_hud_think, scripts\zm\replaced\_zm_laststand::revive_hud_think);
 	replaceFunc(maps\mp\zombies\_zm_laststand::auto_revive, scripts\zm\replaced\_zm_laststand::auto_revive);
 	replaceFunc(maps\mp\zombies\_zm_weapons::init_weapon_upgrade, scripts\zm\replaced\_zm_weapons::init_weapon_upgrade);
+	replaceFunc(maps\mp\zombies\_zm_weapons::add_dynamic_wallbuy, scripts\zm\replaced\_zm_weapons::add_dynamic_wallbuy);
 	replaceFunc(maps\mp\zombies\_zm_weapons::weapon_give, scripts\zm\replaced\_zm_weapons::weapon_give);
 	replaceFunc(maps\mp\zombies\_zm_weapons::ammo_give, scripts\zm\replaced\_zm_weapons::ammo_give);
 	replaceFunc(maps\mp\zombies\_zm_weapons::get_upgraded_ammo_cost, scripts\zm\replaced\_zm_weapons::get_upgraded_ammo_cost);
@@ -383,10 +384,6 @@ post_all_players_spawned()
 
 	disable_bank_teller();
 
-	wallbuy_increase_trigger_radius();
-	wallbuy_decrease_upgraded_ammo_cost();
-	wallbuy_lethal_grenade_changes();
-	wallbuy_claymore_changes();
 	wallbuy_location_changes();
 
 	zone_changes();
@@ -397,9 +394,6 @@ post_all_players_spawned()
 
 	level thread buildbuildables();
 	level thread buildcraftables();
-
-	level thread wallbuy_dynamic_update();
-	level thread wallbuy_dynamic_zgrief_update();
 
 	//level.round_number = 115;
 	//level.zombie_move_speed = 105;
@@ -2489,100 +2483,6 @@ wallbuy_cost_changes()
 	{
 		level.zombie_weapons["thompson_zm"].ammo_cost = 750;
 	}
-}
-
-wallbuy_increase_trigger_radius()
-{
-	for(i = 0; i < level._unitriggers.trigger_stubs.size; i++)
-	{
-		if(IsDefined(level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade))
-		{
-			level._unitriggers.trigger_stubs[i].script_length = 64;
-		}
-	}
-}
-
-wallbuy_decrease_upgraded_ammo_cost()
-{
-	for(i = 0; i < level._unitriggers.trigger_stubs.size; i++)
-	{
-		if(isDefined(level._unitriggers.trigger_stubs[i].trigger_func) && level._unitriggers.trigger_stubs[i].trigger_func == maps\mp\zombies\_zm_weapons::weapon_spawn_think)
-		{
-			level._unitriggers.trigger_stubs[i].trigger_func = scripts\zm\replaced\_zm_weapons::weapon_spawn_think;
-		}
-	}
-}
-
-wallbuy_lethal_grenade_changes()
-{
-	for(i = 0; i < level._unitriggers.trigger_stubs.size; i++)
-	{
-		if(IsDefined(level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade) && is_lethal_grenade(level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade))
-		{
-			level._unitriggers.trigger_stubs[i].prompt_and_visibility_func = scripts\zm\replaced\_zm_weapons::lethal_grenade_update_prompt;
-		}
-	}
-}
-
-wallbuy_claymore_changes()
-{
-	for(i = 0; i < level._unitriggers.trigger_stubs.size; i++)
-	{
-		if(isDefined(level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade) && level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade == "claymore_zm")
-		{
-			level._unitriggers.trigger_stubs[i].prompt_and_visibility_func = scripts\zm\replaced\_zm_weap_claymore::claymore_unitrigger_update_prompt;
-			level._unitriggers.trigger_stubs[i].trigger_func = scripts\zm\replaced\_zm_weap_claymore::buy_claymores;
-		}
-	}
-}
-
-wallbuy_dynamic_update()
-{
-	if(!(is_classic() && level.scr_zm_map_start_location == "processing"))
-	{
-		return;
-	}
-
-	while (!isDefined(level.built_wallbuys))
-	{
-		wait 0.5;
-	}
-
-	vars = [];
-
-	vars["prev_built_wallbuys"] = 0;
-
-	while (1)
-	{
-		if (level.built_wallbuys > vars["prev_built_wallbuys"])
-		{
-			vars["prev_built_wallbuys"] = level.built_wallbuys;
-			wallbuy_increase_trigger_radius();
-			wallbuy_decrease_upgraded_ammo_cost();
-		}
-
-		if (level.built_wallbuys == -100)
-		{
-			wallbuy_increase_trigger_radius();
-			wallbuy_decrease_upgraded_ammo_cost();
-			return;
-		}
-
-		wait 0.5;
-	}
-}
-
-wallbuy_dynamic_zgrief_update()
-{
-	if(!(level.scr_zm_ui_gametype == "zgrief" && level.scr_zm_map_start_location == "street"))
-	{
-		return;
-	}
-
-	level waittill("dynamicwallbuysbuilt");
-
-	wallbuy_increase_trigger_radius();
-	wallbuy_decrease_upgraded_ammo_cost();
 }
 
 weapon_inspect_watcher()

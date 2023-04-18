@@ -268,8 +268,7 @@ wallbuy( weapon_name, target, targetname, origin, angles, play_chalk_fx = 1 )
 
 		if(weapon_name == "tazer_knuckles_zm")
 		{
-			unitrigger_stub.origin += anglesToForward(angles) * -7;
-			unitrigger_stub.origin += anglesToRight(angles) * -2;
+			unitrigger_stub.origin += (anglesToForward(angles) * -7) + (anglesToRight(angles) * -2);
 		}
 
 		wallmodel.origin += anglesToForward(angles) * -8; // _zm_melee_weapon::melee_weapon_show moves this back
@@ -286,7 +285,11 @@ wallbuy( weapon_name, target, targetname, origin, angles, play_chalk_fx = 1 )
 	}
 	else
 	{
-		unitrigger_stub.prompt_and_visibility_func = ::wall_weapon_update_prompt;
+		if( is_lethal_grenade( unitrigger_stub.zombie_weapon_upgrade ) )
+			unitrigger_stub.prompt_and_visibility_func = scripts\zm\replaced\_zm_weapons::lethal_grenade_update_prompt;
+		else
+			unitrigger_stub.prompt_and_visibility_func = ::wall_weapon_update_prompt;
+
 		maps\mp\zombies\_zm_unitrigger::register_static_unitrigger( unitrigger_stub, ::weapon_spawn_think );
 	}
 
