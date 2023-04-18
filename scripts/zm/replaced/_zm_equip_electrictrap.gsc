@@ -10,7 +10,6 @@ startelectrictrapdeploy( weapon )
 
 	self thread maps\mp\zombies\_zm_equip_electrictrap::watchforcleanup();
 	electricradius = 45;
-	self.weapon = weapon;
 
 	if ( !isDefined( self.electrictrap_health ) )
 	{
@@ -28,11 +27,11 @@ startelectrictrapdeploy( weapon )
 
 		weapon waittill( "death" );
 
-		if ( isDefined( level.electrap_sound_ent ) )
+		if ( isDefined( weapon.electrap_sound_ent ) )
 		{
-			level.electrap_sound_ent playsound( "wpn_zmb_electrap_stop" );
-			level.electrap_sound_ent delete();
-			level.electrap_sound_ent = undefined;
+			weapon.electrap_sound_ent playsound( "wpn_zmb_electrap_stop" );
+			weapon.electrap_sound_ent delete();
+			weapon.electrap_sound_ent = undefined;
 		}
 
 		self notify( "etrap_cleanup" );
@@ -45,13 +44,13 @@ trap_power_on( weapon )
 	weapon.power_on_time = getTime() - 2000; // ::electrictrapthink doesn't start until after 2 seconds
 	weapon notify( "stop_attracting_zombies" );
 
-	if ( !isDefined( level.electrap_sound_ent ) )
+	if ( !isDefined( weapon.electrap_sound_ent ) )
 	{
-		level.electrap_sound_ent = spawn( "script_origin", weapon.origin );
+		weapon.electrap_sound_ent = spawn( "script_origin", weapon.origin );
 	}
 
-	level.electrap_sound_ent playsound( "wpn_zmb_electrap_start" );
-	level.electrap_sound_ent playloopsound( "wpn_zmb_electrap_loop", 2 );
+	weapon.electrap_sound_ent playsound( "wpn_zmb_electrap_start" );
+	weapon.electrap_sound_ent playloopsound( "wpn_zmb_electrap_loop", 2 );
 	weapon thread maps\mp\zombies\_zm_equip_electrictrap::trapfx();
 }
 
@@ -91,13 +90,15 @@ cleanupoldtrap()
 			thread maps\mp\zombies\_zm_unitrigger::unregister_unitrigger( self.buildableelectrictrap.stub );
 			self.buildableelectrictrap.stub = undefined;
 		}
+
+		if ( isDefined( self.buildableelectrictrap.electrap_sound_ent ) )
+		{
+			self.buildableelectrictrap.electrap_sound_ent delete();
+			self.buildableelectrictrap.electrap_sound_ent = undefined;
+		}
+
 		self.buildableelectrictrap delete();
 		self.electrictrap_health = undefined;
-	}
-	if ( isDefined( level.electrap_sound_ent ) )
-	{
-		level.electrap_sound_ent delete();
-		level.electrap_sound_ent = undefined;
 	}
 }
 
