@@ -185,6 +185,7 @@
 * Decreased zombie EMP radius by 30% (same radius as perk EMP)
 * Can destroy deployed Zombie Shields
 * Sprinting no longer wakes up EMP'd zombies
+* Zombies that are in the ground can no longer get EMP'd
 
 ### Hell's Retriever
 * No longer ricochets to other zombies when not charged

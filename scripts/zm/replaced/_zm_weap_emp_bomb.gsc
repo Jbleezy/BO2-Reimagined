@@ -24,7 +24,7 @@ emp_detonate(grenade)
 	}
 
 	level notify( "emp_detonate", origin, emp_radius );
-	self thread maps\mp\zombies\_zm_weap_emp_bomb::emp_detonate_zombies( grenade_origin, grenade_owner );
+	self thread emp_detonate_zombies( grenade_origin, grenade_owner );
 
 	if ( isDefined( level.custom_emp_detonate ) )
 	{
@@ -42,6 +42,43 @@ emp_detonate(grenade)
 	wait emp_time;
 
 	maps\mp\zombies\_zm_power::revert_power_to_list( 1, origin, emp_radius, disabled_list );
+}
+
+emp_detonate_zombies( grenade_origin, grenade_owner )
+{
+    zombies = get_array_of_closest( grenade_origin, getaispeciesarray( level.zombie_team, "all" ), undefined, undefined, level.zombie_vars["emp_stun_range"] );
+
+    if ( !isdefined( zombies ) )
+        return;
+
+    for ( i = 0; i < zombies.size; i++ )
+    {
+        if ( !isdefined( zombies[i] ) || isdefined( zombies[i].ignore_inert ) && zombies[i].ignore_inert )
+            continue;
+
+		if ( is_true( zombies[i].in_the_ground ) )
+			continue;
+
+        zombies[i].becoming_inert = 1;
+    }
+
+    stunned = 0;
+
+    for ( i = 0; i < zombies.size; i++ )
+    {
+        if ( !isdefined( zombies[i] ) || isdefined( zombies[i].ignore_inert ) && zombies[i].ignore_inert )
+            continue;
+
+		if ( is_true( zombies[i].in_the_ground ) )
+			continue;
+
+        stunned++;
+        zombies[i] thread stun_zombie();
+        wait 0.05;
+    }
+
+    if ( stunned >= 10 && isdefined( grenade_owner ) )
+        grenade_owner notify( "the_lights_of_their_eyes" );
 }
 
 destroyequipment( origin, radius )
