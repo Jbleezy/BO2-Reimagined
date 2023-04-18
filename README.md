@@ -177,6 +177,7 @@
 ### Monkey Bomb
 * Zombies killed can drop powerups
 * Fixed an issue where a Monkey Bomb wouldn't activate if the previously thrown Monkey Bomb hadn't activated yet
+* Added HUD icon from Buried and Origins to all maps
 
 ### EMP Grenade
 * No longer disables HUD
