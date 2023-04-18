@@ -3,6 +3,58 @@
 #include maps\mp\zombies\_zm_utility;
 #include maps\mp\zombies\_zm_weap_jetgun;
 
+jetgun_firing()
+{
+    if ( !isdefined( self.jetsound_ent ) )
+    {
+        self.jetsound_ent = spawn( "script_origin", self.origin );
+        self.jetsound_ent linkto( self, "tag_origin" );
+    }
+
+    jetgun_fired = 0;
+
+    if ( self is_jetgun_firing() && jetgun_fired == 0 )
+    {
+        self.jetsound_ent playloopsound( "wpn_jetgun_effect_plr_loop", 0.8 );
+        self.jetsound_ent playsound( "wpn_jetgun_effect_plr_start" );
+        self notify( "jgun_snd" );
+    }
+
+    while ( self is_jetgun_firing() )
+    {
+        jetgun_fired = 1;
+        self thread jetgun_fired();
+        view_pos = self gettagorigin( "tag_flash" );
+        view_angles = self gettagangles( "tag_flash" );
+
+        if ( self get_jetgun_engine_direction() < 0 )
+            playfx( level._effect["jetgun_smoke_cloud"], view_pos - self getplayerviewheight(), anglestoforward( view_angles ), anglestoup( view_angles ) );
+        else
+            playfx( level._effect["jetgun_smoke_cloud"], view_pos - self getplayerviewheight(), anglestoforward( view_angles ) * -1, anglestoup( view_angles ) );
+
+        wait 0.25;
+    }
+
+    if ( jetgun_fired == 1 )
+    {
+        self.jetsound_ent stoploopsound( 0.5 );
+        self.jetsound_ent playsound( "wpn_jetgun_effect_plr_end" );
+        self thread sound_ent_cleanup();
+        jetgun_fired = 0;
+    }
+}
+
+sound_ent_cleanup()
+{
+    self endon( "jgun_snd" );
+    wait 4;
+
+    if ( isdefined( self.jetsound_ent ) )
+	{
+		self.jetsound_ent delete();
+	}
+}
+
 is_jetgun_firing()
 {
     if(!self attackButtonPressed())
