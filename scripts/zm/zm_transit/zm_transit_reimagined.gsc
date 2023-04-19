@@ -143,7 +143,7 @@ can_revive( player_down )
 
 electric_door_changes()
 {
-	if( is_classic() && level.scr_zm_map_start_location == "transit" )
+	if( is_classic() )
 	{
 		return;
 	}
@@ -189,7 +189,7 @@ electric_door_changes()
 
 power_local_electric_doors_globally()
 {
-	if( !(is_classic() && level.scr_zm_map_start_location == "transit") )
+	if( !is_classic() )
 	{
 		return;
 	}

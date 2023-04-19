@@ -169,7 +169,7 @@ door_price_increase_for_solo()
 
 zombie_blood_dig_changes()
 {
-	if(!(is_classic() && level.scr_zm_map_start_location == "tomb"))
+	if( !is_classic() )
 	{
 		return;
 	}
