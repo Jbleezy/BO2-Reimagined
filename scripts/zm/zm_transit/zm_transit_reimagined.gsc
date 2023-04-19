@@ -267,27 +267,27 @@ cornfield_spawn_path_nodes()
 		spawn_path_node(origin, (0, 0, 0));
 	}
 
-	for (i = level._spawned_path_nodes.size - 1; i >= level._spawned_path_nodes.size - (new_origins.size + 1); i--)
+	nodes1 = getNodesInRadius( (7040, -128, -196), 64, 0, 512, "Path" );
+	nodes2 = getNodesInRadius( (7040, -896, -196), 64, 0, 512, "Path" );
+
+	foreach (node1 in nodes1)
 	{
-		node = level._spawned_path_nodes[i];
-
-		nodes = getNodesInRadius( node.origin, 256, 0, 512, "Path" );
-		foreach (other_node in nodes)
+		foreach (node2 in nodes2)
 		{
-			if (node.origin[0] - 128 == other_node.origin[0] || node.origin[0] + 128 == other_node.origin[0] || node.origin[1] - 128 == other_node.origin[1] || node.origin[1] + 128 == other_node.origin[1])
-			{
-				link_nodes(node, other_node);
-			}
+			link_nodes(node1, node2);
+			link_nodes(node2, node1);
 		}
+	}
 
-		for (j = i; j >= level._spawned_path_nodes.size - (new_origins.size + 1); j--)
+	nodes1 = getNodesInRadius( (7168, -128, -196), 64, 0, 512, "Path" );
+	nodes2 = getNodesInRadius( (7168, -896, -196), 64, 0, 512, "Path" );
+
+	foreach (node1 in nodes1)
+	{
+		foreach (node2 in nodes2)
 		{
-			other_node = level._spawned_path_nodes[j];
-
-			if (node.origin[0] - 128 == other_node.origin[0] || node.origin[0] + 128 == other_node.origin[0] || node.origin[1] - 128 == other_node.origin[1] || node.origin[1] + 128 == other_node.origin[1])
-			{
-				link_nodes(node, other_node);
-			}
+			link_nodes(node1, node2);
+			link_nodes(node2, node1);
 		}
 	}
 }
