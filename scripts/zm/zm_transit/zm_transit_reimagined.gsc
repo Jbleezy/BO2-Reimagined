@@ -266,30 +266,6 @@ cornfield_spawn_path_nodes()
 	{
 		spawn_path_node(origin, (0, 0, 0));
 	}
-
-	nodes1 = getNodesInRadius( (7040, -128, -196), 64, 0, 512, "Path" );
-	nodes2 = getNodesInRadius( (7040, -896, -196), 64, 0, 512, "Path" );
-
-	foreach (node1 in nodes1)
-	{
-		foreach (node2 in nodes2)
-		{
-			link_nodes(node1, node2);
-			link_nodes(node2, node1);
-		}
-	}
-
-	nodes1 = getNodesInRadius( (7168, -128, -196), 64, 0, 512, "Path" );
-	nodes2 = getNodesInRadius( (7168, -896, -196), 64, 0, 512, "Path" );
-
-	foreach (node1 in nodes1)
-	{
-		foreach (node2 in nodes2)
-		{
-			link_nodes(node1, node2);
-			link_nodes(node2, node1);
-		}
-	}
 }
 
 path_exploit_fixes()
