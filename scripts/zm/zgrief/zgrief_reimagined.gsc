@@ -2352,7 +2352,8 @@ grief_laststand_weapons_return()
 		return 1;
 	}
 
-	return 0;
+	self maps\mp\zombies\_zm_weapons::give_fallback_weapon();
+	return 1;
 }
 
 grief_laststand_items_return()
