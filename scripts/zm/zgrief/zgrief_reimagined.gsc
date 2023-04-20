@@ -2142,19 +2142,13 @@ grief_laststand_weapon_save( einflictor, attacker, idamage, smeansofdeath, sweap
 	self.grief_savedweapon_weaponsammo_stock = [];
 	self.grief_savedweapon_weaponsammo_clip_alt = [];
 	self.grief_savedweapon_weaponsammo_stock_alt = [];
-	self.grief_savedweapon_currentweapon = self getcurrentweapon();
+	self.grief_savedweapon_currentweapon = maps\mp\zombies\_zm_weapons::get_nonalternate_weapon(self getcurrentweapon()); // can't switch to alt weapon
 	self.grief_savedweapon_melee = self get_player_melee_weapon();
 	self.grief_savedweapon_grenades = self get_player_lethal_grenade();
 	self.grief_savedweapon_tactical = self get_player_tactical_grenade();
 	self.grief_savedweapon_mine = self get_player_placeable_mine();
 	self.grief_savedweapon_equipment = self get_player_equipment();
 	self.grief_hasriotshield = undefined;
-
-	// can't switch to alt weapon
-	if(is_alt_weapon(self.grief_savedweapon_currentweapon))
-	{
-		self.grief_savedweapon_currentweapon = maps\mp\zombies\_zm_weapons::get_nonalternate_weapon(self.grief_savedweapon_currentweapon);
-	}
 
 	for ( i = 0; i < self.grief_savedweapon_weapons.size; i++ )
 	{
@@ -2336,16 +2330,28 @@ grief_laststand_weapons_return()
 
 	self.grief_savedweapon_weapons = undefined;
 
-	primaries = self getweaponslistprimaries();
-	foreach ( weapon in primaries )
+	if ( isDefined( self.pre_bottle_weapon ) && self hasWeapon( self.pre_bottle_weapon ) )
 	{
-		if ( isDefined( self.grief_savedweapon_currentweapon ) && self.grief_savedweapon_currentweapon == weapon )
-		{
-			self switchtoweapon( weapon );
-			return 1;
-		}
+		self switchtoweapon( self.pre_bottle_weapon );
+		self.pre_bottle_weapon = undefined;
+		return 1;
 	}
 
+	if ( isDefined( self.pre_meat_weapon ) && self hasWeapon( self.pre_meat_weapon ) )
+	{
+		self switchtoweapon( self.pre_meat_weapon );
+		self.pre_meat_weapon = undefined;
+		return 1;
+	}
+
+	if ( isDefined( self.grief_savedweapon_currentweapon ) && self hasWeapon( self.grief_savedweapon_currentweapon ) )
+	{
+		self switchtoweapon( self.grief_savedweapon_currentweapon );
+		self.grief_savedweapon_currentweapon = undefined;
+		return 1;
+	}
+
+	primaries = self getweaponslistprimaries();
 	if ( primaries.size > 0 )
 	{
 		self switchtoweapon( primaries[ 0 ] );

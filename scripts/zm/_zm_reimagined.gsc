@@ -78,6 +78,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_magicbox::treasure_chest_timeout, scripts\zm\replaced\_zm_magicbox::treasure_chest_timeout);
 	replaceFunc(maps\mp\zombies\_zm_magicbox::timer_til_despawn, scripts\zm\replaced\_zm_magicbox::timer_til_despawn);
 	replaceFunc(maps\mp\zombies\_zm_perks::init, scripts\zm\replaced\_zm_perks::init);
+	replaceFunc(maps\mp\zombies\_zm_perks::vending_trigger_post_think, scripts\zm\replaced\_zm_perks::vending_trigger_post_think);
 	replaceFunc(maps\mp\zombies\_zm_perks::vending_weapon_upgrade, scripts\zm\replaced\_zm_perks::vending_weapon_upgrade);
 	replaceFunc(maps\mp\zombies\_zm_perks::give_perk, scripts\zm\replaced\_zm_perks::give_perk);
 	replaceFunc(maps\mp\zombies\_zm_perks::perk_think, scripts\zm\replaced\_zm_perks::perk_think);

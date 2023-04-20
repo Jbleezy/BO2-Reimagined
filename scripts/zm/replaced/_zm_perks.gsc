@@ -107,6 +107,46 @@ init()
     level thread perk_hostmigration();
 }
 
+vending_trigger_post_think( player, perk )
+{
+    player endon( "disconnect" );
+    player endon( "end_game" );
+    player endon( "perk_abort_drinking" );
+    player.pre_bottle_weapon = player perk_give_bottle_begin( perk );
+    evt = player waittill_any_return( "fake_death", "death", "player_downed", "weapon_change_complete" );
+
+    if ( evt == "weapon_change_complete" )
+        player thread wait_give_perk( perk, 1 );
+
+    player perk_give_bottle_end( player.pre_bottle_weapon, perk );
+
+    if ( player maps\mp\zombies\_zm_laststand::player_is_in_laststand() || isdefined( player.intermission ) && player.intermission )
+        return;
+
+	player.pre_bottle_weapon = undefined;
+
+    player notify( "burp" );
+
+    if ( isdefined( level.pers_upgrade_cash_back ) && level.pers_upgrade_cash_back )
+        player maps\mp\zombies\_zm_pers_upgrades_functions::cash_back_player_drinks_perk();
+
+    if ( isdefined( level.pers_upgrade_perk_lose ) && level.pers_upgrade_perk_lose )
+        player thread maps\mp\zombies\_zm_pers_upgrades_functions::pers_upgrade_perk_lose_bought();
+
+    if ( isdefined( level.perk_bought_func ) )
+        player [[ level.perk_bought_func ]]( perk );
+
+    player.perk_purchased = undefined;
+
+    if ( is_false( self.power_on ) )
+    {
+        wait 1;
+        perk_pause( self.script_noteworthy );
+    }
+
+    bbprint( "zombie_uses", "playername %s playerscore %d round %d name %s x %f y %f z %f type %s", player.name, player.score, level.round_number, perk, self.origin, "perk" );
+}
+
 vending_weapon_upgrade()
 {
     level endon( "Pack_A_Punch_off" );
