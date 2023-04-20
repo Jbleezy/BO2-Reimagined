@@ -2255,6 +2255,12 @@ grief_laststand_weapons_return()
 			primary_weapons_returned++;
 		}
 
+		if ( is_temporary_zombie_weapon( self.grief_savedweapon_weapons[ i ] ) )
+		{
+			i++;
+			continue;
+		}
+
 		if ( "item_meat_zm" == self.grief_savedweapon_weapons[ i ] )
 		{
 			i++;
@@ -2330,10 +2336,10 @@ grief_laststand_weapons_return()
 
 	self.grief_savedweapon_weapons = undefined;
 
-	if ( isDefined( self.pre_bottle_weapon ) && self hasWeapon( self.pre_bottle_weapon ) )
+	if ( isDefined( self.pre_temp_weapon ) && self hasWeapon( self.pre_temp_weapon ) )
 	{
-		self switchtoweapon( self.pre_bottle_weapon );
-		self.pre_bottle_weapon = undefined;
+		self switchtoweapon( self.pre_temp_weapon );
+		self.pre_temp_weapon = undefined;
 		return 1;
 	}
 

@@ -2,11 +2,6 @@
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 
-track_players_intersection_tracker()
-{
-	// BO2 has built in push mechanic
-}
-
 is_headshot( sweapon, shitloc, smeansofdeath )
 {
 	if ( smeansofdeath == "MOD_MELEE" || smeansofdeath == "MOD_BAYONET" || smeansofdeath == "MOD_IMPACT" || smeansofdeath == "MOD_UNKNOWN" || smeansofdeath == "MOD_IMPACT" )
@@ -244,7 +239,17 @@ get_current_zone( return_zone )
     return undefined;
 }
 
+is_temporary_zombie_weapon( str_weapon )
+{
+    return is_zombie_perk_bottle( str_weapon ) || str_weapon == level.revive_tool || str_weapon == "zombie_builder_zm" || str_weapon == "chalk_draw_zm" || str_weapon == "no_hands_zm" || str_weapon == level.machine_assets["packapunch"].weapon || issubstr( str_weapon, "_flourish" );
+}
+
 wait_network_frame()
 {
     wait 0.1;
+}
+
+track_players_intersection_tracker()
+{
+	// BO2 has built in push mechanic
 }

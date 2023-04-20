@@ -112,18 +112,21 @@ vending_trigger_post_think( player, perk )
     player endon( "disconnect" );
     player endon( "end_game" );
     player endon( "perk_abort_drinking" );
-    player.pre_bottle_weapon = player perk_give_bottle_begin( perk );
+    player.pre_temp_weapon = player perk_give_bottle_begin( perk );
     evt = player waittill_any_return( "fake_death", "death", "player_downed", "weapon_change_complete" );
 
     if ( evt == "weapon_change_complete" )
         player thread wait_give_perk( perk, 1 );
 
-    player perk_give_bottle_end( player.pre_bottle_weapon, perk );
+    player perk_give_bottle_end( player.pre_temp_weapon, perk );
 
     if ( player maps\mp\zombies\_zm_laststand::player_is_in_laststand() || isdefined( player.intermission ) && player.intermission )
-        return;
+	{
+		player.lastactiveweapon = player.pre_temp_weapon;
+		return;
+	}
 
-	player.pre_bottle_weapon = undefined;
+	player.pre_temp_weapon = undefined;
 
     player notify( "burp" );
 

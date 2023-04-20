@@ -293,6 +293,8 @@ meat_stink_cleanup_on_downed()
 
 	self waittill("player_downed");
 
+	self.lastactiveweapon = self.pre_meat_weapon;
+
 	level.meat_player = undefined;
 
 	self setMoveSpeedScale(1);

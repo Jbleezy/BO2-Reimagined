@@ -287,6 +287,7 @@
 * Ammo can be purchased if only alt weapon ammo has been used
 * Purchasing no longer shows the weapon model at other wallbuys of the same weapon
 * Lethal grenade hint string no longer displays "ammo" after purchasing
+* Downing while purchasing a melee weapon gives the melee weapon
 
 ## Mystery Box
 * Players get every weapon they can before getting duplicates
