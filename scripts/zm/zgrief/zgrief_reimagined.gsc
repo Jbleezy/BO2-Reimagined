@@ -3244,7 +3244,6 @@ meat_think()
 {
 	level endon("end_game");
 
-	meat_player = undefined;
 	held_time = undefined;
 	obj_time = 1000;
 

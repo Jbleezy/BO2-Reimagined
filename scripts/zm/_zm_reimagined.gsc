@@ -2611,8 +2611,12 @@ buildbuildable( buildable, craft = 0, solo_pool = 0, onuse )
 				{
 					stub maps\mp\zombies\_zm_buildables::buildablestub_finish_build( player );
 					stub maps\mp\zombies\_zm_buildables::buildablestub_remove();
-					stub.model notsolid();
-					stub.model show();
+
+					if (isdefined(stub.model))
+					{
+						stub.model notsolid();
+						stub.model show();
+					}
 				}
 				else
 				{
