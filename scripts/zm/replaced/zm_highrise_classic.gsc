@@ -23,12 +23,12 @@ escape_pod()
     used_at_least_once = 0;
     escape_pod setanim( level.escape_elevator_1_state );
     escape_pod setclientfield( "clientfield_escape_pod_light_fx", 1 );
+    escape_pod thread escape_pod_state_run();
     escape_pod_trigger thread escape_pod_walk_on_off( escape_pod );
 
     while ( true )
     {
         escape_pod setanim( level.escape_elevator_idle );
-        flag_clear( "escape_pod_needs_reset" );
 
         if ( isdefined( escape_pod_blocker_door ) )
         {
@@ -41,38 +41,17 @@ escape_pod()
         if ( is_true( used_at_least_once ) )
             wait 3;
 
-        escape_pod thread escape_pod_state_run();
+        level thread escape_pod_wait_for_players_inside( escape_pod, escape_pod_trigger );
 
-        while ( true )
-        {
-            players_in_escape_pod = escape_pod_trigger escape_pod_get_all_alive_players_inside();
+        flag_set( "escape_pod_needs_reset" );
 
-            if ( players_in_escape_pod.size == 0 )
-            {
-                escape_pod.escape_pod_state = 1;
-                wait 0.05;
-                continue;
-            }
+        level waittill( "reset_escape_pod" );
 
-            players_in_escape_pod = escape_pod_trigger escape_pod_get_all_alive_players_inside();
-
-            if ( players_in_escape_pod.size > 0 )
-			{
-				escape_pod.escape_pod_state = 2;
-
-				escape_pod thread escape_pod_tell_fx();
-                wait 3;
-                players_in_escape_pod = escape_pod_trigger escape_pod_get_all_alive_players_inside();
-
-                if ( players_in_escape_pod.size > 0 )
-                    break;
-			}
-
-            wait 0.05;
-        }
+        flag_clear( "escape_pod_needs_reset" );
 
         level notify( "escape_pod_falling_begin" );
 
+        players_in_escape_pod = escape_pod_trigger escape_pod_get_all_alive_players_inside();
         foreach ( player in players_in_escape_pod )
         {
             player.riding_escape_pod = 1;
@@ -153,6 +132,42 @@ escape_pod()
         used_at_least_once = 1;
     }
 }
+
+escape_pod_wait_for_players_inside( escape_pod, escape_pod_trigger )
+{
+    level endon( "reset_escape_pod" );
+
+    while ( true )
+    {
+        players_in_escape_pod = escape_pod_trigger escape_pod_get_all_alive_players_inside();
+
+        if ( players_in_escape_pod.size == 0 )
+        {
+            escape_pod.escape_pod_state = 1;
+            wait 0.05;
+            continue;
+        }
+
+        players_in_escape_pod = escape_pod_trigger escape_pod_get_all_alive_players_inside();
+
+        if ( players_in_escape_pod.size > 0 )
+        {
+            escape_pod.escape_pod_state = 2;
+
+            escape_pod thread escape_pod_tell_fx();
+            wait 3;
+            players_in_escape_pod = escape_pod_trigger escape_pod_get_all_alive_players_inside();
+
+            if ( players_in_escape_pod.size > 0 )
+                break;
+        }
+
+        wait 0.05;
+    }
+
+    level notify( "reset_escape_pod" );
+}
+
 
 escape_pod_get_all_alive_players_inside()
 {

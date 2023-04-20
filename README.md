@@ -584,7 +584,9 @@
 ### Die Rise
 * Removed key
 * Elevators and escape pod can be called without key
+* Elevators can be locked at their current floor
 * Escape pod can be used with any amount of players
+* Escape pod can be called up or down
 * Moved weapon locker to the downstairs fridge
 * Quick Revive elevator randomizes with Speed Cola and Who's Who elevators
 * Zombies are no longer killed while spawning in a stationary elevator

@@ -249,6 +249,29 @@ elevator_think( elevator )
     }
 }
 
+elevator_initial_wait( elevator, minwait, maxwait, delaybeforeleaving )
+{
+    elevator.body endon( "forcego" );
+    elevator.body waittill_any_or_timeout( randomintrange( minwait, maxwait ), "depart_early" );
+
+    if ( !is_true( elevator.body.lock_doors ) && !is_true( elevator.body.elevator_stop ) )
+        elevator.body setanim( level.perk_elevators_anims[elevator.body.perk_type][0] );
+
+    if ( !is_true( elevator.body.departing_early ) )
+        wait( delaybeforeleaving );
+
+    if ( elevator.body.perk_type == "specialty_weapupgrade" )
+    {
+        while ( flag( "pack_machine_in_use" ) )
+            wait 0.5;
+
+        wait( randomintrange( 1, 3 ) );
+    }
+
+    while ( isdefined( level.elevators_stop ) && level.elevators_stop || isdefined( elevator.body.elevator_stop ) && elevator.body.elevator_stop )
+        wait 0.05;
+}
+
 faller_location_logic()
 {
     wait 1;

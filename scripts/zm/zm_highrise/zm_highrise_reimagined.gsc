@@ -159,37 +159,55 @@ custom_faller_entrance_logic()
 elevator_call()
 {
 	trigs = getentarray( "elevator_key_console_trigger", "targetname" );
+
+	foreach (trig in trigs)
+	{
+		elevatorname = trig.script_noteworthy;
+
+		if ( isdefined( elevatorname ) && isdefined( trig.script_parameters ) )
+		{
+			elevator = level.elevators[elevatorname];
+			floor = int( trig.script_parameters );
+			flevel = elevator maps\mp\zm_highrise_elevators::elevator_level_for_floor( floor );
+			trig.elevator = elevator;
+			trig.floor = flevel;
+		}
+
+		trig usetriggerrequirelookat();
+		trig sethintstring( &"ZOMBIE_NEED_POWER" );
+	}
+
+	flag_wait( "power_on" );
+
 	foreach (trig in trigs)
 	{
 		trig thread elevator_call_think();
+		trig thread watch_elevator_prompt();
+		trig thread watch_elevator_body_prompt();
 	}
 }
 
 elevator_call_think()
 {
-	self sethintstring( &"ZM_HIGHRISE_BUILD_KEYS" );
-	self trigger_off();
-
-	elevatorname = self.script_noteworthy;
-
-	if ( isdefined( elevatorname ) && isdefined( self.script_parameters ) )
-	{
-		elevator = level.elevators[elevatorname];
-		floor = int( self.script_parameters );
-		flevel = elevator maps\mp\zm_highrise_elevators::elevator_level_for_floor( floor );
-		self.elevator = elevator;
-		self.floor = flevel;
-	}
-
-	flag_wait( "power_on" );
-
-	self thread watch_elevator_prompt();
+	self notify( "elevator_call_think" );
+	self endon( "elevator_call_think" );
 
 	while ( 1 )
 	{
-		while ( self.elevator maps\mp\zm_highrise_elevators::elevator_is_on_floor( self.floor ) )
+		if ( !self.elevator.body.is_moving && self.elevator maps\mp\zm_highrise_elevators::elevator_is_on_floor( self.floor ) )
 		{
-			self.elevator waittill( "floor_changed" );
+			if ( !is_true( self.elevator.body.elevator_stop ) )
+			{
+				self sethintstring( "Hold ^3[{+activate}]^7 to lock the elevator" );
+			}
+			else
+			{
+				self sethintstring( "Hold ^3[{+activate}]^7 to unlock the elevator" );
+			}
+		}
+		else
+		{
+			self sethintstring( &"ZM_HIGHRISE_BUILD_KEYS" );
 		}
 
 		self trigger_on();
@@ -201,14 +219,31 @@ elevator_call_think()
 			continue;
 		}
 
+		self playsound( "zmb_elevator_ding" );
+
+		if ( !self.elevator.body.is_moving && self.elevator maps\mp\zm_highrise_elevators::elevator_is_on_floor( self.floor ) )
+		{
+			if ( !is_true( self.elevator.body.elevator_stop ) )
+			{
+				self.elevator.body setanim( level.perk_elevators_anims[self.elevator.body.perk_type][1] );
+				self.elevator.body.elevator_stop = 1;
+			}
+			else
+			{
+				self.elevator.body.elevator_stop = 0;
+			}
+
+			continue;
+		}
+
+		self sethintstring( "" );
 		self trigger_off();
 
+		self.elevator.body.elevator_stop = 0;
+		self.elevator.body.elevator_force_go = 1;
 		self maps\mp\zm_highrise_buildables::onuseplantobject_elevatorkey( who );
 
-		while ( !self.elevator maps\mp\zm_highrise_elevators::elevator_is_on_floor( self.floor ) )
-		{
-			self.elevator waittill( "floor_changed" );
-		}
+		return;
 	}
 }
 
@@ -218,13 +253,40 @@ watch_elevator_prompt()
     {
         self.elevator waittill( "floor_changed" );
 
-        if ( self.elevator maps\mp\zm_highrise_elevators::elevator_is_on_floor( self.floor ) )
+		if ( !is_true( self.elevator.body.elevator_force_go ) )
 		{
-			self trigger_off();
+			self thread elevator_call_think();
+		}
+    }
+}
+
+watch_elevator_body_prompt()
+{
+    while ( 1 )
+    {
+        msg = self.elevator.body waittill_any_return( "movedone", "forcego" );
+
+		if ( msg == "movedone" )
+		{
+			while ( is_true( self.elevator.body.is_moving ) )
+			{
+				wait 0.05;
+			}
+
+			self.elevator.body.elevator_force_go = 0;
+			self thread elevator_call_think();
 		}
 		else
 		{
-			self trigger_on();
+			while ( !is_true( self.elevator.body.is_moving ) )
+			{
+				wait 0.05;
+			}
+
+			if ( !self.elevator maps\mp\zm_highrise_elevators::elevator_is_on_floor( self.floor ) )
+			{
+				self thread elevator_call_think();
+			}
 		}
     }
 }
@@ -232,14 +294,16 @@ watch_elevator_prompt()
 escape_pod_call()
 {
 	trig = getent( "escape_pod_key_console_trigger", "targetname" );
+
+	trig usetriggerrequirelookat();
+	trig sethintstring( &"ZM_HIGHRISE_BUILD_KEYS" );
+	trig trigger_off();
+
 	trig thread escape_pod_call_think();
 }
 
 escape_pod_call_think()
 {
-	self sethintstring( &"ZM_HIGHRISE_BUILD_KEYS" );
-	self trigger_off();
-
 	while ( 1 )
 	{
 		flag_wait( "escape_pod_needs_reset" );
