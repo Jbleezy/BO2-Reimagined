@@ -1655,7 +1655,8 @@ wait_and_revive()
 		self thread maps\mp\zombies\_zm::default_exit_level();
 	}
 	solo_revive_time = 10;
-	self.revive_hud settext( &"ZOMBIE_REVIVING_SOLO", self );
+	self.revive_hud.y = -160;
+	self.revive_hud settext( &"ZOMBIE_REVIVING" );
 	self maps\mp\zombies\_zm_laststand::revive_hud_show_n_fade( solo_revive_time );
 	if ( !isDefined( self.beingrevivedprogressbar ) )
 	{

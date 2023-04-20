@@ -166,7 +166,9 @@ afterlife_laststand( b_electric_chair = 0 )
     }
 
     self ghost();
-    self.e_afterlife_corpse = self afterlife_spawn_corpse();
+    corpse = self afterlife_spawn_corpse();
+    self.e_afterlife_corpse = corpse;
+    corpse.e_afterlife_player = self;
     self thread afterlife_clean_up_on_disconnect();
     self notify( "player_fake_corpse_created" );
     self afterlife_fake_revive();
@@ -256,6 +258,16 @@ afterlife_revive_invincible()
 
 afterlife_revive_do_revive( playerbeingrevived, revivergun )
 {
+    playerbeingrevived_player = playerbeingrevived;
+    playerbeingrevived_player.revive_hud.y = -160;
+    beingrevivedprogressbar_y = level.primaryprogressbary * -1;
+    if ( isDefined( playerbeingrevived.e_afterlife_player ) )
+    {
+        playerbeingrevived_player = playerbeingrevived.e_afterlife_player;
+        playerbeingrevived_player.revive_hud.y = -50;
+        beingrevivedprogressbar_y = level.secondaryprogressbary * -2;
+    }
+
     assert( self is_reviving_afterlife( playerbeingrevived ) );
     revivetime = 3;
     playloop = 0;
@@ -269,24 +281,28 @@ afterlife_revive_do_revive( playerbeingrevived, revivergun )
     timer = 0;
     revived = 0;
     playerbeingrevived.revivetrigger.beingrevived = 1;
-    playerbeingrevived.revive_hud settext( &"GAME_PLAYER_IS_REVIVING_YOU", self );
-    playerbeingrevived revive_hud_show_n_fade( 3.0 );
     playerbeingrevived.revivetrigger sethintstring( "" );
+
+    if ( playerbeingrevived_player != self )
+	{
+        playerbeingrevived_player.revive_hud settext( &"GAME_PLAYER_IS_REVIVING_YOU", self );
+        playerbeingrevived_player revive_hud_show_n_fade( 3.0 );
+    }
 
     if ( isplayer( playerbeingrevived ) )
 	{
 		playerbeingrevived startrevive( self );
 	}
 
-	if ( !isDefined( playerbeingrevived.beingrevivedprogressbar ) )
+	if ( !isDefined( playerbeingrevived_player.beingrevivedprogressbar ) && playerbeingrevived_player != self )
 	{
-		playerbeingrevived.beingrevivedprogressbar = playerbeingrevived createprimaryprogressbar();
-        playerbeingrevived.beingrevivedprogressbar setpoint("CENTER", undefined, level.primaryprogressbarx, -1 * level.primaryprogressbary);
-        playerbeingrevived.beingrevivedprogressbar.bar.color = (0.5, 0.5, 1);
-        playerbeingrevived.beingrevivedprogressbar.hidewheninmenu = 1;
-        playerbeingrevived.beingrevivedprogressbar.bar.hidewheninmenu = 1;
-        playerbeingrevived.beingrevivedprogressbar.barframe.hidewheninmenu = 1;
-		playerbeingrevived.beingrevivedprogressbar thread scripts\zm\_zm_reimagined::destroy_on_intermission();
+		playerbeingrevived_player.beingrevivedprogressbar = playerbeingrevived_player createprimaryprogressbar();
+        playerbeingrevived_player.beingrevivedprogressbar setpoint("CENTER", undefined, level.primaryprogressbarx, beingrevivedprogressbar_y);
+        playerbeingrevived_player.beingrevivedprogressbar.bar.color = (0.5, 0.5, 1);
+        playerbeingrevived_player.beingrevivedprogressbar.hidewheninmenu = 1;
+        playerbeingrevived_player.beingrevivedprogressbar.bar.hidewheninmenu = 1;
+        playerbeingrevived_player.beingrevivedprogressbar.barframe.hidewheninmenu = 1;
+		playerbeingrevived_player.beingrevivedprogressbar thread scripts\zm\_zm_reimagined::destroy_on_intermission();
 	}
 
     if ( !isdefined( self.reviveprogressbar ) )
@@ -308,7 +324,7 @@ afterlife_revive_do_revive( playerbeingrevived, revivergun )
     self.is_reviving_any++;
     self thread laststand_clean_up_reviving_any( playerbeingrevived );
 	self.reviveprogressbar updatebar( 0.01, 1 / revivetime );
-    playerbeingrevived.beingrevivedprogressbar updatebar( 0.01, 1 / revivetime );
+    playerbeingrevived_player.beingrevivedprogressbar updatebar( 0.01, 1 / revivetime );
     self.revivetexthud.alignx = "center";
     self.revivetexthud.aligny = "middle";
     self.revivetexthud.horzalign = "center";
@@ -358,9 +374,14 @@ afterlife_revive_do_revive( playerbeingrevived, revivergun )
 
     e_fx delete();
 
-	if ( isDefined( playerbeingrevived.beingrevivedprogressbar ) )
+	if ( isDefined( playerbeingrevived_player.beingrevivedprogressbar ) )
 	{
-		playerbeingrevived.beingrevivedprogressbar destroyelem();
+		playerbeingrevived_player.beingrevivedprogressbar destroyelem();
+	}
+
+    if ( isDefined( playerbeingrevived_player.revive_hud ) )
+	{
+		playerbeingrevived_player.revive_hud settext("");
 	}
 
     if ( isdefined( self.reviveprogressbar ) )

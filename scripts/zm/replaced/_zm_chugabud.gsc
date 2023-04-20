@@ -1,6 +1,7 @@
 #include maps\mp\_utility;
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
+#include maps\mp\gametypes_zm\_hud_util;
 #include maps\mp\zombies\_zm_chugabud;
 
 chugabud_laststand()
@@ -42,8 +43,9 @@ chugabud_laststand()
     {
         self thread activate_chugabud_effects_and_audio();
         corpse = self chugabud_spawn_corpse();
-        corpse thread chugabud_corpse_revive_icon( self );
         self.e_chugabud_corpse = corpse;
+        corpse.e_chugabud_player = self;
+        corpse thread chugabud_corpse_revive_icon( self );
         corpse thread chugabud_corpse_cleanup_on_spectator( self );
 		corpse thread chugabud_corpse_cleanup_on_disconnect( self );
 
@@ -51,7 +53,7 @@ chugabud_laststand()
             corpse setclientfield( "clientfield_whos_who_clone_glow_shader", 1 );
     }
 
-    self chugabud_fake_revive();
+    self thread chugabud_fake_revive();
     wait 0.1;
     self.ignore_insta_kill = undefined;
     self.disable_chugabud_corpse = undefined;
@@ -62,7 +64,7 @@ chugabud_laststand()
         return;
     }
 
-    bleedout_time = getdvarfloat( "player_lastStandBleedoutTime" );
+    bleedout_time = 30;
     self thread chugabud_bleed_timeout( bleedout_time, corpse );
     self thread chugabud_handle_multiple_instances( corpse );
 
@@ -245,27 +247,23 @@ chugabud_spawn_corpse()
     corpse.angles = self.angles;
     corpse maps\mp\zombies\_zm_clone::clone_give_weapon( "m1911_zm" );
     corpse maps\mp\zombies\_zm_clone::clone_animate( "laststand" );
-    corpse.revive_hud = self chugabud_revive_hud_create();
     corpse thread maps\mp\zombies\_zm_laststand::revive_trigger_spawn();
     return corpse;
 }
 
-chugabud_revive_hud_create()
+chugabud_bleed_timeout_hud_create( delay )
 {
-	self.old_revive_hud = self.revive_hud;
-    self.revive_hud = newclienthudelem( self );
-    self.revive_hud.alignx = "center";
-    self.revive_hud.aligny = "middle";
-    self.revive_hud.horzalign = "center";
-    self.revive_hud.vertalign = "bottom";
-    self.revive_hud.y = -50;
-    self.revive_hud.foreground = 1;
-    self.revive_hud.font = "default";
-    self.revive_hud.fontscale = 1.5;
-    self.revive_hud.alpha = 0;
-    self.revive_hud.color = ( 1, 1, 1 );
-    self.revive_hud settext( "" );
-    return self.revive_hud;
+    hud = self createbar((0.25, 0.25, 1), level.secondaryprogressbarwidth * 2, level.secondaryprogressbarheight);
+	hud setpoint("CENTER", undefined, level.secondaryprogressbarx, -2.25 * level.secondaryprogressbary);
+	hud.hidewheninmenu = 1;
+	hud.bar.hidewheninmenu = 1;
+	hud.barframe.hidewheninmenu = 1;
+    hud thread scripts\zm\_zm_reimagined::destroy_on_intermission();
+
+    hud updatebar(1);
+    hud.bar scaleovertime(delay, 1, hud.height);
+
+    return hud;
 }
 
 chugabud_corpse_revive_icon( player )
@@ -310,13 +308,6 @@ chugabud_corpse_cleanup( corpse, was_revived )
         corpse.revivetrigger = undefined;
     }
 
-	if ( isdefined( corpse.revive_hud ) )
-    {
-		self.revive_hud = self.old_revive_hud;
-        corpse.revive_hud destroy();
-        corpse.revive_hud = undefined;
-    }
-
     if ( isdefined( corpse.revive_hud_elem ) )
     {
         corpse.revive_hud_elem destroy();
@@ -327,6 +318,14 @@ chugabud_corpse_cleanup( corpse, was_revived )
     {
         corpse.revive_waypoint_origin delete();
         corpse.revive_waypoint_origin = undefined;
+    }
+
+    if ( isdefined( self.chugabud_bleed_timeout_hud ) )
+    {
+        self.chugabud_bleed_timeout_hud destroy();
+        self.chugabud_bleed_timeout_hud.bar destroy();
+		self.chugabud_bleed_timeout_hud.barframe destroy();
+        self.chugabud_bleed_timeout_hud = undefined;
     }
 
     self.loadout = undefined;
@@ -404,6 +403,8 @@ chugabud_bleed_timeout( delay, corpse )
 	self endon( "player_suicide" );
 	self endon( "disconnect" );
 	corpse endon( "death" );
+
+    self.chugabud_bleed_timeout_hud = self chugabud_bleed_timeout_hud_create( delay );
 
 	wait delay;
 

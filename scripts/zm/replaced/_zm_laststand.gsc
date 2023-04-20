@@ -5,83 +5,121 @@
 
 revive_do_revive( playerbeingrevived, revivergun )
 {
+	playerbeingrevived_player = playerbeingrevived;
+	playerbeingrevived_player.revive_hud.y = -160;
+	beingrevivedprogressbar_y = level.primaryprogressbary * -1;
+	if ( isDefined( playerbeingrevived.e_chugabud_player ) )
+	{
+		playerbeingrevived_player = playerbeingrevived.e_chugabud_player;
+		playerbeingrevived_player.revive_hud.y = -50;
+		beingrevivedprogressbar_y = level.secondaryprogressbary * -2;
+	}
+
 	revivetime = 3;
+
 	if ( self hasperk( "specialty_quickrevive" ) )
 	{
 		revivetime /= 1.5;
 	}
+
 	if ( self maps\mp\zombies\_zm_pers_upgrades_functions::pers_revive_active() )
 	{
 		revivetime *= 0.5;
 	}
+
 	if ( isdefined( self.e_chugabud_corpse ) )
 	{
 		revivetime *= 0.5;
 	}
+
 	timer = 0;
 	revived = 0;
 	playerbeingrevived.revivetrigger.beingrevived = 1;
-	playerbeingrevived.revive_hud settext( &"ZOMBIE_PLAYER_IS_REVIVING_YOU", self );
-	playerbeingrevived maps\mp\zombies\_zm_laststand::revive_hud_show_n_fade( 3 );
 	playerbeingrevived.revivetrigger sethintstring( "" );
+
+	if ( playerbeingrevived_player != self )
+	{
+		playerbeingrevived_player.revive_hud settext( &"ZOMBIE_PLAYER_IS_REVIVING_YOU", self );
+		playerbeingrevived_player maps\mp\zombies\_zm_laststand::revive_hud_show_n_fade( 3 );
+	}
+
 	if ( isplayer( playerbeingrevived ) )
 	{
 		playerbeingrevived startrevive( self );
 	}
-    if ( !isDefined( playerbeingrevived.beingrevivedprogressbar ) )
+
+    if ( !isDefined( playerbeingrevived_player.beingrevivedprogressbar ) && playerbeingrevived_player != self )
 	{
-		playerbeingrevived.beingrevivedprogressbar = playerbeingrevived createprimaryprogressbar();
-        playerbeingrevived.beingrevivedprogressbar setpoint("CENTER", undefined, level.primaryprogressbarx, -1 * level.primaryprogressbary);
-        playerbeingrevived.beingrevivedprogressbar.bar.color = (0.5, 0.5, 1);
-        playerbeingrevived.beingrevivedprogressbar.hidewheninmenu = 1;
-        playerbeingrevived.beingrevivedprogressbar.bar.hidewheninmenu = 1;
-        playerbeingrevived.beingrevivedprogressbar.barframe.hidewheninmenu = 1;
-		playerbeingrevived.beingrevivedprogressbar thread scripts\zm\_zm_reimagined::destroy_on_intermission();
+		playerbeingrevived_player.beingrevivedprogressbar = playerbeingrevived_player createprimaryprogressbar();
+        playerbeingrevived_player.beingrevivedprogressbar setpoint("CENTER", undefined, level.primaryprogressbarx, beingrevivedprogressbar_y);
+        playerbeingrevived_player.beingrevivedprogressbar.bar.color = (0.5, 0.5, 1);
+        playerbeingrevived_player.beingrevivedprogressbar.hidewheninmenu = 1;
+        playerbeingrevived_player.beingrevivedprogressbar.bar.hidewheninmenu = 1;
+        playerbeingrevived_player.beingrevivedprogressbar.barframe.hidewheninmenu = 1;
+		playerbeingrevived_player.beingrevivedprogressbar thread scripts\zm\_zm_reimagined::destroy_on_intermission();
 	}
+
 	if ( !isDefined( self.reviveprogressbar ) )
 	{
 		self.reviveprogressbar = self createprimaryprogressbar();
         self.reviveprogressbar.bar.color = (0.5, 0.5, 1);
 		self.reviveprogressbar thread scripts\zm\_zm_reimagined::destroy_on_intermission();
 	}
+
 	if ( !isDefined( self.revivetexthud ) )
 	{
 		self.revivetexthud = newclienthudelem( self );
 	}
+
 	self thread laststand_clean_up_on_disconnect( playerbeingrevived, revivergun );
+
 	if ( !isDefined( self.is_reviving_any ) )
 	{
 		self.is_reviving_any = 0;
 	}
+
 	self.is_reviving_any++;
 	self thread laststand_clean_up_reviving_any( playerbeingrevived );
 	self.reviveprogressbar updatebar( 0.01, 1 / revivetime );
-    playerbeingrevived.beingrevivedprogressbar updatebar( 0.01, 1 / revivetime );
+    playerbeingrevived_player.beingrevivedprogressbar updatebar( 0.01, 1 / revivetime );
+
+	if ( isDefined( playerbeingrevived_player.beingrevivedprogressbar ) )
+	{
+		playerbeingrevived_player.beingrevivedprogressbar updatebar( 0.01, 1 / revivetime );
+	}
+
 	self.revivetexthud.alignx = "center";
 	self.revivetexthud.aligny = "middle";
 	self.revivetexthud.horzalign = "center";
 	self.revivetexthud.vertalign = "bottom";
 	self.revivetexthud.y = -113;
+
 	if ( self issplitscreen() )
 	{
 		self.revivetexthud.y = -347;
 	}
+
 	self.revivetexthud.foreground = 1;
 	self.revivetexthud.font = "default";
 	self.revivetexthud.fontscale = 1.8;
 	self.revivetexthud.alpha = 1;
 	self.revivetexthud.color = ( 1, 1, 1 );
 	self.revivetexthud.hidewheninmenu = 1;
+
 	if ( self maps\mp\zombies\_zm_pers_upgrades_functions::pers_revive_active() )
 	{
 		self.revivetexthud.color = ( 0.5, 0.5, 1 );
 	}
+
 	self.revivetexthud settext( &"ZOMBIE_REVIVING" );
 	self thread maps\mp\zombies\_zm_laststand::check_for_failed_revive( playerbeingrevived );
+
 	while ( self maps\mp\zombies\_zm_laststand::is_reviving( playerbeingrevived ) )
 	{
 		wait 0.05;
+
 		timer += 0.05;
+
 		if ( self maps\mp\zombies\_zm_laststand::player_is_in_laststand() )
 		{
 			break;
@@ -90,26 +128,37 @@ revive_do_revive( playerbeingrevived, revivergun )
 		{
 			break;
 		}
+
 		if ( timer >= revivetime )
 		{
 			revived = 1;
 			break;
 		}
 	}
-    if ( isDefined( playerbeingrevived.beingrevivedprogressbar ) )
+
+    if ( isDefined( playerbeingrevived_player.beingrevivedprogressbar ) )
 	{
-		playerbeingrevived.beingrevivedprogressbar destroyelem();
+		playerbeingrevived_player.beingrevivedprogressbar destroyelem();
 	}
+
+	if ( isDefined( playerbeingrevived_player.revive_hud ) )
+	{
+		playerbeingrevived_player.revive_hud settext("");
+	}
+
 	if ( isDefined( self.reviveprogressbar ) )
 	{
 		self.reviveprogressbar destroyelem();
 	}
+
 	if ( isDefined( self.revivetexthud ) )
 	{
 		self.revivetexthud destroy();
 	}
+
 	if ( isDefined( playerbeingrevived.revivetrigger.auto_revive ) && playerbeingrevived.revivetrigger.auto_revive == 1 )
 	{
+
 	}
 	else if ( !revived )
 	{
@@ -118,6 +167,7 @@ revive_do_revive( playerbeingrevived, revivergun )
 			playerbeingrevived stoprevive( self );
 		}
 	}
+
 	playerbeingrevived.revivetrigger sethintstring( &"ZOMBIE_BUTTON_TO_REVIVE_PLAYER" );
 	playerbeingrevived.revivetrigger.beingrevived = 0;
 	self notify( "do_revive_ended_normally" );
@@ -127,6 +177,7 @@ revive_do_revive( playerbeingrevived, revivergun )
 	{
 		playerbeingrevived thread maps\mp\zombies\_zm_laststand::checkforbleedout( self );
 	}
+
 	return revived;
 }
 
