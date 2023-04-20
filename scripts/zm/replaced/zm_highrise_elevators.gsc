@@ -188,7 +188,12 @@ elevator_think( elevator )
 
             if ( !skipinitialwait )
             {
+                elevator.body.start_location_wait = 1;
+
+                elevator.body notify( "startwait" );
                 event = elevator.body waittill_any_timeout( 3, "forcego" );
+
+                elevator.body.start_location_wait = 0;
 
                 if ( event == "forcego" )
                 {

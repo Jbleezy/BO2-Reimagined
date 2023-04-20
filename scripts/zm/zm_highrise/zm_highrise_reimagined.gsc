@@ -194,15 +194,15 @@ elevator_call_think()
 
 	while ( 1 )
 	{
-		if ( !self.elevator.body.is_moving && self.elevator maps\mp\zm_highrise_elevators::elevator_is_on_floor( self.floor ) )
+		if ( !self.elevator.body.is_moving && self.elevator maps\mp\zm_highrise_elevators::elevator_is_on_floor( self.floor ) && !is_true( self.elevator.body.start_location_wait ) )
 		{
 			if ( !is_true( self.elevator.body.elevator_stop ) )
 			{
-				self sethintstring( "Hold ^3[{+activate}]^7 to lock the elevator" );
+				self sethintstring( "Hold ^3[{+activate}]^7 to lock elevator" );
 			}
 			else
 			{
-				self sethintstring( "Hold ^3[{+activate}]^7 to unlock the elevator" );
+				self sethintstring( "Hold ^3[{+activate}]^7 to unlock elevator" );
 			}
 		}
 		else
@@ -221,7 +221,7 @@ elevator_call_think()
 
 		self playsound( "zmb_elevator_ding" );
 
-		if ( !self.elevator.body.is_moving && self.elevator maps\mp\zm_highrise_elevators::elevator_is_on_floor( self.floor ) )
+		if ( !self.elevator.body.is_moving && self.elevator maps\mp\zm_highrise_elevators::elevator_is_on_floor( self.floor ) && !is_true( self.elevator.body.start_location_wait ) )
 		{
 			if ( !is_true( self.elevator.body.elevator_stop ) )
 			{
@@ -238,6 +238,11 @@ elevator_call_think()
 
 		self sethintstring( "" );
 		self trigger_off();
+
+		if ( self.elevator maps\mp\zm_highrise_elevators::elevator_is_on_floor( self.floor ) && !is_true( self.elevator.body.start_location_wait ) )
+		{
+			return;
+		}
 
 		self.elevator.body.elevator_stop = 0;
 		self.elevator.body.elevator_force_go = 1;
@@ -264,7 +269,7 @@ watch_elevator_body_prompt()
 {
     while ( 1 )
     {
-        msg = self.elevator.body waittill_any_return( "movedone", "forcego" );
+        msg = self.elevator.body waittill_any_return( "movedone", "forcego", "startwait" );
 
 		if ( msg == "movedone" )
 		{
@@ -276,17 +281,34 @@ watch_elevator_body_prompt()
 			self.elevator.body.elevator_force_go = 0;
 			self thread elevator_call_think();
 		}
-		else
+		else if ( msg == "forcego" )
 		{
-			while ( !is_true( self.elevator.body.is_moving ) )
+			while ( !is_true( self.elevator.body.is_moving ) && !is_true( self.elevator.body.start_location_wait ) )
 			{
 				wait 0.05;
 			}
 
-			if ( !self.elevator maps\mp\zm_highrise_elevators::elevator_is_on_floor( self.floor ) )
+			if ( is_true( self.elevator.body.start_location_wait ) )
 			{
+				while ( is_true( self.elevator.body.start_location_wait ) )
+				{
+					wait 0.05;
+				}
+
+				self.elevator.body.elevator_force_go = 0;
 				self thread elevator_call_think();
 			}
+			else
+			{
+				if ( !self.elevator maps\mp\zm_highrise_elevators::elevator_is_on_floor( self.floor ) )
+				{
+					self thread elevator_call_think();
+				}
+			}
+		}
+		else
+		{
+			self thread elevator_call_think();
 		}
     }
 }
