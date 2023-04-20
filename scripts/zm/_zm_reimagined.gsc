@@ -11,6 +11,7 @@
 #include scripts\zm\replaced\_zm_utility;
 #include scripts\zm\replaced\_zm_score;
 #include scripts\zm\replaced\_zm_laststand;
+#include scripts\zm\replaced\_zm_blockers;
 #include scripts\zm\replaced\_zm_weapons;
 #include scripts\zm\replaced\_zm_magicbox;
 #include scripts\zm\replaced\_zm_perks;
@@ -61,6 +62,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_laststand::revive_give_back_weapons, scripts\zm\replaced\_zm_laststand::revive_give_back_weapons);
 	replaceFunc(maps\mp\zombies\_zm_laststand::revive_hud_think, scripts\zm\replaced\_zm_laststand::revive_hud_think);
 	replaceFunc(maps\mp\zombies\_zm_laststand::auto_revive, scripts\zm\replaced\_zm_laststand::auto_revive);
+	replaceFunc(maps\mp\zombies\_zm_blockers::player_fails_blocker_repair_trigger_preamble, scripts\zm\replaced\_zm_blockers::player_fails_blocker_repair_trigger_preamble);
 	replaceFunc(maps\mp\zombies\_zm_weapons::init_weapon_upgrade, scripts\zm\replaced\_zm_weapons::init_weapon_upgrade);
 	replaceFunc(maps\mp\zombies\_zm_weapons::add_dynamic_wallbuy, scripts\zm\replaced\_zm_weapons::add_dynamic_wallbuy);
 	replaceFunc(maps\mp\zombies\_zm_weapons::weapon_give, scripts\zm\replaced\_zm_weapons::weapon_give);

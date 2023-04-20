@@ -21,3 +21,29 @@ handle_post_board_repair_rewards( cost, zbarrier )
 		self.board_repair += 1;
 	}
 }
+
+player_fails_blocker_repair_trigger_preamble( player, players, trigger, hold_required )
+{
+    if ( !isdefined( trigger ) )
+        return true;
+
+    if ( !is_player_valid( player ) )
+        return true;
+
+    if ( players.size == 1 && isdefined( players[0].intermission ) && players[0].intermission == 1 )
+        return true;
+
+    if ( hold_required && !player usebuttonpressed() )
+        return true;
+
+    if ( !hold_required && !player use_button_held() )
+        return true;
+
+    if ( player in_revive_trigger() )
+        return true;
+
+	if ( player issprinting() || player isthrowinggrenade() )
+        return true;
+
+    return false;
+}
