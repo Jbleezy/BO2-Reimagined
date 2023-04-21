@@ -380,6 +380,7 @@ post_all_players_spawned()
 	level.overrideplayerdamage = scripts\zm\replaced\_zm::player_damage_override;
 	level.playerlaststand_func = scripts\zm\replaced\_zm::player_laststand;
 	level.callbackplayerlaststand = scripts\zm\replaced\_zm::callback_playerlaststand;
+	level._zombies_round_spawn_failsafe = scripts\zm\replaced\_zm::round_spawn_failsafe;
 	level.etrap_damage = maps\mp\zombies\_zm::ai_zombie_health( 255 );
 	level.slipgun_damage = maps\mp\zombies\_zm::ai_zombie_health( 255 );
 	level.tombstone_spawn_func = ::tombstone_spawn;

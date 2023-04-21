@@ -90,6 +90,8 @@ init()
 	level.special_weapon_magicbox_check = ::tomb_special_weapon_magicbox_check;
 	level.custom_magic_box_timer_til_despawn = ::custom_magic_box_timer_til_despawn;
 
+    level.zombie_vars["below_world_check"] = -3000;
+
     change_stargate_teleport_return_player_angles();
 
 	level thread zombie_blood_dig_changes();

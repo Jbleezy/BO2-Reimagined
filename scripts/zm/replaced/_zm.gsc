@@ -205,6 +205,95 @@ round_spawning()
     }
 }
 
+round_spawn_failsafe()
+{
+    self endon( "death" );
+    prevorigin = self.origin;
+	prevorigin_time = gettime();
+
+    while ( true )
+    {
+        if ( isdefined( self.ignore_round_spawn_failsafe ) && self.ignore_round_spawn_failsafe )
+            return;
+
+        wait 0.05;
+
+        if ( isdefined( self.is_inert ) && self.is_inert )
+		{
+			prevorigin = self.origin;
+			prevorigin_time = gettime();
+			continue;
+		}
+
+		if ( isdefined( self.in_the_ground ) && self.in_the_ground )
+		{
+			prevorigin = self.origin;
+			prevorigin_time = gettime();
+			continue;
+		}
+
+		if ( isdefined( self.in_the_ceiling ) && self.in_the_ceiling )
+		{
+			prevorigin = self.origin;
+			prevorigin_time = gettime();
+			continue;
+		}
+
+        if ( isdefined( self.lastchunk_destroy_time ) )
+        {
+            if ( gettime() - self.lastchunk_destroy_time < 4000 )
+			{
+				prevorigin = self.origin;
+				prevorigin_time = gettime();
+				continue;
+			}
+        }
+
+        if ( self.origin[2] < level.zombie_vars["below_world_check"] )
+        {
+            if ( isdefined( level.put_timed_out_zombies_back_in_queue ) && level.put_timed_out_zombies_back_in_queue && !flag( "dog_round" ) && !( isdefined( self.isscreecher ) && self.isscreecher ) )
+            {
+                level.zombie_total++;
+                level.zombie_total_subtract++;
+            }
+
+            self dodamage( self.health + 100, ( 0, 0, 0 ) );
+            break;
+        }
+
+        if ( distancesquared( self.origin, prevorigin ) < 576 )
+        {
+			if ( gettime() - prevorigin_time < 15000 )
+                continue;
+
+            if ( isdefined( level.put_timed_out_zombies_back_in_queue ) && level.put_timed_out_zombies_back_in_queue && !flag( "dog_round" ) )
+            {
+                if ( !self.ignoreall && !( isdefined( self.nuked ) && self.nuked ) && !( isdefined( self.marked_for_death ) && self.marked_for_death ) && !( isdefined( self.isscreecher ) && self.isscreecher ) && ( isdefined( self.has_legs ) && self.has_legs ) && !( isdefined( self.is_brutus ) && self.is_brutus ) )
+                {
+                    level.zombie_total++;
+                    level.zombie_total_subtract++;
+                }
+            }
+
+            level.zombies_timeout_playspace++;
+
+			if ( isdefined( self.is_brutus ) && self.is_brutus )
+            {
+                self.suppress_brutus_powerup_drop = 1;
+                self.brutus_round_spawn_failsafe = 1;
+            }
+
+            self dodamage( self.health + 100, ( 0, 0, 0 ) );
+            break;
+        }
+		else
+		{
+			prevorigin = self.origin;
+			prevorigin_time = gettime();
+		}
+    }
+}
+
 round_think( restart = 0 )
 {
     level endon( "end_round_think" );
