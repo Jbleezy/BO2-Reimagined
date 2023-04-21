@@ -355,6 +355,7 @@
 * Keep any perks obtained in Who's Who mode when exiting Who's Who mode
 * Revive twice as fast in Who's Who mode
 * Decreased Who's Who mode duration from 45 seconds to 30 seconds
+* Self revives in solo always activate during Who's Who mode
 * Invulnerable for 2 seconds after entering and exiting Who's Who mode
 * Controls are frozen for 0.5 seconds after exiting Who's Who mode
 * Purchasing Who's Who in Who's Who mode no longer destroys the clone
