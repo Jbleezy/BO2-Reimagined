@@ -5,6 +5,8 @@
 
 revive_do_revive( playerbeingrevived, revivergun )
 {
+	self thread revive_check_for_weapon_change();
+
 	playerbeingrevived_player = playerbeingrevived;
 	playerbeingrevived_player.revive_hud.y = -160;
 	beingrevivedprogressbar_y = level.primaryprogressbary * -1;
@@ -181,6 +183,19 @@ revive_do_revive( playerbeingrevived, revivergun )
 	return revived;
 }
 
+revive_check_for_weapon_change()
+{
+	self notify( "revive_check_for_weapon_change" );
+	self endon( "revive_check_for_weapon_change" );
+	self endon( "do_revive_ended_normally" );
+
+	self.revive_weapon_changed = 0;
+
+	self waittill_any( "weapon_change", "weapon_change_complete" );
+
+	self.revive_weapon_changed = 1;
+}
+
 laststand_clean_up_on_disconnect( playerbeingrevived, revivergun )
 {
 	self endon( "do_revive_ended_normally" );
@@ -244,17 +259,17 @@ revive_give_back_weapons( gun )
 		return;
 	}
 
-    if (cur_wep != revive_tool)
+    if ( cur_wep != revive_tool && is_true( self.revive_weapon_changed ) )
     {
         return;
     }
 
-	if (self hasWeapon("item_meat_zm"))
+	if ( self hasWeapon( "item_meat_zm" ) )
     {
         return;
     }
 
-	if (self hasWeapon("screecher_arms_zm"))
+	if ( self hasWeapon( "screecher_arms_zm" ) )
     {
         return;
     }
