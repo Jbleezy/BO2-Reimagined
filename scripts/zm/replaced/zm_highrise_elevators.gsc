@@ -374,9 +374,6 @@ watch_for_elevator_during_faller_spawn()
         {
             playfx( level._effect["zomb_gib"], self.origin );
 
-            if ( !( isdefined( self.has_been_damaged_by_player ) && self.has_been_damaged_by_player ) && !( isdefined( self.is_leaper ) && self.is_leaper ) )
-                level.zombie_total++;
-
             if ( isdefined( self.is_leaper ) && self.is_leaper )
             {
                 self maps\mp\zombies\_zm_ai_leaper::leaper_cleanup();

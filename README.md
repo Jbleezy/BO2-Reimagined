@@ -584,11 +584,13 @@
 ### Die Rise
 * Removed key
 * Elevators and escape pod can be called without key
+* Added purchase cost to call elevators and escape pod
 * Elevators can be locked at their current floor
 * Escape pod can be used with any amount of players
 * Escape pod can be called up or down
 * Moved weapon locker to the downstairs fridge
 * Quick Revive elevator randomizes with Speed Cola and Who's Who elevators
+* Zombies killed by an elevator no longer respawn
 * Zombies are no longer killed while spawning in a stationary elevator
 * Zombies no longer spawn in the Upper Blue Highrise zone when in the Green Highrise zone
 * Zombies no longer spawn in the zone next to the Lower Orange Highrise zone when in the Lower Orange Highrise zone while the debris is closed

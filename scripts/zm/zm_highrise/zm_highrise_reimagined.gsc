@@ -173,6 +173,7 @@ elevator_call()
 			trig.floor = flevel;
 		}
 
+		trig.cost = 250;
 		trig usetriggerrequirelookat();
 		trig sethintstring( &"ZOMBIE_NEED_POWER" );
 	}
@@ -194,6 +195,7 @@ elevator_call_think()
 
 	while ( 1 )
 	{
+		cost_active = 0;
 		if ( !self.elevator.body.is_moving && self.elevator maps\mp\zm_highrise_elevators::elevator_is_on_floor( self.floor ) && !is_true( self.elevator.body.start_location_wait ) )
 		{
 			if ( !is_true( self.elevator.body.elevator_stop ) )
@@ -207,7 +209,8 @@ elevator_call_think()
 		}
 		else
 		{
-			self sethintstring( &"ZM_HIGHRISE_BUILD_KEYS" );
+			cost_active = 1;
+			self sethintstring( &"ZM_HIGHRISE_BUILD_KEYS", " [Cost: " + self.cost + "]" );
 		}
 
 		self trigger_on();
@@ -217,6 +220,19 @@ elevator_call_think()
 		if ( !is_player_valid( who ) )
         {
 			continue;
+		}
+
+		if ( cost_active )
+		{
+			if ( who.score < self.cost )
+			{
+				play_sound_at_pos( "no_purchase", self.origin );
+				who maps\mp\zombies\_zm_audio::create_and_play_dialog( "general", "door_deny" );
+				continue;
+			}
+
+			who maps\mp\zombies\_zm_score::minus_to_player_score( self.cost );
+			play_sound_at_pos( "purchase", self.origin );
 		}
 
 		self playsound( "zmb_elevator_ding" );
@@ -317,8 +333,9 @@ escape_pod_call()
 {
 	trig = getent( "escape_pod_key_console_trigger", "targetname" );
 
+	trig.cost = 750;
 	trig usetriggerrequirelookat();
-	trig sethintstring( &"ZM_HIGHRISE_BUILD_KEYS" );
+	trig sethintstring( &"ZM_HIGHRISE_BUILD_KEYS", " [Cost: " + trig.cost + "]" );
 	trig trigger_off();
 
 	trig thread escape_pod_call_think();
@@ -338,6 +355,16 @@ escape_pod_call_think()
         {
 			continue;
 		}
+
+		if ( who.score < self.cost )
+		{
+			play_sound_at_pos( "no_purchase", self.origin );
+			who maps\mp\zombies\_zm_audio::create_and_play_dialog( "general", "door_deny" );
+			continue;
+		}
+
+		who maps\mp\zombies\_zm_score::minus_to_player_score( self.cost );
+		play_sound_at_pos( "purchase", self.origin );
 
 		self trigger_off();
 
