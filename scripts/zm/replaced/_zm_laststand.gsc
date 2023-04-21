@@ -400,7 +400,13 @@ auto_revive( reviver, dont_enable_weapons )
     self.ignoreme = 0;
     self.laststand = undefined;
 
-    if ( reviver != self )
+	valid_reviver = 1;
+	if ( is_gametype_active( "zgrief" ) && reviver == self )
+	{
+		valid_reviver = 0;
+	}
+
+    if ( valid_reviver )
     {
         reviver.revives++;
         reviver maps\mp\zombies\_zm_stats::increment_client_stat( "revives" );
