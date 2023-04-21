@@ -234,19 +234,22 @@ grenade_safe_to_bounce( player, weapname )
 
 zombie_spawn_location_changes()
 {
-	for ( z = 0; z < level.zone_keys.size; z++ )
+	foreach ( zone in level.zones )
 	{
-		zone = level.zones[ level.zone_keys[ z ] ];
-
-        i = 0;
-        while ( i < zone.spawn_locations.size )
-        {
-            if ( zone.spawn_locations[ i ].origin == ( 9963, 8025, -554.9 ) )
-            {
-                zone.spawn_locations[ i ].origin += ( 0, 0, -32 );
-            }
-
-            i++;
+		foreach ( spawn_location in zone.spawn_locations )
+		{
+			if ( spawn_location.origin == ( 9963, 8025, -554.9 ) )
+			{
+				spawn_location.origin += ( 0, 0, -32 );
+			}
+			else if ( spawn_location.origin == ( -2202, -6881, -86.6 ) )
+			{
+				spawn_location.origin += ( 0, 0, -32 );
+			}
+			else if ( spawn_location.origin == ( -666, -4962, -66 ) )
+			{
+				spawn_location.origin += ( 0, 0, -16 );
+			}
 		}
 	}
 }
