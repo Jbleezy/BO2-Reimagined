@@ -19,6 +19,7 @@
 * Removed fog
 * Disabled depth of field
 * Increased level of detail at longer distances
+* Announcer audio always plays
 * In-game menu no longer disabled instantly when the game ends
 
 ## HUD
@@ -772,7 +773,6 @@
 * Added teammate waypoint icons
 * Added kill feed (includes downs, revives, and bleed outs)
 * Added player kills on scoreboard (replaces headshots)
-* Announcer audio always plays
 * Last player alive audio only plays for the player who is alive instead of every player on the team
 * Can only spectate own team
 * Added map and game mode voting on servers
