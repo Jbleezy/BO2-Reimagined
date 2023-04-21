@@ -258,6 +258,9 @@ chugabud_bleed_timeout_hud_create( delay )
 	hud.hidewheninmenu = 1;
 	hud.bar.hidewheninmenu = 1;
 	hud.barframe.hidewheninmenu = 1;
+    hud.sort = 1;
+	hud.bar.sort = 2;
+	hud.barframe.sort = 3;
     hud thread scripts\zm\_zm_reimagined::destroy_on_intermission();
 
     hud updatebar(1);

@@ -1666,6 +1666,9 @@ wait_and_revive()
         self.beingrevivedprogressbar.hidewheninmenu = 1;
         self.beingrevivedprogressbar.bar.hidewheninmenu = 1;
         self.beingrevivedprogressbar.barframe.hidewheninmenu = 1;
+		self.beingrevivedprogressbar.sort = 1;
+        self.beingrevivedprogressbar.bar.sort = 2;
+        self.beingrevivedprogressbar.barframe.sort = 3;
 	}
 	self.beingrevivedprogressbar updatebar( 0.01, 1 / solo_revive_time );
 	flag_wait_or_timeout( "instant_revive", solo_revive_time );

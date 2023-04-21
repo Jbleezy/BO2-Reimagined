@@ -1080,7 +1080,6 @@ obj_waypoint()
 	self.obj_waypoint.vertalign = "user_center";
 	self.obj_waypoint.alpha = 0;
 	self.obj_waypoint.hidewheninmenu = 1;
-	self.obj_waypoint.foreground = 1;
 	self.obj_waypoint setWaypoint(1, level.obj_waypoint_icon);
 
 	self thread obj_waypoint_destroy_on_end_game();

@@ -530,9 +530,9 @@ health_bar_hud()
 	hud.foreground = 1;
 	hud.bar.foreground = 1;
 	hud.barframe.foreground = 1;
-	hud.sort = 0;
-	hud.bar.sort = 1;
-	hud.barframe.sort = 2;
+	hud.sort = 1;
+	hud.bar.sort = 2;
+	hud.barframe.sort = 3;
 
 	hud_text = createfontstring("objective", 1.2);
 	hud_text.alignx = "left";
@@ -1854,16 +1854,14 @@ bleedout_bar_hud()
 
 	flag_wait( "initial_blackscreen_passed" );
 
-	if(flag("solo_game"))
-	{
-		return;
-	}
-
 	hud = self createbar((1, 0, 0), level.secondaryprogressbarwidth * 2, level.secondaryprogressbarheight);
 	hud setpoint("CENTER", undefined, level.secondaryprogressbarx, -1 * level.secondaryprogressbary);
 	hud.hidewheninmenu = 1;
 	hud.bar.hidewheninmenu = 1;
 	hud.barframe.hidewheninmenu = 1;
+	hud.sort = 1;
+	hud.bar.sort = 2;
+	hud.barframe.sort = 3;
 	hud hideelem();
 
 	hud thread destroy_on_intermission();
@@ -1874,6 +1872,11 @@ bleedout_bar_hud()
 
 		// don't show for last player downed
 		if(!self maps\mp\zombies\_zm_laststand::player_is_in_laststand())
+		{
+			continue;
+		}
+
+		if(flag("solo_game"))
 		{
 			continue;
 		}

@@ -302,6 +302,9 @@ afterlife_revive_do_revive( playerbeingrevived, revivergun )
         playerbeingrevived_player.beingrevivedprogressbar.hidewheninmenu = 1;
         playerbeingrevived_player.beingrevivedprogressbar.bar.hidewheninmenu = 1;
         playerbeingrevived_player.beingrevivedprogressbar.barframe.hidewheninmenu = 1;
+        playerbeingrevived_player.beingrevivedprogressbar.sort = 1;
+		playerbeingrevived_player.beingrevivedprogressbar.bar.sort = 2;
+		playerbeingrevived_player.beingrevivedprogressbar.barframe.sort = 3;
 		playerbeingrevived_player.beingrevivedprogressbar thread scripts\zm\_zm_reimagined::destroy_on_intermission();
 	}
 
@@ -309,6 +312,9 @@ afterlife_revive_do_revive( playerbeingrevived, revivergun )
 	{
 		self.reviveprogressbar = self createprimaryprogressbar();
 		self.reviveprogressbar.bar.color = (0.5, 0.5, 1);
+        self.reviveprogressbar.sort = 1;
+		self.reviveprogressbar.bar.sort = 2;
+		self.reviveprogressbar.barframe.sort = 3;
 		self.reviveprogressbar thread scripts\zm\_zm_reimagined::destroy_on_intermission();
 	}
 

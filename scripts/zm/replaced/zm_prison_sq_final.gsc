@@ -428,7 +428,6 @@ final_showdown_create_icon( player, enemy )
     hud_elem = newclienthudelem( player );
     hud_elem.alpha = 1;
     hud_elem.archived = 1;
-    hud_elem.foreground = 1;
     hud_elem.hidewheninmenu = 1;
     hud_elem.color = (1, 0, 0);
     hud_elem setwaypoint( 1, "waypoint_kill_red" );
