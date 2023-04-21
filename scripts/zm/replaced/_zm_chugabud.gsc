@@ -258,6 +258,9 @@ chugabud_bleed_timeout_hud_create( delay )
 	hud.hidewheninmenu = 1;
 	hud.bar.hidewheninmenu = 1;
 	hud.barframe.hidewheninmenu = 1;
+    hud.foreground = 1;
+	hud.bar.foreground = 1;
+	hud.barframe.foreground = 1;
     hud.sort = 1;
 	hud.bar.sort = 2;
 	hud.barframe.sort = 3;
