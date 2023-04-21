@@ -390,6 +390,8 @@ watch_for_elevator_during_faller_spawn()
         {
             if ( is_true( elevator.body.is_moving ) && self istouching( elevator.body ) )
                 should_gib = 1;
+            else if ( !is_true( elevator.body.is_moving ) && distancesquared( elevator.body getcentroid(), self getcentroid() ) <= 9216 )
+                should_gib = 1;
         }
 
         if ( should_gib )
