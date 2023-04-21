@@ -81,6 +81,8 @@ powerup_grab( powerup_team )
                         continue;
                 }
 
+				self.power_up_grab_player = players[i];
+
                 if ( isdefined( level.zombie_powerup_grab_func ) )
                     level thread [[ level.zombie_powerup_grab_func ]]();
                 else
@@ -191,7 +193,6 @@ powerup_grab( powerup_team )
                     level notify( self.grabbed_level_notify );
 
                 self.claimed = 1;
-                self.power_up_grab_player = players[i];
                 wait 0.1;
                 playsoundatposition( "zmb_powerup_grabbed", self.origin );
                 self stoploopsound();
@@ -388,7 +389,7 @@ empty_clip_move_hud( team )
 nuke_powerup( drop_item, player_team )
 {
 	location = drop_item.origin;
-	player = getClosest(location, get_players(player_team));
+	player = drop_item.power_up_grab_player;
 	playfx( drop_item.fx, location );
 	level thread maps\mp\zombies\_zm_powerups::nuke_flash( player_team );
 	wait 0.5;
@@ -660,4 +661,26 @@ half_points_powerup( drop_item, player )
 	level.zombie_vars[ team ][ "zombie_point_scalar" ] *= 2;
 	level.zombie_vars[ team ][ "zombie_powerup_point_halfer_on" ] = 0;
 	level.zombie_vars[ team ][ "zombie_powerup_point_halfer_time" ] = time;
+}
+
+start_fire_sale( item )
+{
+	level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog( "fire_sale", getotherteam( item.power_up_grab_player.pers["team"] ) );
+
+    if ( level.zombie_vars["zombie_powerup_fire_sale_time"] > 0 && is_true( level.zombie_vars["zombie_powerup_fire_sale_on"] ) )
+    {
+        level.zombie_vars["zombie_powerup_fire_sale_time"] += 30;
+        return;
+    }
+
+    level notify( "powerup fire sale" );
+    level endon( "powerup fire sale" );
+    level.zombie_vars["zombie_powerup_fire_sale_on"] = 1;
+    level thread toggle_fire_sale_on();
+
+    for ( level.zombie_vars["zombie_powerup_fire_sale_time"] = 30; level.zombie_vars["zombie_powerup_fire_sale_time"] > 0; level.zombie_vars["zombie_powerup_fire_sale_time"] -= 0.05 )
+        wait 0.05;
+
+    level.zombie_vars["zombie_powerup_fire_sale_on"] = 0;
+    level notify( "fire_sale_off" );
 }
