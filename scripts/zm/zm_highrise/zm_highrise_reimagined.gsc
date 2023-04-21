@@ -55,6 +55,7 @@ init()
 	level.zombie_init_done = ::zombie_init_done;
 	level.special_weapon_magicbox_check = ::highrise_special_weapon_magicbox_check;
 	level.check_for_valid_spawn_near_team_callback = ::highrise_respawn_override;
+	level.zm_traversal_override = ::zm_traversal_override;
 	level.chugabud_laststand_func = scripts\zm\replaced\_zm_chugabud::chugabud_laststand;
 
 	slipgun_change_ammo();
@@ -123,6 +124,24 @@ highrise_respawn_override( revivee, return_struct )
 			}
 		}
 	}
+}
+
+zm_traversal_override( traversealias )
+{
+	if ( traversealias == "dierise_traverse_3_high_to_low" )
+	{
+		traversealias = "dierise_traverse_2_high_to_low";
+		self.pre_traverse = ::change_origin;
+	}
+
+    return traversealias;
+}
+
+change_origin()
+{
+	self.pre_traverse = undefined;
+	self.origin += anglestoforward( self.traversestartnode.angles ) * -16;
+	self orientmode( "face angle", self.traversestartnode.angles[1] + 15 );
 }
 
 slipgun_change_ammo()

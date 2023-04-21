@@ -594,8 +594,9 @@
 * Quick Revive elevator randomizes with Speed Cola and Who's Who elevators
 * Zombies killed by an elevator no longer respawn
 * Zombies are no longer killed while spawning in a stationary elevator
-* Zombies no longer spawn in the Upper Blue Highrise zone when in the Green Highrise zone
-* Zombies no longer spawn in the zone next to the Lower Orange Highrise zone when in the Lower Orange Highrise zone while the debris is closed
+* Zombies no longer spawn in the Upper Blue Highrise area when in the Green Highrise area
+* Zombies no longer spawn across from the debris in the Lower Orange Highrise area when the debris is closed
+* Zombies no longer fall off the map traversing down to the Green Highrise Level 1 area
 * Fixed weapon model angle on upside down Mystery Box
 * Quest: elevator symbols can be activated without players on every symbol
 * Quest: elevator symbols stay active after activating once
