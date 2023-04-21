@@ -277,6 +277,28 @@ elevator_initial_wait( elevator, minwait, maxwait, delaybeforeleaving )
         wait 0.05;
 }
 
+elevator_move_sound()
+{
+    self playsound( "zmb_elevator_ding" );
+
+    wait 0.4;
+
+    if ( !is_true( self.is_moving ) )
+    {
+        return;
+    }
+
+    self playsound( "zmb_elevator_ding" );
+    self playsound( "zmb_elevator_run_start" );
+    self playloopsound( "zmb_elevator_run", 0.5 );
+
+    self waittill( "movedone" );
+
+    self stoploopsound( 0.5 );
+    self playsound( "zmb_elevator_run_stop" );
+    self playsound( "zmb_elevator_ding" );
+}
+
 faller_location_logic()
 {
     wait 1;
