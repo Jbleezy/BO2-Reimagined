@@ -646,7 +646,7 @@
 * Grief: added Richtofen's Head meat powerup model
 * Grief: Tower Trap targets and stuns players
 * Fixed initial weapon raise animation happening after exiting afterlife
-* Fixed being able to hit a death barrier when jumping off the Docks Bridge
+* Fixed being able to hit a death barrier when jumping off the Docks Bridge zone
 * Fixed locked hint string not showing on Blundergat Upgrade buildable table
 
 #### Docks
@@ -734,6 +734,7 @@
 * Quest (raise hell step): all staffs must be fully charged for souls to be collected
 * Quest (raise hell step): zombies in The Crazy Place get knocked down during the screen flash after collecting all souls
 * Quest (freedom step): teleport trigger can be triggered without looking at it
+* Fixed being able to hit a death barrier when jumping off the Above Generator 3 Bunker zone
 
 ## Game Modes
 

@@ -92,6 +92,8 @@ init()
 
     level.zombie_vars["below_world_check"] = -3000;
 
+    maps\mp\zombies\_zm::spawn_life_brush( (1839, 3574, -228), 512, 256 );
+
     change_stargate_teleport_return_player_angles();
 
 	level thread zombie_blood_dig_changes();
