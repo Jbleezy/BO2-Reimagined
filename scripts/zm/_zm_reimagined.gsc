@@ -3911,25 +3911,23 @@ show_powerswitch()
 
 zone_changes()
 {
-	if(is_classic())
-	{
-		if(level.scr_zm_map_start_location == "rooftop")
-		{
-			// AN94 to Debris
-			level.zones[ "zone_orange_level3a" ].adjacent_zones[ "zone_orange_level3b" ].is_connected = 0;
-
-			// Trample Steam to Skyscraper
-			level.zones[ "zone_green_level3b" ].adjacent_zones[ "zone_blue_level1c" ] structdelete();
-			level.zones[ "zone_green_level3b" ].adjacent_zones[ "zone_blue_level1c" ] = undefined;
-		}
-	}
-	else
+	if(level.script == "zm_transit")
 	{
 		if(level.scr_zm_map_start_location == "farm")
 		{
 			// Barn to Farm
 			flag_set("OnFarm_enter");
 		}
+	}
+	else if(level.script == "zm_highrise")
+	{
+		// Green Highrise to Lower Blue Highrise
+		level.zones[ "zone_green_level3b" ].adjacent_zones[ "zone_blue_level1c" ] structdelete();
+		level.zones[ "zone_green_level3b" ].adjacent_zones[ "zone_blue_level1c" ] = undefined;
+
+		// Lower Orange Highrise debris
+		level.zones[ "zone_orange_level3a" ].adjacent_zones[ "zone_orange_level3b" ].is_connected = 0;
+		level.zones[ "zone_orange_level3b" ].adjacent_zones[ "zone_orange_level3a" ].is_connected = 0;
 	}
 }
 
