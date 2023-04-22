@@ -231,6 +231,12 @@ elevator_call_think()
 		}
 		else
 		{
+			if ( self.elevator maps\mp\zm_highrise_elevators::elevator_is_on_floor( self.floor ) && !is_true( self.elevator.body.start_location_wait ) )
+			{
+				self sethintstring( "The elevator is on the way" );
+				return;
+			}
+
 			cost_active = 1;
 			self sethintstring( &"ZM_HIGHRISE_BUILD_KEYS", " [Cost: " + self.cost + "]" );
 		}
@@ -274,17 +280,23 @@ elevator_call_think()
 			continue;
 		}
 
-		self sethintstring( "" );
-		self trigger_off();
-
-		if ( self.elevator maps\mp\zm_highrise_elevators::elevator_is_on_floor( self.floor ) && !is_true( self.elevator.body.start_location_wait ) )
-		{
-			return;
-		}
-
 		self.elevator.body.elevator_stop = 0;
 		self.elevator.body.elevator_force_go = 1;
 		self maps\mp\zm_highrise_buildables::onuseplantobject_elevatorkey( who );
+
+		if ( is_true( self.elevator.body.start_location_wait ) && self.elevator maps\mp\zm_highrise_elevators::elevator_is_on_floor( self.floor ) )
+		{
+			self sethintstring( "Hold ^3[{+activate}]^7 to lock elevator" );
+
+			while ( is_true( self.elevator.body.start_location_wait ) )
+			{
+				wait 0.05;
+			}
+
+			continue;
+		}
+
+		self sethintstring( "The elevator is on the way" );
 
 		return;
 	}
@@ -296,22 +308,26 @@ watch_elevator_prompt()
     {
         self.elevator waittill( "floor_changed" );
 
-		if ( !is_true( self.elevator.body.elevator_force_go ) )
-		{
-			self thread elevator_call_think();
-		}
+		self thread do_watch_elevator_prompt();
     }
 }
 
-watch_elevator_body_prompt()
+do_watch_elevator_prompt()
 {
-    while ( 1 )
-    {
-        msg = self.elevator.body waittill_any_return( "movedone", "forcego", "startwait" );
+	self notify( "do_watch_elevator_prompt" );
+	self endon( "do_watch_elevator_prompt" );
+	self endon( "do_watch_elevator_body_prompt" );
 
-		if ( msg == "movedone" )
+	if ( is_true( self.elevator.body.elevator_force_go ) )
+	{
+		while ( !is_true( self.elevator.body.is_moving ) && !is_true( self.elevator.body.start_location_wait ) )
 		{
-			while ( is_true( self.elevator.body.is_moving ) )
+			wait 0.05;
+		}
+
+		if ( is_true( self.elevator.body.start_location_wait ) )
+		{
+			while ( is_true( self.elevator.body.start_location_wait ) )
 			{
 				wait 0.05;
 			}
@@ -319,36 +335,47 @@ watch_elevator_body_prompt()
 			self.elevator.body.elevator_force_go = 0;
 			self thread elevator_call_think();
 		}
-		else if ( msg == "forcego" )
-		{
-			while ( !is_true( self.elevator.body.is_moving ) && !is_true( self.elevator.body.start_location_wait ) )
-			{
-				wait 0.05;
-			}
-
-			if ( is_true( self.elevator.body.start_location_wait ) )
-			{
-				while ( is_true( self.elevator.body.start_location_wait ) )
-				{
-					wait 0.05;
-				}
-
-				self.elevator.body.elevator_force_go = 0;
-				self thread elevator_call_think();
-			}
-			else
-			{
-				if ( !self.elevator maps\mp\zm_highrise_elevators::elevator_is_on_floor( self.floor ) )
-				{
-					self thread elevator_call_think();
-				}
-			}
-		}
 		else
 		{
 			self thread elevator_call_think();
 		}
+	}
+	else
+	{
+		self thread elevator_call_think();
+	}
+}
+
+watch_elevator_body_prompt()
+{
+    while ( 1 )
+    {
+        msg = self.elevator.body waittill_any_return( "movedone", "startwait" );
+
+		self thread do_watch_elevator_body_prompt( msg );
     }
+}
+
+do_watch_elevator_body_prompt( msg )
+{
+	self notify( "do_watch_elevator_body_prompt" );
+	self endon( "do_watch_elevator_body_prompt" );
+	self endon( "do_watch_elevator_prompt" );
+
+	if ( msg == "movedone" )
+	{
+		while ( is_true( self.elevator.body.is_moving ) )
+		{
+			wait 0.05;
+		}
+
+		self.elevator.body.elevator_force_go = 0;
+		self thread elevator_call_think();
+	}
+	else
+	{
+		self thread elevator_call_think();
+	}
 }
 
 watch_elevator_lights()
@@ -395,8 +422,6 @@ escape_pod_call()
 
 	trig.cost = 750;
 	trig usetriggerrequirelookat();
-	trig sethintstring( &"ZM_HIGHRISE_BUILD_KEYS", " [Cost: " + trig.cost + "]" );
-	trig trigger_off();
 
 	trig thread escape_pod_call_think();
 }
@@ -407,7 +432,7 @@ escape_pod_call_think()
 	{
 		flag_wait( "escape_pod_needs_reset" );
 
-		self trigger_on();
+		self sethintstring( &"ZM_HIGHRISE_BUILD_KEYS", " [Cost: " + self.cost + "]" );
 
 		self waittill( "trigger", who );
 
@@ -428,7 +453,7 @@ escape_pod_call_think()
 
 		self playsound( "zmb_buildable_complete" );
 
-		self trigger_off();
+		self sethintstring( "The elevator is on the way" );
 
 		self maps\mp\zm_highrise_buildables::onuseplantobject_escapepodkey( who );
 
