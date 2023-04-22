@@ -732,3 +732,18 @@ busupdateplayers()
         wait 0.05;
     }
 }
+
+busplowkillzombieuntildeath()
+{
+    self endon( "death" );
+
+    while ( isdefined( self ) && isalive( self ) )
+    {
+        if ( isdefined( self.health ) )
+        {
+            self dodamage( self.health + 666, self.origin, self, self, "none", "MOD_SUICIDE" );
+        }
+
+        wait 1;
+    }
+}
