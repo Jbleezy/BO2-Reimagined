@@ -136,22 +136,29 @@ chugabud_fake_revive()
         level.chugabud_force_player_position = undefined;
     }
 
-    self setorigin( spawnpoint.origin );
-    self setplayerangles( spawnpoint.angles );
-    playsoundatposition( "evt_ww_appear", spawnpoint.origin );
-    playfx( level._effect["chugabud_revive_fx"], spawnpoint.origin );
     self allowstand( 1 );
     self allowcrouch( 1 );
     self allowprone( 1 );
-    self.ignoreme = 0;
     self setstance( "stand" );
-    self freezecontrols( 0 );
 	self chugabud_give_loadout();
 	self seteverhadweaponall( 1 );
     self.score = self.loadout.score;
     self.pers["score"] = self.loadout.score;
 
-    wait 2;
+    self setorigin( spawnpoint.origin );
+    self setplayerangles( spawnpoint.angles );
+    playsoundatposition( "evt_ww_appear", spawnpoint.origin );
+    playfx( level._effect["chugabud_revive_fx"], spawnpoint.origin );
+
+    wait 0.5;
+
+    self freezecontrols( 0 );
+
+    wait 0.5;
+
+    self.ignoreme = 0;
+
+    wait 1;
 
     self disableinvulnerability();
 }

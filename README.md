@@ -55,7 +55,7 @@
 * Removed blur when getting damaged
 * Removed shellshock from explosive damage
 * No longer killed when landing on top of another player
-* Ignored by enemies for 1 second after being revived
+* Ignored by zombies for 1 second after being revived
 * Weapon is no longer switched after reviving if player switched weapons during revive
 * No longer gain points back on self revives
 * Respawn near random player (normally respawns near the same player every time)
@@ -226,8 +226,8 @@
 * Decreased last stand ammo from 3 clips to 1 clip
 
 ### Jet Gun
-* Kills multiple enemies significantly faster
-* Kills enemies that are in the ground, traversing, or behind barriers
+* Kills multiple zombies significantly faster
+* Kills zombies that are in the ground, traversing, or behind barriers
 * Awards points for kills
 * Cools down twice as fast
 * Cools down while not holding weapon
@@ -354,15 +354,16 @@
 
 ### Who's Who
 * Keep weapons when entering Who's Who mode
+* Spawn facing towards the clone when entering Who's Who mode
 * Keep any perks obtained in Who's Who mode when exiting Who's Who mode
-* Revive twice as fast in Who's Who mode
 * Decreased Who's Who mode duration from 45 seconds to 30 seconds
 * Self revives in solo always activate during Who's Who mode
+* Ignored by zombies for 1 second after entering Who's Who mode
 * Invulnerable for 2 seconds after entering and exiting Who's Who mode
-* Controls are frozen for 0.5 seconds after exiting Who's Who mode
+* Controls are frozen for 0.5 seconds after entering and exiting Who's Who mode
 * Purchasing Who's Who in Who's Who mode no longer destroys the clone
 * Downing with Who's Who in Who's Who mode destroys the clone
-* Added Who's Who mode duration on HUD
+* Added Who's Who mode duration bar on HUD
 * Changed revive waypoint icon to Who's Who perk icon
 * Revive waypoint shows offscreen
 
