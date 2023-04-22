@@ -235,9 +235,6 @@ vending_weapon_upgrade()
             continue;
         }
 
-        if ( isdefined( level.pap_moving ) && level.pap_moving )
-            continue;
-
         if ( player isswitchingweapons() )
         {
             wait 0.1;

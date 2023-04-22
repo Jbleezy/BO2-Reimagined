@@ -67,6 +67,48 @@ main()
     level thread maps\mp\zm_highrise_elevators::shouldsuppressgibs();
 }
 
+highrise_pap_move_in( trigger, origin_offset, angles_offset )
+{
+    level endon( "Pack_A_Punch_off" );
+    trigger endon( "pap_player_disconnected" );
+    pap_machine = trigger.perk_machine;
+    worldgun = trigger.worldgun;
+    worldgundw = trigger.worldgun.worldgundw;
+    offset = origin_offset[2];
+    trigger.worldgun rotateto( self.angles + angles_offset + vectorscale( ( 0, 1, 0 ), 90.0 ), 0.35, 0, 0 );
+    offsetdw = vectorscale( ( 1, 1, 1 ), 3.0 );
+
+    if ( isdefined( trigger.worldgun.worldgundw ) )
+        worldgundw rotateto( self.angles + angles_offset + vectorscale( ( 0, 1, 0 ), 90.0 ), 0.35, 0, 0 );
+
+    elapsed_time_counter = 0;
+
+    while ( isdefined( worldgun ) && elapsed_time_counter < 0.5 )
+    {
+        worldgun.origin = ( worldgun.origin[0], worldgun.origin[1], pap_machine.origin[2] + offset );
+
+        if ( isdefined( worldgundw ) )
+            worldgundw.origin = ( worldgundw.origin[0], worldgundw.origin[1], pap_machine.origin[2] + offset + offsetdw[2] );
+
+        elapsed_time_counter += 0.05;
+        wait 0.05;
+    }
+
+    move_vec = ( self.origin + origin_offset - worldgun.origin ) * 0.05 / 0.5;
+    elapsed_time_counter = 0;
+
+    while ( isdefined( worldgun ) && elapsed_time_counter < 0.5 )
+    {
+        worldgun.origin = ( worldgun.origin[0] + move_vec[0], worldgun.origin[1] + move_vec[1], pap_machine.origin[2] + offset );
+
+        if ( isdefined( worldgundw ) )
+            worldgundw.origin = ( worldgundw.origin[0] + move_vec[0], worldgundw.origin[1] + move_vec[1], pap_machine.origin[2] + offset + offsetdw[2] );
+
+        elapsed_time_counter += 0.05;
+        wait 0.05;
+    }
+}
+
 squashed_death_init( kill_if_falling )
 {
     while ( true )
