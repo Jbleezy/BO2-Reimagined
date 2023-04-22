@@ -383,6 +383,8 @@ escape_pod_call_think()
 		who maps\mp\zombies\_zm_score::minus_to_player_score( self.cost );
 		play_sound_at_pos( "purchase", self.origin );
 
+		self playsound( "zmb_buildable_complete" );
+
 		self trigger_off();
 
 		self maps\mp\zm_highrise_buildables::onuseplantobject_escapepodkey( who );
