@@ -117,7 +117,6 @@ pooledbuildablestub_update_prompt( player, trigger )
 				if (!is_true(self.open_buildable_checking_input))
 				{
 					self thread choose_open_buildable(player);
-					return 1;
 				}
 			}
 			else
@@ -132,13 +131,11 @@ pooledbuildablestub_update_prompt( player, trigger )
 				}
 
 				self.buildables_available_index = 0;
-				self.equipname = level.buildables_available[self.buildables_available_index];
+				equipname = level.buildables_available[self.buildables_available_index];
+				self.hint_string = level.zombie_buildables[equipname].hint;
 			}
 
-			if (self.buildables_available_index >= level.buildables_available.size)
-			{
-				self.buildables_available_index = 0;
-			}
+			return 1;
 		}
 
         if ( isdefined( level.zombie_buildables[self.equipname].hint ) )
