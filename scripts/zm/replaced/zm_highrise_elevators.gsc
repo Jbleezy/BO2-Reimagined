@@ -177,9 +177,15 @@ elevator_think( elevator )
         if ( dist > 0 )
         {
             if ( elevator.body.origin[2] > floor_goal[2] )
-                clientnotify( elevator.name + "_d" );
+            {
+                elevator.dir = "_d";
+            }
             else
-                clientnotify( elevator.name + "_u" );
+            {
+                elevator.dir = "_u";
+            }
+
+            clientnotify( elevator.name + elevator.dir );
         }
 
         if ( is_true( start_location ) )
@@ -223,9 +229,15 @@ elevator_think( elevator )
                     if ( dist > 0 )
                     {
                         if ( elevator.body.origin[2] > floor_goal[2] )
-                            clientnotify( elevator.name + "_d" );
+                        {
+                            elevator.dir = "_d";
+                        }
                         else
-                            clientnotify( elevator.name + "_u" );
+                        {
+                            elevator.dir = "_u";
+                        }
+
+                        clientnotify( elevator.name + elevator.dir );
                     }
                 }
             }
@@ -251,6 +263,46 @@ elevator_think( elevator )
 
         elevator elevator_set_moving( 0 );
         elevator elevator_enable_paths( elevator.body.current_level );
+    }
+}
+
+predict_floor( elevator, next, speed )
+{
+    next = elevator_next_floor( elevator, next, 1 );
+
+    if ( isdefined( elevator.floors["" + ( next + 1 )] ) )
+        elevator.body.next_level = "" + ( next + 1 );
+    else
+    {
+        start_location = 1;
+        elevator.body.next_level = "0";
+    }
+
+    floor_stop = elevator.floors[elevator.body.next_level];
+    floor_goal = undefined;
+    cur_level_start_pos = elevator.floors[elevator.body.next_level].starting_position;
+    start_level_start_pos = elevator.floors[elevator.body.starting_floor].starting_position;
+
+    if ( elevator.body.next_level == elevator.body.starting_floor || isdefined( cur_level_start_pos ) && isdefined( start_level_start_pos ) && cur_level_start_pos == start_level_start_pos )
+        floor_goal = cur_level_start_pos;
+    else
+        floor_goal = floor_stop.origin;
+
+    dist = distance( elevator.body.origin, floor_goal );
+    time = dist / speed;
+
+    if ( dist > 0 )
+    {
+        if ( elevator.body.origin[2] > floor_goal[2] )
+        {
+            elevator.dir = "_d";
+        }
+        else
+        {
+            elevator.dir = "_u";
+        }
+
+        clientnotify( elevator.name + elevator.dir );
     }
 }
 

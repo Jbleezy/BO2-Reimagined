@@ -203,6 +203,11 @@ elevator_call()
 		trig thread watch_elevator_prompt();
 		trig thread watch_elevator_body_prompt();
 	}
+
+	foreach (elevator in level.elevators)
+	{
+		elevator thread watch_elevator_lights();
+	}
 }
 
 elevator_call_think()
@@ -344,6 +349,44 @@ watch_elevator_body_prompt()
 			self thread elevator_call_think();
 		}
     }
+}
+
+watch_elevator_lights()
+{
+	set = 1;
+	dir = "_d";
+
+	while ( 1 )
+	{
+		if ( is_true( self.body.elevator_stop ) )
+		{
+			if ( set )
+			{
+				set = 0;
+
+				dir = self.dir;
+			}
+
+			clientnotify( self.name + dir );
+
+			if ( dir == "_d" )
+			{
+				dir = "_u";
+			}
+			else
+			{
+				dir = "_d";
+			}
+		}
+		else if ( !set )
+		{
+			set = 1;
+
+			clientnotify( self.name + self.dir );
+		}
+
+		wait 0.05;
+	}
 }
 
 escape_pod_call()
