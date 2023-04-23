@@ -497,7 +497,7 @@ health_bar_hud()
 {
 	self endon("disconnect");
 
-	flag_wait( "initial_blackscreen_passed" );
+	flag_wait( "hud_visible" );
 
 	x = 5;
 	y = -104;
@@ -602,9 +602,10 @@ enemy_counter_hud()
 
 	hud thread destroy_on_intermission();
 
-	flag_wait( "initial_blackscreen_passed" );
+	flag_wait( "hud_visible" );
 
 	hud.alpha = 1;
+
 	while (1)
 	{
 		enemies = get_round_enemy_array().size + level.zombie_total;
@@ -668,9 +669,14 @@ timer_hud()
 
 	level thread set_time_frozen_on_end_game(hud);
 
-	flag_wait( "initial_blackscreen_passed" );
+	flag_wait( "hud_visible" );
 
 	hud.alpha = 1;
+
+	if ( !flag( "initial_blackscreen_passed" ) )
+	{
+		set_time_frozen(hud, 0, "initial_blackscreen_passed");
+	}
 
 	if ( getDvar( "g_gametype" ) == "zgrief" )
 	{
@@ -708,9 +714,14 @@ round_timer_hud()
 
 	level thread set_time_frozen_on_end_game(hud);
 
-	flag_wait( "initial_blackscreen_passed" );
+	flag_wait( "hud_visible" );
 
 	hud.alpha = 1;
+
+	if ( !flag( "initial_blackscreen_passed" ) )
+	{
+		set_time_frozen(hud, 0, "initial_blackscreen_passed");
+	}
 
 	if ( getDvar( "g_gametype" ) == "zgrief" )
 	{
@@ -755,9 +766,13 @@ set_time_frozen_on_end_game(hud)
 	set_time_frozen(hud, time);
 }
 
-set_time_frozen(hud, time)
+set_time_frozen(hud, time, endon_notify)
 {
-	if ( getDvar( "g_gametype" ) == "zgrief" )
+	if ( isDefined( endon_notify ) )
+	{
+		level endon( endon_notify );
+	}
+	else if ( getDvar( "g_gametype" ) == "zgrief" )
 	{
 		level endon( "restart_round_start" );
 	}
@@ -818,7 +833,7 @@ zone_hud()
 
 	hud thread destroy_on_intermission();
 
-	flag_wait( "initial_blackscreen_passed" );
+	flag_wait( "hud_visible" );
 
 	vars = [];
 
@@ -1857,7 +1872,7 @@ bleedout_bar_hud()
 {
 	self endon("disconnect");
 
-	flag_wait( "initial_blackscreen_passed" );
+	flag_wait( "hud_visible" );
 
 	hud = self createbar((1, 0, 0), level.secondaryprogressbarwidth * 2, level.secondaryprogressbarheight);
 	hud setpoint("CENTER", undefined, level.secondaryprogressbarx, -1 * level.secondaryprogressbary);

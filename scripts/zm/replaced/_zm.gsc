@@ -514,11 +514,16 @@ onallplayersready()
         thread start_zombie_logic_in_x_sec( 3.0 );
     }
 
+	setDvar("team_axis", "");
+	setDvar("team_allies", "");
+
     fade_out_intro_screen_zm( 5.0, 1.5, 1 );
 }
 
 fade_out_intro_screen_zm( hold_black_time, fade_out_time, destroyed_afterwards )
 {
+	flag_init( "hud_visible" );
+
     if ( !isdefined( level.introscreen ) )
     {
         level.introscreen = newhudelem();
@@ -554,6 +559,8 @@ fade_out_intro_screen_zm( hold_black_time, fade_out_time, destroyed_afterwards )
 	{
 		player setclientuivisibilityflag( "hud_visible", 1 );
 	}
+
+	flag_set( "hud_visible" );
 
 	if ( isDedicated() && isDefined( level.pregame_minplayers ) )
     {

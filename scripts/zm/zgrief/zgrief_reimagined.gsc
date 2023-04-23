@@ -122,7 +122,7 @@ grief_gamemode_hud()
 
 grief_gamemode_hud_wait_and_show()
 {
-	flag_wait( "initial_blackscreen_passed" );
+	flag_wait( "hud_visible" );
 
 	level.grief_gamemode_hud.alpha = 1;
 }
@@ -256,7 +256,7 @@ grief_score_hud()
 
 grief_score_hud_wait_and_show()
 {
-	flag_wait( "initial_blackscreen_passed" );
+	flag_wait( "hud_visible" );
 
 	level.grief_score_hud["axis"].icon["axis"].alpha = 1;
 	level.grief_score_hud["axis"].icon["allies"].alpha = 1;
@@ -971,7 +971,7 @@ add_grief_bleedout_score()
 
 team_player_waypoint()
 {
-	flag_wait( "initial_blackscreen_passed" );
+	flag_wait( "hud_visible" );
 
 	self.player_waypoint_origin = spawn( "script_model", self.origin );
 	self.player_waypoint_origin setmodel( "tag_origin" );
@@ -1151,9 +1151,6 @@ round_start_wait(time, initial)
 		level thread freeze_hotjoin_players();
 
 		flag_wait("initial_blackscreen_passed");
-
-		setDvar("team_axis", "");
-		setDvar("team_allies", "");
 	}
 	else
 	{
@@ -2746,7 +2743,7 @@ containment_think()
 {
 	level endon("end_game");
 
-	flag_wait("initial_blackscreen_passed");
+	flag_wait("hud_visible");
 
 	ind = 0;
 	containment_zones = containment_get_zones();
