@@ -692,7 +692,7 @@ grief_onplayerconnect()
 	self thread on_player_downed();
 	self thread on_player_bleedout();
 	self thread on_player_revived();
-	self thread team_player_waypoint();
+	self thread head_icon();
 	self thread obj_waypoint();
 	self thread headstomp_watcher();
 	self thread smoke_grenade_cluster_watcher();
@@ -716,15 +716,15 @@ grief_onplayerdisconnect(disconnecting_player)
 {
 	level endon("end_game");
 
-	if (isDefined(disconnecting_player.player_waypoint))
+	if (isDefined(disconnecting_player.head_icon))
 	{
-		if (isDefined(disconnecting_player.player_waypoint_origin))
+		if (isDefined(disconnecting_player.head_icon_origin))
 		{
-			disconnecting_player.player_waypoint_origin unlink();
-			disconnecting_player.player_waypoint_origin delete();
+			disconnecting_player.head_icon_origin unlink();
+			disconnecting_player.head_icon_origin delete();
 		}
 
-		disconnecting_player.player_waypoint destroy();
+		disconnecting_player.head_icon destroy();
 	}
 
 	if(!flag("initial_blackscreen_passed"))
@@ -787,7 +787,7 @@ on_player_spawned()
 	{
 		self waittill( "spawned_player" );
 
-		self.player_waypoint.alpha = 1;
+		self.head_icon.alpha = 1;
 
 		self thread scripts\zm\replaced\_zm::player_spawn_protection();
 
@@ -833,7 +833,7 @@ on_player_spectate()
 	{
 		self waittill( "spawned_spectator" );
 
-		self.player_waypoint.alpha = 0;
+		self.head_icon.alpha = 0;
 	}
 }
 
@@ -846,7 +846,7 @@ on_player_downed()
 	{
 		self waittill( "entering_last_stand" );
 
-		self.player_waypoint.alpha = 0;
+		self.head_icon.alpha = 0;
 		self kill_feed();
 		self add_grief_downed_score();
 		level thread update_players_on_downed( self );
@@ -862,7 +862,7 @@ on_player_bleedout()
 	{
 		self waittill_any( "bled_out", "player_suicide" );
 
-		self.player_waypoint.alpha = 0;
+		self.head_icon.alpha = 0;
 
 		if(isDefined(level.zombie_last_stand_ammo_return))
 		{
@@ -912,7 +912,7 @@ on_player_revived()
 	{
 		self waittill( "player_revived", reviver );
 
-		self.player_waypoint.alpha = 1;
+		self.head_icon.alpha = 1;
 		self revive_feed( reviver );
 	}
 }
@@ -972,43 +972,25 @@ add_grief_bleedout_score()
 	}
 }
 
-team_player_waypoint()
+head_icon()
 {
 	flag_wait( "hud_visible" );
 
-	self.player_waypoint_origin = spawn( "script_model", self.origin );
-	self.player_waypoint_origin setmodel( "tag_origin" );
-	self.player_waypoint_origin linkto( self );
-	self thread team_player_waypoint_origin_think();
+	self.head_icon_origin = spawn( "script_model", self.origin );
+	self.head_icon_origin setmodel( "tag_origin" );
+	self.head_icon_origin linkto( self );
+	self thread head_icon_origin_think();
 
-	self.player_waypoint = [];
-	self.player_waypoint = newTeamHudElem(self.team);
-	self.player_waypoint.alignx = "center";
-	self.player_waypoint.aligny = "middle";
-	self.player_waypoint.horzalign = "user_center";
-	self.player_waypoint.vertalign = "user_center";
-	self.player_waypoint.hidewheninmenu = 1;
-	self.player_waypoint setShader(game["icons"][self.team], 6, 6);
-	self.player_waypoint setWaypoint(1);
-	self.player_waypoint setTargetEnt(self.player_waypoint_origin);
-
-	if (is_player_valid(self))
-	{
-		self.player_waypoint.alpha = 1;
-	}
-	else
-	{
-		self.player_waypoint.alpha = 0;
-	}
+	self.head_icon = scripts\zm\replaced\_zm_gametype::head_icon_create();
 }
 
-team_player_waypoint_origin_think()
+head_icon_origin_think()
 {
 	self endon("disconnect");
 
 	prev_stance = "none";
 
-	while (isDefined(self.player_waypoint_origin))
+	while (isDefined(self.head_icon_origin))
 	{
 		cur_stance = self getStance();
 
@@ -1016,22 +998,22 @@ team_player_waypoint_origin_think()
 		{
 			prev_stance = cur_stance;
 
-			self.player_waypoint_origin unlink();
+			self.head_icon_origin unlink();
 
 			if (cur_stance == "stand" || !self isOnGround())
 			{
-				self.player_waypoint_origin.origin = self.origin + (0, 0, 72);
+				self.head_icon_origin.origin = self.origin + (0, 0, 72);
 			}
 			else if (cur_stance == "crouch")
 			{
-				self.player_waypoint_origin.origin = self.origin + (0, 0, 52);
+				self.head_icon_origin.origin = self.origin + (0, 0, 52);
 			}
 			else if (cur_stance == "prone")
 			{
-				self.player_waypoint_origin.origin = self.origin + (0, 0, 23);
+				self.head_icon_origin.origin = self.origin + (0, 0, 23);
 			}
 
-			self.player_waypoint_origin linkto(self);
+			self.head_icon_origin linkto(self);
 		}
 
 		wait 0.05;
@@ -3290,7 +3272,7 @@ meat_think()
 						player.obj_waypoint.color = (1, 0, 0);
 					}
 
-					player.obj_waypoint setTargetEnt(level.meat_player.player_waypoint_origin);
+					player.obj_waypoint setTargetEnt(level.meat_player.head_icon_origin);
 				}
 			}
 

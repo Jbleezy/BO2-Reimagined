@@ -53,7 +53,7 @@ item_meat_on_spawn_retrieve_trigger( watcher, player, weaponname )
 
 	if (level.scr_zm_ui_gametype_obj == "zmeat")
 	{
-		player.player_waypoint.alpha = 1;
+		player.head_icon.alpha = 1;
 	}
 
 	players = get_players();

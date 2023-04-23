@@ -345,12 +345,6 @@ menu_onmenuresponse()
                 maps\mp\zombies\_zm_game_module::freeze_players( 1 );
                 level notify( "end_game" );
             }
-            else
-            {
-                self closemenu();
-                self closeingamemenu();
-                self iprintln( &"MP_HOST_ENDGAME_RESPONSE" );
-            }
 
             continue;
         }
@@ -412,4 +406,35 @@ set_team(team)
 	}
 
 	self [[ level.givecustomcharacters ]]();
+
+	if (isDefined(self.head_icon))
+	{
+		self.head_icon destroy();
+
+		self.head_icon = self head_icon_create();
+	}
+}
+
+head_icon_create()
+{
+	hud = newTeamHudElem(self.team);
+	hud.alignx = "center";
+	hud.aligny = "middle";
+	hud.horzalign = "user_center";
+	hud.vertalign = "user_center";
+	hud.hidewheninmenu = 1;
+	hud setShader(game["icons"][self.team], 6, 6);
+	hud setWaypoint(1);
+	hud setTargetEnt(self.head_icon_origin);
+
+	if (is_player_valid(self))
+	{
+		hud.alpha = 1;
+	}
+	else
+	{
+		hud.alpha = 0;
+	}
+
+	return hud;
 }

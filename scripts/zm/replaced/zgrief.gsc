@@ -190,7 +190,7 @@ meat_stink( who )
 
 	if (level.scr_zm_ui_gametype_obj == "zmeat")
 	{
-		who.player_waypoint.alpha = 0;
+		who.head_icon.alpha = 0;
 	}
 
 	players = get_players();

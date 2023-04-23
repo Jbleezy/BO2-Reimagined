@@ -57,10 +57,6 @@ startturretdeploy( weapon )
 		{
 			turret thread maps\mp\zombies\_zm_mgturret::burst_fire_unmanned();
 		}
-		else
-		{
-			self iprintlnbold( &"ZOMBIE_NEED_LOCAL_POWER" );
-		}
 		self thread turretdecay( weapon );
 		self thread maps\mp\zombies\_zm_buildables::delete_on_disconnect( weapon );
 		weapon waittill("death");
