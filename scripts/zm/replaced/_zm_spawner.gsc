@@ -415,3 +415,12 @@ zombie_can_drop_powerups( zombie )
 
     return true;
 }
+
+zombie_complete_emerging_into_playable_area()
+{
+	self setphysparams( 15, 0, 60 );
+    self.completed_emerging_into_playable_area = 1;
+    self notify( "completed_emerging_into_playable_area" );
+    self.no_powerups = 0;
+    self thread zombie_free_cam_allowed();
+}

@@ -25,11 +25,11 @@ jail_traversal_fix()
             {
                 if ( node.animscript == "zm_jump_down_48" && node.type == "Begin" )
                 {
-                    self setphysparams( 25, 0, 48 );
+                    self setphysparams( 25, 0, 60 );
                     wait 1;
 
                     if ( is_true( self.has_legs ) )
-                        self setphysparams( 15, 0, 48 );
+                        self setphysparams( 15, 0, 60 );
                     else
                         self setphysparams( 15, 0, 24 );
                 }
