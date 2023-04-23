@@ -86,7 +86,7 @@ init()
 	level.autoassign = scripts\zm\replaced\_globallogic_ui::menuautoassign;
 	level.custom_spectate_permissions = undefined;
 
-	level.is_respawn_gamemode_func = ::is_respawn_gamemode;
+	level.should_respawn_func = ::should_respawn;
 	level.round_start_wait_func = ::round_start_wait;
 	level.increment_score_func = ::increment_score;
 	level.show_grief_hud_msg_func = ::show_grief_hud_msg;
@@ -1576,24 +1576,29 @@ get_gamemode_winning_score()
 	}
 }
 
-is_respawn_gamemode()
+should_respawn()
 {
 	if (is_true(level.intermission))
 	{
 		return 0;
 	}
 
+	if (!is_true(level.match_started))
+	{
+		return 1;
+	}
+
+	return is_respawn_gamemode();
+}
+
+is_respawn_gamemode()
+{
 	if(!isDefined(level.scr_zm_ui_gametype_obj))
 	{
 		return 0;
 	}
 
-	if(level.scr_zm_ui_gametype_obj == "zgrief" || level.scr_zm_ui_gametype_obj == "zrace" || level.scr_zm_ui_gametype_obj == "zcontainment" || level.scr_zm_ui_gametype_obj == "zmeat")
-	{
-		return 1;
-	}
-
-	return 0;
+	return level.scr_zm_ui_gametype_obj == "zgrief" || level.scr_zm_ui_gametype_obj == "zrace" || level.scr_zm_ui_gametype_obj == "zcontainment" || level.scr_zm_ui_gametype_obj == "zmeat";
 }
 
 show_grief_hud_msg( msg, msg_parm, offset, delay )

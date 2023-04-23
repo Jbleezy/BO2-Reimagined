@@ -174,7 +174,7 @@ onplayerspawned()
 
 hide_gump_loading_for_hotjoiners()
 {
-	if(isDefined(level.is_respawn_gamemode_func) && [[level.is_respawn_gamemode_func]]())
+	if(isDefined(level.should_respawn_func) && [[level.should_respawn_func]]())
 	{
 		return;
 	}

@@ -4,7 +4,7 @@
 
 game_mode_spawn_player_logic()
 {
-	if(isDefined(level.is_respawn_gamemode_func) && [[level.is_respawn_gamemode_func]]())
+	if(isDefined(level.should_respawn_func) && [[level.should_respawn_func]]())
 	{
 		return 0;
 	}
