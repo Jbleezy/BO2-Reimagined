@@ -133,6 +133,7 @@ init()
 	level.navcards = undefined; // removes navcards on HUD
 	level.player_too_many_players_check = 0;
 	level.player_too_many_weapons_monitor_func = scripts\zm\replaced\_zm::player_too_many_weapons_monitor;
+	level.pregame_minplayers = getDvarInt("party_minplayers");
 
 	if(getDvar("g_gametype") == "zgrief" && is_true(level.scr_zm_ui_gametype_pro))
 	{

@@ -313,6 +313,13 @@ set_grief_vars()
 
 	level.allow_teamchange = getDvarInt("ui_gametype_team_change");
 
+	if(getDvarInt("party_minplayers") < 2)
+	{
+		setDvar("party_minplayers", 2);
+	}
+
+	level.pregame_minplayers = getDvarInt("party_minplayers");
+
 	level.noroundnumber = 1;
 	level.zombie_powerups["meat_stink"].solo = 1;
 	level.zombie_powerups["meat_stink"].func_should_drop_with_regular_powerups = ::func_should_drop_meat;

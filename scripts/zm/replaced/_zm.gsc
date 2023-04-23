@@ -517,6 +517,102 @@ onallplayersready()
     fade_out_intro_screen_zm( 5.0, 1.5, 1 );
 }
 
+fade_out_intro_screen_zm( hold_black_time, fade_out_time, destroyed_afterwards )
+{
+    if ( !isdefined( level.introscreen ) )
+    {
+        level.introscreen = newhudelem();
+        level.introscreen.x = 0;
+        level.introscreen.y = 0;
+        level.introscreen.horzalign = "fullscreen";
+        level.introscreen.vertalign = "fullscreen";
+        level.introscreen.foreground = 0;
+        level.introscreen setshader( "black", 640, 480 );
+        level.introscreen.immunetodemogamehudsettings = 1;
+        level.introscreen.immunetodemofreecamera = 1;
+        wait 0.05;
+    }
+
+    level.introscreen.alpha = 1;
+
+    if ( isdefined( hold_black_time ) )
+        wait( hold_black_time );
+    else
+        wait 0.2;
+
+    if ( !isdefined( fade_out_time ) )
+        fade_out_time = 1.5;
+
+    level.introscreen fadeovertime( fade_out_time );
+    level.introscreen.alpha = 0;
+    wait 1.6;
+
+	level.passed_introscreen = 1;
+
+	players = get_players();
+	foreach (player in players)
+	{
+		player setclientuivisibilityflag( "hud_visible", 1 );
+	}
+
+	if ( isDedicated() && isDefined( level.pregame_minplayers ) )
+    {
+		pregame_hud = createServerFontString( "objective", 1.5 );
+		pregame_hud setPoint( "CENTER", "CENTER", 0, -40 );
+		pregame_hud.foreground = 1;
+		pregame_hud.color = ( 1, 1, 1 );
+		pregame_hud.hidewheninmenu = true;
+
+		num_players = get_number_of_valid_players();
+		while ( num_players < level.pregame_minplayers )
+		{
+			num_waiting_for = level.pregame_minplayers - num_players;
+
+			if (level.intermission)
+			{
+				pregame_hud.alpha = 0;
+			}
+			else if (num_waiting_for == 1)
+			{
+				pregame_hud setText("WAITING FOR " + num_waiting_for + " MORE PLAYER [" + num_players + "/" + level.pregame_minplayers + "]");
+			}
+			else
+			{
+				pregame_hud setText("WAITING FOR " + num_waiting_for + " MORE PLAYERS [" + num_players + "/" + level.pregame_minplayers + "]");
+			}
+
+			wait 0.05;
+
+			num_players = get_number_of_valid_players();
+		}
+
+		pregame_hud destroy();
+	}
+
+    players = get_players();
+    for ( i = 0; i < players.size; i++ )
+    {
+        if ( !( isdefined( level.host_ended_game ) && level.host_ended_game ) )
+        {
+            if ( isdefined( level.player_movement_suppressed ) )
+            {
+                players[i] freezecontrols( level.player_movement_suppressed );
+                continue;
+            }
+
+            if ( !( isdefined( players[i].hostmigrationcontrolsfrozen ) && players[i].hostmigrationcontrolsfrozen ) )
+            {
+                players[i] freezecontrols( 0 );
+            }
+        }
+    }
+
+    if ( destroyed_afterwards == 1 )
+        level.introscreen destroy();
+
+    flag_set( "initial_blackscreen_passed" );
+}
+
 last_stand_pistol_rank_init()
 {
 	level.pistol_values = [];
