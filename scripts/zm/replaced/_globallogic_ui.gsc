@@ -58,31 +58,28 @@ menuautoassign( comingfrommenu )
         {
             if ( sessionmodeiszombiesgame() )
             {
-                if (level.allow_teamchange)
+                if (assignment == "")
                 {
-                    if (assignment == "")
+                    guids = strTok(getDvar("team_axis"), " ");
+                    foreach (guid in guids)
                     {
-                        guids = strTok(getDvar("team_axis"), " ");
-                        foreach (guid in guids)
+                        if (self getguid() == int(guid))
                         {
-                            if (self getguid() == int(guid))
-                            {
-                                assignment = "axis";
-                                break;
-                            }
+                            assignment = "axis";
+                            break;
                         }
                     }
+                }
 
-                    if (assignment == "")
+                if (assignment == "")
+                {
+                    guids = strTok(getDvar("team_allies"), " ");
+                    foreach (guid in guids)
                     {
-                        guids = strTok(getDvar("team_allies"), " ");
-                        foreach (guid in guids)
+                        if (self getguid() == int(guid))
                         {
-                            if (self getguid() == int(guid))
-                            {
-                                assignment = "allies";
-                                break;
-                            }
+                            assignment = "allies";
+                            break;
                         }
                     }
                 }

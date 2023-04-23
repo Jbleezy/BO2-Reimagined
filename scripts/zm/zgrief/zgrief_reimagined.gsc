@@ -1144,6 +1144,9 @@ round_start_wait(time, initial)
 		level thread freeze_hotjoin_players();
 
 		flag_wait("initial_blackscreen_passed");
+
+		setDvar("team_axis", "");
+		setDvar("team_allies", "");
 	}
 	else
 	{
@@ -2552,23 +2555,41 @@ save_teams_on_intermission()
 {
 	level waittill("intermission");
 
-	text = "";
-	players = get_players("axis");
-	foreach (player in players)
+	axis_guids = "";
+	allies_guids = "";
+
+	if (level.allow_teamchange)
 	{
-		text += player getguid() + " ";
+		players = get_players("axis");
+		foreach (player in players)
+		{
+			axis_guids += player getguid() + " ";
+		}
+
+		players = get_players("allies");
+		foreach (player in players)
+		{
+			allies_guids += player getguid() + " ";
+		}
+	}
+	else
+	{
+		players = array_randomize(get_players());
+		for (i = 0; i < players.size; i++)
+		{
+			if (i % 2 == 0)
+			{
+				axis_guids += player getguid() + " ";
+			}
+			else
+			{
+				allies_guids += player getguid() + " ";
+			}
+		}
 	}
 
-	setDvar("team_axis", text);
-
-	text = "";
-	players = get_players("allies");
-	foreach (player in players)
-	{
-		text += player getguid() + " ";
-	}
-
-	setDvar("team_allies", text);
+	setDvar("team_axis", axis_guids);
+	setDvar("team_allies", allies_guids);
 }
 
 all_voice_on_intermission()
