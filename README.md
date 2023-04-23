@@ -204,6 +204,7 @@
 ### Claymore
 * Can be repurchased
 * Increased max amount that can be placed from 12 to 20
+* Removed initial weapon raise animation
 
 ### Time Bomb
 * No longer sends players back in time
