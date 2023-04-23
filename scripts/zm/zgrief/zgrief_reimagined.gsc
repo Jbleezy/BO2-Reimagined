@@ -727,7 +727,7 @@ grief_onplayerdisconnect(disconnecting_player)
 		disconnecting_player.player_waypoint destroy();
 	}
 
-	if(!flag("initial_players_connected"))
+	if(!flag("initial_blackscreen_passed"))
 	{
 		return;
 	}
@@ -1583,7 +1583,7 @@ should_respawn()
 		return 0;
 	}
 
-	if (!is_true(level.match_started))
+	if (!flag("initial_blackscreen_passed"))
 	{
 		return 1;
 	}

@@ -610,8 +610,6 @@ fade_out_intro_screen_zm( hold_black_time, fade_out_time, destroyed_afterwards )
     if ( destroyed_afterwards == 1 )
         level.introscreen destroy();
 
-	level.match_started = 1;
-
     flag_set( "initial_blackscreen_passed" );
 }
 
