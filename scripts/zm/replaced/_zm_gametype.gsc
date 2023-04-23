@@ -233,21 +233,7 @@ menu_onmenuresponse()
         {
 			self closemenu();
             self closeingamemenu();
-
-			if ( !level.allow_teamchange )
-			{
-				teamplayers = countplayers( self.pers["team"] );
-				otherteamplayers = countplayers( getotherteam( self.pers["team"] ) );
-
-				if ( teamplayers - 1 <= otherteamplayers )
-				{
-					self iprintln( "Can only change teams if unbalanced." );
-					continue;
-				}
-			}
-
-			set_team( getotherteam( self.pers["team"] ) );
-
+			self thread do_team_change();
 			continue;
         }
 
@@ -384,6 +370,68 @@ menu_onmenuresponse()
             self [[ level.class ]]( response );
         }
     }
+}
+
+do_team_change()
+{
+	if ( !level.allow_teamchange )
+	{
+		teamplayers = countplayers( self.pers["team"] );
+		otherteamplayers = countplayers( getotherteam( self.pers["team"] ) );
+
+		if ( teamplayers - 1 <= otherteamplayers )
+		{
+			self iprintln( "Can only change teams if unbalanced." );
+			return;
+		}
+	}
+
+	self.playernum = undefined;
+
+	level notify( "team_change", self.pers["team"] );
+
+	num = 0;
+	valid_num = false;
+	other_team = getotherteam(self.pers["team"]);
+	players = get_players(other_team);
+
+	for(num = 0; num < 4; num++)
+	{
+		valid_num = true;
+
+		foreach(player in players)
+		{
+			if(isdefined(player.playernum) && player.playernum == num)
+			{
+				valid_num = false;
+				break;
+			}
+		}
+
+		if(valid_num)
+		{
+			break;
+		}
+	}
+
+	if (!valid_num)
+	{
+		self iprintln( "Waiting for other player to change teams." );
+
+		level waittill( "team_change", team );
+
+		if (team == self.pers["team"])
+		{
+			return;
+		}
+	}
+
+	set_team( getotherteam( self.pers["team"] ) );
+
+	if ( !flag( "initial_blackscreen_passed" ) )
+	{
+		self [[ level.spawnplayer ]]();
+	}
 }
 
 set_team(team)

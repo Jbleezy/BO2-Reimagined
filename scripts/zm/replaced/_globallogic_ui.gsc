@@ -129,7 +129,6 @@ menuautoassign( comingfrommenu )
         self.ffateam = assignment;
     }
 
-    self.joined_team = true;
     self notify( "joined_team" );
     level notify( "joined_team" );
     self notify( "end_respawn" );

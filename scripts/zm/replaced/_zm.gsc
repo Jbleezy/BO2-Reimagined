@@ -565,7 +565,7 @@ fade_out_intro_screen_zm( hold_black_time, fade_out_time, destroyed_afterwards )
 	if ( isDedicated() && isDefined( level.pregame_minplayers ) )
     {
 		pregame_hud = createServerFontString( "objective", 1.5 );
-		pregame_hud setPoint( "CENTER", "CENTER", 0, -40 );
+		pregame_hud setPoint( "CENTER", "CENTER", 0, -100 );
 		pregame_hud.foreground = 1;
 		pregame_hud.color = ( 1, 1, 1 );
 		pregame_hud.hidewheninmenu = true;
@@ -573,6 +573,12 @@ fade_out_intro_screen_zm( hold_black_time, fade_out_time, destroyed_afterwards )
 		num_players = get_number_of_valid_players();
 		while ( num_players < level.pregame_minplayers )
 		{
+			players = get_players();
+			for ( i = 0; i < players.size; i++ )
+    		{
+				players[i] freezecontrols( 1 );
+			}
+
 			num_waiting_for = level.pregame_minplayers - num_players;
 
 			if (level.intermission)
@@ -593,12 +599,60 @@ fade_out_intro_screen_zm( hold_black_time, fade_out_time, destroyed_afterwards )
 			num_players = get_number_of_valid_players();
 		}
 
+		if ( level.allow_teamchange )
+		{
+			ready_up_hud = createServerFontString( "objective", 1.5 );
+			ready_up_hud setPoint( "CENTER", "CENTER", 0, -120 );
+			ready_up_hud.foreground = 1;
+			ready_up_hud.color = ( 1, 1, 1 );
+			ready_up_hud.hidewheninmenu = true;
+			ready_up_hud setText("PRESS ^3[{+gostand}]^7 OR ^3[{+activate}]^7 TO READY UP");
+
+			num_ready = 0;
+			players = get_players();
+			while ( num_ready < players.size )
+			{
+				for ( i = 0; i < players.size; i++ )
+				{
+					players[i] freezecontrols( 1 );
+
+					if ( players[i] jumpbuttonpressed() || players[i] usebuttonpressed() )
+					{
+						players[i].ready = 1;
+					}
+
+					if ( is_true(players[i].ready) )
+					{
+						num_ready++;
+						players[i].statusicon = "menu_mp_killstreak_select";
+					}
+					else
+					{
+						players[i].statusicon = "menu_mp_contract_expired";
+					}
+				}
+
+				num_waiting_for = players.size - num_ready;
+
+				pregame_hud setText("WAITING FOR " + num_waiting_for + " PLAYERS TO BE READY [" + num_ready + "/" + players.size + "]");
+
+				wait 0.05;
+
+				num_ready = 0;
+				players = get_players();
+			}
+
+			ready_up_hud destroy();
+		}
+
 		pregame_hud destroy();
 	}
 
     players = get_players();
     for ( i = 0; i < players.size; i++ )
     {
+		players[i].statusicon = "";
+
         if ( !( isdefined( level.host_ended_game ) && level.host_ended_game ) )
         {
             if ( isdefined( level.player_movement_suppressed ) )
@@ -1055,7 +1109,7 @@ getfreespawnpoint( spawnpoints, player )
 	if ( !isdefined( self.playernum ) )
 	{
 		num = 0;
-		players = get_players();
+		players = get_players(self.team);
 
 		for(num = 0; num < 4; num++)
 		{
@@ -1063,7 +1117,7 @@ getfreespawnpoint( spawnpoints, player )
 
 			foreach(player in players)
 			{
-				if(is_true(player.joined_team) && player != self && player.team == self.team && player.playernum == num)
+				if(player != self && isdefined(player.playernum) && player.playernum == num)
 				{
 					valid_num = false;
 					break;

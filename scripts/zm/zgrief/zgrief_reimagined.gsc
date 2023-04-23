@@ -54,6 +54,9 @@ init()
 		level.player_spawn_sound = "zmb_spawn_powerup";
 	}
 
+	precacheStatusIcon( "menu_mp_killstreak_select" );
+	precacheStatusIcon( "menu_mp_contract_expired" );
+
 	setDvar("ui_scorelimit", 1);
 
 	setteamscore("axis", 0);
