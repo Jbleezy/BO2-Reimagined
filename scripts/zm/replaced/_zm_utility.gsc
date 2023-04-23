@@ -2,6 +2,23 @@
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 
+init_player_offhand_weapons()
+{
+	if ( !is_true( self.init_player_offhand_weapons_override ) )
+	{
+		if ( is_gametype_active( "zgrief" ) && is_true( self.player_initialized ) )
+		{
+			return;
+		}
+	}
+
+    init_player_lethal_grenade();
+    init_player_tactical_grenade();
+    init_player_placeable_mine();
+    init_player_melee_weapon();
+    init_player_equipment();
+}
+
 is_headshot( sweapon, shitloc, smeansofdeath )
 {
 	if ( smeansofdeath == "MOD_MELEE" || smeansofdeath == "MOD_BAYONET" || smeansofdeath == "MOD_IMPACT" || smeansofdeath == "MOD_UNKNOWN" || smeansofdeath == "MOD_IMPACT" )
@@ -241,7 +258,12 @@ get_current_zone( return_zone )
 
 is_temporary_zombie_weapon( str_weapon )
 {
-    return is_zombie_perk_bottle( str_weapon ) || str_weapon == level.revive_tool || str_weapon == "zombie_builder_zm" || str_weapon == "chalk_draw_zm" || str_weapon == "no_hands_zm" || str_weapon == level.machine_assets["packapunch"].weapon || issubstr( str_weapon, "_flourish" );
+	if ( isdefined( level.machine_assets["packapunch"] ) && isdefined( level.machine_assets["packapunch"].weapon ) && str_weapon == level.machine_assets["packapunch"].weapon )
+	{
+		return 1;
+	}
+
+    return is_zombie_perk_bottle( str_weapon ) || str_weapon == level.revive_tool || str_weapon == "zombie_builder_zm" || str_weapon == "chalk_draw_zm" || str_weapon == "no_hands_zm" || issubstr( str_weapon, "_flourish" );
 }
 
 wait_network_frame()

@@ -878,6 +878,9 @@ on_player_bleedout()
 		if(level.scr_zm_ui_gametype_obj == "zsnr")
 		{
 			self.grief_savedweapon_weapons = undefined;
+			self.init_player_offhand_weapons_override = 1;
+			self init_player_offhand_weapons();
+			self.init_player_offhand_weapons_override = undefined;
 			self bleedout_feed();
 			self add_grief_bleedout_score();
 			level thread update_players_on_bleedout( self );
@@ -2213,17 +2216,6 @@ grief_laststand_weapons_return()
 			continue;
 		}
 
-		if ( isweaponprimary( self.grief_savedweapon_weapons[ i ] ) )
-		{
-			if ( primary_weapons_returned >= get_player_weapon_limit( self ) )
-			{
-				i++;
-				continue;
-			}
-
-			primary_weapons_returned++;
-		}
-
 		if ( is_temporary_zombie_weapon( self.grief_savedweapon_weapons[ i ] ) )
 		{
 			i++;
@@ -2234,6 +2226,17 @@ grief_laststand_weapons_return()
 		{
 			i++;
 			continue;
+		}
+
+		if ( isweaponprimary( self.grief_savedweapon_weapons[ i ] ) )
+		{
+			if ( primary_weapons_returned >= get_player_weapon_limit( self ) )
+			{
+				i++;
+				continue;
+			}
+
+			primary_weapons_returned++;
 		}
 
 		if (isDefined(self.stored_weapon_info[self.grief_savedweapon_weapons[i]]) && isDefined(self.stored_weapon_info[self.grief_savedweapon_weapons[i]].total_used_amt))
@@ -2299,52 +2302,6 @@ grief_laststand_weapons_return()
 		}
 
 		i++;
-	}
-
-	self thread grief_laststand_items_return();
-
-	self.grief_savedweapon_weapons = undefined;
-
-	if ( isDefined( self.pre_temp_weapon ) && self hasWeapon( self.pre_temp_weapon ) )
-	{
-		self switchtoweapon( self.pre_temp_weapon );
-		self.pre_temp_weapon = undefined;
-		return 1;
-	}
-
-	if ( isDefined( self.pre_meat_weapon ) && self hasWeapon( self.pre_meat_weapon ) )
-	{
-		self switchtoweapon( self.pre_meat_weapon );
-		self.pre_meat_weapon = undefined;
-		return 1;
-	}
-
-	if ( isDefined( self.grief_savedweapon_currentweapon ) && self hasWeapon( self.grief_savedweapon_currentweapon ) )
-	{
-		self switchtoweapon( self.grief_savedweapon_currentweapon );
-		self.grief_savedweapon_currentweapon = undefined;
-		return 1;
-	}
-
-	primaries = self getweaponslistprimaries();
-	if ( primaries.size > 0 )
-	{
-		self switchtoweapon( primaries[ 0 ] );
-		return 1;
-	}
-
-	self maps\mp\zombies\_zm_weapons::give_fallback_weapon();
-	return 1;
-}
-
-grief_laststand_items_return()
-{
-	self endon("disconnect");
-
-	if(is_respawn_gamemode())
-	{
-		// needs a wait or some items aren't given back on respawn
-		wait 0.05;
 	}
 
 	if ( isDefined( self.grief_savedweapon_melee ) )
@@ -2421,6 +2378,39 @@ grief_laststand_items_return()
 			self [[ self.player_shield_reset_health ]]();
 		}
 	}
+
+	self.grief_savedweapon_weapons = undefined;
+
+	if ( isDefined( self.pre_temp_weapon ) && self hasWeapon( self.pre_temp_weapon ) )
+	{
+		self switchtoweapon( self.pre_temp_weapon );
+		self.pre_temp_weapon = undefined;
+		return 1;
+	}
+
+	if ( isDefined( self.pre_meat_weapon ) && self hasWeapon( self.pre_meat_weapon ) )
+	{
+		self switchtoweapon( self.pre_meat_weapon );
+		self.pre_meat_weapon = undefined;
+		return 1;
+	}
+
+	if ( isDefined( self.grief_savedweapon_currentweapon ) && self hasWeapon( self.grief_savedweapon_currentweapon ) )
+	{
+		self switchtoweapon( self.grief_savedweapon_currentweapon );
+		self.grief_savedweapon_currentweapon = undefined;
+		return 1;
+	}
+
+	primaries = self getweaponslistprimaries();
+	if ( primaries.size > 0 )
+	{
+		self switchtoweapon( primaries[ 0 ] );
+		return 1;
+	}
+
+	self maps\mp\zombies\_zm_weapons::give_fallback_weapon();
+	return 1;
 }
 
 sudden_death()
