@@ -200,3 +200,216 @@ hide_gump_loading_for_hotjoiners()
 		self thread [[ level.custom_intermission ]]();
 	}
 }
+
+menu_onmenuresponse()
+{
+    self endon( "disconnect" );
+
+    for (;;)
+    {
+        self waittill( "menuresponse", menu, response );
+
+        if ( response == "back" )
+        {
+            self closemenu();
+            self closeingamemenu();
+
+            if ( level.console )
+            {
+                if ( menu == game["menu_changeclass"] || menu == game["menu_changeclass_offline"] || menu == game["menu_team"] || menu == game["menu_controls"] )
+                {
+                    if ( self.pers["team"] == "allies" )
+                        self openmenu( game["menu_class"] );
+
+                    if ( self.pers["team"] == "axis" )
+                        self openmenu( game["menu_class"] );
+                }
+            }
+
+            continue;
+        }
+
+        if ( menu == game["menu_team"] )
+        {
+			self closemenu();
+            self closeingamemenu();
+
+			if ( !level.allow_teamchange )
+			{
+				teamplayers = countplayers( self.pers["team"] );
+				otherteamplayers = countplayers( getotherteam( self.pers["team"] ) );
+
+				if ( teamplayers - 1 <= otherteamplayers )
+				{
+					self iprintln( "Can only change teams if unbalanced." );
+					continue;
+				}
+			}
+
+			set_team( getotherteam( self.pers["team"] ) );
+
+			continue;
+        }
+
+        if ( response == "changeclass_marines" )
+        {
+            self closemenu();
+            self closeingamemenu();
+            self openmenu( game["menu_changeclass_allies"] );
+            continue;
+        }
+
+        if ( response == "changeclass_opfor" )
+        {
+            self closemenu();
+            self closeingamemenu();
+            self openmenu( game["menu_changeclass_axis"] );
+            continue;
+        }
+
+        if ( response == "changeclass_wager" )
+        {
+            self closemenu();
+            self closeingamemenu();
+            self openmenu( game["menu_changeclass_wager"] );
+            continue;
+        }
+
+        if ( response == "changeclass_custom" )
+        {
+            self closemenu();
+            self closeingamemenu();
+            self openmenu( game["menu_changeclass_custom"] );
+            continue;
+        }
+
+        if ( response == "changeclass_barebones" )
+        {
+            self closemenu();
+            self closeingamemenu();
+            self openmenu( game["menu_changeclass_barebones"] );
+            continue;
+        }
+
+        if ( response == "changeclass_marines_splitscreen" )
+            self openmenu( "changeclass_marines_splitscreen" );
+
+        if ( response == "changeclass_opfor_splitscreen" )
+            self openmenu( "changeclass_opfor_splitscreen" );
+
+        if ( response == "endgame" )
+        {
+            if ( self issplitscreen() )
+            {
+                level.skipvote = 1;
+
+                if ( !( isdefined( level.gameended ) && level.gameended ) )
+                {
+                    self maps\mp\zombies\_zm_laststand::add_weighted_down();
+                    self maps\mp\zombies\_zm_stats::increment_client_stat( "deaths" );
+                    self maps\mp\zombies\_zm_stats::increment_player_stat( "deaths" );
+                    self maps\mp\zombies\_zm_pers_upgrades_functions::pers_upgrade_jugg_player_death_stat();
+                    level.host_ended_game = 1;
+                    maps\mp\zombies\_zm_game_module::freeze_players( 1 );
+                    level notify( "end_game" );
+                }
+            }
+
+            continue;
+        }
+
+        if ( response == "restart_level_zm" )
+        {
+            self maps\mp\zombies\_zm_laststand::add_weighted_down();
+            self maps\mp\zombies\_zm_stats::increment_client_stat( "deaths" );
+            self maps\mp\zombies\_zm_stats::increment_player_stat( "deaths" );
+            self maps\mp\zombies\_zm_pers_upgrades_functions::pers_upgrade_jugg_player_death_stat();
+            missionfailed();
+        }
+
+        if ( response == "killserverpc" )
+        {
+            level thread maps\mp\gametypes_zm\_globallogic::killserverpc();
+            continue;
+        }
+
+        if ( response == "endround" )
+        {
+            if ( !( isdefined( level.gameended ) && level.gameended ) )
+            {
+                self maps\mp\gametypes_zm\_globallogic::gamehistoryplayerquit();
+                self maps\mp\zombies\_zm_laststand::add_weighted_down();
+                self closemenu();
+                self closeingamemenu();
+                level.host_ended_game = 1;
+                maps\mp\zombies\_zm_game_module::freeze_players( 1 );
+                level notify( "end_game" );
+            }
+            else
+            {
+                self closemenu();
+                self closeingamemenu();
+                self iprintln( &"MP_HOST_ENDGAME_RESPONSE" );
+            }
+
+            continue;
+        }
+
+        if ( menu == game["menu_team"] && level.allow_teamchange == "1" )
+        {
+            switch ( response )
+            {
+                case "allies":
+                    self [[ level.allies ]]();
+                    break;
+                case "axis":
+                    self [[ level.teammenu ]]( response );
+                    break;
+                case "autoassign":
+                    self [[ level.autoassign ]]( 1 );
+                    break;
+                case "spectator":
+                    self [[ level.spectator ]]();
+                    break;
+            }
+
+            continue;
+        }
+
+        if ( menu == game["menu_changeclass"] || menu == game["menu_changeclass_offline"] || menu == game["menu_changeclass_wager"] || menu == game["menu_changeclass_custom"] || menu == game["menu_changeclass_barebones"] )
+        {
+            self closemenu();
+            self closeingamemenu();
+
+            if ( level.rankedmatch && issubstr( response, "custom" ) )
+            {
+
+            }
+
+            self.selectedclass = 1;
+            self [[ level.class ]]( response );
+        }
+    }
+}
+
+set_team(team)
+{
+	if ( team == "axis" )
+	{
+		self.team = "axis";
+		self.sessionteam = "axis";
+		self.pers["team"] = "axis";
+		self._encounters_team = "A";
+		self.characterindex = 0;
+	}
+	else
+	{
+		self.team = "allies";
+		self.sessionteam = "allies";
+		self.pers["team"] = "allies";
+		self._encounters_team = "B";
+		self.characterindex = 1;
+	}
+
+	self [[ level.givecustomcharacters ]]();
+}

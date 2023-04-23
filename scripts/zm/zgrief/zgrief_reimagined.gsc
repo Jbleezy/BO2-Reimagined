@@ -24,6 +24,7 @@ main()
 	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::onspawnplayer, scripts\zm\replaced\_zm_gametype::onspawnplayer);
 	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::onplayerspawned, scripts\zm\replaced\_zm_gametype::onplayerspawned);
 	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::hide_gump_loading_for_hotjoiners, scripts\zm\replaced\_zm_gametype::hide_gump_loading_for_hotjoiners);
+	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::menu_onmenuresponse, scripts\zm\replaced\_zm_gametype::menu_onmenuresponse);
 	replaceFunc(maps\mp\gametypes_zm\zgrief::meat_stink, scripts\zm\replaced\zgrief::meat_stink);
 	replaceFunc(maps\mp\gametypes_zm\zmeat::item_meat_on_spawn_retrieve_trigger, scripts\zm\replaced\zmeat::item_meat_on_spawn_retrieve_trigger);
 }
@@ -82,6 +83,7 @@ init()
 	level.can_revive_game_module = ::can_revive;
 	level._powerup_grab_check = ::powerup_can_player_grab;
 	level.meat_bounce_override = scripts\zm\replaced\zgrief::meat_bounce_override;
+	level.autoassign = scripts\zm\replaced\_globallogic_ui::menuautoassign;
 	level.custom_spectate_permissions = undefined;
 
 	level.is_respawn_gamemode_func = ::is_respawn_gamemode;
@@ -95,58 +97,9 @@ init()
 	level thread remove_round_number();
 	level thread unlimited_zombies();
 	level thread unlimited_powerups();
+	level thread save_teams_on_intermission();
 	level thread all_voice_on_intermission();
 	level thread spawn_bots();
-}
-
-set_team()
-{
-	self.team_set = true;
-	self notify("team_set");
-
-	teamplayers = [];
-	teamplayers["axis"] = countplayers("axis");
-	teamplayers["allies"] = countplayers("allies");
-
-	// don't count self
-	teamplayers[self.team]--;
-
-	if(teamplayers["allies"] == teamplayers["axis"])
-	{
-		if(cointoss())
-		{
-			self.team = "axis";
-			self.sessionteam = "axis";
-			self.pers["team"] = "axis";
-			self._encounters_team = "A";
-		}
-		else
-		{
-			self.team = "allies";
-			self.sessionteam = "allies";
-			self.pers["team"] = "allies";
-			self._encounters_team = "B";
-		}
-	}
-	else
-	{
-		if(teamplayers["allies"] > teamplayers["axis"])
-		{
-			self.team = "axis";
-			self.sessionteam = "axis";
-			self.pers["team"] = "axis";
-			self._encounters_team = "A";
-		}
-		else
-		{
-			self.team = "allies";
-			self.sessionteam = "allies";
-			self.pers["team"] = "allies";
-			self._encounters_team = "B";
-		}
-	}
-
-	self [[ level.givecustomcharacters ]]();
 }
 
 grief_gamemode_hud()
@@ -350,7 +303,15 @@ set_grief_vars()
 	{
 		setDvar("ui_gametype_pro", 0);
 	}
+
 	level.scr_zm_ui_gametype_pro = getDvarInt("ui_gametype_pro");
+
+	if(getDvar("ui_gametype_team_change") == "")
+	{
+		setDvar("ui_gametype_team_change", 0);
+	}
+
+	level.allow_teamchange = getDvarInt("ui_gametype_team_change");
 
 	level.noroundnumber = 1;
 	level.zombie_powerups["meat_stink"].solo = 1;
@@ -719,7 +680,6 @@ player_spawn_override()
 
 grief_onplayerconnect()
 {
-	self set_team();
 	self thread on_player_spawned();
 	self thread on_player_spectate();
 	self thread on_player_downed();
@@ -2586,6 +2546,29 @@ remove_round_number()
 
 		setroundsplayed(0);
 	}
+}
+
+save_teams_on_intermission()
+{
+	level waittill("intermission");
+
+	text = "";
+	players = get_players("axis");
+	foreach (player in players)
+	{
+		text += player getguid() + " ";
+	}
+
+	setDvar("team_axis", text);
+
+	text = "";
+	players = get_players("allies");
+	foreach (player in players)
+	{
+		text += player getguid() + " ";
+	}
+
+	setDvar("team_allies", text);
 }
 
 all_voice_on_intermission()

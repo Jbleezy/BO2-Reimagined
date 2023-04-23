@@ -907,11 +907,6 @@ getfreespawnpoint( spawnpoints, player )
 		}
 	}
 
-	if(!is_true(self.team_set))
-	{
-		self waittill("team_set");
-	}
-
 	if ( isdefined( player ) && isdefined( player.team ) )
 	{
 		i = 0;
@@ -965,7 +960,7 @@ getfreespawnpoint( spawnpoints, player )
 
 			foreach(player in players)
 			{
-				if(player != self && isDefined(player.team_set) && player.team == self.team && player.playernum == num)
+				if(is_true(player.joined_team) && player != self && player.team == self.team && player.playernum == num)
 				{
 					valid_num = false;
 					break;
