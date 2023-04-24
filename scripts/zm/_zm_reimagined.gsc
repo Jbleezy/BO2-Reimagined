@@ -180,7 +180,6 @@ on_player_connect()
 		player thread on_player_spawned();
 		player thread on_player_spectate();
 		player thread on_player_downed();
-		player thread on_player_bleedout();
 		player thread on_player_revived();
 		player thread on_player_fake_revive();
 		player thread on_player_chugabud_effects_cleanup();
@@ -272,19 +271,6 @@ on_player_downed()
 
 		self.statusicon = "waypoint_revive";
 		self.health = self.maxhealth;
-	}
-}
-
-on_player_bleedout()
-{
-	level endon("end_game");
-	self endon( "disconnect" );
-
-	while(1)
-	{
-		self waittill_any( "bled_out", "player_suicide" );
-
-		self.statusicon = "hud_status_dead";
 	}
 }
 
