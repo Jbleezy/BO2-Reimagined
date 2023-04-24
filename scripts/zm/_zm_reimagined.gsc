@@ -184,7 +184,6 @@ on_player_connect()
 		player thread on_player_downed();
 		player thread on_player_revived();
 		player thread on_player_fake_revive();
-		player thread on_player_chugabud_effects_cleanup();
 
 		player thread weapon_inspect_watcher();
 	}
@@ -285,7 +284,14 @@ on_player_revived()
 	{
 		self waittill( "player_revived", reviver );
 
-		self.statusicon = "";
+		if ( isDefined( self.e_chugabud_corpse ) )
+		{
+			self.statusicon = "specialty_chugabud_zombies";
+		}
+		else
+		{
+			self.statusicon = "";
+		}
 	}
 }
 
@@ -305,22 +311,6 @@ on_player_fake_revive()
 		else if ( is_true( level.zombiemode_using_afterlife ) )
 		{
 			self.statusicon = "waypoint_revive_afterlife";
-		}
-	}
-}
-
-on_player_chugabud_effects_cleanup()
-{
-	level endon("end_game");
-	self endon( "disconnect" );
-
-	while(1)
-	{
-		self waittill( "chugabud_effects_cleanup" );
-
-		if ( is_player_valid( self ) )
-		{
-			self.statusicon = "";
 		}
 	}
 }

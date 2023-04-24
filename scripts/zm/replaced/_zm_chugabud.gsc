@@ -60,6 +60,11 @@ chugabud_laststand()
 
     if ( create_corpse == 0 )
     {
+        if ( is_player_valid( self ) )
+        {
+            self.statusicon = "";
+        }
+
         self notify( "chugabud_effects_cleanup" );
         return;
     }
@@ -345,6 +350,11 @@ chugabud_corpse_cleanup( corpse, was_revived )
     wait 0.1;
     corpse delete();
     self.e_chugabud_corpse = undefined;
+
+    if ( is_player_valid( self ) )
+    {
+        self.statusicon = "";
+    }
 }
 
 chugabud_handle_multiple_instances( corpse )
