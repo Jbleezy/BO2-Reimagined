@@ -1527,6 +1527,11 @@ player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, 
 			}
 		}
 
+		if ( sweapon == "slip_bolt_zm" || sweapon == "slip_bolt_upgraded_zm" )
+		{
+			return 0;
+		}
+
 		if ( self.health > 75 && !is_true( self.is_zombie ) )
 		{
 			return 75;

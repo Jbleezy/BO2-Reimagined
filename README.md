@@ -246,6 +246,7 @@
 * Decreased stock ammo from 40 to 20
 * Removed additional goo created by chain kills
 * Continues to chain while put away
+* Removed player damage
 * Upgraded: increases slippery spot duration by 50%
 * Upgraded: decreases delay between chain kills by 33%
 * Added teddy bear to buildable table after weapon is taken from it
