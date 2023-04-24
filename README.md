@@ -786,7 +786,7 @@
 
 #### Grief
 * Gain score by making enemy players bleed out
-* Make 15 enemy players bleed out to win the game
+* Make 10 enemy players bleed out to win the game
 * Players respawn after being down for 10 seconds
 * Players retain perks
 
