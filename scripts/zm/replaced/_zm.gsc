@@ -581,18 +581,13 @@ fade_out_intro_screen_zm( hold_black_time, fade_out_time, destroyed_afterwards )
 
 			num_waiting_for = level.pregame_minplayers - num_players;
 
-			if (level.intermission)
+			players_str = "PLAYERS";
+			if ( num_waiting_for == 1 )
 			{
-				pregame_hud.alpha = 0;
+				players_str = "PLAYER";
 			}
-			else if (num_waiting_for == 1)
-			{
-				pregame_hud setText("WAITING FOR " + num_waiting_for + " MORE PLAYER [" + num_players + "/" + level.pregame_minplayers + "]");
-			}
-			else
-			{
-				pregame_hud setText("WAITING FOR " + num_waiting_for + " MORE PLAYERS [" + num_players + "/" + level.pregame_minplayers + "]");
-			}
+
+			pregame_hud setText( "WAITING FOR " + num_waiting_for + " MORE " + players_str + " [" + num_players + "/" + level.pregame_minplayers + "]" );
 
 			wait 0.05;
 
@@ -606,12 +601,13 @@ fade_out_intro_screen_zm( hold_black_time, fade_out_time, destroyed_afterwards )
 			ready_up_hud.foreground = 1;
 			ready_up_hud.color = ( 1, 1, 1 );
 			ready_up_hud.hidewheninmenu = true;
-			ready_up_hud setText("PRESS ^3[{+gostand}]^7 OR ^3[{+activate}]^7 TO READY UP");
+			ready_up_hud setText( "PRESS ^3[{+gostand}]^7 OR ^3[{+activate}]^7 TO READY UP" );
 
 			num_ready = 0;
-			players = get_players();
-			while ( num_ready < players.size )
+			while ( num_ready < level.pregame_minplayers )
 			{
+				num_ready = 0;
+				players = get_players();
 				for ( i = 0; i < players.size; i++ )
 				{
 					players[i] freezecontrols( 1 );
@@ -621,7 +617,7 @@ fade_out_intro_screen_zm( hold_black_time, fade_out_time, destroyed_afterwards )
 						players[i].ready = 1;
 					}
 
-					if ( is_true(players[i].ready) )
+					if ( is_true( players[i].ready ) )
 					{
 						num_ready++;
 						players[i].statusicon = "menu_mp_killstreak_select";
@@ -632,14 +628,22 @@ fade_out_intro_screen_zm( hold_black_time, fade_out_time, destroyed_afterwards )
 					}
 				}
 
+				if ( num_ready == level.pregame_minplayers )
+				{
+					break;
+				}
+
 				num_waiting_for = players.size - num_ready;
 
-				pregame_hud setText("WAITING FOR " + num_waiting_for + " PLAYERS TO BE READY [" + num_ready + "/" + players.size + "]");
+				players_str = "PLAYERS";
+				if ( num_waiting_for == 1 )
+				{
+					players_str = "PLAYER";
+				}
+
+				pregame_hud setText( "WAITING FOR " + num_waiting_for + " " + players_str + " TO BE READY [" + num_ready + "/" + level.pregame_minplayers + "]" );
 
 				wait 0.05;
-
-				num_ready = 0;
-				players = get_players();
 			}
 
 			ready_up_hud destroy();
