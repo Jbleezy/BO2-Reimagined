@@ -367,6 +367,7 @@
 * Added Who's Who mode duration bar on HUD
 * Changed revive waypoint icon to Who's Who perk icon
 * Revive waypoint shows offscreen
+* Fixed an error that would crash the game when entering Who's Who mode
 
 ### Electric Cherry
 * Removed cooldown after being used multiple times in a row
