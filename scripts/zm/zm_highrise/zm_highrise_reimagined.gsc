@@ -60,7 +60,6 @@ init()
 
 	slipgun_change_ammo();
 
-	level thread custom_faller_entrance_logic();
 	level thread elevator_call();
 	level thread escape_pod_call();
 }
@@ -162,15 +161,6 @@ onbuyweapon_slipgun( player )
     player switchtoweapon( self.stub.weaponname );
 	player scripts\zm\_zm_reimagined::change_weapon_ammo(self.stub.weaponname);
     level notify( "slipgun_bought", player );
-}
-
-custom_faller_entrance_logic()
-{
-	flag_wait( "initial_blackscreen_passed" );
-
-	wait 1;
-
-	level.custom_faller_entrance_logic = scripts\zm\replaced\zm_highrise_elevators::watch_for_elevator_during_faller_spawn;
 }
 
 elevator_call()

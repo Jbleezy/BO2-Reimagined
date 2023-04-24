@@ -61,7 +61,7 @@ main()
     flag_wait( "start_zombie_round_logic" );
     level thread maps\mp\zm_highrise_elevators::random_elevator_perks();
     level thread maps\mp\zm_highrise_elevators::faller_location_logic();
-    level.custom_faller_entrance_logic = maps\mp\zm_highrise_elevators::watch_for_elevator_during_faller_spawn;
+    level.custom_faller_entrance_logic = scripts\zm\replaced\zm_highrise_elevators::watch_for_elevator_during_faller_spawn;
     setdvar( "zombiemode_path_minz_bias", 13 );
     level.check_valid_poi = ::check_valid_poi;
     level thread maps\mp\zm_highrise_elevators::shouldsuppressgibs();

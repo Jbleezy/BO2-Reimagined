@@ -434,16 +434,33 @@ watch_for_elevator_during_faller_spawn()
     self endon( "risen" );
     self endon( "spawn_anim" );
 
+    flag_wait( "power_on" );
+
+    elevator_bodies = [];
+    foreach ( elevator in level.elevators )
+    {
+        elevator_bodies[elevator_bodies.size] = elevator.body;
+    }
+
+    elevator_body = get_closest_2d( self.zombie_faller_location.origin, elevator_bodies );
+
     while ( true )
     {
         should_gib = 0;
 
-        foreach ( elevator in level.elevators )
+        if ( is_true( elevator_body.is_moving ) )
         {
-            if ( is_true( elevator.body.is_moving ) && self istouching( elevator.body ) )
+            if ( self istouching( elevator_body ) )
+            {
                 should_gib = 1;
-            else if ( !is_true( elevator.body.is_moving ) && distancesquared( elevator.body getcentroid(), self getcentroid() ) <= 9216 )
+            }
+        }
+        else
+        {
+            if ( is_true( self.zombie_faller_location.is_blocked ) )
+            {
                 should_gib = 1;
+            }
         }
 
         if ( should_gib )
