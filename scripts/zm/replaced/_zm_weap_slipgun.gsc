@@ -109,6 +109,11 @@ explode_into_goo( player, chain_depth )
         self.goo_chain_depth = chain_depth;
 
     chain_radius = level.zombie_vars["slipgun_chain_radius"];
+    if ( is_true( self.goo_upgraded ) )
+    {
+        chain_radius *= 1.5;
+    }
+
     level thread explode_to_near_zombies( player, self.origin, chain_radius, self.goo_chain_depth, self.goo_upgraded );
 }
 
@@ -122,11 +127,6 @@ explode_to_near_zombies( player, origin, radius, chain_depth, goo_upgraded )
 
     minchainwait = level.zombie_vars["slipgun_chain_wait_min"];
     maxchainwait = level.zombie_vars["slipgun_chain_wait_max"];
-    if (is_true(goo_upgraded))
-    {
-        minchainwait /= 1.5;
-        maxchainwait /= 1.5;
-    }
 
     rsquared = radius * radius;
     tag = "J_Head";

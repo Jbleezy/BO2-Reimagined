@@ -248,7 +248,7 @@
 * Continues to chain while put away
 * Removed player damage
 * Upgraded: increases slippery spot duration by 50%
-* Upgraded: decreases delay between chain kills by 33%
+* Upgraded: increases chain explosion radius by 50%
 * Added teddy bear to buildable table after weapon is taken from it
 * Teddy bear standing up means weapon is not available from Mystery Box
 * Teddy bear lying down means weapon is available from Mystery Box
