@@ -10,7 +10,7 @@
 
 [Discord](https://discord.io/Jbleezy)
 
-[Donate](https://paypal.me/Jbleezy)
+[Donate](https://ko-fi.com/Jbleezy)
 
 ## Change Notes
 
