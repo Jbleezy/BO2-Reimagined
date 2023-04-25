@@ -80,7 +80,7 @@ revive_do_revive( playerbeingrevived, revivergun )
 		self.revivetexthud = newclienthudelem( self );
 	}
 
-	self thread laststand_clean_up_on_disconnect( playerbeingrevived, revivergun );
+	self thread laststand_clean_up_on_disconnect( playerbeingrevived_player, revivergun );
 
 	if ( !isDefined( self.is_reviving_any ) )
 	{
@@ -88,7 +88,7 @@ revive_do_revive( playerbeingrevived, revivergun )
 	}
 
 	self.is_reviving_any++;
-	self thread laststand_clean_up_reviving_any( playerbeingrevived );
+	self thread laststand_clean_up_reviving_any( playerbeingrevived_player );
 	self.reviveprogressbar updatebar( 0.01, 1 / revivetime );
     playerbeingrevived_player.beingrevivedprogressbar updatebar( 0.01, 1 / revivetime );
 
@@ -241,7 +241,7 @@ laststand_clean_up_reviving_any( playerbeingrevived )
 {
 	self endon( "do_revive_ended_normally" );
 
-	playerbeingrevived waittill_any( "disconnect", "zombified", "stop_revive_trigger" );
+	playerbeingrevived waittill_any( "disconnect", "zombified", "stop_revive_trigger", "chugabud_effects_cleanup" );
 
 	self.is_reviving_any--;
 	if ( self.is_reviving_any < 0 )
@@ -252,6 +252,24 @@ laststand_clean_up_reviving_any( playerbeingrevived )
 	if ( isDefined( playerbeingrevived.beingrevivedprogressbar ) )
 	{
 		playerbeingrevived.beingrevivedprogressbar destroyelem();
+	}
+
+	if ( isDefined( playerbeingrevived.revive_hud ) )
+	{
+		playerbeingrevived.revive_hud settext("");
+	}
+
+	if ( !self.is_reviving_any )
+	{
+		if ( isDefined( self.reviveprogressbar ) )
+		{
+			self.reviveprogressbar destroyelem();
+		}
+
+		if ( isDefined( self.revivetexthud ) )
+		{
+			self.revivetexthud destroy();
+		}
 	}
 }
 
