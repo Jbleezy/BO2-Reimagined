@@ -966,6 +966,34 @@ wait_for_player_to_take( player, weapon, packa_timer, upgrade_as_attachment )
     }
 }
 
+check_player_has_perk( perk )
+{
+    self endon( "death" );
+
+    dist = 16384;
+
+    while ( true )
+    {
+        players = get_players();
+
+        for ( i = 0; i < players.size; i++ )
+        {
+            if ( distancesquared( players[i].origin, self.origin ) < dist )
+            {
+                if ( !players[i] hasperk( perk ) && !players[i] has_perk_paused( perk ) && !players[i] in_revive_trigger() && !is_equipment_that_blocks_purchase( players[i] getcurrentweapon() ) && !players[i] hacker_active() && !players[i].is_drinking )
+                {
+                    self setinvisibletoplayer( players[i], 0 );
+                    continue;
+                }
+
+                self setinvisibletoplayer( players[i], 1 );
+            }
+        }
+
+        wait 0.05;
+    }
+}
+
 perk_pause( perk )
 {
 	// disabled
