@@ -594,7 +594,7 @@ fade_out_intro_screen_zm( hold_black_time, fade_out_time, destroyed_afterwards )
 			num_players = get_number_of_valid_players();
 		}
 
-		if ( level.allow_teamchange )
+		if ( is_gametype_active( "zgrief" ) && is_true( level.allow_teamchange ) )
 		{
 			ready_up_hud = createServerFontString( "objective", 1.5 );
 			ready_up_hud setPoint( "CENTER", "CENTER", 0, -120 );
