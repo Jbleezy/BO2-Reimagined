@@ -402,7 +402,7 @@ watch_elevator_lights()
 			clientnotify( self.name + self.dir );
 		}
 
-		wait 0.05;
+		wait 0.1;
 	}
 }
 
