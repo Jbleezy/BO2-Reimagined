@@ -605,6 +605,7 @@
 * Zombies no longer spawn across from the debris in the Lower Orange Highrise area when the debris is closed
 * Zombies no longer fall off the map traversing down to the Green Highrise Level 1 area
 * Fixed weapon model angle on upside down Mystery Box
+* Fixed zombies not bleeding out in the Green Highrise Level 1b zone when the debris is closed and there are no players in the zone
 * Quest: elevator symbols can be activated without players on every symbol
 * Quest: elevator symbols stay active after activating once
 * Quest: floor symbols can be activated in any order
