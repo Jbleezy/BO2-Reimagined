@@ -576,6 +576,7 @@ fade_out_intro_screen_zm( hold_black_time, fade_out_time, destroyed_afterwards )
 			players = get_players();
 			for ( i = 0; i < players.size; i++ )
     		{
+				players[i].waiting = 1;
 				players[i] freezecontrols( 1 );
 			}
 
@@ -594,7 +595,13 @@ fade_out_intro_screen_zm( hold_black_time, fade_out_time, destroyed_afterwards )
 			num_players = get_number_of_valid_players();
 		}
 
-		if ( is_gametype_active( "zgrief" ) && is_true( level.allow_teamchange ) )
+		players = get_players();
+		for ( i = 0; i < players.size; i++ )
+		{
+			players[i].waiting = undefined;
+		}
+
+		if ( is_gametype_active( "zgrief" ) )
 		{
 			ready_up_hud = createServerFontString( "objective", 1.5 );
 			ready_up_hud setPoint( "CENTER", "CENTER", 0, -120 );
@@ -604,7 +611,8 @@ fade_out_intro_screen_zm( hold_black_time, fade_out_time, destroyed_afterwards )
 			ready_up_hud setText( "PRESS ^3[{+gostand}]^7 OR ^3[{+activate}]^7 TO READY UP" );
 
 			num_ready = 0;
-			while ( num_ready < level.pregame_minplayers )
+			players = get_players();
+			while ( num_ready < players.size )
 			{
 				num_ready = 0;
 				players = get_players();
@@ -655,6 +663,7 @@ fade_out_intro_screen_zm( hold_black_time, fade_out_time, destroyed_afterwards )
     players = get_players();
     for ( i = 0; i < players.size; i++ )
     {
+		players[i].ready = undefined;
 		players[i].statusicon = "";
 
         if ( !( isdefined( level.host_ended_game ) && level.host_ended_game ) )
