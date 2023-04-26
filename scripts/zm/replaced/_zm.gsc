@@ -823,11 +823,25 @@ actor_damage_override( inflictor, attacker, damage, flags, meansofdeath, weapon,
 		}
 	}
 
-	if ( isSubStr( weapon, "tower_trap" ) )
+	if ( weapon == "tower_trap_zm" )
 	{
 		if (!is_true(self.is_brutus))
 		{
 			damage = level.zombie_health;
+		}
+	}
+
+	if ( weapon == "tower_trap_upgraded_zm" )
+	{
+		if (!is_true(self.is_brutus))
+		{
+			damage_scalar = damage / 200;
+			min_damage = int(damage_scalar * level.zombie_health) + 1;
+
+			if (damage < min_damage)
+			{
+				damage = min_damage;
+			}
 		}
 	}
 
@@ -902,7 +916,13 @@ actor_damage_override( inflictor, attacker, damage, flags, meansofdeath, weapon,
 	{
 		if(!is_true(self.is_brutus))
 		{
-			final_damage = level.zombie_health;
+			damage_scalar = final_damage / 3000;
+			min_damage = int(damage_scalar * level.zombie_health) + 1;
+
+			if(final_damage < min_damage)
+			{
+				final_damage = min_damage;
+			}
 		}
 	}
 
