@@ -70,6 +70,7 @@ main()
     replaceFunc(maps\mp\zombies\_zm_ai_mechz::mechz_set_starting_health, scripts\zm\replaced\_zm_ai_mechz::mechz_set_starting_health);
     replaceFunc(maps\mp\zombies\_zm_ai_mechz::mechz_round_tracker, scripts\zm\replaced\_zm_ai_mechz::mechz_round_tracker);
     replaceFunc(maps\mp\zombies\_zm_craftables::choose_open_craftable, scripts\zm\replaced\_zm_craftables::choose_open_craftable);
+    replaceFunc(maps\mp\zombies\_zm_craftables::player_progress_bar_update, scripts\zm\replaced\_zm_craftables::player_progress_bar_update);
     replaceFunc(maps\mp\zombies\_zm_powerup_zombie_blood::zombie_blood_powerup, scripts\zm\replaced\_zm_powerup_zombie_blood::zombie_blood_powerup);
     replaceFunc(maps\mp\zombies\_zm_riotshield_tomb::doriotshielddeploy, scripts\zm\replaced\_zm_riotshield_tomb::doriotshielddeploy);
     replaceFunc(maps\mp\zombies\_zm_riotshield_tomb::trackriotshield, scripts\zm\replaced\_zm_riotshield_tomb::trackriotshield);

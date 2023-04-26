@@ -89,3 +89,18 @@ choose_open_craftable( player )
     self.opencraftablehudelem[n_playernum] destroy();
     self.opencraftablehudelem[n_playernum] = undefined;
 }
+
+player_progress_bar_update( start_time, craft_time )
+{
+    self endon( "entering_last_stand" );
+    self endon( "death" );
+    self endon( "disconnect" );
+    self endon( "craftable_progress_end" );
+
+    self.usebar updatebar( 0.01, 1000 / craft_time );
+
+    while ( isdefined( self ) && gettime() - start_time < craft_time )
+    {
+        wait 0.05;
+    }
+}

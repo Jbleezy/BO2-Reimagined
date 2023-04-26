@@ -505,6 +505,38 @@ player_build( buildable, pieces )
     return "";
 }
 
+player_progress_bar( start_time, build_time, building_prompt )
+{
+    self.usebar = self createprimaryprogressbar();
+    self.usebartext = self createprimaryprogressbartext();
+
+    if ( isdefined( building_prompt ) )
+        self.usebartext settext( building_prompt );
+    else
+        self.usebartext settext( &"ZOMBIE_BUILDING" );
+
+    if ( isdefined( self ) && isdefined( start_time ) && isdefined( build_time ) )
+        self player_progress_bar_update( start_time, build_time );
+
+    self.usebartext destroyelem();
+    self.usebar destroyelem();
+}
+
+player_progress_bar_update( start_time, build_time )
+{
+    self endon( "entering_last_stand" );
+    self endon( "death" );
+    self endon( "disconnect" );
+    self endon( "buildable_progress_end" );
+
+	self.usebar updatebar( 0.01, 1000 / build_time );
+
+    while ( isdefined( self ) && gettime() - start_time < build_time )
+    {
+        wait 0.05;
+    }
+}
+
 model_go_away(weaponname)
 {
 	self hide();
