@@ -34,7 +34,7 @@ staff_revive_reload( str_weapon )
 {
     self endon( "disconnect" );
 
-    wait weaponFireTime(str_weapon) - 0.05;
+    wait 0.4;
 
     ammo_clip = self getWeaponAmmoClip(str_weapon);
     ammo_stock = self getWeaponAmmoStock(str_weapon);
@@ -43,5 +43,25 @@ staff_revive_reload( str_weapon )
     {
         self setWeaponAmmoClip(str_weapon, ammo_clip + 1);
         self setWeaponAmmoStock(str_weapon, ammo_stock - 1);
+        return;
+    }
+
+    while (1)
+    {
+        self waittill( "weapon_change" );
+
+        if (self getCurrentWeapon() == str_weapon)
+        {
+            ammo_clip = self getWeaponAmmoClip(str_weapon);
+            ammo_stock = self getWeaponAmmoStock(str_weapon);
+
+            if (ammo_clip < 1 && ammo_stock >= 1)
+            {
+                self setWeaponAmmoClip(str_weapon, ammo_clip + 1);
+                self setWeaponAmmoStock(str_weapon, ammo_stock - 1);
+            }
+
+            return;
+        }
     }
 }
