@@ -210,6 +210,7 @@ on_player_spawned()
 			self.screecher_seen_hint = 1;
 
 			self thread health_bar_hud();
+			self thread shield_bar_hud();
 			self thread bleedout_bar_hud();
 			self thread zone_hud();
 
@@ -553,6 +554,119 @@ health_bar_hud()
 
 		hud updatebar(self.health / self.maxhealth);
 		hud_text setvalue(self.health);
+
+		wait 0.05;
+	}
+}
+
+shield_bar_hud()
+{
+	self endon("disconnect");
+
+	flag_wait( "hud_visible" );
+
+	x = 5;
+	y = -104;
+	if (level.script == "zm_buried")
+	{
+		y -= 25;
+	}
+	else if (level.script == "zm_tomb")
+	{
+		y -= 60;
+	}
+
+	hud = self createbar((0.5, 0.5, 0.5), level.primaryprogressbarwidth - 10, int(level.primaryprogressbarheight / 2));
+	hud.alignx = "left";
+	hud.bar.alignx = "left";
+	hud.barframe.alignx = "left";
+	hud.aligny = "middle";
+	hud.bar.aligny = "middle";
+	hud.barframe.aligny = "middle";
+	hud.horzalign = "user_left";
+	hud.bar.horzalign = "user_left";
+	hud.barframe.horzalign = "user_left";
+	hud.vertalign = "user_bottom";
+	hud.bar.vertalign = "user_bottom";
+	hud.barframe.vertalign = "user_bottom";
+	hud.x += x;
+	hud.bar.x += x + ((hud.width + 4) / 2);
+	hud.barframe.x += x;
+	hud.y += y - 2;
+	hud.bar.y += y - 2;
+	hud.barframe.y += y - 2;
+	hud.hidewheninmenu = 1;
+	hud.bar.hidewheninmenu = 1;
+	hud.barframe.hidewheninmenu = 1;
+	hud.foreground = 1;
+	hud.bar.foreground = 1;
+	hud.barframe.foreground = 1;
+	hud.sort = 2;
+	hud.bar.sort = 3;
+	hud.barframe.sort = 4;
+	hud.alpha = 0;
+	hud.barframe.alpha = 0;
+
+	hud_text = createfontstring("objective", 1.2);
+	hud_text.alignx = "left";
+	hud_text.aligny = "middle";
+	hud_text.horzalign = "user_left";
+	hud_text.vertalign = "user_bottom";
+	hud_text.label = &"| ";
+	hud_text.x += x + hud.width + 11;
+	hud_text.y += y;
+	hud_text.hidewheninmenu = 1;
+	hud_text.foreground = 1;
+
+	hud_text_x = hud_text.x;
+
+	hud endon("death");
+
+	hud thread destroy_on_intermission();
+	hud_text thread destroy_on_intermission();
+
+	while (1)
+	{
+		if (!is_true(self.hasriotshield) || (isDefined(self.shielddamagetaken) && self.shielddamagetaken >= level.zombie_vars["riotshield_hit_points"]) || is_true(self.afterlife))
+		{
+			hud.bar.alpha = 0;
+			hud_text hideelem();
+
+			while (!is_true(self.hasriotshield) || (isDefined(self.shielddamagetaken) && self.shielddamagetaken >= level.zombie_vars["riotshield_hit_points"]) || is_true(self.afterlife))
+			{
+				wait 0.05;
+			}
+
+			hud.bar.alpha = 1;
+			hud_text showelem();
+		}
+
+		health = level.zombie_vars["riotshield_hit_points"] - self.shielddamagetaken;
+		if (health < 0)
+		{
+			health = 0;
+		}
+
+		health_ratio = health / level.zombie_vars["riotshield_hit_points"];
+
+		offset_x = 0;
+		health_str = "" + self.health;
+		for(i = 0; i < health_str.size; i++)
+		{
+			if (health_str[i] == "1")
+			{
+				offset_x += 4;
+			}
+			else
+			{
+				offset_x += 5;
+			}
+		}
+
+		hud_text.x = hud_text_x + offset_x;
+
+		hud updatebar(health_ratio);
+		hud_text setvalue(int(health_ratio * 100));
 
 		wait 0.05;
 	}

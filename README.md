@@ -425,6 +425,7 @@
 * Can no longer be picked up after being destroyed
 
 ### Zombie Shield
+* Added shield health bar on HUD
 * Awards points for kills and damage
 * Can be destroyed by player damage when deployed
 * Destroyed sound plays when player is holding
