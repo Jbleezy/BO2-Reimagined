@@ -5,6 +5,8 @@
 
 #include scripts\zm\replaced\utility;
 #include scripts\zm\replaced\zm_melee;
+#include scripts\zm\replaced\zm_utility;
+#include scripts\zm\replaced\_zm_gametype;
 #include scripts\zm\replaced\_zm;
 #include scripts\zm\replaced\_zm_audio_announcer;
 #include scripts\zm\replaced\_zm_stats;
@@ -35,6 +37,7 @@ main()
 	replaceFunc(common_scripts\utility::struct_class_init, scripts\zm\replaced\utility::struct_class_init);
 	replaceFunc(maps\mp\animscripts\zm_melee::meleecombat, scripts\zm\replaced\zm_melee::meleecombat);
 	replaceFunc(maps\mp\animscripts\zm_utility::wait_network_frame, scripts\zm\replaced\_zm_utility::wait_network_frame);
+	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::hide_gump_loading_for_hotjoiners, scripts\zm\replaced\_zm_gametype::hide_gump_loading_for_hotjoiners);
 	replaceFunc(maps\mp\zombies\_zm::round_start, scripts\zm\replaced\_zm::round_start);
 	replaceFunc(maps\mp\zombies\_zm::ai_calculate_health, scripts\zm\replaced\_zm::ai_calculate_health);
 	replaceFunc(maps\mp\zombies\_zm::onallplayersready, scripts\zm\replaced\_zm::onallplayersready);
@@ -367,6 +370,7 @@ post_all_players_spawned()
 	level._zombies_round_spawn_failsafe = scripts\zm\replaced\_zm::round_spawn_failsafe;
 	level.etrap_damage = maps\mp\zombies\_zm::ai_zombie_health( 255 );
 	level.slipgun_damage = maps\mp\zombies\_zm::ai_zombie_health( 255 );
+	level.should_respawn_func = ::should_respawn;
 	level.tombstone_spawn_func = ::tombstone_spawn;
 	level.tombstone_laststand_func = ::tombstone_save;
 	level.zombie_last_stand = ::last_stand_pistol_swap;
@@ -4041,6 +4045,26 @@ zone_changes()
 		level.zones[ "zone_orange_level3a" ].adjacent_zones[ "zone_orange_level3b" ].is_connected = 0;
 		level.zones[ "zone_orange_level3b" ].adjacent_zones[ "zone_orange_level3a" ].is_connected = 0;
 	}
+}
+
+should_respawn()
+{
+	if (is_true(level.intermission))
+	{
+		return 0;
+	}
+
+	if (!flag("initial_blackscreen_passed"))
+	{
+		return 1;
+	}
+
+	if (isDefined(level.is_respawn_gamemode_func) && [[level.is_respawn_gamemode_func]]())
+	{
+		return 1;
+	}
+
+	return 0;
 }
 
 remove_status_icons_on_intermission()

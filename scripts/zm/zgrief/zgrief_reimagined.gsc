@@ -23,7 +23,6 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_blockers::handle_post_board_repair_rewards, scripts\zm\replaced\_zm_blockers::handle_post_board_repair_rewards);
 	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::onspawnplayer, scripts\zm\replaced\_zm_gametype::onspawnplayer);
 	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::onplayerspawned, scripts\zm\replaced\_zm_gametype::onplayerspawned);
-	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::hide_gump_loading_for_hotjoiners, scripts\zm\replaced\_zm_gametype::hide_gump_loading_for_hotjoiners);
 	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::menu_onmenuresponse, scripts\zm\replaced\_zm_gametype::menu_onmenuresponse);
 	replaceFunc(maps\mp\gametypes_zm\zgrief::meat_stink, scripts\zm\replaced\zgrief::meat_stink);
 	replaceFunc(maps\mp\gametypes_zm\zmeat::item_meat_on_spawn_retrieve_trigger, scripts\zm\replaced\zmeat::item_meat_on_spawn_retrieve_trigger);
@@ -89,7 +88,7 @@ init()
 	level.autoassign = scripts\zm\replaced\_globallogic_ui::menuautoassign;
 	level.custom_spectate_permissions = undefined;
 
-	level.should_respawn_func = ::should_respawn;
+	level.is_respawn_gamemode_func = ::is_respawn_gamemode;
 	level.round_start_wait_func = ::round_start_wait;
 	level.increment_score_func = ::increment_score;
 	level.show_grief_hud_msg_func = ::show_grief_hud_msg;
@@ -1557,21 +1556,6 @@ get_gamemode_winning_score()
 	{
 		return 200;
 	}
-}
-
-should_respawn()
-{
-	if (is_true(level.intermission))
-	{
-		return 0;
-	}
-
-	if (!flag("initial_blackscreen_passed"))
-	{
-		return 1;
-	}
-
-	return is_respawn_gamemode();
 }
 
 is_respawn_gamemode()
