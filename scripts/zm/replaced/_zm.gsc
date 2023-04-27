@@ -570,13 +570,12 @@ fade_out_intro_screen_zm( hold_black_time, fade_out_time, destroyed_afterwards )
 		pregame_hud.color = ( 1, 1, 1 );
 		pregame_hud.hidewheninmenu = true;
 
-		num_players = get_number_of_valid_players();
+		num_players = get_number_of_waiting_players();
 		while ( num_players < level.pregame_minplayers )
 		{
 			players = get_players();
 			for ( i = 0; i < players.size; i++ )
     		{
-				players[i].waiting = 1;
 				players[i] freezecontrols( 1 );
 			}
 
@@ -592,7 +591,7 @@ fade_out_intro_screen_zm( hold_black_time, fade_out_time, destroyed_afterwards )
 
 			wait 0.05;
 
-			num_players = get_number_of_valid_players();
+			num_players = get_number_of_waiting_players();
 		}
 
 		players = get_players();
@@ -610,35 +609,13 @@ fade_out_intro_screen_zm( hold_black_time, fade_out_time, destroyed_afterwards )
 			ready_up_hud.hidewheninmenu = true;
 			ready_up_hud setText( "PRESS ^3[{+gostand}]^7 OR ^3[{+activate}]^7 TO READY UP" );
 
-			num_ready = 0;
+			num_ready = get_number_of_ready_players();
 			players = get_players();
 			while ( num_ready < players.size )
 			{
-				num_ready = 0;
-				players = get_players();
 				for ( i = 0; i < players.size; i++ )
 				{
 					players[i] freezecontrols( 1 );
-
-					if ( players[i] jumpbuttonpressed() || players[i] usebuttonpressed() )
-					{
-						players[i].ready = 1;
-					}
-
-					if ( is_true( players[i].ready ) )
-					{
-						num_ready++;
-						players[i].statusicon = "menu_mp_killstreak_select";
-					}
-					else
-					{
-						players[i].statusicon = "menu_mp_contract_expired";
-					}
-				}
-
-				if ( num_ready == level.pregame_minplayers )
-				{
-					break;
 				}
 
 				num_waiting_for = players.size - num_ready;
@@ -652,6 +629,9 @@ fade_out_intro_screen_zm( hold_black_time, fade_out_time, destroyed_afterwards )
 				pregame_hud setText( "WAITING FOR " + num_waiting_for + " " + players_str + " TO BE READY [" + num_ready + "/" + level.pregame_minplayers + "]" );
 
 				wait 0.05;
+
+				num_ready = get_number_of_ready_players();
+				players = get_players();
 			}
 
 			ready_up_hud destroy();
@@ -685,6 +665,53 @@ fade_out_intro_screen_zm( hold_black_time, fade_out_time, destroyed_afterwards )
         level.introscreen destroy();
 
     flag_set( "initial_blackscreen_passed" );
+}
+
+get_number_of_waiting_players()
+{
+    num = 0;
+	players = get_players();
+
+    for ( i = 0; i < players.size; i++ )
+    {
+        if ( is_player_valid( players[i] ) || is_true( players[i].afterlife ) )
+		{
+			players[i].waiting = 1;
+		}
+
+		if ( is_true( players[i].waiting ) )
+		{
+			num++;
+		}
+    }
+
+    return num;
+}
+
+get_number_of_ready_players()
+{
+    num = 0;
+	players = get_players();
+
+    for ( i = 0; i < players.size; i++ )
+    {
+		if ( players[i] jumpbuttonpressed() || players[i] usebuttonpressed() )
+		{
+			players[i].ready = 1;
+		}
+
+        if ( is_true( players[i].ready ) )
+		{
+			num++;
+			players[i].statusicon = "menu_mp_killstreak_select";
+		}
+		else
+		{
+			players[i].statusicon = "menu_mp_contract_expired";
+		}
+    }
+
+    return num;
 }
 
 last_stand_pistol_rank_init()
