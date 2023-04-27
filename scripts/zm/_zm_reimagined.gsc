@@ -8,6 +8,7 @@
 #include scripts\zm\replaced\zm_utility;
 #include scripts\zm\replaced\_zm_gametype;
 #include scripts\zm\replaced\_zm;
+#include scripts\zm\replaced\_zm_audio;
 #include scripts\zm\replaced\_zm_audio_announcer;
 #include scripts\zm\replaced\_zm_stats;
 #include scripts\zm\replaced\_zm_playerhealth;
@@ -52,6 +53,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm::player_out_of_playable_area_monitor, scripts\zm\replaced\_zm::player_out_of_playable_area_monitor);
 	replaceFunc(maps\mp\zombies\_zm::end_game, scripts\zm\replaced\_zm::end_game);
 	replaceFunc(maps\mp\zombies\_zm::check_quickrevive_for_hotjoin, scripts\zm\replaced\_zm::check_quickrevive_for_hotjoin);
+	replaceFunc(maps\mp\zombies\_zm_audio::create_and_play_dialog, scripts\zm\replaced\_zm_audio::create_and_play_dialog);
 	replaceFunc(maps\mp\zombies\_zm_audio_announcer::playleaderdialogonplayer, scripts\zm\replaced\_zm_audio_announcer::playleaderdialogonplayer);
 	replaceFunc(maps\mp\zombies\_zm_stats::set_global_stat, scripts\zm\replaced\_zm_stats::set_global_stat);
 	replaceFunc(maps\mp\zombies\_zm_playerhealth::playerhealthregen, scripts\zm\replaced\_zm_playerhealth::playerhealthregen);
@@ -436,6 +438,11 @@ set_dvars()
 	setDvar( "sv_voiceQuality", 9 );
 
 	setDvar( "sv_cheats", 0 );
+
+	if ( getDvar("disable_character_dialog") == "" )
+	{
+		setDvar( "disable_character_dialog", 0 );
+	}
 }
 
 set_client_dvars()

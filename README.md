@@ -69,7 +69,7 @@
 * Decreased friendly player name fade out time from 1.5 seconds to 0.25 seconds
 * Removed enemy player name fade in time
 * Added icons on scoreboard when player is downed, bled out, in Who's Who mode, or in afterlife
-* Scoreboard no longer counts self revives as revives
+* Added option to disable character dialog (`disable_character_dialog 1`)
 
 ## Zombies
 * Health capped at 100,000
