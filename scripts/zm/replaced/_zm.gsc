@@ -1260,6 +1260,11 @@ check_for_valid_spawn_near_team( revivee, return_struct )
 		}
 	}
 
+	if ( !is_true( self.player_initialized ) )
+	{
+		return undefined;
+	}
+
 	for ( j = 0; j < spawn_points.size; j++ )
 	{
 		if ( isdefined( spawn_points[ j ].script_int ) )
