@@ -46,6 +46,8 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_banking::bank_deposit_unitrigger, scripts\zm\replaced\_zm_banking::bank_deposit_unitrigger);
 	replaceFunc(maps\mp\zombies\_zm_banking::bank_withdraw_unitrigger, scripts\zm\replaced\_zm_banking::bank_withdraw_unitrigger);
 	replaceFunc(maps\mp\zombies\_zm_weapon_locker::triggerweaponslockerisvalidweaponpromptupdate, scripts\zm\replaced\_zm_weapon_locker::triggerweaponslockerisvalidweaponpromptupdate);
+
+	door_changes();
 }
 
 init()
@@ -63,6 +65,34 @@ init()
 	level thread elevator_call();
 	level thread escape_pod_call();
 	level thread zombie_bad_zone_watcher();
+}
+
+door_changes()
+{
+	zombie_doors = getentarray( "zombie_door", "targetname" );
+	for ( i = 0; i < zombie_doors.size; i++ )
+	{
+		new_target = undefined;
+		if (zombie_doors[i].target == "pf1577_auto2497")
+		{
+			new_target = "pf1577_auto2496";
+		}
+		else if (zombie_doors[i].target == "debris_blue_level4a_left_door_parts")
+		{
+			new_target = "debris_blue_level4a_right_door_parts";
+		}
+
+		if (isDefined(new_target))
+		{
+			targets = getentarray( zombie_doors[i].target, "targetname" );
+			zombie_doors[i].target = new_target;
+
+			foreach (target in targets)
+			{
+				target.targetname = zombie_doors[i].target;
+			}
+		}
+	}
 }
 
 zombie_init_done()

@@ -600,6 +600,7 @@
 * Moved weapon locker to the downstairs fridge
 * Quick Revive elevator randomizes with Speed Cola and Who's Who elevators
 * Pack-a-Punch can be used while elevator is moving
+* Doors that open the same zone in the Lower Blue Highrise area open together
 * Zombies killed by an elevator no longer respawn
 * Zombies are no longer killed while spawning in a stationary elevator
 * Zombies no longer spawn in the Upper Blue Highrise area when in the Green Highrise area
