@@ -118,6 +118,11 @@ pooledbuildablestub_update_prompt( player, trigger )
 				{
 					self thread choose_open_buildable(player);
 				}
+				else
+				{
+					equipname = level.buildables_available[self.buildables_available_index];
+					self.hint_string = level.zombie_buildables[equipname].hint;
+				}
 			}
 			else
 			{
@@ -578,7 +583,12 @@ choose_open_buildable( player )
 		{
 			equipname = level.buildables_available[self.buildables_available_index];
 			self.hint_string = level.zombie_buildables[equipname].hint;
-			self.playertrigger[num] sethintstring(self.hint_string);
+
+			foreach (trig in self.playertrigger)
+			{
+				trig sethintstring(self.hint_string);
+			}
+
 			got_input = 0;
 		}
 
