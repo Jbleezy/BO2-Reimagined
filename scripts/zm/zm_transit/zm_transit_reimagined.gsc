@@ -5,6 +5,7 @@
 #include scripts\zm\replaced\zm_transit;
 #include scripts\zm\replaced\zm_transit_sq;
 #include scripts\zm\replaced\zm_transit_gamemodes;
+#include scripts\zm\replaced\zm_transit_classic;
 #include scripts\zm\replaced\zm_transit_utility;
 #include scripts\zm\replaced\zm_transit_ai_screecher;
 #include scripts\zm\replaced\zm_transit_bus;
@@ -33,6 +34,7 @@ main()
 	replaceFunc(maps\mp\zm_transit_sq::droppowerup, scripts\zm\replaced\zm_transit_sq::droppowerup);
 	replaceFunc(maps\mp\zm_transit::lava_damage_depot, scripts\zm\replaced\zm_transit::lava_damage_depot);
 	replaceFunc(maps\mp\zm_transit_gamemodes::init, scripts\zm\replaced\zm_transit_gamemodes::init);
+	replaceFunc(maps\mp\zm_transit_classic::inert_zombies_init, scripts\zm\replaced\zm_transit_classic::inert_zombies_init);
 	replaceFunc(maps\mp\zm_transit_utility::solo_tombstone_removal, scripts\zm\replaced\zm_transit_utility::solo_tombstone_removal);
 	replaceFunc(maps\mp\zm_transit_ai_screecher::player_wait_land, scripts\zm\replaced\zm_transit_ai_screecher::player_wait_land);
 	replaceFunc(maps\mp\zm_transit_bus::bussetup, scripts\zm\replaced\zm_transit_bus::bussetup);
