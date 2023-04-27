@@ -57,3 +57,22 @@ give_sq_bg_reward()
 
     t_near delete();
 }
+
+take_old_weapon_and_give_reward( current_weapon, reward_weapon, weapon_limit_override = 0 )
+{
+    if ( weapon_limit_override == 1 )
+        self takeweapon( current_weapon );
+    else
+    {
+        primaries = self getweaponslistprimaries();
+
+        if ( isdefined( primaries ) && primaries.size >= 2 )
+            self takeweapon( current_weapon );
+    }
+
+    self giveweapon( reward_weapon );
+    self givestartammo( reward_weapon );
+    self switchtoweapon( reward_weapon );
+    flag_set( "warden_blundergat_obtained" );
+    self playsoundtoplayer( "vox_brutus_easter_egg_872_0", self );
+}
