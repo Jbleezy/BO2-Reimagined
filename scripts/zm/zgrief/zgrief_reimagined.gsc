@@ -88,6 +88,7 @@ init()
 	level.autoassign = scripts\zm\replaced\_globallogic_ui::menuautoassign;
 	level.custom_spectate_permissions = undefined;
 
+	level.get_gamemode_display_name_func = ::get_gamemode_display_name;
 	level.is_respawn_gamemode_func = ::is_respawn_gamemode;
 	level.round_start_wait_func = ::round_start_wait;
 	level.increment_score_func = ::increment_score;
