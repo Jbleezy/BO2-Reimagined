@@ -28,6 +28,7 @@
 #include scripts\zm\replaced\_zm_clone;
 #include scripts\zm\replaced\_zm_spawner;
 #include scripts\zm\replaced\_zm_ai_basic;
+#include scripts\zm\replaced\_zm_ai_dogs;
 #include scripts\zm\replaced\_zm_melee_weapon;
 #include scripts\zm\replaced\_zm_weap_ballistic_knife;
 #include scripts\zm\replaced\_zm_weap_claymore;
@@ -120,6 +121,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_spawner::zombie_can_drop_powerups, scripts\zm\replaced\_zm_spawner::zombie_can_drop_powerups);
 	replaceFunc(maps\mp\zombies\_zm_spawner::zombie_complete_emerging_into_playable_area, scripts\zm\replaced\_zm_spawner::zombie_complete_emerging_into_playable_area);
 	replaceFunc(maps\mp\zombies\_zm_ai_basic::inert_wakeup, scripts\zm\replaced\_zm_ai_basic::inert_wakeup);
+	replaceFunc(maps\mp\zombies\_zm_ai_dogs::enable_dog_rounds, scripts\zm\replaced\_zm_ai_dogs::enable_dog_rounds);
 	replaceFunc(maps\mp\zombies\_zm_melee_weapon::change_melee_weapon, scripts\zm\replaced\_zm_melee_weapon::change_melee_weapon);
 	replaceFunc(maps\mp\zombies\_zm_melee_weapon::give_melee_weapon, scripts\zm\replaced\_zm_melee_weapon::give_melee_weapon);
 	replaceFunc(maps\mp\zombies\_zm_weap_ballistic_knife::watch_use_trigger, scripts\zm\replaced\_zm_weap_ballistic_knife::watch_use_trigger);
