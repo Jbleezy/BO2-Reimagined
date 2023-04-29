@@ -538,6 +538,7 @@ health_bar_hud()
 	hud.sort = 1;
 	hud.bar.sort = 2;
 	hud.barframe.sort = 3;
+	hud.barframe destroy();
 
 	hud_text = createfontstring("objective", 1.2);
 	hud_text.alignx = "left";
@@ -623,7 +624,7 @@ shield_bar_hud()
 	hud.bar.sort = 3;
 	hud.barframe.sort = 4;
 	hud.alpha = 0;
-	hud.barframe.alpha = 0;
+	hud.barframe destroy();
 
 	hud_text = createfontstring("objective", 1.2);
 	hud_text.alignx = "left";
@@ -1980,21 +1981,6 @@ bleedout_bar_hud()
 
 	flag_wait( "hud_visible" );
 
-	hud = self createbar((1, 0, 0), level.secondaryprogressbarwidth * 2, level.secondaryprogressbarheight);
-	hud setpoint("CENTER", undefined, level.secondaryprogressbarx, -1 * level.secondaryprogressbary);
-	hud.hidewheninmenu = 1;
-	hud.bar.hidewheninmenu = 1;
-	hud.barframe.hidewheninmenu = 1;
-	hud.foreground = 1;
-	hud.bar.foreground = 1;
-	hud.barframe.foreground = 1;
-	hud.sort = 1;
-	hud.bar.sort = 2;
-	hud.barframe.sort = 3;
-	hud hideelem();
-
-	hud thread destroy_on_intermission();
-
 	while (1)
 	{
 		self waittill("entering_last_stand");
@@ -2010,13 +1996,26 @@ bleedout_bar_hud()
 			continue;
 		}
 
-		self thread bleedout_bar_hud_updatebar(hud);
+		hud = self createbar((1, 0, 0), level.secondaryprogressbarwidth * 2, level.secondaryprogressbarheight);
+		hud setpoint("CENTER", undefined, level.secondaryprogressbarx, -1 * level.secondaryprogressbary);
+		hud.hidewheninmenu = 1;
+		hud.bar.hidewheninmenu = 1;
+		hud.barframe.hidewheninmenu = 1;
+		hud.foreground = 1;
+		hud.bar.foreground = 1;
+		hud.barframe.foreground = 1;
+		hud.sort = 1;
+		hud.bar.sort = 2;
+		hud.barframe.sort = 3;
+		hud.barframe destroy();
+		hud thread destroy_on_intermission();
 
-		hud showelem();
+		self thread bleedout_bar_hud_updatebar(hud);
 
 		self waittill_any("player_revived", "bled_out", "player_suicide");
 
-		hud hideelem();
+		hud.bar destroy();
+		hud destroy();
 	}
 }
 
@@ -4091,9 +4090,13 @@ destroy_on_intermission()
 
 	level waittill("intermission");
 
-	if(isDefined(self.elemtype) && self.elemtype == "bar")
+	if(isDefined(self.bar))
 	{
 		self.bar destroy();
+	}
+
+	if(isDefined(self.barframe))
+	{
 		self.barframe destroy();
 	}
 
