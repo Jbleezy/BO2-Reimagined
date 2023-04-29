@@ -381,6 +381,7 @@
 * Decreased weapon pickup time from 15 seconds to 12 seconds
 
 ## Powerups
+* Increased chance to drop from 3% to 4%
 * Grabbing time based powerups that are already active add to timer instead of resetting timer
 * An fx plays when a powerup drops if it is the last powerup of a cycle
 
@@ -773,6 +774,7 @@
 * Increased max radius for landing on top of an enemy player by 16.67%
 * Decreased max height for landing on top of an enemy player by 50%
 * M1911 upgraded: decreased stock ammo from 50 to 24
+* Powerups: decreased chance to drop from 3% to 2%
 * Max Ammo: decreased amount of ammo given from max stock to one clip
 * Max Ammo: unloads clip of all enemy players' weapons and takes away their grenades and claymores
 * Double Points: decreased duration from 30 seconds to 15 seconds
