@@ -124,7 +124,7 @@ squashed_death_init( kill_if_falling )
             }
             else if ( isai( who ) )
             {
-                if ( is_true( who.in_the_ceiling ) )
+                if ( is_true( who.in_the_ceiling ) || !is_true( who.completed_emerging_into_playable_area ) )
                     continue;
 
                 playfx( level._effect["zomb_gib"], who.origin );
