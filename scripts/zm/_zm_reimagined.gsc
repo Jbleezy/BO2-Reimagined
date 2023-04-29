@@ -129,6 +129,8 @@ main()
 
 init()
 {
+	precacheStatusIcon( "menu_mp_killstreak_select" );
+	precacheStatusIcon( "menu_mp_contract_expired" );
 	precacheStatusIcon( "waypoint_revive" );
 
 	if ( is_true( level.zombiemode_using_chugabud_perk ) )
