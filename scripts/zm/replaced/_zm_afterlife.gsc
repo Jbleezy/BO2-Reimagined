@@ -561,3 +561,123 @@ afterlife_player_damage_callback( einflictor, eattacker, idamage, idflags, smean
 
     return idamage;
 }
+
+afterlife_give_loadout()
+{
+    self takeallweapons();
+    loadout = self.loadout;
+    primaries = self getweaponslistprimaries();
+
+    if ( loadout.weapons.size > 1 || primaries.size > 1 )
+    {
+        foreach ( weapon in primaries )
+            self takeweapon( weapon );
+    }
+
+    for ( i = 0; i < loadout.weapons.size; i++ )
+    {
+        if ( !isdefined( loadout.weapons[i] ) )
+            continue;
+
+        if ( loadout.weapons[i] == "none" )
+            continue;
+
+        weapon = loadout.weapons[i];
+        stock_amount = loadout.stockcount[i];
+        clip_amount = loadout.clipcount[i];
+
+        if ( !self hasweapon( weapon ) )
+        {
+            self giveweapon( weapon, 0, self maps\mp\zombies\_zm_weapons::get_pack_a_punch_weapon_options( weapon ) );
+            self setweaponammostock( weapon, stock_amount );
+            self setweaponammoclip( weapon, clip_amount );
+
+            if ( weaponisdualwield( weapon ) )
+            {
+                weapon_dw = weapondualwieldweaponname( weapon );
+                self setweaponammoclip( weapon_dw, loadout.clipcount2[i] );
+            }
+
+            weapon_alt = weaponaltweaponname( weapon );
+
+            if ( weapon_alt != "none" )
+            {
+                self setweaponammostock( weapon_alt, loadout.stockcountalt[i] );
+                self setweaponammoclip( weapon_alt, loadout.clipcountalt[i] );
+            }
+        }
+    }
+
+    self setspawnweapon( loadout.weapons[loadout.current_weapon] );
+    self switchtoweaponimmediate( loadout.weapons[loadout.current_weapon] );
+
+    if ( isdefined( self get_player_melee_weapon() ) )
+        self giveweapon( self get_player_melee_weapon() );
+
+    self.do_not_display_equipment_pickup_hint = 1;
+    self maps\mp\zombies\_zm_equipment::equipment_give( self.loadout.equipment );
+    self.do_not_display_equipment_pickup_hint = undefined;
+
+    if ( isdefined( loadout.hasclaymore ) && loadout.hasclaymore && !self hasweapon( "claymore_zm" ) )
+    {
+        self giveweapon( "claymore_zm" );
+        self set_player_placeable_mine( "claymore_zm" );
+        self setactionslot( 4, "weapon", "claymore_zm" );
+        self setweaponammoclip( "claymore_zm", loadout.claymoreclip );
+    }
+
+    if ( isdefined( loadout.hasemp ) && loadout.hasemp )
+    {
+        self giveweapon( "emp_grenade_zm" );
+        self setweaponammoclip( "emp_grenade_zm", loadout.empclip );
+    }
+
+    if ( isdefined( loadout.hastomahawk ) && loadout.hastomahawk )
+    {
+        self giveweapon( self.current_tomahawk_weapon );
+        self set_player_tactical_grenade( self.current_tomahawk_weapon );
+        self setclientfieldtoplayer( "tomahawk_in_use", 1 );
+    }
+
+    self.score = loadout.score;
+    perk_array = maps\mp\zombies\_zm_perks::get_perk_array( 1 );
+
+    for ( i = 0; i < perk_array.size; i++ )
+    {
+        perk = perk_array[i];
+        self unsetperk( perk );
+        self set_perk_clientfield( perk, 0 );
+    }
+
+    if ( isdefined( self.keep_perks ) && self.keep_perks && isdefined( loadout.perks ) && loadout.perks.size > 0 )
+    {
+        for ( i = 0; i < loadout.perks.size; i++ )
+        {
+            if ( self hasperk( loadout.perks[i] ) )
+                continue;
+
+            if ( loadout.perks[i] == "specialty_quickrevive" && flag( "solo_game" ) )
+                level.solo_game_free_player_quickrevive = 1;
+
+            if ( loadout.perks[i] == "specialty_finalstand" )
+                continue;
+
+            maps\mp\zombies\_zm_perks::give_perk( loadout.perks[i] );
+        }
+    }
+
+    self.keep_perks = undefined;
+    self set_player_lethal_grenade( self.loadout.lethal_grenade );
+
+    if ( loadout.grenade > 0 )
+    {
+        curgrenadecount = 0;
+
+        if ( self hasweapon( self get_player_lethal_grenade() ) )
+            self getweaponammoclip( self get_player_lethal_grenade() );
+        else
+            self giveweapon( self get_player_lethal_grenade() );
+
+        self setweaponammoclip( self get_player_lethal_grenade(), loadout.grenade + curgrenadecount );
+    }
+}
