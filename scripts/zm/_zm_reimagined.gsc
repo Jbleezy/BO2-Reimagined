@@ -792,7 +792,7 @@ timer_hud()
 	}
 
 	hud setTimerUp(0);
-	hud.start_time = int(getTime() / 1000);
+	hud.start_time = getTime();
 }
 
 round_timer_hud()
@@ -839,8 +839,7 @@ round_timer_hud()
 	while (1)
 	{
 		hud setTimerUp(0);
-		hud.start_time = int(getTime() / 1000);
-		hud.end_time = undefined;
+		hud.start_time = getTime();
 
 		if ( getDvar( "g_gametype" ) == "zgrief" )
 		{
@@ -851,8 +850,7 @@ round_timer_hud()
 			level waittill( "end_of_round" );
 		}
 
-		hud.end_time = int(getTime() / 1000);
-		time = hud.end_time - hud.start_time;
+		time = int((getTime() - hud.start_time) / 1000);
 
 		set_time_frozen(hud, time);
 	}
@@ -864,12 +862,7 @@ set_time_frozen_on_end_game(hud)
 
 	level waittill("end_game");
 
-	if(!isDefined(hud.end_time))
-	{
-		hud.end_time = int(getTime() / 1000);
-	}
-
-	time = hud.end_time - hud.start_time;
+	time = int((getTime() - hud.start_time) / 1000);
 
 	set_time_frozen(hud, time);
 }
@@ -891,7 +884,7 @@ set_time_frozen(hud, time, endon_notify)
 
 	if(time != 0)
 	{
-		time -= .1; // need to set it below the number or it shows the next number
+		time -= 0.5; // need to set it below the number or it shows the next number
 	}
 
 	while (1)
