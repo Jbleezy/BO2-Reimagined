@@ -639,7 +639,7 @@ fade_out_intro_screen_zm( hold_black_time, fade_out_time, destroyed_afterwards )
 				players_str = "PLAYER";
 			}
 
-			pregame_hud setText( "WAITING FOR " + num_waiting_for + " " + players_str + " TO BE READY [" + num_ready + "/" + level.pregame_minplayers + "]" );
+			pregame_hud setText( "WAITING FOR " + num_waiting_for + " " + players_str + " TO BE READY [" + num_ready + "/" + players.size + "]" );
 
 			wait 0.05;
 
