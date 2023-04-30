@@ -198,6 +198,7 @@ on_player_connect()
 		player thread on_player_revived();
 		player thread on_player_fake_revive();
 
+		player thread grenade_fire_watcher();
 		player thread weapon_inspect_watcher();
 	}
 }
@@ -2619,6 +2620,60 @@ wallbuy_cost_changes()
 	{
 		level.zombie_weapons["thompson_zm"].ammo_cost = 750;
 	}
+}
+
+grenade_fire_watcher()
+{
+	level endon("end_game");
+	self endon("disconnect");
+
+	while(1)
+	{
+		self waittill("grenade_fire", grenade, weapname);
+
+		if (is_lethal_grenade(weapname) || is_tactical_grenade(weapname))
+		{
+			self thread temp_disable_offhand_weapons();
+		}
+
+		if (weapname == "willy_pete_zm" && !isDefined(self.smoke_grenade_cluster))
+		{
+			grenade thread smoke_grenade_cluster(self);
+		}
+	}
+}
+
+temp_disable_offhand_weapons()
+{
+	self endon( "disconnect" );
+	self endon( "entering_last_stand" );
+
+	self disableOffhandWeapons();
+
+	while(self isThrowingGrenade())
+	{
+		wait 0.05;
+	}
+
+	if (!is_true(self.is_drinking) || is_melee_weapon(self getCurrentWeapon()))
+	{
+		self enableOffhandWeapons();
+	}
+}
+
+smoke_grenade_cluster(owner)
+{
+	self waittill("explode", pos);
+
+	playsoundatposition( "zmb_land_meat", pos );
+
+	owner.smoke_grenade_cluster = true;
+	owner magicgrenadetype( "willy_pete_zm", pos, (0, 0, 0), 0 );
+	owner magicgrenadetype( "willy_pete_zm", pos, (0, 0, 0), 0 );
+
+	wait 0.05;
+
+	owner.smoke_grenade_cluster = undefined;
 }
 
 weapon_inspect_watcher()

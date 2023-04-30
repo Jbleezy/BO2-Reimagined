@@ -695,7 +695,6 @@ grief_onplayerconnect()
 	self thread head_icon();
 	self thread obj_waypoint();
 	self thread headstomp_watcher();
-	self thread smoke_grenade_cluster_watcher();
 	self thread maps\mp\gametypes_zm\zmeat::create_item_meat_watcher();
 	self.killsconfirmed = 0;
 	self.killsdenied = 0;
@@ -1079,37 +1078,6 @@ headstomp_watcher()
 
 		wait 0.05;
 	}
-}
-
-smoke_grenade_cluster_watcher()
-{
-	level endon("end_game");
-	self endon("disconnect");
-
-	while(1)
-	{
-		self waittill("grenade_fire", grenade, weapname);
-
-		if(weapname == "willy_pete_zm" && !isDefined(self.smoke_grenade_cluster))
-		{
-			grenade thread smoke_grenade_cluster(self);
-		}
-	}
-}
-
-smoke_grenade_cluster(owner)
-{
-	self waittill("explode", pos);
-
-	playsoundatposition( "zmb_land_meat", pos );
-
-	owner.smoke_grenade_cluster = true;
-	owner magicgrenadetype( "willy_pete_zm", pos, (0, 0, 0), 0 );
-	owner magicgrenadetype( "willy_pete_zm", pos, (0, 0, 0), 0 );
-
-	wait 0.05;
-
-	owner.smoke_grenade_cluster = undefined;
 }
 
 round_start_wait(time, initial)
