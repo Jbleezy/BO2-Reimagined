@@ -52,7 +52,7 @@ init()
     level.brutus_min_pulls_between_box_spawns = 4;
     level.brutus_explosive_damage_for_helmet_pop = 1500;
     level.brutus_explosive_damage_increase = 600;
-    level.brutus_failed_paths_to_teleport = 4;
+    level.brutus_failed_paths_to_teleport = 15;
     level.brutus_do_prologue = 1;
     level.brutus_min_spawn_delay = 10.0;
     level.brutus_max_spawn_delay = 60.0;

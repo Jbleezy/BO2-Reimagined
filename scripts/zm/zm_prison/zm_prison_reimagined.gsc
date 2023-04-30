@@ -85,7 +85,6 @@ init()
 	level.zombie_init_done = ::zombie_init_done;
 	level.special_weapon_magicbox_check = ::check_for_special_weapon_limit_exist;
 
-    level.brutus_failed_paths_to_teleport = 10;
     level.zombie_vars["below_world_check"] = -15000;
 	level.zombie_powerups["meat_stink"].model_name = "t6_wpn_zmb_severedhead_world";
 

@@ -418,7 +418,11 @@ zombie_can_drop_powerups( zombie )
 
 zombie_complete_emerging_into_playable_area()
 {
-	self setphysparams( 15, 0, 60 );
+	if (self.animname == "zombie")
+	{
+		self setphysparams( 15, 0, 60 );
+	}
+
     self.completed_emerging_into_playable_area = 1;
     self notify( "completed_emerging_into_playable_area" );
     self.no_powerups = 0;
