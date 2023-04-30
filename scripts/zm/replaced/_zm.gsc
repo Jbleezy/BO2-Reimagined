@@ -619,6 +619,12 @@ fade_out_intro_screen_zm( hold_black_time, fade_out_time, destroyed_afterwards )
 
 		num_ready = get_number_of_ready_players();
 		players = get_players();
+
+		foreach (player in players)
+		{
+			player playlocalsound( "zmb_perks_packa_ready" );
+		}
+
 		while ( num_ready < players.size || players.size == 0 )
 		{
 			for ( i = 0; i < players.size; i++ )
