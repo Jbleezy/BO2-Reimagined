@@ -632,6 +632,8 @@
 * Decreased starting room doors cost from 1000 to 750
 * Opening one of the starting room doors no longer opens the other
 * Brutus no longer spawns if no doors have been opened
+* Activating the laundry machine always spawns zombies instead of Brutus
+* Players no longer respawn in the Acid Trap
 * Acid Trap: kills on any round (normally stops killing after round 158 on PC)
 * Acid Trap: kills zombies instantly
 * Acid Trap: decreased player damage from 75% of max health to 50% of max health
@@ -639,7 +641,6 @@
 * Tower Trap: kills on any round in 1 shot
 * Tower Trap (upgraded): kills on any round in 1-2 shots
 * Tower Trap (upgraded): stays upgraded until the end of the round
-* Players no longer respawn in the Acid Trap
 * Zombies spawn in the Docks zone when in the Docks Gates zone
 * Zombies spawn in the Docks Gates zone when in the Docks zone
 * Quest: number pad only needs each number to be shocked once in order to complete

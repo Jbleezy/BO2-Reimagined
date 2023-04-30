@@ -22,6 +22,35 @@
 #include maps\mp\zombies\_zm_clone;
 #include maps\mp\zm_alcatraz_sq;
 
+dryer_zombies_thread()
+{
+    n_zombie_count_min = 20;
+    e_shower_zone = getent( "cellblock_shower", "targetname" );
+    flag_wait( "dryer_cycle_active" );
+
+    if ( level.zombie_total < n_zombie_count_min )
+        level.zombie_total = n_zombie_count_min;
+
+    while ( flag( "dryer_cycle_active" ) )
+    {
+        a_zombies_in_shower = [];
+        a_zombies_in_shower = get_zombies_touching_volume( "axis", "cellblock_shower", undefined );
+
+        if ( a_zombies_in_shower.size < n_zombie_count_min )
+        {
+            e_zombie = get_farthest_available_zombie( e_shower_zone );
+
+            if ( isdefined( e_zombie ) && !isinarray( a_zombies_in_shower, e_zombie ) )
+            {
+                e_zombie notify( "zapped" );
+                e_zombie thread dryer_teleports_zombie();
+            }
+        }
+
+        wait 1;
+    }
+}
+
 track_quest_status_thread()
 {
     while ( true )
