@@ -108,6 +108,8 @@ precache()
 
 main()
 {
+    level.zones["zone_diner_roof"].is_enabled = 0;
+    level.zones["zone_trans_diner2"].is_enabled = 0;
     treasure_chest_init();
 	init_wallbuys();
 	init_barriers();
