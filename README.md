@@ -23,10 +23,10 @@
 * In-game menu no longer disabled instantly when the game ends
 
 ## HUD
-* Enemy counter displayed on top left of screen
-* Timer displayed on top right of screen
-* Health bar displayed on bottom left of screen
-* Current zone displayed on bottom left of screen
+* Enemy counter displayed on top left of screen (`hud_enemy_counter`)
+* Timer displayed on top right of screen (`hud_timer`)
+* Health bar displayed on bottom left of screen (`hud_health_bar`)
+* Zone name displayed on bottom left of screen (`hud_zone_name`)
 * Increased waypoint offset from top of screen
 * Changed player waypoint location to be center of player instead of top of player
 * Increased distance between revive waypoint arrow and icon
@@ -69,7 +69,7 @@
 * Decreased friendly player name fade out time from 1.5 seconds to 0.25 seconds
 * Removed enemy player name fade in time
 * Added icons on scoreboard when player is downed, bled out, in Who's Who mode, or in afterlife
-* Added option to disable character dialog (`disable_character_dialog 1`)
+* Added option to disable character dialog (`disable_character_dialog`)
 
 ## Zombies
 * Health capped at 100,000
