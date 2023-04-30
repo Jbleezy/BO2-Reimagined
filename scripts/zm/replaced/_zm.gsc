@@ -564,113 +564,14 @@ fade_out_intro_screen_zm( hold_black_time, fade_out_time, destroyed_afterwards )
 
 	if ( isDedicated() )
     {
-		level.no_end_game_check = 1;
+		level thread wait_for_all_players_ready();
 
-		pregame_hud = createServerFontString( "objective", 1.5 );
-		pregame_hud setPoint( "CENTER", "CENTER", 0, -95 );
-		pregame_hud.foreground = 1;
-		pregame_hud.color = ( 1, 1, 1 );
-		pregame_hud.hidewheninmenu = true;
-
-		if ( isDefined( level.pregame_minplayers ) )
-		{
-			num_players = get_number_of_waiting_players();
-			while ( num_players < level.pregame_minplayers )
-			{
-				players = get_players();
-				for ( i = 0; i < players.size; i++ )
-				{
-					if ( is_true( players[i].afterlife ) )
-					{
-						players[i].infinite_mana = 1;
-					}
-
-					players[i] freezecontrols( 1 );
-				}
-
-				num_waiting_for = level.pregame_minplayers - num_players;
-
-				players_str = "PLAYERS";
-				if ( num_waiting_for == 1 )
-				{
-					players_str = "PLAYER";
-				}
-
-				pregame_hud setText( "WAITING FOR " + num_waiting_for + " MORE " + players_str + " [" + num_players + "/" + level.pregame_minplayers + "]" );
-
-				wait 0.05;
-
-				num_players = get_number_of_waiting_players();
-			}
-
-			players = get_players();
-			for ( i = 0; i < players.size; i++ )
-			{
-				players[i].waiting = undefined;
-			}
-		}
-
-		ready_up_hud = createServerFontString( "objective", 1.5 );
-		ready_up_hud setPoint( "CENTER", "CENTER", 0, -115 );
-		ready_up_hud.foreground = 1;
-		ready_up_hud.color = ( 1, 1, 1 );
-		ready_up_hud.hidewheninmenu = true;
-		ready_up_hud setText( "PRESS ^3[{+gostand}]^7 OR ^3[{+activate}]^7 TO READY UP" );
-
-		num_ready = get_number_of_ready_players();
-		players = get_players();
-
-		foreach (player in players)
-		{
-			player playlocalsound( "zmb_perks_packa_ready" );
-		}
-
-		while ( num_ready < players.size || players.size == 0 )
-		{
-			for ( i = 0; i < players.size; i++ )
-			{
-				if ( is_true( players[i].afterlife ) )
-				{
-					players[i].infinite_mana = 1;
-				}
-
-				players[i] freezecontrols( 1 );
-			}
-
-			num_waiting_for = players.size - num_ready;
-
-			players_str = "PLAYERS";
-			if ( num_waiting_for == 1 )
-			{
-				players_str = "PLAYER";
-			}
-
-			pregame_hud setText( "WAITING FOR " + num_waiting_for + " " + players_str + " TO BE READY [" + num_ready + "/" + players.size + "]" );
-
-			wait 0.05;
-
-			num_ready = get_number_of_ready_players();
-			players = get_players();
-		}
-
-		ready_up_hud destroy();
-
-		pregame_hud destroy();
-
-		level.no_end_game_check = undefined;
+		level waittill( "all_players_ready" );
 	}
 
     players = get_players();
     for ( i = 0; i < players.size; i++ )
     {
-		players[i].ready = undefined;
-		players[i].statusicon = "";
-
-		if ( is_true( players[i].afterlife ) )
-		{
-			players[i].infinite_mana = 0;
-		}
-
         if ( !( isdefined( level.host_ended_game ) && level.host_ended_game ) )
         {
             if ( isdefined( level.player_movement_suppressed ) )
@@ -690,6 +591,132 @@ fade_out_intro_screen_zm( hold_black_time, fade_out_time, destroyed_afterwards )
         level.introscreen destroy();
 
     flag_set( "initial_blackscreen_passed" );
+}
+
+wait_for_all_players_ready()
+{
+	level.no_end_game_check = 1;
+
+	if ( !isDefined(level.pregame_hud) )
+	{
+		level.pregame_hud = createServerFontString( "objective", 1.5 );
+		level.pregame_hud setPoint( "CENTER", "CENTER", 0, -95 );
+		level.pregame_hud.foreground = 1;
+		level.pregame_hud.color = ( 1, 1, 1 );
+		level.pregame_hud.hidewheninmenu = true;
+	}
+
+	num_players = get_number_of_waiting_players();
+	while ( num_players < level.pregame_minplayers )
+	{
+		players = get_players();
+		foreach ( player in players )
+		{
+			if ( is_true( player.afterlife ) )
+			{
+				player.infinite_mana = 1;
+			}
+
+			player freezecontrols( 1 );
+		}
+
+		num_waiting_for = level.pregame_minplayers - num_players;
+
+		players_str = "PLAYERS";
+		if ( num_waiting_for == 1 )
+		{
+			players_str = "PLAYER";
+		}
+
+		level.pregame_hud setText( "WAITING FOR " + num_waiting_for + " MORE " + players_str + " [" + num_players + "/" + level.pregame_minplayers + "]" );
+
+		wait 0.05;
+
+		num_players = get_number_of_waiting_players();
+	}
+
+	if ( !isDefined(level.ready_up_hud) )
+	{
+		level.ready_up_hud = createServerFontString( "objective", 1.5 );
+		level.ready_up_hud setPoint( "CENTER", "CENTER", 0, -115 );
+		level.ready_up_hud.foreground = 1;
+		level.ready_up_hud.color = ( 1, 1, 1 );
+		level.ready_up_hud.hidewheninmenu = true;
+		level.ready_up_hud setText( "PRESS ^3[{+gostand}]^7 OR ^3[{+activate}]^7 TO READY UP" );
+	}
+
+	level.ready_up_hud.alpha = 1;
+
+	num_ready = get_number_of_ready_players();
+	players = get_players();
+
+	foreach ( player in players )
+	{
+		player.waiting = undefined;
+		player playlocalsound( "zmb_perks_packa_ready" );
+	}
+
+	while ( num_ready < players.size )
+	{
+		if ( players.size < level.pregame_minplayers )
+		{
+			foreach ( player in players )
+			{
+				player.ready = undefined;
+				player.statusicon = "";
+				player playlocalsound( "zmb_perks_packa_deny" );
+			}
+
+			level.ready_up_hud.alpha = 0;
+
+			level thread wait_for_all_players_ready();
+
+			return;
+		}
+
+		foreach ( player in players )
+		{
+			if ( is_true( player.afterlife ) )
+			{
+				player.infinite_mana = 1;
+			}
+
+			player freezecontrols( 1 );
+		}
+
+		num_waiting_for = players.size - num_ready;
+
+		players_str = "PLAYERS";
+		if ( num_waiting_for == 1 )
+		{
+			players_str = "PLAYER";
+		}
+
+		level.pregame_hud setText( "WAITING FOR " + num_waiting_for + " " + players_str + " TO BE READY [" + num_ready + "/" + players.size + "]" );
+
+		wait 0.05;
+
+		num_ready = get_number_of_ready_players();
+		players = get_players();
+	}
+
+	foreach ( player in players )
+	{
+		player.ready = undefined;
+		player.statusicon = "";
+
+		if ( is_true( player.afterlife ) )
+		{
+			player.infinite_mana = 0;
+		}
+	}
+
+	level.ready_up_hud destroy();
+	level.pregame_hud destroy();
+
+	level.no_end_game_check = undefined;
+
+	level notify( "all_players_ready" );
 }
 
 get_number_of_waiting_players()
@@ -720,7 +747,7 @@ get_number_of_ready_players()
 
     for ( i = 0; i < players.size; i++ )
     {
-		if ( players[i] jumpbuttonpressed() || players[i] usebuttonpressed() )
+		if ( players[i] jumpbuttonpressed() || players[i] usebuttonpressed() || players[i] is_bot() )
 		{
 			players[i].ready = 1;
 		}
