@@ -485,6 +485,8 @@ set_client_dvars()
 
 	self setClientDvar( "cg_drawBreathHint", 0 );
 
+	self setClientDvar( "g_friendlyfireDist", 0 );
+
 	self setClientDvar( "cg_friendlyNameFadeIn", 0 );
 	self setClientDvar( "cg_friendlyNameFadeOut", 250 );
 	self setClientDvar( "cg_enemyNameFadeIn", 0 );

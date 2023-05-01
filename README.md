@@ -23,17 +23,19 @@
 * In-game menu no longer disabled instantly when the game ends
 
 ## HUD
-* Enemy counter displayed on top left of screen (`hud_enemy_counter`)
-* Timer displayed on top right of screen (`hud_timer`)
-* Health bar displayed on bottom left of screen (`hud_health_bar`)
-* Zone name displayed on bottom left of screen (`hud_zone_name`)
+* Enemy counter displayed on top left of screen - `hud_enemy_counter`
+* Timer displayed on top right of screen - `hud_timer`
+* Health bar displayed on bottom left of screen - `hud_health_bar`
+* Zone name displayed on bottom left of screen - `hud_zone_name`
 * Increased waypoint offset from top of screen
 * Changed player waypoint location to be center of player instead of top of player
 * Increased distance between revive waypoint arrow and icon
 * Bleed out bar displayed when downed
 * Revive bar displayed for downed player
 * Changed revive bar color to blue
+* Player is reviving you text gets removed instantly when player drops the revive
 * Player needs to be revived text updates to new player instantly
+* Removed NAV cards
 
 ## Players
 * Unlimited sprint
@@ -58,7 +60,7 @@
 * Ignored by zombies for 1 second after being revived
 * Weapon is no longer switched after reviving if player switched weapons during revive
 * No longer gain points back on self revives
-* Respawn near random player (normally respawns near the same player every time)
+* Respawn near random player (normally respawn near the same player every time)
 * Can shoot while looking at other players
 * Increased mantle speed
 * Increased ladder climb speed
@@ -69,7 +71,7 @@
 * Decreased friendly player name fade out time from 1.5 seconds to 0.25 seconds
 * Removed enemy player name fade in time
 * Added icons on scoreboard when player is downed, bled out, in Who's Who mode, or in afterlife
-* Added option to disable character dialog (`disable_character_dialog`)
+* Added option to disable character dialog - `disable_character_dialog`
 
 ## Zombies
 * Health capped at 100,000
@@ -182,8 +184,8 @@
 
 ### Monkey Bomb
 * Zombies killed can drop powerups
-* Fixed an issue where a Monkey Bomb wouldn't activate if the previously thrown Monkey Bomb hadn't activated yet
 * Added HUD icon from Buried and Origins to all maps
+* Fixed an issue where a Monkey Bomb wouldn't activate if the previously thrown Monkey Bomb hadn't activated yet
 
 ### EMP Grenade
 * No longer disables HUD
@@ -247,7 +249,7 @@
 * Kills on any round (normally stops killing after round 100)
 * Decreased stock ammo from 40 to 20
 * Removed additional goo created by chain kills
-* Continues to chain while put away
+* Continues to chain while not holding weapon
 * Removed player damage
 * Upgraded: increases slippery spot duration by 50%
 * Upgraded: increases chain explosion radius by 50%
@@ -342,13 +344,13 @@
 ### Mule Kick
 * Added additional weapon indicator
 * Additional weapon is given back when perk is reacquired
-* Stowed weapons refill ammo from stock over time
+* Stowed weapons automatically reload over time
 
 ### Tombstone Soda
 * Added in solo
 * Added powerup waypoint
 * Powerup no longer removed when revived
-* Powerup removed when downed
+* Powerup removed when downed again after being revived or respawning
 * Unlimited time to pick up powerup
 * Changed powerup fx color to blue
 * Powerup gets destroyed by EMP Grenades
@@ -385,7 +387,7 @@
 ## Powerups
 * Increased chance to drop from 3% to 4%
 * Grabbing time based powerups that are already active add to timer instead of resetting timer
-* An fx plays when a powerup drops if it is the last powerup of a cycle
+* Fx plays when a powerup drops if it is the last powerup of a cycle
 
 ### Nuke
 * Kills all zombies instantly
@@ -408,11 +410,10 @@
 * Bounces off walls when thrown
 * Changed powerup fx color to blue
 * Able to drop when players are down
-* Fixed being able to drop when another meat powerup was already dropped
-* Message shows when the meat is grabbed and thrown on a player
+* No longer able to drop when another meat powerup is already dropped
+* Message shows when the meat is grabbed, thrown, and landed on a player
 * Meleeing while the meat is moving no longer grabs the meat
 * Meleeing while the meat is moving throws the meat
-* Meleeing while the meat is moving activates more consistently
 * Removed pick up trigger
 
 ## Persistent Upgrades
@@ -462,7 +463,7 @@
 ### Trample Steam
 * No longer gets destroyed from kills
 * Gets destroyed after activating 15 times
-* Uses fast cooldown when player activates
+* Does fast cooldown when player activates
 
 ### Head Chopper
 * No longer gets destroyed from kills
@@ -476,9 +477,9 @@
 * Fixed an issue where each chop would only damage entities that were touching the damage trigger during the previous chop
 
 ### Blundergat Upgrade
-* Does knuckle crack animation on conversion
+* Player does knuckle crack animation during conversion
 * Requires player's current weapon to be the Blundergat to convert
-* Requires player to be looking at the table to use
+* Requires player to be looking at the table to convert
 
 ### Maxis Drone
 * Kills on any round in 1-4 shots (normally does 12000 damage max)
@@ -494,44 +495,43 @@
 * Gain 10% interest on deposited points at the end of each round
 * No longer costs 100 points to withdraw
 * Players can deposit and withdraw less than 1000 points
-* Account balance is shown
+* Account balance displayed on HUD
 * Disabled trading points
 
 ## Weapon Locker
-* Stored weapon resets each game
-* Stored weapon gains max ammo at the end of each round
-* Stored weapon is shown
+* Placed weapon resets each game
+* Placed weapon gains max ammo at the end of each round
+* Placed weapon displayed on HUD
 
 ## NAV Table
 * Automatically crafted
-* Costs 100000 points
+* Costs 100,000 points
 * Ends the game
-* Removed NAV cards on HUD
 
 ## Maps
 * All quests can be completed with any amount of players
 * All quests give players all perks on completion
 
 ### Tranzit
+* Power switch and Pack-a-Punch automatically crafted
 * Any door that requires a Turbine to open is automatically open whenever the power is on
 * Increased bus speed by 100%
 * Added bus depart timer on HUD when player is on bus
 * Powerups dropped within the bus are linked to the bus
 * Players can sprint and go prone on the bus
 * Bus wallbuy trigger functions the same as other wallbuy triggers
-* Lamp post portals stay active after activating once
-* Players can be revived in the fog easier
 * Lava in starting area activates after the power is on
 * Lava destroys grenades instantly
+* Players can be revived in the fog easier
+* Lamp post portals stay active after activating once
 * Decreased brightness at Power Station
-* Power switch and Pack-a-Punch automatically crafted
 * Zombies killed by the bus no longer respawn
 * Zombies no longer spawn in the Prototype zone when in the Cornfield zone
 * Zombies no longer spawn in the Cornfield zone when in the Prototype zone
 * Zombies spawn in the Warehouse zone when in the Outside Power Station zone before the Warehouse door is opened
 * Zombies spawn in the Outside Power Station zone when in the Fog After Power Station zone
 * Zombies spawn in the Warehouse zone when in the Fog After Power Station zone
-* Quest: increased pylon powerup spawn rate from 4-12 minutes to 2-6 minutes
+* Quest: increased pylon powerup drop rate from 4-12 minutes to 2-6 minutes
 * Quest (Maxis): Avogadro step only requires 1 Turbine under the pylon
 * Quest (Maxis): Turbine can get destroyed by the EMP during the Avogadro step and it will still count as completed
 * Quest (Maxis): lamp posts step requires all 8 lamp posts to get powered by a Turbine
@@ -542,7 +542,7 @@
 * Grief: added Ballistic Knife, Ray Gun, and Ray Gun Mark 2 to the Mystery Box
 * Added collision to area at Cornfield that was considered out of the map
 * Fixed zombie riser spawn points that were too high above ground
-* Fixed zombie pathing at Cornfield behind the tower
+* Fixed zombie pathing at Cornfield behind the pylon
 * Fixed zombie pathing at Town in Bookstore
 
 #### Bus Depot
@@ -591,7 +591,7 @@
 * Initial perk is no longer always Quick Revive in solo
 * Initial perk no longer always spawns in the starting area in solo
 * Initial perk spawns at round 1 in coop
-* Perks spawn every 5th round
+* Perks spawn every 5 rounds
 
 ### Die Rise
 * Removed key
@@ -624,13 +624,13 @@
 * 1 afterlife max in solo
 * Entering afterlife no longer takes 2 additional seconds if the player had Electric Cherry
 * Afterlife player model has collision
+* Key no longer shows on HUD
 * Plane parts are shared in coop
 * Plane parts must be all acquired to craft
-* Plane no longer has to be refueled after first use
+* Plane no longer has to be refueled
 * Plane reappears immediately after coming back from the Golden Gate Bridge
 * Electric chairs appear immediately after crashing at the Golden Gate Bridge
 * Zombies spawn sooner after crashing at the Golden Gate Bridge
-* Key no longer shows on HUD
 * Decreased starting room doors cost from 1000 to 750
 * Opening one of the starting room doors no longer opens the other
 * Brutus no longer spawns if no doors have been opened
@@ -654,7 +654,6 @@
 * Quest: showdown target waypoint shows offscreen
 * Grief: added Smoke Grenades to the Mystery Box
 * Grief: added Richtofen's Head meat powerup model
-* Grief: Tower Trap targets and stuns players
 * Fixed initial weapon raise animation happening after exiting afterlife
 * Fixed being able to hit a death barrier when jumping off the Docks Bridge zone
 * Fixed locked hint string not showing on Blundergat Upgrade buildable table
@@ -664,22 +663,23 @@
 * Wallbuys: M14, Olympia, MP5, Uzi, M1927
 * Perks: Juggernog
 * Pack-a-Punch
+* Grief: Tower Trap targets and stuns players
 
 ### Buried
+* Removed Turbine, key, booze, and candy
 * Power automatically on
 * Noose and Guillotine parts automatically picked up
-* Removed Turbine, key, booze, and candy
 * Drawing weapons no longer gives points
 * Arthur barricades are buyable debris
 * Arthur can be purchased to feed him candy and make him run around and kill zombies for 30 seconds
-* Ghosts no longer spawn a free perk powerup if any player gets damaged by the ghosts
+* Ghosts no longer drop free perk powerup if any player gets damaged by the ghosts
 * Fountain portal automatically active
 * Players no longer take fall damage after using the fountain teleporter
 * Players can no longer get into the corner next to Juggernog
 * Removed buildable table hint icons
 * Added buildable table hint strings on buildable purchase
 * Quest: all 5 signs must be meleed for wisp to spawn
-* Quest: changed number of targets that need to be hit to 20 multiplied by the amount of player
+* Quest: changed number of targets that need to be hit to 20 multiplied by the amount of players
 * Quest: perks given on completion are no longer permament
 * Quest: completion button always activatable after completing the quest
 * Quest (Maxis): no longer need to activate the Time Bomb to be able to spawn the 2nd wisp
@@ -742,7 +742,7 @@
 * Quest (ascend from darkness step): fixed an issue where staffs were able to be picked up at their build location when placed in the staff holders
 * Quest (rain fire step): button no longer deactivates after activating
 * Quest (raise hell step): all staffs must be fully charged for souls to be collected
-* Quest (raise hell step): zombies in The Crazy Place get knocked down during the screen flash after collecting all souls
+* Quest (raise hell step): zombies in The Crazy Place get knocked down during the screen flash after collecting all of the souls
 * Quest (freedom step): teleport trigger can be triggered without looking at it
 * Fixed being able to hit a death barrier when jumping off the Above Generator 3 Bunker zone
 
@@ -787,12 +787,13 @@
 * Nuke: enemy players lose 400 points
 * Nuke: deals 80 damage to all alive enemy players
 * Nuke: makes all downed enemy players bleed out
-* Added teammate waypoint icons
+* Added teammate head icons
 * Added kill feed (includes downs, revives, and bleed outs)
 * Added player kills on scoreboard (replaces headshots)
-* Last player alive audio only plays for the player who is alive instead of every player on the team
+* Added new audio when enemy players bleed out
+* Spawn points are assigned to a team
+* Properly restores dual wield weapon left clip ammo, alternative weapon ammo, and equipment on respawn
 * Can only spectate own team
-* Added map and game mode voting on servers
 
 #### Grief
 * Gain score by making enemy players bleed out
@@ -801,15 +802,13 @@
 * Players retain perks
 
 #### Search & Rezurrect
-* Win rounds by getting all enemy players down
+* Win a round by getting all enemy players down
 * Win 3 rounds to win the game
 * Tie round if both teams die within 5 seconds of eachother
 * Players start each round with at least 10000 points
 * Enemies remaining audio and text displays when enemy players down instead of when enemy players bleed out
-* Added new audio when enemy players bleed out
-* Players do not get their weapons back on round reset if they bled out
-* Round reset properly restores dual wield weapon left clip ammo, alternative weapon ammo, and equipment
-* Spawn points are assigned to a team
+* Last player alive audio only plays for the player who is alive instead of every player on the team
+* Players do not get their weapons back on the next round if they bled out
 * Teams switch spawn points each round
 * Players respawn at initial spawn points
 
@@ -836,7 +835,7 @@
 #### Meat
 * Gain score by being the team holding the meat
 * Gain 200 score to win the game
-* Meat powerup always spawns from the first zombie killed
+* Meat powerup always drops from the first zombie killed
 * Player holding the meat gains 100 points when their team gains score
 * Downing while holding the meat drops it as a powerup
 * Throwing the meat on the ground drops it as a powerup
