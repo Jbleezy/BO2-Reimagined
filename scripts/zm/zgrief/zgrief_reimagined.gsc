@@ -736,9 +736,9 @@ grief_onplayerdisconnect(disconnecting_player)
 		return;
 	}
 
-	if(isDefined(level.grief_update_records))
+	if(isDefined(level.update_stats_func))
 	{
-		[[level.grief_update_records]](disconnecting_player);
+		[[level.update_stats_func]](disconnecting_player);
 	}
 
 	if(level.scr_zm_ui_gametype_obj == "zgrief")
