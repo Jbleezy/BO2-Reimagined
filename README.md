@@ -82,6 +82,7 @@
 * Neck counts as headshot
 * All body shot kills award 50 points
 * 4 round and 5 round special rounds happen more equally
+* Fixed not being able to drop powerups after doing certain traversals
 
 ### Avogadro
 * Drops a random powerup when killed

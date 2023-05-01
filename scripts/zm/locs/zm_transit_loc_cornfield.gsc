@@ -129,15 +129,15 @@ main()
 
 init_wallbuys()
 {
-	scripts\zm\replaced\utility::wallbuy( "m14_zm", "m14", "weapon_upgrade", ( 13663, -1166, -134 ), ( 0, -90, 0 ) );
-    scripts\zm\replaced\utility::wallbuy( "rottweil72_zm", "olympia", "weapon_upgrade", ( 13554, -539, -133 ), ( 0, -90, 0 ) );
-    scripts\zm\replaced\utility::wallbuy( "beretta93r_zm", "beretta93r", "weapon_upgrade", ( 13793, -1644, -105 ), ( 0, 0, 0 ) );
-    scripts\zm\replaced\utility::wallbuy( "mp5k_zm", "mp5", "weapon_upgrade", ( 13554, -769, -133 ), ( 0, -90, 0 ) );
-    scripts\zm\replaced\utility::wallbuy( "ak74u_zm", "ak74u", "weapon_upgrade", ( 13978, -1550, -134 ), ( 0, 90, 0 ) );
-	scripts\zm\replaced\utility::wallbuy( "m16_zm", "m16", "weapon_upgrade", ( 14092, -351, -133 ), ( 0, 90, 0 ) );
-    scripts\zm\replaced\utility::wallbuy( "870mcs_zm", "870mcs", "weapon_upgrade", ( 13554, -1387, -134 ), ( 0, -90, 0 ) );
-    scripts\zm\replaced\utility::wallbuy( "sticky_grenade_zm", "sticky_grenade", "weapon_upgrade", ( 13603, -1079, -134 ), ( 0, 0, 0 ) );
-    scripts\zm\replaced\utility::wallbuy( "claymore_zm", "claymore", "claymore_purchase", ( 13603, -1282, -134 ), ( 0, -180, 0 ) );
+	scripts\zm\replaced\utility::wallbuy( "m14_zm", "m14", "weapon_upgrade", ( 13662, -1166, -134 ), ( 0, -90, 0 ) );
+    scripts\zm\replaced\utility::wallbuy( "rottweil72_zm", "olympia", "weapon_upgrade", ( 13553, -539, -133 ), ( 0, -90, 0 ) );
+    scripts\zm\replaced\utility::wallbuy( "beretta93r_zm", "beretta93r", "weapon_upgrade", ( 13793, -1646, -105 ), ( 0, 0, 0 ) );
+    scripts\zm\replaced\utility::wallbuy( "mp5k_zm", "mp5", "weapon_upgrade", ( 13553, -769, -133 ), ( 0, -90, 0 ) );
+    scripts\zm\replaced\utility::wallbuy( "ak74u_zm", "ak74u", "weapon_upgrade", ( 13979, -1550, -134 ), ( 0, 90, 0 ) );
+	scripts\zm\replaced\utility::wallbuy( "m16_zm", "m16", "weapon_upgrade", ( 14093, -351, -133 ), ( 0, 90, 0 ) );
+    scripts\zm\replaced\utility::wallbuy( "870mcs_zm", "870mcs", "weapon_upgrade", ( 13552, -1387, -134 ), ( 0, -90, 0 ) );
+    scripts\zm\replaced\utility::wallbuy( "sticky_grenade_zm", "sticky_grenade", "weapon_upgrade", ( 13603, -1082, -134 ), ( 0, 0, 0 ) );
+    scripts\zm\replaced\utility::wallbuy( "claymore_zm", "claymore", "claymore_purchase", ( 13603, -1281, -134 ), ( 0, -180, 0 ) );
 }
 
 init_barriers()
