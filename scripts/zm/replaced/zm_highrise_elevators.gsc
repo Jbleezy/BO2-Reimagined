@@ -351,6 +351,53 @@ elevator_move_sound()
     self playsound( "zmb_elevator_ding" );
 }
 
+elevator_roof_watcher()
+{
+    level endon( "end_game" );
+
+    while ( true )
+    {
+        self.trig waittill( "trigger", who );
+
+        if ( isdefined( who ) && isplayer( who ) )
+        {
+            while ( isdefined( who ) && who istouching( self.trig ) )
+            {
+                if ( self.is_moving )
+                    self waittill_any( "movedone", "forcego" );
+
+                if ( self.current_level == 0 )
+                {
+                    break; // don't make climber at top level
+                }
+
+                zombies = getaiarray( level.zombie_team );
+
+                if ( isdefined( zombies ) && zombies.size > 0 )
+                {
+                    foreach ( zombie in zombies )
+                    {
+                        climber = zombie zombie_for_elevator_unseen();
+
+                        if ( isdefined( climber ) )
+                            continue;
+                    }
+
+                    if ( isdefined( climber ) )
+                    {
+                        zombie zombie_climb_elevator( self );
+                        wait( randomint( 30 ) );
+                    }
+                }
+
+                wait 0.5;
+            }
+        }
+
+        wait 0.5;
+    }
+}
+
 faller_location_logic()
 {
     wait 1;

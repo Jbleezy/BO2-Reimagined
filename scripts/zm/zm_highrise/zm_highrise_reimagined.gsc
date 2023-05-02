@@ -34,6 +34,7 @@ main()
 	replaceFunc(maps\mp\zm_highrise_buildables::include_buildables, scripts\zm\replaced\zm_highrise_buildables::include_buildables);
 	replaceFunc(maps\mp\zm_highrise_elevators::init_elevator_perks, scripts\zm\replaced\zm_highrise_elevators::init_elevator_perks);
 	replaceFunc(maps\mp\zm_highrise_elevators::elevator_think, scripts\zm\replaced\zm_highrise_elevators::elevator_think);
+	replaceFunc(maps\mp\zm_highrise_elevators::elevator_roof_watcher, scripts\zm\replaced\zm_highrise_elevators::elevator_roof_watcher);
 	replaceFunc(maps\mp\zm_highrise_elevators::faller_location_logic, scripts\zm\replaced\zm_highrise_elevators::faller_location_logic);
 	replaceFunc(maps\mp\zm_highrise_distance_tracking::zombie_tracking_init, scripts\zm\replaced\zm_highrise_distance_tracking::zombie_tracking_init);
 	replaceFunc(maps\mp\zm_highrise_distance_tracking::delete_zombie_noone_looking, scripts\zm\replaced\zm_highrise_distance_tracking::delete_zombie_noone_looking);
