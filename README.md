@@ -673,6 +673,7 @@
 * Drawing weapons no longer gives points
 * Arthur barricades are buyable debris
 * Arthur can be purchased to feed him candy and make him run around and kill zombies for 30 seconds
+* Ghosts no longer spawn and go after players not in the Mansion during a ghost round
 * Ghosts no longer drop free perk powerup if any player gets damaged by the ghosts
 * Fountain portal automatically active
 * Players no longer take fall damage after using the fountain teleporter
