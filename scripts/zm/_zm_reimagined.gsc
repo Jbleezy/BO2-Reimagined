@@ -20,6 +20,7 @@
 #include scripts\zm\replaced\_zm_weapons;
 #include scripts\zm\replaced\_zm_magicbox;
 #include scripts\zm\replaced\_zm_perks;
+#include scripts\zm\replaced\_zm_buildables;
 #include scripts\zm\replaced\_zm_power;
 #include scripts\zm\replaced\_zm_powerups;
 #include scripts\zm\replaced\_zm_pers_upgrades;
@@ -104,6 +105,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_perks::check_player_has_perk, scripts\zm\replaced\_zm_perks::check_player_has_perk);
 	replaceFunc(maps\mp\zombies\_zm_perks::perk_pause, scripts\zm\replaced\_zm_perks::perk_pause);
 	replaceFunc(maps\mp\zombies\_zm_perks::perk_unpause, scripts\zm\replaced\_zm_perks::perk_unpause);
+	replaceFunc(maps\mp\zombies\_zm_buildables::player_progress_bar_update, scripts\zm\replaced\_zm_buildables::player_progress_bar_update);
 	replaceFunc(maps\mp\zombies\_zm_power::standard_powered_items, scripts\zm\replaced\_zm_power::standard_powered_items);
 	replaceFunc(maps\mp\zombies\_zm_powerups::powerup_drop, scripts\zm\replaced\_zm_powerups::powerup_drop);
 	replaceFunc(maps\mp\zombies\_zm_powerups::get_next_powerup, scripts\zm\replaced\_zm_powerups::get_next_powerup);
