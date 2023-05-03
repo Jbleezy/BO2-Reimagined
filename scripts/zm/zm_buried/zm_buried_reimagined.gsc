@@ -33,6 +33,7 @@ main()
 	replaceFunc(maps\mp\zm_buried_gamemodes::init, scripts\zm\replaced\zm_buried_gamemodes::init);
 	replaceFunc(maps\mp\zm_buried_gamemodes::buildbuildable, scripts\zm\replaced\zm_buried_gamemodes::buildbuildable);
 	replaceFunc(maps\mp\zm_buried_ffotd::jail_traversal_fix, scripts\zm\replaced\zm_buried_ffotd::jail_traversal_fix);
+	replaceFunc(maps\mp\zm_buried_ffotd::time_bomb_takeaway, scripts\zm\replaced\zm_buried_ffotd::time_bomb_takeaway);
 	replaceFunc(maps\mp\zm_buried_ffotd::spawned_life_triggers, scripts\zm\replaced\zm_buried_ffotd::spawned_life_triggers);
 	replaceFunc(maps\mp\zm_buried_fountain::transport_player_to_start_zone, scripts\zm\replaced\zm_buried_fountain::transport_player_to_start_zone);
 	replaceFunc(maps\mp\zm_buried_sq::sq_metagame, scripts\zm\replaced\zm_buried_sq::sq_metagame);

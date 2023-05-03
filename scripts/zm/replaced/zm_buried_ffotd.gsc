@@ -40,6 +40,11 @@ jail_traversal_fix()
     }
 }
 
+time_bomb_takeaway()
+{
+    // remove
+}
+
 spawned_life_triggers()
 {
     // remove
