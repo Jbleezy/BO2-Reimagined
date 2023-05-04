@@ -71,3 +71,38 @@ leaper_round_tracker()
         }
     }
 }
+
+leaper_round_accuracy_tracking()
+{
+    players = getplayers();
+    level.leaper_round_accurate_players = 0;
+
+    for ( i = 0; i < players.size; i++ )
+    {
+        players[i].total_shots_start_leaper_round = players[i] maps\mp\gametypes_zm\_globallogic_score::getpersstat( "total_shots" );
+        players[i].total_hits_start_leaper_round = players[i] maps\mp\gametypes_zm\_globallogic_score::getpersstat( "hits" );
+    }
+
+    level waittill( "last_leaper_down" );
+
+    players = getplayers();
+
+    for ( i = 0; i < players.size; i++ )
+    {
+        total_shots_end_leaper_round = players[i] maps\mp\gametypes_zm\_globallogic_score::getpersstat( "total_shots" ) - players[i].total_shots_start_leaper_round;
+        total_hits_end_leaper_round = players[i] maps\mp\gametypes_zm\_globallogic_score::getpersstat( "hits" ) - players[i].total_hits_start_leaper_round;
+
+        if ( total_shots_end_leaper_round == total_hits_end_leaper_round )
+            level.leaper_round_accurate_players++;
+    }
+
+    if ( level.leaper_round_accurate_players == players.size )
+    {
+        if ( isdefined( level.last_leaper_origin ) )
+        {
+            trace = groundtrace( level.last_leaper_origin + vectorscale( ( 0, 0, 1 ), 10.0 ), level.last_leaper_origin + vectorscale( ( 0, 0, -1 ), 150.0 ), 0, undefined, 1 );
+            power_up_origin = trace["position"];
+            level thread maps\mp\zombies\_zm_powerups::specific_powerup_drop( "free_perk", power_up_origin + vectorscale( ( 1, 1, 0 ), 30.0 ) );
+        }
+    }
+}

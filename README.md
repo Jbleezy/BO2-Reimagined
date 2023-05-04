@@ -100,6 +100,7 @@
 * Removed hint when player is first attacked in solo
 
 ### Leapers
+* No longer give each player 2000 points when rewarded a free perk powerup
 * Initial leaper round always happens on round 5 or 6
 
 ### Brutus
