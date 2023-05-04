@@ -72,7 +72,7 @@ show_current_weapon(player)
 
 	if (isDefined(stub.weaponlockerhud[num]))
 	{
-		stub.weaponlockerhud[num] settext( "Placed Weapon: " + displayname );
+		stub.weaponlockerhud[num] settext( displayname );
 		return;
 	}
 
@@ -88,7 +88,8 @@ show_current_weapon(player)
 	hud.fontscale = 1;
 	hud.alpha = 1;
 	hud.color = ( 1, 1, 1 );
-	hud settext( "Placed Weapon: " + displayname );
+	hud.label = &"Placed Weapon: ";
+	hud settext( displayname );
 	stub.weaponlockerhud[num] = hud;
 
 	while ( isDefined( self ) )

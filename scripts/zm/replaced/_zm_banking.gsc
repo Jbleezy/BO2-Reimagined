@@ -209,6 +209,7 @@ show_balance(player)
 	hud.fontscale = 1;
 	hud.alpha = 1;
 	hud.color = ( 1, 1, 1 );
+	hud.label = &"Account Balance: ";
 	stub.bankbalancehud[num] = hud;
 
 	hud thread update_balance(player);
@@ -237,7 +238,7 @@ update_balance(player)
 
 	while (1)
 	{
-		self settext( "Account Balance: " + round_up_to_ten(int(player.account_value * level.bank_deposit_ddl_increment_amount)) );
+		self setvalue( round_up_to_ten(int(player.account_value * level.bank_deposit_ddl_increment_amount)) );
 
 		player waittill("update_account_value");
 	}
