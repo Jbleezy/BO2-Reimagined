@@ -84,16 +84,6 @@ pooledbuildabletrigger_update_prompt( player )
 	return can_use;
 }
 
-pooledbuildabletrigger_wait_and_update_prompt( player )
-{
-	self notify("pooledbuildabletrigger_wait_and_update_prompt");
-	self endon("pooledbuildabletrigger_wait_and_update_prompt");
-
-	self waittill("trigger");
-
-	self pooledbuildabletrigger_update_prompt( player );
-}
-
 pooledbuildablestub_update_prompt( player, trigger )
 {
     if ( !self anystub_update_prompt( player ) )
@@ -486,7 +476,7 @@ pooled_buildable_place_think()
 
             prompt = player scripts\zm\replaced\_zm_buildables::player_build( self.stub.buildablezone );
 			self.stub.hint_string = self.stub.trigger_hintstring;
-			self pooledbuildabletrigger_update_prompt( player );
+			self thread pooled_buildable_place_update_all();
         }
     }
 
@@ -503,8 +493,21 @@ pooled_buildable_place_think()
 			}
 		}
 	}
+}
 
-	scripts\zm\replaced\_zm_buildables::buildable_place_think();
+pooled_buildable_place_update_all()
+{
+	players = get_players();
+	foreach ( player in players )
+	{
+		num = player getentitynumber();
+		if ( isDefined( self.stub.playertrigger[num] ) )
+		{
+			self.stub.playertrigger[num] notify( "kill_trigger" );
+			self.stub.playertrigger[num] pooledbuildabletrigger_update_prompt( player );
+			self.stub.playertrigger[num] pooled_buildable_place_think();
+		}
+	}
 }
 
 pooledbuildable_stub_for_equipname( equipname )
