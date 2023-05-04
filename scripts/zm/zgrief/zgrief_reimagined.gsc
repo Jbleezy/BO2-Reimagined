@@ -2689,7 +2689,11 @@ containment_think()
 		zone = level.zones[zone_name];
 
 		zone_name_to_lock = zone_name;
-		if (zone_name == "zone_mansion_lawn")
+		if (zone_name == "zone_street_fountain")
+		{
+			zone_name_to_lock = "zone_street_lighteast";
+		}
+		else if (zone_name == "zone_mansion_lawn")
 		{
 			zone_name_to_lock = "zone_mansion";
 		}
