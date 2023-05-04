@@ -2831,17 +2831,11 @@ containment_think()
 						player thread show_grief_hud_msg("Containment zone contested!");
 					}
 				}
-				else
-				{
-					if((level.grief_score["A"] + 1) >= get_gamemode_winning_score())
-					{
-						held_time["axis"] = getTime();
-					}
 
-					if((level.grief_score["B"] + 1) >= get_gamemode_winning_score())
-					{
-						held_time["allies"] = getTime();
-					}
+				if((level.grief_score["A"] + 1) >= get_gamemode_winning_score() || (level.grief_score["B"] + 1) >= get_gamemode_winning_score())
+				{
+					held_time["axis"] = undefined;
+					held_time["allies"] = undefined;
 				}
 			}
 			else if(in_containment_zone["axis"].size > in_containment_zone["allies"].size)
@@ -2861,7 +2855,7 @@ containment_think()
 				if(held_prev != "axis")
 				{
 					obj_time = 1000;
-					if(held_prev != "cont")
+					if(!isDefined(held_time["axis"]))
 					{
 						held_time["axis"] = getTime();
 					}
@@ -2898,7 +2892,7 @@ containment_think()
 				if(held_prev != "allies")
 				{
 					obj_time = 1000;
-					if(held_prev != "cont")
+					if(!isDefined(held_time["allies"]))
 					{
 						held_time["allies"] = getTime();
 					}
@@ -2952,17 +2946,14 @@ containment_think()
 				{
 					held_time["axis"] = getTime();
 
-					if((held_prev != "cont") || ((level.grief_score["A"] + 1) < get_gamemode_winning_score()))
+					foreach(player in in_containment_zone["axis"])
 					{
-						foreach(player in in_containment_zone["axis"])
-						{
-							score = 50 * maps\mp\zombies\_zm_score::get_points_multiplier(player);
-							player maps\mp\zombies\_zm_score::add_to_player_score(score);
-							player.captures++;
-						}
-
-						increment_score("axis", undefined, !isDefined(held_time["allies"]));
+						score = 50 * maps\mp\zombies\_zm_score::get_points_multiplier(player);
+						player maps\mp\zombies\_zm_score::add_to_player_score(score);
+						player.captures++;
 					}
+
+					increment_score("axis", undefined, !isDefined(held_time["allies"]));
 				}
 			}
 
@@ -2972,17 +2963,14 @@ containment_think()
 				{
 					held_time["allies"] = getTime();
 
-					if((held_prev != "cont") || ((level.grief_score["B"] + 1) < get_gamemode_winning_score()))
+					foreach(player in in_containment_zone["allies"])
 					{
-						foreach(player in in_containment_zone["allies"])
-						{
-							score = 50 * maps\mp\zombies\_zm_score::get_points_multiplier(player);
-							player maps\mp\zombies\_zm_score::add_to_player_score(score);
-							player.captures++;
-						}
-
-						increment_score("allies", undefined, !isDefined(held_time["axis"]));
+						score = 50 * maps\mp\zombies\_zm_score::get_points_multiplier(player);
+						player maps\mp\zombies\_zm_score::add_to_player_score(score);
+						player.captures++;
 					}
+
+					increment_score("allies", undefined, !isDefined(held_time["axis"]));
 				}
 			}
 
