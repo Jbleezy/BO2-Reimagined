@@ -476,7 +476,6 @@ pooled_buildable_place_think()
 
             prompt = player scripts\zm\replaced\_zm_buildables::player_build( self.stub.buildablezone );
 			self.stub.hint_string = self.stub.trigger_hintstring;
-			self thread pooled_buildable_place_update_all();
         }
     }
 
@@ -493,6 +492,8 @@ pooled_buildable_place_think()
 			}
 		}
 	}
+
+	self thread pooled_buildable_place_update_all();
 }
 
 pooled_buildable_place_update_all()
