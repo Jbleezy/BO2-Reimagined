@@ -54,7 +54,7 @@
 * Changed health regeneration rate to 100 health per second (normally fully restored health in 0.5 seconds)
 * Fall damage no longer increases when max health is increased
 * Added blood fx when at or below 20% health
-* Removed blur when getting damaged
+* Removed blur after getting damaged
 * Removed shellshock from explosive damage
 * No longer killed when landing on top of another player
 * Ignored by zombies for 1 second after being revived
@@ -307,6 +307,7 @@
 
 ## Perks
 * Removed perk limit
+* Removed blur after drinking
 * No longer deactivated if the perk machine is powered off
 * Added high qualty perk icons to all maps
 

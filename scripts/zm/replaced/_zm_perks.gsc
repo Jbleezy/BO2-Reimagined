@@ -374,9 +374,6 @@ give_perk( perk, bought )
 		{
 			self delay_thread( 1.5, maps\mp\zombies\_zm_audio::perk_vox, perk );
 		}
-		self setblur( 4, 0.1 );
-		wait 0.1;
-		self setblur( 0, 0.1 );
 		self notify( "perk_bought" );
 	}
 	self perk_set_max_health_if_jugg( perk, 1, 0 );
