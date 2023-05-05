@@ -65,7 +65,7 @@ blundergat_upgrade_station()
             if ( isdefined( player ) )
             {
                 t_upgrade setvisibletoplayer( player );
-                t_upgrade thread maps\mp\zm_alcatraz_utility::wait_for_player_to_take( player, str_valid_weapon );
+                t_upgrade thread wait_for_player_to_take( player, str_valid_weapon );
             }
 
             t_upgrade thread wait_for_timeout();
@@ -114,6 +114,63 @@ blundergat_change_hintstring( hint_string, hint_string_cost )
     else
     {
         self sethintstring( hint_string );
+    }
+}
+
+wait_for_player_to_take( player, str_valid_weapon )
+{
+    self endon( "acid_timeout" );
+    player endon( "disconnect" );
+
+    while ( true )
+    {
+        self waittill( "trigger", trigger_player );
+
+        if ( isdefined( level.custom_craftable_validation ) )
+        {
+            valid = self [[ level.custom_craftable_validation ]]( player );
+
+            if ( !valid )
+                continue;
+        }
+
+        if ( trigger_player == player )
+        {
+            current_weapon = player getcurrentweapon();
+
+            if ( is_player_valid( player ) && !( player.is_drinking > 0 ) && !is_melee_weapon( current_weapon ) && !is_placeable_mine( current_weapon ) && !is_equipment( current_weapon ) && level.revive_tool != current_weapon && "none" != current_weapon && !player hacker_active() )
+            {
+                self notify( "acid_taken" );
+                player notify( "acid_taken" );
+                weapon_limit = get_player_weapon_limit( player );
+                primaries = player getweaponslistprimaries();
+
+                if ( isdefined( primaries ) && primaries.size >= weapon_limit )
+                    player takeweapon( current_weapon );
+
+                str_new_weapon = undefined;
+
+                if ( str_valid_weapon == "blundergat_zm" )
+                    str_new_weapon = "blundersplat_zm";
+                else
+                    str_new_weapon = "blundersplat_upgraded_zm";
+
+                if ( player hasweapon( "blundersplat_zm" ) )
+                    player givemaxammo( "blundersplat_zm" );
+                else if ( player hasweapon( "blundersplat_upgraded_zm" ) )
+                    player givemaxammo( "blundersplat_upgraded_zm" );
+                else
+                {
+                    player giveweapon( str_new_weapon );
+                    player switchtoweapon( str_new_weapon );
+                }
+
+                player thread do_player_general_vox( "general", "player_recieves_blundersplat" );
+                player notify( "player_obtained_acidgat" );
+                player thread player_lost_blundersplat_watcher();
+                return;
+            }
+        }
     }
 }
 

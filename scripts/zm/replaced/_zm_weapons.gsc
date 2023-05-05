@@ -385,7 +385,7 @@ weapon_give( weapon, is_upgrade, magic_box, nosound )
 	}
 	if ( primaryweapons.size >= weapon_limit )
 	{
-		if ( is_placeable_mine( current_weapon ) || is_equipment( current_weapon ) )
+		if ( is_melee_weapon( current_weapon ) || is_placeable_mine( current_weapon ) || is_equipment( current_weapon ) )
 		{
 			current_weapon = undefined;
 		}
@@ -588,7 +588,7 @@ weapon_spawn_think()
 			continue;
 		}
 
-		if ( !player maps\mp\zombies\_zm_magicbox::can_buy_weapon() )
+		if ( !is_grenade && !player maps\mp\zombies\_zm_magicbox::can_buy_weapon() )
 		{
 			wait 0.1;
 			continue;

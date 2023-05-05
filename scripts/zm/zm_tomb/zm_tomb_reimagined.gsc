@@ -12,6 +12,7 @@
 #include scripts\zm\replaced\zm_tomb_ee_main_step_2;
 #include scripts\zm\replaced\zm_tomb_ee_main_step_3;
 #include scripts\zm\replaced\zm_tomb_ee_main_step_8;
+#include scripts\zm\replaced\zm_tomb_ee_side;
 #include scripts\zm\replaced\zm_tomb_capture_zones;
 #include scripts\zm\replaced\zm_tomb_challenges;
 #include scripts\zm\replaced\zm_tomb_craftables;
@@ -22,7 +23,9 @@
 #include scripts\zm\replaced\zm_tomb_utility;
 #include scripts\zm\replaced\zm_tomb_distance_tracking;
 #include scripts\zm\replaced\_zm_ai_mechz;
+#include scripts\zm\replaced\_zm_challenges;
 #include scripts\zm\replaced\_zm_craftables;
+#include scripts\zm\replaced\_zm_perk_random;
 #include scripts\zm\replaced\_zm_powerup_zombie_blood;
 #include scripts\zm\replaced\_zm_riotshield_tomb;
 #include scripts\zm\replaced\_zm_weap_riotshield_tomb;
@@ -51,6 +54,7 @@ main()
 	replaceFunc(maps\mp\zm_tomb_ee_main_step_2::remove_plinth, scripts\zm\replaced\zm_tomb_ee_main_step_2::remove_plinth);
 	replaceFunc(maps\mp\zm_tomb_ee_main_step_3::ready_to_activate, scripts\zm\replaced\zm_tomb_ee_main_step_3::ready_to_activate);
     replaceFunc(maps\mp\zm_tomb_ee_main_step_8::init, scripts\zm\replaced\zm_tomb_ee_main_step_8::init);
+    replaceFunc(maps\mp\zm_tomb_ee_side::swap_mg, scripts\zm\replaced\zm_tomb_ee_side::swap_mg);
     replaceFunc(maps\mp\zm_tomb_capture_zones::setup_capture_zones, scripts\zm\replaced\zm_tomb_capture_zones::setup_capture_zones);
     replaceFunc(maps\mp\zm_tomb_capture_zones::magic_box_stub_update_prompt, scripts\zm\replaced\zm_tomb_capture_zones::magic_box_stub_update_prompt);
     replaceFunc(maps\mp\zm_tomb_challenges::challenges_init, scripts\zm\replaced\zm_tomb_challenges::challenges_init);
@@ -69,8 +73,11 @@ main()
     replaceFunc(maps\mp\zm_tomb_distance_tracking::delete_zombie_noone_looking, scripts\zm\replaced\zm_tomb_distance_tracking::delete_zombie_noone_looking);
     replaceFunc(maps\mp\zombies\_zm_ai_mechz::mechz_set_starting_health, scripts\zm\replaced\_zm_ai_mechz::mechz_set_starting_health);
     replaceFunc(maps\mp\zombies\_zm_ai_mechz::mechz_round_tracker, scripts\zm\replaced\_zm_ai_mechz::mechz_round_tracker);
+    replaceFunc(maps\mp\zombies\_zm_challenges::init, scripts\zm\replaced\_zm_challenges::init);
     replaceFunc(maps\mp\zombies\_zm_craftables::choose_open_craftable, scripts\zm\replaced\_zm_craftables::choose_open_craftable);
+    replaceFunc(maps\mp\zombies\_zm_craftables::craftable_use_hold_think_internal, scripts\zm\replaced\_zm_craftables::craftable_use_hold_think_internal);
     replaceFunc(maps\mp\zombies\_zm_craftables::player_progress_bar_update, scripts\zm\replaced\_zm_craftables::player_progress_bar_update);
+    replaceFunc(maps\mp\zombies\_zm_perk_random::trigger_visible_to_player, scripts\zm\replaced\_zm_perk_random::trigger_visible_to_player);
     replaceFunc(maps\mp\zombies\_zm_powerup_zombie_blood::zombie_blood_powerup, scripts\zm\replaced\_zm_powerup_zombie_blood::zombie_blood_powerup);
     replaceFunc(maps\mp\zombies\_zm_riotshield_tomb::doriotshielddeploy, scripts\zm\replaced\_zm_riotshield_tomb::doriotshielddeploy);
     replaceFunc(maps\mp\zombies\_zm_riotshield_tomb::trackriotshield, scripts\zm\replaced\_zm_riotshield_tomb::trackriotshield);

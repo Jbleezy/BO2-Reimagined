@@ -128,7 +128,7 @@ do_melee_weapon_flourish_end( gun, flourish_weapon_name, weapon_name, ballistic_
         self decrement_is_drinking();
         return;
     }
-    else if ( gun == "knife_zm" )
+    else if ( is_melee_weapon( gun ) )
     {
         self switchtoweapon( weapon_name );
         self decrement_is_drinking();

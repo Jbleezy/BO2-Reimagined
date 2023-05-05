@@ -107,6 +107,235 @@ init()
     level thread perk_hostmigration();
 }
 
+vending_trigger_think()
+{
+    self endon( "death" );
+    wait 0.01;
+    perk = self.script_noteworthy;
+    solo = 0;
+    start_on = 0;
+    level.revive_machine_is_solo = 0;
+
+    if ( isdefined( perk ) && ( perk == "specialty_quickrevive" || perk == "specialty_quickrevive_upgrade" ) )
+    {
+        flag_wait( "start_zombie_round_logic" );
+        solo = use_solo_revive();
+        self endon( "stop_quickrevive_logic" );
+        level.quick_revive_trigger = self;
+
+        if ( solo )
+        {
+            if ( !is_true( level.revive_machine_is_solo ) )
+            {
+                start_on = 1;
+                players = get_players();
+
+                foreach ( player in players )
+                {
+                    if ( !isdefined( player.lives ) )
+                        player.lives = 0;
+                }
+
+                level maps\mp\zombies\_zm::set_default_laststand_pistol( 1 );
+            }
+
+            level.revive_machine_is_solo = 1;
+        }
+    }
+
+    self sethintstring( &"ZOMBIE_NEED_POWER" );
+    self setcursorhint( "HINT_NOICON" );
+    self usetriggerrequirelookat();
+    cost = level.zombie_vars["zombie_perk_cost"];
+
+    switch ( perk )
+    {
+        case "specialty_armorvest_upgrade":
+        case "specialty_armorvest":
+            cost = 2500;
+            break;
+        case "specialty_quickrevive_upgrade":
+        case "specialty_quickrevive":
+            if ( solo )
+                cost = 500;
+            else
+                cost = 1500;
+
+            break;
+        case "specialty_fastreload_upgrade":
+        case "specialty_fastreload":
+            cost = 3000;
+            break;
+        case "specialty_rof_upgrade":
+        case "specialty_rof":
+            cost = 2000;
+            break;
+        case "specialty_longersprint_upgrade":
+        case "specialty_longersprint":
+            cost = 2000;
+            break;
+        case "specialty_deadshot_upgrade":
+        case "specialty_deadshot":
+            cost = 1500;
+            break;
+        case "specialty_additionalprimaryweapon_upgrade":
+        case "specialty_additionalprimaryweapon":
+            cost = 4000;
+            break;
+    }
+
+    if ( isdefined( level._custom_perks[perk] ) && isdefined( level._custom_perks[perk].cost ) )
+        cost = level._custom_perks[perk].cost;
+
+    self.cost = cost;
+
+    if ( !start_on )
+    {
+        notify_name = perk + "_power_on";
+
+        level waittill( notify_name );
+    }
+
+    start_on = 0;
+
+    if ( !isdefined( level._perkmachinenetworkchoke ) )
+        level._perkmachinenetworkchoke = 0;
+    else
+        level._perkmachinenetworkchoke++;
+
+    for ( i = 0; i < level._perkmachinenetworkchoke; i++ )
+        wait_network_frame();
+
+    self thread maps\mp\zombies\_zm_audio::perks_a_cola_jingle_timer();
+    self thread check_player_has_perk( perk );
+
+    switch ( perk )
+    {
+        case "specialty_armorvest_upgrade":
+        case "specialty_armorvest":
+            self sethintstring( &"ZOMBIE_PERK_JUGGERNAUT", cost );
+            break;
+        case "specialty_quickrevive_upgrade":
+        case "specialty_quickrevive":
+            if ( solo )
+                self sethintstring( &"ZOMBIE_PERK_QUICKREVIVE_SOLO", cost );
+            else
+                self sethintstring( &"ZOMBIE_PERK_QUICKREVIVE", cost );
+
+            break;
+        case "specialty_fastreload_upgrade":
+        case "specialty_fastreload":
+            self sethintstring( &"ZOMBIE_PERK_FASTRELOAD", cost );
+            break;
+        case "specialty_rof_upgrade":
+        case "specialty_rof":
+            self sethintstring( &"ZOMBIE_PERK_DOUBLETAP", cost );
+            break;
+        case "specialty_longersprint_upgrade":
+        case "specialty_longersprint":
+            self sethintstring( &"ZOMBIE_PERK_MARATHON", cost );
+            break;
+        case "specialty_deadshot_upgrade":
+        case "specialty_deadshot":
+            self sethintstring( &"ZOMBIE_PERK_DEADSHOT", cost );
+            break;
+        case "specialty_additionalprimaryweapon_upgrade":
+        case "specialty_additionalprimaryweapon":
+            self sethintstring( &"ZOMBIE_PERK_ADDITIONALPRIMARYWEAPON", cost );
+            break;
+        case "specialty_scavenger_upgrade":
+        case "specialty_scavenger":
+            self sethintstring( &"ZOMBIE_PERK_TOMBSTONE", cost );
+            break;
+        case "specialty_finalstand_upgrade":
+        case "specialty_finalstand":
+            self sethintstring( &"ZOMBIE_PERK_CHUGABUD", cost );
+            break;
+        default:
+            self sethintstring( perk + " Cost: " + level.zombie_vars["zombie_perk_cost"] );
+    }
+
+    if ( isdefined( level._custom_perks[perk] ) && isdefined( level._custom_perks[perk].hint_string ) )
+        self sethintstring( level._custom_perks[perk].hint_string, cost );
+
+    for (;;)
+    {
+        self waittill( "trigger", player );
+
+        index = maps\mp\zombies\_zm_weapons::get_player_index( player );
+
+        if ( player maps\mp\zombies\_zm_laststand::player_is_in_laststand() || isdefined( player.intermission ) && player.intermission )
+            continue;
+
+        if ( player in_revive_trigger() )
+            continue;
+
+        if ( player isthrowinggrenade() )
+        {
+            wait 0.1;
+            continue;
+        }
+
+        if ( player isswitchingweapons() )
+        {
+            wait 0.1;
+            continue;
+        }
+
+        if ( player.is_drinking > 0 )
+        {
+            wait 0.1;
+            continue;
+        }
+
+        if ( player hasperk( perk ) || player has_perk_paused( perk ) )
+        {
+            cheat = 0;
+
+            if ( cheat != 1 )
+            {
+                self playsound( "deny" );
+                player maps\mp\zombies\_zm_audio::create_and_play_dialog( "general", "perk_deny", undefined, 1 );
+                continue;
+            }
+        }
+
+        if ( isdefined( level.custom_perk_validation ) )
+        {
+            valid = self [[ level.custom_perk_validation ]]( player );
+
+            if ( !valid )
+                continue;
+        }
+
+        current_cost = cost;
+
+        if ( player maps\mp\zombies\_zm_pers_upgrades_functions::is_pers_double_points_active() )
+            current_cost = player maps\mp\zombies\_zm_pers_upgrades_functions::pers_upgrade_double_points_cost( current_cost );
+
+        if ( player.score < current_cost )
+        {
+            self playsound( "evt_perk_deny" );
+            player maps\mp\zombies\_zm_audio::create_and_play_dialog( "general", "perk_deny", undefined, 0 );
+            continue;
+        }
+
+        if ( player.num_perks >= player get_player_perk_purchase_limit() )
+        {
+            self playsound( "evt_perk_deny" );
+            player maps\mp\zombies\_zm_audio::create_and_play_dialog( "general", "sigh" );
+            continue;
+        }
+
+        sound = "evt_bottle_dispense";
+        playsoundatposition( sound, self.origin );
+        player maps\mp\zombies\_zm_score::minus_to_player_score( current_cost, 1 );
+        player.perk_purchased = perk;
+        self thread maps\mp\zombies\_zm_audio::play_jingle_or_stinger( self.script_label );
+        self thread vending_trigger_post_think( player, perk );
+    }
+}
+
 vending_trigger_post_think( player, perk )
 {
     player endon( "disconnect" );
@@ -148,6 +377,100 @@ vending_trigger_post_think( player, perk )
     }
 
     bbprint( "zombie_uses", "playername %s playerscore %d round %d name %s x %f y %f z %f type %s", player.name, player.score, level.round_number, perk, self.origin, "perk" );
+}
+
+perk_give_bottle_end( gun, perk )
+{
+    self endon( "perk_abort_drinking" );
+    assert( !is_zombie_perk_bottle( gun ) );
+    assert( gun != level.revive_tool );
+    self enable_player_move_states();
+    weapon = "";
+
+    switch ( perk )
+    {
+        case "specialty_rof_upgrade":
+        case "specialty_rof":
+            weapon = level.machine_assets["doubletap"].weapon;
+            break;
+        case "specialty_longersprint_upgrade":
+        case "specialty_longersprint":
+            weapon = level.machine_assets["marathon"].weapon;
+            break;
+        case "specialty_flakjacket_upgrade":
+        case "specialty_flakjacket":
+            weapon = level.machine_assets["divetonuke"].weapon;
+            break;
+        case "specialty_armorvest_upgrade":
+        case "specialty_armorvest":
+            weapon = level.machine_assets["juggernog"].weapon;
+            self.jugg_used = 1;
+            break;
+        case "specialty_quickrevive_upgrade":
+        case "specialty_quickrevive":
+            weapon = level.machine_assets["revive"].weapon;
+            break;
+        case "specialty_fastreload_upgrade":
+        case "specialty_fastreload":
+            weapon = level.machine_assets["speedcola"].weapon;
+            self.speed_used = 1;
+            break;
+        case "specialty_deadshot_upgrade":
+        case "specialty_deadshot":
+            weapon = level.machine_assets["deadshot"].weapon;
+            break;
+        case "specialty_additionalprimaryweapon_upgrade":
+        case "specialty_additionalprimaryweapon":
+            weapon = level.machine_assets["additionalprimaryweapon"].weapon;
+            break;
+        case "specialty_scavenger_upgrade":
+        case "specialty_scavenger":
+            weapon = level.machine_assets["tombstone"].weapon;
+            break;
+        case "specialty_finalstand_upgrade":
+        case "specialty_finalstand":
+            weapon = level.machine_assets["whoswho"].weapon;
+            break;
+    }
+
+    if ( isdefined( level._custom_perks[perk] ) && isdefined( level._custom_perks[perk].perk_bottle ) )
+        weapon = level._custom_perks[perk].perk_bottle;
+
+    if ( self maps\mp\zombies\_zm_laststand::player_is_in_laststand() || isdefined( self.intermission ) && self.intermission )
+    {
+        self takeweapon( weapon );
+        return;
+    }
+
+    self takeweapon( weapon );
+
+    if ( self is_multiple_drinking() )
+    {
+        self decrement_is_drinking();
+        return;
+    }
+    else if ( gun != "none" && !is_equipment_that_blocks_purchase( gun ) )
+    {
+        self switchtoweapon( gun );
+
+        if ( is_melee_weapon( gun ) )
+        {
+            self decrement_is_drinking();
+            return;
+        }
+    }
+    else
+    {
+        primaryweapons = self getweaponslistprimaries();
+
+        if ( isdefined( primaryweapons ) && primaryweapons.size > 0 )
+            self switchtoweapon( primaryweapons[0] );
+    }
+
+    self waittill( "weapon_change_complete" );
+
+    if ( !self maps\mp\zombies\_zm_laststand::player_is_in_laststand() && !( isdefined( self.intermission ) && self.intermission ) )
+        self decrement_is_drinking();
 }
 
 vending_weapon_upgrade()
@@ -914,7 +1237,7 @@ wait_for_player_to_take( player, weapon, packa_timer, upgrade_as_attachment )
             player maps\mp\zombies\_zm_stats::increment_player_stat( "pap_weapon_grabbed" );
             current_weapon = player getcurrentweapon();
 
-            if ( is_player_valid( player ) && !( player.is_drinking > 0 ) && !is_placeable_mine( current_weapon ) && !is_equipment( current_weapon ) && level.revive_tool != current_weapon && "none" != current_weapon && !player hacker_active() )
+            if ( is_player_valid( player ) && !( player.is_drinking > 0 ) && !is_melee_weapon( current_weapon ) && !is_placeable_mine( current_weapon ) && !is_equipment( current_weapon ) && level.revive_tool != current_weapon && "none" != current_weapon && !player hacker_active() )
             {
                 maps\mp\_demo::bookmark( "zm_player_grabbed_packapunch", gettime(), player );
                 self notify( "pap_taken" );

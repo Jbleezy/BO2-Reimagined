@@ -89,12 +89,12 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_weapons::weapon_spawn_think, scripts\zm\replaced\_zm_weapons::weapon_spawn_think);
 	replaceFunc(maps\mp\zombies\_zm_weapons::weapon_set_first_time_hint, scripts\zm\replaced\_zm_weapons::weapon_set_first_time_hint);
 	replaceFunc(maps\mp\zombies\_zm_magicbox::treasure_chest_init, scripts\zm\replaced\_zm_magicbox::treasure_chest_init);
-	replaceFunc(maps\mp\zombies\_zm_magicbox::treasure_chest_weapon_spawn, scripts\zm\replaced\_zm_magicbox::treasure_chest_weapon_spawn);
-	replaceFunc(maps\mp\zombies\_zm_magicbox::treasure_chest_move, scripts\zm\replaced\_zm_magicbox::treasure_chest_move);
-	replaceFunc(maps\mp\zombies\_zm_magicbox::treasure_chest_timeout, scripts\zm\replaced\_zm_magicbox::treasure_chest_timeout);
-	replaceFunc(maps\mp\zombies\_zm_magicbox::timer_til_despawn, scripts\zm\replaced\_zm_magicbox::timer_til_despawn);
+	replaceFunc(maps\mp\zombies\_zm_magicbox::decide_hide_show_hint, scripts\zm\replaced\_zm_magicbox::decide_hide_show_hint);
+	replaceFunc(maps\mp\zombies\_zm_magicbox::trigger_visible_to_player, scripts\zm\replaced\_zm_magicbox::trigger_visible_to_player);
+	replaceFunc(maps\mp\zombies\_zm_magicbox::can_buy_weapon, scripts\zm\replaced\_zm_magicbox::can_buy_weapon);
 	replaceFunc(maps\mp\zombies\_zm_perks::init, scripts\zm\replaced\_zm_perks::init);
-	replaceFunc(maps\mp\zombies\_zm_perks::vending_trigger_post_think, scripts\zm\replaced\_zm_perks::vending_trigger_post_think);
+	replaceFunc(maps\mp\zombies\_zm_perks::vending_trigger_think, scripts\zm\replaced\_zm_perks::vending_trigger_think);
+	replaceFunc(maps\mp\zombies\_zm_perks::perk_give_bottle_end, scripts\zm\replaced\_zm_perks::perk_give_bottle_end);
 	replaceFunc(maps\mp\zombies\_zm_perks::vending_weapon_upgrade, scripts\zm\replaced\_zm_perks::vending_weapon_upgrade);
 	replaceFunc(maps\mp\zombies\_zm_perks::give_perk, scripts\zm\replaced\_zm_perks::give_perk);
 	replaceFunc(maps\mp\zombies\_zm_perks::perk_think, scripts\zm\replaced\_zm_perks::perk_think);
@@ -2434,8 +2434,6 @@ melee_weapon_switch_watcher()
 {
 	self endon("disconnect");
 
-	self thread melee_weapon_disable_weapon_trading();
-
 	vars = [];
 	vars["prev_wep"] = undefined;
 
@@ -2464,39 +2462,6 @@ melee_weapon_switch_watcher()
 			else
 			{
 				self maps\mp\zombies\_zm_weapons::switch_back_primary_weapon(vars["prev_wep"]);
-			}
-		}
-
-		wait 0.05;
-	}
-}
-
-melee_weapon_disable_weapon_trading()
-{
-	self endon("disconnect");
-
-	vars = [];
-
-	while(1)
-	{
-		vars["melee_wep"] = self get_player_melee_weapon();
-		vars["curr_wep"] = self getCurrentWeapon();
-
-		if(vars["curr_wep"] == vars["melee_wep"] && self getWeaponsListPrimaries().size >= 1)
-		{
-			self.is_drinking = 1;
-
-			while(vars["curr_wep"] == vars["melee_wep"] && self getWeaponsListPrimaries().size >= 1)
-			{
-				vars["melee_wep"] = self get_player_melee_weapon();
-				vars["curr_wep"] = self getCurrentWeapon();
-
-				wait 0.05;
-			}
-
-			if (!self hasWeapon("item_meat_zm"))
-			{
-				self.is_drinking = 0;
 			}
 		}
 
@@ -2711,7 +2676,7 @@ temp_disable_offhand_weapons()
 		wait 0.05;
 	}
 
-	if (!is_true(self.is_drinking) || is_melee_weapon(self getCurrentWeapon()))
+	if (!is_true(self.is_drinking))
 	{
 		self enableOffhandWeapons();
 	}

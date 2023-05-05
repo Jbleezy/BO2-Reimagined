@@ -90,6 +90,80 @@ choose_open_craftable( player )
     self.opencraftablehudelem[n_playernum] = undefined;
 }
 
+craftable_use_hold_think_internal( player )
+{
+    wait 0.01;
+
+    if ( !isdefined( self ) )
+    {
+        self notify( "craft_failed" );
+
+        if ( isdefined( player.craftableaudio ) )
+        {
+            player.craftableaudio delete();
+            player.craftableaudio = undefined;
+        }
+
+        return;
+    }
+
+    if ( !isdefined( self.usetime ) )
+        self.usetime = int( 3000 );
+
+    self.craft_time = self.usetime;
+    self.craft_start_time = gettime();
+    craft_time = self.craft_time;
+    craft_start_time = self.craft_start_time;
+    player disable_player_move_states( 1 );
+    player increment_is_drinking();
+    orgweapon = player getcurrentweapon();
+    player giveweapon( "zombie_builder_zm" );
+    player switchtoweapon( "zombie_builder_zm" );
+    self.stub.craftablespawn craftable_set_piece_crafting( player.current_craftable_piece );
+    player thread player_progress_bar( craft_start_time, craft_time );
+
+    if ( isdefined( level.craftable_craft_custom_func ) )
+        player thread [[ level.craftable_craft_custom_func ]]( self.stub );
+
+    while ( isdefined( self ) && player player_continue_crafting( self.stub.craftablespawn ) && gettime() - self.craft_start_time < self.craft_time )
+        wait 0.05;
+
+    player notify( "craftable_progress_end" );
+
+    if ( player hasWeapon( orgweapon ) )
+	{
+		player switchToWeapon( orgweapon );
+	}
+	else
+	{
+		player maps\mp\zombies\_zm_weapons::switch_back_primary_weapon( orgweapon );
+	}
+
+    player takeweapon( "zombie_builder_zm" );
+
+    if ( isdefined( player.is_drinking ) && player.is_drinking )
+        player decrement_is_drinking();
+
+    player enable_player_move_states();
+
+    if ( isdefined( self ) && player player_continue_crafting( self.stub.craftablespawn ) && gettime() - self.craft_start_time >= self.craft_time )
+    {
+        self.stub.craftablespawn craftable_clear_piece_crafting( player.current_craftable_piece );
+        self notify( "craft_succeed" );
+    }
+    else
+    {
+        if ( isdefined( player.craftableaudio ) )
+        {
+            player.craftableaudio delete();
+            player.craftableaudio = undefined;
+        }
+
+        self.stub.craftablespawn craftable_clear_piece_crafting( player.current_craftable_piece );
+        self notify( "craft_failed" );
+    }
+}
+
 player_progress_bar_update( start_time, craft_time )
 {
     self endon( "entering_last_stand" );

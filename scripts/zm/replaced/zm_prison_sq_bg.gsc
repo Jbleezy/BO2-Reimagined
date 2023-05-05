@@ -38,7 +38,7 @@ give_sq_bg_reward()
 
         current_weapon = player getcurrentweapon();
 
-        if ( is_player_valid( player ) && !( player.is_drinking > 0 ) && !is_placeable_mine( current_weapon ) && !is_equipment( current_weapon ) && level.revive_tool != current_weapon && "none" != current_weapon && !player hacker_active() )
+        if ( is_player_valid( player ) && !( player.is_drinking > 0 ) && !is_melee_weapon( current_weapon ) && !is_placeable_mine( current_weapon ) && !is_equipment( current_weapon ) && level.revive_tool != current_weapon && "none" != current_weapon && !player hacker_active() )
         {
             if ( player hasweapon( str_reward_weapon ) )
             {
@@ -66,7 +66,7 @@ take_old_weapon_and_give_reward( current_weapon, reward_weapon, weapon_limit_ove
     {
         primaries = self getweaponslistprimaries();
 
-        if ( isdefined( primaries ) && primaries.size >= 2 )
+        if ( isdefined( primaries ) && primaries.size >= get_player_weapon_limit( self ) )
             self takeweapon( current_weapon );
     }
 

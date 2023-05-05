@@ -360,6 +360,11 @@ get_staff_enum_from_element_weapon(weapon_drop)
 
 can_pickup_staff()
 {
+    if ( is_melee_weapon( self getcurrentweapon() ) || is_placeable_mine( self getcurrentweapon() ) )
+    {
+        return 0;
+    }
+
     b_has_staff = self player_has_staff();
     b_staff_equipped = issubstr( self getcurrentweapon(), "staff" ) && self getcurrentweapon() != "staff_revive_zm";
 

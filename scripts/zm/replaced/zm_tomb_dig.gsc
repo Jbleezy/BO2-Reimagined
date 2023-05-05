@@ -162,3 +162,75 @@ increment_player_perk_purchase_limit()
 {
 	self maps\mp\zombies\_zm_perks::give_random_perk();
 }
+
+dig_up_weapon( digger )
+{
+    a_common_weapons = array( "ballista_zm", "c96_zm", "870mcs_zm" );
+    a_rare_weapons = array( "dsr50_zm", "srm1216_zm" );
+
+    if ( digger.dig_vars["has_upgraded_shovel"] )
+        a_rare_weapons = combinearrays( a_rare_weapons, array( "claymore_zm", "ak74u_zm", "ksg_zm", "mp40_zm", "mp44_zm" ) );
+
+    str_weapon = undefined;
+
+    if ( randomint( 100 ) < 90 )
+        str_weapon = a_common_weapons[getarraykeys( a_common_weapons )[randomint( getarraykeys( a_common_weapons ).size )]];
+    else
+        str_weapon = a_rare_weapons[getarraykeys( a_rare_weapons )[randomint( getarraykeys( a_rare_weapons ).size )]];
+
+    v_spawnpt = self.origin + ( 0, 0, 40 );
+    v_spawnang = ( 0, 0, 0 );
+    str_spec_model = undefined;
+
+    if ( str_weapon == "claymore_zm" )
+    {
+        str_spec_model = "t6_wpn_claymore_world";
+        v_spawnang += vectorscale( ( 0, 1, 0 ), 90.0 );
+    }
+
+    v_angles = digger getplayerangles();
+    v_angles = ( 0, v_angles[1], 0 ) + vectorscale( ( 0, 1, 0 ), 90.0 ) + v_spawnang;
+    m_weapon = spawn_weapon_model( str_weapon, str_spec_model, v_spawnpt, v_angles );
+
+    if ( str_weapon == "claymore_zm" )
+    {
+        m_weapon setmodel( "t6_wpn_claymore_world" );
+        v_spawnang += vectorscale( ( 0, 0, 1 ), 90.0 );
+    }
+
+    m_weapon.angles = v_angles;
+    m_weapon playloopsound( "evt_weapon_digup" );
+    m_weapon thread timer_til_despawn( v_spawnpt, 40 * -1 );
+    m_weapon endon( "dig_up_weapon_timed_out" );
+    playfxontag( level._effect["special_glow"], m_weapon, "tag_origin" );
+    m_weapon.trigger = tomb_spawn_trigger_radius( v_spawnpt, 100, 1 );
+    m_weapon.trigger.hint_string = &"ZM_TOMB_X2PU";
+    m_weapon.trigger.hint_parm1 = getweapondisplayname( str_weapon );
+
+    while (1)
+    {
+        m_weapon.trigger waittill( "trigger", player );
+
+        current_weapon = player getCurrentWeapon();
+
+        if ( is_player_valid( player ) && !player.is_drinking && !is_melee_weapon( current_weapon ) && !is_placeable_mine( current_weapon ) && !is_equipment( current_weapon ) && level.revive_tool != current_weapon && "none" != current_weapon && !player hacker_active() )
+        {
+            break;
+        }
+    }
+
+    m_weapon.trigger notify( "weapon_grabbed" );
+    m_weapon.trigger thread swap_weapon( str_weapon, player );
+
+    if ( isdefined( m_weapon.trigger ) )
+    {
+        m_weapon.trigger tomb_unitrigger_delete();
+        m_weapon.trigger = undefined;
+    }
+
+    if ( isdefined( m_weapon ) )
+        m_weapon delete();
+
+    if ( player != digger )
+        digger notify( "dig_up_weapon_shared" );
+}

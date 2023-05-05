@@ -127,7 +127,9 @@ buildable_place_think()
 		{
 			self waittill( "trigger", player );
 
-			if ( isDefined( player.screecher_weapon ) )
+			current_weapon = player getCurrentWeapon();
+
+			if ( isDefined( player.screecher_weapon ) || is_melee_weapon( current_weapon ) || is_placeable_mine( current_weapon ) )
 			{
 				continue;
 			}
@@ -383,7 +385,16 @@ buildable_use_hold_think_internal( player, bind_stub = self.stub )
         wait 0.05;
 
     player notify( "buildable_progress_end" );
-    player maps\mp\zombies\_zm_weapons::switch_back_primary_weapon( orgweapon );
+
+	if ( player hasWeapon( orgweapon ) )
+	{
+		player switchToWeapon( orgweapon );
+	}
+	else
+	{
+		player maps\mp\zombies\_zm_weapons::switch_back_primary_weapon( orgweapon );
+	}
+
     player takeweapon( "zombie_builder_zm" );
 
     if ( isdefined( player.is_drinking ) && player.is_drinking )
