@@ -566,7 +566,7 @@ fade_out_intro_screen_zm( hold_black_time, fade_out_time, destroyed_afterwards )
     {
 		level thread wait_for_all_players_ready();
 
-		level waittill( "all_players_ready" );
+		flag_wait( "all_players_ready" );
 	}
 
     players = get_players();
@@ -595,6 +595,8 @@ fade_out_intro_screen_zm( hold_black_time, fade_out_time, destroyed_afterwards )
 
 wait_for_all_players_ready()
 {
+	flag_init( "all_players_ready" );
+
 	level.no_end_game_check = 1;
 
 	if ( !isDefined(level.pregame_hud) )
@@ -716,7 +718,7 @@ wait_for_all_players_ready()
 
 	level.no_end_game_check = undefined;
 
-	level notify( "all_players_ready" );
+	flag_set( "all_players_ready" );
 }
 
 get_number_of_waiting_players()
