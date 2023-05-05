@@ -350,7 +350,6 @@
 
 ### Tombstone Soda
 * Added in solo
-* Added powerup waypoint
 * Powerup no longer removed when revived
 * Powerup removed when downed again after being revived or respawning
 * Unlimited time to pick up powerup
@@ -358,6 +357,7 @@
 * Powerup gets destroyed by EMP Grenades
 * Restores all weapons properly
 * Disabled suicide option when player is down
+* Added powerup waypoint
 * Flipped perk icon
 
 ### Who's Who
@@ -861,37 +861,41 @@
 
 ## Launching New Maps
 
-* Copy and paste the following commands into the console
+* Go to any lobby of the correct map
+* Copy and paste the following commands into the console to launch a map
 
 ### Survival on Diner
-* ```g_gametype zstandard; ui_gametype zstandard; ui_zm_gamemodegroup zsurvival; ui_zm_mapstartlocation diner```
+* ```g_gametype zstandard; ui_gametype zstandard; ui_zm_gamemodegroup zsurvival; ui_zm_mapstartlocation diner; xpartygo```
 
 ### Survival on Power Station
-* ```g_gametype zstandard; ui_gametype zstandard; ui_zm_gamemodegroup zsurvival; ui_zm_mapstartlocation power```
+* ```g_gametype zstandard; ui_gametype zstandard; ui_zm_gamemodegroup zsurvival; ui_zm_mapstartlocation power; xpartygo```
 
 ### Survival on Tunnel
-* ```g_gametype zstandard; ui_gametype zstandard; ui_zm_gamemodegroup zsurvival; ui_zm_mapstartlocation tunnel```
+* ```g_gametype zstandard; ui_gametype zstandard; ui_zm_gamemodegroup zsurvival; ui_zm_mapstartlocation tunnel; xpartygo```
 
 ### Survival on Cornfield
-* ```g_gametype zstandard; ui_gametype zstandard; ui_zm_gamemodegroup zsurvival; ui_zm_mapstartlocation cornfield```
+* ```g_gametype zstandard; ui_gametype zstandard; ui_zm_gamemodegroup zsurvival; ui_zm_mapstartlocation cornfield; xpartygo```
+
+### Grief on Bus Depot
+* ```g_gametype zgrief; ui_gametype zgrief; ui_zm_gamemodegroup zencounter; ui_zm_mapstartlocation transit; xpartygo```
 
 ### Grief on Diner
-* ```g_gametype zgrief; ui_gametype zgrief; ui_zm_gamemodegroup zencounter; ui_zm_mapstartlocation diner```
+* ```g_gametype zgrief; ui_gametype zgrief; ui_zm_gamemodegroup zencounter; ui_zm_mapstartlocation diner; xpartygo```
 
 ### Grief on Power Station
-* ```g_gametype zgrief; ui_gametype zgrief; ui_zm_gamemodegroup zencounter; ui_zm_mapstartlocation power```
+* ```g_gametype zgrief; ui_gametype zgrief; ui_zm_gamemodegroup zencounter; ui_zm_mapstartlocation power; xpartygo```
 
 ### Grief on Tunnel
-* ```g_gametype zgrief; ui_gametype zgrief; ui_zm_gamemodegroup zencounter; ui_zm_mapstartlocation tunnel```
+* ```g_gametype zgrief; ui_gametype zgrief; ui_zm_gamemodegroup zencounter; ui_zm_mapstartlocation tunnel; xpartygo```
 
 ### Grief on Cornfield
-* ```g_gametype zgrief; ui_gametype zgrief; ui_zm_gamemodegroup zencounter; ui_zm_mapstartlocation cornfield```
+* ```g_gametype zgrief; ui_gametype zgrief; ui_zm_gamemodegroup zencounter; ui_zm_mapstartlocation cornfield; xpartygo```
 
 ### Grief on Docks
-* ```g_gametype zgrief; ui_gametype zgrief; ui_zm_gamemodegroup zencounter; ui_zm_mapstartlocation cellblock; set ui_zm_mapstartlocation_fake docks```
+* ```g_gametype zgrief; ui_gametype zgrief; ui_zm_gamemodegroup zencounter; ui_zm_mapstartlocation cellblock; set ui_zm_mapstartlocation_fake docks; xpartygo```
 
 ### Grief on Maze
-* ```g_gametype zgrief; ui_gametype zgrief; ui_zm_gamemodegroup zencounter; ui_zm_mapstartlocation street; set ui_zm_mapstartlocation_fake maze```
+* ```g_gametype zgrief; ui_gametype zgrief; ui_zm_gamemodegroup zencounter; ui_zm_mapstartlocation street; set ui_zm_mapstartlocation_fake maze; xpartygo```
 
 ## Launching New Game Modes
 
