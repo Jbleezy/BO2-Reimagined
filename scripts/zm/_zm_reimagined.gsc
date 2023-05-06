@@ -3429,7 +3429,8 @@ tombstone_waypoint()
 	hud.color = (0.5, 0.5, 0.5);
 	hud.hidewheninmenu = 1;
 	hud.fadewhentargeted = 1;
-	hud setWaypoint(1, "specialty_tombstone_zombies");
+	hud setShader("specialty_tombstone_zombies", 8, 8);
+	hud setWaypoint(1);
 
 	self waittill_any("tombstone_grabbed", "tombstone_timedout");
 
