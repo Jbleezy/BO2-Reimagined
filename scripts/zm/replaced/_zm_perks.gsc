@@ -832,6 +832,10 @@ perk_think( perk )
 	{
 		arrayremovevalue( self.perks_active, perk, 0 );
 	}
+    if ( isDefined( self.disabled_perks ) && isDefined( self.disabled_perks[perk] ) )
+	{
+        self.disabled_perks[perk] = undefined;
+	}
 	self notify( "perk_lost" );
 }
 
@@ -911,6 +915,48 @@ perk_set_max_health_if_jugg( perk, set_premaxhealth, clamp_health_to_max_health 
 	}
 }
 
+set_perk_clientfield( perk, state )
+{
+    switch ( perk )
+    {
+        case "specialty_additionalprimaryweapon":
+            self setclientfieldtoplayer( "perk_additional_primary_weapon", state );
+            break;
+        case "specialty_deadshot":
+            self setclientfieldtoplayer( "perk_dead_shot", state );
+            break;
+        case "specialty_flakjacket":
+            self setclientfieldtoplayer( "perk_dive_to_nuke", state );
+            break;
+        case "specialty_rof":
+            self setclientfieldtoplayer( "perk_double_tap", state );
+            break;
+        case "specialty_armorvest":
+            self setclientfieldtoplayer( "perk_juggernaut", state );
+            break;
+        case "specialty_movefaster":
+            self setclientfieldtoplayer( "perk_marathon", state );
+            break;
+        case "specialty_quickrevive":
+            self setclientfieldtoplayer( "perk_quick_revive", state );
+            break;
+        case "specialty_fastreload":
+            self setclientfieldtoplayer( "perk_sleight_of_hand", state );
+            break;
+        case "specialty_scavenger":
+            self setclientfieldtoplayer( "perk_tombstone", state );
+            break;
+        case "specialty_finalstand":
+            self setclientfieldtoplayer( "perk_chugabud", state );
+            break;
+        default:
+            break;
+    }
+
+    if ( isdefined( level._custom_perks[perk] ) && isdefined( level._custom_perks[perk].clientfield_set ) )
+        self [[ level._custom_perks[perk].clientfield_set ]]( state );
+}
+
 initialize_custom_perk_arrays()
 {
 	if(!isDefined(level._custom_perks))
@@ -924,8 +970,6 @@ initialize_custom_perk_arrays()
 	level._custom_perks["specialty_movefaster"].hint_string = &"ZOMBIE_PERK_MARATHON";
 	level._custom_perks["specialty_movefaster"].perk_bottle = "zombie_perk_bottle_marathon";
 	level._custom_perks["specialty_movefaster"].perk_machine_thread = ::turn_movefaster_on;
-	level._custom_perks["specialty_movefaster"].player_thread_give = ::give_movefaster;
-	level._custom_perks["specialty_movefaster"].player_thread_take = ::take_movefaster;
 
 	struct = spawnStruct();
 	struct.script_noteworthy = "specialty_longersprint";
@@ -1193,23 +1237,6 @@ turn_tombstone_on()
         array_thread( machine, ::turn_perk_off );
         players = get_players();
     }
-}
-
-give_movefaster()
-{
-	self set_perk_clientfield("specialty_longersprint", 1);
-}
-
-take_movefaster()
-{
-	if (IsDefined(self.disabled_perks) && IsDefined(self.disabled_perks["specialty_movefaster"]) && self.disabled_perks["specialty_movefaster"])
-	{
-		self set_perk_clientfield("specialty_longersprint", 2);
-	}
-	else
-	{
-		self set_perk_clientfield( "specialty_longersprint", 0 );
-	}
 }
 
 wait_for_player_to_take( player, weapon, packa_timer, upgrade_as_attachment )

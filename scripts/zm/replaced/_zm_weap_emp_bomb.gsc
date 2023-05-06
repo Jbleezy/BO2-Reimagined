@@ -238,9 +238,9 @@ player_perk_pause( perk )
 	{
 		self.disabled_perks = [];
 	}
-	if ( !is_true( self.disabled_perks[ perk ] ) )
+	if ( !is_true( self.disabled_perks[ perk ] ) && self hasperk( perk ) )
 	{
-		self.disabled_perks[ perk ] = self hasperk( perk );
+		self.disabled_perks[ perk ] = 1;
 	}
 	if ( self.disabled_perks[ perk ] )
 	{
@@ -285,7 +285,7 @@ player_perk_unpause( perk )
 
 	if ( isDefined( self.disabled_perks ) && is_true( self.disabled_perks[ perk ] ) )
 	{
-		self.disabled_perks[ perk ] = 0;
+		self.disabled_perks[ perk ] = undefined;
 		self maps\mp\zombies\_zm_perks::set_perk_clientfield( perk, 1 );
 		self setperk( perk );
 		if ( issubstr( perk, "specialty_scavenger" ) )
