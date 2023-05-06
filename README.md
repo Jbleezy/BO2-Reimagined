@@ -379,6 +379,7 @@
 
 ### Electric Cherry
 * Removed cooldown after being used multiple times in a row
+* Downing kills all zombies around the player
 
 ### Vulture-Aid
 * Stink areas no longer activate while the player is standing

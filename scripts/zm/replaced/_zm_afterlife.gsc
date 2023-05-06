@@ -152,7 +152,7 @@ afterlife_laststand( b_electric_chair = 0 )
 
     if ( isdefined( b_has_electric_cherry ) && b_has_electric_cherry && ( isdefined( b_electric_chair ) && !b_electric_chair ) )
     {
-        self maps\mp\zombies\_zm_perk_electric_cherry::electric_cherry_laststand();
+        self scripts\zm\replaced\_zm_perk_electric_cherry::electric_cherry_laststand();
     }
 
     self setclientfieldtoplayer( "clientfield_afterlife_audio", 1 );
