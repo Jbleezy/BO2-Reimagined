@@ -192,7 +192,8 @@
 * No longer disables HUD
 * Disables player's perks for 30 seconds
 * Added fx to EMP'd players
-* Decreased zombie EMP radius by 30% (same radius as perk EMP)
+* Decreased zombie EMP radius by 30% (same radius as perk machine EMP)
+* Decreased perk machine EMP time from 90 seconds to 60 seconds
 * Can destroy deployed Zombie Shields
 * Sprinting no longer wakes up EMP'd zombies
 * Zombies that are in the ground can no longer get EMP'd
