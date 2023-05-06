@@ -178,3 +178,34 @@ player_progress_bar_update( start_time, craft_time )
         wait 0.05;
     }
 }
+
+update_open_table_status()
+{
+    thread update_open_table_status_actual();
+}
+
+update_open_table_status_actual()
+{
+    wait 0.05; // wait for .crafted to be set
+
+    b_open_craftables_remaining = 0;
+
+    foreach ( uts_craftable in level.a_uts_craftables )
+    {
+        if ( is_true( uts_craftable.craftablestub.is_open_table ) && !is_true( uts_craftable.crafted ) && uts_craftable.craftablespawn.craftable_name != "open_table" && uts_craftable.craftablespawn craftable_can_use_shared_piece() )
+        {
+            b_open_craftables_remaining++;
+        }
+    }
+
+    if ( !b_open_craftables_remaining )
+    {
+        foreach ( uts_craftable in level.a_uts_craftables )
+        {
+            if ( uts_craftable.craftablespawn.craftable_name == "open_table" )
+            {
+                thread maps\mp\zombies\_zm_unitrigger::unregister_unitrigger( uts_craftable );
+            }
+        }
+    }
+}
