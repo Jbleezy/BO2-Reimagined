@@ -2045,10 +2045,7 @@ wait_and_revive()
 	}
 	self.beingrevivedprogressbar updatebar( 0.01, 1 / solo_revive_time );
 	flag_wait_or_timeout( "instant_revive", solo_revive_time );
-	if ( flag( "instant_revive" ) )
-	{
-		self maps\mp\zombies\_zm_laststand::revive_hud_show_n_fade( 1 );
-	}
+	self.revive_hud settext( "" );
 	if ( isDefined( self.beingrevivedprogressbar ) )
 	{
 		self.beingrevivedprogressbar destroyelem();

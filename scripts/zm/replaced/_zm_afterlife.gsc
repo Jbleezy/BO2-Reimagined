@@ -286,7 +286,7 @@ afterlife_revive_do_revive( playerbeingrevived, revivergun )
     if ( playerbeingrevived_player != self )
 	{
         playerbeingrevived_player.revive_hud settext( &"GAME_PLAYER_IS_REVIVING_YOU", self );
-        playerbeingrevived_player revive_hud_show_n_fade( 3.0 );
+        playerbeingrevived_player revive_hud_show_n_fade( revivetime );
     }
 
     if ( isplayer( playerbeingrevived ) )
