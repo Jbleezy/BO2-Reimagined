@@ -393,7 +393,12 @@ afterlife_revive_do_revive( playerbeingrevived, revivergun )
 
     if ( isDefined( playerbeingrevived_player.revive_hud ) )
 	{
-		playerbeingrevived_player.revive_hud settext("");
+        playerbeingrevived_player.revive_hud.y = -160;
+
+        if ( !flag( "wait_and_revive" ) )
+		{
+			playerbeingrevived_player.revive_hud settext("");
+		}
 	}
 
     if ( isdefined( self.reviveprogressbar ) )
