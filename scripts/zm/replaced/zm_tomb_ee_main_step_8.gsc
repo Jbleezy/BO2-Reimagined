@@ -48,10 +48,6 @@ stage_logic()
         e_wall hide();
     }
 
-    flag_wait( "ee_quadrotor_disabled" );
-    wait 1;
-    level thread ee_samantha_say( "vox_sam_all_staff_freedom_0" );
-
     players = get_players();
     foreach ( player in players )
     {
@@ -60,6 +56,10 @@ stage_logic()
             player thread scripts\zm\replaced\_zm_sq::sq_give_player_all_perks();
         }
     }
+
+    flag_wait( "ee_quadrotor_disabled" );
+    wait 1;
+    level thread ee_samantha_say( "vox_sam_all_staff_freedom_0" );
 
     t_portal = tomb_spawn_trigger_radius( s_pos.origin, 100, 1 );
     t_portal.hint_string = &"ZM_TOMB_TELE";
