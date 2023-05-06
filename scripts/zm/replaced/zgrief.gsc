@@ -197,6 +197,7 @@ meat_stink( who )
 	foreach (player in players)
 	{
 		player thread maps\mp\gametypes_zm\zgrief::meat_stink_player_cleanup();
+
 		if (player != who)
 		{
 			player.ignoreme = 1;
@@ -256,6 +257,7 @@ meat_stink_ignoreme_think()
 	self endon("disconnect");
 	self endon("player_downed");
 	self endon("bled_out");
+	self endon("spawned_player");
 	self endon("meat_stink_player_end");
 
 	while (1)
@@ -291,7 +293,7 @@ meat_stink_cleanup_on_downed()
 	self endon("disconnect");
 	self endon("bled_out");
 
-	self waittill("player_downed");
+	self waittill_any("player_downed", "spawned_player");
 
 	self.lastactiveweapon = self.pre_meat_weapon;
 
@@ -395,6 +397,7 @@ meat_stink_player( who )
 	foreach ( player in players )
 	{
 		player thread maps\mp\gametypes_zm\zgrief::meat_stink_player_cleanup();
+
 		if ( player != who )
 		{
 			player.ignoreme = 1;
@@ -407,14 +410,18 @@ meat_stink_player( who )
 	who thread meat_stink_player_create();
 	who notify( "meat_stink_player_start" );
 
-	who waittill_any_or_timeout( 30, "disconnect", "player_downed", "bled_out" );
+	who waittill_any_or_timeout( 30, "disconnect", "player_downed", "bled_out", "spawned_player" );
 
 	who notify( "meat_stink_player_end" );
 	players = get_players();
 	foreach ( player in players )
 	{
 		player thread maps\mp\gametypes_zm\zgrief::meat_stink_player_cleanup();
-		player.ignoreme = 0;
+
+		if (is_player_valid(player) && !is_true(player.spawn_protection) && !is_true(player.revive_protection))
+		{
+			player.ignoreme = 0;
+		}
 	}
 	level.meat_player = undefined;
 }
