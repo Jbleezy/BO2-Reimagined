@@ -248,6 +248,42 @@ afterlife_fake_death()
     self freezecontrols( 1 );
 }
 
+afterlife_fake_revive()
+{
+    level notify( "fake_revive" );
+    self notify( "fake_revive" );
+
+    playsoundatposition( "zmb_afterlife_spawn_leave", self.origin );
+
+    self allowstand( 1 );
+    self allowcrouch( 0 );
+    self allowprone( 0 );
+    self.ignoreme = 0;
+    self setstance( "stand" );
+    self giveweapon( "lightning_hands_zm" );
+    self switchtoweapon( "lightning_hands_zm" );
+    self.score = 0;
+
+    if ( flag( "afterlife_start_over" ) )
+    {
+        spawnpoint = [[ level.afterlife_get_spawnpoint ]]();
+        trace_start = spawnpoint.origin;
+        trace_end = spawnpoint.origin + vectorscale( ( 0, 0, -1 ), 200.0 );
+        respawn_trace = playerphysicstrace( trace_start, trace_end );
+        dir = vectornormalize( self.origin - respawn_trace );
+        angles = vectortoangles( dir );
+        self setorigin( respawn_trace );
+        self setplayerangles( angles );
+        playsoundatposition( "zmb_afterlife_spawn_enter", spawnpoint.origin );
+    }
+    else
+    {
+        playsoundatposition( "zmb_afterlife_spawn_enter", self.origin );
+    }
+
+    wait 1;
+}
+
 afterlife_revive_invincible()
 {
     self endon( "disconnect" );
