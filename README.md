@@ -737,6 +737,7 @@
 * Mystery Box: uses the same trade weapon hint string as other maps
 * Der Wunderfizz: increased cost from 1500 to 2500
 * Der Wunderfizz: all perks have an equal chance of being obtained
+* Der Wunderfizz: moves to new location instantly
 * Rituals of the Ancients: spend points challenge reward changed from Double Tap perk to a random perk that the player does not have (perk does not change if reward is reopened)
 * Soul boxes: decreased number of souls to close from 30 to 20
 * Dig spots: decreased number of digs to obtain golden shovel from 30 to 20

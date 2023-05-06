@@ -9,6 +9,30 @@
 #include maps\mp\zombies\_zm_perks;
 #include maps\mp\zombies\_zm_perk_random;
 
+machine_selector()
+{
+    while ( true )
+    {
+        level waittill( "random_perk_moving" );
+
+        machines = getentarray( "random_perk_machine", "targetname" );
+
+        if ( machines.size == 1 )
+        {
+            new_machine = machines[0];
+            new_machine thread machine_think();
+            continue;
+        }
+
+        do
+            new_machine = machines[randomint( machines.size )];
+        while ( new_machine == level.random_perk_start_machine );
+
+        level.random_perk_start_machine = new_machine;
+        new_machine thread machine_think();
+    }
+}
+
 trigger_visible_to_player( player )
 {
     self setinvisibletoplayer( player );
