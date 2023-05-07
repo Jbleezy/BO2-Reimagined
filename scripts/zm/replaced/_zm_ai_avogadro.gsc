@@ -47,13 +47,18 @@ check_range_attack()
 
 avogadro_exit( from )
 {
+    powerup_origin = spawn( "script_origin", self.origin );
+    if ( self.state == "attacking_bus" || self.state == "stay_attached" )
+    {
+        powerup_origin linkto( level.the_bus );
+    }
+
     self.state = "exiting";
     self notify( "stop_find_flesh" );
     self notify( "zombie_acquire_enemy" );
     self setfreecameralockonallowed( 0 );
     self.audio_loop_ent stoploopsound( 0.5 );
     self notify( "stop_health" );
-	powerup_origin = self.origin;
 
     if ( isdefined( self.health_fx ) )
     {
@@ -119,6 +124,8 @@ avogadro_exit( from )
 			level.powerup_drop_count = level.zombie_vars["zombie_powerup_drop_max_per_round"] - 1;
 
 		level.zombie_vars["zombie_drop_item"] = 1;
-		level thread maps\mp\zombies\_zm_powerups::powerup_drop( powerup_origin );
+		level thread maps\mp\zombies\_zm_powerups::powerup_drop( powerup_origin.origin );
 	}
+
+    powerup_origin delete();
 }
