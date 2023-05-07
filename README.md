@@ -89,6 +89,7 @@
 ### Avogadro
 * Drops a random powerup when killed
 * Decreased minimum distance away from players to be able to attack
+* Respawns on the same round if exited due to being too far away from players (normally respawns on the next round)
 
 ### Denizens
 * Changed max amount that can be spawned at once from 2 total to 1 per player in the fog

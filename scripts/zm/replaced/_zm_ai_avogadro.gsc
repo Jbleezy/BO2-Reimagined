@@ -110,7 +110,7 @@ avogadro_exit( from )
     self linkto( self.anchor );
 
     if ( isdefined( from ) && from == "exit_idle" )
-        self.return_round = level.round_number + 1;
+        self.return_round = level.round_number;
     else
         self.return_round = level.round_number + randomintrange( 2, 5 );
 
@@ -128,4 +128,68 @@ avogadro_exit( from )
 	}
 
     powerup_origin delete();
+}
+
+cloud_update_fx()
+{
+    self endon( "cloud_fx_end" );
+    level endon( "end_game" );
+    region = [];
+    region[0] = "bus";
+    region[1] = "diner";
+    region[2] = "farm";
+    region[3] = "cornfield";
+    region[4] = "power";
+    region[5] = "town";
+
+    if ( !isdefined( self.sndent ) )
+    {
+        self.sndent = spawn( "script_origin", ( 0, 0, 0 ) );
+        self.sndent playloopsound( "zmb_avogadro_thunder_overhead" );
+    }
+
+    cloud_time = gettime();
+
+    for ( vo_counter = 0; 1; vo_counter++ )
+    {
+        if ( gettime() >= cloud_time )
+        {
+            if ( isdefined( self.current_region ) )
+            {
+                exploder_num = level.transit_region[self.current_region].exploder;
+                stop_exploder( exploder_num );
+            }
+
+            rand_region = array_randomize( region );
+            region_str = rand_region[0];
+
+            if ( !isdefined( self.current_region ) )
+                region_str = region[4];
+
+            self.current_region = region_str;
+            exploder_num = level.transit_region[region_str].exploder;
+            exploder( exploder_num );
+            self.sndent moveto( level.transit_region[region_str].sndorigin, 3 );
+            cloud_time = gettime() + 30000;
+        }
+
+        if ( vo_counter > 50 )
+        {
+            player = self get_player_in_region();
+
+            if ( isdefined( player ) )
+            {
+                if ( isdefined( self._in_cloud ) && self._in_cloud )
+                    player thread do_player_general_vox( "general", "avogadro_above", 90, 10 );
+                else
+                    player thread do_player_general_vox( "general", "avogadro_arrive", 60, 40 );
+            }
+            else
+                level thread avogadro_storm_vox();
+
+            vo_counter = 0;
+        }
+
+        wait 0.1;
+    }
 }
