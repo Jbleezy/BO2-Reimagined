@@ -201,6 +201,49 @@ time_bomb_detonation()
     level notify( "time_bomb_detonation_complete" );
 }
 
+_time_bomb_show_overlay()
+{
+    flag_clear( "time_bomb_restore_done" );
+    a_players = get_players();
+
+    foreach ( player in a_players )
+    {
+        maps\mp\_visionset_mgr::vsmgr_activate( "overlay", "zombie_time_bomb_overlay", player );
+        player freezecontrols( 1 );
+        player enableinvulnerability();
+    }
+
+    level thread kill_overlay_at_match_end();
+}
+
+_time_bomb_hide_overlay( n_time_start )
+{
+    n_time_end = gettime();
+
+    if ( isdefined( n_time_start ) )
+    {
+        n_time_elapsed = ( n_time_end - n_time_start ) * 0.001;
+        n_delay = 4 - n_time_elapsed;
+        n_delay = clamp( n_delay, 0, 4 );
+
+        if ( n_delay > 0 )
+        {
+            wait( n_delay );
+            timebomb_wait_for_hostmigration();
+        }
+    }
+
+    timebomb_wait_for_hostmigration();
+    a_players = get_players();
+    flag_set( "time_bomb_restore_done" );
+
+    foreach ( player in a_players )
+    {
+        player freezecontrols( 0 );
+        player disableInvulnerability();
+    }
+}
+
 set_time_bomb_restore_active()
 {
     flag_set( "time_bomb_restore_active" );
