@@ -268,10 +268,13 @@ round_spawn_failsafe()
 
             if ( isdefined( level.put_timed_out_zombies_back_in_queue ) && level.put_timed_out_zombies_back_in_queue && !flag( "dog_round" ) )
             {
-                if ( !self.ignoreall && !( isdefined( self.nuked ) && self.nuked ) && !( isdefined( self.marked_for_death ) && self.marked_for_death ) && !( isdefined( self.isscreecher ) && self.isscreecher ) && ( isdefined( self.has_legs ) && self.has_legs ) && !( isdefined( self.is_brutus ) && self.is_brutus ) )
+                if ( !self.ignoreall && !( isdefined( self.nuked ) && self.nuked ) && !( isdefined( self.marked_for_death ) && self.marked_for_death ) && !( isdefined( self.isscreecher ) && self.isscreecher ) && !( isdefined( self.is_brutus ) && self.is_brutus ) )
                 {
                     level.zombie_total++;
                     level.zombie_total_subtract++;
+
+					if ( self.health < level.zombie_health )
+                		level.zombie_respawned_health[level.zombie_respawned_health.size] = self.health;
                 }
             }
 
