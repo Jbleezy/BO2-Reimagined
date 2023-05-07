@@ -10,6 +10,35 @@
 #include maps\mp\zm_transit;
 #include maps\mp\zm_transit_ai_screecher;
 
+init()
+{
+    level.screecher_should_burrow = ::screecher_should_burrow;
+    level.screecher_should_runaway = ::screecher_should_runaway;
+    level.screecher_cleanup = ::transit_screecher_cleanup;
+    level.screecher_init_done = ::screecher_init_done;
+    level.portals = [];
+}
+
+screecher_init_done()
+{
+    self endon( "death" );
+
+    self.maxhealth = 150;
+    self.health = self.maxhealth;
+
+    while ( true )
+    {
+        ground_ent = self getgroundent();
+
+        if ( isdefined( ground_ent ) && ground_ent == level.the_bus )
+        {
+            self dodamage( self.health + 666, self.origin );
+        }
+
+        wait 0.1;
+    }
+}
+
 player_wait_land()
 {
     self endon( "disconnect" );
