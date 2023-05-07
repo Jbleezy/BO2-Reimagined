@@ -60,8 +60,64 @@ treasure_chest_init( start_chest_name )
 		level.chest_index = 0;
 		level.chests[ 0 ].no_fly_away = 1;
 	}
-	maps\mp\zombies\_zm_magicbox::init_starting_chest_location( start_chest_name );
+	init_starting_chest_location( start_chest_name );
 	array_thread( level.chests, ::treasure_chest_think );
+}
+
+init_starting_chest_location( start_chest_name )
+{
+    level.chest_index = 0;
+    start_chest_found = 0;
+
+    if ( level.chests.size == 1 )
+    {
+        start_chest_found = 1;
+
+        if ( isdefined( level.chests[level.chest_index].zbarrier ) )
+            level.chests[level.chest_index].zbarrier set_magic_box_zbarrier_state( "initial" );
+    }
+    else
+    {
+        for ( i = 0; i < level.chests.size; i++ )
+        {
+            if ( isdefined( level.random_pandora_box_start ) && level.random_pandora_box_start == 1 )
+            {
+                if ( start_chest_found || isdefined( level.chests[i].start_exclude ) && level.chests[i].start_exclude == 1 )
+                    level.chests[i] hide_chest();
+                else
+                {
+                    level.chests = array_swap( level.chests, level.chest_index, i );
+                    level.chests[level.chest_index].hidden = 0;
+
+                    if ( isdefined( level.chests[level.chest_index].zbarrier ) )
+                        level.chests[level.chest_index].zbarrier set_magic_box_zbarrier_state( "initial" );
+
+                    start_chest_found = 1;
+                }
+
+                continue;
+            }
+
+            if ( start_chest_found || !isdefined( level.chests[i].script_noteworthy ) || !issubstr( level.chests[i].script_noteworthy, start_chest_name ) )
+            {
+                level.chests[i] hide_chest();
+                continue;
+            }
+
+            level.chests = array_swap( level.chests, level.chest_index, i );
+            level.chests[level.chest_index].hidden = 0;
+
+            if ( isdefined( level.chests[level.chest_index].zbarrier ) )
+                level.chests[level.chest_index].zbarrier set_magic_box_zbarrier_state( "initial" );
+
+            start_chest_found = 1;
+        }
+    }
+
+    if ( !isdefined( level.pandora_show_func ) )
+        level.pandora_show_func = ::default_pandora_show_func;
+
+    level.chests[level.chest_index] thread [[ level.pandora_show_func ]]();
 }
 
 treasure_chest_think()
@@ -686,7 +742,7 @@ treasure_chest_move( player_vox )
 	}
 	else
 	{
-		maps\mp\zombies\_zm_magicbox::default_box_move_logic();
+		default_box_move_logic();
 	}
 	if ( isDefined( level.chests[ level.chest_index ].box_hacks[ "summon_box" ] ) )
 	{
@@ -696,6 +752,37 @@ treasure_chest_move( player_vox )
 	level.chests[ level.chest_index ] maps\mp\zombies\_zm_magicbox::show_chest();
 	flag_clear( "moving_chest_now" );
 	self.zbarrier.chest_moving = 0;
+}
+
+default_box_move_logic()
+{
+    index = -1;
+
+    for ( i = 0; i < level.chests.size; i++ )
+    {
+        if ( issubstr( level.chests[i].script_noteworthy, "move" + ( level.chest_moves + 1 ) ) && i != level.chest_index )
+        {
+            index = i;
+            break;
+        }
+    }
+
+    if ( index != -1 )
+        level.chest_index = index;
+    else
+        level.chest_index++;
+
+    if ( level.chest_index >= level.chests.size )
+    {
+        temp_chest_name = level.chests[level.chest_index - 1].script_noteworthy;
+        level.chest_index = 0;
+        level.chests = array_randomize( level.chests );
+
+        if ( temp_chest_name == level.chests[level.chest_index].script_noteworthy )
+        {
+            level.chests = array_swap( level.chests, level.chest_index, 1 );
+        }
+    }
 }
 
 treasure_chest_timeout()
