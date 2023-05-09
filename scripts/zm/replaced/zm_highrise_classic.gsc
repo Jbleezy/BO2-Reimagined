@@ -111,11 +111,6 @@ highrise_pap_move_in( trigger, origin_offset, angles_offset )
 
 squashed_death_init( kill_if_falling )
 {
-    if ( !kill_if_falling )
-    {
-        flag_wait( "power_on" );
-    }
-
     while ( true )
     {
         self waittill( "trigger", who );
