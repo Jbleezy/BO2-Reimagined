@@ -194,7 +194,16 @@ hide_gump_loading_for_hotjoiners()
 
 	if(isDefined(level.should_respawn_func) && [[level.should_respawn_func]]())
 	{
-		level thread maps\mp\zombies\_zm::spectators_respawn();
+		if (!flag("initial_blackscreen_passed"))
+		{
+			self [[ level.spawnplayer ]]();
+		}
+		else
+		{
+			self.sessionstate = "playing";
+			self maps\mp\zombies\_zm::spectator_respawn();
+		}
+
 		return;
 	}
 
