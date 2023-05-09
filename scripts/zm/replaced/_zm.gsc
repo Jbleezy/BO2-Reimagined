@@ -661,7 +661,7 @@ wait_for_all_players_ready()
 		player playlocalsound( "zmb_perks_packa_ready" );
 	}
 
-	while ( num_ready < players.size || players.size == 0 )
+	while ( num_ready < players.size || players.size < level.pregame_minplayers )
 	{
 		if ( players.size < level.pregame_minplayers )
 		{
