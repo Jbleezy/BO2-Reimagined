@@ -199,7 +199,7 @@ player_perk_pause_all_perks_acquired(time)
 	{
 		self waittill("perk_acquired");
 
-		wait 0.05;
+		wait 0.1;
 
 		self player_perk_pause_all_perks();
 	}
@@ -268,7 +268,7 @@ player_perk_pause( perk )
 		}
 	}
 
-	self notify("perk_acquired");
+	self notify("perk_lost");
 }
 
 player_perk_unpause( perk )
@@ -299,5 +299,5 @@ player_perk_unpause( perk )
 		}
 	}
 
-	self notify("perk_lost");
+	self notify("perk_acquired");
 }
