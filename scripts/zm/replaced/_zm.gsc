@@ -614,6 +614,11 @@ wait_for_all_players_ready()
 	num_players = get_number_of_waiting_players();
 	while ( num_players < level.pregame_minplayers )
 	{
+		if (is_gametype_active("zgrief"))
+		{
+			check_for_team_change();
+		}
+
 		players = get_players();
 		foreach ( player in players )
 		{
@@ -679,6 +684,11 @@ wait_for_all_players_ready()
 			return;
 		}
 
+		if (is_gametype_active("zgrief"))
+		{
+			check_for_team_change();
+		}
+
 		foreach ( player in players )
 		{
 			if ( is_true( player.afterlife ) )
@@ -703,6 +713,11 @@ wait_for_all_players_ready()
 
 		num_ready = get_number_of_ready_players();
 		players = get_players();
+	}
+
+	if (is_gametype_active("zgrief"))
+	{
+		check_for_team_change();
 	}
 
 	foreach ( player in players )
@@ -769,6 +784,32 @@ get_number_of_ready_players()
     }
 
     return num;
+}
+
+check_for_team_change()
+{
+	if (level.allow_teamchange)
+	{
+		return;
+	}
+
+	team_change_player = undefined;
+	axis_players = get_players("axis");
+	allies_players = get_players("allies");
+
+	if (axis_players.size - 1 > allies_players.size)
+	{
+		team_change_player = random(axis_players);
+	}
+	else if (allies_players.size  - 1 > axis_players.size)
+	{
+		team_change_player = random(allies_players);
+	}
+
+	if (isDefined(team_change_player))
+	{
+		team_change_player scripts\zm\replaced\_zm_gametype::do_team_change();
+	}
 }
 
 last_stand_pistol_rank_init()
