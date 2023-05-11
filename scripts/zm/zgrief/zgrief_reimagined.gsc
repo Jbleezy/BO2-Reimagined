@@ -1377,7 +1377,10 @@ wait_and_award_grenades()
 {
 	self endon("disconnect");
 
-	wait 0.05;
+	while (is_true(self.is_hotjoining))
+	{
+		wait 0.05;
+	}
 
 	self giveWeapon(self get_player_lethal_grenade());
 	self setWeaponAmmoClip(self get_player_lethal_grenade(), 2);
