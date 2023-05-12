@@ -38,9 +38,9 @@ main()
 	init_wallbuys();
 	init_barriers();
     show_powerswitch();
+	activate_core();
 	generatebuildabletarps();
     disable_zombie_spawn_locations();
-	level thread activate_core();
 	scripts\zm\locs\loc_common::init();
 }
 
@@ -95,24 +95,11 @@ show_powerswitch()
 
 activate_core()
 {
-	power_event_time = 30;
 	reactor_core_mover = getent( "core_mover", "targetname" );
-	reactor_core_audio = spawn( "script_origin", reactor_core_mover.origin );
 
 	maps\mp\zm_transit_power::linkentitiestocoremover( reactor_core_mover );
 
-	flag_wait( "initial_blackscreen_passed" );
-
-	reactor_core_mover playsound( "zmb_power_rise_start" );
-	reactor_core_mover playloopsound( "zmb_power_rise_loop", 0.75 );
-
-	reactor_core_mover thread maps\mp\zm_transit_power::coremove( 30 );
-
-	wait power_event_time;
-
-	reactor_core_mover stoploopsound( 0.5 );
-	reactor_core_audio playloopsound( "zmb_power_on_loop", 2 );
-	reactor_core_mover playsound( "zmb_power_rise_stop" );
+	reactor_core_mover thread maps\mp\zm_transit_power::coremove( 0.05 );
 }
 
 generatebuildabletarps()
