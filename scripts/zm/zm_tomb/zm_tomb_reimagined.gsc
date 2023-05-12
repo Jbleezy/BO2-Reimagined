@@ -249,7 +249,7 @@ updatecraftables()
 
 	foreach (stub in level._unitriggers.trigger_stubs)
 	{
-		if(IsDefined(stub.equipname))
+		if(IsDefined(stub.equipname) && stub.equipname == "open_table")
 		{
 			stub.cost = stub scripts\zm\_zm_reimagined::get_equipment_cost();
 			stub.trigger_func = ::craftable_place_think;
