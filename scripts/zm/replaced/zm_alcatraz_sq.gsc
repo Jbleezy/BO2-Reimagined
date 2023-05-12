@@ -22,6 +22,56 @@
 #include maps\mp\zombies\_zm_clone;
 #include maps\mp\zm_alcatraz_sq;
 
+start_alcatraz_sidequest()
+{
+    init();
+    onplayerconnect_callback( ::player_disconnect_watcher );
+    onplayerconnect_callback( ::player_death_watcher );
+    flag_wait( "start_zombie_round_logic" );
+
+    level.n_quest_iteration_count = 1;
+    level.n_plane_fuel_count = 5;
+    level.n_plane_pieces_found = 0;
+    level.final_flight_players = [];
+    level.final_flight_activated = 0;
+    level.characters_in_nml = [];
+    level.someone_has_visited_nml = 0;
+    level.custom_game_over_hud_elem = maps\mp\zm_prison_sq_final::custom_game_over_hud_elem;
+    prevent_theater_mode_spoilers();
+    setup_key_doors();
+    setup_puzzle_piece_glint();
+    setup_puzzles();
+    setup_quest_triggers();
+    flag_set( "docks_gates_remain_open" );
+
+    if ( isdefined( level.gamedifficulty ) && level.gamedifficulty != 0 )
+        maps\mp\zm_prison_sq_final::final_flight_setup();
+
+    level thread warden_fence_hotjoin_handler();
+
+    if ( isdefined( level.host_migration_listener_custom_func ) )
+        level thread [[ level.host_migration_listener_custom_func ]]();
+    else
+        level thread host_migration_listener();
+
+    if ( isdefined( level.manage_electric_chairs_custom_func ) )
+        level thread [[ level.manage_electric_chairs_custom_func ]]();
+    else
+        level thread manage_electric_chairs();
+
+    if ( isdefined( level.plane_flight_thread_custom_func ) )
+        level thread [[ level.plane_flight_thread_custom_func ]]();
+    else
+        level thread plane_flight_thread();
+
+    if ( isdefined( level.track_quest_status_thread_custom_func ) )
+        level thread [[ level.track_quest_status_thread_custom_func ]]();
+    else
+        level thread track_quest_status_thread();
+
+    maps\mp\zm_alcatraz_sq_vo::opening_vo();
+}
+
 dryer_zombies_thread()
 {
     n_zombie_count_min = 20;

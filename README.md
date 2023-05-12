@@ -644,6 +644,7 @@
 * Opening one of the starting room doors no longer opens the other
 * Brutus no longer spawns if no doors have been opened
 * Activating the laundry machine always spawns zombies instead of Brutus
+* Docks gate no longer closes when shock box is shocked in afterlife
 * Players no longer respawn in the Acid Trap
 * Acid Trap: kills on any round (normally stops killing after round 158 on PC)
 * Acid Trap: kills zombies instantly
