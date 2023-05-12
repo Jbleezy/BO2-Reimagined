@@ -163,17 +163,37 @@ zm_traversal_override( traversealias )
 	if ( traversealias == "dierise_traverse_3_high_to_low" )
 	{
 		traversealias = "dierise_traverse_2_high_to_low";
-		self.pre_traverse = ::change_origin;
+		self.pre_traverse = ::change_dierise_traverse_2_high_to_low;
+	}
+	else if ( traversealias == "dierise_gap17a_low_to_high" )
+	{
+		self.pre_traverse = ::change_dierise_gap17a_low_to_high;
+	}
+	else if ( traversealias == "dierise_gap17c_low_to_high" )
+	{
+		self.pre_traverse = ::change_dierise_gap17c_low_to_high;
 	}
 
     return traversealias;
 }
 
-change_origin()
+change_dierise_traverse_2_high_to_low()
 {
 	self.pre_traverse = undefined;
 	self.origin += anglestoforward( self.traversestartnode.angles ) * -16;
 	self orientmode( "face angle", self.traversestartnode.angles[1] + 15 );
+}
+
+change_dierise_gap17a_low_to_high()
+{
+	self.pre_traverse = undefined;
+	self.origin += (0, 0, 16);
+}
+
+change_dierise_gap17c_low_to_high()
+{
+	self.pre_traverse = undefined;
+	self.origin += (0, 0, 16);
 }
 
 slipgun_change_ammo()
