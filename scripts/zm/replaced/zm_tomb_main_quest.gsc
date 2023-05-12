@@ -574,7 +574,7 @@ run_gramophone_teleporter( str_vinyl_record )
 
     t_gramophone tomb_unitrigger_delete();
 
-    wait 0.05;
+    wait 0.1;
 
     self.gramophone_model delete();
     self.gramophone_model = undefined;
@@ -658,7 +658,7 @@ run_gramophone_door( str_vinyl_record )
     t_door tomb_unitrigger_delete();
     trig_position.trigger = undefined;
 
-    wait 0.05;
+    wait 0.1;
 
     trig_position.gramophone_model delete();
     trig_position.gramophone_model = undefined;
