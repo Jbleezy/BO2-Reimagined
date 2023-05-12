@@ -126,7 +126,7 @@ swap_weapon_to_detonator( e_grenade )
     if ( isdefined( e_grenade ) )
     {
         b_switch_to_weapon = 1;
-        wait 0.5;
+        wait 0.4;
     }
 
     self takeweapon( "time_bomb_zm" );

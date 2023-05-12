@@ -218,6 +218,7 @@
 * No longer sends players back in time
 * Kills all zombies
 * Can have with Monkey Bombs
+* Switches to detonator at correct time after throwing
 
 ### One Inch Punch
 * Upgraded: elemental punch changes based on which staff the player currently has
