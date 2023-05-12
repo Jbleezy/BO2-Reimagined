@@ -1953,8 +1953,12 @@ player_laststand( einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, s
 	{
 		self [[ level.tombstone_laststand_func ]]();
 		self thread [[ level.tombstone_spawn_func ]]();
-		self.hasperkspecialtytombstone = undefined;
-		self notify( "specialty_scavenger_stop" );
+
+		if (!is_true(self._retain_perks))
+		{
+			self.hasperkspecialtytombstone = undefined;
+			self notify( "specialty_scavenger_stop" );
+		}
 	}
 	self clear_is_drinking();
 	self thread maps\mp\zombies\_zm::remove_deadshot_bottle();
