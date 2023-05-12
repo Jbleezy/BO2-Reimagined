@@ -1009,84 +1009,20 @@ initialize_custom_perk_arrays()
 	struct.scr_zm_map_start_location = "processing";
 	move_perk_machine("zm_buried", "street", "specialty_fastreload", struct);
 
-	if(getDvar("g_gametype") == "zgrief" && getDvarIntDefault("ui_gametype_pro", 0))
+    if(getDvar("g_gametype") == "zgrief" && getDvarIntDefault("ui_gametype_pro", 0))
 	{
-		add_missing_perk_machines();
-		remove_perk_machines();
+		remove_pap_machine();
 	}
 }
 
-add_missing_perk_machines()
-{
-	structs = getStructArray("zm_perk_machine", "targetname");
-	foreach(struct in structs)
-	{
-		if((level.script == "zm_transit" && level.scr_zm_map_start_location == "transit"))
-		{
-			if(isDefined(struct.script_noteworthy) && struct.script_noteworthy == "specialty_quickrevive")
-			{
-				if(isDefined(struct.script_string) && isSubStr(struct.script_string, "zclassic_perks_transit"))
-				{
-					struct.script_noteworthy = "specialty_armorvest";
-					struct.script_string += " zgrief_perks_transit";
-				}
-			}
-
-			if(isDefined(struct.script_noteworthy) && struct.script_noteworthy == "specialty_fastreload")
-			{
-				if(isDefined(struct.script_string) && isSubStr(struct.script_string, "zclassic_perks_transit"))
-				{
-					struct.script_string += " zgrief_perks_transit";
-					struct.origin = (-6304, 5363, -57);
-					struct.angles += (0, 180, 0);
-				}
-			}
-		}
-		else if((level.script == "zm_transit" && level.scr_zm_map_start_location == "cornfield"))
-		{
-			if(isDefined(struct.script_noteworthy) && struct.script_noteworthy == "specialty_armorvest")
-			{
-				if(isDefined(struct.script_string) && isSubStr(struct.script_string, "zclassic_perks_transit"))
-				{
-					struct.script_string += " zgrief_perks_cornfield";
-					struct.origin = (9985, -91, -213);
-					struct.angles = (0, 30, 0);
-				}
-			}
-
-			if(isDefined(struct.script_noteworthy) && struct.script_noteworthy == "specialty_fastreload")
-			{
-				if(isDefined(struct.script_string) && isSubStr(struct.script_string, "zclassic_perks_transit"))
-				{
-					struct.script_string += " zgrief_perks_cornfield";
-					struct.origin = (10257, -1802, -212);
-					struct.angles = (0, 180, 0);
-				}
-			}
-		}
-		else if((level.script == "zm_prison" && level.scr_zm_map_start_location == "cellblock"))
-		{
-			if(isDefined(struct.script_noteworthy) && struct.script_noteworthy == "specialty_rof")
-			{
-				if(isDefined(struct.script_string) && isSubStr(struct.script_string, "zgrief_perks_cellblock"))
-				{
-					struct.script_noteworthy = "specialty_armorvest";
-					struct.origin = (1411, 9663, 1335);
-					struct.angles += (0, 180, 0);
-				}
-			}
-		}
-	}
-}
-
-remove_perk_machines()
+remove_pap_machine()
 {
 	exceptions = array("specialty_armorvest", "specialty_fastreload");
 
 	structs = getStructArray("zm_perk_machine", "targetname");
 	foreach(struct in structs)
 	{
-		if(isDefined(struct.script_noteworthy) && !isInArray(exceptions, struct.script_noteworthy))
+		if(isDefined(struct.script_noteworthy) && struct.script_noteworthy == "specialty_weapupgrade")
 		{
 			struct.script_string = "";
 		}

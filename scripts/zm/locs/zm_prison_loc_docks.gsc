@@ -12,11 +12,6 @@ struct_init()
 	scripts\zm\replaced\utility::register_perk_struct( "specialty_armorvest", "zombie_vending_jugg", ( 473.92, 6638.99, 208 ), ( 0, 102, 0 ) );
     scripts\zm\replaced\utility::register_perk_struct( "specialty_weapupgrade", "p6_zm_al_vending_pap_on", ( -1769, 5395, -72 ), ( 0, 100, 0 ) );
 
-    if (getDvarInt("ui_gametype_pro"))
-    {
-        scripts\zm\replaced\utility::register_perk_struct( "specialty_fastreload", "zombie_vending_sleight", (-629, 6984, 64), ( 0, 100, 0 ) );
-    }
-
     ind = 0;
     respawnpoints = getstructarray( "player_respawn_point", "targetname" );
     for(i = 0; i < respawnpoints.size; i++)

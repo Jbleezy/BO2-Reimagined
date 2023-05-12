@@ -860,15 +860,9 @@
 * Players retain perks
 
 ### Encounter Pro
-* 100 player health
-* Added Juggernog and Speed Cola on all maps
-* Removed all perks except for Juggernog and Speed Cola
-* Removed Pack-a-Punch
-* Removed Mystery Box
-* Removed powerups
-* Removed buildables
 * Removed unlimited sprint
-* Disabled Semtex and Claymore wallbuys
+* Removed Mystery Box
+* Removed Pack-a-Punch
 
 ## Launching New Maps
 

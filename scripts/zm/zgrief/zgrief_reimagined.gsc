@@ -379,11 +379,6 @@ set_grief_vars()
 		level.player_starting_points = 10000;
 	}
 
-	if(level.scr_zm_ui_gametype_pro)
-	{
-		level.zombie_vars["zombie_powerup_drop_max_per_round"] = 0;
-	}
-
 	level.zombie_vars["zombie_powerup_drop_increment"] = level.player_starting_points * 4;
 
 	if(is_respawn_gamemode())
@@ -3108,21 +3103,11 @@ meat_powerup_drop_think()
 		level.zombie_powerup_ape = "meat_stink";
 		level.zombie_vars["zombie_drop_item"] = 1;
 
-		if (is_true(level.scr_zm_ui_gametype_pro))
-		{
-			level.zombie_vars["zombie_powerup_drop_max_per_round"] = 1;
-		}
-
 		level waittill( "powerup_dropped", powerup );
 
 		if (powerup.powerup_name != "meat_stink")
 		{
 			continue;
-		}
-
-		if (is_true(level.scr_zm_ui_gametype_pro))
-		{
-			level.zombie_vars["zombie_powerup_drop_max_per_round"] = 0;
 		}
 
 		if (!isDefined(level.meat_player))

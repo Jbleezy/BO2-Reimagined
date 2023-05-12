@@ -158,15 +158,7 @@ init()
 	level.player_too_many_players_check = 0;
 	level.player_too_many_weapons_monitor_func = scripts\zm\replaced\_zm::player_too_many_weapons_monitor;
 	level.pregame_minplayers = getDvarInt("party_minplayers");
-
-	if(getDvar("g_gametype") == "zgrief" && is_true(level.scr_zm_ui_gametype_pro))
-	{
-		level.player_starting_health = 100;
-	}
-	else
-	{
-		level.player_starting_health = 150;
-	}
+	level.player_starting_health = 150;
 
 	setscoreboardcolumns_gametype();
 	set_lethal_grenade_init();
@@ -2563,12 +2555,6 @@ wallbuy_location_changes()
 				add_wallbuy("claymore_zm");
 				add_wallbuy("bowie_knife_zm");
 			}
-		}
-
-		if(is_true(level.scr_zm_ui_gametype_pro))
-		{
-			remove_wallbuy("sticky_grenade_zm");
-			remove_wallbuy("claymore_zm");
 		}
 	}
 }

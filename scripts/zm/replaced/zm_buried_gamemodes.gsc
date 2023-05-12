@@ -51,13 +51,6 @@ buildbuildable( buildable )
                     piece maps\mp\zombies\_zm_buildables::piece_unspawn();
                 }
 
-                if (is_true(level.scr_zm_ui_gametype_pro))
-	            {
-                    thread maps\mp\zombies\_zm_unitrigger::unregister_unitrigger( stub );
-
-                    return;
-                }
-
                 stub maps\mp\zombies\_zm_buildables::buildablestub_finish_build( player );
 
                 stub.model notsolid();
