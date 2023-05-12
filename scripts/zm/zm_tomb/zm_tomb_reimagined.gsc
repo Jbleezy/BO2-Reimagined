@@ -105,6 +105,7 @@ init()
 
     maps\mp\zombies\_zm::spawn_life_brush( (1839, 3574, -228), 512, 256 );
 
+    register_melee_weapons_for_level();
     change_stargate_teleport_return_player_angles();
 
 	level thread zombie_blood_dig_changes();
@@ -139,6 +140,16 @@ tomb_special_weapon_magicbox_check(weapon)
 		}
 	}
 	return 1;
+}
+
+register_melee_weapons_for_level()
+{
+    register_melee_weapon_for_level("one_inch_punch_zm");
+    register_melee_weapon_for_level("one_inch_punch_upgraded_zm");
+    register_melee_weapon_for_level("one_inch_punch_air_zm");
+    register_melee_weapon_for_level("one_inch_punch_fire_zm");
+    register_melee_weapon_for_level("one_inch_punch_ice_zm");
+    register_melee_weapon_for_level("one_inch_punch_lightning_zm");
 }
 
 change_stargate_teleport_return_player_angles()
