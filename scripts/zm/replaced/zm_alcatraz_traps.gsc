@@ -236,6 +236,11 @@ tower_trap_trigger_think()
     self.upgrade_trigger.in_use = 0;
     self.upgrade_trigger.is_available = 1;
 
+    if (is_gametype_active("zclassic"))
+    {
+        self thread tower_upgrade_trigger_think();
+    }
+
     while ( true )
     {
         self hint_string( &"ZM_PRISON_TOWER_TRAP", self.cost );
@@ -280,13 +285,6 @@ tower_trap_trigger_think()
                     self thread activate_tower_trap();
                     self thread tower_trap_timer();
 
-                    if (is_true(self.upgrade_trigger.is_available) && is_gametype_active("zclassic"))
-                    {
-                        self thread tower_upgrade_trigger_think();
-                        level thread open_tower_trap_upgrade_panel();
-                        level thread tower_trap_upgrade_panel_closes_early();
-                    }
-
                     self waittill( "tower_trap_off" );
 
                     self.sndtowerent stoploopsound( 1 );
@@ -301,6 +299,32 @@ tower_trap_trigger_think()
                 }
             }
         }
+    }
+}
+
+tower_upgrade_trigger_think()
+{
+    while (1)
+    {
+        level thread open_tower_trap_upgrade_panel();
+
+        level waittill( self.upgrade_trigger.script_string );
+
+        self.upgrade_trigger.in_use = 1;
+        self.upgrade_trigger.is_available = 0;
+
+        level.trapped_track["tower_upgrade"] = 1;
+        level notify( "tower_trap_upgraded" );
+        level notify( "close_tower_trap_upgrade_panel" );
+        self upgrade_tower_trap_weapon();
+
+        level waittill( "end_of_round" );
+
+        self tower_trap_weapon();
+        self.upgrade_trigger notify( "afterlife_interact_reset" );
+        self.upgrade_trigger notify( "available" );
+        self.upgrade_trigger.in_use = 0;
+        self.upgrade_trigger.is_available = 1;
     }
 }
 
@@ -407,34 +431,4 @@ tower_trap_fires( a_zombies )
             continue;
         }
     }
-}
-
-tower_upgrade_trigger_think()
-{
-    self endon( "tower_trap_off" );
-
-    level waittill( self.upgrade_trigger.script_string );
-
-    self.upgrade_trigger.in_use = 1;
-    self.upgrade_trigger.is_available = 0;
-
-    level.trapped_track["tower_upgrade"] = 1;
-    level notify( "tower_trap_upgraded" );
-    level notify( "close_tower_trap_upgrade_panel" );
-    self upgrade_tower_trap_weapon();
-    self notify( "tower_trap_reset_timer" );
-    self thread tower_trap_timer();
-
-    self thread tower_upgrade_reset_after_round();
-}
-
-tower_upgrade_reset_after_round()
-{
-    level waittill( "end_of_round" );
-
-    self tower_trap_weapon();
-    self.upgrade_trigger notify( "afterlife_interact_reset" );
-    self.upgrade_trigger notify( "available" );
-    self.upgrade_trigger.in_use = 0;
-    self.upgrade_trigger.is_available = 1;
 }

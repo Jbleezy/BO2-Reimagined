@@ -653,6 +653,8 @@
 * Tower Trap: kills on any round in 1 shot
 * Tower Trap (upgraded): kills on any round in 1-2 shots
 * Tower Trap (upgraded): stays upgraded until the end of the round
+* Tower Trap (upgraded): can be upgraded while the trap is not active
+* Tower Trap (upgraded): upgrading no longer resets the duration of the trap
 * Zombies spawn in the Docks zone when in the Docks Gates zone
 * Zombies spawn in the Docks Gates zone when in the Docks zone
 * Quest: number pad only needs each number to be shocked once in order to complete
