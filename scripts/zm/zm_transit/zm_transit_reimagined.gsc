@@ -83,6 +83,7 @@ init()
 	level.object_touching_lava = maps\mp\zm_transit_lava::object_touching_lava;
 
 	zombie_spawn_location_changes();
+	buildable_table_models();
 	cornfield_add_collision();
 	cornfield_spawn_path_nodes();
 	path_exploit_fixes();
@@ -256,6 +257,43 @@ zombie_spawn_location_changes()
 			}
 		}
 	}
+}
+
+buildable_table_models()
+{
+	// power switch
+	model = spawn( "script_model", (12177.3, 8504.51, -731.375));
+	model.angles = (0, 88, 90);
+	model setmodel("p6_zm_core_panel_02");
+	model = spawn( "script_model", (12162.3, 8504.51, -731.375));
+	model.angles = (0, 92, 90);
+	model setmodel("p6_zm_core_panel_02");
+	model = spawn( "script_model", (12162.3, 8520.51, -731.375));
+	model.angles = (0, 92, 90);
+	model setmodel("p6_zm_core_panel_02");
+	model = spawn( "script_model", (12177.3, 8520.51, -731.375));
+	model.angles = (0, 88, 90);
+	model setmodel("p6_zm_core_panel_02");
+
+	// pack-a-punch
+	model = spawn( "script_model", (2266.47, -212.901, -303.875));
+	model.angles = (0, 0, 0);
+	model setmodel("p_rus_crate_metal_1");
+	model = spawn( "script_model", (2266.47, -212.901, -273.875));
+	model.angles = (0, 0, 0);
+	model setmodel("p_rus_crate_metal_1");
+	model = spawn( "script_model", (2266.47, -212.901, -243.875));
+	model.angles = (0, 0, 0);
+	model setmodel("p_rus_crate_metal_1");
+	model = spawn( "script_model", (2219.03, -212.725, -243.875));
+	model.angles = (0, 0, 0);
+	model setmodel("p_rus_crate_metal_2");
+	model = spawn( "script_model", (2219.03, -212.725, -303.875));
+	model.angles = (0, 0, 0);
+	model setmodel("p_rus_crate_metal_2");
+	model = spawn( "script_model", (2219.03, -212.725, -273.875));
+	model.angles = (0, 0, 0);
+	model setmodel("p_rus_crate_metal_2");
 }
 
 cornfield_add_collision()

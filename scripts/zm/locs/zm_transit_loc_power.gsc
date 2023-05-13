@@ -104,11 +104,6 @@ activate_core()
 
 generatebuildabletarps()
 {
-	// power switch
-    tarp = spawn( "script_model", ( 12169, 8498, -752 ) );
-    tarp.angles = ( 0, 180, 0 );
-	tarp setModel( "p6_zm_buildable_bench_tarp" );
-
 	// trap
 	tarp = spawn( "script_model", ( 11325, 8170, -488 ) );
     tarp.angles = ( 0, 0, 0 );
