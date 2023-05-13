@@ -194,6 +194,8 @@ hide_gump_loading_for_hotjoiners()
 
 	if(isDefined(level.should_respawn_func) && [[level.should_respawn_func]]())
 	{
+		wait 0.05;
+
 		if (!flag("initial_blackscreen_passed"))
 		{
 			self [[ level.spawnplayer ]]();
