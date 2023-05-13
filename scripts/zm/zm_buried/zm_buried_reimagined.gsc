@@ -4,6 +4,7 @@
 
 #include scripts\zm\replaced\zm_buried_buildables;
 #include scripts\zm\replaced\zm_buried_gamemodes;
+#include scripts\zm\replaced\zm_buried_power;
 #include scripts\zm\replaced\zm_buried_ffotd;
 #include scripts\zm\replaced\zm_buried_fountain;
 #include scripts\zm\replaced\zm_buried_sq;
@@ -32,6 +33,7 @@ main()
 	replaceFunc(maps\mp\zm_buried_buildables::watch_cell_open_close, scripts\zm\replaced\zm_buried_buildables::watch_cell_open_close);
 	replaceFunc(maps\mp\zm_buried_gamemodes::init, scripts\zm\replaced\zm_buried_gamemodes::init);
 	replaceFunc(maps\mp\zm_buried_gamemodes::buildbuildable, scripts\zm\replaced\zm_buried_gamemodes::buildbuildable);
+	replaceFunc(maps\mp\zm_buried_power::electric_switch, scripts\zm\replaced\zm_buried_power::electric_switch);
 	replaceFunc(maps\mp\zm_buried_ffotd::jail_traversal_fix, scripts\zm\replaced\zm_buried_ffotd::jail_traversal_fix);
 	replaceFunc(maps\mp\zm_buried_ffotd::time_bomb_takeaway, scripts\zm\replaced\zm_buried_ffotd::time_bomb_takeaway);
 	replaceFunc(maps\mp\zm_buried_ffotd::spawned_life_triggers, scripts\zm\replaced\zm_buried_ffotd::spawned_life_triggers);
@@ -87,7 +89,7 @@ init()
 		level.check_for_valid_spawn_near_team_callback = undefined;
 	}
 
-	turn_power_on();
+	power_switch_model();
 	sloth_barricades_buyable();
 	add_jug_collision();
 
@@ -124,26 +126,22 @@ buried_special_weapon_magicbox_check(weapon)
 	return 1;
 }
 
-turn_power_on()
+power_switch_model()
 {
-	if (!is_gametype_active("zclassic"))
-	{
-		return;
-	}
-
-	trigger = getent( "use_elec_switch", "targetname" );
-	if ( isDefined( trigger ) )
-	{
-		trigger delete();
-	}
-	master_switch = getent( "elec_switch", "targetname" );
-	if ( isDefined( master_switch ) )
-	{
-		master_switch notsolid();
-		master_switch rotateroll( -90, 0.3 );
-		clientnotify( "power_on" );
-		flag_set( "power_on" );
-	}
+	model = spawn( "script_model", (626.36, -401.555, 133.149), 1);
+	model.angles = (0, 0, 0);
+	model setmodel("collision_clip_32x32x128");
+	model disconnectpaths();
+	model = spawn( "script_model", (660.36, -401.555, 133.149), 1);
+	model.angles = (7, 0, 0);
+	model setmodel("collision_clip_32x32x128");
+	model disconnectpaths();
+	model = spawn( "script_model", (642.556, -411.68, 131.538));
+	model.angles = (3, 0, -8);
+	model setmodel("p6_zm_bu_victorian_bookshelf");
+	model = spawn( "script_model", (642.556, -420.68, 132.838));
+	model.angles = (3, 0, -8);
+	model setmodel("p6_zm_bu_victorian_bookshelf");
 }
 
 sloth_barricades_buyable()
