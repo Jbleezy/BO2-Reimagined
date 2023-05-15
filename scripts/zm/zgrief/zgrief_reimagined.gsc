@@ -744,17 +744,9 @@ grief_onplayerdisconnect(disconnecting_player)
 		}
 	}
 
-	players = get_players();
-	count = 0;
-	foreach(player in players)
-	{
-		if(player != disconnecting_player && player.team == disconnecting_player.team)
-		{
-			count++;
-		}
-	}
+	count = countplayers(disconnecting_player.team) - 1;
 
-	if(count == 0)
+	if(count <= 0)
 	{
 		encounters_team = "A";
 		if(getOtherTeam(disconnecting_player.team) == "allies")

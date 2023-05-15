@@ -652,6 +652,7 @@ wait_for_all_players_ready()
 {
 	flag_init( "all_players_ready" );
 
+	prev_no_end_game_check = level.no_end_game_check;
 	level.no_end_game_check = 1;
 
 	if ( !isDefined(level.pregame_hud) )
@@ -786,7 +787,7 @@ wait_for_all_players_ready()
 	level.ready_up_hud destroy();
 	level.pregame_hud destroy();
 
-	level.no_end_game_check = undefined;
+	level.no_end_game_check = prev_no_end_game_check;
 
 	flag_set( "all_players_ready" );
 }
