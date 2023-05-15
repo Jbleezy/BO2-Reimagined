@@ -48,6 +48,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm::onallplayersready, scripts\zm\replaced\_zm::onallplayersready);
 	replaceFunc(maps\mp\zombies\_zm::last_stand_pistol_rank_init, scripts\zm\replaced\_zm::last_stand_pistol_rank_init);
 	replaceFunc(maps\mp\zombies\_zm::can_track_ammo, scripts\zm\replaced\_zm::can_track_ammo);
+	replaceFunc(maps\mp\zombies\_zm::take_additionalprimaryweapon, scripts\zm\replaced\_zm::take_additionalprimaryweapon);
 	replaceFunc(maps\mp\zombies\_zm::check_for_valid_spawn_near_team, scripts\zm\replaced\_zm::check_for_valid_spawn_near_team);
 	replaceFunc(maps\mp\zombies\_zm::get_valid_spawn_location, scripts\zm\replaced\_zm::get_valid_spawn_location);
 	replaceFunc(maps\mp\zombies\_zm::actor_damage_override, scripts\zm\replaced\_zm::actor_damage_override);
@@ -241,8 +242,6 @@ on_player_spawned()
 
 			self thread jetgun_heatval_changes();
 
-			self thread additionalprimaryweapon_save_weapons();
-			self thread additionalprimaryweapon_restore_weapons();
 			self thread additionalprimaryweapon_indicator();
 			self thread additionalprimaryweapon_stowed_weapon_refill();
 
@@ -3743,143 +3742,6 @@ tombstone_give()
 	}
 }
 
-additionalprimaryweapon_save_weapons()
-{
-	self endon("disconnect");
-
-	while (1)
-	{
-		if (!self hasPerk("specialty_additionalprimaryweapon"))
-		{
-			self waittill("perk_acquired");
-			wait 0.05;
-		}
-
-		if (self hasPerk("specialty_additionalprimaryweapon"))
-		{
-			primaries = self getweaponslistprimaries();
-			if (primaries.size >= 3)
-			{
-				weapon = primaries[primaries.size - 1];
-				self.a_saved_weapon = maps\mp\zombies\_zm_weapons::get_player_weapondata(self, weapon);
-			}
-			else
-			{
-				self.a_saved_weapon = undefined;
-			}
-		}
-
-		wait 0.05;
-	}
-}
-
-additionalprimaryweapon_restore_weapons()
-{
-	self endon("disconnect");
-
-	while (1)
-	{
-		self waittill("perk_acquired");
-
-		if (isDefined(self.a_saved_weapon) && self hasPerk("specialty_additionalprimaryweapon"))
-		{
-			pap_triggers = getentarray( "specialty_weapupgrade", "script_noteworthy" );
-
-			if (additionalprimaryweapon_canplayerreceiveweapon(self, self.a_saved_weapon["name"], pap_triggers))
-			{
-				self additionalprimaryweapon_restore_weapon(self.a_saved_weapon);
-				self seteverhadweaponall( 1 );
-			}
-
-			self.a_saved_weapon = undefined;
-		}
-	}
-}
-
-additionalprimaryweapon_restore_weapon( weapondata )
-{
-	current = get_player_weapon_with_same_base( weapondata["name"] );
-
-    if ( isdefined( current ) )
-    {
-        curweapondata = get_player_weapondata( self, current );
-        self takeweapon( current );
-        weapondata = merge_weapons( curweapondata, weapondata );
-    }
-
-    name = weapondata["name"];
-
-    if ( !is_weapon_upgraded( name ) )
-        self giveweapon( name );
-    else
-        self giveweapon( name, 0, self get_pack_a_punch_weapon_options( name ) );
-
-    dw_name = weapondualwieldweaponname( name );
-    alt_name = weaponaltweaponname( name );
-
-    if ( name != "none" )
-    {
-        self setweaponammoclip( name, weapondata["clip"] );
-        self setweaponammostock( name, weapondata["stock"] );
-
-        if ( isdefined( weapondata["fuel"] ) )
-            self setweaponammofuel( name, weapondata["fuel"] );
-
-        if ( isdefined( weapondata["heat"] ) && isdefined( weapondata["overheat"] ) )
-            self setweaponoverheating( weapondata["overheat"], weapondata["heat"], name );
-    }
-
-    if ( dw_name != "none" )
-        self setweaponammoclip( dw_name, weapondata["lh_clip"] );
-
-    if ( alt_name != "none" )
-    {
-        self setweaponammoclip( alt_name, weapondata["alt_clip"] );
-        self setweaponammostock( alt_name, weapondata["alt_stock"] );
-    }
-}
-
-additionalprimaryweapon_canplayerreceiveweapon( player, weapon, pap_triggers )
-{
-	if ( isDefined( player ) && self maps\mp\zombies\_zm_weapons::has_weapon_or_upgrade( weapon ) )
-	{
-		return 0;
-	}
-
-	if ( !maps\mp\zombies\_zm_weapons::limited_weapon_below_quota( weapon, player, pap_triggers ) )
-	{
-		return 0;
-	}
-
-	if ( !player maps\mp\zombies\_zm_weapons::player_can_use_content( weapon ) )
-	{
-		return 0;
-	}
-
-	if ( isDefined( level.custom_magic_box_selection_logic ) )
-	{
-		if ( !( [[ level.custom_magic_box_selection_logic ]]( weapon, player, pap_triggers ) ) )
-		{
-			return 0;
-		}
-	}
-
-	if ( isDefined( player ) && isDefined( level.special_weapon_magicbox_check ) )
-	{
-		if ( !player [[ level.special_weapon_magicbox_check ]]( weapon ) )
-		{
-			return 0;
-		}
-	}
-
-	if ( isSubStr( weapon, "staff" ) )
-	{
-		return 0;
-	}
-
-	return 1;
-}
-
 additionalprimaryweapon_indicator()
 {
 	self endon("disconnect");
@@ -3917,22 +3779,43 @@ additionalprimaryweapon_indicator()
 	{
 		self waittill_any("weapon_change", "specialty_additionalprimaryweapon_stop", "player_downed", "spawned_player");
 
-		if (!is_player_valid(self))
+		if (!is_player_valid(self) || !self hasPerk("specialty_additionalprimaryweapon"))
 		{
 			hud fadeOverTime(0.5);
 			hud.alpha = 0;
 			continue;
 		}
 
-		if (self hasPerk("specialty_additionalprimaryweapon") && isDefined(self.a_saved_weapon) && self getCurrentWeapon() == self.a_saved_weapon["name"])
+		primary_weapons_that_can_be_taken = [];
+		primaryweapons = self getweaponslistprimaries();
+
+		for ( i = 0; i < primaryweapons.size; i++ )
 		{
-			self thread additionalprimaryweapon_indicator_show_and_hide(hud);
+			if ( maps\mp\zombies\_zm_weapons::is_weapon_included( primaryweapons[i] ) || maps\mp\zombies\_zm_weapons::is_weapon_upgraded( primaryweapons[i] ) )
+			{
+				primary_weapons_that_can_be_taken[primary_weapons_that_can_be_taken.size] = primaryweapons[i];
+			}
 		}
-		else
+
+		pwtcbt = primary_weapons_that_can_be_taken.size;
+
+		if ( pwtcbt < 3 )
 		{
 			hud fadeOverTime(0.5);
 			hud.alpha = 0;
+			continue;
 		}
+
+		weapon = primary_weapons_that_can_be_taken[pwtcbt - 1];
+
+		if ( self getCurrentWeapon() != weapon )
+		{
+			hud fadeOverTime(0.5);
+			hud.alpha = 0;
+			continue;
+		}
+
+		self thread additionalprimaryweapon_indicator_show_and_hide(hud);
 	}
 }
 

@@ -745,6 +745,10 @@ give_perk( perk, bought )
 		self.hasperkspecialtychugabud = 1;
 		self notify( "perk_chugabud_activated" );
 	}
+    if ( perk == "specialty_additionalprimaryweapon" )
+    {
+        self scripts\zm\replaced\_zm::restore_additionalprimaryweapon();
+    }
 	if ( isDefined( level._custom_perks[ perk ] ) && isDefined( level._custom_perks[ perk ].player_thread_give ) )
 	{
 		self thread [[ level._custom_perks[ perk ].player_thread_give ]]();

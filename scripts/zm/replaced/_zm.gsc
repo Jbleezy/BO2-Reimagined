@@ -944,6 +944,141 @@ can_track_ammo( weap )
     return true;
 }
 
+take_additionalprimaryweapon()
+{
+    weapon_to_take = undefined;
+	self.a_saved_weapon = undefined;
+
+    if ( isdefined( self._retain_perks ) && self._retain_perks || isdefined( self._retain_perks_array ) && ( isdefined( self._retain_perks_array["specialty_additionalprimaryweapon"] ) && self._retain_perks_array["specialty_additionalprimaryweapon"] ) )
+        return weapon_to_take;
+
+    primary_weapons_that_can_be_taken = [];
+    primaryweapons = self getweaponslistprimaries();
+
+    for ( i = 0; i < primaryweapons.size; i++ )
+    {
+        if ( maps\mp\zombies\_zm_weapons::is_weapon_included( primaryweapons[i] ) || maps\mp\zombies\_zm_weapons::is_weapon_upgraded( primaryweapons[i] ) )
+            primary_weapons_that_can_be_taken[primary_weapons_that_can_be_taken.size] = primaryweapons[i];
+    }
+
+    pwtcbt = primary_weapons_that_can_be_taken.size;
+
+	while ( pwtcbt >= 3 )
+    {
+        weapon_to_take = primary_weapons_that_can_be_taken[pwtcbt - 1];
+        pwtcbt--;
+
+		self.a_saved_weapon = maps\mp\zombies\_zm_weapons::get_player_weapondata(self, weapon_to_take);
+
+        if ( weapon_to_take == self getcurrentweapon() )
+            self switchtoweapon( primary_weapons_that_can_be_taken[0] );
+
+        self takeweapon( weapon_to_take );
+    }
+
+    return weapon_to_take;
+}
+
+restore_additionalprimaryweapon()
+{
+	if (!isDefined(self.a_saved_weapon))
+	{
+		return;
+	}
+
+	pap_triggers = getentarray( "specialty_weapupgrade", "script_noteworthy" );
+
+	if (!additionalprimaryweapon_canplayerreceiveweapon(self, self.a_saved_weapon["name"], pap_triggers))
+	{
+		self.a_saved_weapon = undefined;
+		return;
+	}
+
+	current = get_player_weapon_with_same_base( self.a_saved_weapon["name"] );
+
+    if ( isdefined( current ) )
+    {
+        curweapondata = get_player_weapondata( self, current );
+        self takeweapon( current );
+        weapondata = merge_weapons( curweapondata, weapondata );
+    }
+
+    name = self.a_saved_weapon["name"];
+	dw_name = weapondualwieldweaponname( name );
+    alt_name = weaponaltweaponname( name );
+
+    if ( !is_weapon_upgraded( name ) )
+        self giveweapon( name );
+    else
+        self giveweapon( name, 0, self get_pack_a_punch_weapon_options( name ) );
+
+    if ( name != "none" )
+    {
+        self setweaponammoclip( name, self.a_saved_weapon["clip"] );
+        self setweaponammostock( name, self.a_saved_weapon["stock"] );
+
+        if ( isdefined( self.a_saved_weapon["fuel"] ) )
+            self setweaponammofuel( name, self.a_saved_weapon["fuel"] );
+
+        if ( isdefined( self.a_saved_weapon["heat"] ) && isdefined( self.a_saved_weapon["overheat"] ) )
+            self setweaponoverheating( self.a_saved_weapon["overheat"], self.a_saved_weapon["heat"], name );
+    }
+
+    if ( dw_name != "none" )
+        self setweaponammoclip( dw_name, self.a_saved_weapon["lh_clip"] );
+
+    if ( alt_name != "none" )
+    {
+        self setweaponammoclip( alt_name, self.a_saved_weapon["alt_clip"] );
+        self setweaponammostock( alt_name, self.a_saved_weapon["alt_stock"] );
+    }
+
+	self seteverhadweaponall( 1 );
+
+	self.a_saved_weapon = undefined;
+}
+
+additionalprimaryweapon_canplayerreceiveweapon( player, weapon, pap_triggers )
+{
+	if ( isDefined( player ) && player maps\mp\zombies\_zm_weapons::has_weapon_or_upgrade( weapon ) )
+	{
+		return 0;
+	}
+
+	if ( !maps\mp\zombies\_zm_weapons::limited_weapon_below_quota( weapon, player, pap_triggers ) )
+	{
+		return 0;
+	}
+
+	if ( !player maps\mp\zombies\_zm_weapons::player_can_use_content( weapon ) )
+	{
+		return 0;
+	}
+
+	if ( isDefined( level.custom_magic_box_selection_logic ) )
+	{
+		if ( !( [[ level.custom_magic_box_selection_logic ]]( weapon, player, pap_triggers ) ) )
+		{
+			return 0;
+		}
+	}
+
+	if ( isDefined( player ) && isDefined( level.special_weapon_magicbox_check ) )
+	{
+		if ( !player [[ level.special_weapon_magicbox_check ]]( weapon ) )
+		{
+			return 0;
+		}
+	}
+
+	if ( isSubStr( weapon, "staff" ) )
+	{
+		return 0;
+	}
+
+	return 1;
+}
+
 actor_damage_override( inflictor, attacker, damage, flags, meansofdeath, weapon, vpoint, vdir, shitloc, psoffsettime, boneindex )
 {
 	if ( is_true( self.is_sloth ) )

@@ -95,6 +95,61 @@ chugabud_laststand()
     self chugabud_laststand_cleanup( corpse, undefined );
 }
 
+chugabud_save_loadout()
+{
+    primaries = self getweaponslistprimaries();
+    currentweapon = self getcurrentweapon();
+    self.loadout = spawnstruct();
+    self.loadout.player = self;
+    self.loadout.weapons = [];
+    self.loadout.score = self.score;
+    self.loadout.current_weapon = -1;
+
+    foreach ( index, weapon in primaries )
+    {
+        self.loadout.weapons[index] = maps\mp\zombies\_zm_weapons::get_player_weapondata( self, weapon );
+
+        if ( weapon == currentweapon || self.loadout.weapons[index]["alt_name"] == currentweapon )
+            self.loadout.current_weapon = index;
+    }
+
+    self.loadout.equipment = self get_player_equipment();
+
+    if ( isdefined( self.loadout.equipment ) )
+        self equipment_take( self.loadout.equipment );
+
+    self.loadout save_weapons_for_chugabud( self );
+
+    if ( self hasweapon( "claymore_zm" ) )
+    {
+        self.loadout.hasclaymore = 1;
+        self.loadout.claymoreclip = self getweaponammoclip( "claymore_zm" );
+    }
+
+    self.loadout.perks = chugabud_save_perks( self );
+    self chugabud_save_grenades();
+
+    if ( maps\mp\zombies\_zm_weap_cymbal_monkey::cymbal_monkey_exists() )
+        self.loadout.zombie_cymbal_monkey_count = self getweaponammoclip( "cymbal_monkey_zm" );
+}
+
+chugabud_save_perks( ent )
+{
+    perk_array = ent get_perk_array( 1 );
+
+    foreach ( perk in perk_array )
+    {
+        if ( perk == "specialty_additionalprimaryweapon" )
+        {
+            ent maps\mp\zombies\_zm::take_additionalprimaryweapon();
+        }
+
+        ent unsetperk( perk );
+    }
+
+    return perk_array;
+}
+
 chugabud_fake_death()
 {
     level notify( "fake_death" );
@@ -209,15 +264,6 @@ chugabud_give_loadout()
     self chugabud_restore_claymore();
     self.score = loadout.score;
     self.pers["score"] = loadout.score;
-    perk_array = maps\mp\zombies\_zm_perks::get_perk_array( 1 );
-
-    for ( i = 0; i < perk_array.size; i++ )
-    {
-        perk = perk_array[i];
-        self unsetperk( perk );
-        self.num_perks--;
-        self set_perk_clientfield( perk, 0 );
-    }
 
     self chugabud_restore_grenades();
 
@@ -229,6 +275,8 @@ chugabud_give_loadout()
             self setweaponammoclip( "cymbal_monkey_zm", loadout.zombie_cymbal_monkey_count );
         }
     }
+
+    self.loadout.weapons = undefined;
 }
 
 chugabud_give_perks()
@@ -251,6 +299,7 @@ chugabud_give_perks()
             maps\mp\zombies\_zm_perks::give_perk( loadout.perks[i] );
         }
     }
+    self.loadout.perks = undefined;
 }
 
 chugabud_spawn_corpse()
