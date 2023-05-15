@@ -805,6 +805,11 @@ on_player_spawned()
 		if (is_respawn_gamemode())
 		{
 			min_points = level.player_starting_points;
+			if (level.scr_zm_ui_gametype_obj == "zrace")
+			{
+				min_points = (level.round_number + 1) * 250;
+			}
+
 			if (min_points > 1500)
 			{
 				min_points = 1500;

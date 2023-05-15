@@ -326,6 +326,12 @@ round_think( restart = 0 )
 
     for (;;)
     {
+		level.player_starting_points = (level.round_number + 1) * 500;
+		if (level.player_starting_points > 10000)
+		{
+			level.player_starting_points = 10000;
+		}
+
         maxreward = 50 * level.round_number;
 
         if ( maxreward > 500 )
@@ -425,6 +431,49 @@ round_think( restart = 0 )
         level round_over();
         level notify( "between_round_over" );
         restart = 0;
+    }
+}
+
+spectators_respawn()
+{
+    level endon( "between_round_over" );
+
+    if ( !isdefined( level.zombie_vars["spectators_respawn"] ) || !level.zombie_vars["spectators_respawn"] )
+        return;
+
+    if ( !isdefined( level.custom_spawnplayer ) )
+        level.custom_spawnplayer = ::spectator_respawn;
+
+    while ( true )
+    {
+        players = get_players();
+
+        for ( i = 0; i < players.size; i++ )
+        {
+            if ( players[i].sessionstate == "spectator" && isdefined( players[i].spectator_respawn ) )
+            {
+                players[i] [[ level.spawnplayer ]]();
+                thread refresh_player_navcard_hud();
+
+				new_score = (level.round_number + 1) * 250;
+				if (new_score > 1500)
+				{
+					new_score = 1500;
+				}
+
+                if ( players[i].score < new_score )
+                {
+                    players[i].old_score = players[i].score;
+
+                    if ( isdefined( level.spectator_respawn_custom_score ) )
+                        players[i] [[ level.spectator_respawn_custom_score ]]();
+
+                    players[i].score = new_score;
+                }
+            }
+        }
+
+        wait 1;
     }
 }
 
