@@ -216,7 +216,7 @@ show_balance(player)
 
 	while ( isDefined( self ) )
 	{
-		if (!player isTouching(self) || player isSprinting() || player isThrowingGrenade())
+		if (!player isTouching(self) || !is_player_valid(player) || player isSprinting() || player isThrowingGrenade())
 		{
 			hud.alpha = 0;
 			wait 0.05;

@@ -554,7 +554,7 @@ choose_open_buildable( player )
 
 	while ( isDefined( self.playertrigger[ num ] ) && !self.built )
 	{
-		if (!player isTouching(self.playertrigger[num]) || !player is_player_looking_at(self.playertrigger[num].origin, 0.76) || player isSprinting() || player isThrowingGrenade())
+		if (!player isTouching(self.playertrigger[num]) || !player is_player_looking_at(self.playertrigger[num].origin, 0.76) || !is_player_valid(player) || player isSprinting() || player isThrowingGrenade())
 		{
 			hud.alpha = 0;
 			wait 0.05;
