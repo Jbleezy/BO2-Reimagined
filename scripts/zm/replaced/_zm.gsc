@@ -326,10 +326,13 @@ round_think( restart = 0 )
 
     for (;;)
     {
-		level.player_starting_points = (level.round_number + 1) * 500;
-		if (level.player_starting_points > 10000)
+		if (!is_gametype_active("zgrief"))
 		{
-			level.player_starting_points = 10000;
+			level.player_starting_points = (level.round_number + 1) * 500;
+			if (level.player_starting_points > 10000)
+			{
+				level.player_starting_points = 10000;
+			}
 		}
 
         maxreward = 50 * level.round_number;
