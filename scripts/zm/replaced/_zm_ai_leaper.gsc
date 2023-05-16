@@ -106,3 +106,33 @@ leaper_round_accuracy_tracking()
         }
     }
 }
+
+leaper_death()
+{
+    self endon( "leaper_cleanup" );
+
+    self waittill( "death" );
+
+    self leaper_stop_trail_fx();
+    self playsound( "zmb_vocals_leaper_death" );
+    playfx( level._effect["leaper_death"], self.origin );
+
+    if ( get_current_zombie_count() == 0 && level.zombie_total == 0 )
+    {
+        level.last_leaper_origin = self.origin;
+        level notify( "last_leaper_down" );
+    }
+
+    if ( isplayer( self.attacker ) )
+    {
+        self.deathpoints_already_given = 1;
+
+        event = "death";
+
+        if ( issubstr( self.damageweapon, "knife_ballistic_" ) )
+            event = "ballistic_knife_death";
+
+        self.attacker thread do_player_general_vox( "general", "leaper_killed", 20, 20 );
+        self.attacker maps\mp\zombies\_zm_score::player_add_points( event, self.damagemod, self.damagelocation, 1 );
+    }
+}

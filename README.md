@@ -104,6 +104,7 @@
 ### Leapers
 * No longer give each player 2000 points when rewarded a free perk powerup
 * Initial leaper round always happens on round 5 or 6
+* Fixed getting kill points twice
 
 ### Brutus
 * Decreased player damage from 99 to 90
