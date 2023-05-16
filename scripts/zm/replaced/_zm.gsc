@@ -2350,6 +2350,12 @@ player_out_of_playable_area_monitor()
             continue;
         }
 
+		if ( get_players().size == 1 && flag( "solo_game" ) && ( isdefined( self.waiting_to_revive ) && self.waiting_to_revive ) )
+		{
+			wait( get_player_out_of_playable_area_monitor_wait_time() );
+            continue;
+		}
+
         if ( !self in_life_brush() && ( self in_kill_brush() || !self in_enabled_playable_area() ) )
         {
             if ( !isdefined( level.player_out_of_playable_area_monitor_callback ) || self [[ level.player_out_of_playable_area_monitor_callback ]]() )
@@ -2360,23 +2366,18 @@ player_out_of_playable_area_monitor()
                 self playlocalsound( level.zmb_laugh_alias );
                 wait 0.5;
 
-                if ( get_players().size == 1 && flag( "solo_game" ) && ( isdefined( self.waiting_to_revive ) && self.waiting_to_revive ) )
-                    level notify( "end_game" );
-                else
-                {
-                    self.lives = 0;
-                    self dodamage( self.health + 1000, self.origin );
+				self.lives = 0;
+				self dodamage( self.health + 1000, self.origin );
 
-					if (isDefined(level.player_suicide_func))
-					{
-						wait 0.05;
-						self thread [[level.player_suicide_func]]();
-					}
-					else
-					{
-						self.bleedout_time = 0;
-					}
-                }
+				if (isDefined(level.player_suicide_func))
+				{
+					wait 0.05;
+					self thread [[level.player_suicide_func]]();
+				}
+				else
+				{
+					self.bleedout_time = 0;
+				}
             }
         }
 
