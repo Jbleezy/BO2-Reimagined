@@ -87,6 +87,7 @@ main()
     replaceFunc(maps\mp\zombies\_zm_weap_riotshield_tomb::init, scripts\zm\replaced\_zm_weap_riotshield_tomb::init);
 	replaceFunc(maps\mp\zombies\_zm_weap_riotshield_tomb::player_damage_shield, scripts\zm\replaced\_zm_weap_riotshield_tomb::player_damage_shield);
     replaceFunc(maps\mp\zombies\_zm_weap_one_inch_punch::monitor_melee_swipe, scripts\zm\replaced\_zm_weap_one_inch_punch::monitor_melee_swipe);
+    replaceFunc(maps\mp\zombies\_zm_weap_beacon::player_throw_beacon, scripts\zm\replaced\_zm_weap_beacon::player_throw_beacon);
     replaceFunc(maps\mp\zombies\_zm_weap_beacon::wait_and_do_weapon_beacon_damage, scripts\zm\replaced\_zm_weap_beacon::wait_and_do_weapon_beacon_damage);
     replaceFunc(maps\mp\zombies\_zm_weap_staff_air::whirlwind_kill_zombies, scripts\zm\replaced\_zm_weap_staff_air::whirlwind_kill_zombies);
     replaceFunc(maps\mp\zombies\_zm_weap_staff_fire::flame_damage_fx, scripts\zm\replaced\_zm_weap_staff_fire::flame_damage_fx);
