@@ -209,7 +209,7 @@ updatecraftables()
 
 	foreach (stub in level._unitriggers.trigger_stubs)
 	{
-		if(IsDefined(stub.equipname) && stub.equipname == "open_table")
+		if(IsDefined(stub.equipname) && (stub.equipname == "open_table" || stub.equipname == "alcatraz_shield_zm" || stub.equipname == "packasplat"))
 		{
 			stub.cost = stub scripts\zm\_zm_reimagined::get_equipment_cost();
 			stub.trigger_func = ::craftable_place_think;

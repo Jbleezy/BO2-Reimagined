@@ -179,6 +179,37 @@ setup_interaction_matrix()
     }
 }
 
+check_craftable_table_valid( player )
+{
+    if ( !isdefined( self.stub ) && ( isdefined( self.is_locked ) && self.is_locked ) )
+    {
+        if ( player.score >= self.locked_cost )
+        {
+            player minus_to_player_score( self.locked_cost );
+            self.is_locked = 0;
+            self.locked_cost = undefined;
+            self.lock_fx delete();
+        }
+
+        return false;
+    }
+    else if ( isdefined( self.stub ) && ( isdefined( self.stub.is_locked ) && self.stub.is_locked ) )
+    {
+        if ( player.score >= self.stub.locked_cost )
+        {
+            player minus_to_player_score( self.stub.locked_cost );
+            self.stub.is_locked = 0;
+            self.stub.locked_cost = undefined;
+            self.stub.lock_fx delete();
+			self scripts\zm\zm_prison\zm_prison_reimagined::craftabletrigger_update_prompt( player );
+        }
+
+        return false;
+    }
+
+    return true;
+}
+
 brutus_round_tracker()
 {
     level.next_brutus_round = level.round_number + randomintrange( level.brutus_min_round_fq, level.brutus_max_round_fq );
