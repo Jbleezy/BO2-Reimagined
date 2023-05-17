@@ -160,6 +160,9 @@
 ### M8A1
 * Decreased recoil
 
+### Mauser C96
+* Upgraded: decreased last stand ammo from 2 clips to 1 clip
+
 ### MTAR
 * Decreased recoil
 
