@@ -7,6 +7,8 @@
 #include maps\mp\zombies\_zm_audio;
 #include maps\mp\zombies\_zm_weap_beacon;
 
+#using_animtree("zombie_beacon");
+
 player_throw_beacon( grenade, num_attractors, max_attract_dist, attract_dist_diff )
 {
     self endon( "disconnect" );
