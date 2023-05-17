@@ -884,7 +884,6 @@ last_stand_pistol_rank_init()
 	level.pistol_values[ level.pistol_values.size ] = "cz75dw_upgraded_zm";
 	level.pistol_values[ level.pistol_values.size ] = "kard_upgraded_zm";
 	level.pistol_values[ level.pistol_values.size ] = "fiveseven_upgraded_zm";
-	level.pistol_values[ level.pistol_values.size ] = "c96_upgraded_zm";
 	level.pistol_values[ level.pistol_values.size ] = "beretta93r_upgraded_zm";
 	level.pistol_values[ level.pistol_values.size ] = "beretta93r_extclip_upgraded_zm";
 	level.pistol_values[ level.pistol_values.size ] = "fivesevendw_upgraded_zm";
@@ -895,6 +894,7 @@ last_stand_pistol_rank_init()
 	level.pistol_values[ level.pistol_values.size ] = "ray_gun_upgraded_zm";
 	level.pistol_value_solo_replace_below = level.pistol_values.size - 1;
 	level.pistol_values[ level.pistol_values.size ] = "m1911_upgraded_zm";
+	level.pistol_values[ level.pistol_values.size ] = "c96_upgraded_zm";
 	level.pistol_values[ level.pistol_values.size ] = "raygun_mark2_zm";
 	level.pistol_values[ level.pistol_values.size ] = "raygun_mark2_upgraded_zm";
 	level.pistol_values[ level.pistol_values.size ] = "freezegun_zm";

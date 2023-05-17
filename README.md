@@ -41,6 +41,7 @@
 * Unlimited sprint
 * Increased health from 100 to 150
 * Self revives in solo are active whenever the player has at least 1 perk
+* Upgraded starting pistol given as self revive pistol above all others except Ray Gun Mark 2
 * 100% backwards move speed
 * Decreased sprint time needed to be able to dive from 0.25 seconds to 0.1 seconds
 * Can move immediately after diving
@@ -151,7 +152,6 @@
 
 ### M1911
 * Upgraded: decreased stock ammo from 50 to 48
-* Upgraded: given as last stand pistol above all others except Ray Gun Mark 2
 * Upgraded: decreased last stand ammo from 2 clips to 1 clip
 
 ### M1927
