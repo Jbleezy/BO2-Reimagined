@@ -654,7 +654,7 @@ wait_for_all_players_ready()
 
 	if (!isDefined(level.prev_no_end_game_check))
 	{
-		level.prev_no_end_game_check = level.no_end_game_check;
+		level.prev_no_end_game_check = is_true(level.no_end_game_check);
 	}
 
 	level.no_end_game_check = 1;
