@@ -2634,6 +2634,7 @@ check_quickrevive_for_hotjoin(disconnecting_player)
 		return;
 	}
 
+	solo_mode = 0;
 	subtract_num = 0;
 
 	if ( isdefined( disconnecting_player ) )
@@ -2643,10 +2644,13 @@ check_quickrevive_for_hotjoin(disconnecting_player)
 
     if ( players.size - subtract_num == 1 )
     {
+		solo_mode = 1;
         flag_set( "solo_game" );
     }
     else
     {
         flag_clear( "solo_game" );
     }
+
+	set_default_laststand_pistol( solo_mode );
 }
