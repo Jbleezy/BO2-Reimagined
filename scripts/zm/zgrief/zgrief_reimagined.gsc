@@ -721,7 +721,7 @@ grief_onplayerdisconnect(disconnecting_player)
 		disconnecting_player.head_icon destroy();
 	}
 
-	if(!isDefined(disconnecting_player.team) || disconnecting_player.team != "axis" || disconnecting_player.team != "allies")
+	if(!isDefined(disconnecting_player.team) || (disconnecting_player.team != "axis" && disconnecting_player.team != "allies"))
 	{
 		return;
 	}
