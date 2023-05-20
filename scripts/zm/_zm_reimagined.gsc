@@ -2116,6 +2116,7 @@ last_stand_pistol_swap()
 	{
 		self.lastactiveweapon = "none";
 	}
+
 	if ( !self hasweapon( self.laststandpistol ) )
 	{
 		if ( !is_weapon_upgraded( self.laststandpistol ) )
@@ -2128,13 +2129,13 @@ last_stand_pistol_swap()
 		}
 	}
 
-	curclip = self getweaponammoclip(self.laststandpistol);
+	curclip = self getweaponammoclip( self.laststandpistol );
 	ammoclip = weaponclipsize( self.laststandpistol );
 	doubleclip = ammoclip * 2;
-	if(weapondualwieldweaponname(self.laststandpistol) != "none")
+	if ( weapondualwieldweaponname( self.laststandpistol ) != "none" )
 	{
-		curclip += self getweaponammoclip(weapondualwieldweaponname(self.laststandpistol));
-		ammoclip += weaponclipsize(weapondualwieldweaponname(self.laststandpistol));
+		curclip += self getweaponammoclip( weapondualwieldweaponname( self.laststandpistol ) );
+		ammoclip += weaponclipsize( weapondualwieldweaponname( self.laststandpistol ) );
 		doubleclip = ammoclip;
 	}
 
@@ -2144,7 +2145,15 @@ last_stand_pistol_swap()
 		self.hadpistol = 0;
 		self setweaponammostock( self.laststandpistol, 0 );
 	}
-	else if ( self.laststandpistol == "ray_gun_zm" || self.laststandpistol == "ray_gun_upgraded_zm" || self.laststandpistol == "raygun_mark2_zm" || self.laststandpistol == "raygun_mark2_upgraded_zm" || self.laststandpistol == level.default_solo_laststandpistol )
+	else if ( flag( "solo_game" ) && self.laststandpistol == level.default_solo_laststandpistol )
+	{
+		self setweaponammostock(self.laststandpistol, ammoclip - curclip);
+	}
+	else if ( self.laststandpistol == level.default_laststandpistol )
+	{
+		self setweaponammostock( self.laststandpistol, ammoclip + doubleclip - curclip );
+	}
+	else if ( self.laststandpistol == "ray_gun_zm" || self.laststandpistol == "ray_gun_upgraded_zm" || self.laststandpistol == "raygun_mark2_zm" || self.laststandpistol == "raygun_mark2_upgraded_zm" )
 	{
 		amt = ammoclip;
 		if(amt > self.stored_weapon_info[self.laststandpistol].total_amt)
@@ -2156,7 +2165,7 @@ last_stand_pistol_swap()
 
 		amt -= (self.stored_weapon_info[self.laststandpistol].clip_amt + self.stored_weapon_info[self.laststandpistol].left_clip_amt);
 
-		self setWeaponAmmoStock(self.laststandpistol, amt);
+		self setweaponammostock( self.laststandpistol, amt );
 		self.stored_weapon_info[self.laststandpistol].given_amt = amt;
 	}
 	else
