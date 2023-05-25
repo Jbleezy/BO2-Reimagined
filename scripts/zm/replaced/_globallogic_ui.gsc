@@ -8,110 +8,8 @@
 menuautoassign( comingfrommenu )
 {
     teamkeys = getarraykeys( level.teams );
-    assignment = teamkeys[randomint( teamkeys.size )];
+    assignment = self get_assigned_team();
     self closemenus();
-
-    if ( isdefined( level.forceallallies ) && level.forceallallies )
-        assignment = "allies";
-    else if ( level.teambased )
-    {
-        if ( getdvarint( "party_autoteams" ) == 1 )
-        {
-            if ( level.allow_teamchange == "1" && ( self.hasspawned || comingfrommenu ) )
-                assignment = "";
-            else
-            {
-                team = getassignedteam( self );
-
-                switch ( team )
-                {
-                    case 1:
-                        assignment = teamkeys[1];
-                        break;
-                    case 2:
-                        assignment = teamkeys[0];
-                        break;
-                    case 3:
-                        assignment = teamkeys[2];
-                        break;
-                    case 4:
-                        if ( !isdefined( level.forceautoassign ) || !level.forceautoassign )
-                        {
-                            self setclientscriptmainmenu( game["menu_class"] );
-                            return;
-                        }
-                    default:
-                        assignment = "";
-
-                        if ( isdefined( level.teams[team] ) )
-                            assignment = team;
-                        else if ( team == "spectator" && !level.forceautoassign )
-                        {
-                            self setclientscriptmainmenu( game["menu_class"] );
-                            return;
-                        }
-                }
-            }
-        }
-
-        if ( assignment == "" || getdvarint( "party_autoteams" ) == 0 )
-        {
-            if ( sessionmodeiszombiesgame() )
-            {
-                if (assignment == "")
-                {
-                    guids = strTok(getDvar("team_axis"), " ");
-                    foreach (guid in guids)
-                    {
-                        if (self getguid() == int(guid))
-                        {
-                            assignment = "axis";
-                            break;
-                        }
-                    }
-                }
-
-                if (assignment == "")
-                {
-                    guids = strTok(getDvar("team_allies"), " ");
-                    foreach (guid in guids)
-                    {
-                        if (self getguid() == int(guid))
-                        {
-                            assignment = "allies";
-                            break;
-                        }
-                    }
-                }
-
-                if (assignment == "")
-                {
-                    assignment = get_lowest_team();
-                }
-            }
-        }
-
-        if ( assignment == self.pers["team"] && ( self.sessionstate == "playing" || self.sessionstate == "dead" ) )
-        {
-            self beginclasschoice();
-            return;
-        }
-    }
-    else if ( getdvarint( "party_autoteams" ) == 1 )
-    {
-        if ( level.allow_teamchange != "1" || !self.hasspawned && !comingfrommenu )
-        {
-            team = getassignedteam( self );
-
-            if ( isdefined( level.teams[team] ) )
-                assignment = team;
-            else if ( team == "spectator" && !level.forceautoassign )
-            {
-                self setclientscriptmainmenu( game["menu_class"] );
-                return;
-            }
-        }
-    }
 
     self.pers["team"] = assignment;
     self.team = assignment;
@@ -136,14 +34,71 @@ menuautoassign( comingfrommenu )
     self setclientscriptmainmenu( game["menu_class"] );
 }
 
-get_lowest_team()
+get_assigned_team()
 {
 	teamplayers = [];
-	teamplayers["axis"] = countplayers("axis");
-	teamplayers["allies"] = countplayers("allies");
+	teamplayers["axis"] = 0;
+	teamplayers["allies"] = 0;
 
-	// don't count self
-	teamplayers[self.team]--;
+    players = get_players();
+    foreach ( player in players )
+    {
+        if ( !isDefined(player.team) || (player.team != "axis" && player.team != "allies") )
+        {
+            continue;
+        }
+
+        if ( player == self )
+        {
+            continue;
+        }
+
+        teamplayers[player.team]++;
+    }
+
+    if ( teamplayers["axis"] <= teamplayers["allies"] )
+    {
+        guids = strTok(getDvar("team_axis"), " ");
+        foreach ( guid in guids )
+        {
+            if ( self getguid() == int(guid) )
+            {
+                arrayRemoveValue(guids, guid);
+
+                guid_text = "";
+                foreach (guid in guids)
+                {
+                    guid_text += guid + " ";
+                }
+
+                setDvar("team_axis", guid_text);
+
+                return "axis";
+            }
+        }
+    }
+
+    if ( teamplayers["allies"] <= teamplayers["axis"] )
+    {
+        guids = strTok(getDvar("team_allies"), " ");
+        foreach ( guid in guids )
+        {
+            if ( self getguid() == int(guid) )
+            {
+                arrayRemoveValue(guids, guid);
+
+                guid_text = "";
+                foreach (guid in guids)
+                {
+                    guid_text += guid + " ";
+                }
+
+                setDvar("team_allies", guid_text);
+
+                return "allies";
+            }
+        }
+    }
 
 	if ( teamplayers["allies"] == teamplayers["axis"] )
 	{

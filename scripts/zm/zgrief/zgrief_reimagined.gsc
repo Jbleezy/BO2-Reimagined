@@ -764,6 +764,10 @@ grief_onplayerdisconnect(disconnecting_player)
 		return;
 	}
 
+	team_var = "team_" + disconnecting_player.team;
+
+	setDvar(team_var, getDvar(team_var) + disconnecting_player getguid() + " ");
+
 	level thread update_players_on_disconnect(disconnecting_player);
 }
 
