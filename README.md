@@ -926,3 +926,10 @@
 
 ### Meat
 * ```set ui_gametype_obj zmeat```
+
+## Changing Teams (Grief)
+
+* By default, teams are random on Grief
+* Copy and paste the following commands into the console to add the option to change teams in the in-game menu
+
+* ```gts allowInGameTeamChange 1; set ui_gametype_team_change 1```
