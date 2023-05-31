@@ -282,6 +282,11 @@ on_player_downed()
 	{
 		self waittill( "entering_last_stand" );
 
+		if(is_gametype_active("zcleansed"))
+		{
+			continue;
+		}
+
 		self.statusicon = "waypoint_revive";
 		self.health = self.maxhealth;
 	}
@@ -2035,6 +2040,11 @@ bleedout_bar_hud()
 	while (1)
 	{
 		self waittill("entering_last_stand");
+
+		if(is_gametype_active("zcleansed"))
+		{
+			continue;
+		}
 
 		// don't show for last player downed
 		if(!self maps\mp\zombies\_zm_laststand::player_is_in_laststand())
