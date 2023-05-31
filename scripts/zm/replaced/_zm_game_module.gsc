@@ -156,6 +156,14 @@ round_end(winner)
 			// save weapons
 			player [[level._game_module_player_laststand_callback]]();
 		}
+
+		if(player maps\mp\zombies\_zm_laststand::player_is_in_laststand())
+		{
+			if(isDefined(level.zombie_last_stand_ammo_return))
+			{
+				player [[level.zombie_last_stand_ammo_return]](1);
+			}
+		}
 	}
 
 	level.isresetting_grief = 1;
