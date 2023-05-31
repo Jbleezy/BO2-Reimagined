@@ -69,6 +69,7 @@
 * Barriers can no longer be rebuilt while sprinting or thowing a grenade
 * Entering and exiting last stand no longer refills last stand weapon clip automatically
 * Upgraded weapon camo is applied in last stand
+* Dual wield last stand weapon is switched to when ammo is only in left clip
 * Decreased friendly player name fade out time from 1.5 seconds to 0.25 seconds
 * Removed enemy player name fade in time
 * Added icons on scoreboard when player is downed, bled out, in Who's Who mode, or in afterlife

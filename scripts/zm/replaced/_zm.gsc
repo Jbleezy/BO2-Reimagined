@@ -907,6 +907,53 @@ last_stand_pistol_rank_init()
 	level.pistol_values[ level.pistol_values.size ] = "microwavegundw_upgraded_zm";
 }
 
+last_stand_best_pistol()
+{
+    pistol_array = [];
+    current_weapons = self getweaponslistprimaries();
+
+    for ( i = 0; i < current_weapons.size; i++ )
+    {
+        class = weaponclass( current_weapons[i] );
+
+        if ( issubstr( current_weapons[i], "knife_ballistic_" ) )
+            class = "knife";
+
+        if ( class == "pistol" || class == "pistolspread" || class == "pistol spread" )
+        {
+            if ( current_weapons[i] != level.default_laststandpistol && !flag( "solo_game" ) || !flag( "solo_game" ) && current_weapons[i] != level.default_solo_laststandpistol )
+            {
+				ammo_count = self getammocount( current_weapons[i] );
+
+				dual_wield_name = weapondualwieldweaponname( current_weapons[i] );
+				if ( dual_wield_name != "none" )
+				{
+					ammo_count += self getweaponammoclip( dual_wield_name );
+				}
+
+                if ( ammo_count <= 0 )
+                    continue;
+            }
+
+            pistol_array_index = pistol_array.size;
+            pistol_array[pistol_array_index] = spawnstruct();
+            pistol_array[pistol_array_index].gun = current_weapons[i];
+            pistol_array[pistol_array_index].value = 0;
+
+            for ( j = 0; j < level.pistol_values.size; j++ )
+            {
+                if ( level.pistol_values[j] == current_weapons[i] )
+                {
+                    pistol_array[pistol_array_index].value = j;
+                    break;
+                }
+            }
+        }
+    }
+
+    self.laststandpistol = last_stand_compare_pistols( pistol_array );
+}
+
 can_track_ammo( weap )
 {
     if ( !isdefined( weap ) )
