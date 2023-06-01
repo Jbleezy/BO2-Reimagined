@@ -2390,7 +2390,7 @@ player_revive_protection_timeout()
 	self endon("disconnect");
 	self endon("player_revive_protection_end");
 
-	self waittill_any("player_downed", "meat_grabbed");
+	self waittill_any("player_downed", "meat_grabbed", "meat_stink_player_start");
 
 	self.revive_protection = 0;
 }

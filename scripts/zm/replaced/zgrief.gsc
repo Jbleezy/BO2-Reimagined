@@ -277,6 +277,11 @@ meat_stink_ignoreme_think()
 				continue;
 			}
 
+			if (is_true(player.spawn_protection) || is_true(player.revive_protection))
+			{
+				continue;
+			}
+
 			close_zombies = get_array_of_closest(player.origin, zombies, undefined, 1, 64);
 
 			player.ignoreme = close_zombies.size == 0;
@@ -391,6 +396,7 @@ meat_stink_player( who )
 		return;
 	}
 
+	who notify( "meat_stink_player_start" );
 	level.meat_player = who;
 	who.ignoreme = 0;
 	players = get_players();
@@ -408,7 +414,6 @@ meat_stink_player( who )
 
 	who thread meat_stink_ignoreme_think();
 	who thread meat_stink_player_create();
-	who notify( "meat_stink_player_start" );
 
 	who waittill_any_or_timeout( 30, "disconnect", "player_downed", "bled_out", "spawned_player" );
 
