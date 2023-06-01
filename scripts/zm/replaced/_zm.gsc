@@ -673,7 +673,7 @@ wait_for_all_players_ready()
 	{
 		if (is_gametype_active("zgrief"))
 		{
-			check_for_team_change();
+			level thread check_for_team_change();
 		}
 
 		players = get_players();
@@ -743,7 +743,7 @@ wait_for_all_players_ready()
 
 		if (is_gametype_active("zgrief"))
 		{
-			check_for_team_change();
+			level thread check_for_team_change();
 		}
 
 		foreach ( player in players )
@@ -774,7 +774,7 @@ wait_for_all_players_ready()
 
 	if (is_gametype_active("zgrief"))
 	{
-		check_for_team_change();
+		level thread check_for_team_change();
 	}
 
 	foreach ( player in players )
@@ -865,7 +865,13 @@ check_for_team_change()
 
 	if (isDefined(team_change_player))
 	{
+		team_change_player endon("disconnect");
+
 		team_change_player scripts\zm\replaced\_zm_gametype::do_team_change();
+
+		wait 0.05;
+
+		team_change_player freezecontrols(1);
 	}
 }
 
