@@ -184,7 +184,12 @@ check_for_special_weapon_limit_exist(weapon)
 
 door_buy_afterlife_check(door)
 {
-    return [[level.is_player_valid_override]](self);
+    if (isDefined(level.is_player_valid_override))
+    {
+        return [[level.is_player_valid_override]](self);
+    }
+
+    return true;
 }
 
 remove_acid_trap_player_spawn()
