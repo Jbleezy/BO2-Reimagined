@@ -565,7 +565,7 @@ manage_zones( initial_zone )
     flag_set( "zones_initialized" );
     flag_wait( "begin_spawning" );
 
-    while ( getdvarint( _hash_10873CCA ) == 0 || getdvarint( _hash_762F1309 ) != 0 )
+    while ( getdvarint( "noclip" ) == 0 || getdvarint( "notarget" ) != 0 )
     {
         for ( z = 0; z < zkeys.size; z++ )
         {

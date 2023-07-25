@@ -27,8 +27,8 @@ screecher_spawning_logic()
         while ( !isdefined( level.zombie_screecher_locations ) || level.zombie_screecher_locations.size <= 0 )
             wait 0.1;
 
-        while ( getdvarint( _hash_B0C0D38F ) )
-            wait 0.1;
+        // while ( getdvarint( _hash_B0C0D38F ) )
+        //     wait 0.1;
 
         if ( !flag( "spawn_zombies" ) )
             flag_wait( "spawn_zombies" );
@@ -174,8 +174,8 @@ screecher_detach( player )
 
         player takeweapon( "screecher_arms_zm" );
 
-        if ( !getdvarint( _hash_E7EF8EB7 ) )
-            player stoppoisoning();
+        // if ( !getdvarint( _hash_E7EF8EB7 ) )
+        //     player stoppoisoning();
 
         if ( !player maps\mp\zombies\_zm_laststand::player_is_in_laststand() && !( isdefined( player.intermission ) && player.intermission ) )
             player decrement_is_drinking();
@@ -256,8 +256,8 @@ screecher_cleanup()
 
             player takeweapon( "screecher_arms_zm" );
 
-            if ( !getdvarint( _hash_E7EF8EB7 ) )
-                player stoppoisoning();
+            // if ( !getdvarint( _hash_E7EF8EB7 ) )
+            //     player stoppoisoning();
 
             if ( !player maps\mp\zombies\_zm_laststand::player_is_in_laststand() && !( isdefined( player.intermission ) && player.intermission ) )
                 player decrement_is_drinking();

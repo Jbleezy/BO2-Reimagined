@@ -24,7 +24,7 @@ door_buy()
             return false;
     }
 
-    if ( getdvarint( _hash_2ECA0C0E ) > 0 || isdefined( force ) && force )
+    if ( getdvarint( "zombie_unlock_all" ) > 0 || isdefined( force ) && force )
         return true;
 
     if ( !who usebuttonpressed() )
