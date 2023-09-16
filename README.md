@@ -8,7 +8,7 @@
 
 [Twitter](https://twitter.com/ItsJbleezy)
 
-[Discord](https://discord.io/Jbleezy)
+[Discord](https://dsc.gg/Jbleezy)
 
 [Donate](https://ko-fi.com/Jbleezy)
 
