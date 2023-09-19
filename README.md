@@ -778,8 +778,8 @@
 * Crawlers bleed out if they have not dealt or taken damage within 30 seconds
 * Unlimited powerups
 * Unlimited barrier rebuild points
-* Unupgraded weapons stun enemy players for 0.375 seconds
-* Upgraded weapons stun enemy players for 0.5 seconds
+* Unupgraded weapons stun enemy players for 0.5 seconds
+* Upgraded weapons stun enemy players for 0.75 seconds
 * Melee weapons stun enemy players for 0.75 seconds
 * Meleeing enemy players with an upgraded melee weapon pushes 33% more
 * Meleeing enemy players that are in the air pushes 100% more
