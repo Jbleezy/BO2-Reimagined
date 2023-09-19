@@ -781,9 +781,10 @@
 * Unupgraded weapons stun enemy players for 0.375 seconds
 * Upgraded weapons stun enemy players for 0.5 seconds
 * Melee weapons stun enemy players for 0.75 seconds
-* Meleeing enemy players with an upgraded melee weapon pushes 25% more
-* Meleeing enemy players that are crouched pushes 25% less
-* Meleeing enemy players that are prone pushes 50% less
+* Meleeing enemy players with an upgraded melee weapon pushes 33% more
+* Meleeing enemy players that are in the air pushes 100% more
+* Meleeing enemy players that are crouched pushes 33% less
+* Meleeing enemy players that are prone pushes 66% less
 * Meleeing enemy players that are reviving pushes 50% less
 * Meleeing enemy players that are already stunned from weapons will push and restun them
 * Ballistic knife projectile pushes enemy players
@@ -795,7 +796,7 @@
 * Downing enemy players awards 500 points
 * Bleeding out enemy players awards 1000 points to all teammates
 * Landing on top of an enemy player that is prone downs them
-* Increased max radius for landing on top of an enemy player by 16.67%
+* Increased max radius for landing on top of an enemy player by 16.66%
 * Decreased max height for landing on top of an enemy player by 50%
 * M1911 upgraded: decreased stock ammo from 50 to 24
 * Powerups: decreased chance to drop from 3% to 2%

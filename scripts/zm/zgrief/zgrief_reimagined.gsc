@@ -1830,32 +1830,40 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 			{
 				if (idamage >= 500)
 				{
-					if (self getStance() == "stand")
+					if (!self isOnGround())
 					{
-						amount = 280; // 30 units
+						amount = 185; // 64 air units
+					}
+					else if (self getStance() == "stand")
+					{
+						amount = 297.5; // 32 units
 					}
 					if (self getStance() == "crouch")
 					{
-						amount = 225; // 22.5 units
+						amount = 215; // 21.33 units
 					}
 					else if (self getStance() == "prone")
 					{
-						amount = 166.25; // 15 units
+						amount = 132.5; // 10.66 units
 					}
 				}
 				else
 				{
-					if (self getStance() == "stand")
+					if (!self isOnGround())
+					{
+						amount = 142.5; // 48 air units
+					}
+					else if (self getStance() == "stand")
 					{
 						amount = 235; // 24 units
 					}
 					if (self getStance() == "crouch")
 					{
-						amount = 187.5; // 18 units
+						amount = 172.5; // 16 units
 					}
 					else if (self getStance() == "prone")
 					{
-						amount = 142.5; // 12 units
+						amount = 112.5; // 8 units
 					}
 				}
 			}
@@ -1863,32 +1871,40 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 			{
 				if (idamage >= 500)
 				{
-					if (self getStance() == "stand")
+					if (!self isOnGround())
 					{
-						amount = 510; // 60 units
+						amount = 350; // 128 air units
+					}
+					else if (self getStance() == "stand")
+					{
+						amount = 540; // 64 units
 					}
 					if (self getStance() == "crouch")
 					{
-						amount = 395; // 45 units
+						amount = 377.5; // 42.66 units
 					}
 					else if (self getStance() == "prone")
 					{
-						amount = 280; // 30 units
+						amount = 215; // 21.33 units
 					}
 				}
 				else
 				{
-					if (self getStance() == "stand")
+					if (!self isOnGround())
+					{
+						amount = 265; // 96 air units
+					}
+					else if (self getStance() == "stand")
 					{
 						amount = 420; // 48 units
 					}
 					if (self getStance() == "crouch")
 					{
-						amount = 327.5; // 36 units
+						amount = 297.5; // 32 units
 					}
 					else if (self getStance() == "prone")
 					{
-						amount = 235; // 24 units
+						amount = 172.5; // 16 units
 					}
 				}
 			}
