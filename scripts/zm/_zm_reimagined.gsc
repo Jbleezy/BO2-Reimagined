@@ -163,15 +163,21 @@ init()
 	level.player_starting_health = 150;
 
 	setscoreboardcolumns_gametype();
+
 	set_lethal_grenade_init();
+
 	set_dvars();
+
+	wallbuy_location_changes();
 
 	level thread initial_print();
 
 	level thread on_player_connect();
+
 	level thread post_all_players_spawned();
 
 	level thread enemy_counter_hud();
+
 	level thread timer_hud();
 
 	level thread swap_staminup_perk();
@@ -393,8 +399,6 @@ post_all_players_spawned()
 	disable_carpenter();
 
 	disable_bank_teller();
-
-	wallbuy_location_changes();
 
 	zone_changes();
 
