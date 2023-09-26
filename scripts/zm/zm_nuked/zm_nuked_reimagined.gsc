@@ -18,6 +18,7 @@ init()
 
 zombie_init_done()
 {
+	self.meleedamage = 50;
 	self.allowpain = 0;
 	if ( isDefined( self.script_parameters ) && self.script_parameters == "crater" )
 	{

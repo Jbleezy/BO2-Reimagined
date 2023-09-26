@@ -67,7 +67,7 @@ playerhealthregen()
 			longregendelay *= 0.75;
 		}
 
-		if ( health_ratio > healthoverlaycutoff )
+		if ( self.health > 50 )
 		{
 			if ( self player_flag( "player_has_red_flashing_overlay" ) )
 			{
@@ -90,7 +90,7 @@ playerhealthregen()
 
 		wasveryhurt = veryhurt;
 
-		if ( health_ratio <= healthoverlaycutoff )
+		if ( self.health <= 50 )
 		{
 			veryhurt = 1;
 			if ( !wasveryhurt )

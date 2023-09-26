@@ -53,6 +53,7 @@
 * Decreased low health regeneration delay from 5 seconds to 4 seconds
 * Normal health regeneration rate is no longer instant
 * Changed health regeneration rate to 100 health per second (normally fully restored health in 0.5 seconds)
+* Changed low health threshold from 20% of player's max health to 50 health
 * Fall damage no longer increases when max health is increased
 * Added blood fx when at or below 20% health
 * Removed blur after getting damaged
@@ -77,9 +78,10 @@
 
 ## Zombies
 * Health capped at 100,000
+* Decreased damage from 60 to 50
+* Changed height to 60 (normally either 48 or 72)
 * Amount of zombies scales linearly with the amount of players
 * Zombies that are deleted due to being too far away always respawn
-* Changed height to 60 (normally either 48 or 72)
 * Attracted towards points of interest immediately
 * Removed walkers in high rounds
 * Removed headless zombies

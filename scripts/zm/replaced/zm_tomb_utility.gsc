@@ -18,6 +18,96 @@
 #include maps\mp\zm_tomb_craftables;
 #include maps\mp\zm_tomb_utility;
 
+capture_zombie_spawn_init( animname_set = 0 )
+{
+    self.targetname = "capture_zombie_ai";
+
+    if ( !animname_set )
+        self.animname = "zombie";
+
+    self.sndname = "capzomb";
+
+    if ( isdefined( get_gamemode_var( "pre_init_zombie_spawn_func" ) ) )
+        self [[ get_gamemode_var( "pre_init_zombie_spawn_func" ) ]]();
+
+    self thread play_ambient_zombie_vocals();
+    self.zmb_vocals_attack = "zmb_vocals_capzomb_attack";
+    self.no_damage_points = 1;
+    self.deathpoints_already_given = 1;
+    self.ignore_enemy_count = 1;
+    self.ignoreall = 1;
+    self.ignoreme = 1;
+    self.allowdeath = 1;
+    self.force_gib = 1;
+    self.is_zombie = 1;
+    self.has_legs = 1;
+    self allowedstances( "stand" );
+    self.zombie_damaged_by_bar_knockdown = 0;
+    self.gibbed = 0;
+    self.head_gibbed = 0;
+    self.disablearrivals = 1;
+    self.disableexits = 1;
+    self.grenadeawareness = 0;
+    self.badplaceawareness = 0;
+    self.ignoresuppression = 1;
+    self.suppressionthreshold = 1;
+    self.nododgemove = 1;
+    self.dontshootwhilemoving = 1;
+    self.pathenemylookahead = 0;
+    self.badplaceawareness = 0;
+    self.chatinitialized = 0;
+    self.a.disablepain = 1;
+    self disable_react();
+
+    if ( isdefined( level.zombie_health ) )
+    {
+        self.maxhealth = level.zombie_health;
+
+        if ( isdefined( level.zombie_respawned_health ) && level.zombie_respawned_health.size > 0 )
+        {
+            self.health = level.zombie_respawned_health[0];
+            arrayremovevalue( level.zombie_respawned_health, level.zombie_respawned_health[0] );
+        }
+        else
+            self.health = level.zombie_health;
+    }
+    else
+    {
+        self.maxhealth = level.zombie_vars["zombie_health_start"];
+        self.health = self.maxhealth;
+    }
+
+    self.freezegun_damage = 0;
+    self.dropweapon = 0;
+    level thread zombie_death_event( self );
+    self set_zombie_run_cycle();
+    self thread dug_zombie_think();
+    self thread zombie_gib_on_damage();
+    self thread zombie_damage_failsafe();
+    self thread enemy_death_detection();
+
+    if ( !isdefined( self.no_eye_glow ) || !self.no_eye_glow )
+    {
+        if ( !( isdefined( self.is_inert ) && self.is_inert ) )
+            self thread delayed_zombie_eye_glow();
+    }
+
+    self.deathfunction = ::zombie_death_animscript;
+    self.flame_damage_time = 0;
+    self.meleedamage = 50;
+    self.no_powerups = 1;
+    self zombie_history( "zombie_spawn_init -> Spawned = " + self.origin );
+    self.thundergun_knockdown_func = level.basic_zombie_thundergun_knockdown;
+    self.tesla_head_gib_func = ::zombie_tesla_head_gib;
+    self.team = level.zombie_team;
+
+    if ( isdefined( get_gamemode_var( "post_init_zombie_spawn_func" ) ) )
+        self [[ get_gamemode_var( "post_init_zombie_spawn_func" ) ]]();
+
+    self.zombie_init_done = 1;
+    self notify( "zombie_init_done" );
+}
+
 update_staff_accessories( n_element_index )
 {
     cur_weapon = self get_player_melee_weapon();

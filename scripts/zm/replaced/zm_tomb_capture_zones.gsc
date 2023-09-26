@@ -23,7 +23,7 @@
 setup_capture_zones()
 {
     spawner_capture_zombie = getent( "capture_zombie_spawner", "targetname" );
-    spawner_capture_zombie add_spawn_function( ::capture_zombie_spawn_init );
+    spawner_capture_zombie add_spawn_function( scripts\zm\replaced\zm_tomb_utility::capture_zombie_spawn_init );
     a_s_generator = getstructarray( "s_generator", "targetname" );
     registerclientfield( "world", "packapunch_anim", 14000, 3, "int" );
     registerclientfield( "actor", "zone_capture_zombie", 14000, 1, "int" );

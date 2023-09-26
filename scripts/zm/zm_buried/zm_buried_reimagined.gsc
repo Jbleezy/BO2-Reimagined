@@ -102,6 +102,7 @@ init()
 
 zombie_init_done()
 {
+	self.meleedamage = 50;
 	self.allowpain = 0;
 	self.zombie_path_bad = 0;
 	self thread maps\mp\zm_buried_distance_tracking::escaped_zombies_cleanup_init();

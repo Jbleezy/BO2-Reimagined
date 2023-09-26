@@ -122,6 +122,7 @@ door_changes()
 
 zombie_init_done()
 {
+    self.meleedamage = 50;
 	self.allowpain = 0;
 	self setphysparams( 15, 0, 48 );
 }
