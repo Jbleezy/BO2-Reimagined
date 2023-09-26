@@ -53,12 +53,10 @@ revive_do_revive( playerbeingrevived, revivergun )
         playerbeingrevived_player.beingrevivedprogressbar.hidewheninmenu = 1;
         playerbeingrevived_player.beingrevivedprogressbar.bar.hidewheninmenu = 1;
         playerbeingrevived_player.beingrevivedprogressbar.barframe.hidewheninmenu = 1;
-		playerbeingrevived_player.beingrevivedprogressbar.foreground = 1;
-	    playerbeingrevived_player.beingrevivedprogressbar.bar.foreground = 1;
-	    playerbeingrevived_player.beingrevivedprogressbar.barframe.foreground = 1;
 		playerbeingrevived_player.beingrevivedprogressbar.sort = 1;
 		playerbeingrevived_player.beingrevivedprogressbar.bar.sort = 2;
 		playerbeingrevived_player.beingrevivedprogressbar.barframe.sort = 3;
+		playerbeingrevived_player.beingrevivedprogressbar.barframe destroy();
 		playerbeingrevived_player.beingrevivedprogressbar thread scripts\zm\_zm_reimagined::destroy_on_intermission();
 	}
 

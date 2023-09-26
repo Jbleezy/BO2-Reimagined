@@ -2329,9 +2329,6 @@ wait_and_revive()
         self.beingrevivedprogressbar.hidewheninmenu = 1;
         self.beingrevivedprogressbar.bar.hidewheninmenu = 1;
         self.beingrevivedprogressbar.barframe.hidewheninmenu = 1;
-		self.beingrevivedprogressbar.foreground = 1;
-		self.beingrevivedprogressbar.bar.foreground = 1;
-		self.beingrevivedprogressbar.barframe.foreground = 1;
 		self.beingrevivedprogressbar.sort = 1;
         self.beingrevivedprogressbar.bar.sort = 2;
         self.beingrevivedprogressbar.barframe.sort = 3;
