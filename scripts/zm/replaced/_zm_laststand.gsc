@@ -72,6 +72,7 @@ revive_do_revive( playerbeingrevived, revivergun )
 		self.reviveprogressbar.sort = 1;
 		self.reviveprogressbar.bar.sort = 2;
 		self.reviveprogressbar.barframe.sort = 3;
+		self.reviveprogressbar.barframe destroy();
 		self.reviveprogressbar thread scripts\zm\_zm_reimagined::destroy_on_intermission();
 	}
 
