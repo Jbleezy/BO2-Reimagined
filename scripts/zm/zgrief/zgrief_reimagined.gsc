@@ -1123,11 +1123,17 @@ round_start_wait(time, initial)
 
 	level thread zombie_spawn_wait(zombie_spawn_time);
 
-	round_start_countdown_hud = round_start_countdown_hud(time);
+	text = "MATCH BEGINS IN";
+	if(level.scr_zm_ui_gametype_obj == "zsnr")
+	{
+		text = "ROUND " + level.round_number + " BEGINS IN";
+	}
+
+	countdown_hud = scripts\zm\replaced\_zm::countdown_hud(text, time);
 
 	wait time;
 
-	round_start_countdown_hud round_start_countdown_hud_destroy();
+	countdown_hud scripts\zm\replaced\_zm::countdown_hud_destroy();
 
 	players = get_players();
 	foreach(player in players)
@@ -1173,65 +1179,6 @@ wait_and_freeze()
 	wait 0.05;
 
 	self freezeControls(1);
-}
-
-round_start_countdown_hud(time)
-{
-	countdown_hud = createServerFontString( "objective", 2.2 );
-	countdown_hud setPoint( "CENTER", "CENTER", 0, 0 );
-	countdown_hud.color = ( 1, 1, 0 );
-	countdown_hud.hidewheninmenu = true;
-	countdown_hud maps\mp\gametypes_zm\_hud::fontpulseinit();
-	countdown_hud thread round_start_countdown_hud_end_game_watcher();
-
-	countdown_hud.countdown_text = createServerFontString( "objective", 1.5 );
-	countdown_hud.countdown_text setPoint( "CENTER", "CENTER", 0, -40 );
-	countdown_hud.countdown_text.color = ( 1, 1, 1 );
-	countdown_hud.countdown_text.hidewheninmenu = true;
-
-	countdown_hud thread round_start_countdown_hud_timer(time);
-
-	if(level.scr_zm_ui_gametype_obj == "zsnr")
-	{
-		countdown_hud.countdown_text setText("ROUND " + level.round_number + " BEGINS IN");
-	}
-	else
-	{
-		countdown_hud.countdown_text setText("MATCH BEGINS IN");
-	}
-
-	countdown_hud.alpha = 1;
-	countdown_hud.countdown_text.alpha = 1;
-
-	return countdown_hud;
-}
-
-round_start_countdown_hud_destroy()
-{
-	self.countdown_text destroy();
-	self destroy();
-}
-
-round_start_countdown_hud_end_game_watcher()
-{
-	self endon("death");
-
-	level waittill( "end_game" );
-
-	self round_start_countdown_hud_destroy();
-}
-
-round_start_countdown_hud_timer(time)
-{
-	level endon("end_game");
-
-	while(time > 0)
-	{
-		self setvalue(time);
-		self thread maps\mp\gametypes_zm\_hud::fontpulse(level);
-		wait 1;
-		time--;
-	}
 }
 
 zombie_spawn_wait(time)

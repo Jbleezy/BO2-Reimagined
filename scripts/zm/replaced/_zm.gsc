@@ -619,6 +619,8 @@ fade_out_intro_screen_zm( hold_black_time, fade_out_time, destroyed_afterwards )
 
 	if ( isDedicated() || ( is_gametype_active("zgrief") && getDvarInt("ui_gametype_team_change") ) )
     {
+		flag_init( "all_players_ready" );
+
 		level thread wait_for_all_players_ready();
 
 		flag_wait( "all_players_ready" );
@@ -650,8 +652,6 @@ fade_out_intro_screen_zm( hold_black_time, fade_out_time, destroyed_afterwards )
 
 wait_for_all_players_ready()
 {
-	flag_init( "all_players_ready" );
-
 	if (!isDefined(level.prev_no_end_game_check))
 	{
 		level.prev_no_end_game_check = is_true(level.no_end_game_check);
@@ -663,9 +663,7 @@ wait_for_all_players_ready()
 	{
 		level.pregame_hud = createServerFontString( "objective", 1.5 );
 		level.pregame_hud setPoint( "CENTER", "CENTER", 0, -95 );
-		level.pregame_hud.foreground = 1;
 		level.pregame_hud.color = ( 1, 1, 1 );
-		level.pregame_hud.hidewheninmenu = true;
 	}
 
 	num_players = get_number_of_waiting_players();
@@ -706,10 +704,20 @@ wait_for_all_players_ready()
 	{
 		level.ready_up_hud = createServerFontString( "objective", 1.5 );
 		level.ready_up_hud setPoint( "CENTER", "CENTER", 0, -115 );
-		level.ready_up_hud.foreground = 1;
 		level.ready_up_hud.color = ( 1, 1, 1 );
-		level.ready_up_hud.hidewheninmenu = true;
 		level.ready_up_hud setText( "PRESS ^3[{+gostand}]^7 OR ^3[{+activate}]^7 TO READY UP" );
+	}
+
+	if ( isDedicated() && !(is_gametype_active("zgrief") && getDvarInt("ui_gametype_team_change")) )
+    {
+		level.ready_up_time = 120;
+		level.ready_up_start_time = getTime();
+		level.ready_up_start_players = get_players();
+
+		if (!isDefined(level.ready_up_timer_hud))
+		{
+			level.ready_up_countdown_hud = countdown_hud("PRE-GAME ENDS IN", level.ready_up_time);
+		}
 	}
 
 	level.ready_up_hud.alpha = 1;
@@ -725,6 +733,30 @@ wait_for_all_players_ready()
 
 	while ( num_ready < players.size || players.size < level.pregame_minplayers )
 	{
+		ready_up_timeout = 0;
+
+		if ( isDefined(level.ready_up_time) )
+		{
+			time = getTime() - level.ready_up_start_time;
+
+			if ( time >= level.ready_up_time * 1000 )
+			{
+				ready_up_timeout = 1;
+
+				foreach ( player in level.ready_up_start_players )
+				{
+					if ( isDefined(player) && !isDefined(player.ready) )
+					{
+						kick(player getEntityNumber());
+					}
+				}
+
+				wait 0.05;
+			}
+		}
+
+		players = get_players();
+
 		if ( players.size < level.pregame_minplayers )
 		{
 			foreach ( player in players )
@@ -736,9 +768,19 @@ wait_for_all_players_ready()
 
 			level.ready_up_hud.alpha = 0;
 
+			if (isDefined(level.ready_up_countdown_hud))
+			{
+				level.ready_up_countdown_hud countdown_hud_destroy();
+			}
+
 			level thread wait_for_all_players_ready();
 
 			return;
+		}
+
+		if (ready_up_timeout)
+		{
+			break;
 		}
 
 		if (is_gametype_active("zgrief"))
@@ -790,6 +832,11 @@ wait_for_all_players_ready()
 
 	level.ready_up_hud destroy();
 	level.pregame_hud destroy();
+
+	if (isDefined(level.ready_up_countdown_hud))
+	{
+		level.ready_up_countdown_hud countdown_hud_destroy();
+	}
 
 	level.no_end_game_check = level.prev_no_end_game_check;
 
@@ -872,6 +919,56 @@ check_for_team_change()
 		wait 0.05;
 
 		team_change_player freezecontrols(1);
+	}
+}
+
+countdown_hud(text, time)
+{
+	countdown_hud = createServerFontString( "objective", 2.2 );
+	countdown_hud setPoint( "CENTER", "CENTER", 0, 0 );
+	countdown_hud.color = ( 1, 1, 0 );
+	countdown_hud maps\mp\gametypes_zm\_hud::fontpulseinit();
+	countdown_hud thread countdown_hud_end_game_watcher();
+
+	countdown_hud.countdown_text = createServerFontString( "objective", 1.5 );
+	countdown_hud.countdown_text setPoint( "CENTER", "CENTER", 0, -40 );
+	countdown_hud.countdown_text.color = ( 1, 1, 1 );
+
+	countdown_hud thread countdown_hud_timer(time);
+
+	countdown_hud.countdown_text setText(text);
+
+	countdown_hud.alpha = 1;
+	countdown_hud.countdown_text.alpha = 1;
+
+	return countdown_hud;
+}
+
+countdown_hud_destroy()
+{
+	self.countdown_text destroy();
+	self destroy();
+}
+
+countdown_hud_end_game_watcher()
+{
+	self endon("death");
+
+	level waittill( "end_game" );
+
+	self countdown_hud_destroy();
+}
+
+countdown_hud_timer(time)
+{
+	self endon("death");
+
+	while(time > 0)
+	{
+		self setvalue(time);
+		self thread maps\mp\gametypes_zm\_hud::fontpulse(level);
+		wait 1;
+		time--;
 	}
 }
 
