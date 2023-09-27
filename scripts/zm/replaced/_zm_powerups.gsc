@@ -374,12 +374,42 @@ full_ammo_powerup( drop_item, player )
 		}
 		i++;
 	}
-	level thread maps\mp\zombies\_zm_powerups::full_ammo_on_hud( drop_item, player.team );
+	level thread full_ammo_on_hud( drop_item, player.team );
 
 	if(level.scr_zm_ui_gametype == "zgrief")
 	{
 		level thread empty_clip_powerup( drop_item, player );
 	}
+}
+
+full_ammo_on_hud( drop_item, player_team )
+{
+    self endon( "disconnect" );
+    hudelem = maps\mp\gametypes_zm\_hud_util::createserverfontstring( "objective", 2, player_team );
+    hudelem maps\mp\gametypes_zm\_hud_util::setpoint( "TOP", undefined, 0, level.zombie_vars["zombie_timer_offset"] - level.zombie_vars["zombie_timer_offset_interval"] * 2 );
+    hudelem.sort = 0.5;
+    hudelem.alpha = 0;
+    hudelem fadeovertime( 0.5 );
+    hudelem.alpha = 1;
+
+    if ( isdefined( drop_item ) )
+        hudelem.label = drop_item.hint;
+
+    hudelem thread full_ammo_move_hud( player_team );
+}
+
+full_ammo_move_hud( player_team )
+{
+    players = get_players( player_team );
+    players[0] playsoundtoteam( "zmb_full_ammo", player_team );
+    wait 0.5;
+    move_fade_time = 1.5;
+    self fadeovertime( move_fade_time );
+    self moveovertime( move_fade_time );
+    self.y = 270;
+    self.alpha = 0;
+    wait( move_fade_time );
+    self destroyelem();
 }
 
 empty_clip_powerup( drop_item, player )

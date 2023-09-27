@@ -7,6 +7,8 @@
 #include scripts\zm\replaced\zm_melee;
 #include scripts\zm\replaced\zm_utility;
 #include scripts\zm\replaced\zm_shared;
+#include scripts\zm\replaced\_damagefeedback;
+#include scripts\zm\replaced\_hud_message;
 #include scripts\zm\replaced\_zm_gametype;
 #include scripts\zm\replaced\_zm;
 #include scripts\zm\replaced\_zm_audio;
@@ -42,6 +44,8 @@ main()
 	replaceFunc(maps\mp\animscripts\zm_melee::meleecombat, scripts\zm\replaced\zm_melee::meleecombat);
 	replaceFunc(maps\mp\animscripts\zm_utility::wait_network_frame, scripts\zm\replaced\_zm_utility::wait_network_frame);
 	replaceFunc(maps\mp\animscripts\traverse\zm_shared::dotraverse, scripts\zm\replaced\zm_shared::dotraverse);
+	replaceFunc(maps\mp\gametypes_zm\_damagefeedback::onplayerconnect, scripts\zm\replaced\_damagefeedback::onplayerconnect);
+	replaceFunc(maps\mp\gametypes_zm\_hud_message::onplayerconnect, scripts\zm\replaced\_hud_message::onplayerconnect);
 	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::hide_gump_loading_for_hotjoiners, scripts\zm\replaced\_zm_gametype::hide_gump_loading_for_hotjoiners);
 	replaceFunc(maps\mp\zombies\_zm::round_start, scripts\zm\replaced\_zm::round_start);
 	replaceFunc(maps\mp\zombies\_zm::ai_calculate_health, scripts\zm\replaced\_zm::ai_calculate_health);
@@ -253,11 +257,6 @@ on_player_spawned()
 			self thread additionalprimaryweapon_stowed_weapon_refill();
 
 			self thread electric_cherry_unlimited();
-
-			//self.score = 100000;
-			//maps\mp\zombies\_zm_perks::give_perk( "specialty_armorvest", 0 );
-			//self GiveWeapon("dsr50_zm");
-			//self GiveMaxAmmo("dsr50_zm");
 		}
 
 		self.statusicon = "";
