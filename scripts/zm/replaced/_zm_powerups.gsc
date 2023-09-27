@@ -560,7 +560,7 @@ nuke_powerup( drop_item, player_team )
 					players[i] maps\mp\zombies\_zm_score::minus_to_player_score(score);
 				}
 
-				radiusDamage(players[i].origin + (0, 0, 5), 10, 80, 80);
+				radiusDamage(players[i].origin + (0, 0, 5), 10, 75, 75);
 			}
 			else if(players[i] maps\mp\zombies\_zm_laststand::player_is_in_laststand())
 			{

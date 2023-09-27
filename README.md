@@ -808,7 +808,7 @@
 * Insta Kill: decreased duration from 30 seconds to 15 seconds
 * Insta Kill: enemy players deal half damage
 * Nuke: enemy players lose 400 points
-* Nuke: deals 80 damage to all alive enemy players
+* Nuke: deals 75 damage to all alive enemy players
 * Nuke: makes all downed enemy players bleed out
 * Added teammate head icons
 * Added kill feed (includes downs, revives, and bleed outs)
