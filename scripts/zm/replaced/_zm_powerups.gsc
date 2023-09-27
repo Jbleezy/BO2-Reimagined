@@ -14,11 +14,7 @@ powerup_drop( drop_point )
 
     rand_drop = randomint( 100 );
 
-	powerup_chance = 4;
-	if ( is_gametype_active( "zgrief" ) )
-	{
-		powerup_chance = 2;
-	}
+	powerup_chance = 2;
 
     if ( rand_drop >= powerup_chance )
     {
