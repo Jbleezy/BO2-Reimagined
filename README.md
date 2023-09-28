@@ -68,7 +68,6 @@
 * Increased ladder climb speed
 * Start with Semtex on maps that have Semtex
 * Barriers can no longer be rebuilt while sprinting or thowing a grenade
-* Entering and exiting last stand no longer refills last stand weapon clip automatically
 * Upgraded weapon camo is applied in last stand
 * Dual wield last stand weapon is switched to when ammo is only in left clip
 * Decreased friendly player name fade out time from 1.5 seconds to 0.25 seconds

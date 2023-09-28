@@ -2139,24 +2139,32 @@ grief_laststand_weapons_return()
 			primary_weapons_returned++;
 		}
 
-		if (isDefined(self.stored_weapon_info[self.grief_savedweapon_weapons[i]]) && isDefined(self.stored_weapon_info[self.grief_savedweapon_weapons[i]].total_used_amt))
+		if (isDefined(self.stored_weapon_info[self.grief_savedweapon_weapons[i]]) && isDefined(self.stored_weapon_info[self.grief_savedweapon_weapons[i]].used_amt))
 		{
-			used_amt = self.stored_weapon_info[self.grief_savedweapon_weapons[i]].total_used_amt;
+			used_amt = self.stored_weapon_info[self.grief_savedweapon_weapons[i]].used_amt;
 
 			if (used_amt >= self.grief_savedweapon_weaponsammo_stock[i])
 			{
 				used_amt = used_amt - self.grief_savedweapon_weaponsammo_stock[i];
 				self.grief_savedweapon_weaponsammo_stock[i] = 0;
 
-				if (used_amt >= self.grief_savedweapon_weaponsammo_clip[i])
+				dual_wield_name = weapondualwieldweaponname(self.grief_savedweapon_weapons[i]);
+				if( "none" != dual_wield_name )
 				{
-					used_amt -= self.grief_savedweapon_weaponsammo_clip[i];
-					self.grief_savedweapon_weaponsammo_clip[i] = 0;
-
 					if (used_amt >= self.grief_savedweapon_weaponsammo_clip_dualwield[i])
 					{
 						used_amt -= self.grief_savedweapon_weaponsammo_clip_dualwield[i];
 						self.grief_savedweapon_weaponsammo_clip_dualwield[i] = 0;
+
+						if (used_amt >= self.grief_savedweapon_weaponsammo_clip[i])
+						{
+							used_amt -= self.grief_savedweapon_weaponsammo_clip[i];
+							self.grief_savedweapon_weaponsammo_clip[i] = 0;
+						}
+						else
+						{
+							self.grief_savedweapon_weaponsammo_clip[i] -= used_amt;
+						}
 					}
 					else
 					{
@@ -2165,7 +2173,15 @@ grief_laststand_weapons_return()
 				}
 				else
 				{
-					self.grief_savedweapon_weaponsammo_clip[i] -= used_amt;
+					if (used_amt >= self.grief_savedweapon_weaponsammo_clip[i])
+					{
+						used_amt -= self.grief_savedweapon_weaponsammo_clip[i];
+						self.grief_savedweapon_weaponsammo_clip[i] = 0;
+					}
+					else
+					{
+						self.grief_savedweapon_weaponsammo_clip[i] -= used_amt;
+					}
 				}
 			}
 			else

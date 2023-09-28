@@ -428,16 +428,9 @@ empty_clip_powerup( drop_item, player )
 			dual_wield_weapon = weaponDualWieldWeaponName(weapon);
 			alt_weapon = weaponAltWeaponName(weapon);
 
-			// setweaponammoclip on dual wield weapons only works right when the weapon is given, wtf
 			if(dual_wield_weapon != "none")
 			{
-				stock_ammo = players[i] getweaponammostock(weapon, 0);
-				stock_ammo_alt = players[i] getweaponammostock(alt_weapon, 0);
-				players[i] takeweapon(weapon);
-				players[i] giveweapon(weapon, 0, players[i] maps\mp\zombies\_zm_weapons::get_pack_a_punch_weapon_options(weapon));
-				players[i] setweaponammostock(weapon, stock_ammo);
-				players[i] setweaponammostock(alt_weapon, stock_ammo_alt);
-				players[i] setweaponammoclip(dual_wield_weapon, 0);
+				players[i] scripts\zm\_zm_reimagined::set_weapon_ammo_clip_left(weapon, 0);
 			}
 
 			players[i] setweaponammoclip(weapon, 0);

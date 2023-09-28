@@ -407,14 +407,6 @@ post_all_players_spawned()
 
 	level thread buildbuildables();
 	level thread buildcraftables();
-
-	//level.round_number = 115;
-	//level.zombie_move_speed = 105;
-	//level.zombie_vars[ "zombie_spawn_delay" ] = 0.08;
-	//level.zombie_ai_limit = 1;
-
-	//level.local_doors_stay_open = 1;
-	//level.power_local_doors_globally = 1;
 }
 
 set_dvars()
@@ -2140,13 +2132,14 @@ last_stand_pistol_swap()
 		}
 	}
 
-	curclip = self getweaponammoclip( self.laststandpistol );
+	amt = 0;
 	ammoclip = weaponclipsize( self.laststandpistol );
 	doubleclip = ammoclip * 2;
-	if ( weapondualwieldweaponname( self.laststandpistol ) != "none" )
+	dual_wield_wep = weapondualwieldweaponname( self.laststandpistol );
+
+	if ( dual_wield_wep != "none" )
 	{
-		curclip += self getweaponammoclip( weapondualwieldweaponname( self.laststandpistol ) );
-		ammoclip += weaponclipsize( weapondualwieldweaponname( self.laststandpistol ) );
+		ammoclip += weaponclipsize( dual_wield_wep );
 		doubleclip = ammoclip;
 	}
 
@@ -2154,46 +2147,67 @@ last_stand_pistol_swap()
 	{
 		self._special_solo_pistol_swap = 0;
 		self.hadpistol = 0;
-		self setweaponammostock( self.laststandpistol, 0 );
+		amt = ammoclip;
 	}
 	else if ( flag( "solo_game" ) && self.laststandpistol == level.default_solo_laststandpistol )
 	{
-		self setweaponammostock(self.laststandpistol, ammoclip - curclip);
+		amt = ammoclip;
 	}
 	else if ( self.laststandpistol == level.default_laststandpistol )
 	{
-		self setweaponammostock( self.laststandpistol, ammoclip + doubleclip - curclip );
+		amt = ammoclip + doubleclip;
 	}
 	else if ( self.laststandpistol == "ray_gun_zm" || self.laststandpistol == "ray_gun_upgraded_zm" || self.laststandpistol == "raygun_mark2_zm" || self.laststandpistol == "raygun_mark2_upgraded_zm" || self.laststandpistol == level.default_solo_laststandpistol )
 	{
 		amt = ammoclip;
-		if(self.hadpistol && amt > self.stored_weapon_info[self.laststandpistol].total_amt)
+		if ( self.hadpistol && amt > self.stored_weapon_info[self.laststandpistol].total_amt )
 		{
 			amt = self.stored_weapon_info[self.laststandpistol].total_amt;
 		}
 
-		self.stored_weapon_info[self.laststandpistol].total_given_amt = amt;
-
-		amt -= curclip;
-
-		self setweaponammostock( self.laststandpistol, amt );
 		self.stored_weapon_info[self.laststandpistol].given_amt = amt;
 	}
 	else
 	{
 		amt = ammoclip + doubleclip;
-		if(self.hadpistol && amt > self.stored_weapon_info[self.laststandpistol].total_amt)
+		if ( self.hadpistol && amt > self.stored_weapon_info[self.laststandpistol].total_amt )
 		{
 			amt = self.stored_weapon_info[self.laststandpistol].total_amt;
 		}
 
-		self.stored_weapon_info[self.laststandpistol].total_given_amt = amt;
-
-		amt -= curclip;
-
-		self setweaponammostock( self.laststandpistol, amt );
-		self.stored_weapon_info[ self.laststandpistol ].given_amt = amt;
+		self.stored_weapon_info[self.laststandpistol].given_amt = amt;
 	}
+
+	clip_amt = weaponclipsize( self.laststandpistol );
+	if ( clip_amt > amt )
+	{
+		clip_amt = amt;
+	}
+
+	self setweaponammoclip( self.laststandpistol, clip_amt );
+
+	amt -= clip_amt;
+
+	if ( dual_wield_wep != "none" )
+	{
+		left_clip_amt = weaponclipsize( dual_wield_wep );
+		if ( left_clip_amt > amt )
+		{
+			left_clip_amt = amt;
+		}
+
+		self set_weapon_ammo_clip_left( self.laststandpistol, left_clip_amt );
+
+		amt -= left_clip_amt;
+	}
+
+	stock_amt = doubleclip;
+	if ( stock_amt > amt )
+	{
+		stock_amt = amt;
+	}
+
+	self setweaponammostock( self.laststandpistol, stock_amt );
 
 	self switchtoweapon( self.laststandpistol );
 }
@@ -2223,7 +2237,19 @@ last_stand_restore_pistol_ammo(only_store_info = false)
 			check_weapon = weapon_to_restore[ j ];
 			if ( weapon == check_weapon )
 			{
-				dual_wield_name = weapondualwieldweaponname( weapon_to_restore[ j ] );
+				if (self.stored_weapon_info[ weapon ].given_amt == 0)
+				{
+					self setweaponammoclip( weapon, self.stored_weapon_info[ weapon ].clip_amt );
+
+					if ( "none" != dual_wield_name )
+						self set_weapon_ammo_clip_left( weapon, self.stored_weapon_info[ weapon ].left_clip_amt );
+
+					self setweaponammostock( weapon, self.stored_weapon_info[ weapon ].stock_amt );
+
+					break;
+				}
+
+				dual_wield_name = weapondualwieldweaponname( weapon );
 
 				last_clip = self getweaponammoclip( weapon );
 				last_left_clip = 0;
@@ -2234,40 +2260,96 @@ last_stand_restore_pistol_ammo(only_store_info = false)
 				last_stock = self getweaponammostock( weapon );
 				last_total = last_clip + last_left_clip + last_stock;
 
-				self.stored_weapon_info[ weapon ].total_used_amt = self.stored_weapon_info[ weapon ].total_given_amt - last_total;
+				self.stored_weapon_info[ weapon ].used_amt = self.stored_weapon_info[ weapon ].given_amt - last_total;
 
 				if (only_store_info)
 				{
 					break;
 				}
 
-				stock_used_amt = self.stored_weapon_info[ weapon ].given_amt - last_stock;
+				used_amt = self.stored_weapon_info[ weapon ].used_amt;
 
-				if ( stock_used_amt >= self.stored_weapon_info[ weapon ].stock_amt )
+				if (used_amt >= self.stored_weapon_info[ weapon ].stock_amt)
 				{
-					stock_used_amt = stock_used_amt - self.stored_weapon_info[weapon].stock_amt;
+					used_amt -= self.stored_weapon_info[ weapon ].stock_amt;
 					self.stored_weapon_info[ weapon ].stock_amt = 0;
-					self.stored_weapon_info[ weapon ].clip_amt = self.stored_weapon_info[ weapon ].clip_amt - stock_used_amt;
-					if ( self.stored_weapon_info[ weapon ].clip_amt < 0 )
+
+					if( "none" != dual_wield_name )
 					{
-						self.stored_weapon_info[ weapon ].clip_amt = 0;
+						if (used_amt >= self.stored_weapon_info[ weapon ].left_clip_amt)
+						{
+							used_amt -= self.stored_weapon_info[ weapon ].left_clip_amt;
+							self.stored_weapon_info[ weapon ].left_clip_amt = 0;
+
+							if (used_amt >= self.stored_weapon_info[ weapon ].clip_amt)
+							{
+								used_amt -= self.stored_weapon_info[ weapon ].clip_amt;
+								self.stored_weapon_info[ weapon ].clip_amt = 0;
+							}
+							else
+							{
+								self.stored_weapon_info[ weapon ].clip_amt -= used_amt;
+							}
+						}
+						else
+						{
+							self.stored_weapon_info[ weapon ].left_clip_amt -= used_amt;
+						}
+					}
+					else
+					{
+						if (used_amt >= self.stored_weapon_info[ weapon ].clip_amt)
+						{
+							used_amt -= self.stored_weapon_info[ weapon ].clip_amt;
+							self.stored_weapon_info[ weapon ].clip_amt = 0;
+						}
+						else
+						{
+							self.stored_weapon_info[ weapon ].clip_amt -= used_amt;
+						}
 					}
 				}
 				else
 				{
-					new_stock_amt = self.stored_weapon_info[ weapon ].stock_amt - stock_used_amt;
-					if ( new_stock_amt < self.stored_weapon_info[ weapon ].stock_amt )
-					{
-						self.stored_weapon_info[ weapon ].stock_amt = new_stock_amt;
-					}
+					self.stored_weapon_info[ weapon ].stock_amt -= used_amt;
 				}
 
-				self setweaponammostock( weapon_to_restore[ j ], self.stored_weapon_info[weapon_to_restore[ j ] ].stock_amt );
+				self setweaponammoclip( weapon, self.stored_weapon_info[ weapon ].clip_amt );
+
+                if ( "none" != dual_wield_name )
+                    self set_weapon_ammo_clip_left( weapon, self.stored_weapon_info[ weapon ].left_clip_amt );
+
+				self setweaponammostock( weapon, self.stored_weapon_info[ weapon ].stock_amt );
+
 				break;
 			}
 		}
 		i++;
 	}
+}
+
+// setweaponammoclip on dual wield left weapons only works when the weapon is given
+set_weapon_ammo_clip_left( weapon, amount )
+{
+	dual_wield_weapon = weaponDualWieldWeaponName(weapon);
+	alt_weapon = weaponAltWeaponName(weapon);
+
+	clip_ammo = self getweaponammoclip(weapon);
+	stock_ammo = self getweaponammostock(weapon);
+	alt_clip_ammo = self getweaponammoclip(alt_weapon);
+	alt_stock_ammo = self getweaponammostock(alt_weapon);
+
+	self takeweapon(weapon);
+	self giveweapon(weapon, 0, self maps\mp\zombies\_zm_weapons::get_pack_a_punch_weapon_options(weapon));
+
+	self setweaponammoclip(weapon, clip_ammo);
+	self setweaponammostock(weapon, stock_ammo);
+	self setweaponammoclip(alt_weapon, alt_clip_ammo);
+	self setweaponammostock(alt_weapon, alt_stock_ammo);
+
+	self setweaponammoclip(dual_wield_weapon, amount);
+
+	self seteverhadweaponall(1);
 }
 
 setscoreboardcolumns_gametype()
