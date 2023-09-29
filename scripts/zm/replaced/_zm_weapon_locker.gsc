@@ -109,3 +109,45 @@ show_current_weapon(player)
 	stub.weaponlockerhud[num] destroy();
 	stub.weaponlockerhud[num] = undefined;
 }
+
+wl_set_stored_weapondata( weapondata )
+{
+	name = weapondata["name"];
+	dw_name = weaponDualWieldWeaponName(name);
+	alt_name = weaponAltWeaponName(name);
+
+	clip_missing = weaponClipSize(name) - weapondata["clip"];
+	if (clip_missing > weapondata["stock"])
+	{
+		clip_missing = weapondata["stock"];
+	}
+	weapondata["clip"] += clip_missing;
+	weapondata["stock"] -= clip_missing;
+
+	if (dw_name != "none")
+	{
+		clip_dualwield_missing = weaponClipSize(dw_name) - weapondata["lh_clip"];
+		if (clip_dualwield_missing > weapondata["stock"])
+		{
+			clip_dualwield_missing = weapondata["stock"];
+		}
+		weapondata["lh_clip"] += clip_dualwield_missing;
+		weapondata["stock"] -= clip_dualwield_missing;
+	}
+
+	if (alt_name != "none")
+	{
+		clip_alt_missing = weaponClipSize(alt_name) - weapondata["alt_clip"];
+		if (clip_alt_missing > weapondata["alt_stock"])
+		{
+			clip_alt_missing = weapondata["alt_stock"];
+		}
+		weapondata["alt_clip"] += clip_alt_missing;
+		weapondata["alt_stock"] -= clip_alt_missing;
+	}
+
+    if ( level.weapon_locker_online )
+        self set_stored_weapondata( weapondata, level.weapon_locker_map );
+    else
+        self.stored_weapon_data = weapondata;
+}
