@@ -1139,6 +1139,40 @@ take_additionalprimaryweapon()
 
 		self.a_saved_weapon = maps\mp\zombies\_zm_weapons::get_player_weapondata(self, weapon_to_take);
 
+		name = self.a_saved_weapon["name"];
+		dw_name = weaponDualWieldWeaponName(name);
+		alt_name = weaponAltWeaponName(name);
+
+		clip_missing = weaponClipSize(name) - self.a_saved_weapon["clip"];
+		if (clip_missing > self.a_saved_weapon["stock"])
+		{
+			clip_missing = self.a_saved_weapon["stock"];
+		}
+		self.a_saved_weapon["clip"] += clip_missing;
+		self.a_saved_weapon["stock"] -= clip_missing;
+
+		if (dw_name != "none")
+		{
+			clip_dualwield_missing = weaponClipSize(dw_name) - self.a_saved_weapon["lh_clip"];
+			if (clip_dualwield_missing > self.a_saved_weapon["stock"])
+			{
+				clip_dualwield_missing = self.a_saved_weapon["stock"];
+			}
+			self.a_saved_weapon["lh_clip"] += clip_dualwield_missing;
+			self.a_saved_weapon["stock"] -= clip_dualwield_missing;
+		}
+
+		if (alt_name != "none")
+		{
+			clip_alt_missing = weaponClipSize(alt_name) - self.a_saved_weapon["alt_clip"];
+			if (clip_alt_missing > self.a_saved_weapon["alt_stock"])
+			{
+				clip_alt_missing = self.a_saved_weapon["alt_stock"];
+			}
+			self.a_saved_weapon["alt_clip"] += clip_alt_missing;
+			self.a_saved_weapon["alt_stock"] -= clip_alt_missing;
+		}
+
         if ( weapon_to_take == self getcurrentweapon() )
             self switchtoweapon( primary_weapons_that_can_be_taken[0] );
 
@@ -1202,7 +1236,7 @@ restore_additionalprimaryweapon()
         self setweaponammostock( alt_name, self.a_saved_weapon["alt_stock"] );
     }
 
-	self seteverhadweaponall( 1 );
+	self switchtoweapon( name );
 
 	self.a_saved_weapon = undefined;
 }
