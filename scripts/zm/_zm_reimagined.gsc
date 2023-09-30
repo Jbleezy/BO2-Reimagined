@@ -841,6 +841,7 @@ timer_hud()
 
 	hud setTimerUp(0);
 	hud.start_time = getTime();
+	level.timer_hud_start_time = hud.start_time;
 }
 
 round_timer_hud()
@@ -903,10 +904,52 @@ round_timer_hud()
 			level waittill( "end_of_round" );
 		}
 
+		level thread round_total_timer_hud();
+
 		time = int((getTime() - hud.start_time) / 1000);
 
 		set_time_frozen(hud, time);
 	}
+}
+
+round_total_timer_hud()
+{
+	if ( getDvar( "g_gametype" ) == "zgrief" )
+	{
+		return;
+	}
+
+	hud = newHudElem();
+	hud.alignx = "right";
+	hud.aligny = "top";
+	hud.horzalign = "user_right";
+	hud.vertalign = "user_top";
+	hud.x -= 5;
+	hud.y += 42;
+	hud.fontscale = 1.4;
+	hud.alpha = 0;
+	hud.color = ( 1, 1, 1 );
+	hud.hidewheninmenu = 1;
+	hud.foreground = 1;
+	hud.label = &"Round Total: ";
+
+	hud thread destroy_on_intermission();
+
+	fade_time = 0.5;
+
+	hud fadeOverTime(fade_time);
+	hud.alpha = 1;
+
+	time = int((getTime() - level.timer_hud_start_time) / 1000);
+
+	set_time_frozen(hud, time);
+
+	hud fadeOverTime(fade_time);
+	hud.alpha = 0;
+
+	wait fade_time;
+
+	hud destroy();
 }
 
 set_time_frozen_on_end_game(hud)
