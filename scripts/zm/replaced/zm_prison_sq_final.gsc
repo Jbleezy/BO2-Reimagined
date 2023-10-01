@@ -77,7 +77,6 @@ stage_two()
     t_plane_fly_afterlife trigger_on();
 
     players = get_players();
-
     foreach ( player in players )
     {
         if ( is_player_valid( player ) )
@@ -303,6 +302,8 @@ stage_final()
     level.brutus_respawn_after_despawn = 0;
     level thread clean_up_final_brutuses();
     wait 2;
+
+    level notify("freeze_timers");
 
     if ( level.winner == "weasel" )
     {

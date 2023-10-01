@@ -120,6 +120,8 @@ richtofen_zombie_deathfunction_override()
 
 sq_give_player_rewards()
 {
+    level thread scripts\zm\replaced\_zm_sq::sq_complete_time_hud();
+
     players = get_players();
 
     foreach ( player in players )

@@ -67,3 +67,41 @@ sq_give_player_all_perks()
         wait 0.25;
     }
 }
+
+sq_complete_time_hud()
+{
+    hud = newHudElem();
+	hud.alignx = "center";
+	hud.aligny = "top";
+	hud.horzalign = "user_center";
+	hud.vertalign = "user_top";
+	hud.y += 100;
+	hud.fontscale = 1.4;
+	hud.alpha = 0;
+	hud.color = ( 1, 1, 1 );
+	hud.hidewheninmenu = 1;
+	hud.foreground = 1;
+	hud.label = &"Quest Complete! Time: ";
+
+    hud endon("death");
+
+    hud thread scripts\zm\_zm_reimagined::destroy_on_intermission();
+
+    fade_time = 0.5;
+
+	hud fadeOverTime(fade_time);
+	hud.alpha = 1;
+
+    time = int((getTime() - level.timer_hud_start_time) / 1000);
+
+    hud thread scripts\zm\_zm_reimagined::set_time_frozen(time, "forever");
+
+    wait 10;
+
+    hud fadeOverTime(fade_time);
+	hud.alpha = 0;
+
+	wait fade_time;
+
+	hud destroy();
+}

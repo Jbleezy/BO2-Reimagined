@@ -818,7 +818,7 @@ timer_hud()
 
 	hud thread destroy_on_intermission();
 
-	level thread set_time_frozen_on_end_game(hud);
+	hud thread set_time_frozen_on_end_game();
 
 	flag_wait( "hud_visible" );
 
@@ -831,12 +831,12 @@ timer_hud()
 
 	if ( !flag( "initial_blackscreen_passed" ) )
 	{
-		set_time_frozen(hud, 0, "initial_blackscreen_passed");
+		hud set_time_frozen(0, "initial_blackscreen_passed");
 	}
 
 	if ( getDvar( "g_gametype" ) == "zgrief" )
 	{
-		set_time_frozen(hud, 0);
+		hud set_time_frozen(0);
 	}
 
 	hud setTimerUp(0);
@@ -869,7 +869,7 @@ round_timer_hud()
 
 	hud thread destroy_on_intermission();
 
-	level thread set_time_frozen_on_end_game(hud);
+	hud thread set_time_frozen_on_end_game();
 
 	flag_wait( "hud_visible" );
 
@@ -882,12 +882,12 @@ round_timer_hud()
 
 	if ( !flag( "initial_blackscreen_passed" ) )
 	{
-		set_time_frozen(hud, 0, "initial_blackscreen_passed");
+		hud set_time_frozen(0, "initial_blackscreen_passed");
 	}
 
 	if ( getDvar( "g_gametype" ) == "zgrief" )
 	{
-		set_time_frozen(hud, 0);
+		hud set_time_frozen(0);
 	}
 
 	while (1)
@@ -908,7 +908,7 @@ round_timer_hud()
 
 		time = int((getTime() - hud.start_time) / 1000);
 
-		set_time_frozen(hud, time);
+		hud set_time_frozen(time);
 	}
 }
 
@@ -933,6 +933,8 @@ round_total_timer_hud()
 	hud.foreground = 1;
 	hud.label = &"Round Total: ";
 
+	hud endon("death");
+
 	hud thread destroy_on_intermission();
 
 	fade_time = 0.5;
@@ -942,7 +944,7 @@ round_total_timer_hud()
 
 	time = int((getTime() - level.timer_hud_start_time) / 1000);
 
-	set_time_frozen(hud, time);
+	hud set_time_frozen(time);
 
 	hud fadeOverTime(fade_time);
 	hud.alpha = 0;
@@ -952,18 +954,7 @@ round_total_timer_hud()
 	hud destroy();
 }
 
-set_time_frozen_on_end_game(hud)
-{
-	level endon("intermission");
-
-	level waittill("end_game");
-
-	time = int((getTime() - hud.start_time) / 1000);
-
-	set_time_frozen(hud, time);
-}
-
-set_time_frozen(hud, time, endon_notify)
+set_time_frozen(time, endon_notify)
 {
 	if ( isDefined( endon_notify ) )
 	{
@@ -978,6 +969,8 @@ set_time_frozen(hud, time, endon_notify)
 		level endon( "start_of_round" );
 	}
 
+	self endon( "death" );
+
 	if(time != 0)
 	{
 		time -= 0.5; // need to set it below the number or it shows the next number
@@ -987,15 +980,26 @@ set_time_frozen(hud, time, endon_notify)
 	{
 		if(time == 0)
 		{
-			hud setTimerUp(time);
+			self setTimerUp(time);
 		}
 		else
 		{
-			hud setTimer(time);
+			self setTimer(time);
 		}
 
 		wait 0.5;
 	}
+}
+
+set_time_frozen_on_end_game()
+{
+	level endon("intermission");
+
+	level waittill_any("end_game", "freeze_timers");
+
+	time = int((getTime() - self.start_time) / 1000);
+
+	self set_time_frozen(time, "forever");
 }
 
 zone_hud()

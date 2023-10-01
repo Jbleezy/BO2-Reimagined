@@ -280,8 +280,9 @@ set_screecher_zone_origin_and_notify( script_noteworthy, notify_str )
 
 droppowerup( story )
 {
-    players = get_players();
+    level thread scripts\zm\replaced\_zm_sq::sq_complete_time_hud();
 
+    players = get_players();
     foreach ( player in players )
     {
         if ( is_player_valid( player ) )
