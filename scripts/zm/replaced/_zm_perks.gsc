@@ -294,7 +294,7 @@ vending_trigger_think()
 
             if ( cheat != 1 )
             {
-                self playsound( "deny" );
+                self playsound( "evt_perk_deny" );
                 player maps\mp\zombies\_zm_audio::create_and_play_dialog( "general", "perk_deny", undefined, 1 );
                 continue;
             }
@@ -592,7 +592,7 @@ vending_weapon_upgrade()
 
         if ( !upgrade_as_attachment && player.score < current_cost )
         {
-            self playsound( "deny" );
+            self playsound( "evt_perk_deny" );
 
             if ( isdefined( level.custom_pap_deny_vo_func ) )
                 player [[ level.custom_pap_deny_vo_func ]]();
