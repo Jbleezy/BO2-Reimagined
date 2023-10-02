@@ -666,6 +666,7 @@
 * Tower Trap (upgraded): upgrading no longer resets the duration of the trap
 * Zombies spawn in the Docks zone when in the Docks Gates zone
 * Zombies spawn in the Docks Gates zone when in the Docks zone
+* Quest: Blundergat gets full ammo when picked up (normally missing one clip)
 * Quest: number pad only needs each number to be shocked once in order to complete
 * Quest: can enter the plane in afterlife with any amount of players
 * Quest: can enter the plane in afterlife without Weasel
@@ -757,6 +758,7 @@
 * Soul boxes: decreased number of souls to close from 30 to 20
 * Dig spots: decreased number of digs to obtain golden shovel from 30 to 20
 * Dig spots: changed number of digs to obtain golden helmet to 40 (normally 5% chance to obtain after obtaining golden shovel)
+* Dig spots: dug up weapons get full ammo when picked up (normally missing one clip)
 * Perk bottle dig spots: give random perk
 * Perk bottle dig spots: visible and diggable without Zombie Blood
 * Perk bottle dig spots: increased number of rounds for next dig spot to spawn from 1 to 4

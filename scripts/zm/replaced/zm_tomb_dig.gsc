@@ -241,3 +241,42 @@ dig_up_weapon( digger )
     if ( player != digger )
         digger notify( "dig_up_weapon_shared" );
 }
+
+swap_weapon( str_weapon, e_player )
+{
+    str_current_weapon = e_player getcurrentweapon();
+
+    if ( str_weapon == "claymore_zm" )
+    {
+        if ( !e_player hasweapon( str_weapon ) )
+        {
+            e_player thread maps\mp\zombies\_zm_weap_claymore::show_claymore_hint( "claymore_purchased" );
+            e_player thread maps\mp\zombies\_zm_weap_claymore::claymore_setup();
+            e_player thread maps\mp\zombies\_zm_audio::create_and_play_dialog( "weapon_pickup", "grenade" );
+        }
+        else
+            e_player givemaxammo( str_weapon );
+
+        return;
+    }
+
+    if ( is_player_valid( e_player ) && !e_player.is_drinking && !is_placeable_mine( str_current_weapon ) && !is_equipment( str_current_weapon ) && level.revive_tool != str_current_weapon && "none" != str_current_weapon && !e_player hacker_active() )
+    {
+        if ( !e_player hasweapon( str_weapon ) )
+            e_player take_old_weapon_and_give_new( str_current_weapon, str_weapon );
+        else
+            e_player givemaxammo( str_weapon );
+    }
+}
+
+take_old_weapon_and_give_new( current_weapon, weapon )
+{
+    a_weapons = self getweaponslistprimaries();
+
+    if ( isdefined( a_weapons ) && a_weapons.size >= get_player_weapon_limit( self ) )
+        self takeweapon( current_weapon );
+
+    self giveweapon( weapon );
+    self givestartammo( weapon );
+    self switchtoweapon( weapon );
+}
