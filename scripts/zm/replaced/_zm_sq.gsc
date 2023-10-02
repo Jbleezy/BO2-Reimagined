@@ -44,15 +44,22 @@ navcomputer_waitfor_navcard()
 
 sq_give_player_all_perks()
 {
-    machines = array_randomize( getentarray( "zombie_vending", "targetname" ) );
     perks = [];
 
-    for ( i = 0; i < machines.size; i++ )
+    if ( isDefined( level._random_perk_machine_perk_list ) )
     {
-        if ( machines[i].script_noteworthy == "specialty_weapupgrade" )
-            continue;
+        perks = array_randomize( level._random_perk_machine_perk_list );
+    }
+    else
+    {
+        machines = array_randomize( getentarray( "zombie_vending", "targetname" ) );
+        for ( i = 0; i < machines.size; i++ )
+        {
+            if ( machines[i].script_noteworthy == "specialty_weapupgrade" )
+                continue;
 
-        perks[perks.size] = machines[i].script_noteworthy;
+            perks[perks.size] = machines[i].script_noteworthy;
+        }
     }
 
     foreach ( perk in perks )

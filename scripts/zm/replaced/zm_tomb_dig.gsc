@@ -160,7 +160,14 @@ waittill_dug( s_dig_spot )
 
 increment_player_perk_purchase_limit()
 {
-	self maps\mp\zombies\_zm_perks::give_random_perk();
+    perk = maps\mp\zombies\_zm_perk_random::get_weighted_random_perk(self);
+
+    if (self hasPerk(perk))
+    {
+        return;
+    }
+
+    self maps\mp\zombies\_zm_perks::give_perk(perk);
 }
 
 dig_up_weapon( digger )
