@@ -353,19 +353,18 @@ activate_tower_trap()
         foreach ( zombie in zombies )
         {
             if ( zombie istouching( self.range_trigger ) )
+            {
                 zombies_sorted[zombies_sorted.size] = zombie;
+            }
         }
 
         if ( zombies_sorted.size <= 0 )
         {
-            wait_network_frame();
+            wait 0.05;
             continue;
         }
-        else
-        {
-            wait_network_frame();
-            self tower_trap_fires( zombies_sorted );
-        }
+
+        self tower_trap_fires( zombies_sorted );
     }
 }
 
@@ -378,37 +377,33 @@ tower_trap_fires( a_zombies )
     }
 
     if ( a_zombies.size <= 0 )
+    {
         return;
+    }
 
     self endon( "tower_trap_off" );
     e_org = getstruct( self.range_trigger.target, "targetname" );
-    n_index = randomintrange( 0, a_zombies.size );
 
     while ( 1 )
     {
+        if ( a_zombies.size <= 0 )
+        {
+            wait 0.05;
+            return;
+        }
+
+        n_index = randomintrange( 0, a_zombies.size );
         e_target = a_zombies[n_index];
 
         if ( !isalive( e_target ) )
         {
             arrayremovevalue( a_zombies, e_target, 0 );
-
-            if ( a_zombies.size <= 0 )
-                return;
-
-            n_index = randomintrange( 0, a_zombies.size );
-
             continue;
         }
 
         if ( isplayer( e_target ) && e_target maps\mp\zombies\_zm_laststand::player_is_in_laststand() )
         {
             arrayremovevalue( a_zombies, e_target, 0 );
-
-            if ( a_zombies.size <= 0 )
-                return;
-
-            n_index = randomintrange( 0, a_zombies.size );
-
             continue;
         }
 
@@ -417,17 +412,14 @@ tower_trap_fires( a_zombies )
         if ( sighttracepassed( e_org.origin, v_zombietarget, 1, undefined ) )
         {
             magicbullet( self.weapon_name, e_org.origin, v_zombietarget );
+
             wait( self.trap_reload_time );
+
+            return;
         }
         else
         {
             arrayremovevalue( a_zombies, e_target, 0 );
-
-            if ( a_zombies.size <= 0 )
-                return;
-
-            n_index = randomintrange( 0, a_zombies.size );
-
             continue;
         }
     }

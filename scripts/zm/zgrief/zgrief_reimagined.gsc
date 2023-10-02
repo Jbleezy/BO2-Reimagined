@@ -1706,37 +1706,11 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 
 		if ( isDefined( level._effect[ "butterflies" ] ) )
 		{
-			pos = vpoint;
-			angle = vectorToAngles(eattacker getCentroid() - self getCentroid());
-
-			angle = (0, angle[1], 0);
-			stun_fx_amount = 3;
-
-			if(!isDefined(self.stun_fx))
-			{
-				// spawning in model right before playfx causes the fx not to play occasionally
-				// stun fx lasts longer than stun time, so alternate between different models
-				self.stun_fx = [];
-				self.stun_fx_ind = 0;
-
-				for(i = 0; i < stun_fx_amount; i++)
-				{
-					self.stun_fx[i] = spawn("script_model", pos);
-					self.stun_fx[i] setModel("tag_origin");
-				}
-			}
-
-			self.stun_fx[self.stun_fx_ind] unlink();
-			self.stun_fx[self.stun_fx_ind].origin = pos;
-			self.stun_fx[self.stun_fx_ind].angles = angle;
-			self.stun_fx[self.stun_fx_ind] linkTo(self);
-
-			playFXOnTag(level._effect["butterflies"], self.stun_fx[self.stun_fx_ind], "tag_origin");
-
-			self.stun_fx_ind = (self.stun_fx_ind + 1) % stun_fx_amount;
+			self do_game_mode_stun_fx(einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime);
 		}
 
 		self thread do_game_mode_shellshock();
+		self playsound( "zmb_player_hit_ding" );
 
 		return 0;
 	}
@@ -1875,42 +1849,7 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 
 		if ( isDefined( level._effect[ "butterflies" ] ) )
 		{
-			pos = vpoint;
-			angle = vectorToAngles(eattacker getCentroid() - self getCentroid());
-
-			if ( (isDefined( sweapon ) && weapontype( sweapon ) == "grenade") || (isDefined( sweapon ) && weapontype( sweapon ) == "projectile") )
-			{
-				pos_offset = vectorNormalize(vpoint - self getCentroid()) * 8;
-				pos_offset = (pos_offset[0], pos_offset[1], 0);
-				pos = self getCentroid() + pos_offset;
-				angle = vectorToAngles(vpoint - self getCentroid());
-			}
-
-			angle = (0, angle[1], 0);
-			stun_fx_amount = 3;
-
-			if(!isDefined(self.stun_fx))
-			{
-				// spawning in model right before playfx causes the fx not to play occasionally
-				// stun fx lasts longer than stun time, so alternate between different models
-				self.stun_fx = [];
-				self.stun_fx_ind = 0;
-
-				for(i = 0; i < stun_fx_amount; i++)
-				{
-					self.stun_fx[i] = spawn("script_model", pos);
-					self.stun_fx[i] setModel("tag_origin");
-				}
-			}
-
-			self.stun_fx[self.stun_fx_ind] unlink();
-			self.stun_fx[self.stun_fx_ind].origin = pos;
-			self.stun_fx[self.stun_fx_ind].angles = angle;
-			self.stun_fx[self.stun_fx_ind] linkTo(self);
-
-			playFXOnTag(level._effect["butterflies"], self.stun_fx[self.stun_fx_ind], "tag_origin");
-
-			self.stun_fx_ind = (self.stun_fx_ind + 1) % stun_fx_amount;
+			self do_game_mode_stun_fx(einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime);
 		}
 
 		self thread do_game_mode_shellshock(is_melee, is_weapon_upgraded(sweapon));
@@ -1931,6 +1870,46 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 			self store_player_damage_info(eattacker, sweapon, smeansofdeath);
 		}
 	}
+}
+
+do_game_mode_stun_fx(einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime)
+{
+	pos = vpoint;
+	angle = vectorToAngles(eattacker getCentroid() - self getCentroid());
+
+	if ( (isDefined( sweapon ) && weapontype( sweapon ) == "grenade") || (isDefined( sweapon ) && weapontype( sweapon ) == "projectile") )
+	{
+		pos_offset = vectorNormalize(vpoint - self getCentroid()) * 8;
+		pos_offset = (pos_offset[0], pos_offset[1], 0);
+		pos = self getCentroid() + pos_offset;
+		angle = vectorToAngles(vpoint - self getCentroid());
+	}
+
+	angle = (0, angle[1], 0);
+	stun_fx_amount = 3;
+
+	if(!isDefined(self.stun_fx))
+	{
+		// spawning in model right before playfx causes the fx not to play occasionally
+		// stun fx lasts longer than stun time, so alternate between different models
+		self.stun_fx = [];
+		self.stun_fx_ind = 0;
+
+		for(i = 0; i < stun_fx_amount; i++)
+		{
+			self.stun_fx[i] = spawn("script_model", pos);
+			self.stun_fx[i] setModel("tag_origin");
+		}
+	}
+
+	self.stun_fx[self.stun_fx_ind] unlink();
+	self.stun_fx[self.stun_fx_ind].origin = pos;
+	self.stun_fx[self.stun_fx_ind].angles = angle;
+	self.stun_fx[self.stun_fx_ind] linkTo(self);
+
+	playFXOnTag(level._effect["butterflies"], self.stun_fx[self.stun_fx_ind], "tag_origin");
+
+	self.stun_fx_ind = (self.stun_fx_ind + 1) % stun_fx_amount;
 }
 
 do_game_mode_shellshock(is_melee = 0, is_upgraded = 0)
