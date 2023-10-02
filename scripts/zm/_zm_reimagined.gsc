@@ -357,7 +357,7 @@ post_all_players_spawned()
 	level.equipment_etrap_needs_power = 0;
 	level.equipment_turret_needs_power = 0;
 	level.equipment_subwoofer_needs_power = 0;
-	level.limited_weapons["ray_gun_zm"] = undefined;
+	level.limited_weapons["ray_gun_zm"] = 8;
 	level.limited_weapons["raygun_mark2_zm"] = 1;
 
 	if (isDefined(level.zombie_weapons["slipgun_zm"]))

@@ -10,6 +10,8 @@
 
 triggerweaponslockerisvalidweaponpromptupdate( player, weaponname )
 {
+	self thread show_current_weapon(player);
+
     retrievingweapon = player wl_has_stored_weapondata();
 
     if ( !retrievingweapon )
@@ -44,8 +46,6 @@ triggerweaponslockerisvalidweaponpromptupdate( player, weaponname )
 
         self sethintstring( &"ZOMBIE_WEAPON_LOCKER_GRAB" );
     }
-
-    self thread show_current_weapon(player);
 }
 
 show_current_weapon(player)

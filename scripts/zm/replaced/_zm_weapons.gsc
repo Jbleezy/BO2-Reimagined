@@ -439,7 +439,7 @@ weapon_give( weapon, is_upgrade, magic_box, nosound )
 	{
 		self play_sound_on_ent( "purchase" );
 	}
-	if ( is_true( magic_box ) && is_limited_weapon( weapon ) )
+	if ( is_true( magic_box ) && is_limited_weapon( weapon ) && level.limited_weapons[ weapon ] == 1 )
 	{
 		playsoundatposition( "mus_raygun_stinger", ( 0, 0, 0 ) );
 	}
