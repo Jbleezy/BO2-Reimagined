@@ -203,7 +203,7 @@ meat_stink( who )
 			player.ignoreme = 1;
 		}
 
-		player print_meat_msg(who, "grabbed");
+		player thread print_meat_msg(who, "grabbed");
 
 		if (level.scr_zm_ui_gametype_obj == "zmeat")
 		{
@@ -409,7 +409,7 @@ meat_stink_player( who )
 			player.ignoreme = 1;
 		}
 
-		player print_meat_msg(who, "has");
+		player thread print_meat_msg(who, "has");
 	}
 
 	who thread meat_stink_ignoreme_think();
@@ -446,6 +446,11 @@ meat_stink_player_create()
 
 print_meat_msg(meat_player, verb)
 {
+	self endon("disconnect");
+	meat_player endon("disconnect");
+
+	wait 0.05; // must wait to show after any obituaries that happened on the same frame
+
 	color = "";
 	if(self.team == meat_player.team)
 	{
