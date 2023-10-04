@@ -597,7 +597,9 @@ insta_kill_powerup( drop_item, player )
 	temp_enta = spawn( "script_origin", ( 0, 0, 0 ) );
 	temp_enta playloopsound( "zmb_insta_kill_loop" );
 
-	level.zombie_vars[ team ][ "zombie_insta_kill" ] = 1;
+	level.zombie_vars[ team ][ "zombie_half_damage" ] = 0;
+	level.zombie_vars[ team ][ "zombie_insta_kill" ] = !is_true(level.zombie_vars[ team ][ "zombie_powerup_half_damage_on" ]);
+
 	level.zombie_vars[ team ][ "zombie_powerup_insta_kill_on" ] = 1;
 
 	while ( level.zombie_vars[ team ][ "zombie_powerup_insta_kill_time" ] >= 0 )
@@ -606,7 +608,9 @@ insta_kill_powerup( drop_item, player )
 		level.zombie_vars[ team ][ "zombie_powerup_insta_kill_time" ] -= 0.05;
 	}
 
+	level.zombie_vars[ team ][ "zombie_half_damage" ] = is_true(level.zombie_vars[ team ][ "zombie_powerup_half_damage_on" ]);
 	level.zombie_vars[ team ][ "zombie_insta_kill" ] = 0;
+
 	level.zombie_vars[ team ][ "zombie_powerup_insta_kill_on" ] = 0;
 	level.zombie_vars[ team ][ "zombie_powerup_insta_kill_time" ] = time;
 
@@ -638,7 +642,9 @@ half_damage_powerup( drop_item, player )
 		return;
 	}
 
-	level.zombie_vars[ team ][ "zombie_half_damage" ] = 1;
+	level.zombie_vars[ team ][ "zombie_insta_kill" ] = 0;
+	level.zombie_vars[ team ][ "zombie_half_damage" ] = !is_true(level.zombie_vars[ team ][ "zombie_powerup_insta_kill_on" ]);
+
 	level.zombie_vars[ team ][ "zombie_powerup_half_damage_on" ] = 1;
 
 	while ( level.zombie_vars[ team ][ "zombie_powerup_half_damage_time" ] >= 0 )
@@ -647,7 +653,9 @@ half_damage_powerup( drop_item, player )
 		level.zombie_vars[ team ][ "zombie_powerup_half_damage_time" ] -= 0.05;
 	}
 
+	level.zombie_vars[ team ][ "zombie_insta_kill" ] = is_true(level.zombie_vars[ team ][ "zombie_powerup_insta_kill_on" ]);
 	level.zombie_vars[ team ][ "zombie_half_damage" ] = 0;
+
 	level.zombie_vars[ team ][ "zombie_powerup_half_damage_on" ] = 0;
 	level.zombie_vars[ team ][ "zombie_powerup_half_damage_time" ] = time;
 }
