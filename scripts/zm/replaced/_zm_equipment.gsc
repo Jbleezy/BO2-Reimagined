@@ -113,7 +113,7 @@ item_damage( damage )
 
         self.damage += damage;
 
-        if ( self.damage > 1500 )
+        if ( self.damage >= 1500 )
             self thread maps\mp\zombies\_zm_equipment::dropped_equipment_destroy( 1 );
     }
 }
@@ -128,7 +128,7 @@ player_damage_equipment( equipment, damage, origin, stub )
 
     self.equipment_damage[equipment] += damage;
 
-    if ( self.equipment_damage[equipment] > 1500 )
+    if ( self.equipment_damage[equipment] >= 1500 )
     {
 		thread maps\mp\zombies\_zm_unitrigger::unregister_unitrigger( stub );
 
