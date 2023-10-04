@@ -2274,28 +2274,37 @@ grief_laststand_weapons_return()
 
 	self.grief_savedweapon_weapons = undefined;
 
+	weapon = undefined;
+	primaries = self getweaponslistprimaries();
+
 	if ( isDefined( self.pre_temp_weapon ) && self hasWeapon( self.pre_temp_weapon ) )
 	{
-		self switchtoweapon( self.pre_temp_weapon );
+		weapon = self.pre_temp_weapon;
 		self.pre_temp_weapon = undefined;
-		return 1;
 	}
-
-	if ( isDefined( self.pre_meat_weapon ) && self hasWeapon( self.pre_meat_weapon ) )
+	else if ( isDefined( self.pre_meat_weapon ) && self hasWeapon( self.pre_meat_weapon ) )
 	{
-		self switchtoweapon( self.pre_meat_weapon );
+		weapon = self.pre_meat_weapon;
 		self.pre_meat_weapon = undefined;
-		return 1;
 	}
-
-	if ( isDefined( self.grief_savedweapon_currentweapon ) && self hasWeapon( self.grief_savedweapon_currentweapon ) )
+	else if ( isDefined( self.grief_savedweapon_currentweapon ) && self hasWeapon( self.grief_savedweapon_currentweapon ) )
 	{
-		self switchtoweapon( self.grief_savedweapon_currentweapon );
+		weapon = self.grief_savedweapon_currentweapon;
 		self.grief_savedweapon_currentweapon = undefined;
-		return 1;
 	}
 
-	primaries = self getweaponslistprimaries();
+	if ( isDefined( weapon ) )
+	{
+		foreach ( primary in primaries )
+		{
+			if ( primary == weapon )
+			{
+				self switchtoweapon( primary );
+				return 1;
+			}
+		}
+	}
+
 	if ( primaries.size > 0 )
 	{
 		self switchtoweapon( primaries[ 0 ] );
