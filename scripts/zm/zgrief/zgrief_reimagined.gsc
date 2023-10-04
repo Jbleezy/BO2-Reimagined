@@ -1973,9 +1973,7 @@ remove_player_damage_info()
 
 	health = self.health;
 	time = getTime();
-	max_time = 2.5 * 1000;
-
-	wait_network_frame(); // need to wait at least one frame
+	max_time = 3000;
 
 	while(((getTime() - time) < max_time || self.health < health) && is_player_valid(self))
 	{
