@@ -139,7 +139,7 @@ round_end(winner)
 
 		if (isDefined(level.increment_score_func))
 		{
-			[[level.increment_score_func]](team);
+			[[level.increment_score_func]](team, 1, false);
 		}
 	}
 
