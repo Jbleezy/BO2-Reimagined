@@ -2746,6 +2746,14 @@ containment_think()
 						player.obj_waypoint.y = (zone.volumes[0].origin[1] + other_zone.volumes[0].origin[1]) / 2;
 						player.obj_waypoint.z = (zone.volumes[0].origin[2] + other_zone.volumes[0].origin[2]) / 2;
 					}
+					else if(level.script == "zm_transit" && zone_name == "zone_far_ext")
+					{
+						other_zone = level.zones["zone_farm_house"];
+						other_zone2 = level.zones["zone_brn"];
+						player.obj_waypoint.x = (other_zone.volumes[0].origin[0] + other_zone2.volumes[0].origin[0]) / 2;
+						player.obj_waypoint.y = (other_zone.volumes[0].origin[1] + other_zone2.volumes[0].origin[1]) / 2;
+						player.obj_waypoint.z = (other_zone.volumes[0].origin[2] + other_zone2.volumes[0].origin[2]) / 2;
+					}
 					else
 					{
 						player.obj_waypoint.x = zone.volumes[0].origin[0];
@@ -2757,13 +2765,11 @@ containment_think()
 					{
 						player.obj_waypoint.z -= 100;
 					}
-
-					if(level.script == "zm_prison" && zone_name == "zone_dock_gondola")
+					else if(level.script == "zm_prison" && zone_name == "zone_dock_gondola")
 					{
 						player.obj_waypoint.z += 200;
 					}
-
-					if(level.script == "zm_prison" && zone_name == "zone_dock_puzzle")
+					else if(level.script == "zm_prison" && zone_name == "zone_dock_puzzle")
 					{
 						player.obj_waypoint.z -= 250;
 					}
