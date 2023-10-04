@@ -449,10 +449,13 @@ print_meat_msg(meat_player, verb)
 	self endon("disconnect");
 	meat_player endon("disconnect");
 
-	wait 0.05; // must wait to show after any obituaries that happened on the same frame
+	if (verb == "grabbed" || verb == "has")
+	{
+		wait 0.05; // must wait to show after any obituaries that happened on the same frame
+	}
 
 	color = "";
-	if(self.team == meat_player.team)
+	if (self.team == meat_player.team)
 	{
 		color = "^8";
 	}
