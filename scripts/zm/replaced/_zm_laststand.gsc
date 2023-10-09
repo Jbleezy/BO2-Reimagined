@@ -5,6 +5,8 @@
 
 revive_do_revive( playerbeingrevived, revivergun )
 {
+	self thread revive_give_back_weapons_on_player_suicide( playerbeingrevived, revivergun );
+
 	self thread revive_check_for_weapon_change();
 
 	playerbeingrevived_player = playerbeingrevived;
@@ -195,6 +197,17 @@ revive_do_revive( playerbeingrevived, revivergun )
 	}
 
 	return revived;
+}
+
+revive_give_back_weapons_on_player_suicide( playerbeingrevived, revivergun )
+{
+	self notify( "revive_give_back_weapons_on_player_suicide" );
+	self endon( "revive_give_back_weapons_on_player_suicide" );
+	self endon( "do_revive_ended_normally" );
+
+	playerbeingrevived waittill( "player_suicide" );
+
+	self maps\mp\zombies\_zm_laststand::revive_give_back_weapons( revivergun );
 }
 
 revive_check_for_weapon_change()
