@@ -1847,13 +1847,19 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 
 			dir = vectorNormalize(dir);
 			self setVelocity(amount * dir);
-
-			self store_player_damage_info(eattacker, sweapon, smeansofdeath);
 		}
 
 		if ( is_true( self._being_shellshocked ) && !is_melee )
 		{
 			return;
+		}
+
+		if ( !is_true( self._being_shellshocked ) )
+		{
+			score = 100 * maps\mp\zombies\_zm_score::get_points_multiplier(eattacker);
+			self stun_score_steal(eattacker, score);
+
+			eattacker.killsdenied++;
 		}
 
 		if ( isDefined( level._effect[ "butterflies" ] ) )
@@ -1864,20 +1870,7 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 		self thread do_game_mode_shellshock(is_melee, is_weapon_upgraded(sweapon));
 		self playsound( "zmb_player_hit_ding" );
 
-		score = 50;
-		if(is_melee)
-		{
-			score = 100;
-		}
-
-		score *= maps\mp\zombies\_zm_score::get_points_multiplier(eattacker);
-		self stun_score_steal(eattacker, score);
-		eattacker.killsdenied++;
-
-		if(!is_melee)
-		{
-			self store_player_damage_info(eattacker, sweapon, smeansofdeath);
-		}
+		self store_player_damage_info(eattacker, sweapon, smeansofdeath);
 	}
 }
 
@@ -1886,7 +1879,7 @@ do_game_mode_stun_fx(einflictor, eattacker, idamage, idflags, smeansofdeath, swe
 	pos = vpoint;
 	angle = vectorToAngles(eattacker getCentroid() - self getCentroid());
 
-	if ( (isDefined( sweapon ) && weapontype( sweapon ) == "grenade") || (isDefined( sweapon ) && weapontype( sweapon ) == "projectile") )
+	if ( isDefined( sweapon ) && ( weapontype( sweapon ) == "grenade" || weapontype( sweapon ) == "projectile" ) )
 	{
 		pos_offset = vectorNormalize(vpoint - self getCentroid()) * 8;
 		pos_offset = (pos_offset[0], pos_offset[1], 0);

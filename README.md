@@ -795,10 +795,8 @@
 * Claymores are no longer triggered by enemy players
 * Stun fx is linked to the player
 * Stun fx shows in the correct position for projectiles
-* Stunning enemy players steals 50 points from them
-* Meleeing enemy players steals 100 points from them
+* Stunning enemy players steals 100 points from them
 * Downing enemy players awards 500 points
-* Bleeding out enemy players awards 1000 points to all teammates
 * Landing on top of an enemy player that is prone downs them
 * Increased max radius for landing on top of an enemy player by 16.66%
 * Decreased max height for landing on top of an enemy player by 50%
@@ -823,6 +821,7 @@
 #### Grief
 * Gain score by making enemy players bleed out
 * Make 10 enemy players bleed out to win the game
+* Bleeding out enemy players awards 1000 points to all teammates
 * Players respawn after being down for 10 seconds
 * Players retain perks
 
@@ -831,6 +830,7 @@
 * Win 3 rounds to win the game
 * Tie round if both teams die within 5 seconds of eachother
 * Players start each round with at least 10000 points
+* Bleeding out enemy players awards 1000 points to all teammates
 * Enemies remaining audio and text displays when enemy players down instead of when enemy players bleed out
 * Last player alive audio only plays for the player who is alive instead of every player on the team
 * Players do not get their weapons back on the next round if they bled out
