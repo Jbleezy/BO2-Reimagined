@@ -2676,10 +2676,10 @@ wallbuy_location_changes()
 		{
 			if(level.scr_zm_ui_gametype == "zstandard")
 			{
-				remove_wallbuy("tazer_knuckles_zm");
+				level thread remove_wallbuy("tazer_knuckles_zm");
 			}
 
-			remove_wallbuy("rottweil72_zm");
+			level thread remove_wallbuy("rottweil72_zm");
 
 			add_wallbuy("870mcs_zm", "zclassic");
 			add_wallbuy("claymore_zm");
@@ -2700,6 +2700,10 @@ wallbuy_location_changes()
 
 remove_wallbuy( name )
 {
+	flag_wait( "start_zombie_round_logic" );
+
+	wait 0.05;
+
 	for(i = 0; i < level._unitriggers.trigger_stubs.size; i++)
 	{
 		if(IsDefined(level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade) && level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade == name)
