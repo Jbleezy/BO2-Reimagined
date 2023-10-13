@@ -56,6 +56,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_ai_sloth::sloth_init_update_funcs, scripts\zm\replaced\_zm_ai_sloth::sloth_init_update_funcs);
 	replaceFunc(maps\mp\zombies\_zm_ai_sloth::sloth_check_ragdolls, scripts\zm\replaced\_zm_ai_sloth::sloth_check_ragdolls);
 	replaceFunc(maps\mp\zombies\_zm_ai_sloth::sloth_ragdoll_zombie, scripts\zm\replaced\_zm_ai_sloth::sloth_ragdoll_zombie);
+	replaceFunc(maps\mp\zombies\_zm_ai_sloth::wait_start_candy_booze, scripts\zm\replaced\_zm_ai_sloth::wait_start_candy_booze);
 	replaceFunc(maps\mp\zombies\_zm_buildables_pooled::add_buildable_to_pool, scripts\zm\replaced\_zm_buildables_pooled::add_buildable_to_pool);
 	replaceFunc(maps\mp\zombies\_zm_buildables_pooled::randomize_pooled_buildables, scripts\zm\replaced\_zm_buildables_pooled::randomize_pooled_buildables);
 	replaceFunc(maps\mp\zombies\_zm_equip_subwoofer::startsubwooferdecay, scripts\zm\replaced\_zm_equip_subwoofer::startsubwooferdecay);
