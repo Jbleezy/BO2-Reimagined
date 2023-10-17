@@ -360,6 +360,7 @@
 
 ### Tombstone Soda
 * Added in solo
+* Added in Grief
 * Powerup no longer removed when revived
 * Powerup removed when downed again after being revived or respawning
 * Unlimited time to pick up powerup
@@ -585,7 +586,6 @@
 * Moved Quick Revive to Stamin-Up's location on Town
 * Moved Stamin-Up to its location on Tranzit
 * Moved Tombstone Soda to the laundry room front door
-* Grief: added Tombstone Soda
 
 #### Tunnel
 * Added Survival and Grief game modes
@@ -597,7 +597,7 @@
 #### Cornfield
 * Added Survival and Grief game modes
 * Wallbuys: M14, Olympia, B23R, MP5, AK74u, M16, Remington 870, Semtex, Claymore
-* 2 Mystery Box locations
+* Added Mystery Box location
 * No perks
 * Pack-a-Punch
 

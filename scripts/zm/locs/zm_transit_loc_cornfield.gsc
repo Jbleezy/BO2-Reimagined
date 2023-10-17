@@ -91,30 +91,8 @@ precache()
 	collision setmodel( "collision_clip_32x32x128" );
     collision disconnectpaths();
 
-	start_chest2_zbarrier = getEnt( "depot_chest_zbarrier", "script_noteworthy" );
-	start_chest2_zbarrier.origin = ( 7458, -464, -197 );
-	start_chest2_zbarrier.angles = ( 0, -90, 0 );
-	start_chest2 = spawnStruct();
-	start_chest2.origin = start_chest2_zbarrier.origin;
-	start_chest2.angles = start_chest2_zbarrier.angles;
-	start_chest2.script_noteworthy = "depot_chest";
-	start_chest2.zombie_cost = 950;
-	collision = spawn( "script_model", start_chest2_zbarrier.origin, 1 );
-	collision.angles = start_chest2_zbarrier.angles;
-	collision setmodel( "collision_clip_32x32x128" );
-    collision disconnectpaths();
-	collision = spawn( "script_model", start_chest2_zbarrier.origin - ( 0, 32, 0 ), 1 );
-	collision.angles = start_chest2_zbarrier.angles;
-	collision setmodel( "collision_clip_32x32x128" );
-    collision disconnectpaths();
-	collision = spawn( "script_model", start_chest2_zbarrier.origin + ( 0, 32, 0 ), 1 );
-	collision.angles = start_chest2_zbarrier.angles;
-	collision setmodel( "collision_clip_32x32x128" );
-    collision disconnectpaths();
-
 	level.chests = [];
 	level.chests[0] = start_chest;
-	level.chests[1] = start_chest2;
 }
 
 main()
@@ -211,18 +189,49 @@ init_barriers()
     model.angles = (0, -25, 0);
     model setmodel("collision_clip_128x128x128");
     model disconnectpaths();
+
+    origin = (9720, -1090, -212);
+    angles = (0, 90, 0);
+
+    model = spawn( "script_model", origin, 1);
+    model.angles = angles;
+    model setmodel("veh_t6_civ_smallwagon_dead");
+    model disconnectpaths();
+
+    model = spawn( "script_model", origin + (anglesToRight(angles) * 24) + (anglesToUp(angles) * 128), 1);
+    model.angles = angles;
+    model setmodel("collision_clip_wall_256x256x10");
+    model disconnectpaths();
+
+    origin = (9900, -232, -217);
+    angles = (0, -90, 0);
+
+    model = spawn( "script_model", origin, 1);
+    model.angles = angles;
+    model setmodel("veh_t6_civ_microbus_dead");
+    model disconnectpaths();
+
+    model = spawn( "script_model", origin + (anglesToRight(angles) * -48) + (anglesToUp(angles) * 128), 1);
+    model.angles = angles;
+    model setmodel("collision_clip_wall_256x256x10");
+    model disconnectpaths();
 }
 
 disable_zombie_spawn_locations()
 {
 	for ( z = 0; z < level.zone_keys.size; z++ )
 	{
+        if ( level.zone_keys[ z ] != "zone_amb_cornfield" )
+        {
+            continue;
+        }
+
         zone = level.zones[ level.zone_keys[ z ] ];
 
         i = 0;
         while ( i < zone.spawn_locations.size )
         {
-            if (zone.spawn_locations[i].origin == (8394, -2545, -205.16))
+            if (zone.spawn_locations[i].origin[0] <= 9700)
             {
                 zone.spawn_locations[i].is_enabled = false;
             }
