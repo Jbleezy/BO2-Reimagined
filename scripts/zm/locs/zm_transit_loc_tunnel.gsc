@@ -11,7 +11,7 @@
 struct_init()
 {
     scripts\zm\replaced\utility::register_perk_struct( "specialty_armorvest", "zombie_vending_jugg", ( -11541, -2630, 194 ), ( 0, -180, 0 ) );
-    scripts\zm\replaced\utility::register_perk_struct( "specialty_quickrevive", "zombie_vending_quickrevive", ( -10780, -2565, 224 ), ( 0, 270, 0 ) );
+    scripts\zm\replaced\utility::register_perk_struct( "specialty_quickrevive", "zombie_vending_quickrevive", ( -10780, -2565, 224 ), ( 0, 274, 0 ) );
     scripts\zm\replaced\utility::register_perk_struct( "specialty_fastreload", "zombie_vending_sleight", ( -11373, -1674, 192 ), ( 0, -89, 0 ) );
     scripts\zm\replaced\utility::register_perk_struct( "specialty_rof", "zombie_vending_doubletap2", ( -11170, -590, 196 ), ( 0, -10, 0 ) );
     scripts\zm\replaced\utility::register_perk_struct( "specialty_longersprint", "zombie_vending_marathon", ( -11681, -734, 228 ),  ( 0, -19, 0 ) );
@@ -31,18 +31,35 @@ struct_init()
     respawn_array = getstructarray(respawnpoints[ind].target, "targetname");
     foreach(respawn in respawn_array)
     {
-        // if(respawn.script_int == 2)
-        // {
-        //     respawn.angles += (0, 180, 0);
-        // }
-
         scripts\zm\replaced\utility::register_map_initial_spawnpoint( respawn.origin, respawn.angles, respawn.script_int );
     }
 }
 
 precache()
 {
+    start_chest_zbarrier = getEnt( "start_chest_zbarrier", "script_noteworthy" );
+	start_chest_zbarrier.origin = ( -10803, -1897, 196 );
+	start_chest_zbarrier.angles = ( 0, 89, 0 );
+	start_chest = spawnStruct();
+	start_chest.origin = start_chest_zbarrier.origin;
+	start_chest.angles = start_chest_zbarrier.angles;
+	start_chest.script_noteworthy = "start_chest";
+	start_chest.zombie_cost = 950;
+	collision = spawn( "script_model", start_chest_zbarrier.origin + ( 0, 0, 64 ), 1 );
+	collision.angles = start_chest_zbarrier.angles;
+	collision setmodel( "collision_clip_32x32x128" );
+    collision disconnectpaths();
+	collision = spawn( "script_model", start_chest_zbarrier.origin + ( 0, -32, 64 ), 1 );
+	collision.angles = start_chest_zbarrier.angles;
+	collision setmodel( "collision_clip_32x32x128" );
+    collision disconnectpaths();
+	collision = spawn( "script_model", start_chest_zbarrier.origin + ( 0, 32, 64 ), 1 );
+	collision.angles = start_chest_zbarrier.angles;
+	collision setmodel( "collision_clip_32x32x128" );
+    collision disconnectpaths();
 
+	level.chests = [];
+	level.chests[0] = start_chest;
 }
 
 main()
@@ -50,13 +67,14 @@ main()
 	init_wallbuys();
 	init_barriers();
     disable_zombie_spawn_locations();
+    maps\mp\zombies\_zm_magicbox::treasure_chest_init( random( array( "start_chest" ) ) );
 	scripts\zm\locs\loc_common::init();
 }
 
 init_wallbuys()
 {
 	scripts\zm\replaced\utility::wallbuy( "m14_zm", "m14", "weapon_upgrade", ( -11166, -2844, 247 ), ( 0, -86, 0 ) );
-    scripts\zm\replaced\utility::wallbuy( "rottweil72_zm", "olympia", "weapon_upgrade", ( -10790, -1896, 247 ), ( 0, 88, 0 ) );
+    scripts\zm\replaced\utility::wallbuy( "rottweil72_zm", "olympia", "weapon_upgrade", ( -10735, -2960, 247 ), ( 0, 97, 0 ) );
     scripts\zm\replaced\utility::wallbuy( "ak74u_zm", "ak74u", "weapon_upgrade", ( -10656, -752, 247 ), ( 0, 83, 0 ) );
     scripts\zm\replaced\utility::wallbuy( "m16_zm", "m16", "weapon_upgrade", ( -11839, -1695.1, 287 ), ( 0, 270, 0 ) );
     scripts\zm\replaced\utility::wallbuy( "sticky_grenade_zm", "sticky_grenade", "weapon_upgrade", ( -11839, -2406, 283 ), ( 0, -93, 0 ) );
