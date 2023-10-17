@@ -316,6 +316,7 @@ set_grief_vars()
 	level.pregame_minplayers = getDvarInt("party_minplayers");
 
 	level.noroundnumber = 1;
+	level.snr_round_number = 1;
 	level.zombie_powerups["meat_stink"].solo = 1;
 	level.zombie_powerups["meat_stink"].func_should_drop_with_regular_powerups = ::func_should_drop_meat;
 	level.custom_end_screen = ::custom_end_screen;
@@ -1119,7 +1120,7 @@ round_start_wait(time, initial)
 	text = "MATCH BEGINS IN";
 	if(level.scr_zm_ui_gametype_obj == "zsnr")
 	{
-		text = "ROUND " + level.round_number + " BEGINS IN";
+		text = "ROUND " + level.snr_round_number + " BEGINS IN";
 	}
 
 	countdown_hud = scripts\zm\replaced\_zm::countdown_hud(text, time);
