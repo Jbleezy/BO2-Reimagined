@@ -713,7 +713,7 @@
 * Quest (Richtofen): Richtofen zombie can only drop powerup if killed by a player
 
 #### Borough
-* Tunnels and bank area disabled
+* Upper tunnels and bank area disabled
 * Players spawn at Stables
 * Mystery Box initially spawns at a random location
 * Added B23R, M16, Claymore, and Bowie Knife wallbuys at their locations on Buried

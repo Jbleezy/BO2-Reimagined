@@ -187,49 +187,6 @@ buildbuildables()
 
 disable_tunnels()
 {
-	// stables tunnel entrance
-	origin = (-1502, -262, 26);
-	angles = ( 0, 90, 5 );
-	collision = spawn( "script_model", origin + anglesToUp(angles) * 64 );
-	collision.angles = angles;
-	collision setmodel( "collision_wall_128x128x10_standard" );
-	model = spawn( "script_model", origin + (0, 60, 0) );
-	model.angles = angles;
-	model setmodel( "p6_zm_bu_wood_door_bare" );
-	model = spawn( "script_model", origin + (0, -60, 0) );
-	model.angles = angles;
-	model setmodel( "p6_zm_bu_wood_door_bare_right" );
-
-	// stables tunnel exit
-	origin = (-22, -1912, 269);
-	angles = ( 0, -90, -10 );
-	collision = spawn( "script_model", origin + anglesToUp(angles) * 128 );
-	collision.angles = angles;
-	collision setmodel( "collision_wall_256x256x10_standard" );
-	model = spawn( "script_model", origin );
-	model.angles = angles;
-	model setmodel( "p6_zm_bu_sloth_blocker_medium" );
-
-	// saloon tunnel entrance
-	origin = (488, -1778, 188);
-	angles = ( 0, 0, -10 );
-	collision = spawn( "script_model", origin + anglesToUp(angles) * 64 );
-	collision.angles = angles;
-	collision setmodel( "collision_wall_128x128x10_standard" );
-	model = spawn( "script_model", origin );
-	model.angles = angles;
-	model setmodel( "p6_zm_bu_sloth_blocker_medium" );
-
-	// saloon tunnel exit
-	origin = (120, -1984, 228);
-	angles = ( 0, 45, -10 );
-	collision = spawn( "script_model", origin + anglesToUp(angles) * 128 );
-	collision.angles = angles;
-	collision setmodel( "collision_wall_256x256x10_standard" );
-	model = spawn( "script_model", origin );
-	model.angles = angles;
-	model setmodel( "p6_zm_bu_sloth_blocker_medium" );
-
 	// main tunnel saloon side
 	origin = (770, -863, 320);
 	angles = ( 0, 180, -35 );
@@ -271,16 +228,6 @@ disable_tunnels()
 	collision.angles = angles;
 	collision setmodel( "collision_wall_128x128x10_standard" );
 
-	// gunsmith debris
-	debris_trigs = getentarray( "zombie_debris", "targetname" );
-	foreach ( debris_trig in debris_trigs )
-	{
-		if ( debris_trig.target == "pf728_auto2534" )
-		{
-			debris_trig delete();
-		}
-	}
-
 	// bank top
 	model = spawn( "script_model", (-371.839, -448.016, 224.125));
 	model.angles = (0, 180, -90);
@@ -309,12 +256,6 @@ disable_tunnels()
 	model disconnectpaths();
 
 	// zombie spawns
-	level.zones["zone_tunnel_gun2saloon"].is_enabled = 0;
-	level.zones["zone_tunnel_gun2saloon"].is_spawning_allowed = 0;
-	level.zones["zone_tunnel_gun2stables"].is_enabled = 0;
-	level.zones["zone_tunnel_gun2stables"].is_spawning_allowed = 0;
-	level.zones["zone_tunnel_gun2stables2"].is_enabled = 0;
-	level.zones["zone_tunnel_gun2stables2"].is_spawning_allowed = 0;
 	level.zones["zone_tunnels_center"].is_enabled = 0;
 	level.zones["zone_tunnels_center"].is_spawning_allowed = 0;
 	level.zones["zone_tunnels_north"].is_enabled = 0;
@@ -329,14 +270,6 @@ disable_tunnels()
 	level.zones["zone_tunnels_south3"].is_spawning_allowed = 0;
 	level.zones["zone_bank"].is_enabled = 0;
 	level.zones["zone_bank"].is_spawning_allowed = 0;
-
-	foreach ( spawn_location in level.zones["zone_stables"].spawn_locations )
-	{
-		if ( spawn_location.origin == ( -1551, -611, 36.69 ) )
-		{
-			spawn_location.is_enabled = false;
-		}
-	}
 
 	// player spawns
 	invalid_zones = array("zone_start", "zone_tunnels_center", "zone_tunnels_north", "zone_tunnels_south");
