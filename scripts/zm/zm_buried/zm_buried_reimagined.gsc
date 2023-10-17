@@ -467,6 +467,11 @@ sloth_trap()
 		level.sloth dance_action();
 
 		level.sloth maps\mp\zombies\_zm_ai_sloth::sloth_set_state( "jail_wait" );
+
+		while (level.sloth.state != "jail_idle")
+		{
+			wait 0.05;
+		}
 	}
 }
 
