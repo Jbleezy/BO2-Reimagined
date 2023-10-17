@@ -1575,23 +1575,23 @@ get_zone_display_name(zone)
 		}
 		else if (zone == "zone_tunnels_north")
 		{
-			name = "Courthouse Tunnels 2";
+			name = "North Tunnels 2";
 		}
 		else if (zone == "zone_tunnels_north2")
 		{
-			name = "Courthouse Tunnels 1";
+			name = "North Tunnels 1";
 		}
 		else if (zone == "zone_tunnels_south")
 		{
-			name = "Saloon Tunnels 3";
+			name = "South Tunnels 3";
 		}
 		else if (zone == "zone_tunnels_south2")
 		{
-			name = "Saloon Tunnels 2";
+			name = "South Tunnels 2";
 		}
 		else if (zone == "zone_tunnels_south3")
 		{
-			name = "Saloon Tunnels 1";
+			name = "South Tunnels 1";
 		}
 		else if (zone == "zone_street_lightwest")
 		{
@@ -1639,11 +1639,11 @@ get_zone_display_name(zone)
 		}
 		else if (zone == "zone_tunnel_gun2stables")
 		{
-			name = "Stables To Gunsmith Tunnel 2";
+			name = "Stables & Gunsmith Tunnel 2";
 		}
 		else if (zone == "zone_tunnel_gun2stables2")
 		{
-			name = "Stables To Gunsmith Tunnel";
+			name = "Stables & Gunsmith Tunnel 1";
 		}
 		else if (zone == "zone_street_darkeast")
 		{
@@ -1659,7 +1659,7 @@ get_zone_display_name(zone)
 		}
 		else if (zone == "zone_tunnel_gun2saloon")
 		{
-			name = "Saloon To Gunsmith Tunnel";
+			name = "Saloon Tunnel";
 		}
 		else if (zone == "zone_toy_store")
 		{

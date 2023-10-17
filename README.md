@@ -359,8 +359,7 @@
 * Stowed weapons automatically reload over time
 
 ### Tombstone Soda
-* Added in solo
-* Added in Grief
+* Added in solo and Grief
 * Powerup no longer removed when revived
 * Powerup removed when downed again after being revived or respawning
 * Unlimited time to pick up powerup
