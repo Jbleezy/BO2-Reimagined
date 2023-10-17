@@ -64,11 +64,6 @@ init()
 	grief_score_hud();
 	player_spawn_override();
 
-	if(level.scr_zm_ui_gametype_obj == "zrace")
-	{
-		race_init();
-	}
-
 	if(level.scr_zm_ui_gametype_obj == "zcontainment")
 	{
 		containment_init();
@@ -367,17 +362,14 @@ set_grief_vars()
 	level.zombie_vars["allies"]["zombie_powerup_half_damage_on"] = 0;
 	level.zombie_vars["allies"]["zombie_powerup_half_damage_time"] = 15;
 
-	if(level.scr_zm_ui_gametype_obj == "zgrief" || level.scr_zm_ui_gametype_obj == "zsnr" || level.scr_zm_ui_gametype_obj == "zcontainment" || level.scr_zm_ui_gametype_obj == "zmeat")
-	{
-		level.zombie_move_speed = 100;
-		level.zombie_vars["zombie_health_start"] = 2500;
-		level.zombie_vars["zombie_health_increase"] = 0;
-		level.zombie_vars["zombie_health_increase_multiplier"] = 0;
-		level.zombie_vars["zombie_spawn_delay"] = 0.5;
-		level.brutus_health = 25000;
-		level.brutus_expl_dmg_req = 15000;
-		level.player_starting_points = 10000;
-	}
+	level.zombie_move_speed = 100;
+	level.zombie_vars["zombie_health_start"] = 2500;
+	level.zombie_vars["zombie_health_increase"] = 0;
+	level.zombie_vars["zombie_health_increase_multiplier"] = 0;
+	level.zombie_vars["zombie_spawn_delay"] = 0.5;
+	level.brutus_health = 25000;
+	level.brutus_expl_dmg_req = 15000;
+	level.player_starting_points = 10000;
 
 	level.zombie_vars["zombie_powerup_drop_increment"] = level.player_starting_points * 4;
 
@@ -695,7 +687,7 @@ grief_onplayerconnect()
 	self.killsdenied = 0;
 	self.captures = 0;
 
-	if(level.scr_zm_ui_gametype_obj == "zgrief" || level.scr_zm_ui_gametype_obj == "zrace" || level.scr_zm_ui_gametype_obj == "zcontainment" || level.scr_zm_ui_gametype_obj == "zmeat")
+	if(level.scr_zm_ui_gametype_obj != "zsnr")
 	{
 		self._retain_perks = 1;
 	}
@@ -806,10 +798,6 @@ on_player_spawned()
 		if (is_respawn_gamemode())
 		{
 			min_points = level.player_starting_points;
-			if (level.scr_zm_ui_gametype_obj == "zrace")
-			{
-				min_points = (level.round_number + 1) * 250;
-			}
 
 			if (min_points > 1500)
 			{
@@ -1124,11 +1112,7 @@ round_start_wait(time, initial)
 		}
 	}
 
-	zombie_spawn_time = time;
-	if(level.scr_zm_ui_gametype_obj != "zrace")
-	{
-		zombie_spawn_time += 10;
-	}
+	zombie_spawn_time = time + 10;
 
 	level thread zombie_spawn_wait(zombie_spawn_time);
 
@@ -1491,7 +1475,7 @@ is_respawn_gamemode()
 		return 0;
 	}
 
-	return level.scr_zm_ui_gametype_obj == "zgrief" || level.scr_zm_ui_gametype_obj == "zrace" || level.scr_zm_ui_gametype_obj == "zcontainment" || level.scr_zm_ui_gametype_obj == "zmeat";
+	return level.scr_zm_ui_gametype_obj != "zsnr";
 }
 
 show_grief_hud_msg( msg, msg_parm, offset, delay )
@@ -2500,71 +2484,6 @@ all_voice_on_intermission()
 	level waittill("intermission");
 
 	setDvar("sv_voice", 1);
-}
-
-race_init()
-{
-	level thread race_think();
-}
-
-race_think()
-{
-	level endon("end_game");
-
-	level waittill("restart_round_start");
-
-	setroundsplayed(level.round_number);
-
-	level.zombie_move_speed = 36;
-	level.zombie_vars["zombie_spawn_delay"] = 1;
-
-	level.brutus_health = int(level.brutus_health_increase * level.round_number);
-	level.brutus_expl_dmg_req = int(level.brutus_explosive_damage_increase * level.round_number);
-
-	while(1)
-	{
-		wait 30;
-
-		level.round_number++;
-
-		setroundsplayed(level.round_number);
-
-		level.old_music_state = undefined;
-		level thread maps\mp\zombies\_zm_audio::change_zombie_music("round_end");
-
-		maps\mp\zombies\_zm::ai_calculate_health(level.round_number);
-
-		move_speed = level.round_number * level.zombie_vars["zombie_move_speed_multiplier"];
-		if (move_speed > level.zombie_move_speed)
-		{
-			level.zombie_move_speed = move_speed;
-		}
-
-		level.zombie_vars["zombie_spawn_delay"] *= 0.95;
-
-		level.brutus_health = int(level.brutus_health_increase * level.round_number);
-		level.brutus_expl_dmg_req = int(level.brutus_explosive_damage_increase * level.round_number);
-
-		level.player_starting_points = level.round_number * 500;
-
-		zombies = get_round_enemy_array();
-		if(isDefined(zombies))
-		{
-			for(i = 0; i < zombies.size; i++)
-			{
-				if(zombies[i].health == zombies[i].maxhealth)
-				{
-					zombies[i].maxhealth = level.zombie_health;
-					zombies[i].health = zombies[i].maxhealth;
-				}
-			}
-		}
-
-		if(level.round_number >= 20)
-		{
-			return;
-		}
-	}
 }
 
 race_check_for_kills()
