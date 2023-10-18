@@ -2685,6 +2685,16 @@ containment_think()
 						player.obj_waypoint.y = (other_zone.volumes[0].origin[1] + other_zone2.volumes[0].origin[1]) / 2;
 						player.obj_waypoint.z = (other_zone.volumes[0].origin[2] + other_zone2.volumes[0].origin[2]) / 2;
 					}
+					else if(level.script == "zm_buried" && zone_name == "zone_street_darkeast")
+					{
+						other_zone = level.zones["zone_underground_bar"];
+						other_zone2 = level.zones["zone_general_store"];
+						other_zone3 = level.zones["zone_gun_store"];
+						other_zone4 = level.zones["zone_toy_store"];
+						player.obj_waypoint.x = (other_zone.volumes[0].origin[0] + other_zone2.volumes[0].origin[0] + other_zone3.volumes[0].origin[0] + other_zone4.volumes[0].origin[0]) / 4;
+						player.obj_waypoint.y = (other_zone.volumes[0].origin[1] + other_zone2.volumes[0].origin[1] + other_zone3.volumes[0].origin[1] + other_zone4.volumes[0].origin[1]) / 4;
+						player.obj_waypoint.z = (other_zone.volumes[0].origin[2] + other_zone2.volumes[0].origin[2] + other_zone3.volumes[0].origin[2] + other_zone4.volumes[0].origin[2]) / 4;
+					}
 					else
 					{
 						player.obj_waypoint.x = zone.volumes[0].origin[0];
