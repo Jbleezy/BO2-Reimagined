@@ -96,7 +96,7 @@ init()
 
     maps\mp\zombies\_zm::spawn_life_brush( (94, 6063, 240), 256, 256 );
 
-	remove_acid_trap_player_spawn();
+	player_spawn_location_changes();
 
 	level thread updatecraftables();
     level thread grief_brutus_spawn_after_time();
@@ -193,7 +193,7 @@ door_buy_afterlife_check(door)
     return true;
 }
 
-remove_acid_trap_player_spawn()
+player_spawn_location_changes()
 {
 	spawn_points = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
 	foreach(spawn_point in spawn_points)
@@ -205,6 +205,7 @@ remove_acid_trap_player_spawn()
 			{
 				if(spawn.origin == (2536, 9704, 1360))
 				{
+                    // spawn is in acid trap
 					arrayremovevalue(spawn_array, spawn);
 					return;
 				}
