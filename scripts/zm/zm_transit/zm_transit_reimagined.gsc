@@ -83,6 +83,7 @@ init()
 	level.grenade_safe_to_bounce = ::grenade_safe_to_bounce;
 	level.object_touching_lava = maps\mp\zm_transit_lava::object_touching_lava;
 
+	player_spawn_location_changes();
 	zombie_spawn_location_changes();
 	buildable_table_models();
 	cornfield_add_collision();
@@ -237,6 +238,48 @@ grenade_safe_to_bounce( player, weapname )
 	}
 
 	return 1;
+}
+
+player_spawn_location_changes()
+{
+	spawn_points = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
+	foreach (spawn_point in spawn_points)
+	{
+		if (spawn_point.script_noteworthy == "zone_station_ext")
+		{
+			spawn_array = getstructarray(spawn_point.target, "targetname");
+
+			spawn_array[0].origin = (-6173, 4753, -34);
+			spawn_array[0].angles = (0, -90, 0);
+
+			spawn_array[1].origin = (-6449, 4753, -35);
+			spawn_array[1].angles = (0, -90, 0);
+
+			spawn_array[2].origin = (-7050, 4753, -35);
+			spawn_array[2].angles = (0, -90, 0);
+
+			spawn_array[3].origin = (-7263, 4753, -35);
+			spawn_array[3].angles = (0, -90, 0);
+
+			spawn_array[4].origin = (-7423, 4753, -35);
+			spawn_array[4].angles = (0, -90, 0);
+
+			spawn_array[5].origin = (-6160, 4300, -29);
+			spawn_array[5].angles = (0, 90, 0);
+
+			spawn_array[6].origin = (-6680, 4300, -35);
+			spawn_array[6].angles = (0, 90, 0);
+
+			spawn_array[7].origin = (-7050, 4404, -35);
+			spawn_array[7].angles = (0, 90, 0);
+
+			spawn_array[8].origin = (-7263, 4404, -35);
+			spawn_array[8].angles = (0, 90, 0);
+
+			spawn_array[9].origin = (-7423, 4404, -35);
+			spawn_array[9].angles = (0, 90, 0);
+		}
+	}
 }
 
 zombie_spawn_location_changes()
