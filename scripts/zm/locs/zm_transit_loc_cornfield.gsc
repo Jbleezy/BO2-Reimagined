@@ -78,15 +78,15 @@ precache()
 	start_chest.angles = start_chest_zbarrier.angles;
 	start_chest.script_noteworthy = "start_chest";
 	start_chest.zombie_cost = 950;
-	collision = spawn( "script_model", start_chest_zbarrier.origin, 1 );
+	collision = spawn( "script_model", start_chest_zbarrier.origin + ( 0, 0, 64 ), 1 );
 	collision.angles = start_chest_zbarrier.angles;
 	collision setmodel( "collision_clip_32x32x128" );
     collision disconnectpaths();
-	collision = spawn( "script_model", start_chest_zbarrier.origin - ( 0, 32, 0 ), 1 );
+	collision = spawn( "script_model", start_chest_zbarrier.origin + ( 0, -32, 64 ), 1 );
 	collision.angles = start_chest_zbarrier.angles;
 	collision setmodel( "collision_clip_32x32x128" );
     collision disconnectpaths();
-	collision = spawn( "script_model", start_chest_zbarrier.origin + ( 0, 32, 0 ), 1 );
+	collision = spawn( "script_model", start_chest_zbarrier.origin + ( 0, 32, 64 ), 1 );
 	collision.angles = start_chest_zbarrier.angles;
 	collision setmodel( "collision_clip_32x32x128" );
     collision disconnectpaths();
@@ -101,7 +101,7 @@ main()
 	init_barriers();
     disable_zombie_spawn_locations();
     setup_standard_objects("cornfield");
-    maps\mp\zombies\_zm_magicbox::treasure_chest_init( random( array( "start_chest", "depot_chest" ) ) );
+    maps\mp\zombies\_zm_magicbox::treasure_chest_init( random( array( "start_chest" ) ) );
 	scripts\zm\locs\loc_common::init();
 }
 
