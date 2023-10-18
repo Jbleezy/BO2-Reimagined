@@ -73,8 +73,6 @@ item_meat_on_spawn_retrieve_trigger( watcher, player, weaponname )
                 other_player thread scripts\zm\zgrief\zgrief_reimagined::show_grief_hud_msg("Meat thrown!");
             }
 		}
-
-        other_player thread scripts\zm\replaced\zgrief::print_meat_msg(player, "threw");
 	}
 
     if ( !( isdefined( self._fake_meat ) && self._fake_meat ) )
