@@ -83,7 +83,8 @@ init()
 	level.grenade_safe_to_bounce = ::grenade_safe_to_bounce;
 	level.object_touching_lava = maps\mp\zm_transit_lava::object_touching_lava;
 
-	player_spawn_location_changes();
+	player_initial_spawn_override();
+	player_respawn_override();
 	zombie_spawn_location_changes();
 	buildable_table_models();
 	cornfield_add_collision();
@@ -240,44 +241,104 @@ grenade_safe_to_bounce( player, weapname )
 	return 1;
 }
 
-player_spawn_location_changes()
+player_initial_spawn_override()
 {
-	spawn_points = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
-	foreach (spawn_point in spawn_points)
+	initial_spawns = getstructarray( "initial_spawn", "script_noteworthy" );
+	remove_initial_spawns = [];
+
+	if (level.scr_zm_map_start_location == "transit")
 	{
-		if (spawn_point.script_noteworthy == "zone_station_ext")
+		foreach (initial_spawn in initial_spawns)
 		{
-			spawn_array = getstructarray(spawn_point.target, "targetname");
+			if (initial_spawn.origin == (-6538, 5200, -28) || initial_spawn.origin == (-6713, 5079, -28) || initial_spawn.origin == (-6929, 5444, -28.92) || initial_spawn.origin == (-7144, 5264, -28))
+			{
+				remove_initial_spawns[remove_initial_spawns.size] = initial_spawn;
+			}
+		}
+	}
+	else if (level.scr_zm_map_start_location == "farm")
+	{
+		foreach (initial_spawn in initial_spawns)
+		{
+			if (initial_spawn.origin == (7211, -5800, -17.93) || initial_spawn.origin == (7152, -5663, -18.53))
+			{
+				remove_initial_spawns[remove_initial_spawns.size] = initial_spawn;
+			}
+			else if (initial_spawn.origin == (8379, -5693, 73.71))
+			{
+				initial_spawn.origin = (7785, -5922, 53);
+				initial_spawn.angles = (0, 80, 0);
+				initial_spawn.script_int = 2;
+			}
+		}
+	}
+	else if (level.scr_zm_map_start_location == "town")
+	{
+		foreach (initial_spawn in initial_spawns)
+		{
+			if (initial_spawn.origin == (1585.5, -754.8, -32.04) || initial_spawn.origin == (1238.5, -303, -31.76))
+			{
+				remove_initial_spawns[remove_initial_spawns.size] = initial_spawn;
+			}
+			else if (initial_spawn.origin == (1544, -188, -34))
+			{
+				initial_spawn.angles = (0, 245, 0);
+			}
+			else if (initial_spawn.origin == (1430.5, -159, -34))
+			{
+				initial_spawn.angles = (0, 270, 0);
+			}
+		}
+	}
 
-			spawn_array[0].origin = (-6173, 4753, -34);
-			spawn_array[0].angles = (0, -90, 0);
+	foreach (initial_spawn in remove_initial_spawns)
+	{
+		arrayremovevalue(initial_spawns, initial_spawn);
+	}
+}
 
-			spawn_array[1].origin = (-6449, 4753, -35);
-			spawn_array[1].angles = (0, -90, 0);
+player_respawn_override()
+{
+	respawn_points = getstructarray( "player_respawn_point", "targetname" );
 
-			spawn_array[2].origin = (-7050, 4753, -35);
-			spawn_array[2].angles = (0, -90, 0);
+	if (level.scr_zm_map_start_location == "transit" && level.scr_zm_ui_gametype != "zclassic")
+	{
+		foreach (respawn_point in respawn_points)
+		{
+			if (respawn_point.script_noteworthy == "zone_station_ext")
+			{
+				respawn_array = getstructarray(respawn_point.target, "targetname");
 
-			spawn_array[3].origin = (-7263, 4753, -35);
-			spawn_array[3].angles = (0, -90, 0);
+				respawn_array[0].origin = (-6173, 4753, -34);
+				respawn_array[0].angles = (0, -90, 0);
 
-			spawn_array[4].origin = (-7423, 4753, -35);
-			spawn_array[4].angles = (0, -90, 0);
+				respawn_array[1].origin = (-6449, 4753, -35);
+				respawn_array[1].angles = (0, -90, 0);
 
-			spawn_array[5].origin = (-6160, 4300, -29);
-			spawn_array[5].angles = (0, 90, 0);
+				respawn_array[2].origin = (-7050, 4753, -35);
+				respawn_array[2].angles = (0, -90, 0);
 
-			spawn_array[6].origin = (-6680, 4300, -35);
-			spawn_array[6].angles = (0, 90, 0);
+				respawn_array[3].origin = (-7263, 4753, -35);
+				respawn_array[3].angles = (0, -90, 0);
 
-			spawn_array[7].origin = (-7050, 4404, -35);
-			spawn_array[7].angles = (0, 90, 0);
+				respawn_array[4].origin = (-7423, 4753, -35);
+				respawn_array[4].angles = (0, -90, 0);
 
-			spawn_array[8].origin = (-7263, 4404, -35);
-			spawn_array[8].angles = (0, 90, 0);
+				respawn_array[5].origin = (-6160, 4300, -29);
+				respawn_array[5].angles = (0, 90, 0);
 
-			spawn_array[9].origin = (-7423, 4404, -35);
-			spawn_array[9].angles = (0, 90, 0);
+				respawn_array[6].origin = (-6680, 4300, -35);
+				respawn_array[6].angles = (0, 90, 0);
+
+				respawn_array[7].origin = (-7050, 4404, -35);
+				respawn_array[7].angles = (0, 90, 0);
+
+				respawn_array[8].origin = (-7263, 4404, -35);
+				respawn_array[8].angles = (0, 90, 0);
+
+				respawn_array[9].origin = (-7423, 4404, -35);
+				respawn_array[9].angles = (0, 90, 0);
+			}
 		}
 	}
 }

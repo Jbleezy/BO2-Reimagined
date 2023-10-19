@@ -96,7 +96,8 @@ init()
 
     maps\mp\zombies\_zm::spawn_life_brush( (94, 6063, 240), 256, 256 );
 
-	player_spawn_location_changes();
+    player_initial_spawn_override();
+	player_respawn_override();
 
 	level thread updatecraftables();
     level thread grief_brutus_spawn_after_time();
@@ -193,23 +194,63 @@ door_buy_afterlife_check(door)
     return true;
 }
 
-player_spawn_location_changes()
+player_initial_spawn_override()
 {
-	spawn_points = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
-	foreach(spawn_point in spawn_points)
+	initial_spawns = getstructarray( "initial_spawn", "script_noteworthy" );
+	remove_initial_spawns = [];
+
+	if (level.scr_zm_map_start_location == "cellblock" && getDvar("ui_zm_mapstartlocation_fake") != "docks")
 	{
-		if(spawn_point.script_noteworthy == "zone_cafeteria")
+		foreach (initial_spawn in initial_spawns)
 		{
-			spawn_array = getstructarray( spawn_point.target, "targetname" );
-			foreach(spawn in spawn_array)
+			if (initial_spawn.origin == (704, 9672, 1470) || initial_spawn.origin == (1008, 9684, 1470))
 			{
-				if(spawn.origin == (2536, 9704, 1360))
+				remove_initial_spawns[remove_initial_spawns.size] = initial_spawn;
+			}
+			else if (initial_spawn.origin == (704, 9712, 1471) || initial_spawn.origin == (1008, 9720, 1470))
+			{
+				initial_spawn.origin += (0, -16, 0);
+			}
+			else if (initial_spawn.origin == (704, 9632, 1470) || initial_spawn.origin == (1008, 9640, 1470))
+			{
+				initial_spawn.origin += (0, 16, 0);
+			}
+
+			// prevents spawning up top in 3rd Floor zone due to not being enough height clearance
+			initial_spawn.origin += (0, 0, -16);
+		}
+	}
+
+    foreach (initial_spawn in remove_initial_spawns)
+	{
+		arrayremovevalue(initial_spawns, initial_spawn);
+	}
+}
+
+player_respawn_override()
+{
+	respawn_points = getstructarray( "player_respawn_point", "targetname" );
+
+	foreach(respawn_point in respawn_points)
+	{
+		if(respawn_point.script_noteworthy == "zone_cafeteria")
+		{
+			respawn_array = getstructarray( respawn_point.target, "targetname" );
+            remove_respawn_array = [];
+
+			foreach(respawn in respawn_array)
+			{
+				if(respawn.origin == (2536, 9704, 1360))
 				{
-                    // spawn is in acid trap
-					arrayremovevalue(spawn_array, spawn);
-					return;
+                    // respawn is in acid trap
+                    remove_respawn_array[remove_respawn_array.size] = respawn;
 				}
 			}
+
+            foreach(respawn in remove_respawn_array)
+			{
+                arrayremovevalue(respawn_array, respawn);
+            }
 		}
 	}
 }

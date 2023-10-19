@@ -91,6 +91,7 @@ init()
 		level.check_for_valid_spawn_near_team_callback = undefined;
 	}
 
+	player_initial_spawn_override();
 	power_switch_model();
 	sloth_barricades_buyable();
 	add_jug_collision();
@@ -127,6 +128,79 @@ buried_special_weapon_magicbox_check(weapon)
 		}
 	}
 	return 1;
+}
+
+player_initial_spawn_override()
+{
+	initial_spawns = getstructarray( "initial_spawn", "script_noteworthy" );
+
+	if (level.scr_zm_map_start_location == "street" && getDvar("ui_zm_mapstartlocation_fake") != "maze")
+	{
+		// remove existing initial spawns
+		level.struct_class_names["script_noteworthy"]["initial_spawn"] = [];
+
+		// set new initial spawns to be same as respawns already on map
+		ind = 0;
+		respawn_points = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
+		for (i = 0; i < respawn_points.size; i++)
+		{
+			if (respawn_points[i].script_noteworthy == "zone_stables")
+			{
+				ind = i;
+				break;
+			}
+		}
+
+		respawn_array = getstructarray(respawn_points[ind].target, "targetname");
+		foreach (respawn in respawn_array)
+		{
+			struct = spawnStruct();
+			struct.origin = respawn.origin;
+			struct.angles = respawn.angles;
+			struct.radius = respawn.radius;
+			struct.script_int = respawn.script_int;
+			struct.script_noteworthy = "initial_spawn";
+			struct.script_string = "zgrief_street";
+
+			if (struct.origin == (-875.5, -33.85, 139.25))
+			{
+				struct.angles = (0, 10, 0);
+			}
+			else if (struct.origin == (-910.13, -90.16, 139.59))
+			{
+				struct.angles = (0, 20, 0);
+			}
+			else if (struct.origin == (-921.9, -134.67, 140.62))
+			{
+				struct.angles = (0, 30, 0);
+			}
+			else if (struct.origin == (-891.27, -209.95, 137.94))
+			{
+				struct.angles = (0, 55, 0);
+				struct.script_int = 2;
+			}
+			else if (struct.origin == (-836.66, -257.92, 133.16))
+			{
+				struct.angles = (0, 65, 0);
+			}
+			else if (struct.origin == (-763, -259.07, 127.72))
+			{
+				struct.angles = (0, 90, 0);
+			}
+			else if (struct.origin == (-737.98, -212.92, 125.4))
+			{
+				struct.angles = (0, 85, 0);
+			}
+			else if (struct.origin == (-722.02, -151.75, 124.14))
+			{
+				struct.angles = (0, 80, 0);
+				struct.script_int = 1;
+			}
+
+			size = level.struct_class_names["script_noteworthy"][struct.script_noteworthy].size;
+			level.struct_class_names["script_noteworthy"][struct.script_noteworthy][size] = struct;
+		}
+	}
 }
 
 power_switch_model()
