@@ -341,6 +341,196 @@ player_respawn_override()
 			}
 		}
 	}
+	else if (level.scr_zm_map_start_location == "town")
+	{
+		// North Town respawns
+		struct = spawnStruct();
+		struct.targetname = "player_respawn_point";
+		struct.origin = (1468.5, 703.5, -39.5);
+		struct.locked = 0;
+		struct.script_int = 5000;
+		struct.script_noteworthy = "zone_town_north";
+		struct.target = struct.script_noteworthy + "_player_spawns";
+
+		respawn_array = [];
+		for (i = 0; i < 8; i++)
+		{
+			respawn_array[i] = spawnStruct();
+			respawn_array[i].targetname = struct.target;
+		}
+
+		respawn_array[0].origin = (1581, 666, -39.5);
+		respawn_array[0].angles = (0, 270, 0);
+
+		respawn_array[1].origin = (1506, 666, -39.5);
+		respawn_array[1].angles = (0, 270, 0);
+
+		respawn_array[2].origin = (1431, 666, -39.5);
+		respawn_array[2].angles = (0, 270, 0);
+
+		respawn_array[3].origin = (1356, 666, -39.5);
+		respawn_array[3].angles = (0, 270, 0);
+
+		respawn_array[4].origin = (1581, 741, -39.5);
+		respawn_array[4].angles = (0, 270, 0);
+
+		respawn_array[5].origin = (1506, 741, -39.5);
+		respawn_array[5].angles = (0, 270, 0);
+
+		respawn_array[6].origin = (1431, 741, -39.5);
+		respawn_array[6].angles = (0, 270, 0);
+
+		respawn_array[7].origin = (1356, 741, -39.5);
+		respawn_array[7].angles = (0, 270, 0);
+
+		scripts\zm\replaced\utility::add_struct(struct);
+
+		foreach (respawn_struct in respawn_array)
+		{
+			scripts\zm\replaced\utility::add_struct(respawn_struct);
+		}
+
+		// South Town respawns
+		struct = spawnStruct();
+		struct.targetname = "player_respawn_point";
+		struct.origin = (1424.5, -1426.5, -39.5);
+		struct.locked = 0;
+		struct.script_int = 5000;
+		struct.script_noteworthy = "zone_town_south";
+		struct.target = struct.script_noteworthy + "_player_spawns";
+
+		respawn_array = [];
+		for (i = 0; i < 8; i++)
+		{
+			respawn_array[i] = spawnStruct();
+			respawn_array[i].targetname = struct.target;
+		}
+
+		respawn_array[0].origin = (1312, -1389, -39.5);
+		respawn_array[0].angles = (0, 90, 0);
+
+		respawn_array[1].origin = (1387, -1389, -39.5);
+		respawn_array[1].angles = (0, 90, 0);
+
+		respawn_array[2].origin = (1462, -1389, -39.5);
+		respawn_array[2].angles = (0, 90, 0);
+
+		respawn_array[3].origin = (1537, -1389, -39.5);
+		respawn_array[3].angles = (0, 90, 0);
+
+		respawn_array[4].origin = (1312, -1464, -39.5);
+		respawn_array[4].angles = (0, 90, 0);
+
+		respawn_array[5].origin = (1387, -1464, -39.5);
+		respawn_array[5].angles = (0, 90, 0);
+
+		respawn_array[6].origin = (1462, -1464, -39.5);
+		respawn_array[6].angles = (0, 90, 0);
+
+		respawn_array[7].origin = (1537, -1464, -39.5);
+		respawn_array[7].angles = (0, 90, 0);
+
+		scripts\zm\replaced\utility::add_struct(struct);
+
+		foreach (respawn_struct in respawn_array)
+		{
+			scripts\zm\replaced\utility::add_struct(respawn_struct);
+		}
+
+		// East Town respawns
+		struct = spawnStruct();
+		struct.targetname = "player_respawn_point";
+		struct.origin = (2308.5, -461.5, -34);
+		struct.locked = 0;
+		struct.script_int = 5000;
+		struct.script_noteworthy = "zone_town_east";
+		struct.target = struct.script_noteworthy + "_player_spawns";
+
+		respawn_array = [];
+		for (i = 0; i < 8; i++)
+		{
+			respawn_array[i] = spawnStruct();
+			respawn_array[i].targetname = struct.target;
+		}
+
+		respawn_array[0].origin = (2276, -559, -34);
+		respawn_array[0].angles = (0, 180, 0);
+
+		respawn_array[1].origin = (2276, -494, -34);
+		respawn_array[1].angles = (0, 180, 0);
+
+		respawn_array[2].origin = (2276, -429, -34);
+		respawn_array[2].angles = (0, 180, 0);
+
+		respawn_array[3].origin = (2276, -364, -34);
+		respawn_array[3].angles = (0, 180, 0);
+
+		respawn_array[4].origin = (2341, -559, -34);
+		respawn_array[4].angles = (0, 180, 0);
+
+		respawn_array[5].origin = (2341, -494, -34);
+		respawn_array[5].angles = (0, 180, 0);
+
+		respawn_array[6].origin = (2341, -429, -34);
+		respawn_array[6].angles = (0, 180, 0);
+
+		respawn_array[7].origin = (2341, -364, -34);
+		respawn_array[7].angles = (0, 180, 0);
+
+		scripts\zm\replaced\utility::add_struct(struct);
+
+		foreach (respawn_struct in respawn_array)
+		{
+			scripts\zm\replaced\utility::add_struct(respawn_struct);
+		}
+
+		// West Town respawns
+		struct = spawnStruct();
+		struct.targetname = "player_respawn_point";
+		struct.origin = (568.5, -446.5, -34);
+		struct.locked = 0;
+		struct.script_int = 5000;
+		struct.script_noteworthy = "zone_town_west";
+		struct.target = struct.script_noteworthy + "_player_spawns";
+
+		respawn_array = [];
+		for (i = 0; i < 8; i++)
+		{
+			respawn_array[i] = spawnStruct();
+			respawn_array[i].targetname = struct.target;
+		}
+
+		respawn_array[0].origin = (601, -349, -34);
+		respawn_array[0].angles = (0, 0, 0);
+
+		respawn_array[1].origin = (601, -414, -34);
+		respawn_array[1].angles = (0, 0, 0);
+
+		respawn_array[2].origin = (601, -479, -34);
+		respawn_array[2].angles = (0, 0, 0);
+
+		respawn_array[3].origin = (601, -544, -34);
+		respawn_array[3].angles = (0, 0, 0);
+
+		respawn_array[4].origin = (536, -349, -34);
+		respawn_array[4].angles = (0, 0, 0);
+
+		respawn_array[5].origin = (536, -414, -34);
+		respawn_array[5].angles = (0, 0, 0);
+
+		respawn_array[6].origin = (536, -479, -34);
+		respawn_array[6].angles = (0, 0, 0);
+
+		respawn_array[7].origin = (536, -544, -34);
+		respawn_array[7].angles = (0, 0, 0);
+
+		scripts\zm\replaced\utility::add_struct(struct);
+
+		foreach (respawn_struct in respawn_array)
+		{
+			scripts\zm\replaced\utility::add_struct(respawn_struct);
+		}
+	}
 }
 
 zombie_spawn_location_changes()
