@@ -17,14 +17,15 @@ struct_init()
     scripts\zm\replaced\utility::register_perk_struct( "specialty_scavenger", "zombie_vending_tombstone", ( 10946, 8308.77, -408 ), ( 0, 270, 0 ) );
     scripts\zm\replaced\utility::register_perk_struct( "specialty_weapupgrade", "p6_anim_zm_buildable_pap_on", ( 12333, 8158, -752 ), ( 0, 180, 0 ) );
 
-    scripts\zm\replaced\utility::register_map_initial_spawnpoint( (10160, 8060, -554), (0, 0, 0), 1 );
-	scripts\zm\replaced\utility::register_map_initial_spawnpoint( (10160, 7996, -554), (0, 0, 0), 1 );
-	scripts\zm\replaced\utility::register_map_initial_spawnpoint( (10160, 7932, -554), (0, 0, 0), 1 );
-	scripts\zm\replaced\utility::register_map_initial_spawnpoint( (10160, 7868, -554), (0, 0, 0), 1 );
-	scripts\zm\replaced\utility::register_map_initial_spawnpoint( (10160, 7772, -554), (0, 0, 0), 2 );
-	scripts\zm\replaced\utility::register_map_initial_spawnpoint( (10160, 7708, -554), (0, 0, 0), 2 );
-	scripts\zm\replaced\utility::register_map_initial_spawnpoint( (10160, 7644, -554), (0, 0, 0), 2 );
-	scripts\zm\replaced\utility::register_map_initial_spawnpoint( (10160, 7580, -554), (0, 0, 0), 2 );
+	zone = "zone_pow";
+    scripts\zm\replaced\utility::register_map_spawn( (10160, 8060, -554), (0, 0, 0), zone, 1 );
+	scripts\zm\replaced\utility::register_map_spawn( (10160, 7996, -554), (0, 0, 0), zone, 1 );
+	scripts\zm\replaced\utility::register_map_spawn( (10160, 7932, -554), (0, 0, 0), zone, 1 );
+	scripts\zm\replaced\utility::register_map_spawn( (10160, 7868, -554), (0, 0, 0), zone, 1 );
+	scripts\zm\replaced\utility::register_map_spawn( (10160, 7772, -554), (0, 0, 0), zone, 2 );
+	scripts\zm\replaced\utility::register_map_spawn( (10160, 7708, -554), (0, 0, 0), zone, 2 );
+	scripts\zm\replaced\utility::register_map_spawn( (10160, 7644, -554), (0, 0, 0), zone, 2 );
+	scripts\zm\replaced\utility::register_map_spawn( (10160, 7580, -554), (0, 0, 0), zone, 2 );
 }
 
 precache()

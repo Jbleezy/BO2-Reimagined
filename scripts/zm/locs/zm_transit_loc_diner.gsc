@@ -33,7 +33,7 @@ struct_init()
             respawn.angles += (0, 180, 0);
         }
 
-        scripts\zm\replaced\utility::register_map_initial_spawnpoint( respawn.origin, respawn.angles, respawn.script_int );
+        scripts\zm\replaced\utility::register_map_spawn( respawn.origin, respawn.angles, respawnpoints[ind].script_noteworthy, respawn.script_int );
     }
 
 	gameObjects = getEntArray( "script_model", "classname" );

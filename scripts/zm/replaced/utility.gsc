@@ -126,47 +126,56 @@ add_struct( s_struct )
 register_perk_struct( name, model, origin, angles )
 {
 	perk_struct = spawnStruct();
+	perk_struct.targetname = "zm_perk_machine";
+	perk_struct.origin = origin;
+	perk_struct.angles = angles;
 	perk_struct.script_noteworthy = name;
 	perk_struct.model = model;
-	perk_struct.angles = angles;
-	perk_struct.origin = origin;
-	perk_struct.targetname = "zm_perk_machine";
 
 	if ( name == "specialty_weapupgrade" )
 	{
 		flag_struct = spawnStruct();
 		flag_struct.targetname = "weapupgrade_flag_targ";
-		flag_struct.model = "zombie_sign_please_wait";
-		flag_struct.angles = angles + ( 0, 180, 180 );
 		flag_struct.origin = origin + ( anglesToForward( angles ) * 29 ) + ( anglesToRight( angles ) * -13.5 ) + ( anglesToUp( angles ) * 49.5 );
+		flag_struct.angles = angles + ( 0, 180, 180 );
+		flag_struct.model = "zombie_sign_please_wait";
 		perk_struct.target = flag_struct.targetname;
+
 		add_struct( flag_struct );
 	}
 
 	add_struct( perk_struct );
 }
 
-register_map_initial_spawnpoint( origin, angles, team_num )
+register_map_spawn_point( origin, zone, dist )
 {
-	spawnpoint_struct = spawnStruct();
-	spawnpoint_struct.origin = origin;
-	if ( isDefined( angles ) )
+	spawn_point_struct = spawnStruct();
+	spawn_point_struct.targetname = "player_respawn_point";
+	spawn_point_struct.origin = origin;
+	spawn_point_struct.locked = !zone_is_enabled( zone );
+	spawn_point_struct.script_int = dist;
+	spawn_point_struct.script_noteworthy = zone;
+	spawn_point_struct.script_string = getDvar( "g_gametype" ) + "_" + getDvar( "ui_zm_mapstartlocation" );
+	spawn_point_struct.target = zone + "_player_spawns";
+
+	add_struct( spawn_point_struct );
+}
+
+register_map_spawn( origin, angles, zone, team_num )
+{
+	spawn_struct = spawnStruct();
+	spawn_struct.targetname = zone + "_player_spawns";
+	spawn_struct.origin = origin;
+	spawn_struct.angles = angles;
+	spawn_struct.script_string = getDvar( "g_gametype" ) + "_" + getDvar( "ui_zm_mapstartlocation" );
+
+	if ( isDefined( team_num ) )
 	{
-		spawnpoint_struct.angles = angles;
+		spawn_struct.script_noteworthy = "initial_spawn";
+		spawn_struct.script_int = team_num;
 	}
-	else
-	{
-		spawnpoint_struct.angles = ( 0, 0, 0 );
-	}
-	spawnpoint_struct.radius = 32;
-	spawnpoint_struct.script_noteworthy = "initial_spawn";
-	spawnpoint_struct.script_int = team_num;
-	spawnpoint_struct.script_string = getDvar( "g_gametype" ) + "_" + getDvar( "ui_zm_mapstartlocation" );
-	spawnpoint_struct.locked = 0;
-	player_respawn_point_size = level.struct_class_names[ "targetname" ][ "player_respawn_point" ].size;
-	player_initial_spawnpoint_size = level.struct_class_names[ "script_noteworthy" ][ "initial_spawn" ].size;
-	level.struct_class_names[ "targetname" ][ "player_respawn_point" ][ player_respawn_point_size ] = spawnpoint_struct;
-	level.struct_class_names[ "script_noteworthy" ][ "initial_spawn" ][ player_initial_spawnpoint_size ] = spawnpoint_struct;
+
+	add_struct( spawn_struct );
 }
 
 wallbuy( weapon_name, target, targetname, origin, angles, play_chalk_fx = 1 )

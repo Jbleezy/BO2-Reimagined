@@ -94,7 +94,7 @@ struct_init()
 	{
 		if(isDefined(point.script_string) && isSubStr(point.script_string, "zgrief_maze"))
 		{
-			scripts\zm\replaced\utility::register_map_initial_spawnpoint( point.origin, point.angles, point.script_int );
+			scripts\zm\replaced\utility::register_map_spawn( point.origin, point.angles, "zone_maze", point.script_int );
 		}
 	}
 

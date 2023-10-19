@@ -31,7 +31,7 @@ struct_init()
     respawn_array = getstructarray(respawnpoints[ind].target, "targetname");
     foreach(respawn in respawn_array)
     {
-        scripts\zm\replaced\utility::register_map_initial_spawnpoint( respawn.origin, respawn.angles, respawn.script_int );
+        scripts\zm\replaced\utility::register_map_spawn( respawn.origin, respawn.angles, respawnpoints[ind].script_noteworthy, respawn.script_int );
     }
 }
 

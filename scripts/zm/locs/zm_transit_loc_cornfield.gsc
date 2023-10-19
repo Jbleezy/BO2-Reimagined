@@ -34,13 +34,13 @@ struct_init()
 		angles = respawn.angles;
 		script_int = 1;
 
-        scripts\zm\replaced\utility::register_map_initial_spawnpoint( origin, angles, script_int );
+        scripts\zm\replaced\utility::register_map_spawn( origin, angles, respawnpoints[ind].script_noteworthy, script_int );
 
 		origin = respawn.origin + (anglesToRight(respawn.angles) * -32);
 		angles = respawn.angles;
 		script_int = 2;
 
-        scripts\zm\replaced\utility::register_map_initial_spawnpoint( origin, angles, script_int );
+        scripts\zm\replaced\utility::register_map_spawn( origin, angles, respawnpoints[ind].script_noteworthy, script_int );
     }
 
     structs = getstructarray( "game_mode_object", "targetname" );
