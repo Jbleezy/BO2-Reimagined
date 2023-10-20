@@ -2505,14 +2505,7 @@ containment_think()
 
 					player.obj_waypoint.alpha = 1;
 
-					if(level.script == "zm_transit" && zone_name == "zone_trans_8")
-					{
-						other_zone = level.zones["zone_pow_warehouse"];
-						player.obj_waypoint.x = (zone.volumes[0].origin[0] + other_zone.volumes[0].origin[0]) / 2;
-						player.obj_waypoint.y = (zone.volumes[0].origin[1] + other_zone.volumes[0].origin[1]) / 2;
-						player.obj_waypoint.z = (zone.volumes[0].origin[2] + other_zone.volumes[0].origin[2]) / 2;
-					}
-					else if(level.script == "zm_transit" && zone_name == "zone_far_ext")
+					if(level.script == "zm_transit" && zone_name == "zone_far_ext")
 					{
 						other_zone = level.zones["zone_farm_house"];
 						other_zone2 = level.zones["zone_brn"];
@@ -2520,7 +2513,22 @@ containment_think()
 						player.obj_waypoint.y = (other_zone.volumes[0].origin[1] + other_zone2.volumes[0].origin[1]) / 2;
 						player.obj_waypoint.z = (other_zone.volumes[0].origin[2] + other_zone2.volumes[0].origin[2]) / 2;
 					}
-					if(level.script == "zm_buried" && zone_name == "zone_street_darkwest")
+					else if(level.script == "zm_transit" && zone_name == "zone_trans_8")
+					{
+						other_zone = level.zones["zone_pow_warehouse"];
+						player.obj_waypoint.x = (zone.volumes[0].origin[0] + other_zone.volumes[0].origin[0]) / 2;
+						player.obj_waypoint.y = (zone.volumes[0].origin[1] + other_zone.volumes[0].origin[1]) / 2;
+						player.obj_waypoint.z = (zone.volumes[0].origin[2] + other_zone.volumes[0].origin[2]) / 2;
+					}
+					else if(level.script == "zm_transit" && zone_name == "zone_town_west")
+					{
+						other_zone = level.zones["zone_town_barber"];
+						other_zone2 = level.zones["zone_ban"];
+						player.obj_waypoint.x = (other_zone.volumes[0].origin[0] + other_zone2.volumes[0].origin[0]) / 2;
+						player.obj_waypoint.y = (other_zone.volumes[0].origin[1] + other_zone2.volumes[0].origin[1]) / 2;
+						player.obj_waypoint.z = (other_zone.volumes[0].origin[2] + other_zone2.volumes[0].origin[2]) / 2;
+					}
+					else if(level.script == "zm_buried" && zone_name == "zone_street_darkwest")
 					{
 						other_zone = level.zones["zone_gun_store"];
 						other_zone2 = level.zones["zone_general_store"];
