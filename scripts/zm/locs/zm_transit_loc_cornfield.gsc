@@ -13,35 +13,46 @@ struct_init()
     scripts\zm\replaced\utility::register_perk_struct( "", "", ( 0, 0, 0 ), ( 0, 0, 0 ) ); // need this for pap to work
     scripts\zm\replaced\utility::register_perk_struct( "specialty_weapupgrade", "p6_anim_zm_buildable_pap_on", ( 10460, -564, -220 ), ( 0, -35, 0 ) );
 
-    ind = 0;
+    zone_respawnpoints = [];
     respawnpoints = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
-    for(i = 0; i < respawnpoints.size; i++)
+    for (i = 0; i < respawnpoints.size; i++)
     {
-        if(respawnpoints[i].script_noteworthy == "zone_amb_cornfield")
+        if (isDefined(respawnpoints[i].script_noteworthy) && respawnpoints[i].script_noteworthy == "zone_amb_cornfield")
         {
-            ind = i;
-            break;
+            if (isDefined(respawnpoints[i].script_string) && respawnpoints[i].script_string == "zgrief_cornfield")
+            {
+                zone_respawnpoints[respawnpoints[i].script_noteworthy] = respawnpoints[i];
+            }
+        }
+        else if (isDefined(respawnpoints[i].script_noteworthy) && respawnpoints[i].script_noteworthy == "zone_cornfield_prototype")
+        {
+            zone_respawnpoints[respawnpoints[i].script_noteworthy] = respawnpoints[i];
         }
     }
 
     level.struct_class_names["targetname"]["player_respawn_point"] = [];
 	level.struct_class_names["script_noteworthy"]["initial_spawn"] = [];
 
-    respawn_array = getstructarray(respawnpoints[ind].target, "targetname");
+    zone = "zone_cornfield_prototype";
+    scripts\zm\replaced\utility::register_map_spawn_group( zone_respawnpoints[zone].origin, zone, zone_respawnpoints[zone].script_int );
+
+    respawn_array = getstructarray(zone_respawnpoints[zone].target, "targetname");
     foreach(respawn in respawn_array)
     {
-		origin = respawn.origin + (anglesToRight(respawn.angles) * 32);
-		angles = respawn.angles;
-		script_int = 1;
-
-        scripts\zm\replaced\utility::register_map_spawn( origin, angles, respawnpoints[ind].script_noteworthy, script_int );
-
-		origin = respawn.origin + (anglesToRight(respawn.angles) * -32);
-		angles = respawn.angles;
-		script_int = 2;
-
-        scripts\zm\replaced\utility::register_map_spawn( origin, angles, respawnpoints[ind].script_noteworthy, script_int );
+        scripts\zm\replaced\utility::register_map_spawn( respawn.origin + (100, 0, 0), respawn.angles, zone, respawn.script_int );
     }
+
+    zone = "zone_amb_cornfield";
+    scripts\zm\replaced\utility::register_map_spawn_group( zone_respawnpoints[zone].origin, zone, zone_respawnpoints[zone].script_int );
+
+    scripts\zm\replaced\utility::register_map_spawn( (11986, -1858, -132), (0, 80, 0), zone );
+    scripts\zm\replaced\utility::register_map_spawn( (12158, -61, -141), (0, -85, 0), zone );
+    scripts\zm\replaced\utility::register_map_spawn( (11366, 20, -193), (0, -5, 0), zone );
+    scripts\zm\replaced\utility::register_map_spawn( (11199, -1768, -156), (0, -5, 0), zone );
+    scripts\zm\replaced\utility::register_map_spawn( (10448, 90, -189), (0, -5, 0), zone );
+    scripts\zm\replaced\utility::register_map_spawn( (10255, -1698, -186), (0, -5, 0), zone );
+    scripts\zm\replaced\utility::register_map_spawn( (10046, -591, -192), (0, 0, 0), zone );
+    scripts\zm\replaced\utility::register_map_spawn( (10036, -967, -186), (0, 0, 0), zone );
 
     structs = getstructarray( "game_mode_object", "targetname" );
 	foreach ( struct in structs )
