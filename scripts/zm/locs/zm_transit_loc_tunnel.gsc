@@ -17,22 +17,18 @@ struct_init()
     scripts\zm\replaced\utility::register_perk_struct( "specialty_longersprint", "zombie_vending_marathon", ( -11681, -734, 228 ),  ( 0, -19, 0 ) );
     scripts\zm\replaced\utility::register_perk_struct( "specialty_weapupgrade", "p6_anim_zm_buildable_pap_on", ( -11301, -2096, 184 ), ( 0, 115, 0 ) );
 
-    ind = 0;
-    respawnpoints = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
-    for(i = 0; i < respawnpoints.size; i++)
-    {
-        if(respawnpoints[i].script_noteworthy == "zone_amb_tunnel")
-        {
-            ind = i;
-            break;
-        }
-    }
-
-    respawn_array = getstructarray(respawnpoints[ind].target, "targetname");
-    foreach(respawn in respawn_array)
-    {
-        scripts\zm\replaced\utility::register_map_spawn( respawn.origin, respawn.angles, respawnpoints[ind].script_noteworthy, respawn.script_int );
-    }
+    zone = "zone_amb_tunnel";
+    scripts\zm\replaced\utility::register_map_spawn_group( (-11246, -1695, 220), zone, 1000 );
+    scripts\zm\replaced\utility::register_map_spawn( (-11406, -667, 220), (0, -6, 0), zone, 1 );
+    scripts\zm\replaced\utility::register_map_spawn( (-11568, -1179, 220), (0, 0, 0), zone, 1 );
+    scripts\zm\replaced\utility::register_map_spawn( (-11473, -1924, 220), (0, -15, 0), zone, 1 );
+    scripts\zm\replaced\utility::register_map_spawn( (-11457, -2400, 220), (0, 2, 0), zone, 1 );
+    scripts\zm\replaced\utility::register_map_spawn( (-10971, -770, 220), (0, 164, 0), zone, 2 );
+    scripts\zm\replaced\utility::register_map_spawn( (-11009, -1126, 220), (0, 179, 0), zone, 2 );
+    scripts\zm\replaced\utility::register_map_spawn( (-11028, -1996, 220), (0, -176, 0), zone, 2 );
+    scripts\zm\replaced\utility::register_map_spawn( (-11017, -2384, 220), (0, -176, 0), zone, 2 );
+    scripts\zm\replaced\utility::register_map_spawn( (-10916, -408, 220), (0, -100, 0), zone );
+    scripts\zm\replaced\utility::register_map_spawn( (-10965, -2987, 220), (0, 95, 0), zone );
 }
 
 precache()
