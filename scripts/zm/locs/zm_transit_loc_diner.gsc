@@ -25,6 +25,9 @@ struct_init()
         }
     }
 
+    zone = "zone_gas";
+    scripts\zm\replaced\utility::register_map_spawn_group( respawnpoints[ind].origin, zone, respawnpoints[ind].script_int );
+
     respawn_array = getstructarray(respawnpoints[ind].target, "targetname");
     foreach(respawn in respawn_array)
     {
@@ -33,8 +36,32 @@ struct_init()
             respawn.angles += (0, 180, 0);
         }
 
-        scripts\zm\replaced\utility::register_map_spawn( respawn.origin, respawn.angles, respawnpoints[ind].script_noteworthy, respawn.script_int );
+        scripts\zm\replaced\utility::register_map_spawn( respawn.origin, respawn.angles, zone, respawn.script_int );
     }
+
+    zone = "zone_roadside_east";
+    scripts\zm\replaced\utility::register_map_spawn_group( (-4173, -7095, -35), zone, 6000 );
+
+    scripts\zm\replaced\utility::register_map_spawn( (-4031, -6830, -18), (0, 180, 0), zone );
+    scripts\zm\replaced\utility::register_map_spawn( (-4106, -6830, -18), (0, 180, 0), zone );
+    scripts\zm\replaced\utility::register_map_spawn( (-4181, -6830, -18), (0, 180, 0), zone );
+    scripts\zm\replaced\utility::register_map_spawn( (-4256, -6830, -18), (0, 180, 0), zone );
+    scripts\zm\replaced\utility::register_map_spawn( (-4031, -7326, -35), (0, 180, 0), zone );
+    scripts\zm\replaced\utility::register_map_spawn( (-4106, -7326, -35), (0, 180, 0), zone );
+    scripts\zm\replaced\utility::register_map_spawn( (-4181, -7326, -35), (0, 180, 0), zone );
+    scripts\zm\replaced\utility::register_map_spawn( (-4256, -7326, -35), (0, 180, 0), zone );
+
+    zone = "zone_roadside_west";
+    scripts\zm\replaced\utility::register_map_spawn_group( (-5799, -6839, -30), zone, 6000 );
+
+    scripts\zm\replaced\utility::register_map_spawn( (-6120, -6684, -30), (0, 0, 0), zone );
+    scripts\zm\replaced\utility::register_map_spawn( (-6045, -6684, -30), (0, 0, 0), zone );
+    scripts\zm\replaced\utility::register_map_spawn( (-5970, -6684, -30), (0, 0, 0), zone );
+    scripts\zm\replaced\utility::register_map_spawn( (-5895, -6684, -30), (0, 0, 0), zone );
+    scripts\zm\replaced\utility::register_map_spawn( (-6120, -6984, -30), (0, 0, 0), zone );
+    scripts\zm\replaced\utility::register_map_spawn( (-6045, -6984, -30), (0, 0, 0), zone );
+    scripts\zm\replaced\utility::register_map_spawn( (-5970, -6984, -30), (0, 0, 0), zone );
+    scripts\zm\replaced\utility::register_map_spawn( (-5895, -6984, -30), (0, 0, 0), zone );
 
 	gameObjects = getEntArray( "script_model", "classname" );
 	foreach ( object in gameObjects )
