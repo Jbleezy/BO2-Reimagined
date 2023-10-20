@@ -147,18 +147,18 @@ register_perk_struct( name, model, origin, angles )
 	add_struct( perk_struct );
 }
 
-register_map_spawn_point( origin, zone, dist )
+register_map_spawn_group( origin, zone, dist )
 {
-	spawn_point_struct = spawnStruct();
-	spawn_point_struct.targetname = "player_respawn_point";
-	spawn_point_struct.origin = origin;
-	spawn_point_struct.locked = !zone_is_enabled( zone );
-	spawn_point_struct.script_int = dist;
-	spawn_point_struct.script_noteworthy = zone;
-	spawn_point_struct.script_string = getDvar( "g_gametype" ) + "_" + getDvar( "ui_zm_mapstartlocation" );
-	spawn_point_struct.target = zone + "_player_spawns";
+	spawn_group_struct = spawnStruct();
+	spawn_group_struct.targetname = "player_respawn_point";
+	spawn_group_struct.origin = origin;
+	spawn_group_struct.locked = !zone_is_enabled( zone );
+	spawn_group_struct.script_int = dist;
+	spawn_group_struct.script_noteworthy = zone;
+	spawn_group_struct.script_string = getDvar( "g_gametype" ) + "_" + getDvar( "ui_zm_mapstartlocation" );
+	spawn_group_struct.target = zone + "_player_spawns";
 
-	add_struct( spawn_point_struct );
+	add_struct( spawn_group_struct );
 }
 
 register_map_spawn( origin, angles, zone, team_num )

@@ -348,7 +348,7 @@ player_respawn_override()
 		zone = "zone_town_north";
 		dist = 5000;
 
-		scripts\zm\replaced\utility::register_map_spawn_point(origin, zone, dist);
+		scripts\zm\replaced\utility::register_map_spawn_group(origin, zone, dist);
 
 		respawn_array = [];
 		for (i = 0; i < 8; i++)
@@ -390,7 +390,7 @@ player_respawn_override()
 		zone = "zone_town_south";
 		dist = 5000;
 
-		scripts\zm\replaced\utility::register_map_spawn_point(origin, zone, dist);
+		scripts\zm\replaced\utility::register_map_spawn_group(origin, zone, dist);
 
 		respawn_array = [];
 		for (i = 0; i < 8; i++)
@@ -432,7 +432,7 @@ player_respawn_override()
 		zone = "zone_town_east";
 		dist = 5000;
 
-		scripts\zm\replaced\utility::register_map_spawn_point(origin, zone, dist);
+		scripts\zm\replaced\utility::register_map_spawn_group(origin, zone, dist);
 
 		respawn_array = [];
 		for (i = 0; i < 8; i++)
@@ -474,7 +474,7 @@ player_respawn_override()
 		zone = "zone_town_west";
 		dist = 5000;
 
-		scripts\zm\replaced\utility::register_map_spawn_point(origin, zone, dist);
+		scripts\zm\replaced\utility::register_map_spawn_group(origin, zone, dist);
 
 		respawn_array = [];
 		for (i = 0; i < 8; i++)
