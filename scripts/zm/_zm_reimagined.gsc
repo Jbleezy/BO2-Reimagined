@@ -411,7 +411,7 @@ post_all_players_spawned()
 
 set_dvars()
 {
-	setDvar( "zm_reimagined_version", "1.1.2" );
+	setDvar( "zm_reimagined_version", "1.2.0" );
 
 	setDvar( "player_backSpeedScale", 1 );
 
