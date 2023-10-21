@@ -2780,11 +2780,11 @@ containment_get_zones()
 	{
 		if(level.scr_zm_map_start_location == "transit")
 		{
-			containment_zones = array("zone_pri", "zone_pri2", "zone_trans_2b");
+			containment_zones = array("zone_pri", "zone_pri2", "zone_station_ext", "zone_trans_2b");
 		}
 		else if(level.scr_zm_map_start_location == "diner")
 		{
-			containment_zones = array("zone_roadside_west", "zone_roadside_east", "zone_gar", "zone_din");
+			containment_zones = array("zone_gas", "zone_roadside_west", "zone_roadside_east", "zone_gar", "zone_din");
 		}
 		else if(level.scr_zm_map_start_location == "farm")
 		{
@@ -2792,11 +2792,11 @@ containment_get_zones()
 		}
 		else if(level.scr_zm_map_start_location == "power")
 		{
-			containment_zones = array("zone_trans_8", "zone_prr", "zone_pcr", "zone_pow_warehouse");
+			containment_zones = array("zone_pow", "zone_trans_8", "zone_prr", "zone_pcr", "zone_pow_warehouse");
 		}
 		else if(level.scr_zm_map_start_location == "town")
 		{
-			containment_zones = array("zone_town_north", "zone_town_south", "zone_town_east", "zone_town_west", "zone_bar", "zone_town_barber", "zone_ban");
+			containment_zones = array("zone_tow", "zone_town_north", "zone_town_south", "zone_town_east", "zone_town_west", "zone_bar", "zone_town_barber", "zone_ban");
 		}
 		else if(level.scr_zm_map_start_location == "tunnel")
 		{
@@ -2804,7 +2804,7 @@ containment_get_zones()
 		}
 		else if(level.scr_zm_map_start_location == "cornfield")
 		{
-			containment_zones = array("zone_cornfield_prototype");
+			containment_zones = array("zone_amb_cornfield", "zone_cornfield_prototype");
 		}
 	}
 	else if(level.script == "zm_prison")
@@ -2813,7 +2813,7 @@ containment_get_zones()
 		{
 			if (getDvar("ui_zm_mapstartlocation_fake") == "docks")
 			{
-				containment_zones = array("zone_dock", "zone_dock_gondola", "zone_dock_puzzle", "zone_studio", "zone_citadel_basement_building");
+				containment_zones = array("zone_dock", "zone_dock_gondola", "zone_studio", "zone_citadel_basement_building");
 			}
 			else
 			{
@@ -2827,7 +2827,7 @@ containment_get_zones()
 		{
 			if (getDvar("ui_zm_mapstartlocation_fake") == "maze")
 			{
-				containment_zones = array("zone_mansion_backyard", "zone_maze_staircase");
+				containment_zones = array("zone_maze", "zone_mansion_backyard", "zone_maze_staircase");
 			}
 			else
 			{
