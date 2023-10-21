@@ -2552,7 +2552,11 @@ containment_think()
 						player.obj_waypoint.z = zone.volumes[0].origin[2];
 					}
 
-					if(level.script == "zm_prison" && zone_name == "zone_dock")
+					if(level.script == "zm_buried" && zone_name == "zone_maze")
+					{
+						player.obj_waypoint.z += 200;
+					}
+					else if(level.script == "zm_prison" && zone_name == "zone_dock")
 					{
 						player.obj_waypoint.z -= 100;
 					}
