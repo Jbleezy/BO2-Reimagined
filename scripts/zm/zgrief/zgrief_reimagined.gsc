@@ -2568,6 +2568,10 @@ containment_think()
 					{
 						player.obj_waypoint.z -= 250;
 					}
+					else if(level.script == "zm_prison" && zone_name == "zone_studio")
+					{
+						player.obj_waypoint.x += 400;
+					}
 
 					player.obj_waypoint setWaypoint(1, level.obj_waypoint_icon);
 				}
