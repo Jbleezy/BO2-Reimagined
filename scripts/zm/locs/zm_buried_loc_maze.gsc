@@ -39,7 +39,7 @@ struct_init()
 			}
 			else if (struct.script_noteworthy == "specialty_quickrevive")
 			{
-				struct.origin += anglesToRight(struct.angles) * 32;
+				struct.origin += anglesToRight(struct.angles) * 36;
 				struct.origin += anglesToForward(struct.angles) * -12;
 			}
 			else if (struct.script_noteworthy == "specialty_fastreload")
@@ -49,7 +49,7 @@ struct_init()
 			}
 			else if (struct.script_noteworthy == "specialty_rof")
 			{
-				struct.origin += anglesToRight(struct.angles) * 20;
+				struct.origin += anglesToRight(struct.angles) * 32;
 				struct.origin += anglesToForward(struct.angles) * -12;
 			}
 
@@ -62,17 +62,19 @@ struct_init()
 		rand = randomint(og_perk_structs.size);
 		if (rand != i)
 		{
-			temp_origin = og_perk_structs[i].origin;
-			temp_angles = og_perk_structs[i].angles;
-			og_perk_structs[i].origin = og_perk_structs[rand].origin;
-			og_perk_structs[i].angles = og_perk_structs[rand].angles;
-			og_perk_structs[rand].origin = temp_origin;
-			og_perk_structs[rand].angles = temp_angles;
+			temp_script_noteworthy = og_perk_structs[i].script_noteworthy;
+			og_perk_structs[i].script_noteworthy = og_perk_structs[rand].script_noteworthy;
+			og_perk_structs[rand].script_noteworthy = temp_script_noteworthy;
 		}
 	}
 
 	foreach (struct in og_perk_structs)
 	{
+		if (struct.script_noteworthy == "specialty_rof")
+		{
+			struct.origin += anglesToRight(struct.angles) * -12;
+		}
+
 		scripts\zm\replaced\utility::register_perk_struct( struct.script_noteworthy, struct.model, struct.origin, struct.angles );
 	}
 
