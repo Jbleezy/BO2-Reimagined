@@ -17,15 +17,59 @@ struct_init()
     scripts\zm\replaced\utility::register_perk_struct( "specialty_scavenger", "zombie_vending_tombstone", ( 10946, 8308.77, -408 ), ( 0, 270, 0 ) );
     scripts\zm\replaced\utility::register_perk_struct( "specialty_weapupgrade", "p6_anim_zm_buildable_pap_on", ( 12333, 8158, -752 ), ( 0, 180, 0 ) );
 
+	ind = 0;
+    respawnpoints = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
+    for(i = 0; i < respawnpoints.size; i++)
+    {
+        if(respawnpoints[i].script_noteworthy == "zone_prr")
+        {
+            ind = i;
+            break;
+        }
+    }
+
 	zone = "zone_pow";
-    scripts\zm\replaced\utility::register_map_spawn( (10160, 8060, -554), (0, 0, 0), zone, 1 );
-	scripts\zm\replaced\utility::register_map_spawn( (10160, 7996, -554), (0, 0, 0), zone, 1 );
-	scripts\zm\replaced\utility::register_map_spawn( (10160, 7932, -554), (0, 0, 0), zone, 1 );
-	scripts\zm\replaced\utility::register_map_spawn( (10160, 7868, -554), (0, 0, 0), zone, 1 );
-	scripts\zm\replaced\utility::register_map_spawn( (10160, 7772, -554), (0, 0, 0), zone, 2 );
-	scripts\zm\replaced\utility::register_map_spawn( (10160, 7708, -554), (0, 0, 0), zone, 2 );
-	scripts\zm\replaced\utility::register_map_spawn( (10160, 7644, -554), (0, 0, 0), zone, 2 );
-	scripts\zm\replaced\utility::register_map_spawn( (10160, 7580, -554), (0, 0, 0), zone, 2 );
+	scripts\zm\replaced\utility::register_map_spawn_group( (10160, 7820, -541), zone, 6000 );
+
+    scripts\zm\replaced\utility::register_map_spawn( (10160, 8060, -541), (0, 0, 0), zone, 1 );
+	scripts\zm\replaced\utility::register_map_spawn( (10160, 7996, -541), (0, 0, 0), zone, 1 );
+	scripts\zm\replaced\utility::register_map_spawn( (10160, 7932, -541), (0, 0, 0), zone, 1 );
+	scripts\zm\replaced\utility::register_map_spawn( (10160, 7868, -541), (0, 0, 0), zone, 1 );
+	scripts\zm\replaced\utility::register_map_spawn( (10160, 7772, -541), (0, 0, 0), zone, 2 );
+	scripts\zm\replaced\utility::register_map_spawn( (10160, 7708, -541), (0, 0, 0), zone, 2 );
+	scripts\zm\replaced\utility::register_map_spawn( (10160, 7644, -541), (0, 0, 0), zone, 2 );
+	scripts\zm\replaced\utility::register_map_spawn( (10160, 7580, -541), (0, 0, 0), zone, 2 );
+
+	zone = "zone_prr";
+	scripts\zm\replaced\utility::register_map_spawn_group( respawnpoints[ind].origin, zone, respawnpoints[ind].script_int );
+
+    respawn_array = getstructarray(respawnpoints[ind].target, "targetname");
+    foreach(respawn in respawn_array)
+    {
+		angles = respawn.angles;
+		if (respawn.origin[0] < 12200)
+		{
+			angles += (0, 90, 0);
+		}
+		else
+		{
+			angles += (0, -90, 0);
+		}
+
+        scripts\zm\replaced\utility::register_map_spawn( respawn.origin, angles, zone );
+    }
+
+	zone = "zone_pow_warehouse";
+	scripts\zm\replaced\utility::register_map_spawn_group( (11033, 8587, -387), zone, 6000 );
+
+    scripts\zm\replaced\utility::register_map_spawn( (11341, 8300, -459), (0, 90, 0), zone );
+	scripts\zm\replaced\utility::register_map_spawn( (11341, 8587, -387), (0, 90, 0), zone );
+	scripts\zm\replaced\utility::register_map_spawn( (11341, 8846, -322), (0, 180, 0), zone );
+	scripts\zm\replaced\utility::register_map_spawn( (10630, 8846, -323), (0, -90, 0), zone );
+	scripts\zm\replaced\utility::register_map_spawn( (10630, 8451, -379), (0, 0, 0), zone );
+	scripts\zm\replaced\utility::register_map_spawn( (10884, 8192, -379), (0, 180, 0), zone );
+	scripts\zm\replaced\utility::register_map_spawn( (11359, 8774, -548), (0, -90, 0), zone );
+	scripts\zm\replaced\utility::register_map_spawn( (11719, 8608, -547), (0, -90, 0), zone );
 }
 
 precache()
@@ -42,6 +86,7 @@ main()
 	activate_core();
 	generatebuildabletarps();
     disable_zombie_spawn_locations();
+	disable_player_spawn_locations();
 	scripts\zm\locs\loc_common::init();
 }
 
@@ -114,4 +159,25 @@ generatebuildabletarps()
 disable_zombie_spawn_locations()
 {
     level.zones["zone_trans_8"].is_spawning_allowed = 0;
+}
+
+disable_player_spawn_locations()
+{
+	respawnpoints = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
+	foreach	(respawnpoint in respawnpoints)
+	{
+		if (respawnpoint.script_noteworthy == "zone_pow_warehouse")
+		{
+			level thread lock_and_unlock_player_spawn_location(respawnpoint, "OnPowDoorWH");
+		}
+	}
+}
+
+lock_and_unlock_player_spawn_location(respawnpoint, flag_str)
+{
+	respawnpoint.locked = 1;
+
+	flag_wait(flag_str);
+
+	respawnpoint.locked = 0;
 }
