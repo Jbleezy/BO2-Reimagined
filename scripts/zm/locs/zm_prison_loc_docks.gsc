@@ -12,42 +12,56 @@ struct_init()
 	scripts\zm\replaced\utility::register_perk_struct( "specialty_armorvest", "zombie_vending_jugg", ( 473.92, 6638.99, 208 ), ( 0, 102, 0 ) );
     scripts\zm\replaced\utility::register_perk_struct( "specialty_weapupgrade", "p6_zm_al_vending_pap_on", ( -1769, 5395, -72 ), ( 0, 100, 0 ) );
 
-    ind = 0;
-    respawnpoints = getstructarray( "player_respawn_point", "targetname" );
-    for(i = 0; i < respawnpoints.size; i++)
+    level.struct_class_names[ "script_noteworthy" ][ "initial_spawn" ] = [];
+
+	player_respawn_points = [];
+
+	foreach (player_respawn_point in level.struct_class_names["targetname"]["player_respawn_point"])
     {
-        if(respawnpoints[i].script_noteworthy == "zone_dock")
+		if (player_respawn_point.script_noteworthy == "zone_dock")
         {
-            ind = i;
-            break;
+            i = 0;
+            respawn_array = getstructarray(player_respawn_point.target, "targetname");
+
+            foreach (respawn in respawn_array)
+            {
+                if (respawn.origin == (-664, 5944, 0))
+                {
+                    continue;
+                }
+
+                script_int = int(i / 2) + 1;
+
+                origin = respawn.origin + (anglesToRight(respawn.angles) * 32);
+                angles = respawn.angles;
+
+                scripts\zm\replaced\utility::register_map_spawn( origin, angles, player_respawn_point.script_noteworthy, script_int );
+
+                origin = respawn.origin + (anglesToRight(respawn.angles) * -32);
+                angles = respawn.angles;
+
+                scripts\zm\replaced\utility::register_map_spawn( origin, angles, player_respawn_point.script_noteworthy, script_int );
+
+                i++;
+            }
+
+			player_respawn_points[player_respawn_points.size] = player_respawn_point;
+        }
+        else if (player_respawn_point.script_noteworthy == "zone_dock_gondola")
+        {
+			player_respawn_points[player_respawn_points.size] = player_respawn_point;
+        }
+        else if (player_respawn_point.script_noteworthy == "zone_studio")
+        {
+			player_respawn_points[player_respawn_points.size] = player_respawn_point;
+        }
+        else if (player_respawn_point.script_noteworthy == "zone_citadel_basement_building")
+        {
+			player_respawn_points[player_respawn_points.size] = player_respawn_point;
         }
     }
 
-	level.struct_class_names[ "script_noteworthy" ][ "initial_spawn" ] = [];
-
-	respawn_array = getstructarray(respawnpoints[ind].target, "targetname");
-    i = 0;
-    foreach(respawn in respawn_array)
-    {
-        if (respawn.origin == (-664, 5944, 0))
-        {
-            continue;
-        }
-
-        script_int = int(i / 2) + 1;
-
-        origin = respawn.origin + (anglesToRight(respawn.angles) * 32);
-		angles = respawn.angles;
-
-        scripts\zm\replaced\utility::register_map_spawn( origin, angles, respawnpoints[ind].script_noteworthy, script_int );
-
-		origin = respawn.origin + (anglesToRight(respawn.angles) * -32);
-		angles = respawn.angles;
-
-        scripts\zm\replaced\utility::register_map_spawn( origin, angles, respawnpoints[ind].script_noteworthy, script_int );
-
-        i++;
-    }
+	level.struct_class_names[ "targetname" ][ "player_respawn_point" ] = player_respawn_points;
 
     level.struct_class_names[ "targetname" ][ "intermission" ] = [];
 
@@ -82,7 +96,6 @@ main()
     generatebuildabletarps();
     set_box_weapons();
     disable_zombie_spawn_locations();
-    disable_player_spawn_locations();
     disable_gondola_call_triggers();
     disable_craftable_triggers();
     disable_afterlife_props();
@@ -178,18 +191,6 @@ disable_zombie_spawn_locations()
             i++;
         }
 	}
-}
-
-disable_player_spawn_locations()
-{
-    spawn_points = getstructarray( "player_respawn_point", "targetname" );
-    foreach(spawn_point in spawn_points)
-    {
-        if(spawn_point.script_noteworthy == "zone_citadel_basement")
-        {
-            spawn_point.script_noteworthy = "none";
-        }
-    }
 }
 
 disable_gondola_call_triggers()

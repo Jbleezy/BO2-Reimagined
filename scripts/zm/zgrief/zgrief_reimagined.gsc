@@ -2423,10 +2423,6 @@ containment_think()
 		{
 			zone_name_to_lock = "zone_mansion";
 		}
-		else if (zone_name == "zone_mansion_backyard")
-		{
-			zone_name_to_lock = "zone_maze";
-		}
 
 		players = get_players();
 		foreach(player in players)

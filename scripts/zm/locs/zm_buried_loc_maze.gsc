@@ -18,7 +18,9 @@ struct_init()
 {
 	og_perk_structs = [];
 	structs = getstructarray( "zm_perk_machine", "targetname" );
+
 	level.struct_class_names[ "targetname" ][ "zm_perk_machine" ] = [];
+
 	foreach (struct in structs)
     {
         if (isdefined(struct.script_string) && isSubStr(struct.script_string, "zclassic"))
@@ -76,27 +78,58 @@ struct_init()
 
 	scripts\zm\replaced\utility::register_perk_struct( "specialty_additionalprimaryweapon", "zombie_vending_three_gun", (3414, 853, 52), (0, 90, 0) );
 
-	for(i = 0; i < level.struct_class_names["targetname"]["player_respawn_point"].size; i++)
+	initial_spawns = [];
+	player_respawn_points = [];
+
+	foreach (initial_spawn in level.struct_class_names["script_noteworthy"]["initial_spawn"])
     {
-        if(level.struct_class_names["targetname"]["player_respawn_point"][i].script_noteworthy != "zone_mansion_backyard" && level.struct_class_names["targetname"]["player_respawn_point"][i].script_noteworthy != "zone_maze" && level.struct_class_names["targetname"]["player_respawn_point"][i].script_noteworthy != "zone_maze_staircase")
-        {
-			level.struct_class_names["targetname"]["player_respawn_point"][i].script_string = "none";
-        }
-		else
+		if (isDefined(initial_spawn.script_string) && isSubStr(initial_spawn.script_string, "zgrief_maze"))
 		{
-			level.struct_class_names["targetname"]["player_respawn_point"][i].script_string = "zgrief_street";
+			initial_spawn.script_string = "zgrief_street";
+
+			initial_spawns[initial_spawns.size] = initial_spawn;
+		}
+	}
+
+	foreach (player_respawn_point in level.struct_class_names["targetname"]["player_respawn_point"])
+    {
+		if (player_respawn_point.script_noteworthy == "zone_maze")
+        {
+			if (player_respawn_point.target == "maze_spawn_points")
+			{
+				player_respawn_point.script_noteworthy = "zone_mansion_backyard";
+			}
+			else
+			{
+				level.struct_class_names["targetname"][player_respawn_point.target] = initial_spawns;
+			}
+
+			player_respawn_points[player_respawn_points.size] = player_respawn_point;
+        }
+		else if (player_respawn_point.script_noteworthy == "zone_maze_staircase")
+		{
+			spawn_array = getstructarray( player_respawn_point.target, "targetname" );
+			foreach (spawn in spawn_array)
+			{
+				if (spawn.origin[0] > 5950)
+				{
+					if (spawn.origin[1] > 550)
+					{
+						spawn.angles = (0, -90, 0);
+					}
+					else
+					{
+						spawn.angles = (0, 90, 0);
+					}
+				}
+			}
+
+			player_respawn_points[player_respawn_points.size] = player_respawn_point;
 		}
     }
 
-    initialpoints = getstructarray( "initial_spawn", "script_noteworthy" );
-	level.struct_class_names[ "script_noteworthy" ][ "initial_spawn" ] = [];
-	foreach (point in initialpoints)
-	{
-		if(isDefined(point.script_string) && isSubStr(point.script_string, "zgrief_maze"))
-		{
-			scripts\zm\replaced\utility::register_map_spawn( point.origin, point.angles, "zone_maze", point.script_int );
-		}
-	}
+	level.struct_class_names[ "script_noteworthy" ][ "initial_spawn" ] = initial_spawns;
+	level.struct_class_names[ "targetname" ][ "player_respawn_point" ] = player_respawn_points;
 
 	level.struct_class_names[ "targetname" ][ "intermission" ] = [];
 
@@ -194,7 +227,6 @@ main()
 	maps\mp\zombies\_zm::spawn_kill_brush( (4919, 575, -511), 128, 300 );
 	init_wallbuys();
 	init_barriers();
-	disable_player_spawn_locations();
 	disable_mansion();
 	scripts\zm\locs\loc_common::init();
 }
@@ -239,18 +271,6 @@ init_barriers()
     {
 		scripts\zm\replaced\utility::barrier( "collision_geo_64x64x128_standard", struct.origin + (anglesToRight(struct.angles) * -9) + (0, 0, 320), struct.angles );
 	}
-}
-
-disable_player_spawn_locations()
-{
-    spawn_points = getstructarray( "player_respawn_point", "targetname" );
-    foreach(spawn_point in spawn_points)
-    {
-        if(spawn_point.script_noteworthy != "zone_mansion_backyard" && spawn_point.script_noteworthy != "zone_maze" && spawn_point.script_noteworthy != "zone_maze_staircase")
-        {
-            spawn_point.script_noteworthy = "none";
-        }
-    }
 }
 
 disable_mansion()
