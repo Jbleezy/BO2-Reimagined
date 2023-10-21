@@ -2519,6 +2519,8 @@ containment_think()
 						player.obj_waypoint.x = (zone.volumes[0].origin[0] + other_zone.volumes[0].origin[0]) / 2;
 						player.obj_waypoint.y = (zone.volumes[0].origin[1] + other_zone.volumes[0].origin[1]) / 2;
 						player.obj_waypoint.z = (zone.volumes[0].origin[2] + other_zone.volumes[0].origin[2]) / 2;
+
+						player.obj_waypoint.x += 200;
 					}
 					else if(level.script == "zm_transit" && zone_name == "zone_town_west")
 					{
