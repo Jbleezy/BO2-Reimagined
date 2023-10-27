@@ -24,7 +24,7 @@
 
 start_alcatraz_sidequest()
 {
-    init();
+    maps\mp\zm_alcatraz_sq::init();
     onplayerconnect_callback( ::player_disconnect_watcher );
     onplayerconnect_callback( ::player_death_watcher );
     flag_wait( "start_zombie_round_logic" );
