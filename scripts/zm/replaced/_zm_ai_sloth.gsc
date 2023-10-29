@@ -1,3 +1,4 @@
+#include maps\mp\zombies\_zm_ai_sloth;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -7,7 +8,6 @@
 #include maps\mp\zombies\_zm_ai_sloth_magicbox;
 #include maps\mp\zombies\_zm_ai_sloth_utility;
 #include maps\mp\zombies\_zm_ai_sloth_ffotd;
-#include maps\mp\zombies\_zm_ai_sloth;
 #include maps\mp\zombies\_zm_zonemgr;
 #include maps\mp\zombies\_zm_equipment;
 #include maps\mp\zombies\_zm_audio;

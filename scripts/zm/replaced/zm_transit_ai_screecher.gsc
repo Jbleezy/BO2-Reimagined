@@ -1,3 +1,4 @@
+#include maps\mp\zm_transit_ai_screecher;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -8,7 +9,6 @@
 #include maps\mp\zombies\_zm_gump;
 #include maps\mp\zombies\_zm_stats;
 #include maps\mp\zm_transit;
-#include maps\mp\zm_transit_ai_screecher;
 
 init()
 {

@@ -1,3 +1,4 @@
+#include maps\mp\zombies\_zm_riotshield;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
 #include common_scripts\utility;
@@ -5,7 +6,6 @@
 #include maps\mp\zombies\_zm_buildables;
 #include maps\mp\zombies\_zm_equipment;
 #include maps\mp\zombies\_zm_weapons;
-#include maps\mp\zombies\_zm_riotshield;
 
 doriotshielddeploy( origin, angles )
 {

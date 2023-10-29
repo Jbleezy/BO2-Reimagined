@@ -1,9 +1,9 @@
+#include maps\mp\animscripts\zm_melee;
 #include common_scripts\utility;
 #include maps\mp\animscripts\shared;
 #include maps\mp\animscripts\utility;
 #include maps\mp\animscripts\zm_utility;
 #include maps\mp\animscripts\zm_combat;
-#include maps\mp\animscripts\zm_melee;
 
 meleecombat()
 {

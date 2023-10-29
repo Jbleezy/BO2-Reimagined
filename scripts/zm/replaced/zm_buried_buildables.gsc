@@ -1,3 +1,4 @@
+#include maps\mp\zm_buried_buildables;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_buildables;
@@ -12,7 +13,6 @@
 #include maps\mp\zombies\_zm_melee_weapon;
 #include maps\mp\zombies\_zm_weap_claymore;
 #include maps\mp\zombies\_zm_unitrigger;
-#include maps\mp\zm_buried_buildables;
 
 watch_cell_open_close( door )
 {

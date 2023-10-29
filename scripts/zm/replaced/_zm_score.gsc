@@ -1,7 +1,7 @@
+#include maps\mp\zombies\_zm_score;
 #include maps\mp\_utility;
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
-#include maps\mp\zombies\_zm_score;
 
 add_to_player_score( points, add_to_total )
 {

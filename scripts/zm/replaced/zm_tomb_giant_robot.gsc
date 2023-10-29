@@ -1,3 +1,4 @@
+#include maps\mp\zm_tomb_giant_robot;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -20,7 +21,6 @@
 #include maps\mp\zombies\_zm_clone;
 #include maps\mp\zm_tomb_vo;
 #include maps\mp\zombies\_zm;
-#include maps\mp\zm_tomb_giant_robot;
 
 robot_cycling()
 {

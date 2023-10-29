@@ -1,10 +1,10 @@
+#include maps\mp\zm_buried_distance_tracking;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
 #include maps\mp\zombies\_zm_spawner;
 #include maps\mp\zombies\_zm_zonemgr;
 #include maps\mp\zombies\_zm_ai_basic;
-#include maps\mp\zm_buried_distance_tracking;
 
 delete_zombie_noone_looking( how_close, how_high )
 {

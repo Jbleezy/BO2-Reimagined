@@ -1,8 +1,8 @@
+#include maps\mp\zm_alcatraz_distance_tracking;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
 #include maps\mp\zombies\_zm_spawner;
-#include maps\mp\zm_alcatraz_distance_tracking;
 
 delete_zombie_noone_looking( how_close, how_high )
 {

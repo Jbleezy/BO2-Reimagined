@@ -1,7 +1,7 @@
+#include maps\mp\zm_tomb_main_quest;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
-#include maps\mp\zm_tomb_main_quest;
 #include maps\mp\zombies\_zm_craftables;
 #include maps\mp\zombies\_zm_sidequests;
 #include maps\mp\zm_tomb_utility;

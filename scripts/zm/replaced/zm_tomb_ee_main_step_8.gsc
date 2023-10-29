@@ -1,3 +1,4 @@
+#include maps\mp\zm_tomb_ee_main_step_8;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -8,7 +9,6 @@
 #include maps\mp\gametypes_zm\_hud_util;
 #include maps\mp\gametypes_zm\_hud;
 #include maps\mp\zm_tomb_chamber;
-#include maps\mp\zm_tomb_ee_main_step_8;
 
 init()
 {

@@ -1,3 +1,4 @@
+#include maps\mp\zm_buried_gamemodes;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -11,7 +12,6 @@
 #include maps\mp\zombies\_zm_zonemgr;
 #include maps\mp\zombies\_zm_weapons;
 #include maps\mp\zombies\_zm_unitrigger;
-#include maps\mp\zm_buried_gamemodes;
 
 #include scripts\zm\replaced\zm_buried_grief_street;
 #include scripts\zm\locs\zm_buried_loc_maze;

@@ -1,3 +1,4 @@
+#include maps\mp\zombies\_zm_challenges;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -5,7 +6,6 @@
 #include maps\mp\zombies\_zm_unitrigger;
 #include maps\mp\zombies\_zm_laststand;
 #include maps\mp\zombies\_zm_score;
-#include maps\mp\zombies\_zm_challenges;
 
 init()
 {

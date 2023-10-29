@@ -1,3 +1,4 @@
+#include maps\mp\zombies\_zm_ai_mechz;
 #include maps\mp\zombies\_zm_zonemgr;
 #include common_scripts\utility;
 #include maps\mp\_utility;
@@ -10,7 +11,6 @@
 #include maps\mp\zombies\_zm_ai_mechz_ft;
 #include maps\mp\zombies\_zm_ai_mechz_booster;
 #include maps\mp\zombies\_zm_ai_mechz_ffotd;
-#include maps\mp\zombies\_zm_ai_mechz;
 #include maps\mp\zombies\_zm_spawner;
 #include maps\mp\animscripts\zm_shared;
 #include maps\mp\zombies\_zm_audio;

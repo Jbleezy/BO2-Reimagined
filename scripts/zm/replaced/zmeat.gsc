@@ -1,8 +1,8 @@
+#include maps\mp\gametypes_zm\zmeat;
 #include maps\mp\_utility;
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 #include maps\mp\zombies\_zm_game_module_meat_utility;
-#include maps\mp\gametypes_zm\zmeat;
 
 item_meat_on_spawn_retrieve_trigger( watcher, player, weaponname )
 {

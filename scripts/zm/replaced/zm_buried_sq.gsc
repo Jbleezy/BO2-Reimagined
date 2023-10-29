@@ -1,3 +1,4 @@
+#include maps\mp\zm_buried_sq;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -23,7 +24,6 @@
 #include maps\mp\zombies\_zm_powerups;
 #include maps\mp\zombies\_zm_spawner;
 #include maps\mp\zombies\_zm_score;
-#include maps\mp\zm_buried_sq;
 
 sq_metagame()
 {

@@ -1,3 +1,4 @@
+#include maps\mp\zombies\_zm_weap_time_bomb;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -17,7 +18,6 @@
 #include maps\mp\zombies\_zm_spawner;
 #include maps\mp\animscripts\zm_death;
 #include maps\mp\zombies\_zm_ai_basic;
-#include maps\mp\zombies\_zm_weap_time_bomb;
 
 init_time_bomb()
 {

@@ -1,3 +1,4 @@
+#include maps\mp\zombies\_zm_stats;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -5,7 +6,6 @@
 #include maps\mp\zombies\_zm_pers_upgrades;
 #include maps\mp\zombies\_zm_weapons;
 #include maps\mp\gametypes_zm\_globallogic;
-#include maps\mp\zombies\_zm_stats;
 
 set_global_stat( stat_name, value )
 {

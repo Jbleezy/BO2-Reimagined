@@ -1,3 +1,4 @@
+#include maps\mp\zm_highrise;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -17,7 +18,6 @@
 #include maps\mp\gametypes_zm\_spawning;
 #include maps\mp\zm_highrise_classic;
 #include maps\mp\zombies\_zm_ai_leaper;
-#include maps\mp\zm_highrise;
 #include maps\mp\_sticky_grenade;
 #include maps\mp\zombies\_zm_weap_bowie;
 #include maps\mp\zombies\_zm_weap_cymbal_monkey;

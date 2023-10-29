@@ -1,3 +1,4 @@
+#include maps\mp\zombies\_zm_weap_staff_air;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -8,7 +9,6 @@
 #include maps\mp\zombies\_zm_audio;
 #include maps\mp\zombies\_zm_powerups;
 #include maps\mp\animscripts\shared;
-#include maps\mp\zombies\_zm_weap_staff_air;
 
 whirlwind_kill_zombies( n_level, str_weapon )
 {

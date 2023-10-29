@@ -1,3 +1,4 @@
+#include maps\mp\zm_prison_sq_bg;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -5,7 +6,6 @@
 #include maps\mp\zombies\_zm_audio;
 #include maps\mp\zombies\_zm_afterlife;
 #include maps\mp\zombies\_zm_weap_tomahawk;
-#include maps\mp\zm_prison_sq_bg;
 
 give_sq_bg_reward()
 {

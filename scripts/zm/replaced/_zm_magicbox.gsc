@@ -1,3 +1,4 @@
+#include maps\mp\zombies\_zm_magicbox;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -10,7 +11,6 @@
 #include maps\mp\zombies\_zm_audio;
 #include maps\mp\_demo;
 #include maps\mp\zombies\_zm_stats;
-#include maps\mp\zombies\_zm_magicbox;
 
 treasure_chest_init( start_chest_name )
 {

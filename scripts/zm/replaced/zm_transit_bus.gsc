@@ -1,3 +1,4 @@
+#include maps\mp\zm_transit_bus;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -19,7 +20,6 @@
 #include maps\mp\zombies\_zm_weap_emp_bomb;
 #include maps\mp\zm_transit_lava;
 #include maps\mp\zombies\_zm_audio;
-#include maps\mp\zm_transit_bus;
 
 #using_animtree("zombie_bus");
 

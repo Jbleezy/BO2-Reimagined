@@ -1,3 +1,4 @@
+#include maps\mp\zombies\_zm_weap_one_inch_punch;
 #include maps\mp\_utility;
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
@@ -9,7 +10,6 @@
 #include maps\mp\zombies\_zm_score;
 #include maps\mp\zombies\_zm_weap_staff_lightning;
 #include maps\mp\animscripts\zm_shared;
-#include maps\mp\zombies\_zm_weap_one_inch_punch;
 
 monitor_melee_swipe()
 {

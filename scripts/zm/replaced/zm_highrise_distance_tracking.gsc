@@ -1,9 +1,9 @@
+#include maps\mp\zm_highrise_distance_tracking;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
 #include maps\mp\zombies\_zm_spawner;
 #include maps\mp\zombies\_zm_ai_basic;
-#include maps\mp\zm_highrise_distance_tracking;
 
 zombie_tracking_init()
 {

@@ -1,3 +1,4 @@
+#include maps\mp\zm_tomb_tank;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_craftables;
@@ -14,7 +15,6 @@
 #include maps\mp\zombies\_zm_ai_basic;
 #include maps\mp\zombies\_zm_weap_staff_fire;
 #include maps\mp\zombies\_zm_spawner;
-#include maps\mp\zm_tomb_tank;
 
 players_on_tank_update()
 {

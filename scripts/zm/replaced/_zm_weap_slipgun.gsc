@@ -1,3 +1,4 @@
+#include maps\mp\zombies\_zm_weap_slipgun;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -11,7 +12,6 @@
 #include maps\mp\zombies\_zm_ai_basic;
 #include maps\mp\zombies\_zm_powerups;
 #include maps\mp\zombies\_zm_audio;
-#include maps\mp\zombies\_zm_weap_slipgun;
 
 init()
 {

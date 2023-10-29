@@ -1,3 +1,4 @@
+#include maps\mp\zm_alcatraz_craftables;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -8,7 +9,6 @@
 #include maps\mp\zombies\_zm_audio;
 #include maps\mp\zm_alcatraz_sq_vo;
 #include maps\mp\zm_alcatraz_travel;
-#include maps\mp\zm_alcatraz_craftables;
 
 init_craftables()
 {

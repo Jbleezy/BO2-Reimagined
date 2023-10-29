@@ -1,9 +1,9 @@
+#include maps\mp\gametypes_zm\_globallogic_ui;
 #include maps\mp\_utility;
 #include maps\mp\gametypes_zm\_hud_util;
 #include maps\mp\gametypes_zm\_globallogic;
 #include maps\mp\gametypes_zm\_spectating;
 #include maps\mp\gametypes_zm\_globallogic_player;
-#include maps\mp\gametypes_zm\_globallogic_ui;
 
 menuautoassign( comingfrommenu )
 {

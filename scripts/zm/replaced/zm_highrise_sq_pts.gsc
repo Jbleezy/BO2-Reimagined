@@ -1,10 +1,10 @@
+#include maps\mp\zm_highrise_sq_pts;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
 #include maps\mp\zombies\_zm_sidequests;
 #include maps\mp\zm_highrise_sq;
 #include maps\mp\zombies\_zm_unitrigger;
-#include maps\mp\zm_highrise_sq_pts;
 
 init_1()
 {

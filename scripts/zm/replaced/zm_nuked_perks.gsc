@@ -1,3 +1,4 @@
+#include maps\mp\zm_nuked_perks;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -5,7 +6,6 @@
 #include maps\mp\zombies\_zm_perks;
 #include maps\mp\animscripts\zm_death;
 #include maps\mp\zombies\_zm_game_module;
-#include maps\mp\zm_nuked_perks;
 
 init_nuked_perks()
 {

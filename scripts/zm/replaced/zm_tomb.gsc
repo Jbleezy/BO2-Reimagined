@@ -1,3 +1,4 @@
+#include maps\mp\zm_tomb;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -27,7 +28,6 @@
 #include maps\mp\zombies\_zm_weap_staff_water;
 #include maps\mp\zombies\_zm_weap_staff_lightning;
 #include maps\mp\zombies\_zm_weap_staff_air;
-#include maps\mp\zm_tomb;
 #include maps\mp\zm_tomb_achievement;
 #include maps\mp\zm_tomb_distance_tracking;
 #include maps\mp\zombies\_zm_magicbox_tomb;

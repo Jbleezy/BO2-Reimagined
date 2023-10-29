@@ -1,3 +1,4 @@
+#include maps\mp\zombies\_zm_weap_tomahawk;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -5,7 +6,6 @@
 #include maps\mp\zombies\_zm_weapons;
 #include maps\mp\zombies\_zm_score;
 #include maps\mp\zombies\_zm_stats;
-#include maps\mp\zombies\_zm_weap_tomahawk;
 
 calculate_tomahawk_damage( n_target_zombie, n_tomahawk_power, tomahawk )
 {

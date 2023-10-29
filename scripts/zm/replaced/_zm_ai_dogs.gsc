@@ -1,3 +1,4 @@
+#include maps\mp\zombies\_zm_ai_dogs;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -8,7 +9,6 @@
 #include maps\mp\zombies\_zm_score;
 #include maps\mp\zombies\_zm_stats;
 #include maps\mp\zombies\_zm_net;
-#include maps\mp\zombies\_zm_ai_dogs;
 
 enable_dog_rounds()
 {

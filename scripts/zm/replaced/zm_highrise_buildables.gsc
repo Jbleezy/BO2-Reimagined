@@ -1,3 +1,4 @@
+#include maps\mp\zm_highrise_buildables;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -6,7 +7,6 @@
 #include maps\mp\zombies\_zm_buildables;
 #include maps\mp\zm_highrise_elevators;
 #include maps\mp\zombies\_zm_unitrigger;
-#include maps\mp\zm_highrise_buildables;
 
 init_buildables()
 {

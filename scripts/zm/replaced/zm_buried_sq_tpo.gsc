@@ -1,3 +1,4 @@
+#include maps\mp\zm_buried_sq_tpo;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -10,7 +11,6 @@
 #include maps\mp\zombies\_zm_weap_time_bomb;
 #include maps\mp\zombies\_zm_unitrigger;
 #include maps\mp\zm_buried_buildables;
-#include maps\mp\zm_buried_sq_tpo;
 
 init()
 {

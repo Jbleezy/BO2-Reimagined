@@ -1,3 +1,4 @@
+#include maps\mp\zombies\_zm_weap_staff_fire;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -17,7 +18,6 @@
 #include maps\mp\zm_tomb_tank;
 #include maps\mp\zm_tomb_craftables;
 #include maps\mp\zm_tomb_utility;
-#include maps\mp\zombies\_zm_weap_staff_fire;
 
 flame_damage_fx( damageweapon, e_attacker, pct_damage = 1.0 )
 {

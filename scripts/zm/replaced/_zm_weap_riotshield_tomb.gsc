@@ -1,3 +1,4 @@
+#include maps\mp\zombies\_zm_weap_riotshield_tomb;
 #include maps\mp\_utility;
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
@@ -12,7 +13,6 @@
 #include maps\mp\zombies\_zm_unitrigger;
 #include maps\mp\animscripts\zm_death;
 #include maps\mp\zombies\_zm_audio;
-#include maps\mp\zombies\_zm_weap_riotshield_tomb;
 
 init()
 {

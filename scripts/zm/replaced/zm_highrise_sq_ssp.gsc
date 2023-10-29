@@ -1,10 +1,10 @@
+#include maps\mp\zm_highrise_sq_ssp;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
 #include maps\mp\zombies\_zm_sidequests;
 #include maps\mp\zombies\_zm_spawner;
 #include maps\mp\zm_highrise_sq;
-#include maps\mp\zm_highrise_sq_ssp;
 
 ssp1_watch_ball( str_complete_flag )
 {

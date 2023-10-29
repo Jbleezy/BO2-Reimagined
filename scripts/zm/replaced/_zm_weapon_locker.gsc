@@ -1,3 +1,4 @@
+#include maps\mp\zombies\_zm_weapon_locker;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -6,7 +7,6 @@
 #include maps\mp\zombies\_zm_stats;
 #include maps\mp\zombies\_zm_unitrigger;
 #include maps\mp\zombies\_zm_audio;
-#include maps\mp\zombies\_zm_weapon_locker;
 
 triggerweaponslockerisvalidweaponpromptupdate( player, weaponname )
 {

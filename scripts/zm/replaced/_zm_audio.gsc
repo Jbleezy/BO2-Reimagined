@@ -1,9 +1,9 @@
+#include maps\mp\zombies\_zm_audio;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
 #include maps\mp\zombies\_zm_weapons;
 #include maps\mp\zombies\_zm_audio_announcer;
-#include maps\mp\zombies\_zm_audio;
 #include maps\mp\zombies\_zm_laststand;
 #include maps\mp\_music;
 #include maps\mp\zombies\_zm_spawner;

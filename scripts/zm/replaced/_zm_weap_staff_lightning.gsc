@@ -1,3 +1,4 @@
+#include maps\mp\zombies\_zm_weap_staff_lightning;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -8,7 +9,6 @@
 #include maps\mp\zombies\_zm_powerups;
 #include maps\mp\zombies\_zm_score;
 #include maps\mp\animscripts\shared;
-#include maps\mp\zombies\_zm_weap_staff_lightning;
 
 staff_lightning_ball_kill_zombies( e_attacker )
 {

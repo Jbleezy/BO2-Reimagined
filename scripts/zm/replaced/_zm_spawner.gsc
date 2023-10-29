@@ -1,7 +1,7 @@
+#include maps\mp\zombies\_zm_spawner;
 #include maps\mp\_utility;
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
-#include maps\mp\zombies\_zm_spawner;
 
 zombie_damage( mod, hit_location, hit_origin, player, amount, team )
 {

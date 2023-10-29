@@ -1,8 +1,8 @@
+#include maps\mp\zombies\_zm_ai_avogadro;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
 #include maps\mp\animscripts\zm_utility;
-#include maps\mp\zombies\_zm_ai_avogadro;
 #include maps\mp\_visionset_mgr;
 #include maps\mp\zombies\_zm;
 #include maps\mp\zombies\_zm_spawner;

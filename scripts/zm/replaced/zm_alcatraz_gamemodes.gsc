@@ -1,3 +1,4 @@
+#include maps\mp\zm_alcatraz_gamemodes;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -6,7 +7,6 @@
 #include maps\mp\zm_prison;
 #include maps\mp\zm_alcatraz_grief_cellblock;
 #include maps\mp\zm_alcatraz_classic;
-#include maps\mp\zm_alcatraz_gamemodes;
 
 #include scripts\zm\replaced\zm_alcatraz_grief_cellblock;
 #include scripts\zm\locs\zm_prison_loc_docks;

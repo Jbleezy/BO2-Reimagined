@@ -1,3 +1,4 @@
+#include maps\mp\zm_alcatraz_travel;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\_zombiemode_utility;
@@ -5,7 +6,6 @@
 #include maps\mp\zombies\_zm_score;
 #include maps\mp\zombies\_zm_laststand;
 #include maps\mp\zombies\_zm_audio;
-#include maps\mp\zm_alcatraz_travel;
 
 move_gondola( b_suppress_doors_close = 0 )
 {

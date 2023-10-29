@@ -1,3 +1,4 @@
+#include maps\mp\zm_highrise_elevators;
 #include maps\mp\_utility;
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
@@ -7,7 +8,6 @@
 #include maps\mp\animscripts\zm_shared;
 #include maps\mp\zombies\_zm_ai_basic;
 #include maps\mp\zombies\_zm_ai_leaper;
-#include maps\mp\zm_highrise_elevators;
 
 init_elevator_perks()
 {

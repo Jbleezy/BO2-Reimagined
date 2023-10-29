@@ -1,10 +1,10 @@
+#include maps\mp\zombies\_zm_weap_staff_revive;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
 #include maps\mp\zombies\_zm_net;
 #include maps\mp\zm_tomb_utility;
 #include maps\mp\zombies\_zm_laststand;
-#include maps\mp\zombies\_zm_weap_staff_revive;
 
 watch_staff_revive_fired()
 {

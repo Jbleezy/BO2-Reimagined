@@ -1,7 +1,7 @@
+#include maps\mp\zombies\_zm_equip_springpad;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
-#include maps\mp\zombies\_zm_equip_springpad;
 #include maps\mp\zombies\_zm_equipment;
 #include maps\mp\gametypes_zm\_weaponobjects;
 #include maps\mp\zombies\_zm;

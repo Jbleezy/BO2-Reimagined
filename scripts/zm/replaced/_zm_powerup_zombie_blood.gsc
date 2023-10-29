@@ -1,9 +1,9 @@
+#include maps\mp\zombies\_zm_powerup_zombie_blood;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_powerups;
 #include maps\mp\zombies\_zm_utility;
 #include maps\mp\_visionset_mgr;
-#include maps\mp\zombies\_zm_powerup_zombie_blood;
 
 zombie_blood_powerup( m_powerup, e_player )
 {

@@ -1,3 +1,4 @@
+#include maps\mp\zombies\_zm_perk_vulture;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -10,7 +11,6 @@
 #include maps\mp\zombies\_zm_equipment;
 #include maps\mp\zombies\_zm_score;
 #include maps\mp\zombies\_zm_ai_basic;
-#include maps\mp\zombies\_zm_perk_vulture;
 
 _is_player_in_zombie_stink( a_points )
 {

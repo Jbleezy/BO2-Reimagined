@@ -1,10 +1,10 @@
+#include maps\mp\zm_buried_fountain;
 #include maps\mp\_utility;
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 #include maps\mp\zm_buried_classic;
 #include maps\mp\zombies\_zm_ai_ghost;
 #include maps\mp\zombies\_zm_stats;
-#include maps\mp\zm_buried_fountain;
 
 transport_player_to_start_zone()
 {

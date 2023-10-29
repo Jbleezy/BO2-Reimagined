@@ -1,3 +1,4 @@
+#include maps\mp\zombies\_zm_afterlife;
 #include maps\mp\_utility;
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
@@ -20,7 +21,6 @@
 #include maps\mp\zombies\_zm_audio;
 #include maps\mp\animscripts\shared;
 #include maps\mp\zombies\_zm_ai_basic;
-#include maps\mp\zombies\_zm_afterlife;
 
 init()
 {

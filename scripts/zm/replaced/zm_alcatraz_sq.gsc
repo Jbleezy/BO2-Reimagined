@@ -1,3 +1,4 @@
+#include maps\mp\zm_alcatraz_sq;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\_utility;
@@ -20,11 +21,10 @@
 #include maps\mp\zombies\_zm_ai_basic;
 #include maps\mp\zombies\_zm_laststand;
 #include maps\mp\zombies\_zm_clone;
-#include maps\mp\zm_alcatraz_sq;
 
 start_alcatraz_sidequest()
 {
-    maps\mp\zm_alcatraz_sq::init();
+    init();
     onplayerconnect_callback( ::player_disconnect_watcher );
     onplayerconnect_callback( ::player_death_watcher );
     flag_wait( "start_zombie_round_logic" );

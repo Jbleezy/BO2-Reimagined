@@ -1,7 +1,7 @@
+#include maps\mp\animscripts\zm_shared;
 #include maps\mp\animscripts\utility;
 #include maps\mp\_utility;
 #include common_scripts\utility;
-#include maps\mp\animscripts\zm_shared;
 #include maps\mp\animscripts\zm_run;
 
 dotraverse( traversestate, traversealias, no_powerups )

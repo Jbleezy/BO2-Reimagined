@@ -1,3 +1,4 @@
+#include maps\mp\zm_tomb_capture_zones;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -18,7 +19,6 @@
 #include maps\mp\zombies\_zm_challenges;
 #include maps\mp\zombies\_zm_magicbox_tomb;
 #include maps\mp\zombies\_zm_powerups;
-#include maps\mp\zm_tomb_capture_zones;
 
 setup_capture_zones()
 {

@@ -1,3 +1,4 @@
+#include maps\mp\zombies\_zm_perk_random;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -7,7 +8,6 @@
 #include maps\mp\zombies\_zm_unitrigger;
 #include maps\mp\zombies\_zm_audio;
 #include maps\mp\zombies\_zm_perks;
-#include maps\mp\zombies\_zm_perk_random;
 
 machine_selector()
 {

@@ -1,3 +1,4 @@
+#include maps\mp\zm_tomb_challenges;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -12,7 +13,6 @@
 #include maps\mp\zombies\_zm_powerup_zombie_blood;
 #include maps\mp\zombies\_zm_perks;
 #include maps\mp\zombies\_zm_weap_one_inch_punch;
-#include maps\mp\zm_tomb_challenges;
 
 challenges_init()
 {

@@ -1,3 +1,4 @@
+#include maps\mp\zm_tomb_utility;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -16,7 +17,6 @@
 #include maps\mp\zm_tomb_challenges;
 #include maps\mp\zm_tomb_tank;
 #include maps\mp\zm_tomb_craftables;
-#include maps\mp\zm_tomb_utility;
 
 capture_zombie_spawn_init( animname_set = 0 )
 {

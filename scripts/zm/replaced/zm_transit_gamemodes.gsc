@@ -1,3 +1,4 @@
+#include maps\mp\zm_transit_gamemodes;
 #include maps\mp\zm_transit_grief_town;
 #include maps\mp\zm_transit_grief_farm;
 #include maps\mp\zm_transit_grief_station;
@@ -12,7 +13,6 @@
 #include maps\mp\zombies\_zm_utility;
 #include maps\mp\_utility;
 #include common_scripts\utility;
-#include maps\mp\zm_transit_gamemodes;
 
 #include scripts\zm\replaced\zm_transit_standard_station;
 #include scripts\zm\replaced\zm_transit_grief_station;

@@ -1,7 +1,7 @@
+#include maps\mp\zombies\_zm_melee_weapon;
 #include maps\mp\_utility;
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
-#include maps\mp\zombies\_zm_melee_weapon;
 #include maps\mp\zombies\_zm_weapons;
 
 change_melee_weapon( weapon_name, current_weapon )

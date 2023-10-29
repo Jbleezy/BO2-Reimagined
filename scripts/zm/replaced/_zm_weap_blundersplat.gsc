@@ -1,3 +1,4 @@
+#include maps\mp\zombies\_zm_weap_blundersplat;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -5,7 +6,6 @@
 #include maps\mp\zombies\_zm_weapons;
 #include maps\mp\zombies\_zm_spawner;
 #include maps\mp\animscripts\zm_shared;
-#include maps\mp\zombies\_zm_weap_blundersplat;
 
 wait_for_blundersplat_fired()
 {

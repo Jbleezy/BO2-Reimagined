@@ -1,3 +1,4 @@
+#include maps\mp\zm_tomb_ee_side;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -13,7 +14,6 @@
 #include maps\mp\zombies\_zm_spawner;
 #include maps\mp\zombies\_zm_unitrigger;
 #include maps\mp\zm_tomb_amb;
-#include maps\mp\zm_tomb_ee_side;
 
 swap_mg( e_player )
 {

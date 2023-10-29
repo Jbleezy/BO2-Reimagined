@@ -1,3 +1,4 @@
+#include maps\mp\zm_tomb_ee_main;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -22,7 +23,6 @@
 #include maps\mp\zm_tomb_challenges;
 #include maps\mp\zm_tomb_amb;
 #include maps\mp\zombies\_zm_audio;
-#include maps\mp\zm_tomb_ee_main;
 
 all_staffs_inserted_in_puzzle_room()
 {

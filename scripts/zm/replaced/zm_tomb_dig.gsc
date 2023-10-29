@@ -1,3 +1,4 @@
+#include maps\mp\zm_tomb_dig;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -11,7 +12,6 @@
 #include maps\mp\zombies\_zm_powerups;
 #include maps\mp\zombies\_zm_weap_claymore;
 #include maps\mp\zombies\_zm_powerup_zombie_blood;
-#include maps\mp\zm_tomb_dig;
 
 init_shovel()
 {

@@ -1,3 +1,4 @@
+#include maps\mp\zm_tomb_craftables;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_craftables;
@@ -11,7 +12,6 @@
 #include maps\mp\zombies\_zm_zonemgr;
 #include maps\mp\zombies\_zm_ai_quadrotor;
 #include maps\mp\zombies\_zm_equipment;
-#include maps\mp\zm_tomb_craftables;
 
 init_craftables()
 {

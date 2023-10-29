@@ -1,3 +1,4 @@
+#include maps\mp\zombies\_zm_craftables;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -5,7 +6,6 @@
 #include maps\mp\zombies\_zm_laststand;
 #include maps\mp\zombies\_zm_equipment;
 #include maps\mp\zombies\_zm_unitrigger;
-#include maps\mp\zombies\_zm_craftables;
 #include maps\mp\zombies\_zm_stats;
 #include maps\mp\zombies\_zm_weapons;
 #include maps\mp\_demo;

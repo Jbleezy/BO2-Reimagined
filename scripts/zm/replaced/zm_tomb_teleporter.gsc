@@ -1,3 +1,4 @@
+#include maps\mp\zm_tomb_teleporter;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -7,7 +8,6 @@
 #include maps\mp\gametypes_zm\_hud;
 #include maps\mp\zm_tomb_vo;
 #include maps\mp\zombies\_zm_score;
-#include maps\mp\zm_tomb_teleporter;
 
 #using_animtree("fxanim_props_dlc4");
 

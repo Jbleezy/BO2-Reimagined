@@ -1,9 +1,9 @@
+#include maps\mp\zombies\_zm_ai_ghost;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
 #include maps\mp\animscripts\zm_utility;
 #include maps\mp\zombies\_zm_ai_ghost_ffotd;
-#include maps\mp\zombies\_zm_ai_ghost;
 #include maps\mp\zombies\_zm_spawner;
 #include maps\mp\zombies\_zm_weap_slowgun;
 #include maps\mp\animscripts\zm_shared;

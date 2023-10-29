@@ -1,3 +1,4 @@
+#include maps\mp\zombies\_zm_ai_leaper;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -11,7 +12,6 @@
 #include maps\mp\zombies\_zm_powerups;
 #include maps\mp\zombies\_zm_audio;
 #include maps\mp\zm_highrise_elevators;
-#include maps\mp\zombies\_zm_ai_leaper;
 
 leaper_round_tracker()
 {

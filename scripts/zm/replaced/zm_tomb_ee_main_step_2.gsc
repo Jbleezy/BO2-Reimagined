@@ -1,3 +1,4 @@
+#include maps\mp\zm_tomb_ee_main_step_2;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -6,7 +7,6 @@
 #include maps\mp\zombies\_zm_powerup_zombie_blood;
 #include maps\mp\zombies\_zm_unitrigger;
 #include maps\mp\zm_tomb_craftables;
-#include maps\mp\zm_tomb_ee_main_step_2;
 
 create_robot_head_trigger( unitrigger_stub )
 {

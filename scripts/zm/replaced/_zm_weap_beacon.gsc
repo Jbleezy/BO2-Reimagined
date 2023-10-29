@@ -1,3 +1,4 @@
+#include maps\mp\zombies\_zm_weap_beacon;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -5,7 +6,6 @@
 #include maps\mp\zombies\_zm_laststand;
 #include maps\mp\zombies\_zm_clone;
 #include maps\mp\zombies\_zm_audio;
-#include maps\mp\zombies\_zm_weap_beacon;
 
 #using_animtree("zombie_beacon");
 

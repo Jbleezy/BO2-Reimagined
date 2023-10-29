@@ -1,9 +1,9 @@
+#include maps\mp\zombies\_zm_weap_cymbal_monkey;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
 #include maps\mp\zombies\_zm_laststand;
 #include maps\mp\zombies\_zm_clone;
-#include maps\mp\zombies\_zm_weap_cymbal_monkey;
 
 #using_animtree("zombie_cymbal_monkey");
 

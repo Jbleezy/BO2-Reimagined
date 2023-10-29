@@ -1,10 +1,10 @@
+#include maps\mp\zm_tomb_ee_main_step_3;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
 #include maps\mp\zombies\_zm_sidequests;
 #include maps\mp\zm_tomb_ee_main;
 #include maps\mp\zombies\_zm_unitrigger;
-#include maps\mp\zm_tomb_ee_main_step_3;
 
 ready_to_activate( unitrigger_stub )
 {

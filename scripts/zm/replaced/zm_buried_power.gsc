@@ -1,9 +1,9 @@
+#include maps\mp\zm_buried_power;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
 #include maps\mp\zombies\_zm_audio;
 #include maps\mp\zombies\_zm_perks;
-#include maps\mp\zm_buried_power;
 
 electric_switch()
 {

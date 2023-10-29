@@ -1,3 +1,4 @@
+#include maps\mp\zombies\_zm_blockers;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_net;
@@ -12,7 +13,6 @@
 #include maps\mp\zombies\_zm_laststand;
 #include maps\mp\zombies\_zm_spawner;
 #include maps\mp\zombies\_zm_unitrigger;
-#include maps\mp\zombies\_zm_blockers;
 
 door_buy()
 {

@@ -1,8 +1,8 @@
+#include maps\mp\zm_buried_sq_ts;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
 #include maps\mp\zombies\_zm_sidequests;
-#include maps\mp\zm_buried_sq_ts;
 
 ts_sign_damage_watch()
 {

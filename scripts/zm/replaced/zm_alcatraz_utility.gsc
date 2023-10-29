@@ -1,7 +1,7 @@
+#include maps\mp\zm_alcatraz_utility;
 #include maps\mp\_utility;
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
-#include maps\mp\zm_alcatraz_utility;
 #include maps\mp\zombies\_zm_craftables;
 
 #using_animtree("fxanim_props");

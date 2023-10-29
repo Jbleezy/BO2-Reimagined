@@ -1,7 +1,7 @@
+#include maps\mp\zombies\_zm_weapons;
 #include maps\mp\_utility;
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
-#include maps\mp\zombies\_zm_weapons;
 
 init_weapon_upgrade()
 {

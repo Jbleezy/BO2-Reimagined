@@ -1,3 +1,4 @@
+#include maps\mp\zm_transit_classic;
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
@@ -23,7 +24,6 @@
 #include maps\mp\zombies\_zm_weapon_locker;
 #include maps\mp\zombies\_zm_stats;
 #include maps\mp\zombies\_zm_audio;
-#include maps\mp\zm_transit_classic;
 
 inert_zombies_init()
 {
