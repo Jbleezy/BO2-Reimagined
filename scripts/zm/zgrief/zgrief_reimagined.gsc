@@ -130,150 +130,140 @@ grief_gamemode_hud_destroy_on_intermission()
 
 grief_score_hud()
 {
-	level.grief_score_hud = [];
-	level.grief_score_hud["axis"] = spawnStruct();
-	level.grief_score_hud["allies"] = spawnStruct();
-
 	if(level.script == "zm_prison")
 	{
 		game["icons"]["axis"] = "faction_inmates";
 		game["icons"]["allies"] = "faction_guards";
 	}
 
-	level.grief_score_hud["axis"].icon["axis"] = newTeamHudElem("axis");
-	level.grief_score_hud["axis"].icon["axis"].alignx = "center";
-	level.grief_score_hud["axis"].icon["axis"].aligny = "top";
-	level.grief_score_hud["axis"].icon["axis"].horzalign = "user_center";
-	level.grief_score_hud["axis"].icon["axis"].vertalign = "user_top";
-	level.grief_score_hud["axis"].icon["axis"].x -= 72.5;
-	level.grief_score_hud["axis"].icon["axis"].y += 16;
-	level.grief_score_hud["axis"].icon["axis"].hidewheninmenu = 1;
-	level.grief_score_hud["axis"].icon["axis"].foreground = 1;
-	level.grief_score_hud["axis"].icon["axis"].alpha = 0;
-	level.grief_score_hud["axis"].icon["axis"] setShader(game["icons"]["axis"], 32, 32);
+	level.grief_score_hud = [];
 
-	level.grief_score_hud["axis"].icon["allies"] = newTeamHudElem("axis");
-	level.grief_score_hud["axis"].icon["allies"].alignx = "center";
-	level.grief_score_hud["axis"].icon["allies"].aligny = "top";
-	level.grief_score_hud["axis"].icon["allies"].horzalign = "user_center";
-	level.grief_score_hud["axis"].icon["allies"].vertalign = "user_top";
-	level.grief_score_hud["axis"].icon["allies"].x += 72.5;
-	level.grief_score_hud["axis"].icon["allies"].y += 16;
-	level.grief_score_hud["axis"].icon["allies"].hidewheninmenu = 1;
-	level.grief_score_hud["axis"].icon["allies"].foreground = 1;
-	level.grief_score_hud["axis"].icon["allies"].alpha = 0;
-	level.grief_score_hud["axis"].icon["allies"] setShader(game["icons"]["allies"], 32, 32);
+	foreach (team1 in level.teams)
+	{
+		level.grief_score_hud[team1] = spawnStruct();
 
-	level.grief_score_hud["axis"].score["axis"] = newTeamHudElem("axis");
-	level.grief_score_hud["axis"].score["axis"].alignx = "center";
-	level.grief_score_hud["axis"].score["axis"].aligny = "top";
-	level.grief_score_hud["axis"].score["axis"].horzalign = "user_center";
-	level.grief_score_hud["axis"].score["axis"].vertalign = "user_top";
-	level.grief_score_hud["axis"].score["axis"].x -= 27.5;
-	level.grief_score_hud["axis"].score["axis"].y += 10;
-	level.grief_score_hud["axis"].score["axis"].fontscale = 3.5;
-	level.grief_score_hud["axis"].score["axis"].color = (0.21, 0, 0);
-	level.grief_score_hud["axis"].score["axis"].hidewheninmenu = 1;
-	level.grief_score_hud["axis"].score["axis"].foreground = 1;
-	level.grief_score_hud["axis"].score["axis"].alpha = 0;
-	level.grief_score_hud["axis"].score["axis"] setValue(0);
+		foreach (team2 in level.teams)
+		{
+			level.grief_score_hud[team1].icon[team2] = newTeamHudElem(team1);
+			level.grief_score_hud[team1].icon[team2].alignx = "center";
+			level.grief_score_hud[team1].icon[team2].aligny = "top";
+			level.grief_score_hud[team1].icon[team2].horzalign = "user_center";
+			level.grief_score_hud[team1].icon[team2].vertalign = "user_top";
+			level.grief_score_hud[team1].icon[team2].y += 16;
+			level.grief_score_hud[team1].icon[team2].width = 32;
+			level.grief_score_hud[team1].icon[team2].height = 32;
+			level.grief_score_hud[team1].icon[team2].hidewheninmenu = 1;
+			level.grief_score_hud[team1].icon[team2].foreground = 1;
+			level.grief_score_hud[team1].icon[team2].alpha = 0;
+			level.grief_score_hud[team1].icon[team2] setShader(game["icons"][team2], level.grief_score_hud[team1].icon[team2].width, level.grief_score_hud[team1].icon[team2].height);
 
-	level.grief_score_hud["axis"].score["allies"] = newTeamHudElem("axis");
-	level.grief_score_hud["axis"].score["allies"].alignx = "center";
-	level.grief_score_hud["axis"].score["allies"].aligny = "top";
-	level.grief_score_hud["axis"].score["allies"].horzalign = "user_center";
-	level.grief_score_hud["axis"].score["allies"].vertalign = "user_top";
-	level.grief_score_hud["axis"].score["allies"].x += 27.5;
-	level.grief_score_hud["axis"].score["allies"].y += 10;
-	level.grief_score_hud["axis"].score["allies"].fontscale = 3.5;
-	level.grief_score_hud["axis"].score["allies"].color = (0.21, 0, 0);
-	level.grief_score_hud["axis"].score["allies"].hidewheninmenu = 1;
-	level.grief_score_hud["axis"].score["allies"].foreground = 1;
-	level.grief_score_hud["axis"].score["allies"].alpha = 0;
-	level.grief_score_hud["axis"].score["allies"] setValue(0);
+			level.grief_score_hud[team1].score[team2] = newTeamHudElem(team1);
+			level.grief_score_hud[team1].score[team2].alignx = "center";
+			level.grief_score_hud[team1].score[team2].aligny = "top";
+			level.grief_score_hud[team1].score[team2].horzalign = "user_center";
+			level.grief_score_hud[team1].score[team2].vertalign = "user_top";
+			level.grief_score_hud[team1].score[team2].y += 10;
+			level.grief_score_hud[team1].score[team2].fontscale = 3.5;
+			level.grief_score_hud[team1].score[team2].color = (0.21, 0, 0);
+			level.grief_score_hud[team1].score[team2].hidewheninmenu = 1;
+			level.grief_score_hud[team1].score[team2].foreground = 1;
+			level.grief_score_hud[team1].score[team2].alpha = 0;
+			level.grief_score_hud[team1].score[team2] setValue(0);
 
-	level.grief_score_hud["allies"].icon["axis"] = newTeamHudElem("allies");
-	level.grief_score_hud["allies"].icon["axis"].alignx = "center";
-	level.grief_score_hud["allies"].icon["axis"].aligny = "top";
-	level.grief_score_hud["allies"].icon["axis"].horzalign = "user_center";
-	level.grief_score_hud["allies"].icon["axis"].vertalign = "user_top";
-	level.grief_score_hud["allies"].icon["axis"].x += 72.5;
-	level.grief_score_hud["allies"].icon["axis"].y += 16;
-	level.grief_score_hud["allies"].icon["axis"].hidewheninmenu = 1;
-	level.grief_score_hud["allies"].icon["axis"].foreground = 1;
-	level.grief_score_hud["allies"].icon["axis"].alpha = 0;
-	level.grief_score_hud["allies"].icon["axis"] setShader(game["icons"]["axis"], 32, 32);
+			level.grief_score_hud[team1].player_count[team2] = newTeamHudElem(team1);
+			level.grief_score_hud[team1].player_count[team2].alignx = "center";
+			level.grief_score_hud[team1].player_count[team2].aligny = "top";
+			level.grief_score_hud[team1].player_count[team2].horzalign = "user_center";
+			level.grief_score_hud[team1].player_count[team2].vertalign = "user_top";
+			level.grief_score_hud[team1].player_count[team2].y += 50;
+			level.grief_score_hud[team1].player_count[team2].width = 32;
+			level.grief_score_hud[team1].player_count[team2].height = 32;
+			level.grief_score_hud[team1].player_count[team2].color = (0.21, 0, 0);
+			level.grief_score_hud[team1].player_count[team2].hidewheninmenu = 1;
+			level.grief_score_hud[team1].player_count[team2].foreground = 1;
+			level.grief_score_hud[team1].player_count[team2].archived = 0;
+			level.grief_score_hud[team1].player_count[team2].alpha = 0;
 
-	level.grief_score_hud["allies"].icon["allies"] = newTeamHudElem("allies");
-	level.grief_score_hud["allies"].icon["allies"].alignx = "center";
-	level.grief_score_hud["allies"].icon["allies"].aligny = "top";
-	level.grief_score_hud["allies"].icon["allies"].horzalign = "user_center";
-	level.grief_score_hud["allies"].icon["allies"].vertalign = "user_top";
-	level.grief_score_hud["allies"].icon["allies"].x -= 72.5;
-	level.grief_score_hud["allies"].icon["allies"].y += 16;
-	level.grief_score_hud["allies"].icon["allies"].hidewheninmenu = 1;
-	level.grief_score_hud["allies"].icon["allies"].foreground = 1;
-	level.grief_score_hud["allies"].icon["allies"].alpha = 0;
-	level.grief_score_hud["allies"].icon["allies"] setShader(game["icons"]["allies"], 32, 32);
+			if (team1 == team2)
+			{
+				level.grief_score_hud[team1].icon[team2].x -= 72.5;
+				level.grief_score_hud[team1].score[team2].x -= 27.5;
+				level.grief_score_hud[team1].player_count[team2].x -= 27.5;
+			}
+			else
+			{
+				level.grief_score_hud[team1].icon[team2].x += 72.5;
+				level.grief_score_hud[team1].score[team2].x += 27.5;
+				level.grief_score_hud[team1].player_count[team2].x += 27.5;
+			}
 
-	level.grief_score_hud["allies"].score["axis"] = newTeamHudElem("allies");
-	level.grief_score_hud["allies"].score["axis"].alignx = "center";
-	level.grief_score_hud["allies"].score["axis"].aligny = "top";
-	level.grief_score_hud["allies"].score["axis"].horzalign = "user_center";
-	level.grief_score_hud["allies"].score["axis"].vertalign = "user_top";
-	level.grief_score_hud["allies"].score["axis"].x += 27.5;
-	level.grief_score_hud["allies"].score["axis"].y += 10;
-	level.grief_score_hud["allies"].score["axis"].fontscale = 3.5;
-	level.grief_score_hud["allies"].score["axis"].color = (0.21, 0, 0);
-	level.grief_score_hud["allies"].score["axis"].hidewheninmenu = 1;
-	level.grief_score_hud["allies"].score["axis"].foreground = 1;
-	level.grief_score_hud["allies"].score["axis"].alpha = 0;
-	level.grief_score_hud["allies"].score["axis"] setValue(0);
-
-	level.grief_score_hud["allies"].score["allies"] = newTeamHudElem("allies");
-	level.grief_score_hud["allies"].score["allies"].alignx = "center";
-	level.grief_score_hud["allies"].score["allies"].aligny = "top";
-	level.grief_score_hud["allies"].score["allies"].horzalign = "user_center";
-	level.grief_score_hud["allies"].score["allies"].vertalign = "user_top";
-	level.grief_score_hud["allies"].score["allies"].x -= 27.5;
-	level.grief_score_hud["allies"].score["allies"].y += 10;
-	level.grief_score_hud["allies"].score["allies"].fontscale = 3.5;
-	level.grief_score_hud["allies"].score["allies"].color = (0.21, 0, 0);
-	level.grief_score_hud["allies"].score["allies"].hidewheninmenu = 1;
-	level.grief_score_hud["allies"].score["allies"].foreground = 1;
-	level.grief_score_hud["allies"].score["allies"].alpha = 0;
-	level.grief_score_hud["allies"].score["allies"] setValue(0);
+			level.grief_score_hud[team1].player_count[team2].init_x = level.grief_score_hud[team1].player_count[team2].x;
+		}
+	}
 
 	level thread grief_score_hud_wait_and_show();
 	level thread grief_score_hud_destroy_on_intermission();
+	level thread grief_score_hud_destroy_player_count_on_end_game();
 }
 
 grief_score_hud_wait_and_show()
 {
 	flag_wait( "hud_visible" );
 
-	level.grief_score_hud["axis"].icon["axis"].alpha = 1;
-	level.grief_score_hud["axis"].icon["allies"].alpha = 1;
-	level.grief_score_hud["axis"].score["axis"].alpha = 1;
-	level.grief_score_hud["axis"].score["allies"].alpha = 1;
-	level.grief_score_hud["allies"].icon["axis"].alpha = 1;
-	level.grief_score_hud["allies"].icon["allies"].alpha = 1;
-	level.grief_score_hud["allies"].score["axis"].alpha = 1;
-	level.grief_score_hud["allies"].score["allies"].alpha = 1;
+	foreach (team1 in level.teams)
+	{
+		foreach (team2 in level.teams)
+		{
+			level.grief_score_hud[team1].icon[team2].alpha = 1;
+			level.grief_score_hud[team1].score[team2].alpha = 1;
+		}
+	}
 }
 
 grief_score_hud_destroy_on_intermission()
 {
 	level waittill("intermission");
 
-	level.grief_score_hud["axis"].icon["axis"] destroy();
-	level.grief_score_hud["axis"].icon["allies"] destroy();
-	level.grief_score_hud["axis"].score["axis"] destroy();
-	level.grief_score_hud["axis"].score["allies"] destroy();
-	level.grief_score_hud["allies"].icon["axis"] destroy();
-	level.grief_score_hud["allies"].icon["allies"] destroy();
-	level.grief_score_hud["allies"].score["axis"] destroy();
-	level.grief_score_hud["allies"].score["allies"] destroy();
+	foreach (team1 in level.teams)
+	{
+		foreach (team2 in level.teams)
+		{
+			level.grief_score_hud[team1].icon[team2] destroy();
+			level.grief_score_hud[team1].score[team2] destroy();
+		}
+	}
+}
+
+grief_score_hud_destroy_player_count_on_end_game()
+{
+	level waittill("end_game");
+
+	foreach (team1 in level.teams)
+	{
+		foreach (team2 in level.teams)
+		{
+			level.grief_score_hud[team1].player_count[team2] destroy();
+		}
+	}
+}
+
+grief_score_hud_set_player_count(team, num)
+{
+	foreach (team1 in level.teams)
+	{
+		if (num == 0)
+		{
+			level.grief_score_hud[team1].player_count[team].alpha = 0;
+			continue;
+		}
+
+		level.grief_score_hud[team1].player_count[team].alpha = 1;
+
+		offset = (4 - num) * (level.grief_score_hud[team1].player_count[team].width / 9);
+		level.grief_score_hud[team1].player_count[team].x = level.grief_score_hud[team1].player_count[team].init_x + offset;
+
+		level.grief_score_hud[team1].player_count[team] setShader("hud_chalk_" + num, level.grief_score_hud[team1].player_count[team].width, level.grief_score_hud[team1].player_count[team].height);
+	}
 }
 
 set_grief_vars()
@@ -738,6 +728,11 @@ on_player_revived()
 
 		self.head_icon.alpha = 1;
 		self revive_feed( reviver );
+
+		if (level.scr_zm_ui_gametype_obj == "zsnr")
+		{
+			grief_score_hud_set_player_count(self.team, get_number_of_valid_players_team(self.team));
+		}
 	}
 }
 
@@ -948,6 +943,14 @@ round_start_wait(time, initial)
 		}
 	}
 
+	if (level.scr_zm_ui_gametype_obj == "zsnr")
+	{
+		foreach (team in level.teams)
+		{
+			grief_score_hud_set_player_count(team, get_number_of_valid_players_team(team));
+		}
+	}
+
 	zombie_spawn_time = time + 10;
 
 	level thread zombie_spawn_wait(zombie_spawn_time);
@@ -1022,6 +1025,27 @@ zombie_spawn_wait(time)
 	flag_set("spawn_zombies");
 }
 
+get_number_of_valid_players_team(team, excluded_player)
+{
+    num_player_valid = 0;
+	players = get_players(team);
+
+	foreach (player in players)
+	{
+		if (isDefined(excluded_player) && player == excluded_player)
+		{
+			continue;
+		}
+
+		if (is_player_valid(player))
+		{
+			num_player_valid += 1;
+		}
+	}
+
+    return num_player_valid;
+}
+
 update_players_on_downed(excluded_player)
 {
 	if(level.scr_zm_ui_gametype_obj != "zsnr")
@@ -1029,80 +1053,45 @@ update_players_on_downed(excluded_player)
 		return;
 	}
 
-	players_remaining = 0;
-	other_players_remaining = 0;
-	last_player = undefined;
-	other_team = undefined;
+	team = excluded_player.team;
+	other_team = getOtherTeam(team);
+	players = get_players(team);
+	other_players = get_players(other_team);
+	players_remaining = get_number_of_valid_players_team(team, excluded_player);
+	other_players_remaining = get_number_of_valid_players_team(other_team, excluded_player);
 
-	players = get_players();
-	i = 0;
-	while ( i < players.size )
+	grief_score_hud_set_player_count(excluded_player.team, players_remaining);
+
+	foreach (player in other_players)
 	{
-		player = players[i];
-		if ( player == excluded_player )
+		if (players_remaining == 0)
 		{
-			i++;
-			continue;
-		}
-
-		if ( is_player_valid( player ) )
-		{
-			if ( player.team == excluded_player.team )
+			if (other_players_remaining >= 1)
 			{
-				players_remaining++;
-				last_player = player;
-			}
-			else
-			{
-				other_players_remaining++;
+				player thread show_grief_hud_msg( &"ZOMBIE_ZGRIEF_ALL_PLAYERS_DOWN" );
+				player thread show_grief_hud_msg( &"ZOMBIE_ZGRIEF_SURVIVE", undefined, 30, 1 );
 			}
 		}
-
-		i++;
-	}
-
-	i = 0;
-	while ( i < players.size )
-	{
-		player = players[i];
-
-		if ( player == excluded_player )
+		else
 		{
-			i++;
-			continue;
-		}
-
-		if ( player.team != excluded_player.team )
-		{
-			other_team = player.team;
-			if ( players_remaining < 1 )
-			{
-				if( other_players_remaining >= 1 )
-				{
-					player thread show_grief_hud_msg( &"ZOMBIE_ZGRIEF_ALL_PLAYERS_DOWN" );
-					player thread show_grief_hud_msg( &"ZOMBIE_ZGRIEF_SURVIVE", undefined, 30, 1 );
-				}
-			}
-			else
-			{
-				player thread show_grief_hud_msg( &"ZOMBIE_ZGRIEF_PLAYER_BLED_OUT", players_remaining );
-			}
-		}
-
-		i++;
-	}
-
-	if ( players_remaining == 1 )
-	{
-		if(isDefined(last_player))
-		{
-			last_player thread maps\mp\zombies\_zm_audio_announcer::leaderdialogonplayer( "last_player" );
+			player thread show_grief_hud_msg( &"ZOMBIE_ZGRIEF_PLAYER_BLED_OUT", players_remaining );
 		}
 	}
 
-	if ( !isDefined( other_team ) )
+	if (players_remaining == 1)
 	{
-		return;
+		foreach (player in players)
+		{
+			if (player == excluded_player)
+			{
+				continue;
+			}
+
+			if (is_player_valid(player))
+			{
+				player thread maps\mp\zombies\_zm_audio_announcer::leaderdialogonplayer( "last_player" );
+			}
+		}
 	}
 
 	level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog( players_remaining + "_player_left", other_team );
@@ -1115,28 +1104,17 @@ update_players_on_bleedout(excluded_player)
 		return;
 	}
 
-	other_team = undefined;
+	team = excluded_player.team;
+	other_team = getOtherTeam(team);
+	players = get_players(team);
 	team_bledout = 0;
-	players = get_players();
 
 	foreach(player in players)
 	{
-		if(player.team == excluded_player.team)
+		if(player == excluded_player || player.sessionstate != "playing" || is_true(player.playersuicided))
 		{
-			if(player == excluded_player || player.sessionstate != "playing" || is_true(player.playersuicided))
-			{
-				team_bledout++;
-			}
+			team_bledout++;
 		}
-		else
-		{
-			other_team = player.team;
-		}
-	}
-
-	if(!isDefined(other_team))
-	{
-		return;
 	}
 
 	level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog(team_bledout + "_player_down", other_team);
@@ -3089,8 +3067,11 @@ increment_score(team, amount = 1, show_lead_msg = true)
 		level.grief_score[encounters_team] = get_gamemode_winning_score();
 	}
 
-	level.grief_score_hud["axis"].score[team] setValue(level.grief_score[encounters_team]);
-	level.grief_score_hud["allies"].score[team] setValue(level.grief_score[encounters_team]);
+	foreach (hud_team in level.teams)
+	{
+		level.grief_score_hud[hud_team].score[team] setValue(level.grief_score[encounters_team]);
+	}
+
 	setteamscore(team, level.grief_score[encounters_team]);
 
 	if(level.grief_score[encounters_team] >= get_gamemode_winning_score())

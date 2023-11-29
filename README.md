@@ -812,7 +812,6 @@
 * Added teammate head icons
 * Added kill feed (includes downs, revives, and bleed outs)
 * Added player kills on scoreboard (replaces headshots)
-* Added new audio when enemy players bleed out
 * Spawn points are assigned to a team
 * Properly restores dual wield weapon left clip ammo, alternative weapon ammo, and equipment on respawn
 * Can only spectate own team
@@ -830,8 +829,10 @@
 * Tie round if both teams die within 5 seconds of eachother
 * Players start each round with at least 10000 points
 * Bleeding out enemy players awards 1000 points to all teammates
+* Amount of players alive on each team shown on HUD
 * Enemies remaining audio and text displays when enemy players down instead of when enemy players bleed out
 * Last player alive audio only plays for the player who is alive instead of every player on the team
+* Audio plays when enemy players bleed out
 * Players do not get their weapons back on the next round if they bled out
 * Teams switch spawn points each round
 * Players respawn at initial spawn points
