@@ -2436,7 +2436,6 @@ containment_think()
 			in_containment_zone = [];
 			in_containment_zone["axis"] = [];
 			in_containment_zone["allies"] = [];
-			min_team_size = min(countplayers("axis"), countplayers("allies"));
 
 			foreach(player in players)
 			{
@@ -2555,12 +2554,31 @@ containment_think()
 				}
 			}
 
+			team_diff = abs(countplayers("axis") - countplayers("allies"));
+
+			if (team_diff > 0)
+			{
+				team = "axis";
+				if (countplayers("allies") < countplayers("axis"))
+				{
+					team = "allies";
+				}
+
+				if (in_containment_zone[team].size > 0)
+				{
+					for(i = 0; i < team_diff; i++)
+					{
+						in_containment_zone[team][in_containment_zone[team].size] = level;
+					}
+				}
+			}
+
 			foreach (team in level.teams)
 			{
 				grief_score_hud_set_player_count(team, in_containment_zone[team].size);
 			}
 
-			if(min(in_containment_zone["axis"].size, min_team_size) == min(in_containment_zone["allies"].size, min_team_size) && in_containment_zone["axis"].size > 0 && in_containment_zone["allies"].size > 0)
+			if(in_containment_zone["axis"].size == in_containment_zone["allies"].size && in_containment_zone["axis"].size > 0 && in_containment_zone["allies"].size > 0)
 			{
 				foreach(player in players)
 				{
@@ -2696,6 +2714,11 @@ containment_think()
 
 					foreach(player in in_containment_zone["axis"])
 					{
+						if (!isPlayer(player))
+						{
+							continue;
+						}
+
 						score = 50 * maps\mp\zombies\_zm_score::get_points_multiplier(player);
 						player maps\mp\zombies\_zm_score::add_to_player_score(score);
 						player.captures++;
@@ -2713,6 +2736,11 @@ containment_think()
 
 					foreach(player in in_containment_zone["allies"])
 					{
+						if (!isPlayer(player))
+						{
+							continue;
+						}
+
 						score = 50 * maps\mp\zombies\_zm_score::get_points_multiplier(player);
 						player maps\mp\zombies\_zm_score::add_to_player_score(score);
 						player.captures++;
