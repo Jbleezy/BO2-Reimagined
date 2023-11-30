@@ -2555,6 +2555,11 @@ containment_think()
 				}
 			}
 
+			foreach (team in level.teams)
+			{
+				grief_score_hud_set_player_count(team, in_containment_zone[team].size);
+			}
+
 			if(min(in_containment_zone["axis"].size, min_team_size) == min(in_containment_zone["allies"].size, min_team_size) && in_containment_zone["axis"].size > 0 && in_containment_zone["allies"].size > 0)
 			{
 				foreach(player in players)
