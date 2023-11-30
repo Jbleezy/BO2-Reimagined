@@ -766,10 +766,7 @@ on_player_revived()
 		self.head_icon.alpha = 1;
 		self revive_feed( reviver );
 
-		if (level.scr_zm_ui_gametype_obj == "zsnr")
-		{
-			grief_score_hud_set_player_count(self.team, get_number_of_valid_players_team(self.team));
-		}
+		level thread update_players_on_revived(self, reviver);
 	}
 }
 
@@ -1097,7 +1094,7 @@ update_players_on_downed(excluded_player)
 	players_remaining = get_number_of_valid_players_team(team, excluded_player);
 	other_players_remaining = get_number_of_valid_players_team(other_team, excluded_player);
 
-	grief_score_hud_set_player_count(excluded_player.team, players_remaining);
+	grief_score_hud_set_player_count(team, players_remaining);
 
 	foreach (player in other_players)
 	{
@@ -1155,6 +1152,31 @@ update_players_on_bleedout(excluded_player)
 	}
 
 	level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog(team_bledout + "_player_down", other_team);
+}
+
+update_players_on_revived(revived_player, reviver)
+{
+	if (level.scr_zm_ui_gametype_obj != "zsnr")
+	{
+		return;
+	}
+
+	if (!isDefined(reviver) || reviver == revived_player)
+	{
+		return;
+	}
+
+	team = revived_player.team;
+	other_team = getOtherTeam(team);
+	other_players = get_players(other_team);
+	players_remaining = get_number_of_valid_players_team(team);
+
+	grief_score_hud_set_player_count(team, players_remaining);
+
+	foreach (player in other_players)
+	{
+		player thread show_grief_hud_msg( "Enemy Revived! [" + players_remaining + " Remaining]" );
+	}
 }
 
 update_players_on_disconnect(excluded_player)
