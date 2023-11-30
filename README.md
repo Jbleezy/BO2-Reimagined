@@ -864,6 +864,7 @@
 * Downing while holding the meat drops it as a powerup
 * Throwing the meat on the ground drops it as a powerup
 * Throwing the meat onto another player makes them grab the meat
+* Team holding the meat shown on HUD
 * Players respawn after being down for 10 seconds
 * Players retain perks
 

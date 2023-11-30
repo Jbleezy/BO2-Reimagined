@@ -170,40 +170,74 @@ grief_score_hud()
 			level.grief_score_hud[team1].score[team2].alpha = 0;
 			level.grief_score_hud[team1].score[team2] setValue(0);
 
-			level.grief_score_hud[team1].player_count[team2] = newTeamHudElem(team1);
-			level.grief_score_hud[team1].player_count[team2].alignx = "center";
-			level.grief_score_hud[team1].player_count[team2].aligny = "top";
-			level.grief_score_hud[team1].player_count[team2].horzalign = "user_center";
-			level.grief_score_hud[team1].player_count[team2].vertalign = "user_top";
-			level.grief_score_hud[team1].player_count[team2].y += 50;
-			level.grief_score_hud[team1].player_count[team2].width = 32;
-			level.grief_score_hud[team1].player_count[team2].height = 32;
-			level.grief_score_hud[team1].player_count[team2].color = (0.21, 0, 0);
-			level.grief_score_hud[team1].player_count[team2].hidewheninmenu = 1;
-			level.grief_score_hud[team1].player_count[team2].foreground = 1;
-			level.grief_score_hud[team1].player_count[team2].archived = 0;
-			level.grief_score_hud[team1].player_count[team2].alpha = 0;
-
 			if (team1 == team2)
 			{
 				level.grief_score_hud[team1].icon[team2].x -= 72.5;
 				level.grief_score_hud[team1].score[team2].x -= 27.5;
-				level.grief_score_hud[team1].player_count[team2].x -= 27.5;
 			}
 			else
 			{
 				level.grief_score_hud[team1].icon[team2].x += 72.5;
 				level.grief_score_hud[team1].score[team2].x += 27.5;
-				level.grief_score_hud[team1].player_count[team2].x += 27.5;
 			}
 
-			level.grief_score_hud[team1].player_count[team2].init_x = level.grief_score_hud[team1].player_count[team2].x;
+			level.grief_score_hud[team1].icon[team2] thread scripts\zm\_zm_reimagined::destroy_on_intermission();
+			level.grief_score_hud[team1].score[team2] thread scripts\zm\_zm_reimagined::destroy_on_intermission();
+
+			if (level.scr_zm_ui_gametype_obj == "zsnr" || level.scr_zm_ui_gametype_obj == "zcontainment")
+			{
+				level.grief_score_hud[team1].player_count[team2] = newTeamHudElem(team1);
+				level.grief_score_hud[team1].player_count[team2].alignx = "center";
+				level.grief_score_hud[team1].player_count[team2].aligny = "top";
+				level.grief_score_hud[team1].player_count[team2].horzalign = "user_center";
+				level.grief_score_hud[team1].player_count[team2].vertalign = "user_top";
+				level.grief_score_hud[team1].player_count[team2].y += 50;
+				level.grief_score_hud[team1].player_count[team2].width = 32;
+				level.grief_score_hud[team1].player_count[team2].height = 32;
+				level.grief_score_hud[team1].player_count[team2].color = (0.21, 0, 0);
+				level.grief_score_hud[team1].player_count[team2].hidewheninmenu = 1;
+				level.grief_score_hud[team1].player_count[team2].foreground = 1;
+				level.grief_score_hud[team1].player_count[team2].archived = 0;
+				level.grief_score_hud[team1].player_count[team2].alpha = 0;
+
+				if (team1 == team2)
+				{
+					level.grief_score_hud[team1].player_count[team2].x -= 27.5;
+				}
+				else
+				{
+					level.grief_score_hud[team1].player_count[team2].x += 27.5;
+				}
+
+				level.grief_score_hud[team1].player_count[team2].og_x = level.grief_score_hud[team1].player_count[team2].x;
+
+				level.grief_score_hud[team1].player_count[team2] thread scripts\zm\_zm_reimagined::destroy_on_end_game();
+			}
+		}
+
+		if (level.scr_zm_ui_gametype_obj == "zmeat")
+		{
+			level.grief_score_hud[team1].obj_icon = newTeamHudElem(team1);
+			level.grief_score_hud[team1].obj_icon.alignx = "center";
+			level.grief_score_hud[team1].obj_icon.aligny = "top";
+			level.grief_score_hud[team1].obj_icon.horzalign = "user_center";
+			level.grief_score_hud[team1].obj_icon.vertalign = "user_top";
+			level.grief_score_hud[team1].obj_icon.y += 50;
+			level.grief_score_hud[team1].obj_icon.width = 24;
+			level.grief_score_hud[team1].obj_icon.height = 24;
+			level.grief_score_hud[team1].obj_icon.hidewheninmenu = 1;
+			level.grief_score_hud[team1].obj_icon.foreground = 1;
+			level.grief_score_hud[team1].obj_icon.archived = 0;
+			level.grief_score_hud[team1].obj_icon.alpha = 0;
+			level.grief_score_hud[team1].obj_icon setShader(level.obj_waypoint_icon, level.grief_score_hud[team1].obj_icon.width, level.grief_score_hud[team1].obj_icon.height);
+
+			level.grief_score_hud[team1].obj_icon.og_x = level.grief_score_hud[team1].obj_icon.x;
+
+			level.grief_score_hud[team1].obj_icon thread scripts\zm\_zm_reimagined::destroy_on_end_game();
 		}
 	}
 
 	level thread grief_score_hud_wait_and_show();
-	level thread grief_score_hud_destroy_on_intermission();
-	level thread grief_score_hud_destroy_player_count_on_end_game();
 }
 
 grief_score_hud_wait_and_show()
@@ -216,33 +250,6 @@ grief_score_hud_wait_and_show()
 		{
 			level.grief_score_hud[team1].icon[team2].alpha = 1;
 			level.grief_score_hud[team1].score[team2].alpha = 1;
-		}
-	}
-}
-
-grief_score_hud_destroy_on_intermission()
-{
-	level waittill("intermission");
-
-	foreach (team1 in level.teams)
-	{
-		foreach (team2 in level.teams)
-		{
-			level.grief_score_hud[team1].icon[team2] destroy();
-			level.grief_score_hud[team1].score[team2] destroy();
-		}
-	}
-}
-
-grief_score_hud_destroy_player_count_on_end_game()
-{
-	level waittill("end_game");
-
-	foreach (team1 in level.teams)
-	{
-		foreach (team2 in level.teams)
-		{
-			level.grief_score_hud[team1].player_count[team2] destroy();
 		}
 	}
 }
@@ -260,9 +267,39 @@ grief_score_hud_set_player_count(team, num)
 		level.grief_score_hud[team1].player_count[team].alpha = 1;
 
 		offset = (4 - num) * (level.grief_score_hud[team1].player_count[team].width / 9);
-		level.grief_score_hud[team1].player_count[team].x = level.grief_score_hud[team1].player_count[team].init_x + offset;
+		level.grief_score_hud[team1].player_count[team].x = level.grief_score_hud[team1].player_count[team].og_x + offset;
 
 		level.grief_score_hud[team1].player_count[team] setShader("hud_chalk_" + num, level.grief_score_hud[team1].player_count[team].width, level.grief_score_hud[team1].player_count[team].height);
+	}
+}
+
+grief_score_hud_set_obj_icon(team)
+{
+	foreach (team1 in level.teams)
+	{
+		if (team == "none")
+		{
+			level.grief_score_hud[team1].obj_icon.alpha = 0;
+			continue;
+		}
+
+		level.grief_score_hud[team1].obj_icon.alpha = 1;
+
+		if (team == "neutral")
+		{
+			level.grief_score_hud[team1].obj_icon.x = level.grief_score_hud[team1].obj_icon.og_x;
+			level.grief_score_hud[team1].obj_icon.color = (1, 1, 1);
+		}
+		else if (team1 == team)
+		{
+			level.grief_score_hud[team1].obj_icon.x = level.grief_score_hud[team1].obj_icon.og_x - 27.5;
+			level.grief_score_hud[team1].obj_icon.color = (0, 1, 0);
+		}
+		else
+		{
+			level.grief_score_hud[team1].obj_icon.x = level.grief_score_hud[team1].obj_icon.og_x + 27.5;
+			level.grief_score_hud[team1].obj_icon.color = (1, 0, 0);
+		}
 	}
 }
 
@@ -2962,6 +2999,8 @@ meat_think()
 				held_time = getTime();
 			}
 
+			grief_score_hud_set_obj_icon(level.meat_player.team);
+
 			foreach (player in players)
 			{
 				if (player == level.meat_player)
@@ -3012,6 +3051,8 @@ meat_think()
 
 				level.item_meat.obj_waypoint_origin.origin = level.item_meat.origin + (0, 0, 32);
 
+				grief_score_hud_set_obj_icon("neutral");
+
 				foreach (player in players)
 				{
 					player.obj_waypoint.alpha = 1;
@@ -3021,8 +3062,6 @@ meat_think()
 			}
 			else if (isDefined(level.meat_powerup))
 			{
-				meat_active = true;
-
 				if (!isDefined(level.meat_powerup.obj_waypoint_origin))
 				{
 					level.meat_powerup.obj_waypoint_origin = spawn( "script_model", level.meat_powerup.origin + (0, 0, 32) );
@@ -3030,6 +3069,8 @@ meat_think()
 
 					level.meat_powerup thread meat_waypoint_origin_destroy_on_death();
 				}
+
+				grief_score_hud_set_obj_icon("neutral");
 
 				foreach (player in players)
 				{
@@ -3040,6 +3081,8 @@ meat_think()
 			}
 			else
 			{
+				grief_score_hud_set_obj_icon("none");
+
 				foreach (player in players)
 				{
 					player.obj_waypoint.alpha = 0;

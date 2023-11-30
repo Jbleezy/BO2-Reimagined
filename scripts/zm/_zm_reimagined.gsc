@@ -4212,6 +4212,25 @@ remove_status_icons_on_intermission()
 	}
 }
 
+destroy_on_end_game()
+{
+	self endon("death");
+
+	level waittill("end_game");
+
+	if(isDefined(self.bar))
+	{
+		self.bar destroy();
+	}
+
+	if(isDefined(self.barframe))
+	{
+		self.barframe destroy();
+	}
+
+	self destroy();
+}
+
 destroy_on_intermission()
 {
 	self endon("death");
