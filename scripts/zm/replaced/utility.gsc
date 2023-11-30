@@ -299,7 +299,7 @@ wallbuy( weapon_name, target, targetname, origin, angles, play_chalk_fx = 1 )
 		else
 			unitrigger_stub.prompt_and_visibility_func = ::wall_weapon_update_prompt;
 
-		maps\mp\zombies\_zm_unitrigger::register_static_unitrigger( unitrigger_stub, ::weapon_spawn_think );
+		maps\mp\zombies\_zm_unitrigger::register_static_unitrigger( unitrigger_stub, scripts\zm\replaced\_zm_weapons::weapon_spawn_think );
 	}
 
 	if(weaponType(weapon_name) == "grenade")
