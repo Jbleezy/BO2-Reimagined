@@ -210,7 +210,6 @@ afterlife_spawn_corpse()
     corpse.ignoreme = 1;
     corpse maps\mp\zombies\_zm_clone::clone_give_weapon( "m1911_zm" );
     corpse maps\mp\zombies\_zm_clone::clone_animate( "afterlife" );
-    corpse.revive_hud = self afterlife_revive_hud_create();
     corpse thread afterlife_revive_trigger_spawn();
 
     collision = spawn( "script_model", corpse.origin + ( 0, 0, 16 ) );

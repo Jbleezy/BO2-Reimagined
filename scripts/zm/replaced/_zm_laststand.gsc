@@ -520,3 +520,25 @@ playerlaststand( einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, sh
     self thread refire_player_downed();
     self thread cleanup_laststand_on_disconnect();
 }
+
+revive_hud_create()
+{
+	if (isDefined(self.revive_hud))
+	{
+		return;
+	}
+
+    self.revive_hud = newclienthudelem( self );
+    self.revive_hud.alignx = "center";
+    self.revive_hud.aligny = "middle";
+    self.revive_hud.horzalign = "center";
+    self.revive_hud.vertalign = "bottom";
+    self.revive_hud.foreground = 1;
+    self.revive_hud.font = "default";
+    self.revive_hud.fontscale = 1.5;
+    self.revive_hud.alpha = 0;
+    self.revive_hud.color = ( 1, 1, 1 );
+    self.revive_hud.hidewheninmenu = 1;
+    self.revive_hud settext( "" );
+    self.revive_hud.y = -160;
+}
