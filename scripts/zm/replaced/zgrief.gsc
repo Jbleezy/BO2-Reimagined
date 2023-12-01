@@ -207,7 +207,11 @@ meat_stink( who )
 
 		if (level.scr_zm_ui_gametype_obj == "zmeat")
 		{
-			if (player.team == who.team)
+			if (player == who)
+			{
+				player thread scripts\zm\zgrief\zgrief_reimagined::show_grief_hud_msg("You have the meat!");
+			}
+			else if (player.team == who.team)
 			{
 				player thread scripts\zm\zgrief\zgrief_reimagined::show_grief_hud_msg(&"ZOMBIE_YOUR_TEAM_MEAT");
 			}
