@@ -3184,7 +3184,7 @@ increment_score(team, amount = 1, show_lead_msg = true)
 		players = get_players(team);
 		foreach(player in players)
 		{
-			player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_PLAYER_BLED_OUT", score_left);
+			player thread show_grief_hud_msg("Enemy Bled Out! [" + score_left + " Remaining]");
 		}
 
 		if(level.grief_score[encounters_team] <= 3)

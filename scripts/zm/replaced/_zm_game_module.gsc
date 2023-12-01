@@ -202,7 +202,7 @@ round_end(winner)
 		}
 	}
 
-	zombie_goto_round( level.round_number );
+	zombie_goto_round( level.snr_round_number );
 	level thread maps\mp\zombies\_zm_game_module::reset_grief();
 	level thread maps\mp\zombies\_zm::round_think( 1 );
 }
