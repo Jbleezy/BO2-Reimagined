@@ -889,6 +889,7 @@ obj_waypoint()
 		self.obj_waypoint.vertalign = "user_center";
 		self.obj_waypoint.alpha = 0;
 		self.obj_waypoint.hidewheninmenu = 1;
+		self.obj_waypoint setWaypoint(1, level.obj_waypoint_icon);
 	}
 
 	if (level.scr_zm_ui_gametype_obj == "zcontainment")
@@ -902,6 +903,8 @@ obj_waypoint()
 		self.next_obj_waypoint.archived = 0;
 		self.next_obj_waypoint.alpha = 0;
 		self.next_obj_waypoint.hidewheninmenu = 1;
+		self.next_obj_waypoint setShader(level.obj_waypoint_icon, 8, 8);
+		self.next_obj_waypoint setWaypoint(1);
 	}
 
 	self thread obj_waypoint_destroy_on_end_game();
