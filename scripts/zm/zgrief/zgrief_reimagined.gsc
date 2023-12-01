@@ -2939,7 +2939,7 @@ meat_powerup_drop_think()
 	players = get_players();
 	foreach(player in players)
 	{
-		player thread show_grief_hud_msg("Kill a zombie to begin the game!");
+		player thread show_grief_hud_msg("Kill a zombie to drop the meat!");
 	}
 
 	while(1)
