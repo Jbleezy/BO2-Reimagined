@@ -855,6 +855,8 @@
 * Zombies only go after players in the containment zone
 * Zombies in the containment zone die when it moves
 * Players in the containment zone gain 50 points when their team gains score
+* Containment zone moves every 60 seconds
+* Next containment zone waypoint shown when there is 10 seconds left on current containment zone
 * Amount of players alive in the containment zone on each team shown on HUD
 * Players respawn after being down for 10 seconds
 * Players retain perks

@@ -880,15 +880,29 @@ head_icon_origin_think()
 
 obj_waypoint()
 {
-	self.obj_waypoint = [];
-	self.obj_waypoint = newClientHudElem(self);
-	self.obj_waypoint.alignx = "center";
-	self.obj_waypoint.aligny = "middle";
-	self.obj_waypoint.horzalign = "user_center";
-	self.obj_waypoint.vertalign = "user_center";
-	self.obj_waypoint.alpha = 0;
-	self.obj_waypoint.hidewheninmenu = 1;
-	self.obj_waypoint setWaypoint(1, level.obj_waypoint_icon);
+	if (level.scr_zm_ui_gametype_obj == "zcontainment" || level.scr_zm_ui_gametype_obj == "zmeat")
+	{
+		self.obj_waypoint = newClientHudElem(self);
+		self.obj_waypoint.alignx = "center";
+		self.obj_waypoint.aligny = "middle";
+		self.obj_waypoint.horzalign = "user_center";
+		self.obj_waypoint.vertalign = "user_center";
+		self.obj_waypoint.alpha = 0;
+		self.obj_waypoint.hidewheninmenu = 1;
+	}
+
+	if (level.scr_zm_ui_gametype_obj == "zcontainment")
+	{
+		self.next_obj_waypoint = newClientHudElem(self);
+		self.next_obj_waypoint.alignx = "center";
+		self.next_obj_waypoint.aligny = "middle";
+		self.next_obj_waypoint.horzalign = "user_center";
+		self.next_obj_waypoint.vertalign = "user_center";
+		self.next_obj_waypoint.color = (0.5, 0.5, 0.5);
+		self.next_obj_waypoint.archived = 0;
+		self.next_obj_waypoint.alpha = 0;
+		self.next_obj_waypoint.hidewheninmenu = 1;
+	}
 
 	self thread obj_waypoint_destroy_on_end_game();
 }
@@ -899,9 +913,14 @@ obj_waypoint_destroy_on_end_game()
 
 	level waittill("end_game");
 
-	if(isDefined(self.obj_waypoint))
+	if (isDefined(self.obj_waypoint))
 	{
 		self.obj_waypoint destroy();
+	}
+
+	if (isDefined(self.next_obj_waypoint))
+	{
+		self.next_obj_waypoint destroy();
 	}
 }
 
@@ -2458,6 +2477,16 @@ containment_think()
 		zone_display_name = scripts\zm\_zm_reimagined::get_zone_display_name(zone_name);
 		zone = level.zones[zone_name];
 
+		next_ind = ind + 1;
+
+		if(next_ind >= containment_zones.size)
+		{
+			next_ind = 0;
+		}
+
+		next_zone_name = containment_zones[next_ind];
+		next_zone = level.zones[next_zone_name];
+
 		zone_name_to_lock = zone_name;
 		if (zone_name == "zone_street_fountain")
 		{
@@ -2477,13 +2506,16 @@ containment_think()
 		level.containment_zone_hud setText(zone_display_name);
 		level.containment_time_hud setTimer(60);
 
+		zone_time = 60000;
+		next_obj_waypoint_time = 10000;
 		obj_time = 1000;
 		held_time = [];
 		held_time["axis"] = undefined;
 		held_time["allies"] = undefined;
 		held_prev = "none";
 		start_time = getTime();
-		while((getTime() - start_time) <= 60000 || containment_zones.size == 1)
+
+		while((getTime() - start_time) <= zone_time || containment_zones.size == 1)
 		{
 			if (containment_zones.size > 1)
 			{
@@ -2502,6 +2534,7 @@ containment_think()
 			in_containment_zone = [];
 			in_containment_zone["axis"] = [];
 			in_containment_zone["allies"] = [];
+			show_next_obj_waypoint = (getTime() - start_time) >= (zone_time - next_obj_waypoint_time);
 
 			foreach(player in players)
 			{
@@ -2518,20 +2551,7 @@ containment_think()
 						in_containment_zone[player.team][in_containment_zone[player.team].size] = player;
 					}
 
-					if(isads(player))
-					{
-						player.obj_waypoint fadeOverTime(0.25);
-						player.obj_waypoint.alpha = 0.25;
-					}
-					else
-					{
-						player.obj_waypoint.alpha = 1;
-					}
-
-					player.obj_waypoint.x = 0;
-					player.obj_waypoint.y = 140;
-					player.obj_waypoint.z = 0;
-					player.obj_waypoint setShader(level.obj_waypoint_icon, getDvarInt("waypointIconWidth"), getDvarInt("waypointIconHeight"));
+					player containment_set_obj_waypoint_on_screen();
 				}
 				else
 				{
@@ -2542,81 +2562,24 @@ containment_think()
 						player.ignoreme = close_zombies.size == 0;
 					}
 
-					player.obj_waypoint.alpha = 1;
+					player containment_set_obj_waypoint_off_screen(zone_name, zone);
+				}
 
-					if(level.script == "zm_transit" && zone_name == "zone_far_ext")
+				if (containment_zones.size > 1 && show_next_obj_waypoint)
+				{
+					player_zone_name = player get_current_zone();
+					if (isDefined(player_zone_name) && player_zone_name == next_zone_name)
 					{
-						other_zone = level.zones["zone_farm_house"];
-						other_zone2 = level.zones["zone_brn"];
-						player.obj_waypoint.x = (other_zone.volumes[0].origin[0] + other_zone2.volumes[0].origin[0]) / 2;
-						player.obj_waypoint.y = (other_zone.volumes[0].origin[1] + other_zone2.volumes[0].origin[1]) / 2;
-						player.obj_waypoint.z = (other_zone.volumes[0].origin[2] + other_zone2.volumes[0].origin[2]) / 2;
-					}
-					else if(level.script == "zm_transit" && zone_name == "zone_trans_8")
-					{
-						other_zone = level.zones["zone_pow_warehouse"];
-						player.obj_waypoint.x = (zone.volumes[0].origin[0] + other_zone.volumes[0].origin[0]) / 2;
-						player.obj_waypoint.y = (zone.volumes[0].origin[1] + other_zone.volumes[0].origin[1]) / 2;
-						player.obj_waypoint.z = (zone.volumes[0].origin[2] + other_zone.volumes[0].origin[2]) / 2;
-
-						player.obj_waypoint.x += 200;
-					}
-					else if(level.script == "zm_transit" && zone_name == "zone_town_west")
-					{
-						other_zone = level.zones["zone_town_barber"];
-						other_zone2 = level.zones["zone_ban"];
-						player.obj_waypoint.x = (other_zone.volumes[0].origin[0] + other_zone2.volumes[0].origin[0]) / 2;
-						player.obj_waypoint.y = (other_zone.volumes[0].origin[1] + other_zone2.volumes[0].origin[1]) / 2;
-						player.obj_waypoint.z = (other_zone.volumes[0].origin[2] + other_zone2.volumes[0].origin[2]) / 2;
-					}
-					else if(level.script == "zm_buried" && zone_name == "zone_street_darkwest")
-					{
-						other_zone = level.zones["zone_gun_store"];
-						other_zone2 = level.zones["zone_general_store"];
-						other_zone3 = level.zones["zone_street_darkwest_nook"];
-						player.obj_waypoint.x = (other_zone.volumes[0].origin[0] + other_zone2.volumes[0].origin[0] + other_zone3.volumes[0].origin[0]) / 3;
-						player.obj_waypoint.y = (other_zone.volumes[0].origin[1] + other_zone2.volumes[0].origin[1] + other_zone3.volumes[0].origin[1]) / 3;
-						player.obj_waypoint.z = (other_zone.volumes[0].origin[2] + other_zone2.volumes[0].origin[2] + other_zone3.volumes[0].origin[2]) / 3;
-					}
-					else if(level.script == "zm_buried" && zone_name == "zone_street_darkeast")
-					{
-						other_zone = level.zones["zone_underground_bar"];
-						other_zone2 = level.zones["zone_general_store"];
-						other_zone3 = level.zones["zone_gun_store"];
-						other_zone4 = level.zones["zone_toy_store"];
-						player.obj_waypoint.x = (other_zone.volumes[0].origin[0] + other_zone2.volumes[0].origin[0] + other_zone3.volumes[0].origin[0] + other_zone4.volumes[0].origin[0]) / 4;
-						player.obj_waypoint.y = (other_zone.volumes[0].origin[1] + other_zone2.volumes[0].origin[1] + other_zone3.volumes[0].origin[1] + other_zone4.volumes[0].origin[1]) / 4;
-						player.obj_waypoint.z = (other_zone.volumes[0].origin[2] + other_zone2.volumes[0].origin[2] + other_zone3.volumes[0].origin[2] + other_zone4.volumes[0].origin[2]) / 4;
+						player containment_set_obj_waypoint_on_screen(1);
 					}
 					else
 					{
-						player.obj_waypoint.x = zone.volumes[0].origin[0];
-						player.obj_waypoint.y = zone.volumes[0].origin[1];
-						player.obj_waypoint.z = zone.volumes[0].origin[2];
+						player containment_set_obj_waypoint_off_screen(next_zone_name, next_zone, 1);
 					}
-
-					if(level.script == "zm_buried" && zone_name == "zone_maze")
-					{
-						player.obj_waypoint.z += 200;
-					}
-					else if(level.script == "zm_prison" && zone_name == "zone_dock")
-					{
-						player.obj_waypoint.z -= 100;
-					}
-					else if(level.script == "zm_prison" && zone_name == "zone_dock_gondola")
-					{
-						player.obj_waypoint.z += 200;
-					}
-					else if(level.script == "zm_prison" && zone_name == "zone_dock_puzzle")
-					{
-						player.obj_waypoint.z -= 250;
-					}
-					else if(level.script == "zm_prison" && zone_name == "zone_studio")
-					{
-						player.obj_waypoint.x += 400;
-					}
-
-					player.obj_waypoint setWaypoint(1, level.obj_waypoint_icon);
+				}
+				else
+				{
+					player.next_obj_waypoint.alpha = 0;
 				}
 			}
 
@@ -2916,6 +2879,123 @@ containment_get_zones()
 	containment_zones = array_randomize(containment_zones);
 
 	return containment_zones;
+}
+
+containment_set_obj_waypoint_on_screen(next_obj = false)
+{
+	hud = self.obj_waypoint;
+	if (next_obj)
+	{
+		hud = self.next_obj_waypoint;
+	}
+
+	if(isads(self))
+	{
+		hud fadeOverTime(0.25);
+		hud.alpha = 0.25;
+	}
+	else
+	{
+		hud.alpha = 1;
+	}
+
+	hud.x = 0;
+	hud.y = 140;
+	hud.z = 0;
+	hud setShader(level.obj_waypoint_icon, getDvarInt("waypointIconWidth"), getDvarInt("waypointIconHeight"));
+}
+
+containment_set_obj_waypoint_off_screen(zone_name, zone, next_obj = false)
+{
+	hud = self.obj_waypoint;
+	if (next_obj)
+	{
+		hud = self.next_obj_waypoint;
+	}
+
+	hud.alpha = 1;
+
+	if(level.script == "zm_transit" && zone_name == "zone_far_ext")
+	{
+		other_zone = level.zones["zone_farm_house"];
+		other_zone2 = level.zones["zone_brn"];
+		hud.x = (other_zone.volumes[0].origin[0] + other_zone2.volumes[0].origin[0]) / 2;
+		hud.y = (other_zone.volumes[0].origin[1] + other_zone2.volumes[0].origin[1]) / 2;
+		hud.z = (other_zone.volumes[0].origin[2] + other_zone2.volumes[0].origin[2]) / 2;
+	}
+	else if(level.script == "zm_transit" && zone_name == "zone_trans_8")
+	{
+		other_zone = level.zones["zone_pow_warehouse"];
+		hud.x = (zone.volumes[0].origin[0] + other_zone.volumes[0].origin[0]) / 2;
+		hud.y = (zone.volumes[0].origin[1] + other_zone.volumes[0].origin[1]) / 2;
+		hud.z = (zone.volumes[0].origin[2] + other_zone.volumes[0].origin[2]) / 2;
+
+		hud.x += 200;
+	}
+	else if(level.script == "zm_transit" && zone_name == "zone_town_west")
+	{
+		other_zone = level.zones["zone_town_barber"];
+		other_zone2 = level.zones["zone_ban"];
+		hud.x = (other_zone.volumes[0].origin[0] + other_zone2.volumes[0].origin[0]) / 2;
+		hud.y = (other_zone.volumes[0].origin[1] + other_zone2.volumes[0].origin[1]) / 2;
+		hud.z = (other_zone.volumes[0].origin[2] + other_zone2.volumes[0].origin[2]) / 2;
+	}
+	else if(level.script == "zm_buried" && zone_name == "zone_street_darkwest")
+	{
+		other_zone = level.zones["zone_gun_store"];
+		other_zone2 = level.zones["zone_general_store"];
+		other_zone3 = level.zones["zone_street_darkwest_nook"];
+		hud.x = (other_zone.volumes[0].origin[0] + other_zone2.volumes[0].origin[0] + other_zone3.volumes[0].origin[0]) / 3;
+		hud.y = (other_zone.volumes[0].origin[1] + other_zone2.volumes[0].origin[1] + other_zone3.volumes[0].origin[1]) / 3;
+		hud.z = (other_zone.volumes[0].origin[2] + other_zone2.volumes[0].origin[2] + other_zone3.volumes[0].origin[2]) / 3;
+	}
+	else if(level.script == "zm_buried" && zone_name == "zone_street_darkeast")
+	{
+		other_zone = level.zones["zone_underground_bar"];
+		other_zone2 = level.zones["zone_general_store"];
+		other_zone3 = level.zones["zone_gun_store"];
+		other_zone4 = level.zones["zone_toy_store"];
+		hud.x = (other_zone.volumes[0].origin[0] + other_zone2.volumes[0].origin[0] + other_zone3.volumes[0].origin[0] + other_zone4.volumes[0].origin[0]) / 4;
+		hud.y = (other_zone.volumes[0].origin[1] + other_zone2.volumes[0].origin[1] + other_zone3.volumes[0].origin[1] + other_zone4.volumes[0].origin[1]) / 4;
+		hud.z = (other_zone.volumes[0].origin[2] + other_zone2.volumes[0].origin[2] + other_zone3.volumes[0].origin[2] + other_zone4.volumes[0].origin[2]) / 4;
+	}
+	else
+	{
+		hud.x = zone.volumes[0].origin[0];
+		hud.y = zone.volumes[0].origin[1];
+		hud.z = zone.volumes[0].origin[2];
+	}
+
+	if(level.script == "zm_buried" && zone_name == "zone_maze")
+	{
+		hud.z += 200;
+	}
+	else if(level.script == "zm_prison" && zone_name == "zone_dock")
+	{
+		hud.z -= 100;
+	}
+	else if(level.script == "zm_prison" && zone_name == "zone_dock_gondola")
+	{
+		hud.z += 200;
+	}
+	else if(level.script == "zm_prison" && zone_name == "zone_dock_puzzle")
+	{
+		hud.z -= 250;
+	}
+	else if(level.script == "zm_prison" && zone_name == "zone_studio")
+	{
+		hud.x += 400;
+	}
+
+	if (next_obj)
+	{
+		hud setShader(level.obj_waypoint_icon, 8, 8);
+		hud setWaypoint(1);
+	}
+	else
+	{
+		hud setWaypoint(1, level.obj_waypoint_icon);
+	}
 }
 
 meat_init()
