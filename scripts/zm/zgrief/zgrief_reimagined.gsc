@@ -701,6 +701,11 @@ on_player_downed()
 		self kill_feed();
 		self add_grief_downed_score();
 		level thread update_players_on_downed( self );
+
+		if(level.scr_zm_ui_gametype_obj == "zrace")
+		{
+			increment_score(getOtherTeam(self.team), 10, 1, "enemy_player");
+		}
 	}
 }
 
@@ -1226,7 +1231,7 @@ grief_intro_msg()
 	{
 		foreach (player in players)
 		{
-			player thread show_grief_hud_msg( "Kill zombies to gain score!" );
+			player thread show_grief_hud_msg( "Kill zombies or enemy players to gain score!" );
 		}
 	}
 	else if(level.scr_zm_ui_gametype_obj == "zcontainment")
@@ -2369,12 +2374,14 @@ race_check_for_kills()
 		self waittill("zom_kill", zombie);
 
 		amount = 1;
+		special_score = undefined;
 		if (is_true(zombie.is_brutus))
 		{
 			amount = 10;
+			special_score = "boss_zombie";
 		}
 
-		increment_score(self.team, amount);
+		increment_score(self.team, amount, 1, special_score);
 	}
 }
 
@@ -3149,7 +3156,7 @@ powerup_can_player_grab(player)
 	return true;
 }
 
-increment_score(team, amount = 1, show_lead_msg = true)
+increment_score(team, amount = 1, show_lead_msg = true, special_score)
 {
 	level endon("end_game");
 
@@ -3197,14 +3204,29 @@ increment_score(team, amount = 1, show_lead_msg = true)
 		}
 	}
 
-	if(level.scr_zm_ui_gametype_obj == "zrace")
+	if (level.scr_zm_ui_gametype_obj == "zrace")
 	{
-		if (score_left % 50 == 0)
+		if (isDefined(special_score))
 		{
-			players = get_players(team);
-			foreach(player in players)
+			msg = "";
+
+			if (special_score == "enemy_player")
 			{
-				player thread show_grief_hud_msg(&"ZOMBIE_RACE_ZOMBIES_LEFT", score_left);
+				msg = "Enemy Down! [" + amount + " Score]";
+			}
+			else if (special_score == "boss_zombie")
+			{
+				msg = "Boss Killed! [" + amount + " Score]";
+			}
+			else if (special_score == "nuke_powerup")
+			{
+				msg = "Nuke Grabbed! [" + amount + " Score]";
+			}
+
+			players = get_players(team);
+			foreach (player in players)
+			{
+				player thread show_grief_hud_msg(msg);
 			}
 		}
 	}
@@ -3215,22 +3237,16 @@ increment_score(team, amount = 1, show_lead_msg = true)
 		{
 			level.prev_leader = encounters_team;
 
-			delay = 0;
-			if (level.scr_zm_ui_gametype_obj == "zsnr" || level.scr_zm_ui_gametype_obj == "zgrief")
-			{
-				delay = 1;
-			}
-
 			players = get_players();
 			foreach (player in players)
 			{
 				if (player.team == team)
 				{
-					player thread show_grief_hud_msg("Gained the lead!", undefined, 30, delay);
+					player thread show_grief_hud_msg("Gained the lead!", undefined, 30);
 				}
 				else
 				{
-					player thread show_grief_hud_msg("Lost the lead!", undefined, 30, delay);
+					player thread show_grief_hud_msg("Lost the lead!", undefined, 30);
 				}
 			}
 		}

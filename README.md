@@ -405,7 +405,6 @@
 
 ### Nuke
 * Kills all zombies instantly
-* Counts as kills for player who grabbed it
 
 ### Carpenter
 * Removed
@@ -838,8 +837,12 @@
 * Players respawn at initial spawn points
 
 #### Race
-* Gain score by getting zombie kills
-* Kill 500 zombies to win the game
+* Gain score by getting zombie kills or getting enemy players down
+* Gain 500 score to win the game
+* Killing a zombie awards 1 score
+* Killing a boss zombie awards 10 score
+* Getting an enemy player down awards 10 score
+* Grabbing a Nuke powerup awards 10 score
 * Players respawn after being down for 10 seconds
 * Players retain perks
 

@@ -525,8 +525,7 @@ nuke_powerup( drop_item, player_team )
             zombies_nuked[i] playsound( "evt_nuked" );
         }
 
-		zombies_nuked[i].deathpoints_already_given = 1;
-		zombies_nuked[i] dodamage( zombies_nuked[i].health + 666, zombies_nuked[i].origin, player, player, "none", "MOD_UNKNOWN", 0, "none" );
+		zombies_nuked[i] dodamage( zombies_nuked[i].health + 666, zombies_nuked[i].origin );
     }
 
 	players = get_players( player_team );
@@ -561,6 +560,14 @@ nuke_powerup( drop_item, player_team )
 				{
 					players[i] thread [[level.player_suicide_func]]();
 				}
+			}
+		}
+
+		if(level.scr_zm_ui_gametype_obj == "zrace")
+		{
+			if (isDefined(level.increment_score_func))
+			{
+				[[level.increment_score_func]](player_team, 10, 1, "nuke_powerup");
 			}
 		}
 	}
