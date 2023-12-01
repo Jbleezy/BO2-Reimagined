@@ -2620,12 +2620,12 @@ containment_think()
 				}
 			}
 
-			team_diff = abs(countplayers("axis") - countplayers("allies"));
+			team_diff = abs(get_players("axis").size - get_players("allies").size);
 
 			if (team_diff > 0)
 			{
 				team = "axis";
-				if (countplayers("allies") < countplayers("axis"))
+				if (get_players("allies").size < get_players("axis").size)
 				{
 					team = "allies";
 				}
