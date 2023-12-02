@@ -427,7 +427,6 @@
 * No longer able to drop when another meat powerup is already dropped
 * Message shows when the meat is grabbed and landed on a player
 * Meleeing while the meat is moving no longer grabs the meat
-* Meleeing while the meat is moving throws the meat
 * Removed pick up trigger
 
 ## Persistent Upgrades
