@@ -240,6 +240,7 @@ meat_disable_weapons()
 
 meat_damage_over_time()
 {
+	level endon("end_game");
 	level endon("meat_thrown");
 	self endon("disconnect");
 	self endon("player_downed");
