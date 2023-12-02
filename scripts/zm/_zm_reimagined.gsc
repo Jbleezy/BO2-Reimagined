@@ -40,6 +40,8 @@
 
 main()
 {
+	setDvar( "scr_disablePlutoniumFixes", 1 );
+
 	replaceFunc(common_scripts\utility::struct_class_init, scripts\zm\replaced\utility::struct_class_init);
 	replaceFunc(maps\mp\animscripts\zm_melee::meleecombat, scripts\zm\replaced\zm_melee::meleecombat);
 	replaceFunc(maps\mp\animscripts\zm_utility::wait_network_frame, scripts\zm\replaced\_zm_utility::wait_network_frame);
