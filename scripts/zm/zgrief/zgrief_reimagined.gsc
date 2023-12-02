@@ -83,6 +83,7 @@ init()
 	level.is_respawn_gamemode_func = ::is_respawn_gamemode;
 	level.round_start_wait_func = ::round_start_wait;
 	level.increment_score_func = ::increment_score;
+	level.grief_score_hud_set_player_count_func = ::grief_score_hud_set_player_count;
 	level.show_grief_hud_msg_func = ::show_grief_hud_msg;
 	level.player_suicide_func = ::player_suicide;
 
@@ -254,7 +255,7 @@ grief_score_hud_wait_and_show()
 	}
 }
 
-grief_score_hud_set_player_count(team, num)
+grief_score_hud_set_player_count(team, num = get_number_of_valid_players_team(team))
 {
 	foreach (team1 in level.teams)
 	{
@@ -1008,7 +1009,7 @@ round_start_wait(time, initial)
 	{
 		foreach (team in level.teams)
 		{
-			grief_score_hud_set_player_count(team, get_number_of_valid_players_team(team));
+			grief_score_hud_set_player_count(team);
 		}
 	}
 
