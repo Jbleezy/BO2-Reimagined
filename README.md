@@ -416,6 +416,7 @@
 ### Meat
 * All zombies go after player holding the meat
 * 60% move speed while holding the meat
+* Take 10 damage per second while holding the meat
 * Player who threw the meat can meat themself
 * Attracts zombies more consistently on ground
 * Decreased attract radius on ground by 50%
@@ -424,7 +425,7 @@
 * Changed powerup fx color to blue
 * Able to drop when players are down
 * No longer able to drop when another meat powerup is already dropped
-* Message shows when the meat is grabbed, thrown, and landed on a player
+* Message shows when the meat is grabbed and landed on a player
 * Meleeing while the meat is moving no longer grabs the meat
 * Meleeing while the meat is moving throws the meat
 * Removed pick up trigger

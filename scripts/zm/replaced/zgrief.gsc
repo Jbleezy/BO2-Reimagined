@@ -183,6 +183,8 @@ meat_stink( who )
 	level.meat_player = who;
 	level.meat_powerup = undefined;
 
+	who thread meat_damage_over_time();
+
 	if (who attackbuttonpressed())
 	{
 		who thread meat_disable_weapons();
@@ -252,6 +254,22 @@ meat_disable_weapons()
 	self enableWeapons();
 
 	self.meat_weapons_disabled = undefined;
+}
+
+meat_damage_over_time()
+{
+	level endon("meat_thrown");
+	self endon("disconnect");
+	self endon("player_downed");
+
+	wait 0.05;
+
+	while (1)
+	{
+		wait 1;
+
+		radiusDamage(self.origin + (0, 0, 5), 10, 10, 10);
+	}
 }
 
 meat_stink_ignoreme_think()
