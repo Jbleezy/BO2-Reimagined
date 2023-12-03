@@ -415,7 +415,7 @@
 
 ### Meat
 * All zombies go after player holding the meat
-* 60% move speed while holding the meat
+* 75% move speed while holding the meat
 * Take 10 damage per second while holding the meat
 * Player who threw the meat can meat themself
 * Attracts zombies more consistently on ground
