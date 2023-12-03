@@ -710,7 +710,7 @@ wait_for_all_players_ready()
 
 	if ( isDedicated() && !(is_gametype_active("zgrief") && getDvarInt("ui_gametype_team_change")) )
     {
-		level.ready_up_time = 120;
+		level.ready_up_time = 60;
 		level.ready_up_start_time = getTime();
 		level.ready_up_start_players = get_players();
 
