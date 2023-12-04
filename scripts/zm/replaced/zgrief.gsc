@@ -245,13 +245,32 @@ meat_damage_over_time()
 	self endon("disconnect");
 	self endon("player_downed");
 
-	wait 0.05;
+	time_zero_speed = 0;
 
 	while (1)
 	{
-		wait 1;
+		velocity = self getVelocity() * (1, 1, 0);
+		speed = length(velocity);
 
-		radiusDamage(self.origin + (0, 0, 5), 10, 10, 10);
+		if (speed == 0)
+		{
+			time_zero_speed++;
+		}
+		else
+		{
+			if (time_zero_speed > 0)
+			{
+				time_zero_speed--;
+			}
+		}
+
+		if (time_zero_speed >= 20)
+		{
+			time_zero_speed = 0;
+			radiusDamage(self.origin + (0, 0, 5), 10, 50, 50);
+		}
+
+		wait 0.05;
 	}
 }
 
