@@ -414,8 +414,6 @@ post_all_players_spawned()
 
 set_dvars()
 {
-	setDvar( "zm_reimagined_version", "1.3.4" );
-
 	setDvar( "player_backSpeedScale", 1 );
 
 	// can't set to exactly 90 or else looking completely up or down will cause the player to move in the opposite direction
