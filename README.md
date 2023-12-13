@@ -391,7 +391,7 @@
 * Downing kills all zombies around the player
 
 ### Vulture-Aid
-* Stink areas no longer activate while the player is standing
+* Stink areas no longer activate while the player is moving
 
 ## Pack-a-Punch
 * No longer costs 2000 points to change attachments on an upgraded weapon
