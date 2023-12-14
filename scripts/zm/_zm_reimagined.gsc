@@ -252,8 +252,6 @@ on_player_spawned()
 
 			self thread weapon_locker_give_ammo_after_rounds();
 
-			self thread war_machine_explode_on_impact();
-
 			self thread jetgun_heatval_changes();
 
 			self thread additionalprimaryweapon_indicator();
@@ -437,8 +435,8 @@ set_dvars()
 	setDvar( "riotshield_projectile_damage_scale", 1 );
 	setDvar( "riotshield_deployed_health", 1500 );
 
-	setDvar( "sv_patch_zm_weapons", 0 );
-	setDvar( "sv_fix_zm_weapons", 1 );
+	setDvar( "sv_patch_zm_weapons", 1 );
+	setDvar( "sv_fix_zm_weapons", 0 );
 
 	setDvar( "sv_voice", 2 );
 	setDvar( "sv_voiceQuality", 9 );
@@ -3310,32 +3308,6 @@ remove_buildable_pieces( buildable_name )
 			return;
 		}
 	}
-}
-
-war_machine_explode_on_impact()
-{
-	self endon("disconnect");
-
-	while(1)
-	{
-		self waittill("grenade_launcher_fire", grenade, weapname);
-
-		if(weapname == "m32_zm")
-		{
-			grenade thread grenade_explode_on_impact();
-		}
-	}
-}
-
-grenade_explode_on_impact()
-{
-	self endon("death");
-
-	self waittill("grenade_bounce", pos);
-
-	self.origin = pos; // need this or position is slightly off
-
-	self resetmissiledetonationtime(0);
 }
 
 jetgun_heatval_changes()
