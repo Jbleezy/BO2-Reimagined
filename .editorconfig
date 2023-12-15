@@ -1,0 +1,4 @@
+root = true
+
+[weapons/**]
+end_of_line = lf
