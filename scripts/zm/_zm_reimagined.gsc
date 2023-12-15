@@ -2619,54 +2619,6 @@ disable_carpenter()
 	arrayremovevalue(level.zombie_powerup_array, "carpenter");
 }
 
-change_weapon_ammo(weapon)
-{
-	max_ammo = 0;
-
-	if (isSubStr(weapon, "m1911"))
-	{
-		if (is_weapon_upgraded(weapon))
-		{
-			if (level.scr_zm_ui_gametype == "zgrief")
-			{
-				max_ammo = 24;
-			}
-			else
-			{
-				max_ammo = 48;
-			}
-		}
-	}
-	else if (isSubStr(weapon, "an94"))
-	{
-		if (is_weapon_upgraded(weapon))
-		{
-			max_ammo = 450;
-		}
-	}
-	else if (isSubStr(weapon, "mp44"))
-	{
-		if (is_weapon_upgraded(weapon))
-		{
-			max_ammo = 300;
-		}
-	}
-	else if (isSubStr(weapon, "slipgun"))
-	{
-		max_ammo = 20;
-	}
-
-	if (max_ammo == 0)
-	{
-		return;
-	}
-
-	if (self getWeaponAmmoStock(weapon) > max_ammo)
-	{
-		self setWeaponAmmoStock(weapon, max_ammo);
-	}
-}
-
 wallbuy_location_changes()
 {
 	if(!is_classic())

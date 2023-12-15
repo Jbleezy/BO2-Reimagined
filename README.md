@@ -136,7 +136,7 @@
 * Upgraded: decreased stock ammo from 600 to 450
 
 ### B23R
-* Changed weapon cost to 900 on all maps
+* Decreased weapon cost from 1000 to 900 on all maps
 
 ### Ballistic Knife
 * Projectiles are no longer picked up by other players
@@ -145,6 +145,10 @@
 
 ### Executioner
 * Increased penetration
+
+### Five-seven Dual Wield
+* Decreased stock ammo from 225 to 210 on all maps
+* Upgraded: decreased stock ammo from 295 to 280 on all maps
 
 ### HAMR
 * Decreased recoil
@@ -169,7 +173,7 @@
 * Decreased recoil
 
 ### Remington 870
-* Changed weapon cost to 1200 on all maps
+* Changed weapon cost from 900 or 1500 to 1200 on all maps
 * Increased penetration
 
 ### RPD
@@ -798,7 +802,7 @@
 * Landing on top of an enemy player that is prone downs them
 * Increased max radius for landing on top of an enemy player by 16.66%
 * Decreased max height for landing on top of an enemy player by 50%
-* M1911 upgraded: decreased stock ammo from 50 to 24
+* Starting weapon (upgraded): decreased stock ammo by half
 * Max Ammo: decreased amount of ammo given from max stock to one clip
 * Max Ammo: unloads clip of all enemy players' weapons and takes away their grenades and claymores
 * Double Points: decreased duration from 30 seconds to 15 seconds

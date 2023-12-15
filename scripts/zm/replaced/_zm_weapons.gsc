@@ -466,7 +466,7 @@ weapon_give( weapon, is_upgrade, magic_box, nosound )
 	}
 	self play_weapon_vo( weapon, magic_box );
 
-	self scripts\zm\_zm_reimagined::change_weapon_ammo(weapon);
+	self notify("weapon_ammo_change");
 }
 
 ammo_give( weapon )
@@ -519,7 +519,7 @@ ammo_give( weapon )
 			self setWeaponAmmoClip( alt_weap, weaponClipSize(alt_weap) );
 		}
 
-		self scripts\zm\_zm_reimagined::change_weapon_ammo(weapon);
+		self notify("weapon_ammo_change");
 
         return true;
     }

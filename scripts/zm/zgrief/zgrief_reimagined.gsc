@@ -546,6 +546,7 @@ grief_onplayerconnect()
 	self thread head_icon();
 	self thread obj_waypoint();
 	self thread headstomp_watcher();
+	self thread decrease_upgraded_start_weapon_ammo();
 	self thread maps\mp\gametypes_zm\zmeat::create_item_meat_watcher();
 	self.killsconfirmed = 0;
 	self.killsdenied = 0;
@@ -959,6 +960,36 @@ headstomp_watcher()
 		}
 
 		wait 0.05;
+	}
+}
+
+decrease_upgraded_start_weapon_ammo()
+{
+	self endon("disconnect");
+
+	flag_wait("initial_blackscreen_passed");
+
+	upgraded_start_weapon = level.zombie_weapons[level.start_weapon].upgrade_name;
+	max_ammo = int(weaponmaxammo(upgraded_start_weapon) / 2);
+
+	while (1)
+	{
+		self waittill("weapon_ammo_change");
+
+		foreach (weapon in self getweaponslistprimaries())
+		{
+			if (weapon != upgraded_start_weapon)
+			{
+				continue;
+			}
+
+			ammo = self getweaponammostock(weapon);
+
+			if (ammo > max_ammo)
+			{
+				self setweaponammostock(weapon, max_ammo);
+			}
+		}
 	}
 }
 

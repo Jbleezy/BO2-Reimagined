@@ -215,7 +215,6 @@ onbuyweapon_slipgun( player )
 {
     player givestartammo( self.stub.weaponname );
     player switchtoweapon( self.stub.weaponname );
-	player scripts\zm\_zm_reimagined::change_weapon_ammo(self.stub.weaponname);
     level notify( "slipgun_bought", player );
 }
 

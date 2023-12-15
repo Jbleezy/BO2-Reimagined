@@ -1226,7 +1226,7 @@ wait_for_player_to_take( player, weapon, packa_timer, upgrade_as_attachment )
                 {
                     player giveweapon( upgrade_weapon, 0, player maps\mp\zombies\_zm_weapons::get_pack_a_punch_weapon_options( upgrade_weapon ) );
                     player givestartammo( upgrade_weapon );
-					player scripts\zm\_zm_reimagined::change_weapon_ammo(upgrade_weapon);
+                    player notify("weapon_ammo_change");
                 }
 
                 player switchtoweapon( upgrade_weapon );

@@ -363,11 +363,12 @@ full_ammo_powerup( drop_item, player )
 				{
 					players[i] givemaxammo(primary_weapons[x]);
 				}
-
-				players[i] scripts\zm\_zm_reimagined::change_weapon_ammo(primary_weapons[x]);
 			}
 			x++;
 		}
+
+		players[i] notify("weapon_ammo_change");
+
 		i++;
 	}
 	level thread full_ammo_on_hud( drop_item, player.team );
