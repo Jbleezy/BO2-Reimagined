@@ -151,5 +151,4 @@ claymore_setup()
     self set_player_placeable_mine( "claymore_zm" );
     self setactionslot( 4, "weapon", "claymore_zm" );
     self setweaponammostock( "claymore_zm", 2 );
-	self seteverhadweaponall( 1 );
 }
