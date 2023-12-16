@@ -47,14 +47,14 @@ revive_do_revive( playerbeingrevived, revivergun )
 		playerbeingrevived startrevive( self );
 	}
 
-    if ( !isDefined( playerbeingrevived_player.beingrevivedprogressbar ) && playerbeingrevived_player != self )
+	if ( !isDefined( playerbeingrevived_player.beingrevivedprogressbar ) && playerbeingrevived_player != self )
 	{
 		playerbeingrevived_player.beingrevivedprogressbar = playerbeingrevived_player createprimaryprogressbar();
-        playerbeingrevived_player.beingrevivedprogressbar setpoint("CENTER", undefined, level.primaryprogressbarx, beingrevivedprogressbar_y);
-        playerbeingrevived_player.beingrevivedprogressbar.bar.color = (0.5, 0.5, 1);
-        playerbeingrevived_player.beingrevivedprogressbar.hidewheninmenu = 1;
-        playerbeingrevived_player.beingrevivedprogressbar.bar.hidewheninmenu = 1;
-        playerbeingrevived_player.beingrevivedprogressbar.barframe.hidewheninmenu = 1;
+		playerbeingrevived_player.beingrevivedprogressbar setpoint("CENTER", undefined, level.primaryprogressbarx, beingrevivedprogressbar_y);
+		playerbeingrevived_player.beingrevivedprogressbar.bar.color = (0.5, 0.5, 1);
+		playerbeingrevived_player.beingrevivedprogressbar.hidewheninmenu = 1;
+		playerbeingrevived_player.beingrevivedprogressbar.bar.hidewheninmenu = 1;
+		playerbeingrevived_player.beingrevivedprogressbar.barframe.hidewheninmenu = 1;
 		playerbeingrevived_player.beingrevivedprogressbar.sort = 1;
 		playerbeingrevived_player.beingrevivedprogressbar.bar.sort = 2;
 		playerbeingrevived_player.beingrevivedprogressbar.barframe.sort = 3;
@@ -65,10 +65,10 @@ revive_do_revive( playerbeingrevived, revivergun )
 	if ( !isDefined( self.reviveprogressbar ) )
 	{
 		self.reviveprogressbar = self createprimaryprogressbar();
-        self.reviveprogressbar.bar.color = (0.5, 0.5, 1);
+		self.reviveprogressbar.bar.color = (0.5, 0.5, 1);
 		self.reviveprogressbar.foreground = 1;
-	    self.reviveprogressbar.bar.foreground = 1;
-	    self.reviveprogressbar.barframe.foreground = 1;
+		self.reviveprogressbar.bar.foreground = 1;
+		self.reviveprogressbar.barframe.foreground = 1;
 		self.reviveprogressbar.sort = 1;
 		self.reviveprogressbar.bar.sort = 2;
 		self.reviveprogressbar.barframe.sort = 3;
@@ -91,7 +91,7 @@ revive_do_revive( playerbeingrevived, revivergun )
 	self.is_reviving_any++;
 	self thread laststand_clean_up_reviving_any( playerbeingrevived_player );
 	self.reviveprogressbar updatebar( 0.01, 1 / revivetime );
-    playerbeingrevived_player.beingrevivedprogressbar updatebar( 0.01, 1 / revivetime );
+	playerbeingrevived_player.beingrevivedprogressbar updatebar( 0.01, 1 / revivetime );
 
 	if ( isDefined( playerbeingrevived_player.beingrevivedprogressbar ) )
 	{
@@ -146,7 +146,7 @@ revive_do_revive( playerbeingrevived, revivergun )
 		}
 	}
 
-    if ( isDefined( playerbeingrevived_player.beingrevivedprogressbar ) )
+	if ( isDefined( playerbeingrevived_player.beingrevivedprogressbar ) )
 	{
 		if ( !flag( "wait_and_revive" ) )
 		{
@@ -291,7 +291,7 @@ revive_give_back_weapons( gun )
 {
 	revive_tool = level.revive_tool;
 	if ( is_true( self.afterlife ) )
-    {
+	{
 		revive_tool = level.afterlife_revive_tool;
 	}
 
@@ -304,20 +304,20 @@ revive_give_back_weapons( gun )
 		return;
 	}
 
-    if ( cur_wep != revive_tool && is_true( self.revive_weapon_changed ) )
-    {
-        return;
-    }
+	if ( cur_wep != revive_tool && is_true( self.revive_weapon_changed ) )
+	{
+		return;
+	}
 
 	if ( self hasWeapon( "item_meat_zm" ) )
-    {
-        return;
-    }
+	{
+		return;
+	}
 
 	if ( self hasWeapon( "screecher_arms_zm" ) )
-    {
-        return;
-    }
+	{
+		return;
+	}
 
 	if ( gun != "none" && gun != "equip_gasmask_zm" && gun != "lower_equip_gasmask_zm" && self hasweapon( gun ) )
 	{
@@ -401,43 +401,43 @@ revive_hud_think()
 
 auto_revive( reviver, dont_enable_weapons )
 {
-    if ( isdefined( self.revivetrigger ) )
-    {
-        self.revivetrigger.auto_revive = 1;
+	if ( isdefined( self.revivetrigger ) )
+	{
+		self.revivetrigger.auto_revive = 1;
 
-        if ( self.revivetrigger.beingrevived == 1 )
-        {
-            while ( true )
-            {
-                if ( self.revivetrigger.beingrevived == 0 )
-                    break;
+		if ( self.revivetrigger.beingrevived == 1 )
+		{
+			while ( true )
+			{
+				if ( self.revivetrigger.beingrevived == 0 )
+					break;
 
-                wait_network_frame();
-            }
-        }
+				wait_network_frame();
+			}
+		}
 
-        self.revivetrigger.auto_trigger = 0;
-    }
+		self.revivetrigger.auto_trigger = 0;
+	}
 
-    self reviveplayer();
-    self maps\mp\zombies\_zm_perks::perk_set_max_health_if_jugg( "health_reboot", 1, 0 );
-    setclientsysstate( "lsm", "0", self );
-    self notify( "stop_revive_trigger" );
+	self reviveplayer();
+	self maps\mp\zombies\_zm_perks::perk_set_max_health_if_jugg( "health_reboot", 1, 0 );
+	setclientsysstate( "lsm", "0", self );
+	self notify( "stop_revive_trigger" );
 
-    if ( isdefined( self.revivetrigger ) )
-    {
-        self.revivetrigger delete();
-        self.revivetrigger = undefined;
-    }
+	if ( isdefined( self.revivetrigger ) )
+	{
+		self.revivetrigger delete();
+		self.revivetrigger = undefined;
+	}
 
-    self cleanup_suicide_hud();
+	self cleanup_suicide_hud();
 
-    if ( !isdefined( dont_enable_weapons ) || dont_enable_weapons == 0 )
-        self laststand_enable_player_weapons();
+	if ( !isdefined( dont_enable_weapons ) || dont_enable_weapons == 0 )
+		self laststand_enable_player_weapons();
 
-    self allowjump( 1 );
-    self.ignoreme = 0;
-    self.laststand = undefined;
+	self allowjump( 1 );
+	self.ignoreme = 0;
+	self.laststand = undefined;
 
 	valid_reviver = 1;
 	if ( is_gametype_active( "zgrief" ) && reviver == self )
@@ -445,80 +445,80 @@ auto_revive( reviver, dont_enable_weapons )
 		valid_reviver = 0;
 	}
 
-    if ( valid_reviver )
-    {
-        reviver.revives++;
-        reviver maps\mp\zombies\_zm_stats::increment_client_stat( "revives" );
-        reviver maps\mp\zombies\_zm_stats::increment_player_stat( "revives" );
-        self recordplayerrevivezombies( reviver );
-        maps\mp\_demo::bookmark( "zm_player_revived", gettime(), self, reviver );
-    }
+	if ( valid_reviver )
+	{
+		reviver.revives++;
+		reviver maps\mp\zombies\_zm_stats::increment_client_stat( "revives" );
+		reviver maps\mp\zombies\_zm_stats::increment_player_stat( "revives" );
+		self recordplayerrevivezombies( reviver );
+		maps\mp\_demo::bookmark( "zm_player_revived", gettime(), self, reviver );
+	}
 
-    self notify( "player_revived", reviver );
+	self notify( "player_revived", reviver );
 }
 
 playerlaststand( einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration )
 {
-    self notify( "entering_last_stand" );
+	self notify( "entering_last_stand" );
 
-    if ( isdefined( level._game_module_player_laststand_callback ) )
-        self [[ level._game_module_player_laststand_callback ]]( einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration );
+	if ( isdefined( level._game_module_player_laststand_callback ) )
+		self [[ level._game_module_player_laststand_callback ]]( einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration );
 
-    if ( self player_is_in_laststand() )
-        return;
+	if ( self player_is_in_laststand() )
+		return;
 
-    if ( isdefined( self.in_zombify_call ) && self.in_zombify_call )
-        return;
+	if ( isdefined( self.in_zombify_call ) && self.in_zombify_call )
+		return;
 
-    self thread player_last_stand_stats( einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration );
+	self thread player_last_stand_stats( einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration );
 
-    if ( isdefined( level.playerlaststand_func ) )
-        [[ level.playerlaststand_func ]]( einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration );
+	if ( isdefined( level.playerlaststand_func ) )
+		[[ level.playerlaststand_func ]]( einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration );
 
-    self.health = 1;
-    self.laststand = 1;
-    self.ignoreme = 1;
-    self thread maps\mp\gametypes_zm\_gameobjects::onplayerlaststand();
-    self thread maps\mp\zombies\_zm_buildables::onplayerlaststand();
+	self.health = 1;
+	self.laststand = 1;
+	self.ignoreme = 1;
+	self thread maps\mp\gametypes_zm\_gameobjects::onplayerlaststand();
+	self thread maps\mp\zombies\_zm_buildables::onplayerlaststand();
 
-    if ( !( isdefined( self.no_revive_trigger ) && self.no_revive_trigger ) )
-        self revive_trigger_spawn();
-    else
-        self undolaststand();
+	if ( !( isdefined( self.no_revive_trigger ) && self.no_revive_trigger ) )
+		self revive_trigger_spawn();
+	else
+		self undolaststand();
 
-    if ( isdefined( self.is_zombie ) && self.is_zombie )
-    {
-        self takeallweapons();
+	if ( isdefined( self.is_zombie ) && self.is_zombie )
+	{
+		self takeallweapons();
 
-        if ( isdefined( attacker ) && isplayer( attacker ) && attacker != self )
-            attacker notify( "killed_a_zombie_player", einflictor, self, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration );
-    }
-    else
-    {
-        self laststand_disable_player_weapons();
-        self laststand_give_pistol();
-    }
+		if ( isdefined( attacker ) && isplayer( attacker ) && attacker != self )
+			attacker notify( "killed_a_zombie_player", einflictor, self, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration );
+	}
+	else
+	{
+		self laststand_disable_player_weapons();
+		self laststand_give_pistol();
+	}
 
-    if ( isdefined( level.playersuicideallowed ) && level.playersuicideallowed && get_players().size > 1 )
-    {
-        if ( !isdefined( level.canplayersuicide ) || self [[ level.canplayersuicide ]]() )
-            self thread suicide_trigger_spawn();
-    }
+	if ( isdefined( level.playersuicideallowed ) && level.playersuicideallowed && get_players().size > 1 )
+	{
+		if ( !isdefined( level.canplayersuicide ) || self [[ level.canplayersuicide ]]() )
+			self thread suicide_trigger_spawn();
+	}
 
-    if ( level.laststandgetupallowed )
-        self thread laststand_getup();
-    else
-    {
-        bleedout_time = getdvarfloat( "player_lastStandBleedoutTime" );
-        self thread laststand_bleedout( bleedout_time );
-    }
+	if ( level.laststandgetupallowed )
+		self thread laststand_getup();
+	else
+	{
+		bleedout_time = getdvarfloat( "player_lastStandBleedoutTime" );
+		self thread laststand_bleedout( bleedout_time );
+	}
 
-    if ( "zcleansed" != level.gametype )
-        maps\mp\_demo::bookmark( "zm_player_downed", gettime(), self );
+	if ( "zcleansed" != level.gametype )
+		maps\mp\_demo::bookmark( "zm_player_downed", gettime(), self );
 
-    self notify( "player_downed" );
-    self thread refire_player_downed();
-    self thread cleanup_laststand_on_disconnect();
+	self notify( "player_downed" );
+	self thread refire_player_downed();
+	self thread cleanup_laststand_on_disconnect();
 }
 
 revive_hud_create()
@@ -528,17 +528,17 @@ revive_hud_create()
 		return;
 	}
 
-    self.revive_hud = newclienthudelem( self );
-    self.revive_hud.alignx = "center";
-    self.revive_hud.aligny = "middle";
-    self.revive_hud.horzalign = "center";
-    self.revive_hud.vertalign = "bottom";
-    self.revive_hud.foreground = 1;
-    self.revive_hud.font = "default";
-    self.revive_hud.fontscale = 1.5;
-    self.revive_hud.alpha = 0;
-    self.revive_hud.color = ( 1, 1, 1 );
-    self.revive_hud.hidewheninmenu = 1;
-    self.revive_hud settext( "" );
-    self.revive_hud.y = -160;
+	self.revive_hud = newclienthudelem( self );
+	self.revive_hud.alignx = "center";
+	self.revive_hud.aligny = "middle";
+	self.revive_hud.horzalign = "center";
+	self.revive_hud.vertalign = "bottom";
+	self.revive_hud.foreground = 1;
+	self.revive_hud.font = "default";
+	self.revive_hud.fontscale = 1.5;
+	self.revive_hud.alpha = 0;
+	self.revive_hud.color = ( 1, 1, 1 );
+	self.revive_hud.hidewheninmenu = 1;
+	self.revive_hud settext( "" );
+	self.revive_hud.y = -160;
 }

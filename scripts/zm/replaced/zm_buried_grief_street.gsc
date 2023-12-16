@@ -46,7 +46,7 @@ precache()
 	maps\mp\zombies\_zm_equip_turbine::init_animtree();
 	maps\mp\zombies\_zm_equip_springpad::init( &"ZM_BURIED_EQ_SP_PHS", &"ZM_BURIED_EQ_SP_HTS" );
 	maps\mp\zombies\_zm_equip_subwoofer::init( &"ZM_BURIED_EQ_SW_PHS", &"ZM_BURIED_EQ_SW_HTS" );
-    maps\mp\zombies\_zm_equip_headchopper::init( &"ZM_BURIED_EQ_HC_PHS", &"ZM_BURIED_EQ_HC_HTS" );
+	maps\mp\zombies\_zm_equip_headchopper::init( &"ZM_BURIED_EQ_HC_PHS", &"ZM_BURIED_EQ_HC_HTS" );
 }
 
 main()
@@ -119,7 +119,7 @@ builddynamicwallbuys()
 	builddynamicwallbuy( "church", "svu_zm" );
 	builddynamicwallbuy( "mansion", "an94_zm" );
 
-    level notify("dynamicwallbuysbuilt");
+	level notify("dynamicwallbuysbuilt");
 }
 
 builddynamicwallbuy( location, weaponname )

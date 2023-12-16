@@ -21,49 +21,49 @@
 
 flame_damage_fx( damageweapon, e_attacker, pct_damage = 1.0 )
 {
-    was_on_fire = is_true( self.is_on_fire );
-    n_initial_dmg = get_impact_damage( damageweapon ) * pct_damage;
-    is_upgraded = damageweapon == "staff_fire_upgraded_zm" || damageweapon == "staff_fire_upgraded2_zm" || damageweapon == "staff_fire_upgraded3_zm";
+	was_on_fire = is_true( self.is_on_fire );
+	n_initial_dmg = get_impact_damage( damageweapon ) * pct_damage;
+	is_upgraded = damageweapon == "staff_fire_upgraded_zm" || damageweapon == "staff_fire_upgraded2_zm" || damageweapon == "staff_fire_upgraded3_zm";
 
-    if ( is_upgraded )
-    {
-        self do_damage_network_safe( e_attacker, self.health, damageweapon, "MOD_BURNED" );
+	if ( is_upgraded )
+	{
+		self do_damage_network_safe( e_attacker, self.health, damageweapon, "MOD_BURNED" );
 
-        if ( cointoss() )
-            self thread zombie_gib_all();
-        else
-            self thread zombie_gib_guts();
+		if ( cointoss() )
+			self thread zombie_gib_all();
+		else
+			self thread zombie_gib_guts();
 
-        return;
-    }
+		return;
+	}
 
-    self endon( "death" );
+	self endon( "death" );
 
-    if ( !is_upgraded && !was_on_fire )
-    {
-        self.is_on_fire = 1;
-        self thread zombie_set_and_restore_flame_state();
-        wait 0.5;
-        self thread flame_damage_over_time( e_attacker, damageweapon, pct_damage );
-    }
+	if ( !is_upgraded && !was_on_fire )
+	{
+		self.is_on_fire = 1;
+		self thread zombie_set_and_restore_flame_state();
+		wait 0.5;
+		self thread flame_damage_over_time( e_attacker, damageweapon, pct_damage );
+	}
 
-    if ( n_initial_dmg > 0 )
-        self do_damage_network_safe( e_attacker, n_initial_dmg, damageweapon, "MOD_BURNED" );
+	if ( n_initial_dmg > 0 )
+		self do_damage_network_safe( e_attacker, n_initial_dmg, damageweapon, "MOD_BURNED" );
 }
 
 get_impact_damage( damageweapon )
 {
-    switch ( damageweapon )
-    {
-        case "staff_fire_zm":
-            return 2050;
-        case "staff_fire_upgraded_zm":
-        case "staff_fire_upgraded2_zm":
-        case "staff_fire_upgraded3_zm":
-            return 3300;
-        case "one_inch_punch_fire_zm":
-            return 0;
-        default:
-            return 0;
-    }
+	switch ( damageweapon )
+	{
+	case "staff_fire_zm":
+		return 2050;
+	case "staff_fire_upgraded_zm":
+	case "staff_fire_upgraded2_zm":
+	case "staff_fire_upgraded3_zm":
+		return 3300;
+	case "one_inch_punch_fire_zm":
+		return 0;
+	default:
+		return 0;
+	}
 }

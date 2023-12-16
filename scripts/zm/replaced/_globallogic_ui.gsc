@@ -7,31 +7,31 @@
 
 menuautoassign( comingfrommenu )
 {
-    teamkeys = getarraykeys( level.teams );
-    assignment = self get_assigned_team();
-    self closemenus();
+	teamkeys = getarraykeys( level.teams );
+	assignment = self get_assigned_team();
+	self closemenus();
 
-    self.pers["team"] = assignment;
-    self.team = assignment;
-    self.pers["class"] = undefined;
-    self.class = undefined;
-    self.pers["weapon"] = undefined;
-    self.pers["savedmodel"] = undefined;
-    self updateobjectivetext();
+	self.pers["team"] = assignment;
+	self.team = assignment;
+	self.pers["class"] = undefined;
+	self.class = undefined;
+	self.pers["weapon"] = undefined;
+	self.pers["savedmodel"] = undefined;
+	self updateobjectivetext();
 
-    if ( level.teambased )
-        self.sessionteam = assignment;
-    else
-    {
-        self.sessionteam = "none";
-        self.ffateam = assignment;
-    }
+	if ( level.teambased )
+		self.sessionteam = assignment;
+	else
+	{
+		self.sessionteam = "none";
+		self.ffateam = assignment;
+	}
 
-    self notify( "joined_team" );
-    level notify( "joined_team" );
-    self notify( "end_respawn" );
-    self beginclasschoice();
-    self setclientscriptmainmenu( game["menu_class"] );
+	self notify( "joined_team" );
+	level notify( "joined_team" );
+	self notify( "end_respawn" );
+	self beginclasschoice();
+	self setclientscriptmainmenu( game["menu_class"] );
 }
 
 get_assigned_team()
@@ -40,65 +40,65 @@ get_assigned_team()
 	teamplayers["axis"] = 0;
 	teamplayers["allies"] = 0;
 
-    players = get_players();
-    foreach ( player in players )
-    {
-        if ( !isDefined(player.team) || (player.team != "axis" && player.team != "allies") )
-        {
-            continue;
-        }
+	players = get_players();
+	foreach ( player in players )
+	{
+		if ( !isDefined(player.team) || (player.team != "axis" && player.team != "allies") )
+		{
+			continue;
+		}
 
-        if ( player == self )
-        {
-            continue;
-        }
+		if ( player == self )
+		{
+			continue;
+		}
 
-        teamplayers[player.team]++;
-    }
+		teamplayers[player.team]++;
+	}
 
-    if ( teamplayers["axis"] <= teamplayers["allies"] )
-    {
-        guids = strTok(getDvar("team_axis"), " ");
-        foreach ( guid in guids )
-        {
-            if ( self getguid() == int(guid) )
-            {
-                arrayRemoveValue(guids, guid);
+	if ( teamplayers["axis"] <= teamplayers["allies"] )
+	{
+		guids = strTok(getDvar("team_axis"), " ");
+		foreach ( guid in guids )
+		{
+			if ( self getguid() == int(guid) )
+			{
+				arrayRemoveValue(guids, guid);
 
-                guid_text = "";
-                foreach (guid in guids)
-                {
-                    guid_text += guid + " ";
-                }
+				guid_text = "";
+				foreach (guid in guids)
+				{
+					guid_text += guid + " ";
+				}
 
-                setDvar("team_axis", guid_text);
+				setDvar("team_axis", guid_text);
 
-                return "axis";
-            }
-        }
-    }
+				return "axis";
+			}
+		}
+	}
 
-    if ( teamplayers["allies"] <= teamplayers["axis"] )
-    {
-        guids = strTok(getDvar("team_allies"), " ");
-        foreach ( guid in guids )
-        {
-            if ( self getguid() == int(guid) )
-            {
-                arrayRemoveValue(guids, guid);
+	if ( teamplayers["allies"] <= teamplayers["axis"] )
+	{
+		guids = strTok(getDvar("team_allies"), " ");
+		foreach ( guid in guids )
+		{
+			if ( self getguid() == int(guid) )
+			{
+				arrayRemoveValue(guids, guid);
 
-                guid_text = "";
-                foreach (guid in guids)
-                {
-                    guid_text += guid + " ";
-                }
+				guid_text = "";
+				foreach (guid in guids)
+				{
+					guid_text += guid + " ";
+				}
 
-                setDvar("team_allies", guid_text);
+				setDvar("team_allies", guid_text);
 
-                return "allies";
-            }
-        }
-    }
+				return "allies";
+			}
+		}
+	}
 
 	if ( teamplayers["allies"] == teamplayers["axis"] )
 	{

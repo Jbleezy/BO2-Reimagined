@@ -16,16 +16,16 @@
 
 watch_cell_open_close( door )
 {
-    level.cell_open = 0;
+	level.cell_open = 0;
 
-    while ( true )
-    {
-        level waittill( "cell_open" );
+	while ( true )
+	{
+		level waittill( "cell_open" );
 
-        level.cell_open = 1;
+		level.cell_open = 1;
 
-        level waittill( "cell_close" );
+		level waittill( "cell_close" );
 
-        level.cell_open = 0;
-    }
+		level.cell_open = 0;
+	}
 }

@@ -10,14 +10,14 @@ on_spawn( watcher, player )
 	player endon( "zmb_lost_knife" );
 	level endon( "game_ended" );
 
-    is_upgraded = player maps\mp\zombies\_zm_melee_weapon::has_upgraded_ballistic_knife();
+	is_upgraded = player maps\mp\zombies\_zm_melee_weapon::has_upgraded_ballistic_knife();
 
 	self waittill( "stationary", endpos, normal, angles, attacker, prey, bone );
 
-    if( is_upgraded && isDefined( prey ) && isplayer( prey ) && prey.team == player.team && prey maps\mp\zombies\_zm_laststand::player_is_in_laststand() )
-    {
-        return;
-    }
+	if( is_upgraded && isDefined( prey ) && isplayer( prey ) && prey.team == player.team && prey maps\mp\zombies\_zm_laststand::player_is_in_laststand() )
+	{
+		return;
+	}
 
 	if ( isDefined( endpos ) )
 	{
@@ -27,7 +27,7 @@ on_spawn( watcher, player )
 		retrievable_model.owner = player;
 		retrievable_model.angles = angles;
 		retrievable_model.name = watcher.weapon;
-        isfriendly = 0;
+		isfriendly = 0;
 		if ( isDefined( prey ) )
 		{
 			if ( isplayer( prey ) )
@@ -38,11 +38,11 @@ on_spawn( watcher, player )
 			{
 				isfriendly = 1;
 			}
-            if ( isfriendly )
-            {
-                retrievable_model physicslaunch( normal, ( randomint( 10 ), randomint( 10 ), randomint( 10 ) ) );
-                normal = ( 0, 0, 1 );
-            }
+			if ( isfriendly )
+			{
+				retrievable_model physicslaunch( normal, ( randomint( 10 ), randomint( 10 ), randomint( 10 ) ) );
+				normal = ( 0, 0, 1 );
+			}
 			else
 			{
 				retrievable_model linkto( prey, bone );
@@ -51,14 +51,14 @@ on_spawn( watcher, player )
 		}
 		watcher.objectarray[ watcher.objectarray.size ] = retrievable_model;
 		retrievable_model thread drop_knives_to_ground( player );
-        if( isfriendly )
-        {
-            player notify( "ballistic_knife_stationary", retrievable_model, normal );
-        }
-        else
-        {
-            player notify( "ballistic_knife_stationary", retrievable_model, normal, prey );
-        }
+		if( isfriendly )
+		{
+			player notify( "ballistic_knife_stationary", retrievable_model, normal );
+		}
+		else
+		{
+			player notify( "ballistic_knife_stationary", retrievable_model, normal, prey );
+		}
 	}
 }
 
@@ -83,30 +83,30 @@ watch_use_trigger( trigger, model, callback, weapon, playersoundonuse, npcsoundo
 		{
 			continue;
 		}
-        if ( isDefined( trigger.owner ) && player != trigger.owner )
+		if ( isDefined( trigger.owner ) && player != trigger.owner )
 		{
 			continue;
 		}
-        if ( player getcurrentweapon() == weapon && player getweaponammostock( weapon ) >= weaponmaxammo( weapon ) )
-        {
-            continue;
-        }
-        if ( !autorecover && !is_true( trigger.force_pickup ) )
-        {
-            if( player.throwinggrenade || player meleebuttonpressed() )
-            {
-                continue;
-            }
-        }
-        if ( isDefined( playersoundonuse ) )
-        {
-            player playlocalsound( playersoundonuse );
-        }
-        if ( isDefined( npcsoundonuse ) )
-        {
-            player playsound( npcsoundonuse );
-        }
-        player thread [[ callback ]]( weapon, model, trigger );
-        return;
+		if ( player getcurrentweapon() == weapon && player getweaponammostock( weapon ) >= weaponmaxammo( weapon ) )
+		{
+			continue;
+		}
+		if ( !autorecover && !is_true( trigger.force_pickup ) )
+		{
+			if( player.throwinggrenade || player meleebuttonpressed() )
+			{
+				continue;
+			}
+		}
+		if ( isDefined( playersoundonuse ) )
+		{
+			player playlocalsound( playersoundonuse );
+		}
+		if ( isDefined( npcsoundonuse ) )
+		{
+			player playsound( npcsoundonuse );
+		}
+		player thread [[ callback ]]( weapon, model, trigger );
+		return;
 	}
 }

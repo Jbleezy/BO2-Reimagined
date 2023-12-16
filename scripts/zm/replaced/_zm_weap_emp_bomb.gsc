@@ -46,98 +46,98 @@ emp_detonate(grenade)
 
 emp_detonate_zombies( grenade_origin, grenade_owner )
 {
-    zombies = get_array_of_closest( grenade_origin, getaispeciesarray( level.zombie_team, "all" ), undefined, undefined, level.zombie_vars["emp_stun_range"] );
+	zombies = get_array_of_closest( grenade_origin, getaispeciesarray( level.zombie_team, "all" ), undefined, undefined, level.zombie_vars["emp_stun_range"] );
 
-    if ( !isdefined( zombies ) )
-        return;
+	if ( !isdefined( zombies ) )
+		return;
 
-    for ( i = 0; i < zombies.size; i++ )
-    {
-        if ( !isdefined( zombies[i] ) || isdefined( zombies[i].ignore_inert ) && zombies[i].ignore_inert )
-            continue;
+	for ( i = 0; i < zombies.size; i++ )
+	{
+		if ( !isdefined( zombies[i] ) || isdefined( zombies[i].ignore_inert ) && zombies[i].ignore_inert )
+			continue;
 
 		if ( is_true( zombies[i].in_the_ground ) )
 			continue;
 
-        zombies[i].becoming_inert = 1;
-    }
+		zombies[i].becoming_inert = 1;
+	}
 
-    stunned = 0;
+	stunned = 0;
 
-    for ( i = 0; i < zombies.size; i++ )
-    {
-        if ( !isdefined( zombies[i] ) || isdefined( zombies[i].ignore_inert ) && zombies[i].ignore_inert )
-            continue;
+	for ( i = 0; i < zombies.size; i++ )
+	{
+		if ( !isdefined( zombies[i] ) || isdefined( zombies[i].ignore_inert ) && zombies[i].ignore_inert )
+			continue;
 
 		if ( is_true( zombies[i].in_the_ground ) )
 			continue;
 
-        stunned++;
-        zombies[i] thread stun_zombie();
-        wait 0.05;
-    }
+		stunned++;
+		zombies[i] thread stun_zombie();
+		wait 0.05;
+	}
 
-    if ( stunned >= 10 && isdefined( grenade_owner ) )
-        grenade_owner notify( "the_lights_of_their_eyes" );
+	if ( stunned >= 10 && isdefined( grenade_owner ) )
+		grenade_owner notify( "the_lights_of_their_eyes" );
 }
 
 destroyequipment( origin, radius )
 {
-    grenades = getentarray( "grenade", "classname" );
-    rsquared = radius * radius;
+	grenades = getentarray( "grenade", "classname" );
+	rsquared = radius * radius;
 
-    for ( i = 0; i < grenades.size; i++ )
-    {
-        item = grenades[i];
+	for ( i = 0; i < grenades.size; i++ )
+	{
+		item = grenades[i];
 
-        if ( distancesquared( origin, item.origin ) > rsquared )
-            continue;
+		if ( distancesquared( origin, item.origin ) > rsquared )
+			continue;
 
-        if ( !isdefined( item.name ) )
-            continue;
+		if ( !isdefined( item.name ) )
+			continue;
 
-        if ( !is_offhand_weapon( item.name ) )
-            continue;
+		if ( !is_offhand_weapon( item.name ) )
+			continue;
 
-        watcher = item.owner getwatcherforweapon( item.name );
+		watcher = item.owner getwatcherforweapon( item.name );
 
-        if ( !isdefined( watcher ) )
-            continue;
+		if ( !isdefined( watcher ) )
+			continue;
 
-        watcher thread waitanddetonate( item, 0.0, self, "emp_grenade_zm" );
-    }
+		watcher thread waitanddetonate( item, 0.0, self, "emp_grenade_zm" );
+	}
 
-    equipment = maps\mp\zombies\_zm_equipment::get_destructible_equipment_list();
+	equipment = maps\mp\zombies\_zm_equipment::get_destructible_equipment_list();
 
-    for ( i = 0; i < equipment.size; i++ )
-    {
-        item = equipment[i];
+	for ( i = 0; i < equipment.size; i++ )
+	{
+		item = equipment[i];
 
-        if ( !isdefined( item ) )
-            continue;
+		if ( !isdefined( item ) )
+			continue;
 
-        if ( distancesquared( origin, item.origin ) > rsquared )
-            continue;
+		if ( distancesquared( origin, item.origin ) > rsquared )
+			continue;
 
-        waitanddamage( item, 1505 );
-    }
+		waitanddamage( item, 1505 );
+	}
 }
 
 waitanddamage( object, damage )
 {
-    object endon( "death" );
-    object endon( "hacked" );
-    object.stun_fx = 1;
+	object endon( "death" );
+	object endon( "hacked" );
+	object.stun_fx = 1;
 
-    if ( isdefined( level._equipment_emp_destroy_fx ) )
-        playfx( level._equipment_emp_destroy_fx, object.origin + vectorscale( ( 0, 0, 1 ), 5.0 ), ( 0, randomfloat( 360 ), 0 ) );
+	if ( isdefined( level._equipment_emp_destroy_fx ) )
+		playfx( level._equipment_emp_destroy_fx, object.origin + vectorscale( ( 0, 0, 1 ), 5.0 ), ( 0, randomfloat( 360 ), 0 ) );
 
-    delay = 1.1;
+	delay = 1.1;
 
-    if ( delay )
-        wait( delay );
+	if ( delay )
+		wait( delay );
 
-    object thread scripts\zm\replaced\_zm_equipment::item_damage( damage );
+	object thread scripts\zm\replaced\_zm_equipment::item_damage( damage );
 }
 
 emp_players(origin, radius, owner)

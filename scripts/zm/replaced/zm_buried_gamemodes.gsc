@@ -18,46 +18,46 @@
 
 init()
 {
-    add_map_gamemode( "zclassic", maps\mp\zm_buried::zclassic_preinit, undefined, undefined );
-    add_map_gamemode( "zcleansed", maps\mp\zm_buried::zcleansed_preinit, undefined, undefined );
-    add_map_gamemode( "zgrief", maps\mp\zm_buried::zgrief_preinit, undefined, undefined );
+	add_map_gamemode( "zclassic", maps\mp\zm_buried::zclassic_preinit, undefined, undefined );
+	add_map_gamemode( "zcleansed", maps\mp\zm_buried::zcleansed_preinit, undefined, undefined );
+	add_map_gamemode( "zgrief", maps\mp\zm_buried::zgrief_preinit, undefined, undefined );
 
-    add_map_location_gamemode( "zclassic", "processing", maps\mp\zm_buried_classic::precache, maps\mp\zm_buried_classic::main );
+	add_map_location_gamemode( "zclassic", "processing", maps\mp\zm_buried_classic::precache, maps\mp\zm_buried_classic::main );
 
-    add_map_location_gamemode( "zcleansed", "street", maps\mp\zm_buried_turned_street::precache, maps\mp\zm_buried_turned_street::main );
+	add_map_location_gamemode( "zcleansed", "street", maps\mp\zm_buried_turned_street::precache, maps\mp\zm_buried_turned_street::main );
 
-    add_map_location_gamemode( "zgrief", "street", scripts\zm\replaced\zm_buried_grief_street::precache, scripts\zm\replaced\zm_buried_grief_street::main );
+	add_map_location_gamemode( "zgrief", "street", scripts\zm\replaced\zm_buried_grief_street::precache, scripts\zm\replaced\zm_buried_grief_street::main );
 
-    if (getDvar("ui_zm_mapstartlocation_fake") == "maze")
+	if (getDvar("ui_zm_mapstartlocation_fake") == "maze")
 	{
-        scripts\zm\replaced\utility::add_struct_location_gamemode_func( "zgrief", "street", scripts\zm\locs\zm_buried_loc_maze::struct_init );
-    }
+		scripts\zm\replaced\utility::add_struct_location_gamemode_func( "zgrief", "street", scripts\zm\locs\zm_buried_loc_maze::struct_init );
+	}
 }
 
 buildbuildable( buildable )
 {
-    player = get_players()[0];
+	player = get_players()[0];
 
-    foreach ( stub in level.buildable_stubs )
-    {
-        if ( !isdefined( buildable ) || stub.equipname == buildable )
-        {
-            if ( isdefined( buildable ) || stub.persistent != 3 )
-            {
-                stub maps\mp\zombies\_zm_buildables::buildablestub_remove();
+	foreach ( stub in level.buildable_stubs )
+	{
+		if ( !isdefined( buildable ) || stub.equipname == buildable )
+		{
+			if ( isdefined( buildable ) || stub.persistent != 3 )
+			{
+				stub maps\mp\zombies\_zm_buildables::buildablestub_remove();
 
-                foreach ( piece in stub.buildablezone.pieces )
-                {
-                    piece maps\mp\zombies\_zm_buildables::piece_unspawn();
-                }
+				foreach ( piece in stub.buildablezone.pieces )
+				{
+					piece maps\mp\zombies\_zm_buildables::piece_unspawn();
+				}
 
-                stub maps\mp\zombies\_zm_buildables::buildablestub_finish_build( player );
+				stub maps\mp\zombies\_zm_buildables::buildablestub_finish_build( player );
 
-                stub.model notsolid();
-                stub.model show();
+				stub.model notsolid();
+				stub.model show();
 
-                return;
-            }
-        }
-    }
+				return;
+			}
+		}
+	}
 }

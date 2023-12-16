@@ -5,310 +5,310 @@
 
 init_weapon_upgrade()
 {
-    init_spawnable_weapon_upgrade();
-    weapon_spawns = [];
-    weapon_spawns = getentarray( "weapon_upgrade", "targetname" );
+	init_spawnable_weapon_upgrade();
+	weapon_spawns = [];
+	weapon_spawns = getentarray( "weapon_upgrade", "targetname" );
 
-    for ( i = 0; i < weapon_spawns.size; i++ )
-    {
+	for ( i = 0; i < weapon_spawns.size; i++ )
+	{
 		scripts\zm\replaced\utility::wallbuy( weapon_spawns[i].zombie_weapon_upgrade, weapon_spawns[i].target + "_weapon_upgrade", weapon_spawns[i].targetname, weapon_spawns[i].origin, weapon_spawns[i].angles, 0 );
-    }
+	}
 }
 
 init_spawnable_weapon_upgrade()
 {
-    spawn_list = [];
-    spawnable_weapon_spawns = getstructarray( "weapon_upgrade", "targetname" );
-    spawnable_weapon_spawns = arraycombine( spawnable_weapon_spawns, getstructarray( "bowie_upgrade", "targetname" ), 1, 0 );
-    spawnable_weapon_spawns = arraycombine( spawnable_weapon_spawns, getstructarray( "sickle_upgrade", "targetname" ), 1, 0 );
-    spawnable_weapon_spawns = arraycombine( spawnable_weapon_spawns, getstructarray( "tazer_upgrade", "targetname" ), 1, 0 );
-    spawnable_weapon_spawns = arraycombine( spawnable_weapon_spawns, getstructarray( "buildable_wallbuy", "targetname" ), 1, 0 );
+	spawn_list = [];
+	spawnable_weapon_spawns = getstructarray( "weapon_upgrade", "targetname" );
+	spawnable_weapon_spawns = arraycombine( spawnable_weapon_spawns, getstructarray( "bowie_upgrade", "targetname" ), 1, 0 );
+	spawnable_weapon_spawns = arraycombine( spawnable_weapon_spawns, getstructarray( "sickle_upgrade", "targetname" ), 1, 0 );
+	spawnable_weapon_spawns = arraycombine( spawnable_weapon_spawns, getstructarray( "tazer_upgrade", "targetname" ), 1, 0 );
+	spawnable_weapon_spawns = arraycombine( spawnable_weapon_spawns, getstructarray( "buildable_wallbuy", "targetname" ), 1, 0 );
 
-    if ( !is_true( level.headshots_only ) )
-        spawnable_weapon_spawns = arraycombine( spawnable_weapon_spawns, getstructarray( "claymore_purchase", "targetname" ), 1, 0 );
+	if ( !is_true( level.headshots_only ) )
+		spawnable_weapon_spawns = arraycombine( spawnable_weapon_spawns, getstructarray( "claymore_purchase", "targetname" ), 1, 0 );
 
-    match_string = "";
-    location = level.scr_zm_map_start_location;
+	match_string = "";
+	location = level.scr_zm_map_start_location;
 
-    if ( ( location == "default" || location == "" ) && isdefined( level.default_start_location ) )
-        location = level.default_start_location;
+	if ( ( location == "default" || location == "" ) && isdefined( level.default_start_location ) )
+		location = level.default_start_location;
 
-    match_string = level.scr_zm_ui_gametype;
+	match_string = level.scr_zm_ui_gametype;
 
-    if ( "" != location )
-        match_string = match_string + "_" + location;
+	if ( "" != location )
+		match_string = match_string + "_" + location;
 
-    match_string_plus_space = " " + match_string;
+	match_string_plus_space = " " + match_string;
 
-    for ( i = 0; i < spawnable_weapon_spawns.size; i++ )
-    {
-        spawnable_weapon = spawnable_weapon_spawns[i];
+	for ( i = 0; i < spawnable_weapon_spawns.size; i++ )
+	{
+		spawnable_weapon = spawnable_weapon_spawns[i];
 
-        if ( isdefined( spawnable_weapon.zombie_weapon_upgrade ) && spawnable_weapon.zombie_weapon_upgrade == "sticky_grenade_zm" && is_true( level.headshots_only ) )
-            continue;
+		if ( isdefined( spawnable_weapon.zombie_weapon_upgrade ) && spawnable_weapon.zombie_weapon_upgrade == "sticky_grenade_zm" && is_true( level.headshots_only ) )
+			continue;
 
-        if ( !isdefined( spawnable_weapon.script_noteworthy ) || spawnable_weapon.script_noteworthy == "" )
-        {
-            spawn_list[spawn_list.size] = spawnable_weapon;
-            continue;
-        }
+		if ( !isdefined( spawnable_weapon.script_noteworthy ) || spawnable_weapon.script_noteworthy == "" )
+		{
+			spawn_list[spawn_list.size] = spawnable_weapon;
+			continue;
+		}
 
-        matches = strtok( spawnable_weapon.script_noteworthy, "," );
+		matches = strtok( spawnable_weapon.script_noteworthy, "," );
 
-        for ( j = 0; j < matches.size; j++ )
-        {
-            if ( matches[j] == match_string || matches[j] == match_string_plus_space )
-                spawn_list[spawn_list.size] = spawnable_weapon;
-        }
-    }
+		for ( j = 0; j < matches.size; j++ )
+		{
+			if ( matches[j] == match_string || matches[j] == match_string_plus_space )
+				spawn_list[spawn_list.size] = spawnable_weapon;
+		}
+	}
 
-    tempmodel = spawn( "script_model", ( 0, 0, 0 ) );
+	tempmodel = spawn( "script_model", ( 0, 0, 0 ) );
 
-    for ( i = 0; i < spawn_list.size; i++ )
-    {
-        clientfieldname = spawn_list[i].zombie_weapon_upgrade + "_" + spawn_list[i].origin;
-        numbits = 2;
+	for ( i = 0; i < spawn_list.size; i++ )
+	{
+		clientfieldname = spawn_list[i].zombie_weapon_upgrade + "_" + spawn_list[i].origin;
+		numbits = 2;
 
-        if ( isdefined( level._wallbuy_override_num_bits ) )
-            numbits = level._wallbuy_override_num_bits;
+		if ( isdefined( level._wallbuy_override_num_bits ) )
+			numbits = level._wallbuy_override_num_bits;
 
-        registerclientfield( "world", clientfieldname, 1, numbits, "int" );
-        target_struct = getstruct( spawn_list[i].target, "targetname" );
+		registerclientfield( "world", clientfieldname, 1, numbits, "int" );
+		target_struct = getstruct( spawn_list[i].target, "targetname" );
 
-        if ( spawn_list[i].targetname == "buildable_wallbuy" )
-        {
-            bits = 4;
+		if ( spawn_list[i].targetname == "buildable_wallbuy" )
+		{
+			bits = 4;
 
-            if ( isdefined( level.buildable_wallbuy_weapons ) )
-                bits = getminbitcountfornum( level.buildable_wallbuy_weapons.size + 1 );
+			if ( isdefined( level.buildable_wallbuy_weapons ) )
+				bits = getminbitcountfornum( level.buildable_wallbuy_weapons.size + 1 );
 
-            registerclientfield( "world", clientfieldname + "_idx", 12000, bits, "int" );
-            spawn_list[i].clientfieldname = clientfieldname;
-            continue;
-        }
+			registerclientfield( "world", clientfieldname + "_idx", 12000, bits, "int" );
+			spawn_list[i].clientfieldname = clientfieldname;
+			continue;
+		}
 
-        precachemodel( target_struct.model );
-        unitrigger_stub = spawnstruct();
-        unitrigger_stub.origin = spawn_list[i].origin;
-        unitrigger_stub.angles = spawn_list[i].angles;
-        tempmodel.origin = spawn_list[i].origin;
-        tempmodel.angles = spawn_list[i].angles;
-        mins = undefined;
-        maxs = undefined;
-        absmins = undefined;
-        absmaxs = undefined;
-        tempmodel setmodel( target_struct.model );
-        tempmodel useweaponhidetags( spawn_list[i].zombie_weapon_upgrade );
-        mins = tempmodel getmins();
-        maxs = tempmodel getmaxs();
-        absmins = tempmodel getabsmins();
-        absmaxs = tempmodel getabsmaxs();
-        bounds = absmaxs - absmins;
-        unitrigger_stub.script_length = 64;
-        unitrigger_stub.script_width = bounds[1];
-        unitrigger_stub.script_height = bounds[2];
-        unitrigger_stub.origin -= anglestoright( unitrigger_stub.angles ) * ( bounds[0] * 0.1 );
-        unitrigger_stub.target = spawn_list[i].target;
-        unitrigger_stub.targetname = spawn_list[i].targetname;
-        unitrigger_stub.cursor_hint = "HINT_NOICON";
+		precachemodel( target_struct.model );
+		unitrigger_stub = spawnstruct();
+		unitrigger_stub.origin = spawn_list[i].origin;
+		unitrigger_stub.angles = spawn_list[i].angles;
+		tempmodel.origin = spawn_list[i].origin;
+		tempmodel.angles = spawn_list[i].angles;
+		mins = undefined;
+		maxs = undefined;
+		absmins = undefined;
+		absmaxs = undefined;
+		tempmodel setmodel( target_struct.model );
+		tempmodel useweaponhidetags( spawn_list[i].zombie_weapon_upgrade );
+		mins = tempmodel getmins();
+		maxs = tempmodel getmaxs();
+		absmins = tempmodel getabsmins();
+		absmaxs = tempmodel getabsmaxs();
+		bounds = absmaxs - absmins;
+		unitrigger_stub.script_length = 64;
+		unitrigger_stub.script_width = bounds[1];
+		unitrigger_stub.script_height = bounds[2];
+		unitrigger_stub.origin -= anglestoright( unitrigger_stub.angles ) * ( bounds[0] * 0.1 );
+		unitrigger_stub.target = spawn_list[i].target;
+		unitrigger_stub.targetname = spawn_list[i].targetname;
+		unitrigger_stub.cursor_hint = "HINT_NOICON";
 
-        if ( spawn_list[i].targetname == "weapon_upgrade" )
-        {
-            unitrigger_stub.cost = get_weapon_cost( spawn_list[i].zombie_weapon_upgrade );
+		if ( spawn_list[i].targetname == "weapon_upgrade" )
+		{
+			unitrigger_stub.cost = get_weapon_cost( spawn_list[i].zombie_weapon_upgrade );
 
-            if ( !( isdefined( level.monolingustic_prompt_format ) && level.monolingustic_prompt_format ) )
-            {
-                unitrigger_stub.hint_string = get_weapon_hint( spawn_list[i].zombie_weapon_upgrade );
-                unitrigger_stub.hint_parm1 = unitrigger_stub.cost;
-            }
-            else
-            {
-                unitrigger_stub.hint_parm1 = get_weapon_display_name( spawn_list[i].zombie_weapon_upgrade );
+			if ( !( isdefined( level.monolingustic_prompt_format ) && level.monolingustic_prompt_format ) )
+			{
+				unitrigger_stub.hint_string = get_weapon_hint( spawn_list[i].zombie_weapon_upgrade );
+				unitrigger_stub.hint_parm1 = unitrigger_stub.cost;
+			}
+			else
+			{
+				unitrigger_stub.hint_parm1 = get_weapon_display_name( spawn_list[i].zombie_weapon_upgrade );
 
-                if ( !isdefined( unitrigger_stub.hint_parm1 ) || unitrigger_stub.hint_parm1 == "" || unitrigger_stub.hint_parm1 == "none" )
-                    unitrigger_stub.hint_parm1 = "missing weapon name " + spawn_list[i].zombie_weapon_upgrade;
+				if ( !isdefined( unitrigger_stub.hint_parm1 ) || unitrigger_stub.hint_parm1 == "" || unitrigger_stub.hint_parm1 == "none" )
+					unitrigger_stub.hint_parm1 = "missing weapon name " + spawn_list[i].zombie_weapon_upgrade;
 
-                unitrigger_stub.hint_parm2 = unitrigger_stub.cost;
-                unitrigger_stub.hint_string = &"ZOMBIE_WEAPONCOSTONLY";
-            }
-        }
+				unitrigger_stub.hint_parm2 = unitrigger_stub.cost;
+				unitrigger_stub.hint_string = &"ZOMBIE_WEAPONCOSTONLY";
+			}
+		}
 
-        unitrigger_stub.weapon_upgrade = spawn_list[i].zombie_weapon_upgrade;
-        unitrigger_stub.script_unitrigger_type = "unitrigger_box_use";
-        unitrigger_stub.require_look_at = 1;
+		unitrigger_stub.weapon_upgrade = spawn_list[i].zombie_weapon_upgrade;
+		unitrigger_stub.script_unitrigger_type = "unitrigger_box_use";
+		unitrigger_stub.require_look_at = 1;
 
-        if ( isdefined( spawn_list[i].require_look_from ) && spawn_list[i].require_look_from )
-            unitrigger_stub.require_look_from = 1;
+		if ( isdefined( spawn_list[i].require_look_from ) && spawn_list[i].require_look_from )
+			unitrigger_stub.require_look_from = 1;
 
-        unitrigger_stub.zombie_weapon_upgrade = spawn_list[i].zombie_weapon_upgrade;
-        unitrigger_stub.clientfieldname = clientfieldname;
-        maps\mp\zombies\_zm_unitrigger::unitrigger_force_per_player_triggers( unitrigger_stub, 1 );
+		unitrigger_stub.zombie_weapon_upgrade = spawn_list[i].zombie_weapon_upgrade;
+		unitrigger_stub.clientfieldname = clientfieldname;
+		maps\mp\zombies\_zm_unitrigger::unitrigger_force_per_player_triggers( unitrigger_stub, 1 );
 
-        if ( is_melee_weapon( unitrigger_stub.zombie_weapon_upgrade ) )
-        {
-            if ( unitrigger_stub.zombie_weapon_upgrade == "tazer_knuckles_zm" )
-                unitrigger_stub.origin += (anglesToForward(unitrigger_stub.angles) * -7) + (anglesToRight(unitrigger_stub.angles) * -2);
+		if ( is_melee_weapon( unitrigger_stub.zombie_weapon_upgrade ) )
+		{
+			if ( unitrigger_stub.zombie_weapon_upgrade == "tazer_knuckles_zm" )
+				unitrigger_stub.origin += (anglesToForward(unitrigger_stub.angles) * -7) + (anglesToRight(unitrigger_stub.angles) * -2);
 
-            maps\mp\zombies\_zm_unitrigger::register_static_unitrigger( unitrigger_stub, ::weapon_spawn_think );
-        }
-        else if ( unitrigger_stub.zombie_weapon_upgrade == "claymore_zm" )
-        {
-            unitrigger_stub.prompt_and_visibility_func = scripts\zm\replaced\_zm_weap_claymore::claymore_unitrigger_update_prompt;
-            maps\mp\zombies\_zm_unitrigger::register_static_unitrigger( unitrigger_stub, scripts\zm\replaced\_zm_weap_claymore::buy_claymores );
-        }
-        else
-        {
+			maps\mp\zombies\_zm_unitrigger::register_static_unitrigger( unitrigger_stub, ::weapon_spawn_think );
+		}
+		else if ( unitrigger_stub.zombie_weapon_upgrade == "claymore_zm" )
+		{
+			unitrigger_stub.prompt_and_visibility_func = scripts\zm\replaced\_zm_weap_claymore::claymore_unitrigger_update_prompt;
+			maps\mp\zombies\_zm_unitrigger::register_static_unitrigger( unitrigger_stub, scripts\zm\replaced\_zm_weap_claymore::buy_claymores );
+		}
+		else
+		{
 			if( is_lethal_grenade( unitrigger_stub.zombie_weapon_upgrade ) )
 				unitrigger_stub.prompt_and_visibility_func = ::lethal_grenade_update_prompt;
 			else
 				unitrigger_stub.prompt_and_visibility_func = ::wall_weapon_update_prompt;
 
-            maps\mp\zombies\_zm_unitrigger::register_static_unitrigger( unitrigger_stub, ::weapon_spawn_think );
-        }
+			maps\mp\zombies\_zm_unitrigger::register_static_unitrigger( unitrigger_stub, ::weapon_spawn_think );
+		}
 
-        spawn_list[i].trigger_stub = unitrigger_stub;
-    }
+		spawn_list[i].trigger_stub = unitrigger_stub;
+	}
 
-    level._spawned_wallbuys = spawn_list;
-    tempmodel delete();
+	level._spawned_wallbuys = spawn_list;
+	tempmodel delete();
 }
 
 add_dynamic_wallbuy( weapon, wallbuy, pristine )
 {
-    spawned_wallbuy = undefined;
+	spawned_wallbuy = undefined;
 
-    for ( i = 0; i < level._spawned_wallbuys.size; i++ )
-    {
-        if ( level._spawned_wallbuys[i].target == wallbuy )
-        {
-            spawned_wallbuy = level._spawned_wallbuys[i];
-            break;
-        }
-    }
+	for ( i = 0; i < level._spawned_wallbuys.size; i++ )
+	{
+		if ( level._spawned_wallbuys[i].target == wallbuy )
+		{
+			spawned_wallbuy = level._spawned_wallbuys[i];
+			break;
+		}
+	}
 
-    if ( !isdefined( spawned_wallbuy ) )
-    {
-        return;
-    }
+	if ( !isdefined( spawned_wallbuy ) )
+	{
+		return;
+	}
 
-    if ( isdefined( spawned_wallbuy.trigger_stub ) )
-    {
-        return;
-    }
+	if ( isdefined( spawned_wallbuy.trigger_stub ) )
+	{
+		return;
+	}
 
-    target_struct = getstruct( wallbuy, "targetname" );
-    wallmodel = spawn_weapon_model( weapon, undefined, target_struct.origin, target_struct.angles );
-    clientfieldname = spawned_wallbuy.clientfieldname;
-    model = getweaponmodel( weapon );
-    unitrigger_stub = spawnstruct();
-    unitrigger_stub.origin = target_struct.origin;
-    unitrigger_stub.angles = target_struct.angles;
-    wallmodel.origin = target_struct.origin;
-    wallmodel.angles = target_struct.angles;
-    mins = undefined;
-    maxs = undefined;
-    absmins = undefined;
-    absmaxs = undefined;
-    wallmodel setmodel( model );
-    wallmodel useweaponhidetags( weapon );
-    mins = wallmodel getmins();
-    maxs = wallmodel getmaxs();
-    absmins = wallmodel getabsmins();
-    absmaxs = wallmodel getabsmaxs();
-    bounds = absmaxs - absmins;
-    unitrigger_stub.script_length = 64;
-    unitrigger_stub.script_width = bounds[1];
-    unitrigger_stub.script_height = bounds[2];
-    unitrigger_stub.origin -= anglestoright( unitrigger_stub.angles ) * ( bounds[0] * 0.1 );
-    unitrigger_stub.target = spawned_wallbuy.target;
-    unitrigger_stub.targetname = "weapon_upgrade";
-    unitrigger_stub.cursor_hint = "HINT_NOICON";
-    unitrigger_stub.first_time_triggered = !pristine;
+	target_struct = getstruct( wallbuy, "targetname" );
+	wallmodel = spawn_weapon_model( weapon, undefined, target_struct.origin, target_struct.angles );
+	clientfieldname = spawned_wallbuy.clientfieldname;
+	model = getweaponmodel( weapon );
+	unitrigger_stub = spawnstruct();
+	unitrigger_stub.origin = target_struct.origin;
+	unitrigger_stub.angles = target_struct.angles;
+	wallmodel.origin = target_struct.origin;
+	wallmodel.angles = target_struct.angles;
+	mins = undefined;
+	maxs = undefined;
+	absmins = undefined;
+	absmaxs = undefined;
+	wallmodel setmodel( model );
+	wallmodel useweaponhidetags( weapon );
+	mins = wallmodel getmins();
+	maxs = wallmodel getmaxs();
+	absmins = wallmodel getabsmins();
+	absmaxs = wallmodel getabsmaxs();
+	bounds = absmaxs - absmins;
+	unitrigger_stub.script_length = 64;
+	unitrigger_stub.script_width = bounds[1];
+	unitrigger_stub.script_height = bounds[2];
+	unitrigger_stub.origin -= anglestoright( unitrigger_stub.angles ) * ( bounds[0] * 0.1 );
+	unitrigger_stub.target = spawned_wallbuy.target;
+	unitrigger_stub.targetname = "weapon_upgrade";
+	unitrigger_stub.cursor_hint = "HINT_NOICON";
+	unitrigger_stub.first_time_triggered = !pristine;
 
-    if ( !is_melee_weapon( weapon ) )
-    {
-        if ( pristine || weapon == "claymore_zm" )
-            unitrigger_stub.hint_string = get_weapon_hint( weapon );
-        else
-            unitrigger_stub.hint_string = get_weapon_hint_ammo();
+	if ( !is_melee_weapon( weapon ) )
+	{
+		if ( pristine || weapon == "claymore_zm" )
+			unitrigger_stub.hint_string = get_weapon_hint( weapon );
+		else
+			unitrigger_stub.hint_string = get_weapon_hint_ammo();
 
-        unitrigger_stub.cost = get_weapon_cost( weapon );
-        unitrigger_stub.hint_parm1 = unitrigger_stub.cost;
-    }
+		unitrigger_stub.cost = get_weapon_cost( weapon );
+		unitrigger_stub.hint_parm1 = unitrigger_stub.cost;
+	}
 
-    unitrigger_stub.weapon_upgrade = weapon;
-    unitrigger_stub.script_unitrigger_type = "unitrigger_box_use";
-    unitrigger_stub.require_look_at = 1;
-    unitrigger_stub.zombie_weapon_upgrade = weapon;
-    unitrigger_stub.clientfieldname = clientfieldname;
-    unitrigger_force_per_player_triggers( unitrigger_stub, 1 );
+	unitrigger_stub.weapon_upgrade = weapon;
+	unitrigger_stub.script_unitrigger_type = "unitrigger_box_use";
+	unitrigger_stub.require_look_at = 1;
+	unitrigger_stub.zombie_weapon_upgrade = weapon;
+	unitrigger_stub.clientfieldname = clientfieldname;
+	unitrigger_force_per_player_triggers( unitrigger_stub, 1 );
 
-    if ( is_melee_weapon( weapon ) )
-    {
-        if ( weapon == "tazer_knuckles_zm" )
+	if ( is_melee_weapon( weapon ) )
+	{
+		if ( weapon == "tazer_knuckles_zm" )
 			unitrigger_stub.origin += (anglesToForward(unitrigger_stub.angles) * -7) + (anglesToRight(unitrigger_stub.angles) * -2);
 
-        maps\mp\zombies\_zm_melee_weapon::add_stub( unitrigger_stub, weapon );
-        maps\mp\zombies\_zm_unitrigger::register_static_unitrigger( unitrigger_stub, maps\mp\zombies\_zm_melee_weapon::melee_weapon_think );
-    }
-    else if ( weapon == "claymore_zm" )
-    {
-        unitrigger_stub.prompt_and_visibility_func = maps\mp\zombies\_zm_weap_claymore::claymore_unitrigger_update_prompt;
-        maps\mp\zombies\_zm_unitrigger::register_static_unitrigger( unitrigger_stub, maps\mp\zombies\_zm_weap_claymore::buy_claymores );
-    }
-    else
-    {
-        if( is_lethal_grenade( unitrigger_stub.zombie_weapon_upgrade ) )
+		maps\mp\zombies\_zm_melee_weapon::add_stub( unitrigger_stub, weapon );
+		maps\mp\zombies\_zm_unitrigger::register_static_unitrigger( unitrigger_stub, maps\mp\zombies\_zm_melee_weapon::melee_weapon_think );
+	}
+	else if ( weapon == "claymore_zm" )
+	{
+		unitrigger_stub.prompt_and_visibility_func = maps\mp\zombies\_zm_weap_claymore::claymore_unitrigger_update_prompt;
+		maps\mp\zombies\_zm_unitrigger::register_static_unitrigger( unitrigger_stub, maps\mp\zombies\_zm_weap_claymore::buy_claymores );
+	}
+	else
+	{
+		if( is_lethal_grenade( unitrigger_stub.zombie_weapon_upgrade ) )
 			unitrigger_stub.prompt_and_visibility_func = ::lethal_grenade_update_prompt;
 		else
 			unitrigger_stub.prompt_and_visibility_func = ::wall_weapon_update_prompt;
 
-        maps\mp\zombies\_zm_unitrigger::register_static_unitrigger( unitrigger_stub, ::weapon_spawn_think );
-    }
+		maps\mp\zombies\_zm_unitrigger::register_static_unitrigger( unitrigger_stub, ::weapon_spawn_think );
+	}
 
-    spawned_wallbuy.trigger_stub = unitrigger_stub;
-    weaponidx = undefined;
+	spawned_wallbuy.trigger_stub = unitrigger_stub;
+	weaponidx = undefined;
 
-    if ( isdefined( level.buildable_wallbuy_weapons ) )
-    {
-        for ( i = 0; i < level.buildable_wallbuy_weapons.size; i++ )
-        {
-            if ( weapon == level.buildable_wallbuy_weapons[i] )
-            {
-                weaponidx = i;
-                break;
-            }
-        }
-    }
+	if ( isdefined( level.buildable_wallbuy_weapons ) )
+	{
+		for ( i = 0; i < level.buildable_wallbuy_weapons.size; i++ )
+		{
+			if ( weapon == level.buildable_wallbuy_weapons[i] )
+			{
+				weaponidx = i;
+				break;
+			}
+		}
+	}
 
-    if ( isdefined( weaponidx ) )
-    {
-        level setclientfield( clientfieldname + "_idx", weaponidx + 1 );
-        wallmodel delete();
+	if ( isdefined( weaponidx ) )
+	{
+		level setclientfield( clientfieldname + "_idx", weaponidx + 1 );
+		wallmodel delete();
 
-        if ( !pristine )
-            level setclientfield( clientfieldname, 1 );
-    }
-    else
-    {
-        level setclientfield( clientfieldname, 1 );
-        wallmodel show();
-    }
+		if ( !pristine )
+			level setclientfield( clientfieldname, 1 );
+	}
+	else
+	{
+		level setclientfield( clientfieldname, 1 );
+		wallmodel show();
+	}
 }
 
 lethal_grenade_update_prompt( player )
 {
-    weapon = self.stub.zombie_weapon_upgrade;
+	weapon = self.stub.zombie_weapon_upgrade;
 
-    cost = get_weapon_cost( weapon );
+	cost = get_weapon_cost( weapon );
 	self.stub.hint_string = get_weapon_hint( weapon );
 	self sethintstring( self.stub.hint_string, cost );
 
-    self.stub.cursor_hint = "HINT_WEAPON";
+	self.stub.cursor_hint = "HINT_WEAPON";
 	self.stub.cursor_hint_weapon = weapon;
 	self setcursorhint( self.stub.cursor_hint, self.stub.cursor_hint_weapon );
 
-    return 1;
+	return 1;
 }
 
 weapon_give( weapon, is_upgrade, magic_box, nosound )
@@ -471,17 +471,17 @@ weapon_give( weapon, is_upgrade, magic_box, nosound )
 
 ammo_give( weapon )
 {
-    give_ammo = 0;
+	give_ammo = 0;
 
-    if ( !is_offhand_weapon( weapon ) )
-    {
-        weapon = get_weapon_with_attachments( weapon );
+	if ( !is_offhand_weapon( weapon ) )
+	{
+		weapon = get_weapon_with_attachments( weapon );
 
-        if ( isdefined( weapon ) )
-        {
-            stockmax = weaponstartammo( weapon );
+		if ( isdefined( weapon ) )
+		{
+			stockmax = weaponstartammo( weapon );
 			clipmax = weaponclipsize( weapon );
-            ammocount = self getammocount( weapon );
+			ammocount = self getammocount( weapon );
 
 			give_ammo = ammocount < (stockmax + clipmax);
 
@@ -498,22 +498,22 @@ ammo_give( weapon )
 					give_ammo = ammocount < (stockmax + clipmax);
 				}
 			}
-        }
-    }
-    else if ( self has_weapon_or_upgrade( weapon ) )
-    {
-        if ( self getammocount( weapon ) < weaponmaxammo( weapon ) )
-            give_ammo = 1;
-    }
+		}
+	}
+	else if ( self has_weapon_or_upgrade( weapon ) )
+	{
+		if ( self getammocount( weapon ) < weaponmaxammo( weapon ) )
+			give_ammo = 1;
+	}
 
-    if ( give_ammo )
-    {
-        self play_sound_on_ent( "purchase" );
-        self givemaxammo( weapon );
+	if ( give_ammo )
+	{
+		self play_sound_on_ent( "purchase" );
+		self givemaxammo( weapon );
 		self setWeaponAmmoClip( weapon, weaponClipSize(weapon) );
-        alt_weap = weaponaltweaponname( weapon );
+		alt_weap = weaponaltweaponname( weapon );
 
-        if ( "none" != alt_weap )
+		if ( "none" != alt_weap )
 		{
 			self givemaxammo( alt_weap );
 			self setWeaponAmmoClip( alt_weap, weaponClipSize(alt_weap) );
@@ -521,11 +521,11 @@ ammo_give( weapon )
 
 		self notify("weapon_ammo_change");
 
-        return true;
-    }
+		return true;
+	}
 
-    if ( !give_ammo )
-        return false;
+	if ( !give_ammo )
+		return false;
 }
 
 weapon_spawn_think()

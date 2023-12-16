@@ -747,7 +747,7 @@ on_player_bleedout()
 
 			self maps\mp\zombies\_zm::spectator_respawn();
 			playfx(level._effect[level.player_spawn_fx], self.origin);
-    		playsoundatposition(level.player_spawn_sound, self.origin);
+			playsoundatposition(level.player_spawn_sound, self.origin);
 			earthquake(0.5, 0.75, self.origin, 100);
 			playrumbleonposition("explosion_generic", self.origin);
 		}
@@ -1113,7 +1113,7 @@ zombie_spawn_wait(time)
 
 get_number_of_valid_players_team(team, excluded_player)
 {
-    num_player_valid = 0;
+	num_player_valid = 0;
 	players = get_players(team);
 
 	foreach (player in players)
@@ -1129,7 +1129,7 @@ get_number_of_valid_players_team(team, excluded_player)
 		}
 	}
 
-    return num_player_valid;
+	return num_player_valid;
 }
 
 update_players_on_downed(excluded_player)
@@ -3114,7 +3114,7 @@ meat_waypoint_origin_destroy_on_death()
 	if (isDefined(self.obj_waypoint_origin))
 	{
 		self.obj_waypoint_origin unlink();
-    	self.obj_waypoint_origin delete();
+		self.obj_waypoint_origin delete();
 	}
 }
 
@@ -3238,17 +3238,17 @@ meat_powerup_custom_time(powerup)
 		return 5;
 	}
 
-    return 15;
+	return 15;
 }
 
 can_revive(revivee)
 {
-    if (self hasweapon(get_gamemode_var("item_meat_name")))
+	if (self hasweapon(get_gamemode_var("item_meat_name")))
 	{
 		return false;
 	}
 
-    return true;
+	return true;
 }
 
 powerup_can_player_grab(player)

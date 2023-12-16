@@ -746,16 +746,16 @@ enemy_counter_hud()
 
 get_current_ghost_count()
 {
-    ghost_count = 0;
-    ais = getaiarray( level.zombie_team );
+	ghost_count = 0;
+	ais = getaiarray( level.zombie_team );
 
-    foreach ( ai in ais )
-    {
-        if ( isdefined( ai.is_ghost ) && ai.is_ghost )
-            ghost_count++;
-    }
+	foreach ( ai in ais )
+	{
+		if ( isdefined( ai.is_ghost ) && ai.is_ghost )
+			ghost_count++;
+	}
 
-    return ghost_count;
+	return ghost_count;
 }
 
 timer_hud()
@@ -2340,8 +2340,8 @@ last_stand_restore_pistol_ammo(only_store_info = false)
 
 				self setweaponammoclip( weapon, self.stored_weapon_info[ weapon ].clip_amt );
 
-                if ( "none" != dual_wield_name )
-                    self set_weapon_ammo_clip_left( weapon, self.stored_weapon_info[ weapon ].left_clip_amt );
+				if ( "none" != dual_wield_name )
+					self set_weapon_ammo_clip_left( weapon, self.stored_weapon_info[ weapon ].left_clip_amt );
 
 				self setweaponammostock( weapon, self.stored_weapon_info[ weapon ].stock_amt );
 
@@ -3057,7 +3057,7 @@ onuseplantobject_mtower( player )
 
 onuseplantobject_rtower( player )
 {
-    m_tower = getent( "sq_guillotine", "targetname" );
+	m_tower = getent( "sq_guillotine", "targetname" );
 	m_tower sq_tower_spawn_attachment( "p6_zm_bu_sq_crystal", "j_crystal_01" );
 	m_tower sq_tower_spawn_attachment( "p6_zm_bu_sq_satellite_dish", "j_satellite" );
 	m_tower sq_tower_spawn_attachment( "p6_zm_bu_sq_antenna", "j_antenna" );
@@ -3072,9 +3072,9 @@ onuseplantobject_rtower( player )
 
 sq_tower_spawn_attachment( str_model, str_tag )
 {
-    m_part = spawn( "script_model", self gettagorigin( str_tag ) );
-    m_part.angles = self gettagangles( str_tag );
-    m_part setmodel( str_model );
+	m_part = spawn( "script_model", self gettagorigin( str_tag ) );
+	m_part.angles = self gettagangles( str_tag );
+	m_part setmodel( str_model );
 }
 
 unregister_tower_unitriggers()

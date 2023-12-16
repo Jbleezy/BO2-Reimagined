@@ -8,6 +8,6 @@
 
 init()
 {
-    add_map_gamemode( "zclassic", scripts\zm\replaced\zm_highrise::zclassic_preinit, undefined, undefined );
-    add_map_location_gamemode( "zclassic", "rooftop", maps\mp\zm_highrise_classic::precache, scripts\zm\replaced\zm_highrise_classic::main );
+	add_map_gamemode( "zclassic", scripts\zm\replaced\zm_highrise::zclassic_preinit, undefined, undefined );
+	add_map_location_gamemode( "zclassic", "rooftop", maps\mp\zm_highrise_classic::precache, scripts\zm\replaced\zm_highrise_classic::main );
 }

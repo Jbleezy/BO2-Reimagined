@@ -12,22 +12,22 @@
 
 enable_dog_rounds()
 {
-    level.dog_rounds_enabled = 1;
+	level.dog_rounds_enabled = 1;
 
-    if ( !isdefined( level.dog_round_track_override ) )
-        level.dog_round_track_override = ::dog_round_tracker;
+	if ( !isdefined( level.dog_round_track_override ) )
+		level.dog_round_track_override = ::dog_round_tracker;
 
-    level thread [[ level.dog_round_track_override ]]();
+	level thread [[ level.dog_round_track_override ]]();
 }
 
 dog_round_tracker()
 {
-    level.dog_round_count = 1;
-    level.next_dog_round = level.round_number + randomintrange( 4, 6 );
-    old_spawn_func = level.round_spawn_func;
-    old_wait_func = level.round_wait_func;
+	level.dog_round_count = 1;
+	level.next_dog_round = level.round_number + randomintrange( 4, 6 );
+	old_spawn_func = level.round_spawn_func;
+	old_wait_func = level.round_wait_func;
 
-    if (level.next_dog_round == 5)
+	if (level.next_dog_round == 5)
 	{
 		level.prev_dog_round_amount = 4;
 	}
@@ -36,19 +36,19 @@ dog_round_tracker()
 		level.prev_dog_round_amount = 5;
 	}
 
-    while ( true )
-    {
-        level waittill( "between_round_over" );
+	while ( true )
+	{
+		level waittill( "between_round_over" );
 
-        if ( level.round_number == level.next_dog_round )
-        {
-            level.music_round_override = 1;
-            old_spawn_func = level.round_spawn_func;
-            old_wait_func = level.round_wait_func;
-            dog_round_start();
-            level.round_spawn_func = ::dog_round_spawning;
+		if ( level.round_number == level.next_dog_round )
+		{
+			level.music_round_override = 1;
+			old_spawn_func = level.round_spawn_func;
+			old_wait_func = level.round_wait_func;
+			dog_round_start();
+			level.round_spawn_func = ::dog_round_spawning;
 
-            if( !isdefined( level.prev_dog_round_amount ) )
+			if( !isdefined( level.prev_dog_round_amount ) )
 			{
 				level.prev_dog_round_amount = randomintrange( 4, 6 );
 				level.next_dog_round = level.round_number + level.prev_dog_round_amount;
@@ -66,14 +66,14 @@ dog_round_tracker()
 
 				level.prev_dog_round_amount = undefined;
 			}
-        }
-        else if ( flag( "dog_round" ) )
-        {
-            dog_round_stop();
-            level.round_spawn_func = old_spawn_func;
-            level.round_wait_func = old_wait_func;
-            level.music_round_override = 0;
-            level.dog_round_count += 1;
-        }
-    }
+		}
+		else if ( flag( "dog_round" ) )
+		{
+			dog_round_stop();
+			level.round_spawn_func = old_spawn_func;
+			level.round_wait_func = old_wait_func;
+			level.music_round_override = 0;
+			level.dog_round_count += 1;
+		}
+	}
 }

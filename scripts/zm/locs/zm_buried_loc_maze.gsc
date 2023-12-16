@@ -22,16 +22,16 @@ struct_init()
 	level.struct_class_names[ "targetname" ][ "zm_perk_machine" ] = [];
 
 	foreach (struct in structs)
-    {
-        if (isdefined(struct.script_string) && isSubStr(struct.script_string, "zclassic"))
-        {
+	{
+		if (isdefined(struct.script_string) && isSubStr(struct.script_string, "zclassic"))
+		{
 			if (struct.script_noteworthy == "specialty_longersprint" || struct.script_noteworthy == "specialty_weapupgrade")
 			{
 				scripts\zm\replaced\utility::register_perk_struct( struct.script_noteworthy, struct.model, struct.origin, struct.angles );
 			}
 		}
 		else if (isdefined(struct.script_string) && isSubStr(struct.script_string, "maze"))
-        {
+		{
 			if (struct.script_noteworthy == "specialty_armorvest")
 			{
 				struct.origin += anglesToRight(struct.angles) * 24;
@@ -84,7 +84,7 @@ struct_init()
 	player_respawn_points = [];
 
 	foreach (initial_spawn in level.struct_class_names["script_noteworthy"]["initial_spawn"])
-    {
+	{
 		if (isDefined(initial_spawn.script_string) && isSubStr(initial_spawn.script_string, "zgrief_maze"))
 		{
 			initial_spawn.script_string = "zgrief_street";
@@ -94,9 +94,9 @@ struct_init()
 	}
 
 	foreach (player_respawn_point in level.struct_class_names["targetname"]["player_respawn_point"])
-    {
+	{
 		if (player_respawn_point.script_noteworthy == "zone_maze")
-        {
+		{
 			if (player_respawn_point.target == "maze_spawn_points")
 			{
 				player_respawn_point.script_noteworthy = "zone_mansion_backyard";
@@ -107,7 +107,7 @@ struct_init()
 			}
 
 			player_respawn_points[player_respawn_points.size] = player_respawn_point;
-        }
+		}
 		else if (player_respawn_point.script_noteworthy == "zone_maze_staircase")
 		{
 			spawn_array = getstructarray( player_respawn_point.target, "targetname" );
@@ -128,7 +128,7 @@ struct_init()
 
 			player_respawn_points[player_respawn_points.size] = player_respawn_point;
 		}
-    }
+	}
 
 	level.struct_class_names[ "script_noteworthy" ][ "initial_spawn" ] = initial_spawns;
 	level.struct_class_names[ "targetname" ][ "player_respawn_point" ] = player_respawn_points;
@@ -136,33 +136,33 @@ struct_init()
 	level.struct_class_names[ "targetname" ][ "intermission" ] = [];
 
 	intermission_cam = spawnStruct();
-    intermission_cam.origin = (3694, 569, 253);
-    intermission_cam.angles = (30, 0, 0);
-    intermission_cam.targetname = "intermission";
-    intermission_cam.script_string = "street";
-    intermission_cam.speed = 30;
-    intermission_cam.target = "intermission_street_end";
-    scripts\zm\replaced\utility::add_struct(intermission_cam);
+	intermission_cam.origin = (3694, 569, 253);
+	intermission_cam.angles = (30, 0, 0);
+	intermission_cam.targetname = "intermission";
+	intermission_cam.script_string = "street";
+	intermission_cam.speed = 30;
+	intermission_cam.target = "intermission_street_end";
+	scripts\zm\replaced\utility::add_struct(intermission_cam);
 
-    intermission_cam_end = spawnStruct();
-    intermission_cam_end.origin = (5856, 569, 253);
-    intermission_cam_end.angles = (30, 0, 0);
-    intermission_cam_end.targetname = "intermission_street_end";
-    scripts\zm\replaced\utility::add_struct(intermission_cam_end);
+	intermission_cam_end = spawnStruct();
+	intermission_cam_end.origin = (5856, 569, 253);
+	intermission_cam_end.angles = (30, 0, 0);
+	intermission_cam_end.targetname = "intermission_street_end";
+	scripts\zm\replaced\utility::add_struct(intermission_cam_end);
 }
 
 precache()
 {
 	precachemodel( "zm_collision_buried_street_grief" );
-    precachemodel( "p6_zm_bu_buildable_bench_tarp" );
-    level.chalk_buildable_pieces_hide = 1;
-    griefbuildables = array( "chalk", "turbine", "springpad_zm", "subwoofer_zm" );
-    maps\mp\zm_buried_buildables::include_buildables( griefbuildables );
-    maps\mp\zm_buried_buildables::init_buildables( griefbuildables );
-    maps\mp\zombies\_zm_equip_turbine::init();
-    maps\mp\zombies\_zm_equip_turbine::init_animtree();
-    maps\mp\zombies\_zm_equip_springpad::init( &"ZM_BURIED_EQ_SP_PHS", &"ZM_BURIED_EQ_SP_HTS" );
-    maps\mp\zombies\_zm_equip_subwoofer::init( &"ZM_BURIED_EQ_SW_PHS", &"ZM_BURIED_EQ_SW_HTS" );
+	precachemodel( "p6_zm_bu_buildable_bench_tarp" );
+	level.chalk_buildable_pieces_hide = 1;
+	griefbuildables = array( "chalk", "turbine", "springpad_zm", "subwoofer_zm" );
+	maps\mp\zm_buried_buildables::include_buildables( griefbuildables );
+	maps\mp\zm_buried_buildables::init_buildables( griefbuildables );
+	maps\mp\zombies\_zm_equip_turbine::init();
+	maps\mp\zombies\_zm_equip_turbine::init_animtree();
+	maps\mp\zombies\_zm_equip_springpad::init( &"ZM_BURIED_EQ_SP_PHS", &"ZM_BURIED_EQ_SP_HTS" );
+	maps\mp\zombies\_zm_equip_subwoofer::init( &"ZM_BURIED_EQ_SW_PHS", &"ZM_BURIED_EQ_SW_HTS" );
 	maps\mp\zm_buried_fountain::init_fountain();
 
 	setdvar( "disableLookAtEntityLogic", 1 );
@@ -178,15 +178,15 @@ precache()
 	collision = spawn( "script_model", start_chest_zbarrier.origin, 1 );
 	collision.angles = start_chest_zbarrier.angles;
 	collision setmodel( "collision_clip_32x32x128" );
-    collision disconnectpaths();
+	collision disconnectpaths();
 	collision = spawn( "script_model", start_chest_zbarrier.origin - ( 0, 32, 0 ), 1 );
 	collision.angles = start_chest_zbarrier.angles;
 	collision setmodel( "collision_clip_32x32x128" );
-    collision disconnectpaths();
+	collision disconnectpaths();
 	collision = spawn( "script_model", start_chest_zbarrier.origin + ( 0, 32, 0 ), 1 );
 	collision.angles = start_chest_zbarrier.angles;
 	collision setmodel( "collision_clip_32x32x128" );
-    collision disconnectpaths();
+	collision disconnectpaths();
 
 	start_chest2_zbarrier = getEnt( "tunnels_chest1_zbarrier", "script_noteworthy" );
 	start_chest2_zbarrier.origin = (5605.74, 276.96, 17);
@@ -199,15 +199,15 @@ precache()
 	collision = spawn( "script_model", start_chest2_zbarrier.origin, 1 );
 	collision.angles = start_chest2_zbarrier.angles;
 	collision setmodel( "collision_clip_32x32x128" );
-    collision disconnectpaths();
+	collision disconnectpaths();
 	collision = spawn( "script_model", start_chest2_zbarrier.origin - ( 32, 0, 0 ), 1 );
 	collision.angles = start_chest2_zbarrier.angles;
 	collision setmodel( "collision_clip_32x32x128" );
-    collision disconnectpaths();
+	collision disconnectpaths();
 	collision = spawn( "script_model", start_chest2_zbarrier.origin + ( 32, 0, 0 ), 1 );
 	collision.angles = start_chest2_zbarrier.angles;
 	collision setmodel( "collision_clip_32x32x128" );
-    collision disconnectpaths();
+	collision disconnectpaths();
 
 	level.chests = [];
 	level.chests[0] = start_chest;
@@ -217,12 +217,12 @@ precache()
 main()
 {
 	level.buildables_built["pap"] = 1;
-    level.equipment_team_pick_up = 1;
-    level thread maps\mp\zombies\_zm_buildables::think_buildables();
-    maps\mp\gametypes_zm\_zm_gametype::setup_standard_objects( "street" );
+	level.equipment_team_pick_up = 1;
+	level thread maps\mp\zombies\_zm_buildables::think_buildables();
+	maps\mp\gametypes_zm\_zm_gametype::setup_standard_objects( "street" );
 	maps\mp\zombies\_zm_magicbox::treasure_chest_init( random( array( "start_chest", "tunnels_chest1" ) ) );
-    deleteslothbarricades();
-    powerswitchstate( 1 );
+	deleteslothbarricades();
+	powerswitchstate( 1 );
 
 	flag_set("mansion_door1");
 	level.zones["zone_mansion"].is_enabled = 0;
@@ -270,7 +270,7 @@ init_barriers()
 
 	structs = getstructarray( "zm_perk_machine", "targetname" );
 	foreach (struct in structs)
-    {
+	{
 		scripts\zm\replaced\utility::barrier( "collision_geo_64x64x128_standard", struct.origin + (anglesToRight(struct.angles) * -9) + (0, 0, 320), struct.angles );
 	}
 }

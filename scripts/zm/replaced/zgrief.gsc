@@ -20,8 +20,8 @@ game_mode_spawn_player_logic()
 
 meat_bounce_override( pos, normal, ent, bounce )
 {
-    if ( isdefined( ent ) && isplayer( ent ) && is_player_valid(ent) && !ent hasWeapon("item_meat_zm") && !is_true(ent.dont_touch_the_meat) )
-    {
+	if ( isdefined( ent ) && isplayer( ent ) && is_player_valid(ent) && !ent hasWeapon("item_meat_zm") && !is_true(ent.dont_touch_the_meat) )
+	{
 		level thread meat_stink_player( ent );
 
 		if ( isdefined( self.owner ) )
@@ -33,48 +33,48 @@ meat_bounce_override( pos, normal, ent, bounce )
 		self delete();
 
 		return;
-    }
-    else
-    {
-        players = getplayers();
-        closest_player = undefined;
-        closest_player_dist = 10000.0;
+	}
+	else
+	{
+		players = getplayers();
+		closest_player = undefined;
+		closest_player_dist = 10000.0;
 
 		foreach (player in players)
 		{
-            if ( !is_player_valid(player) )
-                continue;
+			if ( !is_player_valid(player) )
+				continue;
 
 			if ( player hasWeapon("item_meat_zm") )
-                 continue;
+				continue;
 
 			if ( is_true(player.dont_touch_the_meat) )
-                 continue;
+				continue;
 
-            distsq = distancesquared( pos, player.origin );
+			distsq = distancesquared( pos, player.origin );
 
-            if ( distsq < closest_player_dist )
-            {
-                closest_player = player;
-                closest_player_dist = distsq;
-            }
+			if ( distsq < closest_player_dist )
+			{
+				closest_player = player;
+				closest_player_dist = distsq;
+			}
 		}
 
-        if ( isdefined( closest_player ) )
-        {
+		if ( isdefined( closest_player ) )
+		{
 			level thread meat_stink_player( closest_player );
 
-            if ( isdefined( self.owner ) )
-            {
-                maps\mp\_demo::bookmark( "zm_player_meat_stink", gettime(), closest_player, self.owner, 0, self );
-                self.owner maps\mp\zombies\_zm_stats::increment_client_stat( "contaminations_given" );
-            }
+			if ( isdefined( self.owner ) )
+			{
+				maps\mp\_demo::bookmark( "zm_player_meat_stink", gettime(), closest_player, self.owner, 0, self );
+				self.owner maps\mp\zombies\_zm_stats::increment_client_stat( "contaminations_given" );
+			}
 
 			self delete();
 
 			return;
-        }
-    }
+		}
+	}
 
 	playfx( level._effect["meat_impact"], self.origin );
 
@@ -152,14 +152,14 @@ meat_stink( who )
 		return;
 	}
 
-    who.pre_meat_weapon = who getcurrentweapon();
-    level notify( "meat_grabbed" );
-    who notify( "meat_grabbed" );
-    who playsound( "zmb_pickup_meat" );
-    who increment_is_drinking();
-    who giveweapon( "item_meat_zm" );
-    who switchtoweapon( "item_meat_zm" );
-    who setweaponammoclip( "item_meat_zm", 1 );
+	who.pre_meat_weapon = who getcurrentweapon();
+	level notify( "meat_grabbed" );
+	who notify( "meat_grabbed" );
+	who playsound( "zmb_pickup_meat" );
+	who increment_is_drinking();
+	who giveweapon( "item_meat_zm" );
+	who switchtoweapon( "item_meat_zm" );
+	who setweaponammoclip( "item_meat_zm", 1 );
 	who setMoveSpeedScale(0.75);
 	who.ignoreme = 0;
 	level.meat_player = who;
@@ -370,12 +370,12 @@ meat_stink_cleanup_on_downed()
 
 meat_powerup_reset_on_disconnect()
 {
-    level endon("meat_thrown");
+	level endon("meat_thrown");
 	level endon("meat_grabbed");
 	self endon("player_downed");
 	self endon("bled_out");
 
-    self waittill("disconnect");
+	self waittill("disconnect");
 
 	level.meat_player = undefined;
 
@@ -388,7 +388,7 @@ meat_powerup_reset_on_disconnect()
 		}
 	}
 
-    level notify("meat_inactive");
+	level notify("meat_inactive");
 }
 
 meat_stink_on_ground(position_to_play)
@@ -457,15 +457,15 @@ meat_stink_player( who )
 
 meat_stink_player_create()
 {
-    self maps\mp\zombies\_zm_stats::increment_client_stat( "contaminations_received" );
-    self endon( "disconnect" );
-    self endon( "death" );
-    tagname = "J_SpineLower";
-    self.meat_stink_3p = spawn( "script_model", self gettagorigin( tagname ) );
-    self.meat_stink_3p setmodel( "tag_origin" );
-    self.meat_stink_3p linkto( self, tagname );
-    playfxontag( level._effect["meat_stink_torso"], self.meat_stink_3p, "tag_origin" );
-    self setclientfieldtoplayer( "meat_stink", 1 );
+	self maps\mp\zombies\_zm_stats::increment_client_stat( "contaminations_received" );
+	self endon( "disconnect" );
+	self endon( "death" );
+	tagname = "J_SpineLower";
+	self.meat_stink_3p = spawn( "script_model", self gettagorigin( tagname ) );
+	self.meat_stink_3p setmodel( "tag_origin" );
+	self.meat_stink_3p linkto( self, tagname );
+	playfxontag( level._effect["meat_stink_torso"], self.meat_stink_3p, "tag_origin" );
+	self setclientfieldtoplayer( "meat_stink", 1 );
 }
 
 print_meat_msg(meat_player, verb)

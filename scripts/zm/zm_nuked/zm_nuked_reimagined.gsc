@@ -10,8 +10,8 @@ main()
 
 init()
 {
-    level.zombie_init_done = ::zombie_init_done;
-    level.special_weapon_magicbox_check = ::nuked_special_weapon_magicbox_check;
+	level.zombie_init_done = ::zombie_init_done;
+	level.special_weapon_magicbox_check = ::nuked_special_weapon_magicbox_check;
 }
 
 zombie_init_done()
@@ -22,7 +22,7 @@ zombie_init_done()
 	{
 		self thread maps\mp\zm_nuked::zombie_crater_locomotion();
 	}
-    self setphysparams( 15, 0, 48 );
+	self setphysparams( 15, 0, 48 );
 }
 
 nuked_special_weapon_magicbox_check(weapon)

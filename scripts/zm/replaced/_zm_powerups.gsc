@@ -4,81 +4,81 @@
 
 powerup_drop( drop_point )
 {
-    if ( level.powerup_drop_count >= level.zombie_vars["zombie_powerup_drop_max_per_round"] )
-    {
-        return;
-    }
+	if ( level.powerup_drop_count >= level.zombie_vars["zombie_powerup_drop_max_per_round"] )
+	{
+		return;
+	}
 
-    if ( !isdefined( level.zombie_include_powerups ) || level.zombie_include_powerups.size == 0 )
-        return;
+	if ( !isdefined( level.zombie_include_powerups ) || level.zombie_include_powerups.size == 0 )
+		return;
 
-    rand_drop = randomint( 100 );
+	rand_drop = randomint( 100 );
 
 	powerup_chance = 2;
 
-    if ( rand_drop >= powerup_chance )
-    {
-        if ( !level.zombie_vars["zombie_drop_item"] )
-            return;
+	if ( rand_drop >= powerup_chance )
+	{
+		if ( !level.zombie_vars["zombie_drop_item"] )
+			return;
 
-        debug = "score";
-    }
-    else
-        debug = "random";
+		debug = "score";
+	}
+	else
+		debug = "random";
 
-    playable_area = getentarray( "player_volume", "script_noteworthy" );
-    level.powerup_drop_count++;
-    powerup = maps\mp\zombies\_zm_net::network_safe_spawn( "powerup", 1, "script_model", drop_point + vectorscale( ( 0, 0, 1 ), 40.0 ) );
-    valid_drop = 0;
+	playable_area = getentarray( "player_volume", "script_noteworthy" );
+	level.powerup_drop_count++;
+	powerup = maps\mp\zombies\_zm_net::network_safe_spawn( "powerup", 1, "script_model", drop_point + vectorscale( ( 0, 0, 1 ), 40.0 ) );
+	valid_drop = 0;
 
-    for ( i = 0; i < playable_area.size; i++ )
-    {
-        if ( powerup istouching( playable_area[i] ) )
-            valid_drop = 1;
-    }
+	for ( i = 0; i < playable_area.size; i++ )
+	{
+		if ( powerup istouching( playable_area[i] ) )
+			valid_drop = 1;
+	}
 
-    if ( valid_drop && level.rare_powerups_active )
-    {
-        pos = ( drop_point[0], drop_point[1], drop_point[2] + 42 );
+	if ( valid_drop && level.rare_powerups_active )
+	{
+		pos = ( drop_point[0], drop_point[1], drop_point[2] + 42 );
 
-        if ( check_for_rare_drop_override( pos ) )
-        {
-            level.zombie_vars["zombie_drop_item"] = 0;
-            valid_drop = 0;
-        }
-    }
+		if ( check_for_rare_drop_override( pos ) )
+		{
+			level.zombie_vars["zombie_drop_item"] = 0;
+			valid_drop = 0;
+		}
+	}
 
-    if ( !valid_drop )
-    {
-        level.powerup_drop_count--;
-        powerup delete();
-        return;
-    }
+	if ( !valid_drop )
+	{
+		level.powerup_drop_count--;
+		powerup delete();
+		return;
+	}
 
-    powerup powerup_setup();
-    print_powerup_drop( powerup.powerup_name, debug );
-    powerup thread powerup_timeout();
-    powerup thread powerup_wobble();
-    powerup thread powerup_grab();
-    powerup thread powerup_move();
-    powerup thread powerup_emp();
-    level.zombie_vars["zombie_drop_item"] = 0;
-    level notify( "powerup_dropped", powerup );
+	powerup powerup_setup();
+	print_powerup_drop( powerup.powerup_name, debug );
+	powerup thread powerup_timeout();
+	powerup thread powerup_wobble();
+	powerup thread powerup_grab();
+	powerup thread powerup_move();
+	powerup thread powerup_emp();
+	level.zombie_vars["zombie_drop_item"] = 0;
+	level notify( "powerup_dropped", powerup );
 }
 
 get_next_powerup()
 {
-    powerup = level.zombie_powerup_array[level.zombie_powerup_index];
-    level.zombie_powerup_index++;
+	powerup = level.zombie_powerup_array[level.zombie_powerup_index];
+	level.zombie_powerup_index++;
 
-    if ( level.zombie_powerup_index >= level.zombie_powerup_array.size )
-    {
-        level.zombie_powerup_index = 0;
-        randomize_powerups();
+	if ( level.zombie_powerup_index >= level.zombie_powerup_array.size )
+	{
+		level.zombie_powerup_index = 0;
+		randomize_powerups();
 		level thread play_fx_on_powerup_dropped();
-    }
+	}
 
-    return powerup;
+	return powerup;
 }
 
 play_fx_on_powerup_dropped()
@@ -104,195 +104,195 @@ play_fx_on_powerup_dropped()
 
 powerup_grab( powerup_team )
 {
-    if ( isdefined( self ) && self.zombie_grabbable )
-    {
-        self thread powerup_zombie_grab( powerup_team );
-        return;
-    }
+	if ( isdefined( self ) && self.zombie_grabbable )
+	{
+		self thread powerup_zombie_grab( powerup_team );
+		return;
+	}
 
-    self endon( "powerup_timedout" );
-    self endon( "powerup_grabbed" );
-    range_squared = 4096;
+	self endon( "powerup_timedout" );
+	self endon( "powerup_grabbed" );
+	range_squared = 4096;
 
-    while ( isdefined( self ) )
-    {
-        players = array_randomize(get_players());
+	while ( isdefined( self ) )
+	{
+		players = array_randomize(get_players());
 
-        for ( i = 0; i < players.size; i++ )
-        {
-            if ( ( self.powerup_name == "minigun" || self.powerup_name == "tesla" || self.powerup_name == "random_weapon" || self.powerup_name == "meat_stink" ) && ( players[i] maps\mp\zombies\_zm_laststand::player_is_in_laststand() || players[i] usebuttonpressed() && players[i] in_revive_trigger() ) )
-                continue;
+		for ( i = 0; i < players.size; i++ )
+		{
+			if ( ( self.powerup_name == "minigun" || self.powerup_name == "tesla" || self.powerup_name == "random_weapon" || self.powerup_name == "meat_stink" ) && ( players[i] maps\mp\zombies\_zm_laststand::player_is_in_laststand() || players[i] usebuttonpressed() && players[i] in_revive_trigger() ) )
+				continue;
 
-            if ( isdefined( self.can_pick_up_in_last_stand ) && !self.can_pick_up_in_last_stand && players[i] maps\mp\zombies\_zm_laststand::player_is_in_laststand() )
-                continue;
+			if ( isdefined( self.can_pick_up_in_last_stand ) && !self.can_pick_up_in_last_stand && players[i] maps\mp\zombies\_zm_laststand::player_is_in_laststand() )
+				continue;
 
 			if ( players[i].sessionstate != "playing" )
 				continue;
 
-            ignore_range = 0;
+			ignore_range = 0;
 
-            if ( isdefined( players[i].ignore_range_powerup ) && players[i].ignore_range_powerup == self )
-            {
-                players[i].ignore_range_powerup = undefined;
-                ignore_range = 1;
-            }
+			if ( isdefined( players[i].ignore_range_powerup ) && players[i].ignore_range_powerup == self )
+			{
+				players[i].ignore_range_powerup = undefined;
+				ignore_range = 1;
+			}
 
-            if ( distancesquared( players[i] getCentroid(), self.origin ) < range_squared || ignore_range )
-            {
-                if ( isdefined( level._powerup_grab_check ) )
-                {
-                    if ( !self [[ level._powerup_grab_check ]]( players[i] ) )
-                        continue;
-                }
+			if ( distancesquared( players[i] getCentroid(), self.origin ) < range_squared || ignore_range )
+			{
+				if ( isdefined( level._powerup_grab_check ) )
+				{
+					if ( !self [[ level._powerup_grab_check ]]( players[i] ) )
+						continue;
+				}
 
 				self.power_up_grab_player = players[i];
 
-                if ( isdefined( level.zombie_powerup_grab_func ) )
-                    level thread [[ level.zombie_powerup_grab_func ]]();
-                else
-                {
-                    switch ( self.powerup_name )
-                    {
-                        case "nuke":
-                            level thread nuke_powerup( self, players[i].team );
-                            players[i] thread powerup_vo( "nuke" );
-                            zombies = getaiarray( level.zombie_team );
-                            players[i].zombie_nuked = arraysort( zombies, self.origin );
-                            players[i] notify( "nuke_triggered" );
-                            break;
-                        case "full_ammo":
-                            level thread full_ammo_powerup( self, players[i] );
-                            players[i] thread powerup_vo( "full_ammo" );
-                            break;
-                        case "double_points":
-                            level thread double_points_powerup( self, players[i] );
-                            players[i] thread powerup_vo( "double_points" );
-                            break;
-                        case "insta_kill":
-                            level thread insta_kill_powerup( self, players[i] );
-                            players[i] thread powerup_vo( "insta_kill" );
-                            break;
-                        case "carpenter":
-                            if ( is_classic() )
-                                players[i] thread maps\mp\zombies\_zm_pers_upgrades::persistent_carpenter_ability_check();
+				if ( isdefined( level.zombie_powerup_grab_func ) )
+					level thread [[ level.zombie_powerup_grab_func ]]();
+				else
+				{
+					switch ( self.powerup_name )
+					{
+					case "nuke":
+						level thread nuke_powerup( self, players[i].team );
+						players[i] thread powerup_vo( "nuke" );
+						zombies = getaiarray( level.zombie_team );
+						players[i].zombie_nuked = arraysort( zombies, self.origin );
+						players[i] notify( "nuke_triggered" );
+						break;
+					case "full_ammo":
+						level thread full_ammo_powerup( self, players[i] );
+						players[i] thread powerup_vo( "full_ammo" );
+						break;
+					case "double_points":
+						level thread double_points_powerup( self, players[i] );
+						players[i] thread powerup_vo( "double_points" );
+						break;
+					case "insta_kill":
+						level thread insta_kill_powerup( self, players[i] );
+						players[i] thread powerup_vo( "insta_kill" );
+						break;
+					case "carpenter":
+						if ( is_classic() )
+							players[i] thread maps\mp\zombies\_zm_pers_upgrades::persistent_carpenter_ability_check();
 
-                            if ( isdefined( level.use_new_carpenter_func ) )
-                                level thread [[ level.use_new_carpenter_func ]]( self.origin );
-                            else
-                                level thread start_carpenter( self.origin );
+						if ( isdefined( level.use_new_carpenter_func ) )
+							level thread [[ level.use_new_carpenter_func ]]( self.origin );
+						else
+							level thread start_carpenter( self.origin );
 
-                            players[i] thread powerup_vo( "carpenter" );
-                            break;
-                        case "fire_sale":
-                            level thread start_fire_sale( self );
-                            players[i] thread powerup_vo( "firesale" );
-                            break;
-                        case "bonfire_sale":
-                            level thread start_bonfire_sale( self );
-                            players[i] thread powerup_vo( "firesale" );
-                            break;
-                        case "minigun":
-                            level thread minigun_weapon_powerup( players[i] );
-                            players[i] thread powerup_vo( "minigun" );
-                            break;
-                        case "free_perk":
-                            level thread free_perk_powerup( self );
-                            break;
-                        case "tesla":
-                            level thread tesla_weapon_powerup( players[i] );
-                            players[i] thread powerup_vo( "tesla" );
-                            break;
-                        case "random_weapon":
-                            if ( !level random_weapon_powerup( self, players[i] ) )
-                                continue;
-                            break;
-                        case "bonus_points_player":
-                            level thread bonus_points_player_powerup( self, players[i] );
-                            players[i] thread powerup_vo( "bonus_points_solo" );
-                            break;
-                        case "bonus_points_team":
-                            level thread bonus_points_team_powerup( self );
-                            players[i] thread powerup_vo( "bonus_points_team" );
-                            break;
-                        case "teller_withdrawl":
-                            level thread teller_withdrawl( self, players[i] );
-                            break;
-                        default:
-                            if ( isdefined( level._zombiemode_powerup_grab ) )
-                                level thread [[ level._zombiemode_powerup_grab ]]( self, players[i] );
-                            break;
-                    }
-                }
+						players[i] thread powerup_vo( "carpenter" );
+						break;
+					case "fire_sale":
+						level thread start_fire_sale( self );
+						players[i] thread powerup_vo( "firesale" );
+						break;
+					case "bonfire_sale":
+						level thread start_bonfire_sale( self );
+						players[i] thread powerup_vo( "firesale" );
+						break;
+					case "minigun":
+						level thread minigun_weapon_powerup( players[i] );
+						players[i] thread powerup_vo( "minigun" );
+						break;
+					case "free_perk":
+						level thread free_perk_powerup( self );
+						break;
+					case "tesla":
+						level thread tesla_weapon_powerup( players[i] );
+						players[i] thread powerup_vo( "tesla" );
+						break;
+					case "random_weapon":
+						if ( !level random_weapon_powerup( self, players[i] ) )
+							continue;
+						break;
+					case "bonus_points_player":
+						level thread bonus_points_player_powerup( self, players[i] );
+						players[i] thread powerup_vo( "bonus_points_solo" );
+						break;
+					case "bonus_points_team":
+						level thread bonus_points_team_powerup( self );
+						players[i] thread powerup_vo( "bonus_points_team" );
+						break;
+					case "teller_withdrawl":
+						level thread teller_withdrawl( self, players[i] );
+						break;
+					default:
+						if ( isdefined( level._zombiemode_powerup_grab ) )
+							level thread [[ level._zombiemode_powerup_grab ]]( self, players[i] );
+						break;
+					}
+				}
 
-                maps\mp\_demo::bookmark( "zm_player_powerup_grabbed", gettime(), players[i] );
+				maps\mp\_demo::bookmark( "zm_player_powerup_grabbed", gettime(), players[i] );
 
-                if ( should_award_stat( self.powerup_name ) )
-                {
-                    players[i] maps\mp\zombies\_zm_stats::increment_client_stat( "drops" );
-                    players[i] maps\mp\zombies\_zm_stats::increment_player_stat( "drops" );
-                    players[i] maps\mp\zombies\_zm_stats::increment_client_stat( self.powerup_name + "_pickedup" );
-                    players[i] maps\mp\zombies\_zm_stats::increment_player_stat( self.powerup_name + "_pickedup" );
-                }
+				if ( should_award_stat( self.powerup_name ) )
+				{
+					players[i] maps\mp\zombies\_zm_stats::increment_client_stat( "drops" );
+					players[i] maps\mp\zombies\_zm_stats::increment_player_stat( "drops" );
+					players[i] maps\mp\zombies\_zm_stats::increment_client_stat( self.powerup_name + "_pickedup" );
+					players[i] maps\mp\zombies\_zm_stats::increment_player_stat( self.powerup_name + "_pickedup" );
+				}
 
-                if ( self.solo )
-                {
-                    playfx( level._effect["powerup_grabbed_solo"], self.origin );
-                    playfx( level._effect["powerup_grabbed_wave_solo"], self.origin );
-                }
-                else if ( self.caution )
-                {
-                    playfx( level._effect["powerup_grabbed_caution"], self.origin );
-                    playfx( level._effect["powerup_grabbed_wave_caution"], self.origin );
-                }
-                else
-                {
-                    playfx( level._effect["powerup_grabbed"], self.origin );
-                    playfx( level._effect["powerup_grabbed_wave"], self.origin );
-                }
+				if ( self.solo )
+				{
+					playfx( level._effect["powerup_grabbed_solo"], self.origin );
+					playfx( level._effect["powerup_grabbed_wave_solo"], self.origin );
+				}
+				else if ( self.caution )
+				{
+					playfx( level._effect["powerup_grabbed_caution"], self.origin );
+					playfx( level._effect["powerup_grabbed_wave_caution"], self.origin );
+				}
+				else
+				{
+					playfx( level._effect["powerup_grabbed"], self.origin );
+					playfx( level._effect["powerup_grabbed_wave"], self.origin );
+				}
 
-                if ( isdefined( self.stolen ) && self.stolen )
-                    level notify( "monkey_see_monkey_dont_achieved" );
+				if ( isdefined( self.stolen ) && self.stolen )
+					level notify( "monkey_see_monkey_dont_achieved" );
 
-                if ( isdefined( self.grabbed_level_notify ) )
-                    level notify( self.grabbed_level_notify );
+				if ( isdefined( self.grabbed_level_notify ) )
+					level notify( self.grabbed_level_notify );
 
-                self.claimed = 1;
-                wait 0.1;
-                playsoundatposition( "zmb_powerup_grabbed", self.origin );
-                self stoploopsound();
-                self hide();
+				self.claimed = 1;
+				wait 0.1;
+				playsoundatposition( "zmb_powerup_grabbed", self.origin );
+				self stoploopsound();
+				self hide();
 
-                if ( self.powerup_name != "fire_sale" )
-                {
-                    if ( isdefined( self.power_up_grab_player ) )
-                    {
-                        if ( isdefined( level.powerup_intro_vox ) )
-                        {
-                            level thread [[ level.powerup_intro_vox ]]( self );
-                            return;
-                        }
-                        else if ( isdefined( level.powerup_vo_available ) )
-                        {
-                            can_say_vo = [[ level.powerup_vo_available ]]();
+				if ( self.powerup_name != "fire_sale" )
+				{
+					if ( isdefined( self.power_up_grab_player ) )
+					{
+						if ( isdefined( level.powerup_intro_vox ) )
+						{
+							level thread [[ level.powerup_intro_vox ]]( self );
+							return;
+						}
+						else if ( isdefined( level.powerup_vo_available ) )
+						{
+							can_say_vo = [[ level.powerup_vo_available ]]();
 
-                            if ( !can_say_vo )
-                            {
-                                self powerup_delete();
-                                self notify( "powerup_grabbed" );
-                                return;
-                            }
-                        }
-                    }
-                }
+							if ( !can_say_vo )
+							{
+								self powerup_delete();
+								self notify( "powerup_grabbed" );
+								return;
+							}
+						}
+					}
+				}
 
-                level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog( self.powerup_name, self.power_up_grab_player.pers["team"] );
-                self powerup_delete();
-                self notify( "powerup_grabbed" );
-            }
-        }
+				level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog( self.powerup_name, self.power_up_grab_player.pers["team"] );
+				self powerup_delete();
+				self notify( "powerup_grabbed" );
+			}
+		}
 
-        wait 0.1;
-    }
+		wait 0.1;
+	}
 }
 
 full_ammo_powerup( drop_item, player )
@@ -390,32 +390,32 @@ full_ammo_powerup( drop_item, player )
 
 full_ammo_on_hud( drop_item, player_team )
 {
-    self endon( "disconnect" );
-    hudelem = maps\mp\gametypes_zm\_hud_util::createserverfontstring( "objective", 2, player_team );
-    hudelem maps\mp\gametypes_zm\_hud_util::setpoint( "TOP", undefined, 0, level.zombie_vars["zombie_timer_offset"] - level.zombie_vars["zombie_timer_offset_interval"] * 2 );
-    hudelem.sort = 0.5;
-    hudelem.alpha = 0;
-    hudelem fadeovertime( 0.5 );
-    hudelem.alpha = 1;
+	self endon( "disconnect" );
+	hudelem = maps\mp\gametypes_zm\_hud_util::createserverfontstring( "objective", 2, player_team );
+	hudelem maps\mp\gametypes_zm\_hud_util::setpoint( "TOP", undefined, 0, level.zombie_vars["zombie_timer_offset"] - level.zombie_vars["zombie_timer_offset_interval"] * 2 );
+	hudelem.sort = 0.5;
+	hudelem.alpha = 0;
+	hudelem fadeovertime( 0.5 );
+	hudelem.alpha = 1;
 
-    if ( isdefined( drop_item ) )
-        hudelem.label = drop_item.hint;
+	if ( isdefined( drop_item ) )
+		hudelem.label = drop_item.hint;
 
-    hudelem thread full_ammo_move_hud( player_team );
+	hudelem thread full_ammo_move_hud( player_team );
 }
 
 full_ammo_move_hud( player_team )
 {
-    players = get_players( player_team );
-    players[0] playsoundtoteam( "zmb_full_ammo", player_team );
-    wait 0.5;
-    move_fade_time = 1.5;
-    self fadeovertime( move_fade_time );
-    self moveovertime( move_fade_time );
-    self.y = 270;
-    self.alpha = 0;
-    wait( move_fade_time );
-    self destroyelem();
+	players = get_players( player_team );
+	players[0] playsoundtoteam( "zmb_full_ammo", player_team );
+	wait 0.5;
+	move_fade_time = 1.5;
+	self fadeovertime( move_fade_time );
+	self moveovertime( move_fade_time );
+	self.y = 270;
+	self.alpha = 0;
+	wait( move_fade_time );
+	self destroyelem();
 }
 
 empty_clip_powerup( drop_item, player )
@@ -495,48 +495,48 @@ nuke_powerup( drop_item, player_team )
 	zombies_nuked = [];
 
 	for ( i = 0; i < zombies.size; i++ )
-    {
-        if ( isdefined( zombies[i].ignore_nuke ) && zombies[i].ignore_nuke )
-            continue;
+	{
+		if ( isdefined( zombies[i].ignore_nuke ) && zombies[i].ignore_nuke )
+			continue;
 
-        if ( isdefined( zombies[i].marked_for_death ) && zombies[i].marked_for_death )
-            continue;
+		if ( isdefined( zombies[i].marked_for_death ) && zombies[i].marked_for_death )
+			continue;
 
-        if ( isdefined( zombies[i].nuke_damage_func ) )
-        {
-            zombies[i] thread [[ zombies[i].nuke_damage_func ]]();
-            continue;
-        }
+		if ( isdefined( zombies[i].nuke_damage_func ) )
+		{
+			zombies[i] thread [[ zombies[i].nuke_damage_func ]]();
+			continue;
+		}
 
-        if ( is_magic_bullet_shield_enabled( zombies[i] ) )
-            continue;
+		if ( is_magic_bullet_shield_enabled( zombies[i] ) )
+			continue;
 
-        zombies[i].marked_for_death = 1;
-        zombies[i].nuked = 1;
-        zombies_nuked[zombies_nuked.size] = zombies[i];
-    }
+		zombies[i].marked_for_death = 1;
+		zombies[i].nuked = 1;
+		zombies_nuked[zombies_nuked.size] = zombies[i];
+	}
 
 	for ( i = 0; i < zombies_nuked.size; i++ )
-    {
-        if ( !isdefined( zombies_nuked[i] ) )
-            continue;
+	{
+		if ( !isdefined( zombies_nuked[i] ) )
+			continue;
 
-        if ( is_magic_bullet_shield_enabled( zombies_nuked[i] ) )
-            continue;
+		if ( is_magic_bullet_shield_enabled( zombies_nuked[i] ) )
+			continue;
 
-        if ( i < 5 && !zombies_nuked[i].isdog )
-            zombies_nuked[i] thread maps\mp\animscripts\zm_death::flame_death_fx();
+		if ( i < 5 && !zombies_nuked[i].isdog )
+			zombies_nuked[i] thread maps\mp\animscripts\zm_death::flame_death_fx();
 
-        if ( !zombies_nuked[i].isdog )
-        {
-            if ( !( isdefined( zombies_nuked[i].no_gib ) && zombies_nuked[i].no_gib ) )
-                zombies_nuked[i] maps\mp\zombies\_zm_spawner::zombie_head_gib();
+		if ( !zombies_nuked[i].isdog )
+		{
+			if ( !( isdefined( zombies_nuked[i].no_gib ) && zombies_nuked[i].no_gib ) )
+				zombies_nuked[i] maps\mp\zombies\_zm_spawner::zombie_head_gib();
 
-            zombies_nuked[i] playsound( "evt_nuked" );
-        }
+			zombies_nuked[i] playsound( "evt_nuked" );
+		}
 
 		zombies_nuked[i] dodamage( zombies_nuked[i].health + 666, zombies_nuked[i].origin );
-    }
+	}
 
 	players = get_players( player_team );
 	for ( i = 0; i < players.size; i++ )
@@ -779,20 +779,20 @@ start_fire_sale( item )
 {
 	level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog( "fire_sale", getotherteam( item.power_up_grab_player.pers["team"] ) );
 
-    if ( level.zombie_vars["zombie_powerup_fire_sale_time"] > 0 && is_true( level.zombie_vars["zombie_powerup_fire_sale_on"] ) )
-    {
-        level.zombie_vars["zombie_powerup_fire_sale_time"] += 30;
-        return;
-    }
+	if ( level.zombie_vars["zombie_powerup_fire_sale_time"] > 0 && is_true( level.zombie_vars["zombie_powerup_fire_sale_on"] ) )
+	{
+		level.zombie_vars["zombie_powerup_fire_sale_time"] += 30;
+		return;
+	}
 
-    level notify( "powerup fire sale" );
-    level endon( "powerup fire sale" );
-    level.zombie_vars["zombie_powerup_fire_sale_on"] = 1;
-    level thread toggle_fire_sale_on();
+	level notify( "powerup fire sale" );
+	level endon( "powerup fire sale" );
+	level.zombie_vars["zombie_powerup_fire_sale_on"] = 1;
+	level thread toggle_fire_sale_on();
 
-    for ( level.zombie_vars["zombie_powerup_fire_sale_time"] = 30; level.zombie_vars["zombie_powerup_fire_sale_time"] > 0; level.zombie_vars["zombie_powerup_fire_sale_time"] -= 0.05 )
-        wait 0.05;
+	for ( level.zombie_vars["zombie_powerup_fire_sale_time"] = 30; level.zombie_vars["zombie_powerup_fire_sale_time"] > 0; level.zombie_vars["zombie_powerup_fire_sale_time"] -= 0.05 )
+		wait 0.05;
 
-    level.zombie_vars["zombie_powerup_fire_sale_on"] = 0;
-    level notify( "fire_sale_off" );
+	level.zombie_vars["zombie_powerup_fire_sale_on"] = 0;
+	level notify( "fire_sale_off" );
 }

@@ -37,10 +37,10 @@ buy_claymores()
 				{
 					play_sound_at_pos( "purchase", self.origin );
 					who maps\mp\zombies\_zm_score::minus_to_player_score( self.zombie_cost );
-                    if ( !who is_player_placeable_mine( "claymore_zm" ) )
-                    {
-                        who thread show_claymore_hint( "claymore_purchased" );
-                    }
+					if ( !who is_player_placeable_mine( "claymore_zm" ) )
+					{
+						who thread show_claymore_hint( "claymore_purchased" );
+					}
 					who thread claymore_setup();
 					who thread maps\mp\zombies\_zm_audio::create_and_play_dialog( "weapon_pickup", "grenade" );
 					if ( isDefined( self.stub ) )
@@ -112,7 +112,7 @@ claymore_detonation()
 		{
 			continue;
 		}
-        if ( isDefined( ent.pers ) && isDefined( ent.pers[ "team" ] ) && ent.pers[ "team" ] == getOtherTeam( self.team ) )
+		if ( isDefined( ent.pers ) && isDefined( ent.pers[ "team" ] ) && ent.pers[ "team" ] == getOtherTeam( self.team ) )
 		{
 			continue;
 		}
@@ -143,12 +143,12 @@ claymore_detonation()
 
 claymore_setup()
 {
-    if ( !isdefined( self.claymores ) )
-        self.claymores = [];
+	if ( !isdefined( self.claymores ) )
+		self.claymores = [];
 
-    self thread claymore_watch();
-    self giveweapon( "claymore_zm" );
-    self set_player_placeable_mine( "claymore_zm" );
-    self setactionslot( 4, "weapon", "claymore_zm" );
-    self setweaponammostock( "claymore_zm", 2 );
+	self thread claymore_watch();
+	self giveweapon( "claymore_zm" );
+	self set_player_placeable_mine( "claymore_zm" );
+	self setactionslot( 4, "weapon", "claymore_zm" );
+	self setweaponammostock( "claymore_zm", 2 );
 }

@@ -9,8 +9,8 @@ player_elec_damage()
 
 	if ( !isDefined( self.is_burning ) && is_player_valid( self ) )
 	{
-        self.is_burning = 1;
-        shocktime = 1.25;
+		self.is_burning = 1;
+		shocktime = 1.25;
 
 		if ( is_true( level.trap_electric_visionset_registered ) )
 		{
@@ -23,10 +23,10 @@ player_elec_damage()
 
 		self shellshock( "electrocution", shocktime );
 		self playsound( "zmb_zombie_arc" );
-        radiusdamage( self.origin + (0, 0, 5), 10, 25, 25 );
+		radiusdamage( self.origin + (0, 0, 5), 10, 25, 25 );
 
-        wait 0.1;
+		wait 0.1;
 
-        self.is_burning = undefined;
+		self.is_burning = undefined;
 	}
 }

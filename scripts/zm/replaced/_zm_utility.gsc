@@ -12,11 +12,11 @@ init_player_offhand_weapons()
 		}
 	}
 
-    init_player_lethal_grenade();
-    init_player_tactical_grenade();
-    init_player_placeable_mine();
-    init_player_melee_weapon();
-    init_player_equipment();
+	init_player_lethal_grenade();
+	init_player_tactical_grenade();
+	init_player_placeable_mine();
+	init_player_melee_weapon();
+	init_player_equipment();
 }
 
 is_headshot( sweapon, shitloc, smeansofdeath )
@@ -36,35 +36,35 @@ is_headshot( sweapon, shitloc, smeansofdeath )
 
 shock_onpain()
 {
-    self endon( "death" );
-    self endon( "disconnect" );
-    self notify( "stop_shock_onpain" );
-    self endon( "stop_shock_onpain" );
+	self endon( "death" );
+	self endon( "disconnect" );
+	self notify( "stop_shock_onpain" );
+	self endon( "stop_shock_onpain" );
 
-    if ( getdvar( "blurpain" ) == "" )
-        setdvar( "blurpain", "on" );
+	if ( getdvar( "blurpain" ) == "" )
+		setdvar( "blurpain", "on" );
 
-    while ( true )
-    {
-        oldhealth = self.health;
+	while ( true )
+	{
+		oldhealth = self.health;
 
-        self waittill( "damage", damage, attacker, direction_vec, point, mod );
+		self waittill( "damage", damage, attacker, direction_vec, point, mod );
 
-        if ( isdefined( level.shock_onpain ) && !level.shock_onpain )
-            continue;
+		if ( isdefined( level.shock_onpain ) && !level.shock_onpain )
+			continue;
 
-        if ( isdefined( self.shock_onpain ) && !self.shock_onpain )
-            continue;
+		if ( isdefined( self.shock_onpain ) && !self.shock_onpain )
+			continue;
 
-        if ( self.health < 1 )
-            continue;
+		if ( self.health < 1 )
+			continue;
 
-        if ( mod == "MOD_PROJECTILE" || mod == "MOD_PROJECTILE_SPLASH" || mod == "MOD_GRENADE_SPLASH" || mod == "MOD_GRENADE" || mod == "MOD_EXPLOSIVE" )
-        {
-            if ( is_true( self.is_burning ) )
-            {
+		if ( mod == "MOD_PROJECTILE" || mod == "MOD_PROJECTILE_SPLASH" || mod == "MOD_GRENADE_SPLASH" || mod == "MOD_GRENADE" || mod == "MOD_EXPLOSIVE" )
+		{
+			if ( is_true( self.is_burning ) )
+			{
 				self shock_onexplosion( damage, "lava", "lava_small" );
-            }
+			}
 			else if ( mod == "MOD_EXPLOSIVE" )
 			{
 				self shock_onexplosion( damage );
@@ -73,12 +73,12 @@ shock_onpain()
 			{
 				self shellshock( "pain", 0.5 );
 			}
-        }
-        else if ( getdvar( "blurpain" ) == "on" )
+		}
+		else if ( getdvar( "blurpain" ) == "on" )
 		{
 			self shellshock( "pain", 0.5 );
 		}
-    }
+	}
 }
 
 create_zombie_point_of_interest_attractor_positions( num_attract_dists, diff_per_dist, attractor_width )
@@ -164,96 +164,96 @@ create_zombie_point_of_interest_attractor_positions( num_attract_dists, diff_per
 
 check_point_in_life_brush( origin )
 {
-    life_brushes = getentarray( "life_brush", "script_noteworthy" );
+	life_brushes = getentarray( "life_brush", "script_noteworthy" );
 
-    if ( !isdefined( life_brushes ) )
-        return false;
+	if ( !isdefined( life_brushes ) )
+		return false;
 
-    check_model = spawn( "script_model", origin + vectorscale( ( 0, 0, 1 ), 40.0 ) );
-    valid_point = 0;
+	check_model = spawn( "script_model", origin + vectorscale( ( 0, 0, 1 ), 40.0 ) );
+	valid_point = 0;
 
-    for ( i = 0; i < life_brushes.size; i++ )
-    {
-        if ( check_model istouching( life_brushes[i] ) )
+	for ( i = 0; i < life_brushes.size; i++ )
+	{
+		if ( check_model istouching( life_brushes[i] ) )
 		{
 			valid_point = 1;
 			break;
 		}
-    }
+	}
 
-    check_model delete();
-    return valid_point;
+	check_model delete();
+	return valid_point;
 }
 
 check_point_in_kill_brush( origin )
 {
-    kill_brushes = getentarray( "kill_brush", "script_noteworthy" );
+	kill_brushes = getentarray( "kill_brush", "script_noteworthy" );
 
-    if ( !isdefined( kill_brushes ) )
-        return false;
+	if ( !isdefined( kill_brushes ) )
+		return false;
 
-    check_model = spawn( "script_model", origin + vectorscale( ( 0, 0, 1 ), 40.0 ) );
-    valid_point = 0;
+	check_model = spawn( "script_model", origin + vectorscale( ( 0, 0, 1 ), 40.0 ) );
+	valid_point = 0;
 
-    for ( i = 0; i < kill_brushes.size; i++ )
-    {
-        if ( check_model istouching( kill_brushes[i] ) )
+	for ( i = 0; i < kill_brushes.size; i++ )
+	{
+		if ( check_model istouching( kill_brushes[i] ) )
 		{
 			valid_point = 1;
 			break;
 		}
-    }
+	}
 
-    check_model delete();
-    return valid_point;
+	check_model delete();
+	return valid_point;
 }
 
 get_current_zone( return_zone )
 {
-    flag_wait( "zones_initialized" );
+	flag_wait( "zones_initialized" );
 
 	if ( isDefined( self.prev_zone ) )
 	{
 		for ( i = 0; i < self.prev_zone.volumes.size; i++ )
-        {
-            if ( self istouching( self.prev_zone.volumes[i] ) )
-            {
+		{
+			if ( self istouching( self.prev_zone.volumes[i] ) )
+			{
 				if ( isdefined( return_zone ) && return_zone )
 				{
 					return self.prev_zone;
 				}
 
-                return self.prev_zone_name;
+				return self.prev_zone_name;
 			}
 		}
 	}
 
-    for ( z = 0; z < level.zone_keys.size; z++ )
-    {
-        zone_name = level.zone_keys[z];
-        zone = level.zones[zone_name];
+	for ( z = 0; z < level.zone_keys.size; z++ )
+	{
+		zone_name = level.zone_keys[z];
+		zone = level.zones[zone_name];
 
-        for ( i = 0; i < zone.volumes.size; i++ )
-        {
-            if ( self istouching( zone.volumes[i] ) )
-            {
+		for ( i = 0; i < zone.volumes.size; i++ )
+		{
+			if ( self istouching( zone.volumes[i] ) )
+			{
 				self.prev_zone = zone;
 				self.prev_zone_name = zone_name;
 
-                if ( isdefined( return_zone ) && return_zone )
+				if ( isdefined( return_zone ) && return_zone )
 				{
 					return zone;
 				}
 
-                return zone_name;
-            }
-        }
-    }
+				return zone_name;
+			}
+		}
+	}
 
 	self.prev_zone = undefined;
 	self.prev_zone_name = undefined;
 
-    return undefined;
+	return undefined;
 }
 
 is_temporary_zombie_weapon( str_weapon )
@@ -263,12 +263,12 @@ is_temporary_zombie_weapon( str_weapon )
 		return 1;
 	}
 
-    return is_zombie_perk_bottle( str_weapon ) || str_weapon == level.revive_tool || str_weapon == "zombie_builder_zm" || str_weapon == "chalk_draw_zm" || str_weapon == "no_hands_zm" || issubstr( str_weapon, "_flourish" );
+	return is_zombie_perk_bottle( str_weapon ) || str_weapon == level.revive_tool || str_weapon == "zombie_builder_zm" || str_weapon == "chalk_draw_zm" || str_weapon == "no_hands_zm" || issubstr( str_weapon, "_flourish" );
 }
 
 wait_network_frame()
 {
-    wait 0.1;
+	wait 0.1;
 }
 
 track_players_intersection_tracker()

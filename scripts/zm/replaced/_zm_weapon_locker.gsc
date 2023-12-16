@@ -12,40 +12,40 @@ triggerweaponslockerisvalidweaponpromptupdate( player, weaponname )
 {
 	self thread show_current_weapon(player);
 
-    retrievingweapon = player wl_has_stored_weapondata();
+	retrievingweapon = player wl_has_stored_weapondata();
 
-    if ( !retrievingweapon )
-    {
-        weaponname = player get_nonalternate_weapon( weaponname );
+	if ( !retrievingweapon )
+	{
+		weaponname = player get_nonalternate_weapon( weaponname );
 
-        if ( !triggerweaponslockerisvalidweapon( weaponname ) )
-            self sethintstring( &"ZOMBIE_WEAPON_LOCKER_DENY" );
-        else
-            self sethintstring( &"ZOMBIE_WEAPON_LOCKER_STORE" );
-    }
-    else
-    {
-        weapondata = player wl_get_stored_weapondata();
+		if ( !triggerweaponslockerisvalidweapon( weaponname ) )
+			self sethintstring( &"ZOMBIE_WEAPON_LOCKER_DENY" );
+		else
+			self sethintstring( &"ZOMBIE_WEAPON_LOCKER_STORE" );
+	}
+	else
+	{
+		weapondata = player wl_get_stored_weapondata();
 
-        if ( isdefined( level.remap_weapon_locker_weapons ) )
-            weapondata = remap_weapon( weapondata, level.remap_weapon_locker_weapons );
+		if ( isdefined( level.remap_weapon_locker_weapons ) )
+			weapondata = remap_weapon( weapondata, level.remap_weapon_locker_weapons );
 
-        weapontogive = weapondata["name"];
-        primaries = player getweaponslistprimaries();
-        maxweapons = get_player_weapon_limit( player );
-        weaponname = player get_nonalternate_weapon( weaponname );
+		weapontogive = weapondata["name"];
+		primaries = player getweaponslistprimaries();
+		maxweapons = get_player_weapon_limit( player );
+		weaponname = player get_nonalternate_weapon( weaponname );
 
-        if ( isdefined( primaries ) && primaries.size >= maxweapons || weapontogive == weaponname )
-        {
-            if ( !triggerweaponslockerisvalidweapon( weaponname ) )
-            {
-                self sethintstring( &"ZOMBIE_WEAPON_LOCKER_DENY" );
-                return;
-            }
-        }
+		if ( isdefined( primaries ) && primaries.size >= maxweapons || weapontogive == weaponname )
+		{
+			if ( !triggerweaponslockerisvalidweapon( weaponname ) )
+			{
+				self sethintstring( &"ZOMBIE_WEAPON_LOCKER_DENY" );
+				return;
+			}
+		}
 
-        self sethintstring( &"ZOMBIE_WEAPON_LOCKER_GRAB" );
-    }
+		self sethintstring( &"ZOMBIE_WEAPON_LOCKER_GRAB" );
+	}
 }
 
 show_current_weapon(player)
@@ -59,16 +59,16 @@ show_current_weapon(player)
 
 	num = player getentitynumber();
 
-    displayname = "None";
-    if (player wl_has_stored_weapondata())
-    {
-        weapondata = player wl_get_stored_weapondata();
+	displayname = "None";
+	if (player wl_has_stored_weapondata())
+	{
+		weapondata = player wl_get_stored_weapondata();
 
-        if ( isdefined( level.remap_weapon_locker_weapons ) )
-            weapondata = remap_weapon( weapondata, level.remap_weapon_locker_weapons );
+		if ( isdefined( level.remap_weapon_locker_weapons ) )
+			weapondata = remap_weapon( weapondata, level.remap_weapon_locker_weapons );
 
-        displayname = getweapondisplayname( weapondata["name"] );
-    }
+		displayname = getweapondisplayname( weapondata["name"] );
+	}
 
 	if (isDefined(stub.weaponlockerhud[num]))
 	{
@@ -146,8 +146,8 @@ wl_set_stored_weapondata( weapondata )
 		weapondata["alt_stock"] -= clip_alt_missing;
 	}
 
-    if ( level.weapon_locker_online )
-        self set_stored_weapondata( weapondata, level.weapon_locker_map );
-    else
-        self.stored_weapon_data = weapondata;
+	if ( level.weapon_locker_online )
+		self set_stored_weapondata( weapondata, level.weapon_locker_map );
+	else
+		self.stored_weapon_data = weapondata;
 }

@@ -221,173 +221,173 @@ hide_gump_loading_for_hotjoiners()
 
 menu_onmenuresponse()
 {
-    self endon( "disconnect" );
+	self endon( "disconnect" );
 
-    for (;;)
-    {
-        self waittill( "menuresponse", menu, response );
+	for (;;)
+	{
+		self waittill( "menuresponse", menu, response );
 
-        if ( response == "back" )
-        {
-            self closemenu();
-            self closeingamemenu();
-
-            if ( level.console )
-            {
-                if ( menu == game["menu_changeclass"] || menu == game["menu_changeclass_offline"] || menu == game["menu_team"] || menu == game["menu_controls"] )
-                {
-                    if ( self.pers["team"] == "allies" )
-                        self openmenu( game["menu_class"] );
-
-                    if ( self.pers["team"] == "axis" )
-                        self openmenu( game["menu_class"] );
-                }
-            }
-
-            continue;
-        }
-
-        if ( menu == game["menu_team"] )
-        {
+		if ( response == "back" )
+		{
 			self closemenu();
-            self closeingamemenu();
+			self closeingamemenu();
+
+			if ( level.console )
+			{
+				if ( menu == game["menu_changeclass"] || menu == game["menu_changeclass_offline"] || menu == game["menu_team"] || menu == game["menu_controls"] )
+				{
+					if ( self.pers["team"] == "allies" )
+						self openmenu( game["menu_class"] );
+
+					if ( self.pers["team"] == "axis" )
+						self openmenu( game["menu_class"] );
+				}
+			}
+
+			continue;
+		}
+
+		if ( menu == game["menu_team"] )
+		{
+			self closemenu();
+			self closeingamemenu();
 			self thread do_team_change();
 			continue;
-        }
+		}
 
-        if ( response == "changeclass_marines" )
-        {
-            self closemenu();
-            self closeingamemenu();
-            self openmenu( game["menu_changeclass_allies"] );
-            continue;
-        }
+		if ( response == "changeclass_marines" )
+		{
+			self closemenu();
+			self closeingamemenu();
+			self openmenu( game["menu_changeclass_allies"] );
+			continue;
+		}
 
-        if ( response == "changeclass_opfor" )
-        {
-            self closemenu();
-            self closeingamemenu();
-            self openmenu( game["menu_changeclass_axis"] );
-            continue;
-        }
+		if ( response == "changeclass_opfor" )
+		{
+			self closemenu();
+			self closeingamemenu();
+			self openmenu( game["menu_changeclass_axis"] );
+			continue;
+		}
 
-        if ( response == "changeclass_wager" )
-        {
-            self closemenu();
-            self closeingamemenu();
-            self openmenu( game["menu_changeclass_wager"] );
-            continue;
-        }
+		if ( response == "changeclass_wager" )
+		{
+			self closemenu();
+			self closeingamemenu();
+			self openmenu( game["menu_changeclass_wager"] );
+			continue;
+		}
 
-        if ( response == "changeclass_custom" )
-        {
-            self closemenu();
-            self closeingamemenu();
-            self openmenu( game["menu_changeclass_custom"] );
-            continue;
-        }
+		if ( response == "changeclass_custom" )
+		{
+			self closemenu();
+			self closeingamemenu();
+			self openmenu( game["menu_changeclass_custom"] );
+			continue;
+		}
 
-        if ( response == "changeclass_barebones" )
-        {
-            self closemenu();
-            self closeingamemenu();
-            self openmenu( game["menu_changeclass_barebones"] );
-            continue;
-        }
+		if ( response == "changeclass_barebones" )
+		{
+			self closemenu();
+			self closeingamemenu();
+			self openmenu( game["menu_changeclass_barebones"] );
+			continue;
+		}
 
-        if ( response == "changeclass_marines_splitscreen" )
-            self openmenu( "changeclass_marines_splitscreen" );
+		if ( response == "changeclass_marines_splitscreen" )
+			self openmenu( "changeclass_marines_splitscreen" );
 
-        if ( response == "changeclass_opfor_splitscreen" )
-            self openmenu( "changeclass_opfor_splitscreen" );
+		if ( response == "changeclass_opfor_splitscreen" )
+			self openmenu( "changeclass_opfor_splitscreen" );
 
-        if ( response == "endgame" )
-        {
-            if ( self issplitscreen() )
-            {
-                level.skipvote = 1;
+		if ( response == "endgame" )
+		{
+			if ( self issplitscreen() )
+			{
+				level.skipvote = 1;
 
-                if ( !( isdefined( level.gameended ) && level.gameended ) )
-                {
-                    self maps\mp\zombies\_zm_laststand::add_weighted_down();
-                    self maps\mp\zombies\_zm_stats::increment_client_stat( "deaths" );
-                    self maps\mp\zombies\_zm_stats::increment_player_stat( "deaths" );
-                    self maps\mp\zombies\_zm_pers_upgrades_functions::pers_upgrade_jugg_player_death_stat();
-                    level.host_ended_game = 1;
-                    maps\mp\zombies\_zm_game_module::freeze_players( 1 );
-                    level notify( "end_game" );
-                }
-            }
+				if ( !( isdefined( level.gameended ) && level.gameended ) )
+				{
+					self maps\mp\zombies\_zm_laststand::add_weighted_down();
+					self maps\mp\zombies\_zm_stats::increment_client_stat( "deaths" );
+					self maps\mp\zombies\_zm_stats::increment_player_stat( "deaths" );
+					self maps\mp\zombies\_zm_pers_upgrades_functions::pers_upgrade_jugg_player_death_stat();
+					level.host_ended_game = 1;
+					maps\mp\zombies\_zm_game_module::freeze_players( 1 );
+					level notify( "end_game" );
+				}
+			}
 
-            continue;
-        }
+			continue;
+		}
 
-        if ( response == "restart_level_zm" )
-        {
-            self maps\mp\zombies\_zm_laststand::add_weighted_down();
-            self maps\mp\zombies\_zm_stats::increment_client_stat( "deaths" );
-            self maps\mp\zombies\_zm_stats::increment_player_stat( "deaths" );
-            self maps\mp\zombies\_zm_pers_upgrades_functions::pers_upgrade_jugg_player_death_stat();
-            missionfailed();
-        }
+		if ( response == "restart_level_zm" )
+		{
+			self maps\mp\zombies\_zm_laststand::add_weighted_down();
+			self maps\mp\zombies\_zm_stats::increment_client_stat( "deaths" );
+			self maps\mp\zombies\_zm_stats::increment_player_stat( "deaths" );
+			self maps\mp\zombies\_zm_pers_upgrades_functions::pers_upgrade_jugg_player_death_stat();
+			missionfailed();
+		}
 
-        if ( response == "killserverpc" )
-        {
-            level thread maps\mp\gametypes_zm\_globallogic::killserverpc();
-            continue;
-        }
+		if ( response == "killserverpc" )
+		{
+			level thread maps\mp\gametypes_zm\_globallogic::killserverpc();
+			continue;
+		}
 
-        if ( response == "endround" )
-        {
-            if ( !( isdefined( level.gameended ) && level.gameended ) )
-            {
-                self maps\mp\gametypes_zm\_globallogic::gamehistoryplayerquit();
-                self maps\mp\zombies\_zm_laststand::add_weighted_down();
-                self closemenu();
-                self closeingamemenu();
-                level.host_ended_game = 1;
-                maps\mp\zombies\_zm_game_module::freeze_players( 1 );
-                level notify( "end_game" );
-            }
+		if ( response == "endround" )
+		{
+			if ( !( isdefined( level.gameended ) && level.gameended ) )
+			{
+				self maps\mp\gametypes_zm\_globallogic::gamehistoryplayerquit();
+				self maps\mp\zombies\_zm_laststand::add_weighted_down();
+				self closemenu();
+				self closeingamemenu();
+				level.host_ended_game = 1;
+				maps\mp\zombies\_zm_game_module::freeze_players( 1 );
+				level notify( "end_game" );
+			}
 
-            continue;
-        }
+			continue;
+		}
 
-        if ( menu == game["menu_team"] && level.allow_teamchange == "1" )
-        {
-            switch ( response )
-            {
-                case "allies":
-                    self [[ level.allies ]]();
-                    break;
-                case "axis":
-                    self [[ level.teammenu ]]( response );
-                    break;
-                case "autoassign":
-                    self [[ level.autoassign ]]( 1 );
-                    break;
-                case "spectator":
-                    self [[ level.spectator ]]();
-                    break;
-            }
+		if ( menu == game["menu_team"] && level.allow_teamchange == "1" )
+		{
+			switch ( response )
+			{
+			case "allies":
+				self [[ level.allies ]]();
+				break;
+			case "axis":
+				self [[ level.teammenu ]]( response );
+				break;
+			case "autoassign":
+				self [[ level.autoassign ]]( 1 );
+				break;
+			case "spectator":
+				self [[ level.spectator ]]();
+				break;
+			}
 
-            continue;
-        }
+			continue;
+		}
 
-        if ( menu == game["menu_changeclass"] || menu == game["menu_changeclass_offline"] || menu == game["menu_changeclass_wager"] || menu == game["menu_changeclass_custom"] || menu == game["menu_changeclass_barebones"] )
-        {
-            self closemenu();
-            self closeingamemenu();
+		if ( menu == game["menu_changeclass"] || menu == game["menu_changeclass_offline"] || menu == game["menu_changeclass_wager"] || menu == game["menu_changeclass_custom"] || menu == game["menu_changeclass_barebones"] )
+		{
+			self closemenu();
+			self closeingamemenu();
 
-            if ( level.rankedmatch && issubstr( response, "custom" ) )
-            {
+			if ( level.rankedmatch && issubstr( response, "custom" ) )
+			{
 
-            }
+			}
 
-            self.selectedclass = 1;
-            self [[ level.class ]]( response );
-        }
-    }
+			self.selectedclass = 1;
+			self [[ level.class ]]( response );
+		}
+	}
 }
 
 do_team_change()

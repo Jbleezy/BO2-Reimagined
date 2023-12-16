@@ -6,5 +6,5 @@
 
 onplayerconnect()
 {
-    // removed
+	// removed
 }

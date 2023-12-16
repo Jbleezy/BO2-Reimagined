@@ -209,7 +209,7 @@ sloth_barricades_buyable()
 		if (isDefined(trig.script_noteworthy) && trig.script_noteworthy == "courtyard_fountain")
 		{
 			parts = getentarray( trig.target, "targetname" );
-            array_thread( parts, ::self_delete );
+			array_thread( parts, ::self_delete );
 
 			continue;
 		}
@@ -224,23 +224,23 @@ sloth_barricades_buyable()
 
 		switch(debris_trig.script_location)
 		{
-			case "juggernaut_alley":
-			case "stables_alley":
+		case "juggernaut_alley":
+		case "stables_alley":
 			debris_trig.zombie_cost = 750;
 			break;
 
-			case "jail":
-			case "gunstore":
-			case "mansion":
+		case "jail":
+		case "gunstore":
+		case "mansion":
 			debris_trig.zombie_cost = 1000;
 			break;
 
-			case "candystore_alley":
-			case "church":
+		case "candystore_alley":
+		case "church":
 			debris_trig.zombie_cost = 1250;
 			break;
 
-			default:
+		default:
 			debris_trig.zombie_cost = 1000;
 			break;
 		}
@@ -264,47 +264,47 @@ sloth_barricade_think()
 			continue;
 
 		if ( is_player_valid( who ) )
-        {
+		{
 			if ( who.score >= self.zombie_cost )
-            {
-                who maps\mp\zombies\_zm_score::minus_to_player_score( self.zombie_cost );
-            }
-            else
-            {
-                play_sound_at_pos( "no_purchase", self.origin );
-                who maps\mp\zombies\_zm_audio::create_and_play_dialog( "general", "door_deny" );
-                continue;
-            }
+			{
+				who maps\mp\zombies\_zm_score::minus_to_player_score( self.zombie_cost );
+			}
+			else
+			{
+				play_sound_at_pos( "no_purchase", self.origin );
+				who maps\mp\zombies\_zm_audio::create_and_play_dialog( "general", "door_deny" );
+				continue;
+			}
 
 			self hide();
 
 			if ( isdefined( self.script_flag ) && level flag_exists( self.script_flag ) )
-            {
-                flag_set( self.script_flag );
+			{
+				flag_set( self.script_flag );
 
-                if ( self.script_flag == "jail_door1" )
-                    level notify( "jail_barricade_down" );
-            }
+				if ( self.script_flag == "jail_door1" )
+					level notify( "jail_barricade_down" );
+			}
 
 			pieces = getentarray( self.target, "targetname" );
 			pieces[1] sloth_barricade_move();
 
-            if ( isdefined( self.script_int ) )
-                exploder( self.script_int );
+			if ( isdefined( self.script_int ) )
+				exploder( self.script_int );
 
-            foreach ( piece in pieces )
-            {
-                piece delete();
-            }
+			foreach ( piece in pieces )
+			{
+				piece delete();
+			}
 
-            self thread maps\mp\zombies\_zm_equip_headchopper::destroyheadchopperstouching( 0 );
-            self playsound( "zmb_sloth_barrier_break" );
-            level notify( "sloth_breaks_barrier" );
+			self thread maps\mp\zombies\_zm_equip_headchopper::destroyheadchopperstouching( 0 );
+			self playsound( "zmb_sloth_barrier_break" );
+			level notify( "sloth_breaks_barrier" );
 
-            self delete();
+			self delete();
 
-            break;
-        }
+			break;
+		}
 	}
 }
 
@@ -357,41 +357,41 @@ remove_chalk_draw_points()
 
 onuseplantobject_chalk( entity )
 {
-    piece = entity maps\mp\zombies\_zm_buildables::player_get_buildable_piece( 1 );
+	piece = entity maps\mp\zombies\_zm_buildables::player_get_buildable_piece( 1 );
 
-    if ( isdefined( piece ) )
-    {
-        weapon = piece.script_noteworthy;
+	if ( isdefined( piece ) )
+	{
+		weapon = piece.script_noteworthy;
 
-        if ( isdefined( weapon ) )
-        {
-            origin = self.origin;
-            angles = self.angles;
+		if ( isdefined( weapon ) )
+		{
+			origin = self.origin;
+			angles = self.angles;
 
-            if ( isdefined( level._effect["wallbuy_replace"] ) )
-                playfx( level._effect["wallbuy_replace"], origin, anglestoforward( angles ) );
+			if ( isdefined( level._effect["wallbuy_replace"] ) )
+				playfx( level._effect["wallbuy_replace"], origin, anglestoforward( angles ) );
 
-            maps\mp\zombies\_zm_weapons::add_dynamic_wallbuy( weapon, self.target, 1 );
+			maps\mp\zombies\_zm_weapons::add_dynamic_wallbuy( weapon, self.target, 1 );
 
-            if ( !isdefined( level.built_wallbuys ) )
-                level.built_wallbuys = 0;
+			if ( !isdefined( level.built_wallbuys ) )
+				level.built_wallbuys = 0;
 
-            level.built_wallbuys++;
+			level.built_wallbuys++;
 
-            if ( isplayer( entity ) )
-            {
-                entity maps\mp\zombies\_zm_stats::increment_client_stat( "buried_wallbuy_placed", 0 );
-                entity maps\mp\zombies\_zm_stats::increment_player_stat( "buried_wallbuy_placed" );
-                entity maps\mp\zombies\_zm_stats::increment_client_stat( "buried_wallbuy_placed_" + weapon, 0 );
-                entity maps\mp\zombies\_zm_stats::increment_player_stat( "buried_wallbuy_placed_" + weapon );
-            }
+			if ( isplayer( entity ) )
+			{
+				entity maps\mp\zombies\_zm_stats::increment_client_stat( "buried_wallbuy_placed", 0 );
+				entity maps\mp\zombies\_zm_stats::increment_player_stat( "buried_wallbuy_placed" );
+				entity maps\mp\zombies\_zm_stats::increment_client_stat( "buried_wallbuy_placed_" + weapon, 0 );
+				entity maps\mp\zombies\_zm_stats::increment_player_stat( "buried_wallbuy_placed_" + weapon );
+			}
 
-            if ( level.built_wallbuys >= 6 )
-            {
-                level.built_wallbuys = -100;
-            }
-        }
-    }
+			if ( level.built_wallbuys >= 6 )
+			{
+				level.built_wallbuys = -100;
+			}
+		}
+	}
 }
 
 enable_fountain_transport()
@@ -471,7 +471,7 @@ sloth_trap()
 		trig waittill( "trigger", who );
 
 		if ( !is_player_valid( who ) )
-        {
+		{
 			continue;
 		}
 
@@ -531,26 +531,26 @@ sloth_damage_func()
 
 dance_action()
 {
-    self endon( "death" );
-    self endon( "stop_action" );
-    self setclientfield( "sloth_vomit", 0 );
-    self.dance_end = gettime() + 30000;
-    level.sloth_protect = 0;
+	self endon( "death" );
+	self endon( "stop_action" );
+	self setclientfield( "sloth_vomit", 0 );
+	self.dance_end = gettime() + 30000;
+	level.sloth_protect = 0;
 	self.dance_action = 1;
 
-    while ( true )
-    {
-        if ( gettime() >= self.dance_end )
-            break;
+	while ( true )
+	{
+		if ( gettime() >= self.dance_end )
+			break;
 
-        self animscripted( self.origin, self.jail_start.angles, "zm_dance" );
-        maps\mp\animscripts\zm_shared::donotetracks( "dance_anim", maps\mp\zombies\_zm_ai_sloth::vomit_notetrack );
-        wait 0.1;
-    }
+		self animscripted( self.origin, self.jail_start.angles, "zm_dance" );
+		maps\mp\animscripts\zm_shared::donotetracks( "dance_anim", maps\mp\zombies\_zm_ai_sloth::vomit_notetrack );
+		wait 0.1;
+	}
 
-    self notify( "stop_dance" );
-    self animscripted( self.origin, self.jail_start.angles, "zm_vomit" );
-    maps\mp\animscripts\zm_shared::donotetracks( "vomit_anim", maps\mp\zombies\_zm_ai_sloth::vomit_notetrack );
-    self.context_done = 1;
+	self notify( "stop_dance" );
+	self animscripted( self.origin, self.jail_start.angles, "zm_vomit" );
+	maps\mp\animscripts\zm_shared::donotetracks( "vomit_anim", maps\mp\zombies\_zm_ai_sloth::vomit_notetrack );
+	self.context_done = 1;
 	self.dance_action = 0;
 }

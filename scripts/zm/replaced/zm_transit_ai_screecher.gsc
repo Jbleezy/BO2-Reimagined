@@ -12,66 +12,66 @@
 
 init()
 {
-    level.screecher_should_burrow = ::screecher_should_burrow;
-    level.screecher_should_runaway = ::screecher_should_runaway;
-    level.screecher_cleanup = ::transit_screecher_cleanup;
-    level.screecher_init_done = ::screecher_init_done;
-    level.portals = [];
+	level.screecher_should_burrow = ::screecher_should_burrow;
+	level.screecher_should_runaway = ::screecher_should_runaway;
+	level.screecher_cleanup = ::transit_screecher_cleanup;
+	level.screecher_init_done = ::screecher_init_done;
+	level.portals = [];
 }
 
 screecher_init_done()
 {
-    self endon( "death" );
+	self endon( "death" );
 
-    self.maxhealth = 150;
-    self.health = self.maxhealth;
+	self.maxhealth = 150;
+	self.health = self.maxhealth;
 
-    while ( true )
-    {
-        ground_ent = self getgroundent();
+	while ( true )
+	{
+		ground_ent = self getgroundent();
 
-        if ( isdefined( ground_ent ) && ground_ent == level.the_bus )
-        {
-            self dodamage( self.health + 666, self.origin );
-        }
+		if ( isdefined( ground_ent ) && ground_ent == level.the_bus )
+		{
+			self dodamage( self.health + 666, self.origin );
+		}
 
-        wait 0.1;
-    }
+		wait 0.1;
+	}
 }
 
 player_wait_land()
 {
-    self endon( "disconnect" );
+	self endon( "disconnect" );
 
-    while ( !self isonground() )
-        wait 0.1;
+	while ( !self isonground() )
+		wait 0.1;
 
-    if ( level.portals.size > 0 )
-    {
-        remove_portal = undefined;
+	if ( level.portals.size > 0 )
+	{
+		remove_portal = undefined;
 
-        foreach ( portal in level.portals )
-        {
-            dist_sq = distance2dsquared( self.origin, portal.origin );
+		foreach ( portal in level.portals )
+		{
+			dist_sq = distance2dsquared( self.origin, portal.origin );
 
-            if ( dist_sq < 4096 )
-            {
-                remove_portal = portal;
-                break;
-            }
-        }
+			if ( dist_sq < 4096 )
+			{
+				remove_portal = portal;
+				break;
+			}
+		}
 
-        if ( isdefined( remove_portal ) )
-        {
-            portal portal_use( self );
-            wait 0.5;
-        }
-    }
+		if ( isdefined( remove_portal ) )
+		{
+			portal portal_use( self );
+			wait 0.5;
+		}
+	}
 }
 
 portal_use( player )
 {
-    player playsoundtoplayer( "zmb_screecher_portal_warp_2d", player );
-    self thread teleport_player( player );
-    playsoundatposition( "zmb_screecher_portal_end", self.hole.origin );
+	player playsoundtoplayer( "zmb_screecher_portal_warp_2d", player );
+	self thread teleport_player( player );
+	playsoundatposition( "zmb_screecher_portal_end", self.hole.origin );
 }

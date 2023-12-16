@@ -27,12 +27,12 @@ main()
 	//collision = spawn( "script_model", ( -6896, 4744, 0 ), 1 );
 	//collision setmodel( "zm_collision_transit_busdepot_survival" );
 	//collision disconnectpaths();
-    remove_lava_collision();
+	remove_lava_collision();
 	flag_wait( "initial_blackscreen_passed" );
 	level thread maps\mp\zombies\_zm_perks::perk_machine_removal( "specialty_quickrevive", "p_glo_tools_chest_tall" );
 	flag_set( "power_on" );
 	level setclientfield( "zombie_power_on", 1 );
-    level thread open_electric_doors_on_door_opened();
+	level thread open_electric_doors_on_door_opened();
 
 	// electric doors showing hintstring
 	zombie_doors = getentarray( "zombie_door", "targetname" );
@@ -103,20 +103,20 @@ remove_lava_collision()
 
 open_electric_doors_on_door_opened()
 {
-    level.local_doors_stay_open = 1;
-    door = undefined;
-    zombie_doors = getentarray( "zombie_door", "targetname" );
+	level.local_doors_stay_open = 1;
+	door = undefined;
+	zombie_doors = getentarray( "zombie_door", "targetname" );
 	foreach ( door in zombie_doors )
 	{
-        if(door.target == "busstop_doors")
-        {
-            break;
-        }
-    }
+		if(door.target == "busstop_doors")
+		{
+			break;
+		}
+	}
 
-    door waittill( "door_opened" );
+	door waittill( "door_opened" );
 
-    zombie_doors = getentarray( "zombie_door", "targetname" );
+	zombie_doors = getentarray( "zombie_door", "targetname" );
 	foreach ( door in zombie_doors )
 	{
 		if ( isDefined( door.script_noteworthy ) && door.script_noteworthy == "local_electric_door" )

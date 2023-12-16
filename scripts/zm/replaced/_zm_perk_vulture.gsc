@@ -14,21 +14,21 @@
 
 _is_player_in_zombie_stink( a_points )
 {
-    velocity = self getVelocity() * (1, 1, 0);
+	velocity = self getVelocity() * (1, 1, 0);
 	speed = length(velocity);
 
-    if (self getStance() == "stand" && speed != 0)
-    {
-        return 0;
-    }
+	if (self getStance() == "stand" && speed != 0)
+	{
+		return 0;
+	}
 
-    b_is_in_stink = 0;
+	b_is_in_stink = 0;
 
-    for ( i = 0; i < a_points.size; i++ )
-    {
-        if ( distancesquared( a_points[i].origin, self.origin ) < 4900 )
-            b_is_in_stink = 1;
-    }
+	for ( i = 0; i < a_points.size; i++ )
+	{
+		if ( distancesquared( a_points[i].origin, self.origin ) < 4900 )
+			b_is_in_stink = 1;
+	}
 
-    return b_is_in_stink;
+	return b_is_in_stink;
 }

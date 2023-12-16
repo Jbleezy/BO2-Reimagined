@@ -5,76 +5,76 @@
 
 watch_overheat()
 {
-    self endon( "death_or_disconnect" );
-    self endon( "weapon_change" );
+	self endon( "death_or_disconnect" );
+	self endon( "weapon_change" );
 
-    while ( true )
-    {
-        if ( self getcurrentweapon() == "jetgun_zm" )
-        {
-            overheating = self isweaponoverheating( 0 );
-            heat = self isweaponoverheating( 1 );
-            self.jetgun_overheating = overheating;
-            self.jetgun_heatval = heat;
+	while ( true )
+	{
+		if ( self getcurrentweapon() == "jetgun_zm" )
+		{
+			overheating = self isweaponoverheating( 0 );
+			heat = self isweaponoverheating( 1 );
+			self.jetgun_overheating = overheating;
+			self.jetgun_heatval = heat;
 
-            if ( overheating )
-                self notify( "jetgun_overheated" );
+			if ( overheating )
+				self notify( "jetgun_overheated" );
 
-            if ( heat > 75 )
-                self thread play_overheat_fx();
-        }
+			if ( heat > 75 )
+				self thread play_overheat_fx();
+		}
 
-        wait 0.05;
-    }
+		wait 0.05;
+	}
 }
 
 jetgun_firing()
 {
-    if ( !isdefined( self.jetsound_ent ) )
-    {
-        self.jetsound_ent = spawn( "script_origin", self.origin );
-        self.jetsound_ent linkto( self, "tag_origin" );
-    }
+	if ( !isdefined( self.jetsound_ent ) )
+	{
+		self.jetsound_ent = spawn( "script_origin", self.origin );
+		self.jetsound_ent linkto( self, "tag_origin" );
+	}
 
-    jetgun_fired = 0;
+	jetgun_fired = 0;
 
-    if ( self is_jetgun_firing() && jetgun_fired == 0 )
-    {
-        self.jetsound_ent playloopsound( "wpn_jetgun_effect_plr_loop", 0.8 );
-        self.jetsound_ent playsound( "wpn_jetgun_effect_plr_start" );
-        self notify( "jgun_snd" );
-    }
+	if ( self is_jetgun_firing() && jetgun_fired == 0 )
+	{
+		self.jetsound_ent playloopsound( "wpn_jetgun_effect_plr_loop", 0.8 );
+		self.jetsound_ent playsound( "wpn_jetgun_effect_plr_start" );
+		self notify( "jgun_snd" );
+	}
 
-    while ( self is_jetgun_firing() )
-    {
-        jetgun_fired = 1;
-        self thread jetgun_fired();
-        view_pos = self gettagorigin( "tag_flash" );
-        view_angles = self gettagangles( "tag_flash" );
+	while ( self is_jetgun_firing() )
+	{
+		jetgun_fired = 1;
+		self thread jetgun_fired();
+		view_pos = self gettagorigin( "tag_flash" );
+		view_angles = self gettagangles( "tag_flash" );
 
-        if ( self get_jetgun_engine_direction() < 0 )
-            playfx( level._effect["jetgun_smoke_cloud"], view_pos - self getplayerviewheight(), anglestoforward( view_angles ), anglestoup( view_angles ) );
-        else
-            playfx( level._effect["jetgun_smoke_cloud"], view_pos - self getplayerviewheight(), anglestoforward( view_angles ) * -1, anglestoup( view_angles ) );
+		if ( self get_jetgun_engine_direction() < 0 )
+			playfx( level._effect["jetgun_smoke_cloud"], view_pos - self getplayerviewheight(), anglestoforward( view_angles ), anglestoup( view_angles ) );
+		else
+			playfx( level._effect["jetgun_smoke_cloud"], view_pos - self getplayerviewheight(), anglestoforward( view_angles ) * -1, anglestoup( view_angles ) );
 
-        wait 0.25;
-    }
+		wait 0.25;
+	}
 
-    if ( jetgun_fired == 1 )
-    {
-        self.jetsound_ent stoploopsound( 0.5 );
-        self.jetsound_ent playsound( "wpn_jetgun_effect_plr_end" );
-        self thread sound_ent_cleanup();
-        jetgun_fired = 0;
-    }
+	if ( jetgun_fired == 1 )
+	{
+		self.jetsound_ent stoploopsound( 0.5 );
+		self.jetsound_ent playsound( "wpn_jetgun_effect_plr_end" );
+		self thread sound_ent_cleanup();
+		jetgun_fired = 0;
+	}
 }
 
 sound_ent_cleanup()
 {
-    self endon( "jgun_snd" );
-    wait 4;
+	self endon( "jgun_snd" );
+	wait 4;
 
-    if ( isdefined( self.jetsound_ent ) )
+	if ( isdefined( self.jetsound_ent ) )
 	{
 		self.jetsound_ent delete();
 	}
@@ -82,10 +82,10 @@ sound_ent_cleanup()
 
 is_jetgun_firing()
 {
-    if(!self attackButtonPressed())
-    {
-        return 0;
-    }
+	if(!self attackButtonPressed())
+	{
+		return 0;
+	}
 
 	return abs( self get_jetgun_engine_direction() ) > 0.2;
 }
@@ -148,14 +148,14 @@ jetgun_check_enemies_in_range( zombie, view_pos, drag_range_squared, gib_range_s
 	}
 	else
 	{
-        if ( !isDefined( zombie.ai_state ) || zombie.ai_state != "find_flesh" && zombie.ai_state != "zombieMoveOnBus" )
-        {
-            return;
-        }
-        if ( isDefined( zombie.in_the_ground ) && zombie.in_the_ground )
-        {
-            return;
-        }
+		if ( !isDefined( zombie.ai_state ) || zombie.ai_state != "find_flesh" && zombie.ai_state != "zombieMoveOnBus" )
+		{
+			return;
+		}
+		if ( isDefined( zombie.in_the_ground ) && zombie.in_the_ground )
+		{
+			return;
+		}
 
 		if ( test_range_squared < drag_range_squared && dot > 0 )
 		{
@@ -182,7 +182,7 @@ jetgun_grind_zombie( player )
 		}
 		self.nodeathragdoll = 1;
 		self.handle_death_notetracks = ::jetgun_handle_death_notetracks;
-        player maps\mp\zombies\_zm_score::add_to_player_score(50 * maps\mp\zombies\_zm_score::get_points_multiplier(player));
+		player maps\mp\zombies\_zm_score::add_to_player_score(50 * maps\mp\zombies\_zm_score::get_points_multiplier(player));
 		self dodamage( self.health + 666, player.origin, player );
 	}
 }
@@ -196,7 +196,7 @@ handle_overheated_jetgun()
 
 		if ( self getcurrentweapon() == "jetgun_zm" )
 		{
-            weapon_org = self gettagorigin( "tag_weapon" );
+			weapon_org = self gettagorigin( "tag_weapon" );
 
 			if ( isDefined( level.explode_overheated_jetgun ) && level.explode_overheated_jetgun )
 			{
@@ -207,23 +207,23 @@ handle_overheated_jetgun()
 			}
 			else if ( isDefined( level.unbuild_overheated_jetgun ) && level.unbuild_overheated_jetgun )
 			{
-                self thread maps\mp\zombies\_zm_equipment::equipment_release( "jetgun_zm" );
-                maps\mp\zombies\_zm_buildables::unbuild_buildable( "jetgun_zm", 1 );
-                self dodamage( 50, weapon_org );
+				self thread maps\mp\zombies\_zm_equipment::equipment_release( "jetgun_zm" );
+				maps\mp\zombies\_zm_buildables::unbuild_buildable( "jetgun_zm", 1 );
+				self dodamage( 50, weapon_org );
 			}
-            else if ( isDefined( level.take_overheated_jetgun ) && level.take_overheated_jetgun )
-            {
-                self thread maps\mp\zombies\_zm_equipment::equipment_release( "jetgun_zm" );
-                self dodamage( 50, weapon_org );
-            }
-            else
-            {
-                continue;
-            }
+			else if ( isDefined( level.take_overheated_jetgun ) && level.take_overheated_jetgun )
+			{
+				self thread maps\mp\zombies\_zm_equipment::equipment_release( "jetgun_zm" );
+				self dodamage( 50, weapon_org );
+			}
+			else
+			{
+				continue;
+			}
 
-            self.jetgun_overheating = undefined;
-            self.jetgun_heatval = undefined;
-            self playsound( "wpn_jetgun_explo" );
+			self.jetgun_overheating = undefined;
+			self.jetgun_heatval = undefined;
+			self playsound( "wpn_jetgun_explo" );
 		}
 	}
 }

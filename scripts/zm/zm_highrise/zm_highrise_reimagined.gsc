@@ -160,7 +160,7 @@ zm_traversal_override( traversealias )
 		self.pre_traverse = ::change_dierise_gap17c_low_to_high;
 	}
 
-    return traversealias;
+	return traversealias;
 }
 
 change_dierise_traverse_2_high_to_low()
@@ -196,9 +196,9 @@ slipgun_change_ammo()
 
 onbuyweapon_slipgun( player )
 {
-    player givestartammo( self.stub.weaponname );
-    player switchtoweapon( self.stub.weaponname );
-    level notify( "slipgun_bought", player );
+	player givestartammo( self.stub.weaponname );
+	player switchtoweapon( self.stub.weaponname );
+	level notify( "slipgun_bought", player );
 }
 
 elevator_call()
@@ -274,7 +274,7 @@ elevator_call_think()
 		self waittill( "trigger", who );
 
 		if ( !is_player_valid( who ) )
-        {
+		{
 			continue;
 		}
 
@@ -332,12 +332,12 @@ elevator_call_think()
 
 watch_elevator_prompt()
 {
-    while ( 1 )
-    {
-        self.elevator waittill( "floor_changed" );
+	while ( 1 )
+	{
+		self.elevator waittill( "floor_changed" );
 
 		self thread do_watch_elevator_prompt();
-    }
+	}
 }
 
 do_watch_elevator_prompt()
@@ -376,12 +376,12 @@ do_watch_elevator_prompt()
 
 watch_elevator_body_prompt()
 {
-    while ( 1 )
-    {
-        msg = self.elevator.body waittill_any_return( "movedone", "startwait" );
+	while ( 1 )
+	{
+		msg = self.elevator.body waittill_any_return( "movedone", "startwait" );
 
 		self thread do_watch_elevator_body_prompt( msg );
-    }
+	}
 }
 
 do_watch_elevator_body_prompt( msg )
@@ -465,7 +465,7 @@ escape_pod_call_think()
 		self waittill( "trigger", who );
 
 		if ( !is_player_valid( who ) )
-        {
+		{
 			continue;
 		}
 
@@ -494,7 +494,7 @@ zombie_bad_zone_watcher()
 	level endon( "end_game" );
 	level endon( "green_level3_door2" );
 
-    elevator_volume = getent( "elevator_1d", "targetname" );
+	elevator_volume = getent( "elevator_1d", "targetname" );
 
 	while ( 1 )
 	{
