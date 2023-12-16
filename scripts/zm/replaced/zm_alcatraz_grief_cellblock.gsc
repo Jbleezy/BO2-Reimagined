@@ -62,22 +62,22 @@ give_team_characters()
 	}
 	switch( self.characterindex )
 	{
-	case 0:
-	case 2:
-		self setmodel( "c_zom_player_grief_inmate_fb" );
-		self.voice = "american";
-		self.skeleton = "base";
-		self setviewmodel( "c_zom_oleary_shortsleeve_viewhands" );
-		self.characterindex = 0;
-		break;
-	case 1:
-	case 3:
-		self setmodel( "c_zom_player_grief_guard_fb" );
-		self.voice = "american";
-		self.skeleton = "base";
-		self setviewmodel( "c_zom_grief_guard_viewhands" );
-		self.characterindex = 1;
-		break;
+		case 0:
+		case 2:
+			self setmodel( "c_zom_player_grief_inmate_fb" );
+			self.voice = "american";
+			self.skeleton = "base";
+			self setviewmodel( "c_zom_oleary_shortsleeve_viewhands" );
+			self.characterindex = 0;
+			break;
+		case 1:
+		case 3:
+			self setmodel( "c_zom_player_grief_guard_fb" );
+			self.voice = "american";
+			self.skeleton = "base";
+			self setviewmodel( "c_zom_grief_guard_viewhands" );
+			self.characterindex = 1;
+			break;
 	}
 	self setmovespeedscale( 1 );
 	self setsprintduration( 4 );

@@ -54,15 +54,15 @@ player_add_points_kill_bonus( mod, hit_location )
 	{
 		switch ( hit_location )
 		{
-		case "helmet":
-		case "head":
-		case "neck":
-			self score_cf_increment_info( "death_head" );
-			score = level.zombie_vars["zombie_score_bonus_head"];
-			break;
-		default:
-			self score_cf_increment_info( "death_normal" );
-			break;
+			case "helmet":
+			case "head":
+			case "neck":
+				self score_cf_increment_info( "death_head" );
+				score = level.zombie_vars["zombie_score_bonus_head"];
+				break;
+			default:
+				self score_cf_increment_info( "death_normal" );
+				break;
 		}
 	}
 

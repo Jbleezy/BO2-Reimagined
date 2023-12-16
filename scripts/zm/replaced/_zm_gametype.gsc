@@ -357,18 +357,18 @@ menu_onmenuresponse()
 		{
 			switch ( response )
 			{
-			case "allies":
-				self [[ level.allies ]]();
-				break;
-			case "axis":
-				self [[ level.teammenu ]]( response );
-				break;
-			case "autoassign":
-				self [[ level.autoassign ]]( 1 );
-				break;
-			case "spectator":
-				self [[ level.spectator ]]();
-				break;
+				case "allies":
+					self [[ level.allies ]]();
+					break;
+				case "axis":
+					self [[ level.teammenu ]]( response );
+					break;
+				case "autoassign":
+					self [[ level.autoassign ]]( 1 );
+					break;
+				case "spectator":
+					self [[ level.spectator ]]();
+					break;
 			}
 
 			continue;

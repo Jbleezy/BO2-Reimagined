@@ -318,22 +318,22 @@ pts_springpad_fling( str_spot_name )
 
 	switch ( str_spot_name )
 	{
-	case "lion_pair_1":
-		str_anim1 = "dc";
-		str_anim2 = "cd";
-		break;
-	case "lion_pair_2":
-		str_anim1 = "ab";
-		str_anim2 = "ba";
-		break;
-	case "lion_pair_3":
-		str_anim1 = "cd";
-		str_anim2 = "dc";
-		break;
-	case "lion_pair_4":
-		str_anim1 = "ba";
-		str_anim2 = "ab";
-		break;
+		case "lion_pair_1":
+			str_anim1 = "dc";
+			str_anim2 = "cd";
+			break;
+		case "lion_pair_2":
+			str_anim1 = "ab";
+			str_anim2 = "ba";
+			break;
+		case "lion_pair_3":
+			str_anim1 = "cd";
+			str_anim2 = "dc";
+			break;
+		case "lion_pair_4":
+			str_anim1 = "ba";
+			str_anim2 = "ab";
+			break;
 	}
 
 	m_anim = spawn( "script_model", ( 2090, 675, 3542 ) );

@@ -328,15 +328,15 @@ quadrotor_set_available()
 
 	switch ( str_zone )
 	{
-	case "zone_nml_9":
-		setclientfield( "cooldown_steam", 1 );
-		break;
-	case "zone_bunker_5a":
-		setclientfield( "cooldown_steam", 2 );
-		break;
-	case "zone_village_1":
-		setclientfield( "cooldown_steam", 3 );
-		break;
+		case "zone_nml_9":
+			setclientfield( "cooldown_steam", 1 );
+			break;
+		case "zone_bunker_5a":
+			setclientfield( "cooldown_steam", 2 );
+			break;
+		case "zone_village_1":
+			setclientfield( "cooldown_steam", 3 );
+			break;
 	}
 
 	vox_line = "vox_maxi_drone_cool_down_3";

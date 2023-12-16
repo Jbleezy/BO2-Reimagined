@@ -153,74 +153,74 @@ powerup_grab( powerup_team )
 				{
 					switch ( self.powerup_name )
 					{
-					case "nuke":
-						level thread nuke_powerup( self, players[i].team );
-						players[i] thread powerup_vo( "nuke" );
-						zombies = getaiarray( level.zombie_team );
-						players[i].zombie_nuked = arraysort( zombies, self.origin );
-						players[i] notify( "nuke_triggered" );
-						break;
-					case "full_ammo":
-						level thread full_ammo_powerup( self, players[i] );
-						players[i] thread powerup_vo( "full_ammo" );
-						break;
-					case "double_points":
-						level thread double_points_powerup( self, players[i] );
-						players[i] thread powerup_vo( "double_points" );
-						break;
-					case "insta_kill":
-						level thread insta_kill_powerup( self, players[i] );
-						players[i] thread powerup_vo( "insta_kill" );
-						break;
-					case "carpenter":
-						if ( is_classic() )
-							players[i] thread maps\mp\zombies\_zm_pers_upgrades::persistent_carpenter_ability_check();
+						case "nuke":
+							level thread nuke_powerup( self, players[i].team );
+							players[i] thread powerup_vo( "nuke" );
+							zombies = getaiarray( level.zombie_team );
+							players[i].zombie_nuked = arraysort( zombies, self.origin );
+							players[i] notify( "nuke_triggered" );
+							break;
+						case "full_ammo":
+							level thread full_ammo_powerup( self, players[i] );
+							players[i] thread powerup_vo( "full_ammo" );
+							break;
+						case "double_points":
+							level thread double_points_powerup( self, players[i] );
+							players[i] thread powerup_vo( "double_points" );
+							break;
+						case "insta_kill":
+							level thread insta_kill_powerup( self, players[i] );
+							players[i] thread powerup_vo( "insta_kill" );
+							break;
+						case "carpenter":
+							if ( is_classic() )
+								players[i] thread maps\mp\zombies\_zm_pers_upgrades::persistent_carpenter_ability_check();
 
-						if ( isdefined( level.use_new_carpenter_func ) )
-							level thread [[ level.use_new_carpenter_func ]]( self.origin );
-						else
-							level thread start_carpenter( self.origin );
+							if ( isdefined( level.use_new_carpenter_func ) )
+								level thread [[ level.use_new_carpenter_func ]]( self.origin );
+							else
+								level thread start_carpenter( self.origin );
 
-						players[i] thread powerup_vo( "carpenter" );
-						break;
-					case "fire_sale":
-						level thread start_fire_sale( self );
-						players[i] thread powerup_vo( "firesale" );
-						break;
-					case "bonfire_sale":
-						level thread start_bonfire_sale( self );
-						players[i] thread powerup_vo( "firesale" );
-						break;
-					case "minigun":
-						level thread minigun_weapon_powerup( players[i] );
-						players[i] thread powerup_vo( "minigun" );
-						break;
-					case "free_perk":
-						level thread free_perk_powerup( self );
-						break;
-					case "tesla":
-						level thread tesla_weapon_powerup( players[i] );
-						players[i] thread powerup_vo( "tesla" );
-						break;
-					case "random_weapon":
-						if ( !level random_weapon_powerup( self, players[i] ) )
-							continue;
-						break;
-					case "bonus_points_player":
-						level thread bonus_points_player_powerup( self, players[i] );
-						players[i] thread powerup_vo( "bonus_points_solo" );
-						break;
-					case "bonus_points_team":
-						level thread bonus_points_team_powerup( self );
-						players[i] thread powerup_vo( "bonus_points_team" );
-						break;
-					case "teller_withdrawl":
-						level thread teller_withdrawl( self, players[i] );
-						break;
-					default:
-						if ( isdefined( level._zombiemode_powerup_grab ) )
-							level thread [[ level._zombiemode_powerup_grab ]]( self, players[i] );
-						break;
+							players[i] thread powerup_vo( "carpenter" );
+							break;
+						case "fire_sale":
+							level thread start_fire_sale( self );
+							players[i] thread powerup_vo( "firesale" );
+							break;
+						case "bonfire_sale":
+							level thread start_bonfire_sale( self );
+							players[i] thread powerup_vo( "firesale" );
+							break;
+						case "minigun":
+							level thread minigun_weapon_powerup( players[i] );
+							players[i] thread powerup_vo( "minigun" );
+							break;
+						case "free_perk":
+							level thread free_perk_powerup( self );
+							break;
+						case "tesla":
+							level thread tesla_weapon_powerup( players[i] );
+							players[i] thread powerup_vo( "tesla" );
+							break;
+						case "random_weapon":
+							if ( !level random_weapon_powerup( self, players[i] ) )
+								continue;
+							break;
+						case "bonus_points_player":
+							level thread bonus_points_player_powerup( self, players[i] );
+							players[i] thread powerup_vo( "bonus_points_solo" );
+							break;
+						case "bonus_points_team":
+							level thread bonus_points_team_powerup( self );
+							players[i] thread powerup_vo( "bonus_points_team" );
+							break;
+						case "teller_withdrawl":
+							level thread teller_withdrawl( self, players[i] );
+							break;
+						default:
+							if ( isdefined( level._zombiemode_powerup_grab ) )
+								level thread [[ level._zombiemode_powerup_grab ]]( self, players[i] );
+							break;
 					}
 				}
 

@@ -152,58 +152,58 @@ busschedulethink()
 
 				switch ( zonename )
 				{
-				case "zone_station_ext":
-					zonestocheck[zonestocheck.size] = "zone_trans_1";
-					zonestocheck[zonestocheck.size] = "zone_pri";
-					zonestocheck[zonestocheck.size] = "zone_pri2";
-					zonestocheck[zonestocheck.size] = "zone_amb_bridge";
-					zonestocheck[zonestocheck.size] = "zone_trans_2b";
-					break;
-				case "zone_gas":
-					zonestocheck[zonestocheck.size] = "zone_trans_2";
-					zonestocheck[zonestocheck.size] = "zone_amb_tunnel";
-					zonestocheck[zonestocheck.size] = "zone_gar";
-					zonestocheck[zonestocheck.size] = "zone_trans_diner";
-					zonestocheck[zonestocheck.size] = "zone_trans_diner2";
-					zonestocheck[zonestocheck.size] = "zone_diner_roof";
-					zonestocheck[zonestocheck.size] = "zone_din";
-					zonestocheck[zonestocheck.size] = "zone_roadside_west";
-					zonestocheck[zonestocheck.size] = "zone_roadside_east";
-					zonestocheck[zonestocheck.size] = "zone_trans_3";
-					break;
-				case "zone_far":
-					zonestocheck[zonestocheck.size] = "zone_amb_forest";
-					zonestocheck[zonestocheck.size] = "zone_far_ext";
-					zonestocheck[zonestocheck.size] = "zone_farm_house";
-					zonestocheck[zonestocheck.size] = "zone_brn";
-					zonestocheck[zonestocheck.size] = "zone_trans_5";
-					zonestocheck[zonestocheck.size] = "zone_trans_6";
-					break;
-				case "zone_pow":
-					zonestocheck[zonestocheck.size] = "zone_trans_6";
-					zonestocheck[zonestocheck.size] = "zone_amb_cornfield";
-					zonestocheck[zonestocheck.size] = "zone_trans_7";
-					zonestocheck[zonestocheck.size] = "zone_pow_ext1";
-					zonestocheck[zonestocheck.size] = "zone_prr";
-					zonestocheck[zonestocheck.size] = "zone_pcr";
-					zonestocheck[zonestocheck.size] = "zone_pow_warehouse";
-					break;
-				case "zone_town_north":
-					zonestocheck[zonestocheck.size] = "zone_trans_8";
-					zonestocheck[zonestocheck.size] = "zone_amb_power2town";
-					zonestocheck[zonestocheck.size] = "zone_tbu";
-					zonestocheck[zonestocheck.size] = "zone_town_church";
-					zonestocheck[zonestocheck.size] = "zone_bar";
-					zonestocheck[zonestocheck.size] = "zone_town_east";
-					zonestocheck[zonestocheck.size] = "zone_tow";
-					zonestocheck[zonestocheck.size] = "zone_ban";
-					zonestocheck[zonestocheck.size] = "zone_ban_vault";
-					zonestocheck[zonestocheck.size] = "zone_town_west";
-					zonestocheck[zonestocheck.size] = "zone_town_west2";
-					zonestocheck[zonestocheck.size] = "zone_town_barber";
-					zonestocheck[zonestocheck.size] = "zone_town_south";
-					zonestocheck[zonestocheck.size] = "zone_trans_9";
-					break;
+					case "zone_station_ext":
+						zonestocheck[zonestocheck.size] = "zone_trans_1";
+						zonestocheck[zonestocheck.size] = "zone_pri";
+						zonestocheck[zonestocheck.size] = "zone_pri2";
+						zonestocheck[zonestocheck.size] = "zone_amb_bridge";
+						zonestocheck[zonestocheck.size] = "zone_trans_2b";
+						break;
+					case "zone_gas":
+						zonestocheck[zonestocheck.size] = "zone_trans_2";
+						zonestocheck[zonestocheck.size] = "zone_amb_tunnel";
+						zonestocheck[zonestocheck.size] = "zone_gar";
+						zonestocheck[zonestocheck.size] = "zone_trans_diner";
+						zonestocheck[zonestocheck.size] = "zone_trans_diner2";
+						zonestocheck[zonestocheck.size] = "zone_diner_roof";
+						zonestocheck[zonestocheck.size] = "zone_din";
+						zonestocheck[zonestocheck.size] = "zone_roadside_west";
+						zonestocheck[zonestocheck.size] = "zone_roadside_east";
+						zonestocheck[zonestocheck.size] = "zone_trans_3";
+						break;
+					case "zone_far":
+						zonestocheck[zonestocheck.size] = "zone_amb_forest";
+						zonestocheck[zonestocheck.size] = "zone_far_ext";
+						zonestocheck[zonestocheck.size] = "zone_farm_house";
+						zonestocheck[zonestocheck.size] = "zone_brn";
+						zonestocheck[zonestocheck.size] = "zone_trans_5";
+						zonestocheck[zonestocheck.size] = "zone_trans_6";
+						break;
+					case "zone_pow":
+						zonestocheck[zonestocheck.size] = "zone_trans_6";
+						zonestocheck[zonestocheck.size] = "zone_amb_cornfield";
+						zonestocheck[zonestocheck.size] = "zone_trans_7";
+						zonestocheck[zonestocheck.size] = "zone_pow_ext1";
+						zonestocheck[zonestocheck.size] = "zone_prr";
+						zonestocheck[zonestocheck.size] = "zone_pcr";
+						zonestocheck[zonestocheck.size] = "zone_pow_warehouse";
+						break;
+					case "zone_town_north":
+						zonestocheck[zonestocheck.size] = "zone_trans_8";
+						zonestocheck[zonestocheck.size] = "zone_amb_power2town";
+						zonestocheck[zonestocheck.size] = "zone_tbu";
+						zonestocheck[zonestocheck.size] = "zone_town_church";
+						zonestocheck[zonestocheck.size] = "zone_bar";
+						zonestocheck[zonestocheck.size] = "zone_town_east";
+						zonestocheck[zonestocheck.size] = "zone_tow";
+						zonestocheck[zonestocheck.size] = "zone_ban";
+						zonestocheck[zonestocheck.size] = "zone_ban_vault";
+						zonestocheck[zonestocheck.size] = "zone_town_west";
+						zonestocheck[zonestocheck.size] = "zone_town_west2";
+						zonestocheck[zonestocheck.size] = "zone_town_barber";
+						zonestocheck[zonestocheck.size] = "zone_town_south";
+						zonestocheck[zonestocheck.size] = "zone_trans_9";
+						break;
 				}
 
 				foreach ( zone in zonestocheck )

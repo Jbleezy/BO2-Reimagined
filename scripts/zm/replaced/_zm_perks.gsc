@@ -150,38 +150,38 @@ vending_trigger_think()
 
 	switch ( perk )
 	{
-	case "specialty_armorvest_upgrade":
-	case "specialty_armorvest":
-		cost = 2500;
-		break;
-	case "specialty_quickrevive_upgrade":
-	case "specialty_quickrevive":
-		if ( solo )
-			cost = 500;
-		else
-			cost = 1500;
+		case "specialty_armorvest_upgrade":
+		case "specialty_armorvest":
+			cost = 2500;
+			break;
+		case "specialty_quickrevive_upgrade":
+		case "specialty_quickrevive":
+			if ( solo )
+				cost = 500;
+			else
+				cost = 1500;
 
-		break;
-	case "specialty_fastreload_upgrade":
-	case "specialty_fastreload":
-		cost = 3000;
-		break;
-	case "specialty_rof_upgrade":
-	case "specialty_rof":
-		cost = 2000;
-		break;
-	case "specialty_longersprint_upgrade":
-	case "specialty_longersprint":
-		cost = 2000;
-		break;
-	case "specialty_deadshot_upgrade":
-	case "specialty_deadshot":
-		cost = 1500;
-		break;
-	case "specialty_additionalprimaryweapon_upgrade":
-	case "specialty_additionalprimaryweapon":
-		cost = 4000;
-		break;
+			break;
+		case "specialty_fastreload_upgrade":
+		case "specialty_fastreload":
+			cost = 3000;
+			break;
+		case "specialty_rof_upgrade":
+		case "specialty_rof":
+			cost = 2000;
+			break;
+		case "specialty_longersprint_upgrade":
+		case "specialty_longersprint":
+			cost = 2000;
+			break;
+		case "specialty_deadshot_upgrade":
+		case "specialty_deadshot":
+			cost = 1500;
+			break;
+		case "specialty_additionalprimaryweapon_upgrade":
+		case "specialty_additionalprimaryweapon":
+			cost = 4000;
+			break;
 	}
 
 	if ( isdefined( level._custom_perks[perk] ) && isdefined( level._custom_perks[perk].cost ) )
@@ -211,48 +211,48 @@ vending_trigger_think()
 
 	switch ( perk )
 	{
-	case "specialty_armorvest_upgrade":
-	case "specialty_armorvest":
-		self sethintstring( &"ZOMBIE_PERK_JUGGERNAUT", cost );
-		break;
-	case "specialty_quickrevive_upgrade":
-	case "specialty_quickrevive":
-		if ( solo )
-			self sethintstring( &"ZOMBIE_PERK_QUICKREVIVE_SOLO", cost );
-		else
-			self sethintstring( &"ZOMBIE_PERK_QUICKREVIVE", cost );
+		case "specialty_armorvest_upgrade":
+		case "specialty_armorvest":
+			self sethintstring( &"ZOMBIE_PERK_JUGGERNAUT", cost );
+			break;
+		case "specialty_quickrevive_upgrade":
+		case "specialty_quickrevive":
+			if ( solo )
+				self sethintstring( &"ZOMBIE_PERK_QUICKREVIVE_SOLO", cost );
+			else
+				self sethintstring( &"ZOMBIE_PERK_QUICKREVIVE", cost );
 
-		break;
-	case "specialty_fastreload_upgrade":
-	case "specialty_fastreload":
-		self sethintstring( &"ZOMBIE_PERK_FASTRELOAD", cost );
-		break;
-	case "specialty_rof_upgrade":
-	case "specialty_rof":
-		self sethintstring( &"ZOMBIE_PERK_DOUBLETAP", cost );
-		break;
-	case "specialty_longersprint_upgrade":
-	case "specialty_longersprint":
-		self sethintstring( &"ZOMBIE_PERK_MARATHON", cost );
-		break;
-	case "specialty_deadshot_upgrade":
-	case "specialty_deadshot":
-		self sethintstring( &"ZOMBIE_PERK_DEADSHOT", cost );
-		break;
-	case "specialty_additionalprimaryweapon_upgrade":
-	case "specialty_additionalprimaryweapon":
-		self sethintstring( &"ZOMBIE_PERK_ADDITIONALPRIMARYWEAPON", cost );
-		break;
-	case "specialty_scavenger_upgrade":
-	case "specialty_scavenger":
-		self sethintstring( &"ZOMBIE_PERK_TOMBSTONE", cost );
-		break;
-	case "specialty_finalstand_upgrade":
-	case "specialty_finalstand":
-		self sethintstring( &"ZOMBIE_PERK_CHUGABUD", cost );
-		break;
-	default:
-		self sethintstring( perk + " Cost: " + level.zombie_vars["zombie_perk_cost"] );
+			break;
+		case "specialty_fastreload_upgrade":
+		case "specialty_fastreload":
+			self sethintstring( &"ZOMBIE_PERK_FASTRELOAD", cost );
+			break;
+		case "specialty_rof_upgrade":
+		case "specialty_rof":
+			self sethintstring( &"ZOMBIE_PERK_DOUBLETAP", cost );
+			break;
+		case "specialty_longersprint_upgrade":
+		case "specialty_longersprint":
+			self sethintstring( &"ZOMBIE_PERK_MARATHON", cost );
+			break;
+		case "specialty_deadshot_upgrade":
+		case "specialty_deadshot":
+			self sethintstring( &"ZOMBIE_PERK_DEADSHOT", cost );
+			break;
+		case "specialty_additionalprimaryweapon_upgrade":
+		case "specialty_additionalprimaryweapon":
+			self sethintstring( &"ZOMBIE_PERK_ADDITIONALPRIMARYWEAPON", cost );
+			break;
+		case "specialty_scavenger_upgrade":
+		case "specialty_scavenger":
+			self sethintstring( &"ZOMBIE_PERK_TOMBSTONE", cost );
+			break;
+		case "specialty_finalstand_upgrade":
+		case "specialty_finalstand":
+			self sethintstring( &"ZOMBIE_PERK_CHUGABUD", cost );
+			break;
+		default:
+			self sethintstring( perk + " Cost: " + level.zombie_vars["zombie_perk_cost"] );
 	}
 
 	if ( isdefined( level._custom_perks[perk] ) && isdefined( level._custom_perks[perk].hint_string ) )
@@ -389,48 +389,48 @@ perk_give_bottle_end( gun, perk )
 
 	switch ( perk )
 	{
-	case "specialty_rof_upgrade":
-	case "specialty_rof":
-		weapon = level.machine_assets["doubletap"].weapon;
-		break;
-	case "specialty_longersprint_upgrade":
-	case "specialty_longersprint":
-		weapon = level.machine_assets["marathon"].weapon;
-		break;
-	case "specialty_flakjacket_upgrade":
-	case "specialty_flakjacket":
-		weapon = level.machine_assets["divetonuke"].weapon;
-		break;
-	case "specialty_armorvest_upgrade":
-	case "specialty_armorvest":
-		weapon = level.machine_assets["juggernog"].weapon;
-		self.jugg_used = 1;
-		break;
-	case "specialty_quickrevive_upgrade":
-	case "specialty_quickrevive":
-		weapon = level.machine_assets["revive"].weapon;
-		break;
-	case "specialty_fastreload_upgrade":
-	case "specialty_fastreload":
-		weapon = level.machine_assets["speedcola"].weapon;
-		self.speed_used = 1;
-		break;
-	case "specialty_deadshot_upgrade":
-	case "specialty_deadshot":
-		weapon = level.machine_assets["deadshot"].weapon;
-		break;
-	case "specialty_additionalprimaryweapon_upgrade":
-	case "specialty_additionalprimaryweapon":
-		weapon = level.machine_assets["additionalprimaryweapon"].weapon;
-		break;
-	case "specialty_scavenger_upgrade":
-	case "specialty_scavenger":
-		weapon = level.machine_assets["tombstone"].weapon;
-		break;
-	case "specialty_finalstand_upgrade":
-	case "specialty_finalstand":
-		weapon = level.machine_assets["whoswho"].weapon;
-		break;
+		case "specialty_rof_upgrade":
+		case "specialty_rof":
+			weapon = level.machine_assets["doubletap"].weapon;
+			break;
+		case "specialty_longersprint_upgrade":
+		case "specialty_longersprint":
+			weapon = level.machine_assets["marathon"].weapon;
+			break;
+		case "specialty_flakjacket_upgrade":
+		case "specialty_flakjacket":
+			weapon = level.machine_assets["divetonuke"].weapon;
+			break;
+		case "specialty_armorvest_upgrade":
+		case "specialty_armorvest":
+			weapon = level.machine_assets["juggernog"].weapon;
+			self.jugg_used = 1;
+			break;
+		case "specialty_quickrevive_upgrade":
+		case "specialty_quickrevive":
+			weapon = level.machine_assets["revive"].weapon;
+			break;
+		case "specialty_fastreload_upgrade":
+		case "specialty_fastreload":
+			weapon = level.machine_assets["speedcola"].weapon;
+			self.speed_used = 1;
+			break;
+		case "specialty_deadshot_upgrade":
+		case "specialty_deadshot":
+			weapon = level.machine_assets["deadshot"].weapon;
+			break;
+		case "specialty_additionalprimaryweapon_upgrade":
+		case "specialty_additionalprimaryweapon":
+			weapon = level.machine_assets["additionalprimaryweapon"].weapon;
+			break;
+		case "specialty_scavenger_upgrade":
+		case "specialty_scavenger":
+			weapon = level.machine_assets["tombstone"].weapon;
+			break;
+		case "specialty_finalstand_upgrade":
+		case "specialty_finalstand":
+			weapon = level.machine_assets["whoswho"].weapon;
+			break;
 	}
 
 	if ( isdefined( level._custom_perks[perk] ) && isdefined( level._custom_perks[perk].perk_bottle ) )
@@ -800,27 +800,27 @@ perk_think( perk )
 
 	switch( perk )
 	{
-	case "specialty_armorvest":
-		self setmaxhealth( self.premaxhealth );
-		break;
-	case "specialty_additionalprimaryweapon":
-		if ( result == perk_str )
-		{
-			self maps\mp\zombies\_zm::take_additionalprimaryweapon();
-		}
-		break;
-	case "specialty_deadshot":
-		if ( !is_true( level.disable_deadshot_clientfield ) )
-		{
-			self setclientfieldtoplayer( "deadshot_perk", 0 );
-		}
-		break;
-	case "specialty_deadshot_upgrade":
-		if ( !is_true( level.disable_deadshot_clientfield ) )
-		{
-			self setclientfieldtoplayer( "deadshot_perk", 0 );
-		}
-		break;
+		case "specialty_armorvest":
+			self setmaxhealth( self.premaxhealth );
+			break;
+		case "specialty_additionalprimaryweapon":
+			if ( result == perk_str )
+			{
+				self maps\mp\zombies\_zm::take_additionalprimaryweapon();
+			}
+			break;
+		case "specialty_deadshot":
+			if ( !is_true( level.disable_deadshot_clientfield ) )
+			{
+				self setclientfieldtoplayer( "deadshot_perk", 0 );
+			}
+			break;
+		case "specialty_deadshot_upgrade":
+			if ( !is_true( level.disable_deadshot_clientfield ) )
+			{
+				self setclientfieldtoplayer( "deadshot_perk", 0 );
+			}
+			break;
 	}
 	if ( isDefined( level._custom_perks[ perk ] ) && isDefined( level._custom_perks[ perk ].player_thread_take ) )
 	{
@@ -923,38 +923,38 @@ set_perk_clientfield( perk, state )
 {
 	switch ( perk )
 	{
-	case "specialty_additionalprimaryweapon":
-		self setclientfieldtoplayer( "perk_additional_primary_weapon", state );
-		break;
-	case "specialty_deadshot":
-		self setclientfieldtoplayer( "perk_dead_shot", state );
-		break;
-	case "specialty_flakjacket":
-		self setclientfieldtoplayer( "perk_dive_to_nuke", state );
-		break;
-	case "specialty_rof":
-		self setclientfieldtoplayer( "perk_double_tap", state );
-		break;
-	case "specialty_armorvest":
-		self setclientfieldtoplayer( "perk_juggernaut", state );
-		break;
-	case "specialty_movefaster":
-		self setclientfieldtoplayer( "perk_marathon", state );
-		break;
-	case "specialty_quickrevive":
-		self setclientfieldtoplayer( "perk_quick_revive", state );
-		break;
-	case "specialty_fastreload":
-		self setclientfieldtoplayer( "perk_sleight_of_hand", state );
-		break;
-	case "specialty_scavenger":
-		self setclientfieldtoplayer( "perk_tombstone", state );
-		break;
-	case "specialty_finalstand":
-		self setclientfieldtoplayer( "perk_chugabud", state );
-		break;
-	default:
-		break;
+		case "specialty_additionalprimaryweapon":
+			self setclientfieldtoplayer( "perk_additional_primary_weapon", state );
+			break;
+		case "specialty_deadshot":
+			self setclientfieldtoplayer( "perk_dead_shot", state );
+			break;
+		case "specialty_flakjacket":
+			self setclientfieldtoplayer( "perk_dive_to_nuke", state );
+			break;
+		case "specialty_rof":
+			self setclientfieldtoplayer( "perk_double_tap", state );
+			break;
+		case "specialty_armorvest":
+			self setclientfieldtoplayer( "perk_juggernaut", state );
+			break;
+		case "specialty_movefaster":
+			self setclientfieldtoplayer( "perk_marathon", state );
+			break;
+		case "specialty_quickrevive":
+			self setclientfieldtoplayer( "perk_quick_revive", state );
+			break;
+		case "specialty_fastreload":
+			self setclientfieldtoplayer( "perk_sleight_of_hand", state );
+			break;
+		case "specialty_scavenger":
+			self setclientfieldtoplayer( "perk_tombstone", state );
+			break;
+		case "specialty_finalstand":
+			self setclientfieldtoplayer( "perk_chugabud", state );
+			break;
+		default:
+			break;
 	}
 
 	if ( isdefined( level._custom_perks[perk] ) && isdefined( level._custom_perks[perk].clientfield_set ) )

@@ -224,25 +224,25 @@ sloth_barricades_buyable()
 
 		switch(debris_trig.script_location)
 		{
-		case "juggernaut_alley":
-		case "stables_alley":
-			debris_trig.zombie_cost = 750;
-			break;
+			case "juggernaut_alley":
+			case "stables_alley":
+				debris_trig.zombie_cost = 750;
+				break;
 
-		case "jail":
-		case "gunstore":
-		case "mansion":
-			debris_trig.zombie_cost = 1000;
-			break;
+			case "jail":
+			case "gunstore":
+			case "mansion":
+				debris_trig.zombie_cost = 1000;
+				break;
 
-		case "candystore_alley":
-		case "church":
-			debris_trig.zombie_cost = 1250;
-			break;
+			case "candystore_alley":
+			case "church":
+				debris_trig.zombie_cost = 1250;
+				break;
 
-		default:
-			debris_trig.zombie_cost = 1000;
-			break;
+			default:
+				debris_trig.zombie_cost = 1000;
+				break;
 		}
 
 		debris_trig thread sloth_barricade_think();

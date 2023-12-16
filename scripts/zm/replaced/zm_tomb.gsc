@@ -63,15 +63,15 @@ sndmeleewpn_isstaff( weapon )
 {
 	switch ( weapon )
 	{
-	case "staff_water_melee_zm":
-	case "staff_melee_zm":
-	case "staff_lightning_melee_zm":
-	case "staff_fire_melee_zm":
-	case "staff_air_melee_zm":
-		isstaff = 1;
-		break;
-	default:
-		isstaff = 0;
+		case "staff_water_melee_zm":
+		case "staff_melee_zm":
+		case "staff_lightning_melee_zm":
+		case "staff_fire_melee_zm":
+		case "staff_air_melee_zm":
+			isstaff = 1;
+			break;
+		default:
+			isstaff = 0;
 	}
 
 	return isstaff;
@@ -84,45 +84,45 @@ tomb_can_track_ammo_custom( weap )
 
 	switch ( weap )
 	{
-	case "zombie_tazer_flourish":
-	case "zombie_sickle_flourish":
-	case "zombie_one_inch_punch_upgrade_flourish":
-	case "zombie_one_inch_punch_flourish":
-	case "zombie_knuckle_crack":
-	case "zombie_fists_zm":
-	case "zombie_builder_zm":
-	case "zombie_bowie_flourish":
-	case "time_bomb_zm":
-	case "time_bomb_detonator_zm":
-	case "tazer_knuckles_zm":
-	case "tazer_knuckles_upgraded_zm":
-	case "staff_revive_zm":
-	case "slowgun_zm":
-	case "slowgun_upgraded_zm":
-	case "screecher_arms_zm":
-	case "riotshield_zm":
-	case "one_inch_punch_zm":
-	case "one_inch_punch_upgraded_zm":
-	case "one_inch_punch_lightning_zm":
-	case "one_inch_punch_ice_zm":
-	case "one_inch_punch_fire_zm":
-	case "one_inch_punch_air_zm":
-	case "none":
-	case "no_hands_zm":
-	case "lower_equip_gasmask_zm":
-	case "humangun_zm":
-	case "humangun_upgraded_zm":
-	case "falling_hands_tomb_zm":
-	case "equip_gasmask_zm":
-	case "equip_dieseldrone_zm":
-	case "death_throe_zm":
-	case "chalk_draw_zm":
-	case "alcatraz_shield_zm":
-	case "tomb_shield_zm":
-		return false;
-	default:
-		if ( is_melee_weapon( weap ) || is_zombie_perk_bottle( weap ) || is_placeable_mine( weap ) || is_equipment( weap ) || issubstr( weap, "knife_ballistic_" ) || getsubstr( weap, 0, 3 ) == "gl_" || weaponfuellife( weap ) > 0 || weap == level.revive_tool )
+		case "zombie_tazer_flourish":
+		case "zombie_sickle_flourish":
+		case "zombie_one_inch_punch_upgrade_flourish":
+		case "zombie_one_inch_punch_flourish":
+		case "zombie_knuckle_crack":
+		case "zombie_fists_zm":
+		case "zombie_builder_zm":
+		case "zombie_bowie_flourish":
+		case "time_bomb_zm":
+		case "time_bomb_detonator_zm":
+		case "tazer_knuckles_zm":
+		case "tazer_knuckles_upgraded_zm":
+		case "staff_revive_zm":
+		case "slowgun_zm":
+		case "slowgun_upgraded_zm":
+		case "screecher_arms_zm":
+		case "riotshield_zm":
+		case "one_inch_punch_zm":
+		case "one_inch_punch_upgraded_zm":
+		case "one_inch_punch_lightning_zm":
+		case "one_inch_punch_ice_zm":
+		case "one_inch_punch_fire_zm":
+		case "one_inch_punch_air_zm":
+		case "none":
+		case "no_hands_zm":
+		case "lower_equip_gasmask_zm":
+		case "humangun_zm":
+		case "humangun_upgraded_zm":
+		case "falling_hands_tomb_zm":
+		case "equip_gasmask_zm":
+		case "equip_dieseldrone_zm":
+		case "death_throe_zm":
+		case "chalk_draw_zm":
+		case "alcatraz_shield_zm":
+		case "tomb_shield_zm":
 			return false;
+		default:
+			if ( is_melee_weapon( weap ) || is_zombie_perk_bottle( weap ) || is_placeable_mine( weap ) || is_equipment( weap ) || issubstr( weap, "knife_ballistic_" ) || getsubstr( weap, 0, 3 ) == "gl_" || weaponfuellife( weap ) > 0 || weap == level.revive_tool )
+				return false;
 	}
 
 	return true;

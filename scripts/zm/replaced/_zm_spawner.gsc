@@ -196,64 +196,64 @@ zombie_gib_on_damage()
 
 			switch ( self.damagelocation )
 			{
-			case "torso_upper":
-			case "torso_lower":
-				refs[refs.size] = "guts";
-				refs[refs.size] = "right_arm";
-				break;
-			case "right_hand":
-			case "right_arm_upper":
-			case "right_arm_lower":
-				refs[refs.size] = "right_arm";
-				break;
-			case "left_hand":
-			case "left_arm_upper":
-			case "left_arm_lower":
-				refs[refs.size] = "left_arm";
-				break;
-			case "right_leg_upper":
-			case "right_leg_lower":
-			case "right_foot":
-				if ( self.health <= 0 )
-				{
-					refs[refs.size] = "right_leg";
-					refs[refs.size] = "right_leg";
-					refs[refs.size] = "right_leg";
-					refs[refs.size] = "no_legs";
-				}
-
-				break;
-			case "left_leg_upper":
-			case "left_leg_lower":
-			case "left_foot":
-				if ( self.health <= 0 )
-				{
-					refs[refs.size] = "left_leg";
-					refs[refs.size] = "left_leg";
-					refs[refs.size] = "left_leg";
-					refs[refs.size] = "no_legs";
-				}
-
-				break;
-			default:
-				if ( self.damagelocation == "none" )
-				{
-					if ( type == "MOD_GRENADE" || type == "MOD_GRENADE_SPLASH" || type == "MOD_PROJECTILE" || type == "MOD_PROJECTILE_SPLASH" )
-					{
-						refs = self derive_damage_refs( point );
-						break;
-					}
-				}
-				else
-				{
+				case "torso_upper":
+				case "torso_lower":
 					refs[refs.size] = "guts";
 					refs[refs.size] = "right_arm";
-					refs[refs.size] = "left_arm";
-					refs[refs.size] = "right_leg";
-					refs[refs.size] = "left_leg";
-					refs[refs.size] = "no_legs";
 					break;
-				}
+				case "right_hand":
+				case "right_arm_upper":
+				case "right_arm_lower":
+					refs[refs.size] = "right_arm";
+					break;
+				case "left_hand":
+				case "left_arm_upper":
+				case "left_arm_lower":
+					refs[refs.size] = "left_arm";
+					break;
+				case "right_leg_upper":
+				case "right_leg_lower":
+				case "right_foot":
+					if ( self.health <= 0 )
+					{
+						refs[refs.size] = "right_leg";
+						refs[refs.size] = "right_leg";
+						refs[refs.size] = "right_leg";
+						refs[refs.size] = "no_legs";
+					}
+
+					break;
+				case "left_leg_upper":
+				case "left_leg_lower":
+				case "left_foot":
+					if ( self.health <= 0 )
+					{
+						refs[refs.size] = "left_leg";
+						refs[refs.size] = "left_leg";
+						refs[refs.size] = "left_leg";
+						refs[refs.size] = "no_legs";
+					}
+
+					break;
+				default:
+					if ( self.damagelocation == "none" )
+					{
+						if ( type == "MOD_GRENADE" || type == "MOD_GRENADE_SPLASH" || type == "MOD_PROJECTILE" || type == "MOD_PROJECTILE_SPLASH" )
+						{
+							refs = self derive_damage_refs( point );
+							break;
+						}
+					}
+					else
+					{
+						refs[refs.size] = "guts";
+						refs[refs.size] = "right_arm";
+						refs[refs.size] = "left_arm";
+						refs[refs.size] = "right_leg";
+						refs[refs.size] = "left_leg";
+						refs[refs.size] = "no_legs";
+						break;
+					}
 			}
 
 			if ( isdefined( level.custom_derive_damage_refs ) )

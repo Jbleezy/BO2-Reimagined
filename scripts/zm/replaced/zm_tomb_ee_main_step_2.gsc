@@ -37,18 +37,18 @@ create_robot_head_trigger( unitrigger_stub )
 
 	switch ( unitrigger_stub.script_noteworthy )
 	{
-	case "fire":
-		m_sign showpart( "j_fire" );
-		break;
-	case "water":
-		m_sign showpart( "j_ice" );
-		break;
-	case "lightning":
-		m_sign showpart( "j_lightning" );
-		break;
-	case "air":
-		m_sign showpart( "j_wind" );
-		break;
+		case "fire":
+			m_sign showpart( "j_fire" );
+			break;
+		case "water":
+			m_sign showpart( "j_ice" );
+			break;
+		case "lightning":
+			m_sign showpart( "j_lightning" );
+			break;
+		case "air":
+			m_sign showpart( "j_wind" );
+			break;
 	}
 
 	m_sign maps\mp\zombies\_zm_powerup_zombie_blood::make_zombie_blood_entity();
