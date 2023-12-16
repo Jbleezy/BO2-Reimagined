@@ -143,15 +143,27 @@
 * Projectiles can be picked up while the weapon is not reloaded
 * Projectiles can be picked up while the player is not on the ground
 
+### Chicom CQB
+* Unupgraded: decreased clip ammo from 40 to 36
+* Unupgraded: increased stock ammo from 120 to 288
+* Upgraded: increased clip ammo from 40 to 48
+* Upgraded: increased stock ammo from 200 to 384
+
 ### Executioner
 * Increased penetration
 
 ### Five-seven Dual Wield
-* Decreased stock ammo from 225 to 210 on all maps
+* Unupgraded: decreased stock ammo from 225 to 210 on all maps
 * Upgraded: decreased stock ammo from 295 to 280 on all maps
 
 ### HAMR
 * Decreased recoil
+
+### KAP-40
+* Removed delay between last shot and reload
+* Unupgraded: increased clip ammo from 12 to 15
+* Unupgraded: increased stock ammo from 96 to 240
+* Upgraded: increased stock ammo from 180 to 360
 
 ### M1216
 * Increased penetration
@@ -191,6 +203,8 @@
 
 ### Type 25
 * Decreased recoil
+* Unupgraded: increased stock ammo from 150 to 300
+* Upgraded: increased stock ammo from 270 to 450
 
 ### War Machine
 * Unupgraded: grenades explode on impact
