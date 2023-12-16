@@ -252,8 +252,6 @@ on_player_spawned()
 
 			self thread weapon_locker_give_ammo_after_rounds();
 
-			self thread jetgun_heatval_changes();
-
 			self thread additionalprimaryweapon_indicator();
 			self thread additionalprimaryweapon_stowed_weapon_refill();
 
@@ -3259,70 +3257,6 @@ remove_buildable_pieces( buildable_name )
 			}
 			return;
 		}
-	}
-}
-
-jetgun_heatval_changes()
-{
-	self endon("disconnect");
-
-	if(!maps\mp\zombies\_zm_weapons::is_weapon_included("jetgun_zm"))
-	{
-		return;
-	}
-
-	vars = [];
-
-	vars["prev_heatval"] = 0;
-	vars["cooldown_amount"] = 0.1;
-	vars["melee_overheat_amount"] = 0.475;
-
-	while(1)
-	{
-		if(!IsDefined(self.jetgun_heatval))
-		{
-			vars["prev_heatval"] = 0;
-			wait 0.05;
-			continue;
-		}
-
-		vars["curr_heatval"] = self.jetgun_heatval;
-		vars["diff_heatval"] = vars["curr_heatval"] - vars["prev_heatval"];
-
-		if(self getCurrentWeapon() != "jetgun_zm")
-		{
-			self.jetgun_heatval -= vars["cooldown_amount"];
-		}
-		else if(self getCurrentWeapon() == "jetgun_zm" && self attackButtonPressed() && self isMeleeing())
-		{
-			self.jetgun_heatval += vars["melee_overheat_amount"];
-		}
-		else if(self getCurrentWeapon() == "jetgun_zm" && self attackButtonPressed())
-		{
-			self.jetgun_heatval -= abs(vars["diff_heatval"]) / 2;
-		}
-		else if(vars["diff_heatval"] < 0)
-		{
-			self.jetgun_heatval -= abs(vars["diff_heatval"]);
-		}
-
-		if(self.jetgun_heatval < 0)
-		{
-			self.jetgun_heatval = 0;
-		}
-		else if(self.jetgun_heatval > 99.9)
-		{
-			self.jetgun_heatval = 99.9;
-		}
-
-		if(self.jetgun_heatval != vars["curr_heatval"])
-		{
-			self setweaponoverheating(self.jetgun_overheating, self.jetgun_heatval);
-		}
-
-		vars["prev_heatval"] = self.jetgun_heatval;
-
-		wait 0.05;
 	}
 }
 

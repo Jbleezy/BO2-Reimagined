@@ -3,6 +3,31 @@
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 
+watch_overheat()
+{
+    self endon( "death_or_disconnect" );
+    self endon( "weapon_change" );
+
+    while ( true )
+    {
+        if ( self getcurrentweapon() == "jetgun_zm" )
+        {
+            overheating = self isweaponoverheating( 0 );
+            heat = self isweaponoverheating( 1 );
+            self.jetgun_overheating = overheating;
+            self.jetgun_heatval = heat;
+
+            if ( overheating )
+                self notify( "jetgun_overheated" );
+
+            if ( heat > 75 )
+                self thread play_overheat_fx();
+        }
+
+        wait 0.05;
+    }
+}
+
 jetgun_firing()
 {
     if ( !isdefined( self.jetsound_ent ) )

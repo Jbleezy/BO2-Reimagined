@@ -249,10 +249,9 @@
 * Kills multiple zombies significantly faster
 * Kills zombies that are in the ground, traversing, or behind barriers
 * Awards points for kills
+* Heats up half as fast
 * Cools down twice as fast
 * Cools down while not holding weapon
-* Heats up half as fast
-* Heats up when firing while meleeing
 * No longer kills when not firing
 * No longer automatically switched to weapon when picked up
 * No longer disassembles when overheated
