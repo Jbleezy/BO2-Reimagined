@@ -3,41 +3,6 @@
 #include maps\mp\zombies\_zm_utility;
 #include maps\mp\gametypes_zm\_hud_util;
 
-#include scripts\zm\replaced\utility;
-#include scripts\zm\replaced\zm_melee;
-#include scripts\zm\replaced\zm_utility;
-#include scripts\zm\replaced\zm_shared;
-#include scripts\zm\replaced\_damagefeedback;
-#include scripts\zm\replaced\_hud_message;
-#include scripts\zm\replaced\_zm_gametype;
-#include scripts\zm\replaced\_zm;
-#include scripts\zm\replaced\_zm_audio;
-#include scripts\zm\replaced\_zm_audio_announcer;
-#include scripts\zm\replaced\_zm_stats;
-#include scripts\zm\replaced\_zm_playerhealth;
-#include scripts\zm\replaced\_zm_utility;
-#include scripts\zm\replaced\_zm_score;
-#include scripts\zm\replaced\_zm_laststand;
-#include scripts\zm\replaced\_zm_blockers;
-#include scripts\zm\replaced\_zm_weapons;
-#include scripts\zm\replaced\_zm_magicbox;
-#include scripts\zm\replaced\_zm_perks;
-#include scripts\zm\replaced\_zm_buildables;
-#include scripts\zm\replaced\_zm_power;
-#include scripts\zm\replaced\_zm_powerups;
-#include scripts\zm\replaced\_zm_pers_upgrades;
-#include scripts\zm\replaced\_zm_pers_upgrades_system;
-#include scripts\zm\replaced\_zm_traps;
-#include scripts\zm\replaced\_zm_equipment;
-#include scripts\zm\replaced\_zm_clone;
-#include scripts\zm\replaced\_zm_spawner;
-#include scripts\zm\replaced\_zm_ai_basic;
-#include scripts\zm\replaced\_zm_ai_dogs;
-#include scripts\zm\replaced\_zm_melee_weapon;
-#include scripts\zm\replaced\_zm_weap_ballistic_knife;
-#include scripts\zm\replaced\_zm_weap_claymore;
-#include scripts\zm\replaced\_zm_weap_cymbal_monkey;
-
 main()
 {
 	setDvar( "scr_disablePlutoniumFixes", 1 );

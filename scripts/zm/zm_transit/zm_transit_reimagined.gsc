@@ -2,27 +2,6 @@
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 
-#include scripts\zm\replaced\zm_transit;
-#include scripts\zm\replaced\zm_transit_sq;
-#include scripts\zm\replaced\zm_transit_gamemodes;
-#include scripts\zm\replaced\zm_transit_classic;
-#include scripts\zm\replaced\zm_transit_utility;
-#include scripts\zm\replaced\zm_transit_ai_screecher;
-#include scripts\zm\replaced\zm_transit_bus;
-#include scripts\zm\replaced\zm_transit_distance_tracking;
-#include scripts\zm\replaced\zm_transit_lava;
-#include scripts\zm\replaced\_zm_riotshield;
-#include scripts\zm\replaced\_zm_ai_avogadro;
-#include scripts\zm\replaced\_zm_ai_screecher;
-#include scripts\zm\replaced\_zm_weap_riotshield;
-#include scripts\zm\replaced\_zm_weap_jetgun;
-#include scripts\zm\replaced\_zm_weap_emp_bomb;
-#include scripts\zm\replaced\_zm_equip_electrictrap;
-#include scripts\zm\replaced\_zm_equip_turret;
-#include scripts\zm\replaced\_zm_banking;
-#include scripts\zm\replaced\_zm_weapon_locker;
-#include scripts\zm\replaced\_zm_sq;
-
 main()
 {
 	replaceFunc(maps\mp\zm_transit_sq::navcomputer_waitfor_navcard, scripts\zm\replaced\_zm_sq::navcomputer_waitfor_navcard);

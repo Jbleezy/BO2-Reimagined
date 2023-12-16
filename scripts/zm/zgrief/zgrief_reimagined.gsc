@@ -4,13 +4,6 @@
 #include maps\mp\gametypes_zm\_hud_util;
 #include maps\mp\gametypes_zm\_hud_message;
 
-#include scripts\zm\replaced\_zm;
-#include scripts\zm\replaced\_zm_game_module;
-#include scripts\zm\replaced\_zm_gametype;
-#include scripts\zm\replaced\_zm_blockers;
-#include scripts\zm\replaced\zgrief;
-#include scripts\zm\replaced\zmeat;
-
 main()
 {
 	if ( getDvar( "g_gametype" ) != "zgrief" )

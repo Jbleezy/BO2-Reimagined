@@ -2,23 +2,6 @@
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 
-#include scripts\zm\replaced\zm_highrise_sq;
-#include scripts\zm\replaced\zm_highrise_atd;
-#include scripts\zm\replaced\zm_highrise_ssp;
-#include scripts\zm\replaced\zm_highrise_pts;
-#include scripts\zm\replaced\zm_highrise_gamemodes;
-#include scripts\zm\replaced\zm_highrise_classic;
-#include scripts\zm\replaced\zm_highrise_buildables;
-#include scripts\zm\replaced\zm_highrise_elevators;
-#include scripts\zm\replaced\zm_highrise_distance_tracking;
-#include scripts\zm\replaced\_zm_ai_leaper;
-#include scripts\zm\replaced\_zm_chugabud;
-#include scripts\zm\replaced\_zm_equip_springpad;
-#include scripts\zm\replaced\_zm_weap_slipgun;
-#include scripts\zm\replaced\_zm_banking;
-#include scripts\zm\replaced\_zm_weapon_locker;
-#include scripts\zm\replaced\_zm_sq;
-
 main()
 {
 	replaceFunc(maps\mp\zm_highrise_sq::navcomputer_waitfor_navcard, scripts\zm\replaced\_zm_sq::navcomputer_waitfor_navcard);

@@ -2,31 +2,6 @@
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 
-#include scripts\zm\replaced\zm_buried_buildables;
-#include scripts\zm\replaced\zm_buried_gamemodes;
-#include scripts\zm\replaced\zm_buried_power;
-#include scripts\zm\replaced\zm_buried_ffotd;
-#include scripts\zm\replaced\zm_buried_fountain;
-#include scripts\zm\replaced\zm_buried_sq;
-#include scripts\zm\replaced\zm_buried_sq_bt;
-#include scripts\zm\replaced\zm_buried_sq_ts;
-#include scripts\zm\replaced\zm_buried_sq_tpo;
-#include scripts\zm\replaced\zm_buried_sq_ip;
-#include scripts\zm\replaced\zm_buried_sq_ows;
-#include scripts\zm\replaced\zm_buried_distance_tracking;
-#include scripts\zm\replaced\_zm_ai_ghost;
-#include scripts\zm\replaced\_zm_ai_sloth;
-#include scripts\zm\replaced\_zm_buildables_pooled;
-#include scripts\zm\replaced\_zm_equip_subwoofer;
-#include scripts\zm\replaced\_zm_equip_springpad;
-#include scripts\zm\replaced\_zm_equip_headchopper;
-#include scripts\zm\replaced\_zm_perk_vulture;
-#include scripts\zm\replaced\_zm_weap_slowgun;
-#include scripts\zm\replaced\_zm_weap_time_bomb;
-#include scripts\zm\replaced\_zm_banking;
-#include scripts\zm\replaced\_zm_weapon_locker;
-#include scripts\zm\replaced\_zm_sq;
-
 main()
 {
 	replaceFunc(maps\mp\zm_buried_sq::navcomputer_waitfor_navcard, scripts\zm\replaced\_zm_sq::navcomputer_waitfor_navcard);

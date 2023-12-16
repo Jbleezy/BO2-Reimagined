@@ -3,39 +3,6 @@
 #include maps\mp\zombies\_zm_utility;
 #include maps\mp\zombies\_zm_craftables;
 
-#include scripts\zm\replaced\zm_tomb_main_quest;
-#include scripts\zm\replaced\zm_tomb_quest_air;
-#include scripts\zm\replaced\zm_tomb_quest_elec;
-#include scripts\zm\replaced\zm_tomb_quest_fire;
-#include scripts\zm\replaced\zm_tomb_quest_ice;
-#include scripts\zm\replaced\zm_tomb_ee_main;
-#include scripts\zm\replaced\zm_tomb_ee_main_step_2;
-#include scripts\zm\replaced\zm_tomb_ee_main_step_3;
-#include scripts\zm\replaced\zm_tomb_ee_main_step_8;
-#include scripts\zm\replaced\zm_tomb_ee_side;
-#include scripts\zm\replaced\zm_tomb_capture_zones;
-#include scripts\zm\replaced\zm_tomb_challenges;
-#include scripts\zm\replaced\zm_tomb_craftables;
-#include scripts\zm\replaced\zm_tomb_dig;
-#include scripts\zm\replaced\zm_tomb_giant_robot;
-#include scripts\zm\replaced\zm_tomb_tank;
-#include scripts\zm\replaced\zm_tomb_teleporter;
-#include scripts\zm\replaced\zm_tomb_utility;
-#include scripts\zm\replaced\zm_tomb_distance_tracking;
-#include scripts\zm\replaced\_zm_ai_mechz;
-#include scripts\zm\replaced\_zm_challenges;
-#include scripts\zm\replaced\_zm_craftables;
-#include scripts\zm\replaced\_zm_perk_random;
-#include scripts\zm\replaced\_zm_powerup_zombie_blood;
-#include scripts\zm\replaced\_zm_riotshield_tomb;
-#include scripts\zm\replaced\_zm_weap_riotshield_tomb;
-#include scripts\zm\replaced\_zm_weap_one_inch_punch;
-#include scripts\zm\replaced\_zm_weap_beacon;
-#include scripts\zm\replaced\_zm_weap_staff_air;
-#include scripts\zm\replaced\_zm_weap_staff_fire;
-#include scripts\zm\replaced\_zm_weap_staff_lightning;
-#include scripts\zm\replaced\_zm_weap_staff_revive;
-
 main()
 {
     replaceFunc(maps\mp\zm_tomb::sndmeleewpn_isstaff, scripts\zm\replaced\zm_tomb::sndmeleewpn_isstaff);

@@ -5,25 +5,6 @@
 #include maps\mp\zombies\_zm_zonemgr;
 #include maps\mp\zm_alcatraz_utility;
 
-#include scripts\zm\replaced\zm_alcatraz_classic;
-#include scripts\zm\replaced\zm_alcatraz_craftables;
-#include scripts\zm\replaced\zm_alcatraz_gamemodes;
-#include scripts\zm\replaced\zm_alcatraz_utility;
-#include scripts\zm\replaced\zm_alcatraz_sq;
-#include scripts\zm\replaced\zm_alcatraz_traps;
-#include scripts\zm\replaced\zm_alcatraz_travel;
-#include scripts\zm\replaced\zm_alcatraz_weap_quest;
-#include scripts\zm\replaced\zm_alcatraz_distance_tracking;
-#include scripts\zm\replaced\zm_prison_sq_bg;
-#include scripts\zm\replaced\zm_prison_sq_final;
-#include scripts\zm\replaced\_zm_afterlife;
-#include scripts\zm\replaced\_zm_ai_brutus;
-#include scripts\zm\replaced\_zm_craftables;
-#include scripts\zm\replaced\_zm_riotshield_prison;
-#include scripts\zm\replaced\_zm_weap_riotshield_prison;
-#include scripts\zm\replaced\_zm_weap_blundersplat;
-#include scripts\zm\replaced\_zm_weap_tomahawk;
-
 main()
 {
 	replaceFunc(maps\mp\zm_alcatraz_classic::give_afterlife, scripts\zm\replaced\zm_alcatraz_classic::give_afterlife);
