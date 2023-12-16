@@ -44,6 +44,7 @@ main()
 	replaceFunc(maps\mp\zm_transit_bus::busplowkillzombieuntildeath, scripts\zm\replaced\zm_transit_bus::busplowkillzombieuntildeath);
 	replaceFunc(maps\mp\zm_transit_distance_tracking::delete_zombie_noone_looking, scripts\zm\replaced\zm_transit_distance_tracking::delete_zombie_noone_looking);
 	replaceFunc(maps\mp\zm_transit_lava::player_lava_damage, scripts\zm\replaced\zm_transit_lava::player_lava_damage);
+	replaceFunc(maps\mp\zm_transit_lava::zombie_exploding_death, scripts\zm\replaced\zm_transit_lava::zombie_exploding_death);
 	replaceFunc(maps\mp\zombies\_zm_ai_avogadro::check_range_attack, scripts\zm\replaced\_zm_ai_avogadro::check_range_attack);
 	replaceFunc(maps\mp\zombies\_zm_ai_avogadro::avogadro_exit, scripts\zm\replaced\_zm_ai_avogadro::avogadro_exit);
 	replaceFunc(maps\mp\zombies\_zm_ai_screecher::screecher_spawning_logic, scripts\zm\replaced\_zm_ai_screecher::screecher_spawning_logic);
