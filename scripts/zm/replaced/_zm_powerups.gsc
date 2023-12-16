@@ -332,20 +332,29 @@ full_ammo_powerup( drop_item, player )
 				x++;
 				continue;
 			}
+
 			if ( isdefined( level.zombie_include_equipment ) && isdefined( level.zombie_include_equipment[ primary_weapons[ x ] ] ) )
 			{
 				x++;
 				continue;
 			}
+
 			if ( isdefined( level.zombie_weapons_no_max_ammo ) && isdefined( level.zombie_weapons_no_max_ammo[ primary_weapons[ x ] ] ) )
 			{
 				x++;
 				continue;
 			}
+
 			if ( players[ i ] hasweapon( primary_weapons[ x ] ) )
 			{
 				if(clip_only)
 				{
+					if (weaponMaxAmmo(primary_weapons[x]) == 0)
+					{
+						x++;
+						continue;
+					}
+
 					new_ammo = players[i] getWeaponAmmoStock(primary_weapons[x]) + weaponClipSize(primary_weapons[x]);
 					if(weaponDualWieldWeaponName(primary_weapons[x]) != "none")
 					{
