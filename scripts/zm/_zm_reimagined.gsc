@@ -2222,27 +2222,42 @@ last_stand_pistol_swap()
 		self.stored_weapon_info[self.laststandpistol].given_amt = amt;
 	}
 
-	clip_amt = weaponclipsize( self.laststandpistol );
-	if ( clip_amt > amt )
+	clip_amt_init = 0;
+	left_clip_amt_init = 0;
+
+	if (self.hadpistol)
 	{
-		clip_amt = amt;
+		clip_amt_init = self.stored_weapon_info[self.laststandpistol].clip_amt;
+
+		if (dual_wield_wep != "none")
+		{
+			left_clip_amt_init = self.stored_weapon_info[self.laststandpistol].left_clip_amt;
+		}
+
+		amt -= clip_amt_init + left_clip_amt_init;
 	}
 
-	self setweaponammoclip( self.laststandpistol, clip_amt );
+	clip_amt_add = weaponclipsize( self.laststandpistol ) - clip_amt_init;
+	if ( clip_amt_add > amt )
+	{
+		clip_amt_add = amt;
+	}
 
-	amt -= clip_amt;
+	self setweaponammoclip( self.laststandpistol, clip_amt_init + clip_amt_add );
+
+	amt -= clip_amt_add;
 
 	if ( dual_wield_wep != "none" )
 	{
-		left_clip_amt = weaponclipsize( dual_wield_wep );
-		if ( left_clip_amt > amt )
+		left_clip_amt_add = weaponclipsize( dual_wield_wep ) - left_clip_amt_init;
+		if ( left_clip_amt_add > amt )
 		{
-			left_clip_amt = amt;
+			left_clip_amt_add = amt;
 		}
 
-		self set_weapon_ammo_clip_left( self.laststandpistol, left_clip_amt );
+		self set_weapon_ammo_clip_left( self.laststandpistol, left_clip_amt_init + left_clip_amt_add );
 
-		amt -= left_clip_amt;
+		amt -= left_clip_amt_add;
 	}
 
 	stock_amt = doubleclip;
