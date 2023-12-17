@@ -8,43 +8,43 @@
 #include maps\mp\zombies\_zm_unitrigger;
 #include maps\mp\zombies\_zm_audio;
 
-triggerweaponslockerisvalidweaponpromptupdate( player, weaponname )
+triggerweaponslockerisvalidweaponpromptupdate(player, weaponname)
 {
 	self thread show_current_weapon(player);
 
 	retrievingweapon = player wl_has_stored_weapondata();
 
-	if ( !retrievingweapon )
+	if (!retrievingweapon)
 	{
-		weaponname = player get_nonalternate_weapon( weaponname );
+		weaponname = player get_nonalternate_weapon(weaponname);
 
-		if ( !triggerweaponslockerisvalidweapon( weaponname ) )
-			self sethintstring( &"ZOMBIE_WEAPON_LOCKER_DENY" );
+		if (!triggerweaponslockerisvalidweapon(weaponname))
+			self sethintstring(&"ZOMBIE_WEAPON_LOCKER_DENY");
 		else
-			self sethintstring( &"ZOMBIE_WEAPON_LOCKER_STORE" );
+			self sethintstring(&"ZOMBIE_WEAPON_LOCKER_STORE");
 	}
 	else
 	{
 		weapondata = player wl_get_stored_weapondata();
 
-		if ( isdefined( level.remap_weapon_locker_weapons ) )
-			weapondata = remap_weapon( weapondata, level.remap_weapon_locker_weapons );
+		if (isdefined(level.remap_weapon_locker_weapons))
+			weapondata = remap_weapon(weapondata, level.remap_weapon_locker_weapons);
 
 		weapontogive = weapondata["name"];
 		primaries = player getweaponslistprimaries();
-		maxweapons = get_player_weapon_limit( player );
-		weaponname = player get_nonalternate_weapon( weaponname );
+		maxweapons = get_player_weapon_limit(player);
+		weaponname = player get_nonalternate_weapon(weaponname);
 
-		if ( isdefined( primaries ) && primaries.size >= maxweapons || weapontogive == weaponname )
+		if (isdefined(primaries) && primaries.size >= maxweapons || weapontogive == weaponname)
 		{
-			if ( !triggerweaponslockerisvalidweapon( weaponname ) )
+			if (!triggerweaponslockerisvalidweapon(weaponname))
 			{
-				self sethintstring( &"ZOMBIE_WEAPON_LOCKER_DENY" );
+				self sethintstring(&"ZOMBIE_WEAPON_LOCKER_DENY");
 				return;
 			}
 		}
 
-		self sethintstring( &"ZOMBIE_WEAPON_LOCKER_GRAB" );
+		self sethintstring(&"ZOMBIE_WEAPON_LOCKER_GRAB");
 	}
 }
 
@@ -65,19 +65,19 @@ show_current_weapon(player)
 	{
 		weapondata = player wl_get_stored_weapondata();
 
-		if ( isdefined( level.remap_weapon_locker_weapons ) )
-			weapondata = remap_weapon( weapondata, level.remap_weapon_locker_weapons );
+		if (isdefined(level.remap_weapon_locker_weapons))
+			weapondata = remap_weapon(weapondata, level.remap_weapon_locker_weapons);
 
-		displayname = getweapondisplayname( weapondata["name"] );
+		displayname = getweapondisplayname(weapondata["name"]);
 	}
 
 	if (isDefined(stub.weaponlockerhud[num]))
 	{
-		stub.weaponlockerhud[num] settext( displayname );
+		stub.weaponlockerhud[num] settext(displayname);
 		return;
 	}
 
-	hud = newclienthudelem( player );
+	hud = newclienthudelem(player);
 	hud.alignx = "center";
 	hud.aligny = "middle";
 	hud.horzalign = "center";
@@ -88,12 +88,12 @@ show_current_weapon(player)
 	hud.font = "default";
 	hud.fontscale = 1;
 	hud.alpha = 1;
-	hud.color = ( 1, 1, 1 );
+	hud.color = (1, 1, 1);
 	hud.label = &"Placed Weapon: ";
-	hud settext( displayname );
+	hud settext(displayname);
 	stub.weaponlockerhud[num] = hud;
 
-	while ( isDefined( self ) )
+	while (isDefined(self))
 	{
 		if (!player isTouching(self) || !is_player_valid(player) || player isSprinting() || player isThrowingGrenade())
 		{
@@ -111,7 +111,7 @@ show_current_weapon(player)
 	stub.weaponlockerhud[num] = undefined;
 }
 
-wl_set_stored_weapondata( weapondata )
+wl_set_stored_weapondata(weapondata)
 {
 	name = weapondata["name"];
 	dw_name = weaponDualWieldWeaponName(name);
@@ -153,8 +153,8 @@ wl_set_stored_weapondata( weapondata )
 		weapondata["alt_stock"] -= clip_alt_missing;
 	}
 
-	if ( level.weapon_locker_online )
-		self set_stored_weapondata( weapondata, level.weapon_locker_map );
+	if (level.weapon_locker_online)
+		self set_stored_weapondata(weapondata, level.weapon_locker_map);
 	else
 		self.stored_weapon_data = weapondata;
 }

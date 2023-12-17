@@ -81,41 +81,41 @@ init()
 
 grief_include_weapons()
 {
-	if ( getDvar( "g_gametype" ) != "zgrief" )
+	if (getDvar("g_gametype") != "zgrief")
 	{
 		return;
 	}
 
-	include_weapon( "ray_gun_zm" );
-	include_weapon( "ray_gun_upgraded_zm", 0 );
-	include_weapon( "tazer_knuckles_zm", 0 );
-	include_weapon( "knife_ballistic_no_melee_zm", 0 );
-	include_weapon( "knife_ballistic_no_melee_upgraded_zm", 0 );
-	include_weapon( "knife_ballistic_zm" );
-	include_weapon( "knife_ballistic_upgraded_zm", 0 );
-	include_weapon( "knife_ballistic_bowie_zm", 0 );
-	include_weapon( "knife_ballistic_bowie_upgraded_zm", 0 );
+	include_weapon("ray_gun_zm");
+	include_weapon("ray_gun_upgraded_zm", 0);
+	include_weapon("tazer_knuckles_zm", 0);
+	include_weapon("knife_ballistic_no_melee_zm", 0);
+	include_weapon("knife_ballistic_no_melee_upgraded_zm", 0);
+	include_weapon("knife_ballistic_zm");
+	include_weapon("knife_ballistic_upgraded_zm", 0);
+	include_weapon("knife_ballistic_bowie_zm", 0);
+	include_weapon("knife_ballistic_bowie_upgraded_zm", 0);
 	level._uses_retrievable_ballisitic_knives = 1;
-	maps\mp\zombies\_zm_weapons::add_limited_weapon( "knife_ballistic_zm", 1 );
-	maps\mp\zombies\_zm_weapons::add_limited_weapon( "ray_gun_zm", 4 );
-	maps\mp\zombies\_zm_weapons::add_limited_weapon( "ray_gun_upgraded_zm", 4 );
-	maps\mp\zombies\_zm_weapons::add_limited_weapon( "knife_ballistic_upgraded_zm", 0 );
-	maps\mp\zombies\_zm_weapons::add_limited_weapon( "knife_ballistic_no_melee_zm", 0 );
-	maps\mp\zombies\_zm_weapons::add_limited_weapon( "knife_ballistic_no_melee_upgraded_zm", 0 );
-	maps\mp\zombies\_zm_weapons::add_limited_weapon( "knife_ballistic_bowie_zm", 0 );
-	maps\mp\zombies\_zm_weapons::add_limited_weapon( "knife_ballistic_bowie_upgraded_zm", 0 );
-	include_weapon( "raygun_mark2_zm" );
-	include_weapon( "raygun_mark2_upgraded_zm", 0 );
-	maps\mp\zombies\_zm_weapons::add_weapon_to_content( "raygun_mark2_zm", "dlc3" );
-	maps\mp\zombies\_zm_weapons::add_limited_weapon( "raygun_mark2_zm", 1 );
-	maps\mp\zombies\_zm_weapons::add_limited_weapon( "raygun_mark2_upgraded_zm", 1 );
+	maps\mp\zombies\_zm_weapons::add_limited_weapon("knife_ballistic_zm", 1);
+	maps\mp\zombies\_zm_weapons::add_limited_weapon("ray_gun_zm", 4);
+	maps\mp\zombies\_zm_weapons::add_limited_weapon("ray_gun_upgraded_zm", 4);
+	maps\mp\zombies\_zm_weapons::add_limited_weapon("knife_ballistic_upgraded_zm", 0);
+	maps\mp\zombies\_zm_weapons::add_limited_weapon("knife_ballistic_no_melee_zm", 0);
+	maps\mp\zombies\_zm_weapons::add_limited_weapon("knife_ballistic_no_melee_upgraded_zm", 0);
+	maps\mp\zombies\_zm_weapons::add_limited_weapon("knife_ballistic_bowie_zm", 0);
+	maps\mp\zombies\_zm_weapons::add_limited_weapon("knife_ballistic_bowie_upgraded_zm", 0);
+	include_weapon("raygun_mark2_zm");
+	include_weapon("raygun_mark2_upgraded_zm", 0);
+	maps\mp\zombies\_zm_weapons::add_weapon_to_content("raygun_mark2_zm", "dlc3");
+	maps\mp\zombies\_zm_weapons::add_limited_weapon("raygun_mark2_zm", 1);
+	maps\mp\zombies\_zm_weapons::add_limited_weapon("raygun_mark2_upgraded_zm", 1);
 }
 
 zombie_init_done()
 {
 	self.meleedamage = 50;
 	self.allowpain = 0;
-	self setphysparams( 15, 0, 48 );
+	self setphysparams(15, 0, 48);
 }
 
 transit_special_weapon_magicbox_check(weapon)
@@ -123,7 +123,7 @@ transit_special_weapon_magicbox_check(weapon)
 	return 1;
 }
 
-can_revive( player_down )
+can_revive(player_down)
 {
 	if (self hasWeapon("screecher_arms_zm"))
 	{
@@ -135,16 +135,16 @@ can_revive( player_down )
 
 electric_door_changes()
 {
-	if ( is_classic() )
+	if (is_classic())
 	{
 		return;
 	}
 
-	zombie_doors = getentarray( "zombie_door", "targetname" );
+	zombie_doors = getentarray("zombie_door", "targetname");
 
-	for ( i = 0; i < zombie_doors.size; i++ )
+	for (i = 0; i < zombie_doors.size; i++)
 	{
-		if ( isDefined( zombie_doors[i].script_noteworthy ) && (zombie_doors[i].script_noteworthy == "local_electric_door" || zombie_doors[i].script_noteworthy == "electric_door") )
+		if (isDefined(zombie_doors[i].script_noteworthy) && (zombie_doors[i].script_noteworthy == "local_electric_door" || zombie_doors[i].script_noteworthy == "electric_door"))
 		{
 			if (zombie_doors[i].target == "lab_secret_hatch")
 			{
@@ -169,7 +169,7 @@ electric_door_changes()
 
 			if (isDefined(new_target))
 			{
-				targets = getentarray( zombie_doors[i].target, "targetname" );
+				targets = getentarray(zombie_doors[i].target, "targetname");
 				zombie_doors[i].target = new_target;
 
 				foreach (target in targets)
@@ -183,43 +183,43 @@ electric_door_changes()
 
 power_local_electric_doors_globally()
 {
-	if ( !is_classic() )
+	if (!is_classic())
 	{
 		return;
 	}
 
-	for ( ;; )
+	for (;;)
 	{
-		flag_wait( "power_on" );
+		flag_wait("power_on");
 
 		local_power = [];
-		zombie_doors = getentarray( "zombie_door", "targetname" );
+		zombie_doors = getentarray("zombie_door", "targetname");
 
-		for ( i = 0; i < zombie_doors.size; i++ )
+		for (i = 0; i < zombie_doors.size; i++)
 		{
-			if ( isDefined( zombie_doors[i].script_noteworthy ) && zombie_doors[i].script_noteworthy == "local_electric_door" )
+			if (isDefined(zombie_doors[i].script_noteworthy) && zombie_doors[i].script_noteworthy == "local_electric_door")
 			{
-				local_power[local_power.size] = maps\mp\zombies\_zm_power::add_local_power( zombie_doors[i].origin, 16 );
+				local_power[local_power.size] = maps\mp\zombies\_zm_power::add_local_power(zombie_doors[i].origin, 16);
 			}
 		}
 
-		flag_waitopen( "power_on" );
+		flag_waitopen("power_on");
 
 		for (i = 0; i < local_power.size; i++)
 		{
-			maps\mp\zombies\_zm_power::end_local_power( local_power[i] );
+			maps\mp\zombies\_zm_power::end_local_power(local_power[i]);
 		}
 	}
 }
 
-grenade_safe_to_bounce( player, weapname )
+grenade_safe_to_bounce(player, weapname)
 {
-	if ( !is_offhand_weapon( weapname ) )
+	if (!is_offhand_weapon(weapname))
 	{
 		return 1;
 	}
 
-	if ( self maps\mp\zm_transit_lava::object_touching_lava() )
+	if (self maps\mp\zm_transit_lava::object_touching_lava())
 	{
 		return 0;
 	}
@@ -229,7 +229,7 @@ grenade_safe_to_bounce( player, weapname )
 
 player_initial_spawn_override()
 {
-	initial_spawns = getstructarray( "initial_spawn", "script_noteworthy" );
+	initial_spawns = getstructarray("initial_spawn", "script_noteworthy");
 	remove_initial_spawns = [];
 
 	if (level.scr_zm_map_start_location == "transit")
@@ -285,7 +285,7 @@ player_initial_spawn_override()
 
 player_respawn_override()
 {
-	respawn_points = getstructarray( "player_respawn_point", "targetname" );
+	respawn_points = getstructarray("player_respawn_point", "targetname");
 
 	if (level.scr_zm_map_start_location == "transit" && level.scr_zm_ui_gametype != "zclassic")
 	{
@@ -505,21 +505,21 @@ player_respawn_override()
 
 zombie_spawn_location_changes()
 {
-	foreach ( zone in level.zones )
+	foreach (zone in level.zones)
 	{
-		foreach ( spawn_location in zone.spawn_locations )
+		foreach (spawn_location in zone.spawn_locations)
 		{
-			if ( spawn_location.origin == ( 9963, 8025, -554.9 ) )
+			if (spawn_location.origin == (9963, 8025, -554.9))
 			{
-				spawn_location.origin += ( 0, 0, -32 );
+				spawn_location.origin += (0, 0, -32);
 			}
-			else if ( spawn_location.origin == ( -2202, -6881, -86.6 ) )
+			else if (spawn_location.origin == (-2202, -6881, -86.6))
 			{
-				spawn_location.origin += ( 0, 0, -32 );
+				spawn_location.origin += (0, 0, -32);
 			}
-			else if ( spawn_location.origin == ( -666, -4962, -66 ) )
+			else if (spawn_location.origin == (-666, -4962, -66))
 			{
-				spawn_location.origin += ( 0, 0, -16 );
+				spawn_location.origin += (0, 0, -16);
 			}
 		}
 	}
@@ -528,43 +528,43 @@ zombie_spawn_location_changes()
 buildable_table_models()
 {
 	// power switch
-	model = spawn( "script_model", (12177.3, 8504.51, -731.375));
+	model = spawn("script_model", (12177.3, 8504.51, -731.375));
 	model.angles = (0, 88, 90);
 	model setmodel("p6_zm_core_panel_02");
-	model = spawn( "script_model", (12162.3, 8504.51, -731.375));
+	model = spawn("script_model", (12162.3, 8504.51, -731.375));
 	model.angles = (0, 92, 90);
 	model setmodel("p6_zm_core_panel_02");
-	model = spawn( "script_model", (12162.3, 8520.51, -731.375));
+	model = spawn("script_model", (12162.3, 8520.51, -731.375));
 	model.angles = (0, 92, 90);
 	model setmodel("p6_zm_core_panel_02");
-	model = spawn( "script_model", (12177.3, 8520.51, -731.375));
+	model = spawn("script_model", (12177.3, 8520.51, -731.375));
 	model.angles = (0, 88, 90);
 	model setmodel("p6_zm_core_panel_02");
 
 	// pack-a-punch
-	model = spawn( "script_model", (2266.47, -212.901, -303.875));
+	model = spawn("script_model", (2266.47, -212.901, -303.875));
 	model.angles = (0, 0, 0);
 	model setmodel("p_rus_crate_metal_1");
-	model = spawn( "script_model", (2266.47, -212.901, -273.875));
+	model = spawn("script_model", (2266.47, -212.901, -273.875));
 	model.angles = (0, 0, 0);
 	model setmodel("p_rus_crate_metal_1");
-	model = spawn( "script_model", (2266.47, -212.901, -243.875));
+	model = spawn("script_model", (2266.47, -212.901, -243.875));
 	model.angles = (0, 0, 0);
 	model setmodel("p_rus_crate_metal_1");
-	model = spawn( "script_model", (2219.03, -212.725, -243.875));
+	model = spawn("script_model", (2219.03, -212.725, -243.875));
 	model.angles = (0, 0, 0);
 	model setmodel("p_rus_crate_metal_2");
-	model = spawn( "script_model", (2219.03, -212.725, -303.875));
+	model = spawn("script_model", (2219.03, -212.725, -303.875));
 	model.angles = (0, 0, 0);
 	model setmodel("p_rus_crate_metal_2");
-	model = spawn( "script_model", (2219.03, -212.725, -273.875));
+	model = spawn("script_model", (2219.03, -212.725, -273.875));
 	model.angles = (0, 0, 0);
 	model setmodel("p_rus_crate_metal_2");
 }
 
 cornfield_add_collision()
 {
-	model = spawn( "script_model", (10536, -595, -145));
+	model = spawn("script_model", (10536, -595, -145));
 	model.angles = (0, -35, 0);
 	model setmodel("collision_clip_wall_128x128x10");
 }
@@ -582,13 +582,13 @@ cornfield_spawn_path_nodes()
 path_exploit_fixes()
 {
 	// town bookstore near jug
-	zombie_trigger_origin = ( 1045, -1521, 128 );
+	zombie_trigger_origin = (1045, -1521, 128);
 	zombie_trigger_radius = 96;
 	zombie_trigger_height = 64;
-	player_trigger_origin = ( 1116, -1547, 128 );
+	player_trigger_origin = (1116, -1547, 128);
 	player_trigger_radius = 72;
-	zombie_goto_point = ( 1098, -1521, 128 );
-	level thread maps\mp\zombies\_zm_ffotd::path_exploit_fix( zombie_trigger_origin, zombie_trigger_radius, zombie_trigger_height, player_trigger_origin, player_trigger_radius, zombie_goto_point );
+	zombie_goto_point = (1098, -1521, 128);
+	level thread maps\mp\zombies\_zm_ffotd::path_exploit_fix(zombie_trigger_origin, zombie_trigger_radius, zombie_trigger_height, player_trigger_origin, player_trigger_radius, zombie_goto_point);
 }
 
 power_station_vision_change()
@@ -597,7 +597,7 @@ power_station_vision_change()
 	level.changed_r_exposureValue = 4;
 	time = 1;
 
-	flag_wait( "start_zombie_round_logic" );
+	flag_wait("start_zombie_round_logic");
 
 	while (1)
 	{
@@ -695,29 +695,29 @@ attach_powerups_to_bus()
 	}
 }
 
-attachpoweruptobus( powerup )
+attachpoweruptobus(powerup)
 {
-	if ( !isdefined( powerup ) || !isdefined( level.the_bus ) )
+	if (!isdefined(powerup) || !isdefined(level.the_bus))
 		return;
 
 	distanceoutsideofbus = 50.0;
 	pos = powerup.origin;
-	posinbus = pointonsegmentnearesttopoint( level.the_bus.frontworld, level.the_bus.backworld, pos );
-	posdist2 = distance2dsquared( pos, posinbus );
+	posinbus = pointonsegmentnearesttopoint(level.the_bus.frontworld, level.the_bus.backworld, pos);
+	posdist2 = distance2dsquared(pos, posinbus);
 
-	if ( posdist2 > level.the_bus.radius * level.the_bus.radius )
+	if (posdist2 > level.the_bus.radius * level.the_bus.radius)
 	{
 		radiusplus = level.the_bus.radius + distanceoutsideofbus;
 
-		if ( posdist2 > radiusplus * radiusplus )
+		if (posdist2 > radiusplus * radiusplus)
 			return;
 	}
 
 	powerup enablelinkto();
-	powerup linkto( level.the_bus );
+	powerup linkto(level.the_bus);
 }
 
-manage_zones( initial_zone )
+manage_zones(initial_zone)
 {
 	level.zone_manager_init_func = ::transit_zone_init;
 
@@ -740,47 +740,47 @@ manage_zones( initial_zone )
 	zone_choke = 0;
 	spawn_points = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
 
-	for ( i = 0; i < spawn_points.size; i++ )
+	for (i = 0; i < spawn_points.size; i++)
 	{
 		spawn_points[ i ].locked = 1;
 	}
 
-	if ( isDefined( level.zone_manager_init_func ) )
+	if (isDefined(level.zone_manager_init_func))
 	{
 		[[ level.zone_manager_init_func ]]();
 	}
 
-	if ( isarray( initial_zone ) )
+	if (isarray(initial_zone))
 	{
-		for ( i = 0; i < initial_zone.size; i++ )
+		for (i = 0; i < initial_zone.size; i++)
 		{
-			zone_init( initial_zone[ i ] );
-			enable_zone( initial_zone[ i ] );
+			zone_init(initial_zone[ i ]);
+			enable_zone(initial_zone[ i ]);
 		}
 	}
 	else
 	{
-		zone_init( initial_zone );
-		enable_zone( initial_zone );
+		zone_init(initial_zone);
+		enable_zone(initial_zone);
 	}
 
 	setup_zone_flag_waits();
-	zkeys = getarraykeys( level.zones );
+	zkeys = getarraykeys(level.zones);
 	level.zone_keys = zkeys;
 	level.newzones = [];
 
-	for ( z = 0; z < zkeys.size; z++ )
+	for (z = 0; z < zkeys.size; z++)
 	{
 		level.newzones[ zkeys[ z ] ] = spawnstruct();
 	}
 
 	oldzone = undefined;
-	flag_set( "zones_initialized" );
-	flag_wait( "begin_spawning" );
+	flag_set("zones_initialized");
+	flag_wait("begin_spawning");
 
-	while ( getDvarInt( "noclip" ) == 0 || getDvarInt( "notarget" ) != 0 )
+	while (getDvarInt("noclip") == 0 || getDvarInt("notarget") != 0)
 	{
-		for ( z = 0; z < zkeys.size; z++ )
+		for (z = 0; z < zkeys.size; z++)
 		{
 			level.newzones[ zkeys[ z ] ].is_active = 0;
 			level.newzones[ zkeys[ z ] ].is_occupied = 0;
@@ -791,51 +791,51 @@ manage_zones( initial_zone )
 		level.zone_scanning_active = 1;
 		z = 0;
 
-		while ( z < zkeys.size )
+		while (z < zkeys.size)
 		{
 			zone = level.zones[ zkeys[ z ] ];
 			newzone = level.newzones[ zkeys[ z ] ];
 
-			if ( !zone.is_enabled )
+			if (!zone.is_enabled)
 			{
 				z++;
 				continue;
 			}
 
-			if ( isdefined(level.zone_occupied_func ) )
+			if (isdefined(level.zone_occupied_func))
 			{
-				newzone.is_occupied = [[ level.zone_occupied_func ]]( zkeys[ z ] );
+				newzone.is_occupied = [[ level.zone_occupied_func ]](zkeys[ z ]);
 			}
 			else
 			{
-				newzone.is_occupied = player_in_zone( zkeys[ z ] );
+				newzone.is_occupied = player_in_zone(zkeys[ z ]);
 			}
 
-			if ( newzone.is_occupied )
+			if (newzone.is_occupied)
 			{
 				newzone.is_active = 1;
 				a_zone_is_active = 1;
 
-				if ( zone.is_spawning_allowed )
+				if (zone.is_spawning_allowed)
 				{
 					a_zone_is_spawning_allowed = 1;
 				}
 
-				if ( !isdefined(oldzone) || oldzone != newzone )
+				if (!isdefined(oldzone) || oldzone != newzone)
 				{
-					level notify( "newzoneActive", zkeys[ z ] );
+					level notify("newzoneActive", zkeys[ z ]);
 					oldzone = newzone;
 				}
 
-				azkeys = getarraykeys( zone.adjacent_zones );
+				azkeys = getarraykeys(zone.adjacent_zones);
 
-				for ( az = 0; az < zone.adjacent_zones.size; az++ )
+				for (az = 0; az < zone.adjacent_zones.size; az++)
 				{
-					if ( zone.adjacent_zones[ azkeys[ az ] ].is_connected && level.zones[ azkeys[ az ] ].is_enabled )
+					if (zone.adjacent_zones[ azkeys[ az ] ].is_connected && level.zones[ azkeys[ az ] ].is_enabled)
 					{
 						level.newzones[ azkeys[ az ] ].is_active = 1;
 
-						if ( level.zones[ azkeys[ az ] ].is_spawning_allowed )
+						if (level.zones[ azkeys[ az ] ].is_spawning_allowed)
 						{
 							a_zone_is_spawning_allowed = 1;
 						}
@@ -845,7 +845,7 @@ manage_zones( initial_zone )
 
 			zone_choke++;
 
-			if ( zone_choke >= 3 )
+			if (zone_choke >= 3)
 			{
 				zone_choke = 0;
 				wait 0.05;
@@ -856,15 +856,15 @@ manage_zones( initial_zone )
 
 		level.zone_scanning_active = 0;
 
-		for ( z = 0; z < zkeys.size; z++ )
+		for (z = 0; z < zkeys.size; z++)
 		{
 			level.zones[ zkeys[ z ] ].is_active = level.newzones[ zkeys[ z ] ].is_active;
 			level.zones[ zkeys[ z ] ].is_occupied = level.newzones[ zkeys[ z ] ].is_occupied;
 		}
 
-		if ( !a_zone_is_active || !a_zone_is_spawning_allowed )
+		if (!a_zone_is_active || !a_zone_is_spawning_allowed)
 		{
-			if ( isarray( initial_zone ) )
+			if (isarray(initial_zone))
 			{
 				level.zones[ initial_zone[ 0 ] ].is_active = 1;
 				level.zones[ initial_zone[ 0 ] ].is_occupied = 1;
@@ -878,7 +878,7 @@ manage_zones( initial_zone )
 			}
 		}
 
-		[[ level.create_spawner_list_func ]]( zkeys );
+		[[ level.create_spawner_list_func ]](zkeys);
 		level.active_zone_names = maps\mp\zombies\_zm_zonemgr::get_active_zone_names();
 		wait 1;
 	}
@@ -886,74 +886,74 @@ manage_zones( initial_zone )
 
 transit_zone_init()
 {
-	flag_init( "always_on" );
-	flag_init( "init_classic_adjacencies" );
-	flag_set( "always_on" );
+	flag_init("always_on");
+	flag_init("init_classic_adjacencies");
+	flag_set("always_on");
 
-	if ( is_classic() )
+	if (is_classic())
 	{
-		flag_set( "init_classic_adjacencies" );
-		add_adjacent_zone( "zone_trans_2", "zone_trans_2b", "init_classic_adjacencies" );
-		add_adjacent_zone( "zone_station_ext", "zone_trans_2b", "init_classic_adjacencies", 1 );
-		add_adjacent_zone( "zone_town_west2", "zone_town_west", "init_classic_adjacencies" );
-		add_adjacent_zone( "zone_town_south", "zone_town_church", "init_classic_adjacencies" );
-		add_adjacent_zone( "zone_trans_pow_ext1", "zone_trans_7", "init_classic_adjacencies" );
-		add_adjacent_zone( "zone_far", "zone_far_ext", "OnFarm_enter" );
+		flag_set("init_classic_adjacencies");
+		add_adjacent_zone("zone_trans_2", "zone_trans_2b", "init_classic_adjacencies");
+		add_adjacent_zone("zone_station_ext", "zone_trans_2b", "init_classic_adjacencies", 1);
+		add_adjacent_zone("zone_town_west2", "zone_town_west", "init_classic_adjacencies");
+		add_adjacent_zone("zone_town_south", "zone_town_church", "init_classic_adjacencies");
+		add_adjacent_zone("zone_trans_pow_ext1", "zone_trans_7", "init_classic_adjacencies");
+		add_adjacent_zone("zone_far", "zone_far_ext", "OnFarm_enter");
 	}
 	else
 	{
-		playable_area = getentarray( "player_volume", "script_noteworthy" );
+		playable_area = getentarray("player_volume", "script_noteworthy");
 
-		foreach ( area in playable_area )
+		foreach (area in playable_area)
 		{
-			add_adjacent_zone( "zone_station_ext", "zone_trans_2b", "always_on" );
+			add_adjacent_zone("zone_station_ext", "zone_trans_2b", "always_on");
 
-			if ( isdefined( area.script_parameters ) && area.script_parameters == "classic_only" )
+			if (isdefined(area.script_parameters) && area.script_parameters == "classic_only")
 				area delete();
 		}
 	}
 
-	add_adjacent_zone( "zone_pri2", "zone_station_ext", "OnPriDoorYar", 1 );
-	add_adjacent_zone( "zone_pri2", "zone_pri", "OnPriDoorYar3", 1 );
+	add_adjacent_zone("zone_pri2", "zone_station_ext", "OnPriDoorYar", 1);
+	add_adjacent_zone("zone_pri2", "zone_pri", "OnPriDoorYar3", 1);
 
-	if ( getdvar( "ui_zm_mapstartlocation" ) == "transit" )
+	if (getdvar("ui_zm_mapstartlocation") == "transit")
 	{
-		level thread disconnect_door_zones( "zone_pri2", "zone_station_ext", "OnPriDoorYar" );
-		level thread disconnect_door_zones( "zone_pri2", "zone_pri", "OnPriDoorYar3" );
+		level thread disconnect_door_zones("zone_pri2", "zone_station_ext", "OnPriDoorYar");
+		level thread disconnect_door_zones("zone_pri2", "zone_pri", "OnPriDoorYar3");
 	}
 
-	add_adjacent_zone( "zone_station_ext", "zone_pri", "OnPriDoorYar2" );
-	add_adjacent_zone( "zone_roadside_west", "zone_din", "OnGasDoorDin" );
-	add_adjacent_zone( "zone_roadside_west", "zone_gas", "always_on" );
-	add_adjacent_zone( "zone_roadside_east", "zone_gas", "always_on" );
-	add_adjacent_zone( "zone_roadside_east", "zone_gar", "OnGasDoorGar" );
-	add_adjacent_zone( "zone_trans_diner", "zone_roadside_west", "always_on", 1 );
-	add_adjacent_zone( "zone_trans_diner", "zone_gas", "always_on", 1 );
-	add_adjacent_zone( "zone_trans_diner2", "zone_roadside_east", "always_on", 1 );
-	add_adjacent_zone( "zone_gas", "zone_din", "OnGasDoorDin" );
-	add_adjacent_zone( "zone_gas", "zone_gar", "OnGasDoorGar" );
-	add_adjacent_zone( "zone_diner_roof", "zone_din", "OnGasDoorDin", 1 );
-	add_adjacent_zone( "zone_tow", "zone_bar", "always_on", 1 );
-	add_adjacent_zone( "zone_bar", "zone_tow", "OnTowDoorBar", 1 );
-	add_adjacent_zone( "zone_tow", "zone_ban", "OnTowDoorBan" );
-	add_adjacent_zone( "zone_ban", "zone_ban_vault", "OnTowBanVault" );
-	add_adjacent_zone( "zone_tow", "zone_town_north", "always_on" );
-	add_adjacent_zone( "zone_town_north", "zone_ban", "OnTowDoorBan" );
-	add_adjacent_zone( "zone_tow", "zone_town_west", "always_on" );
-	add_adjacent_zone( "zone_tow", "zone_town_south", "always_on" );
-	add_adjacent_zone( "zone_town_south", "zone_town_barber", "always_on", 1 );
-	add_adjacent_zone( "zone_tow", "zone_town_east", "always_on" );
-	add_adjacent_zone( "zone_town_east", "zone_bar", "OnTowDoorBar" );
-	add_adjacent_zone( "zone_tow", "zone_town_barber", "always_on", 1 );
-	add_adjacent_zone( "zone_town_barber", "zone_tow", "OnTowDoorBarber", 1 );
-	add_adjacent_zone( "zone_town_barber", "zone_town_west", "OnTowDoorBarber" );
-	add_adjacent_zone( "zone_far_ext", "zone_brn", "OnFarm_enter" );
-	add_adjacent_zone( "zone_far_ext", "zone_farm_house", "open_farmhouse" );
-	add_adjacent_zone( "zone_prr", "zone_pow", "OnPowDoorRR", 1 );
-	add_adjacent_zone( "zone_pcr", "zone_prr", "OnPowDoorRR" );
-	add_adjacent_zone( "zone_pcr", "zone_pow_warehouse", "OnPowDoorWH" );
-	add_adjacent_zone( "zone_pow", "zone_pow_warehouse", "always_on" );
-	add_adjacent_zone( "zone_tbu", "zone_tow", "vault_opened", 1 );
-	add_adjacent_zone( "zone_trans_8", "zone_pow", "always_on", 1 );
-	add_adjacent_zone( "zone_trans_8", "zone_pow_warehouse", "always_on", 1 );
+	add_adjacent_zone("zone_station_ext", "zone_pri", "OnPriDoorYar2");
+	add_adjacent_zone("zone_roadside_west", "zone_din", "OnGasDoorDin");
+	add_adjacent_zone("zone_roadside_west", "zone_gas", "always_on");
+	add_adjacent_zone("zone_roadside_east", "zone_gas", "always_on");
+	add_adjacent_zone("zone_roadside_east", "zone_gar", "OnGasDoorGar");
+	add_adjacent_zone("zone_trans_diner", "zone_roadside_west", "always_on", 1);
+	add_adjacent_zone("zone_trans_diner", "zone_gas", "always_on", 1);
+	add_adjacent_zone("zone_trans_diner2", "zone_roadside_east", "always_on", 1);
+	add_adjacent_zone("zone_gas", "zone_din", "OnGasDoorDin");
+	add_adjacent_zone("zone_gas", "zone_gar", "OnGasDoorGar");
+	add_adjacent_zone("zone_diner_roof", "zone_din", "OnGasDoorDin", 1);
+	add_adjacent_zone("zone_tow", "zone_bar", "always_on", 1);
+	add_adjacent_zone("zone_bar", "zone_tow", "OnTowDoorBar", 1);
+	add_adjacent_zone("zone_tow", "zone_ban", "OnTowDoorBan");
+	add_adjacent_zone("zone_ban", "zone_ban_vault", "OnTowBanVault");
+	add_adjacent_zone("zone_tow", "zone_town_north", "always_on");
+	add_adjacent_zone("zone_town_north", "zone_ban", "OnTowDoorBan");
+	add_adjacent_zone("zone_tow", "zone_town_west", "always_on");
+	add_adjacent_zone("zone_tow", "zone_town_south", "always_on");
+	add_adjacent_zone("zone_town_south", "zone_town_barber", "always_on", 1);
+	add_adjacent_zone("zone_tow", "zone_town_east", "always_on");
+	add_adjacent_zone("zone_town_east", "zone_bar", "OnTowDoorBar");
+	add_adjacent_zone("zone_tow", "zone_town_barber", "always_on", 1);
+	add_adjacent_zone("zone_town_barber", "zone_tow", "OnTowDoorBarber", 1);
+	add_adjacent_zone("zone_town_barber", "zone_town_west", "OnTowDoorBarber");
+	add_adjacent_zone("zone_far_ext", "zone_brn", "OnFarm_enter");
+	add_adjacent_zone("zone_far_ext", "zone_farm_house", "open_farmhouse");
+	add_adjacent_zone("zone_prr", "zone_pow", "OnPowDoorRR", 1);
+	add_adjacent_zone("zone_pcr", "zone_prr", "OnPowDoorRR");
+	add_adjacent_zone("zone_pcr", "zone_pow_warehouse", "OnPowDoorWH");
+	add_adjacent_zone("zone_pow", "zone_pow_warehouse", "always_on");
+	add_adjacent_zone("zone_tbu", "zone_tow", "vault_opened", 1);
+	add_adjacent_zone("zone_trans_8", "zone_pow", "always_on", 1);
+	add_adjacent_zone("zone_trans_8", "zone_pow_warehouse", "always_on", 1);
 }

@@ -9,10 +9,10 @@
 
 struct_init()
 {
-	scripts\zm\replaced\utility::register_perk_struct( "specialty_armorvest", "zombie_vending_jugg", ( -3563, -7196, -59 ), ( 0, 0, 0 ) );
-	scripts\zm\replaced\utility::register_perk_struct( "specialty_quickrevive", "zombie_vending_quickrevive", ( -6207, -6541, -46 ), ( 0, 60, 0 ) );
-	scripts\zm\replaced\utility::register_perk_struct( "specialty_fastreload", "zombie_vending_sleight", ( -5470, -7859.5, 0 ), ( 0, 270, 0 ) );
-	scripts\zm\replaced\utility::register_perk_struct( "specialty_rof", "zombie_vending_doubletap2", ( -4170, -7592, -63 ), ( 0, 270, 0 ) );
+	scripts\zm\replaced\utility::register_perk_struct("specialty_armorvest", "zombie_vending_jugg", (-3563, -7196, -59), (0, 0, 0));
+	scripts\zm\replaced\utility::register_perk_struct("specialty_quickrevive", "zombie_vending_quickrevive", (-6207, -6541, -46), (0, 60, 0));
+	scripts\zm\replaced\utility::register_perk_struct("specialty_fastreload", "zombie_vending_sleight", (-5470, -7859.5, 0), (0, 270, 0));
+	scripts\zm\replaced\utility::register_perk_struct("specialty_rof", "zombie_vending_doubletap2", (-4170, -7592, -63), (0, 270, 0));
 
 	ind = 0;
 	respawnpoints = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
@@ -27,7 +27,7 @@ struct_init()
 	}
 
 	zone = "zone_gas";
-	scripts\zm\replaced\utility::register_map_spawn_group( respawnpoints[ind].origin, zone, respawnpoints[ind].script_int );
+	scripts\zm\replaced\utility::register_map_spawn_group(respawnpoints[ind].origin, zone, respawnpoints[ind].script_int);
 
 	respawn_array = getstructarray(respawnpoints[ind].target, "targetname");
 
@@ -38,40 +38,40 @@ struct_init()
 			respawn.angles += (0, 180, 0);
 		}
 
-		scripts\zm\replaced\utility::register_map_spawn( respawn.origin, respawn.angles, zone, respawn.script_int );
+		scripts\zm\replaced\utility::register_map_spawn(respawn.origin, respawn.angles, zone, respawn.script_int);
 	}
 
 	zone = "zone_roadside_east";
-	scripts\zm\replaced\utility::register_map_spawn_group( (-4173, -7095, -35), zone, 6000 );
+	scripts\zm\replaced\utility::register_map_spawn_group((-4173, -7095, -35), zone, 6000);
 
-	scripts\zm\replaced\utility::register_map_spawn( (-4031, -6830, -18), (0, 180, 0), zone );
-	scripts\zm\replaced\utility::register_map_spawn( (-4106, -6830, -18), (0, 180, 0), zone );
-	scripts\zm\replaced\utility::register_map_spawn( (-4181, -6830, -18), (0, 180, 0), zone );
-	scripts\zm\replaced\utility::register_map_spawn( (-4256, -6830, -18), (0, 180, 0), zone );
-	scripts\zm\replaced\utility::register_map_spawn( (-4031, -7326, -35), (0, 180, 0), zone );
-	scripts\zm\replaced\utility::register_map_spawn( (-4106, -7326, -35), (0, 180, 0), zone );
-	scripts\zm\replaced\utility::register_map_spawn( (-4181, -7326, -35), (0, 180, 0), zone );
-	scripts\zm\replaced\utility::register_map_spawn( (-4256, -7326, -35), (0, 180, 0), zone );
+	scripts\zm\replaced\utility::register_map_spawn((-4031, -6830, -18), (0, 180, 0), zone);
+	scripts\zm\replaced\utility::register_map_spawn((-4106, -6830, -18), (0, 180, 0), zone);
+	scripts\zm\replaced\utility::register_map_spawn((-4181, -6830, -18), (0, 180, 0), zone);
+	scripts\zm\replaced\utility::register_map_spawn((-4256, -6830, -18), (0, 180, 0), zone);
+	scripts\zm\replaced\utility::register_map_spawn((-4031, -7326, -35), (0, 180, 0), zone);
+	scripts\zm\replaced\utility::register_map_spawn((-4106, -7326, -35), (0, 180, 0), zone);
+	scripts\zm\replaced\utility::register_map_spawn((-4181, -7326, -35), (0, 180, 0), zone);
+	scripts\zm\replaced\utility::register_map_spawn((-4256, -7326, -35), (0, 180, 0), zone);
 
 	zone = "zone_roadside_west";
-	scripts\zm\replaced\utility::register_map_spawn_group( (-5799, -6839, -30), zone, 6000 );
+	scripts\zm\replaced\utility::register_map_spawn_group((-5799, -6839, -30), zone, 6000);
 
-	scripts\zm\replaced\utility::register_map_spawn( (-6120, -6684, -30), (0, 0, 0), zone );
-	scripts\zm\replaced\utility::register_map_spawn( (-6045, -6684, -30), (0, 0, 0), zone );
-	scripts\zm\replaced\utility::register_map_spawn( (-5970, -6684, -30), (0, 0, 0), zone );
-	scripts\zm\replaced\utility::register_map_spawn( (-5895, -6684, -30), (0, 0, 0), zone );
-	scripts\zm\replaced\utility::register_map_spawn( (-6120, -6984, -30), (0, 0, 0), zone );
-	scripts\zm\replaced\utility::register_map_spawn( (-6045, -6984, -30), (0, 0, 0), zone );
-	scripts\zm\replaced\utility::register_map_spawn( (-5970, -6984, -30), (0, 0, 0), zone );
-	scripts\zm\replaced\utility::register_map_spawn( (-5895, -6984, -30), (0, 0, 0), zone );
+	scripts\zm\replaced\utility::register_map_spawn((-6120, -6684, -30), (0, 0, 0), zone);
+	scripts\zm\replaced\utility::register_map_spawn((-6045, -6684, -30), (0, 0, 0), zone);
+	scripts\zm\replaced\utility::register_map_spawn((-5970, -6684, -30), (0, 0, 0), zone);
+	scripts\zm\replaced\utility::register_map_spawn((-5895, -6684, -30), (0, 0, 0), zone);
+	scripts\zm\replaced\utility::register_map_spawn((-6120, -6984, -30), (0, 0, 0), zone);
+	scripts\zm\replaced\utility::register_map_spawn((-6045, -6984, -30), (0, 0, 0), zone);
+	scripts\zm\replaced\utility::register_map_spawn((-5970, -6984, -30), (0, 0, 0), zone);
+	scripts\zm\replaced\utility::register_map_spawn((-5895, -6984, -30), (0, 0, 0), zone);
 
-	gameObjects = getEntArray( "script_model", "classname" );
+	gameObjects = getEntArray("script_model", "classname");
 
-	foreach ( object in gameObjects )
+	foreach (object in gameObjects)
 	{
-		if ( isDefined( object.script_noteworthy ) && object.script_noteworthy == getDvar( "ui_zm_mapstartlocation" ) )
+		if (isDefined(object.script_noteworthy) && object.script_noteworthy == getDvar("ui_zm_mapstartlocation"))
 		{
-			if ( isDefined( object.script_gameobjectname ) && object.script_gameobjectname == "zcleansed zturned" )
+			if (isDefined(object.script_gameobjectname) && object.script_gameobjectname == "zcleansed zturned")
 			{
 				object.script_gameobjectname = "zstandard zgrief zcleansed zturned";
 
@@ -150,71 +150,71 @@ main()
 
 treasure_chest_init()
 {
-	chests = getstructarray( "treasure_chest_use", "targetname" );
+	chests = getstructarray("treasure_chest_use", "targetname");
 	level.chests = [];
 	level.chests[0] = chests[3];
-	maps\mp\zombies\_zm_magicbox::treasure_chest_init( "start_chest" );
+	maps\mp\zombies\_zm_magicbox::treasure_chest_init("start_chest");
 }
 
 init_wallbuys()
 {
-	scripts\zm\replaced\utility::wallbuy( "m14_zm", "m14", "weapon_upgrade", ( -5085, -7807, -5 ), ( 0, 0, 0 ) );
-	scripts\zm\replaced\utility::wallbuy( "rottweil72_zm", "olympia", "weapon_upgrade", ( -4576, -7748, 18 ), ( 0, 90, 0 ) );
-	scripts\zm\replaced\utility::wallbuy( "mp5k_zm", "mp5", "weapon_upgrade", ( -5489, -7982.7, 62 ), ( 0, 1, 0 ) );
-	scripts\zm\replaced\utility::wallbuy( "tazer_knuckles_zm", "tazer_knuckles", "tazer_upgrade", ( -6265, -7941, 100 ), ( 0, 90, 0 ) );
+	scripts\zm\replaced\utility::wallbuy("m14_zm", "m14", "weapon_upgrade", (-5085, -7807, -5), (0, 0, 0));
+	scripts\zm\replaced\utility::wallbuy("rottweil72_zm", "olympia", "weapon_upgrade", (-4576, -7748, 18), (0, 90, 0));
+	scripts\zm\replaced\utility::wallbuy("mp5k_zm", "mp5", "weapon_upgrade", (-5489, -7982.7, 62), (0, 1, 0));
+	scripts\zm\replaced\utility::wallbuy("tazer_knuckles_zm", "tazer_knuckles", "tazer_upgrade", (-6265, -7941, 100), (0, 90, 0));
 }
 
 init_barriers()
 {
-	collision = spawn( "script_model", ( -5000, -6700, 0 ), 1 );
-	collision setmodel( "zm_collision_transit_diner_survival" );
+	collision = spawn("script_model", (-5000, -6700, 0), 1);
+	collision setmodel("zm_collision_transit_diner_survival");
 	collision disconnectpaths();
 
-	origin = ( -6350, -7046, -60 );
-	angles = ( 0, 165, 0 );
-	scripts\zm\replaced\utility::barrier( "collision_player_wall_64x64x10", origin + (anglesToUp(angles) * 32), angles );
-	scripts\zm\replaced\utility::barrier( "collision_player_wall_64x64x10", origin + (anglesToUp(angles) * 96), angles );
-	scripts\zm\replaced\utility::barrier( "afr_barrel_biohazard_white_rust", origin + (anglesToForward(angles) * -24) + (anglesToRight(angles) * -16) + (anglesToUp(angles) * 14), angles + (0, 90, 90) );
+	origin = (-6350, -7046, -60);
+	angles = (0, 165, 0);
+	scripts\zm\replaced\utility::barrier("collision_player_wall_64x64x10", origin + (anglesToUp(angles) * 32), angles);
+	scripts\zm\replaced\utility::barrier("collision_player_wall_64x64x10", origin + (anglesToUp(angles) * 96), angles);
+	scripts\zm\replaced\utility::barrier("afr_barrel_biohazard_white_rust", origin + (anglesToForward(angles) * -24) + (anglesToRight(angles) * -16) + (anglesToUp(angles) * 14), angles + (0, 90, 90));
 }
 
 generatebuildabletarps()
 {
-	tarp = spawn( "script_model", ( -4688, -7974, -64 ) );
-	tarp.angles = ( 0, 0, 0 );
-	tarp setModel( "p6_zm_buildable_bench_tarp" );
+	tarp = spawn("script_model", (-4688, -7974, -64));
+	tarp.angles = (0, 0, 0);
+	tarp setModel("p6_zm_buildable_bench_tarp");
 }
 
 disable_zombie_spawn_locations()
 {
-	for ( z = 0; z < level.zone_keys.size; z++ )
+	for (z = 0; z < level.zone_keys.size; z++)
 	{
 		zone = level.zones[ level.zone_keys[ z ] ];
 
 		i = 0;
 
-		while ( i < zone.spawn_locations.size )
+		while (i < zone.spawn_locations.size)
 		{
-			if ( zone.spawn_locations[ i ].targetname == "zone_trans_diner_spawners")
+			if (zone.spawn_locations[ i ].targetname == "zone_trans_diner_spawners")
 			{
 				zone.spawn_locations[ i ].is_enabled = false;
 			}
-			else if ( zone.spawn_locations[ i ].targetname == "zone_trans_diner2_spawners")
+			else if (zone.spawn_locations[ i ].targetname == "zone_trans_diner2_spawners")
 			{
 				zone.spawn_locations[ i ].is_enabled = false;
 			}
-			else if ( zone.spawn_locations[ i ].origin == ( -3825, -6576, -52.7 ) )
+			else if (zone.spawn_locations[ i ].origin == (-3825, -6576, -52.7))
 			{
 				zone.spawn_locations[ i ].is_enabled = false;
 			}
-			else if ( zone.spawn_locations[ i ].origin == ( -5130, -6512, -35.4 ) )
+			else if (zone.spawn_locations[ i ].origin == (-5130, -6512, -35.4))
 			{
 				zone.spawn_locations[ i ].is_enabled = false;
 			}
-			else if ( zone.spawn_locations[ i ].origin == ( -6462, -7159, -64 ) )
+			else if (zone.spawn_locations[ i ].origin == (-6462, -7159, -64))
 			{
 				zone.spawn_locations[ i ].is_enabled = false;
 			}
-			else if ( zone.spawn_locations[ i ].origin == ( -6531, -6613, -54.4 ) )
+			else if (zone.spawn_locations[ i ].origin == (-6531, -6613, -54.4))
 			{
 				zone.spawn_locations[ i ].is_enabled = false;
 			}

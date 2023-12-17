@@ -5,9 +5,9 @@
 #include maps\mp\gametypes_zm\_spectating;
 #include maps\mp\gametypes_zm\_globallogic_player;
 
-menuautoassign( comingfrommenu )
+menuautoassign(comingfrommenu)
 {
-	teamkeys = getarraykeys( level.teams );
+	teamkeys = getarraykeys(level.teams);
 	assignment = self get_assigned_team();
 	self closemenus();
 
@@ -19,7 +19,7 @@ menuautoassign( comingfrommenu )
 	self.pers["savedmodel"] = undefined;
 	self updateobjectivetext();
 
-	if ( level.teambased )
+	if (level.teambased)
 		self.sessionteam = assignment;
 	else
 	{
@@ -27,11 +27,11 @@ menuautoassign( comingfrommenu )
 		self.ffateam = assignment;
 	}
 
-	self notify( "joined_team" );
-	level notify( "joined_team" );
-	self notify( "end_respawn" );
+	self notify("joined_team");
+	level notify("joined_team");
+	self notify("end_respawn");
 	self beginclasschoice();
-	self setclientscriptmainmenu( game["menu_class"] );
+	self setclientscriptmainmenu(game["menu_class"]);
 }
 
 get_assigned_team()
@@ -42,14 +42,14 @@ get_assigned_team()
 
 	players = get_players();
 
-	foreach ( player in players )
+	foreach (player in players)
 	{
-		if ( !isDefined(player.team) || (player.team != "axis" && player.team != "allies") )
+		if (!isDefined(player.team) || (player.team != "axis" && player.team != "allies"))
 		{
 			continue;
 		}
 
-		if ( player == self )
+		if (player == self)
 		{
 			continue;
 		}
@@ -57,13 +57,13 @@ get_assigned_team()
 		teamplayers[player.team]++;
 	}
 
-	if ( teamplayers["axis"] <= teamplayers["allies"] )
+	if (teamplayers["axis"] <= teamplayers["allies"])
 	{
 		guids = strTok(getDvar("team_axis"), " ");
 
-		foreach ( guid in guids )
+		foreach (guid in guids)
 		{
-			if ( self getguid() == int(guid) )
+			if (self getguid() == int(guid))
 			{
 				arrayRemoveValue(guids, guid);
 
@@ -81,13 +81,13 @@ get_assigned_team()
 		}
 	}
 
-	if ( teamplayers["allies"] <= teamplayers["axis"] )
+	if (teamplayers["allies"] <= teamplayers["axis"])
 	{
 		guids = strTok(getDvar("team_allies"), " ");
 
-		foreach ( guid in guids )
+		foreach (guid in guids)
 		{
-			if ( self getguid() == int(guid) )
+			if (self getguid() == int(guid))
 			{
 				arrayRemoveValue(guids, guid);
 
@@ -105,9 +105,9 @@ get_assigned_team()
 		}
 	}
 
-	if ( teamplayers["allies"] == teamplayers["axis"] )
+	if (teamplayers["allies"] == teamplayers["axis"])
 	{
-		if ( randomint( 100 ) >= 50 )
+		if (randomint(100) >= 50)
 		{
 			return "axis";
 		}
@@ -118,7 +118,7 @@ get_assigned_team()
 	}
 	else
 	{
-		if ( teamplayers["allies"] > teamplayers["axis"] )
+		if (teamplayers["allies"] > teamplayers["axis"])
 		{
 			return "axis";
 		}

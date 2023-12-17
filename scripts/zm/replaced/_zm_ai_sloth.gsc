@@ -73,98 +73,98 @@ sloth_init_update_funcs()
 	self.locomotion_func = ::update_locomotion;
 }
 
-start_jail_run( do_pain )
+start_jail_run(do_pain)
 {
-	if ( self is_jail_state() )
+	if (self is_jail_state())
 		return false;
 
-	if ( self.state == "berserk" || self.state == "crash" )
+	if (self.state == "berserk" || self.state == "crash")
 		return false;
 
-	if ( self sloth_is_traversing() )
+	if (self sloth_is_traversing())
 		return false;
 
-	if ( self.state == "gunshop_candy" || self.state == "table_eat" )
+	if (self.state == "gunshop_candy" || self.state == "table_eat")
 	{
-		if ( isdefined( self.bench ) )
+		if (isdefined(self.bench))
 		{
-			if ( isdefined( level.weapon_bench_reset ) )
+			if (isdefined(level.weapon_bench_reset))
 				self.bench [[ level.weapon_bench_reset ]]();
 		}
 	}
 
 	self stop_action();
-	self thread sndchangebreathingstate( "happy" );
-	self thread action_jail_run( self.jail_start.origin, do_pain );
+	self thread sndchangebreathingstate("happy");
+	self thread action_jail_run(self.jail_start.origin, do_pain);
 
-	if ( self.state == "context" )
+	if (self.state == "context")
 	{
-		if ( isdefined( self.context.interrupt ) )
+		if (isdefined(self.context.interrupt))
 			self [[ self.context.interrupt ]]();
 	}
 
 	self sloth_init_roam_point();
-	thread maps\mp\zombies\_zm_unitrigger::unregister_unitrigger( self.gift_trigger );
+	thread maps\mp\zombies\_zm_unitrigger::unregister_unitrigger(self.gift_trigger);
 	return true;
 }
 
-action_jail_run( pos, do_pain )
+action_jail_run(pos, do_pain)
 {
 	self.needs_action = 0;
 
-	if ( isdefined( self.candy_model ) )
+	if (isdefined(self.candy_model))
 		self.candy_model ghost();
 
-	if ( isdefined( self.booze_model ) )
+	if (isdefined(self.booze_model))
 		self.booze_model ghost();
 
-	if ( is_true( do_pain ) )
+	if (is_true(do_pain))
 	{
-		if ( !self sloth_is_traversing() && !is_true( self.is_pain ) )
+		if (!self sloth_is_traversing() && !is_true(self.is_pain))
 		{
 			self.is_pain = 1;
-			self setanimstatefromasd( "zm_pain" );
+			self setanimstatefromasd("zm_pain");
 			self.reset_asd = "zm_pain";
 			self thread finish_pain();
-			maps\mp\animscripts\zm_shared::donotetracks( "pain_anim" );
-			self notify( "pain_done" );
+			maps\mp\animscripts\zm_shared::donotetracks("pain_anim");
+			self notify("pain_done");
 			self.is_pain = 0;
 		}
 	}
 
-	while ( true )
+	while (true)
 	{
-		if ( !self sloth_is_pain() )
+		if (!self sloth_is_pain())
 			break;
 
 		wait 0.1;
 	}
 
 	self.reset_asd = undefined;
-	self animmode( "normal" );
-	self set_zombie_run_cycle( "run" );
+	self animmode("normal");
+	self set_zombie_run_cycle("run");
 	self.locomotion = "run";
 	self thread sloth_retreat_vo();
 	self check_behind_mansion();
 
-	if ( isdefined( self.mansion_goal ) )
+	if (isdefined(self.mansion_goal))
 	{
-		self setgoalpos( self.mansion_goal.origin );
+		self setgoalpos(self.mansion_goal.origin);
 
-		self waittill( "goal" );
+		self waittill("goal");
 
 		self action_teleport_to_courtyard();
 	}
 
 	self.goalradius = 2;
 
-	self setgoalpos( self.jail_start.origin + (0, 128, 0) );
+	self setgoalpos(self.jail_start.origin + (0, 128, 0));
 
-	self waittill( "goal" );
+	self waittill("goal");
 
 	self.goalradius = 16;
 
-	self orientmode( "face angle", self.jail_start.angles[1] );
+	self orientmode("face angle", self.jail_start.angles[1]);
 
 	wait 0.5;
 
@@ -175,33 +175,33 @@ start_jail_wait()
 {
 	self stopanimscripted();
 	self action_jail_wait();
-	self thread sndchangebreathingstate( "happy" );
+	self thread sndchangebreathingstate("happy");
 	return 1;
 }
 
 action_jail_wait()
 {
 	self.needs_action = 0;
-	self setgoalpos( self.origin );
+	self setgoalpos(self.origin);
 	self.anchor.origin = self.origin;
 	self.anchor.angles = self.angles;
-	self linkto( self.anchor );
-	self setanimstatefromasd( "zm_idle_protect" );
+	self linkto(self.anchor);
+	self setanimstatefromasd("zm_idle_protect");
 	self.needs_action = 1;
 }
 
 update_jail_idle()
 {
-	if ( is_true( self.open_jail ) )
+	if (is_true(self.open_jail))
 	{
-		level notify( "cell_open" );
+		level notify("cell_open");
 		self.open_jail = 0;
 	}
 
-	if ( is_true( level.cell_open ) )
+	if (is_true(level.cell_open))
 	{
 		self stop_action();
-		self sloth_set_state( "jail_idle" );
+		self sloth_set_state("jail_idle");
 	}
 }
 
@@ -214,98 +214,98 @@ update_jail_wait()
 
 	players = get_players();
 
-	foreach ( player in players )
+	foreach (player in players)
 	{
-		if ( player maps\mp\zombies\_zm_zonemgr::entity_in_zone( "zone_underground_jail" ) )
+		if (player maps\mp\zombies\_zm_zonemgr::entity_in_zone("zone_underground_jail"))
 		{
 			return;
 		}
 	}
 
-	if ( self.needs_action )
-		self sloth_set_state( "jail_close" );
+	if (self.needs_action)
+		self sloth_set_state("jail_close");
 }
 
 update_eat()
 {
-	if ( is_true( self.needs_action ) )
+	if (is_true(self.needs_action))
 	{
-		self setclientfield( "sloth_eating", 0 );
+		self setclientfield("sloth_eating", 0);
 
-		if ( isdefined( self.candy_model ) )
+		if (isdefined(self.candy_model))
 			self.candy_model ghost();
 
 		context = self check_contextual_actions();
 
-		if ( isdefined( context ) )
+		if (isdefined(context))
 		{
-			self sloth_set_state( "context", context );
+			self sloth_set_state("context", context);
 			return;
 		}
 
-		self sloth_set_state( "roam" );
+		self sloth_set_state("roam");
 	}
 }
 
-sloth_check_ragdolls( ignore_zombie )
+sloth_check_ragdolls(ignore_zombie)
 {
 	non_ragdoll = 0;
-	zombies = getaispeciesarray( level.zombie_team, "all" );
+	zombies = getaispeciesarray(level.zombie_team, "all");
 
-	for ( i = 0; i < zombies.size; i++ )
+	for (i = 0; i < zombies.size; i++)
 	{
 		zombie = zombies[i];
 
-		if ( is_true( zombie.is_sloth ) )
+		if (is_true(zombie.is_sloth))
 			continue;
 
-		if ( isdefined( ignore_zombie ) && zombie == ignore_zombie )
+		if (isdefined(ignore_zombie) && zombie == ignore_zombie)
 			continue;
 
-		if ( isdefined( self.crawler ) && zombie == self.crawler )
+		if (isdefined(self.crawler) && zombie == self.crawler)
 			continue;
 
-		if ( self is_facing( zombie ) )
+		if (self is_facing(zombie))
 		{
-			dist = distancesquared( self.origin, zombie.origin );
+			dist = distancesquared(self.origin, zombie.origin);
 
-			if ( dist < 4096 )
+			if (dist < 4096)
 			{
-				if ( !self sloth_ragdoll_zombie( zombie ) )
+				if (!self sloth_ragdoll_zombie(zombie))
 				{
-					if ( !is_true( self.no_gib ) && non_ragdoll % 3 == 0 )
+					if (!is_true(self.no_gib) && non_ragdoll % 3 == 0)
 					{
 						zombie.force_gib = 1;
-						zombie.a.gib_ref = random( array( "guts", "right_arm", "left_arm", "head" ) );
+						zombie.a.gib_ref = random(array("guts", "right_arm", "left_arm", "head"));
 						zombie thread maps\mp\animscripts\zm_death::do_gib();
 					}
 
 					non_ragdoll++;
-					zombie dodamage( zombie.health * 10, zombie.origin );
-					zombie playsound( "zmb_ai_sloth_attack_impact" );
+					zombie dodamage(zombie.health * 10, zombie.origin);
+					zombie playsound("zmb_ai_sloth_attack_impact");
 					zombie.noragdoll = 1;
 					zombie.nodeathragdoll = 1;
 				}
 
-				if ( isdefined( self.target_zombie ) && self.target_zombie == zombie )
+				if (isdefined(self.target_zombie) && self.target_zombie == zombie)
 					self.target_zombie = undefined;
 			}
 		}
 	}
 }
 
-sloth_ragdoll_zombie( zombie )
+sloth_ragdoll_zombie(zombie)
 {
-	if ( !isdefined( self.ragdolls ) )
+	if (!isdefined(self.ragdolls))
 		self.ragdolls = 0;
 
-	if ( self.ragdolls < 4 )
+	if (self.ragdolls < 4)
 	{
 		self.ragdolls++;
-		zombie dodamage( zombie.health * 10, zombie.origin );
-		zombie playsound( "zmb_ai_sloth_attack_impact" );
+		zombie dodamage(zombie.health * 10, zombie.origin);
+		zombie playsound("zmb_ai_sloth_attack_impact");
 		zombie startragdoll();
-		zombie setclientfield( "sloth_ragdoll_zombie", 1 );
+		zombie setclientfield("sloth_ragdoll_zombie", 1);
 		self thread sloth_ragdoll_wait();
 		return true;
 	}
@@ -313,7 +313,7 @@ sloth_ragdoll_zombie( zombie )
 	return false;
 }
 
-wait_start_candy_booze( piece )
+wait_start_candy_booze(piece)
 {
 	// remove
 }

@@ -20,11 +20,11 @@ struct_class_init()
 	level.struct_class_names[ "script_linkname" ] = [];
 	level.struct_class_names[ "script_unitrigger_type" ] = [];
 
-	foreach ( s_struct in level.struct )
+	foreach (s_struct in level.struct)
 	{
-		if ( isDefined( s_struct.targetname ) )
+		if (isDefined(s_struct.targetname))
 		{
-			if ( !isDefined( level.struct_class_names[ "targetname" ][ s_struct.targetname ] ) )
+			if (!isDefined(level.struct_class_names[ "targetname" ][ s_struct.targetname ]))
 			{
 				level.struct_class_names[ "targetname" ][ s_struct.targetname ] = [];
 			}
@@ -33,9 +33,9 @@ struct_class_init()
 			level.struct_class_names[ "targetname" ][ s_struct.targetname ][ size ] = s_struct;
 		}
 
-		if ( isDefined( s_struct.target ) )
+		if (isDefined(s_struct.target))
 		{
-			if ( !isDefined( level.struct_class_names[ "target" ][ s_struct.target ] ) )
+			if (!isDefined(level.struct_class_names[ "target" ][ s_struct.target ]))
 			{
 				level.struct_class_names[ "target" ][ s_struct.target ] = [];
 			}
@@ -44,9 +44,9 @@ struct_class_init()
 			level.struct_class_names[ "target" ][ s_struct.target ][ size ] = s_struct;
 		}
 
-		if ( isDefined( s_struct.script_noteworthy ) )
+		if (isDefined(s_struct.script_noteworthy))
 		{
-			if ( !isDefined( level.struct_class_names[ "script_noteworthy" ][ s_struct.script_noteworthy ] ) )
+			if (!isDefined(level.struct_class_names[ "script_noteworthy" ][ s_struct.script_noteworthy ]))
 			{
 				level.struct_class_names[ "script_noteworthy" ][ s_struct.script_noteworthy ] = [];
 			}
@@ -55,14 +55,14 @@ struct_class_init()
 			level.struct_class_names[ "script_noteworthy" ][ s_struct.script_noteworthy ][ size ] = s_struct;
 		}
 
-		if ( isDefined( s_struct.script_linkname ) )
+		if (isDefined(s_struct.script_linkname))
 		{
 			level.struct_class_names[ "script_linkname" ][ s_struct.script_linkname ][ 0 ] = s_struct;
 		}
 
-		if ( isDefined( s_struct.script_unitrigger_type ) )
+		if (isDefined(s_struct.script_unitrigger_type))
 		{
-			if ( !isDefined( level.struct_class_names[ "script_unitrigger_type" ][ s_struct.script_unitrigger_type ] ) )
+			if (!isDefined(level.struct_class_names[ "script_unitrigger_type" ][ s_struct.script_unitrigger_type ]))
 			{
 				level.struct_class_names[ "script_unitrigger_type" ][ s_struct.script_unitrigger_type ] = [];
 			}
@@ -72,16 +72,16 @@ struct_class_init()
 		}
 	}
 
-	gametype = getDvar( "g_gametype" );
-	location = getDvar( "ui_zm_mapstartlocation" );
+	gametype = getDvar("g_gametype");
+	location = getDvar("ui_zm_mapstartlocation");
 
-	if ( array_validate( level.add_struct_gamemode_location_funcs ) )
+	if (array_validate(level.add_struct_gamemode_location_funcs))
 	{
-		if ( array_validate( level.add_struct_gamemode_location_funcs[ gametype ] ) )
+		if (array_validate(level.add_struct_gamemode_location_funcs[ gametype ]))
 		{
-			if ( array_validate( level.add_struct_gamemode_location_funcs[ gametype ][ location ] ) )
+			if (array_validate(level.add_struct_gamemode_location_funcs[ gametype ][ location ]))
 			{
-				for ( i = 0; i < level.add_struct_gamemode_location_funcs[ gametype ][ location ].size; i++ )
+				for (i = 0; i < level.add_struct_gamemode_location_funcs[ gametype ][ location ].size; i++)
 				{
 					[[ level.add_struct_gamemode_location_funcs[ gametype ][ location ][ i ] ]]();
 				}
@@ -90,11 +90,11 @@ struct_class_init()
 	}
 }
 
-add_struct( s_struct )
+add_struct(s_struct)
 {
-	if ( isDefined( s_struct.targetname ) )
+	if (isDefined(s_struct.targetname))
 	{
-		if ( !isDefined( level.struct_class_names[ "targetname" ][ s_struct.targetname ] ) )
+		if (!isDefined(level.struct_class_names[ "targetname" ][ s_struct.targetname ]))
 		{
 			level.struct_class_names[ "targetname" ][ s_struct.targetname ] = [];
 		}
@@ -103,9 +103,9 @@ add_struct( s_struct )
 		level.struct_class_names[ "targetname" ][ s_struct.targetname ][ size ] = s_struct;
 	}
 
-	if ( isDefined( s_struct.script_noteworthy ) )
+	if (isDefined(s_struct.script_noteworthy))
 	{
-		if ( !isDefined( level.struct_class_names[ "script_noteworthy" ][ s_struct.script_noteworthy ] ) )
+		if (!isDefined(level.struct_class_names[ "script_noteworthy" ][ s_struct.script_noteworthy ]))
 		{
 			level.struct_class_names[ "script_noteworthy" ][ s_struct.script_noteworthy ] = [];
 		}
@@ -114,9 +114,9 @@ add_struct( s_struct )
 		level.struct_class_names[ "script_noteworthy" ][ s_struct.script_noteworthy ][ size ] = s_struct;
 	}
 
-	if ( isDefined( s_struct.target ) )
+	if (isDefined(s_struct.target))
 	{
-		if ( !isDefined( level.struct_class_names[ "target" ][ s_struct.target ] ) )
+		if (!isDefined(level.struct_class_names[ "target" ][ s_struct.target ]))
 		{
 			level.struct_class_names[ "target" ][ s_struct.target ] = [];
 		}
@@ -125,14 +125,14 @@ add_struct( s_struct )
 		level.struct_class_names[ "target" ][ s_struct.target ][ size ] = s_struct;
 	}
 
-	if ( isDefined( s_struct.script_linkname ) )
+	if (isDefined(s_struct.script_linkname))
 	{
 		level.struct_class_names[ "script_linkname" ][ s_struct.script_linkname ][ 0 ] = s_struct;
 	}
 
-	if ( isDefined( s_struct.script_unitrigger_type ) )
+	if (isDefined(s_struct.script_unitrigger_type))
 	{
-		if ( !isDefined( level.struct_class_names[ "script_unitrigger_type" ][ s_struct.script_unitrigger_type ] ) )
+		if (!isDefined(level.struct_class_names[ "script_unitrigger_type" ][ s_struct.script_unitrigger_type ]))
 		{
 			level.struct_class_names[ "script_unitrigger_type" ][ s_struct.script_unitrigger_type ] = [];
 		}
@@ -142,7 +142,7 @@ add_struct( s_struct )
 	}
 }
 
-register_perk_struct( name, model, origin, angles )
+register_perk_struct(name, model, origin, angles)
 {
 	perk_struct = spawnStruct();
 	perk_struct.targetname = "zm_perk_machine";
@@ -151,53 +151,53 @@ register_perk_struct( name, model, origin, angles )
 	perk_struct.script_noteworthy = name;
 	perk_struct.model = model;
 
-	if ( name == "specialty_weapupgrade" )
+	if (name == "specialty_weapupgrade")
 	{
 		flag_struct = spawnStruct();
 		flag_struct.targetname = "weapupgrade_flag_targ";
-		flag_struct.origin = origin + ( anglesToForward( angles ) * 29 ) + ( anglesToRight( angles ) * -13.5 ) + ( anglesToUp( angles ) * 49.5 );
-		flag_struct.angles = angles + ( 0, 180, 180 );
+		flag_struct.origin = origin + (anglesToForward(angles) * 29) + (anglesToRight(angles) * -13.5) + (anglesToUp(angles) * 49.5);
+		flag_struct.angles = angles + (0, 180, 180);
 		flag_struct.model = "zombie_sign_please_wait";
 		perk_struct.target = flag_struct.targetname;
 
-		add_struct( flag_struct );
+		add_struct(flag_struct);
 	}
 
-	add_struct( perk_struct );
+	add_struct(perk_struct);
 }
 
-register_map_spawn_group( origin, zone, dist )
+register_map_spawn_group(origin, zone, dist)
 {
 	spawn_group_struct = spawnStruct();
 	spawn_group_struct.targetname = "player_respawn_point";
 	spawn_group_struct.origin = origin;
-	spawn_group_struct.locked = !zone_is_enabled( zone );
+	spawn_group_struct.locked = !zone_is_enabled(zone);
 	spawn_group_struct.script_int = dist;
 	spawn_group_struct.script_noteworthy = zone;
-	spawn_group_struct.script_string = getDvar( "g_gametype" ) + "_" + getDvar( "ui_zm_mapstartlocation" );
+	spawn_group_struct.script_string = getDvar("g_gametype") + "_" + getDvar("ui_zm_mapstartlocation");
 	spawn_group_struct.target = zone + "_player_spawns";
 
-	add_struct( spawn_group_struct );
+	add_struct(spawn_group_struct);
 }
 
-register_map_spawn( origin, angles, zone, team_num )
+register_map_spawn(origin, angles, zone, team_num)
 {
 	spawn_struct = spawnStruct();
 	spawn_struct.targetname = zone + "_player_spawns";
 	spawn_struct.origin = origin;
 	spawn_struct.angles = angles;
-	spawn_struct.script_string = getDvar( "g_gametype" ) + "_" + getDvar( "ui_zm_mapstartlocation" );
+	spawn_struct.script_string = getDvar("g_gametype") + "_" + getDvar("ui_zm_mapstartlocation");
 
-	if ( isDefined( team_num ) )
+	if (isDefined(team_num))
 	{
 		spawn_struct.script_noteworthy = "initial_spawn";
 		spawn_struct.script_int = team_num;
 	}
 
-	add_struct( spawn_struct );
+	add_struct(spawn_struct);
 }
 
-wallbuy( weapon_name, target, targetname, origin, angles, play_chalk_fx = 1 )
+wallbuy(weapon_name, target, targetname, origin, angles, play_chalk_fx = 1)
 {
 	unitrigger_stub = spawnstruct();
 	unitrigger_stub.origin = origin;
@@ -205,18 +205,18 @@ wallbuy( weapon_name, target, targetname, origin, angles, play_chalk_fx = 1 )
 
 	model_name = undefined;
 
-	if ( weapon_name == "sticky_grenade_zm" )
+	if (weapon_name == "sticky_grenade_zm")
 	{
 		model_name = "semtex_bag";
 	}
-	else if ( weapon_name == "claymore_zm" )
+	else if (weapon_name == "claymore_zm")
 	{
 		model_name = "t6_wpn_claymore_world";
 	}
 
-	wallmodel = spawn_weapon_model( weapon_name, model_name, origin, angles );
+	wallmodel = spawn_weapon_model(weapon_name, model_name, origin, angles);
 	wallmodel.targetname = target;
-	wallmodel useweaponhidetags( weapon_name );
+	wallmodel useweaponhidetags(weapon_name);
 	wallmodel hide();
 
 	absmins = wallmodel getabsmins();
@@ -231,23 +231,23 @@ wallbuy( weapon_name, target, targetname, origin, angles, play_chalk_fx = 1 )
 	unitrigger_stub.cursor_hint = "HINT_NOICON";
 
 	// move model forward so it always shows in front of chalk
-	wallmodel.origin += anglesToRight( wallmodel.angles ) * -0.3;
-	unitrigger_stub.origin += anglesToRight( wallmodel.angles ) * -0.3;
+	wallmodel.origin += anglesToRight(wallmodel.angles) * -0.3;
+	unitrigger_stub.origin += anglesToRight(wallmodel.angles) * -0.3;
 
-	if ( unitrigger_stub.targetname == "weapon_upgrade" )
+	if (unitrigger_stub.targetname == "weapon_upgrade")
 	{
-		unitrigger_stub.cost = get_weapon_cost( weapon_name );
+		unitrigger_stub.cost = get_weapon_cost(weapon_name);
 
-		if ( !is_true( level.monolingustic_prompt_format ) )
+		if (!is_true(level.monolingustic_prompt_format))
 		{
-			unitrigger_stub.hint_string = get_weapon_hint( weapon_name );
+			unitrigger_stub.hint_string = get_weapon_hint(weapon_name);
 			unitrigger_stub.hint_parm1 = unitrigger_stub.cost;
 		}
 		else
 		{
-			unitrigger_stub.hint_parm1 = get_weapon_display_name( weapon_name );
+			unitrigger_stub.hint_parm1 = get_weapon_display_name(weapon_name);
 
-			if ( !isDefined( unitrigger_stub.hint_parm1 ) || unitrigger_stub.hint_parm1 == "" || unitrigger_stub.hint_parm1 == "none" )
+			if (!isDefined(unitrigger_stub.hint_parm1) || unitrigger_stub.hint_parm1 == "" || unitrigger_stub.hint_parm1 == "none")
 			{
 				unitrigger_stub.hint_parm1 = "missing weapon name " + weapon_name;
 			}
@@ -262,9 +262,9 @@ wallbuy( weapon_name, target, targetname, origin, angles, play_chalk_fx = 1 )
 	unitrigger_stub.require_look_at = 1;
 	unitrigger_stub.require_look_from = 0;
 	unitrigger_stub.zombie_weapon_upgrade = weapon_name;
-	maps\mp\zombies\_zm_unitrigger::unitrigger_force_per_player_triggers( unitrigger_stub, 1 );
+	maps\mp\zombies\_zm_unitrigger::unitrigger_force_per_player_triggers(unitrigger_stub, 1);
 
-	if ( is_melee_weapon( weapon_name ) )
+	if (is_melee_weapon(weapon_name))
 	{
 		melee_weapon = undefined;
 
@@ -306,24 +306,24 @@ wallbuy( weapon_name, target, targetname, origin, angles, play_chalk_fx = 1 )
 
 		wallmodel.origin += anglesToForward(angles) * -8; // _zm_melee_weapon::melee_weapon_show moves this back
 
-		maps\mp\zombies\_zm_unitrigger::register_static_unitrigger( unitrigger_stub, ::melee_weapon_think );
+		maps\mp\zombies\_zm_unitrigger::register_static_unitrigger(unitrigger_stub, ::melee_weapon_think);
 	}
-	else if ( weapon_name == "claymore_zm" )
+	else if (weapon_name == "claymore_zm")
 	{
 		wallmodel.angles += (0, 90, 0);
 		wallmodel.script_int = 90; // fix for model sliding right to left
 
 		unitrigger_stub.prompt_and_visibility_func = scripts\zm\replaced\_zm_weap_claymore::claymore_unitrigger_update_prompt;
-		maps\mp\zombies\_zm_unitrigger::register_static_unitrigger( unitrigger_stub, scripts\zm\replaced\_zm_weap_claymore::buy_claymores );
+		maps\mp\zombies\_zm_unitrigger::register_static_unitrigger(unitrigger_stub, scripts\zm\replaced\_zm_weap_claymore::buy_claymores);
 	}
 	else
 	{
-		if ( is_lethal_grenade( unitrigger_stub.zombie_weapon_upgrade ) )
+		if (is_lethal_grenade(unitrigger_stub.zombie_weapon_upgrade))
 			unitrigger_stub.prompt_and_visibility_func = scripts\zm\replaced\_zm_weapons::lethal_grenade_update_prompt;
 		else
 			unitrigger_stub.prompt_and_visibility_func = ::wall_weapon_update_prompt;
 
-		maps\mp\zombies\_zm_unitrigger::register_static_unitrigger( unitrigger_stub, scripts\zm\replaced\_zm_weapons::weapon_spawn_think );
+		maps\mp\zombies\_zm_unitrigger::register_static_unitrigger(unitrigger_stub, scripts\zm\replaced\_zm_weapons::weapon_spawn_think);
 	}
 
 	if (weaponType(weapon_name) == "grenade")
@@ -334,17 +334,17 @@ wallbuy( weapon_name, target, targetname, origin, angles, play_chalk_fx = 1 )
 	if (play_chalk_fx)
 	{
 		chalk_fx = weapon_name + "_fx";
-		level thread playchalkfx( chalk_fx, origin, angles );
+		level thread playchalkfx(chalk_fx, origin, angles);
 	}
 }
 
-playchalkfx( effect, origin, angles )
+playchalkfx(effect, origin, angles)
 {
-	while ( 1 )
+	while (1)
 	{
-		fx = SpawnFX( level._effect[ effect ], origin, AnglesToForward( angles ), AnglesToUp( angles ) );
-		TriggerFX( fx );
-		level waittill( "connected", player );
+		fx = SpawnFX(level._effect[ effect ], origin, AnglesToForward(angles), AnglesToUp(angles));
+		TriggerFX(fx);
+		level waittill("connected", player);
 		fx Delete();
 	}
 }
@@ -365,19 +365,19 @@ wallbuy_grenade_model_fix()
 	self.target = undefined;
 }
 
-barrier( model, origin, angles, not_solid )
+barrier(model, origin, angles, not_solid)
 {
-	if ( !isDefined( level.survival_barriers ) )
+	if (!isDefined(level.survival_barriers))
 	{
 		level.survival_barriers = [];
 		level.survival_barriers_index = 0;
 	}
 
-	level.survival_barriers[ level.survival_barriers_index ] = spawn( "script_model", origin );
-	level.survival_barriers[ level.survival_barriers_index ] setModel( model );
-	level.survival_barriers[ level.survival_barriers_index ] rotateTo( angles, 0.1 );
+	level.survival_barriers[ level.survival_barriers_index ] = spawn("script_model", origin);
+	level.survival_barriers[ level.survival_barriers_index ] setModel(model);
+	level.survival_barriers[ level.survival_barriers_index ] rotateTo(angles, 0.1);
 
-	if ( is_true( not_solid ) )
+	if (is_true(not_solid))
 	{
 		level.survival_barriers[ level.survival_barriers_index ] notSolid();
 	}
@@ -385,19 +385,19 @@ barrier( model, origin, angles, not_solid )
 	level.survival_barriers_index++;
 }
 
-add_struct_location_gamemode_func( gametype, location, func )
+add_struct_location_gamemode_func(gametype, location, func)
 {
-	if ( !isDefined( level.add_struct_gamemode_location_funcs ) )
+	if (!isDefined(level.add_struct_gamemode_location_funcs))
 	{
 		level.add_struct_gamemode_location_funcs = [];
 	}
 
-	if ( !isDefined( level.add_struct_gamemode_location_funcs[ gametype ] ) )
+	if (!isDefined(level.add_struct_gamemode_location_funcs[ gametype ]))
 	{
 		level.add_struct_gamemode_location_funcs[ gametype ] = [];
 	}
 
-	if ( !isDefined( level.add_struct_gamemode_location_funcs[ gametype ][ location ] ) )
+	if (!isDefined(level.add_struct_gamemode_location_funcs[ gametype ][ location ]))
 	{
 		level.add_struct_gamemode_location_funcs[ gametype ][ location ] = [];
 	}

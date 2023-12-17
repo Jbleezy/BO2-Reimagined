@@ -27,30 +27,30 @@
 
 inert_zombies_init()
 {
-	inert_spawn_location = getstructarray( "inert_location", "script_noteworthy" );
+	inert_spawn_location = getstructarray("inert_location", "script_noteworthy");
 
-	if ( isdefined( inert_spawn_location ) )
-		array_thread( inert_spawn_location, ::spawn_inert_zombies );
+	if (isdefined(inert_spawn_location))
+		array_thread(inert_spawn_location, ::spawn_inert_zombies);
 }
 
 spawn_inert_zombies()
 {
-	if ( !isdefined( self.angles ) )
-		self.angles = ( 0, 0, 0 );
+	if (!isdefined(self.angles))
+		self.angles = (0, 0, 0);
 
 	flag_wait("initial_players_connected");
 
 	wait 0.1;
 
-	if ( isdefined( level.zombie_spawners ) )
+	if (isdefined(level.zombie_spawners))
 	{
-		spawner = random( level.zombie_spawners );
-		ai = spawn_zombie( spawner );
+		spawner = random(level.zombie_spawners);
+		ai = spawn_zombie(spawner);
 	}
 
-	if ( isdefined( ai ) )
+	if (isdefined(ai))
 	{
-		ai forceteleport( self.origin, self.angles );
+		ai forceteleport(self.origin, self.angles);
 		ai.start_inert = 1;
 	}
 }

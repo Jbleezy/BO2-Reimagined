@@ -3,14 +3,14 @@
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 
-startsubwooferdecay( weapon )
+startsubwooferdecay(weapon)
 {
-	self endon( "death" );
-	self endon( "disconnect" );
-	self endon( "equip_subwoofer_zm_taken" );
+	self endon("death");
+	self endon("disconnect");
+	self endon("equip_subwoofer_zm_taken");
 
 	// hack to decrease max subwoofer time
-	if ( self.subwoofer_health > 30 )
+	if (self.subwoofer_health > 30)
 	{
 		self.subwoofer_health = 30;
 	}
@@ -19,17 +19,17 @@ startsubwooferdecay( weapon )
 
 	wait fire_time + 0.05; // startup time
 
-	while ( isDefined( weapon ) )
+	while (isDefined(weapon))
 	{
-		if ( weapon.power_on )
+		if (weapon.power_on)
 		{
 			weapon.subwoofer_kills = 0; // hack to make subwoofer not get destroyed from kills
 			self.subwoofer_health -= fire_time;
 
-			if ( self.subwoofer_health <= 0 )
+			if (self.subwoofer_health <= 0)
 			{
 				self.subwoofer_health = undefined;
-				self thread subwoofer_expired( weapon );
+				self thread subwoofer_expired(weapon);
 
 				return;
 			}

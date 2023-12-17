@@ -3,26 +3,26 @@
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 
-zombie_damage( mod, hit_location, hit_origin, player, amount, team )
+zombie_damage(mod, hit_location, hit_origin, player, amount, team)
 {
-	if ( is_magic_bullet_shield_enabled( self ) )
+	if (is_magic_bullet_shield_enabled(self))
 	{
 		return;
 	}
 
 	player.use_weapon_type = mod;
 
-	if ( isDefined( self.marked_for_death ) )
+	if (isDefined(self.marked_for_death))
 	{
 		return;
 	}
 
-	if ( !isDefined( player ) )
+	if (!isDefined(player))
 	{
 		return;
 	}
 
-	if ( isDefined( hit_origin ) )
+	if (isDefined(hit_origin))
 	{
 		self.damagehit_origin = hit_origin;
 	}
@@ -31,18 +31,18 @@ zombie_damage( mod, hit_location, hit_origin, player, amount, team )
 		self.damagehit_origin = player getweaponmuzzlepoint();
 	}
 
-	if ( self maps\mp\zombies\_zm_spawner::check_zombie_damage_callbacks( mod, hit_location, hit_origin, player, amount ) )
+	if (self maps\mp\zombies\_zm_spawner::check_zombie_damage_callbacks(mod, hit_location, hit_origin, player, amount))
 	{
 		return;
 	}
-	else if ( self maps\mp\zombies\_zm_spawner::zombie_flame_damage( mod, player ) )
+	else if (self maps\mp\zombies\_zm_spawner::zombie_flame_damage(mod, player))
 	{
-		if ( self maps\mp\zombies\_zm_spawner::zombie_give_flame_damage_points() )
+		if (self maps\mp\zombies\_zm_spawner::zombie_give_flame_damage_points())
 		{
-			player maps\mp\zombies\_zm_score::player_add_points( "damage", mod, hit_location, self.isdog, team );
+			player maps\mp\zombies\_zm_score::player_add_points("damage", mod, hit_location, self.isdog, team);
 		}
 	}
-	else if ( maps\mp\zombies\_zm_spawner::player_using_hi_score_weapon( player ) )
+	else if (maps\mp\zombies\_zm_spawner::player_using_hi_score_weapon(player))
 	{
 		damage_type = "damage";
 	}
@@ -51,17 +51,17 @@ zombie_damage( mod, hit_location, hit_origin, player, amount, team )
 		damage_type = "damage_light";
 	}
 
-	if ( !is_true( self.no_damage_points ) )
+	if (!is_true(self.no_damage_points))
 	{
-		player maps\mp\zombies\_zm_score::player_add_points( damage_type, mod, hit_location, self.isdog, team, self.damageweapon );
+		player maps\mp\zombies\_zm_score::player_add_points(damage_type, mod, hit_location, self.isdog, team, self.damageweapon);
 	}
 
-	if ( isDefined( self.zombie_damage_fx_func ) )
+	if (isDefined(self.zombie_damage_fx_func))
 	{
-		self [[ self.zombie_damage_fx_func ]]( mod, hit_location, hit_origin, player );
+		self [[ self.zombie_damage_fx_func ]](mod, hit_location, hit_origin, player);
 	}
 
-	if ( is_placeable_mine( self.damageweapon ) )
+	if (is_placeable_mine(self.damageweapon))
 	{
 		damage = level.round_number * 100;
 
@@ -77,20 +77,20 @@ zombie_damage( mod, hit_location, hit_origin, player, amount, team )
 			damage = max_damage;
 		}
 
-		if ( isDefined( self.zombie_damage_claymore_func ) )
+		if (isDefined(self.zombie_damage_claymore_func))
 		{
-			self [[ self.zombie_damage_claymore_func ]]( mod, hit_location, hit_origin, player );
+			self [[ self.zombie_damage_claymore_func ]](mod, hit_location, hit_origin, player);
 		}
-		else if ( isDefined( player ) && isalive( player ) )
+		else if (isDefined(player) && isalive(player))
 		{
-			self dodamage( damage, self.origin, player, self, hit_location, mod, 0, self.damageweapon );
+			self dodamage(damage, self.origin, player, self, hit_location, mod, 0, self.damageweapon);
 		}
 		else
 		{
-			self dodamage( damage, self.origin, undefined, self, hit_location, mod, 0, self.damageweapon );
+			self dodamage(damage, self.origin, undefined, self, hit_location, mod, 0, self.damageweapon);
 		}
 	}
-	else if ( mod == "MOD_GRENADE" || mod == "MOD_GRENADE_SPLASH" )
+	else if (mod == "MOD_GRENADE" || mod == "MOD_GRENADE_SPLASH")
 	{
 		damage = level.round_number * 25;
 
@@ -106,18 +106,18 @@ zombie_damage( mod, hit_location, hit_origin, player, amount, team )
 			damage = max_damage;
 		}
 
-		if ( isDefined( player ) && isalive( player ) )
+		if (isDefined(player) && isalive(player))
 		{
 			player.grenade_multiattack_count++;
 			player.grenade_multiattack_ent = self;
-			self dodamage( damage, self.origin, player, self, hit_location, "MOD_GRENADE_SPLASH", 0, self.damageweapon );
+			self dodamage(damage, self.origin, player, self, hit_location, "MOD_GRENADE_SPLASH", 0, self.damageweapon);
 		}
 		else
 		{
-			self dodamage( damage, self.origin, undefined, self, hit_location, "MOD_GRENADE_SPLASH", 0, self.damageweapon );
+			self dodamage(damage, self.origin, undefined, self, hit_location, "MOD_GRENADE_SPLASH", 0, self.damageweapon);
 		}
 	}
-	else if ( mod == "MOD_PROJECTILE" || mod == "MOD_PROJECTILE_SPLASH" || mod == "MOD_EXPLOSIVE" )
+	else if (mod == "MOD_PROJECTILE" || mod == "MOD_PROJECTILE_SPLASH" || mod == "MOD_EXPLOSIVE")
 	{
 		damage = level.round_number * 50;
 
@@ -133,76 +133,76 @@ zombie_damage( mod, hit_location, hit_origin, player, amount, team )
 			damage = max_damage;
 		}
 
-		if ( isDefined( player ) && isalive( player ) )
+		if (isDefined(player) && isalive(player))
 		{
-			self dodamage( damage, self.origin, player, self, hit_location, "MOD_PROJECTILE_SPLASH", 0, self.damageweapon );
+			self dodamage(damage, self.origin, player, self, hit_location, "MOD_PROJECTILE_SPLASH", 0, self.damageweapon);
 		}
 		else
 		{
-			self dodamage( damage, self.origin, undefined, self, hit_location, "MOD_PROJECTILE_SPLASH", 0, self.damageweapon );
+			self dodamage(damage, self.origin, undefined, self, hit_location, "MOD_PROJECTILE_SPLASH", 0, self.damageweapon);
 		}
 	}
 
-	if ( isDefined( self.a.gib_ref ) && self.a.gib_ref == "no_legs" && isalive( self ) )
+	if (isDefined(self.a.gib_ref) && self.a.gib_ref == "no_legs" && isalive(self))
 	{
-		if ( isDefined( player ) )
+		if (isDefined(player))
 		{
-			rand = randomintrange( 0, 100 );
+			rand = randomintrange(0, 100);
 
-			if ( rand < 10 )
+			if (rand < 10)
 			{
-				player maps\mp\zombies\_zm_audio::create_and_play_dialog( "general", "crawl_spawn" );
+				player maps\mp\zombies\_zm_audio::create_and_play_dialog("general", "crawl_spawn");
 			}
 		}
 	}
-	else if ( isDefined( self.a.gib_ref ) )
+	else if (isDefined(self.a.gib_ref))
 	{
-		if ( self.a.gib_ref == "right_arm" || self.a.gib_ref == "left_arm" )
+		if (self.a.gib_ref == "right_arm" || self.a.gib_ref == "left_arm")
 		{
-			if ( self.has_legs && isalive( self ) )
+			if (self.has_legs && isalive(self))
 			{
-				if ( isDefined( player ) )
+				if (isDefined(player))
 				{
-					rand = randomintrange( 0, 100 );
+					rand = randomintrange(0, 100);
 
-					if ( rand < 7 )
+					if (rand < 7)
 					{
-						player maps\mp\zombies\_zm_audio::create_and_play_dialog( "general", "shoot_arm" );
+						player maps\mp\zombies\_zm_audio::create_and_play_dialog("general", "shoot_arm");
 					}
 				}
 			}
 		}
 	}
 
-	self thread maps\mp\zombies\_zm_powerups::check_for_instakill( player, mod, hit_location );
+	self thread maps\mp\zombies\_zm_powerups::check_for_instakill(player, mod, hit_location);
 }
 
 zombie_gib_on_damage()
 {
-	while ( true )
+	while (true)
 	{
-		self waittill( "damage", amount, attacker, direction_vec, point, type, tagname, modelname, partname, weaponname );
+		self waittill("damage", amount, attacker, direction_vec, point, type, tagname, modelname, partname, weaponname);
 
-		if ( !isdefined( self ) )
+		if (!isdefined(self))
 			return;
 
-		if ( !self zombie_should_gib( amount, attacker, type ) )
+		if (!self zombie_should_gib(amount, attacker, type))
 			continue;
 
-		if ( self head_should_gib( attacker, type, point ) && type != "MOD_BURNED" )
+		if (self head_should_gib(attacker, type, point) && type != "MOD_BURNED")
 		{
-			self zombie_head_gib( attacker, type );
+			self zombie_head_gib(attacker, type);
 			continue;
 		}
 
-		if ( !self.gibbed )
+		if (!self.gibbed)
 		{
-			if ( self maps\mp\animscripts\zm_utility::damagelocationisany( "head", "helmet", "neck" ) )
+			if (self maps\mp\animscripts\zm_utility::damagelocationisany("head", "helmet", "neck"))
 				continue;
 
 			refs = [];
 
-			switch ( self.damagelocation )
+			switch (self.damagelocation)
 			{
 				case "torso_upper":
 				case "torso_lower":
@@ -225,7 +225,7 @@ zombie_gib_on_damage()
 				case "right_leg_upper":
 				case "right_leg_lower":
 				case "right_foot":
-					if ( self.health <= 0 )
+					if (self.health <= 0)
 					{
 						refs[refs.size] = "right_leg";
 						refs[refs.size] = "right_leg";
@@ -238,7 +238,7 @@ zombie_gib_on_damage()
 				case "left_leg_upper":
 				case "left_leg_lower":
 				case "left_foot":
-					if ( self.health <= 0 )
+					if (self.health <= 0)
 					{
 						refs[refs.size] = "left_leg";
 						refs[refs.size] = "left_leg";
@@ -249,11 +249,11 @@ zombie_gib_on_damage()
 					break;
 
 				default:
-					if ( self.damagelocation == "none" )
+					if (self.damagelocation == "none")
 					{
-						if ( type == "MOD_GRENADE" || type == "MOD_GRENADE_SPLASH" || type == "MOD_PROJECTILE" || type == "MOD_PROJECTILE_SPLASH" )
+						if (type == "MOD_GRENADE" || type == "MOD_GRENADE_SPLASH" || type == "MOD_PROJECTILE" || type == "MOD_PROJECTILE_SPLASH")
 						{
-							refs = self derive_damage_refs( point );
+							refs = self derive_damage_refs(point);
 							break;
 						}
 					}
@@ -269,19 +269,19 @@ zombie_gib_on_damage()
 					}
 			}
 
-			if ( isdefined( level.custom_derive_damage_refs ) )
-				refs = self [[ level.custom_derive_damage_refs ]]( refs, point, weaponname );
+			if (isdefined(level.custom_derive_damage_refs))
+				refs = self [[ level.custom_derive_damage_refs ]](refs, point, weaponname);
 
-			if ( refs.size )
+			if (refs.size)
 			{
-				self.a.gib_ref = maps\mp\animscripts\zm_death::get_random( refs );
+				self.a.gib_ref = maps\mp\animscripts\zm_death::get_random(refs);
 
-				if ( ( self.a.gib_ref == "no_legs" || self.a.gib_ref == "right_leg" || self.a.gib_ref == "left_leg" ) && self.health > 0 )
+				if ((self.a.gib_ref == "no_legs" || self.a.gib_ref == "right_leg" || self.a.gib_ref == "left_leg") && self.health > 0)
 				{
 					self.has_legs = 0;
-					self allowedstances( "crouch" );
-					self setphysparams( 15, 0, 24 );
-					self allowpitchangle( 1 );
+					self allowedstances("crouch");
+					self setphysparams(15, 0, 24);
+					self allowpitchangle(1);
 					self setpitchorient();
 					health = self.health;
 					health *= 0.1;
@@ -292,16 +292,16 @@ zombie_gib_on_damage()
 						self thread bleedout_watcher();
 					}
 
-					if ( isdefined( self.crawl_anim_override ) )
+					if (isdefined(self.crawl_anim_override))
 						self [[ self.crawl_anim_override ]]();
 				}
 			}
 
-			if ( self.health > 0 )
+			if (self.health > 0)
 			{
 				self thread maps\mp\animscripts\zm_death::do_gib();
 
-				if ( isdefined( level.gib_on_damage ) )
+				if (isdefined(level.gib_on_damage))
 					self thread [[ level.gib_on_damage ]]();
 			}
 		}
@@ -349,30 +349,30 @@ melee_watcher()
 	}
 }
 
-head_should_gib( attacker, type, point )
+head_should_gib(attacker, type, point)
 {
-	if ( !is_mature() )
+	if (!is_mature())
 	{
 		return 0;
 	}
 
-	if ( self.head_gibbed )
+	if (self.head_gibbed)
 	{
 		return 0;
 	}
 
-	if ( !isDefined( attacker ) || !isplayer( attacker ) )
+	if (!isDefined(attacker) || !isplayer(attacker))
 	{
 		return 0;
 	}
 
 	weapon = attacker getcurrentweapon();
 
-	if ( type != "MOD_RIFLE_BULLET" && type != "MOD_PISTOL_BULLET" )
+	if (type != "MOD_RIFLE_BULLET" && type != "MOD_PISTOL_BULLET")
 	{
-		if ( type == "MOD_GRENADE" || type == "MOD_GRENADE_SPLASH" )
+		if (type == "MOD_GRENADE" || type == "MOD_GRENADE_SPLASH")
 		{
-			if ( ( distance( point, self gettagorigin( "j_head" ) ) > 55 ) || ( self.health > 0 ) )
+			if ((distance(point, self gettagorigin("j_head")) > 55) || (self.health > 0))
 			{
 				return 0;
 			}
@@ -381,9 +381,9 @@ head_should_gib( attacker, type, point )
 				return 1;
 			}
 		}
-		else if ( type == "MOD_PROJECTILE" )
+		else if (type == "MOD_PROJECTILE")
 		{
-			if ( ( distance( point, self gettagorigin( "j_head" ) ) > 10 ) || ( self.health > 0 ) )
+			if ((distance(point, self gettagorigin("j_head")) > 10) || (self.health > 0))
 			{
 				return 0;
 			}
@@ -392,25 +392,25 @@ head_should_gib( attacker, type, point )
 				return 1;
 			}
 		}
-		else if ( weaponclass( weapon ) != "spread" )
+		else if (weaponclass(weapon) != "spread")
 		{
 			return 0;
 		}
 	}
 
-	if ( !self maps\mp\animscripts\zm_utility::damagelocationisany( "head", "helmet", "neck" ) )
+	if (!self maps\mp\animscripts\zm_utility::damagelocationisany("head", "helmet", "neck"))
 	{
 		return 0;
 	}
 
-	if ( weapon == "none" || weapon == level.start_weapon || weaponisgasweapon( self.weapon ) )
+	if (weapon == "none" || weapon == level.start_weapon || weaponisgasweapon(self.weapon))
 	{
 		return 0;
 	}
 
-	self zombie_hat_gib( attacker, type );
+	self zombie_hat_gib(attacker, type);
 
-	if ( self.health > 0 )
+	if (self.health > 0)
 	{
 		return 0;
 	}
@@ -418,12 +418,12 @@ head_should_gib( attacker, type, point )
 	return 1;
 }
 
-zombie_can_drop_powerups( zombie )
+zombie_can_drop_powerups(zombie)
 {
-	if ( !flag( "zombie_drop_powerups" ) )
+	if (!flag("zombie_drop_powerups"))
 		return false;
 
-	if ( isdefined( zombie.no_powerups ) && zombie.no_powerups )
+	if (isdefined(zombie.no_powerups) && zombie.no_powerups)
 		return false;
 
 	return true;
@@ -433,11 +433,11 @@ zombie_complete_emerging_into_playable_area()
 {
 	if (self.animname == "zombie" && is_true(self.has_legs))
 	{
-		self setphysparams( 15, 0, 60 );
+		self setphysparams(15, 0, 60);
 	}
 
 	self.completed_emerging_into_playable_area = 1;
-	self notify( "completed_emerging_into_playable_area" );
+	self notify("completed_emerging_into_playable_area");
 	self.no_powerups = 0;
 	self thread zombie_free_cam_allowed();
 }

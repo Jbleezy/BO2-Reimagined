@@ -7,56 +7,56 @@ emp_detonate(grenade)
 {
 	grenade_owner = undefined;
 
-	if ( isDefined( grenade.owner ) )
+	if (isDefined(grenade.owner))
 	{
 		grenade_owner = grenade.owner;
 	}
 
-	grenade waittill( "explode", grenade_origin );
+	grenade waittill("explode", grenade_origin);
 
 	emp_radius = level.zombie_vars[ "emp_perk_off_range" ];
 	emp_time = level.zombie_vars[ "emp_perk_off_time" ];
 	origin = grenade_origin;
 
-	if ( !isDefined( origin ) )
+	if (!isDefined(origin))
 	{
 		return;
 	}
 
-	level notify( "emp_detonate", origin, emp_radius );
-	self thread emp_detonate_zombies( grenade_origin, grenade_owner );
+	level notify("emp_detonate", origin, emp_radius);
+	self thread emp_detonate_zombies(grenade_origin, grenade_owner);
 
-	if ( isDefined( level.custom_emp_detonate ) )
+	if (isDefined(level.custom_emp_detonate))
 	{
-		thread [[ level.custom_emp_detonate ]]( grenade_origin );
+		thread [[ level.custom_emp_detonate ]](grenade_origin);
 	}
 
-	if ( isDefined( grenade_owner ) )
+	if (isDefined(grenade_owner))
 	{
-		grenade_owner thread destroyequipment( origin, emp_radius );
+		grenade_owner thread destroyequipment(origin, emp_radius);
 	}
 
-	emp_players( origin, emp_radius, grenade_owner );
-	disabled_list = maps\mp\zombies\_zm_power::change_power_in_radius( -1, origin, emp_radius );
+	emp_players(origin, emp_radius, grenade_owner);
+	disabled_list = maps\mp\zombies\_zm_power::change_power_in_radius(-1, origin, emp_radius);
 
 	wait emp_time;
 
-	maps\mp\zombies\_zm_power::revert_power_to_list( 1, origin, emp_radius, disabled_list );
+	maps\mp\zombies\_zm_power::revert_power_to_list(1, origin, emp_radius, disabled_list);
 }
 
-emp_detonate_zombies( grenade_origin, grenade_owner )
+emp_detonate_zombies(grenade_origin, grenade_owner)
 {
-	zombies = get_array_of_closest( grenade_origin, getaispeciesarray( level.zombie_team, "all" ), undefined, undefined, level.zombie_vars["emp_stun_range"] );
+	zombies = get_array_of_closest(grenade_origin, getaispeciesarray(level.zombie_team, "all"), undefined, undefined, level.zombie_vars["emp_stun_range"]);
 
-	if ( !isdefined( zombies ) )
+	if (!isdefined(zombies))
 		return;
 
-	for ( i = 0; i < zombies.size; i++ )
+	for (i = 0; i < zombies.size; i++)
 	{
-		if ( !isdefined( zombies[i] ) || isdefined( zombies[i].ignore_inert ) && zombies[i].ignore_inert )
+		if (!isdefined(zombies[i]) || isdefined(zombies[i].ignore_inert) && zombies[i].ignore_inert)
 			continue;
 
-		if ( is_true( zombies[i].in_the_ground ) )
+		if (is_true(zombies[i].in_the_ground))
 			continue;
 
 		zombies[i].becoming_inert = 1;
@@ -64,12 +64,12 @@ emp_detonate_zombies( grenade_origin, grenade_owner )
 
 	stunned = 0;
 
-	for ( i = 0; i < zombies.size; i++ )
+	for (i = 0; i < zombies.size; i++)
 	{
-		if ( !isdefined( zombies[i] ) || isdefined( zombies[i].ignore_inert ) && zombies[i].ignore_inert )
+		if (!isdefined(zombies[i]) || isdefined(zombies[i].ignore_inert) && zombies[i].ignore_inert)
 			continue;
 
-		if ( is_true( zombies[i].in_the_ground ) )
+		if (is_true(zombies[i].in_the_ground))
 			continue;
 
 		stunned++;
@@ -77,67 +77,67 @@ emp_detonate_zombies( grenade_origin, grenade_owner )
 		wait 0.05;
 	}
 
-	if ( stunned >= 10 && isdefined( grenade_owner ) )
-		grenade_owner notify( "the_lights_of_their_eyes" );
+	if (stunned >= 10 && isdefined(grenade_owner))
+		grenade_owner notify("the_lights_of_their_eyes");
 }
 
-destroyequipment( origin, radius )
+destroyequipment(origin, radius)
 {
-	grenades = getentarray( "grenade", "classname" );
+	grenades = getentarray("grenade", "classname");
 	rsquared = radius * radius;
 
-	for ( i = 0; i < grenades.size; i++ )
+	for (i = 0; i < grenades.size; i++)
 	{
 		item = grenades[i];
 
-		if ( distancesquared( origin, item.origin ) > rsquared )
+		if (distancesquared(origin, item.origin) > rsquared)
 			continue;
 
-		if ( !isdefined( item.name ) )
+		if (!isdefined(item.name))
 			continue;
 
-		if ( !is_offhand_weapon( item.name ) )
+		if (!is_offhand_weapon(item.name))
 			continue;
 
-		watcher = item.owner getwatcherforweapon( item.name );
+		watcher = item.owner getwatcherforweapon(item.name);
 
-		if ( !isdefined( watcher ) )
+		if (!isdefined(watcher))
 			continue;
 
-		watcher thread waitanddetonate( item, 0.0, self, "emp_grenade_zm" );
+		watcher thread waitanddetonate(item, 0.0, self, "emp_grenade_zm");
 	}
 
 	equipment = maps\mp\zombies\_zm_equipment::get_destructible_equipment_list();
 
-	for ( i = 0; i < equipment.size; i++ )
+	for (i = 0; i < equipment.size; i++)
 	{
 		item = equipment[i];
 
-		if ( !isdefined( item ) )
+		if (!isdefined(item))
 			continue;
 
-		if ( distancesquared( origin, item.origin ) > rsquared )
+		if (distancesquared(origin, item.origin) > rsquared)
 			continue;
 
-		waitanddamage( item, 1505 );
+		waitanddamage(item, 1505);
 	}
 }
 
-waitanddamage( object, damage )
+waitanddamage(object, damage)
 {
-	object endon( "death" );
-	object endon( "hacked" );
+	object endon("death");
+	object endon("hacked");
 	object.stun_fx = 1;
 
-	if ( isdefined( level._equipment_emp_destroy_fx ) )
-		playfx( level._equipment_emp_destroy_fx, object.origin + vectorscale( ( 0, 0, 1 ), 5.0 ), ( 0, randomfloat( 360 ), 0 ) );
+	if (isdefined(level._equipment_emp_destroy_fx))
+		playfx(level._equipment_emp_destroy_fx, object.origin + vectorscale((0, 0, 1), 5.0), (0, randomfloat(360), 0));
 
 	delay = 1.1;
 
-	if ( delay )
-		wait( delay );
+	if (delay)
+		wait(delay);
 
-	object thread scripts\zm\replaced\_zm_equipment::item_damage( damage );
+	object thread scripts\zm\replaced\_zm_equipment::item_damage(damage);
 }
 
 emp_players(origin, radius, owner)
@@ -152,7 +152,7 @@ emp_players(origin, radius, owner)
 			if (is_player_valid(player) || player maps\mp\zombies\_zm_laststand::player_is_in_laststand())
 			{
 				time = 30;
-				player shellshock( "frag_grenade_mp", 2 );
+				player shellshock("frag_grenade_mp", 2);
 				player thread player_perk_pause_and_unpause_all_perks(time);
 				player thread player_emp_fx(time);
 			}
@@ -171,7 +171,7 @@ player_emp_fx(time)
 
 	for (i = 0; i < time; i += wait_time)
 	{
-		playfxontag( level._effect[ "elec_torso" ], self, "J_SpineLower" );
+		playfxontag(level._effect[ "elec_torso" ], self, "J_SpineLower");
 
 		wait wait_time;
 	}
@@ -209,11 +209,11 @@ player_perk_pause_all_perks_acquired(time)
 
 player_perk_pause_all_perks()
 {
-	vending_triggers = getentarray( "zombie_vending", "targetname" );
+	vending_triggers = getentarray("zombie_vending", "targetname");
 
-	foreach ( trigger in vending_triggers )
+	foreach (trigger in vending_triggers)
 	{
-		self player_perk_pause( trigger.script_noteworthy );
+		self player_perk_pause(trigger.script_noteworthy);
 	}
 }
 
@@ -221,59 +221,59 @@ player_perk_unpause_all_perks()
 {
 	self notify("player_perk_pause_timeout");
 
-	vending_triggers = getentarray( "zombie_vending", "targetname" );
+	vending_triggers = getentarray("zombie_vending", "targetname");
 
-	foreach ( trigger in vending_triggers )
+	foreach (trigger in vending_triggers)
 	{
-		self player_perk_unpause( trigger.script_noteworthy );
+		self player_perk_unpause(trigger.script_noteworthy);
 	}
 
 	self.disabled_perks = [];
 }
 
-player_perk_pause( perk )
+player_perk_pause(perk)
 {
-	if ( perk == "Pack_A_Punch" || perk == "specialty_weapupgrade" )
+	if (perk == "Pack_A_Punch" || perk == "specialty_weapupgrade")
 	{
 		return;
 	}
 
-	if ( !isDefined( self.disabled_perks ) )
+	if (!isDefined(self.disabled_perks))
 	{
 		self.disabled_perks = [];
 	}
 
-	if ( !is_true( self.disabled_perks[ perk ] ) && self hasperk( perk ) )
+	if (!is_true(self.disabled_perks[ perk ]) && self hasperk(perk))
 	{
 		self.disabled_perks[ perk ] = 1;
 	}
 
-	if ( self.disabled_perks[ perk ] )
+	if (self.disabled_perks[ perk ])
 	{
-		self unsetperk( perk );
-		self maps\mp\zombies\_zm_perks::set_perk_clientfield( perk, 2 );
+		self unsetperk(perk);
+		self maps\mp\zombies\_zm_perks::set_perk_clientfield(perk, 2);
 
-		if ( perk == "specialty_armorvest" || perk == "specialty_armorvest_upgrade" )
+		if (perk == "specialty_armorvest" || perk == "specialty_armorvest_upgrade")
 		{
-			self setmaxhealth( self.premaxhealth );
+			self setmaxhealth(self.premaxhealth);
 
-			if ( self.health > self.maxhealth )
+			if (self.health > self.maxhealth)
 			{
 				self.health = self.maxhealth;
 			}
 		}
 
-		if ( perk == "specialty_additionalprimaryweapon" || perk == "specialty_additionalprimaryweapon_upgrade" )
+		if (perk == "specialty_additionalprimaryweapon" || perk == "specialty_additionalprimaryweapon_upgrade")
 		{
 			self maps\mp\zombies\_zm::take_additionalprimaryweapon();
 		}
 
-		if ( issubstr( perk, "specialty_scavenger" ) )
+		if (issubstr(perk, "specialty_scavenger"))
 		{
 			self.hasperkspecialtytombstone = 0;
 		}
 
-		if ( isDefined( level._custom_perks[ perk ] ) && isDefined( level._custom_perks[ perk ].player_thread_take ) )
+		if (isDefined(level._custom_perks[ perk ]) && isDefined(level._custom_perks[ perk ].player_thread_take))
 		{
 			self thread [[ level._custom_perks[ perk ].player_thread_take ]]();
 		}
@@ -282,32 +282,32 @@ player_perk_pause( perk )
 	self notify("perk_lost");
 }
 
-player_perk_unpause( perk )
+player_perk_unpause(perk)
 {
-	if ( !isDefined( perk ) )
+	if (!isDefined(perk))
 	{
 		return;
 	}
 
-	if ( perk == "Pack_A_Punch" )
+	if (perk == "Pack_A_Punch")
 	{
 		return;
 	}
 
-	if ( isDefined( self.disabled_perks ) && is_true( self.disabled_perks[ perk ] ) )
+	if (isDefined(self.disabled_perks) && is_true(self.disabled_perks[ perk ]))
 	{
 		self.disabled_perks[ perk ] = undefined;
-		self maps\mp\zombies\_zm_perks::set_perk_clientfield( perk, 1 );
-		self setperk( perk );
+		self maps\mp\zombies\_zm_perks::set_perk_clientfield(perk, 1);
+		self setperk(perk);
 
-		if ( issubstr( perk, "specialty_scavenger" ) )
+		if (issubstr(perk, "specialty_scavenger"))
 		{
 			self.hasperkspecialtytombstone = 1;
 		}
 
-		self maps\mp\zombies\_zm_perks::perk_set_max_health_if_jugg( perk, 0, 0 );
+		self maps\mp\zombies\_zm_perks::perk_set_max_health_if_jugg(perk, 0, 0);
 
-		if ( isDefined( level._custom_perks[ perk ] ) && isDefined( level._custom_perks[ perk ].player_thread_give ) )
+		if (isDefined(level._custom_perks[ perk ]) && isDefined(level._custom_perks[ perk ].player_thread_give))
 		{
 			self thread [[ level._custom_perks[ perk ].player_thread_give ]]();
 		}

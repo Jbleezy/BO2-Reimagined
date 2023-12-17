@@ -28,13 +28,13 @@ all_staffs_inserted_in_puzzle_room()
 {
 	n_staffs_inserted = 0;
 
-	foreach ( staff in level.a_elemental_staffs )
+	foreach (staff in level.a_elemental_staffs)
 	{
-		if ( staff.upgrade.charger.is_inserted && staff.upgrade.charger.full )
+		if (staff.upgrade.charger.is_inserted && staff.upgrade.charger.full)
 			n_staffs_inserted++;
 	}
 
-	if ( n_staffs_inserted == 4 )
+	if (n_staffs_inserted == 4)
 		return true;
 	else
 		return false;

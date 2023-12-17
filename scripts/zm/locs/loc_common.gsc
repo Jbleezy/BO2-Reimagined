@@ -5,34 +5,34 @@
 init()
 {
 	level.enemy_location_override_func = ::enemy_location_override;
-	flag_wait( "initial_blackscreen_passed" );
+	flag_wait("initial_blackscreen_passed");
 	maps\mp\zombies\_zm_game_module::turn_power_on_and_open_doors();
-	flag_wait( "start_zombie_round_logic" );
+	flag_wait("start_zombie_round_logic");
 	wait 1;
-	level notify( "revive_on" );
+	level notify("revive_on");
 	wait_network_frame();
-	level notify( "doubletap_on" );
+	level notify("doubletap_on");
 	wait_network_frame();
-	level notify( "marathon_on" );
+	level notify("marathon_on");
 	wait_network_frame();
-	level notify( "juggernog_on" );
+	level notify("juggernog_on");
 	wait_network_frame();
-	level notify( "sleight_on" );
+	level notify("sleight_on");
 	wait_network_frame();
-	level notify( "tombstone_on" );
+	level notify("tombstone_on");
 	wait_network_frame();
-	level notify( "additionalprimaryweapon_on" );
+	level notify("additionalprimaryweapon_on");
 	wait_network_frame();
-	level notify( "Pack_A_Punch_on" );
+	level notify("Pack_A_Punch_on");
 }
 
-enemy_location_override( zombie, enemy )
+enemy_location_override(zombie, enemy)
 {
 	location = enemy.origin;
 
-	if ( is_true( self.reroute ) )
+	if (is_true(self.reroute))
 	{
-		if ( isDefined( self.reroute_origin ) )
+		if (isDefined(self.reroute_origin))
 		{
 			location = self.reroute_origin;
 		}

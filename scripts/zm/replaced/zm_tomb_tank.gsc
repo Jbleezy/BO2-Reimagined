@@ -18,37 +18,37 @@
 
 players_on_tank_update()
 {
-	flag_wait( "start_zombie_round_logic" );
+	flag_wait("start_zombie_round_logic");
 	self thread tank_disconnect_paths();
 
-	while ( true )
+	while (true)
 	{
 		a_players = getplayers();
 
-		foreach ( e_player in a_players )
+		foreach (e_player in a_players)
 		{
-			if ( is_player_valid( e_player ) )
+			if (is_player_valid(e_player))
 			{
-				if ( isdefined( e_player.b_already_on_tank ) && !e_player.b_already_on_tank && e_player entity_on_tank() )
+				if (isdefined(e_player.b_already_on_tank) && !e_player.b_already_on_tank && e_player entity_on_tank())
 				{
 					e_player.b_already_on_tank = 1;
 					self.n_players_on++;
 
-					if ( self ent_flag( "tank_cooldown" ) )
-						level notify( "vo_tank_cooling", e_player );
+					if (self ent_flag("tank_cooldown"))
+						level notify("vo_tank_cooling", e_player);
 
 					e_player thread tank_rumble_update();
 					e_player thread tank_rides_around_map_achievement_watcher();
 					continue;
 				}
 
-				if ( isdefined( e_player.b_already_on_tank ) && e_player.b_already_on_tank && !e_player entity_on_tank() )
+				if (isdefined(e_player.b_already_on_tank) && e_player.b_already_on_tank && !e_player entity_on_tank())
 				{
 					e_player.b_already_on_tank = 0;
 					self.n_players_on--;
-					level notify( "vo_tank_leave", e_player );
-					e_player notify( "player_jumped_off_tank" );
-					e_player setclientfieldtoplayer( "player_rumble_and_shake", 0 );
+					level notify("vo_tank_leave", e_player);
+					e_player notify("player_jumped_off_tank");
+					e_player setclientfieldtoplayer("player_rumble_and_shake", 0);
 				}
 			}
 		}
@@ -63,8 +63,8 @@ wait_for_tank_cooldown()
 
 	self.n_cooldown_timer = 30;
 
-	wait( self.n_cooldown_timer );
-	level notify( "stp_cd" );
-	self playsound( "zmb_tank_ready" );
-	self playloopsound( "zmb_tank_idle" );
+	wait(self.n_cooldown_timer);
+	level notify("stp_cd");
+	self playsound("zmb_tank_ready");
+	self playloopsound("zmb_tank_idle");
 }

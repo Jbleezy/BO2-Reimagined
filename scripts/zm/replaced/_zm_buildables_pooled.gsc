@@ -3,12 +3,12 @@
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 
-add_buildable_to_pool( stub, poolname )
+add_buildable_to_pool(stub, poolname)
 {
-	if ( !isdefined( level.buildablepools ) )
+	if (!isdefined(level.buildablepools))
 		level.buildablepools = [];
 
-	if ( !isdefined( level.buildablepools[poolname] ) )
+	if (!isdefined(level.buildablepools[poolname]))
 	{
 		level.buildablepools[poolname] = spawnstruct();
 		level.buildablepools[poolname].stubs = [];
@@ -16,90 +16,90 @@ add_buildable_to_pool( stub, poolname )
 
 	level.buildablepools[poolname].stubs[level.buildablepools[poolname].stubs.size] = stub;
 
-	if ( !isdefined( level.buildablepools[poolname].buildable_slot ) )
+	if (!isdefined(level.buildablepools[poolname].buildable_slot))
 		level.buildablepools[poolname].buildable_slot = stub.buildablestruct.buildable_slot;
 	else
-		assert( level.buildablepools[poolname].buildable_slot == stub.buildablestruct.buildable_slot );
+		assert(level.buildablepools[poolname].buildable_slot == stub.buildablestruct.buildable_slot);
 
 	stub.buildable_pool = level.buildablepools[poolname];
 	stub.original_prompt_and_visibility_func = stub.prompt_and_visibility_func;
 	stub.original_trigger_func = stub.trigger_func;
 	stub.prompt_and_visibility_func = ::pooledbuildabletrigger_update_prompt;
-	reregister_unitrigger( stub, ::pooled_buildable_place_think );
+	reregister_unitrigger(stub, ::pooled_buildable_place_think);
 }
 
-reregister_unitrigger( unitrigger_stub, new_trigger_func )
+reregister_unitrigger(unitrigger_stub, new_trigger_func)
 {
 	static = 0;
 
-	if ( isdefined( unitrigger_stub.in_zone ) )
+	if (isdefined(unitrigger_stub.in_zone))
 		static = 1;
 
-	unregister_unitrigger( unitrigger_stub );
+	unregister_unitrigger(unitrigger_stub);
 	unitrigger_stub.trigger_func = new_trigger_func;
 
-	if ( static )
-		register_static_unitrigger( unitrigger_stub, new_trigger_func, 0 );
+	if (static)
+		register_static_unitrigger(unitrigger_stub, new_trigger_func, 0);
 	else
-		register_unitrigger( unitrigger_stub, new_trigger_func );
+		register_unitrigger(unitrigger_stub, new_trigger_func);
 }
 
-randomize_pooled_buildables( poolname )
+randomize_pooled_buildables(poolname)
 {
-	level waittill( "buildables_setup" );
+	level waittill("buildables_setup");
 
-	if ( isdefined( level.buildablepools[poolname] ) )
+	if (isdefined(level.buildablepools[poolname]))
 	{
 		count = level.buildablepools[poolname].stubs.size;
 
-		if ( count > 1 )
+		if (count > 1)
 		{
-			for ( i = 0; i < count; i++ )
+			for (i = 0; i < count; i++)
 			{
 				rand = randomint(count);
 
-				if ( rand != i )
+				if (rand != i)
 				{
-					swap_buildable_fields( level.buildablepools[poolname].stubs[i], level.buildablepools[poolname].stubs[rand] );
+					swap_buildable_fields(level.buildablepools[poolname].stubs[i], level.buildablepools[poolname].stubs[rand]);
 				}
 			}
 		}
 	}
 }
 
-pooledbuildabletrigger_update_prompt( player )
+pooledbuildabletrigger_update_prompt(player)
 {
-	can_use = self.stub pooledbuildablestub_update_prompt( player, self );
+	can_use = self.stub pooledbuildablestub_update_prompt(player, self);
 
 	if (can_use && is_true(self.stub.built))
 	{
-		self sethintstring( self.stub.hint_string, " [Cost: " + self.stub.cost + "]" );
+		self sethintstring(self.stub.hint_string, " [Cost: " + self.stub.cost + "]");
 	}
 	else
 	{
-		self sethintstring( self.stub.hint_string );
+		self sethintstring(self.stub.hint_string);
 	}
 
-	self setcursorhint( "HINT_NOICON" );
+	self setcursorhint("HINT_NOICON");
 
 	return can_use;
 }
 
-pooledbuildablestub_update_prompt( player, trigger )
+pooledbuildablestub_update_prompt(player, trigger)
 {
-	if ( !self anystub_update_prompt( player ) )
+	if (!self anystub_update_prompt(player))
 		return 0;
 
 	can_use = 1;
 
-	if ( isdefined( self.custom_buildablestub_update_prompt ) && !self [[ self.custom_buildablestub_update_prompt ]]( player ) )
+	if (isdefined(self.custom_buildablestub_update_prompt) && !self [[ self.custom_buildablestub_update_prompt ]](player))
 		return 0;
 
 	self.cursor_hint = "HINT_NOICON";
 	self.cursor_hint_weapon = undefined;
 	piece = undefined;
 
-	if ( !( isdefined( self.built ) && self.built ) )
+	if (!(isdefined(self.built) && self.built))
 	{
 		if (!is_true(self.solo_pool))
 		{
@@ -117,10 +117,10 @@ pooledbuildablestub_update_prompt( player, trigger )
 			}
 			else
 			{
-				self notify( "kill_choose_open_buildable" );
+				self notify("kill_choose_open_buildable");
 				self.open_buildable_checking_input = 0;
 
-				if ( isdefined( self.openbuildablehudelem ) )
+				if (isdefined(self.openbuildablehudelem))
 				{
 					self.openbuildablehudelem destroy();
 					self.openbuildablehudelem = undefined;
@@ -134,23 +134,23 @@ pooledbuildablestub_update_prompt( player, trigger )
 			return 1;
 		}
 
-		if ( isdefined( level.zombie_buildables[self.equipname].hint ) )
+		if (isdefined(level.zombie_buildables[self.equipname].hint))
 			self.hint_string = level.zombie_buildables[self.equipname].hint;
 		else
 			self.hint_string = "Missing buildable hint";
 	}
 	else
-		return trigger [[ self.original_prompt_and_visibility_func ]]( player );
+		return trigger [[ self.original_prompt_and_visibility_func ]](player);
 
 	return 1;
 }
 
-find_bench( bench_name )
+find_bench(bench_name)
 {
-	return getent( bench_name, "targetname" );
+	return getent(bench_name, "targetname");
 }
 
-swap_buildable_fields( stub1, stub2 )
+swap_buildable_fields(stub1, stub2)
 {
 	temp = stub2.buildablezone;
 	stub2.buildablezone = stub1.buildablezone;
@@ -200,22 +200,22 @@ swap_buildable_fields( stub1, stub2 )
 	bench2 = undefined;
 	transfer_pos_as_is = 1;
 
-	if ( isdefined( stub1.model.target ) && isdefined( stub2.model.target ) )
+	if (isdefined(stub1.model.target) && isdefined(stub2.model.target))
 	{
-		bench1 = find_bench( stub1.model.target );
-		bench2 = find_bench( stub2.model.target );
+		bench1 = find_bench(stub1.model.target);
+		bench2 = find_bench(stub2.model.target);
 
-		if ( isdefined( bench1 ) && isdefined( bench2 ) )
+		if (isdefined(bench1) && isdefined(bench2))
 		{
 			transfer_pos_as_is = 0;
 			temp = [];
-			temp[0] = bench1 worldtolocalcoords( stub1.model.origin );
+			temp[0] = bench1 worldtolocalcoords(stub1.model.origin);
 			temp[1] = stub1.model.angles - bench1.angles;
-			temp[2] = bench2 worldtolocalcoords( stub2.model.origin );
+			temp[2] = bench2 worldtolocalcoords(stub2.model.origin);
 			temp[3] = stub2.model.angles - bench2.angles;
-			stub1.model.origin = bench2 localtoworldcoords( temp[0] );
+			stub1.model.origin = bench2 localtoworldcoords(temp[0]);
 			stub1.model.angles = bench2.angles + temp[1];
-			stub2.model.origin = bench1 localtoworldcoords( temp[2] );
+			stub2.model.origin = bench1 localtoworldcoords(temp[2]);
 			stub2.model.angles = bench1.angles + temp[3];
 		}
 
@@ -228,7 +228,7 @@ swap_buildable_fields( stub1, stub2 )
 	stub2.model = stub1.model;
 	stub1.model = temp;
 
-	if ( transfer_pos_as_is )
+	if (transfer_pos_as_is)
 	{
 		temp = [];
 		temp[0] = stub2.model.origin;
@@ -400,82 +400,82 @@ swap_buildable_fields_model_offset(stub1, stub2)
 
 pooled_buildable_place_think()
 {
-	self endon( "kill_trigger" );
+	self endon("kill_trigger");
 
-	if ( isdefined( self.stub.built ) && self.stub.built )
+	if (isdefined(self.stub.built) && self.stub.built)
 		return scripts\zm\replaced\_zm_buildables::buildable_place_think();
 
-	while ( !( isdefined( self.stub.built ) && self.stub.built ) )
+	while (!(isdefined(self.stub.built) && self.stub.built))
 	{
-		self waittill( "trigger", player );
+		self waittill("trigger", player);
 
-		if ( player != self.parent_player )
+		if (player != self.parent_player)
 			continue;
 
-		if ( isdefined( player.screecher_weapon ) )
+		if (isdefined(player.screecher_weapon))
 			continue;
 
-		if ( !is_player_valid( player ) )
+		if (!is_player_valid(player))
 		{
-			player thread ignore_triggers( 0.5 );
+			player thread ignore_triggers(0.5);
 			continue;
 		}
 
-		bind_to = self.stub.buildable_pool pooledbuildable_stub_for_equipname( level.buildables_available[self.stub.buildables_available_index] );
+		bind_to = self.stub.buildable_pool pooledbuildable_stub_for_equipname(level.buildables_available[self.stub.buildables_available_index]);
 
-		if ( !isdefined( bind_to ) || isdefined( self.stub.bound_to_buildable ) && self.stub.bound_to_buildable != bind_to || isdefined( bind_to.bound_to_buildable ) && self.stub != bind_to.bound_to_buildable )
+		if (!isdefined(bind_to) || isdefined(self.stub.bound_to_buildable) && self.stub.bound_to_buildable != bind_to || isdefined(bind_to.bound_to_buildable) && self.stub != bind_to.bound_to_buildable)
 		{
 			self.stub.hint_string = "";
-			self sethintstring( self.stub.hint_string );
+			self sethintstring(self.stub.hint_string);
 
-			if ( isdefined( self.stub.oncantuse ) )
-				self.stub [[ self.stub.oncantuse ]]( player );
+			if (isdefined(self.stub.oncantuse))
+				self.stub [[ self.stub.oncantuse ]](player);
 
 			continue;
 		}
 
-		status = player scripts\zm\replaced\_zm_buildables::player_can_build( bind_to.buildablezone );
+		status = player scripts\zm\replaced\_zm_buildables::player_can_build(bind_to.buildablezone);
 
-		if ( !status )
+		if (!status)
 		{
 			self.stub.hint_string = "";
-			self sethintstring( self.stub.hint_string );
+			self sethintstring(self.stub.hint_string);
 
-			if ( isdefined( bind_to.oncantuse ) )
-				bind_to [[ bind_to.oncantuse ]]( player );
+			if (isdefined(bind_to.oncantuse))
+				bind_to [[ bind_to.oncantuse ]](player);
 		}
 		else
 		{
-			if ( isdefined( bind_to.onbeginuse ) )
-				self.stub [[ bind_to.onbeginuse ]]( player );
+			if (isdefined(bind_to.onbeginuse))
+				self.stub [[ bind_to.onbeginuse ]](player);
 
-			result = self scripts\zm\replaced\_zm_buildables::buildable_use_hold_think( player, bind_to );
+			result = self scripts\zm\replaced\_zm_buildables::buildable_use_hold_think(player, bind_to);
 			team = player.pers["team"];
 
-			if ( result )
+			if (result)
 			{
-				if ( isdefined( self.stub.bound_to_buildable ) && self.stub.bound_to_buildable != bind_to )
+				if (isdefined(self.stub.bound_to_buildable) && self.stub.bound_to_buildable != bind_to)
 					result = 0;
 
-				if ( isdefined( bind_to.bound_to_buildable ) && self.stub != bind_to.bound_to_buildable )
+				if (isdefined(bind_to.bound_to_buildable) && self.stub != bind_to.bound_to_buildable)
 					result = 0;
 			}
 
-			if ( isdefined( bind_to.onenduse ) )
-				self.stub [[ bind_to.onenduse ]]( team, player, result );
+			if (isdefined(bind_to.onenduse))
+				self.stub [[ bind_to.onenduse ]](team, player, result);
 
-			if ( !result )
+			if (!result)
 				continue;
 
-			if ( bind_to != self.stub )
+			if (bind_to != self.stub)
 			{
-				swap_buildable_fields( self.stub, bind_to );
+				swap_buildable_fields(self.stub, bind_to);
 			}
 
-			if ( isdefined( self.stub.onuse ) )
-				self.stub [[ self.stub.onuse ]]( player );
+			if (isdefined(self.stub.onuse))
+				self.stub [[ self.stub.onuse ]](player);
 
-			prompt = player scripts\zm\replaced\_zm_buildables::player_build( self.stub.buildablezone );
+			prompt = player scripts\zm\replaced\_zm_buildables::player_build(self.stub.buildablezone);
 			self.stub.hint_string = self.stub.trigger_hintstring;
 		}
 	}
@@ -501,40 +501,40 @@ pooled_buildable_place_update_all()
 {
 	players = get_players();
 
-	foreach ( player in players )
+	foreach (player in players)
 	{
 		num = player getentitynumber();
 
-		if ( isDefined( self.stub.playertrigger[num] ) )
+		if (isDefined(self.stub.playertrigger[num]))
 		{
-			self.stub.playertrigger[num] notify( "kill_trigger" );
-			self.stub.playertrigger[num] pooledbuildabletrigger_update_prompt( player );
+			self.stub.playertrigger[num] notify("kill_trigger");
+			self.stub.playertrigger[num] pooledbuildabletrigger_update_prompt(player);
 			self.stub.playertrigger[num] pooled_buildable_place_think();
 		}
 	}
 }
 
-pooledbuildable_stub_for_equipname( equipname )
+pooledbuildable_stub_for_equipname(equipname)
 {
-	foreach ( stub in self.stubs )
+	foreach (stub in self.stubs)
 	{
-		if ( isdefined( stub.bound_to_buildable ) )
+		if (isdefined(stub.bound_to_buildable))
 			continue;
 
-		if ( stub.equipname == equipname )
+		if (stub.equipname == equipname)
 			return stub;
 	}
 
 	return undefined;
 }
 
-choose_open_buildable( player )
+choose_open_buildable(player)
 {
-	self endon( "kill_choose_open_buildable" );
+	self endon("kill_choose_open_buildable");
 
 	num = player getentitynumber();
 	got_input = 1;
-	hud = newclienthudelem( player );
+	hud = newclienthudelem(player);
 	hud.alignx = "center";
 	hud.aligny = "middle";
 	hud.horzalign = "center";
@@ -545,8 +545,8 @@ choose_open_buildable( player )
 	hud.font = "default";
 	hud.fontscale = 1;
 	hud.alpha = 1;
-	hud.color = ( 1, 1, 1 );
-	hud settext( "Press [{+actionslot 1}] or [{+actionslot 2}] to change item" );
+	hud.color = (1, 1, 1);
+	hud settext("Press [{+actionslot 1}] or [{+actionslot 2}] to change item");
 	self.open_buildable_checking_input = 1;
 	self.openbuildablehudelem = hud;
 
@@ -555,7 +555,7 @@ choose_open_buildable( player )
 		self.buildables_available_index = 0;
 	}
 
-	while ( isDefined( self.playertrigger[ num ] ) && !self.built )
+	while (isDefined(self.playertrigger[ num ]) && !self.built)
 	{
 		if (!player isTouching(self.playertrigger[num]) || !player is_player_looking_at(self.playertrigger[num].origin, 0.76) || !is_player_valid(player) || player isSprinting() || player isThrowingGrenade())
 		{
@@ -566,27 +566,27 @@ choose_open_buildable( player )
 
 		hud.alpha = 1;
 
-		if ( player actionslotonebuttonpressed() )
+		if (player actionslotonebuttonpressed())
 		{
 			self.buildables_available_index++;
 			got_input = 1;
 		}
-		else if ( player actionslottwobuttonpressed() )
+		else if (player actionslottwobuttonpressed())
 		{
 			self.buildables_available_index--;
 			got_input = 1;
 		}
 
-		if ( self.buildables_available_index >= level.buildables_available.size )
+		if (self.buildables_available_index >= level.buildables_available.size)
 		{
 			self.buildables_available_index = 0;
 		}
-		else if ( self.buildables_available_index < 0 )
+		else if (self.buildables_available_index < 0)
 		{
 			self.buildables_available_index = level.buildables_available.size - 1;
 		}
 
-		if ( got_input )
+		if (got_input)
 		{
 			equipname = level.buildables_available[self.buildables_available_index];
 			self.hint_string = level.zombie_buildables[equipname].hint;

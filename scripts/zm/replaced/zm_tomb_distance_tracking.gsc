@@ -7,20 +7,20 @@
 #include maps\mp\zombies\_zm_ai_basic;
 #include maps\mp\zm_tomb_chamber;
 
-delete_zombie_noone_looking( how_close, how_high )
+delete_zombie_noone_looking(how_close, how_high)
 {
-	self endon( "death" );
+	self endon("death");
 
-	if ( !isdefined( how_close ) )
+	if (!isdefined(how_close))
 		how_close = 1500;
 
-	if ( !isdefined( how_high ) )
+	if (!isdefined(how_high))
 		how_high = 600;
 
 	distance_squared_check = how_close * how_close;
 	too_far_dist = distance_squared_check * 3;
 
-	if ( isdefined( level.zombie_tracking_too_far_dist ) )
+	if (isdefined(level.zombie_tracking_too_far_dist))
 		too_far_dist = level.zombie_tracking_too_far_dist * level.zombie_tracking_too_far_dist;
 
 	self.inview = 0;
@@ -29,62 +29,62 @@ delete_zombie_noone_looking( how_close, how_high )
 	n_height_difference = 0;
 	players = get_players();
 
-	for ( i = 0; i < players.size; i++ )
+	for (i = 0; i < players.size; i++)
 	{
-		if ( players[i].sessionstate == "spectator" )
+		if (players[i].sessionstate == "spectator")
 			continue;
 
-		if ( isdefined( level.only_track_targeted_players ) )
+		if (isdefined(level.only_track_targeted_players))
 		{
-			if ( !isdefined( self.favoriteenemy ) || self.favoriteenemy != players[i] )
+			if (!isdefined(self.favoriteenemy) || self.favoriteenemy != players[i])
 				continue;
 		}
 
-		can_be_seen = self player_can_see_me( players[i] );
+		can_be_seen = self player_can_see_me(players[i]);
 
-		if ( can_be_seen && distancesquared( self.origin, players[i].origin ) < too_far_dist )
+		if (can_be_seen && distancesquared(self.origin, players[i].origin) < too_far_dist)
 			self.inview++;
 
 		n_modifier = 1.0;
 
-		if ( isdefined( players[i].b_in_tunnels ) && players[i].b_in_tunnels )
+		if (isdefined(players[i].b_in_tunnels) && players[i].b_in_tunnels)
 			n_modifier = 2.25;
 
-		n_distance_squared = distancesquared( self.origin, players[i].origin );
-		n_height_difference = abs( self.origin[2] - players[i].origin[2] );
+		n_distance_squared = distancesquared(self.origin, players[i].origin);
+		n_height_difference = abs(self.origin[2] - players[i].origin[2]);
 
-		if ( n_distance_squared < distance_squared_check * n_modifier && n_height_difference < how_high )
+		if (n_distance_squared < distance_squared_check * n_modifier && n_height_difference < how_high)
 			self.player_close++;
 	}
 
-	if ( self.inview == 0 && self.player_close == 0 )
+	if (self.inview == 0 && self.player_close == 0)
 	{
-		if ( !isdefined( self.animname ) || self.animname != "zombie" && self.animname != "mechz_zombie" )
+		if (!isdefined(self.animname) || self.animname != "zombie" && self.animname != "mechz_zombie")
 			return;
 
-		if ( isdefined( self.electrified ) && self.electrified == 1 )
+		if (isdefined(self.electrified) && self.electrified == 1)
 			return;
 
-		if ( isdefined( self.in_the_ground ) && self.in_the_ground == 1 )
+		if (isdefined(self.in_the_ground) && self.in_the_ground == 1)
 			return;
 
-		if ( !( isdefined( self.exclude_distance_cleanup_adding_to_total ) && self.exclude_distance_cleanup_adding_to_total ) && !( isdefined( self.isscreecher ) && self.isscreecher ) )
+		if (!(isdefined(self.exclude_distance_cleanup_adding_to_total) && self.exclude_distance_cleanup_adding_to_total) && !(isdefined(self.isscreecher) && self.isscreecher))
 		{
 			level.zombie_total++;
 
-			if ( self.health < level.zombie_health )
+			if (self.health < level.zombie_health)
 				level.zombie_respawned_health[level.zombie_respawned_health.size] = self.health;
 		}
 
 		self maps\mp\zombies\_zm_spawner::reset_attack_spot();
-		self notify( "zombie_delete" );
+		self notify("zombie_delete");
 
-		if ( isdefined( self.is_mechz ) && self.is_mechz )
+		if (isdefined(self.is_mechz) && self.is_mechz)
 		{
-			self notify( "mechz_cleanup" );
+			self notify("mechz_cleanup");
 			level.mechz_left_to_spawn++;
 			wait_network_frame();
-			level notify( "spawn_mechz" );
+			level notify("spawn_mechz");
 		}
 
 		self delete();

@@ -7,17 +7,17 @@
 
 give_afterlife()
 {
-	onplayerconnect_callback( scripts\zm\replaced\_zm_afterlife::init_player );
-	flag_wait( "initial_players_connected" );
+	onplayerconnect_callback(scripts\zm\replaced\_zm_afterlife::init_player);
+	flag_wait("initial_players_connected");
 	wait 0.5;
 	start_pos = 1;
 	players = getplayers();
 
-	foreach ( player in players )
+	foreach (player in players)
 	{
-		if ( isDefined( player.afterlife ) && !player.afterlife )
+		if (isDefined(player.afterlife) && !player.afterlife)
 		{
-			player thread fake_kill_player( start_pos );
+			player thread fake_kill_player(start_pos);
 			start_pos++;
 		}
 	}

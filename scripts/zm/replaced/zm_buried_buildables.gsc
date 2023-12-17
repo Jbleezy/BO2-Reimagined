@@ -14,17 +14,17 @@
 #include maps\mp\zombies\_zm_weap_claymore;
 #include maps\mp\zombies\_zm_unitrigger;
 
-watch_cell_open_close( door )
+watch_cell_open_close(door)
 {
 	level.cell_open = 0;
 
-	while ( true )
+	while (true)
 	{
-		level waittill( "cell_open" );
+		level waittill("cell_open");
 
 		level.cell_open = 1;
 
-		level waittill( "cell_close" );
+		level waittill("cell_close");
 
 		level.cell_open = 0;
 	}

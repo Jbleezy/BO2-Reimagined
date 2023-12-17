@@ -3,31 +3,31 @@
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 
-playleaderdialogonplayer( dialog, team, waittime )
+playleaderdialogonplayer(dialog, team, waittime)
 {
-	self endon( "disconnect" );
+	self endon("disconnect");
 
-	if ( level.allowzmbannouncer )
+	if (level.allowzmbannouncer)
 	{
-		if ( !isDefined( game[ "zmbdialog" ][ dialog ] ) )
+		if (!isDefined(game[ "zmbdialog" ][ dialog ]))
 		{
 			return;
 		}
 	}
 
-	if ( isDefined( self.zmbdialoggroups[ dialog ] ) )
+	if (isDefined(self.zmbdialoggroups[ dialog ]))
 	{
 		group = dialog;
 		dialog = self.zmbdialoggroups[ group ];
 		self.zmbdialoggroups[ group ] = undefined;
 	}
 
-	if ( level.allowzmbannouncer )
+	if (level.allowzmbannouncer)
 	{
 		alias = game[ "zmbdialog" ][ "prefix" ] + "_" + game[ "zmbdialog" ][ dialog ];
-		variant = self getleaderdialogvariant( alias );
+		variant = self getleaderdialogvariant(alias);
 
-		if ( !isDefined( variant ) )
+		if (!isDefined(variant))
 		{
 			full_alias = alias;
 		}
@@ -36,6 +36,6 @@ playleaderdialogonplayer( dialog, team, waittime )
 			full_alias =  alias + "_" + variant;
 		}
 
-		self playlocalsound( full_alias );
+		self playlocalsound(full_alias);
 	}
 }

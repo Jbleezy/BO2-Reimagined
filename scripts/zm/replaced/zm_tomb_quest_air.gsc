@@ -10,6 +10,6 @@
 
 air_puzzle_1_run()
 {
-	level waittill( "elemental_staff_air_crafted", player );
-	flag_set( "staff_air_zm_upgrade_unlocked" );
+	level waittill("elemental_staff_air_crafted", player);
+	flag_set("staff_air_zm_upgrade_unlocked");
 }

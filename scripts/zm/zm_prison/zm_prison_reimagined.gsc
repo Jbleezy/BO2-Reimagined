@@ -75,7 +75,7 @@ init()
 	level.zombie_vars["below_world_check"] = -15000;
 	level.zombie_powerups["meat_stink"].model_name = "t6_wpn_zmb_severedhead_world";
 
-	maps\mp\zombies\_zm::spawn_life_brush( (94, 6063, 240), 256, 256 );
+	maps\mp\zombies\_zm::spawn_life_brush((94, 6063, 240), 256, 256);
 
 	player_initial_spawn_override();
 	player_respawn_override();
@@ -87,12 +87,12 @@ init()
 door_changes()
 {
 	num = 0;
-	targets = getentarray( "cellblock_start_door", "targetname" );
-	zombie_doors = getentarray( "zombie_door", "targetname" );
+	targets = getentarray("cellblock_start_door", "targetname");
+	zombie_doors = getentarray("zombie_door", "targetname");
 
-	for ( i = 0; i < zombie_doors.size; i++ )
+	for (i = 0; i < zombie_doors.size; i++)
 	{
-		if ( isdefined( zombie_doors[i].target ) && zombie_doors[i].target == "cellblock_start_door" )
+		if (isdefined(zombie_doors[i].target) && zombie_doors[i].target == "cellblock_start_door")
 		{
 			zombie_doors[i].zombie_cost = 750;
 			zombie_doors[i].target += num;
@@ -107,12 +107,12 @@ zombie_init_done()
 {
 	self.meleedamage = 50;
 	self.allowpain = 0;
-	self setphysparams( 15, 0, 48 );
+	self setphysparams(15, 0, 48);
 }
 
 check_for_special_weapon_limit_exist(weapon)
 {
-	if ( weapon != "blundergat_zm" && weapon != "minigun_alcatraz_zm" )
+	if (weapon != "blundergat_zm" && weapon != "minigun_alcatraz_zm")
 	{
 		return 1;
 	}
@@ -120,14 +120,14 @@ check_for_special_weapon_limit_exist(weapon)
 	players = get_players();
 	count = 0;
 
-	if ( weapon == "blundergat_zm" )
+	if (weapon == "blundergat_zm")
 	{
-		if ( self maps\mp\zombies\_zm_weapons::has_weapon_or_upgrade( "blundersplat_zm" ) )
+		if (self maps\mp\zombies\_zm_weapons::has_weapon_or_upgrade("blundersplat_zm"))
 		{
 			return 0;
 		}
 
-		if ( self afterlife_weapon_limit_check( "blundergat_zm" ) )
+		if (self afterlife_weapon_limit_check("blundergat_zm"))
 		{
 			return 0;
 		}
@@ -136,7 +136,7 @@ check_for_special_weapon_limit_exist(weapon)
 	}
 	else
 	{
-		if ( self afterlife_weapon_limit_check( "minigun_alcatraz_zm" ) )
+		if (self afterlife_weapon_limit_check("minigun_alcatraz_zm"))
 		{
 			return 0;
 		}
@@ -146,11 +146,11 @@ check_for_special_weapon_limit_exist(weapon)
 
 	i = 0;
 
-	while ( i < players.size )
+	while (i < players.size)
 	{
-		if ( weapon == "blundergat_zm" )
+		if (weapon == "blundergat_zm")
 		{
-			if ( players[ i ] maps\mp\zombies\_zm_weapons::has_weapon_or_upgrade( "blundersplat_zm" ) || isDefined( players[ i ].is_pack_splatting ) && players[ i ].is_pack_splatting )
+			if (players[ i ] maps\mp\zombies\_zm_weapons::has_weapon_or_upgrade("blundersplat_zm") || isDefined(players[ i ].is_pack_splatting) && players[ i ].is_pack_splatting)
 			{
 				count++;
 				i++;
@@ -159,7 +159,7 @@ check_for_special_weapon_limit_exist(weapon)
 		}
 		else
 		{
-			if ( players[ i ] afterlife_weapon_limit_check( weapon ) )
+			if (players[ i ] afterlife_weapon_limit_check(weapon))
 			{
 				count++;
 			}
@@ -168,7 +168,7 @@ check_for_special_weapon_limit_exist(weapon)
 		i++;
 	}
 
-	if ( count >= limit )
+	if (count >= limit)
 	{
 		return 0;
 	}
@@ -188,7 +188,7 @@ door_buy_afterlife_check(door)
 
 player_initial_spawn_override()
 {
-	initial_spawns = getstructarray( "initial_spawn", "script_noteworthy" );
+	initial_spawns = getstructarray("initial_spawn", "script_noteworthy");
 	remove_initial_spawns = [];
 
 	if (level.scr_zm_map_start_location == "cellblock" && getDvar("ui_zm_mapstartlocation_fake") != "docks")
@@ -221,13 +221,13 @@ player_initial_spawn_override()
 
 player_respawn_override()
 {
-	respawn_points = getstructarray( "player_respawn_point", "targetname" );
+	respawn_points = getstructarray("player_respawn_point", "targetname");
 
 	foreach (respawn_point in respawn_points)
 	{
 		if (respawn_point.script_noteworthy == "zone_cafeteria")
 		{
-			respawn_array = getstructarray( respawn_point.target, "targetname" );
+			respawn_array = getstructarray(respawn_point.target, "targetname");
 			remove_respawn_array = [];
 
 			foreach (respawn in respawn_array)
@@ -249,7 +249,7 @@ player_respawn_override()
 
 updatecraftables()
 {
-	flag_wait( "start_zombie_round_logic" );
+	flag_wait("start_zombie_round_logic");
 
 	wait 1;
 
@@ -266,271 +266,271 @@ updatecraftables()
 
 craftable_place_think()
 {
-	self endon( "kill_trigger" );
+	self endon("kill_trigger");
 	player_crafted = undefined;
 
-	while ( !( isdefined( self.stub.crafted ) && self.stub.crafted ) )
+	while (!(isdefined(self.stub.crafted) && self.stub.crafted))
 	{
-		self waittill( "trigger", player );
+		self waittill("trigger", player);
 
-		if ( isdefined( level.custom_craftable_validation ) )
+		if (isdefined(level.custom_craftable_validation))
 		{
-			valid = self [[ level.custom_craftable_validation ]]( player );
+			valid = self [[ level.custom_craftable_validation ]](player);
 
-			if ( !valid )
+			if (!valid)
 				continue;
 		}
 
-		if ( player != self.parent_player )
+		if (player != self.parent_player)
 			continue;
 
-		if ( isdefined( player.screecher_weapon ) )
+		if (isdefined(player.screecher_weapon))
 			continue;
 
-		if ( !is_player_valid( player ) )
+		if (!is_player_valid(player))
 		{
-			player thread ignore_triggers( 0.5 );
+			player thread ignore_triggers(0.5);
 			continue;
 		}
 
-		status = player player_can_craft( self.stub.craftablespawn );
+		status = player player_can_craft(self.stub.craftablespawn);
 
-		if ( !status )
+		if (!status)
 		{
 			self.stub.hint_string = "";
-			self sethintstring( self.stub.hint_string );
+			self sethintstring(self.stub.hint_string);
 
-			if ( isdefined( self.stub.oncantuse ) )
-				self.stub [[ self.stub.oncantuse ]]( player );
+			if (isdefined(self.stub.oncantuse))
+				self.stub [[ self.stub.oncantuse ]](player);
 		}
 		else
 		{
-			if ( isdefined( self.stub.onbeginuse ) )
-				self.stub [[ self.stub.onbeginuse ]]( player );
+			if (isdefined(self.stub.onbeginuse))
+				self.stub [[ self.stub.onbeginuse ]](player);
 
-			result = self craftable_use_hold_think( player );
+			result = self craftable_use_hold_think(player);
 			team = player.pers["team"];
 
-			if ( isdefined( self.stub.onenduse ) )
-				self.stub [[ self.stub.onenduse ]]( team, player, result );
+			if (isdefined(self.stub.onenduse))
+				self.stub [[ self.stub.onenduse ]](team, player, result);
 
-			if ( !result )
+			if (!result)
 				continue;
 
-			if ( isdefined( self.stub.onuse ) )
-				self.stub [[ self.stub.onuse ]]( player );
+			if (isdefined(self.stub.onuse))
+				self.stub [[ self.stub.onuse ]](player);
 
-			prompt = player player_craft( self.stub.craftablespawn );
+			prompt = player player_craft(self.stub.craftablespawn);
 			player_crafted = player;
 			self.stub.hint_string = prompt;
-			self sethintstring( self.stub.hint_string );
+			self sethintstring(self.stub.hint_string);
 		}
 	}
 
-	if ( isdefined( self.stub.craftablestub.onfullycrafted ) )
+	if (isdefined(self.stub.craftablestub.onfullycrafted))
 	{
 		b_result = self.stub [[ self.stub.craftablestub.onfullycrafted ]]();
 
-		if ( !b_result )
+		if (!b_result)
 			return;
 	}
 
-	if ( isdefined( player_crafted ) )
+	if (isdefined(player_crafted))
 	{
 
 	}
 
-	if ( self.stub.persistent == 0 )
+	if (self.stub.persistent == 0)
 	{
 		self.stub craftablestub_remove();
-		thread maps\mp\zombies\_zm_unitrigger::unregister_unitrigger( self.stub );
+		thread maps\mp\zombies\_zm_unitrigger::unregister_unitrigger(self.stub);
 		return;
 	}
 
-	if ( self.stub.persistent == 3 )
+	if (self.stub.persistent == 3)
 	{
-		stub_uncraft_craftable( self.stub, 1 );
+		stub_uncraft_craftable(self.stub, 1);
 		return;
 	}
 
-	if ( self.stub.persistent == 2 )
+	if (self.stub.persistent == 2)
 	{
-		if ( isdefined( player_crafted ) )
-			self craftabletrigger_update_prompt( player_crafted );
+		if (isdefined(player_crafted))
+			self craftabletrigger_update_prompt(player_crafted);
 
-		if ( !maps\mp\zombies\_zm_weapons::limited_weapon_below_quota( self.stub.weaponname, undefined ) )
+		if (!maps\mp\zombies\_zm_weapons::limited_weapon_below_quota(self.stub.weaponname, undefined))
 		{
 			self.stub.hint_string = &"ZOMBIE_GO_TO_THE_BOX_LIMITED";
-			self sethintstring( self.stub.hint_string );
+			self sethintstring(self.stub.hint_string);
 			return;
 		}
 
-		if ( isdefined( self.stub.str_taken ) && self.stub.str_taken )
+		if (isdefined(self.stub.str_taken) && self.stub.str_taken)
 		{
 			self.stub.hint_string = &"ZOMBIE_GO_TO_THE_BOX";
-			self sethintstring( self.stub.hint_string );
+			self sethintstring(self.stub.hint_string);
 			return;
 		}
 
-		if ( isdefined( self.stub.model ) )
+		if (isdefined(self.stub.model))
 		{
 			self.stub.model notsolid();
 			self.stub.model show();
 		}
 
-		while ( self.stub.persistent == 2 )
+		while (self.stub.persistent == 2)
 		{
-			self waittill( "trigger", player );
+			self waittill("trigger", player);
 
-			if ( isdefined( player.screecher_weapon ) )
+			if (isdefined(player.screecher_weapon))
 				continue;
 
-			if ( isdefined( level.custom_craftable_validation ) )
+			if (isdefined(level.custom_craftable_validation))
 			{
-				valid = self [[ level.custom_craftable_validation ]]( player );
+				valid = self [[ level.custom_craftable_validation ]](player);
 
-				if ( !valid )
+				if (!valid)
 					continue;
 			}
 
-			if ( !( isdefined( self.stub.crafted ) && self.stub.crafted ) )
+			if (!(isdefined(self.stub.crafted) && self.stub.crafted))
 			{
 				self.stub.hint_string = "";
-				self sethintstring( self.stub.hint_string );
+				self sethintstring(self.stub.hint_string);
 				return;
 			}
 
-			if ( player != self.parent_player )
+			if (player != self.parent_player)
 				continue;
 
-			if ( !is_player_valid( player ) )
+			if (!is_player_valid(player))
 			{
-				player thread ignore_triggers( 0.5 );
+				player thread ignore_triggers(0.5);
 				continue;
 			}
 
 			self.stub.bought = 1;
 
-			if ( isdefined( self.stub.model ) )
-				self.stub.model thread model_fly_away( self );
+			if (isdefined(self.stub.model))
+				self.stub.model thread model_fly_away(self);
 
-			player maps\mp\zombies\_zm_weapons::weapon_give( self.stub.weaponname );
+			player maps\mp\zombies\_zm_weapons::weapon_give(self.stub.weaponname);
 
-			if ( isdefined( level.zombie_include_craftables[self.stub.equipname].onbuyweapon ) )
-				self [[ level.zombie_include_craftables[self.stub.equipname].onbuyweapon ]]( player );
+			if (isdefined(level.zombie_include_craftables[self.stub.equipname].onbuyweapon))
+				self [[ level.zombie_include_craftables[self.stub.equipname].onbuyweapon ]](player);
 
-			if ( !maps\mp\zombies\_zm_weapons::limited_weapon_below_quota( self.stub.weaponname, undefined ) )
+			if (!maps\mp\zombies\_zm_weapons::limited_weapon_below_quota(self.stub.weaponname, undefined))
 				self.stub.hint_string = &"ZOMBIE_GO_TO_THE_BOX_LIMITED";
 			else
 				self.stub.hint_string = &"ZOMBIE_GO_TO_THE_BOX";
 
-			self sethintstring( self.stub.hint_string );
-			player track_craftables_pickedup( self.stub.craftablespawn );
+			self sethintstring(self.stub.hint_string);
+			player track_craftables_pickedup(self.stub.craftablespawn);
 		}
 	}
-	else if ( !isdefined( player_crafted ) || self craftabletrigger_update_prompt( player_crafted ) )
+	else if (!isdefined(player_crafted) || self craftabletrigger_update_prompt(player_crafted))
 	{
-		if ( isdefined( self.stub.model ) )
+		if (isdefined(self.stub.model))
 		{
 			self.stub.model notsolid();
 			self.stub.model show();
 		}
 
-		while ( self.stub.persistent == 1 )
+		while (self.stub.persistent == 1)
 		{
-			self waittill( "trigger", player );
+			self waittill("trigger", player);
 
-			if ( isdefined( player.screecher_weapon ) )
+			if (isdefined(player.screecher_weapon))
 				continue;
 
-			if ( isdefined( level.custom_craftable_validation ) )
+			if (isdefined(level.custom_craftable_validation))
 			{
-				valid = self [[ level.custom_craftable_validation ]]( player );
+				valid = self [[ level.custom_craftable_validation ]](player);
 
-				if ( !valid )
+				if (!valid)
 					continue;
 			}
 
-			if ( !( isdefined( self.stub.crafted ) && self.stub.crafted ) )
+			if (!(isdefined(self.stub.crafted) && self.stub.crafted))
 			{
 				self.stub.hint_string = "";
-				self sethintstring( self.stub.hint_string );
+				self sethintstring(self.stub.hint_string);
 				return;
 			}
 
-			if ( player != self.parent_player )
+			if (player != self.parent_player)
 				continue;
 
-			if ( !is_player_valid( player ) )
+			if (!is_player_valid(player))
 			{
-				player thread ignore_triggers( 0.5 );
+				player thread ignore_triggers(0.5);
 				continue;
 			}
 
 			if (player.score < self.stub.cost)
 			{
-				self play_sound_on_ent( "no_purchase" );
-				player maps\mp\zombies\_zm_audio::create_and_play_dialog( "general", "no_money_weapon" );
+				self play_sound_on_ent("no_purchase");
+				player maps\mp\zombies\_zm_audio::create_and_play_dialog("general", "no_money_weapon");
 				continue;
 			}
 
-			if ( player has_player_equipment( self.stub.weaponname ) )
+			if (player has_player_equipment(self.stub.weaponname))
 				continue;
 
-			if ( isdefined( level.zombie_craftable_persistent_weapon ) )
+			if (isdefined(level.zombie_craftable_persistent_weapon))
 			{
-				if ( self [[ level.zombie_craftable_persistent_weapon ]]( player ) )
+				if (self [[ level.zombie_craftable_persistent_weapon ]](player))
 					continue;
 			}
 
-			if ( isdefined( level.zombie_custom_equipment_setup ) )
+			if (isdefined(level.zombie_custom_equipment_setup))
 			{
-				if ( self [[ level.zombie_custom_equipment_setup ]]( player ) )
+				if (self [[ level.zombie_custom_equipment_setup ]](player))
 					continue;
 			}
 
-			if ( !maps\mp\zombies\_zm_equipment::is_limited_equipment( self.stub.weaponname ) || !maps\mp\zombies\_zm_equipment::limited_equipment_in_use( self.stub.weaponname ) )
+			if (!maps\mp\zombies\_zm_equipment::is_limited_equipment(self.stub.weaponname) || !maps\mp\zombies\_zm_equipment::limited_equipment_in_use(self.stub.weaponname))
 			{
-				player maps\mp\zombies\_zm_score::minus_to_player_score( self.stub.cost );
-				self play_sound_on_ent( "purchase" );
+				player maps\mp\zombies\_zm_score::minus_to_player_score(self.stub.cost);
+				self play_sound_on_ent("purchase");
 
-				player maps\mp\zombies\_zm_equipment::equipment_buy( self.stub.weaponname );
-				player giveweapon( self.stub.weaponname );
-				player setweaponammoclip( self.stub.weaponname, 1 );
+				player maps\mp\zombies\_zm_equipment::equipment_buy(self.stub.weaponname);
+				player giveweapon(self.stub.weaponname);
+				player setweaponammoclip(self.stub.weaponname, 1);
 
-				if ( isdefined( level.zombie_include_craftables[self.stub.equipname].onbuyweapon ) )
-					self [[ level.zombie_include_craftables[self.stub.equipname].onbuyweapon ]]( player );
-				else if ( self.stub.weaponname != "keys_zm" )
-					player setactionslot( 1, "weapon", self.stub.weaponname );
+				if (isdefined(level.zombie_include_craftables[self.stub.equipname].onbuyweapon))
+					self [[ level.zombie_include_craftables[self.stub.equipname].onbuyweapon ]](player);
+				else if (self.stub.weaponname != "keys_zm")
+					player setactionslot(1, "weapon", self.stub.weaponname);
 
-				if ( isdefined( level.zombie_craftablestubs[self.stub.equipname].str_taken ) )
+				if (isdefined(level.zombie_craftablestubs[self.stub.equipname].str_taken))
 					self.stub.hint_string = level.zombie_craftablestubs[self.stub.equipname].str_taken;
 				else
 					self.stub.hint_string = "";
 
-				self sethintstring( self.stub.hint_string );
-				player track_craftables_pickedup( self.stub.craftablespawn );
+				self sethintstring(self.stub.hint_string);
+				player track_craftables_pickedup(self.stub.craftablespawn);
 			}
 			else
 			{
 				self.stub.hint_string = "";
-				self sethintstring( self.stub.hint_string );
+				self sethintstring(self.stub.hint_string);
 			}
 		}
 	}
 }
 
-craftabletrigger_update_prompt( player )
+craftabletrigger_update_prompt(player)
 {
-	can_use = self.stub craftablestub_update_prompt( player );
+	can_use = self.stub craftablestub_update_prompt(player);
 
 	if (can_use && is_true(self.stub.crafted) && !is_true(self.stub.is_locked))
 	{
-		self sethintstring( self.stub.hint_string, " [Cost: " + self.stub.cost + "]" );
+		self sethintstring(self.stub.hint_string, " [Cost: " + self.stub.cost + "]");
 	}
 	else
 	{
-		self sethintstring( self.stub.hint_string );
+		self sethintstring(self.stub.hint_string);
 	}
 
 	return can_use;
@@ -538,7 +538,7 @@ craftabletrigger_update_prompt( player )
 
 grief_brutus_spawn_after_time()
 {
-	if ( !is_gametype_active( "zgrief" ) )
+	if (!is_gametype_active("zgrief"))
 	{
 		return;
 	}
@@ -553,7 +553,7 @@ grief_brutus_spawn_after_time()
 
 		wait time;
 
-		level notify( "spawn_brutus", 1 );
+		level notify("spawn_brutus", 1);
 
 		while (level.brutus_count <= 0)
 		{
@@ -567,7 +567,7 @@ grief_brutus_spawn_after_time()
 	}
 }
 
-manage_zones( initial_zone )
+manage_zones(initial_zone)
 {
 	level.zone_manager_init_func = ::working_zone_init;
 
@@ -575,44 +575,44 @@ manage_zones( initial_zone )
 	zone_choke = 0;
 	spawn_points = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
 
-	for ( i = 0; i < spawn_points.size; i++ )
+	for (i = 0; i < spawn_points.size; i++)
 	{
-		assert( isdefined( spawn_points[i].script_noteworthy ), "player_respawn_point: You must specify a script noteworthy with the zone name" );
+		assert(isdefined(spawn_points[i].script_noteworthy), "player_respawn_point: You must specify a script noteworthy with the zone name");
 		spawn_points[i].locked = 1;
 	}
 
-	if ( isdefined( level.zone_manager_init_func ) )
+	if (isdefined(level.zone_manager_init_func))
 		[[ level.zone_manager_init_func ]]();
 
-	if ( isarray( initial_zone ) )
+	if (isarray(initial_zone))
 	{
-		for ( i = 0; i < initial_zone.size; i++ )
+		for (i = 0; i < initial_zone.size; i++)
 		{
-			zone_init( initial_zone[i] );
-			enable_zone( initial_zone[i] );
+			zone_init(initial_zone[i]);
+			enable_zone(initial_zone[i]);
 		}
 	}
 	else
 	{
-		zone_init( initial_zone );
-		enable_zone( initial_zone );
+		zone_init(initial_zone);
+		enable_zone(initial_zone);
 	}
 
 	setup_zone_flag_waits();
-	zkeys = getarraykeys( level.zones );
+	zkeys = getarraykeys(level.zones);
 	level.zone_keys = zkeys;
 	level.newzones = [];
 
-	for ( z = 0; z < zkeys.size; z++ )
+	for (z = 0; z < zkeys.size; z++)
 		level.newzones[zkeys[z]] = spawnstruct();
 
 	oldzone = undefined;
-	flag_set( "zones_initialized" );
-	flag_wait( "begin_spawning" );
+	flag_set("zones_initialized");
+	flag_wait("begin_spawning");
 
-	while ( getdvarint( "noclip" ) == 0 || getdvarint( "notarget" ) != 0 )
+	while (getdvarint("noclip") == 0 || getdvarint("notarget") != 0)
 	{
-		for ( z = 0; z < zkeys.size; z++ )
+		for (z = 0; z < zkeys.size; z++)
 		{
 			level.newzones[zkeys[z]].is_active = 0;
 			level.newzones[zkeys[z]].is_occupied = 0;
@@ -622,42 +622,42 @@ manage_zones( initial_zone )
 		a_zone_is_spawning_allowed = 0;
 		level.zone_scanning_active = 1;
 
-		for ( z = 0; z < zkeys.size; z++ )
+		for (z = 0; z < zkeys.size; z++)
 		{
 			zone = level.zones[zkeys[z]];
 			newzone = level.newzones[zkeys[z]];
 
-			if ( !zone.is_enabled )
+			if (!zone.is_enabled)
 				continue;
 
-			if ( isdefined( level.zone_occupied_func ) )
-				newzone.is_occupied = [[ level.zone_occupied_func ]]( zkeys[z] );
+			if (isdefined(level.zone_occupied_func))
+				newzone.is_occupied = [[ level.zone_occupied_func ]](zkeys[z]);
 			else
-				newzone.is_occupied = player_in_zone( zkeys[z] );
+				newzone.is_occupied = player_in_zone(zkeys[z]);
 
-			if ( newzone.is_occupied )
+			if (newzone.is_occupied)
 			{
 				newzone.is_active = 1;
 				a_zone_is_active = 1;
 
-				if ( zone.is_spawning_allowed )
+				if (zone.is_spawning_allowed)
 					a_zone_is_spawning_allowed = 1;
 
-				if ( !isdefined( oldzone ) || oldzone != newzone )
+				if (!isdefined(oldzone) || oldzone != newzone)
 				{
-					level notify( "newzoneActive", zkeys[z] );
+					level notify("newzoneActive", zkeys[z]);
 					oldzone = newzone;
 				}
 
-				azkeys = getarraykeys( zone.adjacent_zones );
+				azkeys = getarraykeys(zone.adjacent_zones);
 
-				for ( az = 0; az < zone.adjacent_zones.size; az++ )
+				for (az = 0; az < zone.adjacent_zones.size; az++)
 				{
-					if ( zone.adjacent_zones[azkeys[az]].is_connected && level.zones[azkeys[az]].is_enabled )
+					if (zone.adjacent_zones[azkeys[az]].is_connected && level.zones[azkeys[az]].is_enabled)
 					{
 						level.newzones[azkeys[az]].is_active = 1;
 
-						if ( level.zones[azkeys[az]].is_spawning_allowed )
+						if (level.zones[azkeys[az]].is_spawning_allowed)
 							a_zone_is_spawning_allowed = 1;
 					}
 				}
@@ -665,7 +665,7 @@ manage_zones( initial_zone )
 
 			zone_choke++;
 
-			if ( zone_choke >= 3 )
+			if (zone_choke >= 3)
 			{
 				zone_choke = 0;
 				wait 0.05;
@@ -674,15 +674,15 @@ manage_zones( initial_zone )
 
 		level.zone_scanning_active = 0;
 
-		for ( z = 0; z < zkeys.size; z++ )
+		for (z = 0; z < zkeys.size; z++)
 		{
 			level.zones[zkeys[z]].is_active = level.newzones[zkeys[z]].is_active;
 			level.zones[zkeys[z]].is_occupied = level.newzones[zkeys[z]].is_occupied;
 		}
 
-		if ( !a_zone_is_active || !a_zone_is_spawning_allowed )
+		if (!a_zone_is_active || !a_zone_is_spawning_allowed)
 		{
-			if ( isarray( initial_zone ) )
+			if (isarray(initial_zone))
 			{
 				level.zones[initial_zone[0]].is_active = 1;
 				level.zones[initial_zone[0]].is_occupied = 1;
@@ -696,7 +696,7 @@ manage_zones( initial_zone )
 			}
 		}
 
-		[[ level.create_spawner_list_func ]]( zkeys );
+		[[ level.create_spawner_list_func ]](zkeys);
 
 		level.active_zone_names = maps\mp\zombies\_zm_zonemgr::get_active_zone_names();
 		wait 1;
@@ -705,89 +705,89 @@ manage_zones( initial_zone )
 
 working_zone_init()
 {
-	flag_init( "always_on" );
-	flag_set( "always_on" );
+	flag_init("always_on");
+	flag_set("always_on");
 
-	if ( is_gametype_active( "zgrief" ) )
+	if (is_gametype_active("zgrief"))
 	{
-		a_s_spawner = getstructarray( "zone_cellblock_west_roof_spawner", "targetname" );
+		a_s_spawner = getstructarray("zone_cellblock_west_roof_spawner", "targetname");
 
-		foreach ( spawner in a_s_spawner )
+		foreach (spawner in a_s_spawner)
 		{
-			if ( isdefined( spawner.script_parameters ) && spawner.script_parameters == "zclassic_prison" )
+			if (isdefined(spawner.script_parameters) && spawner.script_parameters == "zclassic_prison")
 				spawner structdelete();
 		}
 	}
 
-	if ( is_classic() )
-		add_adjacent_zone( "zone_library", "zone_start", "always_on" );
+	if (is_classic())
+		add_adjacent_zone("zone_library", "zone_start", "always_on");
 	else
 	{
-		add_adjacent_zone( "zone_library", "zone_cellblock_west", "activate_cellblock_west" );
-		add_adjacent_zone( "zone_library", "zone_start", "activate_cellblock_west" );
-		add_adjacent_zone( "zone_cellblock_east", "zone_start", "activate_cellblock_east" );
-		add_adjacent_zone( "zone_library", "zone_start", "activate_cellblock_east" );
+		add_adjacent_zone("zone_library", "zone_cellblock_west", "activate_cellblock_west");
+		add_adjacent_zone("zone_library", "zone_start", "activate_cellblock_west");
+		add_adjacent_zone("zone_cellblock_east", "zone_start", "activate_cellblock_east");
+		add_adjacent_zone("zone_library", "zone_start", "activate_cellblock_east");
 	}
 
-	add_adjacent_zone( "zone_library", "zone_cellblock_west", "activate_cellblock_west" );
-	add_adjacent_zone( "zone_cellblock_west", "zone_cellblock_west_barber", "activate_cellblock_barber" );
-	add_adjacent_zone( "zone_cellblock_west_warden", "zone_cellblock_west_barber", "activate_cellblock_barber" );
-	add_adjacent_zone( "zone_cellblock_west_warden", "zone_cellblock_west_barber", "activate_cellblock_gondola" );
-	add_adjacent_zone( "zone_cellblock_west", "zone_cellblock_west_gondola", "activate_cellblock_gondola" );
-	add_adjacent_zone( "zone_cellblock_west_barber", "zone_cellblock_west_gondola", "activate_cellblock_gondola" );
-	add_adjacent_zone( "zone_cellblock_west_gondola", "zone_cellblock_west_barber", "activate_cellblock_gondola" );
-	add_adjacent_zone( "zone_cellblock_west_gondola", "zone_cellblock_east", "activate_cellblock_gondola" );
-	add_adjacent_zone( "zone_cellblock_west_gondola", "zone_infirmary", "activate_cellblock_infirmary" );
-	add_adjacent_zone( "zone_infirmary_roof", "zone_infirmary", "activate_cellblock_infirmary" );
-	add_adjacent_zone( "zone_cellblock_west_gondola", "zone_cellblock_west_barber", "activate_cellblock_infirmary" );
-	add_adjacent_zone( "zone_cellblock_west_gondola", "zone_cellblock_west", "activate_cellblock_infirmary" );
-	add_adjacent_zone( "zone_start", "zone_cellblock_east", "activate_cellblock_east" );
-	add_adjacent_zone( "zone_cellblock_west_barber", "zone_cellblock_west_warden", "activate_cellblock_infirmary" );
-	add_adjacent_zone( "zone_cellblock_west_barber", "zone_cellblock_east", "activate_cellblock_east_west" );
-	add_adjacent_zone( "zone_cellblock_west_barber", "zone_cellblock_west_warden", "activate_cellblock_east_west" );
-	add_adjacent_zone( "zone_cellblock_west_warden", "zone_warden_office", "activate_warden_office" );
-	add_adjacent_zone( "zone_cellblock_west_warden", "zone_citadel_warden", "activate_cellblock_citadel" );
-	add_adjacent_zone( "zone_cellblock_west_warden", "zone_cellblock_west_barber", "activate_cellblock_citadel" );
-	add_adjacent_zone( "zone_citadel", "zone_citadel_warden", "activate_cellblock_citadel" );
-	add_adjacent_zone( "zone_citadel", "zone_citadel_shower", "activate_cellblock_citadel" );
-	add_adjacent_zone( "zone_cellblock_east", "zone_cafeteria", "activate_cafeteria" );
-	add_adjacent_zone( "zone_cafeteria", "zone_cafeteria_end", "activate_cafeteria" );
-	add_adjacent_zone( "zone_cellblock_east", "cellblock_shower", "activate_shower_room" );
-	add_adjacent_zone( "cellblock_shower", "zone_citadel_shower", "activate_shower_citadel" );
-	add_adjacent_zone( "zone_citadel_shower", "zone_citadel", "activate_shower_citadel" );
-	add_adjacent_zone( "zone_citadel", "zone_citadel_warden", "activate_shower_citadel" );
-	add_adjacent_zone( "zone_cafeteria", "zone_infirmary", "activate_infirmary" );
-	add_adjacent_zone( "zone_cafeteria", "zone_cafeteria_end", "activate_infirmary" );
-	add_adjacent_zone( "zone_infirmary_roof", "zone_infirmary", "activate_infirmary" );
-	add_adjacent_zone( "zone_roof", "zone_roof_infirmary", "activate_roof" );
-	add_adjacent_zone( "zone_roof_infirmary", "zone_infirmary_roof", "activate_roof" );
-	add_adjacent_zone( "zone_citadel", "zone_citadel_stairs", "activate_citadel_stair" );
-	add_adjacent_zone( "zone_citadel", "zone_citadel_shower", "activate_citadel_stair" );
-	add_adjacent_zone( "zone_citadel", "zone_citadel_warden", "activate_citadel_stair" );
-	add_adjacent_zone( "zone_citadel_stairs", "zone_citadel_basement", "activate_citadel_basement" );
-	add_adjacent_zone( "zone_citadel_basement", "zone_citadel_basement_building", "activate_citadel_basement" );
-	add_adjacent_zone( "zone_citadel_basement", "zone_citadel_basement_building", "activate_basement_building" );
-	add_adjacent_zone( "zone_citadel_basement_building", "zone_studio", "activate_basement_building" );
-	add_adjacent_zone( "zone_citadel_basement", "zone_studio", "activate_basement_building" );
-	add_adjacent_zone( "zone_citadel_basement_building", "zone_dock_gondola", "activate_basement_gondola" );
-	add_adjacent_zone( "zone_citadel_basement", "zone_citadel_basement_building", "activate_basement_gondola" );
-	add_adjacent_zone( "zone_dock", "zone_dock_gondola", "activate_basement_gondola" );
-	add_adjacent_zone( "zone_studio", "zone_dock", "activate_dock_sally" );
-	add_adjacent_zone( "zone_dock_gondola", "zone_dock", "activate_dock_sally" );
-	add_adjacent_zone( "zone_dock", "zone_dock_gondola", "gondola_roof_to_dock" );
-	add_adjacent_zone( "zone_cellblock_west", "zone_cellblock_west_gondola", "gondola_dock_to_roof" );
-	add_adjacent_zone( "zone_cellblock_west_barber", "zone_cellblock_west_gondola", "gondola_dock_to_roof" );
-	add_adjacent_zone( "zone_cellblock_west_barber", "zone_cellblock_west_warden", "gondola_dock_to_roof" );
-	add_adjacent_zone( "zone_cellblock_west_gondola", "zone_cellblock_east", "gondola_dock_to_roof" );
+	add_adjacent_zone("zone_library", "zone_cellblock_west", "activate_cellblock_west");
+	add_adjacent_zone("zone_cellblock_west", "zone_cellblock_west_barber", "activate_cellblock_barber");
+	add_adjacent_zone("zone_cellblock_west_warden", "zone_cellblock_west_barber", "activate_cellblock_barber");
+	add_adjacent_zone("zone_cellblock_west_warden", "zone_cellblock_west_barber", "activate_cellblock_gondola");
+	add_adjacent_zone("zone_cellblock_west", "zone_cellblock_west_gondola", "activate_cellblock_gondola");
+	add_adjacent_zone("zone_cellblock_west_barber", "zone_cellblock_west_gondola", "activate_cellblock_gondola");
+	add_adjacent_zone("zone_cellblock_west_gondola", "zone_cellblock_west_barber", "activate_cellblock_gondola");
+	add_adjacent_zone("zone_cellblock_west_gondola", "zone_cellblock_east", "activate_cellblock_gondola");
+	add_adjacent_zone("zone_cellblock_west_gondola", "zone_infirmary", "activate_cellblock_infirmary");
+	add_adjacent_zone("zone_infirmary_roof", "zone_infirmary", "activate_cellblock_infirmary");
+	add_adjacent_zone("zone_cellblock_west_gondola", "zone_cellblock_west_barber", "activate_cellblock_infirmary");
+	add_adjacent_zone("zone_cellblock_west_gondola", "zone_cellblock_west", "activate_cellblock_infirmary");
+	add_adjacent_zone("zone_start", "zone_cellblock_east", "activate_cellblock_east");
+	add_adjacent_zone("zone_cellblock_west_barber", "zone_cellblock_west_warden", "activate_cellblock_infirmary");
+	add_adjacent_zone("zone_cellblock_west_barber", "zone_cellblock_east", "activate_cellblock_east_west");
+	add_adjacent_zone("zone_cellblock_west_barber", "zone_cellblock_west_warden", "activate_cellblock_east_west");
+	add_adjacent_zone("zone_cellblock_west_warden", "zone_warden_office", "activate_warden_office");
+	add_adjacent_zone("zone_cellblock_west_warden", "zone_citadel_warden", "activate_cellblock_citadel");
+	add_adjacent_zone("zone_cellblock_west_warden", "zone_cellblock_west_barber", "activate_cellblock_citadel");
+	add_adjacent_zone("zone_citadel", "zone_citadel_warden", "activate_cellblock_citadel");
+	add_adjacent_zone("zone_citadel", "zone_citadel_shower", "activate_cellblock_citadel");
+	add_adjacent_zone("zone_cellblock_east", "zone_cafeteria", "activate_cafeteria");
+	add_adjacent_zone("zone_cafeteria", "zone_cafeteria_end", "activate_cafeteria");
+	add_adjacent_zone("zone_cellblock_east", "cellblock_shower", "activate_shower_room");
+	add_adjacent_zone("cellblock_shower", "zone_citadel_shower", "activate_shower_citadel");
+	add_adjacent_zone("zone_citadel_shower", "zone_citadel", "activate_shower_citadel");
+	add_adjacent_zone("zone_citadel", "zone_citadel_warden", "activate_shower_citadel");
+	add_adjacent_zone("zone_cafeteria", "zone_infirmary", "activate_infirmary");
+	add_adjacent_zone("zone_cafeteria", "zone_cafeteria_end", "activate_infirmary");
+	add_adjacent_zone("zone_infirmary_roof", "zone_infirmary", "activate_infirmary");
+	add_adjacent_zone("zone_roof", "zone_roof_infirmary", "activate_roof");
+	add_adjacent_zone("zone_roof_infirmary", "zone_infirmary_roof", "activate_roof");
+	add_adjacent_zone("zone_citadel", "zone_citadel_stairs", "activate_citadel_stair");
+	add_adjacent_zone("zone_citadel", "zone_citadel_shower", "activate_citadel_stair");
+	add_adjacent_zone("zone_citadel", "zone_citadel_warden", "activate_citadel_stair");
+	add_adjacent_zone("zone_citadel_stairs", "zone_citadel_basement", "activate_citadel_basement");
+	add_adjacent_zone("zone_citadel_basement", "zone_citadel_basement_building", "activate_citadel_basement");
+	add_adjacent_zone("zone_citadel_basement", "zone_citadel_basement_building", "activate_basement_building");
+	add_adjacent_zone("zone_citadel_basement_building", "zone_studio", "activate_basement_building");
+	add_adjacent_zone("zone_citadel_basement", "zone_studio", "activate_basement_building");
+	add_adjacent_zone("zone_citadel_basement_building", "zone_dock_gondola", "activate_basement_gondola");
+	add_adjacent_zone("zone_citadel_basement", "zone_citadel_basement_building", "activate_basement_gondola");
+	add_adjacent_zone("zone_dock", "zone_dock_gondola", "activate_basement_gondola");
+	add_adjacent_zone("zone_studio", "zone_dock", "activate_dock_sally");
+	add_adjacent_zone("zone_dock_gondola", "zone_dock", "activate_dock_sally");
+	add_adjacent_zone("zone_dock", "zone_dock_gondola", "gondola_roof_to_dock");
+	add_adjacent_zone("zone_cellblock_west", "zone_cellblock_west_gondola", "gondola_dock_to_roof");
+	add_adjacent_zone("zone_cellblock_west_barber", "zone_cellblock_west_gondola", "gondola_dock_to_roof");
+	add_adjacent_zone("zone_cellblock_west_barber", "zone_cellblock_west_warden", "gondola_dock_to_roof");
+	add_adjacent_zone("zone_cellblock_west_gondola", "zone_cellblock_east", "gondola_dock_to_roof");
 
-	if ( is_classic() )
-		add_adjacent_zone( "zone_gondola_ride", "zone_gondola_ride", "gondola_ride_zone_enabled" );
+	if (is_classic())
+		add_adjacent_zone("zone_gondola_ride", "zone_gondola_ride", "gondola_ride_zone_enabled");
 
-	if ( is_classic() )
+	if (is_classic())
 	{
-		add_adjacent_zone( "zone_cellblock_west_gondola", "zone_cellblock_west_gondola_dock", "activate_cellblock_infirmary" );
-		add_adjacent_zone( "zone_cellblock_west_gondola", "zone_cellblock_west_gondola_dock", "activate_cellblock_gondola" );
-		add_adjacent_zone( "zone_cellblock_west_gondola", "zone_cellblock_west_gondola_dock", "gondola_dock_to_roof" );
+		add_adjacent_zone("zone_cellblock_west_gondola", "zone_cellblock_west_gondola_dock", "activate_cellblock_infirmary");
+		add_adjacent_zone("zone_cellblock_west_gondola", "zone_cellblock_west_gondola_dock", "activate_cellblock_gondola");
+		add_adjacent_zone("zone_cellblock_west_gondola", "zone_cellblock_west_gondola_dock", "gondola_dock_to_roof");
 	}
 
 	// else if ( is_gametype_active( "zgrief" ) )
@@ -801,7 +801,7 @@ working_zone_init()
 	//     }
 	// }
 
-	add_adjacent_zone( "zone_golden_gate_bridge", "zone_golden_gate_bridge", "activate_player_zone_bridge" );
+	add_adjacent_zone("zone_golden_gate_bridge", "zone_golden_gate_bridge", "activate_player_zone_bridge");
 
-	add_adjacent_zone( "zone_dock", "zone_dock_puzzle", "docks_inner_gate_unlocked" );
+	add_adjacent_zone("zone_dock", "zone_dock_puzzle", "docks_inner_gate_unlocked");
 }

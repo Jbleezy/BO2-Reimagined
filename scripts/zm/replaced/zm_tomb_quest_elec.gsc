@@ -12,6 +12,6 @@
 
 electric_puzzle_1_run()
 {
-	level waittill( "elemental_staff_lightning_crafted", player );
-	flag_set( "staff_lightning_zm_upgrade_unlocked" );
+	level waittill("elemental_staff_lightning_crafted", player);
+	flag_set("staff_lightning_zm_upgrade_unlocked");
 }

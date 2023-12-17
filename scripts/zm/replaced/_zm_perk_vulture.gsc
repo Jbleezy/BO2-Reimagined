@@ -12,7 +12,7 @@
 #include maps\mp\zombies\_zm_score;
 #include maps\mp\zombies\_zm_ai_basic;
 
-_is_player_in_zombie_stink( a_points )
+_is_player_in_zombie_stink(a_points)
 {
 	velocity = self getVelocity() * (1, 1, 0);
 	speed = length(velocity);
@@ -24,9 +24,9 @@ _is_player_in_zombie_stink( a_points )
 
 	b_is_in_stink = 0;
 
-	for ( i = 0; i < a_points.size; i++ )
+	for (i = 0; i < a_points.size; i++)
 	{
-		if ( distancesquared( a_points[i].origin, self.origin ) < 4900 )
+		if (distancesquared(a_points[i].origin, self.origin) < 4900)
 			b_is_in_stink = 1;
 	}
 

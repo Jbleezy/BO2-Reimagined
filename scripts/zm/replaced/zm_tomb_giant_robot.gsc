@@ -26,61 +26,61 @@ robot_cycling()
 {
 	three_robot_round = 0;
 	last_robot = -1;
-	level thread giant_robot_intro_walk( 1 );
+	level thread giant_robot_intro_walk(1);
 
-	level waittill( "giant_robot_intro_complete" );
+	level waittill("giant_robot_intro_complete");
 
-	while ( true )
+	while (true)
 	{
-		if ( !( level.round_number % 4 ) && three_robot_round != level.round_number )
-			flag_set( "three_robot_round" );
+		if (!(level.round_number % 4) && three_robot_round != level.round_number)
+			flag_set("three_robot_round");
 
-		if ( flag( "ee_all_staffs_upgraded" ) && !flag( "ee_mech_zombie_hole_opened" ) )
-			flag_set( "three_robot_round" );
+		if (flag("ee_all_staffs_upgraded") && !flag("ee_mech_zombie_hole_opened"))
+			flag_set("three_robot_round");
 
-		if ( flag( "three_robot_round" ) )
+		if (flag("three_robot_round"))
 		{
 			level.zombie_ai_limit = 22;
-			random_number = randomint( 3 );
+			random_number = randomint(3);
 
-			level thread giant_robot_start_walk( 2 );
-
-			wait 5;
-
-			level thread giant_robot_start_walk( 0 );
+			level thread giant_robot_start_walk(2);
 
 			wait 5;
 
-			level thread giant_robot_start_walk( 1 );
+			level thread giant_robot_start_walk(0);
 
-			level waittill( "giant_robot_walk_cycle_complete" );
+			wait 5;
 
-			level waittill( "giant_robot_walk_cycle_complete" );
+			level thread giant_robot_start_walk(1);
 
-			level waittill( "giant_robot_walk_cycle_complete" );
+			level waittill("giant_robot_walk_cycle_complete");
+
+			level waittill("giant_robot_walk_cycle_complete");
+
+			level waittill("giant_robot_walk_cycle_complete");
 
 			wait 5;
 			level.zombie_ai_limit = 24;
 			three_robot_round = level.round_number;
 			last_robot = -1;
-			flag_clear( "three_robot_round" );
+			flag_clear("three_robot_round");
 		}
 		else
 		{
-			if ( !flag( "activate_zone_nml" ) )
-				random_number = randomint( 2 );
+			if (!flag("activate_zone_nml"))
+				random_number = randomint(2);
 			else
 			{
 				do
-					random_number = randomint( 3 );
+					random_number = randomint(3);
 
-				while ( random_number == last_robot );
+				while (random_number == last_robot);
 			}
 
 			last_robot = random_number;
-			level thread giant_robot_start_walk( random_number );
+			level thread giant_robot_start_walk(random_number);
 
-			level waittill( "giant_robot_walk_cycle_complete" );
+			level waittill("giant_robot_walk_cycle_complete");
 
 			wait 5;
 		}

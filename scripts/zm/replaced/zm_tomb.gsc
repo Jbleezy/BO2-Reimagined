@@ -59,9 +59,9 @@
 #include maps\mp\zombies\_zm_challenges;
 #include maps\mp\zombies\_zm_laststand;
 
-sndmeleewpn_isstaff( weapon )
+sndmeleewpn_isstaff(weapon)
 {
-	switch ( weapon )
+	switch (weapon)
 	{
 		case "staff_water_melee_zm":
 		case "staff_melee_zm":
@@ -78,12 +78,12 @@ sndmeleewpn_isstaff( weapon )
 	return isstaff;
 }
 
-tomb_can_track_ammo_custom( weap )
+tomb_can_track_ammo_custom(weap)
 {
-	if ( !isdefined( weap ) )
+	if (!isdefined(weap))
 		return false;
 
-	switch ( weap )
+	switch (weap)
 	{
 		case "zombie_tazer_flourish":
 		case "zombie_sickle_flourish":
@@ -123,7 +123,7 @@ tomb_can_track_ammo_custom( weap )
 			return false;
 
 		default:
-			if ( is_melee_weapon( weap ) || is_zombie_perk_bottle( weap ) || is_placeable_mine( weap ) || is_equipment( weap ) || issubstr( weap, "knife_ballistic_" ) || getsubstr( weap, 0, 3 ) == "gl_" || weaponfuellife( weap ) > 0 || weap == level.revive_tool )
+			if (is_melee_weapon(weap) || is_zombie_perk_bottle(weap) || is_placeable_mine(weap) || is_equipment(weap) || issubstr(weap, "knife_ballistic_") || getsubstr(weap, 0, 3) == "gl_" || weaponfuellife(weap) > 0 || weap == level.revive_tool)
 				return false;
 	}
 

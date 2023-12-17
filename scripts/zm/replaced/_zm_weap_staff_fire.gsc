@@ -19,17 +19,17 @@
 #include maps\mp\zm_tomb_craftables;
 #include maps\mp\zm_tomb_utility;
 
-flame_damage_fx( damageweapon, e_attacker, pct_damage = 1.0 )
+flame_damage_fx(damageweapon, e_attacker, pct_damage = 1.0)
 {
-	was_on_fire = is_true( self.is_on_fire );
-	n_initial_dmg = get_impact_damage( damageweapon ) * pct_damage;
+	was_on_fire = is_true(self.is_on_fire);
+	n_initial_dmg = get_impact_damage(damageweapon) * pct_damage;
 	is_upgraded = damageweapon == "staff_fire_upgraded_zm" || damageweapon == "staff_fire_upgraded2_zm" || damageweapon == "staff_fire_upgraded3_zm";
 
-	if ( is_upgraded )
+	if (is_upgraded)
 	{
-		self do_damage_network_safe( e_attacker, self.health, damageweapon, "MOD_BURNED" );
+		self do_damage_network_safe(e_attacker, self.health, damageweapon, "MOD_BURNED");
 
-		if ( cointoss() )
+		if (cointoss())
 			self thread zombie_gib_all();
 		else
 			self thread zombie_gib_guts();
@@ -37,23 +37,23 @@ flame_damage_fx( damageweapon, e_attacker, pct_damage = 1.0 )
 		return;
 	}
 
-	self endon( "death" );
+	self endon("death");
 
-	if ( !is_upgraded && !was_on_fire )
+	if (!is_upgraded && !was_on_fire)
 	{
 		self.is_on_fire = 1;
 		self thread zombie_set_and_restore_flame_state();
 		wait 0.5;
-		self thread flame_damage_over_time( e_attacker, damageweapon, pct_damage );
+		self thread flame_damage_over_time(e_attacker, damageweapon, pct_damage);
 	}
 
-	if ( n_initial_dmg > 0 )
-		self do_damage_network_safe( e_attacker, n_initial_dmg, damageweapon, "MOD_BURNED" );
+	if (n_initial_dmg > 0)
+		self do_damage_network_safe(e_attacker, n_initial_dmg, damageweapon, "MOD_BURNED");
 }
 
-get_impact_damage( damageweapon )
+get_impact_damage(damageweapon)
 {
-	switch ( damageweapon )
+	switch (damageweapon)
 	{
 		case "staff_fire_zm":
 			return 2050;

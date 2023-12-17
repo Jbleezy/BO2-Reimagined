@@ -3,23 +3,23 @@
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
 
-spawn_player_clone( player, origin = player.origin, forceweapon, forcemodel )
+spawn_player_clone(player, origin = player.origin, forceweapon, forcemodel)
 {
 	primaryweapons = player getweaponslistprimaries();
 
-	if ( isdefined( forceweapon ) )
+	if (isdefined(forceweapon))
 		weapon = forceweapon;
-	else if ( primaryweapons.size )
+	else if (primaryweapons.size)
 		weapon = primaryweapons[0];
 	else
 		weapon = player getcurrentweapon();
 
-	weaponmodel = getweaponmodel( weapon );
-	spawner = getent( "fake_player_spawner", "targetname" );
+	weaponmodel = getweaponmodel(weapon);
+	spawner = getent("fake_player_spawner", "targetname");
 
-	if ( isdefined( spawner ) )
+	if (isdefined(spawner))
 	{
-		while ( getfreeactorcount() < 1 )
+		while (getfreeactorcount() < 1)
 		{
 			wait 0.05;
 		}
@@ -30,25 +30,25 @@ spawn_player_clone( player, origin = player.origin, forceweapon, forcemodel )
 	}
 	else
 	{
-		clone = spawn( "script_model", origin );
+		clone = spawn("script_model", origin);
 		clone.isactor = 0;
 	}
 
-	if ( isdefined( forcemodel ) )
-		clone setmodel( forcemodel );
+	if (isdefined(forcemodel))
+		clone setmodel(forcemodel);
 	else
 	{
-		clone setmodel( self.model );
+		clone setmodel(self.model);
 
-		if ( isdefined( player.headmodel ) )
+		if (isdefined(player.headmodel))
 		{
 			clone.headmodel = player.headmodel;
-			clone attach( clone.headmodel, "", 1 );
+			clone attach(clone.headmodel, "", 1);
 		}
 	}
 
-	if ( weaponmodel != "" && weaponmodel != "none" )
-		clone attach( weaponmodel, "tag_weapon_right" );
+	if (weaponmodel != "" && weaponmodel != "none")
+		clone attach(weaponmodel, "tag_weapon_right");
 
 	clone.team = player.team;
 	clone.is_inert = 1;

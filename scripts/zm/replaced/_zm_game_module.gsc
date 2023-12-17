@@ -4,8 +4,8 @@
 
 wait_for_team_death_and_round_end()
 {
-	level endon( "game_module_ended" );
-	level endon( "end_game" );
+	level endon("game_module_ended");
+	level endon("end_game");
 
 	if (level.scr_zm_ui_gametype_obj != "zsnr")
 	{
@@ -16,24 +16,24 @@ wait_for_team_death_and_round_end()
 	checking_for_round_tie = 0;
 	level.isresetting_grief = 0;
 
-	while ( 1 )
+	while (1)
 	{
 		cdc_alive = 0;
 		cia_alive = 0;
 		players = get_players();
 		i = 0;
 
-		while ( i < players.size )
+		while (i < players.size)
 		{
-			if ( !isDefined( players[ i ]._encounters_team ) )
+			if (!isDefined(players[ i ]._encounters_team))
 			{
 				i++;
 				continue;
 			}
 
-			if ( players[ i ]._encounters_team == "A" )
+			if (players[ i ]._encounters_team == "A")
 			{
-				if ( is_player_valid( players[ i ] ) )
+				if (is_player_valid(players[ i ]))
 				{
 					cia_alive++;
 				}
@@ -42,7 +42,7 @@ wait_for_team_death_and_round_end()
 				continue;
 			}
 
-			if ( is_player_valid( players[ i ] ) )
+			if (is_player_valid(players[ i ]))
 			{
 				cdc_alive++;
 			}
@@ -52,20 +52,20 @@ wait_for_team_death_and_round_end()
 
 		if (players.size == 1)
 		{
-			if ( !checking_for_round_tie )
+			if (!checking_for_round_tie)
 			{
 				if (cia_alive == 0 && cdc_alive == 0)
 				{
-					level notify( "stop_round_end_check" );
+					level notify("stop_round_end_check");
 					level thread check_for_round_end();
 					checking_for_round_tie = 1;
 					checking_for_round_end = 1;
 				}
 			}
 
-			if ( cia_alive > 0 || cdc_alive > 0 )
+			if (cia_alive > 0 || cdc_alive > 0)
 			{
-				level notify( "stop_round_end_check" );
+				level notify("stop_round_end_check");
 				checking_for_round_end = 0;
 				checking_for_round_tie = 0;
 			}
@@ -74,34 +74,34 @@ wait_for_team_death_and_round_end()
 			continue;
 		}
 
-		if ( !checking_for_round_tie )
+		if (!checking_for_round_tie)
 		{
 			if (cia_alive == 0 && cdc_alive == 0)
 			{
-				level notify( "stop_round_end_check" );
+				level notify("stop_round_end_check");
 				level thread check_for_round_end();
 				checking_for_round_tie = 1;
 				checking_for_round_end = 1;
 			}
 		}
 
-		if ( !checking_for_round_end )
+		if (!checking_for_round_end)
 		{
-			if ( cia_alive == 0 )
+			if (cia_alive == 0)
 			{
-				level thread check_for_round_end( "B" );
+				level thread check_for_round_end("B");
 				checking_for_round_end = 1;
 			}
-			else if ( cdc_alive == 0 )
+			else if (cdc_alive == 0)
 			{
-				level thread check_for_round_end( "A" );
+				level thread check_for_round_end("A");
 				checking_for_round_end = 1;
 			}
 		}
 
-		if ( cia_alive > 0 && cdc_alive > 0 )
+		if (cia_alive > 0 && cdc_alive > 0)
 		{
-			level notify( "stop_round_end_check" );
+			level notify("stop_round_end_check");
 			checking_for_round_end = 0;
 			checking_for_round_tie = 0;
 		}
@@ -112,8 +112,8 @@ wait_for_team_death_and_round_end()
 
 check_for_round_end(winner)
 {
-	level endon( "stop_round_end_check" );
-	level endon( "end_game" );
+	level endon("stop_round_end_check");
+	level endon("end_game");
 
 	if (isDefined(winner))
 	{
@@ -175,14 +175,14 @@ round_end(winner)
 	}
 
 	level.isresetting_grief = 1;
-	level notify( "end_round_think" );
+	level notify("end_round_think");
 	level.zombie_vars[ "spectators_respawn" ] = 1;
-	level notify( "keep_griefing" );
-	level notify( "restart_round" );
+	level notify("keep_griefing");
+	level notify("restart_round");
 
 	level.snr_round_number++;
 
-	level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog( "grief_restarted" );
+	level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog("grief_restarted");
 
 	if (isDefined(level.show_grief_hud_msg_func))
 	{
@@ -192,11 +192,11 @@ round_end(winner)
 			{
 				if (player.team == team)
 				{
-					player thread [[level.show_grief_hud_msg_func]]( "You won the round!" );
+					player thread [[level.show_grief_hud_msg_func]]("You won the round!");
 				}
 				else
 				{
-					player thread [[level.show_grief_hud_msg_func]]( "You lost the round!" );
+					player thread [[level.show_grief_hud_msg_func]]("You lost the round!");
 				}
 			}
 		}
@@ -204,15 +204,15 @@ round_end(winner)
 		{
 			foreach (player in players)
 			{
-				player thread [[level.show_grief_hud_msg_func]]( &"ZOMBIE_GRIEF_RESET" );
-				player thread [[level.show_grief_hud_msg_func]]( "", undefined, 30 );
+				player thread [[level.show_grief_hud_msg_func]](&"ZOMBIE_GRIEF_RESET");
+				player thread [[level.show_grief_hud_msg_func]]("", undefined, 30);
 			}
 		}
 	}
 
-	zombie_goto_round( level.snr_round_number );
+	zombie_goto_round(level.snr_round_number);
 	level thread maps\mp\zombies\_zm_game_module::reset_grief();
-	level thread maps\mp\zombies\_zm::round_think( 1 );
+	level thread maps\mp\zombies\_zm::round_think(1);
 }
 
 game_won(winner)
@@ -222,32 +222,32 @@ game_won(winner)
 	players = get_players();
 	i = 0;
 
-	while ( i < players.size )
+	while (i < players.size)
 	{
-		players[ i ] freezecontrols( 1 );
+		players[ i ] freezecontrols(1);
 
-		if ( players[ i ]._encounters_team == winner )
+		if (players[ i ]._encounters_team == winner)
 		{
-			players[ i ] thread maps\mp\zombies\_zm_audio_announcer::leaderdialogonplayer( "grief_won" );
+			players[ i ] thread maps\mp\zombies\_zm_audio_announcer::leaderdialogonplayer("grief_won");
 			i++;
 			continue;
 		}
 
-		players[ i ] thread maps\mp\zombies\_zm_audio_announcer::leaderdialogonplayer( "grief_lost" );
+		players[ i ] thread maps\mp\zombies\_zm_audio_announcer::leaderdialogonplayer("grief_lost");
 		i++;
 	}
 
-	level notify( "game_module_ended", winner );
+	level notify("game_module_ended", winner);
 	level._game_module_game_end_check = undefined;
-	maps\mp\gametypes_zm\_zm_gametype::track_encounters_win_stats( level.gamemodulewinningteam );
-	level notify( "end_game" );
+	maps\mp\gametypes_zm\_zm_gametype::track_encounters_win_stats(level.gamemodulewinningteam);
+	level notify("end_game");
 }
 
 zombie_goto_round(target_round)
 {
-	level endon( "end_game" );
+	level endon("end_game");
 
-	if ( target_round < 1 )
+	if (target_round < 1)
 	{
 		target_round = 1;
 	}
@@ -255,11 +255,11 @@ zombie_goto_round(target_round)
 	level.zombie_total = 0;
 	zombies = get_round_enemy_array();
 
-	if ( isDefined( zombies ) )
+	if (isDefined(zombies))
 	{
-		for ( i = 0; i < zombies.size; i++ )
+		for (i = 0; i < zombies.size; i++)
 		{
-			zombies[ i ] dodamage( zombies[ i ].health + 666, zombies[ i ].origin );
+			zombies[ i ] dodamage(zombies[ i ].health + 666, zombies[ i ].origin);
 		}
 	}
 

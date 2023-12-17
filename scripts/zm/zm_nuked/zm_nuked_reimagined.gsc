@@ -19,12 +19,12 @@ zombie_init_done()
 	self.meleedamage = 50;
 	self.allowpain = 0;
 
-	if ( isDefined( self.script_parameters ) && self.script_parameters == "crater" )
+	if (isDefined(self.script_parameters) && self.script_parameters == "crater")
 	{
 		self thread maps\mp\zm_nuked::zombie_crater_locomotion();
 	}
 
-	self setphysparams( 15, 0, 48 );
+	self setphysparams(15, 0, 48);
 }
 
 nuked_special_weapon_magicbox_check(weapon)

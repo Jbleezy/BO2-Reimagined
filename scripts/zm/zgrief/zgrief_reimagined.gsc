@@ -6,7 +6,7 @@
 
 main()
 {
-	if ( getDvar( "g_gametype" ) != "zgrief" )
+	if (getDvar("g_gametype") != "zgrief")
 	{
 		return;
 	}
@@ -23,15 +23,15 @@ main()
 
 init()
 {
-	if ( getDvar( "g_gametype" ) != "zgrief" )
+	if (getDvar("g_gametype") != "zgrief")
 	{
 		return;
 	}
 
 	if (level.script == "zm_prison")
 	{
-		precacheShader( "waypoint_kill_red" );
-		level._effect["afterlife_teleport"] = loadfx( "maps/zombie_alcatraz/fx_alcatraz_afterlife_zmb_tport" );
+		precacheShader("waypoint_kill_red");
+		level._effect["afterlife_teleport"] = loadfx("maps/zombie_alcatraz/fx_alcatraz_afterlife_zmb_tport");
 
 		level.obj_waypoint_icon = "waypoint_kill_red";
 		level.player_spawn_fx = "afterlife_teleport";
@@ -39,7 +39,7 @@ init()
 	}
 	else
 	{
-		precacheShader( "hud_status_dead" );
+		precacheShader("hud_status_dead");
 
 		level.obj_waypoint_icon = "hud_status_dead";
 		level.player_spawn_fx = "grenade_samantha_steal";
@@ -110,7 +110,7 @@ grief_gamemode_hud()
 
 grief_gamemode_hud_wait_and_show()
 {
-	flag_wait( "hud_visible" );
+	flag_wait("hud_visible");
 
 	level.grief_gamemode_hud.alpha = 1;
 }
@@ -236,7 +236,7 @@ grief_score_hud()
 
 grief_score_hud_wait_and_show()
 {
-	flag_wait( "hud_visible" );
+	flag_wait("hud_visible");
 
 	foreach (team1 in level.teams)
 	{
@@ -364,7 +364,7 @@ set_grief_vars()
 
 	if (isDefined(level.zombie_weapons["willy_pete_zm"]))
 	{
-		register_tactical_grenade_for_level( "willy_pete_zm" );
+		register_tactical_grenade_for_level("willy_pete_zm");
 		level.zombie_weapons["willy_pete_zm"].is_in_box = 1;
 	}
 
@@ -451,22 +451,22 @@ powerup_hud_think()
 
 	while (1)
 	{
-		if (level.zombie_vars[self.team][self.time_string] < 5 )
+		if (level.zombie_vars[self.team][self.time_string] < 5)
 		{
 			wait(0.1);
-			self fadeOverTime( 0.1 );
+			self fadeOverTime(0.1);
 			self.alpha = 0;
 			wait(0.1);
-			self fadeOverTime( 0.1 );
+			self fadeOverTime(0.1);
 			self.alpha = 1;
 		}
-		else if (level.zombie_vars[self.team][self.time_string] < 10 )
+		else if (level.zombie_vars[self.team][self.time_string] < 10)
 		{
 			wait(0.2);
-			self fadeOverTime( 0.2 );
+			self fadeOverTime(0.2);
 			self.alpha = 0;
 			wait(0.2);
-			self fadeOverTime( 0.2 );
+			self fadeOverTime(0.2);
 			self.alpha = 1;
 		}
 
@@ -528,7 +528,7 @@ powerup_fade_over_time()
 
 	if (!level.zombie_vars[self.team][self.on_string])
 	{
-		self fadeOverTime( 0.5 );
+		self fadeOverTime(0.5);
 		self.alpha = 0;
 	}
 }
@@ -629,13 +629,13 @@ grief_onplayerdisconnect(disconnecting_player)
 on_player_spawned()
 {
 	level endon("end_game");
-	self endon( "disconnect" );
+	self endon("disconnect");
 
 	self.grief_initial_spawn = true;
 
 	while (1)
 	{
-		self waittill( "spawned_player" );
+		self waittill("spawned_player");
 
 		self.head_icon.alpha = 1;
 
@@ -678,11 +678,11 @@ on_player_spawned()
 on_player_spectate()
 {
 	level endon("end_game");
-	self endon( "disconnect" );
+	self endon("disconnect");
 
 	while (1)
 	{
-		self waittill( "spawned_spectator" );
+		self waittill("spawned_spectator");
 
 		self.head_icon.alpha = 0;
 	}
@@ -691,16 +691,16 @@ on_player_spectate()
 on_player_downed()
 {
 	level endon("end_game");
-	self endon( "disconnect" );
+	self endon("disconnect");
 
 	while (1)
 	{
-		self waittill( "entering_last_stand" );
+		self waittill("entering_last_stand");
 
 		self.head_icon.alpha = 0;
 		self kill_feed();
 		self add_grief_downed_score();
-		level thread update_players_on_downed( self );
+		level thread update_players_on_downed(self);
 
 		if (level.scr_zm_ui_gametype_obj == "zrace")
 		{
@@ -712,11 +712,11 @@ on_player_downed()
 on_player_bleedout()
 {
 	level endon("end_game");
-	self endon( "disconnect" );
+	self endon("disconnect");
 
 	while (1)
 	{
-		self waittill_any( "bled_out", "player_suicide" );
+		self waittill_any("bled_out", "player_suicide");
 
 		self.head_icon.alpha = 0;
 
@@ -739,7 +739,7 @@ on_player_bleedout()
 			self.init_player_offhand_weapons_override = undefined;
 			self bleedout_feed();
 			self add_grief_bleedout_score();
-			level thread update_players_on_bleedout( self );
+			level thread update_players_on_bleedout(self);
 		}
 
 		if (is_respawn_gamemode())
@@ -762,14 +762,14 @@ on_player_bleedout()
 on_player_revived()
 {
 	level endon("end_game");
-	self endon( "disconnect" );
+	self endon("disconnect");
 
 	while (1)
 	{
-		self waittill( "player_revived", reviver );
+		self waittill("player_revived", reviver);
 
 		self.head_icon.alpha = 1;
-		self revive_feed( reviver );
+		self revive_feed(reviver);
 
 		level thread update_players_on_revived(self, reviver);
 	}
@@ -833,11 +833,11 @@ add_grief_bleedout_score()
 
 head_icon()
 {
-	flag_wait( "hud_visible" );
+	flag_wait("hud_visible");
 
-	self.head_icon_origin = spawn( "script_model", self.origin );
-	self.head_icon_origin setmodel( "tag_origin" );
-	self.head_icon_origin linkto( self );
+	self.head_icon_origin = spawn("script_model", self.origin);
+	self.head_icon_origin setmodel("tag_origin");
+	self.head_icon_origin linkto(self);
 	self thread head_icon_origin_think();
 
 	self.head_icon = scripts\zm\replaced\_zm_gametype::head_icon_create();
@@ -933,7 +933,7 @@ headstomp_watcher()
 	level endon("end_game");
 	self endon("disconnect");
 
-	flag_wait( "initial_blackscreen_passed" );
+	flag_wait("initial_blackscreen_passed");
 
 	while (1)
 	{
@@ -954,7 +954,7 @@ headstomp_watcher()
 				if (distance2d(self.origin, player.origin) <= 21 && (self.origin[2] - player_top_origin[2]) <= 15)
 				{
 					player store_player_damage_info(self, "none", "MOD_FALLING");
-					player dodamage( 1000, (0, 0, 0) );
+					player dodamage(1000, (0, 0, 0));
 				}
 			}
 		}
@@ -1006,7 +1006,7 @@ round_start_wait(time, initial)
 	{
 		flag_clear("spawn_zombies");
 
-		flag_wait( "start_zombie_round_logic" );
+		flag_wait("start_zombie_round_logic");
 
 		players = get_players();
 
@@ -1114,7 +1114,7 @@ wait_and_freeze()
 zombie_spawn_wait(time)
 {
 	level endon("end_game");
-	level endon( "restart_round" );
+	level endon("restart_round");
 
 	flag_clear("spawn_zombies");
 
@@ -1166,13 +1166,13 @@ update_players_on_downed(excluded_player)
 		{
 			if (other_players_remaining >= 1)
 			{
-				player thread show_grief_hud_msg( &"ZOMBIE_ZGRIEF_ALL_PLAYERS_DOWN" );
-				player thread show_grief_hud_msg( &"ZOMBIE_ZGRIEF_SURVIVE", undefined, 30, 1 );
+				player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_ALL_PLAYERS_DOWN");
+				player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_SURVIVE", undefined, 30, 1);
 			}
 		}
 		else
 		{
-			player thread show_grief_hud_msg( &"ZOMBIE_ZGRIEF_PLAYER_BLED_OUT", players_remaining );
+			player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_PLAYER_BLED_OUT", players_remaining);
 		}
 	}
 
@@ -1187,12 +1187,12 @@ update_players_on_downed(excluded_player)
 
 			if (is_player_valid(player))
 			{
-				player thread maps\mp\zombies\_zm_audio_announcer::leaderdialogonplayer( "last_player" );
+				player thread maps\mp\zombies\_zm_audio_announcer::leaderdialogonplayer("last_player");
 			}
 		}
 	}
 
-	level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog( players_remaining + "_player_left", other_team );
+	level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog(players_remaining + "_player_left", other_team);
 }
 
 update_players_on_bleedout(excluded_player)
@@ -1239,7 +1239,7 @@ update_players_on_revived(revived_player, reviver)
 
 	foreach (player in other_players)
 	{
-		player thread show_grief_hud_msg( "Enemy Revived! [" + players_remaining + " Remaining]" );
+		player thread show_grief_hud_msg("Enemy Revived! [" + players_remaining + " Remaining]");
 	}
 }
 
@@ -1276,35 +1276,35 @@ grief_intro_msg()
 	{
 		foreach (player in players)
 		{
-			player thread show_grief_hud_msg( "Make enemy players bleed out to gain score!" );
+			player thread show_grief_hud_msg("Make enemy players bleed out to gain score!");
 		}
 	}
 	else if (level.scr_zm_ui_gametype_obj == "zsnr")
 	{
 		foreach (player in players)
 		{
-			player thread show_grief_hud_msg( "Get all enemy players down to win a round!" );
+			player thread show_grief_hud_msg("Get all enemy players down to win a round!");
 		}
 	}
 	else if (level.scr_zm_ui_gametype_obj == "zrace")
 	{
 		foreach (player in players)
 		{
-			player thread show_grief_hud_msg( "Kill zombies or enemy players to gain score!" );
+			player thread show_grief_hud_msg("Kill zombies or enemy players to gain score!");
 		}
 	}
 	else if (level.scr_zm_ui_gametype_obj == "zcontainment")
 	{
 		foreach (player in players)
 		{
-			player thread show_grief_hud_msg( "Control the containment zone to gain score!" );
+			player thread show_grief_hud_msg("Control the containment zone to gain score!");
 		}
 	}
 	else if (level.scr_zm_ui_gametype_obj == "zmeat")
 	{
 		foreach (player in players)
 		{
-			player thread show_grief_hud_msg( "Hold the meat to gain score!" );
+			player thread show_grief_hud_msg("Hold the meat to gain score!");
 		}
 	}
 
@@ -1316,35 +1316,35 @@ grief_intro_msg()
 	{
 		foreach (player in players)
 		{
-			player thread show_grief_hud_msg( "Gain " + get_gamemode_winning_score() + " score to win the game!" );
+			player thread show_grief_hud_msg("Gain " + get_gamemode_winning_score() + " score to win the game!");
 		}
 	}
 	else if (level.scr_zm_ui_gametype_obj == "zsnr")
 	{
 		foreach (player in players)
 		{
-			player thread show_grief_hud_msg( "Win " + get_gamemode_winning_score() + " rounds to win the game!" );
+			player thread show_grief_hud_msg("Win " + get_gamemode_winning_score() + " rounds to win the game!");
 		}
 	}
 	else if (level.scr_zm_ui_gametype_obj == "zrace")
 	{
 		foreach (player in players)
 		{
-			player thread show_grief_hud_msg( "Gain " + get_gamemode_winning_score() + " score to win the game!" );
+			player thread show_grief_hud_msg("Gain " + get_gamemode_winning_score() + " score to win the game!");
 		}
 	}
 	else if (level.scr_zm_ui_gametype_obj == "zcontainment")
 	{
 		foreach (player in players)
 		{
-			player thread show_grief_hud_msg( "Gain " + get_gamemode_winning_score() + " score to win the game!" );
+			player thread show_grief_hud_msg("Gain " + get_gamemode_winning_score() + " score to win the game!");
 		}
 	}
 	else if (level.scr_zm_ui_gametype_obj == "zmeat")
 	{
 		foreach (player in players)
 		{
-			player thread show_grief_hud_msg( "Gain " + get_gamemode_winning_score() + " score to win the game!" );
+			player thread show_grief_hud_msg("Gain " + get_gamemode_winning_score() + " score to win the game!");
 		}
 	}
 }
@@ -1416,20 +1416,20 @@ is_respawn_gamemode()
 	return level.scr_zm_ui_gametype_obj != "zsnr";
 }
 
-show_grief_hud_msg( msg, msg_parm, offset, delay )
+show_grief_hud_msg(msg, msg_parm, offset, delay)
 {
 	if (!isDefined(offset))
 	{
-		self notify( "show_grief_hud_msg" );
+		self notify("show_grief_hud_msg");
 	}
 	else
 	{
-		self notify( "show_grief_hud_msg2" );
+		self notify("show_grief_hud_msg2");
 	}
 
-	self endon( "disconnect" );
+	self endon("disconnect");
 
-	zgrief_hudmsg = newclienthudelem( self );
+	zgrief_hudmsg = newclienthudelem(self);
 	zgrief_hudmsg.alignx = "center";
 	zgrief_hudmsg.aligny = "middle";
 	zgrief_hudmsg.horzalign = "center";
@@ -1437,12 +1437,12 @@ show_grief_hud_msg( msg, msg_parm, offset, delay )
 	zgrief_hudmsg.sort = 1;
 	zgrief_hudmsg.y -= 130;
 
-	if ( self issplitscreen() )
+	if (self issplitscreen())
 	{
 		zgrief_hudmsg.y += 70;
 	}
 
-	if ( isDefined( offset ) )
+	if (isDefined(offset))
 	{
 		zgrief_hudmsg.y += offset;
 	}
@@ -1450,15 +1450,15 @@ show_grief_hud_msg( msg, msg_parm, offset, delay )
 	zgrief_hudmsg.foreground = 1;
 	zgrief_hudmsg.fontscale = 5;
 	zgrief_hudmsg.alpha = 0;
-	zgrief_hudmsg.color = ( 1, 1, 1 );
+	zgrief_hudmsg.color = (1, 1, 1);
 	zgrief_hudmsg.hidewheninmenu = 1;
 	zgrief_hudmsg.font = "default";
 
-	zgrief_hudmsg endon( "death" );
+	zgrief_hudmsg endon("death");
 
 	zgrief_hudmsg thread show_grief_hud_msg_cleanup(self, offset);
 
-	while ( isDefined( level.hostmigrationtimer ) )
+	while (isDefined(level.hostmigrationtimer))
 	{
 		wait 0.05;
 	}
@@ -1468,30 +1468,30 @@ show_grief_hud_msg( msg, msg_parm, offset, delay )
 		wait delay;
 	}
 
-	if ( isDefined( msg_parm ) )
+	if (isDefined(msg_parm))
 	{
-		zgrief_hudmsg settext( msg, msg_parm );
+		zgrief_hudmsg settext(msg, msg_parm);
 	}
 	else
 	{
-		zgrief_hudmsg settext( msg );
+		zgrief_hudmsg settext(msg);
 	}
 
-	zgrief_hudmsg changefontscaleovertime( 0.25 );
-	zgrief_hudmsg fadeovertime( 0.25 );
+	zgrief_hudmsg changefontscaleovertime(0.25);
+	zgrief_hudmsg fadeovertime(0.25);
 	zgrief_hudmsg.alpha = 1;
 	zgrief_hudmsg.fontscale = 2;
 
 	wait 3.25;
 
-	zgrief_hudmsg changefontscaleovertime( 1 );
-	zgrief_hudmsg fadeovertime( 1 );
+	zgrief_hudmsg changefontscaleovertime(1);
+	zgrief_hudmsg fadeovertime(1);
 	zgrief_hudmsg.alpha = 0;
 	zgrief_hudmsg.fontscale = 5;
 
 	wait 1;
 
-	if ( isDefined( zgrief_hudmsg ) )
+	if (isDefined(zgrief_hudmsg))
 	{
 		zgrief_hudmsg destroy();
 	}
@@ -1499,21 +1499,21 @@ show_grief_hud_msg( msg, msg_parm, offset, delay )
 
 show_grief_hud_msg_cleanup(player, offset)
 {
-	self endon( "death" );
+	self endon("death");
 
 	self thread show_grief_hud_msg_cleanup_end_game();
 
 	if (!isDefined(offset))
 	{
 		self thread show_grief_hud_msg_cleanup_restart_round();
-		player waittill( "show_grief_hud_msg" );
+		player waittill("show_grief_hud_msg");
 	}
 	else
 	{
-		player waittill( "show_grief_hud_msg2" );
+		player waittill("show_grief_hud_msg2");
 	}
 
-	if ( isDefined( self ) )
+	if (isDefined(self))
 	{
 		self destroy();
 	}
@@ -1521,11 +1521,11 @@ show_grief_hud_msg_cleanup(player, offset)
 
 show_grief_hud_msg_cleanup_restart_round()
 {
-	self endon( "death" );
+	self endon("death");
 
-	level waittill( "restart_round" );
+	level waittill("restart_round");
 
-	if ( isDefined( self ) )
+	if (isDefined(self))
 	{
 		self destroy();
 	}
@@ -1533,11 +1533,11 @@ show_grief_hud_msg_cleanup_restart_round()
 
 show_grief_hud_msg_cleanup_end_game()
 {
-	self endon( "death" );
+	self endon("death");
 
-	level waittill( "end_game" );
+	level waittill("end_game");
 
-	if ( isDefined( self ) )
+	if (isDefined(self))
 	{
 		self destroy();
 	}
@@ -1548,9 +1548,9 @@ custom_end_screen()
 	players = get_players();
 	i = 0;
 
-	while ( i < players.size )
+	while (i < players.size)
 	{
-		players[ i ].game_over_hud = newclienthudelem( players[ i ] );
+		players[ i ].game_over_hud = newclienthudelem(players[ i ]);
 		players[ i ].game_over_hud.alignx = "center";
 		players[ i ].game_over_hud.aligny = "middle";
 		players[ i ].game_over_hud.horzalign = "center";
@@ -1559,19 +1559,19 @@ custom_end_screen()
 		players[ i ].game_over_hud.foreground = 1;
 		players[ i ].game_over_hud.fontscale = 3;
 		players[ i ].game_over_hud.alpha = 0;
-		players[ i ].game_over_hud.color = ( 1, 1, 1 );
+		players[ i ].game_over_hud.color = (1, 1, 1);
 		players[ i ].game_over_hud.hidewheninmenu = 1;
-		players[ i ].game_over_hud settext( &"ZOMBIE_GAME_OVER" );
-		players[ i ].game_over_hud fadeovertime( 1 );
+		players[ i ].game_over_hud settext(&"ZOMBIE_GAME_OVER");
+		players[ i ].game_over_hud fadeovertime(1);
 		players[ i ].game_over_hud.alpha = 1;
 
-		if ( players[ i ] issplitscreen() )
+		if (players[ i ] issplitscreen())
 		{
 			players[ i ].game_over_hud.fontscale = 2;
 			players[ i ].game_over_hud.y += 40;
 		}
 
-		players[ i ].survived_hud = newclienthudelem( players[ i ] );
+		players[ i ].survived_hud = newclienthudelem(players[ i ]);
 		players[ i ].survived_hud.alignx = "center";
 		players[ i ].survived_hud.aligny = "middle";
 		players[ i ].survived_hud.horzalign = "center";
@@ -1580,10 +1580,10 @@ custom_end_screen()
 		players[ i ].survived_hud.foreground = 1;
 		players[ i ].survived_hud.fontscale = 2;
 		players[ i ].survived_hud.alpha = 0;
-		players[ i ].survived_hud.color = ( 1, 1, 1 );
+		players[ i ].survived_hud.color = (1, 1, 1);
 		players[ i ].survived_hud.hidewheninmenu = 1;
 
-		if ( players[ i ] issplitscreen() )
+		if (players[ i ] issplitscreen())
 		{
 			players[ i ].survived_hud.fontscale = 1.5;
 			players[ i ].survived_hud.y += 40;
@@ -1592,89 +1592,89 @@ custom_end_screen()
 		winner_text = "YOU WIN!";
 		loser_text = "YOU LOSE!";
 
-		if ( isDefined( level.host_ended_game ) && level.host_ended_game )
+		if (isDefined(level.host_ended_game) && level.host_ended_game)
 		{
-			players[ i ].survived_hud settext( &"MP_HOST_ENDED_GAME" );
+			players[ i ].survived_hud settext(&"MP_HOST_ENDED_GAME");
 		}
 		else
 		{
-			if ( isDefined( level.gamemodulewinningteam ) && players[ i ]._encounters_team == level.gamemodulewinningteam )
+			if (isDefined(level.gamemodulewinningteam) && players[ i ]._encounters_team == level.gamemodulewinningteam)
 			{
-				players[ i ].survived_hud settext( winner_text );
+				players[ i ].survived_hud settext(winner_text);
 			}
 			else
 			{
-				players[ i ].survived_hud settext( loser_text );
+				players[ i ].survived_hud settext(loser_text);
 			}
 		}
 
-		players[ i ].survived_hud fadeovertime( 1 );
+		players[ i ].survived_hud fadeovertime(1);
 		players[ i ].survived_hud.alpha = 1;
 		i++;
 	}
 }
 
-game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime )
+game_module_player_damage_callback(einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime)
 {
 	self.last_damage_from_zombie_or_player = 0;
 
-	if ( isDefined( eattacker ) )
+	if (isDefined(eattacker))
 	{
-		if ( isplayer( eattacker ) && eattacker == self )
+		if (isplayer(eattacker) && eattacker == self)
 		{
 			return;
 		}
 
-		if ( isDefined( eattacker.is_zombie ) || eattacker.is_zombie && isplayer( eattacker ) )
+		if (isDefined(eattacker.is_zombie) || eattacker.is_zombie && isplayer(eattacker))
 		{
 			self.last_damage_from_zombie_or_player = 1;
 		}
 	}
 
-	if ( self maps\mp\zombies\_zm_laststand::player_is_in_laststand() )
+	if (self maps\mp\zombies\_zm_laststand::player_is_in_laststand())
 	{
 		return;
 	}
 
-	if ( isDefined( sweapon ) && isSubStr( sweapon, "tower_trap" ) )
+	if (isDefined(sweapon) && isSubStr(sweapon, "tower_trap"))
 	{
-		if ( is_true( self._being_pushed ) )
+		if (is_true(self._being_pushed))
 		{
 			return 0;
 		}
 
-		if ( isDefined( level._effect[ "butterflies" ] ) )
+		if (isDefined(level._effect[ "butterflies" ]))
 		{
 			self do_game_mode_stun_fx(einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime);
 		}
 
 		self thread do_game_mode_shellshock();
-		self playsound( "zmb_player_hit_ding" );
+		self playsound("zmb_player_hit_ding");
 
 		return 0;
 	}
 
-	if ( isplayer( eattacker ) && isDefined( eattacker._encounters_team ) && eattacker._encounters_team != self._encounters_team )
+	if (isplayer(eattacker) && isDefined(eattacker._encounters_team) && eattacker._encounters_team != self._encounters_team)
 	{
-		if ( is_true( self.hasriotshield ) && isDefined( vdir ) )
+		if (is_true(self.hasriotshield) && isDefined(vdir))
 		{
-			if ( is_true( self.hasriotshieldequipped ) )
+			if (is_true(self.hasriotshieldequipped))
 			{
-				if ( self maps\mp\zombies\_zm::player_shield_facing_attacker( vdir, 0.2 ) && isDefined( self.player_shield_apply_damage ) )
+				if (self maps\mp\zombies\_zm::player_shield_facing_attacker(vdir, 0.2) && isDefined(self.player_shield_apply_damage))
 				{
 					return;
 				}
 			}
-			else if ( !isdefined( self.riotshieldentity ) )
+			else if (!isdefined(self.riotshieldentity))
 			{
-				if ( !self maps\mp\zombies\_zm::player_shield_facing_attacker( vdir, -0.2 ) && isdefined( self.player_shield_apply_damage ) )
+				if (!self maps\mp\zombies\_zm::player_shield_facing_attacker(vdir, -0.2) && isdefined(self.player_shield_apply_damage))
 				{
 					return;
 				}
 			}
 		}
 
-		if ( is_true( self._being_pushed ) )
+		if (is_true(self._being_pushed))
 		{
 			return;
 		}
@@ -1784,12 +1784,12 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 			self setVelocity(amount * dir);
 		}
 
-		if ( is_true( self._being_shellshocked ) && !is_melee )
+		if (is_true(self._being_shellshocked) && !is_melee)
 		{
 			return;
 		}
 
-		if ( !is_true( self._being_shellshocked ) )
+		if (!is_true(self._being_shellshocked))
 		{
 			score = 100 * maps\mp\zombies\_zm_score::get_points_multiplier(eattacker);
 			self stun_score_steal(eattacker, score);
@@ -1797,13 +1797,13 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 			eattacker.killsdenied++;
 		}
 
-		if ( isDefined( level._effect[ "butterflies" ] ) )
+		if (isDefined(level._effect[ "butterflies" ]))
 		{
 			self do_game_mode_stun_fx(einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime);
 		}
 
 		self thread do_game_mode_shellshock(is_melee, is_weapon_upgraded(sweapon));
-		self playsound( "zmb_player_hit_ding" );
+		self playsound("zmb_player_hit_ding");
 
 		self store_player_damage_info(eattacker, sweapon, smeansofdeath);
 	}
@@ -1814,7 +1814,7 @@ do_game_mode_stun_fx(einflictor, eattacker, idamage, idflags, smeansofdeath, swe
 	pos = vpoint;
 	angle = vectorToAngles(eattacker getCentroid() - self getCentroid());
 
-	if ( isDefined( sweapon ) && ( weapontype( sweapon ) == "grenade" || weapontype( sweapon ) == "projectile" ) )
+	if (isDefined(sweapon) && (weapontype(sweapon) == "grenade" || weapontype(sweapon) == "projectile"))
 	{
 		pos_offset = vectorNormalize(vpoint - self getCentroid()) * 8;
 		pos_offset = (pos_offset[0], pos_offset[1], 0);
@@ -1851,9 +1851,9 @@ do_game_mode_stun_fx(einflictor, eattacker, idamage, idflags, smeansofdeath, swe
 
 do_game_mode_shellshock(is_melee = 0, is_upgraded = 0)
 {
-	self notify( "do_game_mode_shellshock" );
-	self endon( "do_game_mode_shellshock" );
-	self endon( "disconnect" );
+	self notify("do_game_mode_shellshock");
+	self endon("do_game_mode_shellshock");
+	self endon("disconnect");
 
 	time = 0.5;
 
@@ -1868,7 +1868,7 @@ do_game_mode_shellshock(is_melee = 0, is_upgraded = 0)
 
 	self._being_shellshocked = 1;
 	self._being_pushed = is_melee;
-	self shellshock( "grief_stab_zm", time );
+	self shellshock("grief_stab_zm", time);
 
 	wait 0.75;
 
@@ -1921,7 +1921,7 @@ remove_player_damage_info()
 	self.last_griefed_by = undefined;
 }
 
-grief_laststand_weapon_save( einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration )
+grief_laststand_weapon_save(einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration)
 {
 	self.grief_savedweapon_weapons = self getweaponslist();
 	self.grief_savedweapon_weaponsammo_clip = [];
@@ -1937,7 +1937,7 @@ grief_laststand_weapon_save( einflictor, attacker, idamage, smeansofdeath, sweap
 	self.grief_savedweapon_equipment = self get_player_equipment();
 	self.grief_hasriotshield = undefined;
 
-	for ( i = 0; i < self.grief_savedweapon_weapons.size; i++ )
+	for (i = 0; i < self.grief_savedweapon_weapons.size; i++)
 	{
 		self.grief_savedweapon_weaponsammo_clip[i] = self getweaponammoclip(self.grief_savedweapon_weapons[i]);
 		self.grief_savedweapon_weaponsammo_clip_dualwield[i] = self getweaponammoclip(weaponDualWieldWeaponName(self.grief_savedweapon_weapons[i]));
@@ -1985,22 +1985,22 @@ grief_laststand_weapon_save( einflictor, attacker, idamage, smeansofdeath, sweap
 		}
 	}
 
-	if ( isDefined( self.grief_savedweapon_grenades ) )
+	if (isDefined(self.grief_savedweapon_grenades))
 	{
-		self.grief_savedweapon_grenades_clip = self getweaponammoclip( self.grief_savedweapon_grenades );
+		self.grief_savedweapon_grenades_clip = self getweaponammoclip(self.grief_savedweapon_grenades);
 	}
 
-	if ( isDefined( self.grief_savedweapon_tactical ) )
+	if (isDefined(self.grief_savedweapon_tactical))
 	{
-		self.grief_savedweapon_tactical_clip = self getweaponammoclip( self.grief_savedweapon_tactical );
+		self.grief_savedweapon_tactical_clip = self getweaponammoclip(self.grief_savedweapon_tactical);
 	}
 
-	if ( isDefined( self.grief_savedweapon_mine ) )
+	if (isDefined(self.grief_savedweapon_mine))
 	{
-		self.grief_savedweapon_mine_clip = self getweaponammoclip( self.grief_savedweapon_mine );
+		self.grief_savedweapon_mine_clip = self getweaponammoclip(self.grief_savedweapon_mine);
 	}
 
-	if ( isDefined( self.hasriotshield ) && self.hasriotshield )
+	if (isDefined(self.hasriotshield) && self.hasriotshield)
 	{
 		self.grief_hasriotshield = 1;
 	}
@@ -2010,7 +2010,7 @@ grief_laststand_weapon_save( einflictor, attacker, idamage, smeansofdeath, sweap
 
 grief_laststand_weapons_return()
 {
-	if ( !isDefined( self.grief_savedweapon_weapons ) )
+	if (!isDefined(self.grief_savedweapon_weapons))
 	{
 		return 0;
 	}
@@ -2031,29 +2031,29 @@ grief_laststand_weapons_return()
 	primary_weapons_returned = 0;
 	i = 0;
 
-	while ( i < self.grief_savedweapon_weapons.size )
+	while (i < self.grief_savedweapon_weapons.size)
 	{
-		if ( isdefined( self.grief_savedweapon_grenades ) && self.grief_savedweapon_weapons[ i ] == self.grief_savedweapon_grenades || ( isdefined( self.grief_savedweapon_tactical ) && self.grief_savedweapon_weapons[ i ] == self.grief_savedweapon_tactical ) )
+		if (isdefined(self.grief_savedweapon_grenades) && self.grief_savedweapon_weapons[ i ] == self.grief_savedweapon_grenades || (isdefined(self.grief_savedweapon_tactical) && self.grief_savedweapon_weapons[ i ] == self.grief_savedweapon_tactical))
 		{
 			i++;
 			continue;
 		}
 
-		if ( is_temporary_zombie_weapon( self.grief_savedweapon_weapons[ i ] ) )
+		if (is_temporary_zombie_weapon(self.grief_savedweapon_weapons[ i ]))
 		{
 			i++;
 			continue;
 		}
 
-		if ( "item_meat_zm" == self.grief_savedweapon_weapons[ i ] )
+		if ("item_meat_zm" == self.grief_savedweapon_weapons[ i ])
 		{
 			i++;
 			continue;
 		}
 
-		if ( isweaponprimary( self.grief_savedweapon_weapons[ i ] ) )
+		if (isweaponprimary(self.grief_savedweapon_weapons[ i ]))
 		{
-			if ( primary_weapons_returned >= get_player_weapon_limit( self ) )
+			if (primary_weapons_returned >= get_player_weapon_limit(self))
 			{
 				i++;
 				continue;
@@ -2073,7 +2073,7 @@ grief_laststand_weapons_return()
 
 				dual_wield_name = weapondualwieldweaponname(self.grief_savedweapon_weapons[i]);
 
-				if ( "none" != dual_wield_name )
+				if ("none" != dual_wield_name)
 				{
 					if (used_amt >= self.grief_savedweapon_weaponsammo_clip_dualwield[i])
 					{
@@ -2114,47 +2114,47 @@ grief_laststand_weapons_return()
 			}
 		}
 
-		self giveweapon( self.grief_savedweapon_weapons[ i ], 0, self maps\mp\zombies\_zm_weapons::get_pack_a_punch_weapon_options( self.grief_savedweapon_weapons[ i ] ) );
+		self giveweapon(self.grief_savedweapon_weapons[ i ], 0, self maps\mp\zombies\_zm_weapons::get_pack_a_punch_weapon_options(self.grief_savedweapon_weapons[ i ]));
 
-		if ( isdefined( self.grief_savedweapon_weaponsammo_clip[ i ] ) )
+		if (isdefined(self.grief_savedweapon_weaponsammo_clip[ i ]))
 		{
-			self setweaponammoclip( self.grief_savedweapon_weapons[ i ], self.grief_savedweapon_weaponsammo_clip[ i ] );
+			self setweaponammoclip(self.grief_savedweapon_weapons[ i ], self.grief_savedweapon_weaponsammo_clip[ i ]);
 		}
 
-		if ( isdefined( self.grief_savedweapon_weaponsammo_clip_dualwield[ i ] ) )
+		if (isdefined(self.grief_savedweapon_weaponsammo_clip_dualwield[ i ]))
 		{
-			self setweaponammoclip( weaponDualWieldWeaponName( self.grief_savedweapon_weapons[ i ] ), self.grief_savedweapon_weaponsammo_clip_dualwield[ i ] );
+			self setweaponammoclip(weaponDualWieldWeaponName(self.grief_savedweapon_weapons[ i ]), self.grief_savedweapon_weaponsammo_clip_dualwield[ i ]);
 		}
 
-		if ( isdefined( self.grief_savedweapon_weaponsammo_stock[ i ] ) )
+		if (isdefined(self.grief_savedweapon_weaponsammo_stock[ i ]))
 		{
-			self setweaponammostock( self.grief_savedweapon_weapons[ i ], self.grief_savedweapon_weaponsammo_stock[ i ] );
+			self setweaponammostock(self.grief_savedweapon_weapons[ i ], self.grief_savedweapon_weaponsammo_stock[ i ]);
 		}
 
-		if ( isdefined( self.grief_savedweapon_weaponsammo_clip_alt[ i ] ) )
+		if (isdefined(self.grief_savedweapon_weaponsammo_clip_alt[ i ]))
 		{
-			self setweaponammoclip( weaponAltWeaponName( self.grief_savedweapon_weapons[ i ] ), self.grief_savedweapon_weaponsammo_clip_alt[ i ] );
+			self setweaponammoclip(weaponAltWeaponName(self.grief_savedweapon_weapons[ i ]), self.grief_savedweapon_weaponsammo_clip_alt[ i ]);
 		}
 
-		if ( isdefined( self.grief_savedweapon_weaponsammo_stock_alt[ i ] ) )
+		if (isdefined(self.grief_savedweapon_weaponsammo_stock_alt[ i ]))
 		{
-			self setweaponammostock( weaponAltWeaponName( self.grief_savedweapon_weapons[ i ] ), self.grief_savedweapon_weaponsammo_stock_alt[ i ] );
+			self setweaponammostock(weaponAltWeaponName(self.grief_savedweapon_weapons[ i ]), self.grief_savedweapon_weaponsammo_stock_alt[ i ]);
 		}
 
 		i++;
 	}
 
-	if ( isDefined( self.grief_savedweapon_melee ) )
+	if (isDefined(self.grief_savedweapon_melee))
 	{
-		self set_player_melee_weapon( self.grief_savedweapon_melee );
+		self set_player_melee_weapon(self.grief_savedweapon_melee);
 	}
 
-	if ( isDefined( self.grief_savedweapon_grenades ) )
+	if (isDefined(self.grief_savedweapon_grenades))
 	{
-		self giveweapon( self.grief_savedweapon_grenades );
-		self set_player_lethal_grenade( self.grief_savedweapon_grenades );
+		self giveweapon(self.grief_savedweapon_grenades);
+		self set_player_lethal_grenade(self.grief_savedweapon_grenades);
 
-		if ( isDefined( self.grief_savedweapon_grenades_clip ) )
+		if (isDefined(self.grief_savedweapon_grenades_clip))
 		{
 			if (is_respawn_gamemode())
 			{
@@ -2166,22 +2166,22 @@ grief_laststand_weapons_return()
 				}
 			}
 
-			self setweaponammoclip( self.grief_savedweapon_grenades, self.grief_savedweapon_grenades_clip );
+			self setweaponammoclip(self.grief_savedweapon_grenades, self.grief_savedweapon_grenades_clip);
 		}
 	}
 
-	if ( isDefined( self.grief_savedweapon_tactical ) )
+	if (isDefined(self.grief_savedweapon_tactical))
 	{
-		self giveweapon( self.grief_savedweapon_tactical );
-		self set_player_tactical_grenade( self.grief_savedweapon_tactical );
+		self giveweapon(self.grief_savedweapon_tactical);
+		self set_player_tactical_grenade(self.grief_savedweapon_tactical);
 
-		if ( isDefined( self.grief_savedweapon_tactical_clip ) )
+		if (isDefined(self.grief_savedweapon_tactical_clip))
 		{
-			self setweaponammoclip( self.grief_savedweapon_tactical, self.grief_savedweapon_tactical_clip );
+			self setweaponammoclip(self.grief_savedweapon_tactical, self.grief_savedweapon_tactical_clip);
 		}
 	}
 
-	if ( isDefined( self.grief_savedweapon_mine ) )
+	if (isDefined(self.grief_savedweapon_mine))
 	{
 		if (is_respawn_gamemode())
 		{
@@ -2193,27 +2193,27 @@ grief_laststand_weapons_return()
 			}
 		}
 
-		self giveweapon( self.grief_savedweapon_mine );
-		self set_player_placeable_mine( self.grief_savedweapon_mine );
-		self setactionslot( 4, "weapon", self.grief_savedweapon_mine );
-		self setweaponammoclip( self.grief_savedweapon_mine, self.grief_savedweapon_mine_clip );
+		self giveweapon(self.grief_savedweapon_mine);
+		self set_player_placeable_mine(self.grief_savedweapon_mine);
+		self setactionslot(4, "weapon", self.grief_savedweapon_mine);
+		self setweaponammoclip(self.grief_savedweapon_mine, self.grief_savedweapon_mine_clip);
 	}
 
-	if ( isDefined( self.current_equipment ) )
+	if (isDefined(self.current_equipment))
 	{
-		self maps\mp\zombies\_zm_equipment::equipment_take( self.current_equipment );
+		self maps\mp\zombies\_zm_equipment::equipment_take(self.current_equipment);
 	}
 
-	if ( isDefined( self.grief_savedweapon_equipment ) )
+	if (isDefined(self.grief_savedweapon_equipment))
 	{
 		self.do_not_display_equipment_pickup_hint = 1;
-		self maps\mp\zombies\_zm_equipment::equipment_give( self.grief_savedweapon_equipment );
+		self maps\mp\zombies\_zm_equipment::equipment_give(self.grief_savedweapon_equipment);
 		self.do_not_display_equipment_pickup_hint = undefined;
 	}
 
-	if ( isDefined( self.grief_hasriotshield ) && self.grief_hasriotshield )
+	if (isDefined(self.grief_hasriotshield) && self.grief_hasriotshield)
 	{
-		if ( isDefined( self.player_shield_reset_health ) )
+		if (isDefined(self.player_shield_reset_health))
 		{
 			self [[ self.player_shield_reset_health ]]();
 		}
@@ -2224,37 +2224,37 @@ grief_laststand_weapons_return()
 	weapon = undefined;
 	primaries = self getweaponslistprimaries();
 
-	if ( isDefined( self.pre_temp_weapon ) && self hasWeapon( self.pre_temp_weapon ) )
+	if (isDefined(self.pre_temp_weapon) && self hasWeapon(self.pre_temp_weapon))
 	{
 		weapon = self.pre_temp_weapon;
 		self.pre_temp_weapon = undefined;
 	}
-	else if ( isDefined( self.pre_meat_weapon ) && self hasWeapon( self.pre_meat_weapon ) )
+	else if (isDefined(self.pre_meat_weapon) && self hasWeapon(self.pre_meat_weapon))
 	{
 		weapon = self.pre_meat_weapon;
 		self.pre_meat_weapon = undefined;
 	}
-	else if ( isDefined( self.grief_savedweapon_currentweapon ) && self hasWeapon( self.grief_savedweapon_currentweapon ) )
+	else if (isDefined(self.grief_savedweapon_currentweapon) && self hasWeapon(self.grief_savedweapon_currentweapon))
 	{
 		weapon = self.grief_savedweapon_currentweapon;
 		self.grief_savedweapon_currentweapon = undefined;
 	}
 
-	if ( isDefined( weapon ) )
+	if (isDefined(weapon))
 	{
-		foreach ( primary in primaries )
+		foreach (primary in primaries)
 		{
-			if ( primary == weapon )
+			if (primary == weapon)
 			{
-				self switchtoweapon( primary );
+				self switchtoweapon(primary);
 				return 1;
 			}
 		}
 	}
 
-	if ( primaries.size > 0 )
+	if (primaries.size > 0)
 	{
-		self switchtoweapon( primaries[ 0 ] );
+		self switchtoweapon(primaries[ 0 ]);
 		return 1;
 	}
 
@@ -2292,8 +2292,8 @@ sudden_death()
 
 		foreach (player in players)
 		{
-			player thread show_grief_hud_msg( "Sudden Death!" );
-			player thread show_grief_hud_msg( "Lose 100 Health!", undefined, 30, 1 );
+			player thread show_grief_hud_msg("Sudden Death!");
+			player thread show_grief_hud_msg("Lose 100 Health!", undefined, 30, 1);
 			player thread red_flashing_overlay_loop();
 
 			health = player.health;
@@ -2316,8 +2316,8 @@ red_flashing_overlay_loop()
 
 	while (1)
 	{
-		self notify( "hit_again" );
-		self player_flag_set( "player_has_red_flashing_overlay" );
+		self notify("hit_again");
+		self player_flag_set("player_has_red_flashing_overlay");
 
 		wait 1;
 	}
@@ -2347,7 +2347,7 @@ player_suicide()
 {
 	self.bleedout_time += 1;
 
-	self notify( "player_suicide" );
+	self notify("player_suicide");
 
 	self.playersuicided = 1;
 
@@ -2456,7 +2456,7 @@ all_voice_on_intermission()
 race_check_for_kills()
 {
 	level endon("end_game");
-	self endon( "disconnect" );
+	self endon("disconnect");
 
 	while (1)
 	{
@@ -3113,7 +3113,7 @@ meat_powerup_drop_think()
 		level.zombie_powerup_ape = "meat_stink";
 		level.zombie_vars["zombie_drop_item"] = 1;
 
-		level waittill( "powerup_dropped", powerup );
+		level waittill("powerup_dropped", powerup);
 
 		if (powerup.powerup_name != "meat_stink")
 		{
@@ -3147,7 +3147,7 @@ meat_powerup_drop_watcher()
 {
 	while (1)
 	{
-		level waittill( "powerup_dropped", powerup );
+		level waittill("powerup_dropped", powerup);
 
 		if (powerup.powerup_name != "meat_stink")
 		{
@@ -3240,8 +3240,8 @@ meat_think()
 			{
 				if (!isDefined(level.item_meat.obj_waypoint_origin))
 				{
-					level.item_meat.obj_waypoint_origin = spawn( "script_model", level.item_meat.origin );
-					level.item_meat.obj_waypoint_origin setmodel( "tag_origin" );
+					level.item_meat.obj_waypoint_origin = spawn("script_model", level.item_meat.origin);
+					level.item_meat.obj_waypoint_origin setmodel("tag_origin");
 
 					level.item_meat thread meat_waypoint_origin_destroy_on_death();
 				}
@@ -3261,8 +3261,8 @@ meat_think()
 			{
 				if (!isDefined(level.meat_powerup.obj_waypoint_origin))
 				{
-					level.meat_powerup.obj_waypoint_origin = spawn( "script_model", level.meat_powerup.origin + (0, 0, 32) );
-					level.meat_powerup.obj_waypoint_origin setmodel( "tag_origin" );
+					level.meat_powerup.obj_waypoint_origin = spawn("script_model", level.meat_powerup.origin + (0, 0, 32));
+					level.meat_powerup.obj_waypoint_origin setmodel("tag_origin");
 
 					level.meat_powerup thread meat_waypoint_origin_destroy_on_death();
 				}
@@ -3430,7 +3430,7 @@ spawn_bots()
 {
 	bot_amount = getDvarIntDefault("scr_bot_count_zm", 0);
 
-	level waittill( "connected", player );
+	level waittill("connected", player);
 
 	wait 1;
 

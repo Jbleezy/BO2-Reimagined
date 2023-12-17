@@ -9,12 +9,12 @@
 
 init_nuked_perks()
 {
-	level.perk_arrival_vehicle = getent( "perk_arrival_vehicle", "targetname" );
-	level.perk_arrival_vehicle setmodel( "tag_origin" );
-	flag_init( "perk_vehicle_bringing_in_perk" );
-	structs = getstructarray( "zm_perk_machine", "targetname" );
+	level.perk_arrival_vehicle = getent("perk_arrival_vehicle", "targetname");
+	level.perk_arrival_vehicle setmodel("tag_origin");
+	flag_init("perk_vehicle_bringing_in_perk");
+	structs = getstructarray("zm_perk_machine", "targetname");
 
-	for ( i = 0; i < structs.size; i++ )
+	for (i = 0; i < structs.size; i++)
 		structs[i] structdelete();
 
 	level.nuked_perks = [];
@@ -41,25 +41,25 @@ init_nuked_perks()
 
 	level.override_perk_targetname = "zm_perk_machine_override";
 	random_perk_structs = [];
-	perk_structs = getstructarray( "zm_random_machine", "script_noteworthy" );
+	perk_structs = getstructarray("zm_random_machine", "script_noteworthy");
 
-	for ( i = 0; i < perk_structs.size; i++ )
+	for (i = 0; i < perk_structs.size; i++)
 	{
-		random_perk_structs[i] = getstruct( perk_structs[i].target, "targetname" );
+		random_perk_structs[i] = getstruct(perk_structs[i].target, "targetname");
 		random_perk_structs[i].script_int = perk_structs[i].script_int;
 	}
 
-	level.random_perk_structs = array_randomize( random_perk_structs );
+	level.random_perk_structs = array_randomize(random_perk_structs);
 
-	for ( i = 0; i < 5; i++ )
+	for (i = 0; i < 5; i++)
 	{
 		level.random_perk_structs[i].targetname = "zm_perk_machine_override";
 		level.random_perk_structs[i].model = level.nuked_perks[i].model;
-		level.random_perk_structs[i].blocker_model = getent( level.random_perk_structs[i].target, "targetname" );
+		level.random_perk_structs[i].blocker_model = getent(level.random_perk_structs[i].target, "targetname");
 		level.random_perk_structs[i].script_noteworthy = level.nuked_perks[i].script_noteworthy;
 		level.random_perk_structs[i].turn_on_notify = level.nuked_perks[i].turn_on_notify;
 
-		if ( !isdefined( level.struct_class_names["targetname"]["zm_perk_machine_override"] ) )
+		if (!isdefined(level.struct_class_names["targetname"]["zm_perk_machine_override"]))
 			level.struct_class_names["targetname"]["zm_perk_machine_override"] = [];
 
 		level.struct_class_names["targetname"]["zm_perk_machine_override"][level.struct_class_names["targetname"]["zm_perk_machine_override"].size] = level.random_perk_structs[i];
@@ -72,48 +72,48 @@ perks_from_the_sky()
 	top_height = 8000;
 	machines = [];
 	machine_triggers = [];
-	machines[0] = getent( "vending_revive", "targetname" );
+	machines[0] = getent("vending_revive", "targetname");
 
-	if ( !isdefined( machines[0] ) )
+	if (!isdefined(machines[0]))
 		return;
 
-	machine_triggers[0] = getent( "vending_revive", "target" );
-	move_perk( machines[0], top_height, 5.0, 0.001 );
+	machine_triggers[0] = getent("vending_revive", "target");
+	move_perk(machines[0], top_height, 5.0, 0.001);
 	machine_triggers[0] trigger_off();
-	machines[1] = getent( "vending_doubletap", "targetname" );
-	machine_triggers[1] = getent( "vending_doubletap", "target" );
-	move_perk( machines[1], top_height, 5.0, 0.001 );
+	machines[1] = getent("vending_doubletap", "targetname");
+	machine_triggers[1] = getent("vending_doubletap", "target");
+	move_perk(machines[1], top_height, 5.0, 0.001);
 	machine_triggers[1] trigger_off();
-	machines[2] = getent( "vending_sleight", "targetname" );
-	machine_triggers[2] = getent( "vending_sleight", "target" );
-	move_perk( machines[2], top_height, 5.0, 0.001 );
+	machines[2] = getent("vending_sleight", "targetname");
+	machine_triggers[2] = getent("vending_sleight", "target");
+	move_perk(machines[2], top_height, 5.0, 0.001);
 	machine_triggers[2] trigger_off();
-	machines[3] = getent( "vending_jugg", "targetname" );
-	machine_triggers[3] = getent( "vending_jugg", "target" );
-	move_perk( machines[3], top_height, 5.0, 0.001 );
+	machines[3] = getent("vending_jugg", "targetname");
+	machine_triggers[3] = getent("vending_jugg", "target");
+	move_perk(machines[3], top_height, 5.0, 0.001);
 	machine_triggers[3] trigger_off();
-	machine_triggers[4] = getent( "specialty_weapupgrade", "script_noteworthy" );
-	machines[4] = getent( machine_triggers[4].target, "targetname" );
-	move_perk( machines[4], top_height, 5.0, 0.001 );
+	machine_triggers[4] = getent("specialty_weapupgrade", "script_noteworthy");
+	machines[4] = getent(machine_triggers[4].target, "targetname");
+	move_perk(machines[4], top_height, 5.0, 0.001);
 	machine_triggers[4] trigger_off();
-	flag_wait( "initial_blackscreen_passed" );
+	flag_wait("initial_blackscreen_passed");
 
-	wait( randomintrange( 10, 20 ) );
-	bring_random_perk( machines, machine_triggers );
+	wait(randomintrange(10, 20));
+	bring_random_perk(machines, machine_triggers);
 
-	wait_for_round_range( 5, 6 );
-	wait( randomintrange( 30, 60 ) );
-	bring_random_perk( machines, machine_triggers );
+	wait_for_round_range(5, 6);
+	wait(randomintrange(30, 60));
+	bring_random_perk(machines, machine_triggers);
 
-	wait_for_round_range( 10, 11 );
-	wait( randomintrange( 30, 60 ) );
-	bring_random_perk( machines, machine_triggers );
+	wait_for_round_range(10, 11);
+	wait(randomintrange(30, 60));
+	bring_random_perk(machines, machine_triggers);
 
-	wait_for_round_range( 15, 16 );
-	wait( randomintrange( 60, 120 ) );
-	bring_random_perk( machines, machine_triggers );
+	wait_for_round_range(15, 16);
+	wait(randomintrange(60, 120));
+	bring_random_perk(machines, machine_triggers);
 
-	wait_for_round_range( 20, 21 );
-	wait( randomintrange( 60, 120 ) );
-	bring_random_perk( machines, machine_triggers );
+	wait_for_round_range(20, 21);
+	wait(randomintrange(60, 120));
+	bring_random_perk(machines, machine_triggers);
 }

@@ -14,48 +14,48 @@
 
 init()
 {
-	declare_sidequest_stage( "sq", "tpo", ::init_stage, ::stage_logic, ::exit_stage );
-	flag_init( "sq_tpo_time_bomb_in_valid_location" );
-	flag_init( "sq_tpo_players_in_position_for_time_warp" );
-	flag_init( "sq_tpo_special_round_active" );
-	flag_init( "sq_tpo_found_item" );
-	flag_init( "sq_tpo_generator_powered" );
-	flag_init( "sq_wisp_saved_with_time_bomb" );
-	flag_init( "sq_tpo_stage_started" );
-	maps\mp\zombies\_zm_weap_time_bomb::time_bomb_add_custom_func_global_save( ::time_bomb_saves_wisp_state );
-	maps\mp\zombies\_zm_weap_time_bomb::time_bomb_add_custom_func_global_restore( ::time_bomb_restores_wisp_state );
+	declare_sidequest_stage("sq", "tpo", ::init_stage, ::stage_logic, ::exit_stage);
+	flag_init("sq_tpo_time_bomb_in_valid_location");
+	flag_init("sq_tpo_players_in_position_for_time_warp");
+	flag_init("sq_tpo_special_round_active");
+	flag_init("sq_tpo_found_item");
+	flag_init("sq_tpo_generator_powered");
+	flag_init("sq_wisp_saved_with_time_bomb");
+	flag_init("sq_tpo_stage_started");
+	maps\mp\zombies\_zm_weap_time_bomb::time_bomb_add_custom_func_global_save(::time_bomb_saves_wisp_state);
+	maps\mp\zombies\_zm_weap_time_bomb::time_bomb_add_custom_func_global_restore(::time_bomb_restores_wisp_state);
 
-	level._effect["sq_tpo_time_bomb_fx"] = loadfx( "maps/zombie_buried/fx_buried_ghost_drain" );
+	level._effect["sq_tpo_time_bomb_fx"] = loadfx("maps/zombie_buried/fx_buried_ghost_drain");
 	level.sq_tpo = spawnstruct();
 	level thread setup_buildable_switch();
 }
 
 stage_logic()
 {
-	flag_set( "sq_tpo_stage_started" );
+	flag_set("sq_tpo_stage_started");
 
-	if ( flag( "sq_is_ric_tower_built" ) )
+	if (flag("sq_is_ric_tower_built"))
 		stage_logic_richtofen();
 	else
 		stage_logic_maxis();
 
-	stage_completed( "sq", level._cur_stage_name );
+	stage_completed("sq", level._cur_stage_name);
 }
 
 stage_logic_maxis()
 {
-	flag_clear( "sq_wisp_success" );
-	flag_clear( "sq_wisp_failed" );
+	flag_clear("sq_wisp_success");
+	flag_clear("sq_wisp_failed");
 
-	while ( !flag( "sq_wisp_success" ) )
+	while (!flag("sq_wisp_success"))
 	{
-		stage_start( "sq", "ts" );
+		stage_start("sq", "ts");
 
-		level waittill( "sq_ts_over" );
+		level waittill("sq_ts_over");
 
-		stage_start( "sq", "ctw" );
+		stage_start("sq", "ctw");
 
-		level waittill( "sq_ctw_over" );
+		level waittill("sq_ctw_over");
 	}
 
 	level._cur_stage_name = "tpo";
@@ -63,130 +63,130 @@ stage_logic_maxis()
 
 stage_logic_richtofen()
 {
-	level endon( "sq_tpo_generator_powered" );
+	level endon("sq_tpo_generator_powered");
 
-	e_time_bomb_volume = getent( "sq_tpo_timebomb_volume", "targetname" );
+	e_time_bomb_volume = getent("sq_tpo_timebomb_volume", "targetname");
 
 	do
 	{
-		flag_clear( "sq_tpo_time_bomb_in_valid_location" );
+		flag_clear("sq_tpo_time_bomb_in_valid_location");
 
 		b_time_bomb_in_valid_location = 0;
 
 		while (1)
 		{
-			if ( isdefined( level.time_bomb_save_data ) && isdefined( level.time_bomb_save_data.time_bomb_model ) )
+			if (isdefined(level.time_bomb_save_data) && isdefined(level.time_bomb_save_data.time_bomb_model))
 			{
-				b_time_bomb_in_valid_location = level.time_bomb_save_data.time_bomb_model istouching( e_time_bomb_volume );
+				b_time_bomb_in_valid_location = level.time_bomb_save_data.time_bomb_model istouching(e_time_bomb_volume);
 				level.time_bomb_save_data.time_bomb_model.sq_location_valid = b_time_bomb_in_valid_location;
 			}
 
-			if ( b_time_bomb_in_valid_location )
+			if (b_time_bomb_in_valid_location)
 			{
 				break;
 			}
 
-			level waittill( "new_time_bomb_set" );
+			level waittill("new_time_bomb_set");
 		}
 
-		playfxontag( level._effect["sq_tpo_time_bomb_fx"], level.time_bomb_save_data.time_bomb_model, "tag_origin" );
-		flag_set( "sq_tpo_time_bomb_in_valid_location" );
-		flag_set( "sq_tpo_players_in_position_for_time_warp" );
+		playfxontag(level._effect["sq_tpo_time_bomb_fx"], level.time_bomb_save_data.time_bomb_model, "tag_origin");
+		flag_set("sq_tpo_time_bomb_in_valid_location");
+		flag_set("sq_tpo_players_in_position_for_time_warp");
 		wait_for_time_bomb_to_be_detonated_or_thrown_again();
-		level notify( "sq_tpo_stop_checking_time_bomb_volume" );
+		level notify("sq_tpo_stop_checking_time_bomb_volume");
 
-		if ( flag( "time_bomb_restore_active" ) )
+		if (flag("time_bomb_restore_active"))
 		{
-			if ( flag( "sq_tpo_players_in_position_for_time_warp" ) )
+			if (flag("sq_tpo_players_in_position_for_time_warp"))
 			{
 				special_round_start();
-				level notify( "sq_tpo_special_round_started" );
-				start_item_hunt_with_timeout( 60 );
+				level notify("sq_tpo_special_round_started");
+				start_item_hunt_with_timeout(60);
 				special_round_end();
-				level notify( "sq_tpo_special_round_ended" );
+				level notify("sq_tpo_special_round_ended");
 			}
 		}
 
 		wait_network_frame();
 	}
-	while ( !flag( "sq_tpo_generator_powered" ) );
+	while (!flag("sq_tpo_generator_powered"));
 }
 
 special_round_start()
 {
-	flag_set( "sq_tpo_special_round_active" );
+	flag_set("sq_tpo_special_round_active");
 	level.sq_tpo.times_searched = 0;
-	flag_clear( "time_bomb_detonation_enabled" );
+	flag_clear("time_bomb_detonation_enabled");
 	level thread sndsidequestnoirmusic();
-	make_super_zombies( 1 );
+	make_super_zombies(1);
 	a_players = get_players();
 
-	foreach ( player in a_players )
-		vsmgr_activate( "visionset", "cheat_bw", player );
+	foreach (player in a_players)
+		vsmgr_activate("visionset", "cheat_bw", player);
 
-	level setclientfield( "sq_tpo_special_round_active", 1 );
+	level setclientfield("sq_tpo_special_round_active", 1);
 }
 
 special_round_end()
 {
-	level setclientfield( "sq_tpo_special_round_active", 0 );
-	level notify( "sndEndNoirMusic" );
-	make_super_zombies( 0 );
+	level setclientfield("sq_tpo_special_round_active", 0);
+	level notify("sndEndNoirMusic");
+	make_super_zombies(0);
 	level._time_bomb.functionality_override = 0;
-	flag_set( "time_bomb_detonation_enabled" );
+	flag_set("time_bomb_detonation_enabled");
 	scripts\zm\replaced\_zm_weap_time_bomb::time_bomb_detonation();
 
 	a_players = get_players();
 
-	foreach ( player in a_players )
+	foreach (player in a_players)
 	{
-		vsmgr_deactivate( "visionset", "cheat_bw", player );
-		player notify( "search_done" );
+		vsmgr_deactivate("visionset", "cheat_bw", player);
+		player notify("search_done");
 	}
 
 	clean_up_special_round();
-	flag_clear( "sq_tpo_special_round_active" );
+	flag_clear("sq_tpo_special_round_active");
 }
 
-promote_to_corpse_model( str_model )
+promote_to_corpse_model(str_model)
 {
-	v_spawn_point = groundtrace( self.origin + vectorscale( ( 0, 0, 1 ), 10.0 ), self.origin + vectorscale( ( 0, 0, -1 ), 300.0 ), 0, undefined )["position"];
-	self.corpse_model = spawn( "script_model", v_spawn_point );
+	v_spawn_point = groundtrace(self.origin + vectorscale((0, 0, 1), 10.0), self.origin + vectorscale((0, 0, -1), 300.0), 0, undefined)["position"];
+	self.corpse_model = spawn("script_model", v_spawn_point);
 	self.corpse_model.angles = self.angles;
-	self.corpse_model setmodel( str_model );
+	self.corpse_model setmodel(str_model);
 	self.corpse_model.targetname = "sq_tpo_corpse_model";
 	self _pose_corpse();
-	self.corpse_model.unitrigger = setup_unitrigger( &"ZM_BURIED_SQ_SCH", ::unitrigger_think );
+	self.corpse_model.unitrigger = setup_unitrigger(&"ZM_BURIED_SQ_SCH", ::unitrigger_think);
 }
 
 unitrigger_think()
 {
-	self endon( "kill_trigger" );
+	self endon("kill_trigger");
 	self thread unitrigger_killed();
 	b_trigger_used = 0;
 
-	while ( !b_trigger_used )
+	while (!b_trigger_used)
 	{
-		self waittill( "trigger", player );
+		self waittill("trigger", player);
 
 		b_progress_bar_done = 0;
 		n_frame_count = 0;
 
-		while ( player usebuttonpressed() && !b_progress_bar_done )
+		while (player usebuttonpressed() && !b_progress_bar_done)
 		{
-			if ( !isdefined( self.progress_bar ) )
+			if (!isdefined(self.progress_bar))
 			{
 				self.progress_bar = player createprimaryprogressbar();
-				self.progress_bar updatebar( 0.01, 1 / 1.5 );
+				self.progress_bar updatebar(0.01, 1 / 1.5);
 				self.progress_bar_text = player createprimaryprogressbartext();
-				self.progress_bar_text settext( &"ZM_BURIED_SQ_SEARCHING" );
+				self.progress_bar_text settext(&"ZM_BURIED_SQ_SEARCHING");
 				self thread _kill_progress_bar();
 			}
 
 			n_progress_amount = n_frame_count / 30.0;
 			n_frame_count++;
 
-			if ( n_progress_amount == 1 )
+			if (n_progress_amount == 1)
 				b_progress_bar_done = 1;
 
 			wait 0.05;
@@ -194,23 +194,23 @@ unitrigger_think()
 
 		self _delete_progress_bar();
 
-		if ( b_progress_bar_done )
+		if (b_progress_bar_done)
 			b_trigger_used = 1;
 	}
 
-	if ( b_progress_bar_done )
+	if (b_progress_bar_done)
 	{
 		self.stub.hint_string = "";
-		self sethintstring( self.stub.hint_string );
+		self sethintstring(self.stub.hint_string);
 
-		if ( item_is_on_corpse() )
+		if (item_is_on_corpse())
 		{
-			iprintlnbold( &"ZM_BURIED_SQ_FND" );
+			iprintlnbold(&"ZM_BURIED_SQ_FND");
 			player give_player_sq_tpo_switch();
 		}
 		else
-			iprintlnbold( &"ZM_BURIED_SQ_NFND" );
+			iprintlnbold(&"ZM_BURIED_SQ_NFND");
 
-		self thread maps\mp\zombies\_zm_unitrigger::unregister_unitrigger( self.stub );
+		self thread maps\mp\zombies\_zm_unitrigger::unregister_unitrigger(self.stub);
 	}
 }

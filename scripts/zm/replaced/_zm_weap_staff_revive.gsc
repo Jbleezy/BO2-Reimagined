@@ -8,31 +8,31 @@
 
 watch_staff_revive_fired()
 {
-	self endon( "disconnect" );
+	self endon("disconnect");
 
-	while ( true )
+	while (true)
 	{
-		self waittill( "missile_fire", e_projectile, str_weapon );
+		self waittill("missile_fire", e_projectile, str_weapon);
 
-		if ( !( str_weapon == "staff_revive_zm" ) )
+		if (!(str_weapon == "staff_revive_zm"))
 			continue;
 
 		self thread staff_revive_impact_wait();
 
-		self thread staff_revive_reload( str_weapon );
+		self thread staff_revive_reload(str_weapon);
 	}
 }
 
 staff_revive_impact_wait()
 {
-	self waittill( "projectile_impact", e_ent, v_explode_point, n_radius, str_name, n_impact );
+	self waittill("projectile_impact", e_ent, v_explode_point, n_radius, str_name, n_impact);
 
-	self thread staff_revive_impact( v_explode_point );
+	self thread staff_revive_impact(v_explode_point);
 }
 
-staff_revive_reload( str_weapon )
+staff_revive_reload(str_weapon)
 {
-	self endon( "disconnect" );
+	self endon("disconnect");
 
 	wait 0.4;
 
@@ -48,7 +48,7 @@ staff_revive_reload( str_weapon )
 
 	while (1)
 	{
-		self waittill( "weapon_change" );
+		self waittill("weapon_change");
 
 		if (self getCurrentWeapon() == str_weapon)
 		{
