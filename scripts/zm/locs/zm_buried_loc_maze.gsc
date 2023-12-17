@@ -60,6 +60,7 @@ struct_init()
 	for (i = 0; i < og_perk_structs.size; i++)
 	{
 		rand = randomint(og_perk_structs.size);
+
 		if (rand != i)
 		{
 			temp_script_noteworthy = og_perk_structs[i].script_noteworthy;
@@ -111,6 +112,7 @@ struct_init()
 		else if (player_respawn_point.script_noteworthy == "zone_maze_staircase")
 		{
 			spawn_array = getstructarray( player_respawn_point.target, "targetname" );
+
 			foreach (spawn in spawn_array)
 			{
 				if (spawn.origin[0] > 5950)
@@ -237,6 +239,7 @@ init_wallbuys()
 {
 	og_weapon_structs = [];
 	structs = getstructarray( "weapon_upgrade", "targetname" );
+
 	foreach (struct in structs)
 	{
 		if (isDefined(struct.script_noteworthy) && isSubStr(struct.script_noteworthy, "maze"))
@@ -269,6 +272,7 @@ init_barriers()
 	scripts\zm\replaced\utility::barrier( "collision_geo_64x64x128_standard", (3398, 898, 372), (0, 0, 0) );
 
 	structs = getstructarray( "zm_perk_machine", "targetname" );
+
 	foreach (struct in structs)
 	{
 		scripts\zm\replaced\utility::barrier( "collision_geo_64x64x128_standard", struct.origin + (anglesToRight(struct.angles) * -9) + (0, 0, 320), struct.angles );

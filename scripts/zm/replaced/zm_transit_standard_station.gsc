@@ -36,6 +36,7 @@ main()
 
 	// electric doors showing hintstring
 	zombie_doors = getentarray( "zombie_door", "targetname" );
+
 	foreach ( door in zombie_doors )
 	{
 		if ( isDefined( door.script_noteworthy ) && door.script_noteworthy == "local_electric_door" )
@@ -48,6 +49,7 @@ main()
 enemy_location_override( zombie, enemy )
 {
 	location = enemy.origin;
+
 	if ( is_true( self.reroute ) )
 	{
 		if ( isDefined( self.reroute_origin ) )
@@ -55,12 +57,14 @@ enemy_location_override( zombie, enemy )
 			location = self.reroute_origin;
 		}
 	}
+
 	return location;
 }
 
 remove_lava_collision()
 {
 	ents = getEntArray( "script_model", "classname");
+
 	foreach (ent in ents)
 	{
 		if (IsDefined(ent.model))
@@ -106,6 +110,7 @@ open_electric_doors_on_door_opened()
 	level.local_doors_stay_open = 1;
 	door = undefined;
 	zombie_doors = getentarray( "zombie_door", "targetname" );
+
 	foreach ( door in zombie_doors )
 	{
 		if(door.target == "busstop_doors")
@@ -117,6 +122,7 @@ open_electric_doors_on_door_opened()
 	door waittill( "door_opened" );
 
 	zombie_doors = getentarray( "zombie_door", "targetname" );
+
 	foreach ( door in zombie_doors )
 	{
 		if ( isDefined( door.script_noteworthy ) && door.script_noteworthy == "local_electric_door" )

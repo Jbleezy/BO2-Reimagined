@@ -433,6 +433,7 @@ brutus_spawn( starting_health, has_helmet, helmet_hits, explosive_dmg_taken, zon
 {
 	level.num_pulls_since_brutus_spawn = 0;
 	self set_zombie_run_cycle( "run" );
+
 	if ( !isDefined( has_helmet ) )
 	{
 		self.has_helmet = 1;
@@ -441,6 +442,7 @@ brutus_spawn( starting_health, has_helmet, helmet_hits, explosive_dmg_taken, zon
 	{
 		self.has_helmet = has_helmet;
 	}
+
 	if ( !isDefined( helmet_hits ) )
 	{
 		self.helmet_hits = 0;
@@ -449,6 +451,7 @@ brutus_spawn( starting_health, has_helmet, helmet_hits, explosive_dmg_taken, zon
 	{
 		self.helmet_hits = helmet_hits;
 	}
+
 	if ( !isDefined( explosive_dmg_taken ) )
 	{
 		self.explosive_dmg_taken = 0;
@@ -457,6 +460,7 @@ brutus_spawn( starting_health, has_helmet, helmet_hits, explosive_dmg_taken, zon
 	{
 		self.explosive_dmg_taken = explosive_dmg_taken;
 	}
+
 	if ( !isDefined( starting_health ) )
 	{
 		self brutus_health_increases();
@@ -468,6 +472,7 @@ brutus_spawn( starting_health, has_helmet, helmet_hits, explosive_dmg_taken, zon
 		self.maxhealth = starting_health;
 		self.health = starting_health;
 	}
+
 	self.explosive_dmg_req = level.brutus_expl_dmg_req;
 	self.no_damage_points = 1;
 	self endon( "death" );
@@ -495,6 +500,7 @@ brutus_spawn( starting_health, has_helmet, helmet_hits, explosive_dmg_taken, zon
 	self setfreecameralockonallowed( 0 );
 	level thread maps\mp\zombies\_zm_spawner::zombie_death_event( self );
 	self thread maps\mp\zombies\_zm_spawner::enemy_death_detection();
+
 	if ( isDefined( zone_name ) && zone_name == "zone_golden_gate_bridge" )
 	{
 		wait randomfloat( 1.5 );
@@ -504,23 +510,28 @@ brutus_spawn( starting_health, has_helmet, helmet_hits, explosive_dmg_taken, zon
 	{
 		spawn_pos = get_best_brutus_spawn_pos( zone_name );
 	}
+
 	if ( !isDefined( spawn_pos ) )
 	{
 		self delete();
 		return;
 	}
+
 	if ( !isDefined( spawn_pos.angles ) )
 	{
 		spawn_pos.angles = ( 0, 0, 0 );
 	}
+
 	if ( isDefined( level.brutus_do_prologue ) && level.brutus_do_prologue )
 	{
 		self brutus_spawn_prologue( spawn_pos );
 	}
+
 	if ( !self.has_helmet )
 	{
 		self detach( "c_zom_cellbreaker_helmet" );
 	}
+
 	level.brutus_count++;
 	self maps\mp\zombies\_zm_spawner::zombie_complete_emerging_into_playable_area();
 	self thread snddelayedmusic();
@@ -560,20 +571,24 @@ brutus_damage_override( inflictor, attacker, damage, flags, meansofdeath, weapon
 		n_brutus_damage_percent = level.brutus_damage_percent;
 		n_brutus_headshot_modifier = 1;
 	}
+
 	if ( isDefined( weapon ) && is_weapon_shotgun( weapon ) )
 	{
 		n_brutus_damage_percent *= level.brutus_shotgun_damage_mod;
 		n_brutus_headshot_modifier *= level.brutus_shotgun_damage_mod;
 	}
+
 	if ( isDefined( weapon ) && weapon == "bouncing_tomahawk_zm" && isDefined( inflictor ) )
 	{
 		self playsound( "wpn_tomahawk_imp_zombie" );
+
 		if ( self.has_helmet )
 		{
 			if ( damage == 1 )
 			{
 				return 0;
 			}
+
 			if ( isDefined( inflictor.n_cookedtime ) && inflictor.n_cookedtime >= 2000 )
 			{
 				self.helmet_hits = level.brutus_helmet_shots;
@@ -586,9 +601,11 @@ brutus_damage_override( inflictor, attacker, damage, flags, meansofdeath, weapon
 			{
 				self.helmet_hits++;
 			}
+
 			if ( self.helmet_hits >= level.brutus_helmet_shots )
 			{
 				self thread brutus_remove_helmet( vdir );
+
 				if ( level.brutus_in_grief )
 				{
 					player_points = level.brutus_points_for_helmet;
@@ -598,6 +615,7 @@ brutus_damage_override( inflictor, attacker, damage, flags, meansofdeath, weapon
 					multiplier = maps\mp\zombies\_zm_score::get_points_multiplier( self );
 					player_points = multiplier * round_up_score( level.brutus_points_for_helmet, 5 );
 				}
+
 				if ( isDefined( attacker ) && isplayer( attacker ) )
 				{
 					attacker add_to_player_score( player_points );
@@ -605,6 +623,7 @@ brutus_damage_override( inflictor, attacker, damage, flags, meansofdeath, weapon
 					level notify( "brutus_helmet_removed", attacker );
 				}
 			}
+
 			return damage * n_brutus_damage_percent;
 		}
 		else
@@ -612,6 +631,7 @@ brutus_damage_override( inflictor, attacker, damage, flags, meansofdeath, weapon
 			return damage;
 		}
 	}
+
 	if ( ( meansofdeath == "MOD_MELEE" || meansofdeath == "MOD_IMPACT" ) && isDefined( meansofdeath ) )
 	{
 		if ( weapon == "alcatraz_shield_zm" )
@@ -621,14 +641,17 @@ brutus_damage_override( inflictor, attacker, damage, flags, meansofdeath, weapon
 			return 0;
 		}
 	}
+
 	if ( isDefined( level.zombiemode_using_afterlife ) && level.zombiemode_using_afterlife && weapon == "lightning_hands_zm" )
 	{
 		self thread brutus_afterlife_teleport();
 		return 0;
 	}
+
 	if ( is_explosive_damage( meansofdeath ) && weapon != "raygun_mark2_zm" && weapon != "raygun_mark2_upgraded_zm" )
 	{
 		self.explosive_dmg_taken += damage;
+
 		if ( !self.has_helmet )
 		{
 			scaler = n_brutus_headshot_modifier;
@@ -637,9 +660,11 @@ brutus_damage_override( inflictor, attacker, damage, flags, meansofdeath, weapon
 		{
 			scaler = level.brutus_damage_percent;
 		}
+
 		if ( self.explosive_dmg_taken >= self.explosive_dmg_req && isDefined( self.has_helmet ) && self.has_helmet )
 		{
 			self thread brutus_remove_helmet( vectorScale( ( 0, 1, 0 ), 10 ) );
+
 			if ( level.brutus_in_grief )
 			{
 				player_points = level.brutus_points_for_helmet;
@@ -649,9 +674,11 @@ brutus_damage_override( inflictor, attacker, damage, flags, meansofdeath, weapon
 				multiplier = maps\mp\zombies\_zm_score::get_points_multiplier( self );
 				player_points = multiplier * round_up_score( level.brutus_points_for_helmet, 5 );
 			}
+
 			attacker add_to_player_score( player_points );
 			attacker.pers[ "score" ] = inflictor.score;
 		}
+
 		return damage * scaler;
 	}
 	else if ( shitloc != "head" && shitloc != "helmet" )
@@ -675,21 +702,26 @@ brutus_health_increases()
 	{
 		players = getplayers();
 		n_player_modifier = 1;
+
 		if ( players.size > 1 )
 		{
 			n_player_modifier = players.size * 0.75;
 		}
+
 		level.brutus_round_count++;
 		level.brutus_health = int( level.brutus_health_increase * n_player_modifier * level.brutus_round_count );
 		level.brutus_expl_dmg_req = int( level.brutus_explosive_damage_increase * n_player_modifier * level.brutus_round_count );
+
 		if ( level.brutus_health >= ( 5000 * n_player_modifier ) )
 		{
 			level.brutus_health = int( 5000 * n_player_modifier );
 		}
+
 		if ( level.brutus_expl_dmg_req >= ( 4500 * n_player_modifier ) )
 		{
 			level.brutus_expl_dmg_req = int( 4500 * n_player_modifier );
 		}
+
 		level.brutus_last_spawn_round = level.round_number;
 	}
 }

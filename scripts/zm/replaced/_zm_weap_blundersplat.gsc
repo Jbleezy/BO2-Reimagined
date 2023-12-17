@@ -62,6 +62,7 @@ _titus_locate_target( is_not_upgraded = 1, count )
 		n_fuse_timer = randomfloatrange( 3.0, 4.0 );
 
 	n_spread = 5;
+
 	if (isads(self))
 	{
 		n_spread *= 0.5;

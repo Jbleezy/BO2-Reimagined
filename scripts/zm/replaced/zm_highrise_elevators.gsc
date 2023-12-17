@@ -484,6 +484,7 @@ watch_for_elevator_during_faller_spawn()
 	flag_wait( "power_on" );
 
 	elevator_bodies = [];
+
 	foreach ( elevator in level.elevators )
 	{
 		elevator_bodies[elevator_bodies.size] = elevator.body;

@@ -77,6 +77,7 @@ stage_two()
 	t_plane_fly_afterlife trigger_on();
 
 	players = get_players();
+
 	foreach ( player in players )
 	{
 		if ( is_player_valid( player ) )

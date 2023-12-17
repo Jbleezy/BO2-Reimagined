@@ -57,12 +57,15 @@ get_impact_damage( damageweapon )
 	{
 		case "staff_fire_zm":
 			return 2050;
+
 		case "staff_fire_upgraded_zm":
 		case "staff_fire_upgraded2_zm":
 		case "staff_fire_upgraded3_zm":
 			return 3300;
+
 		case "one_inch_punch_fire_zm":
 			return 0;
+
 		default:
 			return 0;
 	}

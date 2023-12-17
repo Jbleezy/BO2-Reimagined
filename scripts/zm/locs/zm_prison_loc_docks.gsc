@@ -119,6 +119,7 @@ set_box_weapons()
 	{
 		level.zombie_weapons["thompson_zm"].is_in_box = 0;
 	}
+
 	if(isDefined(level.zombie_weapons["beretta93r_zm"]))
 	{
 		level.zombie_weapons["beretta93r_zm"].is_in_box = 1;
@@ -177,6 +178,7 @@ disable_zombie_spawn_locations()
 		zone = level.zones[ level.zone_keys[ z ] ];
 
 		i = 0;
+
 		while ( i < zone.spawn_locations.size )
 		{
 			if (zone.spawn_locations[i].origin == (615.8, 7875.9, 95))
@@ -196,6 +198,7 @@ disable_zombie_spawn_locations()
 disable_gondola_call_triggers()
 {
 	t_call_triggers = getentarray( "gondola_call_trigger", "targetname" );
+
 	foreach ( trigger in t_call_triggers )
 	{
 		trigger delete();
@@ -205,6 +208,7 @@ disable_gondola_call_triggers()
 disable_craftable_triggers()
 {
 	t_crafting_table = getentarray( "open_craftable_trigger", "targetname" );
+
 	foreach ( trigger in t_crafting_table )
 	{
 		trigger delete();
@@ -214,6 +218,7 @@ disable_craftable_triggers()
 disable_afterlife_props()
 {
 	a_afterlife_props = getentarray( "afterlife_show", "targetname" );
+
 	foreach ( m_prop in a_afterlife_props )
 	{
 		m_prop delete();
@@ -223,6 +228,7 @@ disable_afterlife_props()
 turn_afterlife_interacts_on()
 {
 	a_afterlife_interact = getentarray( "afterlife_interact", "targetname" );
+
 	foreach ( model in a_afterlife_interact )
 	{
 		if ( model.script_string == "juggernog_on" )

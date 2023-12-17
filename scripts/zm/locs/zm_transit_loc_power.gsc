@@ -19,6 +19,7 @@ struct_init()
 
 	ind = 0;
 	respawnpoints = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
+
 	for(i = 0; i < respawnpoints.size; i++)
 	{
 		if(respawnpoints[i].script_noteworthy == "zone_prr")
@@ -44,9 +45,11 @@ struct_init()
 	scripts\zm\replaced\utility::register_map_spawn_group( respawnpoints[ind].origin, zone, respawnpoints[ind].script_int );
 
 	respawn_array = getstructarray(respawnpoints[ind].target, "targetname");
+
 	foreach(respawn in respawn_array)
 	{
 		angles = respawn.angles;
+
 		if (respawn.origin[0] < 12200)
 		{
 			angles += (0, 90, 0);
@@ -164,6 +167,7 @@ disable_zombie_spawn_locations()
 disable_player_spawn_locations()
 {
 	respawnpoints = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
+
 	foreach	(respawnpoint in respawnpoints)
 	{
 		if (respawnpoint.script_noteworthy == "zone_pow_warehouse")

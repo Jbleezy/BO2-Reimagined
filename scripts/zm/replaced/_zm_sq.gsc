@@ -25,6 +25,7 @@ navcomputer_waitfor_navcard()
 				navcomputer_use_trig playsound( "zmb_sq_navcard_success" );
 
 				players = get_players();
+
 				foreach (player in players)
 				{
 					player freezecontrols(1);
@@ -53,6 +54,7 @@ sq_give_player_all_perks()
 	else
 	{
 		machines = array_randomize( getentarray( "zombie_vending", "targetname" ) );
+
 		for ( i = 0; i < machines.size; i++ )
 		{
 			if ( machines[i].script_noteworthy == "specialty_weapupgrade" )

@@ -178,6 +178,7 @@ sq_give_all_perks()
 	level thread scripts\zm\replaced\_zm_sq::sq_complete_time_hud();
 
 	players = getplayers();
+
 	foreach ( player in players )
 	{
 		player thread sq_give_player_perks( perks, v_fireball_start_loc, n_fireball_exploder );

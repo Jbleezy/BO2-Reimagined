@@ -62,6 +62,7 @@ sq_atd_watch_elevator( str_flag )
 		}
 
 		a_dragon_icons = getentarray( "elevator_dragon_icon", "targetname" );
+
 		foreach ( m_icon in a_dragon_icons )
 		{
 			if ( issubstr( self.targetname, m_icon.script_noteworthy ) )

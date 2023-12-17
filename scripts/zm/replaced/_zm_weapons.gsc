@@ -316,15 +316,19 @@ weapon_give( weapon, is_upgrade, magic_box, nosound )
 	primaryweapons = self getweaponslistprimaries();
 	current_weapon = self getcurrentweapon();
 	current_weapon = self maps\mp\zombies\_zm_weapons::switch_from_alt_weapon( current_weapon );
+
 	if ( !isDefined( is_upgrade ) )
 	{
 		is_upgrade = 0;
 	}
+
 	weapon_limit = get_player_weapon_limit( self );
+
 	if ( is_equipment( weapon ) )
 	{
 		self maps\mp\zombies\_zm_equipment::equipment_give( weapon );
 	}
+
 	if ( weapon == "riotshield_zm" )
 	{
 		if ( isDefined( self.player_shield_reset_health ) )
@@ -332,19 +336,24 @@ weapon_give( weapon, is_upgrade, magic_box, nosound )
 			self [[ self.player_shield_reset_health ]]();
 		}
 	}
+
 	if ( self hasweapon( weapon ) )
 	{
 		if ( issubstr( weapon, "knife_ballistic_" ) )
 		{
 			self notify( "zmb_lost_knife" );
 		}
+
 		self givestartammo( weapon );
+
 		if ( !is_offhand_weapon( weapon ) )
 		{
 			self switchtoweapon( weapon );
 		}
+
 		return;
 	}
+
 	if ( is_melee_weapon( weapon ) )
 	{
 		current_weapon = maps\mp\zombies\_zm_melee_weapon::change_melee_weapon( weapon, current_weapon );
@@ -352,43 +361,52 @@ weapon_give( weapon, is_upgrade, magic_box, nosound )
 	else if ( is_lethal_grenade( weapon ) )
 	{
 		old_lethal = self get_player_lethal_grenade();
+
 		if ( isDefined( old_lethal ) && old_lethal != "" )
 		{
 			self takeweapon( old_lethal );
 			unacquire_weapon_toggle( old_lethal );
 		}
+
 		self set_player_lethal_grenade( weapon );
 	}
 	else if ( is_tactical_grenade( weapon ) )
 	{
 		old_tactical = self get_player_tactical_grenade();
+
 		if ( isDefined( old_tactical ) && old_tactical != "" )
 		{
 			self takeweapon( old_tactical );
 			unacquire_weapon_toggle( old_tactical );
 		}
+
 		self set_player_tactical_grenade( weapon );
 	}
 	else if ( is_placeable_mine( weapon ) )
 	{
 		old_mine = self get_player_placeable_mine();
+
 		if ( isDefined( old_mine ) )
 		{
 			self takeweapon( old_mine );
 			unacquire_weapon_toggle( old_mine );
 		}
+
 		self set_player_placeable_mine( weapon );
 	}
+
 	if ( !is_offhand_weapon( weapon ) )
 	{
 		self maps\mp\zombies\_zm_weapons::take_fallback_weapon();
 	}
+
 	if ( primaryweapons.size >= weapon_limit )
 	{
 		if ( is_melee_weapon( current_weapon ) || is_placeable_mine( current_weapon ) || is_equipment( current_weapon ) )
 		{
 			current_weapon = undefined;
 		}
+
 		if ( isDefined( current_weapon ) )
 		{
 			if ( !is_offhand_weapon( weapon ) )
@@ -397,15 +415,18 @@ weapon_give( weapon, is_upgrade, magic_box, nosound )
 				{
 					level.player_drops_tesla_gun = 1;
 				}
+
 				if ( issubstr( current_weapon, "knife_ballistic_" ) )
 				{
 					self notify( "zmb_lost_knife" );
 				}
+
 				self takeweapon( current_weapon );
 				unacquire_weapon_toggle( current_weapon );
 			}
 		}
 	}
+
 	if ( isDefined( level.zombiemode_offhand_weapon_give_override ) )
 	{
 		if ( self [[ level.zombiemode_offhand_weapon_give_override ]]( weapon ) )
@@ -413,6 +434,7 @@ weapon_give( weapon, is_upgrade, magic_box, nosound )
 			return;
 		}
 	}
+
 	if ( weapon == "cymbal_monkey_zm" )
 	{
 		self maps\mp\zombies\_zm_weap_cymbal_monkey::player_give_cymbal_monkey();
@@ -429,20 +451,24 @@ weapon_give( weapon, is_upgrade, magic_box, nosound )
 		self play_weapon_vo( weapon, magic_box );
 		return;
 	}
+
 	if ( isDefined( level.zombie_weapons_callbacks ) && isDefined( level.zombie_weapons_callbacks[ weapon ] ) )
 	{
 		self thread [[ level.zombie_weapons_callbacks[ weapon ] ]]();
 		play_weapon_vo( weapon, magic_box );
 		return;
 	}
+
 	if ( !is_true( nosound ) )
 	{
 		self play_sound_on_ent( "purchase" );
 	}
+
 	if ( is_true( magic_box ) && is_limited_weapon( weapon ) && level.limited_weapons[ weapon ] == 1 )
 	{
 		playsoundatposition( "mus_raygun_stinger", ( 0, 0, 0 ) );
 	}
+
 	if ( !is_weapon_upgraded( weapon ) )
 	{
 		self giveweapon( weapon );
@@ -451,8 +477,10 @@ weapon_give( weapon, is_upgrade, magic_box, nosound )
 	{
 		self giveweapon( weapon, 0, self get_pack_a_punch_weapon_options( weapon ) );
 	}
+
 	acquire_weapon_toggle( weapon, self );
 	self givestartammo( weapon );
+
 	if ( !is_offhand_weapon( weapon ) )
 	{
 		if ( !is_melee_weapon( weapon ) )
@@ -464,6 +492,7 @@ weapon_give( weapon, is_upgrade, magic_box, nosound )
 			self switchtoweapon( current_weapon );
 		}
 	}
+
 	self play_weapon_vo( weapon, magic_box );
 
 	self notify("weapon_ammo_change");
@@ -536,6 +565,7 @@ weapon_spawn_think()
 	second_endon = undefined;
 
 	is_grenade = 0;
+
 	if(weapontype( self.zombie_weapon_upgrade ) == "grenade")
 	{
 		is_grenade = 1;
@@ -565,6 +595,7 @@ weapon_spawn_think()
 	else if ( !isDefined( self.first_time_triggered ) )
 	{
 		self.first_time_triggered = 0;
+
 		if ( isDefined( self.stub ) )
 		{
 			self.stub.first_time_triggered = 0;
@@ -599,6 +630,7 @@ weapon_spawn_think()
 			toplayer = player get_eye() - self.origin;
 			forward = -1 * anglesToRight( self.angles );
 			dot = vectordot( toplayer, forward );
+
 			if ( dot < 0 )
 			{
 				continue;
@@ -612,9 +644,11 @@ weapon_spawn_think()
 		}
 
 		player_has_weapon = player maps\mp\zombies\_zm_weapons::has_weapon_or_upgrade( self.zombie_weapon_upgrade );
+
 		if ( !player_has_weapon && is_true( level.weapons_using_ammo_sharing ) )
 		{
 			shared_ammo_weapon = player maps\mp\zombies\_zm_weapons::get_shared_ammo_weapon( self.zombie_weapon_upgrade );
+
 			if ( isDefined( shared_ammo_weapon ) )
 			{
 				player_has_weapon = 1;
@@ -627,6 +661,7 @@ weapon_spawn_think()
 		}
 
 		cost = maps\mp\zombies\_zm_weapons::get_weapon_cost( self.zombie_weapon_upgrade );
+
 		if ( player maps\mp\zombies\_zm_pers_upgrades_functions::is_pers_double_points_active() )
 		{
 			cost = int( cost / 2 );
@@ -648,6 +683,7 @@ weapon_spawn_think()
 				if ( self.zombie_weapon_upgrade == "riotshield_zm" )
 				{
 					player maps\mp\zombies\_zm_equipment::equipment_give( "riotshield_zm" );
+
 					if ( isDefined( player.player_shield_reset_health ) )
 					{
 						player [[ player.player_shield_reset_health ]]();

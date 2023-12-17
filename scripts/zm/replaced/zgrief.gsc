@@ -136,6 +136,7 @@ meat_stink( who )
 			if (valid_drop)
 			{
 				players = get_players();
+
 				foreach (player in players)
 				{
 					player thread scripts\zm\zgrief\zgrief_reimagined::show_grief_hud_msg("Meat dropped!");
@@ -178,6 +179,7 @@ meat_stink( who )
 	}
 
 	players = get_players();
+
 	foreach (player in players)
 	{
 		player thread maps\mp\gametypes_zm\zgrief::meat_stink_player_cleanup();
@@ -289,6 +291,7 @@ meat_stink_ignoreme_think()
 		zombies = get_round_enemy_array();
 
 		players = get_players();
+
 		foreach (player in players)
 		{
 			if (player == self)
@@ -337,6 +340,7 @@ meat_stink_cleanup_on_downed()
 	}
 
 	players = get_players();
+
 	foreach (player in players)
 	{
 		player thread maps\mp\gametypes_zm\zgrief::meat_stink_player_cleanup();
@@ -354,6 +358,7 @@ meat_stink_cleanup_on_downed()
 		if (valid_drop)
 		{
 			players = get_players();
+
 			foreach (player in players)
 			{
 				player thread scripts\zm\zgrief\zgrief_reimagined::show_grief_hud_msg("Meat dropped!");
@@ -380,6 +385,7 @@ meat_powerup_reset_on_disconnect()
 	level.meat_player = undefined;
 
 	players = get_players();
+
 	foreach (player in players)
 	{
 		if (is_player_valid(player) && !is_true(player.spawn_protection) && !is_true(player.revive_protection))
@@ -424,6 +430,7 @@ meat_stink_player( who )
 	level.meat_player = who;
 	who.ignoreme = 0;
 	players = get_players();
+
 	foreach ( player in players )
 	{
 		player thread maps\mp\gametypes_zm\zgrief::meat_stink_player_cleanup();
@@ -443,6 +450,7 @@ meat_stink_player( who )
 
 	who notify( "meat_stink_player_end" );
 	players = get_players();
+
 	foreach ( player in players )
 	{
 		player thread maps\mp\gametypes_zm\zgrief::meat_stink_player_cleanup();
@@ -452,6 +460,7 @@ meat_stink_player( who )
 			player.ignoreme = 0;
 		}
 	}
+
 	level.meat_player = undefined;
 }
 
@@ -479,6 +488,7 @@ print_meat_msg(meat_player, verb)
 	}
 
 	color = "";
+
 	if (self.team == meat_player.team)
 	{
 		color = "^8";

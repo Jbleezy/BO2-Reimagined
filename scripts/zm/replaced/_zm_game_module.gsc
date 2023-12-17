@@ -15,12 +15,14 @@ wait_for_team_death_and_round_end()
 	checking_for_round_end = 0;
 	checking_for_round_tie = 0;
 	level.isresetting_grief = 0;
+
 	while ( 1 )
 	{
 		cdc_alive = 0;
 		cia_alive = 0;
 		players = get_players();
 		i = 0;
+
 		while ( i < players.size )
 		{
 			if ( !isDefined( players[ i ]._encounters_team ) )
@@ -28,19 +30,23 @@ wait_for_team_death_and_round_end()
 				i++;
 				continue;
 			}
+
 			if ( players[ i ]._encounters_team == "A" )
 			{
 				if ( is_player_valid( players[ i ] ) )
 				{
 					cia_alive++;
 				}
+
 				i++;
 				continue;
 			}
+
 			if ( is_player_valid( players[ i ] ) )
 			{
 				cdc_alive++;
 			}
+
 			i++;
 		}
 
@@ -126,6 +132,7 @@ round_end(winner)
 	level endon("end_game");
 
 	team = undefined;
+
 	if(isDefined(winner))
 	{
 		if(winner == "A")
@@ -144,6 +151,7 @@ round_end(winner)
 	}
 
 	players = get_players();
+
 	foreach(player in players)
 	{
 		// don't spawn tombstone powerup on next down
@@ -213,18 +221,22 @@ game_won(winner)
 	level.zombie_vars[ "spectators_respawn" ] = 0;
 	players = get_players();
 	i = 0;
+
 	while ( i < players.size )
 	{
 		players[ i ] freezecontrols( 1 );
+
 		if ( players[ i ]._encounters_team == winner )
 		{
 			players[ i ] thread maps\mp\zombies\_zm_audio_announcer::leaderdialogonplayer( "grief_won" );
 			i++;
 			continue;
 		}
+
 		players[ i ] thread maps\mp\zombies\_zm_audio_announcer::leaderdialogonplayer( "grief_lost" );
 		i++;
 	}
+
 	level notify( "game_module_ended", winner );
 	level._game_module_game_end_check = undefined;
 	maps\mp\gametypes_zm\_zm_gametype::track_encounters_win_stats( level.gamemodulewinningteam );
@@ -242,6 +254,7 @@ zombie_goto_round(target_round)
 
 	level.zombie_total = 0;
 	zombies = get_round_enemy_array();
+
 	if ( isDefined( zombies ) )
 	{
 		for ( i = 0; i < zombies.size; i++ )
@@ -270,6 +283,7 @@ player_respawn_award()
 {
 	maps\mp\zombies\_zm::award_grenades_for_survivors();
 	players = get_players();
+
 	foreach(player in players)
 	{
 		if(player.score < level.player_starting_points)

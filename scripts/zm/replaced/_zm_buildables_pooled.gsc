@@ -57,6 +57,7 @@ randomize_pooled_buildables( poolname )
 			for ( i = 0; i < count; i++ )
 			{
 				rand = randomint(count);
+
 				if ( rand != i )
 				{
 					swap_buildable_fields( level.buildablepools[poolname].stubs[i], level.buildablepools[poolname].stubs[rand] );
@@ -499,9 +500,11 @@ pooled_buildable_place_think()
 pooled_buildable_place_update_all()
 {
 	players = get_players();
+
 	foreach ( player in players )
 	{
 		num = player getentitynumber();
+
 		if ( isDefined( self.stub.playertrigger[num] ) )
 		{
 			self.stub.playertrigger[num] notify( "kill_trigger" );

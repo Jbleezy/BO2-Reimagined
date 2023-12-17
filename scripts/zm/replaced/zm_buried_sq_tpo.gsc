@@ -72,6 +72,7 @@ stage_logic_richtofen()
 		flag_clear( "sq_tpo_time_bomb_in_valid_location" );
 
 		b_time_bomb_in_valid_location = 0;
+
 		while (1)
 		{
 			if ( isdefined( level.time_bomb_save_data ) && isdefined( level.time_bomb_save_data.time_bomb_model ) )
@@ -136,6 +137,7 @@ special_round_end()
 	scripts\zm\replaced\_zm_weap_time_bomb::time_bomb_detonation();
 
 	a_players = get_players();
+
 	foreach ( player in a_players )
 	{
 		vsmgr_deactivate( "visionset", "cheat_bw", player );

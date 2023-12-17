@@ -12,6 +12,7 @@ revive_do_revive( playerbeingrevived, revivergun )
 	playerbeingrevived_player = playerbeingrevived;
 	playerbeingrevived_player.revive_hud.y = -160;
 	beingrevivedprogressbar_y = level.primaryprogressbary * -1;
+
 	if ( isDefined( playerbeingrevived.e_chugabud_player ) )
 	{
 		playerbeingrevived_player = playerbeingrevived.e_chugabud_player;
@@ -258,6 +259,7 @@ laststand_clean_up_reviving_any( playerbeingrevived )
 	playerbeingrevived waittill_any( "disconnect", "zombified", "stop_revive_trigger", "chugabud_effects_cleanup" );
 
 	self.is_reviving_any--;
+
 	if ( self.is_reviving_any < 0 )
 	{
 		self.is_reviving_any = 0;
@@ -290,6 +292,7 @@ laststand_clean_up_reviving_any( playerbeingrevived )
 revive_give_back_weapons( gun )
 {
 	revive_tool = level.revive_tool;
+
 	if ( is_true( self.afterlife ) )
 	{
 		revive_tool = level.afterlife_revive_tool;
@@ -326,6 +329,7 @@ revive_give_back_weapons( gun )
 	else
 	{
 		primaryweapons = self getweaponslistprimaries();
+
 		if ( isDefined( primaryweapons ) && primaryweapons.size > 0 )
 		{
 			self switchtoweapon( primaryweapons[ 0 ] );
@@ -340,13 +344,16 @@ revive_hud_think()
 	while ( 1 )
 	{
 		wait 0.1;
+
 		if ( !maps\mp\zombies\_zm_laststand::player_any_player_in_laststand() )
 		{
 			continue;
 		}
+
 		players = get_players();
 		playertorevive = undefined;
 		i = 0;
+
 		while ( i < players.size )
 		{
 			if ( !isDefined( players[ i ].revivetrigger ) || !isDefined( players[ i ].revivetrigger.createtime ) )
@@ -354,15 +361,19 @@ revive_hud_think()
 				i++;
 				continue;
 			}
+
 			if ( !isDefined( playertorevive ) || playertorevive.revivetrigger.createtime > players[ i ].revivetrigger.createtime )
 			{
 				playertorevive = players[ i ];
 			}
+
 			i++;
 		}
+
 		if ( isDefined( playertorevive ) )
 		{
 			i = 0;
+
 			while ( i < players.size )
 			{
 				if ( players[ i ] maps\mp\zombies\_zm_laststand::player_is_in_laststand() )
@@ -370,6 +381,7 @@ revive_hud_think()
 					i++;
 					continue;
 				}
+
 				if ( getDvar( "g_gametype" ) == "vs" )
 				{
 					if ( players[ i ].team != playertorevive.team )
@@ -378,6 +390,7 @@ revive_hud_think()
 						continue;
 					}
 				}
+
 				if ( is_encounter() )
 				{
 					if ( players[ i ].sessionteam != playertorevive.sessionteam )
@@ -385,15 +398,18 @@ revive_hud_think()
 						i++;
 						continue;
 					}
+
 					if ( is_true( level.hide_revive_message ) )
 					{
 						i++;
 						continue;
 					}
 				}
+
 				players[ i ] thread maps\mp\zombies\_zm_laststand::faderevivemessageover( playertorevive, 3 );
 				i++;
 			}
+
 			playertorevive.revivetrigger.createtime = undefined;
 		}
 	}
@@ -440,6 +456,7 @@ auto_revive( reviver, dont_enable_weapons )
 	self.laststand = undefined;
 
 	valid_reviver = 1;
+
 	if ( is_gametype_active( "zgrief" ) && reviver == self )
 	{
 		valid_reviver = 0;

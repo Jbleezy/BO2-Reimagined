@@ -9,17 +9,21 @@ add_to_player_score( points, add_to_total )
 	{
 		add_to_total = 1;
 	}
+
 	if ( !isDefined( points ) || level.intermission )
 	{
 		return;
 	}
+
 	points = int(points); // points must be an int
 	self.score += points;
 	self.pers[ "score" ] = self.score;
+
 	if ( add_to_total )
 	{
 		self.score_total += points;
 	}
+
 	self incrementplayerstat( "score", points );
 }
 
@@ -29,6 +33,7 @@ minus_to_player_score( points )
 	{
 		return;
 	}
+
 	points = int(points); // points must be an int
 	self.score -= points;
 	self.pers[ "score" ] = self.score;
@@ -60,6 +65,7 @@ player_add_points_kill_bonus( mod, hit_location )
 				self score_cf_increment_info( "death_head" );
 				score = level.zombie_vars["zombie_score_bonus_head"];
 				break;
+
 			default:
 				self score_cf_increment_info( "death_normal" );
 				break;

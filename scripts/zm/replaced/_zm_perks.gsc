@@ -154,6 +154,7 @@ vending_trigger_think()
 		case "specialty_armorvest":
 			cost = 2500;
 			break;
+
 		case "specialty_quickrevive_upgrade":
 		case "specialty_quickrevive":
 			if ( solo )
@@ -162,22 +163,27 @@ vending_trigger_think()
 				cost = 1500;
 
 			break;
+
 		case "specialty_fastreload_upgrade":
 		case "specialty_fastreload":
 			cost = 3000;
 			break;
+
 		case "specialty_rof_upgrade":
 		case "specialty_rof":
 			cost = 2000;
 			break;
+
 		case "specialty_longersprint_upgrade":
 		case "specialty_longersprint":
 			cost = 2000;
 			break;
+
 		case "specialty_deadshot_upgrade":
 		case "specialty_deadshot":
 			cost = 1500;
 			break;
+
 		case "specialty_additionalprimaryweapon_upgrade":
 		case "specialty_additionalprimaryweapon":
 			cost = 4000;
@@ -215,6 +221,7 @@ vending_trigger_think()
 		case "specialty_armorvest":
 			self sethintstring( &"ZOMBIE_PERK_JUGGERNAUT", cost );
 			break;
+
 		case "specialty_quickrevive_upgrade":
 		case "specialty_quickrevive":
 			if ( solo )
@@ -223,34 +230,42 @@ vending_trigger_think()
 				self sethintstring( &"ZOMBIE_PERK_QUICKREVIVE", cost );
 
 			break;
+
 		case "specialty_fastreload_upgrade":
 		case "specialty_fastreload":
 			self sethintstring( &"ZOMBIE_PERK_FASTRELOAD", cost );
 			break;
+
 		case "specialty_rof_upgrade":
 		case "specialty_rof":
 			self sethintstring( &"ZOMBIE_PERK_DOUBLETAP", cost );
 			break;
+
 		case "specialty_longersprint_upgrade":
 		case "specialty_longersprint":
 			self sethintstring( &"ZOMBIE_PERK_MARATHON", cost );
 			break;
+
 		case "specialty_deadshot_upgrade":
 		case "specialty_deadshot":
 			self sethintstring( &"ZOMBIE_PERK_DEADSHOT", cost );
 			break;
+
 		case "specialty_additionalprimaryweapon_upgrade":
 		case "specialty_additionalprimaryweapon":
 			self sethintstring( &"ZOMBIE_PERK_ADDITIONALPRIMARYWEAPON", cost );
 			break;
+
 		case "specialty_scavenger_upgrade":
 		case "specialty_scavenger":
 			self sethintstring( &"ZOMBIE_PERK_TOMBSTONE", cost );
 			break;
+
 		case "specialty_finalstand_upgrade":
 		case "specialty_finalstand":
 			self sethintstring( &"ZOMBIE_PERK_CHUGABUD", cost );
 			break;
+
 		default:
 			self sethintstring( perk + " Cost: " + level.zombie_vars["zombie_perk_cost"] );
 	}
@@ -393,40 +408,49 @@ perk_give_bottle_end( gun, perk )
 		case "specialty_rof":
 			weapon = level.machine_assets["doubletap"].weapon;
 			break;
+
 		case "specialty_longersprint_upgrade":
 		case "specialty_longersprint":
 			weapon = level.machine_assets["marathon"].weapon;
 			break;
+
 		case "specialty_flakjacket_upgrade":
 		case "specialty_flakjacket":
 			weapon = level.machine_assets["divetonuke"].weapon;
 			break;
+
 		case "specialty_armorvest_upgrade":
 		case "specialty_armorvest":
 			weapon = level.machine_assets["juggernog"].weapon;
 			self.jugg_used = 1;
 			break;
+
 		case "specialty_quickrevive_upgrade":
 		case "specialty_quickrevive":
 			weapon = level.machine_assets["revive"].weapon;
 			break;
+
 		case "specialty_fastreload_upgrade":
 		case "specialty_fastreload":
 			weapon = level.machine_assets["speedcola"].weapon;
 			self.speed_used = 1;
 			break;
+
 		case "specialty_deadshot_upgrade":
 		case "specialty_deadshot":
 			weapon = level.machine_assets["deadshot"].weapon;
 			break;
+
 		case "specialty_additionalprimaryweapon_upgrade":
 		case "specialty_additionalprimaryweapon":
 			weapon = level.machine_assets["additionalprimaryweapon"].weapon;
 			break;
+
 		case "specialty_scavenger_upgrade":
 		case "specialty_scavenger":
 			weapon = level.machine_assets["tombstone"].weapon;
 			break;
+
 		case "specialty_finalstand_upgrade":
 		case "specialty_finalstand":
 			weapon = level.machine_assets["whoswho"].weapon;
@@ -676,6 +700,7 @@ destroy_weapon_in_blackout( player )
 		{
 			self.worldgun.worldgundw delete();
 		}
+
 		self.worldgun delete();
 	}
 
@@ -686,9 +711,11 @@ give_perk( perk, bought )
 {
 	self setperk( perk );
 	self.num_perks++;
+
 	if ( isDefined( bought ) && bought )
 	{
 		self maps\mp\zombies\_zm_audio::playerexert( "burp" );
+
 		if ( isDefined( level.remove_perk_vo_delay ) && level.remove_perk_vo_delay )
 		{
 			self maps\mp\zombies\_zm_audio::perk_vox( perk );
@@ -697,9 +724,12 @@ give_perk( perk, bought )
 		{
 			self delay_thread( 1.5, maps\mp\zombies\_zm_audio::perk_vox, perk );
 		}
+
 		self notify( "perk_bought" );
 	}
+
 	self perk_set_max_health_if_jugg( perk, 1, 0 );
+
 	if ( isDefined( level.disable_deadshot_clientfield ) && !level.disable_deadshot_clientfield )
 	{
 		if ( perk == "specialty_deadshot" )
@@ -714,18 +744,23 @@ give_perk( perk, bought )
 			}
 		}
 	}
+
 	if ( perk == "specialty_scavenger" )
 	{
 		self.hasperkspecialtytombstone = 1;
 	}
+
 	players = get_players();
+
 	if ( use_solo_revive() && perk == "specialty_quickrevive" )
 	{
 		self.lives = 1;
+
 		if ( !isDefined( level.solo_lives_given ) )
 		{
 			level.solo_lives_given = 0;
 		}
+
 		if ( isDefined( level.solo_game_free_player_quickrevive ) )
 		{
 			level.solo_game_free_player_quickrevive = undefined;
@@ -734,40 +769,50 @@ give_perk( perk, bought )
 		{
 			level.solo_lives_given++;
 		}
+
 		if ( level.solo_lives_given >= 3 )
 		{
 			flag_set( "solo_revive" );
 		}
+
 		self thread solo_revive_buy_trigger_move( perk );
 	}
+
 	if ( perk == "specialty_finalstand" )
 	{
 		self.hasperkspecialtychugabud = 1;
 		self notify( "perk_chugabud_activated" );
 	}
+
 	if ( perk == "specialty_additionalprimaryweapon" )
 	{
 		self scripts\zm\replaced\_zm::restore_additionalprimaryweapon();
 	}
+
 	if ( isDefined( level._custom_perks[ perk ] ) && isDefined( level._custom_perks[ perk ].player_thread_give ) )
 	{
 		self thread [[ level._custom_perks[ perk ].player_thread_give ]]();
 	}
+
 	self set_perk_clientfield( perk, 1 );
 	maps\mp\_demo::bookmark( "zm_player_perk", getTime(), self );
 	self maps\mp\zombies\_zm_stats::increment_client_stat( "perks_drank" );
 	self maps\mp\zombies\_zm_stats::increment_client_stat( perk + "_drank" );
 	self maps\mp\zombies\_zm_stats::increment_player_stat( perk + "_drank" );
 	self maps\mp\zombies\_zm_stats::increment_player_stat( "perks_drank" );
+
 	if ( !isDefined( self.perk_history ) )
 	{
 		self.perk_history = [];
 	}
+
 	self.perk_history = add_to_array( self.perk_history, perk, 0 );
+
 	if ( !isDefined( self.perks_active ) )
 	{
 		self.perks_active = [];
 	}
+
 	self.perks_active[ self.perks_active.size ] = perk;
 	self notify( "perk_acquired" );
 	self thread perk_think( perk );
@@ -780,10 +825,12 @@ perk_think( perk )
 	perk_str = perk + "_stop";
 	result = self waittill_any_return( "fake_death", "death", "player_downed", perk_str );
 	do_retain = 1;
+
 	if ( use_solo_revive() && perk == "specialty_quickrevive" )
 	{
 		do_retain = 0;
 	}
+
 	if ( do_retain )
 	{
 		if ( is_true( self._retain_perks ) )
@@ -795,6 +842,7 @@ perk_think( perk )
 			return;
 		}
 	}
+
 	self unsetperk( perk );
 	self.num_perks--;
 
@@ -803,43 +851,55 @@ perk_think( perk )
 		case "specialty_armorvest":
 			self setmaxhealth( self.premaxhealth );
 			break;
+
 		case "specialty_additionalprimaryweapon":
 			if ( result == perk_str )
 			{
 				self maps\mp\zombies\_zm::take_additionalprimaryweapon();
 			}
+
 			break;
+
 		case "specialty_deadshot":
 			if ( !is_true( level.disable_deadshot_clientfield ) )
 			{
 				self setclientfieldtoplayer( "deadshot_perk", 0 );
 			}
+
 			break;
+
 		case "specialty_deadshot_upgrade":
 			if ( !is_true( level.disable_deadshot_clientfield ) )
 			{
 				self setclientfieldtoplayer( "deadshot_perk", 0 );
 			}
+
 			break;
 	}
+
 	if ( isDefined( level._custom_perks[ perk ] ) && isDefined( level._custom_perks[ perk ].player_thread_take ) )
 	{
 		self thread [[ level._custom_perks[ perk ].player_thread_take ]]();
 	}
+
 	self set_perk_clientfield( perk, 0 );
 	self.perk_purchased = undefined;
+
 	if ( isDefined( level.perk_lost_func ) )
 	{
 		self [[ level.perk_lost_func ]]( perk );
 	}
+
 	if ( isDefined( self.perks_active ) && isinarray( self.perks_active, perk ) )
 	{
 		arrayremovevalue( self.perks_active, perk, 0 );
 	}
+
 	if ( isDefined( self.disabled_perks ) && isDefined( self.disabled_perks[perk] ) )
 	{
 		self.disabled_perks[perk] = undefined;
 	}
+
 	self notify( "perk_lost" );
 }
 
@@ -926,33 +986,43 @@ set_perk_clientfield( perk, state )
 		case "specialty_additionalprimaryweapon":
 			self setclientfieldtoplayer( "perk_additional_primary_weapon", state );
 			break;
+
 		case "specialty_deadshot":
 			self setclientfieldtoplayer( "perk_dead_shot", state );
 			break;
+
 		case "specialty_flakjacket":
 			self setclientfieldtoplayer( "perk_dive_to_nuke", state );
 			break;
+
 		case "specialty_rof":
 			self setclientfieldtoplayer( "perk_double_tap", state );
 			break;
+
 		case "specialty_armorvest":
 			self setclientfieldtoplayer( "perk_juggernaut", state );
 			break;
+
 		case "specialty_movefaster":
 			self setclientfieldtoplayer( "perk_marathon", state );
 			break;
+
 		case "specialty_quickrevive":
 			self setclientfieldtoplayer( "perk_quick_revive", state );
 			break;
+
 		case "specialty_fastreload":
 			self setclientfieldtoplayer( "perk_sleight_of_hand", state );
 			break;
+
 		case "specialty_scavenger":
 			self setclientfieldtoplayer( "perk_tombstone", state );
 			break;
+
 		case "specialty_finalstand":
 			self setclientfieldtoplayer( "perk_chugabud", state );
 			break;
+
 		default:
 			break;
 	}
@@ -1024,6 +1094,7 @@ remove_pap_machine()
 	exceptions = array("specialty_armorvest", "specialty_fastreload");
 
 	structs = getStructArray("zm_perk_machine", "targetname");
+
 	foreach(struct in structs)
 	{
 		if(isDefined(struct.script_noteworthy) && struct.script_noteworthy == "specialty_weapupgrade")
@@ -1063,6 +1134,7 @@ move_perk_machine(map, location, perk, move_struct)
 	if(isDefined(move_struct.script_string))
 	{
 		gametypes = strTok(move_struct.script_string, " ");
+
 		foreach(gametype in gametypes)
 		{
 			perk_struct.script_string += " " + gametype + "_perks_" + location;
@@ -1104,15 +1176,18 @@ turn_movefaster_on()
 		machine = getentarray( "vending_marathon", "targetname" );
 		machine_triggers = getentarray( "vending_marathon", "target" );
 		i = 0;
+
 		while ( i < machine.size )
 		{
 			machine[ i ] setmodel( level.machine_assets[ "marathon" ].off_model );
 			i++;
 		}
+
 		array_thread( machine_triggers, ::set_power_on, 0 );
 		level thread do_initial_power_off_callback( machine, "marathon" );
 		level waittill( "marathon_on" );
 		i = 0;
+
 		while ( i < machine.size )
 		{
 			machine[ i ] setmodel( level.machine_assets[ "marathon" ].on_model );
@@ -1122,17 +1197,22 @@ turn_movefaster_on()
 			machine[ i ] thread play_loop_on_machine();
 			i++;
 		}
+
 		level notify( "specialty_movefaster_power_on" );
 		array_thread( machine_triggers, ::set_power_on, 1 );
+
 		if ( isDefined( level.machine_assets[ "marathon" ].power_on_callback ) )
 		{
 			array_thread( machine, level.machine_assets[ "marathon" ].power_on_callback );
 		}
+
 		level waittill( "marathon_off" );
+
 		if ( isDefined( level.machine_assets[ "marathon" ].power_off_callback ) )
 		{
 			array_thread( machine, level.machine_assets[ "marathon" ].power_off_callback );
 		}
+
 		array_thread( machine, ::turn_perk_off );
 	}
 }

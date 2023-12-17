@@ -93,15 +93,18 @@ buried_special_weapon_magicbox_check(weapon)
 	{
 		players = get_players();
 		i = 0;
+
 		while ( i < players.size )
 		{
 			if ( is_player_valid( players[ i ], undefined, 1 ) && players[ i ] is_player_tactical_grenade( weapon ) )
 			{
 				return 0;
 			}
+
 			i++;
 		}
 	}
+
 	return 1;
 }
 
@@ -117,6 +120,7 @@ player_initial_spawn_override()
 		// set new initial spawns to be same as respawns already on map
 		ind = 0;
 		respawn_points = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
+
 		for (i = 0; i < respawn_points.size; i++)
 		{
 			if (respawn_points[i].script_noteworthy == "zone_stables")
@@ -127,6 +131,7 @@ player_initial_spawn_override()
 		}
 
 		respawn_array = getstructarray(respawn_points[ind].target, "targetname");
+
 		foreach (respawn in respawn_array)
 		{
 			struct = spawnStruct();
@@ -204,6 +209,7 @@ sloth_barricades_buyable()
 	}
 
 	sloth_trigs = getentarray( "sloth_barricade", "targetname" );
+
 	foreach (trig in sloth_trigs)
 	{
 		if (isDefined(trig.script_noteworthy) && trig.script_noteworthy == "courtyard_fountain")
@@ -316,6 +322,7 @@ sloth_barricade_move()
 
 	num = randomintrange( 3, 5 );
 	og_angles = self.angles;
+
 	for ( i = 0; i < num; i++ )
 	{
 		angles = og_angles + ( -5 + randomfloat( 10 ), -5 + randomfloat( 10 ), -5 + randomfloat( 10 ) );

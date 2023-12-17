@@ -28,6 +28,7 @@ stage_logic()
 	}
 
 	a_zombies = getaispeciesarray( level.zombie_team, "all" );
+
 	foreach ( zombie in a_zombies )
 	{
 		if ( is_point_in_chamber( zombie.origin ) && !is_true( zombie.is_mechz ) && is_true( zombie.has_legs ) && is_true( zombie.completed_emerging_into_playable_area ) )
@@ -49,6 +50,7 @@ stage_logic()
 	}
 
 	players = get_players();
+
 	foreach ( player in players )
 	{
 		if ( is_player_valid( player ) )

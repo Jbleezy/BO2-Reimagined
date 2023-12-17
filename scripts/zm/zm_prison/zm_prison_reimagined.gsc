@@ -89,6 +89,7 @@ door_changes()
 	num = 0;
 	targets = getentarray( "cellblock_start_door", "targetname" );
 	zombie_doors = getentarray( "zombie_door", "targetname" );
+
 	for ( i = 0; i < zombie_doors.size; i++ )
 	{
 		if ( isdefined( zombie_doors[i].target ) && zombie_doors[i].target == "cellblock_start_door" )
@@ -115,18 +116,22 @@ check_for_special_weapon_limit_exist(weapon)
 	{
 		return 1;
 	}
+
 	players = get_players();
 	count = 0;
+
 	if ( weapon == "blundergat_zm" )
 	{
 		if ( self maps\mp\zombies\_zm_weapons::has_weapon_or_upgrade( "blundersplat_zm" ) )
 		{
 			return 0;
 		}
+
 		if ( self afterlife_weapon_limit_check( "blundergat_zm" ) )
 		{
 			return 0;
 		}
+
 		limit = level.limited_weapons[ "blundergat_zm" ];
 	}
 	else
@@ -135,9 +140,12 @@ check_for_special_weapon_limit_exist(weapon)
 		{
 			return 0;
 		}
+
 		limit = level.limited_weapons[ "minigun_alcatraz_zm" ];
 	}
+
 	i = 0;
+
 	while ( i < players.size )
 	{
 		if ( weapon == "blundergat_zm" )
@@ -156,12 +164,15 @@ check_for_special_weapon_limit_exist(weapon)
 				count++;
 			}
 		}
+
 		i++;
 	}
+
 	if ( count >= limit )
 	{
 		return 0;
 	}
+
 	return 1;
 }
 
@@ -778,6 +789,7 @@ working_zone_init()
 		add_adjacent_zone( "zone_cellblock_west_gondola", "zone_cellblock_west_gondola_dock", "activate_cellblock_gondola" );
 		add_adjacent_zone( "zone_cellblock_west_gondola", "zone_cellblock_west_gondola_dock", "gondola_dock_to_roof" );
 	}
+
 	// else if ( is_gametype_active( "zgrief" ) )
 	// {
 	//     playable_area = getentarray( "player_volume", "script_noteworthy" );

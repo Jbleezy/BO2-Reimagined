@@ -125,10 +125,12 @@ maxis_sidequest_c()
 	flag_waitopen( "power_on" );
 	level endon( "power_on" );
 	level.sq_progress["maxis"]["C_screecher_dark"] = 0;
+
 	for(i = 0; i < 8; i++)
 	{
 		level.sq_progress["maxis"]["C_screecher_" + i] = undefined;
 	}
+
 	level.sq_progress["maxis"]["C_complete"] = 0;
 	turbine_1_talked = 0;
 	turbine_2_talked = 0;
@@ -151,6 +153,7 @@ maxis_sidequest_c()
 						player.buildableturbine thread turbine_watch_cleanup();
 
 						zone_used = 0;
+
 						for(i = 0; i < 8; i++)
 						{
 							if ( isdefined( level.sq_progress["maxis"]["C_screecher_" + i] ) && zone == level.sq_progress["maxis"]["C_screecher_" + i] )
@@ -283,6 +286,7 @@ droppowerup( story )
 	level thread scripts\zm\replaced\_zm_sq::sq_complete_time_hud();
 
 	players = get_players();
+
 	foreach ( player in players )
 	{
 		if ( is_player_valid( player ) )

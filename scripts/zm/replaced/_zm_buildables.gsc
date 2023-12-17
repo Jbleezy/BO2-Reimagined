@@ -14,6 +14,7 @@ buildable_place_think()
 {
 	self endon( "kill_trigger" );
 	player_built = undefined;
+
 	while ( isDefined( self.stub.built ) && !self.stub.built )
 	{
 		self waittill( "trigger", player );
@@ -24,24 +25,29 @@ buildable_place_think()
 		{
 			continue;
 		}
+
 		if ( isDefined( player.screecher_weapon ) )
 		{
 			continue;
 		}
+
 		if ( !is_player_valid( player ) )
 		{
 			player thread ignore_triggers( 0.5 );
 		}
 
 		status = player player_can_build( self.stub.buildablezone );
+
 		if ( !status )
 		{
 			self.stub.hint_string = "";
 			self sethintstring( self.stub.hint_string );
+
 			if ( isDefined( self.stub.oncantuse ) )
 			{
 				self.stub [[ self.stub.oncantuse ]]( player );
 			}
+
 			continue;
 		}
 		else
@@ -50,12 +56,15 @@ buildable_place_think()
 			{
 				self.stub [[ self.stub.onbeginuse ]]( player );
 			}
+
 			result = self buildable_use_hold_think( player );
 			team = player.pers[ "team" ];
+
 			if ( isDefined( self.stub.onenduse ) )
 			{
 				self.stub [[ self.stub.onenduse ]]( team, player, result );
 			}
+
 			if ( !result )
 			{
 				continue;
@@ -70,6 +79,7 @@ buildable_place_think()
 			{
 				self.stub [[ self.stub.onuse ]]( player );
 			}
+
 			prompt = player maps\mp\zombies\_zm_buildables::player_build( self.stub.buildablezone );
 			player_built = player;
 			self.stub.hint_string = prompt;

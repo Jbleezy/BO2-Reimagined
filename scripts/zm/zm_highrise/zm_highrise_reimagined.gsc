@@ -57,9 +57,11 @@ init()
 door_changes()
 {
 	zombie_doors = getentarray( "zombie_door", "targetname" );
+
 	for ( i = 0; i < zombie_doors.size; i++ )
 	{
 		new_target = undefined;
+
 		if (zombie_doors[i].target == "pf1577_auto2497")
 		{
 			new_target = "pf1577_auto2496";
@@ -89,16 +91,20 @@ zombie_init_done()
 	self.zombie_path_bad = 0;
 	self thread maps\mp\zm_highrise_distance_tracking::escaped_zombies_cleanup_init();
 	self thread maps\mp\zm_highrise::elevator_traverse_watcher();
+
 	if ( self.classname == "actor_zm_highrise_basic_03" )
 	{
 		health_bonus = int( self.maxhealth * 0.05 );
 		self.maxhealth += health_bonus;
+
 		if ( self.headmodel == "c_zom_zombie_chinese_head3_helmet" )
 		{
 			self.maxhealth += health_bonus;
 		}
+
 		self.health = self.maxhealth;
 	}
+
 	self setphysparams( 15, 0, 48 );
 }
 
@@ -126,12 +132,14 @@ highrise_respawn_override( revivee, return_struct )
 				if ( isDefined( spawn_points[ j ].script_noteworthy ) )
 				{
 					zone = level.zones[ spawn_points[ j ].script_noteworthy ];
+
 					for ( k = 0; k < zone.volumes.size; k++ )
 					{
 						if ( players[ i ] istouching( zone.volumes[ k ] ) )
 						{
 							closest_group = j;
 							spawn_location = maps\mp\zombies\_zm::get_valid_spawn_location( revivee, spawn_points, closest_group, return_struct );
+
 							if ( isDefined( spawn_location ) )
 							{
 								return spawn_location;
@@ -246,6 +254,7 @@ elevator_call_think()
 	while ( 1 )
 	{
 		cost_active = 0;
+
 		if ( !self.elevator.body.is_moving && self.elevator maps\mp\zm_highrise_elevators::elevator_is_on_floor( self.floor ) && !is_true( self.elevator.body.start_location_wait ) )
 		{
 			if ( !is_true( self.elevator.body.elevator_stop ) )

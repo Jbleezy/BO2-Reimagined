@@ -16,6 +16,7 @@ struct_init()
 
 	ind = 0;
 	respawnpoints = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
+
 	for(i = 0; i < respawnpoints.size; i++)
 	{
 		if(respawnpoints[i].script_noteworthy == "zone_gas")
@@ -29,6 +30,7 @@ struct_init()
 	scripts\zm\replaced\utility::register_map_spawn_group( respawnpoints[ind].origin, zone, respawnpoints[ind].script_int );
 
 	respawn_array = getstructarray(respawnpoints[ind].target, "targetname");
+
 	foreach(respawn in respawn_array)
 	{
 		if(respawn.script_int == 2)
@@ -64,6 +66,7 @@ struct_init()
 	scripts\zm\replaced\utility::register_map_spawn( (-5895, -6984, -30), (0, 0, 0), zone );
 
 	gameObjects = getEntArray( "script_model", "classname" );
+
 	foreach ( object in gameObjects )
 	{
 		if ( isDefined( object.script_noteworthy ) && object.script_noteworthy == getDvar( "ui_zm_mapstartlocation" ) )
@@ -188,6 +191,7 @@ disable_zombie_spawn_locations()
 		zone = level.zones[ level.zone_keys[ z ] ];
 
 		i = 0;
+
 		while ( i < zone.spawn_locations.size )
 		{
 			if ( zone.spawn_locations[ i ].targetname == "zone_trans_diner_spawners")

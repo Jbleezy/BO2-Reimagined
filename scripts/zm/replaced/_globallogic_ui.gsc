@@ -41,6 +41,7 @@ get_assigned_team()
 	teamplayers["allies"] = 0;
 
 	players = get_players();
+
 	foreach ( player in players )
 	{
 		if ( !isDefined(player.team) || (player.team != "axis" && player.team != "allies") )
@@ -59,6 +60,7 @@ get_assigned_team()
 	if ( teamplayers["axis"] <= teamplayers["allies"] )
 	{
 		guids = strTok(getDvar("team_axis"), " ");
+
 		foreach ( guid in guids )
 		{
 			if ( self getguid() == int(guid) )
@@ -66,6 +68,7 @@ get_assigned_team()
 				arrayRemoveValue(guids, guid);
 
 				guid_text = "";
+
 				foreach (guid in guids)
 				{
 					guid_text += guid + " ";
@@ -81,6 +84,7 @@ get_assigned_team()
 	if ( teamplayers["allies"] <= teamplayers["axis"] )
 	{
 		guids = strTok(getDvar("team_allies"), " ");
+
 		foreach ( guid in guids )
 		{
 			if ( self getguid() == int(guid) )
@@ -88,6 +92,7 @@ get_assigned_team()
 				arrayRemoveValue(guids, guid);
 
 				guid_text = "";
+
 				foreach (guid in guids)
 				{
 					guid_text += guid + " ";

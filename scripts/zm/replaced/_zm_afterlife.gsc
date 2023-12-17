@@ -92,6 +92,7 @@ afterlife_add()
 		self.lives++;
 		self thread afterlife_add_fx();
 	}
+
 	self playsoundtoplayer( "zmb_afterlife_add", self );
 	self setclientfieldtoplayer( "player_lives", self.lives );
 }
@@ -101,10 +102,12 @@ afterlife_start_zombie_logic()
 	flag_wait( "start_zombie_round_logic" );
 	wait 0.5;
 	everyone_alive = 0;
+
 	while ( isDefined( everyone_alive ) && !everyone_alive )
 	{
 		everyone_alive = 1;
 		players = getplayers();
+
 		foreach (player in players)
 		{
 			if ( isDefined( player.afterlife ) && player.afterlife )
@@ -115,11 +118,14 @@ afterlife_start_zombie_logic()
 			}
 		}
 	}
+
 	wait 0.5;
+
 	while ( level.intermission )
 	{
 		wait 0.05;
 	}
+
 	flag_set( "afterlife_start_over" );
 	wait 2;
 	array_func( getplayers(), ::afterlife_add );
@@ -296,6 +302,7 @@ afterlife_revive_do_revive( playerbeingrevived, revivergun )
 	playerbeingrevived_player = playerbeingrevived;
 	playerbeingrevived_player.revive_hud.y = -160;
 	beingrevivedprogressbar_y = level.primaryprogressbary * -1;
+
 	if ( isDefined( playerbeingrevived.e_afterlife_player ) )
 	{
 		playerbeingrevived_player = playerbeingrevived.e_afterlife_player;

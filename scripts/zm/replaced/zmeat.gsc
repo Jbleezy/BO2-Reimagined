@@ -57,6 +57,7 @@ item_meat_on_spawn_retrieve_trigger( watcher, player, weaponname )
 	}
 
 	players = get_players();
+
 	foreach (other_player in players)
 	{
 		other_player thread maps\mp\gametypes_zm\zgrief::meat_stink_player_cleanup();

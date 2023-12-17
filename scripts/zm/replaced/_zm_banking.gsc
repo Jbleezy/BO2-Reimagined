@@ -6,10 +6,12 @@
 init()
 {
 	onplayerconnect_callback( ::onplayerconnect_bank_deposit_box );
+
 	if ( !isDefined( level.ta_vaultfee ) )
 	{
 		level.ta_vaultfee = 100;
 	}
+
 	if ( !isDefined( level.ta_tellerfee ) )
 	{
 		level.ta_tellerfee = 100;
@@ -31,6 +33,7 @@ gain_interest_after_rounds()
 		level waittill("end_of_round");
 
 		self.account_value *= 1.1;
+
 		if(self.account_value > level.bank_account_max)
 		{
 			self.account_value = level.bank_account_max;
@@ -65,13 +68,16 @@ bank_withdraw_unitrigger()
 trigger_deposit_think()
 {
 	self endon( "kill_trigger" );
+
 	while ( 1 )
 	{
 		self waittill( "trigger", player );
+
 		while ( !is_player_valid( player ) )
 		{
 			continue;
 		}
+
 		if ( player.account_value < level.bank_account_max )
 		{
 			account_value = level.bank_account_increment;
@@ -93,10 +99,12 @@ trigger_deposit_think()
 			player playsoundtoplayer( "zmb_vault_bank_deposit", player );
 			player.score -= score;
 			player.account_value += account_value;
+
 			if ( isDefined( level.custom_bank_deposit_vo ) )
 			{
 				player thread [[ level.custom_bank_deposit_vo ]]();
 			}
+
 			if ( (player.score <= 0) || (player.account_value >= level.bank_account_max) )
 			{
 				self sethintstring( "" );
@@ -106,6 +114,7 @@ trigger_deposit_think()
 		{
 			player thread do_player_general_vox( "general", "exert_sigh", 10, 50 );
 		}
+
 		self thread show_balance(player);
 	}
 }
@@ -113,13 +122,16 @@ trigger_deposit_think()
 trigger_withdraw_think()
 {
 	self endon( "kill_trigger" );
+
 	while ( 1 )
 	{
 		self waittill( "trigger", player );
+
 		while ( !is_player_valid( player ) )
 		{
 			continue;
 		}
+
 		if ( player.account_value > 0 )
 		{
 			score = level.bank_deposit_ddl_increment_amount;
@@ -135,6 +147,7 @@ trigger_withdraw_think()
 			player.score += score;
 			level notify( "bank_withdrawal" );
 			player.account_value -= account_value;
+
 			if ( isDefined( level.custom_bank_withdrawl_vo ) )
 			{
 				player thread [[ level.custom_bank_withdrawl_vo ]]();
@@ -143,6 +156,7 @@ trigger_withdraw_think()
 			{
 				player thread do_player_general_vox( "general", "exert_laugh", 10, 50 );
 			}
+
 			if ( player.account_value <= 0 )
 			{
 				self sethintstring( "" );
@@ -152,6 +166,7 @@ trigger_withdraw_think()
 		{
 			player thread do_player_general_vox( "general", "exert_sigh", 10, 50 );
 		}
+
 		self thread show_balance(player);
 	}
 }
@@ -159,11 +174,13 @@ trigger_withdraw_think()
 trigger_deposit_update_prompt( player )
 {
 	self thread show_balance(player);
+
 	if ( (player.score <= 0) || (player.account_value >= level.bank_account_max) )
 	{
 		self sethintstring( "" );
 		return 0;
 	}
+
 	self sethintstring( &"ZOMBIE_BANK_DEPOSIT_PROMPT", level.bank_deposit_ddl_increment_amount );
 	return 1;
 }
@@ -171,11 +188,13 @@ trigger_deposit_update_prompt( player )
 trigger_withdraw_update_prompt( player )
 {
 	self thread show_balance(player);
+
 	if ( player.account_value <= 0 )
 	{
 		self sethintstring( "" );
 		return 0;
 	}
+
 	self sethintstring( &"ZOMBIE_BANK_WITHDRAW_PROMPT", level.bank_deposit_ddl_increment_amount, level.ta_vaultfee );
 	return 1;
 }

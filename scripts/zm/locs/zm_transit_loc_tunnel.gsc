@@ -98,6 +98,7 @@ disable_zombie_spawn_locations()
 		zone = level.zones[ level.zone_keys[ z ] ];
 
 		i = 0;
+
 		while ( i < zone.spawn_locations.size )
 		{
 			if ( zone.spawn_locations[ i ].origin == ( -11447, -3424, 254.2 ) )

@@ -144,6 +144,7 @@ emp_players(origin, radius, owner)
 {
 	rsquared = radius * radius;
 	players = get_players();
+
 	foreach(player in players)
 	{
 		if(distancesquared(origin, player.origin) < rsquared)
@@ -167,6 +168,7 @@ player_emp_fx(time)
 	self endon("player_perk_pause_timeout");
 
 	wait_time = 2.5;
+
 	for(i = 0; i < time; i += wait_time)
 	{
 		playfxontag( level._effect[ "elec_torso" ], self, "J_SpineLower" );
@@ -208,6 +210,7 @@ player_perk_pause_all_perks_acquired(time)
 player_perk_pause_all_perks()
 {
 	vending_triggers = getentarray( "zombie_vending", "targetname" );
+
 	foreach ( trigger in vending_triggers )
 	{
 		self player_perk_pause( trigger.script_noteworthy );
@@ -219,6 +222,7 @@ player_perk_unpause_all_perks()
 	self notify("player_perk_pause_timeout");
 
 	vending_triggers = getentarray( "zombie_vending", "targetname" );
+
 	foreach ( trigger in vending_triggers )
 	{
 		self player_perk_unpause( trigger.script_noteworthy );
@@ -238,30 +242,37 @@ player_perk_pause( perk )
 	{
 		self.disabled_perks = [];
 	}
+
 	if ( !is_true( self.disabled_perks[ perk ] ) && self hasperk( perk ) )
 	{
 		self.disabled_perks[ perk ] = 1;
 	}
+
 	if ( self.disabled_perks[ perk ] )
 	{
 		self unsetperk( perk );
 		self maps\mp\zombies\_zm_perks::set_perk_clientfield( perk, 2 );
+
 		if ( perk == "specialty_armorvest" || perk == "specialty_armorvest_upgrade" )
 		{
 			self setmaxhealth( self.premaxhealth );
+
 			if ( self.health > self.maxhealth )
 			{
 				self.health = self.maxhealth;
 			}
 		}
+
 		if ( perk == "specialty_additionalprimaryweapon" || perk == "specialty_additionalprimaryweapon_upgrade" )
 		{
 			self maps\mp\zombies\_zm::take_additionalprimaryweapon();
 		}
+
 		if ( issubstr( perk, "specialty_scavenger" ) )
 		{
 			self.hasperkspecialtytombstone = 0;
 		}
+
 		if ( isDefined( level._custom_perks[ perk ] ) && isDefined( level._custom_perks[ perk ].player_thread_take ) )
 		{
 			self thread [[ level._custom_perks[ perk ].player_thread_take ]]();
@@ -288,11 +299,14 @@ player_perk_unpause( perk )
 		self.disabled_perks[ perk ] = undefined;
 		self maps\mp\zombies\_zm_perks::set_perk_clientfield( perk, 1 );
 		self setperk( perk );
+
 		if ( issubstr( perk, "specialty_scavenger" ) )
 		{
 			self.hasperkspecialtytombstone = 1;
 		}
+
 		self maps\mp\zombies\_zm_perks::perk_set_max_health_if_jugg( perk, 0, 0 );
+
 		if ( isDefined( level._custom_perks[ perk ] ) && isDefined( level._custom_perks[ perk ].player_thread_give ) )
 		{
 			self thread [[ level._custom_perks[ perk ].player_thread_give ]]();

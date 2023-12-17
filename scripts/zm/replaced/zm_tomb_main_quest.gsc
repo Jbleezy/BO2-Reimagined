@@ -380,6 +380,7 @@ insert_staff_hint_charger(player, enum)
 	self.playertrigger[num] endon("death");
 
 	element = "";
+
 	if (enum == 1)
 	{
 		element = "Fire";
@@ -564,6 +565,7 @@ run_gramophone_teleporter( str_vinyl_record )
 	}
 
 	arrayremovevalue(level.gramophone_teleporter_triggers, t_gramophone);
+
 	foreach (trigger in level.gramophone_teleporter_triggers)
 	{
 		if (trigger != t_gramophone)

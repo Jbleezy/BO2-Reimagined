@@ -102,6 +102,7 @@ tomb_special_weapon_magicbox_check(weapon)
 			return 0;
 		}
 	}
+
 	if ( isDefined( level.zombie_weapons[ weapon ].shared_ammo_weapon ) )
 	{
 		if ( self maps\mp\zombies\_zm_weapons::has_weapon_or_upgrade( level.zombie_weapons[ weapon ].shared_ammo_weapon ) )
@@ -109,6 +110,7 @@ tomb_special_weapon_magicbox_check(weapon)
 			return 0;
 		}
 	}
+
 	return 1;
 }
 
@@ -125,24 +127,28 @@ register_melee_weapons_for_level()
 change_stargate_teleport_return_player_angles()
 {
 	struct = getstructarray( "air_teleport_return", "targetname" );
+
 	foreach (pos in struct)
 	{
 		pos.angles = (0, -120, 0);
 	}
 
 	struct = getstructarray( "elec_teleport_return", "targetname" );
+
 	foreach (pos in struct)
 	{
 		pos.angles = (0, 0, 0);
 	}
 
 	struct = getstructarray( "fire_teleport_return", "targetname" );
+
 	foreach (pos in struct)
 	{
 		pos.angles = (0, -130, 0);
 	}
 
 	struct = getstructarray( "ice_teleport_return", "targetname" );
+
 	foreach (pos in struct)
 	{
 		pos.angles = (0, -110, 0);
@@ -175,6 +181,7 @@ zombie_blood_dig_changes()
 		for (i = 0; i < level.a_zombie_blood_entities.size; i++)
 		{
 			ent = level.a_zombie_blood_entities[i];
+
 			if (IsDefined(ent.e_unique_player))
 			{
 				if (!isDefined(ent.e_unique_player.initial_zombie_blood_dig))
@@ -183,6 +190,7 @@ zombie_blood_dig_changes()
 				}
 
 				ent.e_unique_player.initial_zombie_blood_dig++;
+
 				if (ent.e_unique_player.initial_zombie_blood_dig <= 2)
 				{
 					ent setvisibletoplayer(ent.e_unique_player);
@@ -216,6 +224,7 @@ custom_magic_box_timer_til_despawn( magic_box )
 	v_float = anglesToForward( magic_box.angles - vectorScale( ( 0, 1, 0 ), 90 ) ) * 40;
 	self moveto( self.origin - ( v_float * 0.25 ), level.magicbox_timeout, level.magicbox_timeout * 0.5 );
 	wait level.magicbox_timeout;
+
 	if ( isDefined( self ) )
 	{
 		self delete();

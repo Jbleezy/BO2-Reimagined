@@ -28,6 +28,7 @@ on_spawn( watcher, player )
 		retrievable_model.angles = angles;
 		retrievable_model.name = watcher.weapon;
 		isfriendly = 0;
+
 		if ( isDefined( prey ) )
 		{
 			if ( isplayer( prey ) )
@@ -38,6 +39,7 @@ on_spawn( watcher, player )
 			{
 				isfriendly = 1;
 			}
+
 			if ( isfriendly )
 			{
 				retrievable_model physicslaunch( normal, ( randomint( 10 ), randomint( 10 ), randomint( 10 ) ) );
@@ -49,8 +51,10 @@ on_spawn( watcher, player )
 				retrievable_model thread force_drop_knives_to_ground_on_death( player, prey );
 			}
 		}
+
 		watcher.objectarray[ watcher.objectarray.size ] = retrievable_model;
 		retrievable_model thread drop_knives_to_ground( player );
+
 		if( isfriendly )
 		{
 			player notify( "ballistic_knife_stationary", retrievable_model, normal );
@@ -68,29 +72,36 @@ watch_use_trigger( trigger, model, callback, weapon, playersoundonuse, npcsoundo
 	self endon( "delete" );
 	level endon( "game_ended" );
 	autorecover = is_true( level.ballistic_knife_autorecover );
+
 	while ( 1 )
 	{
 		trigger waittill( "trigger", player );
+
 		if ( !isalive( player ) )
 		{
 			continue;
 		}
+
 		if ( isDefined( trigger.triggerteam ) && player.team != trigger.triggerteam )
 		{
 			continue;
 		}
+
 		if ( isDefined( trigger.claimedby ) && player != trigger.claimedby )
 		{
 			continue;
 		}
+
 		if ( isDefined( trigger.owner ) && player != trigger.owner )
 		{
 			continue;
 		}
+
 		if ( player getcurrentweapon() == weapon && player getweaponammostock( weapon ) >= weaponmaxammo( weapon ) )
 		{
 			continue;
 		}
+
 		if ( !autorecover && !is_true( trigger.force_pickup ) )
 		{
 			if( player.throwinggrenade || player meleebuttonpressed() )
@@ -98,14 +109,17 @@ watch_use_trigger( trigger, model, callback, weapon, playersoundonuse, npcsoundo
 				continue;
 			}
 		}
+
 		if ( isDefined( playersoundonuse ) )
 		{
 			player playlocalsound( playersoundonuse );
 		}
+
 		if ( isDefined( npcsoundonuse ) )
 		{
 			player playsound( npcsoundonuse );
 		}
+
 		player thread [[ callback ]]( weapon, model, trigger );
 		return;
 	}

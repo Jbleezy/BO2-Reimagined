@@ -78,12 +78,14 @@ reward_random_perk( player, s_stat )
 	}
 
 	perk = player.tomb_reward_perk;
+
 	if (!isDefined(perk))
 	{
 		return 0;
 	}
 
 	model = maps\mp\zombies\_zm_perk_random::get_perk_weapon_model(perk);
+
 	if (!isDefined(model))
 	{
 		return 0;
@@ -95,15 +97,18 @@ reward_random_perk( player, s_stat )
 	m_reward playsound( "zmb_spawn_powerup" );
 	m_reward playloopsound( "zmb_spawn_powerup_loop", 0.5 );
 	wait_network_frame();
+
 	if ( !maps\mp\zombies\_zm_challenges::reward_rise_and_grab( m_reward, 50, 2, 2, 10 ) )
 	{
 		return 0;
 	}
+
 	if ( player hasperk( perk ) || player maps\mp\zombies\_zm_perks::has_perk_paused( perk ) )
 	{
 		m_reward thread maps\mp\zm_tomb_challenges::bottle_reject_sink( player );
 		return 0;
 	}
+
 	m_reward stoploopsound( 0.1 );
 	player playsound( "zmb_powerup_grabbed" );
 	m_reward thread maps\mp\zombies\_zm_perks::vending_trigger_post_think( player, perk );
@@ -114,9 +119,11 @@ reward_random_perk( player, s_stat )
 get_random_perk()
 {
 	perks = [];
+
 	for (i = 0; i < level._random_perk_machine_perk_list.size; i++)
 	{
 		perk = level._random_perk_machine_perk_list[ i ];
+
 		if ( isDefined( self.perk_purchased ) && self.perk_purchased == perk )
 		{
 			continue;
@@ -129,6 +136,7 @@ get_random_perk()
 			}
 		}
 	}
+
 	if ( perks.size > 0 )
 	{
 		perks = array_randomize( perks );

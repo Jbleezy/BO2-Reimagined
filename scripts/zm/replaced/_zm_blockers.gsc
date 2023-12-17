@@ -186,10 +186,12 @@ handle_post_board_repair_rewards( cost, zbarrier )
 {
 	self maps\mp\zombies\_zm_stats::increment_client_stat( "boards" );
 	self maps\mp\zombies\_zm_stats::increment_player_stat( "boards" );
+
 	if ( isDefined( self.pers[ "boards" ] ) && ( self.pers[ "boards" ] % 10 ) == 0 )
 	{
 		self thread do_player_general_vox( "general", "reboard", 90 );
 	}
+
 	self maps\mp\zombies\_zm_pers_upgrades_functions::pers_boards_updated( zbarrier );
 	self.rebuild_barrier_reward += cost;
 

@@ -48,6 +48,7 @@ check_range_attack()
 avogadro_exit( from )
 {
 	powerup_origin = spawn( "script_origin", self.origin );
+
 	if ( self.state == "attacking_bus" || self.state == "stay_attached" )
 	{
 		powerup_origin linkto( level.the_bus );

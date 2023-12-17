@@ -16,9 +16,11 @@ inert_wakeup()
 	{
 		current_time = getTime();
 		players = get_players();
+
 		foreach ( player in players )
 		{
 			dist_sq = distancesquared( self.origin, player.origin );
+
 			if ( dist_sq < 4096 )
 			{
 				self maps\mp\zombies\_zm_ai_basic::stop_inert();

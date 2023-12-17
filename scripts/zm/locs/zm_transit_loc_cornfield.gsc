@@ -15,6 +15,7 @@ struct_init()
 
 	zone_respawnpoints = [];
 	respawnpoints = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
+
 	for (i = 0; i < respawnpoints.size; i++)
 	{
 		if (isDefined(respawnpoints[i].script_noteworthy) && respawnpoints[i].script_noteworthy == "zone_amb_cornfield")
@@ -37,6 +38,7 @@ struct_init()
 	scripts\zm\replaced\utility::register_map_spawn_group( zone_respawnpoints[zone].origin, zone, zone_respawnpoints[zone].script_int );
 
 	respawn_array = getstructarray(zone_respawnpoints[zone].target, "targetname");
+
 	foreach(respawn in respawn_array)
 	{
 		scripts\zm\replaced\utility::register_map_spawn( respawn.origin + (100, 0, 0), respawn.angles, zone, respawn.script_int );
@@ -55,6 +57,7 @@ struct_init()
 	scripts\zm\replaced\utility::register_map_spawn( (10036, -967, -186), (0, 0, 0), zone );
 
 	structs = getstructarray( "game_mode_object", "targetname" );
+
 	foreach ( struct in structs )
 	{
 		if ( isDefined( struct.script_noteworthy ) && struct.script_noteworthy == "cornfield" )
@@ -240,6 +243,7 @@ disable_zombie_spawn_locations()
 		zone = level.zones[ level.zone_keys[ z ] ];
 
 		i = 0;
+
 		while ( i < zone.spawn_locations.size )
 		{
 			if (zone.spawn_locations[i].origin[0] <= 9700)

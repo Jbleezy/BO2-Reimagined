@@ -118,6 +118,7 @@ screecher_spawning_logic()
 screecher_melee_damage( player )
 {
 	melee_score = 0;
+
 	if ( player hasweapon( "tazer_knuckles_zm" ) )
 	{
 		melee_score = 30;

@@ -236,6 +236,7 @@ chugabud_give_loadout()
 	}
 
 	weapons_given = 0;
+
 	for ( i = 0; i < loadout.weapons.size; i++ )
 	{
 		if ( !isdefined( loadout.weapons[i] ) )
@@ -247,6 +248,7 @@ chugabud_give_loadout()
 		self maps\mp\zombies\_zm_weapons::weapondata_give( loadout.weapons[i] );
 
 		weapons_given++;
+
 		if (weapons_given >= 2)
 		{
 			break;
@@ -299,6 +301,7 @@ chugabud_give_perks()
 			maps\mp\zombies\_zm_perks::give_perk( loadout.perks[i] );
 		}
 	}
+
 	self.loadout.perks = undefined;
 }
 

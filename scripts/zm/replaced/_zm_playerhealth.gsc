@@ -38,16 +38,19 @@ playerhealthregen()
 	healthoverlaycutoff = 0.2;
 
 	self thread maps\mp\zombies\_zm_playerhealth::playerhurtcheck();
+
 	if ( !isDefined( self.veryhurt ) )
 	{
 		self.veryhurt = 0;
 	}
+
 	self.bolthit = 0;
 
 	if ( getDvar( "scr_playerInvulTimeScale" ) == "" )
 	{
 		setdvar( "scr_playerInvulTimeScale", 1 );
 	}
+
 	playerinvultimescale = getDvarFloat( "scr_playerInvulTimeScale" );
 
 	for ( ;; )
@@ -73,6 +76,7 @@ playerhealthregen()
 			{
 				player_flag_clear( "player_has_red_flashing_overlay" );
 			}
+
 			lastinvulratio = 1;
 			playerjustgotredflashing = 0;
 			veryhurt = 0;
@@ -93,6 +97,7 @@ playerhealthregen()
 		if ( self.health <= 50 )
 		{
 			veryhurt = 1;
+
 			if ( !wasveryhurt )
 			{
 				hurttime = getTime();
@@ -117,6 +122,7 @@ playerhealthregen()
 			{
 				self.veryhurt = veryhurt;
 				newhealth = health_ratio;
+
 				if ( veryhurt )
 				{
 					if ( ( getTime() - hurttime ) >= longregendelay )
@@ -173,6 +179,7 @@ playerhealthregen()
 			{
 				self player_flag_set( "player_is_invulnerable" );
 				level notify( "player_becoming_invulnerable" );
+
 				if ( playerjustgotredflashing )
 				{
 					invultime = level.invultime_onshield;
@@ -186,6 +193,7 @@ playerhealthregen()
 				{
 					invultime = level.invultime_preshield;
 				}
+
 				invultime *= playerinvultimescale;
 				lastinvulratio = self.health / self.maxhealth;
 				self thread maps\mp\zombies\_zm_playerhealth::playerinvul( invultime );

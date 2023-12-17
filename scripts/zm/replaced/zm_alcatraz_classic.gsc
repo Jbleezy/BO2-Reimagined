@@ -12,6 +12,7 @@ give_afterlife()
 	wait 0.5;
 	start_pos = 1;
 	players = getplayers();
+
 	foreach ( player in players )
 	{
 		if ( isDefined( player.afterlife ) && !player.afterlife )

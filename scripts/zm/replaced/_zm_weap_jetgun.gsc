@@ -96,51 +96,64 @@ jetgun_check_enemies_in_range( zombie, view_pos, drag_range_squared, gib_range_s
 	{
 		return;
 	}
+
 	if ( zombie enemy_killed_by_jetgun() )
 	{
 		return;
 	}
+
 	if ( isDefined( zombie.is_avogadro ) && zombie.is_avogadro )
 	{
 		return;
 	}
+
 	if ( isDefined( zombie.isdog ) && zombie.isdog )
 	{
 		return;
 	}
+
 	if ( isDefined( zombie.isscreecher ) && zombie.isscreecher )
 	{
 		return;
 	}
+
 	if ( isDefined( self.animname ) && self.animname == "quad_zombie" )
 	{
 		return;
 	}
+
 	test_origin = zombie getcentroid();
 	test_range_squared = distancesquared( view_pos, test_origin );
+
 	if ( test_range_squared > drag_range_squared )
 	{
 		zombie jetgun_debug_print( "range", ( 1, 0, 1 ) );
 		return;
 	}
+
 	normal = vectornormalize( test_origin - view_pos );
 	dot = vectordot( forward_view_angles, normal );
+
 	if ( abs( dot ) < 0.7 )
 	{
 		zombie jetgun_debug_print( "dot", ( 1, 0, 1 ) );
 		return;
 	}
+
 	radial_origin = pointonsegmentnearesttopoint( view_pos, end_pos, test_origin );
+
 	if ( distancesquared( test_origin, radial_origin ) > cylinder_radius_squared )
 	{
 		zombie jetgun_debug_print( "cylinder", ( 1, 0, 1 ) );
 		return;
 	}
+
 	if ( zombie damageconetrace( view_pos, self ) == 0 )
 	{
 		zombie jetgun_debug_print( "cone", ( 1, 0, 1 ) );
 		return;
 	}
+
 	if ( test_range_squared < grind_range_squared )
 	{
 		level.jetgun_fling_enemies[ level.jetgun_fling_enemies.size ] = zombie;
@@ -152,6 +165,7 @@ jetgun_check_enemies_in_range( zombie, view_pos, drag_range_squared, gib_range_s
 		{
 			return;
 		}
+
 		if ( isDefined( zombie.in_the_ground ) && zombie.in_the_ground )
 		{
 			return;
@@ -169,10 +183,12 @@ jetgun_grind_zombie( player )
 	player endon( "death" );
 	player endon( "disconnect" );
 	self endon( "death" );
+
 	if ( !isDefined( self.jetgun_grind ) )
 	{
 		self.jetgun_grind = 1;
 		self notify( "grinding" );
+
 		if ( is_mature() )
 		{
 			if ( isDefined( level._effect[ "zombie_guts_explosion" ] ) )
@@ -180,6 +196,7 @@ jetgun_grind_zombie( player )
 				playfx( level._effect[ "zombie_guts_explosion" ], self gettagorigin( "J_SpineLower" ) );
 			}
 		}
+
 		self.nodeathragdoll = 1;
 		self.handle_death_notetracks = ::jetgun_handle_death_notetracks;
 		player maps\mp\zombies\_zm_score::add_to_player_score(50 * maps\mp\zombies\_zm_score::get_points_multiplier(player));
@@ -190,6 +207,7 @@ jetgun_grind_zombie( player )
 handle_overheated_jetgun()
 {
 	self endon( "disconnect" );
+
 	while ( 1 )
 	{
 		self waittill( "jetgun_overheated" );

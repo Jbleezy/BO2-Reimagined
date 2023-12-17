@@ -23,6 +23,7 @@ init_anim_slice_times()
 	animlength = getanimlength( %o_zmb_chopper_slice_slow );
 
 	i = 0;
+
 	foreach ( frac in slice_times )
 	{
 		if ( i != 6 )
@@ -36,6 +37,7 @@ init_anim_slice_times()
 	}
 
 	i = 0;
+
 	foreach ( frac in retract_times )
 	{
 		if ( i == 0 || i == 6 )

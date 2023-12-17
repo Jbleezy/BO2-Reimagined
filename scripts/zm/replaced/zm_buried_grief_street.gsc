@@ -85,6 +85,7 @@ main()
 enemy_location_override( zombie, enemy )
 {
 	location = enemy.origin;
+
 	if ( isDefined( self.reroute ) && self.reroute )
 	{
 		if ( isDefined( self.reroute_origin ) )
@@ -92,6 +93,7 @@ enemy_location_override( zombie, enemy )
 			location = self.reroute_origin;
 		}
 	}
+
 	return location;
 }
 
@@ -131,6 +133,7 @@ builddynamicwallbuy( location, weaponname )
 		if ( isDefined( wallbuy.script_location ) && wallbuy.script_location == location )
 		{
 			spawned_wallbuy = undefined;
+
 			for ( i = 0; i < level._spawned_wallbuys.size; i++ )
 			{
 				if ( level._spawned_wallbuys[ i ].target == wallbuy.targetname )
@@ -157,6 +160,7 @@ builddynamicwallbuy( location, weaponname )
 				}
 
 				struct = spawnStruct();
+
 				struct.target = wallbuy.targetname;
 				level._spawned_wallbuys[level._spawned_wallbuys.size] = struct;
 
@@ -274,6 +278,7 @@ disable_tunnels()
 	// player spawns
 	invalid_zones = array("zone_start", "zone_tunnels_center", "zone_tunnels_north", "zone_tunnels_south");
 	spawn_points = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
+
 	foreach(spawn_point in spawn_points)
 	{
 		if(isinarray(invalid_zones, spawn_point.script_noteworthy))

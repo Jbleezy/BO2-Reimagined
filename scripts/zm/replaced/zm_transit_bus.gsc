@@ -159,6 +159,7 @@ busschedulethink()
 						zonestocheck[zonestocheck.size] = "zone_amb_bridge";
 						zonestocheck[zonestocheck.size] = "zone_trans_2b";
 						break;
+
 					case "zone_gas":
 						zonestocheck[zonestocheck.size] = "zone_trans_2";
 						zonestocheck[zonestocheck.size] = "zone_amb_tunnel";
@@ -171,6 +172,7 @@ busschedulethink()
 						zonestocheck[zonestocheck.size] = "zone_roadside_east";
 						zonestocheck[zonestocheck.size] = "zone_trans_3";
 						break;
+
 					case "zone_far":
 						zonestocheck[zonestocheck.size] = "zone_amb_forest";
 						zonestocheck[zonestocheck.size] = "zone_far_ext";
@@ -179,6 +181,7 @@ busschedulethink()
 						zonestocheck[zonestocheck.size] = "zone_trans_5";
 						zonestocheck[zonestocheck.size] = "zone_trans_6";
 						break;
+
 					case "zone_pow":
 						zonestocheck[zonestocheck.size] = "zone_trans_6";
 						zonestocheck[zonestocheck.size] = "zone_amb_cornfield";
@@ -188,6 +191,7 @@ busschedulethink()
 						zonestocheck[zonestocheck.size] = "zone_pcr";
 						zonestocheck[zonestocheck.size] = "zone_pow_warehouse";
 						break;
+
 					case "zone_town_north":
 						zonestocheck[zonestocheck.size] = "zone_trans_8";
 						zonestocheck[zonestocheck.size] = "zone_amb_power2town";
@@ -309,6 +313,7 @@ busshowleavinghud( time )
 	while (time > 0)
 	{
 		players = get_players();
+
 		foreach (player in players)
 		{
 			if (!isDefined(player.busleavehud))
@@ -345,6 +350,7 @@ busshowleavinghud( time )
 	}
 
 	players = get_players();
+
 	foreach (player in players)
 	{
 		if (isDefined(player.busleavehud))
@@ -360,6 +366,7 @@ busshowleavinghud_destroy_on_depart_early()
 	self waittill("depart_early");
 
 	players = get_players();
+
 	foreach (player in players)
 	{
 		if (isDefined(player.busleavehud))
@@ -544,6 +551,7 @@ buspathblockersetup()
 bus_buyable_weapon_unitrigger_setup(trig)
 {
 	unitrigger = undefined;
+
 	while (!isDefined(unitrigger))
 	{
 		for(i = 0; i < level._unitriggers.trigger_stubs.size; i++)

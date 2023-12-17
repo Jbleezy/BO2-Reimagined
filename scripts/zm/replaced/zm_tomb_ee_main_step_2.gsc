@@ -40,12 +40,15 @@ create_robot_head_trigger( unitrigger_stub )
 		case "fire":
 			m_sign showpart( "j_fire" );
 			break;
+
 		case "water":
 			m_sign showpart( "j_ice" );
 			break;
+
 		case "lightning":
 			m_sign showpart( "j_lightning" );
 			break;
+
 		case "air":
 			m_sign showpart( "j_wind" );
 			break;

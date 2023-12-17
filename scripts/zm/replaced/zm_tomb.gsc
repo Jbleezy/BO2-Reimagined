@@ -70,6 +70,7 @@ sndmeleewpn_isstaff( weapon )
 		case "staff_air_melee_zm":
 			isstaff = 1;
 			break;
+
 		default:
 			isstaff = 0;
 	}
@@ -120,6 +121,7 @@ tomb_can_track_ammo_custom( weap )
 		case "alcatraz_shield_zm":
 		case "tomb_shield_zm":
 			return false;
+
 		default:
 			if ( is_melee_weapon( weap ) || is_zombie_perk_bottle( weap ) || is_placeable_mine( weap ) || is_equipment( weap ) || issubstr( weap, "knife_ballistic_" ) || getsubstr( weap, 0, 3 ) == "gl_" || weaponfuellife( weap ) > 0 || weap == level.revive_tool )
 				return false;

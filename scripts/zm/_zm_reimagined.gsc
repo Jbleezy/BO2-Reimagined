@@ -490,6 +490,7 @@ health_bar_hud()
 
 	x = 5;
 	y = -104;
+
 	if (level.script == "zm_buried")
 	{
 		y -= 25;
@@ -580,6 +581,7 @@ shield_bar_hud()
 
 	x = 5;
 	y = -104;
+
 	if (level.script == "zm_buried")
 	{
 		y -= 25;
@@ -655,6 +657,7 @@ shield_bar_hud()
 		}
 
 		health = level.zombie_vars["riotshield_hit_points"] - self.shielddamagetaken;
+
 		if (health < 0)
 		{
 			health = 0;
@@ -664,6 +667,7 @@ shield_bar_hud()
 
 		offset_x = 0;
 		health_str = "" + self.health;
+
 		for(i = 0; i < health_str.size; i++)
 		{
 			if (health_str[i] == "1")
@@ -722,6 +726,7 @@ enemy_counter_hud()
 	while (1)
 	{
 		enemies = get_round_enemy_array().size + level.zombie_total;
+
 		if (level flag_exists("spawn_ghosts") && flag("spawn_ghosts"))
 		{
 			enemies = get_current_ghost_count();
@@ -970,6 +975,7 @@ zone_hud()
 
 	x = 5;
 	y = -119;
+
 	if (level.script == "zm_buried")
 	{
 		y -= 25;
@@ -2101,6 +2107,7 @@ bleedout_bar_hud_updatebar(hud)
 	for(i = 0; i < vars["num_intervals"]; i++)
 	{
 		vars["time"] = vars["bleedout_time"];
+
 		if(vars["time"] > vars["interval_time"])
 		{
 			vars["time"] = vars["interval_time"];
@@ -2109,6 +2116,7 @@ bleedout_bar_hud_updatebar(hud)
 		vars["frac"] = 0.99 - ((i + 1) * vars["interval_frac"]);
 
 		barwidth = int((hud.width * vars["frac"]) + 0.5);
+
 		if(barwidth < 1)
 		{
 			barwidth = 1;
@@ -2169,6 +2177,7 @@ last_stand_pistol_swap()
 	else if ( self.laststandpistol == "ray_gun_zm" || self.laststandpistol == "ray_gun_upgraded_zm" || self.laststandpistol == "raygun_mark2_zm" || self.laststandpistol == "raygun_mark2_upgraded_zm" || self.laststandpistol == level.default_solo_laststandpistol )
 	{
 		amt = ammoclip;
+
 		if ( self.hadpistol && amt > self.stored_weapon_info[self.laststandpistol].total_amt )
 		{
 			amt = self.stored_weapon_info[self.laststandpistol].total_amt;
@@ -2179,6 +2188,7 @@ last_stand_pistol_swap()
 	else
 	{
 		amt = ammoclip + doubleclip;
+
 		if ( self.hadpistol && amt > self.stored_weapon_info[self.laststandpistol].total_amt )
 		{
 			amt = self.stored_weapon_info[self.laststandpistol].total_amt;
@@ -2203,6 +2213,7 @@ last_stand_pistol_swap()
 	}
 
 	clip_amt_add = weaponclipsize( self.laststandpistol ) - clip_amt_init;
+
 	if ( clip_amt_add > amt )
 	{
 		clip_amt_add = amt;
@@ -2215,6 +2226,7 @@ last_stand_pistol_swap()
 	if ( dual_wield_wep != "none" )
 	{
 		left_clip_amt_add = weaponclipsize( dual_wield_wep ) - left_clip_amt_init;
+
 		if ( left_clip_amt_add > amt )
 		{
 			left_clip_amt_add = amt;
@@ -2226,6 +2238,7 @@ last_stand_pistol_swap()
 	}
 
 	stock_amt = doubleclip;
+
 	if ( stock_amt > amt )
 	{
 		stock_amt = amt;
@@ -2239,6 +2252,7 @@ last_stand_pistol_swap()
 last_stand_restore_pistol_ammo(only_store_info = false)
 {
 	self.weapon_taken_by_losing_specialty_additionalprimaryweapon = undefined;
+
 	if ( !isDefined( self.stored_weapon_info ) )
 	{
 		return;
@@ -2247,9 +2261,11 @@ last_stand_restore_pistol_ammo(only_store_info = false)
 	weapon_inventory = self getweaponslist( 1 );
 	weapon_to_restore = getarraykeys( self.stored_weapon_info );
 	i = 0;
+
 	while ( i < weapon_inventory.size )
 	{
 		weapon = weapon_inventory[ i ];
+
 		if(weapon != self.laststandpistol)
 		{
 			i++;
@@ -2259,6 +2275,7 @@ last_stand_restore_pistol_ammo(only_store_info = false)
 		for ( j = 0; j < weapon_to_restore.size; j++ )
 		{
 			check_weapon = weapon_to_restore[ j ];
+
 			if ( weapon == check_weapon )
 			{
 				if (self.stored_weapon_info[ weapon ].given_amt == 0)
@@ -2277,10 +2294,12 @@ last_stand_restore_pistol_ammo(only_store_info = false)
 
 				last_clip = self getweaponammoclip( weapon );
 				last_left_clip = 0;
+
 				if( "none" != dual_wield_name )
 				{
 					last_left_clip = self getweaponammoclip( dual_wield_name );
 				}
+
 				last_stock = self getweaponammostock( weapon );
 				last_total = last_clip + last_left_clip + last_stock;
 
@@ -2348,6 +2367,7 @@ last_stand_restore_pistol_ammo(only_store_info = false)
 				break;
 			}
 		}
+
 		i++;
 	}
 }
@@ -2412,6 +2432,7 @@ set_lethal_grenade_init()
 swap_staminup_perk()
 {
 	vending_triggers = getentarray("zombie_vending", "targetname");
+
 	foreach (trigger in vending_triggers)
 	{
 		if (trigger.script_noteworthy == "specialty_longersprint")
@@ -2584,6 +2605,7 @@ disable_bank_teller()
 {
 	level notify( "stop_bank_teller" );
 	bank_teller_dmg_trig = getent( "bank_teller_tazer_trig", "targetname" );
+
 	if(IsDefined(bank_teller_dmg_trig))
 	{
 		bank_teller_transfer_trig = getent( bank_teller_dmg_trig.target, "targetname" );
@@ -2651,6 +2673,7 @@ add_wallbuy( name, script_noteworthy )
 	spawnable_weapon_spawns = arraycombine( spawnable_weapon_spawns, getstructarray( "tazer_upgrade", "targetname" ), 1, 0 );
 	spawnable_weapon_spawns = arraycombine( spawnable_weapon_spawns, getstructarray( "buildable_wallbuy", "targetname" ), 1, 0 );
 	spawnable_weapon_spawns = arraycombine( spawnable_weapon_spawns, getstructarray( "claymore_purchase", "targetname" ), 1, 0 );
+
 	for(i = 0; i < spawnable_weapon_spawns.size; i++)
 	{
 		if(IsDefined(spawnable_weapon_spawns[i].zombie_weapon_upgrade) && spawnable_weapon_spawns[i].zombie_weapon_upgrade == name)
@@ -2661,6 +2684,7 @@ add_wallbuy( name, script_noteworthy )
 			}
 
 			struct = spawnable_weapon_spawns[i];
+
 			break;
 		}
 	}
@@ -2777,6 +2801,7 @@ weapon_inspect_watcher()
 		vars["curr_wep"] = self getCurrentWeapon();
 
 		vars["is_primary"] = 0;
+
 		foreach(wep in self getWeaponsListPrimaries())
 		{
 			if(wep == vars["curr_wep"])
@@ -2866,6 +2891,7 @@ buildbuildables()
 buildbuildable( buildable, craft = 0, solo_pool = 0, onuse )
 {
 	player = get_players()[0];
+
 	foreach (stub in level.buildable_stubs)
 	{
 		if ( !isDefined( buildable ) || stub.equipname == buildable )
@@ -3029,10 +3055,12 @@ removebuildable( buildable, poolname )
 				if ( isDefined( buildable ) || stub.persistent != 3 )
 				{
 					stub maps\mp\zombies\_zm_buildables::buildablestub_remove();
+
 					foreach (piece in stub.buildablezone.pieces)
 					{
 						piece maps\mp\zombies\_zm_buildables::piece_unspawn();
 					}
+
 					maps\mp\zombies\_zm_unitrigger::unregister_unitrigger( stub );
 					return;
 				}
@@ -3116,6 +3144,7 @@ buildcraftables()
 takecraftableparts( buildable )
 {
 	player = get_players()[ 0 ];
+
 	foreach (stub in level.zombie_include_craftables)
 	{
 		if ( stub.name == buildable )
@@ -3123,6 +3152,7 @@ takecraftableparts( buildable )
 			foreach (piece in stub.a_piecestubs)
 			{
 				piecespawn = piece.piecespawn;
+
 				if ( isDefined( piecespawn ) )
 				{
 					player player_take_piece( piecespawn );
@@ -3137,6 +3167,7 @@ takecraftableparts( buildable )
 buildcraftable( buildable )
 {
 	player = get_players()[ 0 ];
+
 	foreach (stub in level.a_uts_craftables)
 	{
 		if ( stub.craftablestub.name == buildable )
@@ -3144,6 +3175,7 @@ buildcraftable( buildable )
 			foreach (piece in stub.craftablespawn.a_piecespawns)
 			{
 				piecespawn = get_craftable_piece( stub.craftablestub.name, piece.piecename );
+
 				if ( isDefined( piecespawn ) )
 				{
 					player player_take_piece( piecespawn );
@@ -3216,11 +3248,14 @@ piece_unspawn()
 	{
 		self.model delete();
 	}
+
 	self.model = undefined;
+
 	if ( isDefined( self.unitrigger ) )
 	{
 		thread maps\mp\zombies\_zm_unitrigger::unregister_unitrigger( self.unitrigger );
 	}
+
 	self.unitrigger = undefined;
 }
 
@@ -3231,10 +3266,12 @@ remove_buildable_pieces( buildable_name )
 		if(IsDefined(buildable.name) && buildable.name == buildable_name)
 		{
 			pieces = buildable.buildablepieces;
+
 			for(i = 0; i < pieces.size; i++)
 			{
 				pieces[i] maps\mp\zombies\_zm_buildables::piece_unspawn();
 			}
+
 			return;
 		}
 	}
@@ -3380,6 +3417,7 @@ tombstone_emp()
 	while ( 1 )
 	{
 		level waittill( "emp_detonate", origin, radius );
+
 		if ( distancesquared( origin, self.origin ) < ( radius * radius ) )
 		{
 			playfx( level._effect[ "powerup_off" ], self.origin );
@@ -3425,6 +3463,7 @@ tombstone_grab()
 	{
 		players = get_players();
 		i = 0;
+
 		while ( i < players.size )
 		{
 			if ( players[ i ].is_zombie )
@@ -3437,6 +3476,7 @@ tombstone_grab()
 				if ( isDefined( self.player ) && players[ i ] == self.player )
 				{
 					dist = distance( players[ i ].origin, self.origin );
+
 					if ( dist < 64 )
 					{
 						playfx( level._effect[ "powerup_grabbed_solo" ], self.origin );
@@ -3454,8 +3494,10 @@ tombstone_grab()
 					}
 				}
 			}
+
 			i++;
 		}
+
 		wait_network_frame();
 	}
 }
@@ -3504,20 +3546,24 @@ tombstone_save()
 		alt_wep = weaponAltWeaponName(wep);
 
 		clip_missing = weaponClipSize(wep) - self.tombstone_savedweapon_weaponsammo_clip[i];
+
 		if (clip_missing > self.tombstone_savedweapon_weaponsammo_stock[i])
 		{
 			clip_missing = self.tombstone_savedweapon_weaponsammo_stock[i];
 		}
+
 		self.tombstone_savedweapon_weaponsammo_clip[i] += clip_missing;
 		self.tombstone_savedweapon_weaponsammo_stock[i] -= clip_missing;
 
 		if (dualwield_wep != "none")
 		{
 			clip_dualwield_missing = weaponClipSize(dualwield_wep) - self.tombstone_savedweapon_weaponsammo_clip_dualwield[i];
+
 			if (clip_dualwield_missing > self.tombstone_savedweapon_weaponsammo_stock[i])
 			{
 				clip_dualwield_missing = self.tombstone_savedweapon_weaponsammo_stock[i];
 			}
+
 			self.tombstone_savedweapon_weaponsammo_clip_dualwield[i] += clip_dualwield_missing;
 			self.tombstone_savedweapon_weaponsammo_stock[i] -= clip_dualwield_missing;
 		}
@@ -3525,10 +3571,12 @@ tombstone_save()
 		if (alt_wep != "none")
 		{
 			clip_alt_missing = weaponClipSize(alt_wep) - self.tombstone_savedweapon_weaponsammo_clip_alt[i];
+
 			if (clip_alt_missing > self.tombstone_savedweapon_weaponsammo_stock_alt[i])
 			{
 				clip_alt_missing = self.tombstone_savedweapon_weaponsammo_stock_alt[i];
 			}
+
 			self.tombstone_savedweapon_weaponsammo_clip_alt[i] += clip_alt_missing;
 			self.tombstone_savedweapon_weaponsammo_stock_alt[i] -= clip_alt_missing;
 		}
@@ -3558,34 +3606,42 @@ tombstone_save()
 tombstone_save_perks( ent )
 {
 	perk_array = [];
+
 	if ( ent hasperk( "specialty_armorvest" ) )
 	{
 		perk_array[ perk_array.size ] = "specialty_armorvest";
 	}
+
 	if ( ent hasperk( "specialty_deadshot" ) )
 	{
 		perk_array[ perk_array.size ] = "specialty_deadshot";
 	}
+
 	if ( ent hasperk( "specialty_fastreload" ) )
 	{
 		perk_array[ perk_array.size ] = "specialty_fastreload";
 	}
+
 	if ( ent hasperk( "specialty_flakjacket" ) )
 	{
 		perk_array[ perk_array.size ] = "specialty_flakjacket";
 	}
+
 	if ( ent hasperk( "specialty_movefaster" ) )
 	{
 		perk_array[ perk_array.size ] = "specialty_movefaster";
 	}
+
 	if ( ent hasperk( "specialty_quickrevive" ) )
 	{
 		perk_array[ perk_array.size ] = "specialty_quickrevive";
 	}
+
 	if ( ent hasperk( "specialty_rof" ) )
 	{
 		perk_array[ perk_array.size ] = "specialty_rof";
 	}
+
 	return perk_array;
 }
 
@@ -3597,6 +3653,7 @@ tombstone_give()
 	}
 
 	primary_weapons = self getWeaponsListPrimaries();
+
 	foreach(weapon in primary_weapons)
 	{
 		self takeWeapon(weapon);
@@ -3609,6 +3666,7 @@ tombstone_give()
 
 	primary_weapons_returned = 0;
 	i = 0;
+
 	while ( i < self.tombstone_savedweapon_weapons.size )
 	{
 		if ( isdefined( self.tombstone_savedweapon_grenades ) && self.tombstone_savedweapon_weapons[ i ] == self.tombstone_savedweapon_grenades || ( isdefined( self.tombstone_savedweapon_tactical ) && self.tombstone_savedweapon_weapons[ i ] == self.tombstone_savedweapon_tactical ) )
@@ -3720,10 +3778,12 @@ tombstone_give()
 	}
 
 	current_wep = self getCurrentWeapon();
+
 	if(!isSubStr(current_wep, "perk_bottle") && !isSubStr(current_wep, "knuckle_crack") && !isSubStr(current_wep, "flourish") && !isSubStr(current_wep, "item_meat"))
 	{
 		switched = 0;
 		primaries = self getweaponslistprimaries();
+
 		foreach ( weapon in primaries )
 		{
 			if ( isDefined( self.tombstone_savedweapon_currentweapon ) && self.tombstone_savedweapon_currentweapon == weapon )
@@ -3745,6 +3805,7 @@ tombstone_give()
 	if ( isDefined( self.tombstone_perks ) && self.tombstone_perks.size > 0 )
 	{
 		i = 0;
+
 		while ( i < self.tombstone_perks.size )
 		{
 			if ( self hasperk( self.tombstone_perks[ i ] ) )
@@ -3866,12 +3927,14 @@ additionalprimaryweapon_stowed_weapon_refill()
 		if(self hasPerk("specialty_additionalprimaryweapon"))
 		{
 			vars["curr_wep"] = self getCurrentWeapon();
+
 			if(vars["curr_wep"] == "none")
 			{
 				continue;
 			}
 
 			primaries = self getWeaponsListPrimaries();
+
 			foreach(primary in primaries)
 			{
 				if(primary != maps\mp\zombies\_zm_weapons::get_nonalternate_weapon(vars["curr_wep"]))
@@ -3941,6 +4004,7 @@ refill_after_time(primary)
 	self setWeaponAmmoStock(primary, vars["ammo_stock"] - vars["missing_clip"]);
 
 	vars["dw_primary"] = weaponDualWieldWeaponName(primary);
+
 	if(vars["dw_primary"] != "none")
 	{
 		vars["ammo_clip"] = self getWeaponAmmoClip(vars["dw_primary"]);
@@ -3957,6 +4021,7 @@ refill_after_time(primary)
 	}
 
 	vars["alt_primary"] = weaponAltWeaponName(primary);
+
 	if(vars["alt_primary"] != "none")
 	{
 		vars["ammo_clip"] = self getWeaponAmmoClip(vars["alt_primary"]);
@@ -4044,6 +4109,7 @@ remove_status_icons_on_intermission()
 	level waittill("intermission");
 
 	players = get_players();
+
 	foreach(player in players)
 	{
 		player.statusicon = "";

@@ -73,6 +73,7 @@ robot_cycling()
 			{
 				do
 					random_number = randomint( 3 );
+
 				while ( random_number == last_robot );
 			}
 

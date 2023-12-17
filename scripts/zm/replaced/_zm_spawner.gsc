@@ -64,12 +64,14 @@ zombie_damage( mod, hit_location, hit_origin, player, amount, team )
 	if ( is_placeable_mine( self.damageweapon ) )
 	{
 		damage = level.round_number * 100;
+
 		if(level.scr_zm_ui_gametype == "zgrief")
 		{
 			damage = 2000;
 		}
 
 		max_damage = 9000;
+
 		if(damage > max_damage)
 		{
 			damage = max_damage;
@@ -91,12 +93,14 @@ zombie_damage( mod, hit_location, hit_origin, player, amount, team )
 	else if ( mod == "MOD_GRENADE" || mod == "MOD_GRENADE_SPLASH" )
 	{
 		damage = level.round_number * 25;
+
 		if(level.scr_zm_ui_gametype == "zgrief")
 		{
 			damage = 500;
 		}
 
 		max_damage = 1500;
+
 		if(damage > max_damage)
 		{
 			damage = max_damage;
@@ -116,12 +120,14 @@ zombie_damage( mod, hit_location, hit_origin, player, amount, team )
 	else if ( mod == "MOD_PROJECTILE" || mod == "MOD_PROJECTILE_SPLASH" || mod == "MOD_EXPLOSIVE" )
 	{
 		damage = level.round_number * 50;
+
 		if(level.scr_zm_ui_gametype == "zgrief")
 		{
 			damage = 1000;
 		}
 
 		max_damage = 3000;
+
 		if(damage > max_damage)
 		{
 			damage = max_damage;
@@ -142,6 +148,7 @@ zombie_damage( mod, hit_location, hit_origin, player, amount, team )
 		if ( isDefined( player ) )
 		{
 			rand = randomintrange( 0, 100 );
+
 			if ( rand < 10 )
 			{
 				player maps\mp\zombies\_zm_audio::create_and_play_dialog( "general", "crawl_spawn" );
@@ -157,6 +164,7 @@ zombie_damage( mod, hit_location, hit_origin, player, amount, team )
 				if ( isDefined( player ) )
 				{
 					rand = randomintrange( 0, 100 );
+
 					if ( rand < 7 )
 					{
 						player maps\mp\zombies\_zm_audio::create_and_play_dialog( "general", "shoot_arm" );
@@ -201,16 +209,19 @@ zombie_gib_on_damage()
 					refs[refs.size] = "guts";
 					refs[refs.size] = "right_arm";
 					break;
+
 				case "right_hand":
 				case "right_arm_upper":
 				case "right_arm_lower":
 					refs[refs.size] = "right_arm";
 					break;
+
 				case "left_hand":
 				case "left_arm_upper":
 				case "left_arm_lower":
 					refs[refs.size] = "left_arm";
 					break;
+
 				case "right_leg_upper":
 				case "right_leg_lower":
 				case "right_foot":
@@ -223,6 +234,7 @@ zombie_gib_on_damage()
 					}
 
 					break;
+
 				case "left_leg_upper":
 				case "left_leg_lower":
 				case "left_foot":
@@ -235,6 +247,7 @@ zombie_gib_on_damage()
 					}
 
 					break;
+
 				default:
 					if ( self.damagelocation == "none" )
 					{

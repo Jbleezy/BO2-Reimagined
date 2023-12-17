@@ -8,28 +8,34 @@ startturretdeploy( weapon )
 	self endon( "disconnect" );
 	self endon( "equip_turret_zm_taken" );
 	self thread maps\mp\zombies\_zm_equip_turret::watchforcleanup();
+
 	if ( !isDefined( self.turret_health ) )
 	{
 		self.turret_health = 30;
 	}
+
 	if ( isDefined( weapon ) )
 	{
 		weapon hide();
 		wait 0.1;
+
 		if ( isDefined( weapon.power_on ) && weapon.power_on )
 		{
 			weapon.turret notify( "stop_burst_fire_unmanned" );
 		}
+
 		if ( !isDefined( weapon ) )
 		{
 			return;
 		}
+
 		if ( isDefined( self.turret ) )
 		{
 			self.turret notify( "stop_burst_fire_unmanned" );
 			self.turret notify( "turret_deactivated" );
 			self.turret delete();
 		}
+
 		turret = spawnturret( "misc_turret", weapon.origin, "zombie_bullet_crouch_zm" );
 		turret.turrettype = "sentry";
 		turret setturrettype( turret.turrettype );
@@ -53,25 +59,30 @@ startturretdeploy( weapon )
 		weapon.turret = turret;
 		self.turret = turret;
 		weapon turret_power_on();
+
 		if ( weapon.power_on )
 		{
 			turret thread maps\mp\zombies\_zm_mgturret::burst_fire_unmanned();
 		}
+
 		self thread turretdecay( weapon );
 		self thread maps\mp\zombies\_zm_buildables::delete_on_disconnect( weapon );
 		weapon waittill("death");
+
 		if ( isDefined( self.buildableturret.sound_ent ) )
 		{
 			self.buildableturret.sound_ent playsound( "wpn_zmb_turret_stop" );
 			self.buildableturret.sound_ent delete();
 			self.buildableturret.sound_ent = undefined;
 		}
+
 		if ( isDefined( turret ) )
 		{
 			turret notify( "stop_burst_fire_unmanned" );
 			turret notify( "turret_deactivated" );
 			turret delete();
 		}
+
 		self.turret = undefined;
 		self notify( "turret_cleanup" );
 	}
@@ -82,10 +93,12 @@ turret_power_on()
 	self.power_on = 1;
 	self.turret thread maps\mp\zombies\_zm_mgturret::burst_fire_unmanned();
 	player = self.turret.owner;
+
 	if ( !isDefined( player.buildableturret.sound_ent ) )
 	{
 		player.buildableturret.sound_ent = spawn( "script_origin", self.turret.origin );
 	}
+
 	player.buildableturret.sound_ent playsound( "wpn_zmb_turret_start" );
 	player.buildableturret.sound_ent playloopsound( "wpn_zmb_turret_loop", 2 );
 }
@@ -95,6 +108,7 @@ turretdecay( weapon )
 	self endon( "death" );
 	self endon( "disconnect" );
 	self endon( "equip_turret_zm_taken" );
+
 	while ( isDefined( weapon ) )
 	{
 		if ( weapon.power_on )
@@ -109,6 +123,7 @@ turretdecay( weapon )
 				return;
 			}
 		}
+
 		wait 1;
 	}
 }

@@ -26,6 +26,7 @@ ows_targets_start()
 	}
 
 	players = get_players();
+
 	if ( level.targets_hit < ( 20 * players.size ) )
 	{
 		flag_set( "sq_ows_target_missed" );
@@ -45,6 +46,7 @@ ows_targets_start()
 ows_targets_spawn( a_spawn_spots )
 {
 	i = 0;
+
 	foreach ( s_spot in a_spawn_spots )
 	{
 		m_target = spawn( "script_model", s_spot.origin );

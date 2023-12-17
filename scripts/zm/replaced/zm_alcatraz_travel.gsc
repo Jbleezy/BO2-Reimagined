@@ -38,10 +38,12 @@ move_gondola( b_suppress_doors_close = 0 )
 	flag_clear( "gondola_at_" + e_gondola.location );
 
 	a_t_move = getentarray( "gondola_move_trigger", "targetname" );
+
 	foreach ( trigger in a_t_move )
 		trigger sethintstring( "" );
 
 	a_t_call = getentarray( "gondola_call_trigger", "targetname" );
+
 	foreach ( trigger in a_t_call )
 		trigger sethintstring( &"ZM_PRISON_GONDOLA_ACTIVE" );
 

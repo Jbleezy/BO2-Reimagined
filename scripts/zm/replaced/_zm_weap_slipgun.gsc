@@ -109,6 +109,7 @@ explode_into_goo( player, chain_depth )
 		self.goo_chain_depth = chain_depth;
 
 	chain_radius = level.zombie_vars["slipgun_chain_radius"];
+
 	if ( is_true( self.goo_upgraded ) )
 	{
 		chain_radius *= 1.5;

@@ -141,6 +141,7 @@ electric_door_changes()
 	}
 
 	zombie_doors = getentarray( "zombie_door", "targetname" );
+
 	for ( i = 0; i < zombie_doors.size; i++ )
 	{
 		if ( isDefined( zombie_doors[i].script_noteworthy ) && (zombie_doors[i].script_noteworthy == "local_electric_door" || zombie_doors[i].script_noteworthy == "electric_door") )
@@ -155,6 +156,7 @@ electric_door_changes()
 
 			// link Bus Depot and Farm electric doors together
 			new_target = undefined;
+
 			if (zombie_doors[i].target == "pf1766_auto2353")
 			{
 				new_target = "pf1766_auto2352";
@@ -192,6 +194,7 @@ power_local_electric_doors_globally()
 
 		local_power = [];
 		zombie_doors = getentarray( "zombie_door", "targetname" );
+
 		for ( i = 0; i < zombie_doors.size; i++ )
 		{
 			if ( isDefined( zombie_doors[i].script_noteworthy ) && zombie_doors[i].script_noteworthy == "local_electric_door" )
@@ -334,6 +337,7 @@ player_respawn_override()
 		scripts\zm\replaced\utility::register_map_spawn_group(origin, zone, dist);
 
 		respawn_array = [];
+
 		for (i = 0; i < 8; i++)
 		{
 			respawn_array[i] = spawnStruct();
@@ -376,6 +380,7 @@ player_respawn_override()
 		scripts\zm\replaced\utility::register_map_spawn_group(origin, zone, dist);
 
 		respawn_array = [];
+
 		for (i = 0; i < 8; i++)
 		{
 			respawn_array[i] = spawnStruct();
@@ -418,6 +423,7 @@ player_respawn_override()
 		scripts\zm\replaced\utility::register_map_spawn_group(origin, zone, dist);
 
 		respawn_array = [];
+
 		for (i = 0; i < 8; i++)
 		{
 			respawn_array[i] = spawnStruct();
@@ -460,6 +466,7 @@ player_respawn_override()
 		scripts\zm\replaced\utility::register_map_spawn_group(origin, zone, dist);
 
 		respawn_array = [];
+
 		for (i = 0; i < 8; i++)
 		{
 			respawn_array[i] = spawnStruct();
@@ -595,6 +602,7 @@ power_station_vision_change()
 	while(1)
 	{
 		players = get_players();
+
 		foreach(player in players)
 		{
 			if(!isDefined(player.power_station_vision_set))
@@ -636,6 +644,7 @@ change_dvar_over_time(dvar, val, time, increment)
 	rate = (level.changed_r_exposureValue - level.default_r_exposureValue) / intervals;
 
 	i = 0;
+
 	while(i < intervals)
 	{
 		if(increment)
@@ -730,10 +739,12 @@ manage_zones( initial_zone )
 	deactivate_initial_barrier_goals();
 	zone_choke = 0;
 	spawn_points = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
+
 	for ( i = 0; i < spawn_points.size; i++ )
 	{
 		spawn_points[ i ].locked = 1;
 	}
+
 	if ( isDefined( level.zone_manager_init_func ) )
 	{
 		[[ level.zone_manager_init_func ]]();
@@ -752,17 +763,21 @@ manage_zones( initial_zone )
 		zone_init( initial_zone );
 		enable_zone( initial_zone );
 	}
+
 	setup_zone_flag_waits();
 	zkeys = getarraykeys( level.zones );
 	level.zone_keys = zkeys;
 	level.newzones = [];
+
 	for ( z = 0; z < zkeys.size; z++ )
 	{
 		level.newzones[ zkeys[ z ] ] = spawnstruct();
 	}
+
 	oldzone = undefined;
 	flag_set( "zones_initialized" );
 	flag_wait( "begin_spawning" );
+
 	while ( getDvarInt( "noclip" ) == 0 || getDvarInt( "notarget" ) != 0 )
 	{
 		for( z = 0; z < zkeys.size; z++ )
@@ -770,19 +785,23 @@ manage_zones( initial_zone )
 			level.newzones[ zkeys[ z ] ].is_active = 0;
 			level.newzones[ zkeys[ z ] ].is_occupied = 0;
 		}
+
 		a_zone_is_active = 0;
 		a_zone_is_spawning_allowed = 0;
 		level.zone_scanning_active = 1;
 		z = 0;
+
 		while ( z < zkeys.size )
 		{
 			zone = level.zones[ zkeys[ z ] ];
 			newzone = level.newzones[ zkeys[ z ] ];
+
 			if( !zone.is_enabled )
 			{
 				z++;
 				continue;
 			}
+
 			if ( isdefined(level.zone_occupied_func ) )
 			{
 				newzone.is_occupied = [[ level.zone_occupied_func ]]( zkeys[ z ] );
@@ -791,25 +810,31 @@ manage_zones( initial_zone )
 			{
 				newzone.is_occupied = player_in_zone( zkeys[ z ] );
 			}
+
 			if ( newzone.is_occupied )
 			{
 				newzone.is_active = 1;
 				a_zone_is_active = 1;
+
 				if ( zone.is_spawning_allowed )
 				{
 					a_zone_is_spawning_allowed = 1;
 				}
+
 				if ( !isdefined(oldzone) || oldzone != newzone )
 				{
 					level notify( "newzoneActive", zkeys[ z ] );
 					oldzone = newzone;
 				}
+
 				azkeys = getarraykeys( zone.adjacent_zones );
+
 				for ( az = 0; az < zone.adjacent_zones.size; az++ )
 				{
 					if ( zone.adjacent_zones[ azkeys[ az ] ].is_connected && level.zones[ azkeys[ az ] ].is_enabled )
 					{
 						level.newzones[ azkeys[ az ] ].is_active = 1;
+
 						if ( level.zones[ azkeys[ az ] ].is_spawning_allowed )
 						{
 							a_zone_is_spawning_allowed = 1;
@@ -817,20 +842,26 @@ manage_zones( initial_zone )
 					}
 				}
 			}
+
 			zone_choke++;
+
 			if ( zone_choke >= 3 )
 			{
 				zone_choke = 0;
 				wait 0.05;
 			}
+
 			z++;
 		}
+
 		level.zone_scanning_active = 0;
+
 		for ( z = 0; z < zkeys.size; z++ )
 		{
 			level.zones[ zkeys[ z ] ].is_active = level.newzones[ zkeys[ z ] ].is_active;
 			level.zones[ zkeys[ z ] ].is_occupied = level.newzones[ zkeys[ z ] ].is_occupied;
 		}
+
 		if ( !a_zone_is_active || !a_zone_is_spawning_allowed )
 		{
 			if ( isarray( initial_zone ) )
@@ -846,6 +877,7 @@ manage_zones( initial_zone )
 				level.zones[ initial_zone ].is_spawning_allowed = 1;
 			}
 		}
+
 		[[ level.create_spawner_list_func ]]( zkeys );
 		level.active_zone_names = maps\mp\zombies\_zm_zonemgr::get_active_zone_names();
 		wait 1;

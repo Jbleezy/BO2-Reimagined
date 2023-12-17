@@ -57,6 +57,7 @@ tomahawk_attack_zombies( m_tomahawk, a_zombies )
 	}
 
 	n_attack_limit = m_tomahawk.n_grenade_charge_power - 1;
+
 	if ( a_zombies.size <= n_attack_limit )
 		n_attack_limit = a_zombies.size;
 

@@ -50,6 +50,7 @@ blundergat_upgrade_station()
 		}
 
 		str_valid_weapon = player getcurrentweapon();
+
 		if ( str_valid_weapon == "blundergat_zm" || str_valid_weapon == "blundergat_upgraded_zm" )
 		{
 			player maps\mp\zombies\_zm_score::minus_to_player_score( t_upgrade.cost );

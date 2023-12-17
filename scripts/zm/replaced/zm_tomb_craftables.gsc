@@ -242,6 +242,7 @@ quadrotor_control_thread()
 			}
 
 			str_vehicle = "heli_quadrotor_zm";
+
 			if ( flag( "ee_maxis_drone_retrieved" ) )
 			{
 				str_vehicle = "heli_quadrotor_upgraded_zm";
@@ -331,9 +332,11 @@ quadrotor_set_available()
 		case "zone_nml_9":
 			setclientfield( "cooldown_steam", 1 );
 			break;
+
 		case "zone_bunker_5a":
 			setclientfield( "cooldown_steam", 2 );
 			break;
+
 		case "zone_village_1":
 			setclientfield( "cooldown_steam", 3 );
 			break;

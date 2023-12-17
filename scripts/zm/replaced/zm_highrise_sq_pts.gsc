@@ -120,6 +120,7 @@ is_springpad_in_place( m_springpad, is_generator )
 				if ( is_generator )
 				{
 					wait 0.1;
+
 					if ( pts_should_springpad_create_trigs( s_spot ) )
 					{
 						thread maps\mp\zombies\_zm_unitrigger::unregister_unitrigger( self.buildablespringpad.stub );
@@ -322,14 +323,17 @@ pts_springpad_fling( str_spot_name )
 			str_anim1 = "dc";
 			str_anim2 = "cd";
 			break;
+
 		case "lion_pair_2":
 			str_anim1 = "ab";
 			str_anim2 = "ba";
 			break;
+
 		case "lion_pair_3":
 			str_anim1 = "cd";
 			str_anim2 = "dc";
 			break;
+
 		case "lion_pair_4":
 			str_anim1 = "ba";
 			str_anim2 = "ab";
