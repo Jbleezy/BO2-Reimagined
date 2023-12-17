@@ -349,7 +349,6 @@ playchalkfx(effect, origin, angles)
 	}
 }
 
-
 // fixes grenade wallbuy model doing first trigger animation everytime
 wallbuy_grenade_model_fix()
 {

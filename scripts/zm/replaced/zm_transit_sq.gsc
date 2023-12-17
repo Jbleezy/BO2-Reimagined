@@ -109,7 +109,6 @@ maxis_sidequest_b()
 		}
 	}
 
-
 	level notify("maxis_stage_b");
 	level thread maxissay("vox_maxi_avogadro_emp_0", (7737, -416, -142));
 	update_sidequest_stats("sq_transit_maxis_stage_3");

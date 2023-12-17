@@ -424,7 +424,6 @@ escape_pod_wait_for_players_inside(escape_pod, escape_pod_trigger)
 	level notify("reset_escape_pod");
 }
 
-
 escape_pod_get_all_alive_players_inside()
 {
 	players = get_players();

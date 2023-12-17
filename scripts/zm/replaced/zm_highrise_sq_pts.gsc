@@ -283,7 +283,6 @@ place_ball_think(t_place_ball, s_lion_spot)
 {
 	t_place_ball endon("delete");
 
-
 	while (1)
 	{
 		t_place_ball waittill("trigger");
