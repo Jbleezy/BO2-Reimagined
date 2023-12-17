@@ -2856,7 +2856,7 @@ buildbuildables()
 		}
 		else if (level.scr_zm_map_start_location == "processing")
 		{
-			flag_wait("initial_blackscreen_passed");   // wait for buildables to randomize
+			flag_wait("initial_blackscreen_passed"); // wait for buildables to randomize
 			wait 1;
 
 			level.buildables_available = array("subwoofer_zm", "springpad_zm", "headchopper_zm");
@@ -2878,12 +2878,12 @@ buildbuildables()
 	{
 		if (level.scr_zm_map_start_location == "street")
 		{
-			flag_wait("initial_blackscreen_passed");   // wait for buildables to be built
+			flag_wait("initial_blackscreen_passed"); // wait for buildables to be built
 			wait 1;
 
 			updatebuildables();
 			removebuildable("turbine", "buried");
-			removebuildable("headchopper_zm", "buried");   // TODO - remove line when headchopper anims work on Borough
+			removebuildable("headchopper_zm", "buried"); // TODO - remove line when headchopper anims work on Borough
 		}
 	}
 }

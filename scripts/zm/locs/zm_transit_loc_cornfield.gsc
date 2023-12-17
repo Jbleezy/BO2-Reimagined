@@ -10,7 +10,7 @@
 
 struct_init()
 {
-	scripts\zm\replaced\utility::register_perk_struct("", "", (0, 0, 0), (0, 0, 0));       // need this for pap to work
+	scripts\zm\replaced\utility::register_perk_struct("", "", (0, 0, 0), (0, 0, 0)); // need this for pap to work
 	scripts\zm\replaced\utility::register_perk_struct("specialty_weapupgrade", "p6_anim_zm_buildable_pap_on", (10460, -564, -220), (0, -35, 0));
 
 	zone_respawnpoints = [];
