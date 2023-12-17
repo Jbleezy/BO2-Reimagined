@@ -129,6 +129,7 @@ init()
 	level.using_solo_revive = 0;
 	level.claymores_max_per_player = 20;
 	level.navcards = undefined; // removes navcards on HUD
+	level.powerup_intro_vox = undefined;
 	level.player_too_many_players_check = 0;
 	level.player_too_many_weapons_monitor_func = scripts\zm\replaced\_zm::player_too_many_weapons_monitor;
 	level.pregame_minplayers = getDvarInt("party_minplayers");
