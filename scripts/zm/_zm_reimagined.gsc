@@ -2960,7 +2960,7 @@ get_equipment_display_name()
 	{
 		return "Electric Trap";
 	}
-	else if (self.equipname == "riotshield_zm" || self.equipname == "alcatraz_shield_zm" || self.equipname ==  "tomb_shield_zm")
+	else if (self.equipname == "riotshield_zm" || self.equipname == "alcatraz_shield_zm" || self.equipname == "tomb_shield_zm")
 	{
 		return "Zombie Shield";
 	}

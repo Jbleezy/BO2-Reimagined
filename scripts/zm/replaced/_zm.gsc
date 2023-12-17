@@ -928,7 +928,7 @@ check_for_team_change()
 	{
 		team_change_player = random(axis_players);
 	}
-	else if (allies_players.size  - 1 > axis_players.size)
+	else if (allies_players.size - 1 > axis_players.size)
 	{
 		team_change_player = random(allies_players);
 	}
@@ -2422,7 +2422,7 @@ player_laststand(einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, sh
 		}
 		else
 		{
-			if (isDefined(level.custom_player_death_vo_func) &&  !self [[level.custom_player_death_vo_func]]())
+			if (isDefined(level.custom_player_death_vo_func) && !self [[level.custom_player_death_vo_func]]())
 			{
 				self maps\mp\zombies\_zm_audio::create_and_play_dialog("general", "exert_death");
 			}

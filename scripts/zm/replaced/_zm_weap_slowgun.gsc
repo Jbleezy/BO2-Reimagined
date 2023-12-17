@@ -72,7 +72,7 @@ zombie_paralyzed(player, upgraded)
 			self.paralyzer_damage = 0;
 
 		// if ( self.paralyzer_damage > 47073 )
-		//     damage *= 47073 / self.paralyzer_damage;
+		//	damage *= 47073 / self.paralyzer_damage;
 
 		self.paralyzer_damage += damage;
 

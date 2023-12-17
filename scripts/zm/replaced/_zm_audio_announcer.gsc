@@ -33,7 +33,7 @@ playleaderdialogonplayer(dialog, team, waittime)
 		}
 		else
 		{
-			full_alias =  alias + "_" + variant;
+			full_alias = alias + "_" + variant;
 		}
 
 		self playlocalsound(full_alias);

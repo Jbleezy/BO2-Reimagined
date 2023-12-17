@@ -371,8 +371,8 @@ recapture_round_start()
 		wait 0.05;
 	}
 
-	//if ( s_recapture_target_zone.n_current_progress == 0 || s_recapture_target_zone.n_current_progress == 100 )
-	//    s_recapture_target_zone handle_generator_capture();
+	// if ( s_recapture_target_zone.n_current_progress == 0 || s_recapture_target_zone.n_current_progress == 100 )
+	//	s_recapture_target_zone handle_generator_capture();
 
 	capture_event_handle_ai_limit();
 	kill_all_recapture_zombies();

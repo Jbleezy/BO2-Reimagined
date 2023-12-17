@@ -790,16 +790,18 @@ working_zone_init()
 		add_adjacent_zone("zone_cellblock_west_gondola", "zone_cellblock_west_gondola_dock", "gondola_dock_to_roof");
 	}
 
-	// else if ( is_gametype_active( "zgrief" ) )
-	// {
-	//     playable_area = getentarray( "player_volume", "script_noteworthy" );
+	/*
+	else if ( is_gametype_active( "zgrief" ) )
+	{
+		playable_area = getentarray( "player_volume", "script_noteworthy" );
 
-	//     foreach ( area in playable_area )
-	//     {
-	//         if ( isdefined( area.script_parameters ) && area.script_parameters == "classic_only" )
-	//             area delete();
-	//     }
-	// }
+		foreach ( area in playable_area )
+		{
+			if ( isdefined( area.script_parameters ) && area.script_parameters == "classic_only" )
+				area delete();
+		}
+	}
+	*/
 
 	add_adjacent_zone("zone_golden_gate_bridge", "zone_golden_gate_bridge", "activate_player_zone_bridge");
 

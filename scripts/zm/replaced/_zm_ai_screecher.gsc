@@ -28,7 +28,7 @@ screecher_spawning_logic()
 			wait 0.1;
 
 		// while ( getdvarint( _hash_B0C0D38F ) )
-		//     wait 0.1;
+		//	wait 0.1;
 
 		if (!flag("spawn_zombies"))
 			flag_wait("spawn_zombies");
