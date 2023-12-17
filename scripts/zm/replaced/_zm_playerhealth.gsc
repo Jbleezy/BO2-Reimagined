@@ -15,7 +15,7 @@ playerhealthregen()
 		self.flags_lock = [];
 	}
 
-	if (!isDefined(self.flag[ "player_has_red_flashing_overlay" ]))
+	if (!isDefined(self.flag["player_has_red_flashing_overlay"]))
 	{
 		self player_flag_init("player_has_red_flashing_overlay");
 		self player_flag_init("player_is_invulnerable");

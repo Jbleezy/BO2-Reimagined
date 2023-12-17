@@ -28,7 +28,7 @@ capture_zombie_spawn_init(animname_set = 0)
 	self.sndname = "capzomb";
 
 	if (isdefined(get_gamemode_var("pre_init_zombie_spawn_func")))
-		self [[ get_gamemode_var("pre_init_zombie_spawn_func") ]]();
+		self [[get_gamemode_var("pre_init_zombie_spawn_func")]]();
 
 	self thread play_ambient_zombie_vocals();
 	self.zmb_vocals_attack = "zmb_vocals_capzomb_attack";
@@ -102,7 +102,7 @@ capture_zombie_spawn_init(animname_set = 0)
 	self.team = level.zombie_team;
 
 	if (isdefined(get_gamemode_var("post_init_zombie_spawn_func")))
-		self [[ get_gamemode_var("post_init_zombie_spawn_func") ]]();
+		self [[get_gamemode_var("post_init_zombie_spawn_func")]]();
 
 	self.zombie_init_done = 1;
 	self notify("zombie_init_done");

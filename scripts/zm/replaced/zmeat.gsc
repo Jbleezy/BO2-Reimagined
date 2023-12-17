@@ -122,7 +122,7 @@ item_meat_watch_bounce()
 
 		if (isdefined(level.meat_bounce_override))
 		{
-			self thread [[ level.meat_bounce_override ]](pos, normal, ent, true);
+			self thread [[level.meat_bounce_override]](pos, normal, ent, true);
 		}
 	}
 
@@ -139,7 +139,7 @@ item_meat_watch_stationary()
 
 	if (isdefined(level.meat_bounce_override))
 	{
-		self thread [[ level.meat_bounce_override ]](pos, normal, undefined, false);
+		self thread [[level.meat_bounce_override]](pos, normal, undefined, false);
 	}
 
 	self.meat_is_moving = 0;
@@ -161,7 +161,7 @@ item_meat_watch_below()
 
 	if (isdefined(level.meat_bounce_override))
 	{
-		self thread [[ level.meat_bounce_override ]](self.origin, undefined, undefined, false);
+		self thread [[level.meat_bounce_override]](self.origin, undefined, undefined, false);
 	}
 
 	self delete();

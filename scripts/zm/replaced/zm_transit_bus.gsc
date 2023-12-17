@@ -485,7 +485,7 @@ bus_bridge_speedcontrol()
 						if (isdefined(zombies[i].depot_lava_pit))
 						{
 							if (zombies[i] istouching(volume))
-								zombies[i] thread [[ zombies[i].depot_lava_pit ]]();
+								zombies[i] thread [[zombies[i].depot_lava_pit]]();
 
 							continue;
 						}

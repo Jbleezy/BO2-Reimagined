@@ -101,7 +101,7 @@ final_flight_trigger()
 		{
 			if (isdefined(level.custom_plane_validation))
 			{
-				valid = self [[ level.custom_plane_validation ]](e_triggerer);
+				valid = self [[level.custom_plane_validation]](e_triggerer);
 
 				if (!valid)
 					continue;

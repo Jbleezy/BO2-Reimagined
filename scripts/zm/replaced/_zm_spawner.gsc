@@ -58,7 +58,7 @@ zombie_damage(mod, hit_location, hit_origin, player, amount, team)
 
 	if (isDefined(self.zombie_damage_fx_func))
 	{
-		self [[ self.zombie_damage_fx_func ]](mod, hit_location, hit_origin, player);
+		self [[self.zombie_damage_fx_func]](mod, hit_location, hit_origin, player);
 	}
 
 	if (is_placeable_mine(self.damageweapon))
@@ -79,7 +79,7 @@ zombie_damage(mod, hit_location, hit_origin, player, amount, team)
 
 		if (isDefined(self.zombie_damage_claymore_func))
 		{
-			self [[ self.zombie_damage_claymore_func ]](mod, hit_location, hit_origin, player);
+			self [[self.zombie_damage_claymore_func]](mod, hit_location, hit_origin, player);
 		}
 		else if (isDefined(player) && isalive(player))
 		{
@@ -270,7 +270,7 @@ zombie_gib_on_damage()
 			}
 
 			if (isdefined(level.custom_derive_damage_refs))
-				refs = self [[ level.custom_derive_damage_refs ]](refs, point, weaponname);
+				refs = self [[level.custom_derive_damage_refs]](refs, point, weaponname);
 
 			if (refs.size)
 			{
@@ -293,7 +293,7 @@ zombie_gib_on_damage()
 					}
 
 					if (isdefined(self.crawl_anim_override))
-						self [[ self.crawl_anim_override ]]();
+						self [[self.crawl_anim_override]]();
 				}
 			}
 
@@ -302,7 +302,7 @@ zombie_gib_on_damage()
 				self thread maps\mp\animscripts\zm_death::do_gib();
 
 				if (isdefined(level.gib_on_damage))
-					self thread [[ level.gib_on_damage ]]();
+					self thread [[level.gib_on_damage]]();
 			}
 		}
 	}

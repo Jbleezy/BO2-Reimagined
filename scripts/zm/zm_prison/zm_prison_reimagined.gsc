@@ -132,7 +132,7 @@ check_for_special_weapon_limit_exist(weapon)
 			return 0;
 		}
 
-		limit = level.limited_weapons[ "blundergat_zm" ];
+		limit = level.limited_weapons["blundergat_zm"];
 	}
 	else
 	{
@@ -141,7 +141,7 @@ check_for_special_weapon_limit_exist(weapon)
 			return 0;
 		}
 
-		limit = level.limited_weapons[ "minigun_alcatraz_zm" ];
+		limit = level.limited_weapons["minigun_alcatraz_zm"];
 	}
 
 	i = 0;
@@ -150,7 +150,7 @@ check_for_special_weapon_limit_exist(weapon)
 	{
 		if (weapon == "blundergat_zm")
 		{
-			if (players[ i ] maps\mp\zombies\_zm_weapons::has_weapon_or_upgrade("blundersplat_zm") || isDefined(players[ i ].is_pack_splatting) && players[ i ].is_pack_splatting)
+			if (players[i] maps\mp\zombies\_zm_weapons::has_weapon_or_upgrade("blundersplat_zm") || isDefined(players[i].is_pack_splatting) && players[i].is_pack_splatting)
 			{
 				count++;
 				i++;
@@ -159,7 +159,7 @@ check_for_special_weapon_limit_exist(weapon)
 		}
 		else
 		{
-			if (players[ i ] afterlife_weapon_limit_check(weapon))
+			if (players[i] afterlife_weapon_limit_check(weapon))
 			{
 				count++;
 			}
@@ -275,7 +275,7 @@ craftable_place_think()
 
 		if (isdefined(level.custom_craftable_validation))
 		{
-			valid = self [[ level.custom_craftable_validation ]](player);
+			valid = self [[level.custom_craftable_validation]](player);
 
 			if (!valid)
 				continue;
@@ -301,24 +301,24 @@ craftable_place_think()
 			self sethintstring(self.stub.hint_string);
 
 			if (isdefined(self.stub.oncantuse))
-				self.stub [[ self.stub.oncantuse ]](player);
+				self.stub [[self.stub.oncantuse]](player);
 		}
 		else
 		{
 			if (isdefined(self.stub.onbeginuse))
-				self.stub [[ self.stub.onbeginuse ]](player);
+				self.stub [[self.stub.onbeginuse]](player);
 
 			result = self craftable_use_hold_think(player);
 			team = player.pers["team"];
 
 			if (isdefined(self.stub.onenduse))
-				self.stub [[ self.stub.onenduse ]](team, player, result);
+				self.stub [[self.stub.onenduse]](team, player, result);
 
 			if (!result)
 				continue;
 
 			if (isdefined(self.stub.onuse))
-				self.stub [[ self.stub.onuse ]](player);
+				self.stub [[self.stub.onuse]](player);
 
 			prompt = player player_craft(self.stub.craftablespawn);
 			player_crafted = player;
@@ -329,7 +329,7 @@ craftable_place_think()
 
 	if (isdefined(self.stub.craftablestub.onfullycrafted))
 	{
-		b_result = self.stub [[ self.stub.craftablestub.onfullycrafted ]]();
+		b_result = self.stub [[self.stub.craftablestub.onfullycrafted]]();
 
 		if (!b_result)
 			return;
@@ -387,7 +387,7 @@ craftable_place_think()
 
 			if (isdefined(level.custom_craftable_validation))
 			{
-				valid = self [[ level.custom_craftable_validation ]](player);
+				valid = self [[level.custom_craftable_validation]](player);
 
 				if (!valid)
 					continue;
@@ -417,7 +417,7 @@ craftable_place_think()
 			player maps\mp\zombies\_zm_weapons::weapon_give(self.stub.weaponname);
 
 			if (isdefined(level.zombie_include_craftables[self.stub.equipname].onbuyweapon))
-				self [[ level.zombie_include_craftables[self.stub.equipname].onbuyweapon ]](player);
+				self [[level.zombie_include_craftables[self.stub.equipname].onbuyweapon]](player);
 
 			if (!maps\mp\zombies\_zm_weapons::limited_weapon_below_quota(self.stub.weaponname, undefined))
 				self.stub.hint_string = &"ZOMBIE_GO_TO_THE_BOX_LIMITED";
@@ -445,7 +445,7 @@ craftable_place_think()
 
 			if (isdefined(level.custom_craftable_validation))
 			{
-				valid = self [[ level.custom_craftable_validation ]](player);
+				valid = self [[level.custom_craftable_validation]](player);
 
 				if (!valid)
 					continue;
@@ -479,13 +479,13 @@ craftable_place_think()
 
 			if (isdefined(level.zombie_craftable_persistent_weapon))
 			{
-				if (self [[ level.zombie_craftable_persistent_weapon ]](player))
+				if (self [[level.zombie_craftable_persistent_weapon]](player))
 					continue;
 			}
 
 			if (isdefined(level.zombie_custom_equipment_setup))
 			{
-				if (self [[ level.zombie_custom_equipment_setup ]](player))
+				if (self [[level.zombie_custom_equipment_setup]](player))
 					continue;
 			}
 
@@ -499,7 +499,7 @@ craftable_place_think()
 				player setweaponammoclip(self.stub.weaponname, 1);
 
 				if (isdefined(level.zombie_include_craftables[self.stub.equipname].onbuyweapon))
-					self [[ level.zombie_include_craftables[self.stub.equipname].onbuyweapon ]](player);
+					self [[level.zombie_include_craftables[self.stub.equipname].onbuyweapon]](player);
 				else if (self.stub.weaponname != "keys_zm")
 					player setactionslot(1, "weapon", self.stub.weaponname);
 
@@ -582,7 +582,7 @@ manage_zones(initial_zone)
 	}
 
 	if (isdefined(level.zone_manager_init_func))
-		[[ level.zone_manager_init_func ]]();
+		[[level.zone_manager_init_func]]();
 
 	if (isarray(initial_zone))
 	{
@@ -631,7 +631,7 @@ manage_zones(initial_zone)
 				continue;
 
 			if (isdefined(level.zone_occupied_func))
-				newzone.is_occupied = [[ level.zone_occupied_func ]](zkeys[z]);
+				newzone.is_occupied = [[level.zone_occupied_func]](zkeys[z]);
 			else
 				newzone.is_occupied = player_in_zone(zkeys[z]);
 
@@ -696,7 +696,7 @@ manage_zones(initial_zone)
 			}
 		}
 
-		[[ level.create_spawner_list_func ]](zkeys);
+		[[level.create_spawner_list_func]](zkeys);
 
 		level.active_zone_names = maps\mp\zombies\_zm_zonemgr::get_active_zone_names();
 		wait 1;

@@ -26,11 +26,11 @@ doriotshielddeploy(origin, angles)
 	self maps\mp\zombies\_zm_weapons::switch_back_primary_weapon(self.riotshield_prev_wep);
 
 	if (isdefined(level.equipment_planted))
-		self [[ level.equipment_planted ]](shield_ent, level.riotshield_name, self);
+		self [[level.equipment_planted]](shield_ent, level.riotshield_name, self);
 
 	if (isdefined(level.equipment_safe_to_drop))
 	{
-		if (!self [[ level.equipment_safe_to_drop ]](shield_ent))
+		if (!self [[level.equipment_safe_to_drop]](shield_ent))
 		{
 			self notify("destroy_riotshield");
 			shield_ent delete();

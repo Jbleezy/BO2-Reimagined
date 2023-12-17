@@ -103,9 +103,9 @@ tomb_special_weapon_magicbox_check(weapon)
 		}
 	}
 
-	if (isDefined(level.zombie_weapons[ weapon ].shared_ammo_weapon))
+	if (isDefined(level.zombie_weapons[weapon].shared_ammo_weapon))
 	{
-		if (self maps\mp\zombies\_zm_weapons::has_weapon_or_upgrade(level.zombie_weapons[ weapon ].shared_ammo_weapon))
+		if (self maps\mp\zombies\_zm_weapons::has_weapon_or_upgrade(level.zombie_weapons[weapon].shared_ammo_weapon))
 		{
 			return 0;
 		}
@@ -259,7 +259,7 @@ craftable_place_think()
 
 		if (isdefined(level.custom_craftable_validation))
 		{
-			valid = self [[ level.custom_craftable_validation ]](player);
+			valid = self [[level.custom_craftable_validation]](player);
 
 			if (!valid)
 				continue;
@@ -285,24 +285,24 @@ craftable_place_think()
 			self sethintstring(self.stub.hint_string);
 
 			if (isdefined(self.stub.oncantuse))
-				self.stub [[ self.stub.oncantuse ]](player);
+				self.stub [[self.stub.oncantuse]](player);
 		}
 		else
 		{
 			if (isdefined(self.stub.onbeginuse))
-				self.stub [[ self.stub.onbeginuse ]](player);
+				self.stub [[self.stub.onbeginuse]](player);
 
 			result = self craftable_use_hold_think(player);
 			team = player.pers["team"];
 
 			if (isdefined(self.stub.onenduse))
-				self.stub [[ self.stub.onenduse ]](team, player, result);
+				self.stub [[self.stub.onenduse]](team, player, result);
 
 			if (!result)
 				continue;
 
 			if (isdefined(self.stub.onuse))
-				self.stub [[ self.stub.onuse ]](player);
+				self.stub [[self.stub.onuse]](player);
 
 			prompt = player player_craft(self.stub.craftablespawn);
 			player_crafted = player;
@@ -313,7 +313,7 @@ craftable_place_think()
 
 	if (isdefined(self.stub.craftablestub.onfullycrafted))
 	{
-		b_result = self.stub [[ self.stub.craftablestub.onfullycrafted ]]();
+		b_result = self.stub [[self.stub.craftablestub.onfullycrafted]]();
 
 		if (!b_result)
 			return;
@@ -371,7 +371,7 @@ craftable_place_think()
 
 			if (isdefined(level.custom_craftable_validation))
 			{
-				valid = self [[ level.custom_craftable_validation ]](player);
+				valid = self [[level.custom_craftable_validation]](player);
 
 				if (!valid)
 					continue;
@@ -401,7 +401,7 @@ craftable_place_think()
 			player maps\mp\zombies\_zm_weapons::weapon_give(self.stub.weaponname);
 
 			if (isdefined(level.zombie_include_craftables[self.stub.equipname].onbuyweapon))
-				self [[ level.zombie_include_craftables[self.stub.equipname].onbuyweapon ]](player);
+				self [[level.zombie_include_craftables[self.stub.equipname].onbuyweapon]](player);
 
 			if (!maps\mp\zombies\_zm_weapons::limited_weapon_below_quota(self.stub.weaponname, undefined))
 				self.stub.hint_string = &"ZOMBIE_GO_TO_THE_BOX_LIMITED";
@@ -429,7 +429,7 @@ craftable_place_think()
 
 			if (isdefined(level.custom_craftable_validation))
 			{
-				valid = self [[ level.custom_craftable_validation ]](player);
+				valid = self [[level.custom_craftable_validation]](player);
 
 				if (!valid)
 					continue;
@@ -463,13 +463,13 @@ craftable_place_think()
 
 			if (isdefined(level.zombie_craftable_persistent_weapon))
 			{
-				if (self [[ level.zombie_craftable_persistent_weapon ]](player))
+				if (self [[level.zombie_craftable_persistent_weapon]](player))
 					continue;
 			}
 
 			if (isdefined(level.zombie_custom_equipment_setup))
 			{
-				if (self [[ level.zombie_custom_equipment_setup ]](player))
+				if (self [[level.zombie_custom_equipment_setup]](player))
 					continue;
 			}
 
@@ -483,7 +483,7 @@ craftable_place_think()
 				player setweaponammoclip(self.stub.weaponname, 1);
 
 				if (isdefined(level.zombie_include_craftables[self.stub.equipname].onbuyweapon))
-					self [[ level.zombie_include_craftables[self.stub.equipname].onbuyweapon ]](player);
+					self [[level.zombie_include_craftables[self.stub.equipname].onbuyweapon]](player);
 				else if (self.stub.weaponname != "keys_zm")
 					player setactionslot(1, "weapon", self.stub.weaponname);
 
@@ -530,7 +530,7 @@ craftablestub_update_prompt(player, unitrigger)
 
 	can_use = 1;
 
-	if (isdefined(self.custom_craftablestub_update_prompt) && !self [[ self.custom_craftablestub_update_prompt ]](player))
+	if (isdefined(self.custom_craftablestub_update_prompt) && !self [[self.custom_craftablestub_update_prompt]](player))
 		return false;
 
 	if (!(isdefined(self.crafted) && self.crafted))

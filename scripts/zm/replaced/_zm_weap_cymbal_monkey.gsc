@@ -81,7 +81,7 @@ player_throw_cymbal_monkey(grenade, num_attractors, max_attract_dist, attract_di
 		grenade waittill("stationary");
 
 		if (isdefined(level.grenade_planted))
-			self thread [[ level.grenade_planted ]](grenade, model);
+			self thread [[level.grenade_planted]](grenade, model);
 
 		if (isdefined(grenade))
 		{
@@ -112,7 +112,7 @@ player_throw_cymbal_monkey(grenade, num_attractors, max_attract_dist, attract_di
 			valid_poi = check_point_in_enabled_zone(grenade.origin, undefined, undefined);
 
 			if (isdefined(level.check_valid_poi))
-				valid_poi = grenade [[ level.check_valid_poi ]](valid_poi);
+				valid_poi = grenade [[level.check_valid_poi]](valid_poi);
 
 			if (valid_poi)
 			{

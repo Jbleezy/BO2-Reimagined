@@ -14,61 +14,61 @@
 struct_class_init()
 {
 	level.struct_class_names = [];
-	level.struct_class_names[ "target" ] = [];
-	level.struct_class_names[ "targetname" ] = [];
-	level.struct_class_names[ "script_noteworthy" ] = [];
-	level.struct_class_names[ "script_linkname" ] = [];
-	level.struct_class_names[ "script_unitrigger_type" ] = [];
+	level.struct_class_names["target"] = [];
+	level.struct_class_names["targetname"] = [];
+	level.struct_class_names["script_noteworthy"] = [];
+	level.struct_class_names["script_linkname"] = [];
+	level.struct_class_names["script_unitrigger_type"] = [];
 
 	foreach (s_struct in level.struct)
 	{
 		if (isDefined(s_struct.targetname))
 		{
-			if (!isDefined(level.struct_class_names[ "targetname" ][ s_struct.targetname ]))
+			if (!isDefined(level.struct_class_names["targetname"][s_struct.targetname]))
 			{
-				level.struct_class_names[ "targetname" ][ s_struct.targetname ] = [];
+				level.struct_class_names["targetname"][s_struct.targetname] = [];
 			}
 
-			size = level.struct_class_names[ "targetname" ][ s_struct.targetname ].size;
-			level.struct_class_names[ "targetname" ][ s_struct.targetname ][ size ] = s_struct;
+			size = level.struct_class_names["targetname"][s_struct.targetname].size;
+			level.struct_class_names["targetname"][s_struct.targetname][size] = s_struct;
 		}
 
 		if (isDefined(s_struct.target))
 		{
-			if (!isDefined(level.struct_class_names[ "target" ][ s_struct.target ]))
+			if (!isDefined(level.struct_class_names["target"][s_struct.target]))
 			{
-				level.struct_class_names[ "target" ][ s_struct.target ] = [];
+				level.struct_class_names["target"][s_struct.target] = [];
 			}
 
-			size = level.struct_class_names[ "target" ][ s_struct.target ].size;
-			level.struct_class_names[ "target" ][ s_struct.target ][ size ] = s_struct;
+			size = level.struct_class_names["target"][s_struct.target].size;
+			level.struct_class_names["target"][s_struct.target][size] = s_struct;
 		}
 
 		if (isDefined(s_struct.script_noteworthy))
 		{
-			if (!isDefined(level.struct_class_names[ "script_noteworthy" ][ s_struct.script_noteworthy ]))
+			if (!isDefined(level.struct_class_names["script_noteworthy"][s_struct.script_noteworthy]))
 			{
-				level.struct_class_names[ "script_noteworthy" ][ s_struct.script_noteworthy ] = [];
+				level.struct_class_names["script_noteworthy"][s_struct.script_noteworthy] = [];
 			}
 
-			size = level.struct_class_names[ "script_noteworthy" ][ s_struct.script_noteworthy ].size;
-			level.struct_class_names[ "script_noteworthy" ][ s_struct.script_noteworthy ][ size ] = s_struct;
+			size = level.struct_class_names["script_noteworthy"][s_struct.script_noteworthy].size;
+			level.struct_class_names["script_noteworthy"][s_struct.script_noteworthy][size] = s_struct;
 		}
 
 		if (isDefined(s_struct.script_linkname))
 		{
-			level.struct_class_names[ "script_linkname" ][ s_struct.script_linkname ][ 0 ] = s_struct;
+			level.struct_class_names["script_linkname"][s_struct.script_linkname][0] = s_struct;
 		}
 
 		if (isDefined(s_struct.script_unitrigger_type))
 		{
-			if (!isDefined(level.struct_class_names[ "script_unitrigger_type" ][ s_struct.script_unitrigger_type ]))
+			if (!isDefined(level.struct_class_names["script_unitrigger_type"][s_struct.script_unitrigger_type]))
 			{
-				level.struct_class_names[ "script_unitrigger_type" ][ s_struct.script_unitrigger_type ] = [];
+				level.struct_class_names["script_unitrigger_type"][s_struct.script_unitrigger_type] = [];
 			}
 
-			size = level.struct_class_names[ "script_unitrigger_type" ][ s_struct.script_unitrigger_type ].size;
-			level.struct_class_names[ "script_unitrigger_type" ][ s_struct.script_unitrigger_type ][ size ] = s_struct;
+			size = level.struct_class_names["script_unitrigger_type"][s_struct.script_unitrigger_type].size;
+			level.struct_class_names["script_unitrigger_type"][s_struct.script_unitrigger_type][size] = s_struct;
 		}
 	}
 
@@ -77,13 +77,13 @@ struct_class_init()
 
 	if (array_validate(level.add_struct_gamemode_location_funcs))
 	{
-		if (array_validate(level.add_struct_gamemode_location_funcs[ gametype ]))
+		if (array_validate(level.add_struct_gamemode_location_funcs[gametype]))
 		{
-			if (array_validate(level.add_struct_gamemode_location_funcs[ gametype ][ location ]))
+			if (array_validate(level.add_struct_gamemode_location_funcs[gametype][location]))
 			{
-				for (i = 0; i < level.add_struct_gamemode_location_funcs[ gametype ][ location ].size; i++)
+				for (i = 0; i < level.add_struct_gamemode_location_funcs[gametype][location].size; i++)
 				{
-					[[ level.add_struct_gamemode_location_funcs[ gametype ][ location ][ i ] ]]();
+					[[level.add_struct_gamemode_location_funcs[gametype][location][i]]]();
 				}
 			}
 		}
@@ -94,51 +94,51 @@ add_struct(s_struct)
 {
 	if (isDefined(s_struct.targetname))
 	{
-		if (!isDefined(level.struct_class_names[ "targetname" ][ s_struct.targetname ]))
+		if (!isDefined(level.struct_class_names["targetname"][s_struct.targetname]))
 		{
-			level.struct_class_names[ "targetname" ][ s_struct.targetname ] = [];
+			level.struct_class_names["targetname"][s_struct.targetname] = [];
 		}
 
-		size = level.struct_class_names[ "targetname" ][ s_struct.targetname ].size;
-		level.struct_class_names[ "targetname" ][ s_struct.targetname ][ size ] = s_struct;
+		size = level.struct_class_names["targetname"][s_struct.targetname].size;
+		level.struct_class_names["targetname"][s_struct.targetname][size] = s_struct;
 	}
 
 	if (isDefined(s_struct.script_noteworthy))
 	{
-		if (!isDefined(level.struct_class_names[ "script_noteworthy" ][ s_struct.script_noteworthy ]))
+		if (!isDefined(level.struct_class_names["script_noteworthy"][s_struct.script_noteworthy]))
 		{
-			level.struct_class_names[ "script_noteworthy" ][ s_struct.script_noteworthy ] = [];
+			level.struct_class_names["script_noteworthy"][s_struct.script_noteworthy] = [];
 		}
 
-		size = level.struct_class_names[ "script_noteworthy" ][ s_struct.script_noteworthy ].size;
-		level.struct_class_names[ "script_noteworthy" ][ s_struct.script_noteworthy ][ size ] = s_struct;
+		size = level.struct_class_names["script_noteworthy"][s_struct.script_noteworthy].size;
+		level.struct_class_names["script_noteworthy"][s_struct.script_noteworthy][size] = s_struct;
 	}
 
 	if (isDefined(s_struct.target))
 	{
-		if (!isDefined(level.struct_class_names[ "target" ][ s_struct.target ]))
+		if (!isDefined(level.struct_class_names["target"][s_struct.target]))
 		{
-			level.struct_class_names[ "target" ][ s_struct.target ] = [];
+			level.struct_class_names["target"][s_struct.target] = [];
 		}
 
-		size = level.struct_class_names[ "target" ][ s_struct.target ].size;
-		level.struct_class_names[ "target" ][ s_struct.target ][ size ] = s_struct;
+		size = level.struct_class_names["target"][s_struct.target].size;
+		level.struct_class_names["target"][s_struct.target][size] = s_struct;
 	}
 
 	if (isDefined(s_struct.script_linkname))
 	{
-		level.struct_class_names[ "script_linkname" ][ s_struct.script_linkname ][ 0 ] = s_struct;
+		level.struct_class_names["script_linkname"][s_struct.script_linkname][0] = s_struct;
 	}
 
 	if (isDefined(s_struct.script_unitrigger_type))
 	{
-		if (!isDefined(level.struct_class_names[ "script_unitrigger_type" ][ s_struct.script_unitrigger_type ]))
+		if (!isDefined(level.struct_class_names["script_unitrigger_type"][s_struct.script_unitrigger_type]))
 		{
-			level.struct_class_names[ "script_unitrigger_type" ][ s_struct.script_unitrigger_type ] = [];
+			level.struct_class_names["script_unitrigger_type"][s_struct.script_unitrigger_type] = [];
 		}
 
-		size = level.struct_class_names[ "script_unitrigger_type" ][ s_struct.script_unitrigger_type ].size;
-		level.struct_class_names[ "script_unitrigger_type" ][ s_struct.script_unitrigger_type ][ size ] = s_struct;
+		size = level.struct_class_names["script_unitrigger_type"][s_struct.script_unitrigger_type].size;
+		level.struct_class_names["script_unitrigger_type"][s_struct.script_unitrigger_type][size] = s_struct;
 	}
 }
 
@@ -224,8 +224,8 @@ wallbuy(weapon_name, target, targetname, origin, angles, play_chalk_fx = 1)
 	bounds = absmaxs - absmins;
 
 	unitrigger_stub.script_length = 64;
-	unitrigger_stub.script_width = bounds[ 1 ];
-	unitrigger_stub.script_height = bounds[ 2 ];
+	unitrigger_stub.script_width = bounds[1];
+	unitrigger_stub.script_height = bounds[2];
 	unitrigger_stub.target = target;
 	unitrigger_stub.targetname = targetname;
 	unitrigger_stub.cursor_hint = "HINT_NOICON";
@@ -342,7 +342,7 @@ playchalkfx(effect, origin, angles)
 {
 	while (1)
 	{
-		fx = SpawnFX(level._effect[ effect ], origin, AnglesToForward(angles), AnglesToUp(angles));
+		fx = SpawnFX(level._effect[effect], origin, AnglesToForward(angles), AnglesToUp(angles));
 		TriggerFX(fx);
 		level waittill("connected", player);
 		fx Delete();
@@ -373,13 +373,13 @@ barrier(model, origin, angles, not_solid)
 		level.survival_barriers_index = 0;
 	}
 
-	level.survival_barriers[ level.survival_barriers_index ] = spawn("script_model", origin);
-	level.survival_barriers[ level.survival_barriers_index ] setModel(model);
-	level.survival_barriers[ level.survival_barriers_index ] rotateTo(angles, 0.1);
+	level.survival_barriers[level.survival_barriers_index] = spawn("script_model", origin);
+	level.survival_barriers[level.survival_barriers_index] setModel(model);
+	level.survival_barriers[level.survival_barriers_index] rotateTo(angles, 0.1);
 
 	if (is_true(not_solid))
 	{
-		level.survival_barriers[ level.survival_barriers_index ] notSolid();
+		level.survival_barriers[level.survival_barriers_index] notSolid();
 	}
 
 	level.survival_barriers_index++;
@@ -392,15 +392,15 @@ add_struct_location_gamemode_func(gametype, location, func)
 		level.add_struct_gamemode_location_funcs = [];
 	}
 
-	if (!isDefined(level.add_struct_gamemode_location_funcs[ gametype ]))
+	if (!isDefined(level.add_struct_gamemode_location_funcs[gametype]))
 	{
-		level.add_struct_gamemode_location_funcs[ gametype ] = [];
+		level.add_struct_gamemode_location_funcs[gametype] = [];
 	}
 
-	if (!isDefined(level.add_struct_gamemode_location_funcs[ gametype ][ location ]))
+	if (!isDefined(level.add_struct_gamemode_location_funcs[gametype][location]))
 	{
-		level.add_struct_gamemode_location_funcs[ gametype ][ location ] = [];
+		level.add_struct_gamemode_location_funcs[gametype][location] = [];
 	}
 
-	level.add_struct_gamemode_location_funcs[ gametype ][ location ][ level.add_struct_gamemode_location_funcs[ gametype ][ location ].size ] = func;
+	level.add_struct_gamemode_location_funcs[gametype][location][level.add_struct_gamemode_location_funcs[gametype][location].size] = func;
 }

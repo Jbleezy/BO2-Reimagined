@@ -33,7 +33,7 @@ placed_equipment_think(model, equipname, origin, angles, tradius, toffset)
 
 	if (isDefined(level.equipment_safe_to_drop))
 	{
-		if (!(self [[ level.equipment_safe_to_drop ]](pickupmodel)))
+		if (!(self [[level.equipment_safe_to_drop]](pickupmodel)))
 		{
 			maps\mp\zombies\_zm_equipment::equipment_disappear_fx(pickupmodel.origin, undefined, pickupmodel.angles);
 			pickupmodel delete();
@@ -44,9 +44,9 @@ placed_equipment_think(model, equipname, origin, angles, tradius, toffset)
 
 	watchername = getsubstr(equipname, 0, equipname.size - 3);
 
-	if (isDefined(level.retrievehints[ watchername ]))
+	if (isDefined(level.retrievehints[watchername]))
 	{
-		hint = level.retrievehints[ watchername ].hint;
+		hint = level.retrievehints[watchername].hint;
 	}
 	else
 	{
@@ -83,12 +83,12 @@ placed_equipment_think(model, equipname, origin, angles, tradius, toffset)
 			level.dropped_equipment = [];
 		}
 
-		if (isDefined(level.dropped_equipment[ equipname ]) && isDefined(level.dropped_equipment[ equipname ].model))
+		if (isDefined(level.dropped_equipment[equipname]) && isDefined(level.dropped_equipment[equipname].model))
 		{
-			level.dropped_equipment[ equipname ].model maps\mp\zombies\_zm_equipment::dropped_equipment_destroy(1);
+			level.dropped_equipment[equipname].model maps\mp\zombies\_zm_equipment::dropped_equipment_destroy(1);
 		}
 
-		level.dropped_equipment[ equipname ] = pickupmodel.stub;
+		level.dropped_equipment[equipname] = pickupmodel.stub;
 	}
 
 	maps\mp\zombies\_zm_equipment::destructible_equipment_list_add(pickupmodel);
@@ -113,9 +113,9 @@ item_damage(damage)
 	if (isdefined(self.isriotshield) && self.isriotshield)
 	{
 		if (isdefined(level.riotshield_damage_callback) && isdefined(self.owner))
-			self.owner [[ level.riotshield_damage_callback ]](damage, 0);
+			self.owner [[level.riotshield_damage_callback]](damage, 0);
 		else if (isdefined(level.deployed_riotshield_damage_callback))
-			self [[ level.deployed_riotshield_damage_callback ]](damage);
+			self [[level.deployed_riotshield_damage_callback]](damage);
 	}
 	else if (isdefined(self.owner))
 	{
@@ -148,7 +148,7 @@ player_damage_equipment(equipment, damage, origin, stub)
 		thread maps\mp\zombies\_zm_unitrigger::unregister_unitrigger(stub);
 
 		if (isdefined(level.placeable_equipment_destroy_fn[equipment]))
-			self [[ level.placeable_equipment_destroy_fn[equipment] ]]();
+			self [[level.placeable_equipment_destroy_fn[equipment]]]();
 		else
 			equipment_disappear_fx(origin);
 

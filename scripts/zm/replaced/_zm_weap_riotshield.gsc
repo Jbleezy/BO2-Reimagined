@@ -169,7 +169,7 @@ riotshield_fling_zombie(player, fling_vec, index)
 
 	if (isdefined(self.riotshield_fling_func))
 	{
-		self [[ self.riotshield_fling_func ]](player);
+		self [[self.riotshield_fling_func]](player);
 		return;
 	}
 
@@ -192,7 +192,7 @@ riotshield_fling_zombie(player, fling_vec, index)
 zombie_knockdown(player, gib)
 {
 	if (isdefined(level.override_riotshield_damage_func))
-		self [[ level.override_riotshield_damage_func ]](player, gib);
+		self [[level.override_riotshield_damage_func]](player, gib);
 	else
 	{
 		if (gib)
@@ -213,7 +213,7 @@ riotshield_knockdown_zombie(player, gib)
 		return;
 
 	if (isdefined(self.riotshield_knockdown_func))
-		self [[ self.riotshield_knockdown_func ]](player, gib);
+		self [[self.riotshield_knockdown_func]](player, gib);
 	else
 		self zombie_knockdown(player, gib);
 

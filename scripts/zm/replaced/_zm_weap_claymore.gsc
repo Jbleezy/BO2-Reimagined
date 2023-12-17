@@ -116,7 +116,7 @@ claymore_detonation()
 
 	self.damagearea = damagearea;
 	self thread delete_claymores_on_death(self.owner, damagearea);
-	self.owner.claymores[ self.owner.claymores.size ] = self;
+	self.owner.claymores[self.owner.claymores.size] = self;
 
 	while (1)
 	{
@@ -127,12 +127,12 @@ claymore_detonation()
 			continue;
 		}
 
-		if (isDefined(ent.pers) && isDefined(ent.pers[ "team" ]) && ent.pers[ "team" ] == self.team)
+		if (isDefined(ent.pers) && isDefined(ent.pers["team"]) && ent.pers["team"] == self.team)
 		{
 			continue;
 		}
 
-		if (isDefined(ent.pers) && isDefined(ent.pers[ "team" ]) && ent.pers[ "team" ] == getOtherTeam(self.team))
+		if (isDefined(ent.pers) && isDefined(ent.pers["team"]) && ent.pers["team"] == getOtherTeam(self.team))
 		{
 			continue;
 		}

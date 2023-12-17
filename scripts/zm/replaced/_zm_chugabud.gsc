@@ -32,7 +32,7 @@ chugabud_laststand()
 	{
 		if (isdefined(level._chugabug_reject_corpse_override_func))
 		{
-			reject_corpse = self [[ level._chugabug_reject_corpse_override_func ]](self.origin);
+			reject_corpse = self [[level._chugabug_reject_corpse_override_func]](self.origin);
 
 			if (reject_corpse)
 				create_corpse = 0;
@@ -180,7 +180,7 @@ chugabud_fake_revive()
 	spawnpoint = chugabud_get_spawnpoint();
 
 	if (isdefined(level._chugabud_post_respawn_override_func))
-		self [[ level._chugabud_post_respawn_override_func ]](spawnpoint.origin);
+		self [[level._chugabud_post_respawn_override_func]](spawnpoint.origin);
 
 	if (isdefined(level.chugabud_force_corpse_position))
 	{

@@ -139,7 +139,7 @@ afterlife_laststand(b_electric_chair = 0)
 
 	if (isdefined(level.afterlife_laststand_override))
 	{
-		self thread [[ level.afterlife_laststand_override ]](b_electric_chair);
+		self thread [[level.afterlife_laststand_override]](b_electric_chair);
 		return;
 	}
 
@@ -150,7 +150,7 @@ afterlife_laststand(b_electric_chair = 0)
 	if (self hasperk("specialty_grenadepulldeath"))
 		b_has_electric_cherry = 1;
 
-	self [[ level.afterlife_save_loadout ]]();
+	self [[level.afterlife_save_loadout]]();
 	self afterlife_fake_death();
 
 	if (isdefined(b_electric_chair) && !b_electric_chair)
@@ -271,7 +271,7 @@ afterlife_fake_revive()
 
 	if (flag("afterlife_start_over"))
 	{
-		spawnpoint = [[ level.afterlife_get_spawnpoint ]]();
+		spawnpoint = [[level.afterlife_get_spawnpoint]]();
 		trace_start = spawnpoint.origin;
 		trace_end = spawnpoint.origin + vectorscale((0, 0, -1), 200.0);
 		respawn_trace = playerphysicstrace(trace_start, trace_end);
@@ -508,7 +508,7 @@ afterlife_player_damage_callback(einflictor, eattacker, idamage, idflags, smeans
 		if (isdefined(eattacker.is_zombie) && eattacker.is_zombie)
 		{
 			if (isdefined(eattacker.custom_damage_func))
-				idamage = eattacker [[ eattacker.custom_damage_func ]](self);
+				idamage = eattacker [[eattacker.custom_damage_func]](self);
 			else if (isdefined(eattacker.meleedamage) && smeansofdeath != "MOD_GRENADE_SPLASH")
 				idamage = eattacker.meleedamage;
 
@@ -540,7 +540,7 @@ afterlife_player_damage_callback(einflictor, eattacker, idamage, idflags, smeans
 			{
 				if (self player_shield_facing_attacker(vdir, 0.2) && isdefined(self.player_shield_apply_damage))
 				{
-					self [[ self.player_shield_apply_damage ]](item_dmg, 0);
+					self [[self.player_shield_apply_damage]](item_dmg, 0);
 					return 0;
 				}
 			}
@@ -548,7 +548,7 @@ afterlife_player_damage_callback(einflictor, eattacker, idamage, idflags, smeans
 			{
 				if (!self player_shield_facing_attacker(vdir, -0.2) && isdefined(self.player_shield_apply_damage))
 				{
-					self [[ self.player_shield_apply_damage ]](item_dmg, 0);
+					self [[self.player_shield_apply_damage]](item_dmg, 0);
 					return 0;
 				}
 			}

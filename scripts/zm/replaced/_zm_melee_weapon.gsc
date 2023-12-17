@@ -26,7 +26,7 @@ change_melee_weapon(weapon_name, current_weapon)
 
 	while (i < primaryweapons.size)
 	{
-		primary_weapon = primaryweapons[ i ];
+		primary_weapon = primaryweapons[i];
 
 		if (issubstr(primary_weapon, "knife_ballistic_"))
 		{
@@ -57,7 +57,7 @@ change_melee_weapon(weapon_name, current_weapon)
 	{
 		if (had_ballistic_upgraded)
 		{
-			new_ballistic = level.ballistic_upgraded_weapon_name[ weapon_name ];
+			new_ballistic = level.ballistic_upgraded_weapon_name[weapon_name];
 
 			if (ballistic_was_primary)
 			{
@@ -68,7 +68,7 @@ change_melee_weapon(weapon_name, current_weapon)
 		}
 		else
 		{
-			new_ballistic = level.ballistic_weapon_name[ weapon_name ];
+			new_ballistic = level.ballistic_weapon_name[weapon_name];
 
 			if (ballistic_was_primary)
 			{
@@ -88,7 +88,7 @@ change_melee_weapon(weapon_name, current_weapon)
 give_melee_weapon(vo_dialog_id, flourish_weapon_name, weapon_name, ballistic_weapon_name, ballistic_upgraded_weapon_name, flourish_fn, trigger)
 {
 	if (isdefined(flourish_fn))
-		self thread [[ flourish_fn ]]();
+		self thread [[flourish_fn]]();
 
 	self thread do_melee_weapon_change(weapon_name);
 

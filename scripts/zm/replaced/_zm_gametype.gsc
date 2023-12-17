@@ -15,13 +15,13 @@ onspawnplayer(predictedspawn)
 
 	if (isDefined(level.custom_spawnplayer) && is_true(self.player_initialized))
 	{
-		self [[ level.custom_spawnplayer ]]();
+		self [[level.custom_spawnplayer]]();
 		return;
 	}
 
 	if (isDefined(level.customspawnlogic))
 	{
-		self [[ level.customspawnlogic ]](predictedspawn);
+		self [[level.customspawnlogic]](predictedspawn);
 
 		if (predictedspawn)
 		{
@@ -45,15 +45,15 @@ onspawnplayer(predictedspawn)
 		{
 			for (i = 0; i < structs.size; i++)
 			{
-				if (isdefined(structs[ i ].script_string))
+				if (isdefined(structs[i].script_string))
 				{
-					tokens = strtok(structs[ i ].script_string, " ");
+					tokens = strtok(structs[i].script_string, " ");
 
 					foreach (token in tokens)
 					{
 						if (token == match_string)
 						{
-							spawnpoints[ spawnpoints.size ] = structs[ i ];
+							spawnpoints[spawnpoints.size] = structs[i];
 						}
 					}
 				}
@@ -84,7 +84,7 @@ onspawnplayer(predictedspawn)
 	self freezecontrols(1);
 	self.spectator_respawn = spawnpoint;
 	self.score = self maps\mp\gametypes_zm\_globallogic_score::getpersstat("score");
-	self.pers[ "participation" ] = 0;
+	self.pers["participation"] = 0;
 
 	self.score_total = self.score;
 	self.old_score = self.score;
@@ -101,7 +101,7 @@ onspawnplayer(predictedspawn)
 
 	if (isDefined(level.game_mode_spawn_player_logic))
 	{
-		spawn_in_spectate = [[ level.game_mode_spawn_player_logic ]]();
+		spawn_in_spectate = [[level.game_mode_spawn_player_logic]]();
 
 		if (spawn_in_spectate)
 		{
@@ -133,7 +133,7 @@ onplayerspawned()
 
 		if (isDefined(level.custom_player_fake_death_cleanup))
 		{
-			self [[ level.custom_player_fake_death_cleanup ]]();
+			self [[level.custom_player_fake_death_cleanup]]();
 		}
 
 		self setstance("stand");
@@ -162,14 +162,14 @@ onplayerspawned()
 
 		if (isDefined(level.givecustomcharacters))
 		{
-			self [[ level.givecustomcharacters ]]();
+			self [[level.givecustomcharacters]]();
 		}
 
 		weapons_restored = 0;
 
 		if (isDefined(level.onplayerspawned_restore_previous_weapons))
 		{
-			weapons_restored = self [[ level.onplayerspawned_restore_previous_weapons ]]();
+			weapons_restored = self [[level.onplayerspawned_restore_previous_weapons]]();
 		}
 
 		if (!is_true(weapons_restored))
@@ -188,7 +188,7 @@ onplayerspawned()
 
 		if (isDefined(level.gamemode_post_spawn_logic))
 		{
-			self [[ level.gamemode_post_spawn_logic ]]();
+			self [[level.gamemode_post_spawn_logic]]();
 		}
 	}
 }
@@ -219,7 +219,7 @@ hide_gump_loading_for_hotjoiners()
 
 		if (!flag("initial_blackscreen_passed"))
 		{
-			self [[ level.spawnplayer ]]();
+			self [[level.spawnplayer]]();
 		}
 		else
 		{
@@ -236,7 +236,7 @@ hide_gump_loading_for_hotjoiners()
 		self setclientthirdperson(0);
 		self resetfov();
 		self.health = 100;
-		self thread [[ level.custom_intermission ]]();
+		self thread [[level.custom_intermission]]();
 	}
 }
 
@@ -379,19 +379,19 @@ menu_onmenuresponse()
 			switch (response)
 			{
 				case "allies":
-					self [[ level.allies ]]();
+					self [[level.allies]]();
 					break;
 
 				case "axis":
-					self [[ level.teammenu ]](response);
+					self [[level.teammenu]](response);
 					break;
 
 				case "autoassign":
-					self [[ level.autoassign ]](1);
+					self [[level.autoassign]](1);
 					break;
 
 				case "spectator":
-					self [[ level.spectator ]]();
+					self [[level.spectator]]();
 					break;
 			}
 
@@ -409,7 +409,7 @@ menu_onmenuresponse()
 			}
 
 			self.selectedclass = 1;
-			self [[ level.class ]](response);
+			self [[level.class]](response);
 		}
 	}
 }
@@ -472,7 +472,7 @@ do_team_change()
 
 	if (!flag("initial_blackscreen_passed"))
 	{
-		self [[ level.spawnplayer ]]();
+		self [[level.spawnplayer]]();
 	}
 }
 
@@ -495,7 +495,7 @@ set_team(team)
 		self.characterindex = 1;
 	}
 
-	self [[ level.givecustomcharacters ]]();
+	self [[level.givecustomcharacters]]();
 
 	if (isDefined(self.head_icon))
 	{

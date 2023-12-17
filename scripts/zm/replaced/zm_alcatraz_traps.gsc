@@ -372,7 +372,7 @@ tower_trap_fires(a_zombies)
 {
 	if (isdefined(level.custom_tower_trap_fires_func))
 	{
-		self thread [[ level.custom_tower_trap_fires_func ]](a_zombies);
+		self thread [[level.custom_tower_trap_fires_func]](a_zombies);
 		return;
 	}
 

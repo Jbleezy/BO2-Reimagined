@@ -89,7 +89,7 @@ start_jail_run(do_pain)
 		if (isdefined(self.bench))
 		{
 			if (isdefined(level.weapon_bench_reset))
-				self.bench [[ level.weapon_bench_reset ]]();
+				self.bench [[level.weapon_bench_reset]]();
 		}
 	}
 
@@ -100,7 +100,7 @@ start_jail_run(do_pain)
 	if (self.state == "context")
 	{
 		if (isdefined(self.context.interrupt))
-			self [[ self.context.interrupt ]]();
+			self [[self.context.interrupt]]();
 	}
 
 	self sloth_init_roam_point();

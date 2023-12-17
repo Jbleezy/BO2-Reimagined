@@ -216,7 +216,7 @@ screecher_detach(player)
 
 	if (isdefined(level.screecher_should_burrow))
 	{
-		if (self [[ level.screecher_should_burrow ]]())
+		if (self [[level.screecher_should_burrow]]())
 		{
 			return;
 		}
@@ -284,7 +284,7 @@ screecher_cleanup()
 		self.anchor delete();
 
 	if (isdefined(level.screecher_cleanup))
-		self [[ level.screecher_cleanup ]]();
+		self [[level.screecher_cleanup]]();
 
 	if (level.zombie_screecher_count > 0)
 	{

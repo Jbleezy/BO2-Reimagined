@@ -45,7 +45,7 @@ buildable_place_think()
 
 			if (isDefined(self.stub.oncantuse))
 			{
-				self.stub [[ self.stub.oncantuse ]](player);
+				self.stub [[self.stub.oncantuse]](player);
 			}
 
 			continue;
@@ -54,15 +54,15 @@ buildable_place_think()
 		{
 			if (isDefined(self.stub.onbeginuse))
 			{
-				self.stub [[ self.stub.onbeginuse ]](player);
+				self.stub [[self.stub.onbeginuse]](player);
 			}
 
 			result = self buildable_use_hold_think(player);
-			team = player.pers[ "team" ];
+			team = player.pers["team"];
 
 			if (isDefined(self.stub.onenduse))
 			{
-				self.stub [[ self.stub.onenduse ]](team, player, result);
+				self.stub [[self.stub.onenduse]](team, player, result);
 			}
 
 			if (!result)
@@ -77,7 +77,7 @@ buildable_place_think()
 
 			if (isDefined(self.stub.onuse))
 			{
-				self.stub [[ self.stub.onuse ]](player);
+				self.stub [[self.stub.onuse]](player);
 			}
 
 			prompt = player maps\mp\zombies\_zm_buildables::player_build(self.stub.buildablezone);
@@ -89,7 +89,7 @@ buildable_place_think()
 
 	if (self.stub.persistent == 4)
 	{
-		self [[ self.stub.custom_completion_callback ]](player_built);
+		self [[self.stub.custom_completion_callback]](player_built);
 		return;
 	}
 
@@ -187,14 +187,14 @@ buildable_place_think()
 
 			player maps\mp\zombies\_zm_weapons::weapon_give(self.stub.weaponname);
 
-			if (isDefined(level.zombie_include_buildables[ self.stub.equipname ].onbuyweapon))
+			if (isDefined(level.zombie_include_buildables[self.stub.equipname].onbuyweapon))
 			{
-				self [[ level.zombie_include_buildables[ self.stub.equipname ].onbuyweapon ]](player);
+				self [[level.zombie_include_buildables[self.stub.equipname].onbuyweapon]](player);
 			}
 
-			if (isDefined(level.zombie_buildables[ self.stub.equipname ].bought))
+			if (isDefined(level.zombie_buildables[self.stub.equipname].bought))
 			{
-				self.stub.hint_string = level.zombie_buildables[ self.stub.equipname ].bought;
+				self.stub.hint_string = level.zombie_buildables[self.stub.equipname].bought;
 			}
 			else
 			{
@@ -288,9 +288,9 @@ buildable_place_think()
 						}
 					}
 
-					if (isDefined(level.zombie_include_buildables[ self.stub.equipname ].onbuyweapon))
+					if (isDefined(level.zombie_include_buildables[self.stub.equipname].onbuyweapon))
 					{
-						self [[ level.zombie_include_buildables[ self.stub.equipname ].onbuyweapon ]](player);
+						self [[level.zombie_include_buildables[self.stub.equipname].onbuyweapon]](player);
 					}
 
 					if (self.stub.weaponname != "keys_zm")
@@ -298,9 +298,9 @@ buildable_place_think()
 						player setactionslot(1, "weapon", self.stub.weaponname);
 					}
 
-					if (isDefined(level.zombie_buildables[ self.stub.equipname ].bought))
+					if (isDefined(level.zombie_buildables[self.stub.equipname].bought))
 					{
-						self.stub.hint_string = level.zombie_buildables[ self.stub.equipname ].bought;
+						self.stub.hint_string = level.zombie_buildables[self.stub.equipname].bought;
 					}
 					else
 					{
@@ -333,7 +333,7 @@ player_can_build(buildable, continuing)
 	else if (buildable buildable_is_piece_built_or_building(buildable.pieces[0]))
 		return false;
 
-	if (isdefined(buildable.stub) && isdefined(buildable.stub.custom_buildablestub_update_prompt) && isdefined(buildable.stub.playertrigger[0]) && isdefined(buildable.stub.playertrigger[0].stub) && !buildable.stub.playertrigger[0].stub [[ buildable.stub.custom_buildablestub_update_prompt ]](self, 1, buildable.stub.playertrigger[0]))
+	if (isdefined(buildable.stub) && isdefined(buildable.stub.custom_buildablestub_update_prompt) && isdefined(buildable.stub.playertrigger[0]) && isdefined(buildable.stub.playertrigger[0].stub) && !buildable.stub.playertrigger[0].stub [[buildable.stub.custom_buildablestub_update_prompt]](self, 1, buildable.stub.playertrigger[0]))
 		return false;
 
 	return true;
@@ -389,7 +389,7 @@ buildable_use_hold_think_internal(player, bind_stub = self.stub)
 	player thread player_progress_bar(build_start_time, build_time, bind_stub.building_prompt);
 
 	if (isdefined(level.buildable_build_custom_func))
-		player thread [[ level.buildable_build_custom_func ]](self.stub);
+		player thread [[level.buildable_build_custom_func]](self.stub);
 
 	while (isdefined(self) && player player_continue_building(bind_stub.buildablezone, self.stub) && gettime() - self.build_start_time < self.build_time)
 		wait 0.05;
@@ -509,7 +509,7 @@ player_build(buildable, pieces)
 			self track_buildables_built(buildable);
 
 		if (isdefined(level.buildable_built_custom_func))
-			self thread [[ level.buildable_built_custom_func ]](buildable);
+			self thread [[level.buildable_built_custom_func]](buildable);
 
 		alias = sndbuildablecompletealias(buildable.buildable_name);
 		self playsound(alias);

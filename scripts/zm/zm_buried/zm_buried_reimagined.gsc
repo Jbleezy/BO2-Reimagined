@@ -96,7 +96,7 @@ buried_special_weapon_magicbox_check(weapon)
 
 		while (i < players.size)
 		{
-			if (is_player_valid(players[ i ], undefined, 1) && players[ i ] is_player_tactical_grenade(weapon))
+			if (is_player_valid(players[i], undefined, 1) && players[i] is_player_tactical_grenade(weapon))
 			{
 				return 0;
 			}

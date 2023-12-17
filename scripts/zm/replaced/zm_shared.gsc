@@ -25,7 +25,7 @@ dotraverse(traversestate, traversealias, no_powerups)
 	self.traversestartz = self.origin[2];
 
 	if (isdefined(self.pre_traverse))
-		self [[ self.pre_traverse ]]();
+		self [[self.pre_traverse]]();
 
 	self setanimstatefromasd(traversestate, traversealias);
 	self maps\mp\animscripts\zm_shared::donotetracks("traverse_anim");
@@ -33,7 +33,7 @@ dotraverse(traversestate, traversealias, no_powerups)
 	self.a.nodeath = 0;
 
 	if (isdefined(self.post_traverse))
-		self [[ self.post_traverse ]]();
+		self [[self.post_traverse]]();
 
 	self maps\mp\animscripts\zm_run::needsupdate();
 

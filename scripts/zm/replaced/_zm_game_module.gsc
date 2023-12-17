@@ -25,15 +25,15 @@ wait_for_team_death_and_round_end()
 
 		while (i < players.size)
 		{
-			if (!isDefined(players[ i ]._encounters_team))
+			if (!isDefined(players[i]._encounters_team))
 			{
 				i++;
 				continue;
 			}
 
-			if (players[ i ]._encounters_team == "A")
+			if (players[i]._encounters_team == "A")
 			{
-				if (is_player_valid(players[ i ]))
+				if (is_player_valid(players[i]))
 				{
 					cia_alive++;
 				}
@@ -42,7 +42,7 @@ wait_for_team_death_and_round_end()
 				continue;
 			}
 
-			if (is_player_valid(players[ i ]))
+			if (is_player_valid(players[i]))
 			{
 				cdc_alive++;
 			}
@@ -176,7 +176,7 @@ round_end(winner)
 
 	level.isresetting_grief = 1;
 	level notify("end_round_think");
-	level.zombie_vars[ "spectators_respawn" ] = 1;
+	level.zombie_vars["spectators_respawn"] = 1;
 	level notify("keep_griefing");
 	level notify("restart_round");
 
@@ -218,22 +218,22 @@ round_end(winner)
 game_won(winner)
 {
 	level.gamemodulewinningteam = winner;
-	level.zombie_vars[ "spectators_respawn" ] = 0;
+	level.zombie_vars["spectators_respawn"] = 0;
 	players = get_players();
 	i = 0;
 
 	while (i < players.size)
 	{
-		players[ i ] freezecontrols(1);
+		players[i] freezecontrols(1);
 
-		if (players[ i ]._encounters_team == winner)
+		if (players[i]._encounters_team == winner)
 		{
-			players[ i ] thread maps\mp\zombies\_zm_audio_announcer::leaderdialogonplayer("grief_won");
+			players[i] thread maps\mp\zombies\_zm_audio_announcer::leaderdialogonplayer("grief_won");
 			i++;
 			continue;
 		}
 
-		players[ i ] thread maps\mp\zombies\_zm_audio_announcer::leaderdialogonplayer("grief_lost");
+		players[i] thread maps\mp\zombies\_zm_audio_announcer::leaderdialogonplayer("grief_lost");
 		i++;
 	}
 
@@ -259,7 +259,7 @@ zombie_goto_round(target_round)
 	{
 		for (i = 0; i < zombies.size; i++)
 		{
-			zombies[ i ] dodamage(zombies[ i ].health + 666, zombies[ i ].origin);
+			zombies[i] dodamage(zombies[i].health + 666, zombies[i].origin);
 		}
 	}
 

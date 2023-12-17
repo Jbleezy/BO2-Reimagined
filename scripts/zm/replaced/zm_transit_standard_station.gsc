@@ -15,7 +15,7 @@ station_treasure_chest_init()
 {
 	chest1 = getstruct("depot_chest", "script_noteworthy");
 	level.chests = [];
-	level.chests[ level.chests.size ] = chest1;
+	level.chests[level.chests.size] = chest1;
 	maps\mp\zombies\_zm_magicbox::treasure_chest_init("depot_chest");
 }
 

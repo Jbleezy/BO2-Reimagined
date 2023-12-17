@@ -101,8 +101,8 @@ grief_treasure_chest_init()
 	chest2 = getstruct("cafe_chest", "script_noteworthy");
 	setdvar("disableLookAtEntityLogic", 1);
 	level.chests = [];
-	level.chests[ level.chests.size ] = chest1;
-	level.chests[ level.chests.size ] = chest2;
+	level.chests[level.chests.size] = chest1;
+	level.chests[level.chests.size] = chest2;
 	maps\mp\zombies\_zm_magicbox::treasure_chest_init("start_chest");
 }
 
@@ -121,31 +121,31 @@ main()
 	maps\mp\zombies\_zm_ai_brutus::precache();
 	maps\mp\zombies\_zm_ai_brutus::init();
 	level.enemy_location_override_func = ::enemy_location_override;
-	level._effect[ "butterflies" ] = loadfx("maps/zombie_alcatraz/fx_alcatraz_skull_elec");
+	level._effect["butterflies"] = loadfx("maps/zombie_alcatraz/fx_alcatraz_skull_elec");
 	a_t_door_triggers = getentarray("zombie_door", "targetname");
 	triggers = a_t_door_triggers;
 	i = 0;
 
 	while (i < triggers.size)
 	{
-		if (isDefined(triggers[ i ].script_flag))
+		if (isDefined(triggers[i].script_flag))
 		{
-			if (triggers[ i ].script_flag == "activate_cellblock_citadel" || triggers[ i ].script_flag == "activate_shower_room" || triggers[ i ].script_flag == "activate_cellblock_infirmary" || triggers[ i ].script_flag == "activate_infirmary")
+			if (triggers[i].script_flag == "activate_cellblock_citadel" || triggers[i].script_flag == "activate_shower_room" || triggers[i].script_flag == "activate_cellblock_infirmary" || triggers[i].script_flag == "activate_infirmary")
 			{
-				triggers[ i ] delete();
+				triggers[i] delete();
 				i++;
 				continue;
 			}
 
-			if (triggers[ i ].script_flag == "activate_cafeteria" || triggers[ i ].script_flag == "activate_cellblock_east" || triggers[ i ].script_flag == "activate_cellblock_west" || triggers[ i ].script_flag == "activate_cellblock_barber" || triggers[ i ].script_flag == "activate_cellblock_gondola" || triggers[ i ].script_flag == "activate_cellblock_east_west" || triggers[ i ].script_flag == "activate_warden_office")
+			if (triggers[i].script_flag == "activate_cafeteria" || triggers[i].script_flag == "activate_cellblock_east" || triggers[i].script_flag == "activate_cellblock_west" || triggers[i].script_flag == "activate_cellblock_barber" || triggers[i].script_flag == "activate_cellblock_gondola" || triggers[i].script_flag == "activate_cellblock_east_west" || triggers[i].script_flag == "activate_warden_office")
 			{
 				i++;
 				continue;
 			}
 
-			if (isDefined(triggers[ i ].target))
+			if (isDefined(triggers[i].target))
 			{
-				str_target = triggers[ i ].target;
+				str_target = triggers[i].target;
 				a_door_and_clip = getentarray(str_target, "targetname");
 
 				foreach (ent in a_door_and_clip)
@@ -154,7 +154,7 @@ main()
 				}
 			}
 
-			triggers[ i ] delete();
+			triggers[i] delete();
 		}
 
 		i++;
@@ -175,16 +175,16 @@ main()
 
 	zbarriers = getzbarrierarray();
 	a_str_zones = [];
-	a_str_zones[ 0 ] = "zone_start";
-	a_str_zones[ 1 ] = "zone_library";
-	a_str_zones[ 2 ] = "zone_cafeteria";
-	a_str_zones[ 3 ] = "zone_cafeteria_end";
-	a_str_zones[ 4 ] = "zone_warden_office";
-	a_str_zones[ 5 ] = "zone_cellblock_east";
-	a_str_zones[ 6 ] = "zone_cellblock_west_warden";
-	a_str_zones[ 7 ] = "zone_cellblock_west_barber";
-	a_str_zones[ 8 ] = "zone_cellblock_west";
-	a_str_zones[ 9 ] = "zone_cellblock_west_gondola";
+	a_str_zones[0] = "zone_start";
+	a_str_zones[1] = "zone_library";
+	a_str_zones[2] = "zone_cafeteria";
+	a_str_zones[3] = "zone_cafeteria_end";
+	a_str_zones[4] = "zone_warden_office";
+	a_str_zones[5] = "zone_cellblock_east";
+	a_str_zones[6] = "zone_cellblock_west_warden";
+	a_str_zones[7] = "zone_cellblock_west_barber";
+	a_str_zones[8] = "zone_cellblock_west";
+	a_str_zones[9] = "zone_cellblock_west_gondola";
 
 	foreach (barrier in zbarriers)
 	{
@@ -201,7 +201,7 @@ main()
 			{
 				for (i = 0; i < a_str_zones.size; i++)
 				{
-					if (str_model == a_str_zones[ i ])
+					if (str_model == a_str_zones[i])
 					{
 						b_delete_barrier = 0;
 						break;
@@ -472,15 +472,15 @@ turn_afterlife_interact_on()
 	{
 		if (!isDefined(level.shockbox_anim))
 		{
-			level.shockbox_anim[ "on" ] = %fxanim_zom_al_shock_box_on_anim;
-			level.shockbox_anim[ "off" ] = %fxanim_zom_al_shock_box_off_anim;
+			level.shockbox_anim["on"] = %fxanim_zom_al_shock_box_on_anim;
+			level.shockbox_anim["off"] = %fxanim_zom_al_shock_box_off_anim;
 		}
 
 		if (issubstr(self.model, "p6_zm_al_shock_box"))
 		{
 			self useanimtree(-1);
 			self setmodel("p6_zm_al_shock_box_on");
-			self setanim(level.shockbox_anim[ "on" ]);
+			self setanim(level.shockbox_anim["on"]);
 		}
 	}
 	else

@@ -9,22 +9,22 @@ playleaderdialogonplayer(dialog, team, waittime)
 
 	if (level.allowzmbannouncer)
 	{
-		if (!isDefined(game[ "zmbdialog" ][ dialog ]))
+		if (!isDefined(game["zmbdialog"][dialog]))
 		{
 			return;
 		}
 	}
 
-	if (isDefined(self.zmbdialoggroups[ dialog ]))
+	if (isDefined(self.zmbdialoggroups[dialog]))
 	{
 		group = dialog;
-		dialog = self.zmbdialoggroups[ group ];
-		self.zmbdialoggroups[ group ] = undefined;
+		dialog = self.zmbdialoggroups[group];
+		self.zmbdialoggroups[group] = undefined;
 	}
 
 	if (level.allowzmbannouncer)
 	{
-		alias = game[ "zmbdialog" ][ "prefix" ] + "_" + game[ "zmbdialog" ][ dialog ];
+		alias = game["zmbdialog"]["prefix"] + "_" + game["zmbdialog"][dialog];
 		variant = self getleaderdialogvariant(alias);
 
 		if (!isDefined(variant))

@@ -125,17 +125,17 @@ highrise_respawn_override(revivee, return_struct)
 
 	for (i = 0; i < players.size; i++)
 	{
-		if (is_player_valid(players[ i ], undefined, 1) && players[ i ] != self)
+		if (is_player_valid(players[i], undefined, 1) && players[i] != self)
 		{
 			for (j = 0; j < spawn_points.size; j++)
 			{
-				if (isDefined(spawn_points[ j ].script_noteworthy))
+				if (isDefined(spawn_points[j].script_noteworthy))
 				{
-					zone = level.zones[ spawn_points[ j ].script_noteworthy ];
+					zone = level.zones[spawn_points[j].script_noteworthy];
 
 					for (k = 0; k < zone.volumes.size; k++)
 					{
-						if (players[ i ] istouching(zone.volumes[ k ]))
+						if (players[i] istouching(zone.volumes[k]))
 						{
 							closest_group = j;
 							spawn_location = maps\mp\zombies\_zm::get_valid_spawn_location(revivee, spawn_points, closest_group, return_struct);

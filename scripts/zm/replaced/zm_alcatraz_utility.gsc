@@ -36,7 +36,7 @@ blundergat_upgrade_station()
 
 		if (isdefined(level.custom_craftable_validation))
 		{
-			valid = t_upgrade [[ level.custom_craftable_validation ]](player);
+			valid = t_upgrade [[level.custom_craftable_validation]](player);
 
 			if (!valid)
 				continue;
@@ -129,7 +129,7 @@ wait_for_player_to_take(player, str_valid_weapon)
 
 		if (isdefined(level.custom_craftable_validation))
 		{
-			valid = self [[ level.custom_craftable_validation ]](player);
+			valid = self [[level.custom_craftable_validation]](player);
 
 			if (!valid)
 				continue;

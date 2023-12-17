@@ -20,7 +20,7 @@ door_buy()
 
 	if (isdefined(level.custom_door_buy_check))
 	{
-		if (!who [[ level.custom_door_buy_check ]](self))
+		if (!who [[level.custom_door_buy_check]](self))
 			return false;
 	}
 
@@ -56,7 +56,7 @@ door_buy()
 			play_sound_at_pos("no_purchase", self.origin);
 
 			if (isdefined(level.custom_generic_deny_vo_func))
-				who thread [[ level.custom_generic_deny_vo_func ]](1);
+				who thread [[level.custom_generic_deny_vo_func]](1);
 			else
 				who maps\mp\zombies\_zm_audio::create_and_play_dialog("general", "door_deny");
 
@@ -65,7 +65,7 @@ door_buy()
 	}
 
 	if (isdefined(level._door_open_rumble_func))
-		who thread [[ level._door_open_rumble_func ]]();
+		who thread [[level._door_open_rumble_func]]();
 
 	return true;
 }
@@ -187,7 +187,7 @@ handle_post_board_repair_rewards(cost, zbarrier)
 	self maps\mp\zombies\_zm_stats::increment_client_stat("boards");
 	self maps\mp\zombies\_zm_stats::increment_player_stat("boards");
 
-	if (isDefined(self.pers[ "boards" ]) && (self.pers[ "boards" ] % 10) == 0)
+	if (isDefined(self.pers["boards"]) && (self.pers["boards"] % 10) == 0)
 	{
 		self thread do_player_general_vox("general", "reboard", 90);
 	}

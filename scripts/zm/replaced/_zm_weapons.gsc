@@ -333,7 +333,7 @@ weapon_give(weapon, is_upgrade, magic_box, nosound)
 	{
 		if (isDefined(self.player_shield_reset_health))
 		{
-			self [[ self.player_shield_reset_health ]]();
+			self [[self.player_shield_reset_health]]();
 		}
 	}
 
@@ -429,7 +429,7 @@ weapon_give(weapon, is_upgrade, magic_box, nosound)
 
 	if (isDefined(level.zombiemode_offhand_weapon_give_override))
 	{
-		if (self [[ level.zombiemode_offhand_weapon_give_override ]](weapon))
+		if (self [[level.zombiemode_offhand_weapon_give_override]](weapon))
 		{
 			return;
 		}
@@ -452,9 +452,9 @@ weapon_give(weapon, is_upgrade, magic_box, nosound)
 		return;
 	}
 
-	if (isDefined(level.zombie_weapons_callbacks) && isDefined(level.zombie_weapons_callbacks[ weapon ]))
+	if (isDefined(level.zombie_weapons_callbacks) && isDefined(level.zombie_weapons_callbacks[weapon]))
 	{
-		self thread [[ level.zombie_weapons_callbacks[ weapon ] ]]();
+		self thread [[level.zombie_weapons_callbacks[weapon]]]();
 		play_weapon_vo(weapon, magic_box);
 		return;
 	}
@@ -464,7 +464,7 @@ weapon_give(weapon, is_upgrade, magic_box, nosound)
 		self play_sound_on_ent("purchase");
 	}
 
-	if (is_true(magic_box) && is_limited_weapon(weapon) && level.limited_weapons[ weapon ] == 1)
+	if (is_true(magic_box) && is_limited_weapon(weapon) && level.limited_weapons[weapon] == 1)
 	{
 		playsoundatposition("mus_raygun_stinger", (0, 0, 0));
 	}
@@ -686,7 +686,7 @@ weapon_spawn_think()
 
 					if (isDefined(player.player_shield_reset_health))
 					{
-						player [[ player.player_shield_reset_health ]]();
+						player [[player.player_shield_reset_health]]();
 					}
 				}
 				else if (self.zombie_weapon_upgrade == "jetgun_zm")
@@ -750,7 +750,7 @@ weapon_spawn_think()
 				ammo_cost = maps\mp\zombies\_zm_weapons::get_ammo_cost(str_weapon);
 			}
 
-			if (is_true(player.pers_upgrades_awarded[ "nube" ]))
+			if (is_true(player.pers_upgrades_awarded["nube"]))
 			{
 				ammo_cost = maps\mp\zombies\_zm_pers_upgrades_functions::pers_nube_override_ammo_cost(player, self.zombie_weapon_upgrade, ammo_cost);
 			}
@@ -786,7 +786,7 @@ weapon_spawn_think()
 				{
 					if (isDefined(player.player_shield_reset_health))
 					{
-						ammo_given = player [[ player.player_shield_reset_health ]]();
+						ammo_given = player [[player.player_shield_reset_health]]();
 					}
 					else
 					{
@@ -795,7 +795,7 @@ weapon_spawn_think()
 				}
 				else if (player maps\mp\zombies\_zm_weapons::has_upgrade(str_weapon))
 				{
-					ammo_given = player maps\mp\zombies\_zm_weapons::ammo_give(level.zombie_weapons[ str_weapon ].upgrade_name);
+					ammo_given = player maps\mp\zombies\_zm_weapons::ammo_give(level.zombie_weapons[str_weapon].upgrade_name);
 				}
 				else
 				{
@@ -814,7 +814,7 @@ weapon_spawn_think()
 
 				if (isDefined(level.custom_generic_deny_vo_func))
 				{
-					player [[ level.custom_generic_deny_vo_func ]]();
+					player [[level.custom_generic_deny_vo_func]]();
 				}
 				else
 				{
@@ -825,16 +825,16 @@ weapon_spawn_think()
 
 		if (isDefined(self.stub) && isDefined(self.stub.prompt_and_visibility_func))
 		{
-			self [[ self.stub.prompt_and_visibility_func ]](player);
+			self [[self.stub.prompt_and_visibility_func]](player);
 		}
 	}
 }
 
 get_upgraded_ammo_cost(weapon_name)
 {
-	if (isDefined(level.zombie_weapons[ weapon_name ].upgraded_ammo_cost))
+	if (isDefined(level.zombie_weapons[weapon_name].upgraded_ammo_cost))
 	{
-		return level.zombie_weapons[ weapon_name ].upgraded_ammo_cost;
+		return level.zombie_weapons[weapon_name].upgraded_ammo_cost;
 	}
 
 	return 2500;

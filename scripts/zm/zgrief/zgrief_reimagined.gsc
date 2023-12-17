@@ -1550,43 +1550,43 @@ custom_end_screen()
 
 	while (i < players.size)
 	{
-		players[ i ].game_over_hud = newclienthudelem(players[ i ]);
-		players[ i ].game_over_hud.alignx = "center";
-		players[ i ].game_over_hud.aligny = "middle";
-		players[ i ].game_over_hud.horzalign = "center";
-		players[ i ].game_over_hud.vertalign = "middle";
-		players[ i ].game_over_hud.y -= 130;
-		players[ i ].game_over_hud.foreground = 1;
-		players[ i ].game_over_hud.fontscale = 3;
-		players[ i ].game_over_hud.alpha = 0;
-		players[ i ].game_over_hud.color = (1, 1, 1);
-		players[ i ].game_over_hud.hidewheninmenu = 1;
-		players[ i ].game_over_hud settext(&"ZOMBIE_GAME_OVER");
-		players[ i ].game_over_hud fadeovertime(1);
-		players[ i ].game_over_hud.alpha = 1;
+		players[i].game_over_hud = newclienthudelem(players[i]);
+		players[i].game_over_hud.alignx = "center";
+		players[i].game_over_hud.aligny = "middle";
+		players[i].game_over_hud.horzalign = "center";
+		players[i].game_over_hud.vertalign = "middle";
+		players[i].game_over_hud.y -= 130;
+		players[i].game_over_hud.foreground = 1;
+		players[i].game_over_hud.fontscale = 3;
+		players[i].game_over_hud.alpha = 0;
+		players[i].game_over_hud.color = (1, 1, 1);
+		players[i].game_over_hud.hidewheninmenu = 1;
+		players[i].game_over_hud settext(&"ZOMBIE_GAME_OVER");
+		players[i].game_over_hud fadeovertime(1);
+		players[i].game_over_hud.alpha = 1;
 
-		if (players[ i ] issplitscreen())
+		if (players[i] issplitscreen())
 		{
-			players[ i ].game_over_hud.fontscale = 2;
-			players[ i ].game_over_hud.y += 40;
+			players[i].game_over_hud.fontscale = 2;
+			players[i].game_over_hud.y += 40;
 		}
 
-		players[ i ].survived_hud = newclienthudelem(players[ i ]);
-		players[ i ].survived_hud.alignx = "center";
-		players[ i ].survived_hud.aligny = "middle";
-		players[ i ].survived_hud.horzalign = "center";
-		players[ i ].survived_hud.vertalign = "middle";
-		players[ i ].survived_hud.y -= 100;
-		players[ i ].survived_hud.foreground = 1;
-		players[ i ].survived_hud.fontscale = 2;
-		players[ i ].survived_hud.alpha = 0;
-		players[ i ].survived_hud.color = (1, 1, 1);
-		players[ i ].survived_hud.hidewheninmenu = 1;
+		players[i].survived_hud = newclienthudelem(players[i]);
+		players[i].survived_hud.alignx = "center";
+		players[i].survived_hud.aligny = "middle";
+		players[i].survived_hud.horzalign = "center";
+		players[i].survived_hud.vertalign = "middle";
+		players[i].survived_hud.y -= 100;
+		players[i].survived_hud.foreground = 1;
+		players[i].survived_hud.fontscale = 2;
+		players[i].survived_hud.alpha = 0;
+		players[i].survived_hud.color = (1, 1, 1);
+		players[i].survived_hud.hidewheninmenu = 1;
 
-		if (players[ i ] issplitscreen())
+		if (players[i] issplitscreen())
 		{
-			players[ i ].survived_hud.fontscale = 1.5;
-			players[ i ].survived_hud.y += 40;
+			players[i].survived_hud.fontscale = 1.5;
+			players[i].survived_hud.y += 40;
 		}
 
 		winner_text = "YOU WIN!";
@@ -1594,22 +1594,22 @@ custom_end_screen()
 
 		if (isDefined(level.host_ended_game) && level.host_ended_game)
 		{
-			players[ i ].survived_hud settext(&"MP_HOST_ENDED_GAME");
+			players[i].survived_hud settext(&"MP_HOST_ENDED_GAME");
 		}
 		else
 		{
-			if (isDefined(level.gamemodulewinningteam) && players[ i ]._encounters_team == level.gamemodulewinningteam)
+			if (isDefined(level.gamemodulewinningteam) && players[i]._encounters_team == level.gamemodulewinningteam)
 			{
-				players[ i ].survived_hud settext(winner_text);
+				players[i].survived_hud settext(winner_text);
 			}
 			else
 			{
-				players[ i ].survived_hud settext(loser_text);
+				players[i].survived_hud settext(loser_text);
 			}
 		}
 
-		players[ i ].survived_hud fadeovertime(1);
-		players[ i ].survived_hud.alpha = 1;
+		players[i].survived_hud fadeovertime(1);
+		players[i].survived_hud.alpha = 1;
 		i++;
 	}
 }
@@ -1643,7 +1643,7 @@ game_module_player_damage_callback(einflictor, eattacker, idamage, idflags, smea
 			return 0;
 		}
 
-		if (isDefined(level._effect[ "butterflies" ]))
+		if (isDefined(level._effect["butterflies"]))
 		{
 			self do_game_mode_stun_fx(einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime);
 		}
@@ -1797,7 +1797,7 @@ game_module_player_damage_callback(einflictor, eattacker, idamage, idflags, smea
 			eattacker.killsdenied++;
 		}
 
-		if (isDefined(level._effect[ "butterflies" ]))
+		if (isDefined(level._effect["butterflies"]))
 		{
 			self do_game_mode_stun_fx(einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime);
 		}
@@ -2033,25 +2033,25 @@ grief_laststand_weapons_return()
 
 	while (i < self.grief_savedweapon_weapons.size)
 	{
-		if (isdefined(self.grief_savedweapon_grenades) && self.grief_savedweapon_weapons[ i ] == self.grief_savedweapon_grenades || (isdefined(self.grief_savedweapon_tactical) && self.grief_savedweapon_weapons[ i ] == self.grief_savedweapon_tactical))
+		if (isdefined(self.grief_savedweapon_grenades) && self.grief_savedweapon_weapons[i] == self.grief_savedweapon_grenades || (isdefined(self.grief_savedweapon_tactical) && self.grief_savedweapon_weapons[i] == self.grief_savedweapon_tactical))
 		{
 			i++;
 			continue;
 		}
 
-		if (is_temporary_zombie_weapon(self.grief_savedweapon_weapons[ i ]))
+		if (is_temporary_zombie_weapon(self.grief_savedweapon_weapons[i]))
 		{
 			i++;
 			continue;
 		}
 
-		if ("item_meat_zm" == self.grief_savedweapon_weapons[ i ])
+		if ("item_meat_zm" == self.grief_savedweapon_weapons[i])
 		{
 			i++;
 			continue;
 		}
 
-		if (isweaponprimary(self.grief_savedweapon_weapons[ i ]))
+		if (isweaponprimary(self.grief_savedweapon_weapons[i]))
 		{
 			if (primary_weapons_returned >= get_player_weapon_limit(self))
 			{
@@ -2114,31 +2114,31 @@ grief_laststand_weapons_return()
 			}
 		}
 
-		self giveweapon(self.grief_savedweapon_weapons[ i ], 0, self maps\mp\zombies\_zm_weapons::get_pack_a_punch_weapon_options(self.grief_savedweapon_weapons[ i ]));
+		self giveweapon(self.grief_savedweapon_weapons[i], 0, self maps\mp\zombies\_zm_weapons::get_pack_a_punch_weapon_options(self.grief_savedweapon_weapons[i]));
 
-		if (isdefined(self.grief_savedweapon_weaponsammo_clip[ i ]))
+		if (isdefined(self.grief_savedweapon_weaponsammo_clip[i]))
 		{
-			self setweaponammoclip(self.grief_savedweapon_weapons[ i ], self.grief_savedweapon_weaponsammo_clip[ i ]);
+			self setweaponammoclip(self.grief_savedweapon_weapons[i], self.grief_savedweapon_weaponsammo_clip[i]);
 		}
 
-		if (isdefined(self.grief_savedweapon_weaponsammo_clip_dualwield[ i ]))
+		if (isdefined(self.grief_savedweapon_weaponsammo_clip_dualwield[i]))
 		{
-			self setweaponammoclip(weaponDualWieldWeaponName(self.grief_savedweapon_weapons[ i ]), self.grief_savedweapon_weaponsammo_clip_dualwield[ i ]);
+			self setweaponammoclip(weaponDualWieldWeaponName(self.grief_savedweapon_weapons[i]), self.grief_savedweapon_weaponsammo_clip_dualwield[i]);
 		}
 
-		if (isdefined(self.grief_savedweapon_weaponsammo_stock[ i ]))
+		if (isdefined(self.grief_savedweapon_weaponsammo_stock[i]))
 		{
-			self setweaponammostock(self.grief_savedweapon_weapons[ i ], self.grief_savedweapon_weaponsammo_stock[ i ]);
+			self setweaponammostock(self.grief_savedweapon_weapons[i], self.grief_savedweapon_weaponsammo_stock[i]);
 		}
 
-		if (isdefined(self.grief_savedweapon_weaponsammo_clip_alt[ i ]))
+		if (isdefined(self.grief_savedweapon_weaponsammo_clip_alt[i]))
 		{
-			self setweaponammoclip(weaponAltWeaponName(self.grief_savedweapon_weapons[ i ]), self.grief_savedweapon_weaponsammo_clip_alt[ i ]);
+			self setweaponammoclip(weaponAltWeaponName(self.grief_savedweapon_weapons[i]), self.grief_savedweapon_weaponsammo_clip_alt[i]);
 		}
 
-		if (isdefined(self.grief_savedweapon_weaponsammo_stock_alt[ i ]))
+		if (isdefined(self.grief_savedweapon_weaponsammo_stock_alt[i]))
 		{
-			self setweaponammostock(weaponAltWeaponName(self.grief_savedweapon_weapons[ i ]), self.grief_savedweapon_weaponsammo_stock_alt[ i ]);
+			self setweaponammostock(weaponAltWeaponName(self.grief_savedweapon_weapons[i]), self.grief_savedweapon_weaponsammo_stock_alt[i]);
 		}
 
 		i++;
@@ -2215,7 +2215,7 @@ grief_laststand_weapons_return()
 	{
 		if (isDefined(self.player_shield_reset_health))
 		{
-			self [[ self.player_shield_reset_health ]]();
+			self [[self.player_shield_reset_health]]();
 		}
 	}
 
@@ -2254,7 +2254,7 @@ grief_laststand_weapons_return()
 
 	if (primaries.size > 0)
 	{
-		self switchtoweapon(primaries[ 0 ]);
+		self switchtoweapon(primaries[0]);
 		return 1;
 	}
 

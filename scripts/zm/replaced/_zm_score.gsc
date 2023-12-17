@@ -17,7 +17,7 @@ add_to_player_score(points, add_to_total)
 
 	points = int(points); // points must be an int
 	self.score += points;
-	self.pers[ "score" ] = self.score;
+	self.pers["score"] = self.score;
 
 	if (add_to_total)
 	{
@@ -36,7 +36,7 @@ minus_to_player_score(points)
 
 	points = int(points); // points must be an int
 	self.score -= points;
-	self.pers[ "score" ] = self.score;
+	self.pers["score"] = self.score;
 }
 
 player_add_points_kill_bonus(mod, hit_location)

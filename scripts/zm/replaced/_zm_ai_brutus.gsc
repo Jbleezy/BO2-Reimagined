@@ -417,11 +417,11 @@ get_brutus_spawn_pos_val(brutus_pos)
 	{
 		int_type = interaction_types[i];
 		interaction = interact_array[int_type];
-		interact_points = [[ interaction.get_func ]](zone_name);
+		interact_points = [[interaction.get_func]](zone_name);
 
 		for (j = 0; j < interact_points.size; j++)
 		{
-			if (interact_points[j] [[ interaction.validity_func ]]())
+			if (interact_points[j][[interaction.validity_func]]())
 				score += interaction.spawn_bias;
 		}
 	}
@@ -544,7 +544,7 @@ brutus_spawn(starting_health, has_helmet, helmet_hits, explosive_dmg_taken, zone
 	self.actor_damage_func = ::brutus_damage_override;
 	self.non_attacker_func = ::brutus_non_attacker_damage_override;
 	self thread brutus_lockdown_client_effects(0.5);
-	playfx(level._effect[ "brutus_spawn" ], self.origin);
+	playfx(level._effect["brutus_spawn"], self.origin);
 	playsoundatposition("zmb_ai_brutus_spawn", self.origin);
 	self animscripted(spawn_pos.origin, spawn_pos.angles, "zm_spawn");
 	self thread maps\mp\animscripts\zm_shared::donotetracks("spawn_anim");
@@ -561,7 +561,7 @@ brutus_spawn(starting_health, has_helmet, helmet_hits, explosive_dmg_taken, zone
 
 brutus_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, vpoint, vdir, shitloc, poffsettime, boneindex)
 {
-	if (isDefined(attacker) && isalive(attacker) && isplayer(attacker) && level.zombie_vars[ attacker.team ][ "zombie_insta_kill" ] || isDefined(attacker.personal_instakill) && attacker.personal_instakill)
+	if (isDefined(attacker) && isalive(attacker) && isplayer(attacker) && level.zombie_vars[attacker.team]["zombie_insta_kill"] || isDefined(attacker.personal_instakill) && attacker.personal_instakill)
 	{
 		n_brutus_damage_percent = 1;
 		n_brutus_headshot_modifier = 2;
@@ -619,7 +619,7 @@ brutus_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon,
 				if (isDefined(attacker) && isplayer(attacker))
 				{
 					attacker add_to_player_score(player_points);
-					attacker.pers[ "score" ] = attacker.score;
+					attacker.pers["score"] = attacker.score;
 					level notify("brutus_helmet_removed", attacker);
 				}
 			}
@@ -636,7 +636,7 @@ brutus_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon,
 	{
 		if (weapon == "alcatraz_shield_zm")
 		{
-			shield_damage = level.zombie_vars[ "riotshield_fling_damage_shield" ];
+			shield_damage = level.zombie_vars["riotshield_fling_damage_shield"];
 			inflictor maps\mp\zombies\_zm_weap_riotshield_prison::player_damage_shield(shield_damage, 0);
 			return 0;
 		}
@@ -676,7 +676,7 @@ brutus_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon,
 			}
 
 			attacker add_to_player_score(player_points);
-			attacker.pers[ "score" ] = inflictor.score;
+			attacker.pers["score"] = inflictor.score;
 		}
 
 		return damage * scaler;

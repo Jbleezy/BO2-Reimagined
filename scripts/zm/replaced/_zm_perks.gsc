@@ -47,7 +47,7 @@ init()
 	if (!isdefined(level.custom_vending_precaching))
 		level.custom_vending_precaching = ::default_vending_precaching;
 
-	[[ level.custom_vending_precaching ]]();
+	[[level.custom_vending_precaching]]();
 
 	if (!isdefined(level.packapunch_timeout))
 		level.packapunch_timeout = 15;
@@ -92,17 +92,17 @@ init()
 		for (i = 0; i < a_keys.size; i++)
 		{
 			if (isdefined(level._custom_perks[a_keys[i]].perk_machine_thread))
-				level thread [[ level._custom_perks[a_keys[i]].perk_machine_thread ]]();
+				level thread [[level._custom_perks[a_keys[i]].perk_machine_thread]]();
 		}
 	}
 
 	if (isdefined(level._custom_turn_packapunch_on))
-		level thread [[ level._custom_turn_packapunch_on ]]();
+		level thread [[level._custom_turn_packapunch_on]]();
 	else
 		level thread turn_packapunch_on();
 
 	if (isdefined(level.quantum_bomb_register_result_func))
-		[[ level.quantum_bomb_register_result_func ]]("give_nearest_perk", ::quantum_bomb_give_nearest_perk_result, 10, ::quantum_bomb_give_nearest_perk_validation);
+		[[level.quantum_bomb_register_result_func]]("give_nearest_perk", ::quantum_bomb_give_nearest_perk_result, 10, ::quantum_bomb_give_nearest_perk_validation);
 
 	level thread perk_hostmigration();
 }
@@ -317,7 +317,7 @@ vending_trigger_think()
 
 		if (isdefined(level.custom_perk_validation))
 		{
-			valid = self [[ level.custom_perk_validation ]](player);
+			valid = self [[level.custom_perk_validation]](player);
 
 			if (!valid)
 				continue;
@@ -381,7 +381,7 @@ vending_trigger_post_think(player, perk)
 		player thread maps\mp\zombies\_zm_pers_upgrades_functions::pers_upgrade_perk_lose_bought();
 
 	if (isdefined(level.perk_bought_func))
-		player [[ level.perk_bought_func ]](perk);
+		player [[level.perk_bought_func]](perk);
 
 	player.perk_purchased = undefined;
 
@@ -547,7 +547,7 @@ vending_weapon_upgrade()
 	self enable_trigger();
 
 	if (isdefined(level.machine_assets["packapunch"].power_on_callback))
-		perk_machine thread [[ level.machine_assets["packapunch"].power_on_callback ]]();
+		perk_machine thread [[level.machine_assets["packapunch"].power_on_callback]]();
 
 	self thread vending_machine_trigger_think();
 	perk_machine playloopsound("zmb_perks_packa_loop");
@@ -570,7 +570,7 @@ vending_weapon_upgrade()
 
 		if (isdefined(level.custom_pap_validation))
 		{
-			valid = self [[ level.custom_pap_validation ]](player);
+			valid = self [[level.custom_pap_validation]](player);
 
 			if (!valid)
 				continue;
@@ -619,7 +619,7 @@ vending_weapon_upgrade()
 			self playsound("evt_perk_deny");
 
 			if (isdefined(level.custom_pap_deny_vo_func))
-				player [[ level.custom_pap_deny_vo_func ]]();
+				player [[level.custom_pap_deny_vo_func]]();
 			else
 				player maps\mp\zombies\_zm_audio::create_and_play_dialog("general", "perk_deny", undefined, 0);
 
@@ -789,9 +789,9 @@ give_perk(perk, bought)
 		self scripts\zm\replaced\_zm::restore_additionalprimaryweapon();
 	}
 
-	if (isDefined(level._custom_perks[ perk ]) && isDefined(level._custom_perks[ perk ].player_thread_give))
+	if (isDefined(level._custom_perks[perk]) && isDefined(level._custom_perks[perk].player_thread_give))
 	{
-		self thread [[ level._custom_perks[ perk ].player_thread_give ]]();
+		self thread [[level._custom_perks[perk].player_thread_give]]();
 	}
 
 	self set_perk_clientfield(perk, 1);
@@ -813,7 +813,7 @@ give_perk(perk, bought)
 		self.perks_active = [];
 	}
 
-	self.perks_active[ self.perks_active.size ] = perk;
+	self.perks_active[self.perks_active.size] = perk;
 	self notify("perk_acquired");
 	self thread perk_think(perk);
 }
@@ -837,7 +837,7 @@ perk_think(perk)
 		{
 			return;
 		}
-		else if (isDefined(self._retain_perks_array) && is_true(self._retain_perks_array[ perk ]))
+		else if (isDefined(self._retain_perks_array) && is_true(self._retain_perks_array[perk]))
 		{
 			return;
 		}
@@ -877,9 +877,9 @@ perk_think(perk)
 			break;
 	}
 
-	if (isDefined(level._custom_perks[ perk ]) && isDefined(level._custom_perks[ perk ].player_thread_take))
+	if (isDefined(level._custom_perks[perk]) && isDefined(level._custom_perks[perk].player_thread_take))
 	{
-		self thread [[ level._custom_perks[ perk ].player_thread_take ]]();
+		self thread [[level._custom_perks[perk].player_thread_take]]();
 	}
 
 	self set_perk_clientfield(perk, 0);
@@ -887,7 +887,7 @@ perk_think(perk)
 
 	if (isDefined(level.perk_lost_func))
 	{
-		self [[ level.perk_lost_func ]](perk);
+		self [[level.perk_lost_func]](perk);
 	}
 
 	if (isDefined(self.perks_active) && isinarray(self.perks_active, perk))
@@ -914,7 +914,7 @@ perk_set_max_health_if_jugg(perk, set_premaxhealth, clamp_health_to_max_health)
 			self.premaxhealth = self.maxhealth;
 		}
 
-		max_total_health = level.zombie_vars[ "zombie_perk_juggernaut_health" ];
+		max_total_health = level.zombie_vars["zombie_perk_juggernaut_health"];
 	}
 	else if (perk == "specialty_armorvest_upgrade")
 	{
@@ -923,7 +923,7 @@ perk_set_max_health_if_jugg(perk, set_premaxhealth, clamp_health_to_max_health)
 			self.premaxhealth = self.maxhealth;
 		}
 
-		max_total_health = level.zombie_vars[ "zombie_perk_juggernaut_health_upgrade" ];
+		max_total_health = level.zombie_vars["zombie_perk_juggernaut_health_upgrade"];
 	}
 	else if (perk == "jugg_upgrade")
 	{
@@ -934,7 +934,7 @@ perk_set_max_health_if_jugg(perk, set_premaxhealth, clamp_health_to_max_health)
 
 		if (self hasperk("specialty_armorvest"))
 		{
-			max_total_health = level.zombie_vars[ "zombie_perk_juggernaut_health" ];
+			max_total_health = level.zombie_vars["zombie_perk_juggernaut_health"];
 		}
 		else
 		{
@@ -945,7 +945,7 @@ perk_set_max_health_if_jugg(perk, set_premaxhealth, clamp_health_to_max_health)
 	{
 		if (self hasperk("specialty_armorvest"))
 		{
-			max_total_health = level.zombie_vars[ "zombie_perk_juggernaut_health" ];
+			max_total_health = level.zombie_vars["zombie_perk_juggernaut_health"];
 		}
 		else
 		{
@@ -1028,7 +1028,7 @@ set_perk_clientfield(perk, state)
 	}
 
 	if (isdefined(level._custom_perks[perk]) && isdefined(level._custom_perks[perk].clientfield_set))
-		self [[ level._custom_perks[perk].clientfield_set ]](state);
+		self [[level._custom_perks[perk].clientfield_set]](state);
 }
 
 initialize_custom_perk_arrays()
@@ -1179,7 +1179,7 @@ turn_movefaster_on()
 
 		while (i < machine.size)
 		{
-			machine[ i ] setmodel(level.machine_assets[ "marathon" ].off_model);
+			machine[i] setmodel(level.machine_assets["marathon"].off_model);
 			i++;
 		}
 
@@ -1190,27 +1190,27 @@ turn_movefaster_on()
 
 		while (i < machine.size)
 		{
-			machine[ i ] setmodel(level.machine_assets[ "marathon" ].on_model);
-			machine[ i ] vibrate(vectorScale((0, -1, 0), 100), 0.3, 0.4, 3);
-			machine[ i ] playsound("zmb_perks_power_on");
-			machine[ i ] thread perk_fx("marathon_light");
-			machine[ i ] thread play_loop_on_machine();
+			machine[i] setmodel(level.machine_assets["marathon"].on_model);
+			machine[i] vibrate(vectorScale((0, -1, 0), 100), 0.3, 0.4, 3);
+			machine[i] playsound("zmb_perks_power_on");
+			machine[i] thread perk_fx("marathon_light");
+			machine[i] thread play_loop_on_machine();
 			i++;
 		}
 
 		level notify("specialty_movefaster_power_on");
 		array_thread(machine_triggers, ::set_power_on, 1);
 
-		if (isDefined(level.machine_assets[ "marathon" ].power_on_callback))
+		if (isDefined(level.machine_assets["marathon"].power_on_callback))
 		{
-			array_thread(machine, level.machine_assets[ "marathon" ].power_on_callback);
+			array_thread(machine, level.machine_assets["marathon"].power_on_callback);
 		}
 
 		level waittill("marathon_off");
 
-		if (isDefined(level.machine_assets[ "marathon" ].power_off_callback))
+		if (isDefined(level.machine_assets["marathon"].power_off_callback))
 		{
-			array_thread(machine, level.machine_assets[ "marathon" ].power_off_callback);
+			array_thread(machine, level.machine_assets["marathon"].power_off_callback);
 		}
 
 		array_thread(machine, ::turn_perk_off);

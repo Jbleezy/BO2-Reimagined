@@ -211,7 +211,7 @@ insta_kill_player(perks_can_respawn_player, kill_if_falling)
 				self.waiting_to_revive = 1;
 				points = getstruct("zone_green_start", "script_noteworthy");
 				spawn_points = getstructarray(points.target, "targetname");
-				point = spawn_points[ 0 ];
+				point = spawn_points[0];
 
 				if (in_last_stand == 0)
 				{

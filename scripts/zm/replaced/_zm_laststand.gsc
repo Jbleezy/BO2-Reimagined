@@ -332,7 +332,7 @@ revive_give_back_weapons(gun)
 
 		if (isDefined(primaryweapons) && primaryweapons.size > 0)
 		{
-			self switchtoweapon(primaryweapons[ 0 ]);
+			self switchtoweapon(primaryweapons[0]);
 		}
 	}
 }
@@ -356,15 +356,15 @@ revive_hud_think()
 
 		while (i < players.size)
 		{
-			if (!isDefined(players[ i ].revivetrigger) || !isDefined(players[ i ].revivetrigger.createtime))
+			if (!isDefined(players[i].revivetrigger) || !isDefined(players[i].revivetrigger.createtime))
 			{
 				i++;
 				continue;
 			}
 
-			if (!isDefined(playertorevive) || playertorevive.revivetrigger.createtime > players[ i ].revivetrigger.createtime)
+			if (!isDefined(playertorevive) || playertorevive.revivetrigger.createtime > players[i].revivetrigger.createtime)
 			{
-				playertorevive = players[ i ];
+				playertorevive = players[i];
 			}
 
 			i++;
@@ -376,7 +376,7 @@ revive_hud_think()
 
 			while (i < players.size)
 			{
-				if (players[ i ] maps\mp\zombies\_zm_laststand::player_is_in_laststand())
+				if (players[i] maps\mp\zombies\_zm_laststand::player_is_in_laststand())
 				{
 					i++;
 					continue;
@@ -384,7 +384,7 @@ revive_hud_think()
 
 				if (getDvar("g_gametype") == "vs")
 				{
-					if (players[ i ].team != playertorevive.team)
+					if (players[i].team != playertorevive.team)
 					{
 						i++;
 						continue;
@@ -393,7 +393,7 @@ revive_hud_think()
 
 				if (is_encounter())
 				{
-					if (players[ i ].sessionteam != playertorevive.sessionteam)
+					if (players[i].sessionteam != playertorevive.sessionteam)
 					{
 						i++;
 						continue;
@@ -406,7 +406,7 @@ revive_hud_think()
 					}
 				}
 
-				players[ i ] thread maps\mp\zombies\_zm_laststand::faderevivemessageover(playertorevive, 3);
+				players[i] thread maps\mp\zombies\_zm_laststand::faderevivemessageover(playertorevive, 3);
 				i++;
 			}
 
@@ -479,7 +479,7 @@ playerlaststand(einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, shi
 	self notify("entering_last_stand");
 
 	if (isdefined(level._game_module_player_laststand_callback))
-		self [[ level._game_module_player_laststand_callback ]](einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration);
+		self [[level._game_module_player_laststand_callback]](einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration);
 
 	if (self player_is_in_laststand())
 		return;
@@ -490,7 +490,7 @@ playerlaststand(einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, shi
 	self thread player_last_stand_stats(einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration);
 
 	if (isdefined(level.playerlaststand_func))
-		[[ level.playerlaststand_func ]](einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration);
+		[[level.playerlaststand_func]](einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration);
 
 	self.health = 1;
 	self.laststand = 1;
@@ -518,7 +518,7 @@ playerlaststand(einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, shi
 
 	if (isdefined(level.playersuicideallowed) && level.playersuicideallowed && get_players().size > 1)
 	{
-		if (!isdefined(level.canplayersuicide) || self [[ level.canplayersuicide ]]())
+		if (!isdefined(level.canplayersuicide) || self [[level.canplayersuicide]]())
 			self thread suicide_trigger_spawn();
 	}
 

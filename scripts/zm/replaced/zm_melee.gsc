@@ -40,7 +40,7 @@ meleecombat()
 		set_zombie_melee_anim_state(self);
 
 		if (isdefined(self.melee_anim_func))
-			self thread [[ self.melee_anim_func ]]();
+			self thread [[self.melee_anim_func]]();
 
 		while (true)
 		{
@@ -69,9 +69,9 @@ meleecombat()
 				if (self.enemy.health >= oldhealth)
 				{
 					if (isdefined(self.melee_miss_func))
-						self [[ self.melee_miss_func ]]();
+						self [[self.melee_miss_func]]();
 					else if (isdefined(level.melee_miss_func))
-						self [[ level.melee_miss_func ]]();
+						self [[level.melee_miss_func]]();
 				}
 			}
 			else if (note == "stop")

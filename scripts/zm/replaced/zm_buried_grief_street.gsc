@@ -57,7 +57,7 @@ main()
 		return;
 	}
 
-	level.buildables_built[ "pap" ] = 1;
+	level.buildables_built["pap"] = 1;
 	level.equipment_team_pick_up = 1;
 	level.zones["zone_mansion"].is_enabled = 0;
 	level thread maps\mp\zombies\_zm_buildables::think_buildables();
@@ -105,10 +105,10 @@ street_treasure_chest_init()
 	gun_chest = getstruct("gunshop_chest", "script_noteworthy");
 	setdvar("disableLookAtEntityLogic", 1);
 	level.chests = [];
-	level.chests[ level.chests.size ] = start_chest;
-	level.chests[ level.chests.size ] = court_chest;
-	level.chests[ level.chests.size ] = jail_chest;
-	level.chests[ level.chests.size ] = gun_chest;
+	level.chests[level.chests.size] = start_chest;
+	level.chests[level.chests.size] = court_chest;
+	level.chests[level.chests.size] = jail_chest;
+	level.chests[level.chests.size] = gun_chest;
 
 	chest_names = array("start_chest", "courtroom_chest1", "jail_chest1", "gunshop_chest");
 	chest_name = random(chest_names);
@@ -136,9 +136,9 @@ builddynamicwallbuy(location, weaponname)
 
 			for (i = 0; i < level._spawned_wallbuys.size; i++)
 			{
-				if (level._spawned_wallbuys[ i ].target == wallbuy.targetname)
+				if (level._spawned_wallbuys[i].target == wallbuy.targetname)
 				{
-					spawned_wallbuy = level._spawned_wallbuys[ i ];
+					spawned_wallbuy = level._spawned_wallbuys[i];
 					break;
 				}
 			}
@@ -176,7 +176,7 @@ builddynamicwallbuy(location, weaponname)
 			}
 
 			maps\mp\zombies\_zm_weapons::add_dynamic_wallbuy(weaponname, wallbuy.targetname, 1);
-			thread wait_and_remove(stub, stub.buildablezone.pieces[ 0 ]);
+			thread wait_and_remove(stub, stub.buildablezone.pieces[0]);
 		}
 	}
 }

@@ -63,7 +63,7 @@ create_and_play_dialog(category, type, response, force_variant, override)
 	if (isdefined(sound_to_play))
 	{
 		if (isdefined(level._audio_custom_player_playvox))
-			self thread [[ level._audio_custom_player_playvox ]](prefix, index, sound_to_play, waittime, category, type, override);
+			self thread [[level._audio_custom_player_playvox]](prefix, index, sound_to_play, waittime, category, type, override);
 		else
 			self thread do_player_or_npc_playvox(prefix, index, sound_to_play, waittime, category, type, override, isresponse);
 	}

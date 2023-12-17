@@ -92,7 +92,7 @@ pooledbuildablestub_update_prompt(player, trigger)
 
 	can_use = 1;
 
-	if (isdefined(self.custom_buildablestub_update_prompt) && !self [[ self.custom_buildablestub_update_prompt ]](player))
+	if (isdefined(self.custom_buildablestub_update_prompt) && !self [[self.custom_buildablestub_update_prompt]](player))
 		return 0;
 
 	self.cursor_hint = "HINT_NOICON";
@@ -140,7 +140,7 @@ pooledbuildablestub_update_prompt(player, trigger)
 			self.hint_string = "Missing buildable hint";
 	}
 	else
-		return trigger [[ self.original_prompt_and_visibility_func ]](player);
+		return trigger [[self.original_prompt_and_visibility_func]](player);
 
 	return 1;
 }
@@ -429,7 +429,7 @@ pooled_buildable_place_think()
 			self sethintstring(self.stub.hint_string);
 
 			if (isdefined(self.stub.oncantuse))
-				self.stub [[ self.stub.oncantuse ]](player);
+				self.stub [[self.stub.oncantuse]](player);
 
 			continue;
 		}
@@ -442,12 +442,12 @@ pooled_buildable_place_think()
 			self sethintstring(self.stub.hint_string);
 
 			if (isdefined(bind_to.oncantuse))
-				bind_to [[ bind_to.oncantuse ]](player);
+				bind_to [[bind_to.oncantuse]](player);
 		}
 		else
 		{
 			if (isdefined(bind_to.onbeginuse))
-				self.stub [[ bind_to.onbeginuse ]](player);
+				self.stub [[bind_to.onbeginuse]](player);
 
 			result = self scripts\zm\replaced\_zm_buildables::buildable_use_hold_think(player, bind_to);
 			team = player.pers["team"];
@@ -462,7 +462,7 @@ pooled_buildable_place_think()
 			}
 
 			if (isdefined(bind_to.onenduse))
-				self.stub [[ bind_to.onenduse ]](team, player, result);
+				self.stub [[bind_to.onenduse]](team, player, result);
 
 			if (!result)
 				continue;
@@ -473,7 +473,7 @@ pooled_buildable_place_think()
 			}
 
 			if (isdefined(self.stub.onuse))
-				self.stub [[ self.stub.onuse ]](player);
+				self.stub [[self.stub.onuse]](player);
 
 			prompt = player scripts\zm\replaced\_zm_buildables::player_build(self.stub.buildablezone);
 			self.stub.hint_string = self.stub.trigger_hintstring;
@@ -555,7 +555,7 @@ choose_open_buildable(player)
 		self.buildables_available_index = 0;
 	}
 
-	while (isDefined(self.playertrigger[ num ]) && !self.built)
+	while (isDefined(self.playertrigger[num]) && !self.built)
 	{
 		if (!player isTouching(self.playertrigger[num]) || !player is_player_looking_at(self.playertrigger[num].origin, 0.76) || !is_player_valid(player) || player isSprinting() || player isThrowingGrenade())
 		{

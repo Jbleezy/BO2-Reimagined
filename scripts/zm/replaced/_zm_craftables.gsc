@@ -123,7 +123,7 @@ craftable_use_hold_think_internal(player)
 	player thread player_progress_bar(craft_start_time, craft_time);
 
 	if (isdefined(level.craftable_craft_custom_func))
-		player thread [[ level.craftable_craft_custom_func ]](self.stub);
+		player thread [[level.craftable_craft_custom_func]](self.stub);
 
 	while (isdefined(self) && player player_continue_crafting(self.stub.craftablespawn) && gettime() - self.craft_start_time < self.craft_time)
 		wait 0.05;

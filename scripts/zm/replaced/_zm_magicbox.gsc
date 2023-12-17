@@ -29,19 +29,19 @@ treasure_chest_init(start_chest_name)
 
 	while (i < level.chests.size)
 	{
-		level.chests[ i ].box_hacks = [];
-		level.chests[ i ].orig_origin = level.chests[ i ].origin;
-		level.chests[ i ] maps\mp\zombies\_zm_magicbox::get_chest_pieces();
+		level.chests[i].box_hacks = [];
+		level.chests[i].orig_origin = level.chests[i].origin;
+		level.chests[i] maps\mp\zombies\_zm_magicbox::get_chest_pieces();
 
-		if (isDefined(level.chests[ i ].zombie_cost))
+		if (isDefined(level.chests[i].zombie_cost))
 		{
-			level.chests[ i ].old_cost = level.chests[ i ].zombie_cost;
+			level.chests[i].old_cost = level.chests[i].zombie_cost;
 			i++;
 			continue;
 		}
 		else
 		{
-			level.chests[ i ].old_cost = 950;
+			level.chests[i].old_cost = 950;
 		}
 
 		i++;
@@ -67,7 +67,7 @@ treasure_chest_init(start_chest_name)
 	else
 	{
 		level.chest_index = 0;
-		level.chests[ 0 ].no_fly_away = 1;
+		level.chests[0].no_fly_away = 1;
 	}
 
 	init_starting_chest_location(start_chest_name);
@@ -127,7 +127,7 @@ init_starting_chest_location(start_chest_name)
 	if (!isdefined(level.pandora_show_func))
 		level.pandora_show_func = ::default_pandora_show_func;
 
-	level.chests[level.chest_index] thread [[ level.pandora_show_func ]]();
+	level.chests[level.chest_index] thread [[level.pandora_show_func]]();
 }
 
 treasure_chest_think()
@@ -237,7 +237,7 @@ treasure_chest_think()
 	user maps\mp\zombies\_zm_stats::increment_player_stat("use_magicbox");
 
 	if (isdefined(level._magic_box_used_vo))
-		user thread [[ level._magic_box_used_vo ]]();
+		user thread [[level._magic_box_used_vo]]();
 
 	self thread watch_for_emp_close();
 
@@ -247,7 +247,7 @@ treasure_chest_think()
 	self._box_open = 1;
 	self._box_opened_by_fire_sale = 0;
 
-	if (isdefined(level.zombie_vars["zombie_powerup_fire_sale_on"]) && level.zombie_vars["zombie_powerup_fire_sale_on"] && !isdefined(self.auto_open) && self [[ level._zombiemode_check_firesale_loc_valid_func ]]())
+	if (isdefined(level.zombie_vars["zombie_powerup_fire_sale_on"]) && level.zombie_vars["zombie_powerup_fire_sale_on"] && !isdefined(self.auto_open) && self [[level._zombiemode_check_firesale_loc_valid_func]]())
 		self._box_opened_by_fire_sale = 1;
 
 	if (isdefined(self.chest_lid))
@@ -375,7 +375,7 @@ treasure_chest_think()
 		else
 			wait 3.0;
 
-		if (isdefined(level.zombie_vars["zombie_powerup_fire_sale_on"]) && level.zombie_vars["zombie_powerup_fire_sale_on"] && self [[ level._zombiemode_check_firesale_loc_valid_func ]]() || self == level.chests[level.chest_index])
+		if (isdefined(level.zombie_vars["zombie_powerup_fire_sale_on"]) && level.zombie_vars["zombie_powerup_fire_sale_on"] && self [[level._zombiemode_check_firesale_loc_valid_func]]() || self == level.chests[level.chest_index])
 			thread maps\mp\zombies\_zm_unitrigger::register_static_unitrigger(self.unitrigger_stub, ::magicbox_unitrigger_think);
 	}
 
@@ -407,7 +407,7 @@ treasure_chest_weapon_spawn(chest, player, respin)
 		v_float = anglestoup(self.angles) * 40;
 
 	if (isdefined(level.custom_magic_box_weapon_wait))
-		[[ level.custom_magic_box_weapon_wait ]]();
+		[[level.custom_magic_box_weapon_wait]]();
 
 	start_origin = self.origin;
 	end_origin = self.origin + v_float;
@@ -477,7 +477,7 @@ treasure_chest_weapon_spawn(chest, player, respin)
 
 	wait 0.1;
 
-	if (getdvar("magic_chest_movable") == "1" && !(isdefined(chest._box_opened_by_fire_sale) && chest._box_opened_by_fire_sale) && !(isdefined(level.zombie_vars["zombie_powerup_fire_sale_on"]) && level.zombie_vars["zombie_powerup_fire_sale_on"] && self [[ level._zombiemode_check_firesale_loc_valid_func ]]()))
+	if (getdvar("magic_chest_movable") == "1" && !(isdefined(chest._box_opened_by_fire_sale) && chest._box_opened_by_fire_sale) && !(isdefined(level.zombie_vars["zombie_powerup_fire_sale_on"]) && level.zombie_vars["zombie_powerup_fire_sale_on"] && self [[level._zombiemode_check_firesale_loc_valid_func]]()))
 	{
 		random = randomint(100);
 
@@ -525,7 +525,7 @@ treasure_chest_weapon_spawn(chest, player, respin)
 			chance_of_joker = -1;
 
 		if (isdefined(level._zombiemode_chest_joker_chance_override_func))
-			chance_of_joker = [[ level._zombiemode_chest_joker_chance_override_func ]](chance_of_joker);
+			chance_of_joker = [[level._zombiemode_chest_joker_chance_override_func]](chance_of_joker);
 
 		if (chance_of_joker > random)
 		{
@@ -577,10 +577,10 @@ treasure_chest_weapon_spawn(chest, player, respin)
 
 	self notify("randomization_done");
 
-	if (flag("moving_chest_now") && !(level.zombie_vars["zombie_powerup_fire_sale_on"] && self [[ level._zombiemode_check_firesale_loc_valid_func ]]()))
+	if (flag("moving_chest_now") && !(level.zombie_vars["zombie_powerup_fire_sale_on"] && self [[level._zombiemode_check_firesale_loc_valid_func]]()))
 	{
 		if (isdefined(level.chest_joker_custom_movement))
-			self [[ level.chest_joker_custom_movement ]]();
+			self [[level.chest_joker_custom_movement]]();
 		else
 		{
 			wait 0.5;
@@ -632,20 +632,20 @@ treasure_chest_weapon_spawn(chest, player, respin)
 		if (!isdefined(respin))
 		{
 			if (isdefined(chest.box_hacks["respin"]))
-				self [[ chest.box_hacks["respin"] ]](chest, player);
+				self [[chest.box_hacks["respin"]]](chest, player);
 		}
 		else if (isdefined(chest.box_hacks["respin_respin"]))
-			self [[ chest.box_hacks["respin_respin"] ]](chest, player);
+			self [[chest.box_hacks["respin_respin"]]](chest, player);
 
 		if (isdefined(level.custom_magic_box_timer_til_despawn))
-			self.weapon_model thread [[ level.custom_magic_box_timer_til_despawn ]](self);
+			self.weapon_model thread [[level.custom_magic_box_timer_til_despawn]](self);
 		else
 			self.weapon_model thread timer_til_despawn(v_float);
 
 		if (isdefined(self.weapon_model_dw))
 		{
 			if (isdefined(level.custom_magic_box_timer_til_despawn))
-				self.weapon_model_dw thread [[ level.custom_magic_box_timer_til_despawn ]](self);
+				self.weapon_model_dw thread [[level.custom_magic_box_timer_til_despawn]](self);
 			else
 				self.weapon_model_dw thread timer_til_despawn(v_float);
 		}
@@ -671,7 +671,7 @@ treasure_chest_chooseweightedrandomweapon(player, prev_weapon, add_to_acquired =
 	keys = array_randomize(getarraykeys(level.zombie_weapons));
 
 	if (isdefined(level.customrandomweaponweights))
-		keys = player [[ level.customrandomweaponweights ]](keys);
+		keys = player [[level.customrandomweaponweights]](keys);
 
 	pap_triggers = getentarray("specialty_weapupgrade", "script_noteworthy");
 
@@ -740,14 +740,14 @@ treasure_chest_move(player_vox)
 
 	wait 0.1;
 
-	if (level.zombie_vars[ "zombie_powerup_fire_sale_on" ] == 1 && self [[ level._zombiemode_check_firesale_loc_valid_func ]]())
+	if (level.zombie_vars["zombie_powerup_fire_sale_on"] == 1 && self [[level._zombiemode_check_firesale_loc_valid_func]]())
 	{
-		current_sale_time = level.zombie_vars[ "zombie_powerup_fire_sale_time" ];
+		current_sale_time = level.zombie_vars["zombie_powerup_fire_sale_time"];
 		wait_network_frame();
 		self thread maps\mp\zombies\_zm_magicbox::fire_sale_fix();
-		level.zombie_vars[ "zombie_powerup_fire_sale_time" ] = current_sale_time;
+		level.zombie_vars["zombie_powerup_fire_sale_time"] = current_sale_time;
 
-		while (level.zombie_vars[ "zombie_powerup_fire_sale_time" ] > 0)
+		while (level.zombie_vars["zombie_powerup_fire_sale_time"] > 0)
 		{
 			wait 0.1;
 		}
@@ -757,20 +757,20 @@ treasure_chest_move(player_vox)
 
 	if (isDefined(level._zombiemode_custom_box_move_logic))
 	{
-		[[ level._zombiemode_custom_box_move_logic ]]();
+		[[level._zombiemode_custom_box_move_logic]]();
 	}
 	else
 	{
 		default_box_move_logic();
 	}
 
-	if (isDefined(level.chests[ level.chest_index ].box_hacks[ "summon_box" ]))
+	if (isDefined(level.chests[level.chest_index].box_hacks["summon_box"]))
 	{
-		level.chests[ level.chest_index ] [[ level.chests[ level.chest_index ].box_hacks[ "summon_box" ] ]](0);
+		level.chests[level.chest_index][[level.chests[level.chest_index].box_hacks["summon_box"]]](0);
 	}
 
-	playfx(level._effect[ "poltergeist" ], level.chests[ level.chest_index ].zbarrier.origin);
-	level.chests[ level.chest_index ] maps\mp\zombies\_zm_magicbox::show_chest();
+	playfx(level._effect["poltergeist"], level.chests[level.chest_index].zbarrier.origin);
+	level.chests[level.chest_index] maps\mp\zombies\_zm_magicbox::show_chest();
 	flag_clear("moving_chest_now");
 	self.zbarrier.chest_moving = 0;
 }

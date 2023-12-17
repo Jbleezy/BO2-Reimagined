@@ -50,22 +50,22 @@ start_alcatraz_sidequest()
 	level thread warden_fence_hotjoin_handler();
 
 	if (isdefined(level.host_migration_listener_custom_func))
-		level thread [[ level.host_migration_listener_custom_func ]]();
+		level thread [[level.host_migration_listener_custom_func]]();
 	else
 		level thread host_migration_listener();
 
 	if (isdefined(level.manage_electric_chairs_custom_func))
-		level thread [[ level.manage_electric_chairs_custom_func ]]();
+		level thread [[level.manage_electric_chairs_custom_func]]();
 	else
 		level thread manage_electric_chairs();
 
 	if (isdefined(level.plane_flight_thread_custom_func))
-		level thread [[ level.plane_flight_thread_custom_func ]]();
+		level thread [[level.plane_flight_thread_custom_func]]();
 	else
 		level thread plane_flight_thread();
 
 	if (isdefined(level.track_quest_status_thread_custom_func))
-		level thread [[ level.track_quest_status_thread_custom_func ]]();
+		level thread [[level.track_quest_status_thread_custom_func]]();
 	else
 		level thread track_quest_status_thread();
 
@@ -348,7 +348,7 @@ plane_flight_thread()
 		if (!level.final_flight_activated)
 		{
 			if (isdefined(level.brutus_on_the_bridge_custom_func))
-				level thread [[ level.brutus_on_the_bridge_custom_func ]]();
+				level thread [[level.brutus_on_the_bridge_custom_func]]();
 			else
 				level thread brutus_on_the_bridge();
 		}
@@ -376,7 +376,7 @@ manage_electric_chairs()
 			t_electric_chair = getent(str_trigger_targetname, "targetname");
 
 			if (isdefined(level.electric_chair_trigger_thread_custom_func))
-				t_electric_chair thread [[ level.electric_chair_trigger_thread_custom_func ]](i);
+				t_electric_chair thread [[level.electric_chair_trigger_thread_custom_func]](i);
 			else
 				t_electric_chair thread electric_chair_trigger_thread(i);
 

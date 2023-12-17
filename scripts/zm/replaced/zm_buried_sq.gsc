@@ -115,7 +115,7 @@ richtofen_zombie_deathfunction_override()
 		}
 	}
 
-	return self [[ self.deathfunction_old ]]();
+	return self [[self.deathfunction_old]]();
 }
 
 sq_give_player_rewards()

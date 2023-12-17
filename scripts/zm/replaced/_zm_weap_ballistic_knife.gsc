@@ -52,7 +52,7 @@ on_spawn(watcher, player)
 			}
 		}
 
-		watcher.objectarray[ watcher.objectarray.size ] = retrievable_model;
+		watcher.objectarray[watcher.objectarray.size] = retrievable_model;
 		retrievable_model thread drop_knives_to_ground(player);
 
 		if (isfriendly)
@@ -120,7 +120,7 @@ watch_use_trigger(trigger, model, callback, weapon, playersoundonuse, npcsoundon
 			player playsound(npcsoundonuse);
 		}
 
-		player thread [[ callback ]](weapon, model, trigger);
+		player thread [[callback]](weapon, model, trigger);
 		return;
 	}
 }

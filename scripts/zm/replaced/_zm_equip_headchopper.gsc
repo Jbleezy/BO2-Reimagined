@@ -286,7 +286,7 @@ headchopperattack(weapon, ent)
 				ent thread maps\mp\animscripts\zm_run::needsdelayedupdate();
 
 				if (isdefined(ent.crawl_anim_override))
-					ent [[ ent.crawl_anim_override ]]();
+					ent [[ent.crawl_anim_override]]();
 			}
 
 			if (ent.health <= 10)
@@ -374,7 +374,7 @@ equipment_onspawnretrievableweaponobject(watcher, player)
 
 		if (isdefined(level.check_force_deploy_origin))
 		{
-			if (player [[ level.check_force_deploy_origin ]](self, plant_origin, plant_angles))
+			if (player [[level.check_force_deploy_origin]](self, plant_origin, plant_angles))
 			{
 				plant_origin = player.origin;
 				plant_angles = player.angles;
@@ -383,14 +383,14 @@ equipment_onspawnretrievableweaponobject(watcher, player)
 		}
 		else if (isdefined(level.check_force_deploy_z))
 		{
-			if (player [[ level.check_force_deploy_z ]](self, plant_origin, plant_angles))
+			if (player [[level.check_force_deploy_z]](self, plant_origin, plant_angles))
 				plant_origin = (plant_origin[0], plant_origin[1], player.origin[2] + 10);
 		}
 
 		if (isdefined(iswallmount) && iswallmount)
 			self ghost();
 
-		replacement = player [[ level.zombie_equipment[equipment].place_fn ]](plant_origin, plant_angles);
+		replacement = player [[level.zombie_equipment[equipment].place_fn]](plant_origin, plant_angles);
 
 		if (isdefined(replacement))
 		{
@@ -400,7 +400,7 @@ equipment_onspawnretrievableweaponobject(watcher, player)
 			player notify("equipment_placed", replacement, self.name);
 
 			if (isdefined(level.equipment_planted))
-				player [[ level.equipment_planted ]](replacement, equipment, self.plant_parent);
+				player [[level.equipment_planted]](replacement, equipment, self.plant_parent);
 
 			player maps\mp\zombies\_zm_buildables::track_buildables_planted(self);
 		}

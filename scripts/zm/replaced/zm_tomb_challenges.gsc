@@ -122,7 +122,7 @@ get_random_perk()
 
 	for (i = 0; i < level._random_perk_machine_perk_list.size; i++)
 	{
-		perk = level._random_perk_machine_perk_list[ i ];
+		perk = level._random_perk_machine_perk_list[i];
 
 		if (isDefined(self.perk_purchased) && self.perk_purchased == perk)
 		{
@@ -132,7 +132,7 @@ get_random_perk()
 		{
 			if (!self hasperk(perk) && !self maps\mp\zombies\_zm_perks::has_perk_paused(perk))
 			{
-				perks[ perks.size ] = perk;
+				perks[perks.size] = perk;
 			}
 		}
 	}
@@ -140,7 +140,7 @@ get_random_perk()
 	if (perks.size > 0)
 	{
 		perks = array_randomize(perks);
-		random_perk = perks[ 0 ];
+		random_perk = perks[0];
 		return random_perk;
 	}
 }

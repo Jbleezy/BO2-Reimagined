@@ -14,8 +14,8 @@ emp_detonate(grenade)
 
 	grenade waittill("explode", grenade_origin);
 
-	emp_radius = level.zombie_vars[ "emp_perk_off_range" ];
-	emp_time = level.zombie_vars[ "emp_perk_off_time" ];
+	emp_radius = level.zombie_vars["emp_perk_off_range"];
+	emp_time = level.zombie_vars["emp_perk_off_time"];
 	origin = grenade_origin;
 
 	if (!isDefined(origin))
@@ -28,7 +28,7 @@ emp_detonate(grenade)
 
 	if (isDefined(level.custom_emp_detonate))
 	{
-		thread [[ level.custom_emp_detonate ]](grenade_origin);
+		thread [[level.custom_emp_detonate]](grenade_origin);
 	}
 
 	if (isDefined(grenade_owner))
@@ -171,7 +171,7 @@ player_emp_fx(time)
 
 	for (i = 0; i < time; i += wait_time)
 	{
-		playfxontag(level._effect[ "elec_torso" ], self, "J_SpineLower");
+		playfxontag(level._effect["elec_torso"], self, "J_SpineLower");
 
 		wait wait_time;
 	}
@@ -243,12 +243,12 @@ player_perk_pause(perk)
 		self.disabled_perks = [];
 	}
 
-	if (!is_true(self.disabled_perks[ perk ]) && self hasperk(perk))
+	if (!is_true(self.disabled_perks[perk]) && self hasperk(perk))
 	{
-		self.disabled_perks[ perk ] = 1;
+		self.disabled_perks[perk] = 1;
 	}
 
-	if (self.disabled_perks[ perk ])
+	if (self.disabled_perks[perk])
 	{
 		self unsetperk(perk);
 		self maps\mp\zombies\_zm_perks::set_perk_clientfield(perk, 2);
@@ -273,9 +273,9 @@ player_perk_pause(perk)
 			self.hasperkspecialtytombstone = 0;
 		}
 
-		if (isDefined(level._custom_perks[ perk ]) && isDefined(level._custom_perks[ perk ].player_thread_take))
+		if (isDefined(level._custom_perks[perk]) && isDefined(level._custom_perks[perk].player_thread_take))
 		{
-			self thread [[ level._custom_perks[ perk ].player_thread_take ]]();
+			self thread [[level._custom_perks[perk].player_thread_take]]();
 		}
 	}
 
@@ -294,9 +294,9 @@ player_perk_unpause(perk)
 		return;
 	}
 
-	if (isDefined(self.disabled_perks) && is_true(self.disabled_perks[ perk ]))
+	if (isDefined(self.disabled_perks) && is_true(self.disabled_perks[perk]))
 	{
-		self.disabled_perks[ perk ] = undefined;
+		self.disabled_perks[perk] = undefined;
 		self maps\mp\zombies\_zm_perks::set_perk_clientfield(perk, 1);
 		self setperk(perk);
 
@@ -307,9 +307,9 @@ player_perk_unpause(perk)
 
 		self maps\mp\zombies\_zm_perks::perk_set_max_health_if_jugg(perk, 0, 0);
 
-		if (isDefined(level._custom_perks[ perk ]) && isDefined(level._custom_perks[ perk ].player_thread_give))
+		if (isDefined(level._custom_perks[perk]) && isDefined(level._custom_perks[perk].player_thread_give))
 		{
-			self thread [[ level._custom_perks[ perk ].player_thread_give ]]();
+			self thread [[level._custom_perks[perk].player_thread_give]]();
 		}
 	}
 

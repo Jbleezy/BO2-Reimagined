@@ -235,12 +235,12 @@ disable_zombie_spawn_locations()
 {
 	for (z = 0; z < level.zone_keys.size; z++)
 	{
-		if (level.zone_keys[ z ] != "zone_amb_cornfield")
+		if (level.zone_keys[z] != "zone_amb_cornfield")
 		{
 			continue;
 		}
 
-		zone = level.zones[ level.zone_keys[ z ] ];
+		zone = level.zones[level.zone_keys[z]];
 
 		i = 0;
 

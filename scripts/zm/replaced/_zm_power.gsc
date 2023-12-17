@@ -11,14 +11,14 @@ standard_powered_items()
 
 	while (i < vending_triggers.size)
 	{
-		if (vending_triggers[ i ].script_noteworthy == "specialty_weapupgrade")
+		if (vending_triggers[i].script_noteworthy == "specialty_weapupgrade")
 		{
 			i++;
 			continue;
 		}
 
-		powered_on = maps\mp\zombies\_zm_perks::get_perk_machine_start_state(vending_triggers[ i ].script_noteworthy);
-		add_powered_item(::perk_power_on, ::perk_power_off, ::perk_range, ::cost_low_if_local, 0, powered_on, vending_triggers[ i ]);
+		powered_on = maps\mp\zombies\_zm_perks::get_perk_machine_start_state(vending_triggers[i].script_noteworthy);
+		add_powered_item(::perk_power_on, ::perk_power_off, ::perk_range, ::cost_low_if_local, 0, powered_on, vending_triggers[i]);
 		i++;
 	}
 

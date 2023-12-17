@@ -102,7 +102,7 @@ trigger_deposit_think()
 
 			if (isDefined(level.custom_bank_deposit_vo))
 			{
-				player thread [[ level.custom_bank_deposit_vo ]]();
+				player thread [[level.custom_bank_deposit_vo]]();
 			}
 
 			if ((player.score <= 0) || (player.account_value >= level.bank_account_max))
@@ -150,7 +150,7 @@ trigger_withdraw_think()
 
 			if (isDefined(level.custom_bank_withdrawl_vo))
 			{
-				player thread [[ level.custom_bank_withdrawl_vo ]]();
+				player thread [[level.custom_bank_withdrawl_vo]]();
 			}
 			else
 			{

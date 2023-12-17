@@ -404,7 +404,7 @@ meat_stink_on_ground(position_to_play)
 	attractor_point setmodel("tag_origin");
 	attractor_point playsound("zmb_land_meat");
 	wait 0.2;
-	playfxontag(level._effect[ "meat_stink_torso" ], attractor_point, "tag_origin");
+	playfxontag(level._effect["meat_stink_torso"], attractor_point, "tag_origin");
 	attractor_point playloopsound("zmb_meat_flies");
 	attractor_point create_zombie_point_of_interest(768, 48, 10000);
 	attractor_point.attract_to_origin = 1;

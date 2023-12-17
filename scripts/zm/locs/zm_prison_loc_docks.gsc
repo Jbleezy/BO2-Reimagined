@@ -7,12 +7,12 @@
 
 struct_init()
 {
-	level.struct_class_names[ "targetname" ][ "zm_perk_machine" ] = [];
+	level.struct_class_names["targetname"]["zm_perk_machine"] = [];
 
 	scripts\zm\replaced\utility::register_perk_struct("specialty_armorvest", "zombie_vending_jugg", (473.92, 6638.99, 208), (0, 102, 0));
 	scripts\zm\replaced\utility::register_perk_struct("specialty_weapupgrade", "p6_zm_al_vending_pap_on", (-1769, 5395, -72), (0, 100, 0));
 
-	level.struct_class_names[ "script_noteworthy" ][ "initial_spawn" ] = [];
+	level.struct_class_names["script_noteworthy"]["initial_spawn"] = [];
 
 	player_respawn_points = [];
 
@@ -61,9 +61,9 @@ struct_init()
 		}
 	}
 
-	level.struct_class_names[ "targetname" ][ "player_respawn_point" ] = player_respawn_points;
+	level.struct_class_names["targetname"]["player_respawn_point"] = player_respawn_points;
 
-	level.struct_class_names[ "targetname" ][ "intermission" ] = [];
+	level.struct_class_names["targetname"]["intermission"] = [];
 
 	intermission_cam = spawnStruct();
 	intermission_cam.origin = (402, 6197, 142);
@@ -175,7 +175,7 @@ disable_zombie_spawn_locations()
 {
 	for (z = 0; z < level.zone_keys.size; z++)
 	{
-		zone = level.zones[ level.zone_keys[ z ] ];
+		zone = level.zones[level.zone_keys[z]];
 
 		i = 0;
 
@@ -248,15 +248,15 @@ turn_afterlife_interact_on()
 {
 	if (!isDefined(level.shockbox_anim))
 	{
-		level.shockbox_anim[ "on" ] = %fxanim_zom_al_shock_box_on_anim;
-		level.shockbox_anim[ "off" ] = %fxanim_zom_al_shock_box_off_anim;
+		level.shockbox_anim["on"] = %fxanim_zom_al_shock_box_on_anim;
+		level.shockbox_anim["off"] = %fxanim_zom_al_shock_box_off_anim;
 	}
 
 	if (issubstr(self.model, "p6_zm_al_shock_box"))
 	{
 		self useanimtree(-1);
 		self setmodel("p6_zm_al_shock_box_on");
-		self setanim(level.shockbox_anim[ "on" ]);
+		self setanim(level.shockbox_anim["on"]);
 	}
 }
 

@@ -19,7 +19,7 @@ struct_init()
 	og_perk_structs = [];
 	structs = getstructarray("zm_perk_machine", "targetname");
 
-	level.struct_class_names[ "targetname" ][ "zm_perk_machine" ] = [];
+	level.struct_class_names["targetname"]["zm_perk_machine"] = [];
 
 	foreach (struct in structs)
 	{
@@ -132,10 +132,10 @@ struct_init()
 		}
 	}
 
-	level.struct_class_names[ "script_noteworthy" ][ "initial_spawn" ] = initial_spawns;
-	level.struct_class_names[ "targetname" ][ "player_respawn_point" ] = player_respawn_points;
+	level.struct_class_names["script_noteworthy"]["initial_spawn"] = initial_spawns;
+	level.struct_class_names["targetname"]["player_respawn_point"] = player_respawn_points;
 
-	level.struct_class_names[ "targetname" ][ "intermission" ] = [];
+	level.struct_class_names["targetname"]["intermission"] = [];
 
 	intermission_cam = spawnStruct();
 	intermission_cam.origin = (3694, 569, 253);

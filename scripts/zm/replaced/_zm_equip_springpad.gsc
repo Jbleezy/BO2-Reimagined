@@ -64,7 +64,7 @@ springpadthink(weapon, electricradius, armed)
 
 					self.num_zombies_flung++;
 					self notify("zombie_flung");
-					ent thread [[ ent.custom_springpad_fling ]](weapon, self);
+					ent thread [[ent.custom_springpad_fling]](weapon, self);
 					continue;
 				}
 

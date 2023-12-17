@@ -156,8 +156,8 @@ jetgun_check_enemies_in_range(zombie, view_pos, drag_range_squared, gib_range_sq
 
 	if (test_range_squared < grind_range_squared)
 	{
-		level.jetgun_fling_enemies[ level.jetgun_fling_enemies.size ] = zombie;
-		level.jetgun_grind_enemies[ level.jetgun_grind_enemies.size ] = dot < 0;
+		level.jetgun_fling_enemies[level.jetgun_fling_enemies.size] = zombie;
+		level.jetgun_grind_enemies[level.jetgun_grind_enemies.size] = dot < 0;
 	}
 	else
 	{
@@ -173,7 +173,7 @@ jetgun_check_enemies_in_range(zombie, view_pos, drag_range_squared, gib_range_sq
 
 		if (test_range_squared < drag_range_squared && dot > 0)
 		{
-			level.jetgun_drag_enemies[ level.jetgun_drag_enemies.size ] = zombie;
+			level.jetgun_drag_enemies[level.jetgun_drag_enemies.size] = zombie;
 		}
 	}
 }
@@ -191,9 +191,9 @@ jetgun_grind_zombie(player)
 
 		if (is_mature())
 		{
-			if (isDefined(level._effect[ "zombie_guts_explosion" ]))
+			if (isDefined(level._effect["zombie_guts_explosion"]))
 			{
-				playfx(level._effect[ "zombie_guts_explosion" ], self gettagorigin("J_SpineLower"));
+				playfx(level._effect["zombie_guts_explosion"], self gettagorigin("J_SpineLower"));
 			}
 		}
 

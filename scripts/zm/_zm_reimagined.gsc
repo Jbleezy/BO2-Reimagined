@@ -2264,7 +2264,7 @@ last_stand_restore_pistol_ammo(only_store_info = false)
 
 	while (i < weapon_inventory.size)
 	{
-		weapon = weapon_inventory[ i ];
+		weapon = weapon_inventory[i];
 
 		if (weapon != self.laststandpistol)
 		{
@@ -2274,18 +2274,18 @@ last_stand_restore_pistol_ammo(only_store_info = false)
 
 		for (j = 0; j < weapon_to_restore.size; j++)
 		{
-			check_weapon = weapon_to_restore[ j ];
+			check_weapon = weapon_to_restore[j];
 
 			if (weapon == check_weapon)
 			{
-				if (self.stored_weapon_info[ weapon ].given_amt == 0)
+				if (self.stored_weapon_info[weapon].given_amt == 0)
 				{
-					self setweaponammoclip(weapon, self.stored_weapon_info[ weapon ].clip_amt);
+					self setweaponammoclip(weapon, self.stored_weapon_info[weapon].clip_amt);
 
 					if ("none" != dual_wield_name)
-						self set_weapon_ammo_clip_left(weapon, self.stored_weapon_info[ weapon ].left_clip_amt);
+						self set_weapon_ammo_clip_left(weapon, self.stored_weapon_info[weapon].left_clip_amt);
 
-					self setweaponammostock(weapon, self.stored_weapon_info[ weapon ].stock_amt);
+					self setweaponammostock(weapon, self.stored_weapon_info[weapon].stock_amt);
 
 					break;
 				}
@@ -2303,66 +2303,66 @@ last_stand_restore_pistol_ammo(only_store_info = false)
 				last_stock = self getweaponammostock(weapon);
 				last_total = last_clip + last_left_clip + last_stock;
 
-				self.stored_weapon_info[ weapon ].used_amt = self.stored_weapon_info[ weapon ].given_amt - last_total;
+				self.stored_weapon_info[weapon].used_amt = self.stored_weapon_info[weapon].given_amt - last_total;
 
 				if (only_store_info)
 				{
 					break;
 				}
 
-				used_amt = self.stored_weapon_info[ weapon ].used_amt;
+				used_amt = self.stored_weapon_info[weapon].used_amt;
 
-				if (used_amt >= self.stored_weapon_info[ weapon ].stock_amt)
+				if (used_amt >= self.stored_weapon_info[weapon].stock_amt)
 				{
-					used_amt -= self.stored_weapon_info[ weapon ].stock_amt;
-					self.stored_weapon_info[ weapon ].stock_amt = 0;
+					used_amt -= self.stored_weapon_info[weapon].stock_amt;
+					self.stored_weapon_info[weapon].stock_amt = 0;
 
 					if ("none" != dual_wield_name)
 					{
-						if (used_amt >= self.stored_weapon_info[ weapon ].left_clip_amt)
+						if (used_amt >= self.stored_weapon_info[weapon].left_clip_amt)
 						{
-							used_amt -= self.stored_weapon_info[ weapon ].left_clip_amt;
-							self.stored_weapon_info[ weapon ].left_clip_amt = 0;
+							used_amt -= self.stored_weapon_info[weapon].left_clip_amt;
+							self.stored_weapon_info[weapon].left_clip_amt = 0;
 
-							if (used_amt >= self.stored_weapon_info[ weapon ].clip_amt)
+							if (used_amt >= self.stored_weapon_info[weapon].clip_amt)
 							{
-								used_amt -= self.stored_weapon_info[ weapon ].clip_amt;
-								self.stored_weapon_info[ weapon ].clip_amt = 0;
+								used_amt -= self.stored_weapon_info[weapon].clip_amt;
+								self.stored_weapon_info[weapon].clip_amt = 0;
 							}
 							else
 							{
-								self.stored_weapon_info[ weapon ].clip_amt -= used_amt;
+								self.stored_weapon_info[weapon].clip_amt -= used_amt;
 							}
 						}
 						else
 						{
-							self.stored_weapon_info[ weapon ].left_clip_amt -= used_amt;
+							self.stored_weapon_info[weapon].left_clip_amt -= used_amt;
 						}
 					}
 					else
 					{
-						if (used_amt >= self.stored_weapon_info[ weapon ].clip_amt)
+						if (used_amt >= self.stored_weapon_info[weapon].clip_amt)
 						{
-							used_amt -= self.stored_weapon_info[ weapon ].clip_amt;
-							self.stored_weapon_info[ weapon ].clip_amt = 0;
+							used_amt -= self.stored_weapon_info[weapon].clip_amt;
+							self.stored_weapon_info[weapon].clip_amt = 0;
 						}
 						else
 						{
-							self.stored_weapon_info[ weapon ].clip_amt -= used_amt;
+							self.stored_weapon_info[weapon].clip_amt -= used_amt;
 						}
 					}
 				}
 				else
 				{
-					self.stored_weapon_info[ weapon ].stock_amt -= used_amt;
+					self.stored_weapon_info[weapon].stock_amt -= used_amt;
 				}
 
-				self setweaponammoclip(weapon, self.stored_weapon_info[ weapon ].clip_amt);
+				self setweaponammoclip(weapon, self.stored_weapon_info[weapon].clip_amt);
 
 				if ("none" != dual_wield_name)
-					self set_weapon_ammo_clip_left(weapon, self.stored_weapon_info[ weapon ].left_clip_amt);
+					self set_weapon_ammo_clip_left(weapon, self.stored_weapon_info[weapon].left_clip_amt);
 
-				self setweaponammostock(weapon, self.stored_weapon_info[ weapon ].stock_amt);
+				self setweaponammostock(weapon, self.stored_weapon_info[weapon].stock_amt);
 
 				break;
 			}
@@ -3143,7 +3143,7 @@ buildcraftables()
 
 takecraftableparts(buildable)
 {
-	player = get_players()[ 0 ];
+	player = get_players()[0];
 
 	foreach (stub in level.zombie_include_craftables)
 	{
@@ -3166,7 +3166,7 @@ takecraftableparts(buildable)
 
 buildcraftable(buildable)
 {
-	player = get_players()[ 0 ];
+	player = get_players()[0];
 
 	foreach (stub in level.a_uts_craftables)
 	{
@@ -3213,7 +3213,7 @@ player_take_piece(piecespawn)
 
 	if (isDefined(piecestub.onpickup))
 	{
-		piecespawn [[ piecestub.onpickup ]](self);
+		piecespawn [[piecestub.onpickup]](self);
 	}
 
 	if (isDefined(piecestub.is_shared) && piecestub.is_shared)
@@ -3392,7 +3392,7 @@ tombstone_wobble()
 
 	if (isDefined(self))
 	{
-		playfxontag(level._effect[ "powerup_on_solo" ], self, "tag_origin");
+		playfxontag(level._effect["powerup_on_solo"], self, "tag_origin");
 		self playsound("zmb_tombstone_spawn");
 		self playloopsound("zmb_tombstone_looper");
 	}
@@ -3420,7 +3420,7 @@ tombstone_emp()
 
 		if (distancesquared(origin, self.origin) < (radius * radius))
 		{
-			playfx(level._effect[ "powerup_off" ], self.origin);
+			playfx(level._effect["powerup_off"], self.origin);
 			self thread tombstone_delete();
 		}
 	}
@@ -3466,22 +3466,22 @@ tombstone_grab()
 
 		while (i < players.size)
 		{
-			if (players[ i ].is_zombie)
+			if (players[i].is_zombie)
 			{
 				i++;
 				continue;
 			}
 			else
 			{
-				if (isDefined(self.player) && players[ i ] == self.player)
+				if (isDefined(self.player) && players[i] == self.player)
 				{
-					dist = distance(players[ i ].origin, self.origin);
+					dist = distance(players[i].origin, self.origin);
 
 					if (dist < 64)
 					{
-						playfx(level._effect[ "powerup_grabbed_solo" ], self.origin);
-						playfx(level._effect[ "powerup_grabbed_wave_solo" ], self.origin);
-						players[ i ] tombstone_give();
+						playfx(level._effect["powerup_grabbed_solo"], self.origin);
+						playfx(level._effect["powerup_grabbed_wave_solo"], self.origin);
+						players[i] tombstone_give();
 						wait 0.1;
 						playsoundatposition("zmb_tombstone_grab", self.origin);
 						self stoploopsound();
@@ -3489,8 +3489,8 @@ tombstone_grab()
 						self.icon delete();
 						self delete();
 						self notify("tombstone_grabbed");
-						players[ i ] clientnotify("dc0");
-						players[ i ] notify("dance_on_my_grave");
+						players[i] clientnotify("dc0");
+						players[i] notify("dance_on_my_grave");
 					}
 				}
 			}
@@ -3535,9 +3535,9 @@ tombstone_save()
 
 	for (i = 0; i < self.tombstone_savedweapon_weapons.size; i++)
 	{
-		self.tombstone_savedweapon_weaponsammo_clip[ i ] = self getweaponammoclip(self.tombstone_savedweapon_weapons[ i ]);
-		self.tombstone_savedweapon_weaponsammo_clip_dualwield[ i ] = self getweaponammoclip(weaponDualWieldWeaponName(self.tombstone_savedweapon_weapons[ i ]));
-		self.tombstone_savedweapon_weaponsammo_stock[ i ] = self getweaponammostock(self.tombstone_savedweapon_weapons[ i ]);
+		self.tombstone_savedweapon_weaponsammo_clip[i] = self getweaponammoclip(self.tombstone_savedweapon_weapons[i]);
+		self.tombstone_savedweapon_weaponsammo_clip_dualwield[i] = self getweaponammoclip(weaponDualWieldWeaponName(self.tombstone_savedweapon_weapons[i]));
+		self.tombstone_savedweapon_weaponsammo_stock[i] = self getweaponammostock(self.tombstone_savedweapon_weapons[i]);
 		self.tombstone_savedweapon_weaponsammo_clip_alt[i] = self getweaponammoclip(weaponAltWeaponName(self.tombstone_savedweapon_weapons[i]));
 		self.tombstone_savedweapon_weaponsammo_stock_alt[i] = self getweaponammostock(weaponAltWeaponName(self.tombstone_savedweapon_weapons[i]));
 
@@ -3609,37 +3609,37 @@ tombstone_save_perks(ent)
 
 	if (ent hasperk("specialty_armorvest"))
 	{
-		perk_array[ perk_array.size ] = "specialty_armorvest";
+		perk_array[perk_array.size] = "specialty_armorvest";
 	}
 
 	if (ent hasperk("specialty_deadshot"))
 	{
-		perk_array[ perk_array.size ] = "specialty_deadshot";
+		perk_array[perk_array.size] = "specialty_deadshot";
 	}
 
 	if (ent hasperk("specialty_fastreload"))
 	{
-		perk_array[ perk_array.size ] = "specialty_fastreload";
+		perk_array[perk_array.size] = "specialty_fastreload";
 	}
 
 	if (ent hasperk("specialty_flakjacket"))
 	{
-		perk_array[ perk_array.size ] = "specialty_flakjacket";
+		perk_array[perk_array.size] = "specialty_flakjacket";
 	}
 
 	if (ent hasperk("specialty_movefaster"))
 	{
-		perk_array[ perk_array.size ] = "specialty_movefaster";
+		perk_array[perk_array.size] = "specialty_movefaster";
 	}
 
 	if (ent hasperk("specialty_quickrevive"))
 	{
-		perk_array[ perk_array.size ] = "specialty_quickrevive";
+		perk_array[perk_array.size] = "specialty_quickrevive";
 	}
 
 	if (ent hasperk("specialty_rof"))
 	{
-		perk_array[ perk_array.size ] = "specialty_rof";
+		perk_array[perk_array.size] = "specialty_rof";
 	}
 
 	return perk_array;
@@ -3669,13 +3669,13 @@ tombstone_give()
 
 	while (i < self.tombstone_savedweapon_weapons.size)
 	{
-		if (isdefined(self.tombstone_savedweapon_grenades) && self.tombstone_savedweapon_weapons[ i ] == self.tombstone_savedweapon_grenades || (isdefined(self.tombstone_savedweapon_tactical) && self.tombstone_savedweapon_weapons[ i ] == self.tombstone_savedweapon_tactical))
+		if (isdefined(self.tombstone_savedweapon_grenades) && self.tombstone_savedweapon_weapons[i] == self.tombstone_savedweapon_grenades || (isdefined(self.tombstone_savedweapon_tactical) && self.tombstone_savedweapon_weapons[i] == self.tombstone_savedweapon_tactical))
 		{
 			i++;
 			continue;
 		}
 
-		if (isweaponprimary(self.tombstone_savedweapon_weapons[ i ]))
+		if (isweaponprimary(self.tombstone_savedweapon_weapons[i]))
 		{
 			if (primary_weapons_returned >= 2)
 			{
@@ -3686,37 +3686,37 @@ tombstone_give()
 			primary_weapons_returned++;
 		}
 
-		if ("item_meat_zm" == self.tombstone_savedweapon_weapons[ i ])
+		if ("item_meat_zm" == self.tombstone_savedweapon_weapons[i])
 		{
 			i++;
 			continue;
 		}
 
-		self giveweapon(self.tombstone_savedweapon_weapons[ i ], 0, self maps\mp\zombies\_zm_weapons::get_pack_a_punch_weapon_options(self.tombstone_savedweapon_weapons[ i ]));
+		self giveweapon(self.tombstone_savedweapon_weapons[i], 0, self maps\mp\zombies\_zm_weapons::get_pack_a_punch_weapon_options(self.tombstone_savedweapon_weapons[i]));
 
-		if (isdefined(self.tombstone_savedweapon_weaponsammo_clip[ i ]))
+		if (isdefined(self.tombstone_savedweapon_weaponsammo_clip[i]))
 		{
-			self setweaponammoclip(self.tombstone_savedweapon_weapons[ i ], self.tombstone_savedweapon_weaponsammo_clip[ i ]);
+			self setweaponammoclip(self.tombstone_savedweapon_weapons[i], self.tombstone_savedweapon_weaponsammo_clip[i]);
 		}
 
-		if (isdefined(self.tombstone_savedweapon_weaponsammo_clip_dualwield[ i ]))
+		if (isdefined(self.tombstone_savedweapon_weaponsammo_clip_dualwield[i]))
 		{
-			self setweaponammoclip(weaponDualWieldWeaponName(self.tombstone_savedweapon_weapons[ i ]), self.tombstone_savedweapon_weaponsammo_clip_dualwield[ i ]);
+			self setweaponammoclip(weaponDualWieldWeaponName(self.tombstone_savedweapon_weapons[i]), self.tombstone_savedweapon_weaponsammo_clip_dualwield[i]);
 		}
 
-		if (isdefined(self.tombstone_savedweapon_weaponsammo_stock[ i ]))
+		if (isdefined(self.tombstone_savedweapon_weaponsammo_stock[i]))
 		{
-			self setweaponammostock(self.tombstone_savedweapon_weapons[ i ], self.tombstone_savedweapon_weaponsammo_stock[ i ]);
+			self setweaponammostock(self.tombstone_savedweapon_weapons[i], self.tombstone_savedweapon_weaponsammo_stock[i]);
 		}
 
-		if (isdefined(self.tombstone_savedweapon_weaponsammo_clip_alt[ i ]))
+		if (isdefined(self.tombstone_savedweapon_weaponsammo_clip_alt[i]))
 		{
-			self setweaponammoclip(weaponAltWeaponName(self.tombstone_savedweapon_weapons[ i ]), self.tombstone_savedweapon_weaponsammo_clip_alt[ i ]);
+			self setweaponammoclip(weaponAltWeaponName(self.tombstone_savedweapon_weapons[i]), self.tombstone_savedweapon_weaponsammo_clip_alt[i]);
 		}
 
-		if (isdefined(self.tombstone_savedweapon_weaponsammo_stock_alt[ i ]))
+		if (isdefined(self.tombstone_savedweapon_weaponsammo_stock_alt[i]))
 		{
-			self setweaponammostock(weaponAltWeaponName(self.tombstone_savedweapon_weapons[ i ]), self.tombstone_savedweapon_weaponsammo_stock_alt[ i ]);
+			self setweaponammostock(weaponAltWeaponName(self.tombstone_savedweapon_weapons[i]), self.tombstone_savedweapon_weaponsammo_stock_alt[i]);
 		}
 
 		i++;
@@ -3773,7 +3773,7 @@ tombstone_give()
 	{
 		if (isDefined(self.player_shield_reset_health))
 		{
-			self [[ self.player_shield_reset_health ]]();
+			self [[self.player_shield_reset_health]]();
 		}
 	}
 
@@ -3797,7 +3797,7 @@ tombstone_give()
 		{
 			if (primaries.size > 0)
 			{
-				self switchtoweapon(primaries[ 0 ]);
+				self switchtoweapon(primaries[0]);
 			}
 		}
 	}
@@ -3808,13 +3808,13 @@ tombstone_give()
 
 		while (i < self.tombstone_perks.size)
 		{
-			if (self hasperk(self.tombstone_perks[ i ]))
+			if (self hasperk(self.tombstone_perks[i]))
 			{
 				i++;
 				continue;
 			}
 
-			self maps\mp\zombies\_zm_perks::give_perk(self.tombstone_perks[ i ]);
+			self maps\mp\zombies\_zm_perks::give_perk(self.tombstone_perks[i]);
 			i++;
 		}
 	}
@@ -4075,12 +4075,12 @@ zone_changes()
 	else if (level.script == "zm_highrise")
 	{
 		// Green Highrise to Lower Blue Highrise
-		level.zones[ "zone_green_level3b" ].adjacent_zones[ "zone_blue_level1c" ] structdelete();
-		level.zones[ "zone_green_level3b" ].adjacent_zones[ "zone_blue_level1c" ] = undefined;
+		level.zones["zone_green_level3b"].adjacent_zones["zone_blue_level1c"] structdelete();
+		level.zones["zone_green_level3b"].adjacent_zones["zone_blue_level1c"] = undefined;
 
 		// Lower Orange Highrise debris
-		level.zones[ "zone_orange_level3a" ].adjacent_zones[ "zone_orange_level3b" ].is_connected = 0;
-		level.zones[ "zone_orange_level3b" ].adjacent_zones[ "zone_orange_level3a" ].is_connected = 0;
+		level.zones["zone_orange_level3a"].adjacent_zones["zone_orange_level3b"].is_connected = 0;
+		level.zones["zone_orange_level3b"].adjacent_zones["zone_orange_level3a"].is_connected = 0;
 	}
 }
 
