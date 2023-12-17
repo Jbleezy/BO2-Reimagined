@@ -168,7 +168,7 @@ disable_player_spawn_locations()
 {
 	respawnpoints = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
 
-	foreach	(respawnpoint in respawnpoints)
+	foreach (respawnpoint in respawnpoints)
 	{
 		if (respawnpoint.script_noteworthy == "zone_pow_warehouse")
 		{
