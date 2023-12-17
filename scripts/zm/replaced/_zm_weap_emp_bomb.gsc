@@ -145,11 +145,11 @@ emp_players(origin, radius, owner)
 	rsquared = radius * radius;
 	players = get_players();
 
-	foreach(player in players)
+	foreach (player in players)
 	{
-		if(distancesquared(origin, player.origin) < rsquared)
+		if (distancesquared(origin, player.origin) < rsquared)
 		{
-			if(is_player_valid(player) || player maps\mp\zombies\_zm_laststand::player_is_in_laststand())
+			if (is_player_valid(player) || player maps\mp\zombies\_zm_laststand::player_is_in_laststand())
 			{
 				time = 30;
 				player shellshock( "frag_grenade_mp", 2 );
@@ -169,7 +169,7 @@ player_emp_fx(time)
 
 	wait_time = 2.5;
 
-	for(i = 0; i < time; i += wait_time)
+	for (i = 0; i < time; i += wait_time)
 	{
 		playfxontag( level._effect[ "elec_torso" ], self, "J_SpineLower" );
 
@@ -197,7 +197,7 @@ player_perk_pause_all_perks_acquired(time)
 	self endon("player_perk_pause_and_unpause_all_perks");
 	self endon("disconnect");
 
-	while(1)
+	while (1)
 	{
 		self waittill("perk_acquired");
 

@@ -490,7 +490,7 @@ ai_calculate_health( round_number )
 
 	while ( i <= round_number )
 	{
-		if( level.zombie_health > max_health )
+		if ( level.zombie_health > max_health )
 		{
 			level.zombie_health = max_health;
 			return;
@@ -986,7 +986,7 @@ countdown_hud_timer(time)
 {
 	self endon("death");
 
-	while(time > 0)
+	while (time > 0)
 	{
 		self setvalue(time);
 		self thread maps\mp\gametypes_zm\_hud::fontpulse(level);
@@ -1424,43 +1424,43 @@ actor_damage_override( inflictor, attacker, damage, flags, meansofdeath, weapon,
 
 	attacker thread maps\mp\gametypes_zm\_weapons::checkhit( weapon );
 
-	if(maps\mp\zombies\_zm_weapons::get_base_weapon_name(weapon, 1) == "saritch_zm")
+	if (maps\mp\zombies\_zm_weapons::get_base_weapon_name(weapon, 1) == "saritch_zm")
 	{
 		final_damage *= 2;
 	}
 
-	if(weapon == "ray_gun_zm" && meansofdeath == "MOD_PROJECTILE")
+	if (weapon == "ray_gun_zm" && meansofdeath == "MOD_PROJECTILE")
 	{
 		final_damage = 1500;
 	}
 
-	if(weapon == "ray_gun_upgraded_zm" && meansofdeath == "MOD_PROJECTILE")
+	if (weapon == "ray_gun_upgraded_zm" && meansofdeath == "MOD_PROJECTILE")
 	{
 		final_damage = 2000;
 	}
 
-	if(weapon == "blundergat_zm" || weapon == "blundergat_upgraded_zm")
+	if (weapon == "blundergat_zm" || weapon == "blundergat_upgraded_zm")
 	{
-		if(!is_true(self.is_brutus))
+		if (!is_true(self.is_brutus))
 		{
 			damage_scalar = final_damage / 1000;
 			min_damage = int(damage_scalar * level.zombie_health) + 1;
 
-			if(final_damage < min_damage)
+			if (final_damage < min_damage)
 			{
 				final_damage = min_damage;
 			}
 		}
 	}
 
-	if(weapon == "blundersplat_explosive_dart_zm")
+	if (weapon == "blundersplat_explosive_dart_zm")
 	{
-		if(!is_true(self.is_brutus))
+		if (!is_true(self.is_brutus))
 		{
 			damage_scalar = final_damage / 3000;
 			min_damage = int(damage_scalar * level.zombie_health) + 1;
 
-			if(final_damage < min_damage)
+			if (final_damage < min_damage)
 			{
 				final_damage = min_damage;
 			}
@@ -1475,21 +1475,21 @@ actor_damage_override( inflictor, attacker, damage, flags, meansofdeath, weapon,
 		}
 	}
 
-	if(attacker HasPerk("specialty_rof"))
+	if (attacker HasPerk("specialty_rof"))
 	{
-		if(meansofdeath == "MOD_PISTOL_BULLET" || meansofdeath == "MOD_RIFLE_BULLET")
+		if (meansofdeath == "MOD_PISTOL_BULLET" || meansofdeath == "MOD_RIFLE_BULLET")
 		{
 			final_damage *= 1.5;
 		}
 	}
 
-	if(attacker HasPerk("specialty_deadshot"))
+	if (attacker HasPerk("specialty_deadshot"))
 	{
-		if(is_headshot(weapon, shitloc, meansofdeath))
+		if (is_headshot(weapon, shitloc, meansofdeath))
 		{
-			if(meansofdeath == "MOD_PISTOL_BULLET" || meansofdeath == "MOD_RIFLE_BULLET")
+			if (meansofdeath == "MOD_PISTOL_BULLET" || meansofdeath == "MOD_RIFLE_BULLET")
 			{
-				if(!isSubStr(weaponClass(weapon), "spread") || maps\mp\zombies\_zm_weapons::get_base_weapon_name(weapon, 1) == "ksg_zm")
+				if (!isSubStr(weaponClass(weapon), "spread") || maps\mp\zombies\_zm_weapons::get_base_weapon_name(weapon, 1) == "ksg_zm")
 				{
 					final_damage *= 2;
 				}
@@ -1502,7 +1502,7 @@ actor_damage_override( inflictor, attacker, damage, flags, meansofdeath, weapon,
 		final_damage *= 2;
 	}
 
-	if(is_true(level.zombie_vars[attacker.team]["zombie_half_damage"]) && !is_true(self.marked_for_death))
+	if (is_true(level.zombie_vars[attacker.team]["zombie_half_damage"]) && !is_true(self.marked_for_death))
 	{
 		final_damage /= 2;
 	}
@@ -1689,20 +1689,20 @@ getfreespawnpoint( spawnpoints, player )
 		num = 0;
 		players = get_players(self.team);
 
-		for(num = 0; num < 4; num++)
+		for (num = 0; num < 4; num++)
 		{
 			valid_num = true;
 
-			foreach(player in players)
+			foreach (player in players)
 			{
-				if(player != self && isdefined(player.playernum) && player.playernum == num)
+				if (player != self && isdefined(player.playernum) && player.playernum == num)
 				{
 					valid_num = false;
 					break;
 				}
 			}
 
-			if(valid_num)
+			if (valid_num)
 			{
 				break;
 			}
@@ -2036,7 +2036,7 @@ player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, 
 	}
 
 	// fix turrets damaging players
-	if(sweapon == "zombie_bullet_crouch_zm" && smeansofdeath == "MOD_RIFLE_BULLET")
+	if (sweapon == "zombie_bullet_crouch_zm" && smeansofdeath == "MOD_RIFLE_BULLET")
 	{
 		return 0;
 	}
@@ -2178,7 +2178,7 @@ player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, 
 	{
 		if ( (!is_true( self.laststand ) && !self maps\mp\zombies\_zm_laststand::player_is_in_laststand()) || !isDefined( self.last_player_attacker ) )
 		{
-			if(isDefined( eattacker ) && isplayer( eattacker ) && eattacker.team != self.team)
+			if (isDefined( eattacker ) && isplayer( eattacker ) && eattacker.team != self.team)
 			{
 				if ( isDefined( eattacker.maxhealth ) && is_true( eattacker.is_zombie ) )
 				{
@@ -2296,31 +2296,31 @@ is_solo_death( players )
 {
 	if ( players.size == 1 && flag( "solo_game" ) )
 	{
-		if(self.solo_lives_given >= 3)
+		if (self.solo_lives_given >= 3)
 		{
 			return 1;
 		}
 
-		if(isDefined(self.e_chugabud_corpse))
+		if (isDefined(self.e_chugabud_corpse))
 		{
 			return 0;
 		}
 
 		active_perks = 0;
 
-		if(isDefined(self.perks_active))
+		if (isDefined(self.perks_active))
 		{
 			active_perks = self.perks_active.size;
 		}
 
 		disabled_perks = 0;
 
-		if(isDefined(self.disabled_perks))
+		if (isDefined(self.disabled_perks))
 		{
 			disabled_perks = self.disabled_perks.size;
 		}
 
-		if(active_perks <= disabled_perks)
+		if (active_perks <= disabled_perks)
 		{
 			return 1;
 		}
@@ -2371,19 +2371,19 @@ player_laststand( einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, s
 		{
 			active_perks = 0;
 
-			if(isDefined(self.perks_active))
+			if (isDefined(self.perks_active))
 			{
 				active_perks = self.perks_active.size;
 			}
 
 			disabled_perks = 0;
 
-			if(isDefined(self.disabled_perks))
+			if (isDefined(self.disabled_perks))
 			{
 				disabled_perks = self.disabled_perks.size;
 			}
 
-			if(active_perks > disabled_perks || isDefined(self.e_chugabud_corpse))
+			if (active_perks > disabled_perks || isDefined(self.e_chugabud_corpse))
 			{
 				self thread maps\mp\zombies\_zm::wait_and_revive();
 			}
@@ -2594,7 +2594,7 @@ player_revive_monitor()
 		{
 			self maps\mp\zombies\_zm_audio::create_and_play_dialog( "general", "revive_up" );
 
-			if(reviver != self)
+			if (reviver != self)
 			{
 				points = self.score_lost_when_downed;
 				reviver maps\mp\zombies\_zm_score::player_add_points( "reviver", points );
@@ -2879,7 +2879,7 @@ end_game()
 
 	if ( !isDefined( level._supress_survived_screen ) )
 	{
-		for(i = 0; i < players.size; i++)
+		for (i = 0; i < players.size; i++)
 		{
 			survived[ i ] destroy();
 			game_over[ i ] destroy();

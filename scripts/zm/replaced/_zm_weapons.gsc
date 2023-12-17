@@ -158,7 +158,7 @@ init_spawnable_weapon_upgrade()
 		}
 		else
 		{
-			if( is_lethal_grenade( unitrigger_stub.zombie_weapon_upgrade ) )
+			if ( is_lethal_grenade( unitrigger_stub.zombie_weapon_upgrade ) )
 				unitrigger_stub.prompt_and_visibility_func = ::lethal_grenade_update_prompt;
 			else
 				unitrigger_stub.prompt_and_visibility_func = ::wall_weapon_update_prompt;
@@ -258,7 +258,7 @@ add_dynamic_wallbuy( weapon, wallbuy, pristine )
 	}
 	else
 	{
-		if( is_lethal_grenade( unitrigger_stub.zombie_weapon_upgrade ) )
+		if ( is_lethal_grenade( unitrigger_stub.zombie_weapon_upgrade ) )
 			unitrigger_stub.prompt_and_visibility_func = ::lethal_grenade_update_prompt;
 		else
 			unitrigger_stub.prompt_and_visibility_func = ::wall_weapon_update_prompt;
@@ -566,7 +566,7 @@ weapon_spawn_think()
 
 	is_grenade = 0;
 
-	if(weapontype( self.zombie_weapon_upgrade ) == "grenade")
+	if (weapontype( self.zombie_weapon_upgrade ) == "grenade")
 	{
 		is_grenade = 1;
 	}

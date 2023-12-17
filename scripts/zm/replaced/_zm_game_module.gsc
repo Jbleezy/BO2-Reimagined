@@ -7,7 +7,7 @@ wait_for_team_death_and_round_end()
 	level endon( "game_module_ended" );
 	level endon( "end_game" );
 
-	if(level.scr_zm_ui_gametype_obj != "zsnr")
+	if (level.scr_zm_ui_gametype_obj != "zsnr")
 	{
 		return;
 	}
@@ -54,7 +54,7 @@ wait_for_team_death_and_round_end()
 		{
 			if ( !checking_for_round_tie )
 			{
-				if(cia_alive == 0 && cdc_alive == 0)
+				if (cia_alive == 0 && cdc_alive == 0)
 				{
 					level notify( "stop_round_end_check" );
 					level thread check_for_round_end();
@@ -76,7 +76,7 @@ wait_for_team_death_and_round_end()
 
 		if ( !checking_for_round_tie )
 		{
-			if(cia_alive == 0 && cdc_alive == 0)
+			if (cia_alive == 0 && cdc_alive == 0)
 			{
 				level notify( "stop_round_end_check" );
 				level thread check_for_round_end();
@@ -115,7 +115,7 @@ check_for_round_end(winner)
 	level endon( "stop_round_end_check" );
 	level endon( "end_game" );
 
-	if(isDefined(winner))
+	if (isDefined(winner))
 	{
 		wait 5;
 	}
@@ -133,9 +133,9 @@ round_end(winner)
 
 	team = undefined;
 
-	if(isDefined(winner))
+	if (isDefined(winner))
 	{
-		if(winner == "A")
+		if (winner == "A")
 		{
 			team = "axis";
 		}
@@ -152,12 +152,12 @@ round_end(winner)
 
 	players = get_players();
 
-	foreach(player in players)
+	foreach (player in players)
 	{
 		// don't spawn tombstone powerup on next down
 		player.hasperkspecialtytombstone = undefined;
 
-		if(is_player_valid(player))
+		if (is_player_valid(player))
 		{
 			// don't give perk
 			player notify("perk_abort_drinking");
@@ -165,9 +165,9 @@ round_end(winner)
 			player [[level._game_module_player_laststand_callback]]();
 		}
 
-		if(player maps\mp\zombies\_zm_laststand::player_is_in_laststand())
+		if (player maps\mp\zombies\_zm_laststand::player_is_in_laststand())
 		{
-			if(isDefined(level.zombie_last_stand_ammo_return))
+			if (isDefined(level.zombie_last_stand_ammo_return))
 			{
 				player [[level.zombie_last_stand_ammo_return]](1);
 			}
@@ -284,14 +284,14 @@ player_respawn_award()
 	maps\mp\zombies\_zm::award_grenades_for_survivors();
 	players = get_players();
 
-	foreach(player in players)
+	foreach (player in players)
 	{
-		if(player.score < level.player_starting_points)
+		if (player.score < level.player_starting_points)
 		{
 			player maps\mp\zombies\_zm_score::add_to_player_score(level.player_starting_points - player.score);
 		}
 
-		if(isDefined(player get_player_placeable_mine()))
+		if (isDefined(player get_player_placeable_mine()))
 		{
 			player giveweapon(player get_player_placeable_mine());
 			player set_player_placeable_mine(player get_player_placeable_mine());

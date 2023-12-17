@@ -48,7 +48,7 @@ dog_round_tracker()
 			dog_round_start();
 			level.round_spawn_func = ::dog_round_spawning;
 
-			if( !isdefined( level.prev_dog_round_amount ) )
+			if ( !isdefined( level.prev_dog_round_amount ) )
 			{
 				level.prev_dog_round_amount = randomintrange( 4, 6 );
 				level.next_dog_round = level.round_number + level.prev_dog_round_amount;

@@ -693,7 +693,7 @@ brutus_damage_override( inflictor, attacker, damage, flags, meansofdeath, weapon
 
 brutus_health_increases()
 {
-	if(level.scr_zm_ui_gametype == "zgrief")
+	if (level.scr_zm_ui_gametype == "zgrief")
 	{
 		return;
 	}

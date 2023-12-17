@@ -194,7 +194,7 @@ slipgun_change_ammo()
 {
 	foreach (buildable in level.zombie_include_buildables)
 	{
-		if(IsDefined(buildable.name) && buildable.name == "slipgun_zm")
+		if (IsDefined(buildable.name) && buildable.name == "slipgun_zm")
 		{
 			buildable.onbuyweapon = ::onbuyweapon_slipgun;
 			return;

@@ -14,7 +14,7 @@ on_spawn( watcher, player )
 
 	self waittill( "stationary", endpos, normal, angles, attacker, prey, bone );
 
-	if( is_upgraded && isDefined( prey ) && isplayer( prey ) && prey.team == player.team && prey maps\mp\zombies\_zm_laststand::player_is_in_laststand() )
+	if ( is_upgraded && isDefined( prey ) && isplayer( prey ) && prey.team == player.team && prey maps\mp\zombies\_zm_laststand::player_is_in_laststand() )
 	{
 		return;
 	}
@@ -55,7 +55,7 @@ on_spawn( watcher, player )
 		watcher.objectarray[ watcher.objectarray.size ] = retrievable_model;
 		retrievable_model thread drop_knives_to_ground( player );
 
-		if( isfriendly )
+		if ( isfriendly )
 		{
 			player notify( "ballistic_knife_stationary", retrievable_model, normal );
 		}
@@ -104,7 +104,7 @@ watch_use_trigger( trigger, model, callback, weapon, playersoundonuse, npcsoundo
 
 		if ( !autorecover && !is_true( trigger.force_pickup ) )
 		{
-			if( player.throwinggrenade || player meleebuttonpressed() )
+			if ( player.throwinggrenade || player meleebuttonpressed() )
 			{
 				continue;
 			}

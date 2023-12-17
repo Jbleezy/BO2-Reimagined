@@ -135,7 +135,7 @@ can_revive( player_down )
 
 electric_door_changes()
 {
-	if( is_classic() )
+	if ( is_classic() )
 	{
 		return;
 	}
@@ -183,7 +183,7 @@ electric_door_changes()
 
 power_local_electric_doors_globally()
 {
-	if( !is_classic() )
+	if ( !is_classic() )
 	{
 		return;
 	}
@@ -599,13 +599,13 @@ power_station_vision_change()
 
 	flag_wait( "start_zombie_round_logic" );
 
-	while(1)
+	while (1)
 	{
 		players = get_players();
 
-		foreach(player in players)
+		foreach (player in players)
 		{
-			if(!isDefined(player.power_station_vision_set))
+			if (!isDefined(player.power_station_vision_set))
 			{
 				player.power_station_vision_set = 0;
 				player.r_exposureValue = level.default_r_exposureValue;
@@ -613,9 +613,9 @@ power_station_vision_change()
 				player setClientDvar("r_exposureValue", level.default_r_exposureValue);
 			}
 
-			if(!player.power_station_vision_set)
+			if (!player.power_station_vision_set)
 			{
-				if(player maps\mp\zombies\_zm_zonemgr::entity_in_zone("zone_prr") || player maps\mp\zombies\_zm_zonemgr::entity_in_zone("zone_pcr"))
+				if (player maps\mp\zombies\_zm_zonemgr::entity_in_zone("zone_prr") || player maps\mp\zombies\_zm_zonemgr::entity_in_zone("zone_pcr"))
 				{
 					player.power_station_vision_set = 1;
 					player thread change_dvar_over_time("r_exposureValue", level.changed_r_exposureValue, time, 1);
@@ -623,7 +623,7 @@ power_station_vision_change()
 			}
 			else
 			{
-				if(!(player maps\mp\zombies\_zm_zonemgr::entity_in_zone("zone_prr") || player maps\mp\zombies\_zm_zonemgr::entity_in_zone("zone_pcr")))
+				if (!(player maps\mp\zombies\_zm_zonemgr::entity_in_zone("zone_prr") || player maps\mp\zombies\_zm_zonemgr::entity_in_zone("zone_pcr")))
 				{
 					player.power_station_vision_set = 0;
 					player thread change_dvar_over_time("r_exposureValue", level.default_r_exposureValue, time, 0);
@@ -645,13 +645,13 @@ change_dvar_over_time(dvar, val, time, increment)
 
 	i = 0;
 
-	while(i < intervals)
+	while (i < intervals)
 	{
-		if(increment)
+		if (increment)
 		{
 			self.r_exposureValue += rate;
 
-			if(self.r_exposureValue > val)
+			if (self.r_exposureValue > val)
 			{
 				self.r_exposureValue = val;
 			}
@@ -660,7 +660,7 @@ change_dvar_over_time(dvar, val, time, increment)
 		{
 			self.r_exposureValue -= rate;
 
-			if(self.r_exposureValue < val)
+			if (self.r_exposureValue < val)
 			{
 				self.r_exposureValue = val;
 			}
@@ -668,7 +668,7 @@ change_dvar_over_time(dvar, val, time, increment)
 
 		self setClientDvar(dvar, self.r_exposureValue);
 
-		if(self.r_exposureValue == val)
+		if (self.r_exposureValue == val)
 		{
 			return;
 		}
@@ -780,7 +780,7 @@ manage_zones( initial_zone )
 
 	while ( getDvarInt( "noclip" ) == 0 || getDvarInt( "notarget" ) != 0 )
 	{
-		for( z = 0; z < zkeys.size; z++ )
+		for ( z = 0; z < zkeys.size; z++ )
 		{
 			level.newzones[ zkeys[ z ] ].is_active = 0;
 			level.newzones[ zkeys[ z ] ].is_occupied = 0;
@@ -796,7 +796,7 @@ manage_zones( initial_zone )
 			zone = level.zones[ zkeys[ z ] ];
 			newzone = level.newzones[ zkeys[ z ] ];
 
-			if( !zone.is_enabled )
+			if ( !zone.is_enabled )
 			{
 				z++;
 				continue;

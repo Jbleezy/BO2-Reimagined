@@ -4,7 +4,7 @@
 
 game_mode_spawn_player_logic()
 {
-	if(isDefined(level.should_respawn_func) && [[level.should_respawn_func]]())
+	if (isDefined(level.should_respawn_func) && [[level.should_respawn_func]]())
 	{
 		return 0;
 	}
@@ -420,7 +420,7 @@ meat_stink_player( who )
 	level notify( "new_meat_stink_player" );
 	level endon( "new_meat_stink_player" );
 
-	if(level.scr_zm_ui_gametype_obj == "zmeat")
+	if (level.scr_zm_ui_gametype_obj == "zmeat")
 	{
 		level thread meat_stink(who);
 		return;

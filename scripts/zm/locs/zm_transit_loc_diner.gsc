@@ -17,9 +17,9 @@ struct_init()
 	ind = 0;
 	respawnpoints = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
 
-	for(i = 0; i < respawnpoints.size; i++)
+	for (i = 0; i < respawnpoints.size; i++)
 	{
-		if(respawnpoints[i].script_noteworthy == "zone_gas")
+		if (respawnpoints[i].script_noteworthy == "zone_gas")
 		{
 			ind = i;
 			break;
@@ -31,9 +31,9 @@ struct_init()
 
 	respawn_array = getstructarray(respawnpoints[ind].target, "targetname");
 
-	foreach(respawn in respawn_array)
+	foreach (respawn in respawn_array)
 	{
-		if(respawn.script_int == 2)
+		if (respawn.script_int == 2)
 		{
 			respawn.angles += (0, 180, 0);
 		}
@@ -75,52 +75,52 @@ struct_init()
 			{
 				object.script_gameobjectname = "zstandard zgrief zcleansed zturned";
 
-				if(object.origin == (-6460.7, -7115, 6.8))
+				if (object.origin == (-6460.7, -7115, 6.8))
 				{
 					object setModel("veh_t6_civ_microbus_dead");
 					object.origin += anglesToUp(object.angles) * -65;
 					object.origin += anglesToForward(object.angles) * 125;
 				}
-				else if(object.origin == (-6550.5, -6901.7, 6.8))
+				else if (object.origin == (-6550.5, -6901.7, 6.8))
 				{
 					object setModel("veh_t6_civ_smallwagon_dead");
 					object.origin += anglesToUp(object.angles) * -60;
 					object.origin += anglesToForward(object.angles) * 150;
 				}
-				else if(object.origin == (-6251.1, -6449.4, 20.8))
+				else if (object.origin == (-6251.1, -6449.4, 20.8))
 				{
 					object setModel("veh_t6_civ_60s_coupe_dead");
 					object.origin += anglesToUp(object.angles) * -60;
 					object.origin += anglesToForward(object.angles) * 125;
 					object.origin += anglesToRight(object.angles) * 25;
 				}
-				else if(object.origin == (-5822.9, -6434.6, 20.8))
+				else if (object.origin == (-5822.9, -6434.6, 20.8))
 				{
 					object setModel("p6_zm_rocks_medium_05");
 					object.origin += anglesToUp(object.angles) * -80;
 					object.origin += anglesToForward(object.angles) * 50;
 					object.origin += anglesToRight(object.angles) * 100;
 				}
-				else if(object.origin == (-5589.5, -6310.3, 24.8))
+				else if (object.origin == (-5589.5, -6310.3, 24.8))
 				{
 					object setModel("p6_zm_rocks_medium_05");
 					object.origin += anglesToUp(object.angles) * -80;
 					object.origin += anglesToForward(object.angles) * 50;
 					object.origin += anglesToRight(object.angles) * 125;
 				}
-				else if(object.origin == (-4813, -6665.3, 0.8))
+				else if (object.origin == (-4813, -6665.3, 0.8))
 				{
 					object setModel("veh_t6_civ_60s_coupe_dead");
 					object.origin += anglesToUp(object.angles) * -65;
 					object.origin += anglesToForward(object.angles) * 100;
 				}
-				else if(object.origin == (-3978.4, -6484.9, 0.8))
+				else if (object.origin == (-3978.4, -6484.9, 0.8))
 				{
 					object setModel("veh_t6_civ_smallwagon_dead");
 					object.origin += anglesToUp(object.angles) * -60;
 					object.origin += anglesToForward(object.angles) * 125;
 				}
-				else if(object.origin == (-3902.4, -6884.9, 0.8))
+				else if (object.origin == (-3902.4, -6884.9, 0.8))
 				{
 					object setModel("veh_t6_civ_microbus_dead");
 					object.origin += anglesToUp(object.angles) * -65;

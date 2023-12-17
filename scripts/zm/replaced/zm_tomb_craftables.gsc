@@ -224,7 +224,7 @@ quadrotor_control_thread()
 
 			self playsound( "veh_qrdrone_takeoff" );
 
-			if(self hasweapon(prev_wep) && prev_wep != "equip_dieseldrone_zm")
+			if (self hasweapon(prev_wep) && prev_wep != "equip_dieseldrone_zm")
 			{
 				self switchtoweapon( prev_wep );
 			}

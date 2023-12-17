@@ -846,7 +846,7 @@ perk_think( perk )
 	self unsetperk( perk );
 	self.num_perks--;
 
-	switch( perk )
+	switch ( perk )
 	{
 		case "specialty_armorvest":
 			self setmaxhealth( self.premaxhealth );
@@ -1033,7 +1033,7 @@ set_perk_clientfield( perk, state )
 
 initialize_custom_perk_arrays()
 {
-	if(!isDefined(level._custom_perks))
+	if (!isDefined(level._custom_perks))
 	{
 		level._custom_perks = [];
 	}
@@ -1083,7 +1083,7 @@ initialize_custom_perk_arrays()
 	struct.scr_zm_map_start_location = "processing";
 	move_perk_machine("zm_buried", "street", "specialty_fastreload", struct);
 
-	if(getDvar("g_gametype") == "zgrief" && getDvarIntDefault("ui_gametype_pro", 0))
+	if (getDvar("g_gametype") == "zgrief" && getDvarIntDefault("ui_gametype_pro", 0))
 	{
 		remove_pap_machine();
 	}
@@ -1095,9 +1095,9 @@ remove_pap_machine()
 
 	structs = getStructArray("zm_perk_machine", "targetname");
 
-	foreach(struct in structs)
+	foreach (struct in structs)
 	{
-		if(isDefined(struct.script_noteworthy) && struct.script_noteworthy == "specialty_weapupgrade")
+		if (isDefined(struct.script_noteworthy) && struct.script_noteworthy == "specialty_weapupgrade")
 		{
 			struct.script_string = "";
 		}
@@ -1106,7 +1106,7 @@ remove_pap_machine()
 
 move_perk_machine(map, location, perk, move_struct)
 {
-	if(!(level.script == map && level.scr_zm_map_start_location == location))
+	if (!(level.script == map && level.scr_zm_map_start_location == location))
 	{
 		return;
 	}
@@ -1114,11 +1114,11 @@ move_perk_machine(map, location, perk, move_struct)
 	perk_struct = undefined;
 	structs = getStructArray("zm_perk_machine", "targetname");
 
-	foreach(struct in structs)
+	foreach (struct in structs)
 	{
-		if(isDefined(struct.script_noteworthy) && struct.script_noteworthy == perk)
+		if (isDefined(struct.script_noteworthy) && struct.script_noteworthy == perk)
 		{
-			if(isDefined(struct.script_string) && isSubStr(struct.script_string, "perks_" + location))
+			if (isDefined(struct.script_string) && isSubStr(struct.script_string, "perks_" + location))
 			{
 				perk_struct = struct;
 				break;
@@ -1126,22 +1126,22 @@ move_perk_machine(map, location, perk, move_struct)
 		}
 	}
 
-	if(!isDefined(perk_struct))
+	if (!isDefined(perk_struct))
 	{
 		return;
 	}
 
-	if(isDefined(move_struct.script_string))
+	if (isDefined(move_struct.script_string))
 	{
 		gametypes = strTok(move_struct.script_string, " ");
 
-		foreach(gametype in gametypes)
+		foreach (gametype in gametypes)
 		{
 			perk_struct.script_string += " " + gametype + "_perks_" + location;
 		}
 	}
 
-	if(isDefined(move_struct.origin))
+	if (isDefined(move_struct.origin))
 	{
 		perk_struct.origin = move_struct.origin;
 		perk_struct.angles = move_struct.angles;
@@ -1149,16 +1149,16 @@ move_perk_machine(map, location, perk, move_struct)
 		return;
 	}
 
-	foreach(struct in structs)
+	foreach (struct in structs)
 	{
-		if(isDefined(struct.script_noteworthy) && struct.script_noteworthy == move_struct.script_noteworthy)
+		if (isDefined(struct.script_noteworthy) && struct.script_noteworthy == move_struct.script_noteworthy)
 		{
-			if(isDefined(struct.script_string) && isSubStr(struct.script_string, move_struct.scr_zm_ui_gametype + "_perks_" + move_struct.scr_zm_map_start_location))
+			if (isDefined(struct.script_string) && isSubStr(struct.script_string, move_struct.scr_zm_ui_gametype + "_perks_" + move_struct.scr_zm_map_start_location))
 			{
 				perk_struct.origin = struct.origin;
 				perk_struct.angles = struct.angles;
 
-				if(isDefined(move_struct.origin_offset))
+				if (isDefined(move_struct.origin_offset))
 				{
 					perk_struct.origin += move_struct.origin_offset;
 				}

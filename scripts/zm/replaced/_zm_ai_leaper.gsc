@@ -42,7 +42,7 @@ leaper_round_tracker()
 			level.round_spawn_func = ::leaper_round_spawning;
 			level.round_wait_func = ::leaper_round_wait;
 
-			if( !isdefined( level.prev_leaper_round_amount ) )
+			if ( !isdefined( level.prev_leaper_round_amount ) )
 			{
 				level.prev_leaper_round_amount = randomintrange( 4, 6 );
 				level.next_leaper_round = level.round_number + level.prev_leaper_round_amount;

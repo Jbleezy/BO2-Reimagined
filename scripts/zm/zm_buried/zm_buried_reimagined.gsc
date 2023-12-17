@@ -61,7 +61,7 @@ init()
 	level.zombie_init_done = ::zombie_init_done;
 	level.special_weapon_magicbox_check = ::buried_special_weapon_magicbox_check;
 
-	if(is_gametype_active("zgrief"))
+	if (is_gametype_active("zgrief"))
 	{
 		level.check_for_valid_spawn_near_team_callback = undefined;
 	}
@@ -228,7 +228,7 @@ sloth_barricades_buyable()
 		debris_trig.script_flag = trig.script_flag;
 		debris_trig.script_location = trig.script_location;
 
-		switch(debris_trig.script_location)
+		switch (debris_trig.script_location)
 		{
 			case "juggernaut_alley":
 			case "stables_alley":

@@ -315,7 +315,7 @@ full_ammo_powerup( drop_item, player )
 {
 	clip_only = 0;
 
-	if(level.scr_zm_ui_gametype == "zgrief")
+	if (level.scr_zm_ui_gametype == "zgrief")
 	{
 		clip_only = 1;
 		drop_item.hint = &"Clip Ammo!";
@@ -369,7 +369,7 @@ full_ammo_powerup( drop_item, player )
 
 			if ( players[ i ] hasweapon( primary_weapons[ x ] ) )
 			{
-				if(clip_only)
+				if (clip_only)
 				{
 					if (weaponMaxAmmo(primary_weapons[x]) == 0)
 					{
@@ -379,12 +379,12 @@ full_ammo_powerup( drop_item, player )
 
 					new_ammo = players[i] getWeaponAmmoStock(primary_weapons[x]) + weaponClipSize(primary_weapons[x]);
 
-					if(weaponDualWieldWeaponName(primary_weapons[x]) != "none")
+					if (weaponDualWieldWeaponName(primary_weapons[x]) != "none")
 					{
 						new_ammo += weaponClipSize(weaponDualWieldWeaponName(primary_weapons[x]));
 					}
 
-					if(new_ammo > weaponMaxAmmo(primary_weapons[x]))
+					if (new_ammo > weaponMaxAmmo(primary_weapons[x]))
 					{
 						new_ammo = weaponMaxAmmo(primary_weapons[x]);
 					}
@@ -407,7 +407,7 @@ full_ammo_powerup( drop_item, player )
 
 	level thread full_ammo_on_hud( drop_item, player.team );
 
-	if(level.scr_zm_ui_gametype == "zgrief")
+	if (level.scr_zm_ui_gametype == "zgrief")
 	{
 		level thread empty_clip_powerup( drop_item, player );
 	}
@@ -450,7 +450,7 @@ empty_clip_powerup( drop_item, player )
 	i = 0;
 	players = get_players(team);
 
-	while(i < players.size)
+	while (i < players.size)
 	{
 		if ( players[ i ] maps\mp\zombies\_zm_laststand::player_is_in_laststand() )
 		{
@@ -460,12 +460,12 @@ empty_clip_powerup( drop_item, player )
 
 		primaries = players[i] getweaponslistprimaries();
 
-		foreach(weapon in primaries)
+		foreach (weapon in primaries)
 		{
 			dual_wield_weapon = weaponDualWieldWeaponName(weapon);
 			alt_weapon = weaponAltWeaponName(weapon);
 
-			if(dual_wield_weapon != "none")
+			if (dual_wield_weapon != "none")
 			{
 				players[i] scripts\zm\_zm_reimagined::set_weapon_ammo_clip_left(weapon, 0);
 			}
@@ -572,17 +572,17 @@ nuke_powerup( drop_item, player_team )
 		players[ i ] maps\mp\zombies\_zm_score::player_add_points( "nuke_powerup", 400 );
 	}
 
-	if(level.scr_zm_ui_gametype == "zgrief")
+	if (level.scr_zm_ui_gametype == "zgrief")
 	{
 		players = get_players(getOtherTeam(player_team));
 
-		for(i = 0; i < players.size; i++)
+		for (i = 0; i < players.size; i++)
 		{
-			if(is_player_valid(players[i]))
+			if (is_player_valid(players[i]))
 			{
 				score = 400 * maps\mp\zombies\_zm_score::get_points_multiplier(player);
 
-				if(players[i].score < score)
+				if (players[i].score < score)
 				{
 					players[i] maps\mp\zombies\_zm_score::minus_to_player_score(players[i].score);
 				}
@@ -593,7 +593,7 @@ nuke_powerup( drop_item, player_team )
 
 				radiusDamage(players[i].origin + (0, 0, 5), 10, 75, 75);
 			}
-			else if(players[i] maps\mp\zombies\_zm_laststand::player_is_in_laststand())
+			else if (players[i] maps\mp\zombies\_zm_laststand::player_is_in_laststand())
 			{
 				if (isDefined(level.player_suicide_func))
 				{
@@ -602,7 +602,7 @@ nuke_powerup( drop_item, player_team )
 			}
 		}
 
-		if(level.scr_zm_ui_gametype_obj == "zrace")
+		if (level.scr_zm_ui_gametype_obj == "zrace")
 		{
 			if (isDefined(level.increment_score_func))
 			{
@@ -629,7 +629,7 @@ insta_kill_powerup( drop_item, player )
 
 	time = 30;
 
-	if(level.scr_zm_ui_gametype == "zgrief")
+	if (level.scr_zm_ui_gametype == "zgrief")
 	{
 		time = 15;
 		level thread half_damage_powerup( drop_item, player );
@@ -715,7 +715,7 @@ double_points_powerup( drop_item, player )
 
 	time = 30;
 
-	if(level.scr_zm_ui_gametype == "zgrief")
+	if (level.scr_zm_ui_gametype == "zgrief")
 	{
 		time = 15;
 		level thread half_points_powerup( drop_item, player );

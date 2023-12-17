@@ -148,12 +148,12 @@ builddynamicwallbuy( location, weaponname )
 				origin = wallbuy.origin;
 
 				// center wallbuy chalk and model, and adjust wallbuy trigger
-				if(weaponname == "pdw57_zm")
+				if (weaponname == "pdw57_zm")
 				{
 					origin += anglesToForward(wallbuy.angles) * 12;
 					wallbuy.origin += anglesToForward(wallbuy.angles) * 3;
 				}
-				else if(weaponname == "svu_zm")
+				else if (weaponname == "svu_zm")
 				{
 					origin += anglesToForward(wallbuy.angles) * 24;
 					wallbuy.origin += anglesToForward(wallbuy.angles) * 15;
@@ -279,9 +279,9 @@ disable_tunnels()
 	invalid_zones = array("zone_start", "zone_tunnels_center", "zone_tunnels_north", "zone_tunnels_south");
 	spawn_points = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
 
-	foreach(spawn_point in spawn_points)
+	foreach (spawn_point in spawn_points)
 	{
-		if(isinarray(invalid_zones, spawn_point.script_noteworthy))
+		if (isinarray(invalid_zones, spawn_point.script_noteworthy))
 		{
 			spawn_point.locked = 1;
 		}

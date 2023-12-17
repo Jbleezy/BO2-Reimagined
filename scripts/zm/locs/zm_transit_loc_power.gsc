@@ -20,9 +20,9 @@ struct_init()
 	ind = 0;
 	respawnpoints = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
 
-	for(i = 0; i < respawnpoints.size; i++)
+	for (i = 0; i < respawnpoints.size; i++)
 	{
-		if(respawnpoints[i].script_noteworthy == "zone_prr")
+		if (respawnpoints[i].script_noteworthy == "zone_prr")
 		{
 			ind = i;
 			break;
@@ -46,7 +46,7 @@ struct_init()
 
 	respawn_array = getstructarray(respawnpoints[ind].target, "targetname");
 
-	foreach(respawn in respawn_array)
+	foreach (respawn in respawn_array)
 	{
 		angles = respawn.angles;
 

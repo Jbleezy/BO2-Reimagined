@@ -39,7 +39,7 @@ struct_init()
 
 	respawn_array = getstructarray(zone_respawnpoints[zone].target, "targetname");
 
-	foreach(respawn in respawn_array)
+	foreach (respawn in respawn_array)
 	{
 		scripts\zm\replaced\utility::register_map_spawn( respawn.origin + (100, 0, 0), respawn.angles, zone, respawn.script_int );
 	}

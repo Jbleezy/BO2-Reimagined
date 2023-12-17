@@ -223,23 +223,23 @@ player_respawn_override()
 {
 	respawn_points = getstructarray( "player_respawn_point", "targetname" );
 
-	foreach(respawn_point in respawn_points)
+	foreach (respawn_point in respawn_points)
 	{
-		if(respawn_point.script_noteworthy == "zone_cafeteria")
+		if (respawn_point.script_noteworthy == "zone_cafeteria")
 		{
 			respawn_array = getstructarray( respawn_point.target, "targetname" );
 			remove_respawn_array = [];
 
-			foreach(respawn in respawn_array)
+			foreach (respawn in respawn_array)
 			{
-				if(respawn.origin == (2536, 9704, 1360))
+				if (respawn.origin == (2536, 9704, 1360))
 				{
 					// respawn is in acid trap
 					remove_respawn_array[remove_respawn_array.size] = respawn;
 				}
 			}
 
-			foreach(respawn in remove_respawn_array)
+			foreach (respawn in remove_respawn_array)
 			{
 				arrayremovevalue(respawn_array, respawn);
 			}
@@ -255,7 +255,7 @@ updatecraftables()
 
 	foreach (stub in level._unitriggers.trigger_stubs)
 	{
-		if(IsDefined(stub.equipname) && (stub.equipname == "open_table" || stub.equipname == "alcatraz_shield_zm" || stub.equipname == "packasplat"))
+		if (IsDefined(stub.equipname) && (stub.equipname == "open_table" || stub.equipname == "alcatraz_shield_zm" || stub.equipname == "packasplat"))
 		{
 			stub.cost = stub scripts\zm\_zm_reimagined::get_equipment_cost();
 			stub.trigger_func = ::craftable_place_think;

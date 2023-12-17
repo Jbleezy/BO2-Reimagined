@@ -28,13 +28,13 @@ gain_interest_after_rounds()
 {
 	self endon("disconnect");
 
-	while(1)
+	while (1)
 	{
 		level waittill("end_of_round");
 
 		self.account_value *= 1.1;
 
-		if(self.account_value > level.bank_account_max)
+		if (self.account_value > level.bank_account_max)
 		{
 			self.account_value = level.bank_account_max;
 		}
@@ -83,13 +83,13 @@ trigger_deposit_think()
 			account_value = level.bank_account_increment;
 			score = level.bank_deposit_ddl_increment_amount;
 
-			if(score > player.score)
+			if (score > player.score)
 			{
 				account_value = player.score / level.bank_deposit_ddl_increment_amount;
 				score = player.score;
 			}
 
-			if((player.account_value + account_value) > level.bank_account_max)
+			if ((player.account_value + account_value) > level.bank_account_max)
 			{
 				account_value = level.bank_account_max - player.account_value;
 				score = round_up_to_ten(int(account_value * level.bank_deposit_ddl_increment_amount));
@@ -137,7 +137,7 @@ trigger_withdraw_think()
 			score = level.bank_deposit_ddl_increment_amount;
 			account_value = level.bank_account_increment;
 
-			if(account_value > player.account_value)
+			if (account_value > player.account_value)
 			{
 				account_value = player.account_value;
 				score = round_up_to_ten(int(account_value * level.bank_deposit_ddl_increment_amount));

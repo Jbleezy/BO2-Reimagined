@@ -82,7 +82,7 @@ sound_ent_cleanup()
 
 is_jetgun_firing()
 {
-	if(!self attackButtonPressed())
+	if (!self attackButtonPressed())
 	{
 		return 0;
 	}

@@ -65,14 +65,14 @@ zombie_damage( mod, hit_location, hit_origin, player, amount, team )
 	{
 		damage = level.round_number * 100;
 
-		if(level.scr_zm_ui_gametype == "zgrief")
+		if (level.scr_zm_ui_gametype == "zgrief")
 		{
 			damage = 2000;
 		}
 
 		max_damage = 9000;
 
-		if(damage > max_damage)
+		if (damage > max_damage)
 		{
 			damage = max_damage;
 		}
@@ -94,14 +94,14 @@ zombie_damage( mod, hit_location, hit_origin, player, amount, team )
 	{
 		damage = level.round_number * 25;
 
-		if(level.scr_zm_ui_gametype == "zgrief")
+		if (level.scr_zm_ui_gametype == "zgrief")
 		{
 			damage = 500;
 		}
 
 		max_damage = 1500;
 
-		if(damage > max_damage)
+		if (damage > max_damage)
 		{
 			damage = max_damage;
 		}
@@ -121,14 +121,14 @@ zombie_damage( mod, hit_location, hit_origin, player, amount, team )
 	{
 		damage = level.round_number * 50;
 
-		if(level.scr_zm_ui_gametype == "zgrief")
+		if (level.scr_zm_ui_gametype == "zgrief")
 		{
 			damage = 1000;
 		}
 
 		max_damage = 3000;
 
-		if(damage > max_damage)
+		if (damage > max_damage)
 		{
 			damage = max_damage;
 		}

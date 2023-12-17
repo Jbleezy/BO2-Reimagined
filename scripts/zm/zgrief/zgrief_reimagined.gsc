@@ -56,12 +56,12 @@ init()
 	grief_gamemode_hud();
 	grief_score_hud();
 
-	if(level.scr_zm_ui_gametype_obj == "zcontainment")
+	if (level.scr_zm_ui_gametype_obj == "zcontainment")
 	{
 		containment_init();
 	}
 
-	if(level.scr_zm_ui_gametype_obj == "zmeat")
+	if (level.scr_zm_ui_gametype_obj == "zmeat")
 	{
 		meat_init();
 	}
@@ -124,7 +124,7 @@ grief_gamemode_hud_destroy_on_intermission()
 
 grief_score_hud()
 {
-	if(level.script == "zm_prison")
+	if (level.script == "zm_prison")
 	{
 		game["icons"]["axis"] = "faction_inmates";
 		game["icons"]["allies"] = "faction_guards";
@@ -299,12 +299,12 @@ grief_score_hud_set_obj_icon(team)
 
 set_grief_vars()
 {
-	if(getDvar("ui_gametype_obj") == "")
+	if (getDvar("ui_gametype_obj") == "")
 	{
 		setDvar("ui_gametype_obj", "zgrief zsnr zrace zcontainment zmeat");
 	}
 
-	if(getDvar("ui_gametype_obj_cur") != "")
+	if (getDvar("ui_gametype_obj_cur") != "")
 	{
 		level.scr_zm_ui_gametype_obj = getDvar("ui_gametype_obj_cur");
 	}
@@ -314,21 +314,21 @@ set_grief_vars()
 		level.scr_zm_ui_gametype_obj = random(gamemodes);
 	}
 
-	if(getDvar("ui_gametype_pro") == "")
+	if (getDvar("ui_gametype_pro") == "")
 	{
 		setDvar("ui_gametype_pro", 0);
 	}
 
 	level.scr_zm_ui_gametype_pro = getDvarInt("ui_gametype_pro");
 
-	if(getDvar("ui_gametype_team_change") == "")
+	if (getDvar("ui_gametype_team_change") == "")
 	{
 		setDvar("ui_gametype_team_change", 0);
 	}
 
 	level.allow_teamchange = getDvarInt("ui_gametype_team_change");
 
-	if(getDvarInt("party_minplayers") < 2)
+	if (getDvarInt("party_minplayers") < 2)
 	{
 		setDvar("party_minplayers", 2);
 	}
@@ -347,22 +347,22 @@ set_grief_vars()
 	level.onplayerspawned_restore_previous_weapons = ::grief_laststand_weapons_return;
 	level.game_mode_spawn_player_logic = scripts\zm\replaced\zgrief::game_mode_spawn_player_logic;
 
-	if(isDefined(level.zombie_weapons["knife_ballistic_zm"]))
+	if (isDefined(level.zombie_weapons["knife_ballistic_zm"]))
 	{
 		level.zombie_weapons["knife_ballistic_zm"].is_in_box = 1;
 	}
 
-	if(isDefined(level.zombie_weapons["ray_gun_zm"]))
+	if (isDefined(level.zombie_weapons["ray_gun_zm"]))
 	{
 		level.zombie_weapons["ray_gun_zm"].is_in_box = 1;
 	}
 
-	if(isDefined(level.zombie_weapons["raygun_mark2_zm"]))
+	if (isDefined(level.zombie_weapons["raygun_mark2_zm"]))
 	{
 		level.zombie_weapons["raygun_mark2_zm"].is_in_box = 1;
 	}
 
-	if(isDefined(level.zombie_weapons["willy_pete_zm"]))
+	if (isDefined(level.zombie_weapons["willy_pete_zm"]))
 	{
 		register_tactical_grenade_for_level( "willy_pete_zm" );
 		level.zombie_weapons["willy_pete_zm"].is_in_box = 1;
@@ -397,7 +397,7 @@ set_grief_vars()
 
 	level.zombie_vars["zombie_powerup_drop_increment"] = level.player_starting_points * 4;
 
-	if(is_respawn_gamemode())
+	if (is_respawn_gamemode())
 	{
 		setDvar("player_lastStandBleedoutTime", 10);
 	}
@@ -449,9 +449,9 @@ powerup_hud_think()
 {
 	level endon("intermission");
 
-	while(1)
+	while (1)
 	{
-		if(level.zombie_vars[self.team][self.time_string] < 5 )
+		if (level.zombie_vars[self.team][self.time_string] < 5 )
 		{
 			wait(0.1);
 			self fadeOverTime( 0.1 );
@@ -460,7 +460,7 @@ powerup_hud_think()
 			self fadeOverTime( 0.1 );
 			self.alpha = 1;
 		}
-		else if(level.zombie_vars[self.team][self.time_string] < 10 )
+		else if (level.zombie_vars[self.team][self.time_string] < 10 )
 		{
 			wait(0.2);
 			self fadeOverTime( 0.2 );
@@ -470,9 +470,9 @@ powerup_hud_think()
 			self.alpha = 1;
 		}
 
-		if(level.zombie_vars[self.team][self.on_string])
+		if (level.zombie_vars[self.team][self.on_string])
 		{
-			if(!isInArray(level.active_powerup_hud_array[self.team], self))
+			if (!isInArray(level.active_powerup_hud_array[self.team], self))
 			{
 				level.active_powerup_hud_array[self.team][level.active_powerup_hud_array[self.team].size] = self;
 
@@ -483,7 +483,7 @@ powerup_hud_think()
 		}
 		else
 		{
-			if(isInArray(level.active_powerup_hud_array[self.team], self))
+			if (isInArray(level.active_powerup_hud_array[self.team], self))
 			{
 				arrayRemoveValue(level.active_powerup_hud_array[self.team], self);
 
@@ -508,14 +508,14 @@ powerup_hud_move()
 {
 	offset_x = 37;
 
-	if((level.active_powerup_hud_array[self.team].size % 2) == 0)
+	if ((level.active_powerup_hud_array[self.team].size % 2) == 0)
 	{
 		offset_x /= 2;
 	}
 
 	start_x = int(level.active_powerup_hud_array[self.team].size / 2) * (-1 * offset_x);
 
-	for(i = 0; i < level.active_powerup_hud_array[self.team].size; i++)
+	for (i = 0; i < level.active_powerup_hud_array[self.team].size; i++)
 	{
 		level.active_powerup_hud_array[self.team][i] moveOverTime(0.5);
 		level.active_powerup_hud_array[self.team][i].x = start_x + (i * 37);
@@ -526,7 +526,7 @@ powerup_fade_over_time()
 {
 	wait 0.1;
 
-	if(!level.zombie_vars[self.team][self.on_string])
+	if (!level.zombie_vars[self.team][self.on_string])
 	{
 		self fadeOverTime( 0.5 );
 		self.alpha = 0;
@@ -549,12 +549,12 @@ grief_onplayerconnect()
 	self.killsdenied = 0;
 	self.captures = 0;
 
-	if(level.scr_zm_ui_gametype_obj != "zsnr")
+	if (level.scr_zm_ui_gametype_obj != "zsnr")
 	{
 		self._retain_perks = 1;
 	}
 
-	if(level.scr_zm_ui_gametype_obj == "zrace")
+	if (level.scr_zm_ui_gametype_obj == "zrace")
 	{
 		self thread race_check_for_kills();
 	}
@@ -575,29 +575,29 @@ grief_onplayerdisconnect(disconnecting_player)
 		disconnecting_player.head_icon destroy();
 	}
 
-	if(!isDefined(disconnecting_player.team) || (disconnecting_player.team != "axis" && disconnecting_player.team != "allies"))
+	if (!isDefined(disconnecting_player.team) || (disconnecting_player.team != "axis" && disconnecting_player.team != "allies"))
 	{
 		return;
 	}
 
-	if(!flag("initial_blackscreen_passed"))
+	if (!flag("initial_blackscreen_passed"))
 	{
 		return;
 	}
 
-	if(isDefined(level.gamemodulewinningteam))
+	if (isDefined(level.gamemodulewinningteam))
 	{
 		return;
 	}
 
-	if(isDefined(level.update_stats_func))
+	if (isDefined(level.update_stats_func))
 	{
 		[[level.update_stats_func]](disconnecting_player);
 	}
 
-	if(level.scr_zm_ui_gametype_obj == "zgrief")
+	if (level.scr_zm_ui_gametype_obj == "zgrief")
 	{
-		if(disconnecting_player maps\mp\zombies\_zm_laststand::player_is_in_laststand())
+		if (disconnecting_player maps\mp\zombies\_zm_laststand::player_is_in_laststand())
 		{
 			increment_score(getOtherTeam(disconnecting_player.team));
 		}
@@ -605,11 +605,11 @@ grief_onplayerdisconnect(disconnecting_player)
 
 	count = countplayers(disconnecting_player.team) - 1;
 
-	if(count <= 0)
+	if (count <= 0)
 	{
 		encounters_team = "A";
 
-		if(getOtherTeam(disconnecting_player.team) == "allies")
+		if (getOtherTeam(disconnecting_player.team) == "allies")
 		{
 			encounters_team = "B";
 		}
@@ -633,7 +633,7 @@ on_player_spawned()
 
 	self.grief_initial_spawn = true;
 
-	while(1)
+	while (1)
 	{
 		self waittill( "spawned_player" );
 
@@ -641,17 +641,17 @@ on_player_spawned()
 
 		self thread scripts\zm\replaced\_zm::player_spawn_protection();
 
-		if(self.grief_initial_spawn)
+		if (self.grief_initial_spawn)
 		{
 			self.grief_initial_spawn = false;
 
-			if(is_respawn_gamemode() && flag("start_zombie_round_logic"))
+			if (is_respawn_gamemode() && flag("start_zombie_round_logic"))
 			{
 				self thread wait_and_award_grenades();
 			}
 		}
 
-		if(level.scr_zm_ui_gametype_obj == "zsnr")
+		if (level.scr_zm_ui_gametype_obj == "zsnr")
 		{
 			// round_start_wait resets these
 			self freezeControls(1);
@@ -680,7 +680,7 @@ on_player_spectate()
 	level endon("end_game");
 	self endon( "disconnect" );
 
-	while(1)
+	while (1)
 	{
 		self waittill( "spawned_spectator" );
 
@@ -693,7 +693,7 @@ on_player_downed()
 	level endon("end_game");
 	self endon( "disconnect" );
 
-	while(1)
+	while (1)
 	{
 		self waittill( "entering_last_stand" );
 
@@ -702,7 +702,7 @@ on_player_downed()
 		self add_grief_downed_score();
 		level thread update_players_on_downed( self );
 
-		if(level.scr_zm_ui_gametype_obj == "zrace")
+		if (level.scr_zm_ui_gametype_obj == "zrace")
 		{
 			increment_score(getOtherTeam(self.team), 10, 1, "enemy_player");
 		}
@@ -714,24 +714,24 @@ on_player_bleedout()
 	level endon("end_game");
 	self endon( "disconnect" );
 
-	while(1)
+	while (1)
 	{
 		self waittill_any( "bled_out", "player_suicide" );
 
 		self.head_icon.alpha = 0;
 
-		if(isDefined(level.zombie_last_stand_ammo_return))
+		if (isDefined(level.zombie_last_stand_ammo_return))
 		{
 			self [[level.zombie_last_stand_ammo_return]](1);
 		}
 
-		if(level.scr_zm_ui_gametype_obj == "zgrief")
+		if (level.scr_zm_ui_gametype_obj == "zgrief")
 		{
 			self add_grief_bleedout_score();
 			increment_score(getOtherTeam(self.team));
 		}
 
-		if(level.scr_zm_ui_gametype_obj == "zsnr")
+		if (level.scr_zm_ui_gametype_obj == "zsnr")
 		{
 			self.grief_savedweapon_weapons = undefined;
 			self.init_player_offhand_weapons_override = 1;
@@ -742,7 +742,7 @@ on_player_bleedout()
 			level thread update_players_on_bleedout( self );
 		}
 
-		if(is_respawn_gamemode())
+		if (is_respawn_gamemode())
 		{
 			if (self.bleedout_time > 0)
 			{
@@ -764,7 +764,7 @@ on_player_revived()
 	level endon("end_game");
 	self endon( "disconnect" );
 
-	while(1)
+	while (1)
 	{
 		self waittill( "player_revived", reviver );
 
@@ -777,12 +777,12 @@ on_player_revived()
 
 kill_feed()
 {
-	if(isDefined(self.last_griefed_by))
+	if (isDefined(self.last_griefed_by))
 	{
 		self.last_griefed_by.attacker.killsconfirmed++;
 
 		// show weapon icon for impact damage
-		if(self.last_griefed_by.meansofdeath == "MOD_IMPACT")
+		if (self.last_griefed_by.meansofdeath == "MOD_IMPACT")
 		{
 			self.last_griefed_by.meansofdeath = "MOD_UNKNOWN";
 		}
@@ -802,7 +802,7 @@ bleedout_feed()
 
 revive_feed(reviver)
 {
-	if(isDefined(reviver) && reviver != self)
+	if (isDefined(reviver) && reviver != self)
 	{
 		obituary(self, reviver, level.revive_tool, "MOD_IMPACT");
 	}
@@ -810,7 +810,7 @@ revive_feed(reviver)
 
 add_grief_downed_score()
 {
-	if(isDefined(self.last_griefed_by) && is_player_valid(self.last_griefed_by.attacker))
+	if (isDefined(self.last_griefed_by) && is_player_valid(self.last_griefed_by.attacker))
 	{
 		score = 500 * maps\mp\zombies\_zm_score::get_points_multiplier(self.last_griefed_by.attacker);
 		self.last_griefed_by.attacker maps\mp\zombies\_zm_score::add_to_player_score(score);
@@ -821,9 +821,9 @@ add_grief_bleedout_score()
 {
 	players = get_players();
 
-	foreach(player in players)
+	foreach (player in players)
 	{
-		if(is_player_valid(player) && player.team != self.team)
+		if (is_player_valid(player) && player.team != self.team)
 		{
 			score = 1000 * maps\mp\zombies\_zm_score::get_points_multiplier(player);
 			player maps\mp\zombies\_zm_score::add_to_player_score(score);
@@ -935,9 +935,9 @@ headstomp_watcher()
 
 	flag_wait( "initial_blackscreen_passed" );
 
-	while(1)
+	while (1)
 	{
-		if(self.sessionstate != "playing")
+		if (self.sessionstate != "playing")
 		{
 			wait 0.05;
 			continue;
@@ -945,13 +945,13 @@ headstomp_watcher()
 
 		players = get_players();
 
-		foreach(player in players)
+		foreach (player in players)
 		{
 			player_top_origin = player getCentroid();
 
-			if(player != self && player.team != self.team && is_player_valid(player) && player getStance() == "prone" && player isOnGround() && self.origin[2] > player_top_origin[2])
+			if (player != self && player.team != self.team && is_player_valid(player) && player getStance() == "prone" && player isOnGround() && self.origin[2] > player_top_origin[2])
 			{
-				if(distance2d(self.origin, player.origin) <= 21 && (self.origin[2] - player_top_origin[2]) <= 15)
+				if (distance2d(self.origin, player.origin) <= 21 && (self.origin[2] - player_top_origin[2]) <= 15)
 				{
 					player store_player_damage_info(self, "none", "MOD_FALLING");
 					player dodamage( 1000, (0, 0, 0) );
@@ -997,12 +997,12 @@ round_start_wait(time, initial)
 {
 	level endon("end_game");
 
-	if(!isDefined(initial))
+	if (!isDefined(initial))
 	{
 		initial = false;
 	}
 
-	if(initial)
+	if (initial)
 	{
 		flag_clear("spawn_zombies");
 
@@ -1010,7 +1010,7 @@ round_start_wait(time, initial)
 
 		players = get_players();
 
-		foreach(player in players)
+		foreach (player in players)
 		{
 			player.hostmigrationcontrolsfrozen = 1; // fixes players being able to move after initial_blackscreen_passed
 		}
@@ -1023,7 +1023,7 @@ round_start_wait(time, initial)
 	{
 		players = get_players();
 
-		foreach(player in players)
+		foreach (player in players)
 		{
 			ground_origin = groundpos(player.origin);
 			dist = distancesquared(player.origin, ground_origin);
@@ -1052,7 +1052,7 @@ round_start_wait(time, initial)
 
 	text = "MATCH BEGINS IN";
 
-	if(level.scr_zm_ui_gametype_obj == "zsnr")
+	if (level.scr_zm_ui_gametype_obj == "zsnr")
 	{
 		text = "ROUND " + level.snr_round_number + " BEGINS IN";
 	}
@@ -1065,9 +1065,9 @@ round_start_wait(time, initial)
 
 	players = get_players();
 
-	foreach(player in players)
+	foreach (player in players)
 	{
-		if(initial)
+		if (initial)
 		{
 			player.hostmigrationcontrolsfrozen = 0;
 		}
@@ -1083,13 +1083,13 @@ freeze_hotjoin_players()
 {
 	level endon("restart_round_start");
 
-	while(1)
+	while (1)
 	{
 		players = get_players();
 
-		foreach(player in players)
+		foreach (player in players)
 		{
-			if(!is_true(player.hostmigrationcontrolsfrozen))
+			if (!is_true(player.hostmigrationcontrolsfrozen))
 			{
 				player.hostmigrationcontrolsfrozen = 1;
 
@@ -1146,7 +1146,7 @@ get_number_of_valid_players_team(team, excluded_player)
 
 update_players_on_downed(excluded_player)
 {
-	if(level.scr_zm_ui_gametype_obj != "zsnr")
+	if (level.scr_zm_ui_gametype_obj != "zsnr")
 	{
 		return;
 	}
@@ -1197,7 +1197,7 @@ update_players_on_downed(excluded_player)
 
 update_players_on_bleedout(excluded_player)
 {
-	if(level.scr_zm_ui_gametype_obj != "zsnr")
+	if (level.scr_zm_ui_gametype_obj != "zsnr")
 	{
 		return;
 	}
@@ -1207,9 +1207,9 @@ update_players_on_bleedout(excluded_player)
 	players = get_players(team);
 	team_bledout = 0;
 
-	foreach(player in players)
+	foreach (player in players)
 	{
-		if(player == excluded_player || player.sessionstate != "playing" || is_true(player.playersuicided))
+		if (player == excluded_player || player.sessionstate != "playing" || is_true(player.playersuicided))
 		{
 			team_bledout++;
 		}
@@ -1245,7 +1245,7 @@ update_players_on_revived(revived_player, reviver)
 
 update_players_on_disconnect(excluded_player)
 {
-	if(is_player_valid(excluded_player))
+	if (is_player_valid(excluded_player))
 	{
 		update_players_on_downed(excluded_player);
 	}
@@ -1272,35 +1272,35 @@ grief_intro_msg()
 
 	players = get_players();
 
-	if(level.scr_zm_ui_gametype_obj == "zgrief")
+	if (level.scr_zm_ui_gametype_obj == "zgrief")
 	{
 		foreach (player in players)
 		{
 			player thread show_grief_hud_msg( "Make enemy players bleed out to gain score!" );
 		}
 	}
-	else if(level.scr_zm_ui_gametype_obj == "zsnr")
+	else if (level.scr_zm_ui_gametype_obj == "zsnr")
 	{
 		foreach (player in players)
 		{
 			player thread show_grief_hud_msg( "Get all enemy players down to win a round!" );
 		}
 	}
-	else if(level.scr_zm_ui_gametype_obj == "zrace")
+	else if (level.scr_zm_ui_gametype_obj == "zrace")
 	{
 		foreach (player in players)
 		{
 			player thread show_grief_hud_msg( "Kill zombies or enemy players to gain score!" );
 		}
 	}
-	else if(level.scr_zm_ui_gametype_obj == "zcontainment")
+	else if (level.scr_zm_ui_gametype_obj == "zcontainment")
 	{
 		foreach (player in players)
 		{
 			player thread show_grief_hud_msg( "Control the containment zone to gain score!" );
 		}
 	}
-	else if(level.scr_zm_ui_gametype_obj == "zmeat")
+	else if (level.scr_zm_ui_gametype_obj == "zmeat")
 	{
 		foreach (player in players)
 		{
@@ -1312,35 +1312,35 @@ grief_intro_msg()
 
 	players = get_players();
 
-	if(level.scr_zm_ui_gametype_obj == "zgrief")
+	if (level.scr_zm_ui_gametype_obj == "zgrief")
 	{
 		foreach (player in players)
 		{
 			player thread show_grief_hud_msg( "Gain " + get_gamemode_winning_score() + " score to win the game!" );
 		}
 	}
-	else if(level.scr_zm_ui_gametype_obj == "zsnr")
+	else if (level.scr_zm_ui_gametype_obj == "zsnr")
 	{
 		foreach (player in players)
 		{
 			player thread show_grief_hud_msg( "Win " + get_gamemode_winning_score() + " rounds to win the game!" );
 		}
 	}
-	else if(level.scr_zm_ui_gametype_obj == "zrace")
+	else if (level.scr_zm_ui_gametype_obj == "zrace")
 	{
 		foreach (player in players)
 		{
 			player thread show_grief_hud_msg( "Gain " + get_gamemode_winning_score() + " score to win the game!" );
 		}
 	}
-	else if(level.scr_zm_ui_gametype_obj == "zcontainment")
+	else if (level.scr_zm_ui_gametype_obj == "zcontainment")
 	{
 		foreach (player in players)
 		{
 			player thread show_grief_hud_msg( "Gain " + get_gamemode_winning_score() + " score to win the game!" );
 		}
 	}
-	else if(level.scr_zm_ui_gametype_obj == "zmeat")
+	else if (level.scr_zm_ui_gametype_obj == "zmeat")
 	{
 		foreach (player in players)
 		{
@@ -1353,28 +1353,28 @@ get_gamemode_display_name(gamemode = level.scr_zm_ui_gametype_obj)
 {
 	name = "";
 
-	if(gamemode == "zgrief")
+	if (gamemode == "zgrief")
 	{
 		name = "Grief";
 	}
-	else if(gamemode == "zsnr")
+	else if (gamemode == "zsnr")
 	{
 		name = "Search & Rezurrect";
 	}
-	else if(gamemode == "zrace")
+	else if (gamemode == "zrace")
 	{
 		name = "Race";
 	}
-	else if(gamemode == "zcontainment")
+	else if (gamemode == "zcontainment")
 	{
 		name = "Containment";
 	}
-	else if(gamemode == "zmeat")
+	else if (gamemode == "zmeat")
 	{
 		name = "Meat";
 	}
 
-	if(level.scr_zm_ui_gametype_pro)
+	if (level.scr_zm_ui_gametype_pro)
 	{
 		name += " Pro";
 	}
@@ -1384,23 +1384,23 @@ get_gamemode_display_name(gamemode = level.scr_zm_ui_gametype_obj)
 
 get_gamemode_winning_score()
 {
-	if(level.scr_zm_ui_gametype_obj == "zgrief")
+	if (level.scr_zm_ui_gametype_obj == "zgrief")
 	{
 		return 10;
 	}
-	else if(level.scr_zm_ui_gametype_obj == "zsnr")
+	else if (level.scr_zm_ui_gametype_obj == "zsnr")
 	{
 		return 3;
 	}
-	else if(level.scr_zm_ui_gametype_obj == "zrace")
+	else if (level.scr_zm_ui_gametype_obj == "zrace")
 	{
 		return 500;
 	}
-	else if(level.scr_zm_ui_gametype_obj == "zcontainment")
+	else if (level.scr_zm_ui_gametype_obj == "zcontainment")
 	{
 		return 250;
 	}
-	else if(level.scr_zm_ui_gametype_obj == "zmeat")
+	else if (level.scr_zm_ui_gametype_obj == "zmeat")
 	{
 		return 200;
 	}
@@ -1408,7 +1408,7 @@ get_gamemode_winning_score()
 
 is_respawn_gamemode()
 {
-	if(!isDefined(level.scr_zm_ui_gametype_obj))
+	if (!isDefined(level.scr_zm_ui_gametype_obj))
 	{
 		return 0;
 	}
@@ -1418,7 +1418,7 @@ is_respawn_gamemode()
 
 show_grief_hud_msg( msg, msg_parm, offset, delay )
 {
-	if(!isDefined(offset))
+	if (!isDefined(offset))
 	{
 		self notify( "show_grief_hud_msg" );
 	}
@@ -1463,7 +1463,7 @@ show_grief_hud_msg( msg, msg_parm, offset, delay )
 		wait 0.05;
 	}
 
-	if(isDefined(delay))
+	if (isDefined(delay))
 	{
 		wait delay;
 	}
@@ -1503,7 +1503,7 @@ show_grief_hud_msg_cleanup(player, offset)
 
 	self thread show_grief_hud_msg_cleanup_end_game();
 
-	if(!isDefined(offset))
+	if (!isDefined(offset))
 	{
 		self thread show_grief_hud_msg_cleanup_restart_round();
 		player waittill( "show_grief_hud_msg" );
@@ -1681,7 +1681,7 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 
 		is_melee = false;
 
-		if(isDefined(eattacker) && isplayer(eattacker) && eattacker != self && eattacker.team != self.team && (smeansofdeath == "MOD_MELEE" || issubstr(sweapon, "knife_ballistic")))
+		if (isDefined(eattacker) && isplayer(eattacker) && eattacker != self && eattacker.team != self.team && (smeansofdeath == "MOD_MELEE" || issubstr(sweapon, "knife_ballistic")))
 		{
 			is_melee = true;
 			dir = vdir;
@@ -1774,7 +1774,7 @@ game_module_player_damage_callback( einflictor, eattacker, idamage, idflags, sme
 				}
 			}
 
-			if(self isOnGround())
+			if (self isOnGround())
 			{
 				// don't move vertically if on ground
 				dir = (dir[0], dir[1], 0);
@@ -1825,14 +1825,14 @@ do_game_mode_stun_fx(einflictor, eattacker, idamage, idflags, smeansofdeath, swe
 	angle = (0, angle[1], 0);
 	stun_fx_amount = 3;
 
-	if(!isDefined(self.stun_fx))
+	if (!isDefined(self.stun_fx))
 	{
 		// spawning in model right before playfx causes the fx not to play occasionally
 		// stun fx lasts longer than stun time, so alternate between different models
 		self.stun_fx = [];
 		self.stun_fx_ind = 0;
 
-		for(i = 0; i < stun_fx_amount; i++)
+		for (i = 0; i < stun_fx_amount; i++)
 		{
 			self.stun_fx[i] = spawn("script_model", pos);
 			self.stun_fx[i] setModel("tag_origin");
@@ -1878,12 +1878,12 @@ do_game_mode_shellshock(is_melee = 0, is_upgraded = 0)
 
 stun_score_steal(attacker, score)
 {
-	if(is_player_valid(attacker))
+	if (is_player_valid(attacker))
 	{
 		attacker maps\mp\zombies\_zm_score::add_to_player_score(score);
 	}
 
-	if(self.score < score)
+	if (self.score < score)
 	{
 		self maps\mp\zombies\_zm_score::minus_to_player_score(self.score);
 	}
@@ -1913,7 +1913,7 @@ remove_player_damage_info()
 	time = getTime();
 	max_time = 3000;
 
-	while(((getTime() - time) < max_time || self.health < health) && is_player_valid(self))
+	while (((getTime() - time) < max_time || self.health < health) && is_player_valid(self))
 	{
 		wait_network_frame();
 	}
@@ -2015,13 +2015,13 @@ grief_laststand_weapons_return()
 		return 0;
 	}
 
-	if(is_true(self._retain_perks))
+	if (is_true(self._retain_perks))
 	{
-		if(isDefined(self.grief_savedperks))
+		if (isDefined(self.grief_savedperks))
 		{
 			self.perks_active = [];
 
-			foreach(perk in self.grief_savedperks)
+			foreach (perk in self.grief_savedperks)
 			{
 				self maps\mp\zombies\_zm_perks::give_perk(perk);
 			}
@@ -2073,7 +2073,7 @@ grief_laststand_weapons_return()
 
 				dual_wield_name = weapondualwieldweaponname(self.grief_savedweapon_weapons[i]);
 
-				if( "none" != dual_wield_name )
+				if ( "none" != dual_wield_name )
 				{
 					if (used_amt >= self.grief_savedweapon_weaponsammo_clip_dualwield[i])
 					{
@@ -2156,11 +2156,11 @@ grief_laststand_weapons_return()
 
 		if ( isDefined( self.grief_savedweapon_grenades_clip ) )
 		{
-			if(is_respawn_gamemode())
+			if (is_respawn_gamemode())
 			{
 				self.grief_savedweapon_grenades_clip += 2;
 
-				if(self.grief_savedweapon_grenades_clip > weaponClipSize(self.grief_savedweapon_grenades))
+				if (self.grief_savedweapon_grenades_clip > weaponClipSize(self.grief_savedweapon_grenades))
 				{
 					self.grief_savedweapon_grenades_clip = weaponClipSize(self.grief_savedweapon_grenades);
 				}
@@ -2183,11 +2183,11 @@ grief_laststand_weapons_return()
 
 	if ( isDefined( self.grief_savedweapon_mine ) )
 	{
-		if(is_respawn_gamemode())
+		if (is_respawn_gamemode())
 		{
 			self.grief_savedweapon_mine_clip += 2;
 
-			if(self.grief_savedweapon_mine_clip > weaponClipSize(self.grief_savedweapon_mine))
+			if (self.grief_savedweapon_mine_clip > weaponClipSize(self.grief_savedweapon_mine))
 			{
 				self.grief_savedweapon_mine_clip = weaponClipSize(self.grief_savedweapon_mine);
 			}
@@ -2266,14 +2266,14 @@ sudden_death()
 {
 	level endon("end_game");
 
-	if(level.scr_zm_ui_gametype_obj != "zsnr")
+	if (level.scr_zm_ui_gametype_obj != "zsnr")
 	{
 		return;
 	}
 
 	level.sudden_death = 0;
 
-	while(1)
+	while (1)
 	{
 		level waittill("restart_round_start");
 
@@ -2281,7 +2281,7 @@ sudden_death()
 
 		time = level waittill_notify_or_timeout("restart_round", 300);
 
-		if(!isDefined(time))
+		if (!isDefined(time))
 		{
 			continue;
 		}
@@ -2290,7 +2290,7 @@ sudden_death()
 
 		players = get_players();
 
-		foreach(player in players)
+		foreach (player in players)
 		{
 			player thread show_grief_hud_msg( "Sudden Death!" );
 			player thread show_grief_hud_msg( "Lose 100 Health!", undefined, 30, 1 );
@@ -2299,7 +2299,7 @@ sudden_death()
 			health = player.health;
 			player setMaxHealth(player.maxhealth - 100);
 
-			if(player.health > health)
+			if (player.health > health)
 			{
 				player.health = health;
 			}
@@ -2314,7 +2314,7 @@ red_flashing_overlay_loop()
 	level endon("restart_round");
 	self endon("disconnect");
 
-	while(1)
+	while (1)
 	{
 		self notify( "hit_again" );
 		self player_flag_set( "player_has_red_flashing_overlay" );
@@ -2325,7 +2325,7 @@ red_flashing_overlay_loop()
 
 unlimited_zombies()
 {
-	while(1)
+	while (1)
 	{
 		level.zombie_total = 100;
 
@@ -2335,7 +2335,7 @@ unlimited_zombies()
 
 unlimited_powerups()
 {
-	while(1)
+	while (1)
 	{
 		level.powerup_drop_count = 0;
 
@@ -2394,7 +2394,7 @@ remove_round_number()
 {
 	level endon("end_game");
 
-	while(1)
+	while (1)
 	{
 		level waittill("start_of_round");
 
@@ -2458,7 +2458,7 @@ race_check_for_kills()
 	level endon("end_game");
 	self endon( "disconnect" );
 
-	while(1)
+	while (1)
 	{
 		self waittill("zom_kill", zombie);
 
@@ -2542,7 +2542,7 @@ containment_think()
 
 	wait 10;
 
-	while(1)
+	while (1)
 	{
 		zone_name = containment_zones[ind];
 		zone_display_name = scripts\zm\_zm_reimagined::get_zone_display_name(zone_name);
@@ -2550,7 +2550,7 @@ containment_think()
 
 		next_ind = ind + 1;
 
-		if(next_ind >= containment_zones.size)
+		if (next_ind >= containment_zones.size)
 		{
 			next_ind = 0;
 		}
@@ -2571,7 +2571,7 @@ containment_think()
 
 		players = get_players();
 
-		foreach(player in players)
+		foreach (player in players)
 		{
 			player thread show_grief_hud_msg("New containment zone!");
 		}
@@ -2588,15 +2588,15 @@ containment_think()
 		held_prev = "none";
 		start_time = getTime();
 
-		while((getTime() - start_time) <= zone_time || containment_zones.size == 1)
+		while ((getTime() - start_time) <= zone_time || containment_zones.size == 1)
 		{
 			if (containment_zones.size > 1)
 			{
 				spawn_points = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
 
-				foreach(spawn_point in spawn_points)
+				foreach (spawn_point in spawn_points)
 				{
-					if(spawn_point.script_noteworthy == zone_name_to_lock)
+					if (spawn_point.script_noteworthy == zone_name_to_lock)
 					{
 						spawn_point.locked = 1;
 					}
@@ -2610,15 +2610,15 @@ containment_think()
 			in_containment_zone["allies"] = [];
 			show_next_obj_waypoint = (getTime() - start_time) >= (zone_time - next_obj_waypoint_time);
 
-			foreach(player in players)
+			foreach (player in players)
 			{
 				player_zone_name = player get_current_zone();
 
-				if(isDefined(player_zone_name) && player_zone_name == zone_name)
+				if (isDefined(player_zone_name) && player_zone_name == zone_name)
 				{
-					if(is_player_valid(player))
+					if (is_player_valid(player))
 					{
-						if(!isDefined(level.meat_player) && !is_true(player.spawn_protection) && !is_true(player.revive_protection))
+						if (!isDefined(level.meat_player) && !is_true(player.spawn_protection) && !is_true(player.revive_protection))
 						{
 							player.ignoreme = 0;
 						}
@@ -2630,7 +2630,7 @@ containment_think()
 				}
 				else
 				{
-					if(is_player_valid(player) && !isDefined(level.meat_player) && !is_true(player.spawn_protection) && !is_true(player.revive_protection))
+					if (is_player_valid(player) && !isDefined(level.meat_player) && !is_true(player.spawn_protection) && !is_true(player.revive_protection))
 					{
 						close_zombies = get_array_of_closest(player.origin, zombies, undefined, 1, 64);
 
@@ -2672,7 +2672,7 @@ containment_think()
 
 				if (in_containment_zone[team].size > 0)
 				{
-					for(i = 0; i < team_diff; i++)
+					for (i = 0; i < team_diff; i++)
 					{
 						in_containment_zone[team][in_containment_zone[team].size] = level;
 					}
@@ -2684,37 +2684,37 @@ containment_think()
 				grief_score_hud_set_player_count(team, in_containment_zone[team].size);
 			}
 
-			if(in_containment_zone["axis"].size == in_containment_zone["allies"].size && in_containment_zone["axis"].size > 0 && in_containment_zone["allies"].size > 0)
+			if (in_containment_zone["axis"].size == in_containment_zone["allies"].size && in_containment_zone["axis"].size > 0 && in_containment_zone["allies"].size > 0)
 			{
-				foreach(player in players)
+				foreach (player in players)
 				{
 					player.obj_waypoint.color = (1, 1, 0);
 				}
 
-				if(held_prev != "cont")
+				if (held_prev != "cont")
 				{
 					obj_time = 2000;
 					held_time["axis"] = getTime();
 					held_time["allies"] = getTime();
 					held_prev = "cont";
 
-					foreach(player in players)
+					foreach (player in players)
 					{
 						player thread show_grief_hud_msg("Containment zone contested!");
 					}
 				}
 
-				if((level.grief_score["A"] + 1) >= get_gamemode_winning_score() || (level.grief_score["B"] + 1) >= get_gamemode_winning_score())
+				if ((level.grief_score["A"] + 1) >= get_gamemode_winning_score() || (level.grief_score["B"] + 1) >= get_gamemode_winning_score())
 				{
 					held_time["axis"] = undefined;
 					held_time["allies"] = undefined;
 				}
 			}
-			else if(in_containment_zone["axis"].size > in_containment_zone["allies"].size)
+			else if (in_containment_zone["axis"].size > in_containment_zone["allies"].size)
 			{
-				foreach(player in players)
+				foreach (player in players)
 				{
-					if(player.team == "axis")
+					if (player.team == "axis")
 					{
 						player.obj_waypoint.color = (0, 1, 0);
 					}
@@ -2724,11 +2724,11 @@ containment_think()
 					}
 				}
 
-				if(held_prev != "axis")
+				if (held_prev != "axis")
 				{
 					obj_time = 1000;
 
-					if(!isDefined(held_time["axis"]))
+					if (!isDefined(held_time["axis"]))
 					{
 						held_time["axis"] = getTime();
 					}
@@ -2736,9 +2736,9 @@ containment_think()
 					held_time["allies"] = undefined;
 					held_prev = "axis";
 
-					foreach(player in players)
+					foreach (player in players)
 					{
-						if(player.team == "axis")
+						if (player.team == "axis")
 						{
 							player thread show_grief_hud_msg("Your team controls the containment zone!");
 						}
@@ -2749,11 +2749,11 @@ containment_think()
 					}
 				}
 			}
-			else if(in_containment_zone["allies"].size > in_containment_zone["axis"].size)
+			else if (in_containment_zone["allies"].size > in_containment_zone["axis"].size)
 			{
-				foreach(player in players)
+				foreach (player in players)
 				{
-					if(player.team == "axis")
+					if (player.team == "axis")
 					{
 						player.obj_waypoint.color = (1, 0, 0);
 					}
@@ -2763,11 +2763,11 @@ containment_think()
 					}
 				}
 
-				if(held_prev != "allies")
+				if (held_prev != "allies")
 				{
 					obj_time = 1000;
 
-					if(!isDefined(held_time["allies"]))
+					if (!isDefined(held_time["allies"]))
 					{
 						held_time["allies"] = getTime();
 					}
@@ -2775,9 +2775,9 @@ containment_think()
 					held_time["axis"] = undefined;
 					held_prev = "allies";
 
-					foreach(player in players)
+					foreach (player in players)
 					{
-						if(player.team == "axis")
+						if (player.team == "axis")
 						{
 							player thread show_grief_hud_msg("Other team controls the containment zone!");
 						}
@@ -2790,11 +2790,11 @@ containment_think()
 			}
 			else
 			{
-				foreach(player in players)
+				foreach (player in players)
 				{
-					if(is_player_valid(player))
+					if (is_player_valid(player))
 					{
-						if(!isDefined(level.meat_player) && !is_true(player.spawn_protection) && !is_true(player.revive_protection))
+						if (!isDefined(level.meat_player) && !is_true(player.spawn_protection) && !is_true(player.revive_protection))
 						{
 							player.ignoreme = 0;
 						}
@@ -2803,26 +2803,26 @@ containment_think()
 					player.obj_waypoint.color = (1, 1, 1);
 				}
 
-				if(held_prev != "none")
+				if (held_prev != "none")
 				{
 					held_time["axis"] = undefined;
 					held_time["allies"] = undefined;
 					held_prev = "none";
 
-					foreach(player in players)
+					foreach (player in players)
 					{
 						player thread show_grief_hud_msg("Containment zone uncontrolled!");
 					}
 				}
 			}
 
-			if(isDefined(held_time["axis"]))
+			if (isDefined(held_time["axis"]))
 			{
-				if((getTime() - held_time["axis"]) >= obj_time)
+				if ((getTime() - held_time["axis"]) >= obj_time)
 				{
 					held_time["axis"] = getTime();
 
-					foreach(player in in_containment_zone["axis"])
+					foreach (player in in_containment_zone["axis"])
 					{
 						if (!isPlayer(player))
 						{
@@ -2838,13 +2838,13 @@ containment_think()
 				}
 			}
 
-			if(isDefined(held_time["allies"]))
+			if (isDefined(held_time["allies"]))
 			{
-				if((getTime() - held_time["allies"]) >= obj_time)
+				if ((getTime() - held_time["allies"]) >= obj_time)
 				{
 					held_time["allies"] = getTime();
 
-					foreach(player in in_containment_zone["allies"])
+					foreach (player in in_containment_zone["allies"])
 					{
 						if (!isPlayer(player))
 						{
@@ -2878,9 +2878,9 @@ containment_think()
 
 		spawn_points = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
 
-		foreach(spawn_point in spawn_points)
+		foreach (spawn_point in spawn_points)
 		{
-			if(spawn_point.script_noteworthy == zone_name_to_lock)
+			if (spawn_point.script_noteworthy == zone_name_to_lock)
 			{
 				spawn_point.locked = 0;
 			}
@@ -2888,7 +2888,7 @@ containment_think()
 
 		ind++;
 
-		if(ind >= containment_zones.size)
+		if (ind >= containment_zones.size)
 		{
 			ind = 0;
 		}
@@ -2899,40 +2899,40 @@ containment_get_zones()
 {
 	containment_zones = [];
 
-	if(level.script == "zm_transit")
+	if (level.script == "zm_transit")
 	{
-		if(level.scr_zm_map_start_location == "transit")
+		if (level.scr_zm_map_start_location == "transit")
 		{
 			containment_zones = array("zone_pri", "zone_pri2", "zone_station_ext", "zone_trans_2b");
 		}
-		else if(level.scr_zm_map_start_location == "diner")
+		else if (level.scr_zm_map_start_location == "diner")
 		{
 			containment_zones = array("zone_gas", "zone_roadside_west", "zone_roadside_east", "zone_gar", "zone_din");
 		}
-		else if(level.scr_zm_map_start_location == "farm")
+		else if (level.scr_zm_map_start_location == "farm")
 		{
 			containment_zones = array("zone_far_ext", "zone_brn", "zone_farm_house");
 		}
-		else if(level.scr_zm_map_start_location == "power")
+		else if (level.scr_zm_map_start_location == "power")
 		{
 			containment_zones = array("zone_pow", "zone_trans_8", "zone_prr", "zone_pcr", "zone_pow_warehouse");
 		}
-		else if(level.scr_zm_map_start_location == "town")
+		else if (level.scr_zm_map_start_location == "town")
 		{
 			containment_zones = array("zone_tow", "zone_town_north", "zone_town_south", "zone_town_east", "zone_town_west", "zone_bar", "zone_town_barber", "zone_ban");
 		}
-		else if(level.scr_zm_map_start_location == "tunnel")
+		else if (level.scr_zm_map_start_location == "tunnel")
 		{
 			containment_zones = array("zone_amb_tunnel");
 		}
-		else if(level.scr_zm_map_start_location == "cornfield")
+		else if (level.scr_zm_map_start_location == "cornfield")
 		{
 			containment_zones = array("zone_amb_cornfield", "zone_cornfield_prototype");
 		}
 	}
-	else if(level.script == "zm_prison")
+	else if (level.script == "zm_prison")
 	{
-		if(level.scr_zm_map_start_location == "cellblock")
+		if (level.scr_zm_map_start_location == "cellblock")
 		{
 			if (getDvar("ui_zm_mapstartlocation_fake") == "docks")
 			{
@@ -2944,9 +2944,9 @@ containment_get_zones()
 			}
 		}
 	}
-	else if(level.script == "zm_buried")
+	else if (level.script == "zm_buried")
 	{
-		if(level.scr_zm_map_start_location == "street")
+		if (level.scr_zm_map_start_location == "street")
 		{
 			if (getDvar("ui_zm_mapstartlocation_fake") == "maze")
 			{
@@ -2973,7 +2973,7 @@ containment_set_obj_waypoint_on_screen(next_obj = false)
 		hud = self.next_obj_waypoint;
 	}
 
-	if(isads(self))
+	if (isads(self))
 	{
 		hud fadeOverTime(0.25);
 		hud.alpha = 0.25;
@@ -3000,7 +3000,7 @@ containment_set_obj_waypoint_off_screen(zone_name, zone, next_obj = false)
 
 	hud.alpha = 1;
 
-	if(level.script == "zm_transit" && zone_name == "zone_far_ext")
+	if (level.script == "zm_transit" && zone_name == "zone_far_ext")
 	{
 		other_zone = level.zones["zone_farm_house"];
 		other_zone2 = level.zones["zone_brn"];
@@ -3008,7 +3008,7 @@ containment_set_obj_waypoint_off_screen(zone_name, zone, next_obj = false)
 		hud.y = (other_zone.volumes[0].origin[1] + other_zone2.volumes[0].origin[1]) / 2;
 		hud.z = (other_zone.volumes[0].origin[2] + other_zone2.volumes[0].origin[2]) / 2;
 	}
-	else if(level.script == "zm_transit" && zone_name == "zone_trans_8")
+	else if (level.script == "zm_transit" && zone_name == "zone_trans_8")
 	{
 		other_zone = level.zones["zone_pow_warehouse"];
 		hud.x = (zone.volumes[0].origin[0] + other_zone.volumes[0].origin[0]) / 2;
@@ -3017,7 +3017,7 @@ containment_set_obj_waypoint_off_screen(zone_name, zone, next_obj = false)
 
 		hud.x += 200;
 	}
-	else if(level.script == "zm_transit" && zone_name == "zone_town_west")
+	else if (level.script == "zm_transit" && zone_name == "zone_town_west")
 	{
 		other_zone = level.zones["zone_town_barber"];
 		other_zone2 = level.zones["zone_ban"];
@@ -3025,7 +3025,7 @@ containment_set_obj_waypoint_off_screen(zone_name, zone, next_obj = false)
 		hud.y = (other_zone.volumes[0].origin[1] + other_zone2.volumes[0].origin[1]) / 2;
 		hud.z = (other_zone.volumes[0].origin[2] + other_zone2.volumes[0].origin[2]) / 2;
 	}
-	else if(level.script == "zm_buried" && zone_name == "zone_street_darkwest")
+	else if (level.script == "zm_buried" && zone_name == "zone_street_darkwest")
 	{
 		other_zone = level.zones["zone_gun_store"];
 		other_zone2 = level.zones["zone_general_store"];
@@ -3034,7 +3034,7 @@ containment_set_obj_waypoint_off_screen(zone_name, zone, next_obj = false)
 		hud.y = (other_zone.volumes[0].origin[1] + other_zone2.volumes[0].origin[1] + other_zone3.volumes[0].origin[1]) / 3;
 		hud.z = (other_zone.volumes[0].origin[2] + other_zone2.volumes[0].origin[2] + other_zone3.volumes[0].origin[2]) / 3;
 	}
-	else if(level.script == "zm_buried" && zone_name == "zone_street_darkeast")
+	else if (level.script == "zm_buried" && zone_name == "zone_street_darkeast")
 	{
 		other_zone = level.zones["zone_underground_bar"];
 		other_zone2 = level.zones["zone_general_store"];
@@ -3051,23 +3051,23 @@ containment_set_obj_waypoint_off_screen(zone_name, zone, next_obj = false)
 		hud.z = zone.volumes[0].origin[2];
 	}
 
-	if(level.script == "zm_buried" && zone_name == "zone_maze")
+	if (level.script == "zm_buried" && zone_name == "zone_maze")
 	{
 		hud.z += 200;
 	}
-	else if(level.script == "zm_prison" && zone_name == "zone_dock")
+	else if (level.script == "zm_prison" && zone_name == "zone_dock")
 	{
 		hud.z -= 100;
 	}
-	else if(level.script == "zm_prison" && zone_name == "zone_dock_gondola")
+	else if (level.script == "zm_prison" && zone_name == "zone_dock_gondola")
 	{
 		hud.z += 200;
 	}
-	else if(level.script == "zm_prison" && zone_name == "zone_dock_puzzle")
+	else if (level.script == "zm_prison" && zone_name == "zone_dock_puzzle")
 	{
 		hud.z -= 250;
 	}
-	else if(level.script == "zm_prison" && zone_name == "zone_studio")
+	else if (level.script == "zm_prison" && zone_name == "zone_studio")
 	{
 		hud.x += 400;
 	}
@@ -3103,12 +3103,12 @@ meat_powerup_drop_think()
 
 	players = get_players();
 
-	foreach(player in players)
+	foreach (player in players)
 	{
 		player thread show_grief_hud_msg("Kill a zombie to drop the meat!");
 	}
 
-	while(1)
+	while (1)
 	{
 		level.zombie_powerup_ape = "meat_stink";
 		level.zombie_vars["zombie_drop_item"] = 1;
@@ -3185,7 +3185,7 @@ meat_think()
 	held_time = undefined;
 	obj_time = 1000;
 
-	while(1)
+	while (1)
 	{
 		players = get_players();
 
@@ -3330,7 +3330,7 @@ increment_score(team, amount = 1, show_lead_msg = true, special_score)
 
 	encounters_team = "A";
 
-	if(team == "allies")
+	if (team == "allies")
 	{
 		encounters_team = "B";
 	}
@@ -3349,27 +3349,27 @@ increment_score(team, amount = 1, show_lead_msg = true, special_score)
 
 	setteamscore(team, level.grief_score[encounters_team]);
 
-	if(level.grief_score[encounters_team] >= get_gamemode_winning_score())
+	if (level.grief_score[encounters_team] >= get_gamemode_winning_score())
 	{
 		scripts\zm\replaced\_zm_game_module::game_won(encounters_team);
 	}
 
 	score_left = get_gamemode_winning_score() - level.grief_score[encounters_team];
 
-	if(level.scr_zm_ui_gametype_obj == "zgrief")
+	if (level.scr_zm_ui_gametype_obj == "zgrief")
 	{
 		players = get_players(team);
 
-		foreach(player in players)
+		foreach (player in players)
 		{
 			player thread show_grief_hud_msg("Enemy Bled Out! [" + score_left + " Remaining]");
 		}
 
-		if(level.grief_score[encounters_team] <= 3)
+		if (level.grief_score[encounters_team] <= 3)
 		{
 			level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog(level.grief_score[encounters_team] + "_player_down", team);
 		}
-		else if(score_left <= 3)
+		else if (score_left <= 3)
 		{
 			level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog(score_left + "_player_left", team);
 		}
@@ -3436,15 +3436,15 @@ spawn_bots()
 
 	level.bots = [];
 
-	for(i = 0; i < bot_amount; i++)
+	for (i = 0; i < bot_amount; i++)
 	{
-		if(get_players().size == 8)
+		if (get_players().size == 8)
 		{
 			break;
 		}
 
 		// fixes bot occasionally not spawning
-		while(!isDefined(level.bots[i]))
+		while (!isDefined(level.bots[i]))
 		{
 			level.bots[i] = addtestclient();
 		}

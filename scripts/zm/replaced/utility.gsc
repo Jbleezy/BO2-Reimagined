@@ -268,15 +268,15 @@ wallbuy( weapon_name, target, targetname, origin, angles, play_chalk_fx = 1 )
 	{
 		melee_weapon = undefined;
 
-		foreach(melee_weapon in level._melee_weapons)
+		foreach (melee_weapon in level._melee_weapons)
 		{
-			if(melee_weapon.weapon_name == weapon_name)
+			if (melee_weapon.weapon_name == weapon_name)
 			{
 				break;
 			}
 		}
 
-		if(isDefined(melee_weapon))
+		if (isDefined(melee_weapon))
 		{
 			unitrigger_stub.cost = melee_weapon.cost;
 			unitrigger_stub.hint_string = melee_weapon.hint_string;
@@ -287,7 +287,7 @@ wallbuy( weapon_name, target, targetname, origin, angles, play_chalk_fx = 1 )
 			unitrigger_stub.vo_dialog_id = melee_weapon.vo_dialog_id;
 			unitrigger_stub.flourish_fn = melee_weapon.flourish_fn;
 
-			if(is_true(level.disable_melee_wallbuy_icons))
+			if (is_true(level.disable_melee_wallbuy_icons))
 			{
 				unitrigger_stub.cursor_hint = "HINT_NOICON";
 				unitrigger_stub.cursor_hint_weapon = undefined;
@@ -299,7 +299,7 @@ wallbuy( weapon_name, target, targetname, origin, angles, play_chalk_fx = 1 )
 			}
 		}
 
-		if(weapon_name == "tazer_knuckles_zm")
+		if (weapon_name == "tazer_knuckles_zm")
 		{
 			unitrigger_stub.origin += (anglesToForward(angles) * -7) + (anglesToRight(angles) * -2);
 		}
@@ -318,7 +318,7 @@ wallbuy( weapon_name, target, targetname, origin, angles, play_chalk_fx = 1 )
 	}
 	else
 	{
-		if( is_lethal_grenade( unitrigger_stub.zombie_weapon_upgrade ) )
+		if ( is_lethal_grenade( unitrigger_stub.zombie_weapon_upgrade ) )
 			unitrigger_stub.prompt_and_visibility_func = scripts\zm\replaced\_zm_weapons::lethal_grenade_update_prompt;
 		else
 			unitrigger_stub.prompt_and_visibility_func = ::wall_weapon_update_prompt;
@@ -326,7 +326,7 @@ wallbuy( weapon_name, target, targetname, origin, angles, play_chalk_fx = 1 )
 		maps\mp\zombies\_zm_unitrigger::register_static_unitrigger( unitrigger_stub, scripts\zm\replaced\_zm_weapons::weapon_spawn_think );
 	}
 
-	if(weaponType(weapon_name) == "grenade")
+	if (weaponType(weapon_name) == "grenade")
 	{
 		unitrigger_stub thread wallbuy_grenade_model_fix();
 	}
@@ -355,7 +355,7 @@ wallbuy_grenade_model_fix()
 {
 	model = getent(self.target, "targetname");
 
-	if(!isDefined(model))
+	if (!isDefined(model))
 	{
 		return;
 	}

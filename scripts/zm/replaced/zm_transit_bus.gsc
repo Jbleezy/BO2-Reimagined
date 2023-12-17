@@ -554,9 +554,9 @@ bus_buyable_weapon_unitrigger_setup(trig)
 
 	while (!isDefined(unitrigger))
 	{
-		for(i = 0; i < level._unitriggers.trigger_stubs.size; i++)
+		for (i = 0; i < level._unitriggers.trigger_stubs.size; i++)
 		{
-			if(IsDefined(level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade) && level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade == "beretta93r_zm")
+			if (IsDefined(level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade) && level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade == "beretta93r_zm")
 			{
 				unitrigger = level._unitriggers.trigger_stubs[i];
 				break;

@@ -10,7 +10,7 @@ startsubwooferdecay( weapon )
 	self endon( "equip_subwoofer_zm_taken" );
 
 	// hack to decrease max subwoofer time
-	if( self.subwoofer_health > 30 )
+	if ( self.subwoofer_health > 30 )
 	{
 		self.subwoofer_health = 30;
 	}

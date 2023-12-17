@@ -63,7 +63,7 @@ give_team_characters()
 		}
 	}
 
-	switch( self.characterindex )
+	switch ( self.characterindex )
 	{
 		case 0:
 		case 2:

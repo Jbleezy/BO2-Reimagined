@@ -166,7 +166,7 @@ initial_print()
 
 on_player_connect()
 {
-	while(true)
+	while (true)
 	{
 		level waittill("connecting", player);
 
@@ -188,7 +188,7 @@ on_player_spawned()
 
 	self.initial_spawn = true;
 
-	for(;;)
+	for (;;)
 	{
 		self waittill( "spawned_player" );
 
@@ -235,7 +235,7 @@ on_player_spectate()
 	level endon("end_game");
 	self endon( "disconnect" );
 
-	while(1)
+	while (1)
 	{
 		self waittill( "spawned_spectator" );
 
@@ -248,11 +248,11 @@ on_player_downed()
 	level endon( "game_ended" );
 	self endon( "disconnect" );
 
-	while(1)
+	while (1)
 	{
 		self waittill( "entering_last_stand" );
 
-		if(is_gametype_active("zcleansed"))
+		if (is_gametype_active("zcleansed"))
 		{
 			continue;
 		}
@@ -267,7 +267,7 @@ on_player_revived()
 	level endon("end_game");
 	self endon( "disconnect" );
 
-	while(1)
+	while (1)
 	{
 		self waittill( "player_revived", reviver );
 
@@ -287,7 +287,7 @@ on_player_fake_revive()
 	level endon("end_game");
 	self endon( "disconnect" );
 
-	while(1)
+	while (1)
 	{
 		self waittill( "fake_revive" );
 
@@ -468,7 +468,7 @@ set_client_dvars()
 
 set_perks()
 {
-	if(!(getDvar("g_gametype") == "zgrief" && getDvarIntDefault("ui_gametype_pro", 0)))
+	if (!(getDvar("g_gametype") == "zgrief" && getDvarIntDefault("ui_gametype_pro", 0)))
 	{
 		self setperk( "specialty_unlimitedsprint" );
 	}
@@ -668,7 +668,7 @@ shield_bar_hud()
 		offset_x = 0;
 		health_str = "" + self.health;
 
-		for(i = 0; i < health_str.size; i++)
+		for (i = 0; i < health_str.size; i++)
 		{
 			if (health_str[i] == "1")
 			{
@@ -813,7 +813,7 @@ timer_hud()
 
 round_timer_hud()
 {
-	if(isDefined(level.scr_zm_ui_gametype_obj) && level.scr_zm_ui_gametype_obj != "zsnr")
+	if (isDefined(level.scr_zm_ui_gametype_obj) && level.scr_zm_ui_gametype_obj != "zsnr")
 	{
 		return;
 	}
@@ -938,14 +938,14 @@ set_time_frozen(time, endon_notify)
 
 	self endon( "death" );
 
-	if(time != 0)
+	if (time != 0)
 	{
 		time -= 0.5; // need to set it below the number or it shows the next number
 	}
 
 	while (1)
 	{
-		if(time == 0)
+		if (time == 0)
 		{
 			self setTimerUp(time);
 		}
@@ -1021,7 +1021,7 @@ zone_hud()
 		vars["zone"] = self get_current_zone();
 		vars["zone_name"] = get_zone_display_name(vars["zone"]);
 
-		if(vars["prev_zone_name"] != vars["zone_name"])
+		if (vars["prev_zone_name"] != vars["zone_name"])
 		{
 			vars["prev_zone_name"] = vars["zone_name"];
 
@@ -2052,18 +2052,18 @@ bleedout_bar_hud()
 	{
 		self waittill("entering_last_stand");
 
-		if(is_gametype_active("zcleansed"))
+		if (is_gametype_active("zcleansed"))
 		{
 			continue;
 		}
 
 		// don't show for last player downed
-		if(!self maps\mp\zombies\_zm_laststand::player_is_in_laststand())
+		if (!self maps\mp\zombies\_zm_laststand::player_is_in_laststand())
 		{
 			continue;
 		}
 
-		if(flag("solo_game"))
+		if (flag("solo_game"))
 		{
 			continue;
 		}
@@ -2104,11 +2104,11 @@ bleedout_bar_hud_updatebar(hud)
 
 	hud updatebar(1);
 
-	for(i = 0; i < vars["num_intervals"]; i++)
+	for (i = 0; i < vars["num_intervals"]; i++)
 	{
 		vars["time"] = vars["bleedout_time"];
 
-		if(vars["time"] > vars["interval_time"])
+		if (vars["time"] > vars["interval_time"])
 		{
 			vars["time"] = vars["interval_time"];
 		}
@@ -2117,7 +2117,7 @@ bleedout_bar_hud_updatebar(hud)
 
 		barwidth = int((hud.width * vars["frac"]) + 0.5);
 
-		if(barwidth < 1)
+		if (barwidth < 1)
 		{
 			barwidth = 1;
 		}
@@ -2266,7 +2266,7 @@ last_stand_restore_pistol_ammo(only_store_info = false)
 	{
 		weapon = weapon_inventory[ i ];
 
-		if(weapon != self.laststandpistol)
+		if (weapon != self.laststandpistol)
 		{
 			i++;
 			continue;
@@ -2295,7 +2295,7 @@ last_stand_restore_pistol_ammo(only_store_info = false)
 				last_clip = self getweaponammoclip( weapon );
 				last_left_clip = 0;
 
-				if( "none" != dual_wield_name )
+				if ( "none" != dual_wield_name )
 				{
 					last_left_clip = self getweaponammoclip( dual_wield_name );
 				}
@@ -2317,7 +2317,7 @@ last_stand_restore_pistol_ammo(only_store_info = false)
 					used_amt -= self.stored_weapon_info[ weapon ].stock_amt;
 					self.stored_weapon_info[ weapon ].stock_amt = 0;
 
-					if( "none" != dual_wield_name )
+					if ( "none" != dual_wield_name )
 					{
 						if (used_amt >= self.stored_weapon_info[ weapon ].left_clip_amt)
 						{
@@ -2398,7 +2398,7 @@ set_weapon_ammo_clip_left( weapon, amount )
 
 setscoreboardcolumns_gametype()
 {
-	if(getDvar("g_gametype") == "zgrief")
+	if (getDvar("g_gametype") == "zgrief")
 	{
 		if (level.scr_zm_ui_gametype_obj == "zcontainment" || level.scr_zm_ui_gametype_obj == "zmeat")
 		{
@@ -2457,11 +2457,11 @@ veryhurt_blood_fx()
 {
 	self endon( "disconnect" );
 
-	while(1)
+	while (1)
 	{
 		health_ratio = self.health / self.maxhealth;
 
-		if(health_ratio <= 0.2)
+		if (health_ratio <= 0.2)
 		{
 			playFXOnTag(level._effect["zombie_guts_explosion"], self, "J_SpineLower");
 
@@ -2478,7 +2478,7 @@ ignoreme_after_revived()
 {
 	self endon("disconnect");
 
-	while(1)
+	while (1)
 	{
 		self waittill("player_revived", reviver);
 
@@ -2497,7 +2497,7 @@ player_revive_protection()
 
 	self.revive_protection = 1;
 
-	for(i = 0; i < 20; i++)
+	for (i = 0; i < 20; i++)
 	{
 		self.ignoreme = 1;
 		wait 0.05;
@@ -2544,11 +2544,11 @@ fall_velocity_check()
 		if (!vars["was_on_ground"])
 		{
 			// fall damage does not register when player's max health is less than 100 and has PHD Flopper
-			if(self.maxhealth < 100 && self hasPerk("specialty_flakjacket"))
+			if (self.maxhealth < 100 && self hasPerk("specialty_flakjacket"))
 			{
-				if(is_true(self.divetoprone) && self.fall_velocity <= -300)
+				if (is_true(self.divetoprone) && self.fall_velocity <= -300)
 				{
-					if(isDefined(level.zombiemode_divetonuke_perk_func))
+					if (isDefined(level.zombiemode_divetonuke_perk_func))
 					{
 						[[level.zombiemode_divetonuke_perk_func]](self, self.origin);
 					}
@@ -2569,7 +2569,7 @@ melee_weapon_switch_watcher()
 	vars = [];
 	vars["prev_wep"] = undefined;
 
-	while(1)
+	while (1)
 	{
 		if (is_true(self.use_staff_melee))
 		{
@@ -2580,14 +2580,14 @@ melee_weapon_switch_watcher()
 		vars["melee_wep"] = self get_player_melee_weapon();
 		vars["curr_wep"] = self getCurrentWeapon();
 
-		if(vars["curr_wep"] != "none" && !is_offhand_weapon(vars["curr_wep"]))
+		if (vars["curr_wep"] != "none" && !is_offhand_weapon(vars["curr_wep"]))
 		{
 			vars["prev_wep"] = vars["curr_wep"];
 		}
 
-		if(self actionSlotTwoButtonPressed() && !self hasWeapon("time_bomb_zm") && !self hasWeapon("time_bomb_detonator_zm") && !self hasWeapon("equip_dieseldrone_zm") && !self hasWeapon("item_meat_zm"))
+		if (self actionSlotTwoButtonPressed() && !self hasWeapon("time_bomb_zm") && !self hasWeapon("time_bomb_detonator_zm") && !self hasWeapon("equip_dieseldrone_zm") && !self hasWeapon("item_meat_zm"))
 		{
-			if(vars["curr_wep"] != vars["melee_wep"])
+			if (vars["curr_wep"] != vars["melee_wep"])
 			{
 				self switchToWeapon(vars["melee_wep"]);
 			}
@@ -2606,7 +2606,7 @@ disable_bank_teller()
 	level notify( "stop_bank_teller" );
 	bank_teller_dmg_trig = getent( "bank_teller_tazer_trig", "targetname" );
 
-	if(IsDefined(bank_teller_dmg_trig))
+	if (IsDefined(bank_teller_dmg_trig))
 	{
 		bank_teller_transfer_trig = getent( bank_teller_dmg_trig.target, "targetname" );
 		bank_teller_dmg_trig delete();
@@ -2621,11 +2621,11 @@ disable_carpenter()
 
 wallbuy_location_changes()
 {
-	if(!is_classic())
+	if (!is_classic())
 	{
-		if(level.scr_zm_map_start_location == "farm")
+		if (level.scr_zm_map_start_location == "farm")
 		{
-			if(level.scr_zm_ui_gametype == "zstandard")
+			if (level.scr_zm_ui_gametype == "zstandard")
 			{
 				level thread remove_wallbuy("tazer_knuckles_zm");
 			}
@@ -2636,9 +2636,9 @@ wallbuy_location_changes()
 			add_wallbuy("claymore_zm");
 		}
 
-		if(level.scr_zm_map_start_location == "street")
+		if (level.scr_zm_map_start_location == "street")
 		{
-			if(level.scr_zm_ui_gametype == "zgrief")
+			if (level.scr_zm_ui_gametype == "zgrief")
 			{
 				add_wallbuy("beretta93r_zm");
 				add_wallbuy("m16_zm");
@@ -2655,9 +2655,9 @@ remove_wallbuy( name )
 
 	wait 0.05;
 
-	for(i = 0; i < level._unitriggers.trigger_stubs.size; i++)
+	for (i = 0; i < level._unitriggers.trigger_stubs.size; i++)
 	{
-		if(IsDefined(level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade) && level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade == name)
+		if (IsDefined(level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade) && level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade == name)
 		{
 			maps\mp\zombies\_zm_unitrigger::unregister_unitrigger( level._unitriggers.trigger_stubs[i] );
 		}
@@ -2674,11 +2674,11 @@ add_wallbuy( name, script_noteworthy )
 	spawnable_weapon_spawns = arraycombine( spawnable_weapon_spawns, getstructarray( "buildable_wallbuy", "targetname" ), 1, 0 );
 	spawnable_weapon_spawns = arraycombine( spawnable_weapon_spawns, getstructarray( "claymore_purchase", "targetname" ), 1, 0 );
 
-	for(i = 0; i < spawnable_weapon_spawns.size; i++)
+	for (i = 0; i < spawnable_weapon_spawns.size; i++)
 	{
-		if(IsDefined(spawnable_weapon_spawns[i].zombie_weapon_upgrade) && spawnable_weapon_spawns[i].zombie_weapon_upgrade == name)
+		if (IsDefined(spawnable_weapon_spawns[i].zombie_weapon_upgrade) && spawnable_weapon_spawns[i].zombie_weapon_upgrade == name)
 		{
-			if(isDefined(script_noteworthy) && isDefined(spawnable_weapon_spawns[i].script_noteworthy) && !isSubStr(spawnable_weapon_spawns[i].script_noteworthy, script_noteworthy))
+			if (isDefined(script_noteworthy) && isDefined(spawnable_weapon_spawns[i].script_noteworthy) && !isSubStr(spawnable_weapon_spawns[i].script_noteworthy, script_noteworthy))
 			{
 				continue;
 			}
@@ -2689,7 +2689,7 @@ add_wallbuy( name, script_noteworthy )
 		}
 	}
 
-	if(!IsDefined(struct))
+	if (!IsDefined(struct))
 	{
 		return;
 	}
@@ -2733,7 +2733,7 @@ grenade_fire_watcher()
 	level endon("end_game");
 	self endon("disconnect");
 
-	while(1)
+	while (1)
 	{
 		self waittill("grenade_fire", grenade, weapname);
 
@@ -2756,7 +2756,7 @@ temp_disable_offhand_weapons()
 
 	self disableOffhandWeapons();
 
-	while(self isThrowingGrenade())
+	while (self isThrowingGrenade())
 	{
 		wait 0.05;
 	}
@@ -2789,11 +2789,11 @@ weapon_inspect_watcher()
 
 	vars = [];
 
-	while(1)
+	while (1)
 	{
 		wait 0.05;
 
-		if(self isSwitchingWeapons())
+		if (self isSwitchingWeapons())
 		{
 			continue;
 		}
@@ -2802,21 +2802,21 @@ weapon_inspect_watcher()
 
 		vars["is_primary"] = 0;
 
-		foreach(wep in self getWeaponsListPrimaries())
+		foreach (wep in self getWeaponsListPrimaries())
 		{
-			if(wep == vars["curr_wep"])
+			if (wep == vars["curr_wep"])
 			{
 				vars["is_primary"] = 1;
 				break;
 			}
 		}
 
-		if(!vars["is_primary"])
+		if (!vars["is_primary"])
 		{
 			continue;
 		}
 
-		if(self actionSlotThreeButtonPressed() && self getWeaponAmmoClip(vars["curr_wep"]) != 0)
+		if (self actionSlotThreeButtonPressed() && self getWeaponAmmoClip(vars["curr_wep"]) != 0)
 		{
 			self initialWeaponRaise(vars["curr_wep"]);
 		}
@@ -2828,9 +2828,9 @@ buildbuildables()
 	// need a wait or else some buildables dont build
 	wait 1;
 
-	if(is_classic())
+	if (is_classic())
 	{
-		if(level.scr_zm_map_start_location == "transit")
+		if (level.scr_zm_map_start_location == "transit")
 		{
 			level.buildables_available = array("turbine", "riotshield_zm", "turret", "electric_trap", "jetgun_zm");
 
@@ -2846,7 +2846,7 @@ buildbuildables()
 			// power switch is not showing up from forced build
 			show_powerswitch();
 		}
-		else if(level.scr_zm_map_start_location == "rooftop")
+		else if (level.scr_zm_map_start_location == "rooftop")
 		{
 			level.buildables_available = array("springpad_zm", "slipgun_zm");
 
@@ -2854,7 +2854,7 @@ buildbuildables()
 			buildbuildable( "springpad_zm" );
 			buildbuildable( "sq_common", 1 );
 		}
-		else if(level.scr_zm_map_start_location == "processing")
+		else if (level.scr_zm_map_start_location == "processing")
 		{
 			flag_wait( "initial_blackscreen_passed" ); // wait for buildables to randomize
 			wait 1;
@@ -2876,7 +2876,7 @@ buildbuildables()
 	}
 	else
 	{
-		if(level.scr_zm_map_start_location == "street")
+		if (level.scr_zm_map_start_location == "street")
 		{
 			flag_wait( "initial_blackscreen_passed" ); // wait for buildables to be built
 			wait 1;
@@ -3023,7 +3023,7 @@ updatebuildables()
 {
 	foreach (stub in level._unitriggers.trigger_stubs)
 	{
-		if(IsDefined(stub.equipname))
+		if (IsDefined(stub.equipname))
 		{
 			stub.cost = stub get_equipment_cost();
 			stub.trigger_func = scripts\zm\replaced\_zm_buildables_pooled::pooled_buildable_place_think;
@@ -3038,7 +3038,7 @@ removebuildable( buildable, poolname )
 	{
 		foreach (stub in level.buildablepools[poolname].stubs)
 		{
-			if(IsDefined(stub.equipname) && stub.equipname == buildable)
+			if (IsDefined(stub.equipname) && stub.equipname == buildable)
 			{
 				stub.model hide();
 				maps\mp\zombies\_zm_unitrigger::unregister_unitrigger( stub );
@@ -3125,14 +3125,14 @@ buildcraftables()
 	// need a wait or else some buildables dont build
 	wait 1;
 
-	if(is_classic())
+	if (is_classic())
 	{
-		if(level.scr_zm_map_start_location == "prison")
+		if (level.scr_zm_map_start_location == "prison")
 		{
 			buildcraftable( "alcatraz_shield_zm" );
 			buildcraftable( "packasplat" );
 		}
-		else if(level.scr_zm_map_start_location == "tomb")
+		else if (level.scr_zm_map_start_location == "tomb")
 		{
 			buildcraftable( "tomb_shield_zm" );
 			buildcraftable( "equip_dieseldrone_zm" );
@@ -3263,11 +3263,11 @@ remove_buildable_pieces( buildable_name )
 {
 	foreach (buildable in level.zombie_include_buildables)
 	{
-		if(IsDefined(buildable.name) && buildable.name == buildable_name)
+		if (IsDefined(buildable.name) && buildable.name == buildable_name)
 		{
 			pieces = buildable.buildablepieces;
 
-			for(i = 0; i < pieces.size; i++)
+			for (i = 0; i < pieces.size; i++)
 			{
 				pieces[i] maps\mp\zombies\_zm_buildables::piece_unspawn();
 			}
@@ -3281,7 +3281,7 @@ jetgun_remove_forced_weapon_switch()
 {
 	foreach (buildable in level.zombie_include_buildables)
 	{
-		if(IsDefined(buildable.name) && buildable.name == "jetgun_zm")
+		if (IsDefined(buildable.name) && buildable.name == "jetgun_zm")
 		{
 			buildable.onbuyweapon = undefined;
 			return;
@@ -3327,24 +3327,24 @@ weapon_locker_give_ammo_after_rounds()
 {
 	self endon("disconnect");
 
-	while(1)
+	while (1)
 	{
 		level waittill("end_of_round");
 
-		if(isDefined(self.stored_weapon_data))
+		if (isDefined(self.stored_weapon_data))
 		{
-			if(self.stored_weapon_data["name"] != "none")
+			if (self.stored_weapon_data["name"] != "none")
 			{
 				self.stored_weapon_data["clip"] = weaponClipSize(self.stored_weapon_data["name"]);
 				self.stored_weapon_data["stock"] = weaponMaxAmmo(self.stored_weapon_data["name"]);
 			}
 
-			if(self.stored_weapon_data["dw_name"] != "none")
+			if (self.stored_weapon_data["dw_name"] != "none")
 			{
 				self.stored_weapon_data["lh_clip"] = weaponClipSize(self.stored_weapon_data["dw_name"]);
 			}
 
-			if(self.stored_weapon_data["alt_name"] != "none")
+			if (self.stored_weapon_data["alt_name"] != "none")
 			{
 				self.stored_weapon_data["alt_clip"] = weaponClipSize(self.stored_weapon_data["alt_name"]);
 				self.stored_weapon_data["alt_stock"] = weaponMaxAmmo(self.stored_weapon_data["alt_name"]);
@@ -3528,7 +3528,7 @@ tombstone_save()
 	self.tombstone_perks = tombstone_save_perks(self);
 
 	// can't switch to alt weapon
-	if(is_alt_weapon(self.tombstone_savedweapon_currentweapon))
+	if (is_alt_weapon(self.tombstone_savedweapon_currentweapon))
 	{
 		self.tombstone_savedweapon_currentweapon = maps\mp\zombies\_zm_weapons::get_nonalternate_weapon(self.tombstone_savedweapon_currentweapon);
 	}
@@ -3654,7 +3654,7 @@ tombstone_give()
 
 	primary_weapons = self getWeaponsListPrimaries();
 
-	foreach(weapon in primary_weapons)
+	foreach (weapon in primary_weapons)
 	{
 		self takeWeapon(weapon);
 	}
@@ -3779,7 +3779,7 @@ tombstone_give()
 
 	current_wep = self getCurrentWeapon();
 
-	if(!isSubStr(current_wep, "perk_bottle") && !isSubStr(current_wep, "knuckle_crack") && !isSubStr(current_wep, "flourish") && !isSubStr(current_wep, "item_meat"))
+	if (!isSubStr(current_wep, "perk_bottle") && !isSubStr(current_wep, "knuckle_crack") && !isSubStr(current_wep, "flourish") && !isSubStr(current_wep, "item_meat"))
 	{
 		switched = 0;
 		primaries = self getweaponslistprimaries();
@@ -3793,7 +3793,7 @@ tombstone_give()
 			}
 		}
 
-		if(!switched)
+		if (!switched)
 		{
 			if ( primaries.size > 0 )
 			{
@@ -3824,7 +3824,7 @@ additionalprimaryweapon_indicator()
 {
 	self endon("disconnect");
 
-	if(!is_true(level.zombiemode_using_additionalprimaryweapon_perk))
+	if (!is_true(level.zombiemode_using_additionalprimaryweapon_perk))
 	{
 		return;
 	}
@@ -3924,22 +3924,22 @@ additionalprimaryweapon_stowed_weapon_refill()
 	{
 		vars["string"] = self waittill_any_return("weapon_change", "weapon_change_complete", "specialty_additionalprimaryweapon_stop", "spawned_player");
 
-		if(self hasPerk("specialty_additionalprimaryweapon"))
+		if (self hasPerk("specialty_additionalprimaryweapon"))
 		{
 			vars["curr_wep"] = self getCurrentWeapon();
 
-			if(vars["curr_wep"] == "none")
+			if (vars["curr_wep"] == "none")
 			{
 				continue;
 			}
 
 			primaries = self getWeaponsListPrimaries();
 
-			foreach(primary in primaries)
+			foreach (primary in primaries)
 			{
-				if(primary != maps\mp\zombies\_zm_weapons::get_nonalternate_weapon(vars["curr_wep"]))
+				if (primary != maps\mp\zombies\_zm_weapons::get_nonalternate_weapon(vars["curr_wep"]))
 				{
-					if(vars["string"] != "weapon_change")
+					if (vars["string"] != "weapon_change")
 					{
 						self thread refill_after_time(primary);
 					}
@@ -3964,22 +3964,22 @@ refill_after_time(primary)
 	vars["reload_time"] = weaponReloadTime(primary);
 	vars["reload_amount"] = undefined;
 
-	if(primary == "m32_zm" || primary == "python_zm" || maps\mp\zombies\_zm_weapons::get_base_weapon_name(primary, 1) == "judge_zm" || maps\mp\zombies\_zm_weapons::get_base_weapon_name(primary, 1) == "870mcs_zm" || maps\mp\zombies\_zm_weapons::get_base_weapon_name(primary, 1) == "ksg_zm")
+	if (primary == "m32_zm" || primary == "python_zm" || maps\mp\zombies\_zm_weapons::get_base_weapon_name(primary, 1) == "judge_zm" || maps\mp\zombies\_zm_weapons::get_base_weapon_name(primary, 1) == "870mcs_zm" || maps\mp\zombies\_zm_weapons::get_base_weapon_name(primary, 1) == "ksg_zm")
 	{
 		vars["reload_amount"] = 1;
 
-		if(maps\mp\zombies\_zm_weapons::get_base_weapon_name(primary, 1) == "ksg_zm" && maps\mp\zombies\_zm_weapons::is_weapon_upgraded(primary))
+		if (maps\mp\zombies\_zm_weapons::get_base_weapon_name(primary, 1) == "ksg_zm" && maps\mp\zombies\_zm_weapons::is_weapon_upgraded(primary))
 		{
 			vars["reload_amount"] = 2;
 		}
 	}
 
-	if(!isDefined(vars["reload_amount"]) && vars["reload_time"] < 1)
+	if (!isDefined(vars["reload_amount"]) && vars["reload_time"] < 1)
 	{
 		vars["reload_time"] = 1;
 	}
 
-	if(self hasPerk("specialty_fastreload"))
+	if (self hasPerk("specialty_fastreload"))
 	{
 		vars["reload_time"] *= getDvarFloat("perk_weapReloadMultiplier");
 	}
@@ -3990,12 +3990,12 @@ refill_after_time(primary)
 	vars["ammo_stock"] = self getWeaponAmmoStock(primary);
 	vars["missing_clip"] = weaponClipSize(primary) - vars["ammo_clip"];
 
-	if(vars["missing_clip"] > vars["ammo_stock"])
+	if (vars["missing_clip"] > vars["ammo_stock"])
 	{
 		vars["missing_clip"] = vars["ammo_stock"];
 	}
 
-	if(isDefined(vars["reload_amount"]) && vars["missing_clip"] > vars["reload_amount"])
+	if (isDefined(vars["reload_amount"]) && vars["missing_clip"] > vars["reload_amount"])
 	{
 		vars["missing_clip"] = vars["reload_amount"];
 	}
@@ -4005,13 +4005,13 @@ refill_after_time(primary)
 
 	vars["dw_primary"] = weaponDualWieldWeaponName(primary);
 
-	if(vars["dw_primary"] != "none")
+	if (vars["dw_primary"] != "none")
 	{
 		vars["ammo_clip"] = self getWeaponAmmoClip(vars["dw_primary"]);
 		vars["ammo_stock"] = self getWeaponAmmoStock(vars["dw_primary"]);
 		vars["missing_clip"] = weaponClipSize(vars["dw_primary"]) - vars["ammo_clip"];
 
-		if(vars["missing_clip"] > vars["ammo_stock"])
+		if (vars["missing_clip"] > vars["ammo_stock"])
 		{
 			vars["missing_clip"] = vars["ammo_stock"];
 		}
@@ -4022,13 +4022,13 @@ refill_after_time(primary)
 
 	vars["alt_primary"] = weaponAltWeaponName(primary);
 
-	if(vars["alt_primary"] != "none")
+	if (vars["alt_primary"] != "none")
 	{
 		vars["ammo_clip"] = self getWeaponAmmoClip(vars["alt_primary"]);
 		vars["ammo_stock"] = self getWeaponAmmoStock(vars["alt_primary"]);
 		vars["missing_clip"] = weaponClipSize(vars["alt_primary"]) - vars["ammo_clip"];
 
-		if(vars["missing_clip"] > vars["ammo_stock"])
+		if (vars["missing_clip"] > vars["ammo_stock"])
 		{
 			vars["missing_clip"] = vars["ammo_stock"];
 		}
@@ -4037,7 +4037,7 @@ refill_after_time(primary)
 		self setWeaponAmmoStock(vars["alt_primary"], vars["ammo_stock"] - vars["missing_clip"]);
 	}
 
-	if(isDefined(vars["reload_amount"]) && self getWeaponAmmoStock(primary) > 0 && self getWeaponAmmoClip(primary) < weaponClipSize(primary))
+	if (isDefined(vars["reload_amount"]) && self getWeaponAmmoStock(primary) > 0 && self getWeaponAmmoClip(primary) < weaponClipSize(primary))
 	{
 		self refill_after_time(primary);
 	}
@@ -4064,15 +4064,15 @@ show_powerswitch()
 
 zone_changes()
 {
-	if(level.script == "zm_transit")
+	if (level.script == "zm_transit")
 	{
-		if(level.scr_zm_map_start_location == "farm")
+		if (level.scr_zm_map_start_location == "farm")
 		{
 			// Barn to Farm
 			flag_set("OnFarm_enter");
 		}
 	}
-	else if(level.script == "zm_highrise")
+	else if (level.script == "zm_highrise")
 	{
 		// Green Highrise to Lower Blue Highrise
 		level.zones[ "zone_green_level3b" ].adjacent_zones[ "zone_blue_level1c" ] structdelete();
@@ -4110,7 +4110,7 @@ remove_status_icons_on_intermission()
 
 	players = get_players();
 
-	foreach(player in players)
+	foreach (player in players)
 	{
 		player.statusicon = "";
 	}
@@ -4122,12 +4122,12 @@ destroy_on_end_game()
 
 	level waittill("end_game");
 
-	if(isDefined(self.bar))
+	if (isDefined(self.bar))
 	{
 		self.bar destroy();
 	}
 
-	if(isDefined(self.barframe))
+	if (isDefined(self.barframe))
 	{
 		self.barframe destroy();
 	}
@@ -4141,12 +4141,12 @@ destroy_on_intermission()
 
 	level waittill("intermission");
 
-	if(isDefined(self.bar))
+	if (isDefined(self.bar))
 	{
 		self.bar destroy();
 	}
 
-	if(isDefined(self.barframe))
+	if (isDefined(self.barframe))
 	{
 		self.barframe destroy();
 	}

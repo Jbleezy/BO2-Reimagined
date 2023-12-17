@@ -126,7 +126,7 @@ maxis_sidequest_c()
 	level endon( "power_on" );
 	level.sq_progress["maxis"]["C_screecher_dark"] = 0;
 
-	for(i = 0; i < 8; i++)
+	for (i = 0; i < 8; i++)
 	{
 		level.sq_progress["maxis"]["C_screecher_" + i] = undefined;
 	}
@@ -154,7 +154,7 @@ maxis_sidequest_c()
 
 						zone_used = 0;
 
-						for(i = 0; i < 8; i++)
+						for (i = 0; i < 8; i++)
 						{
 							if ( isdefined( level.sq_progress["maxis"]["C_screecher_" + i] ) && zone == level.sq_progress["maxis"]["C_screecher_" + i] )
 							{

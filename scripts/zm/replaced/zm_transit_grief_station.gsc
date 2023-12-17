@@ -103,7 +103,7 @@ open_electric_doors_on_door_opened()
 
 	foreach ( door in zombie_doors )
 	{
-		if(door.target == "busstop_doors")
+		if (door.target == "busstop_doors")
 		{
 			break;
 		}

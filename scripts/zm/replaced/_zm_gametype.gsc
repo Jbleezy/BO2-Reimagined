@@ -213,7 +213,7 @@ hide_gump_loading_for_hotjoiners()
 	self.is_hotjoining = 0;
 	self.is_hotjoin = 1;
 
-	if(isDefined(level.should_respawn_func) && [[level.should_respawn_func]]())
+	if (isDefined(level.should_respawn_func) && [[level.should_respawn_func]]())
 	{
 		wait 0.05;
 
@@ -437,20 +437,20 @@ do_team_change()
 	other_team = getotherteam(self.pers["team"]);
 	players = get_players(other_team);
 
-	for(num = 0; num < 4; num++)
+	for (num = 0; num < 4; num++)
 	{
 		valid_num = true;
 
-		foreach(player in players)
+		foreach (player in players)
 		{
-			if(isdefined(player.playernum) && player.playernum == num)
+			if (isdefined(player.playernum) && player.playernum == num)
 			{
 				valid_num = false;
 				break;
 			}
 		}
 
-		if(valid_num)
+		if (valid_num)
 		{
 			break;
 		}
