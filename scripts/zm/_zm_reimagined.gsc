@@ -4026,11 +4026,11 @@ refill_after_time(primary)
 	{
 		vars["ammo_clip"] = self getWeaponAmmoClip(vars["alt_primary"]);
 		vars["ammo_stock"] = self getWeaponAmmoStock(vars["alt_primary"]);
-		vars["missing_clip"]= weaponClipSize(vars["alt_primary"]) - vars["ammo_clip"];
+		vars["missing_clip"] = weaponClipSize(vars["alt_primary"]) - vars["ammo_clip"];
 
-		if(vars["missing_clip"]> vars["ammo_stock"])
+		if(vars["missing_clip"] > vars["ammo_stock"])
 		{
-			vars["missing_clip"]= vars["ammo_stock"];
+			vars["missing_clip"] = vars["ammo_stock"];
 		}
 
 		self setWeaponAmmoClip(vars["alt_primary"], vars["ammo_clip"] + vars["missing_clip"]);

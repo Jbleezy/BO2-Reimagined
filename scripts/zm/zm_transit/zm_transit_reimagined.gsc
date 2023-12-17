@@ -954,6 +954,6 @@ transit_zone_init()
 	add_adjacent_zone( "zone_pcr", "zone_pow_warehouse", "OnPowDoorWH" );
 	add_adjacent_zone( "zone_pow", "zone_pow_warehouse", "always_on" );
 	add_adjacent_zone( "zone_tbu", "zone_tow", "vault_opened", 1 );
-	add_adjacent_zone( "zone_trans_8","zone_pow", "always_on", 1 );
+	add_adjacent_zone( "zone_trans_8", "zone_pow", "always_on", 1 );
 	add_adjacent_zone( "zone_trans_8", "zone_pow_warehouse", "always_on", 1 );
 }

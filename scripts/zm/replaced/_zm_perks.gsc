@@ -1191,7 +1191,7 @@ turn_movefaster_on()
 		while ( i < machine.size )
 		{
 			machine[ i ] setmodel( level.machine_assets[ "marathon" ].on_model );
-			machine[ i ] vibrate( vectorScale( ( 0, -1, 0 ), 100 ), 0,3, 0,4, 3 );
+			machine[ i ] vibrate( vectorScale( ( 0, -1, 0 ), 100 ), 0.3, 0.4, 3 );
 			machine[ i ] playsound( "zmb_perks_power_on" );
 			machine[ i ] thread perk_fx( "marathon_light" );
 			machine[ i ] thread play_loop_on_machine();
