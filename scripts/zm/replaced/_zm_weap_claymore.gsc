@@ -99,6 +99,75 @@ claymore_unitrigger_update_prompt(player)
 	return 1;
 }
 
+claymore_watch()
+{
+	self endon("death");
+	self endon("disconnect");
+	self notify("claymore_watch");
+	self endon("claymore_watch");
+
+	while (true)
+	{
+		self waittill("grenade_fire", claymore, weapname);
+
+		if (weapname == "claymore_zm")
+		{
+			claymore.owner = self;
+			claymore.team = self.team;
+			self notify("zmb_enable_claymore_prompt");
+
+			if (claymore claymore_safe_to_plant())
+			{
+				if (isdefined(level.claymore_planted))
+					self thread [[level.claymore_planted]](claymore);
+
+				claymore thread claymore_detonation();
+				claymore thread play_claymore_effects();
+				self maps\mp\zombies\_zm_stats::increment_client_stat("claymores_planted");
+				self maps\mp\zombies\_zm_stats::increment_player_stat("claymores_planted");
+			}
+			else
+				claymore thread claymore_wait_and_detonate();
+
+			self thread claymore_last_shot_switch(weapname);
+		}
+	}
+}
+
+// empty drop anim doesn't work for weapons that use `offhandSlot\Equipment\` attribute
+claymore_last_shot_switch(weapname)
+{
+	self endon("disconnect");
+
+	fire_time = 0.85;
+
+	if (self hasperk("specialty_rof"))
+	{
+		fire_time -= 0.2;
+	}
+
+	wait fire_time;
+
+	if (!self hasweapon(weapname))
+	{
+		return;
+	}
+
+	if (self getcurrentweapon() != weapname)
+	{
+		return;
+	}
+
+	if (self getammocount(weapname) != 0)
+	{
+		return;
+	}
+
+	self takeweapon(weapname);
+	self giveweapon(weapname);
+	self setweaponammoclip(weapname, 0);
+}
+
 claymore_detonation()
 {
 	self endon("death");

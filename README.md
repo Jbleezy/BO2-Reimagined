@@ -237,6 +237,7 @@
 * Can be repurchased
 * Can be placed while in the air
 * Increased max amount that can be placed from 12 to 20
+* Added weapon name on HUD
 * Removed initial weapon raise animation
 
 ### Time Bomb
