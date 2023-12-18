@@ -574,7 +574,7 @@ afterlife_player_damage_callback(einflictor, eattacker, idamage, idflags, smeans
 			if (isalive(self) && !(isdefined(self.is_zombie) && self.is_zombie))
 			{
 				self.use_adjusted_grenade_damage = 1;
-				idamage = 25;
+				idamage = 15;
 			}
 		}
 		else

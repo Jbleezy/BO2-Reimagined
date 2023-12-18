@@ -19,12 +19,13 @@ wait_for_blundersplat_fired()
 
 		if (str_weapon == "blundersplat_zm")
 		{
-			_titus_locate_target(1, 0);
-			wait_network_frame();
-			_titus_locate_target(1, 1);
-			wait_network_frame();
-			_titus_locate_target(1, 2);
-			wait_network_frame();
+			fire_time = weaponfiretime(str_weapon);
+
+			for (i = 0; i < weaponclipsize(str_weapon); i++)
+			{
+				_titus_locate_target(1, i);
+				wait fire_time;
+			}
 		}
 	}
 }
@@ -41,12 +42,13 @@ wait_for_blundersplat_upgraded_fired()
 
 		if (str_weapon == "blundersplat_upgraded_zm")
 		{
-			_titus_locate_target(0, 0);
-			wait_network_frame();
-			_titus_locate_target(0, 1);
-			wait_network_frame();
-			_titus_locate_target(0, 2);
-			wait_network_frame();
+			fire_time = weaponfiretime(str_weapon);
+
+			for (i = 0; i < weaponclipsize(str_weapon); i++)
+			{
+				_titus_locate_target(1, i);
+				wait fire_time;
+			}
 		}
 	}
 }
@@ -63,20 +65,24 @@ _titus_locate_target(is_not_upgraded = 1, count)
 
 	n_spread = 5;
 
-	if (isads(self))
-	{
-		n_spread *= 0.5;
-	}
-	else if (self hasPerk("specialty_deadshot"))
+	if (self hasPerk("specialty_deadshot"))
 	{
 		n_spread *= getdvarfloat("perk_weapSpreadMultiplier");
 	}
 
-	if (count == 1)
+	if (count == 2)
 	{
 		fire_angles += (0, n_spread, 0);
 	}
-	else if (count == 2)
+	else if (count == 0)
+	{
+		fire_angles += (0, n_spread / 3, 0);
+	}
+	else if (count == 1)
+	{
+		fire_angles -= (0, n_spread / 3, 0);
+	}
+	else if (count == 3)
 	{
 		fire_angles -= (0, n_spread, 0);
 	}

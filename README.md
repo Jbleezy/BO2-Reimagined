@@ -290,15 +290,19 @@
 * Decreased max player fly height
 
 ### Blundergat
-* Kills on any round
+* Kills on any round in 1-2 shots
+* Increased pellet count from 7 to 8
+* Increased pellet size
 
 ### Acid Gat
 * Kills on any round in 1-2 bursts
-* Increased player damage from 10 to 25
-* Vastly improved accuracy
-* Aiming and Deadshot improve accuracy
+* Changed fire type from 3 round burst to 4 round burst
+* Increased player damage from 10 to 15
+* Projectiles fire in a straight line
+* Deadshot improves accuracy
 * Projectile no longer seeks toward zombies
 * Stuck zombie counts as a kill
+* Upgraded: fixed fire sound
 
 ### Staffs
 * Upgrade only requires collecting souls in The Crazy Place

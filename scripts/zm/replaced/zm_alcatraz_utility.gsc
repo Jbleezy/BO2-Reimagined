@@ -164,6 +164,7 @@ wait_for_player_to_take(player, str_valid_weapon)
 				{
 					player giveweapon(str_new_weapon);
 					player switchtoweapon(str_new_weapon);
+					player givestartammo(str_new_weapon);
 				}
 
 				player thread do_player_general_vox("general", "player_recieves_blundersplat");

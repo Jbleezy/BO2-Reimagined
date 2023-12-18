@@ -1354,13 +1354,7 @@ actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, 
 	{
 		if (!is_true(self.is_mechz))
 		{
-			damage_scalar = damage / 6000;
-			min_damage = int(damage_scalar * level.zombie_health) + 1;
-
-			if (damage < min_damage)
-			{
-				damage = min_damage;
-			}
+			final_damage = scale_damage(final_damage, 6000);
 		}
 	}
 
@@ -1376,13 +1370,7 @@ actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, 
 	{
 		if (!is_true(self.is_brutus))
 		{
-			damage_scalar = damage / 200;
-			min_damage = int(damage_scalar * level.zombie_health) + 1;
-
-			if (damage < min_damage)
-			{
-				damage = min_damage;
-			}
+			final_damage = scale_damage(final_damage, 200);
 		}
 	}
 
@@ -1439,17 +1427,19 @@ actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, 
 		final_damage = 2000;
 	}
 
-	if (weapon == "blundergat_zm" || weapon == "blundergat_upgraded_zm")
+	if (weapon == "blundergat_zm")
 	{
 		if (!is_true(self.is_brutus))
 		{
-			damage_scalar = final_damage / 1000;
-			min_damage = int(damage_scalar * level.zombie_health) + 1;
+			final_damage = scale_damage(final_damage, 500);
+		}
+	}
 
-			if (final_damage < min_damage)
-			{
-				final_damage = min_damage;
-			}
+	if (weapon == "blundergat_upgraded_zm")
+	{
+		if (!is_true(self.is_brutus))
+		{
+			final_damage = scale_damage(final_damage, 1000);
 		}
 	}
 
@@ -1457,13 +1447,7 @@ actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, 
 	{
 		if (!is_true(self.is_brutus))
 		{
-			damage_scalar = final_damage / 3000;
-			min_damage = int(damage_scalar * level.zombie_health) + 1;
-
-			if (final_damage < min_damage)
-			{
-				final_damage = min_damage;
-			}
+			final_damage = scale_damage(final_damage, 4000);
 		}
 	}
 
@@ -1525,6 +1509,19 @@ actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, 
 	}
 
 	return int(final_damage);
+}
+
+scale_damage(damage, damage_to_kill)
+{
+	scalar = damage / damage_to_kill;
+	scaled_damage = int(scalar * level.zombie_health) + 1;
+
+	if (damage < scaled_damage)
+	{
+		return scaled_damage;
+	}
+
+	return damage;
 }
 
 callback_playerdamage(einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime, boneindex)
