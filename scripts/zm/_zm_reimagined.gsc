@@ -399,6 +399,8 @@ set_dvars()
 	setDvar("riotshield_projectile_damage_scale", 1);
 	setDvar("riotshield_deployed_health", 1500);
 
+	setDvar("r_fog", 0);
+
 	setDvar("sv_patch_zm_weapons", 1);
 	setDvar("sv_fix_zm_weapons", 0);
 
