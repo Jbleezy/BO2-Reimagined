@@ -235,6 +235,7 @@
 
 ### Claymore
 * Can be repurchased
+* Can be placed while in the air
 * Increased max amount that can be placed from 12 to 20
 * Removed initial weapon raise animation
 
