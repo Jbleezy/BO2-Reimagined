@@ -301,8 +301,8 @@
 * Changed fire type from 3 round burst to 4 round burst
 * Increased player damage from 10 to 15
 * Projectiles fire in a straight line
+* Projectiles no longer seek toward zombies
 * Deadshot improves accuracy
-* Projectile no longer seeks toward zombies
 * Stuck zombie counts as a kill
 * Upgraded: fixed fire sound
 
