@@ -165,6 +165,10 @@ local function mapListSelectionClickedEventHandler( self, event )
 		Engine.SetDvar("ui_zm_mapstartlocation", "tomb")
 	end
 
+	if UIExpression.DvarBool(nil, "ui_game_lobby_open") == 0 then
+		CoD.SwitchToPrivateLobby(self.controller)
+	end
+
 	self:openMenu("PrivateOnlineGameLobby", self.controller)
 
 	self:close()
@@ -273,6 +277,10 @@ local function locationListSelectionClickedEventHandler( self, event )
 		-- TODO: set dvars when location is added
 	elseif location == "ZMUI_CRAZY_PLACE_CAPS" then
 		-- TODO: set dvars when location is added
+	end
+
+	if UIExpression.DvarBool(nil, "ui_game_lobby_open") == 0 then
+		CoD.SwitchToPrivateLobby(self.controller)
 	end
 
 	self:openMenu("PrivateOnlineGameLobby", self.controller)

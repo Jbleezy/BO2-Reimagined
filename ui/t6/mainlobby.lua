@@ -191,7 +191,7 @@ CoD.MainLobby.OpenCustomGamesLobby = function (MainLobbyWidget, ClientInstance)
 	elseif CoD.MainLobby.OnlinePlayAvailable(MainLobbyWidget, ClientInstance) == 1 and CoD.MainLobby.IsControllerCountValid(MainLobbyWidget, ClientInstance.controller, UIExpression.DvarInt(ClientInstance.controller, "party_maxlocalplayers_privatematch")) == 1 then
 		-- CoD.SwitchToPrivateLobby(ClientInstance.controller)
 		if CoD.isZombie == true then
-			Engine.SetDvar("ui_zm_mapstartlocation", "")
+			-- Engine.SetDvar("ui_zm_mapstartlocation", "")
 			Engine.SetDvar("ui_game_lobby_open", 0)
 			MainLobbyWidget:openMenu("SelectGameModeListZM", ClientInstance.controller)
 			-- CoD.GameGlobeZombie.MoveToCenter(ClientInstance.controller)

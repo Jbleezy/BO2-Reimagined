@@ -572,7 +572,7 @@ CoD.PrivateGameLobby.LeaveLobby_Project = function (PrivateGameLobbyWidget, Clie
 end
 
 CoD.PrivateGameLobby.OpenChangeStartLoc = function (PrivateGameLobbyWidget, ClientInstance)
-	-- Engine.PartyHostSetUIState(CoD.PARTYHOST_STATE_SELECTING_GAMETYPE)
+	Engine.PartyHostSetUIState(CoD.PARTYHOST_STATE_SELECTING_GAMETYPE)
 	Engine.SetDvar("ui_game_lobby_open", 1)
 	if UIExpression.DvarString(nil, "ui_gameType") == "zclassic" then
 		local f27_local0 = PrivateGameLobbyWidget:openMenu("SelectMapListZM", ClientInstance.controller)
