@@ -1,0 +1,17 @@
+VERSION             "1"
+CONFIG              "C:/projects/cod/t6/bin/StringEd.cfg"
+FILENOTES           ""
+
+REFERENCE           ZMUI_CLASSIC_GAMEMODE_CAPS
+LANG_ENGLISH        "CLASSIC"
+
+REFERENCE           ZMUI_SNR_CAPS
+LANG_ENGLISH        "SEARCH & REZURRECT"
+
+REFERENCE           ZMUI_DOCKS_CAPS
+LANG_ENGLISH        "DOCKS"
+
+REFERENCE           ZMUI_MAZE_CAPS
+LANG_ENGLISH        "MAZE"
+
+ENDMARKER

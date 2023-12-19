@@ -1,5 +1,8 @@
 /.vscode
-TODO.md
+*.ff
+*.iwd
+build.bat
 _zm_test.gsc
 games_mp.log
 zmStats
+TODO.md
