@@ -816,6 +816,8 @@ timer_hud()
 
 round_timer_hud()
 {
+	flag_wait("hud_visible");
+
 	if (isDefined(level.scr_zm_ui_gametype_obj) && level.scr_zm_ui_gametype_obj != "zsnr")
 	{
 		return;
@@ -840,8 +842,6 @@ round_timer_hud()
 	hud thread destroy_on_intermission();
 
 	hud thread set_time_frozen_on_end_game();
-
-	flag_wait("hud_visible");
 
 	if (!getDvarInt("hud_timer"))
 	{
