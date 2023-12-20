@@ -251,13 +251,15 @@
 * Fixed an issue where a player's melee weapon wouldn't reset if the player bled out in the Giant Robots
 
 ### Ray Gun
+* Ammo gets added to the clip at the same time that it gets added in the reload animation
+* No longer limited to 4 players
 * Unupgraded: increased impact damage from 1000 to 1500 (same as max splash damage)
 * Upgraded: increased impact damage from 1000 to 2000 (same as max splash damage)
-* No longer limited to 4 players
 
 ### Ray Gun Mark 2
 * Same probability to obtain as other weapons
 * Can be obtained if player has Ray Gun
+* Ammo gets added to the clip at the same time that it gets added in the reload animation
 * Limited to 1 player on all maps
 * Decreased last stand ammo from 3 clips to 1 clip
 

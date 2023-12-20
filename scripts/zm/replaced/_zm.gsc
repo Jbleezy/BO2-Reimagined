@@ -1417,16 +1417,6 @@ actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, 
 		final_damage *= 2;
 	}
 
-	if (weapon == "ray_gun_zm" && meansofdeath == "MOD_PROJECTILE")
-	{
-		final_damage = 1500;
-	}
-
-	if (weapon == "ray_gun_upgraded_zm" && meansofdeath == "MOD_PROJECTILE")
-	{
-		final_damage = 2000;
-	}
-
 	if (weapon == "blundergat_zm")
 	{
 		if (!is_true(self.is_brutus))
