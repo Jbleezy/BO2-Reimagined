@@ -166,7 +166,11 @@ local function mapListSelectionClickedEventHandler( self, event )
 	end
 
 	if UIExpression.DvarBool(nil, "ui_game_lobby_open") == 0 then
-		CoD.SwitchToPrivateLobby(self.controller)
+		local gameType = UIExpression.DvarString(nil, "ui_gametype")
+		local mapName = UIExpression.DvarString(nil, "ui_mapname")
+		CoD.SwitchToPrivateLobby(self.controller) -- this changes "ui_gametype" and "ui_mapname"
+		Engine.SetDvar("ui_gametype", gameType)
+		Engine.SetDvar("ui_mapname", mapName)
 	end
 
 	self:openMenu("PrivateOnlineGameLobby", self.controller)
@@ -280,7 +284,11 @@ local function locationListSelectionClickedEventHandler( self, event )
 	end
 
 	if UIExpression.DvarBool(nil, "ui_game_lobby_open") == 0 then
-		CoD.SwitchToPrivateLobby(self.controller)
+		local gameType = UIExpression.DvarString(nil, "ui_gametype")
+		local mapName = UIExpression.DvarString(nil, "ui_mapname")
+		CoD.SwitchToPrivateLobby(self.controller) -- this changes "ui_gametype" and "ui_mapname"
+		Engine.SetDvar("ui_gametype", gameType)
+		Engine.SetDvar("ui_mapname", mapName)
 	end
 
 	self:openMenu("PrivateOnlineGameLobby", self.controller)
