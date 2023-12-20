@@ -2588,7 +2588,7 @@ melee_weapon_switch_watcher()
 			vars["prev_wep"] = vars["curr_wep"];
 		}
 
-		if (self actionSlotTwoButtonPressed() && !self hasWeapon("time_bomb_zm") && !self hasWeapon("time_bomb_detonator_zm") && !self hasWeapon("equip_dieseldrone_zm") && !self hasWeapon("item_meat_zm"))
+		if (self actionSlotTwoButtonPressed() && !self hasWeapon("time_bomb_zm") && !self hasWeapon("time_bomb_detonator_zm") && !self hasWeapon("equip_dieseldrone_zm") && !self hasWeapon(level.item_meat_name))
 		{
 			if (vars["curr_wep"] != vars["melee_wep"])
 			{
@@ -3689,7 +3689,7 @@ tombstone_give()
 			primary_weapons_returned++;
 		}
 
-		if ("item_meat_zm" == self.tombstone_savedweapon_weapons[i])
+		if (level.item_meat_name == self.tombstone_savedweapon_weapons[i])
 		{
 			i++;
 			continue;
@@ -3782,7 +3782,7 @@ tombstone_give()
 
 	current_wep = self getCurrentWeapon();
 
-	if (!isSubStr(current_wep, "perk_bottle") && !isSubStr(current_wep, "knuckle_crack") && !isSubStr(current_wep, "flourish") && !isSubStr(current_wep, "item_meat"))
+	if (!isSubStr(current_wep, "perk_bottle") && !isSubStr(current_wep, "knuckle_crack") && !isSubStr(current_wep, "flourish") && !isSubStr(current_wep, level.item_meat_name))
 	{
 		switched = 0;
 		primaries = self getweaponslistprimaries();

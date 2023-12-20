@@ -12,8 +12,9 @@ main()
 	}
 
 	replaceFunc(maps\mp\zombies\_zm::getfreespawnpoint, scripts\zm\replaced\_zm::getfreespawnpoint);
-	replaceFunc(maps\mp\zombies\_zm_game_module::wait_for_team_death_and_round_end, scripts\zm\replaced\_zm_game_module::wait_for_team_death_and_round_end);
 	replaceFunc(maps\mp\zombies\_zm_blockers::handle_post_board_repair_rewards, scripts\zm\replaced\_zm_blockers::handle_post_board_repair_rewards);
+	replaceFunc(maps\mp\zombies\_zm_game_module::wait_for_team_death_and_round_end, scripts\zm\replaced\_zm_game_module::wait_for_team_death_and_round_end);
+	replaceFunc(maps\mp\zombies\_zm_game_module_meat_utility::init_item_meat, scripts\zm\replaced\_zm_game_module_meat_utility::init_item_meat);
 	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::onspawnplayer, scripts\zm\replaced\_zm_gametype::onspawnplayer);
 	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::onplayerspawned, scripts\zm\replaced\_zm_gametype::onplayerspawned);
 	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::menu_onmenuresponse, scripts\zm\replaced\_zm_gametype::menu_onmenuresponse);
@@ -2045,7 +2046,7 @@ grief_laststand_weapons_return()
 			continue;
 		}
 
-		if ("item_meat_zm" == self.grief_savedweapon_weapons[i])
+		if (level.item_meat_name == self.grief_savedweapon_weapons[i])
 		{
 			i++;
 			continue;
@@ -2376,7 +2377,7 @@ func_should_drop_meat()
 
 	foreach (player in players)
 	{
-		if (player hasWeapon("item_meat_zm"))
+		if (player hasWeapon(level.item_meat_name))
 		{
 			return 0;
 		}

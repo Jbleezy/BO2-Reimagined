@@ -20,7 +20,7 @@ game_mode_spawn_player_logic()
 
 meat_bounce_override(pos, normal, ent, bounce)
 {
-	if (isdefined(ent) && isplayer(ent) && is_player_valid(ent) && !ent hasWeapon("item_meat_zm") && !is_true(ent.dont_touch_the_meat))
+	if (isdefined(ent) && isplayer(ent) && is_player_valid(ent) && !ent hasWeapon(level.item_meat_name) && !is_true(ent.dont_touch_the_meat))
 	{
 		level thread meat_stink_player(ent);
 
@@ -45,7 +45,7 @@ meat_bounce_override(pos, normal, ent, bounce)
 			if (!is_player_valid(player))
 				continue;
 
-			if (player hasWeapon("item_meat_zm"))
+			if (player hasWeapon(level.item_meat_name))
 				continue;
 
 			if (is_true(player.dont_touch_the_meat))
@@ -122,7 +122,7 @@ meat_bounce_override(pos, normal, ent, bounce)
 
 meat_stink(who)
 {
-	if (who hasWeapon("item_meat_zm"))
+	if (who hasWeapon(level.item_meat_name))
 	{
 		return;
 	}
@@ -158,20 +158,16 @@ meat_stink(who)
 	who notify("meat_grabbed");
 	who playsound("zmb_pickup_meat");
 	who increment_is_drinking();
-	who giveweapon("item_meat_zm");
-	who switchtoweapon("item_meat_zm");
-	who setweaponammoclip("item_meat_zm", 1);
-	who setMoveSpeedScale(0.75);
+	who giveweapon(level.item_meat_name);
+	who switchtoweapon(level.item_meat_name);
+	who setweaponammoclip(level.item_meat_name, 1);
 	who.ignoreme = 0;
 	level.meat_player = who;
 	level.meat_powerup = undefined;
 
-	who thread meat_damage_over_time();
+	who thread meat_disable_fire();
 
-	if (who attackbuttonpressed())
-	{
-		who thread meat_disable_weapons();
-	}
+	who thread meat_damage_over_time();
 
 	if (level.scr_zm_ui_gametype_obj == "zmeat")
 	{
@@ -220,24 +216,25 @@ meat_stink(who)
 	}
 }
 
-meat_disable_weapons()
+meat_disable_fire()
 {
 	level endon("meat_thrown");
 	self endon("disconnect");
 	self endon("player_downed");
 
-	self.meat_weapons_disabled = 1;
+	if (!self attackbuttonpressed())
+	{
+		return;
+	}
 
-	self disableWeapons();
+	self setweaponammoclip(level.item_meat_name, 0);
 
 	while (self attackbuttonpressed())
 	{
 		wait 0.05;
 	}
 
-	self enableWeapons();
-
-	self.meat_weapons_disabled = undefined;
+	self setweaponammoclip(level.item_meat_name, 1);
 }
 
 meat_damage_over_time()
@@ -330,14 +327,6 @@ meat_stink_cleanup_on_downed()
 	self.lastactiveweapon = self.pre_meat_weapon;
 
 	level.meat_player = undefined;
-
-	self setMoveSpeedScale(1);
-
-	if (is_true(self.meat_weapons_disabled))
-	{
-		self.meat_weapons_disabled = undefined;
-		self enableWeapons();
-	}
 
 	players = get_players();
 

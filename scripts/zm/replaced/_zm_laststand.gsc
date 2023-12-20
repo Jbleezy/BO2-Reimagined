@@ -312,7 +312,7 @@ revive_give_back_weapons(gun)
 		return;
 	}
 
-	if (self hasWeapon("item_meat_zm"))
+	if (self hasWeapon(level.item_meat_name))
 	{
 		return;
 	}

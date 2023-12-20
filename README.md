@@ -445,12 +445,14 @@
 * Decreased attract radius on ground by 50%
 * Decreased time on ground from 16 seconds to 10 seconds
 * Bounces off walls when thrown
+* Added weapon name on HUD
 * Changed powerup fx color to blue
 * Able to drop when players are down
 * No longer able to drop when another meat powerup is already dropped
 * Message shows when the meat is grabbed and landed on a player
 * Meleeing while the meat is moving no longer grabs the meat
 * Removed pick up trigger
+* Replaced with Richtofen's Head on Cell Block and Docks
 
 ## Persistent Upgrades
 * Removed
@@ -699,7 +701,6 @@
 * Quest: players no longer get moved to different positions when starting the showdown
 * Quest: showdown target waypoint shows offscreen
 * Grief: added Smoke Grenades to the Mystery Box
-* Grief: added Richtofen's Head meat powerup model
 * Fixed initial weapon raise animation happening after exiting afterlife
 * Fixed being able to hit a death barrier when jumping off the Docks Bridge zone
 * Fixed locked hint string not showing on Blundergat Upgrade buildable table
