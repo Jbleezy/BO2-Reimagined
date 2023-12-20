@@ -251,6 +251,7 @@
 * Fixed an issue where a player's melee weapon wouldn't reset if the player bled out in the Giant Robots
 
 ### Ray Gun
+* Added weapon model from Buried to all maps
 * Ammo gets added to the clip at the same time that it gets added in the reload animation
 * No longer limited to 4 players
 * Unupgraded: increased impact damage from 1000 to 1500 (same as max splash damage)
