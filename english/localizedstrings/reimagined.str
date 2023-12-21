@@ -29,4 +29,7 @@ LANG_ENGLISH        "Meat"
 REFERENCE           ZOMBIE_ITEM_HEAD
 LANG_ENGLISH        "Richtofen's Head"
 
+REFERENCE           ZOMBIE_FNP45_UPGRADED
+LANG_ENGLISH        "Toughguy & Crybaby"
+
 ENDMARKER

@@ -141,6 +141,8 @@ init()
 
 	set_dvars();
 
+	weapon_changes();
+
 	wallbuy_location_changes();
 
 	level thread initial_print();
@@ -2618,6 +2620,21 @@ disable_bank_teller()
 disable_carpenter()
 {
 	arrayremovevalue(level.zombie_powerup_array, "carpenter");
+}
+
+weapon_changes()
+{
+	if (level.script == "zm_transit" || level.script == "zm_nuked" || level.script == "zm_highrise" || level.script == "zm_buried")
+	{
+		level.laststandpistol = "fnp45_zm";
+		level.default_laststandpistol = "fnp45_zm";
+		level.default_solo_laststandpistol = "fnp45_upgraded_zm";
+		level.start_weapon = "fnp45_zm";
+		include_weapon( "fnp45_zm", 0 );
+		include_weapon( "fnp45_upgraded_zm", 0 );
+		add_limited_weapon( "fnp45_zm", 0 );
+		add_zombie_weapon( "fnp45_zm", "fnp45_upgraded_zm", &"WEAPON_FNP45", 50, "wpck_pistol", "", undefined, 1 );
+	}
 }
 
 wallbuy_location_changes()

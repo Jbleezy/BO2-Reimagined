@@ -2,18 +2,8 @@
 >type,fastfile
 >name,mod
 
-// Ray Gun
-xmodel,t6_wpn_zmb_raygun_view
-xmodel,t6_wpn_zmb_raygun_view_upg
-xmodel,t6_wpn_zmb_raygun_world
-xmodel,t6_wpn_zmb_raygun_world_upg
-material,mc/mtl_t6_wpn_zmb_raygun
-material,mc/mtl_t6_attach_tritium_red_glo
-material,mc/mtl_t6_wpn_zmb_raygun_glow
-material,mc/mtl_t6_wpn_zmb_raygun_camo
-material,mc/mtl_t6_wpn_zmb_raygun_glow_upg
-image,~-gmtl_t6_wpn_zmb_raygun_col
-image,mtl_t6_attach_tritium_red_glo
-image,c_gen_arm_rim_mask_c
+include,ray_gun_zm
+
+include,fnp45_zm
 
 localize,reimagined

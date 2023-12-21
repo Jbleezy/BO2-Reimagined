@@ -309,7 +309,7 @@ chugabud_spawn_corpse()
 {
 	corpse = maps\mp\zombies\_zm_clone::spawn_player_clone(self, self.origin, undefined, self.whos_who_shader);
 	corpse.angles = self.angles;
-	corpse maps\mp\zombies\_zm_clone::clone_give_weapon("m1911_zm");
+	corpse maps\mp\zombies\_zm_clone::clone_give_weapon(level.start_weapon);
 	corpse maps\mp\zombies\_zm_clone::clone_animate("laststand");
 	corpse thread maps\mp\zombies\_zm_laststand::revive_trigger_spawn();
 	return corpse;

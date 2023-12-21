@@ -132,6 +132,9 @@
 * Improved projectile upward speed for all lethal and tactical grenades
 * Grenades can no longer be thrown faster than intended by throwing a grenade right after throwing one
 
+### Tac-45
+* Replaces M1911 on Tranzit, Nuketown, Die Rise, and Buried
+
 ### AN-94
 * Increased weapon cost from 1200 to 1500
 * Upgraded: decreased stock ammo from 600 to 450
