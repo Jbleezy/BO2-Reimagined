@@ -183,7 +183,14 @@
 * Decreased recoil
 
 ### Mauser C96
+* Ammo gets added to the clip at the same time that it gets added in the reload animation
 * Upgraded: decreased last stand ammo from 2 clips to 1 clip
+
+### MG08/15
+* Ammo gets added to the clip at the same time that it gets added in the reload animation
+
+### MP40
+* Ammo gets added to the clip at the same time that it gets added in the reload animation
 
 ### MTAR
 * Decreased recoil
@@ -203,6 +210,7 @@
 * Removed aim spread
 
 ### STG-44
+* Ammo gets added to the clip at the same time that it gets added in the reload animation
 * Upgraded: decreased stock ammo from 330 to 300
 
 ### Type 25
