@@ -150,6 +150,9 @@
 * Upgraded: increased clip ammo from 40 to 48
 * Upgraded: increased stock ammo from 200 to 384
 
+### DSR 50
+* Unupgraded: increased zoom FOV from 15 to 35
+
 ### Executioner
 * Increased penetration
 
