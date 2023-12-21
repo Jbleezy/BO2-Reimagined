@@ -955,3 +955,8 @@ can_buy_weapon()
 
 	return true;
 }
+
+weapon_is_dual_wield(name)
+{
+	return weapondualwieldweaponname(name) != "none";
+}

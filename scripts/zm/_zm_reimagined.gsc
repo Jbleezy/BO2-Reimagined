@@ -67,6 +67,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_magicbox::decide_hide_show_hint, scripts\zm\replaced\_zm_magicbox::decide_hide_show_hint);
 	replaceFunc(maps\mp\zombies\_zm_magicbox::trigger_visible_to_player, scripts\zm\replaced\_zm_magicbox::trigger_visible_to_player);
 	replaceFunc(maps\mp\zombies\_zm_magicbox::can_buy_weapon, scripts\zm\replaced\_zm_magicbox::can_buy_weapon);
+	replaceFunc(maps\mp\zombies\_zm_magicbox::weapon_is_dual_wield, scripts\zm\replaced\_zm_magicbox::weapon_is_dual_wield);
 	replaceFunc(maps\mp\zombies\_zm_perks::init, scripts\zm\replaced\_zm_perks::init);
 	replaceFunc(maps\mp\zombies\_zm_perks::vending_trigger_think, scripts\zm\replaced\_zm_perks::vending_trigger_think);
 	replaceFunc(maps\mp\zombies\_zm_perks::perk_give_bottle_end, scripts\zm\replaced\_zm_perks::perk_give_bottle_end);
