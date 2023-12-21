@@ -3,6 +3,21 @@
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 
+init()
+{
+	if (!emp_bomb_exists())
+		return;
+
+	set_zombie_var("emp_stun_range", 512);
+	set_zombie_var("emp_stun_time", 12);
+	set_zombie_var("emp_perk_off_range", 512);
+	set_zombie_var("emp_perk_off_time", 60);
+	precacheshellshock("flashbang");
+
+	level thread onplayerconnect();
+	level._equipment_emp_destroy_fx = loadfx("weapon/emp/fx_emp_explosion_equip");
+}
+
 emp_detonate(grenade)
 {
 	grenade_owner = undefined;
@@ -12,11 +27,10 @@ emp_detonate(grenade)
 		grenade_owner = grenade.owner;
 	}
 
-	grenade waittill("explode", grenade_origin);
+	grenade waittill("explode", origin);
 
-	emp_radius = level.zombie_vars["emp_perk_off_range"];
+	emp_radius = level.zombie_vars["emp_stun_range"];
 	emp_time = level.zombie_vars["emp_perk_off_time"];
-	origin = grenade_origin;
 
 	if (!isDefined(origin))
 	{
@@ -24,11 +38,11 @@ emp_detonate(grenade)
 	}
 
 	level notify("emp_detonate", origin, emp_radius);
-	self thread emp_detonate_zombies(grenade_origin, grenade_owner);
+	self thread emp_detonate_zombies(origin, emp_radius, grenade_owner);
 
 	if (isDefined(level.custom_emp_detonate))
 	{
-		thread [[level.custom_emp_detonate]](grenade_origin);
+		thread [[level.custom_emp_detonate]](origin);
 	}
 
 	if (isDefined(grenade_owner))
@@ -44,9 +58,9 @@ emp_detonate(grenade)
 	maps\mp\zombies\_zm_power::revert_power_to_list(1, origin, emp_radius, disabled_list);
 }
 
-emp_detonate_zombies(grenade_origin, grenade_owner)
+emp_detonate_zombies(origin, radius, owner)
 {
-	zombies = get_array_of_closest(grenade_origin, getaispeciesarray(level.zombie_team, "all"), undefined, undefined, level.zombie_vars["emp_stun_range"]);
+	zombies = get_array_of_closest(origin, getaispeciesarray(level.zombie_team, "all"), undefined, undefined, radius);
 
 	if (!isdefined(zombies))
 		return;
@@ -77,8 +91,8 @@ emp_detonate_zombies(grenade_origin, grenade_owner)
 		wait 0.05;
 	}
 
-	if (stunned >= 10 && isdefined(grenade_owner))
-		grenade_owner notify("the_lights_of_their_eyes");
+	if (stunned >= 10 && isdefined(owner))
+		owner notify("the_lights_of_their_eyes");
 }
 
 destroyequipment(origin, radius)
@@ -151,8 +165,8 @@ emp_players(origin, radius, owner)
 		{
 			if (is_player_valid(player) || player maps\mp\zombies\_zm_laststand::player_is_in_laststand())
 			{
-				time = 30;
-				player shellshock("frag_grenade_mp", 2);
+				time = level.zombie_vars["emp_stun_time"];
+				player shellshock("flashbang", 1);
 				player thread player_perk_pause_and_unpause_all_perks(time);
 				player thread player_emp_fx(time);
 			}

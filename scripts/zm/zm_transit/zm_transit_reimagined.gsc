@@ -41,6 +41,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_weap_jetgun::jetgun_grind_zombie, scripts\zm\replaced\_zm_weap_jetgun::jetgun_grind_zombie);
 	replaceFunc(maps\mp\zombies\_zm_weap_jetgun::handle_overheated_jetgun, scripts\zm\replaced\_zm_weap_jetgun::handle_overheated_jetgun);
 	replaceFunc(maps\mp\zombies\_zm_weap_jetgun::jetgun_network_choke, scripts\zm\replaced\_zm_weap_jetgun::jetgun_network_choke);
+	replaceFunc(maps\mp\zombies\_zm_weap_emp_bomb::init, scripts\zm\replaced\_zm_weap_emp_bomb::init);
 	replaceFunc(maps\mp\zombies\_zm_weap_emp_bomb::emp_detonate, scripts\zm\replaced\_zm_weap_emp_bomb::emp_detonate);
 	replaceFunc(maps\mp\zombies\_zm_equip_electrictrap::startelectrictrapdeploy, scripts\zm\replaced\_zm_equip_electrictrap::startelectrictrapdeploy);
 	replaceFunc(maps\mp\zombies\_zm_equip_electrictrap::cleanupoldtrap, scripts\zm\replaced\_zm_equip_electrictrap::cleanupoldtrap);

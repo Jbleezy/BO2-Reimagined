@@ -332,8 +332,6 @@ post_all_players_spawned()
 	}
 
 	level.zombie_vars["riotshield_hit_points"] = 1500;
-	level.zombie_vars["emp_stun_range"] = 420;
-	level.zombie_vars["emp_perk_off_time"] = 60;
 	level.zombie_vars["slipgun_reslip_rate"] = 0;
 	level.zombie_vars["zombie_perk_divetonuke_min_damage"] = 1000;
 	level.zombie_vars["zombie_perk_divetonuke_max_damage"] = 5000;

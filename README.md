@@ -217,11 +217,14 @@
 
 ### EMP Grenade
 * No longer disables HUD
-* Disables player's perks for 30 seconds
+* Disables player's perks for 12 seconds
 * Increased ammo from 2 to 3
-* Added fx to EMP'd players
-* Decreased zombie EMP radius by 30% (same radius as perk machine EMP)
+* Decreased projectile speed by 30% (same as Black Ops 2 Multiplayer EMP Grenade)
+* Decreased zombie EMP radius by 17% (same as Black Ops 2 Multiplayer EMP Grenade)
+* Increased perk machine EMP radius by 22% (same as Black Ops 2 Multiplayer EMP Grenade)
 * Decreased perk machine EMP time from 90 seconds to 60 seconds
+* Changed shellshock (same as Black Ops 2 Multiplayer EMP Grenade)
+* Added fx to EMP'd players
 * Can destroy deployed Zombie Shields
 * Sprinting no longer wakes up EMP'd zombies
 * Zombies that are in the ground can no longer get EMP'd
