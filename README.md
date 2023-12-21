@@ -129,6 +129,7 @@
 * Changed placeable mine damage scalar to 150 multiplied by round number (normally random number between 100 and 200 multiplied by round number)
 * Capped placeable mine damage scalar at 9000
 * Disabled sniper scope sway
+* Improved projectile upward speed for all lethal and tactical grenades
 * Grenades can no longer be thrown faster than intended by throwing a grenade right after throwing one
 
 ### AN-94
