@@ -282,6 +282,7 @@
 * No longer disassembles when overheated
 * Weapon is taken when overheated
 * Buildable table model no longer shows when player has weapon
+* Changed weapon name on HUD from "Thrustodyne Aeronautics Model 23" to "Jet Gun"
 
 ### Sliquifier
 * Added upgraded version
@@ -475,6 +476,7 @@
 * Can no longer be destroyed by 2 grenades
 * Can be destroyed by taking 1500 damage
 * Can no longer be picked up after being destroyed
+* Added weapon name on HUD to all buildables
 
 ### Zombie Shield
 * Added shield health bar on HUD
