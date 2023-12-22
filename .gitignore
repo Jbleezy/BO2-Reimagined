@@ -1,6 +1,7 @@
 /.vscode
 *.ff
 *.iwd
+*.dds
 build.bat
 _zm_test.gsc
 games_mp.log
