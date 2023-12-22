@@ -1709,8 +1709,7 @@ game_module_player_damage_callback(einflictor, eattacker, idamage, idflags, smea
 					{
 						amount = 297.5; // 32 units
 					}
-
-					if (self getStance() == "crouch")
+					else if (self getStance() == "crouch")
 					{
 						amount = 215; // 21.33 units
 					}
@@ -1729,8 +1728,7 @@ game_module_player_damage_callback(einflictor, eattacker, idamage, idflags, smea
 					{
 						amount = 235; // 24 units
 					}
-
-					if (self getStance() == "crouch")
+					else if (self getStance() == "crouch")
 					{
 						amount = 172.5; // 16 units
 					}
@@ -1752,8 +1750,7 @@ game_module_player_damage_callback(einflictor, eattacker, idamage, idflags, smea
 					{
 						amount = 540; // 64 units
 					}
-
-					if (self getStance() == "crouch")
+					else if (self getStance() == "crouch")
 					{
 						amount = 377.5; // 42.66 units
 					}
@@ -1772,8 +1769,7 @@ game_module_player_damage_callback(einflictor, eattacker, idamage, idflags, smea
 					{
 						amount = 420; // 48 units
 					}
-
-					if (self getStance() == "crouch")
+					else if (self getStance() == "crouch")
 					{
 						amount = 297.5; // 32 units
 					}
