@@ -42,3 +42,19 @@ ts_sign_check_all_activated(e_attacker, m_last_touched)
 		level notify("sq_sign_damaged");
 	}
 }
+
+ts_is_bowie_knife( str_weapon )
+{
+	if ( str_weapon == "knife_ballistic_bowie_zm" || str_weapon == "knife_ballistic_bowie_upgraded_zm" || issubstr( str_weapon, "bowie_knife_zm" ) )
+		return true;
+
+	return false;
+}
+
+ts_is_galvaknuckles( str_weapon )
+{
+	if ( issubstr( str_weapon, "tazer_knuckles_zm" ) )
+		return true;
+
+	return false;
+}

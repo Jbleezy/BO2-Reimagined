@@ -194,3 +194,60 @@ cloud_update_fx()
 		wait 0.1;
 	}
 }
+
+avogadro_damage_func( einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime, boneindex )
+{
+	if ( self.state == "exiting" || self.state == "phasing" )
+	{
+		return false;
+	}
+
+	if ( smeansofdeath == "MOD_MELEE" )
+	{
+		if ( isplayer( einflictor ) )
+		{
+			if ( self.shield )
+			{
+				einflictor.avogadro_melee_time = gettime();
+				maps\mp\_visionset_mgr::vsmgr_activate( "overlay", "zm_ai_avogadro_electrified", einflictor, 0.25, 1 );
+				einflictor shellshock( "electrocution", 0.25 );
+				einflictor notify( "avogadro_damage_taken" );
+			}
+
+			if ( sweapon == "riotshield_zm" )
+			{
+				shield_damage = level.zombie_vars["riotshield_fling_damage_shield"];
+				einflictor maps\mp\zombies\_zm_weap_riotshield::player_damage_shield( shield_damage, 0 );
+			}
+		}
+
+		if ( !self.shield )
+		{
+			self.shield = 1;
+			self notify( "melee_pain" );
+
+			if ( issubstr( sweapon, "tazer_knuckles_zm" ) )
+			{
+				self.hit_by_melee += 2;
+			}
+			else
+			{
+				self.hit_by_melee++;
+			}
+
+			self thread avogadro_pain( einflictor );
+
+			if ( isplayer( einflictor ) )
+			{
+				einflictor thread do_player_general_vox( "general", "avogadro_wound", 30, 35 );
+				level notify( "avogadro_stabbed", self );
+			}
+		}
+	}
+	else
+	{
+		self update_damage_absorbed( idamage );
+	}
+
+	return false;
+}

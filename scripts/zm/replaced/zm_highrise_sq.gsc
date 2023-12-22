@@ -136,7 +136,7 @@ tower_punch_watch_leg(a_leg_trigs)
 	{
 		self waittill("trigger", who);
 
-		if (!isinarray(level.legs_hit, self.script_noteworthy) && isplayer(who) && (who.current_melee_weapon == "tazer_knuckles_zm" || who.current_melee_weapon == "tazer_knuckles_upgraded_zm"))
+		if (!isinarray(level.legs_hit, self.script_noteworthy) && isplayer(who) && (issubstr(who.current_melee_weapon, "tazer_knuckles_zm") || issubstr(who.current_melee_weapon, "tazer_knuckles_upgraded_zm")))
 		{
 			level.legs_hit[level.legs_hit.size] = self.script_noteworthy;
 			self playsound("zmb_sq_leg_powerup_" + level.legs_hit.size);
