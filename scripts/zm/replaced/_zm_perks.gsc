@@ -1284,7 +1284,10 @@ wait_for_player_to_take(player, weapon, packa_timer, upgrade_as_attachment)
 			player maps\mp\zombies\_zm_stats::increment_player_stat("pap_weapon_grabbed");
 			current_weapon = player getcurrentweapon();
 
-			if (is_player_valid(player) && !(player.is_drinking > 0) && !is_melee_weapon(current_weapon) && !is_placeable_mine(current_weapon) && !is_equipment(current_weapon) && level.revive_tool != current_weapon && "none" != current_weapon && !player hacker_active())
+			primaries = player getweaponslistprimaries();
+			weapon_limit = get_player_weapon_limit(player);
+
+			if (is_player_valid(player) && !(player.is_drinking > 0) && level.revive_tool != current_weapon && "none" != current_weapon && !player hacker_active() && (primaries.size < weapon_limit || (!is_melee_weapon(current_weapon) && !is_placeable_mine(current_weapon) && !is_equipment(current_weapon))))
 			{
 				maps\mp\_demo::bookmark("zm_player_grabbed_packapunch", gettime(), player);
 				self notify("pap_taken");

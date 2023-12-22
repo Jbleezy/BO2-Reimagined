@@ -418,6 +418,69 @@ head_should_gib(attacker, type, point)
 	return 1;
 }
 
+zombie_death_animscript()
+{
+	team = undefined;
+	recalc_zombie_array();
+
+	if ( isdefined( self._race_team ) )
+		team = self._race_team;
+
+	self reset_attack_spot();
+
+	if ( self check_zombie_death_animscript_callbacks() )
+		return false;
+
+	if ( isdefined( level.zombie_death_animscript_override ) )
+		self [[ level.zombie_death_animscript_override ]]();
+
+	if ( self.has_legs && isdefined( self.a.gib_ref ) && self.a.gib_ref == "no_legs" )
+		self.deathanim = "zm_death";
+
+	self.grenadeammo = 0;
+
+	if ( isdefined( self.nuked ) )
+	{
+		if ( zombie_can_drop_powerups( self ) )
+		{
+			if ( isdefined( self.in_the_ground ) && self.in_the_ground == 1 )
+			{
+				trace = bullettrace( self.origin + vectorscale( ( 0, 0, 1 ), 100.0 ), self.origin + vectorscale( ( 0, 0, -1 ), 100.0 ), 0, undefined );
+				origin = trace["position"];
+				level thread zombie_delay_powerup_drop( origin );
+			}
+			else
+			{
+				trace = groundtrace( self.origin + vectorscale( ( 0, 0, 1 ), 5.0 ), self.origin + vectorscale( ( 0, 0, -1 ), 300.0 ), 0, undefined );
+				origin = trace["position"];
+				level thread zombie_delay_powerup_drop( self.origin );
+			}
+		}
+	}
+	else
+		level zombie_death_points( self.origin, self.damagemod, self.damagelocation, self.attacker, self, team );
+
+	if ( isdefined( self.attacker ) && isai( self.attacker ) )
+		self.attacker notify( "killed", self );
+
+	if ( "rottweil72_upgraded_zm" == self.damageweapon && "MOD_RIFLE_BULLET" == self.damagemod )
+		self thread dragons_breath_flame_death_fx();
+
+	if ( issubstr( self.damageweapon, "tazer_knuckles_zm" ) && "MOD_MELEE" == self.damagemod )
+	{
+		self.is_on_fire = 0;
+		self notify( "stop_flame_damage" );
+	}
+
+	if ( self.damagemod == "MOD_BURNED" )
+		self thread maps\mp\animscripts\zm_death::flame_death_fx();
+
+	if ( self.damagemod == "MOD_GRENADE" || self.damagemod == "MOD_GRENADE_SPLASH" )
+		level notify( "zombie_grenade_death", self.origin );
+
+	return false;
+}
+
 zombie_can_drop_powerups(zombie)
 {
 	if (!flag("zombie_drop_powerups"))

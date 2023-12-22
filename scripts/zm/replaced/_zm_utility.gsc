@@ -19,6 +19,26 @@ init_player_offhand_weapons()
 	init_player_equipment();
 }
 
+give_start_weapon( switch_to_weapon )
+{
+	if ( !self hasweapon( level.zombie_melee_weapon_player_init ) )
+	{
+		self giveweapon( level.zombie_melee_weapon_player_init );
+	}
+
+	if ( !self hasweapon( "held_" + level.zombie_melee_weapon_player_init ) )
+	{
+		self giveweapon( "held_" + level.zombie_melee_weapon_player_init );
+		self setactionslot( 2, "weapon", "held_" + level.zombie_melee_weapon_player_init );
+	}
+
+	self giveweapon( level.start_weapon );
+	self givestartammo( level.start_weapon );
+
+	if ( isdefined( switch_to_weapon ) && switch_to_weapon )
+		self switchtoweapon( level.start_weapon );
+}
+
 is_headshot(sweapon, shitloc, smeansofdeath)
 {
 	if (smeansofdeath == "MOD_MELEE" || smeansofdeath == "MOD_BAYONET" || smeansofdeath == "MOD_IMPACT" || smeansofdeath == "MOD_UNKNOWN" || smeansofdeath == "MOD_IMPACT")

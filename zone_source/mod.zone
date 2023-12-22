@@ -4,6 +4,8 @@
 
 include,ray_gun_zm
 
+include,held_knife_zm
+
 include,fnp45_zm
 
 localize,reimagined

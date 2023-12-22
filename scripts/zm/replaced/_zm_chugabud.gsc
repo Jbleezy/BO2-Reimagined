@@ -118,7 +118,7 @@ chugabud_save_loadout()
 	if (isdefined(self.loadout.equipment))
 		self equipment_take(self.loadout.equipment);
 
-	self.loadout save_weapons_for_chugabud(self);
+	self.loadout.melee_weapon = self get_player_melee_weapon();
 
 	if (self hasweapon("claymore_zm"))
 	{
@@ -258,11 +258,10 @@ chugabud_give_loadout()
 	if (loadout.current_weapon >= 0 && isdefined(loadout.weapons[loadout.current_weapon]["name"]))
 		self switchtoweapon(loadout.weapons[loadout.current_weapon]["name"]);
 
-	self giveweapon("knife_zm");
 	self.do_not_display_equipment_pickup_hint = 1;
 	self maps\mp\zombies\_zm_equipment::equipment_give(self.loadout.equipment);
 	self.do_not_display_equipment_pickup_hint = undefined;
-	loadout restore_weapons_for_chugabud(self);
+	self chugabud_restore_melee_weapon();
 	self chugabud_restore_claymore();
 	self.score = loadout.score;
 	self.pers["score"] = loadout.score;
@@ -279,6 +278,14 @@ chugabud_give_loadout()
 	}
 
 	self.loadout.weapons = undefined;
+}
+
+chugabud_restore_melee_weapon()
+{
+	self giveweapon( self.loadout.melee_weapon );
+	self set_player_melee_weapon( self.loadout.melee_weapon );
+	self giveweapon("held_" + self.loadout.melee_weapon);
+	self setactionslot(2, "weapon", "held_" + self.loadout.melee_weapon);
 }
 
 chugabud_give_perks()

@@ -287,16 +287,8 @@ wallbuy(weapon_name, target, targetname, origin, angles, play_chalk_fx = 1)
 			unitrigger_stub.vo_dialog_id = melee_weapon.vo_dialog_id;
 			unitrigger_stub.flourish_fn = melee_weapon.flourish_fn;
 
-			if (is_true(level.disable_melee_wallbuy_icons))
-			{
-				unitrigger_stub.cursor_hint = "HINT_NOICON";
-				unitrigger_stub.cursor_hint_weapon = undefined;
-			}
-			else
-			{
-				unitrigger_stub.cursor_hint = "HINT_WEAPON";
-				unitrigger_stub.cursor_hint_weapon = melee_weapon.weapon_name;
-			}
+			unitrigger_stub.cursor_hint = "HINT_WEAPON";
+			unitrigger_stub.cursor_hint_weapon = melee_weapon.weapon_name;
 		}
 
 		if (weapon_name == "tazer_knuckles_zm")

@@ -320,7 +320,10 @@ treasure_chest_think()
 				if (is_player_valid(user))
 					current_weapon = user getcurrentweapon();
 
-				if (grabber == user && is_player_valid(user) && !(user.is_drinking > 0) && !is_melee_weapon(current_weapon) && !is_placeable_mine(current_weapon) && !is_equipment(current_weapon) && level.revive_tool != current_weapon)
+				primaries = user getweaponslistprimaries();
+				weapon_limit = get_player_weapon_limit(user);
+
+				if (grabber == user && is_player_valid(user) && !(user.is_drinking > 0) && level.revive_tool != current_weapon && (primaries.size < weapon_limit || (!is_melee_weapon(current_weapon) && !is_placeable_mine(current_weapon) && !is_equipment(current_weapon))))
 				{
 					bbprint("zombie_uses", "playername %s playerscore %d round %d cost %d name %s x %f y %f z %f type %s", user.name, user.score, level.round_number, self.zombie_cost, self.zbarrier.weapon_string, self.origin, "magic_accept");
 					self notify("user_grabbed_weapon");
@@ -858,10 +861,24 @@ decide_hide_show_hint(endon_notify, second_endon_notify, onlyplayer)
 
 		if (isdefined(self.chest_user) && !isdefined(self.box_rerespun))
 		{
-			if (is_melee_weapon(self.chest_user getcurrentweapon()) || is_placeable_mine(self.chest_user getcurrentweapon()) || self.chest_user hacker_active())
-				self setinvisibletoplayer(self.chest_user);
-			else
+			primaries = self.chest_user getweaponslistprimaries();
+			weapon_limit = get_player_weapon_limit(self.chest_user);
+
+			if (primaries.size < weapon_limit)
+			{
 				self setvisibletoplayer(self.chest_user);
+			}
+			else
+			{
+				if (is_melee_weapon(self.chest_user getcurrentweapon()) || is_placeable_mine(self.chest_user getcurrentweapon()) || self.chest_user hacker_active())
+				{
+					self setinvisibletoplayer(self.chest_user);
+				}
+				else
+				{
+					self setvisibletoplayer(self.chest_user);
+				}
+			}
 		}
 		else if (isdefined(onlyplayer))
 		{
@@ -905,8 +922,20 @@ trigger_visible_to_player(player)
 
 	if (isdefined(self.stub.trigger_target.chest_user) && !isdefined(self.stub.trigger_target.box_rerespun))
 	{
-		if (player != self.stub.trigger_target.chest_user || is_melee_weapon(self.stub.trigger_target.chest_user getcurrentweapon()) || is_placeable_mine(self.stub.trigger_target.chest_user getcurrentweapon()) || self.stub.trigger_target.chest_user hacker_active())
+		if (player != self.stub.trigger_target.chest_user || self.stub.trigger_target.chest_user hacker_active())
+		{
 			visible = 0;
+		}
+		else
+		{
+			primaries = self.stub.trigger_target.chest_user getweaponslistprimaries();
+			weapon_limt = get_player_weapon_limit(self.stub.trigger_target.chest_user);
+
+			if (primaries.size >= weapon_limt && (is_melee_weapon(self.stub.trigger_target.chest_user getcurrentweapon()) || is_placeable_mine(self.stub.trigger_target.chest_user getcurrentweapon())))
+			{
+				visible = 0;
+			}
+		}
 	}
 	else
 	{
@@ -944,7 +973,10 @@ can_buy_weapon()
 
 	current_weapon = self getcurrentweapon();
 
-	if (is_melee_weapon(current_weapon) || is_placeable_mine(current_weapon) || is_equipment_that_blocks_purchase(current_weapon))
+	primaries = self getweaponslistprimaries();
+	weapon_limt = get_player_weapon_limit(self);
+
+	if (primaries.size >= weapon_limt && (is_melee_weapon(current_weapon) || is_placeable_mine(current_weapon) || is_equipment_that_blocks_purchase(current_weapon)))
 		return false;
 
 	if (self in_revive_trigger())

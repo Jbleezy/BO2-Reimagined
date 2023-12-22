@@ -788,6 +788,15 @@ kill_feed()
 			self.last_griefed_by.meansofdeath = "MOD_UNKNOWN";
 		}
 
+		// show weapon icon for melee damage (except for start melee weapon)
+		if (self.last_griefed_by.meansofdeath == "MOD_MELEE")
+		{
+			if (self.last_griefed_by.weapon != level.zombie_melee_weapon_player_init && self.last_griefed_by.weapon != "held_" + level.zombie_melee_weapon_player_init)
+			{
+				self.last_griefed_by.meansofdeath = "MOD_UNKNOWN";
+			}
+		}
+
 		obituary(self, self.last_griefed_by.attacker, self.last_griefed_by.weapon, self.last_griefed_by.meansofdeath);
 	}
 	else
@@ -2148,6 +2157,7 @@ grief_laststand_weapons_return()
 	if (isDefined(self.grief_savedweapon_melee))
 	{
 		self set_player_melee_weapon(self.grief_savedweapon_melee);
+		self setactionslot(2, "weapon", "held_" + self.grief_savedweapon_melee);
 	}
 
 	if (isDefined(self.grief_savedweapon_grenades))

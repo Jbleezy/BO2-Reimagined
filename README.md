@@ -266,6 +266,9 @@
 * Can have with Monkey Bombs
 * Switches to detonator at correct time after throwing
 
+### Combat Knife
+* Added model from Black Ops 2 Multiplayer
+
 ### One Inch Punch
 * Upgraded: elemental punch changes based on which staff the player currently has
 * Fixed an issue where a player's melee weapon wouldn't reset if the player bled out in the Giant Robots
@@ -354,6 +357,7 @@
 * Purchasing no longer shows the weapon model at other wallbuys of the same weapon
 * Lethal grenade hint string no longer displays "ammo" after purchasing
 * Downing while purchasing a melee weapon gives the melee weapon
+* Added melee wallbuy HUD icons to all maps
 
 ## Mystery Box
 * Players get every weapon they can before getting duplicates

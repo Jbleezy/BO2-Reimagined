@@ -35,6 +35,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_stats::set_global_stat, scripts\zm\replaced\_zm_stats::set_global_stat);
 	replaceFunc(maps\mp\zombies\_zm_playerhealth::playerhealthregen, scripts\zm\replaced\_zm_playerhealth::playerhealthregen);
 	replaceFunc(maps\mp\zombies\_zm_utility::init_player_offhand_weapons, scripts\zm\replaced\_zm_utility::init_player_offhand_weapons);
+	replaceFunc(maps\mp\zombies\_zm_utility::give_start_weapon, scripts\zm\replaced\_zm_utility::give_start_weapon);
 	replaceFunc(maps\mp\zombies\_zm_utility::is_headshot, scripts\zm\replaced\_zm_utility::is_headshot);
 	replaceFunc(maps\mp\zombies\_zm_utility::shock_onpain, scripts\zm\replaced\_zm_utility::shock_onpain);
 	replaceFunc(maps\mp\zombies\_zm_utility::create_zombie_point_of_interest_attractor_positions, scripts\zm\replaced\_zm_utility::create_zombie_point_of_interest_attractor_positions);
@@ -62,6 +63,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_weapons::createballisticknifewatcher_zm, scripts\zm\replaced\_zm_weapons::createballisticknifewatcher_zm);
 	replaceFunc(maps\mp\zombies\_zm_weapons::weapon_spawn_think, scripts\zm\replaced\_zm_weapons::weapon_spawn_think);
 	replaceFunc(maps\mp\zombies\_zm_weapons::weapon_set_first_time_hint, scripts\zm\replaced\_zm_weapons::weapon_set_first_time_hint);
+	replaceFunc(maps\mp\zombies\_zm_weapons::give_fallback_weapon, scripts\zm\replaced\_zm_weapons::give_fallback_weapon);
 	replaceFunc(maps\mp\zombies\_zm_magicbox::treasure_chest_init, scripts\zm\replaced\_zm_magicbox::treasure_chest_init);
 	replaceFunc(maps\mp\zombies\_zm_magicbox::init_starting_chest_location, scripts\zm\replaced\_zm_magicbox::init_starting_chest_location);
 	replaceFunc(maps\mp\zombies\_zm_magicbox::decide_hide_show_hint, scripts\zm\replaced\_zm_magicbox::decide_hide_show_hint);
@@ -99,10 +101,12 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_clone::spawn_player_clone, scripts\zm\replaced\_zm_clone::spawn_player_clone);
 	replaceFunc(maps\mp\zombies\_zm_spawner::zombie_gib_on_damage, scripts\zm\replaced\_zm_spawner::zombie_gib_on_damage);
 	replaceFunc(maps\mp\zombies\_zm_spawner::head_should_gib, scripts\zm\replaced\_zm_spawner::head_should_gib);
+	replaceFunc(maps\mp\zombies\_zm_spawner::zombie_death_animscript, scripts\zm\replaced\_zm_spawner::zombie_death_animscript);
 	replaceFunc(maps\mp\zombies\_zm_spawner::zombie_can_drop_powerups, scripts\zm\replaced\_zm_spawner::zombie_can_drop_powerups);
 	replaceFunc(maps\mp\zombies\_zm_spawner::zombie_complete_emerging_into_playable_area, scripts\zm\replaced\_zm_spawner::zombie_complete_emerging_into_playable_area);
 	replaceFunc(maps\mp\zombies\_zm_ai_basic::inert_wakeup, scripts\zm\replaced\_zm_ai_basic::inert_wakeup);
 	replaceFunc(maps\mp\zombies\_zm_ai_dogs::enable_dog_rounds, scripts\zm\replaced\_zm_ai_dogs::enable_dog_rounds);
+	replaceFunc(maps\mp\zombies\_zm_melee_weapon::init, scripts\zm\replaced\_zm_melee_weapon::init);
 	replaceFunc(maps\mp\zombies\_zm_melee_weapon::change_melee_weapon, scripts\zm\replaced\_zm_melee_weapon::change_melee_weapon);
 	replaceFunc(maps\mp\zombies\_zm_melee_weapon::give_melee_weapon, scripts\zm\replaced\_zm_melee_weapon::give_melee_weapon);
 	replaceFunc(maps\mp\zombies\_zm_weap_ballistic_knife::watch_use_trigger, scripts\zm\replaced\_zm_weap_ballistic_knife::watch_use_trigger);
@@ -135,6 +139,11 @@ init()
 	level.player_too_many_weapons_monitor_func = scripts\zm\replaced\_zm::player_too_many_weapons_monitor;
 	level.pregame_minplayers = getDvarInt("party_minplayers");
 	level.player_starting_health = 150;
+
+	if (!isdefined(level.item_meat_name))
+	{
+		level.item_meat_name = "";
+	}
 
 	setscoreboardcolumns_gametype();
 
@@ -214,8 +223,6 @@ on_player_spawned()
 			self thread ignoreme_after_revived();
 
 			self thread fall_velocity_check();
-
-			self thread melee_weapon_switch_watcher();
 
 			self thread give_additional_perks();
 
@@ -316,6 +323,7 @@ post_all_players_spawned()
 	level.ta_vaultfee = 0;
 	level.ta_tellerfee = 0;
 	level.weapon_locker_online = 0;
+	level.disable_melee_wallbuy_icons = 0;
 	level.dont_link_common_wallbuys = 1;
 	level.magicbox_timeout = 9;
 	level.packapunch_timeout = 12;
@@ -2566,45 +2574,6 @@ fall_velocity_check()
 	}
 }
 
-melee_weapon_switch_watcher()
-{
-	self endon("disconnect");
-
-	vars = [];
-	vars["prev_wep"] = undefined;
-
-	while (1)
-	{
-		if (is_true(self.use_staff_melee))
-		{
-			wait 0.05;
-			continue;
-		}
-
-		vars["melee_wep"] = self get_player_melee_weapon();
-		vars["curr_wep"] = self getCurrentWeapon();
-
-		if (vars["curr_wep"] != "none" && !is_offhand_weapon(vars["curr_wep"]))
-		{
-			vars["prev_wep"] = vars["curr_wep"];
-		}
-
-		if (self actionSlotTwoButtonPressed() && !self hasWeapon("time_bomb_zm") && !self hasWeapon("time_bomb_detonator_zm") && !self hasWeapon("equip_dieseldrone_zm") && !self hasWeapon(level.item_meat_name))
-		{
-			if (vars["curr_wep"] != vars["melee_wep"])
-			{
-				self switchToWeapon(vars["melee_wep"]);
-			}
-			else
-			{
-				self maps\mp\zombies\_zm_weapons::switch_back_primary_weapon(vars["prev_wep"]);
-			}
-		}
-
-		wait 0.05;
-	}
-}
-
 disable_bank_teller()
 {
 	level notify("stop_bank_teller");
@@ -2625,6 +2594,12 @@ disable_carpenter()
 
 weapon_changes()
 {
+	if (level.script == "zm_transit" || level.script == "zm_nuked" || level.script == "zm_highrise" || level.script == "zm_buried" || level.script == "zm_tomb")
+	{
+		include_weapon( "held_knife_zm", 0 );
+		register_melee_weapon_for_level( "held_knife_zm" );
+	}
+
 	if (level.script == "zm_transit" || level.script == "zm_nuked" || level.script == "zm_highrise" || level.script == "zm_buried")
 	{
 		level.laststandpistol = "fnp45_zm";
@@ -2635,6 +2610,12 @@ weapon_changes()
 		include_weapon( "fnp45_upgraded_zm", 0 );
 		add_limited_weapon( "fnp45_zm", 0 );
 		add_zombie_weapon( "fnp45_zm", "fnp45_upgraded_zm", &"WEAPON_FNP45", 50, "wpck_pistol", "", undefined, 1 );
+
+		include_weapon( "held_bowie_knife_zm", 0 );
+		register_melee_weapon_for_level( "held_bowie_knife_zm" );
+
+		include_weapon( "held_tazer_knuckles_zm", 0 );
+		register_melee_weapon_for_level( "held_tazer_knuckles_zm" );
 	}
 }
 
@@ -3744,6 +3725,7 @@ tombstone_give()
 	if (isDefined(self.tombstone_savedweapon_melee))
 	{
 		self set_player_melee_weapon(self.tombstone_savedweapon_melee);
+		self setactionslot(2, "weapon", "held_" + self.tombstone_savedweapon_melee);
 	}
 
 	if (isDefined(self.tombstone_savedweapon_grenades))

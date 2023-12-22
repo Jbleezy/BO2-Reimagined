@@ -866,3 +866,8 @@ createballisticknifewatcher_zm(name, weapon)
 	watcher.storedifferentobject = 1;
 	watcher.headicon = 0;
 }
+
+give_fallback_weapon()
+{
+	self switchtoweapon( "held_" + self get_player_melee_weapon() );
+}
