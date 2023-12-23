@@ -144,7 +144,7 @@
 
 ### Ballistic Knife
 * Added model and anims from Black Ops 2 Multiplayer
-* Increased melee time from 0.5 seconds to 0.75 seconds
+* Increased melee time from 0.5 seconds to 0.7 seconds
 * Projectiles are no longer picked up by other players
 * Projectiles can be picked up while the weapon is not reloaded
 * Projectiles can be picked up while the player is not on the ground
@@ -268,6 +268,7 @@
 * Kills all zombies
 * Can have with Monkey Bombs
 * Switches to detonator at correct time after throwing
+* Decreased raise time from 0.3 seconds to 0.2 seconds
 
 ### Combat Knife
 * Added model from Black Ops 2 Multiplayer

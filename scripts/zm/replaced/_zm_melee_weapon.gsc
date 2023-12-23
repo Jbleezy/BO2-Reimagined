@@ -172,7 +172,11 @@ change_melee_weapon(weapon_name, current_weapon)
 	}
 
 	self giveweapon("held_" + weapon_name);
-	self setactionslot(2, "weapon", "held_" + weapon_name);
+
+	if (!self hasweapon("time_bomb_zm") && !self hasweapon("time_bomb_detonator_zm"))
+	{
+		self setactionslot(2, "weapon", "held_" + weapon_name);
+	}
 
 	return current_weapon;
 }

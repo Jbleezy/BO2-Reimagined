@@ -1,6 +1,9 @@
 weapon,zm/held_knife_zm
 weapon,zm/held_bowie_knife_zm
 weapon,zm/held_tazer_knuckles_zm
+weapon,zm/held_knife_zm_alcatraz
+weapon,zm/held_spoon_zm_alcatraz
+weapon,zm/held_spork_zm_alcatraz
 xmodel,t6_wpn_knife_base_view
 xmodel,t6_wpn_knife_base_world
 material,mc/mtl_t6_wpn_knife_base
