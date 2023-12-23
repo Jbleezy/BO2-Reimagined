@@ -2603,6 +2603,12 @@ weapon_changes()
 
 	if (level.script == "zm_transit" || level.script == "zm_nuked" || level.script == "zm_highrise" || level.script == "zm_buried")
 	{
+		include_weapon( "held_bowie_knife_zm", 0 );
+		register_melee_weapon_for_level( "held_bowie_knife_zm" );
+
+		include_weapon( "held_tazer_knuckles_zm", 0 );
+		register_melee_weapon_for_level( "held_tazer_knuckles_zm" );
+
 		level.laststandpistol = "fnp45_zm";
 		level.default_laststandpistol = "fnp45_zm";
 		level.default_solo_laststandpistol = "fnp45_upgraded_zm";
@@ -2611,12 +2617,18 @@ weapon_changes()
 		include_weapon( "fnp45_upgraded_zm", 0 );
 		add_limited_weapon( "fnp45_zm", 0 );
 		add_zombie_weapon( "fnp45_zm", "fnp45_upgraded_zm", &"WEAPON_FNP45", 50, "wpck_pistol", "", undefined, 1 );
+	}
 
-		include_weapon( "held_bowie_knife_zm", 0 );
-		register_melee_weapon_for_level( "held_bowie_knife_zm" );
+	if (level.script == "zm_prison")
+	{
+		include_weapon( "held_knife_zm_alcatraz", 0 );
+		register_melee_weapon_for_level( "held_knife_zm_alcatraz" );
 
-		include_weapon( "held_tazer_knuckles_zm", 0 );
-		register_melee_weapon_for_level( "held_tazer_knuckles_zm" );
+		include_weapon( "held_spoon_zm_alcatraz", 0 );
+		register_melee_weapon_for_level( "held_spoon_zm_alcatraz" );
+
+		include_weapon( "held_spork_zm_alcatraz", 0 );
+		register_melee_weapon_for_level( "held_spork_zm_alcatraz" );
 	}
 }
 

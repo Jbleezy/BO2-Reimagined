@@ -214,7 +214,7 @@ afterlife_spawn_corpse()
 
 	corpse.angles = self.angles;
 	corpse.ignoreme = 1;
-	corpse maps\mp\zombies\_zm_clone::clone_give_weapon("m1911_zm");
+	corpse maps\mp\zombies\_zm_clone::clone_give_weapon(level.start_weapon);
 	corpse maps\mp\zombies\_zm_clone::clone_animate("afterlife");
 	corpse thread afterlife_revive_trigger_spawn();
 
@@ -658,7 +658,11 @@ afterlife_give_loadout()
 	self switchtoweaponimmediate(loadout.weapons[loadout.current_weapon]);
 
 	if (isdefined(self get_player_melee_weapon()))
+	{
 		self giveweapon(self get_player_melee_weapon());
+		self giveweapon("held_" + self get_player_melee_weapon());
+		self setactionslot(2, "weapon", "held_" + self get_player_melee_weapon());
+	}
 
 	self.do_not_display_equipment_pickup_hint = 1;
 	self maps\mp\zombies\_zm_equipment::equipment_give(self.loadout.equipment);
