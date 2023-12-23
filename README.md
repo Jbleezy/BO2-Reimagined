@@ -143,6 +143,8 @@
 * Decreased weapon cost from 1000 to 900 on all maps
 
 ### Ballistic Knife
+* Added model and anims from Black Ops 2 Multiplayer
+* Increased melee time from 0.5 seconds to 0.75 seconds
 * Projectiles are no longer picked up by other players
 * Projectiles can be picked up while the weapon is not reloaded
 * Projectiles can be picked up while the player is not on the ground

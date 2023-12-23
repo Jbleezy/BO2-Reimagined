@@ -8,14 +8,8 @@ xmodel,t6_wpn_pistol_fnp45_world_lh
 material,mc/mtl_t6_wpn_pistol_fnp45
 material,mc/mtl_t6_wpn_pistol_fnp45_camo2
 material,mc/mtl_t6_wpn_pistol_fnp45_camo3
-material,mc/mtl_player_icon
-material,mc/mtl_player_icon_world
-material,mc/mtl_clan_tag
-material,mc/mtl_clan_tag_world
 material,menu_mp_weapons_fnp45
 image,~-gmtl_t6_wpn_pistol_fnp45_col
-image,emblem_clear
-image,~-gclan_font_c
 image,menu_mp_weapons_fnp45
 xanim,viewmodel_fnp45_idle
 xanim,viewmodel_fnp45_idle_empty

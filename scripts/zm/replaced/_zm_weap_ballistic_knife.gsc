@@ -3,6 +3,18 @@
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 
+init()
+{
+	if ( !isdefined( level.ballistic_knife_autorecover ) )
+		level.ballistic_knife_autorecover = 1;
+
+	if ( isdefined( level._uses_retrievable_ballisitic_knives ) && level._uses_retrievable_ballisitic_knives == 1 )
+	{
+		precachemodel( "t6_wpn_ballistic_knife_projectile" );
+		precachemodel( "t6_wpn_ballistic_knife_blade_retrieve" );
+	}
+}
+
 on_spawn(watcher, player)
 {
 	player endon("death");
@@ -16,13 +28,14 @@ on_spawn(watcher, player)
 
 	if (is_upgraded && isDefined(prey) && isplayer(prey) && prey.team == player.team && prey maps\mp\zombies\_zm_laststand::player_is_in_laststand())
 	{
+		prey notify( "remote_revive", player );
 		return;
 	}
 
 	if (isDefined(endpos))
 	{
 		retrievable_model = spawn("script_model", endpos);
-		retrievable_model setmodel("t5_weapon_ballistic_knife_blade_retrieve");
+		retrievable_model setmodel("t6_wpn_ballistic_knife_blade_retrieve");
 		retrievable_model setowner(player);
 		retrievable_model.owner = player;
 		retrievable_model.angles = angles;

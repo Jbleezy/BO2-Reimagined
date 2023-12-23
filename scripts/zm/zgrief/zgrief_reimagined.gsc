@@ -782,19 +782,16 @@ kill_feed()
 	{
 		self.last_griefed_by.attacker.killsconfirmed++;
 
-		// show weapon icon for impact damage
-		if (self.last_griefed_by.meansofdeath == "MOD_IMPACT")
+		// show weapon icon for melee damage
+		if (self.last_griefed_by.meansofdeath == "MOD_MELEE")
 		{
 			self.last_griefed_by.meansofdeath = "MOD_UNKNOWN";
 		}
 
-		// show weapon icon for melee damage (except for start melee weapon)
-		if (self.last_griefed_by.meansofdeath == "MOD_MELEE")
+		// show weapon icon for impact damage
+		if (self.last_griefed_by.meansofdeath == "MOD_IMPACT")
 		{
-			if (self.last_griefed_by.weapon != level.zombie_melee_weapon_player_init && self.last_griefed_by.weapon != "held_" + level.zombie_melee_weapon_player_init)
-			{
-				self.last_griefed_by.meansofdeath = "MOD_UNKNOWN";
-			}
+			self.last_griefed_by.meansofdeath = "MOD_UNKNOWN";
 		}
 
 		obituary(self, self.last_griefed_by.attacker, self.last_griefed_by.weapon, self.last_griefed_by.meansofdeath);

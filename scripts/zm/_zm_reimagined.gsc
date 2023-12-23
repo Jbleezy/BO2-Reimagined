@@ -109,6 +109,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_melee_weapon::init, scripts\zm\replaced\_zm_melee_weapon::init);
 	replaceFunc(maps\mp\zombies\_zm_melee_weapon::change_melee_weapon, scripts\zm\replaced\_zm_melee_weapon::change_melee_weapon);
 	replaceFunc(maps\mp\zombies\_zm_melee_weapon::give_melee_weapon, scripts\zm\replaced\_zm_melee_weapon::give_melee_weapon);
+	replaceFunc(maps\mp\zombies\_zm_weap_ballistic_knife::init, scripts\zm\replaced\_zm_weap_ballistic_knife::init);
 	replaceFunc(maps\mp\zombies\_zm_weap_ballistic_knife::watch_use_trigger, scripts\zm\replaced\_zm_weap_ballistic_knife::watch_use_trigger);
 	replaceFunc(maps\mp\zombies\_zm_weap_claymore::claymore_detonation, scripts\zm\replaced\_zm_weap_claymore::claymore_detonation);
 	replaceFunc(maps\mp\zombies\_zm_weap_claymore::claymore_setup, scripts\zm\replaced\_zm_weap_claymore::claymore_setup);
