@@ -811,7 +811,22 @@ revive_feed(reviver)
 {
 	if (isDefined(reviver) && reviver != self)
 	{
-		obituary(self, reviver, level.revive_tool, "MOD_IMPACT");
+		weapon = level.revive_tool;
+
+		if (isdefined(self.revived_by_weapon))
+		{
+			weapon = self.revived_by_weapon;
+			self.revived_by_weapon = undefined;
+		}
+
+		// have to put ballistic knife revive icon in a different weapon file
+		// since ballistic knife kill icon already in use
+		if (issubstr(weapon, "knife_ballistic"))
+		{
+			weapon = "zombie_fists_zm";
+		}
+
+		obituary(self, reviver, weapon, "MOD_UNKNOWN");
 	}
 }
 
