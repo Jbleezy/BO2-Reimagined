@@ -6,6 +6,7 @@ include,knife_ballistic_zm
 include,ray_gun_zm
 
 include,held_knife_zm
+include,held_one_inch_punch_zm
 include,fnp45_zm
 
 localize,reimagined

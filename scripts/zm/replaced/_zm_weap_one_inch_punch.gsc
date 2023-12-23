@@ -11,6 +11,85 @@
 #include maps\mp\zombies\_zm_weap_staff_lightning;
 #include maps\mp\animscripts\zm_shared;
 
+one_inch_punch_melee_attack()
+{
+	self endon( "disconnect" );
+	self endon( "stop_one_inch_punch_attack" );
+
+	if ( !( isdefined( self.one_inch_punch_flag_has_been_init ) && self.one_inch_punch_flag_has_been_init ) )
+		self ent_flag_init( "melee_punch_cooldown" );
+
+	self.one_inch_punch_flag_has_been_init = 1;
+	current_melee_weapon = self get_player_melee_weapon();
+	self takeweapon( current_melee_weapon );
+
+	if ( isdefined( self.b_punch_upgraded ) && self.b_punch_upgraded )
+	{
+		str_weapon = self getcurrentweapon();
+		self disable_player_move_states( 1 );
+		self giveweapon( "zombie_one_inch_punch_upgrade_flourish" );
+		self switchtoweapon( "zombie_one_inch_punch_upgrade_flourish" );
+		self waittill_any( "player_downed", "weapon_change_complete" );
+		self switchtoweapon( str_weapon );
+		self enable_player_move_states();
+		self takeweapon( "zombie_one_inch_punch_upgrade_flourish" );
+
+		if ( self.str_punch_element == "air" )
+		{
+			self giveweapon( "one_inch_punch_air_zm" );
+			self set_player_melee_weapon( "one_inch_punch_air_zm" );
+			self giveweapon( "held_one_inch_punch_air_zm" );
+			self setactionslot( 2, "weapon", "one_inch_punch_air_zm" );
+		}
+		else if ( self.str_punch_element == "fire" )
+		{
+			self giveweapon( "one_inch_punch_fire_zm" );
+			self set_player_melee_weapon( "one_inch_punch_fire_zm" );
+			self giveweapon( "held_one_inch_punch_fire_zm" );
+			self setactionslot( 2, "weapon", "held_one_inch_punch_fire_zm" );
+		}
+		else if ( self.str_punch_element == "ice" )
+		{
+			self giveweapon( "one_inch_punch_ice_zm" );
+			self set_player_melee_weapon( "one_inch_punch_ice_zm" );
+			self giveweapon( "held_one_inch_punch_ice_zm" );
+			self setactionslot( 2, "weapon", "held_one_inch_punch_ice_zm" );
+		}
+		else if ( self.str_punch_element == "lightning" )
+		{
+			self giveweapon( "one_inch_punch_lightning_zm" );
+			self set_player_melee_weapon( "one_inch_punch_lightning_zm" );
+			self giveweapon( "held_inch_punch_lightning_zm" );
+			self setactionslot( 2, "weapon", "held_inch_punch_lightning_zm" );
+		}
+		else
+		{
+			self giveweapon( "one_inch_punch_upgraded_zm" );
+			self set_player_melee_weapon( "one_inch_punch_upgraded_zm" );
+			self giveweapon( "held_one_inch_punch_upgraded_zm" );
+			self setactionslot( 2, "weapon", "held_one_inch_punch_upgraded_zm" );
+		}
+	}
+	else
+	{
+		str_weapon = self getcurrentweapon();
+		self disable_player_move_states( 1 );
+		self giveweapon( "zombie_one_inch_punch_flourish" );
+		self switchtoweapon( "zombie_one_inch_punch_flourish" );
+		self waittill_any( "player_downed", "weapon_change_complete" );
+		self switchtoweapon( str_weapon );
+		self enable_player_move_states();
+		self takeweapon( "zombie_one_inch_punch_flourish" );
+		self giveweapon( "one_inch_punch_zm" );
+		self set_player_melee_weapon( "one_inch_punch_zm" );
+		self giveweapon( "held_one_inch_punch_zm" );
+		self setactionslot( 2, "weapon", "held_one_inch_punch_zm" );
+		self thread maps\mp\zombies\_zm_audio::create_and_play_dialog( "perk", "one_inch" );
+	}
+
+	self thread monitor_melee_swipe();
+}
+
 monitor_melee_swipe()
 {
 	self endon("disconnect");

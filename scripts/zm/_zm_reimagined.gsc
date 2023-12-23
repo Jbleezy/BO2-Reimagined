@@ -2630,6 +2630,27 @@ weapon_changes()
 		include_weapon( "held_spork_zm_alcatraz", 0 );
 		register_melee_weapon_for_level( "held_spork_zm_alcatraz" );
 	}
+
+	if (level.script == "zm_tomb")
+	{
+		include_weapon( "held_one_inch_punch_zm", 0 );
+		register_melee_weapon_for_level( "held_one_inch_punch_zm" );
+
+		include_weapon( "held_one_inch_punch_upgraded_zm", 0 );
+		register_melee_weapon_for_level( "held_one_inch_punch_upgraded_zm" );
+
+		include_weapon( "held_one_inch_punch_air_zm", 0 );
+		register_melee_weapon_for_level( "held_one_inch_punch_air_zm" );
+
+		include_weapon( "held_one_inch_punch_fire_zm", 0 );
+		register_melee_weapon_for_level( "held_one_inch_punch_fire_zm" );
+
+		include_weapon( "held_one_inch_punch_ice_zm", 0 );
+		register_melee_weapon_for_level( "held_one_inch_punch_ice_zm" );
+
+		include_weapon( "held_one_inch_punch_lightning_zm", 0 );
+		register_melee_weapon_for_level( "held_one_inch_punch_lightning_zm" );
+	}
 }
 
 wallbuy_location_changes()
