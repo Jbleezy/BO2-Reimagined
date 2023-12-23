@@ -33,6 +33,11 @@ on_spawn(watcher, player)
 		return;
 	}
 
+	if (isDefined(level.object_touching_lava) && self [[level.object_touching_lava]]())
+	{
+		return;
+	}
+
 	if (isDefined(endpos))
 	{
 		retrievable_model = spawn("script_model", endpos);

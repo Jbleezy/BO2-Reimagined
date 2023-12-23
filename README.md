@@ -148,6 +148,7 @@
 * Projectiles are no longer picked up by other players
 * Projectiles can be picked up while the weapon is not reloaded
 * Projectiles can be picked up while the player is not on the ground
+* Projectiles get destroyed by lava
 
 ### Chicom CQB
 * Unupgraded: decreased clip ammo from 40 to 36
@@ -483,6 +484,7 @@
 * Message shows when the meat is grabbed and landed on a player
 * Meleeing while the meat is moving no longer grabs the meat
 * Removed pick up trigger
+* Gets destroyed when thrown on lava
 * Replaced with Richtofen's Head on Cell Block and Docks
 
 ## Persistent Upgrades
