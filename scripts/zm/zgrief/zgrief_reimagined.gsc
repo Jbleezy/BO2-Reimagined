@@ -794,6 +794,11 @@ kill_feed()
 			self.last_griefed_by.meansofdeath = "MOD_UNKNOWN";
 		}
 
+		if (is_melee_weapon(self.last_griefed_by.weapon))
+		{
+			self.last_griefed_by.weapon = get_held_melee_weapon(self.last_griefed_by.weapon);
+		}
+
 		obituary(self, self.last_griefed_by.attacker, self.last_griefed_by.weapon, self.last_griefed_by.meansofdeath);
 	}
 	else
@@ -828,6 +833,16 @@ revive_feed(reviver)
 
 		obituary(self, reviver, weapon, "MOD_UNKNOWN");
 	}
+}
+
+get_held_melee_weapon(melee_weapon)
+{
+	if (!issubstr(melee_weapon, "held_"))
+	{
+		melee_weapon = "held_" + melee_weapon;
+	}
+
+	return melee_weapon;
 }
 
 add_grief_downed_score()
