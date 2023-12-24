@@ -79,6 +79,7 @@
 * Health capped at 100,000
 * Decreased damage from 60 to 50
 * Changed height to 60 (normally either 48 or 72)
+* Increased damage taken to make a crawler from 10% of current health to 25% of current health
 * Amount of zombies scales linearly with the amount of players
 * Zombies that are deleted due to being too far away always respawn
 * Attracted towards points of interest immediately

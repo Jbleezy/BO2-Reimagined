@@ -308,6 +308,72 @@ zombie_gib_on_damage()
 	}
 }
 
+zombie_should_gib( amount, attacker, type )
+{
+	if ( !is_mature() )
+		return false;
+
+	if ( !isdefined( type ) )
+		return false;
+
+	if ( isdefined( self.is_on_fire ) && self.is_on_fire )
+		return false;
+
+	if ( isdefined( self.no_gib ) && self.no_gib == 1 )
+		return false;
+
+	switch ( type )
+	{
+		case "MOD_UNKNOWN":
+		case "MOD_TRIGGER_HURT":
+		case "MOD_TELEFRAG":
+		case "MOD_SUICIDE":
+		case "MOD_FALLING":
+		case "MOD_CRUSH":
+		case "MOD_BURNED":
+			return false;
+
+		case "MOD_MELEE":
+			return false;
+	}
+
+	if ( type == "MOD_PISTOL_BULLET" || type == "MOD_RIFLE_BULLET" )
+	{
+		if ( !isdefined( attacker ) || !isplayer( attacker ) )
+			return false;
+
+		weapon = attacker getcurrentweapon();
+
+		if ( weapon == "none" || weapon == level.start_weapon )
+			return false;
+
+		if ( weaponisgasweapon( self.weapon ) )
+			return false;
+	}
+	else if ( type == "MOD_PROJECTILE" )
+	{
+		if ( isdefined( attacker ) && isplayer( attacker ) )
+		{
+			weapon = attacker getcurrentweapon();
+
+			if ( weapon == "slipgun_zm" || weapon == "slipgun_upgraded_zm" )
+				return false;
+		}
+	}
+
+	prev_health = amount + self.health;
+
+	if ( prev_health <= 0 )
+		prev_health = 1;
+
+	damage_percent = amount / prev_health * 100;
+
+	if ( damage_percent < 25 )
+		return false;
+
+	return true;
+}
+
 bleedout_watcher()
 {
 	self endon("death");
