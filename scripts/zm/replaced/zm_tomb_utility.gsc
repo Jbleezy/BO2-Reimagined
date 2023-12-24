@@ -110,11 +110,11 @@ capture_zombie_spawn_init(animname_set = 0)
 
 update_staff_accessories(n_element_index)
 {
-	cur_weapon = self get_player_melee_weapon();
+	cur_melee = self get_player_melee_weapon();
+	melee_to_keep = "knife_zm";
 
-	if (!issubstr(cur_weapon, "one_inch_punch"))
+	if (!issubstr(cur_melee, "one_inch_punch"))
 	{
-		weapon_to_keep = "knife_zm";
 		self.use_staff_melee = 0;
 
 		if (n_element_index != 0)
@@ -126,31 +126,35 @@ update_staff_accessories(n_element_index)
 
 			if (isdefined(staff_info.melee))
 			{
-				weapon_to_keep = staff_info.melee;
+				melee_to_keep = staff_info.melee;
 				self.use_staff_melee = 1;
 			}
 		}
-
-		melee_changed = 0;
-
-		if (cur_weapon != weapon_to_keep)
-		{
-			self takeweapon(cur_weapon);
-			self giveweapon(weapon_to_keep);
-			self set_player_melee_weapon(weapon_to_keep);
-			melee_changed = 1;
-		}
 	}
-	else if (issubstr(cur_weapon, "one_inch_punch") && is_true(self.b_punch_upgraded))
+	else if (issubstr(cur_melee, "one_inch_punch") && is_true(self.b_punch_upgraded))
 	{
 		self.str_punch_element = get_punch_element_from_index(n_element_index);
-		weapon_to_keep = "one_inch_punch_" + self.str_punch_element + "_zm";
+		melee_to_keep = "one_inch_punch_" + self.str_punch_element + "_zm";
+	}
 
-		if (cur_weapon != weapon_to_keep)
+	if (cur_melee != melee_to_keep)
+	{
+		current_weapon = self getcurrentweapon();
+
+		self takeweapon(cur_melee);
+		self takeweapon("held_" + cur_melee);
+		self giveweapon(melee_to_keep);
+		self set_player_melee_weapon(melee_to_keep);
+		self giveweapon("held_" + melee_to_keep);
+
+		if (!self hasweapon("equip_dieseldrone_zm"))
 		{
-			self takeweapon(cur_weapon);
-			self giveweapon(weapon_to_keep);
-			self set_player_melee_weapon(weapon_to_keep);
+			self setactionslot(2, "weapon", "held_" + melee_to_keep);
+		}
+
+		if (is_melee_weapon(current_weapon))
+		{
+			self switchtoweapon("held_" + melee_to_keep);
 		}
 	}
 
