@@ -268,6 +268,7 @@
 * Kills all zombies
 * Can have with Monkey Bombs
 * Switches to detonator at correct time after throwing
+* Fixed detonator raise and drop anims
 
 ### Combat Knife
 * Added model from Black Ops 2 Multiplayer
