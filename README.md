@@ -179,6 +179,7 @@
 * Increased penetration
 
 ### M1911
+* Unupgraded: decreased zoom FOV from 65 to 60 (same as other Black Ops 2 pistols)
 * Upgraded: decreased stock ammo from 50 to 48
 * Upgraded: decreased last stand ammo from 2 clips to 1 clip
 
@@ -190,6 +191,8 @@
 
 ### Mauser C96
 * Ammo gets added to the clip at the same time that it gets added in the reload animation
+* Unupgraded: decreased zoom FOV from 65 to 60 (same as other Black Ops 2 pistols)
+* Upgraded: fixed not being able to melee while aiming
 * Upgraded: decreased last stand ammo from 2 clips to 1 clip
 
 ### MG08/15
