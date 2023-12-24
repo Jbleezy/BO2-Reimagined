@@ -29,7 +29,6 @@ on_spawn(watcher, player)
 	if (is_upgraded && isDefined(prey) && isplayer(prey) && prey.team == player.team && prey maps\mp\zombies\_zm_laststand::player_is_in_laststand())
 	{
 		prey.revived_by_weapon = watcher.weapon;
-		prey notify( "remote_revive", player );
 		return;
 	}
 
