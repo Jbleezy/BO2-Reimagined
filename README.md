@@ -122,15 +122,16 @@
 ## Weapons
 * Switch to melee weapon by pressing the Previous Scorestreak button (same button as the Time Bomb and Maxis Drone)
 * Inspect weapon by pressing the Alt Fire button
-* Changed grenade damage scalar to 25 multiplied by round number (normally random number between 100 and 200 added by round number)
-* Capped grenade damage scalar at 1500
-* Changed projectile weapon damage scalar to 50 multiplied by round number (normally random number between 0 and 100 multiplied by round number)
-* Capped projectile weapon damage scalar at 3000
-* Changed placeable mine damage scalar to 150 multiplied by round number (normally random number between 100 and 200 multiplied by round number)
-* Capped placeable mine damage scalar at 9000
-* Disabled sniper scope sway
-* Improved projectile upward speed for all lethal and tactical grenades
-* Grenades can no longer be thrown faster than intended by throwing a grenade right after throwing one
+* Snipers: increased zoom FOV from 15 to 25
+* Snipers: disabled scope sway
+* Grenades: improved projectile upward speed
+* Grenades: can no longer be thrown faster than intended by throwing a grenade right after throwing one
+* Grenades: changed damage scalar to 25 multiplied by round number (normally random number between 100 and 200 added by round number)
+* Grenades: capped damage scalar at 1500
+* Projectile weapons: changed projectile weapon damage scalar to 50 multiplied by round number (normally random number between 0 and 100 multiplied by round number)
+* Projectile weapons: capped projectile weapon damage scalar at 3000
+* Placeable mines: changed damage scalar to 150 multiplied by round number (normally random number between 100 and 200 multiplied by round number)
+* Placeable mines: capped damage scalar at 9000
 
 ### Tac-45
 * Replaces M1911 on Tranzit, Nuketown, Die Rise, and Buried
