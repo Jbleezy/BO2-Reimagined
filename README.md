@@ -268,7 +268,6 @@
 * Kills all zombies
 * Can have with Monkey Bombs
 * Switches to detonator at correct time after throwing
-* Decreased raise time from 0.3 seconds to 0.2 seconds
 
 ### Combat Knife
 * Added model from Black Ops 2 Multiplayer
