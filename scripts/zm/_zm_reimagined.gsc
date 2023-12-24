@@ -157,8 +157,6 @@ init()
 
 	wallbuy_location_changes();
 
-	level thread initial_print();
-
 	level thread on_player_connect();
 
 	level thread post_all_players_spawned();
@@ -170,13 +168,6 @@ init()
 	level thread swap_staminup_perk();
 
 	level thread remove_status_icons_on_intermission();
-}
-
-initial_print()
-{
-	flag_wait("initial_players_connected");
-
-	iprintln("Reimagined Loaded");
 }
 
 on_player_connect()
