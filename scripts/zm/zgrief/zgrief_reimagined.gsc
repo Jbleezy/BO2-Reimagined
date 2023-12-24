@@ -624,7 +624,10 @@ grief_onplayerdisconnect(disconnecting_player)
 
 	setDvar(team_var, getDvar(team_var) + disconnecting_player getguid() + " ");
 
-	level thread update_players_on_disconnect(disconnecting_player);
+	if (level.scr_zm_ui_gametype_obj == "zsnr")
+	{
+		level thread update_players_on_disconnect(disconnecting_player);
+	}
 }
 
 on_player_spawned()
@@ -701,11 +704,15 @@ on_player_downed()
 		self.head_icon.alpha = 0;
 		self kill_feed();
 		self add_grief_downed_score();
-		level thread update_players_on_downed(self);
 
 		if (level.scr_zm_ui_gametype_obj == "zrace")
 		{
-			increment_score(getOtherTeam(self.team), 10, 1, "enemy_player");
+			increment_score(getOtherTeam(self.team), 10, 1, "enemy_down");
+		}
+
+		if (level.scr_zm_ui_gametype_obj == "zsnr")
+		{
+			level thread update_players_on_downed(self);
 		}
 	}
 }
@@ -770,9 +777,21 @@ on_player_revived()
 		self waittill("player_revived", reviver);
 
 		self.head_icon.alpha = 1;
-		self revive_feed(reviver);
 
-		level thread update_players_on_revived(self, reviver);
+		if (isDefined(reviver) && reviver != self)
+		{
+			self revive_feed(reviver);
+
+			if (level.scr_zm_ui_gametype_obj == "zrace")
+			{
+				increment_score(reviver.team, 5, 1, "ally_revive");
+			}
+
+			if (level.scr_zm_ui_gametype_obj == "zsnr")
+			{
+				level thread update_players_on_revived(self, reviver);
+			}
+		}
 	}
 }
 
@@ -814,25 +833,22 @@ bleedout_feed()
 
 revive_feed(reviver)
 {
-	if (isDefined(reviver) && reviver != self)
+	weapon = level.revive_tool;
+
+	if (isdefined(self.revived_by_weapon))
 	{
-		weapon = level.revive_tool;
-
-		if (isdefined(self.revived_by_weapon))
-		{
-			weapon = self.revived_by_weapon;
-			self.revived_by_weapon = undefined;
-		}
-
-		// have to put ballistic knife revive icon in a different weapon file
-		// since ballistic knife kill icon already in use
-		if (issubstr(weapon, "knife_ballistic"))
-		{
-			weapon = "zombie_fists_zm";
-		}
-
-		obituary(self, reviver, weapon, "MOD_UNKNOWN");
+		weapon = self.revived_by_weapon;
+		self.revived_by_weapon = undefined;
 	}
+
+	// have to put ballistic knife revive icon in a different weapon file
+	// since ballistic knife kill icon already in use
+	if (issubstr(weapon, "knife_ballistic"))
+	{
+		weapon = "zombie_fists_zm";
+	}
+
+	obituary(self, reviver, weapon, "MOD_UNKNOWN");
 }
 
 get_held_melee_weapon(melee_weapon)
@@ -1183,11 +1199,6 @@ get_number_of_valid_players_team(team, excluded_player)
 
 update_players_on_downed(excluded_player)
 {
-	if (level.scr_zm_ui_gametype_obj != "zsnr")
-	{
-		return;
-	}
-
 	team = excluded_player.team;
 	other_team = getOtherTeam(team);
 	players = get_players(team);
@@ -1234,11 +1245,6 @@ update_players_on_downed(excluded_player)
 
 update_players_on_bleedout(excluded_player)
 {
-	if (level.scr_zm_ui_gametype_obj != "zsnr")
-	{
-		return;
-	}
-
 	team = excluded_player.team;
 	other_team = getOtherTeam(team);
 	players = get_players(team);
@@ -1257,16 +1263,6 @@ update_players_on_bleedout(excluded_player)
 
 update_players_on_revived(revived_player, reviver)
 {
-	if (level.scr_zm_ui_gametype_obj != "zsnr")
-	{
-		return;
-	}
-
-	if (!isDefined(reviver) || reviver == revived_player)
-	{
-		return;
-	}
-
 	team = revived_player.team;
 	other_team = getOtherTeam(team);
 	other_players = get_players(other_team);
@@ -2502,7 +2498,7 @@ race_check_for_kills()
 		if (is_true(zombie.is_brutus))
 		{
 			amount = 10;
-			special_score = "boss_zombie";
+			special_score = "boss_kill";
 		}
 
 		increment_score(self.team, amount, 1, special_score);
@@ -3415,15 +3411,19 @@ increment_score(team, amount = 1, show_lead_msg = true, special_score)
 		{
 			msg = "";
 
-			if (special_score == "enemy_player")
+			if (special_score == "enemy_down")
 			{
 				msg = "Enemy Down! [" + amount + " Score]";
 			}
-			else if (special_score == "boss_zombie")
+			else if (special_score == "ally_revive")
+			{
+				msg = "Ally Revived! [" + amount + " Score]";
+			}
+			else if (special_score == "boss_kill")
 			{
 				msg = "Boss Killed! [" + amount + " Score]";
 			}
-			else if (special_score == "nuke_powerup")
+			else if (special_score == "nuke_grab")
 			{
 				msg = "Nuke Grabbed! [" + amount + " Score]";
 			}

@@ -908,6 +908,7 @@
 * Killing a zombie awards 1 score
 * Killing a boss zombie awards 10 score
 * Getting an enemy player down awards 10 score
+* Reviving an ally player awards 5 score
 * Grabbing a Nuke powerup awards 10 score
 * Players respawn after being down for 10 seconds
 * Players retain perks

@@ -606,7 +606,7 @@ nuke_powerup(drop_item, player_team)
 		{
 			if (isDefined(level.increment_score_func))
 			{
-				[[level.increment_score_func]](player_team, 10, 1, "nuke_powerup");
+				[[level.increment_score_func]](player_team, 10, 1, "nuke_grab");
 			}
 		}
 	}
