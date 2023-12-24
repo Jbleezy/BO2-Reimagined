@@ -11,10 +11,16 @@ material,mc/mtl_t6_wpn_knife_base_camo2
 material,cac_mods_tact_knife
 material,menu_zm_weapons_bowie
 material,menu_zm_weapons_taser
+material,hud_obit_turret
+material,hud_obit_hk_drone
+material,hud_obit_rcbomb
 image,~-gmtl_t6_wpn_knife_base_col
 image,cac_mods_tact_knife
 image,menu_zm_weapons_bowie
 image,menu_zm_weapons_taser
+image,hud_obit_turret
+image,hud_obit_hk_drone
+image,hud_obit_rcbomb
 xanim,viewmodel_strider_idle
 xanim,viewmodel_strider_melee_swipe
 xanim,viewmodel_strider_melee_charge
