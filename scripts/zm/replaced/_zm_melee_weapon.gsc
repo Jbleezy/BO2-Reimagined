@@ -129,7 +129,6 @@ change_melee_weapon(weapon_name, current_weapon)
 			old_ballistic = primary_weapon;
 			ballistic_ammo_clip = self getWeaponAmmoClip(primary_weapon);
 			ballistic_ammo_stock = self getWeaponAmmoStock(primary_weapon);
-			self notify("zmb_lost_knife");
 			self takeweapon(primary_weapon);
 			unacquire_weapon_toggle(primary_weapon);
 
@@ -167,7 +166,8 @@ change_melee_weapon(weapon_name, current_weapon)
 			self giveweapon(new_ballistic, 0);
 		}
 
-		self giveMaxAmmo(new_ballistic);
+		self setweaponammoclip(new_ballistic, ballistic_ammo_clip);
+		self setweaponammostock(new_ballistic, ballistic_ammo_stock);
 		self seteverhadweaponall(1);
 	}
 

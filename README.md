@@ -146,10 +146,11 @@
 ### Ballistic Knife
 * Added model and anims from Black Ops 2 Multiplayer
 * Increased melee time from 0.5 seconds to 0.7 seconds
-* Projectiles are no longer picked up by other players
+* Projectiles are no longer destroyed when other players walk over them
+* Projectiles are no longer destroyed when purchasing a melee wallbuy
+* Projectiles get destroyed by lava
 * Projectiles can be picked up while the weapon is not reloaded
 * Projectiles can be picked up while the player is not on the ground
-* Projectiles get destroyed by lava
 
 ### Chicom CQB
 * Unupgraded: decreased clip ammo from 40 to 36
