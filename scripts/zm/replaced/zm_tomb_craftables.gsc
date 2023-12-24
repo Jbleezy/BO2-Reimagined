@@ -238,7 +238,7 @@ quadrotor_control_thread()
 			if (self hasweapon("equip_dieseldrone_zm"))
 			{
 				self takeweapon("equip_dieseldrone_zm");
-				self setactionslot(2, "");
+				self setactionslot(2, "weapon", "held_" + self get_player_melee_weapon());
 			}
 
 			str_vehicle = "heli_quadrotor_zm";

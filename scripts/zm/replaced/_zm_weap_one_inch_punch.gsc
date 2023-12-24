@@ -43,7 +43,11 @@ one_inch_punch_melee_attack()
 	self giveweapon( punch_weapon );
 	self set_player_melee_weapon( punch_weapon );
 	self giveweapon( "held_" + punch_weapon );
-	self setactionslot( 2, "weapon", "held_" + punch_weapon );
+
+	if (!self hasweapon("equip_dieseldrone_zm"))
+	{
+		self setactionslot(2, "weapon", "held_" + punch_weapon);
+	}
 
 	if (result != "player_downed")
 	{
