@@ -2405,11 +2405,11 @@ setscoreboardcolumns_gametype()
 {
 	if (getDvar("g_gametype") == "zgrief")
 	{
-		if (level.scr_zm_ui_gametype_obj == "zcontainment" || level.scr_zm_ui_gametype_obj == "zmeat")
+		if (getDvar("ui_gametype_obj") == "zcontainment" || getDvar("ui_gametype_obj") == "zmeat")
 		{
 			setscoreboardcolumns("score", "captures", "killsconfirmed", "downs", "revives");
 		}
-		else if (level.scr_zm_ui_gametype_obj == "zgrief" || level.scr_zm_ui_gametype_obj == "zsnr")
+		else if (getDvar("ui_gametype_obj") == "zgrief" || getDvar("ui_gametype_obj") == "zsnr")
 		{
 			setscoreboardcolumns("score", "killsdenied", "killsconfirmed", "downs", "revives");
 		}
