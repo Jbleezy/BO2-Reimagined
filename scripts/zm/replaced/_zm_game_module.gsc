@@ -192,11 +192,11 @@ round_end(winner)
 			{
 				if (player.team == team)
 				{
-					player thread [[level.show_grief_hud_msg_func]]("You won the round!");
+					player thread [[level.show_grief_hud_msg_func]](&"ZOMBIE_GRIEF_WIN_ROUND");
 				}
 				else
 				{
-					player thread [[level.show_grief_hud_msg_func]]("You lost the round!");
+					player thread [[level.show_grief_hud_msg_func]](&"ZOMBIE_GRIEF_LOSE_ROUND");
 				}
 			}
 		}

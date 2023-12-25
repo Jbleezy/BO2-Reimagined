@@ -713,7 +713,7 @@ enemy_counter_hud()
 	hud.color = (1, 1, 1);
 	hud.hidewheninmenu = 1;
 	hud.foreground = 1;
-	hud.label = &"Enemies Remaining: ";
+	hud.label = &"ZOMBIE_HUD_ENEMIES_REMAINING";
 
 	hud endon("death");
 
@@ -784,7 +784,7 @@ timer_hud()
 	hud.color = (1, 1, 1);
 	hud.hidewheninmenu = 1;
 	hud.foreground = 1;
-	hud.label = &"Total: ";
+	hud.label = &"ZOMBIE_HUD_TOTAL_TIME";
 
 	hud endon("death");
 
@@ -837,7 +837,7 @@ round_timer_hud()
 	hud.color = (1, 1, 1);
 	hud.hidewheninmenu = 1;
 	hud.foreground = 1;
-	hud.label = &"Round: ";
+	hud.label = &"ZOMBIE_HUD_ROUND_TIME";
 
 	hud endon("death");
 
@@ -903,7 +903,7 @@ round_total_timer_hud()
 	hud.color = (1, 1, 1);
 	hud.hidewheninmenu = 1;
 	hud.foreground = 1;
-	hud.label = &"Round Total: ";
+	hud.label = &"ZOMBIE_HUD_ROUND_TOTAL_TIME";
 
 	hud endon("death");
 

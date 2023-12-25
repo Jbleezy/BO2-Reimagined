@@ -139,7 +139,7 @@ meat_stink(who)
 
 				foreach (player in players)
 				{
-					player thread scripts\zm\zgrief\zgrief_reimagined::show_grief_hud_msg("Meat dropped!");
+					player thread scripts\zm\zgrief\zgrief_reimagined::show_grief_hud_msg(&"ZOMBIE_MEAT_DROPPED");
 				}
 
 				level.meat_powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop("meat_stink", who.origin);
@@ -350,7 +350,7 @@ meat_stink_cleanup_on_downed()
 
 			foreach (player in players)
 			{
-				player thread scripts\zm\zgrief\zgrief_reimagined::show_grief_hud_msg("Meat dropped!");
+				player thread scripts\zm\zgrief\zgrief_reimagined::show_grief_hud_msg(&"ZOMBIE_MEAT_DROPPED");
 			}
 
 			level.meat_powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop("meat_stink", self.origin);

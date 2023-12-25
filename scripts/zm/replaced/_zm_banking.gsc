@@ -195,7 +195,7 @@ trigger_withdraw_update_prompt(player)
 		return 0;
 	}
 
-	self sethintstring(&"ZOMBIE_BANK_WITHDRAW_PROMPT", level.bank_deposit_ddl_increment_amount, level.ta_vaultfee);
+	self sethintstring(&"ZOMBIE_BANK_WITHDRAW_PROMPT", level.bank_deposit_ddl_increment_amount);
 	return 1;
 }
 
@@ -228,7 +228,7 @@ show_balance(player)
 	hud.fontscale = 1;
 	hud.alpha = 1;
 	hud.color = (1, 1, 1);
-	hud.label = &"Account Balance: ";
+	hud.label = &"ZOMBIE_HUD_ACCOUNT_BALANCE";
 	stub.bankbalancehud[num] = hud;
 
 	hud thread update_balance(player);

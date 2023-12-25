@@ -473,7 +473,7 @@ sloth_trap()
 
 	while (1)
 	{
-		trig sethintstring(&"ZM_BURIED_CANDY_GV", " [Cost: " + trig.cost + "]");
+		trig sethintstring(&"ZM_BURIED_CANDY_GV", trig.cost);
 
 		trig waittill("trigger", who);
 

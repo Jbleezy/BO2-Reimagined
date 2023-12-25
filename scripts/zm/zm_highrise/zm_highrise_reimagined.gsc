@@ -259,23 +259,23 @@ elevator_call_think()
 		{
 			if (!is_true(self.elevator.body.elevator_stop))
 			{
-				self sethintstring("Hold ^3[{+activate}]^7 to lock elevator");
+				self sethintstring(&"ZM_HIGHRISE_LOCK_ELEVATOR");
 			}
 			else
 			{
-				self sethintstring("Hold ^3[{+activate}]^7 to unlock elevator");
+				self sethintstring(&"ZM_HIGHRISE_UNLOCK_ELEVATOR");
 			}
 		}
 		else
 		{
 			if (self.elevator maps\mp\zm_highrise_elevators::elevator_is_on_floor(self.floor) && !is_true(self.elevator.body.start_location_wait))
 			{
-				self sethintstring("The elevator is on the way");
+				self sethintstring(&"ZM_HIGHRISE_ELEVATOR_ON_THE_WAY");
 				return;
 			}
 
 			cost_active = 1;
-			self sethintstring(&"ZM_HIGHRISE_BUILD_KEYS", " [Cost: " + self.cost + "]");
+			self sethintstring(&"ZM_HIGHRISE_BUILD_KEYS", self.cost);
 		}
 
 		self trigger_on();
@@ -323,7 +323,7 @@ elevator_call_think()
 
 		if (is_true(self.elevator.body.start_location_wait) && self.elevator maps\mp\zm_highrise_elevators::elevator_is_on_floor(self.floor))
 		{
-			self sethintstring("Hold ^3[{+activate}]^7 to lock elevator");
+			self sethintstring(&"ZM_HIGHRISE_LOCK_ELEVATOR");
 
 			while (is_true(self.elevator.body.start_location_wait))
 			{
@@ -333,7 +333,7 @@ elevator_call_think()
 			continue;
 		}
 
-		self sethintstring("The elevator is on the way");
+		self sethintstring(&"ZM_HIGHRISE_ELEVATOR_ON_THE_WAY");
 
 		return;
 	}
@@ -469,7 +469,7 @@ escape_pod_call_think()
 	{
 		flag_wait("escape_pod_needs_reset");
 
-		self sethintstring(&"ZM_HIGHRISE_BUILD_KEYS", " [Cost: " + self.cost + "]");
+		self sethintstring(&"ZM_HIGHRISE_BUILD_KEYS", self.cost);
 
 		self waittill("trigger", who);
 
@@ -490,7 +490,7 @@ escape_pod_call_think()
 
 		self playsound("zmb_buildable_complete");
 
-		self sethintstring("The elevator is on the way");
+		self sethintstring(&"ZM_HIGHRISE_ELEVATOR_ON_THE_WAY");
 
 		self maps\mp\zm_highrise_buildables::onuseplantobject_escapepodkey(who);
 

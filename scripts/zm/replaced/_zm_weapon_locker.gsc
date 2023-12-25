@@ -89,7 +89,7 @@ show_current_weapon(player)
 	hud.fontscale = 1;
 	hud.alpha = 1;
 	hud.color = (1, 1, 1);
-	hud.label = &"Placed Weapon: ";
+	hud.label = &"ZOMBIE_HUD_PLACED_WEAPON";
 	hud settext(displayname);
 	stub.weaponlockerhud[num] = hud;
 

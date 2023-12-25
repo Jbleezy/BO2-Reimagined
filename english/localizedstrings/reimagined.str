@@ -2,6 +2,8 @@ VERSION             "1"
 CONFIG              "C:/projects/cod/t6/bin/StringEd.cfg"
 FILENOTES           ""
 
+// UI
+
 REFERENCE           ZMUI_CLASSIC_GAMEMODE_CAPS
 LANG_ENGLISH        "CLASSIC"
 
@@ -13,6 +15,136 @@ LANG_ENGLISH        "DOCKS"
 
 REFERENCE           ZMUI_MAZE_CAPS
 LANG_ENGLISH        "MAZE"
+
+// HUD
+
+REFERENCE           ZOMBIE_HUD_TOTAL_TIME
+LANG_ENGLISH        "Total: "
+
+REFERENCE           ZOMBIE_HUD_ROUND_TIME
+LANG_ENGLISH        "Round: "
+
+REFERENCE           ZOMBIE_HUD_ROUND_TOTAL_TIME
+LANG_ENGLISH        "Round Total: "
+
+REFERENCE           ZOMBIE_HUD_QUEST_COMPLETE_TIME
+LANG_ENGLISH        "Quest Complete! Time: "
+
+REFERENCE           ZOMBIE_HUD_ENEMIES_REMAINING
+LANG_ENGLISH        "Enemies Remaining: "
+
+REFERENCE           ZOMBIE_HUD_ACCOUNT_BALANCE
+LANG_ENGLISH        "Account Balance: "
+
+REFERENCE           ZOMBIE_HUD_PLACED_WEAPON
+LANG_ENGLISH        "Placed Weapon: "
+
+REFERENCE           ZOMBIE_HUD_CONTAINMENT_ZONE
+LANG_ENGLISH        "Zone: "
+
+REFERENCE           ZOMBIE_HUD_CONTAINMENT_TIME
+LANG_ENGLISH        "Time: "
+
+REFERENCE           ZM_TRANSIT_BUS_DEPART_TIME
+LANG_ENGLISH        "Bus departs in: "
+
+REFERENCE           ZOMBIE_POWERUP_CLIP_AMMO
+LANG_ENGLISH        "Clip Ammo!"
+
+REFERENCE           ZOMBIE_POWERUP_CLIP_EMPTY
+LANG_ENGLISH        "Clip Empty!"
+
+REFERENCE           ZOMBIE_ZGRIEF_INTRO
+LANG_ENGLISH        "Make enemy players bleed out to gain score!"
+
+REFERENCE           ZOMBIE_ZSNR_INTRO
+LANG_ENGLISH        "Get all enemy players down to win a round!"
+
+REFERENCE           ZOMBIE_ZRACE_INTRO
+LANG_ENGLISH        "Kill zombies or enemy players to gain score!"
+
+REFERENCE           ZOMBIE_ZCONTAINMENT_INTRO
+LANG_ENGLISH        "Control the containment zone to gain score!"
+
+REFERENCE           ZOMBIE_ZMEAT_INTRO
+LANG_ENGLISH        "Hold the meat to gain score!"
+
+REFERENCE           ZOMBIE_GRIEF_SCORE_TO_WIN
+LANG_ENGLISH        "Gain &&1 score to win the game!"
+
+REFERENCE           ZOMBIE_GRIEF_ROUNDS_TO_WIN
+LANG_ENGLISH        "Win &&1 rounds to win the game!"
+
+REFERENCE           ZOMBIE_GRIEF_GAIN_LEAD
+LANG_ENGLISH        "Gained the lead!"
+
+REFERENCE           ZOMBIE_GRIEF_LOSE_LEAD
+LANG_ENGLISH        "Lost the lead!"
+
+REFERENCE           ZOMBIE_GRIEF_WIN_ROUND
+LANG_ENGLISH        "You won the round!"
+
+REFERENCE           ZOMBIE_GRIEF_LOSE_ROUND
+LANG_ENGLISH        "You lost the round!"
+
+REFERENCE           ZOMBIE_GRIEF_WIN
+LANG_ENGLISH        "YOU WIN!"
+
+REFERENCE           ZOMBIE_GRIEF_LOSE
+LANG_ENGLISH        "YOU LOSE!"
+
+REFERENCE           ZOMBIE_ZGRIEF_PLAYER_BLED_OUT
+LANG_ENGLISH        "Enemy Down! [&&1 Remaining]"
+
+REFERENCE           ZOMBIE_ZGRIEF_PLAYER_REVIVED
+LANG_ENGLISH        "Enemy Revived! [&&1 Remaining]"
+
+REFERENCE           ZOMBIE_ZGRIEF_PLAYER_DEAD
+LANG_ENGLISH        "Enemy Bled Out! [&&1 Remaining]"
+
+REFERENCE           ZOMBIE_ZGRIEF_PLAYER_BLED_OUT_SCORE
+LANG_ENGLISH        "Enemy Down! [&&1 Score]"
+
+REFERENCE           ZOMBIE_ZGRIEF_ALLY_REVIVED_SCORE
+LANG_ENGLISH        "Ally Revived! [&&1 Score]"
+
+REFERENCE           ZOMBIE_ZGRIEF_BOSS_KILLED_SCORE
+LANG_ENGLISH        "Boss Killed! [&&1 Score]"
+
+REFERENCE           ZOMBIE_ZGRIEF_NUKE_GRABBED_SCORE
+LANG_ENGLISH        "Nuke Grabbed! [&&1 Score]"
+
+REFERENCE           ZOMBIE_NEW_CONTAINMENT_ZONE
+LANG_ENGLISH        "New containment zone!"
+
+REFERENCE           ZOMBIE_YOUR_TEAM_CONTAINMENT_ZONE
+LANG_ENGLISH        "Your team controls the containment zone!"
+
+REFERENCE           ZOMBIE_OTHER_TEAM_CONTAINMENT_ZONE
+LANG_ENGLISH        "Enemy team controls the containment zone!"
+
+REFERENCE           ZOMBIE_CONTAINMENT_ZONE_CONTESTED
+LANG_ENGLISH        "Containment zone contested!"
+
+REFERENCE           ZOMBIE_CONTAINMENT_ZONE_UNCONTROLLED
+LANG_ENGLISH        "Containment zone uncontrolled!"
+
+REFERENCE           ZOMBIE_OTHER_TEAM_MEAT
+LANG_ENGLISH        "Enemy team has the meat!"
+
+REFERENCE           ZOMBIE_KILL_ZOMBIE_DROP_MEAT
+LANG_ENGLISH        "Kill a zombie to drop the meat!"
+
+REFERENCE           ZOMBIE_MEAT_DROPPED
+LANG_ENGLISH        "Meat dropped!"
+
+REFERENCE           ZOMBIE_MEAT_THROWN
+LANG_ENGLISH        "Meat thrown!"
+
+REFERENCE           ZOMBIE_MEAT_RESET
+LANG_ENGLISH        "Meat reset!"
+
+// WEAPONS
 
 REFERENCE           ZMWEAPON_SHIV
 LANG_ENGLISH        "Shiv"
@@ -56,7 +188,36 @@ LANG_ENGLISH        "Meat"
 REFERENCE           ZOMBIE_ITEM_HEAD
 LANG_ENGLISH        "Richtofen's Head"
 
-REFERENCE           ZOMBIE_FNP45_UPGRADED
+REFERENCE           ZMWEAPON_FNP45_UPGRADED
 LANG_ENGLISH        "Toughguy & Crybaby"
+
+// HINTSTRINGS
+
+REFERENCE           ZOMBIE_PERK_QUICKREVIVE
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Quick Revive [Cost: &&1]"
+
+REFERENCE           ZOMBIE_PERK_TOMBSTONE
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Tombstone Soda [Cost: &&1]"
+
+REFERENCE           ZOMBIE_BANK_WITHDRAW_PROMPT
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to withdraw &&1"
+
+REFERENCE           ZOMBIE_NAVCARD_USE
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to insert Navcard [Cost: &&1]"
+
+REFERENCE           ZM_HIGHRISE_BUILD_KEYS
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to insert elevator key [Cost: &&1]"
+
+REFERENCE           ZM_HIGHRISE_ELEVATOR_ON_THE_WAY
+LANG_ENGLISH        "The elevator is on the way"
+
+REFERENCE           ZM_HIGHRISE_LOCK_ELEVATOR
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to lock elevator"
+
+REFERENCE           ZM_HIGHRISE_UNLOCK_ELEVATOR
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to unlock elevator"
+
+REFERENCE           ZM_BURIED_CANDY_GV
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to give Candy [Cost: &&1]"
 
 ENDMARKER

@@ -71,7 +71,7 @@ item_meat_on_spawn_retrieve_trigger(watcher, player, weaponname)
 		{
 			if (!is_true(player._kicking_meat))
 			{
-				other_player thread scripts\zm\zgrief\zgrief_reimagined::show_grief_hud_msg("Meat thrown!");
+				other_player thread scripts\zm\zgrief\zgrief_reimagined::show_grief_hud_msg(&"ZOMBIE_MEAT_THROWN");
 			}
 		}
 	}

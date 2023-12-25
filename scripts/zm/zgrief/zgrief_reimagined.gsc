@@ -707,7 +707,7 @@ on_player_downed()
 
 		if (level.scr_zm_ui_gametype_obj == "zrace")
 		{
-			increment_score(getOtherTeam(self.team), 10, 1, "enemy_down");
+			increment_score(getOtherTeam(self.team), 10, 1, &"ZOMBIE_ZGRIEF_PLAYER_BLED_OUT_SCORE");
 		}
 
 		if (level.scr_zm_ui_gametype_obj == "zsnr")
@@ -784,7 +784,7 @@ on_player_revived()
 
 			if (level.scr_zm_ui_gametype_obj == "zrace")
 			{
-				increment_score(reviver.team, 5, 1, "ally_revive");
+				increment_score(reviver.team, 5, 1, &"ZOMBIE_ZGRIEF_ALLY_REVIVED_SCORE");
 			}
 
 			if (level.scr_zm_ui_gametype_obj == "zsnr")
@@ -1272,7 +1272,7 @@ update_players_on_revived(revived_player, reviver)
 
 	foreach (player in other_players)
 	{
-		player thread show_grief_hud_msg("Enemy Revived! [" + players_remaining + " Remaining]");
+		player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_PLAYER_REVIVED", players_remaining);
 	}
 }
 
@@ -1309,35 +1309,35 @@ grief_intro_msg()
 	{
 		foreach (player in players)
 		{
-			player thread show_grief_hud_msg("Make enemy players bleed out to gain score!");
+			player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_INTRO");
 		}
 	}
 	else if (level.scr_zm_ui_gametype_obj == "zsnr")
 	{
 		foreach (player in players)
 		{
-			player thread show_grief_hud_msg("Get all enemy players down to win a round!");
+			player thread show_grief_hud_msg(&"ZOMBIE_ZSNR_INTRO");
 		}
 	}
 	else if (level.scr_zm_ui_gametype_obj == "zrace")
 	{
 		foreach (player in players)
 		{
-			player thread show_grief_hud_msg("Kill zombies or enemy players to gain score!");
+			player thread show_grief_hud_msg(&"ZOMBIE_ZRACE_INTRO");
 		}
 	}
 	else if (level.scr_zm_ui_gametype_obj == "zcontainment")
 	{
 		foreach (player in players)
 		{
-			player thread show_grief_hud_msg("Control the containment zone to gain score!");
+			player thread show_grief_hud_msg(&"ZOMBIE_ZCONTAINMENT_INTRO");
 		}
 	}
 	else if (level.scr_zm_ui_gametype_obj == "zmeat")
 	{
 		foreach (player in players)
 		{
-			player thread show_grief_hud_msg("Hold the meat to gain score!");
+			player thread show_grief_hud_msg(&"ZOMBIE_ZMEAT_INTRO");
 		}
 	}
 
@@ -1345,39 +1345,18 @@ grief_intro_msg()
 
 	players = get_players();
 
-	if (level.scr_zm_ui_gametype_obj == "zgrief")
+	if (level.scr_zm_ui_gametype_obj == "zsnr")
 	{
 		foreach (player in players)
 		{
-			player thread show_grief_hud_msg("Gain " + get_gamemode_winning_score() + " score to win the game!");
+			player thread show_grief_hud_msg(&"ZOMBIE_GRIEF_ROUNDS_TO_WIN", get_gamemode_winning_score());
 		}
 	}
-	else if (level.scr_zm_ui_gametype_obj == "zsnr")
+	else
 	{
 		foreach (player in players)
 		{
-			player thread show_grief_hud_msg("Win " + get_gamemode_winning_score() + " rounds to win the game!");
-		}
-	}
-	else if (level.scr_zm_ui_gametype_obj == "zrace")
-	{
-		foreach (player in players)
-		{
-			player thread show_grief_hud_msg("Gain " + get_gamemode_winning_score() + " score to win the game!");
-		}
-	}
-	else if (level.scr_zm_ui_gametype_obj == "zcontainment")
-	{
-		foreach (player in players)
-		{
-			player thread show_grief_hud_msg("Gain " + get_gamemode_winning_score() + " score to win the game!");
-		}
-	}
-	else if (level.scr_zm_ui_gametype_obj == "zmeat")
-	{
-		foreach (player in players)
-		{
-			player thread show_grief_hud_msg("Gain " + get_gamemode_winning_score() + " score to win the game!");
+			player thread show_grief_hud_msg(&"ZOMBIE_GRIEF_SCORE_TO_WIN", get_gamemode_winning_score());
 		}
 	}
 }
@@ -1622,8 +1601,8 @@ custom_end_screen()
 			players[i].survived_hud.y += 40;
 		}
 
-		winner_text = "YOU WIN!";
-		loser_text = "YOU LOSE!";
+		winner_text = &"ZOMBIE_GRIEF_WIN";
+		loser_text = &"ZOMBIE_GRIEF_LOSE";
 
 		if (isDefined(level.host_ended_game) && level.host_ended_game)
 		{
@@ -2493,15 +2472,15 @@ race_check_for_kills()
 		self waittill("zom_kill", zombie);
 
 		amount = 1;
-		special_score = undefined;
+		score_msg = undefined;
 
 		if (is_true(zombie.is_brutus))
 		{
 			amount = 10;
-			special_score = "boss_kill";
+			score_msg = &"ZOMBIE_ZGRIEF_BOSS_KILLED_SCORE";
 		}
 
-		increment_score(self.team, amount, 1, special_score);
+		increment_score(self.team, amount, 1, score_msg);
 	}
 }
 
@@ -2519,7 +2498,7 @@ containment_init()
 	level.containment_zone_hud.color = (1, 1, 1);
 	level.containment_zone_hud.hidewheninmenu = 1;
 	level.containment_zone_hud.foreground = 1;
-	level.containment_zone_hud.label = &"Zone: ";
+	level.containment_zone_hud.label = &"ZOMBIE_HUD_CONTAINMENT_ZONE";
 
 	level.containment_time_hud = newHudElem();
 	level.containment_time_hud.alignx = "left";
@@ -2533,7 +2512,7 @@ containment_init()
 	level.containment_time_hud.color = (1, 1, 1);
 	level.containment_time_hud.hidewheninmenu = 1;
 	level.containment_time_hud.foreground = 1;
-	level.containment_time_hud.label = &"Time: ";
+	level.containment_time_hud.label = &"ZOMBIE_HUD_CONTAINMENT_TIME";
 
 	level thread containment_hud_destroy_on_end_game();
 	level thread containment_think();
@@ -2603,7 +2582,7 @@ containment_think()
 
 		foreach (player in players)
 		{
-			player thread show_grief_hud_msg("New containment zone!");
+			player thread show_grief_hud_msg(&"ZOMBIE_NEW_CONTAINMENT_ZONE");
 		}
 
 		level.containment_zone_hud setText(zone_display_name);
@@ -2730,7 +2709,7 @@ containment_think()
 
 					foreach (player in players)
 					{
-						player thread show_grief_hud_msg("Containment zone contested!");
+						player thread show_grief_hud_msg(&"ZOMBIE_CONTAINMENT_ZONE_CONTESTED");
 					}
 				}
 
@@ -2770,11 +2749,11 @@ containment_think()
 					{
 						if (player.team == "axis")
 						{
-							player thread show_grief_hud_msg("Your team controls the containment zone!");
+							player thread show_grief_hud_msg(&"ZOMBIE_YOUR_TEAM_CONTAINMENT_ZONE");
 						}
 						else
 						{
-							player thread show_grief_hud_msg("Other team controls the containment zone!");
+							player thread show_grief_hud_msg(&"ZOMBIE_OTHER_TEAM_CONTAINMENT_ZONE");
 						}
 					}
 				}
@@ -2809,11 +2788,11 @@ containment_think()
 					{
 						if (player.team == "axis")
 						{
-							player thread show_grief_hud_msg("Other team controls the containment zone!");
+							player thread show_grief_hud_msg(&"ZOMBIE_OTHER_TEAM_CONTAINMENT_ZONE");
 						}
 						else
 						{
-							player thread show_grief_hud_msg("Your team controls the containment zone!");
+							player thread show_grief_hud_msg(&"ZOMBIE_YOUR_TEAM_CONTAINMENT_ZONE");
 						}
 					}
 				}
@@ -2841,7 +2820,7 @@ containment_think()
 
 					foreach (player in players)
 					{
-						player thread show_grief_hud_msg("Containment zone uncontrolled!");
+						player thread show_grief_hud_msg(&"ZOMBIE_CONTAINMENT_ZONE_UNCONTROLLED");
 					}
 				}
 			}
@@ -3135,7 +3114,7 @@ meat_powerup_drop_think()
 
 	foreach (player in players)
 	{
-		player thread show_grief_hud_msg("Kill a zombie to drop the meat!");
+		player thread show_grief_hud_msg(&"ZOMBIE_KILL_ZOMBIE_DROP_MEAT");
 	}
 
 	while (1)
@@ -3156,7 +3135,7 @@ meat_powerup_drop_think()
 
 			foreach (player in players)
 			{
-				player thread show_grief_hud_msg("Meat dropped!");
+				player thread show_grief_hud_msg(&"ZOMBIE_MEAT_DROPPED");
 			}
 		}
 
@@ -3168,7 +3147,7 @@ meat_powerup_drop_think()
 
 		foreach (player in players)
 		{
-			player thread show_grief_hud_msg("Meat reset!");
+			player thread show_grief_hud_msg(&"ZOMBIE_MEAT_RESET");
 		}
 	}
 }
@@ -3354,7 +3333,7 @@ powerup_can_player_grab(player)
 	return true;
 }
 
-increment_score(team, amount = 1, show_lead_msg = true, special_score)
+increment_score(team, amount = 1, show_lead_msg = true, score_msg)
 {
 	level endon("end_game");
 
@@ -3384,15 +3363,15 @@ increment_score(team, amount = 1, show_lead_msg = true, special_score)
 		scripts\zm\replaced\_zm_game_module::game_won(encounters_team);
 	}
 
-	score_left = get_gamemode_winning_score() - level.grief_score[encounters_team];
-
 	if (level.scr_zm_ui_gametype_obj == "zgrief")
 	{
+		score_left = get_gamemode_winning_score() - level.grief_score[encounters_team];
+
 		players = get_players(team);
 
 		foreach (player in players)
 		{
-			player thread show_grief_hud_msg("Enemy Bled Out! [" + score_left + " Remaining]");
+			player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_PLAYER_DEAD", score_left);
 		}
 
 		if (level.grief_score[encounters_team] <= 3)
@@ -3407,32 +3386,13 @@ increment_score(team, amount = 1, show_lead_msg = true, special_score)
 
 	if (level.scr_zm_ui_gametype_obj == "zrace")
 	{
-		if (isDefined(special_score))
+		if (isDefined(score_msg))
 		{
-			msg = "";
-
-			if (special_score == "enemy_down")
-			{
-				msg = "Enemy Down! [" + amount + " Score]";
-			}
-			else if (special_score == "ally_revive")
-			{
-				msg = "Ally Revived! [" + amount + " Score]";
-			}
-			else if (special_score == "boss_kill")
-			{
-				msg = "Boss Killed! [" + amount + " Score]";
-			}
-			else if (special_score == "nuke_grab")
-			{
-				msg = "Nuke Grabbed! [" + amount + " Score]";
-			}
-
 			players = get_players(team);
 
 			foreach (player in players)
 			{
-				player thread show_grief_hud_msg(msg);
+				player thread show_grief_hud_msg(score_msg, amount);
 			}
 		}
 	}
@@ -3449,11 +3409,11 @@ increment_score(team, amount = 1, show_lead_msg = true, special_score)
 			{
 				if (player.team == team)
 				{
-					player thread show_grief_hud_msg("Gained the lead!", undefined, 30);
+					player thread show_grief_hud_msg(&"ZOMBIE_GRIEF_GAIN_LEAD", undefined, 30);
 				}
 				else
 				{
-					player thread show_grief_hud_msg("Lost the lead!", undefined, 30);
+					player thread show_grief_hud_msg(&"ZOMBIE_GRIEF_LOSE_LEAD", undefined, 30);
 				}
 			}
 		}

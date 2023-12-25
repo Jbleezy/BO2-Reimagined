@@ -8,7 +8,7 @@ navcomputer_waitfor_navcard()
 	navcomputer_use_trig = spawn("trigger_radius_use", trig_pos.origin, 0, 48, 48);
 	navcomputer_use_trig.cost = 100000;
 	navcomputer_use_trig setcursorhint("HINT_NOICON");
-	navcomputer_use_trig sethintstring(&"ZOMBIE_NAVCARD_USE", " [Cost: " + navcomputer_use_trig.cost + "]");
+	navcomputer_use_trig sethintstring(&"ZOMBIE_NAVCARD_USE", navcomputer_use_trig.cost);
 	navcomputer_use_trig triggerignoreteam();
 
 	while (true)
@@ -90,7 +90,7 @@ sq_complete_time_hud()
 	hud.color = (1, 1, 1);
 	hud.hidewheninmenu = 1;
 	hud.foreground = 1;
-	hud.label = &"Quest Complete! Time: ";
+	hud.label = &"ZOMBIE_HUD_QUEST_COMPLETE_TIME";
 
 	hud endon("death");
 

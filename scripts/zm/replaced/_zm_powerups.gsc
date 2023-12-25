@@ -318,7 +318,7 @@ full_ammo_powerup(drop_item, player)
 	if (level.scr_zm_ui_gametype == "zgrief")
 	{
 		clip_only = 1;
-		drop_item.hint = &"Clip Ammo!";
+		drop_item.hint = &"ZOMBIE_POWERUP_CLIP_AMMO";
 	}
 
 	players = get_players(player.team);
@@ -494,7 +494,7 @@ empty_clip_on_hud(drop_item, team)
 	hudelem.alpha = 0;
 	hudelem fadeovertime(0.5);
 	hudelem.alpha = 1;
-	hudelem.label = &"Clip Empty!";
+	hudelem.label = &"ZOMBIE_POWERUP_CLIP_EMPTY";
 	hudelem thread empty_clip_move_hud(team);
 }
 
@@ -606,7 +606,7 @@ nuke_powerup(drop_item, player_team)
 		{
 			if (isDefined(level.increment_score_func))
 			{
-				[[level.increment_score_func]](player_team, 10, 1, "nuke_grab");
+				[[level.increment_score_func]](player_team, 10, 1, &"ZOMBIE_ZGRIEF_NUKE_GRABBED_SCORE");
 			}
 		}
 	}
