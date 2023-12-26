@@ -528,7 +528,7 @@ craftabletrigger_update_prompt(player)
 
 	if (can_use && is_true(self.stub.crafted) && !is_true(self.stub.is_locked))
 	{
-		self sethintstring(self.stub.hint_string, " [Cost: " + self.stub.cost + "]");
+		self sethintstring(self.stub.hint_string, self.stub.cost);
 	}
 	else
 	{

@@ -73,7 +73,7 @@ pooledbuildabletrigger_update_prompt(player)
 
 	if (can_use && is_true(self.stub.built))
 	{
-		self sethintstring(self.stub.hint_string, " [Cost: " + self.stub.cost + "]");
+		self sethintstring(self.stub.hint_string, self.stub.cost);
 	}
 	else
 	{

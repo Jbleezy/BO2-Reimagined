@@ -48,6 +48,9 @@ LANG_ENGLISH        "Time: "
 REFERENCE           ZM_TRANSIT_BUS_DEPART_TIME
 LANG_ENGLISH        "Bus departs in: "
 
+REFERENCE           ZOMBIE_BUILDING
+LANG_ENGLISH        "Crafting..."
+
 REFERENCE           ZOMBIE_POWERUP_CLIP_AMMO
 LANG_ENGLISH        "Clip Ammo!"
 
@@ -179,7 +182,7 @@ LANG_ENGLISH        "Turbine"
 REFERENCE           ZOMBIE_EQUIP_TURRET
 LANG_ENGLISH        "Turret"
 
-REFERENCE           ZM_BURIED_EQ_SP
+REFERENCE           ZM_HIGHRISE_EQUIP_SPRINGPAD
 LANG_ENGLISH        "Trample Steam"
 
 REFERENCE           ZOMBIE_ITEM_MEAT
@@ -191,13 +194,118 @@ LANG_ENGLISH        "Richtofen's Head"
 REFERENCE           ZMWEAPON_FNP45_UPGRADED
 LANG_ENGLISH        "Toughguy & Crybaby"
 
-// HINTSTRINGS
+// HINT STRINGS
 
 REFERENCE           ZOMBIE_PERK_QUICKREVIVE
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Quick Revive [Cost: &&1]"
 
 REFERENCE           ZOMBIE_PERK_TOMBSTONE
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Tombstone Soda [Cost: &&1]"
+
+REFERENCE           ZOMBIE_BUILD_TURBINE
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Turbine"
+
+REFERENCE           ZOMBIE_GRAB_TURBINE_PICKUP_HINT_STRING
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Turbine [Cost: &&1]"
+
+REFERENCE           ZOMBIE_BUILD_RIOT
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Zombie Shield"
+
+REFERENCE           ZOMBIE_GRAB_RIOTSHIELD
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Zombie Shield [Cost: &&1]"
+
+REFERENCE           ZOMBIE_BUILD_TURRET
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Turret"
+
+REFERENCE           ZOMBIE_GRAB_TURRET_PICKUP_HINT_STRING
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Turret [Cost: &&1]"
+
+REFERENCE           ZOMBIE_BUILD_ELECTRIC_TRAP
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Electric Trap"
+
+REFERENCE           ZOMBIE_GRAB_ELECTRICTRAP
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Electric Trap [Cost: &&1]"
+
+REFERENCE           ZOMBIE_BUILD_JETGUN
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Jet Gun"
+
+REFERENCE           ZOMBIE_GRAB_JETGUN
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Jet Gun [Cost: &&1]"
+
+REFERENCE           ZM_HIGHRISE_BUILD_SPRINGPAD
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Trample Steam"
+
+REFERENCE           ZM_HIGHRISE_GRAB_SPRINGPAD
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Trample Steam [Cost: &&1]"
+
+REFERENCE           ZM_HIGHRISE_BUILD_SLIPGUN
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Sliquifier"
+
+REFERENCE           ZM_HIGHRISE_GRAB_SLIPGUN
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Sliquifier [Cost: &&1]"
+
+REFERENCE           ZM_PRISON_CONVERT_START
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to convert Blundergat into Acidgat [Cost: &&1]"
+
+REFERENCE           ZM_BURIED_BUILD_SUBWOOFER
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Subsurface Resonator"
+
+REFERENCE           ZM_BURIED_GRAB_SUBWOOFER
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Subsurface Resonator [Cost: &&1]"
+
+REFERENCE           ZM_BURIED_BOUGHT_SUBWOOFER
+LANG_ENGLISH        "Took Subsurface Resonator"
+
+REFERENCE           ZM_BURIED_BUILD_SPRINGPAD
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Trample Steam"
+
+REFERENCE           ZM_BURIED_GRAB_SPRINGPAD
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Trample Steam [Cost: &&1]"
+
+REFERENCE           ZM_BURIED_BOUGHT_SPRINGPAD
+LANG_ENGLISH        "Took Trample Steam"
+
+REFERENCE           ZM_BURIED_BUILD_HEADCHOPPER
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Head Chopper"
+
+REFERENCE           ZM_BURIED_GRAB_HEADCHOPPER
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Head Chopper [Cost: &&1]"
+
+REFERENCE           ZM_BURIED_BOUGHT_HEADCHOPPER
+LANG_ENGLISH        "Took Head Chopper"
+
+REFERENCE           ZM_BURIED_BUILD_MTOWER
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Noose"
+
+REFERENCE           ZM_BURIED_BUILD_RTOWER
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Guillotine"
+
+REFERENCE           ZM_TOMB_CRRI
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Zombie Shield"
+
+REFERENCE           ZM_TOMB_CRQ
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Maxis Drone"
+
+REFERENCE           ZM_TOMB_TQ
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Maxis Drone [Cost: &&1]"
+
+REFERENCE           ZM_TOMB_BOUGHT_MAXISDRONE
+LANG_ENGLISH        "Took Maxis Drone"
+
+REFERENCE           ZM_TOMB_MAXISDRONE_COOLDOWN
+LANG_ENGLISH        "Cooling down"
+
+REFERENCE           ZM_TOMB_MISSING_WIND_STAFF
+LANG_ENGLISH        "Wind Staff Required"
+
+REFERENCE           ZM_TOMB_MISSING_FIRE_STAFF
+LANG_ENGLISH        "Fire Staff Required"
+
+REFERENCE           ZM_TOMB_MISSING_LIGHTNING_STAFF
+LANG_ENGLISH        "Lightning Staff Required"
+
+REFERENCE           ZM_TOMB_MISSING_ICE_STAFF
+LANG_ENGLISH        "Ice Staff Required"
 
 REFERENCE           ZOMBIE_BANK_WITHDRAW_PROMPT
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to withdraw &&1"

@@ -2957,8 +2957,6 @@ buildbuildable(buildable, craft = 0, solo_pool = 0, onuse)
 					{
 						scripts\zm\replaced\_zm_buildables_pooled::add_buildable_to_pool(stub, level.script);
 					}
-
-					level.zombie_buildables[stub.equipname].hint = "Hold ^3[{+activate}]^7 to craft " + stub get_equipment_display_name();
 				}
 
 				foreach (piece in stub.buildablezone.pieces)
@@ -2970,56 +2968,6 @@ buildbuildable(buildable, craft = 0, solo_pool = 0, onuse)
 			}
 		}
 	}
-}
-
-get_equipment_display_name()
-{
-	if (self.equipname == "turbine")
-	{
-		return "Turbine";
-	}
-	else if (self.equipname == "turret")
-	{
-		return "Turret";
-	}
-	else if (self.equipname == "electric_trap")
-	{
-		return "Electric Trap";
-	}
-	else if (self.equipname == "riotshield_zm" || self.equipname == "alcatraz_shield_zm" || self.equipname == "tomb_shield_zm")
-	{
-		return "Zombie Shield";
-	}
-	else if (self.equipname == "jetgun_zm")
-	{
-		return "Jet Gun";
-	}
-	else if (self.equipname == "slipgun_zm")
-	{
-		return "Sliquifier";
-	}
-	else if (self.equipname == "subwoofer_zm")
-	{
-		return "Subsurface Resonator";
-	}
-	else if (self.equipname == "springpad_zm")
-	{
-		return "Trample Steam";
-	}
-	else if (self.equipname == "headchopper_zm")
-	{
-		return "Head Chopper";
-	}
-	else if (self.equipname == "buried_sq_bt_r_tower")
-	{
-		return "Guillotine";
-	}
-	else if (self.equipname == "buried_sq_bt_m_tower")
-	{
-		return "Noose";
-	}
-
-	return "";
 }
 
 get_equipment_cost()

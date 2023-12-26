@@ -5,6 +5,10 @@
 main()
 {
 	replaceFunc(maps\mp\zm_buried_sq::navcomputer_waitfor_navcard, scripts\zm\replaced\_zm_sq::navcomputer_waitfor_navcard);
+	replaceFunc(maps\mp\zm_buried_buildables::init_buildables, scripts\zm\replaced\zm_buried_buildables::init_buildables);
+	replaceFunc(maps\mp\zm_buried_buildables::subwooferbuildable, scripts\zm\replaced\zm_buried_buildables::subwooferbuildable);
+	replaceFunc(maps\mp\zm_buried_buildables::springpadbuildable, scripts\zm\replaced\zm_buried_buildables::springpadbuildable);
+	replaceFunc(maps\mp\zm_buried_buildables::headchopperbuildable, scripts\zm\replaced\zm_buried_buildables::headchopperbuildable);
 	replaceFunc(maps\mp\zm_buried_buildables::watch_cell_open_close, scripts\zm\replaced\zm_buried_buildables::watch_cell_open_close);
 	replaceFunc(maps\mp\zm_buried_gamemodes::init, scripts\zm\replaced\zm_buried_gamemodes::init);
 	replaceFunc(maps\mp\zm_buried_gamemodes::buildbuildable, scripts\zm\replaced\zm_buried_gamemodes::buildbuildable);
@@ -71,7 +75,6 @@ init()
 	sloth_barricades_buyable();
 	add_jug_collision();
 
-	level thread update_buildable_stubs();
 	level thread remove_chalk_draw_points();
 	level thread enable_fountain_transport();
 	level thread disable_ghost_free_perk_on_damage();
@@ -329,21 +332,6 @@ sloth_barricade_move()
 		time = randomfloatrange(0.1, 0.4);
 		self rotateto(angles, time);
 		wait(time - 0.05);
-	}
-}
-
-update_buildable_stubs()
-{
-	flag_wait("initial_blackscreen_passed");
-
-	wait 1;
-
-	foreach (stub in level.buildablepools["buried"].stubs)
-	{
-		if (isDefined(level.zombie_buildables[stub.equipname]))
-		{
-			level.zombie_buildables[stub.equipname].bought = "Took " + stub scripts\zm\_zm_reimagined::get_equipment_display_name();
-		}
 	}
 }
 

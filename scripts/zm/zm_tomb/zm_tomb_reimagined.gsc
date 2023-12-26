@@ -510,7 +510,7 @@ craftabletrigger_update_prompt(player)
 
 	if (can_use && is_true(self.stub.crafted) && !isSubStr(self.stub.craftablespawn.craftable_name, "staff"))
 	{
-		self sethintstring(self.stub.hint_string, " [Cost: " + self.stub.cost + "]");
+		self sethintstring(self.stub.hint_string, self.stub.cost);
 	}
 	else
 	{
@@ -575,7 +575,7 @@ craftablestub_update_prompt(player, unitrigger)
 			}
 			else if (flag("quadrotor_cooling_down"))
 			{
-				self.hint_string = "Cooling down";
+				self.hint_string = &"ZM_TOMB_MAXISDRONE_COOLDOWN";
 				return false;
 			}
 		}

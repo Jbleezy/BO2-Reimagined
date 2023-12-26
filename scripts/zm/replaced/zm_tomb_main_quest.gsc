@@ -379,26 +379,26 @@ insert_staff_hint_charger(player, enum)
 	self.playertrigger[num] endon("insert_staff_hint_charger");
 	self.playertrigger[num] endon("death");
 
-	element = "";
+	staff_hint_string = "";
 
 	if (enum == 1)
 	{
-		element = "Fire";
+		staff_hint_string = &"ZM_TOMB_MISSING_FIRE_STAFF";
 	}
 	else if (enum == 2)
 	{
-		element = "Wind";
+		staff_hint_string = &"ZM_TOMB_MISSING_WIND_STAFF";
 	}
 	else if (enum == 3)
 	{
-		element = "Lightning";
+		staff_hint_string = &"ZM_TOMB_MISSING_LIGHTNING_STAFF";
 	}
 	else if (enum == 4)
 	{
-		element = "Ice";
+		staff_hint_string = &"ZM_TOMB_MISSING_ICE_STAFF";
 	}
 
-	self.playertrigger[num] sethintstring(element + " Staff Required");
+	self.playertrigger[num] sethintstring(staff_hint_string);
 
 	wait 3;
 

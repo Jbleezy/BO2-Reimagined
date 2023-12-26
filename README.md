@@ -383,7 +383,7 @@
 * No longer deactivated if the perk machine is powered off
 * Added high qualty perk icons to all maps
 
-### Juggernog
+### Jugger-Nog
 * Increases current health by 100 upon purchase (normally sets current health to max)
 
 ### Quick Revive
@@ -391,6 +391,7 @@
 * Increased cost in solo from 500 to 1500
 * Decreases revive time by 33.33%
 * Decreases health regeneration delay by 25%
+* Changed hint string from "Revive" to "Quick Revive"
 
 ### Speed Cola
 * Aim twice as fast
@@ -430,6 +431,7 @@
 * Disabled suicide option when player is down
 * Added powerup waypoint
 * Flipped perk icon
+* Changed hint string from "Tombstone" to "Tombstone Soda"
 
 ### Who's Who
 * Keep weapons when entering Who's Who mode
@@ -506,6 +508,7 @@
 * Can be destroyed by taking 1500 damage
 * Can no longer be picked up after being destroyed
 * Added weapon name on HUD to all buildables
+* Changed crafting hint string from "Building..." to "Crafting..."
 
 ### Zombie Shield
 * Added shield health bar on HUD
