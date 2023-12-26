@@ -132,6 +132,21 @@ LANG_ENGLISH        "Containment zone contested!"
 REFERENCE           ZOMBIE_CONTAINMENT_ZONE_UNCONTROLLED
 LANG_ENGLISH        "Containment zone uncontrolled!"
 
+REFERENCE           ZOMBIE_GRABBED_MEAT
+LANG_ENGLISH        "^8&&1 grabbed the meat"
+
+REFERENCE           ZOMBIE_GRABBED_MEAT_ENEMY
+LANG_ENGLISH        "^9&&1 grabbed the meat"
+
+REFERENCE           ZOMBIE_HAS_MEAT
+LANG_ENGLISH        "^8&&1 has the meat"
+
+REFERENCE           ZOMBIE_HAS_MEAT_ENEMY
+LANG_ENGLISH        "^9&&1 has the meat"
+
+REFERENCE           ZOMBIE_PLAYER_HAS_MEAT
+LANG_ENGLISH        "You have the meat!"
+
 REFERENCE           ZOMBIE_OTHER_TEAM_MEAT
 LANG_ENGLISH        "Enemy team has the meat!"
 

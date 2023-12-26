@@ -191,7 +191,7 @@ meat_stink(who)
 		{
 			if (player == who)
 			{
-				player thread scripts\zm\zgrief\zgrief_reimagined::show_grief_hud_msg("You have the meat!");
+				player thread scripts\zm\zgrief\zgrief_reimagined::show_grief_hud_msg(&"ZOMBIE_PLAYER_HAS_MEAT");
 			}
 			else if (player.team == who.team)
 			{
@@ -476,16 +476,30 @@ print_meat_msg(meat_player, verb)
 		wait 0.05; // must wait to show after any obituaries that happened on the same frame
 	}
 
-	color = "";
+	hint_string = "";
 
 	if (self.team == meat_player.team)
 	{
-		color = "^8";
+		if (verb == "grabbed")
+		{
+			hint_string = &"ZOMBIE_GRABBED_MEAT";
+		}
+		else if (verb == "has")
+		{
+			hint_string = &"ZOMBIE_HAS_MEAT";
+		}
 	}
 	else
 	{
-		color = "^9";
+		if (verb == "grabbed")
+		{
+			hint_string = &"ZOMBIE_GRABBED_MEAT_ENEMY";
+		}
+		else if (verb == "has")
+		{
+			hint_string = &"ZOMBIE_HAS_MEAT_ENEMY";
+		}
 	}
 
-	self iprintln(color + meat_player.name + " " + verb + " the meat");
+	self iprintln(hint_string, meat_player.name);
 }
