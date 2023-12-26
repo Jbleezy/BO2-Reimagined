@@ -816,9 +816,16 @@ kill_feed()
 			self.last_griefed_by.meansofdeath = "MOD_UNKNOWN";
 		}
 
+		// weapon icon only defined on held melee weapon
 		if (is_melee_weapon(self.last_griefed_by.weapon))
 		{
 			self.last_griefed_by.weapon = get_held_melee_weapon(self.last_griefed_by.weapon);
+		}
+
+		// show BO2 MP Ballistic Knife icon (only defined on unupgraded Ballistic Knife)
+		if (issubstr(self.last_griefed_by.weapon, "knife_ballistic"))
+		{
+			self.last_griefed_by.weapon = get_base_weapon_name(self.last_griefed_by.weapon, 1);
 		}
 
 		obituary(self, self.last_griefed_by.attacker, self.last_griefed_by.weapon, self.last_griefed_by.meansofdeath);
@@ -842,13 +849,6 @@ revive_feed(reviver)
 	{
 		weapon = self.revived_by_weapon;
 		self.revived_by_weapon = undefined;
-	}
-
-	// have to put ballistic knife revive icon in a different weapon file
-	// since ballistic knife kill icon already in use
-	if (issubstr(weapon, "knife_ballistic"))
-	{
-		weapon = "zombie_fists_zm";
 	}
 
 	obituary(self, reviver, weapon, "MOD_UNKNOWN");
