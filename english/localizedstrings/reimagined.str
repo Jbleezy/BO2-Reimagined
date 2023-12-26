@@ -4,14 +4,59 @@ FILENOTES           ""
 
 // UI
 
+REFERENCE           ZMUI_CLASSIC_GAMEMODE
+LANG_ENGLISH        "Classic"
+
 REFERENCE           ZMUI_CLASSIC_GAMEMODE_CAPS
 LANG_ENGLISH        "CLASSIC"
+
+REFERENCE           ZMUI_GRIEF_PRO
+LANG_ENGLISH        "Grief Pro"
+
+REFERENCE           ZMUI_SNR
+LANG_ENGLISH        "Search & Rezurrect"
 
 REFERENCE           ZMUI_SNR_CAPS
 LANG_ENGLISH        "SEARCH & REZURRECT"
 
+REFERENCE           ZMUI_SNR_PRO
+LANG_ENGLISH        "Search & Rezurrect Pro"
+
+REFERENCE           ZMUI_RACE
+LANG_ENGLISH        "Race"
+
+REFERENCE           ZMUI_RACE_PRO
+LANG_ENGLISH        "Race Pro"
+
+REFERENCE           ZMUI_CONTAINMENT
+LANG_ENGLISH        "Containment"
+
+REFERENCE           ZMUI_CONTAINMENT_PRO
+LANG_ENGLISH        "Containment Pro"
+
+REFERENCE           ZMUI_MEAT
+LANG_ENGLISH        "Meat"
+
+REFERENCE           ZMUI_MEAT_PRO
+LANG_ENGLISH        "Meat Pro"
+
+REFERENCE           ZMUI_POWER
+LANG_ENGLISH        "Power Station"
+
+REFERENCE           ZMUI_CORNFIELD
+LANG_ENGLISH        "Cornfield"
+
+REFERENCE           ZMUI_DOCKS
+LANG_ENGLISH        "Docks"
+
 REFERENCE           ZMUI_DOCKS_CAPS
 LANG_ENGLISH        "DOCKS"
+
+REFERENCE           ZMUI_STREET_LOC
+LANG_ENGLISH        "Borough"
+
+REFERENCE           ZMUI_MAZE
+LANG_ENGLISH        "Maze"
 
 REFERENCE           ZMUI_MAZE_CAPS
 LANG_ENGLISH        "MAZE"

@@ -1363,35 +1363,54 @@ grief_intro_msg()
 
 get_gamemode_display_name(gamemode = level.scr_zm_ui_gametype_obj)
 {
-	name = "";
-
-	if (gamemode == "zgrief")
-	{
-		name = "Grief";
-	}
-	else if (gamemode == "zsnr")
-	{
-		name = "Search & Rezurrect";
-	}
-	else if (gamemode == "zrace")
-	{
-		name = "Race";
-	}
-	else if (gamemode == "zcontainment")
-	{
-		name = "Containment";
-	}
-	else if (gamemode == "zmeat")
-	{
-		name = "Meat";
-	}
-
 	if (level.scr_zm_ui_gametype_pro)
 	{
-		name += " Pro";
+		if (gamemode == "zgrief")
+		{
+			return &"ZMUI_GRIEF_PRO";
+		}
+		else if (gamemode == "zsnr")
+		{
+			return &"ZMUI_SNR_PRO";
+		}
+		else if (gamemode == "zrace")
+		{
+			return &"ZMUI_RACE_PRO";
+		}
+		else if (gamemode == "zcontainment")
+		{
+			return &"ZMUI_CONTAINMENT_PRO";
+		}
+		else if (gamemode == "zmeat")
+		{
+			return &"ZMUI_MEAT_PRO";
+		}
+	}
+	else
+	{
+		if (gamemode == "zgrief")
+		{
+			return &"ZMUI_GRIEF";
+		}
+		else if (gamemode == "zsnr")
+		{
+			return &"ZMUI_SNR";
+		}
+		else if (gamemode == "zrace")
+		{
+			return &"ZMUI_RACE";
+		}
+		else if (gamemode == "zcontainment")
+		{
+			return &"ZMUI_CONTAINMENT";
+		}
+		else if (gamemode == "zmeat")
+		{
+			return &"ZMUI_MEAT";
+		}
 	}
 
-	return name;
+	return "";
 }
 
 get_gamemode_winning_score()
