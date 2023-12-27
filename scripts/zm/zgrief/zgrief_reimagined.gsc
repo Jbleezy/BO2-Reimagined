@@ -606,7 +606,7 @@ grief_onplayerdisconnect(disconnecting_player)
 		}
 	}
 
-	count = countplayers(disconnecting_player.team) - 1;
+	count = get_players(disconnecting_player.team).size - 1;
 
 	if (count <= 0)
 	{

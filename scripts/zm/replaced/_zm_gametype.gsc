@@ -418,8 +418,8 @@ do_team_change()
 {
 	if (!level.allow_teamchange)
 	{
-		teamplayers = countplayers(self.pers["team"]);
-		otherteamplayers = countplayers(getotherteam(self.pers["team"]));
+		teamplayers = get_players(self.pers["team"]).size;
+		otherteamplayers = get_players(getotherteam(self.pers["team"])).size;
 
 		if (teamplayers - 1 <= otherteamplayers)
 		{
