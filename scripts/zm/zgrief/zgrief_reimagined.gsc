@@ -91,7 +91,6 @@ init()
 	level thread unlimited_powerups();
 	level thread save_teams_on_intermission();
 	level thread all_voice_on_intermission();
-	level thread spawn_bots();
 }
 
 grief_gamemode_hud()
@@ -3430,34 +3429,5 @@ increment_score(team, amount = 1, show_lead_msg = true, score_msg)
 				}
 			}
 		}
-	}
-}
-
-spawn_bots()
-{
-	bot_amount = getDvarIntDefault("scr_bot_count_zm", 0);
-
-	level waittill("connected", player);
-
-	wait 1;
-
-	level.bots = [];
-
-	for (i = 0; i < bot_amount; i++)
-	{
-		if (get_players().size == 8)
-		{
-			break;
-		}
-
-		// fixes bot occasionally not spawning
-		while (!isDefined(level.bots[i]))
-		{
-			level.bots[i] = addtestclient();
-		}
-
-		level.bots[i].pers["isBot"] = 1;
-
-		wait 1;
 	}
 }
