@@ -198,6 +198,725 @@ LANG_ENGLISH        "Meat thrown!"
 REFERENCE           ZOMBIE_MEAT_RESET
 LANG_ENGLISH        "Meat reset!"
 
+// ZONE NAMES
+
+REFERENCE           ZM_TRANSIT_ZONE_PRI
+LANG_ENGLISH        "Bus Depot"
+
+REFERENCE           ZM_TRANSIT_ZONE_PRI2
+LANG_ENGLISH        "Bus Depot Hallway"
+
+REFERENCE           ZM_TRANSIT_ZONE_STATION_EXT
+LANG_ENGLISH        "Outside Bus Depot"
+
+REFERENCE           ZM_TRANSIT_ZONE_TRANS_2B
+LANG_ENGLISH        "Fog After Bus Depot"
+
+REFERENCE           ZM_TRANSIT_ZONE_TRANS_2
+LANG_ENGLISH        "Tunnel Entrance"
+
+REFERENCE           ZM_TRANSIT_ZONE_AMB_TUNNEL
+LANG_ENGLISH        "Tunnel"
+
+REFERENCE           ZM_TRANSIT_ZONE_TRANS_3
+LANG_ENGLISH        "Tunnel Exit"
+
+REFERENCE           ZM_TRANSIT_ZONE_ROADSIDE_WEST
+LANG_ENGLISH        "Outside Diner"
+
+REFERENCE           ZM_TRANSIT_ZONE_GAS
+LANG_ENGLISH        "Gas Station"
+
+REFERENCE           ZM_TRANSIT_ZONE_ROADSIDE_EAST
+LANG_ENGLISH        "Outside Garage"
+
+REFERENCE           ZM_TRANSIT_ZONE_TRANS_DINER
+LANG_ENGLISH        "Fog Outside Diner"
+
+REFERENCE           ZM_TRANSIT_ZONE_TRANS_DINER2
+LANG_ENGLISH        "Fog Outside Garage"
+
+REFERENCE           ZM_TRANSIT_ZONE_GAR
+LANG_ENGLISH        "Garage"
+
+REFERENCE           ZM_TRANSIT_ZONE_DIN
+LANG_ENGLISH        "Diner"
+
+REFERENCE           ZM_TRANSIT_ZONE_DINER_ROOF
+LANG_ENGLISH        "Diner Roof"
+
+REFERENCE           ZM_TRANSIT_ZONE_TRANS_4
+LANG_ENGLISH        "Fog After Diner"
+
+REFERENCE           ZM_TRANSIT_ZONE_AMB_FOREST
+LANG_ENGLISH        "Forest"
+
+REFERENCE           ZM_TRANSIT_ZONE_TRANS_10
+LANG_ENGLISH        "Outside Church"
+
+REFERENCE           ZM_TRANSIT_ZONE_TOWN_CHURCH
+LANG_ENGLISH        "Outside Church To Town"
+
+REFERENCE           ZM_TRANSIT_ZONE_TRANS_5
+LANG_ENGLISH        "Fog Before Farm"
+
+REFERENCE           ZM_TRANSIT_ZONE_FAR
+LANG_ENGLISH        "Outside Farm"
+
+REFERENCE           ZM_TRANSIT_ZONE_FAR_EXT
+LANG_ENGLISH        "Farm"
+
+REFERENCE           ZM_TRANSIT_ZONE_BRN
+LANG_ENGLISH        "Barn"
+
+REFERENCE           ZM_TRANSIT_ZONE_FARM_HOUSE
+LANG_ENGLISH        "Farmhouse"
+
+REFERENCE           ZM_TRANSIT_ZONE_TRANS_6
+LANG_ENGLISH        "Fog After Farm"
+
+REFERENCE           ZM_TRANSIT_ZONE_AMB_CORNFIELD
+LANG_ENGLISH        "Cornfield"
+
+REFERENCE           ZM_TRANSIT_ZONE_CORNFIELD_PROTOTYPE
+LANG_ENGLISH        "Prototype"
+
+REFERENCE           ZM_TRANSIT_ZONE_TRANS_7
+LANG_ENGLISH        "Upper Fog Before Power Station"
+
+REFERENCE           ZM_TRANSIT_ZONE_TRANS_POW_EXT1
+LANG_ENGLISH        "Fog Before Power Station"
+
+REFERENCE           ZM_TRANSIT_ZONE_POW
+LANG_ENGLISH        "Outside Power Station"
+
+REFERENCE           ZM_TRANSIT_ZONE_PRR
+LANG_ENGLISH        "Power Station"
+
+REFERENCE           ZM_TRANSIT_ZONE_PCR
+LANG_ENGLISH        "Power Station Control Room"
+
+REFERENCE           ZM_TRANSIT_ZONE_POW_WAREHOUSE
+LANG_ENGLISH        "Warehouse"
+
+REFERENCE           ZM_TRANSIT_ZONE_TRANS_8
+LANG_ENGLISH        "Fog After Power Station"
+
+REFERENCE           ZM_TRANSIT_ZONE_AMB_POWER2TOWN
+LANG_ENGLISH        "Cabin"
+
+REFERENCE           ZM_TRANSIT_ZONE_TRANS_9
+LANG_ENGLISH        "Fog Before Town"
+
+REFERENCE           ZM_TRANSIT_ZONE_TOWN_NORTH
+LANG_ENGLISH        "North Town"
+
+REFERENCE           ZM_TRANSIT_ZONE_TOW
+LANG_ENGLISH        "Center Town"
+
+REFERENCE           ZM_TRANSIT_ZONE_TOWN_EAST
+LANG_ENGLISH        "East Town"
+
+REFERENCE           ZM_TRANSIT_ZONE_TOWN_WEST
+LANG_ENGLISH        "West Town"
+
+REFERENCE           ZM_TRANSIT_ZONE_TOWN_SOUTH
+LANG_ENGLISH        "South Town"
+
+REFERENCE           ZM_TRANSIT_ZONE_BAR
+LANG_ENGLISH        "Bar"
+
+REFERENCE           ZM_TRANSIT_ZONE_TOWN_BARBER
+LANG_ENGLISH        "Bookstore"
+
+REFERENCE           ZM_TRANSIT_ZONE_BAN
+LANG_ENGLISH        "Bank"
+
+REFERENCE           ZM_TRANSIT_ZONE_BAN_VAULT
+LANG_ENGLISH        "Bank Vault"
+
+REFERENCE           ZM_TRANSIT_ZONE_TBU
+LANG_ENGLISH        "Below Bank"
+
+REFERENCE           ZM_TRANSIT_ZONE_TRANS_11
+LANG_ENGLISH        "Fog After Town"
+
+REFERENCE           ZM_TRANSIT_ZONE_AMB_BRIDGE
+LANG_ENGLISH        "Bridge"
+
+REFERENCE           ZM_TRANSIT_ZONE_TRANS_1
+LANG_ENGLISH        "Fog Before Bus Depot"
+
+REFERENCE           ZM_NUKED_CULDESAC_YELLOW_ZONE
+LANG_ENGLISH        "Yellow House Cul-de-sac"
+
+REFERENCE           ZM_NUKED_CULDESAC_GREEN_ZONE
+LANG_ENGLISH        "Green House Cul-de-sac"
+
+REFERENCE           ZM_NUKED_TRUCK_ZONE
+LANG_ENGLISH        "Truck"
+
+REFERENCE           ZM_NUKED_OPENHOUSE1_F1_ZONE
+LANG_ENGLISH        "Green House Downstairs"
+
+REFERENCE           ZM_NUKED_OPENHOUSE1_F2_ZONE
+LANG_ENGLISH        "Green House Upstairs"
+
+REFERENCE           ZM_NUKED_OPENHOUSE1_BACKYARD_ZONE
+LANG_ENGLISH        "Green House Backyard"
+
+REFERENCE           ZM_NUKED_OPENHOUSE2_F1_ZONE
+LANG_ENGLISH        "Yellow House Downstairs"
+
+REFERENCE           ZM_NUKED_OPENHOUSE2_F2_ZONE
+LANG_ENGLISH        "Yellow House Upstairs"
+
+REFERENCE           ZM_NUKED_OPENHOUSE2_BACKYARD_ZONE
+LANG_ENGLISH        "Yellow House Backyard"
+
+REFERENCE           ZM_NUKED_AMMO_DOOR_ZONE
+LANG_ENGLISH        "Yellow House Backyard Door"
+
+REFERENCE           ZM_HIGHRISE_ZONE_GREEN_START
+LANG_ENGLISH        "Green Highrise Level 3b"
+
+REFERENCE           ZM_HIGHRISE_ZONE_GREEN_ESCAPE_POD
+LANG_ENGLISH        "Escape Pod"
+
+REFERENCE           ZM_HIGHRISE_ZONE_GREEN_ESCAPE_POD_GROUND
+LANG_ENGLISH        "Escape Pod Shaft"
+
+REFERENCE           ZM_HIGHRISE_ZONE_GREEN_LEVEL1
+LANG_ENGLISH        "Green Highrise Level 3a"
+
+REFERENCE           ZM_HIGHRISE_ZONE_GREEN_LEVEL2A
+LANG_ENGLISH        "Green Highrise Level 2a"
+
+REFERENCE           ZM_HIGHRISE_ZONE_GREEN_LEVEL2B
+LANG_ENGLISH        "Green Highrise Level 2b"
+
+REFERENCE           ZM_HIGHRISE_ZONE_GREEN_LEVEL3A
+LANG_ENGLISH        "Green Highrise Restaurant"
+
+REFERENCE           ZM_HIGHRISE_ZONE_GREEN_LEVEL3B
+LANG_ENGLISH        "Green Highrise Level 1a"
+
+REFERENCE           ZM_HIGHRISE_ZONE_GREEN_LEVEL3C
+LANG_ENGLISH        "Green Highrise Level 1b"
+
+REFERENCE           ZM_HIGHRISE_ZONE_GREEN_LEVEL3D
+LANG_ENGLISH        "Green Highrise Behind Restaurant"
+
+REFERENCE           ZM_HIGHRISE_ZONE_ORANGE_LEVEL1
+LANG_ENGLISH        "Upper Orange Highrise Level 2"
+
+REFERENCE           ZM_HIGHRISE_ZONE_ORANGE_LEVEL2
+LANG_ENGLISH        "Upper Orange Highrise Level 1"
+
+REFERENCE           ZM_HIGHRISE_ZONE_ORANGE_ELEVATOR_SHAFT_TOP
+LANG_ENGLISH        "Elevator Shaft Level 3"
+
+REFERENCE           ZM_HIGHRISE_ZONE_ORANGE_ELEVATOR_SHAFT_MIDDLE_1
+LANG_ENGLISH        "Elevator Shaft Level 2"
+
+REFERENCE           ZM_HIGHRISE_ZONE_ORANGE_ELEVATOR_SHAFT_MIDDLE_2
+LANG_ENGLISH        "Elevator Shaft Level 1"
+
+REFERENCE           ZM_HIGHRISE_ZONE_ORANGE_ELEVATOR_SHAFT_BOTTOM
+LANG_ENGLISH        "Elevator Shaft Bottom"
+
+REFERENCE           ZM_HIGHRISE_ZONE_ORANGE_LEVEL3A
+LANG_ENGLISH        "Lower Orange Highrise Level 1a"
+
+REFERENCE           ZM_HIGHRISE_ZONE_ORANGE_LEVEL3B
+LANG_ENGLISH        "Lower Orange Highrise Level 1b"
+
+REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL5
+LANG_ENGLISH        "Lower Blue Highrise Level 1"
+
+REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL4A
+LANG_ENGLISH        "Lower Blue Highrise Level 2a"
+
+REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL4B
+LANG_ENGLISH        "Lower Blue Highrise Level 2b"
+
+REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL4C
+LANG_ENGLISH        "Lower Blue Highrise Level 2c"
+
+REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL2A
+LANG_ENGLISH        "Upper Blue Highrise Level 1a"
+
+REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL2B
+LANG_ENGLISH        "Upper Blue Highrise Level 1b"
+
+REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL2C
+LANG_ENGLISH        "Upper Blue Highrise Level 1c"
+
+REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL2D
+LANG_ENGLISH        "Upper Blue Highrise Level 1d"
+
+REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL1A
+LANG_ENGLISH        "Upper Blue Highrise Level 2a"
+
+REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL1B
+LANG_ENGLISH        "Upper Blue Highrise Level 2b"
+
+REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL1C
+LANG_ENGLISH        "Upper Blue Highrise Level 2c"
+
+REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL1C
+LANG_ENGLISH        "Upper Blue Highrise Level 2c"
+
+REFERENCE           ZM_PRISON_ZONE_START
+LANG_ENGLISH        "D-Block"
+
+REFERENCE           ZM_PRISON_ZONE_LIBRARY
+LANG_ENGLISH        "Library"
+
+REFERENCE           ZM_PRISON_ZONE_CELLBLOCK_WEST
+LANG_ENGLISH        "Cell Block 2nd Floor & C-D Street"
+
+REFERENCE           ZM_PRISON_ZONE_CELLBLOCK_WEST_GONDOLA
+LANG_ENGLISH        "Cell Block 3rd Floor"
+
+REFERENCE           ZM_PRISON_ZONE_CELLBLOCK_WEST_GONDOLA_DOCK
+LANG_ENGLISH        "Upper Gondola Platform"
+
+REFERENCE           ZM_PRISON_ZONE_CELLBLOCK_WEST_BARBER
+LANG_ENGLISH        "Michigan Avenue"
+
+REFERENCE           ZM_PRISON_ZONE_CELLBLOCK_EAST
+LANG_ENGLISH        "Times Square"
+
+REFERENCE           ZM_PRISON_ZONE_CAFETERIA
+LANG_ENGLISH        "Cafeteria"
+
+REFERENCE           ZM_PRISON_ZONE_CAFETERIA_END
+LANG_ENGLISH        "Cafeteria End"
+
+REFERENCE           ZM_PRISON_ZONE_INFIRMARY
+LANG_ENGLISH        "Infirmary 1"
+
+REFERENCE           ZM_PRISON_ZONE_INFIRMARY_ROOF
+LANG_ENGLISH        "Infirmary 2"
+
+REFERENCE           ZM_PRISON_ZONE_ROOF_INFIRMARY
+LANG_ENGLISH        "Roof 1"
+
+REFERENCE           ZM_PRISON_ZONE_ROOF
+LANG_ENGLISH        "Roof 2"
+
+REFERENCE           ZM_PRISON_ZONE_CELLBLOCK_WEST_WARDEN
+LANG_ENGLISH        "Sally Port"
+
+REFERENCE           ZM_PRISON_ZONE_WARDEN_OFFICE
+LANG_ENGLISH        "Warden's Office"
+
+REFERENCE           ZM_PRISON_CELLBLOCK_SHOWER
+LANG_ENGLISH        "Showers"
+
+REFERENCE           ZM_PRISON_ZONE_CITADEL_SHOWER
+LANG_ENGLISH        "Citadel To Showers"
+
+REFERENCE           ZM_PRISON_ZONE_CITADEL
+LANG_ENGLISH        "Citadel"
+
+REFERENCE           ZM_PRISON_ZONE_CITADEL_WARDEN
+LANG_ENGLISH        "Citadel To Warden's Office"
+
+REFERENCE           ZM_PRISON_ZONE_CITADEL_STAIRS
+LANG_ENGLISH        "Citadel Tunnels"
+
+REFERENCE           ZM_PRISON_ZONE_CITADEL_BASEMENT
+LANG_ENGLISH        "Citadel Basement"
+
+REFERENCE           ZM_PRISON_ZONE_CITADEL_BASEMENT_BUILDING
+LANG_ENGLISH        "China Alley"
+
+REFERENCE           ZM_PRISON_ZONE_STUDIO
+LANG_ENGLISH        "Building 64"
+
+REFERENCE           ZM_PRISON_ZONE_DOCK
+LANG_ENGLISH        "Docks"
+
+REFERENCE           ZM_PRISON_ZONE_DOCK_PUZZLE
+LANG_ENGLISH        "Docks Gates"
+
+REFERENCE           ZM_PRISON_ZONE_DOCK_GONDOLA
+LANG_ENGLISH        "Docks Bridge"
+
+REFERENCE           ZM_PRISON_ZONE_GOLDEN_GATE_BRIDGE
+LANG_ENGLISH        "Golden Gate Bridge"
+
+REFERENCE           ZM_PRISON_ZONE_GONDOLA_RIDE
+LANG_ENGLISH        "Gondola"
+
+REFERENCE           ZM_BURIED_ZONE_START
+LANG_ENGLISH        "Processing"
+
+REFERENCE           ZM_BURIED_ZONE_START_LOWER
+LANG_ENGLISH        "Lower Processing"
+
+REFERENCE           ZM_BURIED_ZONE_TUNNELS_CENTER
+LANG_ENGLISH        "Center Tunnels"
+
+REFERENCE           ZM_BURIED_ZONE_TUNNELS_NORTH
+LANG_ENGLISH        "North Tunnels 2"
+
+REFERENCE           ZM_BURIED_ZONE_TUNNELS_NORTH2
+LANG_ENGLISH        "North Tunnels 1"
+
+REFERENCE           ZM_BURIED_ZONE_TUNNELS_SOUTH
+LANG_ENGLISH        "South Tunnels 3"
+
+REFERENCE           ZM_BURIED_ZONE_TUNNELS_SOUTH2
+LANG_ENGLISH        "South Tunnels 2"
+
+REFERENCE           ZM_BURIED_ZONE_TUNNELS_SOUTH3
+LANG_ENGLISH        "South Tunnels 1"
+
+REFERENCE           ZM_BURIED_ZONE_STREET_LIGHTWEST
+LANG_ENGLISH        "Outside General Store & Bank"
+
+REFERENCE           ZM_BURIED_ZONE_STREET_LIGHTWEST_ALLEY
+LANG_ENGLISH        "Outside General Store & Bank Alley"
+
+REFERENCE           ZM_BURIED_ZONE_MORGUE_UPSTAIRS
+LANG_ENGLISH        "Morgue"
+
+REFERENCE           ZM_BURIED_ZONE_UNDERGROUND_JAIL
+LANG_ENGLISH        "Jail Downstairs"
+
+REFERENCE           ZM_BURIED_ZONE_UNDERGROUND_JAIL2
+LANG_ENGLISH        "Jail Upstairs"
+
+REFERENCE           ZM_BURIED_ZONE_GENERAL_STORE
+LANG_ENGLISH        "General Store"
+
+REFERENCE           ZM_BURIED_ZONE_STABLES
+LANG_ENGLISH        "Stables"
+
+REFERENCE           ZM_BURIED_ZONE_STREET_DARKWEST
+LANG_ENGLISH        "Outside Gunsmith"
+
+REFERENCE           ZM_BURIED_ZONE_STREET_DARKWEST_NOOK
+LANG_ENGLISH        "Outside Gunsmith Nook"
+
+REFERENCE           ZM_BURIED_ZONE_GUN_STORE
+LANG_ENGLISH        "Gunsmith"
+
+REFERENCE           ZM_BURIED_ZONE_BANK
+LANG_ENGLISH        "Bank"
+
+REFERENCE           ZM_BURIED_ZONE_TUNNEL_GUN2STABLES
+LANG_ENGLISH        "Stables & Gunsmith Tunnel 2"
+
+REFERENCE           ZM_BURIED_ZONE_TUNNEL_GUN2STABLES2
+LANG_ENGLISH        "Stables & Gunsmith Tunnel 1"
+
+REFERENCE           ZM_BURIED_ZONE_STREET_DARKEAST
+LANG_ENGLISH        "Outside Saloon & Toy Store"
+
+REFERENCE           ZM_BURIED_ZONE_STREET_DARKEAST_NOOK
+LANG_ENGLISH        "Outside Saloon & Toy Store Nook"
+
+REFERENCE           ZM_BURIED_ZONE_UNDERGROUND_BAR
+LANG_ENGLISH        "Saloon"
+
+REFERENCE           ZM_BURIED_ZONE_TUNNEL_GUN2SALOON
+LANG_ENGLISH        "Saloon Tunnel"
+
+REFERENCE           ZM_BURIED_ZONE_TOY_STORE
+LANG_ENGLISH        "Toy Store Downstairs"
+
+REFERENCE           ZM_BURIED_ZONE_TOY_STORE_FLOOR2
+LANG_ENGLISH        "Toy Store Upstairs"
+
+REFERENCE           ZM_BURIED_ZONE_CANDY_STORE
+LANG_ENGLISH        "Candy Store Downstairs"
+
+REFERENCE           ZM_BURIED_ZONE_CANDY_STORE_FLOOR2
+LANG_ENGLISH        "Candy Store Upstairs"
+
+REFERENCE           ZM_BURIED_ZONE_STREET_LIGHTEAST
+LANG_ENGLISH        "Outside Courthouse & Candy Store"
+
+REFERENCE           ZM_BURIED_ZONE_UNDERGROUND_COURTHOUSE
+LANG_ENGLISH        "Courthouse Downstairs"
+
+REFERENCE           ZM_BURIED_ZONE_UNDERGROUND_COURTHOUSE2
+LANG_ENGLISH        "Courthouse Upstairs"
+
+REFERENCE           ZM_BURIED_ZONE_STREET_FOUNTAIN
+LANG_ENGLISH        "Fountain"
+
+REFERENCE           ZM_BURIED_ZONE_CHURCH_GRAVEYARD
+LANG_ENGLISH        "Graveyard"
+
+REFERENCE           ZM_BURIED_ZONE_CHURCH_MAIN
+LANG_ENGLISH        "Church Downstairs"
+
+REFERENCE           ZM_BURIED_ZONE_CHURCH_UPSTAIRS
+LANG_ENGLISH        "Church Upstairs"
+
+REFERENCE           ZM_BURIED_ZONE_MANSION_LAWN
+LANG_ENGLISH        "Mansion Lawn"
+
+REFERENCE           ZM_BURIED_ZONE_MANSION
+LANG_ENGLISH        "Mansion"
+
+REFERENCE           ZM_BURIED_ZONE_MANSION_BACKYARD
+LANG_ENGLISH        "Mansion Backyard"
+
+REFERENCE           ZM_BURIED_ZONE_TOY_STORE_TUNNEL
+LANG_ENGLISH        "Mansion Tunnel"
+
+REFERENCE           ZM_BURIED_ZONE_MAZE
+LANG_ENGLISH        "Maze"
+
+REFERENCE           ZM_BURIED_ZONE_MAZE_STAIRCASE
+LANG_ENGLISH        "Maze Staircase"
+
+REFERENCE           ZM_TOMB_ZONE_START
+LANG_ENGLISH        "Lower Laboratory"
+
+REFERENCE           ZM_TOMB_ZONE_START_A
+LANG_ENGLISH        "Upper Laboratory"
+
+REFERENCE           ZM_TOMB_ZONE_START_B
+LANG_ENGLISH        "Generator 1"
+
+REFERENCE           ZM_TOMB_ZONE_BUNKER_1A
+LANG_ENGLISH        "Generator 3 Bunker 1"
+
+REFERENCE           ZM_TOMB_ZONE_FIRE_STAIRS
+LANG_ENGLISH        "Fire Tunnel"
+
+REFERENCE           ZM_TOMB_ZONE_BUNKER_1
+LANG_ENGLISH        "Generator 3 Bunker 2"
+
+REFERENCE           ZM_TOMB_ZONE_BUNKER_3A
+LANG_ENGLISH        "Generator 3"
+
+REFERENCE           ZM_TOMB_ZONE_BUNKER_3B
+LANG_ENGLISH        "Generator 3 Bunker 3"
+
+REFERENCE           ZM_TOMB_ZONE_BUNKER_2A
+LANG_ENGLISH        "Generator 2 Bunker 1"
+
+REFERENCE           ZM_TOMB_ZONE_BUNKER_2
+LANG_ENGLISH        "Generator 2 Bunker 2"
+
+REFERENCE           ZM_TOMB_ZONE_BUNKER_4A
+LANG_ENGLISH        "Generator 2"
+
+REFERENCE           ZM_TOMB_ZONE_BUNKER_4B
+LANG_ENGLISH        "Generator 2 Bunker 3"
+
+REFERENCE           ZM_TOMB_ZONE_BUNKER_4C
+LANG_ENGLISH        "Tank Station"
+
+REFERENCE           ZM_TOMB_ZONE_BUNKER_4D
+LANG_ENGLISH        "Above Tank Station"
+
+REFERENCE           ZM_TOMB_ZONE_BUNKER_TANK_C
+LANG_ENGLISH        "Generator 2 Tank Route 1"
+
+REFERENCE           ZM_TOMB_ZONE_BUNKER_TANK_C1
+LANG_ENGLISH        "Generator 2 Tank Route 2"
+
+REFERENCE           ZM_TOMB_ZONE_BUNKER_4E
+LANG_ENGLISH        "Generator 2 Tank Route 3"
+
+REFERENCE           ZM_TOMB_ZONE_BUNKER_TANK_D
+LANG_ENGLISH        "Generator 2 Tank Route 4"
+
+REFERENCE           ZM_TOMB_ZONE_BUNKER_TANK_D1
+LANG_ENGLISH        "Generator 2 Tank Route 5"
+
+REFERENCE           ZM_TOMB_ZONE_BUNKER_5A
+LANG_ENGLISH        "Workshop Downstairs"
+
+REFERENCE           ZM_TOMB_ZONE_BUNKER_5B
+LANG_ENGLISH        "Workshop Upstairs"
+
+REFERENCE           ZM_TOMB_ZONE_NML_2A
+LANG_ENGLISH        "No Man's Land Walkway"
+
+REFERENCE           ZM_TOMB_ZONE_NML_2
+LANG_ENGLISH        "No Man's Land Entrance"
+
+REFERENCE           ZM_TOMB_ZONE_BUNKER_TANK_E
+LANG_ENGLISH        "Generator 5 Tank Route 1"
+
+REFERENCE           ZM_TOMB_ZONE_BUNKER_TANK_E1
+LANG_ENGLISH        "Generator 5 Tank Route 2"
+
+REFERENCE           ZM_TOMB_ZONE_BUNKER_TANK_F
+LANG_ENGLISH        "Generator 5 Tank Route 3"
+
+REFERENCE           ZM_TOMB_ZONE_NML_1
+LANG_ENGLISH        "Generator 5 Tank Route 4"
+
+REFERENCE           ZM_TOMB_ZONE_NML_4
+LANG_ENGLISH        "Generator 5 Tank Route 5"
+
+REFERENCE           ZM_TOMB_ZONE_NML_0
+LANG_ENGLISH        "Generator 5 Left Footstep"
+
+REFERENCE           ZM_TOMB_ZONE_NML_5
+LANG_ENGLISH        "Generator 5 Right Footstep Walkway"
+
+REFERENCE           ZM_TOMB_ZONE_NML_FARM
+LANG_ENGLISH        "Generator 5"
+
+REFERENCE           ZM_TOMB_ZONE_NML_CELLLAR
+LANG_ENGLISH        "Generator 5 Cellar"
+
+REFERENCE           ZM_TOMB_ZONE_BOLT_STAIRS
+LANG_ENGLISH        "Lightning Tunnel"
+
+REFERENCE           ZM_TOMB_ZONE_NML_3
+LANG_ENGLISH        "No Man's Land 1st Right Footstep"
+
+REFERENCE           ZM_TOMB_ZONE_NML_2B
+LANG_ENGLISH        "No Man's Land Stairs"
+
+REFERENCE           ZM_TOMB_ZONE_NML_6
+LANG_ENGLISH        "No Man's Land Left Footstep"
+
+REFERENCE           ZM_TOMB_ZONE_NML_8
+LANG_ENGLISH        "No Man's Land 2nd Right Footstep"
+
+REFERENCE           ZM_TOMB_ZONE_NML_10A
+LANG_ENGLISH        "Generator 4 Tank Route 1"
+
+REFERENCE           ZM_TOMB_ZONE_NML_10
+LANG_ENGLISH        "Generator 4 Tank Route 2"
+
+REFERENCE           ZM_TOMB_ZONE_NML_7
+LANG_ENGLISH        "Generator 4 Tank Route 3"
+
+REFERENCE           ZM_TOMB_ZONE_BUNKER_TANK_A
+LANG_ENGLISH        "Generator 4 Tank Route 4"
+
+REFERENCE           ZM_TOMB_ZONE_BUNKER_TANK_A1
+LANG_ENGLISH        "Generator 4 Tank Route 5"
+
+REFERENCE           ZM_TOMB_ZONE_BUNKER_TANK_B
+LANG_ENGLISH        "Generator 4 Tank Route 6"
+
+REFERENCE           ZM_TOMB_ZONE_NML_9
+LANG_ENGLISH        "Generator 4 Left Footstep"
+
+REFERENCE           ZM_TOMB_ZONE_AIR_STAIRS
+LANG_ENGLISH        "Wind Tunnel"
+
+REFERENCE           ZM_TOMB_ZONE_NML_11
+LANG_ENGLISH        "Generator 4"
+
+REFERENCE           ZM_TOMB_ZONE_NML_12
+LANG_ENGLISH        "Generator 4 Right Footstep"
+
+REFERENCE           ZM_TOMB_ZONE_NML_16
+LANG_ENGLISH        "Excavation Site Front Path"
+
+REFERENCE           ZM_TOMB_ZONE_NML_17
+LANG_ENGLISH        "Excavation Site Back Path"
+
+REFERENCE           ZM_TOMB_ZONE_NML_18
+LANG_ENGLISH        "Excavation Site Level 3"
+
+REFERENCE           ZM_TOMB_ZONE_NML_19
+LANG_ENGLISH        "Excavation Site Level 2"
+
+REFERENCE           ZM_TOMB_UG_BOTTOM_ZONE
+LANG_ENGLISH        "Excavation Site Level 1"
+
+REFERENCE           ZM_TOMB_ZONE_NML_13
+LANG_ENGLISH        "Generator 5 To Generator 6 Path"
+
+REFERENCE           ZM_TOMB_ZONE_NML_14
+LANG_ENGLISH        "Generator 4 To Generator 6 Path"
+
+REFERENCE           ZM_TOMB_ZONE_NML_15
+LANG_ENGLISH        "Generator 6 Entrance"
+
+REFERENCE           ZM_TOMB_ZONE_VILLAGE_0
+LANG_ENGLISH        "Generator 6 Left Footstep"
+
+REFERENCE           ZM_TOMB_ZONE_VILLAGE_5
+LANG_ENGLISH        "Generator 6 Tank Route 1"
+
+REFERENCE           ZM_TOMB_ZONE_VILLAGE_5A
+LANG_ENGLISH        "Generator 6 Tank Route 2"
+
+REFERENCE           ZM_TOMB_ZONE_VILLAGE_5B
+LANG_ENGLISH        "Generator 6 Tank Route 3"
+
+REFERENCE           ZM_TOMB_ZONE_VILLAGE_1
+LANG_ENGLISH        "Generator 6 Tank Route 4"
+
+REFERENCE           ZM_TOMB_ZONE_VILLAGE_4B
+LANG_ENGLISH        "Generator 6 Tank Route 5"
+
+REFERENCE           ZM_TOMB_ZONE_VILLAGE_4A
+LANG_ENGLISH        "Generator 6 Tank Route 6"
+
+REFERENCE           ZM_TOMB_ZONE_VILLAGE_4
+LANG_ENGLISH        "Generator 6 Tank Route 7"
+
+REFERENCE           ZM_TOMB_ZONE_VILLAGE_2
+LANG_ENGLISH        "Church"
+
+REFERENCE           ZM_TOMB_ZONE_VILLAGE_3
+LANG_ENGLISH        "Generator 6 Right Footstep"
+
+REFERENCE           ZM_TOMB_ZONE_VILLAGE_3A
+LANG_ENGLISH        "Generator 6"
+
+REFERENCE           ZM_TOMB_ZONE_ICE_STAIRS
+LANG_ENGLISH        "Ice Tunnel"
+
+REFERENCE           ZM_TOMB_ZONE_BUNKER_6
+LANG_ENGLISH        "Above Generator 3 Bunker"
+
+REFERENCE           ZM_TOMB_ZONE_NML_20
+LANG_ENGLISH        "Above No Man's Land"
+
+REFERENCE           ZM_TOMB_ZONE_VILLAGE_6
+LANG_ENGLISH        "Behind Church"
+
+REFERENCE           ZM_TOMB_ZONE_CHAMBER_0
+LANG_ENGLISH        "The Crazy Place Lightning Chamber"
+
+REFERENCE           ZM_TOMB_ZONE_CHAMBER_1
+LANG_ENGLISH        "The Crazy Place Lightning & Ice"
+
+REFERENCE           ZM_TOMB_ZONE_CHAMBER_2
+LANG_ENGLISH        "The Crazy Place Ice Chamber"
+
+REFERENCE           ZM_TOMB_ZONE_CHAMBER_3
+LANG_ENGLISH        "The Crazy Place Fire & Lightning"
+
+REFERENCE           ZM_TOMB_ZONE_CHAMBER_4
+LANG_ENGLISH        "The Crazy Place Center"
+
+REFERENCE           ZM_TOMB_ZONE_CHAMBER_5
+LANG_ENGLISH        "The Crazy Place Ice & Wind"
+
+REFERENCE           ZM_TOMB_ZONE_CHAMBER_6
+LANG_ENGLISH        "The Crazy Place Fire Chamber"
+
+REFERENCE           ZM_TOMB_ZONE_CHAMBER_7
+LANG_ENGLISH        "The Crazy Place Wind & Fire"
+
+REFERENCE           ZM_TOMB_ZONE_CHAMBER_8
+LANG_ENGLISH        "The Crazy Place Wind Chamber"
+
+REFERENCE           ZM_TOMB_ZONE_ROBOT_HEAD
+LANG_ENGLISH        "Robot's Head"
+
 // WEAPONS
 
 REFERENCE           ZMWEAPON_SHIV

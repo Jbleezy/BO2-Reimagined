@@ -1365,11 +1365,11 @@ get_gamemode_display_name(gamemode = level.scr_zm_ui_gametype_obj)
 {
 	if (level.scr_zm_ui_gametype_pro)
 	{
-		return istring("ZMUI_" + toupper(gamemode) + "_PRO");
+		return istring(toupper("ZMUI_" + gamemode + "_PRO"));
 	}
 	else
 	{
-		return istring("ZMUI_" + toupper(gamemode));
+		return istring(toupper("ZMUI_" + gamemode));
 	}
 }
 
