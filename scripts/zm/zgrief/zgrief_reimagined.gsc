@@ -1365,52 +1365,12 @@ get_gamemode_display_name(gamemode = level.scr_zm_ui_gametype_obj)
 {
 	if (level.scr_zm_ui_gametype_pro)
 	{
-		if (gamemode == "zgrief")
-		{
-			return &"ZMUI_GRIEF_PRO";
-		}
-		else if (gamemode == "zsnr")
-		{
-			return &"ZMUI_SNR_PRO";
-		}
-		else if (gamemode == "zrace")
-		{
-			return &"ZMUI_RACE_PRO";
-		}
-		else if (gamemode == "zcontainment")
-		{
-			return &"ZMUI_CONTAINMENT_PRO";
-		}
-		else if (gamemode == "zmeat")
-		{
-			return &"ZMUI_MEAT_PRO";
-		}
+		return istring("ZMUI_" + toupper(gamemode) + "_PRO");
 	}
 	else
 	{
-		if (gamemode == "zgrief")
-		{
-			return &"ZMUI_GRIEF";
-		}
-		else if (gamemode == "zsnr")
-		{
-			return &"ZMUI_SNR";
-		}
-		else if (gamemode == "zrace")
-		{
-			return &"ZMUI_RACE";
-		}
-		else if (gamemode == "zcontainment")
-		{
-			return &"ZMUI_CONTAINMENT";
-		}
-		else if (gamemode == "zmeat")
-		{
-			return &"ZMUI_MEAT";
-		}
+		return istring("ZMUI_" + toupper(gamemode));
 	}
-
-	return "";
 }
 
 get_gamemode_winning_score()

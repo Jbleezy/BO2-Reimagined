@@ -3,21 +3,21 @@ require( "T6.Menus.PopupMenus" )
 require( "T6.ListBox" )
 
 local GameModes = {
-	"ZMUI_CLASSIC_GAMEMODE_CAPS",
-	"ZMUI_STANDARD_CAPS",
-	"ZMUI_GRIEF_CAPS",
-	"ZMUI_SNR_CAPS",
-	"ZMUI_RACE_CAPS",
-	"ZMUI_CONTAINMENT_CAPS",
-	"ZMUI_MEAT_CAPS",
-	-- "ZMUI_CLEANSED_CAPS", -- TODO: uncomment when game mode is added
+	"ZMUI_ZCLASSIC_CAPS",
+	"ZMUI_ZSTANDARD_CAPS",
+	"ZMUI_ZGRIEF_CAPS",
+	"ZMUI_ZSNR_CAPS",
+	"ZMUI_ZRACE_CAPS",
+	"ZMUI_ZCONTAINMENT_CAPS",
+	"ZMUI_ZMEAT_CAPS",
+	-- "ZMUI_ZCLEANSED_CAPS", -- TODO: uncomment when game mode is added
 }
 local Maps = {
-	"ZMUI_CLASSIC_CAPS",
-	"ZMUI_CLASSIC_ZM_HIGHRISE_CAPS",
-	"ZMUI_CLASSIC_ZM_PRISON_CAPS",
-	"ZMUI_CLASSIC_ZM_BURIED_CAPS",
-	"ZMUI_CLASSIC_ZM_TOMB_CAPS",
+	"ZMUI_ZCLASSIC_ZM_TRANSIT_CAPS",
+	"ZMUI_ZCLASSIC_ZM_HIGHRISE_CAPS",
+	"ZMUI_ZCLASSIC_ZM_PRISON_CAPS",
+	"ZMUI_ZCLASSIC_ZM_BURIED_CAPS",
+	"ZMUI_ZCLASSIC_ZM_TOMB_CAPS",
 }
 local Locations = {
 	"ZMUI_TRANSIT_STARTLOC_CAPS",
@@ -35,7 +35,7 @@ local Locations = {
     "ZMUI_DOCKS_CAPS",
 	"ZMUI_STREET_LOC_CAPS",
     "ZMUI_MAZE_CAPS",
-	-- "ZMUI_BUNKERS_CAPS", -- TODO: add localized string, uncomment when location is added
+	-- "ZMUI_TRENCHES_CAPS", -- TODO: add localized string, uncomment when location is added
     -- "ZMUI_EXCAVATION_SITE_CAPS", -- TODO: add localized string, uncomment when location is added
     -- "ZMUI_CHURCH_CAPS", -- TODO: add localized string, uncomment when location is added
     -- "ZMUI_CRAZY_PLACE_CAPS", -- TODO: add localized string, uncomment when location is added
@@ -50,37 +50,37 @@ local function gameModeListSelectionClickedEventHandler( self, event )
 
 	local gameMode = GameModes[focusedIndex]
 
-	if gameMode == "ZMUI_CLASSIC_GAMEMODE_CAPS" then
+	if gameMode == "ZMUI_ZCLASSIC_CAPS" then
 		Engine.SetDvar("ui_zm_gamemodegroup", "zclassic")
 		Engine.SetDvar("ui_gametype", "zclassic")
-	elseif gameMode == "ZMUI_STANDARD_CAPS" then
+	elseif gameMode == "ZMUI_ZSTANDARD_CAPS" then
 		Engine.SetDvar("ui_zm_gamemodegroup", "zsurvival")
 		Engine.SetDvar("ui_gametype", "zstandard")
-	elseif gameMode == "ZMUI_GRIEF_CAPS" then
+	elseif gameMode == "ZMUI_ZGRIEF_CAPS" then
 		Engine.SetDvar("ui_zm_gamemodegroup", "zencounter")
 		Engine.SetDvar("ui_gametype", "zgrief")
 		Engine.SetDvar("ui_gametype_obj", "zgrief")
-	elseif gameMode == "ZMUI_SNR_CAPS" then
+	elseif gameMode == "ZMUI_ZSNR_CAPS" then
 		Engine.SetDvar("ui_zm_gamemodegroup", "zencounter")
 		Engine.SetDvar("ui_gametype", "zgrief")
 		Engine.SetDvar("ui_gametype_obj", "zsnr")
-	elseif gameMode == "ZMUI_RACE_CAPS" then
+	elseif gameMode == "ZMUI_ZRACE_CAPS" then
 		Engine.SetDvar("ui_zm_gamemodegroup", "zencounter")
 		Engine.SetDvar("ui_gametype", "zgrief")
 		Engine.SetDvar("ui_gametype_obj", "zrace")
-	elseif gameMode == "ZMUI_CONTAINMENT_CAPS" then
+	elseif gameMode == "ZMUI_ZCONTAINMENT_CAPS" then
 		Engine.SetDvar("ui_zm_gamemodegroup", "zencounter")
 		Engine.SetDvar("ui_gametype", "zgrief")
 		Engine.SetDvar("ui_gametype_obj", "zcontainment")
-	elseif gameMode == "ZMUI_MEAT_CAPS" then
+	elseif gameMode == "ZMUI_ZMEAT_CAPS" then
 		Engine.SetDvar("ui_zm_gamemodegroup", "zencounter")
 		Engine.SetDvar("ui_gametype", "zgrief")
 		Engine.SetDvar("ui_gametype_obj", "zmeat")
-	elseif gameMode == "ZMUI_CLEANSED_CAPS" then
+	elseif gameMode == "ZMUI_ZCLEANSED_CAPS" then
 		-- TODO: set dvars when game mode is added
 	end
 
-	if gameMode == "ZMUI_CLASSIC_GAMEMODE_CAPS" then
+	if gameMode == "ZMUI_ZCLASSIC_CAPS" then
 		self:openMenu("SelectMapListZM", self.controller)
 	else
 		self:openMenu("SelectLocationListZM", self.controller)
@@ -148,19 +148,19 @@ local function mapListSelectionClickedEventHandler( self, event )
 
 	local map = Maps[focusedIndex]
 
-	if map == "ZMUI_CLASSIC_CAPS" then
+	if map == "ZMUI_ZCLASSIC_ZM_TRANSIT_CAPS" then
 		Engine.SetDvar("ui_mapname", "zm_transit")
 		Engine.SetDvar("ui_zm_mapstartlocation", "transit")
-	elseif map == "ZMUI_CLASSIC_ZM_HIGHRISE_CAPS" then
+	elseif map == "ZMUI_ZCLASSIC_ZM_HIGHRISE_CAPS" then
 		Engine.SetDvar("ui_mapname", "zm_highrise")
 		Engine.SetDvar("ui_zm_mapstartlocation", "rooftop")
-	elseif map == "ZMUI_CLASSIC_ZM_PRISON_CAPS" then
+	elseif map == "ZMUI_ZCLASSIC_ZM_PRISON_CAPS" then
 		Engine.SetDvar("ui_mapname", "zm_prison")
 		Engine.SetDvar("ui_zm_mapstartlocation", "prison")
-	elseif map == "ZMUI_CLASSIC_ZM_BURIED_CAPS" then
+	elseif map == "ZMUI_ZCLASSIC_ZM_BURIED_CAPS" then
 		Engine.SetDvar("ui_mapname", "zm_buried")
 		Engine.SetDvar("ui_zm_mapstartlocation", "processing")
-	elseif map == "ZMUI_CLASSIC_ZM_TOMB_CAPS" then
+	elseif map == "ZMUI_ZCLASSIC_ZM_TOMB_CAPS" then
 		Engine.SetDvar("ui_mapname", "zm_tomb")
 		Engine.SetDvar("ui_zm_mapstartlocation", "tomb")
 	end
@@ -273,7 +273,7 @@ local function locationListSelectionClickedEventHandler( self, event )
 		Engine.SetDvar("ui_mapname", "zm_buried")
 		Engine.SetDvar("ui_zm_mapstartlocation", "street")
 		Engine.SetDvar("ui_zm_mapstartlocation_fake", "maze")
-	elseif location == "ZMUI_BUNKERS_CAPS" then
+	elseif location == "ZMUI_TRENCHES_CAPS" then
 		-- TODO: set dvars when location is added
 	elseif location == "ZMUI_EXCAVATION_SITE_CAPS" then
 		-- TODO: set dvars when location is added
