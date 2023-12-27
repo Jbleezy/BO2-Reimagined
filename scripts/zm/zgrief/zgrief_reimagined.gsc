@@ -1103,14 +1103,16 @@ round_start_wait(time, initial)
 
 	level thread zombie_spawn_wait(zombie_spawn_time);
 
-	text = "MATCH BEGINS IN";
+	text = &"ZOMBIE_MATCH_BEGINS_IN_CAPS";
+	text_param = undefined;
 
 	if (level.scr_zm_ui_gametype_obj == "zsnr")
 	{
-		text = "ROUND " + level.snr_round_number + " BEGINS IN";
+		text = &"ZOMBIE_ROUND_BEGINS_IN_CAPS";
+		text_param = level.snr_round_number;
 	}
 
-	countdown_hud = scripts\zm\replaced\_zm::countdown_hud(text, time);
+	countdown_hud = scripts\zm\replaced\_zm::countdown_hud(text, text_param, time);
 
 	wait time;
 
@@ -3455,5 +3457,7 @@ spawn_bots()
 		}
 
 		level.bots[i].pers["isBot"] = 1;
+
+		wait 1;
 	}
 }

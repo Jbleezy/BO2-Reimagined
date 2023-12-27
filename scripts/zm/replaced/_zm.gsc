@@ -693,14 +693,14 @@ wait_for_all_players_ready()
 
 		num_waiting_for = level.pregame_minplayers - num_players;
 
-		players_str = "PLAYERS";
+		players_str = &"ZOMBIE_WAITING_FOR_MORE_PLAYERS_CAPS";
 
 		if (num_waiting_for == 1)
 		{
-			players_str = "PLAYER";
+			players_str = &"ZOMBIE_WAITING_FOR_MORE_PLAYER_CAPS";
 		}
 
-		level.pregame_hud setText("WAITING FOR " + num_waiting_for + " MORE " + players_str + " [" + num_players + "/" + level.pregame_minplayers + "]");
+		level.pregame_hud setText(players_str, num_waiting_for, num_players, level.pregame_minplayers);
 
 		wait 0.05;
 
@@ -712,7 +712,7 @@ wait_for_all_players_ready()
 		level.ready_up_hud = createServerFontString("objective", 1.5);
 		level.ready_up_hud setPoint("CENTER", "CENTER", 0, -115);
 		level.ready_up_hud.color = (1, 1, 1);
-		level.ready_up_hud setText("PRESS ^3[{+gostand}]^7 OR ^3[{+activate}]^7 TO READY UP");
+		level.ready_up_hud setText(&"ZOMBIE_READY_UP_HOWTO_CAPS");
 	}
 
 	if (isDedicated() && !(is_gametype_active("zgrief") && getDvarInt("ui_gametype_team_change")))
@@ -723,7 +723,7 @@ wait_for_all_players_ready()
 
 		if (!isDefined(level.ready_up_timer_hud))
 		{
-			level.ready_up_countdown_hud = countdown_hud("PRE-GAME ENDS IN", level.ready_up_time);
+			level.ready_up_countdown_hud = countdown_hud(&"ZOMBIE_PRE_GAME_ENDS_IN_CAPS", undefined, level.ready_up_time);
 		}
 	}
 
@@ -819,14 +819,14 @@ wait_for_all_players_ready()
 
 		num_waiting_for = players.size - num_ready;
 
-		players_str = "PLAYERS";
+		players_str = &"ZOMBIE_WAITING_FOR_PLAYERS_READY_CAPS";
 
 		if (num_waiting_for == 1)
 		{
-			players_str = "PLAYER";
+			players_str = &"ZOMBIE_WAITING_FOR_PLAYER_READY_CAPS";
 		}
 
-		level.pregame_hud setText("WAITING FOR " + num_waiting_for + " " + players_str + " TO BE READY [" + num_ready + "/" + players.size + "]");
+		level.pregame_hud setText(players_str, num_waiting_for, num_ready, players.size);
 
 		wait 0.05;
 
@@ -945,7 +945,7 @@ check_for_team_change()
 	}
 }
 
-countdown_hud(text, time)
+countdown_hud(text, text_param, time)
 {
 	countdown_hud = createServerFontString("objective", 2.2);
 	countdown_hud setPoint("CENTER", "CENTER", 0, 0);
@@ -959,7 +959,14 @@ countdown_hud(text, time)
 
 	countdown_hud thread countdown_hud_timer(time);
 
-	countdown_hud.countdown_text setText(text);
+	if (isdefined(text_param))
+	{
+		countdown_hud.countdown_text setText(text, text_param);
+	}
+	else
+	{
+		countdown_hud.countdown_text setText(text);
+	}
 
 	countdown_hud.alpha = 1;
 	countdown_hud.countdown_text.alpha = 1;

@@ -546,7 +546,7 @@ choose_open_buildable(player)
 	hud.fontscale = 1;
 	hud.alpha = 1;
 	hud.color = (1, 1, 1);
-	hud settext("Press [{+actionslot 1}] or [{+actionslot 2}] to change item");
+	hud settext(&"ZM_CRAFTABLES_CHANGE_BUILD");
 	self.open_buildable_checking_input = 1;
 	self.openbuildablehudelem = hud;
 

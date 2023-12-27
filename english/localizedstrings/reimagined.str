@@ -93,6 +93,30 @@ LANG_ENGLISH        "Clip Ammo!"
 REFERENCE           ZOMBIE_POWERUP_CLIP_EMPTY
 LANG_ENGLISH        "Clip Empty!"
 
+REFERENCE           ZOMBIE_WAITING_FOR_MORE_PLAYER_CAPS
+LANG_ENGLISH        "WAITING FOR &&1 MORE PLAYER [&&2/&&3]"
+
+REFERENCE           ZOMBIE_WAITING_FOR_MORE_PLAYERS_CAPS
+LANG_ENGLISH        "WAITING FOR &&1 MORE PLAYERS [&&2/&&3]"
+
+REFERENCE           ZOMBIE_WAITING_FOR_PLAYER_READY_CAPS
+LANG_ENGLISH        "WAITING FOR &&1 PLAYER TO BE READY [&&2/&&3]"
+
+REFERENCE           ZOMBIE_WAITING_FOR_PLAYERS_READY_CAPS
+LANG_ENGLISH        "WAITING FOR &&1 PLAYERS TO BE READY [&&2/&&3]"
+
+REFERENCE           ZOMBIE_READY_UP_HOWTO_CAPS
+LANG_ENGLISH        "PRESS ^3[{+gostand}]^7 OR ^3[{+activate}]^7 TO READY UP"
+
+REFERENCE           ZOMBIE_PRE_GAME_ENDS_IN_CAPS
+LANG_ENGLISH        "PRE-GAME ENDS IN"
+
+REFERENCE           ZOMBIE_MATCH_BEGINS_IN_CAPS
+LANG_ENGLISH        "MATCH BEGINS IN"
+
+REFERENCE           ZOMBIE_ROUND_BEGINS_IN_CAPS
+LANG_ENGLISH        "ROUND &&1 BEGINS IN"
+
 REFERENCE           ZOMBIE_ZGRIEF_INTRO
 LANG_ENGLISH        "Make enemy players bleed out to gain score!"
 
@@ -971,6 +995,9 @@ LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Quick Revive [Cost: &&1]"
 
 REFERENCE           ZOMBIE_PERK_TOMBSTONE
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Tombstone Soda [Cost: &&1]"
+
+REFERENCE           ZM_CRAFTABLES_CHANGE_BUILD
+LANG_ENGLISH        "Press ^3[{+actionslot 1}]^7 or ^3[{+actionslot 2}]^7 to change item"
 
 REFERENCE           ZOMBIE_BUILD_TURBINE
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Turbine"
