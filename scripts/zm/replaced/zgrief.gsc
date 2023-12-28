@@ -224,7 +224,7 @@ meat_stink(who)
 		}
 	}
 
-	who thread meat_stink_ignoreme_think();
+	who thread meat_stink_ignoreme_think(0);
 
 	who thread meat_stink_player_create();
 
@@ -293,7 +293,7 @@ meat_damage_over_time()
 	}
 }
 
-meat_stink_ignoreme_think()
+meat_stink_ignoreme_think(check_meat_player_dist)
 {
 	level endon("meat_thrown");
 	level endon("meat_grabbed");
@@ -327,8 +327,16 @@ meat_stink_ignoreme_think()
 			}
 
 			close_zombies = get_array_of_closest(player.origin, zombies, undefined, 1, 64);
+			close_meat_player = 1;
 
-			player.ignoreme = close_zombies.size == 0;
+			if (check_meat_player_dist)
+			{
+				meat_player_dist = distanceSquared(player.origin, self.origin);
+				max_dist = 768 * 768;
+				close_meat_player = meat_player_dist <= max_dist;
+			}
+
+			player.ignoreme = close_zombies.size == 0 && close_meat_player;
 		}
 
 		wait 0.05;
@@ -462,7 +470,7 @@ meat_stink_player(who, owner)
 		player thread print_meat_msg(who, "has");
 	}
 
-	who thread meat_stink_ignoreme_think();
+	who thread meat_stink_ignoreme_think(1);
 	who thread meat_stink_player_create();
 
 	who waittill_any_or_timeout(15, "disconnect", "player_downed", "bled_out", "spawned_player");
