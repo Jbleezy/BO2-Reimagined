@@ -482,6 +482,7 @@
 * Attracts zombies more consistently on ground
 * Decreased attract radius on ground by 50%
 * Decreased time on ground from 16 seconds to 10 seconds
+* Decreased time on players from 30 seconds to 15 seconds
 * Bounces off walls when thrown
 * Added weapon name on HUD
 * Changed powerup fx color to blue

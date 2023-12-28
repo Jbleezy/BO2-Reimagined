@@ -831,10 +831,14 @@ kill_feed()
 	}
 	else if (isDefined(self.last_meated_by))
 	{
+		self.last_meated_by.attacker.killsconfirmed++;
+
 		obituary(self, self.last_meated_by.attacker, level.item_meat_name, "MOD_UNKNOWN");
 	}
 	else if (isDefined(self.last_emped_by))
 	{
+		self.last_emped_by.attacker.killsconfirmed++;
+
 		obituary(self, self.last_emped_by.attacker, "emp_grenade_zm", "MOD_GRENADE_SPLASH");
 	}
 	else
@@ -873,10 +877,25 @@ get_held_melee_weapon(melee_weapon)
 
 add_grief_downed_score()
 {
-	if (isDefined(self.last_griefed_by) && is_player_valid(self.last_griefed_by.attacker))
+	downed_by = undefined;
+
+	if (isDefined(self.last_griefed_by))
 	{
-		score = 500 * maps\mp\zombies\_zm_score::get_points_multiplier(self.last_griefed_by.attacker);
-		self.last_griefed_by.attacker maps\mp\zombies\_zm_score::add_to_player_score(score);
+		downed_by = self.last_griefed_by;
+	}
+	else if (isDefined(self.last_meated_by))
+	{
+		downed_by = self.last_meated_by;
+	}
+	else if (isDefined(self.last_emped_by))
+	{
+		downed_by = self.last_emped_by;
+	}
+
+	if (isDefined(downed_by) && is_player_valid(downed_by.attacker))
+	{
+		score = 500 * maps\mp\zombies\_zm_score::get_points_multiplier(downed_by.attacker);
+		downed_by.attacker maps\mp\zombies\_zm_score::add_to_player_score(score);
 	}
 }
 
