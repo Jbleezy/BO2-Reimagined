@@ -618,6 +618,7 @@
 * Decreased zombie explosion max damage from 30 to 15
 * Players can be revived in the fog easier
 * Lamp post portals stay active after activating once
+* Each lamp post portal teleports players to a set destination lamp post (randomizes each game)
 * Decreased brightness at Power Station
 * Zombies killed by the bus no longer respawn
 * Zombies no longer spawn in the Prototype zone when in the Cornfield zone

@@ -17,6 +17,21 @@ init()
 	level.screecher_cleanup = ::transit_screecher_cleanup;
 	level.screecher_init_done = ::screecher_init_done;
 	level.portals = [];
+
+	lights = getstructarray( "screecher_escape", "targetname" );
+	lights = array_randomize( lights );
+
+	for (i = 0; i < lights.size; i++)
+	{
+		dest_ind = i + 1;
+
+		if (dest_ind >= lights.size)
+		{
+			dest_ind = 0;
+		}
+
+		lights[i].dest_light = lights[dest_ind];
+	}
 }
 
 screecher_init_done()
@@ -74,4 +89,17 @@ portal_use(player)
 	player playsoundtoplayer("zmb_screecher_portal_warp_2d", player);
 	self thread teleport_player(player);
 	playsoundatposition("zmb_screecher_portal_end", self.hole.origin);
+}
+
+teleport_player( player )
+{
+	if ( isdefined( self.dest_light ) )
+	{
+		playsoundatposition( "zmb_screecher_portal_arrive", self.dest_light.origin );
+		player maps\mp\zombies\_zm_gump::player_teleport_blackscreen_on();
+		player setorigin( self.dest_light.origin );
+		player notify( "used_screecher_hole" );
+		player maps\mp\zombies\_zm_stats::increment_client_stat( "screecher_teleporters_used", 0 );
+		player maps\mp\zombies\_zm_stats::increment_player_stat( "screecher_teleporters_used" );
+	}
 }
