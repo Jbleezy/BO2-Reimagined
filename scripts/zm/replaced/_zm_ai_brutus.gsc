@@ -656,6 +656,11 @@ brutus_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon,
 		return 0;
 	}
 
+	if (weapon == "willy_pete_zm")
+	{
+		return 0;
+	}
+
 	if (is_explosive_damage(meansofdeath) && weapon != "raygun_mark2_zm" && weapon != "raygun_mark2_upgraded_zm")
 	{
 		self.explosive_dmg_taken += damage;

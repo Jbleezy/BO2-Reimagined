@@ -1785,11 +1785,6 @@ grenade_fire_watcher()
 		{
 			self thread temp_disable_offhand_weapons();
 		}
-
-		if (weapname == "willy_pete_zm" && !isDefined(self.smoke_grenade_cluster))
-		{
-			grenade thread smoke_grenade_cluster(self);
-		}
 	}
 }
 
@@ -1809,21 +1804,6 @@ temp_disable_offhand_weapons()
 	{
 		self enableOffhandWeapons();
 	}
-}
-
-smoke_grenade_cluster(owner)
-{
-	self waittill("explode", pos);
-
-	playsoundatposition("zmb_land_meat", pos);
-
-	owner.smoke_grenade_cluster = true;
-	owner magicgrenadetype("willy_pete_zm", pos, (0, 0, 0), 0);
-	owner magicgrenadetype("willy_pete_zm", pos, (0, 0, 0), 0);
-
-	wait 0.05;
-
-	owner.smoke_grenade_cluster = undefined;
 }
 
 buildbuildables()

@@ -582,6 +582,11 @@ afterlife_player_damage_callback(einflictor, eattacker, idamage, idflags, smeans
 			if (self hasperk("specialty_flakjacket"))
 				return 0;
 
+			if (sweapon == "willy_pete_zm")
+			{
+				return 0;
+			}
+
 			if (self.health > 75 && !(isdefined(self.is_zombie) && self.is_zombie))
 				idamage = 75;
 		}

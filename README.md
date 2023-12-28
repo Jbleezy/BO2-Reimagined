@@ -111,6 +111,7 @@
 * Fixed getting kill points twice
 
 ### Brutus
+* Smoke Grenade kills zombies
 * Decreased player damage from 99 to 90
 * No longer receives additional damage from Ray Gun Mark 2
 * Teleports away less frequently
@@ -131,9 +132,6 @@
 * Projectile weapons: capped projectile weapon damage scalar at 3000
 * Placeable mines: changed damage scalar to 150 multiplied by round number (normally random number between 100 and 200 multiplied by round number)
 * Placeable mines: capped damage scalar at 9000
-
-### Tac-45
-* Replaces M1911 on Tranzit, Nuketown, Die Rise, and Buried
 
 ### AN-94
 * Increased weapon cost from 1200 to 1500
@@ -212,9 +210,6 @@
 * Changed weapon cost from 900 or 1500 to 1200 on all maps
 * Increased penetration
 
-### RPD
-* Decreased recoil
-
 ### S12
 * Increased penetration
 
@@ -231,6 +226,9 @@
 ### STG-44
 * Ammo gets added to the clip at the same time that it gets added in the reload animation
 * Upgraded: decreased stock ammo from 330 to 300
+
+### Tac-45
+* Replaces M1911 on Tranzit, Nuketown, Die Rise, and Buried
 
 ### Type 25
 * Decreased recoil
@@ -259,6 +257,10 @@
 * Can destroy deployed Zombie Shields
 * Sprinting no longer wakes up EMP'd zombies
 * Zombies that are in the ground can no longer get EMP'd
+
+### Smoke Grenade
+* Added on Cell Block and Docks
+* Kills on any round
 
 ### Hell's Retriever
 * No longer ricochets to other zombies when not charged
@@ -754,7 +756,6 @@
 * Quest: if Weasel is not in the game, the cycle continues immediately after everyone revives themselves on the Golden Gate Bridge
 * Quest: players no longer get moved to different positions when starting the showdown
 * Quest: showdown target waypoint shows offscreen
-* Grief: added Smoke Grenades to the Mystery Box
 * Fixed initial weapon raise animation happening after exiting afterlife
 * Fixed being able to hit a death barrier when jumping off the Docks Bridge zone
 * Fixed locked hint string not showing on Blundergat Upgrade buildable table

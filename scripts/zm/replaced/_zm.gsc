@@ -1348,13 +1348,7 @@ actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, 
 
 	if (weapon == "zombie_bullet_crouch_zm" && meansofdeath == "MOD_RIFLE_BULLET")
 	{
-		damage_scalar = damage / 600;
-		min_damage = int(damage_scalar * level.zombie_health) + 1;
-
-		if (damage < min_damage)
-		{
-			damage = min_damage;
-		}
+		final_damage = scale_damage(final_damage, 600);
 	}
 
 	if (weapon == "quadrotorturret_zm" && meansofdeath == "MOD_PISTOL_BULLET")
@@ -1362,6 +1356,14 @@ actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, 
 		if (!is_true(self.is_mechz))
 		{
 			final_damage = scale_damage(final_damage, 6000);
+		}
+	}
+
+	if (weapon == "willy_pete_zm")
+	{
+		if (!is_true(self.is_brutus))
+		{
+			damage = level.zombie_health;
 		}
 	}
 
@@ -2111,6 +2113,11 @@ player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, s
 		}
 
 		if (sweapon == "slip_bolt_zm" || sweapon == "slip_bolt_upgraded_zm")
+		{
+			return 0;
+		}
+
+		if (sweapon == "willy_pete_zm")
 		{
 			return 0;
 		}
