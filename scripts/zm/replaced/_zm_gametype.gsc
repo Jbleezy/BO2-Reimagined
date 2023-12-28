@@ -423,7 +423,7 @@ do_team_change()
 
 		if (teamplayers - 1 <= otherteamplayers)
 		{
-			self iprintln("Can only change teams if unbalanced.");
+			self iprintln(&"ZOMBIE_ONLY_CHANGE_TEAMS_UNBALANCED");
 			return;
 		}
 	}
@@ -458,7 +458,7 @@ do_team_change()
 
 	if (!valid_num)
 	{
-		self iprintln("Waiting for other player to change teams.");
+		self iprintln(&"ZOMBIE_WAITING_FOR_TEAM_CHANGE");
 
 		level waittill("team_change", team);
 
