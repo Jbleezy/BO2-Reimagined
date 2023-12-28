@@ -2,6 +2,26 @@
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 
+postinit_func()
+{
+	level.min_humans = 1;
+	level.zombie_ai_limit = 24;
+	level.prevent_player_damage = ::player_prevent_damage;
+	level.lock_player_on_team_score = 1;
+	level._zombiemode_powerup_grab = ::meat_stink_powerup_grab;
+	level.meat_bounce_override = ::meat_bounce_override;
+	level._zombie_spawning = 0;
+	level._get_game_module_players = undefined;
+	level.powerup_drop_count = 0;
+	level.is_zombie_level = 1;
+
+	setmatchtalkflag( "DeadChatWithDead", 1 );
+	setmatchtalkflag( "DeadChatWithTeam", 1 );
+	setmatchtalkflag( "DeadHearTeamLiving", 1 );
+	setmatchtalkflag( "DeadHearAllLiving", 1 );
+	setmatchtalkflag( "EveryoneHearsEveryone", 1 );
+}
+
 game_mode_spawn_player_logic()
 {
 	if (isDefined(level.should_respawn_func) && [[level.should_respawn_func]]())

@@ -18,8 +18,9 @@ main()
 	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::onspawnplayer, scripts\zm\replaced\_zm_gametype::onspawnplayer);
 	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::onplayerspawned, scripts\zm\replaced\_zm_gametype::onplayerspawned);
 	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::menu_onmenuresponse, scripts\zm\replaced\_zm_gametype::menu_onmenuresponse);
+	replaceFunc(maps\mp\gametypes_zm\zgrief::postinit_func, scripts\zm\replaced\zgrief::postinit_func);
 	replaceFunc(maps\mp\gametypes_zm\zgrief::meat_stink, scripts\zm\replaced\zgrief::meat_stink);
-	replaceFunc(maps\mp\gametypes_zm\zmeat::item_meat_on_spawn_retrieve_trigger, scripts\zm\replaced\zmeat::item_meat_on_spawn_retrieve_trigger);
+	replaceFunc(maps\mp\gametypes_zm\zmeat::create_item_meat_watcher, scripts\zm\replaced\zmeat::create_item_meat_watcher);
 }
 
 init()
@@ -340,8 +341,6 @@ set_grief_vars()
 
 	level.noroundnumber = 1;
 	level.snr_round_number = 1;
-	level.zombie_powerups["meat_stink"].solo = 1;
-	level.zombie_powerups["meat_stink"].func_should_drop_with_regular_powerups = ::func_should_drop_meat;
 	level.custom_end_screen = ::custom_end_screen;
 	level.game_module_onplayerconnect = ::grief_onplayerconnect;
 	level.game_mode_custom_onplayerdisconnect = ::grief_onplayerdisconnect;
@@ -2371,39 +2370,6 @@ player_suicide()
 
 	self maps\mp\zombies\_zm_laststand::bleed_out();
 	self.playersuicided = undefined;
-}
-
-func_should_drop_meat()
-{
-	if (level.scr_zm_ui_gametype_obj == "zmeat")
-	{
-		return 0;
-	}
-
-	foreach (powerup in level.active_powerups)
-	{
-		if (powerup.powerup_name == "meat_stink")
-		{
-			return 0;
-		}
-	}
-
-	players = get_players();
-
-	foreach (player in players)
-	{
-		if (player hasWeapon(level.item_meat_name))
-		{
-			return 0;
-		}
-	}
-
-	if (isDefined(level.item_meat) || is_true(level.meat_on_ground) || isDefined(level.meat_player))
-	{
-		return 0;
-	}
-
-	return 1;
 }
 
 remove_round_number()

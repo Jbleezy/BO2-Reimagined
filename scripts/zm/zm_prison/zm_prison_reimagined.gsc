@@ -66,7 +66,6 @@ main()
 
 init()
 {
-	precacheModel("t6_wpn_zmb_severedhead_world");
 	precacheModel("collision_clip_32x32x32");
 
 	level.zombie_init_done = ::zombie_init_done;
@@ -75,7 +74,6 @@ init()
 	level.custom_laststand_func = scripts\zm\replaced\_zm_perk_electric_cherry::electric_cherry_laststand;
 
 	level.zombie_vars["below_world_check"] = -15000;
-	level.zombie_powerups["meat_stink"].model_name = "t6_wpn_zmb_severedhead_world";
 
 	maps\mp\zombies\_zm::spawn_life_brush((94, 6063, 240), 256, 256);
 

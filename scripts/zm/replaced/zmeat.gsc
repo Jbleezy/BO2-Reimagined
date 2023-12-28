@@ -4,6 +4,20 @@
 #include maps\mp\zombies\_zm_utility;
 #include maps\mp\zombies\_zm_game_module_meat_utility;
 
+create_item_meat_watcher()
+{
+	watcher = self maps\mp\gametypes_zm\_weaponobjects::createuseweaponobjectwatcher( "item_meat", get_gamemode_var( "item_meat_name" ), self.team );
+	watcher.pickup = ::item_meat_on_pickup;
+	watcher.onspawn = ::item_meat_spawned;
+	watcher.onspawnretrievetriggers = ::play_item_meat_on_spawn_retrieve_trigger;
+	watcher.headicon = 0;
+}
+
+play_item_meat_on_spawn_retrieve_trigger( watcher, player )
+{
+	self item_meat_on_spawn_retrieve_trigger( watcher, player, get_gamemode_var( "item_meat_name" ) );
+}
+
 item_meat_on_spawn_retrieve_trigger(watcher, player, weaponname)
 {
 	self endon("death");
