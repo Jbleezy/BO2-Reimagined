@@ -122,7 +122,6 @@
 
 ## Weapons
 * Switch to melee weapon by pressing the Previous Scorestreak button (same button as the Time Bomb and Maxis Drone)
-* Inspect weapon by pressing the Alt Fire button
 * Snipers: increased zoom FOV from 15 to 25
 * Snipers: disabled scope sway
 * Grenades: improved projectile upward speed
@@ -158,6 +157,7 @@
 * Unupgraded: increased stock ammo from 120 to 288
 * Upgraded: increased clip ammo from 40 to 48
 * Upgraded: increased stock ammo from 200 to 384
+* Upgraded: changed default attachment from None to Select Fire
 
 ### Executioner
 * Increased penetration
@@ -168,6 +168,7 @@
 
 ### HAMR
 * Decreased recoil
+* Upgraded: changed default attachment from None to Grip
 
 ### KAP-40
 * Removed delay between last shot and reload
@@ -186,6 +187,9 @@
 ### M1927
 * Decreased ammo cost from 800 to 750
 
+### M27
+* Upgraded: changed default attachment from Reflex Sight to None
+
 ### M8A1
 * Decreased recoil
 
@@ -203,6 +207,7 @@
 
 ### MTAR
 * Decreased recoil
+* Upgraded: changed default attachment from Reflex Sight to EOTech Sight
 
 ### Remington 870
 * Changed weapon cost from 900 or 1500 to 1200 on all maps
@@ -213,6 +218,12 @@
 
 ### S12
 * Increased penetration
+
+### SCAR-H
+* Upgraded: changed default attachment from Reflex Sight to None
+
+### Skorpion EVO
+* Upgraded: changed default attachment from Reflex Sight to Fast Mag
 
 ### SMR
 * Increased damage by 100%
@@ -226,6 +237,7 @@
 * Decreased recoil
 * Unupgraded: increased stock ammo from 150 to 300
 * Upgraded: increased stock ammo from 270 to 450
+* Upgraded: changed default attachment from Reflex Sight to Millimeter Scanner
 
 ### War Machine
 * Unupgraded: grenades explode on impact
@@ -454,7 +466,7 @@
 * Stink areas no longer activate while the player is moving
 
 ## Pack-a-Punch
-* No longer costs 2000 points to change attachments on an upgraded weapon
+* Attachments on upgraded weapons can no longer be changed
 * Decreased weapon pickup time from 15 seconds to 12 seconds
 * Added sound when attempting to purchase without enough points
 

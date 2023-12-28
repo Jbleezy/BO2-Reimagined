@@ -12,4 +12,6 @@ include,fnp45_zm
 
 include,waypoint
 
+stringtable,zm/pap_attach.csv
+
 localize,reimagined

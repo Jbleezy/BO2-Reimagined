@@ -135,6 +135,7 @@ init()
 
 	level.using_solo_revive = 0;
 	level.claymores_max_per_player = 20;
+	level.zombiemode_reusing_pack_a_punch = 0;
 	level.navcards = undefined; // removes navcards on HUD
 	level.powerup_intro_vox = undefined;
 	level.player_too_many_players_check = 0;
@@ -183,7 +184,6 @@ on_player_connect()
 		player thread on_player_fake_revive();
 
 		player thread grenade_fire_watcher();
-		player thread weapon_inspect_watcher();
 	}
 }
 
@@ -1824,47 +1824,6 @@ smoke_grenade_cluster(owner)
 	wait 0.05;
 
 	owner.smoke_grenade_cluster = undefined;
-}
-
-weapon_inspect_watcher()
-{
-	level endon("end_game");
-	self endon("disconnect");
-
-	vars = [];
-
-	while (1)
-	{
-		wait 0.05;
-
-		if (self isSwitchingWeapons())
-		{
-			continue;
-		}
-
-		vars["curr_wep"] = self getCurrentWeapon();
-
-		vars["is_primary"] = 0;
-
-		foreach (wep in self getWeaponsListPrimaries())
-		{
-			if (wep == vars["curr_wep"])
-			{
-				vars["is_primary"] = 1;
-				break;
-			}
-		}
-
-		if (!vars["is_primary"])
-		{
-			continue;
-		}
-
-		if (self actionSlotThreeButtonPressed() && self getWeaponAmmoClip(vars["curr_wep"]) != 0)
-		{
-			self initialWeaponRaise(vars["curr_wep"]);
-		}
-	}
 }
 
 buildbuildables()
