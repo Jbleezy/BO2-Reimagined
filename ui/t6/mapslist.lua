@@ -3,7 +3,7 @@ require( "T6.Menus.PopupMenus" )
 require( "T6.ListBox" )
 
 local GameModes = {
-	"ZMUI_ZCLASSIC_CAPS",
+	"ZMUI_ZCLASSIC_GAMEMODE_CAPS",
 	"ZMUI_ZSTANDARD_CAPS",
 	"ZMUI_ZGRIEF_CAPS",
 	"ZMUI_ZSNR_CAPS",
@@ -50,7 +50,7 @@ local function gameModeListSelectionClickedEventHandler( self, event )
 
 	local gameMode = GameModes[focusedIndex]
 
-	if gameMode == "ZMUI_ZCLASSIC_CAPS" then
+	if gameMode == "ZMUI_ZCLASSIC_GAMEMODE_CAPS" then
 		Engine.SetDvar("ui_zm_gamemodegroup", "zclassic")
 		Engine.SetDvar("ui_gametype", "zclassic")
 	elseif gameMode == "ZMUI_ZSTANDARD_CAPS" then
@@ -80,7 +80,7 @@ local function gameModeListSelectionClickedEventHandler( self, event )
 		-- TODO: set dvars when game mode is added
 	end
 
-	if gameMode == "ZMUI_ZCLASSIC_CAPS" then
+	if gameMode == "ZMUI_ZCLASSIC_GAMEMODE_CAPS" then
 		self:openMenu("SelectMapListZM", self.controller)
 	else
 		self:openMenu("SelectLocationListZM", self.controller)
