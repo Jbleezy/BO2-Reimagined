@@ -22,7 +22,7 @@ meat_bounce_override(pos, normal, ent, bounce)
 {
 	if (isdefined(ent) && isplayer(ent) && is_player_valid(ent) && !ent hasWeapon(level.item_meat_name) && !is_true(ent.dont_touch_the_meat))
 	{
-		level thread meat_stink_player(ent);
+		level thread meat_stink_player(ent, self.owner);
 
 		if (isdefined(self.owner))
 		{
@@ -62,7 +62,7 @@ meat_bounce_override(pos, normal, ent, bounce)
 
 		if (isdefined(closest_player))
 		{
-			level thread meat_stink_player(closest_player);
+			level thread meat_stink_player(closest_player, self.owner);
 
 			if (isdefined(self.owner))
 			{
@@ -404,7 +404,7 @@ meat_stink_on_ground(position_to_play)
 	level.meat_on_ground = undefined;
 }
 
-meat_stink_player(who)
+meat_stink_player(who, owner)
 {
 	level notify("new_meat_stink_player");
 	level endon("new_meat_stink_player");
@@ -413,6 +413,16 @@ meat_stink_player(who)
 	{
 		level thread meat_stink(who);
 		return;
+	}
+
+	if (who.team != owner.team)
+	{
+		who.last_meated_by = spawnStruct();
+		who.last_meated_by.attacker = owner;
+	}
+	else
+	{
+		who.last_meated_by = undefined;
 	}
 
 	who notify("meat_stink_player_start");
@@ -451,6 +461,17 @@ meat_stink_player(who)
 	}
 
 	level.meat_player = undefined;
+
+	who thread wait_and_reset_last_meated_by();
+}
+
+wait_and_reset_last_meated_by()
+{
+	self endon("disconnect");
+
+	wait 0.05;
+
+	self.last_meated_by = undefined;
 }
 
 meat_stink_player_create()

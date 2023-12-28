@@ -43,14 +43,6 @@ item_meat_on_spawn_retrieve_trigger(watcher, player, weaponname)
 
 	level.meat_player = undefined;
 
-	player setMoveSpeedScale(1);
-
-	if (is_true(player.meat_weapons_disabled))
-	{
-		player.meat_weapons_disabled = undefined;
-		player enableWeapons();
-	}
-
 	if (level.scr_zm_ui_gametype_obj == "zmeat")
 	{
 		player.head_icon.alpha = 1;

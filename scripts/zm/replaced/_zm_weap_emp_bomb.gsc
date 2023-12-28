@@ -167,7 +167,7 @@ emp_players(origin, radius, owner)
 			{
 				time = level.zombie_vars["emp_stun_time"];
 				player shellshock("flashbang", 1);
-				player thread player_perk_pause_and_unpause_all_perks(time);
+				player thread player_perk_pause_and_unpause_all_perks(time, owner);
 				player thread player_emp_fx(time);
 			}
 		}
@@ -191,11 +191,21 @@ player_emp_fx(time)
 	}
 }
 
-player_perk_pause_and_unpause_all_perks(time)
+player_perk_pause_and_unpause_all_perks(time, owner)
 {
 	self notify("player_perk_pause_and_unpause_all_perks");
 	self endon("player_perk_pause_and_unpause_all_perks");
 	self endon("disconnect");
+
+	if (self.team != owner.team)
+	{
+		self.last_emped_by = spawnStruct();
+		self.last_emped_by.attacker = owner;
+	}
+	else
+	{
+		self.last_emped_by = undefined;
+	}
 
 	self player_perk_pause_all_perks();
 	self thread player_perk_pause_all_perks_acquired(time);
@@ -203,6 +213,8 @@ player_perk_pause_and_unpause_all_perks(time)
 	self waittill_any_or_timeout(time, "spawned_player", "bled_out", "player_suicide");
 
 	self player_perk_unpause_all_perks();
+
+	self.last_emped_by = undefined;
 }
 
 player_perk_pause_all_perks_acquired(time)

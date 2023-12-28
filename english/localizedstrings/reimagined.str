@@ -199,10 +199,10 @@ REFERENCE           ZOMBIE_GRABBED_MEAT_ENEMY
 LANG_ENGLISH        "^9&&1 grabbed the meat"
 
 REFERENCE           ZOMBIE_HAS_MEAT
-LANG_ENGLISH        "^8&&1 has the meat"
+LANG_ENGLISH        "^8&&1 has the meat stink"
 
 REFERENCE           ZOMBIE_HAS_MEAT_ENEMY
-LANG_ENGLISH        "^9&&1 has the meat"
+LANG_ENGLISH        "^9&&1 has the meat stink"
 
 REFERENCE           ZOMBIE_PLAYER_HAS_MEAT
 LANG_ENGLISH        "You have the meat!"

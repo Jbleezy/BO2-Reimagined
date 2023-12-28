@@ -829,6 +829,14 @@ kill_feed()
 
 		obituary(self, self.last_griefed_by.attacker, self.last_griefed_by.weapon, self.last_griefed_by.meansofdeath);
 	}
+	else if (isDefined(self.last_meated_by))
+	{
+		obituary(self, self.last_meated_by.attacker, level.item_meat_name, "MOD_UNKNOWN");
+	}
+	else if (isDefined(self.last_emped_by))
+	{
+		obituary(self, self.last_emped_by.attacker, "emp_grenade_zm", "MOD_GRENADE_SPLASH");
+	}
 	else
 	{
 		obituary(self, self, "none", "MOD_SUICIDE");
