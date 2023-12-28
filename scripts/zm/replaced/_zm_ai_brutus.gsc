@@ -68,11 +68,14 @@ init()
 	registerclientfield("actor", "brutus_lock_down", 9000, 1, "int");
 	level thread maps\mp\zombies\_zm_ai_brutus::brutus_spawning_logic();
 
-	level thread maps\mp\zombies\_zm_ai_brutus::get_brutus_interest_points();
+	if (!level.brutus_in_grief)
+	{
+		level thread maps\mp\zombies\_zm_ai_brutus::get_brutus_interest_points();
 
-	level.custom_perk_validation = maps\mp\zombies\_zm_ai_brutus::check_perk_machine_valid;
-	level.custom_craftable_validation = ::check_craftable_table_valid;
-	level.custom_plane_validation = maps\mp\zombies\_zm_ai_brutus::check_plane_valid;
+		level.custom_perk_validation = maps\mp\zombies\_zm_ai_brutus::check_perk_machine_valid;
+		level.custom_craftable_validation = ::check_craftable_table_valid;
+		level.custom_plane_validation = maps\mp\zombies\_zm_ai_brutus::check_plane_valid;
+	}
 }
 
 setup_interaction_matrix()
@@ -335,7 +338,9 @@ brutus_find_flesh()
 		player_zone = undefined;
 		self.prev_zone = brutus_zone;
 
-		if (!isdefined(player))
+		if (level.brutus_in_grief)
+			brutus_start_basic_find_flesh();
+		else if (!isdefined(player))
 			self.priority_item = self get_priority_item_for_brutus(brutus_zone, 1);
 		else
 		{
@@ -410,19 +415,22 @@ get_brutus_spawn_pos_val(brutus_pos)
 		score += n_score_addition;
 	}
 
-	interaction_types = getarraykeys(level.interaction_types);
-	interact_array = level.interaction_types;
-
-	for (i = 0; i < interaction_types.size; i++)
+	if ( !level.brutus_in_grief )
 	{
-		int_type = interaction_types[i];
-		interaction = interact_array[int_type];
-		interact_points = [[interaction.get_func]](zone_name);
+		interaction_types = getarraykeys(level.interaction_types);
+		interact_array = level.interaction_types;
 
-		for (j = 0; j < interact_points.size; j++)
+		for (i = 0; i < interaction_types.size; i++)
 		{
-			if (interact_points[j][[interaction.validity_func]]())
-				score += interaction.spawn_bias;
+			int_type = interaction_types[i];
+			interaction = interact_array[int_type];
+			interact_points = [[interaction.get_func]](zone_name);
+
+			for (j = 0; j < interact_points.size; j++)
+			{
+				if (interact_points[j][[interaction.validity_func]]())
+					score += interaction.spawn_bias;
+			}
 		}
 	}
 

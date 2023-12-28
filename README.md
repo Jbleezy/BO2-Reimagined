@@ -77,7 +77,7 @@
 
 ## Zombies
 * Health capped at 100,000
-* Decreased damage from 60 to 50
+* Decreased player damage from 60 to 50
 * Changed height to 60 (normally either 48 or 72)
 * Increased damage taken to make a crawler from 10% of current health to 25% of current health
 * Amount of zombies scales linearly with the amount of players
@@ -115,7 +115,6 @@
 * No longer receives additional damage from Ray Gun Mark 2
 * Teleports away less frequently
 * Grief: spawns every 4-6 minutes
-* Grief: can lock perks and the Mystery Box
 
 ### Panzersoldat
 * No longer receives additional damage from Boomhilda or Ray Gun Mark 2
