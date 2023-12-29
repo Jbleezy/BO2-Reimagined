@@ -418,6 +418,7 @@
 * Move 7% faster (normally only sprint 10% faster)
 
 ### PHD Flopper
+* Added perk bottle model from Origins to all maps
 * Deals same damage on all maps
 * Damages all zombies at once on all maps
 

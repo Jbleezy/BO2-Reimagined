@@ -348,6 +348,7 @@ post_all_players_spawned()
 	level.playersuicideallowed = undefined;
 	level.disable_free_perks_before_power = undefined;
 	level.custom_random_perk_weights = undefined;
+	level.zombiemode_divetonuke_perk_func = scripts\zm\replaced\_zm_perk_divetonuke::divetonuke_explode;
 	level.global_damage_func = scripts\zm\replaced\_zm_spawner::zombie_damage;
 	level.callbackplayerdamage = scripts\zm\replaced\_zm::callback_playerdamage;
 	level.overrideplayerdamage = scripts\zm\replaced\_zm::player_damage_override;

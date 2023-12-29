@@ -7,6 +7,7 @@ include,ray_gun_zm
 include,raygun_mark2_zm
 include,willy_pete_zm
 include,item_meat_zm
+include,zombie_perk_bottle_nuke
 
 include,held_knife_zm
 include,held_one_inch_punch_zm
