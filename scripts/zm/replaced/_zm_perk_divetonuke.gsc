@@ -12,10 +12,7 @@ divetonuke_explode( attacker, origin )
 	min_damage = level.zombie_vars["zombie_perk_divetonuke_min_damage"];
 	max_damage = level.zombie_vars["zombie_perk_divetonuke_max_damage"];
 
-	if ( isdefined( level.flopper_network_optimized ) && level.flopper_network_optimized )
-		attacker thread divetonuke_explode_network_optimized( origin, radius, max_damage, min_damage, "MOD_GRENADE_SPLASH" );
-	else
-		radiusdamage( origin, radius, max_damage, min_damage, attacker, "MOD_GRENADE_SPLASH", "zombie_perk_bottle_nuke" );
+	radiusdamage( origin, radius, max_damage, min_damage, attacker, "MOD_GRENADE_SPLASH", "zombie_perk_bottle_nuke" );
 
 	playfx( level._effect["divetonuke_groundhit"], origin );
 	attacker playsound( "zmb_phdflop_explo" );
