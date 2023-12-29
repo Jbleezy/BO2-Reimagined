@@ -1246,7 +1246,7 @@ update_players_on_downed(excluded_player)
 	{
 		if (players_remaining == 0)
 		{
-			if (other_players_remaining >= 1)
+			if (other_players_remaining > 0)
 			{
 				player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_ALL_PLAYERS_DOWN");
 				player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_SURVIVE", undefined, 30, 1);
@@ -1262,7 +1262,14 @@ update_players_on_downed(excluded_player)
 	{
 		foreach (player in players)
 		{
-			player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_ALLY_BLED_OUT", players_remaining, 30);
+			if (players_remaining == 0)
+			{
+				player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_ALL_ALLIES_DOWN", undefined, 30);
+			}
+			else
+			{
+				player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_ALLY_BLED_OUT", players_remaining, 30);
+			}
 		}
 	}
 
