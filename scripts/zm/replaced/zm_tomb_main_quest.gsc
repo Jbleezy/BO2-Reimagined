@@ -668,5 +668,20 @@ run_gramophone_door(str_vinyl_record)
 
 watch_staff_ammo_reload()
 {
-	// removed max ammo clip fill
+	self endon( "disconnect" );
+
+	while ( true )
+	{
+		self waittill( "zmb_max_ammo" );
+
+		a_weapons = self getweaponslist();
+
+		foreach ( weapon in a_weapons )
+		{
+			if ( issubstr( weapon, "staff_revive" ) )
+			{
+				self setweaponammoclip( weapon, weaponclipsize( weapon ) );
+			}
+		}
+	}
 }

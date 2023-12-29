@@ -365,7 +365,7 @@
 * Max ammo no longer fills clip ammo
 * Upgraded: kill on any round
 * Upgraded: charged shots damage Panzersoldat
-* Upgraded: decreased alt weapon reload time to 0.4 seconds
+* Upgraded: decreased alt weapon fire time from 3 seconds to 0.5 seconds
 * Fire upgraded: charged shots no longer deal additional damage to Panzersoldat
 * Ice upgraded: fixed melee sound
 

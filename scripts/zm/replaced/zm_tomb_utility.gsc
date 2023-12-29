@@ -111,12 +111,11 @@ capture_zombie_spawn_init(animname_set = 0)
 update_staff_accessories(n_element_index)
 {
 	cur_melee = self get_player_melee_weapon();
-	melee_to_keep = "knife_zm";
+	melee_to_keep = get_melee_weapon_from_held();
+	self.use_staff_melee = 0;
 
 	if (!issubstr(cur_melee, "one_inch_punch"))
 	{
-		self.use_staff_melee = 0;
-
 		if (n_element_index != 0)
 		{
 			staff_info = maps\mp\zm_tomb_craftables::get_staff_info_from_element_index(n_element_index);
@@ -142,19 +141,23 @@ update_staff_accessories(n_element_index)
 		current_weapon = self getcurrentweapon();
 
 		self takeweapon(cur_melee);
-		self takeweapon("held_" + cur_melee);
 		self giveweapon(melee_to_keep);
 		self set_player_melee_weapon(melee_to_keep);
-		self giveweapon("held_" + melee_to_keep);
 
-		if (!self hasweapon("equip_dieseldrone_zm"))
+		if (!self.use_staff_melee)
 		{
-			self setactionslot(2, "weapon", "held_" + melee_to_keep);
-		}
+			self takeweapon("held_" + cur_melee);
+			self giveweapon("held_" + melee_to_keep);
 
-		if (is_melee_weapon(current_weapon))
-		{
-			self switchtoweapon("held_" + melee_to_keep);
+			if (!self hasweapon("equip_dieseldrone_zm"))
+			{
+				self setactionslot(2, "weapon", "held_" + melee_to_keep);
+			}
+
+			if (is_melee_weapon(current_weapon))
+			{
+				self switchtoweapon("held_" + melee_to_keep);
+			}
 		}
 	}
 
@@ -192,10 +195,27 @@ update_staff_accessories(n_element_index)
 		}
 		else
 		{
-			self setweaponammostock("staff_revive_zm", 3);
-			self setweaponammoclip("staff_revive_zm", 1);
+
+			self setweaponammostock("staff_revive_zm", weaponmaxammo("staff_revive_zm") - weaponclipsize("staff_revive_zm"));
+			self setweaponammoclip("staff_revive_zm", weaponclipsize("staff_revive_zm"));
 		}
 	}
+}
+
+get_melee_weapon_from_held()
+{
+	melee_to_keep = "knife_zm";
+
+	foreach (weapon in self getweaponslist())
+	{
+		if (getsubstr(weapon, 0, 5) == "held_")
+		{
+			melee_to_keep = getsubstr(weapon, 5);
+			break;
+		}
+	}
+
+	return melee_to_keep;
 }
 
 get_punch_element_from_index(ind)
