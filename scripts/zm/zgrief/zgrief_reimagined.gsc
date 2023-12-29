@@ -213,7 +213,7 @@ grief_score_hud()
 			}
 		}
 
-		if (level.scr_zm_ui_gametype_obj == "zmeat")
+		if (level.scr_zm_ui_gametype_obj == "zcontainment" || level.scr_zm_ui_gametype_obj == "zmeat")
 		{
 			level.grief_score_hud[team1].obj_icon = newTeamHudElem(team1);
 			level.grief_score_hud[team1].obj_icon.alignx = "center";
@@ -221,8 +221,8 @@ grief_score_hud()
 			level.grief_score_hud[team1].obj_icon.horzalign = "user_center";
 			level.grief_score_hud[team1].obj_icon.vertalign = "user_top";
 			level.grief_score_hud[team1].obj_icon.y += 50;
-			level.grief_score_hud[team1].obj_icon.width = 16;
-			level.grief_score_hud[team1].obj_icon.height = 16;
+			level.grief_score_hud[team1].obj_icon.width = 20;
+			level.grief_score_hud[team1].obj_icon.height = 20;
 			level.grief_score_hud[team1].obj_icon.hidewheninmenu = 1;
 			level.grief_score_hud[team1].obj_icon.foreground = 1;
 			level.grief_score_hud[team1].obj_icon.archived = 0;
@@ -273,6 +273,8 @@ grief_score_hud_set_player_count(team, num = get_number_of_valid_players_team(te
 
 grief_score_hud_set_obj_icon(team)
 {
+	dist = 72.5;
+
 	foreach (team1 in level.teams)
 	{
 		if (team == "none")
@@ -288,14 +290,19 @@ grief_score_hud_set_obj_icon(team)
 			level.grief_score_hud[team1].obj_icon.x = level.grief_score_hud[team1].obj_icon.og_x;
 			level.grief_score_hud[team1].obj_icon.color = (1, 1, 1);
 		}
+		else if (team == "contested")
+		{
+			level.grief_score_hud[team1].obj_icon.x = level.grief_score_hud[team1].obj_icon.og_x;
+			level.grief_score_hud[team1].obj_icon.color = (1, 1, 0);
+		}
 		else if (team1 == team)
 		{
-			level.grief_score_hud[team1].obj_icon.x = level.grief_score_hud[team1].obj_icon.og_x - 27.5;
+			level.grief_score_hud[team1].obj_icon.x = level.grief_score_hud[team1].obj_icon.og_x - dist;
 			level.grief_score_hud[team1].obj_icon.color = (0, 1, 0);
 		}
 		else
 		{
-			level.grief_score_hud[team1].obj_icon.x = level.grief_score_hud[team1].obj_icon.og_x + 27.5;
+			level.grief_score_hud[team1].obj_icon.x = level.grief_score_hud[team1].obj_icon.og_x + dist;
 			level.grief_score_hud[team1].obj_icon.color = (1, 0, 0);
 		}
 	}
@@ -2676,6 +2683,8 @@ containment_think()
 					player containment_set_obj_waypoint_icon("compass_waypoint_contested");
 				}
 
+				grief_score_hud_set_obj_icon("contested");
+
 				if (held_prev != "cont")
 				{
 					obj_time = 2000;
@@ -2710,6 +2719,8 @@ containment_think()
 						player containment_set_obj_waypoint_icon("waypoint_time_bomb");
 					}
 				}
+
+				grief_score_hud_set_obj_icon("axis");
 
 				if (held_prev != "axis")
 				{
@@ -2752,6 +2763,8 @@ containment_think()
 					}
 				}
 
+				grief_score_hud_set_obj_icon("allies");
+
 				if (held_prev != "allies")
 				{
 					obj_time = 1000;
@@ -2792,6 +2805,8 @@ containment_think()
 					player.obj_waypoint.color = (1, 1, 1);
 					player containment_set_obj_waypoint_icon("waypoint_recon_artillery_strike");
 				}
+
+				grief_score_hud_set_obj_icon("neutral");
 
 				if (held_prev != "none")
 				{
