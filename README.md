@@ -291,6 +291,7 @@
 
 ### One Inch Punch
 * Upgraded: elemental punch changes based on which staff the player currently has
+* Upgraded: uses melee lunge anim as normal melee anim
 * Fixed an issue where a player's melee weapon wouldn't reset if the player bled out in the Giant Robots
 
 ### Ray Gun
