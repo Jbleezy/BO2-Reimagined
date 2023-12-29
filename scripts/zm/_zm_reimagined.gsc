@@ -114,6 +114,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_weap_ballistic_knife::pick_up, scripts\zm\replaced\_zm_weap_ballistic_knife::pick_up);
 	replaceFunc(maps\mp\zombies\_zm_weap_claymore::claymore_detonation, scripts\zm\replaced\_zm_weap_claymore::claymore_detonation);
 	replaceFunc(maps\mp\zombies\_zm_weap_claymore::claymore_setup, scripts\zm\replaced\_zm_weap_claymore::claymore_setup);
+	replaceFunc(maps\mp\zombies\_zm_weap_cymbal_monkey::init, scripts\zm\replaced\_zm_weap_cymbal_monkey::init);
 	replaceFunc(maps\mp\zombies\_zm_weap_cymbal_monkey::player_handle_cymbal_monkey, scripts\zm\replaced\_zm_weap_cymbal_monkey::player_handle_cymbal_monkey);
 }
 

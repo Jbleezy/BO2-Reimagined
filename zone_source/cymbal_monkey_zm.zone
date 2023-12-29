@@ -1,0 +1,8 @@
+xmodel,t6_wpn_zmb_monkey_bomb_view
+xmodel,t6_wpn_zmb_monkey_bomb_world
+material,mc/mtl_t6_wpn_zmb_monkey_bomb
+material,mc/mtl_t6_wpn_zmb_monkey
+material,mc/mtl_t6_wpn_zmb_monkey_fur_view
+image,~-gt6_wpn_zmb_monkey_bomb_col
+image,~-gt6_wpn_zmb_monkey_col
+image,~-gt6_wpn_zmb_monkey_fur_col

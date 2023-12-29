@@ -240,8 +240,8 @@
 * Unupgraded: grenades explode on impact
 
 ### Monkey Bomb
+* Added model and HUD icon from Buried to all maps
 * Zombies killed can drop powerups
-* Added HUD icon from Buried and Origins to all maps
 * Fixed an issue where a Monkey Bomb wouldn't activate if the previously thrown Monkey Bomb hadn't activated yet
 
 ### EMP Grenade

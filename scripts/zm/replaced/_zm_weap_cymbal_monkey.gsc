@@ -7,6 +7,19 @@
 
 #using_animtree("zombie_cymbal_monkey");
 
+init()
+{
+	if ( !cymbal_monkey_exists() )
+		return;
+
+	level.cymbal_monkey_model = "t6_wpn_zmb_monkey_bomb_world";
+
+	level._effect["monkey_glow"] = loadfx( "maps/zombie/fx_zombie_monkey_light" );
+	level._effect["grenade_samantha_steal"] = loadfx( "maps/zombie/fx_zmb_blackhole_trap_end" );
+	level.cymbal_monkeys = [];
+	scriptmodelsuseanimtree( #animtree );
+}
+
 player_handle_cymbal_monkey()
 {
 	self notify("starting_monkey_watch");
