@@ -1355,7 +1355,17 @@ actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, 
 	{
 		if (!is_true(self.is_brutus))
 		{
-			damage = level.zombie_health;
+			if (is_true(self.real_willy_pete_damage))
+			{
+				self.real_willy_pete_damage = undefined;
+			}
+			else
+			{
+				// hack to make Smoke Grenade use MOD_UNKNOWN so zombies don't gib
+				self.real_willy_pete_damage = 1;
+				self dodamage(self.health, inflictor.origin, attacker, self, "none", "MOD_UNKNOWN", 0, weapon);
+				return 0;
+			}
 		}
 	}
 
