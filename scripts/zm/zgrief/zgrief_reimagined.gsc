@@ -1258,6 +1258,14 @@ update_players_on_downed(excluded_player)
 		}
 	}
 
+	if (other_players_remaining > 0)
+	{
+		foreach (player in players)
+		{
+			player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_ALLY_BLED_OUT", players_remaining, 30);
+		}
+	}
+
 	if (players_remaining == 1)
 	{
 		foreach (player in players)
@@ -1299,14 +1307,24 @@ update_players_on_revived(revived_player, reviver)
 {
 	team = revived_player.team;
 	other_team = getOtherTeam(team);
+	players = get_players(team);
 	other_players = get_players(other_team);
 	players_remaining = get_number_of_valid_players_team(team);
+	other_players_remaining = get_number_of_valid_players_team(other_team);
 
 	grief_score_hud_set_player_count(team, players_remaining);
 
 	foreach (player in other_players)
 	{
 		player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_PLAYER_REVIVED", players_remaining);
+	}
+
+	if (other_players_remaining > 0)
+	{
+		foreach (player in players)
+		{
+			player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_ALLY_REVIVED", players_remaining, 30);
+		}
 	}
 }
 
@@ -2282,53 +2300,6 @@ grief_laststand_weapons_return()
 
 	self maps\mp\zombies\_zm_weapons::give_fallback_weapon();
 	return 1;
-}
-
-sudden_death()
-{
-	level endon("end_game");
-
-	if (level.scr_zm_ui_gametype_obj != "zsnr")
-	{
-		return;
-	}
-
-	level.sudden_death = 0;
-
-	while (1)
-	{
-		level waittill("restart_round_start");
-
-		level.sudden_death = 0;
-
-		time = level waittill_notify_or_timeout("restart_round", 300);
-
-		if (!isDefined(time))
-		{
-			continue;
-		}
-
-		level.sudden_death = 1;
-
-		players = get_players();
-
-		foreach (player in players)
-		{
-			player thread show_grief_hud_msg("Sudden Death!");
-			player thread show_grief_hud_msg("Lose 100 Health!", undefined, 30, 1);
-			player thread red_flashing_overlay_loop();
-
-			health = player.health;
-			player setMaxHealth(player.maxhealth - 100);
-
-			if (player.health > health)
-			{
-				player.health = health;
-			}
-
-			player.premaxhealth -= 100;
-		}
-	}
 }
 
 red_flashing_overlay_loop()
