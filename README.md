@@ -122,8 +122,6 @@
 
 ## Weapons
 * Switch to melee weapon by pressing the Previous Scorestreak button (same button as the Time Bomb and Maxis Drone)
-* Snipers: increased zoom FOV from 15 to 25
-* Snipers: disabled scope sway
 * Grenades: improved projectile upward speed
 * Grenades: can no longer be thrown faster than intended by throwing a grenade right after throwing one
 * Grenades: changed damage scalar to 25 multiplied by round number (normally random number between 100 and 200 added by round number)
@@ -133,12 +131,124 @@
 * Placeable mines: changed damage scalar to 150 multiplied by round number (normally random number between 100 and 200 multiplied by round number)
 * Placeable mines: capped damage scalar at 9000
 
+## Pistols
+* Increased move speed from 100% to 110%
+
+### B23R
+* Decreased weapon cost from 1000 to 900 on all maps
+
+### Executioner
+* Increased penetration
+
+### Five-seven Dual Wield
+* Unupgraded: decreased stock ammo from 225 to 210 on all maps
+* Upgraded: decreased stock ammo from 295 to 280 on all maps
+
+### KAP-40
+* Removed delay between last shot and reload
+* Unupgraded: increased clip ammo from 12 to 15
+* Unupgraded: increased stock ammo from 96 to 240
+* Upgraded: increased stock ammo from 180 to 360
+
+### M1911
+* Unupgraded: decreased zoom FOV from 65 to 60 (same as other Black Ops 2 pistols)
+* Upgraded: decreased stock ammo from 50 to 48
+* Upgraded: decreased last stand ammo from 2 clips to 1 clip
+
+### Mauser C96
+* Ammo gets added to the clip at the same time that it gets added in the reload anim
+* Unupgraded: decreased zoom FOV from 65 to 60 (same as other Black Ops 2 pistols)
+* Upgraded: fixed not being able to melee while aiming
+* Upgraded: decreased last stand ammo from 2 clips to 1 clip
+
+### Tac-45
+* Replaces M1911 on Tranzit, Nuketown, Die Rise, and Buried
+
+## Assault Rifles
+
 ### AN-94
 * Increased weapon cost from 1200 to 1500
 * Upgraded: decreased stock ammo from 600 to 450
 
-### B23R
-* Decreased weapon cost from 1000 to 900 on all maps
+### M27
+* Upgraded: changed default attachment from Reflex Sight to None
+
+### M8A1
+* Decreased recoil
+
+### MTAR
+* Decreased recoil
+* Upgraded: changed default attachment from Reflex Sight to EOTech Sight
+
+### SCAR-H
+* Upgraded: changed default attachment from Reflex Sight to None
+
+### SMR
+* Increased damage by 100%
+* Removed aim spread
+
+### STG-44
+* Ammo gets added to the clip at the same time that it gets added in the reload anim
+* Upgraded: decreased stock ammo from 330 to 300
+
+### Type 25
+* Decreased recoil
+* Unupgraded: increased stock ammo from 150 to 300
+* Upgraded: increased stock ammo from 270 to 450
+* Upgraded: changed default attachment from Reflex Sight to Millimeter Scanner
+
+## Submachine Guns
+* Changed move speed from 100% or 110% to 105%
+
+### Chicom CQB
+* Unupgraded: decreased clip ammo from 40 to 36
+* Unupgraded: increased stock ammo from 120 to 288
+* Upgraded: increased clip ammo from 40 to 48
+* Upgraded: increased stock ammo from 200 to 384
+* Upgraded: changed default attachment from None to Select Fire
+
+### M1927
+* Decreased ammo cost from 800 to 750
+
+### MP40
+* Ammo gets added to the clip at the same time that it gets added in the reload anim
+
+### Skorpion EVO
+* Upgraded: changed default attachment from Reflex Sight to Fast Mag
+
+## Light Machine Guns
+* Decreased move speed from 87.5% to 85%
+
+### HAMR
+* Decreased recoil
+* Upgraded: changed default attachment from None to Grip
+
+### MG08/15
+* Ammo gets added to the clip at the same time that it gets added in the reload anim
+
+## Sniper Rifles
+* Decreased move speed from 95% to 90%
+* Disabled scope sway
+* Unupgraded: increased zoom FOV from 15 to 25
+
+## Shotguns
+
+### M1216
+* Increased penetration
+
+### Remington 870
+* Changed weapon cost from 900 or 1500 to 1200 on all maps
+* Increased penetration
+
+### S12
+* Increased penetration
+
+## Launchers
+
+### War Machine
+* Unupgraded: grenades explode on impact
+
+## Specials
 
 ### Ballistic Knife
 * Added model and anims from Black Ops 2 Multiplayer
@@ -149,154 +259,12 @@
 * Projectiles can be picked up while the weapon is not reloaded
 * Projectiles can be picked up while the player is not on the ground
 
-### Chicom CQB
-* Unupgraded: decreased clip ammo from 40 to 36
-* Unupgraded: increased stock ammo from 120 to 288
-* Upgraded: increased clip ammo from 40 to 48
-* Upgraded: increased stock ammo from 200 to 384
-* Upgraded: changed default attachment from None to Select Fire
-
-### Executioner
-* Increased penetration
-
-### Five-seven Dual Wield
-* Unupgraded: decreased stock ammo from 225 to 210 on all maps
-* Upgraded: decreased stock ammo from 295 to 280 on all maps
-
-### HAMR
-* Decreased recoil
-* Upgraded: changed default attachment from None to Grip
-
-### KAP-40
-* Removed delay between last shot and reload
-* Unupgraded: increased clip ammo from 12 to 15
-* Unupgraded: increased stock ammo from 96 to 240
-* Upgraded: increased stock ammo from 180 to 360
-
-### M1216
-* Increased penetration
-
-### M1911
-* Unupgraded: decreased zoom FOV from 65 to 60 (same as other Black Ops 2 pistols)
-* Upgraded: decreased stock ammo from 50 to 48
-* Upgraded: decreased last stand ammo from 2 clips to 1 clip
-
-### M1927
-* Decreased ammo cost from 800 to 750
-
-### M27
-* Upgraded: changed default attachment from Reflex Sight to None
-
-### M8A1
-* Decreased recoil
-
-### Mauser C96
-* Ammo gets added to the clip at the same time that it gets added in the reload animation
-* Unupgraded: decreased zoom FOV from 65 to 60 (same as other Black Ops 2 pistols)
-* Upgraded: fixed not being able to melee while aiming
-* Upgraded: decreased last stand ammo from 2 clips to 1 clip
-
-### MG08/15
-* Ammo gets added to the clip at the same time that it gets added in the reload animation
-
-### MP40
-* Ammo gets added to the clip at the same time that it gets added in the reload animation
-
-### MTAR
-* Decreased recoil
-* Upgraded: changed default attachment from Reflex Sight to EOTech Sight
-
-### Remington 870
-* Changed weapon cost from 900 or 1500 to 1200 on all maps
-* Increased penetration
-
-### S12
-* Increased penetration
-
-### SCAR-H
-* Upgraded: changed default attachment from Reflex Sight to None
-
-### Skorpion EVO
-* Upgraded: changed default attachment from Reflex Sight to Fast Mag
-
-### SMR
-* Increased damage by 100%
-* Removed aim spread
-
-### STG-44
-* Ammo gets added to the clip at the same time that it gets added in the reload animation
-* Upgraded: decreased stock ammo from 330 to 300
-
-### Tac-45
-* Replaces M1911 on Tranzit, Nuketown, Die Rise, and Buried
-
-### Type 25
-* Decreased recoil
-* Unupgraded: increased stock ammo from 150 to 300
-* Upgraded: increased stock ammo from 270 to 450
-* Upgraded: changed default attachment from Reflex Sight to Millimeter Scanner
-
-### War Machine
-* Unupgraded: grenades explode on impact
-
-### Monkey Bomb
-* Added model and HUD icon from Buried to all maps
-* Zombies killed can drop powerups
-* Fixed an issue where a Monkey Bomb wouldn't activate if the previously thrown Monkey Bomb hadn't activated yet
-
-### EMP Grenade
-* No longer disables HUD
-* Disables player's perks for 12 seconds
-* Increased ammo from 2 to 3
-* Decreased projectile speed by 30% (same as Black Ops 2 Multiplayer EMP Grenade)
-* Decreased zombie EMP radius by 17% (same as Black Ops 2 Multiplayer EMP Grenade)
-* Increased perk machine EMP radius by 22% (same as Black Ops 2 Multiplayer EMP Grenade)
-* Decreased perk machine EMP time from 90 seconds to 60 seconds
-* Changed shellshock (same as Black Ops 2 Multiplayer EMP Grenade)
-* Added fx to EMP'd players
-* Can destroy deployed Zombie Shields
-* Sprinting no longer wakes up EMP'd zombies
-* Zombies that are in the ground can no longer get EMP'd
-
-### Smoke Grenade
-* Added on Cell Block and Docks
-* Kills on any round
-
-### Hell's Retriever
-* No longer ricochets to other zombies when not charged
-* Every charge increases total zombies attacked by 3
-* Unupgraded: changed damage to 2000 (normally does 1000-2000 damage based on number of charges)
-* Upgraded: kills on any round when not charged
-
-### G-Strike Beacon
-* Kills on any round
-* Increased ammo from 2 to 3
-
-### Claymore
-* Can be repurchased
-* Can be placed while in the air
-* Increased max amount that can be placed from 12 to 20
-* Added weapon name on HUD
-* Removed initial weapon raise animation
-
-### Time Bomb
-* No longer sends players back in time
-* Kills all zombies
-* Can have with Monkey Bombs
-* Switches to detonator at correct time after throwing
-* Fixed detonator raise and drop anims
-
-### Combat Knife
-* Added model from Black Ops 2 Multiplayer
-
-### One Inch Punch
-* Upgraded: elemental punch changes based on which staff the player currently has
-* Upgraded: uses melee lunge anim as normal melee anim
-* Fixed an issue where a player's melee weapon wouldn't reset if the player bled out in the Giant Robots
+## Wonder Weapons
 
 ### Ray Gun
 * Added weapon model from Buried to all maps
-* Ammo gets added to the clip at the same time that it gets added in the reload animation
+* Increased move speed from 100% to 105%
+* Ammo gets added to the clip at the same time that it gets added in the reload anim
 * No longer limited to 4 players
 * Unupgraded: increased impact damage from 1000 to 1500 (same as max splash damage)
 * Upgraded: increased impact damage from 1000 to 2000 (same as max splash damage)
@@ -304,7 +272,8 @@
 ### Ray Gun Mark 2
 * Same probability to obtain as other weapons
 * Can be obtained if player has Ray Gun
-* Ammo gets added to the clip at the same time that it gets added in the reload animation
+* Increased move speed from 100% to 105%
+* Ammo gets added to the clip at the same time that it gets added in the reload anim
 * Limited to 1 player on all maps
 * Decreased last stand ammo from 3 clips to 1 clip
 
@@ -369,6 +338,66 @@
 * Upgraded: decreased alt weapon fire time from 3 seconds to 0.5 seconds
 * Fire upgraded: charged shots no longer deal additional damage to Panzersoldat
 * Ice upgraded: fixed melee sound
+
+## Tactical Grenades
+
+### Monkey Bomb
+* Added model and HUD icon from Buried to all maps
+* Zombies killed can drop powerups
+* Fixed an issue where a Monkey Bomb wouldn't activate if the previously thrown Monkey Bomb hadn't activated yet
+
+### EMP Grenade
+* No longer disables HUD
+* Disables player's perks for 12 seconds
+* Increased ammo from 2 to 3
+* Decreased projectile speed by 30% (same as Black Ops 2 Multiplayer EMP Grenade)
+* Decreased zombie EMP radius by 17% (same as Black Ops 2 Multiplayer EMP Grenade)
+* Increased perk machine EMP radius by 22% (same as Black Ops 2 Multiplayer EMP Grenade)
+* Decreased perk machine EMP time from 90 seconds to 60 seconds
+* Changed shellshock (same as Black Ops 2 Multiplayer EMP Grenade)
+* Added fx to EMP'd players
+* Can destroy deployed Zombie Shields
+* Sprinting no longer wakes up EMP'd zombies
+* Zombies that are in the ground can no longer get EMP'd
+
+### Smoke Grenade
+* Added on Cell Block and Docks
+* Kills on any round
+
+### Hell's Retriever
+* No longer ricochets to other zombies when not charged
+* Every charge increases total zombies attacked by 3
+* Unupgraded: changed damage to 2000 (normally does 1000-2000 damage based on number of charges)
+* Upgraded: kills on any round when not charged
+
+### G-Strike Beacon
+* Kills on any round
+* Increased ammo from 2 to 3
+
+## Equipment
+* Increased move speed from 100% to 110%
+
+### Combat Knife
+* Added model from Black Ops 2 Multiplayer
+
+### Claymore
+* Can be repurchased
+* Can be placed while in the air
+* Increased max amount that can be placed from 12 to 20
+* Added weapon name on HUD
+* Removed initial weapon raise anim
+
+### Time Bomb
+* No longer sends players back in time
+* Kills all zombies
+* Can have with Monkey Bombs
+* Switches to detonator at correct time after throwing
+* Fixed detonator raise and drop anims
+
+### One Inch Punch
+* Upgraded: elemental punch changes based on which staff the player currently has
+* Upgraded: uses melee lunge anim as normal melee anim
+* Fixed an issue where a player's melee weapon wouldn't reset if the player bled out in the Giant Robots
 
 ## Wallbuys
 * Purchasing ammo refills clip ammo
@@ -521,6 +550,7 @@
 * Can be destroyed by taking 1500 damage
 * Can no longer be picked up after being destroyed
 * Added weapon name on HUD to all buildables
+* Increased move speed while holding from 100% to 110% (except Zombie Shield)
 * Changed crafting hint string from "Building..." to "Crafting..."
 
 ### Zombie Shield
@@ -566,13 +596,13 @@
 * Does multiple swings when player activates
 * Kills zombies when placed on a ceiling
 * Increased damage trigger width by 100%
-* No longer deals damage during retract animations
+* No longer deals damage during retract anims
 * Changed head chop player damage to 50 (normally instantly kills without Juggernog or deals 15 damage with Juggernog)
 * Changed body chop player damage to 25 (normally deals 75 damage to torso or 37 damage to feet)
 * Fixed an issue where each chop would only damage entities that were touching the damage trigger during the previous chop
 
 ### Blundergat Upgrade
-* Player does knuckle crack animation during conversion
+* Player does knuckle crack anim during conversion
 * Requires player's current weapon to be the Blundergat to convert
 * Requires player to be looking at the table to convert
 
@@ -758,7 +788,7 @@
 * Quest: if Weasel is not in the game, the cycle continues immediately after everyone revives themselves on the Golden Gate Bridge
 * Quest: players no longer get moved to different positions when starting the showdown
 * Quest: showdown target waypoint shows offscreen
-* Fixed initial weapon raise animation happening after exiting afterlife
+* Fixed initial weapon raise anim happening after exiting afterlife
 * Fixed being able to hit a death barrier when jumping off the Docks Bridge zone
 * Fixed locked hint string not showing on Blundergat Upgrade buildable table
 
