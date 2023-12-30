@@ -5,14 +5,22 @@
 include,knife_ballistic_zm
 include,ray_gun_zm
 include,raygun_mark2_zm
+include,jetgun_zm
 include,cymbal_monkey_zm
 include,willy_pete_zm
 include,item_meat_zm
-include,zombie_perk_bottle_nuke
 
 include,held_knife_zm
 include,held_one_inch_punch_zm
 include,fnp45_zm
+
+include,specialty_juggernaut
+include,specialty_quickrevive
+include,specialty_fastreload
+include,specialty_doubletap
+include,specialty_marathon
+include,specialty_divetonuke
+include,specialty_mulekick
 
 include,waypoint
 
