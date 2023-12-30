@@ -137,9 +137,6 @@
 ### B23R
 * Decreased weapon cost from 1000 to 900 on all maps
 
-### Executioner
-* Increased penetration
-
 ### Five-seven Dual Wield
 * Unupgraded: decreased stock ammo from 225 to 210 on all maps
 * Upgraded: decreased stock ammo from 295 to 280 on all maps
@@ -232,16 +229,10 @@
 * Unupgraded: increased zoom FOV from 15 to 25
 
 ## Shotguns
-
-### M1216
 * Increased penetration
 
 ### Remington 870
 * Changed weapon cost from 900 or 1500 to 1200 on all maps
-* Increased penetration
-
-### S12
-* Increased penetration
 
 ## Launchers
 
@@ -769,6 +760,7 @@
 * Activating the laundry machine always spawns zombies instead of Brutus
 * Docks gate no longer closes when shock box is shocked in afterlife
 * Players no longer respawn in the Acid Trap
+* Added falling hands anim from Origins
 * Acid Trap: kills on any round (normally stops killing after round 158 on PC)
 * Acid Trap: kills zombies instantly
 * Acid Trap: decreased player damage from 75% of max health to 50% of max health
