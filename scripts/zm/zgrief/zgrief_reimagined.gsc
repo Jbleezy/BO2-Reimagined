@@ -371,12 +371,6 @@ set_grief_vars()
 		level.zombie_weapons["raygun_mark2_zm"].is_in_box = 1;
 	}
 
-	if (isDefined(level.zombie_weapons["willy_pete_zm"]))
-	{
-		register_tactical_grenade_for_level("willy_pete_zm");
-		level.zombie_weapons["willy_pete_zm"].is_in_box = 1;
-	}
-
 	level.grief_score = [];
 	level.grief_score["A"] = 0;
 	level.grief_score["B"] = 0;

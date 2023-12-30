@@ -162,7 +162,7 @@
 * Upgraded: decreased last stand ammo from 2 clips to 1 clip
 
 ### Tac-45
-* Replaces M1911 on Tranzit, Nuketown, Die Rise, and Buried
+* Replaces M1911 (except on Mob of the Dead)
 
 ## Assault Rifles
 
@@ -361,7 +361,7 @@
 * Zombies that are in the ground can no longer get EMP'd
 
 ### Smoke Grenade
-* Added on Cell Block and Docks
+* Added on Mob of the Dead
 * Kills on any round
 
 ### Hell's Retriever

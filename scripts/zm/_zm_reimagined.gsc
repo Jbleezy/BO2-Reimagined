@@ -1641,6 +1641,10 @@ weapon_changes()
 
 		include_weapon( "held_spork_zm_alcatraz", 0 );
 		register_melee_weapon_for_level( "held_spork_zm_alcatraz" );
+
+		maps\mp\zombies\_zm_weapons::register_zombie_weapon_callback( "willy_pete_zm", ::player_give_willy_pete );
+		register_tactical_grenade_for_level("willy_pete_zm");
+		level.zombie_weapons["willy_pete_zm"].is_in_box = 1;
 	}
 
 	if (level.script == "zm_tomb")
@@ -1663,6 +1667,17 @@ weapon_changes()
 		include_weapon( "held_one_inch_punch_lightning_zm", 0 );
 		register_melee_weapon_for_level( "held_one_inch_punch_lightning_zm" );
 	}
+}
+
+player_give_willy_pete()
+{
+	self endon("disconnect");
+
+	self setclientfieldtoplayer("tomahawk_in_use", 0);
+
+	wait 0.05;
+
+	self giveweapon("willy_pete_zm");
 }
 
 wallbuy_location_changes()

@@ -613,6 +613,74 @@ afterlife_player_damage_callback(einflictor, eattacker, idamage, idflags, smeans
 	return idamage;
 }
 
+afterlife_save_loadout()
+{
+	primaries = self getweaponslistprimaries();
+	currentweapon = self getcurrentweapon();
+	self.loadout = spawnstruct();
+	self.loadout.player = self;
+	self.loadout.weapons = [];
+	self.loadout.score = self.score;
+	self.loadout.current_weapon = 0;
+
+	foreach ( index, weapon in primaries )
+	{
+		self.loadout.weapons[index] = weapon;
+		self.loadout.stockcount[index] = self getweaponammostock( weapon );
+		self.loadout.clipcount[index] = self getweaponammoclip( weapon );
+
+		if ( weaponisdualwield( weapon ) )
+		{
+			weapon_dw = weapondualwieldweaponname( weapon );
+			self.loadout.clipcount2[index] = self getweaponammoclip( weapon_dw );
+		}
+
+		weapon_alt = weaponaltweaponname( weapon );
+
+		if ( weapon_alt != "none" )
+		{
+			self.loadout.stockcountalt[index] = self getweaponammostock( weapon_alt );
+			self.loadout.clipcountalt[index] = self getweaponammoclip( weapon_alt );
+		}
+
+		if ( weapon == currentweapon )
+			self.loadout.current_weapon = index;
+	}
+
+	self.loadout.equipment = self get_player_equipment();
+
+	if ( isdefined( self.loadout.equipment ) )
+		self equipment_take( self.loadout.equipment );
+
+	if ( self hasweapon( "claymore_zm" ) )
+	{
+		self.loadout.hasclaymore = 1;
+		self.loadout.claymoreclip = self getweaponammoclip( "claymore_zm" );
+	}
+
+	if ( self hasweapon( "bouncing_tomahawk_zm" ) || self hasweapon( "upgraded_tomahawk_zm" ) )
+	{
+		self.loadout.hastomahawk = 1;
+		self setclientfieldtoplayer( "tomahawk_in_use", 0 );
+	}
+	else if ( self hasweapon( "willy_pete_zm" ) )
+	{
+		self.loadout.hassmoke = 1;
+		self.loadout.smokeclip = self getweaponammoclip( "willy_pete_zm" );
+	}
+
+	self.loadout.perks = afterlife_save_perks( self );
+	lethal_grenade = self get_player_lethal_grenade();
+
+	if ( self hasweapon( lethal_grenade ) )
+		self.loadout.grenade = self getweaponammoclip( lethal_grenade );
+	else
+		self.loadout.grenade = 0;
+
+	self.loadout.lethal_grenade = lethal_grenade;
+	self set_player_lethal_grenade( undefined );
+}
+
 afterlife_give_loadout()
 {
 	self takeallweapons();
@@ -681,17 +749,16 @@ afterlife_give_loadout()
 		self setweaponammoclip("claymore_zm", loadout.claymoreclip);
 	}
 
-	if (isdefined(loadout.hasemp) && loadout.hasemp)
-	{
-		self giveweapon("emp_grenade_zm");
-		self setweaponammoclip("emp_grenade_zm", loadout.empclip);
-	}
-
 	if (isdefined(loadout.hastomahawk) && loadout.hastomahawk)
 	{
 		self giveweapon(self.current_tomahawk_weapon);
 		self set_player_tactical_grenade(self.current_tomahawk_weapon);
 		self setclientfieldtoplayer("tomahawk_in_use", 1);
+	}
+	else if (isdefined(loadout.hassmoke) && loadout.hassmoke)
+	{
+		self giveweapon("willy_pete_zm");
+		self setweaponammoclip("willy_pete_zm", loadout.smokeclip);
 	}
 
 	self.score = loadout.score;

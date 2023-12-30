@@ -130,15 +130,26 @@ tomahawk_return_player(m_tomahawk, num_zombie_hit = 5)
 	}
 
 	m_tomahawk delete();
-	self playsoundtoplayer("wpn_tomahawk_catch_plr", self);
-	self playsound("wpn_tomahawk_catch_npc");
+
+	if (self.current_tactical_grenade == self.current_tomahawk_weapon)
+	{
+		self playsoundtoplayer("wpn_tomahawk_catch_plr", self);
+		self playsound("wpn_tomahawk_catch_npc");
+	}
+
 	wait 5;
-	self playsoundtoplayer("wpn_tomahawk_cooldown_done", self);
-	self givemaxammo(self.current_tomahawk_weapon);
+
+	if (self.current_tactical_grenade == self.current_tomahawk_weapon)
+	{
+		self playsoundtoplayer("wpn_tomahawk_cooldown_done", self);
+		self givemaxammo(self.current_tomahawk_weapon);
+		self setclientfieldtoplayer("tomahawk_in_use", 3);
+	}
+
 	a_zombies = getaispeciesarray("axis", "all");
 
 	foreach (ai_zombie in a_zombies)
+	{
 		ai_zombie.hit_by_tomahawk = 0;
-
-	self setclientfieldtoplayer("tomahawk_in_use", 3);
+	}
 }
