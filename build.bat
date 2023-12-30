@@ -3,7 +3,7 @@
 set GAME_BASE=D:\Games\Steam\steamapps\common\Call of Duty Black Ops II
 set OAT_BASE=C:\OpenAssetTools
 set MOD_BASE=%cd%
-"%OAT_BASE%\build\bin\Release_x86\Linker.exe" ^
+"%OAT_BASE%\Linker.exe" ^
 --load "%GAME_BASE%\zone\all\zm_tomb.ff" ^
 --load "%GAME_BASE%\zone\all\zm_buried.ff" ^
 --load "%GAME_BASE%\zone\all\zm_prison.ff" ^
