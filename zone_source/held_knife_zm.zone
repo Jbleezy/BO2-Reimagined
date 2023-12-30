@@ -35,6 +35,7 @@ xanim,viewmodel_strider_crawl_forward
 xanim,viewmodel_strider_crawl_back
 xanim,viewmodel_strider_crawl_left
 xanim,viewmodel_strider_crawl_right
+xanim,viewmodel_strider_crawl_out
 xanim,viewmodel_strider_ads_up
 xanim,viewmodel_strider_ads_down
 xanim,viewmodel_strider_d2p_in
