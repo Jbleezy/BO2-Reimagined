@@ -48,6 +48,7 @@
 * Can dive again right away after just diving
 * Increased melee range by 16% (same as Black Ops 1)
 * Disabled melee lunging
+* Disabled meleeing while doing falling hands anim
 * Can look up and down 90 degrees (previously 85 degrees)
 * Decreased normal health regeneration delay from 2.4 seconds to 2 seconds
 * Decreased low health regeneration delay from 5 seconds to 4 seconds
