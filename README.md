@@ -61,6 +61,8 @@
 * Removed shellshock from explosive damage
 * No longer killed when landing on top of another player
 * Ignored by zombies for 1 second after being revived
+* Disabled meleeing while reviving (except if player switches weapons)
+* Pressing the fire button while reviving no longer switches weapons
 * Weapon is no longer switched after reviving if player switched weapons during revive
 * No longer gain points back on self revives
 * Respawn near random player (normally respawn near the same player every time)
