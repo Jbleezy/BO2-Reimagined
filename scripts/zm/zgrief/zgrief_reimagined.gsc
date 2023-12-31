@@ -2663,11 +2663,6 @@ containment_think()
 					held_time["axis"] = getTime();
 					held_time["allies"] = getTime();
 					held_prev = "cont";
-
-					foreach (player in players)
-					{
-						player thread show_grief_hud_msg(&"ZOMBIE_CONTAINMENT_ZONE_CONTESTED");
-					}
 				}
 
 				if ((level.grief_score["A"] + 1) >= get_gamemode_winning_score() || (level.grief_score["B"] + 1) >= get_gamemode_winning_score())
@@ -2705,18 +2700,6 @@ containment_think()
 
 					held_time["allies"] = undefined;
 					held_prev = "axis";
-
-					foreach (player in players)
-					{
-						if (player.team == "axis")
-						{
-							player thread show_grief_hud_msg(&"ZOMBIE_YOUR_TEAM_CONTAINMENT_ZONE");
-						}
-						else
-						{
-							player thread show_grief_hud_msg(&"ZOMBIE_OTHER_TEAM_CONTAINMENT_ZONE");
-						}
-					}
 				}
 			}
 			else if (in_containment_zone["allies"].size > in_containment_zone["axis"].size)
@@ -2748,18 +2731,6 @@ containment_think()
 
 					held_time["axis"] = undefined;
 					held_prev = "allies";
-
-					foreach (player in players)
-					{
-						if (player.team == "axis")
-						{
-							player thread show_grief_hud_msg(&"ZOMBIE_OTHER_TEAM_CONTAINMENT_ZONE");
-						}
-						else
-						{
-							player thread show_grief_hud_msg(&"ZOMBIE_YOUR_TEAM_CONTAINMENT_ZONE");
-						}
-					}
 				}
 			}
 			else
@@ -2785,11 +2756,6 @@ containment_think()
 					held_time["axis"] = undefined;
 					held_time["allies"] = undefined;
 					held_prev = "none";
-
-					foreach (player in players)
-					{
-						player thread show_grief_hud_msg(&"ZOMBIE_CONTAINMENT_ZONE_UNCONTROLLED");
-					}
 				}
 			}
 

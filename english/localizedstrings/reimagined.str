@@ -213,6 +213,12 @@ LANG_ENGLISH        "^8&&1 grabbed the meat"
 REFERENCE           ZOMBIE_GRABBED_MEAT_ENEMY
 LANG_ENGLISH        "^9&&1 grabbed the meat"
 
+REFERENCE           ZOMBIE_DROPPED_MEAT
+LANG_ENGLISH        "^8&&1 dropped the meat"
+
+REFERENCE           ZOMBIE_DROPPED_MEAT_ENEMY
+LANG_ENGLISH        "^9&&1 dropped the meat"
+
 REFERENCE           ZOMBIE_HAS_MEAT
 LANG_ENGLISH        "^8&&1 has the meat stink"
 

@@ -72,14 +72,6 @@ item_meat_on_spawn_retrieve_trigger(watcher, player, weaponname)
 		{
 			other_player.ignoreme = 0;
 		}
-
-		if (level.scr_zm_ui_gametype_obj == "zmeat")
-		{
-			if (!is_true(player._kicking_meat))
-			{
-				other_player thread scripts\zm\zgrief\zgrief_reimagined::show_grief_hud_msg(&"ZOMBIE_MEAT_THROWN");
-			}
-		}
 	}
 
 	if (!(isdefined(self._fake_meat) && self._fake_meat))

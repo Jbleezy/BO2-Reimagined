@@ -123,6 +123,13 @@ meat_bounce_override(pos, normal, ent, bounce)
 	{
 		self hide();
 
+		players = get_players();
+
+		foreach (player in players)
+		{
+			player thread print_meat_msg(self.owner, "dropped");
+		}
+
 		if (level.scr_zm_ui_gametype_obj == "zmeat")
 		{
 			level.meat_powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop("meat_stink", pos);
@@ -140,7 +147,7 @@ meat_bounce_override(pos, normal, ent, bounce)
 	self delete();
 }
 
-meat_stink(who)
+meat_stink(who, owner)
 {
 	if (who hasWeapon(level.item_meat_name))
 	{
@@ -149,19 +156,22 @@ meat_stink(who)
 
 	if (!is_player_valid(who))
 	{
+		if (isDefined(owner))
+		{
+			players = get_players();
+
+			foreach (player in players)
+			{
+				player thread print_meat_msg(owner, "dropped");
+			}
+		}
+
 		if (level.scr_zm_ui_gametype_obj == "zmeat")
 		{
 			valid_drop = scripts\zm\replaced\_zm_utility::check_point_in_life_brush(who.origin) || (check_point_in_enabled_zone(who.origin) && !scripts\zm\replaced\_zm_utility::check_point_in_kill_brush(who.origin));
 
 			if (valid_drop)
 			{
-				players = get_players();
-
-				foreach (player in players)
-				{
-					player thread scripts\zm\zgrief\zgrief_reimagined::show_grief_hud_msg(&"ZOMBIE_MEAT_DROPPED");
-				}
-
 				level.meat_powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop("meat_stink", who.origin);
 			}
 			else
@@ -206,22 +216,6 @@ meat_stink(who)
 		}
 
 		player thread print_meat_msg(who, "grabbed");
-
-		if (level.scr_zm_ui_gametype_obj == "zmeat")
-		{
-			if (player == who)
-			{
-				player thread scripts\zm\zgrief\zgrief_reimagined::show_grief_hud_msg(&"ZOMBIE_PLAYER_HAS_MEAT");
-			}
-			else if (player.team == who.team)
-			{
-				player thread scripts\zm\zgrief\zgrief_reimagined::show_grief_hud_msg(&"ZOMBIE_YOUR_TEAM_MEAT");
-			}
-			else
-			{
-				player thread scripts\zm\zgrief\zgrief_reimagined::show_grief_hud_msg(&"ZOMBIE_OTHER_TEAM_MEAT");
-			}
-		}
 	}
 
 	who thread meat_stink_ignoreme_think(0);
@@ -374,11 +368,9 @@ meat_stink_cleanup_on_downed()
 
 		if (valid_drop)
 		{
-			players = get_players();
-
 			foreach (player in players)
 			{
-				player thread scripts\zm\zgrief\zgrief_reimagined::show_grief_hud_msg(&"ZOMBIE_MEAT_DROPPED");
+				player thread print_meat_msg(self, "dropped", 1);
 			}
 
 			level.meat_powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop("meat_stink", self.origin);
@@ -439,7 +431,7 @@ meat_stink_player(who, owner)
 
 	if (level.scr_zm_ui_gametype_obj == "zmeat")
 	{
-		level thread meat_stink(who);
+		level thread meat_stink(who, owner);
 		return;
 	}
 
@@ -515,40 +507,34 @@ meat_stink_player_create()
 	self setclientfieldtoplayer("meat_stink", 1);
 }
 
-print_meat_msg(meat_player, verb)
+print_meat_msg(meat_player, verb, show_after_obituaries = 0)
 {
 	self endon("disconnect");
 	meat_player endon("disconnect");
 
-	if (verb == "grabbed" || verb == "has")
+	while (is_true(self.printing_meat_msg))
 	{
-		wait 0.05; // must wait to show after any obituaries that happened on the same frame
+		self waittill("meat_msg_printed");
 	}
 
-	hint_string = "";
+	self.printing_meat_msg = 1;
 
-	if (self.team == meat_player.team)
+	if (show_after_obituaries)
 	{
-		if (verb == "grabbed")
-		{
-			hint_string = &"ZOMBIE_GRABBED_MEAT";
-		}
-		else if (verb == "has")
-		{
-			hint_string = &"ZOMBIE_HAS_MEAT";
-		}
+		wait 0.05;
 	}
-	else
+
+	meat = "_MEAT";
+
+	if (self.team != meat_player.team)
 	{
-		if (verb == "grabbed")
-		{
-			hint_string = &"ZOMBIE_GRABBED_MEAT_ENEMY";
-		}
-		else if (verb == "has")
-		{
-			hint_string = &"ZOMBIE_HAS_MEAT_ENEMY";
-		}
+		meat = "_MEAT_ENEMY";
 	}
+
+	hint_string = istring(toupper("ZOMBIE_" + verb + meat));
 
 	self iprintln(hint_string, meat_player.name);
+
+	self.printing_meat_msg = undefined;
+	self notify("meat_msg_printed");
 }
