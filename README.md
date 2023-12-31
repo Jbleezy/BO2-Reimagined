@@ -140,6 +140,9 @@
 ### B23R
 * Decreased weapon cost from 1000 to 900 on all maps
 
+### Executioner
+* Removed on Buried
+
 ### Five-seven Dual Wield
 * Unupgraded: decreased stock ammo from 225 to 210 on all maps
 * Upgraded: decreased stock ammo from 295 to 280 on all maps
@@ -160,6 +163,9 @@
 * Unupgraded: decreased zoom FOV from 65 to 60 (same as other Black Ops 2 pistols)
 * Upgraded: fixed not being able to melee while aiming
 * Upgraded: decreased last stand ammo from 2 clips to 1 clip
+
+### Python
+* Removed
 
 ### Tac-45
 * Replaces M1911 (except on Mob of the Dead)

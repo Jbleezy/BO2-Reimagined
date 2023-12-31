@@ -1683,6 +1683,16 @@ weapon_changes()
 	include_weapon( "ballista_zm", 0 );
 	include_weapon( "ballista_upgraded_zm", 0 );
 	add_zombie_weapon( "ballista_zm", "ballista_upgraded_zm", &"ZMWEAPON_BALLISTA_WALLBUY", 500, "wpck_snipe", "", undefined, 1 );
+
+	if (isdefined(level.zombie_weapons["python_zm"]))
+	{
+		level.zombie_weapons["python_zm"].is_in_box = 0;
+	}
+
+	if (level.script == "zm_buried")
+	{
+		level.zombie_weapons["judge_zm"].is_in_box = 0;
+	}
 }
 
 player_give_willy_pete()
