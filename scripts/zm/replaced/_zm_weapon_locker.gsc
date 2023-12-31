@@ -59,7 +59,7 @@ show_current_weapon(player)
 
 	num = player getentitynumber();
 
-	displayname = "None";
+	displayname = &"MPUI_NONE";
 
 	if (player wl_has_stored_weapondata())
 	{

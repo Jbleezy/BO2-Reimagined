@@ -1682,7 +1682,6 @@ weapon_changes()
 
 	if (!isdefined(level.zombie_weapons["ballista_zm"]))
 	{
-		level._effect["rottweil72_zm_fx"] = loadfx( "maps/zombie/fx_zmb_wall_buy_ballista" );
 		include_weapon( "ballista_zm", 0 );
 		include_weapon( "ballista_upgraded_zm", 0 );
 		add_zombie_weapon( "ballista_zm", "ballista_upgraded_zm", &"ZMWEAPON_BALLISTA_WALLBUY", 500, "wpck_snipe", "", undefined, 1 );
