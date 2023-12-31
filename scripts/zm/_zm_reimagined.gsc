@@ -1679,6 +1679,10 @@ weapon_changes()
 		include_weapon( "saritch_upgraded_zm", 0 );
 		add_zombie_weapon( "saritch_zm", "saritch_upgraded_zm", &"ZOMBIE_WEAPON_SARITCH", 500, "wpck_smr", "", undefined, 1 );
 	}
+
+	include_weapon( "ballista_zm", 0 );
+	include_weapon( "ballista_upgraded_zm", 0 );
+	add_zombie_weapon( "ballista_zm", "ballista_upgraded_zm", &"ZMWEAPON_BALLISTA_WALLBUY", 500, "wpck_snipe", "", undefined, 1 );
 }
 
 player_give_willy_pete()

@@ -236,7 +236,10 @@
 ## Sniper Rifles
 * Decreased move speed from 95% to 90%
 * Disabled scope sway
-* Unupgraded: increased zoom FOV from 15 to 25
+* Unupgraded: increased scope FOV from 15 or 20 to 25
+
+### Ballista
+* Replaces Olympia
 
 ## Shotguns
 * Increased penetration

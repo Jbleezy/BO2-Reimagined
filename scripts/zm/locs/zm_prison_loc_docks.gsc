@@ -129,7 +129,7 @@ set_box_weapons()
 init_wallbuys()
 {
 	scripts\zm\replaced\utility::wallbuy("saritch_zm", "saritch", "weapon_upgrade", (305, 6376, 319), (0, -80, 0));
-	scripts\zm\replaced\utility::wallbuy("rottweil72_zm", "olympia", "weapon_upgrade", (-709, 5721, -19.875), (0, -80, 30));
+	scripts\zm\replaced\utility::wallbuy("ballista_zm", "ballista", "weapon_upgrade", (-709, 5721, -19.875), (0, -80, 30));
 	scripts\zm\replaced\utility::wallbuy("uzi_zm", "uzi", "weapon_upgrade", (-219, 7156, 122), (0, 190, 0));
 }
 

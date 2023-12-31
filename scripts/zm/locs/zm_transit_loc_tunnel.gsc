@@ -70,7 +70,7 @@ main()
 init_wallbuys()
 {
 	scripts\zm\replaced\utility::wallbuy("saritch_zm", "saritch", "weapon_upgrade", (-11166, -2844, 247), (0, -86, 0));
-	scripts\zm\replaced\utility::wallbuy("rottweil72_zm", "olympia", "weapon_upgrade", (-10735, -2960, 247), (0, 97, 0));
+	scripts\zm\replaced\utility::wallbuy("ballista_zm", "ballista", "weapon_upgrade", (-10735, -2960, 247), (0, 97, 0));
 	scripts\zm\replaced\utility::wallbuy("ak74u_zm", "ak74u", "weapon_upgrade", (-10656, -752, 247), (0, 83, 0));
 	scripts\zm\replaced\utility::wallbuy("m16_zm", "m16", "weapon_upgrade", (-11839, -1695.1, 287), (0, 270, 0));
 	scripts\zm\replaced\utility::wallbuy("sticky_grenade_zm", "sticky_grenade", "weapon_upgrade", (-11839, -2406, 283), (0, -93, 0));

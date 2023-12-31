@@ -336,6 +336,10 @@ get_chalk_fx_name(weapon_name)
 	{
 		weapon_name = "m14_zm";
 	}
+	else if (weapon_name == "ballista_zm")
+	{
+		weapon_name = "rottweil72_zm";
+	}
 
 	return weapon_name + "_fx";
 }

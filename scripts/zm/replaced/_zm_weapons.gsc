@@ -181,6 +181,10 @@ wallbuy_changes()
 	{
 		self.zombie_weapon_upgrade = "saritch_zm";
 	}
+	else if (self.zombie_weapon_upgrade == "rottweil72_zm")
+	{
+		self.zombie_weapon_upgrade = "ballista_zm";
+	}
 }
 
 add_dynamic_wallbuy(weapon, wallbuy, pristine)

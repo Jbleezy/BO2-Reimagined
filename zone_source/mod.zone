@@ -3,6 +3,7 @@
 >name,mod
 
 include,saritch_zm
+include,ballista_zm
 include,knife_ballistic_zm
 include,ray_gun_zm
 include,raygun_mark2_zm
