@@ -184,8 +184,15 @@
 * Upgraded: changed default attachment from Reflex Sight to None
 
 ### SMR
-* Increased damage by 100%
+* Replaces M14
+* Removed from Mystery Box
 * Removed aim spread
+* Unupgraded: decreased clip ammo from 20 to 10
+* Unupgraded: decreased stock ammo from 140 to 100
+* Upgraded: decreased clip ammo from 30 to 20
+* Upgraded: decreased stock ammo from 420 to 200
+* Upgraded: increased damage by 50%
+* Upgraded: increased headshot multiplier from 4 to 4.5
 
 ### STG-44
 * Ammo gets added to the clip at the same time that it gets added in the reload anim

@@ -87,6 +87,8 @@ init_spawnable_weapon_upgrade()
 			continue;
 		}
 
+		spawn_list[i] wallbuy_changes();
+
 		precachemodel(target_struct.model);
 		unitrigger_stub = spawnstruct();
 		unitrigger_stub.origin = spawn_list[i].origin;
@@ -171,6 +173,14 @@ init_spawnable_weapon_upgrade()
 
 	level._spawned_wallbuys = spawn_list;
 	tempmodel delete();
+}
+
+wallbuy_changes()
+{
+	if (self.zombie_weapon_upgrade == "m14_zm")
+	{
+		self.zombie_weapon_upgrade = "saritch_zm";
+	}
 }
 
 add_dynamic_wallbuy(weapon, wallbuy, pristine)

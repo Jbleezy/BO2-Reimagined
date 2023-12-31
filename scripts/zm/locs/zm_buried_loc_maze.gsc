@@ -257,7 +257,7 @@ init_wallbuys()
 
 	og_weapon_structs = array_randomize(og_weapon_structs);
 
-	scripts\zm\replaced\utility::wallbuy("m14_zm", "m14", "weapon_upgrade", og_weapon_structs[0].origin, og_weapon_structs[0].angles);
+	scripts\zm\replaced\utility::wallbuy("saritch_zm", "saritch", "weapon_upgrade", og_weapon_structs[0].origin, og_weapon_structs[0].angles);
 	scripts\zm\replaced\utility::wallbuy("rottweil72_zm", "olympia", "weapon_upgrade", og_weapon_structs[1].origin, og_weapon_structs[1].angles);
 	scripts\zm\replaced\utility::wallbuy("beretta93r_zm", "beretta93r", "weapon_upgrade", og_weapon_structs[2].origin, og_weapon_structs[2].angles);
 	scripts\zm\replaced\utility::wallbuy("pdw57_zm", "pdw57", "weapon_upgrade", og_weapon_structs[3].origin, og_weapon_structs[3].angles);

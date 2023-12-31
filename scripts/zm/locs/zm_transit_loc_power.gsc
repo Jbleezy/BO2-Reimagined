@@ -103,7 +103,7 @@ treasure_chest_init()
 
 init_wallbuys()
 {
-	scripts\zm\replaced\utility::wallbuy("m14_zm", "m14", "weapon_upgrade", (10559, 8220, -495), (0, 90, 0));
+	scripts\zm\replaced\utility::wallbuy("saritch_zm", "saritch", "weapon_upgrade", (10559, 8220, -495), (0, 90, 0));
 	scripts\zm\replaced\utility::wallbuy("rottweil72_zm", "olympia", "weapon_upgrade", (10678, 8135, -476), (0, 180, 0));
 	scripts\zm\replaced\utility::wallbuy("870mcs_zm", "870mcs", "weapon_upgrade", (11778, 7664, -697), (0, 170, 0));
 	scripts\zm\replaced\utility::wallbuy("mp5k_zm", "mp5", "weapon_upgrade", (11452, 8692, -521), (0, 90, 0));

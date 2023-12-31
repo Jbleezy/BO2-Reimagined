@@ -1011,6 +1011,9 @@ LANG_ENGLISH        "Toughguy & Crybaby"
 
 // HINT STRINGS
 
+REFERENCE           ZOMBIE_WEAPON_SARITCH
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 for SMR [Cost: &&1]"
+
 REFERENCE           ZOMBIE_PERK_QUICKREVIVE
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Quick Revive [Cost: &&1]"
 

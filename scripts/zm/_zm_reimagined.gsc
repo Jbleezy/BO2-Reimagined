@@ -136,7 +136,6 @@ init()
 
 	level.using_solo_revive = 0;
 	level.claymores_max_per_player = 20;
-	level.zombiemode_reusing_pack_a_punch = 0;
 	level.navcards = undefined; // removes navcards on HUD
 	level.powerup_intro_vox = undefined;
 	level.player_too_many_players_check = 0;
@@ -1666,6 +1665,19 @@ weapon_changes()
 
 		include_weapon( "held_one_inch_punch_lightning_zm", 0 );
 		register_melee_weapon_for_level( "held_one_inch_punch_lightning_zm" );
+	}
+
+	if (isdefined(level.zombie_weapons["saritch_zm"]))
+	{
+		level.zombie_weapons["saritch_zm"].is_in_box = 0;
+		level.zombie_weapons["saritch_zm"].cost = 500;
+		level.zombie_weapons["saritch_zm"].ammo_cost = 250;
+	}
+	else
+	{
+		include_weapon( "saritch_zm", 0 );
+		include_weapon( "saritch_upgraded_zm", 0 );
+		add_zombie_weapon( "saritch_zm", "saritch_upgraded_zm", &"ZOMBIE_WEAPON_SARITCH", 500, "wpck_smr", "", undefined, 1 );
 	}
 }
 

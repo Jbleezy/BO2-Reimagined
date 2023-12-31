@@ -1431,11 +1431,6 @@ actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, 
 
 	attacker thread maps\mp\gametypes_zm\_weapons::checkhit(weapon);
 
-	if (maps\mp\zombies\_zm_weapons::get_base_weapon_name(weapon, 1) == "saritch_zm")
-	{
-		final_damage *= 2;
-	}
-
 	if (weapon == "blundergat_zm")
 	{
 		if (!is_true(self.is_brutus))

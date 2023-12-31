@@ -325,12 +325,22 @@ wallbuy(weapon_name, target, targetname, origin, angles, play_chalk_fx = 1)
 
 	if (play_chalk_fx)
 	{
-		chalk_fx = weapon_name + "_fx";
-		level thread playchalkfx(chalk_fx, origin, angles);
+		chalk_fx = get_chalk_fx_name(weapon_name);
+		level thread play_chalk_fx(chalk_fx, origin, angles);
 	}
 }
 
-playchalkfx(effect, origin, angles)
+get_chalk_fx_name(weapon_name)
+{
+	if (weapon_name == "saritch_zm")
+	{
+		weapon_name = "m14_zm";
+	}
+
+	return weapon_name + "_fx";
+}
+
+play_chalk_fx(effect, origin, angles)
 {
 	while (1)
 	{
