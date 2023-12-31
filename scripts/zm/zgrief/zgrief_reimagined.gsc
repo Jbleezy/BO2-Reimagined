@@ -2501,7 +2501,32 @@ containment_think()
 
 	level waittill("restart_round_start");
 
-	wait 10;
+	start_time = getTime();
+
+	while ((getTime() - start_time) <= 10000)
+	{
+		next_zone_name = containment_zones[ind];
+		next_zone = level.zones[next_zone_name];
+		players = get_players();
+
+		foreach (player in players)
+		{
+			player_zone_name = player get_current_zone();
+
+			if (isDefined(player_zone_name) && player_zone_name == next_zone_name)
+			{
+				player containment_set_obj_waypoint_on_screen(1);
+			}
+			else
+			{
+				player containment_set_obj_waypoint_off_screen(next_zone_name, next_zone, 1);
+			}
+
+			player containment_set_obj_waypoint_icon("waypoint_recon_artillery_strike", 1);
+		}
+
+		wait 0.05;
+	}
 
 	while (1)
 	{
@@ -3016,6 +3041,12 @@ containment_set_obj_waypoint_off_screen(zone_name, zone, next_obj = false)
 		hud.x += 400;
 	}
 
+	// the 2 different types of waypoints are not aligned by default
+	if (next_obj)
+	{
+		hud.z -= 12;
+	}
+
 	hud.on_screen = 0;
 }
 
@@ -3036,7 +3067,7 @@ containment_set_obj_waypoint_icon(icon, next_obj = false)
 	{
 		if (next_obj)
 		{
-			hud setShader(icon, 8, 8);
+			hud setShader(icon, 9, 9);
 			hud setWaypoint(1);
 		}
 		else
