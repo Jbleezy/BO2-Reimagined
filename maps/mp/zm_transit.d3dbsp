@@ -53231,16 +53231,6 @@
 }
 {
 "script_noteworthy" "zstandard_farm, zgrief_farm"
-"angles" "0 90.2 0"
-"origin" "8035.38 -5317.37 109"
-"classname" "script_struct"
-"zombie_weapon_upgrade" "rottweil72_zm"
-"targetname" "weapon_upgrade"
-"target" "pf1918_auto37"
-"guid" "F0390DB3"
-}
-{
-"script_noteworthy" "zstandard_farm, zgrief_farm"
 "targetname" "pf1918_auto37"
 "classname" "script_struct"
 "model" "t6_wpn_sniper_ballista_world"
@@ -53268,16 +53258,6 @@
 "angles" "0 180 0"
 "origin" "8827 -5838 103"
 "guid" "EE921301"
-}
-{
-"script_noteworthy" "zstandard_farm"
-"origin" "8827 -5831 110"
-"angles" "0 90 0"
-"classname" "script_struct"
-"zombie_weapon_upgrade" "tazer_knuckles_zm"
-"targetname" "tazer_upgrade"
-"target" "pf1920_auto37"
-"guid" "ED8E28B4"
 }
 {
 "script_noteworthy" "zstandard_farm"
