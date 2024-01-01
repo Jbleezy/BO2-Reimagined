@@ -176,7 +176,11 @@
 * Increased weapon cost from 1200 to 1500
 * Upgraded: decreased stock ammo from 600 to 450
 
+### Galil
+* Removed
+
 ### M27
+* Added to the Mystery Box on all maps
 * Upgraded: changed default attachment from Reflex Sight to None
 
 ### M8A1
@@ -187,6 +191,7 @@
 * Upgraded: changed default attachment from Reflex Sight to EOTech Sight
 
 ### SCAR-H
+* Added to the Mystery Box on all maps
 * Upgraded: changed default attachment from Reflex Sight to None
 
 ### SMR

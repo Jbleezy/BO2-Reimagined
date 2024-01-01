@@ -6,6 +6,8 @@ include,clientscripts
 
 include,saritch_zm
 include,ballista_zm
+include,hk416_zm
+include,scar_zm
 include,knife_ballistic_zm
 include,ray_gun_zm
 include,raygun_mark2_zm

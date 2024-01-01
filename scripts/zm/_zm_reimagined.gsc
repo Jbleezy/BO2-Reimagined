@@ -1697,6 +1697,25 @@ weapon_changes()
 	{
 		level.zombie_weapons["judge_zm"].is_in_box = 0;
 	}
+
+	if (isdefined(level.zombie_weapons["galil_zm"]))
+	{
+		level.zombie_weapons["galil_zm"].is_in_box = 0;
+	}
+
+	if (!isdefined(level.zombie_weapons["hk416_zm"]))
+	{
+		include_weapon( "hk416_zm" );
+		include_weapon( "hk416_upgraded_zm", 0 );
+		add_zombie_weapon( "hk416_zm", "hk416_upgraded_zm", &"ZOMBIE_WEAPON_HK416", 100, "", "", undefined );
+	}
+
+	if (!isdefined(level.zombie_weapons["scar_zm"]))
+	{
+		include_weapon( "scar_zm" );
+		include_weapon( "scar_upgraded_zm", 0 );
+		add_zombie_weapon( "scar_zm", "scar_upgraded_zm", &"ZOMBIE_WEAPON_SCAR", 50, "wpck_rifle", "", undefined, 1 );
+	}
 }
 
 player_give_willy_pete()

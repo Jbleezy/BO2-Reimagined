@@ -7,6 +7,7 @@ set MOD_BASE=%cd%
 --load "%GAME_BASE%\zone\all\zm_tomb.ff" ^
 --load "%GAME_BASE%\zone\all\zm_buried.ff" ^
 --load "%GAME_BASE%\zone\all\zm_prison.ff" ^
+--load "%GAME_BASE%\zone\all\zm_nuked.ff" ^
 --load "%GAME_BASE%\zone\all\common_mp.ff" ^
 --load "%GAME_BASE%\zone\all\frontend.ff" ^
 --base-folder "%OAT_BASE%" ^
