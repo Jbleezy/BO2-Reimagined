@@ -668,19 +668,19 @@ run_gramophone_door(str_vinyl_record)
 
 watch_staff_ammo_reload()
 {
-	self endon( "disconnect" );
+	self endon("disconnect");
 
-	while ( true )
+	while (true)
 	{
-		self waittill( "zmb_max_ammo" );
+		self waittill("zmb_max_ammo");
 
 		a_weapons = self getweaponslist();
 
-		foreach ( weapon in a_weapons )
+		foreach (weapon in a_weapons)
 		{
-			if ( issubstr( weapon, "staff_revive" ) )
+			if (issubstr(weapon, "staff_revive"))
 			{
-				self setweaponammoclip( weapon, weaponclipsize( weapon ) );
+				self setweaponammoclip(weapon, weaponclipsize(weapon));
 			}
 		}
 	}

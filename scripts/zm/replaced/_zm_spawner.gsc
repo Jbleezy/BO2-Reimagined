@@ -308,21 +308,21 @@ zombie_gib_on_damage()
 	}
 }
 
-zombie_should_gib( amount, attacker, type )
+zombie_should_gib(amount, attacker, type)
 {
-	if ( !is_mature() )
+	if (!is_mature())
 		return false;
 
-	if ( !isdefined( type ) )
+	if (!isdefined(type))
 		return false;
 
-	if ( isdefined( self.is_on_fire ) && self.is_on_fire )
+	if (isdefined(self.is_on_fire) && self.is_on_fire)
 		return false;
 
-	if ( isdefined( self.no_gib ) && self.no_gib == 1 )
+	if (isdefined(self.no_gib) && self.no_gib == 1)
 		return false;
 
-	switch ( type )
+	switch (type)
 	{
 		case "MOD_UNKNOWN":
 		case "MOD_TRIGGER_HURT":
@@ -337,38 +337,38 @@ zombie_should_gib( amount, attacker, type )
 			return false;
 	}
 
-	if ( type == "MOD_PISTOL_BULLET" || type == "MOD_RIFLE_BULLET" )
+	if (type == "MOD_PISTOL_BULLET" || type == "MOD_RIFLE_BULLET")
 	{
-		if ( !isdefined( attacker ) || !isplayer( attacker ) )
+		if (!isdefined(attacker) || !isplayer(attacker))
 			return false;
 
 		weapon = attacker getcurrentweapon();
 
-		if ( weapon == "none" || weapon == level.start_weapon )
+		if (weapon == "none" || weapon == level.start_weapon)
 			return false;
 
-		if ( weaponisgasweapon( self.weapon ) )
+		if (weaponisgasweapon(self.weapon))
 			return false;
 	}
-	else if ( type == "MOD_PROJECTILE" )
+	else if (type == "MOD_PROJECTILE")
 	{
-		if ( isdefined( attacker ) && isplayer( attacker ) )
+		if (isdefined(attacker) && isplayer(attacker))
 		{
 			weapon = attacker getcurrentweapon();
 
-			if ( weapon == "slipgun_zm" || weapon == "slipgun_upgraded_zm" )
+			if (weapon == "slipgun_zm" || weapon == "slipgun_upgraded_zm")
 				return false;
 		}
 	}
 
 	prev_health = amount + self.health;
 
-	if ( prev_health <= 0 )
+	if (prev_health <= 0)
 		prev_health = 1;
 
 	damage_percent = amount / prev_health * 100;
 
-	if ( damage_percent < 25 )
+	if (damage_percent < 25)
 		return false;
 
 	return true;
@@ -489,60 +489,60 @@ zombie_death_animscript()
 	team = undefined;
 	recalc_zombie_array();
 
-	if ( isdefined( self._race_team ) )
+	if (isdefined(self._race_team))
 		team = self._race_team;
 
 	self reset_attack_spot();
 
-	if ( self check_zombie_death_animscript_callbacks() )
+	if (self check_zombie_death_animscript_callbacks())
 		return false;
 
-	if ( isdefined( level.zombie_death_animscript_override ) )
-		self [[ level.zombie_death_animscript_override ]]();
+	if (isdefined(level.zombie_death_animscript_override))
+		self [[level.zombie_death_animscript_override]]();
 
-	if ( self.has_legs && isdefined( self.a.gib_ref ) && self.a.gib_ref == "no_legs" )
+	if (self.has_legs && isdefined(self.a.gib_ref) && self.a.gib_ref == "no_legs")
 		self.deathanim = "zm_death";
 
 	self.grenadeammo = 0;
 
-	if ( isdefined( self.nuked ) )
+	if (isdefined(self.nuked))
 	{
-		if ( zombie_can_drop_powerups( self ) )
+		if (zombie_can_drop_powerups(self))
 		{
-			if ( isdefined( self.in_the_ground ) && self.in_the_ground == 1 )
+			if (isdefined(self.in_the_ground) && self.in_the_ground == 1)
 			{
-				trace = bullettrace( self.origin + vectorscale( ( 0, 0, 1 ), 100.0 ), self.origin + vectorscale( ( 0, 0, -1 ), 100.0 ), 0, undefined );
+				trace = bullettrace(self.origin + vectorscale((0, 0, 1), 100.0), self.origin + vectorscale((0, 0, -1), 100.0), 0, undefined);
 				origin = trace["position"];
-				level thread zombie_delay_powerup_drop( origin );
+				level thread zombie_delay_powerup_drop(origin);
 			}
 			else
 			{
-				trace = groundtrace( self.origin + vectorscale( ( 0, 0, 1 ), 5.0 ), self.origin + vectorscale( ( 0, 0, -1 ), 300.0 ), 0, undefined );
+				trace = groundtrace(self.origin + vectorscale((0, 0, 1), 5.0), self.origin + vectorscale((0, 0, -1), 300.0), 0, undefined);
 				origin = trace["position"];
-				level thread zombie_delay_powerup_drop( self.origin );
+				level thread zombie_delay_powerup_drop(self.origin);
 			}
 		}
 	}
 	else
-		level zombie_death_points( self.origin, self.damagemod, self.damagelocation, self.attacker, self, team );
+		level zombie_death_points(self.origin, self.damagemod, self.damagelocation, self.attacker, self, team);
 
-	if ( isdefined( self.attacker ) && isai( self.attacker ) )
-		self.attacker notify( "killed", self );
+	if (isdefined(self.attacker) && isai(self.attacker))
+		self.attacker notify("killed", self);
 
-	if ( "rottweil72_upgraded_zm" == self.damageweapon && "MOD_RIFLE_BULLET" == self.damagemod )
+	if ("rottweil72_upgraded_zm" == self.damageweapon && "MOD_RIFLE_BULLET" == self.damagemod)
 		self thread dragons_breath_flame_death_fx();
 
-	if ( issubstr( self.damageweapon, "tazer_knuckles_zm" ) && "MOD_MELEE" == self.damagemod )
+	if (issubstr(self.damageweapon, "tazer_knuckles_zm") && "MOD_MELEE" == self.damagemod)
 	{
 		self.is_on_fire = 0;
-		self notify( "stop_flame_damage" );
+		self notify("stop_flame_damage");
 	}
 
-	if ( self.damagemod == "MOD_BURNED" )
+	if (self.damagemod == "MOD_BURNED")
 		self thread maps\mp\animscripts\zm_death::flame_death_fx();
 
-	if ( self.damagemod == "MOD_GRENADE" || self.damagemod == "MOD_GRENADE_SPLASH" )
-		level notify( "zombie_grenade_death", self.origin );
+	if (self.damagemod == "MOD_GRENADE" || self.damagemod == "MOD_GRENADE_SPLASH")
+		level notify("zombie_grenade_death", self.origin);
 
 	return false;
 }

@@ -7,68 +7,68 @@
 init_fx()
 {
 	level.createfx_callback_thread = ::delete_in_createfx;
-	level._effect["wood_chunk_destory"] = loadfx( "impacts/fx_large_woodhit" );
-	level._effect["fx_zombie_bar_break"] = loadfx( "maps/zombie/fx_zombie_bar_break" );
-	level._effect["fx_zombie_bar_break_lite"] = loadfx( "maps/zombie/fx_zombie_bar_break_lite" );
+	level._effect["wood_chunk_destory"] = loadfx("impacts/fx_large_woodhit");
+	level._effect["fx_zombie_bar_break"] = loadfx("maps/zombie/fx_zombie_bar_break");
+	level._effect["fx_zombie_bar_break_lite"] = loadfx("maps/zombie/fx_zombie_bar_break_lite");
 
-	if ( !( isdefined( level.fx_exclude_edge_fog ) && level.fx_exclude_edge_fog ) )
-		level._effect["edge_fog"] = loadfx( "maps/zombie/fx_fog_zombie_amb" );
+	if (!(isdefined(level.fx_exclude_edge_fog) && level.fx_exclude_edge_fog))
+		level._effect["edge_fog"] = loadfx("maps/zombie/fx_fog_zombie_amb");
 
-	level._effect["chest_light"] = loadfx( "maps/zombie/fx_zmb_tranzit_marker_glow" );
+	level._effect["chest_light"] = loadfx("maps/zombie/fx_zmb_tranzit_marker_glow");
 
-	if ( !( isdefined( level.fx_exclude_default_eye_glow ) && level.fx_exclude_default_eye_glow ) )
-		level._effect["eye_glow"] = loadfx( "misc/fx_zombie_eye_single" );
+	if (!(isdefined(level.fx_exclude_default_eye_glow) && level.fx_exclude_default_eye_glow))
+		level._effect["eye_glow"] = loadfx("misc/fx_zombie_eye_single");
 
-	level._effect["headshot"] = loadfx( "impacts/fx_flesh_hit" );
-	level._effect["headshot_nochunks"] = loadfx( "misc/fx_zombie_bloodsplat" );
-	level._effect["bloodspurt"] = loadfx( "misc/fx_zombie_bloodspurt" );
+	level._effect["headshot"] = loadfx("impacts/fx_flesh_hit");
+	level._effect["headshot_nochunks"] = loadfx("misc/fx_zombie_bloodsplat");
+	level._effect["bloodspurt"] = loadfx("misc/fx_zombie_bloodspurt");
 
-	if ( !( isdefined( level.fx_exclude_tesla_head_light ) && level.fx_exclude_tesla_head_light ) )
-		level._effect["tesla_head_light"] = loadfx( "maps/zombie/fx_zombie_tesla_neck_spurt" );
+	if (!(isdefined(level.fx_exclude_tesla_head_light) && level.fx_exclude_tesla_head_light))
+		level._effect["tesla_head_light"] = loadfx("maps/zombie/fx_zombie_tesla_neck_spurt");
 
-	level._effect["zombie_guts_explosion"] = loadfx( "maps/zombie/fx_zmb_tranzit_torso_explo" );
-	level._effect["rise_burst_water"] = loadfx( "maps/zombie/fx_mp_zombie_hand_dirt_burst" );
-	level._effect["rise_billow_water"] = loadfx( "maps/zombie/fx_mp_zombie_body_dirt_billowing" );
-	level._effect["rise_dust_water"] = loadfx( "maps/zombie/fx_mp_zombie_body_dust_falling" );
-	level._effect["rise_burst"] = loadfx( "maps/zombie/fx_mp_zombie_hand_dirt_burst" );
-	level._effect["rise_billow"] = loadfx( "maps/zombie/fx_mp_zombie_body_dirt_billowing" );
-	level._effect["rise_dust"] = loadfx( "maps/zombie/fx_mp_zombie_body_dust_falling" );
-	level._effect["fall_burst"] = loadfx( "maps/zombie/fx_mp_zombie_hand_dirt_burst" );
-	level._effect["fall_billow"] = loadfx( "maps/zombie/fx_mp_zombie_body_dirt_billowing" );
-	level._effect["fall_dust"] = loadfx( "maps/zombie/fx_mp_zombie_body_dust_falling" );
-	level._effect["character_fire_death_sm"] = loadfx( "env/fire/fx_fire_zombie_md" );
-	level._effect["character_fire_death_torso"] = loadfx( "env/fire/fx_fire_zombie_torso" );
+	level._effect["zombie_guts_explosion"] = loadfx("maps/zombie/fx_zmb_tranzit_torso_explo");
+	level._effect["rise_burst_water"] = loadfx("maps/zombie/fx_mp_zombie_hand_dirt_burst");
+	level._effect["rise_billow_water"] = loadfx("maps/zombie/fx_mp_zombie_body_dirt_billowing");
+	level._effect["rise_dust_water"] = loadfx("maps/zombie/fx_mp_zombie_body_dust_falling");
+	level._effect["rise_burst"] = loadfx("maps/zombie/fx_mp_zombie_hand_dirt_burst");
+	level._effect["rise_billow"] = loadfx("maps/zombie/fx_mp_zombie_body_dirt_billowing");
+	level._effect["rise_dust"] = loadfx("maps/zombie/fx_mp_zombie_body_dust_falling");
+	level._effect["fall_burst"] = loadfx("maps/zombie/fx_mp_zombie_hand_dirt_burst");
+	level._effect["fall_billow"] = loadfx("maps/zombie/fx_mp_zombie_body_dirt_billowing");
+	level._effect["fall_dust"] = loadfx("maps/zombie/fx_mp_zombie_body_dust_falling");
+	level._effect["character_fire_death_sm"] = loadfx("env/fire/fx_fire_zombie_md");
+	level._effect["character_fire_death_torso"] = loadfx("env/fire/fx_fire_zombie_torso");
 
-	if ( !( isdefined( level.fx_exclude_default_explosion ) && level.fx_exclude_default_explosion ) )
-		level._effect["def_explosion"] = loadfx( "explosions/fx_default_explosion" );
+	if (!(isdefined(level.fx_exclude_default_explosion) && level.fx_exclude_default_explosion))
+		level._effect["def_explosion"] = loadfx("explosions/fx_default_explosion");
 
-	if ( !( isdefined( level._uses_default_wallbuy_fx ) && !level._uses_default_wallbuy_fx ) )
+	if (!(isdefined(level._uses_default_wallbuy_fx) && !level._uses_default_wallbuy_fx))
 	{
-		level._effect["870mcs_zm_fx"] = loadfx( "maps/zombie/fx_zmb_wall_buy_870mcs" );
-		level._effect["ak74u_zm_fx"] = loadfx( "maps/zombie/fx_zmb_wall_buy_ak74u" );
-		level._effect["beretta93r_zm_fx"] = loadfx( "maps/zombie/fx_zmb_wall_buy_berreta93r" );
-		level._effect["bowie_knife_zm_fx"] = loadfx( "maps/zombie/fx_zmb_wall_buy_bowie" );
-		level._effect["claymore_zm_fx"] = loadfx( "maps/zombie/fx_zmb_wall_buy_claymore" );
-		level._effect["saritch_zm_fx"] = loadfx( "maps/zombie/fx_zmb_wall_buy_m14" );
-		level._effect["m16_zm_fx"] = loadfx( "maps/zombie/fx_zmb_wall_buy_m16" );
-		level._effect["mp5k_zm_fx"] = loadfx( "maps/zombie/fx_zmb_wall_buy_mp5k" );
-		level._effect["ballista_zm_fx"] = loadfx( "maps/zombie/fx_zmb_wall_buy_olympia" );
+		level._effect["870mcs_zm_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_870mcs");
+		level._effect["ak74u_zm_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_ak74u");
+		level._effect["beretta93r_zm_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_berreta93r");
+		level._effect["bowie_knife_zm_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_bowie");
+		level._effect["claymore_zm_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_claymore");
+		level._effect["saritch_zm_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_m14");
+		level._effect["m16_zm_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_m16");
+		level._effect["mp5k_zm_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_mp5k");
+		level._effect["ballista_zm_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_olympia");
 	}
 
-	if ( !( isdefined( level._uses_sticky_grenades ) && !level._uses_sticky_grenades ) )
+	if (!(isdefined(level._uses_sticky_grenades) && !level._uses_sticky_grenades))
 	{
-		if ( !( isdefined( level.disable_fx_zmb_wall_buy_semtex ) && level.disable_fx_zmb_wall_buy_semtex ) )
-			level._effect["sticky_grenade_zm_fx"] = loadfx( "maps/zombie/fx_zmb_wall_buy_semtex" );
+		if (!(isdefined(level.disable_fx_zmb_wall_buy_semtex) && level.disable_fx_zmb_wall_buy_semtex))
+			level._effect["sticky_grenade_zm_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_semtex");
 	}
 
-	if ( !( isdefined( level._uses_taser_knuckles ) && !level._uses_taser_knuckles ) )
-		level._effect["tazer_knuckles_zm_fx"] = loadfx( "maps/zombie/fx_zmb_wall_buy_taseknuck" );
+	if (!(isdefined(level._uses_taser_knuckles) && !level._uses_taser_knuckles))
+		level._effect["tazer_knuckles_zm_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_taseknuck");
 
-	if ( isdefined( level.buildable_wallbuy_weapons ) )
-		level._effect["dynamic_wallbuy_fx"] = loadfx( "maps/zombie/fx_zmb_wall_buy_question" );
+	if (isdefined(level.buildable_wallbuy_weapons))
+		level._effect["dynamic_wallbuy_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_question");
 
-	if ( !( isdefined( level.disable_fx_upgrade_aquired ) && level.disable_fx_upgrade_aquired ) )
-		level._effect["upgrade_aquired"] = loadfx( "maps/zombie/fx_zmb_tanzit_upgrade" );
+	if (!(isdefined(level.disable_fx_upgrade_aquired) && level.disable_fx_upgrade_aquired))
+		level._effect["upgrade_aquired"] = loadfx("maps/zombie/fx_zmb_tanzit_upgrade");
 }
 
 round_start()

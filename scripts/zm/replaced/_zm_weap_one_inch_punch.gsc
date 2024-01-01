@@ -13,18 +13,18 @@
 
 one_inch_punch_melee_attack()
 {
-	self endon( "disconnect" );
-	self endon( "stop_one_inch_punch_attack" );
+	self endon("disconnect");
+	self endon("stop_one_inch_punch_attack");
 
-	if ( !( isdefined( self.one_inch_punch_flag_has_been_init ) && self.one_inch_punch_flag_has_been_init ) )
-		self ent_flag_init( "melee_punch_cooldown" );
+	if (!(isdefined(self.one_inch_punch_flag_has_been_init) && self.one_inch_punch_flag_has_been_init))
+		self ent_flag_init("melee_punch_cooldown");
 
 	self.one_inch_punch_flag_has_been_init = 1;
 
 	punch_weapon = "one_inch_punch_zm";
 	flourish_weapon = "zombie_one_inch_punch_flourish";
 
-	if ( isdefined( self.b_punch_upgraded ) && self.b_punch_upgraded )
+	if (isdefined(self.b_punch_upgraded) && self.b_punch_upgraded)
 	{
 		punch_weapon = "one_inch_punch_" + self.str_punch_element + "_zm";
 		flourish_weapon = "zombie_one_inch_punch_upgrade_flourish";
@@ -32,17 +32,17 @@ one_inch_punch_melee_attack()
 
 	current_melee_weapon = self get_player_melee_weapon();
 	str_weapon = self getcurrentweapon();
-	self disable_player_move_states( 1 );
-	self giveweapon( flourish_weapon );
-	self switchtoweapon( flourish_weapon );
+	self disable_player_move_states(1);
+	self giveweapon(flourish_weapon);
+	self switchtoweapon(flourish_weapon);
 
-	result = self waittill_any_return( "player_downed", "weapon_change" );
+	result = self waittill_any_return("player_downed", "weapon_change");
 
-	self takeweapon( current_melee_weapon );
-	self takeweapon( "held_" + current_melee_weapon );
-	self giveweapon( punch_weapon );
-	self set_player_melee_weapon( punch_weapon );
-	self giveweapon( "held_" + punch_weapon );
+	self takeweapon(current_melee_weapon);
+	self takeweapon("held_" + current_melee_weapon);
+	self giveweapon(punch_weapon);
+	self set_player_melee_weapon(punch_weapon);
+	self giveweapon("held_" + punch_weapon);
 
 	if (!self hasweapon("equip_dieseldrone_zm"))
 	{
@@ -51,24 +51,24 @@ one_inch_punch_melee_attack()
 
 	if (result != "player_downed")
 	{
-		self waittill_any( "player_downed", "weapon_change_complete" );
+		self waittill_any("player_downed", "weapon_change_complete");
 	}
 
 	if (is_melee_weapon(str_weapon))
 	{
-		self switchtoweapon( "held_" + punch_weapon );
+		self switchtoweapon("held_" + punch_weapon);
 	}
 	else
 	{
-		self switchtoweapon( str_weapon );
+		self switchtoweapon(str_weapon);
 	}
 
-	self takeweapon( flourish_weapon );
+	self takeweapon(flourish_weapon);
 	self enable_player_move_states();
 
-	if ( !isdefined( self.b_punch_upgraded ) || !self.b_punch_upgraded )
+	if (!isdefined(self.b_punch_upgraded) || !self.b_punch_upgraded)
 	{
-		self thread maps\mp\zombies\_zm_audio::create_and_play_dialog( "perk", "one_inch" );
+		self thread maps\mp\zombies\_zm_audio::create_and_play_dialog("perk", "one_inch");
 	}
 
 	self thread monitor_melee_swipe();

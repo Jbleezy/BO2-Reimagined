@@ -15,11 +15,11 @@ postinit_func()
 	level.powerup_drop_count = 0;
 	level.is_zombie_level = 1;
 
-	setmatchtalkflag( "DeadChatWithDead", 1 );
-	setmatchtalkflag( "DeadChatWithTeam", 1 );
-	setmatchtalkflag( "DeadHearTeamLiving", 1 );
-	setmatchtalkflag( "DeadHearAllLiving", 1 );
-	setmatchtalkflag( "EveryoneHearsEveryone", 1 );
+	setmatchtalkflag("DeadChatWithDead", 1);
+	setmatchtalkflag("DeadChatWithTeam", 1);
+	setmatchtalkflag("DeadHearTeamLiving", 1);
+	setmatchtalkflag("DeadHearAllLiving", 1);
+	setmatchtalkflag("EveryoneHearsEveryone", 1);
 }
 
 game_mode_spawn_player_logic()

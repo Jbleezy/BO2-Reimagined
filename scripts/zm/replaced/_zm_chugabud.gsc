@@ -282,8 +282,8 @@ chugabud_give_loadout()
 
 chugabud_restore_melee_weapon()
 {
-	self giveweapon( self.loadout.melee_weapon );
-	self set_player_melee_weapon( self.loadout.melee_weapon );
+	self giveweapon(self.loadout.melee_weapon);
+	self set_player_melee_weapon(self.loadout.melee_weapon);
 	self giveweapon("held_" + self.loadout.melee_weapon);
 	self setactionslot(2, "weapon", "held_" + self.loadout.melee_weapon);
 }

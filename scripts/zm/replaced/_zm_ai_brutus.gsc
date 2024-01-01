@@ -415,7 +415,7 @@ get_brutus_spawn_pos_val(brutus_pos)
 		score += n_score_addition;
 	}
 
-	if ( !level.brutus_in_grief )
+	if (!level.brutus_in_grief)
 	{
 		interaction_types = getarraykeys(level.interaction_types);
 		interact_array = level.interaction_types;

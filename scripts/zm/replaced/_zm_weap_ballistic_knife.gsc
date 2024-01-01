@@ -5,13 +5,13 @@
 
 init()
 {
-	if ( !isdefined( level.ballistic_knife_autorecover ) )
+	if (!isdefined(level.ballistic_knife_autorecover))
 		level.ballistic_knife_autorecover = 1;
 
-	if ( isdefined( level._uses_retrievable_ballisitic_knives ) && level._uses_retrievable_ballisitic_knives == 1 )
+	if (isdefined(level._uses_retrievable_ballisitic_knives) && level._uses_retrievable_ballisitic_knives == 1)
 	{
-		precachemodel( "t6_wpn_ballistic_knife_projectile" );
-		precachemodel( "t6_wpn_ballistic_knife_blade_retrieve" );
+		precachemodel("t6_wpn_ballistic_knife_projectile");
+		precachemodel("t6_wpn_ballistic_knife_blade_retrieve");
 	}
 }
 
@@ -143,7 +143,7 @@ watch_use_trigger(trigger, model, callback, weapon, playersoundonuse, npcsoundon
 	}
 }
 
-pick_up( weapon, model, trigger )
+pick_up(weapon, model, trigger)
 {
 	if (!self hasweapon(weapon))
 	{
@@ -159,26 +159,26 @@ pick_up( weapon, model, trigger )
 
 	current_weapon = self getcurrentweapon();
 
-	if ( current_weapon != weapon )
+	if (current_weapon != weapon)
 	{
-		clip_ammo = self getweaponammoclip( weapon );
+		clip_ammo = self getweaponammoclip(weapon);
 
-		if ( !clip_ammo )
-			self setweaponammoclip( weapon, 1 );
+		if (!clip_ammo)
+			self setweaponammoclip(weapon, 1);
 		else
 		{
-			new_ammo_stock = self getweaponammostock( weapon ) + 1;
-			self setweaponammostock( weapon, new_ammo_stock );
+			new_ammo_stock = self getweaponammostock(weapon) + 1;
+			self setweaponammostock(weapon, new_ammo_stock);
 		}
 	}
 	else
 	{
-		new_ammo_stock = self getweaponammostock( weapon ) + 1;
-		self setweaponammostock( weapon, new_ammo_stock );
+		new_ammo_stock = self getweaponammostock(weapon) + 1;
+		self setweaponammostock(weapon, new_ammo_stock);
 	}
 
-	self maps\mp\zombies\_zm_stats::increment_client_stat( "ballistic_knives_pickedup" );
-	self maps\mp\zombies\_zm_stats::increment_player_stat( "ballistic_knives_pickedup" );
+	self maps\mp\zombies\_zm_stats::increment_client_stat("ballistic_knives_pickedup");
+	self maps\mp\zombies\_zm_stats::increment_player_stat("ballistic_knives_pickedup");
 	model destroy_ent();
 	trigger destroy_ent();
 }

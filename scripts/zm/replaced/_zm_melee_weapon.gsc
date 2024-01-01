@@ -4,68 +4,68 @@
 #include maps\mp\zombies\_zm_utility;
 #include maps\mp\zombies\_zm_weapons;
 
-init( weapon_name, flourish_weapon_name, ballistic_weapon_name, ballistic_upgraded_weapon_name, cost, wallbuy_targetname, hint_string, vo_dialog_id, flourish_fn )
+init(weapon_name, flourish_weapon_name, ballistic_weapon_name, ballistic_upgraded_weapon_name, cost, wallbuy_targetname, hint_string, vo_dialog_id, flourish_fn)
 {
-	precacheitem( weapon_name );
-	precacheitem( flourish_weapon_name );
-	precacheitem( "held_" + weapon_name );
-	add_melee_weapon( weapon_name, flourish_weapon_name, ballistic_weapon_name, ballistic_upgraded_weapon_name, cost, wallbuy_targetname, hint_string, vo_dialog_id, flourish_fn );
-	melee_weapon_triggers = getentarray( wallbuy_targetname, "targetname" );
+	precacheitem(weapon_name);
+	precacheitem(flourish_weapon_name);
+	precacheitem("held_" + weapon_name);
+	add_melee_weapon(weapon_name, flourish_weapon_name, ballistic_weapon_name, ballistic_upgraded_weapon_name, cost, wallbuy_targetname, hint_string, vo_dialog_id, flourish_fn);
+	melee_weapon_triggers = getentarray(wallbuy_targetname, "targetname");
 
-	for ( i = 0; i < melee_weapon_triggers.size; i++ )
+	for (i = 0; i < melee_weapon_triggers.size; i++)
 	{
-		knife_model = getent( melee_weapon_triggers[i].target, "targetname" );
+		knife_model = getent(melee_weapon_triggers[i].target, "targetname");
 
-		if ( isdefined( knife_model ) )
+		if (isdefined(knife_model))
 			knife_model hide();
 
-		melee_weapon_triggers[i] thread melee_weapon_think( weapon_name, cost, flourish_fn, vo_dialog_id, flourish_weapon_name, ballistic_weapon_name, ballistic_upgraded_weapon_name );
+		melee_weapon_triggers[i] thread melee_weapon_think(weapon_name, cost, flourish_fn, vo_dialog_id, flourish_weapon_name, ballistic_weapon_name, ballistic_upgraded_weapon_name);
 
-		if ( !( isdefined( level.monolingustic_prompt_format ) && level.monolingustic_prompt_format ) )
+		if (!(isdefined(level.monolingustic_prompt_format) && level.monolingustic_prompt_format))
 		{
-			melee_weapon_triggers[i] sethintstring( hint_string, cost );
+			melee_weapon_triggers[i] sethintstring(hint_string, cost);
 
 			cursor_hint = "HINT_WEAPON";
 			cursor_hint_weapon = weapon_name;
-			melee_weapon_triggers[i] setcursorhint( cursor_hint, cursor_hint_weapon );
+			melee_weapon_triggers[i] setcursorhint(cursor_hint, cursor_hint_weapon);
 		}
 		else
 		{
-			weapon_display = get_weapon_display_name( weapon_name );
+			weapon_display = get_weapon_display_name(weapon_name);
 			hint_string = &"ZOMBIE_WEAPONCOSTONLY";
-			melee_weapon_triggers[i] sethintstring( hint_string, weapon_display, cost );
+			melee_weapon_triggers[i] sethintstring(hint_string, weapon_display, cost);
 
 			cursor_hint = "HINT_WEAPON";
 			cursor_hint_weapon = weapon_name;
-			melee_weapon_triggers[i] setcursorhint( cursor_hint, cursor_hint_weapon );
+			melee_weapon_triggers[i] setcursorhint(cursor_hint, cursor_hint_weapon);
 		}
 
 		melee_weapon_triggers[i] usetriggerrequirelookat();
 	}
 
-	melee_weapon_structs = getstructarray( wallbuy_targetname, "targetname" );
+	melee_weapon_structs = getstructarray(wallbuy_targetname, "targetname");
 
-	for ( i = 0; i < melee_weapon_structs.size; i++ )
-		prepare_stub( melee_weapon_structs[i].trigger_stub, weapon_name, flourish_weapon_name, ballistic_weapon_name, ballistic_upgraded_weapon_name, cost, wallbuy_targetname, hint_string, vo_dialog_id, flourish_fn );
+	for (i = 0; i < melee_weapon_structs.size; i++)
+		prepare_stub(melee_weapon_structs[i].trigger_stub, weapon_name, flourish_weapon_name, ballistic_weapon_name, ballistic_upgraded_weapon_name, cost, wallbuy_targetname, hint_string, vo_dialog_id, flourish_fn);
 
-	register_melee_weapon_for_level( weapon_name );
+	register_melee_weapon_for_level(weapon_name);
 
-	if ( !isdefined( level.ballistic_weapon_name ) )
+	if (!isdefined(level.ballistic_weapon_name))
 		level.ballistic_weapon_name = [];
 
 	level.ballistic_weapon_name[weapon_name] = ballistic_weapon_name;
 
-	if ( !isdefined( level.ballistic_upgraded_weapon_name ) )
+	if (!isdefined(level.ballistic_upgraded_weapon_name))
 		level.ballistic_upgraded_weapon_name = [];
 
 	level.ballistic_upgraded_weapon_name[weapon_name] = ballistic_upgraded_weapon_name;
 }
 
-prepare_stub( stub, weapon_name, flourish_weapon_name, ballistic_weapon_name, ballistic_upgraded_weapon_name, cost, wallbuy_targetname, hint_string, vo_dialog_id, flourish_fn )
+prepare_stub(stub, weapon_name, flourish_weapon_name, ballistic_weapon_name, ballistic_upgraded_weapon_name, cost, wallbuy_targetname, hint_string, vo_dialog_id, flourish_fn)
 {
-	if ( isdefined( stub ) )
+	if (isdefined(stub))
 	{
-		if ( !( isdefined( level.monolingustic_prompt_format ) && level.monolingustic_prompt_format ) )
+		if (!(isdefined(level.monolingustic_prompt_format) && level.monolingustic_prompt_format))
 		{
 			stub.hint_string = hint_string;
 
@@ -74,7 +74,7 @@ prepare_stub( stub, weapon_name, flourish_weapon_name, ballistic_weapon_name, ba
 		}
 		else
 		{
-			stub.hint_parm1 = get_weapon_display_name( weapon_name );
+			stub.hint_parm1 = get_weapon_display_name(weapon_name);
 			stub.hint_parm2 = cost;
 			stub.hint_string = &"ZOMBIE_WEAPONCOSTONLY";
 

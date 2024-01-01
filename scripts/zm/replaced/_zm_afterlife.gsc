@@ -623,62 +623,62 @@ afterlife_save_loadout()
 	self.loadout.score = self.score;
 	self.loadout.current_weapon = 0;
 
-	foreach ( index, weapon in primaries )
+	foreach (index, weapon in primaries)
 	{
 		self.loadout.weapons[index] = weapon;
-		self.loadout.stockcount[index] = self getweaponammostock( weapon );
-		self.loadout.clipcount[index] = self getweaponammoclip( weapon );
+		self.loadout.stockcount[index] = self getweaponammostock(weapon);
+		self.loadout.clipcount[index] = self getweaponammoclip(weapon);
 
-		if ( weaponisdualwield( weapon ) )
+		if (weaponisdualwield(weapon))
 		{
-			weapon_dw = weapondualwieldweaponname( weapon );
-			self.loadout.clipcount2[index] = self getweaponammoclip( weapon_dw );
+			weapon_dw = weapondualwieldweaponname(weapon);
+			self.loadout.clipcount2[index] = self getweaponammoclip(weapon_dw);
 		}
 
-		weapon_alt = weaponaltweaponname( weapon );
+		weapon_alt = weaponaltweaponname(weapon);
 
-		if ( weapon_alt != "none" )
+		if (weapon_alt != "none")
 		{
-			self.loadout.stockcountalt[index] = self getweaponammostock( weapon_alt );
-			self.loadout.clipcountalt[index] = self getweaponammoclip( weapon_alt );
+			self.loadout.stockcountalt[index] = self getweaponammostock(weapon_alt);
+			self.loadout.clipcountalt[index] = self getweaponammoclip(weapon_alt);
 		}
 
-		if ( weapon == currentweapon )
+		if (weapon == currentweapon)
 			self.loadout.current_weapon = index;
 	}
 
 	self.loadout.equipment = self get_player_equipment();
 
-	if ( isdefined( self.loadout.equipment ) )
-		self equipment_take( self.loadout.equipment );
+	if (isdefined(self.loadout.equipment))
+		self equipment_take(self.loadout.equipment);
 
-	if ( self hasweapon( "claymore_zm" ) )
+	if (self hasweapon("claymore_zm"))
 	{
 		self.loadout.hasclaymore = 1;
-		self.loadout.claymoreclip = self getweaponammoclip( "claymore_zm" );
+		self.loadout.claymoreclip = self getweaponammoclip("claymore_zm");
 	}
 
-	if ( self hasweapon( "bouncing_tomahawk_zm" ) || self hasweapon( "upgraded_tomahawk_zm" ) )
+	if (self hasweapon("bouncing_tomahawk_zm") || self hasweapon("upgraded_tomahawk_zm"))
 	{
 		self.loadout.hastomahawk = 1;
-		self setclientfieldtoplayer( "tomahawk_in_use", 0 );
+		self setclientfieldtoplayer("tomahawk_in_use", 0);
 	}
-	else if ( self hasweapon( "willy_pete_zm" ) )
+	else if (self hasweapon("willy_pete_zm"))
 	{
 		self.loadout.hassmoke = 1;
-		self.loadout.smokeclip = self getweaponammoclip( "willy_pete_zm" );
+		self.loadout.smokeclip = self getweaponammoclip("willy_pete_zm");
 	}
 
-	self.loadout.perks = afterlife_save_perks( self );
+	self.loadout.perks = afterlife_save_perks(self);
 	lethal_grenade = self get_player_lethal_grenade();
 
-	if ( self hasweapon( lethal_grenade ) )
-		self.loadout.grenade = self getweaponammoclip( lethal_grenade );
+	if (self hasweapon(lethal_grenade))
+		self.loadout.grenade = self getweaponammoclip(lethal_grenade);
 	else
 		self.loadout.grenade = 0;
 
 	self.loadout.lethal_grenade = lethal_grenade;
-	self set_player_lethal_grenade( undefined );
+	self set_player_lethal_grenade(undefined);
 }
 
 afterlife_give_loadout()

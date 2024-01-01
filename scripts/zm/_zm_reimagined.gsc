@@ -1609,63 +1609,63 @@ weapon_changes()
 {
 	if (level.script == "zm_transit" || level.script == "zm_nuked" || level.script == "zm_highrise" || level.script == "zm_buried" || level.script == "zm_tomb")
 	{
-		include_weapon( "held_knife_zm", 0 );
-		register_melee_weapon_for_level( "held_knife_zm" );
+		include_weapon("held_knife_zm", 0);
+		register_melee_weapon_for_level("held_knife_zm");
 	}
 
 	if (level.script == "zm_transit" || level.script == "zm_nuked" || level.script == "zm_highrise" || level.script == "zm_buried")
 	{
-		include_weapon( "held_bowie_knife_zm", 0 );
-		register_melee_weapon_for_level( "held_bowie_knife_zm" );
+		include_weapon("held_bowie_knife_zm", 0);
+		register_melee_weapon_for_level("held_bowie_knife_zm");
 
-		include_weapon( "held_tazer_knuckles_zm", 0 );
-		register_melee_weapon_for_level( "held_tazer_knuckles_zm" );
+		include_weapon("held_tazer_knuckles_zm", 0);
+		register_melee_weapon_for_level("held_tazer_knuckles_zm");
 
 		level.laststandpistol = "fnp45_zm";
 		level.default_laststandpistol = "fnp45_zm";
 		level.default_solo_laststandpistol = "fnp45_upgraded_zm";
 		level.start_weapon = "fnp45_zm";
-		include_weapon( "fnp45_zm", 0 );
-		include_weapon( "fnp45_upgraded_zm", 0 );
-		add_limited_weapon( "fnp45_zm", 0 );
-		add_zombie_weapon( "fnp45_zm", "fnp45_upgraded_zm", &"WEAPON_FNP45", 50, "wpck_pistol", "", undefined, 1 );
+		include_weapon("fnp45_zm", 0);
+		include_weapon("fnp45_upgraded_zm", 0);
+		add_limited_weapon("fnp45_zm", 0);
+		add_zombie_weapon("fnp45_zm", "fnp45_upgraded_zm", &"WEAPON_FNP45", 50, "wpck_pistol", "", undefined, 1);
 	}
 
 	if (level.script == "zm_prison")
 	{
-		include_weapon( "held_knife_zm_alcatraz", 0 );
-		register_melee_weapon_for_level( "held_knife_zm_alcatraz" );
+		include_weapon("held_knife_zm_alcatraz", 0);
+		register_melee_weapon_for_level("held_knife_zm_alcatraz");
 
-		include_weapon( "held_spoon_zm_alcatraz", 0 );
-		register_melee_weapon_for_level( "held_spoon_zm_alcatraz" );
+		include_weapon("held_spoon_zm_alcatraz", 0);
+		register_melee_weapon_for_level("held_spoon_zm_alcatraz");
 
-		include_weapon( "held_spork_zm_alcatraz", 0 );
-		register_melee_weapon_for_level( "held_spork_zm_alcatraz" );
+		include_weapon("held_spork_zm_alcatraz", 0);
+		register_melee_weapon_for_level("held_spork_zm_alcatraz");
 
-		maps\mp\zombies\_zm_weapons::register_zombie_weapon_callback( "willy_pete_zm", ::player_give_willy_pete );
+		maps\mp\zombies\_zm_weapons::register_zombie_weapon_callback("willy_pete_zm", ::player_give_willy_pete);
 		register_tactical_grenade_for_level("willy_pete_zm");
 		level.zombie_weapons["willy_pete_zm"].is_in_box = 1;
 	}
 
 	if (level.script == "zm_tomb")
 	{
-		include_weapon( "held_one_inch_punch_zm", 0 );
-		register_melee_weapon_for_level( "held_one_inch_punch_zm" );
+		include_weapon("held_one_inch_punch_zm", 0);
+		register_melee_weapon_for_level("held_one_inch_punch_zm");
 
-		include_weapon( "held_one_inch_punch_upgraded_zm", 0 );
-		register_melee_weapon_for_level( "held_one_inch_punch_upgraded_zm" );
+		include_weapon("held_one_inch_punch_upgraded_zm", 0);
+		register_melee_weapon_for_level("held_one_inch_punch_upgraded_zm");
 
-		include_weapon( "held_one_inch_punch_air_zm", 0 );
-		register_melee_weapon_for_level( "held_one_inch_punch_air_zm" );
+		include_weapon("held_one_inch_punch_air_zm", 0);
+		register_melee_weapon_for_level("held_one_inch_punch_air_zm");
 
-		include_weapon( "held_one_inch_punch_fire_zm", 0 );
-		register_melee_weapon_for_level( "held_one_inch_punch_fire_zm" );
+		include_weapon("held_one_inch_punch_fire_zm", 0);
+		register_melee_weapon_for_level("held_one_inch_punch_fire_zm");
 
-		include_weapon( "held_one_inch_punch_ice_zm", 0 );
-		register_melee_weapon_for_level( "held_one_inch_punch_ice_zm" );
+		include_weapon("held_one_inch_punch_ice_zm", 0);
+		register_melee_weapon_for_level("held_one_inch_punch_ice_zm");
 
-		include_weapon( "held_one_inch_punch_lightning_zm", 0 );
-		register_melee_weapon_for_level( "held_one_inch_punch_lightning_zm" );
+		include_weapon("held_one_inch_punch_lightning_zm", 0);
+		register_melee_weapon_for_level("held_one_inch_punch_lightning_zm");
 	}
 
 	if (isdefined(level.zombie_weapons["saritch_zm"]))
@@ -1676,16 +1676,16 @@ weapon_changes()
 	}
 	else
 	{
-		include_weapon( "saritch_zm", 0 );
-		include_weapon( "saritch_upgraded_zm", 0 );
-		add_zombie_weapon( "saritch_zm", "saritch_upgraded_zm", &"ZOMBIE_WEAPON_SARITCH", 500, "wpck_smr", "", undefined, 1 );
+		include_weapon("saritch_zm", 0);
+		include_weapon("saritch_upgraded_zm", 0);
+		add_zombie_weapon("saritch_zm", "saritch_upgraded_zm", &"ZOMBIE_WEAPON_SARITCH", 500, "wpck_smr", "", undefined, 1);
 	}
 
 	if (!isdefined(level.zombie_weapons["ballista_zm"]))
 	{
-		include_weapon( "ballista_zm", 0 );
-		include_weapon( "ballista_upgraded_zm", 0 );
-		add_zombie_weapon( "ballista_zm", "ballista_upgraded_zm", &"ZMWEAPON_BALLISTA_WALLBUY", 500, "wpck_snipe", "", undefined, 1 );
+		include_weapon("ballista_zm", 0);
+		include_weapon("ballista_upgraded_zm", 0);
+		add_zombie_weapon("ballista_zm", "ballista_upgraded_zm", &"ZMWEAPON_BALLISTA_WALLBUY", 500, "wpck_snipe", "", undefined, 1);
 	}
 
 	if (isdefined(level.zombie_weapons["python_zm"]))
@@ -1705,16 +1705,16 @@ weapon_changes()
 
 	if (!isdefined(level.zombie_weapons["hk416_zm"]))
 	{
-		include_weapon( "hk416_zm" );
-		include_weapon( "hk416_upgraded_zm", 0 );
-		add_zombie_weapon( "hk416_zm", "hk416_upgraded_zm", &"ZOMBIE_WEAPON_HK416", 100, "", "", undefined );
+		include_weapon("hk416_zm");
+		include_weapon("hk416_upgraded_zm", 0);
+		add_zombie_weapon("hk416_zm", "hk416_upgraded_zm", &"ZOMBIE_WEAPON_HK416", 100, "", "", undefined);
 	}
 
 	if (!isdefined(level.zombie_weapons["scar_zm"]))
 	{
-		include_weapon( "scar_zm" );
-		include_weapon( "scar_upgraded_zm", 0 );
-		add_zombie_weapon( "scar_zm", "scar_upgraded_zm", &"ZOMBIE_WEAPON_SCAR", 50, "wpck_rifle", "", undefined, 1 );
+		include_weapon("scar_zm");
+		include_weapon("scar_upgraded_zm", 0);
+		add_zombie_weapon("scar_zm", "scar_upgraded_zm", &"ZOMBIE_WEAPON_SCAR", 50, "wpck_rifle", "", undefined, 1);
 	}
 }
 
