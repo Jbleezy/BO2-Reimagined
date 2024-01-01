@@ -5118,7 +5118,7 @@
 "origin" "2439 5356 -308"
 "angles" "0 270 0"
 "classname" "script_struct"
-"zombie_weapon_upgrade" "m14_zm"
+"zombie_weapon_upgrade" "saritch_zm"
 "targetname" "weapon_upgrade"
 "target" "pf2208_auto37"
 "guid" "C15AD568"

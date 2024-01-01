@@ -2,6 +2,8 @@
 >type,fastfile
 >name,mod
 
+include,clientscripts
+
 include,saritch_zm
 include,ballista_zm
 include,knife_ballistic_zm
@@ -25,6 +27,7 @@ include,specialty_marathon
 include,specialty_divetonuke
 include,specialty_mulekick
 
+include,fx_zmb_wall_buy
 include,waypoint
 
 stringtable,zm/pap_attach.csv

@@ -14,6 +14,7 @@ main()
 	replaceFunc(maps\mp\gametypes_zm\_damagefeedback::onplayerconnect, scripts\zm\replaced\_damagefeedback::onplayerconnect);
 	replaceFunc(maps\mp\gametypes_zm\_hud_message::onplayerconnect, scripts\zm\replaced\_hud_message::onplayerconnect);
 	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::hide_gump_loading_for_hotjoiners, scripts\zm\replaced\_zm_gametype::hide_gump_loading_for_hotjoiners);
+	replaceFunc(maps\mp\zombies\_zm::init_fx, scripts\zm\replaced\_zm::init_fx);
 	replaceFunc(maps\mp\zombies\_zm::round_start, scripts\zm\replaced\_zm::round_start);
 	replaceFunc(maps\mp\zombies\_zm::ai_calculate_health, scripts\zm\replaced\_zm::ai_calculate_health);
 	replaceFunc(maps\mp\zombies\_zm::onallplayersready, scripts\zm\replaced\_zm::onallplayersready);
