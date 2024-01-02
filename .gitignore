@@ -2,7 +2,7 @@
 *.ff
 *.iwd
 *.dds
-_zm_test.gsc
-games_mp.log
+*.log
 zmStats
+_zm_test.gsc
 TODO.md
