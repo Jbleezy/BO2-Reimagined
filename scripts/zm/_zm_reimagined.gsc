@@ -1628,7 +1628,7 @@ weapon_changes()
 		include_weapon("fnp45_zm", 0);
 		include_weapon("fnp45_upgraded_zm", 0);
 		add_limited_weapon("fnp45_zm", 0);
-		add_zombie_weapon("fnp45_zm", "fnp45_upgraded_zm", &"WEAPON_FNP45", 50, "wpck_pistol", "", undefined, 1);
+		add_zombie_weapon("fnp45_zm", "fnp45_upgraded_zm", &"WEAPON_FNP45", 500, "wpck_pistol", "", undefined, 1);
 	}
 
 	if (level.script == "zm_prison")
@@ -1707,14 +1707,23 @@ weapon_changes()
 	{
 		include_weapon("hk416_zm");
 		include_weapon("hk416_upgraded_zm", 0);
-		add_zombie_weapon("hk416_zm", "hk416_upgraded_zm", &"ZOMBIE_WEAPON_HK416", 100, "", "", undefined);
+		add_zombie_weapon("hk416_zm", "hk416_upgraded_zm", &"ZOMBIE_WEAPON_HK416", 1000, "", "", undefined);
 	}
 
 	if (!isdefined(level.zombie_weapons["scar_zm"]))
 	{
 		include_weapon("scar_zm");
 		include_weapon("scar_upgraded_zm", 0);
-		add_zombie_weapon("scar_zm", "scar_upgraded_zm", &"ZOMBIE_WEAPON_SCAR", 50, "wpck_rifle", "", undefined, 1);
+		add_zombie_weapon("scar_zm", "scar_upgraded_zm", &"ZOMBIE_WEAPON_SCAR", 1000, "wpck_rifle", "", undefined, 1);
+	}
+
+	if (isdefined(level.zombie_weapons["fnfal_zm"]))
+	{
+		level.zombie_weapons["fnfal_zm"].is_in_box = 0;
+
+		include_weapon("sa58_zm");
+		include_weapon("sa58_upgraded_zm", 0);
+		add_zombie_weapon("sa58_zm", "sa58_upgraded_zm", &"WEAPON_SA58", 1000, "wpck_fal", "", undefined, 1);
 	}
 }
 

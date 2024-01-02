@@ -176,6 +176,9 @@
 * Increased weapon cost from 1200 to 1500
 * Upgraded: decreased stock ammo from 600 to 450
 
+### FAL OSW
+* Replaces FAL
+
 ### Galil
 * Removed
 

@@ -1,4 +1,4 @@
 root = true
 
-[weapons/**]
+[{weapons/**,attachment/**,attachmentunique/**}]
 end_of_line = lf
