@@ -254,6 +254,12 @@
 
 ### Ballista
 * Replaces Olympia
+* Unupgraded: increased damage from 150 to 250
+* Unupgraded: decreased clip ammo from 8 to 6
+* Unupgraded: decreased stock ammo from 64 to 60
+* Upgraded: increased damage from 400 to 500
+* Upgraded: decreased headshot multiplier from 10 to 8
+* Upgraded: decreased stock ammo from 120 to 100
 
 ## Shotguns
 * Increased penetration
