@@ -136,6 +136,7 @@
 
 ## Pistols
 * Increased move speed from 100% to 110%
+* Decreased aim FOV from 65 to 60 on all pistols
 
 ### B23R
 * Decreased weapon cost from 1000 to 900 on all maps
@@ -154,13 +155,11 @@
 * Upgraded: increased stock ammo from 180 to 360
 
 ### M1911
-* Unupgraded: decreased zoom FOV from 65 to 60 (same as other Black Ops 2 pistols)
 * Upgraded: decreased stock ammo from 50 to 48
 * Upgraded: decreased last stand ammo from 2 clips to 1 clip
 
 ### Mauser C96
 * Ammo gets added to the clip at the same time that it gets added in the reload anim
-* Unupgraded: decreased zoom FOV from 65 to 60 (same as other Black Ops 2 pistols)
 * Upgraded: fixed not being able to melee while aiming
 * Upgraded: decreased last stand ammo from 2 clips to 1 clip
 
