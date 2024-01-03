@@ -1712,6 +1712,13 @@ weapon_changes()
 		add_shared_ammo_weapon("vector_extclip_zm", "vector_zm");
 	}
 
+	if (isdefined(level.zombie_weapons["m16_zm"]))
+	{
+		include_weapon("sig556_zm", 0);
+		include_weapon("sig556_upgraded_zm", 0);
+		add_zombie_weapon("sig556_zm", "sig556_upgraded_zm", &"ZOMBIE_WEAPON_SIG556", 1200, "burstrifle", "", undefined, 1);
+	}
+
 	if (isdefined(level.zombie_weapons["python_zm"]))
 	{
 		level.zombie_weapons["python_zm"].is_in_box = 0;
@@ -1784,7 +1791,7 @@ wallbuy_location_changes()
 			if (level.scr_zm_ui_gametype == "zgrief")
 			{
 				add_wallbuy("beretta93r_zm");
-				add_wallbuy("m16_zm");
+				add_wallbuy("sig556_zm");
 				add_wallbuy("claymore_zm");
 				add_wallbuy("bowie_knife_zm");
 			}

@@ -3573,7 +3573,7 @@
 {
 "origin" "573.64 154.73 138.5"
 "angles" "0 285.6 0"
-"model" "t6_wpn_ar_m16a2_world"
+"model" "t6_wpn_ar_sig556_world"
 "classname" "script_struct"
 "targetname" "pf9_auto37"
 "guid" "45A420E3"
@@ -3582,7 +3582,7 @@
 "origin" "573.64 154.73 138.5"
 "angles" "0 285.6 0"
 "classname" "script_struct"
-"zombie_weapon_upgrade" "m16_zm"
+"zombie_weapon_upgrade" "sig556_zm"
 "targetname" "weapon_upgrade"
 "target" "pf9_auto37"
 "guid" "FF59A3C9"

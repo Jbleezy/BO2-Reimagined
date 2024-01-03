@@ -50,7 +50,7 @@ init_fx()
 		level._effect["bowie_knife_zm_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_bowie");
 		level._effect["claymore_zm_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_claymore");
 		level._effect["saritch_zm_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_m14");
-		level._effect["m16_zm_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_m16");
+		level._effect["sig556_zm_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_m16");
 		level._effect["insas_zm_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_mp5k");
 		level._effect["ballista_zm_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_olympia");
 	}

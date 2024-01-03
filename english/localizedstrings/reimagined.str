@@ -1018,6 +1018,9 @@ LANG_ENGLISH        "Vector K10 Extended Clip"
 REFERENCE           ZMWEAPON_VECTOR_UPGRADED
 LANG_ENGLISH        "Matrix K1000"
 
+REFERENCE           ZMWEAPON_SIG556_UPGRADED
+LANG_ENGLISH        "FBI-667"
+
 REFERENCE           ZMWEAPON_SA58_UPGRADED
 LANG_ENGLISH        "WN OTW"
 
@@ -1034,6 +1037,9 @@ LANG_ENGLISH        "Hold ^3[{+activate}]^7 for MSMC [Cost: &&1]"
 
 REFERENCE           ZOMBIE_WEAPON_VECTOR
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Vector K10 [Cost: &&1]"
+
+REFERENCE           ZOMBIE_WEAPON_SIG556
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 for SWAT-556 [Cost: &&1]"
 
 REFERENCE           ZOMBIE_WEAPON_STICKY_GRENADE
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Semtex Grenades [Cost: &&1]"

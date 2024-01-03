@@ -212,6 +212,9 @@
 * Ammo gets added to the clip at the same time that it gets added in the reload anim
 * Upgraded: decreased stock ammo from 330 to 300
 
+### SWAT-556
+* Replaces M16A1
+
 ### Type 25
 * Decreased recoil
 * Unupgraded: increased stock ammo from 150 to 300

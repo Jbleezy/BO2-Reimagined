@@ -2363,7 +2363,7 @@
 {
 "origin" "3236.01 2247.25 3015.99"
 "angles" "359.991 270.201 -177.4"
-"model" "t6_wpn_ar_m16a2_world"
+"model" "t6_wpn_ar_sig556_world"
 "classname" "script_struct"
 "targetname" "pf1491_auto37"
 "guid" "45A420E3"
@@ -2372,7 +2372,7 @@
 "origin" "3236.01 2247.25 3015.99"
 "angles" "359.991 270.201 -177.4"
 "classname" "script_struct"
-"zombie_weapon_upgrade" "m16_zm"
+"zombie_weapon_upgrade" "sig556_zm"
 "targetname" "weapon_upgrade"
 "target" "pf1491_auto37"
 "guid" "FF59A3C9"
