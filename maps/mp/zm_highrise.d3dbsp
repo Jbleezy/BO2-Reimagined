@@ -2245,7 +2245,7 @@
 "angles" "0 239.8 0"
 "origin" "1611.98 47.9501 2765"
 "classname" "script_struct"
-"zombie_weapon_upgrade" "mp5k_zm"
+"zombie_weapon_upgrade" "insas_zm"
 "targetname" "weapon_upgrade"
 "target" "pf1484_auto37"
 "guid" "F0390DB3"
@@ -2253,7 +2253,7 @@
 {
 "targetname" "pf1484_auto37"
 "classname" "script_struct"
-"model" "t6_wpn_smg_mp5_world"
+"model" "t6_wpn_smg_msmc_world"
 "angles" "0 239.8 0"
 "origin" "1611.98 47.9501 2765"
 "guid" "6D2A1B25"

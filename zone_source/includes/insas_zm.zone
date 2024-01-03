@@ -52,8 +52,8 @@ attachmentunique,au_insas_dualclip+grip
 attachmentunique,au_insas_holo+grip
 attachmentunique,au_insas_rangefinder+grip
 attachmentunique,au_insas_grip+sf
-weapon,insas_zm
-weapon,insas_upgraded_zm
+weapon,zm/insas_zm
+weapon,zm/insas_upgraded_zm
 xanim,viewmodel_msmc_reflex_ads_up
 xanim,viewmodel_msmc_reflex_ads_down
 xanim,viewmodel_msmc_dbal_first_raise

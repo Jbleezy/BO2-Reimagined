@@ -234,6 +234,9 @@
 ### MP40
 * Ammo gets added to the clip at the same time that it gets added in the reload anim
 
+### MSMC
+* Replaces MP5
+
 ### Skorpion EVO
 * Upgraded: changed default attachment from Reflex Sight to Fast Mag
 

@@ -1009,6 +1009,9 @@ LANG_ENGLISH        "Richtofen's Head"
 REFERENCE           ZMWEAPON_FNP45_UPGRADED
 LANG_ENGLISH        "Toughguy & Crybaby"
 
+REFERENCE           ZMWEAPON_INSAS_UPGRADED
+LANG_ENGLISH        "Massachusetts State Missouri City"
+
 REFERENCE           ZMWEAPON_SA58_UPGRADED
 LANG_ENGLISH        "WN OTW"
 
@@ -1019,6 +1022,9 @@ LANG_ENGLISH        "Hold ^3[{+activate}]^7 for SMR [Cost: &&1]"
 
 REFERENCE           ZMWEAPON_BALLISTA_WALLBUY
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Ballista [Cost: &&1]"
+
+REFERENCE           ZOMBIE_WEAPON_INSAS
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 for MSMC [Cost: &&1]"
 
 REFERENCE           ZOMBIE_WEAPON_STICKY_GRENADE
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Semtex Grenades [Cost: &&1]"
