@@ -497,6 +497,14 @@ set_team(team)
 
 	self [[level.givecustomcharacters]]();
 
+	self.kills = 0;
+	self.headshots = 0;
+	self.downs = 0;
+	self.revives = 0;
+	self.killsconfirmed = 0;
+	self.killsdenied = 0;
+	self.captures = 0;
+
 	if (isDefined(self.head_icon))
 	{
 		self.head_icon destroy();
