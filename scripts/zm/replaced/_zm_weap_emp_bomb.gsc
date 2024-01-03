@@ -201,6 +201,7 @@ player_perk_pause_and_unpause_all_perks(time, owner)
 	{
 		self.last_emped_by = spawnStruct();
 		self.last_emped_by.attacker = owner;
+		self [[level.store_player_damage_info_func]](owner, "emp_grenade_zm", "MOD_GRENADE_SPLASH");
 	}
 	else
 	{

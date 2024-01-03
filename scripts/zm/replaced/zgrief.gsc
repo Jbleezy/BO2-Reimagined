@@ -439,6 +439,7 @@ meat_stink_player(who, owner)
 	{
 		who.last_meated_by = spawnStruct();
 		who.last_meated_by.attacker = owner;
+		who [[level.store_player_damage_info_func]](owner, level.item_meat_name, "MOD_UNKNOWN");
 	}
 	else
 	{

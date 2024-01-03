@@ -83,6 +83,7 @@ init()
 	level.increment_score_func = ::increment_score;
 	level.grief_score_hud_set_player_count_func = ::grief_score_hud_set_player_count;
 	level.show_grief_hud_msg_func = ::show_grief_hud_msg;
+	level.store_player_damage_info_func = ::store_player_damage_info;
 	level.player_suicide_func = ::player_suicide;
 
 	level thread grief_intro_msg();
