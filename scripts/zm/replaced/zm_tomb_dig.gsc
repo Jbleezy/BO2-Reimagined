@@ -176,7 +176,7 @@ dig_up_weapon(digger)
 	a_rare_weapons = array("dsr50_zm", "srm1216_zm");
 
 	if (digger.dig_vars["has_upgraded_shovel"])
-		a_rare_weapons = combinearrays(a_rare_weapons, array("claymore_zm", "ak74u_zm", "ksg_zm", "mp40_zm", "mp44_zm"));
+		a_rare_weapons = combinearrays(a_rare_weapons, array("claymore_zm", "vector_zm", "ksg_zm", "mp40_zm", "mp44_zm"));
 
 	str_weapon = undefined;
 

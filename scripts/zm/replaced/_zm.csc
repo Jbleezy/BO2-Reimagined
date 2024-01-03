@@ -7,7 +7,7 @@ init_wallbuy_fx()
 	if (!is_false(level._uses_default_wallbuy_fx))
 	{
 		level._effect["870mcs_zm_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_870mcs");
-		level._effect["ak74u_zm_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_ak74u");
+		level._effect["vector_zm_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_ak74u");
 		level._effect["beretta93r_zm_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_berreta93r");
 		level._effect["bowie_knife_zm_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_bowie");
 		level._effect["claymore_zm_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_claymore");

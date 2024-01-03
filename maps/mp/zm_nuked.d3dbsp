@@ -11019,7 +11019,7 @@
 "angles" "0 105 0"
 "origin" "152.255 446.797 42.25"
 "classname" "script_struct"
-"zombie_weapon_upgrade" "ak74u_zm"
+"zombie_weapon_upgrade" "vector_zm"
 "targetname" "weapon_upgrade"
 "target" "pf824_auto37"
 "guid" "5018227C"
@@ -11027,7 +11027,7 @@
 {
 "targetname" "pf824_auto37"
 "classname" "script_struct"
-"model" "t6_wpn_smg_ak74u_world"
+"model" "t6_wpn_smg_vector_world"
 "angles" "0 105 0"
 "origin" "152.255 446.797 42.25"
 "guid" "FCC3AFC8"

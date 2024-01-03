@@ -240,6 +240,9 @@
 ### Skorpion EVO
 * Upgraded: changed default attachment from Reflex Sight to Fast Mag
 
+### Vector K10
+* Replaces Ak74u
+
 ## Light Machine Guns
 * Decreased move speed from 87.5% to 85%
 

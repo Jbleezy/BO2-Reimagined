@@ -1695,6 +1695,23 @@ weapon_changes()
 		add_zombie_weapon("insas_zm", "insas_upgraded_zm", &"ZOMBIE_WEAPON_INSAS", 1000, "smg", "", undefined, 1);
 	}
 
+	if (isdefined(level.zombie_weapons["ak74u_zm"]))
+	{
+		include_weapon("vector_zm", 0);
+		include_weapon("vector_upgraded_zm", 0);
+		add_zombie_weapon("vector_zm", "vector_upgraded_zm", &"ZOMBIE_WEAPON_VECTOR", 1200, "smg", "", undefined, 1);
+	}
+
+	if (isdefined(level.zombie_weapons["ak74u_extclip_zm"]))
+	{
+		level.zombie_weapons["ak74u_extclip_zm"].is_in_box = 0;
+
+		include_weapon("vector_extclip_zm");
+		include_weapon("vector_extclip_upgraded_zm", 0);
+		add_zombie_weapon("vector_extclip_zm", "vector_extclip_upgraded_zm", &"ZOMBIE_WEAPON_VECTOR", 1200, "smg", "", undefined, 1);
+		add_shared_ammo_weapon("vector_extclip_zm", "vector_zm");
+	}
+
 	if (isdefined(level.zombie_weapons["python_zm"]))
 	{
 		level.zombie_weapons["python_zm"].is_in_box = 0;

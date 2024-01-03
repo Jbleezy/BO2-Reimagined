@@ -125,7 +125,7 @@ init_wallbuys()
 	scripts\zm\replaced\utility::wallbuy("ballista_zm", "ballista", "weapon_upgrade", (13553, -539, -133), (0, -90, 0));
 	scripts\zm\replaced\utility::wallbuy("beretta93r_zm", "beretta93r", "weapon_upgrade", (13793, -1646, -105), (0, 0, 0));
 	scripts\zm\replaced\utility::wallbuy("insas_zm", "insas", "weapon_upgrade", (13553, -769, -133), (0, -90, 0));
-	scripts\zm\replaced\utility::wallbuy("ak74u_zm", "ak74u", "weapon_upgrade", (13979, -1550, -134), (0, 90, 0));
+	scripts\zm\replaced\utility::wallbuy("vector_zm", "vector", "weapon_upgrade", (13979, -1550, -134), (0, 90, 0));
 	scripts\zm\replaced\utility::wallbuy("m16_zm", "m16", "weapon_upgrade", (14093, -351, -133), (0, 90, 0));
 	scripts\zm\replaced\utility::wallbuy("870mcs_zm", "870mcs", "weapon_upgrade", (13552, -1387, -134), (0, -90, 0));
 	scripts\zm\replaced\utility::wallbuy("sticky_grenade_zm", "sticky_grenade", "weapon_upgrade", (13603, -1082, -134), (0, 0, 0));
