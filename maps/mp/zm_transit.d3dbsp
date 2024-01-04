@@ -53240,16 +53240,25 @@
 }
 {
 "script_noteworthy" "zstandard_farm, zgrief_farm"
+"angles" "0 90.2 0"
+"origin" "8035.38 -5316.37 110"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "870mcs_zm"
+"targetname" "weapon_upgrade"
+"target" "pf1918_auto37"
+"guid" "F0390DB3"
+}
+{
+"script_noteworthy" "zstandard_farm, zgrief_farm"
 "targetname" "pf1918_auto37"
 "classname" "script_struct"
-"model" "t6_wpn_sniper_ballista_world"
+"model" "t6_wpn_shotty_870mcs_world"
 "angles" "0 90.2 0"
-"origin" "8035.38 -5317.37 109"
+"origin" "8035.38 -5316.37 110"
 "guid" "6D2A1B25"
 }
 {
 "script_int" "0"
-"script_noteworthy" "zclassic_transit"
 "angles" "0 90 0"
 "origin" "8827 -5838 103"
 "classname" "script_struct"
@@ -53260,22 +53269,12 @@
 }
 {
 "script_int" "0"
-"script_noteworthy" "zclassic_transit"
 "targetname" "pf1919_auto37"
 "classname" "script_struct"
 "model" "t6_wpn_claymore_world"
 "angles" "0 180 0"
 "origin" "8827 -5838 103"
 "guid" "EE921301"
-}
-{
-"script_noteworthy" "zstandard_farm"
-"targetname" "pf1920_auto37"
-"classname" "script_struct"
-"model" "t6_wpn_taser_knuckles_view"
-"angles" "0 90 0"
-"origin" "8827 -5839 110"
-"guid" "D1EECB49"
 }
 {
 "script_noteworthy" "zclassic_transit"

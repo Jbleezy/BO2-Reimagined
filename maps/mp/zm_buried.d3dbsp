@@ -24609,7 +24609,7 @@
 "guid" "D1EECB49"
 }
 {
-"script_noteworthy" "zclassic_processing"
+"script_noteworthy" "zclassic_processing, zstandard_street, zgrief_street"
 "script_location" "street"
 "origin" "-765.434 -925.25 67.0034"
 "angles" "360 270 2.00007"
@@ -24621,7 +24621,7 @@
 }
 {
 "script_location" "street"
-"script_noteworthy" "zclassic_processing"
+"script_noteworthy" "zclassic_processing, zstandard_street, zgrief_street"
 "angles" "0 90 0"
 "origin" "823 -508 61"
 "classname" "script_struct"
@@ -24652,7 +24652,7 @@
 "guid" "45A420E3"
 }
 {
-"script_noteworthy" "zclassic_processing"
+"script_noteworthy" "zclassic_processing, zstandard_street, zgrief_street"
 "script_location" "street"
 "origin" "675.25 -1119.5 117"
 "angles" "0 1.00179e-005 0"
@@ -24663,7 +24663,7 @@
 "guid" "FF59A3C9"
 }
 {
-"script_noteworthy" "zclassic_processing"
+"script_noteworthy" "zclassic_processing, zstandard_street, zgrief_street"
 "script_location" "street"
 "script_int" "-45"
 "origin" "1102.36 -1836.06 181"

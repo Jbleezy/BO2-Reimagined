@@ -157,8 +157,6 @@ init()
 
 	weapon_changes();
 
-	wallbuy_location_changes();
-
 	level thread on_player_connect();
 
 	level thread post_all_players_spawned();
@@ -1767,84 +1765,6 @@ player_give_willy_pete()
 	wait 0.05;
 
 	self giveweapon("willy_pete_zm");
-}
-
-wallbuy_location_changes()
-{
-	if (!is_classic())
-	{
-		if (level.scr_zm_map_start_location == "farm")
-		{
-			if (level.scr_zm_ui_gametype == "zstandard")
-			{
-				level thread remove_wallbuy("tazer_knuckles_zm");
-			}
-
-			level thread remove_wallbuy("rottweil72_zm");
-
-			add_wallbuy("870mcs_zm", "zclassic");
-			add_wallbuy("claymore_zm");
-		}
-
-		if (level.scr_zm_map_start_location == "street")
-		{
-			if (level.scr_zm_ui_gametype == "zgrief")
-			{
-				add_wallbuy("beretta93r_zm");
-				add_wallbuy("sig556_zm");
-				add_wallbuy("claymore_zm");
-				add_wallbuy("bowie_knife_zm");
-			}
-		}
-	}
-}
-
-remove_wallbuy(name)
-{
-	flag_wait("start_zombie_round_logic");
-
-	wait 0.05;
-
-	for (i = 0; i < level._unitriggers.trigger_stubs.size; i++)
-	{
-		if (IsDefined(level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade) && level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade == name)
-		{
-			maps\mp\zombies\_zm_unitrigger::unregister_unitrigger(level._unitriggers.trigger_stubs[i]);
-		}
-	}
-}
-
-add_wallbuy(name, script_noteworthy)
-{
-	struct = undefined;
-	spawnable_weapon_spawns = getstructarray("weapon_upgrade", "targetname");
-	spawnable_weapon_spawns = arraycombine(spawnable_weapon_spawns, getstructarray("bowie_upgrade", "targetname"), 1, 0);
-	spawnable_weapon_spawns = arraycombine(spawnable_weapon_spawns, getstructarray("sickle_upgrade", "targetname"), 1, 0);
-	spawnable_weapon_spawns = arraycombine(spawnable_weapon_spawns, getstructarray("tazer_upgrade", "targetname"), 1, 0);
-	spawnable_weapon_spawns = arraycombine(spawnable_weapon_spawns, getstructarray("buildable_wallbuy", "targetname"), 1, 0);
-	spawnable_weapon_spawns = arraycombine(spawnable_weapon_spawns, getstructarray("claymore_purchase", "targetname"), 1, 0);
-
-	for (i = 0; i < spawnable_weapon_spawns.size; i++)
-	{
-		if (IsDefined(spawnable_weapon_spawns[i].zombie_weapon_upgrade) && spawnable_weapon_spawns[i].zombie_weapon_upgrade == name)
-		{
-			if (isDefined(script_noteworthy) && isDefined(spawnable_weapon_spawns[i].script_noteworthy) && !isSubStr(spawnable_weapon_spawns[i].script_noteworthy, script_noteworthy))
-			{
-				continue;
-			}
-
-			struct = spawnable_weapon_spawns[i];
-
-			break;
-		}
-	}
-
-	if (!IsDefined(struct))
-	{
-		return;
-	}
-
-	scripts\zm\replaced\utility::wallbuy(name, struct.target, struct.targetname, struct.origin, struct.angles);
 }
 
 wallbuy_cost_changes()
