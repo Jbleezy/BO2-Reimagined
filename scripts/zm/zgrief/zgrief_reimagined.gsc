@@ -1661,6 +1661,15 @@ custom_end_screen()
 
 game_module_player_damage_callback(einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime)
 {
+	if (isdefined(self.player_damage_callback_score_only))
+	{
+		self do_game_mode_stun_score_steal(eattacker);
+
+		self store_player_damage_info(eattacker, sweapon, smeansofdeath);
+
+		return 0;
+	}
+
 	self.last_damage_from_zombie_or_player = 0;
 
 	if (isDefined(eattacker))
@@ -1730,90 +1739,7 @@ game_module_player_damage_callback(einflictor, eattacker, idamage, idflags, smea
 		{
 			is_melee = true;
 			dir = vdir;
-			amount = 0;
-
-			if (self maps\mp\zombies\_zm_laststand::is_reviving_any())
-			{
-				if (idamage >= 500)
-				{
-					if (!self isOnGround())
-					{
-						amount = 185; // 64 air units
-					}
-					else if (self getStance() == "stand")
-					{
-						amount = 297.5; // 32 units
-					}
-					else if (self getStance() == "crouch")
-					{
-						amount = 215; // 21.33 units
-					}
-					else if (self getStance() == "prone")
-					{
-						amount = 132.5; // 10.66 units
-					}
-				}
-				else
-				{
-					if (!self isOnGround())
-					{
-						amount = 142.5; // 48 air units
-					}
-					else if (self getStance() == "stand")
-					{
-						amount = 235; // 24 units
-					}
-					else if (self getStance() == "crouch")
-					{
-						amount = 172.5; // 16 units
-					}
-					else if (self getStance() == "prone")
-					{
-						amount = 112.5; // 8 units
-					}
-				}
-			}
-			else
-			{
-				if (idamage >= 500)
-				{
-					if (!self isOnGround())
-					{
-						amount = 350; // 128 air units
-					}
-					else if (self getStance() == "stand")
-					{
-						amount = 540; // 64 units
-					}
-					else if (self getStance() == "crouch")
-					{
-						amount = 377.5; // 42.66 units
-					}
-					else if (self getStance() == "prone")
-					{
-						amount = 215; // 21.33 units
-					}
-				}
-				else
-				{
-					if (!self isOnGround())
-					{
-						amount = 265; // 96 air units
-					}
-					else if (self getStance() == "stand")
-					{
-						amount = 420; // 48 units
-					}
-					else if (self getStance() == "crouch")
-					{
-						amount = 297.5; // 32 units
-					}
-					else if (self getStance() == "prone")
-					{
-						amount = 172.5; // 16 units
-					}
-				}
-			}
+			amount = self get_player_push_amount(idamage);
 
 			if (self isOnGround())
 			{
@@ -1832,10 +1758,7 @@ game_module_player_damage_callback(einflictor, eattacker, idamage, idflags, smea
 
 		if (!is_true(self._being_shellshocked))
 		{
-			score = 100 * maps\mp\zombies\_zm_score::get_points_multiplier(eattacker);
-			self stun_score_steal(eattacker, score);
-
-			eattacker.killsdenied++;
+			self do_game_mode_stun_score_steal(eattacker);
 		}
 
 		if (isDefined(level._effect["butterflies"]))
@@ -1848,6 +1771,104 @@ game_module_player_damage_callback(einflictor, eattacker, idamage, idflags, smea
 
 		self store_player_damage_info(eattacker, sweapon, smeansofdeath);
 	}
+}
+
+get_player_push_amount(idamage)
+{
+	amount = 0;
+
+	if (self maps\mp\zombies\_zm_laststand::is_reviving_any())
+	{
+		if (idamage >= 500)
+		{
+			if (!self isOnGround())
+			{
+				amount = 185; // 64 air units
+			}
+			else if (self getStance() == "stand")
+			{
+				amount = 297.5; // 32 units
+			}
+			else if (self getStance() == "crouch")
+			{
+				amount = 215; // 21.33 units
+			}
+			else if (self getStance() == "prone")
+			{
+				amount = 132.5; // 10.66 units
+			}
+		}
+		else
+		{
+			if (!self isOnGround())
+			{
+				amount = 142.5; // 48 air units
+			}
+			else if (self getStance() == "stand")
+			{
+				amount = 235; // 24 units
+			}
+			else if (self getStance() == "crouch")
+			{
+				amount = 172.5; // 16 units
+			}
+			else if (self getStance() == "prone")
+			{
+				amount = 112.5; // 8 units
+			}
+		}
+	}
+	else
+	{
+		if (idamage >= 500)
+		{
+			if (!self isOnGround())
+			{
+				amount = 350; // 128 air units
+			}
+			else if (self getStance() == "stand")
+			{
+				amount = 540; // 64 units
+			}
+			else if (self getStance() == "crouch")
+			{
+				amount = 377.5; // 42.66 units
+			}
+			else if (self getStance() == "prone")
+			{
+				amount = 215; // 21.33 units
+			}
+		}
+		else
+		{
+			if (!self isOnGround())
+			{
+				amount = 265; // 96 air units
+			}
+			else if (self getStance() == "stand")
+			{
+				amount = 420; // 48 units
+			}
+			else if (self getStance() == "crouch")
+			{
+				amount = 297.5; // 32 units
+			}
+			else if (self getStance() == "prone")
+			{
+				amount = 172.5; // 16 units
+			}
+		}
+	}
+
+	return amount;
+}
+
+do_game_mode_stun_score_steal(eattacker)
+{
+	score = 100 * maps\mp\zombies\_zm_score::get_points_multiplier(eattacker);
+	self stun_score_steal(eattacker, score);
+
+	eattacker.killsdenied++;
 }
 
 do_game_mode_stun_fx(einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime)
