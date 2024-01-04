@@ -1001,7 +1001,6 @@ zone_hud()
 	hud.alpha = 0;
 	hud.color = (1, 1, 1);
 	hud.hidewheninmenu = 1;
-	hud.foreground = 1;
 
 	hud endon("death");
 

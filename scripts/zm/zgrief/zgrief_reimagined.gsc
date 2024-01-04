@@ -347,8 +347,10 @@ set_grief_vars()
 
 	level.pregame_minplayers = getDvarInt("party_minplayers");
 
-	level.noroundnumber = 1;
 	level.snr_round_number = 1;
+	setDvar("ui_round_number", level.snr_round_number);
+
+	level.noroundnumber = 1;
 	level.custom_end_screen = ::custom_end_screen;
 	level.game_module_onplayerconnect = ::grief_onplayerconnect;
 	level.game_mode_custom_onplayerdisconnect = ::grief_onplayerdisconnect;
