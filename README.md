@@ -27,6 +27,8 @@
 * Timer displayed on top right of screen - `hud_timer`
 * Health bar displayed on bottom left of screen - `hud_health_bar`
 * Zone name displayed on bottom left of screen - `hud_zone_name`
+* Added proper game mode and map name to scoreboard
+* Added icons on scoreboard when player is downed, bled out, in Who's Who mode, or in afterlife
 * Increased waypoint offset from top of screen
 * Changed player waypoint location to be center of player instead of top of player
 * Increased distance between revive waypoint arrow and icon
@@ -75,7 +77,6 @@
 * Dual wield last stand weapon is switched to when ammo is only in left clip
 * Decreased friendly player name fade out time from 1.5 seconds to 0.25 seconds
 * Removed enemy player name fade in time
-* Added icons on scoreboard when player is downed, bled out, in Who's Who mode, or in afterlife
 * Added option to disable character dialog - `disable_character_dialog`
 
 ## Zombies
@@ -584,6 +585,7 @@
 * Can no longer be picked up after being destroyed
 * Added weapon name on HUD to all buildables
 * Increased move speed while holding from 100% to 110% (except Zombie Shield)
+* Can no longer melee while holding (except Zombie Shield)
 * Changed crafting hint string from "Building..." to "Crafting..."
 
 ### Zombie Shield
