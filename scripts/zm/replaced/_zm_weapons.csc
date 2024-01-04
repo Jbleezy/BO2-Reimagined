@@ -12,6 +12,12 @@ wallbuy_player_connect(localclientnum)
 	for (i = 0; i < keys.size; i++)
 	{
 		wallbuy = level._active_wallbuys[keys[i]];
+
+		if (isdefined(wallbuy.script_string) && wallbuy.script_string == "bus_buyable_weapon1")
+		{
+			continue;
+		}
+
 		fx = level._effect["m14_zm_fx"];
 
 		if (wallbuy.targetname == "buildable_wallbuy")

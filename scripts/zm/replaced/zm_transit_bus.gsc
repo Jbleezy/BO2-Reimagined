@@ -532,24 +532,18 @@ buspathblockersetup()
 	if (isdefined(cow_catcher_blocker))
 		cow_catcher_blocker linkto(self, "", self worldtolocalcoords(cow_catcher_blocker.origin), cow_catcher_blocker.angles + self.angles);
 
-	trig = getent("bus_buyable_weapon1", "script_noteworthy");
-	trig enablelinkto();
-	trig linkto(self, "", self worldtolocalcoords(trig.origin), (0, 0, 0));
-	trig setinvisibletoall();
-	self.buyable_weapon = trig;
-	level._spawned_wallbuys[level._spawned_wallbuys.size] = trig;
-	weapon_model = getent(trig.target, "targetname");
-	weapon_model.origin += (0, 0, 1);
-	weapon_model linkto(self, "", self worldtolocalcoords(weapon_model.origin), weapon_model.angles + self.angles);
-	weapon_model setmovingplatformenabled(1);
-	weapon_model._linked_ent = trig;
-	weapon_model hide();
-
-	self thread bus_buyable_weapon_unitrigger_setup(trig);
+	self thread bus_buyable_weapon_unitrigger_setup();
 }
 
-bus_buyable_weapon_unitrigger_setup(trig)
+bus_buyable_weapon_unitrigger_setup()
 {
+	weapon_model = getent("bus_buyable_weapon1", "script_noteworthy");
+	weapon_model enablelinkto();
+	weapon_model linkto(self, "", self worldtolocalcoords(weapon_model.origin), weapon_model.angles + self.angles);
+	weapon_model setmovingplatformenabled(1);
+	weapon_model._linked_ent = self;
+	weapon_model hide();
+
 	unitrigger = undefined;
 
 	while (!isDefined(unitrigger))
@@ -566,11 +560,24 @@ bus_buyable_weapon_unitrigger_setup(trig)
 		wait 1;
 	}
 
-	unitrigger.target = trig.target;
-	unitrigger.origin_parent = trig;
-	unitrigger.link_parent = trig;
+	unitrigger.require_look_at = 0;
+	unitrigger.target = weapon_model;
+	unitrigger.origin_parent = weapon_model;
+	unitrigger.link_parent = self;
 	unitrigger.originfunc = ::bus_buyable_weapon_get_unitrigger_origin;
 	unitrigger.onspawnfunc = ::bus_buyable_weapon_on_spawn_trigger;
+
+	while (1)
+	{
+		level waittill("weapon_bought", player, weapon);
+
+		if (weapon == "beretta93r_zm")
+		{
+			break;
+		}
+	}
+
+	weapon_model show();
 }
 
 bus_buyable_weapon_get_unitrigger_origin()
