@@ -3061,6 +3061,16 @@ should_respawn()
 	return 0;
 }
 
+setclientdvarall(dvar, value)
+{
+	players = get_players();
+
+	foreach (player in players)
+	{
+		player setclientdvar(dvar, value);
+	}
+}
+
 remove_status_icons_on_intermission()
 {
 	level waittill("intermission");

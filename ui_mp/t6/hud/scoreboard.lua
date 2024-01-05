@@ -101,7 +101,11 @@ function GetGameModeDisplayName()
 	if UIExpression.DvarString(nil, "ui_gametype") == "zclassic" then
 		return Engine.Localize("ZMUI_ZCLASSIC_GAMEMODE")
 	elseif UIExpression.DvarString(nil, "ui_gametype") == "zgrief" then
-		return Engine.Localize("ZMUI_" .. UIExpression.DvarString(nil, "ui_gametype_obj"))
+		if UIExpression.DvarInt(nil, "ui_gametype_pro") == 1 then
+			return Engine.Localize("ZMUI_" .. UIExpression.DvarString(nil, "ui_gametype_obj") .. "_PRO")
+		else
+			return Engine.Localize("ZMUI_" .. UIExpression.DvarString(nil, "ui_gametype_obj"))
+		end
 	end
 
 	return Engine.Localize("ZMUI_" .. UIExpression.DvarString(nil, "ui_gametype"))

@@ -182,6 +182,7 @@ round_end(winner)
 
 	level.snr_round_number++;
 	setDvar("ui_round_number", level.snr_round_number);
+	scripts\zm\_zm_reimagined::setclientdvarall("ui_round_number", getdvarint("ui_round_number"));
 
 	level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog("grief_restarted");
 
