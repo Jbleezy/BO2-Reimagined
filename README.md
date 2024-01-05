@@ -126,6 +126,7 @@
 
 ## Weapons
 * Switch to melee weapon by pressing the Previous Scorestreak button (same button as the Time Bomb and Maxis Drone)
+* Fixed world model position of several melee weapons
 * Grenades: improved projectile upward speed
 * Grenades: can no longer be thrown faster than intended by throwing a grenade right after throwing one
 * Grenades: changed damage scalar to 25 multiplied by round number (normally random number between 100 and 200 added by round number)
