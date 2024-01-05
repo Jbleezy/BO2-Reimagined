@@ -1,0 +1,16 @@
+>game,T6
+>type,fastfile
+>name,zm_tomb
+
+include,includes/ballista_zm
+include,includes/scar_zm
+include,includes/falling_hands_zm
+include,includes/one_inch_punch_zm
+
+include,includes/specialty_juggernaut
+include,includes/specialty_quickrevive
+include,includes/specialty_fastreload
+include,includes/specialty_doubletap
+include,includes/specialty_marathon
+include,includes/specialty_divetonuke
+include,includes/specialty_mulekick

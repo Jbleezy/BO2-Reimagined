@@ -61,8 +61,6 @@ xanim,viewmodel_scar_h_ads_down
 image,menu_mp_weapons_scar
 material,menu_mp_weapons_scar
 weapon,scar_zm
-attachment,dualclip
-attachment,rangefinder
 attachmentunique,au_scar_none
 attachmentunique,au_scar_acog
 xmodel,t6_attach_fastmag_scar_view

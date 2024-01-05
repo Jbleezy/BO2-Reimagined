@@ -49,14 +49,12 @@ xanim,viewmodel_sig556_d2p_out_empty
 xanim,viewmodel_sig556_ads_up
 xanim,viewmodel_sig556_ads_down
 material,menu_mp_weapons_sig556
-attachmentunique,au_sig556_none
 attachmentunique,au_sig556_acog
 xmodel,t6_attach_fastmag_sig556_view
 xmodel,t6_attach_fastmag_sig556_world
 attachmentunique,au_sig556_dualclip
 attachmentunique,au_sig556_dualoptic
 attachmentunique,au_sig556_extclip
-attachmentunique,au_sig556_gl
 attachmentunique,au_sig556_grip
 attachmentunique,au_sig556_holo
 attachmentunique,au_sig556_mms
@@ -75,9 +73,6 @@ attachmentunique,au_sig556_rangefinder+gl
 attachmentunique,au_sig556_holo+grip
 attachmentunique,au_sig556_rangefinder+grip
 attachmentunique,au_sig556_grip+sf
-weapon,zm/sig556_zm
-weapon,zm/sig556_upgraded_zm
-weapon,zm/gl_sig556_zm
 xanim,viewmodel_sig556_reflex_ads_up
 xanim,viewmodel_sig556_reflex_ads_down
 xanim,viewmodel_sig556_fastmag
@@ -220,3 +215,10 @@ xanim,viewmodel_sig556_gl_rangefinder_ads_last_shot
 xanim,viewmodel_sig556_grip_rangefinder_ads_last_shot
 xanim,viewmodel_sig556_grip_select_fire_in
 xanim,viewmodel_sig556_grip_select_fire_out
+fx,weapon/muzzleflashes/fx_muz_ar_flash_1p
+fx,weapon/muzzleflashes/fx_heavy_flash_base
+material,reticle_m203
+image,m203_reticle
+material,hud_obit_grenade_launcher_attach
+image,hud_obit_grenade_launcher_attach
+fx,impacts/fx_dud_m203

@@ -1,6 +1,3 @@
-weapon,zm/fnp45_zm
-weapon,zm/fnp45_upgraded_zm
-weapon,zm/fnp45lh_upgraded_zm
 xmodel,t6_wpn_pistol_fnp45_view
 xmodel,t6_wpn_pistol_fnp45_world
 xmodel,t6_wpn_pistol_fnp45_view_lh
@@ -9,8 +6,10 @@ material,mc/mtl_t6_wpn_pistol_fnp45
 material,mc/mtl_t6_wpn_pistol_fnp45_camo2
 material,mc/mtl_t6_wpn_pistol_fnp45_camo3
 material,menu_mp_weapons_fnp45
+material,hud_mp_firerate_single
 image,~-gmtl_t6_wpn_pistol_fnp45_col
 image,menu_mp_weapons_fnp45
+image,hud_mp_firerate_single
 xanim,viewmodel_fnp45_idle
 xanim,viewmodel_fnp45_idle_empty
 xanim,viewmodel_fnp45_fire
@@ -85,4 +84,12 @@ xanim,viewmodel_fnp45_dw_left_fire
 xanim,viewmodel_fnp45_dw_left_lastshot
 xanim,viewmodel_fnp45_dw_left_reload
 xanim,viewmodel_fnp45_dw_left_reload_empty
-xanim,viewmodel_m1911_dw_putaway_empty
+fx,weapon/muzzleflashes/fx_muz_smg_flash_1p
+fx,weapon/muzzleflashes/fx_muz_smg_flash_3p
+fx,weapon/shellejects/fx_pistol
+tracer,pistol
+tracer,pistol_enemy
+camo,camo_fnp45
+xmodel,projectile_m203grenade
+fx,weapon/grenade/fx_trail_grenade
+fx,temp_effects/fx_tmp_m203_flash

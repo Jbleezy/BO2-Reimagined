@@ -1,0 +1,14 @@
+xmodel,t6_wpn_none_view
+xmodel,t6_wpn_none_world
+fx,maps/zombie_tomb/fx_tomb_perk_one_inch_punch
+fx,maps/zombie_tomb/fx_tomb_perk_one_inch_punch_impact
+fx,maps/zombie_tomb/fx_tomb_perk_one_inch_punch_ug
+fx,maps/zombie_tomb/fx_tomb_perk_one_inch_punch_impact_ug
+fx,maps/zombie_tomb/fx_tomb_perk_one_inch_punch_air
+fx,maps/zombie_tomb/fx_tomb_perk_one_inch_punch_impact_air
+fx,maps/zombie_tomb/fx_tomb_perk_one_inch_punch_fire
+fx,maps/zombie_tomb/fx_tomb_perk_one_inch_punch_impact_fire
+fx,maps/zombie_tomb/fx_tomb_perk_one_inch_punch_ice
+fx,maps/zombie_tomb/fx_tomb_perk_one_inch_punch_impact_ice
+fx,maps/zombie_tomb/fx_tomb_perk_one_inch_punch_elec
+fx,maps/zombie_tomb/fx_tomb_perk_one_inch_punch_impact_elec

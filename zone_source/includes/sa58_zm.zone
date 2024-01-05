@@ -38,7 +38,6 @@ xanim,viewmodel_sa58_d2p_out
 xanim,viewmodel_sa58_ads_up
 xanim,viewmodel_sa58_ads_down
 material,menu_mp_weapons_sa58
-attachmentunique,au_sa58_none
 attachmentunique,au_sa58_acog
 xmodel,t6_attach_fastmag_sa58_view
 xmodel,t6_attach_fastmag_sa58_world
@@ -51,7 +50,6 @@ attachmentunique,au_sa58_holo
 attachmentunique,au_sa58_mms
 attachmentunique,au_sa58_rangefinder
 attachmentunique,au_sa58_reflex
-attachmentunique,au_sa58_sf
 xmodel,t6_attach_ar_silencer3_world
 attachmentunique,au_sa58_silencer
 attachmentunique,au_sa58_steadyaim
@@ -64,8 +62,6 @@ attachmentunique,au_sa58_rangefinder+gl
 attachmentunique,au_sa58_holo+grip
 attachmentunique,au_sa58_rangefinder+grip
 attachmentunique,au_sa58_grip+sf
-weapon,zm/sa58_zm
-weapon,zm/sa58_upgraded_zm
 xanim,viewmodel_sa58_reflex_ads_up
 xanim,viewmodel_sa58_reflex_ads_down
 xanim,viewmodel_sa58_fastmag
@@ -104,7 +100,6 @@ xanim,viewmodel_sa58_rangefinder_ads_down
 xanim,viewmodel_sa58_dbal_first_raise
 xanim,viewmodel_sa58_select_fire_in
 xanim,viewmodel_sa58_select_fire_out
-weapon,zm/sf_sa58_upgraded_zm
 xanim,viewmodel_sa58_eotech_ads_up
 xanim,viewmodel_sa58_eotech_ads_down
 xanim,viewmodel_sa58_rmr_alt_raise_up

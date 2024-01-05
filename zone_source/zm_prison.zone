@@ -1,0 +1,9 @@
+>game,T6
+>type,fastfile
+>name,zm_prison
+
+include,includes/m1911_zm
+
+weapon,knife_zm_alcatraz
+weapon,spoon_zm_alcatraz
+weapon,spork_zm_alcatraz

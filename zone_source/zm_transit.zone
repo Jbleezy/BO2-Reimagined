@@ -1,0 +1,12 @@
+>game,T6
+>type,fastfile
+>name,zm_transit
+
+include,includes/jetgun_zm
+
+include,includes/muzzleflashes_zmb_ug
+
+material,hud_icon_40mm_grenade_mp
+image,hud_40mmgrenade
+material,hud_select_fire_bullet_stack_big
+image,hud_select_fire_bullet_stack01

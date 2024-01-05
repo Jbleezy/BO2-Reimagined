@@ -1,0 +1,15 @@
+>game,T6
+>type,fastfile
+>name,common_mp
+
+include,includes/knife_zm
+include,includes/knife_ballistic_zm
+
+include,includes/fnp45_zm
+include,includes/insas_zm
+include,includes/vector_zm
+include,includes/sig556_zm
+include,includes/sa58_zm
+
+include,includes/attachment
+include,includes/materials

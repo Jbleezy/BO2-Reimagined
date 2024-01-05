@@ -33,7 +33,6 @@ xanim,viewmodel_vector_d2p_loop
 xanim,viewmodel_vector_d2p_out
 xanim,viewmodel_vector_ads_up
 xanim,viewmodel_vector_ads_down
-attachmentunique,au_vector_none
 xmodel,t6_attach_fastmag_vector_view
 xmodel,t6_attach_fastmag_vector_world
 attachmentunique,au_vector_dualclip
@@ -72,15 +71,10 @@ fx,weapon/muzzleflashes/fx_muz_silencer_md_3p
 attachmentunique,au_vector_silencer
 xmodel,t6_attach_dbal_view
 xmodel,t6_attach_dbal_world
-attachmentunique,au_vector_steadyaim
 attachmentunique,au_vector_dualclip+grip
 attachmentunique,au_vector_holo+grip
 attachmentunique,au_vector_rangefinder+grip
 attachmentunique,au_vector_grip+sf
-weapon,zm/vector_zm
-weapon,zm/vector_upgraded_zm
-weapon,zm/vector_extclip_zm
-weapon,zm/vector_extclip_upgraded_zm
 techniqueset,mc_sw4_3d_reticle_dynamic_9820jqfj
 techniqueset,mc_sw4_3d_optic_lens_4w47028j
 xanim,viewmodel_vector_reflex_ads_up
@@ -134,5 +128,6 @@ xanim,viewmodel_vector_mms_ads_down
 xanim,viewmodel_vector_grip_fastmag_empty
 xanim,viewmodel_vector_grip_fastmag
 xanim,viewmodel_vector_grip_rangefinder_ads_fire
-attachment,steadyaim
-attachment,steadyaim_smg
+fx,weapon/muzzleflashes/fx_muz_smg_flash_1p_5_star_mb
+material,menu_mp_weapons_kriss
+image,menu_mp_weapons_kriss

@@ -45,7 +45,6 @@ xanim,viewmodel_saritch_acog_ads_fire
 xanim,viewmodel_saritch_rmr_top_ads_up
 xanim,viewmodel_saritch_rmr_top_ads_down
 xanim,viewmodel_saritch_rmr_bottom_ads_up
-attachment,dualoptic
 attachmentunique,au_saritch_none
 image,mtl_t6_attach_optic_combo_reddot
 material,mc/mtl_t6_attach_optic_combo_reticle_up

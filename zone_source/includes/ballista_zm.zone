@@ -71,7 +71,6 @@ material,menu_mp_weapons_ballista
 weapon,ballista_zm
 fx,weapon/muzzleflashes_zmb_ug/fx_zmb_muz_xlg_gas_flash_1p
 fx,weapon/muzzleflashes_zmb_ug/fx_zmb_muz_xlg_gas_flash_3p
-attachment,is
 image,scope_overlay_ballista_1024
 material,scope_overlay_ballista
 attachmentunique,au_ballista_none

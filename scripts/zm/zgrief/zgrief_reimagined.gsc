@@ -35,7 +35,7 @@ init()
 	precacheshader("waypoint_flag_capture");
 	precacheshader("waypoint_return");
 	precacheshader("waypoint_recon_artillery_strike");
-	precacheshader("waypoint_time_bomb");
+	precacheshader("waypoint_capture");
 	precacheshader("waypoint_dogtags");
 	precacheshader("compass_waypoint_contested");
 
@@ -2732,7 +2732,7 @@ containment_think()
 					else
 					{
 						player.obj_waypoint.color = (1, 0, 0);
-						player containment_set_obj_waypoint_icon("waypoint_time_bomb");
+						player containment_set_obj_waypoint_icon("waypoint_capture");
 					}
 				}
 
@@ -2758,7 +2758,7 @@ containment_think()
 					if (player.team == "axis")
 					{
 						player.obj_waypoint.color = (1, 0, 0);
-						player containment_set_obj_waypoint_icon("waypoint_time_bomb");
+						player containment_set_obj_waypoint_icon("waypoint_capture");
 					}
 					else
 					{
