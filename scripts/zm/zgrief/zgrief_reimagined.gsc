@@ -30,14 +30,14 @@ init()
 		return;
 	}
 
-	precacheshader("hud_ctf_flag_icon_green");
-	precacheshader("waypoint_flag_grab");
-	precacheshader("waypoint_flag_capture");
-	precacheshader("waypoint_return");
-	precacheshader("waypoint_recon_artillery_strike");
-	precacheshader("waypoint_capture");
-	precacheshader("waypoint_dogtags");
-	precacheshader("compass_waypoint_contested");
+	precacheshader("waypoint_target");
+	precacheshader("white_waypoint_target");
+	precacheshader("white_waypoint_capture");
+	precacheshader("white_waypoint_defend");
+	precacheshader("white_waypoint_contested");
+	precacheshader("white_waypoint_grab");
+	precacheshader("white_waypoint_kill");
+	precacheshader("white_waypoint_escort");
 
 	if (level.script == "zm_prison")
 	{
@@ -228,7 +228,7 @@ grief_score_hud()
 			level.grief_score_hud[team1].obj_icon.foreground = 1;
 			level.grief_score_hud[team1].obj_icon.archived = 0;
 			level.grief_score_hud[team1].obj_icon.alpha = 0;
-			level.grief_score_hud[team1].obj_icon setShader("hud_ctf_flag_icon_green", level.grief_score_hud[team1].obj_icon.width, level.grief_score_hud[team1].obj_icon.height);
+			level.grief_score_hud[team1].obj_icon setShader("waypoint_target", level.grief_score_hud[team1].obj_icon.width, level.grief_score_hud[team1].obj_icon.height);
 
 			level.grief_score_hud[team1].obj_icon.og_x = level.grief_score_hud[team1].obj_icon.x;
 
@@ -2550,7 +2550,7 @@ containment_think()
 				player containment_set_obj_waypoint_off_screen(next_zone_name, next_zone, 1);
 			}
 
-			player containment_set_obj_waypoint_icon("waypoint_recon_artillery_strike", 1);
+			player containment_set_obj_waypoint_icon("white_waypoint_target", 1);
 		}
 
 		wait 0.05;
@@ -2667,7 +2667,7 @@ containment_think()
 						player containment_set_obj_waypoint_off_screen(next_zone_name, next_zone, 1);
 					}
 
-					player containment_set_obj_waypoint_icon("waypoint_recon_artillery_strike", 1);
+					player containment_set_obj_waypoint_icon("white_waypoint_target", 1);
 				}
 				else
 				{
@@ -2705,7 +2705,7 @@ containment_think()
 				foreach (player in players)
 				{
 					player.obj_waypoint.color = (1, 1, 0);
-					player containment_set_obj_waypoint_icon("compass_waypoint_contested");
+					player containment_set_obj_waypoint_icon("white_waypoint_contested");
 				}
 
 				grief_score_hud_set_obj_icon("contested");
@@ -2731,12 +2731,12 @@ containment_think()
 					if (player.team == "axis")
 					{
 						player.obj_waypoint.color = (0, 1, 0);
-						player containment_set_obj_waypoint_icon("waypoint_dogtags");
+						player containment_set_obj_waypoint_icon("white_waypoint_defend");
 					}
 					else
 					{
 						player.obj_waypoint.color = (1, 0, 0);
-						player containment_set_obj_waypoint_icon("waypoint_capture");
+						player containment_set_obj_waypoint_icon("white_waypoint_capture");
 					}
 				}
 
@@ -2762,12 +2762,12 @@ containment_think()
 					if (player.team == "axis")
 					{
 						player.obj_waypoint.color = (1, 0, 0);
-						player containment_set_obj_waypoint_icon("waypoint_capture");
+						player containment_set_obj_waypoint_icon("white_waypoint_capture");
 					}
 					else
 					{
 						player.obj_waypoint.color = (0, 1, 0);
-						player containment_set_obj_waypoint_icon("waypoint_dogtags");
+						player containment_set_obj_waypoint_icon("white_waypoint_defend");
 					}
 				}
 
@@ -2799,7 +2799,7 @@ containment_think()
 					}
 
 					player.obj_waypoint.color = (1, 1, 1);
-					player containment_set_obj_waypoint_icon("waypoint_recon_artillery_strike");
+					player containment_set_obj_waypoint_icon("white_waypoint_target");
 				}
 
 				grief_score_hud_set_obj_icon("neutral");
@@ -3233,12 +3233,12 @@ meat_think()
 					if (player.team == level.meat_player.team)
 					{
 						player.obj_waypoint.color = (0, 1, 0);
-						player.obj_waypoint setWaypoint(1, "waypoint_return");
+						player.obj_waypoint setWaypoint(1, "white_waypoint_escort");
 					}
 					else
 					{
 						player.obj_waypoint.color = (1, 0, 0);
-						player.obj_waypoint setWaypoint(1, "waypoint_flag_capture");
+						player.obj_waypoint setWaypoint(1, "white_waypoint_kill");
 					}
 
 					player.obj_waypoint setTargetEnt(level.meat_player.head_icon_origin);
@@ -3278,7 +3278,7 @@ meat_think()
 				{
 					player.obj_waypoint.alpha = 1;
 					player.obj_waypoint.color = (1, 1, 1);
-					player.obj_waypoint setWaypoint(1, "waypoint_flag_grab");
+					player.obj_waypoint setWaypoint(1, "white_waypoint_grab");
 					player.obj_waypoint setTargetEnt(level.item_meat.obj_waypoint_origin);
 				}
 			}
@@ -3298,7 +3298,7 @@ meat_think()
 				{
 					player.obj_waypoint.alpha = 1;
 					player.obj_waypoint.color = (1, 1, 1);
-					player.obj_waypoint setWaypoint(1, "waypoint_flag_grab");
+					player.obj_waypoint setWaypoint(1, "white_waypoint_grab");
 					player.obj_waypoint setTargetEnt(level.meat_powerup.obj_waypoint_origin);
 				}
 			}
