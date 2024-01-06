@@ -23,6 +23,11 @@ item_meat_on_spawn_retrieve_trigger(watcher, player, weaponname)
 	self endon("death");
 	add_meat_event("meat_spawn", self);
 
+	if (is_player_valid(player))
+	{
+		player.statusicon = "";
+	}
+
 	while (isdefined(level.splitting_meat) && level.splitting_meat)
 		wait 0.15;
 

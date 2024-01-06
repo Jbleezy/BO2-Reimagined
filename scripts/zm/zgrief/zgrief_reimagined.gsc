@@ -51,6 +51,17 @@ init()
 		level.player_spawn_sound = "zmb_spawn_powerup";
 	}
 
+	if (level.item_meat_name == "item_head_zm")
+	{
+		level.item_meat_status_icon_name = "hud_obit_dogs";
+	}
+	else
+	{
+		level.item_meat_status_icon_name = "hud_obit_case";
+	}
+
+	precacheStatusIcon(level.item_meat_status_icon_name);
+
 	setDvar("ui_scorelimit", 1);
 
 	setteamscore("axis", 0);

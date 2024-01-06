@@ -194,6 +194,7 @@ meat_stink(who, owner)
 	who.ignoreme = 0;
 	level.meat_player = who;
 	level.meat_powerup = undefined;
+	who.statusicon = level.item_meat_status_icon_name;
 
 	who thread meat_disable_fire();
 
@@ -435,6 +436,8 @@ meat_stink_player(who, owner)
 		return;
 	}
 
+	who.statusicon = level.item_meat_status_icon_name;
+
 	if (who.team != owner.team)
 	{
 		who.last_meated_by = spawnStruct();
@@ -470,6 +473,11 @@ meat_stink_player(who, owner)
 	who thread meat_stink_player_create();
 
 	who waittill_any_or_timeout(15, "disconnect", "player_downed", "bled_out", "spawned_player");
+
+	if (is_player_valid(who))
+	{
+		who.statusicon = "";
+	}
 
 	who notify("meat_stink_player_end");
 	players = get_players();
