@@ -494,7 +494,7 @@ brutus_spawn(starting_health, has_helmet, helmet_hits, explosive_dmg_taken, zone
 	self.instakill_func = ::brutus_instakill_override;
 	self.nuke_damage_func = ::brutus_nuke_override;
 	self.melee_anim_func = ::melee_anim_func;
-	self.meleedamage = 90;
+	self.meleedamage = 100;
 	self.custom_item_dmg = 1000;
 	self.brutus_lockdown_state = 0;
 	recalc_zombie_array();

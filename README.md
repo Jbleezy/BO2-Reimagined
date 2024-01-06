@@ -116,7 +116,7 @@
 
 ### Brutus
 * Smoke Grenade kills zombies
-* Decreased player damage from 99 to 90
+* Increased player damage from 99 to 100
 * No longer receives additional damage from Ray Gun Mark 2
 * Teleports away less frequently
 * Grief: spawns every 4-6 minutes
