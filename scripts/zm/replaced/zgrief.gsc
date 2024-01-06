@@ -256,8 +256,12 @@ meat_damage_over_time()
 {
 	level endon("end_game");
 	level endon("meat_thrown");
+	level endon("meat_grabbed");
 	self endon("disconnect");
 	self endon("player_downed");
+	self endon("bled_out");
+	self endon("spawned_player");
+	self endon("meat_stink_player_end");
 
 	time_zero_speed = 0;
 
