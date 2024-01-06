@@ -68,3 +68,8 @@ wait_for_tank_cooldown()
 	self playsound("zmb_tank_ready");
 	self playloopsound("zmb_tank_idle");
 }
+
+activate_tank_wait_with_no_cost()
+{
+	// removed
+}

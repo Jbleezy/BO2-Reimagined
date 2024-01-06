@@ -894,6 +894,7 @@
 * Giant Robots: each robot has an openable foot when 3 robots are active
 * Tank: players can go prone
 * Tank: changed cooldown to 30 seconds (normally 2-120 seconds depending on how long players were on the tank)
+* Tank: no longer free to activate if called
 * Teleporters: stay active after picking up gramophone
 * Teleporters: placing gramophone activates The Crazy Place teleporters
 * Teleporters: players face away from the teleporters when returning from The Crazy Place
