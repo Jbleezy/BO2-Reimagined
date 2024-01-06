@@ -9,6 +9,12 @@ init(weapon_name, flourish_weapon_name, ballistic_weapon_name, ballistic_upgrade
 	precacheitem(weapon_name);
 	precacheitem(flourish_weapon_name);
 	precacheitem("held_" + weapon_name);
+
+	if (scripts\zm\_zm_reimagined::is_held_melee_weapon_offhand_melee(weapon_name))
+	{
+		precacheitem("held_" + weapon_name + "_offhand");
+	}
+
 	add_melee_weapon(weapon_name, flourish_weapon_name, ballistic_weapon_name, ballistic_upgraded_weapon_name, cost, wallbuy_targetname, hint_string, vo_dialog_id, flourish_fn);
 	melee_weapon_triggers = getentarray(wallbuy_targetname, "targetname");
 

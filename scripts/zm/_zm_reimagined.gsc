@@ -214,6 +214,8 @@ on_player_spawned()
 
 			self thread ignoreme_after_revived();
 
+			self thread held_melee_weapon_world_model_fix();
+
 			self thread fall_velocity_check();
 
 			self thread give_additional_perks();
@@ -1542,6 +1544,49 @@ player_revive_protection_timeout()
 	self waittill_any("player_downed", "meat_grabbed", "meat_stink_player_start");
 
 	self.revive_protection = 0;
+}
+
+held_melee_weapon_world_model_fix()
+{
+	self endon("disconnect");
+
+	while (1)
+	{
+		melee_weapon = self get_player_melee_weapon();
+		current_weapon = self getcurrentweapon();
+
+		if (getweaponmodel(melee_weapon) == "t6_wpn_none_world")
+		{
+			wait 0.05;
+			continue;
+		}
+
+		if (current_weapon == "held_" + melee_weapon && self hasweapon(melee_weapon))
+		{
+			self takeweapon(melee_weapon);
+
+			if (is_held_melee_weapon_offhand_melee(melee_weapon))
+			{
+				self giveweapon("held_" + melee_weapon + "_offhand");
+			}
+		}
+		else if (current_weapon != "held_" + melee_weapon && !self hasweapon(melee_weapon))
+		{
+			self giveweapon(melee_weapon);
+
+			if (is_held_melee_weapon_offhand_melee(melee_weapon))
+			{
+				self takeweapon("held_" + melee_weapon + "_offhand");
+			}
+		}
+
+		wait 0.05;
+	}
+}
+
+is_held_melee_weapon_offhand_melee(weaponname)
+{
+	return weaponname == "tazer_knuckles_zm";
 }
 
 fall_velocity_check()
