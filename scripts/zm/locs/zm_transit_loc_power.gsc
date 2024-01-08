@@ -83,7 +83,6 @@ precache()
 main()
 {
 	treasure_chest_init();
-	init_wallbuys();
 	init_barriers();
 	show_powerswitch();
 	activate_core();
@@ -99,15 +98,6 @@ treasure_chest_init()
 	level.chests = [];
 	level.chests[0] = chests[2];
 	maps\mp\zombies\_zm_magicbox::treasure_chest_init("pow_chest");
-}
-
-init_wallbuys()
-{
-	scripts\zm\replaced\utility::wallbuy("saritch_zm", "saritch", "weapon_upgrade", (10559, 8220, -495), (0, 90, 0));
-	scripts\zm\replaced\utility::wallbuy("ballista_zm", "ballista", "weapon_upgrade", (10678, 8135, -476), (0, 180, 0));
-	scripts\zm\replaced\utility::wallbuy("870mcs_zm", "870mcs", "weapon_upgrade", (11778, 7664, -697), (0, 170, 0));
-	scripts\zm\replaced\utility::wallbuy("insas_zm", "insas", "weapon_upgrade", (11452, 8692, -521), (0, 90, 0));
-	scripts\zm\replaced\utility::wallbuy("bowie_knife_zm", "bowie_knife", "bowie_upgrade", (10835, 8145, -353), (0, 0, 0));
 }
 
 init_barriers()

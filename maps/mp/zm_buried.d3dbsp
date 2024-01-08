@@ -24509,7 +24509,7 @@
 }
 {
 "script_location" "street"
-"script_noteworthy" "zgrief_street"
+"script_noteworthy" "zstandard_street, zgrief_street"
 "org_model" "_prefabs/mp/zm_core/spawnable_weapon_dynamic.map"
 "angles" "0 180 0"
 "origin" "-926.25 510.5 68"
@@ -24521,7 +24521,7 @@
 }
 {
 "script_location" "street"
-"script_noteworthy" "zgrief_street"
+"script_noteworthy" "zstandard_street, zgrief_street"
 "org_model" "_prefabs/mp/zm_core/spawnable_weapon_dynamic.map"
 "targetname" "pf741_auto37"
 "classname" "script_struct"
@@ -24532,7 +24532,7 @@
 }
 {
 "script_location" "street"
-"script_noteworthy" "zgrief_street"
+"script_noteworthy" "zstandard_street, zgrief_street"
 "org_model" "_prefabs/mp/zm_core/spawnable_weapon_dynamic.map"
 "origin" "609.5 772.75 54"
 "angles" "0 270 0"
@@ -24543,7 +24543,7 @@
 }
 {
 "script_location" "street"
-"script_noteworthy" "zgrief_street"
+"script_noteworthy" "zstandard_street, zgrief_street"
 "org_model" "_prefabs/mp/zm_core/spawnable_weapon_dynamic.map"
 "script_width" "40"
 "origin" "609.5 772.75 54"
@@ -24557,7 +24557,7 @@
 {
 "org_model" "_prefabs/mp/zm_core/spawnable_weapon_dynamic.map"
 "script_location" "street"
-"script_noteworthy" "zgrief_street"
+"script_noteworthy" "zstandard_street, zgrief_street"
 "angles" "0 270 0"
 "origin" "1.1 1201.9 68"
 "classname" "script_struct"
@@ -24569,7 +24569,7 @@
 {
 "org_model" "_prefabs/mp/zm_core/spawnable_weapon_dynamic.map"
 "script_location" "street"
-"script_noteworthy" "zgrief_street"
+"script_noteworthy" "zstandard_street, zgrief_street"
 "targetname" "pf743_auto37"
 "classname" "script_struct"
 "model" "t6_wpn_smg_msmc_world"
@@ -33003,4 +33003,119 @@
 "targetname" "ee_warp_bar"
 "origin" "887 -1281 74"
 "guid" "BB6ECC38"
+}
+{
+"script_noteworthy" "zstandard_maze, zgrief_maze"
+"angles" "0 1.00179e-005 0"
+"origin" "4923.88 -178.33 61"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "saritch_zm"
+"targetname" "weapon_upgrade"
+"target" "me1_auto38"
+"guid" "7004ED06"
+}
+{
+"script_noteworthy" "zstandard_maze, zgrief_maze"
+"targetname" "me1_auto38"
+"classname" "script_struct"
+"model" "t6_wpn_ar_saritch_world"
+"angles" "0 1.00179e-005 0"
+"origin" "4923.88 -178.33 61"
+"guid" "6D2A1B25"
+}
+{
+"script_noteworthy" "zstandard_maze, zgrief_maze"
+"angles" "0 180 0"
+"origin" "4916.12 1512.33 61"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "ballista_zm"
+"targetname" "weapon_upgrade"
+"target" "me2_auto38"
+"guid" "F0390DB3"
+}
+{
+"script_noteworthy" "zstandard_maze, zgrief_maze"
+"targetname" "me2_auto38"
+"classname" "script_struct"
+"model" "t6_wpn_sniper_ballista_world"
+"angles" "0 180 0"
+"origin" "4916.12 1512.33 61"
+"guid" "6D2A1B25"
+}
+{
+"script_noteworthy" "zstandard_maze, zgrief_maze"
+"script_width" "40"
+"origin" "4328.88 696.67 63"
+"angles" "0 1.00179e-005 0"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "beretta93r_zm"
+"targetname" "weapon_upgrade"
+"target" "me3_auto38"
+"guid" "C15AD568"
+}
+{
+"script_noteworthy" "zstandard_maze, zgrief_maze"
+"origin" "4328.88 696.67 63"
+"angles" "0 1.00179e-005 0"
+"model" "t6_wpn_pistol_b2023r_world"
+"classname" "script_struct"
+"targetname" "me3_auto38"
+"guid" "7004ED06"
+}
+{
+"script_noteworthy" "zstandard_maze, zgrief_maze"
+"origin" "4931.88 -359.33 61"
+"angles" "0 1.00179e-005 0"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "pdw57_zm"
+"targetname" "weapon_upgrade"
+"target" "me4_auto38"
+"guid" "1A88F438"
+}
+{
+"script_noteworthy" "zstandard_maze, zgrief_maze"
+"origin" "4931.88 -359.33 61"
+"angles" "0 1.00179e-005 0"
+"model" "t6_wpn_smg_pdw57_world"
+"classname" "script_struct"
+"targetname" "me4_auto38"
+"guid" "A92D07CF"
+}
+{
+"angles" "0 90 0"
+"script_noteworthy" "zstandard_maze, zgrief_maze"
+"origin" "5837.67 1113.62 61"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "an94_zm"
+"targetname" "weapon_upgrade"
+"target" "me5_auto38"
+"guid" "CD6140BB"
+}
+{
+"angles" "0 90 0"
+"script_noteworthy" "zstandard_maze, zgrief_maze"
+"targetname" "me5_auto38"
+"classname" "script_struct"
+"model" "t6_wpn_ar_an94_world"
+"origin" "5837.67 1113.62 61"
+"guid" "C6DDEDA5"
+}
+{
+"script_noteworthy" "zstandard_maze, zgrief_maze"
+"origin" "4152.17 411.12 62"
+"angles" "0 270 0"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "lsat_zm"
+"targetname" "weapon_upgrade"
+"target" "me6_auto38"
+"guid" "FF59A3C9"
+}
+{
+"script_noteworthy" "zstandard_maze, zgrief_maze"
+"origin" "4152.17 411.12 62"
+"angles" "0 270 0"
+"model" "t6_wpn_lmg_lsat_world"
+"classname" "script_struct"
+"targetname" "me6_auto38"
+"guid" "45A420E3"
 }

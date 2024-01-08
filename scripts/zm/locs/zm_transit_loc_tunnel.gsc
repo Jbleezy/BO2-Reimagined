@@ -60,21 +60,10 @@ precache()
 
 main()
 {
-	init_wallbuys();
 	init_barriers();
 	disable_zombie_spawn_locations();
 	maps\mp\zombies\_zm_magicbox::treasure_chest_init(random(array("start_chest")));
 	scripts\zm\locs\loc_common::init();
-}
-
-init_wallbuys()
-{
-	scripts\zm\replaced\utility::wallbuy("saritch_zm", "saritch", "weapon_upgrade", (-11166, -2844, 247), (0, -86, 0));
-	scripts\zm\replaced\utility::wallbuy("ballista_zm", "ballista", "weapon_upgrade", (-10735, -2960, 247), (0, 97, 0));
-	scripts\zm\replaced\utility::wallbuy("vector_zm", "vector", "weapon_upgrade", (-10656, -752, 247), (0, 83, 0));
-	scripts\zm\replaced\utility::wallbuy("sig556_zm", "sig556", "weapon_upgrade", (-11839, -1695.1, 287), (0, 270, 0));
-	scripts\zm\replaced\utility::wallbuy("sticky_grenade_zm", "sticky_grenade", "weapon_upgrade", (-11839, -2406, 283), (0, -93, 0));
-	scripts\zm\replaced\utility::wallbuy("bowie_knife_zm", "bowie_knife", "bowie_upgrade", (-10787, -1430, 247), (0, 88, 0));
 }
 
 init_barriers()

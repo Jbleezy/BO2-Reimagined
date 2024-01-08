@@ -141,7 +141,6 @@ main()
 	level.zones["zone_diner_roof"].is_enabled = 0;
 	level.zones["zone_trans_diner2"].is_enabled = 0;
 	treasure_chest_init();
-	init_wallbuys();
 	init_barriers();
 	generatebuildabletarps();
 	disable_zombie_spawn_locations();
@@ -154,14 +153,6 @@ treasure_chest_init()
 	level.chests = [];
 	level.chests[0] = chests[3];
 	maps\mp\zombies\_zm_magicbox::treasure_chest_init("start_chest");
-}
-
-init_wallbuys()
-{
-	scripts\zm\replaced\utility::wallbuy("saritch_zm", "saritch", "weapon_upgrade", (-5085, -7807, -5), (0, 0, 0));
-	scripts\zm\replaced\utility::wallbuy("ballista_zm", "ballista", "weapon_upgrade", (-4576, -7748, 18), (0, 90, 0));
-	scripts\zm\replaced\utility::wallbuy("insas_zm", "insas", "weapon_upgrade", (-5489, -7982.7, 62), (0, 1, 0));
-	scripts\zm\replaced\utility::wallbuy("tazer_knuckles_zm", "tazer_knuckles", "tazer_upgrade", (-6265, -7941, 100), (0, 90, 0));
 }
 
 init_barriers()

@@ -54599,3 +54599,459 @@
 "script_float" "0.4"
 "guid" "50C5570E"
 }
+{
+"script_noteworthy" "zstandard_diner, zgrief_diner"
+"angles" "0 0 0"
+"origin" "-5085 -7807 -5"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "saritch_zm"
+"targetname" "weapon_upgrade"
+"target" "pf1922_auto38"
+"guid" "F0390DB3"
+}
+{
+"script_noteworthy" "zstandard_diner, zgrief_diner"
+"targetname" "pf1922_auto38"
+"classname" "script_struct"
+"model" "t6_wpn_ar_saritch_world"
+"angles" "0 0 0"
+"origin" "-5085 -7807 -5"
+"guid" "6D2A1B25"
+}
+{
+"script_noteworthy" "zstandard_diner, zgrief_diner"
+"angles" "0 90 0"
+"origin" "-4576 -7748 18"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "ballista_zm"
+"targetname" "weapon_upgrade"
+"target" "pf1922_auto39"
+"guid" "F0390DB3"
+}
+{
+"script_noteworthy" "zstandard_diner, zgrief_diner"
+"targetname" "pf1922_auto39"
+"classname" "script_struct"
+"model" "t6_wpn_sniper_ballista_world"
+"angles" "0 90 0"
+"origin" "-4576 -7748 18"
+"guid" "6D2A1B25"
+}
+{
+"script_noteworthy" "zstandard_diner, zgrief_diner"
+"angles" "0 1 0"
+"origin" "-5489 -7982.7 62"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "insas_zm"
+"targetname" "weapon_upgrade"
+"target" "pf1922_auto40"
+"guid" "F0390DB3"
+}
+{
+"script_noteworthy" "zstandard_diner, zgrief_diner"
+"targetname" "pf1922_auto40"
+"classname" "script_struct"
+"model" "t6_wpn_smg_msmc_world"
+"angles" "0 1 0"
+"origin" "-5489 -7982.7 62"
+"guid" "6D2A1B25"
+}
+{
+"script_noteworthy" "zstandard_diner, zgrief_diner"
+"angles" "0 90 0"
+"origin" "-6265 -7941 100"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "tazer_knuckles_zm"
+"targetname" "tazer_upgrade"
+"target" "pf1922_auto41"
+"guid" "F0390DB3"
+}
+{
+"script_noteworthy" "zstandard_diner, zgrief_diner"
+"targetname" "pf1922_auto41"
+"classname" "script_struct"
+"model" "t6_wpn_taser_knuckles_view"
+"angles" "0 90 0"
+"origin" "-6265 -7949 100"
+"guid" "6D2A1B25"
+}
+{
+"script_noteworthy" "zstandard_power, zgrief_power"
+"angles" "0 90 0"
+"origin" "10559 8220 -495"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "saritch_zm"
+"targetname" "weapon_upgrade"
+"target" "pf1922_auto42"
+"guid" "F0390DB3"
+}
+{
+"script_noteworthy" "zstandard_power, zgrief_power"
+"targetname" "pf1922_auto42"
+"classname" "script_struct"
+"model" "t6_wpn_ar_saritch_world"
+"angles" "0 90 0"
+"origin" "10559 8220 -495"
+"guid" "6D2A1B25"
+}
+{
+"script_noteworthy" "zstandard_power, zgrief_power"
+"angles" "0 180 0"
+"origin" "10678 8135 -476"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "ballista_zm"
+"targetname" "weapon_upgrade"
+"target" "pf1922_auto43"
+"guid" "F0390DB3"
+}
+{
+"script_noteworthy" "zstandard_power, zgrief_power"
+"targetname" "pf1922_auto43"
+"classname" "script_struct"
+"model" "t6_wpn_sniper_ballista_world"
+"angles" "0 180 0"
+"origin" "10678 8135 -476"
+"guid" "6D2A1B25"
+}
+{
+"script_noteworthy" "zstandard_power, zgrief_power"
+"angles" "0 170 0"
+"origin" "11778 7664 -697"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "870mcs_zm"
+"targetname" "weapon_upgrade"
+"target" "pf1922_auto44"
+"guid" "F0390DB3"
+}
+{
+"script_noteworthy" "zstandard_power, zgrief_power"
+"targetname" "pf1922_auto44"
+"classname" "script_struct"
+"model" "t6_wpn_shotty_870mcs_world"
+"angles" "0 170 0"
+"origin" "11778 7664 -697"
+"guid" "6D2A1B25"
+}
+{
+"script_noteworthy" "zstandard_power, zgrief_power"
+"angles" "0 90 0"
+"origin" "11452 8692 -521"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "insas_zm"
+"targetname" "weapon_upgrade"
+"target" "pf1922_auto45"
+"guid" "F0390DB3"
+}
+{
+"script_noteworthy" "zstandard_power, zgrief_power"
+"targetname" "pf1922_auto45"
+"classname" "script_struct"
+"model" "t6_wpn_smg_msmc_world"
+"angles" "0 90 0"
+"origin" "11452 8692 -521"
+"guid" "6D2A1B25"
+}
+{
+"script_noteworthy" "zstandard_power, zgrief_power"
+"angles" "0 0 0"
+"origin" "10835 8145 -353"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "bowie_knife_zm"
+"targetname" "bowie_upgrade"
+"target" "pf1922_auto46"
+"guid" "F0390DB3"
+}
+{
+"script_noteworthy" "zstandard_power, zgrief_power"
+"targetname" "pf1922_auto46"
+"classname" "script_struct"
+"model" "world_knife_bowie"
+"angles" "0 0 0"
+"origin" "10827 8145 -353"
+"guid" "6D2A1B25"
+}
+{
+"script_noteworthy" "zstandard_tunnel, zgrief_tunnel"
+"angles" "0 -86 0"
+"origin" "-11166 -2844 247"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "saritch_zm"
+"targetname" "weapon_upgrade"
+"target" "pf1922_auto47"
+"guid" "F0390DB3"
+}
+{
+"script_noteworthy" "zstandard_tunnel, zgrief_tunnel"
+"targetname" "pf1922_auto47"
+"classname" "script_struct"
+"model" "t6_wpn_ar_saritch_world"
+"angles" "0 -86 0"
+"origin" "-11166 -2844 247"
+"guid" "6D2A1B25"
+}
+{
+"script_noteworthy" "zstandard_tunnel, zgrief_tunnel"
+"angles" "0 97 0"
+"origin" "-10735 -2960 247"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "ballista_zm"
+"targetname" "weapon_upgrade"
+"target" "pf1922_auto48"
+"guid" "F0390DB3"
+}
+{
+"script_noteworthy" "zstandard_tunnel, zgrief_tunnel"
+"targetname" "pf1922_auto48"
+"classname" "script_struct"
+"model" "t6_wpn_sniper_ballista_world"
+"angles" "0 97 0"
+"origin" "-10735 -2960 247"
+"guid" "6D2A1B25"
+}
+{
+"script_noteworthy" "zstandard_tunnel, zgrief_tunnel"
+"angles" "0 83 0"
+"origin" "-10656 -752 247"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "vector_zm"
+"targetname" "weapon_upgrade"
+"target" "pf1922_auto49"
+"guid" "F0390DB3"
+}
+{
+"script_noteworthy" "zstandard_tunnel, zgrief_tunnel"
+"targetname" "pf1922_auto49"
+"classname" "script_struct"
+"model" "t6_wpn_smg_vector_world"
+"angles" "0 83 0"
+"origin" "-10656 -752 247"
+"guid" "6D2A1B25"
+}
+{
+"script_noteworthy" "zstandard_tunnel, zgrief_tunnel"
+"angles" "0 270 0"
+"origin" "-11839 -1695.1 287"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "sig556_zm"
+"targetname" "weapon_upgrade"
+"target" "pf1922_auto50"
+"guid" "F0390DB3"
+}
+{
+"script_noteworthy" "zstandard_tunnel, zgrief_tunnel"
+"targetname" "pf1922_auto50"
+"classname" "script_struct"
+"model" "t6_wpn_ar_sig556_world"
+"angles" "0 270 0"
+"origin" "-11839 -1695.1 287"
+"guid" "6D2A1B25"
+}
+{
+"script_noteworthy" "zstandard_tunnel, zgrief_tunnel"
+"angles" "0 -93 0"
+"origin" "-11839 -2406 283"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "sticky_grenade_zm"
+"targetname" "weapon_upgrade"
+"target" "pf1922_auto51"
+"guid" "F0390DB3"
+}
+{
+"script_noteworthy" "zstandard_tunnel, zgrief_tunnel"
+"targetname" "pf1922_auto51"
+"classname" "script_struct"
+"model" "semtex_bag"
+"angles" "0 -93 0"
+"origin" "-11839 -2406 283"
+"guid" "6D2A1B25"
+}
+{
+"script_noteworthy" "zstandard_tunnel, zgrief_tunnel"
+"angles" "0 88 0"
+"origin" "-10787 -1430 247"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "bowie_knife_zm"
+"targetname" "bowie_upgrade"
+"target" "pf1922_auto52"
+"guid" "F0390DB3"
+}
+{
+"script_noteworthy" "zstandard_tunnel, zgrief_tunnel"
+"targetname" "pf1922_auto52"
+"classname" "script_struct"
+"model" "world_knife_bowie"
+"angles" "0 88 0"
+"origin" "-10787 -1438 247"
+"guid" "6D2A1B25"
+}
+{
+"script_noteworthy" "zstandard_cornfield, zgrief_cornfield"
+"angles" "0 -90 0"
+"origin" "13662 -1166 -134"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "saritch_zm"
+"targetname" "weapon_upgrade"
+"target" "pf1922_auto53"
+"guid" "F0390DB3"
+}
+{
+"script_noteworthy" "zstandard_cornfield, zgrief_cornfield"
+"targetname" "pf1922_auto53"
+"classname" "script_struct"
+"model" "t6_wpn_ar_saritch_world"
+"angles" "0 -90 0"
+"origin" "13662 -1166 -134"
+"guid" "6D2A1B25"
+}
+{
+"script_noteworthy" "zstandard_cornfield, zgrief_cornfield"
+"angles" "0 -90 0"
+"origin" "13553 -539 -133"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "ballista_zm"
+"targetname" "weapon_upgrade"
+"target" "pf1922_auto54"
+"guid" "F0390DB3"
+}
+{
+"script_noteworthy" "zstandard_cornfield, zgrief_cornfield"
+"targetname" "pf1922_auto54"
+"classname" "script_struct"
+"model" "t6_wpn_sniper_ballista_world"
+"angles" "0 -90 0"
+"origin" "13553 -539 -133"
+"guid" "6D2A1B25"
+}
+{
+"script_noteworthy" "zstandard_cornfield, zgrief_cornfield"
+"angles" "0 0 0"
+"origin" "13793 -1646 -105"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "beretta93r_zm"
+"targetname" "weapon_upgrade"
+"target" "pf1922_auto55"
+"guid" "F0390DB3"
+}
+{
+"script_noteworthy" "zstandard_cornfield, zgrief_cornfield"
+"targetname" "pf1922_auto55"
+"classname" "script_struct"
+"model" "t6_wpn_pistol_b2023r_world"
+"angles" "0 0 0"
+"origin" "13793 -1646 -105"
+"guid" "6D2A1B25"
+}
+{
+"script_noteworthy" "zstandard_cornfield, zgrief_cornfield"
+"angles" "0 -90 0"
+"origin" "13553 -769 -133"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "insas_zm"
+"targetname" "weapon_upgrade"
+"target" "pf1922_auto56"
+"guid" "F0390DB3"
+}
+{
+"script_noteworthy" "zstandard_cornfield, zgrief_cornfield"
+"targetname" "pf1922_auto56"
+"classname" "script_struct"
+"model" "t6_wpn_smg_msmc_world"
+"angles" "0 -90 0"
+"origin" "13553 -769 -133"
+"guid" "6D2A1B25"
+}
+{
+"script_noteworthy" "zstandard_cornfield, zgrief_cornfield"
+"angles" "0 90 0"
+"origin" "13979 -1550 -134"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "vector_zm"
+"targetname" "weapon_upgrade"
+"target" "pf1922_auto57"
+"guid" "F0390DB3"
+}
+{
+"script_noteworthy" "zstandard_cornfield, zgrief_cornfield"
+"targetname" "pf1922_auto57"
+"classname" "script_struct"
+"model" "t6_wpn_smg_vector_world"
+"angles" "0 90 0"
+"origin" "13979 -1550 -134"
+"guid" "6D2A1B25"
+}
+{
+"script_noteworthy" "zstandard_cornfield, zgrief_cornfield"
+"angles" "0 90 0"
+"origin" "14093 -351 -133"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "sig556_zm"
+"targetname" "weapon_upgrade"
+"target" "pf1922_auto58"
+"guid" "F0390DB3"
+}
+{
+"script_noteworthy" "zstandard_cornfield, zgrief_cornfield"
+"targetname" "pf1922_auto58"
+"classname" "script_struct"
+"model" "t6_wpn_ar_sig556_world"
+"angles" "0 90 0"
+"origin" "14093 -351 -133"
+"guid" "6D2A1B25"
+}
+{
+"script_noteworthy" "zstandard_cornfield, zgrief_cornfield"
+"angles" "0 -90 0"
+"origin" "13552 -1387 -134"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "870mcs_zm"
+"targetname" "weapon_upgrade"
+"target" "pf1922_auto59"
+"guid" "F0390DB3"
+}
+{
+"script_noteworthy" "zstandard_cornfield, zgrief_cornfield"
+"targetname" "pf1922_auto59"
+"classname" "script_struct"
+"model" "t6_wpn_shotty_870mcs_world"
+"angles" "0 -90 0"
+"origin" "13552 -1387 -134"
+"guid" "6D2A1B25"
+}
+{
+"script_noteworthy" "zstandard_cornfield, zgrief_cornfield"
+"angles" "0 0 0"
+"origin" "13603 -1082 -134"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "sticky_grenade_zm"
+"targetname" "weapon_upgrade"
+"target" "pf1922_auto60"
+"guid" "F0390DB3"
+}
+{
+"script_noteworthy" "zstandard_cornfield, zgrief_cornfield"
+"targetname" "pf1922_auto60"
+"classname" "script_struct"
+"model" "semtex_bag"
+"angles" "0 0 0"
+"origin" "13603 -1082 -134"
+"guid" "6D2A1B25"
+}
+{
+"script_noteworthy" "zstandard_cornfield, zgrief_cornfield"
+"angles" "0 -180 0"
+"origin" "13603 -1281 -134"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "claymore_zm"
+"targetname" "claymore_purchase"
+"target" "pf1922_auto61"
+"guid" "F0390DB3"
+}
+{
+"script_noteworthy" "zstandard_cornfield, zgrief_cornfield"
+"targetname" "pf1922_auto61"
+"classname" "script_struct"
+"model" "t6_wpn_claymore_world"
+"angles" "0 -90 0"
+"origin" "13603 -1281 -134"
+"guid" "6D2A1B25"
+}

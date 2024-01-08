@@ -91,7 +91,6 @@ precache()
 main()
 {
 	flag_set("gondola_roof_to_dock");
-	init_wallbuys();
 	init_barriers();
 	generatebuildabletarps();
 	set_box_weapons();
@@ -124,13 +123,6 @@ set_box_weapons()
 	{
 		level.zombie_weapons["beretta93r_zm"].is_in_box = 1;
 	}
-}
-
-init_wallbuys()
-{
-	scripts\zm\replaced\utility::wallbuy("saritch_zm", "saritch", "weapon_upgrade", (305, 6376, 319), (0, -80, 0));
-	scripts\zm\replaced\utility::wallbuy("ballista_zm", "ballista", "weapon_upgrade", (-709, 5721, -19.875), (0, -80, 30));
-	scripts\zm\replaced\utility::wallbuy("uzi_zm", "uzi", "weapon_upgrade", (-219, 7156, 122), (0, 190, 0));
 }
 
 init_barriers()
