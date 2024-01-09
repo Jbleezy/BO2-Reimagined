@@ -871,6 +871,7 @@
 * Moved Quick Revive to Speed Cola's location on Borough
 * Moved Speed Cola to its location on Buried
 * Moved Stamin-Up to Vulture Aid's location on Buried
+* Added Head Chopper buildable
 * Buildables can spawn at Church buildable table
 * Added better randomization for buildables
 
