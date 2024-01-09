@@ -152,65 +152,7 @@ struct_init()
 
 precache()
 {
-	precachemodel("zm_collision_buried_street_grief");
-	precachemodel("p6_zm_bu_buildable_bench_tarp");
-	level.chalk_buildable_pieces_hide = 1;
-	griefbuildables = array("chalk", "turbine", "springpad_zm", "subwoofer_zm");
-	maps\mp\zm_buried_buildables::include_buildables(griefbuildables);
-	maps\mp\zm_buried_buildables::init_buildables(griefbuildables);
-	maps\mp\zombies\_zm_equip_turbine::init();
-	maps\mp\zombies\_zm_equip_turbine::init_animtree();
-	maps\mp\zombies\_zm_equip_springpad::init(&"ZM_BURIED_EQ_SP_PHS", &"ZM_BURIED_EQ_SP_HTS");
-	maps\mp\zombies\_zm_equip_subwoofer::init(&"ZM_BURIED_EQ_SW_PHS", &"ZM_BURIED_EQ_SW_HTS");
-	maps\mp\zm_buried_fountain::init_fountain();
 
-	setdvar("disableLookAtEntityLogic", 1);
-
-	start_chest_zbarrier = getEnt("start_chest_zbarrier", "script_noteworthy");
-	start_chest_zbarrier.origin = (4127.04, 1271.74, 17);
-	start_chest_zbarrier.angles = (0, 270, 0);
-	start_chest = spawnStruct();
-	start_chest.origin = start_chest_zbarrier.origin;
-	start_chest.angles = start_chest_zbarrier.angles;
-	start_chest.script_noteworthy = "start_chest";
-	start_chest.zombie_cost = 950;
-	collision = spawn("script_model", start_chest_zbarrier.origin, 1);
-	collision.angles = start_chest_zbarrier.angles;
-	collision setmodel("collision_clip_32x32x128");
-	collision disconnectpaths();
-	collision = spawn("script_model", start_chest_zbarrier.origin - (0, 32, 0), 1);
-	collision.angles = start_chest_zbarrier.angles;
-	collision setmodel("collision_clip_32x32x128");
-	collision disconnectpaths();
-	collision = spawn("script_model", start_chest_zbarrier.origin + (0, 32, 0), 1);
-	collision.angles = start_chest_zbarrier.angles;
-	collision setmodel("collision_clip_32x32x128");
-	collision disconnectpaths();
-
-	start_chest2_zbarrier = getEnt("tunnels_chest1_zbarrier", "script_noteworthy");
-	start_chest2_zbarrier.origin = (5605.74, 276.96, 17);
-	start_chest2_zbarrier.angles = (0, 180, 0);
-	start_chest2 = spawnStruct();
-	start_chest2.origin = start_chest2_zbarrier.origin;
-	start_chest2.angles = start_chest2_zbarrier.angles;
-	start_chest2.script_noteworthy = "tunnels_chest1";
-	start_chest2.zombie_cost = 950;
-	collision = spawn("script_model", start_chest2_zbarrier.origin, 1);
-	collision.angles = start_chest2_zbarrier.angles;
-	collision setmodel("collision_clip_32x32x128");
-	collision disconnectpaths();
-	collision = spawn("script_model", start_chest2_zbarrier.origin - (32, 0, 0), 1);
-	collision.angles = start_chest2_zbarrier.angles;
-	collision setmodel("collision_clip_32x32x128");
-	collision disconnectpaths();
-	collision = spawn("script_model", start_chest2_zbarrier.origin + (32, 0, 0), 1);
-	collision.angles = start_chest2_zbarrier.angles;
-	collision setmodel("collision_clip_32x32x128");
-	collision disconnectpaths();
-
-	level.chests = [];
-	level.chests[0] = start_chest;
-	level.chests[1] = start_chest2;
 }
 
 main()
@@ -219,17 +161,29 @@ main()
 	level.equipment_team_pick_up = 1;
 	level thread maps\mp\zombies\_zm_buildables::think_buildables();
 	maps\mp\gametypes_zm\_zm_gametype::setup_standard_objects("street");
-	maps\mp\zombies\_zm_magicbox::treasure_chest_init(random(array("start_chest", "tunnels_chest1")));
+	maze_treasure_chest_init();
 	deleteslothbarricades();
 	powerswitchstate(1);
 
 	flag_set("mansion_door1");
 	level.zones["zone_mansion"].is_enabled = 0;
+	maps\mp\zm_buried_fountain::init_fountain();
 	maps\mp\zombies\_zm::spawn_kill_brush((4919, 575, -511), 128, 300);
 	init_wallbuys();
 	init_barriers();
 	disable_mansion();
 	scripts\zm\locs\loc_common::init();
+}
+
+maze_treasure_chest_init()
+{
+	maze_chest1 = getstruct("maze_chest1", "script_noteworthy");
+	maze_chest2 = getstruct("maze_chest2", "script_noteworthy");
+	setdvar("disableLookAtEntityLogic", 1);
+	level.chests = [];
+	level.chests[level.chests.size] = maze_chest1;
+	level.chests[level.chests.size] = maze_chest2;
+	maps\mp\zombies\_zm_magicbox::treasure_chest_init(random(array("maze_chest1", "maze_chest2")));
 }
 
 init_wallbuys()
