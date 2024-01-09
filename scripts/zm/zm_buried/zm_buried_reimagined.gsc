@@ -117,7 +117,7 @@ player_initial_spawn_override()
 {
 	initial_spawns = getstructarray("initial_spawn", "script_noteworthy");
 
-	if (level.scr_zm_map_start_location == "street" && getDvar("ui_zm_mapstartlocation_fake") != "maze")
+	if (level.scr_zm_map_start_location == "street")
 	{
 		// remove existing initial spawns
 		level.struct_class_names["script_noteworthy"]["initial_spawn"] = [];

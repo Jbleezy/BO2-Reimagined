@@ -13,9 +13,6 @@
 #include maps\mp\zombies\_zm_weapons;
 #include maps\mp\zombies\_zm_unitrigger;
 
-#include scripts\zm\replaced\zm_buried_grief_street;
-#include scripts\zm\locs\zm_buried_loc_maze;
-
 init()
 {
 	add_map_gamemode("zclassic", maps\mp\zm_buried::zclassic_preinit, undefined, undefined);
@@ -26,12 +23,14 @@ init()
 
 	add_map_location_gamemode("zcleansed", "street", maps\mp\zm_buried_turned_street::precache, maps\mp\zm_buried_turned_street::main);
 
-	add_map_location_gamemode("zgrief", "street", scripts\zm\replaced\zm_buried_grief_street::precache, scripts\zm\replaced\zm_buried_grief_street::main);
+	add_map_location_gamemode("zstandard", "street", scripts\zm\replaced\zm_buried_grief_street::precache, scripts\zm\replaced\zm_buried_grief_street::main);
+	add_map_location_gamemode("zstandard", "maze", scripts\zm\locs\zm_buried_loc_maze::precache, scripts\zm\locs\zm_buried_loc_maze::main);
 
-	if (getDvar("ui_zm_mapstartlocation_fake") == "maze")
-	{
-		scripts\zm\replaced\utility::add_struct_location_gamemode_func("zgrief", "street", scripts\zm\locs\zm_buried_loc_maze::struct_init);
-	}
+	add_map_location_gamemode("zgrief", "street", scripts\zm\replaced\zm_buried_grief_street::precache, scripts\zm\replaced\zm_buried_grief_street::main);
+	add_map_location_gamemode("zgrief", "maze", scripts\zm\locs\zm_buried_loc_maze::precache, scripts\zm\locs\zm_buried_loc_maze::main);
+
+	scripts\zm\replaced\utility::add_struct_location_gamemode_func("zstandard", "maze", scripts\zm\locs\zm_buried_loc_maze::struct_init);
+	scripts\zm\replaced\utility::add_struct_location_gamemode_func("zgrief", "maze", scripts\zm\locs\zm_buried_loc_maze::struct_init);
 }
 
 buildbuildable(buildable)

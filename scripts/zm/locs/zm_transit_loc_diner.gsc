@@ -4,9 +4,6 @@
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm;
 
-#include scripts\zm\replaced\utility;
-#include scripts\zm\locs\loc_common;
-
 struct_init()
 {
 	scripts\zm\replaced\utility::register_perk_struct("specialty_armorvest", "zombie_vending_jugg", (-3563, -7196, -59), (0, 0, 0));

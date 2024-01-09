@@ -15953,9 +15953,17 @@
 "guid" "4966C5A8"
 }
 {
+"script_string" "cellblock"
 "classname" "script_struct"
 "targetname" "wolf_puke_powerup_origin"
 "origin" "880 9680 1312"
+"guid" "E985C3B5"
+}
+{
+"script_string" "docks"
+"classname" "script_struct"
+"targetname" "wolf_puke_powerup_origin"
+"origin" "41 6096 -103"
 "guid" "E985C3B5"
 }
 {

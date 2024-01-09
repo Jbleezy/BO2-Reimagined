@@ -3,7 +3,6 @@
 #include maps\mp\_utility;
 #include maps\mp\zm_prison;
 #include maps\mp\zombies\_zm_zonemgr;
-#include scripts\zm\locs\loc_common;
 
 struct_init()
 {
@@ -69,15 +68,15 @@ struct_init()
 	intermission_cam.origin = (402, 6197, 142);
 	intermission_cam.angles = (0, 190, 0);
 	intermission_cam.targetname = "intermission";
-	intermission_cam.script_string = "cellblock";
+	intermission_cam.script_string = "docks";
 	intermission_cam.speed = 30;
-	intermission_cam.target = "intermission_cellblock_end";
+	intermission_cam.target = "intermission_docks_end";
 	scripts\zm\replaced\utility::add_struct(intermission_cam);
 
 	intermission_cam_end = spawnStruct();
 	intermission_cam_end.origin = (-1043, 5931, -47);
 	intermission_cam_end.angles = (0, 190, 0);
-	intermission_cam_end.targetname = "intermission_cellblock_end";
+	intermission_cam_end.targetname = "intermission_docks_end";
 	scripts\zm\replaced\utility::add_struct(intermission_cam_end);
 }
 

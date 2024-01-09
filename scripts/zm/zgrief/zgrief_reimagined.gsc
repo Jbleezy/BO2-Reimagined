@@ -2941,28 +2941,22 @@ containment_get_zones()
 	{
 		if (level.scr_zm_map_start_location == "cellblock")
 		{
-			if (getDvar("ui_zm_mapstartlocation_fake") == "docks")
-			{
-				containment_zones = array("zone_dock", "zone_dock_gondola", "zone_studio", "zone_citadel_basement_building");
-			}
-			else
-			{
-				containment_zones = array("zone_cellblock_west", "zone_cellblock_west_gondola", "zone_cellblock_west_barber", "zone_cellblock_east", "zone_start", "zone_library", "zone_cafeteria", "zone_warden_office");
-			}
+			containment_zones = array("zone_cellblock_west", "zone_cellblock_west_gondola", "zone_cellblock_west_barber", "zone_cellblock_east", "zone_start", "zone_library", "zone_cafeteria", "zone_warden_office");
+		}
+		else if (level.scr_zm_map_start_location == "docks")
+		{
+			containment_zones = array("zone_dock", "zone_dock_gondola", "zone_studio", "zone_citadel_basement_building");
 		}
 	}
 	else if (level.script == "zm_buried")
 	{
 		if (level.scr_zm_map_start_location == "street")
 		{
-			if (getDvar("ui_zm_mapstartlocation_fake") == "maze")
-			{
-				containment_zones = array("zone_maze", "zone_mansion_backyard", "zone_maze_staircase");
-			}
-			else
-			{
-				containment_zones = array("zone_street_lightwest", "zone_street_darkwest", "zone_street_darkeast", "zone_stables", "zone_general_store", "zone_gun_store", "zone_underground_bar", "zone_underground_courthouse", "zone_toy_store", "zone_candy_store", "zone_street_fountain", "zone_church_main", "zone_mansion_lawn");
-			}
+			containment_zones = array("zone_street_lightwest", "zone_street_darkwest", "zone_street_darkeast", "zone_stables", "zone_general_store", "zone_gun_store", "zone_underground_bar", "zone_underground_courthouse", "zone_toy_store", "zone_candy_store", "zone_street_fountain", "zone_church_main", "zone_mansion_lawn");
+		}
+		else if (level.scr_zm_map_start_location == "maze")
+		{
+			containment_zones = array("zone_maze", "zone_mansion_backyard", "zone_maze_staircase");
 		}
 	}
 

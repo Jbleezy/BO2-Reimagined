@@ -14,12 +14,6 @@
 
 precache()
 {
-	if (getDvar("ui_zm_mapstartlocation_fake") == "maze")
-	{
-		scripts\zm\locs\zm_buried_loc_maze::precache();
-		return;
-	}
-
 	precachemodel("collision_wall_128x128x10_standard");
 	precachemodel("collision_wall_256x256x10_standard");
 	precachemodel("collision_wall_512x512x10_standard");
@@ -51,12 +45,6 @@ precache()
 
 main()
 {
-	if (getDvar("ui_zm_mapstartlocation_fake") == "maze")
-	{
-		scripts\zm\locs\zm_buried_loc_maze::main();
-		return;
-	}
-
 	level.buildables_built["pap"] = 1;
 	level.equipment_team_pick_up = 1;
 	level.zones["zone_mansion"].is_enabled = 0;

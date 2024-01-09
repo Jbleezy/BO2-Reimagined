@@ -57,49 +57,38 @@ wolf_spit_out_powerup()
 	if (!(isdefined(level.enable_magic) && level.enable_magic))
 		return;
 
-	power_origin_struct = getstruct("wolf_puke_powerup_origin", "targetname");
+	power_origin_structs = getstructarray("wolf_puke_powerup_origin", "targetname");
+	power_origin_struct = undefined;
 
-	if (level.scr_zm_ui_gametype_obj != "zmeat" && randomint(100) < 20)
+	foreach (struct in power_origin_structs)
 	{
-		for (i = 0; i < level.zombie_powerup_array.size; i++)
+		if (isdefined(struct.script_string) && struct.script_string == level.scr_zm_map_start_location)
 		{
-			if (level.zombie_powerup_array[i] == "meat_stink")
-			{
-				level.zombie_powerup_index = i;
-				found = 1;
-				break;
-			}
-		}
-	}
-	else
-	{
-		while (true)
-		{
-			level.zombie_powerup_index = randomint(level.zombie_powerup_array.size);
-
-			if (level.zombie_powerup_array[level.zombie_powerup_index] == "nuke")
-			{
-				wait 0.05;
-				continue;
-			}
-
-			if (level.scr_zm_ui_gametype_obj == "zmeat" && level.zombie_powerup_array[level.zombie_powerup_index] == "meat_stink")
-			{
-				wait 0.05;
-				continue;
-			}
-
+			power_origin_struct = struct;
 			break;
 		}
 	}
 
-	if (getDvar("ui_zm_mapstartlocation_fake") == "docks")
+	if (!isdefined(power_origin_struct))
 	{
-		power_origin_struct = spawnStruct();
-		power_origin_struct.origin = (41.4695, 6096.17, -102.9326);
+		return;
 	}
 
-	spawn_infinite_powerup_drop(power_origin_struct.origin, level.zombie_powerup_array[level.zombie_powerup_index]);
+	powerup_array = array_randomize(level.zombie_powerup_array);
+	wolf_powerup = undefined;
+
+	foreach (powerup in powerup_array)
+	{
+		if (powerup == "meat_stink" && level.scr_zm_ui_gametype_obj != "zmeat")
+		{
+			continue;
+		}
+
+		wolf_powerup = powerup;
+		break;
+	}
+
+	spawn_infinite_powerup_drop(power_origin_struct.origin, wolf_powerup);
 	power_ups = get_array_of_closest(power_origin_struct.origin, level.active_powerups, undefined, undefined, 100);
 
 	if (isdefined(power_ups[0]))

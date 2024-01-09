@@ -12,7 +12,6 @@
 #include common_scripts\utility;
 #include maps\mp\_utility;
 #include maps\mp\zombies\_zm_zonemgr;
-#include scripts\zm\locs\loc_common;
 
 struct_init()
 {
@@ -88,8 +87,6 @@ struct_init()
 	{
 		if (isDefined(initial_spawn.script_string) && isSubStr(initial_spawn.script_string, "zgrief_maze"))
 		{
-			initial_spawn.script_string = "zgrief_street";
-
 			initial_spawns[initial_spawns.size] = initial_spawn;
 		}
 	}
@@ -141,15 +138,15 @@ struct_init()
 	intermission_cam.origin = (3694, 569, 253);
 	intermission_cam.angles = (30, 0, 0);
 	intermission_cam.targetname = "intermission";
-	intermission_cam.script_string = "street";
+	intermission_cam.script_string = "maze";
 	intermission_cam.speed = 30;
-	intermission_cam.target = "intermission_street_end";
+	intermission_cam.target = "intermission_maze_end";
 	scripts\zm\replaced\utility::add_struct(intermission_cam);
 
 	intermission_cam_end = spawnStruct();
 	intermission_cam_end.origin = (5856, 569, 253);
 	intermission_cam_end.angles = (30, 0, 0);
-	intermission_cam_end.targetname = "intermission_street_end";
+	intermission_cam_end.targetname = "intermission_maze_end";
 	scripts\zm\replaced\utility::add_struct(intermission_cam_end);
 }
 

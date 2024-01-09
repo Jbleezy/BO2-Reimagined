@@ -191,7 +191,7 @@ player_initial_spawn_override()
 	initial_spawns = getstructarray("initial_spawn", "script_noteworthy");
 	remove_initial_spawns = [];
 
-	if (level.scr_zm_map_start_location == "cellblock" && getDvar("ui_zm_mapstartlocation_fake") != "docks")
+	if (level.scr_zm_map_start_location == "cellblock")
 	{
 		foreach (initial_spawn in initial_spawns)
 		{

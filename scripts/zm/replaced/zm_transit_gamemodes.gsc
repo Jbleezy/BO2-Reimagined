@@ -14,12 +14,6 @@
 #include maps\mp\_utility;
 #include common_scripts\utility;
 
-#include scripts\zm\replaced\zm_transit_standard_station;
-#include scripts\zm\replaced\zm_transit_grief_station;
-#include scripts\zm\locs\zm_transit_loc_diner;
-#include scripts\zm\locs\zm_transit_loc_power;
-#include scripts\zm\locs\zm_transit_loc_tunnel;
-
 init()
 {
 	add_map_gamemode("zclassic", maps\mp\zm_transit::zclassic_preinit, undefined, undefined);

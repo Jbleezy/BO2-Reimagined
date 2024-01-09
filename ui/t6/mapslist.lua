@@ -260,19 +260,15 @@ local function locationListSelectionClickedEventHandler( self, event )
 	elseif location == "ZMUI_CELLBLOCK_CAPS" then
 		Engine.SetDvar("ui_mapname", "zm_prison")
 		Engine.SetDvar("ui_zm_mapstartlocation", "cellblock")
-		Engine.SetDvar("ui_zm_mapstartlocation_fake", "")
 	elseif location == "ZMUI_DOCKS_CAPS" then
 		Engine.SetDvar("ui_mapname", "zm_prison")
-		Engine.SetDvar("ui_zm_mapstartlocation", "cellblock")
-		Engine.SetDvar("ui_zm_mapstartlocation_fake", "docks")
+		Engine.SetDvar("ui_zm_mapstartlocation", "docks")
 	elseif location == "ZMUI_STREET_LOC_CAPS" then
 		Engine.SetDvar("ui_mapname", "zm_buried")
 		Engine.SetDvar("ui_zm_mapstartlocation", "street")
-		Engine.SetDvar("ui_zm_mapstartlocation_fake", "")
 	elseif location == "ZMUI_MAZE_CAPS" then
 		Engine.SetDvar("ui_mapname", "zm_buried")
-		Engine.SetDvar("ui_zm_mapstartlocation", "street")
-		Engine.SetDvar("ui_zm_mapstartlocation_fake", "maze")
+		Engine.SetDvar("ui_zm_mapstartlocation", "maze")
 	elseif location == "ZMUI_TRENCHES_CAPS" then
 		-- TODO: set dvars when location is added
 	elseif location == "ZMUI_EXCAVATION_SITE_CAPS" then
