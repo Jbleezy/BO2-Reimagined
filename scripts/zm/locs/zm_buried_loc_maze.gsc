@@ -169,7 +169,7 @@ main()
 	level.zones["zone_mansion"].is_enabled = 0;
 	maps\mp\zm_buried_fountain::init_fountain();
 	maps\mp\zombies\_zm::spawn_kill_brush((4919, 575, -511), 128, 300);
-	init_wallbuys();
+	level thread init_wallbuys();
 	init_barriers();
 	disable_mansion();
 	scripts\zm\locs\loc_common::init();
@@ -188,18 +188,25 @@ maze_treasure_chest_init()
 
 init_wallbuys()
 {
-	og_weapon_structs = [];
-	structs = getstructarray("weapon_upgrade", "targetname");
+	flag_wait("start_zombie_round_logic");
+
+	wallbuy_structs = [];
+	structs = getstructarray("buildable_wallbuy", "targetname");
 
 	foreach (struct in structs)
 	{
 		if (isDefined(struct.script_noteworthy) && isSubStr(struct.script_noteworthy, "maze"))
 		{
-			og_weapon_structs[og_weapon_structs.size] = struct;
+			wallbuy_structs[wallbuy_structs.size] = struct;
 		}
 	}
 
-	og_weapon_structs = array_randomize(og_weapon_structs);
+	random_weapons = array_randomize(level.buildable_wallbuy_weapons);
+
+	for (i = 0; i < wallbuy_structs.size; i++)
+	{
+		maps\mp\zombies\_zm_weapons::add_dynamic_wallbuy(random_weapons[i], wallbuy_structs[i].target, 1);
+	}
 }
 
 init_barriers()

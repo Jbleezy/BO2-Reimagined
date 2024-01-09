@@ -2,6 +2,76 @@
 #include clientscripts\mp\_utility;
 #include clientscripts\mp\zombies\_zm_utility;
 
+init()
+{
+	spawn_list = [];
+	spawnable_weapon_spawns = getstructarray("weapon_upgrade", "targetname");
+	spawnable_weapon_spawns = arraycombine(spawnable_weapon_spawns, getstructarray("bowie_upgrade", "targetname"), 1, 0);
+	spawnable_weapon_spawns = arraycombine(spawnable_weapon_spawns, getstructarray("sickle_upgrade", "targetname"), 1, 0);
+	spawnable_weapon_spawns = arraycombine(spawnable_weapon_spawns, getstructarray("tazer_upgrade", "targetname"), 1, 0);
+	spawnable_weapon_spawns = arraycombine(spawnable_weapon_spawns, getstructarray("buildable_wallbuy", "targetname"), 1, 0);
+
+	if (!level.headshots_only)
+		spawnable_weapon_spawns = arraycombine(spawnable_weapon_spawns, getstructarray("claymore_purchase", "targetname"), 1, 0);
+
+	location = level.scr_zm_map_start_location;
+
+	if ((location == "default" || location == "") && isdefined(level.default_start_location))
+		location = level.default_start_location;
+
+	match_string = level.scr_zm_ui_gametype + "_" + location;
+	match_string_plus_space = " " + match_string;
+
+	for (i = 0; i < spawnable_weapon_spawns.size; i++)
+	{
+		spawnable_weapon = spawnable_weapon_spawns[i];
+
+		if (isdefined(spawnable_weapon.zombie_weapon_upgrade) && spawnable_weapon.zombie_weapon_upgrade == "sticky_grenade_zm" && is_true(level.headshots_only))
+			continue;
+
+		if (!isdefined(spawnable_weapon.script_noteworthy) || spawnable_weapon.script_noteworthy == "")
+		{
+			spawn_list[spawn_list.size] = spawnable_weapon;
+			continue;
+		}
+
+		matches = strtok(spawnable_weapon.script_noteworthy, ",");
+
+		for (j = 0; j < matches.size; j++)
+		{
+			if (matches[j] == match_string || matches[j] == match_string_plus_space)
+				spawn_list[spawn_list.size] = spawnable_weapon;
+		}
+	}
+
+	level._active_wallbuys = [];
+
+	for (i = 0; i < spawn_list.size; i++)
+	{
+		spawn_list[i].script_label = spawn_list[i].zombie_weapon_upgrade + "_" + spawn_list[i].origin;
+		level._active_wallbuys[spawn_list[i].script_label] = spawn_list[i];
+		numbits = 2;
+
+		if (isdefined(level._wallbuy_override_num_bits))
+			numbits = level._wallbuy_override_num_bits;
+
+		registerclientfield("world", spawn_list[i].script_label, 1, numbits, "int", ::wallbuy_callback, 0);
+		target_struct = getstruct(spawn_list[i].target, "targetname");
+
+		if (spawn_list[i].targetname == "buildable_wallbuy")
+		{
+			bits = 4;
+
+			if (isdefined(level.buildable_wallbuy_weapons))
+				bits = getminbitcountfornum(level.buildable_wallbuy_weapons.size + 1);
+
+			registerclientfield("world", spawn_list[i].script_label + "_idx", 12000, bits, "int", ::wallbuy_callback_idx, 0);
+		}
+	}
+
+	onplayerconnect_callback(::wallbuy_player_connect);
+}
+
 wallbuy_player_connect(localclientnum)
 {
 	keys = getarraykeys(level._active_wallbuys);
