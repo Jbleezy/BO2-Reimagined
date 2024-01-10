@@ -826,6 +826,10 @@
 * Fixed being able to hit a death barrier when jumping off the Docks Bridge zone
 * Fixed locked hint string not showing on Blundergat Upgrade buildable table
 
+### Cell Block
+* Zombies spawn in the Cell Block 3rd Floor zone
+* Fixed the electric fence in the Warden's Office making noise when bumping into it
+
 #### Docks
 * Wallbuys: M14, Olympia, MP5, Uzi, M1927
 * Perks: Juggernog

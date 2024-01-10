@@ -296,6 +296,7 @@ main()
 
 	t_warden_fence = getent("warden_fence_damage", "targetname");
 	t_warden_fence delete();
+	level setclientfield("warden_fence_down", 1);
 	m_plane_about_to_crash = getent("plane_about_to_crash", "targetname");
 	m_plane_about_to_crash delete();
 	m_plane_craftable = getent("plane_craftable", "targetname");

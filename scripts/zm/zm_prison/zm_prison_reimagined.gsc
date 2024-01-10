@@ -804,15 +804,22 @@ working_zone_init()
 	flag_init("always_on");
 	flag_set("always_on");
 
-	if (is_gametype_active("zgrief"))
+	if (!is_classic())
 	{
 		a_s_spawner = getstructarray("zone_cellblock_west_roof_spawner", "targetname");
+		spawners_to_keep = [];
 
 		foreach (spawner in a_s_spawner)
 		{
 			if (isdefined(spawner.script_parameters) && spawner.script_parameters == "zclassic_prison")
-				spawner structdelete();
+			{
+				continue;
+			}
+
+			spawners_to_keep[spawners_to_keep.size] = spawner;
 		}
+
+		level.struct_class_names["targetname"]["zone_cellblock_west_roof_spawner"] = spawners_to_keep;
 	}
 
 	if (is_classic())
@@ -885,19 +892,16 @@ working_zone_init()
 		add_adjacent_zone("zone_cellblock_west_gondola", "zone_cellblock_west_gondola_dock", "activate_cellblock_gondola");
 		add_adjacent_zone("zone_cellblock_west_gondola", "zone_cellblock_west_gondola_dock", "gondola_dock_to_roof");
 	}
-
-	/*
-	else if ( is_gametype_active( "zgrief" ) )
+	else
 	{
-		playable_area = getentarray( "player_volume", "script_noteworthy" );
+		playable_area = getentarray("player_volume", "script_noteworthy");
 
-		foreach ( area in playable_area )
+		foreach (area in playable_area)
 		{
-			if ( isdefined( area.script_parameters ) && area.script_parameters == "classic_only" )
+			if (isdefined(area.script_parameters) && area.script_parameters == "classic_only")
 				area delete();
 		}
 	}
-	*/
 
 	add_adjacent_zone("zone_golden_gate_bridge", "zone_golden_gate_bridge", "activate_player_zone_bridge");
 
