@@ -59,7 +59,7 @@ init()
 	level.brutus_respawn_after_despawn = 1;
 	level.brutus_in_grief = 0;
 
-	if (getdvar("ui_gametype") == "zgrief")
+	if (getdvar("ui_gametype") == "zgrief" || getdvar("ui_gametype") == "zstandard")
 		level.brutus_in_grief = 1;
 
 	level.brutus_shotgun_damage_mod = 1.5;
@@ -614,7 +614,7 @@ brutus_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon,
 			{
 				self thread brutus_remove_helmet(vdir);
 
-				if (level.brutus_in_grief)
+				if (level.brutus_in_grief && getdvar("ui_gametype") == "zgrief")
 				{
 					player_points = level.brutus_points_for_helmet;
 				}
@@ -678,7 +678,7 @@ brutus_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon,
 		{
 			self thread brutus_remove_helmet(vectorScale((0, 1, 0), 10));
 
-			if (level.brutus_in_grief)
+			if (level.brutus_in_grief && getdvar("ui_gametype") == "zgrief")
 			{
 				player_points = level.brutus_points_for_helmet;
 			}
