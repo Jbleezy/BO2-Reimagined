@@ -3425,17 +3425,24 @@ increment_score(team, amount = 1, show_lead_msg = true, score_msg)
 		{
 			level.prev_leader = encounters_team;
 
+			delay = undefined;
+
+			if (level.scr_zm_ui_gametype_obj == "zgrief" || level.scr_zm_ui_gametype_obj == "zrace")
+			{
+				delay = 1;
+			}
+
 			players = get_players();
 
 			foreach (player in players)
 			{
 				if (player.team == team)
 				{
-					player thread show_grief_hud_msg(&"ZOMBIE_GRIEF_GAIN_LEAD", undefined, 30);
+					player thread show_grief_hud_msg(&"ZOMBIE_GRIEF_GAIN_LEAD", undefined, 30, delay);
 				}
 				else
 				{
-					player thread show_grief_hud_msg(&"ZOMBIE_GRIEF_LOSE_LEAD", undefined, 30);
+					player thread show_grief_hud_msg(&"ZOMBIE_GRIEF_LOSE_LEAD", undefined, 30, delay);
 				}
 			}
 		}
