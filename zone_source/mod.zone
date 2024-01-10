@@ -15,6 +15,7 @@ include,includes/images
 include,includes/attachmentunique
 include,includes/weapons
 
-stringtable,zm/pap_attach.csv
+include,includes/rawfile
+include,includes/stringtable
 
 localize,reimagined
