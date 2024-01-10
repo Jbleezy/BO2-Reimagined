@@ -266,3 +266,131 @@ do_melee_weapon_flourish_end(gun, flourish_weapon_name, weapon_name, ballistic_w
 	if (!self maps\mp\zombies\_zm_laststand::player_is_in_laststand() && !(isdefined(self.intermission) && self.intermission))
 		self decrement_is_drinking();
 }
+
+melee_weapon_think(weapon_name, cost, flourish_fn, vo_dialog_id, flourish_weapon_name, ballistic_weapon_name, ballistic_upgraded_weapon_name)
+{
+	self.first_time_triggered = 0;
+
+	if (isdefined(self.stub))
+	{
+		self endon("kill_trigger");
+
+		if (isdefined(self.stub.first_time_triggered))
+			self.first_time_triggered = self.stub.first_time_triggered;
+
+		weapon_name = self.stub.weapon_name;
+		cost = self.stub.cost;
+		flourish_fn = self.stub.flourish_fn;
+		vo_dialog_id = self.stub.vo_dialog_id;
+		flourish_weapon_name = self.stub.flourish_weapon_name;
+		ballistic_weapon_name = self.stub.ballistic_weapon_name;
+		ballistic_upgraded_weapon_name = self.stub.ballistic_upgraded_weapon_name;
+		players = getplayers();
+
+		if (!(isdefined(level._allow_melee_weapon_switching) && level._allow_melee_weapon_switching))
+		{
+			for (i = 0; i < players.size; i++)
+			{
+				if (!players[i] player_can_see_weapon_prompt(weapon_name))
+					self setinvisibletoplayer(players[i]);
+			}
+		}
+	}
+
+	for (;;)
+	{
+		self waittill("trigger", player);
+
+		if (!is_player_valid(player))
+		{
+			player thread ignore_triggers(0.5);
+			continue;
+		}
+
+		if (player in_revive_trigger())
+		{
+			wait 0.1;
+			continue;
+		}
+
+		if (player isthrowinggrenade())
+		{
+			wait 0.1;
+			continue;
+		}
+
+		if (player.is_drinking > 0)
+		{
+			wait 0.1;
+			continue;
+		}
+
+		if (player hasweapon(weapon_name) || player hasweapon("held_" + weapon_name) || player has_powerup_weapon())
+		{
+			wait 0.1;
+			continue;
+		}
+
+		if (player isswitchingweapons())
+		{
+			wait 0.1;
+			continue;
+		}
+
+		current_weapon = player getcurrentweapon();
+
+		if (is_placeable_mine(current_weapon) || is_equipment(current_weapon) || player has_powerup_weapon())
+		{
+			wait 0.1;
+			continue;
+		}
+
+		if (player maps\mp\zombies\_zm_laststand::player_is_in_laststand() || isdefined(player.intermission) && player.intermission)
+		{
+			wait 0.1;
+			continue;
+		}
+
+		player_has_weapon = player hasweapon(weapon_name);
+
+		if (!player_has_weapon)
+		{
+			cost = self.stub.cost;
+
+			if (player maps\mp\zombies\_zm_pers_upgrades_functions::is_pers_double_points_active())
+				cost = int(cost / 2);
+
+			if (player.score >= cost)
+			{
+				if (self.first_time_triggered == 0)
+				{
+					model = getent(self.target, "targetname");
+
+					if (isdefined(model))
+						model thread melee_weapon_show(player);
+					else if (isdefined(self.clientfieldname))
+						level setclientfield(self.clientfieldname, 1);
+
+					self.first_time_triggered = 1;
+
+					if (isdefined(self.stub))
+						self.stub.first_time_triggered = 1;
+				}
+
+				player maps\mp\zombies\_zm_score::minus_to_player_score(cost, 1);
+				bbprint("zombie_uses", "playername %s playerscore %d round %d cost %d name %s x %f y %f z %f type %s", player.name, player.score, level.round_number, cost, weapon_name, self.origin, "weapon");
+				player thread give_melee_weapon(vo_dialog_id, flourish_weapon_name, weapon_name, ballistic_weapon_name, ballistic_upgraded_weapon_name, flourish_fn, self);
+			}
+			else
+			{
+				play_sound_on_ent("no_purchase");
+				player maps\mp\zombies\_zm_audio::create_and_play_dialog("general", "no_money_weapon", undefined, 1);
+			}
+
+			continue;
+		}
+
+		if (!(isdefined(level._allow_melee_weapon_switching) && level._allow_melee_weapon_switching))
+			self setinvisibletoplayer(player);
+	}
+}
