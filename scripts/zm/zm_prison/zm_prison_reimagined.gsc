@@ -474,8 +474,17 @@ craftable_place_think()
 				continue;
 			}
 
+			riotshield_repair = 0;
+
 			if (player has_player_equipment(self.stub.weaponname))
-				continue;
+			{
+				if (!(self.stub.weaponname == level.riotshield_name && player scripts\zm\replaced\_zm_buildables::has_player_damaged_riotshield_equipped()))
+				{
+					continue;
+				}
+
+				riotshield_repair = 1;
+			}
 
 			if (isdefined(level.zombie_craftable_persistent_weapon))
 			{
@@ -503,7 +512,9 @@ craftable_place_think()
 				else if (self.stub.weaponname != "keys_zm")
 					player setactionslot(1, "weapon", self.stub.weaponname);
 
-				if (isdefined(level.zombie_craftablestubs[self.stub.equipname].str_taken))
+				if (riotshield_repair)
+					self.stub.hint_string = &"ZOMBIE_BOUGHT_RIOT_REPAIR";
+				else if (isdefined(level.zombie_craftablestubs[self.stub.equipname].str_taken))
 					self.stub.hint_string = level.zombie_craftablestubs[self.stub.equipname].str_taken;
 				else
 					self.stub.hint_string = "";
@@ -534,6 +545,84 @@ craftabletrigger_update_prompt(player)
 	}
 
 	return can_use;
+}
+
+craftablestub_update_prompt(player, unitrigger)
+{
+	if (!self anystub_update_prompt(player))
+		return false;
+
+	if (isdefined(self.is_locked) && self.is_locked)
+		return true;
+
+	can_use = 1;
+
+	if (isdefined(self.custom_craftablestub_update_prompt) && !self [[self.custom_craftablestub_update_prompt]](player))
+		return false;
+
+	if (!(isdefined(self.crafted) && self.crafted))
+	{
+		if (!self.craftablespawn craftable_can_use_shared_piece())
+		{
+			if (!isdefined(player.current_craftable_piece))
+			{
+				self.hint_string = &"ZOMBIE_BUILD_PIECE_MORE";
+				return false;
+			}
+			else if (!self.craftablespawn craftable_has_piece(player.current_craftable_piece))
+			{
+				self.hint_string = &"ZOMBIE_BUILD_PIECE_WRONG";
+				return false;
+			}
+		}
+
+		assert(isdefined(level.zombie_craftablestubs[self.equipname].str_to_craft), "Missing craftable hint");
+		self.hint_string = level.zombie_craftablestubs[self.equipname].str_to_craft;
+	}
+	else if (self.persistent == 1)
+	{
+		if (maps\mp\zombies\_zm_equipment::is_limited_equipment(self.weaponname) && maps\mp\zombies\_zm_equipment::limited_equipment_in_use(self.weaponname))
+		{
+			self.hint_string = &"ZOMBIE_BUILD_PIECE_ONLY_ONE";
+			return false;
+		}
+
+		if (player has_player_equipment(self.weaponname))
+		{
+			if (self.weaponname == level.riotshield_name && player scripts\zm\replaced\_zm_buildables::has_player_damaged_riotshield_equipped())
+			{
+				self.hint_string = &"ZOMBIE_REPAIR_RIOTSHIELD";
+				return true;
+			}
+
+			self.hint_string = &"ZOMBIE_BUILD_PIECE_HAVE_ONE";
+			return false;
+		}
+
+		self.hint_string = self.trigger_hintstring;
+	}
+	else if (self.persistent == 2)
+	{
+		if (!maps\mp\zombies\_zm_weapons::limited_weapon_below_quota(self.weaponname, undefined))
+		{
+			self.hint_string = &"ZOMBIE_GO_TO_THE_BOX_LIMITED";
+			return false;
+		}
+		else if (isdefined(self.str_taken) && self.str_taken)
+		{
+			self.hint_string = &"ZOMBIE_GO_TO_THE_BOX";
+			return false;
+		}
+
+		self.hint_string = self.trigger_hintstring;
+	}
+	else
+	{
+		self.hint_string = "";
+		return false;
+	}
+
+	return true;
 }
 
 grief_brutus_spawn_after_time()

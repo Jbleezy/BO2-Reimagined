@@ -1086,6 +1086,12 @@ LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Zombie Shield"
 REFERENCE           ZOMBIE_GRAB_RIOTSHIELD
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Zombie Shield [Cost: &&1]"
 
+REFERENCE           ZOMBIE_REPAIR_RIOTSHIELD
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to repair Zombie Shield [Cost: &&1]"
+
+REFERENCE           ZOMBIE_BOUGHT_RIOT_REPAIR
+LANG_ENGLISH        "Repaired Zombie Shield"
+
 REFERENCE           ZOMBIE_BUILD_TURRET
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Turret"
 

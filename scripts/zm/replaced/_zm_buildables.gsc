@@ -212,7 +212,9 @@ buildable_place_think()
 			player maps\mp\zombies\_zm_buildables::track_buildables_pickedup(self.stub.weaponname);
 		}
 	}
-	else while (!isDefined(player_built) || self scripts\zm\replaced\_zm_buildables_pooled::pooledbuildabletrigger_update_prompt(player_built))
+	else
+	{
+		if (!isDefined(player_built) || self scripts\zm\replaced\_zm_buildables_pooled::pooledbuildabletrigger_update_prompt(player_built))
 		{
 			if (isDefined(self.stub.model))
 			{
@@ -259,9 +261,16 @@ buildable_place_think()
 					player thread ignore_triggers(0.5);
 				}
 
+				riotshield_repair = 0;
+
 				if (player has_player_equipment(self.stub.weaponname))
 				{
-					continue;
+					if (!(self.stub.weaponname == level.riotshield_name && player has_player_damaged_riotshield_equipped()))
+					{
+						continue;
+					}
+
+					riotshield_repair = 1;
 				}
 
 				if (player.score < self.stub.cost)
@@ -298,7 +307,11 @@ buildable_place_think()
 						player setactionslot(1, "weapon", self.stub.weaponname);
 					}
 
-					if (isDefined(level.zombie_buildables[self.stub.equipname].bought))
+					if (riotshield_repair)
+					{
+						self.stub.hint_string = &"ZOMBIE_BOUGHT_RIOT_REPAIR";
+					}
+					else if (isDefined(level.zombie_buildables[self.stub.equipname].bought))
 					{
 						self.stub.hint_string = level.zombie_buildables[self.stub.equipname].bought;
 					}
@@ -318,6 +331,7 @@ buildable_place_think()
 				}
 			}
 		}
+	}
 }
 
 player_can_build(buildable, continuing)
@@ -618,4 +632,114 @@ model_fly_away_think(weaponname)
 		joker_model rotateto(joker_model.angles - (90, 0, 0), 0.5);
 		joker_model waittill("rotatedone");
 	}
+}
+
+buildablestub_update_prompt(player)
+{
+	if (!self anystub_update_prompt(player))
+		return false;
+
+	can_use = 1;
+
+	if (isdefined(self.buildablestub_reject_func))
+	{
+		rval = self [[self.buildablestub_reject_func]](player);
+
+		if (rval)
+			return false;
+	}
+
+	if (isdefined(self.custom_buildablestub_update_prompt) && !self [[self.custom_buildablestub_update_prompt]](player))
+		return false;
+
+	self.cursor_hint = "HINT_NOICON";
+	self.cursor_hint_weapon = undefined;
+
+	if (!(isdefined(self.built) && self.built))
+	{
+		slot = self.buildablestruct.buildable_slot;
+
+		if (!isdefined(player player_get_buildable_piece(slot)))
+		{
+			if (isdefined(level.zombie_buildables[self.equipname].hint_more))
+				self.hint_string = level.zombie_buildables[self.equipname].hint_more;
+			else
+				self.hint_string = &"ZOMBIE_BUILD_PIECE_MORE";
+
+			return false;
+		}
+		else if (!self.buildablezone buildable_has_piece(player player_get_buildable_piece(slot)))
+		{
+			if (isdefined(level.zombie_buildables[self.equipname].hint_wrong))
+				self.hint_string = level.zombie_buildables[self.equipname].hint_wrong;
+			else
+				self.hint_string = &"ZOMBIE_BUILD_PIECE_WRONG";
+
+			return false;
+		}
+		else
+		{
+			assert(isdefined(level.zombie_buildables[self.equipname].hint), "Missing buildable hint");
+
+			if (isdefined(level.zombie_buildables[self.equipname].hint))
+				self.hint_string = level.zombie_buildables[self.equipname].hint;
+			else
+				self.hint_string = "Missing buildable hint";
+		}
+	}
+	else if (self.persistent == 1)
+	{
+		if (maps\mp\zombies\_zm_equipment::is_limited_equipment(self.weaponname) && maps\mp\zombies\_zm_equipment::limited_equipment_in_use(self.weaponname))
+		{
+			self.hint_string = &"ZOMBIE_BUILD_PIECE_ONLY_ONE";
+			return false;
+		}
+
+		if (player has_player_equipment(self.weaponname))
+		{
+			if (self.weaponname == level.riotshield_name && player has_player_damaged_riotshield_equipped())
+			{
+				self.hint_string = &"ZOMBIE_REPAIR_RIOTSHIELD";
+				return true;
+			}
+
+			self.hint_string = &"ZOMBIE_BUILD_PIECE_HAVE_ONE";
+			return false;
+		}
+
+		if (getdvarint("tu12_zombies_allow_hint_weapon_from_script"))
+		{
+			self.cursor_hint = "HINT_WEAPON";
+			self.cursor_hint_weapon = self.weaponname;
+		}
+
+		self.hint_string = self.trigger_hintstring;
+	}
+	else if (self.persistent == 2)
+	{
+		if (!maps\mp\zombies\_zm_weapons::limited_weapon_below_quota(self.weaponname, undefined))
+		{
+			self.hint_string = &"ZOMBIE_GO_TO_THE_BOX_LIMITED";
+			return false;
+		}
+		else if (isdefined(self.bought) && self.bought)
+		{
+			self.hint_string = &"ZOMBIE_GO_TO_THE_BOX";
+			return false;
+		}
+
+		self.hint_string = self.trigger_hintstring;
+	}
+	else
+	{
+		self.hint_string = "";
+		return false;
+	}
+
+	return true;
+}
+
+has_player_damaged_riotshield_equipped()
+{
+	return is_true(self.hasriotshield) && isdefined(self.shielddamagetaken) && self.shielddamagetaken > 0;
 }

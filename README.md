@@ -579,7 +579,7 @@
 ## Buildables
 * Added purchase cost
 * Parts automatically picked up
-* Can be built at any table on all maps
+* Can be built at any buildable table on all maps
 * Zombies no longer attack (except Zombie Shield)
 * Can no longer be destroyed by 2 grenades
 * Can be destroyed by taking 1500 damage
@@ -592,6 +592,7 @@
 ### Zombie Shield
 * Added shield health bar on HUD
 * Awards points for kills and damage
+* Can be repaired at buildable table (same cost as purchase cost)
 * Can be destroyed by player damage when deployed
 * Destroyed sound plays when player is holding
 * Deployed damage sound plays on shield instead of player
@@ -640,7 +641,7 @@
 ### Blundergat Upgrade
 * Player does knuckle crack anim during conversion
 * Requires player's current weapon to be the Blundergat to convert
-* Requires player to be looking at the table to convert
+* Requires player to be looking at the buildable table to convert
 
 ### Maxis Drone
 * Kills on any round in 1-4 shots (normally does 12000 damage max)

@@ -458,8 +458,17 @@ craftable_place_think()
 				continue;
 			}
 
+			riotshield_repair = 0;
+
 			if (player has_player_equipment(self.stub.weaponname))
-				continue;
+			{
+				if (!(self.stub.weaponname == level.riotshield_name && player scripts\zm\replaced\_zm_buildables::has_player_damaged_riotshield_equipped()))
+				{
+					continue;
+				}
+
+				riotshield_repair = 1;
+			}
 
 			if (isdefined(level.zombie_craftable_persistent_weapon))
 			{
@@ -487,7 +496,9 @@ craftable_place_think()
 				else if (self.stub.weaponname != "keys_zm")
 					player setactionslot(1, "weapon", self.stub.weaponname);
 
-				if (isdefined(level.zombie_craftablestubs[self.stub.equipname].str_taken))
+				if (riotshield_repair)
+					self.stub.hint_string = &"ZOMBIE_BOUGHT_RIOT_REPAIR";
+				else if (isdefined(level.zombie_craftablestubs[self.stub.equipname].str_taken))
 					self.stub.hint_string = level.zombie_craftablestubs[self.stub.equipname].str_taken;
 				else
 					self.stub.hint_string = "";
@@ -562,6 +573,12 @@ craftablestub_update_prompt(player, unitrigger)
 
 		if (player has_player_equipment(self.weaponname))
 		{
+			if (self.weaponname == level.riotshield_name && player scripts\zm\replaced\_zm_buildables::has_player_damaged_riotshield_equipped())
+			{
+				self.hint_string = &"ZOMBIE_REPAIR_RIOTSHIELD";
+				return true;
+			}
+
 			self.hint_string = &"ZOMBIE_BUILD_PIECE_HAVE_ONE";
 			return false;
 		}

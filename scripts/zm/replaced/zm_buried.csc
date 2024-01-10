@@ -45,7 +45,7 @@ start_zombie_stuff()
 	clientscripts\mp\zombies\_zm_weap_tazer_knuckles::init();
 	clientscripts\mp\zombies\_zm_weap_slowgun::init();
 
-	if (getdvar(#"createfx") != "")
+	if (getdvar("createfx") != "")
 		return;
 
 	if (level.scr_zm_ui_gametype == "zclassic")
