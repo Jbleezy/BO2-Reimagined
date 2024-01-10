@@ -47,7 +47,16 @@ grief_soul_catcher_state_manager()
 
 		self.souls_received = 0;
 		level thread wolf_spit_out_powerup();
-		wait 20;
+
+		if (is_gametype_active("zgrief"))
+		{
+			wait 20;
+		}
+		else
+		{
+			level waittill("between_round_over");
+		}
+
 		self thread soul_catcher_check();
 	}
 }
