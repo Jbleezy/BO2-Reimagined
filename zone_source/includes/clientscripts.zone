@@ -1,5 +1,6 @@
 script,scripts/zm/_zm_reimagined.csc
 script,scripts/zm/zm_buried/zm_buried_reimagined.csc
+script,scripts/zm/zm_prison/zm_prison_reimagined.csc
 script,scripts/zm/zgrief/zgrief_reimagined.csc
 script,scripts/zm/replaced/_zm.csc
 script,scripts/zm/replaced/_zm_weapons.csc

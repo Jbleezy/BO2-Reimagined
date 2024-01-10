@@ -16490,7 +16490,7 @@
 "guid" "112CA443"
 }
 {
-"script_string" " zclassic_perks_prison zgrief_perks_cellblock"
+"script_string" " zclassic_perks_prison zstandard_perks_cellblock zgrief_perks_cellblock"
 "targetname" "zm_perk_machine"
 "script_noteworthy" "specialty_fastreload"
 "angles" "0 270 0"
@@ -16500,7 +16500,7 @@
 "guid" "375B4685"
 }
 {
-"script_string" " zgrief_perks_cellblock"
+"script_string" " zstandard_perks_cellblock zgrief_perks_cellblock"
 "origin" "888 9057 1544.5"
 "model" "p6_anim_zm_buildable_pap"
 "classname" "script_struct"
@@ -16511,7 +16511,7 @@
 "guid" "4C900751"
 }
 {
-"script_string" " zgrief_perks_cellblock"
+"script_string" " zstandard_perks_cellblock zgrief_perks_cellblock"
 "classname" "script_struct"
 "model" "zombie_sign_please_wait"
 "angles" "0 3.18772e-006 -180"
@@ -16520,7 +16520,7 @@
 "guid" "284B1301"
 }
 {
-"script_string" " zgrief_perks_cellblock"
+"script_string" " zstandard_perks_cellblock zgrief_perks_cellblock"
 "angles" "0 180 0"
 "origin" "891.5 9069 1597.5"
 "script_sound" "mx_packa_jingle"
@@ -16595,7 +16595,7 @@
 "angles" "0 180 0"
 "script_noteworthy" "specialty_deadshot"
 "targetname" "zm_perk_machine"
-"script_string" " zgrief_perks_cellblock"
+"script_string" " zstandard_perks_cellblock zgrief_perks_cellblock"
 "guid" "73495CFC"
 }
 {
@@ -16613,7 +16613,7 @@
 "angles" "0 270 0"
 "script_noteworthy" "specialty_rof"
 "targetname" "zm_perk_machine"
-"script_string" "zgrief_perks_cellblock"
+"script_string" " zstandard_perks_cellblock zgrief_perks_cellblock"
 "guid" "D2CFC664"
 }
 {
@@ -18650,7 +18650,7 @@
 "angles" "0 0 0"
 "script_int" "2"
 "script_noteworthy" "initial_spawn"
-"script_string" "zgrief_cellblock"
+"script_string" "zstandard_cellblock zgrief_cellblock"
 "targetname" "pf3767_auto1"
 "guid" "E7561DF3"
 }
@@ -18662,7 +18662,7 @@
 "angles" "0 0 0"
 "script_int" "2"
 "script_noteworthy" "initial_spawn"
-"script_string" "zgrief_cellblock"
+"script_string" "zstandard_cellblock zgrief_cellblock"
 "targetname" "pf3767_auto1"
 "guid" "766976B6"
 }
@@ -18675,7 +18675,7 @@
 "guid" "7C0BD070"
 }
 {
-"script_string" "zgrief_cellblock"
+"script_string" "zstandard_cellblock zgrief_cellblock"
 "script_noteworthy" "initial_spawn"
 "script_int" "1"
 "angles" "0 180 0"
@@ -18694,12 +18694,12 @@
 "angles" "0 0 0"
 "script_int" "2"
 "script_noteworthy" "initial_spawn"
-"script_string" "zgrief_cellblock"
+"script_string" "zstandard_cellblock zgrief_cellblock"
 "targetname" "pf3767_auto1"
 "guid" "5CFE76A4"
 }
 {
-"script_string" "zgrief_cellblock"
+"script_string" "zstandard_cellblock zgrief_cellblock"
 "script_noteworthy" "initial_spawn"
 "script_int" "2"
 "angles" "0 0 0"
@@ -18718,14 +18718,14 @@
 "angles" "0 180 0"
 "script_int" "1"
 "script_noteworthy" "initial_spawn"
-"script_string" "zgrief_cellblock"
+"script_string" "zstandard_cellblock zgrief_cellblock"
 "targetname" "pf3767_auto1"
 "guid" "35FB84ED"
 }
 {
 "targetname" "player_respawn_point"
 "script_noteworthy" "zone_cellblock_west"
-"script_string" "zgrief_cellblock"
+"script_string" "zstandard_cellblock zgrief_cellblock"
 "origin" "904 9672 1470"
 "script_int" "2000"
 "radius" "2000"
@@ -18741,7 +18741,7 @@
 "angles" "0 0 0"
 "script_int" "2"
 "script_noteworthy" "initial_spawn"
-"script_string" "zgrief_cellblock"
+"script_string" "zstandard_cellblock zgrief_cellblock"
 "targetname" "pf3767_auto1"
 "guid" "0E0E4402"
 }
@@ -18753,13 +18753,13 @@
 "angles" "0 180 0"
 "script_int" "1"
 "script_noteworthy" "initial_spawn"
-"script_string" "zgrief_cellblock"
+"script_string" "zstandard_cellblock zgrief_cellblock"
 "targetname" "pf3767_auto1"
 "guid" "4DECB9CE"
 }
 {
 "targetname" "pf3767_auto1"
-"script_string" "zgrief_cellblock"
+"script_string" "zstandard_cellblock zgrief_cellblock"
 "script_noteworthy" "initial_spawn"
 "script_int" "1"
 "angles" "0 180 0"
@@ -18771,7 +18771,7 @@
 }
 {
 "targetname" "pf3767_auto1"
-"script_string" "zgrief_cellblock"
+"script_string" "zstandard_cellblock zgrief_cellblock"
 "script_noteworthy" "initial_spawn"
 "script_int" "1"
 "angles" "0 180 0"
@@ -21184,4 +21184,365 @@
 "classname" "script_struct"
 "targetname" "pf3764_auto40"
 "guid" "584BCB81"
+}
+{
+"origin" "0 0 0"
+"lutmaterial" "zm_prison_lut"
+"fsi" "zm_alcatraz"
+"lightingquality" "1000"
+"wsi" "zm_alcatraz"
+"newsun" "1"
+"classname" "worldspawn"
+"skyboxmodel" "skybox_zm_alcatraz"
+"guid" "1D2D59BC"
+}
+{
+"angles" "1.00052e-005 31.2 -2"
+"origin" "2157.57 9582.24 1614.48"
+"targetname" "game_mode_object"
+"script_string" "zstandard zgrief"
+"script_parameters" "p6_zm_al_bodybag"
+"script_noteworthy" "cellblock"
+"model" "p6_zm_al_bodybag"
+"classname" "script_struct"
+"guid" "E4C60006"
+}
+{
+"angles" "0.460225 178.909 117.588"
+"origin" "-193.79 8991.74 1365.81"
+"targetname" "game_mode_object"
+"script_string" "zstandard zgrief"
+"script_parameters" "p6_zm_al_bodybag"
+"script_noteworthy" "cellblock"
+"model" "p6_zm_al_bodybag"
+"classname" "script_struct"
+"guid" "CFFA1CE2"
+}
+{
+"classname" "script_struct"
+"model" "p6_zm_al_bodybag"
+"script_noteworthy" "cellblock"
+"script_parameters" "p6_zm_al_bodybag"
+"script_string" "zstandard zgrief"
+"targetname" "game_mode_object"
+"origin" "860.98 9017.61 1562"
+"angles" "0 89 0"
+"guid" "F60F1A58"
+}
+{
+"classname" "script_model"
+"model" "p6_zm_buildable_bench_tarp"
+"origin" "1345.37 9733.38 1544"
+"targetname" "buildables_tarp"
+"angles" "0 90 0"
+"guid" "E64652A3"
+}
+{
+"classname" "script_model"
+"model" "p6_zm_buildable_bench_tarp"
+"origin" "3373 9399 1336"
+"targetname" "buildables_tarp"
+"angles" "0 90 0"
+"guid" "45B18087"
+}
+{
+"classname" "script_struct"
+"model" "p6_zm_al_desk_small"
+"origin" "2166.06 9558.95 1558"
+"angles" "0 278.9 0"
+"script_noteworthy" "cellblock"
+"script_string" "zstandard zgrief"
+"targetname" "game_mode_object"
+"script_parameters" "p6_zm_al_desk_small"
+"guid" "8E2D8770"
+}
+{
+"classname" "script_struct"
+"model" "p6_zm_al_desk_small"
+"origin" "2167.23 9570.87 1611.77"
+"angles" "87.8 278.9 -5.86821e-006"
+"script_noteworthy" "cellblock"
+"script_string" "zstandard zgrief"
+"targetname" "game_mode_object"
+"script_parameters" "p6_zm_al_desk_small"
+"guid" "BA2AF9F4"
+}
+{
+"classname" "script_struct"
+"model" "p6_zm_al_desk_small"
+"angles" "0 83.9 0"
+"origin" "2134.42 9555.25 1558"
+"script_noteworthy" "cellblock"
+"script_string" "zstandard zgrief"
+"targetname" "game_mode_object"
+"script_parameters" "p6_zm_al_desk_small"
+"guid" "BC322779"
+}
+{
+"classname" "script_struct"
+"model" "p6_zm_al_desk_small"
+"origin" "2144.1 9598.73 1558"
+"angles" "0 188.9 0"
+"script_noteworthy" "cellblock"
+"script_string" "zstandard zgrief"
+"targetname" "game_mode_object"
+"script_parameters" "p6_zm_al_desk_small"
+"guid" "393EE186"
+}
+{
+"classname" "script_struct"
+"model" "p6_zm_al_desk_small"
+"origin" "2153 9604.18 1611.77"
+"angles" "87.8 233.9 -2.4623e-005"
+"script_noteworthy" "cellblock"
+"script_string" "zstandard zgrief"
+"targetname" "game_mode_object"
+"script_parameters" "p6_zm_al_desk_small"
+"guid" "D900B46E"
+}
+{
+"classname" "script_struct"
+"model" "p6_zm_al_desk_small"
+"angles" "0 353.9 0"
+"origin" "2140.4 9630.38 1558"
+"script_noteworthy" "cellblock"
+"script_string" "zstandard zgrief"
+"targetname" "game_mode_object"
+"script_parameters" "p6_zm_al_desk_small"
+"guid" "1F31A097"
+}
+{
+"angles" "0 303.483 0"
+"classname" "script_struct"
+"model" "mil_barbedwire2"
+"origin" "2155.77 9580.09 1599"
+"modelscale" ".75"
+"script_noteworthy" "cellblock"
+"script_string" "zstandard zgrief"
+"targetname" "game_mode_object"
+"script_parameters" "mil_barbedwire2"
+"guid" "02049387"
+}
+{
+"classname" "script_struct"
+"model" "p6_zm_al_surgery_cart"
+"angles" "1.00002 314.5 87"
+"origin" "2167.64 9638.81 1607.1"
+"script_noteworthy" "cellblock"
+"script_string" "zstandard zgrief"
+"targetname" "game_mode_object"
+"script_parameters" "p6_zm_al_surgery_cart"
+"guid" "87D75700"
+}
+{
+"classname" "script_struct"
+"model" "p6_zm_al_surgery_cart"
+"angles" "270 239.495 102.205"
+"origin" "2158.47 9546.8 1603"
+"script_noteworthy" "cellblock"
+"script_string" "zstandard zgrief"
+"targetname" "game_mode_object"
+"script_parameters" "p6_zm_al_surgery_cart"
+"guid" "16F16354"
+}
+{
+"origin" "-182.86 9019.02 1367.08"
+"model" "p6_zm_al_copypaper_box_open"
+"classname" "script_struct"
+"angles" "348.31 97.8555 -1.6033"
+"script_noteworthy" "cellblock"
+"script_string" "zstandard zgrief"
+"targetname" "game_mode_object"
+"script_parameters" "p6_zm_al_copypaper_box_open"
+"guid" "4042D323"
+}
+{
+"classname" "script_struct"
+"model" "p6_zm_al_laundry_bag_pile_64"
+"origin" "947.47 9052.49 1544"
+"angles" "0 179.918 0"
+"modelscale" ".85"
+"script_noteworthy" "cellblock"
+"script_string" "zstandard zgrief"
+"targetname" "game_mode_object"
+"script_parameters" "p6_zm_al_laundry_bag_pile_64"
+"guid" "98B32E9F"
+}
+{
+"classname" "script_struct"
+"model" "zm_al_kitchen_table_01"
+"angles" "294.4 8.46521e-008 93.6002"
+"origin" "914.65 9028.67 1596.08"
+"script_noteworthy" "cellblock"
+"script_string" "zstandard zgrief"
+"targetname" "game_mode_object"
+"script_parameters" "zm_al_kitchen_table_01"
+"guid" "1AE46219"
+}
+{
+"origin" "953.95 9000.42 1566.64"
+"model" "berlin_com_pallet"
+"classname" "script_struct"
+"angles" "70.6 185.859 0.0628668"
+"script_noteworthy" "cellblock"
+"script_string" "zstandard zgrief"
+"targetname" "game_mode_object"
+"script_parameters" "berlin_com_pallet"
+"guid" "38E2835C"
+}
+{
+"angles" "1.60619 165.837 178.716"
+"origin" "831.44 9081.08 1587.92"
+"model" "p6_zm_al_horrific_bed_mattress_3"
+"classname" "script_struct"
+"script_noteworthy" "cellblock"
+"script_string" "zstandard zgrief"
+"targetname" "game_mode_object"
+"script_parameters" "p6_zm_al_horrific_bed_mattress_3"
+"guid" "39D51406"
+}
+{
+"classname" "script_struct"
+"model" "mil_barbedwire2"
+"origin" "858.76 9018.4 1607"
+"angles" "0 0 0"
+"modelscale" ".75"
+"script_noteworthy" "cellblock"
+"script_string" "zstandard zgrief"
+"targetname" "game_mode_object"
+"script_parameters" "mil_barbedwire2"
+"guid" "EE8BBB86"
+}
+{
+"angles" "90 261 -7.28034e-006"
+"classname" "script_struct"
+"model" "p6_zm_al_infirmary_bed_frame"
+"origin" "862.52 9028.97 1601.32"
+"script_noteworthy" "cellblock"
+"script_string" "zstandard zgrief"
+"targetname" "game_mode_object"
+"script_parameters" "p6_zm_al_infirmary_bed_frame"
+"guid" "61CEC8D6"
+}
+{
+"modelscale" ".75"
+"origin" "862.71 9016.26 1600.08"
+"model" "afr_corrugated_metal4x8_holes"
+"classname" "script_struct"
+"angles" "85.1876 285.151 114.28"
+"script_noteworthy" "cellblock"
+"script_string" "zstandard zgrief"
+"targetname" "game_mode_object"
+"script_parameters" "afr_corrugated_metal4x8_holes"
+"guid" "FE4B1D11"
+}
+{
+"origin" "859.01 9032.68 1544.5"
+"model" "zm_al_kitchen_table_01"
+"classname" "script_struct"
+"script_noteworthy" "cellblock"
+"script_string" "zstandard zgrief"
+"targetname" "game_mode_object"
+"script_parameters" "zm_al_kitchen_table_01"
+"angles" "0 0 0"
+"guid" "4FFEC056"
+}
+{
+"angles" "0 231.646 0"
+"origin" "965.58 9066.25 1544"
+"model" "p6_zm_al_laundry_bag"
+"classname" "script_struct"
+"script_noteworthy" "cellblock"
+"script_string" "zstandard zgrief"
+"targetname" "game_mode_object"
+"script_parameters" "p6_zm_al_laundry_bag"
+"guid" "B4614162"
+}
+{
+"angles" "0 71.8 2.50448e-006"
+"origin" "823.63 9058.64 1544.23"
+"model" "p6_zm_al_surgery_cart"
+"classname" "script_struct"
+"script_noteworthy" "cellblock"
+"script_string" "zstandard zgrief"
+"targetname" "game_mode_object"
+"script_parameters" "p6_zm_al_surgery_cart"
+"guid" "D1F663C2"
+}
+{
+"origin" "-206.19 8993.18 1333.13"
+"model" "zm_al_kitchen_table_01"
+"classname" "script_struct"
+"angles" "0 357.1 -86.2"
+"script_noteworthy" "cellblock"
+"script_string" "zstandard zgrief"
+"targetname" "game_mode_object"
+"script_parameters" "zm_al_kitchen_table_01"
+"guid" "69DD9750"
+}
+{
+"angles" "7.51518e-006 177.1 -61.8"
+"origin" "-191.09 9010.02 1356.83"
+"model" "p6_zm_al_infirmary_bed_frame"
+"classname" "script_struct"
+"script_noteworthy" "cellblock"
+"script_string" "zstandard zgrief"
+"targetname" "game_mode_object"
+"script_parameters" "p6_zm_al_infirmary_bed_frame"
+"guid" "8007C1EF"
+}
+{
+"classname" "script_struct"
+"model" "p6_zm_al_desk_small"
+"origin" "-228.09 9007.06 1397.86"
+"angles" "353.636 56.2894 -176.214"
+"script_noteworthy" "cellblock"
+"script_string" "zstandard zgrief"
+"targetname" "game_mode_object"
+"script_parameters" "p6_zm_al_desk_small"
+"guid" "3638D2FB"
+}
+{
+"angles" "5.99662 175.932 179.65"
+"classname" "script_struct"
+"model" "mil_barbedwire2"
+"origin" "-212.67 9020.39 1417.05"
+"modelscale" ".75"
+"script_noteworthy" "cellblock"
+"script_string" "zstandard zgrief"
+"targetname" "game_mode_object"
+"script_parameters" "mil_barbedwire2"
+"guid" "7FB67FAE"
+}
+{
+"angles" "273.108 175.067 -175.398"
+"classname" "script_struct"
+"model" "mil_barbedwire2"
+"origin" "-153.8 9012.33 1367.96"
+"modelscale" ".75"
+"script_noteworthy" "cellblock"
+"script_string" "zstandard zgrief"
+"targetname" "game_mode_object"
+"script_parameters" "mil_barbedwire2"
+"guid" "17E6D694"
+}
+{
+"origin" "1769.1 10697 1334"
+"model" "zombie_vending_three_gun_on"
+"classname" "script_struct"
+"angles" "0 1.00179e-005 0"
+"script_noteworthy" "specialty_additionalprimaryweapon"
+"targetname" "zm_perk_machine"
+"script_string" " zstandard_perks_cellblock zgrief_perks_cellblock"
+"guid" "5C944D7E"
+}
+{
+"origin" "373.1 10691 1336"
+"model" "zombie_vending_nuke_on"
+"classname" "script_struct"
+"angles" "0 1.00179e-005 0"
+"script_noteworthy" "specialty_flakjacket"
+"targetname" "zm_perk_machine"
+"script_string" " zstandard_perks_cellblock zgrief_perks_cellblock"
+"guid" "F8E3FE1D"
 }

@@ -1,1 +1,9 @@
+fx,misc/fx_zombie_cola_arsenal_on
 image,specialty_mulekick_zombies
+material,specialty_additionalprimaryweapon_zombies
+image,~-gmtl_t6_zmb_perk_bottle_mul~af598fa4
+material,mc/mtl_t6_wpn_zmb_perk_bottle_mule_kick
+material,mc/mtl_t6_wpn_zmb_perk_bottle_mule_kick_alpha
+xmodel,t6_wpn_zmb_perk_bottle_mule_kick_view
+xmodel,t6_wpn_zmb_perk_bottle_mule_kick_world
+weapon,zombie_perk_bottle_additionalprimaryweapon

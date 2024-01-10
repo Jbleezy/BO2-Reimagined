@@ -571,13 +571,18 @@ function UpdateGameScoreboard(ScoreboardWidget)
 				end
 				if CoD.isZombie == true then
 					local GamemodeGroup = UIExpression.DvarString(nil, "ui_zm_gamemodegroup")
+					local Mapname = CoD.Zombie.GetUIMapName()
 					if GamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZCLASSIC then
 						FactionColorR = CoD.Zombie.SingleTeamColor.r
 						FactionColorG = CoD.Zombie.SingleTeamColor.g
 						FactionColorB = CoD.Zombie.SingleTeamColor.b
 					elseif GamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZSURVIVAL then
 						if CoD.Zombie.IsSurvivalUsingCIAModel == true then
-							FactionColorR, FactionColorG, FactionColorB = Engine.GetFactionColor("cia")
+							if Mapname == CoD.Zombie.MAP_ZM_PRISON then
+								FactionColorR, FactionColorG, FactionColorB = Engine.GetFactionColor("inmates")
+							else
+								FactionColorR, FactionColorG, FactionColorB = Engine.GetFactionColor("cia")
+							end
 						end
 					end
 				end
@@ -780,8 +785,8 @@ ScoreboardUpdateTeamElement = function (TeamElement, FactionTeam, FactionColorR,
 		TeamElement.teamScore:setText(ScoreboardTeam.score)
 		if CoD.isZombie == true then
 			local GamemodeGroup = UIExpression.DvarString(nil, "ui_zm_gamemodegroup")
+			local Mapname = CoD.Zombie.GetUIMapName()
 			if GamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZCLASSIC then
-				local Mapname = CoD.Zombie.GetUIMapName()
 				if Mapname == CoD.Zombie.MAP_ZM_TOMB then
 					TeamElement.factionIcon:setImage(RegisterMaterial("faction_tomb"))
 				elseif Mapname == CoD.Zombie.MAP_ZM_BURIED then
@@ -797,7 +802,11 @@ ScoreboardUpdateTeamElement = function (TeamElement, FactionTeam, FactionColorR,
 				if Dvar.ui_gametype:get() == CoD.Zombie.GAMETYPE_ZCLEANSED and ScoreboardTeam.team == CoD.TEAM_AXIS then
 					TeamElement.factionIcon:setImage(RegisterMaterial("faction_zombie"))
 				elseif CoD.Zombie.IsSurvivalUsingCIAModel == true then
-					TeamElement.factionIcon:setImage(RegisterMaterial("faction_cia"))
+					if Mapname == CoD.Zombie.MAP_ZM_PRISON then
+						TeamElement.factionIcon:setImage(RegisterMaterial("faction_inmates"))
+					else
+						TeamElement.factionIcon:setImage(RegisterMaterial("faction_cia"))
+					end
 				end
 			elseif GamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
 				if Dvar.ui_gametype:get() == CoD.Zombie.GAMETYPE_ZCLEANSED and ScoreboardTeam.team == CoD.TEAM_AXIS then

@@ -61,6 +61,13 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_weap_tomahawk::tomahawk_return_player, scripts\zm\replaced\_zm_weap_tomahawk::tomahawk_return_player);
 	replaceFunc(maps\mp\zombies\_zm_zonemgr::manage_zones, ::manage_zones);
 
+	if (is_gametype_active("zstandard"))
+	{
+		level.zombiemode_using_additionalprimaryweapon_perk = 1;
+		level.zombiemode_using_divetonuke_perk = 1;
+		maps\mp\zombies\_zm_perk_divetonuke::enable_divetonuke_perk_for_level();
+	}
+
 	door_changes();
 }
 

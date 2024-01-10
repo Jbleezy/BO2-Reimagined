@@ -671,6 +671,7 @@
 * Ends the game
 
 ## Maps
+* All locations can be played on Survival and Grief game modes
 * All quests can be completed with any amount of players
 * All quests give players all perks on completion
 
@@ -712,12 +713,10 @@
 * Fixed zombie pathing at Town in Bookstore
 
 #### Bus Depot
-* Added Grief game mode
 * Lava in starting area activates immediately
 * Lava pit is accessible
 
 #### Diner
-* Added Survival and Grief game modes
 * Wallbuys: M14, MP5, Remington 870, Galvaknuckles
 * Perks: Juggernog, Quick Revive, Speed Cola, Double Tap
 * No Pack-a-Punch
@@ -728,7 +727,6 @@
 * Replaced Galvaknuckles wallbuy with Claymore wallbuy (also added to Grief)
 
 #### Power Station
-* Added Survival and Grief game modes
 * Wallbuys: M14, Olympia, MP5, AK74u, Remington 870, Bowie Knife
 * Perks: Juggernog, Quick Revive, Speed Cola, Double Tap, Tombstone Soda
 * Pack-a-Punch
@@ -739,14 +737,12 @@
 * Moved Tombstone Soda to the laundry room front door
 
 #### Tunnel
-* Added Survival and Grief game modes
 * Wallbuys: M14, Olympia, AK74u, M16, Semtex, Bowie Knife
 * Added Mystery Box location
 * Perks: Juggernog, Quick Revive, Speed Cola, Double Tap, Stamin-Up
 * Pack-a-Punch
 
 #### Cornfield
-* Added Survival and Grief game modes
 * Wallbuys: M14, Olympia, B23R, MP5, AK74u, M16, Remington 870, Semtex, Claymore
 * Added Mystery Box location
 * No perks
@@ -831,7 +827,6 @@
 * Fixed locked hint string not showing on Blundergat Upgrade buildable table
 
 #### Docks
-* Added Grief game mode
 * Wallbuys: M14, Olympia, MP5, Uzi, M1927
 * Perks: Juggernog
 * Pack-a-Punch
@@ -877,7 +872,6 @@
 * Added better randomization for buildables
 
 #### Maze
-* Added Grief game mode
 * Wallbuys: M14, Olympia, B23R, PDW, AN94, LSAT
 * Perks: Juggernog, Quick Revive, Speed Cola, Double Tap, Stamin-Up, Mule Kick
 * Pack-a-Punch
