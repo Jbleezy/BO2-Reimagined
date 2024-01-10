@@ -717,7 +717,7 @@
 
 #### Diner
 * Added Survival and Grief game modes
-* Wallbuys: M14, Olympia, MP5, Galvaknuckles
+* Wallbuys: M14, MP5, Remington 870, Galvaknuckles
 * Perks: Juggernog, Quick Revive, Speed Cola, Double Tap
 * No Pack-a-Punch
 
