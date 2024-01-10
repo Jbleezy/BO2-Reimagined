@@ -449,8 +449,6 @@ set_client_dvars()
 
 	self setClientDvar("aim_automelee_enabled", 0);
 
-	self setClientDvar("cg_drawBreathHint", 0);
-
 	self setClientDvar("g_friendlyfireDist", 0);
 
 	self setClientDvar("cg_friendlyNameFadeIn", 0);
@@ -469,8 +467,6 @@ set_client_dvars()
 	self setClientDvar("r_dof_enable", 0);
 	self setClientDvar("r_lodBiasRigid", -1000);
 	self setClientDvar("r_lodBiasSkinned", -1000);
-
-	self setClientDvar("cg_ufo_scaler", 1);
 }
 
 set_perks()
