@@ -2021,7 +2021,7 @@ updatebuildables()
 {
 	foreach (stub in level._unitriggers.trigger_stubs)
 	{
-		if (IsDefined(stub.equipname))
+		if (IsDefined(stub.equipname) && stub.equipname != "chalk")
 		{
 			stub.cost = stub get_equipment_cost();
 			stub.trigger_func = scripts\zm\replaced\_zm_buildables_pooled::pooled_buildable_place_think;
