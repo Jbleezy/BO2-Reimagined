@@ -841,6 +841,7 @@
 * Noose and Guillotine parts automatically picked up
 * Moved MSMC wallbuy to its location on Borough
 * Moved buildable wallbuy in Courthouse to AN-94 wallbuy location on Borough
+* Adjusted buildable wallbuy positions
 * Drawing weapons no longer gives points
 * Arthur barricades are buyable debris
 * Arthur can be purchased to feed him candy and make him run around and kill zombies for 30 seconds

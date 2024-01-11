@@ -136,6 +136,7 @@ wallbuy_callback_idx(localclientnum, oldval, newval, bnewent, binitialsnap, fiel
 			if (isdefined(level.buildable_wallbuy_weapon_models[weaponname]))
 				model = level.buildable_wallbuy_weapon_models[weaponname];
 
+			origin = target_struct.origin;
 			angles = target_struct.angles;
 
 			if (isdefined(level.buildable_wallbuy_weapon_angles[weaponname]))
@@ -156,9 +157,18 @@ wallbuy_callback_idx(localclientnum, oldval, newval, bnewent, binitialsnap, fiel
 				}
 			}
 
-			target_model = spawn_weapon_model(localclientnum, weaponname, model, target_struct.origin, angles);
+			if (isdefined(level.buildable_wallbuy_weapon_offsets[weaponname]))
+			{
+				offset = level.buildable_wallbuy_weapon_offsets[weaponname];
+
+				origin += (anglestoforward(angles) * offset[0]) + (anglestoright(angles) * offset[1]) + (anglestoup(angles) * offset[2]);
+			}
+
+			target_model = spawn_weapon_model(localclientnum, weaponname, model, origin, angles);
 			target_model hide();
 			target_model.parent_struct = target_struct;
+
+			target_model.parent_struct.origin = origin;
 
 			target_model offset_model(weaponname);
 
@@ -175,7 +185,7 @@ wallbuy_callback_idx(localclientnum, oldval, newval, bnewent, binitialsnap, fiel
 			if (isdefined(level._effect[weaponname + "_fx"]))
 				fx = level._effect[weaponname + "_fx"];
 
-			struct.fx[localclientnum] = playfx(localclientnum, fx, struct.origin, anglestoforward(struct.angles), anglestoup(struct.angles), 0.1);
+			struct.fx[localclientnum] = playfx(localclientnum, fx, origin, anglestoforward(angles), anglestoup(angles), 0.1);
 			level notify("wallbuy_updated");
 		}
 	}

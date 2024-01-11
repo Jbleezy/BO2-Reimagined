@@ -14,6 +14,9 @@ init()
 prepare_chalk_weapon_list()
 {
 	level.buildable_wallbuy_weapons = [];
+	level.buildable_wallbuy_weapon_models = [];
+	level.buildable_wallbuy_weapon_angles = [];
+	level.buildable_wallbuy_weapon_offsets = [];
 
 	if (getdvar("ui_zm_mapstartlocation") == "maze")
 	{
@@ -43,8 +46,16 @@ prepare_chalk_weapon_list()
 		level.buildable_wallbuy_weapons[5] = "870mcs_zm";
 	}
 
-	level.buildable_wallbuy_weapon_models = [];
-	level.buildable_wallbuy_weapon_angles = [];
+	level.buildable_wallbuy_weapon_offsets["vector_zm"] = (2, 0, 0);
+	level.buildable_wallbuy_weapon_offsets["an94_zm"] = (4, 0, 0);
+	level.buildable_wallbuy_weapon_offsets["pdw57_zm"] = (10, 0, 0);
+	level.buildable_wallbuy_weapon_offsets["svu_zm"] = (8, 0, 0);
+	level.buildable_wallbuy_weapon_offsets["tazer_knuckles_zm"] = (0, 0, 0);
+	level.buildable_wallbuy_weapon_offsets["870mcs_zm"] = (3, 0, 0);
+	level.buildable_wallbuy_weapon_offsets["saritch_zm"] = (3, 0, 0);
+	level.buildable_wallbuy_weapon_offsets["ballista_zm"] = (0, 0, 0);
+	level.buildable_wallbuy_weapon_offsets["beretta93r_zm"] = (8, 0, 0);
+	level.buildable_wallbuy_weapon_offsets["lsat_zm"] = (8, 0, 0);
 
 	foreach (buildable_wallbuy_weapon in level.buildable_wallbuy_weapons)
 	{
