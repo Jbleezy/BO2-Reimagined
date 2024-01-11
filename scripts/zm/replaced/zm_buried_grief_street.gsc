@@ -21,18 +21,6 @@ precache()
 	precachemodel("zm_collision_buried_street_grief");
 	precachemodel("p6_zm_bu_buildable_bench_tarp");
 
-	trig = spawn("script_model", (1288, 1485, 59));
-	trig.angles = (0, 0, 0);
-	trig.script_angles = (0, 70, 0);
-	trig.targetname = "headchopper_buildable_trigger";
-	trig.target = "buildable_headchopper";
-
-	ent = spawn("script_model", (1271.89, 1495.38, 77.78));
-	ent.angles = (61.5365, 340.343, 0.216167);
-	ent.targetname = "buildable_headchopper";
-	ent.target = "headchopper_bench";
-	ent setmodel("t6_wpn_zmb_chopper");
-
 	level.chalk_buildable_pieces_hide = 1;
 	griefbuildables = array("chalk", "turbine", "springpad_zm", "subwoofer_zm", "headchopper_zm");
 	maps\mp\zm_buried_buildables::include_buildables(griefbuildables);

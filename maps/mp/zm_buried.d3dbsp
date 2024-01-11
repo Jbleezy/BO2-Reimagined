@@ -11406,7 +11406,7 @@
 "target" "buildable_turbine"
 "classname" "trigger_use"
 "targetname" "turbine_buildable_trigger"
-"script_gameobjectname" "zclassic zgrief"
+"script_gameobjectname" "zclassic zstandard zgrief"
 "script_location" "processing street"
 "script_angles" "0 90 0"
 "guid" "AAFE088E"
@@ -11417,7 +11417,7 @@
 "target" "buildable_subwoofer"
 "targetname" "subwoofer_zm_buildable_trigger"
 "classname" "trigger_use"
-"script_gameobjectname" "zclassic zgrief"
+"script_gameobjectname" "zclassic zstandard zgrief"
 "script_angles" "0 180 0"
 "script_location" "processing street"
 "guid" "27EE2AA0"
@@ -11438,7 +11438,8 @@
 "target" "buildable_headchopper"
 "classname" "trigger_use"
 "targetname" "headchopper_buildable_trigger"
-"script_gameobjectname" "zclassic"
+"script_gameobjectname" "zclassic zstandard zgrief"
+"script_location" "processing street"
 "script_angles" "0 70 0"
 "guid" "9400B034"
 }
@@ -11466,7 +11467,7 @@
 "model" "p6_anim_zm_buildable_view_tramplesteam"
 "classname" "script_model"
 "targetname" "buildable_springpad"
-"script_gameobjectname" "zclassic zgrief"
+"script_gameobjectname" "zclassic zstandard zgrief"
 "script_location" "processing street"
 "guid" "FB39E3C9"
 }
@@ -11501,7 +11502,7 @@
 "model" "p6_anim_zm_buildable_turbine"
 "angles" "1.00179e-005 2.50448e-006 -1.32111e-005"
 "origin" "-348.5 744 188"
-"script_gameobjectname" "zclassic zgrief"
+"script_gameobjectname" "zclassic zstandard zgrief"
 "script_location" "processing street"
 "guid" "ED5BE537"
 }
@@ -11567,7 +11568,7 @@
 }
 {
 "target" "subwoofer_bench"
-"script_gameobjectname" "zclassic zgrief"
+"script_gameobjectname" "zclassic zstandard zgrief"
 "origin" "665.78 -1138.42 99.15"
 "angles" "0 270 -0.000276555"
 "model" "t6_wpn_zmb_subwoofer"
@@ -11600,7 +11601,8 @@
 "model" "p6_anim_zm_buildable_tramplesteam"
 "angles" "61.5365 340.343 0.216167"
 "origin" "1271.89 1495.38 77.78"
-"script_gameobjectname" "zclassic"
+"script_gameobjectname" "zclassic zstandard zgrief"
+"script_location" "processing street"
 "guid" "78482AAD"
 }
 {
@@ -11673,7 +11675,7 @@
 "target" "buildable_springpad"
 "targetname" "springpad_zm_buildable_trigger"
 "classname" "trigger_use"
-"script_gameobjectname" "zclassic zgrief"
+"script_gameobjectname" "zclassic zstandard zgrief"
 "script_angles" "0 90 0"
 "script_location" "processing street"
 "guid" "087688C3"
@@ -20553,7 +20555,7 @@
 "guid" "77CAE415"
 }
 {
-"script_gameobjectname" "zclassic zgrief"
+"script_gameobjectname" "zclassic zstandard zgrief"
 "origin" "-474.72 -1508.07 150"
 "script_noteworthy" "gunshop_chest_zbarrier"
 "type" "zmcore_MagicBox"
@@ -20582,7 +20584,7 @@
 "guid" "97AC858B"
 }
 {
-"script_gameobjectname" "zclassic zgrief"
+"script_gameobjectname" "zclassic zstandard zgrief"
 "origin" "-796.26 -89.04 303"
 "script_noteworthy" "tunnels_chest1_zbarrier"
 "type" "zmcore_MagicBox"
@@ -20611,7 +20613,7 @@
 "guid" "A08322A6"
 }
 {
-"script_gameobjectname" "zclassic zgrief"
+"script_gameobjectname" "zclassic zstandard zgrief"
 "origin" "-1009.74 618.04 158"
 "script_noteworthy" "jail_chest1_zbarrier"
 "type" "zmcore_MagicBox"
@@ -20640,7 +20642,7 @@
 "guid" "232AB47B"
 }
 {
-"script_gameobjectname" "zclassic zgrief"
+"script_gameobjectname" "zclassic zstandard zgrief"
 "origin" "425.77 1375.15 158"
 "script_noteworthy" "courtroom_chest1_zbarrier"
 "type" "zmcore_MagicBox"
@@ -20694,7 +20696,7 @@
 "type" "zmcore_MagicBox"
 "script_noteworthy" "maze_chest2_zbarrier"
 "origin" "5605.74 276.96 17"
-"script_gameobjectname" "zclassic zgrief"
+"script_gameobjectname" "zclassic zstandard zgrief"
 "guid" "C1E2E663"
 }
 {
@@ -20732,7 +20734,7 @@
 "type" "zmcore_MagicBox"
 "script_noteworthy" "maze_chest1_zbarrier"
 "origin" "4127.04 1271.74 17"
-"script_gameobjectname" "zclassic zgrief"
+"script_gameobjectname" "zclassic zstandard zgrief"
 "guid" "9D602221"
 }
 {
@@ -20754,7 +20756,7 @@
 "guid" "7DD3C53B"
 }
 {
-"script_gameobjectname" "zclassic zgrief"
+"script_gameobjectname" "zclassic zstandard zgrief"
 "origin" "-61.47 642.64 -8"
 "script_noteworthy" "start_chest_zbarrier"
 "type" "zmcore_MagicBox"
