@@ -24282,7 +24282,7 @@
 "script_location" "church"
 "script_noteworthy" "zclassic_processing, zstandard_street, zgrief_street"
 "org_model" "_prefabs/mp/zm_core/spawnable_weapon_beretta93r.map"
-"origin" "1612.47 1457.17 255"
+"origin" "1615.77 1468.87 255"
 "angles" "0 70.2 0"
 "model" "p6_zm_bu_chalk"
 "classname" "script_struct"
@@ -24291,10 +24291,10 @@
 }
 {
 "model" "*154"
-"origin" "1592 1466 253"
+"origin" "1595.3 1477.7 253"
 "script_location" "church"
 "org_model" "_prefabs/mp/zm_core/spawnable_weapon_beretta93r.map"
-"script_angles" "0 90 0"
+"script_angles" "0 70.2 0"
 "targetname" "chalk_buildable_trigger"
 "script_noteworthy" "chalk_wallbuy"
 "script_width" "50"
@@ -24313,7 +24313,7 @@
 "zombie_weapon_upgrade" "dynamic"
 "classname" "script_struct"
 "angles" "0 70.2 0"
-"origin" "1612.47 1457.17 255"
+"origin" "1615.77 1468.87 255"
 "guid" "4C32F822"
 }
 {
@@ -24437,7 +24437,7 @@
 "org_model" "_prefabs/mp/zm_core/spawnable_weapon_pdw57.map"
 "script_noteworthy" "zclassic_processing, zstandard_street, zgrief_street"
 "script_location" "prison"
-"origin" "-931.75 510.5 62"
+"origin" "-921.75 510.5 62"
 "angles" "0 180 0"
 "model" "p6_zm_bu_chalk"
 "classname" "script_struct"
@@ -24446,7 +24446,7 @@
 }
 {
 "model" "*158"
-"origin" "-933 488 60"
+"origin" "-923 488 60"
 "org_model" "_prefabs/mp/zm_core/spawnable_weapon_pdw57.map"
 "script_location" "prison"
 "script_angles" "0 90 0"
@@ -24468,7 +24468,7 @@
 "zombie_weapon_upgrade" "dynamic"
 "classname" "script_struct"
 "angles" "0 180 0"
-"origin" "-931.75 510.5 62"
+"origin" "-921.75 510.5 62"
 "guid" "4C32F822"
 }
 {
