@@ -24240,7 +24240,7 @@
 }
 {
 "script_location" "morgue"
-"script_noteworthy" "zclassic_processing"
+"script_noteworthy" "zclassic_processing, zstandard_street, zgrief_street"
 "org_model" "_prefabs/mp/zm_core/spawnable_weapon_an94.map"
 "origin" "-272 886.5 198"
 "angles" "0 180 0"
@@ -24266,7 +24266,7 @@
 }
 {
 "script_location" "morgue"
-"script_noteworthy" "zclassic_processing"
+"script_noteworthy" "zclassic_processing, zstandard_street, zgrief_street"
 "org_model" "_prefabs/mp/zm_core/spawnable_weapon_an94.map"
 "target" "pf733_auto37"
 "targetname" "buildable_wallbuy"
@@ -24278,7 +24278,7 @@
 }
 {
 "script_location" "church"
-"script_noteworthy" "zclassic_processing"
+"script_noteworthy" "zclassic_processing, zstandard_street, zgrief_street"
 "org_model" "_prefabs/mp/zm_core/spawnable_weapon_beretta93r.map"
 "origin" "1612.47 1457.17 255"
 "angles" "0 70.2 0"
@@ -24304,7 +24304,7 @@
 }
 {
 "script_location" "church"
-"script_noteworthy" "zclassic_processing"
+"script_noteworthy" "zclassic_processing, zstandard_street, zgrief_street"
 "org_model" "_prefabs/mp/zm_core/spawnable_weapon_beretta93r.map"
 "target" "pf734_auto37"
 "targetname" "buildable_wallbuy"
@@ -24316,7 +24316,7 @@
 }
 {
 "script_location" "bar"
-"script_noteworthy" "zclassic_processing"
+"script_noteworthy" "zclassic_processing, zstandard_street, zgrief_street"
 "org_model" "_prefabs/mp/zm_core/spawnable_weapon_bowie.map"
 "origin" "557.93 -1119.41 262"
 "angles" "0 1.00179e-005 0"
@@ -24342,7 +24342,7 @@
 }
 {
 "script_location" "bar"
-"script_noteworthy" "zclassic_processing"
+"script_noteworthy" "zclassic_processing, zstandard_street, zgrief_street"
 "org_model" "_prefabs/mp/zm_core/spawnable_weapon_bowie.map"
 "target" "pf735_auto37"
 "targetname" "buildable_wallbuy"
@@ -24432,46 +24432,8 @@
 "guid" "1A88F438"
 }
 {
-"org_model" "_prefabs/mp/zm_core/spawnable_weapon_tazer.map"
-"script_noteworthy" "zclassic_processing"
-"script_location" "courthouse"
-"origin" "599 986.5 234"
-"angles" "0 90 0"
-"model" "p6_zm_bu_chalk"
-"classname" "script_struct"
-"targetname" "pf739_auto37"
-"guid" "25D19C25"
-}
-{
-"model" "*157"
-"origin" "577 988 232"
-"org_model" "_prefabs/mp/zm_core/spawnable_weapon_tazer.map"
-"script_location" "courthouse"
-"script_angles" "0 90 0"
-"targetname" "chalk_buildable_trigger"
-"script_noteworthy" "chalk_wallbuy"
-"script_width" "50"
-"script_length" "12"
-"script_height" "50"
-"classname" "trigger_use"
-"target" "pf739_auto37"
-"guid" "4507649F"
-}
-{
-"org_model" "_prefabs/mp/zm_core/spawnable_weapon_tazer.map"
-"script_noteworthy" "zclassic_processing"
-"script_location" "courthouse"
-"target" "pf739_auto37"
-"targetname" "buildable_wallbuy"
-"zombie_weapon_upgrade" "dynamic"
-"classname" "script_struct"
-"angles" "0 90 0"
-"origin" "599 986.5 234"
-"guid" "4C32F822"
-}
-{
 "org_model" "_prefabs/mp/zm_core/spawnable_weapon_pdw57.map"
-"script_noteworthy" "zclassic_processing"
+"script_noteworthy" "zclassic_processing, zstandard_street, zgrief_street"
 "script_location" "prison"
 "origin" "-931.75 510.5 62"
 "angles" "0 180 0"
@@ -24497,7 +24459,7 @@
 }
 {
 "org_model" "_prefabs/mp/zm_core/spawnable_weapon_pdw57.map"
-"script_noteworthy" "zclassic_processing"
+"script_noteworthy" "zclassic_processing, zstandard_street, zgrief_street"
 "script_location" "prison"
 "target" "pf740_auto37"
 "targetname" "buildable_wallbuy"
@@ -24508,56 +24470,46 @@
 "guid" "4C32F822"
 }
 {
-"script_location" "street"
-"script_noteworthy" "zstandard_street, zgrief_street"
-"org_model" "_prefabs/mp/zm_core/spawnable_weapon_dynamic.map"
-"angles" "0 180 0"
-"origin" "-926.25 510.5 68"
+"script_location" "mansion"
+"script_noteworthy" "zclassic_processing, zstandard_street, zgrief_street"
+"org_model" "_prefabs/mp/zm_core/spawnable_weapon_ak74u.map"
+"origin" "2354 381.25 142"
+"angles" "0 90 0"
+"model" "p6_zm_bu_chalk"
 "classname" "script_struct"
-"zombie_weapon_upgrade" "ballista_zm"
-"targetname" "weapon_upgrade"
-"target" "pf741_auto37"
-"guid" "F0390DB3"
+"targetname" "me7_auto37"
+"guid" "25D19C25"
 }
 {
-"script_location" "street"
-"script_noteworthy" "zstandard_street, zgrief_street"
-"org_model" "_prefabs/mp/zm_core/spawnable_weapon_dynamic.map"
-"targetname" "pf741_auto37"
-"classname" "script_struct"
-"model" "t6_wpn_sniper_ballista_world"
-"angles" "0 180 0"
-"origin" "-926.25 510.5 68"
-"guid" "6D2A1B25"
+"origin" "2332 382 140"
+"script_location" "mansion"
+"org_model" "_prefabs/mp/zm_core/spawnable_weapon_ak74u.map"
+"script_angles" "0 90 0"
+"targetname" "chalk_buildable_trigger"
+"script_noteworthy" "chalk_wallbuy"
+"script_width" "50"
+"script_length" "12"
+"script_height" "50"
+"classname" "trigger_use"
+"target" "me7_auto37"
+"guid" "4507649F"
 }
 {
-"script_location" "street"
-"script_noteworthy" "zstandard_street, zgrief_street"
-"org_model" "_prefabs/mp/zm_core/spawnable_weapon_dynamic.map"
-"origin" "609.5 772.75 54"
-"angles" "0 270 0"
-"model" "t6_wpn_ar_saritch_world"
+"script_location" "mansion"
+"script_noteworthy" "zclassic_processing, zstandard_street, zgrief_street"
+"org_model" "_prefabs/mp/zm_core/spawnable_weapon_ak74u.map"
+"target" "me7_auto37"
+"targetname" "buildable_wallbuy"
+"zombie_weapon_upgrade" "dynamic"
 "classname" "script_struct"
-"targetname" "pf742_auto37"
-"guid" "7004ED06"
-}
-{
-"script_location" "street"
-"script_noteworthy" "zstandard_street, zgrief_street"
-"org_model" "_prefabs/mp/zm_core/spawnable_weapon_dynamic.map"
-"script_width" "40"
-"origin" "609.5 772.75 54"
-"angles" "0 270 0"
-"classname" "script_struct"
-"zombie_weapon_upgrade" "saritch_zm"
-"targetname" "weapon_upgrade"
-"target" "pf742_auto37"
-"guid" "C15AD568"
+"angles" "0 90 0"
+"origin" "2354 381.25 142"
+"guid" "4C32F822"
 }
 {
 "org_model" "_prefabs/mp/zm_core/spawnable_weapon_dynamic.map"
 "script_location" "street"
-"script_noteworthy" "zstandard_street, zgrief_street"
+"script_noteworthy" "zclassic_processing, zstandard_street, zgrief_street"
 "angles" "0 270 0"
 "origin" "1.1 1201.9 68"
 "classname" "script_struct"
@@ -24569,7 +24521,7 @@
 {
 "org_model" "_prefabs/mp/zm_core/spawnable_weapon_dynamic.map"
 "script_location" "street"
-"script_noteworthy" "zstandard_street, zgrief_street"
+"script_noteworthy" "zclassic_processing, zstandard_street, zgrief_street"
 "targetname" "pf743_auto37"
 "classname" "script_struct"
 "model" "t6_wpn_smg_msmc_world"
@@ -24578,28 +24530,7 @@
 "guid" "6D2A1B25"
 }
 {
-"script_noteworthy" "zclassic_processing"
-"script_location" "street"
-"angles" "0 90 0"
-"origin" "2354.5 736.25 148"
-"classname" "script_struct"
-"zombie_weapon_upgrade" "insas_zm"
-"targetname" "weapon_upgrade"
-"target" "pf744_auto37"
-"guid" "F0390DB3"
-}
-{
-"script_noteworthy" "zclassic_processing"
-"script_location" "street"
-"targetname" "pf744_auto37"
-"classname" "script_struct"
-"model" "t6_wpn_smg_msmc_world"
-"angles" "0 90 0"
-"origin" "2354.5 736.25 148"
-"guid" "6D2A1B25"
-}
-{
-"script_noteworthy" "zclassic_processing"
+"script_noteworthy" "zclassic_processing, zstandard_street, zgrief_street"
 "script_location" "street"
 "origin" "-765.434 -925.25 67.0034"
 "angles" "360 270 2.00007"
@@ -24632,7 +24563,7 @@
 }
 {
 "script_location" "street"
-"script_noteworthy" "zclassic_processing"
+"script_noteworthy" "zclassic_processing, zstandard_street, zgrief_street"
 "targetname" "pf746_auto37"
 "classname" "script_struct"
 "model" "t6_wpn_claymore_world"
@@ -24642,7 +24573,7 @@
 "guid" "EE921301"
 }
 {
-"script_noteworthy" "zclassic_processing"
+"script_noteworthy" "zclassic_processing, zstandard_street, zgrief_street"
 "script_location" "street"
 "origin" "675.25 -1119.5 117"
 "angles" "0 1.00179e-005 0"
@@ -24675,7 +24606,7 @@
 "guid" "ED8E28B4"
 }
 {
-"script_noteworthy" "zclassic_processing"
+"script_noteworthy" "zclassic_processing, zstandard_street, zgrief_street"
 "script_location" "street"
 "script_int" "-45"
 "targetname" "pf748_auto37"
@@ -24684,6 +24615,53 @@
 "angles" "0 45 0"
 "origin" "1096.71 -1841.71 181"
 "guid" "D1EECB49"
+}
+{
+"script_location" "street"
+"script_noteworthy" "zstandard_street, zgrief_street"
+"org_model" "_prefabs/mp/zm_core/spawnable_weapon_dynamic.map"
+"origin" "609.5 772.75 54"
+"angles" "0 270 0"
+"model" "t6_wpn_ar_saritch_world"
+"classname" "script_struct"
+"targetname" "pf742_auto37"
+"guid" "7004ED06"
+}
+{
+"script_location" "street"
+"script_noteworthy" "zstandard_street, zgrief_street"
+"org_model" "_prefabs/mp/zm_core/spawnable_weapon_dynamic.map"
+"script_width" "40"
+"origin" "609.5 772.75 54"
+"angles" "0 270 0"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "saritch_zm"
+"targetname" "weapon_upgrade"
+"target" "pf742_auto37"
+"guid" "C15AD568"
+}
+{
+"script_location" "street"
+"script_noteworthy" "zstandard_street, zgrief_street"
+"org_model" "_prefabs/mp/zm_core/spawnable_weapon_dynamic.map"
+"angles" "0 180 0"
+"origin" "-241 -353 204"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "tazer_knuckles_zm"
+"targetname" "tazer_upgrade"
+"target" "pf741_auto37"
+"guid" "F0390DB3"
+}
+{
+"script_location" "street"
+"script_noteworthy" "zstandard_street, zgrief_street"
+"org_model" "_prefabs/mp/zm_core/spawnable_weapon_dynamic.map"
+"targetname" "pf741_auto37"
+"classname" "script_struct"
+"model" "t6_wpn_taser_knuckles_view"
+"angles" "0 180 0"
+"origin" "-241 -353 204"
+"guid" "6D2A1B25"
 }
 {
 "model" "*159"

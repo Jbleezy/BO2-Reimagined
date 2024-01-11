@@ -197,43 +197,6 @@
 "guid" "DDE3A4A3"
 }
 {
-"script_location" "mansion"
-"script_noteworthy" "zgrief_street"
-"org_model" "_prefabs/mp/zm_core/spawnable_weapon_ak74u.map"
-"origin" "2354 381.25 142"
-"angles" "0 90 0"
-"model" "p6_zm_bu_chalk"
-"classname" "script_struct"
-"targetname" "me7_auto37"
-"guid" "25D19C25"
-}
-{
-"origin" "2332 382 140"
-"script_location" "mansion"
-"org_model" "_prefabs/mp/zm_core/spawnable_weapon_ak74u.map"
-"script_angles" "0 90 0"
-"targetname" "chalk_buildable_trigger"
-"script_noteworthy" "chalk_wallbuy"
-"script_width" "50"
-"script_length" "12"
-"script_height" "50"
-"classname" "trigger_use"
-"target" "me7_auto37"
-"guid" "4507649F"
-}
-{
-"script_location" "mansion"
-"script_noteworthy" "zgrief_street"
-"org_model" "_prefabs/mp/zm_core/spawnable_weapon_ak74u.map"
-"target" "me7_auto37"
-"targetname" "buildable_wallbuy"
-"zombie_weapon_upgrade" "dynamic"
-"classname" "script_struct"
-"angles" "0 90 0"
-"origin" "2354 381.25 142"
-"guid" "4C32F822"
-}
-{
 "origin" "2328 936.5 88"
 "model" "zombie_vending_doubletap2"
 "classname" "script_struct"

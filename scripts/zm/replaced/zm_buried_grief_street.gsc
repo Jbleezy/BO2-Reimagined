@@ -1,3 +1,4 @@
+#include maps\mp\zm_buried_grief_street;
 #include maps\mp\gametypes_zm\_zm_gametype;
 #include maps\mp\zombies\_zm_buildables;
 #include maps\mp\zombies\_zm_magicbox;
@@ -105,68 +106,11 @@ street_treasure_chest_init()
 
 builddynamicwallbuys()
 {
+	builddynamicwallbuy("prison", "ballista_zm");
 	builddynamicwallbuy("morgue", "pdw57_zm");
+	builddynamicwallbuy("bar", "vector_zm");
 	builddynamicwallbuy("church", "svu_zm");
 	builddynamicwallbuy("mansion", "an94_zm");
-
-	level notify("dynamicwallbuysbuilt");
-}
-
-builddynamicwallbuy(location, weaponname)
-{
-	foreach (stub in level.chalk_builds)
-	{
-		wallbuy = getstruct(stub.target, "targetname");
-
-		if (isDefined(wallbuy.script_location) && wallbuy.script_location == location)
-		{
-			spawned_wallbuy = undefined;
-
-			for (i = 0; i < level._spawned_wallbuys.size; i++)
-			{
-				if (level._spawned_wallbuys[i].target == wallbuy.targetname)
-				{
-					spawned_wallbuy = level._spawned_wallbuys[i];
-					break;
-				}
-			}
-
-			if (!isDefined(spawned_wallbuy))
-			{
-				origin = wallbuy.origin;
-
-				// center wallbuy chalk and model, and adjust wallbuy trigger
-				if (weaponname == "pdw57_zm")
-				{
-					origin += anglesToForward(wallbuy.angles) * 12;
-					wallbuy.origin += anglesToForward(wallbuy.angles) * 3;
-				}
-				else if (weaponname == "svu_zm")
-				{
-					origin += anglesToForward(wallbuy.angles) * 24;
-					wallbuy.origin += anglesToForward(wallbuy.angles) * 15;
-				}
-
-				struct = spawnStruct();
-
-				struct.target = wallbuy.targetname;
-				level._spawned_wallbuys[level._spawned_wallbuys.size] = struct;
-
-				// move model foreward so it always shows in front of chalk
-				model = spawn_weapon_model(weaponname, undefined, origin + anglesToRight(wallbuy.angles) * -0.25, wallbuy.angles);
-				model.targetname = struct.target;
-				model setmodel(getWeaponModel(weaponname));
-				model useweaponhidetags(weaponname);
-				model hide();
-
-				chalk_fx = scripts\zm\replaced\utility::get_chalk_fx_name(weaponname);
-				thread scripts\zm\replaced\utility::play_chalk_fx(chalk_fx, origin, wallbuy.angles);
-			}
-
-			maps\mp\zombies\_zm_weapons::add_dynamic_wallbuy(weaponname, wallbuy.targetname, 1);
-			thread wait_and_remove(stub, stub.buildablezone.pieces[0]);
-		}
-	}
 }
 
 buildbuildables()

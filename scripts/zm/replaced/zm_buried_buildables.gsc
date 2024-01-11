@@ -35,6 +35,21 @@ prepare_chalk_weapon_list()
 			level.buildable_wallbuy_pickup_hints[buildable_wallbuy_weapon] = undefined;
 		}
 	}
+	else if (getdvar("ui_zm_mapstartlocation") == "street")
+	{
+		level.buildable_wallbuy_weapons[0] = "vector_zm";
+		level.buildable_wallbuy_weapons[1] = "an94_zm";
+		level.buildable_wallbuy_weapons[2] = "pdw57_zm";
+		level.buildable_wallbuy_weapons[3] = "svu_zm";
+		level.buildable_wallbuy_weapons[4] = "ballista_zm";
+		level.buildable_wallbuy_weapons[5] = "870mcs_zm";
+
+		foreach (buildable_wallbuy_weapon in level.buildable_wallbuy_weapons)
+		{
+			level.buildable_wallbuy_weapon_hints[buildable_wallbuy_weapon] = undefined;
+			level.buildable_wallbuy_pickup_hints[buildable_wallbuy_weapon] = undefined;
+		}
+	}
 	else
 	{
 		level.buildable_wallbuy_weapons[0] = "vector_zm";

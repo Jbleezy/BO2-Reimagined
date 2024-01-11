@@ -200,7 +200,6 @@
 
 ### SMR
 * Replaces M14
-* Removed from Mystery Box
 * Removed aim spread
 * Unupgraded: increased damage from 80 to 100
 * Unupgraded: decreased clip ammo from 20 to 10
@@ -275,7 +274,7 @@
 ## Shotguns
 * Increased penetration
 
-### Remington 870
+### Remington 870 MCS
 * Changed weapon cost from 900 or 1500 to 1200 on all maps
 
 ## Launchers
@@ -611,7 +610,7 @@
 * Gets destroyed after being deployed for 30 seconds
 * Kills on any round (normally stops killing after round 50)
 * Kills zombies instantly
-* No longer kills players without Juggernog instantly
+* No longer kills players without Jugger-Nog instantly
 * Decreased player damage from 75 to 25
 * Decreased player shellshock time from 2.5 seconds to 1.25 seconds
 * Decreased startup time from 2 seconds to 0.5 seconds
@@ -634,7 +633,7 @@
 * Kills zombies when placed on a ceiling
 * Increased damage trigger width by 100%
 * No longer deals damage during retract anims
-* Changed head chop player damage to 50 (normally instantly kills without Juggernog or deals 15 damage with Juggernog)
+* Changed head chop player damage to 50 (normally instantly kills without Jugger-Nog or deals 15 damage with Jugger-Nog)
 * Changed body chop player damage to 25 (normally deals 75 damage to torso or 37 damage to feet)
 * Fixed an issue where each chop would only damage entities that were touching the damage trigger during the previous chop
 
@@ -717,18 +716,18 @@
 * Lava pit is accessible
 
 #### Diner
-* Wallbuys: M14, MP5, Remington 870, Galvaknuckles
-* Perks: Juggernog, Quick Revive, Speed Cola, Double Tap
+* Wallbuys: SMR, MSMC, Remington 870 MCS, Galvaknuckles
+* Perks: Jugger-Nog, Quick Revive, Speed Cola, Double Tap
 * No Pack-a-Punch
 
 #### Farm
 * Zombies spawn in the Farm zone when in the Barn zone
-* Replaced Olympia wallbuy with Remington 870 wallbuy
+* Replaced Ballista wallbuy with Remington 870 MCS wallbuy
 * Replaced Galvaknuckles wallbuy with Claymore wallbuy (also added to Grief)
 
 #### Power Station
-* Wallbuys: M14, Olympia, MP5, AK74u, Remington 870, Bowie Knife
-* Perks: Juggernog, Quick Revive, Speed Cola, Double Tap, Tombstone Soda
+* Wallbuys: SMR, Ballista, MSMC, Vector, Remington 870 MCS, Bowie Knife
+* Perks: Jugger-Nog, Quick Revive, Speed Cola, Double Tap, Tombstone Soda
 * Pack-a-Punch
 
 #### Town
@@ -737,13 +736,13 @@
 * Moved Tombstone Soda to the laundry room front door
 
 #### Tunnel
-* Wallbuys: M14, Olympia, AK74u, M16, Semtex, Bowie Knife
+* Wallbuys: SMR, Ballista, Vector, SWAT-556 Semtex, Bowie Knife
 * Added Mystery Box location
-* Perks: Juggernog, Quick Revive, Speed Cola, Double Tap, Stamin-Up
+* Perks: Jugger-Nog, Quick Revive, Speed Cola, Double Tap, Stamin-Up
 * Pack-a-Punch
 
 #### Cornfield
-* Wallbuys: M14, Olympia, B23R, MP5, AK74u, M16, Remington 870, Semtex, Claymore
+* Wallbuys: SMR, Ballista, B23R, MSMC, Vector, SWAT-556 Remington 870 MCS, Semtex, Claymore
 * Added Mystery Box location
 * No perks
 * Pack-a-Punch
@@ -831,8 +830,8 @@
 * Fixed the electric fence in the Warden's Office making noise when bumping into it
 
 #### Docks
-* Wallbuys: M14, Olympia, MP5, Uzi, M1927
-* Perks: Juggernog
+* Wallbuys: SMR, Ballista, MSMC, Uzi, M1927
+* Perks: Jugger-Nog
 * Pack-a-Punch
 * Grief: Tower Trap targets and stuns players
 
@@ -840,6 +839,8 @@
 * Removed Turbine, key, booze, and candy
 * Power automatically on
 * Noose and Guillotine parts automatically picked up
+* Moved MSMC wallbuy to its location on Borough
+* Moved buildable wallbuy in Courthouse to AN-94 wallbuy location on Borough
 * Drawing weapons no longer gives points
 * Arthur barricades are buyable debris
 * Arthur can be purchased to feed him candy and make him run around and kill zombies for 30 seconds
@@ -847,7 +848,7 @@
 * Ghosts no longer drop free perk powerup if any player gets damaged by the ghosts
 * Fountain portal automatically active
 * Players no longer take fall damage after using the fountain teleporter
-* Players can no longer get into the corner next to Juggernog
+* Players can no longer get into the corner next to Jugger-Nog
 * Removed buildable table hint icons
 * Added buildable table hint strings on buildable purchase
 * Quest: all 5 signs must be meleed for wisp to spawn
@@ -865,9 +866,11 @@
 * Upper tunnels and bank area disabled
 * Players spawn at Stables
 * Mystery Box initially spawns at a random location
-* Added B23R, M16, Claymore, and Bowie Knife wallbuys at their locations on Buried
-* Added PDW wallbuy at Morgue
-* Added SVU wallbuy at Church
+* Added B23R, SWAT-556, Claymore, and Bowie Knife wallbuys at their locations on Buried
+* Added PDW-57 wallbuy at Morgue
+* Added Vector wallbuy at Saloon
+* Added SVU-AS wallbuy at Church
+* Added Galvaknuckles wallbuy behind the top of General Store & Bank
 * Moved Quick Revive to Speed Cola's location on Borough
 * Moved Speed Cola to its location on Buried
 * Moved Stamin-Up to Vulture Aid's location on Buried
@@ -876,10 +879,10 @@
 * Added better randomization for buildables
 
 #### Maze
-* Wallbuys: M14, Olympia, B23R, PDW, AN94, LSAT
-* Perks: Juggernog, Quick Revive, Speed Cola, Double Tap, Stamin-Up, Mule Kick
+* Wallbuys: SMR, Ballista, B23R, PDW-57, AN-94, LSAT
+* Perks: Jugger-Nog, Quick Revive, Speed Cola, Double Tap, Stamin-Up, Mule Kick
 * Pack-a-Punch
-* Perk and wallbuy locations within the maze are randomized each game
+* Perks and wallbuys within the maze are randomized each game
 
 ### Origins
 * Door prices in solo cost the same as in coop
