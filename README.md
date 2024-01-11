@@ -839,6 +839,7 @@
 * Removed Turbine, key, booze, and candy
 * Power automatically on
 * Noose and Guillotine parts automatically picked up
+* Remington 870 MCS wallbuy chalk automatically drawn in the Center Tunnels zone
 * Moved MSMC wallbuy to its location on Borough
 * Moved buildable wallbuy in Courthouse to AN-94 wallbuy location on Borough
 * Adjusted buildable wallbuy positions
@@ -868,6 +869,7 @@
 * Players spawn at Stables
 * Mystery Box initially spawns at a random location
 * Added B23R, SWAT-556, Claymore, and Bowie Knife wallbuys at their locations on Buried
+* Added Remington 870 MCS wallbuy at Stables
 * Added PDW-57 wallbuy at Morgue
 * Added Vector wallbuy at Saloon
 * Added SVU-AS wallbuy at Church

@@ -11714,15 +11714,6 @@
 "guid" "D9663C8A"
 }
 {
-"angles" "0 1.00179e-005 0"
-"script_noteworthy" "870mcs_zm"
-"targetname" "chalk_p6_zm_bu_chalk"
-"origin" "-805 -470.7 341"
-"classname" "script_struct"
-"model" "p6_zm_bu_chalk"
-"guid" "688A8E97"
-}
-{
 "angles" "0 2.50448e-006 0"
 "script_noteworthy" "an94_zm"
 "targetname" "chalk_p6_zm_bu_chalk"
@@ -24640,6 +24631,30 @@
 "zombie_weapon_upgrade" "saritch_zm"
 "targetname" "weapon_upgrade"
 "target" "pf742_auto37"
+"guid" "C15AD568"
+}
+{
+"script_location" "street"
+"script_noteworthy" "zstandard_street, zgrief_street"
+"org_model" "_prefabs/mp/zm_core/spawnable_weapon_dynamic.map"
+"origin" "-688 -375 153"
+"angles" "5 0 0"
+"model" "t6_wpn_shotty_870mcs_world"
+"classname" "script_struct"
+"targetname" "pf742_auto38"
+"guid" "7004ED06"
+}
+{
+"script_location" "street"
+"script_noteworthy" "zstandard_street, zgrief_street"
+"org_model" "_prefabs/mp/zm_core/spawnable_weapon_dynamic.map"
+"script_width" "40"
+"origin" "-688 -375 153"
+"angles" "5 0 0"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "870mcs_zm"
+"targetname" "weapon_upgrade"
+"target" "pf742_auto38"
 "guid" "C15AD568"
 }
 {

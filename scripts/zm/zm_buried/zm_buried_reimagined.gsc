@@ -77,6 +77,7 @@ init()
 	sloth_barricades_buyable();
 	add_jug_collision();
 
+	level thread build_870mcs_wallbuy();
 	level thread remove_chalk_draw_points();
 	level thread enable_fountain_transport();
 	level thread disable_ghost_free_perk_on_damage();
@@ -335,6 +336,20 @@ sloth_barricade_move()
 		self rotateto(angles, time);
 		wait(time - 0.05);
 	}
+}
+
+build_870mcs_wallbuy()
+{
+	if (!is_gametype_active("zclassic"))
+	{
+		return;
+	}
+
+	flag_wait("initial_blackscreen_passed");
+
+	wait 1;
+
+	maps\mp\zm_buried_gamemodes::builddynamicwallbuy("stablesroof", "870mcs_zm");
 }
 
 remove_chalk_draw_points()
