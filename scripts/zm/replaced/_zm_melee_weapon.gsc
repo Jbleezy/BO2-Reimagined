@@ -106,6 +106,7 @@ change_melee_weapon(weapon_name, current_weapon)
 	if (isDefined(current_melee_weapon) && current_melee_weapon != weapon_name)
 	{
 		self takeweapon(current_melee_weapon);
+		self takeweapon("held_" + current_melee_weapon);
 		unacquire_weapon_toggle(current_melee_weapon);
 	}
 
