@@ -146,7 +146,7 @@ player_initial_spawn_override()
 			struct.radius = respawn.radius;
 			struct.script_int = respawn.script_int;
 			struct.script_noteworthy = "initial_spawn";
-			struct.script_string = "zgrief_street";
+			struct.script_string = "zstandard_street zgrief_street";
 
 			if (struct.origin == (-875.5, -33.85, 139.25))
 			{

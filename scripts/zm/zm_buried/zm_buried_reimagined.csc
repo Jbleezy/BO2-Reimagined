@@ -3,6 +3,7 @@
 
 main()
 {
+	replaceFunc(clientscripts\mp\zm_buried::init_gamemodes, scripts\zm\replaced\zm_buried::init_gamemodes);
 	replaceFunc(clientscripts\mp\zm_buried::start_zombie_stuff, scripts\zm\replaced\zm_buried::start_zombie_stuff);
 }
 

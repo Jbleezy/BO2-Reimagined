@@ -27,6 +27,19 @@
 #include clientscripts\mp\zombies\_zm_equip_subwoofer;
 #include clientscripts\mp\zombies\_zm_equip_headchopper;
 
+init_gamemodes()
+{
+	clientscripts\mp\zombies\_zm_turned::init();
+	add_map_gamemode("zclassic", undefined, undefined);
+	add_map_gamemode("zstandard", undefined, undefined);
+	add_map_gamemode("zgrief", undefined, undefined);
+	add_map_gamemode("zcleansed", clientscripts\mp\zombies\_zm_turned::precache, clientscripts\mp\zombies\_zm_turned::main);
+	add_map_location_gamemode("zclassic", "processing", clientscripts\mp\zm_buried_classic::precache, clientscripts\mp\zm_buried_classic::premain, clientscripts\mp\zm_buried_classic::main);
+	add_map_location_gamemode("zstandard", "street", clientscripts\mp\zm_buried_grief_street::precache, clientscripts\mp\zm_buried_grief_street::premain, clientscripts\mp\zm_buried_grief_street::main);
+	add_map_location_gamemode("zgrief", "street", clientscripts\mp\zm_buried_grief_street::precache, clientscripts\mp\zm_buried_grief_street::premain, clientscripts\mp\zm_buried_grief_street::main);
+	add_map_location_gamemode("zcleansed", "street", clientscripts\mp\zm_buried_turned_street::precache, clientscripts\mp\zm_buried_turned_street::premain, clientscripts\mp\zm_buried_turned_street::main);
+}
+
 start_zombie_stuff()
 {
 	include_weapons();

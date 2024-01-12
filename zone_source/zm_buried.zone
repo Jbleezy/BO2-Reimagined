@@ -2,6 +2,8 @@
 >type,fastfile
 >name,zm_buried
 
+include,includes/so_zencounter_zm_buried
+
 include,includes/saritch_zm
 include,includes/ray_gun_zm
 include,includes/cymbal_monkey_zm
