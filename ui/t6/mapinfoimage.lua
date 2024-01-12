@@ -237,8 +237,9 @@ CoD.MapInfoImage.ZombieUpdate = function (f6_arg0, f6_arg1, f6_arg2)
 		if f6_local0 == "" then
 			f6_local0 = CoD.Zombie.START_LOCATION_TRANSIT
 		end
+		local materialName = GetMapMaterialName(f6_arg1, f6_local1, f6_local0)
 		f6_arg0.mapImage:registerAnimationState("change_map", {
-			material = RegisterMaterial("menu_" .. f6_arg1 .. "_" .. f6_local1 .. "_" .. f6_local0),
+			material = RegisterMaterial(materialName),
 			alpha = 1
 		})
 		f6_arg0.mapImage:animateToState("change_map", 100)
@@ -266,6 +267,37 @@ CoD.MapInfoImage.ZombieUpdate = function (f6_arg0, f6_arg1, f6_arg2)
 		f6_arg0.gameTypeText:setText(f6_local3)
 	end
 	CoD.MapInfoImage.DLCWarningUpdate(f6_arg0)
+end
+
+function GetMapMaterialName(map, gamemode, location)
+	if map == "zm_transit" and gamemode ~= "zclassic" then
+		gamemode = "zsurvival"
+	end
+
+	if location == "diner" then
+		gamemode = "zencounter"
+	end
+
+	if location == "power" or location == "tunnel" or location == "cornfield" then
+		gamemode = "zsurvival"
+		location = "transit"
+	end
+
+	if location == "nuked" then
+		gamemode = "zsurvival"
+	end
+
+	if location == "cellblock" or location == "docks" then
+		gamemode = "zencounter"
+		location = "cellblock"
+	end
+
+	if location == "street" or location == "maze" then
+		gamemode = "zencounter"
+		location = "street"
+	end
+
+	return "menu_" .. map .. "_" .. gamemode .. "_" .. location
 end
 
 function GetGriefModeDisplayName()
