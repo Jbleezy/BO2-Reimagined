@@ -346,7 +346,14 @@ set_grief_vars()
 
 	if (getDvar("ui_gametype_team_change") == "")
 	{
-		setDvar("ui_gametype_team_change", 0);
+		if (isDedicated())
+		{
+			setDvar("ui_gametype_team_change", 0);
+		}
+		else
+		{
+			setDvar("ui_gametype_team_change", 1);
+		}
 	}
 
 	level.allow_teamchange = getDvarInt("ui_gametype_team_change");

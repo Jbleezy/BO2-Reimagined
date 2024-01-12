@@ -1033,9 +1033,9 @@
 * Players retain perks
 
 ### Encounter Pro
-* Removed unlimited sprint
-* Removed Mystery Box
-* Removed Pack-a-Punch
+* No Mystery Box
+* No Pack-a-Punch
+* Limited sprint
 
 ## Launching New Maps
 
