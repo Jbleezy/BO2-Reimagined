@@ -250,7 +250,7 @@ LUI.createMenu.DPadArea = function (f1_arg0)
 	Widget:registerEventHandler("hud_update_team_change", CoD.DPadArea.UpdateTeamChange)
 	if CoD.isPC then
 		Widget:registerEventHandler("input_source_changed", CoD.DPadArea.InputSourceChanged)
-		if CoD.useController and Engine.LastInput_Gamepad() then
+		if CoD.useController and Engine.LastInput_Gamepad() or UIExpression.DvarBool(nil, "hud_dpad_controller") == 1 then
 			CoD.DPadArea.InputSourceChanged(Widget, {
 				source = 0
 			})
@@ -369,7 +369,8 @@ CoD.DPadArea.UpdateActionSlots = function (f2_arg0, f2_arg1)
 					f2_local8:setText(f2_local9.ammo)
 					Widget:addElement(f2_local8)
 				end
-				if CoD.isPC then
+				if CoD.isPC and UIExpression.DvarBool(nil, "hud_dpad_controller") == 0 then
+					local f2_local10 = 200
 					local f2_local8 = nil
 					if f2_local4 == 1 then
 						f2_local8 = {
@@ -379,8 +380,8 @@ CoD.DPadArea.UpdateActionSlots = function (f2_arg0, f2_arg1)
 							right = 0,
 							topAnchor = false,
 							bottomAnchor = false,
-							top = -f2_local11 / 2 - f2_local4 * f2_local11,
-							bottom = f2_local11 / 2 - f2_local4 * f2_local11,
+							top = -f2_local11 / 2 - f2_local4 * f2_local11 - f2_local10,
+							bottom = f2_local11 / 2 - f2_local4 * f2_local11 - f2_local10,
 							alignment = LUI.Alignment.Right
 						}
 					elseif f2_local4 == 3 then
@@ -391,8 +392,8 @@ CoD.DPadArea.UpdateActionSlots = function (f2_arg0, f2_arg1)
 							right = 0,
 							topAnchor = false,
 							bottomAnchor = false,
-							top = -f2_local11 / 2 - f2_local4 * f2_local11,
-							bottom = f2_local11 / 2 - f2_local4 * f2_local11,
+							top = -f2_local11 / 2 - f2_local4 * f2_local11 - f2_local10,
+							bottom = f2_local11 / 2 - f2_local4 * f2_local11 - f2_local10,
 							alignment = LUI.Alignment.Right
 						}
 					elseif f2_local4 == 2 then
@@ -403,8 +404,8 @@ CoD.DPadArea.UpdateActionSlots = function (f2_arg0, f2_arg1)
 							right = 0,
 							topAnchor = false,
 							bottomAnchor = true,
-							top = -f2_local11 / 2 - f2_local4 * f2_local11,
-							bottom = f2_local11 / 2 - f2_local4 * f2_local11,
+							top = -f2_local11 / 2 - f2_local4 * f2_local11 - f2_local10,
+							bottom = f2_local11 / 2 - f2_local4 * f2_local11 - f2_local10,
 							alignment = LUI.Alignment.Right
 						}
 					elseif f2_local4 == 4 then
@@ -415,8 +416,8 @@ CoD.DPadArea.UpdateActionSlots = function (f2_arg0, f2_arg1)
 							right = 0,
 							topAnchor = false,
 							bottomAnchor = true,
-							top = -f2_local11 / 2 - f2_local4 * f2_local11,
-							bottom = f2_local11 / 2 - f2_local4 * f2_local11,
+							top = -f2_local11 / 2 - f2_local4 * f2_local11 - f2_local10,
+							bottom = f2_local11 / 2 - f2_local4 * f2_local11 - f2_local10,
 							alignment = LUI.Alignment.Right
 						}
 					end
@@ -431,7 +432,7 @@ CoD.DPadArea.UpdateActionSlots = function (f2_arg0, f2_arg1)
 						Widget.keyPrompt:setAlignment(LUI.Alignment.Right)
 						Widget:registerAnimationState("KeyPrompt", f2_local8)
 						Widget:addElement(Widget.keyPrompt)
-						if CoD.useController and Engine.LastInput_Gamepad() then
+						if CoD.useController and Engine.LastInput_Gamepad() or UIExpression.DvarBool(nil, "hud_dpad_controller") == 1 then
 							CoD.DPadArea.ActionSlotInputSourceChanged(Widget, {
 								source = 0
 							})
@@ -526,7 +527,7 @@ end
 
 CoD.DPadArea.ActionSlotInputSourceChanged = function (f8_arg0, f8_arg1)
 	if CoD.isPC then
-		if CoD.useController and f8_arg1.source == 0 then
+		if CoD.useController and f8_arg1.source == 0 or UIExpression.DvarBool(nil, "hud_dpad_controller") == 1 then
 			f8_arg0:animateToState("default")
 			if f8_arg0.keyPrompt ~= nil then
 				f8_arg0.keyPrompt:setAlpha(0)
@@ -543,20 +544,11 @@ end
 
 CoD.DPadArea.InputSourceChanged = function (f9_arg0, f9_arg1)
 	if CoD.isPC then
-		if CoD.useController and f9_arg1.source == 0 then
-			if f9_arg0.carouselArrows ~= nil then
-				f9_arg0.carouselArrows:setAlpha(1)
-			end
-			if f9_arg0.circleBackground ~= nil then
-				f9_arg0.circleBackground:setAlpha(1)
-			end
-		else
-			if f9_arg0.carouselArrows ~= nil then
-				f9_arg0.carouselArrows:setAlpha(0)
-			end
-			if f9_arg0.circleBackground ~= nil then
-				f9_arg0.circleBackground:setAlpha(0)
-			end
+		if f9_arg0.carouselArrows ~= nil then
+			f9_arg0.carouselArrows:setAlpha(1)
+		end
+		if f9_arg0.circleBackground ~= nil then
+			f9_arg0.circleBackground:setAlpha(0)
 		end
 		if f9_arg0.actionSlots ~= nil then
 			for f9_local3, f9_local4 in pairs(f9_arg0.actionSlots) do

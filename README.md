@@ -29,6 +29,7 @@
 * Zone name displayed on bottom left of screen - `hud_zone_name`
 * Added proper game mode and map name to scoreboard
 * Added icons on scoreboard when player is downed, bled out, in Who's Who mode, or in afterlife
+* Moved keyboard and mouse dpad icons to their positions from Origins on all maps
 * Increased waypoint offset from top of screen
 * Changed player waypoint location to be center of player instead of top of player
 * Increased distance between revive waypoint arrow and icon

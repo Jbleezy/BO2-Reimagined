@@ -1,3 +1,15 @@
+if UIExpression.DvarString(nil, "ui_gametype_obj") == "" then
+	Engine.SetDvar("ui_gametype_obj", "")
+end
+
+if UIExpression.DvarString(nil, "ui_gametype_pro") == "" then
+	Engine.SetDvar("ui_gametype_pro", 0)
+end
+
+if UIExpression.DvarString(nil, "ui_round_number") == "" then
+	Engine.SetDvar("ui_round_number", 0)
+end
+
 local SCOREBOARD_BACKGROUND_OPACITY = 0.7
 local SCOREBOARD_COLUMN_BACKGROUND_OPACITY = 0.2
 local f0_local6 = 337
@@ -30,18 +42,6 @@ local f0_local40 = CoD.MPZM(0, 4 * f0_local29)
 local f0_local41 = f0_local40
 local SCOREBOARD_MAX_ROWS = CoD.MPZM(23, 18)
 local IsDLCMap2, IsDLCMap4, IsClassic = nil, nil, nil
-
-if UIExpression.DvarString(nil, "ui_gametype_obj") == "" then
-	Engine.SetDvar("ui_gametype_obj", "")
-end
-
-if UIExpression.DvarString(nil, "ui_gametype_pro") == "" then
-	Engine.SetDvar("ui_gametype_pro", 0)
-end
-
-if UIExpression.DvarString(nil, "ui_round_number") == "" then
-	Engine.SetDvar("ui_round_number", 0)
-end
 
 CoD.ScoreboardRow = InheritFrom(LUI.UIElement)
 

@@ -252,11 +252,8 @@ CoD.AmmoAreaZombie.UpdateActionSlots = function (f2_arg0, f2_arg1)
 					f2_local10:setText(f2_local12.ammo)
 					Widget:addElement(f2_local10)
 				end
-				if CoD.isPC then
-					local f2_local10 = 0
-					if CoD.Zombie.IsDLCMap(CoD.Zombie.DLC4Maps) then
-						f2_local10 = 200
-					end
+				if CoD.isPC and UIExpression.DvarBool(nil, "hud_dpad_controller") == 0 then
+					local f2_local10 = 200
 					local f2_local11 = nil
 					if f2_local4 == 1 then
 						f2_local11 = {
@@ -318,7 +315,7 @@ CoD.AmmoAreaZombie.UpdateActionSlots = function (f2_arg0, f2_arg1)
 						Widget.keyPrompt:setAlignment(LUI.Alignment.Right)
 						Widget:registerAnimationState("KeyPrompt", f2_local11)
 						Widget:addElement(Widget.keyPrompt)
-						if CoD.useController and Engine.LastInput_Gamepad() then
+						if CoD.useController and Engine.LastInput_Gamepad() or UIExpression.DvarBool(nil, "hud_dpad_controller") == 1 then
 							CoD.AmmoAreaZombie.ActionSlotInputSourceChanged(Widget, {
 								source = 0
 							})
@@ -620,7 +617,7 @@ end
 
 CoD.AmmoAreaZombie.ActionSlotInputSourceChanged = function (f15_arg0, f15_arg1)
 	if CoD.isPC then
-		if CoD.useController and f15_arg1.source == 0 then
+		if CoD.useController and f15_arg1.source == 0 or UIExpression.DvarBool(nil, "hud_dpad_controller") == 1 then
 			f15_arg0:animateToState("default")
 			if f15_arg0.keyPrompt ~= nil then
 				f15_arg0.keyPrompt:setAlpha(0)
@@ -637,20 +634,11 @@ end
 
 CoD.AmmoAreaZombie.InputSourceChanged = function (f16_arg0, f16_arg1)
 	if CoD.isPC then
-		if CoD.useController and f16_arg1.source == 0 then
-			if f16_arg0.carouselArrows ~= nil then
-				f16_arg0.carouselArrows:setAlpha(1)
-			end
-			if f16_arg0.circleBackground ~= nil then
-				f16_arg0.circleBackground:setAlpha(1)
-			end
-		else
-			if f16_arg0.carouselArrows ~= nil then
-				f16_arg0.carouselArrows:setAlpha(0)
-			end
-			if f16_arg0.circleBackground ~= nil then
-				f16_arg0.circleBackground:setAlpha(0)
-			end
+		if f16_arg0.carouselArrows ~= nil then
+			f16_arg0.carouselArrows:setAlpha(1)
+		end
+		if f16_arg0.circleBackground ~= nil then
+			f16_arg0.circleBackground:setAlpha(0)
 		end
 		if f16_arg0.actionSlots ~= nil then
 			for f16_local3, f16_local4 in pairs(f16_arg0.actionSlots) do
