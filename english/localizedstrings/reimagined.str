@@ -1081,13 +1081,13 @@ REFERENCE           ZOMBIE_BUILD_TURBINE
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Turbine"
 
 REFERENCE           ZOMBIE_GRAB_TURBINE_PICKUP_HINT_STRING
-LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Turbine [Cost: &&1]"
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to take Turbine [Cost: &&1]"
 
 REFERENCE           ZOMBIE_BUILD_RIOT
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Zombie Shield"
 
 REFERENCE           ZOMBIE_GRAB_RIOTSHIELD
-LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Zombie Shield [Cost: &&1]"
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to take Zombie Shield [Cost: &&1]"
 
 REFERENCE           ZOMBIE_REPAIR_RIOTSHIELD
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to repair Zombie Shield [Cost: &&1]"
@@ -1099,31 +1099,31 @@ REFERENCE           ZOMBIE_BUILD_TURRET
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Turret"
 
 REFERENCE           ZOMBIE_GRAB_TURRET_PICKUP_HINT_STRING
-LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Turret [Cost: &&1]"
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to take Turret [Cost: &&1]"
 
 REFERENCE           ZOMBIE_BUILD_ELECTRIC_TRAP
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Electric Trap"
 
 REFERENCE           ZOMBIE_GRAB_ELECTRICTRAP
-LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Electric Trap [Cost: &&1]"
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to take Electric Trap [Cost: &&1]"
 
 REFERENCE           ZOMBIE_BUILD_JETGUN
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Jet Gun"
 
 REFERENCE           ZOMBIE_GRAB_JETGUN
-LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Jet Gun [Cost: &&1]"
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to take Jet Gun [Cost: &&1]"
 
 REFERENCE           ZM_HIGHRISE_BUILD_SPRINGPAD
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Trample Steam"
 
 REFERENCE           ZM_HIGHRISE_GRAB_SPRINGPAD
-LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Trample Steam [Cost: &&1]"
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to take Trample Steam [Cost: &&1]"
 
 REFERENCE           ZM_HIGHRISE_BUILD_SLIPGUN
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Sliquifier"
 
 REFERENCE           ZM_HIGHRISE_GRAB_SLIPGUN
-LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Sliquifier [Cost: &&1]"
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to take Sliquifier [Cost: &&1]"
 
 REFERENCE           ZM_PRISON_CONVERT_START
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to convert Blundergat into Acidgat [Cost: &&1]"
@@ -1132,7 +1132,7 @@ REFERENCE           ZM_BURIED_BUILD_SUBWOOFER
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Subsurface Resonator"
 
 REFERENCE           ZM_BURIED_GRAB_SUBWOOFER
-LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Subsurface Resonator [Cost: &&1]"
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to take Subsurface Resonator [Cost: &&1]"
 
 REFERENCE           ZM_BURIED_BOUGHT_SUBWOOFER
 LANG_ENGLISH        "Took Subsurface Resonator"
@@ -1141,7 +1141,7 @@ REFERENCE           ZM_BURIED_BUILD_SPRINGPAD
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Trample Steam"
 
 REFERENCE           ZM_BURIED_GRAB_SPRINGPAD
-LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Trample Steam [Cost: &&1]"
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to take Trample Steam [Cost: &&1]"
 
 REFERENCE           ZM_BURIED_BOUGHT_SPRINGPAD
 LANG_ENGLISH        "Took Trample Steam"
@@ -1150,7 +1150,7 @@ REFERENCE           ZM_BURIED_BUILD_HEADCHOPPER
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Head Chopper"
 
 REFERENCE           ZM_BURIED_GRAB_HEADCHOPPER
-LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Head Chopper [Cost: &&1]"
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to take Head Chopper [Cost: &&1]"
 
 REFERENCE           ZM_BURIED_BOUGHT_HEADCHOPPER
 LANG_ENGLISH        "Took Head Chopper"
@@ -1174,7 +1174,7 @@ REFERENCE           ZM_TOMB_CRQ
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Maxis Drone"
 
 REFERENCE           ZM_TOMB_TQ
-LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Maxis Drone [Cost: &&1]"
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to take Maxis Drone [Cost: &&1]"
 
 REFERENCE           ZM_TOMB_BOUGHT_MAXISDRONE
 LANG_ENGLISH        "Took Maxis Drone"

@@ -591,6 +591,7 @@
 * Increased move speed while holding from 100% to 110% (except Zombie Shield)
 * Can no longer melee while holding (except Zombie Shield)
 * Changed crafting hint string from "Building..." to "Crafting..."
+* Changed purchase hint string from "for" to "to take"
 
 ### Zombie Shield
 * Added shield health bar on HUD
