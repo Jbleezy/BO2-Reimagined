@@ -325,6 +325,7 @@
 * Buildable table model no longer shows when player has weapon
 * Added heat percentage on HUD
 * Changed weapon name on HUD from "Thrustodyne Aeronautics Model 23" to "Jet Gun"
+* Fixed HUD icon fading after firing
 
 ### Sliquifier
 * Added upgraded version

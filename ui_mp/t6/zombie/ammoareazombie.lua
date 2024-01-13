@@ -180,7 +180,7 @@ CoD.AmmoAreaZombie.UpdateActionSlots = function (f2_arg0, f2_arg1)
 		local f2_local13 = CoD.AmmoAreaZombie.CircleSize / 4
 		local f2_local14 = f2_local13 * f2_local12.aspectRatio
 		local f2_local5 = nil
-		if f2_local12.ammo > 0 then
+		if f2_local12.ammo > 0 or f2_local4 == 1 then
 			f2_local5 = CoD.HUDAlphaFull
 		else
 			f2_local5 = CoD.HUDAlphaEmpty

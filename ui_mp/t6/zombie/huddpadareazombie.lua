@@ -277,7 +277,7 @@ CoD.DPadArea.UpdateActionSlots = function (f2_arg0, f2_arg1)
 		local f2_local10 = CoD.DPadArea.CircleSize / 4
 		local f2_local11 = f2_local10 * f2_local9.aspectRatio
 		local f2_local5 = nil
-		if f2_local9.ammo > 0 then
+		if f2_local9.ammo > 0 or f2_local4 == 1 then
 			f2_local5 = CoD.HUDAlphaFull
 		else
 			f2_local5 = CoD.HUDAlphaEmpty
