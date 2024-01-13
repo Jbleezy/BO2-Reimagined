@@ -93,15 +93,22 @@ zombie_paralyzed(player, upgraded)
 
 player_slow_for_time(time)
 {
+	if (is_true(self._being_shellshocked))
+	{
+		return;
+	}
+
 	self notify("player_slow_for_time");
 	self endon("player_slow_for_time");
 	self endon("disconnect");
 
 	if (!is_true(self.slowgun_flying))
+	{
 		self thread player_fly_rumble();
+	}
 
 	self setclientfieldtoplayer("slowgun_fx", 1);
-	self set_anim_rate(0.2);
+	self set_anim_rate(0.1);
 
 	wait(time);
 

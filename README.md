@@ -343,7 +343,7 @@
 
 ### Paralyzer
 * Kills on any round
-* Decreased max player fly height
+* Decreased player fly height
 * Added heat percentage on HUD
 
 ### Blundergat
