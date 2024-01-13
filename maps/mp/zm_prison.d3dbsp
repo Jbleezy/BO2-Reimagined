@@ -21230,19 +21230,25 @@
 "guid" "F60F1A58"
 }
 {
-"classname" "script_model"
+"angles" "0 90 0"
+"classname" "script_struct"
 "model" "p6_zm_buildable_bench_tarp"
 "origin" "1345.37 9733.38 1544"
-"targetname" "buildables_tarp"
-"angles" "0 90 0"
+"script_noteworthy" "cellblock"
+"script_string" "zstandard zgrief"
+"targetname" "game_mode_object"
+"script_parameters" "p6_zm_buildable_bench_tarp"
 "guid" "E64652A3"
 }
 {
-"classname" "script_model"
+"angles" "0 90 0"
+"classname" "script_struct"
 "model" "p6_zm_buildable_bench_tarp"
 "origin" "3373 9399 1336"
-"targetname" "buildables_tarp"
-"angles" "0 90 0"
+"script_noteworthy" "cellblock"
+"script_string" "zstandard zgrief"
+"targetname" "game_mode_object"
+"script_parameters" "p6_zm_buildable_bench_tarp"
 "guid" "45B18087"
 }
 {
