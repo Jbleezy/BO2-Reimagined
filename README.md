@@ -323,6 +323,7 @@
 * No longer disassembles when overheated
 * Weapon is taken when overheated
 * Buildable table model no longer shows when player has weapon
+* Added heat percentage on HUD
 * Changed weapon name on HUD from "Thrustodyne Aeronautics Model 23" to "Jet Gun"
 
 ### Sliquifier
@@ -341,6 +342,7 @@
 ### Paralyzer
 * Kills on any round
 * Decreased max player fly height
+* Added heat percentage on HUD
 
 ### Blundergat
 * Kills on any round in 1-2 shots

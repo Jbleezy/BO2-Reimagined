@@ -144,6 +144,8 @@ LUI.createMenu.AmmoAreaZombie = function (f1_arg0)
 	f1_local0:registerEventHandler("hud_update_weapon", CoD.AmmoAreaZombie.UpdateWeapon)
 	f1_local0:registerEventHandler("hud_update_weapon_select", CoD.AmmoAreaZombie.UpdateWeaponSelect)
 	f1_local0:registerEventHandler("hud_update_refresh", CoD.AmmoAreaZombie.UpdateVisibility)
+	f1_local0:registerEventHandler("hud_update_overheat", CoD.AmmoAreaZombie.UpdateOverheat)
+	f1_local0:registerEventHandler("hud_update_fuel", CoD.AmmoAreaZombie.UpdateFuel)
 	f1_local0:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_VISIBLE, CoD.AmmoAreaZombie.UpdateVisibility)
 	f1_local0:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_PLAYER_IN_AFTERLIFE, CoD.AmmoAreaZombie.UpdateVisibility)
 	f1_local0:registerEventHandler("hud_update_bit_" .. CoD.BIT_EMP_ACTIVE, CoD.AmmoAreaZombie.UpdateVisibility)
@@ -488,25 +490,54 @@ CoD.AmmoAreaZombie.UpdateOverheat = function (f8_arg0, f8_arg1)
 		local f8_local6 = CoD.HUDDigit.BigNumbersHeight
 		local f8_local7, f8_local8, f8_local9 = CoD.AmmoAreaZombie.GetThreeDigits(f8_arg1.heatPercent)
 		local f8_local10 = 1
-		f8_arg0.ammoDigits[1]:setDigit(f8_local9, f8_local0)
-		f8_arg0.ammoDigits[1]:setLeftRight(false, true, f8_local2 - f8_local3, f8_local2)
-		f8_arg0.ammoDigits[1]:setTopBottom(false, true, f8_local5, f8_local5 + f8_local6)
+
+		f8_local2 = f8_local2 + (f8_local4 / 2)
+
+		f8_arg0.ammoDigits[f8_local10]:setDigit(10, f8_local0)
+		f8_arg0.ammoDigits[f8_local10]:setLeftRight(false, true, f8_local2 - f8_local3, f8_local2)
+		f8_arg0.ammoDigits[f8_local10]:setTopBottom(false, true, f8_local5, f8_local5 + f8_local6)
+		f8_local10 = f8_local10 + 1
+
+		local digitRatio = 2.5
+		local offsetLeftRight = 15
+		local offsetTopBottom = 7
+		f8_arg0.ammoDigits[f8_local10]:setDigit(0, f8_local0)
+		f8_arg0.ammoDigits[f8_local10]:setLeftRight(false, true, f8_local2 - (f8_local3 / digitRatio) - offsetLeftRight, f8_local2 - offsetLeftRight)
+		f8_arg0.ammoDigits[f8_local10]:setTopBottom(false, true, f8_local5 + offsetTopBottom, f8_local5 + (f8_local6 / digitRatio) + offsetTopBottom)
+		f8_local10 = f8_local10 + 1
+
+		offsetLeftRight = 4
+		offsetTopBottom = 31
+		f8_arg0.ammoDigits[f8_local10]:setDigit(0, f8_local0)
+		f8_arg0.ammoDigits[f8_local10]:setLeftRight(false, true, f8_local2 - (f8_local3 / digitRatio) - offsetLeftRight, f8_local2 - offsetLeftRight)
+		f8_arg0.ammoDigits[f8_local10]:setTopBottom(false, true, f8_local5 + offsetTopBottom, f8_local5 + (f8_local6 / digitRatio) + offsetTopBottom)
+		f8_local10 = f8_local10 + 1
+
 		f8_local2 = f8_local2 - f8_local4
+
+		f8_arg0.ammoDigits[f8_local10]:setDigit(f8_local9, f8_local0)
+		f8_arg0.ammoDigits[f8_local10]:setLeftRight(false, true, f8_local2 - f8_local3, f8_local2)
+		f8_arg0.ammoDigits[f8_local10]:setTopBottom(false, true, f8_local5, f8_local5 + f8_local6)
+		f8_local2 = f8_local2 - f8_local4
+		f8_local10 = f8_local10 + 1
+
 		if f8_local7 > 0 or f8_local8 > 0 then
-			f8_arg0.ammoDigits[2]:setDigit(f8_local8, f8_local0)
-			f8_arg0.ammoDigits[2]:setLeftRight(false, true, f8_local2 - f8_local3, f8_local2)
-			f8_arg0.ammoDigits[2]:setTopBottom(false, true, f8_local5, f8_local5 + f8_local6)
+			f8_arg0.ammoDigits[f8_local10]:setDigit(f8_local8, f8_local0)
+			f8_arg0.ammoDigits[f8_local10]:setLeftRight(false, true, f8_local2 - f8_local3, f8_local2)
+			f8_arg0.ammoDigits[f8_local10]:setTopBottom(false, true, f8_local5, f8_local5 + f8_local6)
 			f8_local2 = f8_local2 - f8_local4
-			f8_local10 = 2
+			f8_local10 = f8_local10 + 1
 		end
+
 		if f8_local7 > 0 then
-			f8_arg0.ammoDigits[3]:setDigit(f8_local7, f8_local0)
-			f8_arg0.ammoDigits[3]:setLeftRight(false, true, f8_local2 - f8_local3, f8_local2)
-			f8_arg0.ammoDigits[3]:setTopBottom(false, true, f8_local5, f8_local5 + f8_local6)
+			f8_arg0.ammoDigits[f8_local10]:setDigit(f8_local7, f8_local0)
+			f8_arg0.ammoDigits[f8_local10]:setLeftRight(false, true, f8_local2 - f8_local3, f8_local2)
+			f8_arg0.ammoDigits[f8_local10]:setTopBottom(false, true, f8_local5, f8_local5 + f8_local6)
 			f8_local2 = f8_local2 - f8_local4
-			f8_local10 = 3
+			f8_local10 = f8_local10 + 1
 		end
-		for f8_local11 = f8_local10 + 1, f8_local1, 1 do
+
+		for f8_local11 = f8_local10, f8_local1, 1 do
 			f8_arg0.ammoDigits[f8_local11]:setAlpha(0)
 		end
 		f8_arg0:dispatchEventToChildren(f8_arg1)
@@ -530,11 +561,7 @@ end
 
 CoD.AmmoAreaZombie.ShouldHideAmmoCounter = function (f10_arg0, f10_arg1)
 	if f10_arg0.weapon ~= nil then
-		if Engine.IsWeaponType(f10_arg0.weapon, "melee") then
-			return true
-		elseif CoD.isZombie == true and (f10_arg1.inventorytype == 1 or f10_arg1.inventorytype == 2) then
-			return true
-		elseif CoD.isZombie == true and (Engine.IsWeaponType(f10_arg0.weapon, "gas") or Engine.IsOverheatWeapon(f10_arg0.weapon)) then
+		if CoD.isZombie == true and (Engine.IsWeaponType(f10_arg0.weapon, "gas") or Engine.IsOverheatWeapon(f10_arg0.weapon)) then
 			return false
 		end
 	end
