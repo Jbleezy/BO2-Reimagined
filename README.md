@@ -899,6 +899,7 @@
 * Records automatically picked up
 * Gramophone initially spawns at Excavation Site gramophone table
 * Musical parts no longer show on HUD
+* Added attachment display name on HUD for upgraded attachment weapons
 * Generators: increased capture reward points from 100 to 200
 * Generators: always give back refund points if player was in the generator zone when captured
 * Generators: recapture round zombies only drop Max Ammo if killed before taking first generator
