@@ -243,7 +243,8 @@ CoD.MapInfoImage.ZombieUpdate = function (f6_arg0, f6_arg1, f6_arg2)
 			alpha = 1
 		})
 		f6_arg0.mapImage:animateToState("change_map", 100)
-		f6_arg0.mapNameText:setText(UIExpression.ToUpper(nil, Engine.Localize(UIExpression.TableLookup(nil, UIExpression.GetCurrentMapTableName(), 0, f6_arg1, 3))))
+
+		f6_arg0.mapNameText:setText(GetMapDisplayName(f6_arg1, f6_arg2, f6_local0))
 	end
 	local f6_local3 = nil
 	if CoD.isZombie and f6_local0 and f6_arg2 ~= CoD.Zombie.GAMETYPE_ZCLASSIC then
@@ -251,21 +252,11 @@ CoD.MapInfoImage.ZombieUpdate = function (f6_arg0, f6_arg1, f6_arg2)
 	end
 	local f6_local4 = nil
 	if f6_arg2 then
-		if f6_arg2 == CoD.Zombie.GAMETYPE_ZGRIEF then
-			f6_local4 = GetGriefModeDisplayName()
-		else
-			f6_local4 = CoD.GetZombieGameTypeDescription(f6_arg2, f6_arg1)
-		end
+		f6_local4 = GetGameModeDisplayName(f6_arg2)
 	end
-	if f6_local4 then
-		if f6_local3 then
-			f6_arg0.gameTypeText:setText(f6_local3 .. " / " .. f6_local4)
-		else
-			f6_arg0.gameTypeText:setText(f6_local4)
-		end
-	elseif f6_local3 then
-		f6_arg0.gameTypeText:setText(f6_local3)
-	end
+
+	f6_arg0.gameTypeText:setText(f6_local4)
+
 	CoD.MapInfoImage.DLCWarningUpdate(f6_arg0)
 end
 
@@ -300,8 +291,24 @@ function GetMapMaterialName(map, gamemode, location)
 	return "menu_" .. map .. "_" .. gamemode .. "_" .. location
 end
 
-function GetGriefModeDisplayName()
-	return Engine.Localize("ZMUI_" .. UIExpression.DvarString(nil, "ui_gametype_obj") .. "_CAPS")
+function GetMapDisplayName(map, gametype, location)
+	if gametype == CoD.Zombie.GAMETYPE_ZCLASSIC then
+		return CoD.GetZombieGameTypeDescription(gametype, map)
+	end
+
+	return Engine.Localize(UIExpression.TableLookup(nil, CoD.gametypesTable, 0, 5, 3, location, 4))
+end
+
+function GetGameModeDisplayName(gametype)
+	if gametype == CoD.Zombie.GAMETYPE_ZCLASSIC then
+		return Engine.Localize("ZMUI_ZCLASSIC_GAMEMODE_CAPS")
+	end
+
+	if gametype == CoD.Zombie.GAMETYPE_ZGRIEF then
+		return Engine.Localize("ZMUI_" .. UIExpression.DvarString(nil, "ui_gametype_obj") .. "_CAPS")
+	end
+
+	return Engine.Localize("ZMUI_" .. gametype .. "_CAPS")
 end
 
 CoD.MapInfoImage.SetModifedCustomGame = function (f7_arg0, f7_arg1)
