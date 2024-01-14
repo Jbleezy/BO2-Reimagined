@@ -1,3 +1,5 @@
+#include clientscripts\mp\gametypes\zgrief;
+
 onprecachegametype()
 {
 	if (getdvar("mapname") == "zm_prison")
@@ -13,4 +15,11 @@ onprecachegametype()
 
 	level._effect["meat_stink_camera"] = loadfx("maps/zombie/fx_zmb_meat_stink_camera");
 	level._effect["meat_stink_torso"] = loadfx("maps/zombie/fx_zmb_meat_stink_torso");
+
+	registerclientfield("toplayer", "meat_stink", 1, 1, "int", ::meat_stink_cb, 0, 1);
+}
+
+premain()
+{
+	// removed
 }
