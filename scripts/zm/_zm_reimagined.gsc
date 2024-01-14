@@ -496,15 +496,6 @@ health_bar_hud()
 	x = 5;
 	y = -104;
 
-	if (level.script == "zm_buried")
-	{
-		y -= 25;
-	}
-	else if (level.script == "zm_tomb")
-	{
-		y -= 60;
-	}
-
 	hud = self createbar((1, 1, 1), level.primaryprogressbarwidth - 10, level.primaryprogressbarheight);
 	hud.alignx = "left";
 	hud.bar.alignx = "left";
@@ -586,15 +577,6 @@ shield_bar_hud()
 
 	x = 5;
 	y = -104;
-
-	if (level.script == "zm_buried")
-	{
-		y -= 25;
-	}
-	else if (level.script == "zm_tomb")
-	{
-		y -= 60;
-	}
 
 	hud = self createbar((0.5, 0.5, 0.5), level.primaryprogressbarwidth - 10, int(level.primaryprogressbarheight / 2));
 	hud.alignx = "left";
@@ -980,15 +962,6 @@ zone_hud()
 
 	x = 5;
 	y = -119;
-
-	if (level.script == "zm_buried")
-	{
-		y -= 25;
-	}
-	else if (level.script == "zm_tomb")
-	{
-		y -= 60;
-	}
 
 	hud = newClientHudElem(self);
 	hud.alignx = "left";
