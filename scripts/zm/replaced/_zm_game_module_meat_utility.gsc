@@ -10,7 +10,7 @@
 
 init_item_meat(gametype)
 {
-	if (level.script == "zm_prison")
+	if (getdvar("mapname") == "zm_prison")
 	{
 		set_gamemode_var_once("item_meat_name", "item_head_zm");
 		set_gamemode_var_once("item_meat_model", "t6_wpn_zmb_severedhead_world");

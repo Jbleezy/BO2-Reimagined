@@ -48,7 +48,7 @@ give_team_characters()
 		else
 		{
 			self setmodel("c_zom_player_cdc_fb");
-			self setviewmodel("c_zom_hazmat_viewhands");
+			self setviewmodel("c_zom_hazmat_viewhands_light");
 			self.characterindex = 1;
 		}
 	}
@@ -78,7 +78,7 @@ give_team_characters()
 				self setmodel("c_zom_player_cdc_fb");
 				self.voice = "american";
 				self.skeleton = "base";
-				self setviewmodel("c_zom_hazmat_viewhands");
+				self setviewmodel("c_zom_hazmat_viewhands_light");
 				self.characterindex = 1;
 				break;
 		}
