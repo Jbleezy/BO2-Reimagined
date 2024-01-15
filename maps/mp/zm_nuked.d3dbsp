@@ -5694,6 +5694,51 @@
 "guid" "7A119D3A"
 }
 {
+"classname" "script_vehicle"
+"vehicletype" "defaultvehicle"
+"model" "defaultvehicle"
+"origin" "-1511.5 -579 -52"
+"targetname" "grief_perk_arrival_vehicle"
+"spawnflags" "0"
+"guid" "7A119D3A"
+}
+{
+"classname" "script_vehicle"
+"vehicletype" "defaultvehicle"
+"model" "defaultvehicle"
+"origin" "-1511.5 -579 -52"
+"targetname" "grief_perk_arrival_vehicle"
+"spawnflags" "0"
+"guid" "7A119D3A"
+}
+{
+"classname" "script_vehicle"
+"vehicletype" "defaultvehicle"
+"model" "defaultvehicle"
+"origin" "-1511.5 -579 -52"
+"targetname" "grief_perk_arrival_vehicle"
+"spawnflags" "0"
+"guid" "7A119D3A"
+}
+{
+"classname" "script_vehicle"
+"vehicletype" "defaultvehicle"
+"model" "defaultvehicle"
+"origin" "-1511.5 -579 -52"
+"targetname" "grief_perk_arrival_vehicle"
+"spawnflags" "0"
+"guid" "7A119D3A"
+}
+{
+"classname" "script_vehicle"
+"vehicletype" "defaultvehicle"
+"model" "defaultvehicle"
+"origin" "-1511.5 -579 -52"
+"targetname" "grief_perk_arrival_vehicle"
+"spawnflags" "0"
+"guid" "7A119D3A"
+}
+{
 "target" "pf15_auto2911"
 "angles" "0 197.8 0"
 "targetname" "pf15_auto2903"
