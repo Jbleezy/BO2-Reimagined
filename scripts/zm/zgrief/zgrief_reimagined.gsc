@@ -3154,14 +3154,11 @@ meat_powerup_drop_think()
 			continue;
 		}
 
-		if (!isDefined(level.meat_player))
-		{
-			players = get_players();
+		players = get_players();
 
-			foreach (player in players)
-			{
-				player thread show_grief_hud_msg(&"ZOMBIE_MEAT_DROPPED");
-			}
+		foreach (player in players)
+		{
+			player thread show_grief_hud_msg(&"ZOMBIE_MEAT_DROPPED");
 		}
 
 		level.meat_powerup = powerup;
