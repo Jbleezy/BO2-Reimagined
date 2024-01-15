@@ -4484,7 +4484,7 @@
 "guid" "53E33BC9"
 }
 {
-"script_string" "zstandard_nuked"
+"script_string" "zstandard_nuked zgrief_nuked"
 "_color" "1 1 0"
 "script_int" "1"
 "angles" "0 100 0"
@@ -4495,9 +4495,42 @@
 "guid" "AC4826B3"
 }
 {
-"script_string" "zstandard_nuked"
+"script_string" "zstandard_nuked zgrief_nuked"
+"script_noteworthy" "initial_spawn"
+"angles" "0 95 0"
+"targetname" "initial_spawn_points"
+"origin" "244.41 -320.23 -32.59"
+"classname" "script_struct"
+"script_int" "1"
+"_color" "1 1 0"
+"guid" "4CB9AF8B"
+}
+{
+"script_string" "zstandard_nuked zgrief_nuked"
 "_color" "1 1 0"
 "script_int" "1"
+"angles" "0 70 0"
+"targetname" "initial_spawn_points"
+"origin" "84.56 -280.63 -39.82"
+"classname" "script_struct"
+"script_noteworthy" "initial_spawn"
+"guid" "BF6F5623"
+}
+{
+"script_string" "zstandard_nuked zgrief_nuked"
+"script_noteworthy" "initial_spawn"
+"angles" "0 95 0"
+"targetname" "initial_spawn_points"
+"origin" "220.41 -230.23 -13.46"
+"classname" "script_struct"
+"script_int" "1"
+"_color" "1 1 0"
+"guid" "6C6D224C"
+}
+{
+"script_string" "zstandard_nuked zgrief_nuked"
+"_color" "1 0 1"
+"script_int" "2"
 "angles" "0 75 0"
 "targetname" "initial_spawn_points"
 "origin" "-206.9 -512.22 -32.4"
@@ -4506,7 +4539,7 @@
 "guid" "37E1357C"
 }
 {
-"script_string" "zstandard_nuked"
+"script_string" "zstandard_nuked zgrief_nuked"
 "script_noteworthy" "initial_spawn"
 "angles" "0 65 0"
 "classname" "script_struct"
@@ -4517,15 +4550,26 @@
 "guid" "B5AF68CE"
 }
 {
-"script_string" "zstandard_nuked"
+"script_string" "zstandard_nuked zgrief_nuked"
+"_color" "1 0 1"
+"script_int" "2"
+"angles" "0 105 0"
+"targetname" "initial_spawn_points"
+"origin" "-206.93 -448.17 -32.73"
+"classname" "script_struct"
+"script_noteworthy" "initial_spawn"
+"guid" "2D45F4D5"
+}
+{
+"script_string" "zstandard_nuked zgrief_nuked"
 "script_noteworthy" "initial_spawn"
 "angles" "0 95 0"
-"targetname" "initial_spawn_points"
-"origin" "244.41 -320.23 -32.59"
 "classname" "script_struct"
-"script_int" "1"
-"_color" "1 1 0"
-"guid" "4CB9AF8B"
+"origin" "-224 -320.56 -29.75"
+"targetname" "initial_spawn_points"
+"script_int" "2"
+"_color" "1 0 1"
+"guid" "D19D8DAB"
 }
 {
 "classname" "node_pathnode"
@@ -4939,50 +4983,6 @@
 "angles" "0 70 0"
 "classname" "node_negotiation_begin"
 "guid" "CB7398D1"
-}
-{
-"script_string" "zstandard_nuked"
-"_color" "1 0 1"
-"script_int" "2"
-"angles" "0 70 0"
-"targetname" "initial_spawn_points"
-"origin" "84.56 -280.63 -39.82"
-"classname" "script_struct"
-"script_noteworthy" "initial_spawn"
-"guid" "BF6F5623"
-}
-{
-"script_string" "zstandard_nuked"
-"_color" "1 1 0"
-"script_int" "1"
-"angles" "0 105 0"
-"targetname" "initial_spawn_points"
-"origin" "-206.93 -448.17 -32.73"
-"classname" "script_struct"
-"script_noteworthy" "initial_spawn"
-"guid" "2D45F4D5"
-}
-{
-"script_string" "zstandard_nuked"
-"script_noteworthy" "initial_spawn"
-"angles" "0 95 0"
-"classname" "script_struct"
-"origin" "-224 -320.56 -29.75"
-"targetname" "initial_spawn_points"
-"script_int" "2"
-"_color" "1 0 1"
-"guid" "D19D8DAB"
-}
-{
-"script_string" "zstandard_nuked"
-"script_noteworthy" "initial_spawn"
-"angles" "0 95 0"
-"targetname" "initial_spawn_points"
-"origin" "220.41 -230.23 -13.46"
-"classname" "script_struct"
-"script_int" "2"
-"_color" "1 0 1"
-"guid" "6C6D224C"
 }
 {
 "classname" "node_pathnode"
@@ -6510,7 +6510,7 @@
 "guid" "06F8BED3"
 }
 {
-"script_string" "zstandard_nuked"
+"script_string" "zstandard_nuked zgrief_nuked"
 "script_int" "800"
 "radius" "800"
 "target" "auto2900"
@@ -6522,7 +6522,7 @@
 "guid" "B5AC7E59"
 }
 {
-"script_string" "zstandard_nuked"
+"script_string" "zstandard_nuked zgrief_nuked"
 "script_int" "800"
 "radius" "800"
 "target" "auto2346"
