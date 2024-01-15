@@ -88,3 +88,50 @@ give_team_characters()
 	self setsprintduration(4);
 	self setsprintcooldown(0);
 }
+
+moon_rocket_follow_path()
+{
+	rocket_start_struct = getstruct("inertmission_rocket_start", "targetname");
+	rocket_end_struct = getstruct("inertmission_rocket_end", "targetname");
+	rocket_cam_start_struct = getstruct("intermission_rocket_cam_start", "targetname");
+	rocket_cam_end_struct = getstruct("intermission_rocket_cam_end", "targetname");
+	rocket_camera_ent = spawn("script_model", rocket_cam_start_struct.origin);
+	rocket_camera_ent.angles = rocket_cam_start_struct.angles;
+	rocket = getent("intermission_rocket", "targetname");
+	rocket show();
+	rocket.origin = rocket_start_struct.origin;
+	camera = spawn("script_model", rocket_cam_start_struct.origin);
+	camera.angles = rocket_cam_start_struct.angles;
+	camera setmodel("tag_origin");
+	exploder(676);
+	players = get_players();
+
+	foreach (player in players)
+	{
+		player setclientuivisibilityflag("hud_visible", 0);
+		player thread player_rocket_rumble();
+		player thread intermission_rocket_blur();
+		player setdepthoffield(0, 128, 7000, 10000, 6, 1.8);
+		player camerasetposition(camera);
+		player camerasetlookat();
+		player cameraactivate(1);
+	}
+
+	rocket moveto(rocket_end_struct.origin, 16.5);
+	rocket rotateto(rocket_end_struct.angles, 18.5);
+	camera moveto(rocket_cam_end_struct.origin, 16.5);
+	camera rotateto(rocket_cam_end_struct.angles, 15.5);
+	playfxontag(level._effect["rocket_entry"], rocket, "tag_fx");
+	playfxontag(level._effect["rocket_entry_light"], rocket, "tag_fx");
+	wait 15;
+	flag_set("rocket_hit_nuketown");
+}
+
+sndgameend()
+{
+	level waittill("intermission");
+
+	wait 7.5;
+
+	playsoundatposition("zmb_endgame", (0, 0, 0));
+}
