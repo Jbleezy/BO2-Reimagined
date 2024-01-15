@@ -2806,15 +2806,19 @@ end_game()
 {
 	level waittill("end_game");
 	maps\mp\zombies\_zm::check_end_game_intermission_delay();
-	clientnotify("zesn");
 
-	if (isDefined(level.sndgameovermusicoverride))
+	if (level.script != "zm_nuked")
 	{
-		level thread maps\mp\zombies\_zm_audio::change_zombie_music(level.sndgameovermusicoverride);
-	}
-	else
-	{
-		level thread maps\mp\zombies\_zm_audio::change_zombie_music("game_over");
+		clientnotify("zesn");
+
+		if (isDefined(level.sndgameovermusicoverride))
+		{
+			level thread maps\mp\zombies\_zm_audio::change_zombie_music(level.sndgameovermusicoverride);
+		}
+		else
+		{
+			level thread maps\mp\zombies\_zm_audio::change_zombie_music("game_over");
+		}
 	}
 
 	players = get_players();

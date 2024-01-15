@@ -129,6 +129,11 @@ moon_rocket_follow_path()
 
 sndgameend()
 {
+	level waittill("end_game");
+
+	playsoundatposition("zmb_perks_incoming_quad_front", (0, 0, 0));
+	playsoundatposition("zmb_perks_incoming_alarm", (-2198, 486, 327));
+
 	level waittill("intermission");
 
 	wait 7.5;
