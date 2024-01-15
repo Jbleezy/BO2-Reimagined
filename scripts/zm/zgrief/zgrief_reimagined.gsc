@@ -2944,6 +2944,13 @@ containment_get_zones()
 			containment_zones = array("zone_amb_cornfield", "zone_cornfield_prototype");
 		}
 	}
+	else if (level.script == "zm_nuked")
+	{
+		if (level.scr_zm_map_start_location == "nuked")
+		{
+			containment_zones = array("culdesac_yellow_zone", "culdesac_green_zone", "openhouse1_f1_zone", "openhouse2_f1_zone", "openhouse1_f2_zone", "openhouse2_f2_zone", "openhouse1_backyard_zone", "openhouse2_backyard_zone");
+		}
+	}
 	else if (level.script == "zm_prison")
 	{
 		if (level.scr_zm_map_start_location == "cellblock")
@@ -3060,7 +3067,11 @@ containment_set_obj_waypoint_off_screen(zone_name, zone, next_obj = false)
 		hud.z = zone.volumes[0].origin[2];
 	}
 
-	if (level.script == "zm_buried" && zone_name == "zone_maze")
+	if (level.script == "zm_nuked" && zone_name == "openhouse1_f1_zone")
+	{
+		hud.z -= 50;
+	}
+	else if (level.script == "zm_buried" && zone_name == "zone_maze")
 	{
 		hud.z += 200;
 	}
