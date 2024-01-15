@@ -39,6 +39,7 @@
 * Player is reviving you text gets removed instantly when player drops the revive
 * Player needs to be revived text updates to new player instantly
 * Removed NAV cards
+* Fixed scoreboard showing incorrect team on Survival after restart
 
 ## Players
 * Unlimited sprint
