@@ -3,5 +3,5 @@
 
 main()
 {
-	replaceFunc(clientscripts\mp\zm_nuked::init_gamemodes, scripts\zm\replaced\zm_nuked::init_gamemodes);
+	replaceFunc(clientscripts\mp\zm_nuked::main, scripts\zm\replaced\zm_nuked::main);
 }
