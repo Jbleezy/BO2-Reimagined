@@ -112,16 +112,7 @@ meat_bounce_override(pos, normal, ent, bounce)
 		{
 			if (isDefined(self.prev_bounce_pos) && distancesquared(self.prev_bounce_pos, pos) <= 400)
 			{
-				if (level.scr_zm_ui_gametype_obj == "zmeat")
-				{
-					level.meat_powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop("meat_stink", pos);
-				}
-				else
-				{
-					level thread meat_stink_on_ground(self.origin);
-				}
-
-				self delete();
+				self meat_drop(pos);
 			}
 
 			return;
@@ -137,6 +128,11 @@ meat_bounce_override(pos, normal, ent, bounce)
 		return;
 	}
 
+	self meat_drop(pos);
+}
+
+meat_drop(pos)
+{
 	valid_drop = scripts\zm\replaced\_zm_utility::check_point_in_life_brush(pos) || (check_point_in_enabled_zone(pos) && !scripts\zm\replaced\_zm_utility::check_point_in_kill_brush(pos));
 
 	if (valid_drop)
