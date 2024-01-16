@@ -218,7 +218,6 @@ function HUD_AllowRoundAnimation(HUDWidget, ClientInstance)
 end
 
 function HUD_UpdateSurvivalTeamZombie(HUDWidget, ClientInstance)
-	print(ClientInstance.data[1])
 	CoD.Zombie.IsSurvivalUsingCIAModel = ClientInstance.data[1] == 1
 end
 

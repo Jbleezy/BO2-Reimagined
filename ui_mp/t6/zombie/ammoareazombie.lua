@@ -472,6 +472,10 @@ CoD.AmmoAreaZombie.UpdateFuel = function (f7_arg0, f7_arg1)
 end
 
 CoD.AmmoAreaZombie.UpdateOverheat = function (f8_arg0, f8_arg1)
+	if CoD.AmmoAreaZombie.ShouldHideAmmoCounter(f8_arg0, f8_arg1) == true then
+		return
+	end
+
 	local f8_local0 = f8_arg1.overheat
 	local f8_local1 = #f8_arg0.ammoDigits
 	if f8_arg0.hideAmmo then
