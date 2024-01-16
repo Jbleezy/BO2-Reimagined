@@ -165,6 +165,11 @@ grief_bring_random_perk(machines, machine_triggers)
 
 grief_bring_perk(machine, trigger)
 {
+	if (is_true(level.scr_zm_ui_gametype_pro) && trigger.script_noteworthy == "specialty_weapupgrade")
+	{
+		return;
+	}
+
 	initial_perk = level.grief_perk_arrival_vehicles_ind == 0;
 	perk_arrival_vehicle = level.grief_perk_arrival_vehicles[level.grief_perk_arrival_vehicles_ind];
 	level.grief_perk_arrival_vehicles_ind++;
