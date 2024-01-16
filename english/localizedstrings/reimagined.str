@@ -449,8 +449,29 @@ LANG_ENGLISH        "Yellow House Backyard"
 REFERENCE           ZM_NUKED_AMMO_DOOR_ZONE
 LANG_ENGLISH        "Yellow House Backyard Door"
 
+REFERENCE           ZM_HIGHRISE_ZONE_GREEN_LEVEL1
+LANG_ENGLISH        "Green Rooftop Level 3A"
+
 REFERENCE           ZM_HIGHRISE_ZONE_GREEN_START
-LANG_ENGLISH        "Green Highrise Level 3b"
+LANG_ENGLISH        "Green Rooftop Level 3B"
+
+REFERENCE           ZM_HIGHRISE_ZONE_GREEN_LEVEL2A
+LANG_ENGLISH        "Green Rooftop Level 2A"
+
+REFERENCE           ZM_HIGHRISE_ZONE_GREEN_LEVEL2B
+LANG_ENGLISH        "Green Rooftop Level 2B"
+
+REFERENCE           ZM_HIGHRISE_ZONE_GREEN_LEVEL3B
+LANG_ENGLISH        "Green Rooftop Level 1A"
+
+REFERENCE           ZM_HIGHRISE_ZONE_GREEN_LEVEL3C
+LANG_ENGLISH        "Green Rooftop Level 1B"
+
+REFERENCE           ZM_HIGHRISE_ZONE_GREEN_LEVEL3A
+LANG_ENGLISH        "Green Rooftop Restaurant"
+
+REFERENCE           ZM_HIGHRISE_ZONE_GREEN_LEVEL3D
+LANG_ENGLISH        "Green Rooftop Behind Restaurant"
 
 REFERENCE           ZM_HIGHRISE_ZONE_GREEN_ESCAPE_POD
 LANG_ENGLISH        "Escape Pod"
@@ -458,32 +479,50 @@ LANG_ENGLISH        "Escape Pod"
 REFERENCE           ZM_HIGHRISE_ZONE_GREEN_ESCAPE_POD_GROUND
 LANG_ENGLISH        "Escape Pod Shaft"
 
-REFERENCE           ZM_HIGHRISE_ZONE_GREEN_LEVEL1
-LANG_ENGLISH        "Green Highrise Level 3a"
+REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL1A
+LANG_ENGLISH        "Blue Rooftop Level 2A"
 
-REFERENCE           ZM_HIGHRISE_ZONE_GREEN_LEVEL2A
-LANG_ENGLISH        "Green Highrise Level 2a"
+REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL1C
+LANG_ENGLISH        "Blue Rooftop Level 2B"
 
-REFERENCE           ZM_HIGHRISE_ZONE_GREEN_LEVEL2B
-LANG_ENGLISH        "Green Highrise Level 2b"
+REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL1B
+LANG_ENGLISH        "Blue Rooftop Level 2C"
 
-REFERENCE           ZM_HIGHRISE_ZONE_GREEN_LEVEL3A
-LANG_ENGLISH        "Green Highrise Restaurant"
+REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL2A
+LANG_ENGLISH        "Blue Rooftop Level 1A"
 
-REFERENCE           ZM_HIGHRISE_ZONE_GREEN_LEVEL3B
-LANG_ENGLISH        "Green Highrise Level 1a"
+REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL2B
+LANG_ENGLISH        "Blue Rooftop Level 1B"
 
-REFERENCE           ZM_HIGHRISE_ZONE_GREEN_LEVEL3C
-LANG_ENGLISH        "Green Highrise Level 1b"
+REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL2C
+LANG_ENGLISH        "Blue Rooftop Level 1C"
 
-REFERENCE           ZM_HIGHRISE_ZONE_GREEN_LEVEL3D
-LANG_ENGLISH        "Green Highrise Behind Restaurant"
+REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL2D
+LANG_ENGLISH        "Blue Rooftop Level 1D"
+
+REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL4A
+LANG_ENGLISH        "Blue Highrise Level 2A"
+
+REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL4B
+LANG_ENGLISH        "Blue Highrise Level 2B"
+
+REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL4C
+LANG_ENGLISH        "Blue Highrise Level 2C"
+
+REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL5
+LANG_ENGLISH        "Blue Highrise Level 1"
 
 REFERENCE           ZM_HIGHRISE_ZONE_ORANGE_LEVEL1
-LANG_ENGLISH        "Upper Orange Highrise Level 2"
+LANG_ENGLISH        "Orange Rooftop Level 2"
 
 REFERENCE           ZM_HIGHRISE_ZONE_ORANGE_LEVEL2
-LANG_ENGLISH        "Upper Orange Highrise Level 1"
+LANG_ENGLISH        "Orange Rooftop Level 1"
+
+REFERENCE           ZM_HIGHRISE_ZONE_ORANGE_LEVEL3B
+LANG_ENGLISH        "Orange Highrise Level 1A"
+
+REFERENCE           ZM_HIGHRISE_ZONE_ORANGE_LEVEL3A
+LANG_ENGLISH        "Orange Highrise Level 1B"
 
 REFERENCE           ZM_HIGHRISE_ZONE_ORANGE_ELEVATOR_SHAFT_TOP
 LANG_ENGLISH        "Elevator Shaft Level 3"
@@ -496,48 +535,6 @@ LANG_ENGLISH        "Elevator Shaft Level 1"
 
 REFERENCE           ZM_HIGHRISE_ZONE_ORANGE_ELEVATOR_SHAFT_BOTTOM
 LANG_ENGLISH        "Elevator Shaft Bottom"
-
-REFERENCE           ZM_HIGHRISE_ZONE_ORANGE_LEVEL3A
-LANG_ENGLISH        "Lower Orange Highrise Level 1a"
-
-REFERENCE           ZM_HIGHRISE_ZONE_ORANGE_LEVEL3B
-LANG_ENGLISH        "Lower Orange Highrise Level 1b"
-
-REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL5
-LANG_ENGLISH        "Lower Blue Highrise Level 1"
-
-REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL4A
-LANG_ENGLISH        "Lower Blue Highrise Level 2a"
-
-REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL4B
-LANG_ENGLISH        "Lower Blue Highrise Level 2b"
-
-REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL4C
-LANG_ENGLISH        "Lower Blue Highrise Level 2c"
-
-REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL2A
-LANG_ENGLISH        "Upper Blue Highrise Level 1a"
-
-REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL2B
-LANG_ENGLISH        "Upper Blue Highrise Level 1b"
-
-REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL2C
-LANG_ENGLISH        "Upper Blue Highrise Level 1c"
-
-REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL2D
-LANG_ENGLISH        "Upper Blue Highrise Level 1d"
-
-REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL1A
-LANG_ENGLISH        "Upper Blue Highrise Level 2a"
-
-REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL1B
-LANG_ENGLISH        "Upper Blue Highrise Level 2b"
-
-REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL1C
-LANG_ENGLISH        "Upper Blue Highrise Level 2c"
-
-REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL1C
-LANG_ENGLISH        "Upper Blue Highrise Level 2c"
 
 REFERENCE           ZM_PRISON_ZONE_START
 LANG_ENGLISH        "D-Block"
