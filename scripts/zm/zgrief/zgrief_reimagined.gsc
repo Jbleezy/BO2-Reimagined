@@ -3194,6 +3194,11 @@ meat_powerup_drop_think()
 
 		foreach (player in players)
 		{
+			if (isdefined(level.meat_player) && level.meat_player == player)
+			{
+				continue;
+			}
+
 			player thread show_grief_hud_msg(&"ZOMBIE_MEAT_DROPPED");
 		}
 
