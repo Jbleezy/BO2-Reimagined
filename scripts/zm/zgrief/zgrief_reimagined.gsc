@@ -689,6 +689,11 @@ on_player_spawned()
 			self enableInvulnerability();
 		}
 
+		if (level.scr_zm_ui_gametype_obj == "zcontainment")
+		{
+			self.in_containment_zone = undefined;
+		}
+
 		if (is_respawn_gamemode())
 		{
 			min_points = level.player_starting_points;
@@ -2609,6 +2614,8 @@ containment_think()
 
 		foreach (player in players)
 		{
+			player.in_containment_zone = undefined;
+
 			player thread show_grief_hud_msg(&"ZOMBIE_NEW_CONTAINMENT_ZONE");
 		}
 
@@ -2662,6 +2669,13 @@ containment_think()
 						in_containment_zone[player.team][in_containment_zone[player.team].size] = player;
 					}
 
+					if (!is_true(player.in_containment_zone))
+					{
+						player.in_containment_zone = 1;
+
+						player thread show_grief_hud_msg(&"ZOMBIE_PLAYER_IN_CONTAINMENT_ZONE");
+					}
+
 					player containment_set_obj_waypoint_on_screen();
 				}
 				else
@@ -2671,6 +2685,13 @@ containment_think()
 						close_zombies = get_array_of_closest(player.origin, zombies, undefined, 1, 64);
 
 						player.ignoreme = close_zombies.size == 0;
+					}
+
+					if (is_true(player.in_containment_zone))
+					{
+						player.in_containment_zone = undefined;
+
+						player thread show_grief_hud_msg(&"ZOMBIE_PLAYER_OUT_CONTAINMENT_ZONE");
 					}
 
 					player containment_set_obj_waypoint_off_screen(zone_name, zone);
