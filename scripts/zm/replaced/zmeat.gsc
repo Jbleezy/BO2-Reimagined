@@ -127,6 +127,8 @@ item_meat_watch_bounce()
 		{
 			self thread [[level.meat_bounce_override]](pos, normal, ent, true);
 		}
+
+		self.prev_bounce_pos = pos;
 	}
 
 	self.meat_is_flying = 0;
