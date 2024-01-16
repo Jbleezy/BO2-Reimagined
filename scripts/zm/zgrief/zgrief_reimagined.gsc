@@ -2592,7 +2592,11 @@ containment_think()
 
 		zone_name_to_lock = zone_name;
 
-		if (zone_name == "zone_street_fountain")
+		if (zone_name == "culdesac_yellow_zone")
+		{
+			zone_name_to_lock = "culdesac_green_zone";
+		}
+		else if (zone_name == "zone_street_fountain")
 		{
 			zone_name_to_lock = "zone_street_lighteast";
 		}

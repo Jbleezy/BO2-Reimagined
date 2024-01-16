@@ -10963,7 +10963,7 @@
 }
 {
 "target" "initial_spawn_points"
-"script_noteworthy" "culdesac_zone"
+"script_noteworthy" "culdesac_green_zone"
 "angles" "0 270 0"
 "targetname" "player_respawn_point"
 "origin" "-56.5 -228.5 6"
