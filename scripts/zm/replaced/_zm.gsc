@@ -782,19 +782,17 @@ wait_for_all_players_ready()
 		level.ready_up_hud setText(&"ZOMBIE_READY_UP_HOWTO_CAPS");
 	}
 
+	level.ready_up_hud.alpha = 1;
+
+	ready_up_time = 0;
+	ready_up_timeout = 0;
+	ready_up_start_time = undefined;
+	ready_up_start_players = undefined;
+
 	if (isDedicated() && !(is_gametype_active("zgrief") && getDvarInt("ui_gametype_team_change")))
 	{
-		level.ready_up_time = 60;
-		level.ready_up_start_time = getTime();
-		level.ready_up_start_players = get_players();
-
-		if (!isDefined(level.ready_up_timer_hud))
-		{
-			level.ready_up_countdown_hud = countdown_hud(&"ZOMBIE_PRE_GAME_ENDS_IN_CAPS", undefined, level.ready_up_time);
-		}
+		ready_up_time = 60;
 	}
-
-	level.ready_up_hud.alpha = 1;
 
 	num_ready = get_number_of_ready_players();
 	players = get_players();
@@ -812,23 +810,37 @@ wait_for_all_players_ready()
 	{
 		ready_up_timeout = 0;
 
-		if (isDefined(level.ready_up_time))
+		if (ready_up_time > 0)
 		{
-			time = getTime() - level.ready_up_start_time;
-
-			if (time >= level.ready_up_time * 1000)
+			if (num_ready > 0 && !isdefined(ready_up_start_time))
 			{
-				ready_up_timeout = 1;
+				ready_up_start_time = getTime();
+				ready_up_start_players = get_players();
 
-				foreach (player in level.ready_up_start_players)
+				if (!isDefined(level.ready_up_countdown_hud))
 				{
-					if (isDefined(player) && !isDefined(player.ready))
-					{
-						kick(player getEntityNumber());
-					}
+					level.ready_up_countdown_hud = countdown_hud(&"ZOMBIE_PRE_GAME_ENDS_IN_CAPS", undefined, ready_up_time);
 				}
+			}
 
-				wait 0.05;
+			if (isdefined(ready_up_start_time))
+			{
+				time = getTime() - ready_up_start_time;
+
+				if (time >= ready_up_time * 1000)
+				{
+					ready_up_timeout = 1;
+
+					foreach (player in ready_up_start_players)
+					{
+						if (isDefined(player) && !isDefined(player.ready))
+						{
+							kick(player getEntityNumber());
+						}
+					}
+
+					wait 0.05;
+				}
 			}
 		}
 
