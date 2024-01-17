@@ -29,6 +29,8 @@
 * Zone name displayed on bottom left of screen - `hud_zone_name`
 * Added proper game mode and map name to scoreboard
 * Added icons on scoreboard when player is downed, bled out, in Who's Who mode, or in afterlife
+* Weapon name is all capitalized on all maps
+* Weapon name is the same text size on all maps
 * Weapon name no longer fades out
 * Grenade icons no longer fade based on how many the player currently has
 * Moved keyboard and mouse dpad icons to their positions from Origins on all maps
