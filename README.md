@@ -155,8 +155,8 @@
 ### KAP-40
 * Removed delay between last shot and reload
 * Unupgraded: increased clip ammo from 12 to 15
-* Unupgraded: increased stock ammo from 96 to 240
-* Upgraded: increased stock ammo from 180 to 360
+* Unupgraded: increased stock ammo from 96 to 180
+* Upgraded: increased stock ammo from 180 to 270
 
 ### M1911
 * Upgraded: decreased stock ammo from 50 to 48
@@ -177,6 +177,7 @@
 
 ### AN-94
 * Increased weapon cost from 1200 to 1500
+* Unupgraded: decreased stock ammo from 300 to 240
 * Upgraded: decreased stock ammo from 600 to 450
 
 ### FAL OSW
@@ -229,9 +230,9 @@
 
 ### Chicom CQB
 * Unupgraded: decreased clip ammo from 40 to 36
-* Unupgraded: increased stock ammo from 120 to 288
+* Unupgraded: increased stock ammo from 120 to 252
 * Upgraded: increased clip ammo from 40 to 48
-* Upgraded: increased stock ammo from 200 to 384
+* Upgraded: increased stock ammo from 200 to 336
 * Upgraded: changed default attachment from None to Select Fire
 
 ### M1927
