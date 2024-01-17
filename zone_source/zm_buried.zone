@@ -10,3 +10,5 @@ include,includes/cymbal_monkey_zm
 
 weapon,bowie_knife_zm
 weapon,tazer_knuckles_zm
+
+menulist,ui_mp/hud_zgrief.txt
