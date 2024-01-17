@@ -760,6 +760,7 @@
 * Initial perk spawns at round 1 in coop
 * Perks spawn every 5 rounds
 * Increased intermission time from 7.5 seconds to 15 seconds
+* Fixed Mystery Box floating in the sky at the beginning of the game
 
 ### Die Rise
 * Removed key
