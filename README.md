@@ -595,6 +595,7 @@
 * Can no longer melee while holding (except Zombie Shield)
 * Changed crafting hint string from "Building..." to "Crafting..."
 * Changed purchase hint string from "for" to "to take"
+* Changed pick up hint string from "for" to "to pick up"
 
 ### Zombie Shield
 * Added shield health bar on HUD

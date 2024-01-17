@@ -1098,11 +1098,17 @@ LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Tombstone Soda [Cost: &&1]"
 REFERENCE           ZM_CRAFTABLES_CHANGE_BUILD
 LANG_ENGLISH        "Press ^3[{+actionslot 1}]^7 or ^3[{+actionslot 2}]^7 to change item"
 
+REFERENCE           ZOMBIE_EQUIP_TURBINE_PICKUP_HINT_STRING
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to pick up Turbine"
+
 REFERENCE           ZOMBIE_BUILD_TURBINE
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Turbine"
 
 REFERENCE           ZOMBIE_GRAB_TURBINE_PICKUP_HINT_STRING
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to take Turbine [Cost: &&1]"
+
+REFERENCE           ZOMBIE_EQUIP_RIOTSHIELD_PICKUP_HINT_STRING
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to pick up Zombie Shield"
 
 REFERENCE           ZOMBIE_BUILD_RIOT
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Zombie Shield"
@@ -1116,17 +1122,26 @@ LANG_ENGLISH        "Hold ^3[{+activate}]^7 to repair Zombie Shield [Cost: &&1]"
 REFERENCE           ZOMBIE_BOUGHT_RIOT_REPAIR
 LANG_ENGLISH        "Repaired Zombie Shield"
 
+REFERENCE           ZOMBIE_EQUIP_TURRET_PICKUP_HINT_STRING
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to pick up Turret"
+
 REFERENCE           ZOMBIE_BUILD_TURRET
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Turret"
 
 REFERENCE           ZOMBIE_GRAB_TURRET_PICKUP_HINT_STRING
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to take Turret [Cost: &&1]"
 
+REFERENCE           ZOMBIE_EQUIP_ELECTRICTRAP_PICKUP_HINT_STRING
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to pick up Electric Trap"
+
 REFERENCE           ZOMBIE_BUILD_ELECTRIC_TRAP
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Electric Trap"
 
 REFERENCE           ZOMBIE_GRAB_ELECTRICTRAP
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to take Electric Trap [Cost: &&1]"
+
+REFERENCE           ZOMBIE_EQUIP_JETGUN_PICKUP_HINT_STRING
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to pick up Jet Gun"
 
 REFERENCE           ZOMBIE_BUILD_JETGUN
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Jet Gun"
@@ -1149,6 +1164,9 @@ LANG_ENGLISH        "Hold ^3[{+activate}]^7 to take Sliquifier [Cost: &&1]"
 REFERENCE           ZM_PRISON_CONVERT_START
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to convert Blundergat into Acidgat [Cost: &&1]"
 
+REFERENCE           ZM_BURIED_EQ_SW_PHS
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to pick up Subsurface Resonator"
+
 REFERENCE           ZM_BURIED_BUILD_SUBWOOFER
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Subsurface Resonator"
 
@@ -1158,6 +1176,9 @@ LANG_ENGLISH        "Hold ^3[{+activate}]^7 to take Subsurface Resonator [Cost: 
 REFERENCE           ZM_BURIED_BOUGHT_SUBWOOFER
 LANG_ENGLISH        "Took Subsurface Resonator"
 
+REFERENCE           ZM_BURIED_EQ_SP_PHS
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to pick up Trample Steam"
+
 REFERENCE           ZM_BURIED_BUILD_SPRINGPAD
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Trample Steam"
 
@@ -1166,6 +1187,9 @@ LANG_ENGLISH        "Hold ^3[{+activate}]^7 to take Trample Steam [Cost: &&1]"
 
 REFERENCE           ZM_BURIED_BOUGHT_SPRINGPAD
 LANG_ENGLISH        "Took Trample Steam"
+
+REFERENCE           ZM_BURIED_EQ_HC_PHS
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to pick up Head Chopper"
 
 REFERENCE           ZM_BURIED_BUILD_HEADCHOPPER
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Head Chopper"
