@@ -596,8 +596,8 @@ CoD.AmmoAreaZombie.UpdateWeaponSelect = function (f13_arg0, f13_arg1)
 	if CoD.isZombie == true then
 		f13_arg0.weaponText:setText(f13_local0)
 	end
-	f13_arg0.weaponLabelContainer:beginAnimation("fade_out", CoD.WeaponLabel.FadeTime)
-	f13_arg0.weaponLabelContainer:setAlpha(0)
+	-- f13_arg0.weaponLabelContainer:beginAnimation("fade_out", CoD.WeaponLabel.FadeTime)
+	-- f13_arg0.weaponLabelContainer:setAlpha(0)
 	f13_arg0:dispatchEventToChildren(f13_arg1)
 end
 

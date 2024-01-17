@@ -29,6 +29,7 @@
 * Zone name displayed on bottom left of screen - `hud_zone_name`
 * Added proper game mode and map name to scoreboard
 * Added icons on scoreboard when player is downed, bled out, in Who's Who mode, or in afterlife
+* Weapon name no longer fades out
 * Moved keyboard and mouse dpad icons to their positions from Origins on all maps
 * Increased waypoint offset from top of screen
 * Changed player waypoint location to be center of player instead of top of player
@@ -904,7 +905,7 @@
 * Records automatically picked up
 * Gramophone initially spawns at Excavation Site gramophone table
 * Musical parts no longer show on HUD
-* Added attachment display name on HUD for upgraded attachment weapons
+* Added attachment name on HUD for upgraded attachment weapons
 * Generators: increased capture reward points from 100 to 200
 * Generators: always give back refund points if player was in the generator zone when captured
 * Generators: recapture round zombies only drop Max Ammo if killed before taking first generator
