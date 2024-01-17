@@ -108,6 +108,9 @@ LANG_ENGLISH        "Zone: "
 REFERENCE           ZOMBIE_HUD_CONTAINMENT_TIME
 LANG_ENGLISH        "Time: "
 
+REFERENCE           ZOMBIE_HUD_VOTE_TIME
+LANG_ENGLISH        "Vote Time: "
+
 REFERENCE           ZM_TRANSIT_BUS_DEPART_TIME
 LANG_ENGLISH        "Bus departs in: "
 
@@ -149,6 +152,9 @@ LANG_ENGLISH        "MATCH BEGINS IN"
 
 REFERENCE           ZOMBIE_ROUND_BEGINS_IN_CAPS
 LANG_ENGLISH        "ROUND &&1 BEGINS IN"
+
+REFERENCE           ZOMBIE_VOTE_HOWTO
+LANG_ENGLISH        "Press ^3[{+attack}]^7 or ^3[{+speed_throw}]^7 to change selection, ^3[{+gostand}]^7 or ^3[{+activate}]^7 to vote"
 
 REFERENCE           ZOMBIE_ZGRIEF_INTRO
 LANG_ENGLISH        "Make enemy players bleed out to gain score!"

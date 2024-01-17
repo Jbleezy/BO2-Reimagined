@@ -171,6 +171,11 @@ init()
 	level thread swap_staminup_perk();
 
 	level thread remove_status_icons_on_intermission();
+
+	if (isDedicated())
+	{
+		scripts\zm\server\_zm_reimagined_server::init();
+	}
 }
 
 on_player_connect()

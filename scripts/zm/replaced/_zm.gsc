@@ -3001,15 +3001,7 @@ end_game()
 		players[i] cameraactivate(0);
 	}
 
-	if (is_true(level.map_restart))
-	{
-		map_restart();
-	}
-	else
-	{
-		exitlevel(0);
-	}
-
+	exitlevel(0);
 	wait 666;
 }
 
