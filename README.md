@@ -34,6 +34,7 @@
 * Weapon name no longer fades out
 * Grenade icons no longer fade based on how many the player currently has
 * Moved keyboard and mouse dpad icons to their positions from Origins on all maps
+* Removed ammo counter for falling hands anim
 * Increased waypoint offset from top of screen
 * Changed player waypoint location to be center of player instead of top of player
 * Increased distance between revive waypoint arrow and icon
