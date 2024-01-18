@@ -44,6 +44,7 @@ if %ERRORLEVEL% NEQ 0 pause
 if %ERRORLEVEL% NEQ 0 pause
 
 "%OAT_BASE%\Linker.exe" ^
+--load "%OAT_GAME%\zone\all\so_zclassic_zm_prison.ff" ^
 --load "%OAT_GAME%\zone\all\so_zencounter_zm_prison.ff" ^
 --load "%OAT_GAME%\zone\all\zm_prison_patch.ff" ^
 --load "%OAT_GAME%\zone\all\zm_prison.ff" ^

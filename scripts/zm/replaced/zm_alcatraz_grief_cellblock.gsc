@@ -469,7 +469,7 @@ turn_afterlife_interact_on()
 
 		if (issubstr(self.model, "p6_zm_al_shock_box"))
 		{
-			self useanimtree(-1);
+			self useanimtree(#animtree);
 			self setmodel("p6_zm_al_shock_box_on");
 			self setanim(level.shockbox_anim["on"]);
 		}
