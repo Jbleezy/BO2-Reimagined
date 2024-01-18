@@ -83,7 +83,7 @@ LUI.createMenu.DPadArea = function (f1_arg0)
 		rightAnchor = true,
 		bottomAnchor = true
 	}))
-	local f1_local5 = -1
+	local f1_local5 = -49
 	local f1_local6 = -1
 	Widget:addElement(CoD.OffhandIcons.new("lethal", {
 		left = f1_local5 - CoD.OffhandIcons.Width,
