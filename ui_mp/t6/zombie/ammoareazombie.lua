@@ -364,6 +364,10 @@ CoD.AmmoAreaZombie.GetThreeDigits = function (f5_arg0)
 end
 
 CoD.AmmoAreaZombie.UpdateAmmo = function (f6_arg0, f6_arg1)
+	if f6_arg1.ammoInClip == 0 and f6_arg1.ammoStock == 0 and f6_arg1.lowClip ~= true then
+		return
+	end
+
 	local f6_local0 = #f6_arg0.ammoDigits
 	if f6_arg0.hideAmmo then
 		for f6_local1 = 1, f6_local0, 1 do
@@ -472,7 +476,7 @@ CoD.AmmoAreaZombie.UpdateFuel = function (f7_arg0, f7_arg1)
 end
 
 CoD.AmmoAreaZombie.UpdateOverheat = function (f8_arg0, f8_arg1)
-	if CoD.AmmoAreaZombie.ShouldHideAmmoCounter(f8_arg0, f8_arg1) == true then
+	if CoD.AmmoAreaZombie.ShouldHideOverheatCounter(f8_arg0, f8_arg1) then
 		return
 	end
 
@@ -562,6 +566,17 @@ end
 
 CoD.AmmoAreaZombie.ShouldHideAmmoCounter = function (f10_arg0, f10_arg1)
 	if f10_arg0.weapon ~= nil then
+		if Engine.IsWeaponType(f10_arg0.weapon, "melee") then
+			return true
+		elseif CoD.isZombie == true and (f10_arg1.inventorytype == 1 or f10_arg1.inventorytype == 2) then
+			return true
+		end
+	end
+	return false
+end
+
+CoD.AmmoAreaZombie.ShouldHideOverheatCounter = function (f10_arg0, f10_arg1)
+	if f10_arg0.weapon ~= nil then
 		if CoD.isZombie == true and (Engine.IsWeaponType(f10_arg0.weapon, "gas") or Engine.IsOverheatWeapon(f10_arg0.weapon)) then
 			return false
 		end
@@ -573,7 +588,7 @@ CoD.AmmoAreaZombie.UpdateAmmoVisibility = function (f11_arg0, f11_arg1)
 	if f11_arg1.weapon ~= nil then
 		f11_arg0.weapon = f11_arg1.weapon
 	end
-	if CoD.AmmoAreaZombie.ShouldHideAmmoCounter(f11_arg0, f11_arg1) == false then
+	if CoD.AmmoAreaZombie.ShouldHideAmmoCounter(f11_arg0, f11_arg1) then
 		for f11_local0 = 1, #f11_arg0.ammoDigits, 1 do
 			f11_arg0.ammoDigits[f11_local0]:setAlpha(0)
 		end
