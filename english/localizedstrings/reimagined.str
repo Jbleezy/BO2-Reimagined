@@ -1207,10 +1207,10 @@ REFERENCE           ZM_BURIED_WB_VECTOR
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to draw Vector K10 wallbuy"
 
 REFERENCE           ZM_BURIED_BUILD_MTOWER
-LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Noose"
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft the Noose"
 
 REFERENCE           ZM_BURIED_BUILD_RTOWER
-LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Guillotine"
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft the Guillotine"
 
 REFERENCE           ZM_TOMB_CRRI
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Zombie Shield"
