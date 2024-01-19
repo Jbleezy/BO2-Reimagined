@@ -50,7 +50,7 @@ LUI.createMenu.AmmoAreaZombie = function (f1_arg0)
 	Widget.visible = true
 	Widget:registerEventHandler("hud_update_actionslots", CoD.AmmoAreaZombie.UpdateActionSlots)
 	Widget:registerEventHandler("hud_update_inventory_weapon", CoD.AmmoAreaZombie.UpdateInventoryWeapon)
-	Widget:registerEventHandler("hud_fade_dpad", CoD.AmmoAreaZombie.UpdateFading)
+	-- Widget:registerEventHandler("hud_fade_dpad", CoD.AmmoAreaZombie.UpdateFading)
 	local f1_local5 = 256
 	local f1_local6 = f1_local5 / 16
 	local f1_local7 = f1_local2 + CoD.AmmoAreaZombie.CircleSize / 2

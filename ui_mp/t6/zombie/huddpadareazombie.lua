@@ -246,7 +246,7 @@ LUI.createMenu.DPadArea = function (f1_arg0)
 	Widget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_PLAYER_ZOMBIE, CoD.DPadArea.UpdateVisibility)
 	Widget:registerEventHandler("hud_update_actionslots", CoD.DPadArea.UpdateActionSlots)
 	Widget:registerEventHandler("hud_update_inventory_weapon", CoD.DPadArea.UpdateInventoryWeapon)
-	Widget:registerEventHandler("hud_fade_dpad", CoD.DPadArea.UpdateFading)
+	-- Widget:registerEventHandler("hud_fade_dpad", CoD.DPadArea.UpdateFading)
 	Widget:registerEventHandler("hud_update_team_change", CoD.DPadArea.UpdateTeamChange)
 	if CoD.isPC then
 		Widget:registerEventHandler("input_source_changed", CoD.DPadArea.InputSourceChanged)

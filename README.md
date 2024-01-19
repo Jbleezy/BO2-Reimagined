@@ -33,7 +33,7 @@
 * Moved afterlife display to the right of points display
 * Weapon name is all capitalized on all maps
 * Weapon name is the same text size on all maps
-* Weapon name no longer fades out
+* Weapon name and ammo no longer fade out
 * Grenade icons no longer fade based on how many the player currently has
 * Removed ammo counter for falling hands anim
 * Increased waypoint offset from top of screen
