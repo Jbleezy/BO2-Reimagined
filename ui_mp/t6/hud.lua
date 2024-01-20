@@ -451,6 +451,9 @@ function HUD_FirstSnapshot_Zombie(HUDWidget, ClientInstance)
 	if Engine.GameModeIsMode(CoD.GAMEMODE_LOCAL_SPLITSCREEN) == false then
 		CoD.DemoHUD.AddHUDWidgets(HUDWidget, ClientInstance)
 	end
+
+	require("T6.Zombie.HudReimagined")
+	Widget:addElement(LUI.createMenu.ReimaginedArea(ClientInstance.controller))
 end
 
 function HUD_ToggleZombieHudContainer(HUDWidget, ClientInstance)

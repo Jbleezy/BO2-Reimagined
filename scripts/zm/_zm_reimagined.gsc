@@ -124,6 +124,8 @@ main()
 
 init()
 {
+	precacheString(&"hud_update_health");
+
 	precacheStatusIcon("menu_mp_killstreak_select");
 	precacheStatusIcon("menu_mp_contract_expired");
 	precacheStatusIcon("waypoint_revive");
@@ -214,7 +216,6 @@ on_player_spawned()
 			self.screecher_seen_hint = 1;
 
 			self thread health_bar_hud();
-			self thread shield_bar_hud();
 			self thread bleedout_bar_hud();
 			self thread zone_hud();
 
@@ -494,189 +495,28 @@ health_bar_hud()
 
 	flag_wait("hud_visible");
 
-	if (!getDvarInt("hud_health_bar"))
-	{
-		return;
-	}
-
-	x = 5;
-	y = -104;
-
-	hud = self createbar((1, 1, 1), level.primaryprogressbarwidth - 10, level.primaryprogressbarheight);
-	hud.alignx = "left";
-	hud.bar.alignx = "left";
-	hud.barframe.alignx = "left";
-	hud.aligny = "middle";
-	hud.bar.aligny = "middle";
-	hud.barframe.aligny = "middle";
-	hud.horzalign = "user_left";
-	hud.bar.horzalign = "user_left";
-	hud.barframe.horzalign = "user_left";
-	hud.vertalign = "user_bottom";
-	hud.bar.vertalign = "user_bottom";
-	hud.barframe.vertalign = "user_bottom";
-	hud.x += x;
-	hud.bar.x += x + ((hud.width + 4) / 2);
-	hud.barframe.x += x;
-	hud.y += y;
-	hud.bar.y += y;
-	hud.barframe.y += y;
-	hud.hidewheninmenu = 1;
-	hud.bar.hidewheninmenu = 1;
-	hud.barframe.hidewheninmenu = 1;
-	hud.foreground = 1;
-	hud.bar.foreground = 1;
-	hud.barframe.foreground = 1;
-	hud.sort = 1;
-	hud.bar.sort = 2;
-	hud.barframe.sort = 3;
-	hud.barframe destroy();
-
-	hud_text = createfontstring("objective", 1.2);
-	hud_text.alignx = "left";
-	hud_text.aligny = "middle";
-	hud_text.horzalign = "user_left";
-	hud_text.vertalign = "user_bottom";
-	hud_text.x += x + hud.width + 7;
-	hud_text.y += y;
-	hud_text.hidewheninmenu = 1;
-	hud_text.foreground = 1;
-
-	hud endon("death");
-
-	hud thread destroy_on_intermission();
-	hud_text thread destroy_on_intermission();
+	prev_health = 0;
+	prev_maxhealth = 0;
+	prev_shield_health = 0;
 
 	while (1)
 	{
-		if (is_true(self.afterlife))
+		shield_health = 0;
+
+		if (is_true(self.hasriotshield) && isdefined(self.shielddamagetaken) && self.shielddamagetaken < level.zombie_vars["riotshield_hit_points"])
 		{
-			hud hideelem();
-			hud_text hideelem();
-
-			while (is_true(self.afterlife))
-			{
-				wait 0.05;
-			}
-
-			hud showelem();
-			hud_text showelem();
+			shield_health = level.zombie_vars["riotshield_hit_points"] - self.shielddamagetaken;
+			shield_health = int((shield_health / level.zombie_vars["riotshield_hit_points"]) * 100);
 		}
 
-		hud updatebar(self.health / self.maxhealth);
-		hud_text setvalue(self.health);
-
-		wait 0.05;
-	}
-}
-
-shield_bar_hud()
-{
-	self endon("disconnect");
-
-	flag_wait("hud_visible");
-
-	if (!getDvarInt("hud_health_bar"))
-	{
-		return;
-	}
-
-	x = 5;
-	y = -104;
-
-	hud = self createbar((0.5, 0.5, 0.5), level.primaryprogressbarwidth - 10, int(level.primaryprogressbarheight / 2));
-	hud.alignx = "left";
-	hud.bar.alignx = "left";
-	hud.barframe.alignx = "left";
-	hud.aligny = "middle";
-	hud.bar.aligny = "middle";
-	hud.barframe.aligny = "middle";
-	hud.horzalign = "user_left";
-	hud.bar.horzalign = "user_left";
-	hud.barframe.horzalign = "user_left";
-	hud.vertalign = "user_bottom";
-	hud.bar.vertalign = "user_bottom";
-	hud.barframe.vertalign = "user_bottom";
-	hud.x += x;
-	hud.bar.x += x + ((hud.width + 4) / 2);
-	hud.barframe.x += x;
-	hud.y += y - 2;
-	hud.bar.y += y - 2;
-	hud.barframe.y += y - 2;
-	hud.hidewheninmenu = 1;
-	hud.bar.hidewheninmenu = 1;
-	hud.barframe.hidewheninmenu = 1;
-	hud.foreground = 1;
-	hud.bar.foreground = 1;
-	hud.barframe.foreground = 1;
-	hud.sort = 2;
-	hud.bar.sort = 3;
-	hud.barframe.sort = 4;
-	hud.alpha = 0;
-	hud.barframe destroy();
-
-	hud_text = createfontstring("objective", 1.2);
-	hud_text.alignx = "left";
-	hud_text.aligny = "middle";
-	hud_text.horzalign = "user_left";
-	hud_text.vertalign = "user_bottom";
-	hud_text.label = &"| ";
-	hud_text.x += x + hud.width + 11;
-	hud_text.y += y;
-	hud_text.hidewheninmenu = 1;
-	hud_text.foreground = 1;
-
-	hud_text_x = hud_text.x;
-
-	hud endon("death");
-
-	hud thread destroy_on_intermission();
-	hud_text thread destroy_on_intermission();
-
-	while (1)
-	{
-		if (!is_true(self.hasriotshield) || (isDefined(self.shielddamagetaken) && self.shielddamagetaken >= level.zombie_vars["riotshield_hit_points"]) || is_true(self.afterlife))
+		if (self.health != prev_health || self.maxhealth != prev_maxhealth || shield_health != prev_shield_health)
 		{
-			hud.bar.alpha = 0;
-			hud_text hideelem();
-
-			while (!is_true(self.hasriotshield) || (isDefined(self.shielddamagetaken) && self.shielddamagetaken >= level.zombie_vars["riotshield_hit_points"]) || is_true(self.afterlife))
-			{
-				wait 0.05;
-			}
-
-			hud.bar.alpha = 1;
-			hud_text showelem();
+			self luinotifyevent(&"hud_update_health", 3, self.health, self.maxhealth, shield_health);
 		}
 
-		health = level.zombie_vars["riotshield_hit_points"] - self.shielddamagetaken;
-
-		if (health < 0)
-		{
-			health = 0;
-		}
-
-		health_ratio = health / level.zombie_vars["riotshield_hit_points"];
-
-		offset_x = 0;
-		health_str = "" + self.health;
-
-		for (i = 0; i < health_str.size; i++)
-		{
-			if (health_str[i] == "1")
-			{
-				offset_x += 4;
-			}
-			else
-			{
-				offset_x += 5;
-			}
-		}
-
-		hud_text.x = hud_text_x + offset_x;
-
-		hud updatebar(health_ratio);
-		hud_text setvalue(int(health_ratio * 100));
+		prev_health = self.health;
+		prev_maxhealth = self.maxhealth;
+		prev_shield_health = shield_health;
 
 		wait 0.05;
 	}

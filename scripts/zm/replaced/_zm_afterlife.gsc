@@ -144,7 +144,6 @@ afterlife_laststand(b_electric_chair = 0)
 	}
 
 	self.dontspeak = 1;
-	self.health = 1000;
 	b_has_electric_cherry = 0;
 
 	if (self hasperk("specialty_grenadepulldeath"))
