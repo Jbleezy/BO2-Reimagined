@@ -144,6 +144,7 @@ afterlife_laststand(b_electric_chair = 0)
 	}
 
 	self.dontspeak = 1;
+	self.health = self.maxhealth;
 	b_has_electric_cherry = 0;
 
 	if (self hasperk("specialty_grenadepulldeath"))
@@ -600,10 +601,7 @@ afterlife_player_damage_callback(einflictor, eattacker, idamage, idflags, smeans
 			self.afterlife = 1;
 			self thread afterlife_laststand();
 
-			if (self.health <= 1)
-				return 0;
-			else
-				idamage = self.health - 1;
+			return 0;
 		}
 		else
 			self thread last_stand_conscience_vo();
