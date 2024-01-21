@@ -13,6 +13,7 @@ LUI.createMenu.ReimaginedArea = function(LocalClientIndex)
 	local healthBarWidget = LUI.UIElement.new()
 	healthBarWidget:setLeftRight(true, false, x, x)
 	healthBarWidget:setTopBottom(false, true, y, y)
+	healthBarWidget:setAlpha(0)
 	healthBarWidget.width = width
 	healthBarWidget.height = height
 	healthBarWidget.bgDiff = bgDiff
@@ -20,7 +21,7 @@ LUI.createMenu.ReimaginedArea = function(LocalClientIndex)
 
 	local healthBarBg = LUI.UIImage.new()
 	healthBarBg:setLeftRight(true, false, 0, 0 + width)
-	healthBarBg:setTopBottom(false, true, 0, 0 + height)
+	healthBarBg:setTopBottom(true, false, 0, 0 + height)
 	healthBarBg:setImage(RegisterMaterial("white"))
 	healthBarBg:setRGB(0, 0, 0)
 	healthBarBg:setAlpha(0.5)
@@ -46,7 +47,7 @@ LUI.createMenu.ReimaginedArea = function(LocalClientIndex)
 
 	local healthText = LUI.UIText.new()
 	healthText:setLeftRight(true, false, width + bgDiff * 2, 0)
-	healthText:setTopBottom(false, true, 0 - bgDiff, height + bgDiff)
+	healthText:setTopBottom(true, false, 0 - bgDiff, height + bgDiff)
 	healthText:setFont(CoD.fonts.Condensed)
 	healthText:setAlignment(LUI.Alignment.Left)
 	healthBarWidget:addElement(healthText)
@@ -71,7 +72,51 @@ LUI.createMenu.ReimaginedArea = function(LocalClientIndex)
 	healthBarWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_PLAYER_ZOMBIE, CoD.Reimagined.HealthBarArea.UpdateVisibility)
 	healthBarWidget:registerEventHandler("hud_update_health", CoD.Reimagined.HealthBarArea.UpdateHealthBar)
 
-	healthBarWidget.visible = true
+	local x = 7
+	local y = -167
+
+	local zoneNameWidget = LUI.UIElement.new()
+	zoneNameWidget:setLeftRight(true, false, x, x)
+	zoneNameWidget:setTopBottom(false, true, y, y)
+	zoneNameWidget:setAlpha(0)
+	zoneNameWidget.width = width
+	zoneNameWidget.height = height
+	zoneNameWidget.bgDiff = bgDiff
+	safeArea:addElement(zoneNameWidget)
+
+	local zoneNameText = LUI.UIText.new()
+	zoneNameText:setLeftRight(true, false, 0, 1000)
+	zoneNameText:setTopBottom(true, false, -CoD.textSize.Default, 0)
+	zoneNameText:setFont(CoD.fonts.Default)
+	zoneNameText:setAlignment(LUI.Alignment.Left)
+	zoneNameText:registerAnimationState("fade_out", {
+		alpha = 0,
+	})
+	zoneNameText:registerAnimationState("fade_in", {
+		alpha = 1,
+	})
+	zoneNameText:animateToState("fade_in")
+	zoneNameWidget:addElement(zoneNameText)
+	zoneNameWidget.zoneNameText = zoneNameText
+
+	zoneNameWidget:registerEventHandler("hud_update_refresh", CoD.Reimagined.ZoneNameArea.UpdateVisibility)
+	zoneNameWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_VISIBLE, CoD.Reimagined.ZoneNameArea.UpdateVisibility)
+	zoneNameWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_EMP_ACTIVE, CoD.Reimagined.ZoneNameArea.UpdateVisibility)
+	zoneNameWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM, CoD.Reimagined.ZoneNameArea.UpdateVisibility)
+	zoneNameWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN, CoD.Reimagined.ZoneNameArea.UpdateVisibility)
+	zoneNameWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_VEHICLE, CoD.Reimagined.ZoneNameArea.UpdateVisibility)
+	zoneNameWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_GUIDED_MISSILE, CoD.Reimagined.ZoneNameArea.UpdateVisibility)
+	zoneNameWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC, CoD.Reimagined.ZoneNameArea.UpdateVisibility)
+	zoneNameWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_AMMO_COUNTER_HIDE, CoD.Reimagined.ZoneNameArea.UpdateVisibility)
+	zoneNameWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_FLASH_BANGED, CoD.Reimagined.ZoneNameArea.UpdateVisibility)
+	zoneNameWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_UI_ACTIVE, CoD.Reimagined.ZoneNameArea.UpdateVisibility)
+	zoneNameWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_SPECTATING_CLIENT, CoD.Reimagined.ZoneNameArea.UpdateVisibility)
+	zoneNameWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_SCOREBOARD_OPEN, CoD.Reimagined.ZoneNameArea.UpdateVisibility)
+	zoneNameWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_PLAYER_DEAD, CoD.Reimagined.ZoneNameArea.UpdateVisibility)
+	zoneNameWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_SCOPED, CoD.Reimagined.ZoneNameArea.UpdateVisibility)
+	zoneNameWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_PLAYER_ZOMBIE, CoD.Reimagined.ZoneNameArea.UpdateVisibility)
+	zoneNameWidget:registerEventHandler("hud_update_zone_fade_out", CoD.Reimagined.ZoneNameArea.FadeOutZoneName)
+	zoneNameWidget:registerEventHandler("hud_update_zone_fade_in", CoD.Reimagined.ZoneNameArea.FadeInZoneName)
 
 	return safeArea
 end
@@ -109,4 +154,29 @@ CoD.Reimagined.HealthBarArea.UpdateHealthBar = function(Menu, ClientInstance)
 		Menu.healthBar:setTopBottom(true, false, Menu.bgDiff, Menu.height - Menu.bgDiff)
 		Menu.healthText:setText(health)
 	end
+end
+
+CoD.Reimagined.ZoneNameArea = {}
+CoD.Reimagined.ZoneNameArea.UpdateVisibility = function(Menu, ClientInstance)
+	local controller = ClientInstance.controller
+	if UIExpression.IsVisibilityBitSet(controller, CoD.BIT_HUD_VISIBLE) == 1 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_EMP_ACTIVE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_VEHICLE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_GUIDED_MISSILE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_AMMO_COUNTER_HIDE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IS_FLASH_BANGED) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_UI_ACTIVE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_SCOREBOARD_OPEN) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_KILLCAM) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IS_SCOPED) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IS_PLAYER_ZOMBIE) == 0 and (not CoD.IsShoutcaster(controller) or CoD.ExeProfileVarBool(controller, "shoutcaster_scorestreaks") and Engine.IsSpectatingActiveClient(controller)) and CoD.FSM_VISIBILITY(controller) == 0 then
+		if Menu.visible ~= true then
+			Menu:setAlpha(1)
+			Menu.visible = true
+		end
+	elseif Menu.visible == true then
+		Menu:setAlpha(0)
+		Menu.visible = nil
+	end
+end
+
+CoD.Reimagined.ZoneNameArea.FadeOutZoneName = function(Menu, ClientInstance)
+	Menu.zoneNameText:animateToState("fade_out", 250)
+end
+
+CoD.Reimagined.ZoneNameArea.FadeInZoneName = function(Menu, ClientInstance)
+	local zoneName = Engine.Localize(Engine.GetIString(ClientInstance.data[1], "CS_LOCALIZED_STRINGS"))
+
+	Menu.zoneNameText:setText(zoneName)
+	Menu.zoneNameText:animateToState("fade_in", 250)
 end

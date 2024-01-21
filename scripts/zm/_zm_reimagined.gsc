@@ -124,21 +124,8 @@ main()
 
 init()
 {
-	precacheString(&"hud_update_health");
-
-	precacheStatusIcon("menu_mp_killstreak_select");
-	precacheStatusIcon("menu_mp_contract_expired");
-	precacheStatusIcon("waypoint_revive");
-
-	if (is_true(level.zombiemode_using_chugabud_perk))
-	{
-		precacheStatusIcon("specialty_chugabud_zombies");
-	}
-
-	if (is_true(level.zombiemode_using_afterlife))
-	{
-		precacheStatusIcon("waypoint_revive_afterlife");
-	}
+	precache_strings();
+	precache_status_icons();
 
 	level.using_solo_revive = 0;
 	level.claymores_max_per_player = 20;
@@ -180,6 +167,35 @@ init()
 	}
 }
 
+precache_strings()
+{
+	precacheString(&"hud_update_health");
+	precacheString(&"hud_update_zone_fade_out");
+	precacheString(&"hud_update_zone_fade_in");
+
+	foreach (zone_name in level.zone_keys)
+	{
+		precacheString(istring(toupper(level.script + "_" + zone_name)));
+	}
+}
+
+precache_status_icons()
+{
+	precacheStatusIcon("menu_mp_killstreak_select");
+	precacheStatusIcon("menu_mp_contract_expired");
+	precacheStatusIcon("waypoint_revive");
+
+	if (is_true(level.zombiemode_using_chugabud_perk))
+	{
+		precacheStatusIcon("specialty_chugabud_zombies");
+	}
+
+	if (is_true(level.zombiemode_using_afterlife))
+	{
+		precacheStatusIcon("waypoint_revive_afterlife");
+	}
+}
+
 on_player_connect()
 {
 	while (true)
@@ -216,8 +232,9 @@ on_player_spawned()
 			self.screecher_seen_hint = 1;
 
 			self thread health_bar_hud();
+			self thread zone_name_hud();
+
 			self thread bleedout_bar_hud();
-			self thread zone_hud();
 
 			self thread veryhurt_blood_fx();
 
@@ -802,43 +819,14 @@ set_time_frozen_on_end_game()
 	self set_time_frozen(time, "forever");
 }
 
-zone_hud()
+zone_name_hud()
 {
 	self endon("disconnect");
 
-	x = 5;
-	y = -119;
-
-	hud = newClientHudElem(self);
-	hud.alignx = "left";
-	hud.aligny = "middle";
-	hud.horzalign = "user_left";
-	hud.vertalign = "user_bottom";
-	hud.x += x;
-	hud.y += y;
-	hud.fontscale = 1.4;
-	hud.alpha = 0;
-	hud.color = (1, 1, 1);
-	hud.hidewheninmenu = 1;
-	hud.foreground = 1;
-
-	hud endon("death");
-
-	hud thread destroy_on_intermission();
-
 	flag_wait("hud_visible");
 
-	if (!getDvarInt("hud_zone_name"))
-	{
-		return;
-	}
-
 	vars = [];
-
-	vars["zone"] = self get_current_zone();
-	vars["prev_zone_name"] = get_zone_display_name(vars["zone"]);
-	hud settext(vars["prev_zone_name"]);
-	hud.alpha = 1;
+	vars["prev_zone_name"] = "";
 
 	while (1)
 	{
@@ -847,17 +835,21 @@ zone_hud()
 
 		if (vars["prev_zone_name"] != vars["zone_name"])
 		{
+			if (vars["prev_zone_name"] != "")
+			{
+				self luinotifyevent(&"hud_update_zone_fade_out");
+
+				wait 0.25;
+			}
+
+			if (vars["zone_name"] != "")
+			{
+				self luinotifyevent(&"hud_update_zone_fade_in", 1, vars["zone_name"]);
+
+				wait 0.25;
+			}
+
 			vars["prev_zone_name"] = vars["zone_name"];
-
-			hud fadeovertime(0.25);
-			hud.alpha = 0;
-			wait 0.25;
-
-			hud settext(vars["zone_name"]);
-
-			hud fadeovertime(0.25);
-			hud.alpha = 1;
-			wait 0.25;
 
 			continue;
 		}

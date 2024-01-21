@@ -23,10 +23,10 @@
 * In-game menu no longer disabled instantly when the game ends
 
 ## HUD
-* Enemy counter displayed on top left of screen - `hud_enemy_counter`
-* Timer displayed on top right of screen - `hud_timer`
-* Health bar displayed on bottom left of screen - `hud_health_bar`
-* Zone name displayed on bottom left of screen - `hud_zone_name`
+* Enemy counter displayed on top left of screen
+* Timer displayed on top right of screen
+* Health bar displayed on bottom left of screen
+* Zone name displayed on bottom left of screen
 * Added proper game mode and map name to scoreboard
 * Added icons on scoreboard when player is downed, bled out, in Who's Who mode, or in afterlife
 * Moved points display, grenade icons, and keyboard & mouse dpad icons to their positions from Origins on all maps
@@ -85,7 +85,7 @@
 * Dual wield last stand weapon is switched to when ammo is only in left clip
 * Decreased friendly player name fade out time from 1.5 seconds to 0.25 seconds
 * Removed enemy player name fade in time
-* Added option to disable character dialog - `disable_character_dialog`
+* Added option to disable character dialog
 
 ## Zombies
 * Health capped at 100,000
