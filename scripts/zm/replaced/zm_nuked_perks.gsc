@@ -11,6 +11,15 @@ init_nuked_perks()
 {
 	level.perk_arrival_vehicle = getent("perk_arrival_vehicle", "targetname");
 	level.perk_arrival_vehicle setmodel("tag_origin");
+
+	level.grief_perk_arrival_vehicles = getentarray("grief_perk_arrival_vehicle", "targetname");
+	level.grief_perk_arrival_vehicles_ind = 0;
+
+	foreach (grief_perk_arrival_vehicle in level.grief_perk_arrival_vehicles)
+	{
+		grief_perk_arrival_vehicle setmodel("tag_origin");
+	}
+
 	flag_init("perk_vehicle_bringing_in_perk");
 	structs = getstructarray("zm_perk_machine", "targetname");
 
@@ -132,14 +141,6 @@ bring_random_perks(machines, machine_triggers)
 
 grief_bring_random_perks(machines, machine_triggers)
 {
-	level.grief_perk_arrival_vehicles = getentarray("grief_perk_arrival_vehicle", "targetname");
-	level.grief_perk_arrival_vehicles_ind = 0;
-
-	foreach (grief_perk_arrival_vehicle in level.grief_perk_arrival_vehicles)
-	{
-		grief_perk_arrival_vehicle setmodel("tag_origin");
-	}
-
 	level waittill("restart_round_start");
 
 	wait(randomintrange(10, 20));
