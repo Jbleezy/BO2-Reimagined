@@ -508,6 +508,7 @@ set_perks()
 
 health_bar_hud()
 {
+	level endon("intermission");
 	self endon("disconnect");
 
 	flag_wait("hud_visible");
@@ -821,6 +822,7 @@ set_time_frozen_on_end_game()
 
 zone_name_hud()
 {
+	level endon("intermission");
 	self endon("disconnect");
 
 	flag_wait("hud_visible");
