@@ -35,7 +35,7 @@
 * Weapon name is the same text size on all maps
 * Weapon name and ammo no longer fade out
 * Grenade icons no longer fade based on how many the player currently has
-* Removed ammo counter for falling hands anim
+* Ammo counter no longer shows while scoped on all maps
 * Increased waypoint offset from top of screen
 * Changed player waypoint location to be center of player instead of top of player
 * Increased distance between revive waypoint arrow and icon
@@ -59,6 +59,7 @@
 * Increased melee range by 16% (same as Black Ops 1)
 * Disabled melee lunging
 * Disabled meleeing while doing falling hands anim
+* Removed ammo counter while doing falling hands anim
 * Can look up and down 90 degrees (previously 85 degrees)
 * Decreased normal health regeneration delay from 2.4 seconds to 2 seconds
 * Decreased low health regeneration delay from 5 seconds to 4 seconds
