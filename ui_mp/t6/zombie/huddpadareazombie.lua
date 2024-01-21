@@ -6,7 +6,7 @@ CoD.DPadArea.InventoryAnimationDuration = 250
 CoD.DPadArea.ArrowColor = {
 	r = 1,
 	g = 1,
-	b = 1
+	b = 1,
 }
 CoD.DPadArea.RewardIconSize = 64
 CoD.DPadArea.InterlacedLinesMaterial = RegisterMaterial("hud_dpad_blood")
@@ -18,7 +18,7 @@ if CoD.isPS3 == true then
 else
 	CoD.DPadArea.DPadMaterial = RegisterMaterial("hud_dpad_xenon")
 end
-LUI.createMenu.DPadArea = function (f1_arg0)
+LUI.createMenu.DPadArea = function(f1_arg0)
 	local f1_local0 = CoD.Menu.NewSafeAreaFromState("DPadArea", f1_arg0)
 	f1_local0:setOwner(f1_arg0)
 	f1_local0.scaleContainer = CoD.SplitscreenScaler.new(nil, CoD.Zombie.SplitscreenMultiplier)
@@ -43,7 +43,7 @@ LUI.createMenu.DPadArea = function (f1_arg0)
 		red = 0.21,
 		green = 0,
 		blue = 0,
-		material = CoD.DPadArea.InterlacedLinesMaterial
+		material = CoD.DPadArea.InterlacedLinesMaterial,
 	}))
 	Widget.circleBackground = LUI.UIImage.new()
 	Widget.circleBackground:setLeftRight(true, true, 0, 0)
@@ -59,7 +59,7 @@ LUI.createMenu.DPadArea = function (f1_arg0)
 		leftAnchor = true,
 		topAnchor = true,
 		rightAnchor = true,
-		bottomAnchor = true
+		bottomAnchor = true,
 	}))
 	Widget:addElement(CoD.OtherAmmoCounters.new({
 		left = 0,
@@ -69,7 +69,7 @@ LUI.createMenu.DPadArea = function (f1_arg0)
 		leftAnchor = true,
 		topAnchor = true,
 		rightAnchor = true,
-		bottomAnchor = true
+		bottomAnchor = true,
 	}))
 	local f1_local3 = -88
 	local f1_local4 = -131
@@ -81,7 +81,7 @@ LUI.createMenu.DPadArea = function (f1_arg0)
 		leftAnchor = false,
 		topAnchor = false,
 		rightAnchor = true,
-		bottomAnchor = true
+		bottomAnchor = true,
 	}))
 	local f1_local5 = -49
 	local f1_local6 = -1
@@ -93,7 +93,7 @@ LUI.createMenu.DPadArea = function (f1_arg0)
 		leftAnchor = false,
 		topAnchor = false,
 		rightAnchor = true,
-		bottomAnchor = true
+		bottomAnchor = true,
 	}))
 	Widget:addElement(CoD.OffhandIcons.new("tactical", {
 		left = f1_local5 - CoD.OffhandIcons.Width * 2,
@@ -103,7 +103,7 @@ LUI.createMenu.DPadArea = function (f1_arg0)
 		leftAnchor = false,
 		topAnchor = false,
 		rightAnchor = true,
-		bottomAnchor = true
+		bottomAnchor = true,
 	}))
 	Widget.carouselArrows = LUI.UIElement.new({
 		left = 0,
@@ -113,7 +113,7 @@ LUI.createMenu.DPadArea = function (f1_arg0)
 		leftAnchor = true,
 		topAnchor = true,
 		rightAnchor = true,
-		bottomAnchor = true
+		bottomAnchor = true,
 	})
 	Widget:addElement(Widget.carouselArrows)
 	local f1_local7 = 8
@@ -132,7 +132,7 @@ LUI.createMenu.DPadArea = function (f1_arg0)
 		green = CoD.DPadArea.ArrowColor.g,
 		blue = CoD.DPadArea.ArrowColor.b,
 		alpha = CoD.HUDAlphaFull,
-		material = CoD.DPadArea.ArrowMaterial
+		material = CoD.DPadArea.ArrowMaterial,
 	}))
 	Widget.carouselArrows:addElement(LUI.UIImage.new({
 		left = -f1_local7 / 2,
@@ -148,7 +148,7 @@ LUI.createMenu.DPadArea = function (f1_arg0)
 		blue = CoD.DPadArea.ArrowColor.b,
 		alpha = CoD.HUDAlphaFull,
 		material = CoD.DPadArea.ArrowMaterial,
-		zRot = 180
+		zRot = 180,
 	}))
 	Widget.carouselArrows:addElement(LUI.UIImage.new({
 		left = -f1_local9 - f1_local8 / 2 - f1_local7 / 2,
@@ -164,7 +164,7 @@ LUI.createMenu.DPadArea = function (f1_arg0)
 		blue = CoD.DPadArea.ArrowColor.b,
 		alpha = CoD.HUDAlphaFull,
 		material = CoD.DPadArea.ArrowMaterial,
-		zRot = 90
+		zRot = 90,
 	}))
 	Widget.carouselArrows:addElement(LUI.UIImage.new({
 		left = f1_local9 + f1_local8 / 2 - f1_local7 / 2,
@@ -180,7 +180,7 @@ LUI.createMenu.DPadArea = function (f1_arg0)
 		blue = CoD.DPadArea.ArrowColor.b,
 		alpha = CoD.HUDAlphaFull,
 		material = CoD.DPadArea.ArrowMaterial,
-		zRot = -90
+		zRot = -90,
 	}))
 	local f1_local10 = 3
 
@@ -193,10 +193,10 @@ LUI.createMenu.DPadArea = function (f1_arg0)
 		topAnchor = true,
 		rightAnchor = false,
 		bottomAnchor = false,
-		alpha = 0
+		alpha = 0,
 	})
 	inventoryWeapon:registerAnimationState("show", {
-		alpha = 1
+		alpha = 1,
 	})
 	Widget:addElement(inventoryWeapon)
 	Widget.inventoryWeapon = inventoryWeapon
@@ -210,7 +210,7 @@ LUI.createMenu.DPadArea = function (f1_arg0)
 		topAnchor = true,
 		rightAnchor = false,
 		bottomAnchor = false,
-		alpha = CoD.DPadArea.RewardIconEnabledAlpha
+		alpha = CoD.DPadArea.RewardIconEnabledAlpha,
 	})
 	inventoryWeapon:addElement(inventoryWeaponIcon)
 	Widget.inventoryWeaponIcon = inventoryWeaponIcon
@@ -223,7 +223,7 @@ LUI.createMenu.DPadArea = function (f1_arg0)
 		leftAnchor = false,
 		topAnchor = false,
 		rightAnchor = false,
-		bottomAnchor = true
+		bottomAnchor = true,
 	})
 	f1_local13:setText(Engine.Localize("MPUI_HINT_INVENTORY_CAPS", UIExpression.KeyBinding(f1_arg0, "+weapnext_inventory")))
 	f1_local13:setFont(CoD.fonts.Big)
@@ -252,11 +252,11 @@ LUI.createMenu.DPadArea = function (f1_arg0)
 		Widget:registerEventHandler("input_source_changed", CoD.DPadArea.InputSourceChanged)
 		if CoD.useController and Engine.LastInput_Gamepad() or UIExpression.DvarBool(nil, "hud_dpad_controller") == 1 then
 			CoD.DPadArea.InputSourceChanged(Widget, {
-				source = 0
+				source = 0,
 			})
 		else
 			CoD.DPadArea.InputSourceChanged(Widget, {
-				source = 1
+				source = 1,
 			})
 		end
 	end
@@ -264,7 +264,7 @@ LUI.createMenu.DPadArea = function (f1_arg0)
 	return f1_local0
 end
 
-CoD.DPadArea.UpdateActionSlots = function (f2_arg0, f2_arg1)
+CoD.DPadArea.UpdateActionSlots = function(f2_arg0, f2_arg1)
 	if f2_arg0.actionSlots == nil then
 		f2_arg0.actionSlots = {}
 	else
@@ -293,7 +293,7 @@ CoD.DPadArea.UpdateActionSlots = function (f2_arg0, f2_arg1)
 				topAnchor = true,
 				rightAnchor = false,
 				bottomAnchor = false,
-				alphaMultiplier = 1
+				alphaMultiplier = 1,
 			}
 		elseif f2_local4 == 2 then
 			f2_local7 = {
@@ -305,7 +305,7 @@ CoD.DPadArea.UpdateActionSlots = function (f2_arg0, f2_arg1)
 				topAnchor = false,
 				rightAnchor = false,
 				bottomAnchor = true,
-				alphaMultiplier = 1
+				alphaMultiplier = 1,
 			}
 		elseif f2_local4 == 3 then
 			f2_local7 = {
@@ -317,7 +317,7 @@ CoD.DPadArea.UpdateActionSlots = function (f2_arg0, f2_arg1)
 				topAnchor = false,
 				rightAnchor = false,
 				bottomAnchor = false,
-				alphaMultiplier = 1
+				alphaMultiplier = 1,
 			}
 		elseif f2_local4 == 4 then
 			f2_local7 = {
@@ -328,7 +328,7 @@ CoD.DPadArea.UpdateActionSlots = function (f2_arg0, f2_arg1)
 				leftAnchor = false,
 				topAnchor = false,
 				rightAnchor = true,
-				bottomAnchor = false
+				bottomAnchor = false,
 			}
 		end
 		if f2_local7 ~= nil then
@@ -349,7 +349,7 @@ CoD.DPadArea.UpdateActionSlots = function (f2_arg0, f2_arg1)
 					green = CoD.HUDBaseColor.g,
 					blue = CoD.HUDBaseColor.b,
 					alpha = f2_local5,
-					material = f2_local9.material
+					material = f2_local9.material,
 				}))
 				if f2_local4 ~= 1 and f2_local4 ~= 2 and f2_local9.hasSelectFireAttachment == false then
 					local f2_local8 = LUI.UIText.new({
@@ -364,7 +364,7 @@ CoD.DPadArea.UpdateActionSlots = function (f2_arg0, f2_arg1)
 						red = 1,
 						green = 1,
 						blue = 1,
-						alpha = CoD.HUDAlphaFull
+						alpha = CoD.HUDAlphaFull,
 					})
 					f2_local8:setText(f2_local9.ammo)
 					Widget:addElement(f2_local8)
@@ -382,7 +382,7 @@ CoD.DPadArea.UpdateActionSlots = function (f2_arg0, f2_arg1)
 							bottomAnchor = false,
 							top = -f2_local11 / 2 - f2_local4 * f2_local11 - f2_local10,
 							bottom = f2_local11 / 2 - f2_local4 * f2_local11 - f2_local10,
-							alignment = LUI.Alignment.Right
+							alignment = LUI.Alignment.Right,
 						}
 					elseif f2_local4 == 3 then
 						f2_local8 = {
@@ -394,7 +394,7 @@ CoD.DPadArea.UpdateActionSlots = function (f2_arg0, f2_arg1)
 							bottomAnchor = false,
 							top = -f2_local11 / 2 - f2_local4 * f2_local11 - f2_local10,
 							bottom = f2_local11 / 2 - f2_local4 * f2_local11 - f2_local10,
-							alignment = LUI.Alignment.Right
+							alignment = LUI.Alignment.Right,
 						}
 					elseif f2_local4 == 2 then
 						f2_local8 = {
@@ -406,7 +406,7 @@ CoD.DPadArea.UpdateActionSlots = function (f2_arg0, f2_arg1)
 							bottomAnchor = true,
 							top = -f2_local11 / 2 - f2_local4 * f2_local11 - f2_local10,
 							bottom = f2_local11 / 2 - f2_local4 * f2_local11 - f2_local10,
-							alignment = LUI.Alignment.Right
+							alignment = LUI.Alignment.Right,
 						}
 					elseif f2_local4 == 4 then
 						f2_local8 = {
@@ -418,7 +418,7 @@ CoD.DPadArea.UpdateActionSlots = function (f2_arg0, f2_arg1)
 							bottomAnchor = true,
 							top = -f2_local11 / 2 - f2_local4 * f2_local11 - f2_local10,
 							bottom = f2_local11 / 2 - f2_local4 * f2_local11 - f2_local10,
-							alignment = LUI.Alignment.Right
+							alignment = LUI.Alignment.Right,
 						}
 					end
 					if f2_local8 ~= nil then
@@ -434,11 +434,11 @@ CoD.DPadArea.UpdateActionSlots = function (f2_arg0, f2_arg1)
 						Widget:addElement(Widget.keyPrompt)
 						if CoD.useController and Engine.LastInput_Gamepad() or UIExpression.DvarBool(nil, "hud_dpad_controller") == 1 then
 							CoD.DPadArea.ActionSlotInputSourceChanged(Widget, {
-								source = 0
+								source = 0,
 							})
 						else
 							CoD.DPadArea.ActionSlotInputSourceChanged(Widget, {
-								source = 1
+								source = 1,
 							})
 						end
 					end
@@ -448,7 +448,7 @@ CoD.DPadArea.UpdateActionSlots = function (f2_arg0, f2_arg1)
 	end
 end
 
-CoD.DPadArea.UpdateInventoryWeapon = function (f3_arg0, f3_arg1)
+CoD.DPadArea.UpdateInventoryWeapon = function(f3_arg0, f3_arg1)
 	local f3_local0 = f3_arg0.inventoryWeapon
 	local f3_local1 = nil
 	if f3_arg1.teleported ~= true then
@@ -457,7 +457,7 @@ CoD.DPadArea.UpdateInventoryWeapon = function (f3_arg0, f3_arg1)
 	if f3_arg1.materialName ~= nil then
 		local f3_local2 = f3_arg0.inventoryWeaponIcon
 		f3_local2:registerAnimationState("default", {
-			material = f3_arg1.material
+			material = f3_arg1.material,
 		})
 		f3_local2:animateToState("default")
 		f3_local0:animateToState("show", f3_local1)
@@ -466,7 +466,7 @@ CoD.DPadArea.UpdateInventoryWeapon = function (f3_arg0, f3_arg1)
 	end
 end
 
-CoD.DPadArea.UpdateFading = function (f4_arg0, f4_arg1)
+CoD.DPadArea.UpdateFading = function(f4_arg0, f4_arg1)
 	if UIExpression.IsVisibilityBitSet(controller, CoD.BIT_HUD_VISIBLE) == 1 then
 		if f4_arg1.alpha == 0 then
 			f4_arg0:beginAnimation("fading", 500)
@@ -475,7 +475,7 @@ CoD.DPadArea.UpdateFading = function (f4_arg0, f4_arg1)
 	end
 end
 
-CoD.DPadArea.UpdateVisibility = function (f5_arg0, f5_arg1)
+CoD.DPadArea.UpdateVisibility = function(f5_arg0, f5_arg1)
 	local f5_local0 = f5_arg1.controller
 	if UIExpression.IsVisibilityBitSet(f5_local0, CoD.BIT_HUD_VISIBLE) == 1 and UIExpression.IsVisibilityBitSet(f5_local0, CoD.BIT_EMP_ACTIVE) == 0 and UIExpression.IsVisibilityBitSet(f5_local0, CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM) == 0 and UIExpression.IsVisibilityBitSet(f5_local0, CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN) == 0 and UIExpression.IsVisibilityBitSet(f5_local0, CoD.BIT_IN_VEHICLE) == 0 and UIExpression.IsVisibilityBitSet(f5_local0, CoD.BIT_IN_GUIDED_MISSILE) == 0 and UIExpression.IsVisibilityBitSet(f5_local0, CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC) == 0 and UIExpression.IsVisibilityBitSet(f5_local0, CoD.BIT_AMMO_COUNTER_HIDE) == 0 and UIExpression.IsVisibilityBitSet(f5_local0, CoD.BIT_IS_FLASH_BANGED) == 0 and UIExpression.IsVisibilityBitSet(f5_local0, CoD.BIT_UI_ACTIVE) == 0 and UIExpression.IsVisibilityBitSet(f5_local0, CoD.BIT_SCOREBOARD_OPEN) == 0 and UIExpression.IsVisibilityBitSet(f5_local0, CoD.BIT_IN_KILLCAM) == 0 and UIExpression.IsVisibilityBitSet(f5_local0, CoD.BIT_IS_SCOPED) == 0 and UIExpression.IsVisibilityBitSet(f5_local0, CoD.BIT_IS_PLAYER_ZOMBIE) == 0 and (not CoD.IsShoutcaster(f5_local0) or CoD.ExeProfileVarBool(f5_local0, "shoutcaster_scorestreaks") and Engine.IsSpectatingActiveClient(f5_local0)) and CoD.FSM_VISIBILITY(f5_local0) == 0 then
 		if f5_arg0.visible ~= true then
@@ -491,7 +491,7 @@ CoD.DPadArea.UpdateVisibility = function (f5_arg0, f5_arg1)
 	f5_arg0:dispatchEventToChildren(f5_arg1)
 end
 
-CoD.DPadArea.UpdateTeamChange = function (f6_arg0, f6_arg1)
+CoD.DPadArea.UpdateTeamChange = function(f6_arg0, f6_arg1)
 	if Dvar.ui_gametype:get() == CoD.Zombie.GAMETYPE_ZCLEANSED then
 		if f6_arg1.team == CoD.TEAM_AXIS then
 			if f6_arg0.visible == true then
@@ -507,7 +507,7 @@ CoD.DPadArea.UpdateTeamChange = function (f6_arg0, f6_arg1)
 	end
 end
 
-CoD.DPadArea.SetKeyBind = function (f7_arg0)
+CoD.DPadArea.SetKeyBind = function(f7_arg0)
 	local f7_local0, f7_local1 = nil
 	if f7_arg0.keyPrompt ~= nil and f7_arg0.slotIndex ~= nil then
 		if f7_arg0.slotIndex == 4 then
@@ -525,7 +525,7 @@ CoD.DPadArea.SetKeyBind = function (f7_arg0)
 	end
 end
 
-CoD.DPadArea.ActionSlotInputSourceChanged = function (f8_arg0, f8_arg1)
+CoD.DPadArea.ActionSlotInputSourceChanged = function(f8_arg0, f8_arg1)
 	if CoD.isPC then
 		if CoD.useController and f8_arg1.source == 0 or UIExpression.DvarBool(nil, "hud_dpad_controller") == 1 then
 			f8_arg0:animateToState("default")
@@ -542,7 +542,7 @@ CoD.DPadArea.ActionSlotInputSourceChanged = function (f8_arg0, f8_arg1)
 	end
 end
 
-CoD.DPadArea.InputSourceChanged = function (f9_arg0, f9_arg1)
+CoD.DPadArea.InputSourceChanged = function(f9_arg0, f9_arg1)
 	if CoD.isPC then
 		if f9_arg0.carouselArrows ~= nil then
 			f9_arg0.carouselArrows:setAlpha(1)

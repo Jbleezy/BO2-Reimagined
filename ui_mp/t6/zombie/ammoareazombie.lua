@@ -17,7 +17,7 @@ CoD.AmmoAreaZombie.CircleSize = 128
 CoD.AmmoAreaZombie.InventoryIconSize = 64
 CoD.AmmoAreaZombie.InventoryIconEnabledAlpha = 1
 CoD.AmmoAreaZombie.InventoryAnimationDuration = 250
-LUI.createMenu.AmmoAreaZombie = function (f1_arg0)
+LUI.createMenu.AmmoAreaZombie = function(f1_arg0)
 	local f1_local0 = CoD.Menu.NewSafeAreaFromState("AmmoAreaZombie", f1_arg0)
 	f1_local0:setOwner(f1_arg0)
 	f1_local0.scaleContainer = CoD.SplitscreenScaler.new(nil, CoD.Zombie.SplitscreenMultiplier)
@@ -167,7 +167,7 @@ LUI.createMenu.AmmoAreaZombie = function (f1_arg0)
 	return f1_local0
 end
 
-CoD.AmmoAreaZombie.UpdateActionSlots = function (f2_arg0, f2_arg1)
+CoD.AmmoAreaZombie.UpdateActionSlots = function(f2_arg0, f2_arg1)
 	if f2_arg0.actionSlots == nil then
 		f2_arg0.actionSlots = {}
 	else
@@ -195,7 +195,7 @@ CoD.AmmoAreaZombie.UpdateActionSlots = function (f2_arg0, f2_arg1)
 				leftAnchor = false,
 				topAnchor = true,
 				rightAnchor = false,
-				bottomAnchor = false
+				bottomAnchor = false,
 			}
 		elseif f2_local4 == 2 then
 			f2_local7 = {
@@ -206,7 +206,7 @@ CoD.AmmoAreaZombie.UpdateActionSlots = function (f2_arg0, f2_arg1)
 				leftAnchor = false,
 				topAnchor = false,
 				rightAnchor = false,
-				bottomAnchor = true
+				bottomAnchor = true,
 			}
 		elseif f2_local4 == 3 then
 			f2_local7 = {
@@ -217,7 +217,7 @@ CoD.AmmoAreaZombie.UpdateActionSlots = function (f2_arg0, f2_arg1)
 				leftAnchor = true,
 				topAnchor = false,
 				rightAnchor = false,
-				bottomAnchor = false
+				bottomAnchor = false,
 			}
 		elseif f2_local4 == 4 then
 			f2_local7 = {
@@ -228,7 +228,7 @@ CoD.AmmoAreaZombie.UpdateActionSlots = function (f2_arg0, f2_arg1)
 				leftAnchor = false,
 				topAnchor = false,
 				rightAnchor = true,
-				bottomAnchor = false
+				bottomAnchor = false,
 			}
 		end
 		if f2_local7 ~= nil then
@@ -265,7 +265,7 @@ CoD.AmmoAreaZombie.UpdateActionSlots = function (f2_arg0, f2_arg1)
 							bottomAnchor = false,
 							top = -f2_local14 / 2 - f2_local4 * f2_local14 - f2_local10,
 							bottom = f2_local14 / 2 - f2_local4 * f2_local14 - f2_local10,
-							alignment = LUI.Alignment.Right
+							alignment = LUI.Alignment.Right,
 						}
 					elseif f2_local4 == 3 then
 						f2_local11 = {
@@ -277,7 +277,7 @@ CoD.AmmoAreaZombie.UpdateActionSlots = function (f2_arg0, f2_arg1)
 							bottomAnchor = false,
 							top = -f2_local14 / 2 - f2_local4 * f2_local14 - f2_local10,
 							bottom = f2_local14 / 2 - f2_local4 * f2_local14 - f2_local10,
-							alignment = LUI.Alignment.Right
+							alignment = LUI.Alignment.Right,
 						}
 					elseif f2_local4 == 2 then
 						f2_local11 = {
@@ -289,7 +289,7 @@ CoD.AmmoAreaZombie.UpdateActionSlots = function (f2_arg0, f2_arg1)
 							bottomAnchor = true,
 							top = -f2_local14 / 2 - f2_local4 * f2_local14 - f2_local10,
 							bottom = f2_local14 / 2 - f2_local4 * f2_local14 - f2_local10,
-							alignment = LUI.Alignment.Right
+							alignment = LUI.Alignment.Right,
 						}
 					elseif f2_local4 == 4 then
 						f2_local11 = {
@@ -301,7 +301,7 @@ CoD.AmmoAreaZombie.UpdateActionSlots = function (f2_arg0, f2_arg1)
 							bottomAnchor = true,
 							top = -f2_local14 / 2 - f2_local4 * f2_local14 - f2_local10,
 							bottom = f2_local14 / 2 - f2_local4 * f2_local14 - f2_local10,
-							alignment = LUI.Alignment.Right
+							alignment = LUI.Alignment.Right,
 						}
 					end
 					if f2_local11 ~= nil then
@@ -317,11 +317,11 @@ CoD.AmmoAreaZombie.UpdateActionSlots = function (f2_arg0, f2_arg1)
 						Widget:addElement(Widget.keyPrompt)
 						if CoD.useController and Engine.LastInput_Gamepad() or UIExpression.DvarBool(nil, "hud_dpad_controller") == 1 then
 							CoD.AmmoAreaZombie.ActionSlotInputSourceChanged(Widget, {
-								source = 0
+								source = 0,
 							})
 						else
 							CoD.AmmoAreaZombie.ActionSlotInputSourceChanged(Widget, {
-								source = 1
+								source = 1,
 							})
 						end
 					end
@@ -331,7 +331,7 @@ CoD.AmmoAreaZombie.UpdateActionSlots = function (f2_arg0, f2_arg1)
 	end
 end
 
-CoD.AmmoAreaZombie.UpdateInventoryWeapon = function (f3_arg0, f3_arg1)
+CoD.AmmoAreaZombie.UpdateInventoryWeapon = function(f3_arg0, f3_arg1)
 	local f3_local0 = f3_arg0.inventoryWeapon
 	local f3_local1 = nil
 	if f3_arg1.teleported ~= true then
@@ -347,7 +347,7 @@ CoD.AmmoAreaZombie.UpdateInventoryWeapon = function (f3_arg0, f3_arg1)
 	end
 end
 
-CoD.AmmoAreaZombie.UpdateFading = function (f4_arg0, f4_arg1)
+CoD.AmmoAreaZombie.UpdateFading = function(f4_arg0, f4_arg1)
 	if UIExpression.IsVisibilityBitSet(controller, CoD.BIT_HUD_VISIBLE) == 1 then
 		if f4_arg1.alpha == 0 then
 			f4_arg0:beginAnimation("fading", 500)
@@ -356,14 +356,14 @@ CoD.AmmoAreaZombie.UpdateFading = function (f4_arg0, f4_arg1)
 	end
 end
 
-CoD.AmmoAreaZombie.GetThreeDigits = function (f5_arg0)
+CoD.AmmoAreaZombie.GetThreeDigits = function(f5_arg0)
 	local f5_local0 = math.floor(f5_arg0 / 100)
 	f5_arg0 = f5_arg0 - f5_local0 * 100
 	local f5_local1 = math.floor(f5_arg0 / 10)
 	return f5_local0, f5_local1, f5_arg0 - f5_local1 * 10
 end
 
-CoD.AmmoAreaZombie.UpdateAmmo = function (f6_arg0, f6_arg1)
+CoD.AmmoAreaZombie.UpdateAmmo = function(f6_arg0, f6_arg1)
 	if f6_arg1.ammoInClip == 0 and f6_arg1.ammoStock == 0 and f6_arg1.lowClip ~= true then
 		return
 	end
@@ -471,11 +471,9 @@ CoD.AmmoAreaZombie.UpdateAmmo = function (f6_arg0, f6_arg1)
 	end
 end
 
-CoD.AmmoAreaZombie.UpdateFuel = function (f7_arg0, f7_arg1)
+CoD.AmmoAreaZombie.UpdateFuel = function(f7_arg0, f7_arg1) end
 
-end
-
-CoD.AmmoAreaZombie.UpdateOverheat = function (f8_arg0, f8_arg1)
+CoD.AmmoAreaZombie.UpdateOverheat = function(f8_arg0, f8_arg1)
 	if CoD.AmmoAreaZombie.ShouldHideOverheatCounter(f8_arg0, f8_arg1) then
 		return
 	end
@@ -549,7 +547,7 @@ CoD.AmmoAreaZombie.UpdateOverheat = function (f8_arg0, f8_arg1)
 	end
 end
 
-CoD.AmmoAreaZombie.UpdateVisibility = function (f9_arg0, f9_arg1)
+CoD.AmmoAreaZombie.UpdateVisibility = function(f9_arg0, f9_arg1)
 	local f9_local0 = f9_arg1.controller
 	if UIExpression.IsVisibilityBitSet(f9_local0, CoD.BIT_HUD_VISIBLE) == 1 and UIExpression.IsVisibilityBitSet(f9_local0, CoD.BIT_IS_PLAYER_IN_AFTERLIFE) == 0 and UIExpression.IsVisibilityBitSet(f9_local0, CoD.BIT_EMP_ACTIVE) == 0 and UIExpression.IsVisibilityBitSet(f9_local0, CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM) == 0 and UIExpression.IsVisibilityBitSet(f9_local0, CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN) == 0 and UIExpression.IsVisibilityBitSet(f9_local0, CoD.BIT_IN_VEHICLE) == 0 and UIExpression.IsVisibilityBitSet(f9_local0, CoD.BIT_IN_GUIDED_MISSILE) == 0 and UIExpression.IsVisibilityBitSet(f9_local0, CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC) == 0 and UIExpression.IsVisibilityBitSet(f9_local0, CoD.BIT_AMMO_COUNTER_HIDE) == 0 and UIExpression.IsVisibilityBitSet(f9_local0, CoD.BIT_IS_FLASH_BANGED) == 0 and UIExpression.IsVisibilityBitSet(f9_local0, CoD.BIT_UI_ACTIVE) == 0 and UIExpression.IsVisibilityBitSet(f9_local0, CoD.BIT_GAME_ENDED) == 0 and UIExpression.IsVisibilityBitSet(f9_local0, CoD.BIT_SCOREBOARD_OPEN) == 0 and UIExpression.IsVisibilityBitSet(f9_local0, CoD.BIT_IN_KILLCAM) == 0 and UIExpression.IsVisibilityBitSet(f9_local0, CoD.BIT_HUD_HARDCORE) == 0 and (not CoD.IsShoutcaster(f9_local0) or CoD.ExeProfileVarBool(f9_local0, "shoutcaster_inventory") and Engine.IsSpectatingActiveClient(f9_local0)) and CoD.FSM_VISIBILITY(f9_local0) == 0 then
 		if f9_arg0.visible ~= true then
@@ -564,7 +562,7 @@ CoD.AmmoAreaZombie.UpdateVisibility = function (f9_arg0, f9_arg1)
 	CoD.AmmoAreaZombie.UpdateAmmoVisibility(f9_arg0, f9_arg1)
 end
 
-CoD.AmmoAreaZombie.ShouldHideAmmoCounter = function (f10_arg0, f10_arg1)
+CoD.AmmoAreaZombie.ShouldHideAmmoCounter = function(f10_arg0, f10_arg1)
 	if f10_arg0.weapon ~= nil then
 		if Engine.IsWeaponType(f10_arg0.weapon, "melee") then
 			return true
@@ -575,7 +573,7 @@ CoD.AmmoAreaZombie.ShouldHideAmmoCounter = function (f10_arg0, f10_arg1)
 	return false
 end
 
-CoD.AmmoAreaZombie.ShouldHideOverheatCounter = function (f10_arg0, f10_arg1)
+CoD.AmmoAreaZombie.ShouldHideOverheatCounter = function(f10_arg0, f10_arg1)
 	if f10_arg0.weapon ~= nil then
 		if CoD.isZombie == true and (Engine.IsWeaponType(f10_arg0.weapon, "gas") or Engine.IsOverheatWeapon(f10_arg0.weapon)) then
 			return false
@@ -584,7 +582,7 @@ CoD.AmmoAreaZombie.ShouldHideOverheatCounter = function (f10_arg0, f10_arg1)
 	return true
 end
 
-CoD.AmmoAreaZombie.UpdateAmmoVisibility = function (f11_arg0, f11_arg1)
+CoD.AmmoAreaZombie.UpdateAmmoVisibility = function(f11_arg0, f11_arg1)
 	if f11_arg1.weapon ~= nil then
 		f11_arg0.weapon = f11_arg1.weapon
 	end
@@ -595,7 +593,7 @@ CoD.AmmoAreaZombie.UpdateAmmoVisibility = function (f11_arg0, f11_arg1)
 	end
 end
 
-CoD.AmmoAreaZombie.UpdateWeapon = function (f12_arg0, f12_arg1)
+CoD.AmmoAreaZombie.UpdateWeapon = function(f12_arg0, f12_arg1)
 	if f12_arg1.weapon and (Engine.IsWeaponType(f12_arg1.weapon, "melee") or Engine.IsWeaponType(f12_arg1.weapon, "riotshield") or Engine.IsWeaponType(f12_arg1.weapon, "grenade")) then
 		f12_arg0.hideAmmo = true
 	else
@@ -605,7 +603,7 @@ CoD.AmmoAreaZombie.UpdateWeapon = function (f12_arg0, f12_arg1)
 	f12_arg0:dispatchEventToChildren(f12_arg1)
 end
 
-CoD.AmmoAreaZombie.UpdateWeaponSelect = function (f13_arg0, f13_arg1)
+CoD.AmmoAreaZombie.UpdateWeaponSelect = function(f13_arg0, f13_arg1)
 	f13_arg0.weaponLabelContainer:setAlpha(1)
 	local f13_local0 = UIExpression.ToUpper(nil, Engine.Localize(f13_arg1.weaponDisplayName))
 	if CoD.isZombie == true then
@@ -616,7 +614,7 @@ CoD.AmmoAreaZombie.UpdateWeaponSelect = function (f13_arg0, f13_arg1)
 	f13_arg0:dispatchEventToChildren(f13_arg1)
 end
 
-CoD.AmmoAreaZombie.SetKeyBind = function (f14_arg0)
+CoD.AmmoAreaZombie.SetKeyBind = function(f14_arg0)
 	local f14_local0, f14_local1 = nil
 	if f14_arg0.keyPrompt ~= nil and f14_arg0.slotIndex ~= nil then
 		if f14_arg0.slotIndex == 4 then
@@ -634,7 +632,7 @@ CoD.AmmoAreaZombie.SetKeyBind = function (f14_arg0)
 	end
 end
 
-CoD.AmmoAreaZombie.ActionSlotInputSourceChanged = function (f15_arg0, f15_arg1)
+CoD.AmmoAreaZombie.ActionSlotInputSourceChanged = function(f15_arg0, f15_arg1)
 	if CoD.isPC then
 		if CoD.useController and f15_arg1.source == 0 or UIExpression.DvarBool(nil, "hud_dpad_controller") == 1 then
 			f15_arg0:animateToState("default")
@@ -651,7 +649,7 @@ CoD.AmmoAreaZombie.ActionSlotInputSourceChanged = function (f15_arg0, f15_arg1)
 	end
 end
 
-CoD.AmmoAreaZombie.InputSourceChanged = function (f16_arg0, f16_arg1)
+CoD.AmmoAreaZombie.InputSourceChanged = function(f16_arg0, f16_arg1)
 	if CoD.isPC then
 		if f16_arg0.carouselArrows ~= nil then
 			f16_arg0.carouselArrows:setAlpha(1)

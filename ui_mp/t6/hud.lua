@@ -68,10 +68,10 @@ if CoD.isWIIU then
 	require("T6.WiiUSystemServices")
 end
 local HUD_OpenIngameMenu, HUD_SetupEventHandlers, HUD_KillcamUpdate, HUD_UpdateKillstreakHud, HUD_ForceKillKillstreakHud, HUD_SelectingLocationUpdate, HUD_GameEndedUpdate, HUD_ReloadShoutcasterHud, HUD_UpdateVehicleHud, HUD_FactionPopup, FactionPopupAddTextEvent, f0_local11, f0_local12 = nil
-function HUD_IngameMenuClosed()
-end
 
-LUI.createMenu.HUD = function (LocalClientIndex)
+function HUD_IngameMenuClosed() end
+
+LUI.createMenu.HUD = function(LocalClientIndex)
 	local HUDWidget = CoD.Menu.NewFromState("HUD", {
 		leftAnchor = true,
 		rightAnchor = true,
@@ -80,7 +80,7 @@ LUI.createMenu.HUD = function (LocalClientIndex)
 		topAnchor = true,
 		bottomAnchor = true,
 		top = 0,
-		bottom = 0
+		bottom = 0,
 	})
 	if not LUI.roots.UIRootFull.safeAreaOverlay then
 		LUI.roots.UIRootFull.safeAreaOverlay = CoD.SetupSafeAreaOverlay()
@@ -116,7 +116,7 @@ function HUD_OcclusionChange(HUDWidget, ClientInstance)
 	Engine.EnableWiiURemotePointer(ClientInstance.controller, not ClientInstance.occluded)
 end
 
-HUD_SetupEventHandlers = function (HUDWidget)
+HUD_SetupEventHandlers = function(HUDWidget)
 	HUD_SetupEventHandlers_Common(HUDWidget)
 	if CoD.isZombie == false then
 		HUD_SetupEventHandlers_Multiplayer(HUDWidget)
@@ -133,22 +133,22 @@ function HUD_Show(HUDWidget, ClientInstance)
 	HUDWidget:setAlpha(1)
 end
 
-local WiiToggleFriends = function (HUDWidget, ClientInstance)
+local WiiToggleFriends = function(HUDWidget, ClientInstance)
 	if LUI.roots["UIRoot" .. ClientInstance.controller].ingameFriendsList then
 		LUI.roots[rootName]:processEvent({
 			name = "closeFriendsList",
-			controller = ClientInstance.controller
+			controller = ClientInstance.controller,
 		})
 		LUI.roots[rootName]:processEvent({
 			name = "closeallpopups",
-			controller = ClientInstance.controller
+			controller = ClientInstance.controller,
 		})
 	else
 		HUDWidget:openPopup("FriendsList", ClientInstance.controller)
 	end
 end
 
-local PCInputSourceChanged = function (HUDWidget, ClientInstance)
+local PCInputSourceChanged = function(HUDWidget, ClientInstance)
 	if HUDWidget.scoreBoard then
 		HUDWidget.scoreBoard:processEvent(ClientInstance)
 	end
@@ -224,7 +224,7 @@ end
 function HUD_FirstSnapshot(HUDWidget, ClientInstance)
 	HUDWidget:dispatchEventToChildren({
 		name = "close_all_popups",
-		controller = ClientInstance.controller
+		controller = ClientInstance.controller,
 	})
 	HUDWidget:removeAllChildren()
 	HUDWidget:setOwner(ClientInstance.controller)
@@ -266,7 +266,7 @@ function HUD_FirstSnapshot_Common(HUDWidget, ClientInstance)
 	HUDWidget.scoreBoard = LUI.createMenu.Scoreboard(ClientInstance.controller)
 	HUDWidget.scoreboardUpdateTimer = LUI.UITimer.new(1000, {
 		name = "update_scoreboard",
-		controller = ClientInstance.controller
+		controller = ClientInstance.controller,
 	}, false)
 	HUDWidget:addElement(LUI.createMenu.DeadSpectate(ClientInstance.controller))
 end
@@ -294,7 +294,7 @@ function HUD_FirstSnapshot_Multiplayer(HUDWidget, ClientInstance)
 			topAnchor = true,
 			bottomAnchor = true,
 			top = 0,
-			bottom = 0
+			bottom = 0,
 		})
 	else
 		f18_local2 = CoD.ScorePopup.new({
@@ -305,7 +305,7 @@ function HUD_FirstSnapshot_Multiplayer(HUDWidget, ClientInstance)
 			topAnchor = true,
 			bottomAnchor = true,
 			top = 0,
-			bottom = 0
+			bottom = 0,
 		})
 	end
 	HUDWidget:addElement(f18_local2)
@@ -325,7 +325,7 @@ function HUD_FirstSnapshot_Multiplayer(HUDWidget, ClientInstance)
 			topAnchor = false,
 			bottomAnchor = true,
 			top = -249,
-			bottom = -149
+			bottom = -149,
 		})
 	end
 	CoD.GameMessages.BoldGameMessagesWindow(HUDWidget, {
@@ -336,7 +336,7 @@ function HUD_FirstSnapshot_Multiplayer(HUDWidget, ClientInstance)
 		topAnchor = false,
 		bottomAnchor = false,
 		top = 50,
-		bottom = 70
+		bottom = 70,
 	})
 	if Engine.GameModeIsMode(CoD.GAMEMODE_LOCAL_SPLITSCREEN) == false then
 		CoD.LiveStream.AddInGameStatusWidget(HUDWidget, ClientInstance.controller, {
@@ -347,7 +347,7 @@ function HUD_FirstSnapshot_Multiplayer(HUDWidget, ClientInstance)
 			topAnchor = true,
 			bottomAnchor = false,
 			top = 0,
-			bottom = 150
+			bottom = 150,
 		})
 		CoD.DemoHUD.AddHUDWidgets(HUDWidget, ClientInstance)
 	end
@@ -423,7 +423,7 @@ function HUD_FirstSnapshot_Zombie(HUDWidget, ClientInstance)
 			bottomAnchor = true,
 			bottom = 0,
 			top = 0,
-			ui3DWindow = 0
+			ui3DWindow = 0,
 		}))
 	end
 	if not Engine.IsSplitscreen() then
@@ -435,7 +435,7 @@ function HUD_FirstSnapshot_Zombie(HUDWidget, ClientInstance)
 			topAnchor = false,
 			bottomAnchor = true,
 			top = -320,
-			bottom = -220
+			bottom = -220,
 		})
 		CoD.GameMessages.BoldGameMessagesWindow(HUDWidget, {
 			leftAnchor = false,
@@ -445,7 +445,7 @@ function HUD_FirstSnapshot_Zombie(HUDWidget, ClientInstance)
 			topAnchor = true,
 			bottomAnchor = false,
 			top = 50,
-			bottom = 70
+			bottom = 70,
 		})
 	end
 	if Engine.GameModeIsMode(CoD.GAMEMODE_LOCAL_SPLITSCREEN) == false then
@@ -466,7 +466,7 @@ function HUD_ToggleZombieHudContainer(HUDWidget, ClientInstance)
 	end
 end
 
-HUD_OpenIngameMenu = function (HUDWidget, ClientInstance)
+HUD_OpenIngameMenu = function(HUDWidget, ClientInstance)
 	if HUDWidget.m_inputDisabled then
 		return
 	elseif ClientInstance.menuName == "class" and Engine.IsMigrating(ClientInstance.controller) == true then
@@ -493,7 +493,7 @@ HUD_OpenIngameMenu = function (HUDWidget, ClientInstance)
 	end
 	if HUDWidget.SpectateHUD ~= nil then
 		HUDWidget.SpectateHUD:processEvent({
-			name = "spectate_ingame_menu_opened"
+			name = "spectate_ingame_menu_opened",
 		})
 	end
 end
@@ -507,7 +507,7 @@ function HUD_CloseInGameMenu(HUDWidget, ClientInstance)
 	end
 	if HUDWidget.SpectateHUD ~= nil then
 		HUDWidget.SpectateHUD:processEvent({
-			name = "spectate_ingame_menu_closed"
+			name = "spectate_ingame_menu_closed",
 		})
 	end
 	if CoD.isZombie == true then
@@ -522,44 +522,44 @@ function HUD_OpenScoreBoard(HUDWidget, ClientInstance)
 		HUDWidget:addElement(HUDWidget.scoreBoard)
 		HUDWidget.scoreBoard:processEvent({
 			name = "update_scoreboard",
-			controller = ClientInstance.controller
+			controller = ClientInstance.controller,
 		})
 		HUDWidget:addElement(HUDWidget.scoreboardUpdateTimer)
 		if CoD.isZombie == true then
 			if HUDWidget.scoreBoard.questItemDisplay then
 				HUDWidget.scoreBoard.questItemDisplay:processEvent({
 					name = "update_quest_item_display_scoreboard",
-					controller = ClientInstance.controller
+					controller = ClientInstance.controller,
 				})
 			end
 			if HUDWidget.scoreBoard.persistentItemDisplay then
 				HUDWidget.scoreBoard.persistentItemDisplay:processEvent({
 					name = "update_persistent_item_display_scoreboard",
-					controller = ClientInstance.controller
+					controller = ClientInstance.controller,
 				})
 			end
 			if HUDWidget.scoreBoard.craftableItemDisplay then
 				HUDWidget.scoreBoard.craftableItemDisplay:processEvent({
 					name = "update_craftable_item_display_scoreboard",
-					controller = ClientInstance.controller
+					controller = ClientInstance.controller,
 				})
 			end
 			if HUDWidget.scoreBoard.captureZoneWheelDisplay then
 				HUDWidget.scoreBoard.captureZoneWheelDisplay:processEvent({
 					name = "update_capture_zone_wheel_display_scoreboard",
-					controller = ClientInstance.controller
+					controller = ClientInstance.controller,
 				})
 			end
 		end
 		if HUDWidget.SpectateHUD ~= nil then
 			HUDWidget.SpectateHUD:processEvent({
-				name = "spectate_scoreboard_opened"
+				name = "spectate_scoreboard_opened",
 			})
 			if HUDWidget.SpectateHUD.m_selectedClientNum ~= nil then
 				HUDWidget.scoreBoard:processEvent({
 					name = "focus_client",
 					controller = ClientInstance.controller,
-					clientNum = HUDWidget.SpectateHUD.m_selectedClientNum
+					clientNum = HUDWidget.SpectateHUD.m_selectedClientNum,
 				})
 			end
 		end
@@ -573,7 +573,7 @@ function HUD_CloseScoreBoard(HUDWidget, ClientInstance)
 		HUDWidget.scoreboardUpdateTimer:reset()
 		if HUDWidget.SpectateHUD ~= nil then
 			HUDWidget.SpectateHUD:processEvent({
-				name = "spectate_scoreboard_closed"
+				name = "spectate_scoreboard_closed",
 			})
 		end
 	end
@@ -583,7 +583,7 @@ function HUD_DebugReload(HUDWidget, ClientInstance)
 	if HUDWidget.m_eventHandlers.debug_reload ~= HUD_DebugReload then
 		HUDWidget:registerEventHandler("debug_reload", HUD_DebugReload)
 		HUDWidget:processEvent({
-			name = "debug_reload"
+			name = "debug_reload",
 		})
 		return
 	else
@@ -592,7 +592,7 @@ function HUD_DebugReload(HUDWidget, ClientInstance)
 		HUDWidget.reaperHUD = nil
 		HUD_SetupEventHandlers(HUDWidget)
 		HUD_FirstSnapshot(HUDWidget, {
-			controller = HUDWidget.controller
+			controller = HUDWidget.controller,
 		})
 		Engine.ForceHUDRefresh(HUDWidget.controller)
 	end
@@ -621,7 +621,7 @@ function HUD_StartKillcamHud(HUDWidget, ClientInstance)
 		if f29_local0 then
 			f29_local0:processEvent({
 				name = "killcam_open",
-				controller = ClientInstance.controller
+				controller = ClientInstance.controller,
 			})
 		end
 	end
@@ -635,13 +635,13 @@ function HUD_StopKillcamHud(HUDWidget, ClientInstance)
 		if f30_local0 then
 			f30_local0:processEvent({
 				name = "killcam_close",
-				controller = ClientInstance.controller
+				controller = ClientInstance.controller,
 			})
 		end
 	end
 end
 
-HUD_KillcamUpdate = function (HUDWidget, ClientInstance)
+HUD_KillcamUpdate = function(HUDWidget, ClientInstance)
 	if UIExpression.IsVisibilityBitSet(ClientInstance.controller, CoD.BIT_IN_KILLCAM) == 1 then
 		if HUDWidget.killcamHUD then
 			if HUDWidget.killcamHUD.isFinalKillcam ~= UIExpression.IsVisibilityBitSet(ClientInstance.controller, CoD.BIT_FINAL_KILLCAM) then
@@ -657,7 +657,7 @@ HUD_KillcamUpdate = function (HUDWidget, ClientInstance)
 	HUDWidget:dispatchEventToChildren(ClientInstance)
 end
 
-local f0_local18 = function (f32_arg0)
+local f0_local18 = function(f32_arg0)
 	local f32_local0
 	if Engine.IsSplitscreen() ~= false or Engine.IsDemoShoutcaster() ~= true and (UIExpression.IsVisibilityBitSet(f32_arg0, CoD.BIT_SPECTATING_CLIENT) ~= 1 or UIExpression.IsVisibilityBitSet(f32_arg0, CoD.BIT_TEAM_SPECTATOR) ~= 1 or UIExpression.IsVisibilityBitSet(f32_arg0, CoD.BIT_GAME_ENDED) ~= 0 or UIExpression.IsVisibilityBitSet(f32_arg0, CoD.BIT_UI_ACTIVE) ~= 0) then
 		f32_local0 = false
@@ -667,7 +667,7 @@ local f0_local18 = function (f32_arg0)
 	return f32_local0
 end
 
-HUD_GameEndedUpdate = function (HUDWidget, ClientInstance)
+HUD_GameEndedUpdate = function(HUDWidget, ClientInstance)
 	if f0_local18(ClientInstance.controller) then
 		if HUDWidget.SpectateHUD == nil then
 			local f33_local0 = CoD.SpectateHUD.new(ClientInstance)
@@ -683,7 +683,7 @@ HUD_GameEndedUpdate = function (HUDWidget, ClientInstance)
 	HUDWidget:dispatchEventToChildren(ClientInstance)
 end
 
-HUD_ReloadShoutcasterHud = function (HUDWidget, ClientInstance)
+HUD_ReloadShoutcasterHud = function(HUDWidget, ClientInstance)
 	if HUDWidget.SpectateHUD ~= nil then
 		HUDWidget.SpectateHUD:close()
 		HUDWidget.SpectateHUD = nil
@@ -691,7 +691,7 @@ HUD_ReloadShoutcasterHud = function (HUDWidget, ClientInstance)
 	HUD_GameEndedUpdate(HUDWidget, ClientInstance)
 end
 
-local f0_local19 = function (f35_arg0)
+local f0_local19 = function(f35_arg0)
 	local f35_local0
 	if UIExpression.IsVisibilityBitSet(f35_arg0, CoD.BIT_SELECTING_LOCATION) ~= 1 or UIExpression.IsVisibilityBitSet(f35_arg0, CoD.BIT_SPECTATING_CLIENT) ~= 0 or UIExpression.IsVisibilityBitSet(f35_arg0, CoD.BIT_IS_DEMO_PLAYING) ~= 0 or UIExpression.IsVisibilityBitSet(f35_arg0, CoD.BIT_SCOREBOARD_OPEN) ~= 0 then
 		f35_local0 = false
@@ -701,7 +701,7 @@ local f0_local19 = function (f35_arg0)
 	return f35_local0
 end
 
-HUD_SelectingLocationUpdate = function (HUDWidget, ClientInstance)
+HUD_SelectingLocationUpdate = function(HUDWidget, ClientInstance)
 	if f0_local19(ClientInstance.controller) then
 		if HUDWidget.locationSelectorMap == nil then
 			if HUDWidget.selectorContainer == nil then
@@ -718,7 +718,7 @@ HUD_SelectingLocationUpdate = function (HUDWidget, ClientInstance)
 				topAnchor = false,
 				bottomAnchor = false,
 				top = -275,
-				bottom = 275
+				bottom = 275,
 			}, CoD.COMPASS_TYPE_FULL)
 			HUDWidget.selectorContainer:addElement(HUDWidget.locationSelectorMap)
 			Engine.BlurWorld(ClientInstance.controller, 2)
@@ -733,13 +733,12 @@ HUD_SelectingLocationUpdate = function (HUDWidget, ClientInstance)
 	HUDWidget:dispatchEventToChildren(ClientInstance)
 end
 
-HUD_UpdateKillstreakHud = function (HUDWidget, ClientInstance)
+HUD_UpdateKillstreakHud = function(HUDWidget, ClientInstance)
 	if ClientInstance.chopperGunner == true then
 		if HUDWidget.chopperGunnerHUD == nil then
 			local predatorHUD = CoD.ChopperGunnerHUD.new(ClientInstance.controller)
 			HUDWidget:addElement(predatorHUD)
 			HUDWidget.chopperGunnerHUD = predatorHUD
-
 		end
 	else
 		HUDWidget.chopperGunnerHUD = nil
@@ -749,7 +748,6 @@ HUD_UpdateKillstreakHud = function (HUDWidget, ClientInstance)
 			local predatorHUD = CoD.ReaperHUD.new(ClientInstance.controller)
 			HUDWidget:addElement(predatorHUD)
 			HUDWidget.reaperHUD = predatorHUD
-
 		end
 	else
 		HUDWidget.reaperHUD = nil
@@ -759,7 +757,6 @@ HUD_UpdateKillstreakHud = function (HUDWidget, ClientInstance)
 			local predatorHUD = CoD.PredatorHUD.new(ClientInstance.controller)
 			HUDWidget:addElement(predatorHUD)
 			HUDWidget.predatorHUD = predatorHUD
-
 		end
 	else
 		HUDWidget.predatorHUD = nil
@@ -767,11 +764,11 @@ HUD_UpdateKillstreakHud = function (HUDWidget, ClientInstance)
 	HUDWidget:dispatchEventToChildren(ClientInstance)
 end
 
-HUD_ForceKillKillstreakHud = function (HUDWidget, ClientInstance)
+HUD_ForceKillKillstreakHud = function(HUDWidget, ClientInstance)
 	Engine.DisableSceneFilter(HUDWidget:getOwner(), 4)
 end
 
-HUD_UpdateVehicleHud = function (HUDWidget, ClientInstance)
+HUD_UpdateVehicleHud = function(HUDWidget, ClientInstance)
 	if HUDWidget.vehicleHUD then
 		if HUDWidget.vehicleHUD.vehicleType == ClientInstance.vehicleType then
 			return
@@ -792,7 +789,7 @@ HUD_UpdateVehicleHud = function (HUDWidget, ClientInstance)
 	end
 end
 
-HUD_FactionPopup = function (HUDWidget, ClientInstance)
+HUD_FactionPopup = function(HUDWidget, ClientInstance)
 	local f40_local0 = UIExpression.Team(ClientInstance.controller, "name")
 	local f40_local1, f40_local2, f40_local3, f40_local4, f40_local5 = nil
 	if f40_local0 == "TEAM_ALLIES" then
@@ -820,7 +817,7 @@ HUD_FactionPopup = function (HUDWidget, ClientInstance)
 		topAnchor = true,
 		bottomAnchor = true,
 		top = 0,
-		bottom = 0
+		bottom = 0,
 	})
 	HUDWidget.safeArea:addElement(Widget)
 
@@ -841,7 +838,7 @@ HUD_FactionPopup = function (HUDWidget, ClientInstance)
 		topAnchor = true,
 		bottomAnchor = false,
 		top = f40_local6,
-		bottom = f40_local6 + f40_local10
+		bottom = f40_local6 + f40_local10,
 	})
 	Widget.text.label:setRGB(CoD.offWhite.r, CoD.offWhite.g, CoD.offWhite.b)
 	Widget.image = LUI.UIImage.new({
@@ -853,7 +850,7 @@ HUD_FactionPopup = function (HUDWidget, ClientInstance)
 		bottomAnchor = false,
 		top = f40_local7,
 		bottom = f40_local7 + f40_local6,
-		material = f40_local1
+		material = f40_local1,
 	})
 	Widget:addElement(Widget.image)
 	local f40_local11 = f40_local6 + f40_local10
@@ -866,7 +863,7 @@ HUD_FactionPopup = function (HUDWidget, ClientInstance)
 		topAnchor = true,
 		bottomAnchor = false,
 		top = 0,
-		bottom = f40_local6
+		bottom = f40_local6,
 	})
 	Widget:addElement(Widget.imageGlow)
 	Widget:registerEventHandler("add_text", FactionPopupAddTextEvent)
@@ -876,17 +873,17 @@ HUD_FactionPopup = function (HUDWidget, ClientInstance)
 	Widget:addElement(LUI.UITimer.new(2000, "out", true))
 end
 
-FactionPopupAddTextEvent = function (HUDWidget, ClientInstance)
+FactionPopupAddTextEvent = function(HUDWidget, ClientInstance)
 	HUDWidget:addElement(HUDWidget.text)
 end
 
-f0_local11 = function (HUDWidget, ClientInstance)
+f0_local11 = function(HUDWidget, ClientInstance)
 	HUDWidget.text:out()
 	HUDWidget:addElement(LUI.UITimer.new(CoD.AdditiveTextOverlay.PulseOutTime, "out2", true))
 	HUDWidget:addElement(LUI.UITimer.new(CoD.AdditiveTextOverlay.PulseOutTime * 2, "close", true))
 end
 
-f0_local12 = function (HUDWidget, ClientInstance)
+f0_local12 = function(HUDWidget, ClientInstance)
 	HUDWidget.imageGlow:out()
 	HUDWidget.image:close()
 	HUDWidget.darkSplash:close()
@@ -909,7 +906,7 @@ function HUD_Handle_ChooseClass_HotKey(HUDWidget, ClientInstance)
 	if UIExpression.Team(ClientInstance.controller, "name") ~= "TEAM_SPECTATOR" and CoD.IsWagerMode() == false and not (Engine.GetGametypeSetting("disableClassSelection") == 1) then
 		HUD_OpenIngameMenu(HUDWidget, {
 			menuName = "changeclass",
-			controller = ClientInstance.controller
+			controller = ClientInstance.controller,
 		})
 	end
 end

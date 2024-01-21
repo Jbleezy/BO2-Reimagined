@@ -3,7 +3,7 @@ CoD.OffhandIcons.Size = 24
 CoD.OffhandIcons.Spacing = 1
 CoD.OffhandIcons.AlphaMultiplier = 0.75
 CoD.OffhandIcons.Width = CoD.OffhandIcons.Size * 1.5
-CoD.OffhandIcons.new = function (HudRef, InstanceRef)
+CoD.OffhandIcons.new = function(HudRef, InstanceRef)
 	local Widget = LUI.UIElement.new(InstanceRef)
 	Widget.type = HudRef
 	Widget.setMaterialAndQuantity = CoD.OffhandIcons.SetMaterialAndQuantity
@@ -11,7 +11,7 @@ CoD.OffhandIcons.new = function (HudRef, InstanceRef)
 	return Widget
 end
 
-CoD.OffhandIcons.SetMaterialAndQuantity = function (f2_arg0, f2_arg1, f2_arg2)
+CoD.OffhandIcons.SetMaterialAndQuantity = function(f2_arg0, f2_arg1, f2_arg2)
 	local f2_local0 = nil
 	if f2_arg0.icons == nil then
 		f2_local0 = {}
@@ -50,7 +50,7 @@ CoD.OffhandIcons.SetMaterialAndQuantity = function (f2_arg0, f2_arg1, f2_arg2)
 	end
 end
 
-CoD.OffhandIcons.UpdateOffhand = function (f3_arg0, f3_arg1)
+CoD.OffhandIcons.UpdateOffhand = function(f3_arg0, f3_arg1)
 	local f3_local0 = f3_arg1[f3_arg0.type]
 	if f3_local0 == nil then
 		if not f3_arg0.iconOutline then
@@ -61,7 +61,7 @@ CoD.OffhandIcons.UpdateOffhand = function (f3_arg0, f3_arg1)
 	end
 end
 
-CoD.OffhandIcons.UpdateTomahawkInUse = function (f4_arg0, f4_arg1)
+CoD.OffhandIcons.UpdateTomahawkInUse = function(f4_arg0, f4_arg1)
 	local f4_local0 = f4_arg1.newValue
 	if f4_local0 == 0 then
 		if f4_arg0.iconOutline then
@@ -93,7 +93,7 @@ CoD.OffhandIcons.UpdateTomahawkInUse = function (f4_arg0, f4_arg1)
 	end
 end
 
-CoD.OffhandIcons.UpgradeTomahawkIcon = function (f5_arg0, f5_arg1)
+CoD.OffhandIcons.UpgradeTomahawkIcon = function(f5_arg0, f5_arg1)
 	if f5_arg1.newValue == 0 then
 		f5_arg0.iconOutlineImage = CoD.AmmoAreaZombie.TomahawkOutline
 	else
@@ -104,12 +104,12 @@ CoD.OffhandIcons.UpgradeTomahawkIcon = function (f5_arg0, f5_arg1)
 	end
 end
 
-CoD.OffhandIcons.PulseBright = function (f6_arg0, f6_arg1)
+CoD.OffhandIcons.PulseBright = function(f6_arg0, f6_arg1)
 	f6_arg0:beginAnimation("pulse_low", f6_arg1)
 	f6_arg0:setAlpha(1)
 end
 
-CoD.OffhandIcons.PulseLow = function (f7_arg0, f7_arg1)
+CoD.OffhandIcons.PulseLow = function(f7_arg0, f7_arg1)
 	f7_arg0:beginAnimation("pulse_high", f7_arg1)
 	f7_arg0:setAlpha(0.1)
 end

@@ -7,7 +7,7 @@ CoD.HudAfterlifeDisplay.IconHeight = CoD.HudAfterlifeDisplay.IconWidth / CoD.Hud
 CoD.HudAfterlifeDisplay.InventoryWidth = 64
 CoD.HudAfterlifeDisplay.InventoryHeight = CoD.HudAfterlifeDisplay.InventoryWidth / CoD.HudAfterlifeDisplay.IconRatio
 CoD.HudAfterlifeDisplay.PULSE_DURATION = 3000
-LUI.createMenu.AfterlifeArea = function (f1_arg0)
+LUI.createMenu.AfterlifeArea = function(f1_arg0)
 	local f1_local0 = CoD.Menu.NewSafeAreaFromState("AfterlifeArea", f1_arg0)
 	f1_local0:setOwner(f1_arg0)
 	CoD.HudAfterlifeDisplay.AfterlifeMeterMaterial = RegisterMaterial("hud_zombie_afterlife_meter")
@@ -95,7 +95,7 @@ LUI.createMenu.AfterlifeArea = function (f1_arg0)
 	return f1_local0
 end
 
-CoD.HudAfterlifeDisplay.UpdateVisibility = function (f2_arg0, f2_arg1)
+CoD.HudAfterlifeDisplay.UpdateVisibility = function(f2_arg0, f2_arg1)
 	local f2_local0 = f2_arg1.controller
 	if UIExpression.IsVisibilityBitSet(f2_local0, CoD.BIT_HUD_VISIBLE) == 1 and UIExpression.IsVisibilityBitSet(f2_local0, CoD.BIT_EMP_ACTIVE) == 0 and UIExpression.IsVisibilityBitSet(f2_local0, CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM) == 0 and UIExpression.IsVisibilityBitSet(f2_local0, CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN) == 0 and UIExpression.IsVisibilityBitSet(f2_local0, CoD.BIT_IN_VEHICLE) == 0 and UIExpression.IsVisibilityBitSet(f2_local0, CoD.BIT_IN_GUIDED_MISSILE) == 0 and UIExpression.IsVisibilityBitSet(f2_local0, CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC) == 0 and UIExpression.IsVisibilityBitSet(f2_local0, CoD.BIT_AMMO_COUNTER_HIDE) == 0 and UIExpression.IsVisibilityBitSet(f2_local0, CoD.BIT_IS_FLASH_BANGED) == 0 and UIExpression.IsVisibilityBitSet(f2_local0, CoD.BIT_UI_ACTIVE) == 0 and UIExpression.IsVisibilityBitSet(f2_local0, CoD.BIT_SCOREBOARD_OPEN) == 0 and UIExpression.IsVisibilityBitSet(f2_local0, CoD.BIT_IS_SCOPED) == 0 and (not CoD.IsShoutcaster(f2_local0) or CoD.ExeProfileVarBool(f2_local0, "shoutcaster_scorestreaks") and Engine.IsSpectatingActiveClient(f2_local0)) and CoD.FSM_VISIBILITY(f2_local0) == 0 then
 		if f2_arg0.visible ~= true then
@@ -111,7 +111,7 @@ CoD.HudAfterlifeDisplay.UpdateVisibility = function (f2_arg0, f2_arg1)
 	f2_arg0:dispatchEventToChildren(f2_arg1)
 end
 
-CoD.HudAfterlifeDisplay.UpdatePlayerLives = function (f3_arg0, f3_arg1)
+CoD.HudAfterlifeDisplay.UpdatePlayerLives = function(f3_arg0, f3_arg1)
 	f3_arg0.afterlifeInventoryCount:setText(f3_arg1.newValue)
 	if f3_arg1.oldValue < f3_arg1.newValue then
 		if f3_arg0.afterLifeInventoryContainer.alternatorTimer then
@@ -121,7 +121,7 @@ CoD.HudAfterlifeDisplay.UpdatePlayerLives = function (f3_arg0, f3_arg1)
 	end
 end
 
-CoD.HudAfterlifeDisplay.UpdatePlayerInAfterlife = function (f4_arg0, f4_arg1)
+CoD.HudAfterlifeDisplay.UpdatePlayerInAfterlife = function(f4_arg0, f4_arg1)
 	local f4_local0 = f4_arg0.entNum ~= f4_arg1.entNum
 	f4_arg0.entNum = f4_arg1.entNum
 	if f4_arg1.newValue == 1 then
@@ -141,7 +141,7 @@ CoD.HudAfterlifeDisplay.UpdatePlayerInAfterlife = function (f4_arg0, f4_arg1)
 	end
 end
 
-CoD.HudAfterlifeDisplay.UpdateAfterlifeMana = function (f5_arg0, f5_arg1)
+CoD.HudAfterlifeDisplay.UpdateAfterlifeMana = function(f5_arg0, f5_arg1)
 	local f5_local0 = f5_arg0.entNum ~= f5_arg1.entNum
 	f5_arg0.afterlifeIcon:completeAnimation()
 	if f5_arg1.newValue ~= 0 and f5_arg1.wasDemoJump == false and f5_local0 == false then
@@ -150,7 +150,7 @@ CoD.HudAfterlifeDisplay.UpdateAfterlifeMana = function (f5_arg0, f5_arg1)
 	f5_arg0.afterlifeIcon:setShaderVector(0, f5_arg1.newValue, 0, 0, 0)
 end
 
-CoD.HudAfterlifeDisplay.UpdateAfterlifeWaypoint = function (f6_arg0, f6_arg1)
+CoD.HudAfterlifeDisplay.UpdateAfterlifeWaypoint = function(f6_arg0, f6_arg1)
 	local f6_local0 = f6_arg1.newValue
 	local f6_local1 = f6_local0 - 1
 	local f6_local2 = f6_arg1.entNum
@@ -187,7 +187,7 @@ CoD.HudAfterlifeDisplay.UpdateAfterlifeWaypoint = function (f6_arg0, f6_arg1)
 	end
 end
 
-CoD.HudAfterlifeDisplay.UpdateAfterlifeIconsDemoJump = function (f7_arg0, f7_arg1)
+CoD.HudAfterlifeDisplay.UpdateAfterlifeIconsDemoJump = function(f7_arg0, f7_arg1)
 	local f7_local0 = {}
 	for f7_local1 = 1, #f7_arg0.afterlifeWaypointIcons, 1 do
 		if Engine.IsEntityNumberInUse(f7_arg1.controller, f7_arg0.afterlifeWaypointIcons[f7_local1].entNum, CoD.EntityType.ET_SCRIPTMOVER) == false then
@@ -202,7 +202,7 @@ CoD.HudAfterlifeDisplay.UpdateAfterlifeIconsDemoJump = function (f7_arg0, f7_arg
 	end
 end
 
-CoD.HudAfterlifeDisplay.AfterlifeWaypointExists = function (f8_arg0, f8_arg1)
+CoD.HudAfterlifeDisplay.AfterlifeWaypointExists = function(f8_arg0, f8_arg1)
 	local f8_local0 = false
 	for f8_local1 = 1, #f8_arg0.afterlifeWaypointIcons, 1 do
 		if f8_arg0.afterlifeWaypointIcons[f8_local1].entNum == f8_arg1 then
@@ -213,12 +213,12 @@ CoD.HudAfterlifeDisplay.AfterlifeWaypointExists = function (f8_arg0, f8_arg1)
 	return f8_local0
 end
 
-CoD.HudAfterlifeDisplay.PulseOff = function (f9_arg0, f9_arg1)
+CoD.HudAfterlifeDisplay.PulseOff = function(f9_arg0, f9_arg1)
 	f9_arg0:beginAnimation("pulse_off", f9_arg1)
 	f9_arg0:setAlpha(0.1)
 end
 
-CoD.HudAfterlifeDisplay.PulseOn = function (f10_arg0, f10_arg1)
+CoD.HudAfterlifeDisplay.PulseOn = function(f10_arg0, f10_arg1)
 	f10_arg0:beginAnimation("pulse_on", f10_arg1)
 	f10_arg0:setAlpha(1)
 end

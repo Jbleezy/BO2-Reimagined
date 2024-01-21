@@ -5,19 +5,19 @@ CoD.OtherAmmoCounters.PulseDuration = 500
 CoD.OtherAmmoCounters.NormalColor = {
 	r = 1,
 	g = 1,
-	b = 1
+	b = 1,
 }
 CoD.OtherAmmoCounters.OverheatColor = {
 	r = 1,
 	g = 0,
-	b = 0
+	b = 0,
 }
 CoD.OtherAmmoCounters.LowFuelColor = {
 	r = 1,
 	g = 1,
-	b = 0
+	b = 0,
 }
-CoD.OtherAmmoCounters.new = function ()
+CoD.OtherAmmoCounters.new = function()
 	local Widget = LUI.UIElement.new()
 	Widget:setLeftRight(true, true, 0, 0)
 	Widget:setTopBottom(true, true, 0, 0)
@@ -43,7 +43,7 @@ CoD.OtherAmmoCounters.new = function ()
 	return Widget
 end
 
-CoD.OtherAmmoCounters.UpdateHeat = function (f2_arg0, f2_arg1)
+CoD.OtherAmmoCounters.UpdateHeat = function(f2_arg0, f2_arg1)
 	f2_arg0.ammoLabel:setText(f2_arg1.heatPercent .. "%")
 	if f2_arg1.overheat and f2_arg0.overheat ~= true then
 		f2_arg0.overheat = true
@@ -61,7 +61,7 @@ CoD.OtherAmmoCounters.UpdateHeat = function (f2_arg0, f2_arg1)
 	end
 end
 
-CoD.OtherAmmoCounters.UpdateFuel = function (f3_arg0, f3_arg1)
+CoD.OtherAmmoCounters.UpdateFuel = function(f3_arg0, f3_arg1)
 	f3_arg0.ammoLabel:setText(f3_arg1.fuelPercent .. "%")
 	if f3_arg1.lowFuel and f3_arg0.lowFuel ~= true then
 		f3_arg0.lowFuel = true
@@ -77,7 +77,7 @@ CoD.OtherAmmoCounters.UpdateFuel = function (f3_arg0, f3_arg1)
 	end
 end
 
-CoD.OtherAmmoCounters.ShouldHideAmmoCounter = function (f4_arg0, f4_arg1)
+CoD.OtherAmmoCounters.ShouldHideAmmoCounter = function(f4_arg0, f4_arg1)
 	if f4_arg0.weapon ~= nil then
 		if CoD.isZombie == true and (Engine.IsWeaponType(f4_arg0.weapon, "gas") or Engine.IsOverheatWeapon(f4_arg0.weapon)) then
 			return false
@@ -86,7 +86,7 @@ CoD.OtherAmmoCounters.ShouldHideAmmoCounter = function (f4_arg0, f4_arg1)
 	return true
 end
 
-CoD.OtherAmmoCounters.UpdateVisibility = function (f5_arg0, f5_arg1)
+CoD.OtherAmmoCounters.UpdateVisibility = function(f5_arg0, f5_arg1)
 	local f5_local0 = f5_arg1.controller
 	if f5_arg1.weapon ~= nil then
 		f5_arg0.weapon = f5_arg1.weapon
@@ -105,14 +105,14 @@ CoD.OtherAmmoCounters.UpdateVisibility = function (f5_arg0, f5_arg1)
 	end
 end
 
-CoD.OtherAmmoCounters.Ammo_PulseHigh = function (f6_arg0, f6_arg1)
+CoD.OtherAmmoCounters.Ammo_PulseHigh = function(f6_arg0, f6_arg1)
 	if f6_arg1.interrupted ~= true then
 		f6_arg0:beginAnimation("pluse_low", CoD.OtherAmmoCounters.LowAmmoFadeTime, true, false)
 		f6_arg0:setAlpha(1)
 	end
 end
 
-CoD.OtherAmmoCounters.Ammo_PulseLow = function (f7_arg0, f7_arg1)
+CoD.OtherAmmoCounters.Ammo_PulseLow = function(f7_arg0, f7_arg1)
 	if f7_arg1.interrupted ~= true then
 		f7_arg0:beginAnimation("pulse_high", CoD.OtherAmmoCounters.LowAmmoFadeTime, false, true)
 		f7_arg0:setAlpha(0.5)

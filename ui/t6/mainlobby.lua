@@ -16,7 +16,7 @@ if CoD.isZombie == false and (CoD.isXBOX or CoD.isPS3) then
 	require("T6.Menus.EliteAppPopup")
 end
 CoD.MainLobby = {}
-CoD.MainLobby.ShouldPreventCreateLobby = function ()
+CoD.MainLobby.ShouldPreventCreateLobby = function()
 	if UIExpression.AcceptingInvite() == 1 or Engine.IsJoiningAnotherParty() == 1 or UIExpression.PrivatePartyHost() == 0 or Engine.IsGameLobbyRunning() then
 		return true
 	else
@@ -24,7 +24,7 @@ CoD.MainLobby.ShouldPreventCreateLobby = function ()
 	end
 end
 
-CoD.MainLobby.OnlinePlayAvailable = function (MainLobbyWidget, ClientInstance, Boolean)
+CoD.MainLobby.OnlinePlayAvailable = function(MainLobbyWidget, ClientInstance, Boolean)
 	if Boolean == nil then
 		Boolean = false
 	end
@@ -98,7 +98,7 @@ CoD.MainLobby.OnlinePlayAvailable = function (MainLobbyWidget, ClientInstance, B
 	return 0
 end
 
-CoD.MainLobby.IsControllerCountValid = function (MainLobbyWidget, LocalClientIndex, MaxLocalPlayers)
+CoD.MainLobby.IsControllerCountValid = function(MainLobbyWidget, LocalClientIndex, MaxLocalPlayers)
 	if MaxLocalPlayers < UIExpression.GetUsedControllerCount() then
 		local ErrorPopup = MainLobbyWidget:openPopup("Error", LocalClientIndex)
 		ErrorPopup:setMessage(Engine.Localize("XBOXLIVE_TOOMANYCONTROLLERS"))
@@ -109,7 +109,7 @@ CoD.MainLobby.IsControllerCountValid = function (MainLobbyWidget, LocalClientInd
 	end
 end
 
-CoD.MainLobby.OpenPlayerMatchPartyLobby = function (MainLobbyWidget, ClientInstance)
+CoD.MainLobby.OpenPlayerMatchPartyLobby = function(MainLobbyWidget, ClientInstance)
 	if CoD.MainLobby.ShouldPreventCreateLobby() then
 		return
 	elseif CoD.MainLobby.OnlinePlayAvailable(MainLobbyWidget, ClientInstance) == 1 then
@@ -145,7 +145,7 @@ CoD.MainLobby.OpenPlayerMatchPartyLobby = function (MainLobbyWidget, ClientInsta
 	end
 end
 
-CoD.MainLobby.OpenLeagueSelectionPopup = function (MainLobbyWidget, ClientInstance)
+CoD.MainLobby.OpenLeagueSelectionPopup = function(MainLobbyWidget, ClientInstance)
 	if CoD.MainLobby.ShouldPreventCreateLobby() then
 		return
 	elseif CoD.MainLobby.OnlinePlayAvailable(MainLobbyWidget, ClientInstance) == 1 then
@@ -171,7 +171,7 @@ CoD.MainLobby.OpenLeagueSelectionPopup = function (MainLobbyWidget, ClientInstan
 	end
 end
 
-CoD.MainLobby.OpenLeaguePlayPartyLobby = function (MainLobbyWidget, ClientInstance)
+CoD.MainLobby.OpenLeaguePlayPartyLobby = function(MainLobbyWidget, ClientInstance)
 	if CoD.MainLobby.ShouldPreventCreateLobby() then
 		return
 	elseif CoD.MainLobby.OnlinePlayAvailable(MainLobbyWidget, ClientInstance) == 1 then
@@ -185,7 +185,7 @@ CoD.MainLobby.OpenLeaguePlayPartyLobby = function (MainLobbyWidget, ClientInstan
 	end
 end
 
-CoD.MainLobby.OpenCustomGamesLobby = function (MainLobbyWidget, ClientInstance)
+CoD.MainLobby.OpenCustomGamesLobby = function(MainLobbyWidget, ClientInstance)
 	if CoD.MainLobby.ShouldPreventCreateLobby() then
 		return
 	elseif CoD.MainLobby.OnlinePlayAvailable(MainLobbyWidget, ClientInstance) == 1 and CoD.MainLobby.IsControllerCountValid(MainLobbyWidget, ClientInstance.controller, UIExpression.DvarInt(ClientInstance.controller, "party_maxlocalplayers_privatematch")) == 1 then
@@ -202,7 +202,7 @@ CoD.MainLobby.OpenCustomGamesLobby = function (MainLobbyWidget, ClientInstance)
 	end
 end
 
-CoD.MainLobby.OpenSoloLobby_Zombie = function (MainLobbyWidget, ClientInstance)
+CoD.MainLobby.OpenSoloLobby_Zombie = function(MainLobbyWidget, ClientInstance)
 	if CoD.MainLobby.ShouldPreventCreateLobby() then
 		return
 	elseif CoD.MainLobby.OnlinePlayAvailable(MainLobbyWidget, ClientInstance) == 1 then
@@ -220,14 +220,14 @@ CoD.MainLobby.OpenSoloLobby_Zombie = function (MainLobbyWidget, ClientInstance)
 	end
 end
 
-CoD.MainLobby.OpenTheaterLobby = function (MainLobbyWidget, ClientInstance)
+CoD.MainLobby.OpenTheaterLobby = function(MainLobbyWidget, ClientInstance)
 	if CoD.MainLobby.ShouldPreventCreateLobby() then
 		return
 	elseif UIExpression.CanSwitchToLobby(ClientInstance.controller, Dvar.party_maxplayers_theater:get(), Dvar.party_maxlocalplayers_theater:get()) == 0 then
 		Dvar.ui_errorTitle:set(Engine.Localize("MENU_NOTICE_CAPS"))
 		Dvar.ui_errorMessage:set(Engine.Localize("MENU_FILESHARE_MAX_LOCAL_PLAYERS"))
 		CoD.Menu.OpenErrorPopup(MainLobbyWidget, {
-			controller = ClientInstance.controller
+			controller = ClientInstance.controller,
 		})
 		return
 	elseif Engine.CanViewContent() == false then
@@ -236,13 +236,13 @@ CoD.MainLobby.OpenTheaterLobby = function (MainLobbyWidget, ClientInstance)
 	elseif CoD.MainLobby.OnlinePlayAvailable(MainLobbyWidget, ClientInstance) == 1 and CoD.MainLobby.IsControllerCountValid(MainLobbyWidget, ClientInstance.controller, UIExpression.DvarInt(ClientInstance.controller, "party_maxlocalplayers_theater")) == 1 then
 		CoD.SwitchToTheaterLobby(ClientInstance.controller)
 		local TheaterLobbyMenu = MainLobbyWidget:openMenu("TheaterLobby", ClientInstance.controller, {
-			parent = "MainLobby"
+			parent = "MainLobby",
 		})
 		MainLobbyWidget:close()
 	end
 end
 
-CoD.MainLobby.OpenCODTV = function (MainLobbyWidget, ClientInstance)
+CoD.MainLobby.OpenCODTV = function(MainLobbyWidget, ClientInstance)
 	if Engine.CanViewContent() == false then
 		MainLobbyWidget:openPopup("popup_contentrestricted", ClientInstance.controller)
 		return
@@ -255,7 +255,7 @@ CoD.MainLobby.OpenCODTV = function (MainLobbyWidget, ClientInstance)
 	end
 end
 
-CoD.MainLobby.OpenBarracks = function (MainLobbyWidget, ClientInstance)
+CoD.MainLobby.OpenBarracks = function(MainLobbyWidget, ClientInstance)
 	if UIExpression.IsGuest(ClientInstance.controller) == 1 then
 		MainLobbyWidget:openPopup("popup_guest_contentrestricted", ClientInstance.controller)
 		return
@@ -270,7 +270,7 @@ CoD.MainLobby.OpenBarracks = function (MainLobbyWidget, ClientInstance)
 	end
 end
 
-CoD.MainLobby.OpenStore = function (MainLobbyWidget, ClientInstance)
+CoD.MainLobby.OpenStore = function(MainLobbyWidget, ClientInstance)
 	if MainLobbyWidget.occludedBy then
 		return
 	end
@@ -298,15 +298,15 @@ CoD.MainLobby.OpenStore = function (MainLobbyWidget, ClientInstance)
 	end
 end
 
-CoD.MainLobby.OpenControlsMenu = function (MainLobbyWidget, ClientInstance)
+CoD.MainLobby.OpenControlsMenu = function(MainLobbyWidget, ClientInstance)
 	MainLobbyWidget:openPopup("WiiUControllerSettings", ClientInstance.controller, true)
 end
 
-CoD.MainLobby.OpenOptionsMenu = function (MainLobbyWidget, ClientInstance)
+CoD.MainLobby.OpenOptionsMenu = function(MainLobbyWidget, ClientInstance)
 	MainLobbyWidget:openPopup("OptionsMenu", ClientInstance.controller)
 end
 
-CoD.MainLobby.UpdateButtonPaneButtonVisibilty_Multiplayer = function (MainLobbyButtonPane)
+CoD.MainLobby.UpdateButtonPaneButtonVisibilty_Multiplayer = function(MainLobbyButtonPane)
 	if CoD.isPartyHost() then
 		MainLobbyButtonPane.body.buttonList:addElement(MainLobbyButtonPane.body.matchmakingButton)
 		--MainLobbyButtonPane.body.buttonList:addElement(MainLobbyButtonPane.body.leaguePlayButton)
@@ -327,7 +327,7 @@ CoD.MainLobby.UpdateButtonPaneButtonVisibilty_Multiplayer = function (MainLobbyB
 	end
 end
 
-CoD.MainLobby.UpdateButtonPaneButtonVisibilty_Zombie = function (MainLobbyButtonPane)
+CoD.MainLobby.UpdateButtonPaneButtonVisibilty_Zombie = function(MainLobbyButtonPane)
 	if CoD.isPartyHost() then
 		-- MainLobbyButtonPane.body.buttonList:addElement(MainLobbyButtonPane.body.matchmakingButton)
 		MainLobbyButtonPane.body.buttonList:addElement(MainLobbyButtonPane.body.customSpacer)
@@ -352,7 +352,7 @@ CoD.MainLobby.UpdateButtonPaneButtonVisibilty_Zombie = function (MainLobbyButton
 	end
 end
 
-CoD.MainLobby.UpdateButtonPaneButtonVisibilty = function (MainLobbyButtonPane)
+CoD.MainLobby.UpdateButtonPaneButtonVisibilty = function(MainLobbyButtonPane)
 	if MainLobbyButtonPane == nil or MainLobbyButtonPane.body == nil then
 		return
 	elseif CoD.isZombie == true then
@@ -363,7 +363,7 @@ CoD.MainLobby.UpdateButtonPaneButtonVisibilty = function (MainLobbyButtonPane)
 	MainLobbyButtonPane:setLayoutCached(false)
 end
 
-CoD.MainLobby.UpdateButtonPromptVisibility = function (MainLobbyWidget)
+CoD.MainLobby.UpdateButtonPromptVisibility = function(MainLobbyWidget)
 	if MainLobbyWidget == nil then
 		return
 	end
@@ -391,7 +391,7 @@ CoD.MainLobby.UpdateButtonPromptVisibility = function (MainLobbyWidget)
 	MainLobbyWidget:addNATType()
 end
 
-CoD.MainLobby.PopulateButtons_Multiplayer = function (MainLobbyButtonPane)
+CoD.MainLobby.PopulateButtons_Multiplayer = function(MainLobbyButtonPane)
 	MainLobbyButtonPane.body.serverBrowserButton = MainLobbyButtonPane.body.buttonList:addButton(Engine.Localize("SERVER BROWSER"), nil, 1)
 	MainLobbyButtonPane.body.serverBrowserButton.hintText = Engine.Localize(CoD.MPZM("MPUI_PLAYER_MATCH_DESC", "ZMUI_PLAYER_MATCH_DESC"))
 	MainLobbyButtonPane.body.serverBrowserButton:setActionEventName("open_server_browser_mainlobby")
@@ -438,7 +438,7 @@ CoD.MainLobby.PopulateButtons_Multiplayer = function (MainLobbyButtonPane)
 	MainLobbyButtonPane.body.modsButton:setActionEventName("open_mods_menu")
 end
 
-CoD.MainLobby.PopulateButtons_Zombie = function (MainLobbyButtonPane)
+CoD.MainLobby.PopulateButtons_Zombie = function(MainLobbyButtonPane)
 	MainLobbyButtonPane.body.serverBrowserButton = MainLobbyButtonPane.body.buttonList:addButton(Engine.Localize("SERVER BROWSER"), nil, 1)
 	MainLobbyButtonPane.body.serverBrowserButton.hintText = Engine.Localize(CoD.MPZM("MPUI_PLAYER_MATCH_DESC", "ZMUI_PLAYER_MATCH_DESC"))
 	MainLobbyButtonPane.body.serverBrowserButton:setActionEventName("open_server_browser_mainlobby")
@@ -470,7 +470,7 @@ CoD.MainLobby.PopulateButtons_Zombie = function (MainLobbyButtonPane)
 	MainLobbyButtonPane.body.modsButton:setActionEventName("open_mods_menu")
 end
 
-CoD.MainLobby.PopulateButtons = function (MainLobbyButtonPane)
+CoD.MainLobby.PopulateButtons = function(MainLobbyButtonPane)
 	if CoD.isZombie == true then
 		CoD.MainLobby.PopulateButtons_Zombie(MainLobbyButtonPane)
 	else
@@ -504,7 +504,7 @@ CoD.MainLobby.PopulateButtons = function (MainLobbyButtonPane)
 	end
 end
 
-CoD.MainLobby.UpdateOnlinePlayerCount = function (PlayerCountLabel)
+CoD.MainLobby.UpdateOnlinePlayerCount = function(PlayerCountLabel)
 	if CoD.isOnlineGame() then
 		local PlayerCountText = CoD.Menu.GetOnlinePlayerCountText()
 		if PlayerCountText ~= "" then
@@ -515,7 +515,7 @@ CoD.MainLobby.UpdateOnlinePlayerCount = function (PlayerCountLabel)
 	end
 end
 
-CoD.MainLobby.FirstSignedInToLive = function (MainLobbyWidget)
+CoD.MainLobby.FirstSignedInToLive = function(MainLobbyWidget)
 	if MainLobbyWidget ~= nil then
 		if CoD.isXBOX then
 			MainLobbyWidget.anyControllerAllowed = false
@@ -526,13 +526,13 @@ CoD.MainLobby.FirstSignedInToLive = function (MainLobbyWidget)
 	end
 end
 
-CoD.MainLobby.LastSignedOutOfLive = function (MainLobbyWidget)
+CoD.MainLobby.LastSignedOutOfLive = function(MainLobbyWidget)
 	if MainLobbyWidget ~= nil and CoD.isXBOX then
 		MainLobbyWidget.anyControllerAllowed = true
 	end
 end
 
-CoD.MainLobby.PlayerSelected = function (MainLobbyWidget, PlayerSelectedEvent)
+CoD.MainLobby.PlayerSelected = function(MainLobbyWidget, PlayerSelectedEvent)
 	if MainLobbyWidget.joinable ~= nil and CoD.canJoinSession(UIExpression.GetPrimaryController(), PlayerSelectedEvent.playerXuid) then
 		if MainLobbyWidget.joinButton == nil and not MainLobbyWidget.m_blockJoinButton then
 			MainLobbyWidget:addJoinButton()
@@ -545,7 +545,7 @@ CoD.MainLobby.PlayerSelected = function (MainLobbyWidget, PlayerSelectedEvent)
 	MainLobbyWidget:dispatchEventToChildren(PlayerSelectedEvent)
 end
 
-CoD.MainLobby.PlayerDeselected = function (MainLobbyWidget, PlayerDeselectedEvent)
+CoD.MainLobby.PlayerDeselected = function(MainLobbyWidget, PlayerDeselectedEvent)
 	if MainLobbyWidget.joinButton ~= nil then
 		MainLobbyWidget.joinButton:close()
 		MainLobbyWidget.joinButton = nil
@@ -553,23 +553,23 @@ CoD.MainLobby.PlayerDeselected = function (MainLobbyWidget, PlayerDeselectedEven
 	MainLobbyWidget:dispatchEventToChildren(PlayerDeselectedEvent)
 end
 
-CoD.MainLobby.CurrentPanelChanged = function (MainLobbyWidget, f27_arg1)
+CoD.MainLobby.CurrentPanelChanged = function(MainLobbyWidget, f27_arg1)
 	if CoD.isPC then
 		MainLobbyWidget.m_blockJoinButton = f27_arg1.id ~= "PanelManager.lobbyPane"
 	end
 end
 
 --Unused skipped
-CoD.MainLobby.BusyList_Update = function (f28_arg0, f28_arg1, f28_arg2, f28_arg3, f28_arg4)
+CoD.MainLobby.BusyList_Update = function(f28_arg0, f28_arg1, f28_arg2, f28_arg3, f28_arg4)
 	CoD.PlayerList.Update(f28_arg0, Engine.GetBusyFriendsOfAllLocalPlayers(f28_arg0.maxRows - f28_arg2), f28_arg2, f28_arg3, f28_arg4)
 end
 
-CoD.MainLobby.Update = function (MainLobbyWidget, ClientInstance)
+CoD.MainLobby.Update = function(MainLobbyWidget, ClientInstance)
 	if MainLobbyWidget == nil then
 		return
 	elseif UIExpression.IsDemonwareFetchingDone(ClientInstance.controller) == 1 == true then
 		MainLobbyWidget.panelManager:processEvent({
-			name = "fetching_done"
+			name = "fetching_done",
 		})
 	end
 	CoD.MainLobby.UpdateButtonPaneButtonVisibilty(MainLobbyWidget.buttonPane)
@@ -577,7 +577,7 @@ CoD.MainLobby.Update = function (MainLobbyWidget, ClientInstance)
 	MainLobbyWidget:dispatchEventToChildren(ClientInstance)
 end
 
-CoD.MainLobby.ClientLeave = function (MainLobbyWidget, ClientInstance)
+CoD.MainLobby.ClientLeave = function(MainLobbyWidget, ClientInstance)
 	Engine.ExecNow(ClientInstance.controller, "leaveAllParties")
 	Engine.PartyHostClearUIState()
 	CoD.StartMainLobby(ClientInstance.controller)
@@ -585,7 +585,7 @@ CoD.MainLobby.ClientLeave = function (MainLobbyWidget, ClientInstance)
 	CoD.MainLobby.UpdateButtonPromptVisibility()
 end
 
-CoD.MainLobby.GoBack = function (MainLobbyWidget, ClientInstance)
+CoD.MainLobby.GoBack = function(MainLobbyWidget, ClientInstance)
 	Engine.SessionModeResetModes()
 	Engine.Exec(ClientInstance.controller, "xstopprivateparty")
 	if CoD.isPS3 then
@@ -595,18 +595,18 @@ CoD.MainLobby.GoBack = function (MainLobbyWidget, ClientInstance)
 	CoD.Menu.goBack(MainLobbyWidget, ClientInstance.controller)
 end
 
-CoD.MainLobby.Back = function (MainLobbyWidget, ClientInstance)
+CoD.MainLobby.Back = function(MainLobbyWidget, ClientInstance)
 	if CoD.Lobby.OpenSignOutPopup(MainLobbyWidget, ClientInstance) == true then
 		return
 	elseif UIExpression.IsPrimaryLocalClient(ClientInstance.controller) == 0 then
 		Engine.Exec(ClientInstance.controller, "signclientout")
 		MainLobbyWidget:processEvent({
-			name = "controller_backed_out"
+			name = "controller_backed_out",
 		})
 		return
 	elseif UIExpression.AloneInPartyIgnoreSplitscreen(ClientInstance.controller, 1) == 0 then
 		local CustomLeaveMessage = {
-			params = {}
+			params = {},
 		}
 		if not CoD.isPartyHost() then
 			CustomLeaveMessage.titleText = Engine.Localize("MENU_LEAVE_LOBBY_TITLE")
@@ -615,7 +615,7 @@ CoD.MainLobby.Back = function (MainLobbyWidget, ClientInstance)
 				leaveHandler = CoD.MainLobby.ClientLeave,
 				leaveEvent = "client_leave",
 				leaveText = Engine.Localize("MENU_LEAVE_LOBBY_AND_PARTY"),
-				debugHelper = "You're a client of a private party, remove you from the party"
+				debugHelper = "You're a client of a private party, remove you from the party",
 			})
 		else
 			CustomLeaveMessage.titleText = Engine.Localize("MENU_DISBAND_PARTY_TITLE")
@@ -624,7 +624,7 @@ CoD.MainLobby.Back = function (MainLobbyWidget, ClientInstance)
 				leaveHandler = CoD.MainLobby.GoBack,
 				leaveEvent = "host_leave",
 				leaveText = Engine.Localize("MENU_LEAVE_AND_DISBAND_PARTY"),
-				debugHelper = "You're the leader of a private party, choosing this will disband your party"
+				debugHelper = "You're the leader of a private party, choosing this will disband your party",
 			})
 		end
 		CoD.Lobby.ConfirmLeave(MainLobbyWidget, ClientInstance.controller, nil, nil, CustomLeaveMessage)
@@ -633,7 +633,7 @@ CoD.MainLobby.Back = function (MainLobbyWidget, ClientInstance)
 	end
 end
 
-CoD.MainLobby.AddLobbyPaneElements = function (LobbyPane, MenuParty)
+CoD.MainLobby.AddLobbyPaneElements = function(LobbyPane, MenuParty)
 	CoD.LobbyPanes.addLobbyPaneElements(LobbyPane, MenuParty, UIExpression.DvarInt(nil, "party_maxlocalplayers_mainlobby"))
 	LobbyPane.body.lobbyList.joinableList = CoD.JoinableList.New({
 		leftAnchor = true,
@@ -643,7 +643,7 @@ CoD.MainLobby.AddLobbyPaneElements = function (LobbyPane, MenuParty)
 		topAnchor = true,
 		bottomAnchor = false,
 		top = 0,
-		bottom = 0
+		bottom = 0,
 	}, false, "", "joinableList", LobbyPane.id)
 	LobbyPane.body.lobbyList.joinableList.pane = LobbyPane
 	LobbyPane.body.lobbyList.joinableList.maxRows = CoD.MaxPlayerListRows - 2
@@ -651,46 +651,46 @@ CoD.MainLobby.AddLobbyPaneElements = function (LobbyPane, MenuParty)
 	LobbyPane.body.lobbyList:addElement(LobbyPane.body.lobbyList.joinableList)
 end
 
-CoD.MainLobby.ButtonListButtonGainFocus = function (f34_arg0, ClientInstance)
+CoD.MainLobby.ButtonListButtonGainFocus = function(f34_arg0, ClientInstance)
 	f34_arg0:dispatchEventToParent({
-		name = "add_party_privacy_button"
+		name = "add_party_privacy_button",
 	})
 	CoD.Lobby.ButtonListButtonGainFocus(f34_arg0, ClientInstance)
 end
 
-CoD.MainLobby.ButtonListAddButton = function (f35_arg0, f35_arg1, f35_arg2, f35_arg3)
+CoD.MainLobby.ButtonListAddButton = function(f35_arg0, f35_arg1, f35_arg2, f35_arg3)
 	local f35_local0 = CoD.Lobby.ButtonListAddButton(f35_arg0, f35_arg1, f35_arg2, f35_arg3)
 	f35_local0:registerEventHandler("gain_focus", CoD.MainLobby.ButtonListButtonGainFocus)
 	return f35_local0
 end
 
-CoD.MainLobby.AddButtonPaneElements = function (f36_arg0)
+CoD.MainLobby.AddButtonPaneElements = function(f36_arg0)
 	CoD.LobbyPanes.addButtonPaneElements(f36_arg0)
 	f36_arg0.body.buttonList.addButton = CoD.MainLobby.ButtonListAddButton
 end
 
-CoD.MainLobby.PopulateButtonPaneElements = function (MainLobbyButtonPane)
+CoD.MainLobby.PopulateButtonPaneElements = function(MainLobbyButtonPane)
 	CoD.MainLobby.PopulateButtons(MainLobbyButtonPane)
 	CoD.MainLobby.UpdateButtonPaneButtonVisibilty(MainLobbyButtonPane)
 end
 
-CoD.MainLobby.GoToFindingGames_Zombie = function (MainLobbyWidget, ClientInstance)
+CoD.MainLobby.GoToFindingGames_Zombie = function(MainLobbyWidget, ClientInstance)
 	Engine.Exec(ClientInstance.controller, "xstartparty")
 	Engine.Exec(ClientInstance.controller, "updategamerprofile")
 	local PublicGameLobbyMenu = MainLobbyWidget:openMenu("PublicGameLobby", ClientInstance.controller)
 	PublicGameLobbyMenu:setPreviousMenu("MainLobby")
 	PublicGameLobbyMenu:registerAnimationState("hide", {
-		alpha = 0
+		alpha = 0,
 	})
 	PublicGameLobbyMenu:animateToState("hide")
 	PublicGameLobbyMenu:registerAnimationState("show", {
-		alpha = 1
+		alpha = 1,
 	})
 	PublicGameLobbyMenu:animateToState("show", 500)
 	MainLobbyWidget:close()
 end
 
-CoD.MainLobby.ButtonPromptJoin = function (MainLobbyWidget, ClientInstance)
+CoD.MainLobby.ButtonPromptJoin = function(MainLobbyWidget, ClientInstance)
 	if UIExpression.IsGuest(ClientInstance.controller) == 1 then
 		local f39_local0 = MainLobbyWidget:openPopup("Error", ClientInstance.controller)
 		f39_local0:setMessage(Engine.Localize("XBOXLIVE_NOGUESTACCOUNTS"))
@@ -703,7 +703,7 @@ CoD.MainLobby.ButtonPromptJoin = function (MainLobbyWidget, ClientInstance)
 	end
 end
 
-LUI.createMenu.MainLobby = function (LocalClientIndex)
+LUI.createMenu.MainLobby = function(LocalClientIndex)
 	local MainLobbyName = Engine.Localize(CoD.MPZM("MENU_MULTIPLAYER_CAPS", "MENU_ZOMBIES_CAPS"))
 	local MainLobbyWidget = CoD.Lobby.New("MainLobby", LocalClientIndex, nil, MainLobbyName)
 	MainLobbyWidget.controller = LocalClientIndex
@@ -769,7 +769,7 @@ LUI.createMenu.MainLobby = function (LocalClientIndex)
 				end
 			else
 				MainLobbyWidget.buttonPane.body.theaterButton:processEvent({
-					name = "gain_focus"
+					name = "gain_focus",
 				})
 			end
 		end
@@ -795,11 +795,11 @@ LUI.createMenu.MainLobby = function (LocalClientIndex)
 	return MainLobbyWidget
 end
 
-CoD.MainLobby.OpenSessionRejoinPopup = function (MainLobbyWidget, ClientInstance)
+CoD.MainLobby.OpenSessionRejoinPopup = function(MainLobbyWidget, ClientInstance)
 	MainLobbyWidget:openPopup("RejoinSessionPopup", ClientInstance.controller)
 end
 
-CoD.MainLobby.elite_registration_ended = function (MainLobbyWidget, ClientInstance)
+CoD.MainLobby.elite_registration_ended = function(MainLobbyWidget, ClientInstance)
 	if UIExpression.IsGuest(ClientInstance.controller) == 1 then
 		MainLobbyWidget:openPopup("popup_guest_contentrestricted", ClientInstance.controller)
 		return
@@ -812,7 +812,7 @@ CoD.MainLobby.elite_registration_ended = function (MainLobbyWidget, ClientInstan
 	end
 end
 
-CoD.MainLobby.OpenEliteAppPopup = function (MainLobbyWidget, ClientInstance)
+CoD.MainLobby.OpenEliteAppPopup = function(MainLobbyWidget, ClientInstance)
 	if UIExpression.IsGuest(ClientInstance.controller) == 1 then
 		MainLobbyWidget:openPopup("popup_guest_contentrestricted", ClientInstance.controller)
 		return
@@ -833,7 +833,7 @@ end
 
 CoD.MainLobby.OpenModsList = function(MainLobbyWidget, ClientInstance)
 	MainLobbyWidget:openMenu("Mods", ClientInstance.controller, {
-		parent = "MainLobby"
+		parent = "MainLobby",
 	})
 	MainLobbyWidget:close()
 end

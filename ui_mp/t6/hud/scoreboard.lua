@@ -23,7 +23,7 @@ local f0_local14 = 0
 local SCOREBOARD_PING_BARS = {}
 local f0_local16 = 232
 local SCOREBOARD_ROW_SELECTED = {
-	name = "row_selected"
+	name = "row_selected",
 }
 local ScoreboardWidgetRowSelectorFunc = nil
 local f0_local24 = 27
@@ -45,15 +45,15 @@ local IsDLCMap2, IsDLCMap4, IsClassic = nil, nil, nil
 
 CoD.ScoreboardRow = InheritFrom(LUI.UIElement)
 
-local ScoreboardWidgetSetOwnerFunc = function (ScoreboardWidget, LocalClientIndex)
+local ScoreboardWidgetSetOwnerFunc = function(ScoreboardWidget, LocalClientIndex)
 	ScoreboardWidget.m_ownerController = LocalClientIndex
 end
 
-local ScoreboardWidgetGetOwnerFunc = function (ScoreboardWidget)
+local ScoreboardWidgetGetOwnerFunc = function(ScoreboardWidget)
 	return ScoreboardWidget.m_ownerController
 end
 
-local ZombiesCleansedScoreboardCheck = function (ScoreboardColumnName)
+local ZombiesCleansedScoreboardCheck = function(ScoreboardColumnName)
 	if Dvar.ui_gametype:get() == CoD.Zombie.GAMETYPE_ZCLEANSED and ScoreboardColumnName == "MPUI_DOWNS" then
 		return "MPUI_RETURNS"
 	else
@@ -61,7 +61,7 @@ local ZombiesCleansedScoreboardCheck = function (ScoreboardColumnName)
 	end
 end
 
-local CreateScoreboardHeaderTitle = function (ScoreboardWidget)
+local CreateScoreboardHeaderTitle = function(ScoreboardWidget)
 	local HeaderTitle = nil
 	if ScoreboardWidget.mode == "theater" then
 		HeaderTitle = Engine.Localize("MENU_THEATER_PARTY")
@@ -166,7 +166,7 @@ function CreateScoreBoardBody(ScoreboardWidget, LocalClientIndex, UnusedArg1)
 		topAnchor = true,
 		bottomAnchor = false,
 		top = 0,
-		bottom = 0
+		bottom = 0,
 	}, 1.35)
 	ScoreboardWidget:addElement(ScoreboardWidget.scoreboardContainer)
 	if not UnusedArg1 then
@@ -278,7 +278,7 @@ function CreateScoreBoardBody(ScoreboardWidget, LocalClientIndex, UnusedArg1)
 	ScoreboardWidgetUpdateFunc(ScoreboardWidget)
 end
 
-local ClientInputSourceChangedCallback = function (ScoreboardWidget, ClientInstance)
+local ClientInputSourceChangedCallback = function(ScoreboardWidget, ClientInstance)
 	if ScoreboardWidget.spectatePlayerButtonPrompt then
 		ScoreboardWidget.spectatePlayerButtonPrompt:processEvent(ClientInstance)
 	end
@@ -288,8 +288,8 @@ local ClientInputSourceChangedCallback = function (ScoreboardWidget, ClientInsta
 	ScoreboardWidget:dispatchEventToChildren(ClientInstance)
 end
 
-LUI.createMenu.Scoreboard = function (LocalClientIndex)
-	local BodyVerticalOffset = f0_local41;
+LUI.createMenu.Scoreboard = function(LocalClientIndex)
+	local BodyVerticalOffset = f0_local41
 	if CoD.isZombie == true then
 		IsDLCMap2 = CoD.Zombie.IsDLCMap(CoD.Zombie.DLC2Maps)
 		IsDLCMap4 = CoD.Zombie.IsDLCMap(CoD.Zombie.DLC4Maps)
@@ -332,14 +332,14 @@ LUI.createMenu.Scoreboard = function (LocalClientIndex)
 	return ScoreboardWidget
 end
 
-ScoreboardWidgetCloseFunc = function (ScoreboardWidget, UnusedArg1)
+ScoreboardWidgetCloseFunc = function(ScoreboardWidget, UnusedArg1)
 	ScoreboardWidget.focusableRowIndex = nil
 	ScoreboardWidget.selectedClientNum = nil
 	ScoreboardWidget.selectedScoreboardIndex = nil
 	CoD.Menu.close(ScoreboardWidget)
 end
 
-ScoreboardWidgetCreateTeamElement = function (UnusedArg1)
+ScoreboardWidgetCreateTeamElement = function(UnusedArg1)
 	local ScoreboardFactionWidget = LUI.UIElement.new()
 	ScoreboardFactionWidget:setLeftRight(true, true, 0, 0)
 	ScoreboardFactionWidget:setUseStencil(true)
@@ -358,7 +358,7 @@ ScoreboardWidgetCreateTeamElement = function (UnusedArg1)
 	ScoreboardFactionWidget.highlightGlow:setAlpha(0.4)
 	ScoreboardFactionWidget:addElement(ScoreboardFactionWidget.highlightGlow)
 	local f9_local1 = 116
-	local f9_local2 = ((f0_local30) + f0_local24 - 2) / 2 - f9_local1 / 2
+	local f9_local2 = (f0_local30 + f0_local24 - 2) / 2 - f9_local1 / 2
 	ScoreboardFactionWidget.factionIcon = LUI.UIImage.new()
 	ScoreboardFactionWidget.factionIcon:setLeftRight(true, false, f9_local2, f9_local2 + f9_local1)
 	ScoreboardFactionWidget.factionIcon:setTopBottom(false, false, -f9_local1 / 2, f9_local1 / 2)
@@ -393,7 +393,7 @@ ScoreboardWidgetCreateTeamElement = function (UnusedArg1)
 	return ScoreboardFactionWidget
 end
 
-ScoreboardWidgetRowSelectorFunc = function (ScoreboardWidget, ScoreboardRowSelected)
+ScoreboardWidgetRowSelectorFunc = function(ScoreboardWidget, ScoreboardRowSelected)
 	if ScoreboardWidget.frontEndOnly then
 		return
 	end
@@ -412,7 +412,7 @@ ScoreboardWidgetRowSelectorFunc = function (ScoreboardWidget, ScoreboardRowSelec
 	end
 end
 
-ScoreboardWidgetShowGamercardFunc = function (ScoreboardWidget, ClientInstance)
+ScoreboardWidgetShowGamercardFunc = function(ScoreboardWidget, ClientInstance)
 	if ScoreboardWidget.frontEndOnly then
 		return
 	elseif ScoreboardWidget.selectedClientNum then
@@ -427,7 +427,7 @@ ScoreboardWidgetShowGamercardFunc = function (ScoreboardWidget, ClientInstance)
 	end
 end
 
-ScoreboardWidgetToggleMuteFunc = function (ScoreboardWidget, UnusedArg1)
+ScoreboardWidgetToggleMuteFunc = function(ScoreboardWidget, UnusedArg1)
 	if ScoreboardWidget.frontEndOnly then
 		return
 	elseif ScoreboardWidget.selectedClientNum then
@@ -469,7 +469,7 @@ function FullscreenStop(ScoreboardWidget, ClientInstance)
 	ScoreboardWidget:dispatchEventToChildren(ClientInstance)
 end
 
-f0_local38 = function (ScoreboardWidget, ClientNum)
+f0_local38 = function(ScoreboardWidget, ClientNum)
 	if ScoreboardWidget.frontEndOnly then
 		return
 	elseif UIExpression.IsDemoPlaying(ScoreboardWidget.m_ownerController) == 1 then
@@ -744,7 +744,7 @@ function UpdateTheaterScoreboard(ScoreboardWidget)
 	end
 end
 
-ScoreboardWidgetUpdateFunc = function (ScoreboardWidget)
+ScoreboardWidgetUpdateFunc = function(ScoreboardWidget)
 	if ScoreboardWidget.mode == "theater" and not ScoreboardWidget.frontEndOnly then
 		UpdateTheaterScoreboard(ScoreboardWidget)
 	else
@@ -752,7 +752,7 @@ ScoreboardWidgetUpdateFunc = function (ScoreboardWidget)
 	end
 end
 
-ScoreboardUpdateTeamElement = function (TeamElement, FactionTeam, FactionColorR, FactionColorG, FactionColorB, ScoreboardTeam, MinRowsPerTeam, f21_arg7)
+ScoreboardUpdateTeamElement = function(TeamElement, FactionTeam, FactionColorR, FactionColorG, FactionColorB, ScoreboardTeam, MinRowsPerTeam, f21_arg7)
 	local VerticalOffset = MinRowsPerTeam * f0_local29 + (MinRowsPerTeam + 1) * f0_local31
 	TeamElement:setTopBottom(true, false, f21_arg7, f21_arg7 + VerticalOffset)
 	TeamElement:setAlpha(1)
@@ -846,7 +846,7 @@ ScoreboardUpdateTeamElement = function (TeamElement, FactionTeam, FactionColorR,
 	TeamElement.factionName:setRGB(FactionColorR, FactionColorG, FactionColorB)
 end
 
-CoD.ScoreboardRow.GetRowTextColor = function (ScoreboardRowIndex)
+CoD.ScoreboardRow.GetRowTextColor = function(ScoreboardRowIndex)
 	if CoD.isZombie == true then
 		local ZombiesColorIndex = (ScoreboardRowIndex - 1) % 4 + 1
 		return CoD.Zombie.PlayerColors[ZombiesColorIndex].r, CoD.Zombie.PlayerColors[ZombiesColorIndex].g, CoD.Zombie.PlayerColors[ZombiesColorIndex].b
@@ -855,7 +855,7 @@ CoD.ScoreboardRow.GetRowTextColor = function (ScoreboardRowIndex)
 	end
 end
 
-CoD.ScoreboardRow.new = function (LocalClientIndex, ScoreboardRowIndex)
+CoD.ScoreboardRow.new = function(LocalClientIndex, ScoreboardRowIndex)
 	local RowTextColorR, RowTextColorG, RowTextColorB = CoD.ScoreboardRow.GetRowTextColor(ScoreboardRowIndex)
 	local ScoreboardRowWidget = LUI.UIElement.new()
 	ScoreboardRowWidget:setClass(CoD.ScoreboardRow)
@@ -949,7 +949,7 @@ CoD.ScoreboardRow.new = function (LocalClientIndex, ScoreboardRowIndex)
 	return ScoreboardRowWidget
 end
 
-CoD.ScoreboardRow.setClient = function (ScoreboardRow, FactionColorR, FactionColorG, FactionColorB, VerticalOffset, ScoreboardMode, ClientNum, FocusableRowIndex, PlayerIndex, ScoreboardTeam, ScoreboardFrontEndOnly)
+CoD.ScoreboardRow.setClient = function(ScoreboardRow, FactionColorR, FactionColorG, FactionColorB, VerticalOffset, ScoreboardMode, ClientNum, FocusableRowIndex, PlayerIndex, ScoreboardTeam, ScoreboardFrontEndOnly)
 	local IsTheaterMode = ScoreboardMode == "theater"
 	local PlayerRank, PlayerRankIcon, PlayerPrestige, PlayerGamerTag, PlayerScoreboardIndex, PlayerScoreboardClientNum = nil, nil, nil, nil, nil, nil
 	local MaxColumns = SCOREBOARD_DEFAULT_MAX_COLUMNS
@@ -1119,7 +1119,7 @@ CoD.ScoreboardRow.setClient = function (ScoreboardRow, FactionColorR, FactionCol
 	return VerticalOffset
 end
 
-CoD.ScoreboardRow.gainFocus = function (Button, EventGainFocus)
+CoD.ScoreboardRow.gainFocus = function(Button, EventGainFocus)
 	CoD.ScoreboardRow.super.gainFocus(Button, EventGainFocus)
 	Button.border:setAlpha(1)
 	Button:dispatchEventToChildren(EventGainFocus)
@@ -1127,13 +1127,13 @@ CoD.ScoreboardRow.gainFocus = function (Button, EventGainFocus)
 	Button:dispatchEventToParent(SCOREBOARD_ROW_SELECTED)
 end
 
-CoD.ScoreboardRow.loseFocus = function (Button, EventLoseFocus)
+CoD.ScoreboardRow.loseFocus = function(Button, EventLoseFocus)
 	CoD.ScoreboardRow.super.loseFocus(Button, EventLoseFocus)
 	Button.border:setAlpha(0)
 	Button:dispatchEventToChildren(EventLoseFocus)
 end
 
-CoD.ScoreboardRow.focusClient = function (ScoreboardWidget, EventFocusClient)
+CoD.ScoreboardRow.focusClient = function(ScoreboardWidget, EventFocusClient)
 	if ScoreboardWidget.clientNum == EventFocusClient.clientNum then
 		ScoreboardWidget:processEvent(LUI.UIButton.GainFocusEvent)
 	elseif ScoreboardWidget:isInFocus() then
@@ -1147,7 +1147,9 @@ CoD.ScoreboardRow:registerEventHandler("focus_client", CoD.ScoreboardRow.focusCl
 
 function Split(Source, Delimiters)
 	local Elements = {}
-	local Pattern = '([^'..Delimiters..']+)'
-	string.gsub(Source, Pattern, function(value) Elements[#Elements + 1] = value;  end);
+	local Pattern = "([^" .. Delimiters .. "]+)"
+	string.gsub(Source, Pattern, function(value)
+		Elements[#Elements + 1] = value
+	end)
 	return Elements
 end

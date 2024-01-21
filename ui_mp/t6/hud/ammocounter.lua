@@ -2,13 +2,13 @@ CoD.AmmoCounter = {}
 CoD.AmmoCounter.TextHeight = 28
 CoD.AmmoCounter.LowAmmoFadeTime = 500
 CoD.AmmoCounter.PulseDuration = 500
-CoD.AmmoCounter.new = function (f1_arg0)
+CoD.AmmoCounter.new = function(f1_arg0)
 	local Widget = LUI.UIElement.new(f1_arg0)
 	Widget:registerAnimationState("hide", {
-		alphaMultiplier = 0
+		alphaMultiplier = 0,
 	})
 	Widget:registerAnimationState("show", {
-		alphaMultiplier = 1
+		alphaMultiplier = 1,
 	})
 	Widget:animateToState("hide")
 	local f1_local1 = 36
@@ -20,7 +20,7 @@ CoD.AmmoCounter.new = function (f1_arg0)
 		leftAnchor = true,
 		topAnchor = true,
 		rightAnchor = false,
-		bottomAnchor = false
+		bottomAnchor = false,
 	})
 	Widget:addElement(Widget_1)
 	local f1_local3 = CoD.AmmoCounter.TextHeight
@@ -33,14 +33,14 @@ CoD.AmmoCounter.new = function (f1_arg0)
 		topAnchor = true,
 		rightAnchor = true,
 		bottomAnchor = true,
-		alpha = 1
+		alpha = 1,
 	})
 	Widget.ammoLabel:setFont(CoD.fonts.Big)
 	Widget.ammoLabel:registerAnimationState("pulse_low", {
-		alpha = 1
+		alpha = 1,
 	})
 	Widget.ammoLabel:registerAnimationState("pulse_high", {
-		alpha = 0.5
+		alpha = 0.5,
 	})
 	Widget.ammoLabel:registerEventHandler("transition_complete_pulse_high", CoD.AmmoCounter.Ammo_PulseHigh)
 	Widget.ammoLabel:registerEventHandler("transition_complete_pulse_low", CoD.AmmoCounter.Ammo_PulseLow)
@@ -51,7 +51,7 @@ CoD.AmmoCounter.new = function (f1_arg0)
 	return Widget
 end
 
-CoD.AmmoCounter.UpdateAmmo = function (f2_arg0, f2_arg1)
+CoD.AmmoCounter.UpdateAmmo = function(f2_arg0, f2_arg1)
 	if f2_arg1.ammoInClip == 0 and f2_arg1.ammoStock == 0 and f2_arg1.lowClip ~= true then
 		return
 	end
@@ -74,7 +74,7 @@ CoD.AmmoCounter.UpdateAmmo = function (f2_arg0, f2_arg1)
 	end
 end
 
-CoD.AmmoCounter.ShouldHideAmmoCounter = function (f3_arg0, f3_arg1)
+CoD.AmmoCounter.ShouldHideAmmoCounter = function(f3_arg0, f3_arg1)
 	if f3_arg0.weapon ~= nil then
 		if Engine.IsWeaponType(f3_arg0.weapon, "melee") then
 			return true
@@ -87,7 +87,7 @@ CoD.AmmoCounter.ShouldHideAmmoCounter = function (f3_arg0, f3_arg1)
 	return false
 end
 
-CoD.AmmoCounter.UpdateVisibility = function (f4_arg0, f4_arg1)
+CoD.AmmoCounter.UpdateVisibility = function(f4_arg0, f4_arg1)
 	local f4_local0 = f4_arg1.controller
 	if f4_arg1.weapon ~= nil then
 		f4_arg0.weapon = f4_arg1.weapon
@@ -104,13 +104,13 @@ CoD.AmmoCounter.UpdateVisibility = function (f4_arg0, f4_arg1)
 	end
 end
 
-CoD.AmmoCounter.Ammo_PulseHigh = function (f5_arg0, f5_arg1)
+CoD.AmmoCounter.Ammo_PulseHigh = function(f5_arg0, f5_arg1)
 	if f5_arg1.interrupted ~= true then
 		f5_arg0:animateToState("pulse_low", CoD.AmmoCounter.LowAmmoFadeTime, true, false)
 	end
 end
 
-CoD.AmmoCounter.Ammo_PulseLow = function (f6_arg0, f6_arg1)
+CoD.AmmoCounter.Ammo_PulseLow = function(f6_arg0, f6_arg1)
 	if f6_arg1.interrupted ~= true then
 		f6_arg0:animateToState("pulse_high", CoD.AmmoCounter.LowAmmoFadeTime, false, true)
 	end

@@ -11,7 +11,7 @@ CoD.MapInfoImage.MapImageLeft = 6
 CoD.MapInfoImage.SpinnerImageYPadding = -25
 CoD.MapInfoImage.SpinnerImageXPadding = -8
 CoD.MapInfoImage.SpinnerImageDimension = 32
-CoD.MapInfoImage.new = function (f1_arg0)
+CoD.MapInfoImage.new = function(f1_arg0)
 	local Widget = LUI.UIElement.new(f1_arg0)
 	Widget:registerEventHandler("gamelobby_update", CoD.MapInfoImage.RefreshEvent)
 	Widget:registerEventHandler("game_options_update", CoD.MapInfoImage.RefreshEvent)
@@ -32,7 +32,7 @@ CoD.MapInfoImage.new = function (f1_arg0)
 		bottomAnchor = true,
 		top = f1_local2 - CoD.MapInfoImage.MapImageHeight,
 		bottom = f1_local2,
-		alpha = 0
+		alpha = 0,
 	})
 	Widget:addElement(Widget.mapImage)
 	local f1_local3 = 46
@@ -53,7 +53,7 @@ CoD.MapInfoImage.new = function (f1_arg0)
 		material = RegisterMaterial("white"),
 		red = 0,
 		green = 0,
-		blue = 0
+		blue = 0,
 	})
 	Widget.unselectedFilmImageBackground:setAlpha(0)
 	Widget:addElement(Widget.unselectedFilmImageBackground)
@@ -69,7 +69,7 @@ CoD.MapInfoImage.new = function (f1_arg0)
 		material = RegisterMaterial("menu_mp_lobby_icon_film"),
 		red = 1,
 		green = 1,
-		blue = 1
+		blue = 1,
 	})
 	Widget.unselectedFilmImage:setAlpha(0)
 	Widget:addElement(Widget.unselectedFilmImage)
@@ -88,7 +88,7 @@ CoD.MapInfoImage.new = function (f1_arg0)
 		font = CoD.fonts.ExtraSmall,
 		red = CoD.offWhite.r,
 		green = CoD.offWhite.g,
-		blue = CoD.offWhite.b
+		blue = CoD.offWhite.b,
 	})
 	Widget:addElement(Widget.gameTypeText)
 	Widget.mapNameText = LUI.UIText.new({
@@ -104,7 +104,7 @@ CoD.MapInfoImage.new = function (f1_arg0)
 		font = CoD.fonts.Default,
 		red = CoD.offWhite.r,
 		green = CoD.offWhite.g,
-		blue = CoD.offWhite.b
+		blue = CoD.offWhite.b,
 	})
 	Widget:addElement(Widget.mapNameText)
 	local f1_local7 = UIExpression.ToUpper(nil, Engine.Localize("EXE_LOADING"))
@@ -127,7 +127,7 @@ CoD.MapInfoImage.new = function (f1_arg0)
 		top = CoD.MapInfoImage.MapImageHeight / 2 - Widget.unselectedFilmTextSize / 2,
 		bottom = CoD.MapInfoImage.MapImageHeight / 2 + Widget.unselectedFilmTextSize / 2,
 		font = CoD.fonts.Default,
-		alignment = LUI.Alignment.Center
+		alignment = LUI.Alignment.Center,
 	})
 	Widget.unselectedFilmText:setAlpha(0)
 	Widget:addElement(Widget.unselectedFilmText)
@@ -168,7 +168,7 @@ CoD.MapInfoImage.new = function (f1_arg0)
 		red = 1,
 		green = 1,
 		blue = 1,
-		alpha = 0
+		alpha = 0,
 	})
 	Widget:addElement(Widget.livestreamCam)
 	CoD.MapInfoImage.UpdateLiveStreamCamera(Widget)
@@ -182,11 +182,11 @@ CoD.MapInfoImage.new = function (f1_arg0)
 	return Widget
 end
 
-CoD.MapInfoImage.Update = function (f2_arg0, f2_arg1, f2_arg2)
+CoD.MapInfoImage.Update = function(f2_arg0, f2_arg1, f2_arg2)
 	if f2_arg1 ~= nil then
 		f2_arg0.mapImage:registerAnimationState("change_map", {
 			material = RegisterMaterial("menu_" .. f2_arg1 .. "_map_select_final"),
-			alpha = 1
+			alpha = 1,
 		})
 		f2_arg0.mapImage:animateToState("change_map")
 		f2_arg0.mapNameText:setText(UIExpression.ToUpper(nil, Engine.Localize(UIExpression.TableLookup(nil, UIExpression.GetCurrentMapTableName(), 0, f2_arg1, 3))))
@@ -201,7 +201,7 @@ CoD.MapInfoImage.Update = function (f2_arg0, f2_arg1, f2_arg2)
 	CoD.MapInfoImage.DLCWarningUpdate(f2_arg0)
 end
 
-CoD.MapInfoImage.UpdateLiveStreamCamera = function (f3_arg0, f3_arg1)
+CoD.MapInfoImage.UpdateLiveStreamCamera = function(f3_arg0, f3_arg1)
 	if Engine.IsLivestreamEnabled() and Engine.WebM_camera_IsAvailable() and Engine.WebM_camera_IsEnabled() then
 		f3_arg0.livestreamCam:setAlpha(1)
 	else
@@ -209,15 +209,15 @@ CoD.MapInfoImage.UpdateLiveStreamCamera = function (f3_arg0, f3_arg1)
 	end
 end
 
-CoD.MapInfoImage.UpdateEvent = function (f4_arg0, f4_arg1)
+CoD.MapInfoImage.UpdateEvent = function(f4_arg0, f4_arg1)
 	f4_arg0:update(f4_arg1.map, f4_arg1.gametype)
 end
 
-CoD.MapInfoImage.RefreshEvent = function (f5_arg0, f5_arg1)
+CoD.MapInfoImage.RefreshEvent = function(f5_arg0, f5_arg1)
 	f5_arg0:update(Dvar.ui_mapname:get(), Dvar.ui_gametype:get())
 end
 
-CoD.MapInfoImage.ZombieUpdate = function (f6_arg0, f6_arg1, f6_arg2)
+CoD.MapInfoImage.ZombieUpdate = function(f6_arg0, f6_arg1, f6_arg2)
 	if Engine.GameModeIsMode(CoD.GAMEMODE_THEATER) == true and UIExpression.DvarString(f6_arg0.controller, "ui_demoname") == "" then
 		return
 	end
@@ -227,7 +227,7 @@ CoD.MapInfoImage.ZombieUpdate = function (f6_arg0, f6_arg1, f6_arg2)
 	local f6_local2 = Engine.PartyGetHostUIState()
 	if (f6_local0 == "" or f6_local2 == CoD.PARTYHOST_STATE_SELECTING_GAMETYPE or f6_local2 == CoD.PARTYHOST_STATE_SELECTING_MAP) and UIExpression.GameHost(f6_arg0.controller) ~= 1 then
 		f6_arg0.mapImage:registerAnimationState("change_map", {
-			alpha = 0
+			alpha = 0,
 		})
 		f6_arg0.mapImage:animateToState("change_map", 100)
 		f6_arg0.mapNameText:setText("")
@@ -240,7 +240,7 @@ CoD.MapInfoImage.ZombieUpdate = function (f6_arg0, f6_arg1, f6_arg2)
 		local materialName = GetMapMaterialName(f6_arg1, f6_local1, f6_local0)
 		f6_arg0.mapImage:registerAnimationState("change_map", {
 			material = RegisterMaterial(materialName),
-			alpha = 1
+			alpha = 1,
 		})
 		f6_arg0.mapImage:animateToState("change_map", 100)
 
@@ -311,7 +311,7 @@ function GetGameModeDisplayName(gametype)
 	return Engine.Localize("ZMUI_" .. gametype .. "_CAPS")
 end
 
-CoD.MapInfoImage.SetModifedCustomGame = function (f7_arg0, f7_arg1)
+CoD.MapInfoImage.SetModifedCustomGame = function(f7_arg0, f7_arg1)
 	if f7_arg1 == true then
 		f7_arg0.modifedCustomGameElement.text:setText(Dvar.fshCustomGameName:get())
 		f7_arg0.modifedCustomGameElement:setAlpha(1)
@@ -320,7 +320,7 @@ CoD.MapInfoImage.SetModifedCustomGame = function (f7_arg0, f7_arg1)
 	end
 end
 
-CoD.MapInfoImage.TheaterUpdate = function (f8_arg0, f8_arg1, f8_arg2, f8_arg3, f8_arg4, f8_arg5)
+CoD.MapInfoImage.TheaterUpdate = function(f8_arg0, f8_arg1, f8_arg2, f8_arg3, f8_arg4, f8_arg5)
 	if UIExpression.DvarString(f8_arg0.controller, "ui_demoname") == "" then
 		f8_arg0.unselectedFilmImageBackground:setAlpha(0.2)
 		f8_arg0.unselectedFilmImage:setAlpha(0.2)
@@ -357,9 +357,9 @@ CoD.MapInfoImage.TheaterUpdate = function (f8_arg0, f8_arg1, f8_arg2, f8_arg3, f
 	CoD.MapInfoImage.DLCWarningUpdate(f8_arg0)
 end
 
-CoD.MapInfoImage.Show = function (f9_arg0, f9_arg1)
+CoD.MapInfoImage.Show = function(f9_arg0, f9_arg1)
 	f9_arg0:registerAnimationState("show", {
-		alphaMultiplier = 1
+		alphaMultiplier = 1,
 	})
 	local f9_local0 = CoD.MapInfoImage.AnimDuration
 	if f9_arg1 then
@@ -368,9 +368,9 @@ CoD.MapInfoImage.Show = function (f9_arg0, f9_arg1)
 	f9_arg0:animateToState("show", f9_local0)
 end
 
-CoD.MapInfoImage.Hide = function (f10_arg0, f10_arg1)
+CoD.MapInfoImage.Hide = function(f10_arg0, f10_arg1)
 	f10_arg0:registerAnimationState("hide", {
-		alphaMultiplier = 0
+		alphaMultiplier = 0,
 	})
 	local f10_local0 = CoD.MapInfoImage.AnimDuration
 	if f10_arg1 then
@@ -379,7 +379,7 @@ CoD.MapInfoImage.Hide = function (f10_arg0, f10_arg1)
 	f10_arg0:animateToState("hide", f10_local0)
 end
 
-CoD.MapInfoImage.ShowLeagueInfo = function (f11_arg0, f11_arg1)
+CoD.MapInfoImage.ShowLeagueInfo = function(f11_arg0, f11_arg1)
 	if f11_arg1 then
 		f11_arg0.gameTypeText:setText(UIExpression.ToUpper(nil, f11_arg1.description))
 		f11_arg0.mapNameText:setText(UIExpression.ToUpper(nil, CoD.Menu.GetOnlinePlayerCountText(Engine.GetPlaylistID())))
@@ -389,7 +389,7 @@ CoD.MapInfoImage.ShowLeagueInfo = function (f11_arg0, f11_arg1)
 	CoD.MapInfoImage.UpdateLiveStreamCamera(f11_arg0, nil)
 end
 
-CoD.MapInfoImage.DLCWarningUpdate = function (f12_arg0)
+CoD.MapInfoImage.DLCWarningUpdate = function(f12_arg0)
 	if f12_arg0.dlcWarningContainer ~= nil then
 		local f12_local0 = Engine.DoesPartyHaveDLCForMap(Dvar.ui_mapname:get())
 		local f12_local1 = ""

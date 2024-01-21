@@ -4,7 +4,7 @@ CoD.CompetitiveScoreboard.RowHeight = 30
 CoD.CompetitiveScoreboard.FloatingLosePointsColor = {
 	r = 0.21,
 	g = 0,
-	b = 0
+	b = 0,
 }
 CoD.CompetitiveScoreboard.IsDLC2Map = CoD.Zombie.IsDLCMap(CoD.Zombie.DLC2Maps)
 CoD.CompetitiveScoreboard.IsDLC3Map = CoD.Zombie.IsDLCMap(CoD.Zombie.DLC3Maps)
@@ -22,37 +22,37 @@ CoD.CompetitiveScoreboard.ClientFields = {}
 CoD.CompetitiveScoreboard.ClientFields.score_cf_damage = {
 	min = 0,
 	max = 7,
-	scoreScale = 10
+	scoreScale = 10,
 }
 CoD.CompetitiveScoreboard.ClientFields.score_cf_death_normal = {
 	min = 0,
 	max = 3,
-	scoreScale = 50
+	scoreScale = 50,
 }
 CoD.CompetitiveScoreboard.ClientFields.score_cf_death_torso = {
 	min = 0,
 	max = 3,
-	scoreScale = 60
+	scoreScale = 60,
 }
 CoD.CompetitiveScoreboard.ClientFields.score_cf_death_neck = {
 	min = 0,
 	max = 3,
-	scoreScale = 70
+	scoreScale = 70,
 }
 CoD.CompetitiveScoreboard.ClientFields.score_cf_death_head = {
 	min = 0,
 	max = 3,
-	scoreScale = 100
+	scoreScale = 100,
 }
 CoD.CompetitiveScoreboard.ClientFields.score_cf_death_melee = {
 	min = 0,
 	max = 3,
-	scoreScale = 130
+	scoreScale = 130,
 }
 CoD.CompetitiveScoreboard.ClientFields.score_cf_double_points_active = {
 	min = 0,
 	max = 1,
-	scoreScale = 2
+	scoreScale = 2,
 }
 CoD.CompetitiveScoreboard.DoublePointsActive_ClientFieldName = "score_cf_double_points_active"
 CoD.CompetitiveScoreboard.FlyingDurationMin = 800
@@ -76,59 +76,59 @@ if CoD.CompetitiveScoreboard.IsDLC2Map == true then
 	CoD.CompetitiveScoreboard.CharacterNames = {}
 	CoD.CompetitiveScoreboard.CharacterNames[1] = {
 		name = "Finn",
-		modelName = "c_zom_player_oleary_fb"
+		modelName = "c_zom_player_oleary_fb",
 	}
 	CoD.CompetitiveScoreboard.CharacterNames[2] = {
 		name = "Sal",
-		modelName = "c_zom_player_deluca_fb"
+		modelName = "c_zom_player_deluca_fb",
 	}
 	CoD.CompetitiveScoreboard.CharacterNames[3] = {
 		name = "Billy",
-		modelName = "c_zom_player_handsome_fb"
+		modelName = "c_zom_player_handsome_fb",
 	}
 	CoD.CompetitiveScoreboard.CharacterNames[4] = {
 		name = "Weasel",
-		modelName = "c_zom_player_arlington_fb"
+		modelName = "c_zom_player_arlington_fb",
 	}
 elseif CoD.CompetitiveScoreboard.IsDLC3Map == true then
 	CoD.CompetitiveScoreboard.CharacterNames = {}
 	CoD.CompetitiveScoreboard.CharacterNames[1] = {
 		name = "Misty",
-		modelName = "c_zom_player_farmgirl_fb"
+		modelName = "c_zom_player_farmgirl_fb",
 	}
 	CoD.CompetitiveScoreboard.CharacterNames[2] = {
 		name = "Marlton",
-		modelName = "c_zom_player_engineer_fb"
+		modelName = "c_zom_player_engineer_fb",
 	}
 	CoD.CompetitiveScoreboard.CharacterNames[3] = {
 		name = "Stuhlinger",
-		modelName = "c_zom_player_reporter_dam_fb"
+		modelName = "c_zom_player_reporter_dam_fb",
 	}
 	CoD.CompetitiveScoreboard.CharacterNames[4] = {
 		name = "Russman",
-		modelName = "c_zom_player_oldman_fb"
+		modelName = "c_zom_player_oldman_fb",
 	}
 elseif CoD.CompetitiveScoreboard.IsDLC4Map == true then
 	CoD.CompetitiveScoreboard.CharacterNames = {}
 	CoD.CompetitiveScoreboard.CharacterNames[1] = {
 		name = "Richtofen",
-		modelName = "c_zom_tomb_richtofen_fb"
+		modelName = "c_zom_tomb_richtofen_fb",
 	}
 	CoD.CompetitiveScoreboard.CharacterNames[2] = {
 		name = "Takeo",
-		modelName = "c_zom_tomb_takeo_fb"
+		modelName = "c_zom_tomb_takeo_fb",
 	}
 	CoD.CompetitiveScoreboard.CharacterNames[3] = {
 		name = "Nikolai",
-		modelName = "c_zom_tomb_nikolai_fb"
+		modelName = "c_zom_tomb_nikolai_fb",
 	}
 	CoD.CompetitiveScoreboard.CharacterNames[4] = {
 		name = "Dempsey",
-		modelName = "c_zom_tomb_dempsey_fb"
+		modelName = "c_zom_tomb_dempsey_fb",
 	}
 end
 
-LUI.createMenu.CompetitiveScoreboard = function (LocalClientIndex)
+LUI.createMenu.CompetitiveScoreboard = function(LocalClientIndex)
 	local CompetitiveScoreboardWidget = CoD.Menu.NewSafeAreaFromState("CompetitiveScoreboard", LocalClientIndex)
 	CompetitiveScoreboardWidget:setOwner(LocalClientIndex)
 	CompetitiveScoreboardWidget.scaleContainer = CoD.SplitscreenScaler.new(nil, CoD.Zombie.SplitscreenMultiplier)
@@ -184,13 +184,13 @@ LUI.createMenu.CompetitiveScoreboard = function (LocalClientIndex)
 				0,
 				0,
 				0,
-				0
+				0,
 			}
 			CoD.CompetitiveScoreboard.HelmetStates = {
 				0,
 				0,
 				0,
-				0
+				0,
 			}
 			PlayerScoreListWidget.shovelIcon = LUI.UIImage.new()
 			PlayerScoreListWidget.shovelIcon:setLeftRight(false, true, -CoD.CompetitiveScoreboard.RowHeight, 0)
@@ -258,7 +258,7 @@ LUI.createMenu.CompetitiveScoreboard = function (LocalClientIndex)
 	return CompetitiveScoreboardWidget
 end
 
-CoD.CompetitiveScoreboard.CompetitiveScoreShow = function (PlayerScoreListWidget, ClientIndex, AnimDelay)
+CoD.CompetitiveScoreboard.CompetitiveScoreShow = function(PlayerScoreListWidget, ClientIndex, AnimDelay)
 	if not AnimDelay then
 		AnimDelay = 0
 	end
@@ -269,7 +269,7 @@ CoD.CompetitiveScoreboard.CompetitiveScoreShow = function (PlayerScoreListWidget
 	PlayerScoreListWidget:setAlpha(1)
 end
 
-CoD.CompetitiveScoreboard.CompetitiveScoreShowSelf = function (PlayerScoreListWidget, ClientScoreIndex, AnimDelay)
+CoD.CompetitiveScoreboard.CompetitiveScoreShowSelf = function(PlayerScoreListWidget, ClientScoreIndex, AnimDelay)
 	if not AnimDelay then
 		AnimDelay = 0
 	end
@@ -280,7 +280,7 @@ CoD.CompetitiveScoreboard.CompetitiveScoreShowSelf = function (PlayerScoreListWi
 	PlayerScoreListWidget:setAlpha(1)
 end
 
-CoD.CompetitiveScoreboard.CompetitiveScoreHide = function (PlayerScoreListWidget, AnimDelay)
+CoD.CompetitiveScoreboard.CompetitiveScoreHide = function(PlayerScoreListWidget, AnimDelay)
 	if not AnimDelay then
 		AnimDelay = 0
 	end
@@ -288,7 +288,7 @@ CoD.CompetitiveScoreboard.CompetitiveScoreHide = function (PlayerScoreListWidget
 	PlayerScoreListWidget:setAlpha(0)
 end
 
-CoD.CompetitiveScoreboard.CompetitiveScoreTextShowPlayerColor = function (Text, ClientIndex, AnimDelay)
+CoD.CompetitiveScoreboard.CompetitiveScoreTextShowPlayerColor = function(Text, ClientIndex, AnimDelay)
 	if not AnimDelay then
 		AnimDelay = 0
 	end
@@ -296,7 +296,7 @@ CoD.CompetitiveScoreboard.CompetitiveScoreTextShowPlayerColor = function (Text, 
 	Text:setRGB(CoD.Zombie.PlayerColors[ClientIndex].r, CoD.Zombie.PlayerColors[ClientIndex].g, CoD.Zombie.PlayerColors[ClientIndex].b)
 end
 
-CoD.CompetitiveScoreboard.UpdateVisibility = function (CompetitiveScoreboardWidget, ClientInstance)
+CoD.CompetitiveScoreboard.UpdateVisibility = function(CompetitiveScoreboardWidget, ClientInstance)
 	local LocalClientIndex = ClientInstance.controller
 	if UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_HUD_VISIBLE) == 1 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_IS_PLAYER_IN_AFTERLIFE) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_EMP_ACTIVE) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_IN_VEHICLE) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_IN_GUIDED_MISSILE) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_AMMO_COUNTER_HIDE) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_IS_FLASH_BANGED) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_UI_ACTIVE) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_SCOREBOARD_OPEN) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_IS_SCOPED) == 0 and (not CoD.IsShoutcaster(LocalClientIndex) or CoD.IsShoutcasterProfileVariableTrue(LocalClientIndex, "shoutcaster_scorestreaks") and Engine.IsSpectatingActiveClient(LocalClientIndex)) and CoD.FSM_VISIBILITY(LocalClientIndex) == 0 then
 		if CompetitiveScoreboardWidget.visible ~= true then
@@ -312,7 +312,7 @@ CoD.CompetitiveScoreboard.UpdateVisibility = function (CompetitiveScoreboardWidg
 	CompetitiveScoreboardWidget:dispatchEventToChildren(ClientInstance)
 end
 
-CoD.CompetitiveScoreboard.UpdateTeamChange = function (CompetitiveScoreboardWidget, ClientInstance)
+CoD.CompetitiveScoreboard.UpdateTeamChange = function(CompetitiveScoreboardWidget, ClientInstance)
 	if Dvar.ui_gametype:get() == CoD.Zombie.GAMETYPE_ZCLEANSED then
 		if ClientInstance.team == CoD.TEAM_AXIS then
 			if CompetitiveScoreboardWidget.visible == true then
@@ -328,7 +328,7 @@ CoD.CompetitiveScoreboard.UpdateTeamChange = function (CompetitiveScoreboardWidg
 	end
 end
 
-CoD.CompetitiveScoreboard.CopyPreNavCardAndShow = function (CompetitiveScoreboardWidget, PlayerScoreListWidget, LocalClientIndex)
+CoD.CompetitiveScoreboard.CopyPreNavCardAndShow = function(CompetitiveScoreboardWidget, PlayerScoreListWidget, LocalClientIndex)
 	local PreviousPlayerScoreListWidget = nil
 	for PlayerScoreListWidgetIndex = 1, CoD.CompetitiveScoreboard.TeamPlayerCount, 1 do
 		PreviousPlayerScoreListWidget = CompetitiveScoreboardWidget.Scores[PlayerScoreListWidgetIndex]
@@ -346,7 +346,7 @@ CoD.CompetitiveScoreboard.CopyPreNavCardAndShow = function (CompetitiveScoreboar
 	end
 end
 
-CoD.CompetitiveScoreboard.UpdateItemDisplay = function (UnusedArg1, PlayerScoreListWidget, ClientInstance)
+CoD.CompetitiveScoreboard.UpdateItemDisplay = function(UnusedArg1, PlayerScoreListWidget, ClientInstance)
 	if PlayerScoreListWidget.clientNum then
 		local ClientIndex = PlayerScoreListWidget.clientNum + 1
 		local ShovelClientFieldState = CoD.CompetitiveScoreboard.ShovelStates[ClientIndex]
@@ -378,7 +378,7 @@ CoD.CompetitiveScoreboard.UpdateItemDisplay = function (UnusedArg1, PlayerScoreL
 	end
 end
 
-CoD.CompetitiveScoreboard.Update = function (CompetitiveScoreboardWidget, ClientInstance)
+CoD.CompetitiveScoreboard.Update = function(CompetitiveScoreboardWidget, ClientInstance)
 	local ClientScoreIndex = 1
 	local PlayerScoreListWidget = nil
 	if #ClientInstance.competitivescores <= #CompetitiveScoreboardWidget.Scores then
@@ -443,7 +443,7 @@ CoD.CompetitiveScoreboard.Update = function (CompetitiveScoreboardWidget, Client
 	end
 end
 
-CoD.CompetitiveScoreboard.Update_ClientFields_FlyingScore = function (CompetitiveScoreboardWidget, ClientInstance)
+CoD.CompetitiveScoreboard.Update_ClientFields_FlyingScore = function(CompetitiveScoreboardWidget, ClientInstance)
 	local PlayerScoreListWidget = nil
 	for PlayerScoreListWidgetIndex = 1, CoD.CompetitiveScoreboard.TeamPlayerCount, 1 do
 		if CompetitiveScoreboardWidget.Scores[PlayerScoreListWidgetIndex].clientNum == ClientInstance.entNum then
@@ -476,7 +476,7 @@ CoD.CompetitiveScoreboard.Update_ClientFields_FlyingScore = function (Competitiv
 	end
 end
 
-CoD.CompetitiveScoreboard.FloatingScoreStart = function (PlayerScoreListWidget, ScoreAmount)
+CoD.CompetitiveScoreboard.FloatingScoreStart = function(PlayerScoreListWidget, ScoreAmount)
 	local AvailableFloatingScoreText = CoD.CompetitiveScoreboard.GetFloatingScoreText(PlayerScoreListWidget)
 	if AvailableFloatingScoreText ~= nil then
 		AvailableFloatingScoreText:setAlpha(1)
@@ -499,7 +499,7 @@ CoD.CompetitiveScoreboard.FloatingScoreStart = function (PlayerScoreListWidget, 
 	end
 end
 
-CoD.CompetitiveScoreboard.GetScore = function (CompetitiveScoreboardWidget, ClientIndex)
+CoD.CompetitiveScoreboard.GetScore = function(CompetitiveScoreboardWidget, ClientIndex)
 	for PlayerScoreListWidgetIndex = 1, CoD.CompetitiveScoreboard.TeamPlayerCount, 1 do
 		if CompetitiveScoreboardWidget.Scores[PlayerScoreListWidgetIndex].clientNum == ClientIndex then
 			return CompetitiveScoreboardWidget.Scores[PlayerScoreListWidgetIndex]
@@ -508,7 +508,7 @@ CoD.CompetitiveScoreboard.GetScore = function (CompetitiveScoreboardWidget, Clie
 	return nil
 end
 
-CoD.CompetitiveScoreboard.GetFloatingScoreText = function (PlayerScoreListWidget)
+CoD.CompetitiveScoreboard.GetFloatingScoreText = function(PlayerScoreListWidget)
 	for ScoreTextIndex = 1, CoD.CompetitiveScoreboard.ClientFieldMaxValue, 1 do
 		if PlayerScoreListWidget.floatingScoreTexts[ScoreTextIndex].isUsed == false then
 			return PlayerScoreListWidget.floatingScoreTexts[ScoreTextIndex]
@@ -517,7 +517,7 @@ CoD.CompetitiveScoreboard.GetFloatingScoreText = function (PlayerScoreListWidget
 	return nil
 end
 
-CoD.CompetitiveScoreboard.FloatingTextFlyingFinish = function (FloatingScoreText, ClientInstance)
+CoD.CompetitiveScoreboard.FloatingTextFlyingFinish = function(FloatingScoreText, ClientInstance)
 	if ClientInstance.interrupted ~= true then
 		FloatingScoreText.isUsed = false
 		FloatingScoreText:setLeftRight(true, false, -30, -30 + CoD.CompetitiveScoreboard.RowWidth)
@@ -525,7 +525,7 @@ CoD.CompetitiveScoreboard.FloatingTextFlyingFinish = function (FloatingScoreText
 	end
 end
 
-CoD.CompetitiveScoreboard.Update_ClientField_NavCards = function (CompetitiveScoreboardWidget, ClientInstance)
+CoD.CompetitiveScoreboard.Update_ClientField_NavCards = function(CompetitiveScoreboardWidget, ClientInstance)
 	local PlayerScoreListWidget = CoD.CompetitiveScoreboard.GetScore(CompetitiveScoreboardWidget, ClientInstance.entNum)
 	for NavCardIconIndex = 1, CoD.CompetitiveScoreboard.NavCardsCount, 1 do
 		if CoD.CompetitiveScoreboard.HasBit(ClientInstance.newValue, CoD.CompetitiveScoreboard.Bit(NavCardIconIndex)) == true then
@@ -542,7 +542,7 @@ CoD.CompetitiveScoreboard.Update_ClientField_NavCards = function (CompetitiveSco
 	end
 end
 
-CoD.CompetitiveScoreboard.Update_ClientField_Shovel = function (CompetitiveScoreboardWidget, ClientInstance)
+CoD.CompetitiveScoreboard.Update_ClientField_Shovel = function(CompetitiveScoreboardWidget, ClientInstance)
 	local ShovelClientFieldState = ClientInstance.newValue
 	local ClientFieldNameIndex = tonumber(string.sub(ClientInstance.name, string.len(ClientInstance.name))) - 1
 	local PlayerScoreListWidget = CoD.CompetitiveScoreboard.GetScore(CompetitiveScoreboardWidget, ClientFieldNameIndex)
@@ -568,7 +568,7 @@ CoD.CompetitiveScoreboard.Update_ClientField_Shovel = function (CompetitiveScore
 	end
 end
 
-CoD.CompetitiveScoreboard.Update_ClientField_Helmet = function (CompetitiveScoreboardWidget, ClientInstance)
+CoD.CompetitiveScoreboard.Update_ClientField_Helmet = function(CompetitiveScoreboardWidget, ClientInstance)
 	local HelmetClientFieldState = ClientInstance.newValue
 	local ClientFieldNameIndex = tonumber(string.sub(ClientInstance.name, string.len(ClientInstance.name))) - 1
 	local PlayerScoreListWidget = CoD.CompetitiveScoreboard.GetScore(CompetitiveScoreboardWidget, ClientFieldNameIndex)
@@ -589,15 +589,15 @@ CoD.CompetitiveScoreboard.Update_ClientField_Helmet = function (CompetitiveScore
 	end
 end
 
-CoD.CompetitiveScoreboard.Bit = function (Index)
+CoD.CompetitiveScoreboard.Bit = function(Index)
 	return 2 ^ (Index - 1)
 end
 
-CoD.CompetitiveScoreboard.HasBit = function (ClientFieldValue, NavCardBit)
+CoD.CompetitiveScoreboard.HasBit = function(ClientFieldValue, NavCardBit)
 	return NavCardBit <= ClientFieldValue % (NavCardBit + NavCardBit)
 end
 
-CoD.CompetitiveScoreboard.UpdateCharacterName = function (CompetitiveScoreboardWidget, ClientInstanceModelName, PlayerScoreListWidget, ClientIndex)
+CoD.CompetitiveScoreboard.UpdateCharacterName = function(CompetitiveScoreboardWidget, ClientInstanceModelName, PlayerScoreListWidget, ClientIndex)
 	if not ClientInstanceModelName and PlayerScoreListWidget.characterName then
 		PlayerScoreListWidget.characterName:setText("")
 		return
@@ -622,12 +622,12 @@ CoD.CompetitiveScoreboard.UpdateCharacterName = function (CompetitiveScoreboardW
 	end
 end
 
-CoD.CompetitiveScoreboard.FadeoutCharacterName = function (CharacterNameWidget, ClientInstance)
+CoD.CompetitiveScoreboard.FadeoutCharacterName = function(CharacterNameWidget, ClientInstance)
 	CharacterNameWidget:beginAnimation("fade_out", CoD.CompetitiveScoreboard.CHARACTER_NAME_FADE_OUT_DURATION)
 	CharacterNameWidget:setAlpha(0)
 end
 
-CoD.CompetitiveScoreboard.ClearCharacterName = function (PlayerScoreListWidget)
+CoD.CompetitiveScoreboard.ClearCharacterName = function(PlayerScoreListWidget)
 	if PlayerScoreListWidget.playerModelName then
 		PlayerScoreListWidget.playerModelName = nil
 		PlayerScoreListWidget.characterName:setText("")

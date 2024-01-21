@@ -9,57 +9,57 @@ CoD.Perks.STATE_TBD = 3
 CoD.Perks.ClientFieldNames = {}
 CoD.Perks.ClientFieldNames[1] = {
 	clientFieldName = "perk_additional_primary_weapon",
-	material = RegisterMaterial("specialty_additionalprimaryweapon_zombies")
+	material = RegisterMaterial("specialty_additionalprimaryweapon_zombies"),
 }
 CoD.Perks.ClientFieldNames[2] = {
 	clientFieldName = "perk_dead_shot",
-	material = RegisterMaterial("specialty_ads_zombies")
+	material = RegisterMaterial("specialty_ads_zombies"),
 }
 CoD.Perks.ClientFieldNames[3] = {
 	clientFieldName = "perk_dive_to_nuke",
-	material = RegisterMaterial("specialty_divetonuke_zombies")
+	material = RegisterMaterial("specialty_divetonuke_zombies"),
 }
 CoD.Perks.ClientFieldNames[4] = {
 	clientFieldName = "perk_double_tap",
-	material = RegisterMaterial("specialty_doubletap_zombies")
+	material = RegisterMaterial("specialty_doubletap_zombies"),
 }
 CoD.Perks.ClientFieldNames[5] = {
 	clientFieldName = "perk_juggernaut",
-	material = RegisterMaterial("specialty_juggernaut_zombies")
+	material = RegisterMaterial("specialty_juggernaut_zombies"),
 }
 CoD.Perks.ClientFieldNames[6] = {
 	clientFieldName = "perk_marathon",
-	material = RegisterMaterial("specialty_marathon_zombies")
+	material = RegisterMaterial("specialty_marathon_zombies"),
 }
 CoD.Perks.ClientFieldNames[7] = {
 	clientFieldName = "perk_quick_revive",
-	material = RegisterMaterial("specialty_quickrevive_zombies")
+	material = RegisterMaterial("specialty_quickrevive_zombies"),
 }
 CoD.Perks.ClientFieldNames[8] = {
 	clientFieldName = "perk_sleight_of_hand",
-	material = RegisterMaterial("specialty_fastreload_zombies")
+	material = RegisterMaterial("specialty_fastreload_zombies"),
 }
 CoD.Perks.ClientFieldNames[9] = {
 	clientFieldName = "perk_tombstone",
-	material = RegisterMaterial("specialty_tombstone_zombies")
+	material = RegisterMaterial("specialty_tombstone_zombies"),
 }
 CoD.Perks.ClientFieldNames[10] = {
 	clientFieldName = "perk_chugabud",
-	material = RegisterMaterial("specialty_chugabud_zombies")
+	material = RegisterMaterial("specialty_chugabud_zombies"),
 }
 CoD.Perks.ClientFieldNames[11] = {
 	clientFieldName = "perk_electric_cherry",
-	material = RegisterMaterial("specialty_electric_cherry_zombie")
+	material = RegisterMaterial("specialty_electric_cherry_zombie"),
 }
 CoD.Perks.ClientFieldNames[12] = {
 	clientFieldName = "perk_vulture",
 	material = RegisterMaterial("specialty_vulture_zombies"),
-	glowMaterial = RegisterMaterial("zm_hud_stink_perk_glow")
+	glowMaterial = RegisterMaterial("zm_hud_stink_perk_glow"),
 }
 CoD.Perks.PulseDuration = 200
 CoD.Perks.PulseScale = 1.3
 CoD.Perks.PausedAlpha = 0.3
-LUI.createMenu.PerksArea = function (LocalClientIndex)
+LUI.createMenu.PerksArea = function(LocalClientIndex)
 	local PerksAreaWidget = CoD.Menu.NewSafeAreaFromState("PerksArea", LocalClientIndex)
 	PerksAreaWidget:setOwner(LocalClientIndex)
 	PerksAreaWidget.scaleContainer = CoD.SplitscreenScaler.new(nil, CoD.Zombie.SplitscreenMultiplier)
@@ -111,7 +111,7 @@ LUI.createMenu.PerksArea = function (LocalClientIndex)
 	return PerksAreaWidget
 end
 
-CoD.Perks.UpdateVisibility = function (Menu, ClientInstance)
+CoD.Perks.UpdateVisibility = function(Menu, ClientInstance)
 	local f2_local0 = ClientInstance.controller
 	if UIExpression.IsVisibilityBitSet(f2_local0, CoD.BIT_HUD_VISIBLE) == 1 and UIExpression.IsVisibilityBitSet(f2_local0, CoD.BIT_IS_PLAYER_IN_AFTERLIFE) == 0 and UIExpression.IsVisibilityBitSet(f2_local0, CoD.BIT_EMP_ACTIVE) == 0 and UIExpression.IsVisibilityBitSet(f2_local0, CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM) == 0 and UIExpression.IsVisibilityBitSet(f2_local0, CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN) == 0 and UIExpression.IsVisibilityBitSet(f2_local0, CoD.BIT_IN_VEHICLE) == 0 and UIExpression.IsVisibilityBitSet(f2_local0, CoD.BIT_IN_GUIDED_MISSILE) == 0 and UIExpression.IsVisibilityBitSet(f2_local0, CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC) == 0 and UIExpression.IsVisibilityBitSet(f2_local0, CoD.BIT_AMMO_COUNTER_HIDE) == 0 and UIExpression.IsVisibilityBitSet(f2_local0, CoD.BIT_IS_FLASH_BANGED) == 0 and UIExpression.IsVisibilityBitSet(f2_local0, CoD.BIT_UI_ACTIVE) == 0 and UIExpression.IsVisibilityBitSet(f2_local0, CoD.BIT_SCOREBOARD_OPEN) == 0 and UIExpression.IsVisibilityBitSet(f2_local0, CoD.BIT_IS_SCOPED) == 0 and (not CoD.IsShoutcaster(f2_local0) or CoD.ExeProfileVarBool(f2_local0, "shoutcaster_scorestreaks") and Engine.IsSpectatingActiveClient(f2_local0)) and CoD.FSM_VISIBILITY(f2_local0) == 0 then
 		if Menu.visible ~= true then
@@ -127,7 +127,7 @@ CoD.Perks.UpdateVisibility = function (Menu, ClientInstance)
 	Menu:dispatchEventToChildren(ClientInstance)
 end
 
-CoD.Perks.GetMaterial = function (Menu, ClientFieldName)
+CoD.Perks.GetMaterial = function(Menu, ClientFieldName)
 	local Material = nil
 	for ClientFieldIndex = 1, #CoD.Perks.ClientFieldNames, 1 do
 		if CoD.Perks.ClientFieldNames[ClientFieldIndex].clientFieldName == ClientFieldName then
@@ -138,7 +138,7 @@ CoD.Perks.GetMaterial = function (Menu, ClientFieldName)
 	return Material
 end
 
-CoD.Perks.GetGlowMaterial = function (Menu, ClientFieldName)
+CoD.Perks.GetGlowMaterial = function(Menu, ClientFieldName)
 	local Material = nil
 	for ClientFieldIndex = 1, #CoD.Perks.ClientFieldNames, 1 do
 		if CoD.Perks.ClientFieldNames[ClientFieldIndex].clientFieldName == ClientFieldName then
@@ -151,7 +151,7 @@ CoD.Perks.GetGlowMaterial = function (Menu, ClientFieldName)
 	return Material
 end
 
-CoD.Perks.RemovePerkIcon = function (Menu, OwnedPerkIndex)
+CoD.Perks.RemovePerkIcon = function(Menu, OwnedPerkIndex)
 	local PerkWidget, NextPerkWidget = nil, nil
 	for PerkIndex = OwnedPerkIndex, #CoD.Perks.ClientFieldNames, 1 do
 		PerkWidget = Menu.perks[PerkIndex]
@@ -163,7 +163,6 @@ CoD.Perks.RemovePerkIcon = function (Menu, OwnedPerkIndex)
 		if not NextPerkWidget then
 			PerkWidget.perkIcon:setAlpha(0)
 			if PerkWidget.perkGlowIcon then
-
 			else
 				PerkWidget.perkId = nil
 				break
@@ -176,7 +175,6 @@ CoD.Perks.RemovePerkIcon = function (Menu, OwnedPerkIndex)
 				PerkWidget.perkGlowIcon = nil
 			end
 			if PerkWidget.meterContainer then
-
 			else
 				PerkWidget.perkId = nil
 				break
@@ -194,7 +192,7 @@ CoD.Perks.RemovePerkIcon = function (Menu, OwnedPerkIndex)
 	end
 end
 
-CoD.Perks.Update = function (Menu, ClientInstance)
+CoD.Perks.Update = function(Menu, ClientInstance)
 	local PerkWidget = nil
 	for OwnedPerkIndex = 1, #CoD.Perks.ClientFieldNames, 1 do
 		PerkWidget = Menu.perks[OwnedPerkIndex]
@@ -204,7 +202,6 @@ CoD.Perks.Update = function (Menu, ClientInstance)
 				PerkWidget.perkIcon:setImage(CoD.Perks.GetMaterial(Menu, ClientInstance.name))
 				PerkWidget.perkIcon:setAlpha(1)
 				if PerkWidget.perkId == "perk_vulture" then
-
 				else
 					local f6_local4 = CoD.Perks.GetGlowMaterial(Menu, ClientInstance.name)
 					if f6_local4 and PerkWidget.perkGlowIcon then
@@ -248,19 +245,18 @@ CoD.Perks.Update = function (Menu, ClientInstance)
 			end
 		end
 		if ClientInstance.newValue == CoD.Perks.STATE_TBD then
-
 		end
 	end
 end
 
-CoD.Perks.IconPulseFinish = function (Menu, ClientInstance)
+CoD.Perks.IconPulseFinish = function(Menu, ClientInstance)
 	if ClientInstance.interrupted ~= true then
 		Menu:beginAnimation("pulse_done", CoD.Perks.PulseDuration)
 		Menu:setScale(1)
 	end
 end
 
-CoD.Perks.AddGlowIcon = function (Menu, PerkWidget)
+CoD.Perks.AddGlowIcon = function(Menu, PerkWidget)
 	if not PerkWidget.perkGlowIcon then
 		local GlowIcon = LUI.UIImage.new()
 		GlowIcon:setLeftRight(true, true, -CoD.Perks.IconSize / 2, CoD.Perks.IconSize / 2)
@@ -271,7 +267,7 @@ CoD.Perks.AddGlowIcon = function (Menu, PerkWidget)
 	end
 end
 
-CoD.Perks.AddVultureMeter = function (Menu, PerkWidget)
+CoD.Perks.AddVultureMeter = function(Menu, PerkWidget)
 	if not PerkWidget.meterContainer then
 		local f9_local0 = CoD.Perks.TopStart + CoD.Perks.IconSize * 2
 		local f9_local1 = -CoD.Perks.IconSize
@@ -298,7 +294,7 @@ CoD.Perks.AddVultureMeter = function (Menu, PerkWidget)
 	end
 end
 
-CoD.Perks.UpdateVultureDiseaseMeter = function (Menu, ClientInstance)
+CoD.Perks.UpdateVultureDiseaseMeter = function(Menu, ClientInstance)
 	local f10_local0 = ClientInstance.newValue
 	if Menu.meterContainer then
 		Menu.meterContainer:setAlpha(f10_local0)

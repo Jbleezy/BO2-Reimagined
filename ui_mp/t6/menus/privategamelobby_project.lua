@@ -15,7 +15,7 @@ CoD.PrivateGameLobby.Dvars[1].values[2] = 1
 CoD.PrivateGameLobby.Dvars[1].gameTypes = {}
 CoD.PrivateGameLobby.Dvars[1].gameTypes[1] = "zgrief"
 
-CoD.PrivateGameLobby.ButtonPrompt_TeamPrev = function (f1_arg0, ClientInstance)
+CoD.PrivateGameLobby.ButtonPrompt_TeamPrev = function(f1_arg0, ClientInstance)
 	if Engine.PartyHostIsReadyToStart() == true then
 		return
 	else
@@ -24,7 +24,7 @@ CoD.PrivateGameLobby.ButtonPrompt_TeamPrev = function (f1_arg0, ClientInstance)
 	end
 end
 
-CoD.PrivateGameLobby.ButtonPrompt_TeamNext = function (f2_arg0, ClientInstance)
+CoD.PrivateGameLobby.ButtonPrompt_TeamNext = function(f2_arg0, ClientInstance)
 	if Engine.PartyHostIsReadyToStart() == true then
 		return
 	else
@@ -33,7 +33,7 @@ CoD.PrivateGameLobby.ButtonPrompt_TeamNext = function (f2_arg0, ClientInstance)
 	end
 end
 
-CoD.PrivateGameLobby.ShouldEnableTeamCycling = function (PrivateGameLobbyWidget)
+CoD.PrivateGameLobby.ShouldEnableTeamCycling = function(PrivateGameLobbyWidget)
 	if PrivateGameLobbyWidget.panelManager == nil then
 		return false
 	elseif not PrivateGameLobbyWidget.panelManager:isPanelOnscreen("lobbyPane") then
@@ -49,7 +49,7 @@ CoD.PrivateGameLobby.ShouldEnableTeamCycling = function (PrivateGameLobbyWidget)
 	end
 end
 
-CoD.PrivateGameLobby.SetupTeamCycling = function (PrivateGameLobbyWidget)
+CoD.PrivateGameLobby.SetupTeamCycling = function(PrivateGameLobbyWidget)
 	if CoD.PrivateGameLobby.ShouldEnableTeamCycling(PrivateGameLobbyWidget) then
 		PrivateGameLobbyWidget.cycleTeamButtonPrompt:enable()
 	else
@@ -57,22 +57,22 @@ CoD.PrivateGameLobby.SetupTeamCycling = function (PrivateGameLobbyWidget)
 	end
 end
 
-CoD.PrivateGameLobby.CurrentPanelChanged = function (PrivateGameLobbyWidget, f5_arg1)
+CoD.PrivateGameLobby.CurrentPanelChanged = function(PrivateGameLobbyWidget, f5_arg1)
 	CoD.Lobby.CurrentPanelChanged(PrivateGameLobbyWidget, f5_arg1)
 	CoD.PrivateGameLobby.SetupTeamCycling(PrivateGameLobbyWidget)
 end
 
-CoD.PrivateGameLobby.ButtonPrompt_PartyUpdateStatus = function (PrivateGameLobbyWidget, f6_arg1)
+CoD.PrivateGameLobby.ButtonPrompt_PartyUpdateStatus = function(PrivateGameLobbyWidget, f6_arg1)
 	CoD.GameLobby.UpdateStatusText(PrivateGameLobbyWidget, f6_arg1)
 	CoD.PrivateGameLobby.SetupTeamCycling(PrivateGameLobbyWidget)
 	PrivateGameLobbyWidget:dispatchEventToChildren(f6_arg1)
 end
 
-CoD.PrivateGameLobby.DoesGametypeSupportBots = function (Gametype)
+CoD.PrivateGameLobby.DoesGametypeSupportBots = function(Gametype)
 	return true
 end
 
-CoD.PrivateGameLobby.BotButton_Update = function (BotsButton)
+CoD.PrivateGameLobby.BotButton_Update = function(BotsButton)
 	local Gametype = UIExpression.DvarString(nil, "ui_gameType")
 	local EnemyBots = UIExpression.DvarInt(nil, "bot_enemies")
 	BotsButton.starImage:setAlpha(0)
@@ -94,7 +94,7 @@ CoD.PrivateGameLobby.BotButton_Update = function (BotsButton)
 	end
 end
 
-CoD.PrivateGameLobby.PopulateButtons_Project_Multiplayer = function (PrivateGameLobbyButtonPane, IsHost)
+CoD.PrivateGameLobby.PopulateButtons_Project_Multiplayer = function(PrivateGameLobbyButtonPane, IsHost)
 	if IsHost == true then
 		local SetupGameText = Engine.Localize("MPUI_SETUP_GAME_CAPS")
 		local f9_local1_1, f9_local1_2, f9_local1_3, f9_local1_4 = GetTextDimensions(SetupGameText, CoD.CoD9Button.Font, CoD.CoD9Button.TextHeight)
@@ -169,7 +169,7 @@ CoD.PrivateGameLobby.PopulateButtons_Project_Multiplayer = function (PrivateGame
 			top = -CoD.textSize.Condensed / 2,
 			bottom = CoD.textSize.Condensed / 2,
 			font = CoD.fonts.Condensed,
-			alignment = LUI.Alignment.Left
+			alignment = LUI.Alignment.Left,
 		})
 		ToggleDemoRecording:addElement(recImage)
 		ToggleDemoRecording.recImage = recImage
@@ -184,7 +184,7 @@ CoD.PrivateGameLobby.PopulateButtons_Project_Multiplayer = function (PrivateGame
 	end
 end
 
-CoD.PrivateGameLobby.UpdateDemoRecordingButton = function (ToggleDemoRecording)
+CoD.PrivateGameLobby.UpdateDemoRecordingButton = function(ToggleDemoRecording)
 	if Dvar.demo_recordPrivateMatch:get() then
 		ToggleDemoRecording.recImage:setRGB(1, 0, 0)
 		ToggleDemoRecording.recText:setText(Engine.Localize("MENU_ON_CAPS"))
@@ -194,12 +194,12 @@ CoD.PrivateGameLobby.UpdateDemoRecordingButton = function (ToggleDemoRecording)
 	end
 end
 
-CoD.PrivateGameLobby.DemoRecordingButton_ToggleDemoRecording = function (ToggleDemoRecording, f11_arg1)
+CoD.PrivateGameLobby.DemoRecordingButton_ToggleDemoRecording = function(ToggleDemoRecording, f11_arg1)
 	Dvar.demo_recordPrivateMatch:set(not Dvar.demo_recordPrivateMatch:get())
 	CoD.PrivateGameLobby.UpdateDemoRecordingButton(ToggleDemoRecording)
 end
 
-CoD.PrivateGameLobby.PopulateFlyoutButtons_Project_Multiplayer = function (PrivateGameLobbyButtonPane)
+CoD.PrivateGameLobby.PopulateFlyoutButtons_Project_Multiplayer = function(PrivateGameLobbyButtonPane)
 	if not CoD.isZombie then
 		PrivateGameLobbyButtonPane.body.setupGameFlyoutContainer.changeMapButton = PrivateGameLobbyButtonPane.body.setupGameFlyoutContainer.buttonList:addButton(Engine.Localize("MPUI_CHANGE_MAP_CAPS"))
 		PrivateGameLobbyButtonPane.body.setupGameFlyoutContainer.changeMapButton.hintText = Engine.Localize("MPUI_CHANGE_MAP_DESC")
@@ -216,7 +216,7 @@ CoD.PrivateGameLobby.PopulateFlyoutButtons_Project_Multiplayer = function (Priva
 	PrivateGameLobbyButtonPane.body.setupGameFlyoutContainer.editGameOptionsButton:registerEventHandler("button_update", CoD.PrivateGameLobby.Button_UpdateHostButton)
 end
 
-local AddGameOptionsButtons = function (PrivateGameLobbyButtonPane, GameOptions, GameOptionsType)
+local AddGameOptionsButtons = function(PrivateGameLobbyButtonPane, GameOptions, GameOptionsType)
 	local Gametype = UIExpression.DvarString(nil, "ui_gameType")
 	local f13_local1 = 220
 	if Gametype == "zcleansed" then
@@ -266,7 +266,7 @@ local AddGameOptionsButtons = function (PrivateGameLobbyButtonPane, GameOptions,
 	end
 end
 
-CoD.PrivateGameLobby.PopulateButtons_Project_Zombie = function (PrivateGameLobbyButtonPane, IsHost)
+CoD.PrivateGameLobby.PopulateButtons_Project_Zombie = function(PrivateGameLobbyButtonPane, IsHost)
 	if UIExpression.DvarString(nil, "ui_gametype") == CoD.Zombie.GAMETYPE_ZGRIEF then
 		Engine.SetGametypeSetting("allowInGameTeamChange", 1)
 	else
@@ -330,34 +330,34 @@ CoD.PrivateGameLobby.PopulateButtons_Project_Zombie = function (PrivateGameLobby
 	end
 end
 
-CoD.PrivateGameLobby.ButtonGameLobbyUpdate_Zombie = function (GametypeSettingButton, f14_arg1)
+CoD.PrivateGameLobby.ButtonGameLobbyUpdate_Zombie = function(GametypeSettingButton, f14_arg1)
 	GametypeSettingButton:refreshChoice()
 	GametypeSettingButton:dispatchEventToChildren(f14_arg1)
 end
 
-CoD.PrivateGameLobby.ButtonGainFocusZombie = function (GametypeSettingButton, ClientInstance)
+CoD.PrivateGameLobby.ButtonGainFocusZombie = function(GametypeSettingButton, ClientInstance)
 	CoD.CoD9Button.GainFocus(GametypeSettingButton, ClientInstance)
 	GametypeSettingButton:dispatchEventToParent({
 		name = "enable_sliding_zm",
 		enableSliding = false,
-		controller = ClientInstance.controller
+		controller = ClientInstance.controller,
 	})
 end
 
-CoD.PrivateGameLobby.ButtonLoseFocusZombie = function (GametypeSettingButton, ClientInstance)
+CoD.PrivateGameLobby.ButtonLoseFocusZombie = function(GametypeSettingButton, ClientInstance)
 	CoD.CoD9Button.LoseFocus(GametypeSettingButton, ClientInstance)
 	GametypeSettingButton:dispatchEventToParent({
 		name = "enable_sliding_zm",
 		enableSliding = true,
-		controller = ClientInstance.controller
+		controller = ClientInstance.controller,
 	})
 end
 
-CoD.PrivateGameLobby.EnableSlidingZombie = function (f17_arg0, f17_arg1)
+CoD.PrivateGameLobby.EnableSlidingZombie = function(f17_arg0, f17_arg1)
 	f17_arg0.panelManager.slidingEnabled = f17_arg1.enableSliding
 end
 
-CoD.PrivateGameLobby.PopulateButtons_Project = function (PrivateGameLobbyButtonPane, IsHost)
+CoD.PrivateGameLobby.PopulateButtons_Project = function(PrivateGameLobbyButtonPane, IsHost)
 	if CoD.isZombie == true then
 		CoD.PrivateGameLobby.PopulateButtons_Project_Zombie(PrivateGameLobbyButtonPane, IsHost)
 	else
@@ -365,7 +365,7 @@ CoD.PrivateGameLobby.PopulateButtons_Project = function (PrivateGameLobbyButtonP
 	end
 end
 
-local LobbyTeamChangeAllowed = function ()
+local LobbyTeamChangeAllowed = function()
 	if Engine.GetGametypeSetting("allowSpectating") == 1 then
 		return true
 	elseif Engine.GetGametypeSetting("autoTeamBalance") == 1 then
@@ -381,7 +381,7 @@ local LobbyTeamChangeAllowed = function ()
 	end
 end
 
-CoD.PrivateGameLobby.PopulateButtonPrompts_Project = function (PrivateGameLobbyWidget)
+CoD.PrivateGameLobby.PopulateButtonPrompts_Project = function(PrivateGameLobbyWidget)
 	if PrivateGameLobbyWidget.cycleTeamButtonPrompt ~= nil then
 		PrivateGameLobbyWidget.cycleTeamButtonPrompt:close()
 	end
@@ -398,7 +398,7 @@ CoD.PrivateGameLobby.PopulateButtonPrompts_Project = function (PrivateGameLobbyW
 	end
 end
 
-CoD.PrivateGameLobby.LeaveLobby_Project_Multiplayer = function (PrivateGameLobbyWidget, ClientInstance)
+CoD.PrivateGameLobby.LeaveLobby_Project_Multiplayer = function(PrivateGameLobbyWidget, ClientInstance)
 	Engine.SetDvar("invite_visible", 1)
 	Engine.SetGametype(Dvar.ui_gametype:get())
 	if Engine.SessionModeIsMode(CoD.SESSIONMODE_OFFLINE) == true or Engine.SessionModeIsMode(CoD.SESSIONMODE_SYSTEMLINK) == true then
@@ -422,20 +422,20 @@ CoD.PrivateGameLobby.LeaveLobby_Project_Multiplayer = function (PrivateGameLobby
 	end
 	Engine.SessionModeSetPrivate(false)
 	PrivateGameLobbyWidget:processEvent({
-		name = "lose_host"
+		name = "lose_host",
 	})
 	PrivateGameLobbyWidget:goBack(ClientInstance)
 end
 
-CoD.PrivateGameLobby.LeaveLobby_Project_Zombie_After_Animation = function (PrivateGameLobbyWidget, ClientInstance)
+CoD.PrivateGameLobby.LeaveLobby_Project_Zombie_After_Animation = function(PrivateGameLobbyWidget, ClientInstance)
 	CoD.PrivateGameLobby.LeaveLobby_Project_Multiplayer(PrivateGameLobbyWidget, {
 		name = PrivateGameLobbyWidget.leaveType,
-		controller = ClientInstance.controller
+		controller = ClientInstance.controller,
 	})
 	PrivateGameLobbyWidget.leaveType = nil
 end
 
-CoD.PrivateGameLobby.LeaveLobby_Project_Zombie = function (PrivateGameLobbyWidget, ClientInstance)
+CoD.PrivateGameLobby.LeaveLobby_Project_Zombie = function(PrivateGameLobbyWidget, ClientInstance)
 	PrivateGameLobbyWidget.leaveType = ClientInstance.name
 	CoD.GameGlobeZombie.gameGlobe.currentMenu = PrivateGameLobbyWidget
 	if PrivateGameLobbyWidget.menuName == "TheaterLobby" then
@@ -446,7 +446,7 @@ CoD.PrivateGameLobby.LeaveLobby_Project_Zombie = function (PrivateGameLobbyWidge
 	CoD.PrivateGameLobby.LeaveLobby_Project_Zombie_After_Animation(PrivateGameLobbyWidget, ClientInstance)
 end
 
-CoD.PrivateGameLobby.LeaveLobby_Project = function (PrivateGameLobbyWidget, ClientInstance)
+CoD.PrivateGameLobby.LeaveLobby_Project = function(PrivateGameLobbyWidget, ClientInstance)
 	if CoD.isZombie == true then
 		CoD.PrivateGameLobby.LeaveLobby_Project_Zombie(PrivateGameLobbyWidget, ClientInstance)
 	else
@@ -454,7 +454,7 @@ CoD.PrivateGameLobby.LeaveLobby_Project = function (PrivateGameLobbyWidget, Clie
 	end
 end
 
-CoD.PrivateGameLobby.OpenChangeStartLoc = function (PrivateGameLobbyWidget, ClientInstance)
+CoD.PrivateGameLobby.OpenChangeStartLoc = function(PrivateGameLobbyWidget, ClientInstance)
 	Engine.PartyHostSetUIState(CoD.PARTYHOST_STATE_SELECTING_GAMETYPE)
 	Engine.SetDvar("ui_game_lobby_open", 1)
 	if UIExpression.DvarString(nil, "ui_gameType") == "zclassic" then
@@ -470,7 +470,7 @@ CoD.PrivateGameLobby.OpenChangeStartLoc = function (PrivateGameLobbyWidget, Clie
 	PrivateGameLobbyWidget:close()
 end
 
-CoD.PrivateGameLobby.OpenSetupGameFlyout = function (PrivateGameLobbyWidget, f28_arg1)
+CoD.PrivateGameLobby.OpenSetupGameFlyout = function(PrivateGameLobbyWidget, f28_arg1)
 	if PrivateGameLobbyWidget.buttonPane ~= nil and PrivateGameLobbyWidget.buttonPane.body ~= nil then
 		CoD.PrivateGameLobby.RemoveSetupGameFlyout(PrivateGameLobbyWidget.buttonPane)
 		CoD.PrivateGameLobby.AddSetupGameFlyout(PrivateGameLobbyWidget.buttonPane)
@@ -478,13 +478,13 @@ CoD.PrivateGameLobby.OpenSetupGameFlyout = function (PrivateGameLobbyWidget, f28
 		CoD.ButtonList.DisableInput(PrivateGameLobbyWidget.buttonPane.body.buttonList)
 		PrivateGameLobbyWidget.buttonPane.body.buttonList:animateToState("disabled")
 		PrivateGameLobbyWidget.buttonPane.body.setupGameFlyoutContainer:processEvent({
-			name = "gain_focus"
+			name = "gain_focus",
 		})
 		PrivateGameLobbyWidget:registerEventHandler("button_prompt_back", CoD.PrivateGameLobby.CloseSetupGameFlyout)
 	end
 end
 
-CoD.PrivateGameLobby.CloseSetupGameFlyout = function (PrivateGameLobbyWidget, f29_arg1)
+CoD.PrivateGameLobby.CloseSetupGameFlyout = function(PrivateGameLobbyWidget, f29_arg1)
 	if PrivateGameLobbyWidget.buttonPane ~= nil and PrivateGameLobbyWidget.buttonPane.body ~= nil and PrivateGameLobbyWidget.buttonPane.body.setupGameFlyoutContainer ~= nil then
 		CoD.PrivateGameLobby.RemoveSetupGameFlyout(PrivateGameLobbyWidget.buttonPane)
 		CoD.ButtonList.EnableInput(PrivateGameLobbyWidget.buttonPane.body.buttonList)
@@ -495,41 +495,41 @@ CoD.PrivateGameLobby.CloseSetupGameFlyout = function (PrivateGameLobbyWidget, f2
 	end
 end
 
-CoD.PrivateGameLobby.OpenBotsMenu = function (PrivateGameLobbyWidget, ClientInstance)
+CoD.PrivateGameLobby.OpenBotsMenu = function(PrivateGameLobbyWidget, ClientInstance)
 	Engine.PartyHostSetUIState(CoD.PARTYHOST_STATE_EDITING_GAME_OPTIONS)
 	PrivateGameLobbyWidget:openPopup("EditBotOptions", ClientInstance.controller)
 	Engine.PlaySound("cac_screen_fade")
 end
 
-CoD.PrivateGameLobby.OpenChangeMap = function (PrivateGameLobbyWidget, ClientInstance)
+CoD.PrivateGameLobby.OpenChangeMap = function(PrivateGameLobbyWidget, ClientInstance)
 	Engine.PartyHostSetUIState(CoD.PARTYHOST_STATE_SELECTING_MAP)
 	PrivateGameLobbyWidget:openPopup("ChangeMap", ClientInstance.controller)
 	Engine.PlaySound("cac_screen_fade")
 end
 
-CoD.PrivateGameLobby.OpenChangeGameMode = function (PrivateGameLobbyWidget, ClientInstance)
+CoD.PrivateGameLobby.OpenChangeGameMode = function(PrivateGameLobbyWidget, ClientInstance)
 	Engine.PartyHostSetUIState(CoD.PARTYHOST_STATE_SELECTING_GAMETYPE)
 	PrivateGameLobbyWidget:openPopup("ChangeGameMode", ClientInstance.controller)
 	Engine.PlaySound("cac_screen_fade")
 end
 
-CoD.PrivateGameLobby.OpenEditGameOptionsMenu = function (PrivateGameLobbyWidget, ClientInstance)
+CoD.PrivateGameLobby.OpenEditGameOptionsMenu = function(PrivateGameLobbyWidget, ClientInstance)
 	Engine.PartyHostSetUIState(CoD.PARTYHOST_STATE_EDITING_GAME_OPTIONS)
 	PrivateGameLobbyWidget:openPopup("EditGameOptions", ClientInstance.controller)
 	Engine.PlaySound("cac_screen_fade")
 end
 
-CoD.PrivateGameLobby.OpenViewGameOptionsMenu = function (PrivateGameLobbyWidget, ClientInstance)
+CoD.PrivateGameLobby.OpenViewGameOptionsMenu = function(PrivateGameLobbyWidget, ClientInstance)
 	Engine.PartyHostSetUIState(CoD.PARTYHOST_STATE_EDITING_GAME_OPTIONS)
 	PrivateGameLobbyWidget:openPopup("ViewGameOptions", ClientInstance.controller)
 end
 
-CoD.PrivateGameLobby.CloseAllPopups = function (PrivateGameLobbyWidget, ClientInstance)
+CoD.PrivateGameLobby.CloseAllPopups = function(PrivateGameLobbyWidget, ClientInstance)
 	CoD.PrivateGameLobby.CloseSetupGameFlyout(PrivateGameLobbyWidget, ClientInstance)
 	CoD.Menu.MenuChanged(PrivateGameLobbyWidget, ClientInstance)
 end
 
-CoD.PrivateGameLobby.RegisterEventHandler_Project = function (PrivateGameLobbyWidget)
+CoD.PrivateGameLobby.RegisterEventHandler_Project = function(PrivateGameLobbyWidget)
 	if CoD.isZombie == true then
 		PrivateGameLobbyWidget:registerEventHandler("open_change_startLoc", CoD.PrivateGameLobby.OpenChangeStartLoc)
 		PrivateGameLobbyWidget:registerEventHandler("open_setup_game_flyout", CoD.PrivateGameLobby.OpenSetupGameFlyout)

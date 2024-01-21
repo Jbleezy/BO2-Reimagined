@@ -21,7 +21,7 @@ CoD.CraftablesTomb.OneInchIconHeight = CoD.CraftablesTomb.OneInchIconWidth
 CoD.CraftablesTomb.NEED_TABLET = 0
 CoD.CraftablesTomb.HAVE_TABLET_CLEAN = 1
 CoD.CraftablesTomb.NEED_TABLET_DIRTY = 2
-LUI.createMenu.CraftablesTombArea = function (f1_arg0)
+LUI.createMenu.CraftablesTombArea = function(f1_arg0)
 	local f1_local0 = CoD.Menu.NewSafeAreaFromState("CraftablesTombArea", f1_arg0)
 	f1_local0:setOwner(f1_arg0)
 	f1_local0.topLeftScaleContainer = CoD.SplitscreenScaler.new(nil, CoD.Zombie.SplitscreenMultiplier)
@@ -118,7 +118,7 @@ LUI.createMenu.CraftablesTombArea = function (f1_arg0)
 	return f1_local0
 end
 
-CoD.CraftablesTomb.UpdateVisibility = function (f2_arg0, f2_arg1)
+CoD.CraftablesTomb.UpdateVisibility = function(f2_arg0, f2_arg1)
 	local f2_local0 = f2_arg1.controller
 	if UIExpression.IsVisibilityBitSet(f2_local0, CoD.BIT_HUD_VISIBLE) == 1 and UIExpression.IsVisibilityBitSet(f2_local0, CoD.BIT_EMP_ACTIVE) == 0 and UIExpression.IsVisibilityBitSet(f2_local0, CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM) == 0 and UIExpression.IsVisibilityBitSet(f2_local0, CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN) == 0 and UIExpression.IsVisibilityBitSet(f2_local0, CoD.BIT_IN_VEHICLE) == 0 and UIExpression.IsVisibilityBitSet(f2_local0, CoD.BIT_IN_GUIDED_MISSILE) == 0 and UIExpression.IsVisibilityBitSet(f2_local0, CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC) == 0 and UIExpression.IsVisibilityBitSet(f2_local0, CoD.BIT_AMMO_COUNTER_HIDE) == 0 and UIExpression.IsVisibilityBitSet(f2_local0, CoD.BIT_IS_FLASH_BANGED) == 0 and UIExpression.IsVisibilityBitSet(f2_local0, CoD.BIT_UI_ACTIVE) == 0 and UIExpression.IsVisibilityBitSet(f2_local0, CoD.BIT_SCOREBOARD_OPEN) == 0 and UIExpression.IsVisibilityBitSet(f2_local0, CoD.BIT_IS_SCOPED) == 0 and (not CoD.IsShoutcaster(f2_local0) or CoD.ExeProfileVarBool(f2_local0, "shoutcaster_scorestreaks") and Engine.IsSpectatingActiveClient(f2_local0)) and CoD.FSM_VISIBILITY(f2_local0) == 0 then
 		if f2_arg0.visible ~= true then
@@ -134,7 +134,7 @@ CoD.CraftablesTomb.UpdateVisibility = function (f2_arg0, f2_arg1)
 	f2_arg0:dispatchEventToChildren(f2_arg1)
 end
 
-CoD.CraftablesTomb.UpdateTabletState = function (f3_arg0, f3_arg1)
+CoD.CraftablesTomb.UpdateTabletState = function(f3_arg0, f3_arg1)
 	local f3_local0 = f3_arg1.newValue
 	if f3_local0 == CoD.CraftablesTomb.NEED_TABLET then
 		f3_arg0.tabletContainer:setAlpha(0)

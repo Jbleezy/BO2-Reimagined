@@ -1,4 +1,5 @@
 /.vscode
+stylua.toml
 *.ff
 *.iwd
 *.dds
