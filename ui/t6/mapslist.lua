@@ -134,7 +134,7 @@ function LUI.createMenu.SelectGameModeListZM(controller)
 
 	self:registerEventHandler("button_prompt_back", gameModeListBackEventHandler)
 	self:registerEventHandler("listbox_focus_changed", gameModeListFocusChangedEventHandler)
-	self:registerEventHandler("listbox_clicked", gameModeListSelectionClickedEventHandler)
+	self:registerEventHandler("click", gameModeListSelectionClickedEventHandler)
 
 	return self
 end
@@ -213,7 +213,7 @@ function LUI.createMenu.SelectMapListZM(controller)
 	self.listBox = listBox
 
 	self:registerEventHandler("listbox_focus_changed", mapListFocusChangedEventHandler)
-	self:registerEventHandler("listbox_clicked", mapListSelectionClickedEventHandler)
+	self:registerEventHandler("click", mapListSelectionClickedEventHandler)
 
 	return self
 end
@@ -327,7 +327,7 @@ function LUI.createMenu.SelectLocationListZM(controller)
 	self.listBox = listBox
 
 	self:registerEventHandler("listbox_focus_changed", locationListFocusChangedEventHandler)
-	self:registerEventHandler("listbox_clicked", locationListSelectionClickedEventHandler)
+	self:registerEventHandler("click", locationListSelectionClickedEventHandler)
 
 	return self
 end
