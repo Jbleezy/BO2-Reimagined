@@ -2,7 +2,8 @@ require("T6.Lobby")
 require("T6.Menus.PopupMenus")
 require("T6.ListBox")
 
-local GameModes = {
+CoD.MapsList = {}
+CoD.MapsList.GameModes = {
 	"ZMUI_ZCLASSIC_GAMEMODE_CAPS",
 	"ZMUI_ZSTANDARD_CAPS",
 	"ZMUI_ZGRIEF_CAPS",
@@ -12,14 +13,14 @@ local GameModes = {
 	"ZMUI_ZMEAT_CAPS",
 	-- "ZMUI_ZCLEANSED_CAPS", -- TODO: uncomment when game mode is added
 }
-local Maps = {
+CoD.MapsList.Maps = {
 	"ZMUI_ZCLASSIC_ZM_TRANSIT_CAPS",
 	"ZMUI_ZCLASSIC_ZM_HIGHRISE_CAPS",
 	"ZMUI_ZCLASSIC_ZM_PRISON_CAPS",
 	"ZMUI_ZCLASSIC_ZM_BURIED_CAPS",
 	"ZMUI_ZCLASSIC_ZM_TOMB_CAPS",
 }
-local Locations = {
+CoD.MapsList.Locations = {
 	"ZMUI_TRANSIT_STARTLOC_CAPS",
 	"ZMUI_DINER_CAPS",
 	"ZMUI_FARM_CAPS",
@@ -48,7 +49,9 @@ end
 local function gameModeListSelectionClickedEventHandler(self, event)
 	local focusedIndex = self.listBox:getFocussedIndex()
 
-	local gameMode = GameModes[focusedIndex]
+	CoD.MapsList.prevSelectGameModeListZMIndex = focusedIndex
+
+	local gameMode = CoD.MapsList.GameModes[focusedIndex]
 
 	if gameMode == "ZMUI_ZCLASSIC_GAMEMODE_CAPS" then
 		Engine.SetDvar("ui_zm_gamemodegroup", "zclassic")
@@ -104,7 +107,7 @@ local function gameModeListCreateButtonMutables(controller, mutables)
 end
 
 local function gameModeListGetButtonData(controller, index, mutables, self)
-	local gameMode = GameModes[index]
+	local gameMode = CoD.MapsList.GameModes[index]
 	mutables.text:setText(Engine.Localize(gameMode))
 end
 
@@ -124,11 +127,16 @@ function LUI.createMenu.SelectGameModeListZM(controller)
 
 	self:addTitle(Engine.Localize("MPUI_GAMEMODE_CAPS"))
 
+	local index = 1
+	if CoD.MapsList.prevSelectGameModeListZMIndex ~= nil then
+		index = CoD.MapsList.prevSelectGameModeListZMIndex
+	end
+
 	local listBox = CoD.ListBox.new(nil, controller, 15, CoD.CoD9Button.Height, 250, gameModeListCreateButtonMutables, gameModeListGetButtonData, 0, 0)
 	listBox:setLeftRight(true, false, 0, 250)
 	listBox:setTopBottom(true, false, 75, 75 + 530)
 	listBox:addScrollBar(530 + (8 * 12), 2)
-	listBox:setTotalItems(#GameModes)
+	listBox:setTotalItems(#CoD.MapsList.GameModes, index)
 	self:addElement(listBox)
 	self.listBox = listBox
 
@@ -146,7 +154,10 @@ end
 local function mapListSelectionClickedEventHandler(self, event)
 	local focusedIndex = self.listBox:getFocussedIndex()
 
-	local map = Maps[focusedIndex]
+	CoD.MapsList.prevSelectMapListZMIndex = focusedIndex
+	CoD.MapsList.prevSelectLocationListZMIndex = 1
+
+	local map = CoD.MapsList.Maps[focusedIndex]
 
 	if map == "ZMUI_ZCLASSIC_ZM_TRANSIT_CAPS" then
 		Engine.SetDvar("ui_mapname", "zm_transit")
@@ -189,7 +200,7 @@ local function mapListCreateButtonMutables(controller, mutables)
 end
 
 local function mapListGetButtonData(controller, index, mutables, self)
-	local map = Maps[index]
+	local map = CoD.MapsList.Maps[index]
 	mutables.text:setText(Engine.Localize(map))
 end
 
@@ -204,11 +215,16 @@ function LUI.createMenu.SelectMapListZM(controller)
 
 	self:addTitle(Engine.Localize("MPUI_MAPS_CAPS"))
 
+	local index = 1
+	if CoD.MapsList.prevSelectMapListZMIndex ~= nil then
+		index = CoD.MapsList.prevSelectMapListZMIndex
+	end
+
 	local listBox = CoD.ListBox.new(nil, controller, 15, CoD.CoD9Button.Height, 250, mapListCreateButtonMutables, mapListGetButtonData, 0, 0)
 	listBox:setLeftRight(true, false, 0, 250)
 	listBox:setTopBottom(true, false, 75, 75 + 530)
 	listBox:addScrollBar(530 + (8 * 12), 2)
-	listBox:setTotalItems(#Maps)
+	listBox:setTotalItems(#CoD.MapsList.Maps, index)
 	self:addElement(listBox)
 	self.listBox = listBox
 
@@ -225,7 +241,10 @@ end
 local function locationListSelectionClickedEventHandler(self, event)
 	local focusedIndex = self.listBox:getFocussedIndex()
 
-	local location = Locations[focusedIndex]
+	CoD.MapsList.prevSelectLocationListZMIndex = focusedIndex
+	CoD.MapsList.prevSelectMapListZMIndex = 1
+
+	local location = CoD.MapsList.Locations[focusedIndex]
 
 	if location == "ZMUI_TRANSIT_STARTLOC_CAPS" then
 		Engine.SetDvar("ui_mapname", "zm_transit")
@@ -303,7 +322,7 @@ local function locationListCreateButtonMutables(controller, mutables)
 end
 
 local function locationListGetButtonData(controller, index, mutables, self)
-	local location = Locations[index]
+	local location = CoD.MapsList.Locations[index]
 	mutables.text:setText(Engine.Localize(location))
 end
 
@@ -318,11 +337,16 @@ function LUI.createMenu.SelectLocationListZM(controller)
 
 	self:addTitle(Engine.Localize("MPUI_MAPS_CAPS"))
 
+	local index = 1
+	if CoD.MapsList.prevSelectLocationListZMIndex ~= nil then
+		index = CoD.MapsList.prevSelectLocationListZMIndex
+	end
+
 	local listBox = CoD.ListBox.new(nil, controller, 15, CoD.CoD9Button.Height, 250, locationListCreateButtonMutables, locationListGetButtonData, 0, 0)
 	listBox:setLeftRight(true, false, 0, 250)
 	listBox:setTopBottom(true, false, 75, 75 + 530)
 	listBox:addScrollBar(530 + (8 * 12), 2)
-	listBox:setTotalItems(#Locations)
+	listBox:setTotalItems(#CoD.MapsList.Locations, index)
 	self:addElement(listBox)
 	self.listBox = listBox
 
