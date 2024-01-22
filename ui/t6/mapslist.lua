@@ -49,7 +49,7 @@ end
 local function gameModeListSelectionClickedEventHandler(self, event)
 	local focusedIndex = self.listBox:getFocussedIndex()
 
-	CoD.MapsList.prevSelectGameModeListZMIndex = focusedIndex
+	Engine.SetDvar("ui_gametype_index", focusedIndex)
 
 	local gameMode = CoD.MapsList.GameModes[focusedIndex]
 
@@ -127,10 +127,7 @@ function LUI.createMenu.SelectGameModeListZM(controller)
 
 	self:addTitle(Engine.Localize("MPUI_GAMEMODE_CAPS"))
 
-	local index = 1
-	if CoD.MapsList.prevSelectGameModeListZMIndex ~= nil then
-		index = CoD.MapsList.prevSelectGameModeListZMIndex
-	end
+	local index = math.max(1, UIExpression.DvarInt(nil, "ui_gametype_index"))
 
 	local listBox = CoD.ListBox.new(nil, controller, 15, CoD.CoD9Button.Height, 250, gameModeListCreateButtonMutables, gameModeListGetButtonData, 0, 0)
 	listBox:setLeftRight(true, false, 0, 250)
@@ -154,8 +151,7 @@ end
 local function mapListSelectionClickedEventHandler(self, event)
 	local focusedIndex = self.listBox:getFocussedIndex()
 
-	CoD.MapsList.prevSelectMapListZMIndex = focusedIndex
-	CoD.MapsList.prevSelectLocationListZMIndex = 1
+	Engine.SetDvar("ui_mapname_index", focusedIndex)
 
 	local map = CoD.MapsList.Maps[focusedIndex]
 
@@ -215,10 +211,7 @@ function LUI.createMenu.SelectMapListZM(controller)
 
 	self:addTitle(Engine.Localize("MPUI_MAPS_CAPS"))
 
-	local index = 1
-	if CoD.MapsList.prevSelectMapListZMIndex ~= nil then
-		index = CoD.MapsList.prevSelectMapListZMIndex
-	end
+	local index = math.max(1, UIExpression.DvarInt(nil, "ui_mapname_index"))
 
 	local listBox = CoD.ListBox.new(nil, controller, 15, CoD.CoD9Button.Height, 250, mapListCreateButtonMutables, mapListGetButtonData, 0, 0)
 	listBox:setLeftRight(true, false, 0, 250)
@@ -241,8 +234,7 @@ end
 local function locationListSelectionClickedEventHandler(self, event)
 	local focusedIndex = self.listBox:getFocussedIndex()
 
-	CoD.MapsList.prevSelectLocationListZMIndex = focusedIndex
-	CoD.MapsList.prevSelectMapListZMIndex = 1
+	Engine.SetDvar("ui_zm_mapstartlocation_index", focusedIndex)
 
 	local location = CoD.MapsList.Locations[focusedIndex]
 
@@ -337,10 +329,7 @@ function LUI.createMenu.SelectLocationListZM(controller)
 
 	self:addTitle(Engine.Localize("MPUI_MAPS_CAPS"))
 
-	local index = 1
-	if CoD.MapsList.prevSelectLocationListZMIndex ~= nil then
-		index = CoD.MapsList.prevSelectLocationListZMIndex
-	end
+	local index = math.max(1, UIExpression.DvarInt(nil, "ui_zm_mapstartlocation_index"))
 
 	local listBox = CoD.ListBox.new(nil, controller, 15, CoD.CoD9Button.Height, 250, locationListCreateButtonMutables, locationListGetButtonData, 0, 0)
 	listBox:setLeftRight(true, false, 0, 250)
