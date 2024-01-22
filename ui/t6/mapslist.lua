@@ -115,7 +115,7 @@ function LUI.createMenu.SelectGameModeListZM(controller)
 	local self = CoD.Menu.New("SelectGameModeListZM")
 	self.controller = controller
 
-	if UIExpression.DvarBool(nil, "ui_game_lobby_open") == 1 then
+	if CoD.PrivateGameLobby.InGameLobby == true then
 		self:setPreviousMenu("PrivateOnlineGameLobby")
 	else
 		self:setPreviousMenu("MainLobby")
@@ -176,7 +176,7 @@ local function mapListSelectionClickedEventHandler(self, event)
 		Engine.SetDvar("ui_zm_mapstartlocation", "tomb")
 	end
 
-	if UIExpression.DvarBool(nil, "ui_game_lobby_open") == 0 then
+	if CoD.PrivateGameLobby.InGameLobby == nil then
 		local gameType = UIExpression.DvarString(nil, "ui_gametype")
 		local mapName = UIExpression.DvarString(nil, "ui_mapname")
 		CoD.SwitchToPrivateLobby(self.controller) -- this changes "ui_gametype" and "ui_mapname"
@@ -298,7 +298,7 @@ local function locationListSelectionClickedEventHandler(self, event)
 		-- TODO: set dvars when location is added
 	end
 
-	if UIExpression.DvarBool(nil, "ui_game_lobby_open") == 0 then
+	if CoD.PrivateGameLobby.InGameLobby == nil then
 		local gameType = UIExpression.DvarString(nil, "ui_gametype")
 		local mapName = UIExpression.DvarString(nil, "ui_mapname")
 		CoD.SwitchToPrivateLobby(self.controller) -- this changes "ui_gametype" and "ui_mapname"

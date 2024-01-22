@@ -134,7 +134,7 @@ CoD.MainLobby.OpenPlayerMatchPartyLobby = function(MainLobbyWidget, ClientInstan
 			if CoD.isZombie == true then
 				Engine.PartyHostSetUIState(CoD.PARTYHOST_STATE_SELECTING_PLAYLIST)
 				CoD.PlaylistCategoryFilter = "playermatch"
-				Engine.SetDvar("ui_game_lobby_open", 0)
+				CoD.PrivateGameLobby.InGameLobby = nil
 				MainLobbyWidget:openMenu("SelectGameModeListZM", ClientInstance.controller)
 				CoD.GameGlobeZombie.MoveToCenter(ClientInstance.controller)
 			else
@@ -192,7 +192,7 @@ CoD.MainLobby.OpenCustomGamesLobby = function(MainLobbyWidget, ClientInstance)
 		-- CoD.SwitchToPrivateLobby(ClientInstance.controller)
 		if CoD.isZombie == true then
 			-- Engine.SetDvar("ui_zm_mapstartlocation", "")
-			Engine.SetDvar("ui_game_lobby_open", 0)
+			CoD.PrivateGameLobby.InGameLobby = nil
 			MainLobbyWidget:openMenu("SelectGameModeListZM", ClientInstance.controller)
 			-- CoD.GameGlobeZombie.MoveToCenter(ClientInstance.controller)
 		else
@@ -212,7 +212,7 @@ CoD.MainLobby.OpenSoloLobby_Zombie = function(MainLobbyWidget, ClientInstance)
 			Engine.PartyHostSetUIState(CoD.PARTYHOST_STATE_SELECTING_PLAYLIST)
 			Dvar.party_maxplayers:set(1)
 			CoD.PlaylistCategoryFilter = CoD.Zombie.PLAYLIST_CATEGORY_FILTER_SOLOMATCH
-			Engine.SetDvar("ui_game_lobby_open", 0)
+			CoD.PrivateGameLobby.InGameLobby = nil
 			MainLobbyWidget:openMenu("SelectGameModeListZM", ClientInstance.controller)
 			-- CoD.GameGlobeZombie.MoveToCenter(ClientInstance.controller)
 			MainLobbyWidget:close()
