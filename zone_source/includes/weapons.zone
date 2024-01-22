@@ -1,35 +1,35 @@
-weapon,zm/held_knife_zm
-weapon,zm/held_bowie_knife_zm
-weapon,zm/held_tazer_knuckles_zm
-weapon,zm/held_tazer_knuckles_zm_offhand
+weapon,held_knife_zm
+weapon,held_bowie_knife_zm
+weapon,held_tazer_knuckles_zm
+weapon,held_tazer_knuckles_zm_offhand
 
-weapon,zm/held_knife_zm_alcatraz
-weapon,zm/held_spoon_zm_alcatraz
-weapon,zm/held_spork_zm_alcatraz
+weapon,held_knife_zm_alcatraz
+weapon,held_spoon_zm_alcatraz
+weapon,held_spork_zm_alcatraz
 
-weapon,zm/held_one_inch_punch_zm
-weapon,zm/held_one_inch_punch_upgraded_zm
-weapon,zm/held_one_inch_punch_air_zm
-weapon,zm/held_one_inch_punch_fire_zm
-weapon,zm/held_one_inch_punch_ice_zm
-weapon,zm/held_one_inch_punch_lightning_zm
+weapon,held_one_inch_punch_zm
+weapon,held_one_inch_punch_upgraded_zm
+weapon,held_one_inch_punch_air_zm
+weapon,held_one_inch_punch_fire_zm
+weapon,held_one_inch_punch_ice_zm
+weapon,held_one_inch_punch_lightning_zm
 
-weapon,zm/fnp45_zm
-weapon,zm/fnp45_upgraded_zm
-weapon,zm/fnp45lh_upgraded_zm
+weapon,fnp45_zm
+weapon,fnp45_upgraded_zm
+weapon,fnp45lh_upgraded_zm
 
-weapon,zm/insas_zm
-weapon,zm/insas_upgraded_zm
+weapon,insas_zm
+weapon,insas_upgraded_zm
 
-weapon,zm/vector_zm
-weapon,zm/vector_upgraded_zm
-weapon,zm/vector_extclip_zm
-weapon,zm/vector_extclip_upgraded_zm
+weapon,vector_zm
+weapon,vector_upgraded_zm
+weapon,vector_extclip_zm
+weapon,vector_extclip_upgraded_zm
 
-weapon,zm/sig556_zm
-weapon,zm/sig556_upgraded_zm
-weapon,zm/gl_sig556_zm
+weapon,sig556_zm
+weapon,sig556_upgraded_zm
+weapon,gl_sig556_zm
 
-weapon,zm/sa58_zm
-weapon,zm/sa58_upgraded_zm
-weapon,zm/sf_sa58_upgraded_zm
+weapon,sa58_zm
+weapon,sa58_upgraded_zm
+weapon,sf_sa58_upgraded_zm
