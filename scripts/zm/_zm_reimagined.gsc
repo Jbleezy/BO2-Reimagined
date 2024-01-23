@@ -1235,22 +1235,7 @@ set_weapon_ammo_clip_left(weapon, amount)
 
 setscoreboardcolumns_gametype()
 {
-	if (getDvar("g_gametype") == "zgrief")
-	{
-		if (getDvar("ui_gametype_obj") == "zcontainment" || getDvar("ui_gametype_obj") == "zmeat")
-		{
-			setscoreboardcolumns("score", "captures", "killsconfirmed", "downs", "revives");
-		}
-		else if (getDvar("ui_gametype_obj") == "zgrief" || getDvar("ui_gametype_obj") == "zsnr")
-		{
-			setscoreboardcolumns("score", "killsdenied", "killsconfirmed", "downs", "revives");
-		}
-		else
-		{
-			setscoreboardcolumns("score", "kills", "killsconfirmed", "downs", "revives");
-		}
-	}
-	else
+	if (level.scr_zm_ui_gametype != "zgrief")
 	{
 		setscoreboardcolumns("score", "kills", "headshots", "downs", "revives");
 	}

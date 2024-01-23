@@ -68,6 +68,7 @@ init()
 	setteamscore("allies", 0);
 
 	set_grief_vars();
+	grief_setscoreboardcolumns_gametype();
 	grief_gamemode_hud();
 	grief_score_hud();
 	enemy_powerup_hud();
@@ -104,6 +105,22 @@ init()
 	level thread unlimited_powerups();
 	level thread save_teams_on_intermission();
 	level thread all_voice_on_intermission();
+}
+
+grief_setscoreboardcolumns_gametype()
+{
+	if (level.scr_zm_ui_gametype_obj == "zcontainment" || level.scr_zm_ui_gametype_obj == "zmeat")
+	{
+		setscoreboardcolumns("score", "captures", "killsconfirmed", "downs", "revives");
+	}
+	else if (level.scr_zm_ui_gametype_obj == "zrace")
+	{
+		setscoreboardcolumns("score", "kills", "killsconfirmed", "downs", "revives");
+	}
+	else
+	{
+		setscoreboardcolumns("score", "killsdenied", "killsconfirmed", "downs", "revives");
+	}
 }
 
 grief_gamemode_hud()
