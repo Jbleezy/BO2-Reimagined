@@ -831,3 +831,133 @@ start_fire_sale(item)
 	level.zombie_vars["zombie_powerup_fire_sale_on"] = 0;
 	level notify("fire_sale_off");
 }
+
+powerup_hud_monitor()
+{
+	flag_wait("start_zombie_round_logic");
+
+	if (isdefined(level.current_game_module) && level.current_game_module == 2)
+		return;
+
+	flashing_timers = [];
+	flashing_values = [];
+	flashing_timer = 10;
+	flashing_delta_time = 0;
+	flashing_is_on = 0;
+	flashing_value = 3;
+	flashing_min_timer = 0.15;
+
+	while (flashing_timer >= flashing_min_timer)
+	{
+		if (flashing_timer < 5)
+			flashing_delta_time = 0.1;
+		else
+			flashing_delta_time = 0.2;
+
+		if (flashing_is_on)
+		{
+			flashing_timer = flashing_timer - flashing_delta_time - 0.05;
+			flashing_value = 2;
+		}
+		else
+		{
+			flashing_timer = flashing_timer - flashing_delta_time;
+			flashing_value = 3;
+		}
+
+		flashing_timers[flashing_timers.size] = flashing_timer;
+		flashing_values[flashing_values.size] = flashing_value;
+		flashing_is_on = !flashing_is_on;
+	}
+
+	client_fields = [];
+	powerup_keys = getarraykeys(level.zombie_powerups);
+
+	for (powerup_key_index = 0; powerup_key_index < powerup_keys.size; powerup_key_index++)
+	{
+		if (isdefined(level.zombie_powerups[powerup_keys[powerup_key_index]].client_field_name))
+		{
+			powerup_name = powerup_keys[powerup_key_index];
+			client_fields[powerup_name] = spawnstruct();
+			client_fields[powerup_name].client_field_name = level.zombie_powerups[powerup_name].client_field_name;
+			client_fields[powerup_name].enemy_client_field_name = level.zombie_powerups[powerup_name].enemy_client_field_name;
+			client_fields[powerup_name].solo = level.zombie_powerups[powerup_name].solo;
+			client_fields[powerup_name].time_name = level.zombie_powerups[powerup_name].time_name;
+			client_fields[powerup_name].on_name = level.zombie_powerups[powerup_name].on_name;
+		}
+	}
+
+	client_field_keys = getarraykeys(client_fields);
+
+	while (true)
+	{
+		wait 0.05;
+		waittillframeend;
+		players = get_players();
+
+		for (playerindex = 0; playerindex < players.size; playerindex++)
+		{
+			for (client_field_key_index = 0; client_field_key_index < client_field_keys.size; client_field_key_index++)
+			{
+				player = players[playerindex];
+
+				if (isdefined(level.powerup_player_valid))
+				{
+					if (![[level.powerup_player_valid]](player))
+						continue;
+				}
+
+				client_field_name = client_fields[client_field_keys[client_field_key_index]].client_field_name;
+				time_name = client_fields[client_field_keys[client_field_key_index]].time_name;
+				on_name = client_fields[client_field_keys[client_field_key_index]].on_name;
+				powerup_timer = undefined;
+				powerup_on = undefined;
+
+				enemy_client_field_name = client_fields[client_field_keys[client_field_key_index]].enemy_client_field_name;
+				enemy_powerup_timer = undefined;
+				enemy_powerup_on = undefined;
+
+				if (client_fields[client_field_keys[client_field_key_index]].solo)
+				{
+					if (isdefined(player._show_solo_hud) && player._show_solo_hud == 1)
+					{
+						powerup_timer = player.zombie_vars[time_name];
+						powerup_on = player.zombie_vars[on_name];
+					}
+				}
+				else if (isdefined(level.zombie_vars[player.team][time_name]))
+				{
+					powerup_timer = level.zombie_vars[player.team][time_name];
+					powerup_on = level.zombie_vars[player.team][on_name];
+
+					enemy_team = getotherteam(player.team);
+
+					if (isdefined(level.zombie_vars[enemy_team][time_name]))
+					{
+						enemy_powerup_timer = level.zombie_vars[enemy_team][time_name];
+						enemy_powerup_on = level.zombie_vars[enemy_team][on_name];
+					}
+				}
+				else if (isdefined(level.zombie_vars[time_name]))
+				{
+					powerup_timer = level.zombie_vars[time_name];
+					powerup_on = level.zombie_vars[on_name];
+				}
+
+				if (isdefined(powerup_timer) && isdefined(powerup_on))
+				{
+					player set_clientfield_powerups(client_field_name, powerup_timer, powerup_on, flashing_timers, flashing_values);
+
+					if (isdefined(enemy_powerup_timer) && isdefined(enemy_powerup_on))
+					{
+						player set_clientfield_powerups(enemy_client_field_name, enemy_powerup_timer, enemy_powerup_on, flashing_timers, flashing_values);
+					}
+
+					continue;
+				}
+
+				player setclientfieldtoplayer(client_field_name, 0);
+			}
+		}
+	}
+}

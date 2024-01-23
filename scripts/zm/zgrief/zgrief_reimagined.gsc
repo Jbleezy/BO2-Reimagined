@@ -41,9 +41,9 @@ init()
 
 	if (level.script == "zm_prison")
 	{
+		level._effect["afterlife_teleport"] = loadfx("maps/zombie_alcatraz/fx_alcatraz_afterlife_zmb_tport");
 		level.player_spawn_fx = "afterlife_teleport";
 		level.player_spawn_sound = "zmb_afterlife_zombie_warp_in";
-		level._effect["afterlife_teleport"] = loadfx("maps/zombie_alcatraz/fx_alcatraz_afterlife_zmb_tport");
 	}
 	else
 	{
@@ -68,9 +68,9 @@ init()
 	setteamscore("allies", 0);
 
 	set_grief_vars();
-	powerup_hud_overlay();
 	grief_gamemode_hud();
 	grief_score_hud();
+	enemy_powerup_hud();
 
 	if (level.scr_zm_ui_gametype_obj == "zcontainment")
 	{
@@ -320,6 +320,26 @@ grief_score_hud_set_obj_icon(team)
 	}
 }
 
+enemy_powerup_hud()
+{
+	registerclientfield("toplayer", "powerup_instant_kill_enemy", 1, 2, "int");
+	registerclientfield("toplayer", "powerup_double_points_enemy", 1, 2, "int");
+
+	powerup = level.zombie_powerups["insta_kill"];
+
+	if (isdefined(powerup))
+	{
+		powerup.enemy_client_field_name = powerup.client_field_name + "_enemy";
+	}
+
+	powerup = level.zombie_powerups["double_points"];
+
+	if (isdefined(powerup))
+	{
+		powerup.enemy_client_field_name = powerup.client_field_name + "_enemy";
+	}
+}
+
 set_grief_vars()
 {
 	if (getDvar("ui_gametype_obj") == "")
@@ -424,136 +444,6 @@ set_grief_vars()
 	if (is_respawn_gamemode())
 	{
 		setDvar("player_lastStandBleedoutTime", 10);
-	}
-}
-
-powerup_hud_overlay()
-{
-	level.active_powerup_hud_array = [];
-	level.active_powerup_hud_array["axis"] = [];
-	level.active_powerup_hud_array["allies"] = [];
-	struct_array = [];
-
-	struct = spawnStruct();
-	struct.on = "zombie_powerup_point_halfer_on";
-	struct.time = "zombie_powerup_point_halfer_time";
-	struct.shader = "specialty_doublepoints_zombies";
-	struct_array[struct_array.size] = struct;
-
-	struct = spawnStruct();
-	struct.on = "zombie_powerup_half_damage_on";
-	struct.time = "zombie_powerup_half_damage_time";
-	struct.shader = "specialty_instakill_zombies";
-	struct_array[struct_array.size] = struct;
-
-	foreach (struct in struct_array)
-	{
-		foreach (team in level.teams)
-		{
-			hudelem = newTeamHudElem(team);
-			hudelem.hidewheninmenu = 1;
-			hudelem.alignX = "center";
-			hudelem.alignY = "bottom";
-			hudelem.horzAlign = "user_center";
-			hudelem.vertAlign = "user_bottom";
-			hudelem.y = -37;
-			hudelem.color = (0.21, 0, 0);
-			hudelem.alpha = 0;
-			hudelem.team = team;
-			hudelem.on_string = struct.on;
-			hudelem.time_string = struct.time;
-			hudelem setShader(struct.shader, 32, 32);
-			hudelem thread powerup_hud_think();
-			hudelem thread powerup_hud_destroy_on_intermission();
-		}
-	}
-}
-
-powerup_hud_think()
-{
-	level endon("intermission");
-
-	while (1)
-	{
-		if (level.zombie_vars[self.team][self.time_string] < 5)
-		{
-			wait(0.1);
-			self fadeOverTime(0.1);
-			self.alpha = 0;
-			wait(0.1);
-			self fadeOverTime(0.1);
-			self.alpha = 1;
-		}
-		else if (level.zombie_vars[self.team][self.time_string] < 10)
-		{
-			wait(0.2);
-			self fadeOverTime(0.2);
-			self.alpha = 0;
-			wait(0.2);
-			self fadeOverTime(0.2);
-			self.alpha = 1;
-		}
-
-		if (level.zombie_vars[self.team][self.on_string])
-		{
-			if (!isInArray(level.active_powerup_hud_array[self.team], self))
-			{
-				level.active_powerup_hud_array[self.team][level.active_powerup_hud_array[self.team].size] = self;
-
-				self thread powerup_hud_move();
-
-				self.alpha = 1;
-			}
-		}
-		else
-		{
-			if (isInArray(level.active_powerup_hud_array[self.team], self))
-			{
-				arrayRemoveValue(level.active_powerup_hud_array[self.team], self);
-
-				self thread powerup_hud_move();
-
-				self thread powerup_fade_over_time();
-			}
-		}
-
-		wait 0.05;
-	}
-}
-
-powerup_hud_destroy_on_intermission()
-{
-	level waittill("intermission");
-
-	self destroy();
-}
-
-powerup_hud_move()
-{
-	offset_x = 37;
-
-	if ((level.active_powerup_hud_array[self.team].size % 2) == 0)
-	{
-		offset_x /= 2;
-	}
-
-	start_x = int(level.active_powerup_hud_array[self.team].size / 2) * (-1 * offset_x);
-
-	for (i = 0; i < level.active_powerup_hud_array[self.team].size; i++)
-	{
-		level.active_powerup_hud_array[self.team][i] moveOverTime(0.5);
-		level.active_powerup_hud_array[self.team][i].x = start_x + (i * 37);
-	}
-}
-
-powerup_fade_over_time()
-{
-	wait 0.1;
-
-	if (!level.zombie_vars[self.team][self.on_string])
-	{
-		self fadeOverTime(0.5);
-		self.alpha = 0;
 	}
 }
 
