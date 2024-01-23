@@ -269,7 +269,11 @@ function GetMapMaterialName(map, gamemode, location)
 		gamemode = "zencounter"
 	end
 
-	if location == "power" or location == "tunnel" or location == "cornfield" then
+	if location == "power" then
+		return "menu_zm_map_transit_blit_power"
+	end
+
+	if location == "tunnel" or location == "cornfield" then
 		gamemode = "zsurvival"
 		location = "transit"
 	end
