@@ -316,6 +316,7 @@ create_map_image_hud(image, x, y)
 	hud.alignx = "center";
 	hud.aligny = "middle";
 	hud.sort = -1;
+	hud.foreground = 1;
 	hud.alpha = 1;
 	hud setShader(image, 175, 85);
 
@@ -333,6 +334,7 @@ create_map_name_hud(name, x, y)
 	hud.vertalign = "middle";
 	hud.alignx = "center";
 	hud.aligny = "middle";
+	hud.foreground = 1;
 	hud.alpha = 1;
 	hud setText(name);
 
@@ -350,6 +352,7 @@ create_map_gametype_hud(name, x, y)
 	hud.vertalign = "middle";
 	hud.alignx = "center";
 	hud.aligny = "middle";
+	hud.foreground = 1;
 	hud.alpha = 1;
 	hud setText(name);
 
@@ -367,6 +370,7 @@ create_map_vote_count_hud(x, y)
 	hud.vertalign = "middle";
 	hud.alignx = "center";
 	hud.aligny = "middle";
+	hud.foreground = 1;
 	hud.alpha = 1;
 	hud setValue(0);
 
@@ -384,6 +388,7 @@ create_map_vote_input_hud(x, y)
 	hud.vertalign = "middle";
 	hud.alignx = "center";
 	hud.aligny = "middle";
+	hud.foreground = 1;
 	hud.alpha = 1;
 	hud setText(&"ZOMBIE_VOTE_HOWTO");
 
@@ -401,6 +406,7 @@ create_map_vote_timer_hud(x, y, time)
 	hud.vertalign = "middle";
 	hud.alignx = "center";
 	hud.aligny = "middle";
+	hud.foreground = 1;
 	hud.alpha = 1;
 	hud.label = &"ZOMBIE_HUD_VOTE_TIME";
 	hud setTimer(time);
@@ -417,6 +423,7 @@ create_map_select_hud(x, y)
 	hud.vertalign = "middle";
 	hud.alignx = "center";
 	hud.aligny = "middle";
+	hud.foreground = 1;
 	hud.alpha = 1;
 	hud setShader("menu_zm_popup", 180, 95);
 
@@ -432,6 +439,7 @@ create_obj_select_hud(x, y)
 	hud.vertalign = "middle";
 	hud.alignx = "center";
 	hud.aligny = "middle";
+	hud.foreground = 1;
 	hud.alpha = 1;
 	hud setShader("menu_zm_popup", 180, 40);
 
@@ -441,11 +449,6 @@ create_obj_select_hud(x, y)
 player_choose_map()
 {
 	self endon("disconnect");
-
-	wait 0.1;
-
-	self.sessionstate = "playing"; // must change sessionstate or hud elems don't show
-	self setOrigin((0, 0, -10000));
 
 	self.map_select = spawnStruct();
 	self.map_select.hud = self create_map_select_hud(0, 150);
