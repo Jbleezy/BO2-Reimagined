@@ -72,7 +72,7 @@ LUI.createMenu.DPadArea = function(f1_arg0)
 		bottomAnchor = true,
 	}))
 	local f1_local3 = -88
-	local f1_local4 = -131
+	local f1_local4 = -121
 	Widget:addElement(CoD.WeaponLabel.new({
 		left = f1_local4 - 100,
 		top = f1_local3 - CoD.WeaponLabel.TextHeight,
