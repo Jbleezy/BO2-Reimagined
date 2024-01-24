@@ -16,11 +16,12 @@ CoD.MapsList.GameModes = {
 CoD.MapsList.Maps = {
 	"ZMUI_ZCLASSIC_ZM_TRANSIT_CAPS",
 	"ZMUI_ZCLASSIC_ZM_HIGHRISE_CAPS",
-	"ZMUI_ZCLASSIC_ZM_PRISON_CAPS",
 	"ZMUI_ZCLASSIC_ZM_BURIED_CAPS",
+	"ZMUI_ZCLASSIC_ZM_PRISON_CAPS",
 	"ZMUI_ZCLASSIC_ZM_TOMB_CAPS",
 }
 CoD.MapsList.Locations = {
+	"ZMUI_NUKED_STARTLOC_CAPS",
 	"ZMUI_TRANSIT_STARTLOC_CAPS",
 	"ZMUI_DINER_CAPS",
 	"ZMUI_FARM_CAPS",
@@ -28,14 +29,13 @@ CoD.MapsList.Locations = {
 	"ZMUI_TOWN_CAPS",
 	"ZMUI_TUNNEL_CAPS",
 	"ZMUI_CORNFIELD_CAPS",
-	"ZMUI_NUKED_STARTLOC_CAPS",
 	-- "ZMUI_GREEN_ROOFTOP_CAPS", -- TODO: add localized string, uncomment when location is added
 	-- "ZMUI_BLUE_ROOFTOP_CAPS", -- TODO: add localized string, uncomment when location is added
 	-- "ZMUI_BLUE_HIGHRISE_CAPS", -- TODO: add localized string, uncomment when location is added
-	"ZMUI_CELLBLOCK_CAPS",
-	"ZMUI_DOCKS_CAPS",
 	"ZMUI_STREET_LOC_CAPS",
 	"ZMUI_MAZE_CAPS",
+	"ZMUI_CELLBLOCK_CAPS",
+	"ZMUI_DOCKS_CAPS",
 	-- "ZMUI_TRENCHES_CAPS", -- TODO: add localized string, uncomment when location is added
 	-- "ZMUI_EXCAVATION_SITE_CAPS", -- TODO: add localized string, uncomment when location is added
 	-- "ZMUI_CHURCH_CAPS", -- TODO: add localized string, uncomment when location is added

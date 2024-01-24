@@ -692,6 +692,14 @@
 * All quests can be completed with any amount of players
 * All quests give players all perks on completion
 
+### Nuketown
+* Initial perk is no longer always Quick Revive in solo
+* Initial perk no longer always spawns in the starting area in solo
+* Initial perk spawns at round 1 in coop
+* Perks spawn every 5 rounds
+* Increased intermission time from 7.5 seconds to 15 seconds
+* Fixed Mystery Box floating in the sky at the beginning of the game
+
 ### Tranzit
 * Power switch and Pack-a-Punch automatically crafted
 * Any door that requires a Turbine to open is automatically open whenever the power is on
@@ -765,14 +773,6 @@
 * No perks
 * Pack-a-Punch
 
-### Nuketown
-* Initial perk is no longer always Quick Revive in solo
-* Initial perk no longer always spawns in the starting area in solo
-* Initial perk spawns at round 1 in coop
-* Perks spawn every 5 rounds
-* Increased intermission time from 7.5 seconds to 15 seconds
-* Fixed Mystery Box floating in the sky at the beginning of the game
-
 ### Die Rise
 * Removed key
 * Elevators and escape pod can be called without key
@@ -801,6 +801,58 @@
 * Quest (Maxis): no longer have to shoot the upgraded Ballistic Knife after collecting the corpses
 * Quest (Maxis): ball no longer requires a Trample Steam on the other side
 * Quest (Richtofen): decreased number of Sliquifier shots required for each ball from 20 to 10
+
+### Buried
+* Removed Turbine, key, booze, and candy
+* Power automatically on
+* Noose and Guillotine parts automatically picked up
+* Remington 870 MCS wallbuy chalk automatically drawn in the Center Tunnels zone
+* Moved MSMC wallbuy to its location on Borough
+* Moved buildable wallbuy in Courthouse to AN-94 wallbuy location on Borough
+* Adjusted buildable wallbuy positions
+* Drawing weapons no longer gives points
+* Arthur barricades are buyable debris
+* Arthur can be purchased to feed him candy and make him run around and kill zombies for 30 seconds
+* Ghosts no longer spawn and go after players not in the Mansion during a ghost round
+* Ghosts no longer drop free perk powerup if any player gets damaged by the ghosts
+* Fountain portal automatically active
+* Players no longer take fall damage after using the fountain teleporter
+* Players can no longer get into the corner next to Jugger-Nog
+* Removed buildable table hint icons
+* Added buildable table hint strings on buildable purchase
+* Quest: all 5 signs must be meleed for wisp to spawn
+* Quest: changed number of targets that need to be hit to 20 multiplied by the amount of players
+* Quest: perks given on completion are no longer permament
+* Quest: completion button always activatable after completing the quest
+* Quest (Maxis): no longer need to activate the Time Bomb to be able to spawn the 2nd wisp
+* Quest (Maxis): no longer need to activate the lever in the Mansion before activating the bells
+* Quest (Maxis): bells can be activated in any order
+* Quest (Richtofen): can enter round infinity without having all players next to the Guillotine
+* Quest (Richtofen): Maze levers can be activated in an order
+* Quest (Richtofen): Richtofen zombie can only drop powerup if killed by a player
+
+#### Borough
+* Upper tunnels and bank area disabled
+* Players spawn at Stables
+* Mystery Box initially spawns at a random location
+* Added B23R, SWAT-556, Claymore, and Bowie Knife wallbuys at their locations on Buried
+* Added Remington 870 MCS wallbuy at Stables
+* Added PDW-57 wallbuy at Morgue
+* Added Vector wallbuy at Saloon
+* Added SVU-AS wallbuy at Church
+* Added Galvaknuckles wallbuy behind the top of General Store & Bank
+* Moved Quick Revive to Speed Cola's location on Borough
+* Moved Speed Cola to its location on Buried
+* Moved Stamin-Up to Vulture Aid's location on Buried
+* Added Head Chopper buildable
+* Buildables can spawn at Church buildable table
+* Added better randomization for buildables
+
+#### Maze
+* Wallbuys: SMR, Ballista, B23R, PDW-57, AN-94, LSAT
+* Perks: Jugger-Nog, Quick Revive, Speed Cola, Double Tap, Stamin-Up, Mule Kick
+* Pack-a-Punch
+* Perks and wallbuys within the maze are randomized each game
 
 ### Mob of the Dead
 * 1 afterlife max in solo
@@ -854,58 +906,6 @@
 * Perks: Jugger-Nog
 * Pack-a-Punch
 * Grief: Tower Trap targets and stuns players
-
-### Buried
-* Removed Turbine, key, booze, and candy
-* Power automatically on
-* Noose and Guillotine parts automatically picked up
-* Remington 870 MCS wallbuy chalk automatically drawn in the Center Tunnels zone
-* Moved MSMC wallbuy to its location on Borough
-* Moved buildable wallbuy in Courthouse to AN-94 wallbuy location on Borough
-* Adjusted buildable wallbuy positions
-* Drawing weapons no longer gives points
-* Arthur barricades are buyable debris
-* Arthur can be purchased to feed him candy and make him run around and kill zombies for 30 seconds
-* Ghosts no longer spawn and go after players not in the Mansion during a ghost round
-* Ghosts no longer drop free perk powerup if any player gets damaged by the ghosts
-* Fountain portal automatically active
-* Players no longer take fall damage after using the fountain teleporter
-* Players can no longer get into the corner next to Jugger-Nog
-* Removed buildable table hint icons
-* Added buildable table hint strings on buildable purchase
-* Quest: all 5 signs must be meleed for wisp to spawn
-* Quest: changed number of targets that need to be hit to 20 multiplied by the amount of players
-* Quest: perks given on completion are no longer permament
-* Quest: completion button always activatable after completing the quest
-* Quest (Maxis): no longer need to activate the Time Bomb to be able to spawn the 2nd wisp
-* Quest (Maxis): no longer need to activate the lever in the Mansion before activating the bells
-* Quest (Maxis): bells can be activated in any order
-* Quest (Richtofen): can enter round infinity without having all players next to the Guillotine
-* Quest (Richtofen): Maze levers can be activated in an order
-* Quest (Richtofen): Richtofen zombie can only drop powerup if killed by a player
-
-#### Borough
-* Upper tunnels and bank area disabled
-* Players spawn at Stables
-* Mystery Box initially spawns at a random location
-* Added B23R, SWAT-556, Claymore, and Bowie Knife wallbuys at their locations on Buried
-* Added Remington 870 MCS wallbuy at Stables
-* Added PDW-57 wallbuy at Morgue
-* Added Vector wallbuy at Saloon
-* Added SVU-AS wallbuy at Church
-* Added Galvaknuckles wallbuy behind the top of General Store & Bank
-* Moved Quick Revive to Speed Cola's location on Borough
-* Moved Speed Cola to its location on Buried
-* Moved Stamin-Up to Vulture Aid's location on Buried
-* Added Head Chopper buildable
-* Buildables can spawn at Church buildable table
-* Added better randomization for buildables
-
-#### Maze
-* Wallbuys: SMR, Ballista, B23R, PDW-57, AN-94, LSAT
-* Perks: Jugger-Nog, Quick Revive, Speed Cola, Double Tap, Stamin-Up, Mule Kick
-* Pack-a-Punch
-* Perks and wallbuys within the maze are randomized each game
 
 ### Origins
 * Door prices in solo cost the same as in coop
