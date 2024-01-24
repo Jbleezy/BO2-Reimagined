@@ -6,6 +6,7 @@ CoD.CompetitiveScoreboard.FloatingLosePointsColor = {
 	g = 0,
 	b = 0,
 }
+CoD.CompetitiveScoreboard.IsDLC1Map = CoD.Zombie.IsDLCMap(CoD.Zombie.DLC1Maps)
 CoD.CompetitiveScoreboard.IsDLC2Map = CoD.Zombie.IsDLCMap(CoD.Zombie.DLC2Maps)
 CoD.CompetitiveScoreboard.IsDLC3Map = CoD.Zombie.IsDLCMap(CoD.Zombie.DLC3Maps)
 CoD.CompetitiveScoreboard.IsDLC4Map = CoD.Zombie.IsDLCMap(CoD.Zombie.DLC4Maps)
@@ -72,7 +73,49 @@ CoD.CompetitiveScoreboard.HAVE_SHOVEL = 1
 CoD.CompetitiveScoreboard.HAVE_UG_SHOVEL = 2
 CoD.CompetitiveScoreboard.NEED_HELMET = 0
 CoD.CompetitiveScoreboard.HAVE_HELMET = 1
-if CoD.CompetitiveScoreboard.IsDLC2Map == true then
+CoD.Zombie.CharacterNameDisplayMaps = {}
+CoD.Zombie.CharacterNameDisplayMaps[1] = CoD.Zombie.MAP_ZM_TRANSIT
+CoD.Zombie.CharacterNameDisplayMaps[2] = CoD.Zombie.MAP_ZM_HIGHRISE
+CoD.Zombie.CharacterNameDisplayMaps[3] = CoD.Zombie.MAP_ZM_PRISON
+CoD.Zombie.CharacterNameDisplayMaps[4] = CoD.Zombie.MAP_ZM_BURIED
+CoD.Zombie.CharacterNameDisplayMaps[5] = CoD.Zombie.MAP_ZM_TOMB
+if Dvar.ui_mapname:get() == CoD.Zombie.MAP_ZM_TRANSIT then
+	CoD.CompetitiveScoreboard.CharacterNames = {}
+	CoD.CompetitiveScoreboard.CharacterNames[1] = {
+		name = "Misty",
+		modelName = "c_zom_player_farmgirl_fb",
+	}
+	CoD.CompetitiveScoreboard.CharacterNames[2] = {
+		name = "Marlton",
+		modelName = "c_zom_player_engineer_fb",
+	}
+	CoD.CompetitiveScoreboard.CharacterNames[3] = {
+		name = "Stuhlinger",
+		modelName = "c_zom_player_reporter_fb",
+	}
+	CoD.CompetitiveScoreboard.CharacterNames[4] = {
+		name = "Russman",
+		modelName = "c_zom_player_oldman_fb",
+	}
+elseif CoD.CompetitiveScoreboard.IsDLC1Map == true then
+	CoD.CompetitiveScoreboard.CharacterNames = {}
+	CoD.CompetitiveScoreboard.CharacterNames[1] = {
+		name = "Misty",
+		modelName = "c_zom_player_farmgirl_dlc1_fb",
+	}
+	CoD.CompetitiveScoreboard.CharacterNames[2] = {
+		name = "Marlton",
+		modelName = "c_zom_player_engineer_dlc1_fb",
+	}
+	CoD.CompetitiveScoreboard.CharacterNames[3] = {
+		name = "Stuhlinger",
+		modelName = "c_zom_player_reporter_dlc1_fb",
+	}
+	CoD.CompetitiveScoreboard.CharacterNames[4] = {
+		name = "Russman",
+		modelName = "c_zom_player_oldman_dlc1_fb",
+	}
+elseif CoD.CompetitiveScoreboard.IsDLC2Map == true then
 	CoD.CompetitiveScoreboard.CharacterNames = {}
 	CoD.CompetitiveScoreboard.CharacterNames[1] = {
 		name = "Finn",
@@ -159,9 +202,7 @@ LUI.createMenu.CompetitiveScoreboard = function(LocalClientIndex)
 			PlayerScoreListWidget.characterName:setTopBottom(false, false, -CharacterNameTextSize / 2, CharacterNameTextSize / 2)
 			PlayerScoreListWidget.characterName:setFont(CoD.fonts[CharacterNameFont])
 			PlayerScoreListWidget.characterName:setAlignment(LUI.Alignment.Right)
-			if CoD.CompetitiveScoreboard.IsDLC3Map == true then
-				PlayerScoreListWidget.characterName:registerEventHandler("character_name_fade_out", CoD.CompetitiveScoreboard.FadeoutCharacterName)
-			end
+			PlayerScoreListWidget.characterName:registerEventHandler("character_name_fade_out", CoD.CompetitiveScoreboard.FadeoutCharacterName)
 			PlayerScoreListWidget:addElement(PlayerScoreListWidget.characterName)
 		end
 		PlayerScoreListWidget.scoreText = LUI.UIText.new()
@@ -405,7 +446,7 @@ CoD.CompetitiveScoreboard.Update = function(CompetitiveScoreboardWidget, ClientI
 			if ClientIndex == ClientInstance.selfindex then
 				CoD.CompetitiveScoreboard.CompetitiveScoreShowSelf(CompetitiveScoreboardWidget.Scores[ClientScoreIndex], ClientScoreIndex, 0)
 				CompetitiveScoreboardWidget.Scores[ClientScoreIndex].scoreBg:setAlpha(1)
-				if CoD.Zombie.IsCharacterNameDisplayMap() == true then
+				if CoD.Zombie.IsCharacterNameDisplayMap() == true and CoD.CompetitiveScoreboard.ShouldUpdateCharacterName(CompetitiveScoreboardWidget, ClientInstance) then
 					CoD.CompetitiveScoreboard.UpdateCharacterName(CompetitiveScoreboardWidget, ClientInstance.modelName, CompetitiveScoreboardWidget.Scores[ClientScoreIndex], ClientIndex)
 					CoD.CompetitiveScoreboard.CompetitiveScoreTextShowPlayerColor(CompetitiveScoreboardWidget.Scores[ClientScoreIndex].characterName, ClientIndex, 0)
 				end
@@ -598,6 +639,18 @@ CoD.CompetitiveScoreboard.HasBit = function(ClientFieldValue, NavCardBit)
 	return NavCardBit <= ClientFieldValue % (NavCardBit + NavCardBit)
 end
 
+CoD.CompetitiveScoreboard.ShouldUpdateCharacterName = function(CompetitiveScoreboardWidget, ClientInstance)
+	local LocalClientIndex = ClientInstance.controller
+
+	if UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_HUD_VISIBLE) == 0 then
+		return false
+	elseif UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_IS_PLAYER_IN_AFTERLIFE) == 1 then
+		return false
+	end
+
+	return true
+end
+
 CoD.CompetitiveScoreboard.UpdateCharacterName = function(CompetitiveScoreboardWidget, ClientInstanceModelName, PlayerScoreListWidget, ClientIndex)
 	if not ClientInstanceModelName and PlayerScoreListWidget.characterName then
 		PlayerScoreListWidget.characterName:setText("")
@@ -615,10 +668,8 @@ CoD.CompetitiveScoreboard.UpdateCharacterName = function(CompetitiveScoreboardWi
 		if CharacterNameIndex > 0 and PlayerScoreListWidget.characterName then
 			PlayerScoreListWidget.characterName:setText(CoD.CompetitiveScoreboard.CharacterNames[CharacterNameIndex].name)
 			PlayerScoreListWidget.playerModelName = ClientInstanceModelName
-			if CoD.CompetitiveScoreboard.IsDLC3Map == true then
-				PlayerScoreListWidget.characterName.fadeOutTimer = LUI.UITimer.new(CoD.CompetitiveScoreboard.CHARACTER_NAME_ONSCREEN_DURATION, "character_name_fade_out", true, CompetitiveScoreboardWidget)
-				PlayerScoreListWidget.characterName:addElement(PlayerScoreListWidget.characterName.fadeOutTimer)
-			end
+			PlayerScoreListWidget.characterName.fadeOutTimer = LUI.UITimer.new(CoD.CompetitiveScoreboard.CHARACTER_NAME_ONSCREEN_DURATION, "character_name_fade_out", true, CompetitiveScoreboardWidget)
+			PlayerScoreListWidget.characterName:addElement(PlayerScoreListWidget.characterName.fadeOutTimer)
 		end
 	end
 end

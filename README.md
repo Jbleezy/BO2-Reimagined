@@ -27,8 +27,8 @@
 * Timer displayed on top right of screen
 * Health bar displayed on bottom left of screen
 * Zone name displayed on bottom left of screen
-* Added proper game mode and map name to scoreboard
-* Added icons on scoreboard when player is downed, bled out, in Who's Who mode, or in afterlife
+* Character name displayed on all maps
+* Character name fades out after 15 seconds on all maps
 * Moved points display, grenade icons, and keyboard & mouse dpad icons to their positions from Origins on all maps
 * Moved afterlife display to the right of points display
 * Weapon name is all capitalized on all maps
@@ -36,6 +36,8 @@
 * Weapon name and ammo no longer fade out
 * Grenade icons no longer fade based on how many the player currently has
 * Ammo counter no longer shows while scoped on all maps
+* Added proper game mode and map name to scoreboard
+* Added icons on scoreboard when player is downed, bled out, in Who's Who mode, or in afterlife
 * Increased waypoint offset from top of screen
 * Changed player waypoint location to be center of player instead of top of player
 * Increased distance between revive waypoint arrow and icon
