@@ -289,11 +289,12 @@ CoD.CompetitiveScoreboard.CompetitiveScoreHide = function(PlayerScoreListWidget,
 end
 
 CoD.CompetitiveScoreboard.CompetitiveScoreTextShowPlayerColor = function(Text, ClientIndex, AnimDelay)
+	local PlayerColorsIndex = (ClientIndex - 1) % 4 + 1
 	if not AnimDelay then
 		AnimDelay = 0
 	end
 	Text:beginAnimation("showplayercolor", AnimDelay)
-	Text:setRGB(CoD.Zombie.PlayerColors[ClientIndex].r, CoD.Zombie.PlayerColors[ClientIndex].g, CoD.Zombie.PlayerColors[ClientIndex].b)
+	Text:setRGB(CoD.Zombie.PlayerColors[PlayerColorsIndex].r, CoD.Zombie.PlayerColors[PlayerColorsIndex].g, CoD.Zombie.PlayerColors[PlayerColorsIndex].b)
 end
 
 CoD.CompetitiveScoreboard.UpdateVisibility = function(CompetitiveScoreboardWidget, ClientInstance)
