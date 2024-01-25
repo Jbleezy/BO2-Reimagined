@@ -13,21 +13,19 @@ init()
 precache_shaders()
 {
 	precacheshader("menu_zm_popup");
-	precacheshader("loadscreen_zm_transit_zclassic_transit");
-	precacheshader("loadscreen_zm_highrise_zclassic_rooftop");
-	precacheshader("loadscreen_zm_prison_zclassic_prison");
-	precacheshader("loadscreen_zm_buried_zclassic_processing");
-	precacheshader("loadscreen_zm_tomb_zclassic_tomb");
-	precacheshader("loadscreen_zm_transit_zstandard_transit");
-	precacheshader("loadscreen_zm_transit_zstandard_farm");
-	precacheshader("loadscreen_zm_transit_zstandard_town");
-	precacheshader("loadscreen_zm_nuked_zstandard_nuked");
-	precacheshader("loadscreen_zm_transit_zgrief_transit");
-	precacheshader("loadscreen_zm_transit_zgrief_farm");
-	precacheshader("loadscreen_zm_transit_zgrief_town");
-	precacheshader("loadscreen_zm_prison_zgrief_cellblock");
-	precacheshader("loadscreen_zm_buried_zgrief_street");
-	precacheshader("loadscreen_zm_transit_dr_zcleansed_diner");
+	precacheshader("menu_zm_transit_zclassic_transit");
+	precacheshader("menu_zm_highrise_zclassic_rooftop");
+	precacheshader("menu_zm_prison_zclassic_prison");
+	precacheshader("menu_zm_buried_zclassic_processing");
+	precacheshader("menu_zm_tomb_zclassic_tomb");
+	precacheshader("menu_zm_transit_zsurvival_transit");
+	precacheshader("menu_zm_transit_zsurvival_diner");
+	precacheshader("menu_zm_transit_zsurvival_farm");
+	precacheshader("menu_zm_transit_zsurvival_town");
+	precacheshader("menu_zm_nuked_zsurvival_nuked");
+	precacheshader("menu_zm_prison_zencounter_cellblock");
+	precacheshader("menu_zm_buried_zencounter_street");
+	precacheshader("menu_zm_map_transit_blit_power");
 }
 
 random_map_rotation()
@@ -318,7 +316,7 @@ create_map_image_hud(image, x, y)
 	hud.sort = -1;
 	hud.foreground = 1;
 	hud.alpha = 1;
-	hud setShader(image, 175, 85);
+	hud setShader(image, 180, 95);
 
 	return hud;
 }
@@ -334,6 +332,7 @@ create_map_name_hud(name, x, y)
 	hud.vertalign = "middle";
 	hud.alignx = "center";
 	hud.aligny = "middle";
+	hud.sort = 1;
 	hud.foreground = 1;
 	hud.alpha = 1;
 	hud setText(name);
@@ -352,6 +351,7 @@ create_map_gametype_hud(name, x, y)
 	hud.vertalign = "middle";
 	hud.alignx = "center";
 	hud.aligny = "middle";
+	hud.sort = 1;
 	hud.foreground = 1;
 	hud.alpha = 1;
 	hud setText(name);
@@ -370,6 +370,7 @@ create_map_vote_count_hud(x, y)
 	hud.vertalign = "middle";
 	hud.alignx = "center";
 	hud.aligny = "middle";
+	hud.sort = 1;
 	hud.foreground = 1;
 	hud.alpha = 1;
 	hud setValue(0);
@@ -731,28 +732,64 @@ get_name_for_loc(map, location, gametype)
 
 get_image_for_loc(map, location, gametype)
 {
-	if (location == "diner")
+	gamemode = get_gamemode_for_gametype(gametype);
+
+	if (location == "power")
 	{
-		return "loadscreen_zm_transit_dr_zcleansed_diner";
-	}
-	else if (location == "power" || location == "tunnel" || location == "cornfield")
-	{
-		return "loadscreen_zm_transit_zstandard_transit";
-	}
-	else if (location == "nuked")
-	{
-		return "loadscreen_zm_nuked_zstandard_nuked";
-	}
-	else if (location == "docks")
-	{
-		return "loadscreen_zm_prison_zgrief_cellblock";
-	}
-	else if (location == "maze")
-	{
-		return "loadscreen_zm_buried_zgrief_street";
+		return "menu_zm_map_transit_blit_power";
 	}
 
-	return "loadscreen_" + map + "_" + gametype + "_" + location;
+	if (map == "zm_transit" && gamemode != "zclassic")
+	{
+		gamemode = "zsurvival";
+	}
+
+	if (location == "diner")
+	{
+		gamemode = "zencounter";
+	}
+
+	if (location == "tunnel" || location == "cornfield")
+	{
+		gamemode = "zsurvival";
+		location = "transit";
+	}
+
+	if (location == "nuked")
+	{
+		gamemode = "zsurvival";
+	}
+
+	if (location == "cellblock" || location == "docks")
+	{
+		gamemode = "zencounter";
+		location = "cellblock";
+	}
+
+	if (location == "street" || location == "maze")
+	{
+		gamemode = "zencounter";
+		location = "street";
+	}
+
+	return "menu_" + map + "_" + gamemode + "_" + location;
+}
+
+get_gamemode_for_gametype(gametype)
+{
+	gamemode = "zclassic";
+
+	if (gametype == "zstandard")
+	{
+		gamemode = "zsurvival";
+	}
+
+	if (gametype == "zgrief")
+	{
+		gamemode = "zencounter";
+	}
+
+	return gamemode;
 }
 
 rotation_string_to_array(string)

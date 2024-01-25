@@ -3,6 +3,7 @@
 >name,mod
 
 include,common_mp
+include,common_zm
 include,zm_transit
 include,zm_nuked
 include,zm_highrise

@@ -261,16 +261,16 @@ CoD.MapInfoImage.ZombieUpdate = function(f6_arg0, f6_arg1, f6_arg2)
 end
 
 function GetMapMaterialName(map, gamemode, location)
+	if location == "power" then
+		return "menu_zm_map_transit_blit_power"
+	end
+
 	if map == "zm_transit" and gamemode ~= "zclassic" then
 		gamemode = "zsurvival"
 	end
 
 	if location == "diner" then
 		gamemode = "zencounter"
-	end
-
-	if location == "power" then
-		return "menu_zm_map_transit_blit_power"
 	end
 
 	if location == "tunnel" or location == "cornfield" then

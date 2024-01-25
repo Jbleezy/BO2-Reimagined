@@ -15,6 +15,18 @@ if %ERRORLEVEL% NEQ 0 pause
 
 "%OAT_BASE%\Linker.exe" ^
 --load "%cd%\zone_source\common_mp.ff" ^
+--load "%OAT_GAME%\zone\all\patch_ui_zm.ff" ^
+--load "%OAT_GAME%\zone\all\ui_zm.ff" ^
+--base-folder "%OAT_BASE%" ^
+--asset-search-path "%cd%" ^
+--source-search-path "%cd%\zone_source" ^
+--output-folder "%cd%\zone_source" common_zm
+
+if %ERRORLEVEL% NEQ 0 pause
+
+"%OAT_BASE%\Linker.exe" ^
+--load "%cd%\zone_source\common_mp.ff" ^
+--load "%cd%\zone_source\common_zm.ff" ^
 --load "%OAT_GAME%\zone\all\zm_transit_patch.ff" ^
 --load "%OAT_GAME%\zone\all\zm_transit.ff" ^
 --base-folder "%OAT_BASE%" ^
@@ -26,6 +38,7 @@ if %ERRORLEVEL% NEQ 0 pause
 
 "%OAT_BASE%\Linker.exe" ^
 --load "%cd%\zone_source\common_mp.ff" ^
+--load "%cd%\zone_source\common_zm.ff" ^
 --load "%cd%\zone_source\zm_transit.ff" ^
 --load "%OAT_GAME%\zone\all\zm_nuked_patch.ff" ^
 --load "%OAT_GAME%\zone\all\zm_nuked.ff" ^
@@ -38,6 +51,7 @@ if %ERRORLEVEL% NEQ 0 pause
 
 "%OAT_BASE%\Linker.exe" ^
 --load "%cd%\zone_source\common_mp.ff" ^
+--load "%cd%\zone_source\common_zm.ff" ^
 --load "%cd%\zone_source\zm_transit.ff" ^
 --load "%cd%\zone_source\zm_nuked.ff" ^
 --load "%OAT_GAME%\zone\all\zm_highrise_patch.ff" ^
@@ -51,6 +65,7 @@ if %ERRORLEVEL% NEQ 0 pause
 
 "%OAT_BASE%\Linker.exe" ^
 --load "%cd%\zone_source\common_mp.ff" ^
+--load "%cd%\zone_source\common_zm.ff" ^
 --load "%cd%\zone_source\zm_transit.ff" ^
 --load "%cd%\zone_source\zm_nuked.ff" ^
 --load "%cd%\zone_source\zm_highrise.ff" ^
@@ -67,6 +82,7 @@ if %ERRORLEVEL% NEQ 0 pause
 
 "%OAT_BASE%\Linker.exe" ^
 --load "%cd%\zone_source\common_mp.ff" ^
+--load "%cd%\zone_source\common_zm.ff" ^
 --load "%cd%\zone_source\zm_transit.ff" ^
 --load "%cd%\zone_source\zm_nuked.ff" ^
 --load "%cd%\zone_source\zm_highrise.ff" ^
@@ -83,6 +99,7 @@ if %ERRORLEVEL% NEQ 0 pause
 
 "%OAT_BASE%\Linker.exe" ^
 --load "%cd%\zone_source\common_mp.ff" ^
+--load "%cd%\zone_source\common_zm.ff" ^
 --load "%cd%\zone_source\zm_transit.ff" ^
 --load "%cd%\zone_source\zm_nuked.ff" ^
 --load "%cd%\zone_source\zm_highrise.ff" ^
@@ -99,6 +116,7 @@ if %ERRORLEVEL% NEQ 0 pause
 
 "%OAT_BASE%\Linker.exe" ^
 --load "%cd%\zone_source\common_mp.ff" ^
+--load "%cd%\zone_source\common_zm.ff" ^
 --load "%cd%\zone_source\zm_transit.ff" ^
 --load "%cd%\zone_source\zm_nuked.ff" ^
 --load "%cd%\zone_source\zm_highrise.ff" ^
