@@ -236,6 +236,10 @@ map_vote()
 
 	wait time;
 
+	level notify("stop_vote");
+
+	players = get_players();
+
 	index = get_map_winner();
 
 	for (i = 0; i < 3; i++)
@@ -259,11 +263,30 @@ map_vote()
 		level.zombie_vars["map_vote_count_hud"][index].x = 0;
 	}
 
-	players = get_players();
-
 	foreach (player in players)
 	{
-		player.map_select.hud.alpha = 0;
+		if (!isdefined(player.map_select))
+		{
+			continue;
+		}
+
+		for (i = 0; i < 3; i++)
+		{
+			if (i != index)
+			{
+				player.map_select.hud[i].alpha = 0;
+			}
+			else
+			{
+				player.map_select.hud[i].color = (1, 1, 1);
+			}
+		}
+
+		if (index != 1)
+		{
+			player.map_select.hud[index] moveOverTime(0.5);
+			player.map_select.hud[index].x = 0;
+		}
 	}
 
 	setDvar("sv_mapRotationCurrent", maps[index]["rotation_string"]);
@@ -290,11 +313,30 @@ map_vote()
 			level.zombie_vars["obj_vote_count_hud"][index].x = 0;
 		}
 
-		players = get_players();
-
 		foreach (player in players)
 		{
-			player.obj_select.hud.alpha = 0;
+			if (!isdefined(player.obj_select))
+			{
+				continue;
+			}
+
+			for (i = 0; i < 3; i++)
+			{
+				if (i != index)
+				{
+					player.obj_select.hud[i].alpha = 0;
+				}
+				else
+				{
+					player.obj_select.hud[i].color = (1, 1, 1);
+				}
+			}
+
+			if (index != 1)
+			{
+				player.obj_select.hud[index] moveOverTime(0.5);
+				player.obj_select.hud[index].x = 0;
+			}
 		}
 
 		setDvar("ui_gametype_obj_cur", maps[index]["obj_name"]);
@@ -452,20 +494,25 @@ player_choose_map()
 	self endon("disconnect");
 
 	self.map_select = spawnStruct();
-	self.map_select.hud = self create_map_select_hud(0, 150);
 	self.map_select.ind = 1;
 	self.map_select.selected = 0;
 	self.map_select.name = "map";
+	self.map_select.hud = [];
+	self.map_select.hud[0] = self create_map_select_hud(-200, 150);
+	self.map_select.hud[1] = self create_map_select_hud(0, 150);
+	self.map_select.hud[2] = self create_map_select_hud(200, 150);
+	self.map_select.hud[self.map_select.ind].color = (1, 1, 0);
 
 	if (level.zombie_vars["obj_vote_active"])
 	{
 		self.obj_select = spawnStruct();
-		self.obj_select.hud = self create_obj_select_hud(0, 215);
 		self.obj_select.ind = 1;
 		self.obj_select.selected = 0;
 		self.obj_select.name = "obj";
-
-		self.obj_select.hud.alpha = 0;
+		self.obj_select.hud = [];
+		self.obj_select.hud[0] = self create_obj_select_hud(-200, 215);
+		self.obj_select.hud[1] = self create_obj_select_hud(0, 215);
+		self.obj_select.hud[2] = self create_obj_select_hud(200, 215);
 	}
 
 	self notifyonplayercommand("left", "+speed_throw");
@@ -480,11 +527,11 @@ player_choose_map()
 	self thread right_watcher();
 	self thread select_watcher();
 
-	level waittill("stop_intermission");
+	level waittill("stop_vote");
 
 	self.map_select.hud destroy();
 
-	if (level.zombie_vars["obj_vote_active"])
+	if (isdefined(self.obj_select))
 	{
 		self.obj_select.hud destroy();
 	}
@@ -492,7 +539,7 @@ player_choose_map()
 
 left_watcher()
 {
-	level endon("stop_intermission");
+	level endon("stop_vote");
 	self endon("disconnect");
 
 	while (1)
@@ -506,21 +553,23 @@ left_watcher()
 			continue;
 		}
 
-		if (select.ind == 0)
-		{
-			select.ind = 2;
-			select.hud.x += 400;
-			continue;
-		}
+		prev_ind = select.ind;
 
 		select.ind--;
-		select.hud.x -= 200;
+
+		if (select.ind < 0)
+		{
+			select.ind = 2;
+		}
+
+		select.hud[prev_ind].color = (1, 1, 1);
+		select.hud[select.ind].color = (1, 1, 0);
 	}
 }
 
 right_watcher()
 {
-	level endon("stop_intermission");
+	level endon("stop_vote");
 	self endon("disconnect");
 
 	while (1)
@@ -534,21 +583,23 @@ right_watcher()
 			continue;
 		}
 
-		if (select.ind == 2)
-		{
-			select.ind = 0;
-			select.hud.x -= 400;
-			continue;
-		}
+		prev_ind = select.ind;
 
 		select.ind++;
-		select.hud.x += 200;
+
+		if (select.ind > 2)
+		{
+			select.ind = 0;
+		}
+
+		select.hud[prev_ind].color = (1, 1, 1);
+		select.hud[select.ind].color = (1, 1, 0);
 	}
 }
 
 select_watcher()
 {
-	level endon("stop_intermission");
+	level endon("stop_vote");
 	self endon("disconnect");
 
 	while (1)
@@ -565,14 +616,17 @@ select_watcher()
 		if (!select.selected)
 		{
 			select.selected = 1;
-			select.hud.color = (0, 1, 0);
+			select.hud[select.ind].color = (0, 1, 0);
 
 			if (select.name == "map")
 			{
 				level.zombie_vars["map_votes"][select.ind]++;
 				level.zombie_vars["map_vote_count_hud"][select.ind] setValue(level.zombie_vars["map_votes"][select.ind]);
 
-				self.obj_select.hud.alpha = 1;
+				if (isdefined(self.obj_select))
+				{
+					self.obj_select.hud[self.obj_select.ind].color = (1, 1, 0);
+				}
 			}
 			else
 			{
@@ -587,7 +641,7 @@ get_player_select()
 {
 	if (self.map_select.selected)
 	{
-		if (level.zombie_vars["obj_vote_active"])
+		if (isdefined(self.obj_select))
 		{
 			if (self.obj_select.selected)
 			{
@@ -730,6 +784,7 @@ get_name_for_loc(map, location, gametype)
 	return "";
 }
 
+// should always match function GetMapMaterialName from mapinfoimage.lua
 get_image_for_loc(map, location, gametype)
 {
 	gamemode = get_gamemode_for_gametype(gametype);
