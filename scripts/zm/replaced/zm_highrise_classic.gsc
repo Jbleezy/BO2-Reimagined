@@ -440,3 +440,8 @@ escape_pod_get_all_alive_players_inside()
 
 	return players_in_escape_pod;
 }
+
+turn_off_whoswho()
+{
+	self setclientfieldtoplayer("clientfield_whos_who_filter", 0);
+}

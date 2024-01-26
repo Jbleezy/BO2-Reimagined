@@ -783,16 +783,17 @@
 * Moved weapon locker to the downstairs fridge
 * Quick Revive elevator randomizes with Speed Cola and Who's Who elevators
 * Pack-a-Punch can be used while elevator is moving
-* Doors that open the same zone in the Lower Blue Highrise area open together
+* Doors that open the same zone in the Blue Highrise area open together
 * Zombies killed by an elevator no longer respawn
 * Zombies are no longer killed while spawning in a stationary elevator
-* Zombies no longer spawn in the Upper Blue Highrise area when in the Green Highrise area
-* Zombies no longer spawn across from the debris in the Lower Orange Highrise area when the debris is closed
-* Zombies no longer fall off the map traversing down to the Green Highrise Level 1 area
-* Leapers no longer fall off the map traversing up to the Escape Pod Shaft area
+* Zombies no longer spawn in the Blue Rooftop area when in the Green Rooftop area
+* Zombies no longer spawn across from the debris in the Orange Highrise area when the debris is closed
+* Zombies no longer fall off the map traversing down to the Green Rooftop Level 1A zone
+* Leapers no longer fall off the map traversing up to the Escape Pod Shaft zone
 * Fixed weapon model angle on upside down Mystery Box
-* Fixed zombies spawning in the elevator below the starting room when in the starting room
-* Fixed zombies not bleeding out in the Green Highrise Level 1b zone when the debris is closed and there are no players in the zone
+* Fixed zombies spawning in the elevator below the Green Rooftop Level 3B zone when in the Green Rooftop Level 3B zone
+* Fixed zombies not bleeding out in the Green Rooftop Level 1B zone when the debris is closed and there are no players in the zone
+* Fixed Who's Who vision filter showing momentarily when the game ended
 * Quest: elevator symbols can be activated without players on every symbol
 * Quest: elevator symbols stay active after activating once
 * Quest: floor symbols can be activated in any order
