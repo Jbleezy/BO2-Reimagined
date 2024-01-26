@@ -290,6 +290,7 @@ CoD.PrivateGameLobby.PopulateButtons_Project_Zombie = function(PrivateGameLobbyB
 		-- end
 		AddGameOptionsButtons(PrivateGameLobbyButtonPane, CoD.PrivateGameLobby.GameTypeSettings, "gts")
 		AddGameOptionsButtons(PrivateGameLobbyButtonPane, CoD.PrivateGameLobby.Dvars, "dvar")
+		PrivateGameLobbyButtonPane:registerEventHandler("start_game", CoD.PrivateGameLobby.ButtonStartGame)
 		PrivateGameLobbyButtonPane:registerEventHandler("enable_sliding_zm", CoD.PrivateGameLobby.EnableSlidingZombie)
 		PrivateGameLobbyButtonPane.defaultFocusButton = PrivateGameLobbyButtonPane.body.startMatchButton
 		PrivateGameLobbyButtonPane.body.buttonList.hintText:setAlpha(1)
@@ -328,6 +329,10 @@ CoD.PrivateGameLobby.PopulateButtons_Project_Zombie = function(PrivateGameLobbyB
 	if PrivateGameLobbyButtonPane.menuName ~= "TheaterLobby" then
 		CoD.GameGlobeZombie.MoveToUpDirectly()
 	end
+end
+
+CoD.PrivateGameLobby.ButtonStartGame = function(PrivateGameLobbyButtonPane, ClientInstance)
+	Engine.Exec(ClientInstance.controller, "xpartygo")
 end
 
 CoD.PrivateGameLobby.ButtonGameLobbyUpdate_Zombie = function(GametypeSettingButton, f14_arg1)

@@ -15,8 +15,9 @@
 ## Change Notes
 
 ## General
-* Removed round cap
+* Removed 5 second wait before match start
 * Removed fog
+* Removed round cap
 * Disabled depth of field
 * Increased level of detail at longer distances
 * Announcer audio always plays
