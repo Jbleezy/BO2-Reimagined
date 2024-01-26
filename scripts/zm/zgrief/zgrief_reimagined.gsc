@@ -406,6 +406,7 @@ set_grief_vars()
 	setDvar("ui_round_number", level.snr_round_number);
 
 	level.noroundnumber = 1;
+	level.hide_revive_message = 1;
 	level.custom_end_screen = ::custom_end_screen;
 	level.game_module_onplayerconnect = ::grief_onplayerconnect;
 	level.game_mode_custom_onplayerdisconnect = ::grief_onplayerdisconnect;
