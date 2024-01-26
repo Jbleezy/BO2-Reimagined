@@ -3,6 +3,8 @@
 
 main()
 {
+	replaceFunc(clientscripts\mp\zombies\_zm_ai_brutus::brutusfootstepcbfunc, scripts\zm\replaced\_zm_ai_brutus::brutusfootstepcbfunc);
+
 	if (is_gametype_active("zstandard"))
 	{
 		level.zombiemode_using_additionalprimaryweapon_perk = 1;

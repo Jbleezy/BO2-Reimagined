@@ -1,9 +1,12 @@
 script,scripts/zm/_zm_reimagined.csc
 script,scripts/zm/zm_nuked/zm_nuked_reimagined.csc
-script,scripts/zm/zm_buried/zm_buried_reimagined.csc
 script,scripts/zm/zm_prison/zm_prison_reimagined.csc
+script,scripts/zm/zm_buried/zm_buried_reimagined.csc
+script,scripts/zm/zm_tomb/zm_tomb_reimagined.csc
 script,scripts/zm/zgrief/zgrief_reimagined.csc
 script,scripts/zm/replaced/_zm.csc
+script,scripts/zm/replaced/_zm_ai_brutus.csc
+script,scripts/zm/replaced/_zm_ai_mechz.csc
 script,scripts/zm/replaced/_zm_weapons.csc
 script,scripts/zm/replaced/zm_nuked.csc
 script,scripts/zm/replaced/zm_buried.csc

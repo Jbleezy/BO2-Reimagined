@@ -127,12 +127,13 @@
 
 ### Brutus
 * Smoke Grenade kills zombies
+* Decreased footstep screen shake by 25%
 * Increased player damage from 99 to 100
 * No longer receives additional damage from Ray Gun Mark 2
 * Teleports away less frequently
-* Grief: spawns every 4-6 minutes
 
 ### Panzersoldat
+* Decreased footstep screen shake by 25%
 * No longer receives additional damage from Boomhilda or Ray Gun Mark 2
 
 ## Weapons
@@ -954,10 +955,11 @@
 ### Encounter
 * Group of competitive game modes
 * Unlimited zombies
-* 2500 health zombies (25000 health Brutus)
+* 2500 health zombies (25000 health boss zombies)
 * 0.5 second zombie spawn rate
 * Only sprinting zombies
 * Crawlers bleed out if they have not dealt or taken damage within 30 seconds
+* Boss zombies spawn every 4-6 minutes (on maps that have them)
 * Unlimited powerups
 * Unlimited barrier rebuild points
 * Unupgraded weapons stun enemy players for 0.5 seconds
