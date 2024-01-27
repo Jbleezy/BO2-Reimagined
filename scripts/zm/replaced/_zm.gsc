@@ -1215,71 +1215,70 @@ take_additionalprimaryweapon()
 	self.a_saved_weapon = undefined;
 
 	if (isdefined(self._retain_perks) && self._retain_perks || isdefined(self._retain_perks_array) && (isdefined(self._retain_perks_array["specialty_additionalprimaryweapon"]) && self._retain_perks_array["specialty_additionalprimaryweapon"]))
-		return weapon_to_take;
+		return undefined;
 
-	primary_weapons_that_can_be_taken = [];
-	primaryweapons = self getweaponslistprimaries();
+	weapon_to_take = self.weapon_to_take_by_losing_specialty_additionalprimaryweapon;
 
-	for (i = 0; i < primaryweapons.size; i++)
+	if (!isDefined(weapon_to_take) || !self hasWeapon(weapon_to_take))
 	{
-		if (maps\mp\zombies\_zm_weapons::is_weapon_included(primaryweapons[i]) || maps\mp\zombies\_zm_weapons::is_weapon_upgraded(primaryweapons[i]))
-			primary_weapons_that_can_be_taken[primary_weapons_that_can_be_taken.size] = primaryweapons[i];
+		return undefined;
 	}
 
-	pwtcbt = primary_weapons_that_can_be_taken.size;
+	self.a_saved_weapon = maps\mp\zombies\_zm_weapons::get_player_weapondata(self, weapon_to_take);
 
-	while (pwtcbt >= 3)
+	name = self.a_saved_weapon["name"];
+	dw_name = weaponDualWieldWeaponName(name);
+	alt_name = weaponAltWeaponName(name);
+
+	clip_missing = weaponClipSize(name) - self.a_saved_weapon["clip"];
+
+	if (clip_missing > self.a_saved_weapon["stock"])
 	{
-		weapon_to_take = primary_weapons_that_can_be_taken[pwtcbt - 1];
-		pwtcbt--;
-
-		self.a_saved_weapon = maps\mp\zombies\_zm_weapons::get_player_weapondata(self, weapon_to_take);
-
-		name = self.a_saved_weapon["name"];
-		dw_name = weaponDualWieldWeaponName(name);
-		alt_name = weaponAltWeaponName(name);
-
-		clip_missing = weaponClipSize(name) - self.a_saved_weapon["clip"];
-
-		if (clip_missing > self.a_saved_weapon["stock"])
-		{
-			clip_missing = self.a_saved_weapon["stock"];
-		}
-
-		self.a_saved_weapon["clip"] += clip_missing;
-		self.a_saved_weapon["stock"] -= clip_missing;
-
-		if (dw_name != "none")
-		{
-			clip_dualwield_missing = weaponClipSize(dw_name) - self.a_saved_weapon["lh_clip"];
-
-			if (clip_dualwield_missing > self.a_saved_weapon["stock"])
-			{
-				clip_dualwield_missing = self.a_saved_weapon["stock"];
-			}
-
-			self.a_saved_weapon["lh_clip"] += clip_dualwield_missing;
-			self.a_saved_weapon["stock"] -= clip_dualwield_missing;
-		}
-
-		if (alt_name != "none")
-		{
-			clip_alt_missing = weaponClipSize(alt_name) - self.a_saved_weapon["alt_clip"];
-
-			if (clip_alt_missing > self.a_saved_weapon["alt_stock"])
-			{
-				clip_alt_missing = self.a_saved_weapon["alt_stock"];
-			}
-
-			self.a_saved_weapon["alt_clip"] += clip_alt_missing;
-			self.a_saved_weapon["alt_stock"] -= clip_alt_missing;
-		}
-
-		if (weapon_to_take == self getcurrentweapon())
-			self switchtoweapon(primary_weapons_that_can_be_taken[0]);
-
-		self takeweapon(weapon_to_take);
+		clip_missing = self.a_saved_weapon["stock"];
 	}
+
+	self.a_saved_weapon["clip"] += clip_missing;
+	self.a_saved_weapon["stock"] -= clip_missing;
+
+	if (dw_name != "none")
+	{
+		clip_dualwield_missing = weaponClipSize(dw_name) - self.a_saved_weapon["lh_clip"];
+
+		if (clip_dualwield_missing > self.a_saved_weapon["stock"])
+		{
+			clip_dualwield_missing = self.a_saved_weapon["stock"];
+		}
+
+		self.a_saved_weapon["lh_clip"] += clip_dualwield_missing;
+		self.a_saved_weapon["stock"] -= clip_dualwield_missing;
+	}
+
+	if (alt_name != "none")
+	{
+		clip_alt_missing = weaponClipSize(alt_name) - self.a_saved_weapon["alt_clip"];
+
+		if (clip_alt_missing > self.a_saved_weapon["alt_stock"])
+		{
+			clip_alt_missing = self.a_saved_weapon["alt_stock"];
+		}
+
+		self.a_saved_weapon["alt_clip"] += clip_alt_missing;
+		self.a_saved_weapon["alt_stock"] -= clip_alt_missing;
+	}
+
+	if (weapon_to_take == self getcurrentweapon())
+	{
+		for (i = 0; i < self.weapon_slots.size; i++)
+		{
+			if (isdefined(self.weapon_slots[i]) && self.weapon_slots[i] != weapon_to_take)
+			{
+				self switchtoweapon(self.weapon_slots[i]);
+				break;
+			}
+		}
+	}
+
+	self takeweapon(weapon_to_take);
 
 	return weapon_to_take;
 }

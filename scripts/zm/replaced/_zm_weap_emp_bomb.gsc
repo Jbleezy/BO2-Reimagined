@@ -300,7 +300,7 @@ player_perk_pause(perk)
 
 		if (issubstr(perk, "specialty_scavenger"))
 		{
-			self.hasperkspecialtytombstone = 0;
+			self.hasperkspecialtytombstone = undefined;
 		}
 
 		if (isDefined(level._custom_perks[perk]) && isDefined(level._custom_perks[perk].player_thread_take))

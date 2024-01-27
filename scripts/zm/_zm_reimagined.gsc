@@ -2637,14 +2637,18 @@ additionalprimaryweapon_indicator()
 	vars = [];
 	vars["prev_weapon_name"] = "";
 
+	self.weapon_slots = [];
+	self.weapon_to_take_by_losing_specialty_additionalprimaryweapon = undefined;
+
 	while (1)
 	{
 		wait 0.05;
 
-		if (!is_player_valid(self) || !self hasPerk("specialty_additionalprimaryweapon"))
+		if (!self hasPerk("specialty_additionalprimaryweapon"))
 		{
 			if (vars["prev_weapon_name"] != "")
 			{
+				self.weapon_to_take_by_losing_specialty_additionalprimaryweapon = undefined;
 				self setClientDvar("additionalPrimaryWeaponName", "");
 				vars["prev_weapon_name"] = "";
 			}
@@ -2663,12 +2667,55 @@ additionalprimaryweapon_indicator()
 			}
 		}
 
-		vars["size"] = vars["primary_weapons_that_can_be_taken"].size;
+		for (i = 0; i < self.weapon_slots.size; i++)
+		{
+			if (!self hasWeapon(self.weapon_slots[i]))
+			{
+				self.weapon_slots[i] = undefined;
+			}
+		}
 
-		if (vars["size"] < 3)
+		// remove any trailing undefined slots
+		for (i = self.weapon_slots.size - 1; i >= 0; i--)
+		{
+			if (isDefined(self.weapon_slots[i]))
+			{
+				break;
+			}
+
+			arrayRemoveIndex(self.weapon_slots[i], i);
+		}
+
+		for (i = 0; i < vars["primary_weapons_that_can_be_taken"].size; i++)
+		{
+			vars["weapon"] = vars["primary_weapons_that_can_be_taken"][i];
+
+			if (!isInArray(self.weapon_slots, vars["weapon"]))
+			{
+				vars["added"] = 0;
+
+				for (j = 0; j < self.weapon_slots.size; j++)
+				{
+					if (!isDefined(self.weapon_slots[j]))
+					{
+						vars["added"] = 1;
+						self.weapon_slots[j] = vars["weapon"];
+						break;
+					}
+				}
+
+				if (!vars["added"])
+				{
+					self.weapon_slots[self.weapon_slots.size] = vars["weapon"];
+				}
+			}
+		}
+
+		if (vars["primary_weapons_that_can_be_taken"].size < 3)
 		{
 			if (vars["prev_weapon_name"] != "")
 			{
+				self.weapon_to_take_by_losing_specialty_additionalprimaryweapon = undefined;
 				self setClientDvar("additionalPrimaryWeaponName", "");
 				vars["prev_weapon_name"] = "";
 			}
@@ -2676,11 +2723,12 @@ additionalprimaryweapon_indicator()
 			continue;
 		}
 
-		vars["weapon"] = vars["primary_weapons_that_can_be_taken"][vars["size"] - 1];
+		vars["weapon"] = self.weapon_slots[self.weapon_slots.size - 1];
 		vars["weapon_name"] = getweapondisplayname(vars["weapon"]);
 
 		if (vars["prev_weapon_name"] != vars["weapon_name"])
 		{
+			self.weapon_to_take_by_losing_specialty_additionalprimaryweapon = vars["weapon"];
 			self setClientDvar("additionalPrimaryWeaponName", vars["weapon_name"]);
 			vars["prev_weapon_name"] = vars["weapon_name"];
 		}

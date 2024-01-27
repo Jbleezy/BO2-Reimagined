@@ -154,13 +154,17 @@ round_end(winner)
 
 	foreach (player in players)
 	{
-		// don't spawn tombstone powerup on next down
-		player.hasperkspecialtytombstone = undefined;
-
 		if (is_player_valid(player))
 		{
 			// don't give perk
 			player notify("perk_abort_drinking");
+
+			// stop active perks
+			foreach (perk in player.perks_active)
+			{
+				player notify(perk + "_stop");
+			}
+
 			// save weapons
 			player [[level._game_module_player_laststand_callback]]();
 		}
@@ -268,6 +272,8 @@ zombie_goto_round(target_round)
 	game["axis_spawnpoints_randomized"] = undefined;
 	game["allies_spawnpoints_randomized"] = undefined;
 	set_game_var("switchedsides", !get_game_var("switchedsides"));
+
+	waittillframeend; // wait for active perks to be stopped
 
 	maps\mp\zombies\_zm_game_module::respawn_players();
 

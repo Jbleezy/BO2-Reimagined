@@ -875,6 +875,10 @@ perk_think(perk)
 			}
 
 			break;
+
+		case "specialty_scavenger":
+			self.hasperkspecialtytombstone = undefined;
+			break;
 	}
 
 	if (isDefined(level._custom_perks[perk]) && isDefined(level._custom_perks[perk].player_thread_take))
