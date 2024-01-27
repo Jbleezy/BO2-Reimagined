@@ -1,4 +1,9 @@
 require("T6.HUD.HUDDigit")
+
+if UIExpression.DvarString(nil, "additionalPrimaryWeaponName") == "" then
+	Engine.SetDvar("additionalPrimaryWeaponName", "")
+end
+
 CoD.AmmoAreaZombie = {}
 CoD.AmmoAreaZombie.Right = -28
 CoD.AmmoAreaZombie.Bottom = -7
@@ -140,6 +145,22 @@ LUI.createMenu.AmmoAreaZombie = function(f1_arg0)
 	f1_local29:setAlignment(LUI.Alignment.Right)
 	f1_local0.weaponLabelContainer:addElement(f1_local29)
 	f1_local0.weaponText = f1_local29
+
+	local additionalPrimaryWeaponImageSize = f1_local27 * 0.75
+	f1_local0.additionalPrimaryWeaponImage = LUI.UIImage.new({
+		left = -additionalPrimaryWeaponImageSize,
+		top = -additionalPrimaryWeaponImageSize / 2 - f1_local28 - additionalPrimaryWeaponImageSize - 2,
+		right = 0,
+		bottom = additionalPrimaryWeaponImageSize / 2 - f1_local28 - additionalPrimaryWeaponImageSize - 2,
+		leftAnchor = false,
+		topAnchor = false,
+		rightAnchor = true,
+		bottomAnchor = false,
+		material = RegisterMaterial("specialty_additionalprimaryweapon_zombies"),
+		alpha = 0,
+	})
+	f1_local0.weaponLabelContainer:addElement(f1_local0.additionalPrimaryWeaponImage)
+
 	f1_local0:registerEventHandler("hud_update_ammo", CoD.AmmoAreaZombie.UpdateAmmo)
 	f1_local0:registerEventHandler("hud_update_weapon", CoD.AmmoAreaZombie.UpdateWeapon)
 	f1_local0:registerEventHandler("hud_update_weapon_select", CoD.AmmoAreaZombie.UpdateWeaponSelect)
@@ -605,13 +626,20 @@ CoD.AmmoAreaZombie.UpdateWeapon = function(f12_arg0, f12_arg1)
 end
 
 CoD.AmmoAreaZombie.UpdateWeaponSelect = function(f13_arg0, f13_arg1)
+	f13_arg0.weaponLabelName = UIExpression.ToUpper(nil, Engine.Localize(f13_arg1.weaponDisplayName))
+	f13_arg0.additionalPrimaryWeaponName = UIExpression.ToUpper(nil, Engine.Localize(UIExpression.DvarString(nil, "additionalPrimaryWeaponName")))
+
 	f13_arg0.weaponLabelContainer:setAlpha(1)
-	local f13_local0 = UIExpression.ToUpper(nil, Engine.Localize(f13_arg1.weaponDisplayName))
-	if CoD.isZombie == true then
-		f13_arg0.weaponText:setText(f13_local0)
-	end
+	f13_arg0.weaponText:setText(f13_arg0.weaponLabelName)
 	-- f13_arg0.weaponLabelContainer:beginAnimation("fade_out", CoD.WeaponLabel.FadeTime)
 	-- f13_arg0.weaponLabelContainer:setAlpha(0)
+
+	if UIExpression.DvarString(nil, "additionalPrimaryWeaponName") ~= "" and f13_arg0.additionalPrimaryWeaponName == f13_arg0.weaponLabelName then
+		f13_arg0.additionalPrimaryWeaponImage:setAlpha(1)
+	else
+		f13_arg0.additionalPrimaryWeaponImage:setAlpha(0)
+	end
+
 	f13_arg0:dispatchEventToChildren(f13_arg1)
 end
 

@@ -836,7 +836,7 @@ zone_name_hud()
 		vars["zone"] = self get_current_zone();
 		vars["zone_name"] = get_zone_display_name(vars["zone"]);
 
-		if (vars["prev_zone_name"] != vars["zone_name"])
+		if (vars["zone_name"] != vars["prev_zone_name"])
 		{
 			if (vars["prev_zone_name"] != "")
 			{
@@ -2634,89 +2634,57 @@ additionalprimaryweapon_indicator()
 		return;
 	}
 
-	hud = newClientHudElem(self);
-	hud.alignx = "right";
-	hud.aligny = "bottom";
-	hud.horzalign = "user_right";
-	hud.vertalign = "user_bottom";
-
-	if (level.script == "zm_highrise")
-	{
-		hud.x -= 60;
-		hud.y -= 55;
-	}
-	else
-	{
-		hud.x -= 60;
-		hud.y -= 80;
-	}
-
-	hud.alpha = 0;
-	hud.color = (1, 1, 1);
-	hud.hidewheninmenu = 1;
-	hud setShader("specialty_additionalprimaryweapon_zombies", 24, 24);
-
-	hud thread destroy_on_intermission();
+	vars = [];
+	vars["prev_weapon_name"] = "";
 
 	while (1)
 	{
-		self waittill_any("weapon_change", "specialty_additionalprimaryweapon_stop", "player_downed", "spawned_player");
+		wait 0.05;
 
 		if (!is_player_valid(self) || !self hasPerk("specialty_additionalprimaryweapon"))
 		{
-			hud fadeOverTime(0.5);
-			hud.alpha = 0;
+			if (vars["prev_weapon_name"] != "")
+			{
+				self setClientDvar("additionalPrimaryWeaponName", "");
+				vars["prev_weapon_name"] = "";
+			}
+
 			continue;
 		}
 
-		primary_weapons_that_can_be_taken = [];
-		primaryweapons = self getweaponslistprimaries();
+		vars["primary_weapons_that_can_be_taken"] = [];
+		vars["primaryweapons"] = self getweaponslistprimaries();
 
-		for (i = 0; i < primaryweapons.size; i++)
+		for (i = 0; i < vars["primaryweapons"].size; i++)
 		{
-			if (maps\mp\zombies\_zm_weapons::is_weapon_included(primaryweapons[i]) || maps\mp\zombies\_zm_weapons::is_weapon_upgraded(primaryweapons[i]))
+			if (maps\mp\zombies\_zm_weapons::is_weapon_included(vars["primaryweapons"][i]) || maps\mp\zombies\_zm_weapons::is_weapon_upgraded(vars["primaryweapons"][i]))
 			{
-				primary_weapons_that_can_be_taken[primary_weapons_that_can_be_taken.size] = primaryweapons[i];
+				vars["primary_weapons_that_can_be_taken"][vars["primary_weapons_that_can_be_taken"].size] = vars["primaryweapons"][i];
 			}
 		}
 
-		pwtcbt = primary_weapons_that_can_be_taken.size;
+		vars["size"] = vars["primary_weapons_that_can_be_taken"].size;
 
-		if (pwtcbt < 3)
+		if (vars["size"] < 3)
 		{
-			hud fadeOverTime(0.5);
-			hud.alpha = 0;
+			if (vars["prev_weapon_name"] != "")
+			{
+				self setClientDvar("additionalPrimaryWeaponName", "");
+				vars["prev_weapon_name"] = "";
+			}
+
 			continue;
 		}
 
-		weapon = primary_weapons_that_can_be_taken[pwtcbt - 1];
+		vars["weapon"] = vars["primary_weapons_that_can_be_taken"][vars["size"] - 1];
+		vars["weapon_name"] = getweapondisplayname(vars["weapon"]);
 
-		if (self getCurrentWeapon() != weapon)
+		if (vars["prev_weapon_name"] != vars["weapon_name"])
 		{
-			hud fadeOverTime(0.5);
-			hud.alpha = 0;
-			continue;
+			self setClientDvar("additionalPrimaryWeaponName", vars["weapon_name"]);
+			vars["prev_weapon_name"] = vars["weapon_name"];
 		}
-
-		self thread additionalprimaryweapon_indicator_show_and_hide(hud);
 	}
-}
-
-additionalprimaryweapon_indicator_show_and_hide(hud)
-{
-	self endon("disconnect");
-	self endon("player_downed");
-	self endon("spawned_player");
-	self endon("weapon_change");
-	self endon("specialty_additionalprimaryweapon_stop");
-
-	hud fadeOverTime(0.5);
-	hud.alpha = 1;
-
-	wait 1.5;
-
-	hud fadeOverTime(0.5);
-	hud.alpha = 0;
 }
 
 additionalprimaryweapon_stowed_weapon_refill()

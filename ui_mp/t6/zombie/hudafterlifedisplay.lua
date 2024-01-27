@@ -32,12 +32,11 @@ LUI.createMenu.AfterlifeArea = function(f1_arg0)
 	Widget:addElement(afterlifeIcon)
 	f1_local0.afterlifeIcon = afterlifeIcon
 
-	local f1_local4 = 25
-
 	f1_local0.bottomRightScaleContainer = CoD.SplitscreenScaler.new(nil, CoD.Zombie.SplitscreenMultiplier)
-	f1_local0.bottomRightScaleContainer:setLeftRight(false, true, f1_local4, f1_local4)
-	f1_local0.bottomRightScaleContainer:setTopBottom(false, true, 3, 3)
+	f1_local0.bottomRightScaleContainer:setLeftRight(false, true, 25, 25)
+	f1_local0.bottomRightScaleContainer:setTopBottom(false, true, -17, -17)
 	f1_local0:addElement(f1_local0.bottomRightScaleContainer)
+
 	local f1_local5 = -32
 	local f1_local6 = 135
 	local Widget = LUI.UIElement.new()
