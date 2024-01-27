@@ -1217,6 +1217,8 @@ take_additionalprimaryweapon()
 	if (isdefined(self._retain_perks) && self._retain_perks || isdefined(self._retain_perks_array) && (isdefined(self._retain_perks_array["specialty_additionalprimaryweapon"]) && self._retain_perks_array["specialty_additionalprimaryweapon"]))
 		return undefined;
 
+	self scripts\zm\_zm_reimagined::additionalprimaryweapon_update_weapon_slots();
+
 	weapon_to_take = self.weapon_to_take_by_losing_specialty_additionalprimaryweapon;
 
 	if (!isDefined(weapon_to_take) || !self hasWeapon(weapon_to_take))
