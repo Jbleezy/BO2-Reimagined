@@ -25,8 +25,8 @@ LUI.createMenu.CraftablesTombArea = function(f1_arg0)
 	local f1_local0 = CoD.Menu.NewSafeAreaFromState("CraftablesTombArea", f1_arg0)
 	f1_local0:setOwner(f1_arg0)
 	f1_local0.topLeftScaleContainer = CoD.SplitscreenScaler.new(nil, CoD.Zombie.SplitscreenMultiplier)
-	f1_local0.topLeftScaleContainer:setLeftRight(true, false, 0, 0)
-	f1_local0.topLeftScaleContainer:setTopBottom(true, false, 0, 0)
+	f1_local0.topLeftScaleContainer:setLeftRight(true, false, 8, 8)
+	f1_local0.topLeftScaleContainer:setTopBottom(true, false, 30, 30)
 	f1_local0:addElement(f1_local0.topLeftScaleContainer)
 	local f1_local1 = CoD.QuestItemTombDisplay.IconSize
 	local f1_local2 = CoD.QuestItemTombDisplay.ContainerSize / 4
@@ -63,8 +63,8 @@ LUI.createMenu.CraftablesTombArea = function(f1_arg0)
 	f1_local0.topRightScaleContainer:setLeftRight(false, true, 0, 0)
 	f1_local0.topRightScaleContainer:setTopBottom(true, false, 0, 0)
 	f1_local0:addElement(f1_local0.topRightScaleContainer)
-	local f1_local12 = 10
-	local f1_local13 = 10
+	local f1_local12 = 0
+	local f1_local13 = 60
 	local f1_local14 = 120
 	local Widget = LUI.UIElement.new()
 	Widget:setLeftRight(false, true, -f1_local14 - f1_local12, -f1_local12)
