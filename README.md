@@ -863,7 +863,7 @@
 * Spawn facing towards the afterlife player model when entering afterlife
 * Doors can no longer be purchased when entering afterlife
 * Afterlife player model has collision
-* Key no longer shows on HUD
+* Key on HUD fades out
 * Plane parts are shared in coop
 * Plane parts must be all acquired to craft
 * Plane no longer has to be refueled
