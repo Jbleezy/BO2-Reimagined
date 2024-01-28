@@ -35,6 +35,8 @@ LUI.createMenu.CraftablesTombArea = function(f1_arg0)
 	f1_local4:setLeftRight(true, true, 0, 0)
 	f1_local4:setTopBottom(true, false, 0, CoD.CraftablesTomb.ContainerHeight)
 	local f1_local5 = CoD.PersistentItemTombDisplay.new(f1_local4)
+	f1_local5.shouldFadeOutQuestStatus = true
+	f1_local5.highlightRecentItem = true
 	f1_local0.topLeftScaleContainer:addElement(f1_local5)
 	CoD.PersistentItemTombDisplay.AddPersistentStatusDisplay(f1_local5, f1_local2, f1_local3)
 	local f1_local6 = 90

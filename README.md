@@ -915,7 +915,7 @@
 * Shovels automatically picked up
 * Records automatically picked up
 * Gramophone initially spawns at Excavation Site gramophone table
-* Musical parts no longer show on HUD
+* Musical parts on HUD fade out
 * Added attachment name on HUD for upgraded attachment weapons
 * Generators: increased capture reward points from 100 to 200
 * Generators: always give back refund points if player was in the generator zone when captured
