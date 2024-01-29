@@ -147,9 +147,9 @@ CoD.QuestItemDisplay.AddPersistentIcon = function(f2_arg0)
 	f2_local3:setTopBottom(false, true, -CoD.QuestItemDisplay.IconSize, 0)
 	self:addElement(f2_local3)
 	CoD.CraftablesIcon.new(f2_local3, CoD.QuestItemDisplay.glowBackColor, CoD.QuestItemDisplay.glowFrontColor)
-	if f2_local3.grunge then
-		f2_local3.grunge:setAlpha(CoD.CraftablesIcon.GrungeAlpha)
-	end
+	-- if f2_local3.grunge then
+	-- 	f2_local3.grunge:setAlpha(CoD.CraftablesIcon.GrungeAlpha)
+	-- end
 	local f2_local4 = LUI.UIImage.new()
 	f2_local4:setLeftRight(true, true, 0, 0)
 	f2_local4:setTopBottom(true, true, 0, 0)
