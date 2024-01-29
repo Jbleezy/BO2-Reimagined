@@ -915,6 +915,7 @@
 * Shovels automatically picked up
 * Records automatically picked up
 * Gramophone initially spawns at Excavation Site gramophone table
+* Musical parts on HUD change record color to show which table the gramophone is currently placed at
 * Musical parts on HUD fade out
 * Added attachment name on HUD for upgraded attachment weapons
 * Generators: increased capture reward points from 100 to 200

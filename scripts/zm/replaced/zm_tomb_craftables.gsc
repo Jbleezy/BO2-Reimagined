@@ -51,6 +51,53 @@ init_craftables()
 	level.n_staffs_crafted = 0;
 }
 
+register_clientfields()
+{
+	bits = 1;
+	registerclientfield("world", "piece_quadrotor_zm_body", 14000, bits, "int", undefined, 0);
+	registerclientfield("world", "piece_quadrotor_zm_brain", 14000, bits, "int", undefined, 0);
+	registerclientfield("world", "piece_quadrotor_zm_engine", 14000, bits, "int", undefined, 0);
+	registerclientfield("world", "piece_riotshield_dolly", 14000, bits, "int", undefined, 0);
+	registerclientfield("world", "piece_riotshield_door", 14000, bits, "int", undefined, 0);
+	registerclientfield("world", "piece_riotshield_clamp", 14000, bits, "int", undefined, 0);
+	registerclientfield("world", "piece_staff_zm_gem_air", 14000, bits, "int", undefined, 0);
+	registerclientfield("world", "piece_staff_zm_ustaff_air", 14000, bits, "int", undefined, 0);
+	registerclientfield("world", "piece_staff_zm_mstaff_air", 14000, bits, "int", undefined, 0);
+	registerclientfield("world", "piece_staff_zm_lstaff_air", 14000, bits, "int", undefined, 0);
+	registerclientfield("world", "piece_staff_zm_gem_fire", 14000, bits, "int", undefined, 0);
+	registerclientfield("world", "piece_staff_zm_ustaff_fire", 14000, bits, "int", undefined, 0);
+	registerclientfield("world", "piece_staff_zm_mstaff_fire", 14000, bits, "int", undefined, 0);
+	registerclientfield("world", "piece_staff_zm_lstaff_fire", 14000, bits, "int", undefined, 0);
+	registerclientfield("world", "piece_staff_zm_gem_lightning", 14000, bits, "int", undefined, 0);
+	registerclientfield("world", "piece_staff_zm_ustaff_lightning", 14000, bits, "int", undefined, 0);
+	registerclientfield("world", "piece_staff_zm_mstaff_lightning", 14000, bits, "int", undefined, 0);
+	registerclientfield("world", "piece_staff_zm_lstaff_lightning", 14000, bits, "int", undefined, 0);
+	registerclientfield("world", "piece_staff_zm_gem_water", 14000, bits, "int", undefined, 0);
+	registerclientfield("world", "piece_staff_zm_ustaff_water", 14000, bits, "int", undefined, 0);
+	registerclientfield("world", "piece_staff_zm_mstaff_water", 14000, bits, "int", undefined, 0);
+	registerclientfield("world", "piece_staff_zm_lstaff_water", 14000, bits, "int", undefined, 0);
+	registerclientfield("world", "piece_record_zm_player", 14000, bits, "int", undefined, 0);
+	registerclientfield("world", "piece_record_zm_vinyl_master", 14000, 3, "int", undefined, 0);
+	registerclientfield("world", "piece_record_zm_vinyl_air", 14000, bits, "int", undefined, 0);
+	registerclientfield("world", "piece_record_zm_vinyl_water", 14000, bits, "int", undefined, 0);
+	registerclientfield("world", "piece_record_zm_vinyl_fire", 14000, bits, "int", undefined, 0);
+	registerclientfield("world", "piece_record_zm_vinyl_lightning", 14000, bits, "int", undefined, 0);
+	registerclientfield("scriptmover", "element_glow_fx", 14000, 4, "int", undefined, 0);
+	registerclientfield("scriptmover", "bryce_cake", 14000, 2, "int", undefined, 0);
+	registerclientfield("scriptmover", "switch_spark", 14000, 1, "int", undefined, 0);
+	bits = getminbitcountfornum(5);
+	registerclientfield("world", "staff_player1", 14000, bits, "int", undefined, 0);
+	registerclientfield("world", "staff_player2", 14000, bits, "int", undefined, 0);
+	registerclientfield("world", "staff_player3", 14000, bits, "int", undefined, 0);
+	registerclientfield("world", "staff_player4", 14000, bits, "int", undefined, 0);
+	bits = getminbitcountfornum(5);
+	registerclientfield("world", "quest_state1", 14000, bits, "int", undefined, 0);
+	registerclientfield("world", "quest_state2", 14000, bits, "int", undefined, 0);
+	registerclientfield("world", "quest_state3", 14000, bits, "int", undefined, 0);
+	registerclientfield("world", "quest_state4", 14000, bits, "int", undefined, 0);
+	registerclientfield("toplayer", "sndMudSlow", 14000, 1, "int");
+}
+
 include_craftables()
 {
 	level thread run_craftables_devgui();

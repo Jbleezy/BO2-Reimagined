@@ -524,6 +524,7 @@ run_gramophone_teleporter(str_vinyl_record)
 				self.gramophone_model.angles = self.angles;
 				self.gramophone_model setmodel("p6_zm_tm_gramophone");
 				level setclientfield("piece_record_zm_player", 0);
+				level setclientfield("piece_record_zm_vinyl_master", self.script_int + 1);
 				flag_set("gramophone_placed");
 
 				foreach (trigger in level.gramophone_teleporter_triggers)
@@ -560,6 +561,7 @@ run_gramophone_teleporter(str_vinyl_record)
 			player playsound("zmb_craftable_pickup");
 			flag_clear("gramophone_placed");
 			level setclientfield("piece_record_zm_player", 1);
+			level setclientfield("piece_record_zm_vinyl_master", 1);
 			break;
 		}
 	}
