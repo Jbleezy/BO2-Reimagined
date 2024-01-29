@@ -2636,6 +2636,7 @@ additionalprimaryweapon_indicator()
 
 	vars = [];
 	vars["prev_weapon_name"] = "";
+	self setClientDvar("additionalPrimaryWeaponName", "");
 
 	while (1)
 	{
