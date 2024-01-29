@@ -594,7 +594,7 @@ run_gramophone_door(str_vinyl_record)
 	trig_position thread watch_gramophone_vinyl_pickup();
 	trig_position thread door_watch_open_sesame();
 	t_door = tomb_spawn_trigger_radius(trig_position.origin, 60.0, 1);
-	t_door set_unitrigger_hint_string(&"ZM_TOMB_PLGR");
+	t_door set_unitrigger_hint_string(&"ZM_TOMB_PLAY_RECORD");
 	level waittill_any("gramophone_vinyl_player_picked_up", "open_sesame", "open_all_gramophone_doors");
 
 	flag_wait("initial_blackscreen_passed");
