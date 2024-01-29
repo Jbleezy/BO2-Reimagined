@@ -157,6 +157,15 @@ CoD.QuestItemDisplay.AddPersistentIcon = function(f2_arg0)
 	f2_local4.inUse = nil
 	f2_arg0.craftableIcon = f2_local4
 	f2_local3:addElement(f2_local4)
+
+	f2_local4.highlight = CoD.Border.new(1, 1, 1, 1, 0.1)
+	f2_local4.highlight:setPriority(100)
+	f2_local4.highlight:setLeftRight(true, true, 0, 0)
+	f2_local4.highlight:setTopBottom(true, true, 0, 0)
+	f2_local4.highlight:registerEventHandler("button_over", CoD.CraftablesIcon.HighlightButtonOver)
+	f2_local4.highlight:registerEventHandler("button_up", CoD.CraftablesIcon.HighlightButtonUp)
+	f2_local4:addElement(f2_local4.highlight)
+
 	f2_arg0:addElement(self)
 end
 
@@ -495,6 +504,7 @@ CoD.QuestItemDisplay.UpdateKeyIconState = function(f15_arg0, f15_arg1, f15_arg2)
 	elseif f15_arg0.craftableIcon and f15_arg1 == 0 and f15_arg2 == 1 then
 		f15_arg0.craftableIcon:setAlpha(1)
 		f15_arg0.craftableIcon:setImage(CoD.QuestItemDisplay.KeyMaterial)
+		f15_arg0.craftableIcon.highlight:alternateStates(CoD.QuestItemDisplay.ONSCREEN_DURATION, CoD.CraftablesIcon.PulseRedBright, CoD.CraftablesIcon.PulseRedLow, 500, 500, CoD.CraftablesIcon.PulseWhite)
 		f15_arg0.craftableIcon.inUse = true
 		f15_arg0.persQuestContainer:setAlpha(1)
 		if f15_arg0.persQuestTitle then
