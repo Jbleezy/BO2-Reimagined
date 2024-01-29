@@ -917,6 +917,8 @@
 * Gramophone initially spawns at Excavation Site gramophone table
 * Musical parts on HUD change record color to show which table the gramophone is currently placed at
 * Musical parts on HUD fade out
+* Staff parts on HUD correctly show that a player has a staff and a gem
+* Staff parts on HUD no longer show that a player has a staff when it is crafted
 * Added attachment name on HUD for upgraded attachment weapons
 * Generators: increased capture reward points from 100 to 200
 * Generators: always give back refund points if player was in the generator zone when captured

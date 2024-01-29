@@ -86,6 +86,10 @@ register_clientfields()
 	registerclientfield("scriptmover", "bryce_cake", 14000, 2, "int", undefined, 0);
 	registerclientfield("scriptmover", "switch_spark", 14000, 1, "int", undefined, 0);
 	bits = getminbitcountfornum(5);
+	registerclientfield("world", "gem_player1", 14000, bits, "int", undefined, 0);
+	registerclientfield("world", "gem_player2", 14000, bits, "int", undefined, 0);
+	registerclientfield("world", "gem_player3", 14000, bits, "int", undefined, 0);
+	registerclientfield("world", "gem_player4", 14000, bits, "int", undefined, 0);
 	registerclientfield("world", "staff_player1", 14000, bits, "int", undefined, 0);
 	registerclientfield("world", "staff_player2", 14000, bits, "int", undefined, 0);
 	registerclientfield("world", "staff_player3", 14000, bits, "int", undefined, 0);
@@ -652,4 +656,53 @@ track_staff_weapon_respawn_player_disconnect_monitor(player)
 	model = getent("craftable_" + self.base_weaponname, "targetname");
 	model show();
 	flag_set(self.base_weaponname + "_enabled");
+}
+
+onpickup_crystal(player, elementname, elementenum)
+{
+	onpickup_common(player);
+	level setclientfield("piece_staff_zm_gem_" + elementname, 1);
+	n_player = player getentitynumber() + 1;
+	level setclientfield("gem_player" + n_player, elementenum);
+
+	if (flag("any_crystal_picked_up"))
+		self.piecestub.vox_id = undefined;
+
+	flag_set("any_crystal_picked_up");
+}
+
+clear_player_crystal(n_element)
+{
+	if (n_element == self.crystal_id)
+	{
+		n_player = self getentitynumber() + 1;
+		level setclientfield("gem_player" + n_player, 0);
+		self.crystal_id = 0;
+	}
+}
+
+staff_fullycrafted(modelname, elementenum)
+{
+	player = get_closest_player(self.origin);
+	staff_model = getent(modelname, "targetname");
+	staff_info = get_staff_info_from_element_index(elementenum);
+	staff_model useweaponmodel(staff_info.weapname);
+	staff_model showallparts();
+	level notify("quest_progressed", player, 0);
+
+	if (!isdefined(staff_model.inused))
+	{
+		staff_model show();
+		staff_model.inused = 1;
+		level.n_staffs_crafted++;
+
+		if (level.n_staffs_crafted == 4)
+			flag_set("ee_all_staffs_crafted");
+	}
+
+	player clear_player_crystal(elementenum);
+
+	str_fieldname = "quest_state" + elementenum;
+	level setclientfield(str_fieldname, 3);
+	return true;
 }

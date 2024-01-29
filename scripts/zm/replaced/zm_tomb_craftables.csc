@@ -62,6 +62,14 @@ register_clientfields()
 	setupclientfieldcodecallbacks("world", 1, "piece_record_zm_vinyl_fire");
 	setupclientfieldcodecallbacks("world", 1, "piece_record_zm_vinyl_lightning");
 	bits = getminbitcountfornum(5);
+	registerclientfield("world", "gem_player1", 14000, bits, "int", undefined, 0, 1);
+	registerclientfield("world", "gem_player2", 14000, bits, "int", undefined, 0, 1);
+	registerclientfield("world", "gem_player3", 14000, bits, "int", undefined, 0, 1);
+	registerclientfield("world", "gem_player4", 14000, bits, "int", undefined, 0, 1);
+	setupclientfieldcodecallbacks("world", 1, "gem_player1");
+	setupclientfieldcodecallbacks("world", 1, "gem_player2");
+	setupclientfieldcodecallbacks("world", 1, "gem_player3");
+	setupclientfieldcodecallbacks("world", 1, "gem_player4");
 	registerclientfield("world", "staff_player1", 14000, bits, "int", undefined, 0, 1);
 	registerclientfield("world", "staff_player2", 14000, bits, "int", undefined, 0, 1);
 	registerclientfield("world", "staff_player3", 14000, bits, "int", undefined, 0, 1);
