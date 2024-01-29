@@ -189,12 +189,12 @@ CoD.PersistentItemTombDisplay.PersistentIconUpdate = function(f5_arg0, f5_arg1)
 	local f5_local2 = CoD.PersistentItemTombDisplay.GetCurrentStatusIndex(f5_arg0, CoD.PersistentItemTombDisplay.PersistentClientFieldName)
 	local f5_local3 = f5_arg0.statusIcons[f5_local2]
 	CoD.PersistentItemTombDisplay.GemStatusStates[CoD.PersistentItemTombDisplay.GetCurrentGemIndex(f5_local2)].currentState = f5_local0
-	if not f5_local3 then
-		return
-	else
-		CoD.PersistentItemTombDisplay.UpdateQuestContainerAndTitle(f5_arg0, f5_arg1)
-		CoD.PersistentItemTombDisplay.UpdatePersistentGemIconStates(f5_local3, f5_local0)
-	end
+	-- if not f5_local3 then
+	-- 	return
+	-- else
+	-- 	CoD.PersistentItemTombDisplay.UpdateQuestContainerAndTitle(f5_arg0, f5_arg1)
+	-- 	CoD.PersistentItemTombDisplay.UpdatePersistentGemIconStates(f5_local3, f5_local0)
+	-- end
 end
 
 CoD.PersistentItemTombDisplay.ScoreboardUpdate = function(f6_arg0, f6_arg1)
@@ -273,7 +273,8 @@ CoD.PersistentItemTombDisplay.UpdatePersistentGemIconStates = function(f11_arg0,
 		f11_arg0.icon:setAlpha(1)
 		f11_arg0.icon:setImage(CoD.PersistentItemTombDisplay.GemClientFieldNames[f11_arg1].material)
 	else
-		f11_arg0:setAlpha(0)
+		f11_arg0:setAlpha(1)
+		f11_arg0.icon:setAlpha(0)
 	end
 end
 
