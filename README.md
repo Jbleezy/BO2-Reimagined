@@ -657,10 +657,11 @@
 * Changed body chop player damage to 25 (normally deals 75 damage to torso or 37 damage to feet)
 * Fixed an issue where each chop would only damage entities that were touching the damage trigger during the previous chop
 
-### Blundergat Upgrade
+### Acid Gat Kit
 * Player does knuckle crack anim during conversion
 * Requires player's current weapon to be the Blundergat to convert
 * Requires player to be looking at the buildable table to convert
+* Changed craft hint string from "Blundergat Upgrade" to "Acid Gat Kit"
 
 ### Maxis Drone
 * Kills on any round in 1-4 shots (normally does 12000 damage max)
@@ -888,6 +889,7 @@
 * Tower Trap (upgraded): upgrading no longer resets the duration of the trap
 * Zombies spawn in the Docks zone when in the Docks Gates zone
 * Zombies spawn in the Docks Gates zone when in the Docks zone
+* Changed Zombie Shield recipe name on HUD from "Shield" to "Zombie Shield"
 * Quest: Blundergat gets full ammo when picked up (normally missing one clip)
 * Quest: number pad only needs each number to be shocked once in order to complete
 * Quest: can enter the plane in afterlife with any amount of players
@@ -898,7 +900,7 @@
 * Quest: showdown target waypoint shows offscreen
 * Fixed initial weapon raise anim happening after exiting afterlife
 * Fixed being able to hit a death barrier when jumping off the Docks Bridge zone
-* Fixed locked hint string not showing on Blundergat Upgrade buildable table
+* Fixed locked hint string not showing on Acid Gat Kit buildable table
 
 ### Cell Block
 * Zombies spawn in the Cell Block 3rd Floor zone

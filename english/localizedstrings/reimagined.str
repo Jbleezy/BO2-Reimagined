@@ -282,6 +282,9 @@ LANG_ENGLISH        "Meat thrown!"
 REFERENCE           ZOMBIE_MEAT_RESET
 LANG_ENGLISH        "Meat reset!"
 
+REFERENCE           ZM_PRISON_SHIELD
+LANG_ENGLISH        "Zombie Shield"
+
 // ZONE NAMES
 
 REFERENCE           ZM_TRANSIT_ZONE_PRI
@@ -1161,8 +1164,11 @@ LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Sliquifier"
 REFERENCE           ZM_HIGHRISE_GRAB_SLIPGUN
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to take Sliquifier [Cost: &&1]"
 
+REFERENCE           ZM_PRISON_CRAFT_PACKASPLAT
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Acid Gat Kit"
+
 REFERENCE           ZM_PRISON_CONVERT_START
-LANG_ENGLISH        "Hold ^3[{+activate}]^7 to convert Blundergat into Acidgat [Cost: &&1]"
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to convert Blundergat into Acid Gat [Cost: &&1]"
 
 REFERENCE           ZM_BURIED_EQ_SW_PHS
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to pick up Subsurface Resonator"
