@@ -50,7 +50,7 @@ LUI.createMenu.CraftablesTombArea = function(f1_arg0)
 		f1_local8.shouldFadeOutQuestStatus = true
 		f1_local8.highlightRecentItem = true
 	end
-	local f1_local9 = f1_local6 + 100
+	local f1_local9 = f1_local6 + 90
 	local f1_local10 = LUI.UIVerticalList.new()
 	f1_local10:setLeftRight(true, true, 0, 0)
 	f1_local10:setTopBottom(true, false, f1_local9, f1_local9 + CoD.CraftablesTomb.ContainerHeight)

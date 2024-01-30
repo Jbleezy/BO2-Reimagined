@@ -1682,8 +1682,7 @@ temp_disable_offhand_weapons()
 
 buildbuildables()
 {
-	// need a wait or else some buildables dont build
-	wait 1;
+	wait 1; // need a wait or else some buildables dont build
 
 	if (is_classic())
 	{
@@ -1926,8 +1925,12 @@ unregister_tower_unitriggers()
 // MOTD\Origins style buildables
 buildcraftables()
 {
-	// need a wait or else some buildables dont build
-	wait 1;
+	flag_wait("initial_blackscreen_passed");
+
+	if (is_true(level.zombiemode_using_afterlife))
+	{
+		flag_wait("afterlife_start_over");
+	}
 
 	if (is_classic())
 	{

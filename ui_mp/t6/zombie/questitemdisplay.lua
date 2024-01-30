@@ -121,6 +121,7 @@ CoD.QuestItemDisplay.new = function(f1_arg0)
 	f1_arg0:registerEventHandler(CoD.QuestItemDisplay.KeyClientFieldName, CoD.QuestItemDisplay.UpdateKeyStatus)
 	f1_arg0:registerEventHandler(CoD.QuestItemDisplay.PlaneCraftedClientFieldName, CoD.QuestItemDisplay.UpdatedPlaneCompletedStatus)
 	f1_arg0.visible = true
+	CoD.QuestItemDisplay.QuestItemDisplayHUD = f1_arg0
 	return f1_arg0
 end
 
@@ -164,7 +165,7 @@ CoD.QuestItemDisplay.AddPersistentIcon = function(f2_arg0)
 	f2_local4.highlight:setTopBottom(true, true, 0, 0)
 	f2_local4.highlight:registerEventHandler("button_over", CoD.CraftablesIcon.HighlightButtonOver)
 	f2_local4.highlight:registerEventHandler("button_up", CoD.CraftablesIcon.HighlightButtonUp)
-	f2_local4:addElement(f2_local4.highlight)
+	f2_local3:addElement(f2_local4.highlight)
 
 	f2_arg0:addElement(self)
 end
@@ -309,6 +310,17 @@ CoD.QuestItemDisplay.PlayerPieceOwner = function(f4_arg0, f4_arg1)
 end
 
 CoD.QuestItemDisplay.UpdateQuest = function(f5_arg0, f5_arg1)
+	if f5_arg1.newValue == 0 then
+		CoD.QuestItemDisplay.initKeyStatusUpdated = false
+	end
+
+	if f5_arg1.oldValue == 0 and f5_arg1.newValue == 2 then
+		if not CoD.QuestItemDisplay.initKeyStatusUpdated then
+			CoD.QuestItemDisplay.initKeyStatusUpdated = true
+			CoD.QuestItemDisplay.UpdateKeyStatus(CoD.QuestItemDisplay.QuestItemDisplayHUD, f5_arg1, 1)
+		end
+	end
+
 	CoD.QuestItemDisplay.UpdateQuestStatus(f5_arg0, f5_arg1)
 	if f5_arg1.oldValue ~= 0 or f5_arg1.newValue ~= 0 then
 		if f5_arg0.questStatusContainer then
@@ -493,17 +505,31 @@ CoD.QuestItemDisplay.UpdatePersistentIconState = function(f13_arg0, f13_arg1, f1
 	end
 end
 
-CoD.QuestItemDisplay.UpdateKeyStatus = function(f14_arg0, f14_arg1)
-	CoD.QuestItemDisplay.HaveKeyInScoreboard = true
-	CoD.QuestItemDisplay.UpdateKeyIconState(f14_arg0, f14_arg1.oldValue, f14_arg1.newValue)
+CoD.QuestItemDisplay.UpdateKeyStatus = function(f14_arg0, f14_arg1, initKeyState)
+	if not initKeyState then
+		CoD.QuestItemDisplay.HaveKeyInScoreboard = true
+	end
+
+	CoD.QuestItemDisplay.UpdateKeyIconState(f14_arg0, f14_arg1.oldValue, f14_arg1.newValue, initKeyState)
 end
 
-CoD.QuestItemDisplay.UpdateKeyIconState = function(f15_arg0, f15_arg1, f15_arg2)
+CoD.QuestItemDisplay.UpdateKeyIconState = function(f15_arg0, f15_arg1, f15_arg2, initKeyState)
+	if initKeyState then
+		f15_arg2 = 1
+	end
+
 	if not CoD.QuestItemDisplay.CurrentMapName or f15_arg2 < 0 then
 		return
 	elseif f15_arg0.craftableIcon and f15_arg1 == 0 and f15_arg2 == 1 then
 		f15_arg0.craftableIcon:setAlpha(1)
 		f15_arg0.craftableIcon:setImage(CoD.QuestItemDisplay.KeyMaterial)
+
+		if initKeyState then
+			f15_arg0.craftableIcon:setAlpha(CoD.QuestItemDisplay.NeedItemAlpha)
+		else
+			f15_arg0.craftableIcon:setAlpha(1)
+		end
+
 		f15_arg0.craftableIcon.highlight:alternateStates(CoD.QuestItemDisplay.ONSCREEN_DURATION, CoD.CraftablesIcon.PulseRedBright, CoD.CraftablesIcon.PulseRedLow, 500, 500, CoD.CraftablesIcon.PulseWhite)
 		f15_arg0.craftableIcon.inUse = true
 		f15_arg0.persQuestContainer:setAlpha(1)

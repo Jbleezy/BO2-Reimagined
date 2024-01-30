@@ -117,3 +117,24 @@ include_craftables()
 	plane.custom_craftablestub_update_prompt = ::prison_plane_update_prompt;
 	include_craftable(refuelable_plane);
 }
+
+planecraftable()
+{
+	level thread alcatraz_craftable_trigger_think("plane_craftable_trigger", "plane", "plane", "", 1, 0);
+	level setclientfield("quest_plane_craft_complete", 0);
+
+	level thread setclientfield_quest_states_init();
+}
+
+setclientfield_quest_states_init()
+{
+	flag_wait("initial_blackscreen_passed");
+
+	if (is_true(level.zombiemode_using_afterlife))
+	{
+		flag_wait("afterlife_start_over");
+	}
+
+	for (i = 1; i <= 5; i++)
+		level setclientfield("quest_state" + i, 2);
+}

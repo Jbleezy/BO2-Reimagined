@@ -604,6 +604,8 @@ run_gramophone_door(str_vinyl_record)
 	while (!trig_position.has_vinyl)
 		wait 0.05;
 
+	wait 0.05;
+
 	t_door.initial_placed = 1;
 	trig_position.gramophone_model = spawn("script_model", trig_position.origin);
 	trig_position.gramophone_model.angles = trig_position.angles;

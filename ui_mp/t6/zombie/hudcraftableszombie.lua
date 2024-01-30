@@ -16,7 +16,7 @@ LUI.createMenu.CraftablesArea = function(f1_arg0)
 	local f1_local3 = CoD.QuestItemDisplay.ContainerSize / 4
 	if CoD.Zombie.SoloQuestMode == false then
 		CoD.QuestItemDisplay.AddPersistentIcon(f1_local2)
-		f1_local2:addSpacer(f1_local3 * 2)
+		f1_local2:addSpacer(90 - CoD.QuestItemDisplay.ContainerSize)
 	end
 	local f1_local4 = false
 	local f1_local5 = true
@@ -30,7 +30,7 @@ LUI.createMenu.CraftablesArea = function(f1_arg0)
 	end
 	local f1_local6 = LUI.UIVerticalList.new()
 	f1_local6:setLeftRight(true, true, 0, 0)
-	f1_local6:setTopBottom(true, true, 200, 0)
+	f1_local6:setTopBottom(true, true, 180, 0)
 	local f1_local7 = CoD.CraftableItemDisplay.new(f1_local6)
 	f1_local0.scaleContainer:addElement(f1_local7)
 	if not CoD.Zombie.LocalSplitscreenMultiplePlayers then
