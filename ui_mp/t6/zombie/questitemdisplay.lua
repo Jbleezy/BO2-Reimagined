@@ -398,16 +398,16 @@ end
 CoD.QuestItemDisplay.UpdateQuestStates = function(f10_arg0, f10_arg1)
 	if f10_arg1 == CoD.QuestItemDisplay.STATE_NEED_FIRST_ITEM or f10_arg1 == CoD.QuestItemDisplay.STATE_HAVE_FIRST_ITEM or f10_arg1 == CoD.QuestItemDisplay.STATE_NEED_SECOND_ITEM then
 		f10_arg0.crossoutImage:setAlpha(0)
-		if f10_arg0.grunge then
-			f10_arg0.grunge:setAlpha(0)
-		end
+		-- if f10_arg0.grunge then
+		-- 	f10_arg0.grunge:setAlpha(0)
+		-- end
 		f10_arg0.icon:setImage(CoD.QuestItemDisplay.GetMaterial(f10_arg0.clientFieldName))
 		f10_arg0.icon:setAlpha(CoD.QuestItemDisplay.NeedItemAlpha)
 	elseif f10_arg1 == CoD.QuestItemDisplay.STATE_HAVE_SECOND_ITEM then
 		f10_arg0.crossoutImage:setAlpha(0)
-		if f10_arg0.grunge then
-			f10_arg0.grunge:setAlpha(CoD.CraftablesIcon.GrungeAlpha)
-		end
+		-- if f10_arg0.grunge then
+		-- 	f10_arg0.grunge:setAlpha(CoD.CraftablesIcon.GrungeAlpha)
+		-- end
 		f10_arg0.icon:setImage(CoD.QuestItemDisplay.GetMaterial(f10_arg0.clientFieldName))
 		f10_arg0.icon:setAlpha(1)
 	elseif f10_arg1 == CoD.QuestItemDisplay.STATE_USED_SECOND_ITEM then
@@ -416,16 +416,16 @@ CoD.QuestItemDisplay.UpdateQuestStates = function(f10_arg0, f10_arg1)
 		f10_arg0.icon:setAlpha(CoD.QuestItemDisplay.NeedItemAlpha)
 	elseif f10_arg1 == CoD.QuestItemDisplay.STATE_NEED_THIRD_ITEM then
 		f10_arg0.crossoutImage:setAlpha(0)
-		if f10_arg0.grunge then
-			f10_arg0.grunge:setAlpha(0)
-		end
+		-- if f10_arg0.grunge then
+		-- 	f10_arg0.grunge:setAlpha(0)
+		-- end
 		f10_arg0.icon:setImage(CoD.QuestItemDisplay.QuestPlusMaterial)
 		f10_arg0.icon:setAlpha(CoD.QuestItemDisplay.NeedItemAlpha)
 	elseif f10_arg1 == CoD.QuestItemDisplay.STATE_HAVE_THIRD_ITEM then
 		f10_arg0.crossoutImage:setAlpha(0)
-		if f10_arg0.grunge then
-			f10_arg0.grunge:setAlpha(CoD.CraftablesIcon.GrungeAlpha)
-		end
+		-- if f10_arg0.grunge then
+		-- 	f10_arg0.grunge:setAlpha(CoD.CraftablesIcon.GrungeAlpha)
+		-- end
 		f10_arg0.icon:setImage(CoD.QuestItemDisplay.QuestPlusMaterial)
 		f10_arg0.icon:setAlpha(1)
 	elseif f10_arg1 == CoD.QuestItemDisplay.STATE_USED_THIRD_ITEM then

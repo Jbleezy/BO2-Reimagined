@@ -662,6 +662,7 @@
 * Requires player's current weapon to be the Blundergat to convert
 * Requires player to be looking at the buildable table to convert
 * Changed craft hint string from "Blundergat Upgrade" to "Acid Gat Kit"
+* Fixed buildable table not showing locked hint string
 
 ### Maxis Drone
 * Kills on any round in 1-4 shots (normally does 12000 damage max)
@@ -889,7 +890,10 @@
 * Tower Trap (upgraded): upgrading no longer resets the duration of the trap
 * Zombies spawn in the Docks zone when in the Docks Gates zone
 * Zombies spawn in the Docks Gates zone when in the Docks zone
-* Changed Zombie Shield recipe name on HUD from "Shield" to "Zombie Shield"
+* Removed background color from plane parts on HUD
+* Changed name of Zombie Shield recipe on HUD from "Shield" to "Zombie Shield"
+* Changed background color of Zombie Shield parts on HUD from green to grey
+* Changed background color of Acid Gat Kit parts on HUD from blue to green
 * Quest: Blundergat gets full ammo when picked up (normally missing one clip)
 * Quest: number pad only needs each number to be shocked once in order to complete
 * Quest: can enter the plane in afterlife with any amount of players
@@ -900,7 +904,6 @@
 * Quest: showdown target waypoint shows offscreen
 * Fixed initial weapon raise anim happening after exiting afterlife
 * Fixed being able to hit a death barrier when jumping off the Docks Bridge zone
-* Fixed locked hint string not showing on Acid Gat Kit buildable table
 
 ### Cell Block
 * Zombies spawn in the Cell Block 3rd Floor zone
@@ -921,6 +924,8 @@
 * Musical parts on HUD fade out
 * Staff parts on HUD correctly show that a player has a staff and a gem
 * Staff parts on HUD no longer show that a player has a staff when it is crafted
+* Switched Zombie Shield and Maxis Drone recipe positions on HUD
+* Changed background color of Maxis Drone parts on HUD from green to orange
 * Added attachment name on HUD for upgraded attachment weapons
 * Generators: increased capture reward points from 100 to 200
 * Generators: always give back refund points if player was in the generator zone when captured
