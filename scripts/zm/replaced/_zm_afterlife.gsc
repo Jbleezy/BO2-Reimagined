@@ -77,7 +77,12 @@ init_player()
 {
 	flag_wait("initial_players_connected");
 	self.lives = 1;
-	self setclientfieldtoplayer("player_lives", self.lives);
+
+	if (flag("start_zombie_round_logic"))
+	{
+		self setclientfieldtoplayer("player_lives", self.lives);
+	}
+
 	self.afterlife = 0;
 	self.afterliferound = level.round_number;
 	self.afterlifedeaths = 0;

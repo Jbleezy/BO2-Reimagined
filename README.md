@@ -31,14 +31,13 @@
 * Character name displayed on all maps
 * Character name fades out after 15 seconds on all maps
 * Moved points display, grenade icons, and keyboard & mouse dpad icons to their positions from Origins on all maps
-* Moved afterlife display to the right of points display
 * Weapon name is all capitalized on all maps
 * Weapon name is the same text size on all maps
 * Weapon name and ammo no longer fade out
 * Grenade icons no longer fade based on how many the player currently has
 * Ammo counter no longer shows while scoped on all maps
 * Added proper game mode and map name to scoreboard
-* Added icons on scoreboard when player is downed, bled out, in Who's Who mode, or in afterlife
+* Added icons on scoreboard when player is downed, bled out, in Who's Who mode, in afterlife, or has the meat
 * Increased waypoint offset from top of screen
 * Changed player waypoint location to be center of player instead of top of player
 * Increased distance between revive waypoint arrow and icon
@@ -702,7 +701,7 @@
 * Initial perk spawns at round 1 in coop
 * Perks spawn every 5 rounds
 * Increased intermission time from 7.5 seconds to 15 seconds
-* Fixed Mystery Box floating in the sky at the beginning of the game
+* Fixed Mystery Box floating in the sky at the start of the game
 
 ### Tranzit
 * Power switch and Pack-a-Punch automatically crafted
@@ -865,6 +864,9 @@
 * Spawn facing towards the afterlife player model when entering afterlife
 * Doors can no longer be purchased when entering afterlife
 * Afterlife player model has collision
+* Moved afterlife icon to the left side of screen above health bar and zone name
+* Afterlife icon fades when player has no afterlife lives
+* Removed afterlife lives counter
 * Key on HUD fades out
 * Plane parts are shared in coop
 * Plane parts must be all acquired to craft
@@ -902,6 +904,7 @@
 * Quest: if Weasel is not in the game, the cycle continues immediately after everyone revives themselves on the Golden Gate Bridge
 * Quest: players no longer get moved to different positions when starting the showdown
 * Quest: showdown target waypoint shows offscreen
+* Fixed afterlife icon showing when initially in afterlife at the start of the game
 * Fixed initial weapon raise anim happening after exiting afterlife
 * Fixed being able to hit a death barrier when jumping off the Docks Bridge zone
 
@@ -926,6 +929,7 @@
 * Staff parts on HUD no longer show that a player has a staff when it is crafted
 * Switched Zombie Shield and Maxis Drone recipe positions on HUD
 * Changed background color of Maxis Drone parts on HUD from green to orange
+* Moved tablet icon above health bar and zone name
 * Added attachment name on HUD for upgraded attachment weapons
 * Generators: increased capture reward points from 100 to 200
 * Generators: always give back refund points if player was in the generator zone when captured

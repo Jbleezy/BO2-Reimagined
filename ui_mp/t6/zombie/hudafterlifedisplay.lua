@@ -33,8 +33,8 @@ LUI.createMenu.AfterlifeArea = function(f1_arg0)
 	f1_local0.afterlifeIcon = afterlifeIcon
 
 	f1_local0.bottomRightScaleContainer = CoD.SplitscreenScaler.new(nil, CoD.Zombie.SplitscreenMultiplier)
-	f1_local0.bottomRightScaleContainer:setLeftRight(false, true, 25, 25)
-	f1_local0.bottomRightScaleContainer:setTopBottom(false, true, -17, -17)
+	f1_local0.bottomRightScaleContainer:setLeftRight(true, false, 102, 102)
+	f1_local0.bottomRightScaleContainer:setTopBottom(false, true, -58, -58)
 	f1_local0:addElement(f1_local0.bottomRightScaleContainer)
 
 	local f1_local5 = -32
@@ -68,6 +68,7 @@ LUI.createMenu.AfterlifeArea = function(f1_arg0)
 
 	CoD.AfterlifeWaypoint.RegisterMaterials()
 	f1_local0.afterlifeWaypointIcons = {}
+	f1_local0.playerLives = 0
 	f1_local0.inAfterlife = true
 	f1_local0.clientNum = -1
 	f1_local0:registerEventHandler("player_lives", CoD.HudAfterlifeDisplay.UpdatePlayerLives)
@@ -111,12 +112,23 @@ CoD.HudAfterlifeDisplay.UpdateVisibility = function(f2_arg0, f2_arg1)
 end
 
 CoD.HudAfterlifeDisplay.UpdatePlayerLives = function(f3_arg0, f3_arg1)
-	f3_arg0.afterlifeInventoryCount:setText(f3_arg1.newValue)
+	f3_arg0.playerLives = f3_arg1.newValue
+
+	-- f3_arg0.afterlifeInventoryCount:setText(f3_arg1.newValue)
+
+	if f3_arg0.inAfterlife then
+		return
+	end
+
+	if f3_arg1.newValue == 0 then
+		f3_arg0.afterLifeInventoryContainer:setAlpha(0.5)
+	end
+
 	if f3_arg1.oldValue < f3_arg1.newValue then
 		if f3_arg0.afterLifeInventoryContainer.alternatorTimer then
 			f3_arg0.afterLifeInventoryContainer:closeStateAlternator()
 		end
-		f3_arg0.afterLifeInventoryContainer:alternateStates(CoD.HudAfterlifeDisplay.PULSE_DURATION, CoD.HudAfterlifeDisplay.PulseOff, CoD.HudAfterlifeDisplay.PulseOn, 500, 500, CoD.HudAfterlifeDisplay.PulseOn)
+		f3_arg0.afterLifeInventoryContainer:alternateStates(CoD.HudAfterlifeDisplay.PULSE_DURATION + 500, CoD.HudAfterlifeDisplay.PulseOn, CoD.HudAfterlifeDisplay.PulseOff, 500, 500, CoD.HudAfterlifeDisplay.PulseOn)
 	end
 end
 
@@ -135,7 +147,13 @@ CoD.HudAfterlifeDisplay.UpdatePlayerInAfterlife = function(f4_arg0, f4_arg1)
 		f4_arg0.inAfterlife = false
 		f4_arg0.afterlifeIconContainer:setAlpha(0)
 		f4_arg0.afterlifeIcon:setShaderVector(0, 1, 0, 0, 0)
-		f4_arg0.afterLifeInventoryContainer:setAlpha(1)
+
+		if f4_arg0.playerLives == 0 then
+			f4_arg0.afterLifeInventoryContainer:setAlpha(0.5)
+		else
+			f4_arg0.afterLifeInventoryContainer:setAlpha(1)
+		end
+
 		f4_arg0.clientNum = f4_arg1.entNum
 	end
 end
