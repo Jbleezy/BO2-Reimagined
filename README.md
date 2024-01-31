@@ -12,7 +12,138 @@
 
 [Donate](https://ko-fi.com/Jbleezy)
 
-## Change Notes
+# Change Notes
+
+## Table of Contents
+* [General](#general)
+* [HUD](#hud)
+* [Players](#players)
+* [Zombies](#zombies)
+	* [Denizens](#denizens)
+	* [Avogadro](#avogadro)
+	* [Leapers](#leapers)
+	* [Brutus](#brutus)
+	* [Panzersoldat](#panzersoldat)
+* [Weapons](#weapons)
+	* [Pistols](#pistols)
+		* [B23R](#b23r)
+		* [Executioner](#executioner)
+		* [Five-seven Dual Wield](#five-seven-dual-wield)
+		* [KAP-40](#kap-40)
+		* [M1911](#m1911)
+		* [Mauser C96](#mauser-c96)
+		* [Python](#python)
+		* [Tac-45](#tac-45)
+	* [Assault Rifles](#assault-rifles)
+		* [AN-94](#an-94)
+		* [FAL OSW](#fal-osw)
+		* [Galil](#galil)
+		* [M27](#m27)
+		* [M8A1](#m8a1)
+		* [MTAR](#mtar)
+		* [SCAR-H](#scar-h)
+		* [SMR](#smr)
+		* [STG-44](#stg-44)
+		* [SWAT-556](#swat-556)
+		* [Type 25](#type-25)
+	* [Submachine Guns](#submachine-guns)
+		* [Chicom CQB](#chicom-cqb)
+		* [M1927](#m1927)
+		* [MP40](#mp40)
+		* [MSMC](#msmc)
+		* [Skorpion EVO](#skorpion-evo)
+		* [Vector K10](#vector-k10)
+	* [Light Machine Guns](#light-machine-guns)
+		* [HAMR](#hamr)
+		* [MG08/15](#mg0815)
+	* [Sniper Rifles](#sniper-rifles)
+		* [Ballista](#ballista)
+	* [Shotguns](#shotguns)
+		* [Remington 870 MCS](#remington-870-mcs)
+	* [Launchers](#launchers)
+		* [War Machine](#war-machine)
+	* [Specials](#specials)
+		* [Ballistic Knife](#ballistic-knife)
+	* [Wonder Weapons](#wonder-weapons)
+		* [Ray Gun](#ray-gun)
+		* [Ray Gun Mark 2](#ray-gun-mark-2)
+		* [Jet Gun](#jet-gun)
+		* [Sliquifier](#sliquifier)
+		* [Paralyzer](#paralyzer)
+		* [Blundergat](#blundergat)
+		* [Acid Gat](#acid-gat)
+		* [Staffs](#staffs)
+	* [Tactical Grenades](#tactical-grenades)
+		* [Monkey Bomb](#monkey-bomb)
+		* [EMP Grenade](#emp-grenade)
+		* [Smoke Grenade](#smoke-grenade)
+		* [Hell's Retriever](#hells-retriever)
+		* [G-Strike Beacon](#g-strike-beacon)
+	* [Equipment](#equipment)
+		* [Combat Knife](#combat-knife)
+		* [Claymore](#claymore)
+		* [Time Bomb](#time-bomb)
+		* [One Inch Punch](#one-inch-punch)
+* [Wallbuys](#wallbuys)
+* [Mystery Box](#mystery-box)
+* [Perks](#perks)
+	* [Jugger-Nog](#jugger-nog)
+	* [Quick Revive](#quick-revive)
+	* [Speed Cola](#speed-cola)
+	* [Double Tap](#double-tap)
+	* [Stamin-Up](#stamin-up)
+	* [PHD Flopper](#phd-flopper)
+	* [Deadshot Daiquiri](#deadshot-daiquiri)
+	* [Mule Kick](#mule-kick)
+	* [Tombstone Soda](#tombstone-soda)
+	* [Who's Who](#whos-who)
+	* [Electric Cherry](#electric-cherry)
+	* [Vulture-Aid](#vulture-aid)
+* [Pack-a-Punch](#pack-a-punch)
+* [Powerups](#powerups)
+	* [Nuke](#nuke)
+	* [Carpenter](#carpenter)
+	* [Zombie Blood](#zombie-blood)
+	* [Meat](#meat)
+* [Persistent Upgrades](#persistent-upgrades)
+* [Buildables](#buildables)
+	* [Zombie Shield](#zombie-shield)
+	* [Turret](#turret)
+	* [Electric Trap](#electric-trap)
+	* [Subsurface Resonator](#subsurface-resonator)
+	* [Trample Steam](#trample-steam)
+	* [Head Chopper](#head-chopper)
+	* [Acid Gat Kit](#acid-gat-kit)
+	* [Maxis Drone](#maxis-drone)
+* [Bank](#bank)
+* [Weapon Locker](#weapon-locker)
+* [NAV Table](#nav-table)
+* [Maps](#maps)
+	* [Nuketown](#nuketown)
+	* [Tranzit](#tranzit)
+		* [Bus Depot](#bus-depot)
+		* [Diner](#diner)
+		* [Farm](#farm)
+		* [Power Station](#power-station)
+		* [Town](#town)
+		* [Tunnel](#tunnel)
+		* [Cornfield](#cornfield)
+	* [Die Rise](#die-rise)
+	* [Buried](#buried)
+		* [Borough](#borough)
+		* [Maze](#maze)
+	* [Mob of the Dead](#mob-of-the-dead)
+		* [Cell Block](#cell-block)
+		* [Docks](#docks)
+	* [Origins](#origins)
+* [Game Modes](#game-modes)
+	* [Encounter](#encounter)
+		* [Grief](#grief)
+		* [Search & Rezurrect](#search--rezurrect)
+		* [Race](#race)
+		* [Containment](#containment)
+		* [Meat](#meat)
+	* [Encounter Pro](#encounter-pro)
 
 ## General
 * Removed 5 second wait before match start
@@ -88,7 +219,6 @@
 * Dual wield last stand weapon is switched to when ammo is only in left clip
 * Decreased friendly player name fade out time from 1.5 seconds to 0.25 seconds
 * Removed enemy player name fade in time
-* Added option to disable character dialog
 
 ## Zombies
 * Health capped at 100,000
@@ -105,11 +235,6 @@
 * 4 round and 5 round special rounds happen more equally
 * Fixed not being able to drop powerups after doing certain traversals
 
-### Avogadro
-* Drops a random powerup when killed
-* Decreased minimum distance away from players to be able to attack
-* Respawns on the same round if exited due to being too far away from players (normally respawns on the next round)
-
 ### Denizens
 * Changed max amount that can be spawned at once from 2 total to 1 per player in the fog
 * Changed spawn rate to 5 seconds (normally same spawn rate as zombies)
@@ -119,6 +244,11 @@
 * Decreased number of melees to kill with Galvaknuckles from 2 to 1
 * No longer automatically runs away when player is first attacked in solo
 * Removed hint when player is first attacked in solo
+
+### Avogadro
+* Drops a random powerup when killed
+* Decreased minimum distance away from players to be able to attack
+* Respawns on the same round if exited due to being too far away from players (normally respawns on the next round)
 
 ### Leapers
 * No longer give each player 2000 points when rewarded a free perk powerup
@@ -148,70 +278,70 @@
 * Placeable mines: changed damage scalar to 150 multiplied by round number (normally random number between 100 and 200 multiplied by round number)
 * Placeable mines: capped damage scalar at 9000
 
-## Pistols
+### Pistols
 * Increased move speed from 100% to 110%
 * Decreased aim FOV from 65 to 60 on all pistols
 
-### B23R
+#### B23R
 * Decreased weapon cost from 1000 to 900 on all maps
 
-### Executioner
+#### Executioner
 * Removed on Buried
 
-### Five-seven Dual Wield
+#### Five-seven Dual Wield
 * Unupgraded: decreased stock ammo from 225 to 210 on all maps
 * Upgraded: decreased stock ammo from 295 to 280 on all maps
 
-### KAP-40
+#### KAP-40
 * Removed delay between last shot and reload
 * Unupgraded: increased clip ammo from 12 to 15
 * Unupgraded: increased stock ammo from 96 to 180
 * Upgraded: increased stock ammo from 180 to 270
 
-### M1911
+#### M1911
 * Upgraded: decreased stock ammo from 50 to 48
 * Upgraded: decreased last stand ammo from 2 clips to 1 clip
 
-### Mauser C96
+#### Mauser C96
 * Ammo gets added to the clip at the same time that it gets added in the reload anim
 * Upgraded: fixed not being able to melee while aiming
 * Upgraded: decreased last stand ammo from 2 clips to 1 clip
 
-### Python
+#### Python
 * Removed
 
-### Tac-45
+#### Tac-45
 * Replaces M1911 (except on Mob of the Dead)
 
-## Assault Rifles
+### Assault Rifles
 
-### AN-94
+#### AN-94
 * Increased weapon cost from 1200 to 1500
 * Unupgraded: decreased stock ammo from 300 to 240
 * Upgraded: decreased stock ammo from 600 to 450
 
-### FAL OSW
+#### FAL OSW
 * Replaces FAL
 
-### Galil
+#### Galil
 * Removed
 
-### M27
+#### M27
 * Added to the Mystery Box on all maps
 * Upgraded: changed default attachment from Reflex Sight to None
 
-### M8A1
+#### M8A1
 * Decreased recoil
 
-### MTAR
+#### MTAR
 * Decreased recoil
 * Upgraded: changed default attachment from Reflex Sight to EOTech Sight
 
-### SCAR-H
+#### SCAR-H
 * Added to the Mystery Box on all maps
 * Upgraded: changed default attachment from Reflex Sight to None
 
-### SMR
+#### SMR
 * Replaces M14
 * Removed aim spread
 * Unupgraded: increased damage from 80 to 100
@@ -222,60 +352,60 @@
 * Upgraded: decreased clip ammo from 30 to 20
 * Upgraded: decreased stock ammo from 420 to 200
 
-### STG-44
+#### STG-44
 * Ammo gets added to the clip at the same time that it gets added in the reload anim
 * Upgraded: decreased stock ammo from 330 to 300
 
-### SWAT-556
+#### SWAT-556
 * Replaces M16A1
 
-### Type 25
+#### Type 25
 * Decreased recoil
 * Unupgraded: increased stock ammo from 150 to 300
 * Upgraded: increased stock ammo from 270 to 450
 * Upgraded: changed default attachment from Reflex Sight to Millimeter Scanner
 
-## Submachine Guns
+### Submachine Guns
 * Changed move speed from 100% or 110% to 105%
 
-### Chicom CQB
+#### Chicom CQB
 * Unupgraded: decreased clip ammo from 40 to 36
 * Unupgraded: increased stock ammo from 120 to 252
 * Upgraded: increased clip ammo from 40 to 48
 * Upgraded: increased stock ammo from 200 to 336
 * Upgraded: changed default attachment from None to Select Fire
 
-### M1927
+#### M1927
 * Decreased ammo cost from 800 to 750
 
-### MP40
+#### MP40
 * Ammo gets added to the clip at the same time that it gets added in the reload anim
 
-### MSMC
+#### MSMC
 * Replaces MP5
 
-### Skorpion EVO
+#### Skorpion EVO
 * Upgraded: changed default attachment from Reflex Sight to Fast Mag
 
-### Vector K10
+#### Vector K10
 * Replaces Ak74u
 
-## Light Machine Guns
+### Light Machine Guns
 * Decreased move speed from 87.5% to 85%
 
-### HAMR
+#### HAMR
 * Decreased recoil
 * Upgraded: changed default attachment from None to Grip
 
-### MG08/15
+#### MG08/15
 * Ammo gets added to the clip at the same time that it gets added in the reload anim
 
-## Sniper Rifles
+### Sniper Rifles
 * Decreased move speed from 95% to 90%
 * Disabled scope sway
 * Unupgraded: increased scope FOV from 15 or 20 to 25
 
-### Ballista
+#### Ballista
 * Replaces Olympia
 * Unupgraded: increased damage from 150 to 250
 * Unupgraded: decreased clip ammo from 8 to 6
@@ -284,20 +414,20 @@
 * Upgraded: decreased headshot multiplier from 10 to 8
 * Upgraded: decreased stock ammo from 120 to 100
 
-## Shotguns
+### Shotguns
 * Increased penetration
 
-### Remington 870 MCS
+#### Remington 870 MCS
 * Changed weapon cost from 900 or 1500 to 1200 on all maps
 
-## Launchers
+### Launchers
 
-### War Machine
+#### War Machine
 * Unupgraded: grenades explode on impact
 
-## Specials
+### Specials
 
-### Ballistic Knife
+#### Ballistic Knife
 * Added model and anims from Black Ops 2 Multiplayer
 * Increased melee time from 0.5 seconds to 0.7 seconds
 * Projectiles are no longer destroyed when other players walk over them
@@ -306,9 +436,9 @@
 * Projectiles can be picked up while the weapon is not reloaded
 * Projectiles can be picked up while the player is not on the ground
 
-## Wonder Weapons
+### Wonder Weapons
 
-### Ray Gun
+#### Ray Gun
 * Added weapon model from Buried to all maps
 * Increased move speed from 100% to 105%
 * Ammo gets added to the clip at the same time that it gets added in the reload anim
@@ -316,7 +446,7 @@
 * Unupgraded: increased impact damage from 1000 to 1500 (same as max splash damage)
 * Upgraded: increased impact damage from 1000 to 2000 (same as max splash damage)
 
-### Ray Gun Mark 2
+#### Ray Gun Mark 2
 * Same probability to obtain as other weapons
 * Can be obtained if player has Ray Gun
 * Increased move speed from 100% to 105%
@@ -324,7 +454,7 @@
 * Limited to 1 player on all maps
 * Decreased last stand ammo from 3 clips to 1 clip
 
-### Jet Gun
+#### Jet Gun
 * Kills multiple zombies significantly faster
 * Kills zombies that are in the ground, traversing, or behind barriers
 * Awards points for kills
@@ -341,7 +471,7 @@
 * Changed weapon name on HUD from "Thrustodyne Aeronautics Model 23" to "Jet Gun"
 * Fixed HUD icon fading after firing
 
-### Sliquifier
+#### Sliquifier
 * Added upgraded version
 * Kills on any round (normally stops killing after round 100)
 * Decreased stock ammo from 40 to 20
@@ -354,17 +484,17 @@
 * Teddy bear standing up means weapon is not available from Mystery Box
 * Teddy bear lying down means weapon is available from Mystery Box
 
-### Paralyzer
+#### Paralyzer
 * Kills on any round
 * Decreased player fly height
 * Added heat percentage on HUD
 
-### Blundergat
+#### Blundergat
 * Kills on any round in 1-2 shots
 * Increased pellet count from 7 to 8
 * Increased pellet size
 
-### Acid Gat
+#### Acid Gat
 * Kills on any round in 1-2 bursts
 * Changed fire type from 3 round burst to 4 round burst
 * Increased player damage from 10 to 15
@@ -374,7 +504,7 @@
 * Stuck zombie counts as a kill
 * Upgraded: fixed fire sound
 
-### Staffs
+#### Staffs
 * Upgrade only requires collecting souls in The Crazy Place
 * Can no longer collect souls in The Crazy Place from staff kills
 * Can collect souls in The Crazy Place after upgrading to fill 5% of max ammo per soul
@@ -390,14 +520,14 @@
 * Fire upgraded: charged shots no longer deal additional damage to Panzersoldat
 * Ice upgraded: fixed melee sound
 
-## Tactical Grenades
+### Tactical Grenades
 
-### Monkey Bomb
+#### Monkey Bomb
 * Added model and HUD icon from Buried to all maps
 * Zombies killed can drop powerups
 * Fixed an issue where a Monkey Bomb wouldn't activate if the previously thrown Monkey Bomb hadn't activated yet
 
-### EMP Grenade
+#### EMP Grenade
 * No longer disables HUD
 * Disables player's perks for 12 seconds
 * Increased ammo from 2 to 3
@@ -411,41 +541,41 @@
 * Sprinting no longer wakes up EMP'd zombies
 * Zombies that are in the ground can no longer get EMP'd
 
-### Smoke Grenade
+#### Smoke Grenade
 * Added on Mob of the Dead
 * Kills on any round
 
-### Hell's Retriever
+#### Hell's Retriever
 * No longer ricochets to other zombies when not charged
 * Every charge increases total zombies attacked by 3
 * Unupgraded: changed damage to 2000 (normally does 1000-2000 damage based on number of charges)
 * Upgraded: kills on any round when not charged
 
-### G-Strike Beacon
+#### G-Strike Beacon
 * Kills on any round
 * Increased ammo from 2 to 3
 
-## Equipment
+### Equipment
 * Increased move speed from 100% to 110%
 
-### Combat Knife
+#### Combat Knife
 * Added model from Black Ops 2 Multiplayer
 
-### Claymore
+#### Claymore
 * Can be repurchased
 * Can be placed while in the air
 * Increased max amount that can be placed from 12 to 20
 * Added weapon name on HUD
 * Removed initial weapon raise anim
 
-### Time Bomb
+#### Time Bomb
 * No longer sends players back in time
 * Kills all zombies
 * Can have with Monkey Bombs
 * Switches to detonator at correct time after throwing
 * Fixed detonator raise and drop anims
 
-### One Inch Punch
+#### One Inch Punch
 * Upgraded: elemental punch changes based on which staff the player currently has
 * Upgraded: uses melee lunge anim as normal melee anim
 * Fixed an issue where a player's melee weapon wouldn't reset if the player bled out in the Giant Robots
@@ -1009,8 +1139,9 @@
 * Added kill feed (includes downs, revives, and bleed outs)
 * Added player kills on scoreboard (replaces headshots)
 * Spawn points are assigned to a team
-* Properly restores dual wield weapon left clip ammo, alternative weapon ammo, and equipment on respawn
+* Properly restores dual wield weapon left clip ammo, alt weapon ammo, and equipment on respawn
 * Can only spectate own team
+* Added option to change teams in game
 
 #### Grief
 * Gain score by making enemy players bleed out
@@ -1075,68 +1206,3 @@
 * No Mystery Box
 * No Pack-a-Punch
 * Limited sprint
-
-## Launching New Maps
-
-* Go to any lobby of the correct map
-* Copy and paste the following commands into the console to launch a map
-
-### Survival on Diner
-* ```g_gametype zstandard; ui_gametype zstandard; ui_zm_gamemodegroup zsurvival; ui_zm_mapstartlocation diner; xpartygo```
-
-### Survival on Power Station
-* ```g_gametype zstandard; ui_gametype zstandard; ui_zm_gamemodegroup zsurvival; ui_zm_mapstartlocation power; xpartygo```
-
-### Survival on Tunnel
-* ```g_gametype zstandard; ui_gametype zstandard; ui_zm_gamemodegroup zsurvival; ui_zm_mapstartlocation tunnel; xpartygo```
-
-### Survival on Cornfield
-* ```g_gametype zstandard; ui_gametype zstandard; ui_zm_gamemodegroup zsurvival; ui_zm_mapstartlocation cornfield; xpartygo```
-
-### Grief on Bus Depot
-* ```g_gametype zgrief; ui_gametype zgrief; ui_zm_gamemodegroup zencounter; ui_zm_mapstartlocation transit; xpartygo```
-
-### Grief on Diner
-* ```g_gametype zgrief; ui_gametype zgrief; ui_zm_gamemodegroup zencounter; ui_zm_mapstartlocation diner; xpartygo```
-
-### Grief on Power Station
-* ```g_gametype zgrief; ui_gametype zgrief; ui_zm_gamemodegroup zencounter; ui_zm_mapstartlocation power; xpartygo```
-
-### Grief on Tunnel
-* ```g_gametype zgrief; ui_gametype zgrief; ui_zm_gamemodegroup zencounter; ui_zm_mapstartlocation tunnel; xpartygo```
-
-### Grief on Cornfield
-* ```g_gametype zgrief; ui_gametype zgrief; ui_zm_gamemodegroup zencounter; ui_zm_mapstartlocation cornfield; xpartygo```
-
-### Grief on Docks
-* ```g_gametype zgrief; ui_gametype zgrief; ui_zm_gamemodegroup zencounter; ui_zm_mapstartlocation cellblock; set ui_zm_mapstartlocation_fake docks; xpartygo```
-
-### Grief on Maze
-* ```g_gametype zgrief; ui_gametype zgrief; ui_zm_gamemodegroup zencounter; ui_zm_mapstartlocation street; set ui_zm_mapstartlocation_fake maze; xpartygo```
-
-## Launching New Game Modes
-
-* By default, a random game mode will be chosen when launching Grief
-* Copy and paste the following commands into the console to choose a specific game mode
-
-### Grief
-* ```set ui_gametype_obj zgrief```
-
-### Search & Rezurrect
-* ```set ui_gametype_obj zsnr```
-
-### Race
-* ```set ui_gametype_obj zrace```
-
-### Containment
-* ```set ui_gametype_obj zcontainment```
-
-### Meat
-* ```set ui_gametype_obj zmeat```
-
-## Changing Teams (Grief)
-
-* By default, teams are random on Grief
-* Copy and paste the following commands into the console to add the option to change teams in the in-game menu
-
-* ```gts allowInGameTeamChange 1; set ui_gametype_team_change 1```
