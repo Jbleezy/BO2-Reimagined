@@ -28830,24 +28830,6 @@
 "guid" "CA767065"
 }
 {
-"origin" "10273.3 -8004.93 -675.46"
-"model" "t6_wpn_zmb_staff_revive_part"
-"targetname" "elemental_staff_fire_lower_staff"
-"classname" "script_struct"
-"angles" "289.403 1.20414 -1.13576"
-"script_noteworthy" "elemental_staff_piece"
-"guid" "A9A147B3"
-}
-{
-"origin" "-145.6 429.94 205.01"
-"model" "t6_wpn_zmb_staff_stem_bolt_part"
-"targetname" "elemental_staff_lightning_middle_staff"
-"classname" "script_struct"
-"angles" "289.006 1.84221 -1.74181"
-"script_noteworthy" "elemental_staff_piece"
-"guid" "AC0C1372"
-}
-{
 "origin" "10103.9 -7670 -406.87"
 "model" "t6_wpn_zmb_staff_crystal_bolt_part"
 "targetname" "elemental_staff_lightning_gem"
@@ -28897,14 +28879,6 @@
 "guid" "064C7D7C"
 }
 {
-"origin" "10412 -7816 -669"
-"model" "t6_wpn_zmb_staff_tip_water_world"
-"targetname" "elemental_staff_water_upper_staff"
-"classname" "script_struct"
-"script_noteworthy" "elemental_staff_piece"
-"guid" "415F5FCB"
-}
-{
 "origin" "10575.9 -7670 -408.87"
 "model" "t6_wpn_zmb_staff_crystal_water_part"
 "targetname" "elemental_staff_water_gem"
@@ -28916,56 +28890,37 @@
 {
 "angles" "4.6633 357.803 -29.3818"
 "origin" "-5705.32 -6715.59 193.55"
-"model" "t6_wpn_zmb_staff_revive_part"
-"targetname" "elemental_staff_air_lower_staff"
-"classname" "script_struct"
-"script_noteworthy" "elemental_staff_piece"
-"guid" "B379816A"
-}
-{
-"origin" "-6757.03 -6714.05 192.5"
 "model" "t6_wpn_zmb_staff_tip_air_world"
 "targetname" "elemental_staff_air_upper_staff"
 "classname" "script_struct"
 "script_noteworthy" "elemental_staff_piece"
 "angles" "81.4 270 6.75558e-007"
+"guid" "B379816A"
+}
+{
+"origin" "-6757.03 -6714.05 192.5"
+"model" "t6_wpn_zmb_staff_stem_air_part"
+"targetname" "elemental_staff_air_middle_staff"
+"classname" "script_struct"
+"script_noteworthy" "elemental_staff_piece"
 "guid" "0663AFFA"
 }
 {
 "angles" "357.706 178.709 176.689"
 "origin" "-6218.67 -6719.51 193.66"
-"model" "t6_wpn_zmb_staff_stem_air_part"
-"targetname" "elemental_staff_air_middle_staff"
+"model" "t6_wpn_zmb_staff_revive_part"
+"targetname" "elemental_staff_air_lower_staff"
 "classname" "script_struct"
 "script_noteworthy" "elemental_staff_piece"
 "guid" "D1BF3B21"
 }
 {
-"script_noteworthy" "elemental_staff_piece"
-"angles" "86.9735 172.402 172.412"
-"origin" "788.38 470.79 138.58"
-"model" "t6_wpn_zmb_staff_stem_fire_part"
-"targetname" "elemental_staff_fire_middle_staff"
+"origin" "10412 -7816 -669"
+"model" "t6_wpn_zmb_staff_tip_water_world"
+"targetname" "elemental_staff_water_upper_staff"
 "classname" "script_struct"
-"guid" "2A671A38"
-}
-{
 "script_noteworthy" "elemental_staff_piece"
-"classname" "script_struct"
-"targetname" "elemental_staff_lightning_upper_staff"
-"model" "t6_wpn_zmb_staff_tip_lightning_world"
-"origin" "2284.22 3029.51 -112.45"
-"angles" "0 40 0"
-"guid" "3C5C31DF"
-}
-{
-"script_noteworthy" "elemental_staff_piece"
-"origin" "10478.7 -7816.07 -670.95"
-"model" "t6_wpn_zmb_staff_revive_part"
-"targetname" "elemental_staff_water_lower_staff"
-"classname" "script_struct"
-"angles" "66.8 312.8 -5.21332e-005"
-"guid" "AF511839"
+"guid" "415F5FCB"
 }
 {
 "angles" "286.8 0 0"
@@ -28977,13 +28932,67 @@
 "guid" "6DBFF961"
 }
 {
+"script_noteworthy" "elemental_staff_piece"
+"origin" "10478.7 -7816.07 -670.95"
+"model" "t6_wpn_zmb_staff_revive_part"
+"targetname" "elemental_staff_water_lower_staff"
+"classname" "script_struct"
+"angles" "66.8 312.8 -5.21332e-005"
+"guid" "AF511839"
+}
+{
+"classname" "script_struct"
+"targetname" "elemental_staff_lightning_upper_staff"
+"model" "t6_wpn_zmb_staff_tip_lightning_world"
+"origin" "59.05 -2763.67 403.76"
+"script_noteworthy" "elemental_staff_piece"
+"angles" "0 40 0"
+"guid" "9046FB56"
+}
+{
+"origin" "-145.6 429.94 205.01"
+"model" "t6_wpn_zmb_staff_stem_bolt_part"
+"targetname" "elemental_staff_lightning_middle_staff"
+"classname" "script_struct"
+"angles" "289.006 1.84221 -1.74181"
+"script_noteworthy" "elemental_staff_piece"
+"guid" "AC0C1372"
+}
+{
+"script_noteworthy" "elemental_staff_piece"
 "classname" "script_struct"
 "targetname" "elemental_staff_lightning_lower_staff"
 "model" "t6_wpn_zmb_staff_revive_part"
-"origin" "59.05 -2763.67 403.76"
-"script_noteworthy" "elemental_staff_piece"
+"origin" "2284.22 3029.51 -112.45"
 "angles" "90 180 -180"
-"guid" "9046FB56"
+"guid" "3C5C31DF"
+}
+{
+"script_noteworthy" "elemental_staff_piece"
+"origin" "1310.41 -3563.92 231.76"
+"model" "t6_wpn_zmb_staff_tip_fire_world"
+"targetname" "elemental_staff_fire_upper_staff"
+"classname" "script_struct"
+"angles" "0 180 0"
+"guid" "EE00E93D"
+}
+{
+"script_noteworthy" "elemental_staff_piece"
+"angles" "86.9735 172.402 172.412"
+"origin" "788.38 470.79 138.58"
+"model" "t6_wpn_zmb_staff_stem_fire_part"
+"targetname" "elemental_staff_fire_middle_staff"
+"classname" "script_struct"
+"guid" "2A671A38"
+}
+{
+"origin" "10273.3 -8004.93 -675.46"
+"model" "t6_wpn_zmb_staff_revive_part"
+"targetname" "elemental_staff_fire_lower_staff"
+"classname" "script_struct"
+"angles" "289.403 1.20414 -1.13576"
+"script_noteworthy" "elemental_staff_piece"
+"guid" "A9A147B3"
 }
 {
 "classname" "script_model"
@@ -29020,15 +29029,6 @@
 "script_noteworthy" "craftable_staff_model"
 "angles" "346 133.2 4.178e-006"
 "guid" "853FF942"
-}
-{
-"script_noteworthy" "elemental_staff_piece"
-"origin" "1310.41 -3563.92 231.76"
-"model" "t6_wpn_zmb_staff_tip_fire_world"
-"targetname" "elemental_staff_fire_upper_staff"
-"classname" "script_struct"
-"angles" "0 180 0"
-"guid" "EE00E93D"
 }
 {
 "classname" "script_struct"

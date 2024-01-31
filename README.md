@@ -268,7 +268,7 @@
 
 ## Weapons
 * Switch to melee weapon by pressing the Previous Scorestreak button (same button as the Time Bomb and Maxis Drone)
-* Fixed world model position of several melee weapons
+* Fixed world model position of certain melee weapons
 * Grenades: improved projectile upward speed
 * Grenades: can no longer be thrown faster than intended by throwing a grenade right after throwing one
 * Grenades: changed damage scalar to 25 multiplied by round number (normally random number between 100 and 200 added by round number)
@@ -1053,12 +1053,13 @@
 * Shovels automatically picked up
 * Records automatically picked up
 * Gramophone initially spawns at Excavation Site gramophone table
+* Swapped spawn positions of certain staff parts to match the area where they are picked up at
 * Musical parts on HUD change record color to show which table the gramophone is currently placed at
 * Musical parts on HUD fade out
-* Changed the order of staff parts on HUD to match the order of the staff holders
+* Changed order of staff parts on HUD to match order of staff holders
 * Staff parts on HUD correctly show that a player has a staff and a gem
 * Staff parts on HUD no longer show that a player has a staff when it is crafted
-* Switched Zombie Shield and Maxis Drone recipe positions on HUD
+* Changed order of Zombie Shield and Maxis Drone recipes on HUD
 * Changed background color of Maxis Drone parts on HUD from green to orange
 * Moved tablet icon above health bar and zone name
 * Added attachment name on HUD for upgraded attachment weapons
