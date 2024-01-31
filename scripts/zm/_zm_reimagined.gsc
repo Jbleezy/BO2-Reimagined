@@ -2632,6 +2632,8 @@ additionalprimaryweapon_indicator()
 {
 	self endon("disconnect");
 
+	self setClientDvar("additionalPrimaryWeaponName", "");
+
 	if (!is_true(level.zombiemode_using_additionalprimaryweapon_perk))
 	{
 		return;
@@ -2639,7 +2641,6 @@ additionalprimaryweapon_indicator()
 
 	vars = [];
 	vars["prev_weapon_name"] = "";
-	self setClientDvar("additionalPrimaryWeaponName", "");
 
 	while (1)
 	{
