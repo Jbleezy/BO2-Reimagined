@@ -1055,6 +1055,7 @@
 * Gramophone initially spawns at Excavation Site gramophone table
 * Musical parts on HUD change record color to show which table the gramophone is currently placed at
 * Musical parts on HUD fade out
+* Changed the order of staff parts on HUD to match the order of the staff holders
 * Staff parts on HUD correctly show that a player has a staff and a gem
 * Staff parts on HUD no longer show that a player has a staff when it is crafted
 * Switched Zombie Shield and Maxis Drone recipe positions on HUD

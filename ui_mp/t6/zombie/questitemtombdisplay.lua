@@ -33,17 +33,6 @@ CoD.QuestItemTombDisplay.STATE_STAFF_PIECE_HAVE = 1
 CoD.QuestItemTombDisplay.STATE_STAFF_PIECE_COMPLETED = 2
 CoD.QuestItemTombDisplay.ClientFieldNames = {}
 CoD.QuestItemTombDisplay.ClientFieldNames[1] = {
-	name = "fire",
-	color = CoD.CraftablesStaffIcon.RedFire,
-	clientFieldName = "quest_state2",
-	gemClientFieldName = "piece_staff_zm_gem_fire",
-	recordClientFieldName = "piece_record_zm_vinyl_fire",
-	uStaffClientFieldName = "piece_staff_zm_ustaff_fire",
-	mStaffClientFieldName = "piece_staff_zm_mstaff_fire",
-	lStaffClientFieldName = "piece_staff_zm_lstaff_fire",
-	materialName = "zom_hud_craftable_element_fire",
-}
-CoD.QuestItemTombDisplay.ClientFieldNames[2] = {
 	name = "air",
 	color = CoD.CraftablesStaffIcon.YellowWind,
 	clientFieldName = "quest_state1",
@@ -53,6 +42,19 @@ CoD.QuestItemTombDisplay.ClientFieldNames[2] = {
 	mStaffClientFieldName = "piece_staff_zm_mstaff_air",
 	lStaffClientFieldName = "piece_staff_zm_lstaff_air",
 	materialName = "zom_hud_craftable_element_wind",
+	num = 2,
+}
+CoD.QuestItemTombDisplay.ClientFieldNames[2] = {
+	name = "water",
+	color = CoD.CraftablesStaffIcon.BlueIce,
+	clientFieldName = "quest_state2",
+	gemClientFieldName = "piece_staff_zm_gem_water",
+	recordClientFieldName = "piece_record_zm_vinyl_water",
+	uStaffClientFieldName = "piece_staff_zm_ustaff_water",
+	mStaffClientFieldName = "piece_staff_zm_mstaff_water",
+	lStaffClientFieldName = "piece_staff_zm_lstaff_water",
+	materialName = "zom_hud_craftable_element_water",
+	num = 4,
 }
 CoD.QuestItemTombDisplay.ClientFieldNames[3] = {
 	name = "lightning",
@@ -64,17 +66,19 @@ CoD.QuestItemTombDisplay.ClientFieldNames[3] = {
 	mStaffClientFieldName = "piece_staff_zm_mstaff_lightning",
 	lStaffClientFieldName = "piece_staff_zm_lstaff_lightning",
 	materialName = "zom_hud_craftable_element_lightning",
+	num = 3,
 }
 CoD.QuestItemTombDisplay.ClientFieldNames[4] = {
-	name = "water",
-	color = CoD.CraftablesStaffIcon.BlueIce,
+	name = "fire",
+	color = CoD.CraftablesStaffIcon.RedFire,
 	clientFieldName = "quest_state4",
-	gemClientFieldName = "piece_staff_zm_gem_water",
-	recordClientFieldName = "piece_record_zm_vinyl_water",
-	uStaffClientFieldName = "piece_staff_zm_ustaff_water",
-	mStaffClientFieldName = "piece_staff_zm_mstaff_water",
-	lStaffClientFieldName = "piece_staff_zm_lstaff_water",
-	materialName = "zom_hud_craftable_element_water",
+	gemClientFieldName = "piece_staff_zm_gem_fire",
+	recordClientFieldName = "piece_record_zm_vinyl_fire",
+	uStaffClientFieldName = "piece_staff_zm_ustaff_fire",
+	mStaffClientFieldName = "piece_staff_zm_mstaff_fire",
+	lStaffClientFieldName = "piece_staff_zm_lstaff_fire",
+	materialName = "zom_hud_craftable_element_fire",
+	num = 1,
 }
 CoD.QuestItemTombDisplay.QuestItemName = Engine.Localize("ZM_TOMB_STAFF_PARTS")
 CoD.QuestItemTombDisplay.new = function(f1_arg0)
@@ -245,6 +249,10 @@ CoD.QuestItemTombDisplay.PlayerGemOwner = function(f3_arg0, f3_arg1)
 	if 0 < f3_arg1.newValue then
 		f3_local1 = (f3_arg1.newValue - 1) % CoD.QuestItemTombDisplay.QuestClientFieldCount + 1
 	end
+
+	f3_local0 = CoD.QuestItemTombDisplay.GetIndexFromNum(f3_local0)
+	f3_local1 = CoD.QuestItemTombDisplay.GetIndexFromNum(f3_local1)
+
 	local f3_local2 = tonumber(string.sub(f3_arg1.name, string.len(CoD.QuestItemTombDisplay.PlayerGemClientFieldName) + 1))
 	if f3_local2 < 1 or f3_local2 > 4 then
 		return
@@ -270,6 +278,10 @@ CoD.QuestItemTombDisplay.PlayerStaffOwner = function(f3_arg0, f3_arg1)
 	if 0 < f3_arg1.newValue then
 		f3_local1 = (f3_arg1.newValue - 1) % CoD.QuestItemTombDisplay.QuestClientFieldCount + 1
 	end
+
+	f3_local0 = CoD.QuestItemTombDisplay.GetIndexFromNum(f3_local0)
+	f3_local1 = CoD.QuestItemTombDisplay.GetIndexFromNum(f3_local1)
+
 	local f3_local2 = tonumber(string.sub(f3_arg1.name, string.len(CoD.QuestItemTombDisplay.PlayerStaffClientFieldName) + 1))
 	if f3_local2 < 1 or f3_local2 > 4 then
 		return
@@ -414,10 +426,9 @@ end
 
 CoD.QuestItemTombDisplay.UpdateCompletedStaffDisplay = function(f10_arg0, f10_arg1)
 	local f10_local0 = string.len(f10_arg1.name)
-	local f10_local1 = tonumber
-	local f10_local2 = string.sub
-	local f10_local3 = f10_arg1.name
-	CoD.QuestItemTombDisplay.UpdateQuestStatus(f10_arg0, f10_arg1, CoD.QuestItemTombDisplay.ClientFieldNames[f10_local1(f10_local2(f10_arg1.name, f10_local0))].name)
+	local num = tonumber(string.sub(f10_arg1.name, f10_local0))
+	local index = CoD.QuestItemTombDisplay.GetIndexFromNum(num)
+	CoD.QuestItemTombDisplay.UpdateQuestStatus(f10_arg0, f10_arg1, CoD.QuestItemTombDisplay.ClientFieldNames[index].name)
 	CoD.QuestItemTombDisplay.UpdateQuest(f10_arg0, f10_arg1)
 end
 
@@ -499,4 +510,14 @@ CoD.QuestItemTombDisplay.GetMaterial = function(f19_arg0)
 		end
 	end
 	return f19_local0
+end
+
+CoD.QuestItemTombDisplay.GetIndexFromNum = function(num)
+	for index = 1, CoD.QuestItemTombDisplay.QuestClientFieldCount, 1 do
+		if CoD.QuestItemTombDisplay.ClientFieldNames[index].num == num then
+			return index
+		end
+	end
+
+	return num
 end

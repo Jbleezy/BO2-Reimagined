@@ -164,7 +164,8 @@ CoD.PersistentItemTombDisplay.UpdateQuestContainerAndTitle = function(f4_arg0, f
 			if f4_arg1.newValue == 1 then
 				f4_arg0.statusIcons[2].icon:setRGB(1, 1, 1)
 			elseif f4_arg1.newValue >= 2 and f4_arg1.newValue <= 5 then
-				local recordColor = CoD.QuestItemTombDisplay.ClientFieldNames[f4_arg1.newValue - 1].color
+				local num = CoD.QuestItemTombDisplay.GetIndexFromNum(f4_arg1.newValue - 1)
+				local recordColor = CoD.QuestItemTombDisplay.ClientFieldNames[num].color
 				f4_arg0.statusIcons[2].icon:setRGB(recordColor.r, recordColor.g, recordColor.b)
 			end
 		end
@@ -260,7 +261,8 @@ CoD.PersistentItemTombDisplay.UpdateQuestStates = function(f10_arg0, f10_arg1)
 		f10_arg0.icon:setAlpha(1)
 		f10_arg0.icon:setRGB(1, 1, 1)
 	elseif f10_arg1 >= 2 and f10_arg1 <= 5 then
-		local recordColor = CoD.QuestItemTombDisplay.ClientFieldNames[f10_arg1 - 1].color
+		local num = CoD.QuestItemTombDisplay.GetIndexFromNum(f10_arg1 - 1)
+		local recordColor = CoD.QuestItemTombDisplay.ClientFieldNames[num].color
 		f10_arg0:setAlpha(1)
 		f10_arg0.icon:setAlpha(1)
 		f10_arg0.icon:setRGB(recordColor.r, recordColor.g, recordColor.b)
