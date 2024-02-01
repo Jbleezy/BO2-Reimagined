@@ -691,7 +691,7 @@ fade_out_intro_screen_zm(hold_black_time, fade_out_time, destroyed_afterwards)
 	{
 		flag_init("all_players_ready");
 
-		level thread wait_for_all_players_ready();
+		level thread pregame_think();
 
 		flag_wait("all_players_ready");
 	}
@@ -721,7 +721,7 @@ fade_out_intro_screen_zm(hold_black_time, fade_out_time, destroyed_afterwards)
 	flag_set("initial_blackscreen_passed");
 }
 
-wait_for_all_players_ready()
+pregame_think()
 {
 	if (!isDefined(level.prev_no_end_game_check))
 	{
@@ -729,6 +729,8 @@ wait_for_all_players_ready()
 	}
 
 	level.no_end_game_check = 1;
+
+	setroundsplayed(0);
 
 	if (!isDefined(level.pregame_hud))
 	{
@@ -865,7 +867,7 @@ wait_for_all_players_ready()
 				level.ready_up_countdown_hud countdown_hud_destroy();
 			}
 
-			level thread wait_for_all_players_ready();
+			level thread pregame_think();
 
 			return;
 		}
