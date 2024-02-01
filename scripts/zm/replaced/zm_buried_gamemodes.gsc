@@ -16,7 +16,7 @@
 init()
 {
 	add_map_gamemode("zclassic", maps\mp\zm_buried::zclassic_preinit, undefined, undefined);
-	add_map_gamemode("zstandard", maps\mp\zm_buried::zstandard_preinit, undefined, undefined);
+	add_map_gamemode("zstandard", ::zstandard_preinit, undefined, undefined);
 	add_map_gamemode("zgrief", maps\mp\zm_buried::zgrief_preinit, undefined, undefined);
 	add_map_gamemode("zcleansed", maps\mp\zm_buried::zcleansed_preinit, undefined, undefined);
 
@@ -32,6 +32,82 @@ init()
 
 	scripts\zm\replaced\utility::add_struct_location_gamemode_func("zstandard", "maze", scripts\zm\locs\zm_buried_loc_maze::struct_init);
 	scripts\zm\replaced\utility::add_struct_location_gamemode_func("zgrief", "maze", scripts\zm\locs\zm_buried_loc_maze::struct_init);
+}
+
+zstandard_preinit()
+{
+	survival_init();
+}
+
+survival_init()
+{
+	level.force_team_characters = 1;
+	level.should_use_cia = 0;
+
+	if (randomint(100) > 50)
+		level.should_use_cia = 1;
+
+	level.precachecustomcharacters = ::precache_team_characters;
+	level.givecustomcharacters = ::give_team_characters;
+	zm_buried_common_init();
+	flag_wait("start_zombie_round_logic");
+}
+
+give_team_characters()
+{
+	self detachall();
+	self set_player_is_female(0);
+
+	if (isdefined(level.should_use_cia))
+	{
+		if (level.should_use_cia)
+		{
+			self setmodel("c_zom_player_cia_dlc1_fb");
+			self setviewmodel("c_zom_suit_viewhands");
+			self.characterindex = 0;
+		}
+		else
+		{
+			self setmodel("c_zom_player_cdc_dlc1_fb");
+			self setviewmodel("c_zom_hazmat_viewhands");
+			self.characterindex = 1;
+		}
+	}
+	else
+	{
+		if (!isdefined(self.characterindex))
+		{
+			self.characterindex = 1;
+
+			if (self.team == "axis")
+				self.characterindex = 0;
+		}
+
+		switch (self.characterindex)
+		{
+			case 0:
+			case 2:
+				self setmodel("c_zom_player_cia_dlc1_fb");
+				self.voice = "american";
+				self.skeleton = "base";
+				self setviewmodel("c_zom_suit_viewhands");
+				self.characterindex = 0;
+				break;
+
+			case 1:
+			case 3:
+				self setmodel("c_zom_player_cdc_dlc1_fb");
+				self.voice = "american";
+				self.skeleton = "base";
+				self setviewmodel("c_zom_hazmat_viewhands");
+				self.characterindex = 1;
+				break;
+		}
+	}
+
+	self setmovespeedscale(1);
+	self setsprintduration(4);
+	self setsprintcooldown(0);
 }
 
 buildbuildable(buildable)
