@@ -51,6 +51,13 @@ survival_init()
 	level.givecustomcharacters = ::give_team_characters;
 	zm_buried_common_init();
 	flag_wait("start_zombie_round_logic");
+	trig_removal = getentarray("zombie_door", "targetname");
+
+	foreach (trig in trig_removal)
+	{
+		if (isdefined(trig.script_parameters) && trig.script_parameters == "grief_remove")
+			trig delete();
+	}
 }
 
 give_team_characters()
