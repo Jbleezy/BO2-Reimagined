@@ -787,6 +787,7 @@ give_perk(perk, bought)
 	if (perk == "specialty_additionalprimaryweapon")
 	{
 		self scripts\zm\replaced\_zm::restore_additionalprimaryweapon();
+		self notify("perk_additionalprimaryweapon_activated");
 	}
 
 	if (isDefined(level._custom_perks[perk]) && isDefined(level._custom_perks[perk].player_thread_give))
