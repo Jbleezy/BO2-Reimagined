@@ -1350,16 +1350,16 @@ held_melee_weapon_world_model_fix()
 
 	while (1)
 	{
-		if (is_true(self.afterlife))
+		melee_weapon = self get_player_melee_weapon();
+		current_weapon = self getcurrentweapon();
+
+		if (getweaponmodel(melee_weapon) == "t6_wpn_none_world")
 		{
 			wait 0.05;
 			continue;
 		}
 
-		melee_weapon = self get_player_melee_weapon();
-		current_weapon = self getcurrentweapon();
-
-		if (getweaponmodel(melee_weapon) == "t6_wpn_none_world")
+		if (!self hasweapon(melee_weapon) && !self hasweapon("held_" + melee_weapon))
 		{
 			wait 0.05;
 			continue;
