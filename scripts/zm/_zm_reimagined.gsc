@@ -437,33 +437,6 @@ set_dvars()
 
 	setDvar("sv_voice", 2);
 	setDvar("sv_voiceQuality", 9);
-
-	setDvar("sv_cheats", 0);
-
-	if (getDvar("hud_timer") == "")
-	{
-		setDvar("hud_timer", 1);
-	}
-
-	if (getDvar("hud_enemy_counter") == "")
-	{
-		setDvar("hud_enemy_counter", 1);
-	}
-
-	if (getDvar("hud_health_bar") == "")
-	{
-		setDvar("hud_health_bar", 1);
-	}
-
-	if (getDvar("hud_zone_name") == "")
-	{
-		setDvar("hud_zone_name", 1);
-	}
-
-	if (getDvar("disable_character_dialog") == "")
-	{
-		setDvar("disable_character_dialog", 0);
-	}
 }
 
 set_client_dvars()
@@ -568,11 +541,6 @@ enemy_counter_hud()
 
 	flag_wait("hud_visible");
 
-	if (!getDvarInt("hud_enemy_counter"))
-	{
-		return;
-	}
-
 	hud.alpha = 1;
 
 	while (1)
@@ -641,11 +609,6 @@ timer_hud()
 
 	flag_wait("hud_visible");
 
-	if (!getDvarInt("hud_timer"))
-	{
-		return;
-	}
-
 	hud.alpha = 1;
 
 	if (!flag("initial_blackscreen_passed"))
@@ -691,11 +654,6 @@ round_timer_hud()
 	hud thread destroy_on_intermission();
 
 	hud thread set_time_frozen_on_end_game();
-
-	if (!getDvarInt("hud_timer"))
-	{
-		return;
-	}
 
 	hud.alpha = 1;
 

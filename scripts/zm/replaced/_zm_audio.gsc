@@ -22,11 +22,6 @@ create_and_play_dialog(category, type, response, force_variant, override)
 		return;
 	}
 
-	if (getDvarInt("disable_character_dialog"))
-	{
-		return;
-	}
-
 	isresponse = 0;
 	alias_suffix = undefined;
 	index = undefined;
