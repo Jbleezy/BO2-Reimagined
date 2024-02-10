@@ -132,7 +132,7 @@ betty_safe_to_plant()
 betty_wait_and_detonate()
 {
 	wait 0.1;
-	self detonate(self.owner);
+	self bouncingbettydetonate();
 }
 
 betty_watch()
@@ -345,12 +345,19 @@ betty_detonation()
 
 		if (ent damageconetrace(self.origin, self) > 0)
 		{
-			self spawnminemover();
-			self.minemover thread bouncingbettyjumpandexplode();
-			self delete();
+			self playsound("wpn_claymore_alert");
+			wait 0.1;
+			self bouncingbettydetonate();
 			return;
 		}
 	}
+}
+
+bouncingbettydetonate()
+{
+	self spawnminemover();
+	self.minemover thread bouncingbettyjumpandexplode();
+	self delete();
 }
 
 spawnminemover()
