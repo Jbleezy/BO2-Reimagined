@@ -45,6 +45,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_utility::is_temporary_zombie_weapon, scripts\zm\replaced\_zm_utility::is_temporary_zombie_weapon);
 	replaceFunc(maps\mp\zombies\_zm_utility::wait_network_frame, scripts\zm\replaced\_zm_utility::wait_network_frame);
 	replaceFunc(maps\mp\zombies\_zm_utility::track_players_intersection_tracker, scripts\zm\replaced\_zm_utility::track_players_intersection_tracker);
+	replaceFunc(maps\mp\zombies\_zm_ffotd::ffotd_melee_miss_func, scripts\zm\replaced\_zm_ffotd::ffotd_melee_miss_func);
 	replaceFunc(maps\mp\zombies\_zm_score::add_to_player_score, scripts\zm\replaced\_zm_score::add_to_player_score);
 	replaceFunc(maps\mp\zombies\_zm_score::minus_to_player_score, scripts\zm\replaced\_zm_score::minus_to_player_score);
 	replaceFunc(maps\mp\zombies\_zm_score::player_add_points_kill_bonus, scripts\zm\replaced\_zm_score::player_add_points_kill_bonus);
@@ -62,6 +63,8 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_weapons::ammo_give, scripts\zm\replaced\_zm_weapons::ammo_give);
 	replaceFunc(maps\mp\zombies\_zm_weapons::get_upgraded_ammo_cost, scripts\zm\replaced\_zm_weapons::get_upgraded_ammo_cost);
 	replaceFunc(maps\mp\zombies\_zm_weapons::makegrenadedudanddestroy, scripts\zm\replaced\_zm_weapons::makegrenadedudanddestroy);
+	replaceFunc(maps\mp\zombies\_zm_weapons::weaponobjects_on_player_connect_override_internal, scripts\zm\replaced\_zm_weapons::weaponobjects_on_player_connect_override_internal);
+	replaceFunc(maps\mp\zombies\_zm_weapons::setupretrievablehintstrings, scripts\zm\replaced\_zm_weapons::setupretrievablehintstrings);
 	replaceFunc(maps\mp\zombies\_zm_weapons::createballisticknifewatcher_zm, scripts\zm\replaced\_zm_weapons::createballisticknifewatcher_zm);
 	replaceFunc(maps\mp\zombies\_zm_weapons::weapon_spawn_think, scripts\zm\replaced\_zm_weapons::weapon_spawn_think);
 	replaceFunc(maps\mp\zombies\_zm_weapons::weapon_set_first_time_hint, scripts\zm\replaced\_zm_weapons::weapon_set_first_time_hint);
@@ -118,7 +121,6 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_weap_ballistic_knife::watch_use_trigger, scripts\zm\replaced\_zm_weap_ballistic_knife::watch_use_trigger);
 	replaceFunc(maps\mp\zombies\_zm_weap_ballistic_knife::pick_up, scripts\zm\replaced\_zm_weap_ballistic_knife::pick_up);
 	replaceFunc(maps\mp\zombies\_zm_weap_claymore::claymore_detonation, scripts\zm\replaced\_zm_weap_claymore::claymore_detonation);
-	replaceFunc(maps\mp\zombies\_zm_weap_claymore::claymore_setup, scripts\zm\replaced\_zm_weap_claymore::claymore_setup);
 	replaceFunc(maps\mp\zombies\_zm_weap_cymbal_monkey::init, scripts\zm\replaced\_zm_weap_cymbal_monkey::init);
 	replaceFunc(maps\mp\zombies\_zm_weap_cymbal_monkey::player_handle_cymbal_monkey, scripts\zm\replaced\_zm_weap_cymbal_monkey::player_handle_cymbal_monkey);
 }
@@ -230,7 +232,6 @@ on_player_spawned()
 
 			self.solo_lives_given = 0;
 			self.stored_weapon_data = undefined;
-			self.screecher_seen_hint = 1;
 
 			self thread health_bar_hud();
 			self thread zone_name_hud();
@@ -340,7 +341,6 @@ post_all_players_spawned()
 
 	wait 0.05;
 
-	level.near_miss = 2; // makes screecher not run away first time on solo
 	level.ta_vaultfee = 0;
 	level.ta_tellerfee = 0;
 	level.weapon_locker_online = 0;
@@ -367,10 +367,6 @@ post_all_players_spawned()
 	level.zombie_vars["slipgun_reslip_rate"] = 0;
 	level.zombie_vars["zombie_perk_divetonuke_min_damage"] = 1000;
 	level.zombie_vars["zombie_perk_divetonuke_max_damage"] = 5000;
-	level.explode_overheated_jetgun = 0;
-	level.unbuild_overheated_jetgun = 0;
-	level.take_overheated_jetgun = 1;
-	level.dont_allow_meat_interaction = 1;
 	level.players_can_damage_riotshields = 1;
 	level.speed_change_round = undefined;
 	level.playersuicideallowed = undefined;
@@ -487,9 +483,10 @@ health_bar_hud()
 
 	flag_wait("hud_visible");
 
-	prev_health = 0;
-	prev_maxhealth = 0;
-	prev_shield_health = 0;
+	vars = [];
+	vars["prev_health"] = 0;
+	vars["prev_maxhealth"] = 0;
+	vars["prev_shield_health"] = 0;
 
 	while (1)
 	{
@@ -501,14 +498,14 @@ health_bar_hud()
 			shield_health = int((shield_health / level.zombie_vars["riotshield_hit_points"]) * 100);
 		}
 
-		if (self.health != prev_health || self.maxhealth != prev_maxhealth || shield_health != prev_shield_health)
+		if (self.health != vars["prev_health"] || self.maxhealth != vars["prev_maxhealth"] || shield_health != vars["prev_shield_health"])
 		{
 			self luinotifyevent(&"hud_update_health", 3, self.health, self.maxhealth, shield_health);
 		}
 
-		prev_health = self.health;
-		prev_maxhealth = self.maxhealth;
-		prev_shield_health = shield_health;
+		vars["prev_health"] = self.health;
+		vars["prev_maxhealth"] = self.maxhealth;
+		vars["prev_shield_health"] = shield_health;
 
 		wait 0.05;
 	}
@@ -543,26 +540,28 @@ enemy_counter_hud()
 
 	hud.alpha = 1;
 
+	vars = [];
+
 	while (1)
 	{
-		enemies = get_round_enemy_array().size + level.zombie_total;
+		vars["enemies"] = get_round_enemy_array().size + level.zombie_total;
 
 		if (level flag_exists("spawn_ghosts") && flag("spawn_ghosts"))
 		{
-			enemies = get_current_ghost_count();
+			vars["enemies"] = get_current_ghost_count();
 		}
 		else if (level flag_exists("sq_tpo_special_round_active") && flag("sq_tpo_special_round_active"))
 		{
-			enemies = 0;
+			vars["enemies"] = 0;
 		}
 
-		if (enemies == 0)
+		if (vars["enemies"] == 0)
 		{
 			hud setText("");
 		}
 		else
 		{
-			hud setValue(enemies);
+			hud setValue(vars["enemies"]);
 		}
 
 		wait 0.05;
@@ -571,16 +570,19 @@ enemy_counter_hud()
 
 get_current_ghost_count()
 {
-	ghost_count = 0;
-	ais = getaiarray(level.zombie_team);
+	vars = [];
+	vars["ghost_count"] = 0;
+	vars["ais"] = getaiarray(level.zombie_team);
 
-	foreach (ai in ais)
+	for (i = 0; i < vars["ais"].size; i++)
 	{
-		if (isdefined(ai.is_ghost) && ai.is_ghost)
-			ghost_count++;
+		vars["ai"] = vars["ais"][i];
+
+		if (isdefined(vars["ai"].is_ghost) && vars["ai"].is_ghost)
+			vars["ghost_count"]++;
 	}
 
-	return ghost_count;
+	return vars["ghost_count"];
 }
 
 timer_hud()
@@ -1365,8 +1367,8 @@ fall_velocity_check()
 		while (!self isOnGround())
 		{
 			vars["was_on_ground"] = 0;
-			vel = self getVelocity();
-			self.fall_velocity = vel[2];
+			vars["vel"] = self getVelocity();
+			self.fall_velocity = vars["vel"][2];
 			wait 0.05;
 		}
 
@@ -1393,14 +1395,16 @@ fall_velocity_check()
 
 disable_bank_teller()
 {
-	level notify("stop_bank_teller");
-	bank_teller_dmg_trig = getent("bank_teller_tazer_trig", "targetname");
+	vars = [];
 
-	if (IsDefined(bank_teller_dmg_trig))
+	level notify("stop_bank_teller");
+	vars["bank_teller_dmg_trig"] = getent("bank_teller_tazer_trig", "targetname");
+
+	if (IsDefined(vars["bank_teller_dmg_trig"]))
 	{
-		bank_teller_transfer_trig = getent(bank_teller_dmg_trig.target, "targetname");
-		bank_teller_dmg_trig delete();
-		bank_teller_transfer_trig delete();
+		vars["bank_teller_transfer_trig"] = getent(vars["bank_teller_dmg_trig"].target, "targetname");
+		vars["bank_teller_transfer_trig"] delete();
+		vars["bank_teller_dmg_trig"] delete();
 	}
 }
 
@@ -1470,6 +1474,10 @@ weapon_changes()
 
 		include_weapon("held_one_inch_punch_lightning_zm", 0);
 		register_melee_weapon_for_level("held_one_inch_punch_lightning_zm");
+
+		include_weapon("bouncingbetty_zm", 0);
+		add_zombie_weapon("bouncingbetty_zm", undefined, &"ZOMBIE_WEAPON_BOUNCINGBETTY", 1000, "wpck_explo", "", undefined, 1);
+		register_placeable_mine_for_level("bouncingbetty_zm");
 	}
 
 	if (isdefined(level.zombie_weapons["saritch_zm"]))

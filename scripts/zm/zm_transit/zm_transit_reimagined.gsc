@@ -28,6 +28,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_ai_avogadro::avogadro_exit, scripts\zm\replaced\_zm_ai_avogadro::avogadro_exit);
 	replaceFunc(maps\mp\zombies\_zm_ai_avogadro::avogadro_damage_func, scripts\zm\replaced\_zm_ai_avogadro::avogadro_damage_func);
 	replaceFunc(maps\mp\zombies\_zm_ai_screecher::screecher_spawning_logic, scripts\zm\replaced\_zm_ai_screecher::screecher_spawning_logic);
+	replaceFunc(maps\mp\zombies\_zm_ai_screecher::screecher_attacking, scripts\zm\replaced\_zm_ai_screecher::screecher_attacking);
 	replaceFunc(maps\mp\zombies\_zm_ai_screecher::screecher_melee_damage, scripts\zm\replaced\_zm_ai_screecher::screecher_melee_damage);
 	replaceFunc(maps\mp\zombies\_zm_ai_screecher::screecher_detach, scripts\zm\replaced\_zm_ai_screecher::screecher_detach);
 	replaceFunc(maps\mp\zombies\_zm_ai_screecher::screecher_cleanup, scripts\zm\replaced\_zm_ai_screecher::screecher_cleanup);
@@ -62,6 +63,9 @@ main()
 
 init()
 {
+	level.explode_overheated_jetgun = 0;
+	level.unbuild_overheated_jetgun = 0;
+	level.take_overheated_jetgun = 1;
 	level.zombie_init_done = ::zombie_init_done;
 	level.special_weapon_magicbox_check = ::transit_special_weapon_magicbox_check;
 	level.can_revive = ::can_revive;

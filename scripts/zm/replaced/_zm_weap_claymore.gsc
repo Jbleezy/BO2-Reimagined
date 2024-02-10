@@ -234,15 +234,3 @@ claymore_detonation()
 		}
 	}
 }
-
-claymore_setup()
-{
-	if (!isdefined(self.claymores))
-		self.claymores = [];
-
-	self thread claymore_watch();
-	self giveweapon("claymore_zm");
-	self set_player_placeable_mine("claymore_zm");
-	self setactionslot(4, "weapon", "claymore_zm");
-	self setweaponammostock("claymore_zm", 2);
-}

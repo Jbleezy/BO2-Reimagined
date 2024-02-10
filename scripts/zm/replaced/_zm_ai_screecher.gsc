@@ -27,8 +27,8 @@ screecher_spawning_logic()
 		while (!isdefined(level.zombie_screecher_locations) || level.zombie_screecher_locations.size <= 0)
 			wait 0.1;
 
-		// while ( getdvarint( _hash_B0C0D38F ) )
-		//	wait 0.1;
+		while (getdvarint("scr_screecher_ignore_player"))
+			wait 0.1;
 
 		if (!flag("spawn_zombies"))
 			flag_wait("spawn_zombies");
@@ -112,6 +112,43 @@ screecher_spawning_logic()
 		}
 
 		wait 5;
+	}
+}
+
+screecher_attacking()
+{
+	player = self.favoriteenemy;
+
+	if (!isdefined(player))
+	{
+		self thread screecher_detach(player);
+		return;
+	}
+
+	if (screecher_should_runaway(player))
+	{
+		self thread screecher_detach(player);
+		player thread do_player_general_vox("general", "screecher_jumpoff");
+		return;
+	}
+
+	if (self.attack_time < gettime())
+	{
+		scratch_score = 5;
+		players = get_players();
+		self.screecher_score = self.screecher_score + scratch_score;
+		killed_player = self screecher_check_score();
+
+		if (player.health > 0 && !(isdefined(killed_player) && killed_player))
+		{
+			self.attack_delay = self.attack_delay_base + randomint(self.attack_delay_offset);
+			self.attack_time = gettime() + self.attack_delay;
+			self thread claw_fx(player, self.attack_delay * 0.001);
+			self playsound("zmb_vocals_screecher_attack");
+			player playsoundtoplayer("zmb_screecher_scratch", player);
+			player thread do_player_general_vox("general", "screecher_attack");
+			players = get_players();
+		}
 	}
 }
 

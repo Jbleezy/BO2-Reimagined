@@ -149,6 +149,11 @@ init_spawnable_weapon_upgrade()
 			unitrigger_stub.prompt_and_visibility_func = scripts\zm\replaced\_zm_weap_claymore::claymore_unitrigger_update_prompt;
 			maps\mp\zombies\_zm_unitrigger::register_static_unitrigger(unitrigger_stub, scripts\zm\replaced\_zm_weap_claymore::buy_claymores);
 		}
+		else if (unitrigger_stub.zombie_weapon_upgrade == "bouncingbetty_zm")
+		{
+			unitrigger_stub.prompt_and_visibility_func = scripts\zm\reimagined\_zm_weap_bouncingbetty::betty_unitrigger_update_prompt;
+			maps\mp\zombies\_zm_unitrigger::register_static_unitrigger(unitrigger_stub, scripts\zm\reimagined\_zm_weap_bouncingbetty::buy_betties);
+		}
 		else
 		{
 			if (is_lethal_grenade(unitrigger_stub.zombie_weapon_upgrade))
@@ -220,7 +225,7 @@ add_dynamic_wallbuy(weapon, wallbuy, pristine)
 
 	if (!is_melee_weapon(weapon))
 	{
-		if (pristine || weapon == "claymore_zm")
+		if (pristine || weapon == "claymore_zm" || weapon == "bouncingbetty_zm")
 			unitrigger_stub.hint_string = get_weapon_hint(weapon);
 		else
 			unitrigger_stub.hint_string = get_weapon_hint_ammo();
@@ -248,6 +253,11 @@ add_dynamic_wallbuy(weapon, wallbuy, pristine)
 	{
 		unitrigger_stub.prompt_and_visibility_func = maps\mp\zombies\_zm_weap_claymore::claymore_unitrigger_update_prompt;
 		maps\mp\zombies\_zm_unitrigger::register_static_unitrigger(unitrigger_stub, maps\mp\zombies\_zm_weap_claymore::buy_claymores);
+	}
+	else if (weapon == "bouncingbetty_zm")
+	{
+		unitrigger_stub.prompt_and_visibility_func = scripts\zm\reimagined\_zm_weap_bouncingbetty::betty_unitrigger_update_prompt;
+		maps\mp\zombies\_zm_unitrigger::register_static_unitrigger(unitrigger_stub, scripts\zm\reimagined\_zm_weap_bouncingbetty::buy_betties);
 	}
 	else
 	{
@@ -441,6 +451,12 @@ weapon_give(weapon, is_upgrade, magic_box, nosound)
 	else if (weapon == "claymore_zm")
 	{
 		self thread maps\mp\zombies\_zm_weap_claymore::claymore_setup();
+		self play_weapon_vo(weapon, magic_box);
+		return;
+	}
+	else if (weapon == "bouncingbetty_zm")
+	{
+		self thread scripts\zm\reimagined\_zm_weap_bouncingbetty::betty_setup();
 		self play_weapon_vo(weapon, magic_box);
 		return;
 	}
@@ -849,6 +865,73 @@ makegrenadedudanddestroy()
 	{
 		self delete();
 	}
+}
+
+weaponobjects_on_player_connect_override_internal()
+{
+	self maps\mp\gametypes_zm\_weaponobjects::createbasewatchers();
+	self createclaymorewatcher_zm();
+	self createbettywatcher_zm();
+
+	for (i = 0; i < level.retrievable_knife_init_names.size; i++)
+		self createballisticknifewatcher_zm(level.retrievable_knife_init_names[i], level.retrievable_knife_init_names[i] + "_zm");
+
+	self maps\mp\gametypes_zm\_weaponobjects::setupretrievablewatcher();
+
+	if (!isdefined(self.weaponobjectwatcherarray))
+		self.weaponobjectwatcherarray = [];
+
+	self thread maps\mp\gametypes_zm\_weaponobjects::watchweaponobjectspawn();
+	self thread maps\mp\gametypes_zm\_weaponobjects::watchweaponprojectileobjectspawn();
+	self thread maps\mp\gametypes_zm\_weaponobjects::deleteweaponobjectson();
+	self.concussionendtime = 0;
+	self.hasdonecombat = 0;
+	self.lastfiretime = 0;
+	self thread watchweaponusagezm();
+	self thread maps\mp\gametypes_zm\_weapons::watchgrenadeusage();
+	self thread maps\mp\gametypes_zm\_weapons::watchmissileusage();
+	self thread watchweaponchangezm();
+	self thread maps\mp\gametypes_zm\_weapons::watchturretuse();
+	self thread trackweaponzm();
+	self notify("weapon_watchers_created");
+}
+
+createbettywatcher_zm()
+{
+	watcher = self maps\mp\gametypes_zm\_weaponobjects::createuseweaponobjectwatcher("bouncingbetty", "bouncingbetty_zm", self.team);
+	watcher.onspawnretrievetriggers = scripts\zm\reimagined\_zm_weap_bouncingbetty::on_spawn_retrieve_trigger;
+	watcher.adjusttriggerorigin = scripts\zm\reimagined\_zm_weap_bouncingbetty::adjust_trigger_origin;
+	watcher.pickup = level.pickup_betties;
+	watcher.pickup_trigger_listener = level.pickup_betties_trigger_listener;
+	watcher.skip_weapon_object_damage = 1;
+	watcher.headicon = 0;
+	watcher.watchforfire = 1;
+	watcher.detonate = ::bettydetonate;
+	watcher.ondamage = level.betties_on_damage;
+}
+
+bettydetonate(attacker, weaponname)
+{
+	from_emp = isempweapon(weaponname);
+
+	if (from_emp)
+	{
+		self delete();
+		return;
+	}
+
+	if (isdefined(attacker))
+		self detonate(attacker);
+	else if (isdefined(self.owner) && isplayer(self.owner))
+		self detonate(self.owner);
+	else
+		self detonate();
+}
+
+setupretrievablehintstrings()
+{
+	maps\mp\gametypes_zm\_weaponobjects::createretrievablehint("claymore", &"ZOMBIE_CLAYMORE_PICKUP");
+	maps\mp\gametypes_zm\_weaponobjects::createretrievablehint("bouncingbetty", &"ZOMBIE_BOUNCINGBETTY_PICKUP");
 }
 
 createballisticknifewatcher_zm(name, weapon)

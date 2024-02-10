@@ -82,6 +82,7 @@
 	* [Equipment](#equipment)
 		* [Combat Knife](#combat-knife)
 		* [Claymore](#claymore)
+		* [Bouncing Betty](#bouncing-betty)
 		* [Time Bomb](#time-bomb)
 		* [One Inch Punch](#one-inch-punch)
 * [Wallbuys](#wallbuys)
@@ -564,9 +565,13 @@
 #### Claymore
 * Can be repurchased
 * Can be placed while in the air
+* Increased explosion radius by 28% (same as Black Ops 2 Multiplayer Claymore)
 * Increased max amount that can be placed from 12 to 20
 * Added weapon name on HUD
 * Removed initial weapon raise anim
+
+#### Bouncing Betty
+* Replaces Claymore on Origins
 
 #### Time Bomb
 * No longer sends players back in time

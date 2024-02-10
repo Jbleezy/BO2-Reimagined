@@ -5039,16 +5039,16 @@
 {
 "targetname" "pf2204_auto37"
 "classname" "script_struct"
-"model" "t6_wpn_claymore_world"
-"angles" "0 270 0"
-"origin" "1204 4364.75 -296"
+"model" "t6_wpn_bouncing_betty_world"
+"angles" "90 270 0"
+"origin" "1204 4362.75 -292"
 "script_vector" "0 -90 0"
 "guid" "A44E7A85"
 }
 {
 "target" "pf2204_auto37"
 "targetname" "claymore_purchase"
-"zombie_weapon_upgrade" "claymore_zm"
+"zombie_weapon_upgrade" "bouncingbetty_zm"
 "classname" "script_struct"
 "origin" "1197 4364.75 -289"
 "angles" "0 180 0"
@@ -5126,16 +5126,16 @@
 {
 "targetname" "pf2209_auto37"
 "classname" "script_struct"
-"model" "t6_wpn_claymore_world"
-"angles" "0 90 0"
-"origin" "-2848 -69.75 300"
+"model" "t6_wpn_bouncing_betty_world"
+"angles" "90 90 0"
+"origin" "-2848 -67.75 304"
 "script_vector" "0 -90 0"
 "guid" "A44E7A85"
 }
 {
 "target" "pf2209_auto37"
 "targetname" "claymore_purchase"
-"zombie_weapon_upgrade" "claymore_zm"
+"zombie_weapon_upgrade" "bouncingbetty_zm"
 "classname" "script_struct"
 "origin" "-2841 -69.75 307"
 "angles" "0 1.00179e-005 0"
@@ -5348,16 +5348,16 @@
 {
 "targetname" "pf2222_auto37"
 "classname" "script_struct"
-"model" "t6_wpn_claymore_world"
-"angles" "0 270 0"
-"origin" "2360 473 165"
+"model" "t6_wpn_bouncing_betty_world"
+"angles" "90 270 0"
+"origin" "2360 471 169"
 "script_vector" "0 -90 0"
 "guid" "A44E7A85"
 }
 {
 "target" "pf2222_auto37"
 "targetname" "claymore_purchase"
-"zombie_weapon_upgrade" "claymore_zm"
+"zombie_weapon_upgrade" "bouncingbetty_zm"
 "classname" "script_struct"
 "origin" "2353 473 172"
 "angles" "0 180 0"

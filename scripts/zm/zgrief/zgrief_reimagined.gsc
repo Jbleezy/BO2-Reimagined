@@ -83,6 +83,7 @@ init()
 		meat_init();
 	}
 
+	level.dont_allow_meat_interaction = 1;
 	level.can_revive_game_module = ::can_revive;
 	level._powerup_grab_check = ::powerup_can_player_grab;
 	level.meat_bounce_override = scripts\zm\replaced\zgrief::meat_bounce_override;

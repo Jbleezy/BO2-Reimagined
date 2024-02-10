@@ -176,7 +176,7 @@ dig_up_weapon(digger)
 	a_rare_weapons = array("dsr50_zm", "srm1216_zm");
 
 	if (digger.dig_vars["has_upgraded_shovel"])
-		a_rare_weapons = combinearrays(a_rare_weapons, array("claymore_zm", "vector_zm", "ksg_zm", "mp40_zm", "mp44_zm"));
+		a_rare_weapons = combinearrays(a_rare_weapons, array("bouncingbetty_zm", "vector_zm", "ksg_zm", "mp40_zm", "mp44_zm"));
 
 	str_weapon = undefined;
 
@@ -189,9 +189,9 @@ dig_up_weapon(digger)
 	v_spawnang = (0, 0, 0);
 	str_spec_model = undefined;
 
-	if (str_weapon == "claymore_zm")
+	if (str_weapon == "bouncingbetty_zm")
 	{
-		str_spec_model = "t6_wpn_claymore_world";
+		str_spec_model = "t6_wpn_bouncing_betty_world";
 		v_spawnang += vectorscale((0, 1, 0), 90.0);
 	}
 
@@ -199,9 +199,9 @@ dig_up_weapon(digger)
 	v_angles = (0, v_angles[1], 0) + vectorscale((0, 1, 0), 90.0) + v_spawnang;
 	m_weapon = spawn_weapon_model(str_weapon, str_spec_model, v_spawnpt, v_angles);
 
-	if (str_weapon == "claymore_zm")
+	if (str_weapon == "bouncingbetty_zm")
 	{
-		m_weapon setmodel("t6_wpn_claymore_world");
+		m_weapon setmodel("t6_wpn_bouncing_betty_world");
 		v_spawnang += vectorscale((0, 0, 1), 90.0);
 	}
 
@@ -246,12 +246,12 @@ swap_weapon(str_weapon, e_player)
 {
 	str_current_weapon = e_player getcurrentweapon();
 
-	if (str_weapon == "claymore_zm")
+	if (str_weapon == "bouncingbetty_zm")
 	{
 		if (!e_player hasweapon(str_weapon))
 		{
-			e_player thread maps\mp\zombies\_zm_weap_claymore::show_claymore_hint("claymore_purchased");
-			e_player thread maps\mp\zombies\_zm_weap_claymore::claymore_setup();
+			e_player thread scripts\zm\reimagined\_zm_weap_bouncingbetty::show_betty_hint("betty_purchased");
+			e_player thread scripts\zm\reimagined\_zm_weap_bouncingbetty::betty_setup();
 			e_player thread maps\mp\zombies\_zm_audio::create_and_play_dialog("weapon_pickup", "grenade");
 		}
 		else
