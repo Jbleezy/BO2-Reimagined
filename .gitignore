@@ -1,9 +1,11 @@
 /.vscode
-stylua.toml
 *.ff
 *.iwd
+*.sabs
+*.sabl
 *.dds
 *.log
 zmStats
 _zm_test.gsc
+stylua.toml
 TODO.md

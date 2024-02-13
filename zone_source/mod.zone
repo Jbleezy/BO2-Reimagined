@@ -18,3 +18,5 @@ include,includes/rawfile
 include,includes/stringtable
 
 localize,reimagined
+
+soundbank,mod.all
