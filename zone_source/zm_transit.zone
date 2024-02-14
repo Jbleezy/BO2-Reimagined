@@ -5,8 +5,6 @@
 include,includes/jetgun_zm
 include,includes/sticky_grenade_zm
 
-include,includes/muzzleflashes_zmb_ug
-
 material,hud_icon_40mm_grenade_mp
 image,hud_40mmgrenade
 material,hud_select_fire_bullet_stack_big
