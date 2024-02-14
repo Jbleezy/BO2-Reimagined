@@ -12,6 +12,7 @@ include,includes/insas_zm
 include,includes/vector_zm
 include,includes/sig556_zm
 include,includes/sa58_zm
+include,includes/mk48_zm
 include,includes/bouncing_betty_zm
 
 include,includes/attachment

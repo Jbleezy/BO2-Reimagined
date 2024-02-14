@@ -56,6 +56,7 @@
 	* [Light Machine Guns](#light-machine-guns)
 		* [HAMR](#hamr)
 		* [MG08/15](#mg0815)
+		* [Mk 48](#mk-48)
 	* [Sniper Rifles](#sniper-rifles)
 		* [Ballista](#ballista)
 	* [Shotguns](#shotguns)
@@ -402,6 +403,9 @@
 
 #### MG08/15
 * Ammo gets added to the clip at the same time that it gets added in the reload anim
+
+#### Mk 48
+* Replaces RPD
 
 ### Sniper Rifles
 * Decreased move speed from 95% to 90%
