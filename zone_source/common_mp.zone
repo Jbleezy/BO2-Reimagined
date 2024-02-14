@@ -2,6 +2,7 @@
 >type,fastfile
 >name,common_mp
 
+>level.ipak_read,patch_mp
 >level.ipak_read,mp
 
 include,includes/knife_zm
@@ -13,6 +14,7 @@ include,includes/vector_zm
 include,includes/sig556_zm
 include,includes/sa58_zm
 include,includes/mk48_zm
+include,includes/as50_zm
 include,includes/bouncing_betty_zm
 
 include,includes/attachment

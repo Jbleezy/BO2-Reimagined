@@ -59,6 +59,7 @@
 		* [Mk 48](#mk-48)
 	* [Sniper Rifles](#sniper-rifles)
 		* [Ballista](#ballista)
+		* [XPR-50](#xpr-50)
 	* [Shotguns](#shotguns)
 		* [Remington 870 MCS](#remington-870-mcs)
 	* [Launchers](#launchers)
@@ -421,6 +422,9 @@
 * Upgraded: decreased headshot multiplier from 10 to 8
 * Upgraded: decreased stock ammo from 120 to 100
 * Upgraded: fixed fire sound
+
+#### XPR-50
+* Replaces Barrett M82A1
 
 ### Shotguns
 * Increased penetration

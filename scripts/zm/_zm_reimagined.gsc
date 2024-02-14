@@ -1570,6 +1570,15 @@ weapon_changes()
 		add_zombie_weapon("mk48_zm", "mk48_upgraded_zm", &"WEAPON_MK48", 1000, "wpck_rpd", "", undefined, 1);
 	}
 
+	if (isdefined(level.zombie_weapons["barretm82_zm"]))
+	{
+		level.zombie_weapons["barretm82_zm"].is_in_box = 0;
+
+		include_weapon("as50_zm");
+		include_weapon("as50_upgraded_zm", 0);
+		add_zombie_weapon("as50_zm", "as50_upgraded_zm", &"WEAPON_AS50", 1000, "wpck_m82a1", "", undefined, 1);
+	}
+
 	if (level.script == "zm_transit" || level.script == "zm_nuked" || level.script == "zm_highrise" || level.script == "zm_prison")
 	{
 		level.zombie_lethal_grenade_player_init = "sticky_grenade_zm";
