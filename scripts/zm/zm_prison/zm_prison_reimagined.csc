@@ -3,7 +3,10 @@
 
 main()
 {
+	replaceFunc(clientscripts\mp\zm_prison::entityspawned_alcatraz, scripts\zm\replaced\zm_prison::entityspawned_alcatraz);
 	replaceFunc(clientscripts\mp\zombies\_zm_ai_brutus::brutusfootstepcbfunc, scripts\zm\replaced\_zm_ai_brutus::brutusfootstepcbfunc);
+
+	level thread clientscripts\mp\_sticky_grenade::main();
 
 	if (is_gametype_active("zstandard"))
 	{

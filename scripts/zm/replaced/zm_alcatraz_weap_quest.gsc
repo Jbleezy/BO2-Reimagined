@@ -103,3 +103,16 @@ wolf_spit_out_powerup()
 	if (isdefined(power_ups[0]))
 		power_ups[0] movez(120, 4);
 }
+
+hellhole_projectile_watch()
+{
+	self endon("disconnect");
+
+	while (true)
+	{
+		self waittill("grenade_fire", grenade, weapname);
+
+		if (is_lethal_grenade(weapname))
+			self thread hellhole_grenades(grenade);
+	}
+}

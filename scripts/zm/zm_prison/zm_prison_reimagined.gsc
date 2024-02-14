@@ -26,6 +26,7 @@ main()
 	replaceFunc(maps\mp\zm_alcatraz_traps::tower_trap_trigger_think, scripts\zm\replaced\zm_alcatraz_traps::tower_trap_trigger_think);
 	replaceFunc(maps\mp\zm_alcatraz_travel::move_gondola, scripts\zm\replaced\zm_alcatraz_travel::move_gondola);
 	replaceFunc(maps\mp\zm_alcatraz_weap_quest::grief_soul_catcher_state_manager, scripts\zm\replaced\zm_alcatraz_weap_quest::grief_soul_catcher_state_manager);
+	replaceFunc(maps\mp\zm_alcatraz_weap_quest::hellhole_projectile_watch, scripts\zm\replaced\zm_alcatraz_weap_quest::hellhole_projectile_watch);
 	replaceFunc(maps\mp\zm_alcatraz_distance_tracking::delete_zombie_noone_looking, scripts\zm\replaced\zm_alcatraz_distance_tracking::delete_zombie_noone_looking);
 	replaceFunc(maps\mp\zm_prison_spoon::give_player_spoon_upon_receipt, scripts\zm\replaced\zm_prison_spoon::give_player_spoon_upon_receipt);
 	replaceFunc(maps\mp\zm_prison_spoon::dip_the_spoon, scripts\zm\replaced\zm_prison_spoon::dip_the_spoon);
@@ -86,6 +87,8 @@ init()
 
 	player_initial_spawn_override();
 	player_respawn_override();
+
+	level thread maps\mp\_sticky_grenade::init();
 
 	level thread updatecraftables();
 	level thread grief_brutus_spawn_after_time();

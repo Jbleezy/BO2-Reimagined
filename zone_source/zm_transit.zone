@@ -3,6 +3,7 @@
 >name,zm_transit
 
 include,includes/jetgun_zm
+include,includes/sticky_grenade_zm
 
 include,includes/muzzleflashes_zmb_ug
 

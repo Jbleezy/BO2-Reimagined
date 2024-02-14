@@ -146,8 +146,6 @@ init()
 
 	setscoreboardcolumns_gametype();
 
-	set_lethal_grenade_init();
-
 	set_dvars();
 
 	weapon_changes();
@@ -1201,16 +1199,6 @@ setscoreboardcolumns_gametype()
 	}
 }
 
-set_lethal_grenade_init()
-{
-	if (level.script != "zm_transit" && level.script != "zm_nuked" && level.script != "zm_highrise" && level.script != "zm_tomb")
-	{
-		return;
-	}
-
-	level.zombie_lethal_grenade_player_init = "sticky_grenade_zm";
-}
-
 swap_staminup_perk()
 {
 	vending_triggers = getentarray("zombie_vending", "targetname");
@@ -1450,6 +1438,10 @@ weapon_changes()
 		include_weapon("held_spork_zm_alcatraz", 0);
 		register_melee_weapon_for_level("held_spork_zm_alcatraz");
 
+		include_weapon("sticky_grenade_zm", 0);
+		add_zombie_weapon("sticky_grenade_zm", undefined, &"ZOMBIE_WEAPON_STICKY_GRENADE", 250, "wpck_explo", "", 250);
+		register_lethal_grenade_for_level("sticky_grenade_zm");
+
 		maps\mp\zombies\_zm_weapons::register_zombie_weapon_callback("willy_pete_zm", ::player_give_willy_pete);
 		register_tactical_grenade_for_level("willy_pete_zm");
 		level.zombie_weapons["willy_pete_zm"].is_in_box = 1;
@@ -1567,6 +1559,11 @@ weapon_changes()
 		include_weapon("sa58_zm");
 		include_weapon("sa58_upgraded_zm", 0);
 		add_zombie_weapon("sa58_zm", "sa58_upgraded_zm", &"WEAPON_SA58", 1000, "wpck_fal", "", undefined, 1);
+	}
+
+	if (level.script == "zm_transit" || level.script == "zm_nuked" || level.script == "zm_highrise" || level.script == "zm_prison")
+	{
+		level.zombie_lethal_grenade_player_init = "sticky_grenade_zm";
 	}
 }
 

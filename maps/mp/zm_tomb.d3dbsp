@@ -5178,7 +5178,7 @@
 {
 "origin" "2301 2860 -216"
 "classname" "script_struct"
-"zombie_weapon_upgrade" "sticky_grenade_zm"
+"zombie_weapon_upgrade" "frag_grenade_zm"
 "targetname" "weapon_upgrade"
 "target" "pf2212_auto37"
 "angles" "0 90 0"
@@ -5383,7 +5383,7 @@
 {
 "origin" "803.157 -2885.94 104"
 "classname" "script_struct"
-"zombie_weapon_upgrade" "sticky_grenade_zm"
+"zombie_weapon_upgrade" "frag_grenade_zm"
 "targetname" "weapon_upgrade"
 "target" "pf2224_auto37"
 "angles" "0 15 0"

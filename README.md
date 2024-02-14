@@ -81,10 +81,12 @@
 		* [G-Strike Beacon](#g-strike-beacon)
 	* [Equipment](#equipment)
 		* [Combat Knife](#combat-knife)
+		* [One Inch Punch](#one-inch-punch)
+		* [Frag Grenade](#frag-grenade)
+		* [Semtex](#semtex)
 		* [Claymore](#claymore)
 		* [Bouncing Betty](#bouncing-betty)
 		* [Time Bomb](#time-bomb)
-		* [One Inch Punch](#one-inch-punch)
 * [Wallbuys](#wallbuys)
 * [Mystery Box](#mystery-box)
 * [Perks](#perks)
@@ -562,6 +564,17 @@
 #### Combat Knife
 * Added model from Black Ops 2 Multiplayer
 
+#### One Inch Punch
+* Upgraded: elemental punch changes based on which staff the player currently has
+* Upgraded: uses melee lunge anim as normal melee anim
+* Fixed an issue where a player's melee weapon wouldn't reset if the player bled out in the Giant Robots
+
+#### Frag Grenade
+* Replaces Semtex on Origins
+
+#### Semtex
+* Replaces Frag Grenade on Mob of the Dead
+
 #### Claymore
 * Can be repurchased
 * Can be placed while in the air
@@ -579,11 +592,6 @@
 * Can have with Monkey Bombs
 * Switches to detonator at correct time after throwing
 * Fixed detonator raise and drop anims
-
-#### One Inch Punch
-* Upgraded: elemental punch changes based on which staff the player currently has
-* Upgraded: uses melee lunge anim as normal melee anim
-* Fixed an issue where a player's melee weapon wouldn't reset if the player bled out in the Giant Robots
 
 ## Wallbuys
 * Purchasing ammo refills clip ammo
