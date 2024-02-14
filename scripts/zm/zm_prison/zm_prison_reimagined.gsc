@@ -33,6 +33,7 @@ main()
 	replaceFunc(maps\mp\zm_prison_sq_bg::give_sq_bg_reward, scripts\zm\replaced\zm_prison_sq_bg::give_sq_bg_reward);
 	replaceFunc(maps\mp\zm_prison_sq_final::stage_one, scripts\zm\replaced\zm_prison_sq_final::stage_one);
 	replaceFunc(maps\mp\zm_prison_sq_final::final_flight_trigger, scripts\zm\replaced\zm_prison_sq_final::final_flight_trigger);
+	replaceFunc(maps\mp\zm_prison_sq_wth::sq_is_weapon_sniper, scripts\zm\replaced\zm_prison_sq_wth::sq_is_weapon_sniper);
 	replaceFunc(maps\mp\zombies\_zm_afterlife::init, scripts\zm\replaced\_zm_afterlife::init);
 	replaceFunc(maps\mp\zombies\_zm_afterlife::afterlife_add, scripts\zm\replaced\_zm_afterlife::afterlife_add);
 	replaceFunc(maps\mp\zombies\_zm_afterlife::afterlife_laststand, scripts\zm\replaced\_zm_afterlife::afterlife_laststand);

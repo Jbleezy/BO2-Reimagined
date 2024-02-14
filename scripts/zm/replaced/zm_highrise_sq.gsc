@@ -217,3 +217,16 @@ sq_give_player_perks(perks, v_fireball_start_loc, n_fireball_exploder)
 		self thread scripts\zm\replaced\_zm_sq::sq_give_player_all_perks();
 	}
 }
+
+sq_is_weapon_sniper(str_weapon)
+{
+	a_snipers = array("dsr50", "as50", "svu");
+
+	foreach (str_sniper in a_snipers)
+	{
+		if (issubstr(str_weapon, str_sniper))
+			return true;
+	}
+
+	return false;
+}
