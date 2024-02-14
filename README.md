@@ -416,6 +416,7 @@
 * Upgraded: increased damage from 400 to 500
 * Upgraded: decreased headshot multiplier from 10 to 8
 * Upgraded: decreased stock ammo from 120 to 100
+* Upgraded: fixed fire sound
 
 ### Shotguns
 * Increased penetration
@@ -442,7 +443,8 @@
 ### Wonder Weapons
 
 #### Ray Gun
-* Added weapon model from Buried to all maps
+* Added model from Buried to all maps
+* Added first raise and empty fire sound from Mob of the Dead to all maps
 * Increased move speed from 100% to 105%
 * Ammo gets added to the clip at the same time that it gets added in the reload anim
 * No longer limited to 4 players

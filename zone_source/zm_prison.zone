@@ -7,3 +7,5 @@ include,includes/so_zencounter_zm_prison
 weapon,knife_zm_alcatraz
 weapon,spoon_zm_alcatraz
 weapon,spork_zm_alcatraz
+
+xanim,viewmodel_raygun_t6_first_raise
