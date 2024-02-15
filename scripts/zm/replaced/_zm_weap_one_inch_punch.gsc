@@ -93,29 +93,24 @@ monitor_melee_swipe()
 			continue;
 		}
 
-		range_mod = 1;
+		range_mod = 1.5;
 		self setclientfield("oneinchpunch_impact", 1);
 		wait_network_frame();
 		self setclientfield("oneinchpunch_impact", 0);
 		v_punch_effect_fwd = anglestoforward(self getplayerangles());
 		v_punch_yaw = get2dyaw((0, 0, 0), v_punch_effect_fwd);
 
-		if (isdefined(self.b_punch_upgraded) && self.b_punch_upgraded && isdefined(self.str_punch_element) && self.str_punch_element == "air")
-			range_mod *= 2;
-
+		range_dist = getDvarInt("player_meleeRange") * range_mod;
 		a_zombies = getaispeciesarray(level.zombie_team, "all");
-		a_zombies = get_array_of_closest(self.origin, a_zombies, undefined, undefined, 100);
+		a_zombies = get_array_of_closest(self.origin, a_zombies, undefined, undefined, range_dist);
 
 		foreach (zombie in a_zombies)
 		{
-			if (self is_player_facing(zombie, v_punch_yaw) && distancesquared(self.origin, zombie.origin) <= 4096 * range_mod)
+			if (self is_player_facing(zombie, v_punch_yaw))
 			{
 				self thread zombie_punch_damage(zombie, 1);
 				continue;
 			}
-
-			if (self is_player_facing(zombie, v_punch_yaw))
-				self thread zombie_punch_damage(zombie, 0.5);
 		}
 
 		while (self ismeleeing())
@@ -123,4 +118,116 @@ monitor_melee_swipe()
 
 		wait 0.05;
 	}
+}
+
+zombie_punch_damage(ai_zombie, n_mod)
+{
+	self endon("disconnect");
+	ai_zombie.punch_handle_pain_notetracks = ::handle_punch_pain_notetracks;
+
+	if (isdefined(n_mod))
+	{
+		if (isdefined(self.b_punch_upgraded) && self.b_punch_upgraded)
+			n_base_damage = 11275;
+		else
+			n_base_damage = 2250;
+
+		n_damage = int(n_base_damage * n_mod);
+
+		if (self maps\mp\zombies\_zm_powerups::is_insta_kill_active())
+		{
+			if (n_damage < ai_zombie.health)
+			{
+				n_damage = ai_zombie.health;
+			}
+		}
+
+		if (!(isdefined(ai_zombie.is_mechz) && ai_zombie.is_mechz))
+		{
+			if (n_damage >= ai_zombie.health)
+			{
+				self thread zombie_punch_death(ai_zombie);
+				self do_player_general_vox("kill", "one_inch_punch");
+
+				if (isdefined(self.b_punch_upgraded) && self.b_punch_upgraded && isdefined(self.str_punch_element))
+				{
+					switch (self.str_punch_element)
+					{
+						case "fire":
+							ai_zombie thread maps\mp\zombies\_zm_weap_staff_fire::flame_damage_fx(self.current_melee_weapon, self, n_mod);
+							break;
+
+						case "ice":
+							ai_zombie thread maps\mp\zombies\_zm_weap_staff_water::ice_affect_zombie(self.current_melee_weapon, self, 0, n_mod);
+							break;
+
+						case "lightning":
+							if (isdefined(ai_zombie.is_mechz) && ai_zombie.is_mechz)
+								return;
+
+							if (isdefined(ai_zombie.is_electrocuted) && ai_zombie.is_electrocuted)
+								return;
+
+							tag = "J_SpineUpper";
+							network_safe_play_fx_on_tag("lightning_impact", 2, level._effect["lightning_impact"], ai_zombie, tag);
+							ai_zombie thread maps\mp\zombies\_zm_audio::do_zombies_playvocals("electrocute", ai_zombie.animname);
+							break;
+					}
+				}
+			}
+			else
+			{
+				if (isdefined(self.b_punch_upgraded) && self.b_punch_upgraded && isdefined(self.str_punch_element))
+				{
+					switch (self.str_punch_element)
+					{
+						case "fire":
+							ai_zombie thread maps\mp\zombies\_zm_weap_staff_fire::flame_damage_fx(self.current_melee_weapon, self, n_mod);
+							break;
+
+						case "ice":
+							ai_zombie thread maps\mp\zombies\_zm_weap_staff_water::ice_affect_zombie(self.current_melee_weapon, self, 0, n_mod);
+							break;
+
+						case "lightning":
+							ai_zombie thread maps\mp\zombies\_zm_weap_staff_lightning::stun_zombie();
+							break;
+
+						case "air":
+							ai_zombie thread air_knockdown_zombie(self);
+							break;
+					}
+				}
+			}
+		}
+
+		ai_zombie dodamage(n_damage, ai_zombie.origin, self, self, 0, "MOD_MELEE", 0, self.current_melee_weapon);
+	}
+}
+
+air_knockdown_zombie(player)
+{
+	self endon("death");
+	player endon("disconnect");
+
+	waittillframeend;
+
+	self.v_punched_from = player.origin;
+	self animcustom(maps\mp\zombies\_zm_weap_one_inch_punch::knockdown_zombie_animate);
+}
+
+is_player_facing(zombie, v_punch_yaw)
+{
+	v_player_to_zombie_yaw = get2dyaw(self.origin, zombie.origin);
+	yaw_diff = v_player_to_zombie_yaw - v_punch_yaw;
+
+	if (yaw_diff < 0)
+		yaw_diff = yaw_diff * -1;
+
+	yaw_amount = 35;
+
+	if (yaw_diff < yaw_amount || yaw_diff > (360 - yaw_amount))
+		return true;
+	else
+		return false;
 }

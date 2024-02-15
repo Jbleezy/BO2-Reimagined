@@ -575,8 +575,15 @@
 * Added model from Black Ops 2 Multiplayer
 
 #### One Inch Punch
+* Deals same damage at any range
+* Decreased range by 4% (exactly 50% more range than normal melee)
 * Upgraded: elemental punch changes based on which staff the player currently has
 * Upgraded: uses melee lunge anim as normal melee anim
+* Wind: knocks down zombies that are damaged
+* Wind: no longer increases range
+* Fixed occasionally not killing zombies that were in range
+* Fixed players gaining damage score multiple times
+* Fixed zombies not being flung when Insta Kill powerup is active
 * Fixed an issue where a player's melee weapon wouldn't reset if the player bled out in the Giant Robots
 
 #### Frag Grenade

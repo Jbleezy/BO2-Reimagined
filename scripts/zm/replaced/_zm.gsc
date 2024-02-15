@@ -1396,6 +1396,11 @@ actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, 
 		return 0;
 	}
 
+	if (issubstr(weapon, "one_inch_punch") && damage <= 5)
+	{
+		return 0;
+	}
+
 	if (!isDefined(self) || !isDefined(attacker))
 	{
 		return damage;
