@@ -63,7 +63,7 @@ zombie_damage(mod, hit_location, hit_origin, player, amount, team)
 
 	if (is_placeable_mine(self.damageweapon))
 	{
-		damage = level.round_number * 100;
+		damage = level.round_number * 150;
 
 		if (level.scr_zm_ui_gametype == "zgrief")
 		{
