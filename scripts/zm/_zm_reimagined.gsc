@@ -258,6 +258,7 @@ on_player_spawned()
 
 		self set_client_dvars();
 		self set_perks();
+		self set_favorite_wall_weapons();
 	}
 }
 
@@ -472,6 +473,30 @@ set_perks()
 
 	self setperk("specialty_fastmantle");
 	self setperk("specialty_fastladderclimb");
+}
+
+set_favorite_wall_weapons()
+{
+	if (!isdefined(self.favorite_wall_weapons_list))
+	{
+		return;
+	}
+
+	for (i = 0; i < self.favorite_wall_weapons_list.size; i++)
+	{
+		if (self.favorite_wall_weapons_list[i] == "rottweil72_zm")
+		{
+			self.favorite_wall_weapons_list[i] = "ballista_zm";
+		}
+		else if (self.favorite_wall_weapons_list[i] == "m14_zm")
+		{
+			self.favorite_wall_weapons_list[i] = "saritch_zm";
+		}
+		else if (self.favorite_wall_weapons_list[i] == "m16_zm")
+		{
+			self.favorite_wall_weapons_list[i] = "sig556_zm";
+		}
+	}
 }
 
 health_bar_hud()
