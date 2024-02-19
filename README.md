@@ -707,6 +707,7 @@
 
 ### Vulture-Aid
 * Stink areas no longer activate while the player is moving
+* Removed ability to see perks, wallbuys, and Mystery Box through walls
 
 ## Pack-a-Punch
 * Attachments on upgraded weapons can no longer be changed
