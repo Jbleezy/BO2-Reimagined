@@ -341,6 +341,8 @@ setup_quadrotor_purchase(player)
 		self.stub.hint_string = &"ZM_TOMB_BOUGHT_MAXISDRONE";
 		self sethintstring(self.stub.hint_string);
 
+		player thread show_equipment_hint(self.stub.weaponname);
+
 		return true;
 	}
 

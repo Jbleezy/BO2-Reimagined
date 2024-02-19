@@ -829,6 +829,7 @@
 * Decreased active time from 90 seconds to 60 seconds
 * Decreased cooldown time from 60 seconds to 30 seconds
 * Added hint strings for purchased, can only be one, and cooling down
+* Added HUD message for how to activate
 * Buildable table model sits on top of the stand
 * Rotated buildable table model 90 degrees
 * Switches back to correct weapon after deploying

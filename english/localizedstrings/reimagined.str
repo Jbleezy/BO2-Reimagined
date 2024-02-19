@@ -1254,6 +1254,9 @@ LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Maxis Drone"
 REFERENCE           ZM_TOMB_TQ
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to take Maxis Drone [Cost: &&1]"
 
+REFERENCE           ZM_TOMB_DIHO
+LANG_ENGLISH        "Press ^3[{+actionslot 2}]^7 to use Maxis Drone"
+
 REFERENCE           ZM_TOMB_BOUGHT_MAXISDRONE
 LANG_ENGLISH        "Took Maxis Drone"
 
