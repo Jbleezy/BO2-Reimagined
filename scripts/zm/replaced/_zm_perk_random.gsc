@@ -72,3 +72,63 @@ can_buy_perk()
 
 	return true;
 }
+
+wunderfizzstub_update_prompt(player)
+{
+	self setcursorhint("HINT_NOICON");
+
+	if (!self trigger_visible_to_player(player))
+		return false;
+
+	self.hint_parm1 = undefined;
+
+	if (isdefined(self.stub.trigger_target.is_locked) && self.stub.trigger_target.is_locked)
+	{
+		self.hint_string = &"ZM_TOMB_RPU";
+		return false;
+	}
+	else if (self.stub.trigger_target.is_current_ball_location)
+	{
+		if (isdefined(self.stub.trigger_target.machine_user))
+		{
+			if (isdefined(self.stub.trigger_target.grab_perk_hint) && self.stub.trigger_target.grab_perk_hint)
+			{
+				n_purchase_limit = player get_player_perk_purchase_limit();
+
+				if (player.num_perks >= n_purchase_limit)
+				{
+					self.hint_string = &"ZM_TOMB_RPT";
+					return false;
+				}
+				else
+				{
+					self.hint_string = &"ZM_TOMB_RPP";
+					return true;
+				}
+			}
+			else
+				return false;
+		}
+		else
+		{
+			n_purchase_limit = player get_player_perk_purchase_limit();
+
+			if (player.num_perks >= n_purchase_limit)
+			{
+				self.hint_string = &"ZM_TOMB_RPT";
+				return false;
+			}
+			else
+			{
+				self.hint_string = &"ZM_TOMB_RPB";
+				self.hint_parm1 = level._random_zombie_perk_cost;
+				return true;
+			}
+		}
+	}
+	else
+	{
+		self.hint_string = &"ZM_TOMB_RPE";
+		return false;
+	}
+}

@@ -1272,6 +1272,9 @@ LANG_ENGLISH        "Lightning Staff Required"
 REFERENCE           ZM_TOMB_MISSING_ICE_STAFF
 LANG_ENGLISH        "Ice Staff Required"
 
+REFERENCE           ZM_TOMB_RPT
+LANG_ENGLISH        "You have all perks"
+
 REFERENCE           ZOMBIE_BANK_WITHDRAW_PROMPT
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to withdraw &&1"
 
