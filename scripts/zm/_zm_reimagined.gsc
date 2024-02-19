@@ -1424,7 +1424,7 @@ weapon_changes()
 		include_weapon("fnp45_zm", 0);
 		include_weapon("fnp45_upgraded_zm", 0);
 		add_limited_weapon("fnp45_zm", 0);
-		add_zombie_weapon("fnp45_zm", "fnp45_upgraded_zm", &"WEAPON_FNP45", 500, "wpck_pistol", "", undefined, 1);
+		add_zombie_weapon("fnp45_zm", "fnp45_upgraded_zm", &"WEAPON_FNP45", 500, "", "", undefined, 1);
 	}
 
 	if (level.script == "zm_prison")
@@ -1477,33 +1477,34 @@ weapon_changes()
 		level.zombie_weapons["saritch_zm"].is_in_box = 0;
 		level.zombie_weapons["saritch_zm"].cost = 500;
 		level.zombie_weapons["saritch_zm"].ammo_cost = 250;
+		level.vox.speaker["player"].alias["weapon_pickup"]["saritch_zm"] = "";
 	}
 	else
 	{
 		include_weapon("saritch_zm", 0);
 		include_weapon("saritch_upgraded_zm", 0);
-		add_zombie_weapon("saritch_zm", "saritch_upgraded_zm", &"ZOMBIE_WEAPON_SARITCH", 500, "wpck_smr", "", undefined, 1);
+		add_zombie_weapon("saritch_zm", "saritch_upgraded_zm", &"ZOMBIE_WEAPON_SARITCH", 500, "", "", undefined, 1);
 	}
 
 	if (!isdefined(level.zombie_weapons["ballista_zm"]))
 	{
 		include_weapon("ballista_zm", 0);
 		include_weapon("ballista_upgraded_zm", 0);
-		add_zombie_weapon("ballista_zm", "ballista_upgraded_zm", &"ZMWEAPON_BALLISTA_WALLBUY", 500, "wpck_snipe", "", undefined, 1);
+		add_zombie_weapon("ballista_zm", "ballista_upgraded_zm", &"ZMWEAPON_BALLISTA_WALLBUY", 500, "", "", undefined, 1);
 	}
 
 	if (isdefined(level.zombie_weapons["mp5k_zm"]))
 	{
 		include_weapon("insas_zm", 0);
 		include_weapon("insas_upgraded_zm", 0);
-		add_zombie_weapon("insas_zm", "insas_upgraded_zm", &"ZOMBIE_WEAPON_INSAS", 1000, "smg", "", undefined, 1);
+		add_zombie_weapon("insas_zm", "insas_upgraded_zm", &"ZOMBIE_WEAPON_INSAS", 1000, "", "", undefined, 1);
 	}
 
 	if (isdefined(level.zombie_weapons["ak74u_zm"]))
 	{
 		include_weapon("vector_zm", 0);
 		include_weapon("vector_upgraded_zm", 0);
-		add_zombie_weapon("vector_zm", "vector_upgraded_zm", &"ZOMBIE_WEAPON_VECTOR", 1200, "smg", "", undefined, 1);
+		add_zombie_weapon("vector_zm", "vector_upgraded_zm", &"ZOMBIE_WEAPON_VECTOR", 1200, "", "", undefined, 1);
 	}
 
 	if (isdefined(level.zombie_weapons["ak74u_extclip_zm"]))
@@ -1512,7 +1513,7 @@ weapon_changes()
 
 		include_weapon("vector_extclip_zm");
 		include_weapon("vector_extclip_upgraded_zm", 0);
-		add_zombie_weapon("vector_extclip_zm", "vector_extclip_upgraded_zm", &"ZOMBIE_WEAPON_VECTOR", 1200, "smg", "", undefined, 1);
+		add_zombie_weapon("vector_extclip_zm", "vector_extclip_upgraded_zm", &"ZOMBIE_WEAPON_VECTOR", 1200, "wpck_smg", "", undefined, 1);
 		add_shared_ammo_weapon("vector_extclip_zm", "vector_zm");
 	}
 
@@ -1520,7 +1521,7 @@ weapon_changes()
 	{
 		include_weapon("sig556_zm", 0);
 		include_weapon("sig556_upgraded_zm", 0);
-		add_zombie_weapon("sig556_zm", "sig556_upgraded_zm", &"ZOMBIE_WEAPON_SIG556", 1200, "burstrifle", "", undefined, 1);
+		add_zombie_weapon("sig556_zm", "sig556_upgraded_zm", &"ZOMBIE_WEAPON_SIG556", 1200, "", "", undefined, 1);
 	}
 
 	if (isdefined(level.zombie_weapons["python_zm"]))
@@ -1556,27 +1557,51 @@ weapon_changes()
 	{
 		level.zombie_weapons["fnfal_zm"].is_in_box = 0;
 
+		vox = "wpck_fal";
+
+		if (level.script == "zm_prison")
+		{
+			vox = "wpck_mg";
+		}
+		else if (level.script == "zm_tomb")
+		{
+			vox = "wpck_rifle";
+		}
+
 		include_weapon("sa58_zm");
 		include_weapon("sa58_upgraded_zm", 0);
-		add_zombie_weapon("sa58_zm", "sa58_upgraded_zm", &"WEAPON_SA58", 1000, "wpck_fal", "", undefined, 1);
+		add_zombie_weapon("sa58_zm", "sa58_upgraded_zm", &"WEAPON_SA58", 1000, vox, "", undefined, 1);
 	}
 
 	if (isdefined(level.zombie_weapons["rpd_zm"]))
 	{
 		level.zombie_weapons["rpd_zm"].is_in_box = 0;
 
+		vox = "wpck_rpd";
+
 		include_weapon("mk48_zm");
 		include_weapon("mk48_upgraded_zm", 0);
-		add_zombie_weapon("mk48_zm", "mk48_upgraded_zm", &"WEAPON_MK48", 1000, "wpck_rpd", "", undefined, 1);
+		add_zombie_weapon("mk48_zm", "mk48_upgraded_zm", &"WEAPON_MK48", 1000, vox, "", undefined, 1);
 	}
 
 	if (isdefined(level.zombie_weapons["barretm82_zm"]))
 	{
 		level.zombie_weapons["barretm82_zm"].is_in_box = 0;
 
+		vox = "wpck_m82a1";
+
+		if (level.script == "zm_transit" || level.script == "zm_nuked")
+		{
+			vox = "sniper";
+		}
+		else if (level.script == "zm_prison")
+		{
+			vox = "wpck_snipe";
+		}
+
 		include_weapon("as50_zm");
 		include_weapon("as50_upgraded_zm", 0);
-		add_zombie_weapon("as50_zm", "as50_upgraded_zm", &"WEAPON_AS50", 1000, "wpck_m82a1", "", undefined, 1);
+		add_zombie_weapon("as50_zm", "as50_upgraded_zm", &"WEAPON_AS50", 1000, vox, "", undefined, 1);
 	}
 
 	if (level.script == "zm_transit" || level.script == "zm_nuked" || level.script == "zm_highrise" || level.script == "zm_prison")
