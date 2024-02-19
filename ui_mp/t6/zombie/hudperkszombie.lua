@@ -201,15 +201,16 @@ CoD.Perks.Update = function(Menu, ClientInstance)
 				PerkWidget.perkId = ClientInstance.name
 				PerkWidget.perkIcon:setImage(CoD.Perks.GetMaterial(Menu, ClientInstance.name))
 				PerkWidget.perkIcon:setAlpha(1)
+
 				if PerkWidget.perkId == "perk_vulture" then
-				else
+					CoD.Perks.AddVultureMeter(Menu, PerkWidget)
+					CoD.Perks.AddGlowIcon(Menu, PerkWidget)
+
 					local f6_local4 = CoD.Perks.GetGlowMaterial(Menu, ClientInstance.name)
 					if f6_local4 and PerkWidget.perkGlowIcon then
 						PerkWidget.perkGlowIcon:setImage(f6_local4)
 					end
 				end
-				CoD.Perks.AddGlowIcon(Menu, PerkWidget)
-				CoD.Perks.AddVultureMeter(Menu, PerkWidget)
 
 				break
 			elseif PerkWidget.perkId == ClientInstance.name then
