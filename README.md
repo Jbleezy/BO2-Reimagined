@@ -1072,6 +1072,7 @@
 
 ### Cell Block
 * Zombies spawn in the Cell Block 3rd Floor zone
+* Fixed players taking damage from the key spawn positions
 * Fixed the electric fence in the Warden's Office making noise when bumping into it
 
 #### Docks

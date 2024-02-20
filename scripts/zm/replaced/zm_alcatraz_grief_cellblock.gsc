@@ -374,6 +374,12 @@ main()
 		wait 0.1;
 	}
 
+	east_hurt_trigger = getent("pulley_hurt_trigger_east", "targetname");
+	east_hurt_trigger delete();
+
+	west_hurt_trigger = getent("pulley_hurt_trigger_west", "targetname");
+	west_hurt_trigger delete();
+
 	flag_wait("initial_blackscreen_passed");
 	maps\mp\zombies\_zm_game_module::turn_power_on_and_open_doors();
 	flag_wait("start_zombie_round_logic");

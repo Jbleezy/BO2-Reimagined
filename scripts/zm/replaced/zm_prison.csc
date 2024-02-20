@@ -22,6 +22,16 @@
 #include clientscripts\mp\zm_prison_weap_quest;
 #include clientscripts\mp\zombies\_zm_equipment;
 
+init_gamemodes()
+{
+	add_map_gamemode("zclassic", undefined, undefined);
+	add_map_gamemode("zstandard", undefined, undefined);
+	add_map_gamemode("zgrief", undefined, undefined);
+	add_map_location_gamemode("zclassic", "prison", clientscripts\mp\zm_alcatraz_classic::precache, clientscripts\mp\zm_alcatraz_classic::premain, clientscripts\mp\zm_alcatraz_classic::main);
+	add_map_location_gamemode("zstandard", "cellblock", clientscripts\mp\zm_alcatraz_grief_cellblock::precache, undefined, clientscripts\mp\zm_alcatraz_grief_cellblock::main);
+	add_map_location_gamemode("zgrief", "cellblock", clientscripts\mp\zm_alcatraz_grief_cellblock::precache, undefined, clientscripts\mp\zm_alcatraz_grief_cellblock::main);
+}
+
 entityspawned_alcatraz(localclientnum)
 {
 	if (!isdefined(self.type))

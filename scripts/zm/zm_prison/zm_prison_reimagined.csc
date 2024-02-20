@@ -3,6 +3,7 @@
 
 main()
 {
+	replaceFunc(clientscripts\mp\zm_prison::init_gamemodes, scripts\zm\replaced\zm_prison::init_gamemodes);
 	replaceFunc(clientscripts\mp\zm_prison::entityspawned_alcatraz, scripts\zm\replaced\zm_prison::entityspawned_alcatraz);
 	replaceFunc(clientscripts\mp\zombies\_zm_ai_brutus::brutusfootstepcbfunc, scripts\zm\replaced\_zm_ai_brutus::brutusfootstepcbfunc);
 
