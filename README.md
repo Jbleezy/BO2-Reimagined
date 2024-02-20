@@ -332,7 +332,7 @@
 * Removed
 
 #### M27
-* Added to the Mystery Box on all maps
+* Added on Tranzit, Die Rise, and Buried
 * Upgraded: changed default attachment from Reflex Sight to None
 
 #### M8A1
@@ -343,7 +343,6 @@
 * Upgraded: changed default attachment from Reflex Sight to EOTech Sight
 
 #### SCAR-H
-* Added to the Mystery Box on all maps
 * Upgraded: changed default attachment from Reflex Sight to None
 
 #### SMR
