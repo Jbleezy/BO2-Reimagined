@@ -119,13 +119,37 @@ player_slow_for_time(time)
 
 watch_reset_anim_rate()
 {
-	self set_anim_rate(1);
+	self set_anim_rate(1.0);
 	self setclientfieldtoplayer("slowgun_fx", 0);
 
 	while (1)
 	{
 		self waittill_any("spawned_player", "entering_last_stand", "player_revived", "player_suicide");
 		self setclientfieldtoplayer("slowgun_fx", 0);
-		self set_anim_rate(1);
+		self set_anim_rate(1.0);
 	}
+}
+
+slowgun_zombie_death_response()
+{
+	if (!self is_slowgun_damage(self.damagemod, self.damageweapon))
+	{
+		return false;
+	}
+
+	level maps\mp\zombies\_zm_spawner::zombie_death_points(self.origin, self.damagemod, self.damagelocation, self.attacker, self);
+	self thread explode_into_dust(self.attacker, self.damageweapon == "slowgun_upgraded_zm");
+
+	self slowgun_zombie_death_wait();
+
+	return true;
+}
+
+// fixes spawn delay for next zombies
+slowgun_zombie_death_wait()
+{
+	self set_anim_rate(1.0);
+	self.ignore_slowgun_anim_rates = 1;
+
+	wait 0.1;
 }

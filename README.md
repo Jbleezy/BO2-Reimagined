@@ -498,8 +498,9 @@
 
 #### Paralyzer
 * Kills on any round
-* Decreased player fly height
+* Players fall to the ground faster after reaching max fly height
 * Added heat percentage on HUD
+* Fixed zombie spawn delay after zombie being killed
 
 #### Blundergat
 * Kills on any round in 1-2 shots
