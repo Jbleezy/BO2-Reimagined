@@ -5,9 +5,22 @@
 init()
 {
 	precache_shaders();
+	set_dvars();
+
+	level thread on_player_connect();
+	level thread server_message_watcher();
+	level thread intermission_message();
 
 	level thread random_map_rotation();
 	level thread map_vote();
+
+	level thread server_restart();
+
+	if (is_gametype_active("zgrief"))
+	{
+		level thread connect_timeout_changes();
+		level thread afk_kick_watcher();
+	}
 }
 
 precache_shaders()
@@ -26,6 +39,111 @@ precache_shaders()
 	precacheshader("menu_zm_prison_zencounter_cellblock");
 	precacheshader("menu_zm_buried_zencounter_street");
 	precacheshader("menu_zm_map_transit_blit_power");
+}
+
+set_dvars()
+{
+	if (getDvar("changelog_link") == "")
+	{
+		setDvar("changelog_link", "github.com/Jbleezy/BO2-Reimagined");
+	}
+
+	if (getDvar("discord_link") == "")
+	{
+		setDvar("discord_link", "dsc.gg/Jbleezy");
+	}
+
+	if (getDvar("donate_link") == "")
+	{
+		setDvar("donate_link", "ko-fi.com/Jbleezy");
+	}
+
+	setDvar("sv_sayName", "");
+}
+
+on_player_connect()
+{
+	while (1)
+	{
+		level waittill("connected", player);
+
+		player thread wait_and_show_connect_message();
+	}
+}
+
+wait_and_show_connect_message()
+{
+	self endon("disconnect");
+
+	flag_wait("initial_players_connected");
+
+	server_message("changelog", self, 1);
+}
+
+server_message_watcher()
+{
+	while (1)
+	{
+		level waittill("say", message, player, hidden);
+
+		if (!hidden)
+		{
+			continue;
+		}
+
+		server_message(toLower(message), player);
+	}
+}
+
+server_message(message_str, player, tell = 0)
+{
+	message_array = strTok(message_str, " ");
+	message = message_array[0];
+
+	text = "";
+
+	if (message == "changelog")
+	{
+		text = "Changelog: " + getDvar("changelog_link");
+	}
+	else if (message == "discord")
+	{
+		text = "Discord: " + getDvar("discord_link");
+	}
+	else if (message == "donate")
+	{
+		text = "Donate: " + getDvar("donate_link");
+	}
+	else if (message == "stat")
+	{
+		if (isdefined(level.server_stat_message_func))
+		{
+			[[level.server_stat_message_func]](message_str, player);
+		}
+
+		return;
+	}
+	else
+	{
+		return;
+	}
+
+	if (isDefined(player) && tell)
+	{
+		player tell(text);
+	}
+	else
+	{
+		say(text);
+	}
+}
+
+intermission_message()
+{
+	level waittill("intermission");
+
+	server_message("discord");
+	server_message("donate");
 }
 
 random_map_rotation()
@@ -911,4 +1029,93 @@ get_map_from_rotation(rotation)
 	map = tokens[3];
 
 	return map;
+}
+
+connect_timeout_changes()
+{
+	setDvar("sv_connectTimeout", 30);
+
+	flag_wait("initial_players_connected");
+
+	setDvar("sv_connectTimeout", 60);
+}
+
+afk_kick_watcher()
+{
+	level endon("end_game");
+
+	flag_wait("initial_blackscreen_passed");
+
+	time_to_kick = 120000;
+
+	while (1)
+	{
+		players = get_players();
+
+		foreach (player in players)
+		{
+			if (player any_button_pressed() || player is_bot())
+			{
+				player.afk_time = undefined;
+				continue;
+			}
+
+			if (player.sessionstate == "spectator")
+			{
+				if (isDefined(player.afk_time))
+				{
+					player.afk_time += 50;
+					continue;
+				}
+			}
+
+			if (!isDefined(player.afk_time))
+			{
+				player.afk_time = getTime();
+			}
+
+			if ((getTime() - player.afk_time) >= time_to_kick)
+			{
+				kick(player getEntityNumber());
+			}
+		}
+
+		wait 0.05;
+	}
+}
+
+any_button_pressed()
+{
+	if (self actionslotonebuttonpressed() || self actionslottwobuttonpressed() || self actionslotthreebuttonpressed() || self actionslotfourbuttonpressed() || self attackbuttonpressed() || self fragbuttonpressed() || self inventorybuttonpressed() || self jumpbuttonpressed() || self meleebuttonpressed() || self secondaryoffhandbuttonpressed() || self sprintbuttonpressed() || self stancebuttonpressed() || self throwbuttonpressed() || self usebuttonpressed() || self changeseatbuttonpressed())
+	{
+		return 1;
+	}
+
+	return 0;
+}
+
+server_restart()
+{
+	no_players_time = 0;
+
+	while (1)
+	{
+		players = get_players();
+
+		if (players.size < 1)
+		{
+			no_players_time++;
+		}
+		else
+		{
+			no_players_time = 0;
+		}
+
+		if (no_players_time >= 3600)
+		{
+			cmdexec("quit");
+		}
+
+		wait 1;
+	}
 }
