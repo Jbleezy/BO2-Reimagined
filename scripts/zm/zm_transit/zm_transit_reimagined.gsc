@@ -620,9 +620,11 @@ power_station_vision_change()
 				player setClientDvar("r_exposureValue", level.default_r_exposureValue);
 			}
 
+			spectating_player = player scripts\zm\_zm_reimagined::get_current_spectating_player();
+
 			if (!player.power_station_vision_set)
 			{
-				if (player maps\mp\zombies\_zm_zonemgr::entity_in_zone("zone_prr") || player maps\mp\zombies\_zm_zonemgr::entity_in_zone("zone_pcr"))
+				if (spectating_player maps\mp\zombies\_zm_zonemgr::entity_in_zone("zone_prr") || spectating_player maps\mp\zombies\_zm_zonemgr::entity_in_zone("zone_pcr"))
 				{
 					player.power_station_vision_set = 1;
 					player thread change_dvar_over_time("r_exposureValue", level.changed_r_exposureValue, time, 1);
@@ -630,7 +632,7 @@ power_station_vision_change()
 			}
 			else
 			{
-				if (!(player maps\mp\zombies\_zm_zonemgr::entity_in_zone("zone_prr") || player maps\mp\zombies\_zm_zonemgr::entity_in_zone("zone_pcr")))
+				if (!(spectating_player maps\mp\zombies\_zm_zonemgr::entity_in_zone("zone_prr") || spectating_player maps\mp\zombies\_zm_zonemgr::entity_in_zone("zone_pcr")))
 				{
 					player.power_station_vision_set = 0;
 					player thread change_dvar_over_time("r_exposureValue", level.default_r_exposureValue, time, 0);
