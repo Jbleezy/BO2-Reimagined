@@ -504,6 +504,8 @@ health_bar_hud()
 	level endon("intermission");
 	self endon("disconnect");
 
+	wait 0.05;
+
 	flag_wait("hud_visible");
 
 	vars = [];
@@ -810,6 +812,8 @@ zone_name_hud()
 {
 	level endon("intermission");
 	self endon("disconnect");
+
+	wait 0.05;
 
 	flag_wait("hud_visible");
 
