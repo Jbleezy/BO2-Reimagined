@@ -513,21 +513,23 @@ health_bar_hud()
 
 	while (1)
 	{
+		player = self get_current_spectating_player();
+
 		shield_health = 0;
 
-		if (is_true(self.hasriotshield) && isdefined(self.shielddamagetaken) && self.shielddamagetaken < level.zombie_vars["riotshield_hit_points"])
+		if (is_true(player.hasriotshield) && isdefined(player.shielddamagetaken) && player.shielddamagetaken < level.zombie_vars["riotshield_hit_points"])
 		{
-			shield_health = level.zombie_vars["riotshield_hit_points"] - self.shielddamagetaken;
+			shield_health = level.zombie_vars["riotshield_hit_points"] - player.shielddamagetaken;
 			shield_health = int((shield_health / level.zombie_vars["riotshield_hit_points"]) * 100);
 		}
 
-		if (self.health != vars["prev_health"] || self.maxhealth != vars["prev_maxhealth"] || shield_health != vars["prev_shield_health"])
+		if (player.health != vars["prev_health"] || player.maxhealth != vars["prev_maxhealth"] || shield_health != vars["prev_shield_health"])
 		{
-			self luinotifyevent(&"hud_update_health", 3, self.health, self.maxhealth, shield_health);
+			self luinotifyevent(&"hud_update_health", 3, player.health, player.maxhealth, shield_health);
 		}
 
-		vars["prev_health"] = self.health;
-		vars["prev_maxhealth"] = self.maxhealth;
+		vars["prev_health"] = player.health;
+		vars["prev_maxhealth"] = player.maxhealth;
 		vars["prev_shield_health"] = shield_health;
 
 		wait 0.05;
@@ -816,7 +818,9 @@ zone_name_hud()
 
 	while (1)
 	{
-		vars["zone"] = self get_current_zone();
+		player = self get_current_spectating_player();
+
+		vars["zone"] = player get_current_zone();
 		vars["zone_name"] = get_zone_display_name(vars["zone"]);
 
 		if (vars["zone_name"] != vars["prev_zone_name"])
@@ -3019,6 +3023,26 @@ should_respawn()
 	}
 
 	return 0;
+}
+
+get_current_spectating_player()
+{
+	if (self.currentspectatingclient == -1)
+	{
+		return self;
+	}
+
+	players = get_players();
+
+	foreach (player in players)
+	{
+		if (self.currentspectatingclient == player getentitynumber())
+		{
+			return player;
+		}
+	}
+
+	return undefined;
 }
 
 setclientdvarall(dvar, value)
