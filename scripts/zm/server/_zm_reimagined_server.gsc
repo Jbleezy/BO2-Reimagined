@@ -303,7 +303,14 @@ map_vote()
 
 	level.zombie_vars["vote_input_hud"] = create_map_vote_input_hud(0, y);
 
-	y = 150;
+	y = 70;
+
+	if (is_gametype_active("zgrief"))
+	{
+		y = 150;
+	}
+
+	og_y = y;
 
 	level.zombie_vars["map_image_hud"] = [];
 	level.zombie_vars["map_image_hud"][0] = create_map_image_hud(get_image_for_loc(maps[0]["map_name"], maps[0]["loc_name"], maps[0]["gametype_name"]), -200, y);
@@ -350,7 +357,7 @@ map_vote()
 		level.zombie_vars["obj_votes"][2] = 0;
 	}
 
-	array_thread(get_players(), ::player_choose_map);
+	array_thread(get_players(), ::player_choose_map, og_y);
 
 	wait time;
 
@@ -607,7 +614,7 @@ create_obj_select_hud(x, y)
 	return hud;
 }
 
-player_choose_map()
+player_choose_map(y)
 {
 	self endon("disconnect");
 
@@ -616,9 +623,9 @@ player_choose_map()
 	self.map_select.selected = 0;
 	self.map_select.name = "map";
 	self.map_select.hud = [];
-	self.map_select.hud[0] = self create_map_select_hud(-200, 150);
-	self.map_select.hud[1] = self create_map_select_hud(0, 150);
-	self.map_select.hud[2] = self create_map_select_hud(200, 150);
+	self.map_select.hud[0] = self create_map_select_hud(-200, y);
+	self.map_select.hud[1] = self create_map_select_hud(0, y);
+	self.map_select.hud[2] = self create_map_select_hud(200, y);
 	self.map_select.hud[self.map_select.ind].color = (1, 1, 0);
 
 	if (level.zombie_vars["obj_vote_active"])
@@ -628,9 +635,9 @@ player_choose_map()
 		self.obj_select.selected = 0;
 		self.obj_select.name = "obj";
 		self.obj_select.hud = [];
-		self.obj_select.hud[0] = self create_obj_select_hud(-200, 215);
-		self.obj_select.hud[1] = self create_obj_select_hud(0, 215);
-		self.obj_select.hud[2] = self create_obj_select_hud(200, 215);
+		self.obj_select.hud[0] = self create_obj_select_hud(-200, y + 65);
+		self.obj_select.hud[1] = self create_obj_select_hud(0, y + 65);
+		self.obj_select.hud[2] = self create_obj_select_hud(200, y + 65);
 	}
 
 	self notifyonplayercommand("left", "+speed_throw");
