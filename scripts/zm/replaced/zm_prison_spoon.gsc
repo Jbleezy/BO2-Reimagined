@@ -9,6 +9,28 @@
 #include maps\mp\zombies\_zm_stats;
 #include maps\mp\zombies\_zm_audio;
 
+init()
+{
+	if (isdefined(level.gamedifficulty) && level.gamedifficulty == 0)
+	{
+		spoon_easy_cleanup();
+		return;
+	}
+
+	precachemodel("t6_wpn_zmb_spoon_world");
+	precachemodel("t6_wpn_zmb_spork_world");
+	precachemodel("c_zom_inmate_g_rarmspawn");
+	level thread wait_for_initial_conditions();
+	array_thread(level.zombie_spawners, ::add_spawn_function, ::zombie_spoon_func);
+	level thread bucket_init();
+	spork_portal = getent("afterlife_show_spork", "targetname");
+	spork_portal setinvisibletoall();
+	level.b_spoon_in_tub = 0;
+	level.n_spoon_kill_count = 0;
+	flag_init("spoon_obtained");
+	flag_init("charged_spoon");
+}
+
 give_player_spoon_upon_receipt(m_tomahawk, m_player_spoon)
 {
 	while (isdefined(m_tomahawk))
