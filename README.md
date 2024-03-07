@@ -541,14 +541,14 @@
 * Fixed an issue where a Monkey Bomb wouldn't activate if the previously thrown Monkey Bomb hadn't activated yet
 
 #### EMP Grenade
+* Added bounce sounds and shellshock from Black Ops 2 Multiplayer
 * No longer disables HUD
 * Disables player's perks for 12 seconds
 * Increased ammo from 2 to 3
-* Decreased projectile speed by 30% (same as Black Ops 2 Multiplayer EMP Grenade)
-* Decreased zombie EMP radius by 17% (same as Black Ops 2 Multiplayer EMP Grenade)
-* Increased perk machine EMP radius by 22% (same as Black Ops 2 Multiplayer EMP Grenade)
+* Decreased projectile speed by 30% (same as Black Ops 2 Multiplayer)
+* Decreased zombie EMP radius by 17% (same as Black Ops 2 Multiplayer)
+* Increased perk machine EMP radius by 22% (same as Black Ops 2 Multiplayer)
 * Decreased perk machine EMP time from 90 seconds to 60 seconds
-* Changed shellshock (same as Black Ops 2 Multiplayer EMP Grenade)
 * Added fx to EMP'd players
 * Can destroy deployed Zombie Shields
 * Sprinting no longer wakes up EMP'd zombies
@@ -595,7 +595,7 @@
 #### Claymore
 * Can be repurchased
 * Can be placed while in the air
-* Increased explosion radius by 28% (same as Black Ops 2 Multiplayer Claymore)
+* Increased explosion radius by 28% (same as Black Ops 2 Multiplayer)
 * Increased max amount that can be placed from 12 to 20
 * Added weapon name on HUD
 * Removed initial weapon raise anim
