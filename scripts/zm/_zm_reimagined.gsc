@@ -818,25 +818,25 @@ zone_name_hud()
 	flag_wait("hud_visible");
 
 	vars = [];
-	vars["prev_zone_name"] = "";
+	vars["prev_zone_name"] = &"";
 
 	while (1)
 	{
 		player = self get_current_spectating_player();
 
 		vars["zone"] = player get_current_zone();
-		vars["zone_name"] = get_zone_display_name(vars["zone"]);
+		vars["zone_name"] = player get_zone_display_name(vars["zone"]);
 
 		if (vars["zone_name"] != vars["prev_zone_name"])
 		{
-			if (vars["prev_zone_name"] != "")
+			if (vars["prev_zone_name"] != &"")
 			{
 				self luinotifyevent(&"hud_update_zone_fade_out");
 
 				wait 0.25;
 			}
 
-			if (vars["zone_name"] != "")
+			if (vars["zone_name"] != &"")
 			{
 				self luinotifyevent(&"hud_update_zone_fade_in", 1, vars["zone_name"]);
 
@@ -856,14 +856,14 @@ get_zone_display_name(zone)
 {
 	if (!isDefined(zone))
 	{
-		return "";
+		return &"";
 	}
 
 	if (level.script == "zm_tomb")
 	{
 		if (isDefined(self.teleporting) && self.teleporting)
 		{
-			return "";
+			return &"";
 		}
 	}
 
@@ -1106,6 +1106,8 @@ last_stand_restore_pistol_ammo(only_store_info = false)
 
 			if (weapon == check_weapon)
 			{
+				dual_wield_name = weapondualwieldweaponname(weapon);
+
 				if (self.stored_weapon_info[weapon].given_amt == 0)
 				{
 					self setweaponammoclip(weapon, self.stored_weapon_info[weapon].clip_amt);
@@ -1117,8 +1119,6 @@ last_stand_restore_pistol_ammo(only_store_info = false)
 
 					break;
 				}
-
-				dual_wield_name = weapondualwieldweaponname(weapon);
 
 				last_clip = self getweaponammoclip(weapon);
 				last_left_clip = 0;
@@ -2118,6 +2118,11 @@ remove_buildable_pieces(buildable_name)
 
 jetgun_remove_forced_weapon_switch()
 {
+	if (!IsDefined(level.zombie_include_buildables))
+	{
+		return;
+	}
+
 	foreach (buildable in level.zombie_include_buildables)
 	{
 		if (IsDefined(buildable.name) && buildable.name == "jetgun_zm")
@@ -2752,6 +2757,8 @@ additionalprimaryweapon_update_weapon_slots()
 		}
 	}
 
+	weapon_slots = [];
+
 	// remove any trailing undefined slots
 	for (i = self.weapon_slots.size - 1; i >= 0; i--)
 	{
@@ -2760,8 +2767,10 @@ additionalprimaryweapon_update_weapon_slots()
 			break;
 		}
 
-		arrayRemoveIndex(self.weapon_slots[i], i);
+		weapon_slots[i] = self.weapon_slots[i];
 	}
+
+	self.weapon_slots = weapon_slots;
 
 	for (i = 0; i < vars["primaries_that_can_be_taken"].size; i++)
 	{

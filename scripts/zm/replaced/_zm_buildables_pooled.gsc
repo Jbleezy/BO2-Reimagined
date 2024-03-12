@@ -421,7 +421,12 @@ pooled_buildable_place_think()
 			continue;
 		}
 
-		bind_to = self.stub.buildable_pool pooledbuildable_stub_for_equipname(level.buildables_available[self.stub.buildables_available_index]);
+		bind_to = self.stub;
+
+		if (isdefined(self.stub.buildables_available_index))
+		{
+			bind_to = self.stub.buildable_pool pooledbuildable_stub_for_equipname(level.buildables_available[self.stub.buildables_available_index]);
+		}
 
 		if (!isdefined(bind_to) || isdefined(self.stub.bound_to_buildable) && self.stub.bound_to_buildable != bind_to || isdefined(bind_to.bound_to_buildable) && self.stub != bind_to.bound_to_buildable)
 		{

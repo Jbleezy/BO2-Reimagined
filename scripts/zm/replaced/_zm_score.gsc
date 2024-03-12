@@ -27,7 +27,7 @@ add_to_player_score(points, add_to_total)
 	self incrementplayerstat("score", points);
 }
 
-minus_to_player_score(points)
+minus_to_player_score(points, ignore_double_points_upgrade)
 {
 	if (!isDefined(points) || level.intermission)
 	{

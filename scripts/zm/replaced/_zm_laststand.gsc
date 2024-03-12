@@ -92,7 +92,6 @@ revive_do_revive(playerbeingrevived, revivergun)
 	self.is_reviving_any++;
 	self thread laststand_clean_up_reviving_any(playerbeingrevived_player);
 	self.reviveprogressbar updatebar(0.01, 1 / revivetime);
-	playerbeingrevived_player.beingrevivedprogressbar updatebar(0.01, 1 / revivetime);
 
 	if (isDefined(playerbeingrevived_player.beingrevivedprogressbar))
 	{

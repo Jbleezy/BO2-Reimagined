@@ -1617,7 +1617,7 @@ game_module_player_damage_callback(einflictor, eattacker, idamage, idflags, smea
 			return;
 		}
 
-		if (isDefined(eattacker.is_zombie) || eattacker.is_zombie && isplayer(eattacker))
+		if (isDefined(eattacker.is_zombie) && eattacker.is_zombie || isplayer(eattacker))
 		{
 			self.last_damage_from_zombie_or_player = 1;
 		}
@@ -2349,8 +2349,9 @@ save_teams_on_intermission()
 	else
 	{
 		players = array_randomize(get_players());
+		i = 0;
 
-		for (i = 0; i < players.size; i++)
+		foreach (player in players)
 		{
 			if (i % 2 == 0)
 			{
@@ -2360,6 +2361,8 @@ save_teams_on_intermission()
 			{
 				allies_guids += player getguid() + " ";
 			}
+
+			i++;
 		}
 	}
 

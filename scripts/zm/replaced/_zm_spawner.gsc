@@ -560,7 +560,7 @@ zombie_can_drop_powerups(zombie)
 
 zombie_complete_emerging_into_playable_area()
 {
-	if (self.animname == "zombie" && is_true(self.has_legs))
+	if (isdefined(self.animname) && self.animname == "zombie" && is_true(self.has_legs))
 	{
 		self setphysparams(15, 0, 60);
 	}

@@ -948,7 +948,7 @@ powerup_hud_monitor()
 				{
 					player set_clientfield_powerups(client_field_name, powerup_timer, powerup_on, flashing_timers, flashing_values);
 
-					if (isdefined(enemy_powerup_timer) && isdefined(enemy_powerup_on))
+					if (isdefined(enemy_client_field_name) && isdefined(enemy_powerup_timer) && isdefined(enemy_powerup_on))
 					{
 						player set_clientfield_powerups(enemy_client_field_name, enemy_powerup_timer, enemy_powerup_on, flashing_timers, flashing_values);
 					}

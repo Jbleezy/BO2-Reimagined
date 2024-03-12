@@ -697,7 +697,7 @@ buildablestub_update_prompt(player)
 
 		if (player has_player_equipment(self.weaponname))
 		{
-			if (self.weaponname == level.riotshield_name && player has_player_damaged_riotshield_equipped())
+			if (isdefined(level.riotshield_name) && self.weaponname == level.riotshield_name && player has_player_damaged_riotshield_equipped())
 			{
 				self.hint_string = &"ZOMBIE_REPAIR_RIOTSHIELD";
 				return true;

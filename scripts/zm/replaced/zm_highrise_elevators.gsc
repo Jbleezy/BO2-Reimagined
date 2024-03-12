@@ -366,7 +366,7 @@ elevator_roof_watcher()
 				if (self.is_moving)
 					self waittill_any("movedone", "forcego");
 
-				if (self.current_level == 0)
+				if (self.current_level == "0")
 				{
 					break; // don't make climber at top level
 				}
@@ -505,7 +505,7 @@ watch_for_elevator_during_faller_spawn()
 		}
 		else
 		{
-			if (is_true(self.zombie_faller_location.is_blocked))
+			if (isdefined(self.zombie_faller_location) && is_true(self.zombie_faller_location.is_blocked))
 			{
 				should_gib = 1;
 			}

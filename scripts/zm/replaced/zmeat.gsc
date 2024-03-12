@@ -121,8 +121,6 @@ item_meat_watch_bounce()
 	{
 		self waittill("grenade_bounce", pos, normal, ent);
 
-		playfxontag(level._effect["meat_marker"], self, "tag_origin");
-
 		if (isdefined(level.meat_bounce_override))
 		{
 			self thread [[level.meat_bounce_override]](pos, normal, ent, true);
