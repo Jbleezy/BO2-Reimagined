@@ -383,7 +383,9 @@
 * Decreased ammo cost from 800 to 750
 
 #### MP40
+* Increased move speed while aiming from 100% to 157.5% (move speed multiplied by 1.5)
 * Ammo gets added to the clip at the same time that it gets added in the reload anim
+* Adjustable Stock: increased move speed while aiming from 250% to 262.5% (move speed multiplied by 2.5)
 
 #### MSMC
 * Replaces MP5
@@ -396,6 +398,7 @@
 
 ### Light Machine Guns
 * Decreased move speed from 87.5% to 85%
+* Increased move speed while aiming from 80% to 100% on all light machine guns
 
 #### HAMR
 * Decreased recoil
@@ -453,6 +456,7 @@
 * Added model from Buried to all maps
 * Added first raise and empty fire sound from Mob of the Dead to all maps
 * Increased move speed from 100% to 105%
+* Increased move speed while aiming from 100% to 157.5% (move speed multiplied by 1.5)
 * Ammo gets added to the clip at the same time that it gets added in the reload anim
 * No longer limited to 4 players
 * Unupgraded: increased impact damage from 1000 to 1500 (same as max splash damage)
@@ -462,6 +466,7 @@
 * Same probability to obtain as other weapons
 * Can be obtained if player has Ray Gun
 * Increased move speed from 100% to 105%
+* Increased move speed while aiming from 100% to 157.5% (move speed multiplied by 1.5)
 * Ammo gets added to the clip at the same time that it gets added in the reload anim
 * Limited to 1 player on all maps
 * Decreased last stand ammo from 3 clips to 1 clip
@@ -511,6 +516,7 @@
 * Kills on any round in 1-2 bursts
 * Changed fire type from 3 round burst to 4 round burst
 * Increased player damage from 10 to 15
+* Increased move speed while aiming from 100% to 200% (same as Blundergat)
 * Projectiles fire in a straight line
 * Projectiles no longer seek toward zombies
 * Deadshot improves accuracy
