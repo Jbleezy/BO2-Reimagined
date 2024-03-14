@@ -6,6 +6,8 @@ image,~mtl_t6_wpn_sniper_xpr50_ir_m~b14bed8d
 material,mc/mtl_t6_wpn_sniper_xpr50_thermal
 material,mc/mtl_t6_wpn_sniper_xpr50
 material,mc/mtl_t6_wpn_sniper_xpr50_camo2
+material,mc/mtl_t6_wpn_sniper_xpr50_camo3
+material,mc/mtl_weapon_camo_zombies_3
 image,~~-gmtl_t6_wpn_sniper_xpr50_s~87c00721
 image,mtl_t6_wpn_sniper_xpr50_scope_nml
 image,~mtl_t6_wpn_sniper_xpr50_scop~a23b03bd

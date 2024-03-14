@@ -2,6 +2,7 @@
 
 "%OAT_BASE%\Linker.exe" ^
 --load "%OAT_GAME%\zone\english\en_code_post_gfx_mp.ff" ^
+--load "%OAT_GAME%\zone\all\patch_mp.ff" ^
 --load "%OAT_GAME%\zone\all\common_patch_mp.ff" ^
 --load "%OAT_GAME%\zone\all\common_mp.ff" ^
 --load "%OAT_GAME%\zone\all\frontend_patch.ff" ^
