@@ -2,7 +2,7 @@
 >type,fastfile
 >name,zm_prison
 
-include,includes/so_zencounter_zm_prison
+include,includes/mapents/so_zencounter_zm_prison
 
 weapon,knife_zm_alcatraz
 weapon,spoon_zm_alcatraz

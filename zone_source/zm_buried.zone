@@ -2,11 +2,11 @@
 >type,fastfile
 >name,zm_buried
 
-include,includes/so_zencounter_zm_buried
+include,includes/mapents/so_zencounter_zm_buried
 
-include,includes/saritch_zm
-include,includes/ray_gun_zm
-include,includes/cymbal_monkey_zm
+include,includes/weapons/saritch_zm
+include,includes/weapons/ray_gun_zm
+include,includes/weapons/cymbal_monkey_zm
 
 weapon,bowie_knife_zm
 weapon,tazer_knuckles_zm

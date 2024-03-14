@@ -1,4 +1,3 @@
-material,cac_mods_tact_knife
 material,hud_obit_turret
 material,hud_obit_hk_drone
 material,hud_obit_rcbomb
@@ -20,7 +19,6 @@ material,white_waypoint_contested
 material,white_waypoint_grab
 material,white_waypoint_escort
 material,white_waypoint_kill
-image,cac_mods_tact_knife
 image,hud_obit_turret
 image,hud_obit_hk_drone
 image,hud_obit_rcbomb

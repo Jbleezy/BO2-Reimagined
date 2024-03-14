@@ -2,8 +2,8 @@
 >type,fastfile
 >name,zm_transit
 
-include,includes/jetgun_zm
-include,includes/sticky_grenade_zm
+include,includes/weapons/jetgun_zm
+include,includes/weapons/sticky_grenade_zm
 
 material,hud_icon_40mm_grenade_mp
 image,hud_40mmgrenade
