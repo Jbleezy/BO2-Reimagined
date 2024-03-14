@@ -2753,24 +2753,9 @@ additionalprimaryweapon_update_weapon_slots()
 	{
 		if (!self hasWeapon(self.weapon_slots[i]))
 		{
-			self.weapon_slots[i] = undefined;
+			self.weapon_slots[i] = "none";
 		}
 	}
-
-	weapon_slots = [];
-
-	// remove any trailing undefined slots
-	for (i = self.weapon_slots.size - 1; i >= 0; i--)
-	{
-		if (isDefined(self.weapon_slots[i]))
-		{
-			break;
-		}
-
-		weapon_slots[i] = self.weapon_slots[i];
-	}
-
-	self.weapon_slots = weapon_slots;
 
 	for (i = 0; i < vars["primaries_that_can_be_taken"].size; i++)
 	{
@@ -2782,7 +2767,7 @@ additionalprimaryweapon_update_weapon_slots()
 
 			for (j = 0; j < self.weapon_slots.size; j++)
 			{
-				if (!isDefined(self.weapon_slots[j]))
+				if (self.weapon_slots[j] == "none")
 				{
 					vars["added"] = 1;
 					self.weapon_slots[j] = vars["weapon"];
@@ -2801,7 +2786,7 @@ additionalprimaryweapon_update_weapon_slots()
 
 	for (i = 0; i < self.weapon_slots.size; i++)
 	{
-		if (isDefined(self.weapon_slots[i]))
+		if (self.weapon_slots[i] != "none")
 		{
 			vars["num_weapons"]++;
 		}
