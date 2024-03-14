@@ -12,7 +12,6 @@ xmodel,t6_wpn_ar_saritch_view
 xmodel,t6_wpn_ar_saritch_world
 xmodel,t6_attach_mag_saritch_view
 xmodel,t6_attach_mag_saritch_world
-camo,camo_saritch
 xanim,viewmodel_saritch_idle
 xanim,viewmodel_saritch_fire
 xanim,viewmodel_saritch_reload

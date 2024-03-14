@@ -18,4 +18,5 @@ include,includes/as50_zm
 include,includes/bouncing_betty_zm
 
 include,includes/attachment
+include,includes/camo
 include,includes/materials
