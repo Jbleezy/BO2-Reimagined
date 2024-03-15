@@ -12,6 +12,7 @@ include,zm_buried
 include,zm_tomb
 
 include,includes/clientscripts
+include,includes/materials
 include,includes/rawfile
 include,includes/stringtable
 

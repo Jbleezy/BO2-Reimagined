@@ -53,11 +53,11 @@ init()
 
 	if (level.item_meat_name == "item_head_zm")
 	{
-		level.item_meat_status_icon_name = "hud_obit_dogs";
+		level.item_meat_status_icon_name = "menu_zm_weapons_item_head";
 	}
 	else
 	{
-		level.item_meat_status_icon_name = "hud_obit_case";
+		level.item_meat_status_icon_name = "menu_zm_weapons_item_meat";
 	}
 
 	precacheStatusIcon(level.item_meat_status_icon_name);
