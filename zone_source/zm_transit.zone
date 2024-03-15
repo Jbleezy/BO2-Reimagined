@@ -2,10 +2,15 @@
 >type,fastfile
 >name,zm_transit
 
-include,includes/weapons/jetgun_zm
-include,includes/weapons/sticky_grenade_zm
+weapon,sticky_grenade_zm
+fx,weapon/crossbow/fx_trail_crossbow_blink_grn_os
+fx,weapon/crossbow/fx_trail_crossbow_blink_red_os
 
 material,hud_icon_40mm_grenade_mp
 image,hud_40mmgrenade
 material,hud_select_fire_bullet_stack_big
 image,hud_select_fire_bullet_stack01
+
+rawfile,rumble/heavygun_fire
+rawfile,rumble/heavygun_fire_h.rmb
+rawfile,rumble/heavygun_fire_l.rmb

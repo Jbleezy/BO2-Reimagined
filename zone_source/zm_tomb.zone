@@ -3,9 +3,6 @@
 >name,zm_tomb
 
 include,includes/weapons/ballista_zm
-include,includes/weapons/scar_zm
-include,includes/weapons/falling_hands_zm
-include,includes/weapons/one_inch_punch_zm
 
 include,includes/perks/specialty_juggernaut
 include,includes/perks/specialty_quickrevive
@@ -14,3 +11,8 @@ include,includes/perks/specialty_doubletap
 include,includes/perks/specialty_marathon
 include,includes/perks/specialty_divetonuke
 include,includes/perks/specialty_mulekick
+
+xmodel,t6_wpn_none_view
+xmodel,t6_wpn_none_world
+
+xanim,viewmodel_bare_hands_falling
