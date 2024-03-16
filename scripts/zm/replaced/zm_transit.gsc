@@ -94,7 +94,7 @@ sndplaymusicegg_get_time_for_song(song)
 	}
 	else if (song == "mus_zmb_secret_song_skrillex_try_it_out")
 	{
-		return 228;
+		return 231;
 	}
 
 	return 0;
