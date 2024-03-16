@@ -862,6 +862,7 @@
 * All locations can be played on Survival and Grief game modes
 * All quests can be completed with any amount of players
 * All quests give players all perks on completion
+* All quests play a song on completion after ending the current round
 
 ### Nuketown
 * Initial perk is no longer always Quick Revive in solo
@@ -894,6 +895,9 @@
 * Zombies spawn in the Warehouse zone when in the Outside Power Station zone before the Warehouse door is opened
 * Zombies spawn in the Outside Power Station zone when in the Fog After Power Station zone
 * Zombies spawn in the Warehouse zone when in the Fog After Power Station zone
+* Added "Avenged Sevenfold - Carry On" song (activated by triggering the teddy bear in the Farm area last)
+* Added "Skrillex - Try It Out" song (activated by triggering the teddy bear in the Bus Depot area last)
+* Quest: added "Benn - Just Like You" song
 * Quest: increased pylon powerup drop rate from 4-12 minutes to 2-6 minutes
 * Quest (Maxis): Avogadro step only requires 1 Turbine under the pylon
 * Quest (Maxis): Turbine can get destroyed by the EMP during the Avogadro step and it will still count as completed
@@ -965,6 +969,7 @@
 * Fixed zombies spawning in the elevator below the Green Rooftop Level 3B zone when in the Green Rooftop Level 3B zone
 * Fixed zombies not bleeding out in the Green Rooftop Level 1B zone when the debris is closed and there are no players in the zone
 * Fixed Who's Who vision filter showing momentarily when the game ended
+* Quest: added "Benn - High Risers" song
 * Quest: elevator symbols can be activated without players on every symbol
 * Quest: elevator symbols stay active after activating once
 * Quest: floor symbols can be activated in any order
@@ -992,6 +997,7 @@
 * Players can no longer get into the corner next to Jugger-Nog
 * Removed buildable table hint icons
 * Added buildable table hint strings on buildable purchase
+* Quest: added "Benn - Bury Me" song
 * Quest: all 5 signs must be meleed for wisp to spawn
 * Quest: changed number of targets that need to be hit to 20 multiplied by the amount of players
 * Quest: perks given on completion are no longer permament
@@ -1064,6 +1070,7 @@
 * Changed name of Zombie Shield recipe on HUD from "Shield" to "Zombie Shield"
 * Changed background color of Zombie Shield parts on HUD from green to grey
 * Changed background color of Acid Gat Kit parts on HUD from blue to green
+* Quest: added "Benn - Alcatraz" song
 * Quest: Blundergat gets full ammo when picked up (normally missing one clip)
 * Quest: number pad only needs each number to be shocked once in order to complete
 * Quest: can enter the plane in afterlife with any amount of players
@@ -1127,6 +1134,7 @@
 * Perk bottle dig spots: give random perk
 * Perk bottle dig spots: visible and diggable without Zombie Blood
 * Perk bottle dig spots: increased number of rounds for next dig spot to spawn from 1 to 4
+* Quest: added "Benn - The Divider" song
 * Quest (ascend from darkness step): staffs can be placed at any staff holder
 * Quest (ascend from darkness step): three robots always active during step
 * Quest (ascend from darkness step): fixed an issue where staffs were able to be picked up at their build location when placed in the staff holders

@@ -175,7 +175,9 @@ sq_give_all_perks()
 		n_fireball_exploder = 901;
 	}
 
-	level thread scripts\zm\replaced\_zm_sq::sq_complete_time_hud();
+	level thread scripts\zm\reimagined\_zm_sq::sq_complete_time_hud();
+
+	level thread scripts\zm\reimagined\_zm_sq::sq_play_song();
 
 	players = getplayers();
 
@@ -214,7 +216,7 @@ sq_give_player_perks(perks, v_fireball_start_loc, n_fireball_exploder)
 
 	if (is_player_valid(self))
 	{
-		self thread scripts\zm\replaced\_zm_sq::sq_give_player_all_perks();
+		self thread scripts\zm\reimagined\_zm_sq::sq_give_player_all_perks();
 	}
 }
 

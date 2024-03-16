@@ -49,13 +49,15 @@ stage_logic()
 		e_wall hide();
 	}
 
+	level thread scripts\zm\reimagined\_zm_sq::sq_play_song();
+
 	players = get_players();
 
 	foreach (player in players)
 	{
 		if (is_player_valid(player))
 		{
-			player thread scripts\zm\replaced\_zm_sq::sq_give_player_all_perks();
+			player thread scripts\zm\reimagined\_zm_sq::sq_give_player_all_perks();
 		}
 	}
 

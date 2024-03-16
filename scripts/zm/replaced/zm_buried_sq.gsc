@@ -120,7 +120,9 @@ richtofen_zombie_deathfunction_override()
 
 sq_give_player_rewards()
 {
-	level thread scripts\zm\replaced\_zm_sq::sq_complete_time_hud();
+	level thread scripts\zm\reimagined\_zm_sq::sq_complete_time_hud();
+
+	level thread scripts\zm\reimagined\_zm_sq::sq_play_song();
 
 	players = get_players();
 
@@ -128,7 +130,7 @@ sq_give_player_rewards()
 	{
 		if (is_player_valid(player))
 		{
-			player thread scripts\zm\replaced\_zm_sq::sq_give_player_all_perks();
+			player thread scripts\zm\reimagined\_zm_sq::sq_give_player_all_perks();
 		}
 	}
 }
