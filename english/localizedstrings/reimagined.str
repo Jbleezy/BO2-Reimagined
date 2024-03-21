@@ -1080,6 +1080,9 @@ LANG_ENGLISH        "Xtreme Pain Releaser 5000"
 
 // HINT STRINGS
 
+REFERENCE           PLATFORM_PICKUPNEWWEAPON
+LANG_ENGLISH        "Hold ^3&&1^7 to pick up"
+
 REFERENCE           ZOMBIE_WEAPON_SARITCH
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 for SMR [Cost: &&1]"
 
@@ -1102,7 +1105,7 @@ REFERENCE           ZOMBIE_WEAPON_BOUNCINGBETTY
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Bouncing Betty [Cost: &&1]"
 
 REFERENCE           ZOMBIE_BOUNCINGBETTY_PICKUP
-LANG_ENGLISH        "Hold ^3&&1^7 to Pick Up Bouncing Betty"
+LANG_ENGLISH        "Hold ^3&&1^7 to pick up Bouncing Betty"
 
 REFERENCE           ZOMBIE_PERK_QUICKREVIVE
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Quick Revive [Cost: &&1]"
@@ -1244,6 +1247,15 @@ LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft the Guillotine"
 
 REFERENCE           ZM_TOMB_EHT
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to exit the Robot Head"
+
+REFERENCE           ZM_TOMB_PLAY_RECORD
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to play Record"
+
+REFERENCE           ZM_TOMB_PLGR
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to place Gramophone"
+
+REFERENCE           ZM_TOMB_PUGR
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to pick up Gramophone"
 
 REFERENCE           ZM_TOMB_CRRI
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Zombie Shield"
