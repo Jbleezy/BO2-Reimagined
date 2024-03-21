@@ -1465,6 +1465,10 @@ weapon_changes()
 		include_weapon("an94_zm", 0);
 		include_weapon("an94_upgraded_zm", 0);
 		add_zombie_weapon("an94_zm", "an94_upgraded_zm", &"ZOMBIE_WEAPON_AN94", 1500, "", "", undefined, 1);
+
+		include_weapon("pdw57_zm", 0);
+		include_weapon("pdw57_upgraded_zm", 0);
+		add_zombie_weapon("pdw57_zm", "pdw57_upgraded_zm", &"ZOMBIE_WEAPON_PDW57", 1000, "", "", undefined, 1);
 	}
 
 	if (level.script == "zm_prison")

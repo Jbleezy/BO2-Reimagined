@@ -51,6 +51,7 @@
 		* [M1927](#m1927)
 		* [MP40](#mp40)
 		* [MSMC](#msmc)
+		* [PDW-57](#pdw-57)
 		* [Skorpion EVO](#skorpion-evo)
 		* [Vector K10](#vector-k10)
 	* [Light Machine Guns](#light-machine-guns)
@@ -390,6 +391,9 @@
 
 #### MSMC
 * Replaces MP5
+
+#### PDW-57
+* Added on Tranzit
 
 #### Skorpion EVO
 * Upgraded: changed default attachment from Reflex Sight to Fast Mag

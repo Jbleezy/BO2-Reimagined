@@ -47,4 +47,5 @@ start_zombie_stuff()
 init_level_specific_wall_buy_fx()
 {
 	level._effect["an94_zm_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_an94");
+	level._effect["pdw57_zm_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_pdw57");
 }

@@ -53122,6 +53122,25 @@
 }
 {
 "script_noteworthy" "zclassic_transit"
+"angles" "0 1.00179e-005 0"
+"origin" "-7045.8 4132 -6"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "pdw57_zm"
+"targetname" "weapon_upgrade"
+"target" "pf1910_auto38"
+"guid" "F0390DB3"
+}
+{
+"script_noteworthy" "zclassic_transit"
+"targetname" "pf1910_auto38"
+"classname" "script_struct"
+"model" "t6_wpn_smg_pdw57_world"
+"angles" "0 1.00179e-005 0"
+"origin" "-7045.8 4132 -6"
+"guid" "6D2A1B25"
+}
+{
+"script_noteworthy" "zclassic_transit"
 "origin" "-11839 -1695.1 287"
 "angles" "0 270 0"
 "model" "t6_wpn_ar_sig556_world"
