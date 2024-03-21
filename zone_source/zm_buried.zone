@@ -5,6 +5,7 @@
 include,includes/mapents/so_zencounter_zm_buried
 
 include,includes/weapons/saritch_zm
+include,includes/weapons/an94_zm
 
 weapon,bowie_knife_zm
 weapon,tazer_knuckles_zm

@@ -321,6 +321,7 @@
 ### Assault Rifles
 
 #### AN-94
+* Added on Tranzit
 * Increased weapon cost from 1200 to 1500
 * Unupgraded: decreased stock ammo from 300 to 240
 * Upgraded: decreased stock ammo from 600 to 450

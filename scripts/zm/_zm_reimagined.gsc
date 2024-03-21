@@ -1460,6 +1460,13 @@ weapon_changes()
 		add_zombie_weapon("fnp45_zm", "fnp45_upgraded_zm", &"WEAPON_FNP45", 500, "", "", undefined, 1);
 	}
 
+	if (level.script == "zm_transit")
+	{
+		include_weapon("an94_zm", 0);
+		include_weapon("an94_upgraded_zm", 0);
+		add_zombie_weapon("an94_zm", "an94_upgraded_zm", &"ZOMBIE_WEAPON_AN94", 1500, "", "", undefined, 1);
+	}
+
 	if (level.script == "zm_prison")
 	{
 		include_weapon("held_knife_zm_alcatraz", 0);
@@ -2915,7 +2922,7 @@ refill_after_time(primary)
 		vars["curr_dw_ammo_clip"] = 0;
 
 		// save current dual wield weapon clip ammo
-		if(vars["dw_primary"] != "none" && vars["curr_dw_primary"] != "none")
+		if (vars["dw_primary"] != "none" && vars["curr_dw_primary"] != "none")
 		{
 			vars["curr_dw_ammo_clip"] = self getWeaponAmmoClip(vars["curr_dw_primary"]);
 		}
@@ -2931,7 +2938,7 @@ refill_after_time(primary)
 		self setWeaponAmmoStock(primary, vars["ammo_stock"]);
 
 		// restore current dual wield weapon clip ammo
-		if(vars["dw_primary"] != "none" && vars["curr_dw_primary"] != "none")
+		if (vars["dw_primary"] != "none" && vars["curr_dw_primary"] != "none")
 		{
 			self set_weapon_ammo_clip_left(vars["curr_primary"], vars["curr_dw_ammo_clip"]);
 		}

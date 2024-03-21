@@ -53007,6 +53007,25 @@
 "guid" "6D2A1B25"
 }
 {
+"script_noteworthy" "zclassic_transit"
+"angles" "0 270 0"
+"origin" "611.1 -993.1 181"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "an94_zm"
+"targetname" "weapon_upgrade"
+"target" "pf1905_auto38"
+"guid" "F0390DB3"
+}
+{
+"script_noteworthy" "zclassic_transit"
+"targetname" "pf1905_auto38"
+"classname" "script_struct"
+"model" "t6_wpn_ar_an94_world"
+"angles" "0 270 0"
+"origin" "611.1 -993.1 181"
+"guid" "6D2A1B25"
+}
+{
 "script_noteworthy" "zrace_town"
 "origin" "1068.3 -1241 5"
 "angles" "0 270 0"
