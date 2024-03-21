@@ -2808,13 +2808,9 @@ additionalprimaryweapon_stowed_weapon_refill()
 
 	vars = [];
 
-	self.weapon_last_held_time = [];
-
 	while (1)
 	{
 		vars["string"] = self waittill_any_return("weapon_change", "weapon_change_complete", "perk_additionalprimaryweapon_activated", "specialty_additionalprimaryweapon_stop", "spawned_player");
-
-		vars["weapon_last_held_time"] = [];
 
 		if (self hasPerk("specialty_additionalprimaryweapon"))
 		{
@@ -2831,34 +2827,26 @@ additionalprimaryweapon_stowed_weapon_refill()
 			{
 				if (primary != maps\mp\zombies\_zm_weapons::get_nonalternate_weapon(vars["curr_wep"]))
 				{
-					if (!isdefined(self.weapon_last_held_time[primary]))
+					if (vars["string"] != "weapon_change")
 					{
-						if (vars["string"] != "weapon_change")
-						{
-							vars["weapon_last_held_time"][primary] = getTime();
-						}
-					}
-					else
-					{
-						vars["weapon_last_held_time"][primary] = self.weapon_last_held_time[primary];
+						self thread refill_after_time(primary);
 					}
 				}
 				else
 				{
-					if (vars["string"] == "weapon_change")
-					{
-						self additionalprimaryweapon_do_refill(primary);
-					}
+					self notify(primary + "_reload_stop");
 				}
 			}
 		}
-
-		self.weapon_last_held_time = vars["weapon_last_held_time"];
 	}
 }
 
-additionalprimaryweapon_do_refill(primary)
+refill_after_time(primary)
 {
+	self endon(primary + "_reload_stop");
+	self endon("specialty_additionalprimaryweapon_stop");
+	self endon("spawned_player");
+
 	vars = [];
 
 	vars["reload_time"] = weaponReloadTime(primary);
@@ -2884,42 +2872,27 @@ additionalprimaryweapon_do_refill(primary)
 		vars["reload_time"] *= getDvarFloat("perk_weapReloadMultiplier");
 	}
 
-	if (!isdefined(self.weapon_last_held_time[primary]))
-	{
-		return;
-	}
-
-	if ((getTime() - self.weapon_last_held_time[primary]) < (vars["reload_time"] * 1000))
-	{
-		return;
-	}
-
-	vars["missing_clip_max"] = undefined;
-
-	if (isdefined(vars["reload_amount"]))
-	{
-		vars["reload_segments_num"] = int((getTime() - self.weapon_last_held_time[primary]) / (vars["reload_time"] * 1000));
-
-		vars["missing_clip_max"] = vars["reload_amount"] * vars["reload_segments_num"];
-	}
+	wait vars["reload_time"];
 
 	vars["ammo_clip"] = self getWeaponAmmoClip(primary);
 	vars["ammo_stock"] = self getWeaponAmmoStock(primary);
 	vars["missing_clip"] = weaponClipSize(primary) - vars["ammo_clip"];
+	vars["og_ammo_stock"] = vars["ammo_stock"];
 
 	if (vars["missing_clip"] > vars["ammo_stock"])
 	{
 		vars["missing_clip"] = vars["ammo_stock"];
 	}
 
-	if (isDefined(vars["missing_clip_max"]) && vars["missing_clip"] > vars["missing_clip_max"])
+	if (isDefined(vars["reload_amount"]) && vars["missing_clip"] > vars["reload_amount"])
 	{
-		vars["missing_clip"] = vars["missing_clip_max"];
+		vars["missing_clip"] = vars["reload_amount"];
 	}
 
-	vars["ammo_stock"] -= vars["missing_clip"];
-
 	vars["dw_primary"] = weaponDualWieldWeaponName(primary);
+	vars["alt_primary"] = weaponAltWeaponName(primary);
+
+	vars["ammo_stock"] -= vars["missing_clip"];
 
 	if (vars["dw_primary"] != "none")
 	{
@@ -2934,17 +2907,35 @@ additionalprimaryweapon_do_refill(primary)
 		vars["ammo_stock"] -= vars["dw_missing_clip"];
 	}
 
-	// setting dw weapon clip ammo changes both clips ammo so must calculate both left and right ammo before setting ammo
-	self setWeaponAmmoClip(primary, vars["ammo_clip"] + vars["missing_clip"]);
-
-	if (vars["dw_primary"] != "none")
+	if (vars["ammo_stock"] != vars["og_ammo_stock"])
 	{
-		self set_weapon_ammo_clip_left(primary, vars["dw_ammo_clip"] + vars["dw_missing_clip"]);
+		// setWeaponAmmoClip changes dual wield weapon clip ammo of current weapon when called on any dual wield weapon
+		vars["curr_primary"] = self getCurrentWeapon();
+		vars["curr_dw_primary"] = weaponDualWieldWeaponName(vars["curr_primary"]);
+		vars["curr_dw_ammo_clip"] = 0;
+
+		// save current dual wield weapon clip ammo
+		if(vars["dw_primary"] != "none" && vars["curr_dw_primary"] != "none")
+		{
+			vars["curr_dw_ammo_clip"] = self getWeaponAmmoClip(vars["curr_dw_primary"]);
+		}
+
+		// setWeaponAmmoClip changes both clips ammo on dual wield weapons so must calculate both left and right ammo before setting ammo
+		self setWeaponAmmoClip(primary, vars["ammo_clip"] + vars["missing_clip"]);
+
+		if (vars["dw_primary"] != "none")
+		{
+			self set_weapon_ammo_clip_left(primary, vars["dw_ammo_clip"] + vars["dw_missing_clip"]);
+		}
+
+		self setWeaponAmmoStock(primary, vars["ammo_stock"]);
+
+		// restore current dual wield weapon clip ammo
+		if(vars["dw_primary"] != "none" && vars["curr_dw_primary"] != "none")
+		{
+			self set_weapon_ammo_clip_left(vars["curr_primary"], vars["curr_dw_ammo_clip"]);
+		}
 	}
-
-	self setWeaponAmmoStock(primary, vars["ammo_stock"]);
-
-	vars["alt_primary"] = weaponAltWeaponName(primary);
 
 	if (vars["alt_primary"] != "none")
 	{
@@ -2959,6 +2950,11 @@ additionalprimaryweapon_do_refill(primary)
 
 		self setWeaponAmmoClip(vars["alt_primary"], vars["ammo_clip"] + vars["missing_clip"]);
 		self setWeaponAmmoStock(vars["alt_primary"], vars["ammo_stock"] - vars["missing_clip"]);
+	}
+
+	if (isDefined(vars["reload_amount"]) && self getWeaponAmmoStock(primary) > 0 && self getWeaponAmmoClip(primary) < weaponClipSize(primary))
+	{
+		self refill_after_time(primary);
 	}
 }
 
