@@ -51,7 +51,6 @@
 		* [M1927](#m1927)
 		* [MP40](#mp40)
 		* [MSMC](#msmc)
-		* [PDW-57](#pdw-57)
 		* [Skorpion EVO](#skorpion-evo)
 		* [Vector K10](#vector-k10)
 	* [Light Machine Guns](#light-machine-guns)
@@ -60,7 +59,6 @@
 		* [Mk 48](#mk-48)
 	* [Sniper Rifles](#sniper-rifles)
 		* [Ballista](#ballista)
-		* [SVU-AS](#svu-as)
 		* [XPR-50](#xpr-50)
 	* [Shotguns](#shotguns)
 		* [Remington 870 MCS](#remington-870-mcs)
@@ -86,10 +84,7 @@
 	* [Equipment](#equipment)
 		* [Combat Knife](#combat-knife)
 		* [One Inch Punch](#one-inch-punch)
-		* [Frag Grenade](#frag-grenade)
-		* [Semtex](#semtex)
 		* [Claymore](#claymore)
-		* [Bouncing Betty](#bouncing-betty)
 		* [Time Bomb](#time-bomb)
 * [Wallbuys](#wallbuys)
 * [Mystery Box](#mystery-box)
@@ -323,7 +318,6 @@
 ### Assault Rifles
 
 #### AN-94
-* Added on Tranzit
 * Increased weapon cost from 1200 to 1500
 * Unupgraded: decreased stock ammo from 300 to 240
 * Upgraded: decreased stock ammo from 600 to 450
@@ -335,7 +329,6 @@
 * Removed
 
 #### M27
-* Added on Tranzit, Die Rise, and Buried
 * Upgraded: changed default attachment from Reflex Sight to None
 
 #### M8A1
@@ -393,9 +386,6 @@
 #### MSMC
 * Replaces MP5
 
-#### PDW-57
-* Added on Tranzit
-
 #### Skorpion EVO
 * Upgraded: changed default attachment from Reflex Sight to Fast Mag
 
@@ -430,9 +420,6 @@
 * Upgraded: decreased headshot multiplier from 10 to 8
 * Upgraded: decreased stock ammo from 120 to 100
 * Upgraded: fixed fire sound
-
-#### SVU-AS
-* Added on Tranzit
 
 #### XPR-50
 * Replaces Barrett M82A1
@@ -601,12 +588,6 @@
 * Fixed zombies not being flung when Insta Kill powerup is active
 * Fixed an issue where a player's melee weapon wouldn't reset if the player bled out in the Giant Robots
 
-#### Frag Grenade
-* Replaces Semtex on Origins
-
-#### Semtex
-* Replaces Frag Grenade on Mob of the Dead
-
 #### Claymore
 * Added plant and alert sounds to all maps
 * Can be repurchased
@@ -615,9 +596,6 @@
 * Increased max amount that can be placed from 12 to 20
 * Added weapon name on HUD
 * Removed initial weapon raise anim
-
-#### Bouncing Betty
-* Replaces Claymore on Origins
 
 #### Time Bomb
 * No longer sends players back in time
@@ -883,6 +861,10 @@
 * Fixed Mystery Box floating in the sky at the start of the game
 
 ### Tranzit
+* Added PDW-57 wallbuy at Bus Depot
+* Added AN-94 wallbuy at Town
+* Added SVU-AS wallbuy at Cornfield
+* Added M27 to the Mystery Box
 * Power switch and Pack-a-Punch automatically crafted
 * Any door that requires a Turbine to open is automatically open whenever the power is on
 * Increased bus speed by 100%
@@ -937,7 +919,7 @@
 * Replaced Galvaknuckles wallbuy with Claymore wallbuy (also added to Grief)
 
 #### Power Station
-* Wallbuys: SMR, Ballista, MSMC, Vector, Remington 870 MCS, Bowie Knife
+* Wallbuys: SMR, Ballista, MSMC, Vector K10, Remington 870 MCS, Bowie Knife
 * Perks: Jugger-Nog, Quick Revive, Speed Cola, Double Tap, Tombstone Soda
 * Pack-a-Punch
 
@@ -947,18 +929,19 @@
 * Moved Tombstone Soda to the laundry room front door
 
 #### Tunnel
-* Wallbuys: SMR, Ballista, Vector, SWAT-556 Semtex, Bowie Knife
+* Wallbuys: SMR, Ballista, Vector K10, SWAT-556 Semtex, Bowie Knife
 * Added Mystery Box location
 * Perks: Jugger-Nog, Quick Revive, Speed Cola, Double Tap, Stamin-Up
 * Pack-a-Punch
 
 #### Cornfield
-* Wallbuys: SMR, Ballista, B23R, MSMC, Vector, SWAT-556 Remington 870 MCS, Semtex, Claymore
+* Wallbuys: SMR, Ballista, B23R, MSMC, Vector K10, SWAT-556 Remington 870 MCS, Semtex, Claymore
 * Added Mystery Box location
 * No perks
 * Pack-a-Punch
 
 ### Die Rise
+* Added M27 to the Mystery Box
 * Removed key
 * Elevators and escape pod can be called without key
 * Added purchase cost to call elevators and escape pod
@@ -990,6 +973,7 @@
 * Quest (Richtofen): decreased number of Sliquifier shots required for each ball from 20 to 10
 
 ### Buried
+* Added M27 to the Mystery Box
 * Removed Turbine, key, booze, and candy
 * Power automatically on
 * Noose and Guillotine parts automatically picked up
@@ -1026,7 +1010,7 @@
 * Added B23R, SWAT-556, Claymore, and Bowie Knife wallbuys at their locations on Buried
 * Added Remington 870 MCS wallbuy at Stables
 * Added PDW-57 wallbuy at Morgue
-* Added Vector wallbuy at Saloon
+* Added Vector K10 wallbuy at Saloon
 * Added SVU-AS wallbuy at Church
 * Added Galvaknuckles wallbuy behind the top of General Store & Bank
 * Moved Quick Revive to Speed Cola's location on Borough
@@ -1043,6 +1027,7 @@
 * Perks and wallbuys within the maze are randomized each game
 
 ### Mob of the Dead
+* Replaced Frag Grenade with Semtex
 * 1 afterlife max in solo
 * Entering afterlife no longer takes 2 additional seconds if the player had Electric Cherry
 * Spawn facing towards the afterlife player model when entering afterlife
@@ -1105,6 +1090,8 @@
 * Grief: Tower Trap targets and stuns players
 
 ### Origins
+* Replaced Semtex with Frag Grenade
+* Replaced Claymore with Bouncing Betty
 * Door prices in solo cost the same as in coop
 * Shovels automatically picked up
 * Records automatically picked up
