@@ -599,6 +599,7 @@
 * Replaces Frag Grenade on Mob of the Dead
 
 #### Claymore
+* Added plant and alert sounds to all maps
 * Can be repurchased
 * Can be placed while in the air
 * Increased explosion radius by 28% (same as Black Ops 2 Multiplayer)
