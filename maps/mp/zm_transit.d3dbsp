@@ -54961,6 +54961,25 @@
 "guid" "6D2A1B25"
 }
 {
+"script_noteworthy" "zclassic_transit"
+"angles" "0 -90 0"
+"origin" "13553 -539 -133"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "svu_zm"
+"targetname" "weapon_upgrade"
+"target" "pf1923_auto54"
+"guid" "F0390DB3"
+}
+{
+"script_noteworthy" "zclassic_transit"
+"targetname" "pf1923_auto54"
+"classname" "script_struct"
+"model" "t6_wpn_sniper_svu_world"
+"angles" "0 -90 0"
+"origin" "13553 -539 -133"
+"guid" "6D2A1B25"
+}
+{
 "script_noteworthy" "zstandard_cornfield, zgrief_cornfield"
 "angles" "0 0 0"
 "origin" "13793 -1646 -105"
