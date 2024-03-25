@@ -249,6 +249,7 @@
 
 ### Avogadro
 * Drops a random powerup when killed
+* Increased player damage from 90 to 100
 * Decreased minimum distance away from players to be able to attack
 * Respawns on the same round if exited due to being too far away from players (normally respawns on the next round)
 
@@ -259,8 +260,8 @@
 
 ### Brutus
 * Smoke Grenade kills zombies
-* Decreased footstep screen shake by 25%
 * Increased player damage from 99 to 100
+* Decreased footstep screen shake by 25%
 * No longer receives additional damage from Ray Gun Mark 2
 * Teleports away less frequently
 

@@ -45,6 +45,29 @@ check_range_attack()
 	return false;
 }
 
+check_bolt_impact(enemy)
+{
+	if (is_player_valid(enemy))
+	{
+		enemy_eye_pos = enemy geteye();
+		dist_sq = distancesquared(self.origin, enemy_eye_pos);
+
+		if (dist_sq < 4096)
+		{
+			passed = bullettracepassed(self.origin, enemy_eye_pos, 0, undefined);
+
+			if (passed)
+			{
+				maps\mp\_visionset_mgr::vsmgr_activate("overlay", "zm_ai_avogadro_electrified", enemy, 1, 1);
+				enemy shellshock("electrocution", 1);
+				enemy playsoundtoplayer("zmb_avogadro_electrified", enemy);
+				radiusdamage(enemy.origin + (0, 0, 5), 10, 100, 100, self, "MOD_MELEE");
+				enemy notify("avogadro_damage_taken");
+			}
+		}
+	}
+}
+
 avogadro_exit(from)
 {
 	powerup_origin = spawn("script_origin", self.origin);
