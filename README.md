@@ -866,6 +866,7 @@
 * Added AN-94 wallbuy at Town
 * Added SVU-AS wallbuy at Cornfield
 * Added M27 to the Mystery Box
+* Added Fire Sale powerup
 * Power switch and Pack-a-Punch automatically crafted
 * Any door that requires a Turbine to open is automatically open whenever the power is on
 * Increased bus speed by 100%
@@ -943,6 +944,7 @@
 
 ### Die Rise
 * Added M27 to the Mystery Box
+* Added Fire Sale powerup
 * Removed key
 * Elevators and escape pod can be called without key
 * Added purchase cost to call elevators and escape pod

@@ -123,6 +123,8 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_weap_claymore::claymore_watch, scripts\zm\replaced\_zm_weap_claymore::claymore_watch);
 	replaceFunc(maps\mp\zombies\_zm_weap_cymbal_monkey::init, scripts\zm\replaced\_zm_weap_cymbal_monkey::init);
 	replaceFunc(maps\mp\zombies\_zm_weap_cymbal_monkey::player_handle_cymbal_monkey, scripts\zm\replaced\_zm_weap_cymbal_monkey::player_handle_cymbal_monkey);
+
+	powerup_changes();
 }
 
 init()
@@ -149,6 +151,10 @@ init()
 	set_dvars();
 
 	weapon_changes();
+
+	spawn_intercom_ents();
+
+	add_fire_sale_vox();
 
 	level thread on_player_connect();
 
@@ -195,6 +201,32 @@ precache_status_icons()
 	{
 		precacheStatusIcon("waypoint_revive_afterlife");
 	}
+}
+
+spawn_intercom_ents()
+{
+	if (level.script != "zm_transit" && level.script != "zm_highrise")
+	{
+		return;
+	}
+
+	foreach (chest in level.chests)
+	{
+		ent = spawn("script_origin", chest.origin + (0, 0, 15));
+		ent.targetname = "intercom";
+	}
+}
+
+// hack to add Fire Sale vox without overriding on all maps
+add_fire_sale_vox()
+{
+	if (level.script != "zm_transit" && level.script != "zm_highrise")
+	{
+		return;
+	}
+
+	game["zmbdialog"]["fire_sale"] += "_rich";
+	level.vox.speaker["player"].alias["powerup"]["firesale"] += "_rich";
 }
 
 on_player_connect()
@@ -1432,6 +1464,14 @@ disable_bank_teller()
 disable_carpenter()
 {
 	arrayremovevalue(level.zombie_powerup_array, "carpenter");
+}
+
+powerup_changes()
+{
+	if (getDvar("mapname") == "zm_transit" || getDvar("mapname") == "zm_highrise")
+	{
+		include_powerup("fire_sale");
+	}
 }
 
 weapon_changes()

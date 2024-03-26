@@ -9,6 +9,8 @@ include,includes/weapons/an94_zm
 include,includes/weapons/pdw57_zm
 include,includes/weapons/svu_zm
 
+include,includes/powerups/fire_sale
+
 weapon,bowie_knife_zm
 weapon,tazer_knuckles_zm
 
