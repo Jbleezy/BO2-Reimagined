@@ -25355,8 +25355,20 @@
 "guid" "EC50B643"
 }
 {
-"origin" "2182.75 2454.49 3053"
-"angles" "0 1.00179e-005 0"
+"classname" "script_model"
+"origin" "2179 2476 3040"
+"angles" "0 90 0"
+"model" "p6_zm_hr_inv_kitchen_cabinet_02"
+}
+{
+"classname" "script_model"
+"origin" "2227 2461 3054"
+"angles" "90 0 0"
+"model" "p_glo_cardboardboxshortclosed_1"
+}
+{
+"origin" "2286 2067 3053"
+"angles" "0 90 0"
 "targetname" "treasure_chest_use"
 "zombie_cost" "950"
 "classname" "script_struct"
@@ -25364,10 +25376,10 @@
 "guid" "871F4144"
 }
 {
-"origin" "2182.75 2454.49 3053"
+"origin" "2286 2067 3053"
 "script_noteworthy" "gb1_chest_zbarrier"
 "type" "zmcore_MagicBox"
-"angles" "0 1.00179e-005 0"
+"angles" "0 90 0"
 "barrieranimtime" "0"
 "showalternatemodel" "0"
 "showupgradedmodel" "0"

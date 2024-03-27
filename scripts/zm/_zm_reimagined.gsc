@@ -152,6 +152,8 @@ init()
 
 	weapon_changes();
 
+	spawn_mystery_box_blocks_and_collision();
+
 	spawn_intercom_ents();
 
 	add_fire_sale_vox();
@@ -200,6 +202,89 @@ precache_status_icons()
 	if (is_true(level.zombiemode_using_afterlife))
 	{
 		precacheStatusIcon("waypoint_revive_afterlife");
+	}
+}
+
+spawn_mystery_box_blocks_and_collision()
+{
+	chests_to_spawn_ents = [];
+
+	foreach (chest in level.chests)
+	{
+		if (!isDefined(chest.script_noteworthy))
+		{
+			continue;
+		}
+
+		if (level.script == "zm_highrise")
+		{
+			if (chest.script_noteworthy == "gb1_chest")
+			{
+				chests_to_spawn_ents[chests_to_spawn_ents.size] = chest;
+			}
+		}
+	}
+
+	if (chests_to_spawn_ents.size == 0)
+	{
+		return;
+	}
+
+	precacheModel("p_glo_cinder_block");
+
+	foreach (chest in chests_to_spawn_ents)
+	{
+		// spawn cinder blocks
+		for (i = 0; i < 8; i++)
+		{
+			block = spawn("script_model", chest.origin);
+			block.angles = chest.angles + (0, 90, 0);
+
+			block.origin += anglesToRight(chest.angles) * -5;
+			block.origin += anglesToForward(chest.angles) * (37.5 + (i % 4 * -25));
+
+			if (i >= 4)
+			{
+				block.angles += (0, 0, 90);
+				block.origin += anglesToUp(chest.angles) * -12;
+			}
+			else
+			{
+				block.origin += anglesToUp(chest.angles) * -4;
+			}
+
+			if (i % 4 == 0)
+			{
+				block.angles += (0, -45, 0);
+			}
+			else if (i % 4 == 1)
+			{
+				block.angles += (0, 22.5, 0);
+			}
+			else if (i % 4 == 2)
+			{
+				block.angles += (0, -5, 0);
+			}
+			else if (i % 4 == 3)
+			{
+				block.angles += (0, 22.5, 0);
+			}
+
+			block setModel("p_glo_cinder_block");
+		}
+
+		// spawn collision
+		for (i = 0; i < 3; i++)
+		{
+			collision = spawn("script_model", chest.origin, 1);
+			collision.angles = chest.angles;
+
+			collision.origin += anglesToForward(chest.angles) * (32 + (i * -32));
+			collision.origin += anglesToUp(chest.angles) * 64;
+
+			collision setModel("collision_clip_32x32x128");
+			collision disconnectPaths();
+		}
 	}
 }
 
