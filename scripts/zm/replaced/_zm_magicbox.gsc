@@ -414,19 +414,13 @@ treasure_chest_weapon_spawn(chest, player, respin)
 
 	start_origin = self.origin;
 	end_origin = self.origin + v_float;
-	angles = self.angles + (0, 180, 0);
+	angles = (self.angles + (0, 180, 0)) * (-1, 1, -1);
 
 	if (level.script == "zm_tomb")
 	{
 		v_move = anglestoright(self.angles) * -20;
 		start_origin = self.origin + v_float + v_move;
 		angles = self.angles;
-	}
-
-	// angle is opposite of what it should be on upside down box
-	if (angles[2] < 0)
-	{
-		angles = (angles[0], angles[1], -360 - angles[2]);
 	}
 
 	dw_offset = (anglesToForward(angles) * -3) + (anglesToRight(angles) * -3) + (anglesToUp(angles) * -3);
@@ -534,17 +528,18 @@ treasure_chest_weapon_spawn(chest, player, respin)
 		{
 			self.weapon_string = undefined;
 
+			joker_origin = self.weapon_model.origin;
 			joker_angles = angles - vectorscale((0, 1, 0), 90.0);
 
-			if (angles[2] < 0)
+			if (abs(angles[2]) >= 90)
 			{
 				joker_angles = angles + vectorscale((0, 1, 0), 90.0);
+				joker_angles = (joker_angles[2] + 180, joker_angles[1], joker_angles[0] + 180) * (-1, 1, 1);
 			}
 
 			// delete and respawn the joker model so that it faces the correct angle right away
-			origin = self.weapon_model.origin;
 			self.weapon_model delete();
-			self.weapon_model = spawn("script_model", origin);
+			self.weapon_model = spawn("script_model", joker_origin);
 			self.weapon_model.angles = joker_angles;
 			self.weapon_model setmodel(level.chest_joker_model);
 			self.weapon_model_dw hide();

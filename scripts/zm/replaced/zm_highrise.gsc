@@ -86,3 +86,19 @@ zclassic_preinit()
 	deposit_spot thread maps\mp\zombies\_zm_banking::bank_deposit_unitrigger();
 	withdraw_spot thread maps\mp\zombies\_zm_banking::bank_withdraw_unitrigger();
 }
+
+is_magic_box_in_inverted_building()
+{
+	b_is_in_inverted_building = 0;
+	a_boxes_in_inverted_building = array("start_chest", "orange_level3_chest");
+	str_location = level.chests[level.chest_index].script_noteworthy;
+	assert(isdefined(str_location), "is_magic_box_in_inverted_building() can't find magic box location");
+
+	for (i = 0; i < a_boxes_in_inverted_building.size; i++)
+	{
+		if (a_boxes_in_inverted_building[i] == str_location)
+			b_is_in_inverted_building = 1;
+	}
+
+	return b_is_in_inverted_building;
+}

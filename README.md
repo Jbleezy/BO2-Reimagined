@@ -945,7 +945,9 @@
 ### Die Rise
 * Added M27 to the Mystery Box
 * Added Fire Sale powerup
-* Moved Mystery Box in Green Rooftop Behind Restaurant zone to Green Rooftop Restaurant zone
+* Added Mystery Box at Blue Highrise area
+* Added Mystery Box at Orange Highrise area
+* Moved Mystery Box at Green Rooftop area from Green Rooftop Behind Restaurant zone to Green Rooftop Restaurant zone
 * Removed key
 * Elevators and escape pod can be called without key
 * Added purchase cost to call elevators and escape pod

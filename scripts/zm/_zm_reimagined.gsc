@@ -222,6 +222,14 @@ spawn_mystery_box_blocks_and_collision()
 			{
 				chests_to_spawn_ents[chests_to_spawn_ents.size] = chest;
 			}
+			else if (chest.script_noteworthy == "blue_level4_chest")
+			{
+				chests_to_spawn_ents[chests_to_spawn_ents.size] = chest;
+			}
+			else if (chest.script_noteworthy == "orange_level3_chest")
+			{
+				chests_to_spawn_ents[chests_to_spawn_ents.size] = chest;
+			}
 		}
 	}
 
@@ -237,20 +245,26 @@ spawn_mystery_box_blocks_and_collision()
 		// spawn cinder blocks
 		for (i = 0; i < 8; i++)
 		{
-			block = spawn("script_model", chest.origin);
-			block.angles = chest.angles + (0, 90, 0);
+			block = spawn("script_model", chest.zbarrier.origin);
+			block.angles = chest.zbarrier.angles + (0, 90, 0);
 
-			block.origin += anglesToRight(chest.angles) * -5;
-			block.origin += anglesToForward(chest.angles) * (37.5 + (i % 4 * -25));
+			// fix upside down box angles
+			if (abs(chest.zbarrier.angles[2]) >= 90)
+			{
+				block.angles = (0, block.angles[1], block.angles[2] + block.angles[0]);
+			}
+
+			block.origin += anglesToRight(chest.zbarrier.angles) * -5;
+			block.origin += anglesToForward(chest.zbarrier.angles) * (37.5 + (i % 4 * -25));
 
 			if (i >= 4)
 			{
+				block.origin += anglesToUp(chest.zbarrier.angles) * -12;
 				block.angles += (0, 0, 90);
-				block.origin += anglesToUp(chest.angles) * -12;
 			}
 			else
 			{
-				block.origin += anglesToUp(chest.angles) * -4;
+				block.origin += anglesToUp(chest.zbarrier.angles) * -4;
 			}
 
 			if (i % 4 == 0)
@@ -270,17 +284,38 @@ spawn_mystery_box_blocks_and_collision()
 				block.angles += (0, 22.5, 0);
 			}
 
+			// fix upside down box angles
+			if (abs(chest.zbarrier.angles[2]) >= 90)
+			{
+				if (i % 4 == 0)
+				{
+					block.angles += (-8, 0, 4);
+				}
+				else if (i % 4 == 1)
+				{
+					block.angles += (5, 0, 1);
+				}
+				else if (i % 4 == 2)
+				{
+					block.angles += (-1, 0, 0);
+				}
+				else if (i % 4 == 3)
+				{
+					block.angles += (5, 0, 1);
+				}
+			}
+
 			block setModel("p_glo_cinder_block");
 		}
 
 		// spawn collision
 		for (i = 0; i < 3; i++)
 		{
-			collision = spawn("script_model", chest.origin, 1);
-			collision.angles = chest.angles;
+			collision = spawn("script_model", chest.zbarrier.origin, 1);
+			collision.angles = chest.zbarrier.angles;
 
-			collision.origin += anglesToForward(chest.angles) * (32 + (i * -32));
-			collision.origin += anglesToUp(chest.angles) * 64;
+			collision.origin += anglesToForward(chest.zbarrier.angles) * (32 + (i * -32));
+			collision.origin += anglesToUp(chest.zbarrier.angles) * 64;
 
 			collision setModel("collision_clip_32x32x128");
 			collision disconnectPaths();
