@@ -283,6 +283,7 @@
 
 ### Pistols
 * Increased move speed from 100% to 110%
+* Increased move speed while aiming from 200% to 220%
 * Decreased aim FOV from 65 to 60 on all pistols
 
 #### B23R
@@ -307,6 +308,7 @@
 
 #### Mauser C96
 * Ammo gets added to the clip at the same time that it gets added in the reload anim
+* Upgraded: increased move speed while aiming from 100% to 110%
 * Upgraded: fixed not being able to melee while aiming
 * Upgraded: decreased last stand ammo from 2 clips to 1 clip
 
@@ -368,6 +370,7 @@
 
 ### Submachine Guns
 * Changed move speed from 100% or 110% to 105%
+* Changed move speed while aiming from 200% or 220% to 210%
 
 #### Chicom CQB
 * Unupgraded: decreased clip ammo from 40 to 36
