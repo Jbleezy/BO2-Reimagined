@@ -867,6 +867,8 @@
 * Added SVU-AS wallbuy at Cornfield
 * Added M27 to the Mystery Box
 * Added Fire Sale powerup
+* Added Mystery Box at Tunnel
+* Added Mystery Box at Cornfield
 * Power switch and Pack-a-Punch automatically crafted
 * Any door that requires a Turbine to open is automatically open whenever the power is on
 * Increased bus speed by 100%
@@ -889,8 +891,8 @@
 * Zombies spawn in the Warehouse zone when in the Outside Power Station zone before the Warehouse door is opened
 * Zombies spawn in the Outside Power Station zone when in the Fog After Power Station zone
 * Zombies spawn in the Warehouse zone when in the Fog After Power Station zone
-* Added "Avenged Sevenfold - Carry On" song (activated by triggering the teddy bear in the Farm area last)
-* Added "Skrillex - Try It Out" song (activated by triggering the teddy bear in the Bus Depot area last)
+* Added "Avenged Sevenfold - Carry On" song (activated by triggering the teddy bear at Farm last)
+* Added "Skrillex - Try It Out" song (activated by triggering the teddy bear at Bus Depot last)
 * Quest: added "Benn - Just Like You" song
 * Quest: increased pylon powerup drop rate from 4-12 minutes to 2-6 minutes
 * Quest (Maxis): Avogadro step only requires 1 Turbine under the pylon
@@ -932,13 +934,11 @@
 
 #### Tunnel
 * Wallbuys: SMR, Ballista, Vector K10, SWAT-556 Semtex, Bowie Knife
-* Added Mystery Box location
 * Perks: Jugger-Nog, Quick Revive, Speed Cola, Double Tap, Stamin-Up
 * Pack-a-Punch
 
 #### Cornfield
 * Wallbuys: SMR, Ballista, B23R, MSMC, Vector K10, SWAT-556 Remington 870 MCS, Semtex, Claymore
-* Added Mystery Box location
 * No perks
 * Pack-a-Punch
 

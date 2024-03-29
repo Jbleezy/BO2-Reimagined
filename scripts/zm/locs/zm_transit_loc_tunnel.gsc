@@ -30,37 +30,23 @@ struct_init()
 
 precache()
 {
-	start_chest_zbarrier = getEnt("start_chest_zbarrier", "script_noteworthy");
-	start_chest_zbarrier.origin = (-10803, -1897, 196);
-	start_chest_zbarrier.angles = (0, 89, 0);
-	start_chest = spawnStruct();
-	start_chest.origin = start_chest_zbarrier.origin;
-	start_chest.angles = start_chest_zbarrier.angles;
-	start_chest.script_noteworthy = "start_chest";
-	start_chest.zombie_cost = 950;
-	collision = spawn("script_model", start_chest_zbarrier.origin + (0, 0, 64), 1);
-	collision.angles = start_chest_zbarrier.angles;
-	collision setmodel("collision_clip_32x32x128");
-	collision disconnectpaths();
-	collision = spawn("script_model", start_chest_zbarrier.origin + (0, -32, 64), 1);
-	collision.angles = start_chest_zbarrier.angles;
-	collision setmodel("collision_clip_32x32x128");
-	collision disconnectpaths();
-	collision = spawn("script_model", start_chest_zbarrier.origin + (0, 32, 64), 1);
-	collision.angles = start_chest_zbarrier.angles;
-	collision setmodel("collision_clip_32x32x128");
-	collision disconnectpaths();
 
-	level.chests = [];
-	level.chests[0] = start_chest;
 }
 
 main()
 {
+	treasure_chest_init();
 	init_barriers();
 	disable_zombie_spawn_locations();
-	maps\mp\zombies\_zm_magicbox::treasure_chest_init(random(array("start_chest")));
 	scripts\zm\locs\loc_common::init();
+}
+
+treasure_chest_init()
+{
+	chest = getstruct("tunnel_chest", "script_noteworthy");
+	level.chests = [];
+	level.chests[0] = chest;
+	maps\mp\zombies\_zm_magicbox::treasure_chest_init("tunnel_chest");
 }
 
 init_barriers()

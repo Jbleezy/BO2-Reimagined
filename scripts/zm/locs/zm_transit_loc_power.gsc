@@ -91,9 +91,9 @@ main()
 
 treasure_chest_init()
 {
-	chests = getstructarray("treasure_chest_use", "targetname");
+	chest = getstruct("pow_chest", "script_noteworthy");
 	level.chests = [];
-	level.chests[0] = chests[2];
+	level.chests[0] = chest;
 	maps\mp\zombies\_zm_magicbox::treasure_chest_init("pow_chest");
 }
 

@@ -216,7 +216,18 @@ spawn_mystery_box_blocks_and_collision()
 			continue;
 		}
 
-		if (level.script == "zm_highrise")
+		if (level.script == "zm_transit")
+		{
+			if (chest.script_noteworthy == "tunnel_chest")
+			{
+				chests_to_spawn_ents[chests_to_spawn_ents.size] = chest;
+			}
+			else if (chest.script_noteworthy == "cornfield_chest")
+			{
+				chests_to_spawn_ents[chests_to_spawn_ents.size] = chest;
+			}
+		}
+		else if (level.script == "zm_highrise")
 		{
 			if (chest.script_noteworthy == "gb1_chest")
 			{
