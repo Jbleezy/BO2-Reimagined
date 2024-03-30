@@ -38,7 +38,7 @@ struct_init()
 
 	foreach (respawn in respawn_array)
 	{
-		scripts\zm\replaced\utility::register_map_spawn(respawn.origin + (100, 0, 0), respawn.angles, zone, respawn.script_int);
+		scripts\zm\replaced\utility::register_map_spawn(respawn.origin + (150, -150, 0), respawn.angles + (0, 180, 0), zone, respawn.script_int);
 	}
 
 	zone = "zone_amb_cornfield";
