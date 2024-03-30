@@ -236,6 +236,32 @@ afterlife_spawn_corpse()
 	return corpse;
 }
 
+afterlife_clean_up_on_disconnect()
+{
+	e_corpse = self.e_afterlife_corpse;
+	e_corpse endon("death");
+	self waittill("disconnect");
+
+	if (isdefined(e_corpse.revivetrigger))
+	{
+		e_corpse notify("stop_revive_trigger");
+		e_corpse.revivetrigger delete();
+		e_corpse.revivetrigger = undefined;
+	}
+
+	if (isdefined(e_corpse.collision))
+	{
+		e_corpse.collision delete();
+		e_corpse.collision = undefined;
+	}
+
+	e_corpse setclientfield("player_corpse_id", 0);
+	e_corpse notify("disconnect");
+	wait_network_frame();
+	wait_network_frame();
+	e_corpse delete();
+}
+
 afterlife_fake_death()
 {
 	level notify("fake_death");
