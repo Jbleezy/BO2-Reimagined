@@ -271,6 +271,7 @@
 
 ## Weapons
 * Switch to melee weapon by pressing the Previous Scorestreak button (same button as the Time Bomb and Maxis Drone)
+* Changed default upgraded weapon camo to dragon camo from Black Ops 2 Multiplayer
 * Fixed world model position of certain melee weapons
 * Grenades: improved projectile upward speed
 * Grenades: can no longer be thrown faster than intended by throwing a grenade right after throwing one

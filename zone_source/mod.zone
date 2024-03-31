@@ -11,7 +11,6 @@ include,zm_prison
 include,zm_buried
 include,zm_tomb
 
-include,includes/camo
 include,includes/clientscripts
 include,includes/materials
 include,includes/rawfile

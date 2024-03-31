@@ -113,6 +113,31 @@
 		{
 			"materials": [
 				{
+					"materialOverrides": [
+						{
+							"baseMaterial": "mc/mtl_t6_wpn_pistol_rnma_camo1",
+							"camoMaterial": "mc/mtl_weapon_camo_zombies"
+						}
+					],
+					"shaderConsts": [
+						3.0,
+						3.0,
+						0.0,
+						0.0,
+						0.0,
+						0.0,
+						0.0,
+						0.0
+					],
+					"useColorMap": false,
+					"useNormalMap": true,
+					"useSpecularMap": false
+				}
+			]
+		},
+		{
+			"materials": [
+				{
 					"materialOverrides": [],
 					"shaderConsts": [
 						1.0,
@@ -365,10 +390,15 @@
 		{
 			"materials": [
 				{
-					"materialOverrides": [],
+					"materialOverrides": [
+						{
+							"baseMaterial": "mc/mtl_t6_wpn_pistol_rnma_camo1",
+							"camoMaterial": "mc/mtl_weapon_camo_dragon"
+						}
+					],
 					"shaderConsts": [
-						1.0,
-						1.0,
+						3.0,
+						3.0,
 						0.0,
 						1.0,
 						0.0,
@@ -381,29 +411,9 @@
 					"useSpecularMap": true
 				},
 				{
-					"materialOverrides": [],
-					"shaderConsts": [
-						1.0,
-						1.0,
-						0.0,
-						1.0,
-						0.0,
-						0.0,
-						0.0,
-						0.0
-					],
-					"useColorMap": false,
-					"useNormalMap": true,
-					"useSpecularMap": true
-				}
-			]
-		},
-		{
-			"materials": [
-				{
 					"materialOverrides": [
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_zmb_slipgun",
+							"baseMaterial": "mc/mtl_t6_wpn_pistol_rnma_camo2",
 							"camoMaterial": "mc/mtl_weapon_camo_dragon_alt"
 						}
 					],

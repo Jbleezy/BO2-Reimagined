@@ -38,4 +38,7 @@ image,~-gt6_wpn_zmb_monkey_fur_col
 material,hud_cymbal_monkey
 image,hud_cymbal_monkey
 
+camo,camo_rnma
+camo,camo_slowgun
+
 menulist,ui_mp/hud_zgrief.txt

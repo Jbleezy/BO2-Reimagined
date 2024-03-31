@@ -113,6 +113,31 @@
 		{
 			"materials": [
 				{
+					"materialOverrides": [
+						{
+							"baseMaterial": "mc/mtl_t6_wpn_zmb_raygun2_1_camo",
+							"camoMaterial": "mc/mtl_weapon_camo_zombies"
+						}
+					],
+					"shaderConsts": [
+						3.0,
+						3.0,
+						0.0,
+						0.0,
+						0.0,
+						0.0,
+						0.0,
+						0.0
+					],
+					"useColorMap": false,
+					"useNormalMap": true,
+					"useSpecularMap": false
+				}
+			]
+		},
+		{
+			"materials": [
+				{
 					"materialOverrides": [],
 					"shaderConsts": [
 						1.0,
@@ -257,10 +282,15 @@
 		{
 			"materials": [
 				{
-					"materialOverrides": [],
+					"materialOverrides": [
+						{
+							"baseMaterial": "mc/mtl_t6_wpn_zmb_raygun2_1_camo",
+							"camoMaterial": "mc/mtl_weapon_camo_zmb_dlc2"
+						}
+					],
 					"shaderConsts": [
-						1.0,
-						1.0,
+						2.0,
+						2.0,
 						0.0,
 						1.0,
 						0.0,
@@ -349,42 +379,6 @@
 					"shaderConsts": [
 						10.0,
 						10.0,
-						0.0,
-						1.0,
-						0.0,
-						0.0,
-						0.0,
-						0.0
-					],
-					"useColorMap": false,
-					"useNormalMap": true,
-					"useSpecularMap": true
-				}
-			]
-		},
-		{
-			"materials": [
-				{
-					"materialOverrides": [],
-					"shaderConsts": [
-						1.0,
-						1.0,
-						0.0,
-						1.0,
-						0.0,
-						0.0,
-						0.0,
-						0.0
-					],
-					"useColorMap": false,
-					"useNormalMap": true,
-					"useSpecularMap": true
-				},
-				{
-					"materialOverrides": [],
-					"shaderConsts": [
-						1.0,
-						1.0,
 						0.0,
 						1.0,
 						0.0,
@@ -403,13 +397,70 @@
 				{
 					"materialOverrides": [
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_zmb_slipgun",
-							"camoMaterial": "mc/mtl_weapon_camo_dragon_alt"
+							"baseMaterial": "mc/mtl_t6_wpn_zmb_raygun2_1_camo",
+							"camoMaterial": "mc/mtl_weapon_camo_dragon"
 						}
 					],
 					"shaderConsts": [
 						3.0,
 						3.0,
+						0.0,
+						1.0,
+						0.0,
+						0.0,
+						0.0,
+						0.0
+					],
+					"useColorMap": false,
+					"useNormalMap": true,
+					"useSpecularMap": true
+				},
+				{
+					"materialOverrides": [],
+					"shaderConsts": [
+						1.0,
+						1.0,
+						0.0,
+						0.0,
+						0.0,
+						0.0,
+						0.0,
+						0.0
+					],
+					"useColorMap": false,
+					"useNormalMap": true,
+					"useSpecularMap": true
+				}
+			]
+		},
+		{
+			"materials": [
+				{
+					"materialOverrides": [
+						{
+							"baseMaterial": "mc/mtl_t6_wpn_zmb_raygun2_1_camo",
+							"camoMaterial": "mc/mtl_weapon_camo_3layer"
+						}
+					],
+					"shaderConsts": [
+						1.2400000095367432,
+						1.350000023841858,
+						0.0,
+						1.0,
+						0.0,
+						0.0,
+						0.0,
+						0.0
+					],
+					"useColorMap": false,
+					"useNormalMap": true,
+					"useSpecularMap": false
+				},
+				{
+					"materialOverrides": [],
+					"shaderConsts": [
+						6.0,
+						6.0,
 						0.0,
 						1.0,
 						0.0,
