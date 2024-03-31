@@ -59,8 +59,10 @@ blundergat_upgrade_station()
 			player thread maps\mp\zombies\_zm_perks::do_knuckle_crack();
 			player.is_pack_splatting = 1;
 			t_upgrade setinvisibletoall();
-			m_converter.worldgun = spawn_weapon_model(str_valid_weapon, undefined, m_converter.v_weapon_origin, m_converter.v_weapon_angles);
-			m_converter blundergat_upgrade_station_inject(str_valid_weapon);
+
+			options = player get_pack_a_punch_weapon_options(str_valid_weapon);
+			m_converter.worldgun = spawn_weapon_model(str_valid_weapon, undefined, m_converter.v_weapon_origin, m_converter.v_weapon_angles, options);
+			m_converter blundergat_upgrade_station_inject(str_valid_weapon, options);
 			t_upgrade thread blundergat_change_hintstring(&"ZM_PRISON_CONVERT_PICKUP");
 
 			if (isdefined(player))
@@ -118,6 +120,31 @@ blundergat_change_hintstring(hint_string, hint_string_cost)
 	}
 }
 
+blundergat_upgrade_station_inject(str_weapon_model, options)
+{
+	wait 0.5;
+	self playsound("zmb_acidgat_upgrade_machine");
+	self setanim(self.fxanims["close"], 1, 0, 1);
+	wait(self.n_start_time);
+
+	for (i = 0; i < 3; i++)
+	{
+		self setanim(self.fxanims["inject"], 1, 0, 1);
+		wait(self.n_idle_time);
+	}
+
+	self.worldgun delete();
+
+	if (str_weapon_model == "blundergat_zm")
+		self.worldgun = spawn_weapon_model("blundersplat_zm", undefined, self.v_weapon_origin, self.v_weapon_angles, options);
+	else
+		self.worldgun = spawn_weapon_model("blundersplat_upgraded_zm", undefined, self.v_weapon_origin, self.v_weapon_angles, options);
+
+	self setanim(self.fxanims["open"], 1, 0, 1);
+	wait(self.n_end_time);
+	wait 0.5;
+}
+
 wait_for_player_to_take(player, str_valid_weapon)
 {
 	self endon("acid_timeout");
@@ -162,7 +189,7 @@ wait_for_player_to_take(player, str_valid_weapon)
 					player givemaxammo("blundersplat_upgraded_zm");
 				else
 				{
-					player giveweapon(str_new_weapon);
+					player giveweapon(str_new_weapon, 0, player maps\mp\zombies\_zm_weapons::get_pack_a_punch_weapon_options(str_new_weapon));
 					player switchtoweapon(str_new_weapon);
 					player givestartammo(str_new_weapon);
 				}

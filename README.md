@@ -511,6 +511,7 @@
 * Kills on any round in 1-2 shots
 * Increased pellet count from 7 to 8
 * Increased pellet size
+* Upgraded: added camo
 
 #### Acid Gat
 * Kills on any round in 1-2 bursts
@@ -521,6 +522,7 @@
 * Projectiles no longer seek toward zombies
 * Deadshot improves accuracy
 * Stuck zombie counts as a kill
+* Upgraded: added camo
 * Upgraded: fixed fire sound
 
 #### Staffs
