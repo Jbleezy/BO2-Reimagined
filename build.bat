@@ -70,10 +70,9 @@ if %ERRORLEVEL% NEQ 0 pause
 --load "%cd%\zone_source\zm_transit.ff" ^
 --load "%cd%\zone_source\zm_nuked.ff" ^
 --load "%cd%\zone_source\zm_highrise.ff" ^
---load "%OAT_GAME%\zone\all\so_zclassic_zm_prison.ff" ^
---load "%OAT_GAME%\zone\all\so_zencounter_zm_prison.ff" ^
 --load "%OAT_GAME%\zone\all\zm_prison_patch.ff" ^
 --load "%OAT_GAME%\zone\all\zm_prison.ff" ^
+--load "%OAT_GAME%\zone\all\so_zencounter_zm_prison.ff" ^
 --base-folder "%OAT_BASE%" ^
 --asset-search-path "%cd%" ^
 --source-search-path "%cd%\zone_source" ^
@@ -88,9 +87,9 @@ if %ERRORLEVEL% NEQ 0 pause
 --load "%cd%\zone_source\zm_nuked.ff" ^
 --load "%cd%\zone_source\zm_highrise.ff" ^
 --load "%cd%\zone_source\zm_prison.ff" ^
---load "%OAT_GAME%\zone\all\so_zencounter_zm_buried.ff" ^
 --load "%OAT_GAME%\zone\all\zm_buried_patch.ff" ^
 --load "%OAT_GAME%\zone\all\zm_buried.ff" ^
+--load "%OAT_GAME%\zone\all\so_zencounter_zm_buried.ff" ^
 --base-folder "%OAT_BASE%" ^
 --asset-search-path "%cd%" ^
 --source-search-path "%cd%\zone_source" ^
