@@ -404,12 +404,12 @@
 					"materialOverrides": [
 						{
 							"baseMaterial": "mc/mtl_t6_wpn_zmb_slipgun",
-							"camoMaterial": "mc/mtl_weapon_camo_dragon_alt"
+							"camoMaterial": "mc/mtl_weapon_camo_dragon"
 						}
 					],
 					"shaderConsts": [
-						3.0,
-						3.0,
+						2.0,
+						2.0,
 						0.0,
 						1.0,
 						0.0,
