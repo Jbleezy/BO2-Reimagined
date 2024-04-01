@@ -3,3 +3,5 @@
 >name,common_zm
 
 include,includes/zm/materials
+
+camo,camo_raygun_mark2

@@ -471,6 +471,7 @@
 * Ammo gets added to the clip at the same time that it gets added in the reload anim
 * Limited to 1 player on all maps
 * Decreased last stand ammo from 3 clips to 1 clip
+* Upgraded: added secondary camo
 
 #### Jet Gun
 * Kills multiple zombies significantly faster

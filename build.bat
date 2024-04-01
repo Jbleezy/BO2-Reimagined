@@ -18,6 +18,8 @@ if %ERRORLEVEL% NEQ 0 pause
 --load "%cd%\zone_source\common_mp.ff" ^
 --load "%OAT_GAME%\zone\all\patch_ui_zm.ff" ^
 --load "%OAT_GAME%\zone\all\ui_zm.ff" ^
+--load "%OAT_GAME%\zone\all\patch_zm.ff" ^
+--load "%OAT_GAME%\zone\all\common_zm.ff" ^
 --base-folder "%OAT_BASE%" ^
 --asset-search-path "%cd%" ^
 --source-search-path "%cd%\zone_source" ^
