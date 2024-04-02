@@ -289,6 +289,7 @@
 
 #### B23R
 * Decreased weapon cost from 1000 to 900 on all maps
+* Upgraded: decreased amount of primary camo
 
 #### Executioner
 * Removed on Buried
