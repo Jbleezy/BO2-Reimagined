@@ -4,11 +4,6 @@
 
 include,includes/weapons/ballista_zm
 
-include,includes/perks/specialty_juggernaut
-include,includes/perks/specialty_quickrevive
-include,includes/perks/specialty_fastreload
-include,includes/perks/specialty_doubletap
-include,includes/perks/specialty_marathon
 include,includes/perks/specialty_divetonuke
 include,includes/perks/specialty_mulekick
 

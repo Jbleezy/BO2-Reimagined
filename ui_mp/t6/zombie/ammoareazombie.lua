@@ -146,12 +146,12 @@ LUI.createMenu.AmmoAreaZombie = function(f1_arg0)
 	f1_local0.weaponLabelContainer:addElement(f1_local29)
 	f1_local0.weaponText = f1_local29
 
-	local additionalPrimaryWeaponImageSize = f1_local27 * 0.75
+	local additionalPrimaryWeaponImageSize = 24
 	f1_local0.additionalPrimaryWeaponImage = LUI.UIImage.new({
 		left = -additionalPrimaryWeaponImageSize,
-		top = -additionalPrimaryWeaponImageSize / 2 - f1_local28 - additionalPrimaryWeaponImageSize - 2,
+		top = -additionalPrimaryWeaponImageSize / 2 - f1_local28 - additionalPrimaryWeaponImageSize,
 		right = 0,
-		bottom = additionalPrimaryWeaponImageSize / 2 - f1_local28 - additionalPrimaryWeaponImageSize - 2,
+		bottom = additionalPrimaryWeaponImageSize / 2 - f1_local28 - additionalPrimaryWeaponImageSize,
 		leftAnchor = false,
 		topAnchor = false,
 		rightAnchor = true,

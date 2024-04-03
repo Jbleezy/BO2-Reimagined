@@ -27,12 +27,12 @@ CoD.WeaponLabel.new = function(f1_arg0)
 	})
 	Widget:addElement(Widget.weaponLabel)
 
-	local additionalPrimaryWeaponImageSize = f1_local1 * 0.75
+	local additionalPrimaryWeaponImageSize = 24
 	Widget.additionalPrimaryWeaponImage = LUI.UIImage.new({
 		left = -additionalPrimaryWeaponImageSize,
-		top = -additionalPrimaryWeaponImageSize / 2 - additionalPrimaryWeaponImageSize - 2,
+		top = -additionalPrimaryWeaponImageSize / 2 - additionalPrimaryWeaponImageSize,
 		right = 0,
-		bottom = additionalPrimaryWeaponImageSize / 2 - additionalPrimaryWeaponImageSize - 2,
+		bottom = additionalPrimaryWeaponImageSize / 2 - additionalPrimaryWeaponImageSize,
 		leftAnchor = false,
 		topAnchor = false,
 		rightAnchor = true,
