@@ -61,9 +61,13 @@ image,waypoint_revive_guards
 material,waypoint_revive_guards
 image,waypoint_revive_inmates
 material,waypoint_revive_inmates
+techniqueset,mc_sw4_3d_phong_emissive_alcatraz_90892wq5
 image,p6_zm_al_shock_box_e
 image,~~-gp6_zm_al_shock_box_s-rgb&~4066ec70
+image,p6_zm_al_shock_box_n
+image,~-gp6_zm_al_shock_box_c
 material,mc/mtl_p6_zm_al_shock_box_on
+material,mc/com_glass_clear
 xmodel,p6_zm_al_shock_box_on
 fx,maps/zombie_alcatraz/fx_alcatraz_skull_elec
 footsteptable,default_1st_person

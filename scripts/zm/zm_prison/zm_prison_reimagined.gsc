@@ -69,6 +69,8 @@ main()
 		level.zombiemode_using_additionalprimaryweapon_perk = 1;
 		level.zombiemode_using_divetonuke_perk = 1;
 		maps\mp\zombies\_zm_perk_divetonuke::enable_divetonuke_perk_for_level();
+
+		precacheModel("p6_zm_al_shock_box_on");
 	}
 
 	door_changes();
