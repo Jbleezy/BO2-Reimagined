@@ -12,7 +12,6 @@ xmodel,t6_wpn_ar_sa58_view
 xmodel,t6_wpn_ar_sa58_world
 xmodel,t6_attach_mag_sa58_view
 xmodel,t6_attach_mag_sa58_world
-camo,camo_sa58
 xanim,viewmodel_sa58_idle
 xanim,viewmodel_sa58_fire
 xanim,viewmodel_sa58_reload

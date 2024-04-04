@@ -14,7 +14,6 @@ xmodel,t6_attach_mag_an94_view
 xmodel,t6_attach_mag_an94_world
 tracer,assaultrifle_enemy
 material,mc/mtl_weapon_camo_dragon_2
-camo,camo_an94
 xanim,viewmodel_an94_idle
 xanim,viewmodel_an94_intro_fire
 xanim,viewmodel_an94_fire

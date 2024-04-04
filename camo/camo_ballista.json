@@ -7,22 +7,18 @@
 				{
 					"materialOverrides": [
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r_camo1",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_camo1",
 							"camoMaterial": "mc/mtl_weapon_camo_gold"
 						},
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r_camo2",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_scope_camo1",
 							"camoMaterial": "mc/mtl_weapon_camo_gold_1"
-						},
-						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r_camo3",
-							"camoMaterial": "mc/mtl_weapon_camo_gold_2"
 						}
 					],
 					"shaderConsts": [
-						5.0,
-						5.0,
-						0.4000000059604645,
+						10.0,
+						10.0,
+						0.27000001072883606,
 						0.0,
 						0.0,
 						0.0,
@@ -34,12 +30,25 @@
 					"useSpecularMap": true
 				},
 				{
-					"materialOverrides": [],
+					"materialOverrides": [
+						{
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_camo2",
+							"camoMaterial": "mc/mtl_weapon_camo_gold_alt"
+						},
+						{
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_camo3",
+							"camoMaterial": "mc/mtl_weapon_camo_gold_alt_1"
+						},
+						{
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_scope_camo2",
+							"camoMaterial": "mc/mtl_weapon_camo_gold_alt_2"
+						}
+					],
 					"shaderConsts": [
+						10.0,
+						10.0,
 						1.0,
 						1.0,
-						0.0,
-						0.0,
 						0.0,
 						0.0,
 						0.0,
@@ -47,7 +56,7 @@
 					],
 					"useColorMap": false,
 					"useNormalMap": true,
-					"useSpecularMap": false
+					"useSpecularMap": true
 				}
 			]
 		},
@@ -56,17 +65,17 @@
 				{
 					"materialOverrides": [
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r_camo1",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_camo1",
 							"camoMaterial": "mc/mtl_weapon_camo_carbon_fiber"
 						},
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r_camo2",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_scope_camo1",
 							"camoMaterial": "mc/mtl_weapon_camo_carbon_fiber_1"
 						}
 					],
 					"shaderConsts": [
-						3.0,
-						4.0,
+						6.0,
+						6.0,
 						1.0,
 						0.0,
 						0.0,
@@ -79,12 +88,21 @@
 					"useSpecularMap": true
 				},
 				{
-					"materialOverrides": [],
+					"materialOverrides": [
+						{
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_scope_camo2",
+							"camoMaterial": "mc/mtl_weapon_camo_carbon_fiber_alt"
+						},
+						{
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_camo3",
+							"camoMaterial": "mc/mtl_weapon_camo_carbon_fiber_alt_1"
+						}
+					],
 					"shaderConsts": [
+						10.0,
+						10.0,
 						1.0,
-						1.0,
-						0.0,
-						0.0,
+						0.5,
 						0.0,
 						0.0,
 						0.0,
@@ -92,7 +110,7 @@
 					],
 					"useColorMap": false,
 					"useNormalMap": true,
-					"useSpecularMap": false
+					"useSpecularMap": true
 				}
 			]
 		},
@@ -101,17 +119,17 @@
 				{
 					"materialOverrides": [
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r_camo2",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_camo3",
 							"camoMaterial": "mc/mtl_weapon_camo_diamond"
 						},
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r_camo3",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_scope_camo2",
 							"camoMaterial": "mc/mtl_weapon_camo_diamond_1"
 						}
 					],
 					"shaderConsts": [
-						4.0,
-						4.0,
+						9.0,
+						9.0,
 						0.0,
 						1.0,
 						0.0,
@@ -126,19 +144,23 @@
 				{
 					"materialOverrides": [
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_camo1",
 							"camoMaterial": "mc/mtl_weapon_camo_diamond_alt"
 						},
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r_camo1",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_camo2",
 							"camoMaterial": "mc/mtl_weapon_camo_diamond_alt_1"
+						},
+						{
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_scope_camo1",
+							"camoMaterial": "mc/mtl_weapon_camo_diamond_alt_2"
 						}
 					],
 					"shaderConsts": [
-						6.0,
-						6.0,
-						0.20000000298023224,
-						0.0,
+						10.0,
+						10.0,
+						0.09000000357627869,
+						0.5,
 						0.0,
 						0.0,
 						0.0,
@@ -155,19 +177,23 @@
 				{
 					"materialOverrides": [
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r_camo1",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_camo1",
 							"camoMaterial": "mc/mtl_weapon_camo_zombies"
 						},
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r_camo2",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_camo3",
 							"camoMaterial": "mc/mtl_weapon_camo_zombies_1"
+						},
+						{
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_scope_camo1",
+							"camoMaterial": "mc/mtl_weapon_camo_zombies_2"
 						}
 					],
 					"shaderConsts": [
 						3.0,
 						3.0,
 						0.0,
-						0.0,
+						0.7300000190734863,
 						0.0,
 						0.0,
 						0.0,
@@ -184,22 +210,22 @@
 				{
 					"materialOverrides": [
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r_camo2",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_camo1",
 							"camoMaterial": "mc/mtl_weapon_camo_ghost"
 						},
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_camo3",
 							"camoMaterial": "mc/mtl_weapon_camo_ghost_1"
 						},
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r_camo1",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_camo2",
 							"camoMaterial": "mc/mtl_weapon_camo_ghost_2"
 						}
 					],
 					"shaderConsts": [
 						1.0,
-						1.5,
-						0.0,
+						3.4000000953674316,
+						0.23999999463558197,
 						1.0,
 						0.0,
 						0.0,
@@ -211,10 +237,19 @@
 					"useSpecularMap": true
 				},
 				{
-					"materialOverrides": [],
+					"materialOverrides": [
+						{
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_scope_camo2",
+							"camoMaterial": "mc/mtl_weapon_camo_ghost"
+						},
+						{
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_scope_camo1",
+							"camoMaterial": "mc/mtl_weapon_camo_ghost_1"
+						}
+					],
 					"shaderConsts": [
-						1.0,
-						1.0,
+						1.3799999952316284,
+						1.440000057220459,
 						0.0,
 						1.0,
 						0.0,
@@ -233,21 +268,17 @@
 				{
 					"materialOverrides": [
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_camo1",
 							"camoMaterial": "mc/mtl_weapon_camo_bacon"
 						},
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r_camo1",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_scope_camo1",
 							"camoMaterial": "mc/mtl_weapon_camo_bacon_1"
-						},
-						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r_camo2",
-							"camoMaterial": "mc/mtl_weapon_camo_bacon_2"
 						}
 					],
 					"shaderConsts": [
-						2.0,
-						2.0,
+						3.0,
+						3.0,
 						1.0,
 						1.0,
 						0.0,
@@ -262,13 +293,21 @@
 				{
 					"materialOverrides": [
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r_camo3",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_camo2",
 							"camoMaterial": "mc/mtl_weapon_camo_bacon_alt"
+						},
+						{
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_camo3",
+							"camoMaterial": "mc/mtl_weapon_camo_bacon_alt_1"
+						},
+						{
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_scope_camo2",
+							"camoMaterial": "mc/mtl_weapon_camo_bacon_alt_2"
 						}
 					],
 					"shaderConsts": [
-						5.0,
-						5.0,
+						4.0,
+						4.0,
 						0.0,
 						1.0,
 						0.0,
@@ -287,38 +326,46 @@
 				{
 					"materialOverrides": [
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_camo1",
 							"camoMaterial": "mc/mtl_weapon_camo_armor"
-						}
-					],
-					"shaderConsts": [
-						1.940000057220459,
-						2.140000104904175,
-						0.20000000298023224,
-						1.0,
-						0.0,
-						0.0,
-						0.0,
-						0.0
-					],
-					"useColorMap": false,
-					"useNormalMap": true,
-					"useSpecularMap": true
-				},
-				{
-					"materialOverrides": [
-						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r_camo1",
-							"camoMaterial": "mc/mtl_weapon_camo_armor_alt"
 						},
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r_camo2",
-							"camoMaterial": "mc/mtl_weapon_camo_armor_alt_1"
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_scope_camo1",
+							"camoMaterial": "mc/mtl_weapon_camo_armor_1"
+						},
+						{
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_camo2",
+							"camoMaterial": "mc/mtl_weapon_camo_armor_2"
 						}
 					],
 					"shaderConsts": [
 						1.590000033378601,
-						1.75,
+						1.7899999618530273,
+						0.20000000298023224,
+						1.0,
+						0.0,
+						0.0,
+						0.0,
+						0.0
+					],
+					"useColorMap": false,
+					"useNormalMap": true,
+					"useSpecularMap": true
+				},
+				{
+					"materialOverrides": [
+						{
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_camo3",
+							"camoMaterial": "mc/mtl_weapon_camo_armor_alt"
+						},
+						{
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_scope_camo2",
+							"camoMaterial": "mc/mtl_weapon_camo_armor_alt_1"
+						}
+					],
+					"shaderConsts": [
+						2.859999895095825,
+						2.799999952316284,
 						0.20000000298023224,
 						1.0,
 						0.0,
@@ -337,16 +384,20 @@
 				{
 					"materialOverrides": [
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_camo1",
 							"camoMaterial": "mc/mtl_weapon_camo_muertos"
 						},
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r_camo1",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_camo3",
 							"camoMaterial": "mc/mtl_weapon_camo_muertos_1"
 						},
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r_camo2",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_scope_camo1",
 							"camoMaterial": "mc/mtl_weapon_camo_muertos_2"
+						},
+						{
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_scope_camo2",
+							"camoMaterial": "mc/mtl_weapon_camo_muertos_3"
 						}
 					],
 					"shaderConsts": [
@@ -366,10 +417,10 @@
 				{
 					"materialOverrides": [],
 					"shaderConsts": [
-						10.0,
-						10.0,
-						0.0,
-						0.0,
+						6.0,
+						6.0,
+						1.0,
+						1.0,
 						0.0,
 						0.0,
 						0.0,
@@ -386,23 +437,19 @@
 				{
 					"materialOverrides": [
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r_camo1",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_camo1",
 							"camoMaterial": "mc/mtl_weapon_camo_zmb_dlc2"
 						},
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r_camo2",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_scope_camo1",
 							"camoMaterial": "mc/mtl_weapon_camo_zmb_dlc2_1"
-						},
-						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r_camo3",
-							"camoMaterial": "mc/mtl_weapon_camo_zmb_dlc2_2"
 						}
 					],
 					"shaderConsts": [
-						2.049999952316284,
-						2.680000066757202,
+						2.4700000286102295,
+						2.059999942779541,
 						0.0,
-						0.75,
+						0.699999988079071,
 						0.0,
 						0.0,
 						0.0,
@@ -415,15 +462,23 @@
 				{
 					"materialOverrides": [
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_camo2",
 							"camoMaterial": "mc/mtl_weapon_camo_zmb_dlc2_alt"
+						},
+						{
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_camo3",
+							"camoMaterial": "mc/mtl_weapon_camo_zmb_dlc2_alt_1"
+						},
+						{
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_scope_camo2",
+							"camoMaterial": "mc/mtl_weapon_camo_zmb_dlc2_alt_2"
 						}
 					],
 					"shaderConsts": [
 						10.0,
 						10.0,
-						0.8500000238418579,
-						0.0,
+						0.6000000238418579,
+						1.0,
 						0.0,
 						0.0,
 						0.0,
@@ -440,21 +495,17 @@
 				{
 					"materialOverrides": [
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_camo1",
 							"camoMaterial": "mc/mtl_weapon_camo_cybertron"
 						},
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r_camo1",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_scope_camo2",
 							"camoMaterial": "mc/mtl_weapon_camo_cybertron_1"
-						},
-						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r_camo2",
-							"camoMaterial": "mc/mtl_weapon_camo_cybertron_2"
 						}
 					],
 					"shaderConsts": [
-						1.0,
-						1.0700000524520874,
+						2.9200000762939453,
+						2.390000104904175,
 						0.0,
 						1.0,
 						0.0,
@@ -469,8 +520,16 @@
 				{
 					"materialOverrides": [
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r_camo3",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_camo2",
 							"camoMaterial": "mc/mtl_weapon_camo_gold_alt"
+						},
+						{
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_camo3",
+							"camoMaterial": "mc/mtl_weapon_camo_gold_alt_1"
+						},
+						{
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_scope_camo1",
+							"camoMaterial": "mc/mtl_weapon_camo_gold_alt_2"
 						}
 					],
 					"shaderConsts": [
@@ -494,22 +553,18 @@
 				{
 					"materialOverrides": [
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r_camo1",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_camo3",
 							"camoMaterial": "mc/mtl_weapon_camo_etching"
 						},
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r_camo2",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_scope_camo1",
 							"camoMaterial": "mc/mtl_weapon_camo_etching_1"
-						},
-						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r_camo3",
-							"camoMaterial": "mc/mtl_weapon_camo_etching_2"
 						}
 					],
 					"shaderConsts": [
-						0.9100000262260437,
-						1.0299999713897705,
-						0.6499999761581421,
+						1.2999999523162842,
+						1.850000023841858,
+						0.800000011920929,
 						1.0,
 						0.0,
 						0.0,
@@ -521,12 +576,21 @@
 					"useSpecularMap": true
 				},
 				{
-					"materialOverrides": [],
+					"materialOverrides": [
+						{
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_camo1",
+							"camoMaterial": "mc/mtl_weapon_camo_gold_alt"
+						},
+						{
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_scope_camo2",
+							"camoMaterial": "mc/mtl_weapon_camo_gold_alt_1"
+						}
+					],
 					"shaderConsts": [
 						10.0,
 						10.0,
-						0.0,
-						1.0,
+						0.18000000715255737,
+						0.27000001072883606,
 						0.0,
 						0.0,
 						0.0,
@@ -534,7 +598,7 @@
 					],
 					"useColorMap": false,
 					"useNormalMap": true,
-					"useSpecularMap": true
+					"useSpecularMap": false
 				}
 			]
 		},
@@ -543,16 +607,12 @@
 				{
 					"materialOverrides": [
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r_camo1",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_camo1",
 							"camoMaterial": "mc/mtl_weapon_camo_dragon"
 						},
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r_camo2",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_scope_camo1",
 							"camoMaterial": "mc/mtl_weapon_camo_dragon_1"
-						},
-						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r_camo3",
-							"camoMaterial": "mc/mtl_weapon_camo_dragon_2"
 						}
 					],
 					"shaderConsts": [
@@ -572,13 +632,21 @@
 				{
 					"materialOverrides": [
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_camo2",
 							"camoMaterial": "mc/mtl_weapon_camo_dragon_alt"
+						},
+						{
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_camo3",
+							"camoMaterial": "mc/mtl_weapon_camo_dragon_alt_1"
+						},
+						{
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_scope_camo2",
+							"camoMaterial": "mc/mtl_weapon_camo_dragon_alt_2"
 						}
 					],
 					"shaderConsts": [
-						1.2000000476837158,
-						1.149999976158142,
+						2.0,
+						2.0,
 						0.0,
 						1.0,
 						0.0,
@@ -597,21 +665,17 @@
 				{
 					"materialOverrides": [
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r_camo1",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_camo1",
 							"camoMaterial": "mc/mtl_weapon_camo_3layer"
 						},
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r_camo2",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_scope_camo1",
 							"camoMaterial": "mc/mtl_weapon_camo_3layer_1"
-						},
-						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r_camo3",
-							"camoMaterial": "mc/mtl_weapon_camo_3layer_2"
 						}
 					],
 					"shaderConsts": [
-						0.8899999856948853,
-						1.0,
+						1.409999966621399,
+						1.8899999856948853,
 						0.0,
 						0.20000000298023224,
 						0.0,
@@ -626,13 +690,21 @@
 				{
 					"materialOverrides": [
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_camo2",
 							"camoMaterial": "mc/mtl_weapon_camo_zmb_dlc4_alt"
+						},
+						{
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_camo3",
+							"camoMaterial": "mc/mtl_weapon_camo_zmb_dlc4_alt_1"
+						},
+						{
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_ballista_scope_camo2",
+							"camoMaterial": "mc/mtl_weapon_camo_zmb_dlc4_alt_2"
 						}
 					],
 					"shaderConsts": [
-						4.639999866485596,
-						4.769999980926514,
+						5.659999847412109,
+						6.920000076293945,
 						0.0,
 						1.0,
 						0.0,
@@ -643,60 +715,6 @@
 					"useColorMap": false,
 					"useNormalMap": true,
 					"useSpecularMap": true
-				}
-			]
-		},
-		{
-			"materials": [
-				{
-					"materialOverrides": [
-						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r",
-							"camoMaterial": "mc/mtl_weapon_camo_toxic"
-						},
-						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r_camo1",
-							"camoMaterial": "mc/mtl_weapon_camo_toxic_1"
-						},
-						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r_camo2",
-							"camoMaterial": "mc/mtl_weapon_camo_toxic_2"
-						}
-					],
-					"shaderConsts": [
-						0.8899999856948853,
-						1.0,
-						0.0,
-						0.20000000298023224,
-						0.0,
-						0.0,
-						0.0,
-						0.0
-					],
-					"useColorMap": false,
-					"useNormalMap": true,
-					"useSpecularMap": false
-				},
-				{
-					"materialOverrides": [
-						{
-							"baseMaterial": "mc/mtl_t6_wpn_pistol_b2023r_camo3",
-							"camoMaterial": "mc/mtl_weapon_camo_zmb_dlc4_alt"
-						}
-					],
-					"shaderConsts": [
-						4.639999866485596,
-						4.769999980926514,
-						0.0,
-						1.0,
-						0.0,
-						0.0,
-						0.0,
-						0.0
-					],
-					"useColorMap": false,
-					"useNormalMap": true,
-					"useSpecularMap": false
 				}
 			]
 		}
@@ -705,26 +723,26 @@
 		{
 			"patternCamoImage": "t6_camo_devgru_pattern",
 			"patternOffset": {
-				"x": 0.14000000059604645,
-				"y": 0.0
+				"x": 0.6899999976158142,
+				"y": 0.3400000035762787
 			},
-			"patternScale": 0.6600000262260437,
+			"patternScale": 0.8399999737739563,
 			"solidCamoImage": "t6_camo_devgru_solid"
 		},
 		{
 			"patternCamoImage": "t6_camo_atacs_pattern",
 			"patternOffset": {
-				"x": 0.1599999964237213,
-				"y": 0.0
+				"x": 0.9900000095367432,
+				"y": 0.8500000238418579
 			},
-			"patternScale": 1.7100000381469727,
+			"patternScale": 3.0,
 			"solidCamoImage": "t6_camo_atacs_solid"
 		},
 		{
 			"patternCamoImage": "t6_camo_erdl_pattern",
 			"patternOffset": {
-				"x": 0.30000001192092896,
-				"y": 0.0
+				"x": 0.10000000149011612,
+				"y": 0.8100000023841858
 			},
 			"patternScale": 2.0,
 			"solidCamoImage": "t6_camo_erdl_solid"
@@ -732,35 +750,35 @@
 		{
 			"patternCamoImage": "t6_camo_siberia_pattern",
 			"patternOffset": {
-				"x": 0.5699999928474426,
-				"y": 0.0
+				"x": 0.3499999940395355,
+				"y": 0.6899999976158142
 			},
-			"patternScale": 2.0,
+			"patternScale": 1.3300000429153442,
 			"solidCamoImage": "t6_camo_siberia_solid"
 		},
 		{
 			"patternCamoImage": "t6_camo_choco_pattern",
 			"patternOffset": {
-				"x": 0.2199999988079071,
-				"y": 0.05999999865889549
+				"x": 0.1599999964237213,
+				"y": 0.5
 			},
-			"patternScale": 2.0,
+			"patternScale": 2.109999895095825,
 			"solidCamoImage": "t6_camo_choco_solid"
 		},
 		{
 			"patternCamoImage": "t6_camo_tiger_blue_pattern",
 			"patternOffset": {
-				"x": 0.44999998807907104,
-				"y": 0.3199999928474426
+				"x": 0.5600000023841858,
+				"y": 0.0
 			},
-			"patternScale": 3.0,
+			"patternScale": 2.0,
 			"solidCamoImage": "t6_camo_tiger_blue_solid"
 		},
 		{
 			"patternCamoImage": "t6_camo_bloodshot_pattern",
 			"patternOffset": {
-				"x": 0.5099999904632568,
-				"y": 0.0
+				"x": 0.6100000143051147,
+				"y": 0.8199999928474426
 			},
 			"patternScale": 1.0,
 			"solidCamoImage": "t6_camo_bloodshot_solid"
@@ -768,8 +786,8 @@
 		{
 			"patternCamoImage": "t6_camo_ghostex_delta6_pattern",
 			"patternOffset": {
-				"x": 0.0,
-				"y": 0.0
+				"x": 0.6600000262260437,
+				"y": 0.8199999928474426
 			},
 			"patternScale": 2.0,
 			"solidCamoImage": "t6_camo_ghostex_delta6_solid"
@@ -777,17 +795,17 @@
 		{
 			"patternCamoImage": "t6_camo_kryptek_typhon_pattern",
 			"patternOffset": {
-				"x": 0.6899999976158142,
-				"y": 0.8999999761581421
+				"x": 0.550000011920929,
+				"y": 0.1899999976158142
 			},
-			"patternScale": 1.0,
+			"patternScale": 1.8200000524520874,
 			"solidCamoImage": "t6_camo_kryptek_typhon_solid"
 		},
 		{
 			"patternCamoImage": "t6_camo_blossom_pattern",
 			"patternOffset": {
-				"x": 0.18000000715255737,
-				"y": 0.3799999952316284
+				"x": 0.44999998807907104,
+				"y": 0.8999999761581421
 			},
 			"patternScale": 2.0,
 			"solidCamoImage": "t6_camo_blossom_solid"
@@ -795,44 +813,44 @@
 		{
 			"patternCamoImage": "t6_camo_artofwar_pattern",
 			"patternOffset": {
-				"x": 0.7900000214576721,
-				"y": 0.0
+				"x": 0.949999988079071,
+				"y": 0.5699999928474426
 			},
-			"patternScale": 0.9200000166893005,
+			"patternScale": 0.8100000023841858,
 			"solidCamoImage": "t6_camo_artofwar_solid"
 		},
 		{
 			"patternCamoImage": "t6_camo_ronin_pattern",
 			"patternOffset": {
-				"x": 0.550000011920929,
-				"y": 0.25999999046325684
+				"x": 0.18000000715255737,
+				"y": 0.3199999928474426
 			},
-			"patternScale": 2.0,
+			"patternScale": 1.7899999618530273,
 			"solidCamoImage": "t6_camo_ronin_solid"
 		},
 		{
 			"patternCamoImage": "t6_camo_skulls_pattern",
 			"patternOffset": {
-				"x": 0.0,
-				"y": 0.09000000357627869
+				"x": 0.25,
+				"y": 0.3700000047683716
 			},
-			"patternScale": 2.0,
+			"patternScale": 1.399999976158142,
 			"solidCamoImage": "t6_camo_skulls_solid"
 		},
 		{
 			"patternCamoImage": "t6_camo_bo2collectors_pattern",
 			"patternOffset": {
-				"x": 0.9800000190734863,
-				"y": 0.7599999904632568
+				"x": 0.3400000035762787,
+				"y": 0.8600000143051147
 			},
-			"patternScale": 2.0,
+			"patternScale": 1.7699999809265137,
 			"solidCamoImage": "dark_grey_swatch"
 		},
 		{
 			"patternCamoImage": "t6_camo_elite_pattern",
 			"patternOffset": {
-				"x": 0.25999999046325684,
-				"y": 0.8399999737739563
+				"x": 0.3700000047683716,
+				"y": 0.0
 			},
 			"patternScale": 2.0,
 			"solidCamoImage": "t6_camo_elite_solid"
@@ -840,8 +858,8 @@
 		{
 			"patternCamoImage": "t6_camo_viper_pattern",
 			"patternOffset": {
-				"x": 0.3700000047683716,
-				"y": 0.47999998927116394
+				"x": 0.0,
+				"y": 0.0
 			},
 			"patternScale": 3.0,
 			"solidCamoImage": "t6_camo_viper_pattern"
@@ -849,8 +867,8 @@
 		{
 			"patternCamoImage": "t6_camo_mango_pattern",
 			"patternOffset": {
-				"x": 0.5,
-				"y": 0.3799999952316284
+				"x": 0.27000001072883606,
+				"y": 0.0
 			},
 			"patternScale": 2.0,
 			"solidCamoImage": "t6_camo_mango_pattern"
@@ -858,17 +876,17 @@
 		{
 			"patternCamoImage": "t6_camo_ukpunk_pattern",
 			"patternOffset": {
-				"x": 0.7900000214576721,
-				"y": 0.7200000286102295
+				"x": 0.8199999928474426,
+				"y": 0.0
 			},
-			"patternScale": 4.0,
+			"patternScale": 3.0,
 			"solidCamoImage": "t6_camo_ukpunk_solid"
 		},
 		{
 			"patternCamoImage": "t6_camo_benjamins_pattern",
 			"patternOffset": {
-				"x": 0.3199999928474426,
-				"y": 0.10999999940395355
+				"x": 0.33000001311302185,
+				"y": 0.4000000059604645
 			},
 			"patternScale": 2.0,
 			"solidCamoImage": "t6_camo_benjamins_solid"
@@ -876,8 +894,8 @@
 		{
 			"patternCamoImage": "t6_camo_dayofdead_pattern",
 			"patternOffset": {
-				"x": 0.3700000047683716,
-				"y": 0.0
+				"x": 0.4399999976158142,
+				"y": 0.36000001430511475
 			},
 			"patternScale": 2.0,
 			"solidCamoImage": "t6_camo_dayofdead_solid"
@@ -885,8 +903,8 @@
 		{
 			"patternCamoImage": "t6_camo_graffiti_pattern",
 			"patternOffset": {
-				"x": 0.6000000238418579,
-				"y": 0.6499999761581421
+				"x": 0.5299999713897705,
+				"y": 0.28999999165534973
 			},
 			"patternScale": 2.0,
 			"solidCamoImage": "t6_camo_graffiti_solid"
@@ -894,10 +912,10 @@
 		{
 			"patternCamoImage": "t6_camo_kawaii_pattern",
 			"patternOffset": {
-				"x": 0.47999998927116394,
-				"y": 0.47999998927116394
+				"x": 0.6800000071525574,
+				"y": 0.23000000417232513
 			},
-			"patternScale": 3.0,
+			"patternScale": 2.0,
 			"solidCamoImage": "t6_camo_kawaii_solid"
 		},
 		{
@@ -912,8 +930,8 @@
 		{
 			"patternCamoImage": "t6_camo_zombies_pattern",
 			"patternOffset": {
-				"x": 0.3700000047683716,
-				"y": 0.05999999865889549
+				"x": 0.7099999785423279,
+				"y": 0.3400000035762787
 			},
 			"patternScale": 2.0,
 			"solidCamoImage": "t6_camo_zombies_solid"
@@ -921,71 +939,71 @@
 		{
 			"patternCamoImage": "t6_camo_nevada_pattern",
 			"patternOffset": {
-				"x": 0.0,
-				"y": 0.0
+				"x": 0.25,
+				"y": 0.05999999865889549
 			},
-			"patternScale": 1.3200000524520874,
+			"patternScale": 1.2300000190734863,
 			"solidCamoImage": "t6_camo_nevada_solid"
 		},
 		{
 			"patternCamoImage": "t6_camo_sahara_pattern",
 			"patternOffset": {
-				"x": 0.0,
-				"y": 0.0
+				"x": 0.6100000143051147,
+				"y": 0.46000000834465027
 			},
-			"patternScale": 1.6100000143051147,
+			"patternScale": 1.4299999475479126,
 			"solidCamoImage": "t6_camo_sahara_solid"
 		},
 		{
 			"patternCamoImage": "t6_camo_urban_russia_pattern",
 			"patternOffset": {
-				"x": 0.0,
-				"y": 0.0
+				"x": 0.3499999940395355,
+				"y": 0.17000000178813934
 			},
-			"patternScale": 1.309999942779541,
+			"patternScale": 1.1299999952316284,
 			"solidCamoImage": "t6_camo_urban_russia_solid"
 		},
 		{
 			"patternCamoImage": "t6_camo_flecktarn_pattern",
 			"patternOffset": {
-				"x": 0.0,
-				"y": 0.0
+				"x": 0.6800000071525574,
+				"y": 0.6800000071525574
 			},
-			"patternScale": 0.949999988079071,
+			"patternScale": 0.8600000143051147,
 			"solidCamoImage": "t6_camo_flecktarn_solid"
 		},
 		{
 			"patternCamoImage": "t6_camo_flora_pattern",
 			"patternOffset": {
-				"x": 0.0,
-				"y": 0.0
+				"x": 0.38999998569488525,
+				"y": 0.5600000023841858
 			},
-			"patternScale": 1.100000023841858,
+			"patternScale": 1.340000033378601,
 			"solidCamoImage": "t6_camo_flora_solid"
 		},
 		{
 			"patternCamoImage": "t6_camo_tiger_jungle_pattern",
 			"patternOffset": {
-				"x": 0.0,
-				"y": 0.0
+				"x": 0.4399999976158142,
+				"y": 0.5899999737739563
 			},
-			"patternScale": 1.0099999904632568,
+			"patternScale": 0.8500000238418579,
 			"solidCamoImage": "t6_camo_tiger_jungle_solid"
 		},
 		{
 			"patternCamoImage": "camo_comic_col",
 			"patternOffset": {
-				"x": 0.0,
-				"y": 0.0
+				"x": 0.550000011920929,
+				"y": 0.38999998569488525
 			},
-			"patternScale": 2.0,
+			"patternScale": 1.0,
 			"solidCamoImage": "t6_camo_comic_alt_col"
 		},
 		{
 			"patternCamoImage": "camo_mtx3_aqua_pat",
 			"patternOffset": {
-				"x": 0.5099999904632568,
-				"y": 0.0
+				"x": 0.6899999976158142,
+				"y": 0.5199999809265137
 			},
 			"patternScale": 2.0,
 			"solidCamoImage": "camo_mtx3_aqua_pat"
@@ -993,17 +1011,17 @@
 		{
 			"patternCamoImage": "camo_mtx3_breach_pat",
 			"patternOffset": {
-				"x": 0.0,
-				"y": 0.23999999463558197
+				"x": 0.17000000178813934,
+				"y": 0.28999999165534973
 			},
-			"patternScale": 1.0,
+			"patternScale": 2.0,
 			"solidCamoImage": "camo_mtx3_breach_pat"
 		},
 		{
 			"patternCamoImage": "camo_mtx3_coyote_pat",
 			"patternOffset": {
-				"x": 0.44999998807907104,
-				"y": 0.3100000023841858
+				"x": 0.3700000047683716,
+				"y": 0.28999999165534973
 			},
 			"patternScale": 2.0,
 			"solidCamoImage": "camo_mtx3_coyote_pat"
@@ -1011,8 +1029,8 @@
 		{
 			"patternCamoImage": "camo_mtx3_zulu_pat",
 			"patternOffset": {
-				"x": 0.550000011920929,
-				"y": 0.25999999046325684
+				"x": 0.44999998807907104,
+				"y": 0.46000000834465027
 			},
 			"patternScale": 2.0,
 			"solidCamoImage": "camo_mtx3_zulu_pat"
@@ -1020,8 +1038,8 @@
 		{
 			"patternCamoImage": "camo_mtx3_massacre_pat",
 			"patternOffset": {
-				"x": 0.18000000715255737,
-				"y": 0.3799999952316284
+				"x": 0.0,
+				"y": 0.550000011920929
 			},
 			"patternScale": 2.0,
 			"solidCamoImage": "t6_camo_zombies_solid"

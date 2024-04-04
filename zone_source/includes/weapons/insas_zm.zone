@@ -8,7 +8,6 @@ material,mc/mtl_t6_wpn_smg_msmc_camo1
 material,mc/mtl_t6_wpn_smg_msmc_camo3
 material,mc/mtl_t6_wpn_smg_msmc_camo2
 material,mc/mtl_t6_wpn_smg_msmc_camo4
-camo,camo_msmc
 xanim,viewmodel_msmc_idle
 xanim,viewmodel_msmc_fire
 xanim,viewmodel_msmc_reload

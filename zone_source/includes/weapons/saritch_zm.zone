@@ -62,7 +62,6 @@ material,mc/mtl_t6_attach_optic_combo_camo1
 material,mc/mtl_t6_attach_optic_combo_camo2
 xmodel,t6_attach_optic_combo_view
 xmodel,t6_attach_optic_combo_world
-camo,camo_hybrid
 attachmentunique,au_saritch_upgraded_dualoptic
 attachmentunique,au_saritch_upgraded_mms
 attachmentunique,au_saritch_upgraded_rangefinder

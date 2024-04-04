@@ -21,7 +21,6 @@ xmodel,t6_attach_mag_hk416_world
 tracer,assaultrifle_enemy
 material,mc/mtl_t6_wpn_ar_hk416_grip
 material,mc/mtl_weapon_camo_zombies_2
-camo,camo_hk416
 xanim,viewmodel_hk416_idle
 xanim,viewmodel_hk416_fire
 xanim,viewmodel_hk416_first_raise

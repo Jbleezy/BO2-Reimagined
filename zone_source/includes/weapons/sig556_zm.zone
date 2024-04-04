@@ -6,7 +6,6 @@ material,mc/mtl_t6_wpn_ar_sig556_camo1
 material,mc/mtl_t6_wpn_ar_sig556_camo2
 material,mc/mtl_t6_wpn_ar_sig556_camo4
 material,mc/mtl_t6_wpn_ar_sig556_camo3
-camo,camo_sig556
 xanim,viewmodel_sig556_idle
 xanim,viewmodel_sig556_idle_empty
 xanim,viewmodel_sig556_fire

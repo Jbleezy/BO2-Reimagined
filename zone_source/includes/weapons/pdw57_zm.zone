@@ -13,7 +13,6 @@ xmodel,t6_wpn_smg_pdw57_world
 xmodel,t6_attach_mag_pdw57_view
 xmodel,t6_attach_mag_pdw57_world
 tracer,smg_enemy
-camo,camo_pdw57
 xanim,viewmodel_pdw57_idle
 xanim,viewmodel_pdw57_fire
 xanim,viewmodel_pdw57_reload

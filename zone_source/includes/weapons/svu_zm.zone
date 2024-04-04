@@ -27,7 +27,6 @@ xmodel,t6_wpn_sniper_svu_scope_world
 xmodel,t6_attach_mag_svu_world
 tracer,svu_tracer
 material,mc/mtl_weapon_camo_ghost_4
-camo,camo_svu
 xanim,viewmodel_svu_as_idle
 xanim,viewmodel_svu_as_fire
 xanim,viewmodel_svu_as_reload

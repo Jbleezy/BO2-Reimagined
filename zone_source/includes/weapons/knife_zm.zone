@@ -28,7 +28,6 @@ xanim,viewmodel_strider_d2p_loop
 xanim,viewmodel_strider_d2p_out
 fx,impacts/fx_flesh_hit_knife_mp
 fx,impacts/fx_flesh_hit_knife_noblood
-camo,camo_knife
 xanim,pt_knife_prone_flinch_right
 xanim,pt_knife_prone_flinch_left
 xanim,pt_knife_prone_flinch_back

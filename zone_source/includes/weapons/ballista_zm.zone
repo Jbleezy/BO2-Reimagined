@@ -34,7 +34,6 @@ material,mc/mtl_t6_wpn_sniper_ballista_scope_camo1
 material,mc/mtl_t6_wpn_sniper_ballista_scope_camo2
 material,mc/mtl_weapon_camo_muertos_3
 material,mc/mtl_weapon_camo_zmb_dlc2_alt_2
-camo,camo_ballista
 xanim,viewmodel_ballista_idle
 xanim,viewmodel_ballista_fire
 xanim,viewmodel_ballista_rechamber

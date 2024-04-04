@@ -7,7 +7,6 @@ material,mc/mtl_t6_wpn_smg_vector_camo3
 material,mc/mtl_t6_wpn_smg_vector_camo2
 material,mc/mtl_t6_wpn_smg_vector_camo4
 material,mc/mtl_t6_attach_grip_vector
-camo,camo_vector
 xanim,viewmodel_vector_idle
 xanim,viewmodel_vector_fire
 xanim,viewmodel_vector_reload
@@ -40,13 +39,11 @@ attachmentunique,au_vector_extclip
 xmodel,t6_attach_grip_vector_view
 xmodel,t6_attach_grip_vector_world
 attachmentunique,au_vector_grip
-camo,camo_holo
 attachmentunique,au_vector_holo
 xmodel,t6_attach_optic_mms_view
 xmodel,t6_attach_optic_mms_world
 material,mc/mtl_t6_attach_optic_mms
 material,mc/mtl_t6_attach_optic_mms_camo1
-camo,camo_mms
 attachmentunique,au_vector_mms
 xmodel,t6_attach_optic_rangefinder_view
 xmodel,t6_attach_optic_rangefinder_ads
@@ -54,14 +51,12 @@ xmodel,t6_attach_optic_rangefinder_world
 material,mc/mtl_t6_attach_optic_rangefinder_camo1
 material,mc/mtl_t6_attach_optic_rangefinder_ads
 material,mc/mtl_t6_attach_optic_rangefinder_camo2
-camo,camo_targetfinder
 attachmentunique,au_vector_rangefinder
 xmodel,t6_attach_optic_reflex_view
 xmodel,t6_attach_optic_reflex_world
 material,mc/mtl_t6_attach_optic_reflex_camo1
 material,mc/mtl_t6_attach_optic_reflex_camo2
 material,mc/mtl_t6_attach_optic_reflex
-camo,camo_reflex
 attachmentunique,au_vector_reflex
 attachmentunique,au_vector_sf
 xmodel,t6_attach_smg_silencer2_view

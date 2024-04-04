@@ -89,7 +89,6 @@ fx,weapon/muzzleflashes/fx_muz_smg_flash_3p
 fx,weapon/shellejects/fx_pistol
 tracer,pistol
 tracer,pistol_enemy
-camo,camo_fnp45
 xmodel,projectile_m203grenade
 fx,weapon/grenade/fx_trail_grenade
 fx,temp_effects/fx_tmp_m203_flash

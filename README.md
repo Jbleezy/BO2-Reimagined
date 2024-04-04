@@ -425,7 +425,8 @@
 * Upgraded: increased damage from 400 to 500
 * Upgraded: decreased headshot multiplier from 10 to 8
 * Upgraded: decreased stock ammo from 120 to 100
-* Upgraded: fixed fire sound
+* Upgraded: increased amount of primary camo
+* Upgraded: added proper fire sound
 
 #### XPR-50
 * Replaces Barrett M82A1
@@ -528,7 +529,7 @@
 * Deadshot improves accuracy
 * Stuck zombie counts as a kill
 * Upgraded: added camo
-* Upgraded: fixed fire sound
+* Upgraded: added proper fire sound
 
 #### Staffs
 * Upgrade only requires collecting souls in The Crazy Place
