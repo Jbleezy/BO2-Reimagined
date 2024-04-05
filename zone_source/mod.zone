@@ -2,6 +2,7 @@
 >type,fastfile
 >name,mod
 
+include,common_sp
 include,common_mp
 include,common_zm
 include,zm_transit

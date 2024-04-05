@@ -1,12 +1,20 @@
 @echo off
 
 "%OAT_BASE%\Linker.exe" ^
+--load "%OAT_GAME%\zone\all\frontend_patch.ff" ^
+--load "%OAT_GAME%\zone\all\frontend.ff" ^
+--base-folder "%OAT_BASE%" ^
+--asset-search-path "%cd%" ^
+--source-search-path "%cd%\zone_source" ^
+--output-folder "%cd%\zone_source" common_sp
+
+"%OAT_BASE%\Linker.exe" ^
+--load "%cd%\zone_source\common_sp.ff" ^
 --load "%OAT_GAME%\zone\english\en_code_post_gfx_mp.ff" ^
+--load "%OAT_GAME%\zone\all\code_post_gfx_mp.ff" ^
 --load "%OAT_GAME%\zone\all\patch_mp.ff" ^
 --load "%OAT_GAME%\zone\all\common_patch_mp.ff" ^
 --load "%OAT_GAME%\zone\all\common_mp.ff" ^
---load "%OAT_GAME%\zone\all\frontend_patch.ff" ^
---load "%OAT_GAME%\zone\all\frontend.ff" ^
 --base-folder "%OAT_BASE%" ^
 --asset-search-path "%cd%" ^
 --source-search-path "%cd%\zone_source" ^
@@ -15,6 +23,7 @@
 if %ERRORLEVEL% NEQ 0 pause
 
 "%OAT_BASE%\Linker.exe" ^
+--load "%cd%\zone_source\common_sp.ff" ^
 --load "%cd%\zone_source\common_mp.ff" ^
 --load "%OAT_GAME%\zone\all\patch_ui_zm.ff" ^
 --load "%OAT_GAME%\zone\all\ui_zm.ff" ^
@@ -28,6 +37,7 @@ if %ERRORLEVEL% NEQ 0 pause
 if %ERRORLEVEL% NEQ 0 pause
 
 "%OAT_BASE%\Linker.exe" ^
+--load "%cd%\zone_source\common_sp.ff" ^
 --load "%cd%\zone_source\common_mp.ff" ^
 --load "%cd%\zone_source\common_zm.ff" ^
 --load "%OAT_GAME%\zone\all\zm_transit_patch.ff" ^
@@ -40,6 +50,7 @@ if %ERRORLEVEL% NEQ 0 pause
 if %ERRORLEVEL% NEQ 0 pause
 
 "%OAT_BASE%\Linker.exe" ^
+--load "%cd%\zone_source\common_sp.ff" ^
 --load "%cd%\zone_source\common_mp.ff" ^
 --load "%cd%\zone_source\common_zm.ff" ^
 --load "%cd%\zone_source\zm_transit.ff" ^
@@ -53,6 +64,7 @@ if %ERRORLEVEL% NEQ 0 pause
 if %ERRORLEVEL% NEQ 0 pause
 
 "%OAT_BASE%\Linker.exe" ^
+--load "%cd%\zone_source\common_sp.ff" ^
 --load "%cd%\zone_source\common_mp.ff" ^
 --load "%cd%\zone_source\common_zm.ff" ^
 --load "%cd%\zone_source\zm_transit.ff" ^
@@ -67,6 +79,7 @@ if %ERRORLEVEL% NEQ 0 pause
 if %ERRORLEVEL% NEQ 0 pause
 
 "%OAT_BASE%\Linker.exe" ^
+--load "%cd%\zone_source\common_sp.ff" ^
 --load "%cd%\zone_source\common_mp.ff" ^
 --load "%cd%\zone_source\common_zm.ff" ^
 --load "%cd%\zone_source\zm_transit.ff" ^
@@ -83,6 +96,7 @@ if %ERRORLEVEL% NEQ 0 pause
 if %ERRORLEVEL% NEQ 0 pause
 
 "%OAT_BASE%\Linker.exe" ^
+--load "%cd%\zone_source\common_sp.ff" ^
 --load "%cd%\zone_source\common_mp.ff" ^
 --load "%cd%\zone_source\common_zm.ff" ^
 --load "%cd%\zone_source\zm_transit.ff" ^
@@ -100,6 +114,7 @@ if %ERRORLEVEL% NEQ 0 pause
 if %ERRORLEVEL% NEQ 0 pause
 
 "%OAT_BASE%\Linker.exe" ^
+--load "%cd%\zone_source\common_sp.ff" ^
 --load "%cd%\zone_source\common_mp.ff" ^
 --load "%cd%\zone_source\common_zm.ff" ^
 --load "%cd%\zone_source\zm_transit.ff" ^
@@ -117,6 +132,7 @@ if %ERRORLEVEL% NEQ 0 pause
 if %ERRORLEVEL% NEQ 0 pause
 
 "%OAT_BASE%\Linker.exe" ^
+--load "%cd%\zone_source\common_sp.ff" ^
 --load "%cd%\zone_source\common_mp.ff" ^
 --load "%cd%\zone_source\common_zm.ff" ^
 --load "%cd%\zone_source\zm_transit.ff" ^
