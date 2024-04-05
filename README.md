@@ -292,6 +292,7 @@
 
 #### Executioner
 * Removed on Buried
+* Upgraded: changed attachment from None to Fast Mag
 
 #### Five-seven Dual Wield
 * Unupgraded: decreased stock ammo from 225 to 210 on all maps
@@ -333,7 +334,7 @@
 * Removed
 
 #### M27
-* Upgraded: changed default attachment from Reflex Sight to None
+* Upgraded: changed attachment from Reflex Sight to None
 
 #### M8A1
 * Decreased recoil
@@ -342,10 +343,10 @@
 
 #### MTAR
 * Decreased recoil
-* Upgraded: changed default attachment from Reflex Sight to EOTech Sight
+* Upgraded: changed attachment from Reflex Sight to EOTech Sight
 
 #### SCAR-H
-* Upgraded: changed default attachment from Reflex Sight to None
+* Upgraded: changed attachment from Reflex Sight to None
 
 #### SMR
 * Replaces M14
@@ -369,7 +370,7 @@
 * Decreased recoil
 * Unupgraded: increased stock ammo from 150 to 300
 * Upgraded: increased stock ammo from 270 to 450
-* Upgraded: changed default attachment from Reflex Sight to Millimeter Scanner
+* Upgraded: changed attachment from Reflex Sight to Millimeter Scanner
 
 ### Submachine Guns
 * Changed move speed from 100% or 110% to 105%
@@ -380,7 +381,7 @@
 * Unupgraded: increased stock ammo from 120 to 252
 * Upgraded: increased clip ammo from 40 to 48
 * Upgraded: increased stock ammo from 200 to 336
-* Upgraded: changed default attachment from None to Select Fire
+* Upgraded: changed attachment from None to Select Fire
 
 #### M1927
 * Decreased ammo cost from 800 to 750
@@ -394,7 +395,7 @@
 * Replaces MP5
 
 #### Skorpion EVO
-* Upgraded: changed default attachment from Reflex Sight to Fast Mag
+* Upgraded: changed attachment from Reflex Sight to Fast Mag
 
 #### Vector K10
 * Replaces Ak74u
@@ -405,7 +406,7 @@
 
 #### HAMR
 * Decreased recoil
-* Upgraded: changed default attachment from None to Grip
+* Upgraded: changed attachment from None to Grip
 
 #### MG08/15
 * Ammo gets added to the clip at the same time that it gets added in the reload anim
