@@ -337,6 +337,8 @@
 
 #### M8A1
 * Decreased recoil
+* Upgraded: increased clip ammo from 42 to 44
+* Upgraded: increased stock ammo from 336 to 352
 
 #### MTAR
 * Decreased recoil
