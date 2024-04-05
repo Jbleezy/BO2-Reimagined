@@ -1,3 +1,10 @@
 >game,T6
 >type,fastfile
 >name,common_sp
+
+>level.ipak_read,sp
+
+image,menu_mp_weapons_minigun_future
+material,menu_mp_weapons_minigun_future
+image,menu_mp_weapons_m32gl
+material,menu_mp_weapons_m32gl
