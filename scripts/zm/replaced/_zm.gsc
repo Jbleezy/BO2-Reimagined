@@ -2138,11 +2138,14 @@ player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, s
 
 	if (smeansofdeath == "MOD_FALLING")
 	{
-		if (self hasperk("specialty_flakjacket") && isDefined(self.divetoprone) && self.divetoprone == 1)
+		if (self hasperk("specialty_flakjacket"))
 		{
-			if (isDefined(level.zombiemode_divetonuke_perk_func))
+			if (is_true(self.divetoprone))
 			{
-				[[level.zombiemode_divetonuke_perk_func]](self, self.origin);
+				if (isDefined(level.zombiemode_divetonuke_perk_func))
+				{
+					[[level.zombiemode_divetonuke_perk_func]](self, self.origin);
+				}
 			}
 
 			return 0;

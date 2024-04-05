@@ -667,6 +667,7 @@
 * Added perk bottle model from Origins to all maps
 * Deals same damage on all maps
 * Damages all zombies at once on all maps
+* Players no longer take 1 fall damage when not diving
 
 ### Deadshot Daiquiri
 * Increases bullet headshot damage by 100%
