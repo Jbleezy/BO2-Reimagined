@@ -51,6 +51,7 @@
 		* [M1927](#m1927)
 		* [MP40](#mp40)
 		* [MSMC](#msmc)
+		* [PDW-57](#pdw-57)
 		* [Skorpion EVO](#skorpion-evo)
 		* [Vector K10](#vector-k10)
 	* [Light Machine Guns](#light-machine-guns)
@@ -326,6 +327,7 @@
 * Increased weapon cost from 1200 to 1500
 * Unupgraded: decreased stock ammo from 300 to 240
 * Upgraded: decreased stock ammo from 600 to 450
+* Upgraded: changed weapon name from "94000" to "9400"
 
 #### FAL OSW
 * Replaces FAL
@@ -393,6 +395,9 @@
 
 #### MSMC
 * Replaces MP5
+
+#### PDW-57
+* Upgraded: changed weapon name from "57000" to "5700"
 
 #### Skorpion EVO
 * Upgraded: changed attachment from Reflex Sight to Fast Mag
@@ -493,7 +498,7 @@
 * Weapon is taken when overheated
 * Buildable table model no longer shows when player has weapon
 * Added heat percentage on HUD
-* Changed weapon name on HUD from "Thrustodyne Aeronautics Model 23" to "Jet Gun"
+* Changed weapon name from "Thrustodyne Aeronautics Model 23" to "Jet Gun"
 * Fixed HUD icon fading after firing
 
 #### Sliquifier
