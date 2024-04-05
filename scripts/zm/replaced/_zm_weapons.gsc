@@ -314,6 +314,34 @@ lethal_grenade_update_prompt(player)
 	return 1;
 }
 
+get_pack_a_punch_weapon_options(weapon)
+{
+	if (!isdefined(self.pack_a_punch_weapon_options))
+		self.pack_a_punch_weapon_options = [];
+
+	if (!is_weapon_upgraded(weapon))
+		return self calcweaponoptions(0, 0, 0, 0, 0);
+
+	if (isdefined(self.pack_a_punch_weapon_options[weapon]))
+		return self.pack_a_punch_weapon_options[weapon];
+
+	smiley_face_reticle_index = 1;
+	base = get_base_name(weapon);
+	camo_index = 39;
+
+	if ("zm_prison" == level.script)
+		camo_index = 40;
+	else if ("zm_tomb" == level.script)
+		camo_index = 45;
+
+	lens_index = 0;
+	reticle_index = 0;
+	reticle_color_index = 0;
+
+	self.pack_a_punch_weapon_options[weapon] = self calcweaponoptions(camo_index, lens_index, reticle_index, reticle_color_index);
+	return self.pack_a_punch_weapon_options[weapon];
+}
+
 weapon_give(weapon, is_upgrade, magic_box, nosound)
 {
 	primaryweapons = self getweaponslistprimaries();

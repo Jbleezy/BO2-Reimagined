@@ -271,7 +271,6 @@
 
 ## Weapons
 * Switch to melee weapon by pressing the Previous Scorestreak button (same button as the Time Bomb and Maxis Drone)
-* Changed default upgraded weapon camo to dragon camo from Black Ops 2 Multiplayer
 * Fixed world model position of certain melee weapons
 * Grenades: improved projectile upward speed
 * Grenades: can no longer be thrown faster than intended by throwing a grenade right after throwing one
@@ -717,7 +716,9 @@
 * Removed ability to see perks, wallbuys, and Mystery Box through walls
 
 ## Pack-a-Punch
-* Attachments on upgraded weapons can no longer be changed
+* Changed default weapon camo to dragon camo from Black Ops 2 Multiplayer (modified to be darker on primary camo and not animated on secondary camo)
+* Attachments on weapons can no longer be changed
+* Reticles on optical attachments are no longer random
 * Decreased weapon pickup time from 15 seconds to 12 seconds
 * Added sound when attempting to purchase without enough points
 
