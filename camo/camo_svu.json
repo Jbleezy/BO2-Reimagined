@@ -432,7 +432,7 @@
 							"camoMaterial": "mc/mtl_weapon_camo_zmb_dlc2"
 						},
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_sniper_svu_scope_camo2",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_svu_scope",
 							"camoMaterial": "mc/mtl_weapon_camo_zmb_dlc2_1"
 						}
 					],
@@ -461,7 +461,7 @@
 							"camoMaterial": "mc/mtl_weapon_camo_zmb_dlc2_alt_1"
 						},
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_sniper_svu_scope",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_svu_scope_camo2",
 							"camoMaterial": "mc/mtl_weapon_camo_zmb_dlc2_alt_2"
 						}
 					],
@@ -593,13 +593,13 @@
 							"camoMaterial": "mc/mtl_weapon_camo_dragon"
 						},
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_sniper_svu_scope_camo2",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_svu_scope",
 							"camoMaterial": "mc/mtl_weapon_camo_dragon_1"
 						}
 					],
 					"shaderConsts": [
-						2.200000047683716,
-						2.200000047683716,
+						1.8,
+						1.8,
 						0.0,
 						1.0,
 						0.0,
@@ -622,7 +622,7 @@
 							"camoMaterial": "mc/mtl_weapon_camo_dragon_alt_1"
 						},
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_sniper_svu_scope",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_svu_scope_camo2",
 							"camoMaterial": "mc/mtl_weapon_camo_dragon_alt_2"
 						}
 					],
@@ -651,7 +651,7 @@
 							"camoMaterial": "mc/mtl_weapon_camo_3layer"
 						},
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_sniper_svu_scope_camo2",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_svu_scope",
 							"camoMaterial": "mc/mtl_weapon_camo_3layer_1"
 						}
 					],
@@ -680,7 +680,7 @@
 							"camoMaterial": "mc/mtl_weapon_camo_zmb_dlc4_alt_1"
 						},
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_sniper_svu_scope",
+							"baseMaterial": "mc/mtl_t6_wpn_sniper_svu_scope_camo2",
 							"camoMaterial": "mc/mtl_weapon_camo_zmb_dlc4_alt_2"
 						}
 					],
