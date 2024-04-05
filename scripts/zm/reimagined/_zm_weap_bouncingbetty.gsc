@@ -174,6 +174,7 @@ betty_last_shot_switch(weapname)
 {
 	self endon("disconnect");
 
+	ammo = self getammocount(weapname);
 	fire_time = 0.8;
 
 	if (self hasperk("specialty_rof"))
@@ -193,14 +194,15 @@ betty_last_shot_switch(weapname)
 		return;
 	}
 
-	if (self getammocount(weapname) != 0)
+	if (ammo != 0)
 	{
 		return;
 	}
 
+	ammo = self getammocount(weapname);
 	self takeweapon(weapname);
 	self giveweapon(weapname);
-	self setweaponammoclip(weapname, 0);
+	self setweaponammoclip(weapname, ammo);
 }
 
 betty_setup()
