@@ -174,7 +174,7 @@ betty_last_shot_switch(weapname)
 {
 	self endon("disconnect");
 
-	fire_time = 0.85;
+	fire_time = 0.8;
 
 	if (self hasperk("specialty_rof"))
 	{
