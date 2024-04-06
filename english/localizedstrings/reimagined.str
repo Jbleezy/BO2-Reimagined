@@ -423,7 +423,7 @@ REFERENCE           ZM_TRANSIT_ZONE_BAN_VAULT
 LANG_ENGLISH        "Bank Vault"
 
 REFERENCE           ZM_TRANSIT_ZONE_TBU
-LANG_ENGLISH        "Below Bank"
+LANG_ENGLISH        "Labs"
 
 REFERENCE           ZM_TRANSIT_ZONE_TRANS_11
 LANG_ENGLISH        "Fog After Town"
