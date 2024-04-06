@@ -1917,6 +1917,7 @@ buildbuildables()
 			buildbuildable("powerswitch", 1);
 			buildbuildable("pap", 1);
 			buildbuildable("sq_common", 1);
+			buildbuildable("dinerhatch", 1, 0);
 
 			// power switch is not showing up from forced build
 			show_powerswitch();
@@ -1945,8 +1946,8 @@ buildbuildables()
 			buildbuildable("springpad_zm");
 			buildbuildable("headchopper_zm");
 			buildbuildable("sq_common", 1);
-			buildbuildable("buried_sq_bt_m_tower", 0, 1, ::onuseplantobject_mtower);
-			buildbuildable("buried_sq_bt_r_tower", 0, 1, ::onuseplantobject_rtower);
+			buildbuildable("buried_sq_bt_m_tower", 0, 1, 1, ::onuseplantobject_mtower);
+			buildbuildable("buried_sq_bt_r_tower", 0, 1, 1, ::onuseplantobject_rtower);
 		}
 	}
 	else
@@ -1962,7 +1963,7 @@ buildbuildables()
 	}
 }
 
-buildbuildable(buildable, craft = 0, solo_pool = 0, onuse)
+buildbuildable(buildable, craft = 0, remove_pieces = 1, solo_pool = 0, onuse)
 {
 	player = get_players()[0];
 
@@ -2007,9 +2008,12 @@ buildbuildable(buildable, craft = 0, solo_pool = 0, onuse)
 					}
 				}
 
-				foreach (piece in stub.buildablezone.pieces)
+				if (remove_pieces)
 				{
-					piece maps\mp\zombies\_zm_buildables::piece_unspawn();
+					foreach (piece in stub.buildablezone.pieces)
+					{
+						piece maps\mp\zombies\_zm_buildables::piece_unspawn();
+					}
 				}
 
 				return;

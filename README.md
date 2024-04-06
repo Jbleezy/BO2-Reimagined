@@ -890,7 +890,7 @@
 * Added Fire Sale powerup
 * Added Mystery Box at Tunnel
 * Added Mystery Box at Cornfield
-* Power switch and Pack-a-Punch automatically crafted
+* Power switch, Pack-a-Punch, and Diner hatch automatically crafted
 * Any door that requires a Turbine to open is automatically open whenever the power is on
 * Increased bus speed by 100%
 * Added bus depart timer on HUD when player is on bus
