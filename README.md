@@ -271,7 +271,7 @@
 * No longer receives additional damage from Boomhilda or Ray Gun Mark 2
 
 ## Weapons
-* Switch to melee weapon by pressing the Previous Scorestreak button (same button as the Time Bomb and Maxis Drone)
+* Switch to melee weapon by pressing the Melee Weapon button (same button as Time Bomb and Maxis Drone)
 * Fixed world model position of certain melee weapons
 * Grenades: improved projectile upward speed
 * Grenades: can no longer be thrown faster than intended by throwing a grenade right after throwing one

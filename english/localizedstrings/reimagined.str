@@ -32,7 +32,7 @@ REFERENCE           ZMUI_ZMEAT_PRO
 LANG_ENGLISH        "Meat Pro"
 
 REFERENCE           ZMUI_PRO_DESC
-LANG_ENGLISH        "No Mystery Box, No Pack-a-Punch, and limited sprint."
+LANG_ENGLISH        "No Mystery Box, no Pack-a-Punch, and limited sprint."
 
 REFERENCE           ZMUI_ZCLASSIC
 LANG_ENGLISH        "Tranzit"
@@ -75,6 +75,12 @@ LANG_ENGLISH        "Griefs"
 
 REFERENCE           MPUI_KILLS_DENIED
 LANG_ENGLISH        "Stuns"
+
+REFERENCE           MENU_MELEE_WEAPON_CAPS
+LANG_ENGLISH        "MELEE WEAPON"
+
+REFERENCE           MENU_PLACEABLE_MINE_CAPS
+LANG_ENGLISH        "PLACEABLE MINE"
 
 REFERENCE           CGAME_QUAKE_SUICIDE
 LANG_ENGLISH        ""
@@ -124,10 +130,10 @@ REFERENCE           ZOMBIE_POWERUP_CLIP_EMPTY
 LANG_ENGLISH        "Clip Empty!"
 
 REFERENCE           ZOMBIE_ONLY_CHANGE_TEAMS_UNBALANCED
-LANG_ENGLISH        "Can only change teams if unbalanced."
+LANG_ENGLISH        "Can only change teams if unbalanced"
 
 REFERENCE           ZOMBIE_WAITING_FOR_TEAM_CHANGE
-LANG_ENGLISH        "Waiting for other player to change teams."
+LANG_ENGLISH        "Waiting for other player to change teams"
 
 REFERENCE           ZOMBIE_WAITING_FOR_MORE_PLAYER_CAPS
 LANG_ENGLISH        "WAITING FOR &&1 MORE PLAYER [&&2/&&3]"
