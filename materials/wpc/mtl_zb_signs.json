@@ -1,0 +1,187 @@
+{
+	"_type": "material",
+	"_version": 1,
+	"cameraRegion": "litTrans",
+	"constants": [
+		{
+			"literal": [
+				0.5,
+				1.0,
+				1.0,
+				1.0
+			],
+			"name": "occlusionAmount"
+		}
+	],
+	"contents": 1,
+	"gameFlags": [
+		"2",
+		"10"
+	],
+	"hashIndex": 0,
+	"layeredSurfaceTypes": 536870925,
+	"probeMipBits": 0,
+	"sortKey": 9,
+	"stateBits": [
+		{
+			"alphaTest": "gt0",
+			"blendOpAlpha": "add",
+			"blendOpRgb": "add",
+			"colorWriteAlpha": true,
+			"colorWriteRgb": true,
+			"cullFace": "back",
+			"depthTest": "less_equal",
+			"depthWrite": false,
+			"dstBlendAlpha": "one",
+			"dstBlendRgb": "invsrcalpha",
+			"polygonOffset": "offset1",
+			"polymodeLine": false,
+			"srcBlendAlpha": "invdestalpha",
+			"srcBlendRgb": "srcalpha",
+			"stencilBack": null,
+			"stencilFront": null
+		},
+		{
+			"alphaTest": "gt0",
+			"blendOpAlpha": "add",
+			"blendOpRgb": "add",
+			"colorWriteAlpha": true,
+			"colorWriteRgb": true,
+			"cullFace": "back",
+			"depthTest": "less_equal",
+			"depthWrite": false,
+			"dstBlendAlpha": "one",
+			"dstBlendRgb": "invsrcalpha",
+			"polygonOffset": "offset1",
+			"polymodeLine": false,
+			"srcBlendAlpha": "invdestalpha",
+			"srcBlendRgb": "one",
+			"stencilBack": null,
+			"stencilFront": null
+		},
+		{
+			"alphaTest": "disabled",
+			"blendOpAlpha": "disabled",
+			"blendOpRgb": "disabled",
+			"colorWriteAlpha": false,
+			"colorWriteRgb": true,
+			"cullFace": "back",
+			"depthTest": "less_equal",
+			"depthWrite": false,
+			"dstBlendAlpha": "zero",
+			"dstBlendRgb": "zero",
+			"polygonOffset": "offset2",
+			"polymodeLine": true,
+			"srcBlendAlpha": "one",
+			"srcBlendRgb": "one",
+			"stencilBack": null,
+			"stencilFront": null
+		},
+		{
+			"alphaTest": "disabled",
+			"blendOpAlpha": "disabled",
+			"blendOpRgb": "add",
+			"colorWriteAlpha": true,
+			"colorWriteRgb": true,
+			"cullFace": "back",
+			"depthTest": "less_equal",
+			"depthWrite": false,
+			"dstBlendAlpha": "zero",
+			"dstBlendRgb": "one",
+			"polygonOffset": "offset1",
+			"polymodeLine": false,
+			"srcBlendAlpha": "one",
+			"srcBlendRgb": "one",
+			"stencilBack": null,
+			"stencilFront": null
+		}
+	],
+	"stateBitsEntry": [
+		-1,
+		-1,
+		0,
+		-1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		2,
+		-1,
+		0,
+		3
+	],
+	"stateFlags": 21,
+	"surfaceFlags": 13631488,
+	"surfaceTypeBits": 4096,
+	"techniqueSet": "wpc_lit_sm_b0c0s0_3f3q946z",
+	"textureAtlas": {
+		"columns": 1,
+		"rows": 1
+	},
+	"textures": [
+		{
+			"image": "~~-gusa_signage_common_s-rgb&$black-l",
+			"isMatureContent": false,
+			"name": "specularMap",
+			"samplerState": {
+				"clampU": false,
+				"clampV": false,
+				"clampW": false,
+				"filter": "aniso4x",
+				"mipMap": "linear"
+			},
+			"semantic": "specularMap"
+		},
+		{
+			"image": "$identitynormalmap",
+			"isMatureContent": false,
+			"name": "normalMap",
+			"samplerState": {
+				"clampU": false,
+				"clampV": false,
+				"clampW": false,
+				"filter": "nearest",
+				"mipMap": "disabled"
+			},
+			"semantic": "normalMap"
+		},
+		{
+			"image": "~-gusa_signage_common_c",
+			"isMatureContent": false,
+			"name": "colorMap",
+			"samplerState": {
+				"clampU": false,
+				"clampV": false,
+				"clampW": false,
+				"filter": "aniso4x",
+				"mipMap": "linear"
+			},
+			"semantic": "colorMap"
+		}
+	],
+	"thermalMaterial": null
+}

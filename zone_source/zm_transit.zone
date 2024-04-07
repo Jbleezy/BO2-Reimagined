@@ -11,6 +11,8 @@ image,hud_40mmgrenade
 material,hud_select_fire_bullet_stack_big
 image,hud_select_fire_bullet_stack01
 
+material,wpc/mtl_zb_signs
+
 rawfile,rumble/heavygun_fire
 rawfile,rumble/heavygun_fire_h.rmb
 rawfile,rumble/heavygun_fire_l.rmb
