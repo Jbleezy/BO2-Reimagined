@@ -97,7 +97,7 @@ wunderfizzstub_update_prompt(player)
 
 				if (player.num_perks >= n_purchase_limit)
 				{
-					self.hint_string = &"ZM_TOMB_RPT";
+					self.hint_string = &"ZM_TOMB_ALL_PERKS";
 					return false;
 				}
 				else
@@ -115,7 +115,7 @@ wunderfizzstub_update_prompt(player)
 
 			if (player.num_perks >= n_purchase_limit)
 			{
-				self.hint_string = &"ZM_TOMB_RPT";
+				self.hint_string = &"ZM_TOMB_ALL_PERKS";
 				return false;
 			}
 			else
