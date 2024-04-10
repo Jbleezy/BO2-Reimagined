@@ -205,7 +205,7 @@ offset_model(weaponname)
 	}
 	else if (weaponname == "vector_zm")
 	{
-		model_offset = (7, 0, 3);
+		model_offset = (6.5, 0, 2);
 	}
 
 	self.parent_struct.origin += (anglestoforward(self.parent_struct.angles) * model_offset[0]) + (anglestoright(self.parent_struct.angles) * model_offset[1]) + (anglestoup(self.parent_struct.angles) * model_offset[2]);

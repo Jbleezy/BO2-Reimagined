@@ -635,6 +635,7 @@
 * Purchasing no longer shows the weapon model at other wallbuys of the same weapon
 * Lethal grenade hint string no longer displays "ammo" after purchasing
 * Downing while purchasing a melee weapon gives the melee weapon
+* Increased brightness of wallbuy chalks
 * Added melee wallbuy HUD icons to all maps
 
 ## Mystery Box
