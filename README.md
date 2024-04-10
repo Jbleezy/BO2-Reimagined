@@ -60,6 +60,7 @@
 		* [Mk 48](#mk-48)
 	* [Sniper Rifles](#sniper-rifles)
 		* [Ballista](#ballista)
+		* [DSR 50](#dsr-50)
 		* [XPR-50](#xpr-50)
 	* [Shotguns](#shotguns)
 		* [Remington 870 MCS](#remington-870-mcs)
@@ -434,6 +435,9 @@
 * Upgraded: decreased stock ammo from 120 to 100
 * Upgraded: increased amount of primary camo
 * Upgraded: added proper fire sound
+
+#### DSR 50
+* Upgraded: fixed first raise anim
 
 #### XPR-50
 * Replaces Barrett M82A1
