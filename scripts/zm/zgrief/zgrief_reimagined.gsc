@@ -39,17 +39,7 @@ init()
 	precacheshader("white_waypoint_kill");
 	precacheshader("white_waypoint_escort");
 
-	if (level.script == "zm_prison")
-	{
-		level._effect["afterlife_teleport"] = loadfx("maps/zombie_alcatraz/fx_alcatraz_afterlife_zmb_tport");
-		level.player_spawn_fx = "afterlife_teleport";
-		level.player_spawn_sound = "zmb_afterlife_zombie_warp_in";
-	}
-	else
-	{
-		level.player_spawn_fx = "grenade_samantha_steal";
-		level.player_spawn_sound = "zmb_spawn_powerup";
-	}
+	level._effect["human_disappears"] = loadfx("maps/zombie/fx_zmb_returned_spawn_puff");
 
 	if (level.item_meat_name == "item_head_zm")
 	{
@@ -700,8 +690,8 @@ on_player_bleedout()
 			}
 
 			self maps\mp\zombies\_zm::spectator_respawn();
-			playfx(level._effect[level.player_spawn_fx], self.origin);
-			playsoundatposition(level.player_spawn_sound, self.origin);
+			playfx(level._effect["human_disappears"], self.origin);
+			playsoundatposition("evt_appear_3d", self.origin);
 			earthquake(0.5, 0.75, self.origin, 100);
 			playrumbleonposition("explosion_generic", self.origin);
 		}
