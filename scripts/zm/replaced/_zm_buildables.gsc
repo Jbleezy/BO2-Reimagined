@@ -285,6 +285,20 @@ buildable_place_think()
 					player maps\mp\zombies\_zm_score::minus_to_player_score(self.stub.cost);
 					self play_sound_on_ent("purchase");
 
+					if (riotshield_repair)
+					{
+						if (isdefined(player.player_shield_reset_health))
+						{
+							player [[player.player_shield_reset_health]]();
+						}
+
+						self.stub.hint_string = &"ZOMBIE_BOUGHT_RIOT_REPAIR";
+						self sethintstring(self.stub.hint_string);
+						player maps\mp\zombies\_zm_buildables::track_buildables_pickedup(self.stub.weaponname);
+
+						continue;
+					}
+
 					player maps\mp\zombies\_zm_equipment::equipment_buy(self.stub.weaponname);
 					player giveweapon(self.stub.weaponname);
 					player setweaponammoclip(self.stub.weaponname, 1);
@@ -307,11 +321,7 @@ buildable_place_think()
 						player setactionslot(1, "weapon", self.stub.weaponname);
 					}
 
-					if (riotshield_repair)
-					{
-						self.stub.hint_string = &"ZOMBIE_BOUGHT_RIOT_REPAIR";
-					}
-					else if (isDefined(level.zombie_buildables[self.stub.equipname].bought))
+					if (isDefined(level.zombie_buildables[self.stub.equipname].bought))
 					{
 						self.stub.hint_string = level.zombie_buildables[self.stub.equipname].bought;
 					}
