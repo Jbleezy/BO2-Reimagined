@@ -317,6 +317,7 @@
 * Upgraded: increased move speed while aiming from 100% to 110%
 * Upgraded: fixed not being able to melee while aiming
 * Upgraded: decreased last stand ammo from 2 clips to 1 clip
+* Upgraded: added proper fire sound
 
 #### Python
 * Removed
