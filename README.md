@@ -33,6 +33,7 @@
 		* [M1911](#m1911)
 		* [Mauser C96](#mauser-c96)
 		* [Python](#python)
+		* [Remington New Model Army](#remington-new-model-army)
 		* [Tac-45](#tac-45)
 	* [Assault Rifles](#assault-rifles)
 		* [AN-94](#an-94)
@@ -319,6 +320,9 @@
 
 #### Python
 * Removed
+
+#### Remington New Model Army
+* Upgraded: added proper fire sound
 
 #### Tac-45
 * Replaces M1911 (except on Mob of the Dead)
