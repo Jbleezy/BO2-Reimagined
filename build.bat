@@ -1,6 +1,7 @@
 @echo off
 
 "%OAT_BASE%\Linker.exe" ^
+--load "%OAT_GAME%\zone\all\so_cmp_afghanistan.ff" ^
 --load "%OAT_GAME%\zone\all\frontend_patch.ff" ^
 --load "%OAT_GAME%\zone\all\frontend.ff" ^
 --base-folder "%OAT_BASE%" ^

@@ -140,11 +140,11 @@ claymore_last_shot_switch(weapname)
 	self endon("disconnect");
 
 	ammo = self getammocount(weapname);
-	fire_time = 0.8;
+	fire_time = weaponfiretime(weapname) * 0.8;
 
 	if (self hasperk("specialty_rof"))
 	{
-		fire_time -= 0.2;
+		fire_time *= getdvarfloat("perk_weapRateMultiplier");
 	}
 
 	wait fire_time;
