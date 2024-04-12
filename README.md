@@ -64,6 +64,7 @@
 		* [XPR-50](#xpr-50)
 	* [Shotguns](#shotguns)
 		* [Remington 870 MCS](#remington-870-mcs)
+		* [S12](#s12)
 	* [Launchers](#launchers)
 		* [War Machine](#war-machine)
 	* [Specials](#specials)
@@ -447,6 +448,10 @@
 
 #### Remington 870 MCS
 * Changed weapon cost from 900 or 1500 to 1200 on all maps
+
+#### S12
+* Unupgraded: increased stock ammo from 30 to 40
+* Upgraded: increased stock ammo from 50 to 60
 
 ### Launchers
 
