@@ -17,6 +17,11 @@ init()
 {
 	level.zombie_init_done = ::zombie_init_done;
 	level.special_weapon_magicbox_check = ::nuked_special_weapon_magicbox_check;
+
+	if (is_gametype_active("zgrief"))
+	{
+		sndswitchannouncervox("richtofen");
+	}
 }
 
 zombie_init_done()

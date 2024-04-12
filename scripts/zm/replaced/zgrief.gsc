@@ -23,6 +23,29 @@ postinit_func()
 	setmatchtalkflag("EveryoneHearsEveryone", 1);
 }
 
+zgrief_main()
+{
+	level thread maps\mp\zombies\_zm::round_start();
+	level thread maps\mp\gametypes_zm\_zm_gametype::kill_all_zombies();
+	flag_wait("initial_blackscreen_passed");
+	level thread maps\mp\zombies\_zm_game_module::wait_for_team_death_and_round_end();
+	players = get_players();
+
+	foreach (player in players)
+		player.is_hotjoin = 0;
+
+	wait 1;
+
+	postfix = "";
+
+	if (level.script == "zm_nuked")
+	{
+		postfix = "_rich";
+	}
+
+	playsoundatposition("vox_zmba_grief_intro" + postfix + "_0", (0, 0, 0));
+}
+
 game_mode_spawn_player_logic()
 {
 	if (isDefined(level.should_respawn_func) && [[level.should_respawn_func]]())

@@ -357,8 +357,10 @@ add_fire_sale_vox()
 		return;
 	}
 
-	game["zmbdialog"]["fire_sale"] += "_rich";
-	level.vox.speaker["player"].alias["powerup"]["firesale"] += "_rich";
+	postfix = "_rich";
+
+	game["zmbdialog"]["fire_sale"] += postfix;
+	level.vox.speaker["player"].alias["powerup"]["firesale"] += postfix;
 }
 
 on_player_connect()
