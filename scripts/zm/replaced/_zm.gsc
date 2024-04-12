@@ -1406,7 +1406,7 @@ actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, 
 		return damage;
 	}
 
-	if (issubstr(weapon, "tazer_knuckles_zm") || weapon == "jetgun_zm")
+	if (issubstr(weapon, "tazer_knuckles_zm") || weapon == "jetgun_zm" || weapon == "riotshield_zm")
 	{
 		self.knuckles_extinguish_flames = 1;
 	}

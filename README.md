@@ -803,6 +803,7 @@
 * Added shield health bar on HUD
 * Awards points for kills and damage
 * Can be repaired at buildable table (same cost as purchase cost)
+* Zombies that are on fire no longer explode on death
 * Can be destroyed by player damage when deployed
 * Destroyed sound plays when player is holding
 * Deployed damage sound plays on shield instead of player
