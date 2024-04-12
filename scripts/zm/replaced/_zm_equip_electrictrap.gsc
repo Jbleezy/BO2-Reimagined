@@ -102,6 +102,15 @@ cleanupoldtrap()
 	}
 }
 
+electrictrapkill(weapon)
+{
+	self endon("death");
+
+	self.is_on_fire = 0;
+	self notify("stop_flame_damage");
+	self dodamage(self.health + 666, self.origin);
+}
+
 etrap_choke()
 {
 	// no choke

@@ -821,6 +821,7 @@
 * Gets destroyed after being deployed for 30 seconds
 * Kills on any round (normally stops killing after round 50)
 * Kills zombies instantly
+* Zombies that are on fire no longer explode on death
 * No longer kills players without Jugger-Nog instantly
 * Decreased player damage from 75 to 25
 * Decreased player shellshock time from 2.5 seconds to 1.25 seconds

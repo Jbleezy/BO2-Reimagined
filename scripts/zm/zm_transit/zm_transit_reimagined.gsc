@@ -50,6 +50,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_weap_emp_bomb::emp_detonate, scripts\zm\replaced\_zm_weap_emp_bomb::emp_detonate);
 	replaceFunc(maps\mp\zombies\_zm_equip_electrictrap::startelectrictrapdeploy, scripts\zm\replaced\_zm_equip_electrictrap::startelectrictrapdeploy);
 	replaceFunc(maps\mp\zombies\_zm_equip_electrictrap::cleanupoldtrap, scripts\zm\replaced\_zm_equip_electrictrap::cleanupoldtrap);
+	replaceFunc(maps\mp\zombies\_zm_equip_electrictrap::electrictrapkill, scripts\zm\replaced\_zm_equip_electrictrap::electrictrapkill);
 	replaceFunc(maps\mp\zombies\_zm_equip_electrictrap::etrap_choke, scripts\zm\replaced\_zm_equip_electrictrap::etrap_choke);
 	replaceFunc(maps\mp\zombies\_zm_equip_turret::startturretdeploy, scripts\zm\replaced\_zm_equip_turret::startturretdeploy);
 	replaceFunc(maps\mp\zombies\_zm_banking::init, scripts\zm\replaced\_zm_banking::init);
