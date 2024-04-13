@@ -291,6 +291,9 @@ LANG_ENGLISH        "Meat reset!"
 REFERENCE           ZM_PRISON_SHIELD
 LANG_ENGLISH        "Zombie Shield"
 
+REFERENCE           ZM_PRISON_ACID_GAT_KIT
+LANG_ENGLISH        "Acidgat Kit"
+
 // ZONE NAMES
 
 REFERENCE           ZM_TRANSIT_ZONE_PRI
@@ -1021,6 +1024,9 @@ LANG_ENGLISH        "B34R Extended Clip"
 REFERENCE           ZMWEAPON_MP40_STALKER_UPGRADED
 LANG_ENGLISH        "The Afterburner Adjustable Stock"
 
+REFERENCE           ZMWEAPON_ACIDGAT
+LANG_ENGLISH        "Acidgat"
+
 REFERENCE           ZMWEAPON_SHIV
 LANG_ENGLISH        "Shiv"
 
@@ -1210,10 +1216,16 @@ REFERENCE           ZM_PRISON_PLANE_BOARD
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to board plane"
 
 REFERENCE           ZM_PRISON_CRAFT_PACKASPLAT
-LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Acid Gat Kit"
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Acidgat Kit"
 
 REFERENCE           ZM_PRISON_CONVERT_START
-LANG_ENGLISH        "Hold ^3[{+activate}]^7 to convert Blundergat into Acid Gat [Cost: &&1]"
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to convert Blundergat into Acidgat [Cost: &&1]"
+
+REFERENCE           ZM_PRISON_CONVERT_PICKUP
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to take Acidgat"
+
+REFERENCE           ZM_PRISON_SQ_BS
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to pick up Acidgat"
 
 REFERENCE           ZM_BURIED_EQ_SW_PHS
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to pick up Subsurface Resonator"

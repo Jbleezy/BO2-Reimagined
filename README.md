@@ -77,7 +77,7 @@
 		* [Sliquifier](#sliquifier)
 		* [Paralyzer](#paralyzer)
 		* [Blundergat](#blundergat)
-		* [Acid Gat](#acid-gat)
+		* [Acidgat](#acidgat)
 		* [Staffs](#staffs)
 	* [Tactical Grenades](#tactical-grenades)
 		* [Monkey Bomb](#monkey-bomb)
@@ -119,7 +119,7 @@
 	* [Subsurface Resonator](#subsurface-resonator)
 	* [Trample Steam](#trample-steam)
 	* [Head Chopper](#head-chopper)
-	* [Acid Gat Kit](#acid-gat-kit)
+	* [Acidgat Kit](#acidgat-kit)
 	* [Maxis Drone](#maxis-drone)
 * [Bank](#bank)
 * [Weapon Locker](#weapon-locker)
@@ -540,7 +540,7 @@
 * Increased pellet size
 * Upgraded: added camo
 
-#### Acid Gat
+#### Acidgat
 * Kills on any round in 1-2 bursts
 * Changed fire type from 3 round burst to 4 round burst
 * Increased player damage from 10 to 15
@@ -549,6 +549,7 @@
 * Projectiles no longer seek toward zombies
 * Deadshot improves accuracy
 * Stuck zombie counts as a kill
+* Unupgraded: changed weapon name from "Acid Gat" to "Acidgat"
 * Upgraded: added camo
 * Upgraded: added proper fire sound
 
@@ -851,11 +852,12 @@
 * Changed body chop player damage to 25 (normally deals 75 damage to torso or 37 damage to feet)
 * Fixed an issue where each chop would only damage entities that were touching the damage trigger during the previous chop
 
-### Acid Gat Kit
+### Acidgat Kit
 * Player does knuckle crack anim during conversion
 * Requires player's current weapon to be the Blundergat to convert
 * Requires player to be looking at the buildable table to convert
-* Changed craft hint string from "Blundergat Upgrade" to "Acid Gat Kit"
+* Changed craft hint string from "Blundergat Upgrade" to "Acidgat Kit"
+* Changed pick up hint string from "take your converted weapon" to "take Acidgat"
 * Fixed buildable table not showing locked hint string
 
 ### Maxis Drone
@@ -1109,7 +1111,7 @@
 * Removed background color from plane parts on HUD
 * Changed name of Zombie Shield recipe on HUD from "Shield" to "Zombie Shield"
 * Changed background color of Zombie Shield parts on HUD from green to grey
-* Changed background color of Acid Gat Kit parts on HUD from blue to green
+* Changed background color of Acidgat Kit parts on HUD from blue to green
 * Quest: added "Benn - Alcatraz" song
 * Quest: Blundergat gets full ammo when picked up (normally missing one clip)
 * Quest: number pad only needs each number to be shocked once in order to complete
