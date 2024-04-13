@@ -87,7 +87,6 @@ init()
 	level thread power_local_electric_doors_globally();
 	level thread power_station_vision_change();
 	level thread attach_powerups_to_bus();
-	level thread jetgun_disable_melee_spin_lerp();
 }
 
 grief_include_weapons()
@@ -728,26 +727,6 @@ attachpoweruptobus(powerup)
 
 	powerup enablelinkto();
 	powerup linkto(level.the_bus);
-}
-
-jetgun_disable_melee_spin_lerp()
-{
-	flag_wait("start_zombie_round_logic");
-
-	while (1)
-	{
-		players = get_players();
-
-		foreach (player in players)
-		{
-			if (player getcurrentweapon() == "jetgun_zm" && player ismeleeing())
-			{
-				player maps\mp\zombies\_zm_weap_jetgun::set_jetgun_engine_direction(0);
-			}
-		}
-
-		wait 0.05;
-	}
 }
 
 manage_zones(initial_zone)
