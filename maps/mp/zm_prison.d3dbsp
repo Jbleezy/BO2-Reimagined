@@ -6307,7 +6307,7 @@
 "angles" "0 270 0"
 "origin" "601 9407 1163"
 "classname" "script_struct"
-"zombie_weapon_upgrade" "870mcs_zm"
+"zombie_weapon_upgrade" "sticky_grenade_zm"
 "targetname" "weapon_upgrade"
 "target" "pf3666_auto37"
 "guid" "834D841B"
@@ -6315,7 +6315,7 @@
 {
 "targetname" "pf3666_auto37"
 "classname" "script_struct"
-"model" "t6_wpn_shotty_870mcs_world"
+"model" "semtex_bag"
 "angles" "0 270 0"
 "origin" "601 9407 1163"
 "guid" "CEAAC437"

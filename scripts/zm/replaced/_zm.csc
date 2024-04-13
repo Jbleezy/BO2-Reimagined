@@ -4,6 +4,12 @@
 
 init_wallbuy_fx()
 {
+	if (getDvar("mapname") == "zm_buried" || getDvar("mapname") == "zm_prison")
+	{
+		level._uses_sticky_grenades = 1;
+		level.disable_fx_zmb_wall_buy_semtex = 0;
+	}
+
 	if (!is_false(level._uses_default_wallbuy_fx))
 	{
 		level._effect["870mcs_zm_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_870mcs");
@@ -20,7 +26,16 @@ init_wallbuy_fx()
 	if (!is_false(level._uses_sticky_grenades))
 	{
 		if (!is_true(level.disable_fx_zmb_wall_buy_semtex))
-			level._effect["sticky_grenade_zm_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_semtex");
+		{
+			grenade = "sticky_grenade_zm";
+
+			if (getDvar("mapname") == "zm_buried")
+			{
+				grenade = "frag_grenade_zm";
+			}
+
+			level._effect[grenade + "_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_semtex");
+		}
 	}
 
 	if (!is_false(level._uses_taser_knuckles))

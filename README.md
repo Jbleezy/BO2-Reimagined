@@ -1020,6 +1020,7 @@
 * Quest (Richtofen): decreased number of Sliquifier shots required for each ball from 20 to 10
 
 ### Buried
+* Added Frag Grenade wallbuy at General Store
 * Added M27 to the Mystery Box
 * Removed Turbine, key, booze, and candy
 * Power automatically on
@@ -1075,6 +1076,7 @@
 
 ### Mob of the Dead
 * Replaced Frag Grenade with Semtex
+* Replaced Remington 870 MCS wallbuy at Citadel with Semtex wallbuy
 * 1 afterlife max in solo
 * Entering afterlife no longer takes 2 additional seconds if the player had Electric Cherry
 * Spawn facing towards the afterlife player model when entering afterlife

@@ -6,6 +6,17 @@
 
 init_fx()
 {
+	if (level.script == "zm_buried" || level.script == "zm_prison")
+	{
+		level._uses_sticky_grenades = 1;
+		level.disable_fx_zmb_wall_buy_semtex = 0;
+	}
+
+	if (level.script == "zm_prison")
+	{
+		register_lethal_grenade_for_level("sticky_grenade_zm");
+	}
+
 	level.createfx_callback_thread = ::delete_in_createfx;
 	level._effect["wood_chunk_destory"] = loadfx("impacts/fx_large_woodhit");
 	level._effect["fx_zombie_bar_break"] = loadfx("maps/zombie/fx_zombie_bar_break");
@@ -58,7 +69,16 @@ init_fx()
 	if (!(isdefined(level._uses_sticky_grenades) && !level._uses_sticky_grenades))
 	{
 		if (!(isdefined(level.disable_fx_zmb_wall_buy_semtex) && level.disable_fx_zmb_wall_buy_semtex))
-			level._effect["sticky_grenade_zm_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_semtex");
+		{
+			grenade = "sticky_grenade_zm";
+
+			if (level.script == "zm_buried")
+			{
+				grenade = "frag_grenade_zm";
+			}
+
+			level._effect[grenade + "_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_semtex");
+		}
 	}
 
 	if (!(isdefined(level._uses_taser_knuckles) && !level._uses_taser_knuckles))
