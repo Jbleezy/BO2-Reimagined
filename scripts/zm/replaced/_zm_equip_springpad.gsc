@@ -112,6 +112,7 @@ player_fling(origin, angles, velocity, weapon)
 	trace = physicstrace(origin, torigin, vectorscale((-1, -1, 0), 15.0), (15, 15, 30), self);
 
 	self setorigin(aorigin);
+	self setvelocity((0, 0, 0));
 	wait_network_frame();
 	self setvelocity(velocity);
 }

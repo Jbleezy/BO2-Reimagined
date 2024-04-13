@@ -838,6 +838,7 @@
 * No longer gets destroyed from kills
 * Gets destroyed after activating 15 times
 * Does fast cooldown when player activates
+* Fixed an issue where players were not flung correctly when activating the Trample Steam while in the air
 
 ### Head Chopper
 * No longer gets destroyed from kills
