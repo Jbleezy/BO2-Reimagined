@@ -376,6 +376,7 @@ on_player_connect()
 		player thread on_player_fake_revive();
 
 		player thread grenade_fire_watcher();
+		player thread sndmeleewpnsound();
 	}
 }
 
@@ -1899,6 +1900,121 @@ temp_disable_offhand_weapons()
 	{
 		self enableOffhandWeapons();
 	}
+}
+
+sndmeleewpnsound()
+{
+	self endon("disconnect");
+	level endon("end_game");
+
+	while (1)
+	{
+		while (!self ismeleeing())
+		{
+			wait 0.05;
+		}
+
+		current_melee_weapon = self get_player_melee_weapon();
+		current_weapon = self getcurrentweapon();
+
+		alias = "zmb_melee_whoosh_npc";
+
+		if (is_true(self.is_player_zombie))
+		{
+			alias = "zmb_melee_whoosh_zmb_npc";
+		}
+		else if (issubstr(current_weapon, "shield_zm"))
+		{
+			alias = "fly_riotshield_zm_swing";
+		}
+		else if (current_melee_weapon == "bowie_knife_zm")
+		{
+			alias = "zmb_bowie_swing";
+		}
+		else if (current_melee_weapon == "tazer_knuckles_zm")
+		{
+			alias = "wpn_tazer_whoosh_npc";
+		}
+		else if (current_melee_weapon == "spoon_zm_alcatraz")
+		{
+			alias = "zmb_spoon_swing";
+		}
+		else if (current_melee_weapon == "spork_zm_alcatraz")
+		{
+			alias = "zmb_spork_swing";
+		}
+		else if (current_melee_weapon == "one_inch_punch_zm")
+		{
+			alias = "wpn_one_inch_punch_npc";
+		}
+		else if (current_melee_weapon == "one_inch_punch_upgraded_zm")
+		{
+			alias = "wpn_one_inch_punch_npc";
+		}
+		else if (current_melee_weapon == "one_inch_punch_fire_zm")
+		{
+			alias = "wpn_one_inch_punch_fire_npc";
+		}
+		else if (current_melee_weapon == "one_inch_punch_air_zm")
+		{
+			alias = "wpn_one_inch_punch_air_npc";
+		}
+		else if (current_melee_weapon == "one_inch_punch_ice_zm")
+		{
+			alias = "wpn_one_inch_punch_ice_npc";
+		}
+		else if (current_melee_weapon == "one_inch_punch_lightning_zm")
+		{
+			alias = "wpn_one_inch_punch_lightning_npc";
+		}
+		else if (sndmeleewpn_isstaff(current_melee_weapon))
+		{
+			alias = "zmb_melee_staff_upgraded_npc";
+		}
+
+		if (maps\mp\zombies\_zm_audio::sndisnetworksafe())
+		{
+			self play_sound_to_nearby_players(alias);
+		}
+
+		while (self ismeleeing())
+		{
+			wait 0.05;
+		}
+	}
+}
+
+play_sound_to_nearby_players(alias, range = 500)
+{
+	players = get_players();
+
+	foreach (player in players)
+	{
+		if (player != self && distancesquared(player.origin, self.origin) <= range * range)
+		{
+			self playsoundtoplayer(alias, player);
+		}
+	}
+}
+
+sndmeleewpn_isstaff(weapon)
+{
+	switch (weapon)
+	{
+		case "staff_melee_zm":
+		case "staff_air_melee_zm":
+		case "staff_fire_melee_zm":
+		case "staff_water_melee_zm":
+		case "staff_lightning_melee_zm":
+
+			isstaff = 1;
+			break;
+
+		default:
+			isstaff = 0;
+	}
+
+	return isstaff;
 }
 
 buildbuildables()

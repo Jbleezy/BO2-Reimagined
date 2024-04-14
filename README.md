@@ -275,6 +275,7 @@
 
 ## Weapons
 * Switch to melee weapon by pressing the Melee Weapon button (same button as Time Bomb and Maxis Drone)
+* Added proper melee swing sound to all melee weapons
 * Fixed world model position of certain melee weapons
 * Grenades: improved projectile upward speed
 * Grenades: can no longer be thrown faster than intended by throwing a grenade right after throwing one

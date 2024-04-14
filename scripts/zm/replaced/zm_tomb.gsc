@@ -59,25 +59,6 @@
 #include maps\mp\zombies\_zm_challenges;
 #include maps\mp\zombies\_zm_laststand;
 
-sndmeleewpn_isstaff(weapon)
-{
-	switch (weapon)
-	{
-		case "staff_water_melee_zm":
-		case "staff_melee_zm":
-		case "staff_lightning_melee_zm":
-		case "staff_fire_melee_zm":
-		case "staff_air_melee_zm":
-			isstaff = 1;
-			break;
-
-		default:
-			isstaff = 0;
-	}
-
-	return isstaff;
-}
-
 tomb_can_track_ammo_custom(weap)
 {
 	if (!isdefined(weap))
@@ -128,4 +109,9 @@ tomb_can_track_ammo_custom(weap)
 	}
 
 	return true;
+}
+
+sndmeleewpnsound()
+{
+	// removed - added to all maps in _zm_reimagined
 }
