@@ -61,7 +61,7 @@ zombie_exploding_death(zombie_dmg, trap)
 	while (isdefined(self) && self.health >= zombie_dmg && (isdefined(self.is_on_fire) && self.is_on_fire))
 		wait 0.5;
 
-	if (!isdefined(self) || !(isdefined(self.is_on_fire) && self.is_on_fire) || isdefined(self.damageweapon) && (self.damageweapon == "tazer_knuckles_zm" || self.damageweapon == "jetgun_zm") || isdefined(self.knuckles_extinguish_flames) && self.knuckles_extinguish_flames)
+	if (!isdefined(self) || !(isdefined(self.is_on_fire) && self.is_on_fire) || isdefined(self.damageweapon) && (scripts\zm\_zm_reimagined::is_tazer_weapon(self.damageweapon) || self.damageweapon == "jetgun_zm") || isdefined(self.knuckles_extinguish_flames) && self.knuckles_extinguish_flames)
 		return;
 
 	tag = "J_SpineLower";

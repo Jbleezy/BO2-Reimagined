@@ -470,7 +470,7 @@
 * Added model and anims from Black Ops 2 Multiplayer
 * Added sounds on all maps
 * Increased melee time from 0.5 seconds to 0.7 seconds
-* No longer held with Bowie Knife
+* Held with Galvaknuckles
 * Projectiles are no longer destroyed when other players walk over them
 * Projectiles are no longer destroyed when purchasing a melee wallbuy
 * Projectiles get destroyed by lava

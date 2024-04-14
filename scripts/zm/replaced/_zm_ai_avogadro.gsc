@@ -249,7 +249,7 @@ avogadro_damage_func(einflictor, eattacker, idamage, idflags, smeansofdeath, swe
 			self.shield = 1;
 			self notify("melee_pain");
 
-			if (issubstr(sweapon, "tazer_knuckles_zm"))
+			if (scripts\zm\_zm_reimagined::is_tazer_weapon(sweapon))
 			{
 				self.hit_by_melee += 2;
 			}

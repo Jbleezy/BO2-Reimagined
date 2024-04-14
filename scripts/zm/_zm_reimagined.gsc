@@ -3212,6 +3212,11 @@ should_respawn()
 	return 0;
 }
 
+is_tazer_weapon(weapon)
+{
+	return issubstr(weapon, "tazer_knuckles") || issubstr(weapon, "knife_ballistic_no_melee");
+}
+
 get_current_spectating_player()
 {
 	if (self.currentspectatingclient == -1)

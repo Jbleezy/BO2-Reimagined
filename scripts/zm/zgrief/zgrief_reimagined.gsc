@@ -738,6 +738,16 @@ kill_feed()
 		if (self.last_griefed_by.meansofdeath == "MOD_MELEE")
 		{
 			self.last_griefed_by.meansofdeath = "MOD_UNKNOWN";
+
+			// show melee weapon icon on Ballistic Knife w/ Bowie melee or Ballistic Knife w/ Galvaknuckles melee
+			if (issubstr(self.last_griefed_by.weapon, "knife_ballistic_bowie"))
+			{
+				self.last_griefed_by.weapon = "held_bowie_knife_zm";
+			}
+			else if (issubstr(self.last_griefed_by.weapon, "knife_ballistic_no_melee"))
+			{
+				self.last_griefed_by.weapon = "held_tazer_knuckles_zm";
+			}
 		}
 
 		// show weapon icon for impact damage

@@ -53,7 +53,7 @@ ts_is_bowie_knife(str_weapon)
 
 ts_is_galvaknuckles(str_weapon)
 {
-	if (issubstr(str_weapon, "tazer_knuckles_zm"))
+	if (scripts\zm\_zm_reimagined::is_tazer_weapon(str_weapon))
 		return true;
 
 	return false;

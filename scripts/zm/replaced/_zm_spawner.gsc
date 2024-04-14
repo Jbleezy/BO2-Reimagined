@@ -532,7 +532,7 @@ zombie_death_animscript()
 	if ("rottweil72_upgraded_zm" == self.damageweapon && "MOD_RIFLE_BULLET" == self.damagemod)
 		self thread dragons_breath_flame_death_fx();
 
-	if (issubstr(self.damageweapon, "tazer_knuckles_zm") && "MOD_MELEE" == self.damagemod)
+	if (scripts\zm\_zm_reimagined::is_tazer_weapon(self.damageweapon) && "MOD_MELEE" == self.damagemod)
 	{
 		self.is_on_fire = 0;
 		self notify("stop_flame_damage");
