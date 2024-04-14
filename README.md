@@ -461,6 +461,7 @@
 ### Launchers
 
 #### War Machine
+* Unupgraded: increased stock ammo from 18 to 24
 * Unupgraded: grenades explode on impact
 
 ### Specials
