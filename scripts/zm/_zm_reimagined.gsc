@@ -638,6 +638,15 @@ set_client_dvars()
 	self setClientDvar("r_dof_enable", 0);
 	self setClientDvar("r_lodBiasRigid", -1000);
 	self setClientDvar("r_lodBiasSkinned", -1000);
+
+	if (level.script == "zm_transit")
+	{
+		self setClientDvar("bg_chargeShotMaxBulletsInQueue", 5);
+	}
+	else
+	{
+		self setClientDvar("bg_chargeShotMaxBulletsInQueue", 3);
+	}
 }
 
 set_perks()
