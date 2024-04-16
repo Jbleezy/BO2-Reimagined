@@ -599,6 +599,15 @@ set_dvars()
 
 	setDvar("sv_voice", 2);
 	setDvar("sv_voiceQuality", 9);
+
+	if (level.script == "zm_transit")
+	{
+		setDvar("bg_chargeShotMaxBulletsInQueue", 5);
+	}
+	else
+	{
+		setDvar("bg_chargeShotMaxBulletsInQueue", 3);
+	}
 }
 
 set_client_dvars()
@@ -1648,6 +1657,11 @@ weapon_changes()
 		include_weapon("svu_zm", 0);
 		include_weapon("svu_upgraded_zm", 0);
 		add_zombie_weapon("svu_zm", "svu_upgraded_zm", &"ZOMBIE_WEAPON_SVU", 1000, "", "", undefined, 1);
+
+		include_weapon("metalstorm_mms_zm");
+		include_weapon("metalstorm_mms_upgraded_zm", 0);
+		add_limited_weapon("metalstorm_mms_zm", 1);
+		add_zombie_weapon("metalstorm_mms_zm", "metalstorm_mms_upgraded_zm", &"WEAPON_METALSTORM", 1000, "", "", undefined, 1);
 	}
 
 	if (level.script == "zm_prison")

@@ -4,6 +4,8 @@
 
 >level.ipak_read,sp
 
+include,includes/weapons/metalstorm_mms_zm
+
 image,menu_mp_weapons_minigun_future
 material,menu_mp_weapons_minigun_future
 image,menu_mp_weapons_m32gl

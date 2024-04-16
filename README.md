@@ -70,6 +70,7 @@
 		* [War Machine](#war-machine)
 	* [Specials](#specials)
 		* [Ballistic Knife](#ballistic-knife)
+		* [Storm PSR](#storm-psr)
 	* [Wonder Weapons](#wonder-weapons)
 		* [Ray Gun](#ray-gun)
 		* [Ray Gun Mark 2](#ray-gun-mark-2)
@@ -88,7 +89,10 @@
 	* [Equipment](#equipment)
 		* [Combat Knife](#combat-knife)
 		* [One Inch Punch](#one-inch-punch)
+		* [Frag Grenade](#frag-grenade)
+		* [Semtex](#semtex)
 		* [Claymore](#claymore)
+		* [Bouncing Betty](#bouncing-betty)
 		* [Time Bomb](#time-bomb)
 * [Wallbuys](#wallbuys)
 * [Mystery Box](#mystery-box)
@@ -109,6 +113,7 @@
 * [Powerups](#powerups)
 	* [Nuke](#nuke)
 	* [Carpenter](#carpenter)
+	* [Fire Sale](#fire-sale)
 	* [Zombie Blood](#zombie-blood)
 	* [Meat](#meat)
 * [Persistent Upgrades](#persistent-upgrades)
@@ -344,6 +349,7 @@
 * Removed
 
 #### M27
+* Added on Tranzit, Die Rise, and Buried
 * Upgraded: changed attachment from Reflex Sight to None
 
 #### M8A1
@@ -477,6 +483,9 @@
 * Projectiles get destroyed by lava
 * Projectiles can be picked up while the weapon is not reloaded
 * Projectiles can be picked up while the player is not on the ground
+
+#### Storm PSR
+* Added on Tranzit
 
 ### Wonder Weapons
 
@@ -623,6 +632,12 @@
 * Fixed zombies not being flung when Insta Kill powerup is active
 * Fixed an issue where a player's melee weapon wouldn't reset if the player bled out in the Giant Robots
 
+#### Frag Grenade
+* Replaces Semtex on Origins
+
+#### Semtex
+* Replaces Frag Grenade on Mob of the Dead
+
 #### Claymore
 * Added plant and alert sounds to all maps
 * Can be repurchased
@@ -631,6 +646,9 @@
 * Increased max amount that can be placed from 12 to 20
 * Added weapon name on HUD
 * Removed initial weapon raise anim
+
+#### Bouncing Betty
+* Replaces Claymore on Origins
 
 #### Time Bomb
 * No longer sends players back in time
@@ -757,6 +775,9 @@
 
 ### Carpenter
 * Removed
+
+### Fire Sale
+* Added on Tranzit and Die Rise
 
 ### Zombie Blood
 * No longer makes zombies ignore the player
@@ -907,8 +928,6 @@
 * Added PDW-57 wallbuy at Bus Depot
 * Added AN-94 wallbuy at Town
 * Added SVU-AS wallbuy at Cornfield
-* Added M27 to the Mystery Box
-* Added Fire Sale powerup
 * Added Mystery Box at Tunnel
 * Added Mystery Box at Cornfield
 * Power switch, Pack-a-Punch, and Diner hatch automatically crafted
@@ -985,8 +1004,6 @@
 * Pack-a-Punch
 
 ### Die Rise
-* Added M27 to the Mystery Box
-* Added Fire Sale powerup
 * Added Mystery Box at Blue Highrise area
 * Added Mystery Box at Orange Highrise area
 * Moved Mystery Box at Green Rooftop area from Green Rooftop Behind Restaurant zone to Green Rooftop Restaurant zone
@@ -1022,7 +1039,6 @@
 
 ### Buried
 * Added Frag Grenade wallbuy at General Store
-* Added M27 to the Mystery Box
 * Removed Turbine, key, booze, and candy
 * Power automatically on
 * Noose and Guillotine parts automatically picked up
@@ -1076,7 +1092,6 @@
 * Perks and wallbuys within the maze are randomized each game
 
 ### Mob of the Dead
-* Replaced Frag Grenade with Semtex
 * Replaced Remington 870 MCS wallbuy at Citadel with Semtex wallbuy
 * 1 afterlife max in solo
 * Entering afterlife no longer takes 2 additional seconds if the player had Electric Cherry
@@ -1140,8 +1155,6 @@
 * Grief: Tower Trap targets and stuns players
 
 ### Origins
-* Replaced Semtex with Frag Grenade
-* Replaced Claymore with Bouncing Betty
 * Door prices in solo cost the same as in coop
 * Shovels automatically picked up
 * Records automatically picked up
