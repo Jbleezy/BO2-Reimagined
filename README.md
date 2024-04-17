@@ -819,6 +819,7 @@
 * Added weapon name on HUD to all buildables
 * Increased move speed while holding from 100% to 110% (except Zombie Shield)
 * Can no longer melee while holding (except Zombie Shield)
+* Removed dive anim
 * Changed crafting hint string from "Building..." to "Crafting..."
 * Changed purchase hint string from "for" to "to take" on all maps
 * Changed pick up hint string from "for" to "to pick up" on all maps
