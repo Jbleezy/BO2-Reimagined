@@ -376,6 +376,7 @@ on_player_connect()
 		player thread on_player_fake_revive();
 
 		player thread grenade_fire_watcher();
+		player thread player_hide_turrets_from_other_players();
 		player thread sndmeleewpnsound();
 	}
 }
@@ -1927,6 +1928,45 @@ temp_disable_offhand_weapons()
 	if (!is_true(self.is_drinking))
 	{
 		self enableOffhandWeapons();
+	}
+}
+
+player_hide_turrets_from_other_players()
+{
+	self endon("disconnect");
+
+	while (1)
+	{
+		self waittill("create_equipment_turret", equipment, turret);
+
+		hide_turret = 0;
+
+		if (isdefined(level.turbine_name) && equipment == level.turbine_name)
+		{
+			hide_turret = 1;
+		}
+		else if (isdefined(level.turret_name) && equipment == level.turret_name)
+		{
+			hide_turret = 1;
+		}
+		else if (isdefined(level.electrictrap_name) && equipment == level.electrictrap_name)
+		{
+			hide_turret = 1;
+		}
+		else if (isdefined(level.springpad_name) && equipment == level.springpad_name)
+		{
+			hide_turret = 1;
+		}
+		else if (isdefined(level.subwoofer_name) && equipment == level.subwoofer_name)
+		{
+			hide_turret = 1;
+		}
+
+		if (hide_turret)
+		{
+			turret setinvisibletoall();
+			turret setvisibletoplayer(self);
+		}
 	}
 }
 
