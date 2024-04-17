@@ -69,6 +69,9 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_weapons::createballisticknifewatcher_zm, scripts\zm\replaced\_zm_weapons::createballisticknifewatcher_zm);
 	replaceFunc(maps\mp\zombies\_zm_weapons::weapon_spawn_think, scripts\zm\replaced\_zm_weapons::weapon_spawn_think);
 	replaceFunc(maps\mp\zombies\_zm_weapons::weapon_set_first_time_hint, scripts\zm\replaced\_zm_weapons::weapon_set_first_time_hint);
+	replaceFunc(maps\mp\zombies\_zm_weapons::get_player_weapondata, scripts\zm\replaced\_zm_weapons::get_player_weapondata);
+	replaceFunc(maps\mp\zombies\_zm_weapons::get_nonalternate_weapon, scripts\zm\replaced\_zm_weapons::get_nonalternate_weapon);
+	replaceFunc(maps\mp\zombies\_zm_weapons::switch_from_alt_weapon, scripts\zm\replaced\_zm_weapons::switch_from_alt_weapon);
 	replaceFunc(maps\mp\zombies\_zm_weapons::give_fallback_weapon, scripts\zm\replaced\_zm_weapons::give_fallback_weapon);
 	replaceFunc(maps\mp\zombies\_zm_magicbox::treasure_chest_init, scripts\zm\replaced\_zm_magicbox::treasure_chest_init);
 	replaceFunc(maps\mp\zombies\_zm_magicbox::init_starting_chest_location, scripts\zm\replaced\_zm_magicbox::init_starting_chest_location);

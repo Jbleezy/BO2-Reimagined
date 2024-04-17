@@ -971,6 +971,98 @@ createballisticknifewatcher_zm(name, weapon)
 	watcher.headicon = 0;
 }
 
+get_player_weapondata(player, weapon)
+{
+	weapondata = [];
+
+	if (!isdefined(weapon))
+		weapondata["name"] = get_nonalternate_weapon(player getcurrentweapon());
+	else
+		weapondata["name"] = weapon;
+
+	weapondata["dw_name"] = weapondualwieldweaponname(weapondata["name"]);
+	weapondata["alt_name"] = weaponaltweaponname(weapondata["name"]);
+
+	if (weapondata["name"] != "none")
+	{
+		weapondata["clip"] = player getweaponammoclip(weapondata["name"]);
+		weapondata["stock"] = player getweaponammostock(weapondata["name"]);
+		weapondata["fuel"] = player getweaponammofuel(weapondata["name"]);
+		weapondata["heat"] = player isweaponoverheating(1, weapondata["name"]);
+		weapondata["overheat"] = player isweaponoverheating(0, weapondata["name"]);
+	}
+	else
+	{
+		weapondata["clip"] = 0;
+		weapondata["stock"] = 0;
+		weapondata["fuel"] = 0;
+		weapondata["heat"] = 0;
+		weapondata["overheat"] = 0;
+	}
+
+	if (weapondata["dw_name"] != "none")
+		weapondata["lh_clip"] = player getweaponammoclip(weapondata["dw_name"]);
+	else
+		weapondata["lh_clip"] = 0;
+
+	if (weapondata["alt_name"] != "none")
+	{
+		weapondata["alt_clip"] = player getweaponammoclip(weapondata["alt_name"]);
+		weapondata["alt_stock"] = player getweaponammostock(weapondata["alt_name"]);
+	}
+	else
+	{
+		weapondata["alt_clip"] = 0;
+		weapondata["alt_stock"] = 0;
+	}
+
+	return weapondata;
+}
+
+get_nonalternate_weapon(altweapon)
+{
+	if (is_alt_weapon(altweapon))
+	{
+		alt = weaponaltweaponname(altweapon);
+
+		if (alt == "none")
+		{
+			primaryweapons = self getweaponslistprimaries();
+			alt = primaryweapons[0];
+
+			foreach (weapon in primaryweapons)
+			{
+				if (weaponaltweaponname(weapon) == altweapon)
+				{
+					alt = weapon;
+					break;
+				}
+			}
+		}
+
+		return alt;
+	}
+
+	if (issubstr(altweapon, "metalstorm"))
+	{
+		alt = "metalstorm_mms_zm";
+
+		if (issubstr(altweapon, "upgraded"))
+		{
+			alt = "metalstorm_mms_upgraded_zm";
+		}
+
+		return alt;
+	}
+
+	return altweapon;
+}
+
+switch_from_alt_weapon(current_weapon)
+{
+	return get_nonalternate_weapon(current_weapon);
+}
+
 give_fallback_weapon()
 {
 	self switchtoweapon("held_" + self get_player_melee_weapon());
