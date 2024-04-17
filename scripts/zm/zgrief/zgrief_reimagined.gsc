@@ -1696,6 +1696,8 @@ game_module_player_damage_callback(einflictor, eattacker, idamage, idflags, smea
 			return;
 		}
 
+		sweapon = get_real_nonalternate_weapon(sweapon);
+
 		if (!is_true(self._being_shellshocked))
 		{
 			self do_game_mode_stun_score_steal(eattacker);
@@ -1921,6 +1923,25 @@ remove_player_damage_info()
 	}
 
 	self.last_griefed_by = undefined;
+}
+
+get_real_nonalternate_weapon(sweapon)
+{
+	sweapon = get_nonalternate_weapon(sweapon);
+
+	if (issubstr(sweapon, "metalstorm"))
+	{
+		if (issubstr(sweapon, "upgraded"))
+		{
+			sweapon = "metalstorm_mms_upgraded_zm";
+		}
+		else
+		{
+			sweapon = "metalstorm_mms_zm";
+		}
+	}
+
+	return sweapon;
 }
 
 grief_laststand_weapon_save(einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration)
