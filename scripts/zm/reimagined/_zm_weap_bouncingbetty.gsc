@@ -147,6 +147,7 @@ betty_watch()
 
 		if (weapname == "bouncingbetty_zm")
 		{
+			betty.angles = (0, betty.angles[1], 0);
 			betty.owner = self;
 			betty.team = self.team;
 			self notify("zmb_enable_betty_prompt");

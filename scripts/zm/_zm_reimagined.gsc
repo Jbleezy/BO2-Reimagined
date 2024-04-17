@@ -1904,6 +1904,11 @@ grenade_fire_watcher()
 		{
 			self thread temp_disable_offhand_weapons();
 		}
+
+		if (isdefined(level.headchopper_name) && weapname == level.headchopper_name)
+		{
+			grenade.angles = (0, grenade.angles[1], 0);
+		}
 	}
 }
 

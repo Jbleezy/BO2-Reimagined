@@ -9,6 +9,33 @@
 
 #using_animtree("zombie_beacon");
 
+player_handle_beacon()
+{
+	self notify("starting_beacon_watch");
+	self endon("disconnect");
+	self endon("starting_beacon_watch");
+	attract_dist_diff = level.beacon_attract_dist_diff;
+
+	if (!isdefined(attract_dist_diff))
+		attract_dist_diff = 45;
+
+	num_attractors = level.num_beacon_attractors;
+
+	if (!isdefined(num_attractors))
+		num_attractors = 96;
+
+	max_attract_dist = level.beacon_attract_dist;
+
+	if (!isdefined(max_attract_dist))
+		max_attract_dist = 1536;
+
+	while (true)
+	{
+		grenade = get_thrown_beacon();
+		self thread player_throw_beacon(grenade, num_attractors, max_attract_dist, attract_dist_diff);
+	}
+}
+
 player_throw_beacon(grenade, num_attractors, max_attract_dist, attract_dist_diff)
 {
 	self endon("disconnect");
@@ -27,13 +54,14 @@ player_throw_beacon(grenade, num_attractors, max_attract_dist, attract_dist_diff
 			return;
 		}
 
+		grenade.angles = (0, grenade.angles[1], 0);
 		grenade hide();
 		model = spawn("script_model", grenade.origin);
+		model.angles = grenade.angles;
 		model endon("weapon_beacon_timeout");
 		model setmodel("t6_wpn_zmb_homing_beacon_world");
 		model useanimtree(#animtree);
 		model linkto(grenade);
-		model.angles = grenade.angles;
 		model thread beacon_cleanup(grenade);
 		model.owner = self;
 		clone = undefined;

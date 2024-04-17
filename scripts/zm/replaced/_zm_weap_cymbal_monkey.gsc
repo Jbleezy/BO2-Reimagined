@@ -65,12 +65,13 @@ player_throw_cymbal_monkey(grenade, num_attractors, max_attract_dist, attract_di
 			return;
 		}
 
+		grenade.angles = (0, grenade.angles[1], 0);
 		grenade hide();
 		model = spawn("script_model", grenade.origin);
+		model.angles = grenade.angles;
 		model setmodel(level.cymbal_monkey_model);
 		model useanimtree(#animtree);
 		model linkto(grenade);
-		model.angles = grenade.angles;
 		model thread monkey_cleanup(grenade);
 		clone = undefined;
 
