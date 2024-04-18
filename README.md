@@ -560,6 +560,7 @@
 * Fires all projectiles at once
 * Projectiles fire in a straight line
 * Projectiles no longer seek toward zombies
+* Removed projectile upward speed
 * Deadshot improves accuracy
 * Stuck zombie counts as a kill
 * Unupgraded: changed weapon name from "Acid Gat" to "Acidgat"
