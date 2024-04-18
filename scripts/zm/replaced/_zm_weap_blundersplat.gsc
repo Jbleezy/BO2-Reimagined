@@ -19,12 +19,11 @@ wait_for_blundersplat_fired()
 
 		if (str_weapon == "blundersplat_zm")
 		{
-			fire_time = weaponfiretime(str_weapon);
+			self setweaponammoclip(str_weapon, 0);
 
 			for (i = 0; i < weaponclipsize(str_weapon); i++)
 			{
 				_titus_locate_target(1, i);
-				wait fire_time;
 			}
 		}
 	}
@@ -42,12 +41,11 @@ wait_for_blundersplat_upgraded_fired()
 
 		if (str_weapon == "blundersplat_upgraded_zm")
 		{
-			fire_time = weaponfiretime(str_weapon);
+			self setweaponammoclip(str_weapon, 0);
 
 			for (i = 0; i < weaponclipsize(str_weapon); i++)
 			{
-				_titus_locate_target(1, i);
-				wait fire_time;
+				_titus_locate_target(0, i);
 			}
 		}
 	}

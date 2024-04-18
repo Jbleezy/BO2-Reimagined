@@ -554,9 +554,10 @@
 
 #### Acidgat
 * Kills on any round in 1-2 bursts
-* Changed fire type from 3 round burst to 4 round burst
+* Increased clip ammo from 3 to 4
 * Increased player damage from 10 to 15
 * Increased move speed while aiming from 100% to 200% (same as Blundergat)
+* Fires all projectiles at once
 * Projectiles fire in a straight line
 * Projectiles no longer seek toward zombies
 * Deadshot improves accuracy
