@@ -12,6 +12,7 @@ main()
 	replaceFunc(maps\mp\zm_alcatraz_craftables::include_craftables, scripts\zm\replaced\zm_alcatraz_craftables::include_craftables);
 	replaceFunc(maps\mp\zm_alcatraz_gamemodes::init, scripts\zm\replaced\zm_alcatraz_gamemodes::init);
 	replaceFunc(maps\mp\zm_alcatraz_utility::blundergat_upgrade_station, scripts\zm\replaced\zm_alcatraz_utility::blundergat_upgrade_station);
+	replaceFunc(maps\mp\zm_alcatraz_utility::alcatraz_audio_get_mod_type_override, scripts\zm\replaced\zm_alcatraz_utility::alcatraz_audio_get_mod_type_override);
 	replaceFunc(maps\mp\zm_alcatraz_utility::check_solo_status, scripts\zm\replaced\zm_alcatraz_utility::check_solo_status);
 	replaceFunc(maps\mp\zm_alcatraz_sq::start_alcatraz_sidequest, scripts\zm\replaced\zm_alcatraz_sq::start_alcatraz_sidequest);
 	replaceFunc(maps\mp\zm_alcatraz_sq::dryer_zombies_thread, scripts\zm\replaced\zm_alcatraz_sq::dryer_zombies_thread);
@@ -31,6 +32,7 @@ main()
 	replaceFunc(maps\mp\zm_prison_spoon::init, scripts\zm\replaced\zm_prison_spoon::init);
 	replaceFunc(maps\mp\zm_prison_spoon::give_player_spoon_upon_receipt, scripts\zm\replaced\zm_prison_spoon::give_player_spoon_upon_receipt);
 	replaceFunc(maps\mp\zm_prison_spoon::dip_the_spoon, scripts\zm\replaced\zm_prison_spoon::dip_the_spoon);
+	replaceFunc(maps\mp\zm_prison_spoon::extra_death_func_to_check_for_splat_death, scripts\zm\replaced\zm_prison_spoon::extra_death_func_to_check_for_splat_death);
 	replaceFunc(maps\mp\zm_prison_sq_bg::give_sq_bg_reward, scripts\zm\replaced\zm_prison_sq_bg::give_sq_bg_reward);
 	replaceFunc(maps\mp\zm_prison_sq_final::stage_one, scripts\zm\replaced\zm_prison_sq_final::stage_one);
 	replaceFunc(maps\mp\zm_prison_sq_final::final_flight_trigger, scripts\zm\replaced\zm_prison_sq_final::final_flight_trigger);
@@ -55,6 +57,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_riotshield_prison::trackriotshield, scripts\zm\replaced\_zm_riotshield_prison::trackriotshield);
 	replaceFunc(maps\mp\zombies\_zm_weap_riotshield_prison::init, scripts\zm\replaced\_zm_weap_riotshield_prison::init);
 	replaceFunc(maps\mp\zombies\_zm_weap_riotshield_prison::player_damage_shield, scripts\zm\replaced\_zm_weap_riotshield_prison::player_damage_shield);
+	replaceFunc(maps\mp\zombies\_zm_weap_blundersplat::init, scripts\zm\replaced\_zm_weap_blundersplat::init);
 	replaceFunc(maps\mp\zombies\_zm_weap_blundersplat::wait_for_blundersplat_fired, scripts\zm\replaced\_zm_weap_blundersplat::wait_for_blundersplat_fired);
 	replaceFunc(maps\mp\zombies\_zm_weap_blundersplat::wait_for_blundersplat_upgraded_fired, scripts\zm\replaced\_zm_weap_blundersplat::wait_for_blundersplat_upgraded_fired);
 	replaceFunc(maps\mp\zombies\_zm_weap_blundersplat::_titus_target_animate_and_die, scripts\zm\replaced\_zm_weap_blundersplat::_titus_target_animate_and_die);

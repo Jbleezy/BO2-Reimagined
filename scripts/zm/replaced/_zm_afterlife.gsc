@@ -594,7 +594,7 @@ afterlife_player_damage_callback(einflictor, eattacker, idamage, idflags, smeans
 
 	if (smeansofdeath == "MOD_PROJECTILE" || smeansofdeath == "MOD_PROJECTILE_SPLASH" || smeansofdeath == "MOD_GRENADE" || smeansofdeath == "MOD_GRENADE_SPLASH")
 	{
-		if (sweapon == "blundersplat_explosive_dart_zm")
+		if (sweapon == "blundersplat_explosive_dart_zm" || sweapon == "blundersplat_explosive_dart_upgraded_zm")
 		{
 			if (self hasperk("specialty_flakjacket"))
 			{

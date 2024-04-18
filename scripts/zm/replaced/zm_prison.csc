@@ -51,6 +51,7 @@ entityspawned_alcatraz(localclientnum)
 				break;
 
 			case "blundersplat_explosive_dart_zm":
+			case "blundersplat_explosive_dart_upgraded_zm":
 				self thread clientscripts\mp\zombies\_zm_weap_blundersplat::spawned(localclientnum);
 				break;
 		}

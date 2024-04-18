@@ -564,6 +564,8 @@
 * Deadshot improves accuracy
 * Stuck zombie counts as a kill
 * Unupgraded: changed weapon name from "Acid Gat" to "Acidgat"
+* Upgraded: increased max splash damage from 1000 to 2000
+* Upgraded: increased min splash damage from 500 to 1000
 * Upgraded: added camo
 * Upgraded: added proper fire sound
 

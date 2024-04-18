@@ -203,6 +203,108 @@ wait_for_player_to_take(player, str_valid_weapon)
 	}
 }
 
+alcatraz_audio_get_mod_type_override(impact, mod, weapon, zombie, instakill, dist, player)
+{
+	close_dist = 4096;
+	med_dist = 15376;
+	far_dist = 75625;
+	a_str_mod = [];
+
+	if (isdefined(zombie.my_soul_catcher))
+	{
+		if (!(isdefined(zombie.my_soul_catcher.wolf_kill_cooldown) && zombie.my_soul_catcher.wolf_kill_cooldown))
+		{
+			if (!(isdefined(player.soul_catcher_cooldown) && player.soul_catcher_cooldown))
+			{
+				if (isdefined(zombie.my_soul_catcher.souls_received) && zombie.my_soul_catcher.souls_received > 0)
+					a_str_mod[a_str_mod.size] = "wolf_kill";
+				else if (isdefined(zombie.my_soul_catcher.souls_received) && zombie.my_soul_catcher.souls_received == 0)
+				{
+					if (!(isdefined(level.wolf_encounter_vo_played) && level.wolf_encounter_vo_played))
+					{
+						if (level.soul_catchers_charged == 0)
+							zombie.my_soul_catcher thread maps\mp\zm_alcatraz_weap_quest::first_wolf_encounter_vo();
+					}
+				}
+			}
+		}
+	}
+
+	if (weapon == "blundergat_zm" || weapon == "blundergat_upgraded_zm")
+		a_str_mod[a_str_mod.size] = "blundergat";
+
+	if (isdefined(zombie.damageweapon) && (zombie.damageweapon == "blundersplat_explosive_dart_zm" || zombie.damageweapon == "blundersplat_explosive_dart_upgraded_zm"))
+		a_str_mod[a_str_mod.size] = "acidgat";
+
+	if (isdefined(zombie.damageweapon) && zombie.damageweapon == "bouncing_tomahawk_zm")
+		a_str_mod[a_str_mod.size] = "retriever";
+
+	if (isdefined(zombie.damageweapon) && zombie.damageweapon == "upgraded_tomahawk_zm")
+		a_str_mod[a_str_mod.size] = "redeemer";
+
+	if (weapon == "minigun_alcatraz_zm" || weapon == "minigun_alcatraz_upgraded_zm")
+		a_str_mod[a_str_mod.size] = "death_machine";
+
+	if (is_headshot(weapon, impact, mod) && dist >= far_dist)
+		a_str_mod[a_str_mod.size] = "headshot";
+
+	if (is_explosive_damage(mod) && weapon != "ray_gun_zm" && weapon != "ray_gun_upgraded_zm" && !(isdefined(zombie.is_on_fire) && zombie.is_on_fire))
+	{
+		if (!isinarray(a_str_mod, "retriever") && !isinarray(a_str_mod, "redeemer"))
+		{
+			if (!instakill)
+				a_str_mod[a_str_mod.size] = "explosive";
+			else
+				a_str_mod[a_str_mod.size] = "weapon_instakill";
+		}
+	}
+
+	if (weapon == "ray_gun_zm" || weapon == "ray_gun_upgraded_zm")
+	{
+		if (dist > far_dist)
+		{
+			if (!instakill)
+				a_str_mod[a_str_mod.size] = "raygun";
+			else
+				a_str_mod[a_str_mod.size] = "weapon_instakill";
+		}
+	}
+
+	if (instakill)
+	{
+		if (mod == "MOD_MELEE")
+			a_str_mod[a_str_mod.size] = "melee_instakill";
+		else
+			a_str_mod[a_str_mod.size] = "weapon_instakill";
+	}
+
+	if (mod != "MOD_MELEE" && !zombie.has_legs)
+		a_str_mod[a_str_mod.size] = "crawler";
+
+	if (mod != "MOD_BURNED" && dist < close_dist)
+		a_str_mod[a_str_mod.size] = "closekill";
+
+	if (a_str_mod.size == 0)
+		str_mod_final = "default";
+	else if (a_str_mod.size == 1)
+		str_mod_final = a_str_mod[0];
+	else
+	{
+		for (i = 0; i < a_str_mod.size; i++)
+		{
+			if (cointoss())
+				str_mod_final = a_str_mod[i];
+		}
+
+		str_mod_final = a_str_mod[randomint(a_str_mod.size)];
+	}
+
+	if (str_mod_final == "wolf_kill")
+		player thread wolf_kill_cooldown_watcher(zombie.my_soul_catcher);
+
+	return str_mod_final;
+}
+
 check_solo_status()
 {
 	level.is_forever_solo_game = 0;

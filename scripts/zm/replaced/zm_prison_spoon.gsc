@@ -124,3 +124,33 @@ thrust_the_spork()
 	wait 1.0;
 	self thread do_player_general_vox("quest", "pick_up_easter_egg");
 }
+
+extra_death_func_to_check_for_splat_death()
+{
+	self thread maps\mp\zombies\_zm_spawner::zombie_death_animscript();
+
+	if (self.damagemod == "MOD_GRENADE" || self.damagemod == "MOD_GRENADE_SPLASH")
+	{
+		if (self.damageweapon == "blundersplat_explosive_dart_zm" || self.damageweapon == "blundersplat_explosive_dart_upgraded_zm")
+		{
+			if (isplayer(self.attacker))
+				self notify("killed_by_a_blundersplat", self.attacker);
+		}
+		else if (self.damageweapon == "bouncing_tomahawk_zm")
+		{
+			if (isplayer(self.attacker))
+				self.attacker notify("got_a_tomahawk_kill");
+		}
+	}
+
+	if (isdefined(self.attacker.killed_with_only_tomahawk))
+	{
+		if (self.damageweapon != "bouncing_tomahawk_zm" && self.damageweapon != "none")
+			self.attacker.killed_with_only_tomahawk = 0;
+	}
+
+	if (isdefined(self.attacker.killed_something_thq))
+		self.attacker.killed_something_thq = 1;
+
+	return false;
+}

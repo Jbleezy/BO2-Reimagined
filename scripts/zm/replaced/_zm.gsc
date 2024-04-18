@@ -1564,6 +1564,14 @@ actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, 
 		}
 	}
 
+	if (weapon == "blundersplat_explosive_dart_upgraded_zm")
+	{
+		if (!is_true(self.is_brutus))
+		{
+			final_damage = scale_damage(final_damage, 8000);
+		}
+	}
+
 	if (weapon == "staff_revive_zm")
 	{
 		if (!is_true(self.is_mechz))
