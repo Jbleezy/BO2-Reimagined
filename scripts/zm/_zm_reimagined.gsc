@@ -40,6 +40,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_utility::give_start_weapon, scripts\zm\replaced\_zm_utility::give_start_weapon);
 	replaceFunc(maps\mp\zombies\_zm_utility::is_headshot, scripts\zm\replaced\_zm_utility::is_headshot);
 	replaceFunc(maps\mp\zombies\_zm_utility::shock_onpain, scripts\zm\replaced\_zm_utility::shock_onpain);
+	replaceFunc(maps\mp\zombies\_zm_utility::create_zombie_point_of_interest, scripts\zm\replaced\_zm_utility::create_zombie_point_of_interest);
 	replaceFunc(maps\mp\zombies\_zm_utility::create_zombie_point_of_interest_attractor_positions, scripts\zm\replaced\_zm_utility::create_zombie_point_of_interest_attractor_positions);
 	replaceFunc(maps\mp\zombies\_zm_utility::get_current_zone, scripts\zm\replaced\_zm_utility::get_current_zone);
 	replaceFunc(maps\mp\zombies\_zm_utility::is_temporary_zombie_weapon, scripts\zm\replaced\_zm_utility::is_temporary_zombie_weapon);

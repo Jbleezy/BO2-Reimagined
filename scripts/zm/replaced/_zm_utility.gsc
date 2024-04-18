@@ -101,6 +101,42 @@ shock_onpain()
 	}
 }
 
+create_zombie_point_of_interest(attract_dist, num_attractors, added_poi_value, start_turned_on, initial_attract_func, arrival_attract_func, poi_team)
+{
+	if (!isdefined(added_poi_value))
+		self.added_poi_value = 0;
+	else
+		self.added_poi_value = added_poi_value;
+
+	if (!isdefined(start_turned_on))
+		start_turned_on = 1;
+
+	self.script_noteworthy = "zombie_poi";
+	self.poi_active = start_turned_on;
+
+	if (isdefined(attract_dist))
+		self.poi_radius = attract_dist * attract_dist;
+	else
+		self.poi_radius = undefined;
+
+	self.num_poi_attracts = num_attractors;
+	self.attract_to_origin = 1;
+	self.attractor_array = [];
+	self.initial_attract_func = undefined;
+	self.arrival_attract_func = undefined;
+
+	if (isdefined(poi_team))
+		self._team = poi_team;
+
+	if (isdefined(initial_attract_func))
+		self.initial_attract_func = initial_attract_func;
+
+	if (isdefined(arrival_attract_func))
+		self.arrival_attract_func = arrival_attract_func;
+
+	level notify("attractor_positions_generated");
+}
+
 create_zombie_point_of_interest_attractor_positions(num_attract_dists, diff_per_dist, attractor_width)
 {
 	self endon("death");
