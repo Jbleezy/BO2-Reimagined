@@ -552,6 +552,8 @@
 * Kills on any round in 1-2 shots
 * Increased pellet count from 7 to 8
 * Increased pellet size
+* Unupgraded: decreased stock ammo from 60 to 30
+* Upgraded: decreased stock ammo from 120 to 60
 * Upgraded: added camo
 
 #### Acidgat
@@ -565,7 +567,9 @@
 * Removed projectile upward speed
 * Deadshot improves accuracy
 * Stuck zombie counts as a kill
+* Unupgraded: decreased stock ammo from 30 bursts to 15 bursts
 * Unupgraded: changed weapon name from "Acid Gat" to "Acidgat"
+* Upgraded: decreased stock ammo from 50 bursts to 30 bursts
 * Upgraded: increased max splash damage from 1000 to 2000
 * Upgraded: increased min splash damage from 500 to 1000
 * Upgraded: added camo
