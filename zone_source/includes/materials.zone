@@ -14,6 +14,7 @@ material,menu_zm_weapons_one_inch_punch_lightning
 material,menu_zm_weapons_item_meat
 material,menu_zm_weapons_item_head
 material,menu_zm_weapons_syrette
+material,hud_indicator_blundersplat
 image,menu_zm_weapons_ray_gun
 image,menu_zm_weapons_raygun_mark2
 image,menu_zm_weapons_blundergat
@@ -30,3 +31,4 @@ image,menu_zm_weapons_one_inch_punch_lightning
 image,menu_zm_weapons_item_meat
 image,menu_zm_weapons_item_head
 image,menu_zm_weapons_syrette
+image,hud_indicator_blundersplat

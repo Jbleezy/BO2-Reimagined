@@ -561,9 +561,11 @@
 * Increased clip ammo from 3 to 4
 * Increased player damage from 10 to 15
 * Increased move speed while aiming from 100% to 200% (same as Blundergat)
+* Decreased explosion radius by 50%
 * Fires all projectiles at once
 * Projectiles fire in a straight line
 * Projectiles no longer seek toward zombies
+* Added projectile indicator
 * Removed projectile upward speed
 * Deadshot improves accuracy
 * Stuck zombie counts as a kill
