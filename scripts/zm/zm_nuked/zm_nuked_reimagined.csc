@@ -4,4 +4,6 @@
 main()
 {
 	replaceFunc(clientscripts\mp\zm_nuked::main, scripts\zm\replaced\zm_nuked::main);
+
+	scripts\zm\reimagined\_explosive_dart::main();
 }

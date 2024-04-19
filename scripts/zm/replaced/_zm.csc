@@ -44,3 +44,29 @@ init_wallbuy_fx()
 	if (isdefined(level.buildable_wallbuy_weapons))
 		level._effect["dynamic_wallbuy_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_question");
 }
+
+entityspawned(localclientnum)
+{
+	if (!isdefined(self.type))
+	{
+		return;
+	}
+
+	if (self.type == "player")
+		self thread playerspawned(localclientnum);
+
+	if (self.type == "missile")
+	{
+		switch (self.weapon)
+		{
+			case "sticky_grenade_zm":
+				self thread clientscripts\mp\_sticky_grenade::spawned(localclientnum);
+				break;
+
+			case "titus6_explosive_dart_zm":
+			case "titus6_explosive_dart_upgraded_zm":
+				self thread scripts\zm\reimagined\_explosive_dart::spawned(localclientnum);
+				break;
+		}
+	}
+}
