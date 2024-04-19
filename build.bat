@@ -2,7 +2,9 @@
 
 "%OAT_BASE%\Linker.exe" ^
 --load "%OAT_GAME%\zone\all\weapons!metalstorm_mms_sp.ff" ^
+--load "%OAT_GAME%\zone\all\weapons!exptitus6_sp.ff" ^
 --load "%OAT_GAME%\zone\all\so_cmp_afghanistan.ff" ^
+--load "%OAT_GAME%\zone\all\code_post_gfx.ff" ^
 --load "%OAT_GAME%\zone\all\frontend_patch.ff" ^
 --load "%OAT_GAME%\zone\all\frontend.ff" ^
 --base-folder "%OAT_BASE%" ^

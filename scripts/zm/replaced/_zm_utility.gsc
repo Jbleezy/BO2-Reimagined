@@ -338,6 +338,23 @@ is_temporary_zombie_weapon(str_weapon)
 	return is_zombie_perk_bottle(str_weapon) || str_weapon == level.revive_tool || str_weapon == "zombie_builder_zm" || str_weapon == "chalk_draw_zm" || str_weapon == "no_hands_zm" || issubstr(str_weapon, "_flourish");
 }
 
+is_alt_weapon(weapname)
+{
+	if (getsubstr(weapname, 0, 3) == "gl_")
+		return true;
+
+	if (getsubstr(weapname, 0, 3) == "mk_")
+		return true;
+
+	if (getsubstr(weapname, 0, 3) == "sf_")
+		return true;
+
+	if (getsubstr(weapname, 0, 10) == "dualoptic_")
+		return true;
+
+	return false;
+}
+
 wait_network_frame()
 {
 	wait 0.1;

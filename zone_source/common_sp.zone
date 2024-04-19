@@ -5,6 +5,7 @@
 >level.ipak_read,sp
 
 include,includes/weapons/metalstorm_mms_zm
+include,includes/weapons/titus6_zm
 
 image,menu_mp_weapons_minigun_future
 material,menu_mp_weapons_minigun_future

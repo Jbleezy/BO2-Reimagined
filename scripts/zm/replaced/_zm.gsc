@@ -1584,6 +1584,26 @@ actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, 
 		}
 	}
 
+	if (weapon == "titus6_explosive_dart_zm")
+	{
+		final_damage = scale_damage(final_damage, 3000);
+	}
+
+	if (weapon == "titus6_explosive_dart_upgraded_zm")
+	{
+		final_damage = scale_damage(final_damage, 6000);
+	}
+
+	if (weapon == "mk_titus6_zm")
+	{
+		final_damage = scale_damage(final_damage, 500);
+	}
+
+	if (weapon == "mk_titus6_upgraded_zm")
+	{
+		final_damage = scale_damage(final_damage, 1000);
+	}
+
 	if (weapon == "staff_revive_zm")
 	{
 		if (!is_true(self.is_mechz))
@@ -2259,9 +2279,16 @@ player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, s
 			return 0;
 		}
 
-		if (self.health > 75 && !is_true(self.is_zombie))
+		exp_damage = 75;
+
+		if (sweapon == "titus6_explosive_dart_zm" || sweapon == "titus6_explosive_dart_upgraded_zm")
 		{
-			return 75;
+			exp_damage = 15;
+		}
+
+		if (self.health > exp_damage && !is_true(self.is_zombie))
+		{
+			return exp_damage;
 		}
 	}
 

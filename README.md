@@ -71,6 +71,7 @@
 	* [Specials](#specials)
 		* [Ballistic Knife](#ballistic-knife)
 		* [Storm PSR](#storm-psr)
+		* [Titus-6](#titus-6)
 	* [Wonder Weapons](#wonder-weapons)
 		* [Ray Gun](#ray-gun)
 		* [Ray Gun Mark 2](#ray-gun-mark-2)
@@ -490,6 +491,11 @@
 * Added on Tranzit
 * Kills on any round fully charged
 * Infinite penetration
+
+#### Titus-6
+* Added on Nuketown
+* Kills on any round in 1-2 bursts
+* Buckshot: kills on any round in 1-2 shots
 
 ### Wonder Weapons
 

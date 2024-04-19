@@ -43,6 +43,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_utility::create_zombie_point_of_interest, scripts\zm\replaced\_zm_utility::create_zombie_point_of_interest);
 	replaceFunc(maps\mp\zombies\_zm_utility::create_zombie_point_of_interest_attractor_positions, scripts\zm\replaced\_zm_utility::create_zombie_point_of_interest_attractor_positions);
 	replaceFunc(maps\mp\zombies\_zm_utility::get_current_zone, scripts\zm\replaced\_zm_utility::get_current_zone);
+	replaceFunc(maps\mp\zombies\_zm_utility::is_alt_weapon, scripts\zm\replaced\_zm_utility::is_alt_weapon);
 	replaceFunc(maps\mp\zombies\_zm_utility::is_temporary_zombie_weapon, scripts\zm\replaced\_zm_utility::is_temporary_zombie_weapon);
 	replaceFunc(maps\mp\zombies\_zm_utility::wait_network_frame, scripts\zm\replaced\_zm_utility::wait_network_frame);
 	replaceFunc(maps\mp\zombies\_zm_utility::track_players_intersection_tracker, scripts\zm\replaced\_zm_utility::track_players_intersection_tracker);
@@ -1681,6 +1682,16 @@ weapon_changes()
 		include_weapon("metalstorm_mms_upgraded_zm", 0);
 		add_limited_weapon("metalstorm_mms_zm", 1);
 		add_zombie_weapon("metalstorm_mms_zm", "metalstorm_mms_upgraded_zm", &"WEAPON_METALSTORM", 1000, "", "", undefined, 1);
+	}
+
+	if (level.script == "zm_nuked")
+	{
+		include_weapon("titus6_zm");
+		include_weapon("titus6_upgraded_zm", 0);
+		add_limited_weapon("titus6_zm", 1);
+		add_zombie_weapon("titus6_zm", "titus6_upgraded_zm", &"WEAPON_TITUS6_EXPLOSIVE", 1000, "", "", undefined, 1);
+		precacheitem("titus6_explosive_dart_zm");
+		precacheitem("titus6_explosive_dart_upgraded_zm");
 	}
 
 	if (level.script == "zm_prison")
