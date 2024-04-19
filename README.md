@@ -488,6 +488,8 @@
 
 #### Storm PSR
 * Added on Tranzit
+* Kills on any round fully charged
+* Infinite penetration
 
 ### Wonder Weapons
 

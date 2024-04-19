@@ -1572,6 +1572,18 @@ actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, 
 		}
 	}
 
+	if (issubstr(weapon, "metalstorm"))
+	{
+		if (issubstr(weapon, "upgraded"))
+		{
+			final_damage = scale_damage(final_damage, 10000);
+		}
+		else
+		{
+			final_damage = scale_damage(final_damage, 5000);
+		}
+	}
+
 	if (weapon == "staff_revive_zm")
 	{
 		if (!is_true(self.is_mechz))
