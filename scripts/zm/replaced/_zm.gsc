@@ -1596,12 +1596,12 @@ actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, 
 
 	if (weapon == "mk_titus6_zm")
 	{
-		final_damage = scale_damage(final_damage, 500);
+		final_damage = scale_damage(final_damage, 1000);
 	}
 
 	if (weapon == "mk_titus6_upgraded_zm")
 	{
-		final_damage = scale_damage(final_damage, 1000);
+		final_damage = scale_damage(final_damage, 2000);
 	}
 
 	if (weapon == "staff_revive_zm")
