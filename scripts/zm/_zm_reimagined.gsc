@@ -1954,8 +1954,8 @@ metalstorm_fired(weapname)
 	forward_angles = self getweaponforwarddir();
 	fire_origin = self getweaponmuzzlepoint();
 	end_origin = fire_origin + (forward_angles * 10000);
-	cylinder_dist_squared = 12 * 12;
-	height_dist = 36;
+	body_dist_2d_squared = 12 * 12;
+	head_dist_squared = 8 * 8;
 	targets = getaispeciesarray(level.zombie_team, "all");
 	targets = arraycombine(targets, get_players(), 1, 0);
 
@@ -1971,8 +1971,8 @@ metalstorm_fired(weapname)
 			continue;
 		}
 
-		test_origin = target getcentroid();
-		normal = vectornormalize(test_origin - fire_origin);
+		body_origin = target getcentroid();
+		normal = vectornormalize(body_origin - fire_origin);
 		dot = vectordot(forward_angles, normal);
 
 		if (dot < 0)
@@ -1980,21 +1980,34 @@ metalstorm_fired(weapname)
 			continue;
 		}
 
-		radial_origin = pointonsegmentnearesttopoint(fire_origin, end_origin, test_origin);
+		loc = "none";
+		head_origin = target gettagorigin("j_head");
+		head_radial_origin = pointonsegmentnearesttopoint(fire_origin, end_origin, head_origin);
 
-		if (distance2dsquared(test_origin, radial_origin) > cylinder_dist_squared)
+		if (distancesquared(head_origin, head_radial_origin) <= head_dist_squared)
 		{
-			continue;
+			loc = "head";
+		}
+		else
+		{
+			body_radial_origin = pointonsegmentnearesttopoint(fire_origin, end_origin, body_origin);
+
+			if (distance2dsquared(body_origin, body_radial_origin) <= body_dist_2d_squared)
+			{
+				if (body_radial_origin[2] >= target.origin[2] && body_radial_origin[2] < head_origin[2])
+				{
+					loc = "torso_lower";
+				}
+			}
 		}
 
-		if (abs(test_origin[2] - radial_origin[2]) > height_dist)
+		if (loc == "none")
 		{
 			continue;
 		}
 
 		damage = self metalstorm_get_damage(weapname);
-
-		target dodamage(damage, target.origin, self, self, "none", "MOD_RIFLE_BULLET", 0, weapname);
+		target dodamage(damage, target.origin, self, self, loc, "MOD_RIFLE_BULLET", 0, weapname);
 	}
 }
 

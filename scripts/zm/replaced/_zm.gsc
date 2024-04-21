@@ -1616,7 +1616,10 @@ actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, 
 	{
 		if (meansofdeath == "MOD_PISTOL_BULLET" || meansofdeath == "MOD_RIFLE_BULLET")
 		{
-			final_damage *= 1.5;
+			if (!issubstr(weapon, "metalstorm"))
+			{
+				final_damage *= 1.5;
+			}
 		}
 	}
 
@@ -1628,7 +1631,10 @@ actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, 
 			{
 				if (!isSubStr(weaponClass(weapon), "spread") || maps\mp\zombies\_zm_weapons::get_base_weapon_name(weapon, 1) == "ksg_zm")
 				{
-					final_damage *= 2;
+					if (!issubstr(weapon, "metalstorm"))
+					{
+						final_damage *= 2;
+					}
 				}
 			}
 		}
