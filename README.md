@@ -1209,6 +1209,7 @@
 * Der Wunderfizz: all perks have an equal chance of being obtained
 * Der Wunderfizz: moves to new location instantly
 * Rituals of the Ancients: spend points challenge reward changed from Double Tap perk to a random perk that the player does not have (perk does not change if reward is reopened)
+* Rituals of the Ancients: FAL OSW replaces Galil in perform headshots challenge reward
 * Soul boxes: decreased number of souls to close from 30 to 20
 * Dig spots: decreased number of digs to obtain golden shovel from 30 to 20
 * Dig spots: changed number of digs to obtain golden helmet to 40 (normally 5% chance to obtain after obtaining golden shovel)
