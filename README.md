@@ -1189,7 +1189,7 @@
 * Staff parts on HUD no longer show that a player has a staff when it is crafted
 * Changed order of Zombie Shield and Maxis Drone recipes on HUD
 * Changed background color of Maxis Drone parts on HUD from green to orange
-* Moved tablet icon above health bar and zone name
+* Moved challenge medals and tablet icon above health bar and zone name
 * Added attachment name on HUD for upgraded attachment weapons
 * Generators: increased capture reward points from 100 to 200
 * Generators: always give back refund points if player was in the generator zone when captured
