@@ -775,8 +775,9 @@
 * Downing kills all zombies around the player
 
 ### Vulture-Aid
-* Stink areas no longer activate while the player is moving
+* Added ability to see zombies through walls
 * Removed ability to see perks, wallbuys, and Mystery Box through walls
+* Stink areas no longer activate while the player is moving
 
 ## Pack-a-Punch
 * Changed default weapon camo to dragon camo from Black Ops 2 Multiplayer (modified to be darker on primary camo and not animated on secondary camo)

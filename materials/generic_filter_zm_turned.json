@@ -1,0 +1,90 @@
+{
+	"_type": "material",
+	"_version": 1,
+	"cameraRegion": "none",
+	"constants": [
+		{
+			"literal": [
+				0.0,
+				0.0,
+				0.0,
+				1.0
+			],
+			"name": "BlurAmount"
+		}
+	],
+	"contents": 1,
+	"gameFlags": [],
+	"hashIndex": 0,
+	"layeredSurfaceTypes": 536870912,
+	"probeMipBits": 0,
+	"sortKey": 4,
+	"stateBits": [
+		{
+			"alphaTest": "disabled",
+			"blendOpAlpha": "add",
+			"blendOpRgb": "add",
+			"colorWriteAlpha": true,
+			"colorWriteRgb": true,
+			"cullFace": "none",
+			"depthTest": "disabled",
+			"depthWrite": false,
+			"dstBlendAlpha": "one",
+			"dstBlendRgb": "invsrcalpha",
+			"polygonOffset": "offset0",
+			"polymodeLine": false,
+			"srcBlendAlpha": "invdestalpha",
+			"srcBlendRgb": "one",
+			"stencilBack": null,
+			"stencilFront": null
+		}
+	],
+	"stateBitsEntry": [
+		-1,
+		-1,
+		0,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1
+	],
+	"stateFlags": 0,
+	"surfaceFlags": 0,
+	"surfaceTypeBits": 0,
+	"techniqueSet": "sw4_2d_zm_turned_6w16136w",
+	"textureAtlas": {
+		"columns": 1,
+		"rows": 1
+	},
+	"textures": [],
+	"thermalMaterial": null
+}

@@ -11,6 +11,7 @@ material,menu_zm_nuked_zsurvival_nuked
 material,menu_zm_prison_zencounter_cellblock
 material,menu_zm_buried_zencounter_street
 material,menu_zm_map_transit_blit_power
+material,generic_filter_zm_turned
 image,menu_zm_transit_zclassic_transit
 image,menu_zm_highrise_zclassic_rooftop
 image,menu_zm_prison_select_mob
