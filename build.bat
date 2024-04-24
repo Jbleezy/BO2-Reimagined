@@ -12,6 +12,8 @@
 --source-search-path "%cd%\zone_source" ^
 --output-folder "%cd%\zone_source" common_sp
 
+if %ERRORLEVEL% NEQ 0 pause
+
 "%OAT_BASE%\Linker.exe" ^
 --load "%cd%\zone_source\common_sp.ff" ^
 --load "%OAT_GAME%\zone\english\en_code_post_gfx_mp.ff" ^
