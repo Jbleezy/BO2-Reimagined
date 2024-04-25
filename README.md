@@ -89,6 +89,8 @@
 		* [G-Strike Beacon](#g-strike-beacon)
 	* [Equipment](#equipment)
 		* [Combat Knife](#combat-knife)
+		* [Silver Spoon](#silver-spoon)
+		* [Golden Spork](#golden-spork)
 		* [One Inch Punch](#one-inch-punch)
 		* [Frag Grenade](#frag-grenade)
 		* [Semtex](#semtex)
@@ -640,6 +642,12 @@
 
 #### Combat Knife
 * Added model from Black Ops 2 Multiplayer
+
+#### Silver Spoon
+* Decreased damage from 1100 to 1000
+
+#### Golden Spork
+* Decreased damage from 10000 to 5000
 
 #### One Inch Punch
 * Deals same damage at any range
