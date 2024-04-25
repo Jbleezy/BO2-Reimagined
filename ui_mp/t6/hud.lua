@@ -394,16 +394,12 @@ function HUD_FirstSnapshot_Zombie(HUDWidget, ClientInstance)
 	local f19_local1 = LUI.createMenu.CompetitiveScoreboard(ClientInstance.controller)
 	f19_local1:setUseGameTime(true)
 	Widget:addElement(f19_local1)
-	if CoD.Zombie.IsDLCMap(CoD.Zombie.DLC2Maps) or CoD.Zombie.IsDLCMap(CoD.Zombie.DLC3Maps) or CoD.Zombie.IsDLCMap(CoD.Zombie.DLC4Maps) then
-		require("T6.Zombie.AmmoAreaZombie")
-		local f19_local2 = LUI.createMenu.AmmoAreaZombie(ClientInstance.controller)
-		f19_local2:setUseGameTime(true)
-		Widget:addElement(f19_local2)
-	else
-		local f19_local2 = LUI.createMenu.DPadArea(ClientInstance.controller)
-		f19_local2:setUseGameTime(true)
-		Widget:addElement(f19_local2)
-	end
+
+	require("T6.Zombie.AmmoAreaZombie")
+	local f19_local2 = LUI.createMenu.AmmoAreaZombie(ClientInstance.controller)
+	f19_local2:setUseGameTime(true)
+	Widget:addElement(f19_local2)
+
 	if CoD.Zombie.GAMETYPE_ZCLEANSED == Dvar.ui_gametype:get() then
 		local f19_local2 = LUI.createMenu.TimerAreaZM(ClientInstance.controller)
 		f19_local2:setUseGameTime(true)

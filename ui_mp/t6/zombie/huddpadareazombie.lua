@@ -250,7 +250,7 @@ LUI.createMenu.DPadArea = function(f1_arg0)
 	Widget:registerEventHandler("hud_update_team_change", CoD.DPadArea.UpdateTeamChange)
 	if CoD.isPC then
 		Widget:registerEventHandler("input_source_changed", CoD.DPadArea.InputSourceChanged)
-		if CoD.useController and Engine.LastInput_Gamepad() or UIExpression.DvarBool(nil, "hud_dpad_controller") == 1 then
+		if CoD.useController and Engine.LastInput_Gamepad() or UIExpression.DvarBool(nil, "hud_dpad_pc") == 0 then
 			CoD.DPadArea.InputSourceChanged(Widget, {
 				source = 0,
 			})
@@ -369,7 +369,7 @@ CoD.DPadArea.UpdateActionSlots = function(f2_arg0, f2_arg1)
 					f2_local8:setText(f2_local9.ammo)
 					Widget:addElement(f2_local8)
 				end
-				if CoD.isPC and UIExpression.DvarBool(nil, "hud_dpad_controller") == 0 then
+				if CoD.isPC and UIExpression.DvarBool(nil, "hud_dpad_pc") == 1 then
 					local f2_local10 = 200
 					local f2_local8 = nil
 					if f2_local4 == 1 then
@@ -432,7 +432,7 @@ CoD.DPadArea.UpdateActionSlots = function(f2_arg0, f2_arg1)
 						Widget.keyPrompt:setAlignment(LUI.Alignment.Right)
 						Widget:registerAnimationState("KeyPrompt", f2_local8)
 						Widget:addElement(Widget.keyPrompt)
-						if CoD.useController and Engine.LastInput_Gamepad() or UIExpression.DvarBool(nil, "hud_dpad_controller") == 1 then
+						if CoD.useController and Engine.LastInput_Gamepad() or UIExpression.DvarBool(nil, "hud_dpad_pc") == 0 then
 							CoD.DPadArea.ActionSlotInputSourceChanged(Widget, {
 								source = 0,
 							})
@@ -527,7 +527,7 @@ end
 
 CoD.DPadArea.ActionSlotInputSourceChanged = function(f8_arg0, f8_arg1)
 	if CoD.isPC then
-		if CoD.useController and f8_arg1.source == 0 or UIExpression.DvarBool(nil, "hud_dpad_controller") == 1 then
+		if CoD.useController and f8_arg1.source == 0 or UIExpression.DvarBool(nil, "hud_dpad_pc") == 0 then
 			f8_arg0:animateToState("default")
 			if f8_arg0.keyPrompt ~= nil then
 				f8_arg0.keyPrompt:setAlpha(0)

@@ -29,8 +29,10 @@ LUI.createMenu.AmmoAreaZombie = function(f1_arg0)
 	f1_local0.scaleContainer:setLeftRight(false, true, 0, 0)
 	f1_local0.scaleContainer:setTopBottom(false, true, 0, 0)
 	f1_local0:addElement(f1_local0.scaleContainer)
-	local f1_local1 = nil
-	if CoD.Zombie.IsDLCMap(CoD.Zombie.DLC2Maps) then
+	local f1_local1 = "transit_"
+	if CoD.Zombie.IsDLCMap(CoD.Zombie.DLC1Maps) then
+		f1_local1 = "highrise_"
+	elseif CoD.Zombie.IsDLCMap(CoD.Zombie.DLC2Maps) then
 		f1_local1 = "hell_"
 	elseif CoD.Zombie.IsDLCMap(CoD.Zombie.DLC3Maps) then
 		f1_local1 = "buried_"
@@ -211,9 +213,9 @@ CoD.AmmoAreaZombie.UpdateActionSlots = function(f2_arg0, f2_arg1)
 		if f2_local4 == 1 then
 			f2_local7 = {
 				left = -f2_local14 / 2,
-				top = CoD.AmmoAreaZombie.CircleSize / 4 - f2_local13 / 2 - 9,
+				top = CoD.AmmoAreaZombie.CircleSize / 4 - f2_local13 / 2,
 				right = f2_local14 / 2,
-				bottom = CoD.AmmoAreaZombie.CircleSize / 4 + f2_local13 / 2 - 9,
+				bottom = CoD.AmmoAreaZombie.CircleSize / 4 + f2_local13 / 2,
 				leftAnchor = false,
 				topAnchor = true,
 				rightAnchor = false,
@@ -222,9 +224,9 @@ CoD.AmmoAreaZombie.UpdateActionSlots = function(f2_arg0, f2_arg1)
 		elseif f2_local4 == 2 then
 			f2_local7 = {
 				left = -f2_local14 / 2,
-				top = -CoD.AmmoAreaZombie.CircleSize / 4 - f2_local13 / 2 + 2,
+				top = -CoD.AmmoAreaZombie.CircleSize / 4 - f2_local13 / 2,
 				right = f2_local14 / 2,
-				bottom = -CoD.AmmoAreaZombie.CircleSize / 4 + f2_local13 / 2 + 2,
+				bottom = -CoD.AmmoAreaZombie.CircleSize / 4 + f2_local13 / 2,
 				leftAnchor = false,
 				topAnchor = false,
 				rightAnchor = false,
@@ -232,9 +234,9 @@ CoD.AmmoAreaZombie.UpdateActionSlots = function(f2_arg0, f2_arg1)
 			}
 		elseif f2_local4 == 3 then
 			f2_local7 = {
-				left = CoD.AmmoAreaZombie.CircleSize / 4 - f2_local14 / 2 - 2,
+				left = CoD.AmmoAreaZombie.CircleSize / 4 - f2_local14 / 2,
 				top = -f2_local13 / 2,
-				right = CoD.AmmoAreaZombie.CircleSize / 4 + f2_local14 / 2 - 2,
+				right = CoD.AmmoAreaZombie.CircleSize / 4 + f2_local14 / 2,
 				bottom = f2_local13 / 2,
 				leftAnchor = true,
 				topAnchor = false,
@@ -243,9 +245,9 @@ CoD.AmmoAreaZombie.UpdateActionSlots = function(f2_arg0, f2_arg1)
 			}
 		elseif f2_local4 == 4 then
 			f2_local7 = {
-				left = -CoD.AmmoAreaZombie.CircleSize / 4 - f2_local14 / 2 + 5,
+				left = -CoD.AmmoAreaZombie.CircleSize / 4 - f2_local14 / 2,
 				top = -f2_local13 / 2,
-				right = -CoD.AmmoAreaZombie.CircleSize / 4 + f2_local14 / 2 + 5,
+				right = -CoD.AmmoAreaZombie.CircleSize / 4 + f2_local14 / 2,
 				bottom = f2_local13 / 2,
 				leftAnchor = false,
 				topAnchor = false,
@@ -274,7 +276,7 @@ CoD.AmmoAreaZombie.UpdateActionSlots = function(f2_arg0, f2_arg1)
 					f2_local10:setText(f2_local12.ammo)
 					Widget:addElement(f2_local10)
 				end
-				if CoD.isPC and UIExpression.DvarBool(nil, "hud_dpad_controller") == 0 then
+				if CoD.isPC and UIExpression.DvarBool(nil, "hud_dpad_pc") == 1 then
 					local f2_local10 = 200
 					local f2_local11 = nil
 					if f2_local4 == 1 then
@@ -337,7 +339,7 @@ CoD.AmmoAreaZombie.UpdateActionSlots = function(f2_arg0, f2_arg1)
 						Widget.keyPrompt:setAlignment(LUI.Alignment.Right)
 						Widget:registerAnimationState("KeyPrompt", f2_local11)
 						Widget:addElement(Widget.keyPrompt)
-						if CoD.useController and Engine.LastInput_Gamepad() or UIExpression.DvarBool(nil, "hud_dpad_controller") == 1 then
+						if CoD.useController and Engine.LastInput_Gamepad() or UIExpression.DvarBool(nil, "hud_dpad_pc") == 0 then
 							CoD.AmmoAreaZombie.ActionSlotInputSourceChanged(Widget, {
 								source = 0,
 							})
@@ -518,21 +520,21 @@ CoD.AmmoAreaZombie.UpdateOverheat = function(f8_arg0, f8_arg1)
 
 		f8_local2 = f8_local2 + (f8_local4 / 2)
 
-		f8_arg0.ammoDigits[f8_local10]:setDigit(10, f8_local0)
+		f8_arg0.ammoDigits[f8_local10]:setDigit(CoD.HUDDigit.Slash, f8_local0)
 		f8_arg0.ammoDigits[f8_local10]:setLeftRight(false, true, f8_local2 - f8_local3, f8_local2)
 		f8_arg0.ammoDigits[f8_local10]:setTopBottom(false, true, f8_local5, f8_local5 + f8_local6)
 		f8_local10 = f8_local10 + 1
 
-		local digitRatio = 2.5
-		local offsetLeftRight = 15
-		local offsetTopBottom = 7
+		local digitRatio = 3
+		local offsetLeftRight = 17
+		local offsetTopBottom = 10
 		f8_arg0.ammoDigits[f8_local10]:setDigit(0, f8_local0)
 		f8_arg0.ammoDigits[f8_local10]:setLeftRight(false, true, f8_local2 - (f8_local3 / digitRatio) - offsetLeftRight, f8_local2 - offsetLeftRight)
 		f8_arg0.ammoDigits[f8_local10]:setTopBottom(false, true, f8_local5 + offsetTopBottom, f8_local5 + (f8_local6 / digitRatio) + offsetTopBottom)
 		f8_local10 = f8_local10 + 1
 
-		offsetLeftRight = 4
-		offsetTopBottom = 31
+		offsetLeftRight = 5
+		offsetTopBottom = 32
 		f8_arg0.ammoDigits[f8_local10]:setDigit(0, f8_local0)
 		f8_arg0.ammoDigits[f8_local10]:setLeftRight(false, true, f8_local2 - (f8_local3 / digitRatio) - offsetLeftRight, f8_local2 - offsetLeftRight)
 		f8_arg0.ammoDigits[f8_local10]:setTopBottom(false, true, f8_local5 + offsetTopBottom, f8_local5 + (f8_local6 / digitRatio) + offsetTopBottom)
@@ -663,7 +665,7 @@ end
 
 CoD.AmmoAreaZombie.ActionSlotInputSourceChanged = function(f15_arg0, f15_arg1)
 	if CoD.isPC then
-		if CoD.useController and f15_arg1.source == 0 or UIExpression.DvarBool(nil, "hud_dpad_controller") == 1 then
+		if CoD.useController and f15_arg1.source == 0 or UIExpression.DvarBool(nil, "hud_dpad_pc") == 0 then
 			f15_arg0:animateToState("default")
 			if f15_arg0.keyPrompt ~= nil then
 				f15_arg0.keyPrompt:setAlpha(0)

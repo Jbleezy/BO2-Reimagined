@@ -171,12 +171,13 @@
 * Timer displayed on top right of screen
 * Health bar displayed on bottom left of screen
 * Zone name displayed on bottom left of screen
+* Added custom ammo display on Tranzit, Nuketown, and Die Rise
 * Character name displayed on all maps
 * Character name fades out after 15 seconds on all maps
-* Moved points display, grenade icons, and keyboard & mouse dpad icons to their positions from Origins on all maps
 * Weapon name is all capitalized on all maps
 * Weapon name is the same text size on all maps
 * Weapon name and ammo no longer fade out
+* Moved keyboard & mouse dpad icons to the same position as controller dpad icons
 * Grenade icons no longer fade based on how many the player currently has
 * Ammo counter no longer shows while scoped on all maps
 * Added proper game mode and map name to scoreboard
