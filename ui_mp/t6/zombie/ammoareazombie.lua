@@ -30,7 +30,9 @@ LUI.createMenu.AmmoAreaZombie = function(f1_arg0)
 	f1_local0.scaleContainer:setTopBottom(false, true, 0, 0)
 	f1_local0:addElement(f1_local0.scaleContainer)
 	local f1_local1 = "transit_"
-	if CoD.Zombie.IsDLCMap(CoD.Zombie.DLC1Maps) then
+	if CoD.Zombie.IsDLCMap(CoD.Zombie.DLC0Maps) then
+		f1_local1 = "nuked_"
+	elseif CoD.Zombie.IsDLCMap(CoD.Zombie.DLC1Maps) then
 		f1_local1 = "highrise_"
 	elseif CoD.Zombie.IsDLCMap(CoD.Zombie.DLC2Maps) then
 		f1_local1 = "hell_"
@@ -533,8 +535,8 @@ CoD.AmmoAreaZombie.UpdateOverheat = function(f8_arg0, f8_arg1)
 		f8_arg0.ammoDigits[f8_local10]:setTopBottom(false, true, f8_local5 + offsetTopBottom, f8_local5 + (f8_local6 / digitRatio) + offsetTopBottom)
 		f8_local10 = f8_local10 + 1
 
-		offsetLeftRight = 5
-		offsetTopBottom = 32
+		offsetLeftRight = 4
+		offsetTopBottom = 33
 		f8_arg0.ammoDigits[f8_local10]:setDigit(0, f8_local0)
 		f8_arg0.ammoDigits[f8_local10]:setLeftRight(false, true, f8_local2 - (f8_local3 / digitRatio) - offsetLeftRight, f8_local2 - offsetLeftRight)
 		f8_arg0.ammoDigits[f8_local10]:setTopBottom(false, true, f8_local5 + offsetTopBottom, f8_local5 + (f8_local6 / digitRatio) + offsetTopBottom)

@@ -28,6 +28,8 @@ material,hud_zm_num_transit_8
 material,hud_zm_num_transit_9
 material,hud_zm_num_transit_slash
 material,hud_zm_num_transit_line
+material,hud_zm_nuked_dpad
+material,hud_zm_nuked_dpad_bar
 material,hud_zm_highrise_dpad
 material,hud_zm_highrise_dpad_bar
 material,hud_zm_num_highrise_0
@@ -73,6 +75,8 @@ image,hud_transit_zom_num_8
 image,hud_transit_zom_num_9
 image,hud_transit_zom_num_slash
 image,hud_transit_zom_num_line
+image,hud_nuked_dpad
+image,hud_nuked_dpad_bar
 image,hud_highrise_dpad
 image,hud_highrise_dpad_bar
 image,hud_highrise_zom_num_0
