@@ -380,7 +380,6 @@ on_player_connect()
 		player thread on_player_revived();
 		player thread on_player_fake_revive();
 
-		player thread weapon_fire_watcher();
 		player thread grenade_fire_watcher();
 		player thread player_hide_turrets_from_other_players();
 		player thread sndmeleewpnsound();
@@ -1912,22 +1911,6 @@ wallbuy_cost_changes()
 	}
 }
 
-weapon_fire_watcher()
-{
-	level endon("end_game");
-	self endon("disconnect");
-
-	while (1)
-	{
-		self waittill("weapon_fired", weapname);
-
-		if (issubstr(weapname, "metalstorm"))
-		{
-			self thread metalstorm_fired(weapname);
-		}
-	}
-}
-
 grenade_fire_watcher()
 {
 	level endon("end_game");
@@ -1947,80 +1930,6 @@ grenade_fire_watcher()
 			grenade.angles = (0, grenade.angles[1], 0);
 		}
 	}
-}
-
-metalstorm_fired(weapname)
-{
-	forward_angles = self getweaponforwarddir();
-	fire_origin = self getweaponmuzzlepoint();
-	end_origin = fire_origin + (forward_angles * 10000);
-	body_dist_2d_squared = 12 * 12;
-	head_dist_squared = 8 * 8;
-	targets = getaispeciesarray(level.zombie_team, "all");
-	targets = arraycombine(targets, get_players(), 1, 0);
-
-	foreach (target in targets)
-	{
-		if (isdefined(self.team) && isdefined(target.team) && self.team == target.team)
-		{
-			continue;
-		}
-
-		if (target damageconetrace(fire_origin, self) == 0)
-		{
-			continue;
-		}
-
-		body_origin = target getcentroid();
-		normal = vectornormalize(body_origin - fire_origin);
-		dot = vectordot(forward_angles, normal);
-
-		if (dot < 0)
-		{
-			continue;
-		}
-
-		loc = "none";
-		head_origin = target gettagorigin("j_head");
-		head_radial_origin = pointonsegmentnearesttopoint(fire_origin, end_origin, head_origin);
-
-		if (distancesquared(head_origin, head_radial_origin) <= head_dist_squared)
-		{
-			loc = "head";
-		}
-		else
-		{
-			body_radial_origin = pointonsegmentnearesttopoint(fire_origin, end_origin, body_origin);
-
-			if (distance2dsquared(body_origin, body_radial_origin) <= body_dist_2d_squared)
-			{
-				if (body_radial_origin[2] >= target.origin[2] && body_radial_origin[2] < head_origin[2])
-				{
-					loc = "torso_lower";
-				}
-			}
-		}
-
-		if (loc == "none")
-		{
-			continue;
-		}
-
-		damage = self metalstorm_get_damage(weapname);
-		target dodamage(damage, target.origin, self, self, loc, "MOD_RIFLE_BULLET", 0, weapname);
-	}
-}
-
-metalstorm_get_damage(weapname)
-{
-	base_damage = 1000;
-
-	if (issubstr(weapname, "upgraded"))
-	{
-		base_damage = 2000;
-	}
-
-	return base_damage * self.chargeshotlevel;
 }
 
 temp_disable_offhand_weapons()

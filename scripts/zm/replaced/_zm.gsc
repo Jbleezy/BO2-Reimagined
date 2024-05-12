@@ -1576,10 +1576,32 @@ actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, 
 	{
 		if (issubstr(weapon, "upgraded"))
 		{
+			// do same damage through penetration
+			if (isdefined(attacker.chargeshotlevel))
+			{
+				final_damage = 2000 * attacker.chargeshotlevel;
+
+				if (is_headshot(weapon, shitloc, meansofdeath))
+				{
+					final_damage = int(final_damage * 1.5);
+				}
+			}
+
 			final_damage = scale_damage(final_damage, 10000);
 		}
 		else
 		{
+			// do same damage through penetration
+			if (isdefined(attacker.chargeshotlevel))
+			{
+				final_damage = 1000 * attacker.chargeshotlevel;
+
+				if (is_headshot(weapon, shitloc, meansofdeath))
+				{
+					final_damage = int(final_damage * 1.5);
+				}
+			}
+
 			final_damage = scale_damage(final_damage, 5000);
 		}
 	}
