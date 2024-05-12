@@ -559,9 +559,12 @@
 
 #### Blundergat
 * Kills on any round in 1-2 shots
-* Increased pellet count from 7 to 8
+* Infinite penetration
+* Decreased pellet count from 7 to 4
 * Increased pellet size
+* Unupgraded: increased pellet damage from 500-250 to 1000-500
 * Unupgraded: decreased stock ammo from 60 to 30
+* Upgraded: increased pellet damage from 1000-500 to 2000-1000
 * Upgraded: decreased stock ammo from 120 to 60
 * Upgraded: added camo
 
