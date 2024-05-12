@@ -590,6 +590,11 @@ set_dvars()
 
 	setDvar("g_friendlyfireDist", 0);
 
+	setDvar("bg_jetgun_disable_spin_while_meleeing", 1);
+	setDvar("bg_jetgun_disable_z_thrust", 1);
+
+	setDvar("bg_fallDamageScale", 0);
+
 	setDvar("perk_weapRateEnhanced", 0);
 
 	setDvar("riotshield_melee_damage_scale", 1);
@@ -599,9 +604,6 @@ set_dvars()
 	setDvar("riotshield_deployed_health", 1500);
 
 	setDvar("r_fog", 0);
-
-	setDvar("sv_patch_zm_weapons", 1);
-	setDvar("sv_fix_zm_weapons", 0);
 
 	setDvar("sv_voice", 2);
 	setDvar("sv_voiceQuality", 9);
@@ -634,6 +636,17 @@ set_client_dvars()
 	self setClientDvar("cg_friendlyNameFadeOut", 250);
 	self setClientDvar("cg_enemyNameFadeIn", 0);
 	self setClientDvar("cg_enemyNameFadeOut", 250);
+
+	self setClientDvar("cg_sonarAttachmentSpeedDelay", 0.1);
+	self setClientDvar("cg_sonarAttachmentMaxSpeed", 6);
+	self setClientDvar("cg_sonarAttachmentSightCheck", 1);
+	self setClientDvar("cg_sonarAttachmentFullscreenColorFix", 1);
+
+	self setClientDvar("bg_jetgun_disable_spin_while_meleeing", 1);
+	self setClientDvar("bg_jetgun_disable_z_thrust", 1);
+	self setClientDvar("cg_jetgun_fix_spin_dial", 1);
+
+	self setClientDvar("bg_fallDamageScale", 0);
 
 	self setClientDvar("waypointOffscreenPointerDistance", 30);
 	self setClientDvar("waypointOffscreenPadTop", 32);

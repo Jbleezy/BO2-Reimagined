@@ -529,13 +529,16 @@
 * Heats up half as fast
 * Cools down twice as fast
 * Cools down while not holding weapon
+* No longer spins up while meleeing
 * No longer kills when not firing
+* No longer changes player vertical velocity while firing
 * No longer automatically switched to weapon when picked up
 * No longer disassembles when overheated
 * Weapon is taken when overheated
 * Buildable table model no longer shows when player has weapon
 * Added heat percentage on HUD
 * Changed weapon name from "Thrustodyne Aeronautics Model 23" to "Jet Gun"
+* Fixed spin dial being inaccurate
 * Fixed HUD icon fading after firing
 
 #### Sliquifier

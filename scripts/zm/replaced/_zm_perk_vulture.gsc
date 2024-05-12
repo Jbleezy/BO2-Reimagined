@@ -108,7 +108,6 @@ vulture_perk_ir_think()
 	self endon("disconnect");
 	self endon("vulture_perk_lost");
 
-	self setclientdvar("cg_sonarAttachmentSpeedDelay", 0.1);
 	prev_val = 0;
 
 	while (1)
@@ -140,27 +139,6 @@ vulture_perk_ir_is_valid()
 	if (isdefined(self.vulture_stink_value) && self.vulture_stink_value > 0)
 	{
 		return 0;
-	}
-
-	zombies = getaispeciesarray(level.zombie_team, "all");
-
-	if (isdefined(level.sloth))
-	{
-		zombies = add_to_array(zombies, level.sloth, 0);
-	}
-
-	foreach (zombie in zombies)
-	{
-		if (zombie damageconetrace(self getplayercamerapos(), self))
-		{
-			normal = vectornormalize(zombie getcentroid() - self getplayercamerapos());
-			dot = vectordot(anglestoforward(self.angles), normal);
-
-			if (dot >= 0.5)
-			{
-				return 0;
-			}
-		}
 	}
 
 	return 1;
