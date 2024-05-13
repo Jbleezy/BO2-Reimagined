@@ -21552,3 +21552,15 @@
 "script_string" " zstandard_perks_cellblock zgrief_perks_cellblock"
 "guid" "F8E3FE1D"
 }
+{
+"origin" "-507.332 4857.67 -7.73416"
+"angles" "0 95 -70"
+"model" "p6_zm_al_horrific_crate_b"
+"classname" "script_model"
+}
+{
+"origin" "-625.532 4878.12 -28.3526"
+"angles" "0 105 0"
+"model" "p6_zm_al_horrific_crate_b"
+"classname" "script_model"
+}
