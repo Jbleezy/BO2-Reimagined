@@ -184,9 +184,13 @@ init()
 
 precache_strings()
 {
+	precacheString(&"set_dvar_from_dvar");
 	precacheString(&"hud_update_health");
 	precacheString(&"hud_update_zone_fade_out");
 	precacheString(&"hud_update_zone_fade_in");
+
+	precacheString(&"r_fog");
+	precacheString(&"r_fog_settings");
 
 	foreach (zone_name in level.zone_keys)
 	{
@@ -603,7 +607,7 @@ set_dvars()
 	setDvar("riotshield_projectile_damage_scale", 1);
 	setDvar("riotshield_deployed_health", 1500);
 
-	setDvar("r_fog", 0);
+	setDvar("r_fog", getDvar("r_fog_settings"));
 
 	setDvar("sv_voice", 2);
 	setDvar("sv_voiceQuality", 9);
@@ -622,6 +626,9 @@ set_dvars()
 
 set_client_dvars()
 {
+	// set client dvars in lua that can't be set in gsc/csc
+	self luinotifyevent(&"set_dvar_from_dvar", 2, &"r_fog", &"r_fog_settings");
+
 	self setClientDvar("player_lastStandBleedoutTime", getDvarInt("player_lastStandBleedoutTime"));
 
 	self setClientDvar("dtp_post_move_pause", getDvarInt("dtp_post_move_pause"));
@@ -653,8 +660,6 @@ set_client_dvars()
 	self setClientDvar("waypointOffscreenPadBottom", 32);
 	self setClientDvar("waypointPlayerOffsetStand", 30);
 	self setClientDvar("waypointPlayerOffsetCrouch", 30);
-
-	self setClientDvar("r_fog", 0);
 
 	self setClientDvar("r_dof_enable", 0);
 	self setClientDvar("r_lodBiasRigid", -1000);

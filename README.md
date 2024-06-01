@@ -16,6 +16,7 @@
 
 ## Table of Contents
 * [General](#general)
+* [Settings](#settings)
 * [HUD](#hud)
 * [Players](#players)
 * [Zombies](#zombies)
@@ -160,13 +161,15 @@
 	* [Encounter Pro](#encounter-pro)
 
 ## General
-* Removed 5 second wait before match start
-* Removed fog
 * Removed round cap
+* Removed 5 second wait before match start
 * Disabled depth of field
 * Increased level of detail at longer distances
 * Announcer audio always plays
 * In-game menu no longer disabled instantly when the game ends
+
+## Settings
+* Added option to disable fog
 
 ## HUD
 * Enemy counter displayed on top left of screen
