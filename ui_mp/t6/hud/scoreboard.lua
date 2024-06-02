@@ -1,15 +1,3 @@
-if UIExpression.DvarString(nil, "ui_gametype_obj") == "" then
-	Engine.SetDvar("ui_gametype_obj", "")
-end
-
-if UIExpression.DvarString(nil, "ui_gametype_pro") == "" then
-	Engine.SetDvar("ui_gametype_pro", 0)
-end
-
-if UIExpression.DvarString(nil, "ui_round_number") == "" then
-	Engine.SetDvar("ui_round_number", 0)
-end
-
 local SCOREBOARD_BACKGROUND_OPACITY = 0.7
 local SCOREBOARD_COLUMN_BACKGROUND_OPACITY = 0.2
 local f0_local6 = 337

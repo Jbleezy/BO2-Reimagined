@@ -1,7 +1,3 @@
-if UIExpression.DvarString(nil, "additionalPrimaryWeaponName") == "" then
-	Engine.SetDvar("additionalPrimaryWeaponName", "")
-end
-
 CoD.WeaponLabel = {}
 CoD.WeaponLabel.TextHeight = 32
 CoD.WeaponLabel.FadeTime = 2000

@@ -1,9 +1,5 @@
 require("T6.HUD.HUDDigit")
 
-if UIExpression.DvarString(nil, "additionalPrimaryWeaponName") == "" then
-	Engine.SetDvar("additionalPrimaryWeaponName", "")
-end
-
 CoD.AmmoAreaZombie = {}
 CoD.AmmoAreaZombie.Right = -28
 CoD.AmmoAreaZombie.Bottom = -7

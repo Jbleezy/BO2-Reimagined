@@ -167,6 +167,22 @@ local f0_local4 = function(f8_arg0, f8_arg1, f8_arg2, f8_arg3)
 end
 
 CoD.InitCustomDvars = function()
+	if UIExpression.DvarString(nil, "ui_gametype_obj") == "" then
+		Engine.SetDvar("ui_gametype_obj", "")
+	end
+
+	if UIExpression.DvarString(nil, "ui_gametype_pro") == "" then
+		Engine.SetDvar("ui_gametype_pro", 0)
+	end
+
+	if UIExpression.DvarString(nil, "ui_round_number") == "" then
+		Engine.SetDvar("ui_round_number", 0)
+	end
+
+	if UIExpression.DvarString(nil, "additionalPrimaryWeaponName") == "" then
+		Engine.SetDvar("additionalPrimaryWeaponName", "")
+	end
+
 	if UIExpression.DvarString(nil, "r_fog_settings") == "" then
 		Engine.Exec(nil, "seta r_fog_settings 0")
 	end
