@@ -598,7 +598,7 @@ function CoD.Loading.GetGametypeDisplayName(gametype)
 		return Engine.Localize("ZMUI_ZCLASSIC_GAMEMODE_CAPS")
 	end
 
-	if gametype == CoD.Zombie.GAMETYPE_ZGRIEF then
+	if gametype == CoD.Zombie.GAMETYPE_ZGRIEF and UIExpression.DvarString(nil, "ui_gametype_obj") ~= "" then
 		return Engine.Localize("ZMUI_" .. UIExpression.DvarString(nil, "ui_gametype_obj") .. "_CAPS")
 	end
 

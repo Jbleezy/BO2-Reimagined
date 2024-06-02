@@ -465,10 +465,19 @@ map_vote()
 		}
 
 		setDvar("ui_gametype_obj_cur", maps[index]["obj_name"]);
+
+		level thread wait_and_setclientdvarall(1.5, "ui_gametype_obj", getDvar("ui_gametype_obj_cur"));
 	}
 
 	level.zombie_vars["vote_input_hud"].alpha = 0;
 	level.zombie_vars["vote_timer_hud"].alpha = 0;
+}
+
+wait_and_setclientdvarall(time, dvar, value)
+{
+	wait time;
+
+	scripts\zm\_zm_reimagined::setclientdvarall(dvar, value);
 }
 
 create_map_image_hud(image, x, y)
