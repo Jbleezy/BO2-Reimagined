@@ -226,7 +226,7 @@ LUI.createMenu.Loading = function(LocalClientIndex)
 	local Gametype = Dvar.ui_gametype:get()
 	local LoadscreenName = "loadscreen_" .. Mapname
 	if CoD.isZombie == true then
-		if Engine.GameModeIsMode(CoD.GAMEMODE_THEATER) == false and Dvar.party_maxplayers:get() == 1 and (Mapname == CoD.Zombie.MAP_ZM_HIGHRISE or Mapname == CoD.Zombie.MAP_ZM_PRISON or Mapname == CoD.Zombie.MAP_ZM_BURIED or Mapname == CoD.Zombie.MAP_ZM_TOMB) and Gametype == CoD.Zombie.GAMETYPE_ZCLASSIC then
+		if Engine.GameModeIsMode(CoD.GAMEMODE_THEATER) == false and UIExpression.DvarInt(nil, "party_playerCount") == 1 and (Mapname == CoD.Zombie.MAP_ZM_HIGHRISE or Mapname == CoD.Zombie.MAP_ZM_PRISON or Mapname == CoD.Zombie.MAP_ZM_BURIED or Mapname == CoD.Zombie.MAP_ZM_TOMB) and Gametype == CoD.Zombie.GAMETYPE_ZCLASSIC then
 			LoadscreenName = "black"
 			UseLoadingMovie = true
 		else
