@@ -540,9 +540,8 @@ CoD.Loading.GetDidYouKnowString = function()
 end
 
 CoD.Loading.StartLoading = function(LoadingWidget, f8_arg1)
-	LoadingWidget.mapNameLabel:setText(Dvar.ls_mapname:get())
-	LoadingWidget.mapLocationLabel:setText(Dvar.ls_maplocation:get())
-	LoadingWidget.gametypeLabel:setText(Dvar.ls_gametype:get())
+	CoD.Loading.SetMapGametypeText(LoadingWidget)
+
 	if UIExpression.IsDemoPlaying(LoadingWidget:getOwner()) ~= 0 then
 		local DemoAuthor = Dvar.ls_demoauthor:get()
 		LoadingWidget.demoTitleLabel:setText(Dvar.ls_demotitle:get())
@@ -562,6 +561,48 @@ CoD.Loading.StartLoading = function(LoadingWidget, f8_arg1)
 	end
 	LoadingWidget.mapNameLabel:beginAnimation("map_name_fade_in", CoD.Loading.FadeInTime)
 	LoadingWidget.mapNameLabel:setAlpha(1)
+end
+
+function CoD.Loading.SetMapGametypeText(LoadingWidget)
+	local map = UIExpression.DvarString(nil, "ui_mapname")
+	local gametype = UIExpression.DvarString(nil, "ui_gametype")
+	local location = UIExpression.DvarString(nil, "ui_zm_mapstartlocation")
+
+	local mapNameText = CoD.Loading.GetMapNameDisplayName(map, gametype, location)
+	local mapLocationText = CoD.Loading.GetMapLocationDisplayName(map)
+	local gametypeText = CoD.Loading.GetGametypeDisplayName(gametype)
+
+	LoadingWidget.mapNameLabel:setText(mapNameText)
+	LoadingWidget.mapLocationLabel:setText(mapLocationText)
+	LoadingWidget.gametypeLabel:setText(gametypeText)
+end
+
+function CoD.Loading.GetMapNameDisplayName(map, gametype, location)
+	if gametype == CoD.Zombie.GAMETYPE_ZCLASSIC then
+		return CoD.GetZombieGameTypeDescription(gametype, map)
+	end
+
+	return Engine.Localize(UIExpression.TableLookup(nil, CoD.gametypesTable, 0, 5, 3, location, 4))
+end
+
+function CoD.Loading.GetMapLocationDisplayName(map)
+	if map == CoD.Zombie.MAP_ZM_NUKED then
+		return UIExpression.ToUpper(nil, Dvar.ls_mapname:get())
+	end
+
+	return UIExpression.ToUpper(nil, Dvar.ls_maplocation:get())
+end
+
+function CoD.Loading.GetGametypeDisplayName(gametype)
+	if gametype == CoD.Zombie.GAMETYPE_ZCLASSIC then
+		return Engine.Localize("ZMUI_ZCLASSIC_GAMEMODE_CAPS")
+	end
+
+	if gametype == CoD.Zombie.GAMETYPE_ZGRIEF then
+		return Engine.Localize("ZMUI_" .. UIExpression.DvarString(nil, "ui_gametype_obj") .. "_CAPS")
+	end
+
+	return Engine.Localize("ZMUI_" .. gametype .. "_CAPS")
 end
 
 CoD.Loading.StartSpinner = function(LoadingWidget, f9_arg1)
