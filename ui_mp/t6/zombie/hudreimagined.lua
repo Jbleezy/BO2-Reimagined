@@ -142,11 +142,15 @@ CoD.Reimagined.HealthBarArea.UpdateHealthBar = function(Menu, ClientInstance)
 	local healthPercent = health / maxHealth
 	local shieldHealthPercent = shieldHealth / 100
 
-	Menu.healthBar:setLeftRight(true, false, Menu.bgDiff, (Menu.width * healthPercent) - Menu.bgDiff)
+	local healthWidth = math.max(3, (Menu.width * healthPercent) - Menu.bgDiff)
+
+	Menu.healthBar:setLeftRight(true, false, Menu.bgDiff, healthWidth)
 
 	if shieldHealthPercent > 0 then
+		local shieldHealthWidth = math.max(3, (Menu.width * shieldHealthPercent) - Menu.bgDiff)
+
 		Menu.shieldBar:setAlpha(1)
-		Menu.shieldBar:setLeftRight(true, false, Menu.bgDiff, (Menu.width * shieldHealthPercent) - Menu.bgDiff)
+		Menu.shieldBar:setLeftRight(true, false, Menu.bgDiff, shieldHealthWidth)
 		Menu.healthBar:setTopBottom(true, false, (Menu.height + Menu.bgDiff) / 2, Menu.height - Menu.bgDiff)
 		Menu.healthText:setText(health .. " | " .. shieldHealth)
 	else
