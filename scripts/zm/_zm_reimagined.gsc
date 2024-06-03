@@ -186,8 +186,9 @@ precache_strings()
 {
 	precacheString(&"set_dvar_from_dvar");
 	precacheString(&"hud_update_health");
-	precacheString(&"hud_update_zone_fade_out");
-	precacheString(&"hud_update_zone_fade_in");
+	precacheString(&"hud_update_zone_name");
+	precacheString(&"hud_fade_out_zone_name");
+	precacheString(&"hud_fade_in_zone_name");
 
 	precacheString(&"r_fog");
 	precacheString(&"r_fog_settings");
@@ -1044,14 +1045,15 @@ zone_name_hud()
 		{
 			if (vars["prev_zone_name"] != &"")
 			{
-				self luinotifyevent(&"hud_update_zone_fade_out");
+				self luinotifyevent(&"hud_fade_out_zone_name");
 
 				wait 0.25;
 			}
 
 			if (vars["zone_name"] != &"")
 			{
-				self luinotifyevent(&"hud_update_zone_fade_in", 1, vars["zone_name"]);
+				self luinotifyevent(&"hud_update_zone_name", 1, vars["zone_name"]);
+				self luinotifyevent(&"hud_fade_in_zone_name");
 
 				wait 0.25;
 			}

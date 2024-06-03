@@ -115,8 +115,9 @@ LUI.createMenu.ReimaginedArea = function(LocalClientIndex)
 	zoneNameWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_PLAYER_DEAD, CoD.Reimagined.ZoneNameArea.UpdateVisibility)
 	zoneNameWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_SCOPED, CoD.Reimagined.ZoneNameArea.UpdateVisibility)
 	zoneNameWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_PLAYER_ZOMBIE, CoD.Reimagined.ZoneNameArea.UpdateVisibility)
-	zoneNameWidget:registerEventHandler("hud_update_zone_fade_out", CoD.Reimagined.ZoneNameArea.FadeOutZoneName)
-	zoneNameWidget:registerEventHandler("hud_update_zone_fade_in", CoD.Reimagined.ZoneNameArea.FadeInZoneName)
+	zoneNameWidget:registerEventHandler("hud_update_zone_name", CoD.Reimagined.ZoneNameArea.UpdateZoneName)
+	zoneNameWidget:registerEventHandler("hud_fade_out_zone_name", CoD.Reimagined.ZoneNameArea.FadeOutZoneName)
+	zoneNameWidget:registerEventHandler("hud_fade_in_zone_name", CoD.Reimagined.ZoneNameArea.FadeInZoneName)
 
 	return safeArea
 end
@@ -174,13 +175,15 @@ CoD.Reimagined.ZoneNameArea.UpdateVisibility = function(Menu, ClientInstance)
 	end
 end
 
+CoD.Reimagined.ZoneNameArea.UpdateZoneName = function(Menu, ClientInstance)
+	local zoneName = Engine.Localize(Engine.GetIString(ClientInstance.data[1], "CS_LOCALIZED_STRINGS"))
+	Menu.zoneNameText:setText(zoneName)
+end
+
 CoD.Reimagined.ZoneNameArea.FadeOutZoneName = function(Menu, ClientInstance)
 	Menu.zoneNameText:animateToState("fade_out", 250)
 end
 
 CoD.Reimagined.ZoneNameArea.FadeInZoneName = function(Menu, ClientInstance)
-	local zoneName = Engine.Localize(Engine.GetIString(ClientInstance.data[1], "CS_LOCALIZED_STRINGS"))
-
-	Menu.zoneNameText:setText(zoneName)
 	Menu.zoneNameText:animateToState("fade_in", 250)
 end
