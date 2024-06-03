@@ -1,4 +1,5 @@
 CoD.CompetitiveScoreboard = {}
+CoD.CompetitiveScoreboard.PrevClientInstance = nil
 CoD.CompetitiveScoreboard.RowWidth = 150
 CoD.CompetitiveScoreboard.RowHeight = 30
 CoD.CompetitiveScoreboard.FloatingLosePointsColor = {
@@ -352,6 +353,8 @@ CoD.CompetitiveScoreboard.UpdateVisibility = function(CompetitiveScoreboardWidge
 		CompetitiveScoreboardWidget.visible = nil
 	end
 	CompetitiveScoreboardWidget:dispatchEventToChildren(ClientInstance)
+
+	CoD.CompetitiveScoreboard.Update(CompetitiveScoreboardWidget, ClientInstance)
 end
 
 CoD.CompetitiveScoreboard.UpdateTeamChange = function(CompetitiveScoreboardWidget, ClientInstance)
@@ -421,6 +424,16 @@ CoD.CompetitiveScoreboard.UpdateItemDisplay = function(UnusedArg1, PlayerScoreLi
 end
 
 CoD.CompetitiveScoreboard.Update = function(CompetitiveScoreboardWidget, ClientInstance)
+	if ClientInstance.competitivescores == nil then
+		if CoD.CompetitiveScoreboard.PrevClientInstance == nil then
+			return
+		end
+
+		ClientInstance = CoD.CompetitiveScoreboard.PrevClientInstance
+	else
+		CoD.CompetitiveScoreboard.PrevClientInstance = ClientInstance
+	end
+
 	local ClientScoreIndex = 1
 	local PlayerScoreListWidget = nil
 	if #ClientInstance.competitivescores <= #CompetitiveScoreboardWidget.Scores then
@@ -446,8 +459,8 @@ CoD.CompetitiveScoreboard.Update = function(CompetitiveScoreboardWidget, ClientI
 			if ClientIndex == ClientInstance.selfindex then
 				CoD.CompetitiveScoreboard.CompetitiveScoreShowSelf(CompetitiveScoreboardWidget.Scores[ClientScoreIndex], ClientScoreIndex, 0)
 				CompetitiveScoreboardWidget.Scores[ClientScoreIndex].scoreBg:setAlpha(1)
-				if CoD.Zombie.IsCharacterNameDisplayMap() == true and CoD.CompetitiveScoreboard.ShouldUpdateCharacterName(CompetitiveScoreboardWidget, ClientInstance) then
-					CoD.CompetitiveScoreboard.UpdateCharacterName(CompetitiveScoreboardWidget, ClientInstance.modelName, CompetitiveScoreboardWidget.Scores[ClientScoreIndex], ClientIndex)
+				if CoD.Zombie.IsCharacterNameDisplayMap() == true then
+					CoD.CompetitiveScoreboard.UpdateCharacterName(CompetitiveScoreboardWidget, ClientInstance, CompetitiveScoreboardWidget.Scores[ClientScoreIndex], ClientIndex)
 					CoD.CompetitiveScoreboard.CompetitiveScoreTextShowPlayerColor(CompetitiveScoreboardWidget.Scores[ClientScoreIndex].characterName, ClientIndex, 0)
 				end
 			else
@@ -639,23 +652,17 @@ CoD.CompetitiveScoreboard.HasBit = function(ClientFieldValue, NavCardBit)
 	return NavCardBit <= ClientFieldValue % (NavCardBit + NavCardBit)
 end
 
-CoD.CompetitiveScoreboard.ShouldUpdateCharacterName = function(CompetitiveScoreboardWidget, ClientInstance)
-	local LocalClientIndex = ClientInstance.controller
+CoD.CompetitiveScoreboard.UpdateCharacterName = function(CompetitiveScoreboardWidget, ClientInstance, PlayerScoreListWidget, ClientIndex)
+	local ClientInstanceModelName = ClientInstance.modelName
 
-	if UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_HUD_VISIBLE) == 0 then
-		return false
-	elseif UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_IS_PLAYER_IN_AFTERLIFE) == 1 then
-		return false
-	end
-
-	return true
-end
-
-CoD.CompetitiveScoreboard.UpdateCharacterName = function(CompetitiveScoreboardWidget, ClientInstanceModelName, PlayerScoreListWidget, ClientIndex)
 	if not ClientInstanceModelName and PlayerScoreListWidget.characterName then
 		PlayerScoreListWidget.characterName:setText("")
 		return
-	elseif UIExpression.IsVisibilityBitSet(ClientIndex, CoD.BIT_SPECTATING_CLIENT) == 1 then
+	elseif UIExpression.IsVisibilityBitSet(ClientInstance.controller, CoD.BIT_SPECTATING_CLIENT) == 1 then
+		return
+	elseif UIExpression.IsVisibilityBitSet(ClientInstance.controller, CoD.BIT_HUD_VISIBLE) == 0 then
+		return
+	elseif UIExpression.IsVisibilityBitSet(ClientInstance.controller, CoD.BIT_IS_PLAYER_IN_AFTERLIFE) == 1 then
 		return
 	elseif PlayerScoreListWidget.playerModelName ~= ClientInstanceModelName then
 		local CharacterNameIndex = 0
