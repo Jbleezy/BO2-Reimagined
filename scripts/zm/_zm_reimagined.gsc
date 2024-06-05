@@ -185,13 +185,15 @@ init()
 precache_strings()
 {
 	precacheString(&"set_dvar_from_dvar");
-	precacheString(&"hud_update_health");
-	precacheString(&"hud_update_zone_name");
-	precacheString(&"hud_fade_out_zone_name");
-	precacheString(&"hud_fade_in_zone_name");
 
 	precacheString(&"r_fog");
 	precacheString(&"r_fog_settings");
+
+	precacheString(&"hud_update_health_bar");
+	precacheString(&"hud_update_zone_name");
+
+	precacheString(&"hud_fade_out_zone_name");
+	precacheString(&"hud_fade_in_zone_name");
 
 	foreach (zone_name in level.zone_keys)
 	{
@@ -741,7 +743,7 @@ health_bar_hud()
 
 		if (player.health != vars["prev_health"] || player.maxhealth != vars["prev_maxhealth"] || shield_health != vars["prev_shield_health"])
 		{
-			self luinotifyevent(&"hud_update_health", 3, player.health, player.maxhealth, shield_health);
+			self luinotifyevent(&"hud_update_health_bar", 3, player.health, player.maxhealth, shield_health);
 		}
 
 		vars["prev_health"] = player.health;

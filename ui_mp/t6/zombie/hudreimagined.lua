@@ -55,7 +55,7 @@ LUI.createMenu.ReimaginedArea = function(LocalClientIndex)
 
 	healthBarWidget:registerEventHandler("hud_update_refresh", CoD.Reimagined.HealthBarArea.UpdateVisibility)
 	healthBarWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_VISIBLE, CoD.Reimagined.HealthBarArea.UpdateVisibility)
-	healthBarWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_PLAYER_IN_AFTERLIFE, CoD.Perks.UpdateVisibility)
+	healthBarWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_PLAYER_IN_AFTERLIFE, CoD.Reimagined.HealthBarArea.UpdateVisibility)
 	healthBarWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_EMP_ACTIVE, CoD.Reimagined.HealthBarArea.UpdateVisibility)
 	healthBarWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM, CoD.Reimagined.HealthBarArea.UpdateVisibility)
 	healthBarWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN, CoD.Reimagined.HealthBarArea.UpdateVisibility)
@@ -70,7 +70,7 @@ LUI.createMenu.ReimaginedArea = function(LocalClientIndex)
 	healthBarWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_PLAYER_DEAD, CoD.Reimagined.HealthBarArea.UpdateVisibility)
 	healthBarWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_SCOPED, CoD.Reimagined.HealthBarArea.UpdateVisibility)
 	healthBarWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_PLAYER_ZOMBIE, CoD.Reimagined.HealthBarArea.UpdateVisibility)
-	healthBarWidget:registerEventHandler("hud_update_health", CoD.Reimagined.HealthBarArea.UpdateHealthBar)
+	healthBarWidget:registerEventHandler("hud_update_health_bar", CoD.Reimagined.HealthBarArea.UpdateHealthBar)
 
 	local x = 7
 	local y = -167
@@ -81,7 +81,6 @@ LUI.createMenu.ReimaginedArea = function(LocalClientIndex)
 	zoneNameWidget:setAlpha(0)
 	zoneNameWidget.width = width
 	zoneNameWidget.height = height
-	zoneNameWidget.bgDiff = bgDiff
 	safeArea:addElement(zoneNameWidget)
 
 	local zoneNameText = LUI.UIText.new()
