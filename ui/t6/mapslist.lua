@@ -42,6 +42,14 @@ CoD.MapsList.Locations = {
 	-- "ZMUI_CRAZY_PLACE_CAPS", -- TODO: add localized string, uncomment when location is added
 }
 
+local function switchToPrivateLobby(self)
+	local gameType = UIExpression.DvarString(nil, "ui_gametype")
+	local mapName = UIExpression.DvarString(nil, "ui_mapname")
+	CoD.SwitchToPrivateLobby(self.controller) -- this changes these dvars
+	Engine.SetDvar("ui_gametype", gameType)
+	Engine.SetDvar("ui_mapname", mapName)
+end
+
 local function gameModeListFocusChangedEventHandler(self, event)
 	local focusedIndex = self.listBox:getFocussedIndex()
 end
@@ -153,6 +161,8 @@ function LUI.createMenu.SelectGameModeListZM(controller)
 	self:registerEventHandler("listbox_focus_changed", gameModeListFocusChangedEventHandler)
 	self:registerEventHandler("click", gameModeListSelectionClickedEventHandler)
 
+	Engine.PartyHostSetUIState(CoD.PARTYHOST_STATE_SELECTING_GAMETYPE)
+
 	return self
 end
 
@@ -185,11 +195,7 @@ local function mapListSelectionClickedEventHandler(self, event)
 	end
 
 	if CoD.PrivateGameLobby.InGameLobby == nil then
-		local gameType = UIExpression.DvarString(nil, "ui_gametype")
-		local mapName = UIExpression.DvarString(nil, "ui_mapname")
-		CoD.SwitchToPrivateLobby(self.controller) -- this changes "ui_gametype" and "ui_mapname"
-		Engine.SetDvar("ui_gametype", gameType)
-		Engine.SetDvar("ui_mapname", mapName)
+		switchToPrivateLobby(self)
 	end
 
 	self:openMenu("PrivateOnlineGameLobby", self.controller)
@@ -235,6 +241,8 @@ function LUI.createMenu.SelectMapListZM(controller)
 
 	self:registerEventHandler("listbox_focus_changed", mapListFocusChangedEventHandler)
 	self:registerEventHandler("click", mapListSelectionClickedEventHandler)
+
+	Engine.PartyHostSetUIState(CoD.PARTYHOST_STATE_SELECTING_MAP)
 
 	return self
 end
@@ -303,11 +311,7 @@ local function locationListSelectionClickedEventHandler(self, event)
 	end
 
 	if CoD.PrivateGameLobby.InGameLobby == nil then
-		local gameType = UIExpression.DvarString(nil, "ui_gametype")
-		local mapName = UIExpression.DvarString(nil, "ui_mapname")
-		CoD.SwitchToPrivateLobby(self.controller) -- this changes "ui_gametype" and "ui_mapname"
-		Engine.SetDvar("ui_gametype", gameType)
-		Engine.SetDvar("ui_mapname", mapName)
+		switchToPrivateLobby(self)
 	end
 
 	self:openMenu("PrivateOnlineGameLobby", self.controller)
@@ -353,6 +357,8 @@ function LUI.createMenu.SelectLocationListZM(controller)
 
 	self:registerEventHandler("listbox_focus_changed", locationListFocusChangedEventHandler)
 	self:registerEventHandler("click", locationListSelectionClickedEventHandler)
+
+	Engine.PartyHostSetUIState(CoD.PARTYHOST_STATE_SELECTING_MAP)
 
 	return self
 end

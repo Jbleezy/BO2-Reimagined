@@ -209,8 +209,7 @@ CoD.MainLobby.OpenSoloLobby_Zombie = function(MainLobbyWidget, ClientInstance)
 	elseif CoD.MainLobby.OnlinePlayAvailable(MainLobbyWidget, ClientInstance) == 1 then
 		if CoD.MainLobby.IsControllerCountValid(MainLobbyWidget, ClientInstance.controller, 1) == 1 then
 			MainLobbyWidget.lobbyPane.body.lobbyList.maxLocalPlayers = 1
-			CoD.SwitchToPlayerMatchLobby(ClientInstance.controller)
-			Engine.PartyHostSetUIState(CoD.PARTYHOST_STATE_SELECTING_PLAYLIST)
+			-- CoD.SwitchToPlayerMatchLobby(ClientInstance.controller)
 			Dvar.party_maxplayers:set(1)
 			CoD.PlaylistCategoryFilter = CoD.Zombie.PLAYLIST_CATEGORY_FILTER_SOLOMATCH
 			CoD.PrivateGameLobby.InGameLobby = nil
