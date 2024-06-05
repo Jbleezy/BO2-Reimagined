@@ -508,7 +508,7 @@ CoD.AmmoAreaZombie.UpdateOverheat = function(f8_arg0, f8_arg1)
 		end
 		return
 	else
-		local f8_local2 = CoD.AmmoAreaZombie.Right - 90
+		local f8_local2 = CoD.AmmoAreaZombie.Right - 82
 		local f8_local3 = CoD.HUDDigit.Width
 		local f8_local4 = CoD.HUDDigit.Spacing + 2
 		local f8_local5 = CoD.HUDDigit.BigBottomNumbersY
@@ -516,29 +516,37 @@ CoD.AmmoAreaZombie.UpdateOverheat = function(f8_arg0, f8_arg1)
 		local f8_local7, f8_local8, f8_local9 = CoD.AmmoAreaZombie.GetThreeDigits(f8_arg1.heatPercent)
 		local f8_local10 = 1
 
-		f8_local2 = f8_local2 + (f8_local4 / 2)
-
 		f8_arg0.ammoDigits[f8_local10]:setDigit(CoD.HUDDigit.Slash, f8_local0)
 		f8_arg0.ammoDigits[f8_local10]:setLeftRight(false, true, f8_local2 - f8_local3, f8_local2)
 		f8_arg0.ammoDigits[f8_local10]:setTopBottom(false, true, f8_local5, f8_local5 + f8_local6)
 		f8_local10 = f8_local10 + 1
 
-		local digitRatio = 3
-		local offsetLeftRight = 17
-		local offsetTopBottom = 10
+		local digitRatio = 2
+		local offsetLeftRight = 16
+		local offsetTopBottom = 8
+
+		if CoD.Zombie.IsDLCMap(CoD.Zombie.DLC3Maps) then
+			offsetTopBottom = offsetTopBottom - 2
+		end
+
 		f8_arg0.ammoDigits[f8_local10]:setDigit(0, f8_local0)
 		f8_arg0.ammoDigits[f8_local10]:setLeftRight(false, true, f8_local2 - (f8_local3 / digitRatio) - offsetLeftRight, f8_local2 - offsetLeftRight)
 		f8_arg0.ammoDigits[f8_local10]:setTopBottom(false, true, f8_local5 + offsetTopBottom, f8_local5 + (f8_local6 / digitRatio) + offsetTopBottom)
 		f8_local10 = f8_local10 + 1
 
-		offsetLeftRight = 4
-		offsetTopBottom = 33
+		offsetLeftRight = 0
+		offsetTopBottom = 24
+
+		if CoD.Zombie.IsDLCMap(CoD.Zombie.DLC3Maps) then
+			offsetTopBottom = offsetTopBottom + 2
+		end
+
 		f8_arg0.ammoDigits[f8_local10]:setDigit(0, f8_local0)
 		f8_arg0.ammoDigits[f8_local10]:setLeftRight(false, true, f8_local2 - (f8_local3 / digitRatio) - offsetLeftRight, f8_local2 - offsetLeftRight)
 		f8_arg0.ammoDigits[f8_local10]:setTopBottom(false, true, f8_local5 + offsetTopBottom, f8_local5 + (f8_local6 / digitRatio) + offsetTopBottom)
 		f8_local10 = f8_local10 + 1
 
-		f8_local2 = f8_local2 - f8_local4
+		f8_local2 = f8_local2 - f8_local4 - 3
 
 		f8_arg0.ammoDigits[f8_local10]:setDigit(f8_local9, f8_local0)
 		f8_arg0.ammoDigits[f8_local10]:setLeftRight(false, true, f8_local2 - f8_local3, f8_local2)
