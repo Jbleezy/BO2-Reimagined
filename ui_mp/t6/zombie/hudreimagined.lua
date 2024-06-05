@@ -48,7 +48,7 @@ LUI.createMenu.ReimaginedArea = function(LocalClientIndex)
 	local healthText = LUI.UIText.new()
 	healthText:setLeftRight(true, false, width + bgDiff * 2, 0)
 	healthText:setTopBottom(true, false, 0 - bgDiff, height + bgDiff)
-	healthText:setFont(CoD.fonts.Condensed)
+	healthText:setFont(CoD.fonts.Big)
 	healthText:setAlignment(LUI.Alignment.Left)
 	healthBarWidget:addElement(healthText)
 	healthBarWidget.healthText = healthText
@@ -87,7 +87,7 @@ LUI.createMenu.ReimaginedArea = function(LocalClientIndex)
 	local zoneNameText = LUI.UIText.new()
 	zoneNameText:setLeftRight(true, false, 0, 1000)
 	zoneNameText:setTopBottom(true, false, -CoD.textSize.Default, 0)
-	zoneNameText:setFont(CoD.fonts.Default)
+	zoneNameText:setFont(CoD.fonts.Big)
 	zoneNameText:setAlignment(LUI.Alignment.Left)
 	zoneNameText:registerAnimationState("fade_out", {
 		alpha = 0,

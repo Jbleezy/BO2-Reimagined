@@ -141,7 +141,7 @@ LUI.createMenu.AmmoAreaZombie = function(f1_arg0)
 	local f1_local29 = LUI.UIText.new()
 	f1_local29:setLeftRight(true, true, 0, 0)
 	f1_local29:setTopBottom(false, false, -f1_local27 / 2 - f1_local28, f1_local27 / 2 - f1_local28)
-	f1_local29:setFont(f1_local26)
+	f1_local29:setFont(CoD.fonts.Big)
 	f1_local29:setAlignment(LUI.Alignment.Right)
 	f1_local0.weaponLabelContainer:addElement(f1_local29)
 	f1_local0.weaponText = f1_local29
