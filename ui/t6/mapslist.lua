@@ -133,7 +133,19 @@ function LUI.createMenu.SelectGameModeListZM(controller)
 	listBox:setLeftRight(true, false, 0, 250)
 	listBox:setTopBottom(true, false, 75, 75 + 530)
 	listBox:addScrollBar(530 + (8 * 12), 2)
-	listBox:setTotalItems(#CoD.MapsList.GameModes, index)
+
+	if UIExpression.DvarBool(nil, "party_solo") == 1 then
+		local numGameModes = 2
+
+		if index > numGameModes then
+			index = 1
+		end
+
+		listBox:setTotalItems(numGameModes, index)
+	else
+		listBox:setTotalItems(#CoD.MapsList.GameModes, index)
+	end
+
 	self:addElement(listBox)
 	self.listBox = listBox
 
