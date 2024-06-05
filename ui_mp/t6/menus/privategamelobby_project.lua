@@ -267,6 +267,10 @@ local AddGameOptionsButtons = function(PrivateGameLobbyButtonPane, GameOptions, 
 end
 
 CoD.PrivateGameLobby.PopulateButtons_Project_Zombie = function(PrivateGameLobbyButtonPane, IsHost)
+	if UIExpression.DvarBool(nil, "party_solo") == 1 then
+		Dvar.party_maxplayers:set(1)
+	end
+
 	if UIExpression.DvarString(nil, "ui_gametype") == CoD.Zombie.GAMETYPE_ZGRIEF then
 		Engine.SetGametypeSetting("allowInGameTeamChange", 1)
 	else
