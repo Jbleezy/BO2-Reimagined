@@ -715,45 +715,6 @@ set_favorite_wall_weapons()
 	}
 }
 
-health_bar_hud()
-{
-	level endon("intermission");
-	self endon("disconnect");
-
-	wait 0.05;
-
-	flag_wait("hud_visible");
-
-	vars = [];
-	vars["prev_health"] = 0;
-	vars["prev_maxhealth"] = 0;
-	vars["prev_shield_health"] = 0;
-
-	while (1)
-	{
-		player = self get_current_spectating_player();
-
-		shield_health = 0;
-
-		if (is_true(player.hasriotshield) && isdefined(player.shielddamagetaken) && player.shielddamagetaken < level.zombie_vars["riotshield_hit_points"])
-		{
-			shield_health = level.zombie_vars["riotshield_hit_points"] - player.shielddamagetaken;
-			shield_health = int((shield_health / level.zombie_vars["riotshield_hit_points"]) * 100);
-		}
-
-		if (player.health != vars["prev_health"] || player.maxhealth != vars["prev_maxhealth"] || shield_health != vars["prev_shield_health"])
-		{
-			self luinotifyevent(&"hud_update_health_bar", 3, player.health, player.maxhealth, shield_health);
-		}
-
-		vars["prev_health"] = player.health;
-		vars["prev_maxhealth"] = player.maxhealth;
-		vars["prev_shield_health"] = shield_health;
-
-		wait 0.05;
-	}
-}
-
 enemy_counter_hud()
 {
 	if (getDvar("g_gametype") == "zgrief")
@@ -1024,6 +985,47 @@ set_time_frozen_on_end_game()
 	self set_time_frozen(time, "forever");
 }
 
+health_bar_hud()
+{
+	level endon("intermission");
+	self endon("disconnect");
+
+	wait 0.05;
+
+	flag_wait("hud_visible");
+
+	prev_health = 0;
+	prev_maxhealth = 0;
+	prev_shield_health = 0;
+
+	while (1)
+	{
+		player = self get_current_spectating_player();
+
+		shield_health = 0;
+
+		if (is_true(player.hasriotshield) && isdefined(player.shielddamagetaken) && player.shielddamagetaken < level.zombie_vars["riotshield_hit_points"])
+		{
+			shield_health = level.zombie_vars["riotshield_hit_points"] - player.shielddamagetaken;
+			shield_health = int((shield_health / level.zombie_vars["riotshield_hit_points"]) * 100);
+		}
+
+		if (player.health == prev_health && player.maxhealth == prev_maxhealth && shield_health == prev_shield_health)
+		{
+			wait 0.05;
+			continue;
+		}
+
+		self luinotifyevent(&"hud_update_health_bar", 3, player.health, player.maxhealth, shield_health);
+
+		prev_health = player.health;
+		prev_maxhealth = player.maxhealth;
+		prev_shield_health = shield_health;
+
+		wait 0.05;
+	}
+}
+
 zone_name_hud()
 {
 	level endon("intermission");
@@ -1033,39 +1035,68 @@ zone_name_hud()
 
 	flag_wait("hud_visible");
 
-	vars = [];
-	vars["prev_zone_name"] = &"";
+	prev_player = self;
+	prev_zone_name = &"";
 
 	while (1)
 	{
 		player = self get_current_spectating_player();
 
-		vars["zone"] = player get_current_zone();
-		vars["zone_name"] = player get_zone_display_name(vars["zone"]);
+		zone = player get_current_zone();
+		zone_name = player get_zone_display_name(zone);
 
-		if (vars["zone_name"] != vars["prev_zone_name"])
+		if (zone_name == prev_zone_name)
 		{
-			if (vars["prev_zone_name"] != &"")
-			{
-				self luinotifyevent(&"hud_fade_out_zone_name");
-
-				wait 0.25;
-			}
-
-			if (vars["zone_name"] != &"")
-			{
-				self luinotifyevent(&"hud_update_zone_name", 1, vars["zone_name"]);
-				self luinotifyevent(&"hud_fade_in_zone_name");
-
-				wait 0.25;
-			}
-
-			vars["prev_zone_name"] = vars["zone_name"];
-
+			wait 0.05;
 			continue;
 		}
 
+		self thread zone_name_hud_fade(player, zone_name, prev_player, prev_zone_name);
+
+		prev_player = player;
+		prev_zone_name = zone_name;
+
 		wait 0.05;
+	}
+}
+
+zone_name_hud_fade(player, zone_name, prev_player, prev_zone_name)
+{
+	level endon("intermission");
+	self endon("disconnect");
+	self notify("zone_name_hud_fade");
+	self endon("zone_name_hud_fade");
+
+	if (player != prev_player)
+	{
+		self luinotifyevent(&"hud_update_zone_name", 1, zone_name);
+
+		if (zone_name == &"")
+		{
+			self luinotifyevent(&"hud_fade_out_zone_name");
+		}
+		else
+		{
+			self luinotifyevent(&"hud_fade_in_zone_name");
+		}
+
+		return;
+	}
+
+	if (prev_zone_name != &"")
+	{
+		self luinotifyevent(&"hud_fade_out_zone_name", 1, 250);
+
+		wait 0.25;
+	}
+
+	self luinotifyevent(&"hud_update_zone_name", 1, zone_name);
+
+	if (zone_name != &"")
+	{
+		self luinotifyevent(&"hud_fade_in_zone_name", 1, 250);
+
+		wait 0.25;
 	}
 }
 
@@ -3459,7 +3490,7 @@ get_current_spectating_player()
 		}
 	}
 
-	return undefined;
+	return self;
 }
 
 setclientdvarall(dvar, value)

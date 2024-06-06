@@ -94,7 +94,6 @@ LUI.createMenu.ReimaginedArea = function(LocalClientIndex)
 	zoneNameText:registerAnimationState("fade_in", {
 		alpha = 1,
 	})
-	zoneNameText:animateToState("fade_in")
 	zoneNameWidget:addElement(zoneNameText)
 	zoneNameWidget.zoneNameText = zoneNameText
 
@@ -180,9 +179,17 @@ CoD.Reimagined.ZoneNameArea.UpdateZoneName = function(Menu, ClientInstance)
 end
 
 CoD.Reimagined.ZoneNameArea.FadeOutZoneName = function(Menu, ClientInstance)
-	Menu.zoneNameText:animateToState("fade_out", 250)
+	if ClientInstance.data ~= nil then
+		Menu.zoneNameText:animateToState("fade_out", ClientInstance.data[1])
+	else
+		Menu.zoneNameText:animateToState("fade_out")
+	end
 end
 
 CoD.Reimagined.ZoneNameArea.FadeInZoneName = function(Menu, ClientInstance)
-	Menu.zoneNameText:animateToState("fade_in", 250)
+	if ClientInstance.data ~= nil then
+		Menu.zoneNameText:animateToState("fade_in", ClientInstance.data[1])
+	else
+		Menu.zoneNameText:animateToState("fade_in")
+	end
 end
