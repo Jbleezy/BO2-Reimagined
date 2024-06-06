@@ -42,16 +42,9 @@ CoD.MapsList.Locations = {
 	-- "ZMUI_CRAZY_PLACE_CAPS", -- TODO: add localized string, uncomment when location is added
 }
 
-local function gameModeListFocusChangedEventHandler(self, event)
-	local focusedIndex = self.listBox:getFocussedIndex()
-end
-
-local function gameModeListSelectionClickedEventHandler(self, event)
-	local focusedIndex = self.listBox:getFocussedIndex()
-
-	Engine.SetDvar("ui_gametype_index", focusedIndex)
-
-	local gameMode = CoD.MapsList.GameModes[focusedIndex]
+local function setGameModeDvars()
+	local index = math.max(1, UIExpression.DvarInt(nil, "ui_gametype_index"))
+	local gameMode = CoD.MapsList.GameModes[index]
 
 	if gameMode == "ZMUI_ZCLASSIC_GAMEMODE_CAPS" then
 		Engine.SetDvar("ui_zm_gamemodegroup", "zclassic")
@@ -82,6 +75,97 @@ local function gameModeListSelectionClickedEventHandler(self, event)
 	elseif gameMode == "ZMUI_ZCLEANSED_CAPS" then
 		-- TODO: set dvars when game mode is added
 	end
+end
+
+local function setMapDvars()
+	local index = math.max(1, UIExpression.DvarInt(nil, "ui_mapname_index"))
+	local map = CoD.MapsList.Maps[index]
+
+	if map == "ZMUI_ZCLASSIC_ZM_TRANSIT_CAPS" then
+		Engine.SetDvar("ui_mapname", "zm_transit")
+		Engine.SetDvar("ui_zm_mapstartlocation", "transit")
+	elseif map == "ZMUI_ZCLASSIC_ZM_HIGHRISE_CAPS" then
+		Engine.SetDvar("ui_mapname", "zm_highrise")
+		Engine.SetDvar("ui_zm_mapstartlocation", "rooftop")
+	elseif map == "ZMUI_ZCLASSIC_ZM_PRISON_CAPS" then
+		Engine.SetDvar("ui_mapname", "zm_prison")
+		Engine.SetDvar("ui_zm_mapstartlocation", "prison")
+	elseif map == "ZMUI_ZCLASSIC_ZM_BURIED_CAPS" then
+		Engine.SetDvar("ui_mapname", "zm_buried")
+		Engine.SetDvar("ui_zm_mapstartlocation", "processing")
+	elseif map == "ZMUI_ZCLASSIC_ZM_TOMB_CAPS" then
+		Engine.SetDvar("ui_mapname", "zm_tomb")
+		Engine.SetDvar("ui_zm_mapstartlocation", "tomb")
+	end
+end
+
+local function setLocationDvars()
+	local index = math.max(1, UIExpression.DvarInt(nil, "ui_zm_mapstartlocation_index"))
+	local location = CoD.MapsList.Locations[index]
+
+	if location == "ZMUI_TRANSIT_STARTLOC_CAPS" then
+		Engine.SetDvar("ui_mapname", "zm_transit")
+		Engine.SetDvar("ui_zm_mapstartlocation", "transit")
+	elseif location == "ZMUI_DINER_CAPS" then
+		Engine.SetDvar("ui_mapname", "zm_transit")
+		Engine.SetDvar("ui_zm_mapstartlocation", "diner")
+	elseif location == "ZMUI_FARM_CAPS" then
+		Engine.SetDvar("ui_mapname", "zm_transit")
+		Engine.SetDvar("ui_zm_mapstartlocation", "farm")
+	elseif location == "ZMUI_POWER_CAPS" then
+		Engine.SetDvar("ui_mapname", "zm_transit")
+		Engine.SetDvar("ui_zm_mapstartlocation", "power")
+	elseif location == "ZMUI_TOWN_CAPS" then
+		Engine.SetDvar("ui_mapname", "zm_transit")
+		Engine.SetDvar("ui_zm_mapstartlocation", "town")
+	elseif location == "ZMUI_TUNNEL_CAPS" then
+		Engine.SetDvar("ui_mapname", "zm_transit")
+		Engine.SetDvar("ui_zm_mapstartlocation", "tunnel")
+	elseif location == "ZMUI_CORNFIELD_CAPS" then
+		Engine.SetDvar("ui_mapname", "zm_transit")
+		Engine.SetDvar("ui_zm_mapstartlocation", "cornfield")
+	elseif location == "ZMUI_NUKED_STARTLOC_CAPS" then
+		Engine.SetDvar("ui_mapname", "zm_nuked")
+		Engine.SetDvar("ui_zm_mapstartlocation", "nuked")
+	elseif location == "ZMUI_GREEN_ROOFTOP_CAPS" then
+		-- TODO: set dvars when location is added
+	elseif location == "ZMUI_BLUE_ROOFTOP_CAPS" then
+		-- TODO: set dvars when location is added
+	elseif location == "ZMUI_BLUE_HIGHRISE_CAPS" then
+		-- TODO: set dvars when location is added
+	elseif location == "ZMUI_CELLBLOCK_CAPS" then
+		Engine.SetDvar("ui_mapname", "zm_prison")
+		Engine.SetDvar("ui_zm_mapstartlocation", "cellblock")
+	elseif location == "ZMUI_DOCKS_CAPS" then
+		Engine.SetDvar("ui_mapname", "zm_prison")
+		Engine.SetDvar("ui_zm_mapstartlocation", "docks")
+	elseif location == "ZMUI_STREET_LOC_CAPS" then
+		Engine.SetDvar("ui_mapname", "zm_buried")
+		Engine.SetDvar("ui_zm_mapstartlocation", "street")
+	elseif location == "ZMUI_MAZE_CAPS" then
+		Engine.SetDvar("ui_mapname", "zm_buried")
+		Engine.SetDvar("ui_zm_mapstartlocation", "maze")
+	elseif location == "ZMUI_TRENCHES_CAPS" then
+		-- TODO: set dvars when location is added
+	elseif location == "ZMUI_EXCAVATION_SITE_CAPS" then
+		-- TODO: set dvars when location is added
+	elseif location == "ZMUI_CHURCH_CAPS" then
+		-- TODO: set dvars when location is added
+	elseif location == "ZMUI_CRAZY_PLACE_CAPS" then
+		-- TODO: set dvars when location is added
+	end
+end
+
+local function gameModeListFocusChangedEventHandler(self, event)
+	local focusedIndex = self.listBox:getFocussedIndex()
+end
+
+local function gameModeListSelectionClickedEventHandler(self, event)
+	local focusedIndex = self.listBox:getFocussedIndex()
+
+	CoD.MapsList.GameModeIndex = focusedIndex
+
+	local gameMode = CoD.MapsList.GameModes[focusedIndex]
 
 	if gameMode == "ZMUI_ZCLASSIC_GAMEMODE_CAPS" then
 		self:openMenu("SelectMapListZM", self.controller)
@@ -93,6 +177,7 @@ local function gameModeListSelectionClickedEventHandler(self, event)
 end
 
 local function gameModeListBackEventHandler(self, event)
+	CoD.MapsList.GameModeIndex = nil
 	CoD.Menu.ButtonPromptBack(self, event)
 end
 
@@ -156,26 +241,15 @@ end
 local function mapListSelectionClickedEventHandler(self, event)
 	local focusedIndex = self.listBox:getFocussedIndex()
 
+	if CoD.MapsList.GameModeIndex ~= nil then
+		Engine.SetDvar("ui_gametype_index", CoD.MapsList.GameModeIndex)
+		CoD.MapsList.GameModeIndex = nil
+	end
+
 	Engine.SetDvar("ui_mapname_index", focusedIndex)
 
-	local map = CoD.MapsList.Maps[focusedIndex]
-
-	if map == "ZMUI_ZCLASSIC_ZM_TRANSIT_CAPS" then
-		Engine.SetDvar("ui_mapname", "zm_transit")
-		Engine.SetDvar("ui_zm_mapstartlocation", "transit")
-	elseif map == "ZMUI_ZCLASSIC_ZM_HIGHRISE_CAPS" then
-		Engine.SetDvar("ui_mapname", "zm_highrise")
-		Engine.SetDvar("ui_zm_mapstartlocation", "rooftop")
-	elseif map == "ZMUI_ZCLASSIC_ZM_PRISON_CAPS" then
-		Engine.SetDvar("ui_mapname", "zm_prison")
-		Engine.SetDvar("ui_zm_mapstartlocation", "prison")
-	elseif map == "ZMUI_ZCLASSIC_ZM_BURIED_CAPS" then
-		Engine.SetDvar("ui_mapname", "zm_buried")
-		Engine.SetDvar("ui_zm_mapstartlocation", "processing")
-	elseif map == "ZMUI_ZCLASSIC_ZM_TOMB_CAPS" then
-		Engine.SetDvar("ui_mapname", "zm_tomb")
-		Engine.SetDvar("ui_zm_mapstartlocation", "tomb")
-	end
+	setGameModeDvars()
+	setMapDvars()
 
 	self:openMenu("PrivateOnlineGameLobby", self.controller)
 
@@ -234,61 +308,15 @@ end
 local function locationListSelectionClickedEventHandler(self, event)
 	local focusedIndex = self.listBox:getFocussedIndex()
 
+	if CoD.MapsList.GameModeIndex ~= nil then
+		Engine.SetDvar("ui_gametype_index", CoD.MapsList.GameModeIndex)
+		CoD.MapsList.GameModeIndex = nil
+	end
+
 	Engine.SetDvar("ui_zm_mapstartlocation_index", focusedIndex)
 
-	local location = CoD.MapsList.Locations[focusedIndex]
-
-	if location == "ZMUI_TRANSIT_STARTLOC_CAPS" then
-		Engine.SetDvar("ui_mapname", "zm_transit")
-		Engine.SetDvar("ui_zm_mapstartlocation", "transit")
-	elseif location == "ZMUI_DINER_CAPS" then
-		Engine.SetDvar("ui_mapname", "zm_transit")
-		Engine.SetDvar("ui_zm_mapstartlocation", "diner")
-	elseif location == "ZMUI_FARM_CAPS" then
-		Engine.SetDvar("ui_mapname", "zm_transit")
-		Engine.SetDvar("ui_zm_mapstartlocation", "farm")
-	elseif location == "ZMUI_POWER_CAPS" then
-		Engine.SetDvar("ui_mapname", "zm_transit")
-		Engine.SetDvar("ui_zm_mapstartlocation", "power")
-	elseif location == "ZMUI_TOWN_CAPS" then
-		Engine.SetDvar("ui_mapname", "zm_transit")
-		Engine.SetDvar("ui_zm_mapstartlocation", "town")
-	elseif location == "ZMUI_TUNNEL_CAPS" then
-		Engine.SetDvar("ui_mapname", "zm_transit")
-		Engine.SetDvar("ui_zm_mapstartlocation", "tunnel")
-	elseif location == "ZMUI_CORNFIELD_CAPS" then
-		Engine.SetDvar("ui_mapname", "zm_transit")
-		Engine.SetDvar("ui_zm_mapstartlocation", "cornfield")
-	elseif location == "ZMUI_NUKED_STARTLOC_CAPS" then
-		Engine.SetDvar("ui_mapname", "zm_nuked")
-		Engine.SetDvar("ui_zm_mapstartlocation", "nuked")
-	elseif location == "ZMUI_GREEN_ROOFTOP_CAPS" then
-		-- TODO: set dvars when location is added
-	elseif location == "ZMUI_BLUE_ROOFTOP_CAPS" then
-		-- TODO: set dvars when location is added
-	elseif location == "ZMUI_BLUE_HIGHRISE_CAPS" then
-		-- TODO: set dvars when location is added
-	elseif location == "ZMUI_CELLBLOCK_CAPS" then
-		Engine.SetDvar("ui_mapname", "zm_prison")
-		Engine.SetDvar("ui_zm_mapstartlocation", "cellblock")
-	elseif location == "ZMUI_DOCKS_CAPS" then
-		Engine.SetDvar("ui_mapname", "zm_prison")
-		Engine.SetDvar("ui_zm_mapstartlocation", "docks")
-	elseif location == "ZMUI_STREET_LOC_CAPS" then
-		Engine.SetDvar("ui_mapname", "zm_buried")
-		Engine.SetDvar("ui_zm_mapstartlocation", "street")
-	elseif location == "ZMUI_MAZE_CAPS" then
-		Engine.SetDvar("ui_mapname", "zm_buried")
-		Engine.SetDvar("ui_zm_mapstartlocation", "maze")
-	elseif location == "ZMUI_TRENCHES_CAPS" then
-		-- TODO: set dvars when location is added
-	elseif location == "ZMUI_EXCAVATION_SITE_CAPS" then
-		-- TODO: set dvars when location is added
-	elseif location == "ZMUI_CHURCH_CAPS" then
-		-- TODO: set dvars when location is added
-	elseif location == "ZMUI_CRAZY_PLACE_CAPS" then
-		-- TODO: set dvars when location is added
-	end
+	setGameModeDvars()
+	setLocationDvars()
 
 	self:openMenu("PrivateOnlineGameLobby", self.controller)
 
