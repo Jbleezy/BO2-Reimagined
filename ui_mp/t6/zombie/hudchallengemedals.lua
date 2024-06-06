@@ -1,5 +1,5 @@
 CoD.HudChallengeMedals = {}
-CoD.HudChallengeMedals.MedalTopStart = CoD.Perks.TopStart - 44
+CoD.HudChallengeMedals.MedalTopStart = CoD.Perks.TopStart - 45
 CoD.HudChallengeMedals.IconWidth = 50
 CoD.HudChallengeMedals.IconHeight = CoD.HudChallengeMedals.IconWidth
 CoD.HudChallengeMedals.ONSCREEN_DURATION = 3000

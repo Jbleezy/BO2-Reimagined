@@ -38,7 +38,7 @@ LUI.createMenu.AfterlifeArea = function(f1_arg0)
 	f1_local0:addElement(f1_local0.bottomRightScaleContainer)
 
 	local f1_local5 = -32
-	local f1_local6 = 135
+	local f1_local6 = 136
 	local Widget = LUI.UIElement.new()
 	Widget:setLeftRight(false, true, -CoD.HudAfterlifeDisplay.InventoryWidth + f1_local5, f1_local5)
 	Widget:setTopBottom(false, true, -CoD.HudAfterlifeDisplay.InventoryHeight - f1_local6, -f1_local6)
