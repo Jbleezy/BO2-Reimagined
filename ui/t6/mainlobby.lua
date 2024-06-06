@@ -134,7 +134,6 @@ CoD.MainLobby.OpenPlayerMatchPartyLobby = function(MainLobbyWidget, ClientInstan
 			if CoD.isZombie == true then
 				Engine.PartyHostSetUIState(CoD.PARTYHOST_STATE_SELECTING_PLAYLIST)
 				CoD.PlaylistCategoryFilter = "playermatch"
-				CoD.PrivateGameLobby.InGameLobby = nil
 				MainLobbyWidget:openMenu("SelectGameModeListZM", ClientInstance.controller)
 				CoD.GameGlobeZombie.MoveToCenter(ClientInstance.controller)
 			else
@@ -189,12 +188,11 @@ CoD.MainLobby.OpenCustomGamesLobby = function(MainLobbyWidget, ClientInstance)
 	if CoD.MainLobby.ShouldPreventCreateLobby() then
 		return
 	elseif CoD.MainLobby.OnlinePlayAvailable(MainLobbyWidget, ClientInstance) == 1 and CoD.MainLobby.IsControllerCountValid(MainLobbyWidget, ClientInstance.controller, UIExpression.DvarInt(ClientInstance.controller, "party_maxlocalplayers_privatematch")) == 1 then
-		-- CoD.SwitchToPrivateLobby(ClientInstance.controller)
+		CoD.MainLobby.SwitchToPrivateLobby(ClientInstance)
 		if CoD.isZombie == true then
-			-- Engine.SetDvar("ui_zm_mapstartlocation", "")
-			CoD.PrivateGameLobby.InGameLobby = nil
+			CoD.MainLobby.InitMapDvars()
 			Engine.SetDvar("party_solo", 0)
-			MainLobbyWidget:openMenu("SelectGameModeListZM", ClientInstance.controller)
+			CoD.MainLobby.OpenPrivateGameLobbyAndSelectGameModeList(MainLobbyWidget, ClientInstance)
 			-- CoD.GameGlobeZombie.MoveToCenter(ClientInstance.controller)
 		else
 			local PrivateOnlineLobbyMenu = MainLobbyWidget:openMenu("PrivateOnlineGameLobby", ClientInstance.controller)
@@ -208,17 +206,43 @@ CoD.MainLobby.OpenSoloLobby_Zombie = function(MainLobbyWidget, ClientInstance)
 		return
 	elseif CoD.MainLobby.OnlinePlayAvailable(MainLobbyWidget, ClientInstance) == 1 then
 		if CoD.MainLobby.IsControllerCountValid(MainLobbyWidget, ClientInstance.controller, 1) == 1 then
+			CoD.MainLobby.SwitchToPrivateLobby(ClientInstance)
+			CoD.MainLobby.InitMapDvars()
 			MainLobbyWidget.lobbyPane.body.lobbyList.maxLocalPlayers = 1
-			-- CoD.SwitchToPlayerMatchLobby(ClientInstance.controller)
+			Engine.SetDvar("party_solo", 1)
 			Dvar.party_maxplayers:set(1)
 			CoD.PlaylistCategoryFilter = CoD.Zombie.PLAYLIST_CATEGORY_FILTER_SOLOMATCH
-			CoD.PrivateGameLobby.InGameLobby = nil
-			Engine.SetDvar("party_solo", 1)
-			MainLobbyWidget:openMenu("SelectGameModeListZM", ClientInstance.controller)
+			CoD.MainLobby.OpenPrivateGameLobbyAndSelectGameModeList(MainLobbyWidget, ClientInstance)
 			-- CoD.GameGlobeZombie.MoveToCenter(ClientInstance.controller)
 			MainLobbyWidget:close()
 		end
 	end
+end
+
+CoD.MainLobby.SwitchToPrivateLobby = function(ClientInstance)
+	local gameType = UIExpression.DvarString(nil, "ui_gametype")
+	local mapName = UIExpression.DvarString(nil, "ui_mapname")
+	CoD.SwitchToPrivateLobby(ClientInstance.controller) -- this changes these dvars
+	Engine.SetDvar("ui_gametype", gameType)
+	Engine.SetDvar("ui_mapname", mapName)
+end
+
+CoD.MainLobby.InitMapDvars = function()
+	Engine.SetDvar("ui_mapname", "zm_transit")
+	Engine.SetDvar("ui_zm_mapstartlocation", "transit")
+	Engine.SetDvar("ui_zm_gamemodegroup", "zclassic")
+	Engine.SetDvar("ui_gametype", "zclassic")
+	Engine.SetDvar("ui_mapname_index", 1)
+	Engine.SetDvar("ui_zm_mapstartlocation_index", 1)
+	Engine.SetDvar("ui_gametype_index", 1)
+end
+
+CoD.MainLobby.OpenPrivateGameLobbyAndSelectGameModeList = function(MainLobbyWidget, ClientInstance)
+	-- open both menus so map background is shown
+	local PrivateGameLobbyWidget = MainLobbyWidget:openMenu("PrivateOnlineGameLobby", ClientInstance.controller)
+	local SelectGameModeListWidget = PrivateGameLobbyWidget:openMenu("SelectGameModeListZM", ClientInstance.controller)
+	SelectGameModeListWidget:setPreviousMenu("PrivateOnlineGameLobby")
+	PrivateGameLobbyWidget:close()
 end
 
 CoD.MainLobby.OpenTheaterLobby = function(MainLobbyWidget, ClientInstance)

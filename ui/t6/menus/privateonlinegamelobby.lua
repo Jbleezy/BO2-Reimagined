@@ -9,14 +9,18 @@ LUI.createMenu.PrivateOnlineGameLobby = function(f1_arg0)
 	f1_local0:addTitle(f1_local1)
 	f1_local0.panelManager.panels.buttonPane.titleText = f1_local1
 
-	f1_local0:registerAnimationState("hide", {
-		alpha = 0,
-	})
-	f1_local0:animateToState("hide")
-	f1_local0:registerAnimationState("show", {
-		alpha = 1,
-	})
-	f1_local0:animateToState("show", 500)
+	if CoD.PrivateGameLobby.FadeIn == true then
+		CoD.PrivateGameLobby.FadeIn = nil
+
+		f1_local0:registerAnimationState("hide", {
+			alpha = 0,
+		})
+		f1_local0:animateToState("hide")
+		f1_local0:registerAnimationState("show", {
+			alpha = 1,
+		})
+		f1_local0:animateToState("show", 500)
+	end
 
 	return f1_local0
 end

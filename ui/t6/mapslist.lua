@@ -42,14 +42,6 @@ CoD.MapsList.Locations = {
 	-- "ZMUI_CRAZY_PLACE_CAPS", -- TODO: add localized string, uncomment when location is added
 }
 
-local function switchToPrivateLobby(self)
-	local gameType = UIExpression.DvarString(nil, "ui_gametype")
-	local mapName = UIExpression.DvarString(nil, "ui_mapname")
-	CoD.SwitchToPrivateLobby(self.controller) -- this changes these dvars
-	Engine.SetDvar("ui_gametype", gameType)
-	Engine.SetDvar("ui_mapname", mapName)
-end
-
 local function gameModeListFocusChangedEventHandler(self, event)
 	local focusedIndex = self.listBox:getFocussedIndex()
 end
@@ -123,11 +115,7 @@ function LUI.createMenu.SelectGameModeListZM(controller)
 	local self = CoD.Menu.New("SelectGameModeListZM")
 	self.controller = controller
 
-	if CoD.PrivateGameLobby.InGameLobby == true then
-		self:setPreviousMenu("PrivateOnlineGameLobby")
-	else
-		self:setPreviousMenu("MainLobby")
-	end
+	self:setPreviousMenu("PrivateOnlineGameLobby")
 
 	self:registerEventHandler("open_menu", CoD.Lobby.OpenMenu)
 	self:addSelectButton()
@@ -143,13 +131,7 @@ function LUI.createMenu.SelectGameModeListZM(controller)
 	listBox:addScrollBar(530 + (8 * 12), 2)
 
 	if UIExpression.DvarBool(nil, "party_solo") == 1 then
-		local numGameModes = 2
-
-		if index > numGameModes then
-			index = 1
-		end
-
-		listBox:setTotalItems(numGameModes, index)
+		listBox:setTotalItems(2, index)
 	else
 		listBox:setTotalItems(#CoD.MapsList.GameModes, index)
 	end
@@ -162,6 +144,7 @@ function LUI.createMenu.SelectGameModeListZM(controller)
 	self:registerEventHandler("click", gameModeListSelectionClickedEventHandler)
 
 	Engine.PartyHostSetUIState(CoD.PARTYHOST_STATE_SELECTING_GAMETYPE)
+	CoD.PrivateGameLobby.FadeIn = true
 
 	return self
 end
@@ -192,10 +175,6 @@ local function mapListSelectionClickedEventHandler(self, event)
 	elseif map == "ZMUI_ZCLASSIC_ZM_TOMB_CAPS" then
 		Engine.SetDvar("ui_mapname", "zm_tomb")
 		Engine.SetDvar("ui_zm_mapstartlocation", "tomb")
-	end
-
-	if CoD.PrivateGameLobby.InGameLobby == nil then
-		switchToPrivateLobby(self)
 	end
 
 	self:openMenu("PrivateOnlineGameLobby", self.controller)
@@ -243,6 +222,7 @@ function LUI.createMenu.SelectMapListZM(controller)
 	self:registerEventHandler("click", mapListSelectionClickedEventHandler)
 
 	Engine.PartyHostSetUIState(CoD.PARTYHOST_STATE_SELECTING_MAP)
+	CoD.PrivateGameLobby.FadeIn = true
 
 	return self
 end
@@ -310,10 +290,6 @@ local function locationListSelectionClickedEventHandler(self, event)
 		-- TODO: set dvars when location is added
 	end
 
-	if CoD.PrivateGameLobby.InGameLobby == nil then
-		switchToPrivateLobby(self)
-	end
-
 	self:openMenu("PrivateOnlineGameLobby", self.controller)
 
 	self:close()
@@ -359,6 +335,7 @@ function LUI.createMenu.SelectLocationListZM(controller)
 	self:registerEventHandler("click", locationListSelectionClickedEventHandler)
 
 	Engine.PartyHostSetUIState(CoD.PARTYHOST_STATE_SELECTING_MAP)
+	CoD.PrivateGameLobby.FadeIn = true
 
 	return self
 end
