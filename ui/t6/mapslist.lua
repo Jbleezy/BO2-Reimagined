@@ -183,7 +183,7 @@ end
 
 local function gameModeListCreateButtonMutables(controller, mutables)
 	local text = LUI.UIText.new()
-	text:setLeftRight(true, false, 0, 0)
+	text:setLeftRight(true, false, 2, 2)
 	text:setTopBottom(true, true, 0, 0)
 	text:setRGB(1, 1, 1)
 	text:setAlpha(1)
@@ -210,10 +210,10 @@ function LUI.createMenu.SelectGameModeListZM(controller)
 
 	local index = math.max(1, UIExpression.DvarInt(nil, "ui_gametype_index"))
 
-	local listBox = CoD.ListBox.new(nil, controller, 15, CoD.CoD9Button.Height, 250, gameModeListCreateButtonMutables, gameModeListGetButtonData, 0, 0)
+	local listBox = CoD.ListBox.new(nil, controller, 15, CoD.CoD9Button.Height, 250, gameModeListCreateButtonMutables, gameModeListGetButtonData, 5, 0)
 	listBox:setLeftRight(true, false, 0, 250)
 	listBox:setTopBottom(true, false, 75, 75 + 530)
-	listBox:addScrollBar(530 + (8 * 12), 2)
+	-- listBox:addScrollBar(530 + (8 * 12), 2)
 
 	if UIExpression.DvarBool(nil, "party_solo") == 1 then
 		listBox:setTotalItems(2, index)
@@ -258,7 +258,7 @@ end
 
 local function mapListCreateButtonMutables(controller, mutables)
 	local text = LUI.UIText.new()
-	text:setLeftRight(true, false, 0, 0)
+	text:setLeftRight(true, false, 2, 2)
 	text:setTopBottom(true, true, 0, 0)
 	text:setRGB(1, 1, 1)
 	text:setAlpha(1)
@@ -284,10 +284,10 @@ function LUI.createMenu.SelectMapListZM(controller)
 
 	local index = math.max(1, UIExpression.DvarInt(nil, "ui_mapname_index"))
 
-	local listBox = CoD.ListBox.new(nil, controller, 15, CoD.CoD9Button.Height, 250, mapListCreateButtonMutables, mapListGetButtonData, 0, 0)
+	local listBox = CoD.ListBox.new(nil, controller, 15, CoD.CoD9Button.Height, 250, mapListCreateButtonMutables, mapListGetButtonData, 5, 0)
 	listBox:setLeftRight(true, false, 0, 250)
 	listBox:setTopBottom(true, false, 75, 75 + 530)
-	listBox:addScrollBar(530 + (8 * 12), 2)
+	-- listBox:addScrollBar(530 + (8 * 12), 2)
 	listBox:setTotalItems(#CoD.MapsList.Maps, index)
 	self:addElement(listBox)
 	self.listBox = listBox
@@ -325,7 +325,7 @@ end
 
 local function locationListCreateButtonMutables(controller, mutables)
 	local text = LUI.UIText.new()
-	text:setLeftRight(true, false, 0, 0)
+	text:setLeftRight(true, false, 2, 2)
 	text:setTopBottom(true, true, 0, 0)
 	text:setRGB(1, 1, 1)
 	text:setAlpha(1)
@@ -351,10 +351,10 @@ function LUI.createMenu.SelectLocationListZM(controller)
 
 	local index = math.max(1, UIExpression.DvarInt(nil, "ui_zm_mapstartlocation_index"))
 
-	local listBox = CoD.ListBox.new(nil, controller, 15, CoD.CoD9Button.Height, 250, locationListCreateButtonMutables, locationListGetButtonData, 0, 0)
+	local listBox = CoD.ListBox.new(nil, controller, 15, CoD.CoD9Button.Height, 250, locationListCreateButtonMutables, locationListGetButtonData, 5, 0)
 	listBox:setLeftRight(true, false, 0, 250)
 	listBox:setTopBottom(true, false, 75, 75 + 530)
-	listBox:addScrollBar(530 + (8 * 12), 2)
+	-- listBox:addScrollBar(530 + (8 * 12), 2)
 	listBox:setTotalItems(#CoD.MapsList.Locations, index)
 	self:addElement(listBox)
 	self.listBox = listBox
