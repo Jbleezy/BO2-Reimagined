@@ -13,6 +13,7 @@ main()
 	replaceFunc(maps\mp\animscripts\traverse\zm_shared::dotraverse, scripts\zm\replaced\zm_shared::dotraverse);
 	replaceFunc(maps\mp\gametypes_zm\_damagefeedback::onplayerconnect, scripts\zm\replaced\_damagefeedback::onplayerconnect);
 	replaceFunc(maps\mp\gametypes_zm\_globallogic_player::callback_playerconnect, scripts\zm\replaced\_globallogic_player::callback_playerconnect);
+	replaceFunc(maps\mp\gametypes_zm\_hud::fadetoblackforxsec, scripts\zm\replaced\_hud::fadetoblackforxsec);
 	replaceFunc(maps\mp\gametypes_zm\_hud_message::onplayerconnect, scripts\zm\replaced\_hud_message::onplayerconnect);
 	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::hide_gump_loading_for_hotjoiners, scripts\zm\replaced\_zm_gametype::hide_gump_loading_for_hotjoiners);
 	replaceFunc(maps\mp\zombies\_zm::init_fx, scripts\zm\replaced\_zm::init_fx);
