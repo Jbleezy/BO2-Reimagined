@@ -167,6 +167,8 @@ init()
 
 	level thread on_player_connect();
 
+	level thread on_intermission();
+
 	level thread post_all_players_spawned();
 
 	level thread enemy_counter_hud();
@@ -174,8 +176,6 @@ init()
 	level thread timer_hud();
 
 	level thread swap_staminup_perk();
-
-	level thread remove_status_icons_on_intermission();
 
 	if (isDedicated())
 	{
@@ -190,6 +190,7 @@ precache_strings()
 	precacheString(&"r_fog");
 	precacheString(&"r_fog_settings");
 
+	precacheString(&"hud_update_enemy_counter");
 	precacheString(&"hud_update_health_bar");
 	precacheString(&"hud_update_zone_name");
 
@@ -378,7 +379,7 @@ add_fire_sale_vox()
 
 on_player_connect()
 {
-	while (true)
+	while (1)
 	{
 		level waittill("connecting", player);
 
@@ -401,7 +402,7 @@ on_player_spawned()
 
 	self.initial_spawn = true;
 
-	for (;;)
+	while (1)
 	{
 		self waittill("spawned_player");
 
@@ -440,6 +441,8 @@ on_player_spawned()
 		self set_client_dvars();
 		self set_perks();
 		self set_favorite_wall_weapons();
+
+		self thread lui_notify_events();
 	}
 }
 
@@ -512,6 +515,19 @@ on_player_fake_revive()
 		{
 			self.statusicon = "waypoint_revive_afterlife";
 		}
+	}
+}
+
+on_intermission()
+{
+	level waittill("intermission");
+
+	players = get_players();
+
+	foreach (player in players)
+	{
+		player.statusicon = "";
+		player setclientuivisibilityflag("hud_visible", 0);
 	}
 }
 
@@ -716,6 +732,15 @@ set_favorite_wall_weapons()
 	}
 }
 
+lui_notify_events()
+{
+	self endon("disconnect");
+
+	wait 0.05;
+
+	self luinotifyevent(&"hud_update_enemy_counter", 1, level.enemy_counter_hud_value);
+}
+
 enemy_counter_hud()
 {
 	if (getDvar("g_gametype") == "zgrief")
@@ -723,71 +748,47 @@ enemy_counter_hud()
 		return;
 	}
 
-	hud = newHudElem();
-	hud.alignx = "left";
-	hud.aligny = "top";
-	hud.horzalign = "user_left";
-	hud.vertalign = "user_top";
-	hud.x += 5;
-	hud.y += 2;
-	hud.fontscale = 1.4;
-	hud.alpha = 0;
-	hud.color = (1, 1, 1);
-	hud.hidewheninmenu = 1;
-	hud.foreground = 1;
-	hud.label = &"ZOMBIE_HUD_ENEMIES_REMAINING";
-
-	hud endon("death");
-
-	hud thread destroy_on_intermission();
-
 	flag_wait("hud_visible");
 
-	hud.alpha = 1;
+	level.enemy_counter_hud_value = 0;
 
-	vars = [];
+	players = get_players();
+
+	foreach (player in players)
+	{
+		player luinotifyevent(&"hud_update_enemy_counter", 1, level.enemy_counter_hud_value);
+	}
 
 	while (1)
 	{
-		vars["enemies"] = get_round_enemy_array().size + level.zombie_total;
+		enemies = get_round_enemy_array().size + level.zombie_total;
 
-		if (level flag_exists("spawn_ghosts") && flag("spawn_ghosts"))
+		if (level flag_exists("spawn_ghosts") && flag("spawn_ghosts") && isdefined(level.get_current_ghost_count_func))
 		{
-			vars["enemies"] = get_current_ghost_count();
+			enemies = [[level.get_current_ghost_count_func]]();
 		}
 		else if (level flag_exists("sq_tpo_special_round_active") && flag("sq_tpo_special_round_active"))
 		{
-			vars["enemies"] = 0;
+			enemies = 0;
 		}
 
-		if (vars["enemies"] == 0)
+		if (level.enemy_counter_hud_value == enemies)
 		{
-			hud setText("");
+			wait 0.05;
+			continue;
 		}
-		else
+
+		level.enemy_counter_hud_value = enemies;
+
+		players = get_players();
+
+		foreach (player in players)
 		{
-			hud setValue(vars["enemies"]);
+			player luinotifyevent(&"hud_update_enemy_counter", 1, level.enemy_counter_hud_value);
 		}
 
 		wait 0.05;
 	}
-}
-
-get_current_ghost_count()
-{
-	vars = [];
-	vars["ghost_count"] = 0;
-	vars["ais"] = getaiarray(level.zombie_team);
-
-	for (i = 0; i < vars["ais"].size; i++)
-	{
-		vars["ai"] = vars["ais"][i];
-
-		if (isdefined(vars["ai"].is_ghost) && vars["ai"].is_ghost)
-			vars["ghost_count"]++;
-	}
-
-	return vars["ghost_count"];
 }
 
 timer_hud()
@@ -2587,7 +2588,7 @@ give_additional_perks()
 {
 	self endon("disconnect");
 
-	for (;;)
+	while (1)
 	{
 		self waittill_any("perk_acquired", "perk_lost");
 
@@ -3412,7 +3413,7 @@ electric_cherry_unlimited()
 {
 	self endon("disconnect");
 
-	for (;;)
+	while (1)
 	{
 		self.consecutive_electric_cherry_attacks = 0;
 
@@ -3501,18 +3502,6 @@ setclientdvarall(dvar, value)
 	foreach (player in players)
 	{
 		player setclientdvar(dvar, value);
-	}
-}
-
-remove_status_icons_on_intermission()
-{
-	level waittill("intermission");
-
-	players = get_players();
-
-	foreach (player in players)
-	{
-		player.statusicon = "";
 	}
 }
 

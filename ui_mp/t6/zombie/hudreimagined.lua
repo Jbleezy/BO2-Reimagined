@@ -5,6 +5,43 @@ LUI.createMenu.ReimaginedArea = function(LocalClientIndex)
 	safeArea:setOwner(LocalClientIndex)
 
 	local x = 7
+	local y = 3
+
+	local enemyCounterWidget = LUI.UIElement.new()
+	enemyCounterWidget:setLeftRight(true, false, x, x)
+	enemyCounterWidget:setTopBottom(true, false, y, y)
+	enemyCounterWidget:setAlpha(0)
+	enemyCounterWidget.width = width
+	enemyCounterWidget.height = height
+	safeArea:addElement(enemyCounterWidget)
+
+	local enemyCounterText = LUI.UIText.new()
+	enemyCounterText:setLeftRight(true, false, 0, 1000)
+	enemyCounterText:setTopBottom(true, false, 0, CoD.textSize.Default)
+	enemyCounterText:setFont(CoD.fonts.Big)
+	enemyCounterText:setAlignment(LUI.Alignment.Left)
+	enemyCounterWidget:addElement(enemyCounterText)
+	enemyCounterWidget.enemyCounterText = enemyCounterText
+
+	enemyCounterWidget:registerEventHandler("hud_update_refresh", CoD.Reimagined.EnemyCounterArea.UpdateVisibility)
+	enemyCounterWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_VISIBLE, CoD.Reimagined.EnemyCounterArea.UpdateVisibility)
+	enemyCounterWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_EMP_ACTIVE, CoD.Reimagined.EnemyCounterArea.UpdateVisibility)
+	enemyCounterWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM, CoD.Reimagined.EnemyCounterArea.UpdateVisibility)
+	enemyCounterWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN, CoD.Reimagined.EnemyCounterArea.UpdateVisibility)
+	enemyCounterWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_VEHICLE, CoD.Reimagined.EnemyCounterArea.UpdateVisibility)
+	enemyCounterWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_GUIDED_MISSILE, CoD.Reimagined.EnemyCounterArea.UpdateVisibility)
+	enemyCounterWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC, CoD.Reimagined.EnemyCounterArea.UpdateVisibility)
+	enemyCounterWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_AMMO_COUNTER_HIDE, CoD.Reimagined.EnemyCounterArea.UpdateVisibility)
+	enemyCounterWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_FLASH_BANGED, CoD.Reimagined.EnemyCounterArea.UpdateVisibility)
+	enemyCounterWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_UI_ACTIVE, CoD.Reimagined.EnemyCounterArea.UpdateVisibility)
+	enemyCounterWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_SPECTATING_CLIENT, CoD.Reimagined.EnemyCounterArea.UpdateVisibility)
+	enemyCounterWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_SCOREBOARD_OPEN, CoD.Reimagined.EnemyCounterArea.UpdateVisibility)
+	enemyCounterWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_PLAYER_DEAD, CoD.Reimagined.EnemyCounterArea.UpdateVisibility)
+	enemyCounterWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_SCOPED, CoD.Reimagined.EnemyCounterArea.UpdateVisibility)
+	enemyCounterWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_PLAYER_ZOMBIE, CoD.Reimagined.EnemyCounterArea.UpdateVisibility)
+	enemyCounterWidget:registerEventHandler("hud_update_enemy_counter", CoD.Reimagined.EnemyCounterArea.UpdateEnemyCounter)
+
+	local x = 7
 	local y = -163
 	local width = 169
 	local height = 13
@@ -118,6 +155,30 @@ LUI.createMenu.ReimaginedArea = function(LocalClientIndex)
 	zoneNameWidget:registerEventHandler("hud_fade_in_zone_name", CoD.Reimagined.ZoneNameArea.FadeInZoneName)
 
 	return safeArea
+end
+
+CoD.Reimagined.EnemyCounterArea = {}
+CoD.Reimagined.EnemyCounterArea.UpdateVisibility = function(Menu, ClientInstance)
+	local controller = ClientInstance.controller
+	if UIExpression.IsVisibilityBitSet(controller, CoD.BIT_HUD_VISIBLE) == 1 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_EMP_ACTIVE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_VEHICLE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_GUIDED_MISSILE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_AMMO_COUNTER_HIDE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IS_FLASH_BANGED) == 0 and (UIExpression.IsVisibilityBitSet(controller, CoD.BIT_UI_ACTIVE) == 0 or UIExpression.IsVisibilityBitSet(controller, CoD.BIT_SCOREBOARD_OPEN) == 1) and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_KILLCAM) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IS_SCOPED) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IS_PLAYER_ZOMBIE) == 0 and (not CoD.IsShoutcaster(controller) or CoD.ExeProfileVarBool(controller, "shoutcaster_scorestreaks") and Engine.IsSpectatingActiveClient(controller)) and CoD.FSM_VISIBILITY(controller) == 0 then
+		if Menu.visible ~= true then
+			Menu:setAlpha(1)
+			Menu.visible = true
+		end
+	elseif Menu.visible == true then
+		Menu:setAlpha(0)
+		Menu.visible = nil
+	end
+end
+
+CoD.Reimagined.EnemyCounterArea.UpdateEnemyCounter = function(Menu, ClientInstance)
+	local enemyCount = ClientInstance.data[1]
+
+	if enemyCount == 0 then
+		enemyCount = ""
+	end
+
+	Menu.enemyCounterText:setText(Engine.Localize("ZOMBIE_HUD_ENEMIES_REMAINING") .. enemyCount)
 end
 
 CoD.Reimagined.HealthBarArea = {}

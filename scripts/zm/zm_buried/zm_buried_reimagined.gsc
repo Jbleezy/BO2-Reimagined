@@ -69,6 +69,7 @@ init()
 
 	level.zombie_init_done = ::zombie_init_done;
 	level.special_weapon_magicbox_check = ::buried_special_weapon_magicbox_check;
+	level.get_current_ghost_count_func = maps\mp\zombies\_zm_ai_ghost::get_current_ghost_count;
 
 	if (is_gametype_active("zgrief"))
 	{
