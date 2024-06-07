@@ -191,11 +191,16 @@ precache_strings()
 	precacheString(&"r_fog_settings");
 
 	precacheString(&"hud_update_enemy_counter");
+	precacheString(&"hud_update_total_timer");
+	precacheString(&"hud_update_round_timer");
+	precacheString(&"hud_update_round_total_timer");
 	precacheString(&"hud_update_health_bar");
 	precacheString(&"hud_update_zone_name");
 
 	precacheString(&"hud_fade_out_zone_name");
 	precacheString(&"hud_fade_in_zone_name");
+	precacheString(&"hud_fade_out_round_total_timer");
+	precacheString(&"hud_fade_in_round_total_timer");
 
 	foreach (zone_name in level.zone_keys)
 	{
@@ -738,17 +743,35 @@ lui_notify_events()
 
 	wait 0.05;
 
-	self luinotifyevent(&"hud_update_enemy_counter", 1, level.enemy_counter_hud_value);
+	if (isdefined(level.enemy_counter_hud_value))
+	{
+		self luinotifyevent(&"hud_update_enemy_counter", 1, level.enemy_counter_hud_value);
+	}
+
+	if (isdefined(level.total_timer_hud_value))
+	{
+		self luinotifyevent(&"hud_update_total_timer", 1, level.total_timer_hud_value);
+	}
+
+	if (isdefined(level.round_timer_hud_value))
+	{
+		self luinotifyevent(&"hud_update_round_timer", 1, level.round_timer_hud_value);
+	}
+
+	if (isdefined(level.round_total_timer_hud_value))
+	{
+		self luinotifyevent(&"hud_update_round_total_timer", 1, level.round_total_timer_hud_value);
+	}
 }
 
 enemy_counter_hud()
 {
+	flag_wait("hud_visible");
+
 	if (getDvar("g_gametype") == "zgrief")
 	{
 		return;
 	}
-
-	flag_wait("hud_visible");
 
 	level.enemy_counter_hud_value = 0;
 
@@ -793,150 +816,159 @@ enemy_counter_hud()
 
 timer_hud()
 {
-	level thread round_timer_hud();
-
-	hud = newHudElem();
-	hud.alignx = "right";
-	hud.aligny = "top";
-	hud.horzalign = "user_right";
-	hud.vertalign = "user_top";
-	hud.x -= 5;
-	hud.y += 12;
-	hud.fontscale = 1.4;
-	hud.alpha = 0;
-	hud.color = (1, 1, 1);
-	hud.hidewheninmenu = 1;
-	hud.foreground = 1;
-	hud.label = &"ZOMBIE_HUD_TOTAL_TIME";
-
-	hud endon("death");
-
-	hud thread destroy_on_intermission();
-
-	hud thread set_time_frozen_on_end_game();
+	level endon("end_game");
+	level endon("stop_timers");
 
 	flag_wait("hud_visible");
 
-	hud.alpha = 1;
+	level thread round_timer_hud_loop();
+
+	level.total_timer_hud_value = 0;
+
+	players = get_players();
+
+	foreach (player in players)
+	{
+		player luinotifyevent(&"hud_update_total_timer", 1, level.total_timer_hud_value);
+	}
 
 	if (!flag("initial_blackscreen_passed"))
 	{
-		hud set_time_frozen(0, "initial_blackscreen_passed");
+		level waittill("initial_blackscreen_passed");
 	}
 
 	if (getDvar("g_gametype") == "zgrief")
 	{
-		hud set_time_frozen(0);
+		level waittill("restart_round_start");
 	}
 
-	hud setTimerUp(0);
-	hud.start_time = getTime();
-	level.timer_hud_start_time = hud.start_time;
+	while (1)
+	{
+		wait 1;
+
+		level.total_timer_hud_value++;
+
+		players = get_players();
+
+		foreach (player in players)
+		{
+			player luinotifyevent(&"hud_update_total_timer", 1, level.total_timer_hud_value);
+		}
+	}
 }
 
-round_timer_hud()
+round_timer_hud_loop()
 {
-	flag_wait("hud_visible");
+	level endon("end_game");
+	level endon("stop_timers");
 
 	if (isDefined(level.scr_zm_ui_gametype_obj) && level.scr_zm_ui_gametype_obj != "zsnr")
 	{
 		return;
 	}
 
-	hud = newHudElem();
-	hud.alignx = "right";
-	hud.aligny = "top";
-	hud.horzalign = "user_right";
-	hud.vertalign = "user_top";
-	hud.x -= 5;
-	hud.y += 27;
-	hud.fontscale = 1.4;
-	hud.alpha = 0;
-	hud.color = (1, 1, 1);
-	hud.hidewheninmenu = 1;
-	hud.foreground = 1;
-	hud.label = &"ZOMBIE_HUD_ROUND_TIME";
+	level.round_timer_hud_value = 0;
 
-	hud endon("death");
+	players = get_players();
 
-	hud thread destroy_on_intermission();
-
-	hud thread set_time_frozen_on_end_game();
-
-	hud.alpha = 1;
+	foreach (player in players)
+	{
+		player luinotifyevent(&"hud_update_round_timer", 1, level.round_timer_hud_value);
+	}
 
 	if (!flag("initial_blackscreen_passed"))
 	{
-		hud set_time_frozen(0, "initial_blackscreen_passed");
+		level waittill("initial_blackscreen_passed");
 	}
 
 	if (getDvar("g_gametype") == "zgrief")
 	{
-		hud set_time_frozen(0);
+		level waittill("restart_round_start");
 	}
 
 	while (1)
 	{
-		hud setTimerUp(0);
-		hud.start_time = getTime();
+		level thread round_timer_hud();
 
 		if (getDvar("g_gametype") == "zgrief")
 		{
-			level waittill("restart_round");
+			level waittill("restart_round_start");
 		}
 		else
 		{
 			level waittill("end_of_round");
+			level waittill("start_of_round");
 		}
+	}
+}
 
-		level thread round_total_timer_hud();
+round_timer_hud()
+{
+	level endon("end_game");
+	level endon("stop_timers");
+	level notify("round_timer_hud");
+	level endon("round_timer_hud");
 
-		time = int((getTime() - hud.start_time) / 1000);
+	if (getDvar("g_gametype") == "zgrief")
+	{
+		level endon("restart_round");
+	}
+	else
+	{
+		level endon("end_of_round");
+	}
 
-		hud set_time_frozen(time);
+	level thread round_total_timer_hud();
+
+	level.round_timer_hud_value = 0;
+	level.round_total_timer_hud_value = undefined;
+
+	players = get_players();
+
+	foreach (player in players)
+	{
+		player luinotifyevent(&"hud_update_round_timer", 1, level.round_timer_hud_value);
+		player luinotifyevent(&"hud_fade_out_round_total_timer", 1, 500);
+	}
+
+	while (1)
+	{
+		wait 1;
+
+		level.round_timer_hud_value++;
+
+		players = get_players();
+
+		foreach (player in players)
+		{
+			player luinotifyevent(&"hud_update_round_timer", 1, level.round_timer_hud_value);
+		}
 	}
 }
 
 round_total_timer_hud()
 {
+	level endon("end_game");
+	level endon("stop_timers");
+	level notify("round_total_timer_hud");
+	level endon("round_total_timer_hud");
+
 	if (getDvar("g_gametype") == "zgrief")
 	{
 		return;
 	}
 
-	hud = newHudElem();
-	hud.alignx = "right";
-	hud.aligny = "top";
-	hud.horzalign = "user_right";
-	hud.vertalign = "user_top";
-	hud.x -= 5;
-	hud.y += 42;
-	hud.fontscale = 1.4;
-	hud.alpha = 0;
-	hud.color = (1, 1, 1);
-	hud.hidewheninmenu = 1;
-	hud.foreground = 1;
-	hud.label = &"ZOMBIE_HUD_ROUND_TOTAL_TIME";
+	level waittill("end_of_round");
 
-	hud endon("death");
+	level.round_total_timer_hud_value = level.total_timer_hud_value;
 
-	hud thread destroy_on_intermission();
+	players = get_players();
 
-	fade_time = 0.5;
-
-	hud fadeOverTime(fade_time);
-	hud.alpha = 1;
-
-	time = int((getTime() - level.timer_hud_start_time) / 1000);
-
-	hud set_time_frozen(time);
-
-	hud fadeOverTime(fade_time);
-	hud.alpha = 0;
-
-	wait fade_time;
-
-	hud destroy();
+	foreach (player in players)
+	{
+		player luinotifyevent(&"hud_update_round_total_timer", 1, level.round_total_timer_hud_value);
+		player luinotifyevent(&"hud_fade_in_round_total_timer", 1, 500);
+	}
 }
 
 set_time_frozen(time, endon_notify)
@@ -974,17 +1006,6 @@ set_time_frozen(time, endon_notify)
 
 		wait 0.5;
 	}
-}
-
-set_time_frozen_on_end_game()
-{
-	level endon("intermission");
-
-	level waittill_any("end_game", "freeze_timers");
-
-	time = int((getTime() - self.start_time) / 1000);
-
-	self set_time_frozen(time, "forever");
 }
 
 health_bar_hud()

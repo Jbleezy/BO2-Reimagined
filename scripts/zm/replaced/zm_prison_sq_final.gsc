@@ -306,7 +306,7 @@ stage_final()
 	level thread clean_up_final_brutuses();
 	wait 2;
 
-	level notify("freeze_timers");
+	level notify("stop_timers");
 
 	if (level.winner == "weasel")
 	{
