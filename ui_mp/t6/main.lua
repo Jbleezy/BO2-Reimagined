@@ -183,6 +183,22 @@ CoD.InitCustomDvars = function()
 		Engine.SetDvar("additionalPrimaryWeaponName", "")
 	end
 
+	if UIExpression.DvarString(nil, "ui_hud_enemy_counter") == "" then
+		Engine.Exec(nil, "seta ui_hud_enemy_counter 1")
+	end
+
+	if UIExpression.DvarString(nil, "ui_hud_timer") == "" then
+		Engine.Exec(nil, "seta ui_hud_timer 1")
+	end
+
+	if UIExpression.DvarString(nil, "ui_hud_health_bar") == "" then
+		Engine.Exec(nil, "seta ui_hud_health_bar 1")
+	end
+
+	if UIExpression.DvarString(nil, "ui_hud_zone_name") == "" then
+		Engine.Exec(nil, "seta ui_hud_zone_name 1")
+	end
+
 	if UIExpression.DvarString(nil, "r_fog_settings") == "" then
 		Engine.Exec(nil, "seta r_fog_settings 0")
 	end

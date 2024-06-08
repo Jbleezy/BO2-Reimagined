@@ -607,7 +607,7 @@ CoD.OptionsSettings.CreateAdvancedTab = function(AdvancedTab, LocalClientIndex)
 	CoD.Options.Button_AddChoices_OnOrOff(AdvancedTabButtonList:addHardwareProfileLeftRightSelector(Engine.Localize("PLATFORM_AMBIENT_OCCLUSION_CAPS"), "r_ssao", Engine.Localize("PLATFORM_AMBIENT_OCCLUSION_DESC")))
 	CoD.OptionsSettings.Button_AddChoices_DepthOfField(AdvancedTabButtonList:addHardwareProfileLeftRightSelector(Engine.Localize("PLATFORM_DEPTH_OF_FIELD_CAPS"), "r_dofHDR", Engine.Localize("PLATFORM_DEPTH_OF_FIELD_DESC")))
 	AdvancedTabButtonList:addSpacer(CoD.CoD9Button.Height / 2)
-	AdvancedTabButtonList:addSpacer(CoD.CoD9Button.Height / 2)
+	-- AdvancedTabButtonList:addSpacer(CoD.CoD9Button.Height / 2)
 	CoD.Options.Button_AddChoices_YesOrNo(AdvancedTabButtonList:addHardwareProfileLeftRightSelector(Engine.Localize("MENU_SYNC_EVERY_FRAME_CAPS"), "r_vsync", Engine.Localize("PLATFORM_VSYNC_DESC")))
 	local MaxFpsChoices = AdvancedTabButtonList:addHardwareProfileLeftRightSelector(Engine.Localize("PLATFORM_MAX_FPS_CAPS"), "com_maxfps", Engine.Localize("PLATFORM_MAX_FPS_DESC"))
 	CoD.OptionsSettings.Button_AddChoices_MaxFPS(MaxFpsChoices)
@@ -635,7 +635,25 @@ CoD.OptionsSettings.CreateModTab = function(ModTab, LocalClientIndex)
 	ModTabContainer.buttonList = ModTabButtonList
 	ModTabContainer:addElement(ModTabButtonList)
 
-	local FogSelector = ModTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_FOG_CAPS"), "r_fog_settings", Engine.Localize("MENU_FOG_DESC"))
+	local EnemyCounterSelector = ModTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_ENEMY_COUNTER_CAPS"), "ui_hud_enemy_counter")
+	EnemyCounterSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
+	EnemyCounterSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_ENABLED_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
+
+	local TimerSelector = ModTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_TIMER_CAPS"), "ui_hud_timer")
+	TimerSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
+	TimerSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_ENABLED_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
+
+	local HealthBarSelector = ModTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_HEALTH_BAR_CAPS"), "ui_hud_health_bar")
+	HealthBarSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
+	HealthBarSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_ENABLED_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
+
+	local ZoneNameSelector = ModTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_ZONE_NAME_CAPS"), "ui_hud_zone_name")
+	ZoneNameSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
+	ZoneNameSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_ENABLED_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
+
+	ModTabButtonList:addSpacer(CoD.CoD9Button.Height / 2)
+
+	local FogSelector = ModTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_FOG_CAPS"), "r_fog_settings")
 	FogSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChangedFog)
 	FogSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_ENABLED_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChangedFog)
 

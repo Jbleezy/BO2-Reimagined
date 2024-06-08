@@ -169,7 +169,8 @@
 * In-game menu no longer disabled instantly when the game ends
 
 ## Settings
-* Added option to disable fog
+* Added options to enable or disable new HUD elements
+* Added option to enable or disable fog
 
 ## HUD
 * Enemy counter displayed on top left of screen
