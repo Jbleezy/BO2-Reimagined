@@ -53351,9 +53351,9 @@
 {
 "script_noteworthy" "zstandard_farm, zgrief_farm"
 "angles" "0 90.2 0"
-"origin" "8035.38 -5316.37 110"
+"origin" "8035.38 -5317.37 110"
 "classname" "script_struct"
-"zombie_weapon_upgrade" "870mcs_zm"
+"zombie_weapon_upgrade" "ballista_zm"
 "targetname" "weapon_upgrade"
 "target" "pf1918_auto37"
 "guid" "F0390DB3"
@@ -53362,9 +53362,9 @@
 "script_noteworthy" "zstandard_farm, zgrief_farm"
 "targetname" "pf1918_auto37"
 "classname" "script_struct"
-"model" "t6_wpn_shotty_870mcs_world"
+"model" "t6_wpn_sniper_ballista_world"
 "angles" "0 90.2 0"
-"origin" "8035.38 -5316.37 110"
+"origin" "8035.38 -5317.37 110"
 "guid" "6D2A1B25"
 }
 {

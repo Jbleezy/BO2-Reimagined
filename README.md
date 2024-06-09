@@ -1022,7 +1022,6 @@
 
 #### Farm
 * Zombies spawn in the Farm zone when in the Barn zone
-* Replaced Ballista wallbuy with Remington 870 MCS wallbuy
 * Replaced Galvaknuckles wallbuy with Claymore wallbuy (also added to Grief)
 
 #### Power Station
