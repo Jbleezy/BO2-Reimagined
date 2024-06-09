@@ -609,6 +609,7 @@
 * Upgraded: kill on any round
 * Upgraded: charged shots damage Panzersoldat
 * Upgraded: decreased alt weapon fire time from 3 seconds to 0.5 seconds
+* Upgraded: changed alt weapon fire type from full auto to single shot
 * Fire upgraded: charged shots no longer deal additional damage to Panzersoldat
 * Ice upgraded: fixed melee sound
 
@@ -879,7 +880,7 @@
 * Gets destroyed after being deployed for 30 seconds
 * Kills on any round in 1-4 shots (normally does 1200 damage max)
 * No longer damages players
-* Fire type changed from burst fire to continuous fire
+* Changed fire type from burst fire to continuous fire
 * Fixed an issue where the Turret sounds would continue playing after being picked up
 
 ### Electric Trap
