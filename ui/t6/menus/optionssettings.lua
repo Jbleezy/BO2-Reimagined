@@ -622,10 +622,10 @@ CoD.OptionsSettings.CreateAdvancedTab = function(AdvancedTab, LocalClientIndex)
 	CoD.OptionsSettings.Button_AddChoices_DrawFPS(AdvancedTabButtonList:addHardwareProfileLeftRightSelector(Engine.Localize("PLATFORM_DRAW_FPS_CAPS"), "cg_drawFPS", Engine.Localize("PLATFORM_DRAW_FPS_DESC")))
 	AdvancedTabButtonList:addSpacer(CoD.CoD9Button.Height / 2)
 
-	CoD.OptionsSettings.Button_AddChoices_StreamerMode(AdvancedTabButtonList:addHardwareProfileLeftRightSelector("STREAMER MODE", "cl_enableStreamerMode", "Hides important networking and player information"))
+	CoD.OptionsSettings.Button_AddChoices_StreamerMode(AdvancedTabButtonList:addHardwareProfileLeftRightSelector("STREAMER MODE", "cl_enableStreamerMode", "Hides important networking and player information."))
 	AdvancedTabButtonList:addSpacer(CoD.CoD9Button.Height / 2)
 
-	local SafeAreaButton = AdvancedTabButtonList:addButton(Engine.Localize("MENU_SAFE_AREA_ADJUSTMENT_CAPS"), Engine.Localize("Edit the HUD safearea."))
+	local SafeAreaButton = AdvancedTabButtonList:addButton(Engine.Localize("MENU_SAFE_AREA_CAPS"), Engine.Localize("MENU_SAFE_AREA_DESC"))
 	SafeAreaButton:setActionEventName("open_safe_area")
 
 	return AdvancedTabContainer

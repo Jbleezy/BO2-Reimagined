@@ -417,7 +417,7 @@ CoD.MainLobby.UpdateButtonPromptVisibility = function(MainLobbyWidget)
 end
 
 CoD.MainLobby.PopulateButtons_Multiplayer = function(MainLobbyButtonPane)
-	MainLobbyButtonPane.body.serverBrowserButton = MainLobbyButtonPane.body.buttonList:addButton(Engine.Localize("SERVER BROWSER"), nil, 1)
+	MainLobbyButtonPane.body.serverBrowserButton = MainLobbyButtonPane.body.buttonList:addButton(Engine.Localize("MENU_SERVER_BROWSER_CAPS"), nil, 1)
 	MainLobbyButtonPane.body.serverBrowserButton.hintText = Engine.Localize(CoD.MPZM("MPUI_PLAYER_MATCH_DESC", "ZMUI_PLAYER_MATCH_DESC"))
 	MainLobbyButtonPane.body.serverBrowserButton:setActionEventName("open_server_browser_mainlobby")
 	CoD.SetupMatchmakingLock(MainLobbyButtonPane.body.serverBrowserButton)
@@ -459,12 +459,12 @@ CoD.MainLobby.PopulateButtons_Multiplayer = function(MainLobbyButtonPane)
 	MainLobbyButtonPane.body.optionsButton = MainLobbyButtonPane.body.buttonList:addButton(Engine.Localize("MENU_OPTIONS_CAPS"), nil, 11)
 	MainLobbyButtonPane.body.optionsButton.hintText = Engine.Localize("MPUI_OPTIONS_DESC")
 	MainLobbyButtonPane.body.optionsButton:setActionEventName("open_options_menu")
-	MainLobbyButtonPane.body.modsButton = MainLobbyButtonPane.body.buttonList:addButton(Engine.Localize("MODS"), nil, 12)
+	MainLobbyButtonPane.body.modsButton = MainLobbyButtonPane.body.buttonList:addButton(Engine.Localize("MENU_MODS_CAPS"), nil, 12)
 	MainLobbyButtonPane.body.modsButton:setActionEventName("open_mods_menu")
 end
 
 CoD.MainLobby.PopulateButtons_Zombie = function(MainLobbyButtonPane)
-	MainLobbyButtonPane.body.serverBrowserButton = MainLobbyButtonPane.body.buttonList:addButton(Engine.Localize("SERVER BROWSER"), nil, 1)
+	MainLobbyButtonPane.body.serverBrowserButton = MainLobbyButtonPane.body.buttonList:addButton(Engine.Localize("MENU_SERVER_BROWSER_CAPS"), nil, 1)
 	MainLobbyButtonPane.body.serverBrowserButton.hintText = Engine.Localize(CoD.MPZM("MPUI_PLAYER_MATCH_DESC", "ZMUI_PLAYER_MATCH_DESC"))
 	MainLobbyButtonPane.body.serverBrowserButton:setActionEventName("open_server_browser_mainlobby")
 	CoD.SetupMatchmakingLock(MainLobbyButtonPane.body.serverBrowserButton)
@@ -491,7 +491,7 @@ CoD.MainLobby.PopulateButtons_Zombie = function(MainLobbyButtonPane)
 	MainLobbyButtonPane.body.optionsButton = MainLobbyButtonPane.body.buttonList:addButton(Engine.Localize("MENU_OPTIONS_CAPS"), nil, 9)
 	MainLobbyButtonPane.body.optionsButton.hintText = Engine.Localize("MPUI_OPTIONS_DESC")
 	MainLobbyButtonPane.body.optionsButton:setActionEventName("open_options_menu")
-	MainLobbyButtonPane.body.modsButton = MainLobbyButtonPane.body.buttonList:addButton(Engine.Localize("MODS"), nil, 10)
+	MainLobbyButtonPane.body.modsButton = MainLobbyButtonPane.body.buttonList:addButton(Engine.Localize("MENU_MODS_CAPS"), nil, 10)
 	MainLobbyButtonPane.body.modsButton:setActionEventName("open_mods_menu")
 end
 
