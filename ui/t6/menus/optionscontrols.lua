@@ -432,6 +432,10 @@ CoD.OptionsControls.TabChanged = function(controlsWidget, controlsTab)
 		})
 	end
 	CoD.OptionsControls.CurrentTabIndex = controlsTab.tabIndex
+
+	if controlsWidget.tabManager ~= nil and controlsWidget.tabManager.currentTabHeader ~= nil and controlsWidget.tabManager.currentTabHeader.tabBg ~= nil then
+		controlsWidget.tabManager.currentTabHeader.tabBg:setAlpha(0)
+	end
 end
 
 CoD.OptionsControls.DefaultPopup_RestoreDefaultControls = function(defaultsPopup, client)

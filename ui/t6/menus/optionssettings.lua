@@ -54,6 +54,10 @@ CoD.OptionsSettings.TabChanged = function(OptionsSettingsWidget, SettingsTab)
 		})
 	end
 	CoD.OptionsSettings.CurrentTabIndex = SettingsTab.tabIndex
+
+	if OptionsSettingsWidget.tabManager ~= nil and OptionsSettingsWidget.tabManager.currentTabHeader ~= nil and OptionsSettingsWidget.tabManager.currentTabHeader.tabBg ~= nil then
+		OptionsSettingsWidget.tabManager.currentTabHeader.tabBg:setAlpha(0)
+	end
 end
 
 CoD.OptionsSettings.SelectorChanged = function(OptionsMenuTab, SelectorChangedEventTable)
