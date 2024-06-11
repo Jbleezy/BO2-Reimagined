@@ -186,6 +186,7 @@
 * Moved keyboard & mouse dpad icons to the same position as controller dpad icons
 * Grenade icons no longer fade based on how many the player currently has
 * Ammo counter no longer shows while scoped on all maps
+* Added round chalk images from Mob of the Dead to all maps
 * Added proper game mode and map name to scoreboard
 * Added icons on scoreboard when player is downed, bled out, in Who's Who mode, in afterlife, or has the meat
 * Increased waypoint offset from top of screen

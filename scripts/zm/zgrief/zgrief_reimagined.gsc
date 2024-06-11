@@ -40,6 +40,11 @@ init()
 	precacheshader("white_waypoint_grab");
 	precacheshader("white_waypoint_kill");
 	precacheshader("white_waypoint_escort");
+	precacheshader("chalkmarks_hellcatraz_1");
+	precacheshader("chalkmarks_hellcatraz_2");
+	precacheshader("chalkmarks_hellcatraz_3");
+	precacheshader("chalkmarks_hellcatraz_4");
+	precacheshader("chalkmarks_hellcatraz_5");
 
 	level._effect["human_disappears"] = loadfx("maps/zombie/fx_zmb_returned_spawn_puff");
 
@@ -286,10 +291,10 @@ grief_score_hud_set_player_count(team, num = get_number_of_valid_players_team(te
 
 		level.grief_score_hud[team1].player_count[team].alpha = 1;
 
-		offset = (4 - num) * (level.grief_score_hud[team1].player_count[team].width / 9);
+		offset = (4 - num) * (level.grief_score_hud[team1].player_count[team].width / 8);
 		level.grief_score_hud[team1].player_count[team].x = level.grief_score_hud[team1].player_count[team].og_x + offset;
 
-		level.grief_score_hud[team1].player_count[team] setShader("hud_chalk_" + num, level.grief_score_hud[team1].player_count[team].width, level.grief_score_hud[team1].player_count[team].height);
+		level.grief_score_hud[team1].player_count[team] setShader("chalkmarks_hellcatraz_" + num, level.grief_score_hud[team1].player_count[team].width, level.grief_score_hud[team1].player_count[team].height);
 	}
 }
 
