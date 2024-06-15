@@ -108,7 +108,7 @@ time_bomb_think()
 			if (isdefined(str_grenade_name) && str_grenade_name == "time_bomb_zm")
 			{
 				e_grenade thread setup_time_bomb_detonation_model();
-				time_bomb_saves_data(0);
+				time_bomb_saves_data();
 				e_grenade time_bomb_model_init();
 				self thread swap_weapon_to_detonator(e_grenade);
 				self thread time_bomb_thrown_vo();
