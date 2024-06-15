@@ -694,6 +694,7 @@
 #### Time Bomb
 * No longer sends players back in time
 * Kills all zombies
+* Revives all downed players
 * Can have with Monkey Bombs
 * Switches to detonator at correct time after throwing
 * Fixed detonator raise and drop anims

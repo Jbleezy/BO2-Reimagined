@@ -189,6 +189,7 @@ time_bomb_detonation()
 	wait 4;
 
 	_time_bomb_kill_all_active_enemies();
+	_time_bomb_revive_all_downed_players();
 
 	delete_time_bomb_model();
 	_time_bomb_hide_overlay();
@@ -211,6 +212,16 @@ _time_bomb_show_overlay()
 		maps\mp\_visionset_mgr::vsmgr_activate("overlay", "zombie_time_bomb_overlay", player);
 		player freezecontrols(1);
 		player enableinvulnerability();
+	}
+
+	a_players = get_players(level.time_bomb_save_data.player_used.team);
+
+	foreach (player in a_players)
+	{
+		if (player maps\mp\zombies\_zm_laststand::player_is_in_laststand())
+		{
+			player.bleedout_time = getdvarfloat("player_lastStandBleedoutTime");
+		}
 	}
 
 	level thread kill_overlay_at_match_end();
@@ -284,5 +295,18 @@ _kill_time_bomb_enemy()
 			self.script_mover delete();
 
 		self delete();
+	}
+}
+
+_time_bomb_revive_all_downed_players()
+{
+	players = get_players(level.time_bomb_save_data.player_used.team);
+
+	foreach (player in players)
+	{
+		if (player maps\mp\zombies\_zm_laststand::player_is_in_laststand())
+		{
+			player maps\mp\zombies\_zm_laststand::auto_revive(level.time_bomb_save_data.player_used);
+		}
 	}
 }
