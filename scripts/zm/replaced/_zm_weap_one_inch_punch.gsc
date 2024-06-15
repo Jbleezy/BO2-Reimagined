@@ -32,6 +32,7 @@ one_inch_punch_melee_attack()
 
 	current_melee_weapon = self get_player_melee_weapon();
 	str_weapon = self getcurrentweapon();
+	self increment_is_drinking();
 	self disable_player_move_states(1);
 	self giveweapon(flourish_weapon);
 	self switchtoweapon(flourish_weapon);
@@ -51,19 +52,23 @@ one_inch_punch_melee_attack()
 
 	if (result != "player_downed")
 	{
-		self waittill_any("player_downed", "weapon_change_complete");
+		result = self waittill_any_return("player_downed", "weapon_change_complete");
 	}
 
-	if (is_melee_weapon(str_weapon))
+	if (result != "player_downed")
 	{
-		self switchtoweapon("held_" + punch_weapon);
-	}
-	else
-	{
-		self switchtoweapon(str_weapon);
+		if (is_melee_weapon(str_weapon))
+		{
+			self switchtoweapon("held_" + punch_weapon);
+		}
+		else
+		{
+			self switchtoweapon(str_weapon);
+		}
 	}
 
 	self takeweapon(flourish_weapon);
+	self decrement_is_drinking();
 	self enable_player_move_states();
 
 	if (!isdefined(self.b_punch_upgraded) || !self.b_punch_upgraded)
