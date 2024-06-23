@@ -69,6 +69,7 @@ LUI.createMenu.ReimaginedArea = function(LocalClientIndex)
 	roundTotalTimerText:setTopBottom(true, false, 0 + 46, CoD.textSize.Default + 46)
 	roundTotalTimerText:setFont(CoD.fonts.Big)
 	roundTotalTimerText:setAlignment(LUI.Alignment.Right)
+	roundTotalTimerText:setAlpha(0)
 	roundTotalTimerText:registerAnimationState("fade_out", {
 		alpha = 0,
 	})
@@ -210,6 +211,50 @@ LUI.createMenu.ReimaginedArea = function(LocalClientIndex)
 	zoneNameWidget:registerEventHandler("hud_update_zone_name", CoD.Reimagined.ZoneNameArea.UpdateZoneName)
 	zoneNameWidget:registerEventHandler("hud_fade_out_zone_name", CoD.Reimagined.ZoneNameArea.FadeOutZoneName)
 	zoneNameWidget:registerEventHandler("hud_fade_in_zone_name", CoD.Reimagined.ZoneNameArea.FadeInZoneName)
+
+	local x = 0
+	local y = -200
+
+	local questTimerWidget = LUI.UIElement.new()
+	questTimerWidget:setLeftRight(true, true, x, x)
+	questTimerWidget:setTopBottom(false, false, y, y)
+	questTimerWidget:setAlpha(0)
+	safeArea:addElement(questTimerWidget)
+
+	local questTimerText = LUI.UIText.new()
+	questTimerText:setLeftRight(true, true, 0, 0)
+	questTimerText:setTopBottom(false, false, 0, CoD.textSize.Default)
+	questTimerText:setFont(CoD.fonts.Big)
+	questTimerText:setAlignment(LUI.Alignment.Center)
+	questTimerText:setAlpha(0)
+	questTimerText:registerAnimationState("fade_out", {
+		alpha = 0,
+	})
+	questTimerText:registerAnimationState("fade_in", {
+		alpha = 1,
+	})
+	questTimerWidget:addElement(questTimerText)
+	questTimerWidget.questTimerText = questTimerText
+
+	questTimerWidget:registerEventHandler("hud_update_refresh", CoD.Reimagined.QuestTimerArea.UpdateVisibility)
+	questTimerWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_VISIBLE, CoD.Reimagined.QuestTimerArea.UpdateVisibility)
+	questTimerWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_EMP_ACTIVE, CoD.Reimagined.QuestTimerArea.UpdateVisibility)
+	questTimerWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM, CoD.Reimagined.QuestTimerArea.UpdateVisibility)
+	questTimerWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN, CoD.Reimagined.QuestTimerArea.UpdateVisibility)
+	questTimerWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_VEHICLE, CoD.Reimagined.QuestTimerArea.UpdateVisibility)
+	questTimerWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_GUIDED_MISSILE, CoD.Reimagined.QuestTimerArea.UpdateVisibility)
+	questTimerWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC, CoD.Reimagined.QuestTimerArea.UpdateVisibility)
+	questTimerWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_AMMO_COUNTER_HIDE, CoD.Reimagined.QuestTimerArea.UpdateVisibility)
+	questTimerWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_FLASH_BANGED, CoD.Reimagined.QuestTimerArea.UpdateVisibility)
+	questTimerWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_UI_ACTIVE, CoD.Reimagined.QuestTimerArea.UpdateVisibility)
+	questTimerWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_SPECTATING_CLIENT, CoD.Reimagined.QuestTimerArea.UpdateVisibility)
+	questTimerWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_SCOREBOARD_OPEN, CoD.Reimagined.QuestTimerArea.UpdateVisibility)
+	questTimerWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_PLAYER_DEAD, CoD.Reimagined.QuestTimerArea.UpdateVisibility)
+	questTimerWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_SCOPED, CoD.Reimagined.QuestTimerArea.UpdateVisibility)
+	questTimerWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_PLAYER_ZOMBIE, CoD.Reimagined.QuestTimerArea.UpdateVisibility)
+	questTimerWidget:registerEventHandler("hud_update_quest_timer", CoD.Reimagined.QuestTimerArea.UpdateQuestTimer)
+	questTimerWidget:registerEventHandler("hud_fade_out_quest_timer", CoD.Reimagined.QuestTimerArea.FadeOutQuestTimer)
+	questTimerWidget:registerEventHandler("hud_fade_in_quest_timer", CoD.Reimagined.QuestTimerArea.FadeInQuestTimer)
 
 	return safeArea
 end
@@ -360,6 +405,43 @@ CoD.Reimagined.ZoneNameArea.FadeInZoneName = function(Menu, ClientInstance)
 		Menu.zoneNameText:animateToState("fade_in", ClientInstance.data[1])
 	else
 		Menu.zoneNameText:animateToState("fade_in")
+	end
+end
+
+CoD.Reimagined.QuestTimerArea = {}
+CoD.Reimagined.QuestTimerArea.UpdateVisibility = function(Menu, ClientInstance)
+	local controller = ClientInstance.controller
+	if UIExpression.IsVisibilityBitSet(controller, CoD.BIT_HUD_VISIBLE) == 1 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_EMP_ACTIVE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_VEHICLE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_GUIDED_MISSILE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_AMMO_COUNTER_HIDE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IS_FLASH_BANGED) == 0 and (UIExpression.IsVisibilityBitSet(controller, CoD.BIT_UI_ACTIVE) == 0 or UIExpression.IsVisibilityBitSet(controller, CoD.BIT_SCOREBOARD_OPEN) == 1) and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_KILLCAM) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IS_SCOPED) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IS_PLAYER_ZOMBIE) == 0 and (not CoD.IsShoutcaster(controller) or CoD.ExeProfileVarBool(controller, "shoutcaster_scorestreaks") and Engine.IsSpectatingActiveClient(controller)) and CoD.FSM_VISIBILITY(controller) == 0 then
+		if Menu.visible ~= true then
+			Menu:setAlpha(1)
+			Menu.visible = true
+		end
+	elseif Menu.visible == true then
+		Menu:setAlpha(0)
+		Menu.visible = nil
+	end
+end
+
+CoD.Reimagined.QuestTimerArea.UpdateQuestTimer = function(Menu, ClientInstance)
+	local timeNum = ClientInstance.data[1]
+	local time = CoD.Reimagined.ConvertNumToTime(timeNum)
+
+	Menu.questTimerText:setText(Engine.Localize("ZOMBIE_HUD_QUEST_COMPLETE_TIME") .. time)
+end
+
+CoD.Reimagined.QuestTimerArea.FadeOutQuestTimer = function(Menu, ClientInstance)
+	if ClientInstance.data ~= nil then
+		Menu.questTimerText:animateToState("fade_out", ClientInstance.data[1])
+	else
+		Menu.questTimerText:animateToState("fade_out")
+	end
+end
+
+CoD.Reimagined.QuestTimerArea.FadeInQuestTimer = function(Menu, ClientInstance)
+	if ClientInstance.data ~= nil then
+		Menu.questTimerText:animateToState("fade_in", ClientInstance.data[1])
+	else
+		Menu.questTimerText:animateToState("fade_in")
 	end
 end
 

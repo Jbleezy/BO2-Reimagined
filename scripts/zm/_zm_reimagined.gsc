@@ -196,11 +196,14 @@ precache_strings()
 	precacheString(&"hud_update_round_total_timer");
 	precacheString(&"hud_update_health_bar");
 	precacheString(&"hud_update_zone_name");
+	precacheString(&"hud_update_quest_timer");
 
 	precacheString(&"hud_fade_out_zone_name");
 	precacheString(&"hud_fade_in_zone_name");
 	precacheString(&"hud_fade_out_round_total_timer");
 	precacheString(&"hud_fade_in_round_total_timer");
+	precacheString(&"hud_fade_out_quest_timer");
+	precacheString(&"hud_fade_in_quest_timer");
 
 	foreach (zone_name in level.zone_keys)
 	{
@@ -761,6 +764,13 @@ lui_notify_events()
 	if (isdefined(level.round_total_timer_hud_value))
 	{
 		self luinotifyevent(&"hud_update_round_total_timer", 1, level.round_total_timer_hud_value);
+		self luinotifyevent(&"hud_fade_in_round_total_timer");
+	}
+
+	if (isdefined(level.quest_timer_hud_value))
+	{
+		self luinotifyevent(&"hud_update_quest_timer", 1, level.quest_timer_hud_value);
+		self luinotifyevent(&"hud_fade_in_quest_timer");
 	}
 }
 
@@ -968,43 +978,6 @@ round_total_timer_hud()
 	{
 		player luinotifyevent(&"hud_update_round_total_timer", 1, level.round_total_timer_hud_value);
 		player luinotifyevent(&"hud_fade_in_round_total_timer", 1, 500);
-	}
-}
-
-set_time_frozen(time, endon_notify)
-{
-	if (isDefined(endon_notify))
-	{
-		level endon(endon_notify);
-	}
-	else if (getDvar("g_gametype") == "zgrief")
-	{
-		level endon("restart_round_start");
-	}
-	else
-	{
-		level endon("start_of_round");
-	}
-
-	self endon("death");
-
-	if (time != 0)
-	{
-		time -= 0.5; // need to set it below the number or it shows the next number
-	}
-
-	while (1)
-	{
-		if (time == 0)
-		{
-			self setTimerUp(time);
-		}
-		else
-		{
-			self setTimer(time);
-		}
-
-		wait 0.5;
 	}
 }
 

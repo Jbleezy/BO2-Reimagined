@@ -164,38 +164,24 @@ sq_get_time_for_song(song)
 
 sq_complete_time_hud()
 {
-	hud = newHudElem();
-	hud.alignx = "center";
-	hud.aligny = "top";
-	hud.horzalign = "user_center";
-	hud.vertalign = "user_top";
-	hud.y += 100;
-	hud.fontscale = 1.4;
-	hud.alpha = 0;
-	hud.color = (1, 1, 1);
-	hud.hidewheninmenu = 1;
-	hud.foreground = 1;
-	hud.label = &"ZOMBIE_HUD_QUEST_COMPLETE_TIME";
+	level.quest_timer_hud_value = level.total_timer_hud_value;
 
-	hud endon("death");
+	players = get_players();
 
-	hud thread scripts\zm\_zm_reimagined::destroy_on_intermission();
-
-	fade_time = 0.5;
-
-	hud fadeOverTime(fade_time);
-	hud.alpha = 1;
-
-	time = int((getTime() - level.timer_hud_start_time) / 1000);
-
-	hud thread scripts\zm\_zm_reimagined::set_time_frozen(time, "forever");
+	foreach (player in players)
+	{
+		player luinotifyevent(&"hud_update_quest_timer", 1, level.quest_timer_hud_value);
+		player luinotifyevent(&"hud_fade_in_quest_timer", 1, 500);
+	}
 
 	wait 10;
 
-	hud fadeOverTime(fade_time);
-	hud.alpha = 0;
+	level.quest_timer_hud_value = undefined;
 
-	wait fade_time;
+	players = get_players();
 
-	hud destroy();
+	foreach (player in players)
+	{
+		player luinotifyevent(&"hud_fade_out_quest_timer", 1, 500);
+	}
 }
