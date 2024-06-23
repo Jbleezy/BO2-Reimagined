@@ -8,13 +8,13 @@ LUI.createMenu.ReimaginedArea = function(LocalClientIndex)
 	local y = 3
 
 	local enemyCounterWidget = LUI.UIElement.new()
-	enemyCounterWidget:setLeftRight(true, false, x, x)
+	enemyCounterWidget:setLeftRight(true, true, x, x)
 	enemyCounterWidget:setTopBottom(true, false, y, y)
 	enemyCounterWidget:setAlpha(0)
 	safeArea:addElement(enemyCounterWidget)
 
 	local enemyCounterText = LUI.UIText.new()
-	enemyCounterText:setLeftRight(true, false, 0, 1000)
+	enemyCounterText:setLeftRight(true, true, 0, 0)
 	enemyCounterText:setTopBottom(true, false, 0, CoD.textSize.Default)
 	enemyCounterText:setFont(CoD.fonts.Big)
 	enemyCounterText:setAlignment(LUI.Alignment.Left)
@@ -43,13 +43,13 @@ LUI.createMenu.ReimaginedArea = function(LocalClientIndex)
 	local y = 18
 
 	local timerWidget = LUI.UIElement.new()
-	timerWidget:setLeftRight(false, true, x, x)
+	timerWidget:setLeftRight(true, true, x, x)
 	timerWidget:setTopBottom(true, false, y, y)
 	timerWidget:setAlpha(0)
 	safeArea:addElement(timerWidget)
 
 	local totalTimerText = LUI.UIText.new()
-	totalTimerText:setLeftRight(true, false, -1000, 0)
+	totalTimerText:setLeftRight(true, true, 0, 0)
 	totalTimerText:setTopBottom(true, false, 0, CoD.textSize.Default)
 	totalTimerText:setFont(CoD.fonts.Big)
 	totalTimerText:setAlignment(LUI.Alignment.Right)
@@ -57,7 +57,7 @@ LUI.createMenu.ReimaginedArea = function(LocalClientIndex)
 	timerWidget.totalTimerText = totalTimerText
 
 	local roundTimerText = LUI.UIText.new()
-	roundTimerText:setLeftRight(true, false, -1000, 0)
+	roundTimerText:setLeftRight(true, true, 0, 0)
 	roundTimerText:setTopBottom(true, false, 0 + 23, CoD.textSize.Default + 23)
 	roundTimerText:setFont(CoD.fonts.Big)
 	roundTimerText:setAlignment(LUI.Alignment.Right)
@@ -65,7 +65,7 @@ LUI.createMenu.ReimaginedArea = function(LocalClientIndex)
 	timerWidget.roundTimerText = roundTimerText
 
 	local roundTotalTimerText = LUI.UIText.new()
-	roundTotalTimerText:setLeftRight(true, false, -1000, 0)
+	roundTotalTimerText:setLeftRight(true, true, 0, 0)
 	roundTotalTimerText:setTopBottom(true, false, 0 + 46, CoD.textSize.Default + 46)
 	roundTotalTimerText:setFont(CoD.fonts.Big)
 	roundTotalTimerText:setAlignment(LUI.Alignment.Right)
@@ -107,7 +107,7 @@ LUI.createMenu.ReimaginedArea = function(LocalClientIndex)
 	local bgDiff = 2
 
 	local healthBarWidget = LUI.UIElement.new()
-	healthBarWidget:setLeftRight(true, false, x, x)
+	healthBarWidget:setLeftRight(true, true, x, x)
 	healthBarWidget:setTopBottom(false, true, y, y)
 	healthBarWidget:setAlpha(0)
 	healthBarWidget.width = width
@@ -142,7 +142,7 @@ LUI.createMenu.ReimaginedArea = function(LocalClientIndex)
 	healthBarWidget.shieldBar = shieldBar
 
 	local healthText = LUI.UIText.new()
-	healthText:setLeftRight(true, false, width + bgDiff * 2, 0)
+	healthText:setLeftRight(true, true, width + bgDiff * 2, 0)
 	healthText:setTopBottom(true, false, 0 - bgDiff, height + bgDiff)
 	healthText:setFont(CoD.fonts.Big)
 	healthText:setAlignment(LUI.Alignment.Left)
@@ -172,13 +172,13 @@ LUI.createMenu.ReimaginedArea = function(LocalClientIndex)
 	local y = -167
 
 	local zoneNameWidget = LUI.UIElement.new()
-	zoneNameWidget:setLeftRight(true, false, x, x)
+	zoneNameWidget:setLeftRight(true, true, x, x)
 	zoneNameWidget:setTopBottom(false, true, y, y)
 	zoneNameWidget:setAlpha(0)
 	safeArea:addElement(zoneNameWidget)
 
 	local zoneNameText = LUI.UIText.new()
-	zoneNameText:setLeftRight(true, false, 0, 1000)
+	zoneNameText:setLeftRight(true, true, 0, 0)
 	zoneNameText:setTopBottom(true, false, -CoD.textSize.Default, 0)
 	zoneNameText:setFont(CoD.fonts.Big)
 	zoneNameText:setAlignment(LUI.Alignment.Left)
