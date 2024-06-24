@@ -657,6 +657,12 @@ CoD.OptionsSettings.CreateModTab = function(ModTab, LocalClientIndex)
 
 	ModTabButtonList:addSpacer(CoD.CoD9Button.Height / 2)
 
+	local ContainmentSelector = ModTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_CONTAINMENT_ZONE_TIME_CAPS"), "ui_hud_containment")
+	ContainmentSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
+	ContainmentSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_ENABLED_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
+
+	ModTabButtonList:addSpacer(CoD.CoD9Button.Height / 2)
+
 	local FogSelector = ModTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_FOG_CAPS"), "r_fog_settings")
 	FogSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChangedFog)
 	FogSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_ENABLED_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChangedFog)

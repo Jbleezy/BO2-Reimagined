@@ -2410,49 +2410,7 @@ race_check_for_kills()
 
 containment_init()
 {
-	level.containment_zone_hud = newHudElem();
-	level.containment_zone_hud.alignx = "left";
-	level.containment_zone_hud.aligny = "top";
-	level.containment_zone_hud.horzalign = "user_left";
-	level.containment_zone_hud.vertalign = "user_top";
-	level.containment_zone_hud.x += 7;
-	level.containment_zone_hud.y += 2;
-	level.containment_zone_hud.fontscale = 1.4;
-	level.containment_zone_hud.alpha = 0;
-	level.containment_zone_hud.color = (1, 1, 1);
-	level.containment_zone_hud.hidewheninmenu = 1;
-	level.containment_zone_hud.foreground = 1;
-	level.containment_zone_hud.label = &"ZOMBIE_HUD_CONTAINMENT_ZONE";
-
-	level.containment_time_hud = newHudElem();
-	level.containment_time_hud.alignx = "left";
-	level.containment_time_hud.aligny = "top";
-	level.containment_time_hud.horzalign = "user_left";
-	level.containment_time_hud.vertalign = "user_top";
-	level.containment_time_hud.x += 7;
-	level.containment_time_hud.y += 17;
-	level.containment_time_hud.fontscale = 1.4;
-	level.containment_time_hud.alpha = 0;
-	level.containment_time_hud.color = (1, 1, 1);
-	level.containment_time_hud.hidewheninmenu = 1;
-	level.containment_time_hud.foreground = 1;
-	level.containment_time_hud.label = &"ZOMBIE_HUD_CONTAINMENT_TIME";
-
-	level thread containment_hud_destroy_on_end_game();
 	level thread containment_think();
-}
-
-containment_hud_destroy_on_end_game()
-{
-	level waittill("end_game");
-
-	level.containment_zone_hud setText("");
-	level.containment_time_hud setText("");
-
-	level waittill("intermission");
-
-	level.containment_zone_hud destroy();
-	level.containment_time_hud destroy();
 }
 
 containment_think()
@@ -2464,11 +2422,18 @@ containment_think()
 	ind = 0;
 	containment_zones = containment_get_zones();
 
-	level.containment_zone_hud.alpha = 1;
-
 	if (containment_zones.size > 1)
 	{
-		level.containment_time_hud.alpha = 1;
+		players = get_players();
+
+		level.containment_zone_hud_value = &"";
+		level.containment_time_hud_value = -1;
+
+		foreach (player in players)
+		{
+			player luinotifyevent(&"hud_update_containment_zone", 1, level.containment_zone_hud_value);
+			player luinotifyevent(&"hud_update_containment_time", 1, level.containment_time_hud_value);
+		}
 	}
 
 	level waittill("restart_round_start");
@@ -2540,8 +2505,17 @@ containment_think()
 			player thread show_grief_hud_msg(&"ZOMBIE_NEW_CONTAINMENT_ZONE");
 		}
 
-		level.containment_zone_hud setText(zone_display_name);
-		level.containment_time_hud setTimer(60);
+		if (containment_zones.size > 1)
+		{
+			level.containment_zone_hud_value = zone_display_name;
+
+			foreach (player in players)
+			{
+				player luinotifyevent(&"hud_update_containment_zone", 1, level.containment_zone_hud_value);
+			}
+
+			level thread containment_time_hud_countdown(60);
+		}
 
 		zone_time = 60000;
 		next_obj_waypoint_time = 10000;
@@ -3105,6 +3079,33 @@ containment_set_obj_waypoint_icon(icon, next_obj = false)
 		{
 			hud setWaypoint(1, icon);
 		}
+	}
+}
+
+containment_time_hud_countdown(time)
+{
+	level notify("containment_time_hud_countdown");
+	level endon("containment_time_hud_countdown");
+
+	level.containment_time_hud_value = time;
+
+	while (1)
+	{
+		players = get_players();
+
+		foreach (player in players)
+		{
+			player luinotifyevent(&"hud_update_containment_time", 1, level.containment_time_hud_value);
+		}
+
+		if (level.containment_time_hud_value <= 0)
+		{
+			return;
+		}
+
+		wait 1;
+
+		level.containment_time_hud_value--;
 	}
 }
 

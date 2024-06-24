@@ -197,6 +197,8 @@ precache_strings()
 	precacheString(&"hud_update_health_bar");
 	precacheString(&"hud_update_zone_name");
 	precacheString(&"hud_update_quest_timer");
+	precacheString(&"hud_update_containment_zone");
+	precacheString(&"hud_update_containment_time");
 
 	precacheString(&"hud_fade_out_zone_name");
 	precacheString(&"hud_fade_in_zone_name");
@@ -771,6 +773,16 @@ lui_notify_events()
 	{
 		self luinotifyevent(&"hud_update_quest_timer", 1, level.quest_timer_hud_value);
 		self luinotifyevent(&"hud_fade_in_quest_timer");
+	}
+
+	if (isdefined(level.containment_zone_hud_value))
+	{
+		self luinotifyevent(&"hud_update_containment_zone", 1, level.containment_zone_hud_value);
+	}
+
+	if (isdefined(level.containment_time_hud_value))
+	{
+		self luinotifyevent(&"hud_update_containment_time", 1, level.containment_time_hud_value);
 	}
 }
 

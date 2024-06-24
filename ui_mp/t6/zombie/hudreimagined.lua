@@ -238,6 +238,47 @@ LUI.createMenu.ReimaginedArea = function(LocalClientIndex)
 	questTimerWidget:registerEventHandler("hud_fade_out_quest_timer", CoD.Reimagined.QuestTimerArea.FadeOutQuestTimer)
 	questTimerWidget:registerEventHandler("hud_fade_in_quest_timer", CoD.Reimagined.QuestTimerArea.FadeInQuestTimer)
 
+	local containmentWidget = LUI.UIElement.new()
+	containmentWidget:setLeftRight(true, true, 7, 7)
+	containmentWidget:setTopBottom(true, false, 3, 3)
+	containmentWidget:setAlpha(0)
+	safeArea:addElement(containmentWidget)
+
+	local containmentZoneText = LUI.UIText.new()
+	containmentZoneText:setLeftRight(true, true, 0, 0)
+	containmentZoneText:setTopBottom(true, false, 0, CoD.textSize.Default)
+	containmentZoneText:setFont(CoD.fonts.Big)
+	containmentZoneText:setAlignment(LUI.Alignment.Left)
+	containmentWidget:addElement(containmentZoneText)
+	containmentWidget.containmentZoneText = containmentZoneText
+
+	local containmentTimeText = LUI.UIText.new()
+	containmentTimeText:setLeftRight(true, true, 0, 0)
+	containmentTimeText:setTopBottom(true, false, 0 + 23, CoD.textSize.Default + 23)
+	containmentTimeText:setFont(CoD.fonts.Big)
+	containmentTimeText:setAlignment(LUI.Alignment.Left)
+	containmentWidget:addElement(containmentTimeText)
+	containmentWidget.containmentTimeText = containmentTimeText
+
+	containmentWidget:registerEventHandler("hud_update_refresh", CoD.Reimagined.ContainmentArea.UpdateVisibility)
+	containmentWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_VISIBLE, CoD.Reimagined.ContainmentArea.UpdateVisibility)
+	containmentWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_EMP_ACTIVE, CoD.Reimagined.ContainmentArea.UpdateVisibility)
+	containmentWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM, CoD.Reimagined.ContainmentArea.UpdateVisibility)
+	containmentWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN, CoD.Reimagined.ContainmentArea.UpdateVisibility)
+	containmentWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_VEHICLE, CoD.Reimagined.ContainmentArea.UpdateVisibility)
+	containmentWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_GUIDED_MISSILE, CoD.Reimagined.ContainmentArea.UpdateVisibility)
+	containmentWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC, CoD.Reimagined.ContainmentArea.UpdateVisibility)
+	containmentWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_AMMO_COUNTER_HIDE, CoD.Reimagined.ContainmentArea.UpdateVisibility)
+	containmentWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_FLASH_BANGED, CoD.Reimagined.ContainmentArea.UpdateVisibility)
+	containmentWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_UI_ACTIVE, CoD.Reimagined.ContainmentArea.UpdateVisibility)
+	containmentWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_SPECTATING_CLIENT, CoD.Reimagined.ContainmentArea.UpdateVisibility)
+	containmentWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_SCOREBOARD_OPEN, CoD.Reimagined.ContainmentArea.UpdateVisibility)
+	containmentWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_PLAYER_DEAD, CoD.Reimagined.ContainmentArea.UpdateVisibility)
+	containmentWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_SCOPED, CoD.Reimagined.ContainmentArea.UpdateVisibility)
+	containmentWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_PLAYER_ZOMBIE, CoD.Reimagined.ContainmentArea.UpdateVisibility)
+	containmentWidget:registerEventHandler("hud_update_containment_zone", CoD.Reimagined.ContainmentArea.UpdateContainmentZone)
+	containmentWidget:registerEventHandler("hud_update_containment_time", CoD.Reimagined.ContainmentArea.UpdateContainmentTime)
+
 	return safeArea
 end
 
@@ -371,6 +412,7 @@ end
 
 CoD.Reimagined.ZoneNameArea.UpdateZoneName = function(Menu, ClientInstance)
 	local zoneName = Engine.Localize(Engine.GetIString(ClientInstance.data[1], "CS_LOCALIZED_STRINGS"))
+
 	Menu.zoneNameText:setText(zoneName)
 end
 
@@ -425,6 +467,37 @@ CoD.Reimagined.QuestTimerArea.FadeInQuestTimer = function(Menu, ClientInstance)
 	else
 		Menu.questTimerText:animateToState("fade_in")
 	end
+end
+
+CoD.Reimagined.ContainmentArea = {}
+CoD.Reimagined.ContainmentArea.UpdateVisibility = function(Menu, ClientInstance)
+	local controller = ClientInstance.controller
+	if UIExpression.DvarBool(nil, "ui_hud_containment") == 1 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_HUD_VISIBLE) == 1 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_EMP_ACTIVE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_VEHICLE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_GUIDED_MISSILE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_AMMO_COUNTER_HIDE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IS_FLASH_BANGED) == 0 and (UIExpression.IsVisibilityBitSet(controller, CoD.BIT_UI_ACTIVE) == 0 or UIExpression.IsVisibilityBitSet(controller, CoD.BIT_SCOREBOARD_OPEN) == 1) and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_KILLCAM) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IS_SCOPED) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IS_PLAYER_ZOMBIE) == 0 and (not CoD.IsShoutcaster(controller) or CoD.ExeProfileVarBool(controller, "shoutcaster_scorestreaks") and Engine.IsSpectatingActiveClient(controller)) and CoD.FSM_VISIBILITY(controller) == 0 then
+		if Menu.visible ~= true then
+			Menu:setAlpha(1)
+			Menu.visible = true
+		end
+	elseif Menu.visible == true then
+		Menu:setAlpha(0)
+		Menu.visible = nil
+	end
+end
+
+CoD.Reimagined.ContainmentArea.UpdateContainmentZone = function(Menu, ClientInstance)
+	local zoneName = Engine.Localize(Engine.GetIString(ClientInstance.data[1], "CS_LOCALIZED_STRINGS"))
+
+	Menu.containmentZoneText:setText(Engine.Localize("ZOMBIE_HUD_CONTAINMENT_ZONE") .. zoneName)
+end
+
+CoD.Reimagined.ContainmentArea.UpdateContainmentTime = function(Menu, ClientInstance)
+	local timeNum = ClientInstance.data[1]
+	local time = ""
+
+	if timeNum >= 0 then
+		time = CoD.Reimagined.ConvertNumToTime(timeNum)
+	end
+
+	Menu.containmentTimeText:setText(Engine.Localize("ZOMBIE_HUD_CONTAINMENT_TIME") .. time)
 end
 
 CoD.Reimagined.ConvertNumToTime = function(num)

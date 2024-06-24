@@ -199,6 +199,10 @@ CoD.InitCustomDvars = function()
 		Engine.Exec(nil, "seta ui_hud_zone_name 1")
 	end
 
+	if UIExpression.DvarString(nil, "ui_hud_containment") == "" then
+		Engine.Exec(nil, "seta ui_hud_containment 1")
+	end
+
 	if UIExpression.DvarString(nil, "r_fog_settings") == "" then
 		Engine.Exec(nil, "seta r_fog_settings 0")
 	end
