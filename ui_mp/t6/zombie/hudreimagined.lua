@@ -4,12 +4,9 @@ LUI.createMenu.ReimaginedArea = function(LocalClientIndex)
 	local safeArea = CoD.Menu.NewSafeAreaFromState("ReimaginedArea", LocalClientIndex)
 	safeArea:setOwner(LocalClientIndex)
 
-	local x = 7
-	local y = 3
-
 	local enemyCounterWidget = LUI.UIElement.new()
-	enemyCounterWidget:setLeftRight(true, true, x, x)
-	enemyCounterWidget:setTopBottom(true, false, y, y)
+	enemyCounterWidget:setLeftRight(true, true, 7, 7)
+	enemyCounterWidget:setTopBottom(true, false, 3, 3)
 	enemyCounterWidget:setAlpha(0)
 	safeArea:addElement(enemyCounterWidget)
 
@@ -39,12 +36,9 @@ LUI.createMenu.ReimaginedArea = function(LocalClientIndex)
 	enemyCounterWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_PLAYER_ZOMBIE, CoD.Reimagined.EnemyCounterArea.UpdateVisibility)
 	enemyCounterWidget:registerEventHandler("hud_update_enemy_counter", CoD.Reimagined.EnemyCounterArea.UpdateEnemyCounter)
 
-	local x = -7
-	local y = 18
-
 	local timerWidget = LUI.UIElement.new()
-	timerWidget:setLeftRight(true, true, x, x)
-	timerWidget:setTopBottom(true, false, y, y)
+	timerWidget:setLeftRight(true, true, -7, -7)
+	timerWidget:setTopBottom(true, false, 18, 18)
 	timerWidget:setAlpha(0)
 	safeArea:addElement(timerWidget)
 
@@ -101,24 +95,18 @@ LUI.createMenu.ReimaginedArea = function(LocalClientIndex)
 	timerWidget:registerEventHandler("hud_fade_out_round_total_timer", CoD.Reimagined.TimerArea.FadeOutRoundTotalTimer)
 	timerWidget:registerEventHandler("hud_fade_in_round_total_timer", CoD.Reimagined.TimerArea.FadeInRoundTotalTimer)
 
-	local x = 7
-	local y = -163
-	local width = 169
-	local height = 13
-	local bgDiff = 2
-
 	local healthBarWidget = LUI.UIElement.new()
-	healthBarWidget:setLeftRight(true, true, x, x)
-	healthBarWidget:setTopBottom(false, true, y, y)
+	healthBarWidget:setLeftRight(true, true, 7, 7)
+	healthBarWidget:setTopBottom(false, true, -163, -163)
 	healthBarWidget:setAlpha(0)
-	healthBarWidget.width = width
-	healthBarWidget.height = height
-	healthBarWidget.bgDiff = bgDiff
+	healthBarWidget.width = 169
+	healthBarWidget.height = 13
+	healthBarWidget.bgDiff = 2
 	safeArea:addElement(healthBarWidget)
 
 	local healthBarBg = LUI.UIImage.new()
-	healthBarBg:setLeftRight(true, false, 0, 0 + width)
-	healthBarBg:setTopBottom(true, false, 0, 0 + height)
+	healthBarBg:setLeftRight(true, false, 0, 0 + healthBarWidget.width)
+	healthBarBg:setTopBottom(true, false, 0, 0 + healthBarWidget.height)
 	healthBarBg:setImage(RegisterMaterial("white"))
 	healthBarBg:setRGB(0, 0, 0)
 	healthBarBg:setAlpha(0.5)
@@ -126,16 +114,16 @@ LUI.createMenu.ReimaginedArea = function(LocalClientIndex)
 	healthBarWidget.healthBarBg = healthBarBg
 
 	local healthBar = LUI.UIImage.new()
-	healthBar:setLeftRight(true, false, bgDiff, width - bgDiff)
-	healthBar:setTopBottom(true, false, bgDiff, height - bgDiff)
+	healthBar:setLeftRight(true, false, healthBarWidget.bgDiff, healthBarWidget.width - healthBarWidget.bgDiff)
+	healthBar:setTopBottom(true, false, healthBarWidget.bgDiff, healthBarWidget.height - healthBarWidget.bgDiff)
 	healthBar:setImage(RegisterMaterial("white"))
 	healthBar:setAlpha(1)
 	healthBarWidget:addElement(healthBar)
 	healthBarWidget.healthBar = healthBar
 
 	local shieldBar = LUI.UIImage.new()
-	shieldBar:setLeftRight(true, false, bgDiff, width - bgDiff)
-	shieldBar:setTopBottom(true, false, bgDiff, (height - bgDiff) / 2)
+	shieldBar:setLeftRight(true, false, healthBarWidget.bgDiff, healthBarWidget.width - healthBarWidget.bgDiff)
+	shieldBar:setTopBottom(true, false, healthBarWidget.bgDiff, (healthBarWidget.height - healthBarWidget.bgDiff) / 2)
 	shieldBar:setImage(RegisterMaterial("white"))
 	shieldBar:setRGB(0.5, 0.5, 0.5)
 	shieldBar:setAlpha(0)
@@ -143,8 +131,8 @@ LUI.createMenu.ReimaginedArea = function(LocalClientIndex)
 	healthBarWidget.shieldBar = shieldBar
 
 	local healthText = LUI.UIText.new()
-	healthText:setLeftRight(true, true, width + bgDiff * 2, 0)
-	healthText:setTopBottom(true, false, 0 - bgDiff, height + bgDiff)
+	healthText:setLeftRight(true, true, healthBarWidget.width + healthBarWidget.bgDiff * 2, 0)
+	healthText:setTopBottom(true, false, 0 - healthBarWidget.bgDiff, healthBarWidget.height + healthBarWidget.bgDiff)
 	healthText:setFont(CoD.fonts.Big)
 	healthText:setAlignment(LUI.Alignment.Left)
 	healthBarWidget:addElement(healthText)
@@ -169,12 +157,9 @@ LUI.createMenu.ReimaginedArea = function(LocalClientIndex)
 	healthBarWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_PLAYER_ZOMBIE, CoD.Reimagined.HealthBarArea.UpdateVisibility)
 	healthBarWidget:registerEventHandler("hud_update_health_bar", CoD.Reimagined.HealthBarArea.UpdateHealthBar)
 
-	local x = 7
-	local y = -167
-
 	local zoneNameWidget = LUI.UIElement.new()
-	zoneNameWidget:setLeftRight(true, true, x, x)
-	zoneNameWidget:setTopBottom(false, true, y, y)
+	zoneNameWidget:setLeftRight(true, true, 7, 7)
+	zoneNameWidget:setTopBottom(false, true, -167, -167)
 	zoneNameWidget:setAlpha(0)
 	safeArea:addElement(zoneNameWidget)
 
@@ -212,12 +197,9 @@ LUI.createMenu.ReimaginedArea = function(LocalClientIndex)
 	zoneNameWidget:registerEventHandler("hud_fade_out_zone_name", CoD.Reimagined.ZoneNameArea.FadeOutZoneName)
 	zoneNameWidget:registerEventHandler("hud_fade_in_zone_name", CoD.Reimagined.ZoneNameArea.FadeInZoneName)
 
-	local x = 0
-	local y = -200
-
 	local questTimerWidget = LUI.UIElement.new()
-	questTimerWidget:setLeftRight(true, true, x, x)
-	questTimerWidget:setTopBottom(false, false, y, y)
+	questTimerWidget:setLeftRight(true, true, 0, 0)
+	questTimerWidget:setTopBottom(false, false, -200, -200)
 	questTimerWidget:setAlpha(0)
 	safeArea:addElement(questTimerWidget)
 
