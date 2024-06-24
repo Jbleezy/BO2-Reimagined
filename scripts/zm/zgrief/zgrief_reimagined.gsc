@@ -32,19 +32,7 @@ init()
 		return;
 	}
 
-	precacheshader("waypoint_target");
-	precacheshader("white_waypoint_target");
-	precacheshader("white_waypoint_capture");
-	precacheshader("white_waypoint_defend");
-	precacheshader("white_waypoint_contested");
-	precacheshader("white_waypoint_grab");
-	precacheshader("white_waypoint_kill");
-	precacheshader("white_waypoint_escort");
-	precacheshader("chalkmarks_hellcatraz_1");
-	precacheshader("chalkmarks_hellcatraz_2");
-	precacheshader("chalkmarks_hellcatraz_3");
-	precacheshader("chalkmarks_hellcatraz_4");
-	precacheshader("chalkmarks_hellcatraz_5");
+	set_grief_vars();
 
 	level._effect["human_disappears"] = loadfx("maps/zombie/fx_zmb_returned_spawn_puff");
 
@@ -59,15 +47,32 @@ init()
 
 	precacheStatusIcon(level.item_meat_status_icon_name);
 
+	precacheshader("waypoint_target");
+	precacheshader("white_waypoint_target");
+	precacheshader("white_waypoint_capture");
+	precacheshader("white_waypoint_defend");
+	precacheshader("white_waypoint_contested");
+	precacheshader("white_waypoint_grab");
+	precacheshader("white_waypoint_kill");
+	precacheshader("white_waypoint_escort");
+	precacheshader("chalkmarks_hellcatraz_1");
+	precacheshader("chalkmarks_hellcatraz_2");
+	precacheshader("chalkmarks_hellcatraz_3");
+	precacheshader("chalkmarks_hellcatraz_4");
+	precacheshader("chalkmarks_hellcatraz_5");
+
+	precacheString(&"hud_update_game_mode_name");
+	precacheString(&"hud_update_containment_zone");
+	precacheString(&"hud_update_containment_time");
+	precacheString(istring(toupper("ZMUI_" + level.scr_zm_ui_gametype_obj)));
+	precacheString(istring(toupper("ZMUI_" + level.scr_zm_ui_gametype_obj + "_PRO")));
+
 	setDvar("ui_scorelimit", 1);
 
 	setteamscore("axis", 0);
 	setteamscore("allies", 0);
 
-	set_grief_vars();
 	grief_setscoreboardcolumns_gametype();
-	grief_gamemode_hud();
-	grief_score_hud();
 	enemy_powerup_hud();
 
 	if (level.scr_zm_ui_gametype_obj == "zcontainment")
@@ -96,6 +101,8 @@ init()
 	level.store_player_damage_info_func = ::store_player_damage_info;
 	level.player_suicide_func = ::player_suicide;
 
+	level thread grief_gamemode_name_hud();
+	level thread grief_gamemode_score_hud();
 	level thread grief_intro_msg();
 	level thread round_start_wait(5, true);
 	level thread remove_round_number();
@@ -121,39 +128,21 @@ grief_setscoreboardcolumns_gametype()
 	}
 }
 
-grief_gamemode_hud()
-{
-	level.grief_gamemode_hud = newHudElem();
-	level.grief_gamemode_hud.alignx = "center";
-	level.grief_gamemode_hud.aligny = "top";
-	level.grief_gamemode_hud.horzalign = "user_center";
-	level.grief_gamemode_hud.vertalign = "user_top";
-	level.grief_gamemode_hud.y += 2;
-	level.grief_gamemode_hud.fontscale = 1.2;
-	level.grief_gamemode_hud.hidewheninmenu = 1;
-	level.grief_gamemode_hud.foreground = 1;
-	level.grief_gamemode_hud.alpha = 0;
-	level.grief_gamemode_hud setText(get_gamemode_display_name());
-
-	level thread grief_gamemode_hud_wait_and_show();
-	level thread grief_gamemode_hud_destroy_on_intermission();
-}
-
-grief_gamemode_hud_wait_and_show()
+grief_gamemode_name_hud()
 {
 	flag_wait("hud_visible");
 
-	level.grief_gamemode_hud.alpha = 1;
+	level.game_mode_name_hud_value = get_gamemode_display_name();
+
+	players = get_players();
+
+	foreach (player in players)
+	{
+		player luinotifyevent(&"hud_update_game_mode_name", 1, level.game_mode_name_hud_value);
+	}
 }
 
-grief_gamemode_hud_destroy_on_intermission()
-{
-	level waittill("intermission");
-
-	level.grief_gamemode_hud destroy();
-}
-
-grief_score_hud()
+grief_gamemode_score_hud()
 {
 	if (level.script == "zm_prison")
 	{
