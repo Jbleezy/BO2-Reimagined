@@ -773,6 +773,21 @@ lui_notify_events()
 		self luinotifyevent(&"hud_fade_in_quest_timer");
 	}
 
+	if (isdefined(level.game_mode_name_hud_value))
+	{
+		self luinotifyevent(&"hud_update_game_mode_name", 1, level.game_mode_name_hud_value);
+	}
+
+	if (isdefined(level.game_mode_player_count_hud_value))
+	{
+		self luinotifyevent(&"hud_update_player_count", 2, level.game_mode_player_count_hud_value[self.team], level.game_mode_player_count_hud_value[getotherteam(self.team)]);
+	}
+
+	if (isdefined(level.game_mode_scoring_team_hud_value))
+	{
+		self luinotifyevent(&"hud_update_scoring_team", 1, level.game_mode_scoring_team_hud_value[self.team]);
+	}
+
 	if (isdefined(level.containment_zone_hud_value))
 	{
 		self luinotifyevent(&"hud_update_containment_zone", 1, level.containment_zone_hud_value);
@@ -781,11 +796,6 @@ lui_notify_events()
 	if (isdefined(level.containment_time_hud_value))
 	{
 		self luinotifyevent(&"hud_update_containment_time", 1, level.containment_time_hud_value);
-	}
-
-	if (isdefined(level.game_mode_name_hud_value))
-	{
-		self luinotifyevent(&"hud_update_game_mode_name", 1, level.game_mode_name_hud_value);
 	}
 }
 

@@ -249,12 +249,6 @@ LUI.createMenu.ReimaginedArea = function(LocalClientIndex)
 	gameModeNameText:setTopBottom(true, false, 0, CoD.textSize.ExtraSmall)
 	gameModeNameText:setFont(CoD.fonts.Big)
 	gameModeNameText:setAlignment(LUI.Alignment.Center)
-	gameModeNameText:registerAnimationState("fade_out", {
-		alpha = 0,
-	})
-	gameModeNameText:registerAnimationState("fade_in", {
-		alpha = 1,
-	})
 	gameModeNameWidget:addElement(gameModeNameText)
 	gameModeNameWidget.gameModeNameText = gameModeNameText
 
@@ -275,6 +269,91 @@ LUI.createMenu.ReimaginedArea = function(LocalClientIndex)
 	gameModeNameWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_SCOPED, CoD.Reimagined.GameModeNameArea.UpdateVisibility)
 	gameModeNameWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_PLAYER_ZOMBIE, CoD.Reimagined.GameModeNameArea.UpdateVisibility)
 	gameModeNameWidget:registerEventHandler("hud_update_game_mode_name", CoD.Reimagined.GameModeNameArea.UpdateGameModeName)
+
+	local gameModeScoreWidget = LUI.UIElement.new()
+	gameModeScoreWidget:setLeftRight(true, true, 0, 0)
+	gameModeScoreWidget:setTopBottom(true, false, 26, 26)
+	gameModeScoreWidget:setAlpha(0)
+	gameModeScoreWidget.iconSize = 42
+	safeArea:addElement(gameModeScoreWidget)
+
+	local gameModeScoreFriendlyIcon = LUI.UIImage.new()
+	gameModeScoreFriendlyIcon:setLeftRight(false, false, -105 - (gameModeScoreWidget.iconSize / 2), -105 + (gameModeScoreWidget.iconSize / 2))
+	gameModeScoreFriendlyIcon:setTopBottom(true, false, 0, gameModeScoreWidget.iconSize)
+	gameModeScoreFriendlyIcon:setAlpha(0)
+	gameModeScoreWidget:addElement(gameModeScoreFriendlyIcon)
+	gameModeScoreWidget.gameModeScoreFriendlyIcon = gameModeScoreFriendlyIcon
+
+	local gameModeScoreEnemyIcon = LUI.UIImage.new()
+	gameModeScoreEnemyIcon:setLeftRight(false, false, 105 - (gameModeScoreWidget.iconSize / 2), 105 + (gameModeScoreWidget.iconSize / 2))
+	gameModeScoreEnemyIcon:setTopBottom(true, false, 0, gameModeScoreWidget.iconSize)
+	gameModeScoreEnemyIcon:setAlpha(0)
+	gameModeScoreWidget:addElement(gameModeScoreEnemyIcon)
+	gameModeScoreWidget.gameModeScoreEnemyIcon = gameModeScoreEnemyIcon
+
+	local gameModeScoreFriendlyText = LUI.UIText.new()
+	gameModeScoreFriendlyText:setLeftRight(true, true, -40, -40)
+	gameModeScoreFriendlyText:setTopBottom(true, false, -10, -10 + CoD.textSize.Morris)
+	gameModeScoreFriendlyText:setFont(CoD.fonts.Morris)
+	gameModeScoreFriendlyText:setAlignment(LUI.Alignment.Center)
+	gameModeScoreFriendlyText:setRGB(CoD.RoundStatus.DefaultColor.r, CoD.RoundStatus.DefaultColor.g, CoD.RoundStatus.DefaultColor.b)
+	gameModeScoreWidget:addElement(gameModeScoreFriendlyText)
+	gameModeScoreWidget.gameModeScoreFriendlyText = gameModeScoreFriendlyText
+
+	local gameModeScoreEnemyText = LUI.UIText.new()
+	gameModeScoreEnemyText:setLeftRight(true, true, 40, 40)
+	gameModeScoreEnemyText:setTopBottom(true, false, -10, -10 + CoD.textSize.Morris)
+	gameModeScoreEnemyText:setFont(CoD.fonts.Morris)
+	gameModeScoreEnemyText:setAlignment(LUI.Alignment.Center)
+	gameModeScoreEnemyText:setRGB(CoD.RoundStatus.DefaultColor.r, CoD.RoundStatus.DefaultColor.g, CoD.RoundStatus.DefaultColor.b)
+	gameModeScoreWidget:addElement(gameModeScoreEnemyText)
+	gameModeScoreWidget.gameModeScoreEnemyText = gameModeScoreEnemyText
+
+	local gameModeScoreFriendlyPlayerCount = LUI.UIImage.new()
+	gameModeScoreFriendlyPlayerCount:setLeftRight(false, false, -40 - (gameModeScoreWidget.iconSize / 2), -40 + (gameModeScoreWidget.iconSize / 2))
+	gameModeScoreFriendlyPlayerCount:setTopBottom(true, false, 46, 46 + gameModeScoreWidget.iconSize)
+	gameModeScoreFriendlyPlayerCount:setRGB(CoD.RoundStatus.DefaultColor.r, CoD.RoundStatus.DefaultColor.g, CoD.RoundStatus.DefaultColor.b)
+	gameModeScoreFriendlyPlayerCount:setAlpha(0)
+	gameModeScoreWidget:addElement(gameModeScoreFriendlyPlayerCount)
+	gameModeScoreWidget.gameModeScoreFriendlyPlayerCount = gameModeScoreFriendlyPlayerCount
+
+	local gameModeScoreEnemyPlayerCount = LUI.UIImage.new()
+	gameModeScoreEnemyPlayerCount:setLeftRight(false, false, 40 - (gameModeScoreWidget.iconSize / 2), 40 + (gameModeScoreWidget.iconSize / 2))
+	gameModeScoreEnemyPlayerCount:setTopBottom(true, false, 46, 46 + gameModeScoreWidget.iconSize)
+	gameModeScoreEnemyPlayerCount:setRGB(CoD.RoundStatus.DefaultColor.r, CoD.RoundStatus.DefaultColor.g, CoD.RoundStatus.DefaultColor.b)
+	gameModeScoreEnemyPlayerCount:setAlpha(0)
+	gameModeScoreWidget:addElement(gameModeScoreEnemyPlayerCount)
+	gameModeScoreWidget.gameModeScoreEnemyPlayerCount = gameModeScoreEnemyPlayerCount
+
+	local gameModeScoreScoringTeam = LUI.UIImage.new()
+	gameModeScoreScoringTeam.iconSize = gameModeScoreWidget.iconSize / 2
+	gameModeScoreScoringTeam:setLeftRight(false, false, 0 - (gameModeScoreScoringTeam.iconSize / 2), 0 + (gameModeScoreScoringTeam.iconSize / 2))
+	gameModeScoreScoringTeam:setTopBottom(true, false, 46, 46 + gameModeScoreScoringTeam.iconSize)
+	gameModeScoreScoringTeam:setImage(RegisterMaterial("waypoint_target"))
+	gameModeScoreScoringTeam:setAlpha(0)
+	gameModeScoreWidget:addElement(gameModeScoreScoringTeam)
+	gameModeScoreWidget.gameModeScoreScoringTeam = gameModeScoreScoringTeam
+
+	gameModeScoreWidget:registerEventHandler("hud_update_refresh", CoD.Reimagined.GameModeScoreArea.UpdateVisibility)
+	gameModeScoreWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_VISIBLE, CoD.Reimagined.GameModeScoreArea.UpdateVisibility)
+	gameModeScoreWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_EMP_ACTIVE, CoD.Reimagined.GameModeScoreArea.UpdateVisibility)
+	gameModeScoreWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM, CoD.Reimagined.GameModeScoreArea.UpdateVisibility)
+	gameModeScoreWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN, CoD.Reimagined.GameModeScoreArea.UpdateVisibility)
+	gameModeScoreWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_VEHICLE, CoD.Reimagined.GameModeScoreArea.UpdateVisibility)
+	gameModeScoreWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_GUIDED_MISSILE, CoD.Reimagined.GameModeScoreArea.UpdateVisibility)
+	gameModeScoreWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC, CoD.Reimagined.GameModeScoreArea.UpdateVisibility)
+	gameModeScoreWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_AMMO_COUNTER_HIDE, CoD.Reimagined.GameModeScoreArea.UpdateVisibility)
+	gameModeScoreWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_FLASH_BANGED, CoD.Reimagined.GameModeScoreArea.UpdateVisibility)
+	gameModeScoreWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_UI_ACTIVE, CoD.Reimagined.GameModeScoreArea.UpdateVisibility)
+	gameModeScoreWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_SPECTATING_CLIENT, CoD.Reimagined.GameModeScoreArea.UpdateVisibility)
+	gameModeScoreWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_SCOREBOARD_OPEN, CoD.Reimagined.GameModeScoreArea.UpdateVisibility)
+	gameModeScoreWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_PLAYER_DEAD, CoD.Reimagined.GameModeScoreArea.UpdateVisibility)
+	gameModeScoreWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_SCOPED, CoD.Reimagined.GameModeScoreArea.UpdateVisibility)
+	gameModeScoreWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_PLAYER_ZOMBIE, CoD.Reimagined.GameModeScoreArea.UpdateVisibility)
+	gameModeScoreWidget:registerEventHandler("hud_update_team_change", CoD.Reimagined.GameModeScoreArea.UpdateTeamChange)
+	gameModeScoreWidget:registerEventHandler("hud_update_scores", CoD.Reimagined.GameModeScoreArea.UpdateScores)
+	gameModeScoreWidget:registerEventHandler("hud_update_player_count", CoD.Reimagined.GameModeScoreArea.UpdatePlayerCount)
+	gameModeScoreWidget:registerEventHandler("hud_update_scoring_team", CoD.Reimagined.GameModeScoreArea.UpdateScoringTeam)
 
 	local containmentWidget = LUI.UIElement.new()
 	containmentWidget:setLeftRight(true, true, 7, 7)
@@ -527,6 +606,142 @@ CoD.Reimagined.GameModeNameArea.UpdateGameModeName = function(Menu, ClientInstan
 	Menu.gameModeNameText:setText(gameModeNameName)
 end
 
+CoD.Reimagined.GameModeScoreArea = {}
+CoD.Reimagined.GameModeScoreArea.UpdateVisibility = function(Menu, ClientInstance)
+	local controller = ClientInstance.controller
+	if UIExpression.DvarBool(nil, "ui_hud_game_mode_score") == 1 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_HUD_VISIBLE) == 1 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_EMP_ACTIVE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_VEHICLE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_GUIDED_MISSILE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_AMMO_COUNTER_HIDE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IS_FLASH_BANGED) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_UI_ACTIVE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_SCOREBOARD_OPEN) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_KILLCAM) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IS_SCOPED) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IS_PLAYER_ZOMBIE) == 0 and (not CoD.IsShoutcaster(controller) or CoD.ExeProfileVarBool(controller, "shoutcaster_scorestreaks") and Engine.IsSpectatingActiveClient(controller)) and CoD.FSM_VISIBILITY(controller) == 0 then
+		if Menu.visible ~= true then
+			Menu:setAlpha(1)
+			Menu.visible = true
+		end
+	elseif Menu.visible == true then
+		Menu:setAlpha(0)
+		Menu.visible = nil
+	end
+end
+
+CoD.Reimagined.GameModeScoreArea.UpdateTeamChange = function(Menu, ClientInstance)
+	if UIExpression.DvarString(nil, "ui_zm_gamemodegroup") ~= CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
+		return
+	end
+
+	if Menu.team ~= ClientInstance.team then
+		Menu.team = ClientInstance.team
+		local FactionTeam = Engine.GetFactionForTeam(ClientInstance.team)
+		local EnemyFactionTeam = Engine.GetFactionForTeam(CoD.Reimagined.GetOtherTeam(ClientInstance.team))
+		if FactionTeam ~= "" then
+			Menu.gameModeScoreFriendlyIcon:setImage(RegisterMaterial("faction_" .. FactionTeam))
+			Menu.gameModeScoreFriendlyIcon:setAlpha(1)
+			Menu.gameModeScoreEnemyIcon:setImage(RegisterMaterial("faction_" .. EnemyFactionTeam))
+			Menu.gameModeScoreEnemyIcon:setAlpha(1)
+
+			if Menu.yourScore ~= nil and Menu.enemyScore ~= nil then
+				Menu.yourScore, Menu.enemyScore = Menu.enemyScore, Menu.yourScore
+
+				CoD.Reimagined.GameModeScoreArea.UpdateScores(Menu, ClientInstance)
+			end
+
+			if Menu.yourPlayerCount ~= nil and Menu.enemyPlayerCount ~= nil then
+				Menu.yourPlayerCount, Menu.enemyPlayerCount = Menu.enemyPlayerCount, Menu.yourPlayerCount
+
+				CoD.Reimagined.GameModeScoreArea.UpdatePlayerCount(Menu, ClientInstance)
+			end
+
+			if Menu.scoringTeam ~= nil then
+				if Menu.scoringTeam == 1 then
+					Menu.scoringTeam = 2
+				elseif Menu.scoringTeam == 2 then
+					Menu.scoringTeam = 1
+				end
+
+				CoD.Reimagined.GameModeScoreArea.UpdateScoringTeam(Menu, ClientInstance)
+			end
+		else
+			Menu.gameModeScoreFriendlyIcon:setAlpha(0)
+			Menu.gameModeScoreEnemyIcon:setAlpha(0)
+		end
+	end
+end
+
+CoD.Reimagined.GameModeScoreArea.UpdateScores = function(Menu, ClientInstance)
+	if UIExpression.DvarString(nil, "ui_zm_gamemodegroup") ~= CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
+		return
+	end
+
+	if ClientInstance.yourScore ~= nil and ClientInstance.enemyScore ~= nil then
+		Menu.yourScore = ClientInstance.yourScore
+		Menu.enemyScore = ClientInstance.enemyScore
+	end
+
+	Menu.gameModeScoreFriendlyText:setText(Menu.yourScore)
+	Menu.gameModeScoreEnemyText:setText(Menu.enemyScore)
+end
+
+CoD.Reimagined.GameModeScoreArea.UpdatePlayerCount = function(Menu, ClientInstance)
+	if UIExpression.DvarString(nil, "ui_zm_gamemodegroup") ~= CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
+		return
+	end
+
+	if ClientInstance.data ~= nil then
+		Menu.yourPlayerCount = ClientInstance.data[1]
+		Menu.enemyPlayerCount = ClientInstance.data[2]
+	end
+
+	if Menu.yourPlayerCount > 0 then
+		local offset = (4 - Menu.yourPlayerCount) * (Menu.iconSize / 8)
+		Menu.gameModeScoreFriendlyPlayerCount:setLeftRight(false, false, -40 + offset - (Menu.iconSize / 2), -40 + offset + (Menu.iconSize / 2))
+
+		Menu.gameModeScoreFriendlyPlayerCount:setImage(RegisterMaterial("chalkmarks_hellcatraz_" .. Menu.yourPlayerCount))
+		Menu.gameModeScoreFriendlyPlayerCount:setAlpha(1)
+	else
+		Menu.gameModeScoreFriendlyPlayerCount:setAlpha(0)
+	end
+
+	if Menu.enemyPlayerCount > 0 then
+		local offset = (4 - Menu.enemyPlayerCount) * (Menu.iconSize / 8)
+		Menu.gameModeScoreEnemyPlayerCount:setLeftRight(false, false, 40 + offset - (Menu.iconSize / 2), 40 + offset + (Menu.iconSize / 2))
+
+		Menu.gameModeScoreEnemyPlayerCount:setImage(RegisterMaterial("chalkmarks_hellcatraz_" .. Menu.enemyPlayerCount))
+		Menu.gameModeScoreEnemyPlayerCount:setAlpha(1)
+	else
+		Menu.gameModeScoreEnemyPlayerCount:setAlpha(0)
+	end
+end
+
+CoD.Reimagined.GameModeScoreArea.UpdateScoringTeam = function(Menu, ClientInstance)
+	if UIExpression.DvarString(nil, "ui_zm_gamemodegroup") ~= CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
+		return
+	end
+
+	if ClientInstance.data ~= nil then
+		Menu.scoringTeam = ClientInstance.data[1]
+	end
+
+	if Menu.scoringTeam == 0 then
+		Menu.gameModeScoreScoringTeam:setLeftRight(false, false, 0 - (Menu.gameModeScoreScoringTeam.iconSize / 2), 0 + (Menu.gameModeScoreScoringTeam.iconSize / 2))
+		Menu.gameModeScoreScoringTeam:setRGB(1, 1, 1)
+		Menu.gameModeScoreScoringTeam:setAlpha(1)
+	elseif Menu.scoringTeam == 1 then
+		Menu.gameModeScoreScoringTeam:setLeftRight(false, false, -105 - (Menu.gameModeScoreScoringTeam.iconSize / 2), -105 + (Menu.gameModeScoreScoringTeam.iconSize / 2))
+		Menu.gameModeScoreScoringTeam:setRGB(0, 1, 0)
+		Menu.gameModeScoreScoringTeam:setAlpha(1)
+	elseif Menu.scoringTeam == 2 then
+		Menu.gameModeScoreScoringTeam:setLeftRight(false, false, 105 - (Menu.gameModeScoreScoringTeam.iconSize / 2), 105 + (Menu.gameModeScoreScoringTeam.iconSize / 2))
+		Menu.gameModeScoreScoringTeam:setRGB(1, 0, 0)
+		Menu.gameModeScoreScoringTeam:setAlpha(1)
+	elseif Menu.scoringTeam == 3 then
+		Menu.gameModeScoreScoringTeam:setLeftRight(false, false, 0 - (Menu.gameModeScoreScoringTeam.iconSize / 2), 0 + (Menu.gameModeScoreScoringTeam.iconSize / 2))
+		Menu.gameModeScoreScoringTeam:setRGB(1, 1, 0)
+		Menu.gameModeScoreScoringTeam:setAlpha(1)
+	elseif Menu.scoringTeam == 4 then
+		Menu.gameModeScoreScoringTeam:setLeftRight(false, false, 0 - (Menu.gameModeScoreScoringTeam.iconSize / 2), 0 + (Menu.gameModeScoreScoringTeam.iconSize / 2))
+		Menu.gameModeScoreScoringTeam:setRGB(0.5, 0.5, 0.5)
+		Menu.gameModeScoreScoringTeam:setAlpha(0.5)
+	else
+		Menu.gameModeScoreScoringTeam:setAlpha(0)
+	end
+end
+
 CoD.Reimagined.ContainmentArea = {}
 CoD.Reimagined.ContainmentArea.UpdateVisibility = function(Menu, ClientInstance)
 	local controller = ClientInstance.controller
@@ -585,4 +800,14 @@ CoD.Reimagined.ConvertNumToTime = function(num)
 	end
 
 	return time
+end
+
+CoD.Reimagined.GetOtherTeam = function(team)
+	if team == CoD.TEAM_ALLIES then
+		return CoD.TEAM_AXIS
+	elseif team == CoD.TEAM_AXIS then
+		return CoD.TEAM_ALLIES
+	end
+
+	return team
 end
