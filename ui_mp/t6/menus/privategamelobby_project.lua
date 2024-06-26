@@ -445,6 +445,7 @@ CoD.PrivateGameLobby.LeaveLobby_Project_Zombie_After_Animation = function(Privat
 end
 
 CoD.PrivateGameLobby.LeaveLobby_Project_Zombie = function(PrivateGameLobbyWidget, ClientInstance)
+	Engine.SetDvar("party_solo", 0)
 	PrivateGameLobbyWidget.leaveType = ClientInstance.name
 	CoD.GameGlobeZombie.gameGlobe.currentMenu = PrivateGameLobbyWidget
 	if PrivateGameLobbyWidget.menuName == "TheaterLobby" then
