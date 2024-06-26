@@ -15,7 +15,7 @@ CoD.RestartGamePopup.YesButtonPressed = function(f6_arg0, f6_arg1)
 end
 
 CoD.RestartGamePopup.NoButtonPressed = function(f7_arg0, f7_arg1)
-	f7_arg0:goBack(f7_arg1.controller)
+	CoD.Menu.ButtonPromptBack(f7_arg0, f7_arg1)
 end
 
 LUI.createMenu.RestartGamePopup = function(f8_arg0)
