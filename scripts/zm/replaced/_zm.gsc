@@ -409,7 +409,19 @@ round_think(restart = 0)
 		}
 	}
 
-	setroundsplayed(level.round_number);
+	if (level.round_number > 255)
+	{
+		players = get_players();
+
+		foreach (player in players)
+		{
+			player luinotifyevent(&"hud_update_rounds_played", 1, level.round_number);
+		}
+	}
+	else
+	{
+		setroundsplayed(level.round_number);
+	}
 
 	for (;;)
 	{
@@ -505,7 +517,20 @@ round_think(restart = 0)
 
 		level.round_number++;
 
-		setroundsplayed(level.round_number + int(level.round_number / 256));
+		if (level.round_number > 255)
+		{
+			players = get_players();
+
+			foreach (player in players)
+			{
+				player luinotifyevent(&"hud_update_rounds_played", 1, level.round_number);
+			}
+		}
+		else
+		{
+			setroundsplayed(level.round_number);
+		}
+
 		matchutctime = getutc();
 		players = get_players();
 

@@ -190,6 +190,7 @@ precache_strings()
 	precacheString(&"r_fog");
 	precacheString(&"r_fog_settings");
 
+	precacheString(&"hud_update_rounds_played");
 	precacheString(&"hud_update_enemy_counter");
 	precacheString(&"hud_update_total_timer");
 	precacheString(&"hud_update_round_timer");
@@ -796,6 +797,11 @@ lui_notify_events()
 	if (isdefined(level.containment_time_hud_value))
 	{
 		self luinotifyevent(&"hud_update_containment_time", 1, level.containment_time_hud_value);
+	}
+
+	if (level.round_number > 255)
+	{
+		self luinotifyevent(&"hud_update_rounds_played", 1, level.round_number);
 	}
 }
 

@@ -144,6 +144,10 @@ CoD.RoundStatus.UpdateVisibility = function(RoundStatusWidget, ClientInstance)
 end
 
 CoD.RoundStatus.UpdateRoundsPlayed = function(RoundStatusWidget, ClientInstance)
+	if ClientInstance.data ~= nil then
+		ClientInstance.roundsPlayed = ClientInstance.data[1]
+	end
+
 	if RoundStatusWidget.gameType == CoD.Zombie.GAMETYPE_ZCLASSIC or RoundStatusWidget.gameType == CoD.Zombie.GAMETYPE_ZSTANDARD or RoundStatusWidget.gameType == CoD.Zombie.GAMETYPE_ZGRIEF then
 		CoD.RoundStatus.RoundPulseTimes = math.ceil(CoD.RoundStatus.RoundPulseTimesMin + (1 - math.min(ClientInstance.roundsPlayed, CoD.RoundStatus.RoundMax) / CoD.RoundStatus.RoundMax) * CoD.RoundStatus.RoundPulseTimesDelta)
 		if RoundStatusWidget.startRound == ClientInstance.roundsPlayed then
