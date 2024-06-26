@@ -61,6 +61,10 @@ CoD.Class.ResumeGameButtonPressed = function(IngameMenuWidget, ClientInstance)
 	})
 end
 
+CoD.Class.RestartGameButtonPressed = function(IngameMenuWidget, ClientInstance)
+	IngameMenuWidget:openPopup("RestartGamePopup", ClientInstance.controller)
+end
+
 CoD.Class.ChooseTeamButtonPressed = function(IngameMenuWidget, ClientInstance)
 	if CoD.isZombie == true then
 		local ClientTeamIndex = UIExpression.Team(ClientInstance.controller, "index")
@@ -103,8 +107,9 @@ CoD.Class.PrepareClassButtonList = function(LocalClientIndex, IngameMenuWidget)
 	})
 	f12_local0:addElement(IngameMenuWidget.buttonList)
 	if CoD.isZombie == true then
-		if Engine.CanPauseZombiesGame() and CoD.canLeaveGame(LocalClientIndex) then
+		if Engine.CanPauseZombiesGame() and CoD.canLeaveGame(LocalClientIndex) and not Engine.GameModeIsMode(CoD.GAMEMODE_PUBLIC_MATCH) then
 			CoD.Class.AddButton(IngameMenuWidget, Engine.Localize("MENU_RESUMEGAME_CAPS"), "soloResumeGame")
+			CoD.Class.AddButton(IngameMenuWidget, Engine.Localize("MENU_RESTART_LEVEL_CAPS"), "openRestartGamePopup")
 		end
 	else
 		if UIExpression.Team(LocalClientIndex, "name") ~= "TEAM_SPECTATOR" and CoD.IsWagerMode() == false then
@@ -154,6 +159,7 @@ LUI.createMenu.class = function(LocalClientIndex)
 	IngameMenuWidget:registerEventHandler("open_endGamePopup", CoD.Class.EndGameButtonPressed)
 	if CoD.isZombie == true then
 		IngameMenuWidget:registerEventHandler("soloResumeGame", CoD.Class.ResumeGameButtonPressed)
+		IngameMenuWidget:registerEventHandler("openRestartGamePopup", CoD.Class.RestartGameButtonPressed)
 	end
 	local Mapname = UIExpression.TableLookup(LocalClientIndex, UIExpression.GetCurrentMapTableName(), 0, UIExpression.DvarString(nil, "mapname"), 3)
 	local f13_local10 = CoD.SplitscreenScaler.new(nil, CoD.SplitscreenMultiplier)

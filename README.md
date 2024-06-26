@@ -163,6 +163,7 @@
 ## General
 * Removed round cap
 * Removed 5 second wait before match start
+* Added restart game button when in online solo game
 * Disabled depth of field
 * Increased level of detail at longer distances
 * Announcer audio always plays
