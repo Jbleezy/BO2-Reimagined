@@ -398,6 +398,7 @@ on_player_connect()
 		player thread on_player_revived();
 		player thread on_player_fake_revive();
 
+		player thread lui_notify_events();
 		player thread grenade_fire_watcher();
 		player thread player_hide_turrets_from_other_players();
 		player thread sndmeleewpnsound();
@@ -450,8 +451,6 @@ on_player_spawned()
 		self set_client_dvars();
 		self set_perks();
 		self set_favorite_wall_weapons();
-
-		self thread lui_notify_events();
 	}
 }
 
@@ -744,6 +743,8 @@ set_favorite_wall_weapons()
 lui_notify_events()
 {
 	self endon("disconnect");
+
+	self waittill("begin");
 
 	wait 0.05;
 
