@@ -675,7 +675,7 @@ set_client_dvars()
 	self setClientDvar("cg_sonarAttachmentSpeedDelay", 0.1);
 	self setClientDvar("cg_sonarAttachmentMaxSpeed", 6);
 	self setClientDvar("cg_sonarAttachmentSightCheck", 1);
-	self setClientDvar("cg_sonarAttachmentFullscreenColorFix", 1);
+	self setClientDvar("cg_sonarAttachmentFullscreenThermal", 0);
 
 	self setClientDvar("bg_jetgun_disable_spin_while_meleeing", 1);
 	self setClientDvar("bg_jetgun_disable_z_thrust", 1);
