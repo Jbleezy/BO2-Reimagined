@@ -512,7 +512,7 @@ set_team(team)
 		self.head_icon = self head_icon_create();
 	}
 
-	if (level.scr_zm_ui_gametype_obj == "zsnr" && flag("initial_blackscreen_passed"))
+	if (level.scr_zm_ui_gametype_obj == "zsnr" && flag("initial_blackscreen_passed") && !isdefined(level.gamemodulewinningteam))
 	{
 		foreach (team in level.teams)
 		{

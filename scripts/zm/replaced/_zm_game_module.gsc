@@ -226,21 +226,38 @@ game_won(winner)
 	level.gamemodulewinningteam = winner;
 	level.zombie_vars["spectators_respawn"] = 0;
 	players = get_players();
-	i = 0;
 
-	while (i < players.size)
+	foreach (player in players)
 	{
-		players[i] freezecontrols(1);
+		player freezecontrols(1);
 
-		if (players[i]._encounters_team == winner)
+		if (player._encounters_team == winner)
 		{
-			players[i] thread maps\mp\zombies\_zm_audio_announcer::leaderdialogonplayer("grief_won");
-			i++;
+			player thread maps\mp\zombies\_zm_audio_announcer::leaderdialogonplayer("grief_won");
 			continue;
 		}
 
-		players[i] thread maps\mp\zombies\_zm_audio_announcer::leaderdialogonplayer("grief_lost");
-		i++;
+		player thread maps\mp\zombies\_zm_audio_announcer::leaderdialogonplayer("grief_lost");
+	}
+
+	if (isdefined(level.game_mode_player_count_hud_value))
+	{
+		level.game_mode_player_count_hud_value = undefined;
+
+		foreach (player in players)
+		{
+			player luinotifyevent(&"hud_update_player_count");
+		}
+	}
+
+	if (isdefined(level.game_mode_scoring_team_hud_value))
+	{
+		level.game_mode_scoring_team_hud_value = undefined;
+
+		foreach (player in players)
+		{
+			player luinotifyevent(&"hud_update_scoring_team");
+		}
 	}
 
 	level notify("game_module_ended", winner);

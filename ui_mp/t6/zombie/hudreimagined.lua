@@ -668,7 +668,7 @@ CoD.Reimagined.GameModeScoreArea.UpdateScores = function(Menu, ClientInstance)
 		return
 	end
 
-	if ClientInstance.yourScore ~= nil and ClientInstance.enemyScore ~= nil then
+	if ClientInstance.name ~= "hud_update_team_change" then
 		Menu.yourScore = ClientInstance.yourScore
 		Menu.enemyScore = ClientInstance.enemyScore
 	end
@@ -682,9 +682,20 @@ CoD.Reimagined.GameModeScoreArea.UpdatePlayerCount = function(Menu, ClientInstan
 		return
 	end
 
-	if ClientInstance.data ~= nil then
-		Menu.yourPlayerCount = ClientInstance.data[1]
-		Menu.enemyPlayerCount = ClientInstance.data[2]
+	if ClientInstance.name ~= "hud_update_team_change" then
+		if ClientInstance.data ~= nil then
+			Menu.yourPlayerCount = ClientInstance.data[1]
+			Menu.enemyPlayerCount = ClientInstance.data[2]
+		else
+			Menu.yourPlayerCount = nil
+			Menu.enemyPlayerCount = nil
+		end
+	end
+
+	if Menu.yourPlayerCount == nil or Menu.enemyPlayerCount == nil then
+		Menu.gameModeScoreFriendlyPlayerCount:setAlpha(0)
+		Menu.gameModeScoreEnemyPlayerCount:setAlpha(0)
+		return
 	end
 
 	if Menu.yourPlayerCount > 0 then
@@ -713,8 +724,17 @@ CoD.Reimagined.GameModeScoreArea.UpdateScoringTeam = function(Menu, ClientInstan
 		return
 	end
 
-	if ClientInstance.data ~= nil then
-		Menu.scoringTeam = ClientInstance.data[1]
+	if ClientInstance.name ~= "hud_update_team_change" then
+		if ClientInstance.data ~= nil then
+			Menu.scoringTeam = ClientInstance.data[1]
+		else
+			Menu.scoringTeam = nil
+		end
+	end
+
+	if Menu.scoringTeam == nil then
+		Menu.gameModeScoreScoringTeam:setAlpha(0)
+		return
 	end
 
 	if Menu.scoringTeam == 0 then
