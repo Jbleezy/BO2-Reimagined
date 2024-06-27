@@ -451,6 +451,7 @@ on_player_spawned()
 		self set_client_dvars();
 		self set_perks();
 		self set_favorite_wall_weapons();
+		self disable_lean();
 	}
 }
 
@@ -738,6 +739,12 @@ set_favorite_wall_weapons()
 			self.favorite_wall_weapons_list[i] = "sig556_zm";
 		}
 	}
+}
+
+disable_lean()
+{
+	self._allow_lean = 0;
+	self allowlean(0);
 }
 
 lui_notify_events()
