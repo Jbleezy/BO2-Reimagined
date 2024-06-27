@@ -198,8 +198,9 @@
 * Changed revive bar color to blue
 * Player is reviving you text gets removed instantly when player drops the revive
 * Player needs to be revived text updates to new player instantly
-* Removed NAV cards
+* Increased number of times that the round number pulses between rounds from 2-7 to 10 (same as Black Ops 1)
 * Fixed scoreboard showing incorrect team on Survival after restart
+* Removed NAV cards
 
 ## Players
 * Unlimited sprint

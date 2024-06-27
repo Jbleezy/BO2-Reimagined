@@ -14,7 +14,7 @@ CoD.RoundStatus.FirstRoundDuration = 1000
 CoD.RoundStatus.FirstRoundIdleDuration = 3000
 CoD.RoundStatus.FirstRoundFallDuration = 2000
 CoD.RoundStatus.RoundPulseDuration = 500
-CoD.RoundStatus.RoundPulseTimes = 2
+CoD.RoundStatus.RoundPulseTimes = 10
 CoD.RoundStatus.RoundPulseTimesDelta = 5
 CoD.RoundStatus.RoundPulseTimesMin = 2
 CoD.RoundStatus.RoundMax = 100
@@ -149,7 +149,6 @@ CoD.RoundStatus.UpdateRoundsPlayed = function(RoundStatusWidget, ClientInstance)
 	end
 
 	if RoundStatusWidget.gameType == CoD.Zombie.GAMETYPE_ZCLASSIC or RoundStatusWidget.gameType == CoD.Zombie.GAMETYPE_ZSTANDARD or RoundStatusWidget.gameType == CoD.Zombie.GAMETYPE_ZGRIEF then
-		CoD.RoundStatus.RoundPulseTimes = math.ceil(CoD.RoundStatus.RoundPulseTimesMin + (1 - math.min(ClientInstance.roundsPlayed, CoD.RoundStatus.RoundMax) / CoD.RoundStatus.RoundMax) * CoD.RoundStatus.RoundPulseTimesDelta)
 		if RoundStatusWidget.startRound == ClientInstance.roundsPlayed then
 			if ClientInstance.wasDemoJump == false and RoundStatusWidget.timebombOverride == false and CoD.Zombie.AllowRoundAnimation == 1 then
 				CoD.RoundStatus.ShowFirstRound(RoundStatusWidget, ClientInstance.roundsPlayed)
