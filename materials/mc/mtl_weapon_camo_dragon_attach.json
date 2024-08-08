@@ -128,7 +128,6 @@
 			"polymodeLine": false,
 			"srcBlendAlpha": "one",
 			"srcBlendRgb": "one",
-			"stencilBack": null,
 			"stencilFront": {
 				"fail": "keep",
 				"func": "equal",
@@ -150,9 +149,7 @@
 			"polygonOffset": "offsetShadowmap",
 			"polymodeLine": false,
 			"srcBlendAlpha": "one",
-			"srcBlendRgb": "one",
-			"stencilBack": null,
-			"stencilFront": null
+			"srcBlendRgb": "one"
 		},
 		{
 			"alphaTest": "disabled",
@@ -168,9 +165,7 @@
 			"polygonOffset": "offset0",
 			"polymodeLine": false,
 			"srcBlendAlpha": "one",
-			"srcBlendRgb": "one",
-			"stencilBack": null,
-			"stencilFront": null
+			"srcBlendRgb": "one"
 		},
 		{
 			"alphaTest": "disabled",
@@ -186,9 +181,7 @@
 			"polygonOffset": "offset2",
 			"polymodeLine": true,
 			"srcBlendAlpha": "one",
-			"srcBlendRgb": "one",
-			"stencilBack": null,
-			"stencilFront": null
+			"srcBlendRgb": "one"
 		},
 		{
 			"alphaTest": "disabled",
@@ -204,9 +197,7 @@
 			"polygonOffset": "offset0",
 			"polymodeLine": false,
 			"srcBlendAlpha": "one",
-			"srcBlendRgb": "one",
-			"stencilBack": null,
-			"stencilFront": null
+			"srcBlendRgb": "one"
 		}
 	],
 	"stateBitsEntry": [
@@ -360,6 +351,5 @@
 			},
 			"semantic": "colorMap"
 		}
-	],
-	"thermalMaterial": null
+	]
 }

@@ -34,9 +34,7 @@
 			"polygonOffset": "offset0",
 			"polymodeLine": false,
 			"srcBlendAlpha": "invdestalpha",
-			"srcBlendRgb": "one",
-			"stencilBack": null,
-			"stencilFront": null
+			"srcBlendRgb": "one"
 		}
 	],
 	"stateBitsEntry": [
@@ -85,6 +83,5 @@
 		"columns": 1,
 		"rows": 1
 	},
-	"textures": [],
-	"thermalMaterial": null
+	"textures": []
 }
