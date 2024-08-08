@@ -24,9 +24,7 @@
 			"polygonOffset": "offset0",
 			"polymodeLine": false,
 			"srcBlendAlpha": "invdestalpha",
-			"srcBlendRgb": "srcalpha",
-			"stencilBack": null,
-			"stencilFront": null
+			"srcBlendRgb": "srcalpha"
 		}
 	],
 	"stateBitsEntry": [
@@ -89,6 +87,5 @@
 			},
 			"semantic": "2D"
 		}
-	],
-	"thermalMaterial": null
+	]
 }
