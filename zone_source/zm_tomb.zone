@@ -2,19 +2,11 @@
 >type,fastfile
 >name,zm_tomb
 
-include,includes/weapons/ballista_zm
-
 include,includes/perks/specialty_divetonuke
 include,includes/perks/specialty_mulekick
 
-image,mtl_t6_wpn_zmb_staff_crystal_nml
-image,~-gmtl_t6_wpn_zmb_staff_crystal_camo_e
-image,~-gmtl_t6_wpn_zmb_staff_cryst~95c3e639
-image,~-gmtl_t6_wpn_zmb_staff_cryst~5094c494
-material,mc/mtl_weapon_camo_3layer
-material,mc/mtl_weapon_camo_3layer_1
-material,mc/mtl_weapon_camo_3layer_2
-material,mc/mtl_weapon_camo_3layer_3
+weapon,ballista_zm
+weapon,ballista_upgraded_zm
 
 xmodel,t6_wpn_none_view
 xmodel,t6_wpn_none_world

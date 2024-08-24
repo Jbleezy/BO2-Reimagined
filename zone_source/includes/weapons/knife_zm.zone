@@ -3,9 +3,6 @@ xmodel,t6_wpn_knife_base_world
 xmodel,t6_wpn_knife_melee
 material,mc/mtl_t6_wpn_knife_base
 material,mc/mtl_t6_wpn_knife_base_camo2
-image,~-gmtl_t6_wpn_knife_base_col
-material,cac_mods_tact_knife
-image,cac_mods_tact_knife
 xanim,viewmodel_strider_idle
 xanim,viewmodel_strider_melee_swipe
 xanim,viewmodel_strider_melee_charge

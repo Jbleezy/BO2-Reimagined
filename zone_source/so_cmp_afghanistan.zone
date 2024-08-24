@@ -1,16 +1,6 @@
 >game,T6
 >type,fastfile
->name,common_sp
-
->level.ipak_read,sp
-
-include,includes/weapons/metalstorm_mms_zm
-include,includes/weapons/titus6_zm
-
-image,menu_mp_weapons_minigun_future
-material,menu_mp_weapons_minigun_future
-image,menu_mp_weapons_m32gl
-material,menu_mp_weapons_m32gl
+>name,so_cmp_afghanistan
 
 xanim,viewmodel_mine_tc6_idle
 xanim,viewmodel_mine_tc6_fire

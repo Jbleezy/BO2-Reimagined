@@ -2,6 +2,6 @@
 >type,fastfile
 >name,common_zm
 
-include,includes/zm/materials
+material,generic_filter_zm_turned
 
 camo,camo_raygun_mark2

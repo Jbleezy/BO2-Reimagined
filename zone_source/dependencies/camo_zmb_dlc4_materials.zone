@@ -1,0 +1,11 @@
+>game,T6
+>type,fastfile
+>name,camo_zmb_dlc4_materials
+
+material,mc/mtl_weapon_camo_3layer
+material,mc/mtl_weapon_camo_3layer_1
+material,mc/mtl_weapon_camo_3layer_2
+material,mc/mtl_weapon_camo_3layer_3
+material,mc/mtl_weapon_camo_zmb_dlc4_alt
+material,mc/mtl_weapon_camo_zmb_dlc4_alt_1
+material,mc/mtl_weapon_camo_zmb_dlc4_alt_2

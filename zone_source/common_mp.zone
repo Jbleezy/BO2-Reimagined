@@ -2,9 +2,6 @@
 >type,fastfile
 >name,common_mp
 
->level.ipak_read,patch_mp
->level.ipak_read,mp
-
 include,includes/weapons/knife_zm
 include,includes/weapons/knife_ballistic_zm
 include,includes/weapons/fnp45_zm
@@ -14,8 +11,9 @@ include,includes/weapons/sig556_zm
 include,includes/weapons/sa58_zm
 include,includes/weapons/mk48_zm
 include,includes/weapons/as50_zm
-include,includes/weapons/bouncing_betty_zm
+include,includes/weapons/bouncingbetty_zm
 
 include,includes/mp/attachment
 include,includes/mp/camo
-include,includes/mp/materials
+
+material,tactical_gren_reticle

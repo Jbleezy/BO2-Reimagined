@@ -7,9 +7,7 @@ fx,weapon/crossbow/fx_trail_crossbow_blink_grn_os
 fx,weapon/crossbow/fx_trail_crossbow_blink_red_os
 
 material,hud_icon_40mm_grenade_mp
-image,hud_40mmgrenade
 material,hud_select_fire_bullet_stack_big
-image,hud_select_fire_bullet_stack01
 
 material,wpc/mtl_zb_signs
 

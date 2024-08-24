@@ -1,0 +1,12 @@
+>game,T6
+>type,fastfile
+>name,en_code_post_gfx_mp
+
+material,waypoint_target
+material,white_waypoint_target
+material,white_waypoint_capture
+material,white_waypoint_defend
+material,white_waypoint_contested
+material,white_waypoint_grab
+material,white_waypoint_escort
+material,white_waypoint_kill

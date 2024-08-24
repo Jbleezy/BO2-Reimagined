@@ -1,3 +1,7 @@
+>game,T6
+>type,fastfile
+>name,so_zencounter_zm_buried
+
 script,aitype/zm_buried_ghost_female.gsc
 xanim,ai_zombie_ghost_idle
 xanim,ai_zombie_ghost_supersprint
@@ -525,7 +529,6 @@ image,~~-gc_zom_buried_spawn_pieces~27c4e39c
 image,c_zom_buried_spawn_pieces_n
 image,~-gc_zom_buried_spawn_pieces_c
 material,mc/mtl_c_zom_buried_spawn_peices
-physpreset,gib
 xmodel,c_zom_buried_g_rarmspawn
 xmodel,c_zom_buried_g_larmspawn
 xmodel,c_zom_buried_g_rlegspawn
@@ -863,9 +866,6 @@ xanim,viewmodel_zombie_sprint_loop
 xanim,viewmodel_zombie_sprint_out
 xanim,viewmodel_zombie_arms_ads_up
 xanim,viewmodel_zombie_arms_ads_down
-rawfile,rumble/defaultweapon_melee
-rawfile,rumble/defaultweapon_melee_h.rmb
-rawfile,rumble/defaultweapon_melee_l.rmb
 weapon,zombiemelee_zm
 xmodel,defaultweapon
 xanim,viewmodel_zombie_arms_raise
@@ -1038,11 +1038,3 @@ footsteptable,default_3rd_person_quiet
 footsteptable,default_3rd_person_loud
 footsteptable,default_ai
 footsteptable,fly_step_ghost
-script,maps/mp/gametypes_zm/zgrief.gsc
-script,maps/mp/gametypes_zm/zmeat.gsc
-script,maps/mp/zombies/_zm_game_module_grief.gsc
-script,maps/mp/zombies/_zm_game_module_meat.gsc
-script,maps/mp/zombies/_zm_game_module_utility.gsc
-script,maps/mp/zombies/_zm_game_module_meat_utility.gsc
-script,clientscripts/mp/gametypes/zgrief.csc
-script,clientscripts/mp/gametypes/zmeat.csc

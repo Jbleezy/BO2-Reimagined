@@ -1,0 +1,7 @@
+>game,T6
+>type,fastfile
+>name,weapons!exptitus6_sp
+
+include,includes/weapons/titus6_zm
+
+camo,camo_titus6

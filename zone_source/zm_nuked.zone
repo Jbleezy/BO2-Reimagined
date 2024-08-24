@@ -2,4 +2,5 @@
 >type,fastfile
 >name,zm_nuked
 
-include,includes/weapons/hk416_zm
+weapon,hk416_zm
+weapon,hk416_upgraded_zm

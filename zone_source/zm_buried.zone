@@ -2,17 +2,17 @@
 >type,fastfile
 >name,zm_buried
 
-include,includes/mapents/so_zencounter_zm_buried
-
-include,includes/weapons/saritch_zm
-include,includes/weapons/an94_zm
-include,includes/weapons/pdw57_zm
-include,includes/weapons/svu_zm
-
-include,includes/powerups/fire_sale
-
 weapon,bowie_knife_zm
 weapon,tazer_knuckles_zm
+weapon,saritch_zm
+weapon,saritch_upgraded_zm
+weapon,dualoptic_saritch_upgraded_zm
+weapon,an94_zm
+weapon,an94_upgraded_zm
+weapon,pdw57_zm
+weapon,pdw57_upgraded_zm
+weapon,svu_zm
+weapon,svu_upgraded_zm
 
 xmodel,t6_wpn_zmb_raygun_view
 xmodel,t6_wpn_zmb_raygun_view_upg
@@ -23,22 +23,27 @@ material,mc/mtl_t6_attach_tritium_red_glo
 material,mc/mtl_t6_wpn_zmb_raygun_glow
 material,mc/mtl_t6_wpn_zmb_raygun_camo
 material,mc/mtl_t6_wpn_zmb_raygun_glow_upg
-image,~-gmtl_t6_wpn_zmb_raygun_col
-image,mtl_t6_attach_tritium_red_glo
-image,c_gen_arm_rim_mask_c
 
 xmodel,t6_wpn_zmb_monkey_bomb_view
 xmodel,t6_wpn_zmb_monkey_bomb_world
 material,mc/mtl_t6_wpn_zmb_monkey_bomb
 material,mc/mtl_t6_wpn_zmb_monkey
 material,mc/mtl_t6_wpn_zmb_monkey_fur_view
-image,~-gt6_wpn_zmb_monkey_bomb_col
-image,~-gt6_wpn_zmb_monkey_col
-image,~-gt6_wpn_zmb_monkey_fur_col
 material,hud_cymbal_monkey
-image,hud_cymbal_monkey
+
+xmodel,zombie_firesale
+material,specialty_firesale_zombies
 
 camo,camo_rnma
 camo,camo_slowgun
+
+script,maps/mp/gametypes_zm/zgrief.gsc
+script,maps/mp/gametypes_zm/zmeat.gsc
+script,maps/mp/zombies/_zm_game_module_grief.gsc
+script,maps/mp/zombies/_zm_game_module_meat.gsc
+script,maps/mp/zombies/_zm_game_module_utility.gsc
+script,maps/mp/zombies/_zm_game_module_meat_utility.gsc
+script,clientscripts/mp/gametypes/zgrief.csc
+script,clientscripts/mp/gametypes/zmeat.csc
 
 menulist,ui_mp/hud_zgrief.txt

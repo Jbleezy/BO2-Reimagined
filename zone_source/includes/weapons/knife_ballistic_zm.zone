@@ -9,13 +9,7 @@ material,mc/mtl_t6_wpn_ballistic_knife_camo1
 material,mc/mtl_t6_wpn_ballistic_knife_camo2
 material,mc/mtl_t6_wpn_knife_base_camo2
 material,mc/mtl_t6_wpn_ballistic_knife_retrieve
-material,menu_mp_weapons_ballistic_knife
 material,hud_mp_firerate_free
-image,~-gmtl_t6_wpn_knife_base_col
-image,~-gmtl_t6_wpn_ballistic_knife_col
-image,mtl_t6_wpn_ballistic_knife_blade_col
-image,menu_mp_weapons_ballistic_knife
-image,hud_mp_firerate_free
 xanim,viewmodel_ballistic_knife_t6_idle
 xanim,viewmodel_ballistic_knife_t6_fire
 xanim,viewmodel_ballistic_knife_t6_melee_charge

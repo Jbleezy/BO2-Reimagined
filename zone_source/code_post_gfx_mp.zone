@@ -1,0 +1,14 @@
+>game,T6
+>type,fastfile
+>name,code_post_gfx_mp
+
+material,cac_mods_tact_knife
+material,menu_mp_weapons_ballistic_knife
+material,menu_mp_weapons_as50
+material,menu_mp_weapons_fnp45
+material,menu_mp_weapons_insas
+material,menu_mp_weapons_mk48
+material,menu_mp_weapons_sa58
+material,menu_mp_weapons_sig556
+material,menu_mp_weapons_kriss
+material,hud_bounce_betty_256

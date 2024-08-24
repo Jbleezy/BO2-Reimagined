@@ -1,5 +1,5 @@
 /.vscode
-/zone_source/*.ff
+/zone_source/**/*.ff
 /*.ff
 *.iwd
 *.sabs
