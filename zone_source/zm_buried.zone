@@ -14,6 +14,12 @@ weapon,pdw57_upgraded_zm
 weapon,svu_zm
 weapon,svu_upgraded_zm
 
+fx,maps/zombie/fx_zmb_wall_buy_an94
+fx,maps/zombie/fx_zmb_wall_buy_pdw57
+fx,maps/zombie/fx_zmb_wall_buy_svuas
+material,gfx_fxt_zmb_wep_wallbuy_05
+material,gfx_fxt_zmb_wep_wallbuy_06
+
 xmodel,t6_wpn_zmb_raygun_view
 xmodel,t6_wpn_zmb_raygun_view_upg
 xmodel,t6_wpn_zmb_raygun_world
