@@ -2,6 +2,8 @@
 >type,fastfile
 >name,zm_buried
 
+include,addons/so_zencounter_zm_buried
+
 weapon,bowie_knife_zm
 weapon,tazer_knuckles_zm
 weapon,saritch_zm

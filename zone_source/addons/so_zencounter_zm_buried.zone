@@ -1,7 +1,3 @@
->game,T6
->type,fastfile
->name,so_zencounter_zm_buried
-
 script,aitype/zm_buried_ghost_female.gsc
 xanim,ai_zombie_ghost_idle
 xanim,ai_zombie_ghost_supersprint
@@ -529,6 +525,7 @@ image,~~-gc_zom_buried_spawn_pieces~27c4e39c
 image,c_zom_buried_spawn_pieces_n
 image,~-gc_zom_buried_spawn_pieces_c
 material,mc/mtl_c_zom_buried_spawn_peices
+physpreset,gib
 xmodel,c_zom_buried_g_rarmspawn
 xmodel,c_zom_buried_g_larmspawn
 xmodel,c_zom_buried_g_rlegspawn
@@ -917,6 +914,7 @@ xanim,pb_zombie_sprint_v8
 xanim,pb_zombie_sprint_v9
 xanim,pb_zombie_death_v1
 xanim,pb_zombie_death_v2
+xmodel,zombie_pickup_perk_bottle
 xanim,pb_zombie_stand_turn_r90
 xanim,pb_zombie_stand_turn_l90
 xanim,pb_zombie_run_right

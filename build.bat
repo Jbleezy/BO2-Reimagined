@@ -58,6 +58,15 @@ if %ERRORLEVEL% NEQ 0 pause
 if %ERRORLEVEL% NEQ 0 pause
 
 "%OAT_BASE%\Linker.exe" ^
+--load "%OAT_GAME%\zone\all\code_post_gfx.ff" ^
+--base-folder "%OAT_BASE%" ^
+--asset-search-path "%cd%" ^
+--source-search-path "%cd%\zone_source" ^
+--output-folder "%cd%\zone_source" code_post_gfx
+
+if %ERRORLEVEL% NEQ 0 pause
+
+"%OAT_BASE%\Linker.exe" ^
 --load "%OAT_GAME%\zone\all\frontend_patch.ff" ^
 --load "%OAT_GAME%\zone\all\frontend.ff" ^
 --base-folder "%OAT_BASE%" ^
@@ -68,20 +77,12 @@ if %ERRORLEVEL% NEQ 0 pause
 if %ERRORLEVEL% NEQ 0 pause
 
 "%OAT_BASE%\Linker.exe" ^
---load "%OAT_GAME%\zone\all\code_post_gfx.ff" ^
---base-folder "%OAT_BASE%" ^
---asset-search-path "%cd%" ^
---source-search-path "%cd%\zone_source" ^
---output-folder "%cd%\zone_source" code_post_gfx
-
-if %ERRORLEVEL% NEQ 0 pause
-
-"%OAT_BASE%\Linker.exe" ^
+--load "%OAT_GAME%\zone\all\afghanistan.ff" ^
 --load "%OAT_GAME%\zone\all\so_cmp_afghanistan.ff" ^
 --base-folder "%OAT_BASE%" ^
 --asset-search-path "%cd%" ^
 --source-search-path "%cd%\zone_source" ^
---output-folder "%cd%\zone_source" so_cmp_afghanistan
+--output-folder "%cd%\zone_source" afghanistan
 
 if %ERRORLEVEL% NEQ 0 pause
 
@@ -185,19 +186,11 @@ if %ERRORLEVEL% NEQ 0 pause
 --load "%cd%\zone_source\dependencies\camo_zmb_dlc4_materials.ff" ^
 --load "%OAT_GAME%\zone\all\zm_prison_patch.ff" ^
 --load "%OAT_GAME%\zone\all\zm_prison.ff" ^
---base-folder "%OAT_BASE%" ^
---asset-search-path "%cd%" ^
---source-search-path "%cd%\zone_source" ^
---output-folder "%cd%\zone_source" zm_prison
-
-if %ERRORLEVEL% NEQ 0 pause
-
-"%OAT_BASE%\Linker.exe" ^
 --load "%OAT_GAME%\zone\all\so_zencounter_zm_prison.ff" ^
 --base-folder "%OAT_BASE%" ^
 --asset-search-path "%cd%" ^
 --source-search-path "%cd%\zone_source" ^
---output-folder "%cd%\zone_source" so_zencounter_zm_prison
+--output-folder "%cd%\zone_source" zm_prison
 
 if %ERRORLEVEL% NEQ 0 pause
 
@@ -207,19 +200,11 @@ if %ERRORLEVEL% NEQ 0 pause
 --load "%cd%\zone_source\dependencies\camo_zmb_dlc4_materials.ff" ^
 --load "%OAT_GAME%\zone\all\zm_buried_patch.ff" ^
 --load "%OAT_GAME%\zone\all\zm_buried.ff" ^
---base-folder "%OAT_BASE%" ^
---asset-search-path "%cd%" ^
---source-search-path "%cd%\zone_source" ^
---output-folder "%cd%\zone_source" zm_buried
-
-if %ERRORLEVEL% NEQ 0 pause
-
-"%OAT_BASE%\Linker.exe" ^
 --load "%OAT_GAME%\zone\all\so_zencounter_zm_buried.ff" ^
 --base-folder "%OAT_BASE%" ^
 --asset-search-path "%cd%" ^
 --source-search-path "%cd%\zone_source" ^
---output-folder "%cd%\zone_source" so_zencounter_zm_buried
+--output-folder "%cd%\zone_source" zm_buried
 
 if %ERRORLEVEL% NEQ 0 pause
 
@@ -242,9 +227,9 @@ if %ERRORLEVEL% NEQ 0 pause
 --load "%cd%\zone_source\dependencies\camo_zmb_dlc4_materials.ff" ^
 --load "%cd%\zone_source\weapons!metalstorm_mms_sp.ff" ^
 --load "%cd%\zone_source\weapons!exptitus6_sp.ff" ^
---load "%cd%\zone_source\frontend.ff" ^
 --load "%cd%\zone_source\code_post_gfx.ff" ^
---load "%cd%\zone_source\so_cmp_afghanistan.ff" ^
+--load "%cd%\zone_source\frontend.ff" ^
+--load "%cd%\zone_source\afghanistan.ff" ^
 --load "%cd%\zone_source\common_mp.ff" ^
 --load "%cd%\zone_source\code_post_gfx_mp.ff" ^
 --load "%cd%\zone_source\en_code_post_gfx_mp.ff" ^
@@ -254,9 +239,7 @@ if %ERRORLEVEL% NEQ 0 pause
 --load "%cd%\zone_source\zm_nuked.ff" ^
 --load "%cd%\zone_source\zm_highrise.ff" ^
 --load "%cd%\zone_source\zm_prison.ff" ^
---load "%cd%\zone_source\so_zencounter_zm_prison.ff" ^
 --load "%cd%\zone_source\zm_buried.ff" ^
---load "%cd%\zone_source\so_zencounter_zm_buried.ff" ^
 --load "%cd%\zone_source\zm_tomb.ff" ^
 --base-folder "%OAT_BASE%" ^
 --asset-search-path "%cd%" ^

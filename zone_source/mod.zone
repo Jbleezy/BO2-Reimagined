@@ -12,9 +12,9 @@ include,dependencies/camo_zmb_dlc4_materials
 
 include,weapons!metalstorm_mms_sp
 include,weapons!exptitus6_sp
-include,frontend
 include,code_post_gfx
-include,so_cmp_afghanistan
+include,frontend
+include,afghanistan
 include,common_mp
 include,code_post_gfx_mp
 include,en_code_post_gfx_mp
@@ -24,9 +24,7 @@ include,zm_transit
 include,zm_nuked
 include,zm_highrise
 include,zm_prison
-include,so_zencounter_zm_prison
 include,zm_buried
-include,so_zencounter_zm_buried
 include,zm_tomb
 
 include,includes/clientscripts

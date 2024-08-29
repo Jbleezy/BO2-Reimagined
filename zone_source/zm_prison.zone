@@ -2,6 +2,8 @@
 >type,fastfile
 >name,zm_prison
 
+include,addons/so_zencounter_zm_prison
+
 weapon,knife_zm_alcatraz
 weapon,spoon_zm_alcatraz
 weapon,spork_zm_alcatraz
@@ -13,10 +15,5 @@ material,chalkmarks_hellcatraz_2
 material,chalkmarks_hellcatraz_3
 material,chalkmarks_hellcatraz_4
 material,chalkmarks_hellcatraz_5
-
-techniqueset,mc_sw4_3d_phong_emissive_alcatraz_90892wq5
-image,p6_zm_al_shock_box_n
-image,~-gp6_zm_al_shock_box_c
-material,mc/com_glass_clear
 
 camo,camo_blundergat
