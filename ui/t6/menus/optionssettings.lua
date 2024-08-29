@@ -631,51 +631,51 @@ CoD.OptionsSettings.CreateAdvancedTab = function(AdvancedTab, LocalClientIndex)
 	return AdvancedTabContainer
 end
 
-CoD.OptionsSettings.CreateModTab = function(ModTab, LocalClientIndex)
-	local ModTabContainer = LUI.UIContainer.new()
+CoD.OptionsSettings.CreateGameTab = function(GameTab, LocalClientIndex)
+	local GameTabContainer = LUI.UIContainer.new()
 	local InGame = UIExpression.IsInGame() == 1
-	local ModTabButtonList = CoD.Options.CreateButtonList()
-	ModTab.buttonList = ModTabButtonList
-	ModTabContainer.buttonList = ModTabButtonList
-	ModTabContainer:addElement(ModTabButtonList)
+	local GameTabButtonList = CoD.Options.CreateButtonList()
+	GameTab.buttonList = GameTabButtonList
+	GameTabContainer.buttonList = GameTabButtonList
+	GameTabContainer:addElement(GameTabButtonList)
 
-	local EnemyCounterSelector = ModTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_ENEMY_COUNTER_CAPS"), "ui_hud_enemy_counter")
+	local EnemyCounterSelector = GameTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_ENEMY_COUNTER_CAPS"), "ui_hud_enemy_counter")
 	EnemyCounterSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
 	EnemyCounterSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_ENABLED_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
 
-	local TimerSelector = ModTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_TIMER_CAPS"), "ui_hud_timer")
+	local TimerSelector = GameTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_TIMER_CAPS"), "ui_hud_timer")
 	TimerSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
 	TimerSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_ENABLED_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
 
-	local HealthBarSelector = ModTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_HEALTH_BAR_CAPS"), "ui_hud_health_bar")
+	local HealthBarSelector = GameTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_HEALTH_BAR_CAPS"), "ui_hud_health_bar")
 	HealthBarSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
 	HealthBarSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_ENABLED_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
 
-	local ZoneNameSelector = ModTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_ZONE_NAME_CAPS"), "ui_hud_zone_name")
+	local ZoneNameSelector = GameTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_ZONE_NAME_CAPS"), "ui_hud_zone_name")
 	ZoneNameSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
 	ZoneNameSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_ENABLED_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
 
-	ModTabButtonList:addSpacer(CoD.CoD9Button.Height / 2)
+	GameTabButtonList:addSpacer(CoD.CoD9Button.Height / 2)
 
-	local GameModeNameSelector = ModTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_GAME_MODE_NAME_CAPS"), "ui_hud_game_mode_name")
+	local GameModeNameSelector = GameTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_GAME_MODE_NAME_CAPS"), "ui_hud_game_mode_name")
 	GameModeNameSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
 	GameModeNameSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_ENABLED_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
 
-	local GameModeScoreSelector = ModTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_GAME_MODE_SCORE_CAPS"), "ui_hud_game_mode_score")
+	local GameModeScoreSelector = GameTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_GAME_MODE_SCORE_CAPS"), "ui_hud_game_mode_score")
 	GameModeScoreSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
 	GameModeScoreSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_ENABLED_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
 
-	local ContainmentSelector = ModTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_CONTAINMENT_ZONE_TIME_CAPS"), "ui_hud_containment")
+	local ContainmentSelector = GameTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_CONTAINMENT_ZONE_TIME_CAPS"), "ui_hud_containment")
 	ContainmentSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
 	ContainmentSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_ENABLED_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
 
-	ModTabButtonList:addSpacer(CoD.CoD9Button.Height / 2)
+	GameTabButtonList:addSpacer(CoD.CoD9Button.Height / 2)
 
-	local FogSelector = ModTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_FOG_CAPS"), "r_fog_settings")
+	local FogSelector = GameTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_FOG_CAPS"), "r_fog_settings")
 	FogSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChangedFog)
 	FogSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_ENABLED_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChangedFog)
 
-	return ModTabContainer
+	return GameTabContainer
 end
 
 -- need separate dvar to have the value of r_fog persist between sessions
@@ -770,7 +770,7 @@ LUI.createMenu.OptionsSettingsMenu = function(LocalClientIndex)
 	local SettingsTabs = CoD.Options.SetupTabManager(OptionsSettingsWidget, 600)
 	SettingsTabs:addTab(LocalClientIndex, "MENU_GRAPHICS_CAPS", CoD.OptionsSettings.CreateGraphicsTab)
 	SettingsTabs:addTab(LocalClientIndex, "MENU_ADVANCED_CAPS", CoD.OptionsSettings.CreateAdvancedTab)
-	SettingsTabs:addTab(LocalClientIndex, "MENU_MOD_CAPS", CoD.OptionsSettings.CreateModTab)
+	SettingsTabs:addTab(LocalClientIndex, "MENU_GAME_CAPS", CoD.OptionsSettings.CreateGameTab)
 	SettingsTabs:addTab(LocalClientIndex, "MENU_SOUND_CAPS", CoD.OptionsSettings.CreateSoundTab)
 	SettingsTabs:addTab(LocalClientIndex, "MENU_VOICECHAT_CAPS", CoD.OptionsSettings.CreateVoiceChatTab)
 	if CoD.OptionsSettings.CurrentTabIndex then
