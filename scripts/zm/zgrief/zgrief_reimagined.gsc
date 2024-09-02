@@ -104,7 +104,6 @@ init()
 	level thread unlimited_zombies();
 	level thread unlimited_powerups();
 	level thread save_teams_on_intermission();
-	level thread all_voice_on_intermission();
 }
 
 grief_setscoreboardcolumns_gametype()
@@ -2272,13 +2271,6 @@ save_teams_on_intermission()
 
 	setDvar("team_axis", axis_guids);
 	setDvar("team_allies", allies_guids);
-}
-
-all_voice_on_intermission()
-{
-	level waittill("intermission");
-
-	setDvar("sv_voice", 1);
 }
 
 race_check_for_kills()

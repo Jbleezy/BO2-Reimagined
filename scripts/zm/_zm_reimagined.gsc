@@ -638,7 +638,7 @@ set_dvars()
 
 	setDvar("r_fog", getDvar("r_fog_settings"));
 
-	setDvar("sv_voice", 2);
+	setDvar("sv_voice", 1);
 	setDvar("sv_voiceQuality", 9);
 
 	if (level.script == "zm_transit")
