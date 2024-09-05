@@ -216,8 +216,13 @@ CoD.InitCustomDvars = function()
 	end
 end
 
+CoD.SetDvars = function()
+	Engine.SetDvar("sv_voiceQuality", 9)
+end
+
 LUI.createMenu.main = function()
 	CoD.InitCustomDvars()
+	CoD.SetDvars()
 
 	local f11_local0 = UIExpression.GetMaxControllerCount()
 	for self = 0, f11_local0 - 1, 1 do
