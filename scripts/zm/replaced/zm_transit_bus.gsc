@@ -560,7 +560,7 @@ bus_buyable_weapon_unitrigger_setup()
 		wait 1;
 	}
 
-	unitrigger.require_look_at = 0;
+	unitrigger.require_look_at = 1;
 	unitrigger.target = weapon_model;
 	unitrigger.origin_parent = weapon_model;
 	unitrigger.link_parent = self;
@@ -582,7 +582,7 @@ bus_buyable_weapon_unitrigger_setup()
 
 bus_buyable_weapon_get_unitrigger_origin()
 {
-	return self.origin_parent.origin + (0, 0, -32);
+	return self.origin_parent.origin + (0, 0, -30);
 }
 
 bus_buyable_weapon_on_spawn_trigger(trigger)
