@@ -2217,6 +2217,11 @@ player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, s
 				}
 			}
 
+			if (is_placeable_mine(sweapon))
+			{
+				canexert = 0;
+			}
+
 			if (is_true(canexert))
 			{
 				if (randomintrange(0, 1) == 0)
