@@ -273,18 +273,6 @@ LANG_ENGLISH        "You are in the containment zone!"
 REFERENCE           ZOMBIE_PLAYER_OUT_CONTAINMENT_ZONE
 LANG_ENGLISH        "You are out the containment zone!"
 
-REFERENCE           ZOMBIE_YOUR_TEAM_CONTAINMENT_ZONE
-LANG_ENGLISH        "^8Your team controls the containment zone"
-
-REFERENCE           ZOMBIE_OTHER_TEAM_CONTAINMENT_ZONE
-LANG_ENGLISH        "^9Enemy team controls the containment zone"
-
-REFERENCE           ZOMBIE_CONTAINMENT_ZONE_CONTESTED
-LANG_ENGLISH        "^3Containment zone contested"
-
-REFERENCE           ZOMBIE_CONTAINMENT_ZONE_UNCONTROLLED
-LANG_ENGLISH        "^7Containment zone uncontrolled"
-
 REFERENCE           ZOMBIE_GRABBED_MEAT
 LANG_ENGLISH        "^8&&1 grabbed the meat"
 

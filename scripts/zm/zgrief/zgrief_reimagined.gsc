@@ -2541,11 +2541,6 @@ containment_think()
 
 				if (held_prev != "cont")
 				{
-					foreach (player in players)
-					{
-						player thread print_containment_msg(&"ZOMBIE_CONTAINMENT_ZONE_CONTESTED");
-					}
-
 					obj_time = 2000;
 					held_time["axis"] = getTime();
 					held_time["allies"] = getTime();
@@ -2578,18 +2573,6 @@ containment_think()
 
 				if (held_prev != "axis")
 				{
-					foreach (player in players)
-					{
-						if (player.team == "axis")
-						{
-							player thread print_containment_msg(&"ZOMBIE_YOUR_TEAM_CONTAINMENT_ZONE");
-						}
-						else
-						{
-							player thread print_containment_msg(&"ZOMBIE_OTHER_TEAM_CONTAINMENT_ZONE");
-						}
-					}
-
 					obj_time = 1000;
 
 					if (!isDefined(held_time["axis"]))
@@ -2621,18 +2604,6 @@ containment_think()
 
 				if (held_prev != "allies")
 				{
-					foreach (player in players)
-					{
-						if (player.team == "axis")
-						{
-							player thread print_containment_msg(&"ZOMBIE_OTHER_TEAM_CONTAINMENT_ZONE");
-						}
-						else
-						{
-							player thread print_containment_msg(&"ZOMBIE_YOUR_TEAM_CONTAINMENT_ZONE");
-						}
-					}
-
 					obj_time = 1000;
 
 					if (!isDefined(held_time["allies"]))
@@ -2664,11 +2635,6 @@ containment_think()
 
 				if (held_prev != "none")
 				{
-					foreach (player in players)
-					{
-						player thread print_containment_msg(&"ZOMBIE_CONTAINMENT_ZONE_UNCONTROLLED");
-					}
-
 					held_time["axis"] = undefined;
 					held_time["allies"] = undefined;
 					held_prev = "none";
@@ -2998,11 +2964,6 @@ containment_time_hud_countdown(time)
 
 		level.containment_time_hud_value--;
 	}
-}
-
-print_containment_msg(hint_string)
-{
-	self iprintln(hint_string);
 }
 
 meat_init()
