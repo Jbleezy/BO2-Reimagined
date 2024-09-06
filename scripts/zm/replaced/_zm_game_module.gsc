@@ -188,8 +188,6 @@ round_end(winner)
 	setDvar("ui_round_number", level.snr_round_number);
 	scripts\zm\_zm_reimagined::setclientdvarall("ui_round_number", getdvarint("ui_round_number"));
 
-	level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog("grief_restarted");
-
 	if (isDefined(level.show_grief_hud_msg_func))
 	{
 		if (isDefined(winner))
@@ -199,10 +197,12 @@ round_end(winner)
 				if (player.team == team)
 				{
 					player thread [[level.show_grief_hud_msg_func]](&"ZOMBIE_GRIEF_WIN_ROUND");
+					player thread maps\mp\zombies\_zm_audio_announcer::leaderdialogonplayer("grief_won");
 				}
 				else
 				{
 					player thread [[level.show_grief_hud_msg_func]](&"ZOMBIE_GRIEF_LOSE_ROUND");
+					player thread maps\mp\zombies\_zm_audio_announcer::leaderdialogonplayer("grief_lost");
 				}
 			}
 		}
@@ -212,6 +212,7 @@ round_end(winner)
 			{
 				player thread [[level.show_grief_hud_msg_func]](&"ZOMBIE_GRIEF_RESET");
 				player thread [[level.show_grief_hud_msg_func]]("", undefined, 30);
+				player thread maps\mp\zombies\_zm_audio_announcer::leaderdialogonplayer("grief_restarted");
 			}
 		}
 	}
