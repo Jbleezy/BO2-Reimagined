@@ -211,7 +211,7 @@ round_end(winner)
 			foreach (player in players)
 			{
 				player thread [[level.show_grief_hud_msg_func]](&"ZOMBIE_GRIEF_RESET");
-				player thread [[level.show_grief_hud_msg_func]]("", undefined, 30);
+				player thread [[level.show_grief_hud_msg_func]](&"", undefined, 30);
 				player thread maps\mp\zombies\_zm_audio_announcer::leaderdialogonplayer("grief_restarted");
 			}
 		}

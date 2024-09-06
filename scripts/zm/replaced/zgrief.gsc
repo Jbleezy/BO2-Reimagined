@@ -419,6 +419,8 @@ meat_stink_cleanup_on_downed()
 				player thread print_meat_msg(self, "dropped", 1);
 			}
 
+			self thread [[level.show_grief_hud_msg_func]](&"");
+
 			level.meat_powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop("meat_stink", self.origin);
 		}
 		else
