@@ -24,9 +24,13 @@ chugabud_laststand()
 	wait 3;
 
 	if (isdefined(self.insta_killed) && self.insta_killed || isdefined(self.disable_chugabud_corpse))
+	{
 		create_corpse = 0;
+	}
 	else
+	{
 		create_corpse = 1;
+	}
 
 	if (create_corpse == 1)
 	{
@@ -35,7 +39,9 @@ chugabud_laststand()
 			reject_corpse = self [[level._chugabug_reject_corpse_override_func]](self.origin);
 
 			if (reject_corpse)
+			{
 				create_corpse = 0;
+			}
 		}
 	}
 
@@ -50,7 +56,9 @@ chugabud_laststand()
 		corpse thread chugabud_corpse_cleanup_on_disconnect(self);
 
 		if (isdefined(level.whos_who_client_setup))
+		{
 			corpse setclientfield("clientfield_whos_who_clone_glow_shader", 1);
+		}
 	}
 
 	self thread chugabud_fake_revive();
@@ -76,7 +84,9 @@ chugabud_laststand()
 	corpse waittill("player_revived", e_reviver);
 
 	if (isdefined(e_reviver) && e_reviver == self)
+	{
 		self notify("whos_who_self_revive");
+	}
 
 	self perk_abort_drinking(0.1);
 	self maps\mp\zombies\_zm_perks::perk_set_max_health_if_jugg("health_reboot", 1, 0);
@@ -110,13 +120,17 @@ chugabud_save_loadout()
 		self.loadout.weapons[index] = maps\mp\zombies\_zm_weapons::get_player_weapondata(self, weapon);
 
 		if (weapon == currentweapon || self.loadout.weapons[index]["alt_name"] == currentweapon)
+		{
 			self.loadout.current_weapon = index;
+		}
 	}
 
 	self.loadout.equipment = self get_player_equipment();
 
 	if (isdefined(self.loadout.equipment))
+	{
 		self equipment_take(self.loadout.equipment);
+	}
 
 	self.loadout.melee_weapon = self get_player_melee_weapon();
 
@@ -130,7 +144,9 @@ chugabud_save_loadout()
 	self chugabud_save_grenades();
 
 	if (maps\mp\zombies\_zm_weap_cymbal_monkey::cymbal_monkey_exists())
+	{
 		self.loadout.zombie_cymbal_monkey_count = self getweaponammoclip("cymbal_monkey_zm");
+	}
 }
 
 chugabud_save_perks(ent)
@@ -165,7 +181,9 @@ chugabud_fake_death()
 	if (self is_jumping())
 	{
 		while (self is_jumping())
+		{
 			wait 0.05;
+		}
 	}
 
 	self freezecontrols(1);
@@ -180,12 +198,16 @@ chugabud_fake_revive()
 	spawnpoint = chugabud_get_spawnpoint();
 
 	if (isdefined(level._chugabud_post_respawn_override_func))
+	{
 		self [[level._chugabud_post_respawn_override_func]](spawnpoint.origin);
+	}
 
 	if (isdefined(level.chugabud_force_corpse_position))
 	{
 		if (isdefined(self.e_chugabud_corpse))
+		{
 			self.e_chugabud_corpse forceteleport(level.chugabud_force_corpse_position);
+		}
 
 		level.chugabud_force_corpse_position = undefined;
 	}
@@ -232,7 +254,9 @@ chugabud_give_loadout()
 	if (loadout.weapons.size > 1 || primaries.size > 1)
 	{
 		foreach (weapon in primaries)
+		{
 			self takeweapon(weapon);
+		}
 	}
 
 	weapons_given = 0;
@@ -240,10 +264,14 @@ chugabud_give_loadout()
 	for (i = 0; i < loadout.weapons.size; i++)
 	{
 		if (!isdefined(loadout.weapons[i]))
+		{
 			continue;
+		}
 
 		if (loadout.weapons[i]["name"] == "none")
+		{
 			continue;
+		}
 
 		self maps\mp\zombies\_zm_weapons::weapondata_give(loadout.weapons[i]);
 
@@ -256,7 +284,9 @@ chugabud_give_loadout()
 	}
 
 	if (loadout.current_weapon >= 0 && isdefined(loadout.weapons[loadout.current_weapon]["name"]))
+	{
 		self switchtoweapon(loadout.weapons[loadout.current_weapon]["name"]);
+	}
 
 	self.do_not_display_equipment_pickup_hint = 1;
 	self maps\mp\zombies\_zm_equipment::equipment_give(self.loadout.equipment);
@@ -297,13 +327,19 @@ chugabud_give_perks()
 		for (i = 0; i < loadout.perks.size; i++)
 		{
 			if (self hasperk(loadout.perks[i]))
+			{
 				continue;
+			}
 
 			if (loadout.perks[i] == "specialty_quickrevive" && flag("solo_game"))
+			{
 				level.solo_game_free_player_quickrevive = 1;
+			}
 
 			if (loadout.perks[i] == "specialty_finalstand")
+			{
 				continue;
+			}
 
 			maps\mp\zombies\_zm_perks::give_perk(loadout.perks[i]);
 		}
@@ -446,7 +482,9 @@ chugabud_corpse_cleanup_on_disconnect(player)
 chugabud_laststand_cleanup(corpse, str_notify)
 {
 	if (isdefined(str_notify))
+	{
 		self waittill(str_notify);
+	}
 
 	self setstance("stand");
 	self thread chugabud_leave_freeze();
@@ -465,7 +503,9 @@ chugabud_leave_freeze()
 	wait 0.5;
 
 	if (!is_true(self.hostmigrationcontrolsfrozen))
+	{
 		self freezecontrols(0);
+	}
 }
 
 chugabud_revive_invincible()

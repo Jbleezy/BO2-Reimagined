@@ -24,7 +24,9 @@ transport_player_to_start_zone()
 	wait_network_frame();
 
 	if (level._fountain_transporter.index >= level._fountain_transporter.end_points.size)
+	{
 		level._fountain_transporter.index = 0;
+	}
 
 	tries = 0;
 
@@ -41,7 +43,9 @@ transport_player_to_start_zone()
 		level._fountain_transporter.index++;
 
 		if (level._fountain_transporter.index >= level._fountain_transporter.end_points.size)
+		{
 			level._fountain_transporter.index = 0;
+		}
 	}
 
 	self setorigin(level._fountain_transporter.end_points[level._fountain_transporter.index].origin);

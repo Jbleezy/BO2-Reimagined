@@ -26,7 +26,9 @@ callback_playerconnect()
 	self waittill("begin");
 
 	if (isdefined(level.reset_clientdvars))
+	{
 		self [[level.reset_clientdvars]]();
+	}
 
 	waittillframeend;
 	self.statusicon = "";
@@ -35,13 +37,19 @@ callback_playerconnect()
 	level notify("connected", self);
 
 	if (self ishost())
+	{
 		self thread maps\mp\gametypes_zm\_globallogic::listenforgameend();
+	}
 
 	if (!level.splitscreen && !isdefined(self.pers["score"]))
+	{
 		iprintln(&"MP_CONNECTED", self);
+	}
 
 	if (!isdefined(self.pers["score"]))
+	{
 		self thread maps\mp\zombies\_zm_stats::adjustrecentstats();
+	}
 
 	if (gamemodeismode(level.gamemode_public_match) && !isdefined(self.pers["matchesPlayedStatsTracked"]))
 	{
@@ -64,7 +72,9 @@ callback_playerconnect()
 	bbprint("mpjoins", "name %s client %s", self.name, lpselfnum);
 
 	if (!sessionmodeiszombiesgame())
+	{
 		self setclientuivisibilityflag("hud_visible", 1);
+	}
 
 	if (level.forceradar == 1)
 	{
@@ -74,25 +84,35 @@ callback_playerconnect()
 	}
 
 	if (level.forceradar == 2)
+	{
 		self setclientuivisibilityflag("g_compassShowEnemies", level.forceradar);
+	}
 	else
+	{
 		self setclientuivisibilityflag("g_compassShowEnemies", 0);
+	}
 
 	self setclientplayersprinttime(level.playersprinttime);
 	self setclientnumlives(level.numlives);
 	makedvarserverinfo("cg_drawTalk", 1);
 
 	if (level.hardcoremode)
+	{
 		self setclientdrawtalk(3);
+	}
 
 	if (sessionmodeiszombiesgame())
+	{
 		self [[level.player_stats_init]]();
+	}
 	else
 	{
 		self maps\mp\gametypes_zm\_globallogic_score::initpersstat("score");
 
 		if (level.resetplayerscoreeveryround)
+		{
 			self.pers["score"] = 0;
+		}
 
 		self.score = self.pers["score"];
 		self maps\mp\gametypes_zm\_globallogic_score::initpersstat("momentum", 0);
@@ -151,11 +171,15 @@ callback_playerconnect()
 		self.teamkillpunish = 0;
 
 		if (level.minimumallowedteamkills >= 0 && self.pers["teamkills_nostats"] > level.minimumallowedteamkills)
+		{
 			self thread reduceteamkillsovertime();
+		}
 	}
 
 	if (getdvar(#"r_reflectionProbeGenerate") == "1")
+	{
 		level waittill("eternity");
+	}
 
 	self.killedplayerscurrent = [];
 
@@ -193,7 +217,9 @@ callback_playerconnect()
 	self.currentleaderdialogtime = 0;
 
 	if (!isdefined(self.pers["cur_kill_streak"]))
+	{
 		self.pers["cur_kill_streak"] = 0;
+	}
 
 	if (!isdefined(self.pers["cur_total_kill_streak"]))
 	{
@@ -202,16 +228,24 @@ callback_playerconnect()
 	}
 
 	if (!isdefined(self.pers["totalKillstreakCount"]))
+	{
 		self.pers["totalKillstreakCount"] = 0;
+	}
 
 	if (!isdefined(self.pers["killstreaksEarnedThisKillstreak"]))
+	{
 		self.pers["killstreaksEarnedThisKillstreak"] = 0;
+	}
 
 	if (isdefined(level.usingscorestreaks) && level.usingscorestreaks && !isdefined(self.pers["killstreak_quantity"]))
+	{
 		self.pers["killstreak_quantity"] = [];
+	}
 
 	if (isdefined(level.usingscorestreaks) && level.usingscorestreaks && !isdefined(self.pers["held_killstreak_ammo_count"]))
+	{
 		self.pers["held_killstreak_ammo_count"] = [];
+	}
 
 	self.lastkilltime = 0;
 	self.cur_death_streak = 0;
@@ -225,10 +259,14 @@ callback_playerconnect()
 	self.teamkillsthisround = 0;
 
 	if (!isdefined(level.livesdonotreset) || !level.livesdonotreset || !isdefined(self.pers["lives"]))
+	{
 		self.pers["lives"] = level.numlives;
+	}
 
 	if (!level.teambased)
+	{
 		self.pers["team"] = undefined;
+	}
 
 	self.hasspawned = 0;
 	self.waitingtospawn = 0;
@@ -238,7 +276,9 @@ callback_playerconnect()
 	level.players[level.players.size] = self;
 
 	if (level.splitscreen)
+	{
 		setdvar("splitscreen_playerNum", level.players.size);
+	}
 
 	if (game["state"] == "postgame")
 	{
@@ -259,7 +299,9 @@ callback_playerconnect()
 		self updatestatratio("wlratio", "wins", "losses");
 
 		if (gamemodeismode(level.gamemode_public_match))
+		{
 			self maps\mp\zombies\_zm_stats::add_location_gametype_stat(level.scr_zm_map_start_location, level.scr_zm_ui_gametype, "losses", 1);
+		}
 	}
 	else if (level.scr_zm_ui_gametype_group == "zsurvival")
 	{
@@ -272,7 +314,9 @@ callback_playerconnect()
 	level endon("game_ended");
 
 	if (isdefined(level.hostmigrationtimer))
+	{
 		self thread maps\mp\gametypes_zm\_hostmigration::hostmigrationtimerthink();
+	}
 
 	if (level.oldschool)
 	{
@@ -281,10 +325,14 @@ callback_playerconnect()
 	}
 
 	if (isdefined(self.pers["team"]))
+	{
 		self.team = self.pers["team"];
+	}
 
 	if (isdefined(self.pers["class"]))
+	{
 		self.class = self.pers["class"];
+	}
 
 	if (!isdefined(self.pers["team"]) || isdefined(self.pers["needteam"]))
 	{
@@ -301,14 +349,18 @@ callback_playerconnect()
 			self thread maps\mp\gametypes_zm\_globallogic_spawn::kickifdontspawn();
 		}
 		else
+		{
 			[[level.autoassign]](0);
+		}
 
 		if (self.pers["team"] == "spectator")
 		{
 			self.sessionteam = "spectator";
 
 			if (!level.teambased)
+			{
 				self.ffateam = "spectator";
+			}
 
 			self thread spectate_player_watcher();
 		}
@@ -318,7 +370,9 @@ callback_playerconnect()
 			self.sessionteam = self.pers["team"];
 
 			if (!isalive(self))
+			{
 				self.statusicon = "hud_status_dead";
+			}
 
 			self thread maps\mp\gametypes_zm\_spectating::setspectatepermissions();
 		}
@@ -331,7 +385,9 @@ callback_playerconnect()
 		self.sessionstate = "spectator";
 
 		if (!level.teambased)
+		{
 			self.ffateam = "spectator";
+		}
 
 		self thread spectate_player_watcher();
 	}
@@ -341,24 +397,34 @@ callback_playerconnect()
 		self.sessionstate = "dead";
 
 		if (!level.teambased)
+		{
 			self.ffateam = self.pers["team"];
+		}
 
 		self maps\mp\gametypes_zm\_globallogic_ui::updateobjectivetext();
 		[[level.spawnspectator]]();
 
 		if (maps\mp\gametypes_zm\_globallogic_utils::isvalidclass(self.pers["class"]))
+		{
 			self thread [[level.spawnclient]]();
+		}
 		else
+		{
 			self maps\mp\gametypes_zm\_globallogic_ui::showmainmenuforteam();
+		}
 
 		self thread maps\mp\gametypes_zm\_spectating::setspectatepermissions();
 	}
 
 	if (self.sessionteam != "spectator")
+	{
 		self thread maps\mp\gametypes_zm\_spawning::onspawnplayer_unified(1);
+	}
 
 	profilelog_endtiming(4, "gs=" + game["state"] + " zom=" + sessionmodeiszombiesgame());
 
 	if (isdefined(self.pers["isBot"]))
+	{
 		return;
+	}
 }

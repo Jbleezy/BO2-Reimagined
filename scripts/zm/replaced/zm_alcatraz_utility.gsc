@@ -39,7 +39,9 @@ blundergat_upgrade_station()
 			valid = t_upgrade [[level.custom_craftable_validation]](player);
 
 			if (!valid)
+			{
 				continue;
+			}
 		}
 
 		if (player.score < t_upgrade.cost)
@@ -77,7 +79,9 @@ blundergat_upgrade_station()
 			t_upgrade setinvisibletoall();
 
 			if (isdefined(player))
+			{
 				player.is_pack_splatting = undefined;
+			}
 
 			m_converter.worldgun delete();
 			wait 0.5;
@@ -97,7 +101,9 @@ blundergat_change_hintstring(hint_string, hint_string_cost)
 	self endon("new_change_hint_string");
 
 	while (isdefined(self.is_locked) && self.is_locked)
+	{
 		wait 0.05;
+	}
 
 	if (isDefined(hint_string_cost))
 	{
@@ -136,9 +142,13 @@ blundergat_upgrade_station_inject(str_weapon_model, options)
 	self.worldgun delete();
 
 	if (str_weapon_model == "blundergat_zm")
+	{
 		self.worldgun = spawn_weapon_model("blundersplat_zm", undefined, self.v_weapon_origin, self.v_weapon_angles, options);
+	}
 	else
+	{
 		self.worldgun = spawn_weapon_model("blundersplat_upgraded_zm", undefined, self.v_weapon_origin, self.v_weapon_angles, options);
+	}
 
 	self setanim(self.fxanims["open"], 1, 0, 1);
 	wait(self.n_end_time);
@@ -159,7 +169,9 @@ wait_for_player_to_take(player, str_valid_weapon)
 			valid = self [[level.custom_craftable_validation]](player);
 
 			if (!valid)
+			{
 				continue;
+			}
 		}
 
 		if (trigger_player == player)
@@ -174,19 +186,29 @@ wait_for_player_to_take(player, str_valid_weapon)
 				primaries = player getweaponslistprimaries();
 
 				if (isdefined(primaries) && primaries.size >= weapon_limit)
+				{
 					player takeweapon(current_weapon);
+				}
 
 				str_new_weapon = undefined;
 
 				if (str_valid_weapon == "blundergat_zm")
+				{
 					str_new_weapon = "blundersplat_zm";
+				}
 				else
+				{
 					str_new_weapon = "blundersplat_upgraded_zm";
+				}
 
 				if (player hasweapon("blundersplat_zm"))
+				{
 					player givemaxammo("blundersplat_zm");
+				}
 				else if (player hasweapon("blundersplat_upgraded_zm"))
+				{
 					player givemaxammo("blundersplat_upgraded_zm");
+				}
 				else
 				{
 					player giveweapon(str_new_weapon, 0, player maps\mp\zombies\_zm_weapons::get_pack_a_punch_weapon_options(str_new_weapon));
@@ -217,13 +239,17 @@ alcatraz_audio_get_mod_type_override(impact, mod, weapon, zombie, instakill, dis
 			if (!(isdefined(player.soul_catcher_cooldown) && player.soul_catcher_cooldown))
 			{
 				if (isdefined(zombie.my_soul_catcher.souls_received) && zombie.my_soul_catcher.souls_received > 0)
+				{
 					a_str_mod[a_str_mod.size] = "wolf_kill";
+				}
 				else if (isdefined(zombie.my_soul_catcher.souls_received) && zombie.my_soul_catcher.souls_received == 0)
 				{
 					if (!(isdefined(level.wolf_encounter_vo_played) && level.wolf_encounter_vo_played))
 					{
 						if (level.soul_catchers_charged == 0)
+						{
 							zombie.my_soul_catcher thread maps\mp\zm_alcatraz_weap_quest::first_wolf_encounter_vo();
+						}
 					}
 				}
 			}
@@ -231,31 +257,47 @@ alcatraz_audio_get_mod_type_override(impact, mod, weapon, zombie, instakill, dis
 	}
 
 	if (weapon == "blundergat_zm" || weapon == "blundergat_upgraded_zm")
+	{
 		a_str_mod[a_str_mod.size] = "blundergat";
+	}
 
 	if (isdefined(zombie.damageweapon) && (zombie.damageweapon == "blundersplat_explosive_dart_zm" || zombie.damageweapon == "blundersplat_explosive_dart_upgraded_zm"))
+	{
 		a_str_mod[a_str_mod.size] = "acidgat";
+	}
 
 	if (isdefined(zombie.damageweapon) && zombie.damageweapon == "bouncing_tomahawk_zm")
+	{
 		a_str_mod[a_str_mod.size] = "retriever";
+	}
 
 	if (isdefined(zombie.damageweapon) && zombie.damageweapon == "upgraded_tomahawk_zm")
+	{
 		a_str_mod[a_str_mod.size] = "redeemer";
+	}
 
 	if (weapon == "minigun_alcatraz_zm" || weapon == "minigun_alcatraz_upgraded_zm")
+	{
 		a_str_mod[a_str_mod.size] = "death_machine";
+	}
 
 	if (is_headshot(weapon, impact, mod) && dist >= far_dist)
+	{
 		a_str_mod[a_str_mod.size] = "headshot";
+	}
 
 	if (is_explosive_damage(mod) && weapon != "ray_gun_zm" && weapon != "ray_gun_upgraded_zm" && !(isdefined(zombie.is_on_fire) && zombie.is_on_fire))
 	{
 		if (!isinarray(a_str_mod, "retriever") && !isinarray(a_str_mod, "redeemer"))
 		{
 			if (!instakill)
+			{
 				a_str_mod[a_str_mod.size] = "explosive";
+			}
 			else
+			{
 				a_str_mod[a_str_mod.size] = "weapon_instakill";
+			}
 		}
 	}
 
@@ -264,43 +306,63 @@ alcatraz_audio_get_mod_type_override(impact, mod, weapon, zombie, instakill, dis
 		if (dist > far_dist)
 		{
 			if (!instakill)
+			{
 				a_str_mod[a_str_mod.size] = "raygun";
+			}
 			else
+			{
 				a_str_mod[a_str_mod.size] = "weapon_instakill";
+			}
 		}
 	}
 
 	if (instakill)
 	{
 		if (mod == "MOD_MELEE")
+		{
 			a_str_mod[a_str_mod.size] = "melee_instakill";
+		}
 		else
+		{
 			a_str_mod[a_str_mod.size] = "weapon_instakill";
+		}
 	}
 
 	if (mod != "MOD_MELEE" && !zombie.has_legs)
+	{
 		a_str_mod[a_str_mod.size] = "crawler";
+	}
 
 	if (mod != "MOD_BURNED" && dist < close_dist)
+	{
 		a_str_mod[a_str_mod.size] = "closekill";
+	}
 
 	if (a_str_mod.size == 0)
+	{
 		str_mod_final = "default";
+	}
 	else if (a_str_mod.size == 1)
+	{
 		str_mod_final = a_str_mod[0];
+	}
 	else
 	{
 		for (i = 0; i < a_str_mod.size; i++)
 		{
 			if (cointoss())
+			{
 				str_mod_final = a_str_mod[i];
+			}
 		}
 
 		str_mod_final = a_str_mod[randomint(a_str_mod.size)];
 	}
 
 	if (str_mod_final == "wolf_kill")
+	{
 		player thread wolf_kill_cooldown_watcher(zombie.my_soul_catcher);
+	}
 
 	return str_mod_final;
 }

@@ -19,7 +19,9 @@ main()
 	temp_clips = getentarray("elevator_delete", "targetname");
 
 	if (isdefined(temp_clips) && temp_clips.size > 0)
+	{
 		array_thread(temp_clips, ::self_delete);
+	}
 
 	elev_bldg3b = getent("elevator_bldg3b_body", "targetname");
 	elev_bldg3b.origin += vectorscale((0, 0, 1), 8.0);
@@ -79,7 +81,9 @@ highrise_pap_move_in(trigger, origin_offset, angles_offset)
 	offsetdw = vectorscale((1, 1, 1), 3.0);
 
 	if (isdefined(trigger.worldgun.worldgundw))
+	{
 		worldgundw rotateto(self.angles + angles_offset + vectorscale((0, 1, 0), 90.0), 0.35, 0, 0);
+	}
 
 	elapsed_time_counter = 0;
 
@@ -88,7 +92,9 @@ highrise_pap_move_in(trigger, origin_offset, angles_offset)
 		worldgun.origin = (worldgun.origin[0], worldgun.origin[1], pap_machine.origin[2] + offset);
 
 		if (isdefined(worldgundw))
+		{
 			worldgundw.origin = (worldgundw.origin[0], worldgundw.origin[1], pap_machine.origin[2] + offset + offsetdw[2]);
+		}
 
 		elapsed_time_counter += 0.05;
 		wait 0.05;
@@ -102,7 +108,9 @@ highrise_pap_move_in(trigger, origin_offset, angles_offset)
 		worldgun.origin = (worldgun.origin[0] + move_vec[0], worldgun.origin[1] + move_vec[1], pap_machine.origin[2] + offset);
 
 		if (isdefined(worldgundw))
+		{
 			worldgundw.origin = (worldgundw.origin[0] + move_vec[0], worldgundw.origin[1] + move_vec[1], pap_machine.origin[2] + offset + offsetdw[2]);
+		}
 
 		elapsed_time_counter += 0.05;
 		wait 0.05;
@@ -125,7 +133,9 @@ squashed_death_init(kill_if_falling)
 			else if (isai(who))
 			{
 				if (is_true(who.in_the_ceiling) || !is_true(who.completed_emerging_into_playable_area))
+				{
 					continue;
+				}
 
 				playfx(level._effect["zomb_gib"], who.origin);
 
@@ -268,7 +278,9 @@ escape_pod()
 	escape_pod._post_host_migration_thread = maps\mp\zm_highrise_elevators::escape_pod_host_migration_respawn_check;
 
 	if (!isdefined(escape_pod_trigger))
+	{
 		return;
+	}
 
 	escape_pod.home_origin = escape_pod.origin;
 	escape_pod.link_start = [];
@@ -294,7 +306,9 @@ escape_pod()
 		}
 
 		if (is_true(used_at_least_once))
+		{
 			wait 3;
+		}
 
 		level thread escape_pod_wait_for_players_inside(escape_pod, escape_pod_trigger);
 
@@ -415,7 +429,9 @@ escape_pod_wait_for_players_inside(escape_pod, escape_pod_trigger)
 			players_in_escape_pod = escape_pod_trigger escape_pod_get_all_alive_players_inside();
 
 			if (players_in_escape_pod.size > 0)
+			{
 				break;
+			}
 		}
 
 		wait 0.05;
@@ -434,7 +450,9 @@ escape_pod_get_all_alive_players_inside()
 		if (player.sessionstate != "spectator")
 		{
 			if (player istouching(self))
+			{
 				players_in_escape_pod[players_in_escape_pod.size] = player;
+			}
 		}
 	}
 

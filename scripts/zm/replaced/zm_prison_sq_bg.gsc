@@ -61,13 +61,17 @@ give_sq_bg_reward()
 take_old_weapon_and_give_reward(current_weapon, reward_weapon, weapon_limit_override = 0)
 {
 	if (weapon_limit_override == 1)
+	{
 		self takeweapon(current_weapon);
+	}
 	else
 	{
 		primaries = self getweaponslistprimaries();
 
 		if (isdefined(primaries) && primaries.size >= get_player_weapon_limit(self))
+		{
 			self takeweapon(current_weapon);
+		}
 	}
 
 	self giveweapon(reward_weapon);

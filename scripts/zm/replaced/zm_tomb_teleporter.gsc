@@ -48,13 +48,17 @@ teleporter_init()
 	a_exits = getstructarray("portal_exit", "script_noteworthy");
 
 	foreach (s_portal in a_exits)
+	{
 		level.a_teleport_exits[s_portal.script_int] = s_portal;
+	}
 
 	level.a_teleport_exit_triggers = [];
 	a_trigs = getstructarray("chamber_exit_trigger", "script_noteworthy");
 
 	foreach (s_trig in a_trigs)
+	{
 		level.a_teleport_exit_triggers[s_trig.script_int] = s_trig;
+	}
 
 	a_s_teleporters = getstructarray("trigger_teleport_pad", "targetname");
 	array_thread(a_s_teleporters, ::run_chamber_entrance_teleporter);

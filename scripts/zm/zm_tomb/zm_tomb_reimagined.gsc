@@ -268,14 +268,20 @@ craftable_place_think()
 			valid = self [[level.custom_craftable_validation]](player);
 
 			if (!valid)
+			{
 				continue;
+			}
 		}
 
 		if (player != self.parent_player)
+		{
 			continue;
+		}
 
 		if (isdefined(player.screecher_weapon))
+		{
 			continue;
+		}
 
 		if (!is_player_valid(player))
 		{
@@ -291,24 +297,34 @@ craftable_place_think()
 			self sethintstring(self.stub.hint_string);
 
 			if (isdefined(self.stub.oncantuse))
+			{
 				self.stub [[self.stub.oncantuse]](player);
+			}
 		}
 		else
 		{
 			if (isdefined(self.stub.onbeginuse))
+			{
 				self.stub [[self.stub.onbeginuse]](player);
+			}
 
 			result = self craftable_use_hold_think(player);
 			team = player.pers["team"];
 
 			if (isdefined(self.stub.onenduse))
+			{
 				self.stub [[self.stub.onenduse]](team, player, result);
+			}
 
 			if (!result)
+			{
 				continue;
+			}
 
 			if (isdefined(self.stub.onuse))
+			{
 				self.stub [[self.stub.onuse]](player);
+			}
 
 			prompt = player player_craft(self.stub.craftablespawn);
 			player_crafted = player;
@@ -322,7 +338,9 @@ craftable_place_think()
 		b_result = self.stub [[self.stub.craftablestub.onfullycrafted]]();
 
 		if (!b_result)
+		{
 			return;
+		}
 	}
 
 	if (isdefined(player_crafted))
@@ -346,7 +364,9 @@ craftable_place_think()
 	if (self.stub.persistent == 2)
 	{
 		if (isdefined(player_crafted))
+		{
 			self craftabletrigger_update_prompt(player_crafted);
+		}
 
 		if (!maps\mp\zombies\_zm_weapons::limited_weapon_below_quota(self.stub.weaponname, undefined))
 		{
@@ -373,14 +393,18 @@ craftable_place_think()
 			self waittill("trigger", player);
 
 			if (isdefined(player.screecher_weapon))
+			{
 				continue;
+			}
 
 			if (isdefined(level.custom_craftable_validation))
 			{
 				valid = self [[level.custom_craftable_validation]](player);
 
 				if (!valid)
+				{
 					continue;
+				}
 			}
 
 			if (!(isdefined(self.stub.crafted) && self.stub.crafted))
@@ -391,7 +415,9 @@ craftable_place_think()
 			}
 
 			if (player != self.parent_player)
+			{
 				continue;
+			}
 
 			if (!is_player_valid(player))
 			{
@@ -402,17 +428,25 @@ craftable_place_think()
 			self.stub.bought = 1;
 
 			if (isdefined(self.stub.model))
+			{
 				self.stub.model thread model_fly_away(self);
+			}
 
 			player maps\mp\zombies\_zm_weapons::weapon_give(self.stub.weaponname);
 
 			if (isdefined(level.zombie_include_craftables[self.stub.equipname].onbuyweapon))
+			{
 				self [[level.zombie_include_craftables[self.stub.equipname].onbuyweapon]](player);
+			}
 
 			if (!maps\mp\zombies\_zm_weapons::limited_weapon_below_quota(self.stub.weaponname, undefined))
+			{
 				self.stub.hint_string = &"ZOMBIE_GO_TO_THE_BOX_LIMITED";
+			}
 			else
+			{
 				self.stub.hint_string = &"ZOMBIE_GO_TO_THE_BOX";
+			}
 
 			self sethintstring(self.stub.hint_string);
 			player track_craftables_pickedup(self.stub.craftablespawn);
@@ -431,14 +465,18 @@ craftable_place_think()
 			self waittill("trigger", player);
 
 			if (isdefined(player.screecher_weapon))
+			{
 				continue;
+			}
 
 			if (isdefined(level.custom_craftable_validation))
 			{
 				valid = self [[level.custom_craftable_validation]](player);
 
 				if (!valid)
+				{
 					continue;
+				}
 			}
 
 			if (!(isdefined(self.stub.crafted) && self.stub.crafted))
@@ -449,7 +487,9 @@ craftable_place_think()
 			}
 
 			if (player != self.parent_player)
+			{
 				continue;
+			}
 
 			if (!is_player_valid(player))
 			{
@@ -479,13 +519,17 @@ craftable_place_think()
 			if (isdefined(level.zombie_craftable_persistent_weapon))
 			{
 				if (self [[level.zombie_craftable_persistent_weapon]](player))
+				{
 					continue;
+				}
 			}
 
 			if (isdefined(level.zombie_custom_equipment_setup))
 			{
 				if (self [[level.zombie_custom_equipment_setup]](player))
+				{
 					continue;
+				}
 			}
 
 			if (!maps\mp\zombies\_zm_equipment::is_limited_equipment(self.stub.weaponname) || !maps\mp\zombies\_zm_equipment::limited_equipment_in_use(self.stub.weaponname))
@@ -512,14 +556,22 @@ craftable_place_think()
 				player setweaponammoclip(self.stub.weaponname, 1);
 
 				if (isdefined(level.zombie_include_craftables[self.stub.equipname].onbuyweapon))
+				{
 					self [[level.zombie_include_craftables[self.stub.equipname].onbuyweapon]](player);
+				}
 				else if (self.stub.weaponname != "keys_zm")
+				{
 					player setactionslot(1, "weapon", self.stub.weaponname);
+				}
 
 				if (isdefined(level.zombie_craftablestubs[self.stub.equipname].str_taken))
+				{
 					self.stub.hint_string = level.zombie_craftablestubs[self.stub.equipname].str_taken;
+				}
 				else
+				{
 					self.stub.hint_string = "";
+				}
 
 				self sethintstring(self.stub.hint_string);
 				player track_craftables_pickedup(self.stub.craftablespawn);
@@ -552,15 +604,21 @@ craftabletrigger_update_prompt(player)
 craftablestub_update_prompt(player, unitrigger)
 {
 	if (!self anystub_update_prompt(player))
+	{
 		return false;
+	}
 
 	if (isdefined(self.is_locked) && self.is_locked)
+	{
 		return true;
+	}
 
 	can_use = 1;
 
 	if (isdefined(self.custom_craftablestub_update_prompt) && !self [[self.custom_craftablestub_update_prompt]](player))
+	{
 		return false;
+	}
 
 	if (!(isdefined(self.crafted) && self.crafted))
 	{

@@ -6,7 +6,9 @@
 init()
 {
 	if (!isdefined(level.ballistic_knife_autorecover))
+	{
 		level.ballistic_knife_autorecover = 1;
+	}
 
 	if (isdefined(level._uses_retrievable_ballisitic_knives) && level._uses_retrievable_ballisitic_knives == 1)
 	{
@@ -164,7 +166,9 @@ pick_up(weapon, model, trigger)
 		clip_ammo = self getweaponammoclip(weapon);
 
 		if (!clip_ammo)
+		{
 			self setweaponammoclip(weapon, 1);
+		}
 		else
 		{
 			new_ammo_stock = self getweaponammostock(weapon) + 1;

@@ -34,7 +34,9 @@ init()
 give_player_spoon_upon_receipt(m_tomahawk, m_player_spoon)
 {
 	while (isdefined(m_tomahawk))
+	{
 		wait 0.05;
+	}
 
 	m_player_spoon delete();
 
@@ -58,7 +60,9 @@ give_player_spoon_upon_receipt(m_tomahawk, m_player_spoon)
 		for (i = 0; i < weapons.size; i++)
 		{
 			if (issubstr(weapons[i], "knife"))
+			{
 				self takeweapon(weapons[i]);
+			}
 		}
 	}
 
@@ -134,23 +138,31 @@ extra_death_func_to_check_for_splat_death()
 		if (self.damageweapon == "blundersplat_explosive_dart_zm" || self.damageweapon == "blundersplat_explosive_dart_upgraded_zm")
 		{
 			if (isplayer(self.attacker))
+			{
 				self notify("killed_by_a_blundersplat", self.attacker);
+			}
 		}
 		else if (self.damageweapon == "bouncing_tomahawk_zm")
 		{
 			if (isplayer(self.attacker))
+			{
 				self.attacker notify("got_a_tomahawk_kill");
+			}
 		}
 	}
 
 	if (isdefined(self.attacker.killed_with_only_tomahawk))
 	{
 		if (self.damageweapon != "bouncing_tomahawk_zm" && self.damageweapon != "none")
+		{
 			self.attacker.killed_with_only_tomahawk = 0;
+		}
 	}
 
 	if (isdefined(self.attacker.killed_something_thq))
+	{
 		self.attacker.killed_something_thq = 1;
+	}
 
 	return false;
 }

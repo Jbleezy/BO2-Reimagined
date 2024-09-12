@@ -16,7 +16,9 @@
 init()
 {
 	if (!maps\mp\zombies\_zm_weapons::is_weapon_included("slipgun_zm"))
+	{
 		return;
+	}
 
 	precachemodel("t5_weapon_crossbow_bolt");
 	precacheitem("slip_bolt_zm");
@@ -52,7 +54,9 @@ init()
 slipgun_zombie_death_response()
 {
 	if (!isDefined(self.goo_chain_depth))
+	{
 		return false;
+	}
 
 	level maps\mp\zombies\_zm_spawner::zombie_death_points(self.origin, self.damagemod, self.damagelocation, self.attacker, self);
 	self explode_into_goo(self.attacker, 0);
@@ -70,14 +74,18 @@ slipgun_zombie_1st_hit_response(upgraded, player)
 	if (isalive(self))
 	{
 		if (!isdefined(self.goo_chain_depth))
+		{
 			self.goo_chain_depth = 0;
+		}
 
 		self.goo_upgraded = upgraded;
 
 		if (self.health > 0)
 		{
 			if (player maps\mp\zombies\_zm_powerups::is_insta_kill_active())
+			{
 				self.health = 1;
+			}
 
 			self dodamage(level.slipgun_damage, self.origin, player, player, "none", level.slipgun_damage_mod, 0, "slip_goo_zm");
 		}
@@ -87,26 +95,36 @@ slipgun_zombie_1st_hit_response(upgraded, player)
 explode_into_goo(player, chain_depth)
 {
 	if (isdefined(self.marked_for_insta_upgraded_death))
+	{
 		return;
+	}
 
 	tag = "J_SpineLower";
 
 	if (is_true(self.isdog))
+	{
 		tag = "tag_origin";
+	}
 
 	self.guts_explosion = 1;
 	self playsound("wpn_slipgun_zombie_explode");
 
 	if (isdefined(level._effect["slipgun_explode"]))
+	{
 		playfx(level._effect["slipgun_explode"], self gettagorigin(tag));
+	}
 
 	if (!is_true(self.isdog))
+	{
 		wait 0.1;
+	}
 
 	self ghost();
 
 	if (!isdefined(self.goo_chain_depth))
+	{
 		self.goo_chain_depth = chain_depth;
+	}
 
 	chain_radius = level.zombie_vars["slipgun_chain_radius"];
 
@@ -121,7 +139,9 @@ explode_into_goo(player, chain_depth)
 explode_to_near_zombies(player, origin, radius, chain_depth, goo_upgraded)
 {
 	if (level.zombie_vars["slipgun_max_kill_chain_depth"] > 0 && chain_depth > level.zombie_vars["slipgun_max_kill_chain_depth"])
+	{
 		return;
+	}
 
 	enemies = get_round_enemy_array();
 	enemies = get_array_of_closest(origin, enemies);
@@ -153,7 +173,9 @@ explode_to_near_zombies(player, origin, radius, chain_depth, goo_upgraded)
 			index++;
 
 			if (index >= enemies.size)
+			{
 				break;
+			}
 		}
 	}
 
@@ -168,14 +190,18 @@ explode_to_near_zombies(player, origin, radius, chain_depth, goo_upgraded)
 				if (isalive(enemy) && !is_true(enemy.guts_explosion) && !is_true(enemy.nuked))
 				{
 					if (!isdefined(enemy.goo_chain_depth))
+					{
 						enemy.goo_chain_depth = chain_depth;
+					}
 
 					enemy.goo_upgraded = goo_upgraded;
 
 					if (enemy.health > 0)
 					{
 						if (player maps\mp\zombies\_zm_powerups::is_insta_kill_active())
+						{
 							enemy.health = 1;
+						}
 
 						enemy dodamage(level.slipgun_damage, origin, player, player, "none", level.slipgun_damage_mod, 0, "slip_goo_zm");
 					}

@@ -22,5 +22,7 @@ ffotd_melee_miss_func()
 	}
 
 	if (isdefined(level.original_melee_miss_func))
+	{
 		self [[level.original_melee_miss_func]]();
+	}
 }

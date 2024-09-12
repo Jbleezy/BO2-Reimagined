@@ -129,7 +129,9 @@ waittill_dug(s_dig_spot)
 					player.dig_vars["n_losing_streak"]++;
 				}
 				else if (cointoss())
+				{
 					self thread dig_up_powerup(player);
+				}
 				else
 				{
 					player dig_reward_dialog("dig_gun");
@@ -176,14 +178,20 @@ dig_up_weapon(digger)
 	a_rare_weapons = array("dsr50_zm", "srm1216_zm");
 
 	if (digger.dig_vars["has_upgraded_shovel"])
+	{
 		a_rare_weapons = combinearrays(a_rare_weapons, array("bouncingbetty_zm", "vector_zm", "ksg_zm", "mp40_zm", "mp44_zm"));
+	}
 
 	str_weapon = undefined;
 
 	if (randomint(100) < 90)
+	{
 		str_weapon = a_common_weapons[getarraykeys(a_common_weapons)[randomint(getarraykeys(a_common_weapons).size)]];
+	}
 	else
+	{
 		str_weapon = a_rare_weapons[getarraykeys(a_rare_weapons)[randomint(getarraykeys(a_rare_weapons).size)]];
+	}
 
 	v_spawnpt = self.origin + (0, 0, 40);
 	v_spawnang = (0, 0, 0);
@@ -236,10 +244,14 @@ dig_up_weapon(digger)
 	}
 
 	if (isdefined(m_weapon))
+	{
 		m_weapon delete();
+	}
 
 	if (player != digger)
+	{
 		digger notify("dig_up_weapon_shared");
+	}
 }
 
 swap_weapon(str_weapon, e_player)
@@ -255,7 +267,9 @@ swap_weapon(str_weapon, e_player)
 			e_player thread maps\mp\zombies\_zm_audio::create_and_play_dialog("weapon_pickup", "grenade");
 		}
 		else
+		{
 			e_player givemaxammo(str_weapon);
+		}
 
 		return;
 	}
@@ -263,9 +277,13 @@ swap_weapon(str_weapon, e_player)
 	if (is_player_valid(e_player) && !e_player.is_drinking && !is_placeable_mine(str_current_weapon) && !is_equipment(str_current_weapon) && level.revive_tool != str_current_weapon && "none" != str_current_weapon && !e_player hacker_active())
 	{
 		if (!e_player hasweapon(str_weapon))
+		{
 			e_player take_old_weapon_and_give_new(str_current_weapon, str_weapon);
+		}
 		else
+		{
 			e_player givemaxammo(str_weapon);
+		}
 	}
 }
 
@@ -274,7 +292,9 @@ take_old_weapon_and_give_new(current_weapon, weapon)
 	a_weapons = self getweaponslistprimaries();
 
 	if (isdefined(a_weapons) && a_weapons.size >= get_player_weapon_limit(self))
+	{
 		self takeweapon(current_weapon);
+	}
 
 	self giveweapon(weapon);
 	self givestartammo(weapon);

@@ -29,7 +29,9 @@ item_meat_on_spawn_retrieve_trigger(watcher, player, weaponname)
 	}
 
 	while (isdefined(level.splitting_meat) && level.splitting_meat)
+	{
 		wait 0.15;
+	}
 
 	if (isdefined(player))
 	{
@@ -41,7 +43,9 @@ item_meat_on_spawn_retrieve_trigger(watcher, player, weaponname)
 		if (player hasweapon(weaponname))
 		{
 			if (!(isdefined(self._fake_meat) && self._fake_meat))
+			{
 				player thread player_wait_take_meat(weaponname);
+			}
 			else
 			{
 				player takeweapon(weaponname);
@@ -86,7 +90,9 @@ item_meat_on_spawn_retrieve_trigger(watcher, player, weaponname)
 		level._meat_moving = 1;
 
 		if (isdefined(level.item_meat) && level.item_meat != self)
+		{
 			level.item_meat cleanup_meat();
+		}
 
 		level.item_meat = self;
 	}
@@ -105,10 +111,14 @@ item_meat_on_spawn_retrieve_trigger(watcher, player, weaponname)
 	self.meat_id = indexinarray(level._fake_meats, self);
 
 	if (!isdefined(self.meat_id))
+	{
 		self.meat_id = 0;
+	}
 
 	if (isdefined(level.dont_allow_meat_interaction) && level.dont_allow_meat_interaction)
+	{
 		self.item_meat_pick_up_trigger setinvisibletoall();
+	}
 
 	self._respawned_meat = undefined;
 }
@@ -177,13 +187,17 @@ player_wait_take_meat(meat_name)
 	self.dont_touch_the_meat = 1;
 
 	if (isdefined(self.pre_meat_weapon) && self hasweapon(self.pre_meat_weapon))
+	{
 		self switchtoweapon(self.pre_meat_weapon);
+	}
 	else
 	{
 		primaryweapons = self getweaponslistprimaries();
 
 		if (isdefined(primaryweapons) && primaryweapons.size > 0)
+		{
 			self switchtoweapon(primaryweapons[0]);
+		}
 		else
 		{
 			assert(0, "Player has no weapon");
@@ -197,7 +211,9 @@ player_wait_take_meat(meat_name)
 	self.pre_meat_weapon = undefined;
 
 	if (self.is_drinking)
+	{
 		self decrement_is_drinking();
+	}
 
 	self.dont_touch_the_meat = 0;
 }

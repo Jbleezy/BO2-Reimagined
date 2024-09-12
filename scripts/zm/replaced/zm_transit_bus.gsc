@@ -140,7 +140,9 @@ busschedulethink()
 		foreach (zone in level.zones)
 		{
 			if (!isdefined(zone.volumes) || zone.volumes.size == 0)
+			{
 				continue;
+			}
 
 			zonename = zone.volumes[0].targetname;
 
@@ -213,7 +215,9 @@ busschedulethink()
 				foreach (zone in zonestocheck)
 				{
 					if (!(isdefined(zoneisempty) && zoneisempty))
+					{
 						continue;
+					}
 
 					if (maps\mp\zombies\_zm_zonemgr::player_in_zone(zone))
 					{
@@ -229,7 +233,9 @@ busschedulethink()
 		}
 
 		if (isdefined(shouldremovegas) && shouldremovegas)
+		{
 			self busgasremove(level.busschedule busschedulegetbusgasusage(self.destinationindex));
+		}
 
 		if (isdefined(zoneisempty) && zoneisempty)
 		{
@@ -272,14 +278,22 @@ busschedulethink()
 				self busstopmoving(1);
 
 				if (noteworthy == "diner")
+				{
 					self bussetdineropenings(0);
+				}
 				else if (noteworthy == "power")
+				{
 					self bussetpoweropenings(0);
+				}
 				else if (noteworthy == "town")
+				{
 					self bussettownopenings(0);
+				}
 			}
 			else
+			{
 				self busstopmoving();
+			}
 
 			self thread busscheduledepartearly();
 		}
@@ -394,10 +408,14 @@ bus_bridge_speedcontrol()
 		if (isdefined(nextpoint.script_string))
 		{
 			if (nextpoint.script_string == "arrival_slowdown")
+			{
 				self thread start_stopping_bus();
+			}
 
 			if (nextpoint.script_string == "arrival_slowdown_fast")
+			{
 				self thread start_stopping_bus(1);
+			}
 		}
 
 		if (isdefined(nextpoint.script_noteworthy))
@@ -414,7 +432,9 @@ bus_bridge_speedcontrol()
 				self setspeed(self.targetspeed, 160, 10);
 			}
 			else if (nextpoint.script_noteworthy == "turn_signal_left" || nextpoint.script_noteworthy == "turn_signal_right")
+			{
 				self thread buslightsignal(nextpoint.script_noteworthy);
+			}
 			else if (nextpoint.script_noteworthy == "resume_speed")
 			{
 				self.targetspeed = 24;
@@ -427,15 +447,21 @@ bus_bridge_speedcontrol()
 				self setspeed(self.targetspeed, 120, 120);
 			}
 			else if (nextpoint.script_noteworthy == "emp_stop_point")
+			{
 				self notify("reached_emp_stop_point");
+			}
 			else if (nextpoint.script_noteworthy == "start_lava")
+			{
 				playfxontag(level._effect["bus_lava_driving"], self, "tag_origin");
+			}
 			else if (nextpoint.script_noteworthy == "stop_lava")
 			{
 
 			}
 			else if (nextpoint.script_noteworthy == "bus_scrape")
+			{
 				self playsound("zmb_bus_car_scrape");
+			}
 			else if (nextpoint.script_noteworthy == "arriving")
 			{
 				self thread begin_arrival_slowdown();
@@ -444,7 +470,9 @@ bus_bridge_speedcontrol()
 				self thread buslightsignal("turn_signal_right");
 			}
 			else if (nextpoint.script_noteworthy == "enter_transition")
+			{
 				playfxontag(level._effect["fx_zbus_trans_fog"], self, "tag_headlights");
+			}
 			else if (nextpoint.script_noteworthy == "bridge")
 			{
 				level thread do_automaton_arrival_vox("bridge");
@@ -458,10 +486,14 @@ bus_bridge_speedcontrol()
 					foreach (player in players)
 					{
 						if (player.isonbus)
+						{
 							continue;
+						}
 
 						if (distancesquared(player.origin, node.origin) < 6760000)
+						{
 							player_near = 1;
+						}
 					}
 				}
 
@@ -485,7 +517,9 @@ bus_bridge_speedcontrol()
 						if (isdefined(zombies[i].depot_lava_pit))
 						{
 							if (zombies[i] istouching(volume))
+							{
 								zombies[i] thread [[zombies[i].depot_lava_pit]]();
+							}
 
 							continue;
 						}
@@ -497,7 +531,9 @@ bus_bridge_speedcontrol()
 						}
 
 						if (zombies[i] istouching(traverse_volume))
+						{
 							zombies[i] dodamage(zombies[i].health + 100, zombies[i].origin);
+						}
 					}
 				}
 			}
@@ -510,9 +546,13 @@ bus_bridge_speedcontrol()
 start_stopping_bus(stop_fast)
 {
 	if (isdefined(stop_fast) && stop_fast)
+	{
 		self setspeed(4, 30);
+	}
 	else
+	{
 		self setspeed(4, 10);
+	}
 }
 
 begin_arrival_slowdown()
@@ -525,12 +565,16 @@ buspathblockersetup()
 	self.path_blockers = getentarray("bus_path_blocker", "targetname");
 
 	for (i = 0; i < self.path_blockers.size; i++)
+	{
 		self.path_blockers[i] linkto(self, "", self worldtolocalcoords(self.path_blockers[i].origin), self.path_blockers[i].angles + self.angles);
+	}
 
 	cow_catcher_blocker = getent("cow_catcher_path_blocker", "targetname");
 
 	if (isdefined(cow_catcher_blocker))
+	{
 		cow_catcher_blocker linkto(self, "", self worldtolocalcoords(cow_catcher_blocker.origin), cow_catcher_blocker.angles + self.angles);
+	}
 
 	self thread bus_buyable_weapon_unitrigger_setup();
 }
@@ -606,7 +650,9 @@ busthink()
 		self busupdateignorewindows();
 
 		if (self.ismoving)
+		{
 			self busupdatenearequipment();
+		}
 
 		if (!(isdefined(level.bus_zombie_danger) && level.bus_zombie_danger) && (self.numplayersonroof || self.numplayersinsidebus))
 		{
@@ -619,7 +665,9 @@ busthink()
 			}
 		}
 		else
+		{
 			no_danger = 0;
+		}
 
 		wait 0.1;
 	}
@@ -646,12 +694,16 @@ busupdateplayers()
 		foreach (player in players)
 		{
 			if (!isalive(player))
+			{
 				continue;
+			}
 
 			self.numplayers++;
 
 			if (distance2d(player.origin, self.origin) < 1700)
+			{
 				self.numplayersnear++;
+			}
 
 			playerisinbus = 0;
 			mover = player getmoverent();
@@ -661,7 +713,9 @@ busupdateplayers()
 				if (isdefined(mover.targetname))
 				{
 					if (mover.targetname == "the_bus" || mover.targetname == "bus_path_blocker" || mover.targetname == "hatch_clip" || mover.targetname == "ladder_mantle")
+					{
 						playerisinbus = 1;
+					}
 				}
 
 				if (isdefined(mover.equipname))
@@ -669,12 +723,16 @@ busupdateplayers()
 					if (mover.equipname == "riotshield_zm")
 					{
 						if (isdefined(mover.isonbus) && mover.isonbus)
+						{
 							playerisinbus = 1;
+						}
 					}
 				}
 
 				if (isdefined(mover.is_zombie) && mover.is_zombie && (isdefined(mover.isonbus) && mover.isonbus))
+				{
 					playerisinbus = 1;
+				}
 			}
 
 			if (playerisinbus)
@@ -691,12 +749,16 @@ busupdateplayers()
 			ground_ent = player getgroundent();
 
 			if (player isonladder())
+			{
 				ground_ent = mover;
+			}
 
 			if (isdefined(ground_ent))
 			{
 				if (isdefined(ground_ent.is_zombie) && ground_ent.is_zombie)
+				{
 					player thread zombie_surf(ground_ent);
+				}
 				else
 				{
 					if (playerisinbus && !(isdefined(player.isonbus) && player.isonbus))

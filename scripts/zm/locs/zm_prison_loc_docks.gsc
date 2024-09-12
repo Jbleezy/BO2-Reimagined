@@ -331,7 +331,9 @@ open_custom_door_master_key(n_door_index, e_triggerer)
 	gate_1_monsterclip.origin -= vectorscale((0, 0, 1), 256.0);
 
 	if (isdefined(e_triggerer))
+	{
 		e_triggerer door_rumble_on_open();
+	}
 
 	m_gate_01 playsound("zmb_chainlink_open");
 	flag_set("docks_inner_gate_unlocked");

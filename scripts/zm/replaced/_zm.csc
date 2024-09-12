@@ -39,10 +39,14 @@ init_wallbuy_fx()
 	}
 
 	if (!is_false(level._uses_taser_knuckles))
+	{
 		level._effect["tazer_knuckles_zm_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_taseknuck");
+	}
 
 	if (isdefined(level.buildable_wallbuy_weapons))
+	{
 		level._effect["dynamic_wallbuy_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_question");
+	}
 }
 
 entityspawned(localclientnum)
@@ -53,7 +57,9 @@ entityspawned(localclientnum)
 	}
 
 	if (self.type == "player")
+	{
 		self thread playerspawned(localclientnum);
+	}
 
 	if (self.type == "missile")
 	{

@@ -30,7 +30,9 @@ sq_metagame()
 	level endon("sq_metagame_player_connected");
 
 	if (!is_true(level.buried_sq_maxis_complete) && !is_true(level.buried_sq_richtofen_complete))
+	{
 		level waittill("buried_sidequest_achieved");
+	}
 
 	m_endgame_machine = getstruct("sq_endgame_machine", "targetname");
 	a_stat = [];
@@ -84,9 +86,13 @@ sq_metagame()
 	sq_metagame_clear_lights();
 
 	if (flag("sq_is_max_tower_built"))
+	{
 		level notify("end_game_reward_starts_maxis");
+	}
 	else
+	{
 		level notify("end_game_reward_starts_richtofen");
+	}
 }
 
 make_richtofen_zombie()

@@ -62,7 +62,9 @@ init_vulture()
 	level.perk_vulture.invalid_bonus_ammo_weapons = array("time_bomb_zm", "time_bomb_detonator_zm");
 
 	if (!isdefined(level.perk_vulture.func_zombies_find_valid_exit_locations))
+	{
 		level.perk_vulture.func_zombies_find_valid_exit_locations = ::get_valid_exit_points_for_zombie;
+	}
 
 	setup_splitscreen_optimizations();
 	initialize_bonus_entity_pool();
@@ -74,7 +76,9 @@ give_vulture_perk()
 	vulture_debug_text("player " + self getentitynumber() + " has vulture perk!");
 
 	if (!isdefined(self.perk_vulture))
+	{
 		self.perk_vulture = spawnstruct();
+	}
 
 	self.perk_vulture.active = 1;
 	self vulture_vision_toggle(1);
@@ -91,7 +95,9 @@ take_vulture_perk()
 		self.perk_vulture.active = 0;
 
 		if (!self maps\mp\zombies\_zm_laststand::player_is_in_laststand())
+		{
 			self.ignoreme = 0;
+		}
 
 		self vulture_vision_toggle(0);
 		self vulture_clientfield_toplayer_clear("vulture_perk_active");
@@ -159,7 +165,9 @@ _is_player_in_zombie_stink(a_points)
 	for (i = 0; i < a_points.size; i++)
 	{
 		if (distancesquared(a_points[i].origin, self.origin) < 4900)
+		{
 			b_is_in_stink = 1;
+		}
 	}
 
 	return b_is_in_stink;

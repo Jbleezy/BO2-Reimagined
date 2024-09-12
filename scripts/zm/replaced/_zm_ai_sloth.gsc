@@ -76,20 +76,28 @@ sloth_init_update_funcs()
 start_jail_run(do_pain)
 {
 	if (self is_jail_state())
+	{
 		return false;
+	}
 
 	if (self.state == "berserk" || self.state == "crash")
+	{
 		return false;
+	}
 
 	if (self sloth_is_traversing())
+	{
 		return false;
+	}
 
 	if (self.state == "gunshop_candy" || self.state == "table_eat")
 	{
 		if (isdefined(self.bench))
 		{
 			if (isdefined(level.weapon_bench_reset))
+			{
 				self.bench [[level.weapon_bench_reset]]();
+			}
 		}
 	}
 
@@ -100,7 +108,9 @@ start_jail_run(do_pain)
 	if (self.state == "context")
 	{
 		if (isdefined(self.context.interrupt))
+		{
 			self [[self.context.interrupt]]();
+		}
 	}
 
 	self sloth_init_roam_point();
@@ -113,10 +123,14 @@ action_jail_run(pos, do_pain)
 	self.needs_action = 0;
 
 	if (isdefined(self.candy_model))
+	{
 		self.candy_model ghost();
+	}
 
 	if (isdefined(self.booze_model))
+	{
 		self.booze_model ghost();
+	}
 
 	if (is_true(do_pain))
 	{
@@ -135,7 +149,9 @@ action_jail_run(pos, do_pain)
 	while (true)
 	{
 		if (!self sloth_is_pain())
+		{
 			break;
+		}
 
 		wait 0.1;
 	}
@@ -223,7 +239,9 @@ update_jail_wait()
 	}
 
 	if (self.needs_action)
+	{
 		self sloth_set_state("jail_close");
+	}
 }
 
 update_eat()
@@ -233,7 +251,9 @@ update_eat()
 		self setclientfield("sloth_eating", 0);
 
 		if (isdefined(self.candy_model))
+		{
 			self.candy_model ghost();
+		}
 
 		context = self check_contextual_actions();
 
@@ -257,13 +277,19 @@ sloth_check_ragdolls(ignore_zombie)
 		zombie = zombies[i];
 
 		if (is_true(zombie.is_sloth))
+		{
 			continue;
+		}
 
 		if (isdefined(ignore_zombie) && zombie == ignore_zombie)
+		{
 			continue;
+		}
 
 		if (isdefined(self.crawler) && zombie == self.crawler)
+		{
 			continue;
+		}
 
 		if (self is_facing(zombie))
 		{
@@ -288,7 +314,9 @@ sloth_check_ragdolls(ignore_zombie)
 				}
 
 				if (isdefined(self.target_zombie) && self.target_zombie == zombie)
+				{
 					self.target_zombie = undefined;
+				}
 			}
 		}
 	}
@@ -297,7 +325,9 @@ sloth_check_ragdolls(ignore_zombie)
 sloth_ragdoll_zombie(zombie)
 {
 	if (!isdefined(self.ragdolls))
+	{
 		self.ragdolls = 0;
+	}
 
 	if (self.ragdolls < 4)
 	{

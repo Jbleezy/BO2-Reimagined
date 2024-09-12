@@ -37,7 +37,9 @@ check_range_attack()
 				passed = bullettracepassed(eye_pos, enemy_eye_pos, 0, undefined);
 
 				if (passed)
+				{
 					return true;
+				}
 			}
 		}
 	}
@@ -125,7 +127,9 @@ avogadro_exit(from)
 	}
 
 	if (!isdefined(from) || from != "chamber")
+	{
 		level thread do_avogadro_flee_vo(self);
+	}
 
 	self ghost();
 	self.hit_by_melee = 0;
@@ -134,9 +138,13 @@ avogadro_exit(from)
 	self linkto(self.anchor);
 
 	if (isdefined(from) && from == "exit_idle")
+	{
 		self.return_round = level.round_number;
+	}
 	else
+	{
 		self.return_round = level.round_number + randomintrange(2, 5);
+	}
 
 	level.next_avogadro_round = self.return_round;
 	self.state = "cloud";
@@ -145,7 +153,9 @@ avogadro_exit(from)
 	if (!isdefined(from))
 	{
 		if (level.powerup_drop_count >= level.zombie_vars["zombie_powerup_drop_max_per_round"])
+		{
 			level.powerup_drop_count = level.zombie_vars["zombie_powerup_drop_max_per_round"] - 1;
+		}
 
 		level.zombie_vars["zombie_drop_item"] = 1;
 		level thread maps\mp\zombies\_zm_powerups::powerup_drop(powerup_origin.origin);
@@ -188,7 +198,9 @@ cloud_update_fx()
 			region_str = rand_region[0];
 
 			if (!isdefined(self.current_region))
+			{
 				region_str = region[4];
+			}
 
 			self.current_region = region_str;
 			exploder_num = level.transit_region[region_str].exploder;
@@ -204,12 +216,18 @@ cloud_update_fx()
 			if (isdefined(player))
 			{
 				if (isdefined(self._in_cloud) && self._in_cloud)
+				{
 					player thread do_player_general_vox("general", "avogadro_above", 90, 10);
+				}
 				else
+				{
 					player thread do_player_general_vox("general", "avogadro_arrive", 60, 40);
+				}
 			}
 			else
+			{
 				level thread avogadro_storm_vox();
+			}
 
 			vo_counter = 0;
 		}

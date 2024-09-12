@@ -32,7 +32,9 @@ zgrief_main()
 	players = get_players();
 
 	foreach (player in players)
+	{
 		player.is_hotjoin = 0;
+	}
 
 	wait 1;
 
@@ -87,13 +89,19 @@ meat_bounce_override(pos, normal, ent, bounce)
 		foreach (player in players)
 		{
 			if (!is_player_valid(player))
+			{
 				continue;
+			}
 
 			if (player hasWeapon(level.item_meat_name))
+			{
 				continue;
+			}
 
 			if (is_true(player.dont_touch_the_meat))
+			{
 				continue;
+			}
 
 			distsq = distancesquared(pos, player.origin);
 

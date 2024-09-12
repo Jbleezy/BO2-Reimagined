@@ -19,16 +19,22 @@ triggerweaponslockerisvalidweaponpromptupdate(player, weaponname)
 		weaponname = player get_nonalternate_weapon(weaponname);
 
 		if (!triggerweaponslockerisvalidweapon(weaponname))
+		{
 			self sethintstring(&"ZOMBIE_WEAPON_LOCKER_DENY");
+		}
 		else
+		{
 			self sethintstring(&"ZOMBIE_WEAPON_LOCKER_STORE");
+		}
 	}
 	else
 	{
 		weapondata = player wl_get_stored_weapondata();
 
 		if (isdefined(level.remap_weapon_locker_weapons))
+		{
 			weapondata = remap_weapon(weapondata, level.remap_weapon_locker_weapons);
+		}
 
 		weapontogive = weapondata["name"];
 		primaries = player getweaponslistprimaries();
@@ -66,7 +72,9 @@ show_current_weapon(player)
 		weapondata = player wl_get_stored_weapondata();
 
 		if (isdefined(level.remap_weapon_locker_weapons))
+		{
 			weapondata = remap_weapon(weapondata, level.remap_weapon_locker_weapons);
+		}
 
 		displayname = getweapondisplayname(weapondata["name"]);
 	}
@@ -154,7 +162,11 @@ wl_set_stored_weapondata(weapondata)
 	}
 
 	if (level.weapon_locker_online)
+	{
 		self set_stored_weapondata(weapondata, level.weapon_locker_map);
+	}
 	else
+	{
 		self.stored_weapon_data = weapondata;
+	}
 }

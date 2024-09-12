@@ -39,10 +39,14 @@ fan_trap_think()
 		self waittill("trigger", who);
 
 		if (who in_revive_trigger())
+		{
 			continue;
+		}
 
 		if (!isdefined(self.is_available))
+		{
 			continue;
+		}
 
 		if (is_player_valid(who))
 		{
@@ -57,7 +61,9 @@ fan_trap_think()
 						who do_player_general_vox("general", "discover_trap");
 					}
 					else
+					{
 						who do_player_general_vox("general", "start_trap");
+					}
 
 					array_thread(triggers, ::hint_string, &"ZOMBIE_TRAP_ACTIVE");
 					self.zombie_dmg_trig.in_use = 1;
@@ -120,10 +126,14 @@ acid_trap_think()
 		self waittill("trigger", who);
 
 		if (who in_revive_trigger())
+		{
 			continue;
+		}
 
 		if (!isdefined(self.is_available))
+		{
 			continue;
+		}
 
 		if (is_player_valid(who))
 		{
@@ -138,7 +148,9 @@ acid_trap_think()
 						who do_player_general_vox("general", "discover_trap");
 					}
 					else
+					{
 						who do_player_general_vox("general", "start_trap");
+					}
 
 					array_thread(triggers, ::hint_string, &"ZOMBIE_TRAP_ACTIVE");
 					self.zombie_dmg_trig.in_use = 1;
@@ -159,13 +171,19 @@ acid_trap_think()
 					clientnotify(self.script_string + "off");
 
 					if (isdefined(self.fx_org))
+					{
 						self.fx_org delete();
+					}
 
 					if (isdefined(self.zapper_fx_org))
+					{
 						self.zapper_fx_org delete();
+					}
 
 					if (isdefined(self.zapper_fx_switch_org))
+					{
 						self.zapper_fx_switch_org delete();
+					}
 
 					self.zombie_dmg_trig notify("acid_trap_finished");
 					self.zombie_dmg_trig.active = 0;
@@ -217,7 +235,9 @@ player_acid_damage_cooldown()
 	wait 1.5;
 
 	if (isdefined(self))
+	{
 		self.is_in_acid = undefined;
+	}
 }
 
 tower_trap_trigger_think()
@@ -248,10 +268,14 @@ tower_trap_trigger_think()
 		self waittill("trigger", who);
 
 		if (who in_revive_trigger())
+		{
 			continue;
+		}
 
 		if (!isdefined(self.is_available))
+		{
 			continue;
+		}
 
 		if (is_player_valid(who))
 		{
@@ -265,7 +289,9 @@ tower_trap_trigger_think()
 						who do_player_general_vox("general", "discover_trap");
 					}
 					else
+					{
 						who do_player_general_vox("general", "start_trap");
+					}
 
 					self hint_string(&"ZOMBIE_TRAP_ACTIVE");
 					self.in_use = 1;

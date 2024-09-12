@@ -177,14 +177,18 @@ zombie_killed_override(einflictor, attacker, idamage, smeansofdeath, sweapon, vd
 	}
 
 	if (maps\mp\zm_tomb_challenges::footprint_zombie_killed(attacker))
+	{
 		return;
+	}
 
 	n_max_dist_sq = 9000000;
 
 	if (isplayer(attacker) || sweapon == "one_inch_punch_zm")
 	{
 		if (!flag("fire_puzzle_1_complete"))
+		{
 			maps\mp\zm_tomb_quest_fire::sacrifice_puzzle_zombie_killed(einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime);
+		}
 
 		s_nearest_staff = undefined;
 		n_nearest_dist_sq = n_max_dist_sq;
@@ -192,7 +196,9 @@ zombie_killed_override(einflictor, attacker, idamage, smeansofdeath, sweapon, vd
 		foreach (staff in level.a_elemental_staffs)
 		{
 			if (isdefined(staff.charger.full) && staff.charger.full)
+			{
 				continue;
+			}
 
 			if (staff.charger.is_inserted || staff.upgrade.charger.is_inserted)
 			{
@@ -248,7 +254,9 @@ waittill_staff_inserted()
 			weapon_available = player getcurrentweapon() == self.weapname;
 
 			if (weapon_available)
+			{
 				player takeweapon(self.weapname);
+			}
 		}
 
 		if (weapon_available)
@@ -260,7 +268,9 @@ waittill_staff_inserted()
 			self.charge_trigger trigger_off();
 
 			if (isdefined(self.charger.angles))
+			{
 				self.angles = self.charger.angles;
+			}
 
 			self moveto(self.charger.origin, 0.05);
 
@@ -547,7 +557,9 @@ run_gramophone_teleporter(str_vinyl_record)
 				t_gramophone set_unitrigger_hint_string(&"ZM_TOMB_PUGR");
 
 				if (isdefined(self.script_flag))
+				{
 					flag_set(self.script_flag);
+				}
 			}
 			else
 			{
@@ -602,7 +614,9 @@ run_gramophone_door(str_vinyl_record)
 	trig_position.trigger = t_door;
 
 	while (!trig_position.has_vinyl)
+	{
 		wait 0.05;
+	}
 
 	wait 0.05;
 
@@ -636,7 +650,9 @@ run_gramophone_door(str_vinyl_record)
 			flag_set(self.targetname + "_opened");
 
 			if (isdefined(trig_position.script_flag))
+			{
 				flag_set(trig_position.script_flag);
+			}
 
 			level setclientfield("crypt_open_exploder", 1);
 			self movez(-260, 10.0, 1.0, 1.0);

@@ -9,7 +9,9 @@ brutusfootstepcbfunc(localclientnum, pos, surface, notetrack, bone)
 	for (i = 0; i < players.size; i++)
 	{
 		if (!players[i] isplayer())
+		{
 			continue;
+		}
 
 		n_distance = distance2d(self.origin, players[i].origin);
 
@@ -24,7 +26,9 @@ brutusfootstepcbfunc(localclientnum, pos, surface, notetrack, bone)
 			playerlocalclientnum = players[i] getlocalclientnumber();
 
 			if (isdefined(playerlocalclientnum))
+			{
 				playrumbleonposition(playerlocalclientnum, "brutus_footsteps", self.origin);
+			}
 		}
 	}
 

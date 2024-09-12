@@ -17,17 +17,23 @@ player_handle_beacon()
 	attract_dist_diff = level.beacon_attract_dist_diff;
 
 	if (!isdefined(attract_dist_diff))
+	{
 		attract_dist_diff = 45;
+	}
 
 	num_attractors = level.num_beacon_attractors;
 
 	if (!isdefined(num_attractors))
+	{
 		num_attractors = 96;
+	}
 
 	max_attract_dist = level.beacon_attract_dist;
 
 	if (!isdefined(max_attract_dist))
+	{
 		max_attract_dist = 1536;
+	}
 
 	while (true)
 	{
@@ -48,7 +54,9 @@ player_throw_beacon(grenade, num_attractors, max_attract_dist, attract_dist_diff
 		if (self maps\mp\zombies\_zm_laststand::player_is_in_laststand())
 		{
 			if (isdefined(grenade.damagearea))
+			{
 				grenade.damagearea delete();
+			}
 
 			grenade delete();
 			return;
@@ -85,7 +93,9 @@ player_throw_beacon(grenade, num_attractors, max_attract_dist, attract_dist_diff
 		grenade waittill("stationary");
 
 		if (isdefined(level.grenade_planted))
+		{
 			self thread [[level.grenade_planted]](grenade, model);
+		}
 
 		if (isdefined(grenade))
 		{
@@ -116,7 +126,9 @@ player_throw_beacon(grenade, num_attractors, max_attract_dist, attract_dist_diff
 			valid_poi = check_point_in_enabled_zone(grenade.origin, undefined, undefined);
 
 			if (isdefined(level.check_valid_poi))
+			{
 				valid_poi = grenade [[level.check_valid_poi]](valid_poi);
+			}
 
 			if (valid_poi)
 			{
@@ -135,9 +147,13 @@ player_throw_beacon(grenade, num_attractors, max_attract_dist, attract_dist_diff
 				}
 
 				if (flag("three_robot_round") && flag("fire_link_enabled"))
+				{
 					model thread start_artillery_launch_ee(grenade);
+				}
 				else
+				{
 					model thread start_artillery_launch_normal(grenade);
+				}
 
 				level.beacons[level.beacons.size] = grenade;
 			}
@@ -158,15 +174,21 @@ player_throw_beacon(grenade, num_attractors, max_attract_dist, attract_dist_diff
 grenade_stolen_by_sam(ent_grenade, ent_model, ent_actor)
 {
 	if (!isdefined(ent_model))
+	{
 		return;
+	}
 
 	direction = ent_model.origin;
 	direction = (direction[1], direction[0], 0);
 
 	if (direction[1] < 0 || direction[0] > 0 && direction[1] > 0)
+	{
 		direction = (direction[0], direction[1] * -1, 0);
+	}
 	else if (direction[0] < 0)
+	{
 		direction = (direction[0] * -1, direction[1], 0);
+	}
 
 	self playlocalsound(level.zmb_laugh_alias);
 
@@ -177,17 +199,23 @@ grenade_stolen_by_sam(ent_grenade, ent_model, ent_actor)
 	ent_model waittill("movedone");
 
 	if (isdefined(self.damagearea))
+	{
 		self.damagearea delete();
+	}
 
 	ent_model delete();
 
 	if (isdefined(ent_actor))
+	{
 		ent_actor delete();
+	}
 
 	if (isdefined(ent_grenade))
 	{
 		if (isdefined(ent_grenade.damagearea))
+		{
 			ent_grenade.damagearea delete();
+		}
 
 		ent_grenade delete();
 	}
@@ -229,7 +257,9 @@ weap_beacon_zombie_death(model, a_zombies_to_kill)
 		zombie = a_zombies_to_kill[i];
 
 		if (!isdefined(zombie) || !isalive(zombie))
+		{
 			continue;
+		}
 
 		zombie thread set_beacon_damage();
 		zombie dodamage(zombie.health, zombie.origin, model.owner, model.owner, "none", "MOD_GRENADE_SPLASH", 0, "beacon_zm");

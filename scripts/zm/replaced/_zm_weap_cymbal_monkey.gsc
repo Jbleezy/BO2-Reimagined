@@ -10,7 +10,9 @@
 init()
 {
 	if (!cymbal_monkey_exists())
+	{
 		return;
+	}
 
 	level.cymbal_monkey_model = "t6_wpn_zmb_monkey_bomb_world";
 
@@ -28,17 +30,23 @@ player_handle_cymbal_monkey()
 	attract_dist_diff = level.monkey_attract_dist_diff;
 
 	if (!isdefined(attract_dist_diff))
+	{
 		attract_dist_diff = 45;
+	}
 
 	num_attractors = level.num_monkey_attractors;
 
 	if (!isdefined(num_attractors))
+	{
 		num_attractors = 96;
+	}
 
 	max_attract_dist = level.monkey_attract_dist;
 
 	if (!isdefined(max_attract_dist))
+	{
 		max_attract_dist = 1536;
+	}
 
 	while (true)
 	{
@@ -59,7 +67,9 @@ player_throw_cymbal_monkey(grenade, num_attractors, max_attract_dist, attract_di
 		if (self maps\mp\zombies\_zm_laststand::player_is_in_laststand())
 		{
 			if (isdefined(grenade.damagearea))
+			{
 				grenade.damagearea delete();
+			}
 
 			grenade delete();
 			return;
@@ -95,7 +105,9 @@ player_throw_cymbal_monkey(grenade, num_attractors, max_attract_dist, attract_di
 		grenade waittill("stationary");
 
 		if (isdefined(level.grenade_planted))
+		{
 			self thread [[level.grenade_planted]](grenade, model);
+		}
 
 		if (isdefined(grenade))
 		{
@@ -126,7 +138,9 @@ player_throw_cymbal_monkey(grenade, num_attractors, max_attract_dist, attract_di
 			valid_poi = check_point_in_enabled_zone(grenade.origin, undefined, undefined);
 
 			if (isdefined(level.check_valid_poi))
+			{
 				valid_poi = grenade [[level.check_valid_poi]](valid_poi);
+			}
 
 			if (valid_poi)
 			{
@@ -154,15 +168,21 @@ player_throw_cymbal_monkey(grenade, num_attractors, max_attract_dist, attract_di
 grenade_stolen_by_sam(ent_grenade, ent_model, ent_actor)
 {
 	if (!isdefined(ent_model))
+	{
 		return;
+	}
 
 	direction = ent_model.origin;
 	direction = (direction[1], direction[0], 0);
 
 	if (direction[1] < 0 || direction[0] > 0 && direction[1] > 0)
+	{
 		direction = (direction[0], direction[1] * -1, 0);
+	}
 	else if (direction[0] < 0)
+	{
 		direction = (direction[0] * -1, direction[1], 0);
+	}
 
 	self playlocalsound(level.zmb_laugh_alias);
 
@@ -173,17 +193,23 @@ grenade_stolen_by_sam(ent_grenade, ent_model, ent_actor)
 	ent_model waittill("movedone");
 
 	if (isdefined(self.damagearea))
+	{
 		self.damagearea delete();
+	}
 
 	ent_model delete();
 
 	if (isdefined(ent_actor))
+	{
 		ent_actor delete();
+	}
 
 	if (isdefined(ent_grenade))
 	{
 		if (isdefined(ent_grenade.damagearea))
+		{
 			ent_grenade.damagearea delete();
+		}
 
 		ent_grenade delete();
 	}

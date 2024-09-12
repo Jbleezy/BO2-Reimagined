@@ -30,9 +30,13 @@ flame_damage_fx(damageweapon, e_attacker, pct_damage = 1.0)
 		self do_damage_network_safe(e_attacker, self.health, damageweapon, "MOD_BURNED");
 
 		if (cointoss())
+		{
 			self thread zombie_gib_all();
+		}
 		else
+		{
 			self thread zombie_gib_guts();
+		}
 
 		return;
 	}
@@ -48,7 +52,9 @@ flame_damage_fx(damageweapon, e_attacker, pct_damage = 1.0)
 	}
 
 	if (n_initial_dmg > 0)
+	{
 		self do_damage_network_safe(e_attacker, n_initial_dmg, damageweapon, "MOD_BURNED");
+	}
 }
 
 get_impact_damage(damageweapon)

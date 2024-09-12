@@ -48,7 +48,9 @@ setup_capture_zones()
 	level thread track_max_player_zombie_points();
 
 	foreach (s_generator in a_s_generator)
+	{
 		s_generator thread init_capture_zone();
+	}
 
 	register_elements_powered_by_zone_capture_generators();
 	setup_perk_machines_not_controlled_by_zone_capture();
@@ -75,10 +77,14 @@ init_capture_zone()
 	assert(isdefined(self.script_noteworthy), "capture zone struct is missing script_noteworthy KVP! This is required for init_capture_zone()");
 
 	if (!isdefined(level.zone_capture))
+	{
 		level.zone_capture = spawnstruct();
+	}
 
 	if (!isdefined(level.zone_capture.zones))
+	{
 		level.zone_capture.zones = [];
+	}
 
 	assert(!isdefined(level.zone_capture.zones[self.script_noteworthy]), "init_capture_zone() attempting to initialize an existing zone with name '" + self.script_noteworthy + "'");
 	self.n_current_progress = 0;
@@ -133,14 +139,18 @@ wait_for_capture_trigger()
 		capture_event_handle_ai_limit();
 
 		if (self ent_flag("player_controlled"))
+		{
 			self ent_flag_waitopen("player_controlled");
+		}
 	}
 }
 
 activate_capture_zone(b_show_emergence_holes = 1)
 {
 	if (!flag("recapture_event_in_progress"))
+	{
 		self thread generator_initiated_vo();
+	}
 
 	self.a_emergence_hole_structs = getstructarray(self.target, "targetname");
 	self show_emergence_holes(b_show_emergence_holes);
@@ -150,7 +160,9 @@ activate_capture_zone(b_show_emergence_holes = 1)
 		flag_wait_any("generator_under_attack", "recapture_zombies_cleared");
 
 		if (flag("recapture_zombies_cleared"))
+		{
 			return;
+		}
 	}
 
 	self capture_progress_think();
@@ -174,13 +186,17 @@ capture_progress_think()
 			if (isinarray(a_players_in_capture_zone, player))
 			{
 				if (!flag("recapture_event_in_progress") || !self ent_flag("current_recapture_target_zone"))
+				{
 					objective_setplayerusing(self.n_objective_index, player);
+				}
 
 				continue;
 			}
 
 			if (is_player_valid(player))
+			{
 				objective_clearplayerusing(self.n_objective_index, player);
+			}
 		}
 
 		self.n_last_progress = self.n_current_progress;
@@ -199,7 +215,9 @@ capture_progress_think()
 				b_set_color_to_white = a_players_in_capture_zone.size > 0;
 
 				if (!flag("recapture_event_in_progress") && self ent_flag("current_recapture_target_zone"))
+				{
 					b_set_color_to_white = 1;
+				}
 
 				level setclientfield("zc_change_progress_bar_color", b_set_color_to_white);
 			}
@@ -207,7 +225,9 @@ capture_progress_think()
 			update_objective_on_momentum_change();
 
 			if (self.n_current_progress == 0 || self.n_current_progress == 100 && !self ent_flag("attacked_by_recapture_zombies"))
+			{
 				self ent_flag_clear("zone_contested");
+			}
 		}
 
 		show_zone_capture_debug_info();
@@ -251,11 +271,15 @@ handle_generator_capture()
 
 		}
 		else
+		{
 			self kill_all_capture_zombies();
+		}
 	}
 
 	if (get_contested_zone_count() == 0)
+	{
 		flag_clear("zone_capture_in_progress");
+	}
 }
 
 players_capture_zone()
@@ -266,7 +290,9 @@ players_capture_zone()
 	wait_network_frame();
 
 	if (!flag("recapture_event_in_progress") && !self ent_flag("player_controlled"))
+	{
 		self thread zone_capture_complete_vo();
+	}
 
 	self set_player_controlled_area();
 	wait_network_frame();
@@ -283,13 +309,17 @@ reward_players_in_capture_zone()
 		foreach (player in get_players_in_capture_zone())
 		{
 			if (isdefined(self.purchaser) && self.purchaser == player)
+			{
 				self refund_generator_cost_if_player_captured_it(player);
+			}
 
 			player notify("completed_zone_capture");
 			player maps\mp\zombies\_zm_score::player_add_points("bonus_points_powerup", 200);
 
 			if (b_challenge_exists)
+			{
 				player maps\mp\zombies\_zm_challenges::increment_stat("zc_zone_captures");
+			}
 
 			player maps\mp\zombies\_zm_stats::increment_client_stat("tomb_generator_captured", 0);
 			player maps\mp\zombies\_zm_stats::increment_player_stat("tomb_generator_captured");
@@ -315,7 +345,9 @@ recapture_zombie_death_func()
 		}
 
 		if (level.recapture_zombies_killed == get_recapture_zombies_needed() && is_true(level.b_is_first_generator_attack))
+		{
 			self drop_max_ammo_at_death_location();
+		}
 	}
 }
 
@@ -353,7 +385,9 @@ recapture_round_start()
 		s_recapture_target_zone maps\mp\zm_tomb_capture_zones_ffotd::recapture_event_start();
 
 		if (level.b_is_first_generator_attack)
+		{
 			s_recapture_target_zone thread monitor_recapture_zombies();
+		}
 
 		set_recapture_zombie_attack_target(s_recapture_target_zone);
 		s_recapture_target_zone thread generator_under_attack_warnings();
@@ -364,7 +398,9 @@ recapture_round_start()
 		s_recapture_target_zone ent_flag_clear("current_recapture_target_zone");
 
 		if (level.b_is_first_generator_attack && !s_recapture_target_zone ent_flag("player_controlled"))
+		{
 			delay_thread(3, ::broadcast_vo_category_to_team, "recapture_started");
+		}
 
 		level.b_is_first_generator_attack = 0;
 		s_recapture_target_zone maps\mp\zm_tomb_capture_zones_ffotd::recapture_event_end();
@@ -386,12 +422,16 @@ magic_box_stub_update_prompt(player)
 	self setcursorhint("HINT_NOICON");
 
 	if (!self trigger_visible_to_player(player))
+	{
 		return false;
+	}
 
 	self.stub.hint_parm1 = undefined;
 
 	if (isdefined(self.stub.trigger_target.grab_weapon_hint) && self.stub.trigger_target.grab_weapon_hint)
+	{
 		self.stub.hint_string = &"ZOMBIE_TRADE_WEAPON";
+	}
 	else if (!level.zone_capture.zones[self.stub.zone] ent_flag("player_controlled"))
 	{
 		self.stub.hint_string = &"ZM_TOMB_ZC";

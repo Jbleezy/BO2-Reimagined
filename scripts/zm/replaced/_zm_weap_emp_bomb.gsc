@@ -6,7 +6,9 @@
 init()
 {
 	if (!emp_bomb_exists())
+	{
 		return;
+	}
 
 	set_zombie_var("emp_stun_range", 512);
 	set_zombie_var("emp_stun_time", 12);
@@ -63,15 +65,21 @@ emp_detonate_zombies(origin, radius, owner)
 	zombies = get_array_of_closest(origin, getaispeciesarray(level.zombie_team, "all"), undefined, undefined, radius);
 
 	if (!isdefined(zombies))
+	{
 		return;
+	}
 
 	for (i = 0; i < zombies.size; i++)
 	{
 		if (!isdefined(zombies[i]) || isdefined(zombies[i].ignore_inert) && zombies[i].ignore_inert)
+		{
 			continue;
+		}
 
 		if (is_true(zombies[i].in_the_ground))
+		{
 			continue;
+		}
 
 		zombies[i].becoming_inert = 1;
 	}
@@ -81,10 +89,14 @@ emp_detonate_zombies(origin, radius, owner)
 	for (i = 0; i < zombies.size; i++)
 	{
 		if (!isdefined(zombies[i]) || isdefined(zombies[i].ignore_inert) && zombies[i].ignore_inert)
+		{
 			continue;
+		}
 
 		if (is_true(zombies[i].in_the_ground))
+		{
 			continue;
+		}
 
 		stunned++;
 		zombies[i] thread stun_zombie();
@@ -92,7 +104,9 @@ emp_detonate_zombies(origin, radius, owner)
 	}
 
 	if (stunned >= 10 && isdefined(owner))
+	{
 		owner notify("the_lights_of_their_eyes");
+	}
 }
 
 destroyequipment(origin, radius)
@@ -105,18 +119,26 @@ destroyequipment(origin, radius)
 		item = grenades[i];
 
 		if (distancesquared(origin, item.origin) > rsquared)
+		{
 			continue;
+		}
 
 		if (!isdefined(item.name))
+		{
 			continue;
+		}
 
 		if (!is_offhand_weapon(item.name))
+		{
 			continue;
+		}
 
 		watcher = item.owner getwatcherforweapon(item.name);
 
 		if (!isdefined(watcher))
+		{
 			continue;
+		}
 
 		watcher thread waitanddetonate(item, 0.0, self, "emp_grenade_zm");
 	}
@@ -128,10 +150,14 @@ destroyequipment(origin, radius)
 		item = equipment[i];
 
 		if (!isdefined(item))
+		{
 			continue;
+		}
 
 		if (distancesquared(origin, item.origin) > rsquared)
+		{
 			continue;
+		}
 
 		waitanddamage(item, 1505);
 	}
@@ -144,12 +170,16 @@ waitanddamage(object, damage)
 	object.stun_fx = 1;
 
 	if (isdefined(level._equipment_emp_destroy_fx))
+	{
 		playfx(level._equipment_emp_destroy_fx, object.origin + vectorscale((0, 0, 1), 5.0), (0, randomfloat(360), 0));
+	}
 
 	delay = 1.1;
 
 	if (delay)
+	{
 		wait(delay);
+	}
 
 	object thread scripts\zm\replaced\_zm_equipment::item_damage(damage);
 }

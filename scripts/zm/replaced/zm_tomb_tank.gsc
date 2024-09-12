@@ -35,7 +35,9 @@ players_on_tank_update()
 					self.n_players_on++;
 
 					if (self ent_flag("tank_cooldown"))
+					{
 						level notify("vo_tank_cooling", e_player);
+					}
 
 					e_player thread tank_rumble_update();
 					e_player thread tank_rides_around_map_achievement_watcher();

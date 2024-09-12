@@ -20,7 +20,9 @@ maxis_sidequest_a()
 	level.sq_progress["maxis"]["A_turbine_2"] = undefined;
 
 	if (!(isdefined(level.sq_progress["maxis"]["B_complete"]) && level.sq_progress["maxis"]["B_complete"]))
+	{
 		level.sq_progress["maxis"]["A_complete"] = 0;
+	}
 
 	while (true)
 	{
@@ -51,9 +53,13 @@ maxis_sidequest_a()
 		if (get_how_many_progressed_from("maxis", "A_turbine_1", "A_turbine_2") >= 1)
 		{
 			if (avogadro_at_tower())
+			{
 				level thread maxissay("vox_maxi_turbine_2tower_avo_0", (7737, -416, -142));
+			}
 			else
+			{
 				level thread maxissay("vox_maxi_turbine_2tower_0", (7737, -416, -142));
+			}
 
 			update_sidequest_stats("sq_transit_maxis_stage_2");
 			level thread maxis_sidequest_complete_check("A_complete");
@@ -62,9 +68,13 @@ maxis_sidequest_a()
 		level waittill_either("turbine_deployed", "equip_turbine_zm_cleaned_up");
 
 		if (!level.sq_progress["maxis"]["B_complete"])
+		{
 			level.sq_progress["maxis"]["A_complete"] = 0;
+		}
 		else
+		{
 			break;
+		}
 	}
 }
 
@@ -212,7 +222,9 @@ maxis_sidequest_complete()
 	clientnotify("sq_kfx");
 
 	if (isdefined(level.richcompleted) && level.richcompleted)
+	{
 		level clientnotify("sq_krt");
+	}
 
 	wait 1;
 	clientnotify("sqm");
@@ -247,7 +259,9 @@ richtofen_sidequest_c()
 		level.sq_progress["rich"]["C_screecher_light"]++;
 
 		if (level.sq_progress["rich"]["C_screecher_light"] >= 8)
+		{
 			break;
+		}
 	}
 
 	level thread richtofensay("vox_zmba_sidequest_4emp_mag_0");
@@ -266,7 +280,9 @@ richtofen_sidequest_complete()
 	clientnotify("sq_kfx");
 
 	if (isdefined(level.maxcompleted) && level.maxcompleted)
+	{
 		level clientnotify("sq_kmt");
+	}
 
 	wait 1;
 	clientnotify("sqr");

@@ -18,18 +18,24 @@ init_spawnable_weapon_upgrade()
 	spawnable_weapon_spawns = arraycombine(spawnable_weapon_spawns, getstructarray("buildable_wallbuy", "targetname"), 1, 0);
 
 	if (!is_true(level.headshots_only))
+	{
 		spawnable_weapon_spawns = arraycombine(spawnable_weapon_spawns, getstructarray("claymore_purchase", "targetname"), 1, 0);
+	}
 
 	match_string = "";
 	location = level.scr_zm_map_start_location;
 
 	if ((location == "default" || location == "") && isdefined(level.default_start_location))
+	{
 		location = level.default_start_location;
+	}
 
 	match_string = level.scr_zm_ui_gametype;
 
 	if ("" != location)
+	{
 		match_string = match_string + "_" + location;
+	}
 
 	match_string_plus_space = " " + match_string;
 
@@ -38,7 +44,9 @@ init_spawnable_weapon_upgrade()
 		spawnable_weapon = spawnable_weapon_spawns[i];
 
 		if (isdefined(spawnable_weapon.zombie_weapon_upgrade) && spawnable_weapon.zombie_weapon_upgrade == "sticky_grenade_zm" && is_true(level.headshots_only))
+		{
 			continue;
+		}
 
 		if (!isdefined(spawnable_weapon.script_noteworthy) || spawnable_weapon.script_noteworthy == "")
 		{
@@ -51,7 +59,9 @@ init_spawnable_weapon_upgrade()
 		for (j = 0; j < matches.size; j++)
 		{
 			if (matches[j] == match_string || matches[j] == match_string_plus_space)
+			{
 				spawn_list[spawn_list.size] = spawnable_weapon;
+			}
 		}
 	}
 
@@ -63,7 +73,9 @@ init_spawnable_weapon_upgrade()
 		numbits = 2;
 
 		if (isdefined(level._wallbuy_override_num_bits))
+		{
 			numbits = level._wallbuy_override_num_bits;
+		}
 
 		registerclientfield("world", clientfieldname, 1, numbits, "int");
 		target_struct = getstruct(spawn_list[i].target, "targetname");
@@ -73,7 +85,9 @@ init_spawnable_weapon_upgrade()
 			bits = 4;
 
 			if (isdefined(level.buildable_wallbuy_weapons))
+			{
 				bits = getminbitcountfornum(level.buildable_wallbuy_weapons.size + 1);
+			}
 
 			registerclientfield("world", clientfieldname + "_idx", 12000, bits, "int");
 			spawn_list[i].clientfieldname = clientfieldname;
@@ -119,7 +133,9 @@ init_spawnable_weapon_upgrade()
 				unitrigger_stub.hint_parm1 = get_weapon_display_name(spawn_list[i].zombie_weapon_upgrade);
 
 				if (!isdefined(unitrigger_stub.hint_parm1) || unitrigger_stub.hint_parm1 == "" || unitrigger_stub.hint_parm1 == "none")
+				{
 					unitrigger_stub.hint_parm1 = "missing weapon name " + spawn_list[i].zombie_weapon_upgrade;
+				}
 
 				unitrigger_stub.hint_parm2 = unitrigger_stub.cost;
 				unitrigger_stub.hint_string = &"ZOMBIE_WEAPONCOSTONLY";
@@ -131,7 +147,9 @@ init_spawnable_weapon_upgrade()
 		unitrigger_stub.require_look_at = 1;
 
 		if (isdefined(spawn_list[i].require_look_from) && spawn_list[i].require_look_from)
+		{
 			unitrigger_stub.require_look_from = 1;
+		}
 
 		unitrigger_stub.zombie_weapon_upgrade = spawn_list[i].zombie_weapon_upgrade;
 		unitrigger_stub.clientfieldname = clientfieldname;
@@ -140,7 +158,9 @@ init_spawnable_weapon_upgrade()
 		if (is_melee_weapon(unitrigger_stub.zombie_weapon_upgrade))
 		{
 			if (unitrigger_stub.zombie_weapon_upgrade == "tazer_knuckles_zm")
+			{
 				unitrigger_stub.origin += (anglesToForward(unitrigger_stub.angles) * -7) + (anglesToRight(unitrigger_stub.angles) * -2);
+			}
 
 			maps\mp\zombies\_zm_unitrigger::register_static_unitrigger(unitrigger_stub, ::weapon_spawn_think);
 		}
@@ -157,9 +177,13 @@ init_spawnable_weapon_upgrade()
 		else
 		{
 			if (is_lethal_grenade(unitrigger_stub.zombie_weapon_upgrade))
+			{
 				unitrigger_stub.prompt_and_visibility_func = ::lethal_grenade_update_prompt;
+			}
 			else
+			{
 				unitrigger_stub.prompt_and_visibility_func = ::wall_weapon_update_prompt;
+			}
 
 			maps\mp\zombies\_zm_unitrigger::register_static_unitrigger(unitrigger_stub, ::weapon_spawn_think);
 		}
@@ -226,9 +250,13 @@ add_dynamic_wallbuy(weapon, wallbuy, pristine)
 	if (!is_melee_weapon(weapon))
 	{
 		if (pristine || weapon == "claymore_zm" || weapon == "bouncingbetty_zm")
+		{
 			unitrigger_stub.hint_string = get_weapon_hint(weapon);
+		}
 		else
+		{
 			unitrigger_stub.hint_string = get_weapon_hint_ammo();
+		}
 
 		unitrigger_stub.cost = get_weapon_cost(weapon);
 		unitrigger_stub.hint_parm1 = unitrigger_stub.cost;
@@ -244,7 +272,9 @@ add_dynamic_wallbuy(weapon, wallbuy, pristine)
 	if (is_melee_weapon(weapon))
 	{
 		if (weapon == "tazer_knuckles_zm")
+		{
 			unitrigger_stub.origin += (anglesToForward(unitrigger_stub.angles) * -7) + (anglesToRight(unitrigger_stub.angles) * -2);
+		}
 
 		maps\mp\zombies\_zm_melee_weapon::add_stub(unitrigger_stub, weapon);
 		maps\mp\zombies\_zm_unitrigger::register_static_unitrigger(unitrigger_stub, maps\mp\zombies\_zm_melee_weapon::melee_weapon_think);
@@ -262,9 +292,13 @@ add_dynamic_wallbuy(weapon, wallbuy, pristine)
 	else
 	{
 		if (is_lethal_grenade(unitrigger_stub.zombie_weapon_upgrade))
+		{
 			unitrigger_stub.prompt_and_visibility_func = ::lethal_grenade_update_prompt;
+		}
 		else
+		{
 			unitrigger_stub.prompt_and_visibility_func = ::wall_weapon_update_prompt;
+		}
 
 		maps\mp\zombies\_zm_unitrigger::register_static_unitrigger(unitrigger_stub, ::weapon_spawn_think);
 	}
@@ -290,7 +324,9 @@ add_dynamic_wallbuy(weapon, wallbuy, pristine)
 		wallmodel delete();
 
 		if (!pristine)
+		{
 			level setclientfield(clientfieldname, 1);
+		}
 	}
 	else
 	{
@@ -317,22 +353,32 @@ lethal_grenade_update_prompt(player)
 get_pack_a_punch_weapon_options(weapon)
 {
 	if (!isdefined(self.pack_a_punch_weapon_options))
+	{
 		self.pack_a_punch_weapon_options = [];
+	}
 
 	if (!is_weapon_upgraded(weapon))
+	{
 		return self calcweaponoptions(0, 0, 0, 0, 0);
+	}
 
 	if (isdefined(self.pack_a_punch_weapon_options[weapon]))
+	{
 		return self.pack_a_punch_weapon_options[weapon];
+	}
 
 	smiley_face_reticle_index = 1;
 	base = get_base_name(weapon);
 	camo_index = 39;
 
 	if ("zm_prison" == level.script)
+	{
 		camo_index = 40;
+	}
 	else if ("zm_tomb" == level.script)
+	{
 		camo_index = 45;
+	}
 
 	lens_index = 0;
 	reticle_index = 0;
@@ -569,7 +615,9 @@ ammo_give(weapon)
 	else if (self has_weapon_or_upgrade(weapon))
 	{
 		if (self getammocount(weapon) < weaponmaxammo(weapon))
+		{
 			give_ammo = 1;
+		}
 	}
 
 	if (give_ammo)
@@ -591,7 +639,9 @@ ammo_give(weapon)
 	}
 
 	if (!give_ammo)
+	{
 		return false;
+	}
 }
 
 weapon_spawn_think()
@@ -902,12 +952,16 @@ weaponobjects_on_player_connect_override_internal()
 	self createbettywatcher_zm();
 
 	for (i = 0; i < level.retrievable_knife_init_names.size; i++)
+	{
 		self createballisticknifewatcher_zm(level.retrievable_knife_init_names[i], level.retrievable_knife_init_names[i] + "_zm");
+	}
 
 	self maps\mp\gametypes_zm\_weaponobjects::setupretrievablewatcher();
 
 	if (!isdefined(self.weaponobjectwatcherarray))
+	{
 		self.weaponobjectwatcherarray = [];
+	}
 
 	self thread maps\mp\gametypes_zm\_weaponobjects::watchweaponobjectspawn();
 	self thread maps\mp\gametypes_zm\_weaponobjects::watchweaponprojectileobjectspawn();
@@ -949,11 +1003,17 @@ bettydetonate(attacker, weaponname)
 	}
 
 	if (isdefined(attacker))
+	{
 		self detonate(attacker);
+	}
 	else if (isdefined(self.owner) && isplayer(self.owner))
+	{
 		self detonate(self.owner);
+	}
 	else
+	{
 		self detonate();
+	}
 }
 
 setupretrievablehintstrings()
@@ -976,9 +1036,13 @@ get_player_weapondata(player, weapon)
 	weapondata = [];
 
 	if (!isdefined(weapon))
+	{
 		weapondata["name"] = get_nonalternate_weapon(player getcurrentweapon());
+	}
 	else
+	{
 		weapondata["name"] = weapon;
+	}
 
 	weapondata["dw_name"] = weapondualwieldweaponname(weapondata["name"]);
 	weapondata["alt_name"] = weaponaltweaponname(weapondata["name"]);
@@ -1001,9 +1065,13 @@ get_player_weapondata(player, weapon)
 	}
 
 	if (weapondata["dw_name"] != "none")
+	{
 		weapondata["lh_clip"] = player getweaponammoclip(weapondata["dw_name"]);
+	}
 	else
+	{
 		weapondata["lh_clip"] = 0;
+	}
 
 	if (weapondata["alt_name"] != "none")
 	{

@@ -29,9 +29,13 @@ jail_traversal_fix()
 					wait 1;
 
 					if (is_true(self.has_legs))
+					{
 						self setphysparams(15, 0, 60);
+					}
 					else
+					{
 						self setphysparams(15, 0, 24);
+					}
 				}
 			}
 		}

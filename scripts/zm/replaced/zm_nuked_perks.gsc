@@ -24,7 +24,9 @@ init_nuked_perks()
 	structs = getstructarray("zm_perk_machine", "targetname");
 
 	for (i = 0; i < structs.size; i++)
+	{
 		structs[i] structdelete();
+	}
 
 	level.nuked_perks = [];
 	level.nuked_perks[0] = spawnstruct();
@@ -69,7 +71,9 @@ init_nuked_perks()
 		level.random_perk_structs[i].turn_on_notify = level.nuked_perks[i].turn_on_notify;
 
 		if (!isdefined(level.struct_class_names["targetname"]["zm_perk_machine_override"]))
+		{
 			level.struct_class_names["targetname"]["zm_perk_machine_override"] = [];
+		}
 
 		level.struct_class_names["targetname"]["zm_perk_machine_override"][level.struct_class_names["targetname"]["zm_perk_machine_override"].size] = level.random_perk_structs[i];
 	}
@@ -84,7 +88,9 @@ perks_from_the_sky()
 	machines[0] = getent("vending_revive", "targetname");
 
 	if (!isdefined(machines[0]))
+	{
 		return;
+	}
 
 	machine_triggers[0] = getent("vending_revive", "target");
 	move_perk(machines[0], top_height, 5.0, 0.001);
@@ -156,7 +162,9 @@ grief_bring_random_perk(machines, machine_triggers)
 	count = machines.size;
 
 	if (count <= 0)
+	{
 		return;
+	}
 
 	index = randomintrange(0, count);
 	level thread grief_bring_perk(machines[index], machine_triggers[index]);
@@ -226,7 +234,9 @@ grief_bring_perk(machine, trigger)
 	}
 
 	if (!is_revive)
+	{
 		trigger.blocker_model delete();
+	}
 
 	machine.original_pos = machine.original_pos + (offset[0], offset[1], 0);
 	machine.origin = machine.original_pos;
@@ -257,9 +267,15 @@ grief_bring_perk(machine, trigger)
 		machine thread maps\mp\zombies\_zm_perks::perk_fx("revive_light");
 	}
 	else if (is_jugger)
+	{
 		machine thread maps\mp\zombies\_zm_perks::perk_fx("jugger_light");
+	}
 	else if (is_doubletap)
+	{
 		machine thread maps\mp\zombies\_zm_perks::perk_fx("doubletap_light");
+	}
 	else if (is_sleight)
+	{
 		machine thread maps\mp\zombies\_zm_perks::perk_fx("sleight_light");
+	}
 }

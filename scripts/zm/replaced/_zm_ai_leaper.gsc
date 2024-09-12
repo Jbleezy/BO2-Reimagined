@@ -93,7 +93,9 @@ leaper_round_accuracy_tracking()
 		total_hits_end_leaper_round = players[i] maps\mp\gametypes_zm\_globallogic_score::getpersstat("hits") - players[i].total_hits_start_leaper_round;
 
 		if (total_shots_end_leaper_round == total_hits_end_leaper_round)
+		{
 			level.leaper_round_accurate_players++;
+		}
 	}
 
 	if (level.leaper_round_accurate_players == players.size)
@@ -130,7 +132,9 @@ leaper_death()
 		event = "death";
 
 		if (issubstr(self.damageweapon, "knife_ballistic_"))
+		{
 			event = "ballistic_knife_death";
+		}
 
 		self.attacker thread do_player_general_vox("general", "leaper_killed", 20, 20);
 		self.attacker maps\mp\zombies\_zm_score::player_add_points(event, self.damagemod, self.damagelocation, 1);

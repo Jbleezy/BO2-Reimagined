@@ -10,7 +10,9 @@ spawned(localclientnum)
 	self.fxtagname = "tag_origin";
 
 	if (self.team != player.team)
+	{
 		enemy = 1;
+	}
 
 	self thread loop_local_sound(localclientnum, "wpn_titus_alert", 0.3, level._effect["dart_light"]);
 }
@@ -28,6 +30,8 @@ loop_local_sound(localclientnum, alias, interval, fx)
 		interval /= 1.2;
 
 		if (interval < 0.1)
+		{
 			interval = 0.1;
+		}
 	}
 }

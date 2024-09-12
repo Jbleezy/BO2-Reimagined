@@ -119,7 +119,9 @@ claymore_watch()
 			if (claymore claymore_safe_to_plant())
 			{
 				if (isdefined(level.claymore_planted))
+				{
 					self thread [[level.claymore_planted]](claymore);
+				}
 
 				claymore thread claymore_detonation();
 				claymore thread play_claymore_effects();
@@ -127,7 +129,9 @@ claymore_watch()
 				self maps\mp\zombies\_zm_stats::increment_player_stat("claymores_planted");
 			}
 			else
+			{
 				claymore thread claymore_wait_and_detonate();
+			}
 
 			self thread claymore_last_shot_switch(weapname);
 		}

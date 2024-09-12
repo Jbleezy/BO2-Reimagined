@@ -24,7 +24,9 @@ choose_open_craftable(player)
 	hinttexthudelem.y = -100;
 
 	if (player issplitscreen())
+	{
 		hinttexthudelem.y = -50;
+	}
 
 	hinttexthudelem.foreground = 1;
 	hinttexthudelem.hidewheninmenu = 1;
@@ -35,7 +37,9 @@ choose_open_craftable(player)
 	hinttexthudelem settext(&"ZM_CRAFTABLES_CHANGE_BUILD");
 
 	if (!isdefined(self.opencraftablehudelem))
+	{
 		self.opencraftablehudelem = [];
+	}
 
 	self.opencraftablehudelem[n_playernum] = hinttexthudelem;
 
@@ -70,9 +74,13 @@ choose_open_craftable(player)
 		}
 
 		if (self.n_open_craftable_choice >= self.a_uts_open_craftables_available.size)
+		{
 			self.n_open_craftable_choice = 0;
+		}
 		else if (self.n_open_craftable_choice < 0)
+		{
 			self.n_open_craftable_choice = self.a_uts_open_craftables_available.size - 1;
+		}
 
 		if (b_got_input)
 		{
@@ -108,7 +116,9 @@ craftable_use_hold_think_internal(player)
 	}
 
 	if (!isdefined(self.usetime))
+	{
 		self.usetime = int(3000);
+	}
 
 	self.craft_time = self.usetime;
 	self.craft_start_time = gettime();
@@ -123,10 +133,14 @@ craftable_use_hold_think_internal(player)
 	player thread player_progress_bar(craft_start_time, craft_time);
 
 	if (isdefined(level.craftable_craft_custom_func))
+	{
 		player thread [[level.craftable_craft_custom_func]](self.stub);
+	}
 
 	while (isdefined(self) && player player_continue_crafting(self.stub.craftablespawn) && gettime() - self.craft_start_time < self.craft_time)
+	{
 		wait 0.05;
+	}
 
 	player notify("craftable_progress_end");
 
@@ -142,7 +156,9 @@ craftable_use_hold_think_internal(player)
 	player takeweapon("zombie_builder_zm");
 
 	if (isdefined(player.is_drinking) && player.is_drinking)
+	{
 		player decrement_is_drinking();
+	}
 
 	player enable_player_move_states();
 

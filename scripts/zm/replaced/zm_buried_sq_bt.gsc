@@ -20,12 +20,16 @@ stage_vo_watch_gallows()
 	m_maxis_vo_spot setmodel("tag_origin");
 
 	if (flag("sq_intro_vo_done"))
+	{
 		maxissay("vox_maxi_sidequest_gallows_0", m_maxis_vo_spot);
+	}
 
 	level waittill("mtower_object_planted");
 
 	if (flag("sq_intro_vo_done"))
+	{
 		maxissay("vox_maxi_sidequest_parts_3", m_maxis_vo_spot, 1);
+	}
 
 	m_maxis_vo_spot delete();
 }

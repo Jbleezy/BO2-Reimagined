@@ -710,7 +710,9 @@ attach_powerups_to_bus()
 attachpoweruptobus(powerup)
 {
 	if (!isdefined(powerup) || !isdefined(level.the_bus))
+	{
 		return;
+	}
 
 	distanceoutsideofbus = 50.0;
 	pos = powerup.origin;
@@ -722,7 +724,9 @@ attachpoweruptobus(powerup)
 		radiusplus = level.the_bus.radius + distanceoutsideofbus;
 
 		if (posdist2 > radiusplus * radiusplus)
+		{
 			return;
+		}
 	}
 
 	powerup enablelinkto();
@@ -921,7 +925,9 @@ transit_zone_init()
 			add_adjacent_zone("zone_station_ext", "zone_trans_2b", "always_on");
 
 			if (isdefined(area.script_parameters) && area.script_parameters == "classic_only")
+			{
 				area delete();
+			}
 		}
 	}
 

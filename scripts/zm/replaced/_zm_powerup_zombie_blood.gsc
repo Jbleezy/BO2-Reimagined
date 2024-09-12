@@ -50,7 +50,9 @@ zombie_blood_powerup(m_powerup, e_player)
 		if (isdefined(e_zombie_blood.e_unique_player))
 		{
 			if (e_zombie_blood.e_unique_player == e_player)
+			{
 				e_zombie_blood setvisibletoplayer(e_player);
+			}
 
 			continue;
 		}
@@ -89,7 +91,9 @@ zombie_blood_powerup(m_powerup, e_player)
 	e_player notify("zombie_blood_over");
 
 	if (isdefined(e_player.characterindex))
+	{
 		e_player playsound("vox_plr_" + e_player.characterindex + "_exert_grunt_" + randomintrange(0, 3));
+	}
 
 	e_player.m_fx delete();
 	maps\mp\_visionset_mgr::vsmgr_deactivate("visionset", "zm_powerup_zombie_blood_visionset", e_player);
@@ -120,7 +124,9 @@ zombie_blood_powerup(m_powerup, e_player)
 	level.a_zombie_blood_entities = __new;
 
 	foreach (e_zombie_blood in level.a_zombie_blood_entities)
+	{
 		e_zombie_blood setinvisibletoplayer(e_player);
+	}
 
 	if (isdefined(e_player.hero_model))
 	{

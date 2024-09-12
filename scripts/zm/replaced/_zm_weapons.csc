@@ -12,12 +12,16 @@ init()
 	spawnable_weapon_spawns = arraycombine(spawnable_weapon_spawns, getstructarray("buildable_wallbuy", "targetname"), 1, 0);
 
 	if (!level.headshots_only)
+	{
 		spawnable_weapon_spawns = arraycombine(spawnable_weapon_spawns, getstructarray("claymore_purchase", "targetname"), 1, 0);
+	}
 
 	location = level.scr_zm_map_start_location;
 
 	if ((location == "default" || location == "") && isdefined(level.default_start_location))
+	{
 		location = level.default_start_location;
+	}
 
 	match_string = level.scr_zm_ui_gametype + "_" + location;
 	match_string_plus_space = " " + match_string;
@@ -27,7 +31,9 @@ init()
 		spawnable_weapon = spawnable_weapon_spawns[i];
 
 		if (isdefined(spawnable_weapon.zombie_weapon_upgrade) && spawnable_weapon.zombie_weapon_upgrade == "sticky_grenade_zm" && is_true(level.headshots_only))
+		{
 			continue;
+		}
 
 		if (!isdefined(spawnable_weapon.script_noteworthy) || spawnable_weapon.script_noteworthy == "")
 		{
@@ -40,7 +46,9 @@ init()
 		for (j = 0; j < matches.size; j++)
 		{
 			if (matches[j] == match_string || matches[j] == match_string_plus_space)
+			{
 				spawn_list[spawn_list.size] = spawnable_weapon;
+			}
 		}
 	}
 
@@ -53,7 +61,9 @@ init()
 		numbits = 2;
 
 		if (isdefined(level._wallbuy_override_num_bits))
+		{
 			numbits = level._wallbuy_override_num_bits;
+		}
 
 		registerclientfield("world", spawn_list[i].script_label, 1, numbits, "int", ::wallbuy_callback, 0);
 		target_struct = getstruct(spawn_list[i].target, "targetname");
@@ -63,7 +73,9 @@ init()
 			bits = 4;
 
 			if (isdefined(level.buildable_wallbuy_weapons))
+			{
 				bits = getminbitcountfornum(level.buildable_wallbuy_weapons.size + 1);
+			}
 
 			registerclientfield("world", spawn_list[i].script_label + "_idx", 12000, bits, "int", ::wallbuy_callback_idx, 0);
 		}
@@ -77,7 +89,9 @@ wallbuy_player_connect(localclientnum)
 	keys = getarraykeys(level._active_wallbuys);
 
 	if (isdefined(level.createfx_enabled) && level.createfx_enabled)
+	{
 		return;
+	}
 
 	for (i = 0; i < keys.size; i++)
 	{
@@ -91,15 +105,21 @@ wallbuy_player_connect(localclientnum)
 		fx = level._effect["m14_zm_fx"];
 
 		if (wallbuy.targetname == "buildable_wallbuy")
+		{
 			fx = level._effect["dynamic_wallbuy_fx"];
+		}
 		else if (isdefined(level._effect[wallbuy.zombie_weapon_upgrade + "_fx"]))
+		{
 			fx = level._effect[wallbuy.zombie_weapon_upgrade + "_fx"];
+		}
 
 		wallbuy.fx[localclientnum] = playfx(localclientnum, fx, wallbuy.origin, anglestoforward(wallbuy.angles), anglestoup(wallbuy.angles), 0.1);
 		target_struct = getstruct(wallbuy.target, "targetname");
 
 		if (wallbuy.targetname == "buildable_wallbuy")
+		{
 			continue;
+		}
 
 		target_model = spawn_weapon_model(localclientnum, wallbuy.zombie_weapon_upgrade, target_struct.model, target_struct.origin, target_struct.angles);
 		target_model hide();
@@ -119,14 +139,18 @@ wallbuy_callback_idx(localclientnum, oldval, newval, bnewent, binitialsnap, fiel
 	if (newval == 0)
 	{
 		if (isdefined(struct.models[localclientnum]))
+		{
 			struct.models[localclientnum] hide();
+		}
 	}
 	else if (newval > 0)
 	{
 		weaponname = level.buildable_wallbuy_weapons[newval - 1];
 
 		if (!isdefined(struct.models))
+		{
 			struct.models = [];
+		}
 
 		if (!isdefined(struct.models[localclientnum]))
 		{
@@ -134,7 +158,9 @@ wallbuy_callback_idx(localclientnum, oldval, newval, bnewent, binitialsnap, fiel
 			model = undefined;
 
 			if (isdefined(level.buildable_wallbuy_weapon_models[weaponname]))
+			{
 				model = level.buildable_wallbuy_weapon_models[weaponname];
+			}
 
 			origin = target_struct.origin;
 			angles = target_struct.angles;
@@ -183,7 +209,9 @@ wallbuy_callback_idx(localclientnum, oldval, newval, bnewent, binitialsnap, fiel
 			fx = level._effect["m14_zm_fx"];
 
 			if (isdefined(level._effect[weaponname + "_fx"]))
+			{
 				fx = level._effect[weaponname + "_fx"];
+			}
 
 			struct.fx[localclientnum] = playfx(localclientnum, fx, origin, anglestoforward(angles), anglestoup(angles), 0.1);
 			level notify("wallbuy_updated");

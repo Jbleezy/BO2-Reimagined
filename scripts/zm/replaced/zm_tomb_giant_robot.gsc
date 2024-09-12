@@ -33,10 +33,14 @@ robot_cycling()
 	while (true)
 	{
 		if (!(level.round_number % 4) && three_robot_round != level.round_number)
+		{
 			flag_set("three_robot_round");
+		}
 
 		if (flag("ee_all_staffs_upgraded") && !flag("ee_mech_zombie_hole_opened"))
+		{
 			flag_set("three_robot_round");
+		}
 
 		if (flag("three_robot_round"))
 		{
@@ -68,11 +72,15 @@ robot_cycling()
 		else
 		{
 			if (!flag("activate_zone_nml"))
+			{
 				random_number = randomint(2);
+			}
 			else
 			{
 				do
+				{
 					random_number = randomint(3);
+				}
 
 				while (random_number == last_robot);
 			}

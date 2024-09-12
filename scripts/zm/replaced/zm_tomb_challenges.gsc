@@ -51,7 +51,9 @@ reward_packed_weapon(player, s_stat)
 	wait_network_frame();
 
 	if (!reward_rise_and_grab(m_weapon, 50, 2, 2, 10))
+	{
 		return false;
+	}
 
 	player maps\mp\zombies\_zm_weapons::weapon_give(s_stat.str_reward_weapon);
 
@@ -181,19 +183,25 @@ box_footprint_think()
 			self delay_thread(1, ::setclientfield, "foot_print_box_glow", 1);
 
 			if (isdefined(player) && !flag("vo_soul_box_intro_played"))
+			{
 				player delay_thread(1.5, ::richtofenrespondvoplay, "zm_box_start", 0, "vo_soul_box_intro_played");
+			}
 		}
 
 		if (self.n_souls_absorbed == floor(n_souls_required / 4))
 		{
 			if (isdefined(player) && flag("vo_soul_box_intro_played") && !flag("vo_soul_box_continue_played"))
+			{
 				player thread richtofenrespondvoplay("zm_box_continue", 1, "vo_soul_box_continue_played");
+			}
 		}
 
 		if (self.n_souls_absorbed == floor(n_souls_required / 2) || self.n_souls_absorbed == floor(n_souls_required / 1.3))
 		{
 			if (isdefined(player))
+			{
 				player create_and_play_dialog("soul_box", "zm_box_encourage");
+			}
 		}
 
 		if (self.n_souls_absorbed == n_souls_required)
@@ -242,9 +250,13 @@ box_footprint_think()
 	if (isdefined(player))
 	{
 		if (level.n_soul_boxes_completed == 1)
+		{
 			player thread richtofenrespondvoplay("zm_box_complete");
+		}
 		else if (level.n_soul_boxes_completed == 4)
+		{
 			player thread richtofenrespondvoplay("zm_box_final_complete", 1);
+		}
 	}
 
 	self delete();

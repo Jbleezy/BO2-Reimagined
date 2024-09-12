@@ -46,7 +46,9 @@ ts_sign_check_all_activated(e_attacker, m_last_touched)
 ts_is_bowie_knife(str_weapon)
 {
 	if (str_weapon == "knife_ballistic_bowie_zm" || str_weapon == "knife_ballistic_bowie_upgraded_zm" || issubstr(str_weapon, "bowie_knife_zm"))
+	{
 		return true;
+	}
 
 	return false;
 }
@@ -54,7 +56,9 @@ ts_is_bowie_knife(str_weapon)
 ts_is_galvaknuckles(str_weapon)
 {
 	if (scripts\zm\_zm_reimagined::is_tazer_weapon(str_weapon))
+	{
 		return true;
+	}
 
 	return false;
 }

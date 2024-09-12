@@ -54,10 +54,14 @@ init_vulture()
 	level.perk_vulture.disable_solo_quick_revive_glow = 0;
 
 	if (!isdefined(level.perk_vulture.custom_funcs_enable))
+	{
 		level.perk_vulture.custom_funcs_enable = [];
+	}
 
 	if (!isdefined(level.perk_vulture.custom_funcs_disable))
+	{
 		level.perk_vulture.custom_funcs_disable = [];
+	}
 
 	level.zombie_eyes_clientfield_cb_additional = ::vulture_eye_glow_callback_from_system;
 }
@@ -65,16 +69,24 @@ init_vulture()
 vulture_perk_ir(localclientnum, oldval, newval, bnewent, binitialsnap, fieldname, bwasdemojump)
 {
 	if (!self islocalplayer())
+	{
 		return;
+	}
 
 	if (!isdefined(self getlocalclientnumber()))
+	{
 		return;
+	}
 
 	if (self getlocalclientnumber() != localclientnum)
+	{
 		return;
+	}
 
 	if (isdemoplaying() && isspectating(localclientnum))
+	{
 		newval = 0;
+	}
 
 	vulture_perk_set_ir(localclientnum, newval);
 }
@@ -98,7 +110,9 @@ vulture_perk_set_ir(lcn, newval)
 vulture_vision_enable(localclientnumber)
 {
 	if (isdefined(level.perk_vulture.vulture_vision_fx_list[localclientnumber]))
+	{
 		vulture_vision_disable(localclientnumber);
+	}
 
 	level.perk_vulture.vulture_vision_fx_list[localclientnumber] = spawnstruct();
 	s_temp = level.perk_vulture.vulture_vision_fx_list[localclientnumber];
@@ -108,10 +122,14 @@ vulture_vision_enable(localclientnumber)
 	s_temp.fx_list_special = [];
 
 	foreach (powerup in level.perk_vulture.vulture_vision.powerups)
+	{
 		powerup _powerup_drop_fx_enable(localclientnumber);
+	}
 
 	foreach (zombie in level.perk_vulture.vulture_vision.actors_eye_glow)
+	{
 		zombie _zombie_eye_glow_enable(localclientnumber);
+	}
 
 	self.perk_vulture = s_temp;
 	level.perk_vulture.fx_array[localclientnumber] = s_temp;

@@ -20,7 +20,9 @@ menuautoassign(comingfrommenu)
 	self updateobjectivetext();
 
 	if (level.teambased)
+	{
 		self.sessionteam = assignment;
+	}
 	else
 	{
 		self.sessionteam = "none";

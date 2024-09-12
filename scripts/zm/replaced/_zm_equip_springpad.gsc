@@ -60,7 +60,9 @@ springpadthink(weapon, electricradius, armed)
 				if (isdefined(ent) && isdefined(ent.custom_springpad_fling))
 				{
 					if (!isdefined(self.num_zombies_flung))
+					{
 						self.num_zombies_flung = 0;
+					}
 
 					self.num_zombies_flung++;
 					self notify("zombie_flung");
@@ -71,16 +73,22 @@ springpadthink(weapon, electricradius, armed)
 				if (isdefined(ent))
 				{
 					if (!isdefined(self.num_zombies_flung))
+					{
 						self.num_zombies_flung = 0;
+					}
 
 					self.num_zombies_flung++;
 					self notify("zombie_flung");
 
 					if (!isdefined(weapon.fling_scaler))
+					{
 						weapon.fling_scaler = 1;
+					}
 
 					if (isdefined(weapon.direction_vec_override))
+					{
 						direction_vector = weapon.direction_vec_override;
+					}
 
 					ent dodamage(ent.health + 666, ent.origin);
 					ent startragdoll();
@@ -101,7 +109,9 @@ springpadthink(weapon, electricradius, armed)
 			}
 		}
 		else
+		{
 			wait 0.1;
+		}
 	}
 }
 
@@ -148,7 +158,9 @@ springpad_animate(weapon, armed)
 	prearmed = 0;
 
 	if (isdefined(armed) && armed)
+	{
 		prearmed = 1;
+	}
 
 	fast_reset = 0;
 
@@ -170,7 +182,9 @@ springpad_animate(weapon, armed)
 			}
 		}
 		else
+		{
 			wait 0.05;
+		}
 
 		prearmed = 0;
 		weapon notify("armed");

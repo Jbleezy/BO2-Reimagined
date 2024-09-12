@@ -24,29 +24,43 @@ whirlwind_kill_zombies(n_level, str_weapon)
 		for (i = 0; i < a_zombies.size; i++)
 		{
 			if (!isdefined(a_zombies[i]))
+			{
 				continue;
+			}
 
 			if (a_zombies[i].ai_state != "find_flesh")
+			{
 				continue;
+			}
 
 			if (is_true(self._whirlwind_attract_anim))
+			{
 				continue;
+			}
 
 			v_offset = (10, 10, 32);
 
 			if (!bullet_trace_throttled(self.origin + v_offset, a_zombies[i].origin + v_offset, undefined))
+			{
 				continue;
+			}
 
 			if (!isdefined(a_zombies[i]) || !isalive(a_zombies[i]))
+			{
 				continue;
+			}
 
 			v_offset = (-10, -10, 64);
 
 			if (!bullet_trace_throttled(self.origin + v_offset, a_zombies[i].origin + v_offset, undefined))
+			{
 				continue;
+			}
 
 			if (!isdefined(a_zombies[i]) || !isalive(a_zombies[i]))
+			{
 				continue;
+			}
 
 			if (is_true(a_zombies[i].is_mechz))
 			{

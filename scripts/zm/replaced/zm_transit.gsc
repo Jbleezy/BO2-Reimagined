@@ -126,7 +126,9 @@ include_weapons()
 	include_weapon("emp_grenade_zm", 1, undefined, ::less_than_normal);
 
 	if (is_classic())
+	{
 		include_weapon("screecher_arms_zm", 0);
+	}
 
 	if (gametype != "zgrief")
 	{

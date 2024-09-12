@@ -258,10 +258,14 @@ menu_onmenuresponse()
 				if (menu == game["menu_changeclass"] || menu == game["menu_changeclass_offline"] || menu == game["menu_team"] || menu == game["menu_controls"])
 				{
 					if (self.pers["team"] == "allies")
+					{
 						self openmenu(game["menu_class"]);
+					}
 
 					if (self.pers["team"] == "axis")
+					{
 						self openmenu(game["menu_class"]);
+					}
 				}
 			}
 
@@ -317,10 +321,14 @@ menu_onmenuresponse()
 		}
 
 		if (response == "changeclass_marines_splitscreen")
+		{
 			self openmenu("changeclass_marines_splitscreen");
+		}
 
 		if (response == "changeclass_opfor_splitscreen")
+		{
 			self openmenu("changeclass_opfor_splitscreen");
+		}
 
 		if (response == "endgame")
 		{

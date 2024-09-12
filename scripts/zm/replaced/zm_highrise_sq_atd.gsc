@@ -91,10 +91,14 @@ sq_atd_drg_puzzle()
 	a_puzzle_trigs = array_randomize(a_puzzle_trigs);
 
 	for (i = 0; i < a_puzzle_trigs.size; i++)
+	{
 		a_puzzle_trigs[i] thread drg_puzzle_trig_think(i);
+	}
 
 	while (level.sq_atd_cur_drg < 4)
+	{
 		wait 1;
+	}
 
 	flag_set("sq_atd_drg_puzzle_complete");
 	level thread vo_maxis_atd_order_complete();

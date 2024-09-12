@@ -84,7 +84,9 @@ init_elevator_perks()
 	for (i = 0; i < level.elevator_perks.size; i++)
 	{
 		if (!isdefined(level.random_perk_structs[i]))
+		{
 			continue;
+		}
 
 		level.random_perk_structs[i].targetname = "zm_perk_machine_override";
 		level.random_perk_structs[i].model = level.elevator_perks[i].model;
@@ -92,7 +94,9 @@ init_elevator_perks()
 		level.random_perk_structs[i].turn_on_notify = level.elevator_perks[i].turn_on_notify;
 
 		if (!isdefined(level.struct_class_names["targetname"]["zm_perk_machine_override"]))
+		{
 			level.struct_class_names["targetname"]["zm_perk_machine_override"] = [];
+		}
 
 		level.struct_class_names["targetname"]["zm_perk_machine_override"][level.struct_class_names["targetname"]["zm_perk_machine_override"].size] = level.random_perk_structs[i];
 	}
@@ -114,7 +118,9 @@ elevator_think(elevator)
 		elevator.body.origin = elevator.floors[elevator.body.current_level].origin;
 
 		if (isdefined(elevator.body.force_starting_origin_offset))
+		{
 			elevator.body.origin += (0, 0, elevator.body.force_starting_origin_offset);
+		}
 	}
 
 	elevator.body.can_move = 1;
@@ -131,12 +137,16 @@ elevator_think(elevator)
 		start_location = 0;
 
 		if (isdefined(elevator.body.force_starting_floor))
+		{
 			skipinitialwait = 1;
+		}
 
 		elevator.body.departing = 1;
 
 		if (!is_true(elevator.body.lock_doors))
+		{
 			elevator.body setanim(level.perk_elevators_anims[elevator.body.perk_type][1]);
+		}
 
 		predict_floor(elevator, next, speed);
 
@@ -145,16 +155,22 @@ elevator_think(elevator)
 			elevator_initial_wait(elevator, minwait, maxwait, delaybeforeleaving);
 
 			if (!is_true(elevator.body.lock_doors))
+			{
 				elevator.body setanim(level.perk_elevators_anims[elevator.body.perk_type][1]);
+			}
 		}
 
 		if (isdefined(elevator.body.force_starting_floor))
+		{
 			skipinitialwait = 1;
+		}
 
 		next = elevator_next_floor(elevator, next, 0);
 
 		if (isdefined(elevator.floors["" + (next + 1)]))
+		{
 			elevator.body.next_level = "" + (next + 1);
+		}
 		else
 		{
 			start_location = 1;
@@ -167,9 +183,13 @@ elevator_think(elevator)
 		start_level_start_pos = elevator.floors[elevator.body.starting_floor].starting_position;
 
 		if (elevator.body.next_level == elevator.body.starting_floor || isdefined(cur_level_start_pos) && isdefined(start_level_start_pos) && cur_level_start_pos == start_level_start_pos)
+		{
 			floor_goal = cur_level_start_pos;
+		}
 		else
+		{
 			floor_goal = floor_stop.origin;
+		}
 
 		dist = distance(elevator.body.origin, floor_goal);
 		time = dist / speed;
@@ -206,7 +226,9 @@ elevator_think(elevator)
 					next = elevator_next_floor(elevator, next, 0);
 
 					if (isdefined(elevator.floors["" + (next + 1)]))
+					{
 						elevator.body.next_level = "" + (next + 1);
+					}
 					else
 					{
 						start_location = 1;
@@ -219,9 +241,13 @@ elevator_think(elevator)
 					start_level_start_pos = elevator.floors[elevator.body.starting_floor].starting_position;
 
 					if (elevator.body.next_level == elevator.body.starting_floor || isdefined(cur_level_start_pos) && isdefined(start_level_start_pos) && cur_level_start_pos == start_level_start_pos)
+					{
 						floor_goal = cur_level_start_pos;
+					}
 					else
+					{
 						floor_goal = floor_stop.origin;
+					}
 
 					dist = distance(elevator.body.origin, floor_goal);
 					time = dist / speed;
@@ -255,7 +281,9 @@ elevator_think(elevator)
 			elevator.body moveto(floor_goal, time, time * 0.25, time * 0.25);
 
 			if (isdefined(elevator.body.trig))
+			{
 				elevator.body thread elev_clean_up_corpses();
+			}
 
 			elevator.body thread elevator_move_sound();
 			elevator.body waittill_any("movedone", "forcego");
@@ -271,7 +299,9 @@ predict_floor(elevator, next, speed)
 	next = elevator_next_floor(elevator, next, 1);
 
 	if (isdefined(elevator.floors["" + (next + 1)]))
+	{
 		elevator.body.next_level = "" + (next + 1);
+	}
 	else
 	{
 		start_location = 1;
@@ -284,9 +314,13 @@ predict_floor(elevator, next, speed)
 	start_level_start_pos = elevator.floors[elevator.body.starting_floor].starting_position;
 
 	if (elevator.body.next_level == elevator.body.starting_floor || isdefined(cur_level_start_pos) && isdefined(start_level_start_pos) && cur_level_start_pos == start_level_start_pos)
+	{
 		floor_goal = cur_level_start_pos;
+	}
 	else
+	{
 		floor_goal = floor_stop.origin;
+	}
 
 	dist = distance(elevator.body.origin, floor_goal);
 	time = dist / speed;
@@ -312,21 +346,29 @@ elevator_initial_wait(elevator, minwait, maxwait, delaybeforeleaving)
 	elevator.body waittill_any_or_timeout(randomintrange(minwait, maxwait), "depart_early");
 
 	if (!is_true(elevator.body.lock_doors) && !is_true(elevator.body.elevator_stop))
+	{
 		elevator.body setanim(level.perk_elevators_anims[elevator.body.perk_type][0]);
+	}
 
 	if (!is_true(elevator.body.departing_early))
+	{
 		wait(delaybeforeleaving);
+	}
 
 	if (elevator.body.perk_type == "specialty_weapupgrade")
 	{
 		while (flag("pack_machine_in_use"))
+		{
 			wait 0.5;
+		}
 
 		wait(randomintrange(1, 3));
 	}
 
 	while (isdefined(level.elevators_stop) && level.elevators_stop || isdefined(elevator.body.elevator_stop) && elevator.body.elevator_stop)
+	{
 		wait 0.05;
+	}
 }
 
 elevator_move_sound()
@@ -364,7 +406,9 @@ elevator_roof_watcher()
 			while (isdefined(who) && who istouching(self.trig))
 			{
 				if (self.is_moving)
+				{
 					self waittill_any("movedone", "forcego");
+				}
 
 				if (self.current_level == "0")
 				{
@@ -380,7 +424,9 @@ elevator_roof_watcher()
 						climber = zombie zombie_for_elevator_unseen();
 
 						if (isdefined(climber))
+						{
 							continue;
+						}
 					}
 
 					if (isdefined(climber))
@@ -409,7 +455,9 @@ faller_location_logic()
 	elevators = [];
 
 	for (i = 0; i < elevator_names.size; i++)
+	{
 		elevators[i] = getent("elevator_" + elevator_names[i] + "_body", "targetname");
+	}
 
 	elevator_volumes = [];
 	elevator_volumes[elevator_volumes.size] = getent("elevator_1b", "targetname");
@@ -430,7 +478,9 @@ faller_location_logic()
 			foreach (elevator in elevators)
 			{
 				if (distancesquared(elevator getCentroid(), point.origin) <= dist_check)
+				{
 					should_block = 1;
+				}
 			}
 
 			if (should_block)
@@ -441,15 +491,21 @@ faller_location_logic()
 			}
 
 			if (isdefined(point.is_blocked) && point.is_blocked)
+			{
 				point.is_blocked = 0;
+			}
 
 			if (!isdefined(point.zone_name))
+			{
 				continue;
+			}
 
 			zone = level.zones[point.zone_name];
 
 			if (zone.is_enabled && zone.is_active && zone.is_spawning_allowed)
+			{
 				point.is_enabled = 1;
+			}
 		}
 
 		players = get_players();
@@ -463,12 +519,16 @@ faller_location_logic()
 				if (is_player_valid(player))
 				{
 					if (player istouching(volume))
+					{
 						should_disable = 1;
+					}
 				}
 			}
 
 			if (should_disable)
+			{
 				disable_elevator_spawners(volume, spawn_points);
+			}
 		}
 
 		wait 0.05;
@@ -521,7 +581,9 @@ watch_for_elevator_during_faller_spawn()
 				self dodamage(self.health + 100, self.origin);
 			}
 			else
+			{
 				self delete();
+			}
 
 			break;
 		}

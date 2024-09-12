@@ -277,7 +277,9 @@ sloth_barricade_think()
 		self waittill("trigger", who);
 
 		if (who in_revive_trigger())
+		{
 			continue;
+		}
 
 		if (is_player_valid(who))
 		{
@@ -299,14 +301,18 @@ sloth_barricade_think()
 				flag_set(self.script_flag);
 
 				if (self.script_flag == "jail_door1")
+				{
 					level notify("jail_barricade_down");
+				}
 			}
 
 			pieces = getentarray(self.target, "targetname");
 			pieces[1] sloth_barricade_move();
 
 			if (isdefined(self.script_int))
+			{
 				exploder(self.script_int);
+			}
 
 			foreach (piece in pieces)
 			{
@@ -385,12 +391,16 @@ onuseplantobject_chalk(entity)
 			angles = self.angles;
 
 			if (isdefined(level._effect["wallbuy_replace"]))
+			{
 				playfx(level._effect["wallbuy_replace"], origin, anglestoforward(angles));
+			}
 
 			maps\mp\zombies\_zm_weapons::add_dynamic_wallbuy(weapon, self.target, 1);
 
 			if (!isdefined(level.built_wallbuys))
+			{
 				level.built_wallbuys = 0;
+			}
 
 			level.built_wallbuys++;
 
@@ -557,7 +567,9 @@ dance_action()
 	while (true)
 	{
 		if (gettime() >= self.dance_end)
+		{
 			break;
+		}
 
 		self animscripted(self.origin, self.jail_start.angles, "zm_dance");
 		maps\mp\animscripts\zm_shared::donotetracks("dance_anim", maps\mp\zombies\_zm_ai_sloth::vomit_notetrack);

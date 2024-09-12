@@ -23,13 +23,17 @@ swap_mg(e_player)
 	if (is_player_valid(e_player) && !e_player.is_drinking && !is_melee_weapon(str_current_weapon) && !is_placeable_mine(str_current_weapon) && !is_equipment(str_current_weapon) && level.revive_tool != str_current_weapon && "none" != str_current_weapon && !e_player hacker_active())
 	{
 		if (e_player hasweapon(str_reward_weapon))
+		{
 			e_player givemaxammo(str_reward_weapon);
+		}
 		else
 		{
 			a_weapons = e_player getweaponslistprimaries();
 
 			if (isdefined(a_weapons) && a_weapons.size >= get_player_weapon_limit(e_player))
+			{
 				e_player takeweapon(str_current_weapon);
+			}
 
 			e_player giveweapon(str_reward_weapon, 0, e_player maps\mp\zombies\_zm_weapons::get_pack_a_punch_weapon_options(str_reward_weapon));
 			e_player givestartammo(str_reward_weapon);
@@ -39,5 +43,7 @@ swap_mg(e_player)
 		return true;
 	}
 	else
+	{
 		return false;
+	}
 }

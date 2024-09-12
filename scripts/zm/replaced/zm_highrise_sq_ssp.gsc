@@ -31,14 +31,20 @@ watch_model_sliquification(n_end_limit, str_complete_flag)
 				self notify("sq_sliquified");
 
 				if (isdefined(self.t_pickup))
+				{
 					self.t_pickup delete();
+				}
 
 				flag_set(str_complete_flag);
 			}
 			else if (n_count == 1)
+			{
 				level notify("ssp1_ball_first_sliquified");
+			}
 			else if (n_count == 5)
+			{
 				level notify("ssp1_ball_sliquified_2");
+			}
 		}
 	}
 }
@@ -66,12 +72,16 @@ ssp_2_zombie_death_check()
 	self waittill("death");
 
 	if (!isdefined(self))
+	{
 		return;
+	}
 
 	t_corpse_room = getent("corpse_room_trigger", "targetname");
 
 	if (self istouching(t_corpse_room))
+	{
 		level notify("ssp2_corpse_made", 1);
+	}
 }
 
 corpse_room_watcher()
@@ -84,9 +94,13 @@ corpse_room_watcher()
 		level waittill("ssp2_corpse_made", is_in_room);
 
 		if (is_in_room)
+		{
 			n_count++;
+		}
 		else
+		{
 			n_count = 0;
+		}
 
 		if (n_count == 1 && !flag("ssp2_maxis_keep_going_said"))
 		{

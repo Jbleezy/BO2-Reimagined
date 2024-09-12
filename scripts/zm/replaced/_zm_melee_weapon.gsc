@@ -23,7 +23,9 @@ init(weapon_name, flourish_weapon_name, ballistic_weapon_name, ballistic_upgrade
 		knife_model = getent(melee_weapon_triggers[i].target, "targetname");
 
 		if (isdefined(knife_model))
+		{
 			knife_model hide();
+		}
 
 		melee_weapon_triggers[i] thread melee_weapon_think(weapon_name, cost, flourish_fn, vo_dialog_id, flourish_weapon_name, ballistic_weapon_name, ballistic_upgraded_weapon_name);
 
@@ -52,17 +54,23 @@ init(weapon_name, flourish_weapon_name, ballistic_weapon_name, ballistic_upgrade
 	melee_weapon_structs = getstructarray(wallbuy_targetname, "targetname");
 
 	for (i = 0; i < melee_weapon_structs.size; i++)
+	{
 		prepare_stub(melee_weapon_structs[i].trigger_stub, weapon_name, flourish_weapon_name, ballistic_weapon_name, ballistic_upgraded_weapon_name, cost, wallbuy_targetname, hint_string, vo_dialog_id, flourish_fn);
+	}
 
 	register_melee_weapon_for_level(weapon_name);
 
 	if (!isdefined(level.ballistic_weapon_name))
+	{
 		level.ballistic_weapon_name = [];
+	}
 
 	level.ballistic_weapon_name[weapon_name] = ballistic_weapon_name;
 
 	if (!isdefined(level.ballistic_upgraded_weapon_name))
+	{
 		level.ballistic_upgraded_weapon_name = [];
+	}
 
 	level.ballistic_upgraded_weapon_name[weapon_name] = ballistic_upgraded_weapon_name;
 }
@@ -191,7 +199,9 @@ change_melee_weapon(weapon_name, current_weapon)
 give_melee_weapon(vo_dialog_id, flourish_weapon_name, weapon_name, ballistic_weapon_name, ballistic_upgraded_weapon_name, flourish_fn, trigger)
 {
 	if (isdefined(flourish_fn))
+	{
 		self thread [[flourish_fn]]();
+	}
 
 	self thread do_melee_weapon_change(weapon_name);
 
@@ -201,14 +211,18 @@ give_melee_weapon(vo_dialog_id, flourish_weapon_name, weapon_name, ballistic_wea
 	self do_melee_weapon_flourish_end(self.pre_temp_weapon, flourish_weapon_name, weapon_name, ballistic_weapon_name, ballistic_upgraded_weapon_name);
 
 	if (self maps\mp\zombies\_zm_laststand::player_is_in_laststand() || isdefined(self.intermission) && self.intermission)
+	{
 		return;
+	}
 
 	self.pre_temp_weapon = undefined;
 
 	if (!(isdefined(level._allow_melee_weapon_switching) && level._allow_melee_weapon_switching))
 	{
 		if (isdefined(trigger))
+		{
 			trigger setinvisibletoplayer(self);
+		}
 
 		self trigger_hide_all();
 	}
@@ -253,19 +267,25 @@ do_melee_weapon_flourish_end(gun, flourish_weapon_name, weapon_name, ballistic_w
 		return;
 	}
 	else if (gun != "none" && !is_placeable_mine(gun) && !is_equipment(gun))
+	{
 		self switchtoweapon(gun);
+	}
 	else
 	{
 		primaryweapons = self getweaponslistprimaries();
 
 		if (isdefined(primaryweapons) && primaryweapons.size > 0)
+		{
 			self switchtoweapon(primaryweapons[0]);
+		}
 	}
 
 	self waittill("weapon_change_complete");
 
 	if (!self maps\mp\zombies\_zm_laststand::player_is_in_laststand() && !(isdefined(self.intermission) && self.intermission))
+	{
 		self decrement_is_drinking();
+	}
 }
 
 melee_weapon_think(weapon_name, cost, flourish_fn, vo_dialog_id, flourish_weapon_name, ballistic_weapon_name, ballistic_upgraded_weapon_name)
@@ -277,7 +297,9 @@ melee_weapon_think(weapon_name, cost, flourish_fn, vo_dialog_id, flourish_weapon
 		self endon("kill_trigger");
 
 		if (isdefined(self.stub.first_time_triggered))
+		{
 			self.first_time_triggered = self.stub.first_time_triggered;
+		}
 
 		weapon_name = self.stub.weapon_name;
 		cost = self.stub.cost;
@@ -293,7 +315,9 @@ melee_weapon_think(weapon_name, cost, flourish_fn, vo_dialog_id, flourish_weapon
 			for (i = 0; i < players.size; i++)
 			{
 				if (!players[i] player_can_see_weapon_prompt(weapon_name))
+				{
 					self setinvisibletoplayer(players[i]);
+				}
 			}
 		}
 	}
@@ -359,7 +383,9 @@ melee_weapon_think(weapon_name, cost, flourish_fn, vo_dialog_id, flourish_weapon
 			cost = self.stub.cost;
 
 			if (player maps\mp\zombies\_zm_pers_upgrades_functions::is_pers_double_points_active())
+			{
 				cost = int(cost / 2);
+			}
 
 			if (player.score >= cost)
 			{
@@ -368,14 +394,20 @@ melee_weapon_think(weapon_name, cost, flourish_fn, vo_dialog_id, flourish_weapon
 					model = getent(self.target, "targetname");
 
 					if (isdefined(model))
+					{
 						model thread melee_weapon_show(player);
+					}
 					else if (isdefined(self.clientfieldname))
+					{
 						level setclientfield(self.clientfieldname, 1);
+					}
 
 					self.first_time_triggered = 1;
 
 					if (isdefined(self.stub))
+					{
 						self.stub.first_time_triggered = 1;
+					}
 				}
 
 				player maps\mp\zombies\_zm_score::minus_to_player_score(cost, 1);
@@ -392,6 +424,8 @@ melee_weapon_think(weapon_name, cost, flourish_fn, vo_dialog_id, flourish_weapon
 		}
 
 		if (!(isdefined(level._allow_melee_weapon_switching) && level._allow_melee_weapon_switching))
+		{
 			self setinvisibletoplayer(player);
+		}
 	}
 }

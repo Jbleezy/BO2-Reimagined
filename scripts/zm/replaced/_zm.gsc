@@ -23,19 +23,25 @@ init_fx()
 	level._effect["fx_zombie_bar_break_lite"] = loadfx("maps/zombie/fx_zombie_bar_break_lite");
 
 	if (!(isdefined(level.fx_exclude_edge_fog) && level.fx_exclude_edge_fog))
+	{
 		level._effect["edge_fog"] = loadfx("maps/zombie/fx_fog_zombie_amb");
+	}
 
 	level._effect["chest_light"] = loadfx("maps/zombie/fx_zmb_tranzit_marker_glow");
 
 	if (!(isdefined(level.fx_exclude_default_eye_glow) && level.fx_exclude_default_eye_glow))
+	{
 		level._effect["eye_glow"] = loadfx("misc/fx_zombie_eye_single");
+	}
 
 	level._effect["headshot"] = loadfx("impacts/fx_flesh_hit");
 	level._effect["headshot_nochunks"] = loadfx("misc/fx_zombie_bloodsplat");
 	level._effect["bloodspurt"] = loadfx("misc/fx_zombie_bloodspurt");
 
 	if (!(isdefined(level.fx_exclude_tesla_head_light) && level.fx_exclude_tesla_head_light))
+	{
 		level._effect["tesla_head_light"] = loadfx("maps/zombie/fx_zombie_tesla_neck_spurt");
+	}
 
 	level._effect["zombie_guts_explosion"] = loadfx("maps/zombie/fx_zmb_tranzit_torso_explo");
 	level._effect["rise_burst_water"] = loadfx("maps/zombie/fx_mp_zombie_hand_dirt_burst");
@@ -51,7 +57,9 @@ init_fx()
 	level._effect["character_fire_death_torso"] = loadfx("env/fire/fx_fire_zombie_torso");
 
 	if (!(isdefined(level.fx_exclude_default_explosion) && level.fx_exclude_default_explosion))
+	{
 		level._effect["def_explosion"] = loadfx("explosions/fx_default_explosion");
+	}
 
 	if (!(isdefined(level._uses_default_wallbuy_fx) && !level._uses_default_wallbuy_fx))
 	{
@@ -82,25 +90,35 @@ init_fx()
 	}
 
 	if (!(isdefined(level._uses_taser_knuckles) && !level._uses_taser_knuckles))
+	{
 		level._effect["tazer_knuckles_zm_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_taseknuck");
+	}
 
 	if (isdefined(level.buildable_wallbuy_weapons))
+	{
 		level._effect["dynamic_wallbuy_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_question");
+	}
 
 	if (!(isdefined(level.disable_fx_upgrade_aquired) && level.disable_fx_upgrade_aquired))
+	{
 		level._effect["upgrade_aquired"] = loadfx("maps/zombie/fx_zmb_tanzit_upgrade");
+	}
 }
 
 round_start()
 {
 	if (isdefined(level.round_prestart_func))
+	{
 		[[level.round_prestart_func]]();
+	}
 	else
 	{
 		n_delay = 2;
 
 		if (isdefined(level.zombie_round_start_delay))
+		{
 			n_delay = level.zombie_round_start_delay;
+		}
 
 		wait(n_delay);
 	}
@@ -115,18 +133,26 @@ round_start()
 	}
 
 	if (level.zombie_vars["game_start_delay"] > 0)
+	{
 		round_pause(level.zombie_vars["game_start_delay"]);
+	}
 
 	flag_set("begin_spawning");
 
 	if (!isdefined(level.round_spawn_func))
+	{
 		level.round_spawn_func = ::round_spawning;
+	}
 
 	if (!isdefined(level.round_wait_func))
+	{
 		level.round_wait_func = ::round_wait;
+	}
 
 	if (!isdefined(level.round_think_func))
+	{
 		level.round_think_func = ::round_think;
+	}
 
 	level thread [[level.round_think_func]]();
 }
@@ -138,7 +164,9 @@ round_spawning()
 	level endon("restart_round");
 
 	if (level.intermission)
+	{
 		return;
+	}
 
 	if (level.zombie_spawn_locations.size < 1)
 	{
@@ -150,23 +178,31 @@ round_spawning()
 	players = get_players();
 
 	for (i = 0; i < players.size; i++)
+	{
 		players[i].zombification_time = 0;
+	}
 
 	max = level.zombie_vars["zombie_max_ai"];
 	multiplier = level.round_number / 5;
 
 	if (multiplier < 1)
+	{
 		multiplier = 1;
+	}
 
 	if (level.round_number >= 10)
+	{
 		multiplier *= (level.round_number * 0.15);
+	}
 
 	player_num = get_players().size;
 
 	max += int((player_num * 0.5) * level.zombie_vars["zombie_ai_per_player"] * multiplier);
 
 	if (!isdefined(level.max_zombie_func))
+	{
 		level.max_zombie_func = ::default_max_zombie_func;
+	}
 
 	if (!(isdefined(level.kill_counter_hud) && level.zombie_total > 0))
 	{
@@ -175,10 +211,14 @@ round_spawning()
 	}
 
 	if (isdefined(level.zombie_total_set_func))
+	{
 		level thread [[level.zombie_total_set_func]]();
+	}
 
 	if (level.round_number < 10 || level.speed_change_max > 0)
+	{
 		level thread zombie_speed_up();
+	}
 
 	mixed_spawns = 0;
 	old_spawn = undefined;
@@ -186,7 +226,9 @@ round_spawning()
 	while (true)
 	{
 		while (get_current_zombie_count() >= level.zombie_ai_limit || level.zombie_total <= 0)
+		{
 			wait 0.1;
+		}
 
 		while (get_current_actor_count() >= level.zombie_actor_limit)
 		{
@@ -197,15 +239,21 @@ round_spawning()
 		flag_wait("spawn_zombies");
 
 		while (level.zombie_spawn_locations.size <= 0)
+		{
 			wait 0.1;
+		}
 
 		run_custom_ai_spawn_checks();
 		spawn_point = level.zombie_spawn_locations[randomint(level.zombie_spawn_locations.size)];
 
 		if (!isdefined(old_spawn))
+		{
 			old_spawn = spawn_point;
+		}
 		else if (spawn_point == old_spawn)
+		{
 			spawn_point = level.zombie_spawn_locations[randomint(level.zombie_spawn_locations.size)];
+		}
 
 		old_spawn = spawn_point;
 
@@ -216,22 +264,30 @@ round_spawning()
 			if (level.round_number > 30)
 			{
 				if (randomint(100) < 3)
+				{
 					spawn_dog = 1;
+				}
 			}
 			else if (level.round_number > 25 && mixed_spawns < 3)
 			{
 				if (randomint(100) < 2)
+				{
 					spawn_dog = 1;
+				}
 			}
 			else if (level.round_number > 20 && mixed_spawns < 2)
 			{
 				if (randomint(100) < 2)
+				{
 					spawn_dog = 1;
+				}
 			}
 			else if (level.round_number > 15 && mixed_spawns < 1)
 			{
 				if (randomint(100) < 1)
+				{
 					spawn_dog = 1;
+				}
 			}
 
 			if (spawn_dog)
@@ -265,17 +321,27 @@ round_spawning()
 				if (isdefined(spawn_point.script_int))
 				{
 					if (isdefined(level.zombie_spawn[spawn_point.script_int]) && level.zombie_spawn[spawn_point.script_int].size)
+					{
 						spawner = random(level.zombie_spawn[spawn_point.script_int]);
+					}
 				}
 				else if (isdefined(level.zones[spawn_point.zone_name].script_int) && level.zones[spawn_point.zone_name].script_int)
+				{
 					spawner = random(level.zombie_spawn[level.zones[spawn_point.zone_name].script_int]);
+				}
 				else if (isdefined(level.spawner_int) && (isdefined(level.zombie_spawn[level.spawner_int].size) && level.zombie_spawn[level.spawner_int].size))
+				{
 					spawner = random(level.zombie_spawn[level.spawner_int]);
+				}
 				else
+				{
 					spawner = random(level.zombie_spawners);
+				}
 			}
 			else
+			{
 				spawner = random(level.zombie_spawners);
+			}
 
 			ai = spawn_zombie(spawner, spawner.targetname, spawn_point);
 		}
@@ -301,7 +367,9 @@ round_spawn_failsafe()
 	while (true)
 	{
 		if (isdefined(self.ignore_round_spawn_failsafe) && self.ignore_round_spawn_failsafe)
+		{
 			return;
+		}
 
 		wait 0.05;
 
@@ -351,7 +419,9 @@ round_spawn_failsafe()
 		if (distancesquared(self.origin, prevorigin) < 576)
 		{
 			if (gettime() - prevorigin_time < 15000)
+			{
 				continue;
+			}
 
 			if (isdefined(level.put_timed_out_zombies_back_in_queue) && level.put_timed_out_zombies_back_in_queue && !flag("dog_round"))
 			{
@@ -361,7 +431,9 @@ round_spawn_failsafe()
 					level.zombie_total_subtract++;
 
 					if (self.health < level.zombie_health)
+					{
 						level.zombie_respawned_health[level.zombie_respawned_health.size] = self.health;
+					}
 				}
 			}
 
@@ -391,7 +463,9 @@ round_think(restart = 0)
 	if (!(isdefined(restart) && restart))
 	{
 		if (isdefined(level.initial_round_wait_func))
+		{
 			[[level.initial_round_wait_func]]();
+		}
 
 		if (!(isdefined(level.host_ended_game) && level.host_ended_game))
 		{
@@ -438,14 +512,18 @@ round_think(restart = 0)
 		maxreward = 50 * level.round_number;
 
 		if (maxreward > 500)
+		{
 			maxreward = 500;
+		}
 
 		level.zombie_vars["rebuild_barrier_cap_per_round"] = maxreward;
 		level.pro_tips_start_time = gettime();
 		level.zombie_last_run_time = gettime();
 
 		if (isdefined(level.zombie_round_change_custom))
+		{
 			[[level.zombie_round_change_custom]]();
+		}
 		else
 		{
 			level thread maps\mp\zombies\_zm_audio::change_zombie_music("round_start");
@@ -457,14 +535,18 @@ round_think(restart = 0)
 		array_thread(players, maps\mp\zombies\_zm_blockers::rebuild_barrier_reward_reset);
 
 		if (!(isdefined(level.headshots_only) && level.headshots_only) && !restart)
+		{
 			level thread award_grenades_for_survivors();
+		}
 
 		bbprint("zombie_rounds", "round %d player_count %d", level.round_number, players.size);
 
 		level.round_start_time = gettime();
 
 		while (level.zombie_spawn_locations.size <= 0)
+		{
 			wait 0.1;
+		}
 
 		level thread [[level.round_spawn_func]]();
 		level notify("start_of_round");
@@ -476,11 +558,15 @@ round_think(restart = 0)
 			zonename = players[index] get_current_zone();
 
 			if (isdefined(zonename))
+			{
 				players[index] recordzombiezone("startingZone", zonename);
+			}
 		}
 
 		if (isdefined(level.round_start_custom_func))
+		{
 			[[level.round_start_custom_func]]();
+		}
 
 		[[level.round_wait_func]]();
 		level.first_round = 0;
@@ -489,7 +575,9 @@ round_think(restart = 0)
 		uploadstats();
 
 		if (isdefined(level.round_end_custom_logic))
+		{
 			[[level.round_end_custom_logic]]();
+		}
 
 		players = get_players();
 
@@ -499,21 +587,31 @@ round_think(restart = 0)
 			level thread spectators_respawn();
 		}
 		else if (1 != players.size)
+		{
 			level thread spectators_respawn();
+		}
 
 		players = get_players();
 		array_thread(players, maps\mp\zombies\_zm_pers_upgrades_system::round_end);
 		timer = level.zombie_vars["zombie_spawn_delay"];
 
 		if (timer > 0.08)
+		{
 			level.zombie_vars["zombie_spawn_delay"] = timer * 0.95;
+		}
 		else if (timer < 0.08)
+		{
 			level.zombie_vars["zombie_spawn_delay"] = 0.08;
+		}
 
 		if (level.gamedifficulty == 0)
+		{
 			level.zombie_move_speed = level.round_number * level.zombie_vars["zombie_move_speed_multiplier_easy"];
+		}
 		else
+		{
 			level.zombie_move_speed = level.round_number * level.zombie_vars["zombie_move_speed_multiplier"];
+		}
 
 		level.round_number++;
 
@@ -537,7 +635,9 @@ round_think(restart = 0)
 		foreach (player in players)
 		{
 			if (level.curr_gametype_affects_rank && level.round_number > 3 + level.start_round)
+			{
 				player maps\mp\zombies\_zm_stats::add_client_stat("weighted_rounds_played", level.round_number);
+			}
 
 			player maps\mp\zombies\_zm_stats::set_global_stat("rounds", level.round_number);
 			player maps\mp\zombies\_zm_stats::update_playing_utc_time(matchutctime);
@@ -555,10 +655,14 @@ spectators_respawn()
 	level endon("between_round_over");
 
 	if (!isdefined(level.zombie_vars["spectators_respawn"]) || !level.zombie_vars["spectators_respawn"])
+	{
 		return;
+	}
 
 	if (!isdefined(level.custom_spawnplayer))
+	{
 		level.custom_spawnplayer = ::spectator_respawn;
+	}
 
 	while (true)
 	{
@@ -583,7 +687,9 @@ spectators_respawn()
 					players[i].old_score = players[i].score;
 
 					if (isdefined(level.spectator_respawn_custom_score))
+					{
 						players[i][[level.spectator_respawn_custom_score]]();
+					}
 
 					players[i].score = new_score;
 				}
@@ -633,7 +739,9 @@ onallplayersready()
 	timeout = gettime() + 5000;
 
 	while (getnumexpectedplayers() == 0 && gettime() < timeout)
+	{
 		wait 0.1;
+	}
 
 	player_count_actual = 0;
 
@@ -647,7 +755,9 @@ onallplayersready()
 			players[i] freezecontrols(1);
 
 			if (players[i].sessionstate == "playing")
+			{
 				player_count_actual++;
+			}
 		}
 
 		wait 0.1;
@@ -670,7 +780,9 @@ onallplayersready()
 			level.solo_lives_given = 0;
 
 			foreach (player in players)
+			{
 				player.lives = 0;
+			}
 
 			level maps\mp\zombies\_zm::set_default_laststand_pistol(1);
 		}
@@ -678,7 +790,9 @@ onallplayersready()
 		flag_set("initial_players_connected");
 
 		while (!aretexturesloaded())
+		{
 			wait 0.05;
+		}
 
 		thread start_zombie_logic_in_x_sec(3.0);
 	}
@@ -710,12 +824,18 @@ fade_out_intro_screen_zm(hold_black_time, fade_out_time, destroyed_afterwards)
 	level.introscreen.alpha = 1;
 
 	if (isdefined(hold_black_time))
+	{
 		wait(hold_black_time);
+	}
 	else
+	{
 		wait 0.2;
+	}
 
 	if (!isdefined(fade_out_time))
+	{
 		fade_out_time = 1.5;
+	}
 
 	level.introscreen fadeovertime(fade_out_time);
 	level.introscreen.alpha = 0;
@@ -761,7 +881,9 @@ fade_out_intro_screen_zm(hold_black_time, fade_out_time, destroyed_afterwards)
 	}
 
 	if (destroyed_afterwards == 1)
+	{
 		level.introscreen destroy();
+	}
 
 	flag_set("initial_blackscreen_passed");
 }
@@ -1178,7 +1300,9 @@ last_stand_best_pistol()
 		class = weaponclass(current_weapons[i]);
 
 		if (issubstr(current_weapons[i], "knife_ballistic_"))
+		{
 			class = "knife";
+		}
 
 		if (class == "pistol" || class == "pistolspread" || class == "pistol spread")
 		{
@@ -1194,7 +1318,9 @@ last_stand_best_pistol()
 				}
 
 				if (ammo_count <= 0)
+				{
 					continue;
+				}
 			}
 
 			pistol_array_index = pistol_array.size;
@@ -1219,7 +1345,9 @@ last_stand_best_pistol()
 can_track_ammo(weap)
 {
 	if (!isdefined(weap))
+	{
 		return false;
+	}
 
 	switch (weap)
 	{
@@ -1252,7 +1380,9 @@ can_track_ammo(weap)
 
 		default:
 			if (is_melee_weapon(weap) || is_zombie_perk_bottle(weap) || is_placeable_mine(weap) || is_equipment(weap) || issubstr(weap, "knife_ballistic_") || getsubstr(weap, 0, 3) == "gl_" || weaponfuellife(weap) > 0 || weap == level.revive_tool)
+			{
 				return false;
+			}
 	}
 
 	return true;
@@ -1264,7 +1394,9 @@ take_additionalprimaryweapon()
 	self.a_saved_weapon = undefined;
 
 	if (isdefined(self._retain_perks) && self._retain_perks || isdefined(self._retain_perks_array) && (isdefined(self._retain_perks_array["specialty_additionalprimaryweapon"]) && self._retain_perks_array["specialty_additionalprimaryweapon"]))
+	{
 		return undefined;
+	}
 
 	self scripts\zm\_zm_reimagined::additionalprimaryweapon_update_weapon_slots();
 
@@ -1363,9 +1495,13 @@ restore_additionalprimaryweapon()
 	alt_name = weaponaltweaponname(name);
 
 	if (!is_weapon_upgraded(name))
+	{
 		self giveweapon(name);
+	}
 	else
+	{
 		self giveweapon(name, 0, self get_pack_a_punch_weapon_options(name));
+	}
 
 	if (name != "none")
 	{
@@ -1373,14 +1509,20 @@ restore_additionalprimaryweapon()
 		self setweaponammostock(name, self.a_saved_weapon["stock"]);
 
 		if (isdefined(self.a_saved_weapon["fuel"]))
+		{
 			self setweaponammofuel(name, self.a_saved_weapon["fuel"]);
+		}
 
 		if (isdefined(self.a_saved_weapon["heat"]) && isdefined(self.a_saved_weapon["overheat"]))
+		{
 			self setweaponoverheating(self.a_saved_weapon["overheat"], self.a_saved_weapon["heat"], name);
+		}
 	}
 
 	if (dw_name != "none")
+	{
 		self setweaponammoclip(dw_name, self.a_saved_weapon["lh_clip"]);
+	}
 
 	if (alt_name != "none")
 	{
@@ -2802,7 +2944,9 @@ player_out_of_playable_area_monitor()
 	level endon("end_game");
 
 	while (!isdefined(self.characterindex))
+	{
 		wait 0.05;
+	}
 
 	wait(0.15 * self.characterindex);
 
@@ -2869,7 +3013,9 @@ player_too_many_weapons_monitor()
 	scalar = self.characterindex;
 
 	if (!isdefined(scalar))
+	{
 		scalar = self getentitynumber();
+	}
 
 	wait(0.15 * scalar);
 
@@ -2895,7 +3041,9 @@ player_too_many_weapons_monitor()
 		for (i = 0; i < primaryweapons.size; i++)
 		{
 			if (maps\mp\zombies\_zm_weapons::is_weapon_included(primaryweapons[i]) || maps\mp\zombies\_zm_weapons::is_weapon_upgraded(primaryweapons[i]))
+			{
 				primary_weapons_to_take[primary_weapons_to_take.size] = primaryweapons[i];
+			}
 		}
 
 		if (primary_weapons_to_take.size > weapon_limit)
@@ -3120,7 +3268,9 @@ check_quickrevive_for_hotjoin(disconnecting_player)
 	subtract_num = 0;
 
 	if (isdefined(disconnecting_player))
+	{
 		subtract_num = 1;
+	}
 
 	players = get_players();
 

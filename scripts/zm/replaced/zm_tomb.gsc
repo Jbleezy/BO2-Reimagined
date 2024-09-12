@@ -62,7 +62,9 @@
 tomb_can_track_ammo_custom(weap)
 {
 	if (!isdefined(weap))
+	{
 		return false;
+	}
 
 	switch (weap)
 	{
@@ -105,7 +107,9 @@ tomb_can_track_ammo_custom(weap)
 
 		default:
 			if (is_melee_weapon(weap) || is_zombie_perk_bottle(weap) || is_placeable_mine(weap) || is_equipment(weap) || issubstr(weap, "knife_ballistic_") || getsubstr(weap, 0, 3) == "gl_" || weaponfuellife(weap) > 0 || weap == level.revive_tool)
+			{
 				return false;
+			}
 	}
 
 	return true;

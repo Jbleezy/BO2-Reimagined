@@ -47,7 +47,9 @@ staff_lightning_get_valid_targets(player, v_source)
 		foreach (ai_zombie in a_zombies)
 		{
 			if (staff_lightning_is_target_valid(ai_zombie))
+			{
 				a_enemies[a_enemies.size] = ai_zombie;
+			}
 		}
 	}
 
@@ -57,10 +59,14 @@ staff_lightning_get_valid_targets(player, v_source)
 staff_lightning_is_target_valid(ai_zombie)
 {
 	if (!isdefined(ai_zombie))
+	{
 		return false;
+	}
 
 	if (is_true(ai_zombie.is_being_zapped))
+	{
 		return false;
+	}
 
 	return true;
 }
@@ -70,7 +76,9 @@ staff_lightning_arc_fx(e_source, ai_zombie)
 	self endon("disconnect");
 
 	if (!isdefined(ai_zombie))
+	{
 		return;
+	}
 
 	if (!bullet_trace_throttled(e_source.origin, ai_zombie.origin + vectorscale((0, 0, 1), 20.0), ai_zombie))
 	{
@@ -103,7 +111,9 @@ staff_lightning_ball_damage_over_time(e_source, e_target, e_attacker)
 	if (isdefined(e_source))
 	{
 		if (!isdefined(e_source.n_damage_per_sec))
+		{
 			e_source.n_damage_per_sec = get_lightning_ball_damage_per_sec(e_attacker.chargeshotlevel);
+		}
 
 		n_damage_per_pulse = e_source.n_damage_per_sec * 1.0;
 	}
@@ -114,12 +124,16 @@ staff_lightning_ball_damage_over_time(e_source, e_target, e_attacker)
 		wait 1.0;
 
 		if (!isdefined(e_source) || !isalive(e_target))
+		{
 			break;
+		}
 
 		n_dist_sq = distancesquared(e_source.origin, e_target.origin);
 
 		if (n_dist_sq > n_range_sq)
+		{
 			break;
+		}
 
 		if (isalive(e_target) && isdefined(e_source))
 		{
@@ -146,7 +160,9 @@ staff_lightning_ball_damage_over_time_mechz(e_source, e_target, e_attacker)
 	if (isdefined(e_source))
 	{
 		if (!isdefined(e_source.n_damage_per_sec))
+		{
 			e_source.n_damage_per_sec = get_lightning_ball_damage_per_sec(e_attacker.chargeshotlevel);
+		}
 
 		n_damage_per_pulse = e_source.n_damage_per_sec * 1.0;
 	}
@@ -156,12 +172,16 @@ staff_lightning_ball_damage_over_time_mechz(e_source, e_target, e_attacker)
 		wait 1.0;
 
 		if (!isdefined(e_source) || !isalive(e_target))
+		{
 			break;
+		}
 
 		n_dist_sq = distancesquared(e_source.origin, e_target.origin);
 
 		if (n_dist_sq > n_range_sq)
+		{
 			break;
+		}
 
 		if (isalive(e_target) && isdefined(e_source))
 		{

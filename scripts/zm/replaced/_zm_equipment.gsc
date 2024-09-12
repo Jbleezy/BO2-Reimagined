@@ -113,9 +113,13 @@ item_damage(damage)
 	if (isdefined(self.isriotshield) && self.isriotshield)
 	{
 		if (isdefined(level.riotshield_damage_callback) && isdefined(self.owner))
+		{
 			self.owner [[level.riotshield_damage_callback]](damage, 0);
+		}
 		else if (isdefined(level.deployed_riotshield_damage_callback))
+		{
 			self [[level.deployed_riotshield_damage_callback]](damage);
+		}
 	}
 	else if (isdefined(self.owner))
 	{
@@ -124,22 +128,30 @@ item_damage(damage)
 	else
 	{
 		if (!isdefined(self.damage))
+		{
 			self.damage = 0;
+		}
 
 		self.damage += damage;
 
 		if (self.damage >= 1500)
+		{
 			self thread maps\mp\zombies\_zm_equipment::dropped_equipment_destroy(1);
+		}
 	}
 }
 
 player_damage_equipment(equipment, damage, origin, stub)
 {
 	if (!isdefined(self.equipment_damage))
+	{
 		self.equipment_damage = [];
+	}
 
 	if (!isdefined(self.equipment_damage[equipment]))
+	{
 		self.equipment_damage[equipment] = 0;
+	}
 
 	self.equipment_damage[equipment] += damage;
 
@@ -148,9 +160,13 @@ player_damage_equipment(equipment, damage, origin, stub)
 		thread maps\mp\zombies\_zm_unitrigger::unregister_unitrigger(stub);
 
 		if (isdefined(level.placeable_equipment_destroy_fn[equipment]))
+		{
 			self [[level.placeable_equipment_destroy_fn[equipment]]]();
+		}
 		else
+		{
 			equipment_disappear_fx(origin);
+		}
 
 		self equipment_release(equipment);
 	}

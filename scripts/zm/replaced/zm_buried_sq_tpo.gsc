@@ -35,9 +35,13 @@ stage_logic()
 	flag_set("sq_tpo_stage_started");
 
 	if (flag("sq_is_ric_tower_built"))
+	{
 		stage_logic_richtofen();
+	}
 	else
+	{
 		stage_logic_maxis();
+	}
 
 	stage_completed("sq", level._cur_stage_name);
 }
@@ -122,7 +126,9 @@ special_round_start()
 	a_players = get_players();
 
 	foreach (player in a_players)
+	{
 		vsmgr_activate("visionset", "cheat_bw", player);
+	}
 
 	level setclientfield("sq_tpo_special_round_active", 1);
 }
@@ -187,7 +193,9 @@ unitrigger_think()
 			n_frame_count++;
 
 			if (n_progress_amount == 1)
+			{
 				b_progress_bar_done = 1;
+			}
 
 			wait 0.05;
 		}
@@ -195,7 +203,9 @@ unitrigger_think()
 		self _delete_progress_bar();
 
 		if (b_progress_bar_done)
+		{
 			b_trigger_used = 1;
+		}
 	}
 
 	if (b_progress_bar_done)
@@ -209,7 +219,9 @@ unitrigger_think()
 			player give_player_sq_tpo_switch();
 		}
 		else
+		{
 			iprintlnbold(&"ZM_BURIED_SQ_NFND");
+		}
 
 		self thread maps\mp\zombies\_zm_unitrigger::unregister_unitrigger(self.stub);
 	}

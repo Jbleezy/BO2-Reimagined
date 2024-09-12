@@ -65,7 +65,9 @@ sidequest_logic()
 	flag_wait("sq_nav_built");
 
 	if (!is_true(level.navcomputer_spawned))
+	{
 		update_sidequest_stats("sq_highrise_started");
+	}
 
 	stage_start("sq", "atd");
 
@@ -76,18 +78,26 @@ sidequest_logic()
 	level waittill("sq_slb_over");
 
 	if (!is_true(level.richcompleted))
+	{
 		level thread sidequest_start("sq_1");
+	}
 
 	if (!is_true(level.maxcompleted))
+	{
 		level thread sidequest_start("sq_2");
+	}
 
 	flag_wait("sq_branch_complete");
 	tower_punch_watcher();
 
 	if (flag("sq_ric_tower_complete"))
+	{
 		update_sidequest_stats("sq_highrise_rich_complete");
+	}
 	else if (flag("sq_max_tower_complete"))
+	{
 		update_sidequest_stats("sq_highrise_maxis_complete");
+	}
 }
 
 tower_punch_watcher()
@@ -96,7 +106,9 @@ tower_punch_watcher()
 	a_leg_trigs = [];
 
 	foreach (str_wind in level.a_wind_order)
+	{
 		a_leg_trigs[a_leg_trigs.size] = "sq_tower_" + str_wind;
+	}
 
 	level.n_cur_leg = 0;
 	level.sq_leg_punches = 0;
@@ -142,7 +154,9 @@ tower_punch_watch_leg(a_leg_trigs)
 			self playsound("zmb_sq_leg_powerup_" + level.legs_hit.size);
 
 			if (level.legs_hit.size == 4)
+			{
 				flag_set("sq_tower_active");
+			}
 
 			return;
 		}
@@ -159,7 +173,9 @@ sq_give_all_perks()
 		perk = vending_triggers[i].script_noteworthy;
 
 		if (perk == "specialty_weapupgrade")
+		{
 			continue;
+		}
 
 		perks[perks.size] = perk;
 	}
@@ -227,7 +243,9 @@ sq_is_weapon_sniper(str_weapon)
 	foreach (str_sniper in a_snipers)
 	{
 		if (issubstr(str_weapon, str_sniper))
+		{
 			return true;
+		}
 	}
 
 	return false;

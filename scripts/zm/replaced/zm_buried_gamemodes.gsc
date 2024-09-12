@@ -45,7 +45,9 @@ survival_init()
 	level.should_use_cia = 0;
 
 	if (randomint(100) > 50)
+	{
 		level.should_use_cia = 1;
+	}
 
 	level.precachecustomcharacters = ::precache_team_characters;
 	level.givecustomcharacters = ::give_team_characters;
@@ -56,7 +58,9 @@ survival_init()
 	foreach (trig in trig_removal)
 	{
 		if (isdefined(trig.script_parameters) && trig.script_parameters == "grief_remove")
+		{
 			trig delete();
+		}
 	}
 }
 
@@ -87,7 +91,9 @@ give_team_characters()
 			self.characterindex = 1;
 
 			if (self.team == "axis")
+			{
 				self.characterindex = 0;
+			}
 		}
 
 		switch (self.characterindex)

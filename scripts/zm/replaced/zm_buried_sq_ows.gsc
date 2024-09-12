@@ -19,7 +19,9 @@ ows_targets_start()
 		a_spawn_spots = ows_targets_get_cur_spots(n_cur_second);
 
 		if (isdefined(a_spawn_spots) && a_spawn_spots.size > 0)
+		{
 			ows_targets_spawn(a_spawn_spots);
+		}
 
 		wait 1;
 		n_cur_second++;
@@ -38,7 +40,9 @@ ows_targets_start()
 		playsoundatposition("zmb_sq_target_success", (0, 0, 0));
 	}
 	else
+	{
 		playsoundatposition("zmb_sq_target_fail", (0, 0, 0));
+	}
 
 	level notify("sndEndOWSMusic");
 }
@@ -59,7 +63,9 @@ ows_targets_spawn(a_spawn_spots)
 		m_target playsound("zmb_sq_target_spawn");
 
 		if (isdefined(s_spot.target))
+		{
 			m_target thread ows_target_move(s_spot.target);
+		}
 
 		m_target thread ows_target_think();
 		m_target thread sndhit();

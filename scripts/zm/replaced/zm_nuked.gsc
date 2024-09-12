@@ -32,7 +32,9 @@
 give_team_characters()
 {
 	if (isdefined(level.hotjoin_player_setup) && [[level.hotjoin_player_setup]]("c_zom_suit_viewhands"))
+	{
 		return;
+	}
 
 	self detachall();
 	self set_player_is_female(0);
@@ -59,7 +61,9 @@ give_team_characters()
 			self.characterindex = 1;
 
 			if (self.team == "axis")
+			{
 				self.characterindex = 0;
+			}
 		}
 
 		switch (self.characterindex)

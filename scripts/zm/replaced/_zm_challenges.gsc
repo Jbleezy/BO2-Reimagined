@@ -46,7 +46,9 @@ box_init()
 	s_unitrigger_stub.b_disable_trigger = 0;
 
 	if (isdefined(self.script_string))
+	{
 		s_unitrigger_stub.str_location = self.script_string;
+	}
 
 	if (isdefined(s_unitrigger_stub.m_box.target))
 	{
@@ -69,7 +71,9 @@ box_think()
 		self waittill("trigger", player);
 
 		if (!is_player_valid(player))
+		{
 			continue;
+		}
 
 		if (self.stub.b_busy)
 		{
@@ -84,10 +88,14 @@ box_think()
 			if (self.stub ent_flag("waiting_for_grab"))
 			{
 				if (!isdefined(self.stub.player_using))
+				{
 					self.stub.player_using = player;
+				}
 
 				if (player == self.stub.player_using)
+				{
 					self.stub ent_flag_clear("waiting_for_grab");
+				}
 			}
 
 			wait 0.05;

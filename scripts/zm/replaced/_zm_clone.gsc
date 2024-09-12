@@ -8,11 +8,17 @@ spawn_player_clone(player, origin = player.origin, forceweapon, forcemodel)
 	primaryweapons = player getweaponslistprimaries();
 
 	if (isdefined(forceweapon))
+	{
 		weapon = forceweapon;
+	}
 	else if (primaryweapons.size)
+	{
 		weapon = primaryweapons[0];
+	}
 	else
+	{
 		weapon = player getcurrentweapon();
+	}
 
 	weaponmodel = getweaponmodel(weapon);
 	spawner = getent("fake_player_spawner", "targetname");
@@ -35,7 +41,9 @@ spawn_player_clone(player, origin = player.origin, forceweapon, forcemodel)
 	}
 
 	if (isdefined(forcemodel))
+	{
 		clone setmodel(forcemodel);
+	}
 	else
 	{
 		clone setmodel(self.model);
@@ -48,7 +56,9 @@ spawn_player_clone(player, origin = player.origin, forceweapon, forcemodel)
 	}
 
 	if (weaponmodel != "" && weaponmodel != "none")
+	{
 		clone attach(weaponmodel, "tag_weapon_right");
+	}
 
 	clone.team = player.team;
 	clone.is_inert = 1;

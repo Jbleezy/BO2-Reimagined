@@ -17,7 +17,9 @@ one_inch_punch_melee_attack()
 	self endon("stop_one_inch_punch_attack");
 
 	if (!(isdefined(self.one_inch_punch_flag_has_been_init) && self.one_inch_punch_flag_has_been_init))
+	{
 		self ent_flag_init("melee_punch_cooldown");
+	}
 
 	self.one_inch_punch_flag_has_been_init = 1;
 
@@ -90,7 +92,9 @@ monitor_melee_swipe()
 	while (true)
 	{
 		while (!self ismeleeing())
+		{
 			wait 0.05;
+		}
 
 		if (self getcurrentweapon() == level.riotshield_name)
 		{
@@ -119,7 +123,9 @@ monitor_melee_swipe()
 		}
 
 		while (self ismeleeing())
+		{
 			wait 0.05;
+		}
 
 		wait 0.05;
 	}
@@ -133,9 +139,13 @@ zombie_punch_damage(ai_zombie, n_mod)
 	if (isdefined(n_mod))
 	{
 		if (isdefined(self.b_punch_upgraded) && self.b_punch_upgraded)
+		{
 			n_base_damage = 11275;
+		}
 		else
+		{
 			n_base_damage = 2250;
+		}
 
 		n_damage = int(n_base_damage * n_mod);
 
@@ -168,10 +178,14 @@ zombie_punch_damage(ai_zombie, n_mod)
 
 						case "lightning":
 							if (isdefined(ai_zombie.is_mechz) && ai_zombie.is_mechz)
+							{
 								return;
+							}
 
 							if (isdefined(ai_zombie.is_electrocuted) && ai_zombie.is_electrocuted)
+							{
 								return;
+							}
 
 							tag = "J_SpineUpper";
 							network_safe_play_fx_on_tag("lightning_impact", 2, level._effect["lightning_impact"], ai_zombie, tag);
@@ -227,12 +241,18 @@ is_player_facing(zombie, v_punch_yaw)
 	yaw_diff = v_player_to_zombie_yaw - v_punch_yaw;
 
 	if (yaw_diff < 0)
+	{
 		yaw_diff = yaw_diff * -1;
+	}
 
 	yaw_amount = 35;
 
 	if (yaw_diff < yaw_amount || yaw_diff > (360 - yaw_amount))
+	{
 		return true;
+	}
 	else
+	{
 		return false;
+	}
 }

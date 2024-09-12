@@ -12,7 +12,9 @@ sq_is_weapon_sniper(str_weapon)
 	foreach (str_sniper in a_snipers)
 	{
 		if (issubstr(str_weapon, str_sniper) && !issubstr(str_weapon, "+is"))
+		{
 			return true;
+		}
 	}
 
 	return false;

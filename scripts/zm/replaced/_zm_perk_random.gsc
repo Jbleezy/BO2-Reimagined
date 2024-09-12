@@ -25,7 +25,9 @@ machine_selector()
 		}
 
 		do
+		{
 			new_machine = machines[randomint(machines.size)];
+		}
 
 		while (new_machine == level.random_perk_start_machine);
 
@@ -42,13 +44,19 @@ trigger_visible_to_player(player)
 	if (isdefined(self.stub.trigger_target.machine_user))
 	{
 		if (player != self.stub.trigger_target.machine_user)
+		{
 			visible = 0;
+		}
 	}
 	else if (!player can_buy_perk())
+	{
 		visible = 0;
+	}
 
 	if (!visible)
+	{
 		return false;
+	}
 
 	self setvisibletoplayer(player);
 	return true;
@@ -57,18 +65,26 @@ trigger_visible_to_player(player)
 can_buy_perk()
 {
 	if (isdefined(self.is_drinking) && self.is_drinking > 0)
+	{
 		return false;
+	}
 
 	current_weapon = self getcurrentweapon();
 
 	if (is_equipment_that_blocks_purchase(current_weapon))
+	{
 		return false;
+	}
 
 	if (self in_revive_trigger())
+	{
 		return false;
+	}
 
 	if (current_weapon == "none")
+	{
 		return false;
+	}
 
 	return true;
 }
@@ -78,7 +94,9 @@ wunderfizzstub_update_prompt(player)
 	self setcursorhint("HINT_NOICON");
 
 	if (!self trigger_visible_to_player(player))
+	{
 		return false;
+	}
 
 	self.hint_parm1 = undefined;
 
@@ -107,7 +125,9 @@ wunderfizzstub_update_prompt(player)
 				}
 			}
 			else
+			{
 				return false;
+			}
 		}
 		else
 		{

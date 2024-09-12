@@ -45,29 +45,47 @@ start_alcatraz_sidequest()
 	flag_set("docks_gates_remain_open");
 
 	if (isdefined(level.gamedifficulty) && level.gamedifficulty != 0)
+	{
 		maps\mp\zm_prison_sq_final::final_flight_setup();
+	}
 
 	level thread warden_fence_hotjoin_handler();
 
 	if (isdefined(level.host_migration_listener_custom_func))
+	{
 		level thread [[level.host_migration_listener_custom_func]]();
+	}
 	else
+	{
 		level thread host_migration_listener();
+	}
 
 	if (isdefined(level.manage_electric_chairs_custom_func))
+	{
 		level thread [[level.manage_electric_chairs_custom_func]]();
+	}
 	else
+	{
 		level thread manage_electric_chairs();
+	}
 
 	if (isdefined(level.plane_flight_thread_custom_func))
+	{
 		level thread [[level.plane_flight_thread_custom_func]]();
+	}
 	else
+	{
 		level thread plane_flight_thread();
+	}
 
 	if (isdefined(level.track_quest_status_thread_custom_func))
+	{
 		level thread [[level.track_quest_status_thread_custom_func]]();
+	}
 	else
+	{
 		level thread track_quest_status_thread();
+	}
 
 	maps\mp\zm_alcatraz_sq_vo::opening_vo();
 }
@@ -79,7 +97,9 @@ dryer_zombies_thread()
 	flag_wait("dryer_cycle_active");
 
 	if (level.zombie_total < n_zombie_count_min)
+	{
 		level.zombie_total = n_zombie_count_min;
+	}
 
 	while (flag("dryer_cycle_active"))
 	{
@@ -106,10 +126,14 @@ track_quest_status_thread()
 	while (true)
 	{
 		while (level.characters_in_nml.size == 0)
+		{
 			wait 1;
+		}
 
 		while (level.characters_in_nml.size > 0)
+		{
 			wait 1;
+		}
 
 		if (flag("plane_trip_to_nml_successful"))
 		{
@@ -120,7 +144,9 @@ track_quest_status_thread()
 		level notify("bridge_empty");
 
 		if (level.n_quest_iteration_count == 2)
+		{
 			vo_play_four_part_conversation(level.four_part_convos["alcatraz_return_alt" + randomintrange(0, 2)]);
+		}
 
 		prep_for_new_quest();
 		t_plane_fly = getent("plane_fly_trigger", "targetname");
@@ -167,7 +193,9 @@ plane_boarding_thread()
 	a_nml_teleport_targets = [];
 
 	for (i = 1; i < 6; i++)
+	{
 		a_nml_teleport_targets[i - 1] = getstruct("nml_telepoint_" + i, "targetname");
+	}
 
 	level.characters_in_nml[level.characters_in_nml.size] = self.character_name;
 	self.on_a_plane = 1;
@@ -210,7 +238,9 @@ plane_boarding_thread()
 	foreach (player in players)
 	{
 		if (player != self)
+		{
 			player setinvisibletoplayer(self);
+		}
 	}
 
 	flag_wait("plane_crashed");
@@ -218,7 +248,9 @@ plane_boarding_thread()
 	self takeweapon("falling_hands_zm");
 
 	if (isdefined(str_current_weapon) && str_current_weapon != "none")
+	{
 		self switchtoweaponimmediate(str_current_weapon);
+	}
 
 	self thread fadetoblackforxsec(0, 2, 0, 0.5, "black");
 	self thread snddelayedmusic();
@@ -230,7 +262,9 @@ plane_boarding_thread()
 	foreach (player in players)
 	{
 		if (player != self)
+		{
 			player setvisibletoplayer(self);
+		}
 	}
 
 	flag_clear("spawn_zombies");
@@ -250,9 +284,13 @@ plane_boarding_thread()
 	self.on_a_plane = 0;
 
 	if (level.characters_in_nml.size == 1)
+	{
 		self thread vo_bridge_soliloquy();
+	}
 	else if (level.characters_in_nml.size == 4)
+	{
 		level thread vo_bridge_four_part_convo();
+	}
 
 	self playsoundtoplayer("zmb_ggb_swarm_start", self);
 	flag_set("spawn_zombies");
@@ -263,7 +301,9 @@ plane_boarding_thread()
 	foreach (player in players)
 	{
 		if (isdefined(player) && player.character_name == character_name)
+		{
 			player thread do_player_general_vox("quest", "zombie_arrive_gg", undefined, 100);
+		}
 	}
 }
 
@@ -280,7 +320,9 @@ plane_flight_thread()
 		level clientnotify("sndPB");
 
 		if (!(isdefined(level.music_override) && level.music_override))
+		{
 			t_plane_fly playloopsound("mus_event_plane_countdown_loop", 0.25);
+		}
 
 		for (i = 10; i > 0; i--)
 		{
@@ -348,9 +390,13 @@ plane_flight_thread()
 		if (!level.final_flight_activated)
 		{
 			if (isdefined(level.brutus_on_the_bridge_custom_func))
+			{
 				level thread [[level.brutus_on_the_bridge_custom_func]]();
+			}
 			else
+			{
 				level thread brutus_on_the_bridge();
+			}
 		}
 
 		flag_clear("plane_boarded");
@@ -376,9 +422,13 @@ manage_electric_chairs()
 			t_electric_chair = getent(str_trigger_targetname, "targetname");
 
 			if (isdefined(level.electric_chair_trigger_thread_custom_func))
+			{
 				t_electric_chair thread [[level.electric_chair_trigger_thread_custom_func]](i);
+			}
 			else
+			{
 				t_electric_chair thread electric_chair_trigger_thread(i);
+			}
 
 			t_electric_chair setcursorhint("HINT_NOICON");
 			t_electric_chair sethintstring(&"ZM_PRISON_ELECTRIC_CHAIR_ACTIVATE");

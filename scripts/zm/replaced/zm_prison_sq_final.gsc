@@ -69,7 +69,9 @@ stage_two()
 	play_sq_audio_log(0, audio_logs[0], 0);
 
 	for (i = 2; i <= 6; i++)
+	{
 		play_sq_audio_log(i, audio_logs[i], 1);
+	}
 
 	level.m_headphones delete();
 	t_plane_fly_afterlife = getent("plane_fly_afterlife_trigger", "script_noteworthy");
@@ -106,7 +108,9 @@ final_flight_trigger()
 				valid = self [[level.custom_plane_validation]](e_triggerer);
 
 				if (!valid)
+				{
 					continue;
+				}
 			}
 
 			players = getplayers();
@@ -116,14 +120,20 @@ final_flight_trigger()
 			foreach (player in players)
 			{
 				if (!isdefined(player) || player.sessionstate == "spectator" || player maps\mp\zombies\_zm_laststand::player_is_in_laststand())
+				{
 					b_everyone_is_ready = 0;
+				}
 			}
 
 			if (!b_everyone_is_ready)
+			{
 				continue;
+			}
 
 			if (flag("plane_is_away"))
+			{
 				continue;
+			}
 
 			flag_set("plane_is_away");
 			t_plane_fly trigger_off();
@@ -164,14 +174,18 @@ final_flight_player_thread()
 	a_nml_teleport_targets = [];
 
 	for (i = 1; i < 6; i++)
+	{
 		a_nml_teleport_targets[i - 1] = getstruct("nml_telepoint_" + i, "targetname");
+	}
 
 	self.n_passenger_index = level.final_flight_players.size;
 	a_players = [];
 	a_players = getplayers();
 
 	if (a_players.size == 1)
+	{
 		self.n_passenger_index = 1;
+	}
 
 	m_plane_craftable = getent("plane_craftable", "targetname");
 	m_plane_about_to_crash = getent("plane_about_to_crash", "targetname");
@@ -289,7 +303,9 @@ stage_final()
 		n_spawns_needed = 2;
 
 		for (i = n_spawns_needed; i > 0; i--)
+		{
 			maps\mp\zombies\_zm_ai_brutus::brutus_spawn_in_zone("zone_golden_gate_bridge", 1);
+		}
 
 		level thread final_battle_vo(p_weasel, a_player_team);
 		level notify("pop_goes_the_weasel_achieved");
@@ -297,9 +313,13 @@ stage_final()
 		level waittill("showdown_over");
 	}
 	else if (isdefined(p_weasel))
+	{
 		level.winner = "weasel";
+	}
 	else
+	{
 		level.winner = "team";
+	}
 
 	level clientnotify("sndSQF");
 	level.brutus_respawn_after_despawn = 0;
@@ -349,7 +369,9 @@ stage_final()
 	foreach (player in a_players)
 	{
 		if (isdefined(player.client_hint))
+		{
 			player thread destroy_tutorial_message();
+		}
 
 		if (isdefined(player.revivetrigger))
 		{
@@ -358,7 +380,9 @@ stage_final()
 		}
 
 		if (isdefined(player))
+		{
 			player ghost();
+		}
 	}
 
 	if (isdefined(p_weasel))
@@ -381,15 +405,21 @@ final_battle_vo(p_weasel, a_player_team)
 	arrayremovevalue(a_players, player);
 
 	if (a_players.size > 0)
+	{
 		player_2 = a_players[randomintrange(0, a_players.size)];
+	}
 
 	if (isdefined(player))
+	{
 		player final_battle_reveal();
+	}
 
 	wait 3;
 
 	if (isdefined(p_weasel))
+	{
 		p_weasel playsoundontag("vox_plr_3_end_scenario_0", "J_Head");
+	}
 
 	wait 1;
 
@@ -402,9 +432,13 @@ final_battle_vo(p_weasel, a_player_team)
 	wait 10;
 
 	if (isdefined(player_2))
+	{
 		player_2 playsoundontag("vox_plr_" + player_2.characterindex + "_end_scenario_1", "J_Head");
+	}
 	else if (isdefined(player))
+	{
 		player playsoundontag("vox_plr_" + player.characterindex + "_end_scenario_1", "J_Head");
+	}
 
 	wait 4;
 

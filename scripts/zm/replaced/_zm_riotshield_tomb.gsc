@@ -16,7 +16,9 @@ doriotshielddeploy(origin, angles)
 	self maps\mp\zombies\_zm_buildables::track_placed_buildables(level.riotshield_name);
 
 	if (isdefined(self.current_equipment) && self.current_equipment == level.riotshield_name)
+	{
 		self maps\mp\zombies\_zm_equipment::equipment_to_deployed(level.riotshield_name);
+	}
 
 	zoffset = level.riotshield_placement_zoffset;
 	shield_ent = self spawnriotshieldcover(origin + (0, 0, zoffset), angles);
@@ -26,7 +28,9 @@ doriotshielddeploy(origin, angles)
 	self maps\mp\zombies\_zm_weapons::switch_back_primary_weapon(self.riotshield_prev_wep);
 
 	if (isdefined(level.equipment_planted))
+	{
 		self [[level.equipment_planted]](shield_ent, level.riotshield_name, self);
+	}
 
 	if (isdefined(level.equipment_safe_to_drop))
 	{
@@ -88,10 +92,14 @@ trackriotshield()
 		if (newweapon == level.riotshield_name)
 		{
 			if (self.hasriotshieldequipped)
+			{
 				continue;
+			}
 
 			if (isdefined(self.riotshieldentity))
+			{
 				self notify("destroy_riotshield");
+			}
 
 			self.shield_placement = 1;
 			self updateriotshieldmodel();
@@ -102,7 +110,9 @@ trackriotshield()
 		}
 
 		if (self ismantling() && newweapon == "none")
+		{
 			continue;
+		}
 
 		if (self.hasriotshieldequipped)
 		{
@@ -114,11 +124,17 @@ trackriotshield()
 
 			}
 			else if (self.hasriotshield)
+			{
 				self.shield_placement = 2;
+			}
 			else if (isdefined(self.shield_ent))
+			{
 				assert(self.shield_placement == 3);
+			}
 			else
+			{
 				self.shield_placement = 0;
+			}
 
 			self updateriotshieldmodel();
 			self.hasriotshieldequipped = 0;

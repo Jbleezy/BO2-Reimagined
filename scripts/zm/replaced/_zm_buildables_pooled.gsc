@@ -6,7 +6,9 @@
 add_buildable_to_pool(stub, poolname)
 {
 	if (!isdefined(level.buildablepools))
+	{
 		level.buildablepools = [];
+	}
 
 	if (!isdefined(level.buildablepools[poolname]))
 	{
@@ -17,9 +19,13 @@ add_buildable_to_pool(stub, poolname)
 	level.buildablepools[poolname].stubs[level.buildablepools[poolname].stubs.size] = stub;
 
 	if (!isdefined(level.buildablepools[poolname].buildable_slot))
+	{
 		level.buildablepools[poolname].buildable_slot = stub.buildablestruct.buildable_slot;
+	}
 	else
+	{
 		assert(level.buildablepools[poolname].buildable_slot == stub.buildablestruct.buildable_slot);
+	}
 
 	stub.buildable_pool = level.buildablepools[poolname];
 	stub.original_prompt_and_visibility_func = stub.prompt_and_visibility_func;
@@ -33,15 +39,21 @@ reregister_unitrigger(unitrigger_stub, new_trigger_func)
 	static = 0;
 
 	if (isdefined(unitrigger_stub.in_zone))
+	{
 		static = 1;
+	}
 
 	unregister_unitrigger(unitrigger_stub);
 	unitrigger_stub.trigger_func = new_trigger_func;
 
 	if (static)
+	{
 		register_static_unitrigger(unitrigger_stub, new_trigger_func, 0);
+	}
 	else
+	{
 		register_unitrigger(unitrigger_stub, new_trigger_func);
+	}
 }
 
 randomize_pooled_buildables(poolname)
@@ -88,12 +100,16 @@ pooledbuildabletrigger_update_prompt(player)
 pooledbuildablestub_update_prompt(player, trigger)
 {
 	if (!self anystub_update_prompt(player))
+	{
 		return 0;
+	}
 
 	can_use = 1;
 
 	if (isdefined(self.custom_buildablestub_update_prompt) && !self [[self.custom_buildablestub_update_prompt]](player))
+	{
 		return 0;
+	}
 
 	self.cursor_hint = "HINT_NOICON";
 	self.cursor_hint_weapon = undefined;
@@ -135,12 +151,18 @@ pooledbuildablestub_update_prompt(player, trigger)
 		}
 
 		if (isdefined(level.zombie_buildables[self.equipname].hint))
+		{
 			self.hint_string = level.zombie_buildables[self.equipname].hint;
+		}
 		else
+		{
 			self.hint_string = "Missing buildable hint";
+		}
 	}
 	else
+	{
 		return trigger [[self.original_prompt_and_visibility_func]](player);
+	}
 
 	return 1;
 }
@@ -403,17 +425,23 @@ pooled_buildable_place_think()
 	self endon("kill_trigger");
 
 	if (isdefined(self.stub.built) && self.stub.built)
+	{
 		return scripts\zm\replaced\_zm_buildables::buildable_place_think();
+	}
 
 	while (!(isdefined(self.stub.built) && self.stub.built))
 	{
 		self waittill("trigger", player);
 
 		if (player != self.parent_player)
+		{
 			continue;
+		}
 
 		if (isdefined(player.screecher_weapon))
+		{
 			continue;
+		}
 
 		if (!is_player_valid(player))
 		{
@@ -434,7 +462,9 @@ pooled_buildable_place_think()
 			self sethintstring(self.stub.hint_string);
 
 			if (isdefined(self.stub.oncantuse))
+			{
 				self.stub [[self.stub.oncantuse]](player);
+			}
 
 			continue;
 		}
@@ -447,12 +477,16 @@ pooled_buildable_place_think()
 			self sethintstring(self.stub.hint_string);
 
 			if (isdefined(bind_to.oncantuse))
+			{
 				bind_to [[bind_to.oncantuse]](player);
+			}
 		}
 		else
 		{
 			if (isdefined(bind_to.onbeginuse))
+			{
 				self.stub [[bind_to.onbeginuse]](player);
+			}
 
 			result = self scripts\zm\replaced\_zm_buildables::buildable_use_hold_think(player, bind_to);
 			team = player.pers["team"];
@@ -460,17 +494,25 @@ pooled_buildable_place_think()
 			if (result)
 			{
 				if (isdefined(self.stub.bound_to_buildable) && self.stub.bound_to_buildable != bind_to)
+				{
 					result = 0;
+				}
 
 				if (isdefined(bind_to.bound_to_buildable) && self.stub != bind_to.bound_to_buildable)
+				{
 					result = 0;
+				}
 			}
 
 			if (isdefined(bind_to.onenduse))
+			{
 				self.stub [[bind_to.onenduse]](team, player, result);
+			}
 
 			if (!result)
+			{
 				continue;
+			}
 
 			if (bind_to != self.stub)
 			{
@@ -478,7 +520,9 @@ pooled_buildable_place_think()
 			}
 
 			if (isdefined(self.stub.onuse))
+			{
 				self.stub [[self.stub.onuse]](player);
+			}
 
 			prompt = player scripts\zm\replaced\_zm_buildables::player_build(self.stub.buildablezone);
 			self.stub.hint_string = self.stub.trigger_hintstring;
@@ -524,10 +568,14 @@ pooledbuildable_stub_for_equipname(equipname)
 	foreach (stub in self.stubs)
 	{
 		if (isdefined(stub.bound_to_buildable))
+		{
 			continue;
+		}
 
 		if (stub.equipname == equipname)
+		{
 			return stub;
+		}
 	}
 
 	return undefined;

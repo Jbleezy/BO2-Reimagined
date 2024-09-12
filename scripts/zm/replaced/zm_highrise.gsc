@@ -64,7 +64,9 @@ zclassic_preinit()
 	survival_init();
 
 	if (!(isdefined(level.banking_update_enabled) && level.banking_update_enabled))
+	{
 		return;
+	}
 
 	weapon_locker = spawnstruct();
 	weapon_locker.origin = (2107, 98, 1150);
@@ -97,7 +99,9 @@ is_magic_box_in_inverted_building()
 	for (i = 0; i < a_boxes_in_inverted_building.size; i++)
 	{
 		if (a_boxes_in_inverted_building[i] == str_location)
+		{
 			b_is_in_inverted_building = 1;
+		}
 	}
 
 	return b_is_in_inverted_building;

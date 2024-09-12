@@ -11,7 +11,9 @@
 init()
 {
 	if (!isdefined(level.betties_max_per_player))
+	{
 		level.betties_max_per_player = 20;
+	}
 
 	trigs = getentarray("betty_purchase", "targetname");
 
@@ -20,7 +22,9 @@ init()
 		model = getent(trigs[i].target, "targetname");
 
 		if (isdefined(model))
+		{
 			model hide();
+		}
 	}
 
 	array_thread(trigs, ::buy_betties);
@@ -41,10 +45,14 @@ buy_betties()
 	self endon("kill_trigger");
 
 	if (!isdefined(self.stub))
+	{
 		return;
+	}
 
 	if (isdefined(self.stub) && !isdefined(self.stub.betties_triggered))
+	{
 		self.stub.betties_triggered = 0;
+	}
 
 	self.betties_triggered = self.stub.betties_triggered;
 
@@ -53,7 +61,9 @@ buy_betties()
 		self waittill("trigger", who);
 
 		if (who in_revive_trigger())
+		{
 			continue;
+		}
 
 		if (who has_powerup_weapon())
 		{
@@ -79,27 +89,37 @@ buy_betties()
 					who thread maps\mp\zombies\_zm_audio::create_and_play_dialog("weapon_pickup", "grenade");
 
 					if (isdefined(self.stub))
+					{
 						self.betties_triggered = self.stub.betties_triggered;
+					}
 
 					if (self.betties_triggered == 0)
 					{
 						model = getent(self.target, "targetname");
 
 						if (isdefined(model))
+						{
 							model thread maps\mp\zombies\_zm_weapons::weapon_show(who);
+						}
 						else if (isdefined(self.clientfieldname))
+						{
 							level setclientfield(self.clientfieldname, 1);
+						}
 
 						self.betties_triggered = 1;
 
 						if (isdefined(self.stub))
+						{
 							self.stub.betties_triggered = 1;
+						}
 					}
 
 					trigs = getentarray("betty_purchase", "targetname");
 
 					for (i = 0; i < trigs.size; i++)
+					{
 						trigs[i] setinvisibletoplayer(who);
+					}
 				}
 			}
 			else
@@ -121,10 +141,14 @@ betty_unitrigger_update_prompt(player)
 betty_safe_to_plant()
 {
 	if (self.owner.betties.size >= level.betties_max_per_player)
+	{
 		return 0;
+	}
 
 	if (isdefined(level.betty_safe_to_plant))
+	{
 		return self [[level.betty_safe_to_plant]]();
+	}
 
 	return 1;
 }
@@ -155,7 +179,9 @@ betty_watch()
 			if (betty betty_safe_to_plant())
 			{
 				if (isdefined(level.betty_planted))
+				{
 					self thread [[level.betty_planted]](betty);
+				}
 
 				betty thread betty_detonation();
 				betty thread play_betty_effects();
@@ -163,7 +189,9 @@ betty_watch()
 				self maps\mp\zombies\_zm_stats::increment_player_stat("betties_planted");
 			}
 			else
+			{
 				betty thread betty_wait_and_detonate();
+			}
 
 			self thread betty_last_shot_switch(weapname);
 		}
@@ -209,7 +237,9 @@ betty_last_shot_switch(weapname)
 betty_setup()
 {
 	if (!isdefined(self.betties))
+	{
 		self.betties = [];
+	}
 
 	self thread betty_watch();
 	self giveweapon("bouncingbetty_zm");
@@ -229,7 +259,9 @@ on_spawn_retrieve_trigger(watcher, player)
 	self maps\mp\gametypes_zm\_weaponobjects::onspawnretrievableweaponobject(watcher, player);
 
 	if (isdefined(self.pickuptrigger))
+	{
 		self.pickuptrigger sethintlowpriority(0);
+	}
 }
 
 pickup_betties()
@@ -263,7 +295,9 @@ pickup_betties()
 	clip_max_ammo = weaponclipsize(self.name);
 
 	if (clip_ammo >= clip_max_ammo)
+	{
 		player notify("zmb_disable_betty_prompt");
+	}
 
 	player maps\mp\zombies\_zm_stats::increment_client_stat("betties_pickedup");
 	player maps\mp\zombies\_zm_stats::increment_player_stat("betties_pickedup");
@@ -285,7 +319,9 @@ pickup_betties_trigger_listener_enable(trigger, player)
 		player waittill_any("zmb_enable_betty_prompt", "spawned_player");
 
 		if (!isdefined(trigger))
+		{
 			return;
+		}
 
 		trigger trigger_on();
 		trigger linkto(self);
@@ -302,7 +338,9 @@ pickup_betties_trigger_listener_disable(trigger, player)
 		player waittill("zmb_disable_betty_prompt");
 
 		if (!isdefined(trigger))
+		{
 			return;
+		}
 
 		trigger unlink();
 		trigger trigger_off();
@@ -324,7 +362,9 @@ betty_detonation()
 	damagearea linkto(self);
 
 	if (is_true(self.isonbus))
+	{
 		damagearea setmovingplatformenabled(1);
+	}
 
 	self.damagearea = damagearea;
 	self thread delete_betties_on_death(self.owner, damagearea);
@@ -335,16 +375,24 @@ betty_detonation()
 		damagearea waittill("trigger", ent);
 
 		if (isdefined(self.owner) && ent == self.owner)
+		{
 			continue;
+		}
 
 		if (isdefined(ent.pers) && isdefined(ent.pers["team"]) && ent.pers["team"] == self.team)
+		{
 			continue;
+		}
 
 		if (isDefined(ent.pers) && isDefined(ent.pers["team"]) && ent.pers["team"] == getOtherTeam(self.team))
+		{
 			continue;
+		}
 
 		if (isdefined(ent.ignore_betty) && ent.ignore_betty)
+		{
 			continue;
+		}
 
 		if (ent damageconetrace(self.origin, self) > 0)
 		{
@@ -398,13 +446,17 @@ mineexplode()
 	vars["bettydamagemin"] = 50;
 
 	if (!isdefined(self) || !isdefined(self.owner))
+	{
 		return;
+	}
 
 	self playsound("fly_betty_explo");
 	wait 0.05;
 
 	if (!isdefined(self) || !isdefined(self.owner))
+	{
 		return;
+	}
 
 	self hide();
 	self radiusdamage(self.origin, vars["bettydamageradius"], vars["bettydamagemax"], vars["bettydamagemin"], self.owner, "MOD_EXPLOSIVE", "bouncingbetty_zm");
@@ -412,10 +464,14 @@ mineexplode()
 	wait 0.2;
 
 	if (!isdefined(self) || !isdefined(self.owner))
+	{
 		return;
+	}
 
 	if (isdefined(self.trigger))
+	{
 		self.trigger delete();
+	}
 
 	self delete();
 }
@@ -425,12 +481,16 @@ delete_betties_on_death(player, ent)
 	self waittill("death");
 
 	if (isdefined(player))
+	{
 		arrayremovevalue(player.betties, self);
+	}
 
 	wait 0.05;
 
 	if (isdefined(ent))
+	{
 		ent delete();
+	}
 }
 
 satchel_damage()
@@ -446,29 +506,43 @@ satchel_damage()
 		self waittill("damage", amount, attacker);
 
 		if (!isdefined(self))
+		{
 			return;
+		}
 
 		self.health = self.maxhealth;
 
 		if (!isplayer(attacker))
+		{
 			continue;
+		}
 
 		if (isdefined(self.owner) && attacker == self.owner)
+		{
 			continue;
+		}
 
 		if (isdefined(attacker.pers) && isdefined(attacker.pers["team"]) && attacker.pers["team"] != level.zombie_team)
+		{
 			continue;
+		}
 
 		break;
 	}
 
 	if (level.satchelexplodethisframe)
+	{
 		wait(0.1 + randomfloat(0.4));
+	}
 	else
+	{
 		wait 0.05;
+	}
 
 	if (!isdefined(self))
+	{
 		return;
+	}
 
 	level.satchelexplodethisframe = 1;
 	thread reset_satchel_explode_this_frame();
@@ -518,9 +592,13 @@ show_betty_hint(string)
 	self endon("disconnect");
 
 	if (string == "betty_purchased")
+	{
 		text = &"ZOMBIE_BETTY_HOWTO";
+	}
 	else
+	{
 		text = &"ZOMBIE_BETTY_ALREADY_PURCHASED";
+	}
 
 	show_equipment_hint_text(text);
 }

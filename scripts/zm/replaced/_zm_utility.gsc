@@ -36,7 +36,9 @@ give_start_weapon(switch_to_weapon)
 	self givestartammo(level.start_weapon);
 
 	if (isdefined(switch_to_weapon) && switch_to_weapon)
+	{
 		self switchtoweapon(level.start_weapon);
+	}
 }
 
 is_headshot(sweapon, shitloc, smeansofdeath)
@@ -62,7 +64,9 @@ shock_onpain()
 	self endon("stop_shock_onpain");
 
 	if (getdvar("blurpain") == "")
+	{
 		setdvar("blurpain", "on");
+	}
 
 	while (true)
 	{
@@ -71,13 +75,19 @@ shock_onpain()
 		self waittill("damage", damage, attacker, direction_vec, point, mod);
 
 		if (isdefined(level.shock_onpain) && !level.shock_onpain)
+		{
 			continue;
+		}
 
 		if (isdefined(self.shock_onpain) && !self.shock_onpain)
+		{
 			continue;
+		}
 
 		if (self.health < 1)
+		{
 			continue;
+		}
 
 		if (mod == "MOD_PROJECTILE" || mod == "MOD_PROJECTILE_SPLASH" || mod == "MOD_GRENADE_SPLASH" || mod == "MOD_GRENADE" || mod == "MOD_EXPLOSIVE")
 		{
@@ -104,20 +114,30 @@ shock_onpain()
 create_zombie_point_of_interest(attract_dist, num_attractors, added_poi_value, start_turned_on, initial_attract_func, arrival_attract_func, poi_team)
 {
 	if (!isdefined(added_poi_value))
+	{
 		self.added_poi_value = 0;
+	}
 	else
+	{
 		self.added_poi_value = added_poi_value;
+	}
 
 	if (!isdefined(start_turned_on))
+	{
 		start_turned_on = 1;
+	}
 
 	self.script_noteworthy = "zombie_poi";
 	self.poi_active = start_turned_on;
 
 	if (isdefined(attract_dist))
+	{
 		self.poi_radius = attract_dist * attract_dist;
+	}
 	else
+	{
 		self.poi_radius = undefined;
+	}
 
 	self.num_poi_attracts = num_attractors;
 	self.attract_to_origin = 1;
@@ -126,13 +146,19 @@ create_zombie_point_of_interest(attract_dist, num_attractors, added_poi_value, s
 	self.arrival_attract_func = undefined;
 
 	if (isdefined(poi_team))
+	{
 		self._team = poi_team;
+	}
 
 	if (isdefined(initial_attract_func))
+	{
 		self.initial_attract_func = initial_attract_func;
+	}
 
 	if (isdefined(arrival_attract_func))
+	{
 		self.arrival_attract_func = arrival_attract_func;
+	}
 
 	level notify("attractor_positions_generated");
 }
@@ -239,7 +265,9 @@ check_point_in_life_brush(origin)
 	life_brushes = getentarray("life_brush", "script_noteworthy");
 
 	if (!isdefined(life_brushes))
+	{
 		return false;
+	}
 
 	check_model = spawn("script_model", origin + vectorscale((0, 0, 1), 40.0));
 	valid_point = 0;
@@ -262,7 +290,9 @@ check_point_in_kill_brush(origin)
 	kill_brushes = getentarray("kill_brush", "script_noteworthy");
 
 	if (!isdefined(kill_brushes))
+	{
 		return false;
+	}
 
 	check_model = spawn("script_model", origin + vectorscale((0, 0, 1), 40.0));
 	valid_point = 0;
@@ -341,16 +371,24 @@ is_temporary_zombie_weapon(str_weapon)
 is_alt_weapon(weapname)
 {
 	if (getsubstr(weapname, 0, 3) == "gl_")
+	{
 		return true;
+	}
 
 	if (getsubstr(weapname, 0, 3) == "mk_")
+	{
 		return true;
+	}
 
 	if (getsubstr(weapname, 0, 3) == "sf_")
+	{
 		return true;
+	}
 
 	if (getsubstr(weapname, 0, 10) == "dualoptic_")
+	{
 		return true;
+	}
 
 	return false;
 }

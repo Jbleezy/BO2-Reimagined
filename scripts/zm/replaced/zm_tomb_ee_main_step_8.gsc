@@ -24,7 +24,9 @@ stage_logic()
 	foreach (player in get_players())
 	{
 		if (player is_player_in_chamber())
+		{
 			player thread fadetoblackforxsec(0, 0.3, 0.5, 0.5, "white");
+		}
 	}
 
 	a_zombies = getaispeciesarray(level.zombie_team, "all");

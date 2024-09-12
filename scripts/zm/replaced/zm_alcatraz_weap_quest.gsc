@@ -26,7 +26,9 @@ grief_soul_catcher_state_manager()
 		self waittill("first_zombie_killed_in_zone");
 
 		if (isdefined(level.soul_catcher_clip[self.script_noteworthy]))
+		{
 			level.soul_catcher_clip[self.script_noteworthy] setvisibletoall();
+		}
 
 		level setclientfield(self.script_parameters, 1);
 		anim_length = getanimlength(%o_zombie_dreamcatcher_intro);
@@ -43,7 +45,9 @@ grief_soul_catcher_state_manager()
 		wait(anim_length);
 
 		if (isdefined(level.soul_catcher_clip[self.script_noteworthy]))
+		{
 			level.soul_catcher_clip[self.script_noteworthy] delete();
+		}
 
 		self.souls_received = 0;
 		level thread wolf_spit_out_powerup();
@@ -64,7 +68,9 @@ grief_soul_catcher_state_manager()
 wolf_spit_out_powerup()
 {
 	if (!(isdefined(level.enable_magic) && level.enable_magic))
+	{
 		return;
+	}
 
 	power_origin_structs = getstructarray("wolf_puke_powerup_origin", "targetname");
 	power_origin_struct = undefined;
@@ -101,7 +107,9 @@ wolf_spit_out_powerup()
 	power_ups = get_array_of_closest(power_origin_struct.origin, level.active_powerups, undefined, undefined, 100);
 
 	if (isdefined(power_ups[0]))
+	{
 		power_ups[0] movez(120, 4);
+	}
 }
 
 hellhole_projectile_watch()
@@ -113,6 +121,8 @@ hellhole_projectile_watch()
 		self waittill("grenade_fire", grenade, weapname);
 
 		if (is_lethal_grenade(weapname))
+		{
 			self thread hellhole_grenades(grenade);
+		}
 	}
 }

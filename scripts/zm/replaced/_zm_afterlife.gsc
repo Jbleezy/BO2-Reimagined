@@ -33,9 +33,13 @@ init()
 	maps\mp\_visionset_mgr::vsmgr_register_info("overlay", "zm_afterlife_filter", 9000, 120, 1, 1);
 
 	if (isdefined(level.afterlife_player_damage_override))
+	{
 		maps\mp\zombies\_zm::register_player_damage_callback(level.afterlife_player_damage_override);
+	}
 	else
+	{
 		maps\mp\zombies\_zm::register_player_damage_callback(::afterlife_player_damage_callback);
+	}
 
 	registerclientfield("toplayer", "player_lives", 9000, 2, "int");
 	registerclientfield("toplayer", "player_in_afterlife", 9000, 1, "int");
@@ -58,7 +62,9 @@ init()
 	a_afterlife_triggers = getstructarray("afterlife_trigger", "targetname");
 
 	foreach (struct in a_afterlife_triggers)
+	{
 		afterlife_trigger_create(struct);
+	}
 
 	level.afterlife_interact_dist = 256;
 	level.is_player_valid_override = ::is_player_valid_afterlife;
@@ -153,13 +159,17 @@ afterlife_laststand(b_electric_chair = 0)
 	b_has_electric_cherry = 0;
 
 	if (self hasperk("specialty_grenadepulldeath"))
+	{
 		b_has_electric_cherry = 1;
+	}
 
 	self [[level.afterlife_save_loadout]]();
 	self afterlife_fake_death();
 
 	if (isdefined(b_electric_chair) && !b_electric_chair)
+	{
 		wait 1;
+	}
 
 	if (isdefined(b_has_electric_cherry) && b_has_electric_cherry && (isdefined(b_electric_chair) && !b_electric_chair))
 	{
@@ -189,7 +199,9 @@ afterlife_laststand(b_electric_chair = 0)
 	self show();
 
 	if (!(isdefined(self.hostmigrationcontrolsfrozen) && self.hostmigrationcontrolsfrozen))
+	{
 		self freezecontrols(0);
+	}
 
 	self disableinvulnerability();
 
@@ -208,7 +220,9 @@ afterlife_laststand(b_electric_chair = 0)
 afterlife_spawn_corpse()
 {
 	if (isdefined(self.is_on_gondola) && self.is_on_gondola && level.e_gondola.destination == "roof")
+	{
 		corpse = maps\mp\zombies\_zm_clone::spawn_player_clone(self, self.origin, undefined);
+	}
 	else
 	{
 		trace_start = self.origin;
@@ -231,7 +245,9 @@ afterlife_spawn_corpse()
 	corpse.collision = collision;
 
 	if (get_players().size == 1)
+	{
 		corpse thread afterlife_corpse_create_pois();
+	}
 
 	return corpse;
 }
@@ -277,7 +293,9 @@ afterlife_fake_death()
 	if (self is_jumping())
 	{
 		while (self is_jumping())
+		{
 			wait 0.05;
+		}
 	}
 
 	playfx(level._effect["afterlife_enter"], self.origin);
@@ -397,13 +415,17 @@ afterlife_revive_do_revive(playerbeingrevived, revivergun)
 	}
 
 	if (!isdefined(self.revivetexthud))
+	{
 		self.revivetexthud = newclienthudelem(self);
+	}
 
 	self thread revive_clean_up_on_gameover();
 	self thread laststand_clean_up_on_disconnect(playerbeingrevived, revivergun);
 
 	if (!isdefined(self.is_reviving_any))
+	{
 		self.is_reviving_any = 0;
+	}
 
 	self.is_reviving_any++;
 	self thread laststand_clean_up_reviving_any(playerbeingrevived);
@@ -416,7 +438,9 @@ afterlife_revive_do_revive(playerbeingrevived, revivergun)
 	self.revivetexthud.y = -113;
 
 	if (self issplitscreen())
+	{
 		self.revivetexthud.y = -347;
+	}
 
 	self.revivetexthud.foreground = 1;
 	self.revivetexthud.font = "default";
@@ -426,7 +450,9 @@ afterlife_revive_do_revive(playerbeingrevived, revivergun)
 	self.revivetexthud.hidewheninmenu = 1;
 
 	if (self maps\mp\zombies\_zm_pers_upgrades_functions::pers_revive_active())
+	{
 		self.revivetexthud.color = (0.5, 0.5, 1.0);
+	}
 
 	self.revivetexthud settext(&"GAME_REVIVING");
 	self thread check_for_failed_revive(playerbeingrevived);
@@ -436,7 +462,9 @@ afterlife_revive_do_revive(playerbeingrevived, revivergun)
 	playfxontag(level._effect["afterlife_leave"], e_fx, "tag_origin");
 
 	if (isdefined(playloop) && playloop)
+	{
 		e_fx playloopsound("zmb_afterlife_reviving", 0.05);
+	}
 
 	while (self is_reviving_afterlife(playerbeingrevived))
 	{
@@ -444,10 +472,14 @@ afterlife_revive_do_revive(playerbeingrevived, revivergun)
 		timer += 0.05;
 
 		if (self player_is_in_laststand())
+		{
 			break;
+		}
 
 		if (isdefined(playerbeingrevived.revivetrigger.auto_revive) && playerbeingrevived.revivetrigger.auto_revive == 1)
+		{
 			break;
+		}
 
 		if (timer >= revivetime)
 		{
@@ -490,7 +522,9 @@ afterlife_revive_do_revive(playerbeingrevived, revivergun)
 	else if (!revived)
 	{
 		if (isplayer(playerbeingrevived))
+		{
 			playerbeingrevived stoprevive(self);
+		}
 	}
 
 	playerbeingrevived.revivetrigger sethintstring(&"GAME_BUTTON_TO_REVIVE_PLAYER");
@@ -499,7 +533,9 @@ afterlife_revive_do_revive(playerbeingrevived, revivergun)
 	self.is_reviving_any--;
 
 	if (!revived)
+	{
 		playerbeingrevived thread checkforbleedout(self);
+	}
 
 	return revived;
 }
@@ -539,9 +575,13 @@ afterlife_player_damage_callback(einflictor, eattacker, idamage, idflags, smeans
 		if (isdefined(eattacker.is_zombie) && eattacker.is_zombie)
 		{
 			if (isdefined(eattacker.custom_damage_func))
+			{
 				idamage = eattacker [[eattacker.custom_damage_func]](self);
+			}
 			else if (isdefined(eattacker.meleedamage) && smeansofdeath != "MOD_GRENADE_SPLASH")
+			{
 				idamage = eattacker.meleedamage;
+			}
 
 			if (isdefined(self.afterlife) && self.afterlife)
 			{
@@ -553,10 +593,14 @@ afterlife_player_damage_callback(einflictor, eattacker, idamage, idflags, smeans
 	}
 
 	if (isdefined(self.afterlife) && self.afterlife)
+	{
 		return 0;
+	}
 
 	if (self maps\mp\zombies\_zm_laststand::player_is_in_laststand())
+	{
 		return 0;
+	}
 
 	if (isdefined(eattacker) && (isdefined(eattacker.is_zombie) && eattacker.is_zombie || isplayer(eattacker)))
 	{
@@ -565,7 +609,9 @@ afterlife_player_damage_callback(einflictor, eattacker, idamage, idflags, smeans
 			item_dmg = 100;
 
 			if (isdefined(eattacker.custom_item_dmg))
+			{
 				item_dmg = eattacker.custom_item_dmg;
+			}
 
 			if (isdefined(self.hasriotshieldequipped) && self.hasriotshieldequipped)
 			{
@@ -611,7 +657,9 @@ afterlife_player_damage_callback(einflictor, eattacker, idamage, idflags, smeans
 		else
 		{
 			if (self hasperk("specialty_flakjacket"))
+			{
 				return 0;
+			}
 
 			if (sweapon == "willy_pete_zm")
 			{
@@ -619,7 +667,9 @@ afterlife_player_damage_callback(einflictor, eattacker, idamage, idflags, smeans
 			}
 
 			if (self.health > 75 && !(isdefined(self.is_zombie) && self.is_zombie))
+			{
 				idamage = 75;
+			}
 		}
 	}
 
@@ -635,7 +685,9 @@ afterlife_player_damage_callback(einflictor, eattacker, idamage, idflags, smeans
 			return 0;
 		}
 		else
+		{
 			self thread last_stand_conscience_vo();
+		}
 	}
 
 	return idamage;
@@ -672,13 +724,17 @@ afterlife_save_loadout()
 		}
 
 		if (weapon == currentweapon)
+		{
 			self.loadout.current_weapon = index;
+		}
 	}
 
 	self.loadout.equipment = self get_player_equipment();
 
 	if (isdefined(self.loadout.equipment))
+	{
 		self equipment_take(self.loadout.equipment);
+	}
 
 	if (self hasweapon("claymore_zm"))
 	{
@@ -701,9 +757,13 @@ afterlife_save_loadout()
 	lethal_grenade = self get_player_lethal_grenade();
 
 	if (self hasweapon(lethal_grenade))
+	{
 		self.loadout.grenade = self getweaponammoclip(lethal_grenade);
+	}
 	else
+	{
 		self.loadout.grenade = 0;
+	}
 
 	self.loadout.lethal_grenade = lethal_grenade;
 	self set_player_lethal_grenade(undefined);
@@ -718,16 +778,22 @@ afterlife_give_loadout()
 	if (loadout.weapons.size > 1 || primaries.size > 1)
 	{
 		foreach (weapon in primaries)
+		{
 			self takeweapon(weapon);
+		}
 	}
 
 	for (i = 0; i < loadout.weapons.size; i++)
 	{
 		if (!isdefined(loadout.weapons[i]))
+		{
 			continue;
+		}
 
 		if (loadout.weapons[i] == "none")
+		{
 			continue;
+		}
 
 		weapon = loadout.weapons[i];
 		stock_amount = loadout.stockcount[i];
@@ -804,13 +870,19 @@ afterlife_give_loadout()
 		for (i = 0; i < loadout.perks.size; i++)
 		{
 			if (self hasperk(loadout.perks[i]))
+			{
 				continue;
+			}
 
 			if (loadout.perks[i] == "specialty_quickrevive" && flag("solo_game"))
+			{
 				level.solo_game_free_player_quickrevive = 1;
+			}
 
 			if (loadout.perks[i] == "specialty_finalstand")
+			{
 				continue;
+			}
 
 			maps\mp\zombies\_zm_perks::give_perk(loadout.perks[i]);
 		}
@@ -824,9 +896,13 @@ afterlife_give_loadout()
 		curgrenadecount = 0;
 
 		if (self hasweapon(self get_player_lethal_grenade()))
+		{
 			self getweaponammoclip(self get_player_lethal_grenade());
+		}
 		else
+		{
 			self giveweapon(self get_player_lethal_grenade());
+		}
 
 		self setweaponammoclip(self get_player_lethal_grenade(), loadout.grenade + curgrenadecount);
 	}

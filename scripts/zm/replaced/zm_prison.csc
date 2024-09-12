@@ -40,7 +40,9 @@ entityspawned_alcatraz(localclientnum)
 	}
 
 	if (self.type == "player")
+	{
 		self thread playerspawned(localclientnum);
+	}
 
 	if (self.type == "missile")
 	{

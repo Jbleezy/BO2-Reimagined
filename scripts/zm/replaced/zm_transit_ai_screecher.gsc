@@ -59,7 +59,9 @@ player_wait_land()
 	self endon("disconnect");
 
 	while (!self isonground())
+	{
 		wait 0.1;
+	}
 
 	if (level.portals.size > 0)
 	{

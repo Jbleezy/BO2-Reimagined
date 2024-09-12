@@ -86,7 +86,9 @@ prepare_chalk_weapon_list()
 	foreach (model in level.buildable_wallbuy_weapon_models)
 	{
 		if (isdefined(model))
+		{
 			precachemodel(model);
+		}
 	}
 }
 
@@ -117,22 +119,34 @@ init_buildables(buildablesenabledlist)
 	}
 
 	if (isinarray(buildablesenabledlist, "sq_common"))
+	{
 		add_zombie_buildable("sq_common", level.str_buildables_build, level.str_buildables_building);
+	}
 
 	if (isinarray(buildablesenabledlist, "buried_sq_tpo_switch"))
+	{
 		add_zombie_buildable("buried_sq_tpo_switch", level.str_buildables_build, level.str_buildables_building);
+	}
 
 	if (isinarray(buildablesenabledlist, "buried_sq_ghost_lamp"))
+	{
 		add_zombie_buildable("buried_sq_ghost_lamp", level.str_buildables_build, level.str_buildables_building);
+	}
 
 	if (isinarray(buildablesenabledlist, "buried_sq_bt_m_tower"))
+	{
 		add_zombie_buildable("buried_sq_bt_m_tower", &"ZM_BURIED_BUILD_MTOWER", level.str_buildables_building);
+	}
 
 	if (isinarray(buildablesenabledlist, "buried_sq_bt_r_tower"))
+	{
 		add_zombie_buildable("buried_sq_bt_r_tower", &"ZM_BURIED_BUILD_RTOWER", level.str_buildables_building);
+	}
 
 	if (isinarray(buildablesenabledlist, "buried_sq_oillamp"))
+	{
 		add_zombie_buildable("buried_sq_oillamp", level.str_buildables_build, level.str_buildables_building, &"NULL_EMPTY");
+	}
 
 	if (isinarray(buildablesenabledlist, "turbine"))
 	{
@@ -177,7 +191,9 @@ init_buildables(buildablesenabledlist)
 	}
 
 	if (isinarray(buildablesenabledlist, "sloth"))
+	{
 		add_zombie_buildable("sloth", &"ZM_BURIED_BOOZE_GV", level.str_buildables_building, &"NULL_EMPTY");
+	}
 
 	if (isinarray(buildablesenabledlist, "keys_zm"))
 	{

@@ -18,10 +18,14 @@ watch_overheat()
 			self.jetgun_heatval = heat;
 
 			if (overheating)
+			{
 				self notify("jetgun_overheated");
+			}
 
 			if (heat > 75)
+			{
 				self thread play_overheat_fx();
+			}
 		}
 
 		wait 0.05;
@@ -53,9 +57,13 @@ jetgun_firing()
 		view_angles = self gettagangles("tag_flash");
 
 		if (self get_jetgun_engine_direction() < 0)
+		{
 			playfx(level._effect["jetgun_smoke_cloud"], view_pos - self getplayerviewheight(), anglestoforward(view_angles), anglestoup(view_angles));
+		}
 		else
+		{
 			playfx(level._effect["jetgun_smoke_cloud"], view_pos - self getplayerviewheight(), anglestoforward(view_angles) * -1, anglestoup(view_angles));
+		}
 
 		wait 0.25;
 	}

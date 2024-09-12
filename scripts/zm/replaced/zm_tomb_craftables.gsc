@@ -314,12 +314,16 @@ setup_quadrotor_purchase(player)
 	if (self.stub.weaponname == "equip_dieseldrone_zm")
 	{
 		if (players_has_weapon("equip_dieseldrone_zm"))
+		{
 			return true;
+		}
 
 		quadrotor = getentarray("quadrotor_ai", "targetname");
 
 		if (quadrotor.size >= 1)
+		{
 			return true;
+		}
 
 		player maps\mp\zombies\_zm_score::minus_to_player_score(self.stub.cost);
 		self play_sound_on_ent("purchase");
@@ -330,9 +334,13 @@ setup_quadrotor_purchase(player)
 		player playsoundtoplayer("zmb_buildable_pickup_complete", player);
 
 		if (isdefined(self.stub.craftablestub.use_actionslot))
+		{
 			player setactionslot(self.stub.craftablestub.use_actionslot, "weapon", "equip_dieseldrone_zm");
+		}
 		else
+		{
 			player setactionslot(2, "weapon", "equip_dieseldrone_zm");
+		}
 
 		player notify("equip_dieseldrone_zm_given");
 		level thread quadrotor_watcher(player);
@@ -360,7 +368,9 @@ quadrotor_watcher(player)
 	level.maxis_quadrotor = undefined;
 
 	if (flag("ee_quadrotor_disabled"))
+	{
 		flag_waitopen("ee_quadrotor_disabled");
+	}
 
 	quadrotor_set_available();
 }
@@ -439,9 +449,13 @@ tomb_check_crafted_weapon_persistence(player)
 	if (self.stub.equipname == "equip_dieseldrone_zm")
 	{
 		if (level.quadrotor_status.picked_up)
+		{
 			return true;
+		}
 		else if (level.quadrotor_status.crafted)
+		{
 			return false;
+		}
 	}
 	else if (self.stub.weaponname == "staff_air_zm" || self.stub.weaponname == "staff_fire_zm" || self.stub.weaponname == "staff_lightning_zm" || self.stub.weaponname == "staff_water_zm")
 	{
@@ -472,9 +486,13 @@ tomb_check_crafted_weapon_persistence(player)
 			}
 
 			if (isdefined(level.zombie_craftablestubs[self.stub.equipname].str_taken))
+			{
 				self.stub.hint_string = level.zombie_craftablestubs[self.stub.equipname].str_taken;
+			}
 			else
+			{
 				self.stub.hint_string = "";
+			}
 
 			self sethintstring(self.stub.hint_string);
 			player track_craftables_pickedup(self.stub.craftablespawn);
@@ -503,14 +521,20 @@ tomb_custom_craftable_validation(player)
 		level.quadrotor_status.pickup_trig = self.stub;
 
 		if (level.quadrotor_status.crafted)
+		{
 			return !level.quadrotor_status.picked_up && !flag("quadrotor_cooling_down");
+		}
 	}
 
 	if (!issubstr(self.stub.weaponname, "staff"))
+	{
 		return 1;
+	}
 
 	if (!(isdefined(level.craftables_crafted[self.stub.equipname]) && level.craftables_crafted[self.stub.equipname]))
+	{
 		return 1;
+	}
 
 	if (!player scripts\zm\replaced\zm_tomb_main_quest::can_pickup_staff())
 	{
@@ -531,7 +555,9 @@ tomb_custom_craftable_validation(player)
 	foreach (weapon in weapons)
 	{
 		if (issubstr(weapon, "staff") && weapon != s_elemental_staff.weapname)
+		{
 			player takeweapon(weapon);
+		}
 	}
 
 	return 1;
@@ -562,14 +588,18 @@ track_staff_weapon_respawn(player)
 	s_upgraded_staff = s_elemental_staff.upgrade;
 
 	if (!isdefined(self.base_weaponname))
+	{
 		self.base_weaponname = s_elemental_staff.weapname;
+	}
 
 	flag_clear(self.base_weaponname + "_enabled");
 
 	for (has_weapon = 0; isalive(player); has_weapon = 0)
 	{
 		if (isdefined(s_elemental_staff.charger.is_inserted) && s_elemental_staff.charger.is_inserted || isdefined(s_upgraded_staff.charger.is_inserted) && s_upgraded_staff.charger.is_inserted || isdefined(s_upgraded_staff.ee_in_use) && s_upgraded_staff.ee_in_use)
+		{
 			has_weapon = 1;
+		}
 		else
 		{
 			weapons = player getweaponslistprimaries();
@@ -612,14 +642,18 @@ track_staff_weapon_respawn(player)
 						}
 
 						if (cur_weapon == weapon && !(isdefined(player.use_staff_melee) && player.use_staff_melee))
+						{
 							player update_staff_accessories(n_melee_element);
+						}
 					}
 				}
 			}
 		}
 
 		if (!has_weapon)
+		{
 			break;
+		}
 
 		wait 0.5;
 	}
@@ -634,7 +668,9 @@ track_staff_weapon_respawn(player)
 		foreach (weapon in weapons)
 		{
 			if (weapon == self.base_weaponname || weapon == s_upgraded_staff.weapname)
+			{
 				b_staff_in_use = 1;
+			}
 		}
 	}
 
@@ -668,7 +704,9 @@ onpickup_crystal(player, elementname, elementenum)
 	level setclientfield("gem_player" + n_player, elementenum);
 
 	if (flag("any_crystal_picked_up"))
+	{
 		self.piecestub.vox_id = undefined;
+	}
 
 	flag_set("any_crystal_picked_up");
 }
@@ -699,7 +737,9 @@ staff_fullycrafted(modelname, elementenum)
 		level.n_staffs_crafted++;
 
 		if (level.n_staffs_crafted == 4)
+		{
 			flag_set("ee_all_staffs_crafted");
+		}
 	}
 
 	player clear_player_crystal(elementenum);

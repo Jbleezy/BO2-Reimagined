@@ -11,7 +11,9 @@
 init()
 {
 	if (!maps\mp\zombies\_zm_weapons::is_weapon_included("slowgun_zm"))
+	{
 		return;
+	}
 
 	registerclientfield("actor", "slowgun_fx", 12000, 3, "int");
 	registerclientfield("actor", "anim_rate", 7000, 5, "float");
@@ -49,27 +51,39 @@ slowgun_on_zombie_spawned()
 zombie_paralyzed(player, upgraded)
 {
 	if (!can_be_paralyzed(self))
+	{
 		return;
+	}
 
 	insta = player maps\mp\zombies\_zm_powerups::is_insta_kill_active();
 
 	if (upgraded)
+	{
 		self setclientfield("slowgun_fx", 5);
+	}
 	else
+	{
 		self setclientfield("slowgun_fx", 1);
+	}
 
 	if (self.slowgun_anim_rate <= 0.1 || insta && self.slowgun_anim_rate <= 0.5)
 	{
 		if (upgraded)
+		{
 			damage = level.slowgun_damage_ug;
+		}
 		else
+		{
 			damage = level.slowgun_damage;
+		}
 
 		damage *= randomfloatrange(0.667, 1.5);
 		damage *= self.paralyzer_damaged_multiplier;
 
 		if (!isdefined(self.paralyzer_damage))
+		{
 			self.paralyzer_damage = 0;
+		}
 
 		// if ( self.paralyzer_damage > 47073 )
 		//	damage *= 47073 / self.paralyzer_damage;
@@ -77,16 +91,22 @@ zombie_paralyzed(player, upgraded)
 		self.paralyzer_damage += damage;
 
 		if (insta)
+		{
 			damage = self.health + 666;
+		}
 
 		if (isalive(self))
+		{
 			self dodamage(damage, player.origin, player, player, "none", level.slowgun_damage_mod, 0, "slowgun_zm");
+		}
 
 		self.paralyzer_damaged_multiplier *= 1.15;
 		self.paralyzer_damaged_multiplier = min(self.paralyzer_damaged_multiplier, 50);
 	}
 	else
+	{
 		self.paralyzer_damaged_multiplier = 1;
+	}
 
 	self zombie_slow_for_time(0.2);
 }

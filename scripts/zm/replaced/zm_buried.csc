@@ -52,14 +52,18 @@ start_zombie_stuff()
 	registerclientfield("allplayers", "phd_flopper_effects", 12000, 1, "int", ::buried_phd_flopper_effects, 0);
 
 	if (is_gametype_active("zclassic"))
+	{
 		clientscripts\mp\zombies\_zm_weap_time_bomb::init_time_bomb();
+	}
 
 	clientscripts\mp\zombies\_zm_weap_cymbal_monkey::init();
 	clientscripts\mp\zombies\_zm_weap_tazer_knuckles::init();
 	clientscripts\mp\zombies\_zm_weap_slowgun::init();
 
 	if (getdvar("createfx") != "")
+	{
 		return;
+	}
 
 	if (level.scr_zm_ui_gametype == "zclassic")
 	{

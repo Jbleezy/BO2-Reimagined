@@ -59,7 +59,9 @@ tomahawk_attack_zombies(m_tomahawk, a_zombies)
 	n_attack_limit = m_tomahawk.n_grenade_charge_power - 1;
 
 	if (a_zombies.size <= n_attack_limit)
+	{
 		n_attack_limit = a_zombies.size;
+	}
 
 	for (i = 0; i < n_attack_limit; i++)
 	{
@@ -68,7 +70,9 @@ tomahawk_attack_zombies(m_tomahawk, a_zombies)
 			tag = "J_Head";
 
 			if (a_zombies[i].isdog)
+			{
 				tag = "J_Spine1";
+			}
 
 			if (isdefined(a_zombies[i].hit_by_tomahawk) && !a_zombies[i].hit_by_tomahawk)
 			{
@@ -80,9 +84,13 @@ tomahawk_attack_zombies(m_tomahawk, a_zombies)
 				if (isdefined(a_zombies[i]) && isalive(a_zombies[i]))
 				{
 					if (self.current_tactical_grenade == "upgraded_tomahawk_zm")
+					{
 						playfxontag(level._effect["tomahawk_impact_ug"], a_zombies[i], tag);
+					}
 					else
+					{
 						playfxontag(level._effect["tomahawk_impact"], a_zombies[i], tag);
+					}
 
 					playfxontag(level._effect["tomahawk_fire_dot"], a_zombies[i], "j_spineupper");
 					a_zombies[i] setclientfield("play_tomahawk_hit_sound", 1);
@@ -125,7 +133,9 @@ tomahawk_return_player(m_tomahawk, num_zombie_hit = 5)
 		foreach (powerup in m_tomahawk.a_has_powerup)
 		{
 			if (isdefined(powerup))
+			{
 				powerup.origin = self.origin;
+			}
 		}
 	}
 

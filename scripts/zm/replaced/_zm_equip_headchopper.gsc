@@ -77,7 +77,9 @@ headchopperthink(weapon, electricradius, armed)
 	self thread headchopper_animate(weapon, armed);
 
 	while (!(isdefined(weapon.is_armed) && weapon.is_armed))
+	{
 		wait 0.5;
+	}
 
 	weapon.chop_targets = [];
 	self thread targeting_thread(weapon, trigger);
@@ -102,7 +104,9 @@ headchopperthink(weapon, electricradius, armed)
 				self headchopper_add_chop_ents(weapon, trigger);
 
 				foreach (ent in weapon.chop_targets)
+				{
 					self thread headchopperattack(weapon, ent);
+				}
 
 				weapon.chop_targets = [];
 				weapon waittill_any("slicing", "end");
@@ -114,7 +118,9 @@ headchopperthink(weapon, electricradius, armed)
 			weapon notify("slice_done");
 
 			while (!(isdefined(weapon.is_armed) && weapon.is_armed))
+			{
 				wait 0.05;
+			}
 
 			if (weapon.headchopper_kills >= 10)
 			{
@@ -123,7 +129,9 @@ headchopperthink(weapon, electricradius, armed)
 			}
 		}
 		else
+		{
 			wait 0.1;
+		}
 	}
 }
 
@@ -140,12 +148,16 @@ targeting_thread(weapon, trigger)
 		if (weapon.is_armed || isdefined(weapon.is_slicing) && weapon.is_slicing)
 		{
 			if (isdefined(weapon.is_slicing) && weapon.is_slicing)
+			{
 				weapon waittill("slice_done");
+			}
 
 			self headchopper_add_chop_ents(weapon, trigger);
 
 			if (!weapon.zombies_only)
+			{
 				weapon notify("hi_priority_target");
+			}
 		}
 
 		wait 0.05;
@@ -159,13 +171,19 @@ headchopper_add_chop_ents(weapon, trigger)
 	foreach (zombie in zombies)
 	{
 		if (!isdefined(zombie) || !isalive(zombie))
+		{
 			continue;
+		}
 
 		if (isdefined(zombie.ignore_headchopper) && zombie.ignore_headchopper)
+		{
 			continue;
+		}
 
 		if (zombie istouching(trigger))
+		{
 			weapon headchopper_add_chop_ent(zombie);
+		}
 	}
 
 	players = get_players();
@@ -203,7 +221,9 @@ headchopperattack(weapon, ent)
 	weapon endon("death");
 
 	if (!isdefined(ent) || !isalive(ent))
+	{
 		return;
+	}
 
 	eye_position = ent geteye();
 	head_position = eye_position[2] + 13;
@@ -216,17 +236,25 @@ headchopperattack(weapon, ent)
 	trace_point = undefined;
 
 	if (isdefined(is_headchop) && is_headchop)
+	{
 		trace_point = eye_position;
+	}
 	else if (isdefined(is_torsochop) && is_torsochop)
+	{
 		trace_point = ent.origin + (0, 0, length_head_to_toe_25_percent * 2);
+	}
 	else
+	{
 		trace_point = ent.origin + (0, 0, length_head_to_toe_25_percent);
+	}
 
 	fwdangles = anglestoup(weapon.angles);
 	tracefwd = bullettrace(weapon.origin + fwdangles * 5, trace_point, 0, weapon, 1, 1);
 
 	if (!isdefined(tracefwd) || !isdefined(tracefwd["position"]) || tracefwd["position"] != trace_point)
+	{
 		return;
+	}
 
 	if (isplayer(ent))
 	{
@@ -246,7 +274,9 @@ headchopperattack(weapon, ent)
 			headchop_height = 25;
 
 			if (!(isdefined(ent.has_legs) && ent.has_legs))
+			{
 				headchop_height = 35;
+			}
 
 			is_headchop = abs(eye_position[2] - weapon.origin[2]) <= headchop_height;
 		}
@@ -254,7 +284,9 @@ headchopperattack(weapon, ent)
 		if (isdefined(is_headchop) && is_headchop)
 		{
 			if (!(isdefined(ent.no_gib) && ent.no_gib))
+			{
 				ent maps\mp\zombies\_zm_spawner::zombie_head_gib();
+			}
 
 			ent dodamage(ent.health + 666, weapon.origin);
 			ent.headchopper_last_damage_time = gettime();
@@ -286,7 +318,9 @@ headchopperattack(weapon, ent)
 				ent thread maps\mp\animscripts\zm_run::needsdelayedupdate();
 
 				if (isdefined(ent.crawl_anim_override))
+				{
 					ent [[ent.crawl_anim_override]]();
+				}
 			}
 
 			if (ent.health <= 10)
@@ -352,7 +386,9 @@ equipment_onspawnretrievableweaponobject(watcher, player)
 	equipment = watcher.name + "_zm";
 
 	if (isdefined(player.current_equipment) && player.current_equipment == equipment)
+	{
 		player equipment_to_deployed(equipment);
+	}
 
 	if (isdefined(level.zombie_equipment[equipment].place_fn))
 	{
@@ -384,11 +420,15 @@ equipment_onspawnretrievableweaponobject(watcher, player)
 		else if (isdefined(level.check_force_deploy_z))
 		{
 			if (player [[level.check_force_deploy_z]](self, plant_origin, plant_angles))
+			{
 				plant_origin = (plant_origin[0], plant_origin[1], player.origin[2] + 10);
+			}
 		}
 
 		if (isdefined(iswallmount) && iswallmount)
+		{
 			self ghost();
+		}
 
 		replacement = player [[level.zombie_equipment[equipment].place_fn]](plant_origin, plant_angles);
 
@@ -400,12 +440,16 @@ equipment_onspawnretrievableweaponobject(watcher, player)
 			player notify("equipment_placed", replacement, self.name);
 
 			if (isdefined(level.equipment_planted))
+			{
 				player [[level.equipment_planted]](replacement, equipment, self.plant_parent);
+			}
 
 			player maps\mp\zombies\_zm_buildables::track_buildables_planted(self);
 		}
 
 		if (isdefined(self))
+		{
 			self delete();
+		}
 	}
 }

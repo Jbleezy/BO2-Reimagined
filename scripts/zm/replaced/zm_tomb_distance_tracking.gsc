@@ -12,16 +12,22 @@ delete_zombie_noone_looking(how_close, how_high)
 	self endon("death");
 
 	if (!isdefined(how_close))
+	{
 		how_close = 1500;
+	}
 
 	if (!isdefined(how_high))
+	{
 		how_high = 600;
+	}
 
 	distance_squared_check = how_close * how_close;
 	too_far_dist = distance_squared_check * 3;
 
 	if (isdefined(level.zombie_tracking_too_far_dist))
+	{
 		too_far_dist = level.zombie_tracking_too_far_dist * level.zombie_tracking_too_far_dist;
+	}
 
 	self.inview = 0;
 	self.player_close = 0;
@@ -32,48 +38,66 @@ delete_zombie_noone_looking(how_close, how_high)
 	for (i = 0; i < players.size; i++)
 	{
 		if (players[i].sessionstate == "spectator")
+		{
 			continue;
+		}
 
 		if (isdefined(level.only_track_targeted_players))
 		{
 			if (!isdefined(self.favoriteenemy) || self.favoriteenemy != players[i])
+			{
 				continue;
+			}
 		}
 
 		can_be_seen = self player_can_see_me(players[i]);
 
 		if (can_be_seen && distancesquared(self.origin, players[i].origin) < too_far_dist)
+		{
 			self.inview++;
+		}
 
 		n_modifier = 1.0;
 
 		if (isdefined(players[i].b_in_tunnels) && players[i].b_in_tunnels)
+		{
 			n_modifier = 2.25;
+		}
 
 		n_distance_squared = distancesquared(self.origin, players[i].origin);
 		n_height_difference = abs(self.origin[2] - players[i].origin[2]);
 
 		if (n_distance_squared < distance_squared_check * n_modifier && n_height_difference < how_high)
+		{
 			self.player_close++;
+		}
 	}
 
 	if (self.inview == 0 && self.player_close == 0)
 	{
 		if (!isdefined(self.animname) || self.animname != "zombie" && self.animname != "mechz_zombie")
+		{
 			return;
+		}
 
 		if (isdefined(self.electrified) && self.electrified == 1)
+		{
 			return;
+		}
 
 		if (isdefined(self.in_the_ground) && self.in_the_ground == 1)
+		{
 			return;
+		}
 
 		if (!(isdefined(self.exclude_distance_cleanup_adding_to_total) && self.exclude_distance_cleanup_adding_to_total) && !(isdefined(self.isscreecher) && self.isscreecher))
 		{
 			level.zombie_total++;
 
 			if (self.health < level.zombie_health)
+			{
 				level.zombie_respawned_health[level.zombie_respawned_health.size] = self.health;
+			}
 		}
 
 		self maps\mp\zombies\_zm_spawner::reset_attack_spot();

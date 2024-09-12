@@ -48,7 +48,9 @@ watch_player_springpads(is_generator)
 	a_players = get_players();
 
 	foreach (player in a_players)
+	{
 		player thread pts_watch_springpad_use(is_generator);
+	}
 }
 
 springpad_count_watcher(is_generator)
@@ -57,7 +59,9 @@ springpad_count_watcher(is_generator)
 	str_which_spots = "pts_ghoul";
 
 	if (is_generator)
+	{
 		str_which_spots = "pts_lion";
+	}
 
 	a_spots = getstructarray(str_which_spots, "targetname");
 
@@ -70,7 +74,9 @@ springpad_count_watcher(is_generator)
 		foreach (s_spot in a_spots)
 		{
 			if (isdefined(s_spot.springpad))
+			{
 				n_count++;
+			}
 		}
 
 		level notify("sq_pts_springad_count" + n_count);
@@ -87,7 +93,9 @@ pts_watch_springpad_use(is_generator)
 		self waittill("equipment_placed", weapon, weapname);
 
 		if (weapname == level.springpad_name)
+		{
 			self thread is_springpad_in_place(weapon, is_generator);
+		}
 	}
 }
 
@@ -154,7 +162,9 @@ wait_for_zombies_launched()
 	s_tower_top = getstruct("sq_zombie_launch_target", "targetname");
 
 	while (level.n_launched_zombies < 15)
+	{
 		wait 0.5;
+	}
 }
 
 watch_zombie_flings()
@@ -173,7 +183,9 @@ watch_zombie_flings()
 			level.n_launched_zombies++;
 
 			if (level.n_launched_zombies == 1 || level.n_launched_zombies == 5 || level.n_launched_zombies == 10)
+			{
 				level notify("pts1_say_next_line");
+			}
 		}
 
 		wait 0.1;
@@ -197,7 +209,9 @@ wait_for_balls_launched()
 		player.a_place_ball_trigs = [];
 
 		if (isdefined(player.zm_sq_has_ball))
+		{
 			player thread player_set_down_ball_watcher();
+		}
 	}
 
 	while (true)
@@ -257,7 +271,9 @@ pts_putdown_trigs_create_for_spot(s_lion_spot, player)
 	player thread place_ball_think(t_place_ball, s_lion_spot);
 
 	if (!isdefined(s_lion_spot.pts_putdown_trigs))
+	{
 		s_lion_spot.pts_putdown_trigs = [];
+	}
 
 	s_lion_spot.pts_putdown_trigs[player.characterindex] = t_place_ball;
 	level thread pts_putdown_trigs_springpad_delete_watcher(player, s_lion_spot);
@@ -357,7 +373,9 @@ pts_springpad_anim_ball(m_anim, str_anim1, str_anim2)
 	self notify("fling", 1);
 
 	if (isdefined(m_anim))
+	{
 		m_anim setanim(level.scr_anim["fxanim_props"]["trample_gen_" + str_anim1]);
+	}
 
 	wait(n_anim_length1);
 }

@@ -136,5 +136,7 @@ setclientfield_quest_states_init()
 	}
 
 	for (i = 1; i <= 5; i++)
+	{
 		level setclientfield("quest_state" + i, 2);
+	}
 }

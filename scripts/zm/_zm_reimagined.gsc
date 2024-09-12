@@ -1395,7 +1395,9 @@ last_stand_restore_pistol_ammo(only_store_info = false)
 					self setweaponammoclip(weapon, self.stored_weapon_info[weapon].clip_amt);
 
 					if ("none" != dual_wield_name)
+					{
 						self set_weapon_ammo_clip_left(weapon, self.stored_weapon_info[weapon].left_clip_amt);
+					}
 
 					self setweaponammostock(weapon, self.stored_weapon_info[weapon].stock_amt);
 
@@ -1470,7 +1472,9 @@ last_stand_restore_pistol_ammo(only_store_info = false)
 				self setweaponammoclip(weapon, self.stored_weapon_info[weapon].clip_amt);
 
 				if ("none" != dual_wield_name)
+				{
 					self set_weapon_ammo_clip_left(weapon, self.stored_weapon_info[weapon].left_clip_amt);
+				}
 
 				self setweaponammostock(weapon, self.stored_weapon_info[weapon].stock_amt);
 

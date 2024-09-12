@@ -9,7 +9,9 @@ init()
 	level.brutus_spawners = getentarray("brutus_zombie_spawner", "script_noteworthy");
 
 	if (level.brutus_spawners.size == 0)
+	{
 		return;
+	}
 
 	array_thread(level.brutus_spawners, ::add_spawn_function, ::brutus_prespawn);
 
@@ -60,7 +62,9 @@ init()
 	level.brutus_in_grief = 0;
 
 	if (getdvar("ui_gametype") == "zgrief" || getdvar("ui_gametype") == "zstandard")
+	{
 		level.brutus_in_grief = 1;
+	}
 
 	level.brutus_shotgun_damage_mod = 1.5;
 	level.brutus_custom_goalradius = 48;
@@ -228,7 +232,9 @@ brutus_round_tracker()
 		players = get_players();
 
 		if (level.round_number < 9 && (isdefined(level.is_forever_solo_game) && level.is_forever_solo_game))
+		{
 			continue;
+		}
 		else if (level.next_brutus_round <= level.round_number)
 		{
 			if (maps\mp\zm_alcatraz_utility::is_team_on_golden_gate_bridge())
@@ -301,7 +307,9 @@ brutus_find_flesh()
 	level endon("intermission");
 
 	if (level.intermission)
+	{
 		return;
+	}
 
 	self.ai_state = "idle";
 	self.helitarget = 1;
@@ -339,17 +347,25 @@ brutus_find_flesh()
 		self.prev_zone = brutus_zone;
 
 		if (level.brutus_in_grief)
+		{
 			brutus_start_basic_find_flesh();
+		}
 		else if (!isdefined(player))
+		{
 			self.priority_item = self get_priority_item_for_brutus(brutus_zone, 1);
+		}
 		else
 		{
 			player_zone = player get_player_zone();
 
 			if (isdefined(player_zone))
+			{
 				self.priority_item = self get_priority_item_for_brutus(player_zone);
+			}
 			else
+			{
 				self.priority_item = self get_priority_item_for_brutus(brutus_zone, 1);
+			}
 		}
 
 		if (isdefined(player) && distancesquared(self.origin, player.origin) < level.brutus_aggro_dist_sq && isdefined(player_zone) && should_brutus_aggro(player_zone, brutus_zone))
@@ -390,12 +406,16 @@ get_brutus_spawn_pos_val(brutus_pos)
 	zone_name = brutus_pos.zone_name;
 
 	if (!maps\mp\zombies\_zm_zonemgr::zone_is_enabled(zone_name))
+	{
 		return 0;
+	}
 
 	a_players_in_zone = get_players_in_zone(zone_name, 1);
 
 	if (a_players_in_zone.size == 0)
+	{
 		return 0;
+	}
 	else
 	{
 		n_score_addition = 1;
@@ -410,7 +430,9 @@ get_brutus_spawn_pos_val(brutus_pos)
 		}
 
 		if (n_score_addition > level.brutus_players_in_zone_spawn_point_cap)
+		{
 			n_score_addition = level.brutus_players_in_zone_spawn_point_cap;
+		}
 
 		score += n_score_addition;
 	}
@@ -429,7 +451,9 @@ get_brutus_spawn_pos_val(brutus_pos)
 			for (j = 0; j < interact_points.size; j++)
 			{
 				if (interact_points[j][[interaction.validity_func]]())
+				{
 					score += interaction.spawn_bias;
+				}
 			}
 		}
 	}

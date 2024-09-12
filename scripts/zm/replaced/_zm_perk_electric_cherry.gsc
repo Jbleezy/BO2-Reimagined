@@ -28,7 +28,9 @@ electric_cherry_laststand()
 				a_zombies[i] thread electric_cherry_death_fx();
 
 				if (isdefined(self.cherry_kills))
+				{
 					self.cherry_kills++;
+				}
 
 				self maps\mp\zombies\_zm_score::add_to_player_score(40);
 

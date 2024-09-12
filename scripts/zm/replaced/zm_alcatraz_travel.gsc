@@ -40,15 +40,21 @@ move_gondola(b_suppress_doors_close = 0)
 	a_t_move = getentarray("gondola_move_trigger", "targetname");
 
 	foreach (trigger in a_t_move)
+	{
 		trigger sethintstring("");
+	}
 
 	a_t_call = getentarray("gondola_call_trigger", "targetname");
 
 	foreach (trigger in a_t_call)
+	{
 		trigger sethintstring(&"ZM_PRISON_GONDOLA_ACTIVE");
+	}
 
 	if (!(isdefined(b_suppress_doors_close) && b_suppress_doors_close))
+	{
 		e_gondola gondola_doors_move(e_gondola.location, -1);
+	}
 
 	level notify("gondola_moving");
 
@@ -66,7 +72,9 @@ move_gondola(b_suppress_doors_close = 0)
 		}
 
 		if (isdefined(player.e_afterlife_corpse) && player.e_afterlife_corpse istouching(t_ride))
+		{
 			player.e_afterlife_corpse thread link_corpses_to_gondola(e_gondola);
+		}
 	}
 
 	e_gondola thread create_gondola_poi();

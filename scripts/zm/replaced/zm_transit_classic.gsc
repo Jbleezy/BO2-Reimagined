@@ -30,13 +30,17 @@ inert_zombies_init()
 	inert_spawn_location = getstructarray("inert_location", "script_noteworthy");
 
 	if (isdefined(inert_spawn_location))
+	{
 		array_thread(inert_spawn_location, ::spawn_inert_zombies);
+	}
 }
 
 spawn_inert_zombies()
 {
 	if (!isdefined(self.angles))
+	{
 		self.angles = (0, 0, 0);
+	}
 
 	flag_wait("initial_players_connected");
 

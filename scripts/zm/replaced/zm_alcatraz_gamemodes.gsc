@@ -34,7 +34,9 @@ zstandard_preinit()
 	level.should_use_cia = 0;
 
 	if (randomint(100) > 50)
+	{
 		level.should_use_cia = 1;
+	}
 
 	level.givecustomloadout = maps\mp\zm_prison::givecustomloadout;
 	level.precachecustomcharacters = ::precache_team_characters;

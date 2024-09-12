@@ -56,7 +56,9 @@ sq_bp_start_puzzle_lights()
 	a_tags = [];
 
 	foreach (m_button in a_button_structs)
+	{
 		a_tags[a_tags.size] = m_button.script_string;
+	}
 
 	a_tags = array_randomize(a_tags);
 	m_lightboard = getent("sq_bp_board", "targetname");
@@ -72,7 +74,9 @@ sq_bp_start_puzzle_lights()
 	foreach (s_button in a_button_structs)
 	{
 		if (isdefined(s_button.trig))
+		{
 			s_button.trig delete();
+		}
 	}
 }
 
@@ -117,7 +121,9 @@ sq_ml_puzzle_logic()
 	a_levers = array_randomize(a_levers);
 
 	for (i = 0; i < a_levers.size; i++)
+	{
 		a_levers[i].n_lever_order = i;
+	}
 
 	while (true)
 	{
@@ -133,7 +139,9 @@ sq_ml_puzzle_logic()
 		}
 
 		if (n_correct == a_levers.size)
+		{
 			flag_set("sq_ip_puzzle_complete");
+		}
 
 		level waittill("zm_buried_maze_changed");
 

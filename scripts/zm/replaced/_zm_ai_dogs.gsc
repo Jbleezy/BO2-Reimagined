@@ -15,7 +15,9 @@ enable_dog_rounds()
 	level.dog_rounds_enabled = 1;
 
 	if (!isdefined(level.dog_round_track_override))
+	{
 		level.dog_round_track_override = ::dog_round_tracker;
+	}
 
 	level thread [[level.dog_round_track_override]]();
 }

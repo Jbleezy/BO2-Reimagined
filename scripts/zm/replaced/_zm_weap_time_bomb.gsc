@@ -44,7 +44,9 @@ init_time_bomb()
 	register_equipment_for_level("time_bomb_detonator_zm");
 
 	if (!isdefined(level.round_wait_func))
+	{
 		level.round_wait_func = ::time_bomb_round_wait;
+	}
 
 	level.zombie_round_change_custom = ::time_bomb_custom_round_change;
 	level._effect["time_bomb_set"] = loadfx("weapon/time_bomb/fx_time_bomb_detonate");
@@ -78,7 +80,9 @@ show_time_bomb_hints()
 	self endon("player_lost_time_bomb");
 
 	if (!isdefined(self.time_bomb_hints_shown))
+	{
 		self.time_bomb_hints_shown = 0;
+	}
 
 	if (!self.time_bomb_hints_shown)
 	{
@@ -136,7 +140,9 @@ swap_weapon_to_detonator(e_grenade)
 	self setactionslot(2, "weapon", "time_bomb_detonator_zm");
 
 	if (b_switch_to_weapon)
+	{
 		self switchtoweapon("time_bomb_detonator_zm");
+	}
 
 	self giveweapon("time_bomb_zm");
 }
@@ -169,12 +175,18 @@ detonator_think()
 detonate_time_bomb()
 {
 	if (isdefined(level.time_bomb_save_data.time_bomb_model) && isdefined(level.time_bomb_save_data.time_bomb_model.origin))
+	{
 		playsoundatposition("zmb_timebomb_3d_timer_end", level.time_bomb_save_data.time_bomb_model.origin);
+	}
 
 	if (time_bomb_save_exists())
+	{
 		time_bomb_detonation();
+	}
 	else
+	{
 		delete_time_bomb_model();
+	}
 }
 
 time_bomb_detonation()
@@ -197,7 +209,9 @@ time_bomb_detonation()
 	level setclientfield("time_bomb_lua_override", 0);
 
 	if (isdefined(level._time_bomb.functionality_override) && level._time_bomb.functionality_override)
+	{
 		return;
+	}
 
 	level notify("time_bomb_detonation_complete");
 }
@@ -273,7 +287,9 @@ _time_bomb_kill_all_active_enemies()
 			timebomb_wait_for_hostmigration();
 
 			if (isdefined(zombies[i]))
+			{
 				zombies[i] thread _kill_time_bomb_enemy();
+			}
 		}
 	}
 }
@@ -285,14 +301,18 @@ _kill_time_bomb_enemy()
 	playfx(level._effect["time_bomb_kills_enemy"], self.origin);
 
 	if (isdefined(self) && isdefined(self.anchor))
+	{
 		self.anchor delete();
+	}
 
 	wait_network_frame();
 
 	if (isdefined(self))
 	{
 		if (isdefined(self.script_mover))
+		{
 			self.script_mover delete();
+		}
 
 		self delete();
 	}

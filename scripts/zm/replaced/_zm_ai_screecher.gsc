@@ -15,7 +15,9 @@ screecher_spawning_logic()
 	level endon("intermission");
 
 	if (level.intermission)
+	{
 		return;
+	}
 
 	if (level.screecher_spawners.size < 1)
 	{
@@ -25,13 +27,19 @@ screecher_spawning_logic()
 	while (true)
 	{
 		while (!isdefined(level.zombie_screecher_locations) || level.zombie_screecher_locations.size <= 0)
+		{
 			wait 0.1;
+		}
 
 		while (getdvarint("scr_screecher_ignore_player"))
+		{
 			wait 0.1;
+		}
 
 		if (!flag("spawn_zombies"))
+		{
 			flag_wait("spawn_zombies");
+		}
 
 		valid_players_in_screecher_zone = 0;
 		valid_players = [];
@@ -54,7 +62,9 @@ screecher_spawning_logic()
 		}
 
 		if (!isdefined(level.zombie_screecher_locations) || level.zombie_screecher_locations.size <= 0)
+		{
 			continue;
+		}
 
 		valid_players = array_randomize(valid_players);
 
@@ -80,24 +90,32 @@ screecher_spawning_logic()
 			foreach (point in spawn_points)
 			{
 				if (point == level.last_spawn[0])
+				{
 					continue;
+				}
 
 				if (isdefined(level.last_spawn[1]) && point == level.last_spawn[1])
+				{
 					continue;
+				}
 
 				spawn_point = point;
 				level.last_spawn[level.last_spawn_index] = spawn_point;
 				level.last_spawn_index++;
 
 				if (level.last_spawn_index > 1)
+				{
 					level.last_spawn_index = 0;
+				}
 
 				break;
 			}
 		}
 
 		if (!isdefined(spawn_point))
+		{
 			spawn_point = spawn_points[0];
+		}
 
 		if (isdefined(level.screecher_spawners))
 		{
@@ -189,9 +207,13 @@ screecher_melee_damage(player)
 	self playsound("zmb_vocals_screecher_pain");
 
 	if (level.zombie_vars[player.team]["zombie_insta_kill"])
+	{
 		self.player_score = 30;
+	}
 	else
+	{
 		player thread do_player_general_vox("general", "screecher_cut");
+	}
 
 	self screecher_check_score();
 }
@@ -202,7 +224,9 @@ screecher_detach(player)
 	self.state = "detached";
 
 	if (!isdefined(self.linked_ent))
+	{
 		return;
+	}
 
 	if (isdefined(player))
 	{
@@ -216,16 +240,22 @@ screecher_detach(player)
 		player stoppoisoning();
 
 		if (!player maps\mp\zombies\_zm_laststand::player_is_in_laststand() && !(isdefined(player.intermission) && player.intermission))
+		{
 			player decrement_is_drinking();
+		}
 
 		if (isdefined(player.screecher_weapon) && player.screecher_weapon != "none" && is_player_valid(player) && !is_equipment_that_blocks_purchase(player.screecher_weapon))
+		{
 			player switchtoweapon(player.screecher_weapon);
+		}
 		else if (!player maps\mp\zombies\_zm_laststand::player_is_in_laststand())
 		{
 			primaryweapons = player getweaponslistprimaries();
 
 			if (isdefined(primaryweapons) && primaryweapons.size > 0)
+			{
 				player switchtoweapon(primaryweapons[0]);
+			}
 		}
 
 		player.screecher_weapon = undefined;
@@ -269,7 +299,9 @@ screecher_cleanup()
 	if (isdefined(attacker) && isplayer(attacker))
 	{
 		if (isdefined(self.damagelocation) && isdefined(self.damagemod))
+		{
 			level thread maps\mp\zombies\_zm_audio::player_zombie_kill_vox(self.damagelocation, attacker, self.damagemod, self);
+		}
 	}
 
 	if (isdefined(self.loopsoundent))
@@ -298,16 +330,22 @@ screecher_cleanup()
 			player stoppoisoning();
 
 			if (!player maps\mp\zombies\_zm_laststand::player_is_in_laststand() && !(isdefined(player.intermission) && player.intermission))
+			{
 				player decrement_is_drinking();
+			}
 
 			if (player.screecher_weapon != "none" && is_player_valid(player))
+			{
 				player switchtoweapon(player.screecher_weapon);
+			}
 			else
 			{
 				primaryweapons = player getweaponslistprimaries();
 
 				if (isdefined(primaryweapons) && primaryweapons.size > 0)
+				{
 					player switchtoweapon(primaryweapons[0]);
+				}
 			}
 
 			player.screecher_weapon = undefined;
@@ -315,13 +353,19 @@ screecher_cleanup()
 	}
 
 	if (isdefined(self.claw_fx))
+	{
 		self.claw_fx destroy();
+	}
 
 	if (isdefined(self.anchor))
+	{
 		self.anchor delete();
+	}
 
 	if (isdefined(level.screecher_cleanup))
+	{
 		self [[level.screecher_cleanup]]();
+	}
 
 	if (level.zombie_screecher_count > 0)
 	{

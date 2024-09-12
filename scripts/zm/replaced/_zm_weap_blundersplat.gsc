@@ -10,7 +10,9 @@
 init()
 {
 	if (!maps\mp\zombies\_zm_weapons::is_weapon_included("blundergat_zm"))
+	{
 		return;
+	}
 	else
 	{
 		precacheitem("blundersplat_bullet_zm");
@@ -170,9 +172,13 @@ _titus_reset_grenade_fuse(n_fuse_timer = randomfloatrange(1, 1.5), is_not_upgrad
 			e_grenade resetmissiledetonationtime(n_fuse_timer);
 
 			if (is_not_upgraded)
+			{
 				e_grenade create_zombie_point_of_interest(250, 5, 10000);
+			}
 			else
+			{
 				e_grenade create_zombie_point_of_interest(500, 10, 10000);
+			}
 
 			return;
 		}

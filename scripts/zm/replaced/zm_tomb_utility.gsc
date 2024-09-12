@@ -23,12 +23,16 @@ capture_zombie_spawn_init(animname_set = 0)
 	self.targetname = "capture_zombie_ai";
 
 	if (!animname_set)
+	{
 		self.animname = "zombie";
+	}
 
 	self.sndname = "capzomb";
 
 	if (isdefined(get_gamemode_var("pre_init_zombie_spawn_func")))
+	{
 		self [[get_gamemode_var("pre_init_zombie_spawn_func")]]();
+	}
 
 	self thread play_ambient_zombie_vocals();
 	self.zmb_vocals_attack = "zmb_vocals_capzomb_attack";
@@ -69,7 +73,9 @@ capture_zombie_spawn_init(animname_set = 0)
 			arrayremovevalue(level.zombie_respawned_health, level.zombie_respawned_health[0]);
 		}
 		else
+		{
 			self.health = level.zombie_health;
+		}
 	}
 	else
 	{
@@ -89,7 +95,9 @@ capture_zombie_spawn_init(animname_set = 0)
 	if (!isdefined(self.no_eye_glow) || !self.no_eye_glow)
 	{
 		if (!(isdefined(self.is_inert) && self.is_inert))
+		{
 			self thread delayed_zombie_eye_glow();
+		}
 	}
 
 	self.deathfunction = ::zombie_death_animscript;
@@ -102,7 +110,9 @@ capture_zombie_spawn_init(animname_set = 0)
 	self.team = level.zombie_team;
 
 	if (isdefined(get_gamemode_var("post_init_zombie_spawn_func")))
+	{
 		self [[get_gamemode_var("post_init_zombie_spawn_func")]]();
+	}
 
 	self.zombie_init_done = 1;
 	self notify("zombie_init_done");
@@ -121,7 +131,9 @@ update_staff_accessories(n_element_index)
 			staff_info = maps\mp\zm_tomb_craftables::get_staff_info_from_element_index(n_element_index);
 
 			if (staff_info.charger.is_charged)
+			{
 				staff_info = staff_info.upgrade;
+			}
 
 			if (isdefined(staff_info.melee))
 			{
@@ -169,7 +181,9 @@ update_staff_accessories(n_element_index)
 	foreach (str_weapon in a_weapons)
 	{
 		if (is_weapon_upgraded_staff(str_weapon))
+		{
 			has_upgraded_staff = 1;
+		}
 	}
 
 	if (has_revive && !has_upgraded_staff)
