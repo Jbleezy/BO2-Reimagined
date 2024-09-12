@@ -1140,6 +1140,7 @@
 
 ### Mob of the Dead
 * Replaced Remington 870 MCS wallbuy at Citadel with Semtex wallbuy
+* Added one-way teleporter at Docks
 * 1 afterlife max in solo
 * Entering afterlife no longer takes 2 additional seconds if the player had Electric Cherry
 * Spawn facing towards the afterlife player model when entering afterlife

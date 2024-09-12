@@ -98,6 +98,7 @@ init()
 	level thread maps\mp\_sticky_grenade::init();
 
 	level thread updatecraftables();
+	level thread docks_teleporter();
 	level thread grief_brutus_spawn_after_time();
 }
 
@@ -710,6 +711,28 @@ craftablestub_update_prompt(player, unitrigger)
 	}
 
 	return true;
+}
+
+docks_teleporter()
+{
+	flag_wait("initial_blackscreen_passed");
+
+	origin = (-262, 5677, -50);
+	angles = (0, 280, 0);
+
+	playfx(level._effect["hell_portal"], origin, anglestoforward(angles));
+
+	trig = spawn("trigger_radius", origin, 0, 16, 32);
+
+	while (1)
+	{
+		trig waittill("trigger", player);
+
+		height_diff = player.origin[2] - groundpos(player.origin)[2];
+
+		playsoundatposition("zmb_afterlife_zombie_warp_out", player.origin);
+		player setorigin((-265, 5699, 17 + height_diff));
+	}
 }
 
 grief_brutus_spawn_after_time()
