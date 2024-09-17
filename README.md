@@ -1198,7 +1198,7 @@
 
 #### Docks
 * Wallbuys: SMR, Ballista, MSMC, Uzi, M1927
-* Perks: Jugger-Nog
+* Perks: Jugger-Nog, Electric Cherry
 * Pack-a-Punch
 * Grief: Tower Trap targets and stuns players
 

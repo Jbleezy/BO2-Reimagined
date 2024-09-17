@@ -76,6 +76,14 @@ main()
 		precacheModel("p6_zm_al_shock_box_on");
 	}
 
+	if (!is_gametype_active("zclassic"))
+	{
+		level.zombiemode_using_electric_cherry_perk = 1;
+		maps\mp\zombies\_zm_perk_electric_cherry::enable_electric_cherry_perk_for_level();
+
+		level thread turn_on_electric_cherry();
+	}
+
 	door_changes();
 }
 
@@ -119,6 +127,15 @@ door_changes()
 			num++;
 		}
 	}
+}
+
+turn_on_electric_cherry()
+{
+	flag_wait("initial_blackscreen_passed");
+
+	wait 1;
+
+	level notify("electric_cherry_on");
 }
 
 zombie_init_done()

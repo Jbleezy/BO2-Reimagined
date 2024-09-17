@@ -15,4 +15,9 @@ main()
 		level.zombiemode_using_divetonuke_perk = 1;
 		clientscripts\mp\zombies\_zm_perk_divetonuke::enable_divetonuke_perk_for_level();
 	}
+
+	if (!is_gametype_active("zclassic"))
+	{
+		clientscripts\mp\zombies\_zm_perk_electric_cherry::enable_electric_cherry_perk_for_level();
+	}
 }
