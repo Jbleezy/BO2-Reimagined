@@ -102,7 +102,10 @@ electric_cherry_reload_attack()
 								self.cherry_kills++;
 							}
 
-							self maps\mp\zombies\_zm_score::add_to_player_score(40);
+							if (is_player_valid(self))
+							{
+								self maps\mp\zombies\_zm_score::add_to_player_score(40);
+							}
 						}
 						else
 						{
@@ -131,13 +134,13 @@ electric_cherry_laststand()
 
 	if (isdefined(self))
 	{
-		playfx(level._effect["electric_cherry_explode"], self.origin);
+		playfxontag(level._effect["electric_cherry_explode"], self, "tag_origin");
 		self playsound("zmb_cherry_explode");
 		self notify("electric_cherry_start");
 		wait 0.05;
 		a_zombies = get_round_enemy_array();
 		a_zombies = arraycombine(a_zombies, get_players(getotherteam(self.team)), 1, 0);
-		a_zombies = get_array_of_closest(self.origin, a_zombies, undefined, undefined, 500);
+		a_zombies = get_array_of_closest(self.origin, a_zombies, undefined, undefined, 256);
 
 		for (i = 0; i < a_zombies.size; i++)
 		{
@@ -152,7 +155,10 @@ electric_cherry_laststand()
 						self.cherry_kills++;
 					}
 
-					self maps\mp\zombies\_zm_score::add_to_player_score(40);
+					if (is_player_valid(self))
+					{
+						self maps\mp\zombies\_zm_score::add_to_player_score(40);
+					}
 				}
 
 				wait 0.1;

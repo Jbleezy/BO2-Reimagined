@@ -797,7 +797,10 @@
 
 ### Electric Cherry
 * Removed cooldown after being used multiple times in a row
-* Downing kills all zombies around the player
+* Last stand activation kills on any round
+* Decreased radius of last stand activation by 48.8%
+* No longer awards points when player is down
+* Fixed last stand activation fx playing incorrectly
 
 ### Vulture-Aid
 * Added ability to see zombies through walls
