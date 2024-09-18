@@ -440,6 +440,8 @@ on_player_spawned()
 
 			self thread weapon_locker_give_ammo_after_rounds();
 
+			self thread alt_weapon_name_hud();
+
 			self thread additionalprimaryweapon_indicator();
 			self thread additionalprimaryweapon_stowed_weapon_refill();
 
@@ -3149,6 +3151,31 @@ tombstone_give()
 			self maps\mp\zombies\_zm_perks::give_perk(self.tombstone_perks[i]);
 			i++;
 		}
+	}
+}
+
+alt_weapon_name_hud()
+{
+	self endon("disconnect");
+
+	while (1)
+	{
+		dvar_str = "";
+		primaries = self getweaponslistprimaries();
+
+		foreach (primary in primaries)
+		{
+			if (weaponaltweaponname(primary) == "none")
+			{
+				continue;
+			}
+
+			dvar_str += getweapondisplayname(primary) + ":" + getweapondisplayname(weaponaltweaponname(primary)) + ";";
+		}
+
+		self setClientDvar("weaponAltWeaponNames", dvar_str);
+
+		wait 0.05;
 	}
 }
 

@@ -179,6 +179,10 @@ CoD.InitCustomDvars = function()
 		Engine.SetDvar("ui_round_number", 0)
 	end
 
+	if UIExpression.DvarString(nil, "weaponAltWeaponNames") == "" then
+		Engine.SetDvar("weaponAltWeaponNames", "")
+	end
+
 	if UIExpression.DvarString(nil, "additionalPrimaryWeaponName") == "" then
 		Engine.SetDvar("additionalPrimaryWeaponName", "")
 	end

@@ -624,6 +624,12 @@ CoD.AmmoAreaZombie.UpdateAmmoVisibility = function(f11_arg0, f11_arg1)
 end
 
 CoD.AmmoAreaZombie.UpdateWeapon = function(f12_arg0, f12_arg1)
+	if f12_arg1.inventorytype == 3 then
+		f12_arg0.useAltWeaponName = true
+	else
+		f12_arg0.useAltWeaponName = nil
+	end
+
 	if f12_arg1.weapon and (Engine.IsWeaponType(f12_arg1.weapon, "melee") or Engine.IsWeaponType(f12_arg1.weapon, "riotshield") or Engine.IsWeaponType(f12_arg1.weapon, "grenade")) then
 		f12_arg0.hideAmmo = true
 	else
@@ -638,7 +644,26 @@ CoD.AmmoAreaZombie.UpdateWeaponSelect = function(f13_arg0, f13_arg1)
 	f13_arg0.additionalPrimaryWeaponName = UIExpression.ToUpper(nil, Engine.Localize(UIExpression.DvarString(nil, "additionalPrimaryWeaponName")))
 
 	f13_arg0.weaponLabelContainer:setAlpha(1)
-	f13_arg0.weaponText:setText(f13_arg0.weaponLabelName)
+
+	local altWeaponName = nil
+
+	if f13_arg0.useAltWeaponName ~= nil then
+		local weaponAltWeaponNames = UIExpression.DvarString(nil, "weaponAltWeaponNames")
+
+		for weapon, altWeapon in string.gmatch(weaponAltWeaponNames, "(.-):(.-);") do
+			if f13_arg0.weaponLabelName == UIExpression.ToUpper(nil, Engine.Localize(weapon)) then
+				altWeaponName = UIExpression.ToUpper(nil, Engine.Localize(altWeapon))
+				break
+			end
+		end
+	end
+
+	if altWeaponName ~= nil then
+		f13_arg0.weaponText:setText(altWeaponName)
+	else
+		f13_arg0.weaponText:setText(f13_arg0.weaponLabelName)
+	end
+
 	-- f13_arg0.weaponLabelContainer:beginAnimation("fade_out", CoD.WeaponLabel.FadeTime)
 	-- f13_arg0.weaponLabelContainer:setAlpha(0)
 
