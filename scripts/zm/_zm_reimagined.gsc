@@ -130,6 +130,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_weap_claymore::claymore_watch, scripts\zm\replaced\_zm_weap_claymore::claymore_watch);
 	replaceFunc(maps\mp\zombies\_zm_weap_cymbal_monkey::init, scripts\zm\replaced\_zm_weap_cymbal_monkey::init);
 	replaceFunc(maps\mp\zombies\_zm_weap_cymbal_monkey::player_handle_cymbal_monkey, scripts\zm\replaced\_zm_weap_cymbal_monkey::player_handle_cymbal_monkey);
+	replaceFunc(maps\mp\zombies\_zm_perk_electric_cherry::electric_cherry_reload_attack, scripts\zm\replaced\_zm_perk_electric_cherry::electric_cherry_reload_attack);
 
 	powerup_changes();
 }
