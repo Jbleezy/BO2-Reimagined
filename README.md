@@ -1166,6 +1166,7 @@
 * Activating the laundry machine always spawns zombies instead of Brutus
 * Docks gate no longer closes when shock box is shocked in afterlife
 * Decreased brightness of perk machines
+* Improved perk machine flicker
 * Players no longer respawn in the Acid Trap
 * Added falling hands anim from Origins
 * Acid Trap: kills on any round (normally stops killing after round 158 on PC)

@@ -65,11 +65,15 @@ flicker_in_and_out(localclientnum)
 	self endon("stop_flicker");
 	self endon("delete");
 	level endon("demo_jump");
+
+	self setshaderconstant(localclientnum, 1, 0, 0.5, 0, 0);
+
+	serverwait(localclientnum, 3.0);
+
 	s_timer = new_timer(localclientnum);
 
 	while (true)
 	{
-		serverwait(localclientnum, randomfloatrange(0.5, 2.0));
 		n_phase_in = randomfloatrange(0.1, 0.3);
 
 		do
@@ -93,6 +97,8 @@ flicker_in_and_out(localclientnum)
 			self setshaderconstant(localclientnum, 1, n_delta_val, 0.5, 0, 0);
 		}
 		while (n_current_time < n_phase_in);
+
+		serverwait(localclientnum, randomfloatrange(0.5, 2.0));
 
 		s_timer reset_timer();
 	}
