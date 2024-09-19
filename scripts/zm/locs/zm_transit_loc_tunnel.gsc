@@ -10,7 +10,7 @@ struct_init()
 	scripts\zm\replaced\utility::register_perk_struct("specialty_armorvest", "zombie_vending_jugg", (-11541, -2630, 194), (0, -180, 0));
 	scripts\zm\replaced\utility::register_perk_struct("specialty_quickrevive", "zombie_vending_quickrevive", (-10780, -2565, 224), (0, 274, 0));
 	scripts\zm\replaced\utility::register_perk_struct("specialty_fastreload", "zombie_vending_sleight", (-11373, -1674, 192), (0, -89, 0));
-	scripts\zm\replaced\utility::register_perk_struct("specialty_rof", "zombie_vending_doubletap2", (-11170, -590, 196), (0, -10, 0));
+	scripts\zm\replaced\utility::register_perk_struct("specialty_rof", "zombie_vending_doubletap2", (-10660, -756, 195), (0, 262, 0));
 	scripts\zm\replaced\utility::register_perk_struct("specialty_longersprint", "zombie_vending_marathon", (-11681, -734, 228), (0, -19, 0));
 	scripts\zm\replaced\utility::register_perk_struct("specialty_weapupgrade", "p6_anim_zm_buildable_pap_on", (-11301, -2096, 184), (0, 115, 0));
 

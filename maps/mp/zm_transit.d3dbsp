@@ -54883,7 +54883,7 @@
 {
 "script_noteworthy" "zstandard_tunnel, zgrief_tunnel"
 "angles" "0 -86 0"
-"origin" "-11166 -2844 247"
+"origin" "-11166 -2844 252"
 "classname" "script_struct"
 "zombie_weapon_upgrade" "saritch_zm"
 "targetname" "weapon_upgrade"
@@ -54896,13 +54896,13 @@
 "classname" "script_struct"
 "model" "t6_wpn_ar_saritch_world"
 "angles" "0 -86 0"
-"origin" "-11166 -2844 247"
+"origin" "-11166 -2844 252"
 "guid" "6D2A1B25"
 }
 {
 "script_noteworthy" "zstandard_tunnel, zgrief_tunnel"
 "angles" "0 97 0"
-"origin" "-10735 -2960 247"
+"origin" "-10735 -2960 252"
 "classname" "script_struct"
 "zombie_weapon_upgrade" "ballista_zm"
 "targetname" "weapon_upgrade"
@@ -54915,13 +54915,13 @@
 "classname" "script_struct"
 "model" "t6_wpn_sniper_ballista_world"
 "angles" "0 97 0"
-"origin" "-10735 -2960 247"
+"origin" "-10735 -2960 252"
 "guid" "6D2A1B25"
 }
 {
 "script_noteworthy" "zstandard_tunnel, zgrief_tunnel"
-"angles" "0 83 0"
-"origin" "-10656 -752 247"
+"angles" "0 262 0"
+"origin" "-11131 -535 252"
 "classname" "script_struct"
 "zombie_weapon_upgrade" "vector_zm"
 "targetname" "weapon_upgrade"
@@ -54933,8 +54933,8 @@
 "targetname" "pf1922_auto49"
 "classname" "script_struct"
 "model" "t6_wpn_smg_vector_world"
-"angles" "0 83 0"
-"origin" "-10656 -752 247"
+"angles" "0 262 0"
+"origin" "-11131 -535 252"
 "guid" "6D2A1B25"
 }
 {
@@ -54958,8 +54958,8 @@
 }
 {
 "script_noteworthy" "zstandard_tunnel, zgrief_tunnel"
-"angles" "0 -93 0"
-"origin" "-11839 -2406 283"
+"angles" "0 270 0"
+"origin" "-11839 -2406 287"
 "classname" "script_struct"
 "zombie_weapon_upgrade" "sticky_grenade_zm"
 "targetname" "weapon_upgrade"
@@ -54971,14 +54971,14 @@
 "targetname" "pf1922_auto51"
 "classname" "script_struct"
 "model" "semtex_bag"
-"angles" "0 -93 0"
-"origin" "-11839 -2406 283"
+"angles" "0 270 0"
+"origin" "-11839 -2406 287"
 "guid" "6D2A1B25"
 }
 {
 "script_noteworthy" "zstandard_tunnel, zgrief_tunnel"
 "angles" "0 88 0"
-"origin" "-10787 -1430 247"
+"origin" "-10787 -1430 252"
 "classname" "script_struct"
 "zombie_weapon_upgrade" "bowie_knife_zm"
 "targetname" "bowie_upgrade"
@@ -54991,7 +54991,7 @@
 "classname" "script_struct"
 "model" "world_knife_bowie"
 "angles" "0 88 0"
-"origin" "-10787 -1438 247"
+"origin" "-10787 -1438 252"
 "guid" "6D2A1B25"
 }
 {
