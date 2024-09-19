@@ -59,3 +59,41 @@ entityspawned_alcatraz(localclientnum)
 		}
 	}
 }
+
+flicker_in_and_out(localclientnum)
+{
+	self endon("stop_flicker");
+	self endon("delete");
+	level endon("demo_jump");
+	s_timer = new_timer(localclientnum);
+
+	while (true)
+	{
+		serverwait(localclientnum, randomfloatrange(0.5, 2.0));
+		n_phase_in = randomfloatrange(0.1, 0.3);
+
+		do
+		{
+			serverwait(localclientnum, 0.11);
+			n_current_time = s_timer get_time_in_seconds();
+			n_delta_val = lerpfloat(0, 1, n_current_time / n_phase_in);
+			self setshaderconstant(localclientnum, 1, n_delta_val, 0.5, 0, 0);
+		}
+		while (n_current_time < n_phase_in);
+
+		self playsound(0, "evt_perk_warp");
+		s_timer reset_timer();
+		n_phase_in = randomfloatrange(0.1, 0.3);
+
+		do
+		{
+			serverwait(localclientnum, 0.11);
+			n_current_time = s_timer get_time_in_seconds();
+			n_delta_val = lerpfloat(1, 0, n_current_time / n_phase_in);
+			self setshaderconstant(localclientnum, 1, n_delta_val, 0.5, 0, 0);
+		}
+		while (n_current_time < n_phase_in);
+
+		s_timer reset_timer();
+	}
+}

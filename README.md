@@ -292,6 +292,7 @@
 
 ## Weapons
 * Switch to melee weapon by pressing the Melee Weapon button (same button as Time Bomb and Maxis Drone)
+* Added alt weapon names on HUD
 * Added proper melee swing sound to all melee weapons
 * Fixed world model position of certain melee weapons
 * Fixed projectile angles of certain grenades and projectile weapons
@@ -1164,6 +1165,7 @@
 * Brutus no longer spawns if no doors have been opened
 * Activating the laundry machine always spawns zombies instead of Brutus
 * Docks gate no longer closes when shock box is shocked in afterlife
+* Decreased brightness of perk machines
 * Players no longer respawn in the Acid Trap
 * Added falling hands anim from Origins
 * Acid Trap: kills on any round (normally stops killing after round 158 on PC)
