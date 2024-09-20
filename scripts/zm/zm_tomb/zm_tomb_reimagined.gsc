@@ -5,6 +5,7 @@
 
 main()
 {
+	replaceFunc(maps\mp\zm_tomb::custom_vending_precaching, scripts\zm\replaced\zm_tomb::custom_vending_precaching);
 	replaceFunc(maps\mp\zm_tomb::tomb_can_track_ammo_custom, scripts\zm\replaced\zm_tomb::tomb_can_track_ammo_custom);
 	replaceFunc(maps\mp\zm_tomb::sndmeleewpnsound, scripts\zm\replaced\zm_tomb::sndmeleewpnsound);
 	replaceFunc(maps\mp\zm_tomb_main_quest::main_quest_init, scripts\zm\replaced\zm_tomb_main_quest::main_quest_init);
@@ -25,6 +26,7 @@ main()
 	replaceFunc(maps\mp\zm_tomb_ee_side::swap_mg, scripts\zm\replaced\zm_tomb_ee_side::swap_mg);
 	replaceFunc(maps\mp\zm_tomb_capture_zones::setup_capture_zones, scripts\zm\replaced\zm_tomb_capture_zones::setup_capture_zones);
 	replaceFunc(maps\mp\zm_tomb_capture_zones::magic_box_stub_update_prompt, scripts\zm\replaced\zm_tomb_capture_zones::magic_box_stub_update_prompt);
+	replaceFunc(maps\mp\zm_tomb_capture_zones::setup_perk_machines_not_controlled_by_zone_capture, scripts\zm\replaced\zm_tomb_capture_zones::setup_perk_machines_not_controlled_by_zone_capture);
 	replaceFunc(maps\mp\zm_tomb_challenges::challenges_init, scripts\zm\replaced\zm_tomb_challenges::challenges_init);
 	replaceFunc(maps\mp\zm_tomb_craftables::init_craftables, scripts\zm\replaced\zm_tomb_craftables::init_craftables);
 	replaceFunc(maps\mp\zm_tomb_craftables::include_craftables, scripts\zm\replaced\zm_tomb_craftables::include_craftables);
@@ -83,6 +85,7 @@ init()
 	register_melee_weapons_for_level();
 	change_stargate_teleport_return_player_angles();
 
+	level thread divetonuke_on();
 	level thread zombie_blood_dig_changes();
 	level thread updatecraftables();
 }
@@ -161,18 +164,11 @@ change_stargate_teleport_return_player_angles()
 	}
 }
 
-door_price_increase_for_solo()
+divetonuke_on()
 {
-	self.zombie_cost += 250;
+	flag_wait("start_zombie_round_logic");
 
-	if (self.targetname == "zombie_door")
-	{
-		self set_hint_string(self, "default_buy_door", self.zombie_cost);
-	}
-	else
-	{
-		self set_hint_string(self, "default_buy_debris", self.zombie_cost);
-	}
+	level notify("divetonuke_on");
 }
 
 zombie_blood_dig_changes()

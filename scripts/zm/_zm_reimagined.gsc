@@ -94,6 +94,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_perks::wait_for_player_to_take, scripts\zm\replaced\_zm_perks::wait_for_player_to_take);
 	replaceFunc(maps\mp\zombies\_zm_perks::check_player_has_perk, scripts\zm\replaced\_zm_perks::check_player_has_perk);
 	replaceFunc(maps\mp\zombies\_zm_perks::set_perk_clientfield, scripts\zm\replaced\_zm_perks::set_perk_clientfield);
+	replaceFunc(maps\mp\zombies\_zm_perks::do_initial_power_off_callback, scripts\zm\replaced\_zm_perks::do_initial_power_off_callback);
 	replaceFunc(maps\mp\zombies\_zm_perks::perk_pause, scripts\zm\replaced\_zm_perks::perk_pause);
 	replaceFunc(maps\mp\zombies\_zm_perks::perk_unpause, scripts\zm\replaced\_zm_perks::perk_unpause);
 	replaceFunc(maps\mp\zombies\_zm_buildables::buildablestub_update_prompt, scripts\zm\replaced\_zm_buildables::buildablestub_update_prompt);
@@ -130,8 +131,11 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_weap_claymore::claymore_watch, scripts\zm\replaced\_zm_weap_claymore::claymore_watch);
 	replaceFunc(maps\mp\zombies\_zm_weap_cymbal_monkey::init, scripts\zm\replaced\_zm_weap_cymbal_monkey::init);
 	replaceFunc(maps\mp\zombies\_zm_weap_cymbal_monkey::player_handle_cymbal_monkey, scripts\zm\replaced\_zm_weap_cymbal_monkey::player_handle_cymbal_monkey);
+	replaceFunc(maps\mp\zombies\_zm_perk_divetonuke::divetonuke_precache, scripts\zm\replaced\_zm_perk_divetonuke::divetonuke_precache);
+	replaceFunc(maps\mp\zombies\_zm_perk_divetonuke::divetonuke_perk_machine_setup, scripts\zm\replaced\_zm_perk_divetonuke::divetonuke_perk_machine_setup);
 	replaceFunc(maps\mp\zombies\_zm_perk_electric_cherry::electric_cherry_reload_attack, scripts\zm\replaced\_zm_perk_electric_cherry::electric_cherry_reload_attack);
 
+	perk_changes();
 	powerup_changes();
 }
 
@@ -1721,6 +1725,15 @@ disable_bank_teller()
 disable_carpenter()
 {
 	arrayremovevalue(level.zombie_powerup_array, "carpenter");
+}
+
+perk_changes()
+{
+	if (getdvar("mapname") == "zm_transit" || getdvar("mapname") == "zm_highrise" || getdvar("mapname") == "zm_prison" || getdvar("mapname") == "zm_buried" || getdvar("mapname") == "zm_tomb")
+	{
+		level.zombiemode_using_divetonuke_perk = 1;
+		maps\mp\zombies\_zm_perk_divetonuke::enable_divetonuke_perk_for_level();
+	}
 }
 
 powerup_changes()
@@ -3557,6 +3570,23 @@ get_current_spectating_player()
 	}
 
 	return self;
+}
+
+clientnotifyloop(notify_str, endon_str)
+{
+	if (isdefined(endon_str))
+	{
+		level endon(endon_str);
+	}
+
+	while (1)
+	{
+		clientnotify(notify_str);
+
+		level waittill("connected", player);
+
+		wait 0.05;
+	}
 }
 
 setclientdvarall(dvar, value)

@@ -1501,6 +1501,29 @@ check_player_has_perk(perk)
 	}
 }
 
+do_initial_power_off_callback(machine_array, perkname)
+{
+	if (!isdefined(level.machine_assets[perkname]))
+	{
+		return;
+	}
+
+	if (!isdefined(level.machine_assets[perkname].power_off_callback))
+	{
+		return;
+	}
+
+	if (is_true(level.machine_assets[perkname].initial_power_off_callback_done))
+	{
+		return;
+	}
+
+	level.machine_assets[perkname].initial_power_off_callback_done = 1;
+
+	wait 0.05;
+	array_thread(machine_array, level.machine_assets[perkname].power_off_callback);
+}
+
 perk_pause(perk)
 {
 	// disabled

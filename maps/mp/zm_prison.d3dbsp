@@ -21564,3 +21564,23 @@
 "model" "p6_zm_al_horrific_crate_b"
 "classname" "script_model"
 }
+{
+"origin" "1564 9895 1143"
+"model" "p6_zm_al_vending_nuke_on"
+"classname" "script_struct"
+"angles" "0 90 0"
+"script_noteworthy" "specialty_flakjacket"
+"targetname" "zm_perk_machine"
+"script_string" " zclassic_perks_prison"
+}
+{
+"targetname" "afterlife_interact"
+"angles" "0 90 0"
+"model" "p6_zm_al_shock_box_off"
+"classname" "script_model"
+"origin" "1552 9863 1144"
+"script_int" "1"
+"script_noteworthy" "perk_afterlife_trigger"
+"script_string" "divetonuke_on"
+"guid" "BC2EA5E0"
+}

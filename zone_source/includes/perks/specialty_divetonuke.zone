@@ -11,3 +11,6 @@ material,gfx_fxt_smk_gen_z120
 material,gfx_fxt_smk_def_2_z200
 material,gfx_fxt_distortion_ring_thin
 fx,maps/zombie/fx_zmb_phdflopper_exp
+material,specialty_divetonuke_zombies
+script,maps/mp/zombies/_zm_perk_divetonuke.gsc
+script,clientscripts/mp/zombies/_zm_perk_divetonuke.csc

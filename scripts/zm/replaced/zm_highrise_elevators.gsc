@@ -100,6 +100,16 @@ init_elevator_perks()
 
 		level.struct_class_names["targetname"]["zm_perk_machine_override"][level.struct_class_names["targetname"]["zm_perk_machine_override"].size] = level.random_perk_structs[i];
 	}
+
+	static_perk_structs = getstructarray("zm_perk_machine", "targetname");
+
+	foreach (static_perk_struct in static_perk_structs)
+	{
+		if (static_perk_struct.script_noteworthy == "specialty_flakjacket")
+		{
+			level.struct_class_names["targetname"]["zm_perk_machine_override"][level.struct_class_names["targetname"]["zm_perk_machine_override"].size] = static_perk_struct;
+		}
+	}
 }
 
 elevator_think(elevator)

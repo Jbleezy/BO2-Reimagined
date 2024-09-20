@@ -55184,3 +55184,12 @@
 "origin" "13603 -1281 -134"
 "guid" "6D2A1B25"
 }
+{
+"origin" "-10670 -756 195"
+"model" "p6_zm_al_vending_nuke_on"
+"classname" "script_struct"
+"angles" "0 262 0"
+"script_noteworthy" "specialty_flakjacket"
+"targetname" "zm_perk_machine"
+"script_string" "zclassic_perks_transit"
+}

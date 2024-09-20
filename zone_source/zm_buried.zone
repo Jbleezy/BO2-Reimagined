@@ -4,6 +4,8 @@
 
 include,addons/so_zencounter_zm_buried
 
+include,includes/perks/specialty_rof
+
 weapon,bowie_knife_zm
 weapon,tazer_knuckles_zm
 weapon,saritch_zm

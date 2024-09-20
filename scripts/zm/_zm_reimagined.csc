@@ -8,6 +8,7 @@ main()
 	replaceFunc(clientscripts\mp\zombies\_zm_audio::sndmeleeswipe, scripts\zm\replaced\_zm_audio::sndmeleeswipe);
 	replaceFunc(clientscripts\mp\zombies\_zm_weapons::init, scripts\zm\replaced\_zm_weapons::init);
 
+	perk_changes();
 	powerup_changes();
 }
 
@@ -15,6 +16,15 @@ init()
 {
 	level thread toggle_vending_divetonuke_power_on_think();
 	level thread toggle_vending_divetonuke_power_off_think();
+}
+
+perk_changes()
+{
+	if (getdvar("mapname") == "zm_transit" || getdvar("mapname") == "zm_highrise" || getdvar("mapname") == "zm_prison" || getdvar("mapname") == "zm_buried" || getdvar("mapname") == "zm_tomb")
+	{
+		level.zombiemode_using_divetonuke_perk = 1;
+		clientscripts\mp\zombies\_zm_perk_divetonuke::enable_divetonuke_perk_for_level();
+	}
 }
 
 powerup_changes()

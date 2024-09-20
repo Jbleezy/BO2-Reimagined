@@ -29,6 +29,8 @@ main()
 	replaceFunc(maps\mp\zm_alcatraz_weap_quest::grief_soul_catcher_state_manager, scripts\zm\replaced\zm_alcatraz_weap_quest::grief_soul_catcher_state_manager);
 	replaceFunc(maps\mp\zm_alcatraz_weap_quest::hellhole_projectile_watch, scripts\zm\replaced\zm_alcatraz_weap_quest::hellhole_projectile_watch);
 	replaceFunc(maps\mp\zm_alcatraz_distance_tracking::delete_zombie_noone_looking, scripts\zm\replaced\zm_alcatraz_distance_tracking::delete_zombie_noone_looking);
+	replaceFunc(maps\mp\zm_prison::custom_vending_precaching, scripts\zm\replaced\zm_prison::custom_vending_precaching);
+	replaceFunc(maps\mp\zm_prison::delete_perk_machine_clip, scripts\zm\replaced\zm_prison::delete_perk_machine_clip);
 	replaceFunc(maps\mp\zm_prison_spoon::init, scripts\zm\replaced\zm_prison_spoon::init);
 	replaceFunc(maps\mp\zm_prison_spoon::give_player_spoon_upon_receipt, scripts\zm\replaced\zm_prison_spoon::give_player_spoon_upon_receipt);
 	replaceFunc(maps\mp\zm_prison_spoon::dip_the_spoon, scripts\zm\replaced\zm_prison_spoon::dip_the_spoon);
@@ -70,8 +72,6 @@ main()
 	if (is_gametype_active("zstandard"))
 	{
 		level.zombiemode_using_additionalprimaryweapon_perk = 1;
-		level.zombiemode_using_divetonuke_perk = 1;
-		maps\mp\zombies\_zm_perk_divetonuke::enable_divetonuke_perk_for_level();
 
 		precacheModel("p6_zm_al_shock_box_on");
 	}
@@ -90,6 +90,7 @@ main()
 init()
 {
 	precacheModel("collision_clip_32x32x32");
+	precacheModel("collision_clip_32x32x128");
 
 	level.zombie_init_done = ::zombie_init_done;
 	level.special_weapon_magicbox_check = ::check_for_special_weapon_limit_exist;

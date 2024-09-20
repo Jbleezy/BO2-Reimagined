@@ -977,9 +977,10 @@
 * Fixed Mystery Box floating in the sky at the start of the game
 
 ### Tranzit
-* Added PDW-57 wallbuy at Bus Depot
 * Added AN-94 wallbuy at Town
+* Added PDW-57 wallbuy at Bus Depot
 * Added SVU-AS wallbuy at Cornfield
+* Added PHD Flopper at Tunnel
 * Added Mystery Box at Tunnel
 * Added Mystery Box at Cornfield
 * Power switch, Pack-a-Punch, and Diner hatch automatically crafted
@@ -1055,6 +1056,7 @@
 * Pack-a-Punch
 
 ### Die Rise
+* Added PHD Flopper at Escape Pod Shaft
 * Added Mystery Box at Blue Highrise area
 * Added Mystery Box at Orange Highrise area
 * Moved Mystery Box at Green Rooftop area from Green Rooftop Behind Restaurant zone to Green Rooftop Restaurant zone
@@ -1090,6 +1092,7 @@
 
 ### Buried
 * Added Frag Grenade wallbuy at General Store
+* Added PHD Flopper at Lower Processing
 * Removed Turbine, key, booze, and candy
 * Power automatically on
 * Noose and Guillotine parts automatically picked up
@@ -1144,6 +1147,7 @@
 
 ### Mob of the Dead
 * Replaced Remington 870 MCS wallbuy at Citadel with Semtex wallbuy
+* Added PHD Flopper at Showers
 * Added one-way teleporter at Docks
 * 1 afterlife max in solo
 * Entering afterlife no longer takes 2 additional seconds if the player had Electric Cherry
@@ -1209,6 +1213,7 @@
 * Grief: Tower Trap targets and stuns players
 
 ### Origins
+* Added PHD Flopper at The Crazy Place Fire Chamber
 * Door prices in solo cost the same as in coop
 * Shovels automatically picked up
 * Records automatically picked up

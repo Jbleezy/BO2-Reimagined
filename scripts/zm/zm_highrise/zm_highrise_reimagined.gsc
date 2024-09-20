@@ -6,6 +6,7 @@ main()
 {
 	replaceFunc(maps\mp\zm_highrise_sq::navcomputer_waitfor_navcard, scripts\zm\reimagined\_zm_sq::navcomputer_waitfor_navcard);
 	replaceFunc(maps\mp\zm_highrise::is_magic_box_in_inverted_building, scripts\zm\replaced\zm_highrise::is_magic_box_in_inverted_building);
+	replaceFunc(maps\mp\zm_highrise::custom_vending_precaching, scripts\zm\replaced\zm_highrise::custom_vending_precaching);
 	replaceFunc(maps\mp\zm_highrise_sq::init, scripts\zm\replaced\zm_highrise_sq::init);
 	replaceFunc(maps\mp\zm_highrise_sq::sq_is_weapon_sniper, scripts\zm\replaced\zm_highrise_sq::sq_is_weapon_sniper);
 	replaceFunc(maps\mp\zm_highrise_sq_atd::init, scripts\zm\replaced\zm_highrise_sq_atd::init);

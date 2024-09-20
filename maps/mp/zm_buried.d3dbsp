@@ -33823,3 +33823,12 @@
 "origin" "-183 -245 204"
 "guid" "CEAAC437"
 }
+{
+"origin" "-2366 -168 1223"
+"model" "p6_zm_al_vending_nuke_on"
+"classname" "script_struct"
+"angles" "0 270 0"
+"script_noteworthy" "specialty_flakjacket"
+"targetname" "zm_perk_machine"
+"script_string" " zclassic_perks_processing"
+}

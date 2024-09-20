@@ -31419,3 +31419,12 @@
 "model" "p6_zm_hr_concrete_slabs_lrg_03"
 "classname" "script_model"
 }
+{
+"origin" "2036 1336 1456"
+"model" "p6_zm_al_vending_nuke_on"
+"classname" "script_struct"
+"angles" "0 -45 0"
+"script_noteworthy" "specialty_flakjacket"
+"targetname" "zm_perk_machine"
+"script_string" "zclassic_perks_rooftop"
+}

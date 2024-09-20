@@ -32829,3 +32829,12 @@
 "angles" "6.67242 297.899 -3.14934"
 "guid" "34A981B3"
 }
+{
+"origin" "9752 -8790 -448"
+"model" "p6_zm_al_vending_nuke_on"
+"classname" "script_struct"
+"angles" "0 -210 0"
+"script_noteworthy" "specialty_flakjacket"
+"targetname" "zm_perk_machine"
+"script_string" "zclassic_perks_tomb"
+}
