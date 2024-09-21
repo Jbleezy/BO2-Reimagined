@@ -448,5 +448,5 @@ magic_box_stub_update_prompt(player)
 
 setup_perk_machines_not_controlled_by_zone_capture()
 {
-	level.zone_capture.perk_machines_always_on = array("specialty_additionalprimaryweapon", "specialty_flakjacket");
+	level.zone_capture.perk_machines_always_on = array("specialty_additionalprimaryweapon", "specialty_flakjacket", "specialty_grenadepulldeath");
 }

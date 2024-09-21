@@ -32838,3 +32838,12 @@
 "targetname" "zm_perk_machine"
 "script_string" "zclassic_perks_tomb"
 }
+{
+"origin" "11419 -7355 -404"
+"model" "p6_zm_vending_electric_cherry_off"
+"classname" "script_struct"
+"angles" "0 -120 0"
+"script_noteworthy" "specialty_grenadepulldeath"
+"targetname" "zm_perk_machine"
+"script_string" "zclassic_perks_tomb"
+}

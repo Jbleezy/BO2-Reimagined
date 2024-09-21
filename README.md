@@ -980,7 +980,7 @@
 * Added AN-94 wallbuy at Town
 * Added PDW-57 wallbuy at Bus Depot
 * Added SVU-AS wallbuy at Cornfield
-* Added PHD Flopper at Tunnel
+* Added PHD Flopper machine at Tunnel
 * Added Mystery Box at Tunnel
 * Added Mystery Box at Cornfield
 * Power switch, Pack-a-Punch, and Diner hatch automatically crafted
@@ -1056,7 +1056,7 @@
 * Pack-a-Punch
 
 ### Die Rise
-* Added PHD Flopper at Escape Pod Ground
+* Added PHD Flopper machine at Escape Pod Ground
 * Added Mystery Box at Blue Highrise area
 * Added Mystery Box at Orange Highrise area
 * Moved Mystery Box at Green Rooftop area from Green Rooftop Behind Restaurant zone to Green Rooftop Restaurant zone
@@ -1092,7 +1092,7 @@
 
 ### Buried
 * Added Frag Grenade wallbuy at General Store
-* Added PHD Flopper at Lower Processing
+* Added PHD Flopper machine at Lower Processing
 * Removed Turbine, key, booze, and candy
 * Power automatically on
 * Noose and Guillotine parts automatically picked up
@@ -1147,7 +1147,7 @@
 
 ### Mob of the Dead
 * Replaced Remington 870 MCS wallbuy at Citadel with Semtex wallbuy
-* Added PHD Flopper at Showers
+* Added PHD Flopper machine at Showers
 * Added one-way teleporter at Docks
 * 1 afterlife max in solo
 * Entering afterlife no longer takes 2 additional seconds if the player had Electric Cherry
@@ -1213,7 +1213,8 @@
 * Grief: Tower Trap targets and stuns players
 
 ### Origins
-* Added PHD Flopper at The Crazy Place Fire Chamber
+* Added PHD Flopper machine at The Crazy Place Fire Chamber
+* Added Electric Cherry machine at The Crazy Place Ice Chamber
 * Door prices in solo cost the same as in coop
 * Shovels automatically picked up
 * Records automatically picked up
@@ -1262,6 +1263,7 @@
 * Quest (raise hell step): all staffs must be fully charged for souls to be collected
 * Quest (raise hell step): zombies in The Crazy Place get knocked down during the screen flash after collecting all of the souls
 * Quest (freedom step): teleport trigger can be triggered without looking at it
+* Fixed recapture round zombies not dropping Max Ammo when killed by a staff
 * Fixed being able to hit a death barrier when jumping off the Above Generator 3 Bunker zone
 
 ## Game Modes

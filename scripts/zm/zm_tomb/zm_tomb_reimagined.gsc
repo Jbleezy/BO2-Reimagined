@@ -86,6 +86,7 @@ init()
 	change_stargate_teleport_return_player_angles();
 
 	level thread divetonuke_on();
+	level thread electric_cherry_on();
 	level thread zombie_blood_dig_changes();
 	level thread updatecraftables();
 }
@@ -169,6 +170,13 @@ divetonuke_on()
 	flag_wait("start_zombie_round_logic");
 
 	level notify("divetonuke_on");
+}
+
+electric_cherry_on()
+{
+	flag_wait("start_zombie_round_logic");
+
+	level notify("electric_cherry_on");
 }
 
 zombie_blood_dig_changes()
