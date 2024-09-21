@@ -79,6 +79,7 @@ init()
 	power_switch_model();
 	sloth_barricades_buyable();
 	add_jug_collision();
+	move_divetonuke_collision();
 
 	level thread build_870mcs_wallbuy();
 	level thread remove_chalk_draw_points();
@@ -468,6 +469,24 @@ add_jug_collision()
 	collision = spawn("script_model", origin + anglesToUp(angles) * 64);
 	collision.angles = angles;
 	collision setmodel("collision_wall_128x128x10_standard");
+}
+
+move_divetonuke_collision()
+{
+	machines = getentarray("vending_divetonuke", "target");
+
+	if (!isdefined(machines))
+	{
+		return;
+	}
+
+	foreach (machine in machines)
+	{
+		if (isdefined(machine.clip))
+		{
+			machine.clip.origin += (0, 0, -128);
+		}
+	}
 }
 
 sloth_trap()
