@@ -133,6 +133,8 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_weap_cymbal_monkey::player_handle_cymbal_monkey, scripts\zm\replaced\_zm_weap_cymbal_monkey::player_handle_cymbal_monkey);
 	replaceFunc(maps\mp\zombies\_zm_perk_divetonuke::divetonuke_precache, scripts\zm\replaced\_zm_perk_divetonuke::divetonuke_precache);
 	replaceFunc(maps\mp\zombies\_zm_perk_divetonuke::divetonuke_perk_machine_setup, scripts\zm\replaced\_zm_perk_divetonuke::divetonuke_perk_machine_setup);
+	replaceFunc(maps\mp\zombies\_zm_perk_electric_cherry::enable_electric_cherry_perk_for_level, scripts\zm\replaced\_zm_perk_electric_cherry::enable_electric_cherry_perk_for_level);
+	replaceFunc(maps\mp\zombies\_zm_perk_electric_cherry::electic_cherry_precache, scripts\zm\replaced\_zm_perk_electric_cherry::electic_cherry_precache);
 	replaceFunc(maps\mp\zombies\_zm_perk_electric_cherry::electric_cherry_reload_attack, scripts\zm\replaced\_zm_perk_electric_cherry::electric_cherry_reload_attack);
 
 	perk_changes();

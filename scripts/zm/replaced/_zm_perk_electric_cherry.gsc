@@ -8,6 +8,37 @@
 #include maps\mp\animscripts\shared;
 #include maps\mp\zombies\_zm_ai_basic;
 
+enable_electric_cherry_perk_for_level()
+{
+	maps\mp\zombies\_zm_perks::register_perk_basic_info("specialty_grenadepulldeath", "electric_cherry", 2000, &"ZOMBIE_PERK_CHERRY", "zombie_perk_bottle_cherry");
+	maps\mp\zombies\_zm_perks::register_perk_precache_func("specialty_grenadepulldeath", ::electic_cherry_precache);
+	maps\mp\zombies\_zm_perks::register_perk_clientfields("specialty_grenadepulldeath", ::electric_cherry_register_clientfield, ::electric_cherry_set_clientfield);
+	maps\mp\zombies\_zm_perks::register_perk_threads("specialty_grenadepulldeath", ::electric_cherry_reload_attack, ::electric_cherry_perk_lost);
+	maps\mp\zombies\_zm_perks::register_perk_machine("specialty_grenadepulldeath", ::electric_cherry_perk_machine_setup, ::electric_cherry_perk_machine_think);
+	maps\mp\zombies\_zm_perks::register_perk_host_migration_func("specialty_grenadepulldeath", ::electric_cherry_host_migration_func);
+
+	if (isdefined(level.custom_electric_cherry_perk_threads) && level.custom_electric_cherry_perk_threads)
+	{
+		level thread [[level.custom_electric_cherry_perk_threads]]();
+	}
+}
+
+electic_cherry_precache()
+{
+	precacheitem("zombie_perk_bottle_cherry");
+	precacheshader("specialty_fastreload_zombies");
+	precachemodel("p6_zm_vending_electric_cherry_off");
+	precachemodel("p6_zm_vending_electric_cherry_on");
+	precachestring(&"ZOMBIE_PERK_CHERRY");
+	level._effect["electriccherry"] = loadfx("misc/fx_zombie_cola_on");
+	level._effect["electric_cherry_explode"] = loadfx("maps/zombie_alcatraz/fx_alcatraz_electric_cherry_down");
+	level._effect["electric_cherry_reload_small"] = loadfx("maps/zombie_alcatraz/fx_alcatraz_electric_cherry_sm");
+	level._effect["electric_cherry_reload_medium"] = loadfx("maps/zombie_alcatraz/fx_alcatraz_electric_cherry_player");
+	level._effect["electric_cherry_reload_large"] = loadfx("maps/zombie_alcatraz/fx_alcatraz_electric_cherry_lg");
+	level._effect["tesla_shock"] = loadfx("maps/zombie/fx_zombie_tesla_shock");
+	level._effect["tesla_shock_secondary"] = loadfx("maps/zombie/fx_zombie_tesla_shock_secondary");
+}
+
 electric_cherry_reload_attack()
 {
 	self endon("death");

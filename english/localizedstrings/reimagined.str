@@ -1170,6 +1170,9 @@ LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Quick Revive [Cost: &&1]"
 REFERENCE           ZOMBIE_PERK_TOMBSTONE
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Tombstone Soda [Cost: &&1]"
 
+REFERENCE           ZOMBIE_PERK_CHERRY
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Electric Cherry [Cost: &&1]"
+
 REFERENCE           ZM_CRAFTABLES_CHANGE_BUILD
 LANG_ENGLISH        "Press ^3[{+actionslot 1}]^7 or ^3[{+actionslot 2}]^7 to change item"
 
