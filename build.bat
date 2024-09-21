@@ -2,6 +2,8 @@
 
 title Building BO2-Reimagined
 
+mode 150, 30
+
 "%OAT_BASE%\Linker.exe" ^
 --load "%OAT_GAME%\zone\all\patch_mp.ff" ^
 --load "%OAT_GAME%\zone\all\common_patch_mp.ff" ^
