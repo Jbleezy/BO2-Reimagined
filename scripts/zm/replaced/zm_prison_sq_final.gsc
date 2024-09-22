@@ -458,10 +458,12 @@ final_battle_vo(p_weasel, a_player_team)
 
 final_showdown_create_icon(player, enemy)
 {
-	height_offset = 72;
-	waypoint_origin = spawn("script_model", enemy.origin + (0, 0, height_offset));
-	waypoint_origin setmodel("tag_origin");
-	waypoint_origin linkto(enemy);
+	if (!isDefined(enemy.waypoint_origin))
+	{
+		enemy thread scripts\zm\_zm_reimagined::player_waypoint_origin_create();
+	}
+
+	waypoint_origin = enemy.waypoint_origin;
 
 	hud_elem = newclienthudelem(player);
 	hud_elem.alpha = 1;
@@ -473,6 +475,11 @@ final_showdown_create_icon(player, enemy)
 
 	waittill_any_ents(level, "showdown_over", enemy, "disconnect");
 
-	waypoint_origin delete();
+	if (isDefined(waypoint_origin))
+	{
+		waypoint_origin unlink();
+		waypoint_origin delete();
+	}
+
 	hud_elem destroy();
 }

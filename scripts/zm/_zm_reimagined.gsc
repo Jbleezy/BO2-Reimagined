@@ -693,8 +693,8 @@ set_client_dvars()
 	self setClientDvar("bg_fallDamageScale", 0);
 
 	self setClientDvar("waypointOffscreenPointerDistance", 30);
-	self setClientDvar("waypointOffscreenPadTop", 32);
-	self setClientDvar("waypointOffscreenPadBottom", 32);
+	self setClientDvar("waypointOffscreenPadTop", 30);
+	self setClientDvar("waypointOffscreenPadBottom", 30);
 	self setClientDvar("waypointPlayerOffsetStand", 30);
 	self setClientDvar("waypointPlayerOffsetCrouch", 30);
 
@@ -3526,6 +3526,45 @@ zone_changes()
 		// Lower Orange Highrise debris
 		level.zones["zone_orange_level3a"].adjacent_zones["zone_orange_level3b"].is_connected = 0;
 		level.zones["zone_orange_level3b"].adjacent_zones["zone_orange_level3a"].is_connected = 0;
+	}
+}
+
+player_waypoint_origin_create()
+{
+	self endon("disconnect");
+
+	self.waypoint_origin = spawn("script_model", self.origin);
+	self.waypoint_origin setmodel("tag_origin");
+
+	prev_stance = "";
+
+	while (isdefined(self.waypoint_origin))
+	{
+		stance = self getstance();
+
+		if (prev_stance == stance)
+		{
+			wait 0.05;
+			continue;
+		}
+
+		prev_stance = stance;
+		height_offset = 74;
+
+		if (stance == "crouch")
+		{
+			height_offset = 56;
+		}
+		else if (stance == "prone")
+		{
+			height_offset = 30;
+		}
+
+		self.waypoint_origin unlink();
+		self.waypoint_origin.origin = self.origin + (0, 0, height_offset);
+		self.waypoint_origin linkto(self);
+
+		wait 0.05;
 	}
 }
 

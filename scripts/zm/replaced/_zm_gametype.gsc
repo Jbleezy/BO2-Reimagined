@@ -537,8 +537,9 @@ head_icon_create()
 	hud = newTeamHudElem(self.team);
 	hud.alignx = "center";
 	hud.aligny = "middle";
-	hud.horzalign = "user_center";
-	hud.vertalign = "user_center";
+	hud.horzalign = "center";
+	hud.vertalign = "middle";
+	hud.z = 12;
 	hud.hidewheninmenu = 1;
 	hud setShader(game["icons"][self.team], 6, 6);
 	hud setWaypoint(1);
