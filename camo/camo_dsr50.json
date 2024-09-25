@@ -431,6 +431,14 @@
 						{
 							"baseMaterial": "mc/mtl_t6_wpn_sniper_dsr50_scope_camo2",
 							"camoMaterial": "mc/mtl_weapon_camo_zmb_dlc2_alt_1"
+						},
+						{
+							"baseMaterial": "mc/mtl_t6_attach_tritium_red_glo",
+							"camoMaterial": "mc/global_invisible"
+						},
+						{
+							"baseMaterial": "mc/mtl_t6_attach_tritium_wht",
+							"camoMaterial": "mc/global_invisible"
 						}
 					],
 					"shaderConsts": [
@@ -584,6 +592,14 @@
 						{
 							"baseMaterial": "mc/mtl_t6_wpn_sniper_dsr50_scope_camo2",
 							"camoMaterial": "mc/mtl_weapon_camo_dragon_alt_1"
+						},
+						{
+							"baseMaterial": "mc/mtl_t6_attach_tritium_red_glo",
+							"camoMaterial": "mc/global_invisible"
+						},
+						{
+							"baseMaterial": "mc/mtl_t6_attach_tritium_wht",
+							"camoMaterial": "mc/global_invisible"
 						}
 					],
 					"shaderConsts": [
@@ -638,6 +654,14 @@
 						{
 							"baseMaterial": "mc/mtl_t6_wpn_sniper_dsr50_scope_camo2",
 							"camoMaterial": "mc/mtl_weapon_camo_zmb_dlc4_alt_1"
+						},
+						{
+							"baseMaterial": "mc/mtl_t6_attach_tritium_red_glo",
+							"camoMaterial": "mc/global_invisible"
+						},
+						{
+							"baseMaterial": "mc/mtl_t6_attach_tritium_wht",
+							"camoMaterial": "mc/global_invisible"
 						}
 					],
 					"shaderConsts": [

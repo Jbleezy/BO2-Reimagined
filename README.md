@@ -293,6 +293,7 @@
 ## Weapons
 * Switch to melee weapon by pressing the Melee Weapon button (same button as Time Bomb and Maxis Drone)
 * Added alt weapon names on HUD
+* Added camo to all attachments
 * Added proper melee swing sound to all melee weapons
 * Fixed world model position of certain melee weapons
 * Fixed projectile angles of certain grenades and projectile weapons
