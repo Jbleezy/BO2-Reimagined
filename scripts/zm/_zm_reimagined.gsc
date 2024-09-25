@@ -1731,11 +1731,21 @@ disable_carpenter()
 
 perk_changes()
 {
+	if (is_no_perk_map())
+	{
+		return;
+	}
+
 	if (getdvar("mapname") == "zm_transit" || getdvar("mapname") == "zm_highrise" || getdvar("mapname") == "zm_prison" || getdvar("mapname") == "zm_buried" || getdvar("mapname") == "zm_tomb")
 	{
 		level.zombiemode_using_divetonuke_perk = 1;
 		maps\mp\zombies\_zm_perk_divetonuke::enable_divetonuke_perk_for_level();
 	}
+}
+
+is_no_perk_map()
+{
+	return !is_gametype_active("zclassic") && getdvar("mapname") == "zm_transit" && getdvar("ui_zm_mapstartlocation") == "transit";
 }
 
 powerup_changes()
