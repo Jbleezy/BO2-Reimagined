@@ -235,12 +235,12 @@ handle_overheated_jetgun()
 			{
 				self thread maps\mp\zombies\_zm_equipment::equipment_release("jetgun_zm");
 				maps\mp\zombies\_zm_buildables::unbuild_buildable("jetgun_zm", 1);
-				self dodamage(50, weapon_org);
+				self dodamage(50, weapon_org, self, self, "none", "MOD_GRENADE_SPLASH");
 			}
 			else if (isDefined(level.take_overheated_jetgun) && level.take_overheated_jetgun)
 			{
 				self thread maps\mp\zombies\_zm_equipment::equipment_release("jetgun_zm");
-				self dodamage(50, weapon_org);
+				self dodamage(50, weapon_org, self, self, "none", "MOD_GRENADE_SPLASH");
 			}
 			else
 			{
