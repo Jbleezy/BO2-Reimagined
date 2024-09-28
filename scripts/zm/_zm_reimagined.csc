@@ -8,6 +8,7 @@ main()
 	replaceFunc(clientscripts\mp\zombies\_zm_audio::sndmeleeswipe, scripts\zm\replaced\_zm_audio::sndmeleeswipe);
 	replaceFunc(clientscripts\mp\zombies\_zm_weapons::init, scripts\zm\replaced\_zm_weapons::init);
 	replaceFunc(clientscripts\mp\zombies\_zm_perks::perks_register_clientfield, scripts\zm\replaced\_zm_perks::perks_register_clientfield);
+	replaceFunc(clientscripts\mp\zombies\_zm_perk_divetonuke::divetonuke_client_field_func, scripts\zm\replaced\_zm_perk_divetonuke::divetonuke_client_field_func);
 
 	perk_changes();
 	powerup_changes();
