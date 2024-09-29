@@ -80,8 +80,8 @@ flicker_in_and_out(localclientnum)
 		{
 			serverwait(localclientnum, 0.11);
 			n_current_time = s_timer get_time_in_seconds();
-			n_delta_val = lerpfloat(0, 1, n_current_time / n_phase_in);
-			self setshaderconstant(localclientnum, 1, n_delta_val, 0.5, 0, 0);
+			n_delta_val = lerpfloat(0.5, 1, n_current_time / n_phase_in);
+			self setshaderconstant(localclientnum, 1, n_delta_val, n_delta_val, 0, 0);
 		}
 		while (n_current_time < n_phase_in);
 
@@ -93,10 +93,12 @@ flicker_in_and_out(localclientnum)
 		{
 			serverwait(localclientnum, 0.11);
 			n_current_time = s_timer get_time_in_seconds();
-			n_delta_val = lerpfloat(1, 0, n_current_time / n_phase_in);
-			self setshaderconstant(localclientnum, 1, n_delta_val, 0.5, 0, 0);
+			n_delta_val = lerpfloat(1, 0.5, n_current_time / n_phase_in);
+			self setshaderconstant(localclientnum, 1, n_delta_val, n_delta_val, 0, 0);
 		}
 		while (n_current_time < n_phase_in);
+
+		self setshaderconstant(localclientnum, 1, 0, 0.5, 0, 0);
 
 		serverwait(localclientnum, randomfloatrange(0.5, 2.0));
 
