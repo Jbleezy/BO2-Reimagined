@@ -16,6 +16,7 @@ main()
 	replaceFunc(maps\mp\gametypes_zm\_hud::fadetoblackforxsec, scripts\zm\replaced\_hud::fadetoblackforxsec);
 	replaceFunc(maps\mp\gametypes_zm\_hud_message::onplayerconnect, scripts\zm\replaced\_hud_message::onplayerconnect);
 	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::hide_gump_loading_for_hotjoiners, scripts\zm\replaced\_zm_gametype::hide_gump_loading_for_hotjoiners);
+	replaceFunc(maps\mp\zombies\_zm::init_client_flags, scripts\zm\replaced\_zm::init_client_flags);
 	replaceFunc(maps\mp\zombies\_zm::init_fx, scripts\zm\replaced\_zm::init_fx);
 	replaceFunc(maps\mp\zombies\_zm::round_start, scripts\zm\replaced\_zm::round_start);
 	replaceFunc(maps\mp\zombies\_zm::ai_calculate_health, scripts\zm\replaced\_zm::ai_calculate_health);
@@ -1742,6 +1743,11 @@ perk_changes()
 	{
 		level.zombiemode_using_divetonuke_perk = 1;
 		maps\mp\zombies\_zm_perk_divetonuke::enable_divetonuke_perk_for_level();
+	}
+
+	if (getdvar("mapname") == "zm_transit" || getdvar("mapname") == "zm_buried" || getdvar("mapname") == "zm_tomb")
+	{
+		level.zombiemode_using_deadshot_perk = 1;
 	}
 }
 

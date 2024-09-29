@@ -33832,3 +33832,12 @@
 "targetname" "zm_perk_machine"
 "script_string" " zclassic_perks_processing"
 }
+{
+"origin" "3414 856 54"
+"model" "p6_zm_al_vending_ads_on"
+"classname" "script_struct"
+"angles" "0 90 0"
+"script_noteworthy" "specialty_deadshot"
+"targetname" "zm_perk_machine"
+"script_string" " zclassic_perks_processing"
+}

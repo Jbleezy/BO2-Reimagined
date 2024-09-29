@@ -1103,7 +1103,7 @@ give_perk(perk, bought)
 
 	self perk_set_max_health_if_jugg(perk, 1, 0);
 
-	if (isDefined(level.disable_deadshot_clientfield) && !level.disable_deadshot_clientfield)
+	if (!(isDefined(level.disable_deadshot_clientfield) && level.disable_deadshot_clientfield))
 	{
 		if (perk == "specialty_deadshot")
 		{

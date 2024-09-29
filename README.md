@@ -759,9 +759,11 @@
 * Players no longer take 1 fall damage when not diving
 
 ### Deadshot Daiquiri
+* Added perk bottle model from Origins to all maps
 * Increases bullet headshot damage by 100%
 * Move faster while aiming
 * Decreases sprint recovery time
+* Removed headshot auto aim on controller
 
 ### Mule Kick
 * Added additional weapon indicator
@@ -982,6 +984,7 @@
 * Added PDW-57 wallbuy at Bus Depot
 * Added SVU-AS wallbuy at Cornfield
 * Added PHD Flopper machine at Tunnel
+* Added Deadshot Daiquiri machine at Cabin
 * Added Mystery Box at Tunnel
 * Added Mystery Box at Cornfield
 * Power switch, Pack-a-Punch, and Diner hatch automatically crafted
@@ -1094,6 +1097,7 @@
 ### Buried
 * Added Frag Grenade wallbuy at General Store
 * Added PHD Flopper machine at Lower Processing
+* Added Deadshot Daiquiri machine at Mansion Backyard
 * Removed Turbine, key, booze, and candy
 * Power automatically on
 * Noose and Guillotine parts automatically picked up
@@ -1215,6 +1219,7 @@
 
 ### Origins
 * Added PHD Flopper machine at The Crazy Place Fire Chamber
+* Added Deadshot Daiquiri machine at Generator 2
 * Added Electric Cherry machine at The Crazy Place Ice Chamber
 * Door prices in solo cost the same as in coop
 * Shovels automatically picked up

@@ -3,6 +3,7 @@
 
 main()
 {
+	replaceFunc(clientscripts\mp\zombies\_zm::init_client_flag_callback_funcs, scripts\zm\replaced\_zm::init_client_flag_callback_funcs);
 	replaceFunc(clientscripts\mp\zombies\_zm::init_wallbuy_fx, scripts\zm\replaced\_zm::init_wallbuy_fx);
 	replaceFunc(clientscripts\mp\zombies\_zm::entityspawned, scripts\zm\replaced\_zm::entityspawned);
 	replaceFunc(clientscripts\mp\zombies\_zm_audio::sndmeleeswipe, scripts\zm\replaced\_zm_audio::sndmeleeswipe);
@@ -12,12 +13,6 @@ main()
 
 	perk_changes();
 	powerup_changes();
-}
-
-init()
-{
-	level thread toggle_vending_divetonuke_power_on_think();
-	level thread toggle_vending_divetonuke_power_off_think();
 }
 
 perk_changes()
@@ -31,6 +26,17 @@ perk_changes()
 	{
 		level.zombiemode_using_divetonuke_perk = 1;
 		clientscripts\mp\zombies\_zm_perk_divetonuke::enable_divetonuke_perk_for_level();
+
+		level thread toggle_vending_divetonuke_power_on_think();
+		level thread toggle_vending_divetonuke_power_off_think();
+	}
+
+	if (getdvar("mapname") == "zm_transit" || getdvar("mapname") == "zm_buried" || getdvar("mapname") == "zm_tomb")
+	{
+		level.zombiemode_using_deadshot_perk = 1;
+
+		level thread toggle_vending_deadshot_power_on_think();
+		level thread toggle_vending_deadshot_power_off_think();
 	}
 }
 
@@ -77,6 +83,44 @@ toggle_vending_divetonuke_power_off_think()
 		foreach (ent in ents)
 		{
 			if (isdefined(ent.model) && ent.model == "p6_zm_al_vending_nuke_on")
+			{
+				ent mapshaderconstant(0, 1, "ScriptVector0");
+				ent setshaderconstant(0, 1, 0, 0, 0, 0);
+			}
+		}
+	}
+}
+
+toggle_vending_deadshot_power_on_think()
+{
+	while (1)
+	{
+		level waittill("toggle_vending_deadshot_power_on");
+
+		ents = getentarray(0);
+
+		foreach (ent in ents)
+		{
+			if (isdefined(ent.model) && ent.model == "p6_zm_al_vending_ads_on")
+			{
+				ent mapshaderconstant(0, 1, "ScriptVector0");
+				ent setshaderconstant(0, 1, 0, 0.5, 0, 0);
+			}
+		}
+	}
+}
+
+toggle_vending_deadshot_power_off_think()
+{
+	while (1)
+	{
+		level waittill("toggle_vending_deadshot_power_off");
+
+		ents = getentarray(0);
+
+		foreach (ent in ents)
+		{
+			if (isdefined(ent.model) && ent.model == "p6_zm_al_vending_ads_on")
 			{
 				ent mapshaderconstant(0, 1, "ScriptVector0");
 				ent setshaderconstant(0, 1, 0, 0, 0, 0);

@@ -4,6 +4,46 @@
 #include maps\mp\zombies\_zm_utility;
 #include maps\mp\gametypes_zm\_hud_util;
 
+init_client_flags()
+{
+	level.disable_deadshot_clientfield = 1;
+
+	if (isdefined(level.use_clientside_board_fx) && level.use_clientside_board_fx)
+	{
+		level._zombie_scriptmover_flag_board_horizontal_fx = 14;
+		level._zombie_scriptmover_flag_board_vertical_fx = 13;
+	}
+
+	if (isdefined(level.use_clientside_rock_tearin_fx) && level.use_clientside_rock_tearin_fx)
+	{
+		level._zombie_scriptmover_flag_rock_fx = 12;
+	}
+
+	level._zombie_player_flag_cloak_weapon = 14;
+
+	if (!(isdefined(level.disable_deadshot_clientfield) && level.disable_deadshot_clientfield))
+	{
+		registerclientfield("toplayer", "deadshot_perk", 1, 1, "int");
+	}
+
+	registerclientfield("actor", "zombie_riser_fx", 1, 1, "int");
+
+	if (!(isdefined(level._no_water_risers) && level._no_water_risers))
+	{
+		registerclientfield("actor", "zombie_riser_fx_water", 1, 1, "int");
+	}
+
+	if (isdefined(level._foliage_risers) && level._foliage_risers)
+	{
+		registerclientfield("actor", "zombie_riser_fx_foliage", 12000, 1, "int");
+	}
+
+	if (isdefined(level.risers_use_low_gravity_fx) && level.risers_use_low_gravity_fx)
+	{
+		registerclientfield("actor", "zombie_riser_fx_lowg", 1, 1, "int");
+	}
+}
+
 init_fx()
 {
 	if (level.script == "zm_buried" || level.script == "zm_prison")

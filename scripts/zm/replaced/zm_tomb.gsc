@@ -105,16 +105,15 @@ custom_vending_precaching()
 	{
 		precacheitem("zombie_perk_bottle_deadshot");
 		precacheshader("specialty_ads_zombies");
-		precachemodel("zombie_vending_ads");
-		precachemodel("zombie_vending_ads_on");
+		precachemodel("p6_zm_al_vending_ads_on");
 		precachestring(&"ZOMBIE_PERK_DEADSHOT");
 		level._effect["deadshot_light"] = loadfx("misc/fx_zombie_cola_dtap_on");
 		level.machine_assets["deadshot"] = spawnstruct();
 		level.machine_assets["deadshot"].weapon = "zombie_perk_bottle_deadshot";
-		level.machine_assets["deadshot"].off_model = "zombie_vending_ads";
-		level.machine_assets["deadshot"].on_model = "zombie_vending_ads_on";
-		level.machine_assets["deadshot"].power_on_callback = maps\mp\zm_tomb_capture_zones::custom_vending_power_on;
-		level.machine_assets["deadshot"].power_off_callback = maps\mp\zm_tomb_capture_zones::custom_vending_power_off;
+		level.machine_assets["deadshot"].off_model = "p6_zm_al_vending_ads_on";
+		level.machine_assets["deadshot"].on_model = "p6_zm_al_vending_ads_on";
+		level.machine_assets["deadshot"].power_on_callback = scripts\zm\replaced\_zm_perks::vending_deadshot_power_on;
+		level.machine_assets["deadshot"].power_off_callback = scripts\zm\replaced\_zm_perks::vending_deadshot_power_off;
 	}
 
 	if (isdefined(level.zombiemode_using_doubletap_perk) && level.zombiemode_using_doubletap_perk)

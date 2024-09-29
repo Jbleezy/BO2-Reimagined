@@ -65,6 +65,7 @@ main()
 init()
 {
 	precachemodel("collision_wall_128x128x10_standard");
+	precachemodel("collision_wall_256x256x10_standard");
 
 	level.zombie_init_done = ::zombie_init_done;
 	level.special_weapon_magicbox_check = ::buried_special_weapon_magicbox_check;
@@ -78,6 +79,7 @@ init()
 	player_initial_spawn_override();
 	power_switch_model();
 	sloth_barricades_buyable();
+	add_mansion_backyard_collision();
 	add_jug_collision();
 	move_divetonuke_collision();
 
@@ -462,10 +464,45 @@ disable_ghost_free_perk()
 	flag_waitopen("spawn_ghosts");
 }
 
+add_mansion_backyard_collision()
+{
+	origin = (3432, 856, 58);
+	angles = (0, 90, 0);
+
+	collision = spawn("script_model", origin + anglesToUp(angles) * 128);
+	collision.angles = angles;
+	collision setmodel("collision_wall_256x256x10_standard");
+
+	trigs = undefined;
+
+	if (is_gametype_active("zclassic"))
+	{
+		trigs = getentarray("vending_deadshot", "target");
+	}
+	else if (level.scr_zm_map_start_location == "maze")
+	{
+		trigs = getentarray("vending_additionalprimaryweapon", "target");
+	}
+
+	if (!isdefined(trigs))
+	{
+		return;
+	}
+
+	foreach (trig in trigs)
+	{
+		if (isdefined(trig.clip))
+		{
+			trig.clip delete();
+		}
+	}
+}
+
 add_jug_collision()
 {
 	origin = (-664, 1050, 8);
 	angles = (0, 0, 0);
+
 	collision = spawn("script_model", origin + anglesToUp(angles) * 64);
 	collision.angles = angles;
 	collision setmodel("collision_wall_128x128x10_standard");
@@ -473,18 +510,23 @@ add_jug_collision()
 
 move_divetonuke_collision()
 {
-	machines = getentarray("vending_divetonuke", "target");
-
-	if (!isdefined(machines))
+	if (!is_gametype_active("zclassic"))
 	{
 		return;
 	}
 
-	foreach (machine in machines)
+	trigs = getentarray("vending_divetonuke", "target");
+
+	if (!isdefined(trigs))
 	{
-		if (isdefined(machine.clip))
+		return;
+	}
+
+	foreach (trig in trigs)
+	{
+		if (isdefined(trig.clip))
 		{
-			machine.clip.origin += (0, 0, -128);
+			trig.clip.origin += (0, 0, -128);
 		}
 	}
 }

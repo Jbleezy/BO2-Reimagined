@@ -78,7 +78,7 @@ struct_init()
 		scripts\zm\replaced\utility::register_perk_struct(struct.script_noteworthy, struct.model, struct.origin, struct.angles);
 	}
 
-	scripts\zm\replaced\utility::register_perk_struct("specialty_additionalprimaryweapon", "zombie_vending_three_gun", (3414, 853, 52), (0, 90, 0));
+	scripts\zm\replaced\utility::register_perk_struct("specialty_additionalprimaryweapon", "zombie_vending_three_gun", (3414, 856, 54), (0, 90, 0));
 
 	initial_spawns = [];
 	player_respawn_points = [];
@@ -215,11 +215,36 @@ init_barriers()
 	scripts\zm\replaced\utility::barrier("collision_geo_64x64x128_standard", (3398, 898, 244), (0, 0, 0));
 	scripts\zm\replaced\utility::barrier("collision_geo_64x64x128_standard", (3398, 898, 372), (0, 0, 0));
 
-	structs = getstructarray("zm_perk_machine", "targetname");
+	trigs = getentarray("zombie_vending", "targetname");
 
-	foreach (struct in structs)
+	if (!isdefined(trigs))
 	{
-		scripts\zm\replaced\utility::barrier("collision_geo_64x64x128_standard", struct.origin + (anglesToRight(struct.angles) * -9) + (0, 0, 320), struct.angles);
+		return;
+	}
+
+	foreach (trig in trigs)
+	{
+		if (!isdefined(trig.script_noteworthy))
+		{
+			continue;
+		}
+
+		if (trig.script_noteworthy != "specialty_armorvest" && trig.script_noteworthy != "specialty_quickrevive" && trig.script_noteworthy != "specialty_fastreload" && trig.script_noteworthy != "specialty_rof")
+		{
+			continue;
+		}
+
+		if (isdefined(trig.clip))
+		{
+			origin = trig.clip.origin;
+			angles = trig.clip.angles;
+
+			scripts\zm\replaced\utility::barrier("collision_wall_128x128x10_standard", origin + anglesToRight(angles) * 18 + anglesToUp(angles) * 64, angles);
+			scripts\zm\replaced\utility::barrier("collision_wall_128x128x10_standard", origin + anglesToRight(angles) * 18 + anglesToUp(angles) * 192, angles);
+			scripts\zm\replaced\utility::barrier("collision_wall_128x128x10_standard", origin + anglesToRight(angles) * 18 + anglesToUp(angles) * 320, angles);
+
+			trig.clip delete();
+		}
 	}
 }
 

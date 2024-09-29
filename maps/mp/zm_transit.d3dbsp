@@ -55193,3 +55193,12 @@
 "targetname" "zm_perk_machine"
 "script_string" "zclassic_perks_transit"
 }
+{
+"origin" "5344 7064 -26"
+"model" "p6_zm_al_vending_ads_on"
+"classname" "script_struct"
+"angles" "0 0 0"
+"script_noteworthy" "specialty_deadshot"
+"targetname" "zm_perk_machine"
+"script_string" "zclassic_perks_transit"
+}
