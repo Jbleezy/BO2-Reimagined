@@ -124,6 +124,7 @@ register_elements_powered_by_zone_capture_generators()
 	register_mystery_box_for_zone("generator_nml_left", "nml_farm_chest");
 	register_random_perk_machine_for_zone("generator_church", "church");
 	register_mystery_box_for_zone("generator_church", "village_church_chest");
+	register_perk_machine_for_zone("generator_church", "doubletap", "vending_doubletap");
 }
 
 wait_for_capture_trigger()

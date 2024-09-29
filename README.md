@@ -1218,6 +1218,7 @@
 * Grief: Tower Trap targets and stuns players
 
 ### Origins
+* Added Double Tap machine at Church
 * Added PHD Flopper machine at The Crazy Place Fire Chamber
 * Added Deadshot Daiquiri machine at Generator 2
 * Added Electric Cherry machine at The Crazy Place Ice Chamber

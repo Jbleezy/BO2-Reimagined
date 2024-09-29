@@ -32830,6 +32830,15 @@
 "guid" "34A981B3"
 }
 {
+"origin" "165 -2417 302"
+"model" "zombie_vending_doubletap2"
+"classname" "script_struct"
+"angles" "0 15 0"
+"script_noteworthy" "specialty_rof"
+"targetname" "zm_perk_machine"
+"script_string" "zclassic_perks_tomb"
+}
+{
 "origin" "9752 -8790 -448"
 "model" "p6_zm_al_vending_nuke_on"
 "classname" "script_struct"
