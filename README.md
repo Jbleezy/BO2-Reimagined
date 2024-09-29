@@ -1060,6 +1060,7 @@
 * Pack-a-Punch
 
 ### Die Rise
+* Added Stamin-Up machine at Orange Highrise Level 1A
 * Added PHD Flopper machine at Escape Pod Ground
 * Added Mystery Box at Blue Highrise area
 * Added Mystery Box at Orange Highrise area

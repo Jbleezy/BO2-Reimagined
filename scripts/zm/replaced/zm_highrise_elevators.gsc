@@ -105,7 +105,7 @@ init_elevator_perks()
 
 	foreach (static_perk_struct in static_perk_structs)
 	{
-		if (static_perk_struct.script_noteworthy == "specialty_flakjacket")
+		if (static_perk_struct.script_noteworthy == "specialty_longersprint" || static_perk_struct.script_noteworthy == "specialty_flakjacket")
 		{
 			level.struct_class_names["targetname"]["zm_perk_machine_override"][level.struct_class_names["targetname"]["zm_perk_machine_override"].size] = static_perk_struct;
 		}

@@ -2449,16 +2449,6 @@
 "guid" "426D4B65"
 }
 {
-"origin" "2816.59 532.45 1120"
-"model" "zombie_vending_marathon"
-"classname" "script_struct"
-"angles" "0 330 0"
-"script_noteworthy" "specialty_longersprint"
-"targetname" "zm_perk_machine"
-"script_string" "zclassic_perks_rooftop"
-"guid" "D326944C"
-}
-{
 "origin" "2547.82 677.29 1120"
 "model" "zombie_vending_jugg"
 "classname" "script_struct"
@@ -31418,6 +31408,15 @@
 "angles" "105 60 0"
 "model" "p6_zm_hr_concrete_slabs_lrg_03"
 "classname" "script_model"
+}
+{
+"origin" "3740 1812 1577"
+"model" "zombie_vending_marathon"
+"classname" "script_struct"
+"angles" "180 -90 -12"
+"script_noteworthy" "specialty_longersprint"
+"targetname" "zm_perk_machine"
+"script_string" "zclassic_perks_rooftop"
 }
 {
 "origin" "2036 1336 1456"

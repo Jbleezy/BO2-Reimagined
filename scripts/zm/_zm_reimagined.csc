@@ -22,6 +22,11 @@ perk_changes()
 		return;
 	}
 
+	if (getdvar("mapname") == "zm_highrise")
+	{
+		level.zombiemode_using_marathon_perk = 1;
+	}
+
 	if (getdvar("mapname") == "zm_transit" || getdvar("mapname") == "zm_highrise" || getdvar("mapname") == "zm_prison" || getdvar("mapname") == "zm_buried" || getdvar("mapname") == "zm_tomb")
 	{
 		level.zombiemode_using_divetonuke_perk = 1;

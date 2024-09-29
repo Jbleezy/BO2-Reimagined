@@ -51,6 +51,7 @@ init()
 	level.zm_traversal_override = ::zm_traversal_override;
 	level.chugabud_laststand_func = scripts\zm\replaced\_zm_chugabud::chugabud_laststand;
 
+	move_marathon_origins();
 	slipgun_change_ammo();
 
 	level thread elevator_call();
@@ -192,6 +193,41 @@ change_dierise_gap17c_low_to_high()
 {
 	self.pre_traverse = undefined;
 	self.origin += (0, 0, 16);
+}
+
+move_marathon_origins()
+{
+	if (!is_gametype_active("zclassic"))
+	{
+		return;
+	}
+
+	trigs = getentarray("vending_marathon", "target");
+
+	if (!isdefined(trigs))
+	{
+		return;
+	}
+
+	foreach (trig in trigs)
+	{
+		if (!isdefined(trig.machine))
+		{
+			continue;
+		}
+
+		if (isdefined(trig.clip))
+		{
+			trig.clip.origin += anglestoup(trig.machine.angles) * 32;
+		}
+
+		if (isdefined(trig.bump))
+		{
+			trig.bump.origin += anglestoup(trig.machine.angles) * 96;
+		}
+
+		trig.origin += anglestoup(trig.machine.angles) * 96;
+	}
 }
 
 slipgun_change_ammo()
