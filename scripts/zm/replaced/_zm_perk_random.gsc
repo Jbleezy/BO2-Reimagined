@@ -36,6 +36,29 @@ machine_selector()
 	}
 }
 
+perk_bottle_motion()
+{
+	putouttime = 3;
+	putbacktime = 10;
+	v_float = anglestoforward(self.angles - (0, 90, 0)) * 10;
+
+	// delete and respawn the bottle model so that it shows at correct origin right away
+	model = self.bottle_spawn_location.model;
+	self.bottle_spawn_location delete();
+	self.bottle_spawn_location = spawn("script_model", self.origin + (0, 0, 53) - v_float);
+	self.bottle_spawn_location.angles = self.angles + (0, 0, 10);
+	self.bottle_spawn_location setmodel(model);
+
+	self.bottle_spawn_location moveto(self.bottle_spawn_location.origin + v_float, putouttime, putouttime * 0.5);
+	self.bottle_spawn_location rotateyaw(720, putouttime, putouttime * 0.5);
+
+	self waittill("done_cycling");
+
+	self.bottle_spawn_location.angles = self.angles;
+	self.bottle_spawn_location moveto(self.bottle_spawn_location.origin - v_float, putbacktime, putbacktime * 0.5);
+	self.bottle_spawn_location rotateyaw(90, putbacktime, putbacktime * 0.5);
+}
+
 trigger_visible_to_player(player)
 {
 	self setinvisibletoplayer(player);
