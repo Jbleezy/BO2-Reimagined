@@ -18,5 +18,6 @@ script,scripts/zm/replaced/zm_transit.csc
 script,scripts/zm/replaced/zm_nuked.csc
 script,scripts/zm/replaced/zm_prison.csc
 script,scripts/zm/replaced/zm_buried.csc
+script,scripts/zm/replaced/zm_tomb_capture_zones.csc
 script,scripts/zm/replaced/zm_tomb_craftables.csc
 script,scripts/zm/replaced/zgrief.csc

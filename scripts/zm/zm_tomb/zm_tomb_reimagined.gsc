@@ -76,6 +76,8 @@ main()
 
 init()
 {
+	precachemodel("p6_zm_tm_vending_pipes");
+
 	level.zombie_init_done = ::zombie_init_done;
 	level.special_weapon_magicbox_check = ::tomb_special_weapon_magicbox_check;
 	level.custom_magic_box_timer_til_despawn = ::custom_magic_box_timer_til_despawn;
@@ -86,6 +88,7 @@ init()
 	maps\mp\zombies\_zm::spawn_life_brush((1839, 3574, -228), 512, 256);
 
 	register_melee_weapons_for_level();
+	spawn_custom_perk_machine_pipes();
 	change_stargate_teleport_return_player_angles();
 
 	level thread divetonuke_on();
@@ -135,6 +138,55 @@ register_melee_weapons_for_level()
 	register_melee_weapon_for_level("one_inch_punch_fire_zm");
 	register_melee_weapon_for_level("one_inch_punch_ice_zm");
 	register_melee_weapon_for_level("one_inch_punch_lightning_zm");
+}
+
+spawn_custom_perk_machine_pipes()
+{
+	trigs = getentarray("zombie_vending", "targetname");
+
+	if (!isdefined(trigs))
+	{
+		return;
+	}
+
+	foreach (trig in trigs)
+	{
+		if (!isdefined(trig.machine))
+		{
+			continue;
+		}
+
+		if (!isdefined(trig.script_noteworthy))
+		{
+			continue;
+		}
+
+		origin_offset = undefined;
+		angles_offset = undefined;
+
+		if (trig.script_noteworthy == "specialty_rof")
+		{
+			origin_offset = (26, 8, 0);
+			angles_offset = (0, 180, 0);
+		}
+		else if (trig.script_noteworthy == "specialty_deadshot")
+		{
+			origin_offset = (15, 0, 0);
+			angles_offset = (0, 180, 0);
+		}
+
+		if (!isdefined(origin_offset) || !isdefined(angles_offset))
+		{
+			continue;
+		}
+
+		origin = trig.machine.origin;
+		angles = trig.machine.angles;
+
+		model = spawn("script_model", origin + anglestoforward(angles) * origin_offset[0] + anglestoright(angles) * origin_offset[1] + anglestoup(angles) * origin_offset[2]);
+		model.angles = angles + angles_offset;
+		model setmodel("p6_zm_tm_vending_pipes");
+	}
 }
 
 change_stargate_teleport_return_player_angles()
