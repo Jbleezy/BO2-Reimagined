@@ -36,6 +36,39 @@ machine_selector()
 	}
 }
 
+start_perk_bottle_cycling()
+{
+	self endon("done_cycling");
+	array_key = array_randomize(getarraykeys(level._random_perk_machine_perk_list));
+	timer = 0;
+
+	while (true)
+	{
+		model_cycled = 0;
+
+		for (i = 0; i < array_key.size; i++)
+		{
+			perk = level._random_perk_machine_perk_list[array_key[i]];
+
+			if (!isdefined(self.machine_user) || self.machine_user hasperk(perk))
+			{
+				continue;
+			}
+
+			model_cycled = 1;
+
+			model = get_perk_weapon_model(perk);
+			self.bottle_spawn_location setmodel(model);
+			wait 0.2;
+		}
+
+		if (!model_cycled)
+		{
+			wait 0.05;
+		}
+	}
+}
+
 perk_bottle_motion()
 {
 	putouttime = 3;

@@ -1255,6 +1255,7 @@
 * Der Wunderfizz: increased cost from 1500 to 2500
 * Der Wunderfizz: all perks have an equal chance of being obtained
 * Der Wunderfizz: moves to new location instantly
+* Der Wunderfizz: players only see perk bottles cycling that they can currently obtain
 * Der Wunderfizz: perk bottle model shows at correct position when it first appears
 * Rituals of the Ancients: spend points challenge reward changed from Double Tap perk to a random perk that the player does not have (perk does not change if reward is reopened)
 * Rituals of the Ancients: FAL OSW replaces Galil in perform headshots challenge reward
