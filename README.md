@@ -530,6 +530,8 @@
 * Ammo gets added to the clip at the same time that it gets added in the reload anim
 * Limited to 1 player on all maps
 * Decreased last stand ammo from 3 clips to 1 clip
+* Unupgraded: increased stock ammo from 162 to 168
+* Upgraded: increased stock ammo from 201 to 210
 * Upgraded: added secondary camo
 
 #### Jet Gun
