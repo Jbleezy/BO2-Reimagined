@@ -988,6 +988,7 @@
 * Added SVU-AS wallbuy at Cornfield
 * Added PHD Flopper machine at Tunnel
 * Added Deadshot Daiquiri machine at Cabin
+* Added Mule Kick machine at Cornfield
 * Added Mystery Box at Tunnel
 * Added Mystery Box at Cornfield
 * Power switch, Pack-a-Punch, and Diner hatch automatically crafted
@@ -1157,6 +1158,7 @@
 ### Mob of the Dead
 * Replaced Remington 870 MCS wallbuy at Citadel with Semtex wallbuy
 * Added PHD Flopper machine at Showers
+* Added Mule Kick machine at China Alley
 * Added one-way teleporter at Docks
 * 1 afterlife max in solo
 * Entering afterlife no longer takes 2 additional seconds if the player had Electric Cherry

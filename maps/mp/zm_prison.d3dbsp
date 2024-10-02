@@ -21582,5 +21582,23 @@
 "script_int" "1"
 "script_noteworthy" "perk_afterlife_trigger"
 "script_string" "divetonuke_on"
-"guid" "BC2EA5E0"
+}
+{
+"origin" "-627 6982 63"
+"model" "p6_zm_al_vending_three_gun_on"
+"classname" "script_struct"
+"angles" "0 100 0"
+"script_noteworthy" "specialty_additionalprimaryweapon"
+"targetname" "zm_perk_machine"
+"script_string" " zclassic_perks_prison"
+}
+{
+"targetname" "afterlife_interact"
+"angles" "0 100 0"
+"model" "p6_zm_al_shock_box_off"
+"classname" "script_model"
+"origin" "-639 6934 64"
+"script_int" "1"
+"script_noteworthy" "perk_afterlife_trigger"
+"script_string" "additionalprimaryweapon_on"
 }

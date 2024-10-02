@@ -1754,6 +1754,11 @@ perk_changes()
 	{
 		level.zombiemode_using_deadshot_perk = 1;
 	}
+
+	if (getdvar("mapname") == "zm_transit" || getdvar("mapname") == "zm_prison")
+	{
+		level.zombiemode_using_additionalprimaryweapon_perk = 1;
+	}
 }
 
 is_no_perk_map()

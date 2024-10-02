@@ -55202,3 +55202,12 @@
 "targetname" "zm_perk_machine"
 "script_string" "zclassic_perks_transit"
 }
+{
+"origin" "13601 -1298 -190"
+"model" "zombie_vending_three_gun"
+"classname" "script_struct"
+"angles" "0 0 0"
+"script_noteworthy" "specialty_additionalprimaryweapon"
+"targetname" "zm_perk_machine"
+"script_string" "zclassic_perks_transit"
+}

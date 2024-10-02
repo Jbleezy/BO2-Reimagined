@@ -43,6 +43,11 @@ perk_changes()
 		level thread toggle_vending_deadshot_power_on_think();
 		level thread toggle_vending_deadshot_power_off_think();
 	}
+
+	if (getdvar("mapname") == "zm_transit" || getdvar("mapname") == "zm_prison")
+	{
+		level.zombiemode_using_additionalprimaryweapon_perk = 1;
+	}
 }
 
 is_no_perk_map()

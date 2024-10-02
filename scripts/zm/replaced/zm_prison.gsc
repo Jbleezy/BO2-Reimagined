@@ -213,7 +213,7 @@ delete_perk_machine_clip()
 			perk_machine.clip delete();
 		}
 
-		if (isdefined(perk_machine.target) && perk_machine.target == "vending_divetonuke")
+		if (isdefined(perk_machine.target) && (perk_machine.target == "vending_divetonuke" || perk_machine.target == "vending_additionalprimaryweapon"))
 		{
 			spawn_custom_perk_collision(perk_machine);
 		}

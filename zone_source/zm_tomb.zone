@@ -4,7 +4,6 @@
 
 include,includes/perks/specialty_flakjacket
 include,includes/perks/specialty_deadshot
-include,includes/perks/specialty_additionalprimaryweapon
 
 weapon,ballista_zm
 weapon,ballista_upgraded_zm
