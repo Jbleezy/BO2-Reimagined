@@ -2,9 +2,9 @@
 >type,fastfile
 >name,zm_tomb
 
-include,includes/perks/specialty_divetonuke
+include,includes/perks/specialty_flakjacket
 include,includes/perks/specialty_deadshot
-include,includes/perks/specialty_mulekick
+include,includes/perks/specialty_additionalprimaryweapon
 
 weapon,ballista_zm
 weapon,ballista_upgraded_zm

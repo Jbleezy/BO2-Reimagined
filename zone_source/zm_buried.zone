@@ -5,7 +5,7 @@
 include,addons/so_zencounter_zm_buried
 
 include,includes/perks/specialty_rof
-include,includes/perks/specialty_marathon
+include,includes/perks/specialty_longersprint
 
 weapon,bowie_knife_zm
 weapon,tazer_knuckles_zm
