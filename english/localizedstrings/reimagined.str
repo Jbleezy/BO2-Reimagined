@@ -396,7 +396,7 @@ REFERENCE           ZM_TRANSIT_ZONE_AMB_CORNFIELD
 LANG_ENGLISH        "Cornfield"
 
 REFERENCE           ZM_TRANSIT_ZONE_CORNFIELD_PROTOTYPE
-LANG_ENGLISH        "Prototype"
+LANG_ENGLISH        "Cornfield Building"
 
 REFERENCE           ZM_TRANSIT_ZONE_TRANS_7
 LANG_ENGLISH        "Upper Fog Before Power Station"

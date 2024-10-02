@@ -1007,8 +1007,8 @@
 * Each lamp post portal teleports players to a set destination lamp post (randomizes each game)
 * Decreased brightness at Power Station
 * Zombies killed by the bus no longer respawn
-* Zombies no longer spawn in the Prototype zone when in the Cornfield zone
-* Zombies no longer spawn in the Cornfield zone when in the Prototype zone
+* Zombies no longer spawn in the Cornfield Building zone when in the Cornfield zone
+* Zombies no longer spawn in the Cornfield zone when in the Cornfield Building zone
 * Zombies spawn in the Warehouse zone when in the Outside Power Station zone before the Warehouse door is opened
 * Zombies spawn in the Outside Power Station zone when in the Fog After Power Station zone
 * Zombies spawn in the Warehouse zone when in the Fog After Power Station zone
