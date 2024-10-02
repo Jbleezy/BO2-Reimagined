@@ -2983,40 +2983,19 @@ tombstone_save()
 tombstone_save_perks(ent)
 {
 	perk_array = [];
+	trigs = getentarray("zombie_vending", "targetname");
 
-	if (ent hasperk("specialty_armorvest"))
+	foreach (trig in trigs)
 	{
-		perk_array[perk_array.size] = "specialty_armorvest";
-	}
+		if (trig.script_noteworthy == "specialty_scavenger")
+		{
+			continue;
+		}
 
-	if (ent hasperk("specialty_deadshot"))
-	{
-		perk_array[perk_array.size] = "specialty_deadshot";
-	}
-
-	if (ent hasperk("specialty_fastreload"))
-	{
-		perk_array[perk_array.size] = "specialty_fastreload";
-	}
-
-	if (ent hasperk("specialty_flakjacket"))
-	{
-		perk_array[perk_array.size] = "specialty_flakjacket";
-	}
-
-	if (ent hasperk("specialty_movefaster"))
-	{
-		perk_array[perk_array.size] = "specialty_movefaster";
-	}
-
-	if (ent hasperk("specialty_quickrevive"))
-	{
-		perk_array[perk_array.size] = "specialty_quickrevive";
-	}
-
-	if (ent hasperk("specialty_rof"))
-	{
-		perk_array[perk_array.size] = "specialty_rof";
+		if (self hasperk(trig.script_noteworthy))
+		{
+			perk_array[perk_array.size] = trig.script_noteworthy;
+		}
 	}
 
 	return perk_array;
