@@ -55222,7 +55222,7 @@
 }
 {
 "classname" "actor_zm_ally_farmgirl"
-"model" "c_zom_player_farmgirl_fb"
+"model" "c_zom_player_farmgirl_dlc1_fb"
 "export" "2"
 "spawnflags" "1"
 "targetname" "fake_player_spawner"

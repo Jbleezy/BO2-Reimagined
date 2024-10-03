@@ -23,28 +23,20 @@ weapon,svu_upgraded_zm
 fx,maps/zombie/fx_zmb_wall_buy_an94
 fx,maps/zombie/fx_zmb_wall_buy_pdw57
 fx,maps/zombie/fx_zmb_wall_buy_svuas
-material,gfx_fxt_zmb_wep_wallbuy_05
-material,gfx_fxt_zmb_wep_wallbuy_06
 
 xmodel,t6_wpn_zmb_raygun_view
 xmodel,t6_wpn_zmb_raygun_view_upg
 xmodel,t6_wpn_zmb_raygun_world
 xmodel,t6_wpn_zmb_raygun_world_upg
-material,mc/mtl_t6_wpn_zmb_raygun
-material,mc/mtl_t6_attach_tritium_red_glo
-material,mc/mtl_t6_wpn_zmb_raygun_glow
-material,mc/mtl_t6_wpn_zmb_raygun_camo
-material,mc/mtl_t6_wpn_zmb_raygun_glow_upg
 
 xmodel,t6_wpn_zmb_monkey_bomb_view
 xmodel,t6_wpn_zmb_monkey_bomb_world
-material,mc/mtl_t6_wpn_zmb_monkey_bomb
-material,mc/mtl_t6_wpn_zmb_monkey
-material,mc/mtl_t6_wpn_zmb_monkey_fur_view
 material,hud_cymbal_monkey
 
 xmodel,zombie_firesale
 material,specialty_firesale_zombies
+
+xmodel,collision_geo_32x32x32_slick
 
 camo,camo_rnma
 camo,camo_slowgun

@@ -239,7 +239,7 @@ afterlife_spawn_corpse()
 
 	collision = spawn("script_model", corpse.origin + (0, 0, 16));
 	collision.angles = corpse.angles;
-	collision setmodel("collision_clip_32x32x32");
+	collision setmodel("collision_geo_32x32x32_slick");
 	collision linkto(corpse);
 	collision ghost();
 	corpse.collision = collision;

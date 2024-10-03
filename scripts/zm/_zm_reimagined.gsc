@@ -627,6 +627,9 @@ set_dvars()
 	setDvar("player_view_pitch_up", 89.9999);
 	setDvar("player_view_pitch_down", 89.9999);
 
+	setDvar("player_sliding_velocity_cap", 80);
+	setDvar("player_sliding_wishspeed", 800);
+
 	setDvar("dtp_post_move_pause", 0);
 	setDvar("dtp_startup_delay", 100);
 	setDvar("dtp_exhaustion_window", 100);

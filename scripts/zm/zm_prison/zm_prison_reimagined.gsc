@@ -89,7 +89,7 @@ main()
 
 init()
 {
-	precacheModel("collision_clip_32x32x32");
+	precacheModel("collision_geo_32x32x32_slick");
 	precacheModel("collision_clip_32x32x128");
 
 	level.zombie_init_done = ::zombie_init_done;
