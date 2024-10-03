@@ -48,6 +48,11 @@ perk_changes()
 	{
 		level.zombiemode_using_additionalprimaryweapon_perk = 1;
 	}
+
+	if (getdvar("mapname") == "zm_buried")
+	{
+		level.zombiemode_using_tombstone_perk = 1;
+	}
 }
 
 is_no_perk_map()

@@ -82,6 +82,7 @@ init()
 	add_mansion_backyard_collision();
 	add_jug_collision();
 	move_divetonuke_collision();
+	move_tombstone_collision();
 
 	level thread build_870mcs_wallbuy();
 	level thread remove_chalk_draw_points();
@@ -526,7 +527,30 @@ move_divetonuke_collision()
 	{
 		if (isdefined(trig.clip))
 		{
-			trig.clip.origin += (0, 0, -128);
+			trig.clip.origin += anglestoup(trig.clip.angles) * -128;
+		}
+	}
+}
+
+move_tombstone_collision()
+{
+	if (!is_gametype_active("zclassic"))
+	{
+		return;
+	}
+
+	trigs = getentarray("vending_tombstone", "target");
+
+	if (!isdefined(trigs))
+	{
+		return;
+	}
+
+	foreach (trig in trigs)
+	{
+		if (isdefined(trig.clip))
+		{
+			trig.clip.origin += anglestoright(trig.clip.angles) * 8;
 		}
 	}
 }

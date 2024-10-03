@@ -344,7 +344,7 @@ default_vending_precaching()
 		precachemodel("zombie_vending_tombstone_on");
 		precachemodel("ch_tombstone1");
 		precachestring(&"ZOMBIE_PERK_TOMBSTONE");
-		level._effect["tombstone_light"] = loadfx("misc/fx_zombie_cola_on");
+		level._effect["tombstone_light"] = loadfx("misc/fx_zombie_cola_revive_on");
 		level.machine_assets["tombstone"] = spawnstruct();
 		level.machine_assets["tombstone"].weapon = "zombie_perk_bottle_tombstone";
 		level.machine_assets["tombstone"].off_model = "zombie_vending_tombstone";
@@ -657,13 +657,6 @@ vending_trigger_think()
 		{
 			self playsound("evt_perk_deny");
 			player maps\mp\zombies\_zm_audio::create_and_play_dialog("general", "perk_deny", undefined, 0);
-			continue;
-		}
-
-		if (player.num_perks >= player get_player_perk_purchase_limit())
-		{
-			self playsound("evt_perk_deny");
-			player maps\mp\zombies\_zm_audio::create_and_play_dialog("general", "sigh");
 			continue;
 		}
 

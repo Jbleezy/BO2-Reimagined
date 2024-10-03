@@ -33807,8 +33807,8 @@
 "guid" "F2DE7BAA"
 }
 {
-"angles" "0 270 0"
-"origin" "-183 -245 204"
+"angles" "0 0 0"
+"origin" "599 -374 205"
 "classname" "script_struct"
 "zombie_weapon_upgrade" "frag_grenade_zm"
 "targetname" "weapon_upgrade"
@@ -33819,8 +33819,8 @@
 "targetname" "pf3666_auto37"
 "classname" "script_struct"
 "model" "semtex_bag"
-"angles" "0 270 0"
-"origin" "-183 -245 204"
+"angles" "0 0 0"
+"origin" "599 -374 205"
 "guid" "CEAAC437"
 }
 {
@@ -33838,6 +33838,15 @@
 "classname" "script_struct"
 "angles" "0 90 0"
 "script_noteworthy" "specialty_deadshot"
+"targetname" "zm_perk_machine"
+"script_string" " zclassic_perks_processing"
+}
+{
+"origin" "-182 -360 144"
+"model" "zombie_vending_tombstone"
+"classname" "script_struct"
+"angles" "0 90 0"
+"script_noteworthy" "specialty_scavenger"
 "targetname" "zm_perk_machine"
 "script_string" " zclassic_perks_processing"
 }

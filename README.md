@@ -778,6 +778,7 @@
 * Powerup no longer removed when revived
 * Powerup removed when downed again after being revived or respawning
 * Unlimited time to pick up powerup
+* Changed perk machine light fx from Speed Cola's fx to Quick Revive's fx
 * Changed powerup fx color to blue
 * Powerup gets destroyed by EMP Grenades
 * Restores all weapons properly
@@ -1100,9 +1101,10 @@
 * Quest (Richtofen): decreased number of Sliquifier shots required for each ball from 20 to 10
 
 ### Buried
-* Added Frag Grenade wallbuy at General Store
+* Added Frag Grenade wallbuy at Candy Store Upstairs
 * Added PHD Flopper machine at Lower Processing
 * Added Deadshot Daiquiri machine at Mansion Backyard
+* Added Tombstone Soda machine at General Store
 * Removed Turbine, key, booze, and candy
 * Power automatically on
 * Noose and Guillotine parts automatically picked up
