@@ -365,6 +365,11 @@ player_perk_unpause(perk)
 			self.hasperkspecialtytombstone = 1;
 		}
 
+		if (perk == "specialty_additionalprimaryweapon" || perk == "specialty_additionalprimaryweapon_upgrade")
+		{
+			self scripts\zm\replaced\_zm::restore_additionalprimaryweapon();
+		}
+
 		self maps\mp\zombies\_zm_perks::perk_set_max_health_if_jugg(perk, 0, 0);
 
 		if (isDefined(level._custom_perks[perk]) && isDefined(level._custom_perks[perk].player_thread_give))
