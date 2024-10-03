@@ -443,14 +443,16 @@ chugabud_corpse_cleanup(corpse, was_revived)
 	}
 
 	self.loadout = undefined;
+
 	wait 0.1;
-	corpse delete();
-	self.e_chugabud_corpse = undefined;
 
 	if (is_player_valid(self))
 	{
 		self.statusicon = "";
 	}
+
+	corpse delete();
+	self.e_chugabud_corpse = undefined;
 }
 
 chugabud_handle_multiple_instances(corpse)
