@@ -1137,6 +1137,9 @@ LANG_ENGLISH        "Augustus-9"
 REFERENCE           PLATFORM_PICKUPNEWWEAPON
 LANG_ENGLISH        "Hold ^3&&1^7 to pick up"
 
+REFERENCE           GAME_BUTTON_TO_REVIVE_PLAYER
+LANG_ENGLISH        "Hold ^3&&1^7 to revive"
+
 REFERENCE           ZOMBIE_WEAPON_SARITCH
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 for SMR [Cost: &&1]"
 
