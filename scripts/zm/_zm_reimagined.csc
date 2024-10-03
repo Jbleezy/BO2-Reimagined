@@ -15,6 +15,11 @@ main()
 	powerup_changes();
 }
 
+init()
+{
+	perk_changes_init();
+}
+
 perk_changes()
 {
 	if (is_no_perk_map())
@@ -52,6 +57,24 @@ perk_changes()
 	if (getdvar("mapname") == "zm_buried")
 	{
 		level.zombiemode_using_tombstone_perk = 1;
+	}
+
+	if (getdvar("mapname") == "zm_transit")
+	{
+		level.zombiemode_using_chugabud_perk = 1;
+
+		registerclientfield("actor", "clientfield_whos_who_clone_glow_shader", 5000, 1, "int", clientscripts\mp\zombies\_zm_perks::chugabud_whos_who_shader, 0);
+		registerclientfield("toplayer", "clientfield_whos_who_audio", 5000, 1, "int", clientscripts\mp\zm_highrise_amb::whoswhoaudio, 0);
+		registerclientfield("toplayer", "clientfield_whos_who_filter", 5000, 1, "int", clientscripts\mp\zm_highrise_amb::whoswhofilter, 0);
+	}
+}
+
+perk_changes_init()
+{
+	if (getdvar("mapname") == "zm_transit")
+	{
+		clientscripts\mp\_visionset_mgr::vsmgr_register_visionset_info("zm_whos_who", 5000, 1, "zm_whos_who", "zm_whos_who");
+		level thread clientscripts\mp\zombies\_zm_perks::chugabud_setup_afterlife_filters();
 	}
 }
 

@@ -170,36 +170,6 @@ custom_vending_precaching()
 		level.machine_assets["speedcola"].power_on_callback = maps\mp\zm_prison::custom_vending_power_on;
 		level.machine_assets["speedcola"].power_off_callback = maps\mp\zm_prison::custom_vending_power_off;
 	}
-
-	if (isdefined(level.zombiemode_using_tombstone_perk) && level.zombiemode_using_tombstone_perk)
-	{
-		precacheitem("zombie_perk_bottle_tombstone");
-		precacheshader("specialty_tombstone_zombies");
-		precachemodel("zombie_vending_tombstone");
-		precachemodel("zombie_vending_tombstone_on");
-		precachemodel("ch_tombstone1");
-		precachestring(&"ZOMBIE_PERK_TOMBSTONE");
-		level._effect["tombstone_light"] = loadfx("misc/fx_zombie_cola_on");
-		level.machine_assets["tombstone"] = spawnstruct();
-		level.machine_assets["tombstone"].weapon = "zombie_perk_bottle_tombstone";
-		level.machine_assets["tombstone"].off_model = "zombie_vending_tombstone";
-		level.machine_assets["tombstone"].on_model = "zombie_vending_tombstone_on";
-	}
-
-	if (isdefined(level.zombiemode_using_chugabud_perk) && level.zombiemode_using_chugabud_perk)
-	{
-		precacheitem("zombie_perk_bottle_whoswho");
-		precacheshader("specialty_quickrevive_zombies");
-		precachemodel("p6_zm_vending_chugabud");
-		precachemodel("p6_zm_vending_chugabud_on");
-		precachemodel("ch_tombstone1");
-		precachestring(&"ZOMBIE_PERK_TOMBSTONE");
-		level._effect["tombstone_light"] = loadfx("misc/fx_zombie_cola_on");
-		level.machine_assets["whoswho"] = spawnstruct();
-		level.machine_assets["whoswho"].weapon = "zombie_perk_bottle_whoswho";
-		level.machine_assets["whoswho"].off_model = "p6_zm_vending_chugabud";
-		level.machine_assets["whoswho"].on_model = "p6_zm_vending_chugabud_on";
-	}
 }
 
 delete_perk_machine_clip()

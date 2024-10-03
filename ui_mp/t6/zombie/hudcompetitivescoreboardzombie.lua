@@ -84,19 +84,19 @@ if Dvar.ui_mapname:get() == CoD.Zombie.MAP_ZM_TRANSIT then
 	CoD.CompetitiveScoreboard.CharacterNames = {}
 	CoD.CompetitiveScoreboard.CharacterNames[1] = {
 		name = "Misty",
-		modelName = "c_zom_player_farmgirl_fb",
+		modelName = "c_zom_player_farmgirl_dlc1_fb",
 	}
 	CoD.CompetitiveScoreboard.CharacterNames[2] = {
 		name = "Marlton",
-		modelName = "c_zom_player_engineer_fb",
+		modelName = "c_zom_player_engineer_dlc1_fb",
 	}
 	CoD.CompetitiveScoreboard.CharacterNames[3] = {
 		name = "Stuhlinger",
-		modelName = "c_zom_player_reporter_fb",
+		modelName = "c_zom_player_reporter_dlc1_fb",
 	}
 	CoD.CompetitiveScoreboard.CharacterNames[4] = {
 		name = "Russman",
-		modelName = "c_zom_player_oldman_fb",
+		modelName = "c_zom_player_oldman_dlc1_fb",
 	}
 elseif CoD.CompetitiveScoreboard.IsDLC1Map == true then
 	CoD.CompetitiveScoreboard.CharacterNames = {}

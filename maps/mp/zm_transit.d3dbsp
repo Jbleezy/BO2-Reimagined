@@ -55211,3 +55211,20 @@
 "targetname" "zm_perk_machine"
 "script_string" "zclassic_perks_transit"
 }
+{
+"origin" "11571 7707 -757"
+"model" "p6_zm_vending_chugabud"
+"classname" "script_struct"
+"angles" "0 0 0"
+"script_noteworthy" "specialty_finalstand"
+"targetname" "zm_perk_machine"
+"script_string" "zclassic_perks_transit"
+}
+{
+"classname" "actor_zm_ally_farmgirl"
+"model" "c_zom_player_farmgirl_fb"
+"export" "2"
+"spawnflags" "1"
+"targetname" "fake_player_spawner"
+"origin" "-8216 0 0"
+}

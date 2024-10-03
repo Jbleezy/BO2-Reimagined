@@ -230,7 +230,7 @@ custom_vending_precaching()
 		precachemodel("zombie_vending_tombstone_on");
 		precachemodel("ch_tombstone1");
 		precachestring(&"ZOMBIE_PERK_TOMBSTONE");
-		level._effect["tombstone_light"] = loadfx("misc/fx_zombie_cola_on");
+		level._effect["tombstone_light"] = loadfx("misc/fx_zombie_cola_revive_on");
 		level.machine_assets["tombstone"] = spawnstruct();
 		level.machine_assets["tombstone"].weapon = "zombie_perk_bottle_tombstone";
 		level.machine_assets["tombstone"].off_model = "zombie_vending_tombstone";
@@ -240,12 +240,11 @@ custom_vending_precaching()
 	if (isdefined(level.zombiemode_using_chugabud_perk) && level.zombiemode_using_chugabud_perk)
 	{
 		precacheitem("zombie_perk_bottle_whoswho");
-		precacheshader("specialty_quickrevive_zombies");
+		precacheshader("specialty_chugabud_zombies");
 		precachemodel("p6_zm_vending_chugabud");
 		precachemodel("p6_zm_vending_chugabud_on");
-		precachemodel("ch_tombstone1");
-		precachestring(&"ZOMBIE_PERK_TOMBSTONE");
-		level._effect["tombstone_light"] = loadfx("misc/fx_zombie_cola_on");
+		precachestring(&"ZOMBIE_PERK_CHUGABUD");
+		level._effect["whoswho_light"] = loadfx("misc/fx_zombie_cola_on");
 		level.machine_assets["whoswho"] = spawnstruct();
 		level.machine_assets["whoswho"].weapon = "zombie_perk_bottle_whoswho";
 		level.machine_assets["whoswho"].off_model = "p6_zm_vending_chugabud";

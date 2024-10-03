@@ -1,0 +1,12 @@
+weapon,zombie_perk_bottle_whoswho
+material,specialty_chugabud_zombies
+xmodel,p6_zm_vending_chugabud
+xmodel,p6_zm_vending_chugabud_on
+material,generic_filter_afterlife
+rawfile,vision/zm_whos_who.vision
+fx,weapon/quantum_bomb/fx_player_position_effect
+script,aitype/zm_ally_farmgirl.gsc
+script,aitype/clientscripts/zm_ally_farmgirl.csc
+script,character/c_zom_ally_farmgirl.gsc
+script,character/clientscripts/c_zom_ally_farmgirl.csc
+script,clientscripts/mp/zm_highrise_amb.csc

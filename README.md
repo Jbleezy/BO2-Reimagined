@@ -992,6 +992,7 @@
 * Added PHD Flopper machine at Tunnel
 * Added Deadshot Daiquiri machine at Cabin
 * Added Mule Kick machine at Cornfield
+* Added Who's Who machine at Power Station
 * Added Mystery Box at Tunnel
 * Added Mystery Box at Cornfield
 * Power switch, Pack-a-Punch, and Diner hatch automatically crafted

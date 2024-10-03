@@ -43,13 +43,10 @@ main()
 
 init()
 {
-	precacheshader("specialty_chugabud_zombies");
-
 	level.zombie_init_done = ::zombie_init_done;
 	level.special_weapon_magicbox_check = ::highrise_special_weapon_magicbox_check;
 	level.check_for_valid_spawn_near_team_callback = ::highrise_respawn_override;
 	level.zm_traversal_override = ::zm_traversal_override;
-	level.chugabud_laststand_func = scripts\zm\replaced\_zm_chugabud::chugabud_laststand;
 
 	move_marathon_origins();
 	slipgun_change_ammo();

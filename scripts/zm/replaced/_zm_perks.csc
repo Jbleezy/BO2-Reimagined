@@ -60,7 +60,7 @@ perks_register_clientfield()
 
 	if (is_true(level.zombiemode_using_chugabud_perk))
 	{
-		registerclientfield("toplayer", "perk_chugabud", 1000, 1, "int", level.zombies_global_perk_client_callback, 0, 1);
+		registerclientfield("toplayer", "perk_chugabud", 1000, bits, "int", level.zombies_global_perk_client_callback, 0, 1);
 	}
 
 	if (level._custom_perks.size > 0)

@@ -4,6 +4,14 @@
 
 main()
 {
+	replaceFunc(character\c_transit_player_farmgirl::precache, character\c_highrise_player_farmgirl::precache);
+	replaceFunc(character\c_transit_player_oldman::precache, character\c_highrise_player_oldman::precache);
+	replaceFunc(character\c_transit_player_engineer::precache, character\c_highrise_player_engineer::precache);
+	replaceFunc(character\c_transit_player_reporter::precache, character\c_highrise_player_reporter::precache);
+	replaceFunc(character\c_transit_player_farmgirl::main, character\c_highrise_player_farmgirl::main);
+	replaceFunc(character\c_transit_player_oldman::main, character\c_highrise_player_oldman::main);
+	replaceFunc(character\c_transit_player_engineer::main, character\c_highrise_player_engineer::main);
+	replaceFunc(character\c_transit_player_reporter::main, character\c_highrise_player_reporter::main);
 	replaceFunc(maps\mp\zm_transit_sq::navcomputer_waitfor_navcard, scripts\zm\reimagined\_zm_sq::navcomputer_waitfor_navcard);
 	replaceFunc(maps\mp\zm_transit_sq::maxis_sidequest_a, scripts\zm\replaced\zm_transit_sq::maxis_sidequest_a);
 	replaceFunc(maps\mp\zm_transit_sq::maxis_sidequest_b, scripts\zm\replaced\zm_transit_sq::maxis_sidequest_b);

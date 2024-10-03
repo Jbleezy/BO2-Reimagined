@@ -203,7 +203,7 @@ perks_register_clientfield()
 
 	if (isdefined(level.zombiemode_using_chugabud_perk) && level.zombiemode_using_chugabud_perk)
 	{
-		registerclientfield("toplayer", "perk_chugabud", 1000, 1, "int");
+		registerclientfield("toplayer", "perk_chugabud", 1000, bits, "int");
 	}
 
 	if (isdefined(level._custom_perks))
@@ -354,12 +354,11 @@ default_vending_precaching()
 	if (isdefined(level.zombiemode_using_chugabud_perk) && level.zombiemode_using_chugabud_perk)
 	{
 		precacheitem("zombie_perk_bottle_whoswho");
-		precacheshader("specialty_quickrevive_zombies");
+		precacheshader("specialty_chugabud_zombies");
 		precachemodel("p6_zm_vending_chugabud");
 		precachemodel("p6_zm_vending_chugabud_on");
-		precachemodel("ch_tombstone1");
-		precachestring(&"ZOMBIE_PERK_TOMBSTONE");
-		level._effect["tombstone_light"] = loadfx("misc/fx_zombie_cola_on");
+		precachestring(&"ZOMBIE_PERK_CHUGABUD");
+		level._effect["whoswho_light"] = loadfx("misc/fx_zombie_cola_on");
 		level.machine_assets["whoswho"] = spawnstruct();
 		level.machine_assets["whoswho"].weapon = "zombie_perk_bottle_whoswho";
 		level.machine_assets["whoswho"].off_model = "p6_zm_vending_chugabud";
@@ -401,6 +400,63 @@ vending_deadshot_power_off()
 	else
 	{
 		level thread scripts\zm\_zm_reimagined::clientnotifyloop("toggle_vending_deadshot_power_off", "deadshot_on");
+	}
+}
+
+turn_chugabud_on()
+{
+	maps\mp\zombies\_zm_chugabud::init();
+
+	if (isdefined(level.vsmgr_prio_visionset_zm_whos_who))
+	{
+		maps\mp\_visionset_mgr::vsmgr_register_info("visionset", "zm_whos_who", 5000, level.vsmgr_prio_visionset_zm_whos_who, 1, 1);
+	}
+
+	while (true)
+	{
+		machine = getentarray("vending_chugabud", "targetname");
+		machine_triggers = getentarray("vending_chugabud", "target");
+
+		for (i = 0; i < machine.size; i++)
+		{
+			machine[i] setmodel(level.machine_assets["whoswho"].off_model);
+		}
+
+		level thread do_initial_power_off_callback(machine, "whoswho");
+		array_thread(machine_triggers, ::set_power_on, 0);
+		level waittill("chugabud_on");
+
+		for (i = 0; i < machine.size; i++)
+		{
+			machine[i] setmodel(level.machine_assets["whoswho"].on_model);
+			machine[i] vibrate(vectorscale((0, -1, 0), 100.0), 0.3, 0.4, 3);
+			machine[i] playsound("zmb_perks_power_on");
+			machine[i] thread perk_fx("whoswho_light");
+			machine[i] thread play_loop_on_machine();
+		}
+
+		level notify("specialty_finalstand_power_on");
+		array_thread(machine_triggers, ::set_power_on, 1);
+
+		if (isdefined(level.machine_assets["whoswho"].power_on_callback))
+		{
+			array_thread(machine, level.machine_assets["whoswho"].power_on_callback);
+		}
+
+		level waittill("chugabud_off");
+
+		if (isdefined(level.machine_assets["whoswho"].power_off_callback))
+		{
+			array_thread(machine, level.machine_assets["whoswho"].power_off_callback);
+		}
+
+		array_thread(machine, ::turn_perk_off);
+		players = get_players();
+
+		foreach (player in players)
+		{
+			player.hasperkspecialtychugabud = undefined;
+		}
 	}
 }
 

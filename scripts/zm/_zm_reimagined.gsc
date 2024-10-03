@@ -596,6 +596,7 @@ post_all_players_spawned()
 	level.playerlaststand_func = scripts\zm\replaced\_zm::player_laststand;
 	level.callbackplayerlaststand = scripts\zm\replaced\_zm::callback_playerlaststand;
 	level._zombies_round_spawn_failsafe = scripts\zm\replaced\_zm::round_spawn_failsafe;
+	level.chugabud_laststand_func = scripts\zm\replaced\_zm_chugabud::chugabud_laststand;
 	level.etrap_damage = maps\mp\zombies\_zm::ai_zombie_health(255);
 	level.slipgun_damage = maps\mp\zombies\_zm::ai_zombie_health(255);
 	level.should_respawn_func = ::should_respawn;
@@ -1763,6 +1764,17 @@ perk_changes()
 	if (getdvar("mapname") == "zm_buried")
 	{
 		level.zombiemode_using_tombstone_perk = 1;
+	}
+
+	if (getdvar("mapname") == "zm_transit")
+	{
+		level.zombiemode_using_chugabud_perk = 1;
+		level.whos_who_client_setup = 1;
+		level.vsmgr_prio_visionset_zm_whos_who = 123;
+
+		registerclientfield("actor", "clientfield_whos_who_clone_glow_shader", 5000, 1, "int");
+		registerclientfield("toplayer", "clientfield_whos_who_audio", 5000, 1, "int");
+		registerclientfield("toplayer", "clientfield_whos_who_filter", 5000, 1, "int");
 	}
 }
 

@@ -2,4 +2,16 @@
 >type,fastfile
 >name,zm_highrise
 
+include,includes/perks/specialty_finalstand
+
+xmodel,c_zom_player_farmgirl_dlc1_fb
+xmodel,c_zom_player_oldman_dlc1_fb
+xmodel,c_zom_player_engineer_dlc1_fb
+xmodel,c_zom_player_reporter_dlc1_fb
+
 camo,camo_slipgun
+
+script,character/c_highrise_player_farmgirl.gsc
+script,character/c_highrise_player_oldman.gsc
+script,character/c_highrise_player_engineer.gsc
+script,character/c_highrise_player_reporter.gsc
