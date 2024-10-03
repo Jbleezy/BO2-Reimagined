@@ -306,6 +306,7 @@
 * Projectile weapons: capped projectile weapon damage scalar at 3000
 * Placeable mines: changed damage scalar to 150 multiplied by round number (normally random number between 100 and 200 multiplied by round number)
 * Placeable mines: capped damage scalar at 9000
+* Placeable mines: player hit audio no longer plays
 
 ### Pistols
 * Increased move speed from 100% to 110%
@@ -760,6 +761,7 @@
 * Deals same damage on all maps
 * Damages all zombies at once on all maps
 * Players no longer take 1 fall damage when not diving
+* Fixed player hit audio playing from explosive damage
 
 ### Deadshot Daiquiri
 * Added perk bottle model from Origins to all maps

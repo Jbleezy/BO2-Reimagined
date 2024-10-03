@@ -2388,15 +2388,9 @@ player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, s
 
 			canexert = 1;
 
-			if (is_true(level.pers_upgrade_flopper))
+			if (self hasperk("specialty_flakjacket") || (is_true(level.pers_upgrade_flopper) && is_true(self.pers_upgrades_awarded["flopper"])))
 			{
-				if (is_true(self.pers_upgrades_awarded["flopper"]))
-				{
-					if (smeansofdeath != "MOD_PROJECTILE_SPLASH" && smeansofdeath != "MOD_GRENADE" && smeansofdeath != "MOD_GRENADE_SPLASH")
-					{
-						canexert = smeansofdeath;
-					}
-				}
+				canexert = smeansofdeath != "MOD_PROJECTILE" && smeansofdeath != "MOD_PROJECTILE_SPLASH" && smeansofdeath != "MOD_GRENADE" && smeansofdeath != "MOD_GRENADE_SPLASH";
 			}
 
 			if (is_placeable_mine(sweapon))
