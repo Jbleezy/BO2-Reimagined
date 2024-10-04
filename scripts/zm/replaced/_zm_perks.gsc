@@ -1807,6 +1807,27 @@ check_player_has_perk(perk)
 	}
 }
 
+get_perk_array(ignore_chugabud)
+{
+	perk_array = [];
+	trigs = getentarray("zombie_vending", "targetname");
+
+	foreach (trig in trigs)
+	{
+		if (trig.script_noteworthy == "specialty_finalstand" && is_true(ignore_chugabud))
+		{
+			continue;
+		}
+
+		if (self hasperk(trig.script_noteworthy))
+		{
+			perk_array[perk_array.size] = trig.script_noteworthy;
+		}
+	}
+
+	return perk_array;
+}
+
 do_initial_power_off_callback(machine_array, perkname)
 {
 	if (!isdefined(level.machine_assets[perkname]))
