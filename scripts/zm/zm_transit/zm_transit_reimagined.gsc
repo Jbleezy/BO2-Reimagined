@@ -83,6 +83,7 @@ init()
 	level.can_revive = ::can_revive;
 	level.grenade_safe_to_bounce = ::grenade_safe_to_bounce;
 	level.object_touching_lava = maps\mp\zm_transit_lava::object_touching_lava;
+	level._chugabud_reject_node_override_func = ::transit_chugabud_reject_node_func;
 
 	player_initial_spawn_override();
 	player_respawn_override();
@@ -243,6 +244,30 @@ grenade_safe_to_bounce(player, weapname)
 	}
 
 	return 1;
+}
+
+transit_chugabud_reject_node_func(corpse_origin, node)
+{
+	if (self maps\mp\zombies\_zm_zonemgr::entity_in_zone("zone_amb_cornfield"))
+	{
+		a_player_volumes = getentarray("player_volume", "script_noteworthy");
+
+		origins = [];
+		origins[origins.size] = node.origin + anglestoforward(node.angles) * 128;
+		origins[origins.size] = node.origin + anglestoforward(node.angles) * -128;
+		origins[origins.size] = node.origin + anglestoright(node.angles) * 128;
+		origins[origins.size] = node.origin + anglestoright(node.angles) * -128;
+
+		foreach (origin in origins)
+		{
+			if (!maps\mp\zombies\_zm_utility::check_point_in_enabled_zone(origin, 1, a_player_volumes))
+			{
+				return 1;
+			}
+		}
+	}
+
+	return 0;
 }
 
 player_initial_spawn_override()
