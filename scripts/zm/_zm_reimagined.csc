@@ -15,11 +15,6 @@ main()
 	powerup_changes();
 }
 
-init()
-{
-	perk_changes_init();
-}
-
 perk_changes()
 {
 	if (is_no_perk_map())
@@ -62,6 +57,7 @@ perk_changes()
 	if (getdvar("mapname") == "zm_transit")
 	{
 		level.zombiemode_using_chugabud_perk = 1;
+		clientscripts\mp\zombies\_zm_perks::register_perk_init_thread("specialty_finalstand", ::init_chugabud);
 
 		registerclientfield("actor", "clientfield_whos_who_clone_glow_shader", 5000, 1, "int", clientscripts\mp\zombies\_zm_perks::chugabud_whos_who_shader, 0);
 		registerclientfield("toplayer", "clientfield_whos_who_audio", 5000, 1, "int", clientscripts\mp\zm_highrise_amb::whoswhoaudio, 0);
@@ -69,18 +65,15 @@ perk_changes()
 	}
 }
 
-perk_changes_init()
-{
-	if (getdvar("mapname") == "zm_transit")
-	{
-		clientscripts\mp\_visionset_mgr::vsmgr_register_visionset_info("zm_whos_who", 5000, 1, "zm_whos_who", "zm_whos_who");
-		level thread clientscripts\mp\zombies\_zm_perks::chugabud_setup_afterlife_filters();
-	}
-}
-
 is_no_perk_map()
 {
 	return !is_gametype_active("zclassic") && getdvar("mapname") == "zm_transit" && getdvar("ui_zm_mapstartlocation") == "transit";
+}
+
+init_chugabud()
+{
+	clientscripts\mp\_visionset_mgr::vsmgr_register_visionset_info("zm_whos_who", 5000, 1, "zm_whos_who", "zm_whos_who");
+	level thread clientscripts\mp\zombies\_zm_perks::chugabud_setup_afterlife_filters();
 }
 
 powerup_changes()
