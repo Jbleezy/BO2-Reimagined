@@ -16,6 +16,14 @@ chugabud_laststand()
 		return;
 	}
 
+	spawn_tombstone = 0;
+
+	if (isdefined(level.tombstone_laststand_func) && is_true(self.hasperkspecialtytombstone))
+	{
+		spawn_tombstone = 1;
+		self [[level.tombstone_laststand_func]]();
+	}
+
 	self maps\mp\zombies\_zm_laststand::increment_downed_stat();
 	self.ignore_insta_kill = 1;
 	self.health = self.maxhealth;
@@ -51,6 +59,7 @@ chugabud_laststand()
 		corpse = self chugabud_spawn_corpse();
 		self.e_chugabud_corpse = corpse;
 		corpse.e_chugabud_player = self;
+		corpse.spawn_tombstone = spawn_tombstone;
 		corpse thread chugabud_corpse_revive_icon(self);
 		corpse thread chugabud_corpse_cleanup_on_spectator(self);
 		corpse thread chugabud_corpse_cleanup_on_disconnect(self);
@@ -539,6 +548,11 @@ chugabud_bleed_timeout(delay, corpse)
 		{
 			wait 0.01;
 		}
+	}
+
+	if (isdefined(level.tombstone_spawn_func) && is_true(corpse.spawn_tombstone))
+	{
+		self thread [[level.tombstone_spawn_func]](corpse);
 	}
 
 	self chugabud_corpse_cleanup(corpse, 0);

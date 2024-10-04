@@ -2752,14 +2752,21 @@ weapon_locker_give_ammo_after_rounds()
 	}
 }
 
-tombstone_spawn()
+tombstone_spawn(ent)
 {
 	vars = [];
 
-	vars["powerup"] = spawn("script_model", self.origin + vectorScale((0, 0, 1), 40));
+	origin = self.origin;
+
+	if (isdefined(ent))
+	{
+		origin = ent.origin;
+	}
+
+	vars["powerup"] = spawn("script_model", origin + vectorScale((0, 0, 1), 40));
 	vars["powerup"].angles = self.angles;
 	vars["powerup"] setmodel("tag_origin");
-	vars["icon"] = spawn("script_model", self.origin + vectorScale((0, 0, 1), 40));
+	vars["icon"] = spawn("script_model", origin + vectorScale((0, 0, 1), 40));
 	vars["icon"].angles = self.angles;
 	vars["icon"] setmodel("ch_tombstone1");
 	vars["icon"] linkto(vars["powerup"]);
@@ -2771,7 +2778,12 @@ tombstone_spawn()
 	vars["powerup"] thread tombstone_wobble();
 	vars["powerup"] thread tombstone_emp();
 
-	result = self waittill_any_return("player_revived", "spawned_player", "disconnect");
+	result = "";
+
+	if (!isdefined(ent))
+	{
+		result = self waittill_any_return("player_revived", "spawned_player", "disconnect");
+	}
 
 	if (result == "disconnect")
 	{
@@ -3010,6 +3022,11 @@ tombstone_save_perks(ent)
 	foreach (trig in trigs)
 	{
 		if (trig.script_noteworthy == "specialty_scavenger")
+		{
+			continue;
+		}
+
+		if (trig.script_noteworthy == "specialty_finalstand")
 		{
 			continue;
 		}
