@@ -2756,8 +2756,6 @@ tombstone_spawn(ent)
 {
 	self notify("tombstone_handle_multiple_instances");
 
-	vars = [];
-
 	origin = self.origin;
 
 	if (isdefined(ent))
@@ -2765,37 +2763,38 @@ tombstone_spawn(ent)
 		origin = ent.origin;
 	}
 
-	vars["powerup"] = spawn("script_model", origin + vectorScale((0, 0, 1), 40));
-	vars["powerup"].angles = self.angles;
-	vars["powerup"] setmodel("tag_origin");
-	vars["icon"] = spawn("script_model", origin + vectorScale((0, 0, 1), 40));
-	vars["icon"].angles = self.angles;
-	vars["icon"] setmodel("ch_tombstone1");
-	vars["icon"] linkto(vars["powerup"]);
-	vars["powerup"].icon = vars["icon"];
-	vars["powerup"].script_noteworthy = "player_tombstone_model";
-	vars["powerup"].player = self;
+	powerup = spawn("script_model", origin + vectorScale((0, 0, 1), 40));
+	powerup.angles = self.angles;
+	powerup setmodel("tag_origin");
+	icon = spawn("script_model", origin + vectorScale((0, 0, 1), 40));
+	icon.angles = self.angles;
+	icon setmodel("ch_tombstone1");
+	icon linkto(powerup);
+	powerup.icon = icon;
+	powerup.script_noteworthy = "player_tombstone_model";
+	powerup.player = self;
 
 	self thread maps\mp\zombies\_zm_tombstone::tombstone_clear();
-	vars["powerup"] thread tombstone_wobble();
-	vars["powerup"] thread tombstone_emp();
+	powerup thread tombstone_wobble();
+	powerup thread tombstone_emp();
+	powerup thread tombstone_handle_multiple_instances();
 
 	result = "";
 
-	if (!isdefined(ent))
+	if (!is_player_valid(self))
 	{
 		result = self waittill_any_return("player_revived", "spawned_player", "disconnect");
 	}
 
 	if (result == "disconnect")
 	{
-		vars["powerup"] tombstone_delete();
+		powerup thread tombstone_delete();
 		return;
 	}
 
-	vars["powerup"] thread tombstone_waypoint();
-	vars["powerup"] thread tombstone_timeout();
-	vars["powerup"] thread tombstone_grab();
+	powerup thread tombstone_waypoint();
+	powerup thread tombstone_timeout();
+	powerup thread tombstone_grab();
 }
 
 tombstone_wobble()
@@ -2819,8 +2818,8 @@ tombstone_wobble()
 
 tombstone_emp()
 {
-	self endon("tombstone_timedout");
 	self endon("tombstone_grabbed");
+	self endon("tombstone_timedout");
 
 	if (!should_watch_for_emp())
 	{
@@ -2860,12 +2859,23 @@ tombstone_waypoint()
 tombstone_timeout()
 {
 	self endon("tombstone_grabbed");
+	self endon("tombstone_timedout");
 
 	self thread maps\mp\zombies\_zm_tombstone::playtombstonetimeraudio();
 
-	self.player waittill_any("player_downed", "tombstone_handle_multiple_instances");
+	self.player waittill("player_downed");
 
-	self tombstone_delete();
+	self thread tombstone_delete();
+}
+
+tombstone_handle_multiple_instances()
+{
+	self endon("tombstone_grabbed");
+	self endon("tombstone_timedout");
+
+	self.player waittill("tombstone_handle_multiple_instances");
+
+	self thread tombstone_delete();
 }
 
 tombstone_grab()
