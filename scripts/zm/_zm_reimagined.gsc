@@ -2754,6 +2754,8 @@ weapon_locker_give_ammo_after_rounds()
 
 tombstone_spawn(ent)
 {
+	self notify("tombstone_handle_multiple_instances");
+
 	vars = [];
 
 	origin = self.origin;
@@ -2861,7 +2863,7 @@ tombstone_timeout()
 
 	self thread maps\mp\zombies\_zm_tombstone::playtombstonetimeraudio();
 
-	self.player waittill("player_downed");
+	self.player waittill_any("player_downed", "tombstone_handle_multiple_instances");
 
 	self tombstone_delete();
 }

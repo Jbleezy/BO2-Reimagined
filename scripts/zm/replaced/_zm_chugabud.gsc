@@ -408,7 +408,7 @@ chugabud_corpse_revive_icon(player)
 	hud_elem settargetent(self.revive_waypoint_origin);
 }
 
-chugabud_corpse_cleanup(corpse, was_revived)
+chugabud_corpse_cleanup(corpse, was_revived, was_disconnect = 0)
 {
 	self notify("chugabud_effects_cleanup");
 
@@ -422,6 +422,11 @@ chugabud_corpse_cleanup(corpse, was_revived)
 		playsoundatposition("evt_ww_disappear", corpse.origin);
 		playfx(level._effect["chugabud_bleedout_fx"], corpse.origin);
 		self notify("chugabud_bleedout");
+
+		if (isdefined(level.tombstone_spawn_func) && is_true(corpse.spawn_tombstone) && !was_disconnect)
+		{
+			self thread [[level.tombstone_spawn_func]](corpse);
+		}
 	}
 
 	if (isdefined(corpse.revivetrigger))
@@ -487,7 +492,7 @@ chugabud_corpse_cleanup_on_disconnect(player)
 
 	player waittill("disconnect");
 
-	player chugabud_corpse_cleanup(self, 0);
+	player chugabud_corpse_cleanup(self, 0, 1);
 }
 
 chugabud_laststand_cleanup(corpse, str_notify)
@@ -548,11 +553,6 @@ chugabud_bleed_timeout(delay, corpse)
 		{
 			wait 0.01;
 		}
-	}
-
-	if (isdefined(level.tombstone_spawn_func) && is_true(corpse.spawn_tombstone))
-	{
-		self thread [[level.tombstone_spawn_func]](corpse);
 	}
 
 	self chugabud_corpse_cleanup(corpse, 0);
