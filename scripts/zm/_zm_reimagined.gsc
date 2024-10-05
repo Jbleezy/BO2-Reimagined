@@ -3273,7 +3273,14 @@ additionalprimaryweapon_indicator()
 	{
 		wait 0.05;
 
-		if (self.sessionstate == "spectator")
+		player = self get_current_spectating_player();
+
+		if (player == self)
+		{
+			self additionalprimaryweapon_update_weapon_slots();
+		}
+
+		if (!player hasPerk("specialty_additionalprimaryweapon"))
 		{
 			if (vars["prev_weapon_name"] != "")
 			{
@@ -3284,20 +3291,7 @@ additionalprimaryweapon_indicator()
 			continue;
 		}
 
-		self additionalprimaryweapon_update_weapon_slots();
-
-		if (!self hasPerk("specialty_additionalprimaryweapon"))
-		{
-			if (vars["prev_weapon_name"] != "")
-			{
-				self setClientDvar("additionalPrimaryWeaponName", "");
-				vars["prev_weapon_name"] = "";
-			}
-
-			continue;
-		}
-
-		vars["weapon"] = self.weapon_to_take_by_losing_specialty_additionalprimaryweapon;
+		vars["weapon"] = player.weapon_to_take_by_losing_specialty_additionalprimaryweapon;
 
 		if (!isDefined(vars["weapon"]))
 		{
