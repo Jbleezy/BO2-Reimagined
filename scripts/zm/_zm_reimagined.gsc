@@ -3022,24 +3022,26 @@ tombstone_save()
 tombstone_save_perks(ent)
 {
 	perk_array = [];
-	trigs = getentarray("zombie_vending", "targetname");
+	perks = ent.perks_active;
 
-	foreach (trig in trigs)
+	if (!isdefined(perks))
 	{
-		if (trig.script_noteworthy == "specialty_scavenger")
+		return perk_array;
+	}
+
+	foreach (perk in perks)
+	{
+		if (perk == "specialty_scavenger")
 		{
 			continue;
 		}
 
-		if (trig.script_noteworthy == "specialty_finalstand")
+		if (perk == "specialty_finalstand")
 		{
 			continue;
 		}
 
-		if (self hasperk(trig.script_noteworthy))
-		{
-			perk_array[perk_array.size] = trig.script_noteworthy;
-		}
+		perk_array[perk_array.size] = perk;
 	}
 
 	return perk_array;
