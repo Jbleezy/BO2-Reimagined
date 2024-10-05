@@ -62,6 +62,7 @@ chugabud_laststand()
 		corpse.spawn_tombstone = spawn_tombstone;
 		corpse thread chugabud_corpse_revive_icon(self);
 		corpse thread chugabud_corpse_cleanup_on_spectator(self);
+		corpse thread chugabud_corpse_cleanup_on_end_game(self);
 		corpse thread chugabud_corpse_cleanup_on_disconnect(self);
 
 		if (isdefined(level.whos_who_client_setup))
@@ -490,6 +491,15 @@ chugabud_laststand_wait(corpse)
 	corpse waittill("death");
 
 	self chugabud_laststand();
+}
+
+chugabud_corpse_cleanup_on_end_game(player)
+{
+	self endon("death");
+
+	level waittill("end_game");
+
+	player chugabud_corpse_cleanup(self, 0);
 }
 
 chugabud_corpse_cleanup_on_disconnect(player)
