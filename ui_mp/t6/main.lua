@@ -187,6 +187,10 @@ CoD.InitCustomDvars = function()
 		Engine.SetDvar("additionalPrimaryWeaponName", "")
 	end
 
+	if UIExpression.DvarString(nil, "perk_order") == "" then
+		Engine.SetDvar("perk_order", "")
+	end
+
 	if UIExpression.DvarString(nil, "ui_hud_enemy_counter") == "" then
 		Engine.Exec(nil, "seta ui_hud_enemy_counter 1")
 	end

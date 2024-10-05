@@ -202,6 +202,8 @@ precache_strings()
 	precacheString(&"r_fog");
 	precacheString(&"r_fog_settings");
 
+	precacheString(&"hud_update_perk_order");
+
 	precacheString(&"hud_update_rounds_played");
 	precacheString(&"hud_update_enemy_counter");
 	precacheString(&"hud_update_total_timer");
@@ -3208,6 +3210,7 @@ tombstone_give()
 	if (isDefined(self.tombstone_perks) && self.tombstone_perks.size > 0)
 	{
 		i = 0;
+		dvar_str = "";
 
 		while (i < self.tombstone_perks.size)
 		{
@@ -3217,9 +3220,13 @@ tombstone_give()
 				continue;
 			}
 
+			dvar_str += self.tombstone_perks[i] + ";";
 			self maps\mp\zombies\_zm_perks::give_perk(self.tombstone_perks[i]);
 			i++;
 		}
+
+		self setclientdvar("perk_order", dvar_str);
+		self luinotifyevent(&"hud_update_perk_order");
 	}
 }
 

@@ -728,10 +728,11 @@
 * Teddy bear model shows at correct angles when it first appears
 
 ## Perks
+* Added high qualty perk icons to all maps
 * Removed perk limit
 * Removed blur after drinking
 * No longer deactivated if the perk machine is powered off
-* Added high qualty perk icons to all maps
+* Perk order on HUD is restored whenever perks are restored to the player
 
 ### Jugger-Nog
 * Increases current health by 100 upon purchase (normally sets current health to max)

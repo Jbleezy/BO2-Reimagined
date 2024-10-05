@@ -56,6 +56,20 @@ CoD.Perks.ClientFieldNames[12] = {
 	material = RegisterMaterial("specialty_vulture_zombies"),
 	glowMaterial = RegisterMaterial("zm_hud_stink_perk_glow"),
 }
+CoD.Perks.SpecialtyToClientFieldNames = {
+	specialty_armorvest = "perk_juggernaut",
+	specialty_quickrevive = "perk_quick_revive",
+	specialty_fastreload = "perk_sleight_of_hand",
+	specialty_rof = "perk_double_tap",
+	specialty_movefaster = "perk_marathon",
+	specialty_flakjacket = "perk_dive_to_nuke",
+	specialty_deadshot = "perk_dead_shot",
+	specialty_additionalprimaryweapon = "perk_additional_primary_weapon",
+	specialty_scavenger = "perk_tombstone",
+	specialty_finalstand = "perk_chugabud",
+	specialty_grenadepulldeath = "perk_electric_cherry",
+	specialty_nomotionsensor = "perk_vulture",
+}
 CoD.Perks.PulseDuration = 200
 CoD.Perks.PulseScale = 1.3
 CoD.Perks.PausedAlpha = 0.3
@@ -91,6 +105,7 @@ LUI.createMenu.PerksArea = function(LocalClientIndex)
 		PerksAreaWidget.perks[ClientFieldIndex] = Widget
 		PerksAreaWidget:registerEventHandler(CoD.Perks.ClientFieldNames[ClientFieldIndex].clientFieldName, CoD.Perks.Update)
 	end
+	PerksAreaWidget:registerEventHandler("hud_update_perk_order", CoD.Perks.UpdateOrder)
 	PerksAreaWidget:registerEventHandler("hud_update_refresh", CoD.Perks.UpdateVisibility)
 	PerksAreaWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_VISIBLE, CoD.Perks.UpdateVisibility)
 	PerksAreaWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_PLAYER_IN_AFTERLIFE, CoD.Perks.UpdateVisibility)
@@ -247,6 +262,49 @@ CoD.Perks.Update = function(Menu, ClientInstance)
 		end
 		if ClientInstance.newValue == CoD.Perks.STATE_TBD then
 		end
+	end
+end
+
+CoD.Perks.UpdateOrder = function(Menu, ClientInstance)
+	local OrderedPerks = UIExpression.DvarString(nil, "perk_order")
+	local OrderedPerksIndex = 0
+	local OrderedPerksStartIndex = 1
+
+	for OwnedPerkIndex = 1, #CoD.Perks.ClientFieldNames, 1 do
+		local OwnedPerkWidget = Menu.perks[OwnedPerkIndex]
+
+		if not OwnedPerkWidget.perkId then
+			OrderedPerksStartIndex = OwnedPerkIndex
+			break
+		end
+	end
+
+	for Perk in string.gmatch(OrderedPerks, "(.-);") do
+		local PerkWidget = Menu.perks[OrderedPerksStartIndex + OrderedPerksIndex]
+		PerkWidget.perkId = CoD.Perks.SpecialtyToClientFieldNames[Perk]
+		PerkWidget.perkIcon:setImage(CoD.Perks.GetMaterial(Menu, PerkWidget.perkId))
+
+		if PerkWidget.perkId == "perk_vulture" then
+			CoD.Perks.AddVultureMeter(Menu, PerkWidget)
+			CoD.Perks.AddGlowIcon(Menu, PerkWidget)
+
+			local GlowMaterial = CoD.Perks.GetGlowMaterial(Menu, PerkWidget.perkId)
+			if GlowMaterial and PerkWidget.perkGlowIcon then
+				PerkWidget.perkGlowIcon:setImage(GlowMaterial)
+			end
+		else
+			if PerkWidget.perkGlowIcon then
+				PerkWidget.perkGlowIcon:close()
+				PerkWidget.perkGlowIcon = nil
+			end
+
+			if PerkWidget.meterContainer then
+				PerkWidget.meterContainer:close()
+				PerkWidget.meterContainer = nil
+			end
+		end
+
+		OrderedPerksIndex = OrderedPerksIndex + 1
 	end
 end
 
