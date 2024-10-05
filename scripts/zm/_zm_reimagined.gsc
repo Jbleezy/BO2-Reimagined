@@ -2874,44 +2874,37 @@ tombstone_grab()
 
 	while (isDefined(self))
 	{
-		players = get_players();
-		i = 0;
-
-		while (i < players.size)
+		if (!isDefined(self.player))
 		{
-			if (players[i].is_zombie)
-			{
-				i++;
-				continue;
-			}
-			else
-			{
-				if (isDefined(self.player) && players[i] == self.player)
-				{
-					dist = distance(players[i].origin, self.origin);
-
-					if (dist < 64)
-					{
-						playfx(level._effect["powerup_grabbed_solo"], self.origin);
-						playfx(level._effect["powerup_grabbed_wave_solo"], self.origin);
-						players[i] tombstone_give();
-						wait 0.1;
-						playsoundatposition("zmb_tombstone_grab", self.origin);
-						self stoploopsound();
-						self.icon unlink();
-						self.icon delete();
-						self delete();
-						self notify("tombstone_grabbed");
-						players[i] clientnotify("dc0");
-						players[i] notify("dance_on_my_grave");
-					}
-				}
-			}
-
-			i++;
+			wait 0.05;
+			continue;
 		}
 
-		wait_network_frame();
+		if (!is_player_valid(self.player))
+		{
+			wait 0.05;
+			continue;
+		}
+
+		dist = distance(self.player.origin, self.origin);
+
+		if (dist < 64)
+		{
+			playfx(level._effect["powerup_grabbed_solo"], self.origin);
+			playfx(level._effect["powerup_grabbed_wave_solo"], self.origin);
+			self.player tombstone_give();
+			wait 0.1;
+			playsoundatposition("zmb_tombstone_grab", self.origin);
+			self stoploopsound();
+			self.icon unlink();
+			self.icon delete();
+			self delete();
+			self notify("tombstone_grabbed");
+			self.player clientnotify("dc0");
+			self.player notify("dance_on_my_grave");
+		}
+
+		wait 0.05;
 	}
 }
 
