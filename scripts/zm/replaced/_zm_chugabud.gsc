@@ -370,7 +370,7 @@ chugabud_spawn_corpse()
 chugabud_bleed_timeout_hud_create(delay)
 {
 	hud = self createbar((0.25, 0.25, 1), level.secondaryprogressbarwidth * 2, level.secondaryprogressbarheight);
-	hud setpoint("CENTER", undefined, level.secondaryprogressbarx, -2.25 * level.secondaryprogressbary);
+	hud setpoint("CENTER", undefined, level.secondaryprogressbarx, -1.75 * level.secondaryprogressbary);
 	hud.hidewheninmenu = 1;
 	hud.bar.hidewheninmenu = 1;
 	hud.barframe.hidewheninmenu = 1;

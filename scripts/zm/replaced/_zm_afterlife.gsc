@@ -355,8 +355,8 @@ afterlife_revive_do_revive(playerbeingrevived, revivergun)
 	if (isDefined(playerbeingrevived.e_afterlife_player))
 	{
 		playerbeingrevived_player = playerbeingrevived.e_afterlife_player;
-		playerbeingrevived_player.revive_hud.y = -50;
-		beingrevivedprogressbar_y = level.secondaryprogressbary * -2;
+		playerbeingrevived_player.revive_hud.y = -95;
+		beingrevivedprogressbar_y = level.secondaryprogressbary * -1.5;
 	}
 
 	assert(self is_reviving_afterlife(playerbeingrevived));
