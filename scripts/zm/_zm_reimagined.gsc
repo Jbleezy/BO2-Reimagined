@@ -3234,9 +3234,11 @@ alt_weapon_name_hud()
 {
 	self endon("disconnect");
 
+	prev_alt_weapon_names = "";
+
 	while (1)
 	{
-		dvar_str = "";
+		alt_weapon_names = "";
 		primaries = self getweaponslistprimaries();
 
 		foreach (primary in primaries)
@@ -3246,10 +3248,14 @@ alt_weapon_name_hud()
 				continue;
 			}
 
-			dvar_str += getweapondisplayname(primary) + ":" + getweapondisplayname(weaponaltweaponname(primary)) + ";";
+			alt_weapon_names += getweapondisplayname(primary) + ":" + getweapondisplayname(weaponaltweaponname(primary)) + ";";
 		}
 
-		self setClientDvar("weaponAltWeaponNames", dvar_str);
+		if (prev_alt_weapon_names != alt_weapon_names)
+		{
+			prev_alt_weapon_names = alt_weapon_names;
+			self setClientDvar("weaponAltWeaponNames", alt_weapon_names);
+		}
 
 		wait 0.05;
 	}
