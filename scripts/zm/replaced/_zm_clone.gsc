@@ -31,7 +31,7 @@ spawn_player_clone(player, origin = player.origin, forceweapon, forcemodel)
 		}
 
 		clone = spawner spawnactor();
-		clone.origin = origin;
+		clone forceteleport(origin, player.angles);
 		clone.isactor = 1;
 	}
 	else

@@ -792,13 +792,14 @@
 
 ### Who's Who
 * Keep weapons when entering Who's Who mode
-* Spawn facing towards the clone when entering Who's Who mode
 * Keep any perks obtained in Who's Who mode when exiting Who's Who mode
+* Self revives in solo always activate when downing during Who's Who mode
 * Decreased Who's Who mode duration from 45 seconds to 30 seconds
-* Self revives in solo always activate during Who's Who mode
 * Ignored by zombies for 1 second after entering Who's Who mode
 * Invulnerable for 2 seconds after entering and exiting Who's Who mode
 * Controls are frozen for 0.5 seconds after entering and exiting Who's Who mode
+* Clone spawns facing the same angles as the player downed
+* Player spawns facing towards the clone when entering Who's Who mode
 * Purchasing Who's Who in Who's Who mode no longer destroys the clone
 * Downing with Who's Who in Who's Who mode destroys the clone
 * Added Who's Who mode duration bar on HUD
