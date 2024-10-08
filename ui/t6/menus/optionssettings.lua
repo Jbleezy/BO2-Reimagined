@@ -672,16 +672,25 @@ CoD.OptionsSettings.CreateGameTab = function(GameTab, LocalClientIndex)
 	GameTabButtonList:addSpacer(CoD.CoD9Button.Height / 2)
 
 	local FogSelector = GameTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_FOG_CAPS"), "r_fog_settings")
-	FogSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChangedFog)
-	FogSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_ENABLED_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChangedFog)
+	FogSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChangedSendMenuResponse)
+	FogSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_ENABLED_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChangedSendMenuResponse)
 
 	return GameTabContainer
 end
 
--- need separate dvar to have the value of r_fog persist between sessions
-CoD.OptionsSettings.Button_ApplyDvarChangedFog = function(Button)
+CoD.OptionsSettings.Button_ApplyDvarChangedSendMenuResponse = function(Button)
 	CoD.OptionsSettings.Button_ApplyDvarChanged(Button)
-	Engine.SetDvar("r_fog", UIExpression.DvarBool(nil, "r_fog_settings"))
+
+	if Button.parentSelectorButton.dvarChangedCount == nil then
+		Button.parentSelectorButton.dvarChangedCount = 0
+	end
+
+	Button.parentSelectorButton.dvarChangedCount = Button.parentSelectorButton.dvarChangedCount + 1
+
+	-- don't send menu response unless button was clicked
+	if Button.parentSelectorButton.dvarChangedCount > #Button.parentSelectorButton.m_choices then
+		Engine.SendMenuResponse(Button.parentSelectorButton.m_currentController, Button.parentSelectorButton.m_dvarName, Button.value)
+	end
 end
 
 CoD.OptionsSettings.CreateSoundTab = function(SoundTab, LocalClientIndex)

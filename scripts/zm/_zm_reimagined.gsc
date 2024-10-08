@@ -148,6 +148,7 @@ main()
 
 init()
 {
+	precache_menus();
 	precache_strings();
 	precache_status_icons();
 
@@ -195,13 +196,15 @@ init()
 	}
 }
 
+precache_menus()
+{
+	precacheMenu("r_fog_settings");
+}
+
 precache_strings()
 {
-	precacheString(&"set_dvar_from_dvar");
-
-	precacheString(&"r_fog");
+	precacheString(&"get_dvar");
 	precacheString(&"r_fog_settings");
-
 	precacheString(&"hud_update_perk_order");
 
 	precacheString(&"hud_update_rounds_played");
@@ -674,8 +677,7 @@ set_dvars()
 
 set_client_dvars()
 {
-	// set client dvars in lua that can't be set in gsc/csc
-	self luinotifyevent(&"set_dvar_from_dvar", 2, &"r_fog", &"r_fog_settings");
+	self thread set_client_dvar_from_client_dvar_loop("r_fog", "r_fog_settings");
 
 	self setClientDvar("player_lastStandBleedoutTime", getDvarInt("player_lastStandBleedoutTime"));
 
@@ -722,6 +724,24 @@ set_client_dvars()
 	{
 		self setClientDvar("bg_chargeShotMaxBulletsInQueue", 3);
 		self setClientDvar("bg_chargeShotQueueTime", 500);
+	}
+}
+
+set_client_dvar_from_client_dvar_loop(dvar, from_dvar)
+{
+	self endon("disconnect");
+
+	// this will send menu response back after getting to the waittill
+	self luinotifyevent(&"get_dvar", 1, istring(from_dvar));
+
+	while (1)
+	{
+		self waittill("menuresponse", menu, value);
+
+		if (menu == from_dvar)
+		{
+			self setClientDvar(dvar, value);
+		}
 	}
 }
 

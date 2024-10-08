@@ -211,14 +211,12 @@ function HUD_SetupEventHandlers_Zombie(HUDWidget)
 	CoD.Zombie.IsSurvivalUsingCIAModel = false
 	HUDWidget:registerEventHandler("hud_update_survival_team", HUD_UpdateSurvivalTeamZombie)
 	HUDWidget:registerEventHandler("allow_round_animation", HUD_AllowRoundAnimation)
-	HUDWidget:registerEventHandler("set_dvar_from_dvar", HUD_SetDvarFromDvar)
+	HUDWidget:registerEventHandler("get_dvar", HUD_GetDvar)
 end
 
-function HUD_SetDvarFromDvar(HUDWidget, ClientInstance)
-	local setDvarKey = Engine.GetIString(ClientInstance.data[1], "CS_LOCALIZED_STRINGS")
-	local getDvarKey = Engine.GetIString(ClientInstance.data[2], "CS_LOCALIZED_STRINGS")
-
-	Engine.SetDvar(setDvarKey, UIExpression.DvarInt(nil, getDvarKey))
+function HUD_GetDvar(HUDWidget, ClientInstance)
+	local dvarKey = Engine.GetIString(ClientInstance.data[1], "CS_LOCALIZED_STRINGS")
+	Engine.SendMenuResponse(HUDWidget.controller, dvarKey, UIExpression.DvarString(nil, dvarKey))
 end
 
 function HUD_AllowRoundAnimation(HUDWidget, ClientInstance)
