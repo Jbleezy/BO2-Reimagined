@@ -130,11 +130,11 @@ server_message(message_str, player, tell = 0)
 
 	if (isDefined(player) && tell)
 	{
-		player tell(text);
+		cmdexec("tell " + player getentitynumber() + " " + text);
 	}
 	else
 	{
-		say(text);
+		cmdexec("say " + text);
 	}
 }
 
