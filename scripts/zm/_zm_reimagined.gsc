@@ -407,7 +407,11 @@ on_player_connect()
 {
 	while (1)
 	{
-		level waittill("connecting", player);
+		level waittill("connected", player);
+
+		player set_client_dvars();
+
+		player thread lui_notify_events();
 
 		player thread on_player_spawned();
 		player thread on_player_spectate();
@@ -415,7 +419,6 @@ on_player_connect()
 		player thread on_player_revived();
 		player thread on_player_fake_revive();
 
-		player thread lui_notify_events();
 		player thread grenade_fire_watcher();
 		player thread player_hide_turrets_from_other_players();
 		player thread sndmeleewpnsound();
@@ -467,7 +470,6 @@ on_player_spawned()
 
 		self.statusicon = "";
 
-		self set_client_dvars();
 		self set_perks();
 		self set_favorite_wall_weapons();
 		self disable_lean();
@@ -796,8 +798,6 @@ disable_lean()
 lui_notify_events()
 {
 	self endon("disconnect");
-
-	self waittill("begin");
 
 	wait 0.05;
 
