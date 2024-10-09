@@ -168,6 +168,7 @@
 * Increased level of detail at longer distances
 * Announcer audio always plays
 * In-game menu no longer disabled instantly when the game ends
+* Fixed various engine related leaks with entities
 
 ## Settings
 * Added options to enable or disable new HUD elements
