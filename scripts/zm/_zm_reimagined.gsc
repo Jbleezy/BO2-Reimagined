@@ -49,6 +49,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_utility::is_temporary_zombie_weapon, scripts\zm\replaced\_zm_utility::is_temporary_zombie_weapon);
 	replaceFunc(maps\mp\zombies\_zm_utility::wait_network_frame, scripts\zm\replaced\_zm_utility::wait_network_frame);
 	replaceFunc(maps\mp\zombies\_zm_utility::track_players_intersection_tracker, scripts\zm\replaced\_zm_utility::track_players_intersection_tracker);
+	replaceFunc(maps\mp\zombies\_zm_utility::place_navcard, scripts\zm\replaced\_zm_utility::place_navcard);
 	replaceFunc(maps\mp\zombies\_zm_ffotd::ffotd_melee_miss_func, scripts\zm\replaced\_zm_ffotd::ffotd_melee_miss_func);
 	replaceFunc(maps\mp\zombies\_zm_score::add_to_player_score, scripts\zm\replaced\_zm_score::add_to_player_score);
 	replaceFunc(maps\mp\zombies\_zm_score::minus_to_player_score, scripts\zm\replaced\_zm_score::minus_to_player_score);
@@ -154,7 +155,7 @@ init()
 
 	level.using_solo_revive = 0;
 	level.claymores_max_per_player = 20;
-	level.navcards = undefined; // removes navcards on HUD
+	level.navcards = undefined;
 	level.powerup_intro_vox = undefined;
 	level.player_too_many_players_check = 0;
 	level.player_too_many_weapons_monitor_func = scripts\zm\replaced\_zm::player_too_many_weapons_monitor;

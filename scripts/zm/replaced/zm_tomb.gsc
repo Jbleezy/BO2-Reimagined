@@ -256,5 +256,5 @@ tomb_can_track_ammo_custom(weap)
 
 sndmeleewpnsound()
 {
-	// removed - added to all maps in _zm_reimagined
+	// added to all maps in _zm_reimagined
 }

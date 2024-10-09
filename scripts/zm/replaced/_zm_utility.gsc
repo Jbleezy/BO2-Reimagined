@@ -402,3 +402,8 @@ track_players_intersection_tracker()
 {
 	// BO2 has built in push mechanic
 }
+
+place_navcard(str_model, str_stat, org, angles)
+{
+	// removed
+}
