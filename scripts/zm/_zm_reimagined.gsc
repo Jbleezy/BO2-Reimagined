@@ -630,6 +630,10 @@ set_dvars()
 {
 	setDvar("player_backSpeedScale", 1);
 
+	setDvar("player_meleeRange", 64);
+
+	setDvar("player_breath_gasp_lerp", 0);
+
 	// can't set to exactly 90 or else looking completely up or down will cause the player to move in the opposite direction
 	setDvar("player_view_pitch_up", 89.9999);
 	setDvar("player_view_pitch_down", 89.9999);
@@ -641,16 +645,6 @@ set_dvars()
 	setDvar("dtp_startup_delay", 100);
 	setDvar("dtp_exhaustion_window", 100);
 
-	setDvar("player_meleeRange", 64);
-	setDvar("player_breath_gasp_lerp", 0);
-
-	setDvar("g_friendlyfireDist", 0);
-
-	setDvar("bg_jetgun_disable_spin_while_meleeing", 1);
-	setDvar("bg_jetgun_disable_z_thrust", 1);
-
-	setDvar("bg_fallDamageScale", 0);
-
 	setDvar("perk_weapRateEnhanced", 0);
 
 	setDvar("riotshield_melee_damage_scale", 1);
@@ -659,9 +653,11 @@ set_dvars()
 	setDvar("riotshield_projectile_damage_scale", 1);
 	setDvar("riotshield_deployed_health", 1500);
 
-	setDvar("r_fog", getDvar("r_fog_settings"));
-
 	setDvar("sv_voiceQuality", 9);
+
+	setDvar("g_friendlyfireDist", 0);
+
+	setDvar("bg_fallDamageScale", 0);
 
 	if (level.script == "zm_transit")
 	{
@@ -673,21 +669,49 @@ set_dvars()
 		setDvar("bg_chargeShotMaxBulletsInQueue", 3);
 		setDvar("bg_chargeShotQueueTime", 500);
 	}
+
+	setDvar("bg_jetgun_disable_spin_while_meleeing", 1);
+	setDvar("bg_jetgun_disable_z_thrust", 1);
 }
 
 set_client_dvars()
 {
-	self thread set_client_dvar_from_client_dvar_loop("r_fog", "r_fog_settings");
+	self setClientDvar("player_backSpeedScale", getDvar("player_backSpeedScale"));
 
-	self setClientDvar("player_lastStandBleedoutTime", getDvarInt("player_lastStandBleedoutTime"));
+	self setClientDvar("player_meleeRange", getDvar("player_meleeRange"));
 
-	self setClientDvar("dtp_post_move_pause", getDvarInt("dtp_post_move_pause"));
-	self setClientDvar("dtp_startup_delay", getDvarInt("dtp_startup_delay"));
-	self setClientDvar("dtp_exhaustion_window", getDvarInt("dtp_exhaustion_window"));
+	self setClientDvar("player_breath_gasp_lerp", getDvar("player_breath_gasp_lerp"));
+
+	self setClientDvar("player_lastStandBleedoutTime", getDvar("player_lastStandBleedoutTime"));
+
+	self setClientDvar("player_view_pitch_up", getDvar("player_view_pitch_up"));
+	self setClientDvar("player_view_pitch_down", getDvar("player_view_pitch_down"));
+
+	self setClientDvar("player_sliding_velocity_cap", getDvar("player_sliding_velocity_cap"));
+	self setClientDvar("player_sliding_wishspeed", getDvar("player_sliding_wishspeed"));
+
+	self setClientDvar("dtp_post_move_pause", getDvar("dtp_post_move_pause"));
+	self setClientDvar("dtp_startup_delay", getDvar("dtp_startup_delay"));
+	self setClientDvar("dtp_exhaustion_window", getDvar("dtp_exhaustion_window"));
 
 	self setClientDvar("aim_automelee_enabled", 0);
 
-	self setClientDvar("g_friendlyfireDist", 0);
+	self setClientDvar("waypointOffscreenPointerDistance", 30);
+	self setClientDvar("waypointOffscreenPadTop", 30);
+	self setClientDvar("waypointOffscreenPadBottom", 30);
+	self setClientDvar("waypointPlayerOffsetStand", 30);
+	self setClientDvar("waypointPlayerOffsetCrouch", 30);
+
+	self setClientDvar("g_friendlyfireDist", getDvar("g_friendlyfireDist"));
+
+	self setClientDvar("bg_fallDamageScale", getDvar("bg_fallDamageScale"));
+
+	self setClientDvar("bg_chargeShotMaxBulletsInQueue", getDvar("bg_chargeShotMaxBulletsInQueue"));
+	self setClientDvar("bg_chargeShotQueueTime", getDvar("bg_chargeShotQueueTime"));
+
+	self setClientDvar("bg_jetgun_disable_spin_while_meleeing", getDvar("bg_jetgun_disable_spin_while_meleeing"));
+	self setClientDvar("bg_jetgun_disable_z_thrust", getDvar("bg_jetgun_disable_z_thrust"));
+	self setClientDvar("cg_jetgun_fix_spin_dial", 1);
 
 	self setClientDvar("cg_friendlyNameFadeIn", 0);
 	self setClientDvar("cg_friendlyNameFadeOut", 250);
@@ -699,32 +723,12 @@ set_client_dvars()
 	self setClientDvar("cg_sonarAttachmentSightCheck", 1);
 	self setClientDvar("cg_sonarAttachmentFullscreenThermal", 0);
 
-	self setClientDvar("bg_jetgun_disable_spin_while_meleeing", 1);
-	self setClientDvar("bg_jetgun_disable_z_thrust", 1);
-	self setClientDvar("cg_jetgun_fix_spin_dial", 1);
-
-	self setClientDvar("bg_fallDamageScale", 0);
-
-	self setClientDvar("waypointOffscreenPointerDistance", 30);
-	self setClientDvar("waypointOffscreenPadTop", 30);
-	self setClientDvar("waypointOffscreenPadBottom", 30);
-	self setClientDvar("waypointPlayerOffsetStand", 30);
-	self setClientDvar("waypointPlayerOffsetCrouch", 30);
-
 	self setClientDvar("r_dof_enable", 0);
+
 	self setClientDvar("r_lodBiasRigid", -1000);
 	self setClientDvar("r_lodBiasSkinned", -1000);
 
-	if (level.script == "zm_transit")
-	{
-		self setClientDvar("bg_chargeShotMaxBulletsInQueue", 5);
-		self setClientDvar("bg_chargeShotQueueTime", 250);
-	}
-	else
-	{
-		self setClientDvar("bg_chargeShotMaxBulletsInQueue", 3);
-		self setClientDvar("bg_chargeShotQueueTime", 500);
-	}
+	self thread set_client_dvar_from_client_dvar_loop("r_fog", "r_fog_settings");
 }
 
 set_client_dvar_from_client_dvar_loop(dvar, from_dvar)
