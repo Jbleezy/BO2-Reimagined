@@ -1664,7 +1664,7 @@ actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, 
 
 	if (weapon == "zombie_bullet_crouch_zm" && meansofdeath == "MOD_RIFLE_BULLET")
 	{
-		damage = scale_damage(damage, 600);
+		damage = self scale_damage(damage, 600);
 	}
 
 	if (weapon == "willy_pete_zm")
@@ -1687,26 +1687,17 @@ actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, 
 
 	if (weapon == "tower_trap_zm")
 	{
-		if (!is_true(self.is_brutus))
-		{
-			damage = level.zombie_health;
-		}
+		damage = self scale_damage(damage);
 	}
 
 	if (weapon == "tower_trap_upgraded_zm")
 	{
-		if (!is_true(self.is_brutus))
-		{
-			damage = scale_damage(damage, 200);
-		}
+		damage = self scale_damage(damage, 200);
 	}
 
 	if (weapon == "quadrotorturret_zm" && meansofdeath == "MOD_PISTOL_BULLET")
 	{
-		if (!is_true(self.is_mechz))
-		{
-			damage = scale_damage(damage, 6000);
-		}
+		damage = self scale_damage(damage, 6000);
 	}
 
 	if (!isplayer(attacker) && !isplayer(self))
@@ -1749,34 +1740,22 @@ actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, 
 
 	if (weapon == "blundergat_zm")
 	{
-		if (!is_true(self.is_brutus))
-		{
-			final_damage = scale_damage(final_damage, 500);
-		}
+		final_damage = self scale_damage(final_damage, 500);
 	}
 
 	if (weapon == "blundergat_upgraded_zm")
 	{
-		if (!is_true(self.is_brutus))
-		{
-			final_damage = scale_damage(final_damage, 1000);
-		}
+		final_damage = self scale_damage(final_damage, 1000);
 	}
 
 	if (weapon == "blundersplat_explosive_dart_zm")
 	{
-		if (!is_true(self.is_brutus))
-		{
-			final_damage = scale_damage(final_damage, 4000);
-		}
+		final_damage = self scale_damage(final_damage, 4000);
 	}
 
 	if (weapon == "blundersplat_explosive_dart_upgraded_zm")
 	{
-		if (!is_true(self.is_brutus))
-		{
-			final_damage = scale_damage(final_damage, 8000);
-		}
+		final_damage = self scale_damage(final_damage, 8000);
 	}
 
 	if (issubstr(weapon, "metalstorm") && final_damage > 0)
@@ -1794,7 +1773,7 @@ actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, 
 				}
 			}
 
-			final_damage = scale_damage(final_damage, 10000);
+			final_damage = self scale_damage(final_damage, 10000);
 		}
 		else
 		{
@@ -1809,36 +1788,33 @@ actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, 
 				}
 			}
 
-			final_damage = scale_damage(final_damage, 5000);
+			final_damage = self scale_damage(final_damage, 5000);
 		}
 	}
 
 	if (weapon == "titus6_explosive_dart_zm")
 	{
-		final_damage = scale_damage(final_damage, 3000);
+		final_damage = self scale_damage(final_damage, 3000);
 	}
 
 	if (weapon == "titus6_explosive_dart_upgraded_zm")
 	{
-		final_damage = scale_damage(final_damage, 6000);
+		final_damage = self scale_damage(final_damage, 6000);
 	}
 
 	if (weapon == "mk_titus6_zm")
 	{
-		final_damage = scale_damage(final_damage, 1000);
+		final_damage = self scale_damage(final_damage, 1000);
 	}
 
 	if (weapon == "mk_titus6_upgraded_zm")
 	{
-		final_damage = scale_damage(final_damage, 2000);
+		final_damage = self scale_damage(final_damage, 2000);
 	}
 
 	if (weapon == "staff_revive_zm")
 	{
-		if (!is_true(self.is_mechz))
-		{
-			final_damage = level.zombie_health;
-		}
+		final_damage = self scale_damage(final_damage);
 	}
 
 	if (attacker HasPerk("specialty_rof"))
@@ -1901,10 +1877,20 @@ actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, 
 
 scale_damage(damage, damage_to_kill)
 {
+	if (is_true(self.is_avogadro) || is_true(self.is_brutus) || is_true(self.is_mechz))
+	{
+		return damage;
+	}
+
+	if (!isdefined(damage_to_kill))
+	{
+		return level.zombie_health;
+	}
+
 	scalar = damage / damage_to_kill;
 	scaled_damage = int(scalar * level.zombie_health) + 1;
 
-	if (damage < scaled_damage)
+	if (scaled_damage > damage)
 	{
 		return scaled_damage;
 	}
