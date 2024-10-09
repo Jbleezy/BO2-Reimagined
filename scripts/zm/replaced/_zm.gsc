@@ -1662,7 +1662,7 @@ actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, 
 		}
 	}
 
-	if (weapon == "zombie_bullet_crouch_zm" && meansofdeath == "MOD_RIFLE_BULLET")
+	if (weapon == "zombie_bullet_crouch_zm")
 	{
 		damage = self scale_damage(damage, 600);
 	}
@@ -1684,9 +1684,14 @@ actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, 
 		damage = self scale_damage(damage, 200);
 	}
 
-	if (weapon == "quadrotorturret_zm" && meansofdeath == "MOD_PISTOL_BULLET")
+	if (weapon == "quadrotorturret_zm")
 	{
 		damage = self scale_damage(damage, 6000);
+	}
+
+	if (weapon == "quadrotorturret_upgraded_zm")
+	{
+		damage = self scale_damage(damage, 10000);
 	}
 
 	if (!isplayer(attacker) && !isplayer(self))
@@ -2357,7 +2362,7 @@ player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, s
 	}
 
 	// fix turrets damaging players
-	if (sweapon == "zombie_bullet_crouch_zm" && smeansofdeath == "MOD_RIFLE_BULLET")
+	if (sweapon == "zombie_bullet_crouch_zm")
 	{
 		return 0;
 	}
