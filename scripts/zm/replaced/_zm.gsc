@@ -1779,7 +1779,7 @@ actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, 
 		}
 	}
 
-	if (issubstr(weapon, "metalstorm"))
+	if (issubstr(weapon, "metalstorm") && final_damage > 0)
 	{
 		if (issubstr(weapon, "upgraded"))
 		{
