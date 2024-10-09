@@ -756,7 +756,7 @@
 
 ### Stamin-Up
 * Increased cost from 2000 to 2500
-* Move 7% faster (normally only sprint 10% faster)
+* Move 10% faster (normally only sprint 10% faster)
 
 ### PHD Flopper
 * Added perk bottle model from Origins to all maps

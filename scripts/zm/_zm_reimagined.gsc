@@ -646,6 +646,7 @@ set_dvars()
 	setDvar("dtp_exhaustion_window", 100);
 
 	setDvar("perk_weapRateEnhanced", 0);
+	setDvar("perk_speedMultiplier", 1.1);
 
 	setDvar("riotshield_melee_damage_scale", 1);
 	setDvar("riotshield_bullet_damage_scale", 1);
