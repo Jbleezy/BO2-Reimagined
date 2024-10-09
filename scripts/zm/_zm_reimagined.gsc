@@ -166,11 +166,11 @@ init()
 		level.item_meat_name = "";
 	}
 
-	setscoreboardcolumns_gametype();
+	weapon_changes();
 
 	set_dvars();
 
-	weapon_changes();
+	setscoreboardcolumns_gametype();
 
 	spawn_mystery_box_blocks_and_collision();
 
@@ -659,7 +659,7 @@ set_dvars()
 
 	setDvar("bg_fallDamageScale", 0);
 
-	if (level.script == "zm_transit")
+	if (isdefined(level.zombie_include_weapons) && isdefined(level.zombie_include_weapons["metalstorm_mms_zm"]))
 	{
 		setDvar("bg_chargeShotMaxBulletsInQueue", 5);
 		setDvar("bg_chargeShotQueueTime", 250);
