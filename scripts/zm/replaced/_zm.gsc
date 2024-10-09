@@ -2349,45 +2349,7 @@ player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, s
 				idamage = 50;
 			}
 		}
-
-		eattacker notify("hit_player");
-
-		if (smeansofdeath != "MOD_FALLING")
-		{
-			self thread maps\mp\zombies\_zm::playswipesound(smeansofdeath, eattacker);
-
-			if (is_true(eattacker.is_zombie) || isplayer(eattacker))
-			{
-				self playrumbleonentity("damage_heavy");
-			}
-
-			canexert = 1;
-
-			if (self hasperk("specialty_flakjacket") || (is_true(level.pers_upgrade_flopper) && is_true(self.pers_upgrades_awarded["flopper"])))
-			{
-				canexert = smeansofdeath != "MOD_PROJECTILE" && smeansofdeath != "MOD_PROJECTILE_SPLASH" && smeansofdeath != "MOD_GRENADE" && smeansofdeath != "MOD_GRENADE_SPLASH";
-			}
-
-			if (is_placeable_mine(sweapon))
-			{
-				canexert = 0;
-			}
-
-			if (is_true(canexert))
-			{
-				if (randomintrange(0, 1) == 0)
-				{
-					self thread maps\mp\zombies\_zm_audio::playerexert("hitmed");
-				}
-				else
-				{
-					self thread maps\mp\zombies\_zm_audio::playerexert("hitlrg");
-				}
-			}
-		}
 	}
-
-	finaldamage = idamage;
 
 	if (is_placeable_mine(sweapon) || sweapon == "freezegun_zm" || sweapon == "freezegun_upgraded_zm")
 	{
@@ -2454,22 +2416,43 @@ player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, s
 			return 0;
 		}
 
-		exp_damage = 75;
+		idamage = 75;
 
 		if (sweapon == "titus6_explosive_dart_zm" || sweapon == "titus6_explosive_dart_upgraded_zm")
 		{
-			exp_damage = 15;
+			idamage = 15;
 		}
+	}
 
-		if (self.health > exp_damage && !is_true(self.is_zombie))
+	finaldamage = idamage;
+
+	if (isDefined(eattacker))
+	{
+		eattacker notify("hit_player");
+
+		if (smeansofdeath != "MOD_FALLING")
 		{
-			return exp_damage;
+			self thread maps\mp\zombies\_zm::playswipesound(smeansofdeath, eattacker);
+
+			if (is_true(eattacker.is_zombie) || isplayer(eattacker))
+			{
+				self playrumbleonentity("damage_heavy");
+			}
+
+			if (randomintrange(0, 1) == 0)
+			{
+				self thread maps\mp\zombies\_zm_audio::playerexert("hitmed");
+			}
+			else
+			{
+				self thread maps\mp\zombies\_zm_audio::playerexert("hitlrg");
+			}
 		}
 	}
 
 	if (idamage < self.health)
 	{
-		if (isDefined(eattacker))
+		if (isDefined(eattacker) && !isplayer(eattacker))
 		{
 			if (isDefined(level.custom_kill_damaged_vo))
 			{
