@@ -2892,7 +2892,7 @@ tombstone_timeout()
 
 	self thread maps\mp\zombies\_zm_tombstone::playtombstonetimeraudio();
 
-	self.player waittill("player_downed");
+	self.player waittill_any("player_downed", "disconnect");
 
 	self thread tombstone_delete();
 }
