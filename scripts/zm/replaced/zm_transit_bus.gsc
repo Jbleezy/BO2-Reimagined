@@ -767,6 +767,8 @@ busupdateplayers()
 						player thread bus_audio_interior_loop(self);
 						player clientnotify("OBS");
 						player setclientplayerpushamount(0);
+						player setclientdvar("player_view_pitch_up", 85);
+						player setclientdvar("player_view_pitch_down", 85);
 
 						if (randomint(100) > 80 && level.automaton.greeting_timer == 0)
 						{
@@ -781,6 +783,8 @@ busupdateplayers()
 						player setclientplayerpushamount(1);
 						player notify("left bus");
 						player clientnotify("LBS");
+						player setclientdvar("player_view_pitch_up", 89.9999);
+						player setclientdvar("player_view_pitch_down", 89.9999);
 
 						if (randomint(100) > 80 && level.automaton.greeting_timer == 0)
 						{
