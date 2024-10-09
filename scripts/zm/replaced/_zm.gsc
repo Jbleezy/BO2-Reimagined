@@ -1669,20 +1669,9 @@ actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, 
 
 	if (weapon == "willy_pete_zm")
 	{
-		if (!is_true(self.is_brutus))
-		{
-			if (is_true(self.real_willy_pete_damage))
-			{
-				self.real_willy_pete_damage = undefined;
-			}
-			else
-			{
-				// hack to make Smoke Grenade use MOD_UNKNOWN so zombies don't gib
-				self.real_willy_pete_damage = 1;
-				self dodamage(self.health, inflictor.origin, attacker, self, "none", "MOD_UNKNOWN", 0, weapon);
-				return 0;
-			}
-		}
+		self.no_gib = 1;
+		self.guts_explosion = 1;
+		damage = self scale_damage(damage);
 	}
 
 	if (weapon == "tower_trap_zm")
