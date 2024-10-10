@@ -422,28 +422,26 @@ spawnminemover()
 
 bouncingbettyjumpandexplode()
 {
-	vars = [];
-	vars["bettyjumpheight"] = 65;
-	vars["bettyjumptime"] = 0.65;
-	vars["bettyrotatevelocity"] = (0, 750, 32);
+	bettyjumpheight = 65;
+	bettyjumptime = 0.65;
+	bettyrotatevelocity = (0, 750, 32);
 
-	vars["explodepos"] = self.origin + (0, 0, vars["bettyjumpheight"]);
-	self moveto(vars["explodepos"], vars["bettyjumptime"], vars["bettyjumptime"], 0);
+	explodepos = self.origin + (0, 0, bettyjumpheight);
+	self moveto(explodepos, bettyjumptime, bettyjumptime, 0);
 	playfx(level._effect["betty_launch"], self.origin);
-	self rotatevelocity(vars["bettyrotatevelocity"], vars["bettyjumptime"], 0, vars["bettyjumptime"]);
+	self rotatevelocity(bettyrotatevelocity, bettyjumptime, 0, bettyjumptime);
 	self playsound("fly_betty_jump");
 
-	wait(vars["bettyjumptime"]);
+	wait(bettyjumptime);
 
 	self thread mineexplode();
 }
 
 mineexplode()
 {
-	vars = [];
-	vars["bettydamageradius"] = 256;
-	vars["bettydamagemax"] = 200;
-	vars["bettydamagemin"] = 50;
+	bettydamageradius = 256;
+	bettydamagemax = 200;
+	bettydamagemin = 50;
 
 	if (!isdefined(self) || !isdefined(self.owner))
 	{
@@ -459,7 +457,7 @@ mineexplode()
 	}
 
 	self hide();
-	self radiusdamage(self.origin, vars["bettydamageradius"], vars["bettydamagemax"], vars["bettydamagemin"], self.owner, "MOD_EXPLOSIVE", "bouncingbetty_zm");
+	self radiusdamage(self.origin, bettydamageradius, bettydamagemax, bettydamagemin, self.owner, "MOD_EXPLOSIVE", "bouncingbetty_zm");
 	playfx(level._effect["betty_explosion"], self.origin);
 	wait 0.2;
 

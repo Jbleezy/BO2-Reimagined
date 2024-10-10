@@ -1251,38 +1251,36 @@ bleedout_bar_hud_updatebar(hud)
 	self endon("bled_out");
 	self endon("player_suicide");
 
-	vars = [];
-
-	vars["bleedout_time"] = getDvarInt("player_lastStandBleedoutTime");
-	vars["interval_time"] = 30;
-	vars["interval_frac"] = vars["interval_time"] / vars["bleedout_time"];
-	vars["num_intervals"] = int(vars["bleedout_time"] / vars["interval_time"]) + 1;
+	bleedout_time = getDvarInt("player_lastStandBleedoutTime");
+	interval_time = 30;
+	interval_frac = interval_time / bleedout_time;
+	num_intervals = int(bleedout_time / interval_time) + 1;
 
 	hud updatebar(1);
 
-	for (i = 0; i < vars["num_intervals"]; i++)
+	for (i = 0; i < num_intervals; i++)
 	{
-		vars["time"] = vars["bleedout_time"];
+		time = bleedout_time;
 
-		if (vars["time"] > vars["interval_time"])
+		if (time > interval_time)
 		{
-			vars["time"] = vars["interval_time"];
+			time = interval_time;
 		}
 
-		vars["frac"] = 0.99 - ((i + 1) * vars["interval_frac"]);
+		frac = 0.99 - ((i + 1) * interval_frac);
 
-		barwidth = int((hud.width * vars["frac"]) + 0.5);
+		barwidth = int((hud.width * frac) + 0.5);
 
 		if (barwidth < 1)
 		{
 			barwidth = 1;
 		}
 
-		hud.bar scaleovertime(vars["time"], barwidth, hud.height);
+		hud.bar scaleovertime(time, barwidth, hud.height);
 
-		wait vars["time"];
+		wait time;
 
-		vars["bleedout_time"] -= vars["time"];
+		bleedout_time -= time;
 	}
 }
 
@@ -1716,22 +1714,20 @@ fall_velocity_check()
 {
 	self endon("disconnect");
 
-	vars = [];
-
 	while (1)
 	{
-		vars["was_on_ground"] = 1;
+		was_on_ground = 1;
 		self.fall_velocity = 0;
 
 		while (!self isOnGround())
 		{
-			vars["was_on_ground"] = 0;
-			vars["vel"] = self getVelocity();
-			self.fall_velocity = vars["vel"][2];
+			was_on_ground = 0;
+			vel = self getVelocity();
+			self.fall_velocity = vel[2];
 			wait 0.05;
 		}
 
-		if (!vars["was_on_ground"])
+		if (!was_on_ground)
 		{
 			// fall damage does not register when player's max health is less than 100 and has PHD Flopper
 			if (self.maxhealth < 100 && self hasPerk("specialty_flakjacket"))
@@ -1754,16 +1750,14 @@ fall_velocity_check()
 
 disable_bank_teller()
 {
-	vars = [];
-
 	level notify("stop_bank_teller");
-	vars["bank_teller_dmg_trig"] = getent("bank_teller_tazer_trig", "targetname");
+	bank_teller_dmg_trig = getent("bank_teller_tazer_trig", "targetname");
 
-	if (IsDefined(vars["bank_teller_dmg_trig"]))
+	if (IsDefined(bank_teller_dmg_trig))
 	{
-		vars["bank_teller_transfer_trig"] = getent(vars["bank_teller_dmg_trig"].target, "targetname");
-		vars["bank_teller_transfer_trig"] delete();
-		vars["bank_teller_dmg_trig"] delete();
+		bank_teller_transfer_trig = getent(bank_teller_dmg_trig.target, "targetname");
+		bank_teller_transfer_trig delete();
+		bank_teller_dmg_trig delete();
 	}
 }
 
@@ -3304,8 +3298,7 @@ additionalprimaryweapon_indicator()
 		return;
 	}
 
-	vars = [];
-	vars["prev_weapon_name"] = "";
+	prev_weapon_name = "";
 
 	while (1)
 	{
@@ -3320,34 +3313,34 @@ additionalprimaryweapon_indicator()
 
 		if (!player hasPerk("specialty_additionalprimaryweapon"))
 		{
-			if (vars["prev_weapon_name"] != "")
+			if (prev_weapon_name != "")
 			{
 				self setClientDvar("additionalPrimaryWeaponName", "");
-				vars["prev_weapon_name"] = "";
+				prev_weapon_name = "";
 			}
 
 			continue;
 		}
 
-		vars["weapon"] = player.weapon_to_take_by_losing_specialty_additionalprimaryweapon;
+		weapon = player.weapon_to_take_by_losing_specialty_additionalprimaryweapon;
 
-		if (!isDefined(vars["weapon"]))
+		if (!isDefined(weapon))
 		{
-			if (vars["prev_weapon_name"] != "")
+			if (prev_weapon_name != "")
 			{
 				self setClientDvar("additionalPrimaryWeaponName", "");
-				vars["prev_weapon_name"] = "";
+				prev_weapon_name = "";
 			}
 
 			continue;
 		}
 
-		vars["weapon_name"] = getweapondisplayname(vars["weapon"]);
+		weapon_name = getweapondisplayname(weapon);
 
-		if (vars["prev_weapon_name"] != vars["weapon_name"])
+		if (prev_weapon_name != weapon_name)
 		{
-			self setClientDvar("additionalPrimaryWeaponName", vars["weapon_name"]);
-			vars["prev_weapon_name"] = vars["weapon_name"];
+			self setClientDvar("additionalPrimaryWeaponName", weapon_name);
+			prev_weapon_name = weapon_name;
 		}
 	}
 }
@@ -3359,15 +3352,14 @@ additionalprimaryweapon_update_weapon_slots()
 		self.weapon_slots = [];
 	}
 
-	vars = [];
-	vars["primaries_that_can_be_taken"] = [];
-	vars["primaries"] = self getweaponslistprimaries();
+	primaries_that_can_be_taken = [];
+	primaries = self getweaponslistprimaries();
 
-	for (i = 0; i < vars["primaries"].size; i++)
+	for (i = 0; i < primaries.size; i++)
 	{
-		if (maps\mp\zombies\_zm_weapons::is_weapon_included(vars["primaries"][i]) || maps\mp\zombies\_zm_weapons::is_weapon_upgraded(vars["primaries"][i]))
+		if (maps\mp\zombies\_zm_weapons::is_weapon_included(primaries[i]) || maps\mp\zombies\_zm_weapons::is_weapon_upgraded(primaries[i]))
 		{
-			vars["primaries_that_can_be_taken"][vars["primaries_that_can_be_taken"].size] = vars["primaries"][i];
+			primaries_that_can_be_taken[primaries_that_can_be_taken.size] = primaries[i];
 		}
 	}
 
@@ -3379,42 +3371,42 @@ additionalprimaryweapon_update_weapon_slots()
 		}
 	}
 
-	for (i = 0; i < vars["primaries_that_can_be_taken"].size; i++)
+	for (i = 0; i < primaries_that_can_be_taken.size; i++)
 	{
-		vars["weapon"] = vars["primaries_that_can_be_taken"][i];
+		weapon = primaries_that_can_be_taken[i];
 
-		if (!isInArray(self.weapon_slots, vars["weapon"]))
+		if (!isInArray(self.weapon_slots, weapon))
 		{
-			vars["added"] = 0;
+			added = 0;
 
 			for (j = 0; j < self.weapon_slots.size; j++)
 			{
 				if (self.weapon_slots[j] == "none")
 				{
-					vars["added"] = 1;
-					self.weapon_slots[j] = vars["weapon"];
+					added = 1;
+					self.weapon_slots[j] = weapon;
 					break;
 				}
 			}
 
-			if (!vars["added"])
+			if (!added)
 			{
-				self.weapon_slots[self.weapon_slots.size] = vars["weapon"];
+				self.weapon_slots[self.weapon_slots.size] = weapon;
 			}
 		}
 	}
 
-	vars["num_weapons"] = 0;
+	num_weapons = 0;
 
 	for (i = 0; i < self.weapon_slots.size; i++)
 	{
 		if (self.weapon_slots[i] != "none")
 		{
-			vars["num_weapons"]++;
+			num_weapons++;
 		}
 	}
 
-	if (vars["num_weapons"] >= 3)
+	if (num_weapons >= 3)
 	{
 		self.weapon_to_take_by_losing_specialty_additionalprimaryweapon = self.weapon_slots[self.weapon_slots.size - 1];
 	}
@@ -3428,17 +3420,15 @@ additionalprimaryweapon_stowed_weapon_refill()
 {
 	self endon("disconnect");
 
-	vars = [];
-
 	while (1)
 	{
-		vars["string"] = self waittill_any_return("weapon_change", "weapon_change_complete", "perk_additionalprimaryweapon_activated", "specialty_additionalprimaryweapon_stop", "spawned_player");
+		result = self waittill_any_return("weapon_change", "weapon_change_complete", "perk_additionalprimaryweapon_activated", "specialty_additionalprimaryweapon_stop", "spawned_player");
 
 		if (self hasPerk("specialty_additionalprimaryweapon"))
 		{
-			vars["curr_wep"] = self getCurrentWeapon();
+			curr_wep = self getCurrentWeapon();
 
-			if (vars["curr_wep"] == "none")
+			if (curr_wep == "none")
 			{
 				continue;
 			}
@@ -3447,9 +3437,9 @@ additionalprimaryweapon_stowed_weapon_refill()
 
 			foreach (primary in primaries)
 			{
-				if (primary != maps\mp\zombies\_zm_weapons::get_nonalternate_weapon(vars["curr_wep"]))
+				if (primary != maps\mp\zombies\_zm_weapons::get_nonalternate_weapon(curr_wep))
 				{
-					if (vars["string"] != "weapon_change")
+					if (result != "weapon_change")
 					{
 						self thread refill_after_time(primary);
 					}
@@ -3469,112 +3459,110 @@ refill_after_time(primary)
 	self endon("specialty_additionalprimaryweapon_stop");
 	self endon("spawned_player");
 
-	vars = [];
-
-	vars["reload_time"] = weaponReloadTime(primary);
-	vars["reload_amount"] = undefined;
+	reload_time = weaponReloadTime(primary);
+	reload_amount = undefined;
 
 	if (primary == "m32_zm" || primary == "python_zm" || maps\mp\zombies\_zm_weapons::get_base_weapon_name(primary, 1) == "judge_zm" || maps\mp\zombies\_zm_weapons::get_base_weapon_name(primary, 1) == "870mcs_zm" || maps\mp\zombies\_zm_weapons::get_base_weapon_name(primary, 1) == "ksg_zm")
 	{
-		vars["reload_amount"] = 1;
+		reload_amount = 1;
 
 		if (maps\mp\zombies\_zm_weapons::get_base_weapon_name(primary, 1) == "ksg_zm" && maps\mp\zombies\_zm_weapons::is_weapon_upgraded(primary))
 		{
-			vars["reload_amount"] = 2;
+			reload_amount = 2;
 		}
 	}
 
-	if (!isDefined(vars["reload_amount"]) && vars["reload_time"] < 1)
+	if (!isDefined(reload_amount) && reload_time < 1)
 	{
-		vars["reload_time"] = 1;
+		reload_time = 1;
 	}
 
 	if (self hasPerk("specialty_fastreload"))
 	{
-		vars["reload_time"] *= getDvarFloat("perk_weapReloadMultiplier");
+		reload_time *= getDvarFloat("perk_weapReloadMultiplier");
 	}
 
-	wait vars["reload_time"];
+	wait reload_time;
 
-	vars["ammo_clip"] = self getWeaponAmmoClip(primary);
-	vars["ammo_stock"] = self getWeaponAmmoStock(primary);
-	vars["missing_clip"] = weaponClipSize(primary) - vars["ammo_clip"];
-	vars["og_ammo_stock"] = vars["ammo_stock"];
+	ammo_clip = self getWeaponAmmoClip(primary);
+	ammo_stock = self getWeaponAmmoStock(primary);
+	missing_clip = weaponClipSize(primary) - ammo_clip;
+	og_ammo_stock = ammo_stock;
 
-	if (vars["missing_clip"] > vars["ammo_stock"])
+	if (missing_clip > ammo_stock)
 	{
-		vars["missing_clip"] = vars["ammo_stock"];
+		missing_clip = ammo_stock;
 	}
 
-	if (isDefined(vars["reload_amount"]) && vars["missing_clip"] > vars["reload_amount"])
+	if (isDefined(reload_amount) && missing_clip > reload_amount)
 	{
-		vars["missing_clip"] = vars["reload_amount"];
+		missing_clip = reload_amount;
 	}
 
-	vars["dw_primary"] = weaponDualWieldWeaponName(primary);
-	vars["alt_primary"] = weaponAltWeaponName(primary);
+	dw_primary = weaponDualWieldWeaponName(primary);
+	alt_primary = weaponAltWeaponName(primary);
 
-	vars["ammo_stock"] -= vars["missing_clip"];
+	ammo_stock -= missing_clip;
 
-	if (vars["dw_primary"] != "none")
+	if (dw_primary != "none")
 	{
-		vars["dw_ammo_clip"] = self getWeaponAmmoClip(vars["dw_primary"]);
-		vars["dw_missing_clip"] = weaponClipSize(vars["dw_primary"]) - vars["dw_ammo_clip"];
+		dw_ammo_clip = self getWeaponAmmoClip(dw_primary);
+		dw_missing_clip = weaponClipSize(dw_primary) - dw_ammo_clip;
 
-		if (vars["dw_missing_clip"] > vars["ammo_stock"])
+		if (dw_missing_clip > ammo_stock)
 		{
-			vars["dw_missing_clip"] = vars["ammo_stock"];
+			dw_missing_clip = ammo_stock;
 		}
 
-		vars["ammo_stock"] -= vars["dw_missing_clip"];
+		ammo_stock -= dw_missing_clip;
 	}
 
-	if (vars["ammo_stock"] != vars["og_ammo_stock"])
+	if (ammo_stock != og_ammo_stock)
 	{
 		// setWeaponAmmoClip changes dual wield weapon clip ammo of current weapon when called on any dual wield weapon
-		vars["curr_primary"] = self getCurrentWeapon();
-		vars["curr_dw_primary"] = weaponDualWieldWeaponName(vars["curr_primary"]);
-		vars["curr_dw_ammo_clip"] = 0;
+		curr_primary = self getCurrentWeapon();
+		curr_dw_primary = weaponDualWieldWeaponName(curr_primary);
+		curr_dw_ammo_clip = 0;
 
 		// save current dual wield weapon clip ammo
-		if (vars["dw_primary"] != "none" && vars["curr_dw_primary"] != "none")
+		if (dw_primary != "none" && curr_dw_primary != "none")
 		{
-			vars["curr_dw_ammo_clip"] = self getWeaponAmmoClip(vars["curr_dw_primary"]);
+			curr_dw_ammo_clip = self getWeaponAmmoClip(curr_dw_primary);
 		}
 
 		// setWeaponAmmoClip changes both clips ammo on dual wield weapons so must calculate both left and right ammo before setting ammo
-		self setWeaponAmmoClip(primary, vars["ammo_clip"] + vars["missing_clip"]);
+		self setWeaponAmmoClip(primary, ammo_clip + missing_clip);
 
-		if (vars["dw_primary"] != "none")
+		if (dw_primary != "none")
 		{
-			self set_weapon_ammo_clip_left(primary, vars["dw_ammo_clip"] + vars["dw_missing_clip"]);
+			self set_weapon_ammo_clip_left(primary, dw_ammo_clip + dw_missing_clip);
 		}
 
-		self setWeaponAmmoStock(primary, vars["ammo_stock"]);
+		self setWeaponAmmoStock(primary, ammo_stock);
 
 		// restore current dual wield weapon clip ammo
-		if (vars["dw_primary"] != "none" && vars["curr_dw_primary"] != "none")
+		if (dw_primary != "none" && curr_dw_primary != "none")
 		{
-			self set_weapon_ammo_clip_left(vars["curr_primary"], vars["curr_dw_ammo_clip"]);
+			self set_weapon_ammo_clip_left(curr_primary, curr_dw_ammo_clip);
 		}
 	}
 
-	if (vars["alt_primary"] != "none")
+	if (alt_primary != "none")
 	{
-		vars["ammo_clip"] = self getWeaponAmmoClip(vars["alt_primary"]);
-		vars["ammo_stock"] = self getWeaponAmmoStock(vars["alt_primary"]);
-		vars["missing_clip"] = weaponClipSize(vars["alt_primary"]) - vars["ammo_clip"];
+		ammo_clip = self getWeaponAmmoClip(alt_primary);
+		ammo_stock = self getWeaponAmmoStock(alt_primary);
+		missing_clip = weaponClipSize(alt_primary) - ammo_clip;
 
-		if (vars["missing_clip"] > vars["ammo_stock"])
+		if (missing_clip > ammo_stock)
 		{
-			vars["missing_clip"] = vars["ammo_stock"];
+			missing_clip = ammo_stock;
 		}
 
-		self setWeaponAmmoClip(vars["alt_primary"], vars["ammo_clip"] + vars["missing_clip"]);
-		self setWeaponAmmoStock(vars["alt_primary"], vars["ammo_stock"] - vars["missing_clip"]);
+		self setWeaponAmmoClip(alt_primary, ammo_clip + missing_clip);
+		self setWeaponAmmoStock(alt_primary, ammo_stock - missing_clip);
 	}
 
-	if (isDefined(vars["reload_amount"]) && self getWeaponAmmoStock(primary) > 0 && self getWeaponAmmoClip(primary) < weaponClipSize(primary))
+	if (isDefined(reload_amount) && self getWeaponAmmoStock(primary) > 0 && self getWeaponAmmoClip(primary) < weaponClipSize(primary))
 	{
 		self refill_after_time(primary);
 	}
