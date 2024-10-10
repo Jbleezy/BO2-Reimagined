@@ -989,7 +989,7 @@ rotation_string_to_array(string)
 
 	for (i = 0; i < tokens.size; i += 4)
 	{
-		array[array.size] = tokens[i] + " " + tokens[i+1] + " " + tokens[i+2] + " " + tokens[i+3];
+		array[array.size] = tokens[i] + " " + tokens[i + 1] + " " + tokens[i + 2] + " " + tokens[i + 3];
 	}
 
 	return array;
