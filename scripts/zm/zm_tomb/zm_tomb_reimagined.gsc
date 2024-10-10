@@ -62,8 +62,9 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_powerup_zombie_blood::zombie_blood_powerup, scripts\zm\replaced\_zm_powerup_zombie_blood::zombie_blood_powerup);
 	replaceFunc(maps\mp\zombies\_zm_riotshield_tomb::doriotshielddeploy, scripts\zm\replaced\_zm_riotshield_tomb::doriotshielddeploy);
 	replaceFunc(maps\mp\zombies\_zm_riotshield_tomb::trackriotshield, scripts\zm\replaced\_zm_riotshield_tomb::trackriotshield);
-	replaceFunc(maps\mp\zombies\_zm_weap_riotshield_tomb::init, scripts\zm\replaced\_zm_weap_riotshield_tomb::init);
 	replaceFunc(maps\mp\zombies\_zm_weap_riotshield_tomb::player_damage_shield, scripts\zm\replaced\_zm_weap_riotshield_tomb::player_damage_shield);
+	replaceFunc(maps\mp\zombies\_zm_weap_riotshield_tomb::riotshield_fling_zombie, scripts\zm\replaced\_zm_weap_riotshield_tomb::riotshield_fling_zombie);
+	replaceFunc(maps\mp\zombies\_zm_weap_riotshield_tomb::riotshield_knockdown_zombie, scripts\zm\replaced\_zm_weap_riotshield_tomb::riotshield_knockdown_zombie);
 	replaceFunc(maps\mp\zombies\_zm_weap_one_inch_punch::one_inch_punch_melee_attack, scripts\zm\replaced\_zm_weap_one_inch_punch::one_inch_punch_melee_attack);
 	replaceFunc(maps\mp\zombies\_zm_weap_beacon::player_handle_beacon, scripts\zm\replaced\_zm_weap_beacon::player_handle_beacon);
 	replaceFunc(maps\mp\zombies\_zm_weap_beacon::wait_and_do_weapon_beacon_damage, scripts\zm\replaced\_zm_weap_beacon::wait_and_do_weapon_beacon_damage);

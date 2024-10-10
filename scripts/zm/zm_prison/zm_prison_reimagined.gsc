@@ -58,8 +58,9 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_craftables::onbeginuseuts, scripts\zm\replaced\_zm_craftables::onbeginuseuts);
 	replaceFunc(maps\mp\zombies\_zm_riotshield_prison::doriotshielddeploy, scripts\zm\replaced\_zm_riotshield_prison::doriotshielddeploy);
 	replaceFunc(maps\mp\zombies\_zm_riotshield_prison::trackriotshield, scripts\zm\replaced\_zm_riotshield_prison::trackriotshield);
-	replaceFunc(maps\mp\zombies\_zm_weap_riotshield_prison::init, scripts\zm\replaced\_zm_weap_riotshield_prison::init);
 	replaceFunc(maps\mp\zombies\_zm_weap_riotshield_prison::player_damage_shield, scripts\zm\replaced\_zm_weap_riotshield_prison::player_damage_shield);
+	replaceFunc(maps\mp\zombies\_zm_weap_riotshield_prison::riotshield_fling_zombie, scripts\zm\replaced\_zm_weap_riotshield_prison::riotshield_fling_zombie);
+	replaceFunc(maps\mp\zombies\_zm_weap_riotshield_prison::riotshield_knockdown_zombie, scripts\zm\replaced\_zm_weap_riotshield_prison::riotshield_knockdown_zombie);
 	replaceFunc(maps\mp\zombies\_zm_weap_blundersplat::init, scripts\zm\replaced\_zm_weap_blundersplat::init);
 	replaceFunc(maps\mp\zombies\_zm_weap_blundersplat::wait_for_blundersplat_fired, scripts\zm\replaced\_zm_weap_blundersplat::wait_for_blundersplat_fired);
 	replaceFunc(maps\mp\zombies\_zm_weap_blundersplat::wait_for_blundersplat_upgraded_fired, scripts\zm\replaced\_zm_weap_blundersplat::wait_for_blundersplat_upgraded_fired);
