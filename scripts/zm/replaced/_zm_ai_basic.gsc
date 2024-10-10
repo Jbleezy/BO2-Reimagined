@@ -29,7 +29,7 @@ inert_wakeup()
 
 			if (dist_sq < 5760000)
 			{
-				if ((current_time - player.lastfiretime) < 100)
+				if ((current_time - player.lastfiretime) <= 100)
 				{
 					self maps\mp\zombies\_zm_ai_basic::stop_inert();
 					return;

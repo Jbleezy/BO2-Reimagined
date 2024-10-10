@@ -645,6 +645,7 @@
 * Can destroy deployed Zombie Shields
 * Sprinting no longer wakes up EMP'd zombies
 * Zombies that are in the ground can no longer get EMP'd
+* Fixed an issue where zombies would sometimes not wake up from firing projectile weapons
 
 #### Smoke Grenade
 * Added on Mob of the Dead
