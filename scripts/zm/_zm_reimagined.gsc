@@ -167,8 +167,6 @@ init()
 		level.item_meat_name = "";
 	}
 
-	weapon_changes();
-
 	set_dvars();
 
 	setscoreboardcolumns_gametype();

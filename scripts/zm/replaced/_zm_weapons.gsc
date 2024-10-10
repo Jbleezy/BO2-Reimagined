@@ -5,6 +5,8 @@
 
 init_weapon_upgrade()
 {
+	scripts\zm\_zm_reimagined::weapon_changes();
+
 	init_spawnable_weapon_upgrade();
 }
 
