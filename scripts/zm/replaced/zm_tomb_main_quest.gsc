@@ -570,7 +570,7 @@ run_gramophone_teleporter(str_vinyl_record)
 		{
 			self.gramophone_model stopsounds();
 			self.gramophone_model ghost();
-			player playsound("zmb_craftable_pickup");
+			player playsound("zmb_buildable_pickup");
 			flag_clear("gramophone_placed");
 			level setclientfield("piece_record_zm_player", 1);
 			level setclientfield("piece_record_zm_vinyl_master", 1);
@@ -669,7 +669,7 @@ run_gramophone_door(str_vinyl_record)
 			trig_position.gramophone_model stopsounds();
 			trig_position.gramophone_model ghost();
 			flag_clear("gramophone_placed");
-			player playsound("zmb_craftable_pickup");
+			player playsound("zmb_buildable_pickup");
 			level setclientfield("piece_record_zm_player", 1);
 			break;
 		}

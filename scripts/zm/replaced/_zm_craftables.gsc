@@ -225,3 +225,17 @@ update_open_table_status_actual()
 		}
 	}
 }
+
+onbeginuseuts(player)
+{
+	if (isdefined(self.craftablestub.onbeginuse))
+	{
+		self [[self.craftablestub.onbeginuse]](player);
+	}
+
+	if (isdefined(player) && !isdefined(player.craftableaudio))
+	{
+		player.craftableaudio = spawn("script_origin", player.origin);
+		player.craftableaudio playloopsound("zmb_buildable_loop");
+	}
+}

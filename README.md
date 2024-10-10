@@ -1192,6 +1192,7 @@
 * Improved perk machine flicker
 * Players no longer respawn in the Acid Trap
 * Added falling hands anim from Origins
+* Added crafting sound and item pick up sound
 * Acid Trap: kills on any round (normally stops killing after round 158 on PC)
 * Acid Trap: kills zombies instantly
 * Acid Trap: decreased player damage from 75% of max health to 50% of max health
@@ -1250,6 +1251,7 @@
 * Changed background color of Maxis Drone parts on HUD from green to orange
 * Moved challenge medals and tablet icon above health bar and zone name
 * Added attachment name on HUD for upgraded attachment weapons
+* Increased volume of crafting sound and item pick up sound
 * Generators: increased capture reward points from 100 to 200
 * Generators: always give back refund points if player was in the generator zone when captured
 * Generators: recapture round zombies only drop Max Ammo if killed before taking first generator

@@ -140,3 +140,77 @@ setclientfield_quest_states_init()
 		level setclientfield("quest_state" + i, 2);
 	}
 }
+
+onpickup_plane(player)
+{
+	if (!isdefined(level.plane_pieces_picked_up))
+	{
+		level.plane_pieces_picked_up = 0;
+		level.sndplanepieces = 1;
+	}
+
+	level.plane_pieces_picked_up = level.plane_pieces_picked_up + 1;
+
+	if (level.plane_pieces_picked_up == 5)
+	{
+		level thread roof_nag_vo();
+	}
+
+	if (level.sndplanepieces == level.plane_pieces_picked_up)
+	{
+		level thread maps\mp\zombies\_zm_audio::sndmusicstingerevent("piece_" + level.sndplanepieces);
+		level.sndplanepieces++;
+	}
+
+	player playsound("zmb_buildable_pickup");
+	vo_alias_call = undefined;
+	vo_alias_response = undefined;
+	self pickupfrommover();
+	self.piece_owner = player;
+
+	switch (self.piecename)
+	{
+		case "cloth":
+			field_name = "quest_state1";
+			in_game_checklist_plane_piece_picked_up("sheets");
+			break;
+
+		case "fueltanks":
+			field_name = "quest_state2";
+			in_game_checklist_plane_piece_picked_up("fueltank");
+			flag_set("docks_gates_remain_open");
+			break;
+
+		case "engine":
+			field_name = "quest_state3";
+			in_game_checklist_plane_piece_picked_up("engine");
+			break;
+
+		case "steering":
+			field_name = "quest_state4";
+			in_game_checklist_plane_piece_picked_up("contval");
+			break;
+
+		case "rigging":
+			field_name = "quest_state5";
+			in_game_checklist_plane_piece_picked_up("rigging");
+			break;
+	}
+
+	level setclientfield(field_name, 3);
+
+	if (!level.is_forever_solo_game)
+	{
+		player_num = player getentitynumber() + 1;
+		level setclientfield("piece_player" + player_num, self.client_field_state);
+	}
+
+	vo_alias_call = self check_if_newly_found();
+
+	if (isdefined(vo_alias_call))
+	{
+		level thread play_plane_piece_call_and_response_vo(player, vo_alias_call);
+	}
+
+	self thread ondisconnect_common(player);
+}

@@ -748,3 +748,10 @@ staff_fullycrafted(modelname, elementenum)
 	level setclientfield(str_fieldname, 3);
 	return true;
 }
+
+onpickup_common(player)
+{
+	player playsound("zmb_buildable_pickup");
+	self.piece_owner = player;
+	self thread piece_pickup_conversation(player);
+}
