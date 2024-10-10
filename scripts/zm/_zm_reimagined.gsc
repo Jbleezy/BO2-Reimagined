@@ -663,7 +663,7 @@ set_dvars()
 
 	setDvar("bg_fallDamageScale", 0);
 
-	if (isdefined(level.zombie_include_weapons) && isdefined(level.zombie_include_weapons["metalstorm_mms_zm"]))
+	if (maps\mp\zombies\_zm_weapons::is_weapon_included("metalstorm_mms_zm"))
 	{
 		setDvar("bg_chargeShotMaxBulletsInQueue", 5);
 		setDvar("bg_chargeShotQueueTime", 250);
