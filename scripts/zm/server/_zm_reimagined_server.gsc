@@ -14,8 +14,6 @@ init()
 	level thread random_map_rotation();
 	level thread map_vote();
 
-	level thread server_restart();
-
 	if (is_gametype_active("zgrief"))
 	{
 		level thread connect_timeout_changes();
@@ -1108,30 +1106,4 @@ any_button_pressed()
 	}
 
 	return 0;
-}
-
-server_restart()
-{
-	no_players_time = 0;
-
-	while (1)
-	{
-		players = get_players();
-
-		if (players.size < 1)
-		{
-			no_players_time++;
-		}
-		else
-		{
-			no_players_time = 0;
-		}
-
-		if (no_players_time >= 3600)
-		{
-			cmdexec("quit");
-		}
-
-		wait 1;
-	}
 }
