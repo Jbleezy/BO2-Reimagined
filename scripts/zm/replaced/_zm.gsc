@@ -2275,7 +2275,10 @@ player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, s
 
 	if (is_true(self.use_adjusted_grenade_damage))
 	{
-		self.use_adjusted_grenade_damage = undefined;
+		if (self hasperk("specialty_flakjacket"))
+		{
+			return 0;
+		}
 
 		if (self.health > idamage)
 		{
