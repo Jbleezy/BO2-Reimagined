@@ -31,6 +31,7 @@ main()
 	replaceFunc(maps\mp\zm_buried_sq_ip::init, scripts\zm\replaced\zm_buried_sq_ip::init);
 	replaceFunc(maps\mp\zm_buried_sq_ows::ows_targets_start, scripts\zm\replaced\zm_buried_sq_ows::ows_targets_start);
 	replaceFunc(maps\mp\zm_buried_distance_tracking::delete_zombie_noone_looking, scripts\zm\replaced\zm_buried_distance_tracking::delete_zombie_noone_looking);
+	replaceFunc(maps\mp\zombies\_zm_ai_ghost::prespawn, scripts\zm\replaced\_zm_ai_ghost::prespawn);
 	replaceFunc(maps\mp\zombies\_zm_ai_ghost::ghost_zone_spawning_think, scripts\zm\replaced\_zm_ai_ghost::ghost_zone_spawning_think);
 	replaceFunc(maps\mp\zombies\_zm_ai_ghost::should_last_ghost_drop_powerup, scripts\zm\replaced\_zm_ai_ghost::should_last_ghost_drop_powerup);
 	replaceFunc(maps\mp\zombies\_zm_ai_sloth::sloth_init_start_funcs, scripts\zm\replaced\_zm_ai_sloth::sloth_init_start_funcs);
