@@ -773,7 +773,6 @@
 * Increases bullet headshot damage by 100%
 * Move faster while aiming
 * Decreases sprint recovery time
-* Removed headshot auto aim on controller
 
 ### Mule Kick
 * Added additional weapon indicator

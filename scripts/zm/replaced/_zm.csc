@@ -4,7 +4,7 @@
 
 init_client_flag_callback_funcs()
 {
-	level.disable_deadshot_clientfield = 1;
+	level.disable_deadshot_clientfield = undefined;
 
 	level._client_flag_callbacks = [];
 	level._client_flag_callbacks["vehicle"] = [];

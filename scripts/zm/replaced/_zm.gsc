@@ -6,7 +6,7 @@
 
 init_client_flags()
 {
-	level.disable_deadshot_clientfield = 1;
+	level.disable_deadshot_clientfield = undefined;
 
 	if (isdefined(level.use_clientside_board_fx) && level.use_clientside_board_fx)
 	{
