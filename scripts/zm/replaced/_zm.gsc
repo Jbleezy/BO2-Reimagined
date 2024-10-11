@@ -2471,7 +2471,7 @@ player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, s
 
 	if (idamage < self.health)
 	{
-		if (isDefined(eattacker) && !isplayer(eattacker))
+		if (isDefined(eattacker) && isai(eattacker))
 		{
 			if (isDefined(level.custom_kill_damaged_vo))
 			{
