@@ -334,7 +334,7 @@ meat_damage_over_time()
 		if (time_zero_speed >= 20)
 		{
 			time_zero_speed = 0;
-			radiusDamage(self.origin + (0, 0, 5), 10, 50, 50);
+			radiusDamage(self.origin + (0, 0, 5), 10, 50, 50, undefined, "MOD_EXPLOSIVE", level.item_meat_name);
 		}
 
 		wait 0.05;

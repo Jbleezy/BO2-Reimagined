@@ -49,7 +49,7 @@ player_lava_damage(trig)
 			self thread player_burning_fx();
 		}
 
-		radiusdamage(self.origin, 10, max_dmg, min_dmg);
+		radiusdamage(self.origin, 10, max_dmg, min_dmg, undefined, "MOD_BURNED");
 
 		wait 0.5;
 
@@ -95,7 +95,7 @@ zombie_exploding_death(zombie_dmg, trap)
 		playfx(level._effect["spawn_cloud"], self gettagorigin(tag));
 	}
 
-	self radiusdamage(self.origin, 128, 15, 15, undefined, "MOD_GRENADE_SPLASH");
+	self radiusdamage(self.origin, 128, 15, 15, undefined, "MOD_EXPLOSIVE");
 	self ghost();
 
 	if (isdefined(self.isdog) && self.isdog)

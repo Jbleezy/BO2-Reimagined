@@ -2396,6 +2396,17 @@ player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, s
 		}
 	}
 
+	if (smeansofdeath == "MOD_EXPLOSIVE")
+	{
+		if (sweapon != level.item_meat_name)
+		{
+			if (self hasperk("specialty_flakjacket"))
+			{
+				return 0;
+			}
+		}
+	}
+
 	if (smeansofdeath == "MOD_PROJECTILE" || smeansofdeath == "MOD_PROJECTILE_SPLASH" || smeansofdeath == "MOD_GRENADE" || smeansofdeath == "MOD_GRENADE_SPLASH")
 	{
 		if (self hasperk("specialty_flakjacket"))
