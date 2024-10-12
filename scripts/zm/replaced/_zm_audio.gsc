@@ -8,6 +8,49 @@
 #include maps\mp\_music;
 #include maps\mp\zombies\_zm_spawner;
 
+zmbvoxadd(speaker, category, type, alias, response)
+{
+	assert(isdefined(speaker));
+	assert(isdefined(category));
+	assert(isdefined(type));
+	assert(isdefined(alias));
+
+	if (!isdefined(self.speaker[speaker]))
+	{
+		self.speaker[speaker] = spawnstruct();
+		self.speaker[speaker].alias = [];
+	}
+
+	if (!isdefined(self.speaker[speaker].alias[category]))
+	{
+		self.speaker[speaker].alias[category] = [];
+	}
+
+	if (speaker == "player" && category == "perk" && type == "specialty_longersprint")
+	{
+		type = "specialty_movefaster";
+	}
+
+	self.speaker[speaker].alias[category][type] = alias;
+
+	if (isdefined(response))
+	{
+		if (!isdefined(self.speaker[speaker].response))
+		{
+			self.speaker[speaker].response = [];
+		}
+
+		if (!isdefined(self.speaker[speaker].response[category]))
+		{
+			self.speaker[speaker].response[category] = [];
+		}
+
+		self.speaker[speaker].response[category][type] = response;
+	}
+
+	create_vox_timer(type);
+}
+
 create_and_play_dialog(category, type, response, force_variant, override)
 {
 	waittime = 0.25;
