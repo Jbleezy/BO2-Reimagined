@@ -164,6 +164,7 @@
 * Removed round cap
 * Removed 5 second wait before match start
 * Added restart game button when in online solo game
+* Tick rate is always 20
 * Disabled depth of field
 * Increased level of detail at longer distances
 * Announcer audio always plays
@@ -299,6 +300,7 @@
 * Fixed world model position of certain melee weapons
 * Fixed projectile angles of certain grenades and projectile weapons
 * Fixed alt weapons being switched from when trading weapons
+* Fixed burst fire weapons shooting when pressing aim button while fire button is already pressed
 * Grenades: improved projectile upward speed
 * Grenades: can no longer be thrown faster than intended by throwing a grenade right after throwing one
 * Grenades: changed damage scalar to 25 multiplied by round number (normally random number between 100 and 200 added by round number)

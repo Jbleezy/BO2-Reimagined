@@ -655,6 +655,9 @@ set_dvars()
 	setDvar("riotshield_projectile_damage_scale", 1);
 	setDvar("riotshield_deployed_health", 1500);
 
+	setDvar("sv_rateBoostingEnabled", 1);
+	setDvar("sv_rateBoostingForce", 1);
+
 	setDvar("sv_voiceQuality", 9);
 
 	setDvar("g_fix_entity_leaks", 1);
@@ -662,6 +665,8 @@ set_dvars()
 	setDvar("g_friendlyfireDist", 0);
 
 	setDvar("bg_fallDamageScale", 0);
+
+	setDvar("bg_burstFireInputFix", 1);
 
 	if (maps\mp\zombies\_zm_weapons::is_weapon_included("metalstorm_mms_zm"))
 	{
@@ -703,6 +708,7 @@ set_client_dvars()
 
 	self setClientDvars(
 	    "bg_fallDamageScale", getDvar("bg_fallDamageScale"),
+	    "bg_burstFireInputFix", getDvar("bg_burstFireInputFix"),
 	    "bg_chargeShotMaxBulletsInQueue", getDvar("bg_chargeShotMaxBulletsInQueue"),
 	    "bg_chargeShotQueueTime", getDvar("bg_chargeShotQueueTime"),
 	    "tu14_preventStartingChargeShotWhileFiring", getDvar("tu14_preventStartingChargeShotWhileFiring"),
@@ -715,7 +721,7 @@ set_client_dvars()
 	    "cg_enemyNameFadeOut", 250,
 	    "cg_sonarAttachmentSpeedDelay", 0.1,
 	    "cg_sonarAttachmentMaxSpeed", 6,
-	    "cg_sonarAttachmentSightCheck", 1,
+	    "cg_sonarAttachmentFullscreenSightCheck", 1,
 	    "cg_sonarAttachmentFullscreenThermal", 0,
 	    "r_dof_enable", 0,
 	    "r_lodBiasRigid", -1000,
