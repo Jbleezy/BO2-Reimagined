@@ -173,6 +173,7 @@
 
 ## Settings
 * Added options to enable or disable new HUD elements
+* Added option to enable or disable alt action slot area
 * Added option to enable or disable fog
 
 ## HUD
@@ -186,7 +187,7 @@
 * Weapon name is all capitalized on all maps
 * Weapon name is the same text size on all maps
 * Weapon name and ammo no longer fade out
-* Moved keyboard & mouse dpad icons to the same position as controller dpad icons
+* Action slot area no longer tied to input source
 * Grenade icons no longer fade based on how many the player currently has
 * Ammo counter no longer shows while scoped on all maps
 * Added round chalk images from Mob of the Dead to all maps

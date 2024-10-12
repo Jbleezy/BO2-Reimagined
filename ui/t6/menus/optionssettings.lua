@@ -671,6 +671,12 @@ CoD.OptionsSettings.CreateGameTab = function(GameTab, LocalClientIndex)
 
 	GameTabButtonList:addSpacer(CoD.CoD9Button.Height / 2)
 
+	local FogSelector = GameTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_ALT_ACTION_SLOT_AREA_CAPS"), "ui_hud_alt_action_slot_area")
+	FogSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChangedUpdateActionSlots)
+	FogSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_ENABLED_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChangedUpdateActionSlots)
+
+	GameTabButtonList:addSpacer(CoD.CoD9Button.Height / 2)
+
 	local FogSelector = GameTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_FOG_CAPS"), "r_fog_settings")
 	FogSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChangedSendMenuResponse)
 	FogSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_ENABLED_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChangedSendMenuResponse)
@@ -678,8 +684,34 @@ CoD.OptionsSettings.CreateGameTab = function(GameTab, LocalClientIndex)
 	return GameTabContainer
 end
 
+CoD.OptionsSettings.Button_ApplyDvarChangedUpdateActionSlots = function(Button)
+	CoD.OptionsSettings.Button_ApplyDvarChanged(Button)
+
+	if not Engine.IsInGame() then
+		return
+	end
+
+	if Button.parentSelectorButton.dvarChangedCount == nil then
+		Button.parentSelectorButton.dvarChangedCount = 0
+	end
+
+	Button.parentSelectorButton.dvarChangedCount = Button.parentSelectorButton.dvarChangedCount + 1
+
+	-- don't process event unless button was clicked
+	if Button.parentSelectorButton.dvarChangedCount > #Button.parentSelectorButton.m_choices then
+		CoD.AmmoAreaZombie.Widget:processEvent({
+			name = "hud_update_actionslots",
+			controller = Button.parentSelectorButton.m_currentController,
+		})
+	end
+end
+
 CoD.OptionsSettings.Button_ApplyDvarChangedSendMenuResponse = function(Button)
 	CoD.OptionsSettings.Button_ApplyDvarChanged(Button)
+
+	if not Engine.IsInGame() then
+		return
+	end
 
 	if Button.parentSelectorButton.dvarChangedCount == nil then
 		Button.parentSelectorButton.dvarChangedCount = 0

@@ -161,6 +161,8 @@ LUI.createMenu.AmmoAreaZombie = function(f1_arg0)
 	})
 	f1_local0.weaponLabelContainer:addElement(f1_local0.additionalPrimaryWeaponImage)
 
+	CoD.AmmoAreaZombie.Widget = Widget
+
 	f1_local0:registerEventHandler("hud_update_ammo", CoD.AmmoAreaZombie.UpdateAmmo)
 	f1_local0:registerEventHandler("hud_update_weapon", CoD.AmmoAreaZombie.UpdateWeapon)
 	f1_local0:registerEventHandler("hud_update_weapon_select", CoD.AmmoAreaZombie.UpdateWeaponSelect)
@@ -190,6 +192,12 @@ LUI.createMenu.AmmoAreaZombie = function(f1_arg0)
 end
 
 CoD.AmmoAreaZombie.UpdateActionSlots = function(f2_arg0, f2_arg1)
+	if f2_arg1.actionSlotData == nil then
+		f2_arg1.actionSlotData = f2_arg0.actionSlotData
+	else
+		f2_arg0.actionSlotData = f2_arg1.actionSlotData
+	end
+
 	if f2_arg0.actionSlots == nil then
 		f2_arg0.actionSlots = {}
 	else
@@ -274,7 +282,7 @@ CoD.AmmoAreaZombie.UpdateActionSlots = function(f2_arg0, f2_arg1)
 					f2_local10:setText(f2_local12.ammo)
 					Widget:addElement(f2_local10)
 				end
-				if CoD.isPC and UIExpression.DvarBool(nil, "hud_dpad_pc") == 1 then
+				if CoD.isPC and UIExpression.DvarBool(nil, "ui_hud_alt_action_slot_area") == 1 then
 					local f2_local10 = 200
 					local f2_local11 = nil
 					if f2_local4 == 1 then
@@ -337,7 +345,7 @@ CoD.AmmoAreaZombie.UpdateActionSlots = function(f2_arg0, f2_arg1)
 						Widget.keyPrompt:setAlignment(LUI.Alignment.Right)
 						Widget:registerAnimationState("KeyPrompt", f2_local11)
 						Widget:addElement(Widget.keyPrompt)
-						if CoD.useController and Engine.LastInput_Gamepad() or UIExpression.DvarBool(nil, "hud_dpad_pc") == 0 then
+						if UIExpression.DvarBool(nil, "ui_hud_alt_action_slot_area") == 0 then
 							CoD.AmmoAreaZombie.ActionSlotInputSourceChanged(Widget, {
 								source = 0,
 							})
@@ -696,7 +704,7 @@ end
 
 CoD.AmmoAreaZombie.ActionSlotInputSourceChanged = function(f15_arg0, f15_arg1)
 	if CoD.isPC then
-		if CoD.useController and f15_arg1.source == 0 or UIExpression.DvarBool(nil, "hud_dpad_pc") == 0 then
+		if f15_arg1.source == 0 then
 			f15_arg0:animateToState("default")
 			if f15_arg0.keyPrompt ~= nil then
 				f15_arg0.keyPrompt:setAlpha(0)
@@ -706,22 +714,6 @@ CoD.AmmoAreaZombie.ActionSlotInputSourceChanged = function(f15_arg0, f15_arg1)
 			CoD.AmmoAreaZombie.SetKeyBind(f15_arg0)
 			if f15_arg0.keyPrompt ~= nil then
 				f15_arg0.keyPrompt:setAlpha(0.8)
-			end
-		end
-	end
-end
-
-CoD.AmmoAreaZombie.InputSourceChanged = function(f16_arg0, f16_arg1)
-	if CoD.isPC then
-		if f16_arg0.carouselArrows ~= nil then
-			f16_arg0.carouselArrows:setAlpha(1)
-		end
-		if f16_arg0.circleBackground ~= nil then
-			f16_arg0.circleBackground:setAlpha(0)
-		end
-		if f16_arg0.actionSlots ~= nil then
-			for f16_local3, f16_local4 in pairs(f16_arg0.actionSlots) do
-				CoD.AmmoAreaZombie.ActionSlotInputSourceChanged(f16_local4, f16_arg1)
 			end
 		end
 	end
