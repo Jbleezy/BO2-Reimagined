@@ -33,6 +33,10 @@ vulture_vision_enable(localclientnumber)
 	self.perk_vulture = s_temp;
 	level.perk_vulture.fx_array[localclientnumber] = s_temp;
 
+	setlutscriptindex(localclientnumber, 2);
+	enable_filter_zm_turned(self, 0, 0);
+	self setsonarattachmentenabled(1);
+
 	self thread vulture_perk_ir_think(localclientnumber);
 }
 
@@ -92,11 +96,17 @@ vulture_perk_ir_think(localclientnumber)
 
 	while (1)
 	{
+		level waittill("vulture_perk_ir_disable");
+
+		setlutscriptindex(localclientnumber, 0);
+		disable_filter_zm_turned(self, 0, 0);
+		self setsonarattachmentenabled(0);
+
+		level waittill("vulture_perk_ir_enable");
+
 		setlutscriptindex(localclientnumber, 2);
 		enable_filter_zm_turned(self, 0, 0);
 		self setsonarattachmentenabled(1);
-
-		level waittill("vulture_perk_ir_reset");
 	}
 }
 

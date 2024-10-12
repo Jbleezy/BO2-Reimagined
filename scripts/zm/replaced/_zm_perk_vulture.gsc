@@ -60,12 +60,19 @@ vulture_perk_ir_think()
 	{
 		val = self vulture_perk_ir_is_valid();
 
-		if (prev_val == 0 && val == 1)
+		if (prev_val != val)
 		{
-			self clientnotify("vulture_perk_ir_reset");
-		}
+			prev_val = val;
 
-		prev_val = val;
+			if (val)
+			{
+				self clientnotify("vulture_perk_ir_enable");
+			}
+			else
+			{
+				self clientnotify("vulture_perk_ir_disable");
+			}
+		}
 
 		wait 0.1;
 	}
