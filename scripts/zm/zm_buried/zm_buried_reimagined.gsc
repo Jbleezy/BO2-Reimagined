@@ -90,6 +90,8 @@ init()
 	level thread enable_fountain_transport();
 	level thread disable_ghost_free_perk_on_damage();
 	level thread sloth_trap();
+
+	level.vox zmbvoxadd("player", "perk", "specialty_scavenger", "perk_tombstone", undefined);
 }
 
 zombie_init_done()
