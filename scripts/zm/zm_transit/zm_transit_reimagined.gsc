@@ -45,6 +45,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_ai_screecher::screecher_melee_damage, scripts\zm\replaced\_zm_ai_screecher::screecher_melee_damage);
 	replaceFunc(maps\mp\zombies\_zm_ai_screecher::screecher_detach, scripts\zm\replaced\_zm_ai_screecher::screecher_detach);
 	replaceFunc(maps\mp\zombies\_zm_ai_screecher::screecher_cleanup, scripts\zm\replaced\_zm_ai_screecher::screecher_cleanup);
+	replaceFunc(maps\mp\zombies\_zm_ai_screecher::screecher_should_runaway, scripts\zm\replaced\_zm_ai_screecher::screecher_should_runaway);
 	replaceFunc(maps\mp\zombies\_zm_riotshield::doriotshielddeploy, scripts\zm\replaced\_zm_riotshield::doriotshielddeploy);
 	replaceFunc(maps\mp\zombies\_zm_riotshield::trackriotshield, scripts\zm\replaced\_zm_riotshield::trackriotshield);
 	replaceFunc(maps\mp\zombies\_zm_weap_riotshield::player_damage_shield, scripts\zm\replaced\_zm_weap_riotshield::player_damage_shield);

@@ -376,3 +376,18 @@ screecher_cleanup()
 		level.zombie_screecher_count--;
 	}
 }
+
+screecher_should_runaway(player)
+{
+	if (is_true(player.ignoreme))
+	{
+		return 1;
+	}
+
+	if (isdefined(level.screecher_should_runaway))
+	{
+		return self [[level.screecher_should_runaway]](player);
+	}
+
+	return 0;
+}
