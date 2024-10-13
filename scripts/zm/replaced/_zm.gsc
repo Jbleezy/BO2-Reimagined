@@ -2697,7 +2697,7 @@ player_laststand(einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, sh
 
 	if (is_true(self.hasperkspecialtytombstone))
 	{
-		self.laststand_perks = scripts\zm\_zm_reimagined::tombstone_save_perks(self);
+		self.laststand_perks = scripts\zm\replaced\_zm_tombstone::tombstone_save_perks(self);
 	}
 
 	if (isDefined(self.pers_upgrades_awarded["perk_lose"]) && self.pers_upgrades_awarded["perk_lose"])
