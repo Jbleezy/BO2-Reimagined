@@ -1340,9 +1340,10 @@
 * Added teammate head icons
 * Added kill feed (includes downs, revives, and bleed outs)
 * Added player kills on scoreboard (replaces headshots)
+* Scoreboard always shows your team on top
 * Spawn points are assigned to a team
 * Properly restores dual wield weapon left clip ammo, alt weapon ammo, and equipment on respawn
-* Can only spectate own team
+* Can only spectate your team
 * Added option to change teams in game
 
 #### Grief

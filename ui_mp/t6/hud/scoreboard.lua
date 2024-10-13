@@ -514,6 +514,19 @@ function UpdateGameScoreboard(ScoreboardWidget)
 		local AARScoreboardTable = Engine.GetAARScoreboard(ScoreboardWidget:getOwner())
 		ScoreboardTeams = Engine.GetTeamPositions(ScoreboardWidget:getOwner(), AARScoreboardTable.teamCount)
 	end
+
+	local ClientNum = nil
+	local TeamID = nil
+
+	if not ScoreboardWidget.frontEndOnly then
+		ClientNum = Engine.GetClientNum(ScoreboardWidget:getOwner())
+		TeamID = Engine.GetTeamID(ScoreboardWidget:getOwner(), ClientNum)
+
+		if #ScoreboardTeams > 1 and ScoreboardTeams[1].team ~= TeamID then
+			ScoreboardTeams[1], ScoreboardTeams[2] = ScoreboardTeams[2], ScoreboardTeams[1]
+		end
+	end
+
 	local TeamElementIndex = 1
 	local ScoreboardRowIndex = 1
 	local f18_local5 = f0_local10 + f0_local32
@@ -535,10 +548,6 @@ function UpdateGameScoreboard(ScoreboardWidget)
 	end
 	if CoD.isZombie and Engine.GetGametypeSetting("teamCount") > 2 then
 		MinRowsPerTeam = 2
-	end
-	local ClientNum = nil
-	if not ScoreboardWidget.frontEndOnly then
-		ClientNum = Engine.GetClientNum(ScoreboardWidget:getOwner())
 	end
 	local f18_local12, f18_local13, f18_local14, f18_local15 = nil, nil, nil, nil
 	local FocusableRowIndex = 1
