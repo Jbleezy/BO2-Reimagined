@@ -34,7 +34,7 @@ on_spawn(watcher, player)
 		return;
 	}
 
-	if (isDefined(level.object_touching_lava) && self [[level.object_touching_lava]]())
+	if (isDefined(level.object_touching_lava_func) && self [[level.object_touching_lava_func]]())
 	{
 		return;
 	}

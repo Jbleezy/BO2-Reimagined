@@ -23,6 +23,8 @@ main()
 	replaceFunc(maps\mp\zm_transit::include_weapons, scripts\zm\replaced\zm_transit::include_weapons);
 	replaceFunc(maps\mp\zm_transit::lava_damage_depot, scripts\zm\replaced\zm_transit::lava_damage_depot);
 	replaceFunc(maps\mp\zm_transit::sndplaymusicegg, scripts\zm\replaced\zm_transit::sndplaymusicegg);
+	replaceFunc(maps\mp\zm_transit::grenade_safe_to_bounce, scripts\zm\replaced\zm_transit::grenade_safe_to_bounce);
+	replaceFunc(maps\mp\zm_transit::can_revive, scripts\zm\replaced\zm_transit::can_revive);
 	replaceFunc(maps\mp\zm_transit_gamemodes::init, scripts\zm\replaced\zm_transit_gamemodes::init);
 	replaceFunc(maps\mp\zm_transit_classic::inert_zombies_init, scripts\zm\replaced\zm_transit_classic::inert_zombies_init);
 	replaceFunc(maps\mp\zm_transit_utility::solo_tombstone_removal, scripts\zm\replaced\zm_transit_utility::solo_tombstone_removal);
@@ -81,9 +83,7 @@ init()
 	level.take_overheated_jetgun = 1;
 	level.zombie_init_done = ::zombie_init_done;
 	level.special_weapon_magicbox_check = ::transit_special_weapon_magicbox_check;
-	level.can_revive = ::can_revive;
-	level.grenade_safe_to_bounce = ::grenade_safe_to_bounce;
-	level.object_touching_lava = maps\mp\zm_transit_lava::object_touching_lava;
+	level.object_touching_lava_func = maps\mp\zm_transit_lava::object_touching_lava;
 	level._chugabud_reject_node_override_func = ::transit_chugabud_reject_node_func;
 
 	player_initial_spawn_override();
@@ -141,16 +141,6 @@ zombie_init_done()
 transit_special_weapon_magicbox_check(weapon)
 {
 	return 1;
-}
-
-can_revive(player_down)
-{
-	if (self hasWeapon("screecher_arms_zm"))
-	{
-		return false;
-	}
-
-	return true;
 }
 
 electric_door_changes()
@@ -230,21 +220,6 @@ power_local_electric_doors_globally()
 			maps\mp\zombies\_zm_power::end_local_power(local_power[i]);
 		}
 	}
-}
-
-grenade_safe_to_bounce(player, weapname)
-{
-	if (!is_offhand_weapon(weapname))
-	{
-		return 1;
-	}
-
-	if (self maps\mp\zm_transit_lava::object_touching_lava())
-	{
-		return 0;
-	}
-
-	return 1;
 }
 
 transit_chugabud_reject_node_func(corpse_origin, node)

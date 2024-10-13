@@ -5,8 +5,9 @@
 main()
 {
 	replaceFunc(maps\mp\zm_highrise_sq::navcomputer_waitfor_navcard, scripts\zm\reimagined\_zm_sq::navcomputer_waitfor_navcard);
-	replaceFunc(maps\mp\zm_highrise::is_magic_box_in_inverted_building, scripts\zm\replaced\zm_highrise::is_magic_box_in_inverted_building);
 	replaceFunc(maps\mp\zm_highrise::custom_vending_precaching, scripts\zm\replaced\zm_highrise::custom_vending_precaching);
+	replaceFunc(maps\mp\zm_highrise::highrise_respawn_override, scripts\zm\replaced\zm_highrise::highrise_respawn_override);
+	replaceFunc(maps\mp\zm_highrise::is_magic_box_in_inverted_building, scripts\zm\replaced\zm_highrise::is_magic_box_in_inverted_building);
 	replaceFunc(maps\mp\zm_highrise_sq::init, scripts\zm\replaced\zm_highrise_sq::init);
 	replaceFunc(maps\mp\zm_highrise_sq::sq_is_weapon_sniper, scripts\zm\replaced\zm_highrise_sq::sq_is_weapon_sniper);
 	replaceFunc(maps\mp\zm_highrise_sq_atd::init, scripts\zm\replaced\zm_highrise_sq_atd::init);
@@ -49,7 +50,6 @@ init()
 {
 	level.zombie_init_done = ::zombie_init_done;
 	level.special_weapon_magicbox_check = ::highrise_special_weapon_magicbox_check;
-	level.check_for_valid_spawn_near_team_callback = ::highrise_respawn_override;
 	level.zm_traversal_override = ::zm_traversal_override;
 
 	move_marathon_origins();
@@ -117,45 +117,6 @@ zombie_init_done()
 highrise_special_weapon_magicbox_check(weapon)
 {
 	return 1;
-}
-
-highrise_respawn_override(revivee, return_struct)
-{
-	players = array_randomize(get_players());
-	spawn_points = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
-
-	if (spawn_points.size == 0)
-	{
-		return undefined;
-	}
-
-	for (i = 0; i < players.size; i++)
-	{
-		if (is_player_valid(players[i], undefined, 1) && players[i] != self)
-		{
-			for (j = 0; j < spawn_points.size; j++)
-			{
-				if (isDefined(spawn_points[j].script_noteworthy))
-				{
-					zone = level.zones[spawn_points[j].script_noteworthy];
-
-					for (k = 0; k < zone.volumes.size; k++)
-					{
-						if (players[i] istouching(zone.volumes[k]))
-						{
-							closest_group = j;
-							spawn_location = maps\mp\zombies\_zm::get_valid_spawn_location(revivee, spawn_points, closest_group, return_struct);
-
-							if (isDefined(spawn_location))
-							{
-								return spawn_location;
-							}
-						}
-					}
-				}
-			}
-		}
-	}
 }
 
 zm_traversal_override(traversealias)

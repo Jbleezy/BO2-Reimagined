@@ -1892,79 +1892,6 @@ scale_damage(damage, damage_to_kill)
 	return damage;
 }
 
-callback_playerdamage(einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime, boneindex)
-{
-	if (isDefined(eattacker) && isplayer(eattacker) && eattacker.sessionteam == self.sessionteam && !eattacker hasperk("specialty_noname") && isDefined(self.is_zombie) && !self.is_zombie)
-	{
-		self maps\mp\zombies\_zm::process_friendly_fire_callbacks(einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime, boneindex);
-
-		if (self != eattacker)
-		{
-			return;
-		}
-		else if (smeansofdeath != "MOD_GRENADE_SPLASH" && smeansofdeath != "MOD_GRENADE" && smeansofdeath != "MOD_EXPLOSIVE" && smeansofdeath != "MOD_PROJECTILE" && smeansofdeath != "MOD_PROJECTILE_SPLASH" && smeansofdeath != "MOD_BURNED" && smeansofdeath != "MOD_SUICIDE")
-		{
-			return;
-		}
-	}
-
-	if (is_true(level.pers_upgrade_insta_kill))
-	{
-		self maps\mp\zombies\_zm_pers_upgrades_functions::pers_insta_kill_melee_swipe(smeansofdeath, eattacker);
-	}
-
-	if (isDefined(self.overrideplayerdamage))
-	{
-		idamage = self [[self.overrideplayerdamage]](einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime);
-	}
-	else if (isDefined(level.overrideplayerdamage))
-	{
-		idamage = self [[level.overrideplayerdamage]](einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime);
-	}
-
-	if (is_true(self.magic_bullet_shield))
-	{
-		maxhealth = self.maxhealth;
-		self.health += idamage;
-		self.maxhealth = maxhealth;
-	}
-
-	if (isDefined(self.divetoprone) && self.divetoprone == 1)
-	{
-		if (smeansofdeath == "MOD_GRENADE_SPLASH")
-		{
-			dist = distance2d(vpoint, self.origin);
-
-			if (dist > 32)
-			{
-				dot_product = vectordot(anglesToForward(self.angles), vdir);
-
-				if (dot_product > 0)
-				{
-					idamage = int(idamage * 0.5);
-				}
-			}
-		}
-	}
-
-	if (isDefined(level.prevent_player_damage))
-	{
-		if (self [[level.prevent_player_damage]](einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime))
-		{
-			return;
-		}
-	}
-
-	idflags |= level.idflags_no_knockback;
-
-	if (idamage > 0 && shitloc == "riotshield")
-	{
-		shitloc = "torso_upper";
-	}
-
-	self maps\mp\zombies\_zm::finishplayerdamagewrapper(einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime, boneindex);
-}
-
 getfreespawnpoint(spawnpoints, player)
 {
 	if (!isDefined(spawnpoints))
@@ -2257,6 +2184,115 @@ get_valid_spawn_location(revivee, spawn_points, closest_group, return_struct)
 	}
 
 	return spawn_array[0].origin;
+}
+
+player_spawn_protection()
+{
+	self endon("disconnect");
+	self endon("player_downed");
+	self endon("meat_grabbed");
+	self endon("meat_stink_player_start");
+
+	self thread player_spawn_protection_timeout();
+
+	self.spawn_protection = 1;
+
+	for (x = 0; x < 60; x++)
+	{
+		self.ignoreme = 1;
+		wait 0.05;
+	}
+
+	if (!isDefined(level.meat_player))
+	{
+		self.ignoreme = 0;
+	}
+
+	self.spawn_protection = 0;
+	self notify("player_spawn_protection_end");
+}
+
+player_spawn_protection_timeout()
+{
+	self endon("disconnect");
+	self endon("player_spawn_protection_end");
+
+	self waittill_any("player_downed", "meat_grabbed", "meat_stink_player_start");
+
+	self.spawn_protection = 0;
+}
+
+callback_playerdamage(einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime, boneindex)
+{
+	if (isDefined(eattacker) && isplayer(eattacker) && eattacker.sessionteam == self.sessionteam && !eattacker hasperk("specialty_noname") && isDefined(self.is_zombie) && !self.is_zombie)
+	{
+		self maps\mp\zombies\_zm::process_friendly_fire_callbacks(einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime, boneindex);
+
+		if (self != eattacker)
+		{
+			return;
+		}
+		else if (smeansofdeath != "MOD_GRENADE_SPLASH" && smeansofdeath != "MOD_GRENADE" && smeansofdeath != "MOD_EXPLOSIVE" && smeansofdeath != "MOD_PROJECTILE" && smeansofdeath != "MOD_PROJECTILE_SPLASH" && smeansofdeath != "MOD_BURNED" && smeansofdeath != "MOD_SUICIDE")
+		{
+			return;
+		}
+	}
+
+	if (is_true(level.pers_upgrade_insta_kill))
+	{
+		self maps\mp\zombies\_zm_pers_upgrades_functions::pers_insta_kill_melee_swipe(smeansofdeath, eattacker);
+	}
+
+	if (isDefined(self.overrideplayerdamage))
+	{
+		idamage = self [[self.overrideplayerdamage]](einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime);
+	}
+	else if (isDefined(level.overrideplayerdamage))
+	{
+		idamage = self [[level.overrideplayerdamage]](einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime);
+	}
+
+	if (is_true(self.magic_bullet_shield))
+	{
+		maxhealth = self.maxhealth;
+		self.health += idamage;
+		self.maxhealth = maxhealth;
+	}
+
+	if (isDefined(self.divetoprone) && self.divetoprone == 1)
+	{
+		if (smeansofdeath == "MOD_GRENADE_SPLASH")
+		{
+			dist = distance2d(vpoint, self.origin);
+
+			if (dist > 32)
+			{
+				dot_product = vectordot(anglesToForward(self.angles), vdir);
+
+				if (dot_product > 0)
+				{
+					idamage = int(idamage * 0.5);
+				}
+			}
+		}
+	}
+
+	if (isDefined(level.prevent_player_damage))
+	{
+		if (self [[level.prevent_player_damage]](einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime))
+		{
+			return;
+		}
+	}
+
+	idflags |= level.idflags_no_knockback;
+
+	if (idamage > 0 && shitloc == "riotshield")
+	{
+		shitloc = "torso_upper";
+	}
+
+	self maps\mp\zombies\_zm::finishplayerdamagewrapper(einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime, boneindex);
 }
 
 player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime)
@@ -2681,6 +2717,12 @@ is_non_solo_death(players, count)
 	return 0;
 }
 
+callback_playerlaststand(einflictor, eattacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration)
+{
+	self endon("disconnect");
+	[[scripts\zm\replaced\_zm_laststand::playerlaststand]](einflictor, eattacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration);
+}
+
 player_laststand(einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration)
 {
 	b_alt_visionset = 0;
@@ -2807,46 +2849,250 @@ player_laststand(einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, sh
 	}
 }
 
-callback_playerlaststand(einflictor, eattacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration)
+last_stand_pistol_swap()
 {
-	self endon("disconnect");
-	[[scripts\zm\replaced\_zm_laststand::playerlaststand]](einflictor, eattacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration);
-}
-
-player_spawn_protection()
-{
-	self endon("disconnect");
-	self endon("player_downed");
-	self endon("meat_grabbed");
-	self endon("meat_stink_player_start");
-
-	self thread player_spawn_protection_timeout();
-
-	self.spawn_protection = 1;
-
-	for (x = 0; x < 60; x++)
+	if (self has_powerup_weapon())
 	{
-		self.ignoreme = 1;
-		wait 0.05;
+		self.lastactiveweapon = "none";
 	}
 
-	if (!isDefined(level.meat_player))
+	if (!self hasweapon(self.laststandpistol))
 	{
-		self.ignoreme = 0;
+		if (!is_weapon_upgraded(self.laststandpistol))
+		{
+			self giveweapon(self.laststandpistol);
+		}
+		else
+		{
+			self giveweapon(self.laststandpistol, 0, self get_pack_a_punch_weapon_options(self.laststandpistol));
+		}
 	}
 
-	self.spawn_protection = 0;
-	self notify("player_spawn_protection_end");
+	amt = 0;
+	ammoclip = weaponclipsize(self.laststandpistol);
+	doubleclip = ammoclip * 2;
+	dual_wield_wep = weapondualwieldweaponname(self.laststandpistol);
+
+	if (dual_wield_wep != "none")
+	{
+		ammoclip += weaponclipsize(dual_wield_wep);
+		doubleclip = ammoclip;
+	}
+
+	if (is_true(self._special_solo_pistol_swap) || self.laststandpistol == level.default_solo_laststandpistol && !self.hadpistol)
+	{
+		self._special_solo_pistol_swap = 0;
+		self.hadpistol = 0;
+		amt = ammoclip;
+	}
+	else if (flag("solo_game") && self.laststandpistol == level.default_solo_laststandpistol)
+	{
+		amt = ammoclip;
+	}
+	else if (self.laststandpistol == level.default_laststandpistol)
+	{
+		amt = ammoclip + doubleclip;
+	}
+	else if (self.laststandpistol == "ray_gun_zm" || self.laststandpistol == "ray_gun_upgraded_zm" || self.laststandpistol == "raygun_mark2_zm" || self.laststandpistol == "raygun_mark2_upgraded_zm" || self.laststandpistol == level.default_solo_laststandpistol)
+	{
+		amt = ammoclip;
+
+		if (self.hadpistol && amt > self.stored_weapon_info[self.laststandpistol].total_amt)
+		{
+			amt = self.stored_weapon_info[self.laststandpistol].total_amt;
+		}
+
+		self.stored_weapon_info[self.laststandpistol].given_amt = amt;
+	}
+	else
+	{
+		amt = ammoclip + doubleclip;
+
+		if (self.hadpistol && amt > self.stored_weapon_info[self.laststandpistol].total_amt)
+		{
+			amt = self.stored_weapon_info[self.laststandpistol].total_amt;
+		}
+
+		self.stored_weapon_info[self.laststandpistol].given_amt = amt;
+	}
+
+	clip_amt_init = 0;
+	left_clip_amt_init = 0;
+
+	if (self.hadpistol)
+	{
+		clip_amt_init = self.stored_weapon_info[self.laststandpistol].clip_amt;
+
+		if (dual_wield_wep != "none")
+		{
+			left_clip_amt_init = self.stored_weapon_info[self.laststandpistol].left_clip_amt;
+		}
+
+		amt -= clip_amt_init + left_clip_amt_init;
+	}
+
+	clip_amt_add = weaponclipsize(self.laststandpistol) - clip_amt_init;
+
+	if (clip_amt_add > amt)
+	{
+		clip_amt_add = amt;
+	}
+
+	self setweaponammoclip(self.laststandpistol, clip_amt_init + clip_amt_add);
+
+	amt -= clip_amt_add;
+
+	if (dual_wield_wep != "none")
+	{
+		left_clip_amt_add = weaponclipsize(dual_wield_wep) - left_clip_amt_init;
+
+		if (left_clip_amt_add > amt)
+		{
+			left_clip_amt_add = amt;
+		}
+
+		self scripts\zm\_zm_reimagined::set_weapon_ammo_clip_left(self.laststandpistol, left_clip_amt_init + left_clip_amt_add);
+
+		amt -= left_clip_amt_add;
+	}
+
+	stock_amt = doubleclip;
+
+	if (stock_amt > amt)
+	{
+		stock_amt = amt;
+	}
+
+	self setweaponammostock(self.laststandpistol, stock_amt);
+
+	self switchtoweapon(self.laststandpistol);
 }
 
-player_spawn_protection_timeout()
+last_stand_restore_pistol_ammo(only_store_info = false)
 {
-	self endon("disconnect");
-	self endon("player_spawn_protection_end");
+	self.weapon_taken_by_losing_specialty_additionalprimaryweapon = undefined;
 
-	self waittill_any("player_downed", "meat_grabbed", "meat_stink_player_start");
+	if (!isDefined(self.stored_weapon_info))
+	{
+		return;
+	}
 
-	self.spawn_protection = 0;
+	weapon_inventory = self getweaponslist(1);
+	weapon_to_restore = getarraykeys(self.stored_weapon_info);
+	i = 0;
+
+	while (i < weapon_inventory.size)
+	{
+		weapon = weapon_inventory[i];
+
+		if (weapon != self.laststandpistol)
+		{
+			i++;
+			continue;
+		}
+
+		for (j = 0; j < weapon_to_restore.size; j++)
+		{
+			check_weapon = weapon_to_restore[j];
+
+			if (weapon == check_weapon)
+			{
+				dual_wield_name = weapondualwieldweaponname(weapon);
+
+				if (self.stored_weapon_info[weapon].given_amt == 0)
+				{
+					self setweaponammoclip(weapon, self.stored_weapon_info[weapon].clip_amt);
+
+					if ("none" != dual_wield_name)
+					{
+						self scripts\zm\_zm_reimagined::set_weapon_ammo_clip_left(weapon, self.stored_weapon_info[weapon].left_clip_amt);
+					}
+
+					self setweaponammostock(weapon, self.stored_weapon_info[weapon].stock_amt);
+
+					break;
+				}
+
+				last_clip = self getweaponammoclip(weapon);
+				last_left_clip = 0;
+
+				if ("none" != dual_wield_name)
+				{
+					last_left_clip = self getweaponammoclip(dual_wield_name);
+				}
+
+				last_stock = self getweaponammostock(weapon);
+				last_total = last_clip + last_left_clip + last_stock;
+
+				self.stored_weapon_info[weapon].used_amt = self.stored_weapon_info[weapon].given_amt - last_total;
+
+				if (only_store_info)
+				{
+					break;
+				}
+
+				used_amt = self.stored_weapon_info[weapon].used_amt;
+
+				if (used_amt >= self.stored_weapon_info[weapon].stock_amt)
+				{
+					used_amt -= self.stored_weapon_info[weapon].stock_amt;
+					self.stored_weapon_info[weapon].stock_amt = 0;
+
+					if ("none" != dual_wield_name)
+					{
+						if (used_amt >= self.stored_weapon_info[weapon].left_clip_amt)
+						{
+							used_amt -= self.stored_weapon_info[weapon].left_clip_amt;
+							self.stored_weapon_info[weapon].left_clip_amt = 0;
+
+							if (used_amt >= self.stored_weapon_info[weapon].clip_amt)
+							{
+								used_amt -= self.stored_weapon_info[weapon].clip_amt;
+								self.stored_weapon_info[weapon].clip_amt = 0;
+							}
+							else
+							{
+								self.stored_weapon_info[weapon].clip_amt -= used_amt;
+							}
+						}
+						else
+						{
+							self.stored_weapon_info[weapon].left_clip_amt -= used_amt;
+						}
+					}
+					else
+					{
+						if (used_amt >= self.stored_weapon_info[weapon].clip_amt)
+						{
+							used_amt -= self.stored_weapon_info[weapon].clip_amt;
+							self.stored_weapon_info[weapon].clip_amt = 0;
+						}
+						else
+						{
+							self.stored_weapon_info[weapon].clip_amt -= used_amt;
+						}
+					}
+				}
+				else
+				{
+					self.stored_weapon_info[weapon].stock_amt -= used_amt;
+				}
+
+				self setweaponammoclip(weapon, self.stored_weapon_info[weapon].clip_amt);
+
+				if ("none" != dual_wield_name)
+				{
+					self scripts\zm\_zm_reimagined::set_weapon_ammo_clip_left(weapon, self.stored_weapon_info[weapon].left_clip_amt);
+				}
+
+				self setweaponammostock(weapon, self.stored_weapon_info[weapon].stock_amt);
+
+				break;
+			}
+		}
+
+		i++;
+	}
 }
 
 wait_and_revive()

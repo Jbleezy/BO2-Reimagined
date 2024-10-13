@@ -54,6 +54,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_craftables::player_progress_bar_update, scripts\zm\replaced\_zm_craftables::player_progress_bar_update);
 	replaceFunc(maps\mp\zombies\_zm_craftables::update_open_table_status, scripts\zm\replaced\_zm_craftables::update_open_table_status);
 	replaceFunc(maps\mp\zombies\_zm_craftables::onbeginuseuts, scripts\zm\replaced\_zm_craftables::onbeginuseuts);
+	replaceFunc(maps\mp\zombies\_zm_magicbox_tomb::custom_magic_box_timer_til_despawn, scripts\zm\replaced\_zm_magicbox_tomb::custom_magic_box_timer_til_despawn);
 	replaceFunc(maps\mp\zombies\_zm_perk_random::machine_selector, scripts\zm\replaced\_zm_perk_random::machine_selector);
 	replaceFunc(maps\mp\zombies\_zm_perk_random::start_perk_bottle_cycling, scripts\zm\replaced\_zm_perk_random::start_perk_bottle_cycling);
 	replaceFunc(maps\mp\zombies\_zm_perk_random::perk_bottle_motion, scripts\zm\replaced\_zm_perk_random::perk_bottle_motion);
@@ -82,7 +83,6 @@ init()
 
 	level.zombie_init_done = ::zombie_init_done;
 	level.special_weapon_magicbox_check = ::tomb_special_weapon_magicbox_check;
-	level.custom_magic_box_timer_til_despawn = ::custom_magic_box_timer_til_despawn;
 
 	level.zombie_vars["below_world_check"] = -3000;
 
@@ -282,19 +282,6 @@ set_visible_after_rounds(player, num)
 	}
 
 	self setvisibletoplayer(player);
-}
-
-custom_magic_box_timer_til_despawn(magic_box)
-{
-	self endon("kill_weapon_movement");
-	v_float = anglesToForward(magic_box.angles - vectorScale((0, 1, 0), 90)) * 40;
-	self moveto(self.origin - (v_float * 0.25), level.magicbox_timeout, level.magicbox_timeout * 0.5);
-	wait level.magicbox_timeout;
-
-	if (isDefined(self))
-	{
-		self delete();
-	}
 }
 
 updatecraftables()

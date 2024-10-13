@@ -28,12 +28,14 @@ main()
 	replaceFunc(maps\mp\zombies\_zm::take_additionalprimaryweapon, scripts\zm\replaced\_zm::take_additionalprimaryweapon);
 	replaceFunc(maps\mp\zombies\_zm::check_for_valid_spawn_near_team, scripts\zm\replaced\_zm::check_for_valid_spawn_near_team);
 	replaceFunc(maps\mp\zombies\_zm::get_valid_spawn_location, scripts\zm\replaced\_zm::get_valid_spawn_location);
+	replaceFunc(maps\mp\zombies\_zm::player_spawn_protection, scripts\zm\replaced\_zm::player_spawn_protection);
 	replaceFunc(maps\mp\zombies\_zm::actor_damage_override, scripts\zm\replaced\_zm::actor_damage_override);
 	replaceFunc(maps\mp\zombies\_zm::callback_playerdamage, scripts\zm\replaced\_zm::callback_playerdamage);
 	replaceFunc(maps\mp\zombies\_zm::player_damage_override, scripts\zm\replaced\_zm::player_damage_override);
-	replaceFunc(maps\mp\zombies\_zm::player_spawn_protection, scripts\zm\replaced\_zm::player_spawn_protection);
 	replaceFunc(maps\mp\zombies\_zm::callback_playerlaststand, scripts\zm\replaced\_zm::callback_playerlaststand);
 	replaceFunc(maps\mp\zombies\_zm::player_laststand, scripts\zm\replaced\_zm::player_laststand);
+	replaceFunc(maps\mp\zombies\_zm::last_stand_pistol_swap, scripts\zm\replaced\_zm::last_stand_pistol_swap);
+	replaceFunc(maps\mp\zombies\_zm::last_stand_restore_pistol_ammo, scripts\zm\replaced\_zm::last_stand_restore_pistol_ammo);
 	replaceFunc(maps\mp\zombies\_zm::wait_and_revive, scripts\zm\replaced\_zm::wait_and_revive);
 	replaceFunc(maps\mp\zombies\_zm::player_revive_monitor, scripts\zm\replaced\_zm::player_revive_monitor);
 	replaceFunc(maps\mp\zombies\_zm::player_out_of_playable_area_monitor, scripts\zm\replaced\_zm::player_out_of_playable_area_monitor);
@@ -612,8 +614,6 @@ post_all_players_spawned()
 	level.etrap_damage = maps\mp\zombies\_zm::ai_zombie_health(255);
 	level.slipgun_damage = maps\mp\zombies\_zm::ai_zombie_health(255);
 	level.should_respawn_func = ::should_respawn;
-	level.zombie_last_stand = ::last_stand_pistol_swap;
-	level.zombie_last_stand_ammo_return = ::last_stand_restore_pistol_ammo;
 
 	disable_carpenter();
 
@@ -1278,252 +1278,6 @@ bleedout_bar_hud_updatebar(hud)
 		wait time;
 
 		bleedout_time -= time;
-	}
-}
-
-last_stand_pistol_swap()
-{
-	if (self has_powerup_weapon())
-	{
-		self.lastactiveweapon = "none";
-	}
-
-	if (!self hasweapon(self.laststandpistol))
-	{
-		if (!is_weapon_upgraded(self.laststandpistol))
-		{
-			self giveweapon(self.laststandpistol);
-		}
-		else
-		{
-			self giveweapon(self.laststandpistol, 0, self get_pack_a_punch_weapon_options(self.laststandpistol));
-		}
-	}
-
-	amt = 0;
-	ammoclip = weaponclipsize(self.laststandpistol);
-	doubleclip = ammoclip * 2;
-	dual_wield_wep = weapondualwieldweaponname(self.laststandpistol);
-
-	if (dual_wield_wep != "none")
-	{
-		ammoclip += weaponclipsize(dual_wield_wep);
-		doubleclip = ammoclip;
-	}
-
-	if (is_true(self._special_solo_pistol_swap) || self.laststandpistol == level.default_solo_laststandpistol && !self.hadpistol)
-	{
-		self._special_solo_pistol_swap = 0;
-		self.hadpistol = 0;
-		amt = ammoclip;
-	}
-	else if (flag("solo_game") && self.laststandpistol == level.default_solo_laststandpistol)
-	{
-		amt = ammoclip;
-	}
-	else if (self.laststandpistol == level.default_laststandpistol)
-	{
-		amt = ammoclip + doubleclip;
-	}
-	else if (self.laststandpistol == "ray_gun_zm" || self.laststandpistol == "ray_gun_upgraded_zm" || self.laststandpistol == "raygun_mark2_zm" || self.laststandpistol == "raygun_mark2_upgraded_zm" || self.laststandpistol == level.default_solo_laststandpistol)
-	{
-		amt = ammoclip;
-
-		if (self.hadpistol && amt > self.stored_weapon_info[self.laststandpistol].total_amt)
-		{
-			amt = self.stored_weapon_info[self.laststandpistol].total_amt;
-		}
-
-		self.stored_weapon_info[self.laststandpistol].given_amt = amt;
-	}
-	else
-	{
-		amt = ammoclip + doubleclip;
-
-		if (self.hadpistol && amt > self.stored_weapon_info[self.laststandpistol].total_amt)
-		{
-			amt = self.stored_weapon_info[self.laststandpistol].total_amt;
-		}
-
-		self.stored_weapon_info[self.laststandpistol].given_amt = amt;
-	}
-
-	clip_amt_init = 0;
-	left_clip_amt_init = 0;
-
-	if (self.hadpistol)
-	{
-		clip_amt_init = self.stored_weapon_info[self.laststandpistol].clip_amt;
-
-		if (dual_wield_wep != "none")
-		{
-			left_clip_amt_init = self.stored_weapon_info[self.laststandpistol].left_clip_amt;
-		}
-
-		amt -= clip_amt_init + left_clip_amt_init;
-	}
-
-	clip_amt_add = weaponclipsize(self.laststandpistol) - clip_amt_init;
-
-	if (clip_amt_add > amt)
-	{
-		clip_amt_add = amt;
-	}
-
-	self setweaponammoclip(self.laststandpistol, clip_amt_init + clip_amt_add);
-
-	amt -= clip_amt_add;
-
-	if (dual_wield_wep != "none")
-	{
-		left_clip_amt_add = weaponclipsize(dual_wield_wep) - left_clip_amt_init;
-
-		if (left_clip_amt_add > amt)
-		{
-			left_clip_amt_add = amt;
-		}
-
-		self set_weapon_ammo_clip_left(self.laststandpistol, left_clip_amt_init + left_clip_amt_add);
-
-		amt -= left_clip_amt_add;
-	}
-
-	stock_amt = doubleclip;
-
-	if (stock_amt > amt)
-	{
-		stock_amt = amt;
-	}
-
-	self setweaponammostock(self.laststandpistol, stock_amt);
-
-	self switchtoweapon(self.laststandpistol);
-}
-
-last_stand_restore_pistol_ammo(only_store_info = false)
-{
-	self.weapon_taken_by_losing_specialty_additionalprimaryweapon = undefined;
-
-	if (!isDefined(self.stored_weapon_info))
-	{
-		return;
-	}
-
-	weapon_inventory = self getweaponslist(1);
-	weapon_to_restore = getarraykeys(self.stored_weapon_info);
-	i = 0;
-
-	while (i < weapon_inventory.size)
-	{
-		weapon = weapon_inventory[i];
-
-		if (weapon != self.laststandpistol)
-		{
-			i++;
-			continue;
-		}
-
-		for (j = 0; j < weapon_to_restore.size; j++)
-		{
-			check_weapon = weapon_to_restore[j];
-
-			if (weapon == check_weapon)
-			{
-				dual_wield_name = weapondualwieldweaponname(weapon);
-
-				if (self.stored_weapon_info[weapon].given_amt == 0)
-				{
-					self setweaponammoclip(weapon, self.stored_weapon_info[weapon].clip_amt);
-
-					if ("none" != dual_wield_name)
-					{
-						self set_weapon_ammo_clip_left(weapon, self.stored_weapon_info[weapon].left_clip_amt);
-					}
-
-					self setweaponammostock(weapon, self.stored_weapon_info[weapon].stock_amt);
-
-					break;
-				}
-
-				last_clip = self getweaponammoclip(weapon);
-				last_left_clip = 0;
-
-				if ("none" != dual_wield_name)
-				{
-					last_left_clip = self getweaponammoclip(dual_wield_name);
-				}
-
-				last_stock = self getweaponammostock(weapon);
-				last_total = last_clip + last_left_clip + last_stock;
-
-				self.stored_weapon_info[weapon].used_amt = self.stored_weapon_info[weapon].given_amt - last_total;
-
-				if (only_store_info)
-				{
-					break;
-				}
-
-				used_amt = self.stored_weapon_info[weapon].used_amt;
-
-				if (used_amt >= self.stored_weapon_info[weapon].stock_amt)
-				{
-					used_amt -= self.stored_weapon_info[weapon].stock_amt;
-					self.stored_weapon_info[weapon].stock_amt = 0;
-
-					if ("none" != dual_wield_name)
-					{
-						if (used_amt >= self.stored_weapon_info[weapon].left_clip_amt)
-						{
-							used_amt -= self.stored_weapon_info[weapon].left_clip_amt;
-							self.stored_weapon_info[weapon].left_clip_amt = 0;
-
-							if (used_amt >= self.stored_weapon_info[weapon].clip_amt)
-							{
-								used_amt -= self.stored_weapon_info[weapon].clip_amt;
-								self.stored_weapon_info[weapon].clip_amt = 0;
-							}
-							else
-							{
-								self.stored_weapon_info[weapon].clip_amt -= used_amt;
-							}
-						}
-						else
-						{
-							self.stored_weapon_info[weapon].left_clip_amt -= used_amt;
-						}
-					}
-					else
-					{
-						if (used_amt >= self.stored_weapon_info[weapon].clip_amt)
-						{
-							used_amt -= self.stored_weapon_info[weapon].clip_amt;
-							self.stored_weapon_info[weapon].clip_amt = 0;
-						}
-						else
-						{
-							self.stored_weapon_info[weapon].clip_amt -= used_amt;
-						}
-					}
-				}
-				else
-				{
-					self.stored_weapon_info[weapon].stock_amt -= used_amt;
-				}
-
-				self setweaponammoclip(weapon, self.stored_weapon_info[weapon].clip_amt);
-
-				if ("none" != dual_wield_name)
-				{
-					self set_weapon_ammo_clip_left(weapon, self.stored_weapon_info[weapon].left_clip_amt);
-				}
-
-				self setweaponammostock(weapon, self.stored_weapon_info[weapon].stock_amt);
-
-				break;
-			}
-		}
-
-		i++;
 	}
 }
 

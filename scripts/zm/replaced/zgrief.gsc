@@ -150,7 +150,7 @@ meat_bounce_override(pos, normal, ent, bounce)
 		}
 	}
 
-	if (isDefined(level.object_touching_lava) && self [[level.object_touching_lava]]())
+	if (isDefined(level.object_touching_lava_func) && self [[level.object_touching_lava_func]]())
 	{
 		level notify("meat_inactive");
 

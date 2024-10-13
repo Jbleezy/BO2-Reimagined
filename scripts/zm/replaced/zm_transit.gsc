@@ -273,3 +273,28 @@ sndplaymusicegg_get_time_for_song(song)
 
 	return 0;
 }
+
+grenade_safe_to_bounce(player, weapname)
+{
+	if (!is_offhand_weapon(weapname))
+	{
+		return 1;
+	}
+
+	if (self maps\mp\zm_transit_lava::object_touching_lava())
+	{
+		return 0;
+	}
+
+	return 1;
+}
+
+can_revive(player_down)
+{
+	if (self hasWeapon("screecher_arms_zm"))
+	{
+		return false;
+	}
+
+	return true;
+}

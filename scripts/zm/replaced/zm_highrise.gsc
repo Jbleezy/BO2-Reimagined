@@ -89,24 +89,6 @@ zclassic_preinit()
 	withdraw_spot thread maps\mp\zombies\_zm_banking::bank_withdraw_unitrigger();
 }
 
-is_magic_box_in_inverted_building()
-{
-	b_is_in_inverted_building = 0;
-	a_boxes_in_inverted_building = array("start_chest", "orange_level3_chest");
-	str_location = level.chests[level.chest_index].script_noteworthy;
-	assert(isdefined(str_location), "is_magic_box_in_inverted_building() can't find magic box location");
-
-	for (i = 0; i < a_boxes_in_inverted_building.size; i++)
-	{
-		if (a_boxes_in_inverted_building[i] == str_location)
-		{
-			b_is_in_inverted_building = 1;
-		}
-	}
-
-	return b_is_in_inverted_building;
-}
-
 custom_vending_precaching()
 {
 	if (isdefined(level.zombiemode_using_pack_a_punch) && level.zombiemode_using_pack_a_punch)
@@ -263,4 +245,61 @@ custom_vending_precaching()
 			}
 		}
 	}
+}
+
+highrise_respawn_override(revivee, return_struct)
+{
+	players = array_randomize(get_players());
+	spawn_points = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
+
+	if (spawn_points.size == 0)
+	{
+		return undefined;
+	}
+
+	for (i = 0; i < players.size; i++)
+	{
+		if (is_player_valid(players[i], undefined, 1) && players[i] != self)
+		{
+			for (j = 0; j < spawn_points.size; j++)
+			{
+				if (isDefined(spawn_points[j].script_noteworthy))
+				{
+					zone = level.zones[spawn_points[j].script_noteworthy];
+
+					for (k = 0; k < zone.volumes.size; k++)
+					{
+						if (players[i] istouching(zone.volumes[k]))
+						{
+							closest_group = j;
+							spawn_location = maps\mp\zombies\_zm::get_valid_spawn_location(revivee, spawn_points, closest_group, return_struct);
+
+							if (isDefined(spawn_location))
+							{
+								return spawn_location;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+is_magic_box_in_inverted_building()
+{
+	b_is_in_inverted_building = 0;
+	a_boxes_in_inverted_building = array("start_chest", "orange_level3_chest");
+	str_location = level.chests[level.chest_index].script_noteworthy;
+	assert(isdefined(str_location), "is_magic_box_in_inverted_building() can't find magic box location");
+
+	for (i = 0; i < a_boxes_in_inverted_building.size; i++)
+	{
+		if (a_boxes_in_inverted_building[i] == str_location)
+		{
+			b_is_in_inverted_building = 1;
+		}
+	}
+
+	return b_is_in_inverted_building;
 }
