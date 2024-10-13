@@ -176,7 +176,7 @@ callback_playerconnect()
 		}
 	}
 
-	if (getdvar(#"r_reflectionProbeGenerate") == "1")
+	if (getdvar("r_reflectionProbeGenerate") == "1")
 	{
 		level waittill("eternity");
 	}

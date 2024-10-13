@@ -236,8 +236,10 @@ screecher_detach(player)
 
 		player takeweapon("screecher_arms_zm");
 
-		// if ( !getdvarint( _hash_E7EF8EB7 ) )
-		player stoppoisoning();
+		if (!getdvarint("scr_screecher_poison"))
+		{
+			player stoppoisoning();
+		}
 
 		if (!player maps\mp\zombies\_zm_laststand::player_is_in_laststand() && !(isdefined(player.intermission) && player.intermission))
 		{
@@ -326,8 +328,10 @@ screecher_cleanup()
 
 			player takeweapon("screecher_arms_zm");
 
-			// if ( !getdvarint( _hash_E7EF8EB7 ) )
-			player stoppoisoning();
+			if (!getdvarint("scr_screecher_poison"))
+			{
+				player stoppoisoning();
+			}
 
 			if (!player maps\mp\zombies\_zm_laststand::player_is_in_laststand() && !(isdefined(player.intermission) && player.intermission))
 			{

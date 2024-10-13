@@ -61,7 +61,7 @@
 
 include_weapons()
 {
-	gametype = getdvar(#"ui_gametype");
+	gametype = getdvar("ui_gametype");
 	include_weapon("knife_zm", 0);
 	include_weapon("frag_grenade_zm", 0);
 	include_weapon("claymore_zm", 0);
