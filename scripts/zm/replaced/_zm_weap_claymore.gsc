@@ -133,37 +133,26 @@ claymore_watch()
 				claymore thread claymore_wait_and_detonate();
 			}
 
-			self thread claymore_last_shot_switch(weapname);
+			self thread claymore_last_shot_give_back_weapon(weapname);
 		}
 	}
 }
 
-// empty drop anim doesn't work for weapons that use `offhandSlot\Equipment\` attribute
-claymore_last_shot_switch(weapname)
+// weapon is taken after last shot when using `plantable\0\` attribute
+claymore_last_shot_give_back_weapon(weapname)
 {
 	self endon("disconnect");
 
 	ammo = self getammocount(weapname);
-	fire_time = weaponfiretime(weapname) * 0.8;
-
-	if (self hasperk("specialty_rof"))
-	{
-		fire_time *= getdvarfloat("perk_weapRateMultiplier");
-	}
-
-	wait fire_time;
-
-	if (!self hasweapon(weapname))
-	{
-		return;
-	}
-
-	if (self getcurrentweapon() != weapname)
-	{
-		return;
-	}
 
 	if (ammo != 0)
+	{
+		return;
+	}
+
+	self waittill("weapon_change");
+
+	if (!self is_player_placeable_mine(weapname))
 	{
 		return;
 	}
