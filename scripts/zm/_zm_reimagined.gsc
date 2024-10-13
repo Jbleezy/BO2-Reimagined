@@ -19,6 +19,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm::init_client_flags, scripts\zm\replaced\_zm::init_client_flags);
 	replaceFunc(maps\mp\zombies\_zm::init_fx, scripts\zm\replaced\_zm::init_fx);
 	replaceFunc(maps\mp\zombies\_zm::round_start, scripts\zm\replaced\_zm::round_start);
+	replaceFunc(maps\mp\zombies\_zm::round_spawn_failsafe, scripts\zm\replaced\_zm::round_spawn_failsafe);
 	replaceFunc(maps\mp\zombies\_zm::ai_calculate_health, scripts\zm\replaced\_zm::ai_calculate_health);
 	replaceFunc(maps\mp\zombies\_zm::onallplayersready, scripts\zm\replaced\_zm::onallplayersready);
 	replaceFunc(maps\mp\zombies\_zm::last_stand_pistol_rank_init, scripts\zm\replaced\_zm::last_stand_pistol_rank_init);
@@ -28,10 +29,15 @@ main()
 	replaceFunc(maps\mp\zombies\_zm::check_for_valid_spawn_near_team, scripts\zm\replaced\_zm::check_for_valid_spawn_near_team);
 	replaceFunc(maps\mp\zombies\_zm::get_valid_spawn_location, scripts\zm\replaced\_zm::get_valid_spawn_location);
 	replaceFunc(maps\mp\zombies\_zm::actor_damage_override, scripts\zm\replaced\_zm::actor_damage_override);
+	replaceFunc(maps\mp\zombies\_zm::callback_playerdamage, scripts\zm\replaced\_zm::callback_playerdamage);
+	replaceFunc(maps\mp\zombies\_zm::player_damage_override, scripts\zm\replaced\_zm::player_damage_override);
 	replaceFunc(maps\mp\zombies\_zm::player_spawn_protection, scripts\zm\replaced\_zm::player_spawn_protection);
+	replaceFunc(maps\mp\zombies\_zm::callback_playerlaststand, scripts\zm\replaced\_zm::callback_playerlaststand);
+	replaceFunc(maps\mp\zombies\_zm::player_laststand, scripts\zm\replaced\_zm::player_laststand);
 	replaceFunc(maps\mp\zombies\_zm::wait_and_revive, scripts\zm\replaced\_zm::wait_and_revive);
 	replaceFunc(maps\mp\zombies\_zm::player_revive_monitor, scripts\zm\replaced\_zm::player_revive_monitor);
 	replaceFunc(maps\mp\zombies\_zm::player_out_of_playable_area_monitor, scripts\zm\replaced\_zm::player_out_of_playable_area_monitor);
+	replaceFunc(maps\mp\zombies\_zm::player_too_many_weapons_monitor, scripts\zm\replaced\_zm::player_too_many_weapons_monitor);
 	replaceFunc(maps\mp\zombies\_zm::end_game, scripts\zm\replaced\_zm::end_game);
 	replaceFunc(maps\mp\zombies\_zm::check_quickrevive_for_hotjoin, scripts\zm\replaced\_zm::check_quickrevive_for_hotjoin);
 	replaceFunc(maps\mp\zombies\_zm_audio::zmbvoxadd, scripts\zm\replaced\_zm_audio::zmbvoxadd);
@@ -119,6 +125,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_equipment::show_equipment_hint, scripts\zm\replaced\_zm_equipment::show_equipment_hint);
 	replaceFunc(maps\mp\zombies\_zm_equipment::placed_equipment_think, scripts\zm\replaced\_zm_equipment::placed_equipment_think);
 	replaceFunc(maps\mp\zombies\_zm_clone::spawn_player_clone, scripts\zm\replaced\_zm_clone::spawn_player_clone);
+	replaceFunc(maps\mp\zombies\_zm_spawner::zombie_damage, scripts\zm\replaced\_zm_spawner::zombie_damage);
 	replaceFunc(maps\mp\zombies\_zm_spawner::zombie_gib_on_damage, scripts\zm\replaced\_zm_spawner::zombie_gib_on_damage);
 	replaceFunc(maps\mp\zombies\_zm_spawner::head_should_gib, scripts\zm\replaced\_zm_spawner::head_should_gib);
 	replaceFunc(maps\mp\zombies\_zm_spawner::zombie_death_animscript, scripts\zm\replaced\_zm_spawner::zombie_death_animscript);
@@ -139,10 +146,13 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_perk_divetonuke::divetonuke_precache, scripts\zm\replaced\_zm_perk_divetonuke::divetonuke_precache);
 	replaceFunc(maps\mp\zombies\_zm_perk_divetonuke::divetonuke_register_clientfield, scripts\zm\replaced\_zm_perk_divetonuke::divetonuke_register_clientfield);
 	replaceFunc(maps\mp\zombies\_zm_perk_divetonuke::divetonuke_perk_machine_setup, scripts\zm\replaced\_zm_perk_divetonuke::divetonuke_perk_machine_setup);
+	replaceFunc(maps\mp\zombies\_zm_perk_divetonuke::divetonuke_explode, scripts\zm\replaced\_zm_perk_divetonuke::divetonuke_explode);
 	replaceFunc(maps\mp\zombies\_zm_perk_electric_cherry::enable_electric_cherry_perk_for_level, scripts\zm\replaced\_zm_perk_electric_cherry::enable_electric_cherry_perk_for_level);
 	replaceFunc(maps\mp\zombies\_zm_perk_electric_cherry::electic_cherry_precache, scripts\zm\replaced\_zm_perk_electric_cherry::electic_cherry_precache);
 	replaceFunc(maps\mp\zombies\_zm_perk_electric_cherry::electric_cherry_reload_attack, scripts\zm\replaced\_zm_perk_electric_cherry::electric_cherry_reload_attack);
+	replaceFunc(maps\mp\zombies\_zm_perk_electric_cherry::electric_cherry_laststand, scripts\zm\replaced\_zm_perk_electric_cherry::electric_cherry_laststand);
 	replaceFunc(maps\mp\zombies\_zm_tombstone::tombstone_player_init, scripts\zm\replaced\_zm_tombstone::tombstone_player_init);
+	replaceFunc(maps\mp\zombies\_zm_chugabud::chugabud_laststand, scripts\zm\replaced\_zm_chugabud::chugabud_laststand);
 
 	perk_changes();
 	powerup_changes();
@@ -159,7 +169,6 @@ init()
 	level.navcards = undefined;
 	level.powerup_intro_vox = undefined;
 	level.player_too_many_players_check = 0;
-	level.player_too_many_weapons_monitor_func = scripts\zm\replaced\_zm::player_too_many_weapons_monitor;
 	level.pregame_minplayers = getDvarInt("party_minplayers");
 	level.player_starting_health = 150;
 
@@ -598,14 +607,6 @@ post_all_players_spawned()
 	level.playersuicideallowed = undefined;
 	level.disable_free_perks_before_power = undefined;
 	level.custom_random_perk_weights = undefined;
-	level.zombiemode_divetonuke_perk_func = scripts\zm\replaced\_zm_perk_divetonuke::divetonuke_explode;
-	level.global_damage_func = scripts\zm\replaced\_zm_spawner::zombie_damage;
-	level.callbackplayerdamage = scripts\zm\replaced\_zm::callback_playerdamage;
-	level.overrideplayerdamage = scripts\zm\replaced\_zm::player_damage_override;
-	level.playerlaststand_func = scripts\zm\replaced\_zm::player_laststand;
-	level.callbackplayerlaststand = scripts\zm\replaced\_zm::callback_playerlaststand;
-	level._zombies_round_spawn_failsafe = scripts\zm\replaced\_zm::round_spawn_failsafe;
-	level.chugabud_laststand_func = scripts\zm\replaced\_zm_chugabud::chugabud_laststand;
 	level.etrap_damage = maps\mp\zombies\_zm::ai_zombie_health(255);
 	level.slipgun_damage = maps\mp\zombies\_zm::ai_zombie_health(255);
 	level.should_respawn_func = ::should_respawn;

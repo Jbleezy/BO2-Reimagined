@@ -83,7 +83,6 @@ init()
 	level.zombie_init_done = ::zombie_init_done;
 	level.special_weapon_magicbox_check = ::tomb_special_weapon_magicbox_check;
 	level.custom_magic_box_timer_til_despawn = ::custom_magic_box_timer_til_despawn;
-	level.custom_laststand_func = scripts\zm\replaced\_zm_perk_electric_cherry::electric_cherry_laststand;
 
 	level.zombie_vars["below_world_check"] = -3000;
 

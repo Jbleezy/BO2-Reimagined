@@ -18,11 +18,15 @@ main()
 	replaceFunc(maps\mp\zm_highrise_gamemodes::init, scripts\zm\replaced\zm_highrise_gamemodes::init);
 	replaceFunc(maps\mp\zm_highrise_buildables::init_buildables, scripts\zm\replaced\zm_highrise_buildables::init_buildables);
 	replaceFunc(maps\mp\zm_highrise_buildables::include_buildables, scripts\zm\replaced\zm_highrise_buildables::include_buildables);
+	replaceFunc(maps\mp\zm_highrise_classic::highrise_pap_move_in, scripts\zm\replaced\zm_highrise_classic::highrise_pap_move_in);
+	replaceFunc(maps\mp\zm_highrise_classic::squashed_death_init, scripts\zm\replaced\zm_highrise_classic::squashed_death_init);
+	replaceFunc(maps\mp\zm_highrise_classic::escape_pod, scripts\zm\replaced\zm_highrise_classic::escape_pod);
 	replaceFunc(maps\mp\zm_highrise_classic::turn_off_whoswho, scripts\zm\replaced\zm_highrise_classic::turn_off_whoswho);
 	replaceFunc(maps\mp\zm_highrise_elevators::init_elevator_perks, scripts\zm\replaced\zm_highrise_elevators::init_elevator_perks);
 	replaceFunc(maps\mp\zm_highrise_elevators::elevator_think, scripts\zm\replaced\zm_highrise_elevators::elevator_think);
 	replaceFunc(maps\mp\zm_highrise_elevators::elevator_roof_watcher, scripts\zm\replaced\zm_highrise_elevators::elevator_roof_watcher);
 	replaceFunc(maps\mp\zm_highrise_elevators::faller_location_logic, scripts\zm\replaced\zm_highrise_elevators::faller_location_logic);
+	replaceFunc(maps\mp\zm_highrise_elevators::watch_for_elevator_during_faller_spawn, scripts\zm\replaced\zm_highrise_elevators::watch_for_elevator_during_faller_spawn);
 	replaceFunc(maps\mp\zm_highrise_distance_tracking::zombie_tracking_init, scripts\zm\replaced\zm_highrise_distance_tracking::zombie_tracking_init);
 	replaceFunc(maps\mp\zm_highrise_distance_tracking::delete_zombie_noone_looking, scripts\zm\replaced\zm_highrise_distance_tracking::delete_zombie_noone_looking);
 	replaceFunc(maps\mp\zombies\_zm_ai_leaper::leaper_round_tracker, scripts\zm\replaced\_zm_ai_leaper::leaper_round_tracker);

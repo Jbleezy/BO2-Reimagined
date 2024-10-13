@@ -11,18 +11,21 @@ main()
 		return;
 	}
 
-	replaceFunc(maps\mp\zombies\_zm::getfreespawnpoint, scripts\zm\replaced\_zm::getfreespawnpoint);
-	replaceFunc(maps\mp\zombies\_zm_audio_announcer::init_griefvox, scripts\zm\replaced\_zm_audio_announcer::init_griefvox);
-	replaceFunc(maps\mp\zombies\_zm_blockers::handle_post_board_repair_rewards, scripts\zm\replaced\_zm_blockers::handle_post_board_repair_rewards);
-	replaceFunc(maps\mp\zombies\_zm_game_module::wait_for_team_death_and_round_end, scripts\zm\replaced\_zm_game_module::wait_for_team_death_and_round_end);
-	replaceFunc(maps\mp\zombies\_zm_game_module_meat_utility::init_item_meat, scripts\zm\replaced\_zm_game_module_meat_utility::init_item_meat);
+	replaceFunc(maps\mp\gametypes_zm\_globallogic_ui::menuautoassign, scripts\zm\replaced\_globallogic_ui::menuautoassign);
 	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::onspawnplayer, scripts\zm\replaced\_zm_gametype::onspawnplayer);
 	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::onplayerspawned, scripts\zm\replaced\_zm_gametype::onplayerspawned);
 	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::menu_onmenuresponse, scripts\zm\replaced\_zm_gametype::menu_onmenuresponse);
 	replaceFunc(maps\mp\gametypes_zm\zgrief::postinit_func, scripts\zm\replaced\zgrief::postinit_func);
 	replaceFunc(maps\mp\gametypes_zm\zgrief::zgrief_main, scripts\zm\replaced\zgrief::zgrief_main);
+	replaceFunc(maps\mp\gametypes_zm\zgrief::game_mode_spawn_player_logic, scripts\zm\replaced\zgrief::game_mode_spawn_player_logic);
+	replaceFunc(maps\mp\gametypes_zm\zgrief::meat_bounce_override, scripts\zm\replaced\zgrief::meat_bounce_override);
 	replaceFunc(maps\mp\gametypes_zm\zgrief::meat_stink, scripts\zm\replaced\zgrief::meat_stink);
 	replaceFunc(maps\mp\gametypes_zm\zmeat::create_item_meat_watcher, scripts\zm\replaced\zmeat::create_item_meat_watcher);
+	replaceFunc(maps\mp\zombies\_zm::getfreespawnpoint, scripts\zm\replaced\_zm::getfreespawnpoint);
+	replaceFunc(maps\mp\zombies\_zm_audio_announcer::init_griefvox, scripts\zm\replaced\_zm_audio_announcer::init_griefvox);
+	replaceFunc(maps\mp\zombies\_zm_blockers::handle_post_board_repair_rewards, scripts\zm\replaced\_zm_blockers::handle_post_board_repair_rewards);
+	replaceFunc(maps\mp\zombies\_zm_game_module::wait_for_team_death_and_round_end, scripts\zm\replaced\_zm_game_module::wait_for_team_death_and_round_end);
+	replaceFunc(maps\mp\zombies\_zm_game_module_meat_utility::init_item_meat, scripts\zm\replaced\_zm_game_module_meat_utility::init_item_meat);
 }
 
 init()
@@ -84,8 +87,6 @@ init()
 	level.dont_allow_meat_interaction = 1;
 	level.can_revive_game_module = ::can_revive;
 	level._powerup_grab_check = ::powerup_can_player_grab;
-	level.meat_bounce_override = scripts\zm\replaced\zgrief::meat_bounce_override;
-	level.autoassign = scripts\zm\replaced\_globallogic_ui::menuautoassign;
 	level.custom_spectate_permissions = undefined;
 
 	level.get_gamemode_display_name_func = ::get_gamemode_display_name;
@@ -305,7 +306,6 @@ set_grief_vars()
 	level._game_module_player_damage_callback = ::game_module_player_damage_callback;
 	level._game_module_player_laststand_callback = ::grief_laststand_weapon_save;
 	level.onplayerspawned_restore_previous_weapons = ::grief_laststand_weapons_return;
-	level.game_mode_spawn_player_logic = scripts\zm\replaced\zgrief::game_mode_spawn_player_logic;
 
 	if (isDefined(level.zombie_weapons["knife_ballistic_zm"]))
 	{
