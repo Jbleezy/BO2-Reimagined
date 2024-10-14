@@ -121,7 +121,7 @@ capture_zombie_spawn_init(animname_set = 0)
 update_staff_accessories(n_element_index)
 {
 	cur_melee = self get_player_melee_weapon();
-	melee_to_keep = get_melee_weapon_from_held();
+	melee_to_keep = self get_melee_weapon_from_held();
 	self.use_staff_melee = 0;
 
 	if (!issubstr(cur_melee, "one_inch_punch"))
@@ -218,18 +218,18 @@ update_staff_accessories(n_element_index)
 
 get_melee_weapon_from_held()
 {
-	melee_to_keep = "knife_zm";
+	melee = "knife_zm";
 
 	foreach (weapon in self getweaponslist())
 	{
 		if (getsubstr(weapon, 0, 5) == "held_")
 		{
-			melee_to_keep = getsubstr(weapon, 5);
+			melee = getsubstr(weapon, 5);
 			break;
 		}
 	}
 
-	return melee_to_keep;
+	return melee;
 }
 
 get_punch_element_from_index(ind)

@@ -289,7 +289,9 @@ quadrotor_control_thread()
 			if (self hasweapon("equip_dieseldrone_zm"))
 			{
 				self takeweapon("equip_dieseldrone_zm");
-				self setactionslot(2, "weapon", "held_" + self get_player_melee_weapon());
+
+				melee = self scripts\zm\replaced\zm_tomb_utility::get_melee_weapon_from_held();
+				self setactionslot(2, "weapon", "held_" + melee);
 			}
 
 			str_vehicle = "heli_quadrotor_zm";
