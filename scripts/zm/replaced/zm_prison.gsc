@@ -36,6 +36,121 @@
 #include maps\mp\zombies\_zm_audio;
 #include maps\mp\zombies\_zm_blockers;
 
+working_zone_init()
+{
+	flag_init("always_on");
+	flag_set("always_on");
+
+	if (!is_classic())
+	{
+		a_s_spawner = getstructarray("zone_cellblock_west_roof_spawner", "targetname");
+		spawners_to_keep = [];
+
+		foreach (spawner in a_s_spawner)
+		{
+			if (isdefined(spawner.script_parameters) && spawner.script_parameters == "zclassic_prison")
+			{
+				continue;
+			}
+
+			spawners_to_keep[spawners_to_keep.size] = spawner;
+		}
+
+		level.struct_class_names["targetname"]["zone_cellblock_west_roof_spawner"] = spawners_to_keep;
+	}
+
+	if (is_classic())
+	{
+		add_adjacent_zone("zone_library", "zone_start", "always_on");
+	}
+	else
+	{
+		add_adjacent_zone("zone_library", "zone_cellblock_west", "activate_cellblock_west");
+		add_adjacent_zone("zone_library", "zone_start", "activate_cellblock_west");
+		add_adjacent_zone("zone_cellblock_east", "zone_start", "activate_cellblock_east");
+		add_adjacent_zone("zone_library", "zone_start", "activate_cellblock_east");
+	}
+
+	add_adjacent_zone("zone_library", "zone_cellblock_west", "activate_cellblock_west");
+	add_adjacent_zone("zone_cellblock_west", "zone_cellblock_west_barber", "activate_cellblock_barber");
+	add_adjacent_zone("zone_cellblock_west_warden", "zone_cellblock_west_barber", "activate_cellblock_barber");
+	add_adjacent_zone("zone_cellblock_west_warden", "zone_cellblock_west_barber", "activate_cellblock_gondola");
+	add_adjacent_zone("zone_cellblock_west", "zone_cellblock_west_gondola", "activate_cellblock_gondola");
+	add_adjacent_zone("zone_cellblock_west_barber", "zone_cellblock_west_gondola", "activate_cellblock_gondola");
+	add_adjacent_zone("zone_cellblock_west_gondola", "zone_cellblock_west_barber", "activate_cellblock_gondola");
+	add_adjacent_zone("zone_cellblock_west_gondola", "zone_cellblock_east", "activate_cellblock_gondola");
+	add_adjacent_zone("zone_cellblock_west_gondola", "zone_infirmary", "activate_cellblock_infirmary");
+	add_adjacent_zone("zone_infirmary_roof", "zone_infirmary", "activate_cellblock_infirmary");
+	add_adjacent_zone("zone_cellblock_west_gondola", "zone_cellblock_west_barber", "activate_cellblock_infirmary");
+	add_adjacent_zone("zone_cellblock_west_gondola", "zone_cellblock_west", "activate_cellblock_infirmary");
+	add_adjacent_zone("zone_start", "zone_cellblock_east", "activate_cellblock_east");
+	add_adjacent_zone("zone_cellblock_west_barber", "zone_cellblock_west_warden", "activate_cellblock_infirmary");
+	add_adjacent_zone("zone_cellblock_west_barber", "zone_cellblock_east", "activate_cellblock_east_west");
+	add_adjacent_zone("zone_cellblock_west_barber", "zone_cellblock_west_warden", "activate_cellblock_east_west");
+	add_adjacent_zone("zone_cellblock_west_warden", "zone_warden_office", "activate_warden_office");
+	add_adjacent_zone("zone_cellblock_west_warden", "zone_citadel_warden", "activate_cellblock_citadel");
+	add_adjacent_zone("zone_cellblock_west_warden", "zone_cellblock_west_barber", "activate_cellblock_citadel");
+	add_adjacent_zone("zone_citadel", "zone_citadel_warden", "activate_cellblock_citadel");
+	add_adjacent_zone("zone_citadel", "zone_citadel_shower", "activate_cellblock_citadel");
+	add_adjacent_zone("zone_cellblock_east", "zone_cafeteria", "activate_cafeteria");
+	add_adjacent_zone("zone_cafeteria", "zone_cafeteria_end", "activate_cafeteria");
+	add_adjacent_zone("zone_cellblock_east", "cellblock_shower", "activate_shower_room");
+	add_adjacent_zone("cellblock_shower", "zone_citadel_shower", "activate_shower_citadel");
+	add_adjacent_zone("zone_citadel_shower", "zone_citadel", "activate_shower_citadel");
+	add_adjacent_zone("zone_citadel", "zone_citadel_warden", "activate_shower_citadel");
+	add_adjacent_zone("zone_cafeteria", "zone_infirmary", "activate_infirmary");
+	add_adjacent_zone("zone_cafeteria", "zone_cafeteria_end", "activate_infirmary");
+	add_adjacent_zone("zone_infirmary_roof", "zone_infirmary", "activate_infirmary");
+	add_adjacent_zone("zone_roof", "zone_roof_infirmary", "activate_roof");
+	add_adjacent_zone("zone_roof_infirmary", "zone_infirmary_roof", "activate_roof");
+	add_adjacent_zone("zone_citadel", "zone_citadel_stairs", "activate_citadel_stair");
+	add_adjacent_zone("zone_citadel", "zone_citadel_shower", "activate_citadel_stair");
+	add_adjacent_zone("zone_citadel", "zone_citadel_warden", "activate_citadel_stair");
+	add_adjacent_zone("zone_citadel_stairs", "zone_citadel_basement", "activate_citadel_basement");
+	add_adjacent_zone("zone_citadel_basement", "zone_citadel_basement_building", "activate_citadel_basement");
+	add_adjacent_zone("zone_citadel_basement", "zone_citadel_basement_building", "activate_basement_building");
+	add_adjacent_zone("zone_citadel_basement_building", "zone_studio", "activate_basement_building");
+	add_adjacent_zone("zone_citadel_basement", "zone_studio", "activate_basement_building");
+	add_adjacent_zone("zone_citadel_basement_building", "zone_dock_gondola", "activate_basement_gondola");
+	add_adjacent_zone("zone_citadel_basement", "zone_citadel_basement_building", "activate_basement_gondola");
+	add_adjacent_zone("zone_dock", "zone_dock_gondola", "activate_basement_gondola");
+	add_adjacent_zone("zone_studio", "zone_dock", "activate_dock_sally");
+	add_adjacent_zone("zone_dock_gondola", "zone_dock", "activate_dock_sally");
+	add_adjacent_zone("zone_dock", "zone_dock_gondola", "gondola_roof_to_dock");
+	add_adjacent_zone("zone_cellblock_west", "zone_cellblock_west_gondola", "gondola_dock_to_roof");
+	add_adjacent_zone("zone_cellblock_west_barber", "zone_cellblock_west_gondola", "gondola_dock_to_roof");
+	add_adjacent_zone("zone_cellblock_west_barber", "zone_cellblock_west_warden", "gondola_dock_to_roof");
+	add_adjacent_zone("zone_cellblock_west_gondola", "zone_cellblock_east", "gondola_dock_to_roof");
+
+	if (is_classic())
+	{
+		add_adjacent_zone("zone_gondola_ride", "zone_gondola_ride", "gondola_ride_zone_enabled");
+	}
+
+	if (is_classic())
+	{
+		add_adjacent_zone("zone_cellblock_west_gondola", "zone_cellblock_west_gondola_dock", "activate_cellblock_infirmary");
+		add_adjacent_zone("zone_cellblock_west_gondola", "zone_cellblock_west_gondola_dock", "activate_cellblock_gondola");
+		add_adjacent_zone("zone_cellblock_west_gondola", "zone_cellblock_west_gondola_dock", "gondola_dock_to_roof");
+	}
+	else
+	{
+		playable_area = getentarray("player_volume", "script_noteworthy");
+
+		foreach (area in playable_area)
+		{
+			if (isdefined(area.script_parameters) && area.script_parameters == "classic_only")
+			{
+				area delete();
+			}
+		}
+	}
+
+	add_adjacent_zone("zone_golden_gate_bridge", "zone_golden_gate_bridge", "activate_player_zone_bridge");
+
+	add_adjacent_zone("zone_dock", "zone_dock_puzzle", "docks_inner_gate_unlocked");
+}
+
 custom_vending_precaching()
 {
 	if (level._custom_perks.size > 0)

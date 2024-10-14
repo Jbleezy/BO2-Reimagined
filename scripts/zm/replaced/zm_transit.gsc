@@ -59,6 +59,91 @@
 #include maps\mp\zombies\_zm_sidequests;
 #include maps\mp\zombies\_zm_tombstone;
 
+transit_zone_init()
+{
+	flag_init("always_on");
+	flag_init("init_classic_adjacencies");
+	flag_set("always_on");
+
+	if (is_classic())
+	{
+		flag_set("init_classic_adjacencies");
+		add_adjacent_zone("zone_trans_2", "zone_trans_2b", "init_classic_adjacencies");
+		add_adjacent_zone("zone_station_ext", "zone_trans_2b", "init_classic_adjacencies", 1);
+		add_adjacent_zone("zone_town_west2", "zone_town_west", "init_classic_adjacencies");
+		add_adjacent_zone("zone_town_south", "zone_town_church", "init_classic_adjacencies");
+		add_adjacent_zone("zone_trans_pow_ext1", "zone_trans_7", "init_classic_adjacencies");
+		add_adjacent_zone("zone_far", "zone_far_ext", "OnFarm_enter");
+	}
+	else
+	{
+		playable_area = getentarray("player_volume", "script_noteworthy");
+
+		foreach (area in playable_area)
+		{
+			add_adjacent_zone("zone_station_ext", "zone_trans_2b", "always_on");
+
+			if (isdefined(area.script_parameters) && area.script_parameters == "classic_only")
+			{
+				area delete();
+			}
+		}
+	}
+
+	add_adjacent_zone("zone_pri2", "zone_station_ext", "OnPriDoorYar", 1);
+	add_adjacent_zone("zone_pri2", "zone_pri", "OnPriDoorYar3", 1);
+
+	if (getdvar("ui_zm_mapstartlocation") == "transit")
+	{
+		level thread disconnect_door_zones("zone_pri2", "zone_station_ext", "OnPriDoorYar");
+		level thread disconnect_door_zones("zone_pri2", "zone_pri", "OnPriDoorYar3");
+	}
+
+	add_adjacent_zone("zone_station_ext", "zone_pri", "OnPriDoorYar2");
+	add_adjacent_zone("zone_roadside_west", "zone_din", "OnGasDoorDin");
+	add_adjacent_zone("zone_roadside_west", "zone_gas", "always_on");
+	add_adjacent_zone("zone_roadside_east", "zone_gas", "always_on");
+	add_adjacent_zone("zone_roadside_east", "zone_gar", "OnGasDoorGar");
+	add_adjacent_zone("zone_trans_diner", "zone_roadside_west", "always_on", 1);
+	add_adjacent_zone("zone_trans_diner", "zone_gas", "always_on", 1);
+	add_adjacent_zone("zone_trans_diner2", "zone_roadside_east", "always_on", 1);
+	add_adjacent_zone("zone_gas", "zone_din", "OnGasDoorDin");
+	add_adjacent_zone("zone_gas", "zone_gar", "OnGasDoorGar");
+	add_adjacent_zone("zone_diner_roof", "zone_din", "OnGasDoorDin", 1);
+	add_adjacent_zone("zone_tow", "zone_bar", "always_on", 1);
+	add_adjacent_zone("zone_bar", "zone_tow", "OnTowDoorBar", 1);
+	add_adjacent_zone("zone_tow", "zone_ban", "OnTowDoorBan");
+	add_adjacent_zone("zone_ban", "zone_ban_vault", "OnTowBanVault");
+	add_adjacent_zone("zone_tow", "zone_town_north", "always_on");
+	add_adjacent_zone("zone_town_north", "zone_ban", "OnTowDoorBan");
+	add_adjacent_zone("zone_tow", "zone_town_west", "always_on");
+	add_adjacent_zone("zone_tow", "zone_town_south", "always_on");
+	add_adjacent_zone("zone_town_south", "zone_town_barber", "always_on", 1);
+	add_adjacent_zone("zone_tow", "zone_town_east", "always_on");
+	add_adjacent_zone("zone_town_east", "zone_bar", "OnTowDoorBar");
+	add_adjacent_zone("zone_tow", "zone_town_barber", "always_on", 1);
+	add_adjacent_zone("zone_town_barber", "zone_tow", "OnTowDoorBarber", 1);
+	add_adjacent_zone("zone_town_barber", "zone_town_west", "OnTowDoorBarber");
+	add_adjacent_zone("zone_far_ext", "zone_brn", "OnFarm_enter");
+	add_adjacent_zone("zone_far_ext", "zone_farm_house", "open_farmhouse");
+	add_adjacent_zone("zone_prr", "zone_pow", "OnPowDoorRR", 1);
+	add_adjacent_zone("zone_pcr", "zone_prr", "OnPowDoorRR");
+	add_adjacent_zone("zone_pcr", "zone_pow_warehouse", "OnPowDoorWH");
+	add_adjacent_zone("zone_pow", "zone_pow_warehouse", "always_on");
+	add_adjacent_zone("zone_tbu", "zone_tow", "vault_opened", 1);
+	add_adjacent_zone("zone_trans_8", "zone_pow", "always_on", 1);
+	add_adjacent_zone("zone_trans_8", "zone_pow_warehouse", "always_on", 1);
+
+	zone_init("zone_amb_tunnel");
+	enable_zone("zone_amb_tunnel");
+
+	zone_init("zone_amb_cornfield");
+	enable_zone("zone_amb_cornfield");
+
+	zone_init("zone_cornfield_prototype");
+	enable_zone("zone_cornfield_prototype");
+}
+
 include_weapons()
 {
 	gametype = getdvar("ui_gametype");
