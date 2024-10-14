@@ -93,7 +93,6 @@ init()
 	buildable_table_models();
 	cornfield_add_collision();
 	cornfield_spawn_path_nodes();
-	setup_chugabud_reject_nodes();
 	path_exploit_fixes();
 
 	level thread power_local_electric_doors_globally();
@@ -224,39 +223,8 @@ power_local_electric_doors_globally()
 	}
 }
 
-setup_chugabud_reject_nodes()
-{
-	level._chugabud_reject_nodes = [];
-
-	node = spawnstruct();
-	node.origin = (-6352, 5191, -56);
-	node.radius = 200;
-	level._chugabud_reject_nodes[level._chugabud_reject_nodes.size] = node;
-
-	node = spawnstruct();
-	node.origin = (1265, -3039, 28);
-	node.radius = 100;
-	level._chugabud_reject_nodes[level._chugabud_reject_nodes.size] = node;
-
-	node = spawnstruct();
-	node.origin = (654, -833, 96);
-	node.radius = 150;
-	level._chugabud_reject_nodes[level._chugabud_reject_nodes.size] = node;
-}
-
 transit_chugabud_reject_node_func(corpse_origin, node)
 {
-	if (isdefined(level._chugabud_reject_nodes))
-	{
-		foreach (reject_node in level._chugabud_reject_nodes)
-		{
-			if (distancesquared(node.origin, reject_node.origin) < reject_node.radius * reject_node.radius)
-			{
-				return 1;
-			}
-		}
-	}
-
 	if (self maps\mp\zombies\_zm_zonemgr::entity_in_zone("zone_amb_cornfield"))
 	{
 		a_player_volumes = getentarray("player_volume", "script_noteworthy");
@@ -274,9 +242,11 @@ transit_chugabud_reject_node_func(corpse_origin, node)
 				return 1;
 			}
 		}
+
+		return 0;
 	}
 
-	return 0;
+	return !findpath(corpse_origin, node.origin);
 }
 
 player_initial_spawn_override()
