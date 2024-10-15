@@ -24,55 +24,6 @@
 #include maps\mp\zombies\_zm_weap_slowgun;
 #include maps\mp\zombies\_zm_weap_time_bomb;
 
-sloth_init_start_funcs()
-{
-	self.start_funcs = [];
-	self.start_funcs["jail_idle"] = ::start_jail_idle;
-	self.start_funcs["jail_cower"] = ::start_jail_cower;
-	self.start_funcs["jail_open"] = ::start_jail_open;
-	self.start_funcs["jail_run"] = ::start_jail_run;
-	self.start_funcs["jail_wait"] = ::start_jail_wait;
-	self.start_funcs["jail_close"] = ::start_jail_close;
-	self.start_funcs["player_idle"] = ::start_player_idle;
-	self.start_funcs["roam"] = ::start_roam;
-	self.start_funcs["follow"] = ::start_follow;
-	self.start_funcs["mansion"] = ::start_mansion;
-	self.start_funcs["berserk"] = ::start_berserk;
-	self.start_funcs["eat"] = ::start_eat;
-	self.start_funcs["crash"] = ::start_crash;
-	self.start_funcs["gunshop_run"] = ::start_gunshop_run;
-	self.start_funcs["gunshop_candy"] = ::start_gunshop_candy;
-	self.start_funcs["table_eat"] = ::start_table_eat;
-	self.start_funcs["headbang"] = ::start_headbang;
-	self.start_funcs["smell"] = ::start_smell;
-	self.start_funcs["context"] = ::start_context;
-}
-
-sloth_init_update_funcs()
-{
-	self.update_funcs = [];
-	self.update_funcs["jail_idle"] = ::update_jail_idle;
-	self.update_funcs["jail_cower"] = ::update_jail_cower;
-	self.update_funcs["jail_open"] = ::update_jail_open;
-	self.update_funcs["jail_run"] = ::update_jail_run;
-	self.update_funcs["jail_wait"] = ::update_jail_wait;
-	self.update_funcs["jail_close"] = ::update_jail_close;
-	self.update_funcs["player_idle"] = ::update_player_idle;
-	self.update_funcs["roam"] = ::update_roam;
-	self.update_funcs["follow"] = ::update_follow;
-	self.update_funcs["mansion"] = ::update_mansion;
-	self.update_funcs["berserk"] = ::update_berserk;
-	self.update_funcs["eat"] = ::update_eat;
-	self.update_funcs["crash"] = ::update_crash;
-	self.update_funcs["gunshop_run"] = ::update_gunshop_run;
-	self.update_funcs["gunshop_candy"] = ::update_gunshop_candy;
-	self.update_funcs["table_eat"] = ::update_table_eat;
-	self.update_funcs["headbang"] = ::update_headbang;
-	self.update_funcs["smell"] = ::update_smell;
-	self.update_funcs["context"] = ::update_context;
-	self.locomotion_func = ::update_locomotion;
-}
-
 start_jail_run(do_pain)
 {
 	if (self is_jail_state())

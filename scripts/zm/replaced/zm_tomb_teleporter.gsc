@@ -11,63 +11,6 @@
 
 #using_animtree("fxanim_props_dlc4");
 
-teleporter_init()
-{
-	registerclientfield("scriptmover", "teleporter_fx", 14000, 1, "int");
-	precacheshellshock("lava");
-	level.teleport = [];
-	level.n_active_links = 0;
-	level.n_countdown = 0;
-	level.n_teleport_delay = 0;
-	level.teleport_cost = 0;
-	level.n_teleport_cooldown = 0;
-	level.is_cooldown = 0;
-	level.n_active_timer = -1;
-	level.n_teleport_time = 0;
-	level.a_teleport_models = [];
-	a_entrance_models = getentarray("teleport_model", "targetname");
-
-	foreach (e_model in a_entrance_models)
-	{
-		e_model useanimtree(#animtree);
-		level.a_teleport_models[e_model.script_int] = e_model;
-	}
-
-	array_thread(a_entrance_models, ::teleporter_samantha_chamber_line);
-	a_portal_frames = getentarray("portal_exit_frame", "script_noteworthy");
-	level.a_portal_exit_frames = [];
-
-	foreach (e_frame in a_portal_frames)
-	{
-		e_frame useanimtree(#animtree);
-		e_frame ghost();
-		level.a_portal_exit_frames[e_frame.script_int] = e_frame;
-	}
-
-	level.a_teleport_exits = [];
-	a_exits = getstructarray("portal_exit", "script_noteworthy");
-
-	foreach (s_portal in a_exits)
-	{
-		level.a_teleport_exits[s_portal.script_int] = s_portal;
-	}
-
-	level.a_teleport_exit_triggers = [];
-	a_trigs = getstructarray("chamber_exit_trigger", "script_noteworthy");
-
-	foreach (s_trig in a_trigs)
-	{
-		level.a_teleport_exit_triggers[s_trig.script_int] = s_trig;
-	}
-
-	a_s_teleporters = getstructarray("trigger_teleport_pad", "targetname");
-	array_thread(a_s_teleporters, ::run_chamber_entrance_teleporter);
-	spawn_stargate_fx_origins();
-	root = %root;
-	i = %fxanim_zom_tomb_portal_open_anim;
-	i = %fxanim_zom_tomb_portal_collapse_anim;
-}
-
 run_chamber_entrance_teleporter()
 {
 	self endon("death");

@@ -49,17 +49,6 @@ watch_model_sliquification(n_end_limit, str_complete_flag)
 	}
 }
 
-init_2()
-{
-	flag_init("ssp2_maxis_keep_going_said");
-	flag_init("ssp2_maxis_reincarnate_said");
-	flag_init("ssp2_corpses_in_place");
-	flag_init("ssp2_resurrection_done");
-	flag_init("ssp2_statue_complete");
-	maps\mp\zombies\_zm_spawner::add_custom_zombie_spawn_logic(::ssp_2_zombie_death_check);
-	declare_sidequest_stage("sq_2", "ssp_2", ::init_stage_2, ::stage_logic_2, ::exit_stage_2);
-}
-
 stage_logic_2()
 {
 	level thread ssp2_advance_dragon();

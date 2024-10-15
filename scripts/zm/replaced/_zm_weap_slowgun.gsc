@@ -8,46 +8,6 @@
 #include maps\mp\zombies\_zm_score;
 #include maps\mp\zombies\_zm_audio;
 
-init()
-{
-	if (!maps\mp\zombies\_zm_weapons::is_weapon_included("slowgun_zm"))
-	{
-		return;
-	}
-
-	registerclientfield("actor", "slowgun_fx", 12000, 3, "int");
-	registerclientfield("actor", "anim_rate", 7000, 5, "float");
-	registerclientfield("allplayers", "anim_rate", 7000, 5, "float");
-	registerclientfield("toplayer", "sndParalyzerLoop", 12000, 1, "int");
-	registerclientfield("toplayer", "slowgun_fx", 12000, 1, "int");
-	level.sliquifier_distance_checks = 0;
-	maps\mp\zombies\_zm_spawner::add_cusom_zombie_spawn_logic(::slowgun_on_zombie_spawned);
-	maps\mp\zombies\_zm_spawner::register_zombie_damage_callback(::slowgun_zombie_damage_response);
-	maps\mp\zombies\_zm_spawner::register_zombie_death_animscript_callback(::slowgun_zombie_death_response);
-	level._effect["zombie_slowgun_explosion"] = loadfx("weapon/paralyzer/fx_paralyzer_body_disintegrate");
-	level._effect["zombie_slowgun_explosion_ug"] = loadfx("weapon/paralyzer/fx_paralyzer_body_disintegrate_ug");
-	level._effect["zombie_slowgun_sizzle"] = loadfx("weapon/paralyzer/fx_paralyzer_hit_dmg");
-	level._effect["zombie_slowgun_sizzle_ug"] = loadfx("weapon/paralyzer/fx_paralyzer_hit_dmg_ug");
-	level._effect["player_slowgun_sizzle"] = loadfx("weapon/paralyzer/fx_paralyzer_hit_noharm");
-	level._effect["player_slowgun_sizzle_ug"] = loadfx("weapon/paralyzer/fx_paralyzer_hit_noharm");
-	level._effect["player_slowgun_sizzle_1st"] = loadfx("weapon/paralyzer/fx_paralyzer_hit_noharm_view");
-	onplayerconnect_callback(::slowgun_player_connect);
-	level.slowgun_damage = 40;
-	level.slowgun_damage_ug = 60;
-	level.slowgun_damage_mod = "MOD_PROJECTILE_SPLASH";
-	precacherumble("damage_heavy");
-}
-
-slowgun_on_zombie_spawned()
-{
-	self set_anim_rate(1.0);
-	self.paralyzer_hit_callback = ::zombie_paralyzed;
-	self.paralyzer_damaged_multiplier = 1;
-	self.paralyzer_score_time_ms = gettime();
-	self.paralyzer_slowtime = 0;
-	self setclientfield("slowgun_fx", 0);
-}
-
 zombie_paralyzed(player, upgraded)
 {
 	if (!can_be_paralyzed(self))
@@ -111,6 +71,30 @@ zombie_paralyzed(player, upgraded)
 	self zombie_slow_for_time(0.2);
 }
 
+slowgun_zombie_death_response()
+{
+	if (!self is_slowgun_damage(self.damagemod, self.damageweapon))
+	{
+		return false;
+	}
+
+	level maps\mp\zombies\_zm_spawner::zombie_death_points(self.origin, self.damagemod, self.damagelocation, self.attacker, self);
+	self thread explode_into_dust(self.attacker, self.damageweapon == "slowgun_upgraded_zm");
+
+	self slowgun_zombie_death_wait();
+
+	return true;
+}
+
+// fixes spawn delay for next zombies
+slowgun_zombie_death_wait()
+{
+	self set_anim_rate(1.0);
+	self.ignore_slowgun_anim_rates = 1;
+
+	wait 0.1;
+}
+
 player_slow_for_time(time)
 {
 	if (is_true(self._being_shellshocked))
@@ -148,28 +132,4 @@ watch_reset_anim_rate()
 		self setclientfieldtoplayer("slowgun_fx", 0);
 		self set_anim_rate(1.0);
 	}
-}
-
-slowgun_zombie_death_response()
-{
-	if (!self is_slowgun_damage(self.damagemod, self.damageweapon))
-	{
-		return false;
-	}
-
-	level maps\mp\zombies\_zm_spawner::zombie_death_points(self.origin, self.damagemod, self.damagelocation, self.attacker, self);
-	self thread explode_into_dust(self.attacker, self.damageweapon == "slowgun_upgraded_zm");
-
-	self slowgun_zombie_death_wait();
-
-	return true;
-}
-
-// fixes spawn delay for next zombies
-slowgun_zombie_death_wait()
-{
-	self set_anim_rate(1.0);
-	self.ignore_slowgun_anim_rates = 1;
-
-	wait 0.1;
 }

@@ -6,15 +6,6 @@
 #include maps\mp\zm_buried_sq;
 #include maps\mp\zombies\_zm_zonemgr;
 
-init()
-{
-	flag_init("sq_ip_puzzle_complete");
-	level.sq_bp_buttons = [];
-	s_lightboard = getstruct("zm_sq_lightboard", "targetname");
-	s_lightboard sq_bp_spawn_board();
-	declare_sidequest_stage("sq", "ip", ::init_stage, ::stage_logic, ::exit_stage);
-}
-
 stage_logic()
 {
 	if (flag("sq_is_max_tower_built"))

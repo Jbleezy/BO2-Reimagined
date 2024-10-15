@@ -93,8 +93,8 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_magicbox::trigger_visible_to_player, scripts\zm\replaced\_zm_magicbox::trigger_visible_to_player);
 	replaceFunc(maps\mp\zombies\_zm_magicbox::can_buy_weapon, scripts\zm\replaced\_zm_magicbox::can_buy_weapon);
 	replaceFunc(maps\mp\zombies\_zm_magicbox::weapon_is_dual_wield, scripts\zm\replaced\_zm_magicbox::weapon_is_dual_wield);
-	replaceFunc(maps\mp\zombies\_zm_perks::init, scripts\zm\replaced\_zm_perks::init);
 	replaceFunc(maps\mp\zombies\_zm_perks::perks_register_clientfield, scripts\zm\replaced\_zm_perks::perks_register_clientfield);
+	replaceFunc(maps\mp\zombies\_zm_perks::default_vending_precaching, scripts\zm\replaced\_zm_perks::default_vending_precaching);
 	replaceFunc(maps\mp\zombies\_zm_perks::vending_trigger_think, scripts\zm\replaced\_zm_perks::vending_trigger_think);
 	replaceFunc(maps\mp\zombies\_zm_perks::perk_give_bottle_end, scripts\zm\replaced\_zm_perks::perk_give_bottle_end);
 	replaceFunc(maps\mp\zombies\_zm_perks::vending_weapon_upgrade, scripts\zm\replaced\_zm_perks::vending_weapon_upgrade);
@@ -103,6 +103,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_perks::perk_set_max_health_if_jugg, scripts\zm\replaced\_zm_perks::perk_set_max_health_if_jugg);
 	replaceFunc(maps\mp\zombies\_zm_perks::initialize_custom_perk_arrays, scripts\zm\replaced\_zm_perks::initialize_custom_perk_arrays);
 	replaceFunc(maps\mp\zombies\_zm_perks::turn_tombstone_on, scripts\zm\replaced\_zm_perks::turn_tombstone_on);
+	replaceFunc(maps\mp\zombies\_zm_perks::turn_chugabud_on, scripts\zm\replaced\_zm_perks::turn_chugabud_on);
 	replaceFunc(maps\mp\zombies\_zm_perks::wait_for_player_to_take, scripts\zm\replaced\_zm_perks::wait_for_player_to_take);
 	replaceFunc(maps\mp\zombies\_zm_perks::check_player_has_perk, scripts\zm\replaced\_zm_perks::check_player_has_perk);
 	replaceFunc(maps\mp\zombies\_zm_perks::set_perk_clientfield, scripts\zm\replaced\_zm_perks::set_perk_clientfield);
@@ -471,6 +472,7 @@ on_player_spawned()
 
 			self thread give_additional_perks();
 
+			self thread bank_gain_interest_after_rounds();
 			self thread weapon_locker_give_ammo_after_rounds();
 
 			self thread alt_weapon_name_hud();
@@ -2497,6 +2499,28 @@ give_additional_perks()
 		{
 			self UnsetPerk("specialty_stalker");
 			self Unsetperk("specialty_sprintrecovery");
+		}
+	}
+}
+
+bank_gain_interest_after_rounds()
+{
+	self endon("disconnect");
+
+	while (1)
+	{
+		level waittill("end_of_round");
+
+		if (isDefined(self.account_value))
+		{
+			self.account_value *= 1.1;
+
+			if (self.account_value > level.bank_account_max)
+			{
+				self.account_value = level.bank_account_max;
+			}
+
+			self notify("update_account_value");
 		}
 	}
 }

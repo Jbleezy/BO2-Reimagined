@@ -27,7 +27,7 @@ main()
 	replaceFunc(maps\mp\zm_transit::grenade_safe_to_bounce, scripts\zm\replaced\zm_transit::grenade_safe_to_bounce);
 	replaceFunc(maps\mp\zm_transit::can_revive, scripts\zm\replaced\zm_transit::can_revive);
 	replaceFunc(maps\mp\zm_transit_gamemodes::init, scripts\zm\replaced\zm_transit_gamemodes::init);
-	replaceFunc(maps\mp\zm_transit_classic::inert_zombies_init, scripts\zm\replaced\zm_transit_classic::inert_zombies_init);
+	replaceFunc(maps\mp\zm_transit_classic::spawn_inert_zombies, scripts\zm\replaced\zm_transit_classic::spawn_inert_zombies);
 	replaceFunc(maps\mp\zm_transit_utility::solo_tombstone_removal, scripts\zm\replaced\zm_transit_utility::solo_tombstone_removal);
 	replaceFunc(maps\mp\zm_transit_ai_screecher::init, scripts\zm\replaced\zm_transit_ai_screecher::init);
 	replaceFunc(maps\mp\zm_transit_ai_screecher::player_wait_land, scripts\zm\replaced\zm_transit_ai_screecher::player_wait_land);
@@ -66,7 +66,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_equip_electrictrap::electrictrapkill, scripts\zm\replaced\_zm_equip_electrictrap::electrictrapkill);
 	replaceFunc(maps\mp\zombies\_zm_equip_electrictrap::etrap_choke, scripts\zm\replaced\_zm_equip_electrictrap::etrap_choke);
 	replaceFunc(maps\mp\zombies\_zm_equip_turret::startturretdeploy, scripts\zm\replaced\_zm_equip_turret::startturretdeploy);
-	replaceFunc(maps\mp\zombies\_zm_banking::init, scripts\zm\replaced\_zm_banking::init);
+	replaceFunc(maps\mp\zombies\_zm_banking::onplayerconnect_bank_deposit_box, scripts\zm\replaced\_zm_banking::onplayerconnect_bank_deposit_box);
 	replaceFunc(maps\mp\zombies\_zm_banking::bank_deposit_box, scripts\zm\replaced\_zm_banking::bank_deposit_box);
 	replaceFunc(maps\mp\zombies\_zm_banking::bank_deposit_unitrigger, scripts\zm\replaced\_zm_banking::bank_deposit_unitrigger);
 	replaceFunc(maps\mp\zombies\_zm_banking::bank_withdraw_unitrigger, scripts\zm\replaced\_zm_banking::bank_withdraw_unitrigger);

@@ -7,14 +7,12 @@
 
 main()
 {
-	replaceFunc(maps\mp\zm_alcatraz_classic::give_afterlife, scripts\zm\replaced\zm_alcatraz_classic::give_afterlife);
 	replaceFunc(maps\mp\zm_alcatraz_craftables::init_craftables, scripts\zm\replaced\zm_alcatraz_craftables::init_craftables);
 	replaceFunc(maps\mp\zm_alcatraz_craftables::include_craftables, scripts\zm\replaced\zm_alcatraz_craftables::include_craftables);
 	replaceFunc(maps\mp\zm_alcatraz_gamemodes::init, scripts\zm\replaced\zm_alcatraz_gamemodes::init);
 	replaceFunc(maps\mp\zm_alcatraz_utility::blundergat_upgrade_station, scripts\zm\replaced\zm_alcatraz_utility::blundergat_upgrade_station);
 	replaceFunc(maps\mp\zm_alcatraz_utility::alcatraz_audio_get_mod_type_override, scripts\zm\replaced\zm_alcatraz_utility::alcatraz_audio_get_mod_type_override);
 	replaceFunc(maps\mp\zm_alcatraz_utility::check_solo_status, scripts\zm\replaced\zm_alcatraz_utility::check_solo_status);
-	replaceFunc(maps\mp\zm_alcatraz_sq::start_alcatraz_sidequest, scripts\zm\replaced\zm_alcatraz_sq::start_alcatraz_sidequest);
 	replaceFunc(maps\mp\zm_alcatraz_sq::dryer_zombies_thread, scripts\zm\replaced\zm_alcatraz_sq::dryer_zombies_thread);
 	replaceFunc(maps\mp\zm_alcatraz_sq::track_quest_status_thread, scripts\zm\replaced\zm_alcatraz_sq::track_quest_status_thread);
 	replaceFunc(maps\mp\zm_alcatraz_sq::plane_boarding_thread, scripts\zm\replaced\zm_alcatraz_sq::plane_boarding_thread);
@@ -40,11 +38,13 @@ main()
 	replaceFunc(maps\mp\zm_prison_sq_final::stage_one, scripts\zm\replaced\zm_prison_sq_final::stage_one);
 	replaceFunc(maps\mp\zm_prison_sq_final::final_flight_trigger, scripts\zm\replaced\zm_prison_sq_final::final_flight_trigger);
 	replaceFunc(maps\mp\zm_prison_sq_wth::sq_is_weapon_sniper, scripts\zm\replaced\zm_prison_sq_wth::sq_is_weapon_sniper);
-	replaceFunc(maps\mp\zombies\_zm_afterlife::init, scripts\zm\replaced\_zm_afterlife::init);
+	replaceFunc(maps\mp\zombies\_zm_afterlife::init_player, scripts\zm\replaced\_zm_afterlife::init_player);
 	replaceFunc(maps\mp\zombies\_zm_afterlife::afterlife_add, scripts\zm\replaced\_zm_afterlife::afterlife_add);
 	replaceFunc(maps\mp\zombies\_zm_afterlife::afterlife_laststand, scripts\zm\replaced\_zm_afterlife::afterlife_laststand);
 	replaceFunc(maps\mp\zombies\_zm_afterlife::afterlife_revive_do_revive, scripts\zm\replaced\_zm_afterlife::afterlife_revive_do_revive);
 	replaceFunc(maps\mp\zombies\_zm_afterlife::afterlife_corpse_cleanup, scripts\zm\replaced\_zm_afterlife::afterlife_corpse_cleanup);
+	replaceFunc(maps\mp\zombies\_zm_afterlife::afterlife_player_damage_callback, scripts\zm\replaced\_zm_afterlife::afterlife_player_damage_callback);
+	replaceFunc(maps\mp\zombies\_zm_afterlife::afterlife_save_loadout, scripts\zm\replaced\_zm_afterlife::afterlife_save_loadout);
 	replaceFunc(maps\mp\zombies\_zm_afterlife::afterlife_give_loadout, scripts\zm\replaced\_zm_afterlife::afterlife_give_loadout);
 	replaceFunc(maps\mp\zombies\_zm_ai_brutus::init, scripts\zm\replaced\_zm_ai_brutus::init);
 	replaceFunc(maps\mp\zombies\_zm_ai_brutus::brutus_round_tracker, scripts\zm\replaced\_zm_ai_brutus::brutus_round_tracker);
@@ -91,8 +91,8 @@ main()
 
 init()
 {
-	precacheModel("collision_geo_32x32x32_slick");
 	precacheModel("collision_clip_32x32x128");
+	precacheModel("collision_geo_32x32x32_slick");
 
 	level.zombie_init_done = ::zombie_init_done;
 	level.special_weapon_magicbox_check = ::check_for_special_weapon_limit_exist;
@@ -104,6 +104,7 @@ init()
 
 	player_initial_spawn_override();
 	player_respawn_override();
+	docks_gates_remain_open();
 
 	level thread maps\mp\_sticky_grenade::init();
 
@@ -730,6 +731,14 @@ craftablestub_update_prompt(player, unitrigger)
 	}
 
 	return true;
+}
+
+docks_gates_remain_open()
+{
+	if (flag_exists("docks_gates_remain_open"))
+	{
+		flag_set("docks_gates_remain_open");
+	}
 }
 
 docks_teleporter()

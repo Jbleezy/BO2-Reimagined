@@ -20,58 +20,6 @@
 #include maps\mp\zombies\_zm_magicbox_tomb;
 #include maps\mp\zombies\_zm_powerups;
 
-setup_capture_zones()
-{
-	spawner_capture_zombie = getent("capture_zombie_spawner", "targetname");
-	spawner_capture_zombie add_spawn_function(scripts\zm\replaced\zm_tomb_utility::capture_zombie_spawn_init);
-	a_s_generator = getstructarray("s_generator", "targetname");
-	registerclientfield("world", "packapunch_anim", 14000, 3, "int");
-	registerclientfield("actor", "zone_capture_zombie", 14000, 1, "int");
-	registerclientfield("scriptmover", "zone_capture_emergence_hole", 14000, 1, "int");
-	registerclientfield("world", "zc_change_progress_bar_color", 14000, 1, "int");
-	registerclientfield("world", "zone_capture_hud_all_generators_captured", 14000, 1, "int");
-	registerclientfield("world", "zone_capture_perk_machine_smoke_fx_always_on", 14000, 1, "int");
-	registerclientfield("world", "pap_monolith_ring_shake", 14000, 1, "int");
-
-	foreach (struct in a_s_generator)
-	{
-		registerclientfield("world", struct.script_noteworthy, 14000, 7, "float");
-		registerclientfield("world", "state_" + struct.script_noteworthy, 14000, 3, "int");
-		registerclientfield("world", "zone_capture_hud_generator_" + struct.script_int, 14000, 2, "int");
-		registerclientfield("world", "zone_capture_monolith_crystal_" + struct.script_int, 14000, 1, "int");
-		registerclientfield("world", "zone_capture_perk_machine_smoke_fx_" + struct.script_int, 14000, 1, "int");
-	}
-
-	flag_wait("start_zombie_round_logic");
-	level.magic_box_zbarrier_state_func = ::set_magic_box_zbarrier_state;
-	level.custom_perk_validation = ::check_perk_machine_valid;
-	level thread track_max_player_zombie_points();
-
-	foreach (s_generator in a_s_generator)
-	{
-		s_generator thread init_capture_zone();
-	}
-
-	register_elements_powered_by_zone_capture_generators();
-	setup_perk_machines_not_controlled_by_zone_capture();
-	pack_a_punch_init();
-	level thread recapture_round_tracker();
-	level.zone_capture.recapture_zombies = [];
-	level.zone_capture.last_zone_captured = undefined;
-	level.zone_capture.spawn_func_capture_zombie = ::init_capture_zombie;
-	level.zone_capture.spawn_func_recapture_zombie = ::init_recapture_zombie;
-
-	maps\mp\zombies\_zm_spawner::register_zombie_death_event_callback(::recapture_zombie_death_func);
-	level.custom_derive_damage_refs = ::zone_capture_gib_think;
-	setup_inaccessible_zombie_attack_points();
-	level thread quick_revive_game_type_watcher();
-	level thread quick_revive_solo_leave_watcher();
-	level thread all_zones_captured_vo();
-	flag_set("capture_zones_init_done");
-	level setclientfield("zone_capture_perk_machine_smoke_fx_always_on", 1);
-	maps\mp\zm_tomb_capture_zones_ffotd::capture_zone_init_end();
-}
-
 init_capture_zone()
 {
 	assert(isdefined(self.script_noteworthy), "capture zone struct is missing script_noteworthy KVP! This is required for init_capture_zone()");
@@ -125,6 +73,35 @@ register_elements_powered_by_zone_capture_generators()
 	register_random_perk_machine_for_zone("generator_church", "church");
 	register_mystery_box_for_zone("generator_church", "village_church_chest");
 	register_perk_machine_for_zone("generator_church", "doubletap", "vending_doubletap");
+}
+
+setup_perk_machines_not_controlled_by_zone_capture()
+{
+	level.zone_capture.perk_machines_always_on = array("specialty_additionalprimaryweapon", "specialty_flakjacket", "specialty_grenadepulldeath");
+}
+
+recapture_zombie_death_func()
+{
+	if (isdefined(self.is_recapture_zombie) && self.is_recapture_zombie)
+	{
+		level.recapture_zombies_killed++;
+
+		if (isdefined(self.attacker) && isplayer(self.attacker) && level.recapture_zombies_killed == get_recapture_zombies_needed())
+		{
+			self.attacker thread delay_thread(2, ::create_and_play_dialog, "zone_capture", "recapture_prevented");
+
+			foreach (player in get_players())
+			{
+				player maps\mp\zombies\_zm_stats::increment_client_stat("tomb_generator_defended", 0);
+				player maps\mp\zombies\_zm_stats::increment_player_stat("tomb_generator_defended");
+			}
+		}
+
+		if (level.recapture_zombies_killed == get_recapture_zombies_needed() && is_true(level.b_is_first_generator_attack))
+		{
+			self drop_max_ammo_at_death_location();
+		}
+	}
 }
 
 wait_for_capture_trigger()
@@ -349,30 +326,6 @@ reward_players_in_capture_zone()
 	}
 }
 
-recapture_zombie_death_func()
-{
-	if (isdefined(self.is_recapture_zombie) && self.is_recapture_zombie)
-	{
-		level.recapture_zombies_killed++;
-
-		if (isdefined(self.attacker) && isplayer(self.attacker) && level.recapture_zombies_killed == get_recapture_zombies_needed())
-		{
-			self.attacker thread delay_thread(2, ::create_and_play_dialog, "zone_capture", "recapture_prevented");
-
-			foreach (player in get_players())
-			{
-				player maps\mp\zombies\_zm_stats::increment_client_stat("tomb_generator_defended", 0);
-				player maps\mp\zombies\_zm_stats::increment_player_stat("tomb_generator_defended");
-			}
-		}
-
-		if (level.recapture_zombies_killed == get_recapture_zombies_needed() && is_true(level.b_is_first_generator_attack))
-		{
-			self drop_max_ammo_at_death_location();
-		}
-	}
-}
-
 recapture_round_tracker()
 {
 	n_next_recapture_round = 10;
@@ -466,9 +419,4 @@ magic_box_stub_update_prompt(player)
 	}
 
 	return true;
-}
-
-setup_perk_machines_not_controlled_by_zone_capture()
-{
-	level.zone_capture.perk_machines_always_on = array("specialty_additionalprimaryweapon", "specialty_flakjacket", "specialty_grenadepulldeath");
 }

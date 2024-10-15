@@ -22,63 +22,6 @@
 #include maps\mp\animscripts\shared;
 #include maps\mp\zombies\_zm_ai_basic;
 
-init()
-{
-	level.zombiemode_using_afterlife = 1;
-	flag_init("afterlife_start_over");
-	level.afterlife_revive_tool = "syrette_afterlife_zm";
-	precacheitem(level.afterlife_revive_tool);
-	precachemodel("drone_collision");
-	maps\mp\_visionset_mgr::vsmgr_register_info("visionset", "zm_afterlife", 9000, 120, 1, 1);
-	maps\mp\_visionset_mgr::vsmgr_register_info("overlay", "zm_afterlife_filter", 9000, 120, 1, 1);
-
-	if (isdefined(level.afterlife_player_damage_override))
-	{
-		maps\mp\zombies\_zm::register_player_damage_callback(level.afterlife_player_damage_override);
-	}
-	else
-	{
-		maps\mp\zombies\_zm::register_player_damage_callback(::afterlife_player_damage_callback);
-	}
-
-	registerclientfield("toplayer", "player_lives", 9000, 2, "int");
-	registerclientfield("toplayer", "player_in_afterlife", 9000, 1, "int");
-	registerclientfield("toplayer", "player_afterlife_mana", 9000, 5, "float");
-	registerclientfield("allplayers", "player_afterlife_fx", 9000, 1, "int");
-	registerclientfield("toplayer", "clientfield_afterlife_audio", 9000, 1, "int");
-	registerclientfield("toplayer", "player_afterlife_refill", 9000, 1, "int");
-	registerclientfield("scriptmover", "player_corpse_id", 9000, 3, "int");
-	afterlife_load_fx();
-	level thread afterlife_hostmigration();
-	precachemodel("c_zom_ghost_viewhands");
-	precachemodel("c_zom_hero_ghost_fb");
-	precacheitem("lightning_hands_zm");
-	precachemodel("p6_zm_al_shock_box_on");
-	precacheshader("waypoint_revive_afterlife");
-	a_afterlife_interact = getentarray("afterlife_interact", "targetname");
-	array_thread(a_afterlife_interact, ::afterlife_interact_object_think);
-	level.zombie_spawners = getentarray("zombie_spawner", "script_noteworthy");
-	array_thread(level.zombie_spawners, ::add_spawn_function, ::afterlife_zombie_damage);
-	a_afterlife_triggers = getstructarray("afterlife_trigger", "targetname");
-
-	foreach (struct in a_afterlife_triggers)
-	{
-		afterlife_trigger_create(struct);
-	}
-
-	level.afterlife_interact_dist = 256;
-	level.is_player_valid_override = ::is_player_valid_afterlife;
-	level.can_revive = ::can_revive_override;
-	level.round_prestart_func = ::afterlife_start_zombie_logic;
-	level.custom_pap_validation = ::is_player_valid_afterlife;
-	level.player_out_of_playable_area_monitor_callback = ::player_out_of_playable_area;
-	level thread afterlife_gameover_cleanup();
-	level.afterlife_get_spawnpoint = ::afterlife_get_spawnpoint;
-	level.afterlife_zapped = ::afterlife_zapped;
-	level.afterlife_give_loadout = ::afterlife_give_loadout;
-	level.afterlife_save_loadout = ::afterlife_save_loadout;
-}
-
 init_player()
 {
 	flag_wait("initial_players_connected");
@@ -106,40 +49,6 @@ afterlife_add()
 
 	self playsoundtoplayer("zmb_afterlife_add", self);
 	self setclientfieldtoplayer("player_lives", self.lives);
-}
-
-afterlife_start_zombie_logic()
-{
-	flag_wait("start_zombie_round_logic");
-	wait 0.5;
-	everyone_alive = 0;
-
-	while (isDefined(everyone_alive) && !everyone_alive)
-	{
-		everyone_alive = 1;
-		players = getplayers();
-
-		foreach (player in players)
-		{
-			if (isDefined(player.afterlife) && player.afterlife)
-			{
-				everyone_alive = 0;
-				wait 0.05;
-				break;
-			}
-		}
-	}
-
-	wait 0.5;
-
-	while (level.intermission)
-	{
-		wait 0.05;
-	}
-
-	flag_set("afterlife_start_over");
-	wait 2;
-	array_func(getplayers(), ::afterlife_add);
 }
 
 afterlife_laststand(b_electric_chair = 0)

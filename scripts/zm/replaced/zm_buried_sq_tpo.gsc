@@ -12,24 +12,6 @@
 #include maps\mp\zombies\_zm_unitrigger;
 #include maps\mp\zm_buried_buildables;
 
-init()
-{
-	declare_sidequest_stage("sq", "tpo", ::init_stage, ::stage_logic, ::exit_stage);
-	flag_init("sq_tpo_time_bomb_in_valid_location");
-	flag_init("sq_tpo_players_in_position_for_time_warp");
-	flag_init("sq_tpo_special_round_active");
-	flag_init("sq_tpo_found_item");
-	flag_init("sq_tpo_generator_powered");
-	flag_init("sq_wisp_saved_with_time_bomb");
-	flag_init("sq_tpo_stage_started");
-	maps\mp\zombies\_zm_weap_time_bomb::time_bomb_add_custom_func_global_save(::time_bomb_saves_wisp_state);
-	maps\mp\zombies\_zm_weap_time_bomb::time_bomb_add_custom_func_global_restore(::time_bomb_restores_wisp_state);
-
-	level._effect["sq_tpo_time_bomb_fx"] = loadfx("maps/zombie_buried/fx_buried_ghost_drain");
-	level.sq_tpo = spawnstruct();
-	level thread setup_buildable_switch();
-}
-
 stage_logic()
 {
 	flag_set("sq_tpo_stage_started");

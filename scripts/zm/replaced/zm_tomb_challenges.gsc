@@ -14,25 +14,6 @@
 #include maps\mp\zombies\_zm_perks;
 #include maps\mp\zombies\_zm_weap_one_inch_punch;
 
-challenges_init()
-{
-	level.challenges_add_stats = ::tomb_challenges_add_stats;
-	maps\mp\zombies\_zm_challenges::init();
-}
-
-tomb_challenges_add_stats()
-{
-	n_kills = 115;
-	n_zone_caps = 6;
-	n_points_spent = 30000;
-	n_boxes_filled = 4;
-
-	add_stat("zc_headshots", 0, &"ZM_TOMB_CH1", n_kills, undefined, ::reward_packed_weapon);
-	add_stat("zc_zone_captures", 0, &"ZM_TOMB_CH2", n_zone_caps, undefined, ::reward_powerup_max_ammo);
-	add_stat("zc_points_spent", 0, &"ZM_TOMB_CH3", n_points_spent, undefined, ::reward_random_perk, ::track_points_spent);
-	add_stat("zc_boxes_filled", 1, &"ZM_TOMB_CHT", n_boxes_filled, undefined, ::reward_one_inch_punch, ::init_box_footprints);
-}
-
 reward_packed_weapon(player, s_stat)
 {
 	if (!isdefined(s_stat.str_reward_weapon))
@@ -64,7 +45,7 @@ reward_packed_weapon(player, s_stat)
 	return true;
 }
 
-reward_random_perk(player, s_stat)
+reward_double_tap(player, s_stat)
 {
 	if (!isDefined(player.tomb_reward_perk))
 	{
@@ -145,15 +126,6 @@ get_random_perk()
 		random_perk = perks[0];
 		return random_perk;
 	}
-}
-
-init_box_footprints()
-{
-	level.n_soul_boxes_completed = 0;
-	flag_init("vo_soul_box_intro_played");
-	flag_init("vo_soul_box_continue_played");
-	a_boxes = getentarray("foot_box", "script_noteworthy");
-	array_thread(a_boxes, ::box_footprint_think);
 }
 
 #using_animtree("fxanim_props_dlc4");

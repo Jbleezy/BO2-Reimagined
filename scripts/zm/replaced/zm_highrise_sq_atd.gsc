@@ -5,19 +5,6 @@
 #include maps\mp\zombies\_zm_sidequests;
 #include maps\mp\zm_highrise_sq;
 
-init()
-{
-	flag_init("sq_atd_elevator0");
-	flag_init("sq_atd_elevator1");
-	flag_init("sq_atd_elevator2");
-	flag_init("sq_atd_elevator3");
-	flag_init("sq_atd_elevator_activated");
-	flag_init("sq_atd_drg_puzzle_1st_error");
-	flag_init("sq_atd_drg_puzzle_complete");
-	declare_sidequest_stage("sq", "atd", ::init_stage, ::stage_logic, ::exit_stage_1);
-	sq_atd_dragon_icon_setup();
-}
-
 stage_logic()
 {
 	sq_atd_elevators();

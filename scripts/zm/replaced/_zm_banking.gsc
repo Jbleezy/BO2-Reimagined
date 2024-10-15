@@ -3,44 +3,9 @@
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 
-init()
-{
-	onplayerconnect_callback(::onplayerconnect_bank_deposit_box);
-
-	if (!isDefined(level.ta_vaultfee))
-	{
-		level.ta_vaultfee = 100;
-	}
-
-	if (!isDefined(level.ta_tellerfee))
-	{
-		level.ta_tellerfee = 100;
-	}
-}
-
 onplayerconnect_bank_deposit_box()
 {
 	self.account_value = 0;
-	self thread gain_interest_after_rounds();
-}
-
-gain_interest_after_rounds()
-{
-	self endon("disconnect");
-
-	while (1)
-	{
-		level waittill("end_of_round");
-
-		self.account_value *= 1.1;
-
-		if (self.account_value > level.bank_account_max)
-		{
-			self.account_value = level.bank_account_max;
-		}
-
-		self notify("update_account_value");
-	}
 }
 
 bank_deposit_box()

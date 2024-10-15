@@ -6,20 +6,6 @@
 #include maps\mp\zm_highrise_sq;
 #include maps\mp\zombies\_zm_unitrigger;
 
-init_1()
-{
-	flag_init("pts_1_springpads_placed");
-	declare_sidequest_stage("sq_1", "pts_1", ::init_stage_1, ::stage_logic_1, ::exit_stage_1);
-}
-
-init_2()
-{
-	flag_init("pts_2_springpads_placed");
-	flag_init("pts_2_generator_1_started");
-	flag_init("pts_2_generator_2_started");
-	declare_sidequest_stage("sq_2", "pts_2", ::init_stage_2, ::stage_logic_2, ::exit_stage_2);
-}
-
 stage_logic_1()
 {
 	watch_player_springpads(0);

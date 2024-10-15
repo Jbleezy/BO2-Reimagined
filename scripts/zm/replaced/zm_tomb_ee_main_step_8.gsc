@@ -10,11 +10,6 @@
 #include maps\mp\gametypes_zm\_hud;
 #include maps\mp\zm_tomb_chamber;
 
-init()
-{
-	declare_sidequest_stage("little_girl_lost", "step_8", ::init_stage, ::stage_logic, ::exit_stage);
-}
-
 stage_logic()
 {
 	level notify("tomb_sidequest_complete");
