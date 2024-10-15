@@ -6,11 +6,6 @@
 
 main()
 {
-	if (getDvar("g_gametype") != "zgrief")
-	{
-		return;
-	}
-
 	replaceFunc(maps\mp\gametypes_zm\_globallogic_ui::menuautoassign, scripts\zm\replaced\_globallogic_ui::menuautoassign);
 	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::onspawnplayer, scripts\zm\replaced\_zm_gametype::onspawnplayer);
 	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::onplayerspawned, scripts\zm\replaced\_zm_gametype::onplayerspawned);
@@ -30,11 +25,6 @@ main()
 
 init()
 {
-	if (getDvar("g_gametype") != "zgrief")
-	{
-		return;
-	}
-
 	set_grief_vars();
 
 	level._effect["human_disappears"] = loadfx("maps/zombie/fx_zmb_returned_spawn_puff");
