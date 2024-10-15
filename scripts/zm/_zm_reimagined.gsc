@@ -158,7 +158,9 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_tombstone::tombstone_player_init, scripts\zm\replaced\_zm_tombstone::tombstone_player_init);
 	replaceFunc(maps\mp\zombies\_zm_tombstone::tombstone_spawn, scripts\zm\replaced\_zm_tombstone::tombstone_spawn);
 	replaceFunc(maps\mp\zombies\_zm_tombstone::tombstone_laststand, scripts\zm\replaced\_zm_tombstone::tombstone_laststand);
+	replaceFunc(maps\mp\zombies\_zm_tombstone::is_weapon_available_in_tombstone, scripts\zm\replaced\_zm_tombstone::is_weapon_available_in_tombstone);
 	replaceFunc(maps\mp\zombies\_zm_chugabud::chugabud_laststand, scripts\zm\replaced\_zm_chugabud::chugabud_laststand);
+	replaceFunc(maps\mp\zombies\_zm_chugabud::is_weapon_available_in_chugabud_corpse, scripts\zm\replaced\_zm_chugabud::is_weapon_available_in_chugabud_corpse);
 
 	perk_changes();
 	powerup_changes();

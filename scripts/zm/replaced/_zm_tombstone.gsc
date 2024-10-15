@@ -480,3 +480,44 @@ tombstone_give()
 
 	self.tombstone_savedweapon_weapons = undefined;
 }
+
+is_weapon_available_in_tombstone(weapon, player_to_check)
+{
+	count = 0;
+	upgradedweapon = weapon;
+
+	if (isdefined(level.zombie_weapons[weapon]) && isdefined(level.zombie_weapons[weapon].upgrade_name))
+	{
+		upgradedweapon = level.zombie_weapons[weapon].upgrade_name;
+	}
+
+	players = getplayers();
+
+	if (isdefined(players))
+	{
+		for (player_index = 0; player_index < players.size; player_index++)
+		{
+			player = players[player_index];
+
+			if (isdefined(player_to_check) && player != player_to_check)
+			{
+				continue;
+			}
+
+			if (isdefined(player.tombstone_savedweapon_weapons))
+			{
+				for (i = 0; i < player.tombstone_savedweapon_weapons.size; i++)
+				{
+					tombstone_weapon = player.tombstone_savedweapon_weapons[i];
+
+					if (isdefined(tombstone_weapon) && (tombstone_weapon == weapon || tombstone_weapon == upgradedweapon))
+					{
+						count++;
+					}
+				}
+			}
+		}
+	}
+
+	return count;
+}

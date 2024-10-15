@@ -573,3 +573,44 @@ chugabud_bleed_timeout(delay, corpse)
 
 	self chugabud_corpse_cleanup(corpse, 0);
 }
+
+is_weapon_available_in_chugabud_corpse(weapon, player_to_check)
+{
+	count = 0;
+	upgradedweapon = weapon;
+
+	if (isdefined(level.zombie_weapons[weapon]) && isdefined(level.zombie_weapons[weapon].upgrade_name))
+	{
+		upgradedweapon = level.zombie_weapons[weapon].upgrade_name;
+	}
+
+	players = getplayers();
+
+	if (isdefined(players))
+	{
+		for (player_index = 0; player_index < players.size; player_index++)
+		{
+			player = players[player_index];
+
+			if (isdefined(player_to_check) && player != player_to_check)
+			{
+				continue;
+			}
+
+			if (isdefined(player.loadout) && isdefined(player.loadout.weapons))
+			{
+				for (i = 0; i < player.loadout.weapons.size; i++)
+				{
+					chugabud_weapon = player.loadout.weapons[i]["name"];
+
+					if (isdefined(chugabud_weapon) && (chugabud_weapon == weapon || chugabud_weapon == upgradedweapon))
+					{
+						count++;
+					}
+				}
+			}
+		}
+	}
+
+	return count;
+}
