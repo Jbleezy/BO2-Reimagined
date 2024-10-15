@@ -48,6 +48,14 @@ init()
 	precacheshader("white_waypoint_kill");
 	precacheshader("white_waypoint_escort");
 
+	if (level.script == "zm_prison")
+	{
+		precacheshader("faction_guards");
+		precacheshader("faction_inmates");
+		game["icons"]["allies"] = "faction_guards";
+		game["icons"]["axis"] = "faction_inmates";
+	}
+
 	precacheString(&"hud_update_game_mode_name");
 	precacheString(&"hud_update_player_count");
 	precacheString(&"hud_update_scoring_team");
