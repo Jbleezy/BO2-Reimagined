@@ -171,3 +171,42 @@ player_damage_equipment(equipment, damage, origin, stub)
 		self equipment_release(equipment);
 	}
 }
+
+limited_equipment_in_use(equipment)
+{
+	players = get_players();
+
+	for (i = 0; i < players.size; i++)
+	{
+		current_equipment = players[i] get_player_equipment();
+
+		if (isdefined(current_equipment) && current_equipment == equipment)
+		{
+			return true;
+		}
+
+		if (isdefined(players[i].loadout))
+		{
+			if (isdefined(players[i].loadout.equipment) && players[i].loadout.equipment == equipment)
+			{
+				return true;
+			}
+
+		}
+
+		if (isdefined(players[i].tombstone_savedweapon_weapons))
+		{
+			if (isdefined(players[i].tombstone_savedweapon_equipment) && players[i].tombstone_savedweapon_equipment == equipment)
+			{
+				return true;
+			}
+		}
+	}
+
+	if (isdefined(level.dropped_equipment) && isdefined(level.dropped_equipment[equipment]))
+	{
+		return true;
+	}
+
+	return false;
+}

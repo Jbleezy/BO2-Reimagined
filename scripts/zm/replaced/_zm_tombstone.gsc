@@ -184,6 +184,7 @@ tombstone_grab()
 tombstone_delete()
 {
 	self notify("tombstone_timedout");
+	self.player.tombstone_savedweapon_weapons = undefined;
 	self.icon unlink();
 	self.icon delete();
 	self delete();
@@ -489,4 +490,6 @@ tombstone_give()
 		self setclientdvar("perk_order", dvar_str);
 		self luinotifyevent(&"hud_update_perk_order");
 	}
+
+	self.tombstone_savedweapon_weapons = undefined;
 }

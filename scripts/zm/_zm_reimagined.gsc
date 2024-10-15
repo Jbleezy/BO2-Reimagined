@@ -127,6 +127,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_traps::player_elec_damage, scripts\zm\replaced\_zm_traps::player_elec_damage);
 	replaceFunc(maps\mp\zombies\_zm_equipment::show_equipment_hint, scripts\zm\replaced\_zm_equipment::show_equipment_hint);
 	replaceFunc(maps\mp\zombies\_zm_equipment::placed_equipment_think, scripts\zm\replaced\_zm_equipment::placed_equipment_think);
+	replaceFunc(maps\mp\zombies\_zm_equipment::limited_equipment_in_use, scripts\zm\replaced\_zm_equipment::limited_equipment_in_use);
 	replaceFunc(maps\mp\zombies\_zm_clone::spawn_player_clone, scripts\zm\replaced\_zm_clone::spawn_player_clone);
 	replaceFunc(maps\mp\zombies\_zm_spawner::zombie_damage, scripts\zm\replaced\_zm_spawner::zombie_damage);
 	replaceFunc(maps\mp\zombies\_zm_spawner::zombie_gib_on_damage, scripts\zm\replaced\_zm_spawner::zombie_gib_on_damage);
