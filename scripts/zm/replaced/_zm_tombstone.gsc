@@ -192,7 +192,7 @@ tombstone_delete()
 
 tombstone_laststand()
 {
-	self.tombstone_savedweapon_weapons = self getweaponslist();
+	self.tombstone_savedweapon_weapons = self getweaponslistprimaries();
 	self.tombstone_savedweapon_weaponsammo_clip = [];
 	self.tombstone_savedweapon_weaponsammo_clip_dualwield = [];
 	self.tombstone_savedweapon_weaponsammo_stock = [];
@@ -335,28 +335,13 @@ tombstone_give()
 
 	while (i < self.tombstone_savedweapon_weapons.size)
 	{
-		if (isdefined(self.tombstone_savedweapon_grenades) && self.tombstone_savedweapon_weapons[i] == self.tombstone_savedweapon_grenades || (isdefined(self.tombstone_savedweapon_tactical) && self.tombstone_savedweapon_weapons[i] == self.tombstone_savedweapon_tactical))
+		if (primary_weapons_returned >= get_player_weapon_limit(self))
 		{
 			i++;
 			continue;
 		}
 
-		if (isweaponprimary(self.tombstone_savedweapon_weapons[i]))
-		{
-			if (primary_weapons_returned >= 2)
-			{
-				i++;
-				continue;
-			}
-
-			primary_weapons_returned++;
-		}
-
-		if (level.item_meat_name == self.tombstone_savedweapon_weapons[i])
-		{
-			i++;
-			continue;
-		}
+		primary_weapons_returned++;
 
 		self giveweapon(self.tombstone_savedweapon_weapons[i], 0, self maps\mp\zombies\_zm_weapons::get_pack_a_punch_weapon_options(self.tombstone_savedweapon_weapons[i]));
 
@@ -390,7 +375,9 @@ tombstone_give()
 
 	if (isDefined(self.tombstone_savedweapon_melee))
 	{
+		self giveweapon(self.tombstone_savedweapon_melee);
 		self set_player_melee_weapon(self.tombstone_savedweapon_melee);
+		self giveweapon("held_" + self.tombstone_savedweapon_melee);
 		self setactionslot(2, "weapon", "held_" + self.tombstone_savedweapon_melee);
 	}
 

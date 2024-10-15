@@ -1792,7 +1792,7 @@ remove_player_damage_info()
 
 grief_laststand_weapon_save(einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration)
 {
-	self.grief_savedweapon_weapons = self getweaponslist();
+	self.grief_savedweapon_weapons = self getweaponslistprimaries();
 	self.grief_savedweapon_weaponsammo_clip = [];
 	self.grief_savedweapon_weaponsammo_clip_dualwield = [];
 	self.grief_savedweapon_weaponsammo_stock = [];
@@ -1902,34 +1902,13 @@ grief_laststand_weapons_return()
 
 	while (i < self.grief_savedweapon_weapons.size)
 	{
-		if (isdefined(self.grief_savedweapon_grenades) && self.grief_savedweapon_weapons[i] == self.grief_savedweapon_grenades || (isdefined(self.grief_savedweapon_tactical) && self.grief_savedweapon_weapons[i] == self.grief_savedweapon_tactical))
+		if (primary_weapons_returned >= get_player_weapon_limit(self))
 		{
 			i++;
 			continue;
 		}
 
-		if (is_temporary_zombie_weapon(self.grief_savedweapon_weapons[i]))
-		{
-			i++;
-			continue;
-		}
-
-		if (level.item_meat_name == self.grief_savedweapon_weapons[i])
-		{
-			i++;
-			continue;
-		}
-
-		if (isweaponprimary(self.grief_savedweapon_weapons[i]))
-		{
-			if (primary_weapons_returned >= get_player_weapon_limit(self))
-			{
-				i++;
-				continue;
-			}
-
-			primary_weapons_returned++;
-		}
+		primary_weapons_returned++;
 
 		if (isDefined(self.stored_weapon_info[self.grief_savedweapon_weapons[i]]) && isDefined(self.stored_weapon_info[self.grief_savedweapon_weapons[i]].used_amt))
 		{
@@ -2015,7 +1994,9 @@ grief_laststand_weapons_return()
 
 	if (isDefined(self.grief_savedweapon_melee))
 	{
+		self giveweapon(self.grief_savedweapon_melee);
 		self set_player_melee_weapon(self.grief_savedweapon_melee);
+		self giveweapon("held_" + self.grief_savedweapon_melee);
 		self setactionslot(2, "weapon", "held_" + self.grief_savedweapon_melee);
 	}
 
