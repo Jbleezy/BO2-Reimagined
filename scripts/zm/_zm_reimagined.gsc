@@ -708,7 +708,9 @@ set_client_dvars()
 	    "waypointOffscreenPadTop", 30,
 	    "waypointOffscreenPadBottom", 30,
 	    "waypointPlayerOffsetStand", 30,
-	    "waypointPlayerOffsetCrouch", 30);
+	    "waypointPlayerOffsetCrouch", 30,
+	    "weaponAltWeaponNames", "",
+	    "additionalPrimaryWeaponName", "");
 
 	self setClientDvars(
 	    "bg_fallDamageScale", getDvar("bg_fallDamageScale"),
@@ -2590,8 +2592,6 @@ additionalprimaryweapon_indicator()
 {
 	self endon("disconnect");
 
-	self setClientDvar("additionalPrimaryWeaponName", "");
-
 	if (!is_true(level.zombiemode_using_additionalprimaryweapon_perk))
 	{
 		return;
@@ -2601,7 +2601,7 @@ additionalprimaryweapon_indicator()
 
 	while (1)
 	{
-		wait 0.05;
+		weapon_name = "";
 
 		player = self get_current_spectating_player();
 
@@ -2610,37 +2610,23 @@ additionalprimaryweapon_indicator()
 			self additionalprimaryweapon_update_weapon_slots();
 		}
 
-		if (!player hasPerk("specialty_additionalprimaryweapon"))
+		if (player hasPerk("specialty_additionalprimaryweapon"))
 		{
-			if (prev_weapon_name != "")
+			weapon = player.weapon_to_take_by_losing_specialty_additionalprimaryweapon;
+
+			if (isDefined(weapon))
 			{
-				self setClientDvar("additionalPrimaryWeaponName", "");
-				prev_weapon_name = "";
+				weapon_name = getweapondisplayname(weapon);
 			}
-
-			continue;
 		}
-
-		weapon = player.weapon_to_take_by_losing_specialty_additionalprimaryweapon;
-
-		if (!isDefined(weapon))
-		{
-			if (prev_weapon_name != "")
-			{
-				self setClientDvar("additionalPrimaryWeaponName", "");
-				prev_weapon_name = "";
-			}
-
-			continue;
-		}
-
-		weapon_name = getweapondisplayname(weapon);
 
 		if (prev_weapon_name != weapon_name)
 		{
-			self setClientDvar("additionalPrimaryWeaponName", weapon_name);
 			prev_weapon_name = weapon_name;
+			self setClientDvar("additionalPrimaryWeaponName", weapon_name);
 		}
+
+		wait 0.05;
 	}
 }
 

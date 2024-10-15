@@ -166,31 +166,7 @@ local f0_local4 = function(f8_arg0, f8_arg1, f8_arg2, f8_arg3)
 	})
 end
 
-CoD.InitCustomDvars = function()
-	if UIExpression.DvarString(nil, "ui_gametype_obj") == "" then
-		Engine.SetDvar("ui_gametype_obj", "")
-	end
-
-	if UIExpression.DvarString(nil, "ui_gametype_pro") == "" then
-		Engine.SetDvar("ui_gametype_pro", 0)
-	end
-
-	if UIExpression.DvarString(nil, "ui_round_number") == "" then
-		Engine.SetDvar("ui_round_number", 0)
-	end
-
-	if UIExpression.DvarString(nil, "weaponAltWeaponNames") == "" then
-		Engine.SetDvar("weaponAltWeaponNames", "")
-	end
-
-	if UIExpression.DvarString(nil, "additionalPrimaryWeaponName") == "" then
-		Engine.SetDvar("additionalPrimaryWeaponName", "")
-	end
-
-	if UIExpression.DvarString(nil, "perk_order") == "" then
-		Engine.SetDvar("perk_order", "")
-	end
-
+CoD.InitArchiveDvars = function()
 	if UIExpression.DvarString(nil, "ui_hud_enemy_counter") == "" then
 		Engine.Exec(nil, "seta ui_hud_enemy_counter 1")
 	end
@@ -233,7 +209,7 @@ CoD.SetDvars = function()
 end
 
 LUI.createMenu.main = function()
-	CoD.InitCustomDvars()
+	CoD.InitArchiveDvars()
 	CoD.SetDvars()
 
 	local f11_local0 = UIExpression.GetMaxControllerCount()
