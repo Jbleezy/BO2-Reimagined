@@ -745,12 +745,10 @@ docks_teleporter()
 {
 	flag_wait("initial_blackscreen_passed");
 
-	origin = (-262, 5677, -50);
-	angles = (0, 280, 0);
+	teleporter = getstruct("docks_teleporter", "targetname");
+	teleporter_end = getstruct(teleporter.target, "targetname");
 
-	playfx(level._effect["hell_portal"], origin, anglestoforward(angles));
-
-	trig = spawn("trigger_radius", origin, 0, 16, 32);
+	trig = spawn("trigger_radius", teleporter.origin, 0, teleporter.radius, teleporter.height);
 
 	while (1)
 	{
@@ -759,7 +757,7 @@ docks_teleporter()
 		height_diff = player.origin[2] - groundpos(player.origin)[2];
 
 		playsoundatposition("zmb_afterlife_zombie_warp_out", player.origin);
-		player setorigin((-265, 5699, 17 + height_diff));
+		player setorigin(teleporter_end.origin + (0, 0, height_diff));
 	}
 }
 

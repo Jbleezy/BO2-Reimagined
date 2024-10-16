@@ -20,3 +20,15 @@ main()
 		clientscripts\mp\zombies\_zm_perk_electric_cherry::enable_electric_cherry_perk_for_level();
 	}
 }
+
+init()
+{
+	docks_teleporter_fx();
+}
+
+docks_teleporter_fx()
+{
+	teleporter = getstruct("docks_teleporter", "targetname");
+
+	playfx(0, level._effect["hell_portal"], teleporter.origin, anglestoforward(teleporter.angles));
+}

@@ -21602,3 +21602,17 @@
 "script_noteworthy" "perk_afterlife_trigger"
 "script_string" "additionalprimaryweapon_on"
 }
+{
+"classname" "script_struct"
+"targetname" "docks_teleporter"
+"target" "docks_teleporter_end"
+"origin" "-262 5677 -50"
+"angles" "0 280 0"
+"radius" "24"
+"height" "32"
+}
+{
+"classname" "script_struct"
+"targetname" "docks_teleporter_end"
+"origin" "-265 5699 17"
+}
