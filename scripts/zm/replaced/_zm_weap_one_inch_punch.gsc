@@ -32,7 +32,6 @@ one_inch_punch_melee_attack()
 		flourish_weapon = "zombie_one_inch_punch_upgrade_flourish";
 	}
 
-	current_melee_weapon = self get_player_melee_weapon();
 	str_weapon = self getcurrentweapon();
 	self increment_is_drinking();
 	self disable_player_move_states(1);
@@ -41,6 +40,14 @@ one_inch_punch_melee_attack()
 
 	result = self waittill_any_return("player_downed", "weapon_change");
 
+	current_melee = self get_player_melee_weapon();
+
+	if (issubstr(current_melee, "staff"))
+	{
+		self takeweapon(current_melee);
+	}
+
+	current_melee_weapon = self scripts\zm\replaced\zm_tomb_utility::get_melee_weapon_from_held();
 	self takeweapon(current_melee_weapon);
 	self takeweapon("held_" + current_melee_weapon);
 	self giveweapon(punch_weapon);
