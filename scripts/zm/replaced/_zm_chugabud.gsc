@@ -269,7 +269,7 @@ chugabud_give_loadout()
 		}
 	}
 
-	weapons_given = 0;
+	primary_weapons_given = 0;
 
 	for (i = 0; i < loadout.weapons.size; i++)
 	{
@@ -285,9 +285,9 @@ chugabud_give_loadout()
 
 		self maps\mp\zombies\_zm_weapons::weapondata_give(loadout.weapons[i]);
 
-		weapons_given++;
+		primary_weapons_given++;
 
-		if (weapons_given >= 2)
+		if (primary_weapons_given >= get_player_weapon_limit(self))
 		{
 			break;
 		}

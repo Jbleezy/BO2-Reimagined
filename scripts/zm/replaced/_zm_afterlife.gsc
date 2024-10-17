@@ -692,6 +692,8 @@ afterlife_give_loadout()
 		}
 	}
 
+	primary_weapons_given = 0;
+
 	for (i = 0; i < loadout.weapons.size; i++)
 	{
 		if (!isdefined(loadout.weapons[i]))
@@ -703,6 +705,13 @@ afterlife_give_loadout()
 		{
 			continue;
 		}
+
+		if (primary_weapons_given >= get_player_weapon_limit(self))
+		{
+			break;
+		}
+
+		primary_weapons_given++;
 
 		weapon = loadout.weapons[i];
 		stock_amount = loadout.stockcount[i];

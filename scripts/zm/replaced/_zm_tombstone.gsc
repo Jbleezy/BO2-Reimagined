@@ -330,18 +330,17 @@ tombstone_give()
 	self takeWeapon(self get_player_tactical_grenade());
 	self takeWeapon(self get_player_placeable_mine());
 
-	primary_weapons_returned = 0;
+	primary_weapons_given = 0;
 	i = 0;
 
 	while (i < self.tombstone_savedweapon_weapons.size)
 	{
-		if (primary_weapons_returned >= get_player_weapon_limit(self))
+		if (primary_weapons_given >= get_player_weapon_limit(self))
 		{
-			i++;
-			continue;
+			break;
 		}
 
-		primary_weapons_returned++;
+		primary_weapons_given++;
 
 		self giveweapon(self.tombstone_savedweapon_weapons[i], 0, self maps\mp\zombies\_zm_weapons::get_pack_a_punch_weapon_options(self.tombstone_savedweapon_weapons[i]));
 

@@ -1895,18 +1895,17 @@ grief_laststand_weapons_return()
 		}
 	}
 
-	primary_weapons_returned = 0;
+	primary_weapons_given = 0;
 	i = 0;
 
 	while (i < self.grief_savedweapon_weapons.size)
 	{
-		if (primary_weapons_returned >= get_player_weapon_limit(self))
+		if (primary_weapons_given >= get_player_weapon_limit(self))
 		{
-			i++;
-			continue;
+			break;
 		}
 
-		primary_weapons_returned++;
+		primary_weapons_given++;
 
 		if (isDefined(self.stored_weapon_info[self.grief_savedweapon_weapons[i]]) && isDefined(self.stored_weapon_info[self.grief_savedweapon_weapons[i]].used_amt))
 		{
