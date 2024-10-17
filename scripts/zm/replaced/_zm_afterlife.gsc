@@ -822,3 +822,20 @@ afterlife_give_loadout()
 		self setweaponammoclip(self get_player_lethal_grenade(), loadout.grenade + curgrenadecount);
 	}
 }
+
+afterlife_save_perks(ent)
+{
+	perk_array = ent get_perk_array(1);
+
+	foreach (perk in perk_array)
+	{
+		if (perk == "specialty_additionalprimaryweapon")
+		{
+			ent maps\mp\zombies\_zm::take_additionalprimaryweapon();
+		}
+
+		ent unsetperk(perk);
+	}
+
+	return perk_array;
+}
