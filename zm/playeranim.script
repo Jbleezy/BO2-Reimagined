@@ -3420,6 +3420,16 @@ knife_melee
 	{
 		torso p_revive_down_melee_swipe
 	}
+	// HOLD
+	// *** LDS - NEED TO ADD PRONE ANIMS FOR HOLD WEAPONS
+	playerAnimType hold, stance prone
+	{
+		torso pt_hold_melee_prone  grenadeAnim
+	}
+	playerAnimType hold
+	{
+		torso pt_melee_hold_1 grenadeAnim
+	}
 	// GRENADE
 	weaponclass grenade, stance prone
 	{
@@ -3432,16 +3442,6 @@ knife_melee
 	weaponclass grenade
 	{
 		torso pt_grenade_stand_melee_swipe
-	}
-	// HOLD
-	// *** LDS - NEED TO ADD PRONE ANIMS FOR HOLD WEAPONS
-	playerAnimType hold, stance prone
-	{
-		torso pt_hold_melee_prone  grenadeAnim
-	}
-	playerAnimType hold
-	{
-		torso pt_melee_hold_1 grenadeAnim
 	}
 	// BALLISTIC KNIFE
 	playerAnimType ballisticknife, stance prone
@@ -4400,6 +4400,22 @@ run_to_idle
 	{
 		// No animation
 	}
+	playerAnimType hold, prevdirection backward
+	{
+		legs pb_hold_stand_run_b_2_idle  grenadeAnim duration 5 blendtime 100
+	}
+	playerAnimType hold, prevdirection left
+	{
+		legs pb_hold_stand_run_l_2_idle  grenadeAnim duration 5 blendtime 100
+	}
+	playerAnimType hold, prevdirection right
+	{
+		legs pb_hold_stand_run_r_2_idle  grenadeAnim duration 5 blendtime 100
+	}
+	playerAnimType hold
+	{
+		legs pb_hold_stand_run2idle  grenadeAnim duration 5 blendtime 100
+	}
 	// GRENADES
 	weaponclass grenade, prevdirection backward
 	{
@@ -4416,22 +4432,6 @@ run_to_idle
 	weaponclass grenade
 	{
 		legs pb_grenade_stand_run2idle duration 5 blendtime 100
-	}
-	playerAnimType hold, prevdirection backward
-	{
-		legs pb_hold_stand_run_b_2_idle  grenadeAnim duration 5 blendtime 100
-	}
-	playerAnimType hold, prevdirection left
-	{
-		legs pb_hold_stand_run_l_2_idle  grenadeAnim duration 5 blendtime 100
-	}
-	playerAnimType hold, prevdirection right
-	{
-		legs pb_hold_stand_run_r_2_idle  grenadeAnim duration 5 blendtime 100
-	}
-	playerAnimType hold
-	{
-		legs pb_hold_stand_run2idle  grenadeAnim duration 5 blendtime 100
 	}
 	playerAnimType singleknife AND none, prevdirection backward
 	{
