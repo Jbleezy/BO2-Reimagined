@@ -102,6 +102,9 @@ init()
 
 	maps\mp\zombies\_zm::spawn_life_brush((94, 6063, 240), 256, 256);
 
+	alcatraz_add_player_dialogue("player", "perk", "specialty_flakjacket", "perk_generic", undefined, 100);
+	alcatraz_add_player_dialogue("player", "perk", "specialty_additionalprimaryweapon", "perk_generic", undefined, 100);
+
 	player_initial_spawn_override();
 	player_respawn_override();
 	docks_gates_remain_open();
