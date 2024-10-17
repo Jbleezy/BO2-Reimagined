@@ -33,6 +33,7 @@ main()
 	replaceFunc(maps\mp\zm_tomb_challenges::reward_packed_weapon, scripts\zm\replaced\zm_tomb_challenges::reward_packed_weapon);
 	replaceFunc(maps\mp\zm_tomb_challenges::reward_double_tap, scripts\zm\replaced\zm_tomb_challenges::reward_double_tap);
 	replaceFunc(maps\mp\zm_tomb_challenges::box_footprint_think, scripts\zm\replaced\zm_tomb_challenges::box_footprint_think);
+	replaceFunc(maps\mp\zm_tomb_challenges::one_inch_punch_watch_for_death, scripts\zm\replaced\zm_tomb_challenges::one_inch_punch_watch_for_death);
 	replaceFunc(maps\mp\zm_tomb_craftables::init_craftables, scripts\zm\replaced\zm_tomb_craftables::init_craftables);
 	replaceFunc(maps\mp\zm_tomb_craftables::include_craftables, scripts\zm\replaced\zm_tomb_craftables::include_craftables);
 	replaceFunc(maps\mp\zm_tomb_craftables::track_staff_weapon_respawn, scripts\zm\replaced\zm_tomb_craftables::track_staff_weapon_respawn);

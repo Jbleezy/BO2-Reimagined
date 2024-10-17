@@ -233,3 +233,15 @@ box_footprint_think()
 
 	self delete();
 }
+
+one_inch_punch_watch_for_death(s_stat)
+{
+	self waittill_any("bled_out", "disconnect");
+
+	if (s_stat.b_reward_claimed)
+	{
+		s_stat.b_reward_claimed = 0;
+	}
+
+	s_stat.a_b_player_rewarded[self.characterindex] = 0;
+}

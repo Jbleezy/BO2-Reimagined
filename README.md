@@ -1297,6 +1297,7 @@
 * Quest (freedom step): teleport trigger can be triggered without looking at it
 * Fixed recapture round zombies not dropping Max Ammo when killed by a staff
 * Fixed being able to hit a death barrier when jumping off the Above Generator 3 Bunker zone
+* Fixed not being able to pick up One Inch Punch from reward chest after disconnecting and reconnecting to a match
 
 ## Game Modes
 
