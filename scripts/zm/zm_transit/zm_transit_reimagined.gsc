@@ -716,12 +716,15 @@ attach_powerups_to_bus()
 	{
 		level waittill("powerup_dropped", powerup);
 
-		attachpoweruptobus(powerup);
+		level thread attachpoweruptobus(powerup);
 	}
 }
 
 attachpoweruptobus(powerup)
 {
+	powerup endon("powerup_grabbed");
+	powerup endon("powerup_timedout");
+
 	if (!isdefined(powerup) || !isdefined(level.the_bus))
 	{
 		return;
@@ -742,6 +745,14 @@ attachpoweruptobus(powerup)
 		}
 	}
 
-	powerup enablelinkto();
-	powerup linkto(level.the_bus);
+	powerup_og_origin = powerup.origin;
+	bus_og_origin = level.the_bus.origin;
+
+	while (isDefined(powerup))
+	{
+		origin_diff = level.the_bus.origin - bus_og_origin;
+		powerup.origin = powerup_og_origin + origin_diff;
+
+		wait 0.05;
+	}
 }
