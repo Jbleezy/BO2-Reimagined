@@ -71,29 +71,34 @@ init_spawnable_weapon_upgrade()
 
 	for (i = 0; i < spawn_list.size; i++)
 	{
-		clientfieldname = spawn_list[i].zombie_weapon_upgrade + "_" + spawn_list[i].origin;
-		numbits = 2;
-
-		if (isdefined(level._wallbuy_override_num_bits))
-		{
-			numbits = level._wallbuy_override_num_bits;
-		}
-
-		registerclientfield("world", clientfieldname, 1, numbits, "int");
+		clientfieldname = undefined;
 		target_struct = getstruct(spawn_list[i].target, "targetname");
 
-		if (spawn_list[i].targetname == "buildable_wallbuy")
+		if (!(isdefined(spawn_list[i].script_string) && spawn_list[i].script_string == "disable_clientfield"))
 		{
-			bits = 4;
+			clientfieldname = spawn_list[i].zombie_weapon_upgrade + "_" + spawn_list[i].origin;
+			numbits = 2;
 
-			if (isdefined(level.buildable_wallbuy_weapons))
+			if (isdefined(level._wallbuy_override_num_bits))
 			{
-				bits = getminbitcountfornum(level.buildable_wallbuy_weapons.size + 1);
+				numbits = level._wallbuy_override_num_bits;
 			}
 
-			registerclientfield("world", clientfieldname + "_idx", 12000, bits, "int");
-			spawn_list[i].clientfieldname = clientfieldname;
-			continue;
+			registerclientfield("world", clientfieldname, 1, numbits, "int");
+
+			if (spawn_list[i].targetname == "buildable_wallbuy")
+			{
+				bits = 4;
+
+				if (isdefined(level.buildable_wallbuy_weapons))
+				{
+					bits = getminbitcountfornum(level.buildable_wallbuy_weapons.size + 1);
+				}
+
+				registerclientfield("world", clientfieldname + "_idx", 12000, bits, "int");
+				spawn_list[i].clientfieldname = clientfieldname;
+				continue;
+			}
 		}
 
 		precachemodel(target_struct.model);

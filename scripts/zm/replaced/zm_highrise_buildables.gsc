@@ -62,3 +62,8 @@ include_buildables()
 		maps\mp\zombies\_zm_buildables::hide_buildable_table_model("sq_common_buildable_trigger");
 	}
 }
+
+onuseplantobject_slipgun(player)
+{
+	// removed
+}

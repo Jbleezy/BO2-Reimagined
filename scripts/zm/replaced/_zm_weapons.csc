@@ -30,6 +30,11 @@ init()
 	{
 		spawnable_weapon = spawnable_weapon_spawns[i];
 
+		if (isdefined(spawnable_weapon.script_string) && spawnable_weapon.script_string == "disable_clientfield")
+		{
+			continue;
+		}
+
 		if (isdefined(spawnable_weapon.zombie_weapon_upgrade) && spawnable_weapon.zombie_weapon_upgrade == "sticky_grenade_zm" && is_true(level.headshots_only))
 		{
 			continue;
@@ -96,11 +101,6 @@ wallbuy_player_connect(localclientnum)
 	for (i = 0; i < keys.size; i++)
 	{
 		wallbuy = level._active_wallbuys[keys[i]];
-
-		if (isdefined(wallbuy.script_string) && wallbuy.script_string == "bus_buyable_weapon1")
-		{
-			continue;
-		}
 
 		fx = level._effect["m14_zm_fx"];
 

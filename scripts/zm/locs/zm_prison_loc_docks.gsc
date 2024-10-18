@@ -273,12 +273,9 @@ create_key_door_unitrigger(piece_num, width, height, length)
 
 key_door_trigger_visibility(player)
 {
-	b_is_invis = player.afterlife || isdefined(self.stub.master_key_door_opened) && self.stub.master_key_door_opened || self.stub.n_door_index == 2 && !flag("generator_challenge_completed");
-	self setinvisibletoplayer(player, b_is_invis);
-
 	self sethintstring(&"ZOMBIE_BUTTON_BUY_OPEN_DOOR_2000");
 
-	return !b_is_invis;
+	return 1;
 }
 
 master_key_door_trigger_thread()

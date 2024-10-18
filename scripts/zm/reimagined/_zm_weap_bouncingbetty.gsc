@@ -133,7 +133,7 @@ buy_betties()
 
 betty_unitrigger_update_prompt(player)
 {
-	self sethintstring(&"ZOMBIE_WEAPON_BOUNCINGBETTY", self.zombie_cost);
+	self sethintstring(&"ZOMBIE_WEAPON_BOUNCINGBETTY", 1000);
 	self setcursorhint("HINT_WEAPON", "bouncingbetty_zm");
 	return true;
 }
@@ -185,8 +185,8 @@ betty_watch()
 
 				betty thread betty_detonation();
 				betty thread play_betty_effects();
-				self maps\mp\zombies\_zm_stats::increment_client_stat("betties_planted");
-				self maps\mp\zombies\_zm_stats::increment_player_stat("betties_planted");
+				self maps\mp\zombies\_zm_stats::increment_client_stat("claymores_planted");
+				self maps\mp\zombies\_zm_stats::increment_player_stat("claymores_planted");
 			}
 			else
 			{
@@ -288,8 +288,8 @@ pickup_betties()
 		player notify("zmb_disable_betty_prompt");
 	}
 
-	player maps\mp\zombies\_zm_stats::increment_client_stat("betties_pickedup");
-	player maps\mp\zombies\_zm_stats::increment_player_stat("betties_pickedup");
+	player maps\mp\zombies\_zm_stats::increment_client_stat("claymores_pickedup");
+	player maps\mp\zombies\_zm_stats::increment_player_stat("claymores_pickedup");
 }
 
 pickup_betties_trigger_listener(trigger, player)
@@ -578,14 +578,7 @@ show_betty_hint(string)
 	self endon("death");
 	self endon("disconnect");
 
-	if (string == "betty_purchased")
-	{
-		text = &"ZOMBIE_BETTY_HOWTO";
-	}
-	else
-	{
-		text = &"ZOMBIE_BETTY_ALREADY_PURCHASED";
-	}
+	text = &"ZOMBIE_BOUNCINGBETTY_HOWTO";
 
 	show_equipment_hint_text(text);
 }

@@ -588,24 +588,19 @@ bus_buyable_weapon_unitrigger_setup()
 	weapon_model._linked_ent = self;
 	weapon_model hide();
 
+	flag_wait("initial_blackscreen_passed");
+
 	unitrigger = undefined;
 
-	while (!isDefined(unitrigger))
+	for (i = 0; i < level._unitriggers.trigger_stubs.size; i++)
 	{
-		for (i = 0; i < level._unitriggers.trigger_stubs.size; i++)
+		if (IsDefined(level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade) && level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade == "beretta93r_zm")
 		{
-			if (IsDefined(level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade) && level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade == "beretta93r_zm")
-			{
-				unitrigger = level._unitriggers.trigger_stubs[i];
-				break;
-			}
+			unitrigger = level._unitriggers.trigger_stubs[i];
+			break;
 		}
-
-		wait 1;
 	}
 
-	unitrigger.require_look_at = 1;
-	unitrigger.target = weapon_model;
 	unitrigger.origin_parent = weapon_model;
 	unitrigger.link_parent = self;
 	unitrigger.originfunc = ::bus_buyable_weapon_get_unitrigger_origin;

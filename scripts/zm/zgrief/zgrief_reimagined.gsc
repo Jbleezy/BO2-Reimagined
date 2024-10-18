@@ -466,7 +466,10 @@ on_player_spawned()
 	{
 		self waittill("spawned_player");
 
-		self.head_icon.alpha = 1;
+		if (isDefined(self.head_icon))
+		{
+			self.head_icon.alpha = 1;
+		}
 
 		self thread scripts\zm\replaced\_zm::player_spawn_protection();
 
@@ -518,7 +521,10 @@ on_player_spectate()
 	{
 		self waittill("spawned_spectator");
 
-		self.head_icon.alpha = 0;
+		if (isDefined(self.head_icon))
+		{
+			self.head_icon.alpha = 0;
+		}
 	}
 }
 
@@ -531,7 +537,11 @@ on_player_downed()
 	{
 		self waittill("entering_last_stand");
 
-		self.head_icon.alpha = 0;
+		if (isDefined(self.head_icon))
+		{
+			self.head_icon.alpha = 0;
+		}
+
 		self kill_feed();
 		self add_grief_downed_score();
 
@@ -556,7 +566,10 @@ on_player_bleedout()
 	{
 		self waittill_any("bled_out", "player_suicide");
 
-		self.head_icon.alpha = 0;
+		if (isDefined(self.head_icon))
+		{
+			self.head_icon.alpha = 0;
+		}
 
 		if (isDefined(level.zombie_last_stand_ammo_return))
 		{
@@ -606,7 +619,10 @@ on_player_revived()
 	{
 		self waittill("player_revived", reviver);
 
-		self.head_icon.alpha = 1;
+		if (isDefined(self.head_icon))
+		{
+			self.head_icon.alpha = 1;
+		}
 
 		if (isDefined(reviver) && reviver != self)
 		{
@@ -1907,7 +1923,7 @@ grief_laststand_weapons_return()
 
 		primary_weapons_given++;
 
-		if (isDefined(self.stored_weapon_info[self.grief_savedweapon_weapons[i]]) && isDefined(self.stored_weapon_info[self.grief_savedweapon_weapons[i]].used_amt))
+		if (isDefined(self.stored_weapon_info) && isDefined(self.stored_weapon_info[self.grief_savedweapon_weapons[i]]) && isDefined(self.stored_weapon_info[self.grief_savedweapon_weapons[i]].used_amt))
 		{
 			used_amt = self.stored_weapon_info[self.grief_savedweapon_weapons[i]].used_amt;
 

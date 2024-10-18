@@ -160,9 +160,12 @@ round_end(winner)
 			player notify("perk_abort_drinking");
 
 			// stop active perks
-			foreach (perk in player.perks_active)
+			if (isDefined(player.perks_active))
 			{
-				player notify(perk + "_stop");
+				foreach (perk in player.perks_active)
+				{
+					player notify(perk + "_stop");
+				}
 			}
 
 			// save weapons

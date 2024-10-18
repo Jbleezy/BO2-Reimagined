@@ -33322,7 +33322,7 @@
 "zombie_weapon_upgrade" "beretta93r_zm"
 "targetname" "weapon_upgrade"
 "target" "pf1777_auto2196"
-"script_string" "bus_buyable_weapon1"
+"script_string" "disable_clientfield"
 "guid" "F0390DB3"
 }
 {

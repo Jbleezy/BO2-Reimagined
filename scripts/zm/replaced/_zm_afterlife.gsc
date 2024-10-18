@@ -257,15 +257,20 @@ afterlife_revive_invincible()
 
 afterlife_revive_do_revive(playerbeingrevived, revivergun)
 {
-	playerbeingrevived_player = playerbeingrevived;
-	playerbeingrevived_player.revive_hud.y = -160;
-	beingrevivedprogressbar_y = level.primaryprogressbary * -1;
+	playerbeingrevived_player = undefined;
+	beingrevivedprogressbar_y = 0;
 
 	if (isDefined(playerbeingrevived.e_afterlife_player))
 	{
 		playerbeingrevived_player = playerbeingrevived.e_afterlife_player;
 		playerbeingrevived_player.revive_hud.y = -95;
 		beingrevivedprogressbar_y = level.secondaryprogressbary * -1.5;
+	}
+	else
+	{
+		playerbeingrevived_player = playerbeingrevived;
+		playerbeingrevived_player.revive_hud.y = -160;
+		beingrevivedprogressbar_y = level.primaryprogressbary * -1;
 	}
 
 	assert(self is_reviving_afterlife(playerbeingrevived));
@@ -305,7 +310,6 @@ afterlife_revive_do_revive(playerbeingrevived, revivergun)
 		playerbeingrevived_player.beingrevivedprogressbar.sort = 1;
 		playerbeingrevived_player.beingrevivedprogressbar.bar.sort = 2;
 		playerbeingrevived_player.beingrevivedprogressbar.barframe.sort = 3;
-		playerbeingrevived_player.beingrevivedprogressbar.barframe destroy();
 		playerbeingrevived_player.beingrevivedprogressbar thread scripts\zm\_zm_reimagined::destroy_on_intermission();
 	}
 
@@ -319,7 +323,6 @@ afterlife_revive_do_revive(playerbeingrevived, revivergun)
 		self.reviveprogressbar.sort = 1;
 		self.reviveprogressbar.bar.sort = 2;
 		self.reviveprogressbar.barframe.sort = 3;
-		self.reviveprogressbar.barframe destroy();
 		self.reviveprogressbar thread scripts\zm\_zm_reimagined::destroy_on_intermission();
 	}
 
@@ -339,7 +342,12 @@ afterlife_revive_do_revive(playerbeingrevived, revivergun)
 	self.is_reviving_any++;
 	self thread laststand_clean_up_reviving_any(playerbeingrevived);
 	self.reviveprogressbar updatebar(0.01, 1 / revivetime);
-	playerbeingrevived_player.beingrevivedprogressbar updatebar(0.01, 1 / revivetime);
+
+	if (isdefined(playerbeingrevived_player.beingrevivedprogressbar))
+	{
+		playerbeingrevived_player.beingrevivedprogressbar updatebar(0.01, 1 / revivetime);
+	}
+
 	self.revivetexthud.alignx = "center";
 	self.revivetexthud.aligny = "middle";
 	self.revivetexthud.horzalign = "center";

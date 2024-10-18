@@ -325,10 +325,25 @@ tombstone_give()
 		self takeWeapon(weapon);
 	}
 
-	self takeWeapon(self get_player_melee_weapon());
-	self takeWeapon(self get_player_lethal_grenade());
-	self takeWeapon(self get_player_tactical_grenade());
-	self takeWeapon(self get_player_placeable_mine());
+	if (isDefined(self get_player_melee_weapon()))
+	{
+		self takeWeapon(self get_player_melee_weapon());
+	}
+
+	if (isDefined(self get_player_lethal_grenade()))
+	{
+		self takeWeapon(self get_player_lethal_grenade());
+	}
+
+	if (isDefined(self get_player_tactical_grenade()))
+	{
+		self takeWeapon(self get_player_tactical_grenade());
+	}
+
+	if (isDefined(self get_player_placeable_mine()))
+	{
+		self takeWeapon(self get_player_placeable_mine());
+	}
 
 	primary_weapons_given = 0;
 	i = 0;

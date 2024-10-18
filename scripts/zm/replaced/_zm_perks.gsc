@@ -1076,10 +1076,18 @@ give_perk(perk, bought)
 
 	self set_perk_clientfield(perk, 1);
 	maps\mp\_demo::bookmark("zm_player_perk", getTime(), self);
+
+	perk_stat = perk;
+
+	if (perk_stat == "specialty_movefaster")
+	{
+		perk_stat = "specialty_longersprint";
+	}
+
 	self maps\mp\zombies\_zm_stats::increment_client_stat("perks_drank");
-	self maps\mp\zombies\_zm_stats::increment_client_stat(perk + "_drank");
-	self maps\mp\zombies\_zm_stats::increment_player_stat(perk + "_drank");
 	self maps\mp\zombies\_zm_stats::increment_player_stat("perks_drank");
+	self maps\mp\zombies\_zm_stats::increment_client_stat(perk_stat + "_drank");
+	self maps\mp\zombies\_zm_stats::increment_player_stat(perk_stat + "_drank");
 
 	if (!isDefined(self.perk_history))
 	{
@@ -1324,12 +1332,15 @@ initialize_custom_perk_arrays()
 		level._custom_perks = [];
 	}
 
-	level._custom_perks["specialty_movefaster"] = spawnStruct();
-	level._custom_perks["specialty_movefaster"].cost = 2500;
-	level._custom_perks["specialty_movefaster"].alias = "marathon";
-	level._custom_perks["specialty_movefaster"].hint_string = &"ZOMBIE_PERK_MARATHON";
-	level._custom_perks["specialty_movefaster"].perk_bottle = "zombie_perk_bottle_marathon";
-	level._custom_perks["specialty_movefaster"].perk_machine_thread = ::turn_movefaster_on;
+	if (is_true(level.zombiemode_using_marathon_perk))
+	{
+		level._custom_perks["specialty_movefaster"] = spawnStruct();
+		level._custom_perks["specialty_movefaster"].cost = 2500;
+		level._custom_perks["specialty_movefaster"].alias = "marathon";
+		level._custom_perks["specialty_movefaster"].hint_string = &"ZOMBIE_PERK_MARATHON";
+		level._custom_perks["specialty_movefaster"].perk_bottle = "zombie_perk_bottle_marathon";
+		level._custom_perks["specialty_movefaster"].perk_machine_thread = ::turn_marathon_on;
+	}
 
 	struct = spawnStruct();
 	struct.script_noteworthy = "specialty_longersprint";
@@ -1372,21 +1383,6 @@ initialize_custom_perk_arrays()
 	if (getDvar("g_gametype") == "zgrief" && getDvarIntDefault("ui_gametype_pro", 0))
 	{
 		remove_pap_machine();
-	}
-}
-
-remove_pap_machine()
-{
-	exceptions = array("specialty_armorvest", "specialty_fastreload");
-
-	structs = getStructArray("zm_perk_machine", "targetname");
-
-	foreach (struct in structs)
-	{
-		if (isDefined(struct.script_noteworthy) && struct.script_noteworthy == "specialty_weapupgrade")
-		{
-			struct.script_string = "";
-		}
 	}
 }
 
@@ -1455,7 +1451,20 @@ move_perk_machine(map, location, perk, move_struct)
 	}
 }
 
-turn_movefaster_on()
+remove_pap_machine()
+{
+	structs = getStructArray("zm_perk_machine", "targetname");
+
+	foreach (struct in structs)
+	{
+		if (isDefined(struct.script_noteworthy) && struct.script_noteworthy == "specialty_weapupgrade")
+		{
+			struct.script_string = "";
+		}
+	}
+}
+
+turn_marathon_on()
 {
 	while (1)
 	{

@@ -1236,15 +1236,13 @@ bleedout_bar_hud()
 		hud.sort = 1;
 		hud.bar.sort = 2;
 		hud.barframe.sort = 3;
-		hud.barframe destroy();
 		hud thread destroy_on_intermission();
 
 		self thread bleedout_bar_hud_updatebar(hud);
 
 		self waittill_any("player_revived", "bled_out", "player_suicide");
 
-		hud.bar destroy();
-		hud destroy();
+		hud destroyelem();
 	}
 }
 
@@ -2792,7 +2790,7 @@ refill_after_time(primary)
 
 	ammo_stock -= missing_clip;
 
-	if (dw_primary != "none")
+	if (dw_primary != "none" && self hasweapon(dw_primary))
 	{
 		dw_ammo_clip = self getWeaponAmmoClip(dw_primary);
 		dw_missing_clip = weaponClipSize(dw_primary) - dw_ammo_clip;
@@ -2835,7 +2833,7 @@ refill_after_time(primary)
 		}
 	}
 
-	if (alt_primary != "none")
+	if (alt_primary != "none" && self hasweapon(alt_primary))
 	{
 		ammo_clip = self getWeaponAmmoClip(alt_primary);
 		ammo_stock = self getWeaponAmmoStock(alt_primary);

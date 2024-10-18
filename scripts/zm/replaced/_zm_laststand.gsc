@@ -9,15 +9,20 @@ revive_do_revive(playerbeingrevived, revivergun)
 
 	self thread revive_check_for_weapon_change();
 
-	playerbeingrevived_player = playerbeingrevived;
-	playerbeingrevived_player.revive_hud.y = -160;
-	beingrevivedprogressbar_y = level.primaryprogressbary * -1;
+	playerbeingrevived_player = undefined;
+	beingrevivedprogressbar_y = 0;
 
 	if (isDefined(playerbeingrevived.e_chugabud_player))
 	{
 		playerbeingrevived_player = playerbeingrevived.e_chugabud_player;
 		playerbeingrevived_player.revive_hud.y = -95;
 		beingrevivedprogressbar_y = level.secondaryprogressbary * -1.5;
+	}
+	else
+	{
+		playerbeingrevived_player = playerbeingrevived;
+		playerbeingrevived_player.revive_hud.y = -160;
+		beingrevivedprogressbar_y = level.primaryprogressbary * -1;
 	}
 
 	revivetime = 3;
@@ -59,7 +64,6 @@ revive_do_revive(playerbeingrevived, revivergun)
 		playerbeingrevived_player.beingrevivedprogressbar.sort = 1;
 		playerbeingrevived_player.beingrevivedprogressbar.bar.sort = 2;
 		playerbeingrevived_player.beingrevivedprogressbar.barframe.sort = 3;
-		playerbeingrevived_player.beingrevivedprogressbar.barframe destroy();
 		playerbeingrevived_player.beingrevivedprogressbar thread scripts\zm\_zm_reimagined::destroy_on_intermission();
 	}
 
@@ -73,7 +77,6 @@ revive_do_revive(playerbeingrevived, revivergun)
 		self.reviveprogressbar.sort = 1;
 		self.reviveprogressbar.bar.sort = 2;
 		self.reviveprogressbar.barframe.sort = 3;
-		self.reviveprogressbar.barframe destroy();
 		self.reviveprogressbar thread scripts\zm\_zm_reimagined::destroy_on_intermission();
 	}
 

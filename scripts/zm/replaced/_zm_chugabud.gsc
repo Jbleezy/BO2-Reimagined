@@ -387,7 +387,6 @@ chugabud_bleed_timeout_hud_create(delay)
 	hud.sort = 1;
 	hud.bar.sort = 2;
 	hud.barframe.sort = 3;
-	hud.barframe destroy();
 	hud thread scripts\zm\_zm_reimagined::destroy_on_intermission();
 
 	hud updatebar(1);
@@ -457,9 +456,7 @@ chugabud_corpse_cleanup(corpse, was_revived, was_disconnect = 0)
 
 	if (isdefined(self.chugabud_bleed_timeout_hud))
 	{
-		self.chugabud_bleed_timeout_hud destroy();
-		self.chugabud_bleed_timeout_hud.bar destroy();
-		self.chugabud_bleed_timeout_hud.barframe destroy();
+		self.chugabud_bleed_timeout_hud destroyelem();
 		self.chugabud_bleed_timeout_hud = undefined;
 	}
 
