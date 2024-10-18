@@ -624,6 +624,8 @@
 * Upgraded: charged shots damage Panzersoldat
 * Upgraded: decreased alt weapon fire time from 3 seconds to 0.5 seconds
 * Upgraded: changed alt weapon fire type from full auto to single shot
+* Upgraded: charge loop sound stops playing immediately after firing
+* Upgraded: fixed charge sounds not playing after firing a 1 charge shot
 * Fire upgraded: charged shots no longer deal additional damage to Panzersoldat
 * Ice upgraded: fixed melee sound
 

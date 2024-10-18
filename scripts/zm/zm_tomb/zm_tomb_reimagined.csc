@@ -3,6 +3,7 @@
 
 main()
 {
+	replaceFunc(clientscripts\mp\zm_tomb_amb::sndchargeshot, scripts\zm\replaced\zm_tomb_amb::sndchargeshot);
 	replaceFunc(clientscripts\mp\zm_tomb_capture_zones::register_perk_machine_smoke_struct_references, scripts\zm\replaced\zm_tomb_capture_zones::register_perk_machine_smoke_struct_references);
 	replaceFunc(clientscripts\mp\zm_tomb_craftables::register_clientfields, scripts\zm\replaced\zm_tomb_craftables::register_clientfields);
 	replaceFunc(clientscripts\mp\zombies\_zm_ai_mechz::mechzfootstepcbfunc, scripts\zm\replaced\_zm_ai_mechz::mechzfootstepcbfunc);
