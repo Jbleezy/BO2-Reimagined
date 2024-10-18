@@ -227,6 +227,11 @@ player_perk_pause_and_unpause_all_perks(time, owner)
 	self endon("player_perk_pause_and_unpause_all_perks");
 	self endon("disconnect");
 
+	if (!isDefined(self.disabled_perks))
+	{
+		self.disabled_perks = [];
+	}
+
 	if (self.team != owner.team)
 	{
 		self.last_emped_by = spawnStruct();
@@ -293,50 +298,49 @@ player_perk_unpause_all_perks()
 
 player_perk_pause(perk)
 {
-	if (perk == "Pack_A_Punch" || perk == "specialty_weapupgrade")
+	if (perk == "specialty_weapupgrade")
 	{
 		return;
 	}
 
-	if (!isDefined(self.disabled_perks))
+	if (!self hasperk(perk))
 	{
-		self.disabled_perks = [];
+		return;
 	}
 
-	if (!is_true(self.disabled_perks[perk]) && self hasperk(perk))
+	if (is_true(self.disabled_perks[perk]))
 	{
-		self.disabled_perks[perk] = 1;
+		return;
 	}
 
-	if (self.disabled_perks[perk])
+	self.disabled_perks[perk] = 1;
+
+	self unsetperk(perk);
+	self maps\mp\zombies\_zm_perks::set_perk_clientfield(perk, 2);
+
+	if (perk == "specialty_armorvest" || perk == "specialty_armorvest_upgrade")
 	{
-		self unsetperk(perk);
-		self maps\mp\zombies\_zm_perks::set_perk_clientfield(perk, 2);
+		self setmaxhealth(self.premaxhealth);
 
-		if (perk == "specialty_armorvest" || perk == "specialty_armorvest_upgrade")
+		if (self.health > self.maxhealth)
 		{
-			self setmaxhealth(self.premaxhealth);
-
-			if (self.health > self.maxhealth)
-			{
-				self.health = self.maxhealth;
-			}
+			self.health = self.maxhealth;
 		}
+	}
 
-		if (perk == "specialty_additionalprimaryweapon" || perk == "specialty_additionalprimaryweapon_upgrade")
-		{
-			self maps\mp\zombies\_zm::take_additionalprimaryweapon();
-		}
+	if (perk == "specialty_additionalprimaryweapon" || perk == "specialty_additionalprimaryweapon_upgrade")
+	{
+		self maps\mp\zombies\_zm::take_additionalprimaryweapon();
+	}
 
-		if (issubstr(perk, "specialty_scavenger"))
-		{
-			self.hasperkspecialtytombstone = undefined;
-		}
+	if (issubstr(perk, "specialty_scavenger"))
+	{
+		self.hasperkspecialtytombstone = undefined;
+	}
 
-		if (isDefined(level._custom_perks[perk]) && isDefined(level._custom_perks[perk].player_thread_take))
-		{
-			self thread [[level._custom_perks[perk].player_thread_take]]();
-		}
+	if (isDefined(level._custom_perks[perk]) && isDefined(level._custom_perks[perk].player_thread_take))
+	{
+		self thread [[level._custom_perks[perk].player_thread_take]]();
 	}
 
 	self notify("perk_lost");
@@ -344,38 +348,36 @@ player_perk_pause(perk)
 
 player_perk_unpause(perk)
 {
-	if (!isDefined(perk))
+	if (perk == "specialty_weapupgrade")
 	{
 		return;
 	}
 
-	if (perk == "Pack_A_Punch")
+	if (!is_true(self.disabled_perks[perk]))
 	{
 		return;
 	}
 
-	if (isDefined(self.disabled_perks) && is_true(self.disabled_perks[perk]))
+	self.disabled_perks[perk] = undefined;
+
+	self setperk(perk);
+	self maps\mp\zombies\_zm_perks::set_perk_clientfield(perk, 1);
+
+	self maps\mp\zombies\_zm_perks::perk_set_max_health_if_jugg(perk, 0, 0);
+
+	if (perk == "specialty_additionalprimaryweapon" || perk == "specialty_additionalprimaryweapon_upgrade")
 	{
-		self.disabled_perks[perk] = undefined;
-		self maps\mp\zombies\_zm_perks::set_perk_clientfield(perk, 1);
-		self setperk(perk);
+		self scripts\zm\replaced\_zm::restore_additionalprimaryweapon();
+	}
 
-		if (issubstr(perk, "specialty_scavenger"))
-		{
-			self.hasperkspecialtytombstone = 1;
-		}
+	if (issubstr(perk, "specialty_scavenger"))
+	{
+		self.hasperkspecialtytombstone = 1;
+	}
 
-		if (perk == "specialty_additionalprimaryweapon" || perk == "specialty_additionalprimaryweapon_upgrade")
-		{
-			self scripts\zm\replaced\_zm::restore_additionalprimaryweapon();
-		}
-
-		self maps\mp\zombies\_zm_perks::perk_set_max_health_if_jugg(perk, 0, 0);
-
-		if (isDefined(level._custom_perks[perk]) && isDefined(level._custom_perks[perk].player_thread_give))
-		{
-			self thread [[level._custom_perks[perk].player_thread_give]]();
-		}
+	if (isDefined(level._custom_perks[perk]) && isDefined(level._custom_perks[perk].player_thread_give))
+	{
+		self thread [[level._custom_perks[perk].player_thread_give]]();
 	}
 
 	self notify("perk_acquired");
