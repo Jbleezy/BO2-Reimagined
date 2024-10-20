@@ -679,14 +679,15 @@ set_dvars()
 	{
 		setDvar("bg_chargeShotMaxBulletsInQueue", 5);
 		setDvar("bg_chargeShotQueueTime", 250);
-		setDvar("tu14_preventStartingChargeShotWhileFiring", 0);
 	}
 	else
 	{
 		setDvar("bg_chargeShotMaxBulletsInQueue", 3);
 		setDvar("bg_chargeShotQueueTime", 500);
-		setDvar("tu14_preventStartingChargeShotWhileFiring", 1);
 	}
+
+	setDvar("bg_chargeShotDischargeFix", 1);
+	setDvar("tu14_preventStartingChargeShotWhileFiring", 0);
 
 	setDvar("bg_jetgun_disable_spin_while_meleeing", 1);
 	setDvar("bg_jetgun_disable_z_thrust", 1);
@@ -720,6 +721,7 @@ set_client_dvars()
 	    "bg_burstFireInputFix", getDvar("bg_burstFireInputFix"),
 	    "bg_chargeShotMaxBulletsInQueue", getDvar("bg_chargeShotMaxBulletsInQueue"),
 	    "bg_chargeShotQueueTime", getDvar("bg_chargeShotQueueTime"),
+	    "bg_chargeShotDischargeFix", getDvar("bg_chargeShotDischargeFix"),
 	    "tu14_preventStartingChargeShotWhileFiring", getDvar("tu14_preventStartingChargeShotWhileFiring"),
 	    "bg_jetgun_disable_spin_while_meleeing", getDvar("bg_jetgun_disable_spin_while_meleeing"),
 	    "bg_jetgun_disable_z_thrust", getDvar("bg_jetgun_disable_z_thrust"),

@@ -621,11 +621,13 @@
 * Get full ammo when initially picked up after upgrading (normally missing one clip)
 * Max ammo no longer fills clip ammo
 * Upgraded: kill on any round
+* Upgraded: charged shots can be started while firing
 * Upgraded: charged shots damage Panzersoldat
 * Upgraded: decreased alt weapon fire time from 3 seconds to 0.5 seconds
 * Upgraded: changed alt weapon fire type from full auto to single shot
 * Upgraded: charge loop sound stops playing immediately after firing
 * Upgraded: fixed charge sounds not playing after firing a 1 charge shot
+* Upgraded: fixed charged shots not being discharged when attempting to fire while already firing or sprinting
 * Fire upgraded: charged shots no longer deal additional damage to Panzersoldat
 * Ice upgraded: fixed melee sound
 
