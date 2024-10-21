@@ -423,6 +423,8 @@
 
 #### M1927
 * Decreased ammo cost from 800 to 750
+* Unupgraded: decreased stock ammo from 350 to 250
+* Upgraded: decreased stock ammo from 400 to 300
 
 #### MP40
 * Increased move speed while aiming from 100% to 157.5% (move speed multiplied by 1.5)
