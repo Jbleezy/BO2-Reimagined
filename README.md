@@ -661,7 +661,7 @@
 
 #### Hell's Retriever
 * No longer ricochets to other zombies when not charged
-* Every charge increases total zombies attacked by 3
+* Each charge exponentially increases total zombies attacked (3 -> 6 -> 10)
 * Unupgraded: changed damage to 2000 (normally does 1000-2000 damage based on number of charges)
 * Upgraded: kills on any round when not charged
 

@@ -39,7 +39,7 @@ get_grenade_charge_power(player)
 		}
 		else
 		{
-			return 9;
+			return 10;
 		}
 	}
 
