@@ -793,8 +793,6 @@ afterlife_give_loadout()
 
 	if (isdefined(self.keep_perks) && self.keep_perks && isdefined(loadout.perks) && loadout.perks.size > 0)
 	{
-		dvar_str = "";
-
 		for (i = 0; i < loadout.perks.size; i++)
 		{
 			if (self hasperk(loadout.perks[i]))
@@ -812,12 +810,10 @@ afterlife_give_loadout()
 				continue;
 			}
 
-			dvar_str += loadout.perks[i] + ";";
 			maps\mp\zombies\_zm_perks::give_perk(loadout.perks[i]);
 		}
 
-		self setclientdvar("perk_order", dvar_str);
-		self luinotifyevent(&"hud_update_perk_order");
+		self scripts\zm\_zm_reimagined::update_perk_order();
 	}
 
 	self.keep_perks = undefined;

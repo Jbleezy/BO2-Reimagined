@@ -54,18 +54,6 @@ vending_divetonuke_power_off()
 	}
 }
 
-divetonuke_register_clientfield()
-{
-	bits = 1;
-
-	if (isdefined(level.zombie_include_weapons) && isdefined(level.zombie_include_weapons["emp_grenade_zm"]))
-	{
-		bits = 2;
-	}
-
-	registerclientfield("toplayer", "perk_dive_to_nuke", 9000, bits, "int");
-}
-
 divetonuke_perk_machine_setup(use_trigger, perk_machine, bump_trigger, collision)
 {
 	use_trigger.script_sound = "mus_perks_phdflopper_jingle";

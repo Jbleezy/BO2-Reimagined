@@ -109,6 +109,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_perks::set_perk_clientfield, scripts\zm\replaced\_zm_perks::set_perk_clientfield);
 	replaceFunc(maps\mp\zombies\_zm_perks::get_perk_array, scripts\zm\replaced\_zm_perks::get_perk_array);
 	replaceFunc(maps\mp\zombies\_zm_perks::do_initial_power_off_callback, scripts\zm\replaced\_zm_perks::do_initial_power_off_callback);
+	replaceFunc(maps\mp\zombies\_zm_perks::has_perk_paused, scripts\zm\replaced\_zm_perks::has_perk_paused);
 	replaceFunc(maps\mp\zombies\_zm_perks::perk_pause, scripts\zm\replaced\_zm_perks::perk_pause);
 	replaceFunc(maps\mp\zombies\_zm_perks::perk_unpause, scripts\zm\replaced\_zm_perks::perk_unpause);
 	replaceFunc(maps\mp\zombies\_zm_buildables::buildablestub_update_prompt, scripts\zm\replaced\_zm_buildables::buildablestub_update_prompt);
@@ -148,7 +149,6 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_weap_cymbal_monkey::init, scripts\zm\replaced\_zm_weap_cymbal_monkey::init);
 	replaceFunc(maps\mp\zombies\_zm_weap_cymbal_monkey::player_handle_cymbal_monkey, scripts\zm\replaced\_zm_weap_cymbal_monkey::player_handle_cymbal_monkey);
 	replaceFunc(maps\mp\zombies\_zm_perk_divetonuke::divetonuke_precache, scripts\zm\replaced\_zm_perk_divetonuke::divetonuke_precache);
-	replaceFunc(maps\mp\zombies\_zm_perk_divetonuke::divetonuke_register_clientfield, scripts\zm\replaced\_zm_perk_divetonuke::divetonuke_register_clientfield);
 	replaceFunc(maps\mp\zombies\_zm_perk_divetonuke::divetonuke_perk_machine_setup, scripts\zm\replaced\_zm_perk_divetonuke::divetonuke_perk_machine_setup);
 	replaceFunc(maps\mp\zombies\_zm_perk_divetonuke::divetonuke_explode, scripts\zm\replaced\_zm_perk_divetonuke::divetonuke_explode);
 	replaceFunc(maps\mp\zombies\_zm_perk_electric_cherry::enable_electric_cherry_perk_for_level, scripts\zm\replaced\_zm_perk_electric_cherry::enable_electric_cherry_perk_for_level);
@@ -2979,6 +2979,35 @@ get_current_spectating_player()
 	}
 
 	return self;
+}
+
+update_perk_order()
+{
+	perk_order_str = "";
+
+	if (isdefined(self.perks_disabled))
+	{
+		foreach (perk in self.perks_disabled)
+		{
+			perk_order_str += perk + ";";
+		}
+	}
+
+	if (isdefined(self.perks_active))
+	{
+		foreach (perk in self.perks_active)
+		{
+			perk_order_str += perk + ";";
+		}
+	}
+
+	if (perk_order_str == "")
+	{
+		return;
+	}
+
+	self setclientdvar("perk_order", perk_order_str);
+	self luinotifyevent(&"hud_update_perk_order");
 }
 
 clientnotifyloop(notify_str, endon_str)

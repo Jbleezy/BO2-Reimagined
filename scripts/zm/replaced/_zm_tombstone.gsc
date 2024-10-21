@@ -472,24 +472,17 @@ tombstone_give()
 
 	if (isDefined(self.tombstone_perks) && self.tombstone_perks.size > 0)
 	{
-		i = 0;
-		dvar_str = "";
-
-		while (i < self.tombstone_perks.size)
+		for (i = 0; i < self.tombstone_perks.size; i++)
 		{
-			if (self hasperk(self.tombstone_perks[i]))
+			if (self hasperk(self.tombstone_perks[i]) || self maps\mp\zombies\_zm_perks::has_perk_paused(self.tombstone_perks[i]))
 			{
-				i++;
 				continue;
 			}
 
-			dvar_str += self.tombstone_perks[i] + ";";
 			self maps\mp\zombies\_zm_perks::give_perk(self.tombstone_perks[i]);
-			i++;
 		}
 
-		self setclientdvar("perk_order", dvar_str);
-		self luinotifyevent(&"hud_update_perk_order");
+		self scripts\zm\_zm_reimagined::update_perk_order();
 	}
 
 	self.tombstone_savedweapon_weapons = undefined;

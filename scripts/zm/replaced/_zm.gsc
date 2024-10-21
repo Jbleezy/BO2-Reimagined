@@ -2691,14 +2691,7 @@ is_solo_death(players)
 			active_perks = self.perks_active.size;
 		}
 
-		disabled_perks = 0;
-
-		if (isDefined(self.disabled_perks))
-		{
-			disabled_perks = self.disabled_perks.size;
-		}
-
-		if (active_perks <= disabled_perks)
+		if (active_perks == 0)
 		{
 			return 1;
 		}
@@ -2760,14 +2753,7 @@ player_laststand(einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, sh
 				active_perks = self.perks_active.size;
 			}
 
-			disabled_perks = 0;
-
-			if (isDefined(self.disabled_perks))
-			{
-				disabled_perks = self.disabled_perks.size;
-			}
-
-			if (active_perks > disabled_perks || isDefined(self.e_chugabud_corpse))
+			if (active_perks > 0 || isDefined(self.e_chugabud_corpse))
 			{
 				self thread maps\mp\zombies\_zm::wait_and_revive();
 			}

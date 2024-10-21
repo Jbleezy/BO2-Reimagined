@@ -334,11 +334,9 @@ chugabud_give_perks()
 
 	if (isdefined(loadout.perks) && loadout.perks.size > 0)
 	{
-		dvar_str = "";
-
 		for (i = 0; i < loadout.perks.size; i++)
 		{
-			if (self hasperk(loadout.perks[i]))
+			if (self hasperk(loadout.perks[i]) || self maps\mp\zombies\_zm_perks::has_perk_paused(loadout.perks[i]))
 			{
 				continue;
 			}
@@ -353,12 +351,10 @@ chugabud_give_perks()
 				continue;
 			}
 
-			dvar_str += loadout.perks[i] + ";";
 			maps\mp\zombies\_zm_perks::give_perk(loadout.perks[i]);
 		}
 
-		self setclientdvar("perk_order", dvar_str);
-		self luinotifyevent(&"hud_update_perk_order");
+		self scripts\zm\_zm_reimagined::update_perk_order();
 	}
 
 	self.loadout.perks = undefined;

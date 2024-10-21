@@ -105,7 +105,8 @@ LUI.createMenu.PerksArea = function(LocalClientIndex)
 		PerksAreaWidget.perks[ClientFieldIndex] = Widget
 		PerksAreaWidget:registerEventHandler(CoD.Perks.ClientFieldNames[ClientFieldIndex].clientFieldName, CoD.Perks.Update)
 	end
-	PerksAreaWidget:registerEventHandler("hud_update_perk_order", CoD.Perks.UpdateOrder)
+	PerksAreaWidget:registerEventHandler("perks_paused", CoD.Perks.UpdatePerksPaused)
+	PerksAreaWidget:registerEventHandler("hud_update_perk_order", CoD.Perks.UpdatePerkOrder)
 	PerksAreaWidget:registerEventHandler("hud_update_refresh", CoD.Perks.UpdateVisibility)
 	PerksAreaWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_VISIBLE, CoD.Perks.UpdateVisibility)
 	PerksAreaWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_PLAYER_IN_AFTERLIFE, CoD.Perks.UpdateVisibility)
@@ -178,11 +179,10 @@ CoD.Perks.RemovePerkIcon = function(Menu, OwnedPerkIndex)
 		if not NextPerkWidget then
 			PerkWidget.perkIcon:setAlpha(0)
 			if PerkWidget.perkGlowIcon then
-			else
-				PerkWidget.perkId = nil
-				break
+				PerkWidget.perkGlowIcon:setAlpha(0)
 			end
-			PerkWidget.perkGlowIcon:setAlpha(0)
+			PerkWidget.perkId = nil
+			break
 		elseif not NextPerkWidget.perkId then
 			PerkWidget.perkIcon:setAlpha(0)
 			if PerkWidget.perkGlowIcon then
@@ -190,12 +190,11 @@ CoD.Perks.RemovePerkIcon = function(Menu, OwnedPerkIndex)
 				PerkWidget.perkGlowIcon = nil
 			end
 			if PerkWidget.meterContainer then
-			else
-				PerkWidget.perkId = nil
-				break
+				PerkWidget.meterContainer:close()
+				PerkWidget.meterContainer = nil
 			end
-			PerkWidget.meterContainer:close()
-			PerkWidget.meterContainer = nil
+			PerkWidget.perkId = nil
+			break
 		else
 			PerkWidget.perkIcon:setImage(CoD.Perks.GetMaterial(Menu, NextPerkWidget.perkId))
 			local f5_local5 = CoD.Perks.GetGlowMaterial(Menu, NextPerkWidget.perkId)
@@ -215,26 +214,49 @@ CoD.Perks.Update = function(Menu, ClientInstance)
 			if not PerkWidget.perkId then
 				PerkWidget.perkId = ClientInstance.name
 				PerkWidget.perkIcon:setImage(CoD.Perks.GetMaterial(Menu, ClientInstance.name))
-				PerkWidget.perkIcon:setAlpha(1)
 
-				if PerkWidget.perkId == "perk_vulture" then
-					CoD.Perks.AddVultureMeter(Menu, PerkWidget)
-					CoD.Perks.AddGlowIcon(Menu, PerkWidget)
+				if Menu.perksPaused then
+					PerkWidget:beginAnimation("pulse", CoD.Perks.PulseDuration)
+					PerkWidget:setScale(CoD.Perks.PulseScale)
+					PerkWidget.perkIcon:beginAnimation("pulse", CoD.Perks.PulseDuration)
+					PerkWidget.perkIcon:setAlpha(CoD.Perks.PausedAlpha)
+					if PerkWidget.perkGlowIcon then
+						PerkWidget.perkGlowIcon:beginAnimation("pulse", CoD.Perks.PulseDuration)
+						PerkWidget.perkGlowIcon:setAlpha(0)
+					end
+				else
+					PerkWidget.perkIcon:setAlpha(1)
 
-					local f6_local4 = CoD.Perks.GetGlowMaterial(Menu, ClientInstance.name)
-					if f6_local4 and PerkWidget.perkGlowIcon then
-						PerkWidget.perkGlowIcon:setImage(f6_local4)
+					if PerkWidget.perkId == "perk_vulture" then
+						CoD.Perks.AddVultureMeter(Menu, PerkWidget)
+						CoD.Perks.AddGlowIcon(Menu, PerkWidget)
+
+						local f6_local4 = CoD.Perks.GetGlowMaterial(Menu, ClientInstance.name)
+						if f6_local4 and PerkWidget.perkGlowIcon then
+							PerkWidget.perkGlowIcon:setImage(f6_local4)
+						end
 					end
 				end
 
 				break
 			elseif PerkWidget.perkId == ClientInstance.name then
-				PerkWidget:beginAnimation("pulse", CoD.Perks.PulseDuration)
-				PerkWidget:setScale(CoD.Perks.PulseScale)
-				PerkWidget.perkIcon:beginAnimation("pulse", CoD.Perks.PulseDuration)
-				PerkWidget.perkIcon:setAlpha(1)
-				if PerkWidget.perkGlowIcon then
-					PerkWidget.perkGlowIcon:beginAnimation("pulse", CoD.Perks.PulseDuration)
+				if Menu.perksPaused then
+					PerkWidget:beginAnimation("pulse", CoD.Perks.PulseDuration)
+					PerkWidget:setScale(CoD.Perks.PulseScale)
+					PerkWidget.perkIcon:beginAnimation("pulse", CoD.Perks.PulseDuration)
+					PerkWidget.perkIcon:setAlpha(CoD.Perks.PausedAlpha)
+					if PerkWidget.perkGlowIcon then
+						PerkWidget.perkGlowIcon:beginAnimation("pulse", CoD.Perks.PulseDuration)
+						PerkWidget.perkGlowIcon:setAlpha(0)
+					end
+				else
+					PerkWidget:beginAnimation("pulse", CoD.Perks.PulseDuration)
+					PerkWidget:setScale(CoD.Perks.PulseScale)
+					PerkWidget.perkIcon:beginAnimation("pulse", CoD.Perks.PulseDuration)
+					PerkWidget.perkIcon:setAlpha(1)
+					if PerkWidget.perkGlowIcon then
+						PerkWidget.perkGlowIcon:beginAnimation("pulse", CoD.Perks.PulseDuration)
+					end
 				end
 
 				break
@@ -246,41 +268,56 @@ CoD.Perks.Update = function(Menu, ClientInstance)
 				break
 			end
 		end
-		if ClientInstance.newValue == CoD.Perks.STATE_PAUSED then
-			if PerkWidget.perkId == ClientInstance.name then
-				PerkWidget:beginAnimation("pulse", CoD.Perks.PulseDuration)
-				PerkWidget:setScale(CoD.Perks.PulseScale)
-				PerkWidget.perkIcon:beginAnimation("pulse", CoD.Perks.PulseDuration)
-				PerkWidget.perkIcon:setAlpha(CoD.Perks.PausedAlpha)
-				if PerkWidget.perkGlowIcon then
-					PerkWidget.perkGlowIcon:beginAnimation("pulse", CoD.Perks.PulseDuration)
-					PerkWidget.perkGlowIcon:setAlpha(0)
-				end
+	end
+end
 
+CoD.Perks.UpdatePerksPaused = function(Menu, ClientInstance)
+	if ClientInstance.newValue == 1 then
+		Menu.perksPaused = true
+		local PerkWidget = nil
+		for OwnedPerkIndex = 1, #CoD.Perks.ClientFieldNames, 1 do
+			PerkWidget = Menu.perks[OwnedPerkIndex]
+
+			if not PerkWidget.perkId then
 				break
 			end
+
+			PerkWidget:beginAnimation("pulse", CoD.Perks.PulseDuration)
+			PerkWidget:setScale(CoD.Perks.PulseScale)
+			PerkWidget.perkIcon:beginAnimation("pulse", CoD.Perks.PulseDuration)
+			PerkWidget.perkIcon:setAlpha(CoD.Perks.PausedAlpha)
+			if PerkWidget.perkGlowIcon then
+				PerkWidget.perkGlowIcon:beginAnimation("pulse", CoD.Perks.PulseDuration)
+				PerkWidget.perkGlowIcon:setAlpha(0)
+			end
 		end
-		if ClientInstance.newValue == CoD.Perks.STATE_TBD then
+	else
+		Menu.perksPaused = nil
+		local PerkWidget = nil
+		for OwnedPerkIndex = 1, #CoD.Perks.ClientFieldNames, 1 do
+			PerkWidget = Menu.perks[OwnedPerkIndex]
+
+			if not PerkWidget.perkId then
+				break
+			end
+
+			PerkWidget:beginAnimation("pulse", CoD.Perks.PulseDuration)
+			PerkWidget:setScale(CoD.Perks.PulseScale)
+			PerkWidget.perkIcon:beginAnimation("pulse", CoD.Perks.PulseDuration)
+			PerkWidget.perkIcon:setAlpha(1)
+			if PerkWidget.perkGlowIcon then
+				PerkWidget.perkGlowIcon:beginAnimation("pulse", CoD.Perks.PulseDuration)
+			end
 		end
 	end
 end
 
-CoD.Perks.UpdateOrder = function(Menu, ClientInstance)
+CoD.Perks.UpdatePerkOrder = function(Menu, ClientInstance)
 	local OrderedPerks = UIExpression.DvarString(nil, "perk_order")
-	local OrderedPerksIndex = 0
-	local OrderedPerksStartIndex = 1
-
-	for OwnedPerkIndex = 1, #CoD.Perks.ClientFieldNames, 1 do
-		local OwnedPerkWidget = Menu.perks[OwnedPerkIndex]
-
-		if not OwnedPerkWidget.perkId then
-			OrderedPerksStartIndex = OwnedPerkIndex
-			break
-		end
-	end
+	local OrderedPerksIndex = 1
 
 	for Perk in string.gmatch(OrderedPerks, "(.-);") do
-		local PerkWidget = Menu.perks[OrderedPerksStartIndex + OrderedPerksIndex]
+		local PerkWidget = Menu.perks[OrderedPerksIndex]
 		PerkWidget.perkId = CoD.Perks.SpecialtyToClientFieldNames[Perk]
 		PerkWidget.perkIcon:setImage(CoD.Perks.GetMaterial(Menu, PerkWidget.perkId))
 
@@ -305,6 +342,10 @@ CoD.Perks.UpdateOrder = function(Menu, ClientInstance)
 		end
 
 		OrderedPerksIndex = OrderedPerksIndex + 1
+	end
+
+	for UnownedPerkIndex = OrderedPerksIndex, #CoD.Perks.ClientFieldNames, 1 do
+		CoD.Perks.RemovePerkIcon(Menu, UnownedPerkIndex)
 	end
 end
 

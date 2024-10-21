@@ -227,9 +227,9 @@ player_perk_pause_and_unpause_all_perks(time, owner)
 	self endon("player_perk_pause_and_unpause_all_perks");
 	self endon("disconnect");
 
-	if (!isDefined(self.disabled_perks))
+	if (!isDefined(self.perks_disabled))
 	{
-		self.disabled_perks = [];
+		self.perks_disabled = [];
 	}
 
 	if (self.team != owner.team)
@@ -246,11 +246,13 @@ player_perk_pause_and_unpause_all_perks(time, owner)
 		self.last_emped_by = undefined;
 	}
 
+	self setclientfieldtoplayer("perks_paused", 1);
 	self player_perk_pause_all_perks();
 	self thread player_perk_pause_all_perks_acquired(time);
 
 	self waittill_any_or_timeout(time, "spawned_player", "bled_out", "player_suicide");
 
+	self setclientfieldtoplayer("perks_paused", 0);
 	self player_perk_unpause_all_perks();
 
 	self.last_emped_by = undefined;
@@ -266,39 +268,45 @@ player_perk_pause_all_perks_acquired(time)
 	{
 		self waittill("perk_acquired");
 
-		wait 0.1;
-
 		self player_perk_pause_all_perks();
 	}
 }
 
 player_perk_pause_all_perks()
 {
-	vending_triggers = getentarray("zombie_vending", "targetname");
-
-	foreach (trigger in vending_triggers)
+	if (!isdefined(self.perks_active))
 	{
-		self player_perk_pause(trigger.script_noteworthy);
+		return;
 	}
+
+	foreach (perk in self.perks_active)
+	{
+		self player_perk_pause(perk);
+	}
+
+	self.perks_active = [];
 }
 
 player_perk_unpause_all_perks()
 {
 	self notify("player_perk_pause_timeout");
 
-	vending_triggers = getentarray("zombie_vending", "targetname");
-
-	foreach (trigger in vending_triggers)
+	if (!isdefined(self.perks_disabled))
 	{
-		self player_perk_unpause(trigger.script_noteworthy);
+		return;
 	}
 
-	self.disabled_perks = [];
+	foreach (perk in self.perks_disabled)
+	{
+		self player_perk_unpause(perk);
+	}
+
+	self.perks_disabled = [];
 }
 
 player_perk_pause(perk)
 {
-	if (perk == "specialty_weapupgrade")
+	if (isinarray(self.perks_disabled, perk))
 	{
 		return;
 	}
@@ -308,15 +316,7 @@ player_perk_pause(perk)
 		return;
 	}
 
-	if (is_true(self.disabled_perks[perk]))
-	{
-		return;
-	}
-
-	self.disabled_perks[perk] = 1;
-
 	self unsetperk(perk);
-	self maps\mp\zombies\_zm_perks::set_perk_clientfield(perk, 2);
 
 	if (perk == "specialty_armorvest" || perk == "specialty_armorvest_upgrade")
 	{
@@ -343,25 +343,24 @@ player_perk_pause(perk)
 		self thread [[level._custom_perks[perk].player_thread_take]]();
 	}
 
+	self.perks_disabled[self.perks_disabled.size] = perk;
+
 	self notify("perk_lost");
 }
 
 player_perk_unpause(perk)
 {
-	if (perk == "specialty_weapupgrade")
+	if (!isinarray(self.perks_disabled, perk))
 	{
 		return;
 	}
 
-	if (!is_true(self.disabled_perks[perk]))
+	if (self hasperk(perk))
 	{
 		return;
 	}
-
-	self.disabled_perks[perk] = undefined;
 
 	self setperk(perk);
-	self maps\mp\zombies\_zm_perks::set_perk_clientfield(perk, 1);
 
 	self maps\mp\zombies\_zm_perks::perk_set_max_health_if_jugg(perk, 0, 0);
 
@@ -379,6 +378,13 @@ player_perk_unpause(perk)
 	{
 		self thread [[level._custom_perks[perk].player_thread_give]]();
 	}
+
+	if (!isDefined(self.perks_active))
+	{
+		self.perks_active = [];
+	}
+
+	self.perks_active[self.perks_active.size] = perk;
 
 	self notify("perk_acquired");
 }

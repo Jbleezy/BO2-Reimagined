@@ -6,61 +6,59 @@
 
 perks_register_clientfield()
 {
-	bits = 1;
-
 	if (isdefined(level.zombie_include_weapons) && isdefined(level.zombie_include_weapons["emp_grenade_zm"]))
 	{
-		bits = 2;
+		registerclientfield("toplayer", "perks_paused", 1, 1, "int");
 	}
 
 	if (isdefined(level.zombiemode_using_additionalprimaryweapon_perk) && level.zombiemode_using_additionalprimaryweapon_perk)
 	{
-		registerclientfield("toplayer", "perk_additional_primary_weapon", 1, bits, "int");
+		registerclientfield("toplayer", "perk_additional_primary_weapon", 1, 1, "int");
 	}
 
 	if (isdefined(level.zombiemode_using_deadshot_perk) && level.zombiemode_using_deadshot_perk)
 	{
-		registerclientfield("toplayer", "perk_dead_shot", 1, bits, "int");
+		registerclientfield("toplayer", "perk_dead_shot", 1, 1, "int");
 	}
 
 	if (isdefined(level.zombiemode_using_doubletap_perk) && level.zombiemode_using_doubletap_perk)
 	{
-		registerclientfield("toplayer", "perk_double_tap", 1, bits, "int");
+		registerclientfield("toplayer", "perk_double_tap", 1, 1, "int");
 	}
 
 	if (isdefined(level.zombiemode_using_juggernaut_perk) && level.zombiemode_using_juggernaut_perk)
 	{
-		registerclientfield("toplayer", "perk_juggernaut", 1, bits, "int");
+		registerclientfield("toplayer", "perk_juggernaut", 1, 1, "int");
 	}
 
 	if (isdefined(level.zombiemode_using_marathon_perk) && level.zombiemode_using_marathon_perk)
 	{
-		registerclientfield("toplayer", "perk_marathon", 1, bits, "int");
+		registerclientfield("toplayer", "perk_marathon", 1, 1, "int");
 	}
 
 	if (isdefined(level.zombiemode_using_revive_perk) && level.zombiemode_using_revive_perk)
 	{
-		registerclientfield("toplayer", "perk_quick_revive", 1, bits, "int");
+		registerclientfield("toplayer", "perk_quick_revive", 1, 1, "int");
 	}
 
 	if (isdefined(level.zombiemode_using_sleightofhand_perk) && level.zombiemode_using_sleightofhand_perk)
 	{
-		registerclientfield("toplayer", "perk_sleight_of_hand", 1, bits, "int");
+		registerclientfield("toplayer", "perk_sleight_of_hand", 1, 1, "int");
 	}
 
 	if (isdefined(level.zombiemode_using_tombstone_perk) && level.zombiemode_using_tombstone_perk)
 	{
-		registerclientfield("toplayer", "perk_tombstone", 1, bits, "int");
+		registerclientfield("toplayer", "perk_tombstone", 1, 1, "int");
+	}
+
+	if (isdefined(level.zombiemode_using_chugabud_perk) && level.zombiemode_using_chugabud_perk)
+	{
+		registerclientfield("toplayer", "perk_chugabud", 1000, 1, "int");
 	}
 
 	if (isdefined(level.zombiemode_using_perk_intro_fx) && level.zombiemode_using_perk_intro_fx)
 	{
 		registerclientfield("scriptmover", "clientfield_perk_intro_fx", 1000, 1, "int");
-	}
-
-	if (isdefined(level.zombiemode_using_chugabud_perk) && level.zombiemode_using_chugabud_perk)
-	{
-		registerclientfield("toplayer", "perk_chugabud", 1000, bits, "int");
 	}
 
 	if (isdefined(level._custom_perks))
@@ -1187,9 +1185,9 @@ perk_think(perk)
 		arrayremovevalue(self.perks_active, perk, 0);
 	}
 
-	if (isDefined(self.disabled_perks) && isDefined(self.disabled_perks[perk]))
+	if (isDefined(self.perks_disabled) && isinarray(self.perks_disabled, perk))
 	{
-		self.disabled_perks[perk] = undefined;
+		arrayremovevalue(self.perks_disabled, perk, 0);
 	}
 
 	self notify("perk_lost");
@@ -1717,6 +1715,11 @@ do_initial_power_off_callback(machine_array, perkname)
 
 	wait 0.05;
 	array_thread(machine_array, level.machine_assets[perkname].power_off_callback);
+}
+
+has_perk_paused(perk)
+{
+	return isdefined(self.perks_disabled) && isinarray(self.perks_disabled, perk);
 }
 
 perk_pause(perk)
