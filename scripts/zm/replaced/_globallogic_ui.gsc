@@ -38,6 +38,11 @@ menuautoassign(comingfrommenu)
 
 get_assigned_team()
 {
+	if (level.allow_teamchange)
+	{
+		return getassignedteam(self);
+	}
+
 	teamplayers = [];
 	teamplayers["axis"] = 0;
 	teamplayers["allies"] = 0;

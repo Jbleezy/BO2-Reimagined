@@ -2190,43 +2190,29 @@ save_teams_on_intermission()
 {
 	level waittill("intermission");
 
+	if (level.allow_teamchange)
+	{
+		return;
+	}
+
 	axis_guids = "";
 	allies_guids = "";
 
-	if (level.allow_teamchange)
-	{
-		players = get_players("axis");
+	players = array_randomize(get_players());
+	i = 0;
 
-		foreach (player in players)
+	foreach (player in players)
+	{
+		if (i % 2 == 0)
 		{
 			axis_guids += player getguid() + " ";
 		}
-
-		players = get_players("allies");
-
-		foreach (player in players)
+		else
 		{
 			allies_guids += player getguid() + " ";
 		}
-	}
-	else
-	{
-		players = array_randomize(get_players());
-		i = 0;
 
-		foreach (player in players)
-		{
-			if (i % 2 == 0)
-			{
-				axis_guids += player getguid() + " ";
-			}
-			else
-			{
-				allies_guids += player getguid() + " ";
-			}
-
-			i++;
-		}
+		i++;
 	}
 
 	setDvar("team_axis", axis_guids);
