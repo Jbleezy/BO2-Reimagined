@@ -1296,11 +1296,11 @@
 * Perk bottle dig spots: visible and diggable without Zombie Blood
 * Perk bottle dig spots: increased number of rounds for next dig spot to spawn from 1 to 4
 * Quest: added "Benn - The Divider" song
+* Quest (ascend from darkness step): 3 robots are always active during this step
 * Quest (ascend from darkness step): staffs can be placed at any staff holder
-* Quest (ascend from darkness step): 3 robots are always active during step
 * Quest (ascend from darkness step): fixed an issue where staffs were able to be picked up at their build location when placed in the staff holders
 * Quest (rain fire step): button no longer deactivates after activating
-* Quest (unleash the horde step): Panzersoldat round can no longer start during step
+* Quest (unleash the horde step): Panzersoldat round and this step can no longer happen at the same time
 * Quest (raise hell step): all staffs must be fully charged for souls to be collected
 * Quest (raise hell step): zombies in The Crazy Place get knocked down during the screen flash after collecting all of the souls
 * Quest (freedom step): teleport trigger can be triggered without looking at it
