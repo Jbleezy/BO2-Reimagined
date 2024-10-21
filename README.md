@@ -1271,6 +1271,7 @@
 * Generators: recapture round zombies only drop Max Ammo if killed before taking first generator
 * Generators: fixed an issue where recapture sound and fx would play twice
 * Giant Robots: each robot has an openable foot when 3 robots are active
+* Giant Robots: zombie limit no longer decreased to 22 when 3 robots are active
 * Tank: players can go prone
 * Tank: changed cooldown to 30 seconds (normally 2-120 seconds depending on how long players were on the tank)
 * Tank: no longer free to activate if called
@@ -1296,7 +1297,7 @@
 * Perk bottle dig spots: increased number of rounds for next dig spot to spawn from 1 to 4
 * Quest: added "Benn - The Divider" song
 * Quest (ascend from darkness step): staffs can be placed at any staff holder
-* Quest (ascend from darkness step): three robots always active during step
+* Quest (ascend from darkness step): 3 robots are always active during step
 * Quest (ascend from darkness step): fixed an issue where staffs were able to be picked up at their build location when placed in the staff holders
 * Quest (rain fire step): button no longer deactivates after activating
 * Quest (raise hell step): all staffs must be fully charged for souls to be collected

@@ -44,7 +44,6 @@ robot_cycling()
 
 		if (flag("three_robot_round"))
 		{
-			level.zombie_ai_limit = 22;
 			random_number = randomint(3);
 
 			level thread giant_robot_start_walk(2);
@@ -64,7 +63,6 @@ robot_cycling()
 			level waittill("giant_robot_walk_cycle_complete");
 
 			wait 5;
-			level.zombie_ai_limit = 24;
 			three_robot_round = level.round_number;
 			last_robot = -1;
 			flag_clear("three_robot_round");
