@@ -747,6 +747,7 @@
 * Removed blur after drinking
 * No longer deactivated if the perk machine is powered off
 * Perk order on HUD is restored whenever perks are restored to the player
+* Perk order on HUD is shown correctly when spectating
 
 ### Jugger-Nog
 * Increases current health by 100 upon purchase (normally sets current health to max)

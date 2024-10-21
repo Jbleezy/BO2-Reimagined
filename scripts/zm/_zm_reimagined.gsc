@@ -435,6 +435,7 @@ on_player_connect()
 		player thread on_player_downed();
 		player thread on_player_revived();
 		player thread on_player_fake_revive();
+		player thread on_player_spectate_change();
 
 		player thread grenade_fire_watcher();
 		player thread player_hide_turrets_from_other_players();
@@ -563,6 +564,20 @@ on_player_fake_revive()
 		{
 			self.statusicon = "waypoint_revive_afterlife";
 		}
+	}
+}
+
+on_player_spectate_change()
+{
+	level endon("intermission");
+	self endon("disconnect");
+
+	while (1)
+	{
+		self waittill("spectator_cycle");
+
+		player = self get_current_spectating_player();
+		self update_perk_order(player);
 	}
 }
 
@@ -2981,21 +2996,21 @@ get_current_spectating_player()
 	return self;
 }
 
-update_perk_order()
+update_perk_order(player = self)
 {
 	perk_order_str = "";
 
-	if (isdefined(self.perks_disabled))
+	if (isdefined(player.perks_disabled))
 	{
-		foreach (perk in self.perks_disabled)
+		foreach (perk in player.perks_disabled)
 		{
 			perk_order_str += perk + ";";
 		}
 	}
 
-	if (isdefined(self.perks_active))
+	if (isdefined(player.perks_active))
 	{
-		foreach (perk in self.perks_active)
+		foreach (perk in player.perks_active)
 		{
 			perk_order_str += perk + ";";
 		}
