@@ -576,8 +576,7 @@ on_player_spectate_change()
 	{
 		self waittill("spectator_cycle");
 
-		player = self get_current_spectating_player();
-		self update_perk_order(player);
+		self update_perk_order();
 	}
 }
 
@@ -2978,11 +2977,6 @@ is_tazer_weapon(weapon)
 
 get_current_spectating_player()
 {
-	if (self.currentspectatingclient == -1)
-	{
-		return self;
-	}
-
 	players = get_players();
 
 	foreach (player in players)
@@ -2996,9 +2990,10 @@ get_current_spectating_player()
 	return self;
 }
 
-update_perk_order(player = self)
+update_perk_order()
 {
 	perk_order_str = "";
+	player = self get_current_spectating_player();
 
 	if (isdefined(player.perks_disabled))
 	{
@@ -3021,8 +3016,24 @@ update_perk_order(player = self)
 		return;
 	}
 
-	self setclientdvar("perk_order", perk_order_str);
-	self luinotifyevent(&"hud_update_perk_order");
+	if (player == self)
+	{
+		players = get_players();
+
+		foreach (other_player in players)
+		{
+			if (other_player get_current_spectating_player() == self)
+			{
+				other_player setclientdvar("perk_order", perk_order_str);
+				other_player luinotifyevent(&"hud_update_perk_order");
+			}
+		}
+	}
+	else
+	{
+		self setclientdvar("perk_order", perk_order_str);
+		self luinotifyevent(&"hud_update_perk_order");
+	}
 }
 
 clientnotifyloop(notify_str, endon_str)
