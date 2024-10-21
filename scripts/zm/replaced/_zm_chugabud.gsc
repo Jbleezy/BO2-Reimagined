@@ -407,7 +407,6 @@ chugabud_corpse_revive_icon(player)
 	hud_elem = newhudelem();
 	self.revive_hud_elem = hud_elem;
 	hud_elem.alpha = 1;
-	hud_elem.archived = 1;
 	hud_elem.hidewheninmenu = 1;
 	hud_elem.immunetodemogamehudsettings = 1;
 	hud_elem setwaypoint(1, "specialty_chugabud_zombies");

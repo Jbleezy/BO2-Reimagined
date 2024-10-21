@@ -802,7 +802,6 @@ obj_waypoint()
 		self.next_obj_waypoint.horzalign = "center";
 		self.next_obj_waypoint.vertalign = "middle";
 		self.next_obj_waypoint.color = (0.5, 0.5, 0.5);
-		self.next_obj_waypoint.archived = 0;
 		self.next_obj_waypoint.alpha = 0;
 		self.next_obj_waypoint.hidewheninmenu = 1;
 	}
