@@ -281,7 +281,7 @@ mechz_round_tracker()
 			}
 		}
 
-		if (level.mechz_left_to_spawn == 0 && level.next_mechz_round <= level.round_number)
+		if (level.mechz_left_to_spawn == 0 && level.next_mechz_round <= level.round_number && !ee_mech_zombie_fight_active())
 		{
 			mechz_health_increases();
 
@@ -328,4 +328,9 @@ mechz_round_tracker()
 
 		mechz_clear_spawns();
 	}
+}
+
+ee_mech_zombie_fight_active()
+{
+	return flag("ee_quadrotor_disabled") && !flag("ee_mech_zombie_fight_completed");
 }
