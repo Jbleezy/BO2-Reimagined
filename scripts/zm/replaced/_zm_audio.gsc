@@ -65,6 +65,11 @@ create_and_play_dialog(category, type, response, force_variant, override)
 		return;
 	}
 
+	if (!getDvarIntDefault("character_dialog", 1))
+	{
+		return;
+	}
+
 	isresponse = 0;
 	alias_suffix = undefined;
 	index = undefined;

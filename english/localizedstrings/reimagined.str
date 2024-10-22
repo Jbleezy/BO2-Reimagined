@@ -31,6 +31,12 @@ LANG_ENGLISH        "Containment Pro"
 REFERENCE           ZMUI_ZMEAT_PRO
 LANG_ENGLISH        "Meat Pro"
 
+REFERENCE           ZMUI_CHARACTER_DIALOG_CAPS
+LANG_ENGLISH        "CHARACTER DIALOG"
+
+REFERENCE           ZMUI_CHARACTER_DIALOG_DESC
+LANG_ENGLISH        "Allow character dialog to play."
+
 REFERENCE           ZMUI_PRO_DESC
 LANG_ENGLISH        "No Mystery Box, no Pack-a-Punch, and limited sprint."
 
