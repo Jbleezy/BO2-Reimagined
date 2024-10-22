@@ -402,7 +402,7 @@ REFERENCE           ZM_TRANSIT_ZONE_CORNFIELD_PROTOTYPE
 LANG_ENGLISH        "Cornfield Building"
 
 REFERENCE           ZM_TRANSIT_ZONE_TRANS_7
-LANG_ENGLISH        "Upper Fog Before Power Station"
+LANG_ENGLISH        "Fog After Cornfield"
 
 REFERENCE           ZM_TRANSIT_ZONE_TRANS_POW_EXT1
 LANG_ENGLISH        "Fog Before Power Station"
