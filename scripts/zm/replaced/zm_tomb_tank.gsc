@@ -43,6 +43,12 @@ players_on_tank_update()
 					e_player thread tank_rides_around_map_achievement_watcher();
 					e_player setclientdvar("player_view_pitch_up", 85);
 					e_player setclientdvar("player_view_pitch_down", 85);
+
+					foreach (trig in self.t_rear_tread)
+					{
+						e_player thread tank_push_player_off_edge(trig);
+					}
+
 					continue;
 				}
 

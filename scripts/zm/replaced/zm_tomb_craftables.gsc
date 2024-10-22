@@ -665,13 +665,16 @@ track_staff_weapon_respawn(player)
 
 	foreach (check_player in a_players)
 	{
-		weapons = check_player getweaponslistprimaries();
-
-		foreach (weapon in weapons)
+		if (check_player.sessionstate == "playing")
 		{
-			if (weapon == self.base_weaponname || weapon == s_upgraded_staff.weapname)
+			weapons = check_player getweaponslistprimaries();
+
+			foreach (weapon in weapons)
 			{
-				b_staff_in_use = 1;
+				if (weapon == self.base_weaponname || weapon == s_upgraded_staff.weapname)
+				{
+					b_staff_in_use = 1;
+				}
 			}
 		}
 	}
