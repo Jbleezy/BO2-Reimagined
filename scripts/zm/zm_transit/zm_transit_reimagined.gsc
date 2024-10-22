@@ -722,13 +722,13 @@ attach_powerups_to_bus()
 
 attachpoweruptobus(powerup)
 {
-	powerup endon("powerup_grabbed");
-	powerup endon("powerup_timedout");
-
 	if (!isdefined(powerup) || !isdefined(level.the_bus))
 	{
 		return;
 	}
+
+	powerup endon("powerup_grabbed");
+	powerup endon("powerup_timedout");
 
 	distanceoutsideofbus = 50.0;
 	pos = powerup.origin;
@@ -745,13 +745,11 @@ attachpoweruptobus(powerup)
 		}
 	}
 
-	powerup_og_origin = powerup.origin;
-	bus_og_origin = level.the_bus.origin;
+	origin_diff = level.the_bus worldtolocalcoords(powerup.origin);
 
 	while (isDefined(powerup))
 	{
-		origin_diff = level.the_bus.origin - bus_og_origin;
-		powerup.origin = powerup_og_origin + origin_diff;
+		powerup.origin = level.the_bus localtoworldcoords(origin_diff);
 
 		wait 0.05;
 	}
