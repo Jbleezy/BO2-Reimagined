@@ -1016,8 +1016,8 @@
 * Any door that requires a Turbine to open is automatically open whenever the power is on
 * Increased bus speed by 100%
 * Added bus depart timer on HUD when player is on bus
-* Powerups dropped within the bus are linked to the bus
 * Players can sprint and go prone on the bus
+* Powerups dropped within the bus are linked to the bus
 * Bus wallbuy trigger functions the same as other wallbuy triggers
 * Zombie Shield correctly kills zombies on the bus
 * Lava in starting area activates after the power is on
@@ -1274,7 +1274,8 @@
 * Generators: fixed an issue where recapture sound and fx would play twice
 * Giant Robots: each robot has an openable foot when 3 robots are active
 * Giant Robots: zombie limit no longer decreased to 22 when 3 robots are active
-* Tank: players can go prone
+* Tank: players can go prone on the tank
+* Tank: powerups dropped within the tank are linked to the tank
 * Tank: standing on the tread pushes the player forward instead of backward
 * Tank: changed cooldown to 30 seconds (normally 2-120 seconds depending on how long players were on the tank)
 * Tank: no longer free to activate if called

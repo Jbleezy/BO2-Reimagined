@@ -102,6 +102,7 @@ init()
 	level thread divetonuke_on();
 	level thread electric_cherry_on();
 	level thread zombie_blood_dig_changes();
+	level thread attach_powerups_to_tank();
 	level thread updatecraftables();
 }
 
@@ -289,6 +290,65 @@ set_visible_after_rounds(player, num)
 	}
 
 	self setvisibletoplayer(player);
+}
+
+attach_powerups_to_tank()
+{
+	if (!isDefined(level.vh_tank))
+	{
+		return;
+	}
+
+	level.vh_tank.radius = 110;
+	level.vh_tank.frontdist = 255;
+	level.vh_tank.backdist = 110;
+	level.vh_tank.frontlocal = (level.vh_tank.frontdist - level.vh_tank.radius / 2.0, 0, 0);
+	level.vh_tank.backlocal = (level.vh_tank.backdist * -1 + level.vh_tank.radius / 2.0, 0, 0);
+
+	while (1)
+	{
+		level waittill("powerup_dropped", powerup);
+
+		level.vh_tank.frontworld = level.vh_tank localtoworldcoords(level.vh_tank.frontlocal);
+		level.vh_tank.backworld = level.vh_tank localtoworldcoords(level.vh_tank.backlocal);
+
+		level thread attachpoweruptotank(powerup);
+	}
+}
+
+attachpoweruptotank(powerup)
+{
+	if (!isdefined(powerup) || !isdefined(level.vh_tank))
+	{
+		return;
+	}
+
+	powerup endon("powerup_grabbed");
+	powerup endon("powerup_timedout");
+
+	distanceoutsideoftank = 50.0;
+	pos = powerup.origin;
+	posintank = pointonsegmentnearesttopoint(level.vh_tank.frontworld, level.vh_tank.backworld, pos);
+	posdist2 = distance2dsquared(pos, posintank);
+
+	if (posdist2 > level.vh_tank.radius * level.vh_tank.radius)
+	{
+		radiusplus = level.vh_tank.radius + distanceoutsideoftank;
+
+		if (posdist2 > radiusplus * radiusplus)
+		{
+			return;
+		}
+	}
+
+	origin_diff = level.vh_tank worldtolocalcoords(powerup.origin);
+
+	while (isDefined(powerup))
+	{
+		powerup.origin = level.vh_tank localtoworldcoords(origin_diff);
+
+		wait 0.05;
+	}
 }
 
 updatecraftables()
