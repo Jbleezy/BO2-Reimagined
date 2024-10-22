@@ -630,6 +630,7 @@
 * Upgraded: charge loop sound stops playing immediately after firing
 * Upgraded: fixed charge sounds not playing after firing a 1 charge shot
 * Upgraded: fixed charged shots not being discharged when attempting to fire while already firing or sprinting
+* Upgraded: fixed weapon not being switched when attempting to fire while having no ammo
 * Fire upgraded: charged shots no longer deal additional damage to Panzersoldat
 * Ice upgraded: fixed melee sound
 
