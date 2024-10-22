@@ -69,6 +69,24 @@ players_on_tank_update()
 	}
 }
 
+tank_push_player_off_edge(trig)
+{
+	self endon("player_jumped_off_tank");
+
+	while (self.b_already_on_tank)
+	{
+		trig waittill("trigger", player);
+
+		if (player == self && self isonground())
+		{
+			v_push = anglestoforward(trig.angles) * -150;
+			self setvelocity(v_push);
+		}
+
+		wait 0.05;
+	}
+}
+
 wait_for_tank_cooldown()
 {
 	self thread snd_fuel();
