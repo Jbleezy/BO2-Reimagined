@@ -79,7 +79,6 @@ if %ERRORLEVEL% NEQ 0 pause
 if %ERRORLEVEL% NEQ 0 pause
 
 "%OAT_BASE%\Linker.exe" ^
---load "%OAT_GAME%\zone\all\afghanistan.ff" ^
 --load "%OAT_GAME%\zone\all\so_cmp_afghanistan.ff" ^
 --base-folder "%OAT_BASE%" ^
 --asset-search-path "%cd%" ^
