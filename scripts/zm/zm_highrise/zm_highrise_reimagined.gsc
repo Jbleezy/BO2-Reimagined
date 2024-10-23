@@ -54,10 +54,10 @@ init()
 	level.zm_traversal_override = ::zm_traversal_override;
 
 	move_marathon_origins();
-	slipgun_change_ammo();
 
 	level thread elevator_call();
 	level thread escape_pod_call();
+	level thread slide_push_watcher();
 	level thread zombie_bad_zone_watcher();
 }
 
@@ -191,25 +191,6 @@ move_marathon_origins()
 
 		trig.origin += anglestoup(trig.machine.angles) * 96;
 	}
-}
-
-slipgun_change_ammo()
-{
-	foreach (buildable in level.zombie_include_buildables)
-	{
-		if (IsDefined(buildable.name) && buildable.name == "slipgun_zm")
-		{
-			buildable.onbuyweapon = ::onbuyweapon_slipgun;
-			return;
-		}
-	}
-}
-
-onbuyweapon_slipgun(player)
-{
-	player givestartammo(self.stub.weaponname);
-	player switchtoweapon(self.stub.weaponname);
-	level notify("slipgun_bought", player);
 }
 
 elevator_call()
@@ -499,6 +480,32 @@ escape_pod_call_think()
 
 		flag_waitopen("escape_pod_needs_reset");
 	}
+}
+
+slide_push_watcher()
+{
+	trig = spawn("trigger_box", (2640, 2544, 2948), 0, 64, 64, 64);
+	trig.angles = (0, 0, 0);
+
+	while (1)
+	{
+		trig waittill("trigger", ent);
+
+		if (isplayer(ent) && !isdefined(ent.being_pushed_by_slide))
+		{
+			ent thread slide_push_and_wait(trig.angles);
+		}
+	}
+}
+
+slide_push_and_wait(angles)
+{
+	self.being_pushed_by_slide = 1;
+	self setvelocity(anglestoforward(angles) * getDvarInt("player_sliding_wishspeed"));
+
+	wait 0.05;
+
+	self.being_pushed_by_slide = undefined;
 }
 
 zombie_bad_zone_watcher()
