@@ -175,6 +175,7 @@
 * Added options to enable or disable new HUD elements
 * Added option to enable or disable alt action slot area
 * Added option to enable or disable fog
+* Added option in private match lobby to enable or disable character dialog
 
 ## HUD
 * Enemy counter displayed on top left of screen
