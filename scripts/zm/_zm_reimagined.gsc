@@ -472,8 +472,6 @@ on_player_spawned()
 
 			self thread held_melee_weapon_world_model_fix();
 
-			self thread fall_velocity_check();
-
 			self thread give_additional_perks();
 
 			self thread bank_gain_interest_after_rounds();
@@ -1482,44 +1480,6 @@ held_melee_weapon_world_model_fix()
 is_held_melee_weapon_offhand_melee(weaponname)
 {
 	return weaponname == "tazer_knuckles_zm";
-}
-
-fall_velocity_check()
-{
-	self endon("disconnect");
-
-	while (1)
-	{
-		was_on_ground = 1;
-		self.fall_velocity = 0;
-
-		while (!self isOnGround())
-		{
-			was_on_ground = 0;
-			vel = self getVelocity();
-			self.fall_velocity = vel[2];
-			wait 0.05;
-		}
-
-		if (!was_on_ground)
-		{
-			// fall damage does not register when player's max health is less than 100 and has PHD Flopper
-			if (self.maxhealth < 100 && self hasPerk("specialty_flakjacket"))
-			{
-				if (is_true(self.divetoprone) && self.fall_velocity <= -300)
-				{
-					if (isDefined(level.zombiemode_divetonuke_perk_func))
-					{
-						[[level.zombiemode_divetonuke_perk_func]](self, self.origin);
-					}
-				}
-			}
-
-			continue;
-		}
-
-		wait 0.05;
-	}
 }
 
 disable_bank_teller()
