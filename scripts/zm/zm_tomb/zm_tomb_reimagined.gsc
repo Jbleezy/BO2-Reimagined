@@ -76,7 +76,8 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_weap_one_inch_punch::one_inch_punch_melee_attack, scripts\zm\replaced\_zm_weap_one_inch_punch::one_inch_punch_melee_attack);
 	replaceFunc(maps\mp\zombies\_zm_weap_beacon::player_handle_beacon, scripts\zm\replaced\_zm_weap_beacon::player_handle_beacon);
 	replaceFunc(maps\mp\zombies\_zm_weap_beacon::wait_and_do_weapon_beacon_damage, scripts\zm\replaced\_zm_weap_beacon::wait_and_do_weapon_beacon_damage);
-	replaceFunc(maps\mp\zombies\_zm_weap_staff_air::whirlwind_kill_zombies, scripts\zm\replaced\_zm_weap_staff_air::whirlwind_kill_zombies);
+	replaceFunc(maps\mp\zombies\_zm_weap_staff_air::staff_air_position_source, scripts\zm\replaced\_zm_weap_staff_air::staff_air_position_source);
+	replaceFunc(maps\mp\zombies\_zm_weap_staff_air::staff_air_zombie_source, scripts\zm\replaced\_zm_weap_staff_air::staff_air_zombie_source);
 	replaceFunc(maps\mp\zombies\_zm_weap_staff_fire::flame_damage_fx, scripts\zm\replaced\_zm_weap_staff_fire::flame_damage_fx);
 	replaceFunc(maps\mp\zombies\_zm_weap_staff_fire::get_impact_damage, scripts\zm\replaced\_zm_weap_staff_fire::get_impact_damage);
 	replaceFunc(maps\mp\zombies\_zm_weap_staff_lightning::staff_lightning_ball_kill_zombies, scripts\zm\replaced\_zm_weap_staff_lightning::staff_lightning_ball_kill_zombies);

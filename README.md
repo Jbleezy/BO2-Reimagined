@@ -624,16 +624,18 @@
 * Get full ammo when initially picked up after upgrading (normally missing one clip)
 * Max ammo no longer fills clip ammo
 * Upgraded: kill on any round
-* Upgraded: charged shots can be started while firing
+* Upgraded: can start charging while firing
+* Upgraded: fire button no longer has to be re-pressed to start charging after doing certain weapon anims
+* Upgraded: discharges correctly when attempting to fire while already firing or sprinting
+* Upgraded: weapon is switched when attempting to fire while having no ammo
 * Upgraded: charged shots damage Panzersoldat
 * Upgraded: decreased alt weapon fire time from 3 seconds to 0.5 seconds
 * Upgraded: changed alt weapon fire type from full auto to single shot
 * Upgraded: charge loop sound stops playing immediately after firing
 * Upgraded: fixed charge sounds not playing after firing a 1 charge shot
-* Upgraded: fixed charged shots not being discharged when attempting to fire while already firing or sprinting
-* Upgraded: fixed weapon not being switched when attempting to fire while having no ammo
 * Fire upgraded: charged shots no longer deal additional damage to Panzersoldat
 * Ice upgraded: fixed melee sound
+* Wind upgraded: fixed whirlwind not being created and impact blast radius being incorrect if the player started reloading or throwing a grenade in between the time that the charged shot was fired and impacted a surface
 
 ### Tactical Grenades
 
