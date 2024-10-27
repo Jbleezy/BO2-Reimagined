@@ -199,7 +199,7 @@ init()
 
 	level thread on_intermission();
 
-	level thread post_all_players_spawned();
+	level thread post_init();
 
 	level thread enemy_counter_hud();
 
@@ -591,7 +591,7 @@ on_intermission()
 	}
 }
 
-post_all_players_spawned()
+post_init()
 {
 	flag_wait("start_zombie_round_logic");
 
