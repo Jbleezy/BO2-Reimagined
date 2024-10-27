@@ -865,6 +865,7 @@
 ### Zombie Blood
 * No longer makes zombies ignore the player
 * Makes the player invulnerable to zombie melee swipes
+* No longer changes FOV
 
 ### Meat
 * All zombies go after player holding the meat

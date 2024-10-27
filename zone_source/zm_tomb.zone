@@ -13,4 +13,6 @@ xmodel,t6_wpn_none_world
 
 xanim,viewmodel_bare_hands_falling
 
+material,generic_filter_zombie_blood_b
+
 camo,camo_raygun
