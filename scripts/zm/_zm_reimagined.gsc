@@ -687,6 +687,13 @@ set_dvars()
 
 	setDvar("bg_burstFireInputFix", 1);
 
+	setDvar("bg_minigun_prevent_spin_while_not_ready", 1);
+	setDvar("bg_minigun_disable_ads_spin", 1);
+
+	setDvar("bg_jetgun_prevent_spin_while_not_ready", 1);
+	setDvar("bg_jetgun_disable_z_thrust", 1);
+	setDvar("bg_jetgun_fix_spin", 1);
+
 	if (maps\mp\zombies\_zm_weapons::is_weapon_included("metalstorm_mms_zm"))
 	{
 		setDvar("bg_chargeShotMaxBulletsInQueue", 5);
@@ -699,11 +706,9 @@ set_dvars()
 	}
 
 	setDvar("bg_chargeShotEmptyFire", 1);
-	setDvar("bg_chargeShotDischargeFix", 1);
+	setDvar("bg_chargeShotAllowChargingWithoutRepress", 1);
+	setDvar("bg_chargeShotPreventChargingWhileNotReady", 1);
 	setDvar("tu14_preventStartingChargeShotWhileFiring", 0);
-
-	setDvar("bg_jetgun_disable_spin_while_meleeing", 1);
-	setDvar("bg_jetgun_disable_z_thrust", 1);
 }
 
 set_client_dvars()
@@ -732,22 +737,28 @@ set_client_dvars()
 	self setClientDvars(
 	    "bg_fallDamageScale", getDvar("bg_fallDamageScale"),
 	    "bg_burstFireInputFix", getDvar("bg_burstFireInputFix"),
+	    "bg_minigun_prevent_spin_while_not_ready", getDvar("bg_minigun_prevent_spin_while_not_ready"),
+	    "bg_minigun_disable_ads_spin", getDvar("bg_minigun_disable_ads_spin"),
+	    "bg_jetgun_prevent_spin_while_not_ready", getDvar("bg_jetgun_prevent_spin_while_not_ready"),
+	    "bg_jetgun_disable_z_thrust", getDvar("bg_jetgun_disable_z_thrust"),
+	    "bg_jetgun_fix_spin", getDvar("bg_jetgun_fix_spin"),
 	    "bg_chargeShotMaxBulletsInQueue", getDvar("bg_chargeShotMaxBulletsInQueue"),
 	    "bg_chargeShotQueueTime", getDvar("bg_chargeShotQueueTime"),
 	    "bg_chargeShotEmptyFire", getDvar("bg_chargeShotEmptyFire"),
-	    "bg_chargeShotDischargeFix", getDvar("bg_chargeShotDischargeFix"),
-	    "tu14_preventStartingChargeShotWhileFiring", getDvar("tu14_preventStartingChargeShotWhileFiring"),
-	    "bg_jetgun_disable_spin_while_meleeing", getDvar("bg_jetgun_disable_spin_while_meleeing"),
-	    "bg_jetgun_disable_z_thrust", getDvar("bg_jetgun_disable_z_thrust"),
-	    "cg_jetgun_fix_spin_dial", 1,
+	    "bg_chargeShotAllowChargingWithoutRepress", getDvar("bg_chargeShotAllowChargingWithoutRepress"),
+	    "bg_chargeShotPreventChargingWhileNotReady", getDvar("bg_chargeShotPreventChargingWhileNotReady"),
+	    "tu14_preventStartingChargeShotWhileFiring", getDvar("tu14_preventStartingChargeShotWhileFiring"));
+
+	self setClientDvars(
 	    "cg_friendlyNameFadeIn", 0,
 	    "cg_friendlyNameFadeOut", 250,
 	    "cg_enemyNameFadeIn", 0,
 	    "cg_enemyNameFadeOut", 250,
 	    "cg_sonarAttachmentSpeedDelay", 0.1,
 	    "cg_sonarAttachmentMaxSpeed", 6,
-	    "cg_sonarAttachmentFullscreenSightCheck", 1,
 	    "cg_sonarAttachmentFullscreenThermal", 0,
+	    "cg_sonarAttachmentFullscreenDistanceAlpha", 1,
+	    "cg_sonarAttachmentFullscreenSightCheck", 1,
 	    "r_dof_enable", 0,
 	    "r_lodBiasRigid", -1000,
 	    "r_lodBiasSkinned", -1000);

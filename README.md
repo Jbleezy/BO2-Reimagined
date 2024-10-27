@@ -71,6 +71,7 @@
 		* [War Machine](#war-machine)
 	* [Specials](#specials)
 		* [Ballistic Knife](#ballistic-knife)
+		* [Death Machine](#death-machine)
 		* [Storm PSR](#storm-psr)
 		* [Titus-6](#titus-6)
 	* [Wonder Weapons](#wonder-weapons)
@@ -232,7 +233,7 @@
 * No longer killed when landing on top of another player
 * Ignored by zombies for 1 second after being revived
 * Disabled meleeing while reviving (except if player switches weapons)
-* Pressing the fire button while reviving no longer switches weapons
+* Pressing fire button while reviving no longer switches weapons
 * Weapon is no longer switched after reviving if player switched weapons during revive
 * No longer gain points back on self revives
 * Respawn near random player (normally respawn near the same player every time)
@@ -509,6 +510,10 @@
 * Projectiles can be picked up while the weapon is not reloaded
 * Projectiles can be picked up while the player is not on the ground
 
+#### Death Machine
+* No longer spins up by pressing aim button
+* No longer spins up while not idle
+
 #### Storm PSR
 * Added on Tranzit
 * Kills on any round fully charged
@@ -550,16 +555,16 @@
 * Heats up half as fast
 * Cools down twice as fast
 * Cools down while not holding weapon
-* No longer spins up while meleeing
-* No longer kills when not firing
+* No longer spins up while not idle
+* No longer kills while not firing
 * No longer changes player vertical velocity while firing
 * No longer automatically switched to weapon when picked up
 * No longer disassembles when overheated
 * Weapon is taken when overheated
-* Buildable table model no longer shows when player has weapon
+* Buildable table model no longer shows while player has weapon
 * Added heat percentage on HUD
 * Changed weapon name from "Thrustodyne Aeronautics Model 23" to "Jet Gun"
-* Fixed spin dial being inaccurate
+* Fixed spin dial, spin anim, and spin sounds being inaccurate
 * Fixed HUD icon fading after firing
 
 #### Sliquifier
@@ -624,9 +629,8 @@
 * Get full ammo when initially picked up after upgrading (normally missing one clip)
 * Max ammo no longer fills clip ammo
 * Upgraded: kill on any round
-* Upgraded: can start charging while firing
-* Upgraded: fire button no longer has to be re-pressed to start charging after doing certain weapon anims
-* Upgraded: discharges correctly when attempting to fire while already firing or sprinting
+* Upgraded: no longer charges up while not idle
+* Upgraded: fire button no longer has to be re-pressed to start charging if fire button was pressed before charging was ready
 * Upgraded: weapon is switched when attempting to fire while having no ammo
 * Upgraded: charged shots damage Panzersoldat
 * Upgraded: decreased alt weapon fire time from 3 seconds to 0.5 seconds
