@@ -761,7 +761,8 @@ set_client_dvars()
 	    "cg_sonarAttachmentFullscreenSightCheck", 1,
 	    "r_dof_enable", 0,
 	    "r_lodBiasRigid", -1000,
-	    "r_lodBiasSkinned", -1000);
+	    "r_lodBiasSkinned", -1000,
+	    "r_skinnedCacheOverflowLodMaxScale", 10);
 
 	self thread set_client_dvar_from_client_dvar_loop("r_fog", "r_fog_settings");
 }
