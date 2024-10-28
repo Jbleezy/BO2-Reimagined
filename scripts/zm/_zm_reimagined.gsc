@@ -508,7 +508,7 @@ on_player_spectate()
 
 on_player_downed()
 {
-	level endon("game_ended");
+	level endon("end_game");
 	self endon("disconnect");
 
 	while (1)
@@ -1231,6 +1231,7 @@ get_zone_display_name(zone)
 
 bleedout_bar_hud()
 {
+	level endon("intermission");
 	self endon("disconnect");
 
 	flag_wait("hud_visible");
@@ -1923,8 +1924,8 @@ player_hide_turrets_from_other_players()
 
 sndmeleewpnsound()
 {
-	self endon("disconnect");
 	level endon("end_game");
+	self endon("disconnect");
 
 	while (1)
 	{
