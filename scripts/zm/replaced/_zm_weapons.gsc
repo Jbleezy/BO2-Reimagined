@@ -1094,6 +1094,115 @@ get_player_weapondata(player, weapon)
 	return weapondata;
 }
 
+limited_weapon_below_quota(weapon, ignore_player, pap_triggers)
+{
+	if (isdefined(level.limited_weapons[weapon]))
+	{
+		if (!isdefined(pap_triggers))
+		{
+			if (!isdefined(level.pap_triggers))
+			{
+				pap_triggers = getentarray("specialty_weapupgrade", "script_noteworthy");
+			}
+			else
+			{
+				pap_triggers = level.pap_triggers;
+			}
+		}
+
+		if (is_true(level.no_limited_weapons))
+		{
+			return false;
+		}
+
+		upgradedweapon = weapon;
+
+		if (isdefined(level.zombie_weapons[weapon]) && isdefined(level.zombie_weapons[weapon].upgrade_name))
+		{
+			upgradedweapon = level.zombie_weapons[weapon].upgrade_name;
+		}
+
+		players = get_players();
+		count = 0;
+		limit = level.limited_weapons[weapon];
+
+		for (i = 0; i < players.size; i++)
+		{
+			if (isdefined(ignore_player) && ignore_player == players[i])
+			{
+				continue;
+			}
+
+			if (players[i] has_weapon_or_upgrade(weapon))
+			{
+				count++;
+
+				if (count >= limit)
+				{
+					return false;
+				}
+			}
+		}
+
+		for (k = 0; k < pap_triggers.size; k++)
+		{
+			if (isdefined(pap_triggers[k].current_weapon) && (pap_triggers[k].current_weapon == weapon || pap_triggers[k].current_weapon == upgradedweapon))
+			{
+				count++;
+
+				if (count >= limit)
+				{
+					return false;
+				}
+			}
+		}
+
+		for (chestindex = 0; chestindex < level.chests.size; chestindex++)
+		{
+			if (isdefined(level.chests[chestindex].zbarrier.weapon_string) && level.chests[chestindex].zbarrier.weapon_string == weapon)
+			{
+				count++;
+
+				if (count >= limit)
+				{
+					return false;
+				}
+			}
+		}
+
+		if (isdefined(level.custom_limited_weapon_checks))
+		{
+			foreach (check in level.custom_limited_weapon_checks)
+			{
+				count = count + [[check]](weapon, ignore_player);
+			}
+
+			if (count >= limit)
+			{
+				return false;
+			}
+		}
+
+		if (isdefined(level.random_weapon_powerups))
+		{
+			for (powerupindex = 0; powerupindex < level.random_weapon_powerups.size; powerupindex++)
+			{
+				if (isdefined(level.random_weapon_powerups[powerupindex]) && level.random_weapon_powerups[powerupindex].base_weapon == weapon)
+				{
+					count++;
+
+					if (count >= limit)
+					{
+						return false;
+					}
+				}
+			}
+		}
+	}
+
+	return true;
+}
+
 get_nonalternate_weapon(altweapon)
 {
 	if (is_alt_weapon(altweapon))

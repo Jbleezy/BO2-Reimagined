@@ -566,7 +566,7 @@ chugabud_bleed_timeout(delay, corpse)
 	self chugabud_corpse_cleanup(corpse, 0);
 }
 
-is_weapon_available_in_chugabud_corpse(weapon, player_to_check)
+is_weapon_available_in_chugabud_corpse(weapon, ignore_player)
 {
 	count = 0;
 	upgradedweapon = weapon;
@@ -584,7 +584,7 @@ is_weapon_available_in_chugabud_corpse(weapon, player_to_check)
 		{
 			player = players[player_index];
 
-			if (isdefined(player_to_check) && player != player_to_check)
+			if (isdefined(ignore_player) && player == ignore_player)
 			{
 				continue;
 			}

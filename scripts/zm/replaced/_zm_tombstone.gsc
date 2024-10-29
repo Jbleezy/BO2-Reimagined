@@ -488,7 +488,7 @@ tombstone_give()
 	self.tombstone_savedweapon_weapons = undefined;
 }
 
-is_weapon_available_in_tombstone(weapon, player_to_check)
+is_weapon_available_in_tombstone(weapon, ignore_player)
 {
 	count = 0;
 	upgradedweapon = weapon;
@@ -506,7 +506,7 @@ is_weapon_available_in_tombstone(weapon, player_to_check)
 		{
 			player = players[player_index];
 
-			if (isdefined(player_to_check) && player != player_to_check)
+			if (isdefined(ignore_player) && player == ignore_player)
 			{
 				continue;
 			}
