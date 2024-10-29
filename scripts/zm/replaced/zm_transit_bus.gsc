@@ -399,14 +399,6 @@ bus_bridge_speedcontrol()
 
 		if (isdefined(nextpoint.script_string))
 		{
-			if (nextpoint.script_string == "map_out_tunnel" || nextpoint.script_string == "map_out_1forest" || nextpoint.script_string == "map_out_corn" || nextpoint.script_string == "map_out_2forest" || nextpoint.script_string == "map_out_bridge")
-			{
-				self setspeed(self.targetspeed / 2, 10, 10);
-			}
-		}
-
-		if (isdefined(nextpoint.script_string))
-		{
 			if (nextpoint.script_string == "arrival_slowdown")
 			{
 				self thread start_stopping_bus();
@@ -547,17 +539,17 @@ start_stopping_bus(stop_fast)
 {
 	if (isdefined(stop_fast) && stop_fast)
 	{
-		self setspeed(4, 30);
+		self setspeed(8, 30);
 	}
 	else
 	{
-		self setspeed(4, 10);
+		self setspeed(8, 10);
 	}
 }
 
 begin_arrival_slowdown()
 {
-	self setspeed(10, 10, 10);
+	self setspeed(10, 20);
 }
 
 buspathblockersetup()
