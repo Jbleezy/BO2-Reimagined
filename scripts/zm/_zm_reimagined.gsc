@@ -207,6 +207,8 @@ init()
 
 	level thread swap_staminup_perk();
 
+	level thread disable_story_vo();
+
 	if (isDedicated())
 	{
 		scripts\zm\server\_zm_reimagined_server::init();
@@ -1368,6 +1370,19 @@ swap_staminup_perk()
 				level._random_perk_machine_perk_list[i] = "specialty_movefaster";
 			}
 		}
+	}
+}
+
+disable_story_vo()
+{
+	if (getDvarIntDefault("character_dialog", 1))
+	{
+		return;
+	}
+
+	if (flag_exists("story_vo_playing"))
+	{
+		flag_set("story_vo_playing");
 	}
 }
 
