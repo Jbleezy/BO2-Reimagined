@@ -59,6 +59,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_utility::wait_network_frame, scripts\zm\replaced\_zm_utility::wait_network_frame);
 	replaceFunc(maps\mp\zombies\_zm_utility::track_players_intersection_tracker, scripts\zm\replaced\_zm_utility::track_players_intersection_tracker);
 	replaceFunc(maps\mp\zombies\_zm_utility::place_navcard, scripts\zm\replaced\_zm_utility::place_navcard);
+	replaceFunc(maps\mp\zombies\_zm_zonemgr::create_spawner_list, scripts\zm\replaced\_zm_zonemgr::create_spawner_list);
 	replaceFunc(maps\mp\zombies\_zm_ffotd::ffotd_melee_miss_func, scripts\zm\replaced\_zm_ffotd::ffotd_melee_miss_func);
 	replaceFunc(maps\mp\zombies\_zm_score::add_to_player_score, scripts\zm\replaced\_zm_score::add_to_player_score);
 	replaceFunc(maps\mp\zombies\_zm_score::minus_to_player_score, scripts\zm\replaced\_zm_score::minus_to_player_score);

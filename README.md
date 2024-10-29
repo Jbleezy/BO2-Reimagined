@@ -273,6 +273,7 @@
 * Decreased number of melees to kill with Galvaknuckles from 2 to 1
 * No longer automatically run away when player is first attacked in solo
 * Removed hint when player is first attacked in solo
+* Fixed not spawning in correct zone sometimes
 
 ### Avogadro
 * Drops a random powerup when killed
