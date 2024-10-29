@@ -266,12 +266,12 @@
 
 ### Denizens
 * Changed max amount that can be spawned at once from 2 total to 1 per player in the fog
-* Changed spawn rate to 5 seconds (normally same spawn rate as zombies)
+* No longer spawn for a player for 5 seconds after being killed
 * Decreased health from 200 to 150
 * Decreased number of melees to kill from 5 to 3
 * Decreased number of melees to kill with Bowie Knife from 3 to 2
 * Decreased number of melees to kill with Galvaknuckles from 2 to 1
-* No longer automatically runs away when player is first attacked in solo
+* No longer automatically run away when player is first attacked in solo
 * Removed hint when player is first attacked in solo
 
 ### Avogadro

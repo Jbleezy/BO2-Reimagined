@@ -44,18 +44,23 @@ screecher_spawning_logic()
 		valid_players_in_screecher_zone = 0;
 		valid_players = [];
 
-		while (valid_players_in_screecher_zone <= level.zombie_screecher_count)
+		while (1)
 		{
 			players = getplayers();
 			valid_players_in_screecher_zone = 0;
 
 			for (p = 0; p < players.size; p++)
 			{
-				if (is_player_valid(players[p]) && player_in_screecher_zone(players[p]) && !isdefined(players[p].screecher))
+				if (is_player_valid(players[p]) && player_in_screecher_zone(players[p]) && !isdefined(players[p].screecher_protection))
 				{
 					valid_players_in_screecher_zone++;
 					valid_players[valid_players.size] = players[p];
 				}
+			}
+
+			if (valid_players_in_screecher_zone > 0)
+			{
+				break;
 			}
 
 			wait 0.1;
@@ -67,8 +72,9 @@ screecher_spawning_logic()
 		}
 
 		valid_players = array_randomize(valid_players);
+		valid_player = valid_players[0];
 
-		spawn_points = get_array_of_closest(valid_players[0].origin, level.zombie_screecher_locations);
+		spawn_points = get_array_of_closest(valid_player.origin, level.zombie_screecher_locations);
 		spawn_point = undefined;
 
 		if (!isdefined(spawn_points) || spawn_points.size == 0)
@@ -127,10 +133,64 @@ screecher_spawning_logic()
 		{
 			ai.spawn_point = spawn_point;
 			level.zombie_screecher_count++;
+
+			valid_player thread screecher_protection(ai);
 		}
 
-		wait 5;
+		wait(level.zombie_vars["zombie_spawn_delay"]);
+		wait 0.1;
 	}
+}
+
+screecher_protection(ai)
+{
+	self notify("screecher_protection");
+	self endon("screecher_protection");
+	self endon("disconnect");
+
+	self.screecher_protection = 1;
+
+	while (1)
+	{
+		stop_protection = 1;
+
+		if (isdefined(self.screecher))
+		{
+			stop_protection = 0;
+		}
+		else if (isdefined(ai) && !isdefined(ai.favoriteenemy))
+		{
+			stop_protection = 0;
+		}
+		else
+		{
+			enemies = getaispeciesarray(level.zombie_team, "all");
+
+			foreach (enemy in enemies)
+			{
+				if (!is_true(enemy.isscreecher))
+				{
+					continue;
+				}
+
+				if (isdefined(enemy.favoriteenemy) && enemy.favoriteenemy == self)
+				{
+					stop_protection = 0;
+				}
+			}
+		}
+
+		if (stop_protection)
+		{
+			break;
+		}
+
+		wait 0.05;
+	}
+
+	wait 5;
+
+	self.screecher_protection = undefined;
 }
 
 screecher_attacking()
