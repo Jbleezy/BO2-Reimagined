@@ -667,6 +667,8 @@ set_dvars()
 	setDvar("dtp_startup_delay", 100);
 	setDvar("dtp_exhaustion_window", 100);
 
+	setDvar("penetrationCount", 100);
+
 	setDvar("perk_weapRateEnhanced", 0);
 	setDvar("perk_speedMultiplier", 1.1);
 

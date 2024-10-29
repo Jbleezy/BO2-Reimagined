@@ -305,12 +305,13 @@
 * Fixed projectile angles of certain grenades and projectile weapons
 * Fixed alt weapons being switched from when trading weapons
 * Fixed burst fire weapons shooting when pressing aim button while fire button is already pressed
+* Bullet weapons: can penetrate through any amount of entities (normally capped at 5, still decreases damage each time it penetrates)
+* Projectile weapons: changed projectile weapon damage scalar to 50 multiplied by round number (normally random number between 0 and 100 multiplied by round number)
+* Projectile weapons: capped projectile weapon damage scalar at 3000
 * Grenades: improved projectile upward speed
 * Grenades: can no longer be thrown faster than intended by throwing a grenade right after throwing one
 * Grenades: changed damage scalar to 25 multiplied by round number (normally random number between 100 and 200 added by round number)
 * Grenades: capped damage scalar at 1500
-* Projectile weapons: changed projectile weapon damage scalar to 50 multiplied by round number (normally random number between 0 and 100 multiplied by round number)
-* Projectile weapons: capped projectile weapon damage scalar at 3000
 * Placeable mines: changed damage scalar to 150 multiplied by round number (normally random number between 100 and 200 multiplied by round number)
 * Placeable mines: capped damage scalar at 9000
 * Placeable mines: player hit audio no longer plays
