@@ -1035,7 +1035,7 @@
 * Decreased light lava damage from 6 to 5
 * Decreased fire zombie death explosion max damage from 30 to 15
 * Players can be revived in the fog easier
-* Lamp post portals stay active after activating once
+* Lamp post portals stay active until the lamp post loses power
 * Each lamp post portal teleports players to a set destination lamp post (randomizes each game)
 * Decreased brightness at Power Station
 * Zombies killed by the bus no longer respawn

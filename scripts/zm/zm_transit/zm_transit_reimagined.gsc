@@ -23,9 +23,10 @@ main()
 	replaceFunc(maps\mp\zm_transit::transit_zone_init, scripts\zm\replaced\zm_transit::transit_zone_init);
 	replaceFunc(maps\mp\zm_transit::include_weapons, scripts\zm\replaced\zm_transit::include_weapons);
 	replaceFunc(maps\mp\zm_transit::lava_damage_depot, scripts\zm\replaced\zm_transit::lava_damage_depot);
-	replaceFunc(maps\mp\zm_transit::sndplaymusicegg, scripts\zm\replaced\zm_transit::sndplaymusicegg);
+	replaceFunc(maps\mp\zm_transit::safety_light_power_off, scripts\zm\replaced\zm_transit::safety_light_power_off);
 	replaceFunc(maps\mp\zm_transit::grenade_safe_to_bounce, scripts\zm\replaced\zm_transit::grenade_safe_to_bounce);
 	replaceFunc(maps\mp\zm_transit::can_revive, scripts\zm\replaced\zm_transit::can_revive);
+	replaceFunc(maps\mp\zm_transit::sndplaymusicegg, scripts\zm\replaced\zm_transit::sndplaymusicegg);
 	replaceFunc(maps\mp\zm_transit_gamemodes::init, scripts\zm\replaced\zm_transit_gamemodes::init);
 	replaceFunc(maps\mp\zm_transit_classic::spawn_inert_zombies, scripts\zm\replaced\zm_transit_classic::spawn_inert_zombies);
 	replaceFunc(maps\mp\zm_transit_utility::solo_tombstone_removal, scripts\zm\replaced\zm_transit_utility::solo_tombstone_removal);

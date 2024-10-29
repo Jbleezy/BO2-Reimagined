@@ -300,6 +300,68 @@ lava_damage_depot()
 	exploder(3);
 }
 
+safety_light_power_off(origin, radius)
+{
+	self.target.power_on = 0;
+	self.target notify("power_off");
+
+	if (isdefined(self.target.clientfieldname))
+	{
+		level setclientfield(self.target.clientfieldname, 0);
+	}
+
+	level notify("safety_light_power_off", self);
+
+	self stop_portal();
+}
+
+stop_portal()
+{
+	self.target notify("portal_stopped");
+	self.target.burrow_active = 0;
+
+	if (isdefined(self.target.hole))
+	{
+		playsoundatposition("zmb_screecher_portal_end", self.target.hole.origin);
+		self.target.hole delete();
+	}
+
+	if (isdefined(self.target.hole_fx))
+	{
+		self.target.hole_fx delete();
+	}
+
+	if (isinarray(level.portals, self.target))
+	{
+		arrayremovevalue(level.portals, self.target);
+	}
+}
+
+grenade_safe_to_bounce(player, weapname)
+{
+	if (!is_offhand_weapon(weapname))
+	{
+		return 1;
+	}
+
+	if (self maps\mp\zm_transit_lava::object_touching_lava())
+	{
+		return 0;
+	}
+
+	return 1;
+}
+
+can_revive(player_down)
+{
+	if (self hasWeapon("screecher_arms_zm"))
+	{
+		return false;
+	}
+
+	return true;
+}
+
 sndplaymusicegg(player, ent)
 {
 	song = sndplaymusicegg_get_song_for_origin(ent);
@@ -357,29 +419,4 @@ sndplaymusicegg_get_time_for_song(song)
 	}
 
 	return 0;
-}
-
-grenade_safe_to_bounce(player, weapname)
-{
-	if (!is_offhand_weapon(weapname))
-	{
-		return 1;
-	}
-
-	if (self maps\mp\zm_transit_lava::object_touching_lava())
-	{
-		return 0;
-	}
-
-	return 1;
-}
-
-can_revive(player_down)
-{
-	if (self hasWeapon("screecher_arms_zm"))
-	{
-		return false;
-	}
-
-	return true;
 }
