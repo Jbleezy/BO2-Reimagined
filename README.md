@@ -1374,6 +1374,7 @@
 * Added player kills on scoreboard (replaces headshots)
 * Scoreboard always shows your team on top
 * Spawn points are assigned to a team
+* Added limited weapon check for saved weapons on bleed out
 * Properly restores dual wield weapon left clip ammo, alt weapon ammo, and equipment on respawn
 * Can only spectate your team
 * Added option to change teams in game
@@ -1395,7 +1396,6 @@
 * Enemies remaining audio and text displays when enemy players down instead of when enemy players bleed out
 * Last player alive audio only plays for the player who is alive instead of every player on the team
 * Audio plays when enemy players bleed out
-* Players do not get their weapons back on the next round if they bled out
 * Teams switch spawn points each round
 * Players respawn at initial spawn points
 

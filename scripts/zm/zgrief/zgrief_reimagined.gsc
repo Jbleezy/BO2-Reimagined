@@ -82,6 +82,8 @@ init()
 		meat_init();
 	}
 
+	add_custom_limited_weapon_check(::is_weapon_available_in_grief_saved_weapons);
+
 	level.dont_allow_meat_interaction = 1;
 	level.can_revive_game_module = ::can_revive;
 	level._powerup_grab_check = ::powerup_can_player_grab;
@@ -584,7 +586,6 @@ on_player_bleedout()
 
 		if (level.scr_zm_ui_gametype_obj == "zsnr")
 		{
-			self.grief_savedweapon_weapons = undefined;
 			self.init_player_offhand_weapons_override = 1;
 			self init_player_offhand_weapons();
 			self.init_player_offhand_weapons_override = undefined;
@@ -3274,4 +3275,45 @@ increment_score(team, amount = 1, show_lead_msg = true, score_msg)
 			}
 		}
 	}
+}
+
+is_weapon_available_in_grief_saved_weapons(weapon, ignore_player)
+{
+	count = 0;
+	upgradedweapon = weapon;
+
+	if (isdefined(level.zombie_weapons[weapon]) && isdefined(level.zombie_weapons[weapon].upgrade_name))
+	{
+		upgradedweapon = level.zombie_weapons[weapon].upgrade_name;
+	}
+
+	players = getplayers();
+
+	if (isdefined(players))
+	{
+		for (player_index = 0; player_index < players.size; player_index++)
+		{
+			player = players[player_index];
+
+			if (isdefined(ignore_player) && player == ignore_player)
+			{
+				continue;
+			}
+
+			if (isdefined(player.grief_savedweapon_weapons))
+			{
+				for (i = 0; i < player.grief_savedweapon_weapons.size; i++)
+				{
+					grief_weapon = player.grief_savedweapon_weapons[i];
+
+					if (isdefined(grief_weapon) && (grief_weapon == weapon || grief_weapon == upgradedweapon))
+					{
+						count++;
+					}
+				}
+			}
+		}
+	}
+
+	return count;
 }
