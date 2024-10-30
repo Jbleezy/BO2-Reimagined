@@ -134,6 +134,8 @@ maxis_sidequest_c()
 	flag_waitopen("power_on");
 	level endon("power_on");
 
+	level thread maxis_stop_safety_light_tower_fx_on_power_on();
+
 	for (i = 0; i < 8; i++)
 	{
 		level.sq_progress["maxis"]["C_screecher_" + i] = undefined;
@@ -186,6 +188,7 @@ maxis_sidequest_c()
 					level thread maxissay("vox_maxi_turbine_2light_on_0", zone.origin);
 				}
 
+				level notify("maxis_c_complete");
 				player = get_players();
 				player[0] setclientfield("screecher_maxis_lights", 0);
 				level maxis_sidequest_complete_check("C_complete");
@@ -193,6 +196,15 @@ maxis_sidequest_c()
 			}
 		}
 	}
+}
+
+maxis_stop_safety_light_tower_fx_on_power_on()
+{
+	level endon("maxis_c_complete");
+
+	flag_wait("power_on");
+
+	level clientnotify("sq_kmt");
 }
 
 maxis_sidequest_complete()
@@ -220,6 +232,8 @@ richtofen_sidequest_c()
 	screech_zones = getstructarray("screecher_escape", "targetname");
 	level thread screecher_light_hint();
 	level.sq_richtofen_c_screecher_lights = [];
+
+	level thread richtofen_stop_safety_light_tower_fx_on_power_off();
 
 	while (true)
 	{
@@ -251,6 +265,15 @@ richtofen_sidequest_c()
 	player = get_players();
 	player[0] setclientfield("screecher_sq_lights", 0);
 	level thread richtofen_sidequest_complete_check("C_complete");
+}
+
+richtofen_stop_safety_light_tower_fx_on_power_off()
+{
+	level endon("richtofen_c_complete");
+
+	flag_waitopen("power_on");
+
+	level clientnotify("sq_krt");
 }
 
 richtofen_sidequest_complete()
