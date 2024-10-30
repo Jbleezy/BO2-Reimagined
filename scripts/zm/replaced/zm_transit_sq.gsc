@@ -161,7 +161,9 @@ maxis_sidequest_c()
 				level thread maxissay("vox_maxi_turbine_1light_0", zone.origin);
 			}
 
-			level thread set_screecher_zone_origin_and_notify(zone.script_noteworthy, "sq_max");
+			zone_origin = get_screecher_zone_origin(zone.script_noteworthy);
+			level clientnotify("sqm_" + zone_origin);
+
 			level.sq_maxis_c_screecher_lights[level.sq_maxis_c_screecher_lights.size] = screecher_zone;
 			level.sq_progress["maxis"]["C_screecher_light"]++;
 
@@ -241,7 +243,9 @@ richtofen_sidequest_c()
 
 		zone = screecher_zone.target;
 
-		level thread set_screecher_zone_origin_and_notify(zone.script_noteworthy, "sq_rich");
+		zone_origin = get_screecher_zone_origin(zone.script_noteworthy);
+		level clientnotify("sqr_" + zone_origin);
+
 		level.sq_richtofen_c_screecher_lights[level.sq_richtofen_c_screecher_lights.size] = screecher_zone;
 		level.sq_progress["rich"]["C_screecher_light"]++;
 
@@ -285,11 +289,41 @@ richtofen_sidequest_complete()
 	level thread droppowerup("richtofen");
 }
 
-set_screecher_zone_origin_and_notify(script_noteworthy, notify_str)
+get_screecher_zone_origin(script_noteworthy)
 {
-	level set_screecher_zone_origin(script_noteworthy);
-	wait 1;
-	clientnotify(notify_str);
+	if (!isdefined(script_noteworthy))
+	{
+		return "";
+	}
+
+	switch (script_noteworthy)
+	{
+		case "cornfield":
+			return "zsc";
+
+		case "diner":
+			return "zsd";
+
+		case "forest":
+			return "zsf";
+
+		case "busdepot":
+			return "zsb";
+
+		case "bridgedepot":
+			return "zsbd";
+
+		case "townbridge":
+			return "zsbt";
+
+		case "huntershack":
+			return "zsh";
+
+		case "powerstation":
+			return "zsp";
+	}
+
+	return "";
 }
 
 droppowerup(story)

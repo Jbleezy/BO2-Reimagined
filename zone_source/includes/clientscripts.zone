@@ -14,6 +14,7 @@ script,scripts/zm/replaced/_zm_perks.csc
 script,scripts/zm/replaced/_zm_perk_vulture.csc
 script,scripts/zm/replaced/_zm_weapons.csc
 script,scripts/zm/replaced/zm_transit.csc
+script,scripts/zm/replaced/zm_transit_classic.csc
 script,scripts/zm/replaced/zm_nuked.csc
 script,scripts/zm/replaced/zm_prison.csc
 script,scripts/zm/replaced/zm_buried.csc
