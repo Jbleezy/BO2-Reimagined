@@ -404,6 +404,11 @@ round_spawn_failsafe()
 	prevorigin = self.origin;
 	prevorigin_time = gettime();
 
+	if (!isdefined(level.zombie_respawned_health))
+	{
+		level.zombie_respawned_health = [];
+	}
+
 	while (true)
 	{
 		if (isdefined(self.ignore_round_spawn_failsafe) && self.ignore_round_spawn_failsafe)
