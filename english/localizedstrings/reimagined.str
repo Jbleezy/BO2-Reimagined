@@ -1054,6 +1054,15 @@ LANG_ENGLISH        "B34R Extended Clip"
 REFERENCE           ZMWEAPON_MP40_STALKER_UPGRADED
 LANG_ENGLISH        "The Afterburner Adjustable Stock"
 
+REFERENCE           ZMWEAPON_MP44_UPGRADED
+LANG_ENGLISH        "Spatz-447"
+
+REFERENCE           ZMWEAPON_MP44_FASTADS
+LANG_ENGLISH        "STG-44 Quickdraw Handle"
+
+REFERENCE           ZMWEAPON_MP44_FASTADS_UPGRADED
+LANG_ENGLISH        "Spatz-447 Quickdraw Handle"
+
 REFERENCE           ZMWEAPON_ACIDGAT
 LANG_ENGLISH        "Acidgat"
 

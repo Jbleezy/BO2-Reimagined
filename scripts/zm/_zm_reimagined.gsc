@@ -1847,6 +1847,26 @@ weapon_changes()
 		add_zombie_weapon("as50_zm", "as50_upgraded_zm", &"WEAPON_AS50", 1000, vox, "", undefined, 1);
 	}
 
+	if (isdefined(level.zombie_weapons["beretta93r_extclip_zm"]))
+	{
+		level.zombie_weapons["beretta93r_extclip_zm"].is_in_box = 0;
+	}
+
+	if (level.script == "zm_tomb")
+	{
+		level.zombie_weapons["fivesevendw_zm"].cost = 1100;
+		level.zombie_weapons["fivesevendw_zm"].ammo_cost = 550;
+		add_shared_ammo_weapon("fivesevendw_zm", "fiveseven_zm");
+	}
+
+	if (level.script == "zm_tomb")
+	{
+		include_weapon("mp44_fastads_zm");
+		include_weapon("mp44_fastads_upgraded_zm", 0);
+		add_zombie_weapon("mp44_fastads_zm", "mp44_fastads_upgraded_zm", &"ZMWEAPON_MP44_WALLBUY", 1400, "wpck_rifle", "", undefined, 1);
+		add_shared_ammo_weapon("mp44_fastads_zm", "mp44_zm");
+	}
+
 	if (level.script == "zm_transit" || level.script == "zm_nuked" || level.script == "zm_highrise" || level.script == "zm_prison")
 	{
 		level.zombie_lethal_grenade_player_init = "sticky_grenade_zm";

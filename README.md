@@ -406,6 +406,7 @@
 #### STG-44
 * Ammo gets added to the clip at the same time that it gets added in the reload anim
 * Upgraded: decreased stock ammo from 330 to 300
+* Upgraded: changed weapon name from "Spatz-447 +" to "Spatz-447"
 
 #### SWAT-556
 * Replaces M16A1
@@ -1300,6 +1301,10 @@
 * Teleporters: placing gramophone activates The Crazy Place teleporters
 * Teleporters: players face away from the teleporters when returning from The Crazy Place
 * Teleporters: players can teleport while prone
+* Mystery Box: added STG-44 Quickdraw Handle
+* Mystery Box: removed B23R Extended Clip
+* Mystery Box: Five-seven Dual Wield can no longer be obtained if player has Five-seven
+* Mystery Box: Five-seven Dual Wield ammo can be purchased from Five-seven wallbuys
 * Mystery Box: rotated weapon model angle 180 degrees
 * Mystery Box: uses the same trade weapon hint string as other maps
 * Der Wunderfizz: increased cost from 1500 to 2500
