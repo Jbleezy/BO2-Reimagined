@@ -230,9 +230,19 @@ meat_stink(who, owner)
 		return;
 	}
 
+	if (who isusingoffhand())
+	{
+		who forceoffhandend();
+	}
+
 	if (!isdefined(who.pre_temp_weapon))
 	{
-		who.pre_temp_weapon = who getcurrentweapon();
+		pre_temp_weapon = who getcurrentweapon();
+
+		if (pre_temp_weapon != "none")
+		{
+			who.pre_temp_weapon = pre_temp_weapon;
+		}
 	}
 
 	level notify("meat_grabbed");
