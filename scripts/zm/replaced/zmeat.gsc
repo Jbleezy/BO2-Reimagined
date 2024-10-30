@@ -189,9 +189,9 @@ player_wait_take_meat(meat_name)
 {
 	self.dont_touch_the_meat = 1;
 
-	if (isdefined(self.pre_meat_weapon) && self hasweapon(self.pre_meat_weapon))
+	if (isdefined(self.pre_temp_weapon) && self hasweapon(self.pre_temp_weapon))
 	{
-		self switchtoweapon(self.pre_meat_weapon);
+		self switchtoweapon(self.pre_temp_weapon);
 	}
 	else
 	{
@@ -211,11 +211,15 @@ player_wait_take_meat(meat_name)
 	self waittill_notify_or_timeout("weapon_change", 3);
 
 	self takeweapon(meat_name);
-	self.pre_meat_weapon = undefined;
 
 	if (self.is_drinking)
 	{
 		self decrement_is_drinking();
+	}
+
+	if (!self.is_drinking)
+	{
+		self.pre_temp_weapon = undefined;
 	}
 
 	self.dont_touch_the_meat = 0;

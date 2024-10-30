@@ -2090,12 +2090,11 @@ grief_laststand_weapons_return()
 	if (isDefined(self.pre_temp_weapon) && self hasWeapon(self.pre_temp_weapon))
 	{
 		weapon = self.pre_temp_weapon;
-		self.pre_temp_weapon = undefined;
-	}
-	else if (isDefined(self.pre_meat_weapon) && self hasWeapon(self.pre_meat_weapon))
-	{
-		weapon = self.pre_meat_weapon;
-		self.pre_meat_weapon = undefined;
+
+		if (!self.is_drinking)
+		{
+			self.pre_temp_weapon = undefined;
+		}
 	}
 	else if (isDefined(self.grief_savedweapon_currentweapon) && self hasWeapon(self.grief_savedweapon_currentweapon))
 	{

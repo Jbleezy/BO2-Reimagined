@@ -230,7 +230,11 @@ meat_stink(who, owner)
 		return;
 	}
 
-	who.pre_meat_weapon = who getcurrentweapon();
+	if (!isdefined(who.pre_temp_weapon))
+	{
+		who.pre_temp_weapon = who getcurrentweapon();
+	}
+
 	level notify("meat_grabbed");
 	who notify("meat_grabbed");
 	who playsound("zmb_pickup_meat");
@@ -403,7 +407,7 @@ meat_stink_cleanup_on_downed()
 
 	self waittill_any("player_downed", "spawned_player");
 
-	self.lastactiveweapon = self.pre_meat_weapon;
+	self.lastactiveweapon = self.pre_temp_weapon;
 
 	level.meat_player = undefined;
 

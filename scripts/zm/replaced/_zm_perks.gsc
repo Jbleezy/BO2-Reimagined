@@ -585,7 +585,14 @@ vending_trigger_post_think(player, perk)
 	player endon("disconnect");
 	player endon("end_game");
 	player endon("perk_abort_drinking");
-	player.pre_temp_weapon = player perk_give_bottle_begin(perk);
+
+	pre_temp_weapon = player perk_give_bottle_begin(perk);
+
+	if (!isdefined(player.pre_temp_weapon))
+	{
+		player.pre_temp_weapon = pre_temp_weapon;
+	}
+
 	evt = player waittill_any_return("fake_death", "death", "player_downed", "weapon_change_complete");
 
 	if (evt == "weapon_change_complete")
@@ -601,7 +608,10 @@ vending_trigger_post_think(player, perk)
 		return;
 	}
 
-	player.pre_temp_weapon = undefined;
+	if (!player.is_drinking)
+	{
+		player.pre_temp_weapon = undefined;
+	}
 
 	player notify("burp");
 
