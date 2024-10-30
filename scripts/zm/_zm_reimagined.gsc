@@ -104,6 +104,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_perks::perk_think, scripts\zm\replaced\_zm_perks::perk_think);
 	replaceFunc(maps\mp\zombies\_zm_perks::perk_set_max_health_if_jugg, scripts\zm\replaced\_zm_perks::perk_set_max_health_if_jugg);
 	replaceFunc(maps\mp\zombies\_zm_perks::initialize_custom_perk_arrays, scripts\zm\replaced\_zm_perks::initialize_custom_perk_arrays);
+	replaceFunc(maps\mp\zombies\_zm_perks::turn_marathon_on, scripts\zm\replaced\_zm_perks::turn_marathon_on);
 	replaceFunc(maps\mp\zombies\_zm_perks::turn_tombstone_on, scripts\zm\replaced\_zm_perks::turn_tombstone_on);
 	replaceFunc(maps\mp\zombies\_zm_perks::turn_chugabud_on, scripts\zm\replaced\_zm_perks::turn_chugabud_on);
 	replaceFunc(maps\mp\zombies\_zm_perks::wait_for_player_to_take, scripts\zm\replaced\_zm_perks::wait_for_player_to_take);
@@ -207,7 +208,7 @@ init()
 
 	level thread timer_hud();
 
-	level thread swap_staminup_perk();
+	level thread swap_marathon_perk();
 
 	level thread disable_story_vo();
 
@@ -1353,7 +1354,7 @@ setscoreboardcolumns_gametype()
 	}
 }
 
-swap_staminup_perk()
+swap_marathon_perk()
 {
 	vending_triggers = getentarray("zombie_vending", "targetname");
 

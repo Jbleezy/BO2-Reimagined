@@ -1337,7 +1337,6 @@ initialize_custom_perk_arrays()
 		level._custom_perks["specialty_movefaster"].alias = "marathon";
 		level._custom_perks["specialty_movefaster"].hint_string = &"ZOMBIE_PERK_MARATHON";
 		level._custom_perks["specialty_movefaster"].perk_bottle = "zombie_perk_bottle_marathon";
-		level._custom_perks["specialty_movefaster"].perk_machine_thread = ::turn_marathon_on;
 	}
 
 	struct = spawnStruct();
