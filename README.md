@@ -91,6 +91,7 @@
 		* [G-Strike Beacon](#g-strike-beacon)
 	* [Equipment](#equipment)
 		* [Combat Knife](#combat-knife)
+		* [Bowie Knife](#bowie-knife)
 		* [Silver Spoon](#silver-spoon)
 		* [Golden Spork](#golden-spork)
 		* [One Inch Punch](#one-inch-punch)
@@ -686,6 +687,9 @@
 
 #### Combat Knife
 * Added model from Black Ops 2 Multiplayer
+
+#### Bowie Knife
+* Flipped HUD icon
 
 #### Silver Spoon
 * Decreased damage from 1100 to 1000
