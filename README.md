@@ -213,7 +213,8 @@
 * Increased health from 100 to 150
 * Self revives in solo are active whenever the player has at least 1 perk
 * Upgraded starting pistol given as self revive pistol above all others except Ray Gun Mark 2
-* 100% backwards move speed
+* Increased backwards move speed from 70% to 100%
+* Increased strafing move speed from 80% to 100%
 * Decreased sprint time needed to be able to dive from 0.25 seconds to 0.1 seconds
 * Can move immediately after diving
 * Can dive again right away after just diving
@@ -749,7 +750,7 @@
 ## Mystery Box
 * Players get every weapon they can before getting duplicates
 * Players only see weapons rising up that they can currently obtain
-* Decreased weapon pickup time from 12 seconds to 9 seconds
+* Decreased weapon pick up time from 12 seconds to 9 seconds
 * Moves to new location instantly
 * Special sound no longer plays when obtaining the Ray Gun
 * Special sound plays when obtaining a limited weapon
@@ -851,7 +852,7 @@
 * Changed default weapon camo to dragon camo from Black Ops 2 Multiplayer (modified to be darker on primary camo and not animated on secondary camo)
 * Attachments on weapons can no longer be changed
 * Reticles on optical attachments are no longer random
-* Decreased weapon pickup time from 15 seconds to 12 seconds
+* Decreased weapon pick up time from 15 seconds to 12 seconds
 * Added sound when attempting to purchase without enough points
 
 ## Powerups

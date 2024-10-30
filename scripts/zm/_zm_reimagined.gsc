@@ -654,6 +654,7 @@ post_init()
 set_dvars()
 {
 	setDvar("player_backSpeedScale", 1);
+	setDvar("player_strafeSpeedScale", 1);
 
 	setDvar("player_meleeRange", 64);
 
@@ -722,6 +723,7 @@ set_client_dvars()
 {
 	self setClientDvars(
 	    "player_backSpeedScale", getDvar("player_backSpeedScale"),
+	    "player_strafeSpeedScale", getDvar("player_strafeSpeedScale"),
 	    "player_meleeRange", getDvar("player_meleeRange"),
 	    "player_breath_gasp_lerp", getDvar("player_breath_gasp_lerp"),
 	    "player_lastStandBleedoutTime", getDvar("player_lastStandBleedoutTime"),
