@@ -166,10 +166,10 @@ maxis_sidequest_c()
 			continue;
 		}
 
+		zone = screecher_zone.target;
+
 		if (level.sq_progress["maxis"]["B_complete"] && level.sq_progress["maxis"]["A_complete"])
 		{
-			zone = screecher_zone.target;
-
 			if (!turbine_1_talked)
 			{
 				turbine_1_talked = 1;
@@ -194,6 +194,10 @@ maxis_sidequest_c()
 				level maxis_sidequest_complete_check("C_complete");
 				return;
 			}
+		}
+		else
+		{
+			level thread maxissay("vox_maxi_turbine_2light_off_0", zone.origin);
 		}
 	}
 }
