@@ -193,6 +193,10 @@ player_wait_take_meat(meat_name)
 	{
 		self switchtoweapon(self.pre_temp_weapon);
 	}
+	else if (isdefined(self.last_held_primary_weapon) && self hasweapon(self.last_held_primary_weapon))
+	{
+		self switchtoweapon(self.last_held_primary_weapon);
+	}
 	else
 	{
 		primaryweapons = self getweaponslistprimaries();

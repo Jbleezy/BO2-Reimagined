@@ -475,6 +475,8 @@ on_player_spawned()
 
 			self thread ignoreme_after_revived();
 
+			self thread last_held_primary_weapon_tracker();
+
 			self thread held_melee_weapon_world_model_fix();
 
 			self thread give_additional_perks();
@@ -1462,30 +1464,46 @@ player_revive_protection_timeout()
 	self.revive_protection = 0;
 }
 
+last_held_primary_weapon_tracker()
+{
+	self endon("disconnect");
+
+	while (1)
+	{
+		self waittill("weapon_change");
+
+		current_weapon = self getcurrentweapon();
+
+		if (isweaponprimary(current_weapon) && current_weapon != "none")
+		{
+			self.last_held_primary_weapon = current_weapon;
+		}
+	}
+}
+
 held_melee_weapon_world_model_fix()
 {
 	self endon("disconnect");
 
 	while (1)
 	{
+		self waittill("weapon_change");
+
 		current_weapon = self getcurrentweapon();
 		melee_weapon = self get_player_melee_weapon();
 
 		if (!isdefined(melee_weapon))
 		{
-			wait 0.05;
 			continue;
 		}
 
 		if (getweaponmodel(melee_weapon) == "t6_wpn_none_world")
 		{
-			wait 0.05;
 			continue;
 		}
 
 		if (!self hasweapon(melee_weapon) && !self hasweapon("held_" + melee_weapon))
 		{
-			wait 0.05;
 			continue;
 		}
 
@@ -1507,8 +1525,6 @@ held_melee_weapon_world_model_fix()
 				self takeweapon("held_" + melee_weapon + "_offhand");
 			}
 		}
-
-		wait 0.05;
 	}
 }
 
