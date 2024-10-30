@@ -1036,7 +1036,7 @@
 * Decreased light lava damage from 6 to 5
 * Decreased fire zombie death explosion max damage from 30 to 15
 * Players can be revived in the fog easier
-* Lamp post portals stay active until the lamp post loses power
+* Lamp post portals stay active until the lamp post is powered off
 * Each lamp post portal teleports players to a set destination lamp post (randomizes each game)
 * Decreased brightness at Power Station
 * Zombies killed by the bus no longer respawn
@@ -1051,8 +1051,9 @@
 * Quest: increased pylon powerup drop rate from 4-12 minutes to 2-6 minutes
 * Quest (Maxis): Avogadro step only requires 1 Turbine under the pylon
 * Quest (Maxis): Turbine can get destroyed by the EMP during the Avogadro step and it will still count as completed
-* Quest (Maxis): lamp posts step requires all 8 lamp posts to get powered by a Turbine
+* Quest (Maxis): lamp posts step requires all 8 lamp posts to get powered on by a Turbine
 * Quest (Maxis): lamp posts step no longer requires all Turbines to be placed at the same time
+* Quest (Maxis): fixed lamp post power on check being inaccurate
 * Quest (Richtofen): lamp posts step requires all 8 lamp posts to get powered off by an EMP
 * Quest (Richtofen): lamp posts step no longer requires all lamp posts to be powered off at the same time
 * Survival & Grief: power doors are buyable doors

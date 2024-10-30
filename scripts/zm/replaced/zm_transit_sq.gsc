@@ -133,7 +133,6 @@ maxis_sidequest_c()
 	flag_wait("power_on");
 	flag_waitopen("power_on");
 	level endon("power_on");
-	level.sq_progress["maxis"]["C_screecher_dark"] = 0;
 
 	for (i = 0; i < 8; i++)
 	{
@@ -141,75 +140,58 @@ maxis_sidequest_c()
 	}
 
 	level.sq_progress["maxis"]["C_complete"] = 0;
+	safety_light_power_on_count = 0;
 	turbine_1_talked = 0;
 	turbine_2_talked = 0;
-	screech_zones = getstructarray("screecher_escape", "targetname");
 
 	while (true)
 	{
-		players = get_players();
+		level waittill("safety_light_power_on", screecher_zone);
 
-		foreach (player in players)
+		zone_used = 0;
+
+		for (i = 0; i < 8; i++)
 		{
-			if (isdefined(player.buildableturbine))
+			if (isdefined(level.sq_progress["maxis"]["C_screecher_" + i]) && screecher_zone == level.sq_progress["maxis"]["C_screecher_" + i])
 			{
-				for (x = 0; x < screech_zones.size; x++)
-				{
-					zone = screech_zones[x];
-
-					if (distancesquared(player.buildableturbine.origin, zone.origin) < zone.radius * zone.radius)
-					{
-						player.buildableturbine thread turbine_watch_cleanup();
-
-						zone_used = 0;
-
-						for (i = 0; i < 8; i++)
-						{
-							if (isdefined(level.sq_progress["maxis"]["C_screecher_" + i]) && zone == level.sq_progress["maxis"]["C_screecher_" + i])
-							{
-								zone_used = 1;
-								break;
-							}
-						}
-
-						if (!zone_used)
-						{
-							if (level.sq_progress["maxis"]["B_complete"] && level.sq_progress["maxis"]["A_complete"])
-							{
-								if (!turbine_1_talked)
-								{
-									turbine_1_talked = 1;
-									level thread maxissay("vox_maxi_turbine_1light_0", zone.origin);
-								}
-
-								level thread set_screecher_zone_origin_and_notify(zone.script_noteworthy, "sq_max");
-								level.sq_progress["maxis"]["C_screecher_" + level.sq_progress["maxis"]["C_screecher_dark"]] = zone;
-								level.sq_progress["maxis"]["C_screecher_dark"]++;
-
-								if (level.sq_progress["maxis"]["C_screecher_dark"] >= 8)
-								{
-									if (!turbine_2_talked)
-									{
-										turbine_2_talked = 1;
-										level thread maxissay("vox_maxi_turbine_2light_on_0", zone.origin);
-									}
-
-									player = get_players();
-									player[0] setclientfield("screecher_maxis_lights", 0);
-									level maxis_sidequest_complete_check("C_complete");
-									return;
-								}
-							}
-						}
-
-						continue;
-					}
-				}
+				zone_used = 1;
+				break;
 			}
 		}
 
-		level waittill_either("turbine_deployed", "equip_turbine_zm_cleaned_up");
-		level.sq_progress["maxis"]["C_complete"] = 0;
+		if (zone_used)
+		{
+			continue;
+		}
+
+		if (level.sq_progress["maxis"]["B_complete"] && level.sq_progress["maxis"]["A_complete"])
+		{
+			zone = screecher_zone.target;
+
+			if (!turbine_1_talked)
+			{
+				turbine_1_talked = 1;
+				level thread maxissay("vox_maxi_turbine_1light_0", zone.origin);
+			}
+
+			level thread set_screecher_zone_origin_and_notify(zone.script_noteworthy, "sq_max");
+			level.sq_progress["maxis"]["C_screecher_" + safety_light_power_on_count] = screecher_zone;
+			safety_light_power_on_count++;
+
+			if (safety_light_power_on_count >= 8)
+			{
+				if (!turbine_2_talked)
+				{
+					turbine_2_talked = 1;
+					level thread maxissay("vox_maxi_turbine_2light_on_0", zone.origin);
+				}
+
+				player = get_players();
+				player[0] setclientfield("screecher_maxis_lights", 0);
+				level maxis_sidequest_complete_check("C_complete");
+				return;
+			}
+		}
 	}
 }
 
