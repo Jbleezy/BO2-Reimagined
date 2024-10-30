@@ -141,7 +141,9 @@ meat_bounce_override(pos, normal, ent, bounce)
 
 		if (!isDefined(landed_on))
 		{
-			if (isDefined(self.prev_bounce_pos) && distancesquared(self.prev_bounce_pos, pos) <= 400)
+			self.bounce_count++;
+
+			if (self.bounce_count >= 4)
 			{
 				self meat_drop(pos);
 			}

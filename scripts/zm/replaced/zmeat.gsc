@@ -131,6 +131,7 @@ item_meat_watch_bounce()
 	self endon("death");
 	self endon("picked_up");
 	self.meat_is_flying = 1;
+	self.bounce_count = 0;
 
 	while (1)
 	{
@@ -140,8 +141,6 @@ item_meat_watch_bounce()
 		{
 			self thread [[level.meat_bounce_override]](pos, normal, ent, true);
 		}
-
-		self.prev_bounce_pos = pos;
 	}
 
 	self.meat_is_flying = 0;
