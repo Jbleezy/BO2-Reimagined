@@ -1015,9 +1015,6 @@ pregame_think()
 	{
 		player.waiting = undefined;
 		player playlocalsound("zmb_perks_packa_ready");
-
-		player.playing_loop_sound = 1;
-		player playloopsound("zmb_perks_packa_ticktock");
 	}
 
 	while (num_ready < players.size || players.size < level.pregame_minplayers)
@@ -1039,6 +1036,17 @@ pregame_think()
 
 			if (isdefined(ready_up_start_time))
 			{
+				players = get_players();
+
+				foreach (player in players)
+				{
+					if (!isDefined(player.playing_loop_sound))
+					{
+						player.playing_loop_sound = 1;
+						player playloopsound("zmb_perks_packa_ticktock");
+					}
+				}
+
 				time = getTime() - ready_up_start_time;
 
 				if (time >= ready_up_time * 1000)
@@ -1096,12 +1104,6 @@ pregame_think()
 
 		foreach (player in players)
 		{
-			if (!isDefined(player.playing_loop_sound))
-			{
-				player.playing_loop_sound = 1;
-				player playloopsound("zmb_perks_packa_ticktock");
-			}
-
 			if (is_true(player.afterlife))
 			{
 				player.infinite_mana = 1;
