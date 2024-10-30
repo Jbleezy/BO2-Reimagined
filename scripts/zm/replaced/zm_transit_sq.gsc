@@ -136,13 +136,9 @@ maxis_sidequest_c()
 
 	level thread maxis_stop_safety_light_tower_fx_on_power_on();
 
-	for (i = 0; i < 8; i++)
-	{
-		level.sq_progress["maxis"]["C_screecher_" + i] = undefined;
-	}
-
+	level.sq_maxis_c_screecher_lights = [];
+	level.sq_progress["maxis"]["C_screecher_light"] = 0;
 	level.sq_progress["maxis"]["C_complete"] = 0;
-	safety_light_power_on_count = 0;
 	turbine_1_talked = 0;
 	turbine_2_talked = 0;
 
@@ -150,18 +146,7 @@ maxis_sidequest_c()
 	{
 		level waittill("safety_light_power_on", screecher_zone);
 
-		zone_used = 0;
-
-		for (i = 0; i < 8; i++)
-		{
-			if (isdefined(level.sq_progress["maxis"]["C_screecher_" + i]) && screecher_zone == level.sq_progress["maxis"]["C_screecher_" + i])
-			{
-				zone_used = 1;
-				break;
-			}
-		}
-
-		if (zone_used)
+		if (isinarray(level.sq_maxis_c_screecher_lights, screecher_zone))
 		{
 			continue;
 		}
@@ -177,10 +162,10 @@ maxis_sidequest_c()
 			}
 
 			level thread set_screecher_zone_origin_and_notify(zone.script_noteworthy, "sq_max");
-			level.sq_progress["maxis"]["C_screecher_" + safety_light_power_on_count] = screecher_zone;
-			safety_light_power_on_count++;
+			level.sq_maxis_c_screecher_lights[level.sq_maxis_c_screecher_lights.size] = screecher_zone;
+			level.sq_progress["maxis"]["C_screecher_light"]++;
 
-			if (safety_light_power_on_count >= 8)
+			if (level.sq_progress["maxis"]["C_screecher_light"] >= 8)
 			{
 				if (!turbine_2_talked)
 				{
@@ -249,13 +234,15 @@ richtofen_sidequest_c()
 			continue;
 		}
 
-		if (isinarray(level.sq_richtofen_c_screecher_lights, screecher_zone.target.script_noteworthy))
+		if (isinarray(level.sq_richtofen_c_screecher_lights, screecher_zone))
 		{
 			continue;
 		}
 
-		level thread set_screecher_zone_origin_and_notify(screecher_zone.target.script_noteworthy, "sq_rich");
-		level.sq_richtofen_c_screecher_lights[level.sq_richtofen_c_screecher_lights.size] = screecher_zone.target.script_noteworthy;
+		zone = screecher_zone.target;
+
+		level thread set_screecher_zone_origin_and_notify(zone.script_noteworthy, "sq_rich");
+		level.sq_richtofen_c_screecher_lights[level.sq_richtofen_c_screecher_lights.size] = screecher_zone;
 		level.sq_progress["rich"]["C_screecher_light"]++;
 
 		if (level.sq_progress["rich"]["C_screecher_light"] >= 8)
