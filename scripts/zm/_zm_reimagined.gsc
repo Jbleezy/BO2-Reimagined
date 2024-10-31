@@ -2002,8 +2002,6 @@ create_equipment_turret_watcher()
 
 turbine_equipment_rotate_model(equipment, turret)
 {
-	self endon("disconnect");
-
 	// don't hide or ghost, makes linkto not work
 	turret setmodel("tag_origin");
 
@@ -2014,7 +2012,7 @@ turbine_equipment_rotate_model(equipment, turret)
 	model setinvisibletoall();
 	model setvisibletoplayer(self);
 
-	self waittill("destroy_equipment_turret", equipment, destroyed_turret);
+	self waittill_any("destroy_equipment_turret", "disconnect");
 
 	model delete();
 }
