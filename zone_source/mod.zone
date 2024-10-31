@@ -32,7 +32,6 @@ include,includes/images
 include,includes/materials
 include,includes/rawfile
 include,includes/stringtable
-include,includes/xmodel
 
 localize,reimagined
 
