@@ -917,6 +917,7 @@
 * Changed crafting hint string from "Building..." to "Crafting..."
 * Changed purchase hint string from "for" to "to take" on all maps
 * Changed pick up hint string from "for" to "to pick up" on all maps
+* Fixed not being destroyed correctly when placed at a bad spot
 
 ### Turbine
 * Rotated held model 90 degrees

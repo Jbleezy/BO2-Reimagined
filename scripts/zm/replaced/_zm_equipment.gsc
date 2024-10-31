@@ -35,9 +35,7 @@ placed_equipment_think(model, equipname, origin, angles, tradius, toffset)
 	{
 		if (!(self [[level.equipment_safe_to_drop]](pickupmodel)))
 		{
-			maps\mp\zombies\_zm_equipment::equipment_disappear_fx(pickupmodel.origin, undefined, pickupmodel.angles);
-			pickupmodel delete();
-			self maps\mp\zombies\_zm_equipment::equipment_take(equipname);
+			self thread placed_equipment_destroy(model, equipname, origin, angles, tradius, toffset, pickupmodel);
 			return undefined;
 		}
 	}
@@ -93,6 +91,18 @@ placed_equipment_think(model, equipname, origin, angles, tradius, toffset)
 
 	maps\mp\zombies\_zm_equipment::destructible_equipment_list_add(pickupmodel);
 	return pickupmodel;
+}
+
+placed_equipment_destroy(model, equipname, origin, angles, tradius, toffset, pickupmodel)
+{
+	if (equipname == "equip_turbine_zm")
+	{
+		pickupmodel.angles += (0, 90, 0);
+	}
+
+	maps\mp\zombies\_zm_equipment::equipment_disappear_fx(pickupmodel.origin, undefined, pickupmodel.angles);
+	pickupmodel delete();
+	self maps\mp\zombies\_zm_equipment::equipment_take(equipname);
 }
 
 item_watch_damage()
