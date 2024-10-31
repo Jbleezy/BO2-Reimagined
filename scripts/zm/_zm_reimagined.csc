@@ -14,11 +14,6 @@ main()
 	powerup_changes();
 }
 
-init()
-{
-	level thread turbine_equipment_rotate_model_watcher();
-}
-
 perk_changes()
 {
 	if (is_no_perk_map())
@@ -161,29 +156,5 @@ toggle_vending_deadshot_power_off_think()
 				ent setshaderconstant(0, 1, 0, 0, 0, 0);
 			}
 		}
-	}
-}
-
-turbine_equipment_rotate_model_watcher()
-{
-	while (1)
-	{
-		level waittill("turbine_equipment_rotate_model");
-
-		turret = getentbynum(0, getdvarint("entity_number"));
-
-		if (!isdefined(turret))
-		{
-			continue;
-		}
-
-		model = spawn(0, turret.origin, "script_model");
-		model.angles = turret.angles + (0, 90, 0);
-		model setmodel("p6_anim_zm_buildable_turbine");
-		model linkto(turret);
-
-		level waittill("turbine_equipment_delete");
-
-		model delete();
 	}
 }

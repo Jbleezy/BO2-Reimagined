@@ -1972,7 +1972,7 @@ create_equipment_turret_watcher()
 
 		if (isdefined(level.turbine_name) && equipment == level.turbine_name)
 		{
-			self thread turbine_equipment_rotate_model(turret);
+			self thread turbine_equipment_rotate_model(equipment, turret);
 			hide_turret = 1;
 		}
 		else if (isdefined(level.turret_name) && equipment == level.turret_name)
@@ -2000,19 +2000,23 @@ create_equipment_turret_watcher()
 	}
 }
 
-turbine_equipment_rotate_model(turret)
+turbine_equipment_rotate_model(equipment, turret)
 {
 	self endon("disconnect");
 
 	// don't hide or ghost, makes linkto not work
 	turret setmodel("tag_origin");
 
-	self setclientdvar("entity_number", turret getentitynumber());
-	self clientnotify("turbine_equipment_rotate_model");
+	model = spawnturret("auto_turret", turret.origin, equipment + "_turret");
+	model.angles = turret.angles + (0, 90, 0);
+	model setmodel(level.placeable_equipment[equipment]);
+	model linkto(turret);
+	model setinvisibletoall();
+	model setvisibletoplayer(self);
 
 	self waittill("destroy_equipment_turret", equipment, destroyed_turret);
 
-	self clientnotify("turbine_equipment_delete");
+	model delete();
 }
 
 sndmeleewpnsound()
