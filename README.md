@@ -329,6 +329,7 @@
 * Upgraded: decreased amount of primary camo
 
 #### Executioner
+* Added on Origins
 * Removed on Buried
 * Upgraded: changed attachment from None to Fast Mag
 

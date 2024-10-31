@@ -1783,6 +1783,12 @@ weapon_changes()
 	{
 		level.zombie_weapons["judge_zm"].is_in_box = 0;
 	}
+	else if (level.script == "zm_tomb")
+	{
+		include_weapon("judge_zm");
+		include_weapon("judge_upgraded_zm", 0);
+		add_zombie_weapon("judge_zm", "judge_upgraded_zm", &"ZOMBIE_WEAPON_JUDGE", 1000, "wpck_pistol", "", undefined, 1);
+	}
 
 	if (isdefined(level.zombie_weapons["galil_zm"]))
 	{
