@@ -445,7 +445,7 @@ on_player_connect()
 		player thread on_player_spectate_change();
 
 		player thread grenade_fire_watcher();
-		player thread player_hide_turrets_from_other_players();
+		player thread create_equipment_turret_watcher();
 		player thread sndmeleewpnsound();
 	}
 }
@@ -1960,7 +1960,7 @@ temp_disable_offhand_weapons()
 	}
 }
 
-player_hide_turrets_from_other_players()
+create_equipment_turret_watcher()
 {
 	self endon("disconnect");
 
@@ -1972,6 +1972,7 @@ player_hide_turrets_from_other_players()
 
 		if (isdefined(level.turbine_name) && equipment == level.turbine_name)
 		{
+			self thread turbine_equipment_rotate_model(turret);
 			hide_turret = 1;
 		}
 		else if (isdefined(level.turret_name) && equipment == level.turret_name)
@@ -1997,6 +1998,21 @@ player_hide_turrets_from_other_players()
 			turret setvisibletoplayer(self);
 		}
 	}
+}
+
+turbine_equipment_rotate_model(turret)
+{
+	self endon("disconnect");
+
+	// don't hide or ghost, makes linkto not work
+	turret setmodel("tag_origin");
+
+	self setclientdvar("entity_number", turret getentitynumber());
+	self clientnotify("turbine_equipment_rotate_model");
+
+	self waittill("destroy_equipment_turret", equipment, destroyed_turret);
+
+	self clientnotify("turbine_equipment_delete");
 }
 
 sndmeleewpnsound()

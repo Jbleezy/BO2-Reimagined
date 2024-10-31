@@ -124,6 +124,7 @@
 	* [Meat](#meat)
 * [Persistent Upgrades](#persistent-upgrades)
 * [Buildables](#buildables)
+	* [Turbine](#turbine)
 	* [Zombie Shield](#zombie-shield)
 	* [Turret](#turret)
 	* [Electric Trap](#electric-trap)
@@ -916,6 +917,9 @@
 * Changed crafting hint string from "Building..." to "Crafting..."
 * Changed purchase hint string from "for" to "to take" on all maps
 * Changed pick up hint string from "for" to "to pick up" on all maps
+
+### Turbine
+* Rotated held model 90 degrees
 
 ### Zombie Shield
 * Added shield health bar on HUD

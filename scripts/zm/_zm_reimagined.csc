@@ -14,6 +14,11 @@ main()
 	powerup_changes();
 }
 
+init()
+{
+	level thread turbine_equipment_rotate_model_watcher();
+}
+
 perk_changes()
 {
 	if (is_no_perk_map())
@@ -156,5 +161,40 @@ toggle_vending_deadshot_power_off_think()
 				ent setshaderconstant(0, 1, 0, 0, 0, 0);
 			}
 		}
+	}
+}
+
+turbine_equipment_rotate_model_watcher()
+{
+	while (1)
+	{
+		level waittill("turbine_equipment_rotate_model");
+
+		turret = undefined;
+		ent_num = getdvarint("entity_number");
+		ents = getentarray(0);
+
+		foreach (ent in ents)
+		{
+			if (ent getentitynumber() == ent_num)
+			{
+				turret = ent;
+				break;
+			}
+		}
+
+		if (!isdefined(turret))
+		{
+			continue;
+		}
+
+		model = spawn(0, turret.origin, "script_model");
+		model.angles = turret.angles + (0, 90, 0);
+		model setmodel("p6_anim_zm_buildable_turbine");
+		model linkto(turret);
+
+		level waittill("turbine_equipment_delete");
+
+		model delete();
 	}
 }
