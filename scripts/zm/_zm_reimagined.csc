@@ -170,18 +170,7 @@ turbine_equipment_rotate_model_watcher()
 	{
 		level waittill("turbine_equipment_rotate_model");
 
-		turret = undefined;
-		ent_num = getdvarint("entity_number");
-		ents = getentarray(0);
-
-		foreach (ent in ents)
-		{
-			if (ent getentitynumber() == ent_num)
-			{
-				turret = ent;
-				break;
-			}
-		}
+		turret = getentbynum(0, getdvarint("entity_number"));
 
 		if (!isdefined(turret))
 		{
