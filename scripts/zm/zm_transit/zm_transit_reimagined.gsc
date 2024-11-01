@@ -32,6 +32,7 @@ main()
 	replaceFunc(maps\mp\zm_transit_utility::solo_tombstone_removal, scripts\zm\replaced\zm_transit_utility::solo_tombstone_removal);
 	replaceFunc(maps\mp\zm_transit_ai_screecher::init, scripts\zm\replaced\zm_transit_ai_screecher::init);
 	replaceFunc(maps\mp\zm_transit_ai_screecher::player_wait_land, scripts\zm\replaced\zm_transit_ai_screecher::player_wait_land);
+	replaceFunc(maps\mp\zm_transit_automaton::automatonsetup, scripts\zm\replaced\zm_transit_automaton::automatonsetup);
 	replaceFunc(maps\mp\zm_transit_buildables::onuseplantobject_turbine, scripts\zm\replaced\zm_transit_buildables::onuseplantobject_turbine);
 	replaceFunc(maps\mp\zm_transit_bus::bussetup, scripts\zm\replaced\zm_transit_bus::bussetup);
 	replaceFunc(maps\mp\zm_transit_bus::busscheduleadd, scripts\zm\replaced\zm_transit_bus::busscheduleadd);

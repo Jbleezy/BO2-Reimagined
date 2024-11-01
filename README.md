@@ -1071,6 +1071,7 @@
 * Survival & Grief: power doors are buyable doors
 * Grief: added Ballistic Knife, Ray Gun, and Ray Gun Mark 2 to the Mystery Box
 * Added collision to area at Cornfield that was considered out of the map
+* Fixed T.E.D.D. moving around while the bus was moving
 * Fixed zombie riser spawn points that were too high above ground
 * Fixed zombie pathing at Cornfield behind the pylon
 * Fixed zombie pathing at Town in Bookstore
