@@ -100,6 +100,59 @@ bussetup()
 	self thread bussetdoornodes(0);
 }
 
+bus_audio_setup()
+{
+	if (!isdefined(self))
+	{
+		return;
+	}
+
+	tag_wheel_back_origin = (self gettagorigin("tag_wheel_back_left") + self gettagorigin("tag_wheel_back_right")) / 2;
+	self.engine_ent_1 = spawn("script_origin", self.origin);
+	self.engine_ent_1 linkto(self, "", self worldtolocalcoords(tag_wheel_back_origin, (0, 0, 0)));
+	self.engine_ent_2 = spawn("script_origin", self.origin);
+	self.engine_ent_2 linkto(self, "", self worldtolocalcoords(tag_wheel_back_origin, (0, 0, 0)));
+}
+
+play_lava_audio()
+{
+	tag_wheel_back_origin = (self gettagorigin("tag_wheel_back_left") + self gettagorigin("tag_wheel_back_right")) / 2;
+	tag_wheel_front_origin = (self gettagorigin("tag_wheel_front_left") + self gettagorigin("tag_wheel_front_right")) / 2;
+	ent_back = spawn("script_origin", tag_wheel_back_origin);
+	ent_back linkto(self, "", self worldtolocalcoords(tag_wheel_back_origin, (0, 0, 0)));
+	ent_front = spawn("script_origin", tag_wheel_front_origin);
+	ent_front linkto(self, "", self worldtolocalcoords(tag_wheel_front_origin, (0, 0, 0)));
+
+	while (true)
+	{
+		if (!(isdefined(self.ismoving) && self.ismoving))
+		{
+			wait 1;
+			continue;
+		}
+
+		if (self maps\mp\zm_transit_lava::object_touching_lava() && (self.zone != "zone_station_ext" && self.zone != "zone_pri"))
+		{
+			ent_front playloopsound("zmb_bus_lava_wheels_loop", 0.5);
+			ent_back playloopsound("zmb_bus_lava_wheels_loop", 0.5);
+			wait 2;
+
+			while (self maps\mp\zm_transit_lava::object_touching_lava())
+			{
+				wait 2;
+			}
+		}
+
+		if (isdefined(ent_back) && isdefined(ent_front))
+		{
+			ent_front stoploopsound(1);
+			ent_back stoploopsound(1);
+		}
+
+		wait 2;
+	}
+}
+
 busscheduleadd(stopname, isambush, maxwaittimebeforeleaving, busspeedleaving, gasusage)
 {
 	assert(isdefined(stopname));
