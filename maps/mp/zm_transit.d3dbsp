@@ -33317,7 +33317,7 @@
 }
 {
 "angles" "1.00179e-005 270 90"
-"origin" "7693 5994.25 81"
+"origin" "-7693 5994.25 81"
 "classname" "script_struct"
 "zombie_weapon_upgrade" "beretta93r_zm"
 "targetname" "weapon_upgrade"
@@ -33330,17 +33330,23 @@
 "classname" "script_struct"
 "model" "t6_wpn_pistol_b2023r_world"
 "angles" "1.00179e-005 270 90"
-"origin" "7693 5994.25 81"
+"origin" "-7693 5994.25 81"
 "guid" "6D2A1B25"
 }
 {
+"origin" "-7693 5994.25 56"
+"angles" "0 270 90"
+"classname" "script_origin"
+"targetname" "bus_buyable_weapon1_trig"
+"target" "bus_buyable_weapon1_model"
+"script_noteworthy" "bus_buyable_weapon1"
+}
+{
 "origin" "-7693 5994.25 81"
-"angles" "1.00179e-005 270 90"
+"angles" "0 270 90"
 "model" "t6_wpn_pistol_b2023r_world"
 "classname" "script_model"
-"targetname" "pf1777_auto2197"
-"script_noteworthy" "bus_buyable_weapon1"
-"guid" "B3B9A025"
+"targetname" "bus_buyable_weapon1_model"
 }
 {
 "model" "*224"

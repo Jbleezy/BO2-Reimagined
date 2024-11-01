@@ -573,11 +573,15 @@ buspathblockersetup()
 
 bus_buyable_weapon_unitrigger_setup()
 {
-	weapon_model = getent("bus_buyable_weapon1", "script_noteworthy");
+	trig = getent("bus_buyable_weapon1", "script_noteworthy");
+	trig enablelinkto();
+	trig linkto(self, "", self worldtolocalcoords(trig.origin), (0, 0, 0));
+	trig setinvisibletoall();
+
+	weapon_model = getent(trig.target, "targetname");
 	weapon_model enablelinkto();
 	weapon_model linkto(self, "", self worldtolocalcoords(weapon_model.origin), weapon_model.angles + self.angles);
 	weapon_model setmovingplatformenabled(1);
-	weapon_model._linked_ent = self;
 	weapon_model hide();
 
 	flag_wait("initial_blackscreen_passed");
@@ -593,10 +597,11 @@ bus_buyable_weapon_unitrigger_setup()
 		}
 	}
 
-	unitrigger.origin_parent = weapon_model;
+	unitrigger.require_look_at = 0;
+	unitrigger.origin_parent = trig;
 	unitrigger.link_parent = self;
-	unitrigger.originfunc = ::bus_buyable_weapon_get_unitrigger_origin;
-	unitrigger.onspawnfunc = ::bus_buyable_weapon_on_spawn_trigger;
+	unitrigger.originfunc = ::anystub_get_unitrigger_origin;
+	unitrigger.onspawnfunc = ::anystub_on_spawn_trigger;
 
 	while (1)
 	{
@@ -609,18 +614,6 @@ bus_buyable_weapon_unitrigger_setup()
 	}
 
 	weapon_model show();
-}
-
-bus_buyable_weapon_get_unitrigger_origin()
-{
-	return self.origin_parent.origin + (0, 0, -30);
-}
-
-bus_buyable_weapon_on_spawn_trigger(trigger)
-{
-	trigger enablelinkto();
-	trigger linkto(self.link_parent);
-	trigger setmovingplatformenabled(1);
 }
 
 busthink()
