@@ -417,6 +417,26 @@ chugabud_corpse_cleanup(corpse, was_revived, was_disconnect = 0)
 	{
 		playsoundatposition("evt_ww_appear", corpse.origin);
 		playfx(level._effect["chugabud_revive_fx"], corpse.origin);
+
+		if (is_true(corpse.spawn_tombstone))
+		{
+			tombstone_active = 0;
+			tombstones = getentarray("player_tombstone_model", "script_noteworthy");
+
+			foreach (tombstone in tombstones)
+			{
+				if (isdefined(tombstone.player) && tombstone.player == self)
+				{
+					tombstone_active = 1;
+					break;
+				}
+			}
+
+			if (!tombstone_active)
+			{
+				self.tombstone_savedweapon_weapons = undefined;
+			}
+		}
 	}
 	else
 	{
