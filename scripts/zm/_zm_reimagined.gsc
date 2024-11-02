@@ -1486,7 +1486,7 @@ last_held_primary_weapon_tracker()
 
 		current_weapon = self getcurrentweapon();
 
-		if (isweaponprimary(current_weapon) && current_weapon != "none")
+		if (current_weapon != "none" && isweaponprimary(current_weapon))
 		{
 			self.last_held_primary_weapon = current_weapon;
 		}
