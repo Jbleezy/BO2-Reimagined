@@ -98,6 +98,25 @@ is_jetgun_firing()
 	return abs(self get_jetgun_engine_direction()) > 0.2;
 }
 
+jetgun_get_enemies_in_range(invert)
+{
+	view_pos = self getweaponmuzzlepoint();
+	zombies = get_array_of_closest(view_pos, get_round_enemy_array(), undefined, undefined, level.zombie_vars["jetgun_drag_range"]);
+
+	knockdown_range_squared = level.zombie_vars["jetgun_knockdown_range"] * level.zombie_vars["jetgun_knockdown_range"];
+	drag_range_squared = level.zombie_vars["jetgun_drag_range"] * level.zombie_vars["jetgun_drag_range"];
+	gib_range_squared = level.zombie_vars["jetgun_gib_range"] * level.zombie_vars["jetgun_gib_range"];
+	grind_range_squared = level.zombie_vars["jetgun_grind_range"] * level.zombie_vars["jetgun_grind_range"];
+	cylinder_radius_squared = level.zombie_vars["jetgun_cylinder_radius"] * level.zombie_vars["jetgun_cylinder_radius"];
+	forward_view_angles = self getweaponforwarddir();
+	end_pos = view_pos + vectorscale(forward_view_angles, level.zombie_vars["jetgun_knockdown_range"]);
+
+	for (i = 0; i < zombies.size; i++)
+	{
+		self jetgun_check_enemies_in_range(zombies[i], view_pos, drag_range_squared, gib_range_squared, grind_range_squared, cylinder_radius_squared, forward_view_angles, end_pos, invert);
+	}
+}
+
 jetgun_check_enemies_in_range(zombie, view_pos, drag_range_squared, gib_range_squared, grind_range_squared, cylinder_radius_squared, forward_view_angles, end_pos, invert)
 {
 	if (!isDefined(zombie))
@@ -167,7 +186,7 @@ jetgun_check_enemies_in_range(zombie, view_pos, drag_range_squared, gib_range_sq
 		level.jetgun_fling_enemies[level.jetgun_fling_enemies.size] = zombie;
 		level.jetgun_grind_enemies[level.jetgun_grind_enemies.size] = dot < 0;
 	}
-	else
+	else if (test_range_squared < drag_range_squared && dot > 0)
 	{
 		if (!isDefined(zombie.ai_state) || zombie.ai_state != "find_flesh" && zombie.ai_state != "zombieMoveOnBus")
 		{
@@ -179,11 +198,77 @@ jetgun_check_enemies_in_range(zombie, view_pos, drag_range_squared, gib_range_sq
 			return;
 		}
 
-		if (test_range_squared < drag_range_squared && dot > 0)
-		{
-			level.jetgun_drag_enemies[level.jetgun_drag_enemies.size] = zombie;
-		}
+		level.jetgun_drag_enemies[level.jetgun_drag_enemies.size] = zombie;
 	}
+}
+
+zombie_enter_drag_state(vdir, speed)
+{
+	self.drag_state = 1;
+	self.jetgun_drag_state = "unaffected";
+	self.was_traversing = isdefined(self.is_traversing) && self.is_traversing;
+	self.ignoreall = 1;
+	self notify("stop_find_flesh");
+	self notify("zombie_acquire_enemy");
+	self zombie_keep_in_drag_state(vdir, speed);
+	self.zombie_move_speed_pre_jetgun_drag = self.zombie_move_speed;
+}
+
+zombie_drag_think()
+{
+	self endon("death");
+	self endon("flinging");
+	self endon("grinding");
+
+	while (self zombie_should_stay_in_drag_state())
+	{
+		self setgoalpos(self.jetgun_owner.origin);
+
+		self._distance_to_jetgun_owner = distancesquared(self.origin, self.jetgun_owner.origin);
+		jetgun_network_choke();
+
+		if (self.zombie_move_speed == "sprint" || self._distance_to_jetgun_owner < level.jetgun_pulled_in_range || is_true(self.is_traversing))
+		{
+			self jetgun_drag_set("jetgun_sprint", "jetgun_walk_fast_crawl");
+		}
+		else if (self._distance_to_jetgun_owner < level.jetgun_pulling_in_range)
+		{
+			self jetgun_drag_set("jetgun_walk_fast", "jetgun_walk_fast");
+		}
+		else if (self._distance_to_jetgun_owner < level.jetgun_inner_range)
+		{
+			self jetgun_drag_set("jetgun_walk", "jetgun_walk_slow_crawl");
+		}
+		else if (self._distance_to_jetgun_owner < level.jetgun_outer_edge)
+		{
+			self jetgun_drag_set("jetgun_walk_slow", "jetgun_walk_slow_crawl");
+		}
+
+		wait 0.1;
+	}
+
+	self thread zombie_exit_drag_state();
+}
+
+zombie_exit_drag_state()
+{
+	self notify("jetgun_end_drag_state");
+	self.drag_state = 0;
+	self.jetgun_drag_state = "unaffected";
+	self.needs_run_update = 1;
+	self.ignoreall = 0;
+
+	if (isdefined(self.zombie_move_speed_pre_jetgun_drag))
+	{
+		self set_zombie_run_cycle(self.zombie_move_speed_pre_jetgun_drag);
+		self.zombie_move_speed_pre_jetgun_drag = undefined;
+	}
+	else
+	{
+		self set_zombie_run_cycle();
+	}
+
+	self thread maps\mp\zombies\_zm_ai_basic::find_flesh();
 }
 
 jetgun_grind_zombie(player)

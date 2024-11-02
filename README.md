@@ -556,10 +556,10 @@
 * Upgraded: added secondary camo
 
 #### Jet Gun
-* Kills multiple zombies significantly faster
+* Pulls in zombies from far away
+* Kills all zombies that are close by immediately
 * Kills zombies that are in the ground, traversing, or behind barriers
 * Awards points for kills
-* Heats up half as fast
 * Cools down twice as fast
 * Cools down while not holding weapon
 * No longer spins up while not idle
@@ -1042,7 +1042,7 @@
 * Players can sprint and go prone on the bus
 * Powerups dropped within the bus are linked to the bus
 * Bus wallbuy trigger functions the same as other wallbuy triggers
-* Zombie Shield correctly kills zombies on the bus
+* Zombie Shield and Jet Gun correctly kill zombies on the bus
 * Lava in starting area activates after the power is on
 * Lava destroys grenades instantly
 * Lava damage no longer changes based on player's health

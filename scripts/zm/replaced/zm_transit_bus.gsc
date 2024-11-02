@@ -898,7 +898,7 @@ busplowkillzombieuntildeath()
 
 transit_actor_damage_override_wrapper(inflictor, attacker, damage, flags, meansofdeath, weapon, vpoint, vdir, shitloc, psoffsettime, boneindex)
 {
-	if (damage > self.health && (isdefined(self.isonbus) && self.isonbus) && weapon != level.riotshield_name)
+	if (damage > self.health && (isdefined(self.isonbus) && self.isonbus) && weapon != level.riotshield_name && weapon != "jetgun_zm")
 	{
 		ret = self maps\mp\zombies\_zm::actor_damage_override_wrapper(inflictor, attacker, self.health - 1, flags, meansofdeath, weapon, vpoint, vdir, shitloc, psoffsettime, boneindex);
 		self zombie_in_bus_death_animscript_callback(inflictor, attacker, damage, flags, meansofdeath, weapon, vpoint, vdir, shitloc, psoffsettime, boneindex);

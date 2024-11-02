@@ -59,7 +59,9 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_weap_jetgun::watch_overheat, scripts\zm\replaced\_zm_weap_jetgun::watch_overheat);
 	replaceFunc(maps\mp\zombies\_zm_weap_jetgun::jetgun_firing, scripts\zm\replaced\_zm_weap_jetgun::jetgun_firing);
 	replaceFunc(maps\mp\zombies\_zm_weap_jetgun::is_jetgun_firing, scripts\zm\replaced\_zm_weap_jetgun::is_jetgun_firing);
-	replaceFunc(maps\mp\zombies\_zm_weap_jetgun::jetgun_check_enemies_in_range, scripts\zm\replaced\_zm_weap_jetgun::jetgun_check_enemies_in_range);
+	replaceFunc(maps\mp\zombies\_zm_weap_jetgun::jetgun_get_enemies_in_range, scripts\zm\replaced\_zm_weap_jetgun::jetgun_get_enemies_in_range);
+	replaceFunc(maps\mp\zombies\_zm_weap_jetgun::zombie_enter_drag_state, scripts\zm\replaced\_zm_weap_jetgun::zombie_enter_drag_state);
+	replaceFunc(maps\mp\zombies\_zm_weap_jetgun::zombie_drag_think, scripts\zm\replaced\_zm_weap_jetgun::zombie_drag_think);
 	replaceFunc(maps\mp\zombies\_zm_weap_jetgun::jetgun_grind_zombie, scripts\zm\replaced\_zm_weap_jetgun::jetgun_grind_zombie);
 	replaceFunc(maps\mp\zombies\_zm_weap_jetgun::handle_overheated_jetgun, scripts\zm\replaced\_zm_weap_jetgun::handle_overheated_jetgun);
 	replaceFunc(maps\mp\zombies\_zm_weap_jetgun::jetgun_network_choke, scripts\zm\replaced\_zm_weap_jetgun::jetgun_network_choke);
