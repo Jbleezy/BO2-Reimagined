@@ -1038,6 +1038,7 @@
 * Any door that requires a Turbine to open is automatically open whenever the power is on
 * Increased bus speed by 100%
 * Added bus depart timer on HUD when player is on bus
+* Added visor and hanging straps to the bus
 * Players can sprint and go prone on the bus
 * Powerups dropped within the bus are linked to the bus
 * Bus wallbuy trigger functions the same as other wallbuy triggers

@@ -35,6 +35,7 @@ main()
 	replaceFunc(maps\mp\zm_transit_automaton::automatonsetup, scripts\zm\replaced\zm_transit_automaton::automatonsetup);
 	replaceFunc(maps\mp\zm_transit_buildables::onuseplantobject_turbine, scripts\zm\replaced\zm_transit_buildables::onuseplantobject_turbine);
 	replaceFunc(maps\mp\zm_transit_bus::bussetup, scripts\zm\replaced\zm_transit_bus::bussetup);
+	replaceFunc(maps\mp\zm_transit_bus::busfxanims_end, scripts\zm\replaced\zm_transit_bus::busfxanims_end);
 	replaceFunc(maps\mp\zm_transit_bus::busscheduleadd, scripts\zm\replaced\zm_transit_bus::busscheduleadd);
 	replaceFunc(maps\mp\zm_transit_bus::busplowkillzombieuntildeath, scripts\zm\replaced\zm_transit_bus::busplowkillzombieuntildeath);
 	replaceFunc(maps\mp\zm_transit_distance_tracking::delete_zombie_noone_looking, scripts\zm\replaced\zm_transit_distance_tracking::delete_zombie_noone_looking);

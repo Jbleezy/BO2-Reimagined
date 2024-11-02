@@ -98,6 +98,7 @@ bussetup()
 	self thread bus_bridge_speedcontrol();
 	self.door_nodes_linked = 1;
 	self thread bussetdoornodes(0);
+	self busfxanims();
 }
 
 bus_audio_setup()
@@ -151,6 +152,16 @@ play_lava_audio()
 
 		wait 2;
 	}
+}
+
+busfxanims_end()
+{
+	if (!isdefined(self.fxanimmodel))
+	{
+		return;
+	}
+
+	self.fxanimmodel clearanim(level.bus_props_idle_state, 0);
 }
 
 busscheduleadd(stopname, isambush, maxwaittimebeforeleaving, busspeedleaving, gasusage)
