@@ -664,6 +664,8 @@ bus_buyable_weapon_unitrigger_setup()
 	unitrigger.require_look_at = 0;
 	unitrigger.origin_parent = trig;
 	unitrigger.link_parent = self;
+	unitrigger.og_prompt_and_visibility_func = unitrigger.prompt_and_visibility_func;
+	unitrigger.prompt_and_visibility_func = ::bus_buyable_update_prompt;
 	unitrigger.originfunc = ::anystub_get_unitrigger_origin;
 	unitrigger.onspawnfunc = ::anystub_on_spawn_trigger;
 
@@ -678,6 +680,27 @@ bus_buyable_weapon_unitrigger_setup()
 	}
 
 	weapon_model show();
+}
+
+bus_buyable_update_prompt(player)
+{
+	self thread bus_buyable_disable_while_on_ground(player);
+
+	return [[self.stub.og_prompt_and_visibility_func]](player);
+}
+
+bus_buyable_disable_while_on_ground(player)
+{
+	self notify("bus_buyable_disable_while_on_ground");
+	self endon("bus_buyable_disable_while_on_ground");
+	self endon("kill_trigger");
+
+	while (!player isonground())
+	{
+		wait 0.05;
+	}
+
+	level thread maps\mp\zombies\_zm_unitrigger::cleanup_trigger(self, player);
 }
 
 busthink()
