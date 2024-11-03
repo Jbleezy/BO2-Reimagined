@@ -1303,7 +1303,7 @@
 * Giant Robots: zombie limit no longer decreased to 22 when 3 robots are active
 * Tank: players can go prone on the tank
 * Tank: powerups dropped within the tank are linked to the tank
-* Tank: standing on the tread pushes the player forward instead of backward
+* Tank: standing on the tread pushes the player forward instead of backward if the tank is moving
 * Tank: changed cooldown to 30 seconds (normally 2-120 seconds depending on how long players were on the tank)
 * Tank: no longer free to activate if called
 * Teleporters: stay active after picking up gramophone

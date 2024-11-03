@@ -79,7 +79,14 @@ tank_push_player_off_edge(trig)
 
 		if (player == self && self isonground())
 		{
-			v_push = anglestoforward(trig.angles) * -150;
+			amount = 150;
+
+			if (level.vh_tank ent_flag("tank_moving"))
+			{
+				amount = -150;
+			}
+
+			v_push = anglestoforward(trig.angles) * amount;
 			self setvelocity(v_push);
 		}
 
