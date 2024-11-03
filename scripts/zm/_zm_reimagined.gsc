@@ -119,6 +119,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_buildables::player_progress_bar_update, scripts\zm\replaced\_zm_buildables::player_progress_bar_update);
 	replaceFunc(maps\mp\zombies\_zm_power::standard_powered_items, scripts\zm\replaced\_zm_power::standard_powered_items);
 	replaceFunc(maps\mp\zombies\_zm_powerups::powerup_drop, scripts\zm\replaced\_zm_powerups::powerup_drop);
+	replaceFunc(maps\mp\zombies\_zm_powerups::powerup_move, scripts\zm\replaced\_zm_powerups::powerup_move);
 	replaceFunc(maps\mp\zombies\_zm_powerups::get_next_powerup, scripts\zm\replaced\_zm_powerups::get_next_powerup);
 	replaceFunc(maps\mp\zombies\_zm_powerups::powerup_grab, scripts\zm\replaced\_zm_powerups::powerup_grab);
 	replaceFunc(maps\mp\zombies\_zm_powerups::full_ammo_powerup, scripts\zm\replaced\_zm_powerups::full_ammo_powerup);

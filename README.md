@@ -817,6 +817,7 @@
 * Changed perk machine light fx from Speed Cola's fx to Quick Revive's fx
 * Changed powerup fx color to blue
 * Powerup gets destroyed by EMP Grenades
+* Powerup can be pulled in by Jet Gun
 * Restores all weapons properly
 * Disabled suicide option when player is down
 * Added powerup waypoint

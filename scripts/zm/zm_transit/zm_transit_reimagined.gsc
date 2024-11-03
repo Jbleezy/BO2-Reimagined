@@ -750,11 +750,11 @@ attachpoweruptobus(powerup)
 		}
 	}
 
-	origin_diff = level.the_bus worldtolocalcoords(powerup.origin);
+	powerup.origin_diff = level.the_bus worldtolocalcoords(powerup.origin);
 
 	while (isDefined(powerup))
 	{
-		powerup.origin = level.the_bus localtoworldcoords(origin_diff);
+		powerup.origin = level.the_bus localtoworldcoords(powerup.origin_diff);
 
 		if (isdefined(powerup.waypoint))
 		{

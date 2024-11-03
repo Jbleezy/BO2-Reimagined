@@ -127,6 +127,11 @@ tombstone_move()
 
 		self.origin = moveto;
 
+		if (isdefined(self.origin_diff) && isdefined(level.the_bus))
+		{
+			self.origin_diff = level.the_bus worldtolocalcoords(moveto);
+		}
+
 		self.waypoint.x = self.origin[0];
 		self.waypoint.y = self.origin[1];
 		self.waypoint.z = self.origin[2] + 40;

@@ -74,6 +74,34 @@ powerup_drop(drop_point)
 	level notify("powerup_dropped", powerup);
 }
 
+powerup_move()
+{
+	self endon("powerup_timedout");
+	self endon("powerup_grabbed");
+	drag_speed = 75;
+
+	while (true)
+	{
+		self waittill("move_powerup", moveto, distance);
+		drag_vector = moveto - self.origin;
+		range_squared = lengthsquared(drag_vector);
+
+		if (range_squared > distance * distance)
+		{
+			drag_vector = vectornormalize(drag_vector);
+			drag_vector = distance * drag_vector;
+			moveto = self.origin + drag_vector;
+		}
+
+		self.origin = moveto;
+
+		if (isdefined(self.origin_diff) && isdefined(level.the_bus))
+		{
+			self.origin_diff = level.the_bus worldtolocalcoords(moveto);
+		}
+	}
+}
+
 get_next_powerup()
 {
 	powerup = level.zombie_powerup_array[level.zombie_powerup_index];

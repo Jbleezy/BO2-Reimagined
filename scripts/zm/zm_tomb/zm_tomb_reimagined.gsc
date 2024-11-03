@@ -342,11 +342,11 @@ attachpoweruptotank(powerup)
 		}
 	}
 
-	origin_diff = level.vh_tank worldtolocalcoords(powerup.origin);
+	powerup.origin_diff = level.vh_tank worldtolocalcoords(powerup.origin);
 
 	while (isDefined(powerup))
 	{
-		powerup.origin = level.vh_tank localtoworldcoords(origin_diff);
+		powerup.origin = level.vh_tank localtoworldcoords(powerup.origin_diff);
 
 		wait 0.05;
 	}
