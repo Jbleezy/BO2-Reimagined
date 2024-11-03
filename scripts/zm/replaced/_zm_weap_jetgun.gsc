@@ -188,12 +188,17 @@ jetgun_check_enemies_in_range(zombie, view_pos, drag_range_squared, gib_range_sq
 	}
 	else if (test_range_squared < drag_range_squared && dot > 0)
 	{
-		if (!isDefined(zombie.ai_state) || zombie.ai_state != "find_flesh" && zombie.ai_state != "zombieMoveOnBus")
+		if (!is_true(zombie.completed_emerging_into_playable_area) && !isdefined(zombie.first_node))
 		{
 			return;
 		}
 
-		if (isDefined(zombie.in_the_ground) && zombie.in_the_ground)
+		if (is_true(zombie.barricade_enter))
+		{
+			return;
+		}
+
+		if (is_true(zombie.in_the_ground))
 		{
 			return;
 		}
@@ -208,6 +213,7 @@ zombie_enter_drag_state(vdir, speed)
 	self.jetgun_drag_state = "unaffected";
 	self.was_traversing = isdefined(self.is_traversing) && self.is_traversing;
 	self.ignoreall = 1;
+	self notify("stop_zombie_goto_entrance");
 	self notify("stop_find_flesh");
 	self notify("zombie_acquire_enemy");
 	self zombie_keep_in_drag_state(vdir, speed);
@@ -222,12 +228,19 @@ zombie_drag_think()
 
 	while (self zombie_should_stay_in_drag_state())
 	{
-		self setgoalpos(self.jetgun_owner.origin);
+		if (!is_true(self.completed_emerging_into_playable_area))
+		{
+			self setgoalpos(self.first_node.origin);
+		}
+		else
+		{
+			self setgoalpos(self.jetgun_owner.origin);
+		}
 
 		self._distance_to_jetgun_owner = distancesquared(self.origin, self.jetgun_owner.origin);
 		jetgun_network_choke();
 
-		if (self.zombie_move_speed == "sprint" || self._distance_to_jetgun_owner < level.jetgun_pulled_in_range || is_true(self.is_traversing))
+		if (self.zombie_move_speed == "sprint" || self._distance_to_jetgun_owner < level.jetgun_pulled_in_range)
 		{
 			self jetgun_drag_set("jetgun_sprint", "jetgun_walk_fast_crawl");
 		}
@@ -268,7 +281,16 @@ zombie_exit_drag_state()
 		self set_zombie_run_cycle();
 	}
 
-	self thread maps\mp\zombies\_zm_ai_basic::find_flesh();
+	if (!is_true(self.completed_emerging_into_playable_area))
+	{
+		assert(isdefined(self.first_node));
+		self maps\mp\zombies\_zm_spawner::reset_attack_spot();
+		self thread maps\mp\zombies\_zm_spawner::zombie_goto_entrance(self.first_node);
+	}
+	else
+	{
+		self thread maps\mp\zombies\_zm_ai_basic::find_flesh();
+	}
 }
 
 jetgun_grind_zombie(player)
