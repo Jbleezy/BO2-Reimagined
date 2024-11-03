@@ -44,6 +44,7 @@ jetgun_firing()
 
 	if (self is_jetgun_firing() && jetgun_fired == 0)
 	{
+		self thread try_pull_powerups();
 		self.jetsound_ent playloopsound("wpn_jetgun_effect_plr_loop", 0.8);
 		self.jetsound_ent playsound("wpn_jetgun_effect_plr_start");
 		self notify("jgun_snd");
@@ -70,6 +71,7 @@ jetgun_firing()
 
 	if (jetgun_fired == 1)
 	{
+		self notify("stop_try_pull_powerups");
 		self.jetsound_ent stoploopsound(0.5);
 		self.jetsound_ent playsound("wpn_jetgun_effect_plr_end");
 		self thread sound_ent_cleanup();
@@ -96,6 +98,97 @@ is_jetgun_firing()
 	}
 
 	return abs(self get_jetgun_engine_direction()) > 0.2;
+}
+
+jetgun_fired()
+{
+	if (!self is_jetgun_firing())
+	{
+		return;
+	}
+
+	origin = self getweaponmuzzlepoint();
+	physicsjetthrust(origin, self getweaponforwarddir() * -1, level.zombie_vars["jetgun_grind_range"], self get_jetgun_engine_direction(), 0.85);
+
+	if (!isdefined(level.jetgun_knockdown_enemies))
+	{
+		level.jetgun_knockdown_enemies = [];
+		level.jetgun_knockdown_gib = [];
+		level.jetgun_drag_enemies = [];
+		level.jetgun_fling_enemies = [];
+		level.jetgun_grind_enemies = [];
+	}
+
+	self jetgun_get_enemies_in_range(self get_jetgun_engine_direction());
+	level.jetgun_network_choke_count = 0;
+
+	foreach (index, zombie in level.jetgun_fling_enemies)
+	{
+		jetgun_network_choke();
+
+		if (isdefined(zombie))
+		{
+			zombie thread jetgun_fling_zombie(self, index);
+		}
+	}
+
+	foreach (zombie in level.jetgun_drag_enemies)
+	{
+		jetgun_network_choke();
+
+		if (isdefined(zombie))
+		{
+			zombie.jetgun_owner = self;
+			zombie thread jetgun_drag_zombie(origin, -1 * self get_jetgun_engine_direction());
+		}
+	}
+
+	level.jetgun_knockdown_enemies = [];
+	level.jetgun_knockdown_gib = [];
+	level.jetgun_drag_enemies = [];
+	level.jetgun_fling_enemies = [];
+	level.jetgun_grind_enemies = [];
+}
+
+try_pull_powerups()
+{
+	self endon("disconnect");
+	self endon("stop_try_pull_powerups");
+
+	while (1)
+	{
+		if (!self is_jetgun_firing())
+		{
+			wait 0.05;
+			continue;
+		}
+
+		powerup_move_dist = level.zombie_vars["powerup_move_dist"] * -1 * self get_jetgun_engine_direction();
+		powerup_range_squared = level.zombie_vars["powerup_drag_range"] * level.zombie_vars["powerup_drag_range"];
+		view_pos = self getweaponmuzzlepoint();
+		forward_view_angles = self getweaponforwarddir();
+		powerups = maps\mp\zombies\_zm_powerups::get_powerups();
+
+		foreach (powerup in powerups)
+		{
+			if (distancesquared(view_pos, powerup.origin) > powerup_range_squared)
+			{
+				continue;
+			}
+
+			normal = vectornormalize(powerup.origin - view_pos);
+			dot = vectordot(forward_view_angles, normal);
+
+			if (abs(dot) < 0.7)
+			{
+				continue;
+			}
+
+			powerup notify("move_powerup", view_pos, powerup_move_dist);
+		}
+
+		wait 0.05;
+	}
 }
 
 jetgun_get_enemies_in_range(invert)

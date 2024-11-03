@@ -633,6 +633,7 @@ post_init()
 	level.zombie_vars["slipgun_reslip_rate"] = 0;
 	level.zombie_vars["zombie_perk_divetonuke_min_damage"] = 1000;
 	level.zombie_vars["zombie_perk_divetonuke_max_damage"] = 5000;
+	level.zombie_vars["powerup_move_dist"] = 20;
 	level.players_can_damage_riotshields = 1;
 	level.speed_change_round = undefined;
 	level.playersuicideallowed = undefined;

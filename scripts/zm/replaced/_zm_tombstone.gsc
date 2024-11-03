@@ -110,7 +110,6 @@ tombstone_move()
 {
 	self endon("tombstone_grabbed");
 	self endon("tombstone_timedout");
-	drag_speed = 75;
 
 	while (true)
 	{

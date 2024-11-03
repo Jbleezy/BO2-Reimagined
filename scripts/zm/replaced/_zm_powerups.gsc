@@ -78,7 +78,6 @@ powerup_move()
 {
 	self endon("powerup_timedout");
 	self endon("powerup_grabbed");
-	drag_speed = 75;
 
 	while (true)
 	{
