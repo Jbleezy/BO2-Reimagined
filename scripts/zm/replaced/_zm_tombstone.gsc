@@ -20,26 +20,30 @@ tombstone_spawn(ent)
 	self notify("tombstone_handle_multiple_instances");
 
 	origin = self.origin;
+	angles = self.angles;
 
 	if (isdefined(ent))
 	{
 		origin = ent.origin;
+		angles = ent.angles;
 	}
 
 	powerup = spawn("script_model", origin + vectorScale((0, 0, 1), 40));
-	powerup.angles = self.angles;
+	powerup.angles = angles;
 	powerup setmodel("tag_origin");
 	icon = spawn("script_model", origin + vectorScale((0, 0, 1), 40));
-	icon.angles = self.angles;
+	icon.angles = angles;
 	icon setmodel("ch_tombstone1");
 	icon linkto(powerup);
 	powerup.icon = icon;
 	powerup.script_noteworthy = "player_tombstone_model";
 	powerup.player = self;
+	level.active_powerups[level.active_powerups.size] = powerup;
 
 	self thread maps\mp\zombies\_zm_tombstone::tombstone_clear();
 	powerup thread tombstone_wobble();
 	powerup thread tombstone_emp();
+	powerup thread tombstone_move();
 	powerup thread tombstone_handle_multiple_instances();
 
 	result = "";
@@ -101,6 +105,33 @@ tombstone_emp()
 	}
 }
 
+tombstone_move()
+{
+	self endon("tombstone_grabbed");
+	self endon("tombstone_timedout");
+	drag_speed = 75;
+
+	while (true)
+	{
+		self waittill("move_powerup", moveto, distance);
+		drag_vector = moveto - self.origin;
+		range_squared = lengthsquared(drag_vector);
+
+		if (range_squared > distance * distance)
+		{
+			drag_vector = vectornormalize(drag_vector);
+			drag_vector = distance * drag_vector;
+			moveto = self.origin + drag_vector;
+		}
+
+		self.origin = moveto;
+
+		self.waypoint.x = self.origin[0];
+		self.waypoint.y = self.origin[1];
+		self.waypoint.z = self.origin[2] + 40;
+	}
+}
+
 tombstone_waypoint()
 {
 	hud = newClientHudElem(self.player);
@@ -113,6 +144,7 @@ tombstone_waypoint()
 	hud.fadewhentargeted = 1;
 	hud setShader("specialty_tombstone_zombies", 8, 8);
 	hud setWaypoint(1);
+	self.waypoint = hud;
 
 	self waittill_any("tombstone_grabbed", "tombstone_timedout");
 
@@ -169,6 +201,7 @@ tombstone_grab()
 			wait 0.1;
 			playsoundatposition("zmb_tombstone_grab", self.origin);
 			self stoploopsound();
+			arrayremovevalue(level.active_powerups, self, 0);
 			self.icon unlink();
 			self.icon delete();
 			self delete();
@@ -185,6 +218,7 @@ tombstone_delete()
 {
 	self notify("tombstone_timedout");
 	self.player.tombstone_savedweapon_weapons = undefined;
+	arrayremovevalue(level.active_powerups, self, 0);
 	self.icon unlink();
 	self.icon delete();
 	self delete();
