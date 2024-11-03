@@ -662,6 +662,8 @@ set_dvars()
 
 	setDvar("player_meleeRange", 64);
 
+	setDvar("player_allowActivateWhileSwitchingWeapons", 1);
+
 	setDvar("player_breath_gasp_lerp", 0);
 
 	// can't set to exactly 90 or else looking completely up or down will cause the player to move in the opposite direction
@@ -729,6 +731,7 @@ set_client_dvars()
 	    "player_backSpeedScale", getDvar("player_backSpeedScale"),
 	    "player_strafeSpeedScale", getDvar("player_strafeSpeedScale"),
 	    "player_meleeRange", getDvar("player_meleeRange"),
+	    "player_allowActivateWhileSwitchingWeapons", getDvar("player_allowActivateWhileSwitchingWeapons"),
 	    "player_breath_gasp_lerp", getDvar("player_breath_gasp_lerp"),
 	    "player_lastStandBleedoutTime", getDvar("player_lastStandBleedoutTime"),
 	    "player_view_pitch_up", getDvar("player_view_pitch_up"),

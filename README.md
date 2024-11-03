@@ -240,6 +240,7 @@
 * Weapon is no longer switched after reviving if player switched weapons during revive
 * No longer gain points back on self revives
 * Respawn near random player (normally respawn near the same player every time)
+* Can activate triggers while switching weapons
 * Can shoot while looking at other players
 * Increased mantle speed
 * Increased ladder climb speed
