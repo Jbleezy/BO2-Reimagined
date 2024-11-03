@@ -39,6 +39,7 @@ tombstone_spawn(ent)
 	powerup.script_noteworthy = "player_tombstone_model";
 	powerup.player = self;
 	level.active_powerups[level.active_powerups.size] = powerup;
+	level notify("powerup_dropped", powerup);
 
 	self thread maps\mp\zombies\_zm_tombstone::tombstone_clear();
 	powerup thread tombstone_wobble();

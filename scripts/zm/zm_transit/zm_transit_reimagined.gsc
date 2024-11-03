@@ -756,6 +756,13 @@ attachpoweruptobus(powerup)
 	{
 		powerup.origin = level.the_bus localtoworldcoords(origin_diff);
 
+		if (isdefined(powerup.waypoint))
+		{
+			powerup.waypoint.x = powerup.origin[0];
+			powerup.waypoint.y = powerup.origin[1];
+			powerup.waypoint.z = powerup.origin[2] + 40;
+		}
+
 		wait 0.05;
 	}
 }
