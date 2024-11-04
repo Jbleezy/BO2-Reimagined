@@ -495,6 +495,7 @@ CoD.AmmoAreaZombie.UpdateAmmo = function(f6_arg0, f6_arg1)
 			end
 		end
 		for f6_local15 = f6_local14 + 1, f6_local0, 1 do
+			f6_arg0.ammoDigits[f6_local15]:setDigit(0)
 			f6_arg0.ammoDigits[f6_local15]:setAlpha(0)
 		end
 		f6_arg0:dispatchEventToChildren(f6_arg1)
