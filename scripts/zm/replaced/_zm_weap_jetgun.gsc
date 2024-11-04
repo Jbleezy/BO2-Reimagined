@@ -315,6 +315,7 @@ zombie_enter_drag_state(vdir, speed)
 	self notify("stop_zombie_goto_entrance");
 	self notify("stop_find_flesh");
 	self notify("zombie_acquire_enemy");
+	self setplayercollision(0);
 	self zombie_keep_in_drag_state(vdir, speed);
 	self.zombie_move_speed_pre_jetgun_drag = self.zombie_move_speed;
 }
@@ -376,6 +377,7 @@ zombie_exit_drag_state()
 	self.jetgun_drag_state = "unaffected";
 	self.needs_run_update = 1;
 	self.ignoreall = 0;
+	self setplayercollision(1);
 
 	if (isdefined(self.zombie_move_speed_pre_jetgun_drag))
 	{
