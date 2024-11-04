@@ -19,7 +19,7 @@ watch_overheat()
 			self.jetgun_overheating = overheating;
 			self.jetgun_heatval = heat;
 
-			if (overheating && heat >= 99.9 && self attackbuttonpressed() && !self isswitchingweapons())
+			if (overheating && heat >= 100 && self attackbuttonpressed() && !self isswitchingweapons())
 			{
 				if (overheating_count >= 20)
 				{
