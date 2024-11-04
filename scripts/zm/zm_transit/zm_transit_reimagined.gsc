@@ -104,6 +104,7 @@ init()
 	level thread power_local_electric_doors_globally();
 	level thread power_station_vision_change();
 	level thread attach_powerups_to_bus();
+	level thread bus_hatch_open();
 }
 
 grief_include_weapons()
@@ -765,4 +766,12 @@ attachpoweruptobus(powerup)
 
 		wait 0.05;
 	}
+}
+
+bus_hatch_open()
+{
+	flag_wait("initial_blackscreen_passed");
+
+	level.bus_roof_open = 1;
+	level.the_bus notify("hatch_ripped_open");
 }

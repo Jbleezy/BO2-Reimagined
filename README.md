@@ -1046,6 +1046,7 @@
 * Players can sprint and go prone on the bus
 * Powerups dropped within the bus are linked to the bus
 * Bus wallbuy trigger functions the same as other wallbuy triggers
+* Bus hatch starts off open but broken
 * Zombie Shield and Jet Gun correctly kill zombies on the bus
 * Lava in starting area activates after the power is on
 * Lava destroys grenades instantly
