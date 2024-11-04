@@ -8,6 +8,8 @@ watch_overheat()
 	self endon("death_or_disconnect");
 	self endon("weapon_change");
 
+	overheating_count = 0;
+
 	while (true)
 	{
 		if (self getcurrentweapon() == "jetgun_zm")
@@ -17,12 +19,37 @@ watch_overheat()
 			self.jetgun_overheating = overheating;
 			self.jetgun_heatval = heat;
 
-			if (overheating)
+			if (overheating && heat >= 99.9 && self attackbuttonpressed() && !self isswitchingweapons())
 			{
-				self notify("jetgun_overheated");
+				if (overheating_count >= 20)
+				{
+					self notify("jetgun_overheated");
+				}
+				else
+				{
+					if (overheating_count == 0)
+					{
+						self luinotifyevent(&"hud_update_overheat", 2, 1, 100);
+					}
+
+					if (overheating_count % 5 == 0)
+					{
+						self playsound("wpn_jetgun_spark_grind");
+					}
+
+					self setweaponoverheating(0, 99.9);
+				}
+
+				overheating_count++;
+			}
+			else if (overheating_count > 0)
+			{
+				self luinotifyevent(&"hud_update_overheat");
+				self setweaponoverheating(1, 100);
+				overheating_count = 0;
 			}
 
-			if (heat > 75)
+			if (overheating)
 			{
 				self thread play_overheat_fx();
 			}
@@ -465,6 +492,7 @@ handle_overheated_jetgun()
 			self.jetgun_overheating = undefined;
 			self.jetgun_heatval = undefined;
 			self playsound("wpn_jetgun_explo");
+			self luinotifyevent(&"hud_update_overheat");
 		}
 	}
 }

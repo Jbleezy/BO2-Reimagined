@@ -230,9 +230,11 @@ precache_strings()
 {
 	precacheString(&"get_dvar");
 	precacheString(&"r_fog_settings");
-	precacheString(&"hud_update_perk_order");
 
 	precacheString(&"hud_update_rounds_played");
+	precacheString(&"hud_update_overheat");
+	precacheString(&"hud_update_perk_order");
+
 	precacheString(&"hud_update_enemy_counter");
 	precacheString(&"hud_update_total_timer");
 	precacheString(&"hud_update_round_timer");

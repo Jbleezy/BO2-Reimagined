@@ -509,6 +509,34 @@ CoD.AmmoAreaZombie.UpdateOverheat = function(f8_arg0, f8_arg1)
 		return
 	end
 
+	if f8_arg1.data ~= nil then
+		f8_arg0.overheatOverride = f8_arg1.data[1]
+		f8_arg0.heatPercentOverride = f8_arg1.data[2]
+	else
+		f8_arg0.overheatOverride = nil
+		f8_arg0.heatPercentOverride = nil
+	end
+
+	if f8_arg1.overheat == nil then
+		f8_arg1.overheat = f8_arg0.overheat
+	else
+		f8_arg0.overheat = f8_arg1.overheat
+	end
+
+	if f8_arg1.heatPercent == nil then
+		f8_arg1.heatPercent = f8_arg0.heatPercent
+	else
+		f8_arg0.heatPercent = f8_arg1.heatPercent
+	end
+
+	if f8_arg0.overheatOverride ~= nil then
+		f8_arg1.overheat = f8_arg0.overheatOverride
+	end
+
+	if f8_arg0.heatPercentOverride ~= nil then
+		f8_arg1.heatPercent = f8_arg0.heatPercentOverride
+	end
+
 	local f8_local0 = f8_arg1.overheat
 	local f8_local1 = #f8_arg0.ammoDigits
 	if f8_arg0.hideAmmo then
@@ -580,6 +608,7 @@ CoD.AmmoAreaZombie.UpdateOverheat = function(f8_arg0, f8_arg1)
 		end
 
 		for f8_local11 = f8_local10, f8_local1, 1 do
+			f8_arg0.ammoDigits[f8_local11]:setDigit(0)
 			f8_arg0.ammoDigits[f8_local11]:setAlpha(0)
 		end
 		f8_arg0:dispatchEventToChildren(f8_arg1)

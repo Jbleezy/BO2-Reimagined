@@ -568,9 +568,9 @@
 * No longer changes player vertical velocity while firing
 * No longer automatically switched to weapon when picked up
 * No longer disassembles when overheated
+* Weapon is taken when overheated and continuing to fire for 1 second
 * Pulls in powerups more frequently
 * Pulls in powerups twice as fast
-* Weapon is taken when overheated
 * Buildable table model no longer shows while player has weapon
 * Added heat percentage on HUD
 * Changed weapon name from "Thrustodyne Aeronautics Model 23" to "Jet Gun"
