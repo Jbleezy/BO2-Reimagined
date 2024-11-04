@@ -95,7 +95,10 @@ zombie_exploding_death(zombie_dmg, trap)
 		playfx(level._effect["spawn_cloud"], self gettagorigin(tag));
 	}
 
+	level.use_adjusted_grenade_damage = true;
 	self radiusdamage(self.origin, 128, 15, 15, undefined, "MOD_EXPLOSIVE");
+	level.use_adjusted_grenade_damage = undefined;
+
 	self ghost();
 
 	if (isdefined(self.isdog) && self.isdog)

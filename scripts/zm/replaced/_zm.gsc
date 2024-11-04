@@ -2316,7 +2316,7 @@ player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, s
 
 	idamage = self maps\mp\zombies\_zm::check_player_damage_callbacks(einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime);
 
-	if (is_true(self.use_adjusted_grenade_damage))
+	if (is_true(level.use_adjusted_grenade_damage) || is_true(self.use_adjusted_grenade_damage))
 	{
 		if (self hasperk("specialty_flakjacket"))
 		{
@@ -2436,17 +2436,6 @@ player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, s
 		if (is_true(level.pers_upgrade_flopper))
 		{
 			if (self maps\mp\zombies\_zm_pers_upgrades_functions::pers_upgrade_flopper_damage_check(smeansofdeath, idamage))
-			{
-				return 0;
-			}
-		}
-	}
-
-	if (smeansofdeath == "MOD_EXPLOSIVE")
-	{
-		if (sweapon != level.item_meat_name)
-		{
-			if (self hasperk("specialty_flakjacket"))
 			{
 				return 0;
 			}
