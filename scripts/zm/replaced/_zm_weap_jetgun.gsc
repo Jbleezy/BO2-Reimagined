@@ -296,6 +296,11 @@ jetgun_check_enemies_in_range(zombie, view_pos, drag_range_squared, gib_range_sq
 			return;
 		}
 
+		if (is_true(self.isonbus) && is_true(level.the_bus.ismoving) && (!isdefined(zombie.ai_state) || zombie.ai_state != "zombieMoveOnBus"))
+		{
+			return;
+		}
+
 		level.jetgun_drag_enemies[level.jetgun_drag_enemies.size] = zombie;
 	}
 }
@@ -305,6 +310,7 @@ zombie_enter_drag_state(vdir, speed)
 	self.drag_state = 1;
 	self.jetgun_drag_state = "unaffected";
 	self.was_traversing = isdefined(self.is_traversing) && self.is_traversing;
+	self.favoriteenemy = self.jetgun_owner;
 	self.ignoreall = 1;
 	self notify("stop_zombie_goto_entrance");
 	self notify("stop_find_flesh");
@@ -323,10 +329,22 @@ zombie_drag_think()
 	{
 		if (!is_true(self.completed_emerging_into_playable_area))
 		{
+			self.goalradius = 128;
 			self setgoalpos(self.first_node.origin);
+		}
+		else if (!is_true(self.isonbus) && is_true(self.jetgun_owner.isonbus) && (is_true(level.the_bus.doorsclosed) || is_true(self.jetgun_owner.isonbusroof)))
+		{
+			self.goalradius = 2;
+			self setgoalpos(self maps\mp\zm_transit_bus::busgetclosestopening());
+		}
+		else if (isdefined(self.ai_state) && self.ai_state == "zombieMoveOnBus")
+		{
+			self.goalradius = 32;
+			// use goalpos from zombiemoveonbus
 		}
 		else
 		{
+			self.goalradius = 32;
 			self setgoalpos(self.jetgun_owner.origin);
 		}
 
