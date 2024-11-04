@@ -337,12 +337,7 @@ zombie_drag_think()
 			self.goalradius = 2;
 			self setgoalpos(self maps\mp\zm_transit_bus::busgetclosestopening());
 		}
-		else if (isdefined(self.ai_state) && self.ai_state == "zombieMoveOnBus")
-		{
-			self.goalradius = 32;
-			// use goalpos from zombiemoveonbus
-		}
-		else
+		else if (!isdefined(self.ai_state) || self.ai_state != "zombieMoveOnBus")
 		{
 			self.goalradius = 32;
 			self setgoalpos(self.jetgun_owner.origin);
@@ -398,7 +393,7 @@ zombie_exit_drag_state()
 		self maps\mp\zombies\_zm_spawner::reset_attack_spot();
 		self thread maps\mp\zombies\_zm_spawner::zombie_goto_entrance(self.first_node);
 	}
-	else
+	else if (!isdefined(self.ai_state) || self.ai_state != "zombieMoveOnBus")
 	{
 		self thread maps\mp\zombies\_zm_ai_basic::find_flesh();
 	}
