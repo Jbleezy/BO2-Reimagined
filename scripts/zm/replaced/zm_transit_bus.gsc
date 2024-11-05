@@ -110,9 +110,9 @@ bus_audio_setup()
 
 	tag_wheel_back_origin = (self gettagorigin("tag_wheel_back_left") + self gettagorigin("tag_wheel_back_right")) / 2;
 	self.engine_ent_1 = spawn("script_origin", self.origin);
-	self.engine_ent_1 linkto(self, "", self worldtolocalcoords(tag_wheel_back_origin, (0, 0, 0)));
+	self.engine_ent_1 linkto(self, "", self worldtolocalcoords(tag_wheel_back_origin), (0, 0, 0));
 	self.engine_ent_2 = spawn("script_origin", self.origin);
-	self.engine_ent_2 linkto(self, "", self worldtolocalcoords(tag_wheel_back_origin, (0, 0, 0)));
+	self.engine_ent_2 linkto(self, "", self worldtolocalcoords(tag_wheel_back_origin), (0, 0, 0));
 }
 
 play_lava_audio()
@@ -120,9 +120,9 @@ play_lava_audio()
 	tag_wheel_back_origin = (self gettagorigin("tag_wheel_back_left") + self gettagorigin("tag_wheel_back_right")) / 2;
 	tag_wheel_front_origin = (self gettagorigin("tag_wheel_front_left") + self gettagorigin("tag_wheel_front_right")) / 2;
 	ent_back = spawn("script_origin", tag_wheel_back_origin);
-	ent_back linkto(self, "", self worldtolocalcoords(tag_wheel_back_origin, (0, 0, 0)));
+	ent_back linkto(self, "", self worldtolocalcoords(tag_wheel_back_origin), (0, 0, 0));
 	ent_front = spawn("script_origin", tag_wheel_front_origin);
-	ent_front linkto(self, "", self worldtolocalcoords(tag_wheel_front_origin, (0, 0, 0)));
+	ent_front linkto(self, "", self worldtolocalcoords(tag_wheel_front_origin), (0, 0, 0));
 
 	while (true)
 	{
