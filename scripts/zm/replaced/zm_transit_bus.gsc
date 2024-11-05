@@ -532,32 +532,9 @@ bus_bridge_speedcontrol()
 			else if (nextpoint.script_noteworthy == "bridge")
 			{
 				level thread do_automaton_arrival_vox("bridge");
-				player_near = 0;
-				node = getvehiclenode("bridge_accel_point", "script_noteworthy");
 
-				if (isdefined(node))
-				{
-					players = get_players();
-
-					foreach (player in players)
-					{
-						if (player.isonbus)
-						{
-							continue;
-						}
-
-						if (distancesquared(player.origin, node.origin) < 6760000)
-						{
-							player_near = 1;
-						}
-					}
-				}
-
-				if (player_near)
-				{
-					trig = getent("bridge_trig", "targetname");
-					trig notify("trigger");
-				}
+				trig = getent("bridge_trig", "targetname");
+				trig notify("trigger");
 			}
 			else if (nextpoint.script_noteworthy == "depot")
 			{
