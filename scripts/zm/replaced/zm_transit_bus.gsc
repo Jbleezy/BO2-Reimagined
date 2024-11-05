@@ -822,47 +822,38 @@ busupdateplayers()
 
 			if (isdefined(ground_ent))
 			{
-				if (isdefined(ground_ent.is_zombie) && ground_ent.is_zombie)
+				if (playerisinbus && !(isdefined(player.isonbus) && player.isonbus))
 				{
-					player thread zombie_surf(ground_ent);
+					bbprint("zombie_events", "category %s type %s round %d playername %s", "BUS", "player_enter", level.round_number, player.name);
+					player thread bus_audio_interior_loop(self);
+					player clientnotify("OBS");
+					player setclientdvar("player_view_pitch_up", 85);
+					player setclientdvar("player_view_pitch_down", 85);
+
+					if (randomint(100) > 80 && level.automaton.greeting_timer == 0)
+					{
+						thread automatonspeak("convo", "player_enter");
+						level.automaton thread greeting_timer();
+					}
 				}
-				else
+
+				if (!playerisinbus && (isdefined(player.isonbus) && player.isonbus))
 				{
-					if (playerisinbus && !(isdefined(player.isonbus) && player.isonbus))
+					bbprint("zombie_events", "category %s type %s round %d playername %s", "BUS", "player_exit", level.round_number, player.name);
+					player notify("left bus");
+					player clientnotify("LBS");
+					player setclientdvar("player_view_pitch_up", 89.9999);
+					player setclientdvar("player_view_pitch_down", 89.9999);
+
+					if (randomint(100) > 80 && level.automaton.greeting_timer == 0)
 					{
-						bbprint("zombie_events", "category %s type %s round %d playername %s", "BUS", "player_enter", level.round_number, player.name);
-						player thread bus_audio_interior_loop(self);
-						player clientnotify("OBS");
-						player setclientplayerpushamount(0);
-						player setclientdvar("player_view_pitch_up", 85);
-						player setclientdvar("player_view_pitch_down", 85);
-
-						if (randomint(100) > 80 && level.automaton.greeting_timer == 0)
-						{
-							thread automatonspeak("convo", "player_enter");
-							level.automaton thread greeting_timer();
-						}
+						thread automatonspeak("convo", "player_leave");
+						level.automaton thread greeting_timer();
 					}
-
-					if (!playerisinbus && (isdefined(player.isonbus) && player.isonbus))
-					{
-						bbprint("zombie_events", "category %s type %s round %d playername %s", "BUS", "player_exit", level.round_number, player.name);
-						player setclientplayerpushamount(1);
-						player notify("left bus");
-						player clientnotify("LBS");
-						player setclientdvar("player_view_pitch_up", 89.9999);
-						player setclientdvar("player_view_pitch_down", 89.9999);
-
-						if (randomint(100) > 80 && level.automaton.greeting_timer == 0)
-						{
-							thread automatonspeak("convo", "player_leave");
-							level.automaton thread greeting_timer();
-						}
-					}
-
-					player.isonbus = playerisinbus;
-					player.isonbusroof = player _entityisonroof();
 				}
+
+				player.isonbus = playerisinbus;
+				player.isonbusroof = player _entityisonroof();
 			}
 
 			if (isdefined(player.isonbusroof) && player.isonbusroof)
