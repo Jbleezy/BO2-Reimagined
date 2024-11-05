@@ -661,6 +661,8 @@ post_init()
 
 set_dvars()
 {
+	setDvar("playerPushAmount", 1);
+
 	setDvar("player_backSpeedScale", 1);
 	setDvar("player_strafeSpeedScale", 1);
 
