@@ -704,6 +704,8 @@ set_dvars()
 
 	setDvar("bg_burstFireInputFix", 1);
 
+	setDvar("bg_ladder_pitchmove", 0);
+
 	setDvar("bg_minigun_prevent_spin_while_not_ready", 1);
 	setDvar("bg_minigun_disable_ads_spin", 1);
 
@@ -756,6 +758,7 @@ set_client_dvars()
 	self setClientDvars(
 	    "bg_fallDamageScale", getDvar("bg_fallDamageScale"),
 	    "bg_burstFireInputFix", getDvar("bg_burstFireInputFix"),
+	    "bg_ladder_pitchmove", getDvar("bg_ladder_pitchmove"),
 	    "bg_minigun_prevent_spin_while_not_ready", getDvar("bg_minigun_prevent_spin_while_not_ready"),
 	    "bg_minigun_disable_ads_spin", getDvar("bg_minigun_disable_ads_spin"),
 	    "bg_jetgun_prevent_spin_while_not_ready", getDvar("bg_jetgun_prevent_spin_while_not_ready"),

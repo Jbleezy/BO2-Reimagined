@@ -245,6 +245,7 @@
 * Can shoot while looking at other players
 * Increased mantle speed
 * Increased ladder climb speed
+* Move direction on ladders no longer based on player view angles
 * Disabled leaning
 * Start with Semtex on maps that have Semtex
 * Barriers can no longer be rebuilt while sprinting or thowing a grenade
