@@ -21,20 +21,26 @@ watch_overheat()
 
 			if (overheating && heat >= 100 && self attackbuttonpressed() && !self isswitchingweapons())
 			{
-				if (overheating_count >= 20)
+				if (overheating_count >= 30)
 				{
+					self notify("jgun_overheat_snd_end");
+					self luinotifyevent(&"hud_update_overheat");
 					self notify("jetgun_overheated");
 				}
 				else
 				{
 					if (overheating_count == 0)
 					{
-						self luinotifyevent(&"hud_update_overheat", 2, 1, 100);
-					}
+						if (!isdefined(self.jetsound_overheat_ent))
+						{
+							self.jetsound_overheat_ent = spawn("script_origin", self.origin);
+							self.jetsound_overheat_ent linkto(self, "tag_origin");
+							self thread sound_overheat_ent_cleanup();
+						}
 
-					if (overheating_count % 5 == 0)
-					{
-						self playsound("wpn_jetgun_spark_grind");
+						self.jetsound_overheat_time = gettime();
+						self.jetsound_overheat_ent playloopsound("wpn_jetgun_alarm");
+						self luinotifyevent(&"hud_update_overheat", 2, 1, 100);
 					}
 
 					self setweaponoverheating(0, 99.9);
@@ -44,6 +50,7 @@ watch_overheat()
 			}
 			else if (overheating_count > 0)
 			{
+				self notify("jgun_overheat_snd_end");
 				self luinotifyevent(&"hud_update_overheat");
 				self setweaponoverheating(1, 100);
 				overheating_count = 0;
@@ -56,6 +63,37 @@ watch_overheat()
 		}
 
 		wait 0.05;
+	}
+}
+
+sound_overheat_ent_cleanup()
+{
+	self waittill_any("jgun_overheat_snd_end", "disconnect");
+
+	jetsound_overheat_ent = self.jetsound_overheat_ent;
+	jetsound_overheat_time = self.jetsound_overheat_time;
+
+	if (isdefined(jetsound_overheat_time))
+	{
+		stop_times = array(350, 750, 1150, 1550);
+
+		while (1)
+		{
+			time = gettime() - jetsound_overheat_time;
+
+			if (isinarray(stop_times, time) || time > stop_times[stop_times.size - 1])
+			{
+				break;
+			}
+
+			wait 0.05;
+		}
+	}
+
+	if (isdefined(jetsound_overheat_ent))
+	{
+		jetsound_overheat_ent stoploopsound();
+		jetsound_overheat_ent delete();
 	}
 }
 
@@ -74,7 +112,7 @@ jetgun_firing()
 		self thread try_pull_powerups();
 		self.jetsound_ent playloopsound("wpn_jetgun_effect_plr_loop", 0.8);
 		self.jetsound_ent playsound("wpn_jetgun_effect_plr_start");
-		self notify("jgun_snd");
+		self thread sound_ent_cleanup();
 	}
 
 	while (self is_jetgun_firing())
@@ -101,19 +139,25 @@ jetgun_firing()
 		self notify("stop_try_pull_powerups");
 		self.jetsound_ent stoploopsound(0.5);
 		self.jetsound_ent playsound("wpn_jetgun_effect_plr_end");
-		self thread sound_ent_cleanup();
+		self notify("jgun_snd_end");
 		jetgun_fired = 0;
 	}
 }
 
 sound_ent_cleanup()
 {
-	self endon("jgun_snd");
+	self notify("sound_ent_cleanup");
+	self endon("sound_ent_cleanup");
+
+	self waittill_any("jgun_snd_end", "disconnect");
+
+	jetsound_ent = self.jetsound_ent;
+
 	wait 4;
 
-	if (isdefined(self.jetsound_ent))
+	if (isdefined(jetsound_ent))
 	{
-		self.jetsound_ent delete();
+		jetsound_ent delete();
 	}
 }
 
@@ -492,7 +536,6 @@ handle_overheated_jetgun()
 			self.jetgun_overheating = undefined;
 			self.jetgun_heatval = undefined;
 			self playsound("wpn_jetgun_explo");
-			self luinotifyevent(&"hud_update_overheat");
 		}
 	}
 }

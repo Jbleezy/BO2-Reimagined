@@ -568,7 +568,8 @@
 * No longer changes player vertical velocity while firing
 * No longer automatically switched to weapon when picked up
 * No longer disassembles when overheated
-* Weapon is taken when overheated and continuing to fire for 1 second
+* Weapon is taken when overheated and continuing to fire for 1.5 seconds
+* Weapon plays an alarm sound when overheated and continuing to fire
 * Pulls in powerups more frequently
 * Pulls in powerups twice as fast
 * Buildable table model no longer shows while player has weapon
