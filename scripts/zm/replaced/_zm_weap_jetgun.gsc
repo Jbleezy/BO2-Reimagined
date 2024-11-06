@@ -3,6 +3,42 @@
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 
+init()
+{
+	if (!maps\mp\zombies\_zm_weapons::is_weapon_included("jetgun_zm"))
+	{
+		return;
+	}
+
+	maps\mp\zombies\_zm_equipment::register_equipment("jetgun_zm", &"ZOMBIE_EQUIP_JETGUN_PICKUP_HINT_STRING", &"ZOMBIE_EQUIP_JETGUN_HOWTO", "jetgun_zm_icon", "jetgun", ::jetgun_activation_watcher_thread, undefined, ::dropjetgun, ::pickupjetgun);
+	maps\mp\gametypes_zm\_weaponobjects::createretrievablehint("jetgun", &"ZOMBIE_EQUIP_JETGUN_PICKUP_HINT_STRING");
+	level._effect["jetgun_smoke_cloud"] = loadfx("weapon/thunder_gun/fx_thundergun_smoke_cloud");
+	level._effect["jetgun_overheat"] = loadfx("weapon/jet_gun/fx_jetgun_overheat");
+	level._effect["jetgun_vortex"] = loadfx("weapon/jet_gun/fx_jetgun_on");
+	level._effect["jetgun_meat_grinder"] = loadfx("weapon/jet_gun/fx_jetgun_kill");
+	set_zombie_var("jetgun_cylinder_radius", 256);
+	set_zombie_var("jetgun_grind_range", 128);
+	set_zombie_var("jetgun_gib_range", 256);
+	set_zombie_var("jetgun_gib_damage", 50);
+	set_zombie_var("jetgun_knockdown_range", 512);
+	set_zombie_var("jetgun_drag_range", 512);
+	set_zombie_var("jetgun_knockdown_damage", 15);
+	set_zombie_var("powerup_move_dist", 20);
+	set_zombie_var("powerup_drag_range", 512);
+	level.jetgun_pulled_in_range = int(level.zombie_vars["jetgun_drag_range"] * 0.5) * (level.zombie_vars["jetgun_drag_range"] * 0.5);
+	level.jetgun_pulling_in_range = int(level.zombie_vars["jetgun_drag_range"] * 0.75) * (level.zombie_vars["jetgun_drag_range"] * 0.75);
+	level.jetgun_inner_range = int(level.zombie_vars["jetgun_drag_range"] * 0.875) * (level.zombie_vars["jetgun_drag_range"] * 0.875);
+	level.jetgun_outer_edge = int(level.zombie_vars["jetgun_drag_range"] * level.zombie_vars["jetgun_drag_range"]);
+	level.jetgun_gib_refs = [];
+	level.jetgun_gib_refs[level.jetgun_gib_refs.size] = "guts";
+	level.jetgun_gib_refs[level.jetgun_gib_refs.size] = "right_arm";
+	level.jetgun_gib_refs[level.jetgun_gib_refs.size] = "left_arm";
+	level.jetgun_gib_refs[level.jetgun_gib_refs.size] = "right_leg";
+	level.jetgun_gib_refs[level.jetgun_gib_refs.size] = "left_leg";
+	level.jetgun_gib_refs[level.jetgun_gib_refs.size] = "no_legs";
+	onplayerconnect_callback(::jetgun_on_player_connect);
+}
+
 watch_overheat()
 {
 	self endon("death_or_disconnect");
@@ -352,22 +388,12 @@ jetgun_check_enemies_in_range(zombie, view_pos, drag_range_squared, gib_range_sq
 	}
 	else if (test_range_squared < drag_range_squared && dot > 0)
 	{
-		if (!is_true(zombie.completed_emerging_into_playable_area) && !isdefined(zombie.first_node))
-		{
-			return;
-		}
-
-		if (is_true(zombie.barricade_enter))
+		if (!is_true(zombie.completed_emerging_into_playable_area) && (!isdefined(zombie.first_node) || is_true(zombie.got_to_entrance)))
 		{
 			return;
 		}
 
 		if (is_true(zombie.in_the_ground))
-		{
-			return;
-		}
-
-		if (is_true(self.isonbus) && is_true(level.the_bus.ismoving) && (!isdefined(zombie.ai_state) || zombie.ai_state != "zombieMoveOnBus"))
 		{
 			return;
 		}
@@ -381,8 +407,6 @@ zombie_enter_drag_state(vdir, speed)
 	self.drag_state = 1;
 	self.jetgun_drag_state = "unaffected";
 	self.was_traversing = isdefined(self.is_traversing) && self.is_traversing;
-	self.favoriteenemy = self.jetgun_owner;
-	self.ignoreall = 1;
 	self notify("stop_zombie_goto_entrance");
 	self notify("stop_find_flesh");
 	self notify("zombie_acquire_enemy");
@@ -401,24 +425,25 @@ zombie_drag_think()
 	{
 		if (!is_true(self.completed_emerging_into_playable_area))
 		{
-			self.goalradius = 128;
 			self setgoalpos(self.first_node.origin);
-		}
-		else if (!is_true(self.isonbus) && is_true(self.jetgun_owner.isonbus) && (is_true(level.the_bus.doorsclosed) || is_true(self.jetgun_owner.isonbusroof)))
-		{
-			self.goalradius = 2;
-			self setgoalpos(self maps\mp\zm_transit_bus::busgetclosestopening());
 		}
 		else if (!isdefined(self.ai_state) || self.ai_state != "zombieMoveOnBus")
 		{
-			self.goalradius = 32;
-			self setgoalpos(self.jetgun_owner.origin);
+			self.favoriteenemy = self.jetgun_owner;
+			goalpos = self.favoriteenemy.origin;
+
+			if (isdefined(level.enemy_location_override_func))
+			{
+				goalpos = [[level.enemy_location_override_func]](self, self.favoriteenemy);
+			}
+
+			self setgoalpos(goalpos);
 		}
 
 		self._distance_to_jetgun_owner = distancesquared(self.origin, self.jetgun_owner.origin);
 		jetgun_network_choke();
 
-		if (self.zombie_move_speed == "sprint" || self._distance_to_jetgun_owner < level.jetgun_pulled_in_range)
+		if (self._distance_to_jetgun_owner < level.jetgun_pulled_in_range)
 		{
 			self jetgun_drag_set("jetgun_sprint", "jetgun_walk_fast_crawl");
 		}

@@ -56,6 +56,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_weap_riotshield::player_damage_shield, scripts\zm\replaced\_zm_weap_riotshield::player_damage_shield);
 	replaceFunc(maps\mp\zombies\_zm_weap_riotshield::riotshield_fling_zombie, scripts\zm\replaced\_zm_weap_riotshield::riotshield_fling_zombie);
 	replaceFunc(maps\mp\zombies\_zm_weap_riotshield::riotshield_knockdown_zombie, scripts\zm\replaced\_zm_weap_riotshield::riotshield_knockdown_zombie);
+	replaceFunc(maps\mp\zombies\_zm_weap_jetgun::init, scripts\zm\replaced\_zm_weap_jetgun::init);
 	replaceFunc(maps\mp\zombies\_zm_weap_jetgun::watch_overheat, scripts\zm\replaced\_zm_weap_jetgun::watch_overheat);
 	replaceFunc(maps\mp\zombies\_zm_weap_jetgun::jetgun_firing, scripts\zm\replaced\_zm_weap_jetgun::jetgun_firing);
 	replaceFunc(maps\mp\zombies\_zm_weap_jetgun::is_jetgun_firing, scripts\zm\replaced\_zm_weap_jetgun::is_jetgun_firing);
