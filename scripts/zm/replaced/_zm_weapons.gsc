@@ -554,7 +554,7 @@ weapon_give(weapon, is_upgrade, magic_box, nosound)
 		self play_sound_on_ent("purchase");
 	}
 
-	if (is_true(magic_box) && isinarray(level.magicbox_wonder_weapons, weapon))
+	if (is_true(magic_box) && scripts\zm\_zm_reimagined::is_magicbox_wonder_weapon(weapon))
 	{
 		playsoundatposition("mus_raygun_stinger", (0, 0, 0));
 	}

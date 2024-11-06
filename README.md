@@ -117,6 +117,7 @@
 	* [Vulture-Aid](#vulture-aid)
 * [Pack-a-Punch](#pack-a-punch)
 * [Powerups](#powerups)
+	* [Max Ammo](#max-ammo)
 	* [Nuke](#nuke)
 	* [Carpenter](#carpenter)
 	* [Fire Sale](#fire-sale)
@@ -867,6 +868,9 @@
 * Decreased chance to drop from 3% to 2%
 * Grabbing time based powerups that are already active add to timer instead of resetting timer
 * Fx plays when a powerup drops if it is the last powerup of a cycle
+
+### Max Ammo
+* Sets heat weapons to 0% heat
 
 ### Nuke
 * Kills all zombies instantly

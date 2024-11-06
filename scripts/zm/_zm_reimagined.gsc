@@ -193,8 +193,6 @@ init()
 
 	setscoreboardcolumns_gametype();
 
-	init_magicbox_wonder_weapons();
-
 	spawn_mystery_box_blocks_and_collision();
 
 	spawn_intercom_ents();
@@ -1366,16 +1364,6 @@ setscoreboardcolumns_gametype()
 	{
 		setscoreboardcolumns("score", "kills", "headshots", "downs", "revives");
 	}
-}
-
-init_magicbox_wonder_weapons()
-{
-	level.magicbox_wonder_weapons = [];
-	level.magicbox_wonder_weapons[level.magicbox_wonder_weapons.size] = "metalstorm_mms_zm";
-	level.magicbox_wonder_weapons[level.magicbox_wonder_weapons.size] = "titus6_zm";
-	level.magicbox_wonder_weapons[level.magicbox_wonder_weapons.size] = "slipgun_zm";
-	level.magicbox_wonder_weapons[level.magicbox_wonder_weapons.size] = "slowgun_zm";
-	level.magicbox_wonder_weapons[level.magicbox_wonder_weapons.size] = "blundergat_zm";
 }
 
 swap_marathon_perk()
@@ -3050,6 +3038,16 @@ should_respawn()
 is_tazer_weapon(weapon)
 {
 	return issubstr(weapon, "tazer_knuckles") || issubstr(weapon, "knife_ballistic_no_melee");
+}
+
+is_overheat_weapon(weapon)
+{
+	return weapon == "jetgun_zm" || weapon == "slowgun_zm";
+}
+
+is_magicbox_wonder_weapon(weapon)
+{
+	return weapon == "metalstorm_mms_zm" || weapon == "titus6_zm" || weapon == "slipgun_zm" || weapon == "slowgun_zm" || weapon == "blundergat_zm";
 }
 
 get_current_spectating_player()
