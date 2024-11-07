@@ -182,6 +182,78 @@ player_damage_equipment(equipment, damage, origin, stub)
 	}
 }
 
+equipment_take(equipment)
+{
+	if (!isdefined(equipment))
+	{
+		equipment = self get_player_equipment();
+	}
+
+	if (!isdefined(equipment))
+	{
+		return;
+	}
+
+	if (!self has_player_equipment(equipment))
+	{
+		return;
+	}
+
+	current = 0;
+	current_weapon = 0;
+
+	if (isdefined(self get_player_equipment()) && equipment == self get_player_equipment())
+	{
+		current = 1;
+	}
+
+	if (equipment == self getcurrentweapon())
+	{
+		current_weapon = 1;
+	}
+
+	if (isdefined(self.current_equipment_active[equipment]) && self.current_equipment_active[equipment])
+	{
+		self.current_equipment_active[equipment] = 0;
+		self notify(equipment + "_deactivate");
+	}
+
+	self notify(equipment + "_taken");
+	self takeweapon(equipment);
+
+	if (!is_limited_equipment(equipment) || is_limited_equipment(equipment) && !limited_equipment_in_use(equipment))
+	{
+		self set_equipment_invisibility_to_player(equipment, 0);
+	}
+
+	if (current)
+	{
+		self set_player_equipment(undefined);
+		self setactionslot(1, "");
+	}
+	else
+	{
+		arrayremovevalue(self.deployed_equipment, equipment);
+	}
+
+	if (current_weapon)
+	{
+		if (isdefined(self.last_held_primary_weapon) && self hasweapon(self.last_held_primary_weapon))
+		{
+			self switchtoweapon(self.last_held_primary_weapon);
+		}
+		else
+		{
+			primaryweapons = self getweaponslistprimaries();
+
+			if (isdefined(primaryweapons) && primaryweapons.size > 0)
+			{
+				self switchtoweapon(primaryweapons[0]);
+			}
+		}
+	}
+}
+
 limited_equipment_in_use(equipment)
 {
 	players = get_players();
