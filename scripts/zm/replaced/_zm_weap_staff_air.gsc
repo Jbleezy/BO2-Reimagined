@@ -56,6 +56,7 @@ staff_air_position_source(v_detonate, str_weapon)
 
 whirlwind_seek_zombies(n_level, str_weapon)
 {
+	level endon("whirlwind_stopped");
 	self endon("death");
 	self.b_found_zombies = 0;
 	n_range = get_air_blast_range(n_level);
@@ -77,6 +78,7 @@ whirlwind_seek_zombies(n_level, str_weapon)
 
 whirlwind_kill_zombies(n_level, str_weapon)
 {
+	level endon("whirlwind_stopped");
 	self endon("death");
 	n_range = get_air_blast_range(n_level);
 	self.n_charge_level = n_level;
@@ -98,24 +100,12 @@ whirlwind_kill_zombies(n_level, str_weapon)
 				continue;
 			}
 
-			if (is_true(self._whirlwind_attract_anim))
+			if (is_true(a_zombies[i]._whirlwind_attract_anim))
 			{
 				continue;
 			}
 
-			v_offset = (10, 10, 32);
-
-			if (!bullet_trace_throttled(self.origin + v_offset, a_zombies[i].origin + v_offset, undefined))
-			{
-				continue;
-			}
-
-			if (!isdefined(a_zombies[i]) || !isalive(a_zombies[i]))
-			{
-				continue;
-			}
-
-			v_offset = (-10, -10, 64);
+			v_offset = (0, 0, 32);
 
 			if (!bullet_trace_throttled(self.origin + v_offset, a_zombies[i].origin + v_offset, undefined))
 			{
@@ -135,8 +125,6 @@ whirlwind_kill_zombies(n_level, str_weapon)
 			{
 				a_zombies[i] thread whirlwind_drag_zombie(self, str_weapon);
 			}
-
-			wait 0.5;
 		}
 
 		wait_network_frame();

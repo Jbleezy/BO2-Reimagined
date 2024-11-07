@@ -652,6 +652,8 @@
 * Upgraded: fixed charge sounds not playing after firing a 1 charge shot
 * Fire upgraded: charged shots no longer deal additional damage to Panzersoldat
 * Ice upgraded: fixed melee sound
+* Wind upgraded: whirlwind pulls in multiple zombies significantly faster
+* Wind upgraded: whirlwind stops pulling in zombies when the whirlwind fx starts to end instead of when the whirlwind fx completely ends
 * Wind upgraded: fixed whirlwind not being created and impact blast radius being incorrect if the player started reloading or throwing a grenade in between the time that the charged shot was fired and impacted a surface
 
 ### Tactical Grenades
