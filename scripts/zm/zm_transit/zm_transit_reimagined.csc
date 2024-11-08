@@ -5,6 +5,7 @@ main()
 {
 	replaceFunc(clientscripts\mp\zm_transit::start_zombie_stuff, scripts\zm\replaced\zm_transit::start_zombie_stuff);
 	replaceFunc(clientscripts\mp\zm_transit_classic::sidequest_complete_pyramid_watch, scripts\zm\replaced\zm_transit_classic::sidequest_complete_pyramid_watch);
+	replaceFunc(clientscripts\mp\zm_transit_gump::init_transit_gump, scripts\zm\replaced\zm_transit_gump::init_transit_gump);
 }
 
 init()
