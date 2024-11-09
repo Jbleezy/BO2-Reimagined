@@ -639,8 +639,9 @@ power_station_vision_change()
 			{
 				player.power_station_vision_set = 0;
 				player.r_exposureValue = level.default_r_exposureValue;
-				player setClientDvar("r_exposureTweak", 1);
-				player setClientDvar("r_exposureValue", level.default_r_exposureValue);
+				player setClientDvars(
+				    "r_exposureTweak", 1,
+				    "r_exposureValue", level.default_r_exposureValue);
 			}
 
 			spectating_player = player scripts\zm\_zm_reimagined::get_current_spectating_player();

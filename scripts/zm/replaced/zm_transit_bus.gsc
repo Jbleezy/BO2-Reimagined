@@ -804,8 +804,9 @@ busupdateplayers()
 					bbprint("zombie_events", "category %s type %s round %d playername %s", "BUS", "player_enter", level.round_number, player.name);
 					player thread bus_audio_interior_loop(self);
 					player clientnotify("OBS");
-					player setclientdvar("player_view_pitch_up", 85);
-					player setclientdvar("player_view_pitch_down", 85);
+					player setclientdvars(
+					    "player_view_pitch_up", 85,
+					    "player_view_pitch_down", 85);
 
 					if (randomint(100) > 80 && level.automaton.greeting_timer == 0)
 					{
@@ -819,8 +820,9 @@ busupdateplayers()
 					bbprint("zombie_events", "category %s type %s round %d playername %s", "BUS", "player_exit", level.round_number, player.name);
 					player notify("left bus");
 					player clientnotify("LBS");
-					player setclientdvar("player_view_pitch_up", 89.9999);
-					player setclientdvar("player_view_pitch_down", 89.9999);
+					player setclientdvars(
+					    "player_view_pitch_up", 89.9999,
+					    "player_view_pitch_down", 89.9999);
 
 					if (randomint(100) > 80 && level.automaton.greeting_timer == 0)
 					{

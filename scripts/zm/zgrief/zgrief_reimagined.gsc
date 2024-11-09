@@ -359,9 +359,10 @@ set_grief_vars()
 
 grief_onplayerconnect()
 {
-	self setclientdvar("ui_gametype_obj", level.scr_zm_ui_gametype_obj);
-	self setclientdvar("ui_gametype_pro", level.scr_zm_ui_gametype_pro);
-	self setclientdvar("ui_round_number", getdvarint("ui_round_number"));
+	self setclientdvars(
+	    "ui_gametype_obj", level.scr_zm_ui_gametype_obj,
+	    "ui_gametype_pro", level.scr_zm_ui_gametype_pro,
+	    "ui_round_number", getdvarint("ui_round_number"));
 
 	self thread on_player_spawned();
 	self thread on_player_spectate();

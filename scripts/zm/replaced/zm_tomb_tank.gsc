@@ -41,8 +41,9 @@ players_on_tank_update()
 
 					e_player thread tank_rumble_update();
 					e_player thread tank_rides_around_map_achievement_watcher();
-					e_player setclientdvar("player_view_pitch_up", 85);
-					e_player setclientdvar("player_view_pitch_down", 85);
+					e_player setclientdvars(
+					    "player_view_pitch_up", 85,
+					    "player_view_pitch_down", 85);
 
 					foreach (trig in self.t_rear_tread)
 					{
@@ -59,8 +60,9 @@ players_on_tank_update()
 					level notify("vo_tank_leave", e_player);
 					e_player notify("player_jumped_off_tank");
 					e_player setclientfieldtoplayer("player_rumble_and_shake", 0);
-					e_player setclientdvar("player_view_pitch_up", 89.9999);
-					e_player setclientdvar("player_view_pitch_down", 89.9999);
+					e_player setclientdvars(
+					    "player_view_pitch_up", 89.9999,
+					    "player_view_pitch_down", 89.9999);
 				}
 			}
 		}
