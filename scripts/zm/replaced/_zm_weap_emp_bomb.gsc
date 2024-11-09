@@ -215,7 +215,7 @@ player_emp_fx(time)
 
 	for (i = 0; i < time; i += wait_time)
 	{
-		playfxontag(level._effect["elec_torso"], self, "J_SpineLower");
+		playfxontag(level._effect["elec_torso"], self.player_fx_ent, "tag_origin");
 
 		wait wait_time;
 	}

@@ -368,6 +368,7 @@ grief_onplayerconnect()
 	self thread on_player_downed();
 	self thread on_player_bleedout();
 	self thread on_player_revived();
+	self thread stun_fx();
 	self thread head_icon();
 	self thread obj_waypoint();
 	self thread headstomp_watcher();
@@ -392,14 +393,19 @@ grief_onplayerdisconnect(disconnecting_player)
 {
 	level endon("end_game");
 
+	if (isDefined(disconnecting_player.stun_fx_ents))
+	{
+		array_thread(disconnecting_player.stun_fx_ents, ::self_delete);
+	}
+
+	if (isDefined(disconnecting_player.head_icon_origin_ent))
+	{
+		disconnecting_player.head_icon_origin_ent unlink();
+		disconnecting_player.head_icon_origin_ent delete();
+	}
+
 	if (isDefined(disconnecting_player.head_icon))
 	{
-		if (isDefined(disconnecting_player.head_icon_origin))
-		{
-			disconnecting_player.head_icon_origin unlink();
-			disconnecting_player.head_icon_origin delete();
-		}
-
 		disconnecting_player.head_icon destroy();
 	}
 
@@ -768,16 +774,42 @@ add_grief_bleedout_score()
 	}
 }
 
+stun_fx()
+{
+	self endon("disconnect");
+
+	wait 0.05;
+
+	self.stun_fx_ents = [];
+	self.stun_fx_ind = 0;
+
+	for (i = 0; i < 3; i++)
+	{
+		self.stun_fx_ents[i] = spawn("script_model", self.origin);
+		self.stun_fx_ents[i] setmodel("tag_origin");
+		self.stun_fx_ents[i] linkto(self);
+	}
+}
+
 head_icon()
 {
+	self endon("disconnect");
+
 	wait 0.05;
 
 	flag_wait("hud_visible");
 
 	tag = "j_head";
-	self.head_icon_origin = spawn("script_model", self gettagorigin(tag));
-	self.head_icon_origin setmodel("tag_origin");
-	self.head_icon_origin linkto(self, tag);
+
+	while (!isdefined(self gettagorigin(tag)))
+	{
+		wait 0.05;
+	}
+
+	self.head_icon_origin_ent = spawn("script_model", self gettagorigin(tag));
+	self.head_icon_origin_ent.angles = self gettagangles(tag);
+	self.head_icon_origin_ent setmodel("tag_origin");
+	self.head_icon_origin_ent linkto(self, tag);
 
 	self.head_icon = scripts\zm\replaced\_zm_gametype::head_icon_create();
 }
@@ -1706,30 +1738,16 @@ do_game_mode_stun_fx(einflictor, eattacker, idamage, idflags, smeansofdeath, swe
 	}
 
 	angle = (0, angle[1], 0);
-	stun_fx_amount = 3;
 
-	if (!isDefined(self.stun_fx))
-	{
-		// spawning in model right before playfx causes the fx not to play occasionally
-		// stun fx lasts longer than stun time, so alternate between different models
-		self.stun_fx = [];
-		self.stun_fx_ind = 0;
+	stun_fx_ent = self.stun_fx_ents[self.stun_fx_ind];
+	stun_fx_ent unlink();
+	stun_fx_ent.origin = pos;
+	stun_fx_ent.angles = angle;
+	stun_fx_ent linkTo(self);
 
-		for (i = 0; i < stun_fx_amount; i++)
-		{
-			self.stun_fx[i] = spawn("script_model", pos);
-			self.stun_fx[i] setModel("tag_origin");
-		}
-	}
+	playfxontag(level._effect["butterflies"], stun_fx_ent, "tag_origin");
 
-	self.stun_fx[self.stun_fx_ind] unlink();
-	self.stun_fx[self.stun_fx_ind].origin = pos;
-	self.stun_fx[self.stun_fx_ind].angles = angle;
-	self.stun_fx[self.stun_fx_ind] linkTo(self);
-
-	playFXOnTag(level._effect["butterflies"], self.stun_fx[self.stun_fx_ind], "tag_origin");
-
-	self.stun_fx_ind = (self.stun_fx_ind + 1) % stun_fx_amount;
+	self.stun_fx_ind = (self.stun_fx_ind + 1) % self.stun_fx_ents.size;
 }
 
 do_game_mode_shellshock(is_melee = 0, is_upgraded = 0)

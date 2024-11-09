@@ -470,6 +470,8 @@ on_player_spawned()
 			self.solo_lives_given = 0;
 			self.stored_weapon_data = undefined;
 
+			self thread init_player_fx_ent();
+
 			self thread health_bar_hud();
 			self thread zone_name_hud();
 
@@ -1407,6 +1409,38 @@ disable_story_vo()
 	}
 }
 
+init_player_fx_ent()
+{
+	self endon("disconnect");
+
+	wait 0.05;
+
+	tag = "j_spinelower";
+
+	while (!isdefined(self gettagorigin(tag)))
+	{
+		wait 0.05;
+	}
+
+	self.player_fx_ent = spawn("script_model", self gettagorigin(tag));
+	self.player_fx_ent.angles = self gettagangles(tag);
+	self.player_fx_ent setmodel("tag_origin");
+	self.player_fx_ent linkto(self, tag);
+	self thread ent_cleanup_on_disconnect(self.player_fx_ent);
+}
+
+ent_cleanup_on_disconnect(ent)
+{
+	ent endon("death");
+
+	self waittill("disconnect");
+
+	if (isdefined(ent))
+	{
+		ent delete();
+	}
+}
+
 veryhurt_blood_fx()
 {
 	self endon("disconnect");
@@ -1417,7 +1451,7 @@ veryhurt_blood_fx()
 
 		if (health_ratio <= 0.2)
 		{
-			playFXOnTag(level._effect["zombie_guts_explosion"], self, "J_SpineLower");
+			playfxontag(level._effect["zombie_guts_explosion"], self.player_fx_ent, "tag_origin");
 
 			wait 1;
 

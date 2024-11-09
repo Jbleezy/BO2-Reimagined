@@ -57,6 +57,29 @@ player_lava_damage(trig)
 	}
 }
 
+player_burning_fx()
+{
+	self endon("death");
+
+	if (isdefined(self.is_on_fire) && self.is_on_fire)
+	{
+		return;
+	}
+
+	if (!(isdefined(self.no_burning_sfx) && self.no_burning_sfx))
+	{
+		self thread player_burning_audio();
+	}
+
+	self.is_on_fire = 1;
+	self thread maps\mp\animscripts\zm_death::on_fire_timeout();
+
+	if (isdefined(level._effect) && isdefined(level._effect["character_fire_death_sm"]))
+	{
+		playfxontag(level._effect["character_fire_death_sm"], self.player_fx_ent, "tag_origin");
+	}
+}
+
 zombie_exploding_death(zombie_dmg, trap)
 {
 	self endon("stop_flame_damage");

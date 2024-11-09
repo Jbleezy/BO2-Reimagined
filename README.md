@@ -1061,6 +1061,7 @@
 * Lava damage no longer changes based on player's health
 * Decreased light lava damage from 6 to 5
 * Decreased fire zombie death explosion max damage from 30 to 15
+* Player burning fx no longer shows to yourself
 * Players can be revived in the fog easier
 * Lamp post portals stay active until the lamp post is powered off
 * Each lamp post portal teleports players to a set destination lamp post (randomizes each game)
