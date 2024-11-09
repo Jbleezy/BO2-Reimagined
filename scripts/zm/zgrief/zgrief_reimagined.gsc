@@ -778,7 +778,7 @@ stun_fx()
 {
 	self endon("disconnect");
 
-	wait 0.05;
+	self scripts\zm\_zm_reimagined::waittill_next_snapshot(1);
 
 	self.stun_fx_ents = [];
 	self.stun_fx_ind = 0;
@@ -795,21 +795,15 @@ head_icon()
 {
 	self endon("disconnect");
 
-	wait 0.05;
-
-	flag_wait("hud_visible");
+	self scripts\zm\_zm_reimagined::waittill_next_snapshot(1);
 
 	tag = "j_head";
-
-	while (!isdefined(self gettagorigin(tag)))
-	{
-		wait 0.05;
-	}
-
 	self.head_icon_origin_ent = spawn("script_model", self gettagorigin(tag));
 	self.head_icon_origin_ent.angles = self gettagangles(tag);
 	self.head_icon_origin_ent setmodel("tag_origin");
 	self.head_icon_origin_ent linkto(self, tag);
+
+	flag_wait("hud_visible");
 
 	self.head_icon = scripts\zm\replaced\_zm_gametype::head_icon_create();
 }

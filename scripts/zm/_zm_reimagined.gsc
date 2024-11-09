@@ -855,7 +855,7 @@ lui_notify_events()
 {
 	self endon("disconnect");
 
-	wait 0.05;
+	self waittill_next_snapshot();
 
 	if (isdefined(level.enemy_counter_hud_value))
 	{
@@ -1127,7 +1127,7 @@ health_bar_hud()
 	level endon("intermission");
 	self endon("disconnect");
 
-	wait 0.05;
+	self waittill_next_snapshot();
 
 	flag_wait("hud_visible");
 
@@ -1168,7 +1168,7 @@ zone_name_hud()
 	level endon("intermission");
 	self endon("disconnect");
 
-	wait 0.05;
+	self waittill_next_snapshot();
 
 	flag_wait("hud_visible");
 
@@ -1413,15 +1413,9 @@ init_player_fx_ent()
 {
 	self endon("disconnect");
 
-	wait 0.05;
+	self waittill_next_snapshot(1);
 
 	tag = "j_spinelower";
-
-	while (!isdefined(self gettagorigin(tag)))
-	{
-		wait 0.05;
-	}
-
 	self.player_fx_ent = spawn("script_model", self gettagorigin(tag));
 	self.player_fx_ent.angles = self gettagangles(tag);
 	self.player_fx_ent setmodel("tag_origin");
@@ -3173,6 +3167,28 @@ setclientdvarall(dvar, value)
 	foreach (player in players)
 	{
 		player setclientdvar(dvar, value);
+	}
+}
+
+waittill_next_snapshot(require_playing = 0)
+{
+	self endon("disconnect");
+
+	while (1)
+	{
+		num = self getsnapshotackindex();
+
+		while (num == self getsnapshotackindex())
+		{
+			wait 0.05;
+		}
+
+		if (self.sessionstate == "playing" || !require_playing)
+		{
+			break;
+		}
+
+		self waittill("spawned_player");
 	}
 }
 

@@ -197,38 +197,14 @@ hide_gump_loading_for_hotjoiners()
 {
 	self endon("disconnect");
 
-	self.rebuild_barrier_reward = 1;
-	self.is_hotjoining = 1;
-
-	num = self getsnapshotackindex();
-
-	wait 0.5;
-
-	while (num == self getsnapshotackindex())
-	{
-		wait 0.05;
-	}
-
-	self maps\mp\zombies\_zm::spawnspectator();
-	self.is_hotjoining = 0;
 	self.is_hotjoin = 1;
 
 	if (isDefined(level.should_respawn_func) && [[level.should_respawn_func]]())
 	{
-		wait 0.05;
-
-		if (!flag("initial_blackscreen_passed"))
-		{
-			self [[level.spawnplayer]]();
-		}
-		else
-		{
-			self.sessionstate = "playing";
-			self maps\mp\zombies\_zm::spectator_respawn();
-		}
-
 		return;
 	}
+
+	self maps\mp\zombies\_zm::spawnspectator();
 
 	if (is_true(level.intermission) || is_true(level.host_ended_game))
 	{
