@@ -2052,13 +2052,7 @@ sndmeleewpnsound()
 
 	while (1)
 	{
-		while (!self ismeleeing())
-		{
-			wait 0.05;
-		}
-
-		current_melee_weapon = self get_player_melee_weapon();
-		current_weapon = self getcurrentweapon();
+		self waittill("weapon_melee", weapon);
 
 		alias = "zmb_melee_whoosh_npc";
 
@@ -2066,51 +2060,47 @@ sndmeleewpnsound()
 		{
 			alias = "zmb_melee_whoosh_zmb_npc";
 		}
-		else if (issubstr(current_weapon, "shield_zm"))
+		else if (issubstr(weapon, "shield_zm"))
 		{
 			alias = "fly_riotshield_zm_swing";
 		}
-		else if (current_melee_weapon == "bowie_knife_zm")
+		else if (issubstr(weapon, "bowie_knife_zm") || issubstr(weapon, "knife_ballistic_bowie"))
 		{
 			alias = "zmb_bowie_swing";
 		}
-		else if (current_melee_weapon == "tazer_knuckles_zm")
+		else if (issubstr(weapon, "tazer_knuckles_zm") || issubstr(weapon, "knife_ballistic_no_melee"))
 		{
 			alias = "wpn_tazer_whoosh_npc";
 		}
-		else if (current_melee_weapon == "spoon_zm_alcatraz")
+		else if (issubstr(weapon, "spoon_zm_alcatraz"))
 		{
 			alias = "zmb_spoon_swing";
 		}
-		else if (current_melee_weapon == "spork_zm_alcatraz")
+		else if (issubstr(weapon, "spork_zm_alcatraz"))
 		{
 			alias = "zmb_spork_swing";
 		}
-		else if (current_melee_weapon == "one_inch_punch_zm")
+		else if (issubstr(weapon, "one_inch_punch_zm") || issubstr(weapon, "one_inch_punch_upgraded_zm"))
 		{
 			alias = "wpn_one_inch_punch_npc";
 		}
-		else if (current_melee_weapon == "one_inch_punch_upgraded_zm")
-		{
-			alias = "wpn_one_inch_punch_npc";
-		}
-		else if (current_melee_weapon == "one_inch_punch_fire_zm")
+		else if (issubstr(weapon, "one_inch_punch_fire_zm"))
 		{
 			alias = "wpn_one_inch_punch_fire_npc";
 		}
-		else if (current_melee_weapon == "one_inch_punch_air_zm")
+		else if (issubstr(weapon, "one_inch_punch_air_zm"))
 		{
 			alias = "wpn_one_inch_punch_air_npc";
 		}
-		else if (current_melee_weapon == "one_inch_punch_ice_zm")
+		else if (issubstr(weapon, "one_inch_punch_ice_zm"))
 		{
 			alias = "wpn_one_inch_punch_ice_npc";
 		}
-		else if (current_melee_weapon == "one_inch_punch_lightning_zm")
+		else if (issubstr(weapon, "one_inch_punch_lightning_zm"))
 		{
 			alias = "wpn_one_inch_punch_lightning_npc";
 		}
-		else if (sndmeleewpn_isstaff(current_melee_weapon))
+		else if (sndmeleewpn_isstaff(weapon))
 		{
 			alias = "zmb_melee_staff_upgraded_npc";
 		}
@@ -2118,24 +2108,6 @@ sndmeleewpnsound()
 		if (maps\mp\zombies\_zm_audio::sndisnetworksafe())
 		{
 			self play_sound_to_nearby_players(alias);
-		}
-
-		while (self ismeleeing())
-		{
-			wait 0.05;
-		}
-	}
-}
-
-play_sound_to_nearby_players(alias, range = 500)
-{
-	players = get_players();
-
-	foreach (player in players)
-	{
-		if (player != self && distancesquared(player.origin, self.origin) <= range * range)
-		{
-			self playsoundtoplayer(alias, player);
 		}
 	}
 }
@@ -2158,6 +2130,19 @@ sndmeleewpn_isstaff(weapon)
 	}
 
 	return isstaff;
+}
+
+play_sound_to_nearby_players(alias, range = 500)
+{
+	players = get_players();
+
+	foreach (player in players)
+	{
+		if (player != self && distancesquared(player.origin, self.origin) <= range * range)
+		{
+			self playsoundtoplayer(alias, player);
+		}
+	}
 }
 
 buildbuildables()

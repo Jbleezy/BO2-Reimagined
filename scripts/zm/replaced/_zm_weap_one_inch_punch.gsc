@@ -98,21 +98,15 @@ monitor_melee_swipe()
 
 	while (true)
 	{
-		while (!self ismeleeing())
-		{
-			wait 0.05;
-		}
+		self waittill("weapon_melee", weapon);
 
-		if (self getcurrentweapon() == level.riotshield_name)
+		if (weapon == level.riotshield_name)
 		{
-			wait 0.1;
 			continue;
 		}
 
 		range_mod = 1.5;
-		self setclientfield("oneinchpunch_impact", 1);
-		wait_network_frame();
-		self setclientfield("oneinchpunch_impact", 0);
+		self thread set_oneinchpunch_impact_client_field();
 		v_punch_effect_fwd = anglestoforward(self getplayerangles());
 		v_punch_yaw = get2dyaw((0, 0, 0), v_punch_effect_fwd);
 
@@ -128,14 +122,16 @@ monitor_melee_swipe()
 				continue;
 			}
 		}
-
-		while (self ismeleeing())
-		{
-			wait 0.05;
-		}
-
-		wait 0.05;
 	}
+}
+
+set_oneinchpunch_impact_client_field()
+{
+	self endon("disconnect");
+
+	self setclientfield("oneinchpunch_impact", 1);
+	wait_network_frame();
+	self setclientfield("oneinchpunch_impact", 0);
 }
 
 zombie_punch_damage(ai_zombie, n_mod)

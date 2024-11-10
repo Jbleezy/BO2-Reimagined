@@ -650,7 +650,7 @@
 * Upgraded: decreased alt weapon fire time from 3 seconds to 0.5 seconds
 * Upgraded: changed alt weapon fire type from full auto to single shot
 * Upgraded: charge loop sound stops playing immediately after firing
-* Upgraded: fixed charge sounds not playing after firing a 1 charge shot
+* Upgraded: fixed charge sounds not playing after firing a charge level 1 shot
 * Fire: projectiles fire all at once
 * Fire: projectiles fire in a straight line
 * Fire: decreased spread between projectiles by 50%
@@ -659,6 +659,7 @@
 * Fire upgraded: decreased charge level 3 lava damage radius by 20% (same as charge level 2)
 * Fire upgraded: plays smaller explosion fx at end of lava
 * Fire upgraded: charged shots no longer deal additional damage to Panzersoldat
+* Fire upgraded: fixed lava not being created if the player fired the charged shot on a wall or too close to themselves
 * Ice upgraded: fixed melee sound
 * Wind upgraded: whirlwind pulls in multiple zombies significantly faster
 * Wind upgraded: whirlwind stops pulling in zombies when the whirlwind fx starts to end instead of when the whirlwind fx completely ends
