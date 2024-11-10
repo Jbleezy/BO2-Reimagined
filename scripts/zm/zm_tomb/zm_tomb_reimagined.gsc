@@ -78,9 +78,16 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_weap_beacon::wait_and_do_weapon_beacon_damage, scripts\zm\replaced\_zm_weap_beacon::wait_and_do_weapon_beacon_damage);
 	replaceFunc(maps\mp\zombies\_zm_weap_staff_air::staff_air_position_source, scripts\zm\replaced\_zm_weap_staff_air::staff_air_position_source);
 	replaceFunc(maps\mp\zombies\_zm_weap_staff_air::staff_air_zombie_source, scripts\zm\replaced\_zm_weap_staff_air::staff_air_zombie_source);
+	replaceFunc(maps\mp\zombies\_zm_weap_staff_fire::fire_spread_shots, scripts\zm\replaced\_zm_weap_staff_fire::fire_spread_shots);
+	replaceFunc(maps\mp\zombies\_zm_weap_staff_fire::fire_additional_shots, scripts\zm\replaced\_zm_weap_staff_fire::fire_additional_shots);
+	replaceFunc(maps\mp\zombies\_zm_weap_staff_fire::fire_staff_area_of_effect, scripts\zm\replaced\_zm_weap_staff_fire::fire_staff_area_of_effect);
 	replaceFunc(maps\mp\zombies\_zm_weap_staff_fire::flame_damage_fx, scripts\zm\replaced\_zm_weap_staff_fire::flame_damage_fx);
 	replaceFunc(maps\mp\zombies\_zm_weap_staff_fire::get_impact_damage, scripts\zm\replaced\_zm_weap_staff_fire::get_impact_damage);
+	replaceFunc(maps\mp\zombies\_zm_weap_staff_fire::fire_staff_update_grenade_fuse, scripts\zm\replaced\_zm_weap_staff_fire::fire_staff_update_grenade_fuse);
 	replaceFunc(maps\mp\zombies\_zm_weap_staff_lightning::staff_lightning_ball_kill_zombies, scripts\zm\replaced\_zm_weap_staff_lightning::staff_lightning_ball_kill_zombies);
+
+	level._effect["fire_ug_impact_exp_sm"] = loadfx("weapon/zmb_staff/fx_zmb_staff_fire_ug_impact_exp_sm");
+	level._effect["fire_ug_impact_exp_loop"] = loadfx("weapon/zmb_staff/fx_zmb_staff_fire_ug_impact_exp_loop");
 
 	scripts\zm\reimagined\_zm_weap_bouncingbetty::init();
 }

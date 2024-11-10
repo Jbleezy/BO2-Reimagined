@@ -88,7 +88,6 @@ robot_head_trigger_think()
 					if (level.a_elemental_staffs_upgraded[j].weapname == str_weap_staffs[i])
 					{
 						level.a_elemental_staffs_upgraded[j].ee_in_use = 1;
-
 					}
 				}
 

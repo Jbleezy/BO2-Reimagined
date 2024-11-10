@@ -617,7 +617,7 @@
 * Increased player damage from 10 to 15
 * Increased move speed while aiming from 100% to 200% (same as Blundergat)
 * Decreased explosion radius by 50%
-* Fires all projectiles at once
+* Projectiles fire all at once
 * Projectiles fire in a straight line
 * Projectiles no longer seek toward zombies
 * Added projectile indicator
@@ -651,6 +651,13 @@
 * Upgraded: changed alt weapon fire type from full auto to single shot
 * Upgraded: charge loop sound stops playing immediately after firing
 * Upgraded: fixed charge sounds not playing after firing a 1 charge shot
+* Fire: projectiles fire all at once
+* Fire: projectiles fire in a straight line
+* Fire: decreased spread between projectiles by 50%
+* Fire upgraded: increased charge level 2 projectile count from 2 to 3
+* Fire upgraded: increased charge level 3 lava duration from 5 seconds to 7.5 seconds
+* Fire upgraded: decreased charge level 3 lava damage radius by 20% (same as charge level 2)
+* Fire upgraded: plays smaller explosion fx at end of lava
 * Fire upgraded: charged shots no longer deal additional damage to Panzersoldat
 * Ice upgraded: fixed melee sound
 * Wind upgraded: whirlwind pulls in multiple zombies significantly faster

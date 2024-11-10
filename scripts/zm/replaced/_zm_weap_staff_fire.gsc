@@ -19,11 +19,101 @@
 #include maps\mp\zm_tomb_craftables;
 #include maps\mp\zm_tomb_utility;
 
+fire_spread_shots(str_weapon)
+{
+	v_fwd = self getweaponforwarddir();
+	fire_angles = vectortoangles(v_fwd);
+	fire_origin = self getweaponmuzzlepoint();
+	v_left_angles = (fire_angles[0], fire_angles[1] - 15, fire_angles[2]);
+	v_left = anglestoforward(v_left_angles);
+
+	e_proj = magicbullet(str_weapon, fire_origin, fire_origin + v_left * 100.0, self);
+	e_proj.additional_shot = 1;
+
+	v_right_angles = (fire_angles[0], fire_angles[1] + 15, fire_angles[2]);
+	v_right = anglestoforward(v_right_angles);
+
+	e_proj = magicbullet(str_weapon, fire_origin, fire_origin + v_right * 100.0, self);
+	e_proj.additional_shot = 1;
+}
+
+fire_additional_shots(str_weapon)
+{
+	v_fwd = self getweaponforwarddir();
+	fire_angles = vectortoangles(v_fwd);
+	fire_origin = self getweaponmuzzlepoint();
+	v_left_angles = (fire_angles[0], fire_angles[1] - 15, fire_angles[2]);
+	v_left = anglestoforward(v_left_angles);
+
+	e_proj = magicbullet(str_weapon, fire_origin, fire_origin + v_left * 100.0, self);
+	e_proj.additional_shot = 1;
+	e_proj thread fire_staff_area_of_effect(self, str_weapon);
+
+	v_right_angles = (fire_angles[0], fire_angles[1] + 15, fire_angles[2]);
+	v_right = anglestoforward(v_right_angles);
+
+	e_proj = magicbullet(str_weapon, fire_origin, fire_origin + v_right * 100.0, self);
+	e_proj.additional_shot = 1;
+	e_proj thread fire_staff_area_of_effect(self, str_weapon);
+}
+
+fire_staff_area_of_effect(e_attacker, str_weapon)
+{
+	self waittill("death");
+
+	v_pos = self.origin;
+
+	fx_looper = playloopedfx(level._effect["fire_ug_impact_exp_loop"], 5, v_pos);
+
+	ent = spawn("script_origin", v_pos);
+	ent playloopsound("wpn_firestaff_grenade_loop", 1);
+
+	n_alive_time = 5.0;
+	aoe_radius = 80;
+
+	if (str_weapon == "staff_fire_upgraded3_zm")
+	{
+		n_alive_time = 7.5;
+	}
+
+	n_step_size = 0.2;
+
+	while (n_alive_time > 0.0)
+	{
+		if (n_alive_time - n_step_size <= 0.0)
+		{
+			aoe_radius = aoe_radius * 2;
+		}
+
+		a_targets = getaiarray("axis");
+		a_targets = get_array_of_closest(v_pos, a_targets, undefined, undefined, aoe_radius);
+		wait(n_step_size);
+		n_alive_time = n_alive_time - n_step_size;
+
+		foreach (e_target in a_targets)
+		{
+			if (isdefined(e_target) && isalive(e_target))
+			{
+				if (!is_true(e_target.is_on_fire))
+				{
+					e_target thread flame_damage_fx(str_weapon, e_attacker);
+				}
+			}
+		}
+	}
+
+	playfx(level._effect["fire_ug_impact_exp_sm"], v_pos);
+	fx_looper delete();
+
+	ent playsound("wpn_firestaff_proj_impact");
+	ent delete();
+}
+
 flame_damage_fx(damageweapon, e_attacker, pct_damage = 1.0)
 {
 	was_on_fire = is_true(self.is_on_fire);
 	n_initial_dmg = get_impact_damage(damageweapon) * pct_damage;
-	is_upgraded = damageweapon == "staff_fire_upgraded_zm" || damageweapon == "staff_fire_upgraded2_zm" || damageweapon == "staff_fire_upgraded3_zm";
+	is_upgraded = damageweapon == "staff_fire_upgraded2_zm" || damageweapon == "staff_fire_upgraded3_zm";
 
 	if (is_upgraded)
 	{
@@ -43,7 +133,7 @@ flame_damage_fx(damageweapon, e_attacker, pct_damage = 1.0)
 
 	self endon("death");
 
-	if (!is_upgraded && !was_on_fire)
+	if (!was_on_fire)
 	{
 		self.is_on_fire = 1;
 		self thread zombie_set_and_restore_flame_state();
@@ -75,4 +165,9 @@ get_impact_damage(damageweapon)
 		default:
 			return 0;
 	}
+}
+
+fire_staff_update_grenade_fuse()
+{
+	// removed
 }
