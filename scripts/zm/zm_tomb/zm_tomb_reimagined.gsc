@@ -20,7 +20,6 @@ main()
 	replaceFunc(maps\mp\zm_tomb_quest_ice::ice_puzzle_1_run, scripts\zm\replaced\zm_tomb_quest_ice::ice_puzzle_1_run);
 	replaceFunc(maps\mp\zm_tomb_ee_main::all_staffs_inserted_in_puzzle_room, scripts\zm\replaced\zm_tomb_ee_main::all_staffs_inserted_in_puzzle_room);
 	replaceFunc(maps\mp\zm_tomb_ee_main_step_2::create_robot_head_trigger, scripts\zm\replaced\zm_tomb_ee_main_step_2::create_robot_head_trigger);
-	replaceFunc(maps\mp\zm_tomb_ee_main_step_2::remove_plinth, scripts\zm\replaced\zm_tomb_ee_main_step_2::remove_plinth);
 	replaceFunc(maps\mp\zm_tomb_ee_main_step_3::ready_to_activate, scripts\zm\replaced\zm_tomb_ee_main_step_3::ready_to_activate);
 	replaceFunc(maps\mp\zm_tomb_ee_main_step_4::stage_logic, scripts\zm\replaced\zm_tomb_ee_main_step_4::stage_logic);
 	replaceFunc(maps\mp\zm_tomb_ee_main_step_8::stage_logic, scripts\zm\replaced\zm_tomb_ee_main_step_8::stage_logic);
