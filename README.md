@@ -957,8 +957,10 @@
 * No longer needs to be powered by a Turbine
 * Gets destroyed after being deployed for 30 seconds
 * Kills on any round in 1-4 shots (normally does 1200 damage max)
+* Improved targeting
+* No longer arcs downward
 * No longer damages players
-* Changed fire type from burst fire to continuous fire
+* Fixed an issue where the Turret would take damage from fire zombie death explosions
 * Fixed an issue where the Turret sounds would continue playing after being picked up
 
 ### Electric Trap

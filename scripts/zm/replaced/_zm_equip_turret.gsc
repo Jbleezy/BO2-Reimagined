@@ -42,28 +42,25 @@ startturretdeploy(weapon)
 		turret setmodel("p6_anim_zm_buildable_turret");
 		turret.origin = weapon.origin;
 		turret.angles = weapon.angles;
+		turret.aim_origin = turret gettagorigin("tag_aim");
 		turret linkto(weapon);
 		turret makeunusable();
 		turret.owner = self;
 		turret setowner(turret.owner);
 		turret maketurretunusable();
 		turret setmode("auto_nonai");
-		turret setdefaultdroppitch(45);
+		turret setcandamage(0);
+		turret setdefaultdroppitch(0);
 		turret setconvergencetime(0.3);
 		turret setturretteam(self.team);
 		turret.team = self.team;
 		turret.damage_own_team = 0;
 		turret.turret_active = 1;
-		turret.script_burst_min = self.turret_health;
-		turret.script_burst_max = self.turret_health;
 		weapon.turret = turret;
 		self.turret = turret;
 		weapon turret_power_on();
 
-		if (weapon.power_on)
-		{
-			turret thread maps\mp\zombies\_zm_mgturret::burst_fire_unmanned();
-		}
+		turret thread turret_fire();
 
 		self thread turretdecay(weapon);
 		self thread maps\mp\zombies\_zm_buildables::delete_on_disconnect(weapon);
@@ -86,6 +83,96 @@ startturretdeploy(weapon)
 		self.turret = undefined;
 		self notify("turret_cleanup");
 	}
+}
+
+turret_fire()
+{
+	self endon("death");
+
+	while (1)
+	{
+		zombies = getaispeciesarray(level.zombie_team, "all");
+		zombies = get_array_of_closest(self.origin, zombies);
+		target = undefined;
+
+		foreach (zombie in zombies)
+		{
+			if (!self turret_target_in_range(zombie))
+			{
+				continue;
+			}
+
+			target = zombie;
+			break;
+		}
+
+		if (!isdefined(target))
+		{
+			wait 0.05;
+			continue;
+		}
+
+		self settargetentity(target);
+
+		while (1)
+		{
+			wait 0.05;
+
+			if (!isdefined(target))
+			{
+				break;
+			}
+
+			if (!isalive(target))
+			{
+				break;
+			}
+
+			if (!self turret_target_in_range(target))
+			{
+				break;
+			}
+		}
+
+		self cleartargetentity();
+	}
+}
+
+turret_target_in_range(target)
+{
+	pos = target geteye();
+	dist_sq = distancesquared(self.aim_origin, pos);
+	min_dist_sq = 28 * 28;
+	max_dist_sq = 1024 * 1024;
+
+	if (dist_sq < min_dist_sq || dist_sq > max_dist_sq)
+	{
+		return false;
+	}
+
+	dirtopos = vectornormalize(pos - self.aim_origin);
+	forward = anglestoforward(self.angles);
+	forwarddot = vectordot(dirtopos, forward);
+
+	if (forwarddot < 0.0)
+	{
+		return false;
+	}
+
+	up = anglestoup(self.angles);
+	updot = vectordot(dirtopos, up);
+
+	if (updot < 0.0 || updot > 0.5)
+	{
+		return false;
+	}
+
+	if (!target damageconetrace(self.aim_origin, self) && !self damageconetrace(pos, target))
+	{
+		return false;
+	}
+
+	return true;
 }
 
 turret_power_on()
