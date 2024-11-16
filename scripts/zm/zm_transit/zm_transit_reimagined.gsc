@@ -103,7 +103,7 @@ init()
 	path_exploit_fixes();
 
 	level thread power_local_electric_doors_globally();
-	level thread power_station_vision_change();
+	level thread power_station_exposure_change();
 	level thread attach_powerups_to_bus();
 	level thread bus_hatch_open();
 }
@@ -621,12 +621,8 @@ path_exploit_fixes()
 	level thread maps\mp\zombies\_zm_ffotd::path_exploit_fix(zombie_trigger_origin, zombie_trigger_radius, zombie_trigger_height, player_trigger_origin, player_trigger_radius, zombie_goto_point);
 }
 
-power_station_vision_change()
+power_station_exposure_change()
 {
-	level.default_r_exposureValue = 3;
-	level.changed_r_exposureValue = 4;
-	time = 1;
-
 	flag_wait("start_zombie_round_logic");
 
 	while (1)
@@ -638,10 +634,6 @@ power_station_vision_change()
 			if (!isDefined(player.power_station_vision_set))
 			{
 				player.power_station_vision_set = 0;
-				player.r_exposureValue = level.default_r_exposureValue;
-				player setClientDvars(
-				    "r_exposureTweak", 1,
-				    "r_exposureValue", level.default_r_exposureValue);
 			}
 
 			spectating_player = player scripts\zm\_zm_reimagined::get_current_spectating_player();
@@ -651,7 +643,15 @@ power_station_vision_change()
 				if (spectating_player maps\mp\zombies\_zm_zonemgr::entity_in_zone("zone_prr") || spectating_player maps\mp\zombies\_zm_zonemgr::entity_in_zone("zone_pcr"))
 				{
 					player.power_station_vision_set = 1;
-					player thread change_dvar_over_time("r_exposureValue", level.changed_r_exposureValue, time, 1);
+
+					if (spectating_player maps\mp\zombies\_zm_zonemgr::entity_in_zone("zone_prr"))
+					{
+						player thread change_exposure_over_time(3.5, 4, 0.5);
+					}
+					else
+					{
+						player thread change_exposure_over_time(3, 4, 0.5);
+					}
 				}
 			}
 			else
@@ -659,7 +659,15 @@ power_station_vision_change()
 				if (!(spectating_player maps\mp\zombies\_zm_zonemgr::entity_in_zone("zone_prr") || spectating_player maps\mp\zombies\_zm_zonemgr::entity_in_zone("zone_pcr")))
 				{
 					player.power_station_vision_set = 0;
-					player thread change_dvar_over_time("r_exposureValue", level.default_r_exposureValue, time, 0);
+
+					if (spectating_player maps\mp\zombies\_zm_zonemgr::entity_in_zone("zone_pow_warehouse"))
+					{
+						player thread change_exposure_over_time(4, 3, 0.5, 1);
+					}
+					else
+					{
+						player thread change_exposure_over_time(4, 3, 0, 1);
+					}
 				}
 			}
 		}
@@ -668,49 +676,58 @@ power_station_vision_change()
 	}
 }
 
-change_dvar_over_time(dvar, val, time, increment)
+change_exposure_over_time(start_val, end_val, time, end_tweak = 0)
 {
-	self notify("change_dvar_over_time");
-	self endon("change_dvar_over_time");
+	self notify("change_exposure_over_time");
+	self endon("change_exposure_over_time");
+
+	if (!isdefined(self.r_exposureValue))
+	{
+		self.r_exposureValue = start_val;
+		self setClientDvar("r_exposureTweak", 1);
+	}
 
 	intervals = time * 20;
-	rate = (level.changed_r_exposureValue - level.default_r_exposureValue) / intervals;
-
+	rate = abs(end_val - start_val) / intervals;
 	i = 0;
 
 	while (i < intervals)
 	{
-		if (increment)
+		if (end_val > start_val)
 		{
 			self.r_exposureValue += rate;
 
-			if (self.r_exposureValue > val)
+			if (self.r_exposureValue > end_val)
 			{
-				self.r_exposureValue = val;
+				self.r_exposureValue = end_val;
 			}
 		}
 		else
 		{
 			self.r_exposureValue -= rate;
 
-			if (self.r_exposureValue < val)
+			if (self.r_exposureValue < end_val)
 			{
-				self.r_exposureValue = val;
+				self.r_exposureValue = end_val;
 			}
 		}
 
-		self setClientDvar(dvar, self.r_exposureValue);
+		self setClientDvar("r_exposureValue", self.r_exposureValue);
 
-		if (self.r_exposureValue == val)
+		if (self.r_exposureValue == end_val)
 		{
-			return;
+			break;
 		}
 
 		i++;
 		wait 0.05;
 	}
 
-	self setClientDvar(dvar, val);
+	if (end_tweak)
+	{
+		self.r_exposureValue = undefined;
+		self setClientDvar("r_exposureTweak", 0);
+	}
 }
 
 attach_powerups_to_bus()
