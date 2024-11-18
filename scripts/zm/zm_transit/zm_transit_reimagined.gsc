@@ -631,18 +631,18 @@ power_station_exposure_change()
 
 		foreach (player in players)
 		{
-			if (!isDefined(player.power_station_vision_set))
+			if (!isDefined(player.power_station_exposure_changed))
 			{
-				player.power_station_vision_set = 0;
+				player.power_station_exposure_changed = 0;
 			}
 
 			spectating_player = player scripts\zm\_zm_reimagined::get_current_spectating_player();
 
-			if (!player.power_station_vision_set)
+			if (!player.power_station_exposure_changed)
 			{
 				if (spectating_player maps\mp\zombies\_zm_zonemgr::entity_in_zone("zone_prr") || spectating_player maps\mp\zombies\_zm_zonemgr::entity_in_zone("zone_pcr"))
 				{
-					player.power_station_vision_set = 1;
+					player.power_station_exposure_changed = 1;
 
 					if (spectating_player maps\mp\zombies\_zm_zonemgr::entity_in_zone("zone_prr"))
 					{
@@ -658,7 +658,7 @@ power_station_exposure_change()
 			{
 				if (!(spectating_player maps\mp\zombies\_zm_zonemgr::entity_in_zone("zone_prr") || spectating_player maps\mp\zombies\_zm_zonemgr::entity_in_zone("zone_pcr")))
 				{
-					player.power_station_vision_set = 0;
+					player.power_station_exposure_changed = 0;
 
 					if (spectating_player maps\mp\zombies\_zm_zonemgr::entity_in_zone("zone_pow_warehouse"))
 					{

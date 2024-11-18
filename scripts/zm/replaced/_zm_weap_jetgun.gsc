@@ -57,7 +57,7 @@ watch_overheat()
 
 			if (overheating && heat >= 100 && self attackbuttonpressed() && !self isswitchingweapons())
 			{
-				if (overheating_count >= 30)
+				if (overheating_count >= 1500)
 				{
 					self notify("jgun_overheat_snd_end");
 					self luinotifyevent(&"hud_update_overheat");
@@ -82,7 +82,7 @@ watch_overheat()
 					self setweaponoverheating(0, 99.9);
 				}
 
-				overheating_count++;
+				overheating_count += 50;
 			}
 			else if (overheating_count > 0)
 			{

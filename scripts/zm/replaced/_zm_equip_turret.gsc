@@ -60,7 +60,7 @@ startturretdeploy(weapon)
 		self.turret = turret;
 		weapon turret_power_on();
 
-		turret thread turret_fire();
+		turret thread turret_think();
 
 		self thread turretdecay(weapon);
 		self thread maps\mp\zombies\_zm_buildables::delete_on_disconnect(weapon);
@@ -85,7 +85,7 @@ startturretdeploy(weapon)
 	}
 }
 
-turret_fire()
+turret_think()
 {
 	self endon("death");
 
@@ -196,11 +196,22 @@ turretdecay(weapon)
 	self endon("disconnect");
 	self endon("equip_turret_zm_taken");
 
+	firing_time = 0;
+
 	while (isDefined(weapon))
 	{
 		if (weapon.power_on)
 		{
-			self.turret_health--;
+			if (self.turret isfiringturret())
+			{
+				firing_time += 50;
+			}
+
+			if (firing_time >= 1000)
+			{
+				firing_time = 0;
+				self.turret_health--;
+			}
 
 			if (self.turret_health <= 0)
 			{
@@ -211,6 +222,6 @@ turretdecay(weapon)
 			}
 		}
 
-		wait 1;
+		wait 0.05;
 	}
 }

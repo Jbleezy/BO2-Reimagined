@@ -955,7 +955,7 @@
 
 ### Turret
 * No longer needs to be powered by a Turbine
-* Gets destroyed after being deployed for 30 seconds
+* Gets destroyed after firing for 30 seconds
 * Kills on any round in 1-4 shots (normally does 1200 damage max)
 * Improved targeting
 * No longer arcs downward
