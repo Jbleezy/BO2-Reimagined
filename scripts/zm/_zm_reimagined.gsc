@@ -683,6 +683,8 @@ set_dvars()
 	setDvar("dtp_startup_delay", 100);
 	setDvar("dtp_exhaustion_window", 100);
 
+	setDvar("turret_SentryForceManualTarget", 1);
+
 	setDvar("penetrationCount", 100);
 
 	setDvar("perk_weapRateEnhanced", 0);
@@ -749,6 +751,7 @@ set_client_dvars()
 	    "dtp_post_move_pause", getDvar("dtp_post_move_pause"),
 	    "dtp_startup_delay", getDvar("dtp_startup_delay"),
 	    "dtp_exhaustion_window", getDvar("dtp_exhaustion_window"),
+	    "turret_SentryForceManualTarget", getDvar("turret_SentryForceManualTarget"),
 	    "aim_automelee_enabled", 0,
 	    "waypointOffscreenPointerDistance", 30,
 	    "waypointOffscreenPadTop", 30,
