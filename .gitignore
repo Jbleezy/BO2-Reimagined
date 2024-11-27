@@ -1,4 +1,5 @@
 /.vscode
+/scriptdata
 /zone_source/**/*.ff
 /*.ff
 *.iwd

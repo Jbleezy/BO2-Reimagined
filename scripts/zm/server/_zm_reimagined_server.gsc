@@ -4,6 +4,9 @@
 
 init()
 {
+	level.update_stats_func = ::update_stats;
+	level.server_stat_message_func = ::server_stat_message;
+
 	precache_shaders();
 	set_dvars();
 
@@ -13,6 +16,8 @@ init()
 
 	level thread random_map_rotation();
 	level thread map_vote();
+
+	level thread update_stats_on_end_game();
 
 	if (is_gametype_active("zgrief"))
 	{
@@ -66,6 +71,7 @@ on_player_connect()
 		level waittill("connected", player);
 
 		player thread wait_and_show_connect_message();
+		player thread remove_loss_on_reconnect();
 	}
 }
 
@@ -1043,6 +1049,591 @@ get_map_from_rotation(rotation)
 	map = tokens[3];
 
 	return map;
+}
+
+remove_loss_on_reconnect()
+{
+	guids = strTok(getDvar("disconnected_players"), " ");
+
+	foreach (guid in guids)
+	{
+		if (self getguid() == int(guid))
+		{
+			update_stats(self, 1);
+			return;
+		}
+	}
+}
+
+server_stat_message(message_str, player)
+{
+	stat_player = undefined;
+	message_array = strTok(message_str, " ");
+
+	if (message_array.size == 1)
+	{
+		stat_player = player;
+	}
+	else
+	{
+		players = get_players();
+
+		foreach (other_player in players)
+		{
+			if (message_array[1] == getSubStr(toLower(other_player.name), 0, message_array[1].size))
+			{
+				stat_player = other_player;
+				break;
+			}
+		}
+	}
+
+	if (!isDefined(stat_player))
+	{
+		player tell("Player not found");
+		return;
+	}
+
+	text = "";
+	path = "stats/" + stat_player getguid() + ".csv";
+
+	if (fs_testfile(path))
+	{
+		file = fs_fopen(path, "read");
+		text = fs_read(file);
+		fs_fclose(file);
+	}
+
+	text_array = strTok(text, ",\n");
+
+	if (is_gametype_active("zgrief"))
+	{
+		wins = 0;
+		losses = 0;
+		total_wins = 0;
+		total_losses = 0;
+
+		gamemode_str = get_gamemode_stat_str();
+		total_str = "Total";
+
+		if (is_true(level.scr_zm_ui_gametype_pro))
+		{
+			total_str += " Pro";
+		}
+
+		for (i = 2; i < text_array.size; i += 2)
+		{
+			if (text_array[i] == total_str + " Wins")
+			{
+				total_wins = text_array[i + 1];
+			}
+			else if (text_array[i] == total_str + " Losses")
+			{
+				total_losses = text_array[i + 1];
+			}
+			else if (text_array[i] == gamemode_str + " Wins")
+			{
+				wins = text_array[i + 1];
+			}
+			else if (text_array[i] == gamemode_str + " Losses")
+			{
+				losses = text_array[i + 1];
+			}
+		}
+
+		say(gamemode_str + " - " + stat_player.name + ":");
+		say("Wins - " + wins + ", Losses - " + losses);
+
+		say(total_str + " - " + stat_player.name + ":");
+		say("Wins - " + total_wins + ", Losses - " + total_losses);
+	}
+	else
+	{
+		round = 0;
+
+		map_str = get_map_stat_str();
+
+		for (i = 2; i < text_array.size; i += 2)
+		{
+			if (text_array[i] == map_str)
+			{
+				round = text_array[i + 1];
+			}
+		}
+
+		say(map_str + " - " + stat_player.name + ":");
+		say("Highest Round - " + round);
+	}
+}
+
+update_stats_on_end_game()
+{
+	level waittill("end_game");
+
+	setDvar("disconnected_players", "");
+
+	update_stats();
+
+	if (is_gametype_active("zgrief"))
+	{
+		players = get_players();
+
+		foreach (player in players)
+		{
+			player tell_grief_stats();
+		}
+	}
+}
+
+update_stats(disconnecting_player, remove_loss = 0)
+{
+	if (isDefined(disconnecting_player))
+	{
+		if (!flag("initial_blackscreen_passed") || is_true(level.intermission))
+		{
+			return;
+		}
+
+		if (!remove_loss)
+		{
+			setDvar("disconnected_players", getDvar("disconnected_players") + disconnecting_player getguid() + " ");
+		}
+	}
+
+	players = get_players();
+
+	if (isDefined(disconnecting_player))
+	{
+		players = array(disconnecting_player);
+	}
+
+	foreach (player in players)
+	{
+		if (player is_bot())
+		{
+			continue;
+		}
+
+		win = 0;
+		loss = 0;
+
+		if (isDefined(disconnecting_player))
+		{
+			if (!remove_loss)
+			{
+				loss = 1;
+			}
+		}
+		else
+		{
+			if (player._encounters_team == level.gamemodulewinningteam)
+			{
+				win = 1;
+			}
+			else
+			{
+				loss = 1;
+			}
+		}
+
+		text = "";
+		path = "stats/" + player getguid() + ".csv";
+
+		if (fs_testfile(path))
+		{
+			file = fs_fopen(path, "read");
+			text = fs_read(file);
+			fs_fclose(file);
+		}
+
+		text_array = strTok(text, ",\n");
+
+		if (text_array.size == 0)
+		{
+			text_array[0] = "Name";
+		}
+
+		if (!isDefined(text_array[1]) || text_array[1] != player.name)
+		{
+			text_array[1] = player.name;
+		}
+
+		if (is_gametype_active("zgrief"))
+		{
+			found = 0;
+			stat_str = "Total";
+
+			if (is_true(level.scr_zm_ui_gametype_pro))
+			{
+				stat_str += " Pro";
+			}
+
+			if (win)
+			{
+				stat_str += " Wins";
+			}
+			else
+			{
+				stat_str += " Losses";
+			}
+
+			for (i = 2; i < text_array.size; i += 2)
+			{
+				if (text_array[i] == stat_str)
+				{
+					if (!isDefined(text_array[i + 1]))
+					{
+						text_array[i + 1] = 0;
+					}
+					else
+					{
+						text_array[i + 1] = int(text_array[i + 1]);
+					}
+
+					if (isDefined(disconnecting_player) && remove_loss)
+					{
+						if (text_array[i + 1] > 0)
+						{
+							text_array[i + 1]--;
+						}
+					}
+					else
+					{
+						text_array[i + 1]++;
+					}
+
+					found = 1;
+					break;
+				}
+			}
+
+			if (!found)
+			{
+				stat_str = "Total";
+
+				if (is_true(level.scr_zm_ui_gametype_pro))
+				{
+					stat_str += " Pro";
+				}
+
+				text_array[text_array.size] = stat_str + " Wins";
+
+				if (is_true(win))
+				{
+					text_array[text_array.size] = 1;
+				}
+				else
+				{
+					text_array[text_array.size] = 0;
+				}
+
+				text_array[text_array.size] = stat_str + " Losses";
+
+				if (!is_true(win))
+				{
+					text_array[text_array.size] = 1;
+				}
+				else
+				{
+					text_array[text_array.size] = 0;
+				}
+			}
+
+			found = 0;
+			stat_str = get_gamemode_stat_str();
+
+			if (win)
+			{
+				stat_str += " Wins";
+			}
+			else
+			{
+				stat_str += " Losses";
+			}
+
+			for (i = 2; i < text_array.size; i += 2)
+			{
+				if (text_array[i] == stat_str)
+				{
+					if (!isDefined(text_array[i + 1]))
+					{
+						text_array[i + 1] = 0;
+					}
+					else
+					{
+						text_array[i + 1] = int(text_array[i + 1]);
+					}
+
+					if (isDefined(disconnecting_player) && is_true(remove_loss))
+					{
+						if (text_array[i + 1] > 0)
+						{
+							text_array[i + 1]--;
+						}
+					}
+					else
+					{
+						text_array[i + 1]++;
+					}
+
+					found = 1;
+					break;
+				}
+			}
+
+			if (!found)
+			{
+				stat_str = get_gamemode_stat_str();
+
+				text_array[text_array.size] = stat_str + " Wins";
+
+				if (is_true(win))
+				{
+					text_array[text_array.size] = 1;
+				}
+				else
+				{
+					text_array[text_array.size] = 0;
+				}
+
+				text_array[text_array.size] = stat_str + " Losses";
+
+				if (!is_true(win))
+				{
+					text_array[text_array.size] = 1;
+				}
+				else
+				{
+					text_array[text_array.size] = 0;
+				}
+			}
+		}
+		else
+		{
+			found = 0;
+			stat_str = get_map_stat_str();
+
+			for (i = 2; i < text_array.size; i += 2)
+			{
+				if (text_array[i] == stat_str)
+				{
+					if (!isDefined(text_array[i + 1]) || int(text_array[i + 1]) < level.round_number)
+					{
+						text_array[i + 1] = level.round_number;
+					}
+
+					found = 1;
+					break;
+				}
+			}
+
+			if (!found)
+			{
+				text_array[text_array.size] = stat_str;
+				text_array[text_array.size] = level.round_number;
+			}
+		}
+
+		text = "";
+
+		for (i = 0; i < text_array.size; i++)
+		{
+			text += text_array[i];
+
+			if (i < (text_array.size - 1))
+			{
+				text += ",";
+			}
+		}
+
+		text += "\n";
+
+		file = fs_fopen(path, "write");
+		fs_write(file, text);
+		fs_fclose(file);
+	}
+}
+
+get_map_stat_str()
+{
+	if (level.script == "zm_transit")
+	{
+		if (level.scr_zm_map_start_location == "transit")
+		{
+			if (is_classic())
+			{
+				return "TranZit";
+			}
+			else
+			{
+				return "Bus Depot";
+			}
+		}
+		else if (level.scr_zm_map_start_location == "diner")
+		{
+			return "Diner";
+		}
+		else if (level.scr_zm_map_start_location == "farm")
+		{
+			return "Farm";
+		}
+		else if (level.scr_zm_map_start_location == "power")
+		{
+			return "Power Station";
+		}
+		else if (level.scr_zm_map_start_location == "town")
+		{
+			return "Town";
+		}
+		else if (level.scr_zm_map_start_location == "tunnel")
+		{
+			return "Tunnel";
+		}
+		else if (level.scr_zm_map_start_location == "cornfield")
+		{
+			return "Cornfield";
+		}
+	}
+	else if (level.script == "zm_nuked")
+	{
+		if (level.scr_zm_map_start_location == "nuked")
+		{
+			return "Nuketown";
+		}
+	}
+	else if (level.script == "zm_highrise")
+	{
+		if (level.scr_zm_map_start_location == "rooftop")
+		{
+			return "Die Rise";
+		}
+	}
+	else if (level.script == "zm_prison")
+	{
+		if (level.scr_zm_map_start_location == "prison")
+		{
+			return "Mob of the Dead";
+		}
+		else if (level.scr_zm_map_start_location == "cellblock")
+		{
+			return "Cell Block";
+		}
+		else if (level.scr_zm_map_start_location == "docks")
+		{
+			return "Docks";
+		}
+	}
+	else if (level.script == "zm_buried")
+	{
+		if (level.scr_zm_map_start_location == "processing")
+		{
+			return "Buried";
+		}
+		else if (level.scr_zm_map_start_location == "street")
+		{
+			return "Borough";
+		}
+		else if (level.scr_zm_map_start_location == "maze")
+		{
+			return "Maze";
+		}
+	}
+	else if (level.script == "zm_tomb")
+	{
+		if (level.scr_zm_map_start_location == "tomb")
+		{
+			return "Origins";
+		}
+	}
+
+	return "";
+}
+
+get_gamemode_stat_str()
+{
+	gamemode = "";
+
+	if (level.scr_zm_ui_gametype_obj == "zgrief")
+	{
+		gamemode = "Grief";
+	}
+	else if (level.scr_zm_ui_gametype_obj == "zsnr")
+	{
+		gamemode = "Search & Rezurrect";
+	}
+	else if (level.scr_zm_ui_gametype_obj == "zrace")
+	{
+		gamemode = "Race";
+	}
+	else if (level.scr_zm_ui_gametype_obj == "zcontainment")
+	{
+		gamemode = "Containment";
+	}
+	else if (level.scr_zm_ui_gametype_obj == "zmeat")
+	{
+		gamemode = "Meat";
+	}
+
+	if (level.scr_zm_ui_gametype_pro)
+	{
+		gamemode += " Pro";
+	}
+
+	return gamemode;
+}
+
+tell_grief_stats()
+{
+	text = "";
+	path = "stats/" + self getguid() + ".csv";
+
+	if (fs_testfile(path))
+	{
+		file = fs_fopen(path, "read");
+		text = fs_read(file);
+		fs_fclose(file);
+	}
+
+	text_array = strTok(text, ",\n");
+
+	wins = 0;
+	losses = 0;
+	total_wins = 0;
+	total_losses = 0;
+
+	gamemode_str = get_gamemode_stat_str();
+	total_str = "Total";
+
+	if (is_true(level.scr_zm_ui_gametype_pro))
+	{
+		total_str += " Pro";
+	}
+
+	for (i = 2; i < text_array.size; i += 2)
+	{
+		if (text_array[i] == total_str + " Wins")
+		{
+			total_wins = text_array[i + 1];
+		}
+		else if (text_array[i] == total_str + " Losses")
+		{
+			total_losses = text_array[i + 1];
+		}
+		else if (text_array[i] == gamemode_str + " Wins")
+		{
+			wins = text_array[i + 1];
+		}
+		else if (text_array[i] == gamemode_str + " Losses")
+		{
+			losses = text_array[i + 1];
+		}
+	}
+
+	self tell(gamemode_str + ":");
+	self tell("Wins - " + wins + ", Losses - " + losses);
+
+	self tell(total_str + ":");
+	self tell("Wins - " + total_wins + ", Losses - " + total_losses);
 }
 
 connect_timeout_changes()
