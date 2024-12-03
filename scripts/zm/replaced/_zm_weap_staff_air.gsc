@@ -175,3 +175,20 @@ source_zombie_death(ai_zombie, str_weapon)
 
 	self thread staff_air_proximity_kill(a_zombies);
 }
+
+staff_air_zombie_damage_response(mod, hit_location, hit_origin, player, amount)
+{
+	if (self is_staff_air_damage() && mod != "MOD_MELEE")
+	{
+		if (mod == "MOD_IMPACT")
+		{
+			player maps\mp\zombies\_zm_score::player_add_points("damage");
+		}
+
+		self thread stun_zombie();
+
+		return true;
+	}
+
+	return false;
+}

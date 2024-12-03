@@ -150,6 +150,42 @@ staff_lightning_ball_damage_over_time(e_source, e_target, e_attacker)
 	}
 }
 
+staff_lightning_kill_zombie(player, str_weapon)
+{
+	player endon("disconnect");
+
+	if (!isalive(self))
+	{
+		return;
+	}
+
+	if (is_true(self.has_legs))
+	{
+		if (!self hasanimstatefromasd("zm_death_tesla"))
+		{
+			return;
+		}
+
+		self.deathanim = "zm_death_tesla";
+	}
+	else
+	{
+		if (!self hasanimstatefromasd("zm_death_tesla_crawl"))
+		{
+			return;
+		}
+
+		self.deathanim = "zm_death_tesla_crawl";
+	}
+
+	if (is_true(self.is_traversing))
+	{
+		self.deathanim = undefined;
+	}
+
+	self do_damage_network_safe(player, self.health, str_weapon, "MOD_RIFLE_BULLET");
+}
+
 staff_lightning_ball_damage_over_time_mechz(e_source, e_target, e_attacker)
 {
 	e_attacker endon("disconnect");

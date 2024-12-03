@@ -47,12 +47,6 @@ player_add_points_kill_bonus(mod, hit_location)
 		return level.zombie_vars["zombie_score_bonus_melee"];
 	}
 
-	if (mod == "MOD_BURNED")
-	{
-		self score_cf_increment_info("death_torso");
-		return level.zombie_vars["zombie_score_bonus_burn"];
-	}
-
 	score = 0;
 
 	if (isdefined(hit_location))

@@ -167,6 +167,23 @@ get_impact_damage(damageweapon)
 	}
 }
 
+staff_fire_zombie_damage_response(mod, hit_location, hit_origin, player, amount)
+{
+	if (self is_staff_fire_damage() && mod != "MOD_MELEE")
+	{
+		if (mod == "MOD_PROJECTILE" || mod == "MOD_PROJECTILE_SPLASH")
+		{
+			player maps\mp\zombies\_zm_score::player_add_points("damage");
+		}
+
+		self thread staff_fire_zombie_hit_response_internal(mod, self.damageweapon, player, amount);
+
+		return true;
+	}
+
+	return false;
+}
+
 fire_staff_update_grenade_fuse()
 {
 	// removed
