@@ -46,6 +46,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_afterlife::afterlife_player_damage_callback, scripts\zm\replaced\_zm_afterlife::afterlife_player_damage_callback);
 	replaceFunc(maps\mp\zombies\_zm_afterlife::afterlife_save_loadout, scripts\zm\replaced\_zm_afterlife::afterlife_save_loadout);
 	replaceFunc(maps\mp\zombies\_zm_afterlife::afterlife_give_loadout, scripts\zm\replaced\_zm_afterlife::afterlife_give_loadout);
+	replaceFunc(maps\mp\zombies\_zm_afterlife::afterlife_trigger_think, scripts\zm\replaced\_zm_afterlife::afterlife_trigger_think);
 	replaceFunc(maps\mp\zombies\_zm_ai_brutus::init, scripts\zm\replaced\_zm_ai_brutus::init);
 	replaceFunc(maps\mp\zombies\_zm_ai_brutus::brutus_round_tracker, scripts\zm\replaced\_zm_ai_brutus::brutus_round_tracker);
 	replaceFunc(maps\mp\zombies\_zm_ai_brutus::get_brutus_spawn_pos_val, scripts\zm\replaced\_zm_ai_brutus::get_brutus_spawn_pos_val);

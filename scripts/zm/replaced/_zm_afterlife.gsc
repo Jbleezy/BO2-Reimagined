@@ -852,3 +852,45 @@ afterlife_save_perks(ent)
 
 	return perk_array;
 }
+
+afterlife_trigger_think()
+{
+	self endon("kill_trigger");
+	flag_wait("start_zombie_round_logic");
+
+	while (true)
+	{
+		self waittill("trigger", player);
+
+		if (player.lives <= 0)
+		{
+			self playsound("zmb_no_cha_ching");
+			continue;
+		}
+
+		if (player is_reviving_any() || player player_is_in_laststand())
+		{
+			wait 0.1;
+			continue;
+		}
+
+		if (isdefined(player.afterlife) && !player.afterlife)
+		{
+			self setinvisibletoplayer(player, 1);
+			self playsound("zmb_afterlife_trigger_activate");
+			player playsoundtoplayer("zmb_afterlife_trigger_electrocute", player);
+			player thread afterlife_trigger_used_vo();
+			self sethintstring("");
+			player.keep_perks = 1;
+			player.afterlife = 1;
+			player thread afterlife_laststand();
+			e_fx = spawn("script_model", self.origin);
+			e_fx setmodel("tag_origin");
+			e_fx.angles = vectorscale((1, 0, 0), 90.0);
+			playfxontag(level._effect["afterlife_kill_point_fx"], e_fx, "tag_origin");
+			wait 2;
+			e_fx delete();
+			self sethintstring(&"ZM_PRISON_AFTERLIFE_KILL");
+		}
+	}
+}

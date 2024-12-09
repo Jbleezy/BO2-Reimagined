@@ -1241,6 +1241,7 @@
 * Added Mule Kick machine at China Alley
 * Added one-way teleporter at Docks
 * 1 afterlife max in solo
+* Entering afterlife from a shock box no longer takes away afterlife
 * Entering afterlife no longer takes 2 additional seconds if the player had Electric Cherry
 * Spawn facing towards the afterlife player model when entering afterlife
 * Doors can no longer be purchased when entering afterlife
