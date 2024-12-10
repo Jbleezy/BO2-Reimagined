@@ -498,7 +498,10 @@ on_player_spawned()
 			self thread electric_cherry_unlimited();
 		}
 
-		self.statusicon = "";
+		if (is_player_valid(self))
+		{
+			self.statusicon = "";
+		}
 
 		self set_perks();
 		self set_favorite_wall_weapons();
