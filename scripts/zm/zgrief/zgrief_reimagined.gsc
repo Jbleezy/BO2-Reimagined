@@ -819,6 +819,7 @@ obj_waypoint()
 		self.obj_waypoint.vertalign = "middle";
 		self.obj_waypoint.alpha = 0;
 		self.obj_waypoint.hidewheninmenu = 1;
+		self.obj_waypoint.hidewheninscope = 1;
 	}
 
 	if (level.scr_zm_ui_gametype_obj == "zcontainment")
@@ -831,6 +832,7 @@ obj_waypoint()
 		self.next_obj_waypoint.color = (0.5, 0.5, 0.5);
 		self.next_obj_waypoint.alpha = 0;
 		self.next_obj_waypoint.hidewheninmenu = 1;
+		self.next_obj_waypoint.hidewheninscope = 1;
 	}
 
 	self thread obj_waypoint_destroy_on_end_game();

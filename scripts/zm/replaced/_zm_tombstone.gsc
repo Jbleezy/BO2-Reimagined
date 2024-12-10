@@ -146,6 +146,7 @@ tombstone_waypoint()
 	hud.alpha = 1;
 	hud.color = (1, 1, 1);
 	hud.hidewheninmenu = 1;
+	hud.hidewheninscope = 1;
 	hud.fadewhentargeted = 1;
 	hud setShader("specialty_tombstone_zombies", 8, 8);
 	hud setWaypoint(1);
