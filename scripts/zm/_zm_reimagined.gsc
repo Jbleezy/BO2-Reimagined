@@ -2996,18 +2996,23 @@ zone_changes()
 	}
 }
 
-player_waypoint_origin_create()
+player_waypoint_origin_ent_create()
 {
 	self endon("disconnect");
 
-	self.waypoint_origin = spawn("script_model", self.origin);
-	self.waypoint_origin setmodel("tag_origin");
+	self.waypoint_origin_ent = spawn("script_model", self.origin);
+	self.waypoint_origin_ent setmodel("tag_origin");
 
 	prev_stance = "";
 
-	while (isdefined(self.waypoint_origin))
+	while (isdefined(self.waypoint_origin_ent))
 	{
 		stance = self getstance();
+
+		if (!self isonground() && !is_true(self.divetoprone))
+		{
+			stance = "stand";
+		}
 
 		if (prev_stance == stance)
 		{
@@ -3027,9 +3032,9 @@ player_waypoint_origin_create()
 			height_offset = 30;
 		}
 
-		self.waypoint_origin unlink();
-		self.waypoint_origin.origin = self.origin + (0, 0, height_offset);
-		self.waypoint_origin linkto(self);
+		self.waypoint_origin_ent unlink();
+		self.waypoint_origin_ent.origin = self.origin + (0, 0, height_offset);
+		self.waypoint_origin_ent linkto(self);
 
 		wait 0.05;
 	}

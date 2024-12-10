@@ -458,26 +458,26 @@ final_battle_vo(p_weasel, a_player_team)
 
 final_showdown_create_icon(player, enemy)
 {
-	if (!isDefined(enemy.waypoint_origin))
+	if (!isDefined(enemy.waypoint_origin_ent))
 	{
-		enemy thread scripts\zm\_zm_reimagined::player_waypoint_origin_create();
+		enemy thread scripts\zm\_zm_reimagined::player_waypoint_origin_ent_create();
 	}
 
-	waypoint_origin = enemy.waypoint_origin;
+	waypoint_origin_ent = enemy.waypoint_origin_ent;
 
 	hud_elem = newclienthudelem(player);
 	hud_elem.alpha = 1;
 	hud_elem.hidewheninmenu = 1;
 	hud_elem.color = (1, 0, 0);
 	hud_elem setwaypoint(1, "waypoint_kill_red");
-	hud_elem settargetent(waypoint_origin);
+	hud_elem settargetent(waypoint_origin_ent);
 
 	waittill_any_ents(level, "showdown_over", enemy, "disconnect");
 
-	if (isDefined(waypoint_origin))
+	if (isDefined(waypoint_origin_ent))
 	{
-		waypoint_origin unlink();
-		waypoint_origin delete();
+		waypoint_origin_ent unlink();
+		waypoint_origin_ent delete();
 	}
 
 	hud_elem destroy();

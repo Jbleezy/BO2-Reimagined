@@ -399,10 +399,10 @@ grief_onplayerdisconnect(disconnecting_player)
 		array_thread(disconnecting_player.stun_fx_ents, ::self_delete);
 	}
 
-	if (isDefined(disconnecting_player.head_icon_origin_ent))
+	if (isDefined(disconnecting_player.waypoint_origin_ent))
 	{
-		disconnecting_player.head_icon_origin_ent unlink();
-		disconnecting_player.head_icon_origin_ent delete();
+		disconnecting_player.waypoint_origin_ent unlink();
+		disconnecting_player.waypoint_origin_ent delete();
 	}
 
 	if (isDefined(disconnecting_player.head_icon))
@@ -798,11 +798,10 @@ head_icon()
 
 	self scripts\zm\_zm_reimagined::waittill_next_snapshot(1);
 
-	tag = "j_head";
-	self.head_icon_origin_ent = spawn("script_model", self gettagorigin(tag));
-	self.head_icon_origin_ent.angles = self gettagangles(tag);
-	self.head_icon_origin_ent setmodel("tag_origin");
-	self.head_icon_origin_ent linkto(self, tag);
+	if (!isDefined(self.waypoint_origin_ent))
+	{
+		self thread scripts\zm\_zm_reimagined::player_waypoint_origin_ent_create();
+	}
 
 	flag_wait("hud_visible");
 
@@ -3010,32 +3009,16 @@ meat_powerup_reset_on_timeout()
 	level notify("meat_inactive");
 }
 
-meat_player_waypoint_origin_destroy_on_change()
+meat_waypoint_origin_ent_destroy_on_death()
 {
-	waypoint_origin = self.waypoint_origin;
-
-	while (isDefined(self) && isDefined(level.meat_player) && level.meat_player == self)
-	{
-		wait 0.05;
-	}
-
-	if (isDefined(waypoint_origin))
-	{
-		waypoint_origin unlink();
-		waypoint_origin delete();
-	}
-}
-
-meat_waypoint_origin_destroy_on_death()
-{
-	waypoint_origin = self.waypoint_origin;
+	waypoint_origin_ent = self.waypoint_origin_ent;
 
 	self waittill("death");
 
-	if (isDefined(waypoint_origin))
+	if (isDefined(waypoint_origin_ent))
 	{
-		waypoint_origin unlink();
-		waypoint_origin delete();
+		waypoint_origin_ent unlink();
+		waypoint_origin_ent delete();
 	}
 }
 
@@ -3063,10 +3046,9 @@ meat_think()
 				held_time = getTime();
 			}
 
-			if (!isDefined(level.meat_player.waypoint_origin))
+			if (!isDefined(level.meat_player.waypoint_origin_ent))
 			{
-				level.meat_player thread scripts\zm\_zm_reimagined::player_waypoint_origin_create();
-				level.meat_player thread meat_player_waypoint_origin_destroy_on_change();
+				level.meat_player thread scripts\zm\_zm_reimagined::player_waypoint_origin_ent_create();
 			}
 
 			grief_score_hud_set_scoring_team(level.meat_player.team);
@@ -3092,7 +3074,7 @@ meat_think()
 						player.obj_waypoint setWaypoint(1, "white_waypoint_kill");
 					}
 
-					player.obj_waypoint setTargetEnt(level.meat_player.waypoint_origin);
+					player.obj_waypoint setTargetEnt(level.meat_player.waypoint_origin_ent);
 				}
 			}
 
@@ -3113,15 +3095,15 @@ meat_think()
 
 			if (isDefined(level.item_meat))
 			{
-				if (!isDefined(level.item_meat.waypoint_origin))
+				if (!isDefined(level.item_meat.waypoint_origin_ent))
 				{
-					level.item_meat.waypoint_origin = spawn("script_model", level.item_meat.origin);
-					level.item_meat.waypoint_origin setmodel("tag_origin");
+					level.item_meat.waypoint_origin_ent = spawn("script_model", level.item_meat.origin);
+					level.item_meat.waypoint_origin_ent setmodel("tag_origin");
 
-					level.item_meat thread meat_waypoint_origin_destroy_on_death();
+					level.item_meat thread meat_waypoint_origin_ent_destroy_on_death();
 				}
 
-				level.item_meat.waypoint_origin.origin = level.item_meat.origin + (0, 0, 34);
+				level.item_meat.waypoint_origin_ent.origin = level.item_meat.origin + (0, 0, 30);
 
 				grief_score_hud_set_scoring_team("neutral");
 
@@ -3130,18 +3112,20 @@ meat_think()
 					player.obj_waypoint.alpha = 1;
 					player.obj_waypoint.color = (1, 1, 1);
 					player.obj_waypoint setWaypoint(1, "white_waypoint_grab");
-					player.obj_waypoint setTargetEnt(level.item_meat.waypoint_origin);
+					player.obj_waypoint setTargetEnt(level.item_meat.waypoint_origin_ent);
 				}
 			}
 			else if (isDefined(level.meat_powerup))
 			{
-				if (!isDefined(level.meat_powerup.waypoint_origin))
+				if (!isDefined(level.meat_powerup.waypoint_origin_ent))
 				{
-					level.meat_powerup.waypoint_origin = spawn("script_model", level.meat_powerup.origin + (0, 0, 34));
-					level.meat_powerup.waypoint_origin setmodel("tag_origin");
+					level.meat_powerup.waypoint_origin_ent = spawn("script_model", level.meat_powerup.origin);
+					level.meat_powerup.waypoint_origin_ent setmodel("tag_origin");
 
-					level.meat_powerup thread meat_waypoint_origin_destroy_on_death();
+					level.meat_powerup thread meat_waypoint_origin_ent_destroy_on_death();
 				}
+
+				level.meat_powerup.waypoint_origin_ent.origin = level.meat_powerup.origin + (0, 0, 30);
 
 				grief_score_hud_set_scoring_team("neutral");
 
@@ -3150,7 +3134,7 @@ meat_think()
 					player.obj_waypoint.alpha = 1;
 					player.obj_waypoint.color = (1, 1, 1);
 					player.obj_waypoint setWaypoint(1, "white_waypoint_grab");
-					player.obj_waypoint setTargetEnt(level.meat_powerup.waypoint_origin);
+					player.obj_waypoint setTargetEnt(level.meat_powerup.waypoint_origin_ent);
 				}
 			}
 			else

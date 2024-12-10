@@ -515,11 +515,10 @@ head_icon_create()
 	hud.aligny = "middle";
 	hud.horzalign = "center";
 	hud.vertalign = "middle";
-	hud.z = 12;
 	hud.hidewheninmenu = 1;
 	hud setShader(game["icons"][self.team], 6, 6);
 	hud setWaypoint(1);
-	hud setTargetEnt(self.head_icon_origin_ent);
+	hud setTargetEnt(self.waypoint_origin_ent);
 	hud thread scripts\zm\_zm_reimagined::destroy_on_intermission();
 
 	if (is_player_valid(self))
