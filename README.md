@@ -634,8 +634,8 @@
 
 #### Staffs
 * Upgrade only requires collecting souls in The Crazy Place
+* Can collect souls in The Crazy Place after upgrading to recharge (fills 5% of max ammo per soul)
 * Can no longer collect souls in The Crazy Place from staff kills
-* Can collect souls in The Crazy Place after upgrading to fill 5% of max ammo per soul
 * Picking up a staff in The Crazy Place while holding a staff places the other staff in The Crazy Place
 * Insterting a staff in The Crazy Place requires player's current weapon to be the staff
 * Fixed triggers for inserting and picking up staffs in The Crazy Place

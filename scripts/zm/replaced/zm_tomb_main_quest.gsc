@@ -430,6 +430,30 @@ swap_staff_hint_charger(player)
 	self.playertrigger[num] sethintstring(self.hint_string);
 }
 
+staff_upgraded_reload_monitor()
+{
+	self.weaponname = self.weapname;
+	self thread track_staff_weapon_respawn(self.owner);
+
+	while (true)
+	{
+		place_staff_in_charger();
+		self staff_upgraded_reload();
+		self watch_for_player_pickup_staff();
+		self.trigger trigger_off();
+		self.charger.is_inserted = 0;
+		maxammo = weaponmaxammo(self.weapname);
+		n_ammo = int(min(maxammo, self.prev_ammo_stock));
+
+		if (isdefined(self.owner))
+		{
+			self.owner setweaponammostock(self.weapname, n_ammo);
+			self.owner setweaponammoclip(self.weapname, self.prev_ammo_clip);
+			self thread track_staff_weapon_respawn(self.owner);
+		}
+	}
+}
+
 staff_upgraded_reload()
 {
 	self endon("staff_equip");
@@ -468,6 +492,7 @@ staff_upgraded_reload()
 			self setclientfield("staff_charger", 0);
 			self.charger.full = 1;
 			self thread staff_glow_fx();
+			return;
 		}
 
 		self.charger waittill("soul_received");
