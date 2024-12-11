@@ -237,7 +237,7 @@ CoD.MapInfoImage.ZombieUpdate = function(f6_arg0, f6_arg1, f6_arg2)
 		if f6_local0 == "" then
 			f6_local0 = CoD.Zombie.START_LOCATION_TRANSIT
 		end
-		local materialName = GetMapMaterialName(f6_arg1, f6_local1, f6_local0)
+		local materialName = GetMapMaterialName(f6_arg1, f6_local0, f6_local1)
 		f6_arg0.mapImage:registerAnimationState("change_map", {
 			material = RegisterMaterial(materialName),
 			alpha = 1,
@@ -260,11 +260,7 @@ CoD.MapInfoImage.ZombieUpdate = function(f6_arg0, f6_arg1, f6_arg2)
 	CoD.MapInfoImage.DLCWarningUpdate(f6_arg0)
 end
 
-function GetMapMaterialName(map, gamemode, location)
-	if location == "power" then
-		return "menu_zm_map_transit_blit_power"
-	end
-
+function GetMapMaterialName(map, location, gamemode)
 	if map == "zm_transit" and gamemode ~= "zclassic" then
 		gamemode = "zsurvival"
 	end

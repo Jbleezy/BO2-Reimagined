@@ -41,7 +41,7 @@ precache_shaders()
 	precacheshader("menu_zm_transit_zencounter_diner");
 	precacheshader("menu_zm_prison_zencounter_cellblock");
 	precacheshader("menu_zm_buried_zencounter_street");
-	precacheshader("menu_zm_map_transit_blit_power");
+	precacheshader("menu_zm_transit_zsurvival_power");
 }
 
 set_dvars()
@@ -926,11 +926,6 @@ get_name_for_loc(map, location, gametype)
 get_image_for_loc(map, location, gametype)
 {
 	gamemode = get_gamemode_for_gametype(gametype);
-
-	if (location == "power")
-	{
-		return "menu_zm_map_transit_blit_power";
-	}
 
 	if (map == "zm_transit" && gamemode != "zclassic")
 	{
