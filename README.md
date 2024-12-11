@@ -663,6 +663,8 @@
 * Fire upgraded: charged shots no longer deal additional damage to Panzersoldat
 * Fire upgraded: fixed lava not being created if the player fired the charged shot on a wall or too close to themselves
 * Ice upgraded: fixed melee sound
+* Lightning upgraded: decreased clip ammo from 18 to 15
+* Lightning upgraded: decreased stock ammo from 180 to 150
 * Lightning upgraded: decreased kill points from 100 to 50
 * Wind: awards points for damage
 * Wind unupgraded: decreased stock ammo from 40 to 30
