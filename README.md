@@ -1416,6 +1416,7 @@
 * Nuke: enemy players lose 400 points
 * Nuke: deals 75 damage to all alive enemy players
 * Nuke: makes all downed enemy players bleed out
+* Added new CDC and CIA revive icons
 * Added teammate head icons
 * Added kill feed (includes downs, revives, and bleed outs)
 * Added player kills on scoreboard (replaces headshots)
