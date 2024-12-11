@@ -665,6 +665,7 @@
 * Ice upgraded: fixed melee sound
 * Lightning upgraded: decreased kill points from 100 to 50
 * Wind: awards points for damage
+* Wind unupgraded: decreased stock ammo from 40 to 30
 * Wind upgraded: whirlwind pulls in multiple zombies significantly faster
 * Wind upgraded: whirlwind stops pulling in zombies when the whirlwind fx starts to end instead of when the whirlwind fx completely ends
 * Wind upgraded: fixed whirlwind not being created and impact blast radius being incorrect if the player started reloading or throwing a grenade in between the time that the charged shot was fired and impacted a surface
