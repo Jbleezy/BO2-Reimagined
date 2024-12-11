@@ -128,13 +128,6 @@ staff_lightning_ball_damage_over_time(e_source, e_target, e_attacker)
 			break;
 		}
 
-		n_dist_sq = distancesquared(e_source.origin, e_target.origin);
-
-		if (n_dist_sq > n_range_sq)
-		{
-			break;
-		}
-
 		if (isalive(e_target) && isdefined(e_source))
 		{
 			e_target thread zombie_shock_eyes();
@@ -208,13 +201,6 @@ staff_lightning_ball_damage_over_time_mechz(e_source, e_target, e_attacker)
 		wait 1.0;
 
 		if (!isdefined(e_source) || !isalive(e_target))
-		{
-			break;
-		}
-
-		n_dist_sq = distancesquared(e_source.origin, e_target.origin);
-
-		if (n_dist_sq > n_range_sq)
 		{
 			break;
 		}
