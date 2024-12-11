@@ -2888,7 +2888,7 @@ containment_set_obj_waypoint_icon(icon, next_obj = false)
 	{
 		if (next_obj)
 		{
-			hud setShader(icon, 9, 9);
+			hud setShader(icon, 6, 6);
 			hud setWaypoint(1);
 		}
 		else
