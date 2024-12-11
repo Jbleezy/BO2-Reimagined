@@ -758,7 +758,6 @@ set_client_dvars()
 	    "aim_automelee_enabled", 0,
 	    "waypointIconHeight", 24,
 	    "waypointIconWidth", 24,
-	    "waypointOffscreenPointerDistance", 30,
 	    "waypointOffscreenPadTop", 30,
 	    "waypointPlayerOffsetStand", 30,
 	    "waypointPlayerOffsetCrouch", 30,
