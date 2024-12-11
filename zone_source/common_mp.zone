@@ -17,3 +17,4 @@ include,includes/mp/attachment
 include,includes/mp/camo
 
 material,tactical_gren_reticle
+material,waypoint_circle_arrow

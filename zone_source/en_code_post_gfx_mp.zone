@@ -2,7 +2,6 @@
 >type,fastfile
 >name,en_code_post_gfx_mp
 
-material,waypoint_target
 material,white_waypoint_target
 material,white_waypoint_capture
 material,white_waypoint_defend
