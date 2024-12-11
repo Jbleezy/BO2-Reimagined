@@ -2882,7 +2882,7 @@ containment_set_obj_waypoint_icon(icon, next_obj = false)
 
 	if (hud.on_screen)
 	{
-		hud setShader(icon, getDvarInt("waypointIconWidth"), getDvarInt("waypointIconHeight"));
+		hud setShader(icon, 24, 24);
 	}
 	else
 	{
