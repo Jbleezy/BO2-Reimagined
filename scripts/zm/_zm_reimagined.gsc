@@ -3008,12 +3008,18 @@ player_waypoint_origin_ent_create()
 	self.waypoint_origin_ent setmodel("tag_origin");
 
 	prev_stance = "";
+	prev_in_last_stand = false;
 
 	while (isdefined(self.waypoint_origin_ent))
 	{
 		stance = self getstance();
+		in_last_stand = self maps\mp\zombies\_zm_laststand::player_is_in_laststand();
 
 		if (!self isonground() && !is_true(self.divetoprone))
+		{
+			stance = "stand";
+		}
+		else if (prev_in_last_stand && !in_last_stand)
 		{
 			stance = "stand";
 		}
@@ -3025,6 +3031,7 @@ player_waypoint_origin_ent_create()
 		}
 
 		prev_stance = stance;
+		prev_in_last_stand = in_last_stand;
 		height_offset = 74;
 
 		if (stance == "crouch")
