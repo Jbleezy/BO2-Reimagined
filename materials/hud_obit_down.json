@@ -75,7 +75,7 @@
 	},
 	"textures": [
 		{
-			"image": "menu_zm_weapons_syrette",
+			"image": "hud_obit_down",
 			"isMatureContent": false,
 			"name": "colorMap",
 			"samplerState": {

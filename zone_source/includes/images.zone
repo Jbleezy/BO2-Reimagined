@@ -28,6 +28,8 @@ image,specialty_vulture_zombies
 image,minimap_icon_chugabud
 image,minimap_icon_electric_cherry
 image,hud_hell_dpad
+image,hud_obit_death_suicide
+image,hud_obit_death_falling
 image,waypoint_revive
 image,waypoint_revive_cdc_zm
 image,waypoint_revive_cia_zm

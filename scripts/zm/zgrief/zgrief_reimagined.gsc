@@ -683,12 +683,6 @@ kill_feed()
 			self.last_griefed_by.weapon = get_held_melee_weapon(self.last_griefed_by.weapon);
 		}
 
-		// show BO2 MP Ballistic Knife icon (only defined on unupgraded Ballistic Knife)
-		if (issubstr(self.last_griefed_by.weapon, "knife_ballistic"))
-		{
-			self.last_griefed_by.weapon = get_base_weapon_name(self.last_griefed_by.weapon, 1);
-		}
-
 		obituary(self, self.last_griefed_by.attacker, self.last_griefed_by.weapon, self.last_griefed_by.meansofdeath);
 	}
 	else if (isDefined(self.last_meated_by))
@@ -705,13 +699,13 @@ kill_feed()
 	}
 	else
 	{
-		obituary(self, self, "none", "MOD_SUICIDE");
+		obituary(self, self, level.suicide_weapon, "MOD_UNKNOWN");
 	}
 }
 
 bleedout_feed()
 {
-	obituary(self, self, "none", "MOD_CRUSH");
+	obituary(self, self, "none", "MOD_SUICIDE");
 }
 
 revive_feed(reviver)

@@ -15,7 +15,6 @@ material,menu_zm_weapons_one_inch_punch_ice
 material,menu_zm_weapons_one_inch_punch_lightning
 material,menu_zm_weapons_item_meat
 material,menu_zm_weapons_item_head
-material,menu_zm_weapons_syrette
 material,menu_zm_transit_zsurvival_power
 material,hud_zm_transit_dpad
 material,hud_zm_transit_dpad_bar
@@ -48,3 +47,5 @@ material,hud_zm_num_highrise_9
 material,hud_zm_num_highrise_slash
 material,hud_zm_num_highrise_line
 material,hud_indicator_blundersplat
+material,hud_obit_down
+material,hud_obit_revive
