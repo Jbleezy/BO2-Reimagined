@@ -31,7 +31,3 @@ image,hud_hell_dpad
 image,hud_obit_death_suicide
 image,hud_obit_death_falling
 image,waypoint_revive
-image,waypoint_revive_cdc_zm
-image,waypoint_revive_cia_zm
-image,waypoint_revive_guards
-image,waypoint_revive_inmates
