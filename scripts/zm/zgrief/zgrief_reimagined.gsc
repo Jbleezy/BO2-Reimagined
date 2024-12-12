@@ -2758,13 +2758,41 @@ containment_set_obj_waypoint_on_screen(next_obj = false)
 		hud = self.next_obj_waypoint;
 	}
 
-	if (isads(self))
+	if (!is_true(hud.on_screen))
 	{
-		hud fadeOverTime(0.25);
+		hud.on_screen = 0;
+		hud.on_screen_fade = 0;
+		hud.player_ads = 0.0;
+	}
+
+	player_ads = self playerads();
+
+	if (player_ads == 1.0 || player_ads > hud.player_ads)
+	{
+		if (!hud.on_screen_fade)
+		{
+			hud.on_screen_fade = 1;
+
+			if (hud.on_screen)
+			{
+				hud fadeOverTime(0.25);
+			}
+		}
+
 		hud.alpha = 0.25;
 	}
 	else
 	{
+		if (hud.on_screen_fade)
+		{
+			hud.on_screen_fade = 0;
+
+			if (hud.on_screen)
+			{
+				hud fadeOverTime(0.25);
+			}
+		}
+
 		hud.alpha = 1;
 	}
 
@@ -2772,6 +2800,7 @@ containment_set_obj_waypoint_on_screen(next_obj = false)
 	hud.y = 140;
 	hud.z = 0;
 
+	hud.player_ads = player_ads;
 	hud.on_screen = 1;
 }
 
