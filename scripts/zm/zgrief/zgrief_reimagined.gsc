@@ -596,9 +596,13 @@ on_player_bleedout()
 			self.init_player_offhand_weapons_override = 1;
 			self init_player_offhand_weapons();
 			self.init_player_offhand_weapons_override = undefined;
-			self bleedout_feed();
 			self add_grief_bleedout_score();
 			level thread update_players_on_bleedout(self);
+		}
+
+		if (level.scr_zm_ui_gametype_obj == "zsnr" || self.bleedout_time > 0)
+		{
+			self bleedout_feed();
 		}
 
 		if (is_respawn_gamemode())
