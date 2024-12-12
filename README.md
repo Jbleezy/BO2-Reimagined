@@ -199,7 +199,7 @@
 * Added proper game mode and map name to scoreboard
 * Added icons on scoreboard when player is downed, bled out, in Who's Who mode, in afterlife, or has the meat
 * Decreased waypoint size
-* Increased waypoint offset from top of screen
+* Increased waypoint offset from top and bottom of screen
 * Revive waypoint no longer shows at incorrect position when it first appears
 * Bleed out bar displayed when downed
 * Revive bar displayed for downed player
