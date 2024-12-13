@@ -590,7 +590,7 @@ print_meat_msg(meat_player, verb, show_after_obituaries = 0)
 
 	while (is_true(self.printing_meat_msg))
 	{
-		self waittill("meat_msg_printed");
+		wait 0.05;
 	}
 
 	self.printing_meat_msg = 1;
@@ -612,5 +612,4 @@ print_meat_msg(meat_player, verb, show_after_obituaries = 0)
 	self iprintln(hint_string, meat_player.name);
 
 	self.printing_meat_msg = undefined;
-	self notify("meat_msg_printed");
 }
