@@ -172,13 +172,6 @@ meat_drop(pos)
 	{
 		self hide();
 
-		players = get_players();
-
-		foreach (player in players)
-		{
-			player thread print_meat_msg(self.owner, "dropped");
-		}
-
 		if (level.scr_zm_ui_gametype_obj == "zmeat")
 		{
 			level.meat_powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop("meat_stink", pos);
@@ -433,6 +426,8 @@ meat_stink_cleanup_on_downed()
 		{
 			player.ignoreme = 0;
 		}
+
+		player thread print_meat_msg(self, "dropped", 1);
 	}
 
 	if (level.scr_zm_ui_gametype_obj == "zmeat")
@@ -441,11 +436,6 @@ meat_stink_cleanup_on_downed()
 
 		if (valid_drop)
 		{
-			foreach (player in players)
-			{
-				player thread print_meat_msg(self, "dropped", 1);
-			}
-
 			self thread [[level.show_grief_hud_msg_func]](&"");
 
 			level.meat_powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop("meat_stink", self.origin);

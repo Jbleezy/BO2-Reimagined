@@ -23,11 +23,6 @@ item_meat_on_spawn_retrieve_trigger(watcher, player, weaponname)
 	self endon("death");
 	add_meat_event("meat_spawn", self);
 
-	if (is_player_valid(player))
-	{
-		player.statusicon = "";
-	}
-
 	while (isdefined(level.splitting_meat) && level.splitting_meat)
 	{
 		wait 0.15;
@@ -39,6 +34,11 @@ item_meat_on_spawn_retrieve_trigger(watcher, player, weaponname)
 		self setteam(player.pers["team"]);
 		self.owner = player;
 		self.oldangles = self.angles;
+
+		if (is_player_valid(player))
+		{
+			player.statusicon = "";
+		}
 
 		if (player hasweapon(weaponname))
 		{
@@ -86,6 +86,8 @@ item_meat_on_spawn_retrieve_trigger(watcher, player, weaponname)
 		{
 			other_player.ignoreme = 0;
 		}
+
+		other_player thread scripts\zm\replaced\zgrief::print_meat_msg(player, "dropped");
 	}
 
 	if (!(isdefined(self._fake_meat) && self._fake_meat))
