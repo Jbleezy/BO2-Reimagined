@@ -251,7 +251,7 @@ if %ERRORLEVEL% NEQ 0 pause
 
 del /s %cd%\zone_source\*.ff 1>nul
 
-pwsh -Command "Compress-Archive -Force -Path attachmentunique,maps,scripts,ui,ui_mp,weapons -DestinationPath mod.iwd"
+pwsh -Command "Compress-Archive -Force -Path attachmentunique,images,maps,scripts,ui,ui_mp,weapons -DestinationPath mod.iwd"
 
 for %%f in (ff,iwd,sabs,sabl,json) do xcopy /i /y *.%%f ..\zm_reimagined
 
