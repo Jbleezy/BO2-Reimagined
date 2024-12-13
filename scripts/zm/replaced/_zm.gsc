@@ -3221,15 +3221,7 @@ player_out_of_playable_area_monitor()
 				self.lives = 0;
 				self dodamage(self.health + 1000, self.origin);
 
-				if (isDefined(level.player_suicide_func))
-				{
-					wait 0.05;
-					self thread [[level.player_suicide_func]]();
-				}
-				else
-				{
-					self.bleedout_time = 0;
-				}
+				self thread scripts\zm\_zm_reimagined::player_suicide();
 			}
 		}
 

@@ -96,7 +96,6 @@ init()
 	level.grief_score_hud_set_player_count_func = ::grief_score_hud_set_player_count;
 	level.show_grief_hud_msg_func = ::show_grief_hud_msg;
 	level.store_player_damage_info_func = ::store_player_damage_info;
-	level.player_suicide_func = ::player_suicide;
 
 	level thread grief_gamemode_name_hud();
 	level thread grief_intro_msg();
@@ -600,17 +599,16 @@ on_player_bleedout()
 			level thread update_players_on_bleedout(self);
 		}
 
-		if (level.scr_zm_ui_gametype_obj == "zsnr" || self.bleedout_time > 0)
+		if (level.scr_zm_ui_gametype_obj == "zsnr" || is_true(self.playersuicided))
 		{
-			self bleedout_feed();
+			self thread bleedout_feed();
 		}
 
 		if (is_respawn_gamemode())
 		{
-			if (self.bleedout_time > 0)
+			if (is_true(self.playersuicided))
 			{
-				wait self.bleedout_time;
-				self.sessionstate = "playing";
+				self wait_and_respawn();
 			}
 
 			self maps\mp\zombies\_zm::spectator_respawn();
@@ -699,7 +697,7 @@ kill_feed()
 	{
 		self.last_emped_by.attacker.killsconfirmed++;
 
-		obituary(self, self.last_emped_by.attacker, "emp_grenade_zm", "MOD_GRENADE_SPLASH");
+		obituary(self, self.last_emped_by.attacker, "emp_grenade_zm", "MOD_UNKNOWN");
 	}
 	else
 	{
@@ -709,6 +707,11 @@ kill_feed()
 
 bleedout_feed()
 {
+	if (is_true(self.playersuicided))
+	{
+		wait 0.05;
+	}
+
 	obituary(self, self, "none", "MOD_SUICIDE");
 }
 
@@ -723,6 +726,24 @@ revive_feed(reviver)
 	}
 
 	obituary(self, reviver, weapon, "MOD_UNKNOWN");
+}
+
+wait_and_respawn()
+{
+	self endon("disconnect");
+
+	time = self.bleedout_time;
+
+	if (!isdefined(time))
+	{
+		time = 0;
+	}
+
+	time += 1;
+
+	wait time;
+
+	self.sessionstate = "playing";
 }
 
 get_held_melee_weapon(melee_weapon)
@@ -2169,20 +2190,6 @@ unlimited_powerups()
 
 		wait 1;
 	}
-}
-
-player_suicide()
-{
-	self.bleedout_time += 1;
-
-	self notify("player_suicide");
-
-	self.playersuicided = 1;
-
-	wait_network_frame();
-
-	self maps\mp\zombies\_zm_laststand::bleed_out();
-	self.playersuicided = undefined;
 }
 
 remove_round_number()

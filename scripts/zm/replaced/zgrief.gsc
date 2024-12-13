@@ -597,6 +597,11 @@ print_meat_msg(meat_player, verb, show_after_obituaries = 0)
 
 	if (show_after_obituaries)
 	{
+		if (is_true(self.playersuicided))
+		{
+			wait 0.05;
+		}
+
 		wait 0.05;
 	}
 

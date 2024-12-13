@@ -1278,6 +1278,11 @@ bleedout_bar_hud()
 			continue;
 		}
 
+		if (is_true(self.playersuicided))
+		{
+			continue;
+		}
+
 		// don't show for last player downed
 		if (!self maps\mp\zombies\_zm_laststand::player_is_in_laststand())
 		{
@@ -3049,6 +3054,17 @@ player_waypoint_origin_ent_create()
 
 		wait 0.05;
 	}
+}
+
+player_suicide()
+{
+	self.playersuicided = 1;
+	self notify("player_suicide");
+
+	wait_network_frame();
+
+	self maps\mp\zombies\_zm_laststand::bleed_out();
+	self.playersuicided = undefined;
 }
 
 should_respawn()

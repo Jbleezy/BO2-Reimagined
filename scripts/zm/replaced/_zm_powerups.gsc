@@ -703,10 +703,7 @@ nuke_powerup(drop_item, player_team)
 			}
 			else if (players[i] maps\mp\zombies\_zm_laststand::player_is_in_laststand())
 			{
-				if (isDefined(level.player_suicide_func))
-				{
-					players[i] thread [[level.player_suicide_func]]();
-				}
+				players[i] thread scripts\zm\_zm_reimagined::player_suicide();
 			}
 		}
 
