@@ -3133,7 +3133,7 @@ meat_think()
 					level.item_meat thread meat_waypoint_origin_ent_destroy_on_death();
 				}
 
-				level.item_meat.waypoint_origin_ent.origin = level.item_meat.origin + (0, 0, 30);
+				level.item_meat.waypoint_origin_ent.origin = level.item_meat.origin + (0, 0, 20);
 
 				grief_score_hud_set_scoring_team("neutral");
 
@@ -3155,7 +3155,7 @@ meat_think()
 					level.meat_powerup thread meat_waypoint_origin_ent_destroy_on_death();
 				}
 
-				level.meat_powerup.waypoint_origin_ent.origin = level.meat_powerup.origin + (0, 0, 30);
+				level.meat_powerup.waypoint_origin_ent.origin = level.meat_powerup.origin + (0, 0, 20);
 
 				grief_score_hud_set_scoring_team("neutral");
 
