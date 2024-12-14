@@ -330,7 +330,7 @@ meat_damage_over_time()
 	while (1)
 	{
 		speed = self scripts\zm\_zm_reimagined::get_player_speed();
-		slowing_down = (prev_speed - speed) >= 10;
+		slowing_down = (speed - prev_speed) <= -10;
 
 		if (speed == 0 || slowing_down)
 		{

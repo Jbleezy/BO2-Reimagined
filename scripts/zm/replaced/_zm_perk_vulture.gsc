@@ -101,7 +101,7 @@ _vulture_perk_think()
 	{
 		b_player_in_zombie_stink = 0;
 		speed = self scripts\zm\_zm_reimagined::get_player_speed();
-		slowing_down = (prev_speed - speed) >= 10;
+		slowing_down = (speed - prev_speed) <= -10;
 
 		if (!isdefined(level.perk_vulture.zombie_stink_array))
 		{
