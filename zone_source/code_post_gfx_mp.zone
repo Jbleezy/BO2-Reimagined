@@ -2,7 +2,6 @@
 >type,fastfile
 >name,code_post_gfx_mp
 
-material,cac_mods_tact_knife
 material,menu_mp_weapons_ballistic_knife
 material,menu_mp_weapons_as50
 material,menu_mp_weapons_fnp45
