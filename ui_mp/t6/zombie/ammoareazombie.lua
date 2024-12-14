@@ -208,7 +208,7 @@ CoD.AmmoAreaZombie.UpdateActionSlots = function(f2_arg0, f2_arg1)
 	end
 	for f2_local4, f2_local12 in pairs(f2_arg1.actionSlotData) do
 		local f2_local13 = CoD.AmmoAreaZombie.CircleSize / 4
-		local f2_local14 = f2_local13 * f2_local12.aspectRatio
+		local f2_local14 = f2_local13
 		local f2_local5 = nil
 		if f2_local12.ammo > 0 or f2_local4 == 1 then
 			f2_local5 = CoD.HUDAlphaFull
@@ -268,7 +268,7 @@ CoD.AmmoAreaZombie.UpdateActionSlots = function(f2_arg0, f2_arg1)
 				f2_arg0.actionSlots[f2_local4] = Widget
 				local f2_local9 = LUI.UIImage.new()
 				f2_local9:setLeftRight(true, true, 0, 0)
-				f2_local9:setTopBottom(true, true, 0, 0)
+				f2_local9:setTopBottom(true, true, (f2_local13 / 2) - (f2_local13 / (2 * f2_local12.aspectRatio)), -1 * ((f2_local13 / 2) - (f2_local13 / (2 * f2_local12.aspectRatio))))
 				f2_local9:setRGB(CoD.HUDBaseColor.r, CoD.HUDBaseColor.g, CoD.HUDBaseColor.b)
 				f2_local9:setAlpha(f2_local5)
 				f2_local9:setImage(f2_local12.material)
