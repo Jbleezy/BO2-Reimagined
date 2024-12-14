@@ -377,6 +377,9 @@ chugabud_bleed_timeout_hud_create(delay)
 	hud.hidewheninmenu = 1;
 	hud.bar.hidewheninmenu = 1;
 	hud.barframe.hidewheninmenu = 1;
+	hud.archived = 0;
+	hud.bar.archived = 0;
+	hud.barframe.archived = 0;
 	hud.foreground = 1;
 	hud.bar.foreground = 1;
 	hud.barframe.foreground = 1;
