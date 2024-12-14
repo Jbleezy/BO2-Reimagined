@@ -2896,12 +2896,6 @@ containment_set_obj_waypoint_off_screen(zone_name, zone, next_obj = false)
 		hud.x += 400;
 	}
 
-	// the 2 different types of waypoints are not aligned by default
-	if (next_obj)
-	{
-		hud.z -= 12;
-	}
-
 	hud.on_screen = 0;
 }
 
