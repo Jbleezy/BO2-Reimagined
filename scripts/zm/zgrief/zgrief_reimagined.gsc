@@ -837,6 +837,7 @@ obj_waypoint()
 		self.obj_waypoint.horzalign = "center";
 		self.obj_waypoint.vertalign = "middle";
 		self.obj_waypoint.alpha = 0;
+		self.obj_waypoint.sort = 2;
 		self.obj_waypoint.hidewheninmenu = 1;
 		self.obj_waypoint.hidewheninscope = 1;
 
@@ -852,6 +853,7 @@ obj_waypoint()
 		self.next_obj_waypoint.vertalign = "middle";
 		self.next_obj_waypoint.color = (0.5, 0.5, 0.5);
 		self.next_obj_waypoint.alpha = 0;
+		self.next_obj_waypoint.sort = 1;
 		self.next_obj_waypoint.hidewheninmenu = 1;
 		self.next_obj_waypoint.hidewheninscope = 1;
 
@@ -2907,7 +2909,6 @@ containment_set_obj_waypoint_on_screen(next_obj = false)
 		hud.alpha = 1;
 	}
 
-	hud.sort = 2;
 	hud.foreground = 1;
 	hud.archived = 0;
 
@@ -2929,7 +2930,6 @@ containment_set_obj_waypoint_off_screen(zone_origin, next_obj = false)
 	}
 
 	hud.alpha = 1;
-	hud.sort = 1;
 	hud.foreground = 0;
 	hud.archived = 1;
 
