@@ -769,6 +769,7 @@
 * Decreased upgraded ammo cost from 4500 to 2500
 * Ammo can be purchased if only alt weapon ammo has been used
 * Purchasing no longer shows the weapon model at other wallbuys of the same weapon
+* Changed all hint strings from "to buy" to "for"
 * Lethal grenade hint string no longer displays "ammo" after purchasing
 * Downing while purchasing a melee weapon gives the melee weapon
 * Increased brightness of wallbuy chalks

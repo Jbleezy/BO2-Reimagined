@@ -1158,11 +1158,20 @@ LANG_ENGLISH        "Hold ^3&&1^7 to pick up"
 REFERENCE           GAME_BUTTON_TO_REVIVE_PLAYER
 LANG_ENGLISH        "Hold ^3&&1^7 to revive"
 
-REFERENCE           ZOMBIE_WEAPON_SARITCH
-LANG_ENGLISH        "Hold ^3[{+activate}]^7 for SMR [Cost: &&1]"
-
 REFERENCE           ZMWEAPON_BALLISTA_WALLBUY
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Ballista [Cost: &&1]"
+
+REFERENCE           ZMWEAPON_MP44_WALLBUY
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 for STG-44 [Cost: &&1]"
+
+REFERENCE           ZMWEAPON_THOMPSON_WALLBUY
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 for M1927 [Cost: &&1]"
+
+REFERENCE           ZOMBIE_WEAPON_STICKY_GRENADE
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Semtex Grenades [Cost: &&1]"
+
+REFERENCE           ZOMBIE_WEAPON_SARITCH
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 for SMR [Cost: &&1]"
 
 REFERENCE           ZOMBIE_WEAPON_INSAS
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 for MSMC [Cost: &&1]"
@@ -1172,9 +1181,6 @@ LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Vector K10 [Cost: &&1]"
 
 REFERENCE           ZOMBIE_WEAPON_SIG556
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 for SWAT-556 [Cost: &&1]"
-
-REFERENCE           ZOMBIE_WEAPON_STICKY_GRENADE
-LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Semtex Grenades [Cost: &&1]"
 
 REFERENCE           ZOMBIE_WEAPON_BOUNCINGBETTY
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Bouncing Betty [Cost: &&1]"
