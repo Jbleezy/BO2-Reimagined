@@ -839,6 +839,8 @@ obj_waypoint()
 		self.obj_waypoint.alpha = 0;
 		self.obj_waypoint.hidewheninmenu = 1;
 		self.obj_waypoint.hidewheninscope = 1;
+
+		self.obj_waypoint thread scripts\zm\_zm_reimagined::destroy_on_end_game();
 	}
 
 	if (level.scr_zm_ui_gametype_obj == "zcontainment")
@@ -852,25 +854,8 @@ obj_waypoint()
 		self.next_obj_waypoint.alpha = 0;
 		self.next_obj_waypoint.hidewheninmenu = 1;
 		self.next_obj_waypoint.hidewheninscope = 1;
-	}
 
-	self thread obj_waypoint_destroy_on_end_game();
-}
-
-obj_waypoint_destroy_on_end_game()
-{
-	self endon("disconnect");
-
-	level waittill("end_game");
-
-	if (isDefined(self.obj_waypoint))
-	{
-		self.obj_waypoint destroy();
-	}
-
-	if (isDefined(self.next_obj_waypoint))
-	{
-		self.next_obj_waypoint destroy();
+		self.next_obj_waypoint thread scripts\zm\_zm_reimagined::destroy_on_end_game();
 	}
 }
 
