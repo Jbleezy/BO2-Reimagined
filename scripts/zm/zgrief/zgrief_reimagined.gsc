@@ -2929,6 +2929,8 @@ containment_set_obj_waypoint_on_screen(next_obj = false)
 		hud.alpha = 1;
 	}
 
+	hud.foreground = 1;
+
 	hud.x = 0;
 	hud.y = 140;
 	hud.z = 0;
@@ -2947,6 +2949,7 @@ containment_set_obj_waypoint_off_screen(zone_origin, next_obj = false)
 	}
 
 	hud.alpha = 1;
+	hud.foreground = 0;
 
 	hud.x = zone_origin[0];
 	hud.y = zone_origin[1];
