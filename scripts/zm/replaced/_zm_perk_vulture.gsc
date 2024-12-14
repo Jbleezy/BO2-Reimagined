@@ -89,12 +89,45 @@ vulture_perk_ir_is_valid()
 	return 1;
 }
 
-_is_player_in_zombie_stink(a_points)
+_vulture_perk_think()
 {
-	velocity = self getVelocity() * (1, 1, 0);
-	speed = length(velocity);
+	self endon("death");
+	self endon("disconnect");
+	self endon("vulture_perk_lost");
 
-	if (self getStance() == "stand" && speed != 0)
+	prev_speed = 0;
+
+	while (true)
+	{
+		b_player_in_zombie_stink = 0;
+		speed = self scripts\zm\_zm_reimagined::get_player_speed();
+		slowing_down = (prev_speed - speed) >= 10;
+
+		if (!isdefined(level.perk_vulture.zombie_stink_array))
+		{
+			level.perk_vulture.zombie_stink_array = [];
+		}
+
+		if (level.perk_vulture.zombie_stink_array.size > 0)
+		{
+			a_close_points = arraysort(level.perk_vulture.zombie_stink_array, self.origin, 1, 300);
+
+			if (a_close_points.size > 0)
+			{
+				b_player_in_zombie_stink = self _is_player_in_zombie_stink(a_close_points, speed, slowing_down);
+			}
+		}
+
+		prev_speed = speed;
+
+		self _handle_zombie_stink(b_player_in_zombie_stink);
+		wait(randomfloatrange(0.25, 0.5));
+	}
+}
+
+_is_player_in_zombie_stink(a_points, speed, slowing_down)
+{
+	if (speed != 0 && !slowing_down)
 	{
 		return 0;
 	}

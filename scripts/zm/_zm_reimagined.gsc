@@ -3102,6 +3102,16 @@ is_magicbox_wonder_weapon(weapon)
 	return weapon == "metalstorm_mms_zm" || weapon == "titus6_zm" || weapon == "slipgun_zm" || weapon == "slowgun_zm" || weapon == "blundergat_zm";
 }
 
+get_player_speed()
+{
+	if (!self isonground())
+	{
+		return length(self getvelocity() * (1, 1, 0));
+	}
+
+	return length(self getvelocity());
+}
+
 get_current_spectating_player()
 {
 	players = get_players();

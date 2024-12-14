@@ -325,13 +325,14 @@ meat_damage_over_time()
 	self endon("meat_stink_player_end");
 
 	time_zero_speed = 0;
+	prev_speed = 0;
 
 	while (1)
 	{
-		velocity = self getVelocity() * (1, 1, 0);
-		speed = length(velocity);
+		speed = self scripts\zm\_zm_reimagined::get_player_speed();
+		slowing_down = (prev_speed - speed) >= 10;
 
-		if (speed == 0)
+		if (speed == 0 || slowing_down)
 		{
 			time_zero_speed++;
 		}
@@ -348,6 +349,8 @@ meat_damage_over_time()
 			time_zero_speed = 0;
 			radiusDamage(self.origin + (0, 0, 5), 10, 50, 50, undefined, "MOD_EXPLOSIVE");
 		}
+
+		prev_speed = speed;
 
 		wait 0.05;
 	}

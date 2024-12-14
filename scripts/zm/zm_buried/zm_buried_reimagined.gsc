@@ -52,7 +52,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_equip_headchopper::setupwatchers, scripts\zm\replaced\_zm_equip_headchopper::setupwatchers);
 	replaceFunc(maps\mp\zombies\_zm_perk_vulture::give_vulture_perk, scripts\zm\replaced\_zm_perk_vulture::give_vulture_perk);
 	replaceFunc(maps\mp\zombies\_zm_perk_vulture::take_vulture_perk, scripts\zm\replaced\_zm_perk_vulture::take_vulture_perk);
-	replaceFunc(maps\mp\zombies\_zm_perk_vulture::_is_player_in_zombie_stink, scripts\zm\replaced\_zm_perk_vulture::_is_player_in_zombie_stink);
+	replaceFunc(maps\mp\zombies\_zm_perk_vulture::_vulture_perk_think, scripts\zm\replaced\_zm_perk_vulture::_vulture_perk_think);
 	replaceFunc(maps\mp\zombies\_zm_weap_slowgun::zombie_paralyzed, scripts\zm\replaced\_zm_weap_slowgun::zombie_paralyzed);
 	replaceFunc(maps\mp\zombies\_zm_weap_slowgun::slowgun_zombie_death_response, scripts\zm\replaced\_zm_weap_slowgun::slowgun_zombie_death_response);
 	replaceFunc(maps\mp\zombies\_zm_weap_slowgun::player_slow_for_time, scripts\zm\replaced\_zm_weap_slowgun::player_slow_for_time);
