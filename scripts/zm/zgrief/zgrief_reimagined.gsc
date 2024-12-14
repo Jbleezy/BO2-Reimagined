@@ -2678,13 +2678,6 @@ containment_think()
 				spawn_point.locked = 0;
 			}
 		}
-
-		ind++;
-
-		if (ind >= containment_zones.size)
-		{
-			ind = 0;
-		}
 	}
 }
 
