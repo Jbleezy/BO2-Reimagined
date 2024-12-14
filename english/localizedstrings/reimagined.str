@@ -55,6 +55,12 @@ LANG_ENGLISH        "Power Station"
 REFERENCE           ZMUI_CORNFIELD
 LANG_ENGLISH        "Cornfield"
 
+REFERENCE           ZMUI_PRISON_LOC
+LANG_ENGLISH        "San Francisco Bay, U.S.A."
+
+REFERENCE           ZMUI_PRISON_LOC_CAPS
+LANG_ENGLISH        "SAN FRANCISCO BAY, U.S.A."
+
 REFERENCE           ZMUI_DOCKS
 LANG_ENGLISH        "Docks"
 
@@ -69,6 +75,12 @@ LANG_ENGLISH        "Maze"
 
 REFERENCE           ZMUI_MAZE_CAPS
 LANG_ENGLISH        "MAZE"
+
+REFERENCE           ZMUI_TOMB_LOC
+LANG_ENGLISH        "Northern France"
+
+REFERENCE           ZMUI_TOMB_LOC_CAPS
+LANG_ENGLISH        "NORTHERN FRANCE"
 
 REFERENCE           ZMUI_INMATES_SHORT
 LANG_ENGLISH        "Prisoners"
