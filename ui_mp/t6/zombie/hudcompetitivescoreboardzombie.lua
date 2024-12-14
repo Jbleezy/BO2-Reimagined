@@ -12,8 +12,8 @@ CoD.CompetitiveScoreboard.IsDLC2Map = CoD.Zombie.IsDLCMap(CoD.Zombie.DLC2Maps)
 CoD.CompetitiveScoreboard.IsDLC3Map = CoD.Zombie.IsDLCMap(CoD.Zombie.DLC3Maps)
 CoD.CompetitiveScoreboard.IsDLC4Map = CoD.Zombie.IsDLCMap(CoD.Zombie.DLC4Maps)
 
-CoD.CompetitiveScoreboard.Bottom = -125
-CoD.CompetitiveScoreboard.LeftOffset = CoD.CompetitiveScoreboard.RowHeight
+CoD.CompetitiveScoreboard.Bottom = -115
+CoD.CompetitiveScoreboard.LeftOffset = 0
 CoD.CompetitiveScoreboard.TeamPlayerCount = 8
 
 CoD.CompetitiveScoreboard.CHARACTER_NAME_ONSCREEN_DURATION = 15000
@@ -399,27 +399,21 @@ CoD.CompetitiveScoreboard.UpdateItemDisplay = function(UnusedArg1, PlayerScoreLi
 		local ShovelClientFieldState = CoD.CompetitiveScoreboard.ShovelStates[ClientIndex]
 		local HelmetClientFieldState = CoD.CompetitiveScoreboard.HelmetStates[ClientIndex]
 		if PlayerScoreListWidget.shovelIcon then
-			if ShovelClientFieldState == CoD.CompetitiveScoreboard.HAVE_SHOVEL then
-				PlayerScoreListWidget.shovelIcon:setImage(CoD.CompetitiveScoreboard.ShovelMaterial)
+			if HelmetClientFieldState == CoD.CompetitiveScoreboard.HAVE_HELMET then
+				PlayerScoreListWidget.shovelIcon:setImage(CoD.CompetitiveScoreboard.HardHatMaterial)
 				PlayerScoreListWidget.shovelIcon:setAlpha(1)
-				PlayerScoreListWidget.shovelIcon.material = CoD.CompetitiveScoreboard.ShovelMaterial
+				PlayerScoreListWidget.shovelIcon.material = CoD.CompetitiveScoreboard.HardHatMaterial
 			elseif ShovelClientFieldState == CoD.CompetitiveScoreboard.HAVE_UG_SHOVEL then
 				PlayerScoreListWidget.shovelIcon:setImage(CoD.CompetitiveScoreboard.ShovelGoldMaterial)
 				PlayerScoreListWidget.shovelIcon:setAlpha(1)
 				PlayerScoreListWidget.shovelIcon.material = CoD.CompetitiveScoreboard.ShovelGoldMaterial
+			elseif ShovelClientFieldState == CoD.CompetitiveScoreboard.HAVE_SHOVEL then
+				PlayerScoreListWidget.shovelIcon:setImage(CoD.CompetitiveScoreboard.ShovelMaterial)
+				PlayerScoreListWidget.shovelIcon:setAlpha(1)
+				PlayerScoreListWidget.shovelIcon.material = CoD.CompetitiveScoreboard.ShovelMaterial
 			else
 				PlayerScoreListWidget.shovelIcon:setAlpha(0)
 				PlayerScoreListWidget.shovelIcon.material = nil
-			end
-		end
-		if PlayerScoreListWidget.helmetIcon then
-			if HelmetClientFieldState == CoD.CompetitiveScoreboard.HAVE_HELMET then
-				PlayerScoreListWidget.helmetIcon:setImage(CoD.CompetitiveScoreboard.HardHatMaterial)
-				PlayerScoreListWidget.helmetIcon:setAlpha(1)
-				PlayerScoreListWidget.helmetIcon.material = CoD.CompetitiveScoreboard.HardHatMaterial
-			else
-				PlayerScoreListWidget.helmetIcon:setAlpha(0)
-				PlayerScoreListWidget.helmetIcon.material = nil
 			end
 		end
 	end
@@ -634,14 +628,14 @@ CoD.CompetitiveScoreboard.Update_ClientField_Helmet = function(CompetitiveScoreb
 		return
 	elseif PlayerScoreListWidget.helmetIcon then
 		if HelmetClientFieldState == CoD.CompetitiveScoreboard.HAVE_HELMET then
-			PlayerScoreListWidget.helmetIcon:setImage(CoD.CompetitiveScoreboard.HardHatMaterial)
-			PlayerScoreListWidget.helmetIcon:setAlpha(1)
-			PlayerScoreListWidget.helmetIcon.material = CoD.CompetitiveScoreboard.HardHatMaterial
-			PlayerScoreListWidget.helmetIcon.itemState = CoD.CompetitiveScoreboard.HAVE_HELMET
+			PlayerScoreListWidget.shovelIcon:setImage(CoD.CompetitiveScoreboard.HardHatMaterial)
+			PlayerScoreListWidget.shovelIcon:setAlpha(1)
+			PlayerScoreListWidget.shovelIcon.material = CoD.CompetitiveScoreboard.HardHatMaterial
+			PlayerScoreListWidget.shovelIcon.itemState = CoD.CompetitiveScoreboard.HAVE_HELMET
 		else
-			PlayerScoreListWidget.helmetIcon.material = nil
-			PlayerScoreListWidget.helmetIcon:setAlpha(0)
-			PlayerScoreListWidget.helmetIcon.itemState = CoD.CompetitiveScoreboard.NEED_HELMET
+			PlayerScoreListWidget.shovelIcon.material = nil
+			PlayerScoreListWidget.shovelIcon:setAlpha(0)
+			PlayerScoreListWidget.shovelIcon.itemState = CoD.CompetitiveScoreboard.NEED_HELMET
 		end
 	end
 end

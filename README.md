@@ -189,7 +189,7 @@
 * Added custom ammo display on Tranzit, Nuketown, and Die Rise
 * Character name displayed on all maps
 * Character name fades out after 15 seconds on all maps
-* Weapon name is all capitalized on all maps
+* Weapon name is capitalized on all maps
 * Weapon name is the same text size on all maps
 * Weapon name and ammo no longer fade out
 * Action slot area no longer tied to input source
@@ -1325,6 +1325,7 @@
 * Staff parts on HUD no longer show that a player has a staff when it is crafted
 * Changed order of Zombie Shield and Maxis Drone recipes on HUD
 * Changed background color of Maxis Drone parts on HUD from green to orange
+* Golden helmet shows at the same spot as golden shovel
 * Moved challenge medals and tablet icon above health bar and zone name
 * Added attachment name on HUD for upgraded attachment weapons
 * Increased volume of crafting sound and item pick up sound
