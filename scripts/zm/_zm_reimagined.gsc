@@ -175,6 +175,7 @@ init()
 {
 	precache_menus();
 	precache_strings();
+	precache_shaders();
 	precache_status_icons();
 
 	level.using_solo_revive = 0;
@@ -253,6 +254,32 @@ precache_strings()
 	{
 		precacheString(istring(toupper(level.script + "_" + zone_name)));
 	}
+}
+
+precache_shaders()
+{
+	if (is_gametype_active("zclassic"))
+	{
+		if (level.script == "zm_transit")
+		{
+			game["icons"][level.script] = "faction_tranzit";
+		}
+		else
+		{
+			game["icons"][level.script] = "faction_" + getsubstr(level.script, 3, level.script.size);
+		}
+
+		precacheshader(game["icons"][level.script]);
+	}
+
+	if (level.script == "zm_prison")
+	{
+		game["icons"]["allies"] = "faction_guards";
+		game["icons"]["axis"] = "faction_inmates";
+	}
+
+	precacheshader(game["icons"]["allies"]);
+	precacheshader(game["icons"]["axis"]);
 }
 
 precache_status_icons()
@@ -446,6 +473,7 @@ on_player_connect()
 		player thread on_player_fake_revive();
 		player thread on_player_spectate_change();
 
+		player thread head_icon();
 		player thread grenade_fire_watcher();
 		player thread create_equipment_turret_watcher();
 		player thread sndmeleewpnsound();
@@ -503,6 +531,11 @@ on_player_spawned()
 			self.statusicon = "";
 		}
 
+		if (isDefined(self.head_icon))
+		{
+			self.head_icon.alpha = 1;
+		}
+
 		self set_perks();
 		self set_favorite_wall_weapons();
 		self disable_lean();
@@ -519,6 +552,11 @@ on_player_spectate()
 		self waittill("spawned_spectator");
 
 		self.statusicon = "hud_status_dead";
+
+		if (isDefined(self.head_icon))
+		{
+			self.head_icon.alpha = 0;
+		}
 	}
 }
 
@@ -538,6 +576,11 @@ on_player_downed()
 
 		self.statusicon = "waypoint_revive";
 		self.health = self.maxhealth;
+
+		if (isDefined(self.head_icon))
+		{
+			self.head_icon.alpha = 0;
+		}
 	}
 }
 
@@ -558,6 +601,11 @@ on_player_revived()
 		{
 			self.statusicon = "";
 		}
+
+		if (isDefined(self.head_icon))
+		{
+			self.head_icon.alpha = 1;
+		}
 	}
 }
 
@@ -577,6 +625,11 @@ on_player_fake_revive()
 		else if (is_true(level.zombiemode_using_afterlife))
 		{
 			self.statusicon = "waypoint_revive_afterlife";
+
+			if (isDefined(self.head_icon))
+			{
+				self.head_icon.alpha = 0;
+			}
 		}
 	}
 }
@@ -1959,6 +2012,22 @@ wallbuy_cost_changes()
 	{
 		level.zombie_weapons["thompson_zm"].ammo_cost = 750;
 	}
+}
+
+head_icon()
+{
+	self endon("disconnect");
+
+	self waittill_next_snapshot(1);
+
+	if (!isDefined(self.waypoint_origin_ent))
+	{
+		self thread player_waypoint_origin_ent_create();
+	}
+
+	flag_wait("hud_visible");
+
+	self.head_icon = scripts\zm\replaced\_zm_gametype::head_icon_create();
 }
 
 grenade_fire_watcher()

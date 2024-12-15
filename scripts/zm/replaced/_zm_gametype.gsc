@@ -511,13 +511,15 @@ set_team(team)
 
 head_icon_create()
 {
+	faction = self head_icon_get_faction();
+
 	hud = newTeamHudElem(self.team);
 	hud.alignx = "center";
 	hud.aligny = "middle";
 	hud.horzalign = "center";
 	hud.vertalign = "middle";
 	hud.hidewheninmenu = 1;
-	hud setShader(game["icons"][self.team], 6, 6);
+	hud setShader(game["icons"][faction], 4, 4);
 	hud setWaypoint(1);
 	hud setTargetEnt(self.waypoint_origin_ent);
 	hud thread scripts\zm\_zm_reimagined::destroy_on_intermission();
@@ -532,4 +534,18 @@ head_icon_create()
 	}
 
 	return hud;
+}
+
+head_icon_get_faction()
+{
+	if (is_gametype_active("zclassic"))
+	{
+		return level.script;
+	}
+	else if (is_true(level.should_use_cia))
+	{
+		return "axis";
+	}
+
+	return self.team;
 }

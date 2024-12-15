@@ -48,14 +48,6 @@ init()
 	precacheshader("white_waypoint_kill");
 	precacheshader("white_waypoint_escort");
 
-	if (level.script == "zm_prison")
-	{
-		precacheshader("faction_guards");
-		precacheshader("faction_inmates");
-		game["icons"]["allies"] = "faction_guards";
-		game["icons"]["axis"] = "faction_inmates";
-	}
-
 	precacheString(&"hud_update_game_mode_name");
 	precacheString(&"hud_update_player_count");
 	precacheString(&"hud_update_scoring_team");
@@ -364,12 +356,10 @@ grief_onplayerconnect()
 	    "ui_round_number", getdvarint("ui_round_number"));
 
 	self thread on_player_spawned();
-	self thread on_player_spectate();
 	self thread on_player_downed();
 	self thread on_player_bleedout();
 	self thread on_player_revived();
 	self thread stun_fx();
-	self thread head_icon();
 	self thread obj_waypoint();
 	self thread headstomp_watcher();
 	self thread decrease_upgraded_start_weapon_ammo();
@@ -474,11 +464,6 @@ on_player_spawned()
 	{
 		self waittill("spawned_player");
 
-		if (isDefined(self.head_icon))
-		{
-			self.head_icon.alpha = 1;
-		}
-
 		self thread scripts\zm\replaced\_zm::player_spawn_protection();
 
 		if (self.grief_initial_spawn)
@@ -520,22 +505,6 @@ on_player_spawned()
 	}
 }
 
-on_player_spectate()
-{
-	level endon("end_game");
-	self endon("disconnect");
-
-	while (1)
-	{
-		self waittill("spawned_spectator");
-
-		if (isDefined(self.head_icon))
-		{
-			self.head_icon.alpha = 0;
-		}
-	}
-}
-
 on_player_downed()
 {
 	level endon("end_game");
@@ -544,11 +513,6 @@ on_player_downed()
 	while (1)
 	{
 		self waittill("entering_last_stand");
-
-		if (isDefined(self.head_icon))
-		{
-			self.head_icon.alpha = 0;
-		}
 
 		self kill_feed();
 		self add_grief_downed_score();
@@ -573,11 +537,6 @@ on_player_bleedout()
 	while (1)
 	{
 		self waittill_any("bled_out", "player_suicide");
-
-		if (isDefined(self.head_icon))
-		{
-			self.head_icon.alpha = 0;
-		}
 
 		if (isDefined(level.zombie_last_stand_ammo_return))
 		{
@@ -628,11 +587,6 @@ on_player_revived()
 	while (1)
 	{
 		self waittill("player_revived", reviver);
-
-		if (isDefined(self.head_icon))
-		{
-			self.head_icon.alpha = 1;
-		}
 
 		if (isDefined(reviver) && reviver != self)
 		{
@@ -809,22 +763,6 @@ stun_fx()
 		self.stun_fx_ents[i] setmodel("tag_origin");
 		self.stun_fx_ents[i] linkto(self);
 	}
-}
-
-head_icon()
-{
-	self endon("disconnect");
-
-	self scripts\zm\_zm_reimagined::waittill_next_snapshot(1);
-
-	if (!isDefined(self.waypoint_origin_ent))
-	{
-		self thread scripts\zm\_zm_reimagined::player_waypoint_origin_ent_create();
-	}
-
-	flag_wait("hud_visible");
-
-	self.head_icon = scripts\zm\replaced\_zm_gametype::head_icon_create();
 }
 
 obj_waypoint()
