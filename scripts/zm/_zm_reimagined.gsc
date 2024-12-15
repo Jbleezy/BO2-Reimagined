@@ -472,6 +472,7 @@ on_player_connect()
 		player thread on_player_revived();
 		player thread on_player_fake_revive();
 		player thread on_player_spectate_change();
+		player thread on_player_disconnect();
 
 		player thread head_icon();
 		player thread grenade_fire_watcher();
@@ -644,6 +645,22 @@ on_player_spectate_change()
 		self waittill("spectator_cycle");
 
 		self update_perk_order();
+	}
+}
+
+on_player_disconnect()
+{
+	self waittill("disconnect");
+
+	if (isDefined(self.waypoint_origin_ent))
+	{
+		self.waypoint_origin_ent unlink();
+		self.waypoint_origin_ent delete();
+	}
+
+	if (isDefined(self.head_icon))
+	{
+		self.head_icon destroy();
 	}
 }
 

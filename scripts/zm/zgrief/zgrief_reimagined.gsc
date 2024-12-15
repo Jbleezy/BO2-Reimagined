@@ -388,17 +388,6 @@ grief_onplayerdisconnect(disconnecting_player)
 		array_thread(disconnecting_player.stun_fx_ents, ::self_delete);
 	}
 
-	if (isDefined(disconnecting_player.waypoint_origin_ent))
-	{
-		disconnecting_player.waypoint_origin_ent unlink();
-		disconnecting_player.waypoint_origin_ent delete();
-	}
-
-	if (isDefined(disconnecting_player.head_icon))
-	{
-		disconnecting_player.head_icon destroy();
-	}
-
 	if (!isDefined(disconnecting_player.team) || (disconnecting_player.team != "axis" && disconnecting_player.team != "allies"))
 	{
 		return;
