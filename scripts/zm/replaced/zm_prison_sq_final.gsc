@@ -384,6 +384,11 @@ stage_final()
 			player cleanup_suicide_hud();
 		}
 
+		if (isdefined(player.head_icon))
+		{
+			player.head_icon.alpha = 0;
+		}
+
 		if (isdefined(player))
 		{
 			player ghost();
@@ -478,7 +483,7 @@ final_showdown_create_icon(player, enemy)
 	hud_elem setwaypoint(1, "waypoint_kill_red");
 	hud_elem settargetent(waypoint_origin_ent);
 
-	waittill_any_ents(level, "showdown_over", enemy, "disconnect");
+	waittill_any_ents(level, "end_game", enemy, "disconnect");
 
 	if (isDefined(waypoint_origin_ent))
 	{
