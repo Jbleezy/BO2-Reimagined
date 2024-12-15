@@ -292,6 +292,11 @@ stage_final()
 		p_weasel.maxhealth = a_player_team.size * 2000;
 		p_weasel.health = p_weasel.maxhealth;
 
+		if (isdefined(p_weasel.head_icon))
+		{
+			p_weasel.head_icon.alpha = 0;
+		}
+
 		foreach (player in a_player_team)
 		{
 			player.maxhealth = 2000;
