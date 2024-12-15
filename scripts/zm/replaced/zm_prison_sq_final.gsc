@@ -404,7 +404,15 @@ stage_final()
 final_battle_vo(p_weasel, a_player_team)
 {
 	level endon("showdown_over");
+
+	foreach (player in a_player_team)
+	{
+		level thread final_showdown_create_icon(player, p_weasel);
+		level thread final_showdown_create_icon(p_weasel, player);
+	}
+
 	wait 10;
+
 	a_players = arraycopy(a_player_team);
 	player = a_players[randomintrange(0, a_players.size)];
 	arrayremovevalue(a_players, player);
@@ -424,14 +432,6 @@ final_battle_vo(p_weasel, a_player_team)
 	if (isdefined(p_weasel))
 	{
 		p_weasel playsoundontag("vox_plr_3_end_scenario_0", "J_Head");
-	}
-
-	wait 1;
-
-	foreach (player in a_player_team)
-	{
-		level thread final_showdown_create_icon(player, p_weasel);
-		level thread final_showdown_create_icon(p_weasel, player);
 	}
 
 	wait 10;

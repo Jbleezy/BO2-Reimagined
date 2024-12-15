@@ -1293,6 +1293,7 @@
 * Quest: if Weasel is the only player in the game, the cycle breaks immediately after reviving yourself on the Golden Gate Bridge
 * Quest: if Weasel is not in the game, the cycle continues immediately after everyone revives themselves on the Golden Gate Bridge
 * Quest: players no longer get moved to different positions when starting the showdown
+* Quest: showdown target waypoint shows immediately after all players are revived from the electric chairs
 * Quest: showdown target waypoint shows offscreen
 * Fixed afterlife icon showing when initially in afterlife at the start of the game
 * Fixed initial weapon raise anim happening after exiting afterlife
