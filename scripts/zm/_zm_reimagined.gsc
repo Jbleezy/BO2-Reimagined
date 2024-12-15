@@ -467,10 +467,10 @@ on_player_connect()
 		player thread lui_notify_events();
 
 		player thread on_player_spawned();
-		player thread on_player_spectate();
 		player thread on_player_downed();
 		player thread on_player_revived();
 		player thread on_player_fake_revive();
+		player thread on_player_spectate();
 		player thread on_player_spectate_change();
 		player thread on_player_disconnect();
 
@@ -540,24 +540,6 @@ on_player_spawned()
 		self set_perks();
 		self set_favorite_wall_weapons();
 		self disable_lean();
-	}
-}
-
-on_player_spectate()
-{
-	level endon("end_game");
-	self endon("disconnect");
-
-	while (1)
-	{
-		self waittill("spawned_spectator");
-
-		self.statusicon = "hud_status_dead";
-
-		if (isDefined(self.head_icon))
-		{
-			self.head_icon.alpha = 0;
-		}
 	}
 }
 
@@ -631,6 +613,24 @@ on_player_fake_revive()
 			{
 				self.head_icon.alpha = 0;
 			}
+		}
+	}
+}
+
+on_player_spectate()
+{
+	level endon("end_game");
+	self endon("disconnect");
+
+	while (1)
+	{
+		self waittill("spawned_spectator");
+
+		self.statusicon = "hud_status_dead";
+
+		if (isDefined(self.head_icon))
+		{
+			self.head_icon.alpha = 0;
 		}
 	}
 }

@@ -357,13 +357,15 @@ grief_onplayerconnect()
 
 	self thread on_player_spawned();
 	self thread on_player_downed();
-	self thread on_player_bleedout();
 	self thread on_player_revived();
+	self thread on_player_bled_out();
+
 	self thread stun_fx();
 	self thread obj_waypoint();
 	self thread headstomp_watcher();
 	self thread decrease_upgraded_start_weapon_ammo();
 	self thread maps\mp\gametypes_zm\zmeat::create_item_meat_watcher();
+
 	self.killsconfirmed = 0;
 	self.killsdenied = 0;
 	self.captures = 0;
@@ -518,7 +520,33 @@ on_player_downed()
 	}
 }
 
-on_player_bleedout()
+on_player_revived()
+{
+	level endon("end_game");
+	self endon("disconnect");
+
+	while (1)
+	{
+		self waittill("player_revived", reviver);
+
+		if (isDefined(reviver) && reviver != self)
+		{
+			self revive_feed(reviver);
+
+			if (level.scr_zm_ui_gametype_obj == "zrace")
+			{
+				increment_score(reviver.team, 5, 1, &"ZOMBIE_ZGRIEF_ALLY_REVIVED_SCORE");
+			}
+
+			if (level.scr_zm_ui_gametype_obj == "zsnr")
+			{
+				level thread update_players_on_revived(self, reviver);
+			}
+		}
+	}
+}
+
+on_player_bled_out()
 {
 	level endon("end_game");
 	self endon("disconnect");
@@ -564,32 +592,6 @@ on_player_bleedout()
 			playsoundatposition("evt_appear_3d", self.origin);
 			earthquake(0.5, 0.75, self.origin, 100);
 			playrumbleonposition("explosion_generic", self.origin);
-		}
-	}
-}
-
-on_player_revived()
-{
-	level endon("end_game");
-	self endon("disconnect");
-
-	while (1)
-	{
-		self waittill("player_revived", reviver);
-
-		if (isDefined(reviver) && reviver != self)
-		{
-			self revive_feed(reviver);
-
-			if (level.scr_zm_ui_gametype_obj == "zrace")
-			{
-				increment_score(reviver.team, 5, 1, &"ZOMBIE_ZGRIEF_ALLY_REVIVED_SCORE");
-			}
-
-			if (level.scr_zm_ui_gametype_obj == "zsnr")
-			{
-				level thread update_players_on_revived(self, reviver);
-			}
 		}
 	}
 }
