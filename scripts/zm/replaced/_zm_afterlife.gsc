@@ -894,3 +894,69 @@ afterlife_trigger_think()
 		}
 	}
 }
+
+afterlife_can_revive(revivee)
+{
+	if (isdefined(self.afterlife) && self.afterlife && isdefined(self.e_afterlife_corpse) && self.e_afterlife_corpse != revivee)
+	{
+		return false;
+	}
+
+	if (!isdefined(revivee.revivetrigger))
+	{
+		return false;
+	}
+
+	if (!isalive(self))
+	{
+		return false;
+	}
+
+	if (self player_is_in_laststand())
+	{
+		return false;
+	}
+
+	if (self.team != revivee.team)
+	{
+		return false;
+	}
+
+	if (self has_powerup_weapon())
+	{
+		return false;
+	}
+
+	ignore_sight_checks = 0;
+	ignore_touch_checks = 0;
+
+	if (isdefined(level.revive_trigger_should_ignore_sight_checks))
+	{
+		ignore_sight_checks = [[level.revive_trigger_should_ignore_sight_checks]](self);
+
+		if (ignore_sight_checks && isdefined(revivee.revivetrigger.beingrevived) && revivee.revivetrigger.beingrevived == 1)
+		{
+			ignore_touch_checks = 1;
+		}
+	}
+
+	if (!self istouching(revivee.revivetrigger))
+	{
+		return false;
+	}
+
+	if (!self is_facing(revivee))
+	{
+		return false;
+	}
+
+	if (!ignore_sight_checks)
+	{
+		if (!sighttracepassed(self.origin + vectorscale((0, 0, 1), 50.0), revivee.origin + vectorscale((0, 0, 1), 30.0), 0, undefined))
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
