@@ -220,7 +220,21 @@ final_flight_player_thread()
 	self.dontspeak = 1;
 	self setclientfieldtoplayer("isspeaking", 1);
 	self playerlinktodelta(m_plane_about_to_crash, "tag_player_crouched_" + (self.n_passenger_index + 1), 1, 0, 0, 0, 0, 1);
+
+	str_current_weapon = self getcurrentweapon();
+	self giveweapon("falling_hands_zm");
+	self switchtoweaponimmediate("falling_hands_zm");
+	self setweaponammoclip("falling_hands_zm", 0);
+
 	flag_wait("plane_crashed");
+
+	self takeweapon("falling_hands_zm");
+
+	if (isdefined(str_current_weapon) && str_current_weapon != "none")
+	{
+		self switchtoweaponimmediate(str_current_weapon);
+	}
+
 	self thread fadetoblackforxsec(0, 2, 0, 0.5, "black");
 	self unlink();
 	self allowstand(1);
