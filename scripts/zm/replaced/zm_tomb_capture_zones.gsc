@@ -267,7 +267,10 @@ handle_generator_capture()
 
 		if (flag("recapture_event_in_progress") && get_captured_zone_count() > 0)
 		{
-
+			if (isdefined(level.s_recapture_target_zone))
+			{
+				level.s_recapture_target_zone thread hide_zone_objective_while_recapture_group_runs_to_next_generator(0);
+			}
 		}
 		else
 		{
@@ -355,7 +358,8 @@ recapture_round_start()
 
 	while (!flag("recapture_zombies_cleared") && get_captured_zone_count() > 0)
 	{
-		s_recapture_target_zone = get_recapture_zone(s_recapture_target_zone);
+		level.s_recapture_target_zone = get_recapture_zone(s_recapture_target_zone);
+		s_recapture_target_zone = level.s_recapture_target_zone;
 		level.zone_capture.recapture_target = s_recapture_target_zone.script_noteworthy;
 		s_recapture_target_zone maps\mp\zm_tomb_capture_zones_ffotd::recapture_event_start();
 
@@ -367,7 +371,6 @@ recapture_round_start()
 		set_recapture_zombie_attack_target(s_recapture_target_zone);
 		s_recapture_target_zone thread generator_under_attack_warnings();
 		s_recapture_target_zone ent_flag_set("current_recapture_target_zone");
-		s_recapture_target_zone thread hide_zone_objective_while_recapture_group_runs_to_next_generator(level.b_is_first_generator_attack);
 		s_recapture_target_zone activate_capture_zone(level.b_is_first_generator_attack);
 		s_recapture_target_zone ent_flag_clear("attacked_by_recapture_zombies");
 		s_recapture_target_zone ent_flag_clear("current_recapture_target_zone");
@@ -390,6 +393,53 @@ recapture_round_start()
 	recapture_round_audio_ends();
 	flag_clear("recapture_event_in_progress");
 	flag_clear("generator_under_attack");
+}
+
+recapture_zombie_icon_think()
+{
+	level endon("recapture_zombie_icon_think_end");
+
+	if (is_true(level.recapture_zombie_icon))
+	{
+		return;
+	}
+
+	level.recapture_zombie_icon = 1;
+
+	self thread recapture_zombie_icon_think_death();
+
+	flag_waitopen("generator_under_attack");
+	flag_wait("generator_under_attack");
+
+	level thread recapture_zombie_icon_recreate();
+}
+
+recapture_zombie_icon_think_death()
+{
+	level endon("recapture_zombie_icon_think_end");
+
+	while (isalive(self))
+	{
+		wait 0.05;
+	}
+
+	level thread recapture_zombie_icon_recreate();
+}
+
+recapture_zombie_icon_recreate()
+{
+	level notify("recapture_zombie_icon_think_end");
+
+	level.zone_capture.recapture_zombies = array_removedead(level.zone_capture.recapture_zombies);
+
+	recapture_zombie_group_icon_hide();
+
+	level.recapture_zombie_icon = 0;
+
+	if (!flag("recapture_zombies_cleared"))
+	{
+		recapture_zombie_group_icon_show();
+	}
 }
 
 magic_box_stub_update_prompt(player)
