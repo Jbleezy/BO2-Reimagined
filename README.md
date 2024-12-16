@@ -1253,6 +1253,7 @@
 * Moved afterlife icon to the left side of screen above health bar and zone name
 * Afterlife icon fades when player has no afterlife lives
 * Removed afterlife lives counter
+* Moved afterlife waypoint up
 * Key on HUD fades out
 * Plane parts are shared in coop
 * Plane parts must be all acquired to craft
