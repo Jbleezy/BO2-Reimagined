@@ -824,16 +824,7 @@ set_client_dvars()
 	    "dtp_post_move_pause", getDvar("dtp_post_move_pause"),
 	    "dtp_startup_delay", getDvar("dtp_startup_delay"),
 	    "dtp_exhaustion_window", getDvar("dtp_exhaustion_window"),
-	    "turret_SentryForceManualTarget", getDvar("turret_SentryForceManualTarget"),
-	    "aim_automelee_enabled", 0,
-	    "waypointIconHeight", 24,
-	    "waypointIconWidth", 24,
-	    "waypointOffscreenPadTop", 40,
-	    "waypointOffscreenPadBottom", 40,
-	    "waypointPlayerOffsetStand", 30,
-	    "waypointPlayerOffsetCrouch", 30,
-	    "weaponAltWeaponNames", "",
-	    "additionalPrimaryWeaponName", "");
+	    "turret_SentryForceManualTarget", getDvar("turret_SentryForceManualTarget"));
 
 	self setClientDvars(
 	    "bg_fallDamageScale", getDvar("bg_fallDamageScale"),
@@ -865,6 +856,18 @@ set_client_dvars()
 	    "r_lodBiasRigid", -1000,
 	    "r_lodBiasSkinned", -1000,
 	    "r_skinnedCacheOverflowLodMaxScale", 10);
+
+	self setClientDvars(
+	    "aim_automelee_enabled", 0,
+	    "waypointIconHeight", 24,
+	    "waypointIconWidth", 24,
+	    "waypointOffscreenPadTop", 40,
+	    "waypointOffscreenPadBottom", 40,
+	    "waypointPlayerOffsetStand", 30,
+	    "waypointPlayerOffsetCrouch", 30,
+	    "waypointTimeFade", 250,
+	    "weaponAltWeaponNames", "",
+	    "additionalPrimaryWeaponName", "");
 
 	self thread set_client_dvar_from_client_dvar_loop("r_fog", "r_fog_settings");
 }
