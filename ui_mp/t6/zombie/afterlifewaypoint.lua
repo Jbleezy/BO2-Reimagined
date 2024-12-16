@@ -3,6 +3,10 @@ CoD.AfterlifeWaypoint.IconAlpha = 0.5
 CoD.AfterlifeWaypoint.IconRatio = 2
 CoD.AfterlifeWaypoint.IconWidth = 40
 CoD.AfterlifeWaypoint.IconHeight = CoD.AfterlifeWaypoint.IconWidth / CoD.AfterlifeWaypoint.IconRatio
+CoD.AfterlifeWaypoint.ArrowWidth = 20
+CoD.AfterlifeWaypoint.ArrowHeight = CoD.AfterlifeWaypoint.ArrowWidth / CoD.AfterlifeWaypoint.IconRatio
+CoD.AfterlifeWaypoint.PointerDistance = 20
+CoD.AfterlifeWaypoint.TopBottomOffset = CoD.AfterlifeWaypoint.ArrowHeight / 2 + CoD.AfterlifeWaypoint.PointerDistance / 2
 CoD.AfterlifeWaypoint.PULSE_DURATION = 3000
 CoD.AfterlifeWaypoint.ICON_STATE_CLEAR = 0
 CoD.AfterlifeWaypoint.ReviveMaterialName = "waypoint_revive_afterlife"
@@ -18,11 +22,9 @@ end
 
 CoD.AfterlifeWaypoint.new = function(f2_arg0)
 	local Widget = LUI.UIElement.new()
-
 	Widget:setLeftRight(false, false, -CoD.AfterlifeWaypoint.IconWidth / 2, CoD.AfterlifeWaypoint.IconWidth / 2)
-	Widget:setTopBottom(false, false, -CoD.AfterlifeWaypoint.IconHeight - 20, -20)
+	Widget:setTopBottom(false, false, -CoD.AfterlifeWaypoint.IconHeight - CoD.AfterlifeWaypoint.TopBottomOffset, -CoD.AfterlifeWaypoint.TopBottomOffset)
 	Widget:setupEntityContainer(f2_arg0, 0, 0, 40)
-
 	Widget:setEntityContainerScale(false)
 	Widget:setEntityContainerClamp(true)
 
@@ -41,13 +43,13 @@ CoD.AfterlifeWaypoint.new = function(f2_arg0)
 
 	local edgePointerContainer = LUI.UIElement.new()
 	edgePointerContainer:setLeftRight(true, true, 0, 0)
-	edgePointerContainer:setTopBottom(true, true, 0, 0)
+	edgePointerContainer:setTopBottom(true, true, -CoD.AfterlifeWaypoint.PointerDistance / 2, CoD.AfterlifeWaypoint.PointerDistance / 2)
 	alphaController:addElement(edgePointerContainer)
 	Widget.edgePointerContainer = edgePointerContainer
 
 	local arrowImage = LUI.UIImage.new()
-	arrowImage:setLeftRight(false, false, -10, 10)
-	arrowImage:setTopBottom(false, true, 10, 20)
+	arrowImage:setLeftRight(false, false, -CoD.AfterlifeWaypoint.ArrowWidth / 2, CoD.AfterlifeWaypoint.ArrowWidth / 2)
+	arrowImage:setTopBottom(false, true, -CoD.AfterlifeWaypoint.ArrowHeight / 2, CoD.AfterlifeWaypoint.ArrowHeight / 2)
 	arrowImage:setImage(CoD.AfterlifeWaypoint.ArrowMaterial)
 	edgePointerContainer:addElement(arrowImage)
 	Widget.arrowImage = arrowImage
