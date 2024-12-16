@@ -1337,6 +1337,7 @@
 * Generators: always give back refund points if player was in the generator zone when captured
 * Generators: recapture round zombies only drop Max Ammo if killed before taking first generator
 * Generators: fixed an issue where recapture sound and fx would play twice
+* Generators: waypoint arrow moves when offscreen
 * Giant Robots: each robot has an openable foot when 3 robots are active
 * Giant Robots: zombie limit no longer decreased to 22 when 3 robots are active
 * Tank: players can go prone on the tank
