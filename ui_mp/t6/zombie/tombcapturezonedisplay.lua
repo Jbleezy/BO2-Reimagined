@@ -278,7 +278,8 @@ CoD.TCZRoamingZombies.new = function(f10_arg0, f10_arg1)
 	f10_local0:registerEventHandler("objective_update_" .. Engine.GetObjectiveName(f10_arg0, f10_arg1), f10_local0.update)
 
 	f10_local0.edgePointerContainer:setTopBottom(true, true, -5, 5)
-	f10_local0.arrowImage:setTopBottom(false, true, -16, 16)
+	f10_local0.arrowImage:setLeftRight(false, false, -12, 12)
+	f10_local0.arrowImage:setTopBottom(false, true, -12, 12)
 
 	f10_local0.mainImage:setImage(CoD.TCZRoamingZombies.RoamingZombieMaterial)
 	f10_local0.arrowImage:setImage(CoD.TCZWaypoint.ArrowImageMaterial)
