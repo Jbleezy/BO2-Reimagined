@@ -364,11 +364,11 @@ function HUD_FirstSnapshot_Zombie(HUDWidget, ClientInstance)
 	Widget:setLeftRight(true, true, 0, 0)
 	Widget:setTopBottom(true, true, 0, 0)
 	HUDWidget:addElement(Widget)
+
 	if CoD.Zombie.IsDLCMap(CoD.Zombie.DLC3Maps) then
 		Widget:registerEventHandler("time_bomb_hud_toggle", HUD_ToggleZombieHudContainer)
 	end
-	Widget:addElement(LUI.createMenu.PerksArea(ClientInstance.controller))
-	Widget:addElement(LUI.createMenu.PowerUpsArea(ClientInstance.controller))
+
 	if CoD.Zombie.IsDLCMap(CoD.Zombie.DLC2Maps) then
 		if CoD.Zombie.GAMETYPE_ZCLASSIC == Dvar.ui_gametype:get() then
 			require("T6.Zombie.HudCraftablesZombie")
@@ -393,6 +393,10 @@ function HUD_FirstSnapshot_Zombie(HUDWidget, ClientInstance)
 	else
 		Widget:addElement(LUI.createMenu.BuildablesArea(ClientInstance.controller))
 	end
+
+	Widget:addElement(LUI.createMenu.PerksArea(ClientInstance.controller))
+	Widget:addElement(LUI.createMenu.PowerUpsArea(ClientInstance.controller))
+
 	if CoD.Zombie.IsDLCMap(CoD.Zombie.DLC3Maps) then
 		require("T6.Zombie.HudTimeBomb")
 		Widget:addElement(LUI.createMenu.TimeBombArea(ClientInstance.controller))
