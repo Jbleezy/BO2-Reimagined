@@ -2,7 +2,11 @@
 >type,fastfile
 >name,zm_transit
 
-include,includes/perks/specialty_scavenger
+weapon,zombie_perk_bottle_tombstone
+material,specialty_tombstone_zombies
+xmodel,zombie_vending_tombstone
+xmodel,zombie_vending_tombstone_on
+xmodel,ch_tombstone1
 
 weapon,sticky_grenade_zm
 fx,weapon/crossbow/fx_trail_crossbow_blink_grn_os

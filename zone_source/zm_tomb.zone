@@ -2,8 +2,15 @@
 >type,fastfile
 >name,zm_tomb
 
-include,includes/perks/specialty_flakjacket
-include,includes/perks/specialty_deadshot
+weapon,zombie_perk_bottle_nuke
+material,specialty_divetonuke_zombies
+fx,maps/zombie/fx_zmb_phdflopper_exp
+rawfile,vision/zombie_cosmodrome_divetonuke.vision
+script,maps/mp/zombies/_zm_perk_divetonuke.gsc
+script,clientscripts/mp/zombies/_zm_perk_divetonuke.csc
+
+weapon,zombie_perk_bottle_deadshot
+material,specialty_ads_zombies
 
 weapon,ballista_zm
 weapon,ballista_upgraded_zm
