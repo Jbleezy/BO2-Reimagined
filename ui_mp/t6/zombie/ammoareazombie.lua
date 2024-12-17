@@ -290,7 +290,7 @@ CoD.AmmoAreaZombie.UpdateActionSlots = function(f2_arg0, f2_arg1)
 					Widget:addElement(f2_local10)
 				end
 				if CoD.isPC and UIExpression.DvarBool(nil, "ui_hud_alt_action_slot_area") == 1 then
-					local f2_local10 = 200
+					local f2_local10 = 210
 					local f2_local11 = nil
 					if f2_local4 == 1 then
 						f2_local11 = {

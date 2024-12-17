@@ -12,7 +12,7 @@ CoD.CompetitiveScoreboard.IsDLC2Map = CoD.Zombie.IsDLCMap(CoD.Zombie.DLC2Maps)
 CoD.CompetitiveScoreboard.IsDLC3Map = CoD.Zombie.IsDLCMap(CoD.Zombie.DLC3Maps)
 CoD.CompetitiveScoreboard.IsDLC4Map = CoD.Zombie.IsDLCMap(CoD.Zombie.DLC4Maps)
 
-CoD.CompetitiveScoreboard.Bottom = -115
+CoD.CompetitiveScoreboard.Bottom = -125
 CoD.CompetitiveScoreboard.LeftOffset = 0
 CoD.CompetitiveScoreboard.TeamPlayerCount = 8
 
