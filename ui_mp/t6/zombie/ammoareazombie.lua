@@ -209,6 +209,7 @@ CoD.AmmoAreaZombie.UpdateActionSlots = function(f2_arg0, f2_arg1)
 	for f2_local4, f2_local12 in pairs(f2_arg1.actionSlotData) do
 		local f2_local13 = CoD.AmmoAreaZombie.CircleSize / 4
 		local f2_local14 = f2_local13
+		local offset = -4
 		local f2_local5 = nil
 		if f2_local12.ammo > 0 or f2_local4 == 1 then
 			f2_local5 = CoD.HUDAlphaFull
@@ -219,9 +220,9 @@ CoD.AmmoAreaZombie.UpdateActionSlots = function(f2_arg0, f2_arg1)
 		if f2_local4 == 1 then
 			f2_local7 = {
 				left = -f2_local14 / 2,
-				top = CoD.AmmoAreaZombie.CircleSize / 4 - f2_local13 / 2,
+				top = CoD.AmmoAreaZombie.CircleSize / 4 - f2_local13 / 2 - offset,
 				right = f2_local14 / 2,
-				bottom = CoD.AmmoAreaZombie.CircleSize / 4 + f2_local13 / 2,
+				bottom = CoD.AmmoAreaZombie.CircleSize / 4 + f2_local13 / 2 - offset,
 				leftAnchor = false,
 				topAnchor = true,
 				rightAnchor = false,
@@ -230,9 +231,9 @@ CoD.AmmoAreaZombie.UpdateActionSlots = function(f2_arg0, f2_arg1)
 		elseif f2_local4 == 2 then
 			f2_local7 = {
 				left = -f2_local14 / 2,
-				top = -CoD.AmmoAreaZombie.CircleSize / 4 - f2_local13 / 2,
+				top = -CoD.AmmoAreaZombie.CircleSize / 4 - f2_local13 / 2 + offset,
 				right = f2_local14 / 2,
-				bottom = -CoD.AmmoAreaZombie.CircleSize / 4 + f2_local13 / 2,
+				bottom = -CoD.AmmoAreaZombie.CircleSize / 4 + f2_local13 / 2 + offset,
 				leftAnchor = false,
 				topAnchor = false,
 				rightAnchor = false,
@@ -240,9 +241,9 @@ CoD.AmmoAreaZombie.UpdateActionSlots = function(f2_arg0, f2_arg1)
 			}
 		elseif f2_local4 == 3 then
 			f2_local7 = {
-				left = CoD.AmmoAreaZombie.CircleSize / 4 - f2_local14 / 2,
+				left = CoD.AmmoAreaZombie.CircleSize / 4 - f2_local14 / 2 - offset,
 				top = -f2_local13 / 2,
-				right = CoD.AmmoAreaZombie.CircleSize / 4 + f2_local14 / 2,
+				right = CoD.AmmoAreaZombie.CircleSize / 4 + f2_local14 / 2 - offset,
 				bottom = f2_local13 / 2,
 				leftAnchor = true,
 				topAnchor = false,
@@ -251,9 +252,9 @@ CoD.AmmoAreaZombie.UpdateActionSlots = function(f2_arg0, f2_arg1)
 			}
 		elseif f2_local4 == 4 then
 			f2_local7 = {
-				left = -CoD.AmmoAreaZombie.CircleSize / 4 - f2_local14 / 2,
+				left = -CoD.AmmoAreaZombie.CircleSize / 4 - f2_local14 / 2 + offset,
 				top = -f2_local13 / 2,
-				right = -CoD.AmmoAreaZombie.CircleSize / 4 + f2_local14 / 2,
+				right = -CoD.AmmoAreaZombie.CircleSize / 4 + f2_local14 / 2 + offset,
 				bottom = f2_local13 / 2,
 				leftAnchor = false,
 				topAnchor = false,
