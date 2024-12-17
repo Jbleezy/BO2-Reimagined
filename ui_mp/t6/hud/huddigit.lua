@@ -38,7 +38,9 @@ end
 f0_local0 = function()
 	if not f0_local1 then
 		local f2_local0 = "transit_"
-		if CoD.Zombie.IsDLCMap(CoD.Zombie.DLC1Maps) then
+		if CoD.Zombie.IsDLCMap(CoD.Zombie.DLC0Maps) then
+			f2_local0 = "nuked_"
+		elseif CoD.Zombie.IsDLCMap(CoD.Zombie.DLC1Maps) then
 			f2_local0 = "highrise_"
 		elseif CoD.Zombie.IsDLCMap(CoD.Zombie.DLC2Maps) then
 			f2_local0 = "hell_"
