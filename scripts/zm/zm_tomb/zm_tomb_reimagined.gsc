@@ -31,6 +31,7 @@ main()
 	replaceFunc(maps\mp\zm_tomb_capture_zones::recapture_round_tracker, scripts\zm\replaced\zm_tomb_capture_zones::recapture_round_tracker);
 	replaceFunc(maps\mp\zm_tomb_capture_zones::recapture_zombie_icon_think, scripts\zm\replaced\zm_tomb_capture_zones::recapture_zombie_icon_think);
 	replaceFunc(maps\mp\zm_tomb_capture_zones::get_zone_objective_index, scripts\zm\replaced\zm_tomb_capture_zones::get_zone_objective_index);
+	replaceFunc(maps\mp\zm_tomb_capture_zones::get_generator_capture_start_cost, scripts\zm\replaced\zm_tomb_capture_zones::get_generator_capture_start_cost);
 	replaceFunc(maps\mp\zm_tomb_capture_zones::magic_box_stub_update_prompt, scripts\zm\replaced\zm_tomb_capture_zones::magic_box_stub_update_prompt);
 	replaceFunc(maps\mp\zm_tomb_challenges::reward_packed_weapon, scripts\zm\replaced\zm_tomb_challenges::reward_packed_weapon);
 	replaceFunc(maps\mp\zm_tomb_challenges::reward_double_tap, scripts\zm\replaced\zm_tomb_challenges::reward_double_tap);

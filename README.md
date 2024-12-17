@@ -1333,7 +1333,8 @@
 * Moved challenge medals and tablet icon above health bar and zone name
 * Added attachment name on HUD for upgraded attachment weapons
 * Increased volume of crafting sound and item pick up sound
-* Generators: increased capture reward points from 100 to 200
+* Generators: changed cost from 200-800 depending on how many players to 500
+* Generators: increased capture reward points from 100 to 500
 * Generators: always give back refund points if player was on the generator when captured
 * Generators: no longer lose capture progress if any players are on the generator when zombies are capturing
 * Generators: no longer gain capture progress if no players are on the generator when recapturing

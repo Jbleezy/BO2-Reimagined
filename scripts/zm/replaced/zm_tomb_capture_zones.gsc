@@ -336,7 +336,7 @@ reward_players_in_capture_zone()
 			}
 
 			player notify("completed_zone_capture");
-			player maps\mp\zombies\_zm_score::player_add_points("bonus_points_powerup", 200);
+			player maps\mp\zombies\_zm_score::player_add_points("bonus_points_powerup", self.generator_cost);
 
 			if (b_challenge_exists)
 			{
@@ -479,6 +479,11 @@ get_zone_objective_index()
 	}
 
 	return self.n_objective_index;
+}
+
+get_generator_capture_start_cost()
+{
+	return 500;
 }
 
 magic_box_stub_update_prompt(player)
