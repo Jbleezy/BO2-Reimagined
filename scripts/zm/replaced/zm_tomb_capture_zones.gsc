@@ -226,6 +226,42 @@ capture_progress_think()
 	self clear_all_zombie_attack_points_in_zone();
 }
 
+init_capture_progress()
+{
+	if (!isdefined(level.zone_capture.rate_capture))
+	{
+		level.zone_capture.rate_capture = get_update_rate(20);
+	}
+
+	if (!isdefined(level.zone_capture.rate_capture_solo))
+	{
+		level.zone_capture.rate_capture_solo = get_update_rate(12);
+	}
+
+	if (!isdefined(level.zone_capture.rate_decay))
+	{
+		level.zone_capture.rate_decay = get_update_rate(40) * -1;
+	}
+
+	if (!isdefined(level.zone_capture.rate_recapture))
+	{
+		level.zone_capture.rate_recapture = get_update_rate(40) * -1;
+	}
+
+	if (!isdefined(level.zone_capture.rate_recapture_players))
+	{
+		level.zone_capture.rate_recapture_players = get_update_rate(10);
+	}
+
+	if (!self ent_flag("player_controlled"))
+	{
+		self.n_current_progress = 0;
+		self ent_flag_clear("attacked_by_recapture_zombies");
+	}
+
+	self ent_flag_set("zone_contested");
+}
+
 get_progress_rate(n_players_in_zone, n_players_total)
 {
 	if (flag("recapture_event_in_progress") && self ent_flag("current_recapture_target_zone"))
@@ -241,14 +277,7 @@ get_progress_rate(n_players_in_zone, n_players_total)
 	}
 	else if (n_players_in_zone > 0)
 	{
-		if (isdefined(level.is_forever_solo_game) && level.is_forever_solo_game)
-		{
-			n_rate = level.zone_capture.rate_capture_solo;
-		}
-		else
-		{
-			n_rate = level.zone_capture.rate_capture * (n_players_in_zone / n_players_total);
-		}
+		n_rate = level.zone_capture.rate_capture * n_players_in_zone;
 	}
 	else
 	{

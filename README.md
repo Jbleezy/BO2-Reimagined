@@ -1335,6 +1335,8 @@
 * Increased volume of crafting sound and item pick up sound
 * Generators: changed cost from 200-800 depending on how many players to 500
 * Generators: increased capture reward points from 100 to 500
+* Generators: changed capture time from 10-40 seconds depending on how many players to 20 seconds
+* Generators: increased decay time from 20 seconds to 40 seconds
 * Generators: always give back refund points if player was on the generator when captured
 * Generators: no longer lose capture progress if any players are on the generator when zombies are capturing
 * Generators: no longer gain capture progress if no players are on the generator when recapturing
