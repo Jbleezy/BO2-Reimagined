@@ -15,6 +15,7 @@ CoD.TCZWaypoint.numberIconIndentHeight = 42
 CoD.TCZWaypoint.numberIconSmallIndentWidth = 20
 CoD.TCZWaypoint.numberIconSmallIndentHeight = 20
 CoD.TCZWaypoint.worldProgressColor = CoD.brightRed
+CoD.TCZWaypoint.contestedProgressColor = CoD.yellowGlow
 CoD.TCZRoamingZombies = InheritFrom(CoD.ObjectiveWaypoint)
 CoD.TCZRoamingZombies.baseWaypointZOffset = 75
 CoD.TCZRoamingZombies.iconWidth = 32
@@ -149,6 +150,34 @@ CoD.TCZWaypoint.update = function(f4_arg0, f4_arg1)
 		end
 	end
 	CoD.TCZWaypoint.super.update(f4_arg0, f4_arg1)
+
+	local teamID = Engine.GetTeamID(f4_arg1.controller, Engine.GetPredictedClientNum(f4_arg1.controller))
+	local isTeamUsing = Engine.ObjectiveIsTeamUsing(f4_arg1.controller, f4_arg0.index, teamID)
+	local isAnyOtherTeamUsing = f4_arg0.isAnyOtherTeamUsing == 1
+	local isBothTeamsUsing = isTeamUsing and isAnyOtherTeamUsing
+	local isNoTeamUsing = not isTeamUsing and not isAnyOtherTeamUsing
+
+	if isNoTeamUsing then
+		f4_arg0.progressBar:setRGB(CoD.white.r, CoD.white.g, CoD.white.b)
+		if f4_arg0.glow then
+			f4_arg0.glow:setRGB(CoD.white.r, CoD.white.g, CoD.white.b)
+		end
+	elseif isBothTeamsUsing then
+		f4_arg0.progressBar:setRGB(f4_arg0.contestedProgressColor.r, f4_arg0.contestedProgressColor.g, f4_arg0.contestedProgressColor.b)
+		if f4_arg0.glow then
+			f4_arg0.glow:setRGB(f4_arg0.contestedProgressColor.r, f4_arg0.contestedProgressColor.g, f4_arg0.contestedProgressColor.b)
+		end
+	elseif isAnyOtherTeamUsing then
+		f4_arg0.progressBar:setRGB(f4_arg0.worldProgressColor.r, f4_arg0.worldProgressColor.g, f4_arg0.worldProgressColor.b)
+		if f4_arg0.glow then
+			f4_arg0.glow:setRGB(f4_arg0.worldProgressColor.r, f4_arg0.worldProgressColor.g, f4_arg0.worldProgressColor.b)
+		end
+	else
+		f4_arg0.progressBar:setRGB(f4_arg0.progressColor.r, f4_arg0.progressColor.g, f4_arg0.progressColor.b)
+		if f4_arg0.glow then
+			f4_arg0.glow:setRGB(f4_arg0.progressColor.r, f4_arg0.progressColor.g, f4_arg0.progressColor.b)
+		end
+	end
 end
 
 CoD.TCZWaypoint.updateProgress = function(f5_arg0, f5_arg1, f5_arg2, f5_arg3)
@@ -172,24 +201,13 @@ CoD.TCZWaypoint.updateProgress = function(f5_arg0, f5_arg1, f5_arg2, f5_arg3)
 	end
 	if f5_local1 and not f5_arg0.showProgressToEveryone then
 		if f5_local3 then
-			f5_arg0.progressBar:setRGB(f5_arg0.contestedProgressColor.r, f5_arg0.contestedProgressColor.g, f5_arg0.contestedProgressColor.b)
 			f5_arg0.progressBar:setupUIImage()
 			f5_arg0.progressBar:setShaderVector(0, 1, 0, 0, 0)
 		else
-			f5_arg0.progressBar:setRGB(f5_arg0.progressColor.r, f5_arg0.progressColor.g, f5_arg0.progressColor.b)
 			f5_arg0.progressBar:setupObjectiveProgress(f5_arg0.index)
 		end
 	end
 	if f5_arg0.showingProgress == false and f5_local1 == true and (f5_local0 > 0 or f5_local3) then
-		if f5_arg0.showProgressToEveryone then
-			if f5_arg2 and f5_arg3 then
-				f5_arg0.progressBar:setRGB(f5_arg0.contestedProgressColor.r, f5_arg0.contestedProgressColor.g, f5_arg0.contestedProgressColor.b)
-			elseif f5_arg2 then
-				f5_arg0.progressBar:setRGB(CoD.teamColorFriendly.r, CoD.teamColorFriendly.g, CoD.teamColorFriendly.b)
-			else
-				f5_arg0.progressBar:setRGB(CoD.teamColorEnemy.r, CoD.teamColorEnemy.g, CoD.teamColorEnemy.b)
-			end
-		end
 		local f5_local4 = CoD.ObjectiveWaypoint.progressHeight / 2
 		f5_arg0.progressController:beginAnimation("progress", f5_arg0.snapToTime, true, true)
 		f5_arg0.progressController:setLeftRight(false, false, -CoD.ObjectiveWaypoint.progressWidth / 2, CoD.ObjectiveWaypoint.progressWidth / 2)
@@ -242,24 +260,8 @@ CoD.TCZWaypoint.updatePlayerUsing = function(f6_arg0, f6_arg1, f6_arg2, f6_arg3)
 end
 
 CoD.TCZWaypoint.SetCaptureProgressBarColor = function(f7_arg0, f7_arg1)
-	local f7_local0 = f7_arg1.newValue
-	if f7_local0 == 0 then
-		f7_arg0.isOccupied = false
-		if f7_arg0.progressBar then
-			f7_arg0.progressBar:setRGB(f7_arg0.worldProgressColor.r, f7_arg0.worldProgressColor.g, f7_arg0.worldProgressColor.b)
-		end
-		if f7_arg0.glow then
-			f7_arg0.glow:setRGB(f7_arg0.worldProgressColor.r, f7_arg0.worldProgressColor.g, f7_arg0.worldProgressColor.b)
-		end
-	elseif f7_local0 == 1 then
-		f7_arg0.isOccupied = true
-		if f7_arg0.progressBar then
-			f7_arg0.progressBar:setRGB(f7_arg0.progressColor.r, f7_arg0.progressColor.g, f7_arg0.progressColor.b)
-		end
-		if f7_arg0.glow then
-			f7_arg0.glow:setRGB(CoD.blueGlow.r, CoD.blueGlow.g, CoD.blueGlow.b)
-		end
-	end
+	f7_arg0.isAnyOtherTeamUsing = f7_arg1.newValue
+	CoD.TCZWaypoint.update(f7_arg0, f7_arg1)
 end
 
 CoD.TCZWaypoint.PulseLow = function(f8_arg0, f8_arg1)

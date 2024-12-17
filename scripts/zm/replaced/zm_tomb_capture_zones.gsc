@@ -184,10 +184,7 @@ capture_progress_think()
 		{
 			if (isinarray(a_players_in_capture_zone, player))
 			{
-				if (!flag("recapture_event_in_progress") || !self ent_flag("current_recapture_target_zone"))
-				{
-					objective_setplayerusing(self.n_objective_index, player);
-				}
+				objective_setplayerusing(self.n_objective_index, player);
 
 				continue;
 			}
@@ -201,7 +198,7 @@ capture_progress_think()
 		self.n_last_progress = self.n_current_progress;
 		self.n_current_progress += self get_progress_rate(a_players_in_capture_zone.size, a_players.size);
 
-		if (self.n_last_progress != self.n_current_progress)
+		if (self.n_last_progress != self.n_current_progress || self.n_current_progress == 100)
 		{
 			self.n_current_progress = clamp(self.n_current_progress, 0, 100);
 			objective_setprogress(self.n_objective_index, self.n_current_progress / 100);
@@ -209,19 +206,10 @@ capture_progress_think()
 			level setclientfield(self.script_noteworthy, self.n_current_progress / 100);
 			self generator_set_state();
 
-			if (!flag("recapture_event_in_progress") || !self ent_flag("attacked_by_recapture_zombies"))
+			if (self ent_flag("current_recapture_target_zone"))
 			{
-				b_set_color_to_white = a_players_in_capture_zone.size > 0;
-
-				if (!flag("recapture_event_in_progress") && self ent_flag("current_recapture_target_zone"))
-				{
-					b_set_color_to_white = 1;
-				}
-
-				level setclientfield("zc_change_progress_bar_color", b_set_color_to_white);
+				level setclientfield("zc_change_progress_bar_color", flag("recapture_event_in_progress"));
 			}
-
-			update_objective_on_momentum_change();
 
 			if (self.n_current_progress == 0 || self.n_current_progress == 100 && !self ent_flag("attacked_by_recapture_zombies"))
 			{
@@ -236,6 +224,38 @@ capture_progress_think()
 	self ent_flag_clear("attacked_by_recapture_zombies");
 	self handle_generator_capture();
 	self clear_all_zombie_attack_points_in_zone();
+}
+
+get_progress_rate(n_players_in_zone, n_players_total)
+{
+	if (flag("recapture_event_in_progress") && self ent_flag("current_recapture_target_zone"))
+	{
+		if (n_players_in_zone > 0)
+		{
+			n_rate = 0;
+		}
+		else
+		{
+			n_rate = level.zone_capture.rate_recapture;
+		}
+	}
+	else if (n_players_in_zone > 0)
+	{
+		if (isdefined(level.is_forever_solo_game) && level.is_forever_solo_game)
+		{
+			n_rate = level.zone_capture.rate_capture_solo;
+		}
+		else
+		{
+			n_rate = level.zone_capture.rate_capture * (n_players_in_zone / n_players_total);
+		}
+	}
+	else
+	{
+		n_rate = level.zone_capture.rate_decay;
+	}
+
+	return n_rate;
 }
 
 handle_generator_capture()
@@ -440,6 +460,25 @@ recapture_zombie_icon_recreate()
 	{
 		recapture_zombie_group_icon_show();
 	}
+}
+
+get_zone_objective_index()
+{
+	if (!isdefined(self.n_objective_index))
+	{
+		if (self ent_flag("current_recapture_target_zone"))
+		{
+			n_objective = 2;
+		}
+		else
+		{
+			n_objective = 0;
+		}
+
+		self.n_objective_index = n_objective;
+	}
+
+	return self.n_objective_index;
 }
 
 magic_box_stub_update_prompt(player)

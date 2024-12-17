@@ -1334,8 +1334,11 @@
 * Added attachment name on HUD for upgraded attachment weapons
 * Increased volume of crafting sound and item pick up sound
 * Generators: increased capture reward points from 100 to 200
-* Generators: always give back refund points if player was in the generator zone when captured
-* Generators: recapture round zombies only drop Max Ammo if killed before taking first generator
+* Generators: always give back refund points if player was on the generator when captured
+* Generators: no longer lose capture progress if any players are on the generator when zombies are capturing
+* Generators: no longer gain capture progress if no players are on the generator when recapturing
+* Generators: capture round zombies only drop Max Ammo if killed before taking first generator
+* Generators: fixed capture round zombies not dropping Max Ammo when killed by a staff
 * Generators: fixed an issue where recapture sound and fx would play twice
 * Generators: waypoint arrow moves when offscreen
 * Giant Robots: each robot has an openable foot when 3 robots are active
@@ -1362,6 +1365,7 @@
 * Der Wunderfizz: perk bottle model shows at correct position when it first appears
 * Rituals of the Ancients: spend points challenge reward changed from Double Tap perk to a random perk that the player does not have (perk does not change if reward is reopened)
 * Rituals of the Ancients: FAL OSW replaces Galil in perform headshots challenge reward
+* Rituals of the Ancients: fixed not being able to pick up One Inch Punch from reward chest after disconnecting and reconnecting to a match
 * Soul boxes: decreased number of souls to close from 30 to 20
 * Dig spots: decreased number of digs to obtain golden shovel from 30 to 20
 * Dig spots: changed number of digs to obtain golden helmet to 40 (normally 5% chance to obtain after obtaining golden shovel)
@@ -1378,9 +1382,7 @@
 * Quest (raise hell step): all staffs must be fully charged for souls to be collected
 * Quest (raise hell step): zombies in The Crazy Place get knocked down during the screen flash after collecting all of the souls
 * Quest (freedom step): teleport trigger can be triggered without looking at it
-* Fixed recapture round zombies not dropping Max Ammo when killed by a staff
 * Fixed being able to hit a death barrier when jumping off the Above Generator 3 Bunker zone
-* Fixed not being able to pick up One Inch Punch from reward chest after disconnecting and reconnecting to a match
 
 ## Game Modes
 
