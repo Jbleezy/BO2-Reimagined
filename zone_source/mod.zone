@@ -27,6 +27,8 @@ include,includes/zm_prison
 include,includes/zm_buried
 include,includes/zm_tomb
 
+include,dependencies/soundbank
+
 image,fxt_zmb_wep_wallbuy_01
 image,fxt_zmb_wep_wallbuy_02
 image,fxt_zmb_wep_wallbuy_03
@@ -158,6 +160,3 @@ script,scripts/zm/replaced/zm_tomb_craftables.csc
 script,scripts/zm/replaced/zgrief.csc
 
 localize,reimagined
-
-soundbank,mod.all
-soundbank,mod.english
