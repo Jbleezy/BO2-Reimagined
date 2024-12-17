@@ -61,16 +61,3 @@ camo,camo_gl
 
 material,tactical_gren_reticle
 material,waypoint_circle_arrow
-
-image,hud_mp_num_big_0
-image,hud_mp_num_big_1
-image,hud_mp_num_big_2
-image,hud_mp_num_big_3
-image,hud_mp_num_big_4
-image,hud_mp_num_big_5
-image,hud_mp_num_big_6
-image,hud_mp_num_big_7
-image,hud_mp_num_big_8
-image,hud_mp_num_big_9
-image,hud_mp_num_big_slash
-image,hud_mp_num_big_line

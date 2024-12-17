@@ -75,7 +75,7 @@
 	},
 	"textures": [
 		{
-			"image": "hud_mp_num_big_0",
+			"image": "hud_nuked_zom_num_0",
 			"isMatureContent": false,
 			"name": "colorMap",
 			"samplerState": {
