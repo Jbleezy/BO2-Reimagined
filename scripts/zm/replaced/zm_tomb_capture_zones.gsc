@@ -83,6 +83,87 @@ init_capture_zone()
 	self thread wait_for_capture_trigger();
 }
 
+setup_generator_unitrigger()
+{
+	s_unitrigger_stub = spawnstruct();
+	s_unitrigger_stub.origin = self.origin;
+	s_unitrigger_stub.angles = self.angles;
+	s_unitrigger_stub.radius = 32;
+	s_unitrigger_stub.script_length = 128;
+	s_unitrigger_stub.script_width = 128;
+	s_unitrigger_stub.script_height = 128;
+	s_unitrigger_stub.cursor_hint = "HINT_NOICON";
+	s_unitrigger_stub.hint_string = &"ZM_TOMB_CAP";
+	s_unitrigger_stub.hint_parm1 = [[::get_generator_capture_start_cost]]();
+	s_unitrigger_stub.script_unitrigger_type = "unitrigger_box_use";
+	s_unitrigger_stub.require_look_at = 1;
+	s_unitrigger_stub.prompt_and_visibility_func = ::generator_trigger_prompt_and_visibility;
+	s_unitrigger_stub.generator_struct = self;
+	unitrigger_force_per_player_triggers(s_unitrigger_stub, 1);
+	maps\mp\zombies\_zm_unitrigger::register_static_unitrigger(s_unitrigger_stub, ::generator_unitrigger_think);
+}
+
+generator_trigger_prompt_and_visibility(e_player)
+{
+	b_can_see_hint = 1;
+	s_zone = self.stub.generator_struct;
+
+	if (s_zone ent_flag("zone_contested") || s_zone ent_flag("player_controlled"))
+	{
+		b_can_see_hint = 0;
+	}
+
+	if (flag("generator_under_attack"))
+	{
+		self sethintstring(&"ZM_TOMB_ZONE_RECAPTURE_IN_PROGRESS");
+	}
+	else if (flag("zone_capture_in_progress"))
+	{
+		self sethintstring(&"ZM_TOMB_ZCIP");
+	}
+	else
+	{
+		self sethintstring(&"ZM_TOMB_CAP", get_generator_capture_start_cost());
+	}
+
+	self setinvisibletoplayer(e_player, !b_can_see_hint);
+	return b_can_see_hint;
+}
+
+generator_unitrigger_think()
+{
+	self endon("kill_trigger");
+
+	while (true)
+	{
+		self waittill("trigger", e_player);
+
+		if (flag("generator_under_attack"))
+		{
+			continue;
+		}
+
+		if (flag("zone_capture_in_progress"))
+		{
+			continue;
+		}
+
+		if (!is_player_valid(e_player) || e_player is_reviving_any() || e_player != self.parent_player)
+		{
+			continue;
+		}
+
+		if (e_player.score < get_generator_capture_start_cost())
+		{
+			e_player maps\mp\zombies\_zm_audio::create_and_play_dialog("general", "no_money_capture");
+			continue;
+		}
+
+		self setinvisibletoall();
+		self.stub.generator_struct notify("start_generator_capture", e_player);
+	}
+}
+
 register_elements_powered_by_zone_capture_generators()
 {
 	register_random_perk_machine_for_zone("generator_start_bunker", "starting_bunker");
@@ -572,8 +653,6 @@ hide_zone_objective_while_recapture_group_runs_to_next_generator(b_hide_icon)
 recapture_zombie_group_icon_show()
 {
 	level endon("recapture_zombies_cleared");
-
-	recapture_zombie_obj_ind_start = 3;
 
 	if (isdefined(level.zone_capture.recapture_zombies) && flag("recapture_event_in_progress"))
 	{

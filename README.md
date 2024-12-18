@@ -1338,6 +1338,7 @@
 * Generators: changed capture time from 10-40 seconds depending on how many players to 20 seconds
 * Generators: increased decay time from 20 seconds to 40 seconds
 * Generators: always give back refund points if player was on the generator when captured
+* Generators: can no longer start capturing if another generator is being captured by zombies
 * Generators: no longer lose capture progress if any players are on the generator when zombies are capturing
 * Generators: no longer gain capture progress if no players are on the generator when recapturing
 * Generators: capture round zombies only drop Max Ammo if killed before taking first generator
