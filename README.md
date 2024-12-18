@@ -1341,9 +1341,10 @@
 * Generators: no longer lose capture progress if any players are on the generator when zombies are capturing
 * Generators: no longer gain capture progress if no players are on the generator when recapturing
 * Generators: capture round zombies only drop Max Ammo if killed before taking first generator
+* Generators: added capture round zombie waypoint to all capture round zombies
+* Generators: waypoint arrow moves when offscreen
 * Generators: fixed capture round zombies not dropping Max Ammo when killed by a staff
 * Generators: fixed an issue where recapture sound and fx would play twice
-* Generators: waypoint arrow moves when offscreen
 * Giant Robots: each robot has an openable foot when 3 robots are active
 * Giant Robots: zombie limit no longer decreased to 22 when 3 robots are active
 * Tank: players can go prone on the tank

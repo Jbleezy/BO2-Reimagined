@@ -20,6 +20,36 @@
 #include maps\mp\zombies\_zm_magicbox_tomb;
 #include maps\mp\zombies\_zm_powerups;
 
+precache_everything()
+{
+	precachemodel("p6_zm_tm_zone_capture_hole");
+	precachemodel("p6_zm_tm_packapunch");
+	precacherumble("generator_active");
+	precachestring(&"ZM_TOMB_OBJ_CAPTURE_1");
+	precachestring(&"ZM_TOMB_OBJ_RECAPTURE_1");
+	precachestring(&"ZM_TOMB_OBJ_CAPTURE_2");
+	precachestring(&"ZM_TOMB_OBJ_RECAPTURE_2");
+	precachestring(&"ZM_TOMB_OBJ_RECAPTURE_ZOMBIE_1");
+	precachestring(&"ZM_TOMB_OBJ_RECAPTURE_ZOMBIE_2");
+	precachestring(&"ZM_TOMB_OBJ_RECAPTURE_ZOMBIE_3");
+	precachestring(&"ZM_TOMB_OBJ_RECAPTURE_ZOMBIE_4");
+	precachestring(&"ZM_TOMB_OBJ_RECAPTURE_ZOMBIE_5");
+	precachestring(&"ZM_TOMB_OBJ_RECAPTURE_ZOMBIE_6");
+}
+
+declare_objectives()
+{
+	objective_add(0, "invisible", (0, 0, 0), &"ZM_TOMB_OBJ_CAPTURE_1");
+	objective_add(1, "invisible", (0, 0, 0), &"ZM_TOMB_OBJ_RECAPTURE_2");
+	objective_add(2, "invisible", (0, 0, 0), &"ZM_TOMB_OBJ_CAPTURE_2");
+	objective_add(3, "invisible", (0, 0, 0), &"ZM_TOMB_OBJ_RECAPTURE_ZOMBIE_1");
+	objective_add(4, "invisible", (0, 0, 0), &"ZM_TOMB_OBJ_RECAPTURE_ZOMBIE_2");
+	objective_add(5, "invisible", (0, 0, 0), &"ZM_TOMB_OBJ_RECAPTURE_ZOMBIE_3");
+	objective_add(6, "invisible", (0, 0, 0), &"ZM_TOMB_OBJ_RECAPTURE_ZOMBIE_4");
+	objective_add(7, "invisible", (0, 0, 0), &"ZM_TOMB_OBJ_RECAPTURE_ZOMBIE_5");
+	objective_add(8, "invisible", (0, 0, 0), &"ZM_TOMB_OBJ_RECAPTURE_ZOMBIE_6");
+}
+
 init_capture_zone()
 {
 	assert(isdefined(self.script_noteworthy), "capture zone struct is missing script_noteworthy KVP! This is required for init_capture_zone()");
@@ -78,30 +108,6 @@ register_elements_powered_by_zone_capture_generators()
 setup_perk_machines_not_controlled_by_zone_capture()
 {
 	level.zone_capture.perk_machines_always_on = array("specialty_additionalprimaryweapon", "specialty_flakjacket", "specialty_grenadepulldeath");
-}
-
-recapture_zombie_death_func()
-{
-	if (isdefined(self.is_recapture_zombie) && self.is_recapture_zombie)
-	{
-		level.recapture_zombies_killed++;
-
-		if (isdefined(self.attacker) && isplayer(self.attacker) && level.recapture_zombies_killed == get_recapture_zombies_needed())
-		{
-			self.attacker thread delay_thread(2, ::create_and_play_dialog, "zone_capture", "recapture_prevented");
-
-			foreach (player in get_players())
-			{
-				player maps\mp\zombies\_zm_stats::increment_client_stat("tomb_generator_defended", 0);
-				player maps\mp\zombies\_zm_stats::increment_player_stat("tomb_generator_defended");
-			}
-		}
-
-		if (level.recapture_zombies_killed == get_recapture_zombies_needed() && is_true(level.b_is_first_generator_attack))
-		{
-			self drop_max_ammo_at_death_location();
-		}
-	}
 }
 
 wait_for_capture_trigger()
@@ -382,6 +388,99 @@ reward_players_in_capture_zone()
 	}
 }
 
+init_recapture_zombie(zone_struct, s_spawn_point)
+{
+	self endon("death");
+	self.is_recapture_zombie = 1;
+	self init_zone_capture_zombie_common(s_spawn_point);
+	self.goalradius = 30;
+	self.zombie_move_speed = "sprint";
+	self.s_attack_generator = zone_struct;
+	self.attacking_new_generator = 1;
+	self.attacking_point = undefined;
+	self thread recapture_zombie_poi_think();
+
+	self.obj_ind = level.current_recapture_zombie_obj_ind;
+	level.current_recapture_zombie_obj_ind++;
+
+	self recapture_zombie_icon_show();
+
+	while (true)
+	{
+		self.is_attacking_zone = 0;
+
+		if (self.zombie_has_point_of_interest)
+		{
+			v_attack_origin = self.point_of_interest;
+		}
+		else
+		{
+			if (self.attacking_new_generator || !isdefined(self.attacking_point))
+			{
+				if (isdefined(self.attacking_point))
+				{
+					self.attacking_point unclaim_attacking_point();
+				}
+
+				self.attacking_point = self get_unclaimed_attack_point(self.s_attack_generator);
+			}
+
+			v_attack_origin = self.attacking_point.origin;
+		}
+
+		self setgoalpos(v_attack_origin);
+		self waittill_either("goal", "poi_state_changed");
+
+		if (!self.zombie_has_point_of_interest)
+		{
+			if (distance(self.attacking_point.origin, self.origin) > 50)
+			{
+				continue;
+			}
+
+			self.is_attacking_zone = 1;
+
+			if (!isdefined(level.zone_capture.recapture_target) && !isdefined(self.s_attack_generator.script_noteworthy) || isdefined(level.zone_capture.recapture_target) && isdefined(self.s_attack_generator.script_noteworthy) && level.zone_capture.recapture_target == self.s_attack_generator.script_noteworthy)
+			{
+				flag_set("generator_under_attack");
+				self.s_attack_generator ent_flag_set("attacked_by_recapture_zombies");
+				self.attacking_new_generator = 0;
+				zone_struct notify("zombies_attacking_generator");
+			}
+		}
+		else if (isdefined(self.attacking_point))
+		{
+			self.attacking_point unclaim_attacking_point();
+		}
+
+		self play_melee_attack_animation();
+	}
+}
+
+recapture_zombie_death_func()
+{
+	if (isdefined(self.is_recapture_zombie) && self.is_recapture_zombie)
+	{
+		level.recapture_zombies_killed++;
+
+		if (isdefined(self.attacker) && isplayer(self.attacker) && level.recapture_zombies_killed == get_recapture_zombies_needed())
+		{
+			self.attacker thread delay_thread(2, ::create_and_play_dialog, "zone_capture", "recapture_prevented");
+
+			foreach (player in get_players())
+			{
+				player maps\mp\zombies\_zm_stats::increment_client_stat("tomb_generator_defended", 0);
+				player maps\mp\zombies\_zm_stats::increment_player_stat("tomb_generator_defended");
+			}
+		}
+
+		if (level.recapture_zombies_killed == get_recapture_zombies_needed() && is_true(level.b_is_first_generator_attack))
+		{
+			self drop_max_ammo_at_death_location();
+		}
+	}
+}
+
 recapture_round_tracker()
 {
 	n_next_recapture_round = 10;
@@ -405,6 +504,7 @@ recapture_round_start()
 	flag_clear("generator_under_attack");
 	level.recapture_zombies_killed = 0;
 	level.b_is_first_generator_attack = 1;
+	level.current_recapture_zombie_obj_ind = 3;
 	s_recapture_target_zone = undefined;
 	capture_event_handle_ai_limit();
 	recapture_round_audio_starts();
@@ -440,9 +540,6 @@ recapture_round_start()
 		wait 0.05;
 	}
 
-	// if ( s_recapture_target_zone.n_current_progress == 0 || s_recapture_target_zone.n_current_progress == 100 )
-	//	s_recapture_target_zone handle_generator_capture();
-
 	capture_event_handle_ai_limit();
 	kill_all_recapture_zombies();
 	recapture_round_audio_ends();
@@ -450,51 +547,77 @@ recapture_round_start()
 	flag_clear("generator_under_attack");
 }
 
-recapture_zombie_icon_think()
+hide_zone_objective_while_recapture_group_runs_to_next_generator(b_hide_icon)
 {
-	level endon("recapture_zombie_icon_think_end");
+	self clear_zone_objective_index();
+	flag_clear("generator_under_attack");
 
-	if (is_true(level.recapture_zombie_icon))
-	{
-		return;
-	}
-
-	level.recapture_zombie_icon = 1;
-
-	self thread recapture_zombie_icon_think_death();
-
-	flag_waitopen("generator_under_attack");
-	flag_wait("generator_under_attack");
-
-	level thread recapture_zombie_icon_recreate();
-}
-
-recapture_zombie_icon_think_death()
-{
-	level endon("recapture_zombie_icon_think_end");
-
-	while (isalive(self))
-	{
-		wait 0.05;
-	}
-
-	level thread recapture_zombie_icon_recreate();
-}
-
-recapture_zombie_icon_recreate()
-{
-	level notify("recapture_zombie_icon_think_end");
-
-	level.zone_capture.recapture_zombies = array_removedead(level.zone_capture.recapture_zombies);
-
-	recapture_zombie_group_icon_hide();
-
-	level.recapture_zombie_icon = 0;
-
-	if (!flag("recapture_zombies_cleared"))
+	if (!b_hide_icon)
 	{
 		recapture_zombie_group_icon_show();
 	}
+
+	do
+	{
+		wait 1;
+	}
+	while (!flag("recapture_zombies_cleared") && self get_recapture_attacker_count() == 0);
+
+	if (!flag("recapture_zombies_cleared"))
+	{
+		self thread generator_compromised_vo();
+	}
+}
+
+recapture_zombie_group_icon_show()
+{
+	level endon("recapture_zombies_cleared");
+
+	recapture_zombie_obj_ind_start = 3;
+
+	if (isdefined(level.zone_capture.recapture_zombies) && flag("recapture_event_in_progress"))
+	{
+		while (!level.zone_capture.recapture_zombies.size)
+		{
+			wait_network_frame();
+			level.zone_capture.recapture_zombies = array_removedead(level.zone_capture.recapture_zombies);
+		}
+
+		flag_waitopen("generator_under_attack");
+
+		for (i = 0; i < level.zone_capture.recapture_zombies.size; i++)
+		{
+			level.zone_capture.recapture_zombies[i] recapture_zombie_icon_show();
+		}
+	}
+}
+
+recapture_zombie_icon_show()
+{
+	objective_state(self.obj_ind, "active");
+	objective_onentity(self.obj_ind, self);
+	self thread recapture_zombie_icon_think();
+}
+
+recapture_zombie_icon_think()
+{
+	while (isalive(self) && self.is_attacking_zone)
+	{
+		self waittill_any_or_timeout(0.05, "goal", "poi_state_changed", "death");
+	}
+
+	while (isalive(self) && !self.is_attacking_zone)
+	{
+		self waittill_any_or_timeout(0.05, "goal", "poi_state_changed", "death");
+	}
+
+	self thread recapture_zombie_icon_hide();
+}
+
+recapture_zombie_icon_hide()
+{
+	objective_state(self.obj_ind, "invisible");
+	objective_clearentity(self.obj_ind);
 }
 
 get_zone_objective_index()

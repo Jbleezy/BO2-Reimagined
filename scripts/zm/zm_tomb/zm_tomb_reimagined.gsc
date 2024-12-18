@@ -24,9 +24,12 @@ main()
 	replaceFunc(maps\mp\zm_tomb_ee_main_step_4::stage_logic, scripts\zm\replaced\zm_tomb_ee_main_step_4::stage_logic);
 	replaceFunc(maps\mp\zm_tomb_ee_main_step_8::stage_logic, scripts\zm\replaced\zm_tomb_ee_main_step_8::stage_logic);
 	replaceFunc(maps\mp\zm_tomb_ee_side::swap_mg, scripts\zm\replaced\zm_tomb_ee_side::swap_mg);
+	replaceFunc(maps\mp\zm_tomb_capture_zones::precache_everything, scripts\zm\replaced\zm_tomb_capture_zones::precache_everything);
+	replaceFunc(maps\mp\zm_tomb_capture_zones::declare_objectives, scripts\zm\replaced\zm_tomb_capture_zones::declare_objectives);
 	replaceFunc(maps\mp\zm_tomb_capture_zones::init_capture_zone, scripts\zm\replaced\zm_tomb_capture_zones::init_capture_zone);
 	replaceFunc(maps\mp\zm_tomb_capture_zones::register_elements_powered_by_zone_capture_generators, scripts\zm\replaced\zm_tomb_capture_zones::register_elements_powered_by_zone_capture_generators);
 	replaceFunc(maps\mp\zm_tomb_capture_zones::setup_perk_machines_not_controlled_by_zone_capture, scripts\zm\replaced\zm_tomb_capture_zones::setup_perk_machines_not_controlled_by_zone_capture);
+	replaceFunc(maps\mp\zm_tomb_capture_zones::init_recapture_zombie, scripts\zm\replaced\zm_tomb_capture_zones::init_recapture_zombie);
 	replaceFunc(maps\mp\zm_tomb_capture_zones::recapture_zombie_death_func, scripts\zm\replaced\zm_tomb_capture_zones::recapture_zombie_death_func);
 	replaceFunc(maps\mp\zm_tomb_capture_zones::recapture_round_tracker, scripts\zm\replaced\zm_tomb_capture_zones::recapture_round_tracker);
 	replaceFunc(maps\mp\zm_tomb_capture_zones::recapture_zombie_icon_think, scripts\zm\replaced\zm_tomb_capture_zones::recapture_zombie_icon_think);

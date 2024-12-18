@@ -25,7 +25,12 @@ LUI.createMenu.TombCaptureZoneDisplay = function(f1_arg0)
 	f1_local0.objectiveTypes.ZM_TOMB_OBJ_CAPTURE_1 = CoD.TCZWaypoint
 	f1_local0.objectiveTypes.ZM_TOMB_OBJ_CAPTURE_2 = CoD.TCZWaypoint
 	f1_local0.objectiveTypes.ZM_TOMB_OBJ_RECAPTURE_2 = CoD.TCZWaypoint
-	f1_local0.objectiveTypes.ZM_TOMB_OBJ_RECAPTURE_ZOMBIE = CoD.TCZRoamingZombies
+	f1_local0.objectiveTypes.ZM_TOMB_OBJ_RECAPTURE_ZOMBIE_1 = CoD.TCZRoamingZombies
+	f1_local0.objectiveTypes.ZM_TOMB_OBJ_RECAPTURE_ZOMBIE_2 = CoD.TCZRoamingZombies
+	f1_local0.objectiveTypes.ZM_TOMB_OBJ_RECAPTURE_ZOMBIE_3 = CoD.TCZRoamingZombies
+	f1_local0.objectiveTypes.ZM_TOMB_OBJ_RECAPTURE_ZOMBIE_4 = CoD.TCZRoamingZombies
+	f1_local0.objectiveTypes.ZM_TOMB_OBJ_RECAPTURE_ZOMBIE_5 = CoD.TCZRoamingZombies
+	f1_local0.objectiveTypes.ZM_TOMB_OBJ_RECAPTURE_ZOMBIE_6 = CoD.TCZRoamingZombies
 	CoD.TCZWaypoint.MainSpinImageMaterial = RegisterMaterial("hud_zm_tomb_capture_spin")
 	CoD.TCZWaypoint.SpinGlowImageMaterial = RegisterMaterial("hud_zm_tomb_capture_spin_glow")
 	CoD.TCZWaypoint.ArrowImageMaterial = RegisterMaterial("waypoint_arrow_tomb")
@@ -286,6 +291,8 @@ CoD.TCZRoamingZombies.new = function(f10_arg0, f10_arg1)
 	local f10_local0 = CoD.ObjectiveWaypoint.new(f10_arg0, f10_arg1, CoD.TCZRoamingZombies.baseWaypointZOffset)
 	f10_local0:setClass(CoD.TCZRoamingZombies)
 	f10_local0:registerEventHandler("objective_update_" .. Engine.GetObjectiveName(f10_arg0, f10_arg1), f10_local0.update)
+
+	f10_local0:setPriority(-101)
 
 	f10_local0.edgePointerContainer:setTopBottom(true, true, -20, 20)
 	f10_local0.arrowImage:setLeftRight(false, false, -12, 12)
