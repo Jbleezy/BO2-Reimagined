@@ -27,6 +27,7 @@ CoD.AfterlifeWaypoint.new = function(f2_arg0)
 	Widget:setupEntityContainer(f2_arg0, 0, 0, 40)
 	Widget:setEntityContainerScale(false)
 	Widget:setEntityContainerClamp(true)
+	Widget:setEntityContainerFadeWhenTargeted(true)
 
 	local alphaController = LUI.UIElement.new()
 	alphaController:setLeftRight(true, true, 0, 0)

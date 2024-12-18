@@ -1254,6 +1254,7 @@
 * Afterlife icon fades when player has no afterlife lives
 * Removed afterlife lives counter
 * Moved afterlife waypoint up
+* Afterlife waypoint fades when targeted
 * Key on HUD fades out
 * Plane parts are shared in coop
 * Plane parts must be all acquired to craft
@@ -1343,6 +1344,7 @@
 * Generators: no longer gain capture progress if no players are on the generator when recapturing
 * Generators: capture round zombies only drop Max Ammo if killed before taking first generator
 * Generators: added capture round zombie waypoint to all capture round zombies
+* Generators: moved waypoint up
 * Generators: waypoint arrow moves when offscreen
 * Generators: fixed capture round zombies not dropping Max Ammo when killed by a staff
 * Generators: fixed an issue where recapture sound and fx would play twice
