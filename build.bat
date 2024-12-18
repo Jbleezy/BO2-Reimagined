@@ -10,8 +10,8 @@ mode 150, 30
 --load "%OAT_GAME%\zone\all\common_mp.ff" ^
 --base-folder "%OAT_BASE%" ^
 --asset-search-path "%cd%" ^
---source-search-path "%cd%\zone_source\dependencies" ^
---output-folder "%cd%\zone_source\dependencies" camo_mp_materials
+--source-search-path "%cd%\zone_source" ^
+--output-folder "%cd%\zone_source\dependencies" dependencies\camo_mp_materials
 
 if %ERRORLEVEL% NEQ 0 pause
 
@@ -20,8 +20,8 @@ if %ERRORLEVEL% NEQ 0 pause
 --load "%OAT_GAME%\zone\all\zm_prison.ff" ^
 --base-folder "%OAT_BASE%" ^
 --asset-search-path "%cd%" ^
---source-search-path "%cd%\zone_source\dependencies" ^
---output-folder "%cd%\zone_source\dependencies" camo_zmb_dlc2_materials
+--source-search-path "%cd%\zone_source" ^
+--output-folder "%cd%\zone_source\dependencies" dependencies\camo_zmb_dlc2_materials
 
 if %ERRORLEVEL% NEQ 0 pause
 
@@ -30,8 +30,8 @@ if %ERRORLEVEL% NEQ 0 pause
 --load "%OAT_GAME%\zone\all\zm_tomb.ff" ^
 --base-folder "%OAT_BASE%" ^
 --asset-search-path "%cd%" ^
---source-search-path "%cd%\zone_source\dependencies" ^
---output-folder "%cd%\zone_source\dependencies" camo_zmb_dlc4_materials
+--source-search-path "%cd%\zone_source" ^
+--output-folder "%cd%\zone_source\dependencies" dependencies\camo_zmb_dlc4_materials
 
 "%OAT_BASE%\Linker.exe" ^
 --load "%cd%\zone_source\dependencies\camo_zmb_dlc4_materials.ff" ^
@@ -49,8 +49,8 @@ if %ERRORLEVEL% NEQ 0 pause
 --load "%OAT_GAME%\zone\all\weapons!metalstorm_mms_sp.ff" ^
 --base-folder "%OAT_BASE%" ^
 --asset-search-path "%cd%" ^
---source-search-path "%cd%\zone_source\includes" ^
---output-folder "%cd%\zone_source\includes" weapons!metalstorm_mms_sp
+--source-search-path "%cd%\zone_source" ^
+--output-folder "%cd%\zone_source\includes" includes\weapons!metalstorm_mms_sp
 
 if %ERRORLEVEL% NEQ 0 pause
 
@@ -59,8 +59,8 @@ if %ERRORLEVEL% NEQ 0 pause
 --load "%OAT_GAME%\zone\all\weapons!exptitus6_sp.ff" ^
 --base-folder "%OAT_BASE%" ^
 --asset-search-path "%cd%" ^
---source-search-path "%cd%\zone_source\includes" ^
---output-folder "%cd%\zone_source\includes" weapons!exptitus6_sp
+--source-search-path "%cd%\zone_source" ^
+--output-folder "%cd%\zone_source\includes" includes\weapons!exptitus6_sp
 
 if %ERRORLEVEL% NEQ 0 pause
 
@@ -68,8 +68,8 @@ if %ERRORLEVEL% NEQ 0 pause
 --load "%OAT_GAME%\zone\all\code_post_gfx.ff" ^
 --base-folder "%OAT_BASE%" ^
 --asset-search-path "%cd%" ^
---source-search-path "%cd%\zone_source\includes" ^
---output-folder "%cd%\zone_source\includes" code_post_gfx
+--source-search-path "%cd%\zone_source" ^
+--output-folder "%cd%\zone_source\includes" includes\code_post_gfx
 
 if %ERRORLEVEL% NEQ 0 pause
 
@@ -78,8 +78,8 @@ if %ERRORLEVEL% NEQ 0 pause
 --load "%OAT_GAME%\zone\all\frontend.ff" ^
 --base-folder "%OAT_BASE%" ^
 --asset-search-path "%cd%" ^
---source-search-path "%cd%\zone_source\includes" ^
---output-folder "%cd%\zone_source\includes" frontend
+--source-search-path "%cd%\zone_source" ^
+--output-folder "%cd%\zone_source\includes" includes\frontend
 
 if %ERRORLEVEL% NEQ 0 pause
 
@@ -87,8 +87,8 @@ if %ERRORLEVEL% NEQ 0 pause
 --load "%OAT_GAME%\zone\all\so_cmp_afghanistan.ff" ^
 --base-folder "%OAT_BASE%" ^
 --asset-search-path "%cd%" ^
---source-search-path "%cd%\zone_source\includes" ^
---output-folder "%cd%\zone_source\includes" afghanistan
+--source-search-path "%cd%\zone_source" ^
+--output-folder "%cd%\zone_source\includes" includes\afghanistan
 
 if %ERRORLEVEL% NEQ 0 pause
 
@@ -99,8 +99,8 @@ if %ERRORLEVEL% NEQ 0 pause
 --load "%OAT_GAME%\zone\all\common_mp.ff" ^
 --base-folder "%OAT_BASE%" ^
 --asset-search-path "%cd%" ^
---source-search-path "%cd%\zone_source\includes" ^
---output-folder "%cd%\zone_source\includes" common_mp
+--source-search-path "%cd%\zone_source" ^
+--output-folder "%cd%\zone_source\includes" includes\common_mp
 
 if %ERRORLEVEL% NEQ 0 pause
 
@@ -108,8 +108,8 @@ if %ERRORLEVEL% NEQ 0 pause
 --load "%OAT_GAME%\zone\all\code_post_gfx_mp.ff" ^
 --base-folder "%OAT_BASE%" ^
 --asset-search-path "%cd%" ^
---source-search-path "%cd%\zone_source\includes" ^
---output-folder "%cd%\zone_source\includes" code_post_gfx_mp
+--source-search-path "%cd%\zone_source" ^
+--output-folder "%cd%\zone_source\includes" includes\code_post_gfx_mp
 
 if %ERRORLEVEL% NEQ 0 pause
 
@@ -117,8 +117,8 @@ if %ERRORLEVEL% NEQ 0 pause
 --load "%OAT_GAME%\zone\english\en_code_post_gfx_mp.ff" ^
 --base-folder "%OAT_BASE%" ^
 --asset-search-path "%cd%" ^
---source-search-path "%cd%\zone_source\includes" ^
---output-folder "%cd%\zone_source\includes" en_code_post_gfx_mp
+--source-search-path "%cd%\zone_source" ^
+--output-folder "%cd%\zone_source\includes" includes\en_code_post_gfx_mp
 
 if %ERRORLEVEL% NEQ 0 pause
 
@@ -128,8 +128,8 @@ if %ERRORLEVEL% NEQ 0 pause
 --load "%OAT_GAME%\zone\all\common_zm.ff" ^
 --base-folder "%OAT_BASE%" ^
 --asset-search-path "%cd%" ^
---source-search-path "%cd%\zone_source\includes" ^
---output-folder "%cd%\zone_source\includes" common_zm
+--source-search-path "%cd%\zone_source" ^
+--output-folder "%cd%\zone_source\includes" includes\common_zm
 
 if %ERRORLEVEL% NEQ 0 pause
 
@@ -138,8 +138,8 @@ if %ERRORLEVEL% NEQ 0 pause
 --load "%OAT_GAME%\zone\all\ui_zm.ff" ^
 --base-folder "%OAT_BASE%" ^
 --asset-search-path "%cd%" ^
---source-search-path "%cd%\zone_source\includes" ^
---output-folder "%cd%\zone_source\includes" ui_zm
+--source-search-path "%cd%\zone_source" ^
+--output-folder "%cd%\zone_source\includes" includes\ui_zm
 
 if %ERRORLEVEL% NEQ 0 pause
 
@@ -149,8 +149,8 @@ if %ERRORLEVEL% NEQ 0 pause
 --load "%OAT_GAME%\zone\all\zm_transit.ff" ^
 --base-folder "%OAT_BASE%" ^
 --asset-search-path "%cd%" ^
---source-search-path "%cd%\zone_source\includes" ^
---output-folder "%cd%\zone_source\includes" zm_transit
+--source-search-path "%cd%\zone_source" ^
+--output-folder "%cd%\zone_source\includes" includes\zm_transit
 
 if %ERRORLEVEL% NEQ 0 pause
 
@@ -160,8 +160,8 @@ if %ERRORLEVEL% NEQ 0 pause
 --load "%OAT_GAME%\zone\all\zm_nuked.ff" ^
 --base-folder "%OAT_BASE%" ^
 --asset-search-path "%cd%" ^
---source-search-path "%cd%\zone_source\includes" ^
---output-folder "%cd%\zone_source\includes" zm_nuked
+--source-search-path "%cd%\zone_source" ^
+--output-folder "%cd%\zone_source\includes" includes\zm_nuked
 
 if %ERRORLEVEL% NEQ 0 pause
 
@@ -171,8 +171,8 @@ if %ERRORLEVEL% NEQ 0 pause
 --load "%OAT_GAME%\zone\all\zm_highrise.ff" ^
 --base-folder "%OAT_BASE%" ^
 --asset-search-path "%cd%" ^
---source-search-path "%cd%\zone_source\includes" ^
---output-folder "%cd%\zone_source\includes" zm_highrise
+--source-search-path "%cd%\zone_source" ^
+--output-folder "%cd%\zone_source\includes" includes\zm_highrise
 
 if %ERRORLEVEL% NEQ 0 pause
 
@@ -183,8 +183,8 @@ if %ERRORLEVEL% NEQ 0 pause
 --load "%OAT_GAME%\zone\all\so_zencounter_zm_prison.ff" ^
 --base-folder "%OAT_BASE%" ^
 --asset-search-path "%cd%" ^
---source-search-path "%cd%\zone_source\includes" ^
---output-folder "%cd%\zone_source\includes" zm_prison
+--source-search-path "%cd%\zone_source" ^
+--output-folder "%cd%\zone_source\includes" includes\zm_prison
 
 if %ERRORLEVEL% NEQ 0 pause
 
@@ -195,8 +195,8 @@ if %ERRORLEVEL% NEQ 0 pause
 --load "%OAT_GAME%\zone\all\so_zencounter_zm_buried.ff" ^
 --base-folder "%OAT_BASE%" ^
 --asset-search-path "%cd%" ^
---source-search-path "%cd%\zone_source\includes" ^
---output-folder "%cd%\zone_source\includes" zm_buried
+--source-search-path "%cd%\zone_source" ^
+--output-folder "%cd%\zone_source\includes" includes\zm_buried
 
 if %ERRORLEVEL% NEQ 0 pause
 
@@ -206,8 +206,8 @@ if %ERRORLEVEL% NEQ 0 pause
 --load "%OAT_GAME%\zone\all\zm_tomb.ff" ^
 --base-folder "%OAT_BASE%" ^
 --asset-search-path "%cd%" ^
---source-search-path "%cd%\zone_source\includes" ^
---output-folder "%cd%\zone_source\includes" zm_tomb
+--source-search-path "%cd%\zone_source" ^
+--output-folder "%cd%\zone_source\includes" includes\zm_tomb
 
 if %ERRORLEVEL% NEQ 0 pause
 
