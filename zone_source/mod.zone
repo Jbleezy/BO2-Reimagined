@@ -6,9 +6,7 @@
 >level.ipak_read,mp
 >level.ipak_read,sp
 
-include,dependencies/camo_dragon_materials
-include,dependencies/camo_zmb_dlc2_materials
-include,dependencies/camo_zmb_dlc4_materials
+include,dependencies/camo_materials
 
 include,includes/weapons!metalstorm_mms_sp
 include,includes/weapons!exptitus6_sp
