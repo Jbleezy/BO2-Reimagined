@@ -289,7 +289,11 @@ get_progress_rate(n_players_in_zone, n_players_total)
 
 handle_generator_capture()
 {
-	level setclientfield("zc_change_progress_bar_color", 0);
+	if (self.n_objective_index == 2)
+	{
+		level setclientfield("zc_change_progress_bar_color", 1);
+	}
+
 	self show_zone_capture_objective(0);
 
 	if (self.n_current_progress == 100)
@@ -404,6 +408,8 @@ recapture_round_start()
 	s_recapture_target_zone = undefined;
 	capture_event_handle_ai_limit();
 	recapture_round_audio_starts();
+
+	level setclientfield("zc_change_progress_bar_color", 1);
 
 	while (!flag("recapture_zombies_cleared") && get_captured_zone_count() > 0)
 	{
