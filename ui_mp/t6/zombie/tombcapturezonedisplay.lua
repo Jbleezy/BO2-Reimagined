@@ -137,23 +137,31 @@ end
 
 CoD.TCZWaypoint.update = function(f4_arg0, f4_arg1)
 	local f4_local0 = Engine.GetObjectiveGamemodeFlags(f4_arg1.controller, f4_arg0.index)
+
 	if f4_local0 > 0 then
 		f4_arg0.number:setImage(CoD.TCZWaypoint.NumberGlowMaterialsTable[f4_local0].shadowImage)
 		f4_arg0.numberGlow:setImage(CoD.TCZWaypoint.NumberGlowMaterialsTable[f4_local0].glowImage)
 	end
+
+	local isZombieCaptureWaypoint = false
+
 	if f4_arg1.objId then
 		local f4_local1 = Engine.GetObjectiveName(f4_arg1.controller, f4_arg1.objId)
+
 		if string.sub(f4_local1, 0, 19) == "ZM_TOMB_OBJ_CAPTURE" then
 			f4_arg0.numberGlow:setAlpha(1)
 		elseif string.sub(f4_local1, 0, 21) == "ZM_TOMB_OBJ_RECAPTURE" then
 			f4_arg0.numberGlow:setAlpha(0)
 		end
+
+		isZombieCaptureWaypoint = f4_local1 == "ZM_TOMB_OBJ_CAPTURE_2"
 	end
+
 	CoD.TCZWaypoint.super.update(f4_arg0, f4_arg1)
 
 	local teamID = Engine.GetTeamID(f4_arg1.controller, Engine.GetPredictedClientNum(f4_arg1.controller))
 	local isTeamUsing = Engine.ObjectiveIsTeamUsing(f4_arg1.controller, f4_arg0.index, teamID)
-	local isAnyOtherTeamUsing = f4_arg0.isAnyOtherTeamUsing == 1
+	local isAnyOtherTeamUsing = isZombieCaptureWaypoint and f4_arg0.isAnyOtherTeamUsing == 1
 	local isBothTeamsUsing = isTeamUsing and isAnyOtherTeamUsing
 	local isNoTeamUsing = not isTeamUsing and not isAnyOtherTeamUsing
 
