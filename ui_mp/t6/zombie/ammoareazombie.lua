@@ -705,7 +705,7 @@ CoD.AmmoAreaZombie.UpdateWeaponSelect = function(f13_arg0, f13_arg1)
 	end
 
 	if altWeaponName ~= nil then
-		f13_arg0.weaponText:setText(altWeaponName)
+		f13_arg0.weaponText:setText(f13_arg0.weaponLabelName .. " " .. altWeaponName)
 	else
 		f13_arg0.weaponText:setText(f13_arg0.weaponLabelName)
 	end

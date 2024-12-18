@@ -2775,7 +2775,15 @@ alt_weapon_name_hud()
 				continue;
 			}
 
-			alt_weapon_names += getweapondisplayname(primary) + ":" + getweapondisplayname(weaponaltweaponname(primary)) + ";";
+			weapon_name = getweapondisplayname(primary);
+			alt_weapon_name = getweapondisplayname(weaponaltweaponname(primary));
+
+			if (weapon_name == alt_weapon_name)
+			{
+				continue;
+			}
+
+			alt_weapon_names += weapon_name + ":" + alt_weapon_name + ";";
 		}
 
 		if (prev_alt_weapon_names != alt_weapon_names)
