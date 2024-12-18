@@ -1,7 +1,0 @@
->game,T6
->type,fastfile
->name,camo_materials
-
-include,dependencies/camo_zmb_dlc4_materials
-include,dependencies/camo_zmb_dlc2_materials
-include,dependencies/camo_mp_materials

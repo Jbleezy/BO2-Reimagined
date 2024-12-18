@@ -6,8 +6,6 @@
 >level.ipak_read,mp
 >level.ipak_read,sp
 
-include,dependencies/camo_materials
-
 include,includes/weapons!metalstorm_mms_sp
 include,includes/weapons!exptitus6_sp
 include,includes/code_post_gfx
