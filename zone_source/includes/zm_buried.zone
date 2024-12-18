@@ -1033,12 +1033,6 @@ material,gfx_fxt_bio_insect_gen
 fx,maps/zombie/fx_zmb_meat_stink_camera
 fx,maps/zombie/fx_zmb_meat_stink_torso_os
 fx,maps/zombie/fx_zmb_meat_stink_torso
-footsteptable,default_1st_person
-footsteptable,default_3rd_person
-footsteptable,default_1st_person_quiet
-footsteptable,default_3rd_person_quiet
-footsteptable,default_3rd_person_loud
-footsteptable,default_ai
 footsteptable,fly_step_ghost
 
 xmodel,zombie_vending_doubletap2

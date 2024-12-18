@@ -103,12 +103,6 @@ material,gfx_fxt_env_lightning_bolt_streak
 material,gfx_fxt_env_electric_arc1_add
 material,gfx_fxt_env_electric_arc2_add
 fx,maps/zombie_alcatraz/fx_alcatraz_skull_elec
-footsteptable,default_1st_person
-footsteptable,default_3rd_person
-footsteptable,default_1st_person_quiet
-footsteptable,default_3rd_person_quiet
-footsteptable,default_3rd_person_loud
-footsteptable,default_ai
 
 weapon,knife_zm_alcatraz
 weapon,spoon_zm_alcatraz
