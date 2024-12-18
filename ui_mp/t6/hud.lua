@@ -241,6 +241,7 @@ function HUD_FirstSnapshot(HUDWidget, ClientInstance)
 	else
 		HUD_FirstSnapshot_Zombie(HUDWidget, ClientInstance)
 	end
+	HUDWidget:addElement(LUI.createMenu.DeadSpectate(ClientInstance.controller))
 	Engine.ForceHUDRefresh(ClientInstance.controller)
 end
 
@@ -274,7 +275,6 @@ function HUD_FirstSnapshot_Common(HUDWidget, ClientInstance)
 		name = "update_scoreboard",
 		controller = ClientInstance.controller,
 	}, false)
-	HUDWidget:addElement(LUI.createMenu.DeadSpectate(ClientInstance.controller))
 end
 
 function HUD_FirstSnapshot_Multiplayer(HUDWidget, ClientInstance)
