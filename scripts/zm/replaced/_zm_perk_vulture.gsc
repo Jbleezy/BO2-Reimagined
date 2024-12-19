@@ -64,6 +64,8 @@ vulture_perk_ir_think()
 		{
 			prev_val = val;
 
+			wait 0.05;
+
 			if (val)
 			{
 				self clientnotify("vulture_perk_ir_enable");
@@ -72,9 +74,11 @@ vulture_perk_ir_think()
 			{
 				self clientnotify("vulture_perk_ir_disable");
 			}
+
+			continue;
 		}
 
-		wait 0.1;
+		wait 0.05;
 	}
 }
 
