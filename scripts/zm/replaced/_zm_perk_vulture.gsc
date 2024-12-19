@@ -100,12 +100,29 @@ _vulture_perk_think()
 	self endon("vulture_perk_lost");
 
 	prev_speed = 0;
+	next_time = gettime();
 
 	while (true)
 	{
 		b_player_in_zombie_stink = 0;
 		speed = self scripts\zm\_zm_reimagined::get_player_speed();
 		slowing_down = (speed - prev_speed) <= -10;
+		prev_speed = speed;
+		time = gettime();
+
+		if (time < next_time)
+		{
+			wait 0.05;
+			continue;
+		}
+
+		if (speed != 0 && !slowing_down)
+		{
+			wait 0.05;
+			continue;
+		}
+
+		next_time = time + randomintrange(250, 500);
 
 		if (!isdefined(level.perk_vulture.zombie_stink_array))
 		{
@@ -118,33 +135,11 @@ _vulture_perk_think()
 
 			if (a_close_points.size > 0)
 			{
-				b_player_in_zombie_stink = self _is_player_in_zombie_stink(a_close_points, speed, slowing_down);
+				b_player_in_zombie_stink = self _is_player_in_zombie_stink(a_close_points);
 			}
 		}
 
-		prev_speed = speed;
-
 		self _handle_zombie_stink(b_player_in_zombie_stink);
-		wait(randomfloatrange(0.25, 0.5));
+		wait 0.05;
 	}
-}
-
-_is_player_in_zombie_stink(a_points, speed, slowing_down)
-{
-	if (speed != 0 && !slowing_down)
-	{
-		return 0;
-	}
-
-	b_is_in_stink = 0;
-
-	for (i = 0; i < a_points.size; i++)
-	{
-		if (distancesquared(a_points[i].origin, self.origin) < 4900)
-		{
-			b_is_in_stink = 1;
-		}
-	}
-
-	return b_is_in_stink;
 }
