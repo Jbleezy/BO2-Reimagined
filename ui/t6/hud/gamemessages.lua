@@ -20,7 +20,7 @@ CoD.GameMessages.AddObituaryWindow = function(HUDWidget, MenuBase)
 	ObituaryWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_KILLCAM, CoD.GameMessages.ObituaryWindowUpdateVisibility)
 	ObituaryWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_SCOPED, CoD.GameMessages.ObituaryWindowUpdateVisibility)
 	ObituaryWidget:registerEventHandler("hud_update_refresh", CoD.GameMessages.ObituaryWindowUpdateVisibility)
-	HUDWidget.safeArea:addElement(ObituaryWidget)
+	HUDWidget:addElement(ObituaryWidget)
 end
 
 CoD.GameMessages.BoldGameMessagesWindowUpdateVisibility = function(BoldGameMessageWidget, ClientInstance)
@@ -41,5 +41,5 @@ CoD.GameMessages.BoldGameMessagesWindow = function(HUDWidget, MenuBase)
 	BoldGameMessageWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN, CoD.GameMessages.BoldGameMessagesWindowUpdateVisibility)
 	BoldGameMessageWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_KILLCAM, CoD.GameMessages.BoldGameMessagesWindowUpdateVisibility)
 	BoldGameMessageWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM, CoD.GameMessages.BoldGameMessagesWindowUpdateVisibility)
-	HUDWidget.safeArea:addElement(BoldGameMessageWidget)
+	HUDWidget:addElement(BoldGameMessageWidget)
 end
