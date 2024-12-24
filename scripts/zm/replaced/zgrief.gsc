@@ -258,12 +258,9 @@ meat_stink(who, owner)
 
 	if (level.scr_zm_ui_gametype_obj == "zmeat")
 	{
-		if (isDefined(who.head_icon))
-		{
-			who.head_icon.alpha = 0;
-		}
-
 		who thread [[level.show_grief_hud_msg_func]](&"ZOMBIE_PLAYER_HAS_MEAT");
+
+		objective_setgamemodeflags(self.obj_ind, 3);
 	}
 
 	players = get_players();

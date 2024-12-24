@@ -68,12 +68,9 @@ item_meat_on_spawn_retrieve_trigger(watcher, player, weaponname)
 
 	if (level.scr_zm_ui_gametype_obj == "zmeat")
 	{
-		if (isDefined(player.head_icon))
-		{
-			player.head_icon.alpha = 1;
-		}
-
 		player thread [[level.show_grief_hud_msg_func]](&"");
+
+		objective_setgamemodeflags(player.obj_ind, 0);
 	}
 
 	players = get_players();

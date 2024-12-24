@@ -177,6 +177,7 @@
 
 ## Settings
 * Added options to enable or disable new HUD elements
+* Added option to enable or disable teammate head icons
 * Added option to enable or disable alt action slot area
 * Added option to enable or disable fog
 * Added option in private match lobby to enable or disable character dialog
@@ -198,9 +199,14 @@
 * Added round chalk images from Mob of the Dead to all maps
 * Added proper game mode and map name to scoreboard
 * Added icons on scoreboard when player is downed, bled out, in Who's Who mode, in afterlife, or has the meat
+* Added teammate head icons
 * Decreased waypoint size
 * Increased waypoint offset from top and bottom of screen
-* Revive waypoint no longer shows at incorrect position when it first appears
+* Added new revive waypoint icon
+* All waypoint arrows move when offscreen
+* All waypoints fade when targeted
+* Revive waypoints move to center of screen for the player who is reviving
+* Revive waypoints no longer show at incorrect position when they first appear
 * Bleed out bar displayed when downed
 * Revive bar displayed for downed player
 * Changed revive bar color to blue
@@ -1427,14 +1433,14 @@
 * Nuke: enemy players lose 400 points
 * Nuke: deals 75 damage to all alive enemy players
 * Nuke: makes all downed enemy players bleed out
-* Added new CDC and CIA revive icons
-* Added teammate head icons
+* Added new CDC and CIA revive waypoint icons
 * Added kill feed (includes downs, revives, and bleed outs)
 * Added player kills on scoreboard (replaces headshots)
 * Scoreboard always shows your team on top
 * Spawn points are assigned to a team
 * Added limited weapon check for saved weapons on bleed out
 * Properly restores dual wield weapon left clip ammo, alt weapon ammo, and equipment on respawn
+* Player offscreen waypoint arrow only shows for your team
 * Can only spectate your team
 * Added option to change teams in game
 

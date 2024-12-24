@@ -9,6 +9,8 @@ revive_do_revive(playerbeingrevived, revivergun)
 
 	self thread revive_check_for_weapon_change();
 
+	objective_setplayerusing(playerbeingrevived.obj_ind, self);
+
 	playerbeingrevived_player = undefined;
 	beingrevivedprogressbar_y = 0;
 
@@ -198,6 +200,8 @@ revive_do_revive(playerbeingrevived, revivergun)
 	{
 		playerbeingrevived thread maps\mp\zombies\_zm_laststand::checkforbleedout(self);
 	}
+
+	objective_clearplayerusing(playerbeingrevived.obj_ind, self);
 
 	return revived;
 }

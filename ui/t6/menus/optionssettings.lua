@@ -671,11 +671,13 @@ CoD.OptionsSettings.CreateGameTab = function(GameTab, LocalClientIndex)
 
 	GameTabButtonList:addSpacer(CoD.CoD9Button.Height / 2)
 
+	local HeadIconSelector = GameTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_HEAD_ICONS_CAPS"), "ui_hud_head_icons")
+	HeadIconSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
+	HeadIconSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_ENABLED_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
+
 	local AltActionSlotAreaSelector = GameTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_ALT_ACTION_SLOT_AREA_CAPS"), "ui_hud_alt_action_slot_area")
 	AltActionSlotAreaSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChangedUpdateActionSlots)
 	AltActionSlotAreaSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_ENABLED_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChangedUpdateActionSlots)
-
-	GameTabButtonList:addSpacer(CoD.CoD9Button.Height / 2)
 
 	local FogSelector = GameTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_FOG_CAPS"), "r_fog_settings")
 	FogSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChangedSendMenuResponse)

@@ -306,15 +306,12 @@ stage_final()
 		p_weasel.maxhealth = a_player_team.size * 2000;
 		p_weasel.health = p_weasel.maxhealth;
 
-		if (isdefined(p_weasel.head_icon))
-		{
-			p_weasel.head_icon.alpha = 0;
-		}
-
 		foreach (player in a_player_team)
 		{
 			player.maxhealth = 2000;
 			player.health = player.maxhealth;
+
+			player luinotifyevent(&"hud_update_other_player_team_change");
 		}
 
 		level thread final_showdown_track_weasel(p_weasel);
@@ -398,14 +395,11 @@ stage_final()
 			player cleanup_suicide_hud();
 		}
 
-		if (isdefined(player.head_icon))
-		{
-			player.head_icon.alpha = 0;
-		}
-
 		if (isdefined(player))
 		{
 			player ghost();
+
+			objective_setgamemodeflags(player.obj_ind, 2);
 		}
 	}
 
@@ -415,6 +409,8 @@ stage_final()
 		p_weasel.pers["team"] = "allies";
 		p_weasel.sessionteam = "allies";
 		p_weasel ghost();
+
+		objective_setgamemodeflags(p_weasel.obj_ind, 2);
 	}
 
 	level notify("end_game");
@@ -423,12 +419,6 @@ stage_final()
 final_battle_vo(p_weasel, a_player_team)
 {
 	level endon("showdown_over");
-
-	foreach (player in a_player_team)
-	{
-		level thread final_showdown_create_icon(player, p_weasel);
-		level thread final_showdown_create_icon(p_weasel, player);
-	}
 
 	wait 10;
 
@@ -478,32 +468,4 @@ final_battle_vo(p_weasel, a_player_team)
 		player.dontspeak = 0;
 		player setclientfieldtoplayer("isspeaking", 0);
 	}
-}
-
-final_showdown_create_icon(player, enemy)
-{
-	if (!isDefined(enemy.waypoint_origin_ent))
-	{
-		enemy thread scripts\zm\_zm_reimagined::player_waypoint_origin_ent_create();
-	}
-
-	waypoint_origin_ent = enemy.waypoint_origin_ent;
-
-	hud_elem = newclienthudelem(player);
-	hud_elem.alpha = 1;
-	hud_elem.hidewheninmenu = 1;
-	hud_elem.hidewheninscope = 1;
-	hud_elem.color = (1, 0, 0);
-	hud_elem setwaypoint(1, "waypoint_kill_red");
-	hud_elem settargetent(waypoint_origin_ent);
-
-	waittill_any_ents(level, "end_game", enemy, "disconnect");
-
-	if (isDefined(waypoint_origin_ent))
-	{
-		waypoint_origin_ent unlink();
-		waypoint_origin_ent delete();
-	}
-
-	hud_elem destroy();
 }

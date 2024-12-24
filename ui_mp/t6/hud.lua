@@ -365,6 +365,13 @@ function HUD_FirstSnapshot_Zombie(HUDWidget, ClientInstance)
 	Widget:setTopBottom(true, true, 0, 0)
 	HUDWidget:addElement(Widget)
 
+	require("T6.HUD.gametypes.GametypeBase")
+	require("T6.Zombie.HudReimaginedWaypoint")
+	Widget:addElement(LUI.createMenu.PlayerHeadIconArea(ClientInstance.controller))
+	Widget:addElement(LUI.createMenu.PlayerAliveWaypointArea(ClientInstance.controller))
+	Widget:addElement(LUI.createMenu.PlayerDownWaypointArea(ClientInstance.controller))
+	Widget:addElement(LUI.createMenu.PlayerTargetWaypointArea(ClientInstance.controller))
+
 	if CoD.Zombie.IsDLCMap(CoD.Zombie.DLC3Maps) then
 		Widget:registerEventHandler("time_bomb_hud_toggle", HUD_ToggleZombieHudContainer)
 	end
@@ -382,7 +389,6 @@ function HUD_FirstSnapshot_Zombie(HUDWidget, ClientInstance)
 		if CoD.Zombie.GAMETYPE_ZCLASSIC == Dvar.ui_gametype:get() then
 			require("T6.Zombie.HudCraftablesTombZombie")
 			Widget:addElement(LUI.createMenu.CraftablesTombArea(ClientInstance.controller))
-			require("T6.HUD.gametypes.GametypeBase")
 			require("T6.Zombie.TombCaptureZoneDisplay")
 			Widget:addElement(LUI.createMenu.TombCaptureZoneDisplay(ClientInstance.controller))
 			if not CoD.Zombie.LocalSplitscreenMultiplePlayers then

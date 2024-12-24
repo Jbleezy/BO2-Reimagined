@@ -185,6 +185,7 @@ init()
 	level.player_too_many_players_check = 0;
 	level.pregame_minplayers = getDvarInt("party_minplayers");
 	level.player_starting_health = 150;
+	level.player_obj_inds = array(0, 0, 0, 0, 0, 0, 0, 0);
 
 	if (!isdefined(level.item_meat_name))
 	{
@@ -192,6 +193,8 @@ init()
 	}
 
 	set_dvars();
+
+	add_objectives();
 
 	setscoreboardcolumns_gametype();
 
@@ -228,12 +231,22 @@ precache_menus()
 
 precache_strings()
 {
+	precacheString(&"OBJ_PLAYER_1");
+	precacheString(&"OBJ_PLAYER_2");
+	precacheString(&"OBJ_PLAYER_3");
+	precacheString(&"OBJ_PLAYER_4");
+	precacheString(&"OBJ_PLAYER_5");
+	precacheString(&"OBJ_PLAYER_6");
+	precacheString(&"OBJ_PLAYER_7");
+	precacheString(&"OBJ_PLAYER_8");
+
 	precacheString(&"get_dvar");
 	precacheString(&"r_fog_settings");
 
 	precacheString(&"hud_update_rounds_played");
 	precacheString(&"hud_update_overheat");
 	precacheString(&"hud_update_perk_order");
+	precacheString(&"hud_update_other_player_team_change");
 
 	precacheString(&"hud_update_enemy_counter");
 	precacheString(&"hud_update_total_timer");
@@ -474,7 +487,7 @@ on_player_connect()
 		player thread on_player_spectate_change();
 		player thread on_player_disconnect();
 
-		player thread head_icon();
+		player thread player_waypoint();
 		player thread grenade_fire_watcher();
 		player thread create_equipment_turret_watcher();
 		player thread sndmeleewpnsound();
@@ -532,10 +545,7 @@ on_player_spawned()
 			self.statusicon = "";
 		}
 
-		if (isDefined(self.head_icon))
-		{
-			self.head_icon.alpha = 1;
-		}
+		objective_setgamemodeflags(self.obj_ind, 0);
 
 		self set_perks();
 		self set_favorite_wall_weapons();
@@ -560,10 +570,7 @@ on_player_downed()
 		self.statusicon = "waypoint_revive";
 		self.health = self.maxhealth;
 
-		if (isDefined(self.head_icon))
-		{
-			self.head_icon.alpha = 0;
-		}
+		self thread player_down_waypoint_think();
 	}
 }
 
@@ -585,10 +592,7 @@ on_player_revived()
 			self.statusicon = "";
 		}
 
-		if (isDefined(self.head_icon))
-		{
-			self.head_icon.alpha = 1;
-		}
+		objective_setgamemodeflags(self.obj_ind, 0);
 	}
 }
 
@@ -608,11 +612,6 @@ on_player_fake_revive()
 		else if (is_true(level.zombiemode_using_afterlife))
 		{
 			self.statusicon = "waypoint_revive_afterlife";
-
-			if (isDefined(self.head_icon))
-			{
-				self.head_icon.alpha = 0;
-			}
 		}
 	}
 }
@@ -628,10 +627,7 @@ on_player_spectate()
 
 		self.statusicon = "hud_status_dead";
 
-		if (isDefined(self.head_icon))
-		{
-			self.head_icon.alpha = 0;
-		}
+		objective_setgamemodeflags(self.obj_ind, 2);
 	}
 }
 
@@ -652,16 +648,9 @@ on_player_disconnect()
 {
 	self waittill("disconnect");
 
-	if (isDefined(self.waypoint_origin_ent))
-	{
-		self.waypoint_origin_ent unlink();
-		self.waypoint_origin_ent delete();
-	}
-
-	if (isDefined(self.head_icon))
-	{
-		self.head_icon destroy();
-	}
+	objective_state(self.obj_ind, "invisible");
+	objective_clearentity(self.obj_ind, self);
+	objective_setgamemodeflags(self.obj_ind, 0);
 }
 
 on_intermission()
@@ -730,6 +719,18 @@ post_init()
 
 	level thread buildbuildables();
 	level thread buildcraftables();
+}
+
+add_objectives()
+{
+	objective_add(0, "invisible", (0, 0, 0), &"OBJ_PLAYER_1");
+	objective_add(1, "invisible", (0, 0, 0), &"OBJ_PLAYER_2");
+	objective_add(2, "invisible", (0, 0, 0), &"OBJ_PLAYER_3");
+	objective_add(3, "invisible", (0, 0, 0), &"OBJ_PLAYER_4");
+	objective_add(4, "invisible", (0, 0, 0), &"OBJ_PLAYER_5");
+	objective_add(5, "invisible", (0, 0, 0), &"OBJ_PLAYER_6");
+	objective_add(6, "invisible", (0, 0, 0), &"OBJ_PLAYER_7");
+	objective_add(7, "invisible", (0, 0, 0), &"OBJ_PLAYER_8");
 }
 
 set_dvars()
@@ -843,6 +844,7 @@ set_client_dvars()
 	    "tu14_preventStartingChargeShotWhileFiring", getDvar("tu14_preventStartingChargeShotWhileFiring"));
 
 	self setClientDvars(
+	    "cg_drawFriendlyIndicators", 0,
 	    "cg_friendlyNameFadeIn", 0,
 	    "cg_friendlyNameFadeOut", 250,
 	    "cg_enemyNameFadeIn", 0,
@@ -859,12 +861,10 @@ set_client_dvars()
 
 	self setClientDvars(
 	    "aim_automelee_enabled", 0,
-	    "waypointIconHeight", 24,
-	    "waypointIconWidth", 24,
-	    "waypointOffscreenPadTop", 40,
-	    "waypointOffscreenPadBottom", 40,
-	    "waypointPlayerOffsetStand", 30,
-	    "waypointPlayerOffsetCrouch", 30,
+	    "waypointOffscreenPadTop", 100,
+	    "waypointOffscreenPadBottom", 50,
+	    "waypointOffscreenPadLeft", 30,
+	    "waypointOffscreenPadRight", 30,
 	    "waypointTimeFade", 250,
 	    "weaponAltWeaponNames", "",
 	    "additionalPrimaryWeaponName", "");
@@ -2034,20 +2034,146 @@ wallbuy_cost_changes()
 	}
 }
 
-head_icon()
+player_waypoint()
 {
 	self endon("disconnect");
 
-	self waittill_next_snapshot(1);
+	self.obj_ind = get_free_player_obj_ind();
 
-	if (!isDefined(self.waypoint_origin_ent))
-	{
-		self thread player_waypoint_origin_ent_create();
-	}
+	self waittill_next_snapshot(1);
 
 	flag_wait("hud_visible");
 
-	self.head_icon = scripts\zm\replaced\_zm_gametype::head_icon_create();
+	objective_state(self.obj_ind, "active");
+	objective_onentity(self.obj_ind, self);
+
+	self thread player_waypoint_height_offset_think();
+}
+
+get_free_player_obj_ind()
+{
+	ind = 0;
+
+	for (i = 0; i < level.player_obj_inds.size; i++)
+	{
+		if (level.player_obj_inds[i] == 0)
+		{
+			ind = i;
+			break;
+		}
+	}
+
+	level.player_obj_inds[ind] = 1;
+	return ind;
+}
+
+player_waypoint_height_offset_think()
+{
+	self endon("disconnect");
+
+	prev_stance = "";
+	prev_in_last_stand = false;
+	self.obj_height_offset = getdvarint("waypointPlayerOffsetStand");
+
+	while (1)
+	{
+		stance = self getstance();
+		in_last_stand = self maps\mp\zombies\_zm_laststand::player_is_in_laststand();
+
+		if (!self isonground() && !is_true(self.divetoprone))
+		{
+			stance = "stand";
+		}
+		else if (prev_in_last_stand && !in_last_stand)
+		{
+			stance = "stand";
+		}
+
+		prev_in_last_stand = in_last_stand;
+
+		if (prev_stance == stance)
+		{
+			wait 0.05;
+			continue;
+		}
+
+		prev_stance = stance;
+		height_offset = getdvarint("waypointPlayerOffsetStand");
+
+		if (stance == "crouch")
+		{
+			height_offset = getdvarint("waypointPlayerOffsetCrouch");
+		}
+		else if (stance == "prone")
+		{
+			height_offset = getdvarint("waypointPlayerOffsetProne");
+		}
+
+		self thread player_waypoint_height_offset_move_over_time(height_offset);
+
+		wait 0.05;
+	}
+}
+
+player_waypoint_height_offset_move_over_time(height_offset)
+{
+	self notify("player_waypoint_height_offset_move_over_time");
+	self endon("player_waypoint_height_offset_move_over_time");
+	self endon("disconnect");
+
+	move_amount = 5;
+	move_down = 0;
+
+	if (self.obj_height_offset > height_offset)
+	{
+		move_amount *= -1;
+		move_down = 1;
+	}
+
+	while (1)
+	{
+		self.obj_height_offset += move_amount;
+
+		if (move_down && self.obj_height_offset < height_offset)
+		{
+			self.obj_height_offset = height_offset;
+		}
+		else if (!move_down && self.obj_height_offset > height_offset)
+		{
+			self.obj_height_offset = height_offset;
+		}
+
+		objective_position(self.obj_ind, (0, 0, self.obj_height_offset));
+
+		if (self.obj_height_offset == height_offset)
+		{
+			break;
+		}
+
+		wait 0.05;
+	}
+}
+
+player_down_waypoint_think()
+{
+	self endon("disconnect");
+	self endon("player_revived");
+	self endon("spawned_player");
+	self endon("bled_out");
+	self endon("player_suicide");
+	self endon("spawned_spectator");
+
+	objective_setgamemodeflags(self.obj_ind, 1);
+
+	start_time = gettime();
+	bleedout_time = getdvarint("player_lastStandBleedoutTime") * 1000;
+
+	while (self maps\mp\zombies\_zm_laststand::player_is_in_laststand())
+	{
+		objective_setprogress(self.obj_ind, (gettime() - start_time) / bleedout_time);
+
+		wait 0.05;
+	}
 }
 
 grenade_fire_watcher()
@@ -3099,57 +3225,6 @@ zone_changes()
 		// Lower Orange Highrise debris
 		level.zones["zone_orange_level3a"].adjacent_zones["zone_orange_level3b"].is_connected = 0;
 		level.zones["zone_orange_level3b"].adjacent_zones["zone_orange_level3a"].is_connected = 0;
-	}
-}
-
-player_waypoint_origin_ent_create()
-{
-	self endon("disconnect");
-
-	self.waypoint_origin_ent = spawn("script_model", self.origin);
-	self.waypoint_origin_ent setmodel("tag_origin");
-
-	prev_stance = "";
-	prev_in_last_stand = false;
-
-	while (isdefined(self.waypoint_origin_ent))
-	{
-		stance = self getstance();
-		in_last_stand = self maps\mp\zombies\_zm_laststand::player_is_in_laststand();
-
-		if (!self isonground() && !is_true(self.divetoprone))
-		{
-			stance = "stand";
-		}
-		else if (prev_in_last_stand && !in_last_stand)
-		{
-			stance = "stand";
-		}
-
-		if (prev_stance == stance)
-		{
-			wait 0.05;
-			continue;
-		}
-
-		prev_stance = stance;
-		prev_in_last_stand = in_last_stand;
-		height_offset = 74;
-
-		if (stance == "crouch")
-		{
-			height_offset = 56;
-		}
-		else if (stance == "prone")
-		{
-			height_offset = 30;
-		}
-
-		self.waypoint_origin_ent unlink();
-		self.waypoint_origin_ent.origin = self.origin + (0, 0, height_offset);
-		self.waypoint_origin_ent linkto(self);
-
-		wait 0.05;
 	}
 }
 

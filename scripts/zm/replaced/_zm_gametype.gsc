@@ -480,6 +480,16 @@ set_team(team)
 		self.characterindex = 1;
 	}
 
+	players = get_players();
+
+	foreach (player in players)
+	{
+		if (player != self)
+		{
+			player luinotifyevent(&"hud_update_other_player_team_change");
+		}
+	}
+
 	self [[level.givecustomcharacters]]();
 
 	self.kills = 0;
@@ -489,13 +499,6 @@ set_team(team)
 	self.killsconfirmed = 0;
 	self.killsdenied = 0;
 	self.captures = 0;
-
-	if (isDefined(self.head_icon))
-	{
-		self.head_icon destroy();
-
-		self.head_icon = self head_icon_create();
-	}
 
 	if (level.scr_zm_ui_gametype_obj == "zsnr" && flag("initial_blackscreen_passed") && !isdefined(level.gamemodulewinningteam))
 	{
@@ -507,45 +510,4 @@ set_team(team)
 			}
 		}
 	}
-}
-
-head_icon_create()
-{
-	faction = self head_icon_get_faction();
-
-	hud = newTeamHudElem(self.team);
-	hud.alignx = "center";
-	hud.aligny = "middle";
-	hud.horzalign = "center";
-	hud.vertalign = "middle";
-	hud.hidewheninmenu = 1;
-	hud setShader(game["icons"][faction], 4, 4);
-	hud setWaypoint(1);
-	hud setTargetEnt(self.waypoint_origin_ent);
-	hud thread scripts\zm\_zm_reimagined::destroy_on_intermission();
-
-	if (is_player_valid(self))
-	{
-		hud.alpha = 1;
-	}
-	else
-	{
-		hud.alpha = 0;
-	}
-
-	return hud;
-}
-
-head_icon_get_faction()
-{
-	if (is_gametype_active("zclassic"))
-	{
-		return level.script;
-	}
-	else if (is_true(level.should_use_cia))
-	{
-		return "axis";
-	}
-
-	return self.team;
 }

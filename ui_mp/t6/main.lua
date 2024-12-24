@@ -195,6 +195,10 @@ CoD.InitArchiveDvars = function()
 		Engine.Exec(nil, "seta ui_hud_containment 1")
 	end
 
+	if UIExpression.DvarString(nil, "ui_hud_head_icons") == "" then
+		Engine.Exec(nil, "seta ui_hud_head_icons 1")
+	end
+
 	if UIExpression.DvarString(nil, "ui_hud_alt_action_slot_area") == "" then
 		Engine.Exec(nil, "seta ui_hud_alt_action_slot_area 0")
 	end

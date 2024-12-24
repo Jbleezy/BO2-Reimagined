@@ -3046,11 +3046,6 @@ meat_think()
 				held_time = getTime();
 			}
 
-			if (!isDefined(level.meat_player.waypoint_origin_ent))
-			{
-				level.meat_player thread scripts\zm\_zm_reimagined::player_waypoint_origin_ent_create();
-			}
-
 			grief_score_hud_set_scoring_team(level.meat_player.team);
 
 			foreach (player in players)

@@ -31,6 +31,8 @@ image,hud_hell_dpad
 image,hud_obit_death_suicide
 image,hud_obit_death_falling
 image,waypoint_revive
+image,waypoint_kill_hellcatraz
+image,offscreenobjectivepointer
 
 material,menu_zm_weapons_ray_gun
 material,menu_zm_weapons_raygun_mark2
@@ -95,6 +97,7 @@ material,hud_zm_num_highrise_line
 material,hud_indicator_blundersplat
 material,hud_obit_down
 material,hud_obit_revive
+material,waypoint_revive_arrow
 
 rawfile,zm/playeranim.script
 
