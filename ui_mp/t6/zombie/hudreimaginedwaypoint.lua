@@ -5,6 +5,7 @@ CoD.PlayerWaypoint.FLAG_DOWN = 1
 CoD.PlayerWaypoint.FLAG_DEAD = 2
 CoD.PlayerWaypoint.FLAG_TARGET = 3
 CoD.PlayerTargetWaypoint = InheritFrom(CoD.ObjectiveWaypoint)
+CoD.PlayerReviveWaypoint = InheritFrom(CoD.ObjectiveWaypoint)
 CoD.PlayerDownWaypoint = InheritFrom(CoD.ObjectiveWaypoint)
 CoD.PlayerAliveWaypoint = InheritFrom(CoD.ObjectiveWaypoint)
 CoD.PlayerHeadIcon = InheritFrom(CoD.ObjectiveWaypoint)
@@ -20,6 +21,35 @@ LUI.createMenu.PlayerTargetWaypointArea = function(LocalClientIndex)
 	safeArea.objectiveTypes.OBJ_PLAYER_6 = CoD.PlayerTargetWaypoint
 	safeArea.objectiveTypes.OBJ_PLAYER_7 = CoD.PlayerTargetWaypoint
 	safeArea.objectiveTypes.OBJ_PLAYER_8 = CoD.PlayerTargetWaypoint
+
+	safeArea:registerEventHandler("hud_update_refresh", CoD.GametypeBase.Refresh)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_VISIBLE, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_PLAYER_IN_AFTERLIFE, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_VEHICLE, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_GUIDED_MISSILE, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_AMMO_COUNTER_HIDE, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_UI_ACTIVE, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_SCOREBOARD_OPEN, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_PLAYER_DEAD, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_SCOPED, CoD.PlayerWaypoint.UpdateVisibility)
+
+	return safeArea
+end
+
+LUI.createMenu.PlayerReviveWaypointArea = function(LocalClientIndex)
+	local safeArea = CoD.GametypeBase.new("PlayerReviveWaypointArea", LocalClientIndex)
+
+	safeArea.objectiveTypes.OBJ_PLAYER_1 = CoD.PlayerReviveWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_2 = CoD.PlayerReviveWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_3 = CoD.PlayerReviveWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_4 = CoD.PlayerReviveWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_5 = CoD.PlayerReviveWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_6 = CoD.PlayerReviveWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_7 = CoD.PlayerReviveWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_8 = CoD.PlayerReviveWaypoint
 
 	safeArea:registerEventHandler("hud_update_refresh", CoD.GametypeBase.Refresh)
 	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_VISIBLE, CoD.PlayerWaypoint.UpdateVisibility)
@@ -123,7 +153,6 @@ CoD.PlayerTargetWaypoint.new = function(Menu, ObjectiveIndex)
 	waypoint.arrowImage:setLeftRight(false, false, -12, 12)
 	waypoint.arrowImage:setTopBottom(false, false, 21, 45)
 	waypoint.edgePointerContainer:setTopBottom(true, true, -15, -15)
-	waypoint.updateProgress = CoD.NullFunction
 	waypoint.updatePlayerUsing = CoD.NullFunction
 
 	local objectiveName = Engine.GetObjectiveName(Menu, ObjectiveIndex)
@@ -174,19 +203,23 @@ end
 CoD.PlayerDownWaypoint.new = function(Menu, ObjectiveIndex)
 	local waypoint = CoD.ObjectiveWaypoint.new(Menu, ObjectiveIndex, 0)
 	waypoint:setClass(CoD.PlayerDownWaypoint)
+	waypoint:setLeftRight(false, false, -waypoint.iconWidth / 2, waypoint.iconWidth / 2)
+	waypoint:setTopBottom(false, true, -waypoint.iconHeight, 0)
 	waypoint.alphaController:setAlpha(0)
 	waypoint.mainImage:setLeftRight(false, false, -24, 24)
 	waypoint.mainImage:setTopBottom(false, false, -39, 9)
 	waypoint.arrowImage:setLeftRight(false, false, -12, 12)
 	waypoint.arrowImage:setTopBottom(false, false, 21, 45)
 	waypoint.edgePointerContainer:setTopBottom(true, true, -15, -15)
-	waypoint.updateProgress = CoD.NullFunction
 	waypoint.updatePlayerUsing = CoD.PlayerDownWaypoint.updatePlayerUsing
 	waypoint.snapToHeight = 80
 
+	local colorState = { red = 1, green = 0, blue = 0 }
+	waypoint.mainImage:registerAnimationState("color", colorState)
+	waypoint.arrowImage:registerAnimationState("color", colorState)
+
 	local objectiveName = Engine.GetObjectiveName(Menu, ObjectiveIndex)
 	waypoint:registerEventHandler("objective_update_" .. objectiveName, waypoint.update)
-	waypoint:registerEventHandler("objective_update_progress", CoD.PlayerDownWaypoint.updateProgress)
 	waypoint:registerEventHandler("hud_update_team_change", waypoint.update)
 	waypoint:registerEventHandler("hud_update_other_player_team_change", waypoint.update)
 
@@ -204,7 +237,6 @@ CoD.PlayerDownWaypoint.update = function(Menu, ClientInstance)
 	local gamemodeGroup = UIExpression.DvarString(nil, "ui_zm_gamemodegroup")
 
 	if objectiveFlags == CoD.PlayerWaypoint.FLAG_DOWN and (clientTeam == objectiveEntityTeam or gamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER) then
-		local objectiveIsPlayerUsing = Engine.ObjectiveIsPlayerUsing(controller, index, clientNum)
 		local reviveIcon = "waypoint_revive"
 
 		if gamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
@@ -217,38 +249,26 @@ CoD.PlayerDownWaypoint.update = function(Menu, ClientInstance)
 			end
 		end
 
-		Menu.alphaController:setAlpha(1)
+		if not Menu.showWaypoint then
+			local player_lastStandBleedoutTime = UIExpression.DvarInt(nil, "player_lastStandBleedoutTime") * 1000
+			Menu.mainImage:setRGB(1, 1, 0)
+			Menu.arrowImage:setRGB(1, 1, 0)
+			Menu.mainImage:animateToState("color", player_lastStandBleedoutTime)
+			Menu.arrowImage:animateToState("color", player_lastStandBleedoutTime)
+		end
+
 		Menu.mainImage:setAlpha(1)
 		Menu.arrowImage:setAlpha(1)
 		Menu.mainImage:setImage(RegisterMaterial(reviveIcon))
 		Menu.arrowImage:setImage(RegisterMaterial("waypoint_revive_arrow"))
 		Menu.zOffset = 30
+		Menu.showWaypoint = true
 	else
 		Menu.alphaController:setAlpha(0)
+		Menu.showWaypoint = nil
 	end
 
 	CoD.PlayerDownWaypoint.super.update(Menu, ClientInstance)
-end
-
-CoD.PlayerDownWaypoint.updateProgress = function(Menu, ClientInstance)
-	local index = Menu.index
-	local player_lastStandBleedoutTime = UIExpression.DvarInt(nil, "player_lastStandBleedoutTime") * 1000
-	local objectiveProgress = 0
-
-	if ClientInstance.data then
-		objectiveProgress = ClientInstance.data[index + 1] / player_lastStandBleedoutTime
-
-		if objectiveProgress > 1 then
-			objectiveProgress = 1
-		end
-	end
-
-	Menu.objectiveProgress = objectiveProgress
-
-	if not Menu.isAnyPlayerUsing then
-		Menu.mainImage:setRGB(1, 1 - objectiveProgress, 0)
-		Menu.arrowImage:setRGB(1, 1 - objectiveProgress, 0)
-	end
 end
 
 CoD.PlayerDownWaypoint.updatePlayerUsing = function(Menu, LocalClientIndex, IsAnyPlayerUsing, Arg4)
@@ -256,11 +276,8 @@ CoD.PlayerDownWaypoint.updatePlayerUsing = function(Menu, LocalClientIndex, IsAn
 	local clientNum = Engine.GetPredictedClientNum(LocalClientIndex)
 	local objectiveIsPlayerUsing = Engine.ObjectiveIsPlayerUsing(LocalClientIndex, index, clientNum)
 
-	Menu.isAnyPlayerUsing = IsAnyPlayerUsing
-
 	if IsAnyPlayerUsing then
-		Menu.mainImage:setRGB(1, 1, 1)
-		Menu.arrowImage:setRGB(1, 1, 1)
+		Menu.alphaController:setAlpha(0)
 
 		if Menu.playerUsing == objectiveIsPlayerUsing then
 			return
@@ -275,8 +292,110 @@ CoD.PlayerDownWaypoint.updatePlayerUsing = function(Menu, LocalClientIndex, IsAn
 		Menu:setTopBottom(false, false, -Menu.largeIconHeight - Menu.snapToHeight, -Menu.snapToHeight)
 		Menu.edgePointerContainer:setAlpha(0)
 	else
-		Menu.mainImage:setRGB(1, 1 - (Menu.objectiveProgress or 0), 0)
-		Menu.arrowImage:setRGB(1, 1 - (Menu.objectiveProgress or 0), 0)
+		if Menu.showWaypoint then
+			Menu.alphaController:setAlpha(1)
+		end
+
+		if Menu.playerUsing == objectiveIsPlayerUsing then
+			return
+		end
+
+		if Menu.playerUsing ~= nil then
+			Menu:beginAnimation("snap_out", Menu.snapToTime, true, true)
+		end
+
+		Menu:setEntityContainerStopUpdating(false)
+		Menu:setLeftRight(false, false, -Menu.iconWidth / 2, Menu.iconWidth / 2)
+		Menu:setTopBottom(false, true, -Menu.iconHeight, 0)
+		Menu.edgePointerContainer:setAlpha(1)
+	end
+
+	Menu.playerUsing = objectiveIsPlayerUsing
+end
+
+CoD.PlayerReviveWaypoint.new = function(Menu, ObjectiveIndex)
+	local waypoint = CoD.ObjectiveWaypoint.new(Menu, ObjectiveIndex, 0)
+	waypoint:setClass(CoD.PlayerReviveWaypoint)
+	waypoint:setLeftRight(false, false, -waypoint.iconWidth / 2, waypoint.iconWidth / 2)
+	waypoint:setTopBottom(false, true, -waypoint.iconHeight, 0)
+	waypoint.alphaController:setAlpha(0)
+	waypoint.mainImage:setLeftRight(false, false, -24, 24)
+	waypoint.mainImage:setTopBottom(false, false, -39, 9)
+	waypoint.arrowImage:setLeftRight(false, false, -12, 12)
+	waypoint.arrowImage:setTopBottom(false, false, 21, 45)
+	waypoint.edgePointerContainer:setTopBottom(true, true, -15, -15)
+	waypoint.updatePlayerUsing = CoD.PlayerReviveWaypoint.updatePlayerUsing
+	waypoint.snapToHeight = 80
+
+	local objectiveName = Engine.GetObjectiveName(Menu, ObjectiveIndex)
+	waypoint:registerEventHandler("objective_update_" .. objectiveName, waypoint.update)
+	waypoint:registerEventHandler("hud_update_team_change", waypoint.update)
+	waypoint:registerEventHandler("hud_update_other_player_team_change", waypoint.update)
+
+	return waypoint
+end
+
+CoD.PlayerReviveWaypoint.update = function(Menu, ClientInstance)
+	local index = Menu.index
+	local controller = ClientInstance.controller
+	local clientNum = Engine.GetPredictedClientNum(controller)
+	local objectiveFlags = Engine.GetObjectiveGamemodeFlags(Menu, index)
+	local objectiveEntity = Engine.GetObjectiveEntity(Menu, index)
+	local clientTeam = Engine.GetTeamID(controller, clientNum)
+	local objectiveEntityTeam = Engine.GetTeamID(controller, objectiveEntity)
+	local gamemodeGroup = UIExpression.DvarString(nil, "ui_zm_gamemodegroup")
+
+	if objectiveFlags == CoD.PlayerWaypoint.FLAG_DOWN and (clientTeam == objectiveEntityTeam or gamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER) then
+		local reviveIcon = "waypoint_revive"
+
+		if gamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
+			local faction = Engine.GetFactionForTeam(objectiveEntityTeam)
+
+			if faction == "cdc" or faction == "cia" then
+				reviveIcon = "waypoint_revive_" .. faction .. "_zm"
+			else
+				reviveIcon = "waypoint_revive_" .. faction
+			end
+		end
+
+		Menu.mainImage:setAlpha(1)
+		Menu.arrowImage:setAlpha(1)
+		Menu.mainImage:setImage(RegisterMaterial(reviveIcon))
+		Menu.arrowImage:setImage(RegisterMaterial("waypoint_revive_arrow"))
+		Menu.zOffset = 30
+		Menu.showWaypoint = true
+	else
+		Menu.alphaController:setAlpha(0)
+		Menu.showWaypoint = nil
+	end
+
+	CoD.PlayerReviveWaypoint.super.update(Menu, ClientInstance)
+end
+
+CoD.PlayerReviveWaypoint.updatePlayerUsing = function(Menu, LocalClientIndex, IsAnyPlayerUsing, Arg4)
+	local index = Menu.index
+	local clientNum = Engine.GetPredictedClientNum(LocalClientIndex)
+	local objectiveIsPlayerUsing = Engine.ObjectiveIsPlayerUsing(LocalClientIndex, index, clientNum)
+
+	if IsAnyPlayerUsing then
+		if Menu.showWaypoint then
+			Menu.alphaController:setAlpha(1)
+		end
+
+		if Menu.playerUsing == objectiveIsPlayerUsing then
+			return
+		end
+
+		if Menu.playerUsing ~= nil then
+			Menu:beginAnimation("snap_in", Menu.snapToTime, true, true)
+		end
+
+		Menu:setEntityContainerStopUpdating(true)
+		Menu:setLeftRight(false, false, -Menu.largeIconWidth / 2, Menu.largeIconWidth / 2)
+		Menu:setTopBottom(false, false, -Menu.largeIconHeight - Menu.snapToHeight, -Menu.snapToHeight)
+		Menu.edgePointerContainer:setAlpha(0)
+	else
+		Menu.alphaController:setAlpha(0)
 
 		if Menu.playerUsing == objectiveIsPlayerUsing then
 			return
@@ -307,7 +426,6 @@ CoD.PlayerAliveWaypoint.new = function(Menu, ObjectiveIndex)
 	waypoint.arrowImage:setLeftRight(false, false, -18, 18)
 	waypoint.arrowImage:setTopBottom(false, false, 24, 42)
 	waypoint.edgePointerContainer:setTopBottom(true, true, -15, -15)
-	waypoint.updateProgress = CoD.NullFunction
 	waypoint.updatePlayerUsing = CoD.NullFunction
 
 	local objectiveName = Engine.GetObjectiveName(Menu, ObjectiveIndex)
@@ -447,7 +565,6 @@ CoD.PlayerHeadIcon.new = function(Menu, ObjectiveIndex)
 	waypoint.arrowImage:setAlpha(0)
 	waypoint.mainImage:setLeftRight(false, false, -18, 18)
 	waypoint.mainImage:setTopBottom(false, false, -18, 18)
-	waypoint.disablePulse = true
 	waypoint.updatePlayerUsing = CoD.NullFunction
 
 	local objectiveName = Engine.GetObjectiveName(Menu, ObjectiveIndex)

@@ -214,8 +214,6 @@ init()
 
 	level thread timer_hud();
 
-	level thread player_down_waypoints_progress_think();
-
 	level thread swap_marathon_perk();
 
 	level thread disable_story_vo();
@@ -249,7 +247,6 @@ precache_strings()
 	precacheString(&"hud_update_overheat");
 	precacheString(&"hud_update_perk_order");
 	precacheString(&"hud_update_other_player_team_change");
-	precacheString(&"objective_update_progress");
 
 	precacheString(&"hud_update_enemy_counter");
 	precacheString(&"hud_update_total_timer");
@@ -573,7 +570,6 @@ on_player_downed()
 		self.statusicon = "waypoint_revive";
 		self.health = self.maxhealth;
 
-		self.bleedout_start_time = gettime();
 		objective_setgamemodeflags(self.obj_ind, 1);
 	}
 }
@@ -1337,40 +1333,6 @@ get_zone_display_name(zone)
 	}
 
 	return istring(toupper(level.script + "_" + zone));
-}
-
-player_down_waypoints_progress_think()
-{
-	level endon("intermission");
-
-	flag_wait("initial_blackscreen_passed");
-
-	while (1)
-	{
-		if (!maps\mp\zombies\_zm_laststand::player_any_player_in_laststand())
-		{
-			wait 0.05;
-			continue;
-		}
-
-		obj_progress_arr = array(0, 0, 0, 0, 0, 0, 0, 0);
-		players = get_players();
-
-		foreach (player in players)
-		{
-			if (player maps\mp\zombies\_zm_laststand::player_is_in_laststand())
-			{
-				obj_progress_arr[player.obj_ind] = gettime() - player.bleedout_start_time;
-			}
-		}
-
-		foreach (player in players)
-		{
-			player luinotifyevent(&"objective_update_progress", 8, obj_progress_arr[0], obj_progress_arr[1], obj_progress_arr[2], obj_progress_arr[3], obj_progress_arr[4], obj_progress_arr[5], obj_progress_arr[6], obj_progress_arr[7]);
-		}
-
-		wait 0.05;
-	}
 }
 
 bleedout_bar_hud()
