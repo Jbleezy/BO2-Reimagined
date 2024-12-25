@@ -227,47 +227,7 @@ CoD.PlayerDownWaypoint.new = function(Menu, ObjectiveIndex)
 end
 
 CoD.PlayerDownWaypoint.update = function(Menu, ClientInstance)
-	local index = Menu.index
-	local controller = ClientInstance.controller
-	local clientNum = Engine.GetPredictedClientNum(controller)
-	local objectiveFlags = Engine.GetObjectiveGamemodeFlags(Menu, index)
-	local objectiveEntity = Engine.GetObjectiveEntity(Menu, index)
-	local clientTeam = Engine.GetTeamID(controller, clientNum)
-	local objectiveEntityTeam = Engine.GetTeamID(controller, objectiveEntity)
-	local gamemodeGroup = UIExpression.DvarString(nil, "ui_zm_gamemodegroup")
-
-	if objectiveFlags == CoD.PlayerWaypoint.FLAG_DOWN and (clientTeam == objectiveEntityTeam or gamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER) then
-		local reviveIcon = "waypoint_revive"
-
-		if gamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
-			local faction = Engine.GetFactionForTeam(objectiveEntityTeam)
-
-			if faction == "cdc" or faction == "cia" then
-				reviveIcon = "waypoint_revive_" .. faction .. "_zm"
-			else
-				reviveIcon = "waypoint_revive_" .. faction
-			end
-		end
-
-		if not Menu.showWaypoint then
-			local player_lastStandBleedoutTime = UIExpression.DvarInt(nil, "player_lastStandBleedoutTime") * 1000
-			Menu.mainImage:setRGB(1, 1, 0)
-			Menu.arrowImage:setRGB(1, 1, 0)
-			Menu.mainImage:animateToState("color", player_lastStandBleedoutTime)
-			Menu.arrowImage:animateToState("color", player_lastStandBleedoutTime)
-		end
-
-		Menu.mainImage:setAlpha(1)
-		Menu.arrowImage:setAlpha(1)
-		Menu.mainImage:setImage(RegisterMaterial(reviveIcon))
-		Menu.arrowImage:setImage(RegisterMaterial("waypoint_revive_arrow"))
-		Menu.zOffset = 30
-		Menu.showWaypoint = true
-	else
-		Menu.alphaController:setAlpha(0)
-		Menu.showWaypoint = nil
-	end
-
+	CoD.PlayerWaypoint.updateDownAndRevive(Menu, ClientInstance, true)
 	CoD.PlayerDownWaypoint.super.update(Menu, ClientInstance)
 end
 
@@ -336,39 +296,7 @@ CoD.PlayerReviveWaypoint.new = function(Menu, ObjectiveIndex)
 end
 
 CoD.PlayerReviveWaypoint.update = function(Menu, ClientInstance)
-	local index = Menu.index
-	local controller = ClientInstance.controller
-	local clientNum = Engine.GetPredictedClientNum(controller)
-	local objectiveFlags = Engine.GetObjectiveGamemodeFlags(Menu, index)
-	local objectiveEntity = Engine.GetObjectiveEntity(Menu, index)
-	local clientTeam = Engine.GetTeamID(controller, clientNum)
-	local objectiveEntityTeam = Engine.GetTeamID(controller, objectiveEntity)
-	local gamemodeGroup = UIExpression.DvarString(nil, "ui_zm_gamemodegroup")
-
-	if objectiveFlags == CoD.PlayerWaypoint.FLAG_DOWN and (clientTeam == objectiveEntityTeam or gamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER) then
-		local reviveIcon = "waypoint_revive"
-
-		if gamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
-			local faction = Engine.GetFactionForTeam(objectiveEntityTeam)
-
-			if faction == "cdc" or faction == "cia" then
-				reviveIcon = "waypoint_revive_" .. faction .. "_zm"
-			else
-				reviveIcon = "waypoint_revive_" .. faction
-			end
-		end
-
-		Menu.mainImage:setAlpha(1)
-		Menu.arrowImage:setAlpha(1)
-		Menu.mainImage:setImage(RegisterMaterial(reviveIcon))
-		Menu.arrowImage:setImage(RegisterMaterial("waypoint_revive_arrow"))
-		Menu.zOffset = 30
-		Menu.showWaypoint = true
-	else
-		Menu.alphaController:setAlpha(0)
-		Menu.showWaypoint = nil
-	end
-
+	CoD.PlayerWaypoint.updateDownAndRevive(Menu, ClientInstance, false)
 	CoD.PlayerReviveWaypoint.super.update(Menu, ClientInstance)
 end
 
@@ -412,6 +340,49 @@ CoD.PlayerReviveWaypoint.updatePlayerUsing = function(Menu, LocalClientIndex, Is
 	end
 
 	Menu.playerUsing = objectiveIsPlayerUsing
+end
+
+CoD.PlayerWaypoint.updateDownAndRevive = function(Menu, ClientInstance, IsDownWaypoint)
+	local index = Menu.index
+	local controller = ClientInstance.controller
+	local clientNum = Engine.GetPredictedClientNum(controller)
+	local objectiveFlags = Engine.GetObjectiveGamemodeFlags(Menu, index)
+	local objectiveEntity = Engine.GetObjectiveEntity(Menu, index)
+	local clientTeam = Engine.GetTeamID(controller, clientNum)
+	local objectiveEntityTeam = Engine.GetTeamID(controller, objectiveEntity)
+	local gamemodeGroup = UIExpression.DvarString(nil, "ui_zm_gamemodegroup")
+
+	if objectiveFlags == CoD.PlayerWaypoint.FLAG_DOWN and (clientTeam == objectiveEntityTeam or gamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER) then
+		local reviveIcon = "waypoint_revive"
+
+		if gamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
+			local faction = Engine.GetFactionForTeam(objectiveEntityTeam)
+
+			if faction == "cdc" or faction == "cia" then
+				reviveIcon = "waypoint_revive_" .. faction .. "_zm"
+			else
+				reviveIcon = "waypoint_revive_" .. faction
+			end
+		end
+
+		if IsDownWaypoint and not Menu.showWaypoint then
+			local player_lastStandBleedoutTime = UIExpression.DvarInt(nil, "player_lastStandBleedoutTime") * 1000
+			Menu.mainImage:setRGB(1, 1, 0)
+			Menu.arrowImage:setRGB(1, 1, 0)
+			Menu.mainImage:animateToState("color", player_lastStandBleedoutTime)
+			Menu.arrowImage:animateToState("color", player_lastStandBleedoutTime)
+		end
+
+		Menu.mainImage:setAlpha(1)
+		Menu.arrowImage:setAlpha(1)
+		Menu.mainImage:setImage(RegisterMaterial(reviveIcon))
+		Menu.arrowImage:setImage(RegisterMaterial("waypoint_revive_arrow"))
+		Menu.zOffset = 30
+		Menu.showWaypoint = true
+	else
+		Menu.alphaController:setAlpha(0)
+		Menu.showWaypoint = nil
+	end
 end
 
 CoD.PlayerAliveWaypoint.new = function(Menu, ObjectiveIndex)
