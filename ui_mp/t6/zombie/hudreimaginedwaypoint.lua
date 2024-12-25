@@ -112,8 +112,8 @@ CoD.PlayerWaypoint.UpdateVisibility = function(Menu, ClientInstance)
 	Menu:dispatchEventToChildren(ClientInstance)
 end
 
-CoD.PlayerTargetWaypoint.new = function(Menu, ClientInstance)
-	local waypoint = CoD.ObjectiveWaypoint.new(Menu, ClientInstance, 0)
+CoD.PlayerTargetWaypoint.new = function(Menu, ObjectiveIndex)
+	local waypoint = CoD.ObjectiveWaypoint.new(Menu, ObjectiveIndex, 0)
 	waypoint:setClass(CoD.PlayerTargetWaypoint)
 	waypoint:setLeftRight(false, false, -waypoint.iconWidth / 2, waypoint.iconWidth / 2)
 	waypoint:setTopBottom(false, true, -waypoint.iconHeight, 0)
@@ -126,7 +126,7 @@ CoD.PlayerTargetWaypoint.new = function(Menu, ClientInstance)
 	waypoint.updateProgress = CoD.NullFunction
 	waypoint.updatePlayerUsing = CoD.NullFunction
 
-	local objectiveName = Engine.GetObjectiveName(Menu, ClientInstance)
+	local objectiveName = Engine.GetObjectiveName(Menu, ObjectiveIndex)
 	waypoint:registerEventHandler("objective_update_" .. objectiveName, waypoint.update)
 	waypoint:registerEventHandler("hud_update_team_change", waypoint.update)
 	waypoint:registerEventHandler("hud_update_other_player_team_change", waypoint.update)
@@ -136,11 +136,12 @@ end
 
 CoD.PlayerTargetWaypoint.update = function(Menu, ClientInstance)
 	local index = Menu.index
-	local clientNum = Engine.GetPredictedClientNum(ClientInstance)
+	local controller = ClientInstance.controller
+	local clientNum = Engine.GetPredictedClientNum(controller)
 	local objectiveFlags = Engine.GetObjectiveGamemodeFlags(Menu, index)
 	local objectiveEntity = Engine.GetObjectiveEntity(Menu, index)
-	local clientTeam = Engine.GetTeamID(ClientInstance, clientNum)
-	local objectiveEntityTeam = Engine.GetTeamID(ClientInstance, objectiveEntity)
+	local clientTeam = Engine.GetTeamID(controller, clientNum)
+	local objectiveEntityTeam = Engine.GetTeamID(controller, objectiveEntity)
 	local gamemodeGroup = UIExpression.DvarString(nil, "ui_zm_gamemodegroup")
 
 	if objectiveFlags == CoD.PlayerWaypoint.FLAG_TARGET and clientTeam ~= objectiveEntityTeam and gamemodeGroup ~= CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
@@ -170,8 +171,8 @@ CoD.PlayerTargetWaypoint.update = function(Menu, ClientInstance)
 	CoD.PlayerTargetWaypoint.super.update(Menu, ClientInstance)
 end
 
-CoD.PlayerDownWaypoint.new = function(Menu, ClientInstance)
-	local waypoint = CoD.ObjectiveWaypoint.new(Menu, ClientInstance, 0)
+CoD.PlayerDownWaypoint.new = function(Menu, ObjectiveIndex)
+	local waypoint = CoD.ObjectiveWaypoint.new(Menu, ObjectiveIndex, 0)
 	waypoint:setClass(CoD.PlayerDownWaypoint)
 	waypoint.alphaController:setAlpha(0)
 	waypoint.mainImage:setLeftRight(false, false, -24, 24)
@@ -183,7 +184,7 @@ CoD.PlayerDownWaypoint.new = function(Menu, ClientInstance)
 	waypoint.updatePlayerUsing = CoD.PlayerDownWaypoint.updatePlayerUsing
 	waypoint.snapToHeight = 80
 
-	local objectiveName = Engine.GetObjectiveName(Menu, ClientInstance)
+	local objectiveName = Engine.GetObjectiveName(Menu, ObjectiveIndex)
 	waypoint:registerEventHandler("objective_update_" .. objectiveName, waypoint.update)
 	waypoint:registerEventHandler("hud_update_team_change", waypoint.update)
 	waypoint:registerEventHandler("hud_update_other_player_team_change", waypoint.update)
@@ -193,15 +194,16 @@ end
 
 CoD.PlayerDownWaypoint.update = function(Menu, ClientInstance)
 	local index = Menu.index
-	local clientNum = Engine.GetPredictedClientNum(ClientInstance)
+	local controller = ClientInstance.controller
+	local clientNum = Engine.GetPredictedClientNum(controller)
 	local objectiveFlags = Engine.GetObjectiveGamemodeFlags(Menu, index)
 	local objectiveEntity = Engine.GetObjectiveEntity(Menu, index)
-	local clientTeam = Engine.GetTeamID(ClientInstance, clientNum)
-	local objectiveEntityTeam = Engine.GetTeamID(ClientInstance, objectiveEntity)
+	local clientTeam = Engine.GetTeamID(controller, clientNum)
+	local objectiveEntityTeam = Engine.GetTeamID(controller, objectiveEntity)
 	local gamemodeGroup = UIExpression.DvarString(nil, "ui_zm_gamemodegroup")
 
 	if objectiveFlags == CoD.PlayerWaypoint.FLAG_DOWN and (clientTeam == objectiveEntityTeam or gamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER) then
-		local objectiveIsPlayerUsing = Engine.ObjectiveIsPlayerUsing(ClientInstance, Menu.index, clientNum)
+		local objectiveIsPlayerUsing = Engine.ObjectiveIsPlayerUsing(controller, Menu.index, clientNum)
 		local reviveIcon = "waypoint_revive"
 
 		if gamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
@@ -227,17 +229,17 @@ CoD.PlayerDownWaypoint.update = function(Menu, ClientInstance)
 	CoD.PlayerDownWaypoint.super.update(Menu, ClientInstance)
 end
 
-CoD.PlayerDownWaypoint.updateProgress = function(Menu, ClientInstance, IsAnyPlayerUsing, Arg4)
-	CoD.PlayerDownWaypoint.updateProgressAndPlayerUsing(Menu, ClientInstance, IsAnyPlayerUsing, Arg4)
+CoD.PlayerDownWaypoint.updateProgress = function(Menu, LocalClientIndex, IsAnyPlayerUsing, Arg4)
+	CoD.PlayerDownWaypoint.updateProgressAndPlayerUsing(Menu, LocalClientIndex, IsAnyPlayerUsing, Arg4)
 end
 
-CoD.PlayerDownWaypoint.updatePlayerUsing = function(Menu, ClientInstance, IsAnyPlayerUsing, Arg4)
-	CoD.PlayerDownWaypoint.updateProgressAndPlayerUsing(Menu, ClientInstance, IsAnyPlayerUsing, Arg4)
+CoD.PlayerDownWaypoint.updatePlayerUsing = function(Menu, LocalClientIndex, IsAnyPlayerUsing, Arg4)
+	CoD.PlayerDownWaypoint.updateProgressAndPlayerUsing(Menu, LocalClientIndex, IsAnyPlayerUsing, Arg4)
 end
 
-CoD.PlayerDownWaypoint.updateProgressAndPlayerUsing = function(Menu, ClientInstance, IsAnyPlayerUsing, Arg4)
-	local clientNum = Engine.GetPredictedClientNum(ClientInstance)
-	local objectiveIsPlayerUsing = Engine.ObjectiveIsPlayerUsing(ClientInstance, Menu.index, clientNum)
+CoD.PlayerDownWaypoint.updateProgressAndPlayerUsing = function(Menu, LocalClientIndex, IsAnyPlayerUsing, Arg4)
+	local clientNum = Engine.GetPredictedClientNum(LocalClientIndex)
+	local objectiveIsPlayerUsing = Engine.ObjectiveIsPlayerUsing(LocalClientIndex, Menu.index, clientNum)
 
 	if IsAnyPlayerUsing then
 		Menu.mainImage:setRGB(1, 1, 1)
@@ -256,7 +258,7 @@ CoD.PlayerDownWaypoint.updateProgressAndPlayerUsing = function(Menu, ClientInsta
 		Menu:setTopBottom(false, false, -Menu.largeIconHeight - Menu.snapToHeight, -Menu.snapToHeight)
 		Menu.edgePointerContainer:setAlpha(0)
 	else
-		local objectiveProgress = Engine.GetObjectiveProgress(ClientInstance, Menu.index)
+		local objectiveProgress = Engine.GetObjectiveProgress(LocalClientIndex, Menu.index)
 
 		Menu.mainImage:setRGB(1, 1 - objectiveProgress, 0)
 		Menu.arrowImage:setRGB(1, 1 - objectiveProgress, 0)
@@ -278,8 +280,8 @@ CoD.PlayerDownWaypoint.updateProgressAndPlayerUsing = function(Menu, ClientInsta
 	Menu.playerUsing = objectiveIsPlayerUsing
 end
 
-CoD.PlayerAliveWaypoint.new = function(Menu, ClientInstance)
-	local waypoint = CoD.ObjectiveWaypoint.new(Menu, ClientInstance, 0)
+CoD.PlayerAliveWaypoint.new = function(Menu, ObjectiveIndex)
+	local waypoint = CoD.ObjectiveWaypoint.new(Menu, ObjectiveIndex, 0)
 	waypoint:setClass(CoD.PlayerAliveWaypoint)
 	waypoint:setLeftRight(false, false, -waypoint.iconWidth / 2, waypoint.iconWidth / 2)
 	waypoint:setTopBottom(false, true, -waypoint.iconHeight, 0)
@@ -293,7 +295,7 @@ CoD.PlayerAliveWaypoint.new = function(Menu, ClientInstance)
 	waypoint.updateProgress = CoD.NullFunction
 	waypoint.updatePlayerUsing = CoD.NullFunction
 
-	local objectiveName = Engine.GetObjectiveName(Menu, ClientInstance)
+	local objectiveName = Engine.GetObjectiveName(Menu, ObjectiveIndex)
 	waypoint:registerEventHandler("objective_update_" .. objectiveName, waypoint.update)
 	waypoint:registerEventHandler("hud_update_team_change", waypoint.update)
 	waypoint:registerEventHandler("hud_update_other_player_team_change", waypoint.update)
@@ -305,11 +307,12 @@ end
 
 CoD.PlayerAliveWaypoint.update = function(Menu, ClientInstance)
 	local index = Menu.index
-	local clientNum = Engine.GetPredictedClientNum(ClientInstance)
+	local controller = ClientInstance.controller
+	local clientNum = Engine.GetPredictedClientNum(controller)
 	local objectiveFlags = Engine.GetObjectiveGamemodeFlags(Menu, index)
 	local objectiveEntity = Engine.GetObjectiveEntity(Menu, index)
-	local clientTeam = Engine.GetTeamID(ClientInstance, clientNum)
-	local objectiveEntityTeam = Engine.GetTeamID(ClientInstance, objectiveEntity)
+	local clientTeam = Engine.GetTeamID(controller, clientNum)
+	local objectiveEntityTeam = Engine.GetTeamID(controller, objectiveEntity)
 	local gamemodeGroup = UIExpression.DvarString(nil, "ui_zm_gamemodegroup")
 
 	if objectiveFlags == CoD.PlayerWaypoint.FLAG_ALIVE and clientTeam == objectiveEntityTeam and Menu.clamped then
@@ -349,11 +352,12 @@ CoD.PlayerAliveWaypoint.Clamped = function(Menu, ClientInstance)
 		Menu.clamped = true
 
 		local index = Menu.index
-		local clientNum = Engine.GetPredictedClientNum(ClientInstance)
+		local controller = ClientInstance.controller
+		local clientNum = Engine.GetPredictedClientNum(controller)
 		local objectiveFlags = Engine.GetObjectiveGamemodeFlags(Menu, index)
 		local objectiveEntity = Engine.GetObjectiveEntity(Menu, index)
-		local clientTeam = Engine.GetTeamID(ClientInstance, clientNum)
-		local objectiveEntityTeam = Engine.GetTeamID(ClientInstance, objectiveEntity)
+		local clientTeam = Engine.GetTeamID(controller, clientNum)
+		local objectiveEntityTeam = Engine.GetTeamID(controller, objectiveEntity)
 
 		if objectiveFlags == CoD.PlayerWaypoint.FLAG_ALIVE and clientTeam == objectiveEntityTeam then
 			Menu.alphaController:setAlpha(1)
@@ -419,8 +423,8 @@ CoD.PlayerHeadIcon.UpdateVisibility = function(Menu, ClientInstance)
 	Menu:dispatchEventToChildren(ClientInstance)
 end
 
-CoD.PlayerHeadIcon.new = function(Menu, ClientInstance)
-	local waypoint = CoD.ObjectiveWaypoint.new(Menu, ClientInstance, 0)
+CoD.PlayerHeadIcon.new = function(Menu, ObjectiveIndex)
+	local waypoint = CoD.ObjectiveWaypoint.new(Menu, ObjectiveIndex, 0)
 	waypoint:setClass(CoD.PlayerHeadIcon)
 	waypoint:setEntityContainerClamp(false)
 	waypoint:setLeftRight(false, false, -waypoint.iconWidth / 2, waypoint.iconWidth / 2)
@@ -431,7 +435,7 @@ CoD.PlayerHeadIcon.new = function(Menu, ClientInstance)
 	waypoint.disablePulse = true
 	waypoint.updatePlayerUsing = CoD.NullFunction
 
-	local objectiveName = Engine.GetObjectiveName(Menu, ClientInstance)
+	local objectiveName = Engine.GetObjectiveName(Menu, ObjectiveIndex)
 	waypoint:registerEventHandler("objective_update_" .. objectiveName, waypoint.update)
 	waypoint:registerEventHandler("hud_update_team_change", waypoint.update)
 	waypoint:registerEventHandler("hud_update_other_player_team_change", waypoint.update)
@@ -442,11 +446,11 @@ end
 CoD.PlayerHeadIcon.update = function(Menu, ClientInstance)
 	local index = Menu.index
 	local controller = ClientInstance.controller
-	local clientNum = Engine.GetPredictedClientNum(ClientInstance)
+	local clientNum = Engine.GetPredictedClientNum(controller)
 	local objectiveFlags = Engine.GetObjectiveGamemodeFlags(Menu, index)
 	local objectiveEntity = Engine.GetObjectiveEntity(Menu, index)
-	local clientTeam = Engine.GetTeamID(ClientInstance, clientNum)
-	local objectiveEntityTeam = Engine.GetTeamID(ClientInstance, objectiveEntity)
+	local clientTeam = Engine.GetTeamID(controller, clientNum)
+	local objectiveEntityTeam = Engine.GetTeamID(controller, objectiveEntity)
 
 	if objectiveFlags == CoD.PlayerWaypoint.FLAG_ALIVE and clientTeam == objectiveEntityTeam then
 		local x, y, z = Engine.GetObjectivePosition(Menu, index)
