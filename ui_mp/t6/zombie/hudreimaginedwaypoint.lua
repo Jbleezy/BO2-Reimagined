@@ -180,12 +180,13 @@ CoD.PlayerDownWaypoint.new = function(Menu, ObjectiveIndex)
 	waypoint.arrowImage:setLeftRight(false, false, -12, 12)
 	waypoint.arrowImage:setTopBottom(false, false, 21, 45)
 	waypoint.edgePointerContainer:setTopBottom(true, true, -15, -15)
-	waypoint.updateProgress = CoD.PlayerDownWaypoint.updateProgress
+	waypoint.updateProgress = CoD.NullFunction
 	waypoint.updatePlayerUsing = CoD.PlayerDownWaypoint.updatePlayerUsing
 	waypoint.snapToHeight = 80
 
 	local objectiveName = Engine.GetObjectiveName(Menu, ObjectiveIndex)
 	waypoint:registerEventHandler("objective_update_" .. objectiveName, waypoint.update)
+	waypoint:registerEventHandler("objective_update_progress", CoD.PlayerDownWaypoint.updateProgress)
 	waypoint:registerEventHandler("hud_update_team_change", waypoint.update)
 	waypoint:registerEventHandler("hud_update_other_player_team_change", waypoint.update)
 
@@ -203,7 +204,7 @@ CoD.PlayerDownWaypoint.update = function(Menu, ClientInstance)
 	local gamemodeGroup = UIExpression.DvarString(nil, "ui_zm_gamemodegroup")
 
 	if objectiveFlags == CoD.PlayerWaypoint.FLAG_DOWN and (clientTeam == objectiveEntityTeam or gamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER) then
-		local objectiveIsPlayerUsing = Engine.ObjectiveIsPlayerUsing(controller, Menu.index, clientNum)
+		local objectiveIsPlayerUsing = Engine.ObjectiveIsPlayerUsing(controller, index, clientNum)
 		local reviveIcon = "waypoint_revive"
 
 		if gamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
@@ -229,17 +230,33 @@ CoD.PlayerDownWaypoint.update = function(Menu, ClientInstance)
 	CoD.PlayerDownWaypoint.super.update(Menu, ClientInstance)
 end
 
-CoD.PlayerDownWaypoint.updateProgress = function(Menu, LocalClientIndex, IsAnyPlayerUsing, Arg4)
-	CoD.PlayerDownWaypoint.updateProgressAndPlayerUsing(Menu, LocalClientIndex, IsAnyPlayerUsing, Arg4)
+CoD.PlayerDownWaypoint.updateProgress = function(Menu, ClientInstance)
+	local index = Menu.index
+	local player_lastStandBleedoutTime = UIExpression.DvarInt(nil, "player_lastStandBleedoutTime") * 1000
+	local objectiveProgress = 0
+
+	if ClientInstance.data then
+		objectiveProgress = ClientInstance.data[index + 1] / player_lastStandBleedoutTime
+
+		if objectiveProgress > 1 then
+			objectiveProgress = 1
+		end
+	end
+
+	Menu.objectiveProgress = objectiveProgress
+
+	if not Menu.isAnyPlayerUsing then
+		Menu.mainImage:setRGB(1, 1 - objectiveProgress, 0)
+		Menu.arrowImage:setRGB(1, 1 - objectiveProgress, 0)
+	end
 end
 
 CoD.PlayerDownWaypoint.updatePlayerUsing = function(Menu, LocalClientIndex, IsAnyPlayerUsing, Arg4)
-	CoD.PlayerDownWaypoint.updateProgressAndPlayerUsing(Menu, LocalClientIndex, IsAnyPlayerUsing, Arg4)
-end
-
-CoD.PlayerDownWaypoint.updateProgressAndPlayerUsing = function(Menu, LocalClientIndex, IsAnyPlayerUsing, Arg4)
+	local index = Menu.index
 	local clientNum = Engine.GetPredictedClientNum(LocalClientIndex)
-	local objectiveIsPlayerUsing = Engine.ObjectiveIsPlayerUsing(LocalClientIndex, Menu.index, clientNum)
+	local objectiveIsPlayerUsing = Engine.ObjectiveIsPlayerUsing(LocalClientIndex, index, clientNum)
+
+	Menu.isAnyPlayerUsing = IsAnyPlayerUsing
 
 	if IsAnyPlayerUsing then
 		Menu.mainImage:setRGB(1, 1, 1)
@@ -258,10 +275,8 @@ CoD.PlayerDownWaypoint.updateProgressAndPlayerUsing = function(Menu, LocalClient
 		Menu:setTopBottom(false, false, -Menu.largeIconHeight - Menu.snapToHeight, -Menu.snapToHeight)
 		Menu.edgePointerContainer:setAlpha(0)
 	else
-		local objectiveProgress = Engine.GetObjectiveProgress(LocalClientIndex, Menu.index)
-
-		Menu.mainImage:setRGB(1, 1 - objectiveProgress, 0)
-		Menu.arrowImage:setRGB(1, 1 - objectiveProgress, 0)
+		Menu.mainImage:setRGB(1, 1 - (Menu.objectiveProgress or 0), 0)
+		Menu.arrowImage:setRGB(1, 1 - (Menu.objectiveProgress or 0), 0)
 
 		if Menu.playerUsing == objectiveIsPlayerUsing then
 			return
