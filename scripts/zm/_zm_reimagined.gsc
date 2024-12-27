@@ -545,7 +545,7 @@ on_player_spawned()
 			self.statusicon = "";
 		}
 
-		objective_setgamemodeflags(self.obj_ind, 0);
+		objective_setgamemodeflags(self.obj_ind, 1);
 
 		self set_perks();
 		self set_favorite_wall_weapons();
@@ -570,7 +570,7 @@ on_player_downed()
 		self.statusicon = "waypoint_revive";
 		self.health = self.maxhealth;
 
-		objective_setgamemodeflags(self.obj_ind, 1);
+		objective_setgamemodeflags(self.obj_ind, 2);
 	}
 }
 
@@ -592,7 +592,7 @@ on_player_revived()
 			self.statusicon = "";
 		}
 
-		objective_setgamemodeflags(self.obj_ind, 0);
+		objective_setgamemodeflags(self.obj_ind, 1);
 	}
 }
 
@@ -627,7 +627,7 @@ on_player_spectate()
 
 		self.statusicon = "hud_status_dead";
 
-		objective_setgamemodeflags(self.obj_ind, 2);
+		objective_setgamemodeflags(self.obj_ind, 0);
 	}
 }
 

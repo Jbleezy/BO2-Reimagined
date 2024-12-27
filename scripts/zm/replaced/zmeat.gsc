@@ -70,7 +70,7 @@ item_meat_on_spawn_retrieve_trigger(watcher, player, weaponname)
 	{
 		player thread [[level.show_grief_hud_msg_func]](&"");
 
-		objective_setgamemodeflags(player.obj_ind, 0);
+		objective_setgamemodeflags(player.obj_ind, 1);
 	}
 
 	players = get_players();

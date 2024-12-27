@@ -1,8 +1,8 @@
 CoD.ReimaginedWaypoint = {}
 CoD.PlayerWaypoint = InheritFrom(CoD.ObjectiveWaypoint)
-CoD.PlayerWaypoint.FLAG_ALIVE = 0
-CoD.PlayerWaypoint.FLAG_DOWN = 1
-CoD.PlayerWaypoint.FLAG_DEAD = 2
+CoD.PlayerWaypoint.FLAG_DEAD = 0
+CoD.PlayerWaypoint.FLAG_ALIVE = 1
+CoD.PlayerWaypoint.FLAG_DOWN = 2
 CoD.PlayerWaypoint.FLAG_TARGET = 3
 CoD.PlayerTargetWaypoint = InheritFrom(CoD.ObjectiveWaypoint)
 CoD.PlayerReviveWaypoint = InheritFrom(CoD.ObjectiveWaypoint)

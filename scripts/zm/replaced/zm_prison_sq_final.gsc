@@ -399,7 +399,7 @@ stage_final()
 		{
 			player ghost();
 
-			objective_setgamemodeflags(player.obj_ind, 2);
+			objective_setgamemodeflags(player.obj_ind, 0);
 		}
 	}
 
@@ -410,7 +410,7 @@ stage_final()
 		p_weasel.sessionteam = "allies";
 		p_weasel ghost();
 
-		objective_setgamemodeflags(p_weasel.obj_ind, 2);
+		objective_setgamemodeflags(p_weasel.obj_ind, 0);
 	}
 
 	level notify("end_game");
