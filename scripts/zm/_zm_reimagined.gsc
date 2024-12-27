@@ -861,10 +861,11 @@ set_client_dvars()
 
 	self setClientDvars(
 	    "aim_automelee_enabled", 0,
-	    "waypointOffscreenPadTop", 100,
-	    "waypointOffscreenPadBottom", 50,
-	    "waypointOffscreenPadLeft", 30,
-	    "waypointOffscreenPadRight", 30,
+	    "waypointOffscreenPadLUIFix", 1,
+	    "waypointOffscreenPadTop", 40,
+	    "waypointOffscreenPadBottom", 40,
+	    "waypointOffscreenPadLeft", 10,
+	    "waypointOffscreenPadRight", 10,
 	    "waypointTimeFade", 250,
 	    "weaponAltWeaponNames", "",
 	    "additionalPrimaryWeaponName", "");
