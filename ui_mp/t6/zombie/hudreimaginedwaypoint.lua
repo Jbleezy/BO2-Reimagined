@@ -24,6 +24,7 @@ LUI.createMenu.PlayerTargetWaypointArea = function(LocalClientIndex)
 
 	safeArea:registerEventHandler("hud_update_refresh", CoD.GametypeBase.Refresh)
 	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_VISIBLE, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_SHOWOBJICONS, CoD.PlayerWaypoint.UpdateVisibility)
 	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_PLAYER_IN_AFTERLIFE, CoD.PlayerWaypoint.UpdateVisibility)
 	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM, CoD.PlayerWaypoint.UpdateVisibility)
 	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN, CoD.PlayerWaypoint.UpdateVisibility)
@@ -53,6 +54,7 @@ LUI.createMenu.PlayerReviveWaypointArea = function(LocalClientIndex)
 
 	safeArea:registerEventHandler("hud_update_refresh", CoD.GametypeBase.Refresh)
 	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_VISIBLE, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_SHOWOBJICONS, CoD.PlayerWaypoint.UpdateVisibility)
 	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_PLAYER_IN_AFTERLIFE, CoD.PlayerWaypoint.UpdateVisibility)
 	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM, CoD.PlayerWaypoint.UpdateVisibility)
 	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN, CoD.PlayerWaypoint.UpdateVisibility)
@@ -82,6 +84,7 @@ LUI.createMenu.PlayerDownWaypointArea = function(LocalClientIndex)
 
 	safeArea:registerEventHandler("hud_update_refresh", CoD.GametypeBase.Refresh)
 	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_VISIBLE, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_SHOWOBJICONS, CoD.PlayerWaypoint.UpdateVisibility)
 	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_PLAYER_IN_AFTERLIFE, CoD.PlayerWaypoint.UpdateVisibility)
 	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM, CoD.PlayerWaypoint.UpdateVisibility)
 	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN, CoD.PlayerWaypoint.UpdateVisibility)
@@ -111,6 +114,7 @@ LUI.createMenu.PlayerAliveWaypointArea = function(LocalClientIndex)
 
 	safeArea:registerEventHandler("hud_update_refresh", CoD.GametypeBase.Refresh)
 	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_VISIBLE, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_SHOWOBJICONS, CoD.PlayerWaypoint.UpdateVisibility)
 	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_PLAYER_IN_AFTERLIFE, CoD.PlayerWaypoint.UpdateVisibility)
 	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM, CoD.PlayerWaypoint.UpdateVisibility)
 	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN, CoD.PlayerWaypoint.UpdateVisibility)
@@ -128,7 +132,7 @@ end
 
 CoD.PlayerWaypoint.UpdateVisibility = function(Menu, ClientInstance)
 	local controller = ClientInstance.controller
-	if UIExpression.IsVisibilityBitSet(controller, CoD.BIT_HUD_VISIBLE) == 1 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IS_PLAYER_IN_AFTERLIFE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_VEHICLE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_GUIDED_MISSILE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_AMMO_COUNTER_HIDE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_UI_ACTIVE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_SCOREBOARD_OPEN) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IS_SCOPED) == 0 and (not CoD.IsShoutcaster(controller) or CoD.ExeProfileVarBool(controller, "shoutcaster_scorestreaks") and Engine.IsSpectatingActiveClient(controller)) and CoD.FSM_VISIBILITY(controller) == 0 then
+	if UIExpression.IsVisibilityBitSet(controller, CoD.BIT_HUD_VISIBLE) == 1 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_HUD_SHOWOBJICONS) == 1 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IS_PLAYER_IN_AFTERLIFE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_VEHICLE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_GUIDED_MISSILE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_AMMO_COUNTER_HIDE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_UI_ACTIVE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_SCOREBOARD_OPEN) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IS_SCOPED) == 0 and (not CoD.IsShoutcaster(controller) or CoD.ExeProfileVarBool(controller, "shoutcaster_scorestreaks") and Engine.IsSpectatingActiveClient(controller)) and CoD.FSM_VISIBILITY(controller) == 0 then
 		if Menu.visible ~= true then
 			Menu:setAlpha(1)
 			Menu.m_inputDisabled = nil
@@ -365,12 +369,18 @@ CoD.PlayerWaypoint.updateDownAndRevive = function(Menu, ClientInstance, IsDownWa
 			end
 		end
 
-		if IsDownWaypoint and not Menu.showWaypoint then
-			local player_lastStandBleedoutTime = UIExpression.DvarInt(nil, "player_lastStandBleedoutTime") * 1000
-			Menu.mainImage:setRGB(1, 1, 0)
-			Menu.arrowImage:setRGB(1, 1, 0)
-			Menu.mainImage:animateToState("color", player_lastStandBleedoutTime)
-			Menu.arrowImage:animateToState("color", player_lastStandBleedoutTime)
+		if IsDownWaypoint then
+			if clientNum == objectiveEntity then
+				Engine.SetDvar("ui_hud_showobjicons", 0)
+			end
+
+			if not Menu.showWaypoint then
+				local player_lastStandBleedoutTime = UIExpression.DvarInt(nil, "player_lastStandBleedoutTime") * 1000
+				Menu.mainImage:setRGB(1, 1, 0)
+				Menu.arrowImage:setRGB(1, 1, 0)
+				Menu.mainImage:animateToState("color", player_lastStandBleedoutTime)
+				Menu.arrowImage:animateToState("color", player_lastStandBleedoutTime)
+			end
 		end
 
 		Menu.mainImage:setAlpha(1)
@@ -380,6 +390,12 @@ CoD.PlayerWaypoint.updateDownAndRevive = function(Menu, ClientInstance, IsDownWa
 		Menu.zOffset = 30
 		Menu.showWaypoint = true
 	else
+		if IsDownWaypoint then
+			if clientNum == objectiveEntity then
+				Engine.SetDvar("ui_hud_showobjicons", 1)
+			end
+		end
+
 		Menu.alphaController:setAlpha(0)
 		Menu.showWaypoint = nil
 	end
