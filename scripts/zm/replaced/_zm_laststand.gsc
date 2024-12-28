@@ -9,22 +9,24 @@ revive_do_revive(playerbeingrevived, revivergun)
 
 	self thread revive_check_for_weapon_change();
 
-	objective_setplayerusing(playerbeingrevived.obj_ind, self);
-
+	is_clone_revive = false;
 	playerbeingrevived_player = undefined;
 	beingrevivedprogressbar_y = 0;
 
 	if (isDefined(playerbeingrevived.e_chugabud_player))
 	{
+		is_clone_revive = true;
 		playerbeingrevived_player = playerbeingrevived.e_chugabud_player;
 		playerbeingrevived_player.revive_hud.y = -95;
 		beingrevivedprogressbar_y = level.secondaryprogressbary * -1.5;
+		objective_setplayerusing(playerbeingrevived_player.clone_obj_ind, self);
 	}
 	else
 	{
 		playerbeingrevived_player = playerbeingrevived;
 		playerbeingrevived_player.revive_hud.y = -160;
 		beingrevivedprogressbar_y = level.primaryprogressbary * -1;
+		objective_setplayerusing(playerbeingrevived_player.obj_ind, self);
 	}
 
 	revivetime = 3;
@@ -201,7 +203,14 @@ revive_do_revive(playerbeingrevived, revivergun)
 		playerbeingrevived thread maps\mp\zombies\_zm_laststand::checkforbleedout(self);
 	}
 
-	objective_clearplayerusing(playerbeingrevived.obj_ind, self);
+	if (is_clone_revive)
+	{
+		objective_clearplayerusing(playerbeingrevived_player.clone_obj_ind, self);
+	}
+	else
+	{
+		objective_clearplayerusing(playerbeingrevived_player.obj_ind, self);
+	}
 
 	return revived;
 }

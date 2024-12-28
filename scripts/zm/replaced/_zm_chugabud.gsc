@@ -396,21 +396,8 @@ chugabud_bleed_timeout_hud_create(delay)
 
 chugabud_corpse_revive_icon(player)
 {
-	self endon("death");
-	height_offset = 30;
-	index = player.clientid;
-	self.revive_waypoint_origin = spawn("script_model", self.origin + (0, 0, height_offset));
-	self.revive_waypoint_origin setmodel("tag_origin");
-	self.revive_waypoint_origin linkto(self);
-
-	hud_elem = newhudelem();
-	self.revive_hud_elem = hud_elem;
-	hud_elem.alpha = 1;
-	hud_elem.hidewheninmenu = 1;
-	hud_elem.hidewheninscope = 1;
-	hud_elem.immunetodemogamehudsettings = 1;
-	hud_elem setwaypoint(1, "specialty_chugabud_zombies");
-	hud_elem settargetent(self.revive_waypoint_origin);
+	objective_state(player.clone_obj_ind, "active");
+	objective_onentity(player.clone_obj_ind, self);
 }
 
 chugabud_corpse_cleanup(corpse, was_revived, was_disconnect = 0)
@@ -461,17 +448,8 @@ chugabud_corpse_cleanup(corpse, was_revived, was_disconnect = 0)
 		corpse.revivetrigger = undefined;
 	}
 
-	if (isdefined(corpse.revive_hud_elem))
-	{
-		corpse.revive_hud_elem destroy();
-		corpse.revive_hud_elem = undefined;
-	}
-
-	if (isdefined(corpse.revive_waypoint_origin))
-	{
-		corpse.revive_waypoint_origin delete();
-		corpse.revive_waypoint_origin = undefined;
-	}
+	objective_state(self.clone_obj_ind, "invisible");
+	objective_clearentity(self.clone_obj_ind, self);
 
 	if (isdefined(self.chugabud_bleed_timeout_hud))
 	{

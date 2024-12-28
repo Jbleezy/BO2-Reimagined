@@ -240,6 +240,15 @@ precache_strings()
 	precacheString(&"OBJ_PLAYER_7");
 	precacheString(&"OBJ_PLAYER_8");
 
+	precacheString(&"OBJ_PLAYER_CLONE_1");
+	precacheString(&"OBJ_PLAYER_CLONE_2");
+	precacheString(&"OBJ_PLAYER_CLONE_3");
+	precacheString(&"OBJ_PLAYER_CLONE_4");
+	precacheString(&"OBJ_PLAYER_CLONE_5");
+	precacheString(&"OBJ_PLAYER_CLONE_6");
+	precacheString(&"OBJ_PLAYER_CLONE_7");
+	precacheString(&"OBJ_PLAYER_CLONE_8");
+
 	precacheString(&"get_dvar");
 	precacheString(&"r_fog_settings");
 
@@ -731,6 +740,15 @@ add_objectives()
 	objective_add(5, "invisible", (0, 0, 0), &"OBJ_PLAYER_6");
 	objective_add(6, "invisible", (0, 0, 0), &"OBJ_PLAYER_7");
 	objective_add(7, "invisible", (0, 0, 0), &"OBJ_PLAYER_8");
+
+	objective_add(8, "invisible", (0, 0, 0), &"OBJ_PLAYER_CLONE_1");
+	objective_add(9, "invisible", (0, 0, 0), &"OBJ_PLAYER_CLONE_2");
+	objective_add(10, "invisible", (0, 0, 0), &"OBJ_PLAYER_CLONE_3");
+	objective_add(11, "invisible", (0, 0, 0), &"OBJ_PLAYER_CLONE_4");
+	objective_add(12, "invisible", (0, 0, 0), &"OBJ_PLAYER_CLONE_5");
+	objective_add(13, "invisible", (0, 0, 0), &"OBJ_PLAYER_CLONE_6");
+	objective_add(14, "invisible", (0, 0, 0), &"OBJ_PLAYER_CLONE_7");
+	objective_add(15, "invisible", (0, 0, 0), &"OBJ_PLAYER_CLONE_8");
 }
 
 set_dvars()
@@ -2040,13 +2058,15 @@ player_waypoint()
 	self endon("disconnect");
 
 	self.obj_ind = get_free_player_obj_ind();
+	self.clone_obj_ind = self.obj_ind + 8;
+
+	objective_state(self.obj_ind, "active");
+	objective_onentity(self.obj_ind, self);
+	objective_setgamemodeflags(self.obj_ind, 0);
 
 	self waittill_next_snapshot(1);
 
 	flag_wait("hud_visible");
-
-	objective_state(self.obj_ind, "active");
-	objective_onentity(self.obj_ind, self);
 
 	self thread player_waypoint_height_offset_think();
 }

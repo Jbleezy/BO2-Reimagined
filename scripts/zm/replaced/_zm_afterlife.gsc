@@ -104,6 +104,10 @@ afterlife_laststand(b_electric_chair = 0)
 	self afterlife_fake_revive();
 	self afterlife_enter();
 	self.e_afterlife_corpse setclientfield("player_corpse_id", self getentitynumber() + 1);
+
+	objective_state(self.clone_obj_ind, "active");
+	objective_onentity(self.clone_obj_ind, corpse);
+
 	wait 0.5;
 	self show();
 
@@ -181,6 +185,10 @@ afterlife_clean_up_on_disconnect()
 	}
 
 	e_corpse setclientfield("player_corpse_id", 0);
+
+	objective_state(self.clone_obj_ind, "invisible");
+	objective_clearentity(self.clone_obj_ind, e_corpse);
+
 	e_corpse notify("disconnect");
 	wait_network_frame();
 	wait_network_frame();
@@ -272,6 +280,8 @@ afterlife_revive_do_revive(playerbeingrevived, revivergun)
 		playerbeingrevived_player.revive_hud.y = -160;
 		beingrevivedprogressbar_y = level.primaryprogressbary * -1;
 	}
+
+	objective_setplayerusing(playerbeingrevived_player.clone_obj_ind, self);
 
 	assert(self is_reviving_afterlife(playerbeingrevived));
 	revivetime = 3;
@@ -454,6 +464,8 @@ afterlife_revive_do_revive(playerbeingrevived, revivergun)
 		playerbeingrevived thread checkforbleedout(self);
 	}
 
+	objective_clearplayerusing(playerbeingrevived_player.clone_obj_ind, self);
+
 	return revived;
 }
 
@@ -476,6 +488,10 @@ afterlife_corpse_cleanup(corpse)
 
 	self.e_afterlife_corpse = undefined;
 	corpse setclientfield("player_corpse_id", 0);
+
+	objective_state(self.clone_obj_ind, "invisible");
+	objective_clearentity(self.clone_obj_ind, corpse);
+
 	corpse afterlife_corpse_remove_pois();
 	corpse ghost();
 	self.loadout = undefined;
