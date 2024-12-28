@@ -204,7 +204,6 @@ hide_gump_loading_for_hotjoiners()
 		return;
 	}
 
-	self.statusicon = "hud_status_dead";
 	self maps\mp\zombies\_zm::spawnspectator();
 
 	if (is_true(level.intermission) || is_true(level.host_ended_game))

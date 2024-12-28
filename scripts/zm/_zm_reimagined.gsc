@@ -484,6 +484,8 @@ on_player_connect()
 	{
 		level waittill("connected", player);
 
+		player.statusicon = "hud_status_dead";
+
 		player set_client_dvars();
 
 		player thread lui_notify_events();
@@ -552,9 +554,8 @@ on_player_spawned()
 		if (is_player_valid(self))
 		{
 			self.statusicon = "";
+			objective_setgamemodeflags(self.obj_ind, 1);
 		}
-
-		objective_setgamemodeflags(self.obj_ind, 1);
 
 		self set_perks();
 		self set_favorite_wall_weapons();
