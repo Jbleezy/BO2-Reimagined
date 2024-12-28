@@ -622,6 +622,7 @@ on_player_fake_revive()
 		else if (is_true(level.zombiemode_using_afterlife))
 		{
 			self.statusicon = "waypoint_revive_afterlife";
+			objective_setgamemodeflags(self.obj_ind, 0);
 		}
 	}
 }
