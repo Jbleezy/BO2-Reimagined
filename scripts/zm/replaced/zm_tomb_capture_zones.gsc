@@ -26,9 +26,7 @@ precache_everything()
 	precachemodel("p6_zm_tm_packapunch");
 	precacherumble("generator_active");
 	precachestring(&"ZM_TOMB_OBJ_CAPTURE_1");
-	precachestring(&"ZM_TOMB_OBJ_RECAPTURE_1");
 	precachestring(&"ZM_TOMB_OBJ_CAPTURE_2");
-	precachestring(&"ZM_TOMB_OBJ_RECAPTURE_2");
 	precachestring(&"ZM_TOMB_OBJ_RECAPTURE_ZOMBIE_1");
 	precachestring(&"ZM_TOMB_OBJ_RECAPTURE_ZOMBIE_2");
 	precachestring(&"ZM_TOMB_OBJ_RECAPTURE_ZOMBIE_3");
@@ -39,15 +37,14 @@ precache_everything()
 
 declare_objectives()
 {
-	objective_add(0, "invisible", (0, 0, 0), &"ZM_TOMB_OBJ_CAPTURE_1");
-	objective_add(1, "invisible", (0, 0, 0), &"ZM_TOMB_OBJ_RECAPTURE_2");
-	objective_add(2, "invisible", (0, 0, 0), &"ZM_TOMB_OBJ_CAPTURE_2");
-	objective_add(3, "invisible", (0, 0, 0), &"ZM_TOMB_OBJ_RECAPTURE_ZOMBIE_1");
-	objective_add(4, "invisible", (0, 0, 0), &"ZM_TOMB_OBJ_RECAPTURE_ZOMBIE_2");
-	objective_add(5, "invisible", (0, 0, 0), &"ZM_TOMB_OBJ_RECAPTURE_ZOMBIE_3");
-	objective_add(6, "invisible", (0, 0, 0), &"ZM_TOMB_OBJ_RECAPTURE_ZOMBIE_4");
-	objective_add(7, "invisible", (0, 0, 0), &"ZM_TOMB_OBJ_RECAPTURE_ZOMBIE_5");
-	objective_add(8, "invisible", (0, 0, 0), &"ZM_TOMB_OBJ_RECAPTURE_ZOMBIE_6");
+	objective_add(31, "invisible", (0, 0, 0), &"ZM_TOMB_OBJ_CAPTURE_1");
+	objective_add(30, "invisible", (0, 0, 0), &"ZM_TOMB_OBJ_CAPTURE_2");
+	objective_add(29, "invisible", (0, 0, 0), &"ZM_TOMB_OBJ_RECAPTURE_ZOMBIE_1");
+	objective_add(28, "invisible", (0, 0, 0), &"ZM_TOMB_OBJ_RECAPTURE_ZOMBIE_2");
+	objective_add(27, "invisible", (0, 0, 0), &"ZM_TOMB_OBJ_RECAPTURE_ZOMBIE_3");
+	objective_add(26, "invisible", (0, 0, 0), &"ZM_TOMB_OBJ_RECAPTURE_ZOMBIE_4");
+	objective_add(25, "invisible", (0, 0, 0), &"ZM_TOMB_OBJ_RECAPTURE_ZOMBIE_5");
+	objective_add(24, "invisible", (0, 0, 0), &"ZM_TOMB_OBJ_RECAPTURE_ZOMBIE_6");
 }
 
 init_capture_zone()
@@ -482,7 +479,7 @@ init_recapture_zombie(zone_struct, s_spawn_point)
 	self thread recapture_zombie_poi_think();
 
 	self.obj_ind = level.current_recapture_zombie_obj_ind;
-	level.current_recapture_zombie_obj_ind++;
+	level.current_recapture_zombie_obj_ind--;
 
 	self recapture_zombie_icon_show();
 
@@ -585,7 +582,7 @@ recapture_round_start()
 	flag_clear("generator_under_attack");
 	level.recapture_zombies_killed = 0;
 	level.b_is_first_generator_attack = 1;
-	level.current_recapture_zombie_obj_ind = 3;
+	level.current_recapture_zombie_obj_ind = 29;
 	s_recapture_target_zone = undefined;
 	capture_event_handle_ai_limit();
 	recapture_round_audio_starts();
@@ -705,11 +702,11 @@ get_zone_objective_index()
 	{
 		if (self ent_flag("current_recapture_target_zone"))
 		{
-			n_objective = 2;
+			n_objective = 30;
 		}
 		else
 		{
-			n_objective = 0;
+			n_objective = 31;
 		}
 
 		self.n_objective_index = n_objective;
