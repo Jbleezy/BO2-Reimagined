@@ -78,10 +78,6 @@ CoD.TCZWaypoint.new = function(f3_arg0, f3_arg1)
 	f3_local0:setClass(CoD.TCZWaypoint)
 	local f3_local1 = Engine.GetObjectiveName(f3_arg0, f3_arg1)
 	f3_local0:registerEventHandler("objective_update_" .. f3_local1, f3_local0.update)
-
-	f3_local0.edgePointerContainer:setTopBottom(true, true, -20, 20)
-	f3_local0.arrowImage:setTopBottom(false, true, -32, 0)
-
 	f3_local0.mainImage:setImage(CoD.TCZWaypoint.MainSpinImageMaterial)
 	f3_local0.arrowImage:setImage(CoD.TCZWaypoint.ArrowImageMaterial)
 	f3_local0.progressBackground:close()
@@ -289,14 +285,8 @@ end
 CoD.TCZRoamingZombies.new = function(f10_arg0, f10_arg1)
 	local f10_local0 = CoD.ObjectiveWaypoint.new(f10_arg0, f10_arg1, CoD.TCZRoamingZombies.baseWaypointZOffset)
 	f10_local0:setClass(CoD.TCZRoamingZombies)
-	f10_local0:registerEventHandler("objective_update_" .. Engine.GetObjectiveName(f10_arg0, f10_arg1), f10_local0.update)
-
 	f10_local0:setPriority(-101)
-
-	f10_local0.edgePointerContainer:setTopBottom(true, true, -20, 20)
-	f10_local0.arrowImage:setLeftRight(false, false, -12, 12)
-	f10_local0.arrowImage:setTopBottom(false, true, -24, 0)
-
+	f10_local0:registerEventHandler("objective_update_" .. Engine.GetObjectiveName(f10_arg0, f10_arg1), f10_local0.update)
 	f10_local0.mainImage:setImage(CoD.TCZRoamingZombies.RoamingZombieMaterial)
 	f10_local0.arrowImage:setImage(CoD.TCZWaypoint.ArrowImageMaterial)
 	f10_local0.alphaController:setAlpha(1)
