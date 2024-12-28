@@ -285,10 +285,11 @@ end
 CoD.TCZRoamingZombies.new = function(f10_arg0, f10_arg1)
 	local f10_local0 = CoD.ObjectiveWaypoint.new(f10_arg0, f10_arg1, CoD.TCZRoamingZombies.baseWaypointZOffset)
 	f10_local0:setClass(CoD.TCZRoamingZombies)
+	f10_local0:setEntityContainerClamp(false)
 	f10_local0:setPriority(-101)
 	f10_local0:registerEventHandler("objective_update_" .. Engine.GetObjectiveName(f10_arg0, f10_arg1), f10_local0.update)
 	f10_local0.mainImage:setImage(CoD.TCZRoamingZombies.RoamingZombieMaterial)
-	f10_local0.arrowImage:setImage(CoD.TCZWaypoint.ArrowImageMaterial)
+	f10_local0.arrowImage:setAlpha(0)
 	f10_local0.alphaController:setAlpha(1)
 	return f10_local0
 end

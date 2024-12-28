@@ -1347,6 +1347,7 @@
 * Generators: no longer lose capture progress if any players are on the generator when zombies are capturing
 * Generators: no longer gain capture progress if no players are on the generator when recapturing
 * Generators: capture round zombies only drop Max Ammo if killed before taking first generator
+* Generators: capture round zombie waypoint no longer shows offscreen
 * Generators: added capture round zombie waypoint to all capture round zombies
 * Generators: fixed capture round zombies not dropping Max Ammo when killed by a staff
 * Generators: fixed an issue where recapture sound and fx would play twice

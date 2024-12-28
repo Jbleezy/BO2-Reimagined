@@ -687,7 +687,7 @@ recapture_zombie_icon_think()
 		self waittill_any_or_timeout(0.05, "goal", "poi_state_changed", "death");
 	}
 
-	self thread recapture_zombie_icon_hide();
+	self recapture_zombie_icon_hide();
 }
 
 recapture_zombie_icon_hide()
