@@ -17,14 +17,13 @@ CoD.TCZWaypoint.numberIconSmallIndentHeight = 20
 CoD.TCZWaypoint.worldProgressColor = CoD.brightRed
 CoD.TCZWaypoint.contestedProgressColor = CoD.yellowGlow
 CoD.TCZRoamingZombies = InheritFrom(CoD.ObjectiveWaypoint)
-CoD.TCZRoamingZombies.baseWaypointZOffset = 75
+CoD.TCZRoamingZombies.baseWaypointZOffset = 74
 CoD.TCZRoamingZombies.iconWidth = 32
 CoD.TCZRoamingZombies.iconHeight = 32
 LUI.createMenu.TombCaptureZoneDisplay = function(f1_arg0)
 	local f1_local0 = CoD.GametypeBase.new("tomb_capture_display", f1_arg0)
 	f1_local0.objectiveTypes.ZM_TOMB_OBJ_CAPTURE_1 = CoD.TCZWaypoint
 	f1_local0.objectiveTypes.ZM_TOMB_OBJ_CAPTURE_2 = CoD.TCZWaypoint
-	f1_local0.objectiveTypes.ZM_TOMB_OBJ_RECAPTURE_2 = CoD.TCZWaypoint
 	f1_local0.objectiveTypes.ZM_TOMB_OBJ_RECAPTURE_ZOMBIE_1 = CoD.TCZRoamingZombies
 	f1_local0.objectiveTypes.ZM_TOMB_OBJ_RECAPTURE_ZOMBIE_2 = CoD.TCZRoamingZombies
 	f1_local0.objectiveTypes.ZM_TOMB_OBJ_RECAPTURE_ZOMBIE_3 = CoD.TCZRoamingZombies
@@ -127,8 +126,6 @@ CoD.TCZWaypoint.new = function(f3_arg0, f3_arg1)
 		f3_local0.alphaController:addElement(f3_local0.glow)
 		f3_local0.glow:beginAnimation("pulse_high")
 		f3_local0:registerEventHandler("zc_change_progress_bar_color", CoD.TCZWaypoint.SetCaptureProgressBarColor)
-	elseif string.sub(f3_local1, 0, 21) == "ZM_TOMB_OBJ_RECAPTURE" and f3_local0.progressBar then
-		f3_local0.progressBar:setRGB(f3_local0.worldProgressColor.r, f3_local0.worldProgressColor.g, f3_local0.worldProgressColor.b)
 	end
 	f3_local0.updateProgress = CoD.TCZWaypoint.updateProgress
 	f3_local0.updatePlayerUsing = CoD.TCZWaypoint.updatePlayerUsing
@@ -150,8 +147,6 @@ CoD.TCZWaypoint.update = function(f4_arg0, f4_arg1)
 
 		if string.sub(f4_local1, 0, 19) == "ZM_TOMB_OBJ_CAPTURE" then
 			f4_arg0.numberGlow:setAlpha(1)
-		elseif string.sub(f4_local1, 0, 21) == "ZM_TOMB_OBJ_RECAPTURE" then
-			f4_arg0.numberGlow:setAlpha(0)
 		end
 
 		isZombieCaptureWaypoint = f4_local1 == "ZM_TOMB_OBJ_CAPTURE_2"
@@ -295,13 +290,5 @@ CoD.TCZRoamingZombies.new = function(f10_arg0, f10_arg1)
 end
 
 CoD.TCZRoamingZombies.update = function(f11_arg0, f11_arg1)
-	local f11_local0 = f11_arg1.controller
-	local f11_local1 = f11_arg0.index
-	local f11_local2 = Engine.ObjectiveGetTeamUsingCount(f11_local0, f11_local1)
-	if Engine.GetObjectiveEntity(f11_local0, f11_local1) then
-		f11_arg0.zOffset = f11_arg0.PlayerZOffset
-	else
-		f11_arg0.zOffset = CoD.TCZRoamingZombies.baseWaypointZOffset
-	end
 	CoD.TCZRoamingZombies.super.update(f11_arg0, f11_arg1)
 end
