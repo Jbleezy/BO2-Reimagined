@@ -1,16 +1,46 @@
 CoD.ReimaginedWaypoint = {}
+CoD.PlayerObjectiveWaypoint = InheritFrom(CoD.ObjectiveWaypoint)
 CoD.PlayerCloneWaypoint = InheritFrom(CoD.ObjectiveWaypoint)
 CoD.PlayerWaypoint = InheritFrom(CoD.ObjectiveWaypoint)
 CoD.PlayerWaypoint.FLAG_DEAD = 0
 CoD.PlayerWaypoint.FLAG_ALIVE = 1
 CoD.PlayerWaypoint.FLAG_DOWN = 2
-CoD.PlayerWaypoint.FLAG_TARGET = 3
-CoD.PlayerTargetWaypoint = InheritFrom(CoD.ObjectiveWaypoint)
+CoD.PlayerWaypoint.FLAG_OBJECTIVE = 3
 CoD.PlayerReviveWaypoint = InheritFrom(CoD.ObjectiveWaypoint)
 CoD.PlayerDownWaypoint = InheritFrom(CoD.ObjectiveWaypoint)
 CoD.PlayerAliveWaypoint = InheritFrom(CoD.ObjectiveWaypoint)
 CoD.TombstoneWaypoint = InheritFrom(CoD.ObjectiveWaypoint)
 CoD.PlayerHeadIcon = InheritFrom(CoD.ObjectiveWaypoint)
+
+LUI.createMenu.PlayerObjectiveWaypointArea = function(LocalClientIndex)
+	local safeArea = CoD.GametypeBase.new("PlayerObjectiveWaypointArea", LocalClientIndex)
+
+	safeArea.objectiveTypes.OBJ_PLAYER_1 = CoD.PlayerObjectiveWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_2 = CoD.PlayerObjectiveWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_3 = CoD.PlayerObjectiveWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_4 = CoD.PlayerObjectiveWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_5 = CoD.PlayerObjectiveWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_6 = CoD.PlayerObjectiveWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_7 = CoD.PlayerObjectiveWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_8 = CoD.PlayerObjectiveWaypoint
+
+	safeArea:registerEventHandler("hud_update_refresh", CoD.GametypeBase.Refresh)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_VISIBLE, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_SHOWOBJICONS, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_PLAYER_IN_AFTERLIFE, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_VEHICLE, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_GUIDED_MISSILE, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_AMMO_COUNTER_HIDE, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_UI_ACTIVE, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_SCOREBOARD_OPEN, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_PLAYER_DEAD, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_SCOPED, CoD.PlayerWaypoint.UpdateVisibility)
+
+	return safeArea
+end
 
 LUI.createMenu.PlayerCloneWaypointArea = function(LocalClientIndex)
 	local safeArea = CoD.GametypeBase.new("PlayerCloneWaypointArea", LocalClientIndex)
@@ -41,6 +71,96 @@ LUI.createMenu.PlayerCloneWaypointArea = function(LocalClientIndex)
 	return safeArea
 end
 
+LUI.createMenu.PlayerReviveWaypointArea = function(LocalClientIndex)
+	local safeArea = CoD.GametypeBase.new("PlayerReviveWaypointArea", LocalClientIndex)
+
+	safeArea.objectiveTypes.OBJ_PLAYER_1 = CoD.PlayerReviveWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_2 = CoD.PlayerReviveWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_3 = CoD.PlayerReviveWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_4 = CoD.PlayerReviveWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_5 = CoD.PlayerReviveWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_6 = CoD.PlayerReviveWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_7 = CoD.PlayerReviveWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_8 = CoD.PlayerReviveWaypoint
+
+	safeArea:registerEventHandler("hud_update_refresh", CoD.GametypeBase.Refresh)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_VISIBLE, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_SHOWOBJICONS, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_PLAYER_IN_AFTERLIFE, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_VEHICLE, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_GUIDED_MISSILE, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_AMMO_COUNTER_HIDE, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_UI_ACTIVE, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_SCOREBOARD_OPEN, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_PLAYER_DEAD, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_SCOPED, CoD.PlayerWaypoint.UpdateVisibility)
+
+	return safeArea
+end
+
+LUI.createMenu.PlayerDownWaypointArea = function(LocalClientIndex)
+	local safeArea = CoD.GametypeBase.new("PlayerDownWaypointArea", LocalClientIndex)
+
+	safeArea.objectiveTypes.OBJ_PLAYER_1 = CoD.PlayerDownWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_2 = CoD.PlayerDownWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_3 = CoD.PlayerDownWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_4 = CoD.PlayerDownWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_5 = CoD.PlayerDownWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_6 = CoD.PlayerDownWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_7 = CoD.PlayerDownWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_8 = CoD.PlayerDownWaypoint
+
+	safeArea:registerEventHandler("hud_update_refresh", CoD.GametypeBase.Refresh)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_VISIBLE, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_SHOWOBJICONS, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_PLAYER_IN_AFTERLIFE, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_VEHICLE, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_GUIDED_MISSILE, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_AMMO_COUNTER_HIDE, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_UI_ACTIVE, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_SCOREBOARD_OPEN, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_PLAYER_DEAD, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_SCOPED, CoD.PlayerWaypoint.UpdateVisibility)
+
+	return safeArea
+end
+
+LUI.createMenu.PlayerAliveWaypointArea = function(LocalClientIndex)
+	local safeArea = CoD.GametypeBase.new("PlayerAliveWaypointArea", LocalClientIndex)
+
+	safeArea.objectiveTypes.OBJ_PLAYER_1 = CoD.PlayerAliveWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_2 = CoD.PlayerAliveWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_3 = CoD.PlayerAliveWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_4 = CoD.PlayerAliveWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_5 = CoD.PlayerAliveWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_6 = CoD.PlayerAliveWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_7 = CoD.PlayerAliveWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_8 = CoD.PlayerAliveWaypoint
+
+	safeArea:registerEventHandler("hud_update_refresh", CoD.GametypeBase.Refresh)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_VISIBLE, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_SHOWOBJICONS, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_PLAYER_IN_AFTERLIFE, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_VEHICLE, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_GUIDED_MISSILE, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_AMMO_COUNTER_HIDE, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_UI_ACTIVE, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_SCOREBOARD_OPEN, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_PLAYER_DEAD, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_SCOPED, CoD.PlayerWaypoint.UpdateVisibility)
+
+	return safeArea
+end
+
 CoD.PlayerCloneWaypoint.UpdateVisibility = function(Menu, ClientInstance)
 	local controller = ClientInstance.controller
 	if UIExpression.IsVisibilityBitSet(controller, CoD.BIT_HUD_VISIBLE) == 1 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_HUD_SHOWOBJICONS) == 1 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_VEHICLE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_GUIDED_MISSILE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_AMMO_COUNTER_HIDE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_UI_ACTIVE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_SCOREBOARD_OPEN) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IS_SCOPED) == 0 and (not CoD.IsShoutcaster(controller) or CoD.ExeProfileVarBool(controller, "shoutcaster_scorestreaks") and Engine.IsSpectatingActiveClient(controller)) and CoD.FSM_VISIBILITY(controller) == 0 then
@@ -55,6 +175,80 @@ CoD.PlayerCloneWaypoint.UpdateVisibility = function(Menu, ClientInstance)
 		Menu.visible = nil
 	end
 	Menu:dispatchEventToChildren(ClientInstance)
+end
+
+CoD.PlayerWaypoint.UpdateVisibility = function(Menu, ClientInstance)
+	local controller = ClientInstance.controller
+	if UIExpression.IsVisibilityBitSet(controller, CoD.BIT_HUD_VISIBLE) == 1 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_HUD_SHOWOBJICONS) == 1 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IS_PLAYER_IN_AFTERLIFE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_VEHICLE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_GUIDED_MISSILE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_AMMO_COUNTER_HIDE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_UI_ACTIVE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_SCOREBOARD_OPEN) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IS_SCOPED) == 0 and (not CoD.IsShoutcaster(controller) or CoD.ExeProfileVarBool(controller, "shoutcaster_scorestreaks") and Engine.IsSpectatingActiveClient(controller)) and CoD.FSM_VISIBILITY(controller) == 0 then
+		if Menu.visible ~= true then
+			Menu:setAlpha(1)
+			Menu.m_inputDisabled = nil
+			Menu.visible = true
+		end
+	elseif Menu.visible == true then
+		Menu:setAlpha(0)
+		Menu.m_inputDisabled = true
+		Menu.visible = nil
+	end
+	Menu:dispatchEventToChildren(ClientInstance)
+end
+
+CoD.PlayerObjectiveWaypoint.new = function(Menu, ObjectiveIndex)
+	local waypoint = CoD.ObjectiveWaypoint.new(Menu, ObjectiveIndex, 0)
+	waypoint:setClass(CoD.PlayerObjectiveWaypoint)
+	waypoint:setLeftRight(false, false, -waypoint.iconWidth / 2, waypoint.iconWidth / 2)
+	waypoint:setTopBottom(false, true, -waypoint.iconHeight, 0)
+	waypoint.mainImage:setLeftRight(false, false, -24, 24)
+	waypoint.mainImage:setTopBottom(false, false, -39, 9)
+	waypoint.arrowImage:setLeftRight(false, false, -12, 12)
+	waypoint.arrowImage:setTopBottom(false, false, 21, 45)
+	waypoint.edgePointerContainer:setTopBottom(true, true, -15, -15)
+	waypoint.updatePlayerUsing = CoD.NullFunction
+
+	local objectiveName = Engine.GetObjectiveName(Menu, ObjectiveIndex)
+	waypoint:registerEventHandler("objective_update_" .. objectiveName, waypoint.update)
+	waypoint:registerEventHandler("hud_update_team_change", waypoint.update)
+	waypoint:registerEventHandler("hud_update_other_player_team_change", waypoint.update)
+
+	return waypoint
+end
+
+CoD.PlayerObjectiveWaypoint.update = function(Menu, ClientInstance)
+	local index = Menu.index
+	local controller = ClientInstance.controller
+	local clientNum = Engine.GetPredictedClientNum(controller)
+	local objectiveFlags = Engine.GetObjectiveGamemodeFlags(Menu, index)
+	local objectiveEntity = Engine.GetObjectiveEntity(Menu, index)
+	local clientTeam = Engine.GetTeamID(controller, clientNum)
+	local objectiveEntityTeam = Engine.GetTeamID(controller, objectiveEntity)
+	local gamemodeGroup = UIExpression.DvarString(nil, "ui_zm_gamemodegroup")
+
+	if objectiveFlags == CoD.PlayerWaypoint.FLAG_OBJECTIVE and clientTeam ~= objectiveEntityTeam and gamemodeGroup ~= CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
+		local x, y, z = Engine.GetObjectivePosition(Menu, index)
+		local targetIcon = ""
+		local targetArrow = "waypoint_revive_arrow"
+
+		if clientTeam == objectiveEntityTeam then
+			targetIcon = "white_waypoint_escort"
+			Menu.mainImage:setRGB(0, 1, 0)
+			Menu.arrowImage:setRGB(0, 1, 0)
+		else
+			targetIcon = "white_waypoint_kill"
+			Menu.mainImage:setRGB(1, 0, 0)
+			Menu.arrowImage:setRGB(1, 0, 0)
+		end
+
+		Menu.alphaController:setAlpha(1)
+		Menu.mainImage:setAlpha(1)
+		Menu.arrowImage:setAlpha(1)
+		Menu.mainImage:setImage(RegisterMaterial(targetIcon))
+		Menu.arrowImage:setImage(RegisterMaterial(targetArrow))
+		Menu.zOffset = z
+	else
+		Menu.alphaController:setAlpha(0)
+	end
+
+	CoD.PlayerObjectiveWaypoint.super.update(Menu, ClientInstance)
 end
 
 CoD.PlayerCloneWaypoint.new = function(Menu, ObjectiveIndex)
@@ -175,145 +369,9 @@ CoD.PlayerCloneWaypoint.updatePlayerUsing = function(Menu, LocalClientIndex, IsA
 	Menu.playerUsing = objectiveIsPlayerUsing
 end
 
-LUI.createMenu.PlayerTargetWaypointArea = function(LocalClientIndex)
-	local safeArea = CoD.GametypeBase.new("PlayerTargetWaypointArea", LocalClientIndex)
-
-	safeArea.objectiveTypes.OBJ_PLAYER_1 = CoD.PlayerTargetWaypoint
-	safeArea.objectiveTypes.OBJ_PLAYER_2 = CoD.PlayerTargetWaypoint
-	safeArea.objectiveTypes.OBJ_PLAYER_3 = CoD.PlayerTargetWaypoint
-	safeArea.objectiveTypes.OBJ_PLAYER_4 = CoD.PlayerTargetWaypoint
-	safeArea.objectiveTypes.OBJ_PLAYER_5 = CoD.PlayerTargetWaypoint
-	safeArea.objectiveTypes.OBJ_PLAYER_6 = CoD.PlayerTargetWaypoint
-	safeArea.objectiveTypes.OBJ_PLAYER_7 = CoD.PlayerTargetWaypoint
-	safeArea.objectiveTypes.OBJ_PLAYER_8 = CoD.PlayerTargetWaypoint
-
-	safeArea:registerEventHandler("hud_update_refresh", CoD.GametypeBase.Refresh)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_VISIBLE, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_SHOWOBJICONS, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_PLAYER_IN_AFTERLIFE, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_VEHICLE, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_GUIDED_MISSILE, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_AMMO_COUNTER_HIDE, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_UI_ACTIVE, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_SCOREBOARD_OPEN, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_PLAYER_DEAD, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_SCOPED, CoD.PlayerWaypoint.UpdateVisibility)
-
-	return safeArea
-end
-
-LUI.createMenu.PlayerReviveWaypointArea = function(LocalClientIndex)
-	local safeArea = CoD.GametypeBase.new("PlayerReviveWaypointArea", LocalClientIndex)
-
-	safeArea.objectiveTypes.OBJ_PLAYER_1 = CoD.PlayerReviveWaypoint
-	safeArea.objectiveTypes.OBJ_PLAYER_2 = CoD.PlayerReviveWaypoint
-	safeArea.objectiveTypes.OBJ_PLAYER_3 = CoD.PlayerReviveWaypoint
-	safeArea.objectiveTypes.OBJ_PLAYER_4 = CoD.PlayerReviveWaypoint
-	safeArea.objectiveTypes.OBJ_PLAYER_5 = CoD.PlayerReviveWaypoint
-	safeArea.objectiveTypes.OBJ_PLAYER_6 = CoD.PlayerReviveWaypoint
-	safeArea.objectiveTypes.OBJ_PLAYER_7 = CoD.PlayerReviveWaypoint
-	safeArea.objectiveTypes.OBJ_PLAYER_8 = CoD.PlayerReviveWaypoint
-
-	safeArea:registerEventHandler("hud_update_refresh", CoD.GametypeBase.Refresh)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_VISIBLE, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_SHOWOBJICONS, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_PLAYER_IN_AFTERLIFE, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_VEHICLE, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_GUIDED_MISSILE, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_AMMO_COUNTER_HIDE, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_UI_ACTIVE, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_SCOREBOARD_OPEN, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_PLAYER_DEAD, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_SCOPED, CoD.PlayerWaypoint.UpdateVisibility)
-
-	return safeArea
-end
-
-LUI.createMenu.PlayerDownWaypointArea = function(LocalClientIndex)
-	local safeArea = CoD.GametypeBase.new("PlayerDownWaypointArea", LocalClientIndex)
-
-	safeArea.objectiveTypes.OBJ_PLAYER_1 = CoD.PlayerDownWaypoint
-	safeArea.objectiveTypes.OBJ_PLAYER_2 = CoD.PlayerDownWaypoint
-	safeArea.objectiveTypes.OBJ_PLAYER_3 = CoD.PlayerDownWaypoint
-	safeArea.objectiveTypes.OBJ_PLAYER_4 = CoD.PlayerDownWaypoint
-	safeArea.objectiveTypes.OBJ_PLAYER_5 = CoD.PlayerDownWaypoint
-	safeArea.objectiveTypes.OBJ_PLAYER_6 = CoD.PlayerDownWaypoint
-	safeArea.objectiveTypes.OBJ_PLAYER_7 = CoD.PlayerDownWaypoint
-	safeArea.objectiveTypes.OBJ_PLAYER_8 = CoD.PlayerDownWaypoint
-
-	safeArea:registerEventHandler("hud_update_refresh", CoD.GametypeBase.Refresh)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_VISIBLE, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_SHOWOBJICONS, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_PLAYER_IN_AFTERLIFE, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_VEHICLE, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_GUIDED_MISSILE, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_AMMO_COUNTER_HIDE, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_UI_ACTIVE, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_SCOREBOARD_OPEN, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_PLAYER_DEAD, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_SCOPED, CoD.PlayerWaypoint.UpdateVisibility)
-
-	return safeArea
-end
-
-LUI.createMenu.PlayerAliveWaypointArea = function(LocalClientIndex)
-	local safeArea = CoD.GametypeBase.new("PlayerAliveWaypointArea", LocalClientIndex)
-
-	safeArea.objectiveTypes.OBJ_PLAYER_1 = CoD.PlayerAliveWaypoint
-	safeArea.objectiveTypes.OBJ_PLAYER_2 = CoD.PlayerAliveWaypoint
-	safeArea.objectiveTypes.OBJ_PLAYER_3 = CoD.PlayerAliveWaypoint
-	safeArea.objectiveTypes.OBJ_PLAYER_4 = CoD.PlayerAliveWaypoint
-	safeArea.objectiveTypes.OBJ_PLAYER_5 = CoD.PlayerAliveWaypoint
-	safeArea.objectiveTypes.OBJ_PLAYER_6 = CoD.PlayerAliveWaypoint
-	safeArea.objectiveTypes.OBJ_PLAYER_7 = CoD.PlayerAliveWaypoint
-	safeArea.objectiveTypes.OBJ_PLAYER_8 = CoD.PlayerAliveWaypoint
-
-	safeArea:registerEventHandler("hud_update_refresh", CoD.GametypeBase.Refresh)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_VISIBLE, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_SHOWOBJICONS, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_PLAYER_IN_AFTERLIFE, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_VEHICLE, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_GUIDED_MISSILE, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_AMMO_COUNTER_HIDE, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_UI_ACTIVE, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_SCOREBOARD_OPEN, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_PLAYER_DEAD, CoD.PlayerWaypoint.UpdateVisibility)
-	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_SCOPED, CoD.PlayerWaypoint.UpdateVisibility)
-
-	return safeArea
-end
-
-CoD.PlayerWaypoint.UpdateVisibility = function(Menu, ClientInstance)
-	local controller = ClientInstance.controller
-	if UIExpression.IsVisibilityBitSet(controller, CoD.BIT_HUD_VISIBLE) == 1 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_HUD_SHOWOBJICONS) == 1 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IS_PLAYER_IN_AFTERLIFE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_VEHICLE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_GUIDED_MISSILE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_AMMO_COUNTER_HIDE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_UI_ACTIVE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_SCOREBOARD_OPEN) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IS_SCOPED) == 0 and (not CoD.IsShoutcaster(controller) or CoD.ExeProfileVarBool(controller, "shoutcaster_scorestreaks") and Engine.IsSpectatingActiveClient(controller)) and CoD.FSM_VISIBILITY(controller) == 0 then
-		if Menu.visible ~= true then
-			Menu:setAlpha(1)
-			Menu.m_inputDisabled = nil
-			Menu.visible = true
-		end
-	elseif Menu.visible == true then
-		Menu:setAlpha(0)
-		Menu.m_inputDisabled = true
-		Menu.visible = nil
-	end
-	Menu:dispatchEventToChildren(ClientInstance)
-end
-
-CoD.PlayerTargetWaypoint.new = function(Menu, ObjectiveIndex)
+CoD.PlayerReviveWaypoint.new = function(Menu, ObjectiveIndex)
 	local waypoint = CoD.ObjectiveWaypoint.new(Menu, ObjectiveIndex, 0)
-	waypoint:setClass(CoD.PlayerTargetWaypoint)
+	waypoint:setClass(CoD.PlayerReviveWaypoint)
 	waypoint:setLeftRight(false, false, -waypoint.iconWidth / 2, waypoint.iconWidth / 2)
 	waypoint:setTopBottom(false, true, -waypoint.iconHeight, 0)
 	waypoint.mainImage:setLeftRight(false, false, -24, 24)
@@ -321,7 +379,8 @@ CoD.PlayerTargetWaypoint.new = function(Menu, ObjectiveIndex)
 	waypoint.arrowImage:setLeftRight(false, false, -12, 12)
 	waypoint.arrowImage:setTopBottom(false, false, 21, 45)
 	waypoint.edgePointerContainer:setTopBottom(true, true, -15, -15)
-	waypoint.updatePlayerUsing = CoD.NullFunction
+	waypoint.updatePlayerUsing = CoD.PlayerReviveWaypoint.updatePlayerUsing
+	waypoint.snapToHeight = 80
 
 	local objectiveName = Engine.GetObjectiveName(Menu, ObjectiveIndex)
 	waypoint:registerEventHandler("objective_update_" .. objectiveName, waypoint.update)
@@ -331,44 +390,51 @@ CoD.PlayerTargetWaypoint.new = function(Menu, ObjectiveIndex)
 	return waypoint
 end
 
-CoD.PlayerTargetWaypoint.update = function(Menu, ClientInstance)
+CoD.PlayerReviveWaypoint.update = function(Menu, ClientInstance)
+	CoD.PlayerWaypoint.updateDownAndRevive(Menu, ClientInstance, false)
+	CoD.PlayerReviveWaypoint.super.update(Menu, ClientInstance)
+end
+
+CoD.PlayerReviveWaypoint.updatePlayerUsing = function(Menu, LocalClientIndex, IsAnyPlayerUsing, Arg4)
 	local index = Menu.index
-	local controller = ClientInstance.controller
-	local clientNum = Engine.GetPredictedClientNum(controller)
-	local objectiveFlags = Engine.GetObjectiveGamemodeFlags(Menu, index)
-	local objectiveEntity = Engine.GetObjectiveEntity(Menu, index)
-	local clientTeam = Engine.GetTeamID(controller, clientNum)
-	local objectiveEntityTeam = Engine.GetTeamID(controller, objectiveEntity)
-	local gamemodeGroup = UIExpression.DvarString(nil, "ui_zm_gamemodegroup")
+	local clientNum = Engine.GetPredictedClientNum(LocalClientIndex)
+	local objectiveIsPlayerUsing = Engine.ObjectiveIsPlayerUsing(LocalClientIndex, index, clientNum)
 
-	if objectiveFlags == CoD.PlayerWaypoint.FLAG_TARGET and clientTeam ~= objectiveEntityTeam and gamemodeGroup ~= CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
-		local x, y, z = Engine.GetObjectivePosition(Menu, index)
-		local targetIcon = ""
-		local targetArrow = "waypoint_revive_arrow"
-
-		if clientTeam == objectiveEntityTeam then
-			targetIcon = "white_waypoint_escort"
-
-			Menu.mainImage:setRGB(0, 1, 0)
-			Menu.arrowImage:setRGB(0, 1, 0)
-		else
-			targetIcon = "white_waypoint_kill"
-
-			Menu.mainImage:setRGB(1, 0, 0)
-			Menu.arrowImage:setRGB(1, 0, 0)
+	if IsAnyPlayerUsing then
+		if Menu.showWaypoint then
+			Menu.alphaController:setAlpha(1)
 		end
 
-		Menu.alphaController:setAlpha(1)
-		Menu.mainImage:setAlpha(1)
-		Menu.arrowImage:setAlpha(1)
-		Menu.mainImage:setImage(RegisterMaterial(targetIcon))
-		Menu.arrowImage:setImage(RegisterMaterial(targetArrow))
-		Menu.zOffset = z
+		if Menu.playerUsing == objectiveIsPlayerUsing then
+			return
+		end
+
+		if Menu.playerUsing ~= nil then
+			Menu:beginAnimation("snap_in", Menu.snapToTime, true, true)
+		end
+
+		Menu:setEntityContainerStopUpdating(true)
+		Menu:setLeftRight(false, false, -Menu.largeIconWidth / 2, Menu.largeIconWidth / 2)
+		Menu:setTopBottom(false, false, -Menu.largeIconHeight - Menu.snapToHeight, -Menu.snapToHeight)
+		Menu.edgePointerContainer:setAlpha(0)
 	else
 		Menu.alphaController:setAlpha(0)
+
+		if Menu.playerUsing == objectiveIsPlayerUsing then
+			return
+		end
+
+		if Menu.playerUsing ~= nil then
+			Menu:beginAnimation("snap_out", Menu.snapToTime, true, true)
+		end
+
+		Menu:setEntityContainerStopUpdating(false)
+		Menu:setLeftRight(false, false, -Menu.iconWidth / 2, Menu.iconWidth / 2)
+		Menu:setTopBottom(false, true, -Menu.iconHeight, 0)
+		Menu.edgePointerContainer:setAlpha(1)
 	end
 
-	CoD.PlayerTargetWaypoint.super.update(Menu, ClientInstance)
+	Menu.playerUsing = objectiveIsPlayerUsing
 end
 
 CoD.PlayerDownWaypoint.new = function(Menu, ObjectiveIndex)
@@ -425,74 +491,6 @@ CoD.PlayerDownWaypoint.updatePlayerUsing = function(Menu, LocalClientIndex, IsAn
 		if Menu.showWaypoint then
 			Menu.alphaController:setAlpha(1)
 		end
-
-		if Menu.playerUsing == objectiveIsPlayerUsing then
-			return
-		end
-
-		if Menu.playerUsing ~= nil then
-			Menu:beginAnimation("snap_out", Menu.snapToTime, true, true)
-		end
-
-		Menu:setEntityContainerStopUpdating(false)
-		Menu:setLeftRight(false, false, -Menu.iconWidth / 2, Menu.iconWidth / 2)
-		Menu:setTopBottom(false, true, -Menu.iconHeight, 0)
-		Menu.edgePointerContainer:setAlpha(1)
-	end
-
-	Menu.playerUsing = objectiveIsPlayerUsing
-end
-
-CoD.PlayerReviveWaypoint.new = function(Menu, ObjectiveIndex)
-	local waypoint = CoD.ObjectiveWaypoint.new(Menu, ObjectiveIndex, 0)
-	waypoint:setClass(CoD.PlayerReviveWaypoint)
-	waypoint:setLeftRight(false, false, -waypoint.iconWidth / 2, waypoint.iconWidth / 2)
-	waypoint:setTopBottom(false, true, -waypoint.iconHeight, 0)
-	waypoint.mainImage:setLeftRight(false, false, -24, 24)
-	waypoint.mainImage:setTopBottom(false, false, -39, 9)
-	waypoint.arrowImage:setLeftRight(false, false, -12, 12)
-	waypoint.arrowImage:setTopBottom(false, false, 21, 45)
-	waypoint.edgePointerContainer:setTopBottom(true, true, -15, -15)
-	waypoint.updatePlayerUsing = CoD.PlayerReviveWaypoint.updatePlayerUsing
-	waypoint.snapToHeight = 80
-
-	local objectiveName = Engine.GetObjectiveName(Menu, ObjectiveIndex)
-	waypoint:registerEventHandler("objective_update_" .. objectiveName, waypoint.update)
-	waypoint:registerEventHandler("hud_update_team_change", waypoint.update)
-	waypoint:registerEventHandler("hud_update_other_player_team_change", waypoint.update)
-
-	return waypoint
-end
-
-CoD.PlayerReviveWaypoint.update = function(Menu, ClientInstance)
-	CoD.PlayerWaypoint.updateDownAndRevive(Menu, ClientInstance, false)
-	CoD.PlayerReviveWaypoint.super.update(Menu, ClientInstance)
-end
-
-CoD.PlayerReviveWaypoint.updatePlayerUsing = function(Menu, LocalClientIndex, IsAnyPlayerUsing, Arg4)
-	local index = Menu.index
-	local clientNum = Engine.GetPredictedClientNum(LocalClientIndex)
-	local objectiveIsPlayerUsing = Engine.ObjectiveIsPlayerUsing(LocalClientIndex, index, clientNum)
-
-	if IsAnyPlayerUsing then
-		if Menu.showWaypoint then
-			Menu.alphaController:setAlpha(1)
-		end
-
-		if Menu.playerUsing == objectiveIsPlayerUsing then
-			return
-		end
-
-		if Menu.playerUsing ~= nil then
-			Menu:beginAnimation("snap_in", Menu.snapToTime, true, true)
-		end
-
-		Menu:setEntityContainerStopUpdating(true)
-		Menu:setLeftRight(false, false, -Menu.largeIconWidth / 2, Menu.largeIconWidth / 2)
-		Menu:setTopBottom(false, false, -Menu.largeIconHeight - Menu.snapToHeight, -Menu.snapToHeight)
-		Menu.edgePointerContainer:setAlpha(0)
-	else
-		Menu.alphaController:setAlpha(0)
 
 		if Menu.playerUsing == objectiveIsPlayerUsing then
 			return
