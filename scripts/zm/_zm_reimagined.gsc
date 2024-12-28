@@ -256,6 +256,7 @@ precache_strings()
 	precacheString(&"hud_update_overheat");
 	precacheString(&"hud_update_perk_order");
 	precacheString(&"hud_update_other_player_team_change");
+	precacheString(&"objective_update_tombstone_powerup");
 
 	precacheString(&"hud_update_enemy_counter");
 	precacheString(&"hud_update_total_timer");

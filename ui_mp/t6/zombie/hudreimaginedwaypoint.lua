@@ -9,6 +9,7 @@ CoD.PlayerTargetWaypoint = InheritFrom(CoD.ObjectiveWaypoint)
 CoD.PlayerReviveWaypoint = InheritFrom(CoD.ObjectiveWaypoint)
 CoD.PlayerDownWaypoint = InheritFrom(CoD.ObjectiveWaypoint)
 CoD.PlayerAliveWaypoint = InheritFrom(CoD.ObjectiveWaypoint)
+CoD.TombstoneWaypoint = InheritFrom(CoD.ObjectiveWaypoint)
 CoD.PlayerHeadIcon = InheritFrom(CoD.ObjectiveWaypoint)
 
 LUI.createMenu.PlayerCloneWaypointArea = function(LocalClientIndex)
@@ -665,6 +666,70 @@ CoD.PlayerAliveWaypoint.Unclamped = function(Menu, ClientInstance)
 
 	Menu.edgePointerContainer:setupUIElement()
 	Menu.edgePointerContainer:setZRot(0)
+end
+
+LUI.createMenu.TombstoneWaypointArea = function(LocalClientIndex)
+	local safeArea = CoD.GametypeBase.new("TombstoneWaypointArea", LocalClientIndex)
+
+	safeArea:registerEventHandler("hud_update_refresh", CoD.GametypeBase.Refresh)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_VISIBLE, CoD.TombstoneWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_PLAYER_IN_AFTERLIFE, CoD.PlayerWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM, CoD.TombstoneWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN, CoD.TombstoneWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_VEHICLE, CoD.TombstoneWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_GUIDED_MISSILE, CoD.TombstoneWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC, CoD.TombstoneWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_AMMO_COUNTER_HIDE, CoD.TombstoneWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_UI_ACTIVE, CoD.TombstoneWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_SCOREBOARD_OPEN, CoD.TombstoneWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_PLAYER_DEAD, CoD.TombstoneWaypoint.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_SCOPED, CoD.TombstoneWaypoint.UpdateVisibility)
+
+	local waypoint = CoD.ObjectiveWaypoint.new(Menu, ObjectiveIndex, 0)
+	waypoint:setClass(CoD.TombstoneWaypoint)
+	waypoint:setEntityContainerClamp(false)
+	waypoint:setLeftRight(false, false, -waypoint.iconWidth / 2, waypoint.iconWidth / 2)
+	waypoint:setTopBottom(false, true, -waypoint.iconHeight, 0)
+	waypoint.alphaController:setAlpha(0)
+	waypoint.arrowImage:setAlpha(0)
+	waypoint.mainImage:setLeftRight(false, false, -18, 18)
+	waypoint.mainImage:setTopBottom(false, false, -18, 18)
+	safeArea:addElement(waypoint)
+
+	waypoint:registerEventHandler("objective_update_tombstone_powerup", waypoint.update)
+
+	return safeArea
+end
+
+CoD.TombstoneWaypoint.UpdateVisibility = function(Menu, ClientInstance)
+	local controller = ClientInstance.controller
+	if UIExpression.IsVisibilityBitSet(controller, CoD.BIT_HUD_VISIBLE) == 1 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IS_PLAYER_IN_AFTERLIFE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_VEHICLE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_GUIDED_MISSILE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_AMMO_COUNTER_HIDE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_UI_ACTIVE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_SCOREBOARD_OPEN) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IS_SCOPED) == 0 and (not CoD.IsShoutcaster(controller) or CoD.ExeProfileVarBool(controller, "shoutcaster_scorestreaks") and Engine.IsSpectatingActiveClient(controller)) and CoD.FSM_VISIBILITY(controller) == 0 then
+		if Menu.visible ~= true then
+			Menu:setAlpha(1)
+			Menu.m_inputDisabled = nil
+			Menu.visible = true
+		end
+	elseif Menu.visible == true then
+		Menu:setAlpha(0)
+		Menu.m_inputDisabled = true
+		Menu.visible = nil
+	end
+	Menu:dispatchEventToChildren(ClientInstance)
+end
+
+CoD.TombstoneWaypoint.update = function(Menu, ClientInstance)
+	if ClientInstance.data ~= nil then
+		local objectiveEntity = ClientInstance.data[1]
+		local powerupIcon = "specialty_tombstone_zombies"
+
+		Menu.alphaController:setAlpha(1)
+		Menu.mainImage:setImage(RegisterMaterial(powerupIcon))
+		Menu.zOffset = 40
+
+		Menu:setupEntityContainer(objectiveEntity, 0, 0, Menu.zOffset)
+	else
+		Menu.alphaController:setAlpha(0)
+	end
 end
 
 LUI.createMenu.PlayerHeadIconArea = function(LocalClientIndex)

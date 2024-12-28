@@ -125,36 +125,75 @@ tombstone_move()
 		}
 
 		self.origin = moveto;
-
-		if (isdefined(self.origin_diff) && isdefined(level.the_bus))
-		{
-			self.origin_diff = level.the_bus worldtolocalcoords(moveto);
-		}
-
-		self.waypoint.x = self.origin[0];
-		self.waypoint.y = self.origin[1];
-		self.waypoint.z = self.origin[2] + 40;
 	}
 }
 
 tombstone_waypoint()
 {
-	hud = newClientHudElem(self.player);
-	hud.x = self.origin[0];
-	hud.y = self.origin[1];
-	hud.z = self.origin[2] + 40;
-	hud.alpha = 1;
-	hud.color = (1, 1, 1);
-	hud.hidewheninmenu = 1;
-	hud.hidewheninscope = 1;
-	hud.fadewhentargeted = 1;
-	hud setShader("specialty_tombstone_zombies", 6, 6);
-	hud setWaypoint(1);
-	self.waypoint = hud;
+	players = get_players();
+
+	foreach (player in players)
+	{
+		if (player scripts\zm\_zm_reimagined::get_current_spectating_player() == self.player)
+		{
+			player.tombstone_waypoint_player = self.player;
+			player luinotifyevent(&"objective_update_tombstone_powerup", 1, self getentitynumber());
+		}
+	}
+
+	self.player.tombstone_waypoint_active = true;
+
+	self thread tombstone_waypoint_think();
 
 	self waittill_any("tombstone_grabbed", "tombstone_timedout");
 
-	hud destroy();
+	players = get_players();
+
+	foreach (player in players)
+	{
+		if (player scripts\zm\_zm_reimagined::get_current_spectating_player() == self.player)
+		{
+			player.tombstone_waypoint_player = undefined;
+			player luinotifyevent(&"objective_update_tombstone_powerup");
+		}
+	}
+
+	self.player.tombstone_waypoint_active = undefined;
+}
+
+tombstone_waypoint_think()
+{
+	self endon("tombstone_grabbed");
+	self endon("tombstone_timedout");
+
+	while (1)
+	{
+		players = get_players();
+
+		foreach (player in players)
+		{
+			spectating_player = player scripts\zm\_zm_reimagined::get_current_spectating_player();
+
+			if (spectating_player == self.player)
+			{
+				if (!isdefined(player.tombstone_waypoint_player) || player.tombstone_waypoint_player != spectating_player)
+				{
+					player.tombstone_waypoint_player = spectating_player;
+					player luinotifyevent(&"objective_update_tombstone_powerup", 1, self getentitynumber());
+				}
+			}
+			else
+			{
+				if (isdefined(player.tombstone_waypoint_player) && !isdefined(spectating_player.tombstone_waypoint_active))
+				{
+					player.tombstone_waypoint_player = undefined;
+					player luinotifyevent(&"objective_update_tombstone_powerup");
+				}
+			}
+		}
+
+		wait 0.05;
+	}
 }
 
 tombstone_timeout()
