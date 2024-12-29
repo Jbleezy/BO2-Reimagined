@@ -309,6 +309,15 @@ LUI.createMenu.ReimaginedArea = function(LocalClientIndex)
 	gameModeScoreWidget:addElement(gameModeScoreEnemyText)
 	gameModeScoreWidget.gameModeScoreEnemyText = gameModeScoreEnemyText
 
+	local gameModeScoreScoringTeam = LUI.UIImage.new()
+	gameModeScoreScoringTeam.iconSize = gameModeScoreWidget.iconSize / 2
+	gameModeScoreScoringTeam:setLeftRight(false, false, 0 - (gameModeScoreScoringTeam.iconSize / 2), 0 + (gameModeScoreScoringTeam.iconSize / 2))
+	gameModeScoreScoringTeam:setTopBottom(true, false, 46, 46 + gameModeScoreScoringTeam.iconSize)
+	gameModeScoreScoringTeam:setImage(RegisterMaterial("waypoint_revive_arrow"))
+	gameModeScoreScoringTeam:setAlpha(0)
+	gameModeScoreWidget:addElement(gameModeScoreScoringTeam)
+	gameModeScoreWidget.gameModeScoreScoringTeam = gameModeScoreScoringTeam
+
 	local gameModeScoreFriendlyPlayerCount = LUI.UIImage.new()
 	gameModeScoreFriendlyPlayerCount:setLeftRight(false, false, -40 - (gameModeScoreWidget.iconSize / 2), -40 + (gameModeScoreWidget.iconSize / 2))
 	gameModeScoreFriendlyPlayerCount:setTopBottom(true, false, 46, 46 + gameModeScoreWidget.iconSize)
@@ -324,15 +333,6 @@ LUI.createMenu.ReimaginedArea = function(LocalClientIndex)
 	gameModeScoreEnemyPlayerCount:setAlpha(0)
 	gameModeScoreWidget:addElement(gameModeScoreEnemyPlayerCount)
 	gameModeScoreWidget.gameModeScoreEnemyPlayerCount = gameModeScoreEnemyPlayerCount
-
-	local gameModeScoreScoringTeam = LUI.UIImage.new()
-	gameModeScoreScoringTeam.iconSize = gameModeScoreWidget.iconSize / 2
-	gameModeScoreScoringTeam:setLeftRight(false, false, 0 - (gameModeScoreScoringTeam.iconSize / 2), 0 + (gameModeScoreScoringTeam.iconSize / 2))
-	gameModeScoreScoringTeam:setTopBottom(true, false, 46, 46 + gameModeScoreScoringTeam.iconSize)
-	gameModeScoreScoringTeam:setImage(RegisterMaterial("waypoint_revive_arrow"))
-	gameModeScoreScoringTeam:setAlpha(0)
-	gameModeScoreWidget:addElement(gameModeScoreScoringTeam)
-	gameModeScoreWidget.gameModeScoreScoringTeam = gameModeScoreScoringTeam
 
 	gameModeScoreWidget:registerEventHandler("hud_update_refresh", CoD.Reimagined.GameModeScoreArea.UpdateVisibility)
 	gameModeScoreWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_VISIBLE, CoD.Reimagined.GameModeScoreArea.UpdateVisibility)
@@ -352,8 +352,8 @@ LUI.createMenu.ReimaginedArea = function(LocalClientIndex)
 	gameModeScoreWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_PLAYER_ZOMBIE, CoD.Reimagined.GameModeScoreArea.UpdateVisibility)
 	gameModeScoreWidget:registerEventHandler("hud_update_team_change", CoD.Reimagined.GameModeScoreArea.UpdateTeamChange)
 	gameModeScoreWidget:registerEventHandler("hud_update_scores", CoD.Reimagined.GameModeScoreArea.UpdateScores)
-	gameModeScoreWidget:registerEventHandler("hud_update_player_count", CoD.Reimagined.GameModeScoreArea.UpdatePlayerCount)
 	gameModeScoreWidget:registerEventHandler("hud_update_scoring_team", CoD.Reimagined.GameModeScoreArea.UpdateScoringTeam)
+	gameModeScoreWidget:registerEventHandler("hud_update_player_count", CoD.Reimagined.GameModeScoreArea.UpdatePlayerCount)
 
 	local containmentWidget = LUI.UIElement.new()
 	containmentWidget:setLeftRight(true, true, 7, 7)
@@ -641,12 +641,6 @@ CoD.Reimagined.GameModeScoreArea.UpdateTeamChange = function(Menu, ClientInstanc
 				CoD.Reimagined.GameModeScoreArea.UpdateScores(Menu, ClientInstance)
 			end
 
-			if Menu.yourPlayerCount ~= nil and Menu.enemyPlayerCount ~= nil then
-				Menu.yourPlayerCount, Menu.enemyPlayerCount = Menu.enemyPlayerCount, Menu.yourPlayerCount
-
-				CoD.Reimagined.GameModeScoreArea.UpdatePlayerCount(Menu, ClientInstance)
-			end
-
 			if Menu.scoringTeam ~= nil then
 				if Menu.scoringTeam == 1 then
 					Menu.scoringTeam = 2
@@ -655,6 +649,12 @@ CoD.Reimagined.GameModeScoreArea.UpdateTeamChange = function(Menu, ClientInstanc
 				end
 
 				CoD.Reimagined.GameModeScoreArea.UpdateScoringTeam(Menu, ClientInstance)
+			end
+
+			if Menu.yourPlayerCount ~= nil and Menu.enemyPlayerCount ~= nil then
+				Menu.yourPlayerCount, Menu.enemyPlayerCount = Menu.enemyPlayerCount, Menu.yourPlayerCount
+
+				CoD.Reimagined.GameModeScoreArea.UpdatePlayerCount(Menu, ClientInstance)
 			end
 		else
 			Menu.gameModeScoreFriendlyIcon:setAlpha(0)
@@ -677,48 +677,6 @@ CoD.Reimagined.GameModeScoreArea.UpdateScores = function(Menu, ClientInstance)
 	Menu.gameModeScoreEnemyText:setText(Menu.enemyScore)
 end
 
-CoD.Reimagined.GameModeScoreArea.UpdatePlayerCount = function(Menu, ClientInstance)
-	if UIExpression.DvarString(nil, "ui_zm_gamemodegroup") ~= CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
-		return
-	end
-
-	if ClientInstance.name ~= "hud_update_team_change" then
-		if ClientInstance.data ~= nil then
-			Menu.yourPlayerCount = ClientInstance.data[1]
-			Menu.enemyPlayerCount = ClientInstance.data[2]
-		else
-			Menu.yourPlayerCount = nil
-			Menu.enemyPlayerCount = nil
-		end
-	end
-
-	if Menu.yourPlayerCount == nil or Menu.enemyPlayerCount == nil then
-		Menu.gameModeScoreFriendlyPlayerCount:setAlpha(0)
-		Menu.gameModeScoreEnemyPlayerCount:setAlpha(0)
-		return
-	end
-
-	if Menu.yourPlayerCount > 0 then
-		local offset = (4 - Menu.yourPlayerCount) * (Menu.iconSize / 8)
-		Menu.gameModeScoreFriendlyPlayerCount:setLeftRight(false, false, -40 + offset - (Menu.iconSize / 2), -40 + offset + (Menu.iconSize / 2))
-
-		Menu.gameModeScoreFriendlyPlayerCount:setImage(RegisterMaterial("chalkmarks_hellcatraz_" .. Menu.yourPlayerCount))
-		Menu.gameModeScoreFriendlyPlayerCount:setAlpha(1)
-	else
-		Menu.gameModeScoreFriendlyPlayerCount:setAlpha(0)
-	end
-
-	if Menu.enemyPlayerCount > 0 then
-		local offset = (4 - Menu.enemyPlayerCount) * (Menu.iconSize / 8)
-		Menu.gameModeScoreEnemyPlayerCount:setLeftRight(false, false, 40 + offset - (Menu.iconSize / 2), 40 + offset + (Menu.iconSize / 2))
-
-		Menu.gameModeScoreEnemyPlayerCount:setImage(RegisterMaterial("chalkmarks_hellcatraz_" .. Menu.enemyPlayerCount))
-		Menu.gameModeScoreEnemyPlayerCount:setAlpha(1)
-	else
-		Menu.gameModeScoreEnemyPlayerCount:setAlpha(0)
-	end
-end
-
 CoD.Reimagined.GameModeScoreArea.UpdateScoringTeam = function(Menu, ClientInstance)
 	if UIExpression.DvarString(nil, "ui_zm_gamemodegroup") ~= CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
 		return
@@ -738,27 +696,92 @@ CoD.Reimagined.GameModeScoreArea.UpdateScoringTeam = function(Menu, ClientInstan
 	end
 
 	if Menu.scoringTeam == 0 then
-		Menu.gameModeScoreScoringTeam:setLeftRight(false, false, 0 - (Menu.gameModeScoreScoringTeam.iconSize / 2), 0 + (Menu.gameModeScoreScoringTeam.iconSize / 2))
 		Menu.gameModeScoreScoringTeam:setRGB(1, 1, 1)
 		Menu.gameModeScoreScoringTeam:setAlpha(1)
+
+		Menu.gameModeScoreScoringTeam:beginAnimation("slide", 250, true, true)
+		Menu.gameModeScoreScoringTeam:setLeftRight(false, false, 0 - (Menu.gameModeScoreScoringTeam.iconSize / 2), 0 + (Menu.gameModeScoreScoringTeam.iconSize / 2))
 	elseif Menu.scoringTeam == 1 then
-		Menu.gameModeScoreScoringTeam:setLeftRight(false, false, -105 - (Menu.gameModeScoreScoringTeam.iconSize / 2), -105 + (Menu.gameModeScoreScoringTeam.iconSize / 2))
 		Menu.gameModeScoreScoringTeam:setRGB(0, 1, 0)
 		Menu.gameModeScoreScoringTeam:setAlpha(1)
+
+		Menu.gameModeScoreScoringTeam:beginAnimation("slide", 250, true, true)
+		Menu.gameModeScoreScoringTeam:setLeftRight(false, false, -105 - (Menu.gameModeScoreScoringTeam.iconSize / 2), -105 + (Menu.gameModeScoreScoringTeam.iconSize / 2))
 	elseif Menu.scoringTeam == 2 then
-		Menu.gameModeScoreScoringTeam:setLeftRight(false, false, 105 - (Menu.gameModeScoreScoringTeam.iconSize / 2), 105 + (Menu.gameModeScoreScoringTeam.iconSize / 2))
 		Menu.gameModeScoreScoringTeam:setRGB(1, 0, 0)
 		Menu.gameModeScoreScoringTeam:setAlpha(1)
+
+		Menu.gameModeScoreScoringTeam:beginAnimation("slide", 250, true, true)
+		Menu.gameModeScoreScoringTeam:setLeftRight(false, false, 105 - (Menu.gameModeScoreScoringTeam.iconSize / 2), 105 + (Menu.gameModeScoreScoringTeam.iconSize / 2))
 	elseif Menu.scoringTeam == 3 then
-		Menu.gameModeScoreScoringTeam:setLeftRight(false, false, 0 - (Menu.gameModeScoreScoringTeam.iconSize / 2), 0 + (Menu.gameModeScoreScoringTeam.iconSize / 2))
 		Menu.gameModeScoreScoringTeam:setRGB(1, 1, 0)
 		Menu.gameModeScoreScoringTeam:setAlpha(1)
-	elseif Menu.scoringTeam == 4 then
+
+		Menu.gameModeScoreScoringTeam:beginAnimation("slide", 250, true, true)
 		Menu.gameModeScoreScoringTeam:setLeftRight(false, false, 0 - (Menu.gameModeScoreScoringTeam.iconSize / 2), 0 + (Menu.gameModeScoreScoringTeam.iconSize / 2))
+	elseif Menu.scoringTeam == 4 then
 		Menu.gameModeScoreScoringTeam:setRGB(0.5, 0.5, 0.5)
 		Menu.gameModeScoreScoringTeam:setAlpha(0.5)
+
+		Menu.gameModeScoreScoringTeam:beginAnimation("slide", 250, true, true)
+		Menu.gameModeScoreScoringTeam:setLeftRight(false, false, 0 - (Menu.gameModeScoreScoringTeam.iconSize / 2), 0 + (Menu.gameModeScoreScoringTeam.iconSize / 2))
 	else
 		Menu.gameModeScoreScoringTeam:setAlpha(0)
+	end
+end
+
+CoD.Reimagined.GameModeScoreArea.UpdatePlayerCount = function(Menu, ClientInstance)
+	if UIExpression.DvarString(nil, "ui_zm_gamemodegroup") ~= CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
+		return
+	end
+
+	local prevYourPlayerCount = Menu.yourPlayerCount or 0
+	local prevEnemyPlayerCount = Menu.enemyPlayerCount or 0
+
+	if ClientInstance.name ~= "hud_update_team_change" then
+		if ClientInstance.data ~= nil then
+			Menu.yourPlayerCount = ClientInstance.data[1]
+			Menu.enemyPlayerCount = ClientInstance.data[2]
+		else
+			Menu.yourPlayerCount = nil
+			Menu.enemyPlayerCount = nil
+		end
+	end
+
+	if Menu.yourPlayerCount == nil or Menu.enemyPlayerCount == nil then
+		Menu.gameModeScoreFriendlyPlayerCount:setAlpha(0)
+		Menu.gameModeScoreEnemyPlayerCount:setAlpha(0)
+		return
+	end
+
+	if Menu.yourPlayerCount > 0 then
+		local offset = (4 - Menu.yourPlayerCount) * (Menu.iconSize / 8)
+
+		Menu.gameModeScoreFriendlyPlayerCount:setImage(RegisterMaterial("chalkmarks_hellcatraz_" .. Menu.yourPlayerCount))
+		Menu.gameModeScoreFriendlyPlayerCount:setAlpha(1)
+
+		if prevYourPlayerCount > 0 then
+			Menu.gameModeScoreFriendlyPlayerCount:beginAnimation("slide", 250, true, true)
+		end
+
+		Menu.gameModeScoreFriendlyPlayerCount:setLeftRight(false, false, -40 + offset - (Menu.iconSize / 2), -40 + offset + (Menu.iconSize / 2))
+	else
+		Menu.gameModeScoreFriendlyPlayerCount:setAlpha(0)
+	end
+
+	if Menu.enemyPlayerCount > 0 then
+		local offset = (4 - Menu.enemyPlayerCount) * (Menu.iconSize / 8)
+
+		Menu.gameModeScoreEnemyPlayerCount:setImage(RegisterMaterial("chalkmarks_hellcatraz_" .. Menu.enemyPlayerCount))
+		Menu.gameModeScoreEnemyPlayerCount:setAlpha(1)
+
+		if prevEnemyPlayerCount > 0 then
+			Menu.gameModeScoreEnemyPlayerCount:beginAnimation("slide", 250, true, true)
+		end
+
+		Menu.gameModeScoreEnemyPlayerCount:setLeftRight(false, false, 40 + offset - (Menu.iconSize / 2), 40 + offset + (Menu.iconSize / 2))
+	else
+		Menu.gameModeScoreEnemyPlayerCount:setAlpha(0)
 	end
 end
 

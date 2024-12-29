@@ -501,12 +501,12 @@ set_team(team)
 
 	if (level.scr_zm_ui_gametype_obj == "zsnr" && flag("initial_blackscreen_passed") && !isdefined(level.gamemodulewinningteam))
 	{
-		foreach (team in level.teams)
+		if (isDefined(level.grief_score_hud_set_player_count_func))
 		{
-			if (isDefined(level.grief_score_hud_set_player_count_func))
-			{
-				[[level.grief_score_hud_set_player_count_func]](team);
-			}
+			allies_count = scripts\zm\zgrief\zgrief_reimagined::get_number_of_valid_players_team("allies");
+			axis_count = scripts\zm\zgrief\zgrief_reimagined::get_number_of_valid_players_team("axis");
+
+			[[level.grief_score_hud_set_player_count_func]]("allies", allies_count, "axis", axis_count);
 		}
 	}
 }

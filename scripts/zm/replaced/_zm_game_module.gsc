@@ -244,16 +244,6 @@ game_won(winner)
 		player thread maps\mp\zombies\_zm_audio_announcer::leaderdialogonplayer("grief_lost");
 	}
 
-	if (isdefined(level.game_mode_player_count_hud_value))
-	{
-		level.game_mode_player_count_hud_value = undefined;
-
-		foreach (player in players)
-		{
-			player luinotifyevent(&"hud_update_player_count");
-		}
-	}
-
 	if (isdefined(level.game_mode_scoring_team_hud_value))
 	{
 		level.game_mode_scoring_team_hud_value = undefined;
@@ -261,6 +251,16 @@ game_won(winner)
 		foreach (player in players)
 		{
 			player luinotifyevent(&"hud_update_scoring_team");
+		}
+	}
+
+	if (isdefined(level.game_mode_player_count_hud_value))
+	{
+		level.game_mode_player_count_hud_value = undefined;
+
+		foreach (player in players)
+		{
+			player luinotifyevent(&"hud_update_player_count");
 		}
 	}
 

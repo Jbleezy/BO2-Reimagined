@@ -41,8 +41,8 @@ init()
 	precacheStatusIcon(level.item_meat_status_icon_name);
 
 	precacheString(&"hud_update_game_mode_name");
-	precacheString(&"hud_update_player_count");
 	precacheString(&"hud_update_scoring_team");
+	precacheString(&"hud_update_player_count");
 	precacheString(&"hud_update_containment_zone");
 	precacheString(&"hud_update_containment_time");
 	precacheString(istring(toupper("ZMUI_" + level.scr_zm_ui_gametype_obj)));
@@ -121,7 +121,7 @@ grief_gamemode_name_hud()
 	}
 }
 
-grief_score_hud_set_player_count(team, num = get_number_of_valid_players_team(team))
+grief_score_hud_set_player_count(team, count, team2, count2)
 {
 	if (!isdefined(level.game_mode_player_count_hud_value))
 	{
@@ -130,12 +130,27 @@ grief_score_hud_set_player_count(team, num = get_number_of_valid_players_team(te
 		level.game_mode_player_count_hud_value["axis"] = -1;
 	}
 
-	if (level.game_mode_player_count_hud_value[team] == num)
+	if (!isdefined(team2))
 	{
-		return;
+		if (level.game_mode_player_count_hud_value[team] == count)
+		{
+			return;
+		}
+	}
+	else
+	{
+		if (level.game_mode_player_count_hud_value[team] == count && level.game_mode_player_count_hud_value[team2] == count2)
+		{
+			return;
+		}
 	}
 
-	level.game_mode_player_count_hud_value[team] = num;
+	level.game_mode_player_count_hud_value[team] = count;
+
+	if (isdefined(team2))
+	{
+		level.game_mode_player_count_hud_value[team2] = count2;
+	}
 
 	players = get_players("allies");
 
@@ -879,10 +894,7 @@ round_start_wait(time, initial)
 
 	if (level.scr_zm_ui_gametype_obj == "zsnr")
 	{
-		foreach (team in level.teams)
-		{
-			grief_score_hud_set_player_count(team);
-		}
+		grief_score_hud_set_player_count("allies", get_number_of_valid_players_team("allies"), "axis", get_number_of_valid_players_team("axis"));
 	}
 
 	zombie_spawn_time = time + 10;
@@ -2398,10 +2410,7 @@ containment_think()
 				}
 			}
 
-			foreach (team in level.teams)
-			{
-				grief_score_hud_set_player_count(team, in_containment_zone[team].size);
-			}
+			grief_score_hud_set_player_count("allies", in_containment_zone["allies"].size, "axis", in_containment_zone["axis"].size);
 
 			if (in_containment_zone["axis"].size == in_containment_zone["allies"].size && in_containment_zone["axis"].size > 0 && in_containment_zone["allies"].size > 0)
 			{
