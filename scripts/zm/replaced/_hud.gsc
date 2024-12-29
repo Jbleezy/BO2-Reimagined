@@ -25,7 +25,6 @@ fadetoblackforxsec(startwait, blackscreenwait, fadeintime, fadeouttime, shaderna
 	self.blackscreen.vertalign = "fullscreen";
 	self.blackscreen.foreground = 1;
 	self.blackscreen.hidewhendead = 0;
-	self.blackscreen.hidewheninmenu = 1;
 	self.blackscreen.sort = n_sort;
 
 	if (isdefined(shadername))
