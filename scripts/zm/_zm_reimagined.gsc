@@ -312,7 +312,7 @@ precache_status_icons()
 {
 	precacheStatusIcon("menu_mp_killstreak_select");
 	precacheStatusIcon("menu_mp_contract_expired");
-	precacheStatusIcon("waypoint_revive");
+	precacheStatusIcon("hud_status_revive");
 
 	if (is_true(level.zombiemode_using_chugabud_perk))
 	{
@@ -321,7 +321,7 @@ precache_status_icons()
 
 	if (is_true(level.zombiemode_using_afterlife))
 	{
-		precacheStatusIcon("waypoint_revive_afterlife");
+		precacheStatusIcon("hud_status_afterlife");
 	}
 }
 
@@ -581,7 +581,7 @@ on_player_downed()
 			continue;
 		}
 
-		self.statusicon = "waypoint_revive";
+		self.statusicon = "hud_status_revive";
 		self.health = self.maxhealth;
 
 		objective_setgamemodeflags(self.obj_ind, 2);
@@ -625,7 +625,7 @@ on_player_fake_revive()
 		}
 		else if (is_true(level.zombiemode_using_afterlife))
 		{
-			self.statusicon = "waypoint_revive_afterlife";
+			self.statusicon = "hud_status_afterlife";
 			objective_setgamemodeflags(self.obj_ind, 0);
 		}
 	}

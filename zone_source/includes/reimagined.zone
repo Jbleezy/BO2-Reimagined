@@ -95,6 +95,8 @@ material,hud_zm_num_highrise_9
 material,hud_zm_num_highrise_slash
 material,hud_zm_num_highrise_line
 material,hud_indicator_blundersplat
+material,hud_status_revive
+material,hud_status_afterlife
 material,hud_obit_down
 material,hud_obit_revive
 material,waypoint_revive_arrow
