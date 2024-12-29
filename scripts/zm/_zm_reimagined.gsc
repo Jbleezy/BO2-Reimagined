@@ -249,6 +249,9 @@ precache_strings()
 	precacheString(&"OBJ_PLAYER_CLONE_7");
 	precacheString(&"OBJ_PLAYER_CLONE_8");
 
+	precacheString(&"OBJ_GAME_MODE_1");
+	precacheString(&"OBJ_GAME_MODE_2");
+
 	precacheString(&"get_dvar");
 	precacheString(&"r_fog_settings");
 
@@ -752,6 +755,9 @@ add_objectives()
 	objective_add(13, "invisible", (0, 0, 0), &"OBJ_PLAYER_CLONE_6");
 	objective_add(14, "invisible", (0, 0, 0), &"OBJ_PLAYER_CLONE_7");
 	objective_add(15, "invisible", (0, 0, 0), &"OBJ_PLAYER_CLONE_8");
+
+	objective_add(16, "invisible", (0, 0, 0), &"OBJ_GAME_MODE_1");
+	objective_add(17, "invisible", (0, 0, 0), &"OBJ_GAME_MODE_2");
 }
 
 set_dvars()

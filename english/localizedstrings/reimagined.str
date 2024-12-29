@@ -291,12 +291,6 @@ LANG_ENGLISH        "Nuke Grabbed! [&&1 Score]"
 REFERENCE           ZOMBIE_NEW_CONTAINMENT_ZONE
 LANG_ENGLISH        "New containment zone!"
 
-REFERENCE           ZOMBIE_PLAYER_IN_CONTAINMENT_ZONE
-LANG_ENGLISH        "You are in the containment zone!"
-
-REFERENCE           ZOMBIE_PLAYER_OUT_CONTAINMENT_ZONE
-LANG_ENGLISH        "You are out the containment zone!"
-
 REFERENCE           ZOMBIE_GRABBED_MEAT
 LANG_ENGLISH        "^8&&1 grabbed the meat"
 
@@ -315,20 +309,11 @@ LANG_ENGLISH        "^8&&1 has the meat stink"
 REFERENCE           ZOMBIE_HAS_MEAT_ENEMY
 LANG_ENGLISH        "^9&&1 has the meat stink"
 
-REFERENCE           ZOMBIE_PLAYER_HAS_MEAT
-LANG_ENGLISH        "You have the meat!"
-
-REFERENCE           ZOMBIE_OTHER_TEAM_MEAT
-LANG_ENGLISH        "Enemy team has the meat!"
-
 REFERENCE           ZOMBIE_KILL_ZOMBIE_DROP_MEAT
 LANG_ENGLISH        "Kill a zombie to drop the meat!"
 
 REFERENCE           ZOMBIE_MEAT_DROPPED
 LANG_ENGLISH        "Meat dropped!"
-
-REFERENCE           ZOMBIE_MEAT_THROWN
-LANG_ENGLISH        "Meat thrown!"
 
 REFERENCE           ZOMBIE_MEAT_RESET
 LANG_ENGLISH        "Meat reset!"

@@ -40,14 +40,6 @@ init()
 
 	precacheStatusIcon(level.item_meat_status_icon_name);
 
-	precacheshader("white_waypoint_target");
-	precacheshader("white_waypoint_capture");
-	precacheshader("white_waypoint_defend");
-	precacheshader("white_waypoint_contested");
-	precacheshader("white_waypoint_grab");
-	precacheshader("white_waypoint_kill");
-	precacheshader("white_waypoint_escort");
-
 	precacheString(&"hud_update_game_mode_name");
 	precacheString(&"hud_update_player_count");
 	precacheString(&"hud_update_scoring_team");
@@ -63,6 +55,7 @@ init()
 
 	grief_setscoreboardcolumns_gametype();
 	enemy_powerup_hud();
+	obj_waypoint();
 
 	if (level.scr_zm_ui_gametype_obj == "zcontainment")
 	{
@@ -241,6 +234,25 @@ enemy_powerup_hud()
 	}
 }
 
+obj_waypoint()
+{
+	if (level.scr_zm_ui_gametype_obj == "zcontainment" || level.scr_zm_ui_gametype_obj == "zmeat")
+	{
+		level.game_mode_obj_ind = 16;
+
+		objective_state(level.game_mode_obj_ind, "active");
+		objective_setgamemodeflags(level.game_mode_obj_ind, 0);
+	}
+
+	if (level.scr_zm_ui_gametype_obj == "zcontainment")
+	{
+		level.game_mode_next_obj_ind = level.game_mode_obj_ind + 1;
+
+		objective_state(level.game_mode_next_obj_ind, "active");
+		objective_setgamemodeflags(level.game_mode_next_obj_ind, 0);
+	}
+}
+
 set_grief_vars()
 {
 	if (getDvar("ui_gametype_obj") == "")
@@ -361,7 +373,6 @@ grief_onplayerconnect()
 	self thread on_player_bled_out();
 
 	self thread stun_fx();
-	self thread obj_waypoint();
 	self thread headstomp_watcher();
 	self thread decrease_upgraded_start_weapon_ammo();
 	self thread maps\mp\gametypes_zm\zmeat::create_item_meat_watcher();
@@ -753,40 +764,6 @@ stun_fx()
 		self.stun_fx_ents[i] = spawn("script_model", self.origin);
 		self.stun_fx_ents[i] setmodel("tag_origin");
 		self.stun_fx_ents[i] linkto(self);
-	}
-}
-
-obj_waypoint()
-{
-	if (level.scr_zm_ui_gametype_obj == "zcontainment" || level.scr_zm_ui_gametype_obj == "zmeat")
-	{
-		self.obj_waypoint = newClientHudElem(self);
-		self.obj_waypoint.alignx = "center";
-		self.obj_waypoint.aligny = "middle";
-		self.obj_waypoint.horzalign = "center";
-		self.obj_waypoint.vertalign = "middle";
-		self.obj_waypoint.alpha = 0;
-		self.obj_waypoint.sort = 2;
-		self.obj_waypoint.hidewheninmenu = 1;
-		self.obj_waypoint.hidewheninscope = 1;
-
-		self.obj_waypoint thread scripts\zm\_zm_reimagined::destroy_on_end_game();
-	}
-
-	if (level.scr_zm_ui_gametype_obj == "zcontainment")
-	{
-		self.next_obj_waypoint = newClientHudElem(self);
-		self.next_obj_waypoint.alignx = "center";
-		self.next_obj_waypoint.aligny = "middle";
-		self.next_obj_waypoint.horzalign = "center";
-		self.next_obj_waypoint.vertalign = "middle";
-		self.next_obj_waypoint.color = (0.5, 0.5, 0.5);
-		self.next_obj_waypoint.alpha = 0;
-		self.next_obj_waypoint.sort = 1;
-		self.next_obj_waypoint.hidewheninmenu = 1;
-		self.next_obj_waypoint.hidewheninscope = 1;
-
-		self.next_obj_waypoint thread scripts\zm\_zm_reimagined::destroy_on_end_game();
 	}
 }
 
@@ -2213,6 +2190,10 @@ containment_think()
 	next_zone = level.zones[next_zone_name];
 	next_zone_origin = containment_get_zone_waypoint_origin(next_zone_name, next_zone);
 
+	objective_position(level.game_mode_next_obj_ind, next_zone_origin);
+	objective_team(level.game_mode_next_obj_ind, "neutral");
+	objective_setgamemodeflags(level.game_mode_next_obj_ind, 1);
+
 	start_time = getTime();
 
 	while ((getTime() - start_time) <= 10000)
@@ -2225,14 +2206,12 @@ containment_think()
 
 			if (isDefined(player_zone_name) && player_zone_name == next_zone_name)
 			{
-				player containment_set_obj_waypoint_on_screen(1);
+				objective_setplayerusing(level.game_mode_next_obj_ind, player);
 			}
 			else
 			{
-				player containment_set_obj_waypoint_off_screen(next_zone_origin, 1);
+				objective_clearplayerusing(level.game_mode_next_obj_ind, player);
 			}
-
-			player containment_set_obj_waypoint_icon("white_waypoint_target", 1);
 		}
 
 		wait 0.05;
@@ -2255,6 +2234,14 @@ containment_think()
 		next_zone_name = containment_zones[ind];
 		next_zone = level.zones[next_zone_name];
 		next_zone_origin = containment_get_zone_waypoint_origin(next_zone_name, next_zone);
+
+		objective_position(level.game_mode_obj_ind, zone_origin);
+		objective_team(level.game_mode_obj_ind, "neutral");
+		objective_setgamemodeflags(level.game_mode_obj_ind, 1);
+
+		objective_position(level.game_mode_next_obj_ind, next_zone_origin);
+		objective_team(level.game_mode_next_obj_ind, "neutral");
+		objective_setgamemodeflags(level.game_mode_next_obj_ind, 0);
 
 		zone_name_to_lock = zone_name;
 
@@ -2342,11 +2329,9 @@ containment_think()
 					if (!is_true(player.in_containment_zone))
 					{
 						player.in_containment_zone = 1;
-
-						player thread show_grief_hud_msg(&"ZOMBIE_PLAYER_IN_CONTAINMENT_ZONE");
 					}
 
-					player containment_set_obj_waypoint_on_screen();
+					objective_setplayerusing(level.game_mode_obj_ind, player);
 				}
 				else
 				{
@@ -2360,31 +2345,36 @@ containment_think()
 					if (is_true(player.in_containment_zone))
 					{
 						player.in_containment_zone = undefined;
-
-						player thread show_grief_hud_msg(&"ZOMBIE_PLAYER_OUT_CONTAINMENT_ZONE");
 					}
 
-					player containment_set_obj_waypoint_off_screen(zone_origin);
+					objective_clearplayerusing(level.game_mode_obj_ind, player);
 				}
 
-				if (containment_zones.size > 1 && show_next_obj_waypoint)
+			}
+
+			if (containment_zones.size > 1)
+			{
+				foreach (player in players)
 				{
 					player_zone_name = player get_current_zone();
 
 					if (isDefined(player_zone_name) && player_zone_name == next_zone_name)
 					{
-						player containment_set_obj_waypoint_on_screen(1);
+						objective_setplayerusing(level.game_mode_next_obj_ind, player);
 					}
 					else
 					{
-						player containment_set_obj_waypoint_off_screen(next_zone_origin, 1);
+						objective_clearplayerusing(level.game_mode_next_obj_ind, player);
 					}
+				}
 
-					player containment_set_obj_waypoint_icon("white_waypoint_target", 1);
+				if (show_next_obj_waypoint)
+				{
+					objective_setgamemodeflags(level.game_mode_next_obj_ind, 1);
 				}
 				else
 				{
-					player.next_obj_waypoint.alpha = 0;
+					objective_setgamemodeflags(level.game_mode_next_obj_ind, 0);
 				}
 			}
 
@@ -2415,11 +2405,7 @@ containment_think()
 
 			if (in_containment_zone["axis"].size == in_containment_zone["allies"].size && in_containment_zone["axis"].size > 0 && in_containment_zone["allies"].size > 0)
 			{
-				foreach (player in players)
-				{
-					player.obj_waypoint.color = (1, 1, 0);
-					player containment_set_obj_waypoint_icon("white_waypoint_contested");
-				}
+				objective_team(level.game_mode_obj_ind, "team3");
 
 				grief_score_hud_set_scoring_team("contested");
 
@@ -2439,19 +2425,7 @@ containment_think()
 			}
 			else if (in_containment_zone["axis"].size > in_containment_zone["allies"].size)
 			{
-				foreach (player in players)
-				{
-					if (player.team == "axis")
-					{
-						player.obj_waypoint.color = (0, 1, 0);
-						player containment_set_obj_waypoint_icon("white_waypoint_defend");
-					}
-					else
-					{
-						player.obj_waypoint.color = (1, 0, 0);
-						player containment_set_obj_waypoint_icon("white_waypoint_capture");
-					}
-				}
+				objective_team(level.game_mode_obj_ind, "axis");
 
 				grief_score_hud_set_scoring_team("axis");
 
@@ -2470,19 +2444,7 @@ containment_think()
 			}
 			else if (in_containment_zone["allies"].size > in_containment_zone["axis"].size)
 			{
-				foreach (player in players)
-				{
-					if (player.team == "axis")
-					{
-						player.obj_waypoint.color = (1, 0, 0);
-						player containment_set_obj_waypoint_icon("white_waypoint_capture");
-					}
-					else
-					{
-						player.obj_waypoint.color = (0, 1, 0);
-						player containment_set_obj_waypoint_icon("white_waypoint_defend");
-					}
-				}
+				objective_team(level.game_mode_obj_ind, "allies");
 
 				grief_score_hud_set_scoring_team("allies");
 
@@ -2510,10 +2472,9 @@ containment_think()
 							player.ignoreme = 0;
 						}
 					}
-
-					player.obj_waypoint.color = (1, 1, 1);
-					player containment_set_obj_waypoint_icon("white_waypoint_target");
 				}
+
+				objective_team(level.game_mode_obj_ind, "neutral");
 
 				grief_score_hud_set_scoring_team("neutral");
 
@@ -2788,112 +2749,7 @@ containment_get_zone_waypoint_origin(zone_name, zone)
 		zone_origin = groundpos(zone_origin);
 	}
 
-	return zone_origin + (0, 0, 60);
-}
-
-containment_set_obj_waypoint_on_screen(next_obj = false)
-{
-	hud = self.obj_waypoint;
-
-	if (next_obj)
-	{
-		hud = self.next_obj_waypoint;
-	}
-
-	if (!is_true(hud.on_screen))
-	{
-		hud.on_screen = 0;
-		hud.on_screen_fade = 0;
-		hud.player_ads = 0.0;
-	}
-
-	player_ads = self playerads();
-
-	if (player_ads == 1.0 || player_ads > hud.player_ads)
-	{
-		if (!hud.on_screen_fade)
-		{
-			hud.on_screen_fade = 1;
-
-			if (hud.on_screen)
-			{
-				hud fadeOverTime(0.25);
-			}
-		}
-
-		hud.alpha = 0.25;
-	}
-	else
-	{
-		if (hud.on_screen_fade)
-		{
-			hud.on_screen_fade = 0;
-
-			if (hud.on_screen)
-			{
-				hud fadeOverTime(0.25);
-			}
-		}
-
-		hud.alpha = 1;
-	}
-
-	hud.foreground = 1;
-	hud.archived = 0;
-
-	hud.x = 0;
-	hud.y = 140;
-	hud.z = 0;
-
-	hud.player_ads = player_ads;
-	hud.on_screen = 1;
-}
-
-containment_set_obj_waypoint_off_screen(zone_origin, next_obj = false)
-{
-	hud = self.obj_waypoint;
-
-	if (next_obj)
-	{
-		hud = self.next_obj_waypoint;
-	}
-
-	hud.alpha = 1;
-	hud.foreground = 0;
-	hud.archived = 1;
-
-	hud.x = zone_origin[0];
-	hud.y = zone_origin[1];
-	hud.z = zone_origin[2];
-
-	hud.on_screen = 0;
-}
-
-containment_set_obj_waypoint_icon(icon, next_obj = false)
-{
-	hud = self.obj_waypoint;
-
-	if (next_obj)
-	{
-		hud = self.next_obj_waypoint;
-	}
-
-	if (hud.on_screen)
-	{
-		hud setShader(icon, 24, 24);
-	}
-	else
-	{
-		if (next_obj)
-		{
-			hud setShader(icon, 6, 6);
-			hud setWaypoint(1);
-		}
-		else
-		{
-			hud setWaypoint(1, icon);
-		}
-	}
+	return zone_origin;
 }
 
 containment_time_hud_countdown(time)
@@ -2964,11 +2820,6 @@ meat_powerup_drop_think()
 
 		foreach (player in players)
 		{
-			if (isdefined(level.meat_player) && level.meat_player == player)
-			{
-				continue;
-			}
-
 			player thread show_grief_hud_msg(&"ZOMBIE_MEAT_DROPPED");
 		}
 
@@ -3009,19 +2860,6 @@ meat_powerup_reset_on_timeout()
 	level notify("meat_inactive");
 }
 
-meat_waypoint_origin_ent_destroy_on_death()
-{
-	waypoint_origin_ent = self.waypoint_origin_ent;
-
-	self waittill("death");
-
-	if (isDefined(waypoint_origin_ent))
-	{
-		waypoint_origin_ent unlink();
-		waypoint_origin_ent delete();
-	}
-}
-
 meat_think()
 {
 	level endon("end_game");
@@ -3048,30 +2886,8 @@ meat_think()
 
 			grief_score_hud_set_scoring_team(level.meat_player.team);
 
-			foreach (player in players)
-			{
-				if (player == level.meat_player)
-				{
-					player.obj_waypoint.alpha = 0;
-				}
-				else
-				{
-					player.obj_waypoint.alpha = 1;
-
-					if (player.team == level.meat_player.team)
-					{
-						player.obj_waypoint.color = (0, 1, 0);
-						player.obj_waypoint setWaypoint(1, "white_waypoint_escort");
-					}
-					else
-					{
-						player.obj_waypoint.color = (1, 0, 0);
-						player.obj_waypoint setWaypoint(1, "white_waypoint_kill");
-					}
-
-					player.obj_waypoint setTargetEnt(level.meat_player.waypoint_origin_ent);
-				}
-			}
+			objective_setgamemodeflags(level.meat_player, 3);
+			objective_setgamemodeflags(level.game_mode_obj_ind, 0);
 
 			if ((getTime() - held_time) >= obj_time)
 			{
@@ -3090,56 +2906,23 @@ meat_think()
 
 			if (isDefined(level.item_meat))
 			{
-				if (!isDefined(level.item_meat.waypoint_origin_ent))
-				{
-					level.item_meat.waypoint_origin_ent = spawn("script_model", level.item_meat.origin);
-					level.item_meat.waypoint_origin_ent setmodel("tag_origin");
-
-					level.item_meat thread meat_waypoint_origin_ent_destroy_on_death();
-				}
-
-				level.item_meat.waypoint_origin_ent.origin = level.item_meat.origin + (0, 0, 20);
-
 				grief_score_hud_set_scoring_team("neutral");
 
-				foreach (player in players)
-				{
-					player.obj_waypoint.alpha = 1;
-					player.obj_waypoint.color = (1, 1, 1);
-					player.obj_waypoint setWaypoint(1, "white_waypoint_grab");
-					player.obj_waypoint setTargetEnt(level.item_meat.waypoint_origin_ent);
-				}
+				objective_onentity(level.game_mode_obj_ind, level.item_meat);
+				objective_setgamemodeflags(level.game_mode_obj_ind, 1);
 			}
 			else if (isDefined(level.meat_powerup))
 			{
-				if (!isDefined(level.meat_powerup.waypoint_origin_ent))
-				{
-					level.meat_powerup.waypoint_origin_ent = spawn("script_model", level.meat_powerup.origin);
-					level.meat_powerup.waypoint_origin_ent setmodel("tag_origin");
-
-					level.meat_powerup thread meat_waypoint_origin_ent_destroy_on_death();
-				}
-
-				level.meat_powerup.waypoint_origin_ent.origin = level.meat_powerup.origin + (0, 0, 20);
-
 				grief_score_hud_set_scoring_team("neutral");
 
-				foreach (player in players)
-				{
-					player.obj_waypoint.alpha = 1;
-					player.obj_waypoint.color = (1, 1, 1);
-					player.obj_waypoint setWaypoint(1, "white_waypoint_grab");
-					player.obj_waypoint setTargetEnt(level.meat_powerup.waypoint_origin_ent);
-				}
+				objective_onentity(level.game_mode_obj_ind, level.meat_powerup);
+				objective_setgamemodeflags(level.game_mode_obj_ind, 1);
 			}
 			else
 			{
 				grief_score_hud_set_scoring_team("none");
 
-				foreach (player in players)
-				{
-					player.obj_waypoint.alpha = 0;
-				}
+				objective_setgamemodeflags(level.game_mode_obj_ind, 0);
 			}
 		}
 

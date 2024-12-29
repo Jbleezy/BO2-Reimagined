@@ -258,9 +258,7 @@ meat_stink(who, owner)
 
 	if (level.scr_zm_ui_gametype_obj == "zmeat")
 	{
-		who thread [[level.show_grief_hud_msg_func]](&"ZOMBIE_PLAYER_HAS_MEAT");
-
-		objective_setgamemodeflags(self.obj_ind, 3);
+		objective_setgamemodeflags(who.obj_ind, 3);
 	}
 
 	players = get_players();
@@ -436,8 +434,6 @@ meat_stink_cleanup_on_downed()
 
 		if (valid_drop)
 		{
-			self thread [[level.show_grief_hud_msg_func]](&"");
-
 			level.meat_powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop("meat_stink", self.origin);
 		}
 		else

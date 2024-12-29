@@ -374,6 +374,7 @@ function HUD_FirstSnapshot_Zombie(HUDWidget, ClientInstance)
 	Widget:addElement(LUI.createMenu.PlayerReviveWaypointArea(ClientInstance.controller))
 	Widget:addElement(LUI.createMenu.PlayerCloneWaypointArea(ClientInstance.controller))
 	Widget:addElement(LUI.createMenu.PlayerObjectiveWaypointArea(ClientInstance.controller))
+	Widget:addElement(LUI.createMenu.GameModeObjectiveWaypointArea(ClientInstance.controller))
 
 	if CoD.Zombie.IsDLCMap(CoD.Zombie.DLC3Maps) then
 		Widget:registerEventHandler("time_bomb_hud_toggle", HUD_ToggleZombieHudContainer)
