@@ -1024,21 +1024,6 @@ update_players_on_downed(excluded_player)
 		}
 	}
 
-	if (other_players_remaining > 0)
-	{
-		foreach (player in players)
-		{
-			if (players_remaining == 0)
-			{
-				player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_ALL_ALLIES_DOWN", undefined, 30);
-			}
-			else
-			{
-				player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_ALLY_BLED_OUT", players_remaining, 30);
-			}
-		}
-	}
-
 	if (players_remaining == 1)
 	{
 		foreach (player in players)
@@ -1090,14 +1075,6 @@ update_players_on_revived(revived_player, reviver)
 	foreach (player in other_players)
 	{
 		player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_PLAYER_REVIVED", players_remaining);
-	}
-
-	if (other_players_remaining > 0)
-	{
-		foreach (player in players)
-		{
-			player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_ALLY_REVIVED", players_remaining, 30);
-		}
 	}
 }
 
