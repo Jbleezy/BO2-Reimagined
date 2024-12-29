@@ -2886,7 +2886,7 @@ meat_think()
 
 			grief_score_hud_set_scoring_team(level.meat_player.team);
 
-			objective_setgamemodeflags(level.meat_player, 3);
+			objective_setgamemodeflags(level.meat_player.obj_ind, 3);
 			objective_setgamemodeflags(level.game_mode_obj_ind, 0);
 
 			if ((getTime() - held_time) >= obj_time)

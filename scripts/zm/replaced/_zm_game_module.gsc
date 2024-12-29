@@ -264,6 +264,21 @@ game_won(winner)
 		}
 	}
 
+	if (isdefined(level.game_mode_obj_ind))
+	{
+		objective_setgamemodeflags(level.game_mode_obj_ind, 0);
+	}
+
+	if (isdefined(level.game_mode_next_obj_ind))
+	{
+		objective_setgamemodeflags(level.game_mode_next_obj_ind, 0);
+	}
+
+	if (isdefined(level.meat_player))
+	{
+		objective_setgamemodeflags(level.meat_player.obj_ind, 1);
+	}
+
 	level notify("game_module_ended", winner);
 	level._game_module_game_end_check = undefined;
 	maps\mp\gametypes_zm\_zm_gametype::track_encounters_win_stats(level.gamemodulewinningteam);
