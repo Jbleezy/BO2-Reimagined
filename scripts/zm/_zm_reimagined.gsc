@@ -1397,6 +1397,9 @@ bleedout_bar_hud()
 
 		hud = self createbar((1, 0, 0), level.secondaryprogressbarwidth * 2, level.secondaryprogressbarheight);
 		hud setpoint("CENTER", undefined, level.secondaryprogressbarx, -1 * level.secondaryprogressbary);
+		hud.foreground = 1;
+		hud.bar.foreground = 1;
+		hud.barframe.foreground = 1;
 		hud.hidewheninmenu = 1;
 		hud.bar.hidewheninmenu = 1;
 		hud.barframe.hidewheninmenu = 1;

@@ -374,15 +374,15 @@ chugabud_bleed_timeout_hud_create(delay)
 {
 	hud = self createbar((0.25, 0.25, 1), level.secondaryprogressbarwidth * 2, level.secondaryprogressbarheight);
 	hud setpoint("CENTER", undefined, level.secondaryprogressbarx, -1.75 * level.secondaryprogressbary);
+	hud.foreground = 1;
+	hud.bar.foreground = 1;
+	hud.barframe.foreground = 1;
 	hud.hidewheninmenu = 1;
 	hud.bar.hidewheninmenu = 1;
 	hud.barframe.hidewheninmenu = 1;
 	hud.archived = 0;
 	hud.bar.archived = 0;
 	hud.barframe.archived = 0;
-	hud.foreground = 1;
-	hud.bar.foreground = 1;
-	hud.barframe.foreground = 1;
 	hud.sort = 1;
 	hud.bar.sort = 2;
 	hud.barframe.sort = 3;

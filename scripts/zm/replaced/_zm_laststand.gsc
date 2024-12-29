@@ -62,6 +62,9 @@ revive_do_revive(playerbeingrevived, revivergun)
 		playerbeingrevived_player.beingrevivedprogressbar = playerbeingrevived_player createprimaryprogressbar();
 		playerbeingrevived_player.beingrevivedprogressbar setpoint("CENTER", undefined, level.primaryprogressbarx, beingrevivedprogressbar_y);
 		playerbeingrevived_player.beingrevivedprogressbar.bar.color = (0.5, 0.5, 1);
+		playerbeingrevived_player.beingrevivedprogressbar.foreground = 1;
+		playerbeingrevived_player.beingrevivedprogressbar.bar.foreground = 1;
+		playerbeingrevived_player.beingrevivedprogressbar.barframe.foreground = 1;
 		playerbeingrevived_player.beingrevivedprogressbar.hidewheninmenu = 1;
 		playerbeingrevived_player.beingrevivedprogressbar.bar.hidewheninmenu = 1;
 		playerbeingrevived_player.beingrevivedprogressbar.barframe.hidewheninmenu = 1;
@@ -78,6 +81,9 @@ revive_do_revive(playerbeingrevived, revivergun)
 		self.reviveprogressbar.foreground = 1;
 		self.reviveprogressbar.bar.foreground = 1;
 		self.reviveprogressbar.barframe.foreground = 1;
+		self.reviveprogressbar.hidewheninmenu = 1;
+		self.reviveprogressbar.bar.hidewheninmenu = 1;
+		self.reviveprogressbar.barframe.hidewheninmenu = 1;
 		self.reviveprogressbar.sort = 1;
 		self.reviveprogressbar.bar.sort = 2;
 		self.reviveprogressbar.barframe.sort = 3;
