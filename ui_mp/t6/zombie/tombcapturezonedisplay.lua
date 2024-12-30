@@ -77,6 +77,7 @@ CoD.TCZWaypoint.new = function(f3_arg0, f3_arg1)
 	f3_local0:setClass(CoD.TCZWaypoint)
 	local f3_local1 = Engine.GetObjectiveName(f3_arg0, f3_arg1)
 	f3_local0:registerEventHandler("objective_update_" .. f3_local1, f3_local0.update)
+	f3_local0:registerEventHandler("transition_complete_snap_out", CoD.TCZWaypoint.TransitionCompleteSnapOut)
 	f3_local0.mainImage:setImage(CoD.TCZWaypoint.MainSpinImageMaterial)
 	f3_local0.arrowImage:setImage(CoD.TCZWaypoint.ArrowImageMaterial)
 	f3_local0.progressBackground:close()
@@ -275,6 +276,12 @@ end
 CoD.TCZWaypoint.PulseHigh = function(f9_arg0, f9_arg1)
 	f9_arg0:beginAnimation("pulse_high", time, false, false)
 	f9_arg0:setAlpha(CoD.TCZWaypoint.pulseAlphaHigh)
+end
+
+CoD.TCZWaypoint.TransitionCompleteSnapOut = function(Menu, Event)
+	if not Event.interrupted then
+		Menu:setAlpha(0)
+	end
 end
 
 CoD.TCZRoamingZombies.new = function(f10_arg0, f10_arg1)

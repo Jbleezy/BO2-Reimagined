@@ -258,6 +258,7 @@ CoD.GameModeObjectiveWaypoint.new = function(Menu, ObjectiveIndex)
 	waypoint:registerEventHandler("objective_update_" .. objectiveName, waypoint.update)
 	waypoint:registerEventHandler("hud_update_team_change", waypoint.update)
 	waypoint:registerEventHandler("hud_update_other_player_team_change", waypoint.update)
+	waypoint:registerEventHandler("transition_complete_snap_out", CoD.ReimaginedWaypoint.TransitionCompleteSnapOut)
 
 	return waypoint
 end
@@ -440,6 +441,7 @@ CoD.PlayerCloneWaypoint.new = function(Menu, ObjectiveIndex)
 	waypoint:registerEventHandler("player_corpse_id", waypoint.update)
 	waypoint:registerEventHandler("hud_update_team_change", waypoint.update)
 	waypoint:registerEventHandler("hud_update_other_player_team_change", waypoint.update)
+	waypoint:registerEventHandler("transition_complete_snap_out", CoD.ReimaginedWaypoint.TransitionCompleteSnapOut)
 
 	return waypoint
 end
@@ -562,6 +564,7 @@ CoD.PlayerReviveWaypoint.new = function(Menu, ObjectiveIndex)
 	waypoint:registerEventHandler("objective_update_" .. objectiveName, waypoint.update)
 	waypoint:registerEventHandler("hud_update_team_change", waypoint.update)
 	waypoint:registerEventHandler("hud_update_other_player_team_change", waypoint.update)
+	waypoint:registerEventHandler("transition_complete_snap_out", CoD.ReimaginedWaypoint.TransitionCompleteSnapOut)
 
 	return waypoint
 end
@@ -634,6 +637,7 @@ CoD.PlayerDownWaypoint.new = function(Menu, ObjectiveIndex)
 	waypoint:registerEventHandler("objective_update_" .. objectiveName, waypoint.update)
 	waypoint:registerEventHandler("hud_update_team_change", waypoint.update)
 	waypoint:registerEventHandler("hud_update_other_player_team_change", waypoint.update)
+	waypoint:registerEventHandler("transition_complete_snap_out", CoD.ReimaginedWaypoint.TransitionCompleteSnapOut)
 
 	return waypoint
 end
@@ -1019,4 +1023,10 @@ CoD.PlayerHeadIcon.update = function(Menu, ClientInstance)
 	end
 
 	CoD.PlayerHeadIcon.super.update(Menu, ClientInstance)
+end
+
+CoD.ReimaginedWaypoint.TransitionCompleteSnapOut = function(Menu, Event)
+	if not Event.interrupted then
+		Menu:setAlpha(0)
+	end
 end
