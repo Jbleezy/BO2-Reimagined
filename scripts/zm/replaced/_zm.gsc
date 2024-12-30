@@ -2324,6 +2324,16 @@ player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, s
 
 	idamage = self maps\mp\zombies\_zm::check_player_damage_callbacks(einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime);
 
+	if (!idamage)
+	{
+		return 0;
+	}
+
+	if (self maps\mp\zombies\_zm_laststand::player_is_in_laststand())
+	{
+		return 0;
+	}
+
 	if (is_true(level.use_adjusted_grenade_damage) || is_true(self.use_adjusted_grenade_damage))
 	{
 		self.use_adjusted_grenade_damage = undefined;
@@ -2337,16 +2347,6 @@ player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, s
 		{
 			return idamage;
 		}
-	}
-
-	if (!idamage)
-	{
-		return 0;
-	}
-
-	if (self maps\mp\zombies\_zm_laststand::player_is_in_laststand())
-	{
-		return 0;
 	}
 
 	if (isDefined(einflictor))
