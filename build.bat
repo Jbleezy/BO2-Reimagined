@@ -203,6 +203,7 @@ if %ERRORLEVEL% NEQ 0 pause
 if %ERRORLEVEL% NEQ 0 pause
 
 "%OAT_BASE%\Linker.exe" ^
+--load "%cd%\zone_source\dependencies\camo_mp.ff" ^
 --load "%cd%\zone_source\includes\weapons!metalstorm_mms_sp.ff" ^
 --load "%cd%\zone_source\includes\weapons!exptitus6_sp.ff" ^
 --load "%cd%\zone_source\includes\code_post_gfx.ff" ^

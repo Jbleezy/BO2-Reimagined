@@ -2,8 +2,6 @@
 >type,fastfile
 >name,common_mp
 
-include,dependencies/camo_mp
-
 xmodel,t6_wpn_knife_base_view
 xmodel,t6_wpn_knife_base_world
 xmodel,t6_wpn_knife_melee
