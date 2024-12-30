@@ -1088,6 +1088,7 @@ xmodel,collision_geo_32x32x32_slick
 
 camo,camo_rnma
 camo,camo_slowgun
+camo,camo_vzoom_svu
 
 script,maps/mp/gametypes_zm/zgrief.gsc
 script,maps/mp/gametypes_zm/zmeat.gsc
