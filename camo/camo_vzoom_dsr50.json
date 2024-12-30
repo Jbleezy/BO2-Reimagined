@@ -285,14 +285,14 @@
 					"materialOverrides": [
 						{
 							"baseMaterial": "mc/mtl_t6_attach_optic_vzoom_dsr50",
-							"camoMaterial": "mc/mtl_weapon_camo_zmb_dlc2_alt_zoom"
+							"camoMaterial": "mc/mtl_weapon_camo_zmb_dlc2_alt_2"
 						}
 					],
 					"shaderConsts": [
-						3.0,
-						3.0,
+						10.0,
+						10.0,
+						0.699999988079071,
 						0.0,
-						1.0,
 						0.0,
 						0.0,
 						0.0,
