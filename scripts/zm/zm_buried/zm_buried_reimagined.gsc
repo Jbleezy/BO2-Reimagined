@@ -15,6 +15,7 @@ main()
 	replaceFunc(maps\mp\zm_buried_gamemodes::init, scripts\zm\replaced\zm_buried_gamemodes::init);
 	replaceFunc(maps\mp\zm_buried_gamemodes::buildbuildable, scripts\zm\replaced\zm_buried_gamemodes::buildbuildable);
 	replaceFunc(maps\mp\zm_buried_power::electric_switch, scripts\zm\replaced\zm_buried_power::electric_switch);
+	replaceFunc(maps\mp\zm_buried_ffotd::main_end, scripts\zm\replaced\zm_buried_ffotd::main_end);
 	replaceFunc(maps\mp\zm_buried_ffotd::jail_traversal_fix, scripts\zm\replaced\zm_buried_ffotd::jail_traversal_fix);
 	replaceFunc(maps\mp\zm_buried_ffotd::time_bomb_takeaway, scripts\zm\replaced\zm_buried_ffotd::time_bomb_takeaway);
 	replaceFunc(maps\mp\zm_buried_ffotd::spawned_life_triggers, scripts\zm\replaced\zm_buried_ffotd::spawned_life_triggers);
@@ -74,11 +75,6 @@ init()
 	level.zombie_init_done = ::zombie_init_done;
 	level.special_weapon_magicbox_check = ::buried_special_weapon_magicbox_check;
 	level.get_current_ghost_count_func = maps\mp\zombies\_zm_ai_ghost::get_current_ghost_count;
-
-	if (is_gametype_active("zgrief"))
-	{
-		level.check_for_valid_spawn_near_team_callback = undefined;
-	}
 
 	maps\mp\zm_buried::buried_add_player_dialogue("player", "perk", "specialty_scavenger", "perk_tombstone", undefined, 100);
 

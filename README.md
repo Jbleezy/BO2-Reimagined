@@ -763,6 +763,7 @@
 * Replaces Claymore on Origins
 
 #### Time Bomb
+* Added to all game modes
 * No longer sends players back in time
 * Kills all zombies
 * Revives all downed players

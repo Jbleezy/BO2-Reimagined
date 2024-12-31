@@ -567,6 +567,11 @@ empty_clip_powerup(drop_item, player)
 			players[i] setweaponammoclip(players[i] get_player_placeable_mine(), 0);
 		}
 
+		if (players[i] hasweapon("time_bomb_zm") && players[i] getweaponammoclip("time_bomb_zm") == 1)
+		{
+			players[i] empty_clip_swap_weapon_to_detonator();
+		}
+
 		i++;
 	}
 
@@ -597,6 +602,29 @@ empty_clip_move_hud(team)
 	self.alpha = 0;
 	wait move_fade_time;
 	self destroy();
+}
+
+empty_clip_swap_weapon_to_detonator()
+{
+	switch_to_weapon = 0;
+
+	if (self getcurrentweapon() == "time_bomb_zm")
+	{
+		switch_to_weapon = 1;
+	}
+
+	self takeweapon("time_bomb_zm");
+	self giveweapon("time_bomb_detonator_zm");
+	self setweaponammoclip("time_bomb_detonator_zm", 0);
+	self setweaponammostock("time_bomb_detonator_zm", 0);
+	self setactionslot(2, "weapon", "time_bomb_detonator_zm");
+
+	if (switch_to_weapon)
+	{
+		self switchtoweapon("time_bomb_detonator_zm");
+	}
+
+	self giveweapon("time_bomb_zm");
 }
 
 nuke_powerup(drop_item, player_team)

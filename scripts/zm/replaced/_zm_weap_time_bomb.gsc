@@ -95,6 +95,46 @@ show_time_bomb_hints()
 	}
 }
 
+time_bomb_inventory_slot_think()
+{
+	self notify("_time_bomb_inventory_think_done");
+	self endon("_time_bomb_inventory_think_done");
+	self endon("death_or_disconnect");
+	self endon("player_lost_time_bomb");
+	self.time_bomb_detonator_only = 0;
+
+	while (true)
+	{
+		self waittill("zmb_max_ammo");
+
+		if (self.time_bomb_detonator_only)
+		{
+			self.time_bomb_detonator_only = 0;
+		}
+
+		self swap_weapon_to_time_bomb();
+	}
+}
+
+swap_weapon_to_time_bomb()
+{
+	switch_to_weapon = 0;
+
+	if (self getcurrentweapon() == "time_bomb_detonator_zm")
+	{
+		switch_to_weapon = 1;
+	}
+
+	self takeweapon("time_bomb_detonator_zm");
+	self giveweapon("time_bomb_zm");
+	self setactionslot(2, "weapon", "time_bomb_zm");
+
+	if (switch_to_weapon)
+	{
+		self switchtoweapon("time_bomb_zm");
+	}
+}
+
 time_bomb_think()
 {
 	self notify("_time_bomb_kill_thread");
@@ -326,6 +366,7 @@ _time_bomb_revive_all_downed_players()
 	{
 		if (player maps\mp\zombies\_zm_laststand::player_is_in_laststand())
 		{
+			player.revived_by_weapon = "time_bomb_zm";
 			player maps\mp\zombies\_zm_laststand::auto_revive(level.time_bomb_save_data.player_used);
 		}
 	}

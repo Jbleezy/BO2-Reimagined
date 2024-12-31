@@ -1733,6 +1733,7 @@ grief_laststand_weapon_save(einflictor, attacker, idamage, smeansofdeath, sweapo
 	self.grief_savedweapon_tactical = self get_player_tactical_grenade();
 	self.grief_savedweapon_mine = self get_player_placeable_mine();
 	self.grief_savedweapon_equipment = self get_player_equipment();
+	self.grief_hastimebomb = self hasweapon("time_bomb_zm") || self hasweapon("time_bomb_detonator_zm");
 	self.grief_hasriotshield = undefined;
 
 	for (i = 0; i < self.grief_savedweapon_weapons.size; i++)
@@ -1796,6 +1797,16 @@ grief_laststand_weapon_save(einflictor, attacker, idamage, smeansofdeath, sweapo
 	if (isDefined(self.grief_savedweapon_mine))
 	{
 		self.grief_savedweapon_mine_clip = self getweaponammoclip(self.grief_savedweapon_mine);
+	}
+
+	if (is_true(self.grief_hastimebomb))
+	{
+		self.grief_savedweapon_timebomb_clip = 1;
+
+		if (self hasweapon("time_bomb_detonator_zm"))
+		{
+			self.grief_savedweapon_timebomb_clip = 0;
+		}
 	}
 
 	if (isDefined(self.hasriotshield) && self.hasriotshield)
@@ -1988,6 +1999,23 @@ grief_laststand_weapons_return()
 		self.do_not_display_equipment_pickup_hint = 1;
 		self maps\mp\zombies\_zm_equipment::equipment_give(self.grief_savedweapon_equipment);
 		self.do_not_display_equipment_pickup_hint = undefined;
+	}
+
+	if (is_true(self.grief_hastimebomb))
+	{
+		if (self.grief_savedweapon_timebomb_clip == 1)
+		{
+			self giveweapon("time_bomb_zm");
+			self setactionslot(2, "weapon", "time_bomb_zm");
+		}
+		else
+		{
+			self giveweapon("time_bomb_detonator_zm");
+			self setweaponammoclip("time_bomb_detonator_zm", 0);
+			self setweaponammostock("time_bomb_detonator_zm", 0);
+			self setactionslot(2, "weapon", "time_bomb_detonator_zm");
+			self giveweapon("time_bomb_zm");
+		}
 	}
 
 	if (isDefined(self.grief_hasriotshield) && self.grief_hasriotshield)

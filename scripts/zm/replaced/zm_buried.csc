@@ -51,10 +51,7 @@ start_zombie_stuff()
 	registerclientfield("allplayers", "buried_sq_richtofen_player_eyes_stuhlinger", 12000, 1, "int", ::buried_sq_richtofen_player_eyes_stuhlinger, 0);
 	registerclientfield("allplayers", "phd_flopper_effects", 12000, 1, "int", ::buried_phd_flopper_effects, 0);
 
-	if (is_gametype_active("zclassic"))
-	{
-		clientscripts\mp\zombies\_zm_weap_time_bomb::init_time_bomb();
-	}
+	clientscripts\mp\zombies\_zm_weap_time_bomb::init_time_bomb();
 
 	clientscripts\mp\zombies\_zm_weap_cymbal_monkey::init();
 	clientscripts\mp\zombies\_zm_weap_tazer_knuckles::init();
