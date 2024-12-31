@@ -38,7 +38,7 @@ REFERENCE           ZMUI_CHARACTER_DIALOG_DESC
 LANG_ENGLISH        "Allow character dialog to play."
 
 REFERENCE           ZMUI_PRO_DESC
-LANG_ENGLISH        "No Mystery Box, no Pack-a-Punch, and limited sprint."
+LANG_ENGLISH        "No Mystery Box, no Pack-a-Punch, no held melee weapons, and limited sprint."
 
 REFERENCE           ZMUI_ZCLASSIC
 LANG_ENGLISH        "Tranzit"

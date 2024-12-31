@@ -89,6 +89,11 @@ init()
 	level thread unlimited_zombies();
 	level thread unlimited_powerups();
 	level thread save_teams_on_intermission();
+
+	if (level.scr_zm_ui_gametype_pro)
+	{
+		level thread remove_held_melee_weapons();
+	}
 }
 
 grief_setscoreboardcolumns_gametype()
@@ -3105,4 +3110,33 @@ is_weapon_available_in_grief_saved_weapons(weapon, ignore_player)
 	}
 
 	return count;
+}
+
+remove_held_melee_weapons()
+{
+	level endon("intermission");
+
+	while (1)
+	{
+		players = get_players();
+
+		foreach (player in players)
+		{
+			melee_weapon = player get_player_melee_weapon();
+
+			if (!isdefined(melee_weapon))
+			{
+				continue;
+			}
+
+			held_melee_weapon = "held_" + melee_weapon;
+
+			if (player hasweapon(held_melee_weapon))
+			{
+				player takeweapon(held_melee_weapon);
+			}
+		}
+
+		wait 0.05;
+	}
 }

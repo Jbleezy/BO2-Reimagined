@@ -1508,4 +1508,5 @@
 ### Encounter Pro
 * No Mystery Box
 * No Pack-a-Punch
+* No held melee weapons
 * Limited sprint
