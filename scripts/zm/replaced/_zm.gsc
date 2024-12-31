@@ -1521,7 +1521,7 @@ take_additionalprimaryweapon()
 	return weapon_to_take;
 }
 
-restore_additionalprimaryweapon()
+restore_additionalprimaryweapon(switch_to_weapon = 1)
 {
 	if (!isDefined(self.a_saved_weapon))
 	{
@@ -1585,7 +1585,14 @@ restore_additionalprimaryweapon()
 		self setweaponammostock(alt_name, self.a_saved_weapon["alt_stock"]);
 	}
 
-	self switchtoweapon(name);
+	if (switch_to_weapon)
+	{
+		self switchtoweapon(name);
+	}
+	else
+	{
+		self seteverhadweaponall(1);
+	}
 
 	self.a_saved_weapon = undefined;
 }

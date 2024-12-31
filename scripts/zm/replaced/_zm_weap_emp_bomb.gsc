@@ -366,7 +366,7 @@ player_perk_unpause(perk)
 
 	if (perk == "specialty_additionalprimaryweapon" || perk == "specialty_additionalprimaryweapon_upgrade")
 	{
-		self scripts\zm\replaced\_zm::restore_additionalprimaryweapon();
+		self scripts\zm\replaced\_zm::restore_additionalprimaryweapon(0);
 	}
 
 	if (issubstr(perk, "specialty_scavenger"))

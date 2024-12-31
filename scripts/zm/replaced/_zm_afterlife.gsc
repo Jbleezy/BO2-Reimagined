@@ -769,9 +769,6 @@ afterlife_give_loadout()
 		}
 	}
 
-	self setspawnweapon(loadout.weapons[loadout.current_weapon]);
-	self switchtoweaponimmediate(loadout.weapons[loadout.current_weapon]);
-
 	if (isdefined(self get_player_melee_weapon()))
 	{
 		self giveweapon(self get_player_melee_weapon());
@@ -856,6 +853,9 @@ afterlife_give_loadout()
 
 		self setweaponammoclip(self get_player_lethal_grenade(), loadout.grenade + curgrenadecount);
 	}
+
+	self setspawnweapon(loadout.weapons[loadout.current_weapon]);
+	self switchtoweaponimmediate(loadout.weapons[loadout.current_weapon]);
 }
 
 afterlife_save_perks(ent)

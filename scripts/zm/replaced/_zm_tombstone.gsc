@@ -524,6 +524,21 @@ tombstone_give()
 		}
 	}
 
+	if (isDefined(self.tombstone_perks) && self.tombstone_perks.size > 0)
+	{
+		for (i = 0; i < self.tombstone_perks.size; i++)
+		{
+			if (self hasperk(self.tombstone_perks[i]) || self maps\mp\zombies\_zm_perks::has_perk_paused(self.tombstone_perks[i]))
+			{
+				continue;
+			}
+
+			self maps\mp\zombies\_zm_perks::give_perk(self.tombstone_perks[i]);
+		}
+
+		self scripts\zm\_zm_reimagined::update_perk_order();
+	}
+
 	current_wep = self getCurrentWeapon();
 
 	if (!isSubStr(current_wep, "perk_bottle") && !isSubStr(current_wep, "knuckle_crack") && !isSubStr(current_wep, "flourish") && !isSubStr(current_wep, level.item_meat_name))
@@ -547,21 +562,6 @@ tombstone_give()
 				self switchtoweapon(primaries[0]);
 			}
 		}
-	}
-
-	if (isDefined(self.tombstone_perks) && self.tombstone_perks.size > 0)
-	{
-		for (i = 0; i < self.tombstone_perks.size; i++)
-		{
-			if (self hasperk(self.tombstone_perks[i]) || self maps\mp\zombies\_zm_perks::has_perk_paused(self.tombstone_perks[i]))
-			{
-				continue;
-			}
-
-			self maps\mp\zombies\_zm_perks::give_perk(self.tombstone_perks[i]);
-		}
-
-		self scripts\zm\_zm_reimagined::update_perk_order();
 	}
 
 	self.tombstone_savedweapon_weapons = undefined;

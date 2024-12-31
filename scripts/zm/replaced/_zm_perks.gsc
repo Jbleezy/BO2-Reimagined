@@ -1073,7 +1073,8 @@ give_perk(perk, bought)
 
 	if (perk == "specialty_additionalprimaryweapon")
 	{
-		self scripts\zm\replaced\_zm::restore_additionalprimaryweapon();
+		switch_to_additional_primary_weapon = is_true(bought);
+		self scripts\zm\replaced\_zm::restore_additionalprimaryweapon(switch_to_additional_primary_weapon);
 		self notify("perk_additionalprimaryweapon_activated");
 	}
 
