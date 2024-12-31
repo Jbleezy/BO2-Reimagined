@@ -40,9 +40,7 @@ wait_for_blundersplat_fired()
 
 		if (str_weapon == "blundersplat_zm")
 		{
-			self remove_clip_ammo(str_weapon);
-
-			for (i = 0; i < weaponclipsize(str_weapon); i++)
+			for (i = 0; i < 4; i++)
 			{
 				_titus_locate_target(1, i);
 			}
@@ -62,51 +60,12 @@ wait_for_blundersplat_upgraded_fired()
 
 		if (str_weapon == "blundersplat_upgraded_zm")
 		{
-			self remove_clip_ammo(str_weapon);
-
-			for (i = 0; i < weaponclipsize(str_weapon); i++)
+			for (i = 0; i < 4; i++)
 			{
 				_titus_locate_target(0, i);
 			}
 		}
 	}
-}
-
-remove_clip_ammo(str_weapon)
-{
-	self setweaponammoclip(str_weapon, 0);
-
-	if (self getammocount(str_weapon) == 0)
-	{
-		self thread force_weapon_switch(str_weapon);
-	}
-}
-
-force_weapon_switch(str_weapon)
-{
-	self endon("disconnect");
-
-	wait weaponfiretime(str_weapon);
-
-	if (self getcurrentweapon() != str_weapon)
-	{
-		return;
-	}
-
-	primary_weapons = self getweaponslistprimaries();
-	str_weapon_ind = 0;
-
-	foreach (primary_weapon_ind, primary_weapon in primary_weapons)
-	{
-		if (primary_weapon == str_weapon)
-		{
-			str_weapon_ind = primary_weapon_ind;
-			break;
-		}
-	}
-
-	switch_to_weapon_ind = (str_weapon_ind + 1) % primary_weapons.size;
-	self switchtoweapon(primary_weapons[switch_to_weapon_ind]);
 }
 
 _titus_locate_target(is_not_upgraded = 1, count)

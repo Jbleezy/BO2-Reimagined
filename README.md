@@ -619,10 +619,10 @@
 
 #### Acidgat
 * Kills on any round in 1-2 bursts
-* Increased clip ammo from 3 to 4
 * Increased player damage from 10 to 15
 * Increased move speed while aiming from 100% to 200% (same as Blundergat)
 * Decreased explosion radius by 50%
+* Increased projectile count from 3 to 4
 * Projectiles fire all at once
 * Projectiles fire in a straight line
 * Projectiles no longer seek toward zombies
@@ -632,6 +632,7 @@
 * Stuck zombie counts as a kill
 * Unupgraded: decreased stock ammo from 30 bursts to 15 bursts
 * Unupgraded: changed weapon name from "Acid Gat" to "Acidgat"
+* Upgraded: increased clip ammo from 1 burst to 2 bursts
 * Upgraded: decreased stock ammo from 50 bursts to 30 bursts
 * Upgraded: increased max splash damage from 1000 to 2000
 * Upgraded: increased min splash damage from 500 to 1000
