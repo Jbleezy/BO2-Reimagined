@@ -2773,11 +2773,6 @@ player_laststand(einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, sh
 		}
 	}
 
-	if (self hasperk("specialty_additionalprimaryweapon"))
-	{
-		self.weapon_taken_by_losing_specialty_additionalprimaryweapon = maps\mp\zombies\_zm::take_additionalprimaryweapon();
-	}
-
 	if (is_true(self.hasperkspecialtytombstone))
 	{
 		self [[level.tombstone_laststand_func]]();
@@ -2788,6 +2783,11 @@ player_laststand(einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, sh
 			self.hasperkspecialtytombstone = undefined;
 			self notify("specialty_scavenger_stop");
 		}
+	}
+
+	if (self hasperk("specialty_additionalprimaryweapon"))
+	{
+		self.weapon_taken_by_losing_specialty_additionalprimaryweapon = maps\mp\zombies\_zm::take_additionalprimaryweapon();
 	}
 
 	self clear_is_drinking();

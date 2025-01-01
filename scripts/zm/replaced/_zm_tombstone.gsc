@@ -541,7 +541,7 @@ tombstone_give()
 
 	current_wep = self getCurrentWeapon();
 
-	if (!isSubStr(current_wep, "perk_bottle") && !isSubStr(current_wep, "knuckle_crack") && !isSubStr(current_wep, "flourish") && !isSubStr(current_wep, level.item_meat_name))
+	if (!isSubStr(current_wep, "perk_bottle") && !isSubStr(current_wep, "knuckle_crack") && !isSubStr(current_wep, "flourish") && current_wep != level.item_meat_name)
 	{
 		switched = 0;
 		primaries = self getweaponslistprimaries();
