@@ -497,20 +497,25 @@ CoD.Reimagined.HealthBarArea.UpdateHealthBar = function(Menu, ClientInstance)
 
 	local healthWidth = math.max(3, (Menu.width * healthPercent) - Menu.bgDiff)
 
-	Menu.healthBar:setLeftRight(true, false, Menu.bgDiff, healthWidth)
-
 	if shieldHealthPercent > 0 then
 		local shieldHealthWidth = math.max(3, (Menu.width * shieldHealthPercent) - Menu.bgDiff)
 
 		Menu.shieldBar:setAlpha(1)
+
+		Menu.shieldBar:beginAnimation("slide", 50, true, true)
 		Menu.shieldBar:setLeftRight(true, false, Menu.bgDiff, shieldHealthWidth)
+
 		Menu.healthBar:setTopBottom(true, false, (Menu.height + Menu.bgDiff) / 2, Menu.height - Menu.bgDiff)
 		Menu.healthText:setText(health .. " | " .. shieldHealth)
 	else
 		Menu.shieldBar:setAlpha(0)
+
 		Menu.healthBar:setTopBottom(true, false, Menu.bgDiff, Menu.height - Menu.bgDiff)
 		Menu.healthText:setText(health)
 	end
+
+	Menu.healthBar:beginAnimation("slide", 50, true, true)
+	Menu.healthBar:setLeftRight(true, false, Menu.bgDiff, healthWidth)
 end
 
 CoD.Reimagined.ZoneNameArea = {}
