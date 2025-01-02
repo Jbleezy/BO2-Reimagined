@@ -1553,6 +1553,7 @@ ent_cleanup_on_disconnect(ent)
 
 veryhurt_blood_fx()
 {
+	level endon("intermission");
 	self endon("disconnect");
 
 	while (1)
