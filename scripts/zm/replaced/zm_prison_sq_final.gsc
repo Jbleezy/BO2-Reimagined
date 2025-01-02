@@ -298,8 +298,6 @@ stage_final()
 
 	if (isdefined(p_weasel) && a_player_team.size > 0)
 	{
-		level.longregentime = 1000000;
-		level.playerhealth_regularregendelay = 1000000;
 		p_weasel.team = level.zombie_team;
 		p_weasel.pers["team"] = level.zombie_team;
 		p_weasel.sessionteam = level.zombie_team;

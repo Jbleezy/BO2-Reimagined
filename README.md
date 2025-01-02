@@ -1302,6 +1302,7 @@
 * Quest: if Weasel is not in the game, the cycle continues immediately after all players are revived from the electric chairs
 * Quest: fixed revive triggers behaving incorrectly when reviving players from the electric chairs
 * Quest: players no longer get moved to different positions after all players are revived from the electric chairs
+* Quest: added player health regeneration during showdown
 * Quest: showdown target waypoint shows immediately after all players are revived from the electric chairs
 * Quest: showdown target waypoint shows offscreen
 * Fixed afterlife icon showing when initially in afterlife at the start of the game
