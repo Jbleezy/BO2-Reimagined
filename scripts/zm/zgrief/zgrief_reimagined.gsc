@@ -2567,11 +2567,14 @@ containment_think()
 
 		spawn_points = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
 
-		foreach (spawn_point in spawn_points)
+		if (maps\mp\zombies\_zm_zonemgr::zone_is_enabled(zone_name_to_lock))
 		{
-			if (spawn_point.script_noteworthy == zone_name_to_lock)
+			foreach (spawn_point in spawn_points)
 			{
-				spawn_point.locked = 0;
+				if (spawn_point.script_noteworthy == zone_name_to_lock)
+				{
+					spawn_point.locked = 0;
+				}
 			}
 		}
 	}
