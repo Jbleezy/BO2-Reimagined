@@ -145,7 +145,7 @@ meat_bounce_override(pos, normal, ent, bounce)
 
 			if (self.bounce_count >= 4)
 			{
-				self meat_drop(pos);
+				meat_drop(pos, self);
 			}
 
 			return;
@@ -161,24 +161,30 @@ meat_bounce_override(pos, normal, ent, bounce)
 		return;
 	}
 
-	self meat_drop(pos);
+	meat_drop(pos, self);
 }
 
-meat_drop(pos)
+meat_drop(pos, prev_meat_ent)
 {
 	valid_drop = scripts\zm\replaced\_zm_utility::check_point_in_life_brush(pos) || (check_point_in_enabled_zone(pos) && !scripts\zm\replaced\_zm_utility::check_point_in_kill_brush(pos));
 
 	if (valid_drop)
 	{
-		self hide();
+		meat_origin = pos;
+
+		if (isdefined(prev_meat_ent))
+		{
+			meat_origin = prev_meat_ent.origin;
+			prev_meat_ent hide();
+		}
 
 		if (level.scr_zm_ui_gametype_obj == "zmeat")
 		{
-			level.meat_powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop("meat_stink", pos);
+			level.meat_powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop("meat_stink", meat_origin);
 		}
 		else
 		{
-			level thread meat_stink_on_ground(self.origin);
+			level thread meat_stink_on_ground(meat_origin);
 		}
 	}
 	else
@@ -186,7 +192,10 @@ meat_drop(pos)
 		level notify("meat_inactive");
 	}
 
-	self delete();
+	if (isdefined(prev_meat_ent))
+	{
+		prev_meat_ent delete();
+	}
 }
 
 meat_stink(who, owner)
@@ -210,16 +219,7 @@ meat_stink(who, owner)
 
 		if (level.scr_zm_ui_gametype_obj == "zmeat")
 		{
-			valid_drop = scripts\zm\replaced\_zm_utility::check_point_in_life_brush(who.origin) || (check_point_in_enabled_zone(who.origin) && !scripts\zm\replaced\_zm_utility::check_point_in_kill_brush(who.origin));
-
-			if (valid_drop)
-			{
-				level.meat_powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop("meat_stink", who.origin);
-			}
-			else
-			{
-				level notify("meat_inactive");
-			}
+			meat_drop(who.origin);
 		}
 
 		return;
@@ -430,16 +430,7 @@ meat_stink_cleanup_on_downed()
 
 	if (level.scr_zm_ui_gametype_obj == "zmeat")
 	{
-		valid_drop = scripts\zm\replaced\_zm_utility::check_point_in_life_brush(self.origin) || (check_point_in_enabled_zone(self.origin) && !scripts\zm\replaced\_zm_utility::check_point_in_kill_brush(self.origin));
-
-		if (valid_drop)
-		{
-			level.meat_powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop("meat_stink", self.origin);
-		}
-		else
-		{
-			level notify("meat_inactive");
-		}
+		meat_drop(self.origin);
 	}
 }
 
