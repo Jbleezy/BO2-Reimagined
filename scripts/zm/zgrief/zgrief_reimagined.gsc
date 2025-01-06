@@ -2711,7 +2711,7 @@ containment_get_zone_waypoint_origin(zone_name, zone)
 	}
 	else if (level.script == "zm_transit" && zone_name == "zone_trans_8")
 	{
-		zone_origin += (200, 0, 0);
+		zone_origin += (200, 100, 0);
 	}
 	else if (level.script == "zm_transit" && zone_name == "zone_prr")
 	{
