@@ -138,6 +138,7 @@ if %ERRORLEVEL% NEQ 0 pause
 --load "%cd%\zone_source\dependencies\camo_mp.ff" ^
 --load "%OAT_GAME%\zone\all\zm_transit_patch.ff" ^
 --load "%OAT_GAME%\zone\all\zm_transit.ff" ^
+--load "%OAT_GAME%\zone\all\so_zsurvival_zm_transit.ff" ^
 --base-folder "%OAT_BASE%" ^
 --asset-search-path "%cd%" ^
 --source-search-path "%cd%\zone_source" ^

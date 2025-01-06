@@ -103,75 +103,9 @@ treasure_chest_init()
 
 init_barriers()
 {
-	model = spawn("script_model", (10176.5, -14.8391, -221.988), 1);
-	model.angles = (0, 35, 0);
-	model setmodel("collision_clip_wall_256x256x10");
-	model disconnectpaths();
-
-	model = spawn("script_model", (10002.6, -95.4607, -212.275), 1);
-	model.angles = (0, 0, 0);
-	model setmodel("collision_clip_wall_128x128x10");
-	model disconnectpaths();
-
-	model = spawn("script_model", (10173.4, -1761.36, -217.812), 1);
-	model.angles = (0, -60, 0);
-	model setmodel("collision_clip_wall_128x128x10");
-	model disconnectpaths();
-
-	model = spawn("script_model", (10147.5, -1657.67, -217.208), 1);
-	model.angles = (0, 88, 0);
-	model setmodel("collision_clip_wall_256x256x10");
-	model disconnectpaths();
-
-	model = spawn("script_model", (10082.7, -1528.05, -217.288), 1);
-	model.angles = (0, -180, 0);
-	model setmodel("collision_clip_wall_128x128x10");
-	model disconnectpaths();
-
-	model = spawn("script_model", (10159.6, -1104.45, -214.861), 1);
-	model.angles = (0, -30, 0);
-	model setmodel("collision_clip_64x64x256");
-	model disconnectpaths();
-
-	model = spawn("script_model", (10157.4, -1222.83, -217.875), 1);
-	model.angles = (0, 10, 0);
-	model setmodel("collision_clip_64x64x256");
-	model disconnectpaths();
-
-	model = spawn("script_model", (10216.6, -1134.53, -217.261), 1);
-	model.angles = (0, -30, 0);
-	model setmodel("collision_clip_64x64x256");
-	model disconnectpaths();
-
-	model = spawn("script_model", (10147.4, -1152.83, -217.875), 1);
-	model.angles = (0, 10, 0);
-	model setmodel("collision_clip_64x64x256");
-	model disconnectpaths();
-
-	model = spawn("script_model", (10099.6, -1064.45, -214.861), 1);
-	model.angles = (0, -30, 0);
-	model setmodel("collision_clip_64x64x256");
-	model disconnectpaths();
-
-	model = spawn("script_model", (10016.8, -1490.24, -217.875), 1);
-	model.angles = (0, -30, 0);
-	model setmodel("collision_clip_128x128x128");
-	model disconnectpaths();
-
-	model = spawn("script_model", (10443.9, -353.378, -217.748), 1);
-	model.angles = (0, -35, 0);
-	model setmodel("collision_clip_128x128x128");
-	model disconnectpaths();
-
-	model = spawn("script_model", (10393.5, -421.323, -220.142), 1);
-	model.angles = (0, -25, 0);
-	model setmodel("collision_clip_128x128x128");
-	model disconnectpaths();
-
-	model = spawn("script_model", (10334.9, -544.594, -217.922), 1);
-	model.angles = (0, -25, 0);
-	model setmodel("collision_clip_128x128x128");
-	model disconnectpaths();
+	collision = spawn("script_model", (10500, -850, 0), 1);
+	collision setmodel("zm_collision_transit_cornfield_survival");
+	collision disconnectpaths();
 
 	origin = (9720, -1090, -212);
 	angles = (0, 90, 0);
