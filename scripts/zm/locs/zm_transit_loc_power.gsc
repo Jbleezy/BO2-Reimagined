@@ -102,16 +102,16 @@ init_barriers()
 	// fog before power station
 	origin = (10215, 7265, -570);
 	angles = (0, 0, 0);
-	scripts\zm\replaced\utility::barrier("collision_player_wall_512x512x10", origin + (anglesToUp(angles) * 256), angles);
-	scripts\zm\replaced\utility::barrier("veh_t6_civ_microbus_dead", origin + (anglesToForward(angles) * 96) + (anglesToRight(angles) * 48), angles);
-	scripts\zm\replaced\utility::barrier("veh_t6_civ_60s_coupe_dead", origin + (anglesToForward(angles) * -112) + (anglesToRight(angles) * 80), angles + (0, 30, 0));
+	scripts\zm\locs\loc_common::barrier("collision_player_wall_512x512x10", origin + (anglesToUp(angles) * 256), angles, 1);
+	scripts\zm\locs\loc_common::barrier("veh_t6_civ_microbus_dead", origin + (anglesToForward(angles) * 96) + (anglesToRight(angles) * 48), angles);
+	scripts\zm\locs\loc_common::barrier("veh_t6_civ_60s_coupe_dead", origin + (anglesToForward(angles) * -112) + (anglesToRight(angles) * 80), angles + (0, 30, 0));
 
 	// fog after power station
 	origin = (10215, 8670, -579);
 	angles = (0, 7.5, 0);
-	scripts\zm\replaced\utility::barrier("collision_player_wall_512x512x10", origin + (anglesToForward(angles) * -128) + (anglesToUp(angles) * 256), angles);
-	scripts\zm\replaced\utility::barrier("collision_player_wall_512x512x10", origin + (anglesToForward(angles) * 64) + (anglesToUp(angles) * 256), angles);
-	scripts\zm\replaced\utility::barrier("p6_zm_rocks_large_cluster_01", origin + (anglesToForward(angles) * -176) + (anglesToRight(angles) * -368) + (anglesToUp(angles) * 256), angles + (0, -15, 0));
+	scripts\zm\locs\loc_common::barrier("collision_player_wall_512x512x10", origin + (anglesToForward(angles) * -128) + (anglesToUp(angles) * 256), angles, 1);
+	scripts\zm\locs\loc_common::barrier("collision_player_wall_512x512x10", origin + (anglesToForward(angles) * 64) + (anglesToUp(angles) * 256), angles, 1);
+	scripts\zm\locs\loc_common::barrier("p6_zm_rocks_large_cluster_01", origin + (anglesToForward(angles) * -176) + (anglesToRight(angles) * -368) + (anglesToUp(angles) * 256), angles + (0, -15, 0));
 }
 
 show_powerswitch()

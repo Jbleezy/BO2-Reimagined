@@ -109,29 +109,13 @@ init_barriers()
 
 	origin = (9720, -1090, -212);
 	angles = (0, 90, 0);
-
-	model = spawn("script_model", origin, 1);
-	model.angles = angles;
-	model setmodel("veh_t6_civ_smallwagon_dead");
-	model disconnectpaths();
-
-	model = spawn("script_model", origin + (anglesToRight(angles) * 24) + (anglesToUp(angles) * 128), 1);
-	model.angles = angles;
-	model setmodel("collision_clip_wall_256x256x10");
-	model disconnectpaths();
+	scripts\zm\locs\loc_common::barrier("collision_clip_wall_256x256x10", origin + (anglesToRight(angles) * 24) + (anglesToUp(angles) * 128), angles, 1);
+	scripts\zm\locs\loc_common::barrier("veh_t6_civ_smallwagon_dead", origin, angles);
 
 	origin = (9900, -232, -217);
 	angles = (0, -90, 0);
-
-	model = spawn("script_model", origin, 1);
-	model.angles = angles;
-	model setmodel("veh_t6_civ_microbus_dead");
-	model disconnectpaths();
-
-	model = spawn("script_model", origin + (anglesToRight(angles) * -48) + (anglesToUp(angles) * 128), 1);
-	model.angles = angles;
-	model setmodel("collision_clip_wall_256x256x10");
-	model disconnectpaths();
+	scripts\zm\locs\loc_common::barrier("collision_clip_wall_256x256x10", origin + (anglesToRight(angles) * -48) + (anglesToUp(angles) * 128), angles, 1);
+	scripts\zm\locs\loc_common::barrier("veh_t6_civ_microbus_dead", origin, angles);
 }
 
 disable_zombie_spawn_locations()

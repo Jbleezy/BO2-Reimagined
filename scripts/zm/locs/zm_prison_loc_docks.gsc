@@ -127,33 +127,17 @@ set_box_weapons()
 
 init_barriers()
 {
-	// left
-	model = spawn("script_model", (-90.4585, 7669.56, 114.511));
-	model.angles = (90, -10, 55);
-	model setmodel("p6_zm_al_horrific_bed_mattress_3");
-	model = spawn("script_model", (-111.549, 7667.96, 97.125));
-	model.angles = (0, 0, 90);
-	model setmodel("zm_al_kitchen_table_01");
-	model = spawn("script_model", (-113.959, 7638.7, 75.0369));
-	model.angles = (6, 0, -6);
-	model setmodel("afr_corrugated_metal4x8_holes");
-	model = spawn("script_model", (-106.911, 7636.47, 64.125));
-	model.angles = (0, 0, 0);
-	model setmodel("collision_clip_wall_128x128x10");
+	// citadel basement left
+	scripts\zm\locs\loc_common::barrier("collision_clip_wall_128x128x10", (-106.911, 7636.47, 64.125), (0, 0, 0), 1);
+	scripts\zm\locs\loc_common::barrier("p6_zm_al_horrific_bed_mattress_3", (-90.4585, 7669.56, 114.511), (90, -10, 55));
+	scripts\zm\locs\loc_common::barrier("zm_al_kitchen_table_01", (-111.549, 7667.96, 97.125), (0, 0, 90));
+	scripts\zm\locs\loc_common::barrier("afr_corrugated_metal4x8_holes", (-113.959, 7638.7, 75.0369), (6, 0, -6));
 
-	// right
-	model = spawn("script_model", (48.6213, 7639.88, 74.125));
-	model.angles = (22, -44, 0);
-	model setmodel("p6_zm_al_infirmary_case");
-	model = spawn("script_model", (44.9895, 7601.56, 81.125));
-	model.angles = (-5, -41, -8);
-	model setmodel("afr_corrugated_metal4x8_holes");
-	model = spawn("script_model", (98.769, 7602.89, 64.125));
-	model.angles = (0, -142, 0);
-	model setmodel("p6_zm_al_desk_small");
-	model = spawn("script_model", (43.2479, 7606.2, 66.125));
-	model.angles = (0, -45, 0);
-	model setmodel("collision_clip_wall_128x128x10");
+	// citadel basement right
+	scripts\zm\locs\loc_common::barrier("collision_clip_wall_128x128x10", (43.2479, 7606.2, 66.125), (0, -45, 0), 1);
+	scripts\zm\locs\loc_common::barrier("p6_zm_al_infirmary_case", (48.6213, 7639.88, 74.125), (22, -44, 0));
+	scripts\zm\locs\loc_common::barrier("afr_corrugated_metal4x8_holes", (44.9895, 7601.56, 81.125), (-5, -41, -8));
+	scripts\zm\locs\loc_common::barrier("p6_zm_al_desk_small", (98.769, 7602.89, 64.125), (0, -142, 0));
 }
 
 generatebuildabletarps()

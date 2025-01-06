@@ -197,26 +197,6 @@ register_map_spawn(origin, angles, zone, team_num)
 	add_struct(spawn_struct);
 }
 
-barrier(model, origin, angles, not_solid)
-{
-	if (!isDefined(level.survival_barriers))
-	{
-		level.survival_barriers = [];
-		level.survival_barriers_index = 0;
-	}
-
-	level.survival_barriers[level.survival_barriers_index] = spawn("script_model", origin);
-	level.survival_barriers[level.survival_barriers_index] setModel(model);
-	level.survival_barriers[level.survival_barriers_index] rotateTo(angles, 0.1);
-
-	if (is_true(not_solid))
-	{
-		level.survival_barriers[level.survival_barriers_index] notSolid();
-	}
-
-	level.survival_barriers_index++;
-}
-
 add_struct_location_gamemode_func(gametype, location, func)
 {
 	if (!isDefined(level.add_struct_gamemode_location_funcs))

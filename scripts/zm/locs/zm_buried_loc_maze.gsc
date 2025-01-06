@@ -171,7 +171,6 @@ main()
 	maps\mp\zombies\_zm::spawn_kill_brush((4919, 575, -511), 128, 300);
 	level thread init_wallbuys();
 	init_barriers();
-	disable_mansion();
 	scripts\zm\locs\loc_common::init();
 }
 
@@ -211,9 +210,14 @@ init_wallbuys()
 
 init_barriers()
 {
-	scripts\zm\replaced\utility::barrier("collision_geo_64x64x128_standard", (3398, 898, 116), (0, 0, 0));
-	scripts\zm\replaced\utility::barrier("collision_geo_64x64x128_standard", (3398, 898, 244), (0, 0, 0));
-	scripts\zm\replaced\utility::barrier("collision_geo_64x64x128_standard", (3398, 898, 372), (0, 0, 0));
+	// mansion left
+	scripts\zm\locs\loc_common::barrier("collision_clip_wall_128x128x10", (3396.1, 556.795, 246.125), (0, 90, 0), 1);
+	scripts\zm\locs\loc_common::barrier("p6_zm_bu_conservatory_tree_roots_a_close", (3368.72, 561.516, 234.577), (179, 90, 38));
+
+	// mansion right
+	scripts\zm\locs\loc_common::barrier("collision_clip_256x256x256", (3332.03, 1123.32, 51.4592), (-15, 0, 0), 1);
+	scripts\zm\locs\loc_common::barrier("p6_zm_bu_conservatory_tree_roots_a", (3447.32, 1058.31, 30.6045), (0, 270, 240));
+	scripts\zm\locs\loc_common::barrier("p6_zm_bu_conservatory_tree_roots_a", (3417.32, 1058.31, 200.605), (-170, 270, 220));
 
 	trigs = getentarray("zombie_vending", "targetname");
 
@@ -239,33 +243,11 @@ init_barriers()
 			origin = trig.clip.origin;
 			angles = trig.clip.angles;
 
-			scripts\zm\replaced\utility::barrier("collision_wall_128x128x10_standard", origin + anglesToRight(angles) * 18 + anglesToUp(angles) * 64, angles);
-			scripts\zm\replaced\utility::barrier("collision_wall_128x128x10_standard", origin + anglesToRight(angles) * 18 + anglesToUp(angles) * 192, angles);
-			scripts\zm\replaced\utility::barrier("collision_wall_128x128x10_standard", origin + anglesToRight(angles) * 18 + anglesToUp(angles) * 320, angles);
+			scripts\zm\locs\loc_common::barrier("collision_wall_128x128x10_standard", origin + anglesToRight(angles) * 18 + anglesToUp(angles) * 64, angles, 1);
+			scripts\zm\locs\loc_common::barrier("collision_wall_128x128x10_standard", origin + anglesToRight(angles) * 18 + anglesToUp(angles) * 192, angles, 1);
+			scripts\zm\locs\loc_common::barrier("collision_wall_128x128x10_standard", origin + anglesToRight(angles) * 18 + anglesToUp(angles) * 320, angles, 1);
 
 			trig.clip delete();
 		}
 	}
-}
-
-disable_mansion()
-{
-	// left
-	model = spawn("script_model", (3368.72, 561.516, 234.577));
-	model.angles = (179, 90, 38);
-	model setmodel("p6_zm_bu_conservatory_tree_roots_a_close");
-	model = spawn("script_model", (3396.1, 556.795, 246.125));
-	model.angles = (0, 90, 0);
-	model setmodel("collision_clip_wall_128x128x10");
-
-	// right
-	model = spawn("script_model", (3447.32, 1058.31, 30.6045));
-	model.angles = (0, 270, 240);
-	model setmodel("p6_zm_bu_conservatory_tree_roots_a");
-	model = spawn("script_model", (3417.32, 1058.31, 200.605));
-	model.angles = (-170, 270, 220);
-	model setmodel("p6_zm_bu_conservatory_tree_roots_a");
-	model = spawn("script_model", (3332.03, 1123.32, 51.4592));
-	model.angles = (-15, 0, 0);
-	model setmodel("collision_clip_256x256x256");
 }

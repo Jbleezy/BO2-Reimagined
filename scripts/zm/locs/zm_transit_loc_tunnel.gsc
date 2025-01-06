@@ -53,14 +53,14 @@ init_barriers()
 {
 	origin = (-11270, -500, 255);
 	angles = (0, 195, 0);
-	scripts\zm\replaced\utility::barrier("collision_player_wall_512x512x10", origin + (anglesToRight(angles) * -25) + (anglesToForward(angles) * 150), angles);
-	scripts\zm\replaced\utility::barrier("veh_t6_civ_60s_coupe_dead", origin + (anglesToUp(angles) * -63) + (anglesToForward(angles) * 125) + (anglesToRight(angles) * 25), angles);
-	scripts\zm\replaced\utility::barrier("veh_t6_civ_smallwagon_dead", origin + (anglesToUp(angles) * -63) + (anglesToForward(angles) * -30) + (anglesToRight(angles) * 50), angles + (0, -90, 0));
+	scripts\zm\locs\loc_common::barrier("collision_player_wall_512x512x10", origin + (anglesToRight(angles) * -25) + (anglesToForward(angles) * 150), angles, 1);
+	scripts\zm\locs\loc_common::barrier("veh_t6_civ_60s_coupe_dead", origin + (anglesToUp(angles) * -63) + (anglesToForward(angles) * 125) + (anglesToRight(angles) * 25), angles);
+	scripts\zm\locs\loc_common::barrier("veh_t6_civ_smallwagon_dead", origin + (anglesToUp(angles) * -63) + (anglesToForward(angles) * -30) + (anglesToRight(angles) * 50), angles + (0, -90, 0));
 
 	origin = (-10750, -3275, 255);
 	angles = (0, 195, 0);
-	scripts\zm\replaced\utility::barrier("collision_player_wall_512x512x10", origin + (anglesToRight(angles) * 55), angles);
-	scripts\zm\replaced\utility::barrier("veh_t6_civ_movingtrk_cab_dead", origin, angles);
+	scripts\zm\locs\loc_common::barrier("collision_player_wall_512x512x10", origin + (anglesToRight(angles) * 55), angles, 1);
+	scripts\zm\locs\loc_common::barrier("veh_t6_civ_movingtrk_cab_dead", origin, angles);
 }
 
 disable_zombie_spawn_locations()

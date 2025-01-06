@@ -40,3 +40,25 @@ enemy_location_override(zombie, enemy)
 
 	return location;
 }
+
+barrier(model, origin, angles, disconnect_paths = 0)
+{
+	barrier = undefined;
+
+	if (disconnect_paths)
+	{
+		barrier = spawn("script_model", origin, 1);
+	}
+	else
+	{
+		barrier = spawn("script_model", origin);
+	}
+
+	barrier.angles = angles;
+	barrier setModel(model);
+
+	if (disconnect_paths)
+	{
+		barrier disconnectPaths();
+	}
+}
