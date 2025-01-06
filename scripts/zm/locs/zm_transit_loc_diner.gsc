@@ -77,12 +77,15 @@ struct_init()
 					object setModel("veh_t6_civ_microbus_dead");
 					object.origin += anglesToUp(object.angles) * -65;
 					object.origin += anglesToForward(object.angles) * 125;
+					object.angles += (0, 180, 0);
 				}
 				else if (object.origin == (-6550.5, -6901.7, 6.8))
 				{
 					object setModel("veh_t6_civ_smallwagon_dead");
 					object.origin += anglesToUp(object.angles) * -60;
 					object.origin += anglesToForward(object.angles) * 150;
+					object.origin += anglesToRight(object.angles) * -20;
+					object.angles += (0, -75, 0);
 				}
 				else if (object.origin == (-6251.1, -6449.4, 20.8))
 				{
@@ -93,16 +96,16 @@ struct_init()
 				}
 				else if (object.origin == (-5822.9, -6434.6, 20.8))
 				{
-					object setModel("p6_zm_rocks_medium_05");
-					object.origin += anglesToUp(object.angles) * -80;
-					object.origin += anglesToForward(object.angles) * 50;
-					object.origin += anglesToRight(object.angles) * 100;
+					object setModel("veh_t6_civ_smallwagon_dead");
+					object.origin += anglesToUp(object.angles) * -60;
+					object.origin += anglesToForward(object.angles) * 165;
+					object.angles += (0, 105, 0);
 				}
 				else if (object.origin == (-5589.5, -6310.3, 24.8))
 				{
 					object setModel("p6_zm_rocks_medium_05");
 					object.origin += anglesToUp(object.angles) * -80;
-					object.origin += anglesToForward(object.angles) * 50;
+					object.origin += anglesToForward(object.angles) * 125;
 					object.origin += anglesToRight(object.angles) * 125;
 				}
 				else if (object.origin == (-4813, -6665.3, 0.8))
