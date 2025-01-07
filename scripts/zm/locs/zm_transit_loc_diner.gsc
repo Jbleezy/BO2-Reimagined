@@ -163,8 +163,8 @@ init_barriers()
 
 	origin = (-6350, -7046, -60);
 	angles = (0, 165, 0);
-	scripts\zm\locs\loc_common::barrier("collision_player_wall_64x64x10", origin + (anglesToUp(angles) * 32), angles, 1);
-	scripts\zm\locs\loc_common::barrier("collision_player_wall_64x64x10", origin + (anglesToUp(angles) * 96), angles, 1);
+	scripts\zm\locs\loc_common::barrier("collision_clip_wall_64x64x10", origin + (anglesToUp(angles) * 32), angles, 1);
+	scripts\zm\locs\loc_common::barrier("collision_clip_wall_64x64x10", origin + (anglesToUp(angles) * 96), angles, 1);
 	scripts\zm\locs\loc_common::barrier("afr_barrel_biohazard_white_rust", origin + (anglesToForward(angles) * -24) + (anglesToRight(angles) * -16) + (anglesToUp(angles) * 14), angles + (0, 90, 90));
 }
 
