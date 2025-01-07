@@ -107,15 +107,23 @@ init_barriers()
 	collision setmodel("zm_collision_transit_cornfield_survival");
 	collision disconnectpaths();
 
+	// cornfield left
 	origin = (9720, -1090, -212);
 	angles = (0, 90, 0);
 	scripts\zm\locs\loc_common::barrier("collision_clip_wall_256x256x10", origin + (anglesToRight(angles) * 24) + (anglesToUp(angles) * 128), angles, 1);
 	scripts\zm\locs\loc_common::barrier("veh_t6_civ_smallwagon_dead", origin, angles);
 
+	// cornfield right
 	origin = (9900, -232, -217);
 	angles = (0, -90, 0);
 	scripts\zm\locs\loc_common::barrier("collision_clip_wall_256x256x10", origin + (anglesToRight(angles) * -48) + (anglesToUp(angles) * 128), angles, 1);
 	scripts\zm\locs\loc_common::barrier("veh_t6_civ_microbus_dead", origin, angles);
+
+	// cornfield right corner
+	origin = (9982, -142, -217);
+	angles = (0, 35, 0);
+	scripts\zm\locs\loc_common::barrier("collision_clip_wall_128x128x10", origin + (anglesToUp(angles) * 64), angles, 1);
+	scripts\zm\locs\loc_common::barrier("veh_t6_civ_smallwagon_dead", origin + (anglesToForward(angles) * 15) + (anglesToRight(angles) * -50), angles + (0, 165, 0));
 }
 
 disable_zombie_spawn_locations()
