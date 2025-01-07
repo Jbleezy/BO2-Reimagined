@@ -215,7 +215,8 @@ init_barriers()
 	scripts\zm\locs\loc_common::barrier("p6_zm_bu_conservatory_tree_roots_a_close", (3368.72, 561.516, 234.577), (179, 90, 38));
 
 	// mansion right
-	scripts\zm\locs\loc_common::barrier("collision_clip_256x256x256", (3332.03, 1123.32, 51.4592), (-15, 0, 0), 1);
+	scripts\zm\locs\loc_common::barrier("collision_clip_256x256x256", (3332.03, 1123.32, 435.4592), (0, 0, 0), 1);
+	scripts\zm\locs\loc_common::barrier("collision_clip_256x256x256", (3332.03, 1123.32, 179.4592), (0, 0, 0), 1);
 	scripts\zm\locs\loc_common::barrier("p6_zm_bu_conservatory_tree_roots_a", (3447.32, 1058.31, 30.6045), (0, 270, 240));
 	scripts\zm\locs\loc_common::barrier("p6_zm_bu_conservatory_tree_roots_a", (3417.32, 1058.31, 200.605), (-170, 270, 220));
 
