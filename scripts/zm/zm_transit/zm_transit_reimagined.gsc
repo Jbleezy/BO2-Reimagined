@@ -539,7 +539,11 @@ zombie_spawn_location_changes()
 	{
 		foreach (spawn_location in zone.spawn_locations)
 		{
-			if (spawn_location.origin == (9963, 8025, -554.9))
+			if (spawn_location.origin == (10010, 7243, -561.3))
+			{
+				spawn_location.origin += (-16, 32, 0);
+			}
+			else if (spawn_location.origin == (9963, 8025, -554.9))
 			{
 				spawn_location.origin += (0, 0, -32);
 			}

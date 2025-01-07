@@ -100,11 +100,11 @@ treasure_chest_init()
 init_barriers()
 {
 	// fog before power station
-	origin = (10215, 7265, -570);
-	angles = (0, 0, 0);
+	origin = (10215, 7275, -570);
+	angles = (0, 5, 0);
 	scripts\zm\locs\loc_common::barrier("collision_clip_wall_512x512x10", origin + (anglesToUp(angles) * 256), angles, 1);
-	scripts\zm\locs\loc_common::barrier("veh_t6_civ_microbus_dead", origin + (anglesToForward(angles) * 96) + (anglesToRight(angles) * 48), angles);
-	scripts\zm\locs\loc_common::barrier("veh_t6_civ_60s_coupe_dead", origin + (anglesToForward(angles) * -112) + (anglesToRight(angles) * 80), angles + (0, 30, 0));
+	scripts\zm\locs\loc_common::barrier("veh_t6_civ_microbus_dead", origin + (anglesToForward(angles) * 90) + (anglesToRight(angles) * 48), angles);
+	scripts\zm\locs\loc_common::barrier("veh_t6_civ_60s_coupe_dead", origin + (anglesToForward(angles) * -105) + (anglesToRight(angles) * 48), angles);
 
 	// fog after power station
 	origin = (10215, 8720, -579);
