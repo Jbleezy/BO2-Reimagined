@@ -35,13 +35,17 @@ precache_shaders()
 	precacheshader("menu_zm_buried_zclassic_processing");
 	precacheshader("menu_zm_tomb_zclassic_tomb");
 	precacheshader("menu_zm_transit_zsurvival_transit");
+	precacheshader("menu_zm_transit_zsurvival_diner");
 	precacheshader("menu_zm_transit_zsurvival_farm");
-	precacheshader("menu_zm_transit_zsurvival_town");
-	precacheshader("menu_zm_nuked_zsurvival_nuked");
-	precacheshader("menu_zm_transit_zencounter_diner");
-	precacheshader("menu_zm_prison_zencounter_cellblock");
-	precacheshader("menu_zm_buried_zencounter_street");
 	precacheshader("menu_zm_transit_zsurvival_power");
+	precacheshader("menu_zm_transit_zsurvival_town");
+	precacheshader("menu_zm_transit_zsurvival_tunnel");
+	precacheshader("menu_zm_transit_zsurvival_cornfield");
+	precacheshader("menu_zm_nuked_zsurvival_nuked");
+	precacheshader("menu_zm_prison_zsurvival_cellblock");
+	precacheshader("menu_zm_prison_zsurvival_docks");
+	precacheshader("menu_zm_buried_zsurvival_street");
+	precacheshader("menu_zm_buried_zsurvival_maze");
 }
 
 set_dvars()
@@ -922,62 +926,14 @@ get_name_for_loc(map, location, gametype)
 	return "";
 }
 
-// should always match function GetMapMaterialName from mapinfoimage.lua
 get_image_for_loc(map, location, gametype)
 {
-	gamemode = get_gamemode_for_gametype(gametype);
-
-	if (map == "zm_transit" && gamemode != "zclassic")
+	if (gametype != "zclassic")
 	{
-		gamemode = "zsurvival";
+		gametype = "zsurvival";
 	}
 
-	if (location == "diner")
-	{
-		gamemode = "zencounter";
-	}
-
-	if (location == "tunnel" || location == "cornfield")
-	{
-		gamemode = "zsurvival";
-		location = "transit";
-	}
-
-	if (location == "nuked")
-	{
-		gamemode = "zsurvival";
-	}
-
-	if (location == "cellblock" || location == "docks")
-	{
-		gamemode = "zencounter";
-		location = "cellblock";
-	}
-
-	if (location == "street" || location == "maze")
-	{
-		gamemode = "zencounter";
-		location = "street";
-	}
-
-	return "menu_" + map + "_" + gamemode + "_" + location;
-}
-
-get_gamemode_for_gametype(gametype)
-{
-	gamemode = "zclassic";
-
-	if (gametype == "zstandard")
-	{
-		gamemode = "zsurvival";
-	}
-
-	if (gametype == "zgrief")
-	{
-		gamemode = "zencounter";
-	}
-
-	return gamemode;
+	return "menu_" + map + "_" + gametype + "_" + location;
 }
 
 rotation_string_to_array(string)

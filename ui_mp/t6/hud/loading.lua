@@ -223,6 +223,7 @@ LUI.createMenu.Loading = function(LocalClientIndex)
 	LoadingWidget:registerEventHandler("fade_in_map_image", CoD.Loading.FadeInMapImage)
 	local UseLoadingMovie = false
 	local Mapname = Dvar.ui_mapname:get()
+	local Location = Dvar.ui_zm_mapstartlocation:get()
 	local Gametype = Dvar.ui_gametype:get()
 	local LoadscreenName = "loadscreen_" .. Mapname
 	if CoD.isZombie == true then
@@ -230,7 +231,7 @@ LUI.createMenu.Loading = function(LocalClientIndex)
 			LoadscreenName = "black"
 			UseLoadingMovie = true
 		else
-			LoadscreenName = GetMapLoadscreenName(Mapname, Gametype, Dvar.ui_zm_mapstartlocation:get())
+			LoadscreenName = GetMapLoadscreenName(Mapname, Location, Gametype)
 			Engine.SetDvar("ui_zm_useloadingmovie", 0)
 		end
 	end
@@ -458,33 +459,9 @@ LUI.createMenu.Loading = function(LocalClientIndex)
 	return LoadingWidget
 end
 
-function GetMapLoadscreenName(map, gametype, location)
-	if map == "zm_transit" and gametype ~= "zclassic" then
+function GetMapLoadscreenName(map, location, gametype)
+	if gametype ~= "zclassic" then
 		gametype = "zstandard"
-	end
-
-	if location == "diner" then
-		map = "zm_transit_dr"
-		gametype = "zcleansed"
-	end
-
-	if location == "power" or location == "tunnel" or location == "cornfield" then
-		gametype = "zstandard"
-		location = "transit"
-	end
-
-	if location == "nuked" then
-		gametype = "zstandard"
-	end
-
-	if location == "cellblock" or location == "docks" then
-		gametype = "zgrief"
-		location = "cellblock"
-	end
-
-	if location == "street" or location == "maze" then
-		gametype = "zgrief"
-		location = "street"
 	end
 
 	return "loadscreen_" .. map .. "_" .. gametype .. "_" .. location

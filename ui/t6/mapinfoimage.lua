@@ -261,31 +261,8 @@ CoD.MapInfoImage.ZombieUpdate = function(f6_arg0, f6_arg1, f6_arg2)
 end
 
 function GetMapMaterialName(map, location, gamemode)
-	if map == "zm_transit" and gamemode ~= "zclassic" then
+	if gamemode ~= "zclassic" then
 		gamemode = "zsurvival"
-	end
-
-	if location == "diner" then
-		gamemode = "zencounter"
-	end
-
-	if location == "tunnel" or location == "cornfield" then
-		gamemode = "zsurvival"
-		location = "transit"
-	end
-
-	if location == "nuked" then
-		gamemode = "zsurvival"
-	end
-
-	if location == "cellblock" or location == "docks" then
-		gamemode = "zencounter"
-		location = "cellblock"
-	end
-
-	if location == "street" or location == "maze" then
-		gamemode = "zencounter"
-		location = "street"
 	end
 
 	return "menu_" .. map .. "_" .. gamemode .. "_" .. location
