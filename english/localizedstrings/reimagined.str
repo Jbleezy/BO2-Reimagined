@@ -1097,7 +1097,7 @@ REFERENCE           ZOMBIE_ITEM_MEAT
 LANG_ENGLISH        "Meat"
 
 REFERENCE           ZOMBIE_ITEM_HEAD
-LANG_ENGLISH        "Richtofen's Head"
+LANG_ENGLISH        "Head"
 
 REFERENCE           ZMWEAPON_FNP45_UPGRADED
 LANG_ENGLISH        "Toughguy & Crybaby"

@@ -933,7 +933,7 @@
 * Meleeing while the meat is moving no longer grabs the meat
 * Removed pick up trigger
 * Gets destroyed when thrown on lava
-* Replaced with Richtofen's Head on Cell Block and Docks
+* Replaced with Head on Mob of the Dead and Origins locations
 
 ## Persistent Upgrades
 * Removed
