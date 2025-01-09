@@ -232,6 +232,8 @@ del /s %cd%\zone_source\*.ff 1>nul
 
 pwsh -Command "Compress-Archive -Force -Path attachmentunique,images,maps,scripts,ui,ui_mp,weapons -DestinationPath mod.iwd"
 
+if %ERRORLEVEL% NEQ 0 pause
+
 for %%f in (ff,iwd,sabs,sabl,json) do xcopy /i /y *.%%f ..\zm_reimagined
 
 del *.iwd
