@@ -94,7 +94,7 @@ main()
 init()
 {
 	precacheModel("collision_clip_32x32x128");
-	precacheModel("collision_geo_32x32x32_slick");
+	precacheModel("collision_player_sphere_32");
 
 	level.zombie_init_done = ::zombie_init_done;
 	level.special_weapon_magicbox_check = ::check_for_special_weapon_limit_exist;

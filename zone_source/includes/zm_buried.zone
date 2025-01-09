@@ -1084,8 +1084,6 @@ material,hud_cymbal_monkey
 xmodel,zombie_firesale
 material,specialty_firesale_zombies
 
-xmodel,collision_geo_32x32x32_slick
-
 camo,camo_rnma
 camo,camo_slowgun
 camo,camo_vzoom_svu

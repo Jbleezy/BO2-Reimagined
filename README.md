@@ -1257,6 +1257,7 @@
 * Entering afterlife no longer takes 2 additional seconds if the player had Electric Cherry
 * Spawn facing towards the afterlife player model when entering afterlife
 * Doors can no longer be purchased when entering afterlife
+* Can no longer see other player's waypoints when in afterlife
 * Afterlife player model has collision
 * Moved afterlife icon to the left side of screen above health bar and zone name
 * Afterlife icon fades when player has no afterlife lives
