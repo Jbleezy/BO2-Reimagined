@@ -2897,8 +2897,6 @@ meat_think()
 
 	while (1)
 	{
-		players = get_players();
-
 		if (isDefined(level.meat_player))
 		{
 			if (!isDefined(held_time))
@@ -2949,6 +2947,7 @@ meat_think()
 		}
 
 		wait 0.05;
+		waittillframeend;
 	}
 }
 
