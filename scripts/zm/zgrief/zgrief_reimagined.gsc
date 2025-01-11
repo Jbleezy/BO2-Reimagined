@@ -2892,6 +2892,7 @@ meat_think()
 
 	level waittill("restart_round_start");
 
+	prev_meat_player = undefined;
 	held_time = undefined;
 	obj_time = 1000;
 
@@ -2903,6 +2904,13 @@ meat_think()
 			{
 				held_time = getTime();
 			}
+
+			if (isDefined(prev_meat_player) && level.meat_player != prev_meat_player)
+			{
+				held_time = getTime();
+			}
+
+			prev_meat_player = level.meat_player;
 
 			grief_score_hud_set_scoring_team(level.meat_player.team);
 
@@ -2923,6 +2931,7 @@ meat_think()
 		else
 		{
 			held_time = undefined;
+			prev_meat_player = undefined;
 
 			if (isDefined(level.item_meat))
 			{
