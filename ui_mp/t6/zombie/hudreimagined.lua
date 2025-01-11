@@ -310,10 +310,10 @@ LUI.createMenu.ReimaginedArea = function(LocalClientIndex)
 	gameModeScoreWidget.gameModeScoreEnemyText = gameModeScoreEnemyText
 
 	local gameModeScoreScoringTeam = LUI.UIImage.new()
-	gameModeScoreScoringTeam.iconSize = gameModeScoreWidget.iconSize / 2
+	gameModeScoreScoringTeam.iconSize = 28
 	gameModeScoreScoringTeam:setLeftRight(false, false, 0 - (gameModeScoreScoringTeam.iconSize / 2), 0 + (gameModeScoreScoringTeam.iconSize / 2))
-	gameModeScoreScoringTeam:setTopBottom(true, false, 46, 46 + gameModeScoreScoringTeam.iconSize)
-	gameModeScoreScoringTeam:setImage(RegisterMaterial("waypoint_revive_arrow"))
+	gameModeScoreScoringTeam:setTopBottom(true, false, 40, 40 + gameModeScoreScoringTeam.iconSize)
+	gameModeScoreScoringTeam:setImage(RegisterMaterial("hud_icon_scoring_team"))
 	gameModeScoreScoringTeam:setAlpha(0)
 	gameModeScoreWidget:addElement(gameModeScoreScoringTeam)
 	gameModeScoreWidget.gameModeScoreScoringTeam = gameModeScoreScoringTeam

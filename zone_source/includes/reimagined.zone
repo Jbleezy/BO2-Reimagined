@@ -109,6 +109,7 @@ material,hud_zm_num_highrise_8
 material,hud_zm_num_highrise_9
 material,hud_zm_num_highrise_slash
 material,hud_zm_num_highrise_line
+material,hud_icon_scoring_team
 material,hud_indicator_blundersplat
 material,hud_status_revive
 material,hud_status_afterlife
