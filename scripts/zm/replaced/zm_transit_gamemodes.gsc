@@ -22,7 +22,7 @@ init()
 
 	add_map_location_gamemode("zclassic", "transit", maps\mp\zm_transit_classic::precache, maps\mp\zm_transit_classic::main);
 
-	add_map_location_gamemode("zstandard", "transit", scripts\zm\replaced\zm_transit_standard_station::precache, scripts\zm\replaced\zm_transit_standard_station::main);
+	add_map_location_gamemode("zstandard", "transit", maps\mp\zm_transit_standard_station::precache, maps\mp\zm_transit_standard_station::main);
 	add_map_location_gamemode("zstandard", "farm", maps\mp\zm_transit_standard_farm::precache, maps\mp\zm_transit_standard_farm::main);
 	add_map_location_gamemode("zstandard", "town", maps\mp\zm_transit_standard_town::precache, maps\mp\zm_transit_standard_town::main);
 	add_map_location_gamemode("zstandard", "diner", scripts\zm\locs\zm_transit_loc_diner::precache, scripts\zm\locs\zm_transit_loc_diner::main);
@@ -30,7 +30,7 @@ init()
 	add_map_location_gamemode("zstandard", "tunnel", scripts\zm\locs\zm_transit_loc_tunnel::precache, scripts\zm\locs\zm_transit_loc_tunnel::main);
 	add_map_location_gamemode("zstandard", "cornfield", scripts\zm\locs\zm_transit_loc_cornfield::precache, scripts\zm\locs\zm_transit_loc_cornfield::main);
 
-	add_map_location_gamemode("zgrief", "transit", scripts\zm\replaced\zm_transit_grief_station::precache, scripts\zm\replaced\zm_transit_grief_station::main);
+	add_map_location_gamemode("zgrief", "transit", maps\mp\zm_transit_grief_station::precache, maps\mp\zm_transit_grief_station::main);
 	add_map_location_gamemode("zgrief", "farm", maps\mp\zm_transit_grief_farm::precache, maps\mp\zm_transit_grief_farm::main);
 	add_map_location_gamemode("zgrief", "town", maps\mp\zm_transit_grief_town::precache, maps\mp\zm_transit_grief_town::main);
 	add_map_location_gamemode("zgrief", "diner", scripts\zm\locs\zm_transit_loc_diner::precache, scripts\zm\locs\zm_transit_loc_diner::main);

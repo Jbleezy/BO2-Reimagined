@@ -98,6 +98,7 @@ init()
 	player_respawn_override();
 	zombie_spawn_location_changes();
 	buildable_table_models();
+	busdepot_remove_lava_collision();
 	cornfield_add_collision();
 	cornfield_spawn_path_nodes();
 	path_exploit_fixes();
@@ -594,6 +595,63 @@ buildable_table_models()
 	model = spawn("script_model", (2219.03, -212.725, -273.875));
 	model.angles = (0, 0, 0);
 	model setmodel("p_rus_crate_metal_2");
+}
+
+busdepot_remove_lava_collision()
+{
+	if (is_gametype_active("zclassic"))
+	{
+		return;
+	}
+
+	if (level.scr_zm_map_start_location != "transit")
+	{
+		return;
+	}
+
+	ents = getentarray("script_model", "classname");
+
+	foreach (ent in ents)
+	{
+		if (isdefined(ent.model))
+		{
+			if (ent.model == "zm_collision_transit_busdepot_survival")
+			{
+				ent delete();
+			}
+			else if (ent.model == "veh_t6_civ_smallwagon_dead" && ent.origin == (-6663.96, 4816.34, -71.8))
+			{
+				ent delete();
+			}
+			else if (ent.model == "veh_t6_civ_microbus_dead" && ent.origin == (-6807.05, 4765.23, -68.01))
+			{
+				ent delete();
+			}
+			else if (ent.model == "veh_t6_civ_movingtrk_cab_dead" && ent.origin == (-6652.9, 4767.7, -6.73))
+			{
+				ent delete();
+			}
+			else if (ent.model == "p6_zm_rocks_small_cluster_01" && ent.origin == (-6745.48, 4782.86, -79.01))
+			{
+				ent delete();
+			}
+		}
+	}
+
+	// spawn in new map edge collisions
+	// the lava collision and the map edge collisions are all the same entity
+	collision1 = spawn("script_model", (-5898, 4653, 0), 1);
+	collision1.angles = (0, 55, 0);
+	collision1 setmodel("collision_wall_512x512x10_standard");
+	collision1 disconnectpaths();
+	collision2 = spawn("script_model", (-8062, 4700, 0), 1);
+	collision2.angles = (0, 70, 0);
+	collision2 setmodel("collision_wall_512x512x10_standard");
+	collision2 disconnectpaths();
+	collision3 = spawn("script_model", (-7881, 5200, 0), 1);
+	collision3.angles = (0, 70, 0);
+	collision3 setmodel("collision_wall_512x512x10_standard");
+	collision3 disconnectpaths();
 }
 
 cornfield_add_collision()
