@@ -33040,7 +33040,7 @@
 {
 "script_noteworthy" "zstandard_maze, zgrief_maze"
 "script_width" "40"
-"origin" "4328.88 696.67 63"
+"origin" "4308.88 696.67 63"
 "angles" "0 1.00179e-005 0"
 "classname" "script_struct"
 "zombie_weapon_upgrade" "dynamic"
@@ -33050,7 +33050,7 @@
 }
 {
 "script_noteworthy" "zstandard_maze, zgrief_maze"
-"origin" "4328.88 696.67 63"
+"origin" "4308.88 696.67 63"
 "angles" "0 1.00179e-005 0"
 "model" "p6_zm_bu_chalk"
 "classname" "script_struct"

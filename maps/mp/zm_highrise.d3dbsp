@@ -2361,7 +2361,7 @@
 "guid" "D1EECB49"
 }
 {
-"origin" "3242.01 2247.25 3015.99"
+"origin" "3243.01 2247.25 3015.99"
 "angles" "359.991 270.201 -168.2"
 "model" "t6_wpn_ar_sig556_world"
 "classname" "script_struct"
@@ -2369,7 +2369,7 @@
 "guid" "45A420E3"
 }
 {
-"origin" "3242.01 2247.25 3015.99"
+"origin" "3243.01 2247.25 3015.99"
 "angles" "359.991 270.201 -168.2"
 "classname" "script_struct"
 "zombie_weapon_upgrade" "sig556_zm"

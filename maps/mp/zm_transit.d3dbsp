@@ -54718,7 +54718,7 @@
 {
 "script_noteworthy" "zstandard_diner, zgrief_diner"
 "angles" "0 0 0"
-"origin" "-5085 -7807 -5"
+"origin" "-5064 -7807 -5"
 "classname" "script_struct"
 "zombie_weapon_upgrade" "saritch_zm"
 "targetname" "weapon_upgrade"
@@ -54731,7 +54731,7 @@
 "classname" "script_struct"
 "model" "t6_wpn_ar_saritch_world"
 "angles" "0 0 0"
-"origin" "-5085 -7807 -5"
+"origin" "-5064 -7807 -5"
 "guid" "6D2A1B25"
 }
 {

@@ -11661,7 +11661,7 @@
 }
 {
 "angles" "0 280.4 0"
-"origin" "-318.326 6569.06 117"
+"origin" "-316.326 6562.06 117"
 "classname" "script_struct"
 "zombie_weapon_upgrade" "insas_zm"
 "targetname" "weapon_upgrade"
@@ -11673,7 +11673,7 @@
 "classname" "script_struct"
 "model" "t6_wpn_smg_msmc_world"
 "angles" "0 280.4 0"
-"origin" "-318.326 6569.06 117"
+"origin" "-316.326 6562.06 117"
 "guid" "6D2A1B25"
 }
 {
@@ -21150,7 +21150,7 @@
 {
 "script_noteworthy" "zstandard_docks, zgrief_docks"
 "angles" "0 -80 30"
-"origin" "-709 5721 -19.875"
+"origin" "-709 5721 -19"
 "classname" "script_struct"
 "zombie_weapon_upgrade" "ballista_zm"
 "targetname" "weapon_upgrade"
@@ -21159,7 +21159,7 @@
 }
 {
 "script_noteworthy" "zstandard_docks, zgrief_docks"
-"origin" "-709 5721 -19.875"
+"origin" "-709 5721 -19"
 "angles" "0 -80 30"
 "model" "t6_wpn_sniper_ballista_world"
 "classname" "script_struct"
@@ -21169,7 +21169,7 @@
 {
 "script_noteworthy" "zstandard_docks, zgrief_docks"
 "angles" "0 190 0"
-"origin" "-219 7156 122"
+"origin" "-219 7155 122"
 "classname" "script_struct"
 "zombie_weapon_upgrade" "uzi_zm"
 "targetname" "weapon_upgrade"
@@ -21178,7 +21178,7 @@
 }
 {
 "script_noteworthy" "zstandard_docks, zgrief_docks"
-"origin" "-219 7156 122"
+"origin" "-219 7155 122"
 "angles" "0 190 0"
 "model" "t6_wpn_smg_uzi_world"
 "classname" "script_struct"
