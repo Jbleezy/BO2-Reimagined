@@ -54794,7 +54794,7 @@
 {
 "script_noteworthy" "zstandard_power, zgrief_power"
 "angles" "0 90 0"
-"origin" "10559 8220 -495"
+"origin" "10559 8565 -514"
 "classname" "script_struct"
 "zombie_weapon_upgrade" "saritch_zm"
 "targetname" "weapon_upgrade"
@@ -54807,7 +54807,7 @@
 "classname" "script_struct"
 "model" "t6_wpn_ar_saritch_world"
 "angles" "0 90 0"
-"origin" "10559 8220 -495"
+"origin" "10559 8565 -514"
 "guid" "6D2A1B25"
 }
 {
