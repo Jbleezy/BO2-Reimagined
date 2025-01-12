@@ -1,3 +1,4 @@
+#include maps\mp\zm_alcatraz_grief_cellblock;
 #include maps\mp\gametypes_zm\zmeat;
 #include maps\mp\zm_alcatraz_traps;
 #include maps\mp\zombies\_zm_game_module;
@@ -12,18 +13,6 @@
 #include common_scripts\utility;
 #include maps\mp\_utility;
 
-precache()
-{
-
-}
-
-zgrief_preinit()
-{
-	registerclientfield("toplayer", "meat_stink", 1, 1, "int");
-	level.givecustomloadout = maps\mp\zm_prison::givecustomloadout;
-	zgrief_init();
-}
-
 zgrief_init()
 {
 	encounter_init();
@@ -34,72 +23,6 @@ encounter_init()
 	level.precachecustomcharacters = ::precache_team_characters;
 	level.givecustomcharacters = ::give_team_characters;
 	level.gamemode_post_spawn_logic = ::give_player_shiv;
-}
-
-precache_team_characters()
-{
-	precachemodel("c_zom_player_grief_guard_fb");
-	precachemodel("c_zom_oleary_shortsleeve_viewhands");
-	precachemodel("c_zom_player_grief_inmate_fb");
-	precachemodel("c_zom_grief_guard_viewhands");
-}
-
-give_team_characters()
-{
-	self detachall();
-	self set_player_is_female(0);
-
-	if (!isDefined(self.characterindex))
-	{
-		self.characterindex = 1;
-
-		if (self.team == "axis")
-		{
-			self.characterindex = 0;
-		}
-	}
-
-	switch (self.characterindex)
-	{
-		case 0:
-		case 2:
-			self setmodel("c_zom_player_grief_inmate_fb");
-			self.voice = "american";
-			self.skeleton = "base";
-			self setviewmodel("c_zom_oleary_shortsleeve_viewhands");
-			self.characterindex = 0;
-			break;
-
-		case 1:
-		case 3:
-			self setmodel("c_zom_player_grief_guard_fb");
-			self.voice = "american";
-			self.skeleton = "base";
-			self setviewmodel("c_zom_grief_guard_viewhands");
-			self.characterindex = 1;
-			break;
-	}
-
-	self setmovespeedscale(1);
-	self setsprintduration(4);
-	self setsprintcooldown(0);
-}
-
-give_player_shiv()
-{
-	self takeweapon("knife_zm");
-	self giveweapon("knife_zm_alcatraz");
-}
-
-grief_treasure_chest_init()
-{
-	chest1 = getstruct("start_chest", "script_noteworthy");
-	chest2 = getstruct("cafe_chest", "script_noteworthy");
-	setdvar("disableLookAtEntityLogic", 1);
-	level.chests = [];
-	level.chests[level.chests.size] = chest1;
-	level.chests[level.chests.size] = chest2;
-	maps\mp\zombies\_zm_magicbox::treasure_chest_init("start_chest");
 }
 
 main()
@@ -402,86 +325,4 @@ main()
 	wait_network_frame();
 	level notify("Pack_A_Punch_on");
 	wait_network_frame();
-}
-
-remove_zombie_hats_for_grief()
-{
-	self detach("c_zom_guard_hat");
-}
-
-enemy_location_override(zombie, enemy)
-{
-	location = enemy.origin;
-
-	if (is_true(self.reroute))
-	{
-		if (isDefined(self.reroute_origin))
-		{
-			location = self.reroute_origin;
-		}
-	}
-
-	return location;
-}
-
-magicbox_face_spawn()
-{
-	self endon("disconnect");
-
-	if (!is_gametype_active("zgrief"))
-	{
-		return;
-	}
-
-	while (1)
-	{
-		self waittill("user_grabbed_weapon");
-
-		if (randomint(50000) == 115)
-		{
-			self playsoundtoplayer("zmb_easteregg_face", self);
-			self.wth_elem = newclienthudelem(self);
-			self.wth_elem.horzalign = "fullscreen";
-			self.wth_elem.vertalign = "fullscreen";
-			self.wth_elem.sort = 1000;
-			self.wth_elem.foreground = 0;
-			self.wth_elem.alpha = 1;
-			self.wth_elem setshader("zm_al_wth_zombie", 640, 480);
-			self.wth_elem.hidewheninmenu = 1;
-			wait 0.25;
-			self.wth_elem destroy();
-		}
-
-		wait 0.05;
-	}
-}
-
-#using_animtree("fxanim_props");
-
-turn_afterlife_interact_on()
-{
-	if (self.script_string == "cell_1_powerup_activate" || self.script_string == "intro_powerup_activate" || self.script_string == "cell_2_powerup_activate" || self.script_string == "wires_shower_door")
-	{
-		return;
-	}
-
-	if (self.script_string == "electric_cherry_on" || self.script_string == "sleight_on" || self.script_string == "wires_admin_door")
-	{
-		if (!isDefined(level.shockbox_anim))
-		{
-			level.shockbox_anim["on"] = %fxanim_zom_al_shock_box_on_anim;
-			level.shockbox_anim["off"] = %fxanim_zom_al_shock_box_off_anim;
-		}
-
-		if (issubstr(self.model, "p6_zm_al_shock_box"))
-		{
-			self useanimtree(#animtree);
-			self setmodel("p6_zm_al_shock_box_on");
-			self setanim(level.shockbox_anim["on"]);
-		}
-	}
-	else
-	{
-		self delete();
-	}
 }

@@ -59,21 +59,6 @@ main()
 	turnperkon("Pack_A_Punch");
 }
 
-enemy_location_override(zombie, enemy)
-{
-	location = enemy.origin;
-
-	if (isDefined(self.reroute) && self.reroute)
-	{
-		if (isDefined(self.reroute_origin))
-		{
-			location = self.reroute_origin;
-		}
-	}
-
-	return location;
-}
-
 street_treasure_chest_init()
 {
 	start_chest = getstruct("start_chest", "script_noteworthy");
