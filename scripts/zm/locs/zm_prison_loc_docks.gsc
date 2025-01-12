@@ -128,13 +128,13 @@ set_box_weapons()
 init_barriers()
 {
 	// citadel basement left
-	scripts\zm\locs\loc_common::barrier("collision_clip_wall_128x128x10", (-106.911, 7636.47, 64.125), (0, 0, 0), 1);
+	scripts\zm\locs\loc_common::barrier("collision_wall_128x128x10_standard", (-106.911, 7636.47, 64.125), (0, 0, 0), 1);
 	scripts\zm\locs\loc_common::barrier("p6_zm_al_horrific_bed_mattress_3", (-90.4585, 7669.56, 114.511), (90, -10, 55));
 	scripts\zm\locs\loc_common::barrier("zm_al_kitchen_table_01", (-111.549, 7667.96, 97.125), (0, 0, 90));
 	scripts\zm\locs\loc_common::barrier("afr_corrugated_metal4x8_holes", (-113.959, 7638.7, 75.0369), (6, 0, -6));
 
 	// citadel basement right
-	scripts\zm\locs\loc_common::barrier("collision_clip_wall_128x128x10", (43.2479, 7606.2, 66.125), (0, -45, 0), 1);
+	scripts\zm\locs\loc_common::barrier("collision_wall_128x128x10_standard", (43.2479, 7606.2, 66.125), (0, -45, 0), 1);
 	scripts\zm\locs\loc_common::barrier("p6_zm_al_infirmary_case", (48.6213, 7639.88, 74.125), (22, -44, 0));
 	scripts\zm\locs\loc_common::barrier("afr_corrugated_metal4x8_holes", (44.9895, 7601.56, 81.125), (-5, -41, -8));
 	scripts\zm\locs\loc_common::barrier("p6_zm_al_desk_small", (98.769, 7602.89, 64.125), (0, -142, 0));

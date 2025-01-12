@@ -307,9 +307,8 @@ delete_perk_machine_clip()
 
 spawn_custom_perk_collision(perk_machine)
 {
-	collision = spawn("script_model", perk_machine.origin + (0, 0, 64), 1);
-	collision.angles = perk_machine.angles;
-
-	collision setmodel("collision_clip_32x32x128");
-	collision disconnectpaths();
+	model = spawn("script_model", perk_machine.origin + (0, 0, 64), 1);
+	model.angles = perk_machine.angles;
+	model setmodel("collision_geo_32x32x128_standard");
+	model disconnectpaths();
 }

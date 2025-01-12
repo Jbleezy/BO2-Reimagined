@@ -640,25 +640,26 @@ busdepot_remove_lava_collision()
 
 	// spawn in new map edge collisions
 	// the lava collision and the map edge collisions are all the same entity
-	collision1 = spawn("script_model", (-5898, 4653, 0), 1);
-	collision1.angles = (0, 55, 0);
-	collision1 setmodel("collision_wall_512x512x10_standard");
-	collision1 disconnectpaths();
-	collision2 = spawn("script_model", (-8062, 4700, 0), 1);
-	collision2.angles = (0, 70, 0);
-	collision2 setmodel("collision_wall_512x512x10_standard");
-	collision2 disconnectpaths();
-	collision3 = spawn("script_model", (-7881, 5200, 0), 1);
-	collision3.angles = (0, 70, 0);
-	collision3 setmodel("collision_wall_512x512x10_standard");
-	collision3 disconnectpaths();
+	model = spawn("script_model", (-5898, 4653, 0), 1);
+	model.angles = (0, 55, 0);
+	model setmodel("collision_wall_512x512x10_standard");
+	model disconnectpaths();
+	model = spawn("script_model", (-8062, 4700, 0), 1);
+	model.angles = (0, 70, 0);
+	model setmodel("collision_wall_512x512x10_standard");
+	model disconnectpaths();
+	model = spawn("script_model", (-7881, 5200, 0), 1);
+	model.angles = (0, 70, 0);
+	model setmodel("collision_wall_512x512x10_standard");
+	model disconnectpaths();
 }
 
 cornfield_add_collision()
 {
-	model = spawn("script_model", (10536, -595, -145));
+	model = spawn("script_model", (10536, -595, -145), 1);
 	model.angles = (0, -35, 0);
-	model setmodel("collision_clip_wall_128x128x10");
+	model setmodel("collision_wall_128x128x10_standard");
+	model disconnectpaths();
 }
 
 cornfield_spawn_path_nodes()

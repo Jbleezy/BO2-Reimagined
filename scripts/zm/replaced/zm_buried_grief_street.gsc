@@ -114,9 +114,10 @@ disable_tunnels()
 	// main tunnel saloon side
 	origin = (770, -863, 320);
 	angles = (0, 180, -35);
-	collision = spawn("script_model", origin + anglesToUp(angles) * 128);
-	collision.angles = angles;
-	collision setmodel("collision_wall_256x256x10_standard");
+	model = spawn("script_model", origin + anglesToUp(angles) * 128, 1);
+	model.angles = angles;
+	model setmodel("collision_wall_256x256x10_standard");
+	model disconnectpaths();
 	model = spawn("script_model", origin);
 	model.angles = angles;
 	model setmodel("p6_zm_bu_sloth_blocker_medium");
@@ -124,9 +125,10 @@ disable_tunnels()
 	// main tunnel courthouse side
 	origin = (349, 579, 240);
 	angles = (0, 0, -10);
-	collision = spawn("script_model", origin + anglesToUp(angles) * 64);
-	collision.angles = angles;
-	collision setmodel("collision_wall_128x128x10_standard");
+	model = spawn("script_model", origin + anglesToUp(angles) * 64, 1);
+	model.angles = angles;
+	model setmodel("collision_wall_128x128x10_standard");
+	model disconnectpaths();
 	model = spawn("script_model", origin);
 	model.angles = angles;
 	model setmodel("p6_zm_bu_sloth_blocker_medium");
@@ -134,34 +136,41 @@ disable_tunnels()
 	// main tunnel above general store
 	origin = (-123, -801, 326);
 	angles = (0, 0, 90);
-	collision = spawn("script_model", origin);
-	collision.angles = angles;
-	collision setmodel("collision_wall_128x128x10_standard");
+	model = spawn("script_model", origin, 1);
+	model.angles = angles;
+	model setmodel("collision_wall_128x128x10_standard");
+	model disconnectpaths();
 
 	// main tunnel above jail
 	origin = (-852, 408, 379);
 	angles = (0, 0, 90);
-	collision = spawn("script_model", origin);
-	collision.angles = angles;
-	collision setmodel("collision_wall_512x512x10_standard");
+	model = spawn("script_model", origin, 1);
+	model.angles = angles;
+	model setmodel("collision_wall_512x512x10_standard");
+	model disconnectpaths();
 
 	// main tunnel above stables
 	origin = (-713, -313, 287);
 	angles = (0, 0, 90);
-	collision = spawn("script_model", origin);
-	collision.angles = angles;
-	collision setmodel("collision_wall_128x128x10_standard");
+	model = spawn("script_model", origin, 1);
+	model.angles = angles;
+	model setmodel("collision_wall_128x128x10_standard");
+	model disconnectpaths();
 
 	// bank top
+	model = spawn("script_model", (-381.252, -443.056, 144.125), 1);
+	model.angles = (0, 0, 0);
+	model setmodel("collision_wall_128x128x10_standard");
+	model disconnectpaths();
 	model = spawn("script_model", (-371.839, -448.016, 224.125));
 	model.angles = (0, 180, -90);
 	model setmodel("p6_zm_bu_wood_planks_106x171");
-	model = spawn("script_model", (-381.252, -443.056, 144.125), 1);
-	model.angles = (0, 0, 0);
-	model setmodel("collision_clip_wall_128x128x10");
-	model disconnectpaths();
 
 	// bank tunnel
+	model = spawn("script_model", (-53.4637, -1165.89, 8.125), 1);
+	model.angles = (0, 0, 0);
+	model setmodel("collision_geo_64x64x128_standard");
+	model disconnectpaths();
 	model = spawn("script_model", (-54.6069, -1129.47, 6.125));
 	model.angles = (0, 0, 0);
 	model setmodel("p6_zm_bu_wood_planks_106x171");
@@ -174,10 +183,6 @@ disable_tunnels()
 	model = spawn("script_model", (-75.4725, -1156.37, 52.125));
 	model.angles = (0, 0, 180);
 	model setmodel("p6_zm_work_bench");
-	model = spawn("script_model", (-53.4637, -1165.89, 8.125), 1);
-	model.angles = (0, 0, 0);
-	model setmodel("collision_clip_64x64x128");
-	model disconnectpaths();
 
 	// zombie spawns
 	level.zones["zone_tunnels_center"].is_enabled = 0;

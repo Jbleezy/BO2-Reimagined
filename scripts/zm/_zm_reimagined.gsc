@@ -448,7 +448,7 @@ spawn_mystery_box_blocks_and_collision()
 			collision.origin += anglesToForward(chest.zbarrier.angles) * (32 + (i * -32));
 			collision.origin += anglesToUp(chest.zbarrier.angles) * 64;
 
-			collision setModel("collision_clip_32x32x128");
+			collision setModel("collision_geo_32x32x128_standard");
 			collision disconnectPaths();
 		}
 	}

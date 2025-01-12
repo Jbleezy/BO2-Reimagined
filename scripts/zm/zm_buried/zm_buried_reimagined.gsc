@@ -202,11 +202,11 @@ power_switch_model()
 {
 	model = spawn("script_model", (626.36, -401.555, 133.149), 1);
 	model.angles = (0, 0, 0);
-	model setmodel("collision_clip_32x32x128");
+	model setmodel("collision_geo_32x32x128_standard");
 	model disconnectpaths();
 	model = spawn("script_model", (660.36, -401.555, 133.149), 1);
 	model.angles = (7, 0, 0);
-	model setmodel("collision_clip_32x32x128");
+	model setmodel("collision_geo_32x32x128_standard");
 	model disconnectpaths();
 	model = spawn("script_model", (642.556, -411.68, 131.538));
 	model.angles = (3, 0, -8);

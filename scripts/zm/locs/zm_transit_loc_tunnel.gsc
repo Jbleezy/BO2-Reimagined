@@ -53,13 +53,13 @@ init_barriers()
 {
 	origin = (-11270, -500, 192);
 	angles = (0, 195, 0);
-	scripts\zm\locs\loc_common::barrier("collision_clip_wall_512x512x10", origin + (anglesToForward(angles) * 150) + (anglesToRight(angles) * -24) + (anglesToUp(angles) * 256), angles, 1);
+	scripts\zm\locs\loc_common::barrier("collision_wall_512x512x10_standard", origin + (anglesToForward(angles) * 150) + (anglesToRight(angles) * -24) + (anglesToUp(angles) * 256), angles, 1);
 	scripts\zm\locs\loc_common::barrier("veh_t6_civ_60s_coupe_dead", origin + (anglesToForward(angles) * 125) + (anglesToRight(angles) * 25), angles);
 	scripts\zm\locs\loc_common::barrier("veh_t6_civ_smallwagon_dead", origin + (anglesToForward(angles) * -30) + (anglesToRight(angles) * 50), angles + (0, -90, 0));
 
 	origin = (-10750, -3275, 192);
 	angles = (0, 195, 0);
-	scripts\zm\locs\loc_common::barrier("collision_clip_wall_512x512x10", origin + (anglesToRight(angles) * 59) + (anglesToUp(angles) * 256), angles, 1);
+	scripts\zm\locs\loc_common::barrier("collision_wall_512x512x10_standard", origin + (anglesToRight(angles) * 59) + (anglesToUp(angles) * 256), angles, 1);
 	scripts\zm\locs\loc_common::barrier("veh_t6_civ_movingtrk_cab_dead", origin + (anglesToUp(angles) * 63), angles);
 }
 
