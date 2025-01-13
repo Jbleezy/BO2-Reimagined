@@ -31,12 +31,12 @@ if %ERRORLEVEL% NEQ 0 pause
 --base-folder "%OAT_BASE%" ^
 --asset-search-path "%cd%" ^
 --source-search-path "%cd%\zone_source" ^
---output-folder "%cd%\zone_source\dependencies" dependencies\camo_mp
+--output-folder "%cd%\zone_source\dependencies" dependencies\camo_materials
 
 if %ERRORLEVEL% NEQ 0 pause
 
 "%OAT_BASE%\Linker.exe" ^
---load "%cd%\zone_source\dependencies\camo_mp.ff" ^
+--load "%cd%\zone_source\dependencies\camo_materials.ff" ^
 --load "%OAT_GAME%\zone\all\weapons!metalstorm_mms_sp.ff" ^
 --base-folder "%OAT_BASE%" ^
 --asset-search-path "%cd%" ^
@@ -46,7 +46,7 @@ if %ERRORLEVEL% NEQ 0 pause
 if %ERRORLEVEL% NEQ 0 pause
 
 "%OAT_BASE%\Linker.exe" ^
---load "%cd%\zone_source\dependencies\camo_mp.ff" ^
+--load "%cd%\zone_source\dependencies\camo_materials.ff" ^
 --load "%OAT_GAME%\zone\all\weapons!exptitus6_sp.ff" ^
 --base-folder "%OAT_BASE%" ^
 --asset-search-path "%cd%" ^
@@ -84,7 +84,7 @@ if %ERRORLEVEL% NEQ 0 pause
 if %ERRORLEVEL% NEQ 0 pause
 
 "%OAT_BASE%\Linker.exe" ^
---load "%cd%\zone_source\dependencies\camo_mp.ff" ^
+--load "%cd%\zone_source\dependencies\camo_materials.ff" ^
 --load "%OAT_GAME%\zone\all\patch_mp.ff" ^
 --load "%OAT_GAME%\zone\all\common_patch_mp.ff" ^
 --load "%OAT_GAME%\zone\all\common_mp.ff" ^
@@ -114,7 +114,7 @@ if %ERRORLEVEL% NEQ 0 pause
 if %ERRORLEVEL% NEQ 0 pause
 
 "%OAT_BASE%\Linker.exe" ^
---load "%cd%\zone_source\dependencies\camo_mp.ff" ^
+--load "%cd%\zone_source\dependencies\camo_materials.ff" ^
 --load "%OAT_GAME%\zone\all\patch_zm.ff" ^
 --load "%OAT_GAME%\zone\all\common_zm.ff" ^
 --base-folder "%OAT_BASE%" ^
@@ -135,7 +135,7 @@ if %ERRORLEVEL% NEQ 0 pause
 if %ERRORLEVEL% NEQ 0 pause
 
 "%OAT_BASE%\Linker.exe" ^
---load "%cd%\zone_source\dependencies\camo_mp.ff" ^
+--load "%cd%\zone_source\dependencies\camo_materials.ff" ^
 --load "%OAT_GAME%\zone\all\zm_transit_patch.ff" ^
 --load "%OAT_GAME%\zone\all\zm_transit.ff" ^
 --load "%OAT_GAME%\zone\all\so_zsurvival_zm_transit.ff" ^
@@ -147,7 +147,7 @@ if %ERRORLEVEL% NEQ 0 pause
 if %ERRORLEVEL% NEQ 0 pause
 
 "%OAT_BASE%\Linker.exe" ^
---load "%cd%\zone_source\dependencies\camo_mp.ff" ^
+--load "%cd%\zone_source\dependencies\camo_materials.ff" ^
 --load "%OAT_GAME%\zone\all\zm_nuked_patch.ff" ^
 --load "%OAT_GAME%\zone\all\zm_nuked.ff" ^
 --base-folder "%OAT_BASE%" ^
@@ -158,7 +158,7 @@ if %ERRORLEVEL% NEQ 0 pause
 if %ERRORLEVEL% NEQ 0 pause
 
 "%OAT_BASE%\Linker.exe" ^
---load "%cd%\zone_source\dependencies\camo_mp.ff" ^
+--load "%cd%\zone_source\dependencies\camo_materials.ff" ^
 --load "%OAT_GAME%\zone\all\zm_highrise_patch.ff" ^
 --load "%OAT_GAME%\zone\all\zm_highrise.ff" ^
 --base-folder "%OAT_BASE%" ^
@@ -169,7 +169,7 @@ if %ERRORLEVEL% NEQ 0 pause
 if %ERRORLEVEL% NEQ 0 pause
 
 "%OAT_BASE%\Linker.exe" ^
---load "%cd%\zone_source\dependencies\camo_mp.ff" ^
+--load "%cd%\zone_source\dependencies\camo_materials.ff" ^
 --load "%OAT_GAME%\zone\all\zm_prison_patch.ff" ^
 --load "%OAT_GAME%\zone\all\zm_prison.ff" ^
 --load "%OAT_GAME%\zone\all\so_zencounter_zm_prison.ff" ^
@@ -181,7 +181,7 @@ if %ERRORLEVEL% NEQ 0 pause
 if %ERRORLEVEL% NEQ 0 pause
 
 "%OAT_BASE%\Linker.exe" ^
---load "%cd%\zone_source\dependencies\camo_mp.ff" ^
+--load "%cd%\zone_source\dependencies\camo_materials.ff" ^
 --load "%OAT_GAME%\zone\all\zm_buried_patch.ff" ^
 --load "%OAT_GAME%\zone\all\zm_buried.ff" ^
 --load "%OAT_GAME%\zone\all\so_zencounter_zm_buried.ff" ^
@@ -193,7 +193,7 @@ if %ERRORLEVEL% NEQ 0 pause
 if %ERRORLEVEL% NEQ 0 pause
 
 "%OAT_BASE%\Linker.exe" ^
---load "%cd%\zone_source\dependencies\camo_mp.ff" ^
+--load "%cd%\zone_source\dependencies\camo_materials.ff" ^
 --load "%OAT_GAME%\zone\all\zm_tomb_patch.ff" ^
 --load "%OAT_GAME%\zone\all\zm_tomb.ff" ^
 --base-folder "%OAT_BASE%" ^
@@ -204,7 +204,7 @@ if %ERRORLEVEL% NEQ 0 pause
 if %ERRORLEVEL% NEQ 0 pause
 
 "%OAT_BASE%\Linker.exe" ^
---load "%cd%\zone_source\dependencies\camo_mp.ff" ^
+--load "%cd%\zone_source\dependencies\camo_materials.ff" ^
 --load "%cd%\zone_source\includes\weapons!metalstorm_mms_sp.ff" ^
 --load "%cd%\zone_source\includes\weapons!exptitus6_sp.ff" ^
 --load "%cd%\zone_source\includes\code_post_gfx.ff" ^

@@ -214,10 +214,6 @@
 							"camoMaterial": "mc/mtl_weapon_camo_ghost_1"
 						},
 						{
-							"baseMaterial": "mc/mtl_t6_wpn_sniper_xpr50_camo3",
-							"camoMaterial": "mc/mtl_weapon_camo_ghost_2"
-						},
-						{
 							"baseMaterial": "mc/mtl_t6_wpn_sniper_xpr50_scope_camo2",
 							"camoMaterial": "mc/mtl_weapon_camo_ghost_3"
 						}

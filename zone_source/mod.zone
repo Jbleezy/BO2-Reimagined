@@ -25,4 +25,4 @@ include,includes/weapons!metalstorm_mms_sp
 
 include,includes/reimagined
 
-include,dependencies/camo_mp
+include,dependencies/camo_materials
