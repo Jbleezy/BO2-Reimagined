@@ -93,15 +93,11 @@ xmodel,p6_zm_al_shock_box_on
 techniqueset,effect_26z423jf
 techniqueset,effect_775wj8ww
 techniqueset,effect_zeqqz943
-techniqueset,effect_8e1qf0qq
 material,gfx_fxt_env_electric_arc1_add_gr
 material,gfx_fxt_env_electric_arc2_add_gr
-material,gfx_fxt_light_flare_phosphorous_e10_z10
 material,gfx_fxt_spark_pcloud_blue_1
-material,gfx_fxt_light_flare_phosphorous
 material,gfx_fxt_env_lightning_bolt_streak
 material,gfx_fxt_env_electric_arc1_add
-material,gfx_fxt_env_electric_arc2_add
 fx,maps/zombie_alcatraz/fx_alcatraz_skull_elec
 
 weapon,knife_zm_alcatraz
