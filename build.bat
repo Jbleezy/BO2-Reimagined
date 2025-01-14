@@ -22,6 +22,8 @@ if %ERRORLEVEL% NEQ 0 pause
 --source-search-path "%cd%\zone_source" ^
 --output-folder "%cd%\zone_source\dependencies" dependencies\camo_zmb_dlc4_materials
 
+if %ERRORLEVEL% NEQ 0 pause
+
 "%OAT_BASE%\Linker.exe" ^
 --load "%cd%\zone_source\dependencies\camo_zmb_dlc4_materials.ff" ^
 --load "%cd%\zone_source\dependencies\camo_zmb_dlc2_materials.ff" ^
