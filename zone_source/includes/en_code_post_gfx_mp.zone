@@ -1,6 +1,4 @@
 >game,T6
->type,fastfile
->name,en_code_post_gfx_mp
 
 material,white_waypoint_target
 material,white_waypoint_capture
