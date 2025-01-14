@@ -16,11 +16,6 @@ enable_electric_cherry_perk_for_level()
 	maps\mp\zombies\_zm_perks::register_perk_threads("specialty_grenadepulldeath", ::electric_cherry_reload_attack, ::electric_cherry_perk_lost);
 	maps\mp\zombies\_zm_perks::register_perk_machine("specialty_grenadepulldeath", ::electric_cherry_perk_machine_setup, ::electric_cherry_perk_machine_think);
 	maps\mp\zombies\_zm_perks::register_perk_host_migration_func("specialty_grenadepulldeath", ::electric_cherry_host_migration_func);
-
-	if (isdefined(level.custom_electric_cherry_perk_threads) && level.custom_electric_cherry_perk_threads)
-	{
-		level thread [[level.custom_electric_cherry_perk_threads]]();
-	}
 }
 
 electic_cherry_precache()
@@ -101,14 +96,14 @@ electric_cherry_reload_attack()
 			self thread electric_cherry_reload_fx(n_fraction);
 			self notify("electric_cherry_start");
 			self playsound("zmb_cherry_explode");
-			a_zombies = get_round_enemy_array();
+			a_zombies = getaispeciesarray("axis", "all");
 			a_zombies = arraycombine(a_zombies, get_players(getotherteam(self.team)), 1, 0);
 			a_zombies = get_array_of_closest(self.origin, a_zombies, undefined, undefined, perk_radius);
 			n_zombies_hit = 0;
 
 			for (i = 0; i < a_zombies.size; i++)
 			{
-				if (isalive(self))
+				if (isalive(self) && isalive(a_zombies[i]))
 				{
 					if (isdefined(n_zombie_limit))
 					{
@@ -140,7 +135,7 @@ electric_cherry_reload_attack()
 						}
 						else
 						{
-							if (!isdefined(a_zombies[i].is_brutus))
+							if (!isdefined(a_zombies[i].is_brutus) && !isdefined(a_zombies[i].is_mechz))
 							{
 								a_zombies[i] thread electric_cherry_stun();
 							}
@@ -150,7 +145,11 @@ electric_cherry_reload_attack()
 					}
 
 					wait 0.1;
-					a_zombies[i] dodamage(perk_dmg, self.origin, self, self, "none", "MOD_UNKNOWN", 0, "zombie_perk_bottle_cherry");
+
+					if (isalive(a_zombies[i]))
+					{
+						a_zombies[i] dodamage(perk_dmg, self.origin, self, self, "none", "MOD_UNKNOWN", 0, "zombie_perk_bottle_cherry");
+					}
 				}
 			}
 
@@ -169,13 +168,13 @@ electric_cherry_laststand()
 		self playsound("zmb_cherry_explode");
 		self notify("electric_cherry_start");
 		wait 0.05;
-		a_zombies = get_round_enemy_array();
+		a_zombies = getaispeciesarray("axis", "all");
 		a_zombies = arraycombine(a_zombies, get_players(getotherteam(self.team)), 1, 0);
 		a_zombies = get_array_of_closest(self.origin, a_zombies, undefined, undefined, 256);
 
 		for (i = 0; i < a_zombies.size; i++)
 		{
-			if (isalive(self))
+			if (isalive(self) && isalive(a_zombies[i]))
 			{
 				if (isai(a_zombies[i]))
 				{
@@ -193,7 +192,11 @@ electric_cherry_laststand()
 				}
 
 				wait 0.1;
-				a_zombies[i] dodamage(a_zombies[i].health + 1000, self.origin, self, self, "none", "MOD_UNKNOWN", 0, "zombie_perk_bottle_cherry");
+
+				if (isalive(a_zombies[i]))
+				{
+					a_zombies[i] dodamage(a_zombies[i].health + 1000, self.origin, self, self, "none", "MOD_UNKNOWN", 0, "zombie_perk_bottle_cherry");
+				}
 			}
 		}
 
