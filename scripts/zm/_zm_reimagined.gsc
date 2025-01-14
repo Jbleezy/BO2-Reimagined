@@ -555,11 +555,16 @@ on_player_spawned()
 			self thread electric_cherry_unlimited();
 		}
 
-		if (is_player_valid(self))
+		if (!is_player_valid(self))
 		{
-			self.statusicon = "";
-			objective_setgamemodeflags(self.obj_ind, 1);
+			continue;
 		}
+
+		self.statusicon = "";
+
+		objective_setgamemodeflags(self.obj_ind, 1);
+
+		self useservervisionset(0);
 
 		self set_perks();
 		self set_favorite_wall_weapons();
@@ -575,11 +580,6 @@ on_player_downed()
 	while (1)
 	{
 		self waittill("entering_last_stand");
-
-		if (is_gametype_active("zcleansed"))
-		{
-			continue;
-		}
 
 		self.statusicon = "hud_status_revive";
 		self.health = self.maxhealth;
@@ -607,6 +607,8 @@ on_player_revived()
 		}
 
 		objective_setgamemodeflags(self.obj_ind, 1);
+
+		self useservervisionset(0);
 	}
 }
 

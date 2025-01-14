@@ -2844,7 +2844,11 @@ player_laststand(einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, sh
 
 	if (!b_alt_visionset)
 	{
-		visionsetlaststand("zombie_last_stand", 1);
+		if (!is_player_valid(self))
+		{
+			self useservervisionset(1);
+			self setvisionsetforplayer("zombie_last_stand", 1);
+		}
 	}
 }
 

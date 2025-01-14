@@ -160,7 +160,11 @@ electric_cherry_reload_attack()
 
 electric_cherry_laststand()
 {
-	visionsetlaststand("zombie_last_stand", 1);
+	if (!is_player_valid(self))
+	{
+		self useservervisionset(1);
+		self setvisionsetforplayer("zombie_last_stand", 1);
+	}
 
 	if (isdefined(self))
 	{

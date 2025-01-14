@@ -583,6 +583,49 @@ playerlaststand(einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, shi
 	self thread cleanup_laststand_on_disconnect();
 }
 
+laststand_bleedout(delay)
+{
+	self endon("player_revived");
+	self endon("player_suicide");
+	self endon("zombified");
+	self endon("disconnect");
+
+	if (isdefined(self.is_zombie) && self.is_zombie || isdefined(self.no_revive_trigger) && self.no_revive_trigger)
+	{
+		self notify("bled_out");
+		wait_network_frame();
+		self bleed_out();
+		return;
+	}
+
+	setclientsysstate("lsm", "1", self);
+	self.bleedout_time = delay;
+
+	while (self.bleedout_time > int(delay * 0.5))
+	{
+		self.bleedout_time = self.bleedout_time - 1;
+		wait 1;
+	}
+
+	self useservervisionset(1);
+	self setvisionsetforplayer("zombie_death", delay * 0.5);
+
+	while (self.bleedout_time > 0)
+	{
+		self.bleedout_time = self.bleedout_time - 1;
+		wait 1;
+	}
+
+	while (isdefined(self.revivetrigger) && isdefined(self.revivetrigger.beingrevived) && self.revivetrigger.beingrevived == 1)
+	{
+		wait 0.1;
+	}
+
+	self notify("bled_out");
+	wait_network_frame();
+	self bleed_out();
+}
+
 revive_hud_create()
 {
 	if (isDefined(self.revive_hud))
