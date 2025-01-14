@@ -1367,7 +1367,7 @@ get_zone_display_name(zone)
 
 bleedout_bar_hud()
 {
-	level endon("intermission");
+	level endon("pre_end_game");
 	self endon("disconnect");
 
 	flag_wait("hud_visible");
@@ -1376,18 +1376,7 @@ bleedout_bar_hud()
 	{
 		self waittill("entering_last_stand");
 
-		if (is_gametype_active("zcleansed"))
-		{
-			continue;
-		}
-
 		if (is_true(self.playersuicided))
-		{
-			continue;
-		}
-
-		// don't show for last player downed
-		if (!self maps\mp\zombies\_zm_laststand::player_is_in_laststand())
 		{
 			continue;
 		}
