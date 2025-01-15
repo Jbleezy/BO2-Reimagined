@@ -1,6 +1,4 @@
 >game,T6
->type,fastfile
->name,mod
 
 >level.ipak_read,patch_mp
 >level.ipak_read,mp
@@ -23,6 +21,6 @@ include,includes/code_post_gfx
 include,includes/weapons!exptitus6_sp
 include,includes/weapons!metalstorm_mms_sp
 
-include,includes/reimagined
+include,reimagined
 
 include,dependencies/camo_materials

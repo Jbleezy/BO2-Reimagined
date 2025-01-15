@@ -1,6 +1,4 @@
 >game,T6
->type,fastfile
->name,common_mp
 
 xmodel,t6_wpn_knife_base_view
 xmodel,t6_wpn_knife_base_world
