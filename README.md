@@ -882,7 +882,7 @@
 * Fixed last stand activation fx playing incorrectly
 
 ### Vulture-Aid
-* Added ability to see zombies through walls
+* Added ability to see players and zombies through walls
 * Removed ability to see perks, wallbuys, and Mystery Box through walls
 * Stink areas no longer activate while the player is moving
 
