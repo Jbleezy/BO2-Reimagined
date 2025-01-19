@@ -3149,5 +3149,6 @@ remove_held_melee_weapons()
 		}
 
 		wait 0.05;
+		waittillframeend;
 	}
 }
