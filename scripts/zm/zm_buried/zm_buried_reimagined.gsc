@@ -605,6 +605,10 @@ sloth_trap()
 
 		who maps\mp\zm_buried_buildables::onuseplantobject_key(who);
 
+		level.sloth maps\mp\zombies\_zm_ai_sloth::sloth_set_state("jail_cower");
+
+		wait 0.5;
+
 		level.sloth maps\mp\zombies\_zm_ai_sloth::sloth_set_state("eat", who);
 
 		while (level.sloth.state == "eat")
