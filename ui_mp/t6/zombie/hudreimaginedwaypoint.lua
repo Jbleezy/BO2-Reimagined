@@ -720,8 +720,8 @@ CoD.PlayerWaypoint.updateDownAndRevive = function(Menu, ClientInstance, IsDownWa
 
 			if not Menu.showWaypoint then
 				local player_lastStandBleedoutTime = UIExpression.DvarInt(nil, "player_lastStandBleedoutTime") * 1000
-				Menu.mainImage:setRGB(1, 0.65, 0)
-				Menu.arrowImage:setRGB(1, 0.65, 0)
+				Menu.mainImage:setRGB(1, 0.7, 0)
+				Menu.arrowImage:setRGB(1, 0.7, 0)
 				Menu.mainImage:animateToState("color", player_lastStandBleedoutTime)
 				Menu.arrowImage:animateToState("color", player_lastStandBleedoutTime)
 			end
