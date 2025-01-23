@@ -182,6 +182,7 @@ init()
 	level.claymores_max_per_player = 20;
 	level.navcards = undefined;
 	level.powerup_intro_vox = undefined;
+	level.hotjoin_player_setup = undefined;
 	level.player_too_many_players_check = 0;
 	level.pregame_minplayers = getDvarInt("party_minplayers");
 	level.player_starting_health = 150;
