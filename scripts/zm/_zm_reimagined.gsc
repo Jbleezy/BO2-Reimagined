@@ -519,6 +519,7 @@ on_player_spawned()
 	while (1)
 	{
 		self waittill("spawned_player");
+		waittillframeend;
 
 		if (self.initial_spawn)
 		{
