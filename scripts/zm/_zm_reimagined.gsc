@@ -889,8 +889,7 @@ set_client_dvars()
 	    "cg_sonarAttachmentFullscreenSightCheck", 1,
 	    "r_dof_enable", 0,
 	    "r_lodBiasRigid", -1000,
-	    "r_lodBiasSkinned", -1000,
-	    "r_skinnedCacheOverflowLodMaxScale", 10);
+	    "r_lodBiasSkinned", -500);
 
 	self setClientDvars(
 	    "aim_automelee_enabled", 0,
