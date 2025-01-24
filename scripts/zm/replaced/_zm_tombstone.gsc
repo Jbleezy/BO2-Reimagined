@@ -283,6 +283,7 @@ tombstone_laststand()
 	self.tombstone_savedweapon_tactical = self get_player_tactical_grenade();
 	self.tombstone_savedweapon_mine = self get_player_placeable_mine();
 	self.tombstone_savedweapon_equipment = self get_player_equipment();
+	self.tombstone_hastimebomb = self hasweapon("time_bomb_zm") || self hasweapon("time_bomb_detonator_zm");
 	self.tombstone_hasriotshield = undefined;
 	self.tombstone_perks = tombstone_save_perks(self);
 
@@ -354,6 +355,16 @@ tombstone_laststand()
 	if (isDefined(self.tombstone_savedweapon_mine))
 	{
 		self.tombstone_savedweapon_mine_clip = self getweaponammoclip(self.tombstone_savedweapon_mine);
+	}
+
+	if (is_true(self.tombstone_hastimebomb))
+	{
+		self.tombstone_savedweapon_timebomb_clip = 1;
+
+		if (self hasweapon("time_bomb_detonator_zm"))
+		{
+			self.tombstone_savedweapon_timebomb_clip = 0;
+		}
 	}
 
 	if (isDefined(self.hasriotshield) && self.hasriotshield)
@@ -514,6 +525,23 @@ tombstone_give()
 		self.do_not_display_equipment_pickup_hint = 1;
 		self maps\mp\zombies\_zm_equipment::equipment_give(self.tombstone_savedweapon_equipment);
 		self.do_not_display_equipment_pickup_hint = undefined;
+	}
+
+	if (is_true(self.tombstone_hastimebomb))
+	{
+		if (self.tombstone_savedweapon_timebomb_clip == 1)
+		{
+			self giveweapon("time_bomb_zm");
+			self setactionslot(2, "weapon", "time_bomb_zm");
+		}
+		else
+		{
+			self giveweapon("time_bomb_detonator_zm");
+			self setweaponammoclip("time_bomb_detonator_zm", 0);
+			self setweaponammostock("time_bomb_detonator_zm", 0);
+			self setactionslot(2, "weapon", "time_bomb_detonator_zm");
+			self giveweapon("time_bomb_zm");
+		}
 	}
 
 	if (isDefined(self.tombstone_hasriotshield) && self.tombstone_hasriotshield)
