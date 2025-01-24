@@ -1372,6 +1372,7 @@ get_zone_display_name(zone)
 bleedout_bar_hud()
 {
 	level endon("pre_end_game");
+	level endon("end_game");
 	self endon("disconnect");
 
 	flag_wait("hud_visible");
