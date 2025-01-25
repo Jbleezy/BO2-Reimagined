@@ -47,7 +47,6 @@ main()
 	spawnmapcollision("zm_collision_buried_street_grief");
 	flag_wait("initial_blackscreen_passed");
 	flag_wait("start_zombie_round_logic");
-	wait 1;
 	builddynamicwallbuys();
 	buildbuildables();
 	turnperkon("revive");
