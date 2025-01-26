@@ -16,7 +16,7 @@ main()
 
 perk_changes()
 {
-	if (is_no_perk_map())
+	if (!is_gametype_active("zclassic"))
 	{
 		return;
 	}
@@ -62,11 +62,6 @@ perk_changes()
 		registerclientfield("toplayer", "clientfield_whos_who_audio", 5000, 1, "int", clientscripts\mp\zm_highrise_amb::whoswhoaudio, 0);
 		registerclientfield("toplayer", "clientfield_whos_who_filter", 5000, 1, "int", clientscripts\mp\zm_highrise_amb::whoswhofilter, 0);
 	}
-}
-
-is_no_perk_map()
-{
-	return !is_gametype_active("zclassic") && getdvar("mapname") == "zm_transit" && getdvar("ui_zm_mapstartlocation") == "transit";
 }
 
 init_chugabud()
