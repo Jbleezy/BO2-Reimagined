@@ -223,7 +223,7 @@ map_vote()
 
 	if (is_gametype_active("zgrief"))
 	{
-		obj_array = array_randomize(strTok(getDvar("ui_gametype_obj"), " "));
+		obj_array = array_randomize(strTok(getDvar("sv_gametypeRotation"), " "));
 
 		if (obj_array.size >= 3)
 		{
@@ -472,20 +472,18 @@ map_vote()
 			}
 		}
 
-		setDvar("ui_gametype_obj_cur", maps[index]["obj_name"]);
-
-		level thread wait_and_setclientdvarall(1.5, "ui_gametype_obj", getDvar("ui_gametype_obj_cur"));
+		level thread wait_and_set_dvar(1.5, "ui_gametype_obj", maps[index]["obj_name"]);
 	}
 
 	level.zombie_vars["vote_input_hud"].alpha = 0;
 	level.zombie_vars["vote_timer_hud"].alpha = 0;
 }
 
-wait_and_setclientdvarall(time, dvar, value)
+wait_and_set_dvar(time, dvar, value)
 {
 	wait time;
 
-	scripts\zm\_zm_reimagined::setclientdvarall(dvar, value);
+	setDvar(dvar, value);
 }
 
 create_map_image_hud(image, x, y)

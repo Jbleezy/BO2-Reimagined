@@ -277,39 +277,41 @@ set_grief_vars()
 {
 	if (getDvar("ui_gametype_obj") == "")
 	{
-		setDvar("ui_gametype_obj", "zgrief zsnr zrace zcontainment zmeat");
+		gametype = "zgrief";
+
+		if (getDvar("sv_gametypeRotation") != "")
+		{
+			gametypes = strTok(getDvar("sv_gametypeRotation"), " ");
+			gametype = random(gametypes);
+		}
+
+		setDvar("ui_gametype_obj", gametype);
 	}
 
-	if (getDvar("ui_gametype_obj_cur") != "")
-	{
-		level.scr_zm_ui_gametype_obj = getDvar("ui_gametype_obj_cur");
-	}
-	else
-	{
-		gamemodes = strTok(getDvar("ui_gametype_obj"), " ");
-		level.scr_zm_ui_gametype_obj = random(gamemodes);
-	}
+	makedvarserverinfo("ui_gametype_obj");
+	level.scr_zm_ui_gametype_obj = getDvar("ui_gametype_obj");
 
 	if (getDvar("ui_gametype_pro") == "")
 	{
 		setDvar("ui_gametype_pro", 0);
 	}
 
+	makedvarserverinfo("ui_gametype_pro");
 	level.scr_zm_ui_gametype_pro = getDvarInt("ui_gametype_pro");
 
-	if (getDvar("ui_gametype_team_change") == "")
+	if (getDvar("ui_allow_teamchange") == "")
 	{
 		if (isDedicated())
 		{
-			setDvar("ui_gametype_team_change", 0);
+			setDvar("ui_allow_teamchange", 0);
 		}
 		else
 		{
-			setDvar("ui_gametype_team_change", 1);
+			setDvar("ui_allow_teamchange", 1);
 		}
 	}
 
-	level.allow_teamchange = getDvarInt("ui_gametype_team_change");
+	level.allow_teamchange = getDvarInt("ui_allow_teamchange");
 
 	if (getDvarInt("party_minplayers") < 2)
 	{
@@ -320,6 +322,7 @@ set_grief_vars()
 
 	level.snr_round_number = 1;
 	setDvar("ui_round_number", level.snr_round_number);
+	makedvarserverinfo("ui_round_number");
 
 	level.noroundnumber = 1;
 	level.hide_revive_message = 1;
@@ -382,11 +385,6 @@ set_grief_vars()
 
 grief_onplayerconnect()
 {
-	self setclientdvars(
-	    "ui_gametype_obj", level.scr_zm_ui_gametype_obj,
-	    "ui_gametype_pro", level.scr_zm_ui_gametype_pro,
-	    "ui_round_number", getdvarint("ui_round_number"));
-
 	self thread on_player_spawned();
 	self thread on_player_downed();
 	self thread on_player_revived();

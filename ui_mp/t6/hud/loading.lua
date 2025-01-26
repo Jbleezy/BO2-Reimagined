@@ -517,7 +517,8 @@ CoD.Loading.GetDidYouKnowString = function()
 end
 
 CoD.Loading.StartLoading = function(LoadingWidget, f8_arg1)
-	CoD.Loading.SetMapGametypeText(LoadingWidget)
+	CoD.Loading.SetMapNameText(LoadingWidget)
+	CoD.Loading.SetMapLocationText(LoadingWidget)
 
 	if UIExpression.IsDemoPlaying(LoadingWidget:getOwner()) ~= 0 then
 		local DemoAuthor = Dvar.ls_demoauthor:get()
@@ -540,17 +541,23 @@ CoD.Loading.StartLoading = function(LoadingWidget, f8_arg1)
 	LoadingWidget.mapNameLabel:setAlpha(1)
 end
 
-function CoD.Loading.SetMapGametypeText(LoadingWidget)
-	local map = UIExpression.DvarString(nil, "ui_mapname")
+function CoD.Loading.SetMapNameText(LoadingWidget)
+	local mapName = UIExpression.DvarString(nil, "ui_mapname")
+	local mapLocation = UIExpression.DvarString(nil, "ui_zm_mapstartlocation")
 	local gametype = UIExpression.DvarString(nil, "ui_gametype")
-	local location = UIExpression.DvarString(nil, "ui_zm_mapstartlocation")
-
-	local mapNameText = CoD.Loading.GetMapNameDisplayName(map, gametype, location)
-	local mapLocationText = CoD.Loading.GetMapLocationDisplayName(map)
-	local gametypeText = CoD.Loading.GetGametypeDisplayName(gametype)
-
+	local mapNameText = CoD.Loading.GetMapNameDisplayName(mapName, gametype, mapLocation)
 	LoadingWidget.mapNameLabel:setText(mapNameText)
+end
+
+function CoD.Loading.SetMapLocationText(LoadingWidget)
+	local mapName = UIExpression.DvarString(nil, "ui_mapname")
+	local mapLocationText = CoD.Loading.GetMapLocationDisplayName(mapName)
 	LoadingWidget.mapLocationLabel:setText(mapLocationText)
+end
+
+function CoD.Loading.SetGametypeText(LoadingWidget)
+	local gametype = UIExpression.DvarString(nil, "ui_gametype")
+	local gametypeText = CoD.Loading.GetGametypeDisplayName(gametype)
 	LoadingWidget.gametypeLabel:setText(gametypeText)
 end
 
@@ -605,6 +612,8 @@ CoD.Loading.MapLocationFadeInComplete = function(MapLocationLabel)
 end
 
 CoD.Loading.FadeInGametype = function(LoadingWidget)
+	CoD.Loading.SetGametypeText(LoadingWidget)
+
 	LoadingWidget.gametypeLabel:beginAnimation("gametype_fade_in", CoD.Loading.FadeInTime)
 	LoadingWidget.gametypeLabel:setAlpha(0.6)
 end

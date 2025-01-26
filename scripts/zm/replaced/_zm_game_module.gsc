@@ -189,7 +189,6 @@ round_end(winner)
 
 	level.snr_round_number++;
 	setDvar("ui_round_number", level.snr_round_number);
-	scripts\zm\_zm_reimagined::setclientdvarall("ui_round_number", getdvarint("ui_round_number"));
 
 	if (isDefined(level.show_grief_hud_msg_func))
 	{

@@ -897,7 +897,7 @@ fade_out_intro_screen_zm(hold_black_time, fade_out_time, destroyed_afterwards)
 
 	flag_set("hud_visible");
 
-	if (isDedicated() || (is_gametype_active("zgrief") && getDvarInt("ui_gametype_team_change")))
+	if (isDedicated() || level.allow_teamchange)
 	{
 		flag_init("all_players_ready");
 
@@ -1007,7 +1007,7 @@ pregame_think()
 	ready_up_start_time = undefined;
 	ready_up_start_players = undefined;
 
-	if (isDedicated() && !(is_gametype_active("zgrief") && getDvarInt("ui_gametype_team_change")))
+	if (isDedicated() && !level.allow_teamchange)
 	{
 		ready_up_time = 60;
 	}

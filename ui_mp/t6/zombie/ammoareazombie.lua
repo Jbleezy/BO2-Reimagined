@@ -228,7 +228,7 @@ CoD.AmmoAreaZombie.UpdateActionSlots = function(f2_arg0, f2_arg1)
 				rightAnchor = false,
 				bottomAnchor = false,
 			}
-		elseif f2_local4 == 2 and UIExpression.DvarInt(nil, "ui_gametype_pro") == 0 then
+		elseif f2_local4 == 2 and UIExpression.DvarBool(nil, "ui_gametype_pro") == 0 then
 			f2_local7 = {
 				left = -f2_local14 / 2,
 				top = -CoD.AmmoAreaZombie.CircleSize / 4 - f2_local13 / 2 + offset,
@@ -317,7 +317,7 @@ CoD.AmmoAreaZombie.UpdateActionSlots = function(f2_arg0, f2_arg1)
 							bottom = f2_local14 / 2 - f2_local4 * f2_local14 - f2_local10,
 							alignment = LUI.Alignment.Right,
 						}
-					elseif f2_local4 == 2 and UIExpression.DvarInt(nil, "ui_gametype_pro") == 0 then
+					elseif f2_local4 == 2 and UIExpression.DvarBool(nil, "ui_gametype_pro") == 0 then
 						f2_local11 = {
 							leftAnchor = false,
 							rightAnchor = true,
