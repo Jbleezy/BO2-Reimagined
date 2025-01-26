@@ -528,18 +528,21 @@ round_think(restart = 0)
 		}
 	}
 
-	if (level.round_number > 255)
+	if (!is_gametype_active("zgrief"))
 	{
-		players = get_players();
-
-		foreach (player in players)
+		if (level.round_number > 255)
 		{
-			player luinotifyevent(&"hud_update_rounds_played", 1, level.round_number);
+			players = get_players();
+
+			foreach (player in players)
+			{
+				player luinotifyevent(&"hud_update_rounds_played", 1, level.round_number);
+			}
 		}
-	}
-	else
-	{
-		setroundsplayed(level.round_number);
+		else
+		{
+			setroundsplayed(level.round_number);
+		}
 	}
 
 	for (;;)
@@ -660,18 +663,21 @@ round_think(restart = 0)
 
 		level.round_number++;
 
-		if (level.round_number > 255)
+		if (!is_gametype_active("zgrief"))
 		{
-			players = get_players();
-
-			foreach (player in players)
+			if (level.round_number > 255)
 			{
-				player luinotifyevent(&"hud_update_rounds_played", 1, level.round_number);
+				players = get_players();
+
+				foreach (player in players)
+				{
+					player luinotifyevent(&"hud_update_rounds_played", 1, level.round_number);
+				}
 			}
-		}
-		else
-		{
-			setroundsplayed(level.round_number);
+			else
+			{
+				setroundsplayed(level.round_number);
+			}
 		}
 
 		matchutctime = getutc();

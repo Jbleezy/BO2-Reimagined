@@ -20,6 +20,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm::init_client_flags, scripts\zm\replaced\_zm::init_client_flags);
 	replaceFunc(maps\mp\zombies\_zm::init_fx, scripts\zm\replaced\_zm::init_fx);
 	replaceFunc(maps\mp\zombies\_zm::round_start, scripts\zm\replaced\_zm::round_start);
+	replaceFunc(maps\mp\zombies\_zm::round_think, scripts\zm\replaced\_zm::round_think);
 	replaceFunc(maps\mp\zombies\_zm::round_spawn_failsafe, scripts\zm\replaced\_zm::round_spawn_failsafe);
 	replaceFunc(maps\mp\zombies\_zm::ai_calculate_health, scripts\zm\replaced\_zm::ai_calculate_health);
 	replaceFunc(maps\mp\zombies\_zm::onallplayersready, scripts\zm\replaced\_zm::onallplayersready);

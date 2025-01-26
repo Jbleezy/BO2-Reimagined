@@ -48,11 +48,6 @@ init()
 	precacheString(istring(toupper("ZMUI_" + level.scr_zm_ui_gametype_obj)));
 	precacheString(istring(toupper("ZMUI_" + level.scr_zm_ui_gametype_obj + "_PRO")));
 
-	setDvar("ui_scorelimit", 1);
-
-	setteamscore("axis", 0);
-	setteamscore("allies", 0);
-
 	grief_setscoreboardcolumns_gametype();
 	enemy_powerup_hud();
 	obj_waypoint();
@@ -85,7 +80,6 @@ init()
 	level thread grief_gamemode_name_hud();
 	level thread grief_intro_msg();
 	level thread round_start_wait(5, true);
-	level thread remove_round_number();
 	level thread unlimited_zombies();
 	level thread unlimited_powerups();
 	level thread save_teams_on_intermission();
@@ -323,6 +317,13 @@ set_grief_vars()
 	level.snr_round_number = 1;
 	setDvar("ui_round_number", level.snr_round_number);
 	makedvarserverinfo("ui_round_number");
+
+	setDvar("ui_scorelimit", 1);
+	setteamscore("axis", 0);
+	setteamscore("allies", 0);
+
+	level.highest_score = 0;
+	setroundsplayed(level.highest_score);
 
 	level.noroundnumber = 1;
 	level.hide_revive_message = 1;
@@ -2105,18 +2106,6 @@ unlimited_powerups()
 	}
 }
 
-remove_round_number()
-{
-	level endon("end_game");
-
-	while (1)
-	{
-		level waittill("start_of_round");
-
-		setroundsplayed(0);
-	}
-}
-
 save_teams_on_intermission()
 {
 	level waittill("intermission");
@@ -3010,6 +2999,18 @@ increment_score(team, amount = 1, show_lead_msg = true, score_msg)
 	}
 
 	setteamscore(team, level.grief_score[encounters_team]);
+
+	if (level.highest_score < level.grief_score[encounters_team] && level.highest_score < 255)
+	{
+		level.highest_score = level.grief_score[encounters_team];
+
+		if (level.highest_score > 255)
+		{
+			level.highest_score = 255;
+		}
+
+		setroundsplayed(level.highest_score);
+	}
 
 	if (level.grief_score[encounters_team] >= get_gamemode_winning_score())
 	{

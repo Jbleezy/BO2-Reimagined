@@ -148,7 +148,7 @@ CoD.RoundStatus.UpdateRoundsPlayed = function(RoundStatusWidget, ClientInstance)
 		ClientInstance.roundsPlayed = ClientInstance.data[1]
 	end
 
-	if RoundStatusWidget.gameType == CoD.Zombie.GAMETYPE_ZCLASSIC or RoundStatusWidget.gameType == CoD.Zombie.GAMETYPE_ZSTANDARD or RoundStatusWidget.gameType == CoD.Zombie.GAMETYPE_ZGRIEF then
+	if RoundStatusWidget.gameType == CoD.Zombie.GAMETYPE_ZCLASSIC or RoundStatusWidget.gameType == CoD.Zombie.GAMETYPE_ZSTANDARD then
 		if RoundStatusWidget.startRound == ClientInstance.roundsPlayed then
 			if ClientInstance.wasDemoJump == false and RoundStatusWidget.timebombOverride == false and CoD.Zombie.AllowRoundAnimation == 1 then
 				CoD.RoundStatus.ShowFirstRound(RoundStatusWidget, ClientInstance.roundsPlayed)
