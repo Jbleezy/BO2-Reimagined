@@ -238,7 +238,11 @@ time_bomb_detonation()
 	time_bomb_clears_global_data();
 	time_bomb_clears_player_data();
 
+	flag_clear("spawn_zombies");
+
 	wait 4;
+
+	flag_set("spawn_zombies");
 
 	_time_bomb_kill_all_active_enemies();
 	_time_bomb_revive_all_downed_players();
