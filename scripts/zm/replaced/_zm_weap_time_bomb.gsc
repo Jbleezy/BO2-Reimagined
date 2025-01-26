@@ -375,3 +375,38 @@ _time_bomb_revive_all_downed_players()
 		}
 	}
 }
+
+time_bomb_post_init()
+{
+	maps\mp\_visionset_mgr::vsmgr_register_info("overlay", "zombie_time_bomb_overlay", 12000, 200, 20, 0, ::time_bomb_overlay_lerp_thread);
+}
+
+time_bomb_overlay_lerp_thread()
+{
+	level endon("time_bomb_overlay_deactivated");
+	n_frames = 40;
+	n_change_per_frame = 1 / n_frames;
+
+	for (i = 0; i < n_frames; i++)
+	{
+		a_players = get_players();
+
+		for (j = 0; j < a_players.size; j++)
+		{
+			self maps\mp\_visionset_mgr::vsmgr_set_state_active(a_players[j], clamp(i * n_change_per_frame, 0, 1));
+		}
+
+		wait 0.05;
+	}
+
+	flag_wait("time_bomb_restore_done");
+
+	a_players = get_players();
+
+	for (j = 0; j < a_players.size; j++)
+	{
+		self maps\mp\_visionset_mgr::vsmgr_set_state_active(a_players[j], 0);
+	}
+
+	level thread _deactivate_lerp_thread();
+}
