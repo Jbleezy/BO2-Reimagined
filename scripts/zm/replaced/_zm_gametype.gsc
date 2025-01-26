@@ -400,7 +400,7 @@ menu_onmenuresponse()
 
 do_team_change()
 {
-	if (!level.allow_teamchange)
+	if (level.allow_teamchange == "0")
 	{
 		teamplayers = get_players(self.pers["team"]).size;
 		otherteamplayers = get_players(getotherteam(self.pers["team"])).size;

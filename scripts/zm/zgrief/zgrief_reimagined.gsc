@@ -297,15 +297,15 @@ set_grief_vars()
 	{
 		if (isDedicated())
 		{
-			setDvar("ui_allow_teamchange", 0);
+			setDvar("ui_allow_teamchange", "0");
 		}
 		else
 		{
-			setDvar("ui_allow_teamchange", 1);
+			setDvar("ui_allow_teamchange", "1");
 		}
 	}
 
-	level.allow_teamchange = getDvarInt("ui_allow_teamchange");
+	level.allow_teamchange = getDvar("ui_allow_teamchange");
 
 	if (getDvarInt("party_minplayers") < 2)
 	{
@@ -2110,7 +2110,7 @@ save_teams_on_intermission()
 {
 	level waittill("intermission");
 
-	if (level.allow_teamchange)
+	if (level.allow_teamchange == "1")
 	{
 		return;
 	}

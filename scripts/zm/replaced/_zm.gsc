@@ -903,7 +903,7 @@ fade_out_intro_screen_zm(hold_black_time, fade_out_time, destroyed_afterwards)
 
 	flag_set("hud_visible");
 
-	if (isDedicated() || level.allow_teamchange)
+	if (isDedicated() || level.allow_teamchange == "1")
 	{
 		flag_init("all_players_ready");
 
@@ -1013,7 +1013,7 @@ pregame_think()
 	ready_up_start_time = undefined;
 	ready_up_start_players = undefined;
 
-	if (isDedicated() && !level.allow_teamchange)
+	if (isDedicated() && level.allow_teamchange == "0")
 	{
 		ready_up_time = 60;
 	}
@@ -1220,7 +1220,7 @@ get_number_of_ready_players()
 
 check_for_team_change()
 {
-	if (level.allow_teamchange)
+	if (level.allow_teamchange == "1")
 	{
 		return;
 	}
