@@ -417,7 +417,7 @@ create_map_image_hud(image, x, y)
 	hud.aligny = "middle";
 	hud.sort = -1;
 	hud.foreground = 1;
-	hud.alpha = 1;
+	hud.alpha = 0.7;
 	hud setShader(image, 180, 100);
 
 	return hud;
@@ -527,7 +527,7 @@ create_map_select_hud(x, y)
 	hud.alignx = "center";
 	hud.aligny = "middle";
 	hud.foreground = 1;
-	hud.alpha = 1;
+	hud.alpha = 0.7;
 	hud setShader("menu_zm_popup", 180, 100);
 
 	return hud;
