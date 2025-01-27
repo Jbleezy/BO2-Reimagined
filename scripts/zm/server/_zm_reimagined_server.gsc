@@ -169,35 +169,35 @@ random_map_rotation()
 		return;
 	}
 
-	string = getDvar("sv_mapRotation");
-	array = rotation_string_to_array(string);
+	map_rotation_string = getDvar("sv_mapRotation");
+	map_rotation_array = rotation_string_to_array(map_rotation_string);
 
-	if (array.size < 2)
+	if (map_rotation_array.size < 2)
 	{
 		return;
 	}
 
 	// randomize maps
-	array = array_randomize(array);
+	map_rotation_array = array_randomize(map_rotation_array);
 
 	// make sure current map isn't first
 	// except for initially since map hasn't been played
 	if (!initial_map)
 	{
-		location = get_location_from_rotation(array[0]);
-		map = get_map_from_rotation(array[0]);
+		location = get_location_from_rotation(map_rotation_array[0]);
+		map = get_map_from_rotation(map_rotation_array[0]);
 
 		if (level.scr_zm_map_start_location == location && level.script == map)
 		{
-			num = randomIntRange(1, array.size);
-			array = array_swap(array, 0, num);
+			num = randomIntRange(1, map_rotation_array.size);
+			map_rotation_array = array_swap(map_rotation_array, 0, num);
 		}
 	}
 
-	string = rotation_array_to_string(array);
+	map_rotation_string = rotation_array_to_string(map_rotation_array);
 
-	setDvar("sv_mapRotation", string);
-	setDvar("sv_mapRotationCurrent", string);
+	setDvar("sv_mapRotation", map_rotation_string);
+	setDvar("sv_mapRotationCurrent", map_rotation_string);
 
 	// make initial map random
 	if (initial_map)
@@ -210,31 +210,23 @@ map_vote()
 {
 	level waittill("intermission");
 
-	level.zombie_vars["map_vote_active"] = 0;
-	array = array_randomize(rotation_string_to_array(getDvar("sv_mapRotation")));
+	map_rotation_array = array_randomize(rotation_string_to_array(getDvar("sv_mapRotation")));
 
-	if (array.size >= 3)
+	if (map_rotation_array.size < 3)
 	{
-		level.zombie_vars["map_vote_active"] = 1;
+		return;
 	}
 
-	level.zombie_vars["obj_vote_active"] = 0;
-	obj_array = [];
+	gametype_rotation_array = [];
 
 	if (is_gametype_active("zgrief"))
 	{
-		obj_array = array_randomize(strTok(getDvar("sv_gametypeRotation"), " "));
+		gametype_rotation_array = array_randomize(strTok(getDvar("sv_gametypeRotation"), " "));
 
-		if (obj_array.size >= 3)
+		if (gametype_rotation_array.size < 1)
 		{
-			level.zombie_vars["obj_vote_active"] = 1;
-			arrayRemoveValue(obj_array, level.scr_zm_ui_gametype_obj);
+			gametype_rotation_array = array(level.scr_zm_ui_gametype_obj);
 		}
-	}
-
-	if (!level.zombie_vars["map_vote_active"] && !level.zombie_vars["obj_vote_active"])
-	{
-		return;
 	}
 
 	time = level.zombie_vars["zombie_intermission_time"];
@@ -249,24 +241,25 @@ map_vote()
 
 	gametype = getSubStr(level.scr_zm_ui_gametype, 1, level.scr_zm_ui_gametype.size);
 
-	maps[1]["rotation_string"] = "exec zm_" + gametype + "_" + level.scr_zm_map_start_location + ".cfg map " + level.script;
+	maps[1]["rotation_string"] = "execgts zm_" + gametype + "_" + level.scr_zm_map_start_location + ".cfg map " + level.script;
 	maps[1]["map_name"] = level.script;
 	maps[1]["loc_name"] = level.scr_zm_map_start_location;
 	maps[1]["gametype_name"] = level.scr_zm_ui_gametype;
 
-	if (level.zombie_vars["obj_vote_active"])
+	if (is_gametype_active("zgrief"))
 	{
-		maps[1]["obj_name"] = level.scr_zm_ui_gametype_obj;
+		maps[1]["gametype_name"] = level.scr_zm_ui_gametype_obj;
 	}
 
 	exclude[exclude.size] = maps[1]["loc_name"];
 
 	rotation = undefined;
 
-	foreach (rotation in array)
+	foreach (map_rotation in map_rotation_array)
 	{
-		if (!isInArray(exclude, get_location_from_rotation(rotation)))
+		if (!isInArray(exclude, get_location_from_rotation(map_rotation)))
 		{
+			rotation = map_rotation;
 			break;
 		}
 	}
@@ -276,19 +269,20 @@ map_vote()
 	maps[0]["loc_name"] = get_location_from_rotation(rotation);
 	maps[0]["gametype_name"] = "z" + get_gametype_from_rotation(rotation);
 
-	if (level.zombie_vars["obj_vote_active"])
+	if (is_gametype_active("zgrief"))
 	{
-		maps[0]["obj_name"] = obj_array[0];
+		maps[0]["gametype_name"] = random(gametype_rotation_array);
 	}
 
 	exclude[exclude.size] = maps[0]["loc_name"];
 
 	rotation = undefined;
 
-	foreach (rotation in array)
+	foreach (map_rotation in map_rotation_array)
 	{
-		if (!isInArray(exclude, get_location_from_rotation(rotation)))
+		if (!isInArray(exclude, get_location_from_rotation(map_rotation)))
 		{
+			rotation = map_rotation;
 			break;
 		}
 	}
@@ -298,27 +292,19 @@ map_vote()
 	maps[2]["loc_name"] = get_location_from_rotation(rotation);
 	maps[2]["gametype_name"] = "z" + get_gametype_from_rotation(rotation);
 
-	if (level.zombie_vars["obj_vote_active"])
+	if (is_gametype_active("zgrief"))
 	{
-		maps[2]["obj_name"] = obj_array[1];
+		maps[2]["gametype_name"] = random(gametype_rotation_array);
 	}
 
-	y = -102.5;
-
-	level.zombie_vars["vote_timer_hud"] = create_map_vote_timer_hud(0, y, time);
-
-	y += 12.5;
-
-	level.zombie_vars["vote_input_hud"] = create_map_vote_input_hud(0, y);
-
-	y = 70;
+	y = 87;
 
 	if (is_gametype_active("zgrief"))
 	{
-		y = 150;
+		y += 81;
 	}
 
-	og_y = y;
+	level.zombie_vars["vote_timer_hud"] = create_map_vote_timer_hud(0, y - 58, time);
 
 	level.zombie_vars["map_image_hud"] = [];
 	level.zombie_vars["map_image_hud"][0] = create_map_image_hud(get_image_for_loc(maps[0]["map_name"], maps[0]["loc_name"], maps[0]["gametype_name"]), -200, y);
@@ -330,42 +316,24 @@ map_vote()
 	level.zombie_vars["map_name_hud"][1] = create_map_name_hud(get_name_for_loc(maps[1]["map_name"], maps[1]["loc_name"], maps[1]["gametype_name"]), 0, y);
 	level.zombie_vars["map_name_hud"][2] = create_map_name_hud(get_name_for_loc(maps[2]["map_name"], maps[2]["loc_name"], maps[2]["gametype_name"]), 200, y);
 
-	y += 20;
+	level.zombie_vars["gametype_name_hud"] = [];
+	level.zombie_vars["gametype_name_hud"][0] = create_gametype_name_hud(get_name_for_gametype(maps[0]["gametype_name"]), -200, y + 16);
+	level.zombie_vars["gametype_name_hud"][1] = create_gametype_name_hud(get_name_for_gametype(maps[1]["gametype_name"]), 0, y + 16);
+	level.zombie_vars["gametype_name_hud"][2] = create_gametype_name_hud(get_name_for_gametype(maps[2]["gametype_name"]), 200, y + 16);
 
 	level.zombie_vars["map_vote_count_hud"] = [];
-	level.zombie_vars["map_vote_count_hud"][0] = create_map_vote_count_hud(-200, y);
-	level.zombie_vars["map_vote_count_hud"][1] = create_map_vote_count_hud(0, y);
-	level.zombie_vars["map_vote_count_hud"][2] = create_map_vote_count_hud(200, y);
+	level.zombie_vars["map_vote_count_hud"][0] = create_map_vote_count_hud(-200, y + 30);
+	level.zombie_vars["map_vote_count_hud"][1] = create_map_vote_count_hud(0, y + 30);
+	level.zombie_vars["map_vote_count_hud"][2] = create_map_vote_count_hud(200, y + 30);
+
+	level.zombie_vars["vote_input_hud"] = create_map_vote_input_hud(0, y + 52);
 
 	level.zombie_vars["map_votes"] = [];
 	level.zombie_vars["map_votes"][0] = 0;
 	level.zombie_vars["map_votes"][1] = 0;
 	level.zombie_vars["map_votes"][2] = 0;
 
-	level.zombie_vars["obj_name_hud"] = [];
-	level.zombie_vars["obj_vote_count_hud"] = [];
-	level.zombie_vars["obj_votes"] = [];
-
-	if (level.zombie_vars["obj_vote_active"])
-	{
-		y = 207;
-
-		level.zombie_vars["obj_name_hud"][0] = create_map_gametype_hud([[level.get_gamemode_display_name_func]](maps[0]["obj_name"]), -200, y);
-		level.zombie_vars["obj_name_hud"][1] = create_map_gametype_hud([[level.get_gamemode_display_name_func]](maps[1]["obj_name"]), 0, y);
-		level.zombie_vars["obj_name_hud"][2] = create_map_gametype_hud([[level.get_gamemode_display_name_func]](maps[2]["obj_name"]), 200, y);
-
-		y += 20;
-
-		level.zombie_vars["obj_vote_count_hud"][0] = create_map_vote_count_hud(-200, y);
-		level.zombie_vars["obj_vote_count_hud"][1] = create_map_vote_count_hud(0, y);
-		level.zombie_vars["obj_vote_count_hud"][2] = create_map_vote_count_hud(200, y);
-
-		level.zombie_vars["obj_votes"][0] = 0;
-		level.zombie_vars["obj_votes"][1] = 0;
-		level.zombie_vars["obj_votes"][2] = 0;
-	}
-
-	array_thread(get_players(), ::player_choose_map, og_y);
+	array_thread(get_players(), ::player_choose_map, y);
 
 	wait time;
 
@@ -381,6 +349,7 @@ map_vote()
 		{
 			level.zombie_vars["map_image_hud"][i].alpha = 0;
 			level.zombie_vars["map_name_hud"][i].alpha = 0;
+			level.zombie_vars["gametype_name_hud"][i].alpha = 0;
 			level.zombie_vars["map_vote_count_hud"][i].alpha = 0;
 		}
 	}
@@ -389,10 +358,12 @@ map_vote()
 	{
 		level.zombie_vars["map_image_hud"][index] moveOverTime(0.5);
 		level.zombie_vars["map_name_hud"][index] moveOverTime(0.5);
+		level.zombie_vars["gametype_name_hud"][index] moveOverTime(0.5);
 		level.zombie_vars["map_vote_count_hud"][index] moveOverTime(0.5);
 
 		level.zombie_vars["map_image_hud"][index].x = 0;
 		level.zombie_vars["map_name_hud"][index].x = 0;
+		level.zombie_vars["gametype_name_hud"][index].x = 0;
 		level.zombie_vars["map_vote_count_hud"][index].x = 0;
 	}
 
@@ -422,68 +393,17 @@ map_vote()
 		}
 	}
 
-	setDvar("sv_mapRotationCurrent", maps[index]["rotation_string"]);
-
-	if (level.zombie_vars["obj_vote_active"])
-	{
-		index = get_obj_winner();
-
-		for (i = 0; i < 3; i++)
-		{
-			if (i != index)
-			{
-				level.zombie_vars["obj_name_hud"][i].alpha = 0;
-				level.zombie_vars["obj_vote_count_hud"][i].alpha = 0;
-			}
-		}
-
-		if (index != 1)
-		{
-			level.zombie_vars["obj_name_hud"][index] moveOverTime(0.5);
-			level.zombie_vars["obj_vote_count_hud"][index] moveOverTime(0.5);
-
-			level.zombie_vars["obj_name_hud"][index].x = 0;
-			level.zombie_vars["obj_vote_count_hud"][index].x = 0;
-		}
-
-		foreach (player in players)
-		{
-			if (!isdefined(player.obj_select))
-			{
-				continue;
-			}
-
-			for (i = 0; i < 3; i++)
-			{
-				if (i != index)
-				{
-					player.obj_select.hud[i].alpha = 0;
-				}
-				else
-				{
-					player.obj_select.hud[i].color = (1, 1, 1);
-				}
-			}
-
-			if (index != 1)
-			{
-				player.obj_select.hud[index] moveOverTime(0.5);
-				player.obj_select.hud[index].x = 0;
-			}
-		}
-
-		level thread wait_and_set_dvar(1.5, "ui_gametype_obj", maps[index]["obj_name"]);
-	}
-
 	level.zombie_vars["vote_input_hud"].alpha = 0;
 	level.zombie_vars["vote_timer_hud"].alpha = 0;
-}
 
-wait_and_set_dvar(time, dvar, value)
-{
-	wait time;
+	wait 1.5;
 
-	setDvar(dvar, value);
+	setDvar("sv_mapRotationCurrent", maps[index]["rotation_string"]);
+
+	if (is_gametype_active("zgrief"))
+	{
+		setDvar("ui_gametype_obj", maps[index]["gametype_name"]);
+	}
 }
 
 create_map_image_hud(image, x, y)
@@ -498,7 +418,7 @@ create_map_image_hud(image, x, y)
 	hud.sort = -1;
 	hud.foreground = 1;
 	hud.alpha = 1;
-	hud setShader(image, 180, 95);
+	hud setShader(image, 180, 100);
 
 	return hud;
 }
@@ -522,7 +442,7 @@ create_map_name_hud(name, x, y)
 	return hud;
 }
 
-create_map_gametype_hud(name, x, y)
+create_gametype_name_hud(name, x, y)
 {
 	hud = newHudElem();
 	hud.x = x;
@@ -601,30 +521,14 @@ create_map_select_hud(x, y)
 {
 	hud = newClientHudElem(self);
 	hud.x = x;
-	hud.y = y + 2.5;
+	hud.y = y;
 	hud.horzalign = "center";
 	hud.vertalign = "middle";
 	hud.alignx = "center";
 	hud.aligny = "middle";
 	hud.foreground = 1;
 	hud.alpha = 1;
-	hud setShader("menu_zm_popup", 180, 95);
-
-	return hud;
-}
-
-create_obj_select_hud(x, y)
-{
-	hud = newClientHudElem(self);
-	hud.x = x;
-	hud.y = y + 2.5;
-	hud.horzalign = "center";
-	hud.vertalign = "middle";
-	hud.alignx = "center";
-	hud.aligny = "middle";
-	hud.foreground = 1;
-	hud.alpha = 1;
-	hud setShader("menu_zm_popup", 180, 40);
+	hud setShader("menu_zm_popup", 180, 100);
 
 	return hud;
 }
@@ -636,24 +540,11 @@ player_choose_map(y)
 	self.map_select = spawnStruct();
 	self.map_select.ind = 1;
 	self.map_select.selected = 0;
-	self.map_select.name = "map";
 	self.map_select.hud = [];
 	self.map_select.hud[0] = self create_map_select_hud(-200, y);
 	self.map_select.hud[1] = self create_map_select_hud(0, y);
 	self.map_select.hud[2] = self create_map_select_hud(200, y);
 	self.map_select.hud[self.map_select.ind].color = (1, 1, 0);
-
-	if (level.zombie_vars["obj_vote_active"])
-	{
-		self.obj_select = spawnStruct();
-		self.obj_select.ind = 1;
-		self.obj_select.selected = 0;
-		self.obj_select.name = "obj";
-		self.obj_select.hud = [];
-		self.obj_select.hud[0] = self create_obj_select_hud(-200, y + 65);
-		self.obj_select.hud[1] = self create_obj_select_hud(0, y + 65);
-		self.obj_select.hud[2] = self create_obj_select_hud(200, y + 65);
-	}
 
 	self notifyonplayercommand("left", "+speed_throw");
 	self notifyonplayercommand("left", "+moveleft");
@@ -670,11 +561,6 @@ player_choose_map(y)
 	level waittill("stop_vote");
 
 	self.map_select.hud destroy();
-
-	if (isdefined(self.obj_select))
-	{
-		self.obj_select.hud destroy();
-	}
 }
 
 left_watcher()
@@ -758,21 +644,8 @@ select_watcher()
 			select.selected = 1;
 			select.hud[select.ind].color = (0, 1, 0);
 
-			if (select.name == "map")
-			{
-				level.zombie_vars["map_votes"][select.ind]++;
-				level.zombie_vars["map_vote_count_hud"][select.ind] setValue(level.zombie_vars["map_votes"][select.ind]);
-
-				if (isdefined(self.obj_select))
-				{
-					self.obj_select.hud[self.obj_select.ind].color = (1, 1, 0);
-				}
-			}
-			else
-			{
-				level.zombie_vars["obj_votes"][select.ind]++;
-				level.zombie_vars["obj_vote_count_hud"][select.ind] setValue(level.zombie_vars["obj_votes"][select.ind]);
-			}
+			level.zombie_vars["map_votes"][select.ind]++;
+			level.zombie_vars["map_vote_count_hud"][select.ind] setValue(level.zombie_vars["map_votes"][select.ind]);
 		}
 	}
 }
@@ -781,16 +654,6 @@ get_player_select()
 {
 	if (self.map_select.selected)
 	{
-		if (isdefined(self.obj_select))
-		{
-			if (self.obj_select.selected)
-			{
-				return undefined;
-			}
-
-			return self.obj_select;
-		}
-
 		return undefined;
 	}
 
@@ -814,31 +677,6 @@ get_map_winner()
 			winner[winner.size] = i;
 		}
 		else if (level.zombie_vars["map_votes"][i] > level.zombie_vars["map_votes"][winner[0]])
-		{
-			winner = array(i);
-		}
-	}
-
-	return random(winner);
-}
-
-get_obj_winner()
-{
-	// if no one voted, stay on current obj
-	if (level.zombie_vars["obj_votes"][0] == 0 && level.zombie_vars["obj_votes"][1] == 0 && level.zombie_vars["obj_votes"][2] == 0)
-	{
-		return 1;
-	}
-
-	winner = array(0);
-
-	for (i = 1; i < 3; i++)
-	{
-		if (level.zombie_vars["obj_votes"][i] == level.zombie_vars["obj_votes"][winner[0]])
-		{
-			winner[winner.size] = i;
-		}
-		else if (level.zombie_vars["obj_votes"][i] > level.zombie_vars["obj_votes"][winner[0]])
 		{
 			winner = array(i);
 		}
@@ -921,7 +759,25 @@ get_name_for_loc(map, location, gametype)
 		return &"ZMUI_CLASSIC_TOMB";
 	}
 
-	return "";
+	return &"";
+}
+
+get_name_for_gametype(gametype)
+{
+	if (gametype == "zclassic")
+	{
+		return &"ZMUI_ZCLASSIC_GAMEMODE";
+	}
+	else if (gametype == "zstandard")
+	{
+		return &"ZMUI_ZSTANDARD";
+	}
+	else if (isdefined(level.get_gamemode_display_name_func))
+	{
+		return [[level.get_gamemode_display_name_func]](gametype);
+	}
+
+	return &"";
 }
 
 get_image_for_loc(map, location, gametype)
