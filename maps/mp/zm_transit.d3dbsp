@@ -26731,7 +26731,7 @@
 "script_noteworthy" "tunnel_chest"
 "targetname" "treasure_chest_use"
 "angles" "0 89 0"
-"origin" "-10803 -1897 209"
+"origin" "-10803 -1897 208"
 "guid" "4A436038"
 }
 {
@@ -26757,7 +26757,7 @@
 "barrieranimtime" "0"
 "angles" "0 89 0"
 "type" "zmcore_MagicBox"
-"origin" "-10803 -1897 209"
+"origin" "-10803 -1897 208"
 "script_noteworthy" "tunnel_chest_zbarrier"
 "guid" "C82823B1"
 }
@@ -26767,7 +26767,7 @@
 "script_noteworthy" "cornfield_chest"
 "targetname" "treasure_chest_use"
 "angles" "0 180 0"
-"origin" "13337 72 -176"
+"origin" "13337 72 -179"
 "guid" "4A436037"
 }
 {
@@ -26793,7 +26793,7 @@
 "barrieranimtime" "0"
 "angles" "0 180 0"
 "type" "zmcore_MagicBox"
-"origin" "13337 72 -176"
+"origin" "13337 72 -179"
 "script_noteworthy" "cornfield_chest_zbarrier"
 "guid" "C82823B2"
 }

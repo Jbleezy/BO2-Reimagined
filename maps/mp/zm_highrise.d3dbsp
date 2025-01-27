@@ -25357,7 +25357,7 @@
 "model" "p_glo_cardboardboxshortclosed_1"
 }
 {
-"origin" "2286 2067 3053"
+"origin" "2286 2067 3052"
 "angles" "0 90 0"
 "targetname" "treasure_chest_use"
 "zombie_cost" "950"
@@ -25366,7 +25366,7 @@
 "guid" "871F4144"
 }
 {
-"origin" "2286 2067 3053"
+"origin" "2286 2067 3052"
 "script_noteworthy" "gb1_chest_zbarrier"
 "type" "zmcore_MagicBox"
 "angles" "0 90 0"
@@ -25465,7 +25465,7 @@
 "guid" "E50C8A7B"
 }
 {
-"origin" "2406 -210 1309"
+"origin" "2406 -210 1308"
 "angles" "0 150 0"
 "targetname" "treasure_chest_use"
 "zombie_cost" "950"
@@ -25474,7 +25474,7 @@
 "guid" "871F4145"
 }
 {
-"origin" "2406 -210 1309"
+"origin" "2406 -210 1308"
 "script_noteworthy" "blue_level4_chest_zbarrier"
 "type" "zmcore_MagicBox"
 "angles" "0 150 0"
@@ -25510,7 +25510,7 @@
 "guid" "871F4146"
 }
 {
-"origin" "2793 1867 1542"
+"origin" "2793 1867 1543"
 "script_noteworthy" "orange_level3_chest_zbarrier"
 "type" "zmcore_MagicBox"
 "angles" "-12 0 180"

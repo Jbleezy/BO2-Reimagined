@@ -372,12 +372,12 @@ spawn_mystery_box_blocks_and_collision()
 		return;
 	}
 
-	precacheModel("p_glo_cinder_block");
+	precacheModel("p_glo_cinder_block_big");
 
 	foreach (chest in chests_to_spawn_ents)
 	{
 		// spawn cinder blocks
-		for (i = 0; i < 8; i++)
+		for (i = 0; i < 4; i++)
 		{
 			block = spawn("script_model", chest.zbarrier.origin);
 			block.angles = chest.zbarrier.angles + (0, 90, 0);
@@ -389,17 +389,8 @@ spawn_mystery_box_blocks_and_collision()
 			}
 
 			block.origin += anglesToRight(chest.zbarrier.angles) * -5;
-			block.origin += anglesToForward(chest.zbarrier.angles) * (37.5 + (i % 4 * -25));
-
-			if (i >= 4)
-			{
-				block.origin += anglesToUp(chest.zbarrier.angles) * -12;
-				block.angles += (0, 0, 90);
-			}
-			else
-			{
-				block.origin += anglesToUp(chest.zbarrier.angles) * -4;
-			}
+			block.origin += anglesToForward(chest.zbarrier.angles) * (35 + (i % 4 * -25));
+			block.origin += anglesToUp(chest.zbarrier.angles) * -6;
 
 			if (i % 4 == 0)
 			{
@@ -439,7 +430,7 @@ spawn_mystery_box_blocks_and_collision()
 				}
 			}
 
-			block setModel("p_glo_cinder_block");
+			block setModel("p_glo_cinder_block_big");
 		}
 
 		// spawn collision
