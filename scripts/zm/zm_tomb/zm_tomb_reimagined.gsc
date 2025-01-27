@@ -112,6 +112,7 @@ init()
 
 	register_melee_weapons_for_level();
 	spawn_custom_perk_machine_pipes();
+	move_additionalprimaryweapon_machine();
 	change_stargate_teleport_return_player_angles();
 
 	level thread divetonuke_on();
@@ -210,6 +211,50 @@ spawn_custom_perk_machine_pipes()
 		model = spawn("script_model", origin + anglestoforward(angles) * origin_offset[0] + anglestoright(angles) * origin_offset[1] + anglestoup(angles) * origin_offset[2]);
 		model.angles = angles + angles_offset;
 		model setmodel("p6_zm_tm_vending_pipes");
+	}
+}
+
+move_additionalprimaryweapon_machine()
+{
+	if (!is_gametype_active("zclassic"))
+	{
+		return;
+	}
+
+	trigs = getentarray("vending_additionalprimaryweapon", "target");
+
+	if (!isdefined(trigs))
+	{
+		return;
+	}
+
+	foreach (trig in trigs)
+	{
+		if (isdefined(trig.machine))
+		{
+			for (i = 0; i < 3; i++)
+			{
+				model = spawn("script_model", trig.machine.origin + anglestoright(trig.clip.angles) * -12 + anglestoup(trig.clip.angles) * (i * 2));
+				model.angles = trig.machine.angles;
+				model setmodel("p6_zm_tm_wood_plank_rustic_2x12_96");
+			}
+
+			for (i = 0; i < 3; i++)
+			{
+				model = spawn("script_model", trig.machine.origin + anglestoright(trig.clip.angles) * 0 + anglestoup(trig.clip.angles) * (i * 2));
+				model.angles = trig.machine.angles;
+				model setmodel("p6_zm_tm_wood_plank_rustic_2x12_96");
+			}
+
+			for (i = 0; i < 3; i++)
+			{
+				model = spawn("script_model", trig.machine.origin + anglestoright(trig.clip.angles) * 12 + anglestoup(trig.clip.angles) * (i * 2));
+				model.angles = trig.machine.angles;
+				model setmodel("p6_zm_tm_wood_plank_rustic_2x12_96");
+			}
+
+			trig.machine.origin += anglestoup(trig.clip.angles) * 5;
+		}
 	}
 }
 

@@ -841,6 +841,7 @@
 * Added additional weapon indicator
 * Additional weapon is given back when perk is reacquired
 * Stowed weapons automatically reload over time
+* Removed bottom part of perk machine model
 
 ### Tombstone Soda
 * Added in solo and Grief
