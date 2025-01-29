@@ -6140,7 +6140,7 @@
 "target" "pf1527_auto66"
 "targetname" "pf1527_auto65"
 "script_location" "1"
-"origin" "2757.29 -679.128 2688"
+"origin" "2757.29 -679.128 2696"
 "model" "p6_anim_zm_hr_elevator_common"
 "classname" "script_struct"
 "guid" "F65682F0"
@@ -6178,7 +6178,7 @@
 {
 "angles" "0 240 0"
 "script_location" "1"
-"origin" "2389.75 -777.751 2688"
+"origin" "2389.75 -777.751 2696"
 "model" "p6_anim_zm_hr_elevator_common"
 "classname" "script_struct"
 "targetname" "pf1531_auto66"

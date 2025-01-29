@@ -1178,6 +1178,7 @@
 * Zombies no longer fall off the map when traversing down to the Green Rooftop Level 1A zone
 * Leapers no longer fall off the map when traversing up to the Escape Pod Ground zone
 * Fixed weapon model angle on upside down Mystery Box
+* Fixed height of the elevators in the Blue Rooftop Level 1A zone
 * Fixed zombies spawning in the elevator below the Green Rooftop Level 3B zone when in the Green Rooftop Level 3B zone
 * Fixed zombies not bleeding out in the Green Rooftop Level 1B zone when the debris is closed and there are no players in the zone
 * Fixed Who's Who vision filter showing momentarily when the game ended
