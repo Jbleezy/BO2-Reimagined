@@ -5821,7 +5821,7 @@
 {
 "classname" "script_struct"
 "angles" "0 240 0"
-"origin" "2718.97 -657.003 1288.5"
+"origin" "2706.97 -651.003 1288.5"
 "targetname" "pf1527_auto60"
 "target" "pf1527_auto64"
 "guid" "520210FF"
@@ -5829,7 +5829,7 @@
 {
 "classname" "script_model"
 "angles" "0 240 0"
-"origin" "2718.97 -657.003 1304.5"
+"origin" "2706.97 -651.003 1304.5"
 "targetname" "pf1527_auto64"
 "model" "tag_origin"
 "guid" "A6297251"
@@ -5837,7 +5837,7 @@
 {
 "classname" "script_struct"
 "angles" "0 240 0"
-"origin" "2718.97 -657.003 1296.5"
+"origin" "2706.97 -651.003 1296.5"
 "script_noteworthy" "zm_random_machine"
 "target" "pf1527_auto60"
 "script_parameters" "bldg3b"
