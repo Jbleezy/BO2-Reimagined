@@ -364,3 +364,56 @@ droppowerup(story)
 		wait(randomintrange(mintime, maxtime));
 	}
 }
+
+droppoweruptemptation(story, origin)
+{
+	powerup = spawn("script_model", origin);
+	powerup endon("powerup_grabbed");
+	powerup endon("powerup_timedout");
+	temptation_array = array("insta_kill", "nuke", "double_points", "fire_sale");
+	temptation_index = 0;
+	first_time = 1;
+	rotation = 0;
+	temptation_array = array_randomize(temptation_array);
+
+	while (isdefined(powerup))
+	{
+		powerup maps\mp\zombies\_zm_powerups::powerup_setup(temptation_array[temptation_index]);
+
+		if (first_time)
+		{
+			powerup thread maps\mp\zombies\_zm_powerups::powerup_timeout();
+			powerup thread maps\mp\zombies\_zm_powerups::powerup_wobble();
+			powerup thread maps\mp\zombies\_zm_powerups::powerup_grab();
+			first_time = 0;
+		}
+
+		if (rotation == 0)
+		{
+			wait 15.0;
+			rotation++;
+		}
+		else if (rotation == 1)
+		{
+			wait 7.5;
+			rotation++;
+		}
+		else if (rotation == 2)
+		{
+			wait 2.5;
+			rotation++;
+		}
+		else
+		{
+			wait 1.5;
+			rotation++;
+		}
+
+		temptation_index++;
+
+		if (temptation_index >= temptation_array.size)
+		{
+			temptation_index = 0;
+		}
+	}
+}
