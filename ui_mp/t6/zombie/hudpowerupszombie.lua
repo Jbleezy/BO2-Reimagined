@@ -67,7 +67,7 @@ LUI.createMenu.PowerUpsArea = function(LocalClientIndex)
 	PowerupsAreaWidget:setOwner(LocalClientIndex)
 	PowerupsAreaWidget.scaleContainer = CoD.SplitscreenScaler.new(nil, CoD.Zombie.SplitscreenMultiplier)
 	PowerupsAreaWidget.scaleContainer:setLeftRight(false, false, 0, 0)
-	PowerupsAreaWidget.scaleContainer:setTopBottom(false, true, 0, 0)
+	PowerupsAreaWidget.scaleContainer:setTopBottom(false, true, -CoD.PowerUps.Spacing / 2, -CoD.PowerUps.Spacing / 2)
 	PowerupsAreaWidget:addElement(PowerupsAreaWidget.scaleContainer)
 	local f1_local1 = CoD.PowerUps.IconSize * 0.5
 	local f1_local2 = CoD.PowerUps.IconSize + CoD.PowerUps.UpgradeIconSize + 10
