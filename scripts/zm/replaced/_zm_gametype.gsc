@@ -405,7 +405,7 @@ do_team_change()
 		teamplayers = get_players(self.pers["team"]).size;
 		otherteamplayers = get_players(getotherteam(self.pers["team"])).size;
 
-		if (teamplayers - 1 <= otherteamplayers)
+		if (teamplayers <= otherteamplayers)
 		{
 			self iprintln(&"ZOMBIE_ONLY_CHANGE_TEAMS_UNBALANCED");
 			return;
