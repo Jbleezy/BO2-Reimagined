@@ -381,6 +381,8 @@ CoD.PowerUps.UpdatePosition = function(Menu, ClientInstance)
 			PowerUpWidget:beginAnimation("move", CoD.PowerUps.MOVING_DURATION)
 			PowerUpWidget:setLeftRight(false, false, f13_local1, f13_local2)
 			f13_local3 = f13_local1
+		else
+			PowerUpWidget:setLeftRight(false, false, -(CoD.PowerUps.IconSize * 0.5), -(CoD.PowerUps.IconSize * 0.5) + CoD.PowerUps.IconSize)
 		end
 	end
 end
@@ -402,6 +404,8 @@ CoD.PowerUps.EnemyUpdatePosition = function(Menu, ClientInstance)
 			PowerUpWidget:beginAnimation("move", CoD.PowerUps.MOVING_DURATION)
 			PowerUpWidget:setLeftRight(false, false, f13_local1, f13_local2)
 			f13_local3 = f13_local1
+		else
+			PowerUpWidget:setLeftRight(false, false, -(CoD.PowerUps.IconSize * 0.5), -(CoD.PowerUps.IconSize * 0.5) + CoD.PowerUps.IconSize)
 		end
 	end
 end
