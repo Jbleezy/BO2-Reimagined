@@ -284,12 +284,6 @@ CoD.PrivateGameLobby.PopulateButtons_Project_Zombie = function(PrivateGameLobbyB
 		Dvar.party_maxplayers:set(1)
 	end
 
-	if UIExpression.DvarString(nil, "ui_gametype") == CoD.Zombie.GAMETYPE_ZGRIEF then
-		Engine.SetGametypeSetting("allowInGameTeamChange", 1)
-	else
-		Engine.SetGametypeSetting("allowInGameTeamChange", 0)
-	end
-
 	if IsHost == true then
 		PrivateGameLobbyButtonPane.body.changeMapButton = PrivateGameLobbyButtonPane.body.buttonList:addButton(Engine.Localize("ZMUI_MAP_CAPS"))
 		PrivateGameLobbyButtonPane.body.changeMapButton.hintText = Engine.Localize("ZMUI_MAP_SELECTION_DESC")
