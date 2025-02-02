@@ -2790,83 +2790,7 @@ containment_time_hud_countdown(time)
 
 meat_init()
 {
-	level._powerup_timeout_custom_time = ::meat_powerup_custom_time;
-
-	level thread meat_powerup_drop_think();
 	level thread meat_think();
-}
-
-meat_powerup_drop_think()
-{
-	level endon("end_game");
-
-	level thread meat_powerup_drop_watcher();
-
-	level waittill("restart_round_start");
-
-	wait 10;
-
-	players = get_players();
-
-	foreach (player in players)
-	{
-		player thread show_grief_hud_msg(&"ZOMBIE_KILL_ZOMBIE_DROP_MEAT");
-	}
-
-	while (1)
-	{
-		level.zombie_powerup_ape = "meat_stink";
-		level.zombie_vars["zombie_drop_item"] = 1;
-
-		level waittill("powerup_dropped", powerup);
-
-		if (powerup.powerup_name != "meat_stink")
-		{
-			continue;
-		}
-
-		players = get_players();
-
-		foreach (player in players)
-		{
-			player thread show_grief_hud_msg(&"ZOMBIE_MEAT_DROPPED");
-		}
-
-		level.meat_powerup = powerup;
-
-		level waittill("meat_inactive");
-
-		players = get_players();
-
-		foreach (player in players)
-		{
-			player thread show_grief_hud_msg(&"ZOMBIE_MEAT_RESET");
-		}
-	}
-}
-
-meat_powerup_drop_watcher()
-{
-	while (1)
-	{
-		level waittill("powerup_dropped", powerup);
-
-		if (powerup.powerup_name != "meat_stink")
-		{
-			continue;
-		}
-
-		powerup thread meat_powerup_reset_on_timeout();
-	}
-}
-
-meat_powerup_reset_on_timeout()
-{
-	level endon("meat_grabbed");
-
-	self waittill("powerup_timedout");
-
-	level notify("meat_inactive");
 }
 
 meat_think()
@@ -2878,6 +2802,11 @@ meat_think()
 	grief_score_hud_set_scoring_team("none");
 
 	level waittill("restart_round_start");
+
+	wait 10;
+
+	level thread meat_powerup_drop_think();
+	level thread meat_powerup_timeout_think();
 
 	prev_meat_player = undefined;
 	held_time = undefined;
@@ -2947,14 +2876,115 @@ meat_think()
 	}
 }
 
-meat_powerup_custom_time(powerup)
+meat_powerup_drop_think()
 {
-	if (powerup.powerup_name == "meat_stink")
+	level endon("end_game");
+
+	players = get_players();
+
+	foreach (player in players)
 	{
-		return 5;
+		player thread show_grief_hud_msg(&"ZOMBIE_KILL_ZOMBIE_DROP_MEAT");
 	}
 
-	return 15;
+	while (1)
+	{
+		level.zombie_powerup_ape = "meat_stink";
+		level.zombie_vars["zombie_drop_item"] = 1;
+
+		level waittill("powerup_dropped", powerup);
+
+		if (powerup.powerup_name != "meat_stink")
+		{
+			continue;
+		}
+
+		players = get_players();
+
+		foreach (player in players)
+		{
+			player thread show_grief_hud_msg(&"ZOMBIE_MEAT_DROPPED");
+		}
+
+		level.meat_powerup = powerup;
+
+		level waittill("meat_inactive");
+
+		players = get_players();
+
+		foreach (player in players)
+		{
+			player thread show_grief_hud_msg(&"ZOMBIE_MEAT_RESET");
+		}
+	}
+}
+
+meat_powerup_timeout_think()
+{
+	level endon("end_game");
+
+	while (1)
+	{
+		level waittill("powerup_dropped", powerup);
+
+		if (powerup.powerup_name != "meat_stink")
+		{
+			continue;
+		}
+
+		powerup thread meat_powerup_timeout();
+		powerup thread meat_powerup_reset_on_timeout();
+	}
+}
+
+meat_powerup_timeout()
+{
+	self notify("powerup_reset");
+
+	self endon("powerup_grabbed");
+	self endon("death");
+	self endon("powerup_reset");
+	self show();
+
+	wait 7.5;
+
+	for (i = 0; i < 20; i++)
+	{
+		if (i % 2)
+		{
+			self ghost();
+		}
+		else
+		{
+			self show();
+		}
+
+		if (i < 5)
+		{
+			wait 0.5;
+			continue;
+		}
+
+		if (i < 10)
+		{
+			wait 0.25;
+			continue;
+		}
+
+		wait 0.1;
+	}
+
+	self notify("powerup_timedout");
+	self maps\mp\zombies\_zm_powerups::powerup_delete();
+}
+
+meat_powerup_reset_on_timeout()
+{
+	self endon("powerup_grabbed");
+
+	self waittill("powerup_timedout");
+
+	level notify("meat_inactive");
 }
 
 can_revive(revivee)
