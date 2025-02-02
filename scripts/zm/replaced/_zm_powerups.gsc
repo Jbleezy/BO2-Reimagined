@@ -74,6 +74,74 @@ powerup_drop(drop_point)
 	level notify("powerup_dropped", powerup);
 }
 
+powerup_timeout()
+{
+	if (isdefined(level._powerup_timeout_override) && !isdefined(self.powerup_team))
+	{
+		self thread [[level._powerup_timeout_override]]();
+		return;
+	}
+
+	self endon("powerup_grabbed");
+	self endon("death");
+	self endon("powerup_reset");
+	self show();
+	wait_time = 15;
+
+	if (isdefined(level._powerup_timeout_custom_time))
+	{
+		time = [[level._powerup_timeout_custom_time]](self);
+
+		if (time == 0)
+		{
+			return;
+		}
+
+		wait_time = time;
+	}
+
+	wait(wait_time);
+
+	for (i = 0; i < 60; i++)
+	{
+		if (i % 2)
+		{
+			self ghost();
+
+			if (isdefined(self.worldgundw))
+			{
+				self.worldgundw ghost();
+			}
+		}
+		else
+		{
+			self show();
+
+			if (isdefined(self.worldgundw))
+			{
+				self.worldgundw show();
+			}
+		}
+
+		if (i < 15)
+		{
+			wait 0.5;
+			continue;
+		}
+
+		if (i < 35)
+		{
+			wait 0.25;
+			continue;
+		}
+
+		wait 0.1;
+	}
+
+	self notify("powerup_timedout");
+	self powerup_delete();
+}
+
 powerup_move()
 {
 	self endon("powerup_timedout");

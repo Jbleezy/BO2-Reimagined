@@ -2948,7 +2948,7 @@ meat_powerup_timeout()
 
 	wait 7.5;
 
-	for (i = 0; i < 20; i++)
+	for (i = 0; i < 30; i++)
 	{
 		if (i % 2)
 		{
@@ -2959,13 +2959,13 @@ meat_powerup_timeout()
 			self show();
 		}
 
-		if (i < 5)
+		if (i < 8)
 		{
 			wait 0.5;
 			continue;
 		}
 
-		if (i < 10)
+		if (i < 18)
 		{
 			wait 0.25;
 			continue;

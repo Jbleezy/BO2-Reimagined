@@ -896,6 +896,7 @@
 
 ## Powerups
 * Decreased chance to drop from 3% to 2%
+* Increased time on the ground from 26.5 seconds to 30 seconds
 * Grabbing time based powerups that are already active add to timer instead of resetting timer
 * Fx plays when a powerup drops if it is the last powerup of a cycle
 
@@ -1507,6 +1508,7 @@
 * Downing while holding the meat drops it as a powerup
 * Throwing the meat on the ground drops it as a powerup
 * Throwing the meat onto another player makes them grab the meat
+* Decreased meat powerup time on the ground by half
 * Team holding the meat shown on HUD
 * Players respawn after being down for 10 seconds
 * Players retain perks
