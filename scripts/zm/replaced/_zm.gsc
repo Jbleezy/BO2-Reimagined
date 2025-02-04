@@ -1651,6 +1651,18 @@ actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, 
 		return 0;
 	}
 
+	if (is_true(level.mechz_explosion))
+	{
+		if (is_true(self.is_mechz))
+		{
+			return 0;
+		}
+		else
+		{
+			return self.health;
+		}
+	}
+
 	if (issubstr(weapon, "one_inch_punch") && damage <= 5)
 	{
 		return 0;

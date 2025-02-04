@@ -309,6 +309,8 @@
 * Teleports away less frequently
 
 ### Panzersoldat
+* Death explosion kills zombies
+* Changed death explosion player damage from 100-25 to 75
 * Decreased footstep screen shake by 25%
 * No longer receives additional damage from Boomhilda or Ray Gun Mark 2
 

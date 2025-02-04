@@ -334,3 +334,21 @@ ee_mech_zombie_fight_active()
 {
 	return flag("ee_quadrotor_disabled") && !flag("ee_mech_zombie_fight_completed");
 }
+
+mechz_explode(str_tag, death_origin)
+{
+	wait 2.0;
+
+	v_origin = self gettagorigin(str_tag);
+	level notify("mechz_exploded", v_origin);
+	playsoundatposition("zmb_ai_mechz_death_explode", v_origin);
+	playfx(level._effect["mechz_death"], v_origin);
+
+	level.mechz_explosion = true;
+	radiusdamage(v_origin, 128, 75, 75, undefined, "MOD_GRENADE_SPLASH");
+	level.mechz_explosion = undefined;
+
+	earthquake(0.5, 1.0, v_origin, 256);
+	playrumbleonposition("grenade_rumble", v_origin);
+	level notify("mechz_killed", death_origin);
+}
