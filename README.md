@@ -122,7 +122,7 @@
 	* [Carpenter](#carpenter)
 	* [Fire Sale](#fire-sale)
 	* [Zombie Blood](#zombie-blood)
-	* [Meat](#meat)
+	* [Meat Stink](#meat-stink)
 * [Persistent Upgrades](#persistent-upgrades)
 * [Buildables](#buildables)
 	* [Turbine](#turbine)
@@ -920,7 +920,7 @@
 * Makes the player invulnerable to zombie melee swipes
 * No longer changes FOV
 
-### Meat
+### Meat Stink
 * All zombies go after player holding the meat
 * 75% move speed while holding the meat
 * Take 50 damage per second if stationary while holding the meat
