@@ -935,10 +935,11 @@
 * Changed powerup fx color to blue
 * Able to drop when players are down
 * No longer able to drop when another meat powerup is already dropped
-* Message shows when the meat is grabbed and landed on a player
+* Can be picked up while reviving
 * Meleeing while the meat is moving no longer grabs the meat
-* Removed pick up trigger
 * Gets destroyed when thrown on lava
+* Removed unused pick up trigger that is visible when the meat is in the air
+* Message shows when the meat is grabbed, dropped, and landed on a player
 * Replaced with Head on Mob of the Dead and Origins locations
 
 ## Persistent Upgrades

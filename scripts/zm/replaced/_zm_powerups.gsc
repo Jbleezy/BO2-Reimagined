@@ -218,7 +218,7 @@ powerup_grab(powerup_team)
 
 		for (i = 0; i < players.size; i++)
 		{
-			if ((self.powerup_name == "minigun" || self.powerup_name == "tesla" || self.powerup_name == "random_weapon" || self.powerup_name == "meat_stink") && (players[i] maps\mp\zombies\_zm_laststand::player_is_in_laststand() || players[i] usebuttonpressed() && players[i] in_revive_trigger()))
+			if ((self.powerup_name == "minigun" || self.powerup_name == "tesla" || self.powerup_name == "random_weapon" || self.powerup_name == "meat_stink") && players[i] maps\mp\zombies\_zm_laststand::player_is_in_laststand())
 			{
 				continue;
 			}
