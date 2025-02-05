@@ -157,12 +157,42 @@ afterlife_spawn_corpse()
 	collision ghost();
 	corpse.collision = collision;
 
+	collision thread afterlife_collision_push_players_off();
+
 	if (get_players().size == 1)
 	{
 		corpse thread afterlife_corpse_create_pois();
 	}
 
 	return corpse;
+}
+
+afterlife_collision_push_players_off()
+{
+	self endon("death");
+
+	while (1)
+	{
+		players = get_players();
+
+		foreach (player in players)
+		{
+			ground_ent = player getgroundent();
+
+			if (isdefined(ground_ent) && ground_ent == self)
+			{
+				if (player getstance() == "prone")
+				{
+					player setstance("crouch");
+				}
+
+				dir = vectornormalize((player.origin - self.origin) * (1, 1, 0));
+				player setvelocity(dir * 200);
+			}
+		}
+
+		wait 0.05;
+	}
 }
 
 afterlife_clean_up_on_disconnect()
