@@ -600,6 +600,10 @@ player_progress_bar(start_time, build_time, building_prompt)
 {
 	self.usebar = self createprimaryprogressbar();
 	self.usebartext = self createprimaryprogressbartext();
+	self.usebar.foreground = 1;
+	self.usebar.bar.foreground = 1;
+	self.usebar.barframe.foreground = 1;
+	self.usebartext.foreground = 1;
 
 	if (isdefined(building_prompt))
 	{

@@ -180,6 +180,25 @@ craftable_use_hold_think_internal(player)
 	}
 }
 
+player_progress_bar(start_time, craft_time)
+{
+	self.usebar = self createprimaryprogressbar();
+	self.usebartext = self createprimaryprogressbartext();
+	self.usebar.foreground = 1;
+	self.usebar.bar.foreground = 1;
+	self.usebar.barframe.foreground = 1;
+	self.usebartext.foreground = 1;
+	self.usebartext settext(&"ZOMBIE_BUILDING");
+
+	if (isdefined(self) && isdefined(start_time) && isdefined(craft_time))
+	{
+		self player_progress_bar_update(start_time, craft_time);
+	}
+
+	self.usebartext destroyelem();
+	self.usebar destroyelem();
+}
+
 player_progress_bar_update(start_time, craft_time)
 {
 	self endon("entering_last_stand");
