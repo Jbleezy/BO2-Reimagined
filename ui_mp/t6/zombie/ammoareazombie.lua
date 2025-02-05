@@ -686,6 +686,12 @@ CoD.AmmoAreaZombie.UpdateWeapon = function(f12_arg0, f12_arg1)
 end
 
 CoD.AmmoAreaZombie.UpdateWeaponSelect = function(f13_arg0, f13_arg1)
+	if f13_arg1.weaponDisplayName == nil then
+		f13_arg1.weaponDisplayName = f13_arg0.weaponDisplayName
+	else
+		f13_arg0.weaponDisplayName = f13_arg1.weaponDisplayName
+	end
+
 	f13_arg0.weaponLabelName = UIExpression.ToUpper(nil, Engine.Localize(f13_arg1.weaponDisplayName))
 	f13_arg0.additionalPrimaryWeaponName = UIExpression.ToUpper(nil, Engine.Localize(UIExpression.DvarString(nil, "additionalPrimaryWeaponName")))
 

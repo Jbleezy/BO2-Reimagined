@@ -260,6 +260,7 @@ precache_strings()
 	precacheString(&"r_fog_settings");
 
 	precacheString(&"hud_update_rounds_played");
+	precacheString(&"hud_update_weapon_select");
 	precacheString(&"hud_update_overheat");
 	precacheString(&"hud_update_perk_order");
 	precacheString(&"hud_update_other_player_team_change");
@@ -3021,7 +3022,7 @@ additionalprimaryweapon_update_weapon_slots()
 		}
 	}
 
-	if (num_weapons >= 3)
+	if (num_weapons >= get_player_weapon_limit(self))
 	{
 		self.weapon_to_take_by_losing_specialty_additionalprimaryweapon = self.weapon_slots[self.weapon_slots.size - 1];
 	}

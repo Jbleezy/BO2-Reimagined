@@ -143,5 +143,25 @@ sq_give_player_rewards()
 
 mule_kick_allows_4_weapons()
 {
+	level.get_player_weapon_limit = ::sq_get_player_weapon_limit;
 	level.additionalprimaryweapon_limit = 4;
+
+	players = get_players();
+
+	foreach (player in players)
+	{
+		player luinotifyevent(&"hud_update_weapon_select");
+	}
+}
+
+sq_get_player_weapon_limit(player)
+{
+	weapon_limit = 3;
+
+	if (player hasperk("specialty_additionalprimaryweapon"))
+	{
+		weapon_limit = level.additionalprimaryweapon_limit;
+	}
+
+	return weapon_limit;
 }
