@@ -40,6 +40,43 @@ playleaderdialogonplayer(dialog, team, waittime)
 	}
 }
 
+getleaderdialogvariant(alias)
+{
+	if (!isdefined(alias))
+	{
+		return;
+	}
+
+	if (!isdefined(level.announcer_dialog))
+	{
+		level.announcer_dialog = [];
+		level.announcer_dialog_available = [];
+	}
+
+	num_variants = maps\mp\zombies\_zm_spawner::get_number_variants(alias);
+
+	if (num_variants <= 0)
+	{
+		return undefined;
+	}
+
+	for (i = 0; i < num_variants; i++)
+	{
+		level.announcer_dialog[alias][i] = i;
+	}
+
+	level.announcer_dialog_available[alias] = [];
+
+	if (level.announcer_dialog_available[alias].size <= 0)
+	{
+		level.announcer_dialog_available[alias] = level.announcer_dialog[alias];
+	}
+
+	variation = random(level.announcer_dialog_available[alias]);
+	arrayremovevalue(level.announcer_dialog_available[alias], variation);
+	return variation;
+}
+
 init_griefvox(prefix)
 {
 	postfix = "";
