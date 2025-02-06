@@ -932,6 +932,7 @@
 * Decreased time on players from 30 seconds to 15 seconds
 * Bounces off walls when thrown
 * Added weapon name on HUD
+* Added weapon glow fx
 * Changed powerup fx color to blue
 * Able to drop when players are down
 * No longer able to drop when another meat powerup is already dropped

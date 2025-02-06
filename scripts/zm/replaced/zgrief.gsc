@@ -128,27 +128,23 @@ meat_bounce_override(pos, normal, ent, bounce)
 		}
 	}
 
-	playfx(level._effect["meat_impact"], self.origin);
-
 	if (is_true(bounce))
 	{
-		landed_on = self getgroundent();
+		ground_ent = self getgroundent();
 
-		if (isDefined(landed_on) && isAI(landed_on))
+		if (isDefined(ground_ent) && isAI(ground_ent))
 		{
 			return;
 		}
 
-		if (!isDefined(landed_on))
+		if (!isDefined(ground_ent))
 		{
 			self.bounce_count++;
 
-			if (self.bounce_count >= 4)
+			if (self.bounce_count < 4)
 			{
-				meat_drop(pos, self);
+				return;
 			}
-
-			return;
 		}
 	}
 
@@ -265,8 +261,6 @@ meat_stink(who, owner)
 
 	foreach (player in players)
 	{
-		player thread maps\mp\gametypes_zm\zgrief::meat_stink_player_cleanup();
-
 		if (player != who)
 		{
 			player.ignoreme = 1;
@@ -277,14 +271,10 @@ meat_stink(who, owner)
 
 	who thread meat_stink_ignoreme_think(0);
 
-	who thread meat_stink_player_create();
+	who thread meat_glow_player_create();
 
 	who thread meat_stink_cleanup_on_downed();
-
-	if (level.scr_zm_ui_gametype_obj == "zmeat")
-	{
-		who thread meat_powerup_reset_on_disconnect();
-	}
+	who thread meat_stink_cleanup_on_disconnect();
 }
 
 meat_disable_fire()
@@ -406,11 +396,12 @@ meat_stink_cleanup_on_downed()
 	level endon("meat_thrown");
 	level endon("meat_grabbed");
 	self endon("disconnect");
-	self endon("bled_out");
 
-	self waittill_any("player_downed", "spawned_player");
+	self waittill_any("player_downed", "bled_out", "spawned_player");
 
 	self.lastactiveweapon = self.pre_temp_weapon;
+
+	self thread meat_glow_player_cleanup();
 
 	level.meat_player = undefined;
 
@@ -418,8 +409,6 @@ meat_stink_cleanup_on_downed()
 
 	foreach (player in players)
 	{
-		player thread maps\mp\gametypes_zm\zgrief::meat_stink_player_cleanup();
-
 		if (is_player_valid(player) && !is_true(player.spawn_protection) && !is_true(player.revive_protection))
 		{
 			player.ignoreme = 0;
@@ -434,7 +423,7 @@ meat_stink_cleanup_on_downed()
 	}
 }
 
-meat_powerup_reset_on_disconnect()
+meat_stink_cleanup_on_disconnect()
 {
 	level endon("meat_thrown");
 	level endon("meat_grabbed");
@@ -442,6 +431,8 @@ meat_powerup_reset_on_disconnect()
 	self endon("bled_out");
 
 	self waittill("disconnect");
+
+	self thread meat_glow_player_cleanup();
 
 	level.meat_player = undefined;
 
@@ -464,7 +455,6 @@ meat_stink_on_ground(position_to_play)
 	attractor_point = spawn("script_model", position_to_play);
 	attractor_point setmodel("tag_origin");
 	attractor_point playsound("zmb_land_meat");
-	wait 0.2;
 	playfxontag(level._effect["meat_stink_torso"], attractor_point, "tag_origin");
 	attractor_point playloopsound("zmb_meat_flies");
 	attractor_point create_zombie_point_of_interest(768, 48, 10000);
@@ -510,8 +500,6 @@ meat_stink_player(who, owner)
 
 	foreach (player in players)
 	{
-		player thread maps\mp\gametypes_zm\zgrief::meat_stink_player_cleanup();
-
 		if (player != who)
 		{
 			player.ignoreme = 1;
@@ -519,6 +507,8 @@ meat_stink_player(who, owner)
 
 		player thread print_meat_msg(who, "has");
 	}
+
+	who maps\mp\zombies\_zm_stats::increment_client_stat("contaminations_received");
 
 	who thread meat_stink_ignoreme_think(1);
 	who thread meat_stink_player_create();
@@ -530,13 +520,13 @@ meat_stink_player(who, owner)
 		who.statusicon = "";
 	}
 
+	who thread meat_stink_player_cleanup();
+
 	who notify("meat_stink_player_end");
 	players = get_players();
 
 	foreach (player in players)
 	{
-		player thread maps\mp\gametypes_zm\zgrief::meat_stink_player_cleanup();
-
 		if (is_player_valid(player) && !is_true(player.spawn_protection) && !is_true(player.revive_protection))
 		{
 			player.ignoreme = 0;
@@ -559,15 +549,52 @@ wait_and_reset_last_meated_by()
 
 meat_stink_player_create()
 {
-	self maps\mp\zombies\_zm_stats::increment_client_stat("contaminations_received");
 	self endon("disconnect");
 	self endon("death");
+
 	tagname = "J_SpineLower";
 	self.meat_stink_3p = spawn("script_model", self gettagorigin(tagname));
 	self.meat_stink_3p setmodel("tag_origin");
 	self.meat_stink_3p linkto(self, tagname);
 	playfxontag(level._effect["meat_stink_torso"], self.meat_stink_3p, "tag_origin");
+
 	self setclientfieldtoplayer("meat_stink", 1);
+}
+
+meat_stink_player_cleanup()
+{
+	if (isdefined(self.meat_stink_3p))
+	{
+		self.meat_stink_3p unlink();
+		self.meat_stink_3p delete();
+	}
+
+	self setclientfieldtoplayer("meat_stink", 0);
+}
+
+meat_glow_player_create()
+{
+	self endon("disconnect");
+	self endon("death");
+
+	tagname = "tag_weapon_right";
+	self.meat_glow_3p = spawn("script_model", self gettagorigin(tagname));
+	self.meat_glow_3p setmodel("tag_origin");
+	self.meat_glow_3p linkto(self, tagname);
+	playfxontag(level._effect["meat_glow3p"], self.meat_glow_3p, "tag_origin");
+
+	self setclientfieldtoplayer("meat_glow", 1);
+}
+
+meat_glow_player_cleanup()
+{
+	if (isdefined(self.meat_glow_3p))
+	{
+		self.meat_glow_3p unlink();
+		self.meat_glow_3p delete();
+	}
+
+	self setclientfieldtoplayer("meat_glow", 0);
 }
 
 print_meat_msg(meat_player, verb, show_after_obituaries = 0)

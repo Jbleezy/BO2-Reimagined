@@ -21,6 +21,13 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_blockers::handle_post_board_repair_rewards, scripts\zm\replaced\_zm_blockers::handle_post_board_repair_rewards);
 	replaceFunc(maps\mp\zombies\_zm_game_module::wait_for_team_death_and_round_end, scripts\zm\replaced\_zm_game_module::wait_for_team_death_and_round_end);
 	replaceFunc(maps\mp\zombies\_zm_game_module_meat_utility::init_item_meat, scripts\zm\replaced\_zm_game_module_meat_utility::init_item_meat);
+
+	if (getdvar("mapname") == "zm_nuked" || getdvar("mapname") == "zm_highrise" || getdvar("mapname") == "zm_tomb")
+	{
+		registerclientfield("toplayer", "meat_stink", 1, 1, "int");
+	}
+
+	registerclientfield("toplayer", "meat_glow", 1, 1, "int");
 }
 
 init()

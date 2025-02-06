@@ -2,7 +2,7 @@
 
 onprecachegametype()
 {
-	if (getdvar("mapname") == "zm_prison")
+	if (getdvar("mapname") == "zm_prison" || getdvar("mapname") == "zm_tomb")
 	{
 		setteamreviveicon("allies", "waypoint_revive_guards");
 		setteamreviveicon("axis", "waypoint_revive_inmates");
@@ -15,4 +15,31 @@ onprecachegametype()
 
 	level._effect["meat_stink_camera"] = loadfx("maps/zombie/fx_zmb_meat_stink_camera");
 	level._effect["meat_stink_torso"] = loadfx("maps/zombie/fx_zmb_meat_stink_torso");
+	level._effect["meat_glow3p"] = loadfx("maps/zombie/fx_zmb_meat_glow_3p");
+}
+
+premain()
+{
+	registerclientfield("toplayer", "meat_stink", 1, 1, "int", ::meat_stink_cb, 0, 1);
+	registerclientfield("toplayer", "meat_glow", 1, 1, "int", ::meat_glow_cb, 0, 1);
+}
+
+meat_glow_cb(localclientnum, oldval, newval, bnewent, binitialsnap, fieldname, bwasdemojump)
+{
+	if (newval)
+	{
+		tagname = "tag_weapon";
+
+		if (getdvar("mapname") == "zm_prison" || getdvar("mapname") == "zm_tomb")
+		{
+			tagname = "tag_fx";
+		}
+
+		self.meatglow_fx = playviewmodelfx(localclientnum, level._effect["meat_glow3p"], tagname);
+	}
+	else if (isdefined(self.meatglow_fx))
+	{
+		deletefx(localclientnum, self.meatglow_fx);
+		self.meatglow_fx = undefined;
+	}
 }

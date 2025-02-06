@@ -164,6 +164,7 @@ if %ERRORLEVEL% neq 0 pause
 --load "%OAT_GAME%\zone\all\zm_transit_patch.ff" ^
 --load "%OAT_GAME%\zone\all\zm_transit.ff" ^
 --load "%OAT_GAME%\zone\all\so_zsurvival_zm_transit.ff" ^
+--load "%OAT_GAME%\zone\all\so_zencounter_zm_transit.ff" ^
 --base-folder "%OAT_BASE%" ^
 --add-asset-search-path "%CD%" ^
 --add-source-search-path "%CD%\zone_source\includes" ^

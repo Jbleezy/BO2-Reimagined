@@ -25,6 +25,7 @@ init_item_meat(gametype)
 	level._effect["spawn_cloud"] = loadfx("maps/zombie/fx_zmb_race_zombie_spawn_cloud");
 	level._effect["meat_stink_camera"] = loadfx("maps/zombie/fx_zmb_meat_stink_camera");
 	level._effect["meat_stink_torso"] = loadfx("maps/zombie/fx_zmb_meat_stink_torso");
+	level._effect["meat_glow3p"] = loadfx("maps/zombie/fx_zmb_meat_glow_3p");
 	include_powerup("meat_stink");
 	maps\mp\zombies\_zm_powerups::add_zombie_powerup("meat_stink", get_gamemode_var("item_meat_model"), &"ZOMBIE_POWERUP_MAX_AMMO", ::func_should_drop_meat, 1, 0, 0);
 

@@ -71,12 +71,12 @@ item_meat_on_spawn_retrieve_trigger(watcher, player, weaponname)
 		objective_setgamemodeflags(player.obj_ind, 1);
 	}
 
+	player thread scripts\zm\replaced\zgrief::meat_glow_player_cleanup();
+
 	players = get_players();
 
 	foreach (other_player in players)
 	{
-		other_player thread maps\mp\gametypes_zm\zgrief::meat_stink_player_cleanup();
-
 		if (is_player_valid(other_player) && !is_true(other_player.spawn_protection) && !is_true(other_player.revive_protection))
 		{
 			other_player.ignoreme = 0;

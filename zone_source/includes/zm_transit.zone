@@ -17,6 +17,11 @@ material,hud_select_fire_bullet_stack_big
 
 material,wpc/mtl_zb_signs
 
+material,gfx_fxt_light_burst_eo5
+material,gfx_fxt_light_headlight_z20
+material,gfx_fxt_light_flare_halogen_z200
+fx,maps/zombie/fx_zmb_meat_glow_3p
+
 rawfile,rumble/heavygun_fire
 rawfile,rumble/heavygun_fire_h.rmb
 rawfile,rumble/heavygun_fire_l.rmb
