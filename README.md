@@ -100,6 +100,7 @@
 		* [Claymore](#claymore)
 		* [Bouncing Betty](#bouncing-betty)
 		* [Time Bomb](#time-bomb)
+		* [Syrette](#syrette)
 * [Wallbuys](#wallbuys)
 * [Mystery Box](#mystery-box)
 * [Perks](#perks)
@@ -775,6 +776,10 @@
 * Switches to detonator at correct time after throwing
 * Fixed detonator raise and drop anims
 
+#### Syrette
+* Added weapon name on HUD
+* Fixed being able to see view model at end of anim
+
 ## Wallbuys
 * Purchasing ammo refills clip ammo
 * Increased trigger radius
@@ -962,6 +967,7 @@
 * Changed crafting hint string from "Building..." to "Crafting..."
 * Changed purchase hint string from "for" to "to take" on all maps
 * Changed pick up hint string from "for" to "to pick up" on all maps
+* Fixed being able to see view model while holding (except Zombie Shield)
 * Fixed not being destroyed correctly when placed at a bad spot
 
 ### Turbine
