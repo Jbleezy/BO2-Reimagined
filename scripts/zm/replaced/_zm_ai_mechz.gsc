@@ -284,24 +284,7 @@ mechz_round_tracker()
 		if (level.mechz_left_to_spawn == 0 && level.next_mechz_round <= level.round_number && !ee_mech_zombie_fight_active())
 		{
 			mechz_health_increases();
-
-			if (get_players().size == 1)
-			{
-				level.mechz_zombie_per_round = 1;
-			}
-			else if (level.mechz_round_count < 2)
-			{
-				level.mechz_zombie_per_round = 1;
-			}
-			else if (level.mechz_round_count < 5)
-			{
-				level.mechz_zombie_per_round = 2;
-			}
-			else
-			{
-				level.mechz_zombie_per_round = 3;
-			}
-
+			level.mechz_zombie_per_round = 1;
 			level.mechz_left_to_spawn = level.mechz_zombie_per_round;
 			mechz_spawning = level.mechz_left_to_spawn;
 			wait(randomfloatrange(10.0, 15.0));

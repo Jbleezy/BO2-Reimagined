@@ -310,6 +310,7 @@
 * Teleports away less frequently
 
 ### Panzersoldat
+* Decreased amount that spawn per round in coop from 1-3 to 1
 * Death explosion kills zombies
 * Changed death explosion player damage from 100-25 to 75
 * Decreased footstep screen shake by 25%
@@ -1409,6 +1410,7 @@
 * Quest (ascend from darkness step): staffs can be placed at any staff holder
 * Quest (ascend from darkness step): fixed an issue where staffs were able to be picked up at their build location when placed in the staff holders
 * Quest (rain fire step): button no longer deactivates after activating
+* Quest (unleash the horde step): decreased amount of Panzersoldats that spawn from 8 to 4
 * Quest (unleash the horde step): Panzersoldat round and this step can no longer happen at the same time
 * Quest (raise hell step): all staffs must be fully charged for souls to be collected
 * Quest (raise hell step): zombies in The Crazy Place get knocked down during the screen flash after collecting all of the souls

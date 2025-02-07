@@ -27,7 +27,7 @@ stage_logic()
 
 	if (!flag("ee_mech_zombie_fight_completed"))
 	{
-		while (level.ee_mech_zombies_spawned < 8)
+		while (level.ee_mech_zombies_spawned < 4)
 		{
 			if (level.ee_mech_zombies_alive < 4)
 			{
