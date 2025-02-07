@@ -624,3 +624,34 @@ zombie_complete_emerging_into_playable_area()
 	self.no_powerups = 0;
 	self thread zombie_free_cam_allowed();
 }
+
+get_number_variants(aliasprefix)
+{
+	if (is_new_sound(aliasprefix))
+	{
+		return 1;
+	}
+
+	for (i = 0; i < 100; i++)
+	{
+		if (!soundexists(aliasprefix + "_" + i))
+		{
+			return i;
+		}
+	}
+}
+
+is_new_sound(aliasprefix)
+{
+	if (aliasprefix == "vox_zmba_powerup_firesale_rich")
+	{
+		return 1;
+	}
+
+	if (issubstr(aliasprefix, "vox_zmba_grief_") && issubstr(aliasprefix, "_rich"))
+	{
+		return 1;
+	}
+
+	return 0;
+}
