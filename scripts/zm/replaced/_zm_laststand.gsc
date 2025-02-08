@@ -3,6 +3,79 @@
 #include maps\mp\zombies\_zm_utility;
 #include maps\mp\gametypes_zm\_hud_util;
 
+revive_trigger_think()
+{
+	self endon("disconnect");
+	self endon("zombified");
+	self endon("stop_revive_trigger");
+	level endon("end_game");
+	self endon("death");
+
+	while (true)
+	{
+		wait 0.1;
+		self.revivetrigger sethintstring("");
+		players = get_players();
+
+		for (i = 0; i < players.size; i++)
+		{
+			d = 0;
+			d = self depthinwater();
+
+			if (players[i] can_revive(self) || d > 20)
+			{
+				self.revivetrigger setrevivehintstring(&"ZOMBIE_BUTTON_TO_REVIVE_PLAYER", self.team);
+				break;
+			}
+		}
+
+		for (i = 0; i < players.size; i++)
+		{
+			reviver = players[i];
+
+			if (self == reviver || !reviver is_reviving(self))
+			{
+				continue;
+			}
+
+			gun = reviver getcurrentweapon();
+			assert(isdefined(gun));
+
+			if (gun == level.revive_tool)
+			{
+				continue;
+			}
+
+			reviver luinotifyevent(&"hud_update_ammo", 1, 0);
+			reviver luinotifyevent(&"hud_update_weapon_select", 1, istring(getweapondisplayname(level.revive_tool)));
+			reviver giveweapon(level.revive_tool);
+			reviver switchtoweapon(level.revive_tool);
+			reviver setweaponammostock(level.revive_tool, 1);
+			revive_success = reviver revive_do_revive(self, gun);
+			reviver revive_give_back_weapons(gun);
+
+			if (isplayer(self))
+			{
+				self allowjump(1);
+			}
+
+			self.laststand = undefined;
+
+			if (revive_success)
+			{
+				if (isplayer(self))
+				{
+					maps\mp\zombies\_zm_chugabud::player_revived_cleanup_chugabud_corpse();
+				}
+
+				self thread revive_success(reviver);
+				self cleanup_suicide_hud();
+				return;
+			}
+		}
+	}
+}
+
 revive_do_revive(playerbeingrevived, revivergun)
 {
 	self thread revive_give_back_weapons_on_player_suicide(playerbeingrevived, revivergun);

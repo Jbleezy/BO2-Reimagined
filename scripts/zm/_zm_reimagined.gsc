@@ -66,6 +66,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_score::add_to_player_score, scripts\zm\replaced\_zm_score::add_to_player_score);
 	replaceFunc(maps\mp\zombies\_zm_score::minus_to_player_score, scripts\zm\replaced\_zm_score::minus_to_player_score);
 	replaceFunc(maps\mp\zombies\_zm_score::player_add_points_kill_bonus, scripts\zm\replaced\_zm_score::player_add_points_kill_bonus);
+	replaceFunc(maps\mp\zombies\_zm_laststand::revive_trigger_think, scripts\zm\replaced\_zm_laststand::revive_trigger_think);
 	replaceFunc(maps\mp\zombies\_zm_laststand::revive_do_revive, scripts\zm\replaced\_zm_laststand::revive_do_revive);
 	replaceFunc(maps\mp\zombies\_zm_laststand::revive_give_back_weapons, scripts\zm\replaced\_zm_laststand::revive_give_back_weapons);
 	replaceFunc(maps\mp\zombies\_zm_laststand::revive_hud_think, scripts\zm\replaced\_zm_laststand::revive_hud_think);
@@ -262,6 +263,7 @@ precache_strings()
 	precacheString(&"r_fog_settings");
 
 	precacheString(&"hud_update_rounds_played");
+	precacheString(&"hud_update_ammo");
 	precacheString(&"hud_update_weapon_select");
 	precacheString(&"hud_update_overheat");
 	precacheString(&"hud_update_perk_order");
@@ -282,6 +284,8 @@ precache_strings()
 	precacheString(&"hud_fade_in_round_total_timer");
 	precacheString(&"hud_fade_out_quest_timer");
 	precacheString(&"hud_fade_in_quest_timer");
+
+	precacheString(istring(getweapondisplayname(level.revive_tool)));
 
 	foreach (zone_name in level.zone_keys)
 	{

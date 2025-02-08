@@ -402,6 +402,10 @@ CoD.AmmoAreaZombie.GetThreeDigits = function(f5_arg0)
 end
 
 CoD.AmmoAreaZombie.UpdateAmmo = function(f6_arg0, f6_arg1)
+	if f6_arg1.data ~= nil then
+		f6_arg0.hideAmmo = f6_arg1.data[1] == 0
+	end
+
 	if f6_arg1.ammoInClip == 0 and f6_arg1.ammoStock == 0 and f6_arg1.lowClip ~= true then
 		return
 	end
@@ -686,6 +690,10 @@ CoD.AmmoAreaZombie.UpdateWeapon = function(f12_arg0, f12_arg1)
 end
 
 CoD.AmmoAreaZombie.UpdateWeaponSelect = function(f13_arg0, f13_arg1)
+	if f13_arg1.data ~= nil then
+		f13_arg1.weaponDisplayName = Engine.GetIString(f13_arg1.data[1], "CS_LOCALIZED_STRINGS")
+	end
+
 	if f13_arg1.weaponDisplayName == nil then
 		f13_arg1.weaponDisplayName = f13_arg0.weaponDisplayName
 	else
