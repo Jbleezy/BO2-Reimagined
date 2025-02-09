@@ -1903,6 +1903,13 @@ weapon_changes()
 		add_shared_ammo_weapon("vector_extclip_zm", "vector_zm");
 	}
 
+	if (level.script == "zm_buried")
+	{
+		include_weapon("qcw05_zm");
+		include_weapon("qcw05_upgraded_zm", 0);
+		add_zombie_weapon("qcw05_zm", "qcw05_upgraded_zm", &"ZOMBIE_WEAPON_QCW05", 1000, "wpck_chicom", "", undefined, 1);
+	}
+
 	if (level.script == "zm_nuked" || level.script == "zm_transit" || level.script == "zm_highrise" || level.script == "zm_buried")
 	{
 		include_weapon("mp7_zm");

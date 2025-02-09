@@ -442,6 +442,7 @@
 * Changed move speed while aiming from 200% or 220% to 210%
 
 #### Chicom CQB
+* Added on Buried
 * Unupgraded: decreased clip ammo from 40 to 36
 * Unupgraded: increased stock ammo from 120 to 252
 * Upgraded: increased clip ammo from 40 to 48
