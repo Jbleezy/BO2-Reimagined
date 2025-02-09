@@ -52,6 +52,7 @@
 		* [Chicom CQB](#chicom-cqb)
 		* [M1927](#m1927)
 		* [MP40](#mp40)
+		* [MP7](#mp7)
 		* [MSMC](#msmc)
 		* [PDW-57](#pdw-57)
 		* [Skorpion EVO](#skorpion-evo)
@@ -455,6 +456,9 @@
 * Increased move speed while aiming from 100% to 157.5% (move speed multiplied by 1.5)
 * Ammo gets added to the clip at the same time that it gets added in the reload anim
 * Adjustable Stock: increased move speed while aiming from 250% to 262.5% (move speed multiplied by 2.5)
+
+#### MP7
+* Added on Nuketown, Tranzit, Die Rise, and Buried
 
 #### MSMC
 * Replaces MP5
