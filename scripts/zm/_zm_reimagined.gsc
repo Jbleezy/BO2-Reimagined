@@ -1910,6 +1910,13 @@ weapon_changes()
 		add_zombie_weapon("mp7_zm", "mp7_upgraded_zm", &"WEAPON_MP7", 1000, "", "", undefined);
 	}
 
+	if (level.script == "zm_nuked" || level.script == "zm_transit" || level.script == "zm_highrise" || level.script == "zm_buried" || level.script == "zm_prison" || level.script == "zm_tomb")
+	{
+		include_weapon("peacekeeper_zm");
+		include_weapon("peacekeeper_upgraded_zm", 0);
+		add_zombie_weapon("peacekeeper_zm", "peacekeeper_upgraded_zm", &"WEAPON_PEACEKEEPER", 1000, "", "", undefined);
+	}
+
 	if (isdefined(level.zombie_weapons["m16_zm"]))
 	{
 		include_weapon("sig556_zm", 0);

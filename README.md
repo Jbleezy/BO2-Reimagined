@@ -54,6 +54,7 @@
 		* [MP40](#mp40)
 		* [MP7](#mp7)
 		* [MSMC](#msmc)
+		* [Peacekeeper](#peacekeeper)
 		* [PDW-57](#pdw-57)
 		* [Skorpion EVO](#skorpion-evo)
 		* [Vector K10](#vector-k10)
@@ -462,6 +463,9 @@
 
 #### MSMC
 * Replaces MP5
+
+#### Peacekeeper
+* Added on all maps
 
 #### PDW-57
 * Upgraded: changed weapon name from "57000" to "5700"
