@@ -1425,6 +1425,7 @@
 * Quest (raise hell step): zombies in The Crazy Place get knocked down during the screen flash after collecting all of the souls
 * Quest (freedom step): teleport trigger can be triggered without looking at it
 * Fixed being able to hit a death barrier when jumping off the Above Generator 3 Bunker zone
+* Fixed front part of tank model spawning in the Excavation Site Level 2 zone
 
 ## Game Modes
 

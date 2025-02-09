@@ -115,6 +115,7 @@ init()
 	spawn_custom_perk_machine_pipes();
 	move_additionalprimaryweapon_machine();
 	change_stargate_teleport_return_player_angles();
+	delete_air_crystal_biplane_ent();
 
 	level thread divetonuke_on();
 	level thread electric_cherry_on();
@@ -288,6 +289,12 @@ change_stargate_teleport_return_player_angles()
 	{
 		pos.angles = (0, -110, 0);
 	}
+}
+
+delete_air_crystal_biplane_ent()
+{
+	ent = getent("air_crystal_biplane", "targetname");
+	ent delete();
 }
 
 divetonuke_on()
