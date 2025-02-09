@@ -1907,14 +1907,21 @@ weapon_changes()
 	{
 		include_weapon("mp7_zm");
 		include_weapon("mp7_upgraded_zm", 0);
-		add_zombie_weapon("mp7_zm", "mp7_upgraded_zm", &"WEAPON_MP7", 1000, "", "", undefined);
+		add_zombie_weapon("mp7_zm", "mp7_upgraded_zm", &"WEAPON_MP7", 1000, "", "", undefined, 1);
 	}
 
 	if (level.script == "zm_nuked" || level.script == "zm_transit" || level.script == "zm_highrise" || level.script == "zm_buried" || level.script == "zm_prison" || level.script == "zm_tomb")
 	{
+		vox = "";
+
+		if (level.script == "zm_prison" || level.script == "zm_tomb")
+		{
+			vox = "wpck_smg";
+		}
+
 		include_weapon("peacekeeper_zm");
 		include_weapon("peacekeeper_upgraded_zm", 0);
-		add_zombie_weapon("peacekeeper_zm", "peacekeeper_upgraded_zm", &"WEAPON_PEACEKEEPER", 1000, "", "", undefined);
+		add_zombie_weapon("peacekeeper_zm", "peacekeeper_upgraded_zm", &"WEAPON_PEACEKEEPER", 1000, vox, "", undefined, 1);
 	}
 
 	if (isdefined(level.zombie_weapons["m16_zm"]))
