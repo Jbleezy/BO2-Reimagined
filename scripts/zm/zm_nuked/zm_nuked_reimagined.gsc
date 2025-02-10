@@ -12,7 +12,7 @@ main()
 	replaceFunc(maps\mp\zm_nuked_perks::init_nuked_perks, scripts\zm\replaced\zm_nuked_perks::init_nuked_perks);
 	replaceFunc(maps\mp\zm_nuked_perks::perks_from_the_sky, scripts\zm\replaced\zm_nuked_perks::perks_from_the_sky);
 
-	scripts\zm\reimagined\_explosive_dart::init();
+	maps\_explosive_dart::init();
 }
 
 init()

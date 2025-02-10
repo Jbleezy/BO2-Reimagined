@@ -73,6 +73,17 @@ weapons!exptitus6_sp
 if %ERRORLEVEL% neq 0 pause
 
 "%OAT_BASE%\Linker.exe" ^
+--load "%OAT_GAME%\zone\all\patch.ff" ^
+--load "%OAT_GAME%\zone\all\common.ff" ^
+--base-folder "%OAT_BASE%" ^
+--add-asset-search-path "%CD%" ^
+--add-source-search-path "%CD%\zone_source\includes" ^
+--output-folder "%CD%\zone_source\includes" ^
+common
+
+if %ERRORLEVEL% neq 0 pause
+
+"%OAT_BASE%\Linker.exe" ^
 --load "%OAT_GAME%\zone\all\code_post_gfx.ff" ^
 --base-folder "%OAT_BASE%" ^
 --add-asset-search-path "%CD%" ^
@@ -239,6 +250,7 @@ if %ERRORLEVEL% neq 0 pause
 --load "%CD%\zone_source\dependencies\camo_materials.ff" ^
 --load "%CD%\zone_source\includes\weapons!metalstorm_mms_sp.ff" ^
 --load "%CD%\zone_source\includes\weapons!exptitus6_sp.ff" ^
+--load "%CD%\zone_source\includes\common.ff" ^
 --load "%CD%\zone_source\includes\code_post_gfx.ff" ^
 --load "%CD%\zone_source\includes\frontend.ff" ^
 --load "%CD%\zone_source\includes\afghanistan.ff" ^

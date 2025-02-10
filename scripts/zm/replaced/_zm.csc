@@ -126,7 +126,7 @@ entityspawned(localclientnum)
 
 			case "titus6_explosive_dart_zm":
 			case "titus6_explosive_dart_upgraded_zm":
-				self thread scripts\zm\reimagined\_explosive_dart::spawned(localclientnum);
+				self thread clientscripts\_explosive_dart::spawned(localclientnum);
 				break;
 		}
 	}
