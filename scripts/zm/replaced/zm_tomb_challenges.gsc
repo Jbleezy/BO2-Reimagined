@@ -18,7 +18,7 @@ reward_packed_weapon(player, s_stat)
 {
 	if (!isdefined(s_stat.str_reward_weapon))
 	{
-		a_weapons = array("scar_zm", "sa58_zm", "mp44_zm");
+		a_weapons = array("scar_zm", "hk416_zm", "mp44_zm");
 		s_stat.str_reward_weapon = maps\mp\zombies\_zm_weapons::get_upgrade_weapon(random(a_weapons));
 	}
 

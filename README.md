@@ -33,13 +33,11 @@
 		* [KAP-40](#kap-40)
 		* [M1911](#m1911)
 		* [Mauser C96](#mauser-c96)
-		* [Python](#python)
 		* [Remington New Model Army](#remington-new-model-army)
 		* [Tac-45](#tac-45)
 	* [Assault Rifles](#assault-rifles)
 		* [AN-94](#an-94)
 		* [FAL OSW](#fal-osw)
-		* [Galil](#galil)
 		* [M27](#m27)
 		* [M8A1](#m8a1)
 		* [MTAR](#mtar)
@@ -348,8 +346,7 @@
 * Upgraded: decreased amount of primary camo
 
 #### Executioner
-* Added on Origins
-* Removed on Buried
+* Replaces Python
 * Upgraded: changed attachment from None to Fast Mag
 
 #### Five-seven Dual Wield
@@ -373,9 +370,6 @@
 * Upgraded: decreased last stand ammo from 2 clips to 1 clip
 * Upgraded: added proper fire sound
 
-#### Python
-* Removed
-
 #### Remington New Model Army
 * Upgraded: added proper fire sound
 
@@ -393,11 +387,8 @@
 #### FAL OSW
 * Replaces FAL
 
-#### Galil
-* Removed
-
 #### M27
-* Added on Tranzit, Die Rise, and Buried
+* Replaces Galil
 * Upgraded: changed attachment from Reflex Sight to None
 
 #### M8A1
@@ -1405,7 +1396,6 @@
 * Der Wunderfizz: players only see perk bottles cycling that they can currently obtain
 * Der Wunderfizz: perk bottle model shows at correct position when it first appears
 * Rituals of the Ancients: spend points challenge reward changed from Double Tap perk to a random perk that the player does not have (perk does not change if reward is reopened)
-* Rituals of the Ancients: FAL OSW replaces Galil in perform headshots challenge reward
 * Rituals of the Ancients: fixed not being able to pick up One Inch Punch from reward chest after disconnecting and reconnecting to a match
 * Soul boxes: decreased number of souls to close from 30 to 20
 * Dig spots: decreased number of digs to obtain golden shovel from 30 to 20
