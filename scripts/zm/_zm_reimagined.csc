@@ -3,6 +3,7 @@
 
 main()
 {
+	replaceFunc(clientscripts\mp\_explosive_bolt::fx_think, scripts\zm\replaced\_explosive_bolt::fx_think);
 	replaceFunc(clientscripts\mp\_sticky_grenade::start_light_fx, scripts\zm\replaced\_sticky_grenade::start_light_fx);
 	replaceFunc(clientscripts\mp\zombies\_zm::init_client_flag_callback_funcs, scripts\zm\replaced\_zm::init_client_flag_callback_funcs);
 	replaceFunc(clientscripts\mp\zombies\_zm::init_wallbuy_fx, scripts\zm\replaced\_zm::init_wallbuy_fx);

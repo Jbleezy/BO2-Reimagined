@@ -556,6 +556,11 @@ on_player_spawned()
 			self thread additionalprimaryweapon_stowed_weapon_refill();
 
 			self thread electric_cherry_unlimited();
+
+			if (maps\mp\zombies\_zm_weapons::is_weapon_included("crossbow_zm"))
+			{
+				self thread scripts\zm\reimagined\_zm_weap_crossbow::watch_for_monkey_bolt();
+			}
 		}
 
 		if (!is_player_valid(self))
@@ -1800,6 +1805,7 @@ weapon_changes()
 		include_weapon("metalstorm_mms_zm");
 		include_weapon("metalstorm_mms_upgraded_zm", 0);
 		add_limited_weapon("metalstorm_mms_zm", 1);
+		add_limited_weapon("metalstorm_mms_upgraded_zm", 1);
 		add_zombie_weapon("metalstorm_mms_zm", "metalstorm_mms_upgraded_zm", &"WEAPON_METALSTORM", 1000, "", "", undefined, 1);
 	}
 
@@ -1808,6 +1814,7 @@ weapon_changes()
 		include_weapon("titus6_zm");
 		include_weapon("titus6_upgraded_zm", 0);
 		add_limited_weapon("titus6_zm", 1);
+		add_limited_weapon("titus6_upgraded_zm", 1);
 		add_zombie_weapon("titus6_zm", "titus6_upgraded_zm", &"WEAPON_TITUS6_EXPLOSIVE", 1000, "", "", undefined, 1);
 		precacheitem("titus6_explosive_dart_zm");
 		precacheitem("titus6_explosive_dart_upgraded_zm");
@@ -2026,6 +2033,17 @@ weapon_changes()
 		include_weapon("as50_zm");
 		include_weapon("as50_upgraded_zm", 0);
 		add_zombie_weapon("as50_zm", "as50_upgraded_zm", &"WEAPON_AS50", 1000, vox, "", undefined, 1);
+	}
+
+	if (level.script == "zm_tomb")
+	{
+		include_weapon("crossbow_zm");
+		include_weapon("crossbow_upgraded_zm", 0);
+		add_limited_weapon("crossbow_zm", 1);
+		add_limited_weapon("crossbow_upgraded_zm", 1);
+		add_zombie_weapon("crossbow_zm", "crossbow_upgraded_zm", &"WEAPON_CROSSBOW_EXPLOSIVE", 1000, "wpck_explo", "", undefined, 1);
+		precacheitem("explosive_bolt_zm");
+		precacheitem("explosive_bolt_upgraded_zm");
 	}
 
 	if (isdefined(level.zombie_weapons["beretta93r_extclip_zm"]))

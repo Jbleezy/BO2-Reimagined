@@ -71,6 +71,7 @@
 		* [War Machine](#war-machine)
 	* [Specials](#specials)
 		* [Ballistic Knife](#ballistic-knife)
+		* [Crossbow](#crossbow)
 		* [Death Machine](#death-machine)
 		* [Storm PSR](#storm-psr)
 		* [Titus-6](#titus-6)
@@ -532,6 +533,9 @@
 * Projectiles get destroyed by lava
 * Projectiles can be picked up while the weapon is not reloaded
 * Projectiles can be picked up while the player is not on the ground
+
+#### Crossbow
+* Added on Origins
 
 #### Death Machine
 * No longer spins up by pressing aim button
