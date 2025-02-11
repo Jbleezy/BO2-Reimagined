@@ -39,13 +39,12 @@ crossbow_monkey_bolt(is_upgraded)
 	}
 
 	monkey_bolt_grenade.monkey_bolt_started = 1;
+	self delete();
 
 	if (!is_upgraded)
 	{
 		return;
 	}
-
-	self delete();
 
 	valid_poi = check_point_in_enabled_zone(monkey_bolt_grenade.origin, undefined, undefined);
 
