@@ -79,3 +79,34 @@ dog_round_tracker()
 		}
 	}
 }
+
+waiting_for_next_dog_spawn(count, max)
+{
+	if (is_true(level.mixed_rounds_enabled))
+	{
+		wait 0.5;
+		return;
+	}
+
+	default_wait = 1.5;
+
+	if (level.dog_round_count == 1)
+	{
+		default_wait = 3;
+	}
+	else if (level.dog_round_count == 2)
+	{
+		default_wait = 2.5;
+	}
+	else if (level.dog_round_count == 3)
+	{
+		default_wait = 2;
+	}
+	else
+	{
+		default_wait = 1.5;
+	}
+
+	default_wait = default_wait - count / max;
+	wait(default_wait);
+}

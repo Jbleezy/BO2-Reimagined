@@ -12,16 +12,23 @@ main()
 	replaceFunc(maps\mp\zm_nuked_perks::init_nuked_perks, scripts\zm\replaced\zm_nuked_perks::init_nuked_perks);
 	replaceFunc(maps\mp\zm_nuked_perks::perks_from_the_sky, scripts\zm\replaced\zm_nuked_perks::perks_from_the_sky);
 
+	level._effect["dog_phase_trail"] = loadfx("maps/zombie/fx_zombie_tesla_bolt_secondary");
+	level._effect["dog_phasing"] = loadfx("maps/zombie/fx_zmb_avog_phasing");
+
 	maps\_explosive_dart::init();
 }
 
 init()
 {
+	level.dog_health = 1600;
+	level.mixed_rounds_enabled = 1;
+
 	level.zombie_init_done = ::zombie_init_done;
 	level.special_weapon_magicbox_check = ::nuked_special_weapon_magicbox_check;
 
 	if (is_gametype_active("zgrief"))
 	{
+		maps\mp\zombies\_zm_ai_dogs::init();
 		sndswitchannouncervox("richtofen");
 	}
 }

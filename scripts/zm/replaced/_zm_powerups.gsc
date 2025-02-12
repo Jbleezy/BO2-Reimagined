@@ -702,7 +702,7 @@ nuke_powerup(drop_item, player_team)
 	playfx(drop_item.fx, location);
 	level thread maps\mp\zombies\_zm_powerups::nuke_flash(player_team);
 	wait 0.5;
-	zombies = getaiarray(level.zombie_team);
+	zombies = getaispeciesarray(level.zombie_team, "all");
 	zombies = arraysort(zombies, location);
 	zombies_nuked = [];
 

@@ -301,30 +301,9 @@ round_spawning()
 		{
 			spawn_dog = 0;
 
-			if (level.round_number > 30)
+			if (level.round_number >= 25 || is_gametype_active("zgrief"))
 			{
-				if (randomint(100) < 3)
-				{
-					spawn_dog = 1;
-				}
-			}
-			else if (level.round_number > 25 && mixed_spawns < 3)
-			{
-				if (randomint(100) < 2)
-				{
-					spawn_dog = 1;
-				}
-			}
-			else if (level.round_number > 20 && mixed_spawns < 2)
-			{
-				if (randomint(100) < 2)
-				{
-					spawn_dog = 1;
-				}
-			}
-			else if (level.round_number > 15 && mixed_spawns < 1)
-			{
-				if (randomint(100) < 1)
+				if (randomint(100) < 4)
 				{
 					spawn_dog = 1;
 				}
@@ -342,10 +321,16 @@ round_spawning()
 
 						for (k = 0; k < akeys.size; k++)
 						{
-							if (level.zones[akeys[k]].is_active && !level.zones[akeys[k]].is_occupied && level.zones[akeys[k]].dog_locations.size > 0)
+							if (level.zones[akeys[k]].is_active && level.zones[akeys[k]].dog_locations.size > 0)
 							{
-								maps\mp\zombies\_zm_ai_dogs::special_dog_spawn(undefined, 1);
 								level.zombie_total--;
+								spawned = maps\mp\zombies\_zm_ai_dogs::special_dog_spawn(undefined, 1);
+
+								if (!spawned)
+								{
+									level.zombie_total++;
+								}
+
 								wait_network_frame();
 							}
 						}

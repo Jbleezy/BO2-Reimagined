@@ -10,6 +10,16 @@ weapon,sticky_grenade_zm
 fx,weapon/crossbow/fx_trail_crossbow_blink_grn_os
 fx,weapon/crossbow/fx_trail_crossbow_blink_red_os
 
+fx,maps/zombie/fx_zombie_dog_lightning_buildup
+fx,maps/zombie/fx_zombie_dog_eyes
+fx,maps/zombie/fx_zombie_dog_explosion
+fx,maps/zombie/fx_zombie_dog_fire_trail
+fx,maps/zombie/fx_zombie_dog_ash_trail
+rawfile,shock/dog_bite.shock
+
+fx,maps/zombie/fx_zombie_tesla_bolt_secondary
+fx,maps/zombie/fx_zmb_avog_phasing
+
 xmodel,zm_collision_transit_cornfield_survival
 
 material,hud_icon_40mm_grenade_mp
