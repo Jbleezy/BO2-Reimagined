@@ -2689,7 +2689,11 @@ containment_get_zone_waypoint_origin(zone_name, zone)
 		zone_origin = (zone_origin[0], other_zone_origin[1], zone_origin[2]);
 	}
 
-	if (level.script == "zm_nuked" && zone_name == "openhouse1_f2_zone")
+	if (level.script == "zm_nuked" && zone_name == "openhouse1_f1_zone")
+	{
+		zone_origin += (0, 0, -50);
+	}
+	else if (level.script == "zm_nuked" && zone_name == "openhouse1_f2_zone")
 	{
 		zone_origin += (0, 0, -50);
 	}
