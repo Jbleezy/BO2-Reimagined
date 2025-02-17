@@ -481,7 +481,7 @@
 * Ammo gets added to the clip at the same time that it gets added in the reload anim
 
 #### Mk 48
-* Replaces RPD
+* Replaces RPD (also added on Buried)
 
 ### Sniper Rifles
 * Decreased move speed from 95% to 90%

@@ -2008,12 +2008,13 @@ weapon_changes()
 	if (isdefined(level.zombie_weapons["rpd_zm"]))
 	{
 		level.zombie_weapons["rpd_zm"].is_in_box = 0;
+	}
 
-		vox = "wpck_rpd";
-
+	if (level.script == "zm_nuked" || level.script == "zm_transit" || level.script == "zm_highrise" || level.script == "zm_buried")
+	{
 		include_weapon("mk48_zm");
 		include_weapon("mk48_upgraded_zm", 0);
-		add_zombie_weapon("mk48_zm", "mk48_upgraded_zm", &"WEAPON_MK48", 1000, vox, "", undefined, 1);
+		add_zombie_weapon("mk48_zm", "mk48_upgraded_zm", &"WEAPON_MK48", 1000, "wpck_rpd", "", undefined, 1);
 	}
 
 	if (isdefined(level.zombie_weapons["barretm82_zm"]))
