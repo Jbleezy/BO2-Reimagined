@@ -5,13 +5,25 @@ title Building BO2-Reimagined
 mode 150, 30
 
 "%OAT_BASE%\Linker.exe" ^
+--load "%OAT_GAME%\zone\all\patch_mp.ff" ^
+--load "%OAT_GAME%\zone\all\common_patch_mp.ff" ^
+--load "%OAT_GAME%\zone\all\common_mp.ff" ^
+--base-folder "%OAT_BASE%" ^
+--add-asset-search-path "%CD%" ^
+--add-source-search-path "%CD%\zone_source\dependencies" ^
+--output-folder "%CD%\zone_source\dependencies" ^
+camo_materials!mp
+
+if %ERRORLEVEL% neq 0 pause
+
+"%OAT_BASE%\Linker.exe" ^
 --load "%OAT_GAME%\zone\all\zm_prison_patch.ff" ^
 --load "%OAT_GAME%\zone\all\zm_prison.ff" ^
 --base-folder "%OAT_BASE%" ^
 --add-asset-search-path "%CD%" ^
 --add-source-search-path "%CD%\zone_source\dependencies" ^
 --output-folder "%CD%\zone_source\dependencies" ^
-camo_zmb_dlc2_materials
+camo_materials!zmb_dlc2
 
 if %ERRORLEVEL% neq 0 pause
 
@@ -22,26 +34,14 @@ if %ERRORLEVEL% neq 0 pause
 --add-asset-search-path "%CD%" ^
 --add-source-search-path "%CD%\zone_source\dependencies" ^
 --output-folder "%CD%\zone_source\dependencies" ^
-camo_zmb_dlc4_materials
+camo_materials!zmb_dlc4
 
 if %ERRORLEVEL% neq 0 pause
 
 "%OAT_BASE%\Linker.exe" ^
---load "%OAT_GAME%\zone\all\patch_mp.ff" ^
---load "%OAT_GAME%\zone\all\common_patch_mp.ff" ^
---load "%OAT_GAME%\zone\all\common_mp.ff" ^
---base-folder "%OAT_BASE%" ^
---add-asset-search-path "%CD%" ^
---add-source-search-path "%CD%\zone_source\dependencies" ^
---output-folder "%CD%\zone_source\dependencies" ^
-camo_mp_materials
-
-if %ERRORLEVEL% neq 0 pause
-
-"%OAT_BASE%\Linker.exe" ^
---load "%CD%\zone_source\dependencies\camo_zmb_dlc4_materials.ff" ^
---load "%CD%\zone_source\dependencies\camo_zmb_dlc2_materials.ff" ^
---load "%CD%\zone_source\dependencies\camo_mp_materials.ff" ^
+--load "%CD%\zone_source\dependencies\camo_materials!zmb_dlc4.ff" ^
+--load "%CD%\zone_source\dependencies\camo_materials!zmb_dlc2.ff" ^
+--load "%CD%\zone_source\dependencies\camo_materials!mp.ff" ^
 --base-folder "%OAT_BASE%" ^
 --add-asset-search-path "%CD%" ^
 --add-source-search-path "%CD%\zone_source\dependencies" ^
@@ -248,7 +248,6 @@ zm_tomb
 if %ERRORLEVEL% neq 0 pause
 
 "%OAT_BASE%\Linker.exe" ^
---load "%CD%\zone_source\dependencies\camo_materials.ff" ^
 --load "%CD%\zone_source\includes\weapons!metalstorm_mms_sp.ff" ^
 --load "%CD%\zone_source\includes\weapons!exptitus6_sp.ff" ^
 --load "%CD%\zone_source\includes\common.ff" ^

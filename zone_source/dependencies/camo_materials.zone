@@ -1,5 +1,5 @@
 >game,T6
 
-include,camo_zmb_dlc4_materials
-include,camo_zmb_dlc2_materials
-include,camo_mp_materials
+include,camo_materials!zmb_dlc4
+include,camo_materials!zmb_dlc2
+include,camo_materials!mp
