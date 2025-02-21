@@ -394,8 +394,9 @@
 #### M8A1
 * Added on Buried
 * Decreased recoil
-* Upgraded: increased clip ammo from 42 to 44
-* Upgraded: increased stock ammo from 336 to 352
+* Unupgraded: increased stock ammo from 192 to 256
+* Upgraded: decreased clip ammo from 42 to 40
+* Upgraded: increased stock ammo from 336 to 400
 
 #### MTAR
 * Decreased recoil
