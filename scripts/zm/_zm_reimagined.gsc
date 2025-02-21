@@ -884,7 +884,6 @@ set_client_dvars()
 	    "tu14_preventStartingChargeShotWhileFiring", getDvar("tu14_preventStartingChargeShotWhileFiring"));
 
 	self setClientDvars(
-	    "cg_drawFriendlyIndicators", 0,
 	    "cg_friendlyNameFadeIn", 0,
 	    "cg_friendlyNameFadeOut", 250,
 	    "cg_enemyNameFadeIn", 0,
@@ -900,6 +899,7 @@ set_client_dvars()
 
 	self setClientDvars(
 	    "aim_automelee_enabled", 0,
+	    "waypointMaxDrawDist", 0,
 	    "waypointOffscreenPadLUIFix", 1,
 	    "waypointOffscreenPadTop", 40,
 	    "waypointOffscreenPadBottom", 20,
