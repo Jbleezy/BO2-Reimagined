@@ -390,7 +390,6 @@
 
 #### M27
 * Replaces Galil
-* Upgraded: changed attachment from Reflex Sight to None
 
 #### M8A1
 * Added on Buried
@@ -403,7 +402,7 @@
 * Upgraded: changed attachment from Reflex Sight to EOTech Sight
 
 #### SCAR-H
-* Upgraded: changed attachment from Reflex Sight to None
+* Upgraded: changed attachment from Reflex Sight to ACOG Sight
 
 #### SMR
 * Replaces M14
@@ -477,7 +476,7 @@
 
 #### HAMR
 * Decreased recoil
-* Upgraded: changed attachment from None to Grip
+* Upgraded: changed attachment from None to Fore Grip
 
 #### MG08/15
 * Ammo gets added to the clip at the same time that it gets added in the reload anim
