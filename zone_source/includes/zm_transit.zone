@@ -10,6 +10,15 @@ weapon,sticky_grenade_zm
 fx,weapon/crossbow/fx_trail_crossbow_blink_grn_os
 fx,weapon/crossbow/fx_trail_crossbow_blink_red_os
 
+material,menu_mp_weapons_xm8
+xmodel,t6_wpn_ar_xm8_view
+xmodel,t6_wpn_ar_xm8_world
+xmodel,t6_attach_mag_xm8_view
+xmodel,t6_attach_mag_xm8_world
+camo,camo_xm8
+weapon,xm8_zm
+weapon,xm8_upgraded_zm
+
 fx,maps/zombie/fx_zombie_dog_lightning_buildup
 fx,maps/zombie/fx_zombie_dog_eyes
 fx,maps/zombie/fx_zombie_dog_explosion

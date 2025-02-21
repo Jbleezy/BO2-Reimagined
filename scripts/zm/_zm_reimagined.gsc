@@ -2007,6 +2007,13 @@ weapon_changes()
 
 	if (level.script == "zm_buried")
 	{
+		include_weapon("xm8_zm");
+		include_weapon("xm8_upgraded_zm", 0);
+		add_zombie_weapon("xm8_zm", "xm8_upgraded_zm", &"ZOMBIE_WEAPON_XM8", 1000, "wpck_m8a1", "", undefined, 1);
+	}
+
+	if (level.script == "zm_buried")
+	{
 		include_weapon("type95_zm");
 		include_weapon("type95_upgraded_zm", 0);
 		add_zombie_weapon("type95_zm", "type95_upgraded_zm", &"ZOMBIE_WEAPON_TYPE95", 1000, "wpck_type25", "", undefined, 1);
