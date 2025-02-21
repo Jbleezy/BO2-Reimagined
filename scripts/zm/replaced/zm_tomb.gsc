@@ -233,6 +233,8 @@ tomb_can_track_ammo_custom(weap)
 		case "none":
 		case "no_hands_zm":
 		case "lower_equip_gasmask_zm":
+		case "crossbow_zm":
+		case "crossbow_upgraded_zm":
 		case "humangun_zm":
 		case "humangun_upgraded_zm":
 		case "falling_hands_tomb_zm":
