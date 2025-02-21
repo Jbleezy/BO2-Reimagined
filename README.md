@@ -424,6 +424,7 @@
 * Replaces M16A1
 
 #### Type 25
+* Added on Buried
 * Decreased recoil
 * Unupgraded: increased stock ammo from 150 to 300
 * Upgraded: increased stock ammo from 270 to 450
