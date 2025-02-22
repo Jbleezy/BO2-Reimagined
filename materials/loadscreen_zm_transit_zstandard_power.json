@@ -75,7 +75,7 @@
     },
     "textures": [
         {
-            "image": "loadscreen_transit_standard_busdepot",
+            "image": "loadscreen_transit_standard_power",
             "isMatureContent": false,
             "name": "colorMap",
             "samplerState": {
