@@ -1273,6 +1273,7 @@
 * Perks and wallbuys within the maze are randomized each game
 
 ### Mob of the Dead
+* Added custom loading screen
 * Replaced Remington 870 MCS wallbuy at Citadel with Semtex wallbuy
 * Added PHD Flopper machine at Showers
 * Added Mule Kick machine at China Alley
