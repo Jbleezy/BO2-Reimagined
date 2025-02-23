@@ -676,9 +676,10 @@ CoD.OptionsSettings.CreateGameTab = function(GameTab, LocalClientIndex)
 	HeadIconSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
 	HeadIconSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_ENABLED_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
 
-	local AltActionSlotAreaSelector = GameTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_ALT_ACTION_SLOT_AREA_CAPS"), "ui_hud_alt_action_slot_area")
-	AltActionSlotAreaSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChangedUpdateActionSlots)
-	AltActionSlotAreaSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_ENABLED_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChangedUpdateActionSlots)
+	local ActionSlotAreaSelector = GameTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_ACTION_SLOT_AREA_CAPS"), "ui_hud_action_slot_area")
+	ActionSlotAreaSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_AUTOMATIC_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChangedUpdateActionSlots)
+	ActionSlotAreaSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DPAD_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChangedUpdateActionSlots)
+	ActionSlotAreaSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_KEY_PROMPT_CAPS"), 2, nil, CoD.OptionsSettings.Button_ApplyDvarChangedUpdateActionSlots)
 
 	local FogSelector = GameTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_FOG_CAPS"), "r_fog_settings")
 	FogSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChangedSendMenuResponse)
@@ -701,7 +702,7 @@ CoD.OptionsSettings.Button_ApplyDvarChangedUpdateActionSlots = function(Button)
 	Button.parentSelectorButton.dvarChangedCount = Button.parentSelectorButton.dvarChangedCount + 1
 
 	-- don't process event unless button was clicked
-	if Button.parentSelectorButton.dvarChangedCount > #Button.parentSelectorButton.m_choices then
+	if Button.parentSelectorButton.dvarChangedCount > 2 then
 		CoD.AmmoAreaZombie.Widget:processEvent({
 			name = "hud_update_actionslots",
 			controller = Button.parentSelectorButton.m_currentController,
@@ -723,7 +724,7 @@ CoD.OptionsSettings.Button_ApplyDvarChangedSendMenuResponse = function(Button)
 	Button.parentSelectorButton.dvarChangedCount = Button.parentSelectorButton.dvarChangedCount + 1
 
 	-- don't send menu response unless button was clicked
-	if Button.parentSelectorButton.dvarChangedCount > #Button.parentSelectorButton.m_choices then
+	if Button.parentSelectorButton.dvarChangedCount > 2 then
 		Engine.SendMenuResponse(Button.parentSelectorButton.m_currentController, Button.parentSelectorButton.m_dvarName, Button.value)
 	end
 end

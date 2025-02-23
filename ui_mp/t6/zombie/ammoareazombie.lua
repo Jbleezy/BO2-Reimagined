@@ -269,12 +269,12 @@ CoD.AmmoAreaZombie.UpdateActionSlots = function(f2_arg0, f2_arg1)
 				f2_arg0.actionSlots[f2_local4] = Widget
 				local f2_local9 = LUI.UIImage.new()
 
-				if UIExpression.DvarBool(nil, "ui_hud_alt_action_slot_area") == 1 then
-					f2_local9:setLeftRight(true, true, 0, 0)
-					f2_local9:setTopBottom(true, true, (f2_local13 / 2) - (f2_local13 / (2 * f2_local12.aspectRatio)), -1 * ((f2_local13 / 2) - (f2_local13 / (2 * f2_local12.aspectRatio))))
-				else
+				if (UIExpression.DvarBool(nil, "ui_hud_action_slot_area") == 0 and CoD.useController and Engine.LastInput_Gamepad()) or UIExpression.DvarBool(nil, "ui_hud_action_slot_area") == 1 then
 					f2_local9:setLeftRight(true, true, -1 * ((f2_local14 / 2) - (f2_local14 / (2 * f2_local12.aspectRatio))), ((f2_local14 / 2) - (f2_local14 / (2 * f2_local12.aspectRatio))))
 					f2_local9:setTopBottom(true, true, 0, 0)
+				else
+					f2_local9:setLeftRight(true, true, 0, 0)
+					f2_local9:setTopBottom(true, true, (f2_local13 / 2) - (f2_local13 / (2 * f2_local12.aspectRatio)), -1 * ((f2_local13 / 2) - (f2_local13 / (2 * f2_local12.aspectRatio))))
 				end
 
 				f2_local9:setRGB(CoD.HUDBaseColor.r, CoD.HUDBaseColor.g, CoD.HUDBaseColor.b)
@@ -290,7 +290,7 @@ CoD.AmmoAreaZombie.UpdateActionSlots = function(f2_arg0, f2_arg1)
 					f2_local10:setText(f2_local12.ammo)
 					Widget:addElement(f2_local10)
 				end
-				if CoD.isPC and UIExpression.DvarBool(nil, "ui_hud_alt_action_slot_area") == 1 then
+				if CoD.isPC then
 					local f2_local10 = 210
 					local f2_local11 = nil
 					if f2_local4 == 1 then
@@ -353,7 +353,7 @@ CoD.AmmoAreaZombie.UpdateActionSlots = function(f2_arg0, f2_arg1)
 						Widget.keyPrompt:setAlignment(LUI.Alignment.Right)
 						Widget:registerAnimationState("KeyPrompt", f2_local11)
 						Widget:addElement(Widget.keyPrompt)
-						if UIExpression.DvarBool(nil, "ui_hud_alt_action_slot_area") == 0 then
+						if (UIExpression.DvarBool(nil, "ui_hud_action_slot_area") == 0 and CoD.useController and Engine.LastInput_Gamepad()) or UIExpression.DvarBool(nil, "ui_hud_action_slot_area") == 1 then
 							CoD.AmmoAreaZombie.ActionSlotInputSourceChanged(Widget, {
 								source = 0,
 							})
