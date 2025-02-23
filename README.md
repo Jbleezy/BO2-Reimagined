@@ -60,6 +60,7 @@
 		* [HAMR](#hamr)
 		* [MG08/15](#mg0815)
 		* [Mk 48](#mk-48)
+		* [QBB LSW](#qbb-lsw)
 	* [Sniper Rifles](#sniper-rifles)
 		* [Ballista](#ballista)
 		* [DSR 50](#dsr-50)
@@ -484,6 +485,9 @@
 
 #### Mk 48
 * Replaces RPD (also added on Buried)
+
+#### QBB LSW
+* Added on Mob of the Dead
 
 ### Sniper Rifles
 * Decreased move speed from 95% to 90%

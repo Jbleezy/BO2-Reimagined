@@ -2031,6 +2031,13 @@ weapon_changes()
 		add_zombie_weapon("mk48_zm", "mk48_upgraded_zm", &"WEAPON_MK48", 1000, "wpck_rpd", "", undefined, 1);
 	}
 
+	if (level.script == "zm_prison")
+	{
+		include_weapon("qbb95_zm");
+		include_weapon("qbb95_upgraded_zm", 0);
+		add_zombie_weapon("qbb95_zm", "qbb95_upgraded_zm", &"WEAPON_QBB95", 1000, "wpck_mg", "", undefined, 1);
+	}
+
 	if (isdefined(level.zombie_weapons["barretm82_zm"]))
 	{
 		level.zombie_weapons["barretm82_zm"].is_in_box = 0;
