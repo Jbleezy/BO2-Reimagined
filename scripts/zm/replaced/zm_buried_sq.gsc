@@ -116,8 +116,6 @@ richtofen_zombie_deathfunction_override()
 		if (!(isdefined(self.turning_into_ghost) && self.turning_into_ghost))
 		{
 			self force_random_powerup_drop();
-
-			self.attacker maps\mp\zombies\_zm_score::add_to_player_score(500);
 		}
 	}
 

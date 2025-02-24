@@ -1248,7 +1248,8 @@
 * Quest (Maxis): no longer need to activate the Time Bomb to be able to spawn the 2nd wisp
 * Quest (Maxis): no longer need to activate the lever in the Mansion before activating the bells
 * Quest (Maxis): bells can be activated in any order
-* Quest (Maxis): completion button Richtofen zombie reward can only drop powerup if killed by a player
+* Quest (Maxis): Richtofen zombie completion button reward can only drop powerup if killed by a player
+* Quest (Maxis): Richtofen zombie completion button reward no longer gives player 500 points when killed
 * Quest (Richtofen): can enter round infinity without having all players next to the Guillotine
 * Quest (Richtofen): Maze levers can be activated in an order
 * Quest (Richtofen): completion button reward increases weapon limit from 2 to 3
