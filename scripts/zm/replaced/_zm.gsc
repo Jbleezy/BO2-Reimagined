@@ -311,30 +311,17 @@ round_spawning()
 
 			if (spawn_dog)
 			{
-				keys = getarraykeys(level.zones);
+				level.zombie_total--;
+				spawned = maps\mp\zombies\_zm_ai_dogs::special_dog_spawn(undefined, 1);
 
-				for (i = 0; i < keys.size; i++)
+				if (!spawned)
 				{
-					if (level.zones[keys[i]].is_occupied)
-					{
-						akeys = getarraykeys(level.zones[keys[i]].adjacent_zones);
-
-						for (k = 0; k < akeys.size; k++)
-						{
-							if (level.zones[akeys[k]].is_active && level.zones[akeys[k]].dog_locations.size > 0)
-							{
-								level.zombie_total--;
-								spawned = maps\mp\zombies\_zm_ai_dogs::special_dog_spawn(undefined, 1);
-
-								if (!spawned)
-								{
-									level.zombie_total++;
-								}
-
-								wait_network_frame();
-							}
-						}
-					}
+					level.zombie_total++;
+				}
+				else
+				{
+					wait_network_frame();
+					continue;
 				}
 			}
 		}

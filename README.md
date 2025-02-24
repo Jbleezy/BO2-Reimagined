@@ -1081,7 +1081,7 @@
 * All quests play a song on completion after ending the current round
 
 ### Nuketown
-* Hellhounds spawn mid round starting at round 25
+* Hellhounds spawn mid round starting at round 25 (4% chance to spawn)
 * Initial perk is no longer always Quick Revive in solo
 * Initial perk no longer always spawns in the starting area in solo
 * Initial perk spawns at round 1 in coop
