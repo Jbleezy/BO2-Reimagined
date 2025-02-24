@@ -29,6 +29,10 @@ rawfile,shock/dog_bite.shock
 fx,maps/zombie/fx_zombie_tesla_bolt_secondary
 fx,maps/zombie/fx_zmb_avog_phasing
 
+fx,fog/fx_zmb_fog_transition_600x600
+fx,fog/fx_zmb_fog_transition_1200x600
+fx,fog/fx_zmb_fog_transition_right_border
+
 xmodel,zm_collision_transit_cornfield_survival
 
 material,hud_icon_40mm_grenade_mp

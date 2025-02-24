@@ -1075,7 +1075,7 @@
 * Ends the game
 
 ## Maps
-* All locations can be played on Survival and Grief game modes
+* All locations can be played on all game modes
 * All quests can be completed with any amount of players
 * All quests give players all perks on completion
 * All quests play a song on completion after ending the current round
@@ -1139,6 +1139,7 @@
 * Quest (Richtofen): lamp posts step no longer requires all lamp posts to be powered off at the same time
 * Survival & Grief: power doors are buyable doors
 * Grief: added Ballistic Knife, Ray Gun, and Ray Gun Mark 2 to the Mystery Box
+* Added missing fog fx to all game modes
 * Added collision to area at Cornfield that was considered out of the map
 * Fixed bus wheels moving around while the bus wasn't moving
 * Fixed T.E.D.D. moving around while the bus was moving
