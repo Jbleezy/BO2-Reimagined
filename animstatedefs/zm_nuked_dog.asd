@@ -53,7 +53,7 @@ zm_move_walk : notify move_walk
 	zombie_dog_trot
 }
 
-zm_move_start : notify move_start
+zm_move_start : notify move_start restart
 {
 	zombie_dog_run_start
 }
