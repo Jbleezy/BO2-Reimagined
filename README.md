@@ -1119,6 +1119,7 @@
 * Lamp post portals stay active until the lamp post is powered off
 * Each lamp post portal teleports players to a set destination lamp post (randomizes each game)
 * Decreased brightness at Power Station
+* Changed spectator cycle color from grey to black
 * Zombies killed by the bus no longer respawn
 * Zombies no longer spawn in the Cornfield Building zone when in the Cornfield zone
 * Zombies no longer spawn in the Cornfield zone when in the Cornfield Building zone

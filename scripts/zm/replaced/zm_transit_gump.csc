@@ -6,12 +6,12 @@
 init_transit_gump()
 {
 	level.uses_gumps = 1;
+
 	waitforclient(0);
 	waitforallclients();
 	wait 0.05;
 
 	players = getlocalplayers();
-
 	startcolor = (0, 0, 0);
 
 	for (i = 0; i < players.size; i++)
@@ -19,12 +19,11 @@ init_transit_gump()
 		sethidegumpalpha(i, startcolor);
 	}
 
-	if (getdvar("ui_gametype") == "zclassic" || getdvar("ui_gametype") == "zsurvival")
+	if (getdvar("ui_gametype") == "zclassic")
 	{
-		slots = players.size;
-		slots = slots - 1;
+		slots = players.size - 1;
+		thread clientscripts\mp\zombies\_zm_gump::load_gump_for_player(0, "zm_transit_gump_prealloc_0");
 
-		thread clientscripts\mp\zombies\_zm_gump::load_gump_for_player(slots, "zm_transit_gump_prealloc_0");
 		level waittill("gump_loaded");
 
 		thread clientscripts\mp\zombies\_zm_gump::load_gump_for_player(1, "zm_transit_gump_tunnel");
@@ -57,7 +56,7 @@ init_transit_gump()
 	{
 		start_location = getdvar("ui_zm_mapstartlocation");
 
-		if (start_location == "transit" || start_location == "busstop")
+		if (start_location == "transit")
 		{
 			start_location = "busstation";
 		}
@@ -68,8 +67,6 @@ init_transit_gump()
 		}
 
 		single_gump_name = "zm_transit_gump_" + start_location;
-
 		clientscripts\mp\zombies\_zm_gump::load_gump_for_player(0, single_gump_name);
-		return;
 	}
 }
