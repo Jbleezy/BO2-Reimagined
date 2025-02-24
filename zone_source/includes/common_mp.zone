@@ -255,6 +255,8 @@ xanim,viewmodel_msmc_grip_fastmag
 xanim,viewmodel_msmc_grip_fastmag_empty
 xanim,viewmodel_msmc_grip_rangefinder_ads_fire
 
+xmodel,t6_attach_dbal_view
+xmodel,t6_attach_dbal_world
 xmodel,t6_wpn_smg_vector_view
 xmodel,t6_wpn_smg_vector_world
 xmodel,t6_attach_mag_vector_view
