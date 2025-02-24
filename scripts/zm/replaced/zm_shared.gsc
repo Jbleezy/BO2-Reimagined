@@ -65,16 +65,10 @@ dog_teleport()
 {
 	self endon("death");
 
-	if (is_true(self.teleporting))
-	{
-		return;
-	}
-
 	self.teleporting = 1;
 	self.ignoreall = 1;
 	self.actor_damage_func = ::dog_teleport_no_damage;
 	self thread dog_teleport_delete_ents_on_death();
-	self setaimanimweights(0, 0);
 	self setanimstatefromasd("zm_stop_idle");
 	end_node = self getnegotiationendnode();
 
@@ -88,6 +82,8 @@ dog_teleport()
 		self.fx_dog_trail delete();
 	}
 
+	self stoploopsound();
+
 	self.fx_dog_eye = spawn("script_model", self gettagorigin("J_EyeBall_LE"));
 	self.fx_dog_eye.angles = self gettagangles("J_EyeBall_LE");
 	self.fx_dog_eye setmodel("tag_origin");
@@ -97,8 +93,6 @@ dog_teleport()
 	self.fx_dog_trail.angles = self gettagangles("tag_origin");
 	self.fx_dog_trail setmodel("tag_origin");
 	self.fx_dog_trail linkto(self, "tag_origin");
-
-	self stoploopsound();
 
 	self ghost();
 	self forceteleport(self.origin, end_node.angles);
@@ -138,8 +132,6 @@ dog_teleport()
 	maps\mp\zombies\_zm_net::network_safe_play_fx_on_tag("dog_fx", 2, self.fx_dog_trail_type, self.fx_dog_trail, "tag_origin");
 	self playloopsound(self.fx_dog_trail_sound);
 
-	self setaimanimweights(0, 0);
-
 	if (self.a.movement == "run")
 	{
 		self setanimstatefromasd("zm_move_run");
@@ -149,11 +141,11 @@ dog_teleport()
 		self setanimstatefromasd("zm_move_walk");
 	}
 
-	self notify("dog_teleport_done");
-
 	self.actor_damage_func = undefined;
 	self.ignoreall = 0;
 	self.teleporting = undefined;
+
+	self notify("dog_teleport_done");
 }
 
 dog_teleport_delete_ents_on_death()
