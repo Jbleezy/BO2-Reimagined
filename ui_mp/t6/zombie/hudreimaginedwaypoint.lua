@@ -536,6 +536,7 @@ CoD.PlayerCloneWaypoint.updatePlayerUsing = function(Menu, LocalClientIndex, IsP
 	local clientNum = Engine.GetPredictedClientNum(LocalClientIndex)
 	local playerObjectiveEntity = Engine.GetObjectiveEntity(Menu, playerIndex)
 	local objectiveIsPlayerUsing = Engine.ObjectiveIsPlayerUsing(LocalClientIndex, index, clientNum)
+	local isAnyTeamUsing = IsPlayerTeamUsing or IsAnyOtherTeamUsing
 
 	if objectiveIsPlayerUsing then
 		Menu.snapToHeight = 80
@@ -543,11 +544,11 @@ CoD.PlayerCloneWaypoint.updatePlayerUsing = function(Menu, LocalClientIndex, IsP
 		Menu.snapToHeight = -180
 	end
 
-	if IsPlayerTeamUsing and clientNum == playerObjectiveEntity then
+	if isAnyTeamUsing and clientNum == playerObjectiveEntity then
 		objectiveIsPlayerUsing = true
 	end
 
-	if IsPlayerTeamUsing then
+	if isAnyTeamUsing then
 		if Menu.playerUsing == objectiveIsPlayerUsing then
 			return
 		end
@@ -609,8 +610,9 @@ CoD.PlayerReviveWaypoint.updatePlayerUsing = function(Menu, LocalClientIndex, Is
 	local index = Menu.index
 	local clientNum = Engine.GetPredictedClientNum(LocalClientIndex)
 	local objectiveIsPlayerUsing = Engine.ObjectiveIsPlayerUsing(LocalClientIndex, index, clientNum)
+	local isAnyTeamUsing = IsPlayerTeamUsing or IsAnyOtherTeamUsing
 
-	if IsPlayerTeamUsing then
+	if isAnyTeamUsing then
 		if Menu.showWaypoint then
 			Menu.alphaController:setAlpha(1)
 		end
@@ -682,8 +684,9 @@ CoD.PlayerDownWaypoint.updatePlayerUsing = function(Menu, LocalClientIndex, IsPl
 	local index = Menu.index
 	local clientNum = Engine.GetPredictedClientNum(LocalClientIndex)
 	local objectiveIsPlayerUsing = Engine.ObjectiveIsPlayerUsing(LocalClientIndex, index, clientNum)
+	local isAnyTeamUsing = IsPlayerTeamUsing or IsAnyOtherTeamUsing
 
-	if IsPlayerTeamUsing then
+	if isAnyTeamUsing then
 		Menu.alphaController:setAlpha(0)
 
 		if Menu.playerUsing == objectiveIsPlayerUsing then
