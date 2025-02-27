@@ -216,7 +216,7 @@ end
 
 function HUD_GetDvar(HUDWidget, ClientInstance)
 	local dvarKey = Engine.GetIString(ClientInstance.data[1], "CS_LOCALIZED_STRINGS")
-	Engine.SendMenuResponse(HUDWidget.controller, dvarKey, UIExpression.DvarString(nil, dvarKey))
+	Engine.SendMenuResponse(HUDWidget.controller, dvarKey, UIExpression.DvarString(nil, dvarKey .. "_settings"))
 end
 
 function HUD_AllowRoundAnimation(HUDWidget, ClientInstance)

@@ -172,8 +172,6 @@
 * Removed 5 second wait before match start
 * Added restart game button when in online solo game
 * Tick rate is always 20
-* Disabled depth of field
-* Increased level of detail at longer distances
 * Announcer audio always plays
 * In-game menu no longer disabled instantly when the game ends
 * Fixed various engine related leaks with entities
@@ -181,8 +179,10 @@
 ## Settings
 * Added options to enable or disable new HUD elements
 * Added option to enable or disable teammate head icons
-* Added option to enable or disable alt action slot area
+* Added option to change action slot area
 * Added option to enable or disable fog
+* Added option to enable or disable depth of field
+* Added option to change level of detail
 * Added option in private match lobby to enable or disable character dialog
 
 ## HUD
@@ -196,7 +196,6 @@
 * Weapon name is capitalized on all maps
 * Weapon name is the same text size on all maps
 * Weapon name and ammo no longer fade out
-* Action slot area no longer tied to input source
 * Grenade icons no longer fade based on how many the player currently has
 * Ammo counter no longer shows while scoped on all maps
 * Added round chalk images from Mob of the Dead to all maps

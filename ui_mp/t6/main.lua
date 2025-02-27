@@ -206,6 +206,18 @@ CoD.InitArchiveDvars = function()
 	if UIExpression.DvarString(nil, "r_fog_settings") == "" then
 		Engine.Exec(nil, "seta r_fog_settings 0")
 	end
+
+	if UIExpression.DvarString(nil, "r_dof_enable_settings") == "" then
+		Engine.Exec(nil, "seta r_dof_enable_settings 0")
+	end
+
+	if UIExpression.DvarString(nil, "r_lodBiasRigid_settings") == "" then
+		Engine.Exec(nil, "seta r_lodBiasRigid_settings -1000")
+	end
+
+	if UIExpression.DvarString(nil, "r_lodBiasSkinned_settings") == "" then
+		Engine.Exec(nil, "seta r_lodBiasSkinned_settings -1000")
+	end
 end
 
 CoD.SetDvars = function()

@@ -235,7 +235,10 @@ init()
 
 precache_menus()
 {
-	precacheMenu("r_fog_settings");
+	precacheMenu("r_fog");
+	precacheMenu("r_dof_enable");
+	precacheMenu("r_lodBiasRigid");
+	precacheMenu("r_lodBiasSkinned");
 }
 
 precache_strings()
@@ -262,7 +265,10 @@ precache_strings()
 	precacheString(&"OBJ_GAME_MODE_2");
 
 	precacheString(&"get_dvar");
-	precacheString(&"r_fog_settings");
+	precacheString(&"r_fog");
+	precacheString(&"r_dof_enable");
+	precacheString(&"r_lodBiasRigid");
+	precacheString(&"r_lodBiasSkinned");
 
 	precacheString(&"hud_update_rounds_played");
 	precacheString(&"hud_update_ammo");
@@ -893,10 +899,7 @@ set_client_dvars()
 	    "cg_sonarAttachmentFadeFriendlies", 0,
 	    "cg_sonarAttachmentFadeEnemies", 0,
 	    "cg_sonarAttachmentFullscreenThermal", 0,
-	    "cg_sonarAttachmentFullscreenSightCheck", 1,
-	    "r_dof_enable", 0,
-	    "r_lodBiasRigid", -1000,
-	    "r_lodBiasSkinned", -500);
+	    "cg_sonarAttachmentFullscreenSightCheck", 1);
 
 	self setClientDvars(
 	    "aim_automelee_enabled", 0,
@@ -910,21 +913,24 @@ set_client_dvars()
 	    "weaponAltWeaponNames", "",
 	    "additionalPrimaryWeaponName", "");
 
-	self thread set_client_dvar_from_client_dvar_loop("r_fog", "r_fog_settings");
+	self thread set_client_dvar_loop("r_fog");
+	self thread set_client_dvar_loop("r_dof_enable");
+	self thread set_client_dvar_loop("r_lodBiasRigid");
+	self thread set_client_dvar_loop("r_lodBiasSkinned");
 }
 
-set_client_dvar_from_client_dvar_loop(dvar, from_dvar)
+set_client_dvar_loop(dvar)
 {
 	self endon("disconnect");
 
 	// this will send menu response back after getting to the waittill
-	self luinotifyevent(&"get_dvar", 1, istring(from_dvar));
+	self luinotifyevent(&"get_dvar", 1, istring(dvar));
 
 	while (1)
 	{
 		self waittill("menuresponse", menu, value);
 
-		if (menu == from_dvar)
+		if (menu == tolower(dvar))
 		{
 			self setClientDvar(dvar, value);
 		}
