@@ -466,6 +466,7 @@ CoD.PlayerCloneWaypoint.new = function(Menu, ObjectiveIndex)
 	waypoint:setTopBottom(false, true, -waypoint.iconHeight, 0)
 	waypoint.edgePointerContainer:setTopBottom(true, true, -15, -15)
 	waypoint.updatePlayerUsing = CoD.PlayerCloneWaypoint.updatePlayerUsing
+	waypoint.snapToHeight = 80
 
 	local objectiveName = Engine.GetObjectiveName(Menu, ObjectiveIndex)
 	waypoint:registerEventHandler("objective_update_" .. objectiveName, waypoint.update)
@@ -537,16 +538,6 @@ CoD.PlayerCloneWaypoint.updatePlayerUsing = function(Menu, LocalClientIndex, IsP
 	local playerObjectiveEntity = Engine.GetObjectiveEntity(Menu, playerIndex)
 	local objectiveIsPlayerUsing = Engine.ObjectiveIsPlayerUsing(LocalClientIndex, index, clientNum)
 	local isAnyTeamUsing = IsPlayerTeamUsing or IsAnyOtherTeamUsing
-
-	if objectiveIsPlayerUsing then
-		Menu.snapToHeight = 80
-	else
-		Menu.snapToHeight = -180
-	end
-
-	if isAnyTeamUsing and clientNum == playerObjectiveEntity then
-		objectiveIsPlayerUsing = true
-	end
 
 	if isAnyTeamUsing then
 		if Menu.playerUsing == objectiveIsPlayerUsing then
