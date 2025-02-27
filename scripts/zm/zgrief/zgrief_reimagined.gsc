@@ -800,9 +800,6 @@ headstomp_watcher()
 
 	flag_wait("initial_blackscreen_passed");
 
-	mins = (-16, -16, 0);
-	maxs = (16, 16, 30);
-
 	while (1)
 	{
 		if (self.sessionstate != "playing")
@@ -815,10 +812,13 @@ headstomp_watcher()
 
 		foreach (player in players)
 		{
-			if (player != self && player.team != self.team && is_player_valid(player) && player getStance() == "prone" && player isOnGround() && self.origin[2] > player.origin[2] && self istouchingvolume(player.origin, mins, maxs))
+			if (player != self && player.team != self.team && is_player_valid(player) && player getStance() == "prone" && player isOnGround() && self.origin[2] > player.origin[2])
 			{
-				player store_player_damage_info(self, "none", "MOD_FALLING");
-				player dodamage(1000, (0, 0, 0));
+				if (distance2d(self.origin, player.origin) <= 21 && (self.origin[2] - player.origin[2]) <= 30)
+				{
+					player store_player_damage_info(self, "none", "MOD_FALLING");
+					player dodamage(1000, (0, 0, 0));
+				}
 			}
 		}
 
