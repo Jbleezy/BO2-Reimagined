@@ -2427,12 +2427,6 @@ containment_think()
 					held_time["allies"] = getTime();
 					held_prev = "cont";
 				}
-
-				if ((level.grief_score["A"] + 1) >= get_gamemode_winning_score() || (level.grief_score["B"] + 1) >= get_gamemode_winning_score())
-				{
-					held_time["axis"] = undefined;
-					held_time["allies"] = undefined;
-				}
 			}
 			else if (in_containment_zone["axis"].size > in_containment_zone["allies"].size)
 			{
@@ -2497,35 +2491,24 @@ containment_think()
 				}
 			}
 
-			if (isDefined(held_time["axis"]))
+			contested_on_tied_final_score = isDefined(held_time["axis"]) && isDefined(held_time["allies"]) && (level.grief_score["A"] + 1) >= get_gamemode_winning_score() && (level.grief_score["B"] + 1) >= get_gamemode_winning_score();
+
+			if (!contested_on_tied_final_score)
 			{
-				if ((getTime() - held_time["axis"]) >= obj_time)
+				low_score_team = "axis";
+				high_score_team = "allies";
+
+				if (level.grief_score["B"] < level.grief_score["A"])
 				{
-					held_time["axis"] = getTime();
-
-					foreach (player in in_containment_zone["axis"])
-					{
-						if (!isPlayer(player))
-						{
-							continue;
-						}
-
-						score = 50 * maps\mp\zombies\_zm_score::get_points_multiplier(player);
-						player maps\mp\zombies\_zm_score::add_to_player_score(score);
-						player.captures++;
-					}
-
-					increment_score("axis", undefined, !isDefined(held_time["allies"]));
+					low_score_team = "allies";
+					high_score_team = "axis";
 				}
-			}
 
-			if (isDefined(held_time["allies"]))
-			{
-				if ((getTime() - held_time["allies"]) >= obj_time)
+				if (isDefined(held_time[low_score_team]) && (getTime() - held_time[low_score_team]) >= obj_time)
 				{
-					held_time["allies"] = getTime();
+					held_time[low_score_team] = getTime();
 
-					foreach (player in in_containment_zone["allies"])
+					foreach (player in in_containment_zone[low_score_team])
 					{
 						if (!isPlayer(player))
 						{
@@ -2537,7 +2520,26 @@ containment_think()
 						player.captures++;
 					}
 
-					increment_score("allies", undefined, !isDefined(held_time["axis"]));
+					increment_score(low_score_team, undefined, !isDefined(held_time[high_score_team]));
+				}
+
+				if (isDefined(held_time[high_score_team]) && (getTime() - held_time[high_score_team]) >= obj_time)
+				{
+					held_time[high_score_team] = getTime();
+
+					foreach (player in in_containment_zone[high_score_team])
+					{
+						if (!isPlayer(player))
+						{
+							continue;
+						}
+
+						score = 50 * maps\mp\zombies\_zm_score::get_points_multiplier(player);
+						player maps\mp\zombies\_zm_score::add_to_player_score(score);
+						player.captures++;
+					}
+
+					increment_score(high_score_team, undefined, !isDefined(held_time[low_score_team]));
 				}
 			}
 

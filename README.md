@@ -1518,7 +1518,6 @@
 * Gain 250 score to win the game
 * Contested if both teams have the same amount of players alive in the containment zone
 * Both teams gain score at half rate when contested
-* Final score has to be gained uncontested
 * Zombies only go after players in the containment zone
 * Zombies in the containment zone die when it moves
 * Players in the containment zone gain 50 points when their team gains score
