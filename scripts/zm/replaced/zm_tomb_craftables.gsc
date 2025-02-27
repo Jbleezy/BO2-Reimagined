@@ -271,6 +271,11 @@ quadrotor_control_thread()
 		{
 			prev_wep = self getCurrentWeapon();
 
+			self increment_is_drinking();
+			self disable_player_move_states(1);
+
+			self switchtoweapon("equip_dieseldrone_zm");
+
 			self waittill("weapon_change_complete");
 
 			self playsound("veh_qrdrone_takeoff");
@@ -284,7 +289,7 @@ quadrotor_control_thread()
 				self switchtoweapon(self getweaponslistprimaries()[0]);
 			}
 
-			self waittill("weapon_change_complete");
+			self waittill("weapon_change");
 
 			if (self hasweapon("equip_dieseldrone_zm"))
 			{
@@ -293,6 +298,9 @@ quadrotor_control_thread()
 				melee = self scripts\zm\replaced\zm_tomb_utility::get_melee_weapon_from_held();
 				self setactionslot(2, "weapon", "held_" + melee);
 			}
+
+			self decrement_is_drinking();
+			self enable_player_move_states();
 
 			str_vehicle = "heli_quadrotor_zm";
 

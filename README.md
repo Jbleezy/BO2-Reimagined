@@ -1053,6 +1053,7 @@
 * Added HUD message for how to activate
 * Buildable table model sits on top of the stand
 * Rotated buildable table model 90 degrees
+* Can no longer switch weapons or sprint while deploying
 * Switches back to correct weapon after deploying
 
 ## Bank
