@@ -155,7 +155,7 @@ CoD.TCZWaypoint.update = function(f4_arg0, f4_arg1)
 
 	CoD.TCZWaypoint.super.update(f4_arg0, f4_arg1)
 
-	local teamID = Engine.GetTeamID(f4_arg1.controller, Engine.GetPredictedClientNum(f4_arg1.controller))
+	local teamID = Engine.GetTeamID(f4_arg1.controller, Engine.GetClientNum(f4_arg1.controller))
 	local isTeamUsing = Engine.ObjectiveIsTeamUsing(f4_arg1.controller, f4_arg0.index, teamID)
 	local isAnyOtherTeamUsing = isZombieCaptureWaypoint and f4_arg0.isAnyOtherTeamUsing == 1
 	local isBothTeamsUsing = isTeamUsing and isAnyOtherTeamUsing

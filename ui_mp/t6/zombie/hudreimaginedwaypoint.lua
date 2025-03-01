@@ -297,7 +297,7 @@ end
 CoD.GameModeObjectiveWaypoint.update = function(Menu, ClientInstance)
 	local index = Menu.index
 	local controller = ClientInstance.controller
-	local clientNum = Engine.GetPredictedClientNum(controller)
+	local clientNum = Engine.GetClientNum(controller)
 	local objectiveFlags = Engine.GetObjectiveGamemodeFlags(Menu, index)
 	local gametypeObj = UIExpression.DvarString(nil, "ui_gametype_obj")
 
@@ -358,7 +358,7 @@ end
 
 CoD.GameModeObjectiveWaypoint.updatePlayerUsing = function(Menu, LocalClientIndex, IsPlayerTeamUsing, IsAnyOtherTeamUsing)
 	local index = Menu.index
-	local clientNum = Engine.GetPredictedClientNum(LocalClientIndex)
+	local clientNum = Engine.GetClientNum(LocalClientIndex)
 	local objectiveIsPlayerUsing = Engine.ObjectiveIsPlayerUsing(LocalClientIndex, index, clientNum)
 	local x, y, z = Engine.GetObjectivePosition(Menu, index)
 	local newObjPos = false
@@ -426,7 +426,7 @@ end
 CoD.PlayerObjectiveWaypoint.update = function(Menu, ClientInstance)
 	local index = Menu.index
 	local controller = ClientInstance.controller
-	local clientNum = Engine.GetPredictedClientNum(controller)
+	local clientNum = Engine.GetClientNum(controller)
 	local objectiveFlags = Engine.GetObjectiveGamemodeFlags(Menu, index)
 	local objectiveEntity = Engine.GetObjectiveEntity(Menu, index)
 	local clientTeam = Engine.GetTeamID(controller, clientNum)
@@ -491,7 +491,7 @@ CoD.PlayerCloneWaypoint.update = function(Menu, ClientInstance)
 
 		if inAfterlife then
 			local playerIndex = index - 8
-			local clientNum = Engine.GetPredictedClientNum(LocalClientIndex)
+			local clientNum = Engine.GetClientNum(LocalClientIndex)
 			local playerObjectiveEntity = Engine.GetObjectiveEntity(Menu, playerIndex)
 
 			if clientNum == playerObjectiveEntity then
@@ -534,7 +534,7 @@ end
 CoD.PlayerCloneWaypoint.updatePlayerUsing = function(Menu, LocalClientIndex, IsPlayerTeamUsing, IsAnyOtherTeamUsing)
 	local index = Menu.index
 	local playerIndex = index - 8
-	local clientNum = Engine.GetPredictedClientNum(LocalClientIndex)
+	local clientNum = Engine.GetClientNum(LocalClientIndex)
 	local playerObjectiveEntity = Engine.GetObjectiveEntity(Menu, playerIndex)
 	local objectiveIsPlayerUsing = Engine.ObjectiveIsPlayerUsing(LocalClientIndex, index, clientNum)
 	local isAnyTeamUsing = IsPlayerTeamUsing or IsAnyOtherTeamUsing
@@ -599,7 +599,7 @@ end
 
 CoD.PlayerReviveWaypoint.updatePlayerUsing = function(Menu, LocalClientIndex, IsPlayerTeamUsing, IsAnyOtherTeamUsing)
 	local index = Menu.index
-	local clientNum = Engine.GetPredictedClientNum(LocalClientIndex)
+	local clientNum = Engine.GetClientNum(LocalClientIndex)
 	local objectiveIsPlayerUsing = Engine.ObjectiveIsPlayerUsing(LocalClientIndex, index, clientNum)
 	local isAnyTeamUsing = IsPlayerTeamUsing or IsAnyOtherTeamUsing
 
@@ -673,7 +673,7 @@ end
 
 CoD.PlayerDownWaypoint.updatePlayerUsing = function(Menu, LocalClientIndex, IsPlayerTeamUsing, IsAnyOtherTeamUsing)
 	local index = Menu.index
-	local clientNum = Engine.GetPredictedClientNum(LocalClientIndex)
+	local clientNum = Engine.GetClientNum(LocalClientIndex)
 	local objectiveIsPlayerUsing = Engine.ObjectiveIsPlayerUsing(LocalClientIndex, index, clientNum)
 	local isAnyTeamUsing = IsPlayerTeamUsing or IsAnyOtherTeamUsing
 
@@ -717,7 +717,7 @@ end
 CoD.PlayerWaypoint.updateDownAndRevive = function(Menu, ClientInstance, IsDownWaypoint)
 	local index = Menu.index
 	local controller = ClientInstance.controller
-	local clientNum = Engine.GetPredictedClientNum(controller)
+	local clientNum = Engine.GetClientNum(controller)
 	local objectiveFlags = Engine.GetObjectiveGamemodeFlags(Menu, index)
 	local objectiveEntity = Engine.GetObjectiveEntity(Menu, index)
 	local clientTeam = Engine.GetTeamID(controller, clientNum)
@@ -791,7 +791,7 @@ end
 CoD.PlayerEnemyWaypoint.update = function(Menu, ClientInstance)
 	local index = Menu.index
 	local controller = ClientInstance.controller
-	local clientNum = Engine.GetPredictedClientNum(controller)
+	local clientNum = Engine.GetClientNum(controller)
 	local objectiveFlags = Engine.GetObjectiveGamemodeFlags(Menu, index)
 	local objectiveEntity = Engine.GetObjectiveEntity(Menu, index)
 	local clientTeam = Engine.GetTeamID(controller, clientNum)
@@ -876,7 +876,7 @@ end
 CoD.PlayerAliveWaypoint.update = function(Menu, ClientInstance)
 	local index = Menu.index
 	local controller = ClientInstance.controller
-	local clientNum = Engine.GetPredictedClientNum(controller)
+	local clientNum = Engine.GetClientNum(controller)
 	local objectiveFlags = Engine.GetObjectiveGamemodeFlags(Menu, index)
 	local objectiveEntity = Engine.GetObjectiveEntity(Menu, index)
 	local clientTeam = Engine.GetTeamID(controller, clientNum)
@@ -1043,7 +1043,7 @@ end
 CoD.PlayerHeadIcon.update = function(Menu, ClientInstance)
 	local index = Menu.index
 	local controller = ClientInstance.controller
-	local clientNum = Engine.GetPredictedClientNum(controller)
+	local clientNum = Engine.GetClientNum(controller)
 	local objectiveFlags = Engine.GetObjectiveGamemodeFlags(Menu, index)
 	local objectiveEntity = Engine.GetObjectiveEntity(Menu, index)
 	local clientTeam = Engine.GetTeamID(controller, clientNum)
