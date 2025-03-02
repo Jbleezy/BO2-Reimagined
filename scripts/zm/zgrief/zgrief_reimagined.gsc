@@ -2776,6 +2776,7 @@ containment_time_hud_countdown(time)
 {
 	level notify("containment_time_hud_countdown");
 	level endon("containment_time_hud_countdown");
+	level endon("end_game");
 
 	level.containment_time_hud_value = time;
 
