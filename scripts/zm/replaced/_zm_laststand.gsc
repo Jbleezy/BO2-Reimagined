@@ -85,29 +85,28 @@ revive_trigger_think()
 
 revive_do_revive(playerbeingrevived, revivergun)
 {
-	self thread revive_give_back_weapons_on_player_suicide(playerbeingrevived, revivergun);
-
 	self thread revive_check_for_weapon_change();
 
-	is_clone_revive = false;
 	playerbeingrevived_player = undefined;
+	obj_ind = undefined;
 	beingrevivedprogressbar_y = 0;
 
 	if (isDefined(playerbeingrevived.e_chugabud_player))
 	{
-		is_clone_revive = true;
 		playerbeingrevived_player = playerbeingrevived.e_chugabud_player;
 		playerbeingrevived_player.revive_hud.y = -95;
+		obj_ind = playerbeingrevived_player.clone_obj_ind;
 		beingrevivedprogressbar_y = level.secondaryprogressbary * -1.5;
-		objective_setplayerusing(playerbeingrevived_player.clone_obj_ind, self);
 	}
 	else
 	{
 		playerbeingrevived_player = playerbeingrevived;
 		playerbeingrevived_player.revive_hud.y = -160;
+		obj_ind = playerbeingrevived_player.obj_ind;
 		beingrevivedprogressbar_y = level.primaryprogressbary * -1;
-		objective_setplayerusing(playerbeingrevived_player.obj_ind, self);
 	}
+
+	objective_setplayerusing(obj_ind, self);
 
 	revivetime = 3;
 
@@ -183,7 +182,7 @@ revive_do_revive(playerbeingrevived, revivergun)
 	}
 
 	self.is_reviving_any++;
-	self thread laststand_clean_up_reviving_any(playerbeingrevived_player);
+	self thread laststand_clean_up_reviving_any(playerbeingrevived, revivergun);
 	self.reviveprogressbar updatebar(0.01, 1 / revivetime);
 
 	if (isDefined(playerbeingrevived_player.beingrevivedprogressbar))
@@ -289,27 +288,9 @@ revive_do_revive(playerbeingrevived, revivergun)
 		playerbeingrevived thread maps\mp\zombies\_zm_laststand::checkforbleedout(self);
 	}
 
-	if (is_clone_revive)
-	{
-		objective_clearplayerusing(playerbeingrevived_player.clone_obj_ind, self);
-	}
-	else
-	{
-		objective_clearplayerusing(playerbeingrevived_player.obj_ind, self);
-	}
+	objective_clearplayerusing(obj_ind, self);
 
 	return revived;
-}
-
-revive_give_back_weapons_on_player_suicide(playerbeingrevived, revivergun)
-{
-	self notify("revive_give_back_weapons_on_player_suicide");
-	self endon("revive_give_back_weapons_on_player_suicide");
-	self endon("do_revive_ended_normally");
-
-	playerbeingrevived waittill("player_suicide");
-
-	self maps\mp\zombies\_zm_laststand::revive_give_back_weapons(revivergun);
 }
 
 revive_check_for_weapon_change()
@@ -353,27 +334,41 @@ laststand_clean_up_on_disconnect(playerbeingrevived, revivergun)
 	self maps\mp\zombies\_zm_laststand::revive_give_back_weapons(revivergun);
 }
 
-laststand_clean_up_reviving_any(playerbeingrevived)
+laststand_clean_up_reviving_any(playerbeingrevived, revivergun)
 {
 	self endon("do_revive_ended_normally");
 
-	playerbeingrevived waittill_any("disconnect", "zombified", "stop_revive_trigger", "chugabud_effects_cleanup");
+	playerbeingrevived_player = undefined;
+	obj_ind = undefined;
+
+	if (isDefined(playerbeingrevived.e_chugabud_player))
+	{
+		playerbeingrevived_player = playerbeingrevived.e_chugabud_player;
+		obj_ind = playerbeingrevived_player.clone_obj_ind;
+	}
+	else
+	{
+		playerbeingrevived_player = playerbeingrevived;
+		obj_ind = playerbeingrevived_player.obj_ind;
+	}
+
+	playerbeingrevived_player waittill_any("disconnect", "zombified", "stop_revive_trigger", "chugabud_effects_cleanup");
+
+	if (isDefined(playerbeingrevived_player.beingrevivedprogressbar))
+	{
+		playerbeingrevived_player.beingrevivedprogressbar destroyelem();
+	}
+
+	if (isDefined(playerbeingrevived_player.revive_hud))
+	{
+		playerbeingrevived_player.revive_hud settext("");
+	}
 
 	self.is_reviving_any--;
 
 	if (self.is_reviving_any < 0)
 	{
 		self.is_reviving_any = 0;
-	}
-
-	if (isDefined(playerbeingrevived.beingrevivedprogressbar))
-	{
-		playerbeingrevived.beingrevivedprogressbar destroyelem();
-	}
-
-	if (isDefined(playerbeingrevived.revive_hud))
-	{
-		playerbeingrevived.revive_hud settext("");
 	}
 
 	if (!self.is_reviving_any)
@@ -387,7 +382,11 @@ laststand_clean_up_reviving_any(playerbeingrevived)
 		{
 			self.revivetexthud destroy();
 		}
+
+		self maps\mp\zombies\_zm_laststand::revive_give_back_weapons(revivergun);
 	}
+
+	objective_clearplayerusing(obj_ind, self);
 }
 
 revive_give_back_weapons(gun)
