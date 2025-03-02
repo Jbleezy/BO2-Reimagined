@@ -695,6 +695,7 @@ on_intermission()
 	foreach (player in players)
 	{
 		player.statusicon = "";
+		player useservervisionset(0);
 		player setclientuivisibilityflag("hud_visible", 0);
 	}
 }
