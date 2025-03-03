@@ -61,3 +61,17 @@ get_mechz_enemy_array()
 
 	return valid_enemies;
 }
+
+mechz_death_ee()
+{
+	self waittill("death");
+	level.ee_mech_zombies_killed++;
+	level.ee_mech_zombies_alive--;
+
+	if (level.ee_mech_zombies_killed == 4)
+	{
+		v_max_ammo_origin = self.origin;
+		level thread maps\mp\zombies\_zm_powerups::specific_powerup_drop("full_ammo", v_max_ammo_origin);
+		flag_set("ee_mech_zombie_fight_completed");
+	}
+}
