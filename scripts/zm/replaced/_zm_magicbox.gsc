@@ -850,15 +850,8 @@ treasure_chest_move(player_vox)
 
 	if (level.zombie_vars["zombie_powerup_fire_sale_on"] == 1 && self [[level._zombiemode_check_firesale_loc_valid_func]]())
 	{
-		current_sale_time = level.zombie_vars["zombie_powerup_fire_sale_time"];
 		wait_network_frame();
-		self thread maps\mp\zombies\_zm_magicbox::fire_sale_fix();
-		level.zombie_vars["zombie_powerup_fire_sale_time"] = current_sale_time;
-
-		while (level.zombie_vars["zombie_powerup_fire_sale_time"] > 0)
-		{
-			wait 0.1;
-		}
+		self thread fire_sale_fix();
 	}
 
 	level.verify_chest = 0;
@@ -877,10 +870,35 @@ treasure_chest_move(player_vox)
 		level.chests[level.chest_index][[level.chests[level.chest_index].box_hacks["summon_box"]]](0);
 	}
 
-	playfx(level._effect["poltergeist"], level.chests[level.chest_index].zbarrier.origin);
-	level.chests[level.chest_index] maps\mp\zombies\_zm_magicbox::show_chest();
+	if (isdefined(level.chests[level.chest_index].was_temp))
+	{
+		level.chests[level.chest_index].was_temp = undefined;
+		self.was_temp = 1;
+	}
+	else
+	{
+		playfx(level._effect["poltergeist"], level.chests[level.chest_index].zbarrier.origin);
+		level.chests[level.chest_index] maps\mp\zombies\_zm_magicbox::show_chest();
+	}
+
 	flag_clear("moving_chest_now");
 	self.zbarrier.chest_moving = 0;
+}
+
+fire_sale_fix()
+{
+	if (!isdefined(level.zombie_vars["zombie_powerup_fire_sale_on"]))
+	{
+		return;
+	}
+
+	if (level.zombie_vars["zombie_powerup_fire_sale_on"])
+	{
+		self.old_cost = 950;
+		self thread show_chest();
+		self.zombie_cost = 10;
+		self.unitrigger_stub unitrigger_set_hint_string(self, "default_treasure_chest", self.zombie_cost);
+	}
 }
 
 default_box_move_logic()

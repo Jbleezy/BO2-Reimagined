@@ -810,6 +810,7 @@
 * Special sound no longer plays when obtaining the Ray Gun
 * Special sound plays when obtaining the wonder weapon
 * Teddy bear model shows at correct angles when it first appears
+* No longer disappears then reappears at end of Fire Sale if Fire Sale started while Mystery Box was moving
 
 ## Perks
 * Added high qualty perk icons to all maps
