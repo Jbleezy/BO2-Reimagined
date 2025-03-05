@@ -248,6 +248,7 @@ zm_tomb
 if %ERRORLEVEL% neq 0 pause
 
 "%OAT_BASE%\Linker.exe" ^
+--load "%CD%\zone_source\dependencies\camo_materials.ff" ^
 --load "%CD%\zone_source\includes\weapons!metalstorm_mms_sp.ff" ^
 --load "%CD%\zone_source\includes\weapons!exptitus6_sp.ff" ^
 --load "%CD%\zone_source\includes\common.ff" ^

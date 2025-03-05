@@ -4,6 +4,8 @@
 >level.ipak_read,mp
 >level.ipak_read,sp
 
+include,dependencies/camo_materials
+
 include,includes/zm_tomb
 include,includes/zm_buried
 include,includes/zm_prison
