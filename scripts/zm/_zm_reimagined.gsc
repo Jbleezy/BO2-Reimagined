@@ -892,6 +892,7 @@ set_client_dvars()
 	    "tu14_preventStartingChargeShotWhileFiring", getDvar("tu14_preventStartingChargeShotWhileFiring"));
 
 	self setClientDvars(
+	    "aim_automelee_enabled", 0,
 	    "cg_friendlyNameFadeIn", 0,
 	    "cg_friendlyNameFadeOut", 250,
 	    "cg_enemyNameFadeIn", 0,
@@ -900,10 +901,10 @@ set_client_dvars()
 	    "cg_sonarAttachmentFadeFriendlies", 0,
 	    "cg_sonarAttachmentFadeEnemies", 0,
 	    "cg_sonarAttachmentFullscreenThermal", 0,
-	    "cg_sonarAttachmentFullscreenSightCheck", 1);
+	    "cg_sonarAttachmentFullscreenSightCheck", 1,
+	    "r_skinnedCacheVertsMaxScale", 2);
 
 	self setClientDvars(
-	    "aim_automelee_enabled", 0,
 	    "waypointMaxDrawDist", 0,
 	    "waypointOffscreenPadTop", 40,
 	    "waypointOffscreenPadBottom", 20,
