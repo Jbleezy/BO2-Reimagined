@@ -801,6 +801,8 @@ set_dvars()
 	setDvar("player_sliding_velocity_cap", 80);
 	setDvar("player_sliding_wishspeed", 800);
 
+	setDvar("player_sprintFix", 1);
+
 	setDvar("dtp_post_move_pause", 0);
 	setDvar("dtp_startup_delay", 100);
 	setDvar("dtp_exhaustion_window", 100);
@@ -870,6 +872,7 @@ set_client_dvars()
 	    "player_view_pitch_down", getDvar("player_view_pitch_down"),
 	    "player_sliding_velocity_cap", getDvar("player_sliding_velocity_cap"),
 	    "player_sliding_wishspeed", getDvar("player_sliding_wishspeed"),
+	    "player_sprintFix", getDvar("player_sprintFix"),
 	    "dtp_post_move_pause", getDvar("dtp_post_move_pause"),
 	    "dtp_startup_delay", getDvar("dtp_startup_delay"),
 	    "dtp_exhaustion_window", getDvar("dtp_exhaustion_window"),
