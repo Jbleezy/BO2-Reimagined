@@ -684,6 +684,8 @@ on_player_disconnect()
 	objective_state(self.obj_ind, "invisible");
 	objective_clearentity(self.obj_ind, self);
 	objective_setgamemodeflags(self.obj_ind, 0);
+
+	level.player_obj_inds[self.obj_ind] = 0;
 }
 
 on_intermission()
