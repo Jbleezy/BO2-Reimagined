@@ -2996,6 +2996,11 @@ meat_powerup_reset_on_timeout()
 
 	self waittill("powerup_timedout");
 
+	if (is_true(self.claimed))
+	{
+		return;
+	}
+
 	level notify("meat_inactive");
 }
 
