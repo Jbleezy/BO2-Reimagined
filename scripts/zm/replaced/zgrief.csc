@@ -57,6 +57,8 @@ meat_glow_cb(localclientnum, oldval, newval, bnewent, binitialsnap, fieldname, b
 			}
 
 			level.meatglow_fx = playviewmodelfx(localclientnum, level._effect["meat_glow3p"], tagname);
+
+			level thread meat_glow_delete_on_weapon_taken(localclientnum);
 		}
 	}
 	else
@@ -65,6 +67,28 @@ meat_glow_cb(localclientnum, oldval, newval, bnewent, binitialsnap, fieldname, b
 		{
 			deletefx(localclientnum, level.meatglow_fx);
 			level.meatglow_fx = undefined;
+			level notify("meat_glow_delete");
 		}
+	}
+}
+
+meat_glow_delete_on_weapon_taken(localclientnum)
+{
+	level endon("meat_glow_delete");
+
+	while (!(hasweapon(localclientnum, "item_meat_zm") || hasweapon(localclientnum, "item_head_zm")))
+	{
+		wait 0.05;
+	}
+
+	while (hasweapon(localclientnum, "item_meat_zm") || hasweapon(localclientnum, "item_head_zm"))
+	{
+		wait 0.05;
+	}
+
+	if (isdefined(level.meatglow_fx))
+	{
+		deletefx(localclientnum, level.meatglow_fx);
+		level.meatglow_fx = undefined;
 	}
 }
