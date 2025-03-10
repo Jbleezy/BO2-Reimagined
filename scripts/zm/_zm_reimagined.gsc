@@ -1576,9 +1576,7 @@ veryhurt_blood_fx()
 
 	while (1)
 	{
-		health_ratio = self.health / self.maxhealth;
-
-		if (health_ratio <= 0.2)
+		if (self.health <= 50)
 		{
 			playfxontag(level._effect["zombie_guts_explosion"], self.player_fx_ent, "tag_origin");
 

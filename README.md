@@ -234,13 +234,13 @@
 * Disabled meleeing while doing falling hands anim
 * Removed ammo counter while doing falling hands anim
 * Can look up and down 90 degrees (previously 85 degrees)
+* Changed low health threshold from 20% of player's max health to 50 health
 * Decreased normal health regeneration delay from 2.4 seconds to 2 seconds
 * Decreased low health regeneration delay from 5 seconds to 4 seconds
 * Normal health regeneration rate is no longer instant
 * Changed health regeneration rate to 100 health per second (normally fully restored health in 0.5 seconds)
-* Changed low health threshold from 20% of player's max health to 50 health
 * Fall damage no longer increases when max health is increased
-* Added blood fx when at or below 20% health
+* Added blood fx when at low health
 * Removed blur after getting damaged
 * Removed shellshock from explosive damage
 * No longer killed when landing on top of another player
