@@ -429,6 +429,7 @@ meat_stink_cleanup_on_disconnect()
 	level endon("meat_grabbed");
 	self endon("player_downed");
 	self endon("bled_out");
+	self endon("spawned_player");
 
 	self waittill("disconnect");
 
