@@ -491,6 +491,7 @@ on_player_spawned()
 	while (1)
 	{
 		self waittill("spawned_player");
+		waittillframeend;
 
 		self thread scripts\zm\replaced\_zm::player_spawn_protection();
 
@@ -500,7 +501,8 @@ on_player_spawned()
 
 			if (is_respawn_gamemode() && flag("start_zombie_round_logic"))
 			{
-				self thread wait_and_award_grenades();
+				self giveWeapon(self get_player_lethal_grenade());
+				self setWeaponAmmoClip(self get_player_lethal_grenade(), 2);
 			}
 		}
 
@@ -1093,19 +1095,6 @@ update_players_on_disconnect(excluded_player)
 	{
 		update_players_on_downed(excluded_player);
 	}
-}
-
-wait_and_award_grenades()
-{
-	self endon("disconnect");
-
-	while (is_true(self.is_hotjoining))
-	{
-		wait 0.05;
-	}
-
-	self giveWeapon(self get_player_lethal_grenade());
-	self setWeaponAmmoClip(self get_player_lethal_grenade(), 2);
 }
 
 grief_intro_msg()
