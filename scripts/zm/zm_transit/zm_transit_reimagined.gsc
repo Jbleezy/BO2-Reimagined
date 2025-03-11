@@ -852,6 +852,11 @@ attachpoweruptobus(powerup)
 
 bus_hatch_open()
 {
+	if (!is_classic())
+	{
+		return;
+	}
+
 	flag_wait("initial_blackscreen_passed");
 
 	level.bus_roof_open = 1;
