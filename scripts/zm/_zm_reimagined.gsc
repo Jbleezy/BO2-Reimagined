@@ -920,7 +920,9 @@ set_client_dvars()
 	    "waypointTimeFade", 0,
 	    "waypointTimeFadeLUIFix", 1,
 	    "weaponAltWeaponNames", "",
-	    "additionalPrimaryWeaponName", "");
+	    "additionalPrimaryWeaponName", "",
+	    "ui_gametype_obj_lobby", getDvar("ui_gametype_obj"),
+	    "ui_gametype_pro_lobby", getDvar("ui_gametype_pro"));
 
 	self thread set_client_dvar_loop("r_fog");
 	self thread set_client_dvar_loop("r_dof_enable");
