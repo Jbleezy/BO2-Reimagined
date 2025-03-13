@@ -62,6 +62,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_ai_mechz::mechz_set_starting_health, scripts\zm\replaced\_zm_ai_mechz::mechz_set_starting_health);
 	replaceFunc(maps\mp\zombies\_zm_ai_mechz::mechz_round_tracker, scripts\zm\replaced\_zm_ai_mechz::mechz_round_tracker);
 	replaceFunc(maps\mp\zombies\_zm_ai_mechz::mechz_explode, scripts\zm\replaced\_zm_ai_mechz::mechz_explode);
+	replaceFunc(maps\mp\zombies\_zm_ai_quadrotor::quadrotor_movementupdate, scripts\zm\replaced\_zm_ai_quadrotor::quadrotor_movementupdate);
 	replaceFunc(maps\mp\zombies\_zm_challenges::box_think, scripts\zm\replaced\_zm_challenges::box_think);
 	replaceFunc(maps\mp\zombies\_zm_craftables::choose_open_craftable, scripts\zm\replaced\_zm_craftables::choose_open_craftable);
 	replaceFunc(maps\mp\zombies\_zm_craftables::craftable_use_hold_think_internal, scripts\zm\replaced\_zm_craftables::craftable_use_hold_think_internal);

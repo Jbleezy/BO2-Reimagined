@@ -811,7 +811,16 @@ vending_weapon_upgrade()
 	}
 
 	self thread vending_machine_trigger_think();
-	perk_machine playloopsound("zmb_perks_packa_loop");
+
+	if (level.script == "zm_tomb")
+	{
+		perk_machine playloopsound("zmb_perks_packa_loop_tomb");
+	}
+	else
+	{
+		perk_machine playloopsound("zmb_perks_packa_loop");
+	}
+
 	self thread shutoffpapsounds(perk_machine, packa_rollers, packa_timer);
 	self thread vending_weapon_upgrade_cost();
 
@@ -992,6 +1001,276 @@ destroy_weapon_in_blackout(player)
 	}
 
 	self.perk_machine.wait_flag rotateTo(self.perk_machine.angles + (0, 180, 180), 0.25, 0, 0);
+}
+
+third_person_weapon_upgrade(current_weapon, upgrade_weapon, packa_rollers, perk_machine, trigger)
+{
+	level endon("Pack_A_Punch_off");
+	trigger endon("pap_player_disconnected");
+	rel_entity = trigger.perk_machine;
+	origin_offset = (0, 0, 0);
+	angles_offset = (0, 0, 0);
+	origin_base = self.origin;
+	angles_base = self.angles;
+
+	if (isdefined(rel_entity))
+	{
+		if (isdefined(level.pap_interaction_height))
+		{
+			origin_offset = (0, 0, level.pap_interaction_height);
+		}
+		else
+		{
+			origin_offset = vectorscale((0, 0, 1), 35.0);
+		}
+
+		angles_offset = vectorscale((0, 1, 0), 90.0);
+		origin_base = rel_entity.origin;
+		angles_base = rel_entity.angles;
+	}
+	else
+	{
+		rel_entity = self;
+	}
+
+	forward = anglestoforward(angles_base + angles_offset);
+	interact_offset = origin_offset + forward * -25;
+
+	if (!isdefined(perk_machine.fx_ent))
+	{
+		perk_machine.fx_ent = spawn("script_model", origin_base + origin_offset + (0, 1, -34));
+		perk_machine.fx_ent.angles = angles_base + angles_offset;
+		perk_machine.fx_ent setmodel("tag_origin");
+		perk_machine.fx_ent linkto(perk_machine);
+	}
+
+	if (isdefined(level._effect["packapunch_fx"]))
+	{
+		fx = playfxontag(level._effect["packapunch_fx"], perk_machine.fx_ent, "tag_origin");
+	}
+
+	offsetdw = vectorscale((1, 1, 1), 3.0);
+	weoptions = self maps\mp\zombies\_zm_weapons::get_pack_a_punch_weapon_options(current_weapon);
+	trigger.worldgun = spawn_weapon_model(current_weapon, undefined, origin_base + interact_offset, self.angles, weoptions);
+	worldgundw = undefined;
+
+	if (maps\mp\zombies\_zm_magicbox::weapon_is_dual_wield(current_weapon))
+	{
+		worldgundw = spawn_weapon_model(current_weapon, maps\mp\zombies\_zm_magicbox::get_left_hand_weapon_model_name(current_weapon), origin_base + interact_offset + offsetdw, self.angles, weoptions);
+	}
+
+	trigger.worldgun.worldgundw = worldgundw;
+
+	if (isdefined(level.custom_pap_move_in))
+	{
+		perk_machine [[level.custom_pap_move_in]](trigger, origin_offset, angles_offset, perk_machine);
+	}
+	else
+	{
+		perk_machine pap_weapon_move_in(trigger, origin_offset, angles_offset);
+	}
+
+	if (level.script == "zm_tomb")
+	{
+		self playsound("zmb_perks_packa_upgrade_tomb");
+	}
+	else
+	{
+		self playsound("zmb_perks_packa_upgrade");
+	}
+
+	if (isdefined(perk_machine.wait_flag))
+	{
+		perk_machine.wait_flag rotateto(perk_machine.wait_flag.angles + vectorscale((1, 0, 0), 179.0), 0.25, 0, 0);
+	}
+
+	wait 0.35;
+	trigger.worldgun delete();
+
+	if (isdefined(worldgundw))
+	{
+		worldgundw delete();
+	}
+
+	wait 3;
+
+	if (isdefined(self))
+	{
+		if (level.script == "zm_tomb")
+		{
+			self playsound("zmb_perks_packa_ready_tomb");
+		}
+		else
+		{
+			self playsound("zmb_perks_packa_ready");
+		}
+	}
+	else
+	{
+		return;
+	}
+
+	upoptions = self maps\mp\zombies\_zm_weapons::get_pack_a_punch_weapon_options(upgrade_weapon);
+	trigger.current_weapon = current_weapon;
+	trigger.upgrade_name = upgrade_weapon;
+	trigger.worldgun = spawn_weapon_model(upgrade_weapon, undefined, origin_base + origin_offset, angles_base + angles_offset + vectorscale((0, 1, 0), 90.0), upoptions);
+	worldgundw = undefined;
+
+	if (maps\mp\zombies\_zm_magicbox::weapon_is_dual_wield(upgrade_weapon))
+	{
+		worldgundw = spawn_weapon_model(upgrade_weapon, maps\mp\zombies\_zm_magicbox::get_left_hand_weapon_model_name(upgrade_weapon), origin_base + origin_offset + offsetdw, angles_base + angles_offset + vectorscale((0, 1, 0), 90.0), upoptions);
+	}
+
+	trigger.worldgun.worldgundw = worldgundw;
+
+	if (isdefined(perk_machine.wait_flag))
+	{
+		perk_machine.wait_flag rotateto(perk_machine.wait_flag.angles - vectorscale((1, 0, 0), 179.0), 0.25, 0, 0);
+	}
+
+	if (isdefined(level.custom_pap_move_out))
+	{
+		rel_entity thread [[level.custom_pap_move_out]](trigger, origin_offset, interact_offset);
+	}
+	else
+	{
+		rel_entity thread pap_weapon_move_out(trigger, origin_offset, interact_offset);
+	}
+
+	return trigger.worldgun;
+}
+
+wait_for_player_to_take(player, weapon, packa_timer, upgrade_as_attachment)
+{
+	current_weapon = self.current_weapon;
+	upgrade_name = self.upgrade_name;
+	upgrade_weapon = upgrade_name;
+	self endon("pap_timeout");
+	level endon("Pack_A_Punch_off");
+
+	while (true)
+	{
+		if (level.script == "zm_tomb")
+		{
+			packa_timer playloopsound("zmb_perks_packa_ticktock_tomb");
+		}
+		else
+		{
+			packa_timer playloopsound("zmb_perks_packa_ticktock");
+		}
+
+		self waittill("trigger", trigger_player);
+
+		if (isdefined(level.pap_grab_by_anyone) && level.pap_grab_by_anyone)
+		{
+			player = trigger_player;
+		}
+
+		packa_timer stoploopsound(0.05);
+
+		if (trigger_player == player)
+		{
+			player maps\mp\zombies\_zm_stats::increment_client_stat("pap_weapon_grabbed");
+			player maps\mp\zombies\_zm_stats::increment_player_stat("pap_weapon_grabbed");
+			current_weapon = player getcurrentweapon();
+
+			primaries = player getweaponslistprimaries();
+			weapon_limit = get_player_weapon_limit(player);
+
+			if (is_player_valid(player) && !(player.is_drinking > 0) && level.revive_tool != current_weapon && "none" != current_weapon && !player hacker_active() && (primaries.size < weapon_limit || (!is_melee_weapon(current_weapon) && !is_placeable_mine(current_weapon) && !is_equipment(current_weapon))))
+			{
+				maps\mp\_demo::bookmark("zm_player_grabbed_packapunch", gettime(), player);
+				self notify("pap_taken");
+				player notify("pap_taken");
+				player.pap_used = 1;
+
+				if (!(isdefined(upgrade_as_attachment) && upgrade_as_attachment))
+				{
+					player thread do_player_general_vox("general", "pap_arm", 15, 100);
+				}
+				else
+				{
+					player thread do_player_general_vox("general", "pap_arm2", 15, 100);
+				}
+
+				weapon_limit = get_player_weapon_limit(player);
+				player maps\mp\zombies\_zm_weapons::take_fallback_weapon();
+				primaries = player getweaponslistprimaries();
+
+				if (isdefined(primaries) && primaries.size >= weapon_limit)
+				{
+					player maps\mp\zombies\_zm_weapons::weapon_give(upgrade_weapon);
+				}
+				else
+				{
+					player giveweapon(upgrade_weapon, 0, player maps\mp\zombies\_zm_weapons::get_pack_a_punch_weapon_options(upgrade_weapon));
+					player givestartammo(upgrade_weapon);
+					player notify("weapon_ammo_change");
+				}
+
+				player switchtoweapon(upgrade_weapon);
+
+				if (isdefined(player.restore_ammo) && player.restore_ammo)
+				{
+					new_clip = player.restore_clip + weaponclipsize(upgrade_weapon) - player.restore_clip_size;
+					new_stock = player.restore_stock + weaponmaxammo(upgrade_weapon) - player.restore_max;
+					player setweaponammostock(upgrade_weapon, new_stock);
+					player setweaponammoclip(upgrade_weapon, new_clip);
+				}
+
+				player.restore_ammo = undefined;
+				player.restore_clip = undefined;
+				player.restore_stock = undefined;
+				player.restore_max = undefined;
+				player.restore_clip_size = undefined;
+				player maps\mp\zombies\_zm_weapons::play_weapon_vo(upgrade_weapon);
+				return;
+			}
+		}
+
+		wait 0.05;
+	}
+}
+
+wait_for_timeout(weapon, packa_timer, player)
+{
+	self endon("pap_taken");
+	self endon("pap_player_disconnected");
+	self thread wait_for_disconnect(player);
+	wait(level.packapunch_timeout);
+	self notify("pap_timeout");
+	packa_timer stoploopsound(0.05);
+
+	if (level.script == "zm_tomb")
+	{
+		packa_timer playsound("zmb_perks_packa_deny_tomb");
+	}
+	else
+	{
+		packa_timer playsound("zmb_perks_packa_deny");
+	}
+
+	maps\mp\zombies\_zm_weapons::unacquire_weapon_toggle(weapon);
+
+	if (isdefined(player))
+	{
+		player maps\mp\zombies\_zm_stats::increment_client_stat("pap_weapon_not_grabbed");
+		player maps\mp\zombies\_zm_stats::increment_player_stat("pap_weapon_not_grabbed");
+	}
+}
+
+turnonpapsounds(ent)
+{
+	level waittill("Pack_A_Punch_on");
+
+	if (level.script == "zm_tomb")
+	{
+		ent playloopsound("zmb_perks_packa_loop_tomb");
+	}
+	else
+	{
+		ent playloopsound("zmb_perks_packa_loop");
+	}
 }
 
 give_perk(perk, bought)
@@ -1565,91 +1844,6 @@ turn_tombstone_on()
 
 		array_thread(machine, ::turn_perk_off);
 		players = get_players();
-	}
-}
-
-wait_for_player_to_take(player, weapon, packa_timer, upgrade_as_attachment)
-{
-	current_weapon = self.current_weapon;
-	upgrade_name = self.upgrade_name;
-	upgrade_weapon = upgrade_name;
-	self endon("pap_timeout");
-	level endon("Pack_A_Punch_off");
-
-	while (true)
-	{
-		packa_timer playloopsound("zmb_perks_packa_ticktock");
-
-		self waittill("trigger", trigger_player);
-
-		if (isdefined(level.pap_grab_by_anyone) && level.pap_grab_by_anyone)
-		{
-			player = trigger_player;
-		}
-
-		packa_timer stoploopsound(0.05);
-
-		if (trigger_player == player)
-		{
-			player maps\mp\zombies\_zm_stats::increment_client_stat("pap_weapon_grabbed");
-			player maps\mp\zombies\_zm_stats::increment_player_stat("pap_weapon_grabbed");
-			current_weapon = player getcurrentweapon();
-
-			primaries = player getweaponslistprimaries();
-			weapon_limit = get_player_weapon_limit(player);
-
-			if (is_player_valid(player) && !(player.is_drinking > 0) && level.revive_tool != current_weapon && "none" != current_weapon && !player hacker_active() && (primaries.size < weapon_limit || (!is_melee_weapon(current_weapon) && !is_placeable_mine(current_weapon) && !is_equipment(current_weapon))))
-			{
-				maps\mp\_demo::bookmark("zm_player_grabbed_packapunch", gettime(), player);
-				self notify("pap_taken");
-				player notify("pap_taken");
-				player.pap_used = 1;
-
-				if (!(isdefined(upgrade_as_attachment) && upgrade_as_attachment))
-				{
-					player thread do_player_general_vox("general", "pap_arm", 15, 100);
-				}
-				else
-				{
-					player thread do_player_general_vox("general", "pap_arm2", 15, 100);
-				}
-
-				weapon_limit = get_player_weapon_limit(player);
-				player maps\mp\zombies\_zm_weapons::take_fallback_weapon();
-				primaries = player getweaponslistprimaries();
-
-				if (isdefined(primaries) && primaries.size >= weapon_limit)
-				{
-					player maps\mp\zombies\_zm_weapons::weapon_give(upgrade_weapon);
-				}
-				else
-				{
-					player giveweapon(upgrade_weapon, 0, player maps\mp\zombies\_zm_weapons::get_pack_a_punch_weapon_options(upgrade_weapon));
-					player givestartammo(upgrade_weapon);
-					player notify("weapon_ammo_change");
-				}
-
-				player switchtoweapon(upgrade_weapon);
-
-				if (isdefined(player.restore_ammo) && player.restore_ammo)
-				{
-					new_clip = player.restore_clip + weaponclipsize(upgrade_weapon) - player.restore_clip_size;
-					new_stock = player.restore_stock + weaponmaxammo(upgrade_weapon) - player.restore_max;
-					player setweaponammostock(upgrade_weapon, new_stock);
-					player setweaponammoclip(upgrade_weapon, new_clip);
-				}
-
-				player.restore_ammo = undefined;
-				player.restore_clip = undefined;
-				player.restore_stock = undefined;
-				player.restore_max = undefined;
-				player.restore_clip_size = undefined;
-				player maps\mp\zombies\_zm_weapons::play_weapon_vo(upgrade_weapon);
-				return;
-			}
-		}
-
-		wait 0.05;
 	}
 }
 

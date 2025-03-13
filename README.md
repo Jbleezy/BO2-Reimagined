@@ -913,6 +913,7 @@
 * Reticles on optical attachments are no longer random
 * Decreased weapon pick up time from 15 seconds to 12 seconds
 * Added sound when attempting to purchase without enough points
+* Increased volume of sounds to be the same on all maps
 
 ## Powerups
 * Decreased chance to drop from 3% to 2%
