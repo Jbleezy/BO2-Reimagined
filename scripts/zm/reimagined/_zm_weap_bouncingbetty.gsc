@@ -153,12 +153,6 @@ betty_safe_to_plant()
 	return 1;
 }
 
-betty_wait_and_detonate()
-{
-	wait 0.1;
-	self bouncingbettydetonate();
-}
-
 betty_watch()
 {
 	self endon("death");
@@ -196,6 +190,17 @@ betty_watch()
 			self thread betty_last_shot_give_back_weapon(weapname);
 		}
 	}
+}
+
+betty_wait_and_detonate()
+{
+	self endon("death");
+
+	self waittill_not_moving();
+
+	wait 0.1;
+
+	self bouncingbettydetonate();
 }
 
 // weapon is taken after last shot when using `plantable\0\` attribute

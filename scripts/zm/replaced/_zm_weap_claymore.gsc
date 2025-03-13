@@ -138,6 +138,17 @@ claymore_watch()
 	}
 }
 
+claymore_wait_and_detonate()
+{
+	self endon("death");
+
+	self waittill_not_moving();
+
+	wait 0.1;
+
+	self detonate(self.owner);
+}
+
 // weapon is taken after last shot when using `plantable\0\` attribute
 claymore_last_shot_give_back_weapon(weapname)
 {
