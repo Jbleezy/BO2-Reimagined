@@ -184,7 +184,6 @@ init()
 {
 	precache_menus();
 	precache_strings();
-	precache_shaders();
 	precache_status_icons();
 
 	level.using_solo_revive = 0;
@@ -300,32 +299,6 @@ precache_strings()
 	{
 		precacheString(istring(toupper(level.script + "_" + zone_name)));
 	}
-}
-
-precache_shaders()
-{
-	if (is_gametype_active("zclassic"))
-	{
-		if (level.script == "zm_transit")
-		{
-			game["icons"][level.script] = "faction_tranzit";
-		}
-		else
-		{
-			game["icons"][level.script] = "faction_" + getsubstr(level.script, 3, level.script.size);
-		}
-
-		precacheshader(game["icons"][level.script]);
-	}
-
-	if (level.script == "zm_prison")
-	{
-		game["icons"]["allies"] = "faction_guards";
-		game["icons"]["axis"] = "faction_inmates";
-	}
-
-	precacheshader(game["icons"]["allies"]);
-	precacheshader(game["icons"]["axis"]);
 }
 
 precache_status_icons()
