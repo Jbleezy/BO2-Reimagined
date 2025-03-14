@@ -1103,61 +1103,29 @@ grief_intro_msg()
 
 	level waittill("restart_round_start");
 
+	intro_str = istring(toupper("ZOMBIE_" + level.scr_zm_ui_gametype_obj + "_INTRO"));
+
 	players = get_players();
 
-	if (level.scr_zm_ui_gametype_obj == "zgrief")
+	foreach (player in players)
 	{
-		foreach (player in players)
-		{
-			player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_INTRO");
-		}
-	}
-	else if (level.scr_zm_ui_gametype_obj == "zsnr")
-	{
-		foreach (player in players)
-		{
-			player thread show_grief_hud_msg(&"ZOMBIE_ZSNR_INTRO");
-		}
-	}
-	else if (level.scr_zm_ui_gametype_obj == "zrace")
-	{
-		foreach (player in players)
-		{
-			player thread show_grief_hud_msg(&"ZOMBIE_ZRACE_INTRO");
-		}
-	}
-	else if (level.scr_zm_ui_gametype_obj == "zcontainment")
-	{
-		foreach (player in players)
-		{
-			player thread show_grief_hud_msg(&"ZOMBIE_ZCONTAINMENT_INTRO");
-		}
-	}
-	else if (level.scr_zm_ui_gametype_obj == "zmeat")
-	{
-		foreach (player in players)
-		{
-			player thread show_grief_hud_msg(&"ZOMBIE_ZMEAT_INTRO");
-		}
+		player thread show_grief_hud_msg(intro_str);
 	}
 
 	wait 5;
 
-	players = get_players();
+	to_win_str = &"ZOMBIE_GRIEF_SCORE_TO_WIN";
 
 	if (level.scr_zm_ui_gametype_obj == "zsnr")
 	{
-		foreach (player in players)
-		{
-			player thread show_grief_hud_msg(&"ZOMBIE_GRIEF_ROUNDS_TO_WIN", get_gamemode_winning_score());
-		}
+		to_win_str = &"ZOMBIE_GRIEF_ROUNDS_TO_WIN";
 	}
-	else
+
+	players = get_players();
+
+	foreach (player in players)
 	{
-		foreach (player in players)
-		{
-			player thread show_grief_hud_msg(&"ZOMBIE_GRIEF_SCORE_TO_WIN", get_gamemode_winning_score());
-		}
+		player thread show_grief_hud_msg(to_win_str, get_gamemode_winning_score());
 	}
 }
 
