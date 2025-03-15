@@ -49,16 +49,7 @@ meat_glow_cb(localclientnum, oldval, newval, bnewent, binitialsnap, fieldname, b
 	{
 		if (!isdefined(level.meatglow_fx))
 		{
-			tagname = "tag_weapon";
-
-			if (getdvar("mapname") == "zm_prison" || getdvar("mapname") == "zm_tomb")
-			{
-				tagname = "tag_fx";
-			}
-
-			level.meatglow_fx = playviewmodelfx(localclientnum, level._effect["meat_glow3p"], tagname);
-
-			level thread meat_glow_delete_on_weapon_taken(localclientnum);
+			level thread meat_glow_think(localclientnum);
 		}
 	}
 	else
@@ -72,16 +63,27 @@ meat_glow_cb(localclientnum, oldval, newval, bnewent, binitialsnap, fieldname, b
 	}
 }
 
-meat_glow_delete_on_weapon_taken(localclientnum)
+meat_glow_think(localclientnum)
 {
+	level notify("meat_glow_think");
+	level endon("meat_glow_think");
 	level endon("meat_glow_delete");
 
-	while (!(hasweapon(localclientnum, "item_meat_zm") || hasweapon(localclientnum, "item_head_zm")))
+	while (!(getcurrentweapon(localclientnum) == "item_meat_zm" || getcurrentweapon(localclientnum) == "item_head_zm"))
 	{
 		wait 0.05;
 	}
 
-	while (hasweapon(localclientnum, "item_meat_zm") || hasweapon(localclientnum, "item_head_zm"))
+	tagname = "tag_weapon";
+
+	if (getcurrentweapon(localclientnum) == "item_head_zm")
+	{
+		tagname = "j_head";
+	}
+
+	level.meatglow_fx = playviewmodelfx(localclientnum, level._effect["meat_glow3p"], tagname);
+
+	while (getcurrentweapon(localclientnum) == "item_meat_zm" || getcurrentweapon(localclientnum) == "item_head_zm")
 	{
 		wait 0.05;
 	}
