@@ -45,19 +45,17 @@ meat_stink_cb(localclientnum, oldval, newval, bnewent, binitialsnap, fieldname, 
 
 meat_glow_cb(localclientnum, oldval, newval, bnewent, binitialsnap, fieldname, bwasdemojump)
 {
+	if (isdefined(level.meatglow_fx))
+	{
+		deletefx(localclientnum, level.meatglow_fx);
+		level.meatglow_fx = undefined;
+	}
+
+	level notify("meat_glow_stop");
+
 	if (newval)
 	{
 		level thread meat_glow_think(localclientnum);
-	}
-	else
-	{
-		if (isdefined(level.meatglow_fx))
-		{
-			deletefx(localclientnum, level.meatglow_fx);
-			level.meatglow_fx = undefined;
-		}
-
-		level notify("meat_glow_stop");
 	}
 }
 
