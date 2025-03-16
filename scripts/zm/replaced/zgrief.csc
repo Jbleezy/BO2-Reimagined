@@ -47,10 +47,7 @@ meat_glow_cb(localclientnum, oldval, newval, bnewent, binitialsnap, fieldname, b
 {
 	if (newval)
 	{
-		if (!isdefined(level.meatglow_fx))
-		{
-			level thread meat_glow_think(localclientnum);
-		}
+		level thread meat_glow_think(localclientnum);
 	}
 	else
 	{
@@ -58,21 +55,28 @@ meat_glow_cb(localclientnum, oldval, newval, bnewent, binitialsnap, fieldname, b
 		{
 			deletefx(localclientnum, level.meatglow_fx);
 			level.meatglow_fx = undefined;
-			level notify("meat_glow_delete");
 		}
+
+		level notify("meat_glow_stop");
 	}
 }
 
 meat_glow_think(localclientnum)
 {
-	level notify("meat_glow_think");
-	level endon("meat_glow_think");
-	level endon("meat_glow_delete");
+	level endon("meat_glow_stop");
 
 	while (!(getcurrentweapon(localclientnum) == "item_meat_zm" || getcurrentweapon(localclientnum) == "item_head_zm"))
 	{
 		wait 0.05;
 	}
+
+	level thread meat_glow_melee_think(localclientnum);
+	level thread meat_glow_weapon_change_think(localclientnum);
+}
+
+meat_glow_melee_think(localclientnum)
+{
+	level endon("meat_glow_stop");
 
 	tagname = "tag_weapon";
 
@@ -81,7 +85,34 @@ meat_glow_think(localclientnum)
 		tagname = "j_head";
 	}
 
-	level.meatglow_fx = playviewmodelfx(localclientnum, level._effect["meat_glow3p"], tagname);
+	while (1)
+	{
+		if (!isdefined(level.meatglow_fx))
+		{
+			level.meatglow_fx = playviewmodelfx(localclientnum, level._effect["meat_glow3p"], tagname);
+		}
+
+		while (!ismeleeing(localclientnum))
+		{
+			wait 0.05;
+		}
+
+		if (isdefined(level.meatglow_fx))
+		{
+			deletefx(localclientnum, level.meatglow_fx);
+			level.meatglow_fx = undefined;
+		}
+
+		while (ismeleeing(localclientnum))
+		{
+			wait 0.05;
+		}
+	}
+}
+
+meat_glow_weapon_change_think(localclientnum)
+{
+	level endon("meat_glow_stop");
 
 	while (getcurrentweapon(localclientnum) == "item_meat_zm" || getcurrentweapon(localclientnum) == "item_head_zm")
 	{
@@ -93,4 +124,6 @@ meat_glow_think(localclientnum)
 		deletefx(localclientnum, level.meatglow_fx);
 		level.meatglow_fx = undefined;
 	}
+
+	level notify("meat_glow_stop");
 }
