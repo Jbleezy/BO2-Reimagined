@@ -11,7 +11,7 @@ CoD.MapsList.GameModes = {
 	"ZMUI_ZRACE_CAPS",
 	"ZMUI_ZCONTAINMENT_CAPS",
 	"ZMUI_ZMEAT_CAPS",
-	-- "ZMUI_ZCLEANSED_CAPS", -- TODO: uncomment when game mode is added
+	-- "ZMUI_ZCLEANSED_CAPS", -- TODO: add
 }
 CoD.MapsList.Maps = {
 	"ZMUI_ZCLASSIC_ZM_TRANSIT_CAPS",
@@ -29,17 +29,17 @@ CoD.MapsList.Locations = {
 	"ZMUI_TOWN_CAPS",
 	"ZMUI_TUNNEL_CAPS",
 	"ZMUI_CORNFIELD_CAPS",
-	-- "ZMUI_GREEN_ROOFTOP_CAPS", -- TODO: add localized string, uncomment when location is added
-	-- "ZMUI_BLUE_ROOFTOP_CAPS", -- TODO: add localized string, uncomment when location is added
-	-- "ZMUI_BLUE_HIGHRISE_CAPS", -- TODO: add localized string, uncomment when location is added
+	-- "ZMUI_GREEN_ROOFTOP_CAPS", -- TODO: add
+	-- "ZMUI_BLUE_ROOFTOP_CAPS", -- TODO: add
+	-- "ZMUI_BLUE_HIGHRISE_CAPS", -- TODO: add
 	"ZMUI_STREET_LOC_CAPS",
 	"ZMUI_MAZE_CAPS",
 	"ZMUI_CELLBLOCK_CAPS",
 	"ZMUI_DOCKS_CAPS",
-	-- "ZMUI_TRENCHES_CAPS", -- TODO: add localized string, uncomment when location is added
-	-- "ZMUI_EXCAVATION_SITE_CAPS", -- TODO: add localized string, uncomment when location is added
-	-- "ZMUI_CHURCH_CAPS", -- TODO: add localized string, uncomment when location is added
-	-- "ZMUI_CRAZY_PLACE_CAPS", -- TODO: add localized string, uncomment when location is added
+	-- "ZMUI_TRENCHES_CAPS", -- TODO: add
+	-- "ZMUI_EXCAVATION_SITE_CAPS", -- TODO: add
+	-- "ZMUI_CHURCH_CAPS", -- TODO: add
+	-- "ZMUI_CRAZY_PLACE_CAPS", -- TODO: add
 }
 
 local function setGameModeDvars()
@@ -128,11 +128,14 @@ local function setLocationDvars()
 		Engine.SetDvar("ui_mapname", "zm_nuked")
 		Engine.SetDvar("ui_zm_mapstartlocation", "nuked")
 	elseif location == "ZMUI_GREEN_ROOFTOP_CAPS" then
-		-- TODO: set dvars when location is added
+		Engine.SetDvar("ui_mapname", "zm_highrise")
+		Engine.SetDvar("ui_zm_mapstartlocation", "green_rooftop")
 	elseif location == "ZMUI_BLUE_ROOFTOP_CAPS" then
-		-- TODO: set dvars when location is added
+		Engine.SetDvar("ui_mapname", "zm_highrise")
+		Engine.SetDvar("ui_zm_mapstartlocation", "blue_rooftop")
 	elseif location == "ZMUI_BLUE_HIGHRISE_CAPS" then
-		-- TODO: set dvars when location is added
+		Engine.SetDvar("ui_mapname", "zm_highrise")
+		Engine.SetDvar("ui_zm_mapstartlocation", "blue_highrise")
 	elseif location == "ZMUI_CELLBLOCK_CAPS" then
 		Engine.SetDvar("ui_mapname", "zm_prison")
 		Engine.SetDvar("ui_zm_mapstartlocation", "cellblock")
@@ -146,13 +149,17 @@ local function setLocationDvars()
 		Engine.SetDvar("ui_mapname", "zm_buried")
 		Engine.SetDvar("ui_zm_mapstartlocation", "maze")
 	elseif location == "ZMUI_TRENCHES_CAPS" then
-		-- TODO: set dvars when location is added
+		Engine.SetDvar("ui_mapname", "zm_tomb")
+		Engine.SetDvar("ui_zm_mapstartlocation", "trenches")
 	elseif location == "ZMUI_EXCAVATION_SITE_CAPS" then
-		-- TODO: set dvars when location is added
+		Engine.SetDvar("ui_mapname", "zm_tomb")
+		Engine.SetDvar("ui_zm_mapstartlocation", "excavation_site")
 	elseif location == "ZMUI_CHURCH_CAPS" then
-		-- TODO: set dvars when location is added
+		Engine.SetDvar("ui_mapname", "zm_tomb")
+		Engine.SetDvar("ui_zm_mapstartlocation", "church")
 	elseif location == "ZMUI_CRAZY_PLACE_CAPS" then
-		-- TODO: set dvars when location is added
+		Engine.SetDvar("ui_mapname", "zm_tomb")
+		Engine.SetDvar("ui_zm_mapstartlocation", "crazy_place")
 	end
 end
 
