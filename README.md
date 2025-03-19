@@ -1305,6 +1305,7 @@
 * Plane reappears immediately after coming back from the Golden Gate Bridge
 * Electric chairs appear immediately after crashing at the Golden Gate Bridge
 * Zombies spawn sooner after crashing at the Golden Gate Bridge
+* All barriers are initially built
 * Decreased starting room doors cost from 1000 to 750
 * Opening one of the starting room doors no longer opens the other
 * Brutus no longer spawns if no doors have been opened

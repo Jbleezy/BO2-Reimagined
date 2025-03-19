@@ -371,3 +371,8 @@ check_solo_status()
 {
 	level.is_forever_solo_game = 0;
 }
+
+drop_all_barriers()
+{
+	// removed
+}
