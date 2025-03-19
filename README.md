@@ -1345,6 +1345,7 @@
 * Quest: showdown target waypoint shows offscreen
 * Fixed afterlife icon showing when initially in afterlife at the start of the game
 * Fixed initial weapon raise anim happening after exiting afterlife
+* Fixed perk hint strings showing when in afterlife
 * Fixed being able to hit a death barrier when jumping off the Docks Bridge zone
 
 ### Cell Block

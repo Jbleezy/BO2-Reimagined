@@ -1859,6 +1859,12 @@ check_player_has_perk(perk)
 
 		for (i = 0; i < players.size; i++)
 		{
+			if (is_true(players[i].afterlife))
+			{
+				self setinvisibletoplayer(players[i], 1);
+				continue;
+			}
+
 			if (distancesquared(players[i].origin, self.origin) < dist)
 			{
 				if (!players[i] hasperk(perk) && !players[i] has_perk_paused(perk) && !players[i] in_revive_trigger() && !is_equipment_that_blocks_purchase(players[i] getcurrentweapon()) && !players[i] hacker_active() && !players[i].is_drinking)

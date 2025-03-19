@@ -1012,3 +1012,117 @@ afterlife_can_revive(revivee)
 
 	return true;
 }
+
+afterlife_doors_open()
+{
+	n_network_sent = 0;
+	a_show = getentarray("afterlife_show", "targetname");
+	a_show = arraycombine(a_show, getentarray("afterlife_prop", "script_noteworthy"), 0, 0);
+
+	foreach (ent in a_show)
+	{
+		n_network_sent++;
+
+		if (n_network_sent > 10)
+		{
+			n_network_sent = 0;
+			wait_network_frame();
+		}
+
+		if (isdefined(ent))
+		{
+			ent setvisibletoplayer(self);
+		}
+	}
+
+	a_hide = getentarray("afterlife_door", "targetname");
+	a_hide = arraycombine(a_hide, getentarray("zombie_door", "targetname"), 0, 0);
+	a_hide = arraycombine(a_hide, getentarray("quest_trigger", "script_noteworthy"), 0, 0);
+	a_hide = arraycombine(a_hide, getentarray("trap_trigger", "script_noteworthy"), 0, 0);
+	a_hide = arraycombine(a_hide, getentarray("travel_trigger", "script_noteworthy"), 0, 0);
+	a_hide = arraycombine(a_hide, getentarray("zombie_vending", "targetname"), 0, 0);
+
+	foreach (ent in a_hide)
+	{
+		n_network_sent++;
+
+		if (n_network_sent > 10)
+		{
+			n_network_sent = 0;
+			wait_network_frame();
+		}
+
+		if (isdefined(ent))
+		{
+			ent setinvisibletoplayer(self);
+		}
+	}
+
+	if (isdefined(self.claymores))
+	{
+		foreach (claymore in self.claymores)
+		{
+			if (isdefined(claymore.pickuptrigger))
+			{
+				claymore.pickuptrigger setinvisibletoplayer(self);
+			}
+		}
+	}
+}
+
+afterlife_doors_close()
+{
+	n_network_sent = 0;
+	a_hide = getentarray("afterlife_show", "targetname");
+	a_hide = arraycombine(a_hide, getentarray("afterlife_prop", "script_noteworthy"), 0, 0);
+
+	foreach (ent in a_hide)
+	{
+		n_network_sent++;
+
+		if (n_network_sent > 10)
+		{
+			n_network_sent = 0;
+			wait_network_frame();
+		}
+
+		if (isdefined(ent))
+		{
+			ent setinvisibletoplayer(self);
+		}
+	}
+
+	a_show = getentarray("afterlife_door", "targetname");
+	a_show = arraycombine(a_show, getentarray("zombie_door", "targetname"), 0, 0);
+	a_show = arraycombine(a_show, getentarray("quest_trigger", "script_noteworthy"), 0, 0);
+	a_show = arraycombine(a_show, getentarray("trap_trigger", "script_noteworthy"), 0, 0);
+	a_show = arraycombine(a_show, getentarray("travel_trigger", "script_noteworthy"), 0, 0);
+	a_show = arraycombine(a_show, getentarray("zombie_vending", "targetname"), 0, 0);
+
+	foreach (ent in a_show)
+	{
+		n_network_sent++;
+
+		if (n_network_sent > 10)
+		{
+			n_network_sent = 0;
+			wait_network_frame();
+		}
+
+		if (isdefined(ent))
+		{
+			ent setvisibletoplayer(self);
+		}
+	}
+
+	if (isdefined(self.claymores))
+	{
+		foreach (claymore in self.claymores)
+		{
+			if (isdefined(claymore.pickuptrigger))
+			{
+				claymore.pickuptrigger setvisibletoplayer(self);
+			}
+		}
+	}
+}
