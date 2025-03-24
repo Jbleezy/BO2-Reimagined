@@ -744,6 +744,13 @@ change_exposure_over_time(start_val, end_val, time, end_tweak = 0)
 	self notify("change_exposure_over_time");
 	self endon("change_exposure_over_time");
 
+	if (time == 0)
+	{
+		self.r_exposureValue = undefined;
+		self setClientDvar("r_exposureTweak", 0);
+		return;
+	}
+
 	if (!isdefined(self.r_exposureValue))
 	{
 		self.r_exposureValue = start_val;
