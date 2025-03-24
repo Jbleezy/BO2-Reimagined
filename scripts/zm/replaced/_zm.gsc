@@ -2689,6 +2689,11 @@ is_solo_death(players)
 			return 0;
 		}
 
+		if (is_true(self.insta_killed))
+		{
+			return 1;
+		}
+
 		active_perks = 0;
 
 		if (isDefined(self.perks_active))
@@ -3095,6 +3100,11 @@ wait_and_revive()
 	flag_set("wait_and_revive");
 
 	if (isDefined(self.waiting_to_revive) && self.waiting_to_revive == 1)
+	{
+		return;
+	}
+
+	if (is_true(self.insta_killed))
 	{
 		return;
 	}
