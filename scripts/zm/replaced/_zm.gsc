@@ -3224,20 +3224,28 @@ player_out_of_playable_area_monitor()
 			continue;
 		}
 
+		if (is_true(self.insta_killed))
+		{
+			wait(get_player_out_of_playable_area_monitor_wait_time());
+			continue;
+		}
+
 		if (!self in_life_brush() && (self in_kill_brush() || !self in_enabled_playable_area()))
 		{
 			if (!isdefined(level.player_out_of_playable_area_monitor_callback) || self [[level.player_out_of_playable_area_monitor_callback]]())
 			{
+				self.insta_killed = 1;
+
 				self maps\mp\zombies\_zm_stats::increment_map_cheat_stat("cheat_out_of_playable");
 				self maps\mp\zombies\_zm_stats::increment_client_stat("cheat_out_of_playable", 0);
 				self maps\mp\zombies\_zm_stats::increment_client_stat("cheat_total", 0);
 				self playlocalsound(level.zmb_laugh_alias);
-				wait 0.5;
 
 				self.lives = 0;
 				self dodamage(self.health + 1000, self.origin);
+				self scripts\zm\_zm_reimagined::player_suicide();
 
-				self thread scripts\zm\_zm_reimagined::player_suicide();
+				self.insta_killed = 0;
 			}
 		}
 
