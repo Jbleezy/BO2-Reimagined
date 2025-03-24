@@ -37,6 +37,7 @@ tombstone_spawn(ent)
 	icon linkto(powerup);
 	powerup.icon = icon;
 	powerup.script_noteworthy = "player_tombstone_model";
+	powerup.powerup_name = "tombstone";
 	powerup.player = self;
 	level.active_powerups[level.active_powerups.size] = powerup;
 	level notify("powerup_dropped", powerup);
