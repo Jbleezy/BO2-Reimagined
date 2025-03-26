@@ -362,6 +362,33 @@ can_revive(player_down)
 	return true;
 }
 
+insta_kill_player()
+{
+	self endon("disconnect");
+
+	if (isdefined(self.insta_killed) && self.insta_killed)
+	{
+		return;
+	}
+
+	if (!is_player_killable(self))
+	{
+		return;
+	}
+
+	self.insta_killed = 1;
+
+	self maps\mp\zombies\_zm_buildables::player_return_piece_to_original_spawn();
+
+	self playlocalsound(level.zmb_laugh_alias);
+
+	self.lives = 0;
+	self dodamage(self.health + 1000, self.origin);
+	self scripts\zm\_zm_reimagined::player_suicide();
+
+	self.insta_killed = 0;
+}
+
 sndplaymusicegg(player, ent)
 {
 	song = sndplaymusicegg_get_song_for_origin(ent);
