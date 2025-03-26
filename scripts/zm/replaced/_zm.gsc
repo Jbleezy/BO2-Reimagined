@@ -2576,7 +2576,7 @@ player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, s
 		}
 	}
 
-	if (self hasperk("specialty_finalstand"))
+	if (self hasperk("specialty_finalstand") && !is_true(self.insta_killed))
 	{
 		if (isDefined(level.chugabud_laststand_func))
 		{
@@ -2679,6 +2679,11 @@ is_solo_death(players)
 {
 	if (players.size == 1 && flag("solo_game"))
 	{
+		if (is_true(self.insta_killed))
+		{
+			return 1;
+		}
+
 		if (self.solo_lives_given >= 3)
 		{
 			return 1;
@@ -2687,11 +2692,6 @@ is_solo_death(players)
 		if (isDefined(self.e_chugabud_corpse))
 		{
 			return 0;
-		}
-
-		if (is_true(self.insta_killed))
-		{
-			return 1;
 		}
 
 		active_perks = 0;
