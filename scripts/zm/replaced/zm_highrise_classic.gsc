@@ -61,7 +61,6 @@ squashed_death_init(kill_if_falling)
 		{
 			if (isplayer(who))
 			{
-				who thread elevator_black_screen_squash_check();
 				who thread insta_kill_player(1, kill_if_falling);
 			}
 			else if (isai(who))
