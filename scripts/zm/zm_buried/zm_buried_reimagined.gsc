@@ -14,6 +14,7 @@ main()
 	replaceFunc(maps\mp\zm_buried_buildables::springpadbuildable, scripts\zm\replaced\zm_buried_buildables::springpadbuildable);
 	replaceFunc(maps\mp\zm_buried_buildables::headchopperbuildable, scripts\zm\replaced\zm_buried_buildables::headchopperbuildable);
 	replaceFunc(maps\mp\zm_buried_buildables::watch_cell_open_close, scripts\zm\replaced\zm_buried_buildables::watch_cell_open_close);
+	replaceFunc(maps\mp\zm_buried_classic::insta_kill_player, scripts\zm\replaced\zm_buried_classic::insta_kill_player);
 	replaceFunc(maps\mp\zm_buried_gamemodes::init, scripts\zm\replaced\zm_buried_gamemodes::init);
 	replaceFunc(maps\mp\zm_buried_gamemodes::buildbuildable, scripts\zm\replaced\zm_buried_gamemodes::buildbuildable);
 	replaceFunc(maps\mp\zm_buried_power::electric_switch, scripts\zm\replaced\zm_buried_power::electric_switch);

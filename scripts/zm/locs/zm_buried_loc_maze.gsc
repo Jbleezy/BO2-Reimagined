@@ -168,10 +168,12 @@ main()
 	flag_set("mansion_door1");
 	level.zones["zone_mansion"].is_enabled = 0;
 	maps\mp\zm_buried_fountain::init_fountain();
-	maps\mp\zombies\_zm::spawn_kill_brush((4919, 575, -511), 128, 300);
 	level thread init_wallbuys();
 	init_barriers();
 	scripts\zm\locs\loc_common::init();
+
+	level.insta_kill_triggers = getentarray("instant_death", "targetname");
+	array_thread(level.insta_kill_triggers, maps\mp\zm_buried_classic::squashed_death_init, 0);
 }
 
 maze_treasure_chest_init()
