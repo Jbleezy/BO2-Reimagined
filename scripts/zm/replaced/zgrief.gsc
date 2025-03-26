@@ -164,6 +164,11 @@ meat_drop(pos, prev_meat_ent)
 {
 	valid_drop = scripts\zm\replaced\_zm_utility::check_point_in_life_brush(pos) || (check_point_in_enabled_zone(pos) && !scripts\zm\replaced\_zm_utility::check_point_in_kill_brush(pos));
 
+	if (check_point_in_insta_kill_trigger(pos))
+	{
+		valid_drop = 0;
+	}
+
 	if (valid_drop)
 	{
 		meat_origin = pos;
@@ -192,6 +197,37 @@ meat_drop(pos, prev_meat_ent)
 	{
 		prev_meat_ent delete();
 	}
+}
+
+check_point_in_insta_kill_trigger(pos)
+{
+	is_touching = 0;
+	check_org = spawn("script_origin", pos);
+
+	if (isdefined(level.insta_kill_triggers))
+	{
+		foreach (trigger in level.insta_kill_triggers)
+		{
+			if (check_org istouching(trigger))
+			{
+				is_touching = 1;
+				break;
+			}
+		}
+	}
+
+	trigger = getent("transit_falling_death", "targetname");
+
+	if (isdefined(trigger))
+	{
+		if (check_org istouching(trigger))
+		{
+			is_touching = 1;
+		}
+	}
+
+	check_org delete();
+	return is_touching;
 }
 
 meat_stink(who, owner)
