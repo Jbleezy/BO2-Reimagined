@@ -3251,6 +3251,7 @@ player_out_of_playable_area_monitor()
 				self maps\mp\zombies\_zm_stats::increment_client_stat("cheat_total", 0);
 				self playlocalsound(level.zmb_laugh_alias);
 
+				self disableinvulnerability();
 				self.lives = 0;
 				self dodamage(self.health + 1000, self.origin);
 				self scripts\zm\_zm_reimagined::player_suicide();

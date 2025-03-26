@@ -109,6 +109,7 @@ insta_kill_player(perks_can_respawn_player, kill_if_falling)
 
 	self playlocalsound(level.zmb_laugh_alias);
 
+	self disableinvulnerability();
 	self.lives = 0;
 	self dodamage(self.health + 1000, self.origin);
 	self scripts\zm\_zm_reimagined::player_suicide();
