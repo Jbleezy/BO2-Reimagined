@@ -286,6 +286,23 @@ highrise_respawn_override(revivee, return_struct)
 	}
 }
 
+zm_highrise_zone_monitor_callback()
+{
+	b_kill_player = 1;
+
+	if (!self isonground())
+	{
+		b_kill_player = 0;
+	}
+
+	if (b_kill_player)
+	{
+		self thread maps\mp\zm_highrise_classic::insta_kill_player(0, 0);
+	}
+
+	return b_kill_player;
+}
+
 is_magic_box_in_inverted_building()
 {
 	b_is_in_inverted_building = 0;

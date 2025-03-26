@@ -8,6 +8,7 @@ main()
 	replaceFunc(maps\mp\zm_highrise::zclassic_preinit, scripts\zm\replaced\zm_highrise::zclassic_preinit);
 	replaceFunc(maps\mp\zm_highrise::custom_vending_precaching, scripts\zm\replaced\zm_highrise::custom_vending_precaching);
 	replaceFunc(maps\mp\zm_highrise::highrise_respawn_override, scripts\zm\replaced\zm_highrise::highrise_respawn_override);
+	replaceFunc(maps\mp\zm_highrise::zm_highrise_zone_monitor_callback, scripts\zm\replaced\zm_highrise::zm_highrise_zone_monitor_callback);
 	replaceFunc(maps\mp\zm_highrise::is_magic_box_in_inverted_building, scripts\zm\replaced\zm_highrise::is_magic_box_in_inverted_building);
 	replaceFunc(maps\mp\zm_highrise_sq::sidequest_logic, scripts\zm\replaced\zm_highrise_sq::sidequest_logic);
 	replaceFunc(maps\mp\zm_highrise_sq::sq_is_weapon_sniper, scripts\zm\replaced\zm_highrise_sq::sq_is_weapon_sniper);
@@ -23,6 +24,7 @@ main()
 	replaceFunc(maps\mp\zm_highrise_buildables::include_buildables, scripts\zm\replaced\zm_highrise_buildables::include_buildables);
 	replaceFunc(maps\mp\zm_highrise_classic::highrise_pap_move_in, scripts\zm\replaced\zm_highrise_classic::highrise_pap_move_in);
 	replaceFunc(maps\mp\zm_highrise_classic::squashed_death_init, scripts\zm\replaced\zm_highrise_classic::squashed_death_init);
+	replaceFunc(maps\mp\zm_highrise_classic::insta_kill_player, scripts\zm\replaced\zm_highrise_classic::insta_kill_player);
 	replaceFunc(maps\mp\zm_highrise_classic::escape_pod, scripts\zm\replaced\zm_highrise_classic::escape_pod);
 	replaceFunc(maps\mp\zm_highrise_classic::turn_off_whoswho, scripts\zm\replaced\zm_highrise_classic::turn_off_whoswho);
 	replaceFunc(maps\mp\zm_highrise_elevators::init_elevator_perks, scripts\zm\replaced\zm_highrise_elevators::init_elevator_perks);
