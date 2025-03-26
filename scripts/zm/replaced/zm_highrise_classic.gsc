@@ -93,7 +93,12 @@ insta_kill_player(perks_can_respawn_player, kill_if_falling)
 {
 	self endon("disconnect");
 
-	if (isDefined(self.insta_killed) && self.insta_killed)
+	if (isdefined(self.insta_killed) && self.insta_killed)
+	{
+		return;
+	}
+
+	if (get_players().size == 1 && flag("solo_game") && (isdefined(self.waiting_to_revive) && self.waiting_to_revive))
 	{
 		return;
 	}

@@ -42,6 +42,11 @@ insta_kill_player(perks_can_respawn_player, kill_if_falling)
 		return;
 	}
 
+	if (get_players().size == 1 && flag("solo_game") && (isdefined(self.waiting_to_revive) && self.waiting_to_revive))
+	{
+		return;
+	}
+
 	if (!is_player_killable(self))
 	{
 		return;

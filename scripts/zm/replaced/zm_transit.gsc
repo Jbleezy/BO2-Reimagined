@@ -371,6 +371,11 @@ insta_kill_player()
 		return;
 	}
 
+	if (get_players().size == 1 && flag("solo_game") && (isdefined(self.waiting_to_revive) && self.waiting_to_revive))
+	{
+		return;
+	}
+
 	if (!is_player_killable(self))
 	{
 		return;
