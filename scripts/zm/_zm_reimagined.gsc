@@ -213,6 +213,8 @@ init()
 
 	add_fire_sale_vox();
 
+	hide_unused_chests();
+
 	level thread on_player_connect();
 
 	level thread on_intermission();
@@ -464,6 +466,20 @@ add_fire_sale_vox()
 
 	game["zmbdialog"]["fire_sale"] += postfix;
 	level.vox.speaker["player"].alias["powerup"]["firesale"] += postfix;
+}
+
+hide_unused_chests()
+{
+	chests = getstructarray("treasure_chest_use", "targetname");
+
+	foreach (chest in chests)
+	{
+		if (!isinarray(level.chests, chest))
+		{
+			zbarrier = getent(chest.script_noteworthy + "_zbarrier", "script_noteworthy");
+			zbarrier hide();
+		}
+	}
 }
 
 on_player_connect()
