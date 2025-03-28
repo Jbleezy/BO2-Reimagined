@@ -213,7 +213,7 @@ init()
 
 	add_fire_sale_vox();
 
-	hide_unused_chests();
+	hide_unused_chest_zbarriers();
 
 	level thread on_player_connect();
 
@@ -468,7 +468,7 @@ add_fire_sale_vox()
 	level.vox.speaker["player"].alias["powerup"]["firesale"] += postfix;
 }
 
-hide_unused_chests()
+hide_unused_chest_zbarriers()
 {
 	chests = getstructarray("treasure_chest_use", "targetname");
 
@@ -477,7 +477,11 @@ hide_unused_chests()
 		if (!isinarray(level.chests, chest))
 		{
 			zbarrier = getent(chest.script_noteworthy + "_zbarrier", "script_noteworthy");
-			zbarrier hide();
+
+			if (isdefined(zbarrier))
+			{
+				zbarrier hide();
+			}
 		}
 	}
 }
