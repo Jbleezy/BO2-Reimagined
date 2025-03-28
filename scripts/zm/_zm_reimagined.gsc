@@ -2471,7 +2471,7 @@ buildbuildables()
 
 	if (is_classic())
 	{
-		if (level.scr_zm_map_start_location == "transit")
+		if (level.script == "zm_transit")
 		{
 			level.buildables_available = array("turbine", "riotshield_zm", "turret", "electric_trap", "jetgun_zm");
 
@@ -2488,7 +2488,7 @@ buildbuildables()
 			// power switch is not showing up from forced build
 			show_powerswitch();
 		}
-		else if (level.scr_zm_map_start_location == "rooftop")
+		else if (level.script == "zm_highrise")
 		{
 			level.buildables_available = array("springpad_zm", "slipgun_zm");
 
@@ -2496,7 +2496,7 @@ buildbuildables()
 			buildbuildable("springpad_zm");
 			buildbuildable("sq_common", 1);
 		}
-		else if (level.scr_zm_map_start_location == "processing")
+		else if (level.script == "zm_buried")
 		{
 			flag_wait("initial_blackscreen_passed"); // wait for buildables to randomize
 			wait 1;
@@ -2518,7 +2518,7 @@ buildbuildables()
 	}
 	else
 	{
-		if (level.scr_zm_map_start_location == "street")
+		if (level.script == "zm_buried" && level.scr_zm_map_start_location == "street")
 		{
 			flag_wait("initial_blackscreen_passed"); // wait for buildables to be built
 			wait 1;
@@ -2726,12 +2726,12 @@ buildcraftables()
 
 	if (is_classic())
 	{
-		if (level.scr_zm_map_start_location == "prison")
+		if (level.script == "zm_prison")
 		{
 			buildcraftable("alcatraz_shield_zm");
 			buildcraftable("packasplat");
 		}
-		else if (level.scr_zm_map_start_location == "tomb")
+		else if (level.script == "zm_tomb")
 		{
 			buildcraftable("tomb_shield_zm");
 			buildcraftable("equip_dieseldrone_zm");
