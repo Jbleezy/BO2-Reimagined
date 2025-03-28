@@ -2549,6 +2549,9 @@ buildbuildable(buildable, craft = 0, remove_pieces = 1, solo_pool = 0, onuse)
 
 				if (craft)
 				{
+					stub.original_prompt_and_visibility_func = stub.prompt_and_visibility_func;
+					stub.prompt_and_visibility_func = scripts\zm\replaced\_zm_buildables_pooled::pooledbuildabletrigger_update_prompt;
+
 					stub maps\mp\zombies\_zm_buildables::buildablestub_finish_build(player);
 					stub maps\mp\zombies\_zm_buildables::buildablestub_remove();
 
