@@ -170,7 +170,7 @@ main()
 	maps\mp\zm_buried_fountain::init_fountain();
 	level thread init_wallbuys();
 	init_barriers();
-	scripts\zm\locs\loc_common::init();
+	level thread scripts\zm\locs\loc_common::init();
 
 	level.insta_kill_triggers = getentarray("instant_death", "targetname");
 	array_thread(level.insta_kill_triggers, maps\mp\zm_buried_classic::squashed_death_init, 0);

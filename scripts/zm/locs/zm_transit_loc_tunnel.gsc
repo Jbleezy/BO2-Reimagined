@@ -38,7 +38,7 @@ main()
 	treasure_chest_init();
 	init_barriers();
 	disable_zombie_spawn_locations();
-	scripts\zm\locs\loc_common::init();
+	level thread scripts\zm\locs\loc_common::init();
 }
 
 treasure_chest_init()
