@@ -7,7 +7,6 @@ init()
 	level.enemy_location_override_func = ::enemy_location_override;
 	flag_wait("initial_blackscreen_passed");
 	maps\mp\zombies\_zm_game_module::turn_power_on_and_open_doors();
-	increase_pap_collision();
 	flag_wait("start_zombie_round_logic");
 	wait 1;
 	level notify("revive_on");

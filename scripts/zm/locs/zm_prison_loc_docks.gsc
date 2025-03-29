@@ -108,6 +108,7 @@ main()
 	maps\mp\zombies\_zm_ai_brutus::precache();
 	maps\mp\zombies\_zm_ai_brutus::init();
 	level._effect["butterflies"] = loadfx("maps/zombie_alcatraz/fx_alcatraz_skull_elec");
+	scripts\zm\locs\loc_common::increase_pap_collision();
 	level thread scripts\zm\locs\loc_common::init();
 	level thread maps\mp\zm_alcatraz_traps::init_tower_trap_trigs();
 }

@@ -90,6 +90,7 @@ main()
 	init_barriers();
 	disable_zombie_spawn_locations();
 	setup_standard_objects("cornfield");
+	scripts\zm\locs\loc_common::increase_pap_collision();
 	level thread scripts\zm\locs\loc_common::init();
 }
 
