@@ -56,6 +56,7 @@ init()
 	level.special_weapon_magicbox_check = ::highrise_special_weapon_magicbox_check;
 	level.zm_traversal_override = ::zm_traversal_override;
 
+	remove_leaper_locations();
 	move_marathon_origins();
 
 	level thread elevator_call();
@@ -159,6 +160,20 @@ change_dierise_gap17c_low_to_high()
 {
 	self.pre_traverse = undefined;
 	self.origin += (0, 0, 16);
+}
+
+remove_leaper_locations()
+{
+	leaper_locations = level.zones["zone_green_level3a"].leaper_locations;
+
+	foreach (leaper_location in leaper_locations)
+	{
+		if (leaper_location.origin == (2424, 2072, 2978))
+		{
+			arrayremovevalue(leaper_locations, leaper_location);
+			break;
+		}
+	}
 }
 
 move_marathon_origins()
