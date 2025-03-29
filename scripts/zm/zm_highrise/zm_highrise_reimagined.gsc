@@ -67,6 +67,7 @@ init()
 
 	remove_leaper_locations();
 	move_marathon_origins();
+	move_elevator_starting_floors();
 
 	level thread elevator_call();
 	level thread escape_pod_call();
@@ -235,6 +236,31 @@ move_marathon_origins()
 
 		trig.origin += anglestoup(trig.machine.angles) * 96;
 	}
+}
+
+move_elevator_starting_floors()
+{
+	if (is_gametype_active("zclassic"))
+	{
+		return;
+	}
+
+	if (getdvar("ui_zm_mapstartlocation") == "blue_rooftop")
+	{
+		level.elevators["bldg3"] thread starting_floor(5);
+		level.elevators["bldg3b"] thread starting_floor(4);
+	}
+	else if (getdvar("ui_zm_mapstartlocation") == "blue_highrise")
+	{
+		level.elevators["bldg3c"] thread starting_floor(0);
+	}
+}
+
+starting_floor(floor)
+{
+	self waittill("floor_changed");
+	self.body.force_starting_floor = floor;
+	self.body notify("forcego");
 }
 
 elevator_call()

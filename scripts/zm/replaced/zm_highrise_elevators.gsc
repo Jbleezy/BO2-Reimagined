@@ -11,6 +11,8 @@
 
 init_elevator_perks()
 {
+	swap_elevator_perks = !is_gametype_active("zclassic") && getdvar("ui_zm_mapstartlocation") == "green_rooftop";
+
 	level.elevator_perks = [];
 	level.elevator_perks_building = [];
 	level.elevator_perks_building["green"] = [];
@@ -21,9 +23,20 @@ init_elevator_perks()
 	level.elevator_perks_building["green"][0].script_noteworthy = "specialty_quickrevive";
 	level.elevator_perks_building["green"][0].turn_on_notify = "revive_on";
 	level.elevator_perks_building["green"][1] = spawnstruct();
-	level.elevator_perks_building["green"][1].model = "p6_zm_vending_chugabud";
-	level.elevator_perks_building["green"][1].script_noteworthy = "specialty_finalstand";
-	level.elevator_perks_building["green"][1].turn_on_notify = "chugabud_on";
+
+	if (swap_elevator_perks)
+	{
+		level.elevator_perks_building["green"][1].model = "zombie_vending_jugg";
+		level.elevator_perks_building["green"][1].script_noteworthy = "specialty_armorvest";
+		level.elevator_perks_building["green"][1].turn_on_notify = "juggernog_on";
+	}
+	else
+	{
+		level.elevator_perks_building["green"][1].model = "p6_zm_vending_chugabud";
+		level.elevator_perks_building["green"][1].script_noteworthy = "specialty_finalstand";
+		level.elevator_perks_building["green"][1].turn_on_notify = "chugabud_on";
+	}
+
 	level.elevator_perks_building["green"][2] = spawnstruct();
 	level.elevator_perks_building["green"][2].model = "zombie_vending_sleight";
 	level.elevator_perks_building["green"][2].script_noteworthy = "specialty_fastreload";
@@ -33,9 +46,20 @@ init_elevator_perks()
 	level.elevator_perks_building["blue"][0].script_noteworthy = "specialty_additionalprimaryweapon";
 	level.elevator_perks_building["blue"][0].turn_on_notify = "specialty_additionalprimaryweapon_power_on";
 	level.elevator_perks_building["blue"][1] = spawnstruct();
-	level.elevator_perks_building["blue"][1].model = "zombie_vending_jugg";
-	level.elevator_perks_building["blue"][1].script_noteworthy = "specialty_armorvest";
-	level.elevator_perks_building["blue"][1].turn_on_notify = "juggernog_on";
+
+	if (swap_elevator_perks)
+	{
+		level.elevator_perks_building["blue"][1].model = "p6_zm_vending_chugabud";
+		level.elevator_perks_building["blue"][1].script_noteworthy = "specialty_finalstand";
+		level.elevator_perks_building["blue"][1].turn_on_notify = "chugabud_on";
+	}
+	else
+	{
+		level.elevator_perks_building["blue"][1].model = "zombie_vending_jugg";
+		level.elevator_perks_building["blue"][1].script_noteworthy = "specialty_armorvest";
+		level.elevator_perks_building["blue"][1].turn_on_notify = "juggernog_on";
+	}
+
 	level.elevator_perks_building["blue"][2] = spawnstruct();
 	level.elevator_perks_building["blue"][2].model = "zombie_vending_doubletap2";
 	level.elevator_perks_building["blue"][2].script_noteworthy = "specialty_rof";
@@ -348,6 +372,63 @@ predict_floor(elevator, next, speed)
 
 		clientnotify(elevator.name + elevator.dir);
 	}
+}
+
+elevator_next_floor(elevator, last, justchecking)
+{
+	if (isdefined(elevator.body.force_starting_floor))
+	{
+		floor = elevator.body.force_starting_floor;
+
+		if (!justchecking)
+		{
+			elevator.body.force_starting_floor = undefined;
+		}
+
+		return floor;
+	}
+
+	if (!isdefined(last))
+	{
+		return 0;
+	}
+
+	min_floor = 0;
+	max_floor = elevator.floors.size - 1;
+
+	if (!is_gametype_active("zclassic"))
+	{
+		if (getdvar("ui_zm_mapstartlocation") == "blue_rooftop")
+		{
+			if (elevator.name == "3" || elevator.name == "3b")
+			{
+				min_floor = 4;
+			}
+			else if (elevator.name == "3c")
+			{
+				min_floor = 3;
+			}
+		}
+		else if (getdvar("ui_zm_mapstartlocation") == "blue_highrise")
+		{
+			if (elevator.name == "3" || elevator.name == "3b")
+			{
+				min_floor = 1;
+				max_floor = 3;
+			}
+			else if (elevator.name == "3c")
+			{
+				max_floor = 2;
+			}
+		}
+	}
+
+	if (last + 1 <= max_floor)
+	{
+		return last + 1;
+	}
+
+	return min_floor;
 }
 
 elevator_initial_wait(elevator, minwait, maxwait, delaybeforeleaving)
