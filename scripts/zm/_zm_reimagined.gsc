@@ -2518,7 +2518,12 @@ buildbuildables()
 	}
 	else
 	{
-		if (level.script == "zm_buried" && level.scr_zm_map_start_location == "street")
+		if (level.script == "zm_highrise")
+		{
+			buildbuildable("springpad_zm", 1);
+			buildbuildable("slipgun_zm", 1);
+		}
+		else if (level.script == "zm_buried" && level.scr_zm_map_start_location == "street")
 		{
 			flag_wait("initial_blackscreen_passed"); // wait for buildables to be built
 			wait 1;

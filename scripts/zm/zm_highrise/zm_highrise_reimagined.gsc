@@ -7,9 +7,12 @@ main()
 	replaceFunc(maps\mp\zm_highrise_sq::navcomputer_waitfor_navcard, scripts\zm\reimagined\_zm_sq::navcomputer_waitfor_navcard);
 	replaceFunc(maps\mp\zm_highrise::zclassic_preinit, scripts\zm\replaced\zm_highrise::zclassic_preinit);
 	replaceFunc(maps\mp\zm_highrise::custom_vending_precaching, scripts\zm\replaced\zm_highrise::custom_vending_precaching);
+	replaceFunc(maps\mp\zm_highrise::setup_leapers, scripts\zm\replaced\zm_highrise::setup_leapers);
 	replaceFunc(maps\mp\zm_highrise::highrise_respawn_override, scripts\zm\replaced\zm_highrise::highrise_respawn_override);
 	replaceFunc(maps\mp\zm_highrise::zm_highrise_zone_monitor_callback, scripts\zm\replaced\zm_highrise::zm_highrise_zone_monitor_callback);
 	replaceFunc(maps\mp\zm_highrise::is_magic_box_in_inverted_building, scripts\zm\replaced\zm_highrise::is_magic_box_in_inverted_building);
+	replaceFunc(maps\mp\zm_highrise_sq::init, scripts\zm\replaced\zm_highrise_sq::init);
+	replaceFunc(maps\mp\zm_highrise_sq::start_highrise_sidequest, scripts\zm\replaced\zm_highrise_sq::start_highrise_sidequest);
 	replaceFunc(maps\mp\zm_highrise_sq::sidequest_logic, scripts\zm\replaced\zm_highrise_sq::sidequest_logic);
 	replaceFunc(maps\mp\zm_highrise_sq::sq_is_weapon_sniper, scripts\zm\replaced\zm_highrise_sq::sq_is_weapon_sniper);
 	replaceFunc(maps\mp\zm_highrise_sq_atd::stage_logic, scripts\zm\replaced\zm_highrise_sq_atd::stage_logic);
@@ -47,6 +50,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_weapon_locker::triggerweaponslockerisvalidweaponpromptupdate, scripts\zm\replaced\_zm_weapon_locker::triggerweaponslockerisvalidweaponpromptupdate);
 	replaceFunc(maps\mp\zombies\_zm_weapon_locker::wl_set_stored_weapondata, scripts\zm\replaced\_zm_weapon_locker::wl_set_stored_weapondata);
 
+	register_clientfields();
 	door_changes();
 }
 
@@ -56,6 +60,11 @@ init()
 	level.special_weapon_magicbox_check = ::highrise_special_weapon_magicbox_check;
 	level.zm_traversal_override = ::zm_traversal_override;
 
+	if (!is_gametype_active("zclassic"))
+	{
+		level.zombie_weapons["slipgun_zm"].is_in_box = 1;
+	}
+
 	remove_leaper_locations();
 	move_marathon_origins();
 
@@ -63,6 +72,23 @@ init()
 	level thread escape_pod_call();
 	level thread slide_push_watcher();
 	level thread zombie_bad_zone_watcher();
+}
+
+register_clientfields()
+{
+	if (is_gametype_active("zclassic"))
+	{
+		return;
+	}
+
+	registerclientfield("scriptmover", "clientfield_escape_pod_tell_fx", 5000, 1, "int");
+	registerclientfield("scriptmover", "clientfield_escape_pod_sparks_fx", 5000, 1, "int");
+	registerclientfield("scriptmover", "clientfield_escape_pod_impact_fx", 5000, 1, "int");
+	registerclientfield("scriptmover", "clientfield_escape_pod_light_fx", 5000, 1, "int");
+	registerclientfield("actor", "clientfield_whos_who_clone_glow_shader", 5000, 1, "int");
+	registerclientfield("toplayer", "clientfield_whos_who_audio", 5000, 1, "int");
+	registerclientfield("toplayer", "clientfield_whos_who_filter", 5000, 1, "int");
+	registerclientfield("toplayer", "clientfield_sq_vo", 5000, 5, "int");
 }
 
 door_changes()

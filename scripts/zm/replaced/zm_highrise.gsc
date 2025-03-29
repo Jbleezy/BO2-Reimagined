@@ -247,6 +247,22 @@ custom_vending_precaching()
 	}
 }
 
+setup_leapers()
+{
+	b_disable_leapers = !is_gametype_active("zclassic");
+
+	if (b_disable_leapers)
+	{
+		flag_init("leaper_round");
+	}
+	else
+	{
+		maps\mp\zombies\_zm_ai_leaper::enable_leaper_rounds();
+	}
+
+	level.leapers_per_player = 6;
+}
+
 highrise_respawn_override(revivee, return_struct)
 {
 	players = array_randomize(get_players());

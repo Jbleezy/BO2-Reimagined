@@ -13,6 +13,60 @@
 #include maps\mp\zombies\_zm_unitrigger;
 #include maps\mp\zombies\_zm_perks;
 
+init()
+{
+	if ((isdefined(level.gamedifficulty) && level.gamedifficulty == 0) || !is_gametype_active("zclassic"))
+	{
+		sq_easy_cleanup();
+		return;
+	}
+
+	flag_init("sq_disabled");
+	flag_init("sq_branch_complete");
+	flag_init("sq_tower_active");
+	flag_init("sq_player_has_sniper");
+	flag_init("sq_player_has_ballistic");
+	flag_init("sq_ric_tower_complete");
+	flag_init("sq_max_tower_complete");
+	flag_init("sq_players_out_of_sync");
+	flag_init("sq_ball_picked_up");
+	register_map_navcard("navcard_held_zm_highrise", "navcard_held_zm_transit");
+	ss_buttons = getentarray("sq_ss_button", "targetname");
+
+	for (i = 0; i < ss_buttons.size; i++)
+	{
+		ss_buttons[i] usetriggerrequirelookat();
+		ss_buttons[i] sethintstring("");
+		ss_buttons[i] setcursorhint("HINT_NOICON");
+	}
+
+	level thread mahjong_tiles_setup();
+	flag_init("sq_nav_built");
+	declare_sidequest("sq", ::init_sidequest, ::sidequest_logic, ::complete_sidequest, ::generic_stage_start, ::generic_stage_complete);
+	maps\mp\zm_highrise_sq_atd::init();
+	maps\mp\zm_highrise_sq_slb::init();
+	declare_sidequest("sq_1", ::init_sidequest_1, ::sidequest_logic_1, ::complete_sidequest, ::generic_stage_start, ::generic_stage_complete);
+	maps\mp\zm_highrise_sq_ssp::init_1();
+	maps\mp\zm_highrise_sq_pts::init_1();
+	declare_sidequest("sq_2", ::init_sidequest_2, ::sidequest_logic_2, ::complete_sidequest, ::generic_stage_start, ::generic_stage_complete);
+	maps\mp\zm_highrise_sq_ssp::init_2();
+	maps\mp\zm_highrise_sq_pts::init_2();
+	level thread init_navcard();
+	level thread init_navcomputer();
+	precache_sidequest_assets();
+}
+
+start_highrise_sidequest()
+{
+	if (!is_gametype_active("zclassic"))
+	{
+		return;
+	}
+
+	flag_wait("start_zombie_round_logic");
+	sidequest_start("sq");
+}
+
 sidequest_logic()
 {
 	level thread watch_nav_computer_built();

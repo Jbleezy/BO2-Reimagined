@@ -135,6 +135,7 @@ stringtable,zm/pap_attach.csv
 script,scripts/zm/_zm_reimagined.csc
 script,scripts/zm/zm_transit/zm_transit_reimagined.csc
 script,scripts/zm/zm_nuked/zm_nuked_reimagined.csc
+script,scripts/zm/zm_highrise/zm_highrise_reimagined.csc
 script,scripts/zm/zm_prison/zm_prison_reimagined.csc
 script,scripts/zm/zm_buried/zm_buried_reimagined.csc
 script,scripts/zm/zm_tomb/zm_tomb_reimagined.csc
@@ -153,6 +154,7 @@ script,scripts/zm/replaced/zm_transit.csc
 script,scripts/zm/replaced/zm_transit_classic.csc
 script,scripts/zm/replaced/zm_transit_gump.csc
 script,scripts/zm/replaced/zm_nuked.csc
+script,scripts/zm/replaced/zm_highrise.csc
 script,scripts/zm/replaced/zm_prison.csc
 script,scripts/zm/replaced/zm_buried.csc
 script,scripts/zm/replaced/zm_tomb.csc
