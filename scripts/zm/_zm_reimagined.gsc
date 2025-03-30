@@ -3400,6 +3400,16 @@ get_current_spectating_player()
 	return self;
 }
 
+get_grief_vox_postfix()
+{
+	if (level.script == "zm_nuked" || level.script == "zm_highrise")
+	{
+		return "_rich";
+	}
+
+	return "";
+}
+
 update_perk_order()
 {
 	perk_order_str = "";

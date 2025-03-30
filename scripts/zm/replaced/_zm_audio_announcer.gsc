@@ -79,12 +79,7 @@ getleaderdialogvariant(alias)
 
 init_griefvox(prefix)
 {
-	postfix = "";
-
-	if (level.script == "zm_nuked")
-	{
-		postfix = "_rich";
-	}
+	postfix = scripts\zm\_zm_reimagined::get_grief_vox_postfix();
 
 	init_gamemodecommonvox(prefix);
 	createvox("1_player_down", "1rivdown" + postfix, prefix);

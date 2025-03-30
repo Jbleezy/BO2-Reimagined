@@ -38,12 +38,7 @@ zgrief_main()
 
 	wait 1;
 
-	postfix = "";
-
-	if (level.script == "zm_nuked")
-	{
-		postfix = "_rich";
-	}
+	postfix = scripts\zm\_zm_reimagined::get_grief_vox_postfix();
 
 	playsoundatposition("vox_zmba_grief_intro" + postfix + "_0", (0, 0, 0));
 }
