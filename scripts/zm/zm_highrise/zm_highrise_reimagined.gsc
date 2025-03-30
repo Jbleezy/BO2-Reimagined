@@ -23,6 +23,7 @@ main()
 	replaceFunc(maps\mp\zm_highrise_sq_pts::stage_logic_2, scripts\zm\replaced\zm_highrise_sq_pts::stage_logic_2);
 	replaceFunc(maps\mp\zm_highrise_sq_pts::pts_should_player_create_trigs, scripts\zm\replaced\zm_highrise_sq_pts::pts_should_player_create_trigs);
 	replaceFunc(maps\mp\zm_highrise_gamemodes::init, scripts\zm\replaced\zm_highrise_gamemodes::init);
+	replaceFunc(maps\mp\zm_highrise_amb::main, scripts\zm\replaced\zm_highrise_amb::main);
 	replaceFunc(maps\mp\zm_highrise_buildables::init_buildables, scripts\zm\replaced\zm_highrise_buildables::init_buildables);
 	replaceFunc(maps\mp\zm_highrise_buildables::include_buildables, scripts\zm\replaced\zm_highrise_buildables::include_buildables);
 	replaceFunc(maps\mp\zm_highrise_classic::highrise_pap_move_in, scripts\zm\replaced\zm_highrise_classic::highrise_pap_move_in);
