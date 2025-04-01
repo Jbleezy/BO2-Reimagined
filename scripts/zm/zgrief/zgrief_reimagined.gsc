@@ -2577,7 +2577,7 @@ containment_get_zones()
 	{
 		if (level.scr_zm_map_start_location == "cellblock")
 		{
-			containment_zones = array("zone_cellblock_west", "zone_cellblock_west_gondola", "zone_cellblock_west_barber", "zone_cellblock_east", "zone_start", "zone_library", "zone_cafeteria", "zone_warden_office");
+			containment_zones = array("zone_start", "zone_library", "zone_cellblock_west", "zone_cellblock_west_gondola", "zone_cellblock_west_barber", "zone_cellblock_east", "zone_cafeteria", "zone_warden_office");
 		}
 		else if (level.scr_zm_map_start_location == "docks")
 		{
@@ -2603,130 +2603,276 @@ containment_get_zones()
 
 containment_get_zone_waypoint_origin(zone_name, zone)
 {
-	zone_origin = zone.volumes[0].origin;
+	if (level.script == "zm_transit")
+	{
+		if (zone_name == "zone_pri")
+		{
+			return (-6852, 5305, -56);
+		}
+		else if (zone_name == "zone_pri2")
+		{
+			return (-7316, 5247, -56);
+		}
+		else if (zone_name == "zone_station_ext")
+		{
+			return (-6979, 4769, -64);
+		}
+		else if (zone_name == "zone_trans_2b")
+		{
+			return (-7896, 4769, -59);
+		}
+		else if (zone_name == "zone_gas")
+		{
+			return (-5178, -7136, -59);
+		}
+		else if (zone_name == "zone_roadside_west")
+		{
+			return (-5913, -6934, -58);
+		}
+		else if (zone_name == "zone_roadside_east")
+		{
+			return (-4352, -7109, -64);
+		}
+		else if (zone_name == "zone_gar")
+		{
+			return (-4690, -7748, -53);
+		}
+		else if (zone_name == "zone_din")
+		{
+			return (-6030, -7662, 5);
+		}
+		else if (zone_name == "zone_far_ext")
+		{
+			return (7931, -5730, 11);
+		}
+		else if (zone_name == "zone_brn")
+		{
+			return (8213, -5201, 48);
+		}
+		else if (zone_name == "zone_farm_house")
+		{
+			return (8126, -6625, 117);
+		}
+		else if (zone_name == "zone_pow")
+		{
+			return (10274, 7823, -570);
+		}
+		else if (zone_name == "zone_trans_8")
+		{
+			return (10274, 8562, -587);
+		}
+		else if (zone_name == "zone_prr")
+		{
+			return (11842, 7581, -756);
+		}
+		else if (zone_name == "zone_pcr")
+		{
+			return (12210, 8339, -751);
+		}
+		else if (zone_name == "zone_pow_warehouse")
+		{
+			return (11039, 8587, -416);
+		}
+		else if (zone_name == "zone_tow")
+		{
+			return (1533, -384, -68);
+		}
+		else if (zone_name == "zone_town_north")
+		{
+			return (1504, 693, -62);
+		}
+		else if (zone_name == "zone_town_south")
+		{
+			return (1554, -1239, -51);
+		}
+		else if (zone_name == "zone_town_east")
+		{
+			return (2090, -481, -62);
+		}
+		else if (zone_name == "zone_town_west")
+		{
+			return (771, -508, -62);
+		}
+		else if (zone_name == "zone_bar")
+		{
+			return (2043, 268, -56);
+		}
+		else if (zone_name == "zone_town_barber")
+		{
+			return (891, -1236, 120);
+		}
+		else if (zone_name == "zone_ban")
+		{
+			return (832, 266, -40);
+		}
+		else if (zone_name == "zone_amb_tunnel")
+		{
+			return (-11249, -2010, 184);
+		}
+		else if (zone_name == "zone_amb_cornfield")
+		{
+			return (12186, -600, -153);
+		}
+		else if (zone_name == "zone_cornfield_prototype")
+		{
+			return (13421, -638, -201);
+		}
+	}
+	else if (level.script == "zm_nuked")
+	{
+		if (zone_name == "culdesac_yellow_zone")
+		{
+			return (392, 78, -48);
+		}
+		else if (zone_name == "culdesac_green_zone")
+		{
+			return (-311, 344, -44);
+		}
+		else if (zone_name == "openhouse1_f1_zone")
+		{
+			return (-806, 431, -56);
+		}
+		else if (zone_name == "openhouse2_f1_zone")
+		{
+			return (880, 264, -57);
+		}
+		else if (zone_name == "openhouse1_f2_zone")
+		{
+			return (-880, 473, 80);
+		}
+		else if (zone_name == "openhouse2_f2_zone")
+		{
+			return (953, 319, 79);
+		}
+		else if (zone_name == "openhouse1_backyard_zone")
+		{
+			return (-1491, 670, -60);
+		}
+		else if (zone_name == "openhouse2_backyard_zone")
+		{
+			return (1536, 581, -59);
+		}
+	}
+	else if (level.script == "zm_prison")
+	{
+		if (zone_name == "zone_start")
+		{
+			return (1306, 10595, 1336);
+		}
+		else if (zone_name == "zone_library")
+		{
+			return (591, 10504, 1344);
+		}
+		else if (zone_name == "zone_cellblock_west")
+		{
+			return (888, 9674, 1443);
+		}
+		else if (zone_name == "zone_cellblock_west_gondola")
+		{
+			return (888, 9674, 1545);
+		}
+		else if (zone_name == "zone_cellblock_west_barber")
+		{
+			return (888, 9147, 1336);
+		}
+		else if (zone_name == "zone_cellblock_east")
+		{
+			return (1920, 9674, 1336);
+		}
+		else if (zone_name == "zone_cafeteria")
+		{
+			return (2633, 9647, 1336);
+		}
+		else if (zone_name == "zone_warden_office")
+		{
+			return (-921, 9312, 1336);
+		}
+		else if (zone_name == "zone_dock")
+		{
+			return (-639, 5746, -48);
+		}
+		else if (zone_name == "zone_dock_gondola")
+		{
+			return (420, 6122, 264);
+		}
+		else if (zone_name == "zone_studio")
+		{
+			return (-205, 6590, 64);
+		}
+		else if (zone_name == "zone_citadel_basement_building")
+		{
+			return (-102, 7088, 64);
+		}
+	}
+	else if (level.script == "zm_buried")
+	{
+		if (zone_name == "zone_street_lightwest")
+		{
+			return (-667, 315, -26);
+		}
+		else if (zone_name == "zone_street_darkwest")
+		{
+			return (-598, -812, -31);
+		}
+		else if (zone_name == "zone_street_darkeast")
+		{
+			return (196, -930, -20);
+		}
+		else if (zone_name == "zone_stables")
+		{
+			return (-929, -262, -23);
+		}
+		else if (zone_name == "zone_general_store")
+		{
+			return (-19, -296, 8);
+		}
+		else if (zone_name == "zone_gun_store")
+		{
+			return (-598, -1151, 8);
+		}
+		else if (zone_name == "zone_underground_bar")
+		{
+			return (733, -1465, 55);
+		}
+		else if (zone_name == "zone_underground_courthouse")
+		{
+			return (216, 1007, 8);
+		}
+		else if (zone_name == "zone_toy_store")
+		{
+			return (720, -553, 8);
+		}
+		else if (zone_name == "zone_candy_store")
+		{
+			return (625, -139, 8);
+		}
+		else if (zone_name == "zone_street_fountain")
+		{
+			return (983, 626, -14);
+		}
+		else if (zone_name == "zone_church_main")
+		{
+			return (1464, 1740, 24);
+		}
+		else if (zone_name == "zone_mansion_lawn")
+		{
+			return (1847, 559, 0);
+		}
+		else if (zone_name == "zone_maze")
+		{
+			return (5002, 577, 4);
+		}
+		else if (zone_name == "zone_mansion_backyard")
+		{
+			return (3980, 577, 4);
+		}
+		else if (zone_name == "zone_maze_staircase")
+		{
+			return (6438, 577, 108);
+		}
+	}
 
-	if (level.script == "zm_transit" && zone_name == "zone_far_ext")
-	{
-		other_zone_origin = level.zones["zone_farm_house"].volumes[0].origin;
-		other_zone_origin2 = level.zones["zone_brn"].volumes[0].origin;
-		zone_origin = (other_zone_origin + other_zone_origin2) / 2;
-	}
-	else if (level.script == "zm_transit" && zone_name == "zone_trans_8")
-	{
-		other_zone_origin = level.zones["zone_pow_warehouse"].volumes[0].origin;
-		zone_origin = (zone_origin + other_zone_origin) / 2;
-	}
-	else if (level.script == "zm_transit" && zone_name == "zone_town_west")
-	{
-		other_zone_origin = level.zones["zone_town_barber"].volumes[0].origin;
-		other_zone_origin2 = level.zones["zone_ban"].volumes[0].origin;
-		zone_origin = (other_zone_origin + other_zone_origin2) / 2;
-	}
-	else if (level.script == "zm_buried" && zone_name == "zone_street_darkwest")
-	{
-		other_zone_origin = level.zones["zone_gun_store"].volumes[0].origin;
-		other_zone_origin2 = level.zones["zone_general_store"].volumes[0].origin;
-		other_zone_origin3 = level.zones["zone_street_darkwest_nook"].volumes[0].origin;
-		zone_origin = (other_zone_origin + other_zone_origin2 + other_zone_origin3) / 3;
-	}
-	else if (level.script == "zm_buried" && zone_name == "zone_street_darkeast")
-	{
-		other_zone_origin = level.zones["zone_underground_bar"].volumes[0].origin;
-		other_zone_origin2 = level.zones["zone_general_store"].volumes[0].origin;
-		other_zone_origin3 = level.zones["zone_gun_store"].volumes[0].origin;
-		other_zone_origin4 = level.zones["zone_toy_store"].volumes[0].origin;
-		zone_origin = (other_zone_origin + other_zone_origin2 + other_zone_origin3 + other_zone_origin4) / 4;
-	}
-	else if (level.script == "zm_buried" && zone_name == "zone_mansion_backyard")
-	{
-		other_zone_origin = level.zones["zone_maze"].volumes[0].origin;
-		zone_origin = (zone_origin[0], other_zone_origin[1], zone_origin[2]);
-	}
-	else if (level.script == "zm_buried" && zone_name == "zone_maze_staircase")
-	{
-		other_zone_origin = level.zones["zone_maze"].volumes[0].origin;
-		zone_origin = (zone_origin[0], other_zone_origin[1], zone_origin[2]);
-	}
-
-	if (level.script == "zm_nuked" && zone_name == "openhouse1_f1_zone")
-	{
-		zone_origin += (0, 0, -50);
-	}
-	else if (level.script == "zm_nuked" && zone_name == "openhouse1_f2_zone")
-	{
-		zone_origin += (0, 0, -50);
-	}
-	else if (level.script == "zm_transit" && zone_name == "zone_amb_cornfield")
-	{
-		zone_origin += (1700, 0, 0);
-	}
-	else if (level.script == "zm_transit" && zone_name == "zone_pow")
-	{
-		zone_origin += (-100, 0, 0);
-	}
-	else if (level.script == "zm_transit" && zone_name == "zone_trans_8")
-	{
-		zone_origin += (200, 100, 0);
-	}
-	else if (level.script == "zm_transit" && zone_name == "zone_prr")
-	{
-		zone_origin += (-75, -75, 0);
-	}
-	else if (level.script == "zm_buried" && zone_name == "zone_maze")
-	{
-		zone_origin += (100, 0, 100);
-	}
-	else if (level.script == "zm_prison" && zone_name == "zone_start")
-	{
-		zone_origin += (0, 100, 0);
-	}
-	else if (level.script == "zm_prison" && zone_name == "zone_warden_office")
-	{
-		zone_origin += (0, 100, 0);
-	}
-	else if (level.script == "zm_prison" && zone_name == "zone_dock")
-	{
-		zone_origin += (-200, -50, 0);
-	}
-	else if (level.script == "zm_prison" && zone_name == "zone_dock_gondola")
-	{
-		zone_origin += (0, 0, 200);
-	}
-	else if (level.script == "zm_prison" && zone_name == "zone_studio")
-	{
-		zone_origin += (400, 100, 0);
-	}
-	else if (level.script == "zm_prison" && zone_name == "zone_citadel_basement_building")
-	{
-		zone_origin += (-50, 0, -50);
-	}
-
-	if (level.script == "zm_transit" && zone_name == "zone_pow_warehouse")
-	{
-		zone_origin = (11039, 8587, -416);
-	}
-	else if (level.script == "zm_prison" && zone_name == "zone_cellblock_west")
-	{
-		zone_origin = (888, 9674, 1443);
-	}
-	else if (level.script == "zm_prison" && zone_name == "zone_cellblock_west_gondola")
-	{
-		zone_origin = (888, 9674, 1545);
-	}
-	else if (level.script == "zm_prison" && zone_name == "zone_cellblock_east")
-	{
-		zone_origin = (1920, 9674, 1336);
-	}
-	else if (level.script == "zm_prison" && zone_name == "zone_cellblock_west_barber")
-	{
-		zone_origin = (888, 9147, 1336);
-	}
-	else
-	{
-		zone_origin = groundpos(zone_origin);
-	}
-
-	return zone_origin;
+	return (0, 0, 0);
 }
 
 containment_time_hud_countdown(time)
