@@ -2573,6 +2573,21 @@ containment_get_zones()
 			containment_zones = array("culdesac_yellow_zone", "culdesac_green_zone", "openhouse1_f1_zone", "openhouse2_f1_zone", "openhouse1_f2_zone", "openhouse2_f2_zone", "openhouse1_backyard_zone", "openhouse2_backyard_zone");
 		}
 	}
+	else if (level.script == "zm_highrise")
+	{
+		if (level.scr_zm_map_start_location == "green_rooftop")
+		{
+			containment_zones = array("zone_green_start", "zone_green_level1", "zone_green_level2a", "zone_green_level2b", "zone_green_level3a", "zone_green_level3b", "zone_green_level3c");
+		}
+		else if (level.scr_zm_map_start_location == "blue_rooftop")
+		{
+			containment_zones = array("zone_blue_level1a", "zone_blue_level1b", "zone_blue_level1c", "zone_blue_level2a", "zone_blue_level2b", "zone_blue_level2c");
+		}
+		else if (level.scr_zm_map_start_location == "blue_highrise")
+		{
+			containment_zones = array("zone_blue_level4a", "zone_blue_level4b", "zone_blue_level4c", "zone_blue_level5");
+		}
+	}
 	else if (level.script == "zm_prison")
 	{
 		if (level.scr_zm_map_start_location == "cellblock")
@@ -2751,6 +2766,77 @@ containment_get_zone_waypoint_origin(zone_name, zone)
 		else if (zone_name == "openhouse2_backyard_zone")
 		{
 			return (1536, 581, -59);
+		}
+	}
+	else if (level.script == "zm_highrise")
+	{
+		if (zone_name == "zone_green_start")
+		{
+			return (1518, 1373, 3392);
+		}
+		else if (zone_name == "zone_green_level1")
+		{
+			return (1709, 1843, 3409);
+		}
+		else if (zone_name == "zone_green_level2a")
+		{
+			return (1981, 1468, 3216);
+		}
+		else if (zone_name == "zone_green_level2b")
+		{
+			return (1579, 1888, 3216);
+		}
+		else if (zone_name == "zone_green_level3a")
+		{
+			return (1934, 2266, 3040);
+		}
+		else if (zone_name == "zone_green_level3b")
+		{
+			return (2062, 1350, 3040);
+		}
+		else if (zone_name == "zone_green_level3c")
+		{
+			return (1686, 1302, 3047);
+		}
+		else if (zone_name == "zone_blue_level1a")
+		{
+			return (1985, 139, 2880);
+		}
+		else if (zone_name == "zone_blue_level1b")
+		{
+			return (2923, 97, 2880);
+		}
+		else if (zone_name == "zone_blue_level1c")
+		{
+			return (2156, 591, 3136);
+		}
+		else if (zone_name == "zone_blue_level2a")
+		{
+			return (2370, -411, 2704);
+		}
+		else if (zone_name == "zone_blue_level2b")
+		{
+			return (1683, -18, 2704);
+		}
+		else if (zone_name == "zone_blue_level2c")
+		{
+			return (2830, -4, 2704);
+		}
+		else if (zone_name == "zone_blue_level4a")
+		{
+			return (2141, 325, 1296);
+		}
+		else if (zone_name == "zone_blue_level4b")
+		{
+			return (1917, -255, 1296);
+		}
+		else if (zone_name == "zone_blue_level4c")
+		{
+			return (2691, 5, 1296);
+		}
+		else if (zone_name == "zone_blue_level5")
+		{
+			return (2329, -431, 1120);
 		}
 	}
 	else if (level.script == "zm_prison")
