@@ -25,4 +25,8 @@ init_gamemodes()
 	add_map_gamemode("zgrief", undefined, undefined);
 
 	add_map_location_gamemode("zclassic", "rooftop", clientscripts\mp\zm_highrise_classic::precache, clientscripts\mp\zm_highrise_classic::premain, clientscripts\mp\zm_highrise_classic::main);
+
+	add_map_location_gamemode("zstandard", "green_rooftop", clientscripts\mp\zm_highrise_classic::precache, clientscripts\mp\zm_highrise_classic::premain, clientscripts\mp\zm_highrise_classic::main);
+
+	add_map_location_gamemode("zgrief", "green_rooftop", clientscripts\mp\zm_highrise_classic::precache, clientscripts\mp\zm_highrise_classic::premain, clientscripts\mp\zm_highrise_classic::main);
 }

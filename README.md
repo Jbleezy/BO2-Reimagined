@@ -151,6 +151,7 @@
 		* [Tunnel](#tunnel)
 		* [Cornfield](#cornfield)
 	* [Die Rise](#die-rise)
+		* [Green Rooftop](#green-rooftop)
 	* [Buried](#buried)
 		* [Borough](#borough)
 		* [Maze](#maze)
@@ -1221,6 +1222,11 @@
 * Quest (Maxis): no longer have to shoot the upgraded Ballistic Knife after collecting the corpses
 * Quest (Maxis): ball no longer requires a Trample Steam on the other side
 * Quest (Richtofen): decreased number of Sliquifier shots required for each ball from 20 to 10
+
+#### Green Rooftop
+* Wallbuys: SMR, Ballista, B23R, PDW-57, SVU-AS
+* Perks: Jugger-Nog, Quick Revive, Speed Cola
+* Buildables: Trample Steam
 
 ### Buried
 * Added Frag Grenade wallbuy at Candy Store Upstairs

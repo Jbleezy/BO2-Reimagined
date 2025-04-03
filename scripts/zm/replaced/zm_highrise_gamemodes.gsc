@@ -13,6 +13,13 @@ init()
 	add_map_gamemode("zgrief", ::zstandard_preinit, undefined, undefined);
 
 	add_map_location_gamemode("zclassic", "rooftop", maps\mp\zm_highrise_classic::precache, maps\mp\zm_highrise_classic::main);
+
+	add_map_location_gamemode("zstandard", "green_rooftop", scripts\zm\locs\zm_highrise_loc_green_rooftop::precache, scripts\zm\locs\zm_highrise_loc_green_rooftop::main);
+
+	add_map_location_gamemode("zgrief", "green_rooftop", scripts\zm\locs\zm_highrise_loc_green_rooftop::precache, scripts\zm\locs\zm_highrise_loc_green_rooftop::main);
+
+	scripts\zm\replaced\utility::add_struct_location_gamemode_func("zstandard", "green_rooftop", scripts\zm\locs\zm_highrise_loc_green_rooftop::struct_init);
+	scripts\zm\replaced\utility::add_struct_location_gamemode_func("zgrief", "green_rooftop", scripts\zm\locs\zm_highrise_loc_green_rooftop::struct_init);
 }
 
 zstandard_preinit()
