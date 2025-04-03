@@ -74,6 +74,7 @@ init()
 	level thread escape_pod_call();
 	level thread slide_push_watcher();
 	level thread zombie_bad_zone_watcher();
+	level thread disable_pap_elevator();
 }
 
 register_clientfields()
@@ -361,7 +362,11 @@ elevator_call_think()
 		{
 			if (!is_true(self.elevator.body.elevator_stop))
 			{
-				self.elevator.body setanim(level.perk_elevators_anims[self.elevator.body.perk_type][1]);
+				if (!is_true(self.elevator.body.lock_doors))
+				{
+					self.elevator.body setanim(level.perk_elevators_anims[self.elevator.body.perk_type][1]);
+				}
+
 				self.elevator.body.elevator_stop = 1;
 			}
 			else
@@ -619,4 +624,33 @@ zombie_bad_zone_watcher()
 			}
 		}
 	}
+}
+
+disable_pap_elevator()
+{
+	flag_wait("initial_blackscreen_passed");
+	wait 1;
+
+	if (!is_true(level.scr_zm_ui_gametype_pro))
+	{
+		return;
+	}
+
+	pap_elevator = undefined;
+
+	foreach (elevator in level.elevators)
+	{
+		if (elevator.body.perk_type == "specialty_weapupgrade")
+		{
+			pap_elevator = elevator;
+			break;
+		}
+	}
+
+	machine_triggers = getentarray("vending_packapunch", "target");
+	machine_trigger = machine_triggers[0];
+	pap_elevator.body.lock_doors = 1;
+	pap_elevator.body perkelevatordoor(0);
+	machine_trigger unlink();
+	machine_trigger.origin = machine_trigger.origin + vectorscale((0, 0, -1), 10000.0);
 }
