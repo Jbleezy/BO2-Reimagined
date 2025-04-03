@@ -279,7 +279,7 @@ highrise_respawn_override(revivee, return_struct)
 		{
 			for (j = 0; j < spawn_points.size; j++)
 			{
-				if (isDefined(spawn_points[j].script_noteworthy))
+				if (isDefined(spawn_points[j].script_noteworthy) && spawn_points[j].locked == 0)
 				{
 					zone = level.zones[spawn_points[j].script_noteworthy];
 
