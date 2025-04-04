@@ -11,8 +11,6 @@
 
 init_elevator_perks()
 {
-	swap_elevator_perks = !is_gametype_active("zclassic") && getdvar("ui_zm_mapstartlocation") == "green_rooftop";
-
 	level.elevator_perks = [];
 	level.elevator_perks_building = [];
 	level.elevator_perks_building["green"] = [];
@@ -23,20 +21,9 @@ init_elevator_perks()
 	level.elevator_perks_building["green"][0].script_noteworthy = "specialty_quickrevive";
 	level.elevator_perks_building["green"][0].turn_on_notify = "revive_on";
 	level.elevator_perks_building["green"][1] = spawnstruct();
-
-	if (swap_elevator_perks)
-	{
-		level.elevator_perks_building["green"][1].model = "zombie_vending_jugg";
-		level.elevator_perks_building["green"][1].script_noteworthy = "specialty_armorvest";
-		level.elevator_perks_building["green"][1].turn_on_notify = "juggernog_on";
-	}
-	else
-	{
-		level.elevator_perks_building["green"][1].model = "p6_zm_vending_chugabud";
-		level.elevator_perks_building["green"][1].script_noteworthy = "specialty_finalstand";
-		level.elevator_perks_building["green"][1].turn_on_notify = "chugabud_on";
-	}
-
+	level.elevator_perks_building["green"][1].model = "p6_zm_vending_chugabud";
+	level.elevator_perks_building["green"][1].script_noteworthy = "specialty_finalstand";
+	level.elevator_perks_building["green"][1].turn_on_notify = "chugabud_on";
 	level.elevator_perks_building["green"][2] = spawnstruct();
 	level.elevator_perks_building["green"][2].model = "zombie_vending_sleight";
 	level.elevator_perks_building["green"][2].script_noteworthy = "specialty_fastreload";
@@ -46,20 +33,9 @@ init_elevator_perks()
 	level.elevator_perks_building["blue"][0].script_noteworthy = "specialty_additionalprimaryweapon";
 	level.elevator_perks_building["blue"][0].turn_on_notify = "specialty_additionalprimaryweapon_power_on";
 	level.elevator_perks_building["blue"][1] = spawnstruct();
-
-	if (swap_elevator_perks)
-	{
-		level.elevator_perks_building["blue"][1].model = "p6_zm_vending_chugabud";
-		level.elevator_perks_building["blue"][1].script_noteworthy = "specialty_finalstand";
-		level.elevator_perks_building["blue"][1].turn_on_notify = "chugabud_on";
-	}
-	else
-	{
-		level.elevator_perks_building["blue"][1].model = "zombie_vending_jugg";
-		level.elevator_perks_building["blue"][1].script_noteworthy = "specialty_armorvest";
-		level.elevator_perks_building["blue"][1].turn_on_notify = "juggernog_on";
-	}
-
+	level.elevator_perks_building["blue"][1].model = "zombie_vending_jugg";
+	level.elevator_perks_building["blue"][1].script_noteworthy = "specialty_armorvest";
+	level.elevator_perks_building["blue"][1].turn_on_notify = "juggernog_on";
 	level.elevator_perks_building["blue"][2] = spawnstruct();
 	level.elevator_perks_building["blue"][2].model = "zombie_vending_doubletap2";
 	level.elevator_perks_building["blue"][2].script_noteworthy = "specialty_rof";
@@ -68,6 +44,14 @@ init_elevator_perks()
 	level.elevator_perks_building["blue"][3].model = "p6_anim_zm_buildable_pap";
 	level.elevator_perks_building["blue"][3].script_noteworthy = "specialty_weapupgrade";
 	level.elevator_perks_building["blue"][3].turn_on_notify = "Pack_A_Punch_on";
+
+	if (!is_gametype_active("zclassic") && getdvar("ui_zm_mapstartlocation") == "green_rooftop")
+	{
+		temp = level.elevator_perks_building["green"][1];
+		level.elevator_perks_building["green"][1] = level.elevator_perks_building["blue"][1];
+		level.elevator_perks_building["blue"][1] = temp;
+	}
+
 	players_expected = getnumexpectedplayers();
 	level.override_perk_targetname = "zm_perk_machine_override";
 	level.elevator_perks_building["green"] = array_randomize(level.elevator_perks_building["green"]);
@@ -104,6 +88,35 @@ init_elevator_perks()
 	blue_structs = array_randomize(blue_structs);
 	level.random_perk_structs = green_structs;
 	level.random_perk_structs = arraycombine(level.random_perk_structs, blue_structs, 0, 0);
+
+	if (!is_gametype_active("zclassic") && getdvar("ui_zm_mapstartlocation") == "blue_highrise")
+	{
+		specialty_additionalprimaryweapon_elevator_perks_index = 0;
+		bldg3d_random_perk_structs_index = 0;
+
+		for (i = 0; i < level.elevator_perks.size; i++)
+		{
+			if (level.elevator_perks[i].script_noteworthy == "specialty_additionalprimaryweapon")
+			{
+				specialty_additionalprimaryweapon_elevator_perks_index = i;
+				break;
+			}
+		}
+
+		for (i = 0; i < level.random_perk_structs.size; i++)
+		{
+			if (level.random_perk_structs[i].script_parameters == "bldg3d")
+			{
+				bldg3d_random_perk_structs_index = i;
+				break;
+			}
+		}
+
+		if (specialty_additionalprimaryweapon_elevator_perks_index != bldg3d_random_perk_structs_index)
+		{
+			level.random_perk_structs = array_swap(level.random_perk_structs, specialty_additionalprimaryweapon_elevator_perks_index, bldg3d_random_perk_structs_index);
+		}
+	}
 
 	for (i = 0; i < level.elevator_perks.size; i++)
 	{
