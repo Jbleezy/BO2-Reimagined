@@ -31425,3 +31425,37 @@
 "targetname" "zm_perk_machine"
 "script_string" "zclassic_perks_rooftop"
 }
+{
+"script_noteworthy" "zstandard_blue_rooftop,zgrief_blue_rooftop"
+"angles" "0 330 0"
+"origin" "2316 -507 2940"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "ballista_zm"
+"targetname" "weapon_upgrade"
+"target" "pf1482_auto38"
+}
+{
+"script_noteworthy" "zstandard_blue_rooftop,zgrief_blue_rooftop"
+"targetname" "pf1482_auto38"
+"classname" "script_struct"
+"model" "t6_wpn_sniper_ballista_world"
+"angles" "0 330 0"
+"origin" "2316 -507 2940"
+}
+{
+"script_noteworthy" "zstandard_blue_rooftop,zgrief_blue_rooftop"
+"angles" "0 60 0"
+"origin" "2678 -61 2764"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "sig556_zm"
+"targetname" "weapon_upgrade"
+"target" "pf1482_auto39"
+}
+{
+"script_noteworthy" "zstandard_blue_rooftop,zgrief_blue_rooftop"
+"targetname" "pf1482_auto39"
+"classname" "script_struct"
+"model" "t6_wpn_ar_sig556_world"
+"angles" "0 60 0"
+"origin" "2678 -61 2764"
+}

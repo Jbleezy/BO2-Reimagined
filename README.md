@@ -152,6 +152,7 @@
 		* [Cornfield](#cornfield)
 	* [Die Rise](#die-rise)
 		* [Green Rooftop](#green-rooftop)
+		* [Blue Rooftop](#blue-rooftop)
 	* [Buried](#buried)
 		* [Borough](#borough)
 		* [Maze](#maze)
@@ -1227,6 +1228,11 @@
 * Wallbuys: SMR, Ballista, B23R, PDW-57, SVU-AS
 * Perks: Jugger-Nog, Quick Revive, Speed Cola
 * Buildables: Trample Steam
+
+#### Blue Rooftop
+* Wallbuys: Ballista, MSMC, SWAT-556, Semtex, Claymore, Bowie Knife
+* Perks: Jugger-Nog, Double Tap, Mule Kick
+* Pack-a-Punch
 
 ### Buried
 * Added Frag Grenade wallbuy at Candy Store Upstairs
