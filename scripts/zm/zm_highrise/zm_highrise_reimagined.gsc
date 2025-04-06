@@ -7,6 +7,7 @@ main()
 	replaceFunc(maps\mp\zm_highrise_sq::navcomputer_waitfor_navcard, scripts\zm\reimagined\_zm_sq::navcomputer_waitfor_navcard);
 	replaceFunc(maps\mp\zm_highrise::zclassic_preinit, scripts\zm\replaced\zm_highrise::zclassic_preinit);
 	replaceFunc(maps\mp\zm_highrise::custom_vending_precaching, scripts\zm\replaced\zm_highrise::custom_vending_precaching);
+	replaceFunc(maps\mp\zm_highrise::init_level_specific_audio, scripts\zm\replaced\zm_highrise::init_level_specific_audio);
 	replaceFunc(maps\mp\zm_highrise::setup_leapers, scripts\zm\replaced\zm_highrise::setup_leapers);
 	replaceFunc(maps\mp\zm_highrise::highrise_respawn_override, scripts\zm\replaced\zm_highrise::highrise_respawn_override);
 	replaceFunc(maps\mp\zm_highrise::zm_highrise_zone_monitor_callback, scripts\zm\replaced\zm_highrise::zm_highrise_zone_monitor_callback);

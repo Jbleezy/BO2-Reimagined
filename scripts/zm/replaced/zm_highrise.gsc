@@ -247,9 +247,20 @@ custom_vending_precaching()
 	}
 }
 
+init_level_specific_audio()
+{
+	init_highrise_player_dialogue();
+	add_highrise_response_chance();
+
+	if (is_classic())
+	{
+		level thread survivor_vox();
+	}
+}
+
 setup_leapers()
 {
-	b_disable_leapers = !is_gametype_active("zclassic");
+	b_disable_leapers = !is_classic();
 
 	if (b_disable_leapers)
 	{
