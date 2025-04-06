@@ -211,8 +211,6 @@ init()
 
 	spawn_intercom_ents();
 
-	add_fire_sale_vox();
-
 	hide_unused_chest_zbarriers();
 
 	level thread on_player_connect();
@@ -452,20 +450,6 @@ spawn_intercom_ents()
 		ent = spawn("script_origin", chest.origin + (0, 0, 15));
 		ent.targetname = "intercom";
 	}
-}
-
-// hack to add Fire Sale vox without overriding on all maps
-add_fire_sale_vox()
-{
-	if (level.script != "zm_transit" && level.script != "zm_highrise")
-	{
-		return;
-	}
-
-	postfix = "_rich";
-
-	game["zmbdialog"]["fire_sale"] += postfix;
-	level.vox.speaker["player"].alias["powerup"]["firesale"] += postfix;
 }
 
 hide_unused_chest_zbarriers()

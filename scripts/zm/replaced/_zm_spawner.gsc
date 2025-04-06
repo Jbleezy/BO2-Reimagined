@@ -643,11 +643,6 @@ get_number_variants(aliasprefix)
 
 is_new_sound(aliasprefix)
 {
-	if (aliasprefix == "vox_zmba_powerup_firesale_rich")
-	{
-		return 1;
-	}
-
 	if (issubstr(aliasprefix, "vox_zmba_grief_") && issubstr(aliasprefix, "_rich"))
 	{
 		return 1;
