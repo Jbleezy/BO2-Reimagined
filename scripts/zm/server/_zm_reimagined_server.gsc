@@ -733,6 +733,18 @@ get_name_for_loc(map, location, gametype)
 	{
 		return &"ZMUI_CLASSIC_ROOFTOP";
 	}
+	else if (location == "green_rooftop")
+	{
+		return &"ZMUI_GREEN_ROOFTOP";
+	}
+	else if (location == "blue_rooftop")
+	{
+		return &"ZMUI_BLUE_ROOFTOP";
+	}
+	else if (location == "blue_highrise")
+	{
+		return &"ZMUI_BLUE_HIGHRISE";
+	}
 	else if (location == "prison")
 	{
 		return &"ZMUI_CLASSIC_PRISON";
@@ -1314,6 +1326,18 @@ get_map_stat_str()
 		if (level.scr_zm_map_start_location == "rooftop")
 		{
 			return "Die Rise";
+		}
+		else if (level.scr_zm_map_start_location == "green_rooftop")
+		{
+			return "Green Rooftop";
+		}
+		else if (level.scr_zm_map_start_location == "blue_rooftop")
+		{
+			return "Blue Rooftop";
+		}
+		else if (level.scr_zm_map_start_location == "blue_highrise")
+		{
+			return "Blue Highrise";
 		}
 	}
 	else if (level.script == "zm_prison")
