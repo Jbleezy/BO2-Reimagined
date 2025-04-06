@@ -153,6 +153,7 @@
 	* [Die Rise](#die-rise)
 		* [Green Rooftop](#green-rooftop)
 		* [Blue Rooftop](#blue-rooftop)
+		* [Blue Highrise](#blue-highrise)
 	* [Buried](#buried)
 		* [Borough](#borough)
 		* [Maze](#maze)
@@ -1232,6 +1233,12 @@
 #### Blue Rooftop
 * Wallbuys: Ballista, MSMC, SWAT-556, Semtex, Claymore, Bowie Knife
 * Perks: Jugger-Nog, Double Tap, Mule Kick
+* Pack-a-Punch
+
+#### Blue Highrise
+* Wallbuys: SMR, Vector K10, AN-94, Remington 870 MCS
+* Perks: Jugger-Nog, Double Tap
+* Buildables: Trample Steam
 * Pack-a-Punch
 
 ### Buried

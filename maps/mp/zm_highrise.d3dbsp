@@ -31459,3 +31459,37 @@
 "angles" "0 60 0"
 "origin" "2678 -61 2764"
 }
+{
+"script_noteworthy" "zstandard_blue_highrise,zgrief_blue_highrise"
+"angles" "0 150 0"
+"origin" "2195 540 1356"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "saritch_zm"
+"targetname" "weapon_upgrade"
+"target" "pf1482_auto40"
+}
+{
+"script_noteworthy" "zstandard_blue_highrise,zgrief_blue_highrise"
+"targetname" "pf1482_auto40"
+"classname" "script_struct"
+"model" "t6_wpn_ar_saritch_world"
+"angles" "0 150 0"
+"origin" "2195 540 1356"
+}
+{
+"script_noteworthy" "zstandard_blue_highrise,zgrief_blue_highrise"
+"angles" "0 240 0"
+"origin" "2392 -430 1356"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "an94_zm"
+"targetname" "weapon_upgrade"
+"target" "pf1482_auto41"
+}
+{
+"script_noteworthy" "zstandard_blue_highrise,zgrief_blue_highrise"
+"targetname" "pf1482_auto41"
+"classname" "script_struct"
+"model" "t6_wpn_ar_an94_world"
+"angles" "0 240 0"
+"origin" "2392 -430 1356"
+}

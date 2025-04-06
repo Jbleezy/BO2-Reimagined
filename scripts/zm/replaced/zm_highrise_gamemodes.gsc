@@ -16,14 +16,18 @@ init()
 
 	add_map_location_gamemode("zstandard", "green_rooftop", scripts\zm\locs\zm_highrise_loc_green_rooftop::precache, scripts\zm\locs\zm_highrise_loc_green_rooftop::main);
 	add_map_location_gamemode("zstandard", "blue_rooftop", scripts\zm\locs\zm_highrise_loc_blue_rooftop::precache, scripts\zm\locs\zm_highrise_loc_blue_rooftop::main);
+	add_map_location_gamemode("zstandard", "blue_highrise", scripts\zm\locs\zm_highrise_loc_blue_highrise::precache, scripts\zm\locs\zm_highrise_loc_blue_highrise::main);
 
 	add_map_location_gamemode("zgrief", "green_rooftop", scripts\zm\locs\zm_highrise_loc_green_rooftop::precache, scripts\zm\locs\zm_highrise_loc_green_rooftop::main);
 	add_map_location_gamemode("zgrief", "blue_rooftop", scripts\zm\locs\zm_highrise_loc_blue_rooftop::precache, scripts\zm\locs\zm_highrise_loc_blue_rooftop::main);
+	add_map_location_gamemode("zgrief", "blue_highrise", scripts\zm\locs\zm_highrise_loc_blue_highrise::precache, scripts\zm\locs\zm_highrise_loc_blue_highrise::main);
 
 	scripts\zm\replaced\utility::add_struct_location_gamemode_func("zstandard", "green_rooftop", scripts\zm\locs\zm_highrise_loc_green_rooftop::struct_init);
 	scripts\zm\replaced\utility::add_struct_location_gamemode_func("zgrief", "green_rooftop", scripts\zm\locs\zm_highrise_loc_green_rooftop::struct_init);
 	scripts\zm\replaced\utility::add_struct_location_gamemode_func("zstandard", "blue_rooftop", scripts\zm\locs\zm_highrise_loc_blue_rooftop::struct_init);
 	scripts\zm\replaced\utility::add_struct_location_gamemode_func("zgrief", "blue_rooftop", scripts\zm\locs\zm_highrise_loc_blue_rooftop::struct_init);
+	scripts\zm\replaced\utility::add_struct_location_gamemode_func("zstandard", "blue_highrise", scripts\zm\locs\zm_highrise_loc_blue_highrise::struct_init);
+	scripts\zm\replaced\utility::add_struct_location_gamemode_func("zgrief", "blue_highrise", scripts\zm\locs\zm_highrise_loc_blue_highrise::struct_init);
 }
 
 zstandard_preinit()
