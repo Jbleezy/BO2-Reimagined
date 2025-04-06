@@ -838,35 +838,42 @@ rotation_array_to_string(array)
 
 get_gametype_from_rotation(rotation)
 {
-	tokens = strTok(rotation, " ");
+	rotation_toks = strTok(rotation, " ");
+	zm_gametype_location_cfg = rotation_toks[1]; // zm_gametype_location.cfg
+	zm_gametype_location_cfg_toks = strTok(zm_gametype_location_cfg, ".");
+	zm_gametype_location = zm_gametype_location_cfg_toks[0]; // zm_gametype_location
+	zm_gametype_location_toks = strTok(zm_gametype_location, "_");
+	gametype = zm_gametype_location_toks[1]; // gametype
 
-	location = tokens[1]; // zm_gametype_location.cfg
-	location = strTok(location, ".");
-	location = location[0]; // zm_gametype_location
-	location = strTok(location, "_");
-	location = location[1]; // gametype
-
-	return location;
+	return gametype;
 }
 
 get_location_from_rotation(rotation)
 {
-	tokens = strTok(rotation, " ");
+	rotation_toks = strTok(rotation, " ");
+	zm_gametype_location_cfg = rotation_toks[1]; // zm_gametype_location.cfg
+	zm_gametype_location_cfg_toks = strTok(zm_gametype_location_cfg, ".");
+	zm_gametype_location = zm_gametype_location_cfg_toks[0]; // zm_gametype_location
+	zm_gametype_location_toks = strTok(zm_gametype_location, "_");
+	location = "";
 
-	location = tokens[1]; // zm_gametype_location.cfg
-	location = strTok(location, ".");
-	location = location[0]; // zm_gametype_location
-	location = strTok(location, "_");
-	location = location[2]; // location
+	for (i = 2; i < zm_gametype_location_toks.size; i++)
+	{
+		if (i > 2)
+		{
+			location += "_";
+		}
+
+		location += zm_gametype_location_toks[i]; // location
+	}
 
 	return location;
 }
 
 get_map_from_rotation(rotation)
 {
-	tokens = strTok(rotation, " ");
-
-	map = tokens[3];
+	rotation_toks = strTok(rotation, " ");
+	map = rotation_toks[3];
 
 	return map;
 }
