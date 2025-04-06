@@ -41,6 +41,9 @@ precache_shaders()
 	precacheshader("menu_zm_transit_zsurvival_town");
 	precacheshader("menu_zm_transit_zsurvival_tunnel");
 	precacheshader("menu_zm_transit_zsurvival_cornfield");
+	precacheshader("menu_zm_highrise_zsurvival_green_rooftop");
+	precacheshader("menu_zm_highrise_zsurvival_blue_rooftop");
+	precacheshader("menu_zm_highrise_zsurvival_blue_highrise");
 	precacheshader("menu_zm_nuked_zsurvival_nuked");
 	precacheshader("menu_zm_prison_zsurvival_cellblock");
 	precacheshader("menu_zm_prison_zsurvival_docks");
