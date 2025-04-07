@@ -173,10 +173,7 @@ item_meat_watch_below()
 		wait 0.05;
 	}
 
-	if (isdefined(level.meat_bounce_override))
-	{
-		self thread [[level.meat_bounce_override]](self.origin, undefined, undefined, false);
-	}
+	level notify("meat_inactive");
 
 	self delete();
 }
