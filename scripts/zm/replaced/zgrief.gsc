@@ -159,9 +159,12 @@ meat_drop(pos, prev_meat_ent)
 {
 	valid_drop = scripts\zm\replaced\_zm_utility::check_point_in_life_brush(pos) || (check_point_in_enabled_zone(pos) && !scripts\zm\replaced\_zm_utility::check_point_in_kill_brush(pos));
 
-	if (check_point_in_insta_kill_trigger(pos))
+	if (valid_drop)
 	{
-		valid_drop = 0;
+		if (check_point_in_insta_kill_trigger(pos) || check_point_in_insta_kill_trigger(pos + (0, 0, 70)))
+		{
+			valid_drop = 0;
+		}
 	}
 
 	if (valid_drop)
