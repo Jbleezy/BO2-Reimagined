@@ -31493,3 +31493,22 @@
 "angles" "0 240 0"
 "origin" "2392 -430 1356"
 }
+{
+"script_noteworthy" "zstandard_blue_highrise,zgrief_blue_highrise"
+"origin" "2101 338 1180"
+"angles" "0 330 0"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "tazer_knuckles_zm"
+"targetname" "tazer_upgrade"
+"target" "pf1490_auto38"
+"guid" "ED8E28B4"
+}
+{
+"script_noteworthy" "zstandard_blue_highrise,zgrief_blue_highrise"
+"targetname" "pf1490_auto38"
+"classname" "script_struct"
+"model" "t6_wpn_taser_knuckles_view"
+"angles" "0 330 0"
+"origin" "2094 342 1180"
+"guid" "D1EECB49"
+}

@@ -1236,7 +1236,7 @@
 * Pack-a-Punch
 
 #### Blue Highrise
-* Wallbuys: SMR, Vector K10, AN-94, Remington 870 MCS
+* Wallbuys: SMR, Vector K10, AN-94, Remington 870 MCS, Galvaknuckles
 * Perks: Jugger-Nog, Double Tap
 * Buildables: Trample Steam
 * Pack-a-Punch
