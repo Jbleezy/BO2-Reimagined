@@ -406,42 +406,50 @@ elevator_next_floor(elevator, last, justchecking)
 		return 0;
 	}
 
-	min_floor = 0;
-	max_floor = elevator.floors.size - 1;
-
 	if (!is_gametype_active("zclassic"))
 	{
 		if (getdvar("ui_zm_mapstartlocation") == "blue_rooftop")
 		{
 			if (elevator.name == "3" || elevator.name == "3b")
 			{
-				min_floor = 4;
+				if (last == 1)
+				{
+					return 4;
+				}
 			}
 			else if (elevator.name == "3c")
 			{
-				min_floor = 3;
+				if (last == 4)
+				{
+					return 3;
+				}
 			}
 		}
 		else if (getdvar("ui_zm_mapstartlocation") == "blue_highrise")
 		{
 			if (elevator.name == "3" || elevator.name == "3b")
 			{
-				min_floor = 1;
-				max_floor = 3;
+				if (last == 3)
+				{
+					return 1;
+				}
 			}
 			else if (elevator.name == "3c")
 			{
-				max_floor = 2;
+				if (last == 2)
+				{
+					return 0;
+				}
 			}
 		}
 	}
 
-	if (last + 1 <= max_floor)
+	if (last + 1 < elevator.floors.size)
 	{
 		return last + 1;
 	}
 
-	return min_floor;
+	return 0;
 }
 
 elevator_initial_wait(elevator, minwait, maxwait, delaybeforeleaving)
