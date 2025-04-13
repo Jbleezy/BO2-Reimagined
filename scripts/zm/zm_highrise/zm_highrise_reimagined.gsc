@@ -310,31 +310,21 @@ elevator_call_think()
 
 	while (1)
 	{
-		cost_active = 0;
-
-		if (!self.elevator.body.is_moving && self.elevator maps\mp\zm_highrise_elevators::elevator_is_on_floor(self.floor) && !is_true(self.elevator.body.start_location_wait))
+		if (isdefined(self.disable_call_trigger_while_moving_to_floor) && self.elevator.body.is_moving && self.elevator maps\mp\zm_highrise_elevators::elevator_is_on_floor("" + self.disable_call_trigger_while_moving_to_floor))
 		{
-			if (!is_true(self.elevator.body.elevator_stop))
-			{
-				self sethintstring(&"ZM_HIGHRISE_LOCK_ELEVATOR");
-			}
-			else
-			{
-				self sethintstring(&"ZM_HIGHRISE_UNLOCK_ELEVATOR");
-			}
-		}
-		else
-		{
-			if (self.elevator maps\mp\zm_highrise_elevators::elevator_is_on_floor(self.floor) && !is_true(self.elevator.body.start_location_wait))
-			{
-				self sethintstring(&"ZM_HIGHRISE_ELEVATOR_ON_THE_WAY");
-				return;
-			}
-
-			cost_active = 1;
-			self sethintstring(&"ZM_HIGHRISE_BUILD_KEYS", self.cost);
+			self sethintstring(&"ZM_HIGHRISE_ELEVATOR_ON_THE_WAY");
+			return;
 		}
 
+		self.disable_call_trigger_while_moving_to_floor = undefined;
+
+		if (self.elevator.body.is_moving && self.elevator maps\mp\zm_highrise_elevators::elevator_is_on_floor(self.floor) && !is_true(self.elevator.body.start_location_wait))
+		{
+			self sethintstring(&"ZM_HIGHRISE_ELEVATOR_ON_THE_WAY");
+			return;
+		}
+
+		self sethintstring(&"ZM_HIGHRISE_BUILD_KEYS", self.cost);
 		self trigger_on();
 
 		self waittill("trigger", who);
@@ -344,60 +334,77 @@ elevator_call_think()
 			continue;
 		}
 
-		if (cost_active)
+		if (who.score < self.cost)
 		{
-			if (who.score < self.cost)
-			{
-				play_sound_at_pos("no_purchase", self.origin);
-				who maps\mp\zombies\_zm_audio::create_and_play_dialog("general", "door_deny");
-				continue;
-			}
-
-			who maps\mp\zombies\_zm_score::minus_to_player_score(self.cost);
-			play_sound_at_pos("purchase", self.origin);
+			play_sound_at_pos("no_purchase", self.origin);
+			who maps\mp\zombies\_zm_audio::create_and_play_dialog("general", "door_deny");
+			continue;
 		}
+
+		who maps\mp\zombies\_zm_score::minus_to_player_score(self.cost);
+		play_sound_at_pos("purchase", self.origin);
 
 		self playsound("zmb_elevator_ding");
 
-		if (!self.elevator.body.is_moving && self.elevator maps\mp\zm_highrise_elevators::elevator_is_on_floor(self.floor) && !is_true(self.elevator.body.start_location_wait))
-		{
-			if (!is_true(self.elevator.body.elevator_stop))
-			{
-				if (!is_true(self.elevator.body.lock_doors))
-				{
-					self.elevator.body setanim(level.perk_elevators_anims[self.elevator.body.perk_type][1]);
-				}
-
-				self.elevator.body.elevator_stop = 1;
-			}
-			else
-			{
-				self.elevator.body.elevator_stop = 0;
-			}
-
-			continue;
-		}
-
 		self.elevator.body.elevator_stop = 0;
 		self.elevator.body.elevator_force_go = 1;
-		self maps\mp\zm_highrise_buildables::onuseplantobject_elevatorkey(who);
 
-		if (is_true(self.elevator.body.start_location_wait) && self.elevator maps\mp\zm_highrise_elevators::elevator_is_on_floor(self.floor))
+		floor = int(self.script_parameters);
+
+		if (self.elevator maps\mp\zm_highrise_elevators::elevator_is_on_floor(self.floor))
 		{
-			self sethintstring(&"ZM_HIGHRISE_LOCK_ELEVATOR");
-
-			while (is_true(self.elevator.body.start_location_wait))
-			{
-				wait 0.05;
-			}
-
-			continue;
+			floor = self.elevator elevator_floor_below(floor);
+			self.disable_call_trigger_while_moving_to_floor = (floor + 1) % self.elevator.floors.size;
 		}
+
+		if (self.elevator.name != "3c" && floor == self.elevator.floors.size - 2 && self.elevator maps\mp\zm_highrise_elevators::elevator_is_on_floor("0"))
+		{
+			floor = 0;
+		}
+
+		self.elevator.body.force_starting_floor = floor;
+		self.elevator.body notify("forcego");
 
 		self sethintstring(&"ZM_HIGHRISE_ELEVATOR_ON_THE_WAY");
 
 		return;
 	}
+}
+
+elevator_floor_below(floor)
+{
+	if (self.floors.size == 5)
+	{
+		if (floor == 0)
+		{
+			return 1;
+		}
+		else if (floor == 1)
+		{
+			return 2;
+		}
+		else if (floor == 3)
+		{
+			return 1;
+		}
+	}
+	else if (self.floors.size == 6)
+	{
+		if (floor == 1)
+		{
+			return 2;
+		}
+		else if (floor == 2)
+		{
+			return 3;
+		}
+		else if (floor == 4)
+		{
+			return 1;
+		}
+	}
+
+	return floor - 1;
 }
 
 watch_elevator_prompt()
@@ -553,7 +560,7 @@ escape_pod_call_think()
 
 		self sethintstring(&"ZM_HIGHRISE_ELEVATOR_ON_THE_WAY");
 
-		self maps\mp\zm_highrise_buildables::onuseplantobject_escapepodkey(who);
+		level notify("reset_escape_pod");
 
 		flag_waitopen("escape_pod_needs_reset");
 	}

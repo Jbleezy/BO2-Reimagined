@@ -1195,7 +1195,6 @@
 * Removed key
 * Elevators and escape pod can be called without key
 * Added purchase cost to call elevators and escape pod
-* Elevators can be locked at their current floor
 * Escape pod can be used with any amount of players
 * Escape pod can be called up or down
 * Moved weapon locker to the downstairs fridge
