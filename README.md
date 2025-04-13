@@ -151,9 +151,9 @@
 		* [Tunnel](#tunnel)
 		* [Cornfield](#cornfield)
 	* [Die Rise](#die-rise)
-		* [Green Rooftop](#green-rooftop)
-		* [Blue Rooftop](#blue-rooftop)
-		* [Blue Highrise](#blue-highrise)
+		* [Shopping Mall](#shopping-mall)
+		* [Dragon Rooftop](#dragon-rooftop)
+		* [Sweatshop](#sweatshop)
 	* [Buried](#buried)
 		* [Borough](#borough)
 		* [Maze](#maze)
@@ -1187,11 +1187,11 @@
 * Pack-a-Punch
 
 ### Die Rise
-* Added Stamin-Up machine at Orange Highrise Level 1A
-* Added PHD Flopper machine at Escape Pod Ground
-* Added Mystery Box at Blue Highrise area
-* Added Mystery Box at Orange Highrise area
-* Moved Mystery Box at Green Rooftop area from Green Rooftop Behind Restaurant zone to Green Rooftop Restaurant zone
+* Added Stamin-Up machine at Buddha Room area
+* Added PHD Flopper machine at Escape Pod area
+* Added Mystery Box at Sweatshop area
+* Added Mystery Box at Buddha Room area
+* Moved Mystery Box at Shopping Mall area from Shopping Mall Level 1D zone to Shopping Mall Level 1C zone
 * Removed key
 * Elevators and escape pod can be called without key
 * Added purchase cost to call elevators and escape pod
@@ -1200,19 +1200,19 @@
 * Moved weapon locker to the downstairs fridge
 * Quick Revive elevator randomizes with Speed Cola and Who's Who elevators
 * Pack-a-Punch can be used while elevator is moving
-* Doors that open the same zone in the Blue Highrise area open together
+* Doors that open the same zone in the Sweatshop area open together
 * Players no longer fall off the map when using the slide
 * Zombies killed by an elevator no longer respawn
 * Zombies are no longer killed while spawning in a stationary elevator
-* Zombies no longer spawn in the Blue Rooftop area when in the Green Rooftop area
-* Zombies no longer spawn across from the debris in the Orange Highrise area when the debris is closed
-* Zombies no longer fall off the map when traversing down to the Green Rooftop Level 1A zone
+* Zombies no longer spawn in the Dragon Rooftop area when in the Shopping Mall area
+* Zombies no longer spawn across from the debris in the Buddha Room area when the debris is closed
+* Zombies no longer fall off the map when traversing down to the Shopping Mall Level 1A zone
 * Leapers no longer fall off the map when traversing up to the Escape Pod Ground zone
 * Fixed weapon model angle on upside down Mystery Box
-* Fixed height of the elevators in the Blue Rooftop Level 1A zone
-* Fixed position of an elevator perk in the Blue Highrise area and Blue Rooftop area
-* Fixed zombies spawning in the elevator below the Green Rooftop Level 3B zone when in the Green Rooftop Level 3B zone
-* Fixed zombies not bleeding out in the Green Rooftop Level 1B zone when the debris is closed and there are no players in the zone
+* Fixed height of the elevators in the Dragon Rooftop Level 1B zone
+* Fixed position of an elevator perk in the Sweatshop area and Dragon Rooftop area
+* Fixed zombies spawning in the elevator below the Shopping Mall Level 3B zone when in the Shopping Mall Level 3B zone
+* Fixed zombies not bleeding out in the Shopping Mall Level 1B zone when the debris is closed and there are no players in the zone
 * Fixed Who's Who vision filter showing momentarily when the game ended
 * Quest: added "Benn - High Risers" song
 * Quest: elevator symbols can be activated without players on every symbol
@@ -1224,17 +1224,17 @@
 * Quest (Maxis): ball no longer requires a Trample Steam on the other side
 * Quest (Richtofen): decreased number of Sliquifier shots required for each ball from 20 to 10
 
-#### Green Rooftop
+#### Shopping Mall
 * Wallbuys: SMR, Ballista, B23R, PDW-57, SVU-AS
 * Perks: Jugger-Nog, Quick Revive, Speed Cola
 * Buildables: Trample Steam
 
-#### Blue Rooftop
+#### Dragon Rooftop
 * Wallbuys: Ballista, MSMC, SWAT-556, Semtex, Claymore, Bowie Knife
 * Perks: Jugger-Nog, Double Tap, Mule Kick
 * Pack-a-Punch
 
-#### Blue Highrise
+#### Sweatshop
 * Wallbuys: SMR, Vector K10, AN-94, Remington 870 MCS, Galvaknuckles
 * Perks: Jugger-Nog, Double Tap
 * Buildables: Trample Steam

@@ -21,15 +21,15 @@ struct_init()
 	intermission_cam.origin = (3182, 719, 1450);
 	intermission_cam.angles = (15, 240, 0);
 	intermission_cam.targetname = "intermission";
-	intermission_cam.script_string = "blue_rooftop";
+	intermission_cam.script_string = "dragon_rooftop";
 	intermission_cam.speed = 30;
-	intermission_cam.target = "intermission_blue_rooftop_end";
+	intermission_cam.target = "intermission_dragon_rooftop_end";
 	scripts\zm\replaced\utility::add_struct(intermission_cam);
 
 	intermission_cam_end = spawnStruct();
 	intermission_cam_end.origin = (2619, 1045, 1450);
 	intermission_cam_end.angles = (15, 240, 0);
-	intermission_cam_end.targetname = "intermission_blue_rooftop_end";
+	intermission_cam_end.targetname = "intermission_dragon_rooftop_end";
 	scripts\zm\replaced\utility::add_struct(intermission_cam_end);
 }
 

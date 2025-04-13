@@ -31426,7 +31426,7 @@
 "script_string" "zclassic_perks_rooftop"
 }
 {
-"script_noteworthy" "zstandard_blue_rooftop,zgrief_blue_rooftop"
+"script_noteworthy" "zstandard_dragon_rooftop,zgrief_dragon_rooftop"
 "angles" "0 330 0"
 "origin" "2316 -507 2940"
 "classname" "script_struct"
@@ -31435,7 +31435,7 @@
 "target" "pf1482_auto38"
 }
 {
-"script_noteworthy" "zstandard_blue_rooftop,zgrief_blue_rooftop"
+"script_noteworthy" "zstandard_dragon_rooftop,zgrief_dragon_rooftop"
 "targetname" "pf1482_auto38"
 "classname" "script_struct"
 "model" "t6_wpn_sniper_ballista_world"
@@ -31443,7 +31443,7 @@
 "origin" "2316 -507 2940"
 }
 {
-"script_noteworthy" "zstandard_blue_rooftop,zgrief_blue_rooftop"
+"script_noteworthy" "zstandard_dragon_rooftop,zgrief_dragon_rooftop"
 "angles" "0 60 0"
 "origin" "2678 -61 2764"
 "classname" "script_struct"
@@ -31452,7 +31452,7 @@
 "target" "pf1482_auto39"
 }
 {
-"script_noteworthy" "zstandard_blue_rooftop,zgrief_blue_rooftop"
+"script_noteworthy" "zstandard_dragon_rooftop,zgrief_dragon_rooftop"
 "targetname" "pf1482_auto39"
 "classname" "script_struct"
 "model" "t6_wpn_ar_sig556_world"
@@ -31460,7 +31460,7 @@
 "origin" "2678 -61 2764"
 }
 {
-"script_noteworthy" "zstandard_blue_highrise,zgrief_blue_highrise"
+"script_noteworthy" "zstandard_sweatshop,zgrief_sweatshop"
 "angles" "0 150 0"
 "origin" "2195 540 1356"
 "classname" "script_struct"
@@ -31469,7 +31469,7 @@
 "target" "pf1482_auto40"
 }
 {
-"script_noteworthy" "zstandard_blue_highrise,zgrief_blue_highrise"
+"script_noteworthy" "zstandard_sweatshop,zgrief_sweatshop"
 "targetname" "pf1482_auto40"
 "classname" "script_struct"
 "model" "t6_wpn_ar_saritch_world"
@@ -31477,7 +31477,7 @@
 "origin" "2195 540 1356"
 }
 {
-"script_noteworthy" "zstandard_blue_highrise,zgrief_blue_highrise"
+"script_noteworthy" "zstandard_sweatshop,zgrief_sweatshop"
 "angles" "0 240 0"
 "origin" "2392 -430 1356"
 "classname" "script_struct"
@@ -31486,7 +31486,7 @@
 "target" "pf1482_auto41"
 }
 {
-"script_noteworthy" "zstandard_blue_highrise,zgrief_blue_highrise"
+"script_noteworthy" "zstandard_sweatshop,zgrief_sweatshop"
 "targetname" "pf1482_auto41"
 "classname" "script_struct"
 "model" "t6_wpn_ar_an94_world"
@@ -31494,7 +31494,7 @@
 "origin" "2392 -430 1356"
 }
 {
-"script_noteworthy" "zstandard_blue_highrise,zgrief_blue_highrise"
+"script_noteworthy" "zstandard_sweatshop,zgrief_sweatshop"
 "origin" "2101 338 1180"
 "angles" "0 330 0"
 "classname" "script_struct"
@@ -31504,7 +31504,7 @@
 "guid" "ED8E28B4"
 }
 {
-"script_noteworthy" "zstandard_blue_highrise,zgrief_blue_highrise"
+"script_noteworthy" "zstandard_sweatshop,zgrief_sweatshop"
 "targetname" "pf1490_auto38"
 "classname" "script_struct"
 "model" "t6_wpn_taser_knuckles_view"

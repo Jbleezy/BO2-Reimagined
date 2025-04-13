@@ -45,7 +45,7 @@ init_elevator_perks()
 	level.elevator_perks_building["blue"][3].script_noteworthy = "specialty_weapupgrade";
 	level.elevator_perks_building["blue"][3].turn_on_notify = "Pack_A_Punch_on";
 
-	if (!is_gametype_active("zclassic") && getdvar("ui_zm_mapstartlocation") == "green_rooftop")
+	if (!is_gametype_active("zclassic") && getdvar("ui_zm_mapstartlocation") == "shopping_mall")
 	{
 		temp = level.elevator_perks_building["green"][1];
 		level.elevator_perks_building["green"][1] = level.elevator_perks_building["blue"][1];
@@ -89,7 +89,7 @@ init_elevator_perks()
 	level.random_perk_structs = green_structs;
 	level.random_perk_structs = arraycombine(level.random_perk_structs, blue_structs, 0, 0);
 
-	if (!is_gametype_active("zclassic") && getdvar("ui_zm_mapstartlocation") == "blue_highrise")
+	if (!is_gametype_active("zclassic") && getdvar("ui_zm_mapstartlocation") == "sweatshop")
 	{
 		specialty_additionalprimaryweapon_elevator_perks_index = 0;
 		bldg3d_random_perk_structs_index = 0;
@@ -408,7 +408,7 @@ elevator_next_floor(elevator, last, justchecking)
 
 	if (!is_gametype_active("zclassic"))
 	{
-		if (getdvar("ui_zm_mapstartlocation") == "blue_rooftop")
+		if (getdvar("ui_zm_mapstartlocation") == "dragon_rooftop")
 		{
 			if (elevator.name == "3" || elevator.name == "3b")
 			{
@@ -425,7 +425,7 @@ elevator_next_floor(elevator, last, justchecking)
 				}
 			}
 		}
-		else if (getdvar("ui_zm_mapstartlocation") == "blue_highrise")
+		else if (getdvar("ui_zm_mapstartlocation") == "sweatshop")
 		{
 			if (elevator.name == "3" || elevator.name == "3b")
 			{

@@ -29,9 +29,9 @@ CoD.MapsList.Locations = {
 	"ZMUI_TOWN_CAPS",
 	"ZMUI_TUNNEL_CAPS",
 	"ZMUI_CORNFIELD_CAPS",
-	"ZMUI_GREEN_ROOFTOP_CAPS",
-	"ZMUI_BLUE_ROOFTOP_CAPS",
-	"ZMUI_BLUE_HIGHRISE_CAPS",
+	"ZMUI_SHOPPING_MALL_CAPS",
+	"ZMUI_DRAGON_ROOFTOP_CAPS",
+	"ZMUI_SWEATSHOP_CAPS",
 	"ZMUI_STREET_LOC_CAPS",
 	"ZMUI_MAZE_CAPS",
 	"ZMUI_CELLBLOCK_CAPS",
@@ -127,15 +127,15 @@ local function setLocationDvars()
 	elseif location == "ZMUI_NUKED_STARTLOC_CAPS" then
 		Engine.SetDvar("ui_mapname", "zm_nuked")
 		Engine.SetDvar("ui_zm_mapstartlocation", "nuked")
-	elseif location == "ZMUI_GREEN_ROOFTOP_CAPS" then
+	elseif location == "ZMUI_SHOPPING_MALL_CAPS" then
 		Engine.SetDvar("ui_mapname", "zm_highrise")
-		Engine.SetDvar("ui_zm_mapstartlocation", "green_rooftop")
-	elseif location == "ZMUI_BLUE_ROOFTOP_CAPS" then
+		Engine.SetDvar("ui_zm_mapstartlocation", "shopping_mall")
+	elseif location == "ZMUI_DRAGON_ROOFTOP_CAPS" then
 		Engine.SetDvar("ui_mapname", "zm_highrise")
-		Engine.SetDvar("ui_zm_mapstartlocation", "blue_rooftop")
-	elseif location == "ZMUI_BLUE_HIGHRISE_CAPS" then
+		Engine.SetDvar("ui_zm_mapstartlocation", "dragon_rooftop")
+	elseif location == "ZMUI_SWEATSHOP_CAPS" then
 		Engine.SetDvar("ui_mapname", "zm_highrise")
-		Engine.SetDvar("ui_zm_mapstartlocation", "blue_highrise")
+		Engine.SetDvar("ui_zm_mapstartlocation", "sweatshop")
 	elseif location == "ZMUI_CELLBLOCK_CAPS" then
 		Engine.SetDvar("ui_mapname", "zm_prison")
 		Engine.SetDvar("ui_zm_mapstartlocation", "cellblock")

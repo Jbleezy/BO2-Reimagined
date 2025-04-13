@@ -3303,11 +3303,11 @@ zone_changes()
 	}
 	else if (level.script == "zm_highrise")
 	{
-		// Green Highrise to Lower Blue Highrise
+		// Shopping Mall to Dragon Rooftop
 		level.zones["zone_green_level3b"].adjacent_zones["zone_blue_level1c"] structdelete();
 		level.zones["zone_green_level3b"].adjacent_zones["zone_blue_level1c"] = undefined;
 
-		// Lower Orange Highrise debris
+		// Buddha Room debris
 		level.zones["zone_orange_level3a"].adjacent_zones["zone_orange_level3b"].is_connected = 0;
 		level.zones["zone_orange_level3b"].adjacent_zones["zone_orange_level3a"].is_connected = 0;
 	}

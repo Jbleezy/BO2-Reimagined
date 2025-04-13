@@ -248,12 +248,12 @@ move_elevator_starting_floors()
 		return;
 	}
 
-	if (getdvar("ui_zm_mapstartlocation") == "blue_rooftop")
+	if (getdvar("ui_zm_mapstartlocation") == "dragon_rooftop")
 	{
 		level.elevators["bldg3"] thread starting_floor(5);
 		level.elevators["bldg3b"] thread starting_floor(4);
 	}
-	else if (getdvar("ui_zm_mapstartlocation") == "blue_highrise")
+	else if (getdvar("ui_zm_mapstartlocation") == "sweatshop")
 	{
 		level.elevators["bldg3c"] thread starting_floor(0);
 	}

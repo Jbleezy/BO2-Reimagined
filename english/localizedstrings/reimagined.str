@@ -55,23 +55,23 @@ LANG_ENGLISH        "Power Station"
 REFERENCE           ZMUI_CORNFIELD
 LANG_ENGLISH        "Cornfield"
 
-REFERENCE           ZMUI_GREEN_ROOFTOP
-LANG_ENGLISH        "Green Rooftop"
+REFERENCE           ZMUI_SHOPPING_MALL
+LANG_ENGLISH        "Shopping Mall"
 
-REFERENCE           ZMUI_GREEN_ROOFTOP_CAPS
-LANG_ENGLISH        "GREEN ROOFTOP"
+REFERENCE           ZMUI_SHOPPING_MALL_CAPS
+LANG_ENGLISH        "SHOPPING MALL"
 
-REFERENCE           ZMUI_BLUE_ROOFTOP
-LANG_ENGLISH        "Blue Rooftop"
+REFERENCE           ZMUI_DRAGON_ROOFTOP
+LANG_ENGLISH        "Dragon Rooftop"
 
-REFERENCE           ZMUI_BLUE_ROOFTOP_CAPS
-LANG_ENGLISH        "BLUE ROOFTOP"
+REFERENCE           ZMUI_DRAGON_ROOFTOP_CAPS
+LANG_ENGLISH        "DRAGON ROOFTOP"
 
-REFERENCE           ZMUI_BLUE_HIGHRISE
-LANG_ENGLISH        "Blue Highrise"
+REFERENCE           ZMUI_SWEATSHOP
+LANG_ENGLISH        "Sweatshop"
 
-REFERENCE           ZMUI_BLUE_HIGHRISE_CAPS
-LANG_ENGLISH        "BLUE HIGHRISE"
+REFERENCE           ZMUI_SWEATSHOP_CAPS
+LANG_ENGLISH        "SWEATSHOP"
 
 REFERENCE           ZMUI_PRISON_LOC
 LANG_ENGLISH        "San Francisco Bay, U.S.A."
@@ -561,28 +561,28 @@ REFERENCE           ZM_NUKED_AMMO_DOOR_ZONE
 LANG_ENGLISH        "Yellow House Backyard Door"
 
 REFERENCE           ZM_HIGHRISE_ZONE_GREEN_LEVEL1
-LANG_ENGLISH        "Green Rooftop Level 3A"
+LANG_ENGLISH        "Shopping Mall Level 3A"
 
 REFERENCE           ZM_HIGHRISE_ZONE_GREEN_START
-LANG_ENGLISH        "Green Rooftop Level 3B"
+LANG_ENGLISH        "Shopping Mall Level 3B"
 
 REFERENCE           ZM_HIGHRISE_ZONE_GREEN_LEVEL2A
-LANG_ENGLISH        "Green Rooftop Level 2A"
+LANG_ENGLISH        "Shopping Mall Level 2A"
 
 REFERENCE           ZM_HIGHRISE_ZONE_GREEN_LEVEL2B
-LANG_ENGLISH        "Green Rooftop Level 2B"
+LANG_ENGLISH        "Shopping Mall Level 2B"
 
 REFERENCE           ZM_HIGHRISE_ZONE_GREEN_LEVEL3B
-LANG_ENGLISH        "Green Rooftop Level 1A"
+LANG_ENGLISH        "Shopping Mall Level 1A"
 
 REFERENCE           ZM_HIGHRISE_ZONE_GREEN_LEVEL3C
-LANG_ENGLISH        "Green Rooftop Level 1B"
+LANG_ENGLISH        "Shopping Mall Level 1B"
 
 REFERENCE           ZM_HIGHRISE_ZONE_GREEN_LEVEL3A
-LANG_ENGLISH        "Green Rooftop Restaurant"
+LANG_ENGLISH        "Shopping Mall Level 1C"
 
 REFERENCE           ZM_HIGHRISE_ZONE_GREEN_LEVEL3D
-LANG_ENGLISH        "Green Rooftop Behind Restaurant"
+LANG_ENGLISH        "Shopping Mall Level 1D"
 
 REFERENCE           ZM_HIGHRISE_ZONE_GREEN_ESCAPE_POD
 LANG_ENGLISH        "Escape Pod"
@@ -591,49 +591,49 @@ REFERENCE           ZM_HIGHRISE_ZONE_GREEN_ESCAPE_POD_GROUND
 LANG_ENGLISH        "Escape Pod Ground"
 
 REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL1A
-LANG_ENGLISH        "Blue Rooftop Level 2A"
+LANG_ENGLISH        "Dragon Rooftop Level 2A"
 
 REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL1C
-LANG_ENGLISH        "Blue Rooftop Level 2B"
+LANG_ENGLISH        "Dragon Rooftop Level 2B"
 
 REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL1B
-LANG_ENGLISH        "Blue Rooftop Level 2C"
-
-REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL2A
-LANG_ENGLISH        "Blue Rooftop Level 1A"
+LANG_ENGLISH        "Dragon Rooftop Level 2C"
 
 REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL2B
-LANG_ENGLISH        "Blue Rooftop Level 1B"
+LANG_ENGLISH        "Dragon Rooftop Level 1A"
+
+REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL2A
+LANG_ENGLISH        "Dragon Rooftop Level 1B"
 
 REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL2C
-LANG_ENGLISH        "Blue Rooftop Level 1C"
+LANG_ENGLISH        "Dragon Rooftop Level 1C"
 
 REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL2D
-LANG_ENGLISH        "Blue Rooftop Level 1D"
+LANG_ENGLISH        "Dragon Rooftop Level 1D"
 
 REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL4A
-LANG_ENGLISH        "Blue Highrise Level 2A"
-
-REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL4B
-LANG_ENGLISH        "Blue Highrise Level 2B"
+LANG_ENGLISH        "Sweatshop Level 2A"
 
 REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL4C
-LANG_ENGLISH        "Blue Highrise Level 2C"
+LANG_ENGLISH        "Sweatshop Level 2B"
+
+REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL4B
+LANG_ENGLISH        "Sweatshop Level 2C"
 
 REFERENCE           ZM_HIGHRISE_ZONE_BLUE_LEVEL5
-LANG_ENGLISH        "Blue Highrise Level 1"
+LANG_ENGLISH        "Sweatshop Level 1"
 
 REFERENCE           ZM_HIGHRISE_ZONE_ORANGE_LEVEL1
-LANG_ENGLISH        "Orange Rooftop Level 2"
+LANG_ENGLISH        "Apartment Complex Level 2"
 
 REFERENCE           ZM_HIGHRISE_ZONE_ORANGE_LEVEL2
-LANG_ENGLISH        "Orange Rooftop Level 1"
+LANG_ENGLISH        "Apartment Complex Level 1"
 
 REFERENCE           ZM_HIGHRISE_ZONE_ORANGE_LEVEL3B
-LANG_ENGLISH        "Orange Highrise Level 1A"
+LANG_ENGLISH        "Buddha Room Level 1A"
 
 REFERENCE           ZM_HIGHRISE_ZONE_ORANGE_LEVEL3A
-LANG_ENGLISH        "Orange Highrise Level 1B"
+LANG_ENGLISH        "Buddha Room Level 1B"
 
 REFERENCE           ZM_HIGHRISE_ZONE_ORANGE_ELEVATOR_SHAFT_TOP
 LANG_ENGLISH        "Elevator Shaft Level 3"

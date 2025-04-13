@@ -28,9 +28,9 @@ maxnum_startloc,16,,,,,,,,,,,,,,,,,,,,,
 5,11,zm_transit,cornfield,ZMUI_CORNFIELD_CAPS,ZMUI_CORNFIELD_DESC,menu_zm_map_transit_blit_transit,2,8,-60,138,-150,transit,farm,transit,farm,ZMUI_CORNFIELD,130,-150,20,-20,250,140
 5,12,zm_nuked,nuked,ZMUI_NUKED_STARTLOC_CAPS,ZMUI_NUKED_STARTLOC_DESC,menu_zm_map_nuked_blit_nuked,1,0,0,180,-50,,,,,ZMUI_NUKED_STARTLOC,100,-90,,,,
 5,13,zm_highrise,rooftop,ZMUI_ROOFTOP_CAPS,ZMUI_ROOFTOP_DESC,menu_zm_map_highrise_blit_rooftop,1,0,0,180,-50,,,,,ZMUI_ROOFTOP,150,-120,25,65,350,400
-5,14,zm_highrise,green_rooftop,ZMUI_GREEN_ROOFTOP_CAPS,ZMUI_GREEN_ROOFTOP_DESC,menu_zm_map_highrise_blit_rooftop,1,0,0,180,-50,,,,,ZMUI_GREEN_ROOFTOP,150,-120,25,65,350,400
-5,15,zm_highrise,blue_rooftop,ZMUI_BLUE_ROOFTOP_CAPS,ZMUI_BLUE_ROOFTOP_DESC,menu_zm_map_highrise_blit_rooftop,1,0,0,180,-50,,,,,ZMUI_BLUE_ROOFTOP,150,-120,25,65,350,400
-5,16,zm_highrise,blue_highrise,ZMUI_BLUE_HIGHRISE_CAPS,ZMUI_BLUE_HIGHRISE_DESC,menu_zm_map_highrise_blit_rooftop,1,0,0,180,-50,,,,,ZMUI_BLUE_HIGHRISE,150,-120,25,65,350,400
+5,14,zm_highrise,shopping_mall,ZMUI_SHOPPING_MALL_CAPS,ZMUI_SHOPPING_MALL_DESC,menu_zm_map_highrise_blit_rooftop,1,0,0,180,-50,,,,,ZMUI_SHOPPING_MALL,150,-120,25,65,350,400
+5,15,zm_highrise,dragon_rooftop,ZMUI_DRAGON_ROOFTOP_CAPS,ZMUI_DRAGON_ROOFTOP_DESC,menu_zm_map_highrise_blit_rooftop,1,0,0,180,-50,,,,,ZMUI_DRAGON_ROOFTOP,150,-120,25,65,350,400
+5,16,zm_highrise,sweatshop,ZMUI_SWEATSHOP_CAPS,ZMUI_SWEATSHOP_DESC,menu_zm_map_highrise_blit_rooftop,1,0,0,180,-50,,,,,ZMUI_SWEATSHOP,150,-120,25,65,350,400
 5,17,zm_prison,prison,ZMUI_PRISON_CAPS,ZMUI_PRISON_DESC,menu_zm_map_prison_blit_prison,1,-320,-180,-250,-50,cellblock,cellblock,cellblock,cellblock,ZMUI_PRISON,-155,-80,,,,
 5,18,zm_prison,cellblock,ZMUI_CELLBLOCK_CAPS,ZMUI_CELLBLOCK_DESC,menu_zm_map_prison_blit_cellblock,1,320,-180,138,-150,prison,prison,prison,prison,ZMUI_CELLBLOCK,130,-150,,,,
 5,19,zm_prison,docks,ZMUI_DOCKS_CAPS,ZMUI_DOCKS_DESC,menu_zm_map_prison_blit_cellblock,1,320,-180,138,-150,prison,prison,prison,prison,ZMUI_DOCKS,130,-150,,,,

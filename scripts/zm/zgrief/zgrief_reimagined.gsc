@@ -2575,15 +2575,15 @@ containment_get_zones()
 	}
 	else if (level.script == "zm_highrise")
 	{
-		if (level.scr_zm_map_start_location == "green_rooftop")
+		if (level.scr_zm_map_start_location == "shopping_mall")
 		{
 			containment_zones = array("zone_green_start", "zone_green_level1", "zone_green_level2a", "zone_green_level2b", "zone_green_level3a", "zone_green_level3b", "zone_green_level3c");
 		}
-		else if (level.scr_zm_map_start_location == "blue_rooftop")
+		else if (level.scr_zm_map_start_location == "dragon_rooftop")
 		{
 			containment_zones = array("zone_blue_level1a", "zone_blue_level1b", "zone_blue_level1c", "zone_blue_level2a", "zone_blue_level2b", "zone_blue_level2c");
 		}
-		else if (level.scr_zm_map_start_location == "blue_highrise")
+		else if (level.scr_zm_map_start_location == "sweatshop")
 		{
 			containment_zones = array("zone_blue_level4a", "zone_blue_level4b", "zone_blue_level4c", "zone_blue_level5");
 		}

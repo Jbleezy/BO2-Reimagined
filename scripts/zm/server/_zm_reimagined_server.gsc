@@ -41,9 +41,9 @@ precache_shaders()
 	precacheshader("menu_zm_transit_zsurvival_town");
 	precacheshader("menu_zm_transit_zsurvival_tunnel");
 	precacheshader("menu_zm_transit_zsurvival_cornfield");
-	precacheshader("menu_zm_highrise_zsurvival_green_rooftop");
-	precacheshader("menu_zm_highrise_zsurvival_blue_rooftop");
-	precacheshader("menu_zm_highrise_zsurvival_blue_highrise");
+	precacheshader("menu_zm_highrise_zsurvival_shopping_mall");
+	precacheshader("menu_zm_highrise_zsurvival_dragon_rooftop");
+	precacheshader("menu_zm_highrise_zsurvival_sweatshop");
 	precacheshader("menu_zm_nuked_zsurvival_nuked");
 	precacheshader("menu_zm_prison_zsurvival_cellblock");
 	precacheshader("menu_zm_prison_zsurvival_docks");
@@ -733,17 +733,17 @@ get_name_for_loc(map, location, gametype)
 	{
 		return &"ZMUI_CLASSIC_ROOFTOP";
 	}
-	else if (location == "green_rooftop")
+	else if (location == "shopping_mall")
 	{
-		return &"ZMUI_GREEN_ROOFTOP";
+		return &"ZMUI_SHOPPING_MALL";
 	}
-	else if (location == "blue_rooftop")
+	else if (location == "dragon_rooftop")
 	{
-		return &"ZMUI_BLUE_ROOFTOP";
+		return &"ZMUI_DRAGON_ROOFTOP";
 	}
-	else if (location == "blue_highrise")
+	else if (location == "sweatshop")
 	{
-		return &"ZMUI_BLUE_HIGHRISE";
+		return &"ZMUI_SWEATSHOP";
 	}
 	else if (location == "prison")
 	{
@@ -1334,17 +1334,17 @@ get_map_stat_str()
 		{
 			return "Die Rise";
 		}
-		else if (level.scr_zm_map_start_location == "green_rooftop")
+		else if (level.scr_zm_map_start_location == "shopping_mall")
 		{
-			return "Green Rooftop";
+			return "Shopping Mall";
 		}
-		else if (level.scr_zm_map_start_location == "blue_rooftop")
+		else if (level.scr_zm_map_start_location == "dragon_rooftop")
 		{
-			return "Blue Rooftop";
+			return "Dragon Rooftop";
 		}
-		else if (level.scr_zm_map_start_location == "blue_highrise")
+		else if (level.scr_zm_map_start_location == "sweatshop")
 		{
-			return "Blue Highrise";
+			return "Sweatshop";
 		}
 	}
 	else if (level.script == "zm_prison")
