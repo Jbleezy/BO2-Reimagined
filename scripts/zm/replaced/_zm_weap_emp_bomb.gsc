@@ -208,6 +208,7 @@ player_emp_fx(time)
 {
 	self notify("player_emp_fx");
 	self endon("player_emp_fx");
+	level endon("intermission");
 	self endon("disconnect");
 	self endon("player_perk_pause_timeout");
 

@@ -677,6 +677,16 @@ on_intermission()
 		player.statusicon = "";
 		player useservervisionset(0);
 		player setclientuivisibilityflag("hud_visible", 0);
+
+		if (isdefined(player.player_fx_ent))
+		{
+			player.player_fx_ent delete();
+		}
+
+		if (isdefined(player.stun_fx_ents))
+		{
+			array_delete(player.stun_fx_ents);
+		}
 	}
 }
 
@@ -1551,7 +1561,7 @@ ent_cleanup_on_disconnect(ent)
 
 veryhurt_blood_fx()
 {
-	level endon("end_game");
+	level endon("intermission");
 	self endon("disconnect");
 
 	while (1)
