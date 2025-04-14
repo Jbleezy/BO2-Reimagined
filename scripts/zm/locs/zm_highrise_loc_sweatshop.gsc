@@ -6,14 +6,14 @@
 struct_init()
 {
 	zone = "zone_blue_level4a";
-	scripts\zm\replaced\utility::register_map_spawn((2039, 576, 1300), (0, 330, 0), zone, 1);
-	scripts\zm\replaced\utility::register_map_spawn((1988, 485, 1300), (0, 330, 0), zone, 1);
-	scripts\zm\replaced\utility::register_map_spawn((1930, 379, 1300), (0, 330, 0), zone, 1);
-	scripts\zm\replaced\utility::register_map_spawn((1888, 294, 1300), (0, 330, 0), zone, 1);
-	scripts\zm\replaced\utility::register_map_spawn((2235, 457, 1300), (0, 150, 0), zone, 2);
-	scripts\zm\replaced\utility::register_map_spawn((2188, 369, 1300), (0, 150, 0), zone, 2);
-	scripts\zm\replaced\utility::register_map_spawn((2130, 261, 1300), (0, 150, 0), zone, 2);
-	scripts\zm\replaced\utility::register_map_spawn((2084, 177, 1300), (0, 150, 0), zone, 2);
+	scripts\zm\replaced\utility::register_map_spawn((2056, 558, 1300), (0, 330, 0), zone, 1);
+	scripts\zm\replaced\utility::register_map_spawn((2006, 471, 1300), (0, 330, 0), zone, 1);
+	scripts\zm\replaced\utility::register_map_spawn((1956, 385, 1300), (0, 330, 0), zone, 1);
+	scripts\zm\replaced\utility::register_map_spawn((1906, 298, 1300), (0, 330, 0), zone, 1);
+	scripts\zm\replaced\utility::register_map_spawn((2229, 458, 1300), (0, 150, 0), zone, 2);
+	scripts\zm\replaced\utility::register_map_spawn((2179, 371, 1300), (0, 150, 0), zone, 2);
+	scripts\zm\replaced\utility::register_map_spawn((2129, 285, 1300), (0, 150, 0), zone, 2);
+	scripts\zm\replaced\utility::register_map_spawn((2079, 198, 1300), (0, 150, 0), zone, 2);
 
 	level.struct_class_names["targetname"]["intermission"] = [];
 

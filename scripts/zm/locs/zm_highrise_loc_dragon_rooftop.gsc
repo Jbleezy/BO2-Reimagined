@@ -6,14 +6,14 @@
 struct_init()
 {
 	zone = "zone_blue_level1a";
-	scripts\zm\replaced\utility::register_map_spawn((2032, 410, 2880), (0, 330, 0), zone, 1);
-	scripts\zm\replaced\utility::register_map_spawn((1980, 316, 2880), (0, 330, 0), zone, 1);
-	scripts\zm\replaced\utility::register_map_spawn((1922, 210, 2880), (0, 330, 0), zone, 1);
-	scripts\zm\replaced\utility::register_map_spawn((1870, 90, 2880), (0, 330, 0), zone, 1);
-	scripts\zm\replaced\utility::register_map_spawn((2142, 346, 2880), (0, 150, 0), zone, 2);
-	scripts\zm\replaced\utility::register_map_spawn((2086, 256, 2880), (0, 150, 0), zone, 2);
-	scripts\zm\replaced\utility::register_map_spawn((2028, 146, 2880), (0, 150, 0), zone, 2);
-	scripts\zm\replaced\utility::register_map_spawn((1962, 40, 2880), (0, 150, 0), zone, 2);
+	scripts\zm\replaced\utility::register_map_spawn((2034, 410, 2880), (0, 330, 0), zone, 1);
+	scripts\zm\replaced\utility::register_map_spawn((1984, 323, 2880), (0, 330, 0), zone, 1);
+	scripts\zm\replaced\utility::register_map_spawn((1934, 237, 2880), (0, 330, 0), zone, 1);
+	scripts\zm\replaced\utility::register_map_spawn((1884, 150, 2880), (0, 330, 0), zone, 1);
+	scripts\zm\replaced\utility::register_map_spawn((2164, 335, 2880), (0, 150, 0), zone, 2);
+	scripts\zm\replaced\utility::register_map_spawn((2114, 248, 2880), (0, 150, 0), zone, 2);
+	scripts\zm\replaced\utility::register_map_spawn((2064, 162, 2880), (0, 150, 0), zone, 2);
+	scripts\zm\replaced\utility::register_map_spawn((2014, 75, 2880), (0, 150, 0), zone, 2);
 }
 
 precache()
