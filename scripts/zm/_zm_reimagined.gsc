@@ -299,6 +299,16 @@ precache_strings()
 	{
 		precacheString(istring(toupper(level.script + "_" + zone_name)));
 	}
+
+	if (level.script == "zm_highrise")
+	{
+		elevator_volume_names = array("elevator_1b", "elevator_1c", "elevator_1d", "elevator_3a", "elevator_3b", "elevator_3c", "elevator_3d");
+
+		foreach (volume_name in elevator_volume_names)
+		{
+			precacheString(istring(toupper(level.script + "_" + volume_name)));
+		}
+	}
 }
 
 precache_status_icons()
@@ -1365,17 +1375,28 @@ zone_name_hud_fade(player, zone_name, prev_player, prev_zone_name)
 
 get_zone_display_name(zone)
 {
-	if (!isDefined(zone))
+	if (isdefined(self) && (isplayer(self) || isai(self)))
 	{
-		return &"";
-	}
+		if (isdefined(level.elevator_volumes))
+		{
+			foreach (volume in level.elevator_volumes)
+			{
+				if (self istouching(volume))
+				{
+					return istring(toupper(level.script + "_" + volume.targetname));
+				}
+			}
+		}
 
-	if (level.script == "zm_tomb")
-	{
-		if (isDefined(self.teleporting) && self.teleporting)
+		if (is_true(self.teleporting))
 		{
 			return &"";
 		}
+	}
+
+	if (!isDefined(zone))
+	{
+		return &"";
 	}
 
 	return istring(toupper(level.script + "_" + zone));

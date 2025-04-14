@@ -2173,7 +2173,7 @@ containment_think()
 
 		foreach (player in players)
 		{
-			player_zone_name = player get_current_zone();
+			player_zone_name = player containment_get_current_zone();
 
 			if (isDefined(player_zone_name) && player_zone_name == next_zone_name)
 			{
@@ -2283,7 +2283,7 @@ containment_think()
 
 			foreach (player in players)
 			{
-				player_zone_name = player get_current_zone();
+				player_zone_name = player containment_get_current_zone();
 
 				if (isDefined(player_zone_name) && player_zone_name == zone_name)
 				{
@@ -2327,7 +2327,7 @@ containment_think()
 			{
 				foreach (player in players)
 				{
-					player_zone_name = player get_current_zone();
+					player_zone_name = player containment_get_current_zone();
 
 					if (isDefined(player_zone_name) && player_zone_name == next_zone_name)
 					{
@@ -2509,7 +2509,7 @@ containment_think()
 		{
 			for (i = 0; i < zombies.size; i++)
 			{
-				if (!isDefined(zombies[i] get_current_zone()) || zombies[i] get_current_zone() == zone_name)
+				if (!isDefined(zombies[i] containment_get_current_zone()) || zombies[i] containment_get_current_zone() == zone_name)
 				{
 					zombies[i] dodamage(zombies[i].health + 666, zombies[i].origin);
 				}
@@ -2959,6 +2959,22 @@ containment_get_zone_waypoint_origin(zone_name, zone)
 	}
 
 	return (0, 0, 0);
+}
+
+containment_get_current_zone()
+{
+	if (isdefined(level.elevator_volumes))
+	{
+		foreach (volume in level.elevator_volumes)
+		{
+			if (self istouching(volume))
+			{
+				return "";
+			}
+		}
+	}
+
+	return self get_current_zone();
 }
 
 containment_time_hud_countdown(time)
