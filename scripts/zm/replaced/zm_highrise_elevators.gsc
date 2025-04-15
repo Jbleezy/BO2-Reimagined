@@ -556,6 +556,39 @@ elevator_roof_watcher()
 	}
 }
 
+zombie_climb_elevator(elev)
+{
+	self endon("death");
+	self endon("removed");
+	self endon("sonicBoom");
+	level endon("intermission");
+
+	self notify("stop_find_flesh");
+	self.completed_emerging_into_playable_area = undefined;
+	self.no_powerups = 1;
+	self.dont_throw_gib = 1;
+	self.forcemovementscriptstate = 1;
+	self.attachent = elev;
+	self linkto(self.attachent, "tag_origin");
+	self.jumpingtoelev = 1;
+	animstate = "zm_traverse_elevator";
+	anim_name = "zm_zombie_climb_elevator";
+	tag_origin = self.attachent gettagorigin("tag_origin");
+	tag_angles = self.attachent gettagangles("tag_origin");
+	self animmode("noclip");
+	self animscripted(tag_origin, tag_angles, animstate, anim_name);
+	self maps\mp\animscripts\zm_shared::donotetracks("traverse_anim");
+
+	self animmode("gravity");
+	self.dont_throw_gib = 0;
+	self.jumpingtoelev = 0;
+	self.forcemovementscriptstate = 0;
+	self unlink();
+	self setgoalpos(self.origin);
+	self thread maps\mp\zombies\_zm_ai_basic::find_flesh();
+	self maps\mp\zombies\_zm_spawner::zombie_complete_emerging_into_playable_area();
+}
+
 faller_location_logic()
 {
 	wait 1;
