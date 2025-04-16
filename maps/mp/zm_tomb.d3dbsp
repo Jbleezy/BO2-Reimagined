@@ -27358,7 +27358,6 @@
 "guid" "87D248DA"
 }
 {
-"script_string" "zclassic_perks_tomb"
 "targetname" "zm_perk_machine"
 "script_noteworthy" "specialty_armorvest"
 "angles" "0 180 0"
@@ -27368,7 +27367,6 @@
 "guid" "C308390D"
 }
 {
-"script_string" "zclassic_perks_tomb"
 "targetname" "zm_perk_machine"
 "script_noteworthy" "specialty_longersprint"
 "angles" "1.00179e-005 225 -4.43583e-012"
@@ -27378,7 +27376,6 @@
 "guid" "65C45574"
 }
 {
-"script_string" "zclassic_perks_tomb"
 "targetname" "zm_perk_machine"
 "script_noteworthy" "specialty_additionalprimaryweapon"
 "angles" "1.00179e-005 180 2.50447e-006"
@@ -27388,7 +27385,6 @@
 "guid" "2F276C2D"
 }
 {
-"script_string" "zclassic_perks_tomb"
 "targetname" "zm_perk_machine"
 "script_noteworthy" "specialty_quickrevive"
 "angles" "0 6.83245e-007 0"
@@ -27431,7 +27427,6 @@
 "angles" "1.00179e-005 6.83245e-007 -1.31066e-012"
 "script_noteworthy" "specialty_fastreload"
 "targetname" "zm_perk_machine"
-"script_string" "zclassic_perks_tomb"
 "guid" "F7DD78FA"
 }
 {
@@ -32836,7 +32831,6 @@
 "angles" "0 15 0"
 "script_noteworthy" "specialty_rof"
 "targetname" "zm_perk_machine"
-"script_string" "zclassic_perks_tomb"
 }
 {
 "origin" "9752 -8790 -448"
@@ -32845,7 +32839,6 @@
 "angles" "0 -210 0"
 "script_noteworthy" "specialty_flakjacket"
 "targetname" "zm_perk_machine"
-"script_string" "zclassic_perks_tomb"
 }
 {
 "origin" "-543 3728 -296"
@@ -32854,7 +32847,6 @@
 "angles" "0 0 0"
 "script_noteworthy" "specialty_deadshot"
 "targetname" "zm_perk_machine"
-"script_string" "zclassic_perks_tomb"
 }
 {
 "origin" "11419 -7355 -404"
@@ -32863,5 +32855,4 @@
 "angles" "0 -120 0"
 "script_noteworthy" "specialty_grenadepulldeath"
 "targetname" "zm_perk_machine"
-"script_string" "zclassic_perks_tomb"
 }
