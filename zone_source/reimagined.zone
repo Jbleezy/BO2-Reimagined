@@ -131,6 +131,7 @@ rawfile,zm/playeranim.script
 
 stringtable,mp/weaponoptions_zm.csv
 stringtable,zm/gametypestable.csv
+stringtable,zm/mapstable.csv
 stringtable,zm/pap_attach.csv
 
 script,scripts/zm/_zm_reimagined.csc

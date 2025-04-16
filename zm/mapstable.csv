@@ -1,0 +1,10 @@
+a0,b1,c2,d3,e4,f5,g6,h7,i8,j9,k10,l11,m12,n13,o14,p15,q16,r17,s18,t19
+maxnum_map,7,,,,,,,,,,,,,,,,,,
+zm_transit,cdc,cia,ZMUI_TRANSIT,menu_zm_map_signpost_transit,0,ZMUI_DESC_MAP_TRANSIT,compass_overlay_map_transit,SMALL,NO,YES,0,ZMUI_CDC_SHORT,ZMUI_CIA_SHORT,faction_cdc,faction_cia,125,46,0,top
+zm_nuked,cdc,cia,ZMUI_NUKED,menu_zm_map_signpost_nuketown,1,ZMUI_DESC_MAP_NUKED,compass_overlay_map_nuked,SMALL,NO,YES,2,ZMUI_CDC_SHORT,ZMUI_CIA_SHORT,faction_cdc,faction_cia,110,40,0,top
+zm_highrise,cdc,cia,ZMUI_HIGHRISE,menu_zm_map_signpost_highrise,2,ZMUI_DESC_MAP_HIGHRISE,compass_overlay_map_highrise,SMALL,NO,YES,3,ZMUI_CDC_SHORT,ZMUI_CIA_SHORT,faction_cdc,faction_cia,-100,40,0,top
+zm_transit_dr,cdc,zombie,ZMUI_TRANSIT,menu_zm_map_signpost_transit,3,ZMUI_DESC_MAP_TRANSIT_DR,compass_overlay_map_transit,SMALL,NO,YES,3,ZMUI_CDC_SHORT,ZMUI_ZOMBIE_SHORT,faction_cdc,faction_zombie,125,46,0,top
+zm_prison,guards,inmates,ZMUI_PRISON,menu_zm_map_signpost_prison,4,ZMUI_DESC_MAP_PRISON,compass_overlay_map_transit,SMALL,NO,YES,4,ZMUI_GUARDS_SHORT,ZMUI_INMATES_SHORT,faction_guards,faction_inmates,122,35,0,left
+zm_buried,cdc,cia,ZMUI_BURIED,menu_zm_map_signpost_buried,5,ZMUI_DESC_MAP_BURIED,compass_overlay_map_highrise,SMALL,NO,YES,5,ZMUI_CDC_SHORT,ZMUI_CIA_SHORT,faction_cdc,faction_cia,-19,-16,0,top
+zm_tomb,guards,inmates,ZMUI_TOMB,menu_zm_map_signpost_tomb,6,ZMUI_DESC_MAP_TOMB,compass_overlay_map_tomb,SMALL,NO,YES,6,ZMUI_GUARDS_SHORT,ZMUI_INMATES_SHORT,faction_guards,faction_inmates,-11,49,0,top
+default,cdc,cia,,,,,,,,,,,,,,,,,
