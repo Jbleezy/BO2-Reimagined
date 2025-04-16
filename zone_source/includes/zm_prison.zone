@@ -101,6 +101,7 @@ fx,maps/zombie_alcatraz/fx_alcatraz_skull_elec
 weapon,knife_zm_alcatraz
 weapon,spoon_zm_alcatraz
 weapon,spork_zm_alcatraz
+weapon,item_head_zm
 
 xmodel,p6_zm_al_vending_nuke_on
 xmodel,p6_zm_al_vending_ads_on
