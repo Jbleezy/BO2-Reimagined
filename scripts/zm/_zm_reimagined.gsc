@@ -2090,8 +2090,8 @@ weapon_changes()
 		add_limited_weapon("crossbow_zm", 1);
 		add_limited_weapon("crossbow_upgraded_zm", 1);
 		add_zombie_weapon("crossbow_zm", "crossbow_upgraded_zm", &"WEAPON_CROSSBOW_EXPLOSIVE", 1000, "wpck_explo", "", undefined, 1);
-		precacheitem("explosive_bolt_zm");
-		precacheitem("explosive_bolt_upgraded_zm");
+		precacheitem("crossbow_explosive_bolt_zm");
+		precacheitem("crossbow_explosive_bolt_upgraded_zm");
 	}
 
 	if (isdefined(level.zombie_weapons["beretta93r_extclip_zm"]))

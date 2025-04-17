@@ -62,8 +62,8 @@ entityspawned_tomb(localclientnum)
 	{
 		switch (self.weapon)
 		{
-			case "explosive_bolt_zm":
-			case "explosive_bolt_upgraded_zm":
+			case "crossbow_explosive_bolt_zm":
+			case "crossbow_explosive_bolt_upgraded_zm":
 				self thread clientscripts\mp\_explosive_bolt::spawned(localclientnum);
 				break;
 		}
