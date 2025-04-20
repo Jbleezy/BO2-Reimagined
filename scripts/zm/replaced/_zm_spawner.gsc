@@ -643,9 +643,12 @@ get_number_variants(aliasprefix)
 
 is_new_sound(aliasprefix)
 {
-	if (issubstr(aliasprefix, "vox_zmba_grief_") && issubstr(aliasprefix, "_rich"))
+	if (issubstr(aliasprefix, "vox_zmba_grief_"))
 	{
-		return 1;
+		if (issubstr(aliasprefix, "_rich") || issubstr(aliasprefix, "_brutus"))
+		{
+			return 1;
+		}
 	}
 
 	return 0;

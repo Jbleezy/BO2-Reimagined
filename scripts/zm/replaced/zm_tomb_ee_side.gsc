@@ -15,6 +15,52 @@
 #include maps\mp\zombies\_zm_unitrigger;
 #include maps\mp\zm_tomb_amb;
 
+init()
+{
+	precacheshader("zm_tm_wth_dog");
+	precachemodel("p6_zm_tm_tablet");
+	precachemodel("p6_zm_tm_tablet_muddy");
+	precachemodel("p6_zm_tm_radio_01");
+	precachemodel("p6_zm_tm_radio_01_panel2_blood");
+	registerclientfield("world", "wagon_1_fire", 14000, 1, "int");
+	registerclientfield("world", "wagon_2_fire", 14000, 1, "int");
+	registerclientfield("world", "wagon_3_fire", 14000, 1, "int");
+	registerclientfield("actor", "ee_zombie_tablet_fx", 14000, 1, "int");
+	registerclientfield("toplayer", "ee_beacon_reward", 14000, 1, "int");
+
+	if (!is_classic())
+	{
+		registerclientfield("world", "light_show", 14000, 2, "int");
+
+		t_bunker = getent("trigger_oneinchpunch_bunker_table", "targetname");
+		t_bunker delete();
+
+		t_birdbath = getent("trigger_oneinchpunch_church_birdbath", "targetname");
+		t_birdbath delete();
+
+		return;
+	}
+
+	onplayerconnect_callback(::onplayerconnect_ee_jump_scare);
+	onplayerconnect_callback(::onplayerconnect_ee_oneinchpunch);
+	sq_one_inch_punch();
+	a_triggers = getentarray("audio_bump_trigger", "targetname");
+
+	foreach (trigger in a_triggers)
+	{
+		if (isdefined(trigger.script_sound) && trigger.script_sound == "zmb_perks_bump_bottle")
+		{
+			trigger thread check_for_change();
+		}
+	}
+
+	level thread wagon_fire_challenge();
+	level thread wall_hole_poster();
+	level thread quadrotor_medallions();
+	level thread maps\mp\zm_tomb_ee_lights::main();
+	level thread radio_ee_song();
+}
+
 swap_mg(e_player)
 {
 	str_current_weapon = e_player getcurrentweapon();

@@ -242,7 +242,11 @@ mechz_round_tracker()
 		wait 0.05;
 	}
 
-	flag_wait("activate_zone_nml");
+	if (is_classic())
+	{
+		flag_wait("activate_zone_nml");
+	}
+
 	mech_start_round_num = 8;
 
 	if (isdefined(level.is_forever_solo_game) && level.is_forever_solo_game)

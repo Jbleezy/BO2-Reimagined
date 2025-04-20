@@ -5,9 +5,14 @@
 
 main()
 {
+	replaceFunc(maps\mp\zm_tomb::precache_personality_characters, scripts\zm\replaced\zm_tomb::precache_personality_characters);
+	replaceFunc(maps\mp\zm_tomb::give_personality_characters, scripts\zm\replaced\zm_tomb::give_personality_characters);
 	replaceFunc(maps\mp\zm_tomb::custom_vending_precaching, scripts\zm\replaced\zm_tomb::custom_vending_precaching);
+	replaceFunc(maps\mp\zm_tomb::working_zone_init, scripts\zm\replaced\zm_tomb::working_zone_init);
 	replaceFunc(maps\mp\zm_tomb::tomb_can_track_ammo_custom, scripts\zm\replaced\zm_tomb::tomb_can_track_ammo_custom);
+	replaceFunc(maps\mp\zm_tomb::tomb_zombie_death_event_callback, scripts\zm\replaced\zm_tomb::tomb_zombie_death_event_callback);
 	replaceFunc(maps\mp\zm_tomb::sndmeleewpnsound, scripts\zm\replaced\zm_tomb::sndmeleewpnsound);
+	replaceFunc(maps\mp\zm_tomb_gamemodes::init, scripts\zm\replaced\zm_tomb_gamemodes::init);
 	replaceFunc(maps\mp\zm_tomb_main_quest::main_quest_init, scripts\zm\replaced\zm_tomb_main_quest::main_quest_init);
 	replaceFunc(maps\mp\zm_tomb_main_quest::place_staff_in_charger, scripts\zm\replaced\zm_tomb_main_quest::place_staff_in_charger);
 	replaceFunc(maps\mp\zm_tomb_main_quest::watch_for_player_pickup_staff, scripts\zm\replaced\zm_tomb_main_quest::watch_for_player_pickup_staff);
@@ -24,11 +29,15 @@ main()
 	replaceFunc(maps\mp\zm_tomb_ee_main_step_4::stage_logic, scripts\zm\replaced\zm_tomb_ee_main_step_4::stage_logic);
 	replaceFunc(maps\mp\zm_tomb_ee_main_step_4::mechz_death_ee, scripts\zm\replaced\zm_tomb_ee_main_step_4::mechz_death_ee);
 	replaceFunc(maps\mp\zm_tomb_ee_main_step_8::stage_logic, scripts\zm\replaced\zm_tomb_ee_main_step_8::stage_logic);
+	replaceFunc(maps\mp\zm_tomb_ee_side::init, scripts\zm\replaced\zm_tomb_ee_side::init);
 	replaceFunc(maps\mp\zm_tomb_ee_side::swap_mg, scripts\zm\replaced\zm_tomb_ee_side::swap_mg);
 	replaceFunc(maps\mp\zm_tomb_capture_zones::precache_everything, scripts\zm\replaced\zm_tomb_capture_zones::precache_everything);
 	replaceFunc(maps\mp\zm_tomb_capture_zones::declare_objectives, scripts\zm\replaced\zm_tomb_capture_zones::declare_objectives);
 	replaceFunc(maps\mp\zm_tomb_capture_zones::init_capture_zone, scripts\zm\replaced\zm_tomb_capture_zones::init_capture_zone);
 	replaceFunc(maps\mp\zm_tomb_capture_zones::register_elements_powered_by_zone_capture_generators, scripts\zm\replaced\zm_tomb_capture_zones::register_elements_powered_by_zone_capture_generators);
+	replaceFunc(maps\mp\zm_tomb_capture_zones::enable_mystery_boxes_in_zone, scripts\zm\replaced\zm_tomb_capture_zones::enable_mystery_boxes_in_zone);
+	replaceFunc(maps\mp\zm_tomb_capture_zones::disable_mystery_boxes_in_zone, scripts\zm\replaced\zm_tomb_capture_zones::disable_mystery_boxes_in_zone);
+	replaceFunc(maps\mp\zm_tomb_capture_zones::pack_a_punch_enable, scripts\zm\replaced\zm_tomb_capture_zones::pack_a_punch_enable);
 	replaceFunc(maps\mp\zm_tomb_capture_zones::setup_perk_machines_not_controlled_by_zone_capture, scripts\zm\replaced\zm_tomb_capture_zones::setup_perk_machines_not_controlled_by_zone_capture);
 	replaceFunc(maps\mp\zm_tomb_capture_zones::init_recapture_zombie, scripts\zm\replaced\zm_tomb_capture_zones::init_recapture_zombie);
 	replaceFunc(maps\mp\zm_tomb_capture_zones::recapture_zombie_death_func, scripts\zm\replaced\zm_tomb_capture_zones::recapture_zombie_death_func);
@@ -37,8 +46,7 @@ main()
 	replaceFunc(maps\mp\zm_tomb_capture_zones::get_zone_objective_index, scripts\zm\replaced\zm_tomb_capture_zones::get_zone_objective_index);
 	replaceFunc(maps\mp\zm_tomb_capture_zones::get_generator_capture_start_cost, scripts\zm\replaced\zm_tomb_capture_zones::get_generator_capture_start_cost);
 	replaceFunc(maps\mp\zm_tomb_capture_zones::magic_box_stub_update_prompt, scripts\zm\replaced\zm_tomb_capture_zones::magic_box_stub_update_prompt);
-	replaceFunc(maps\mp\zm_tomb_challenges::reward_packed_weapon, scripts\zm\replaced\zm_tomb_challenges::reward_packed_weapon);
-	replaceFunc(maps\mp\zm_tomb_challenges::reward_double_tap, scripts\zm\replaced\zm_tomb_challenges::reward_double_tap);
+	replaceFunc(maps\mp\zm_tomb_challenges::tomb_challenges_add_stats, scripts\zm\replaced\zm_tomb_challenges::tomb_challenges_add_stats);
 	replaceFunc(maps\mp\zm_tomb_challenges::box_footprint_think, scripts\zm\replaced\zm_tomb_challenges::box_footprint_think);
 	replaceFunc(maps\mp\zm_tomb_challenges::one_inch_punch_watch_for_death, scripts\zm\replaced\zm_tomb_challenges::one_inch_punch_watch_for_death);
 	replaceFunc(maps\mp\zm_tomb_craftables::init_craftables, scripts\zm\replaced\zm_tomb_craftables::init_craftables);
@@ -51,6 +59,8 @@ main()
 	replaceFunc(maps\mp\zm_tomb_dig::waittill_dug, scripts\zm\replaced\zm_tomb_dig::waittill_dug);
 	replaceFunc(maps\mp\zm_tomb_dig::increment_player_perk_purchase_limit, scripts\zm\replaced\zm_tomb_dig::increment_player_perk_purchase_limit);
 	replaceFunc(maps\mp\zm_tomb_giant_robot::robot_cycling, scripts\zm\replaced\zm_tomb_giant_robot::robot_cycling);
+	replaceFunc(maps\mp\zm_tomb_giant_robot::player_stomp_death, scripts\zm\replaced\zm_tomb_giant_robot::player_stomp_death);
+	replaceFunc(maps\mp\zm_tomb_tank::init, scripts\zm\replaced\zm_tomb_tank::init);
 	replaceFunc(maps\mp\zm_tomb_tank::players_on_tank_update, scripts\zm\replaced\zm_tomb_tank::players_on_tank_update);
 	replaceFunc(maps\mp\zm_tomb_tank::wait_for_tank_cooldown, scripts\zm\replaced\zm_tomb_tank::wait_for_tank_cooldown);
 	replaceFunc(maps\mp\zm_tomb_tank::activate_tank_wait_with_no_cost, scripts\zm\replaced\zm_tomb_tank::activate_tank_wait_with_no_cost);
@@ -58,11 +68,20 @@ main()
 	replaceFunc(maps\mp\zm_tomb_utility::capture_zombie_spawn_init, scripts\zm\replaced\zm_tomb_utility::capture_zombie_spawn_init);
 	replaceFunc(maps\mp\zm_tomb_utility::update_staff_accessories, scripts\zm\replaced\zm_tomb_utility::update_staff_accessories);
 	replaceFunc(maps\mp\zm_tomb_utility::check_solo_status, scripts\zm\replaced\zm_tomb_utility::check_solo_status);
+	replaceFunc(maps\mp\zm_tomb_ffotd::update_charger_position, scripts\zm\replaced\zm_tomb_ffotd::update_charger_position);
 	replaceFunc(maps\mp\zm_tomb_distance_tracking::delete_zombie_noone_looking, scripts\zm\replaced\zm_tomb_distance_tracking::delete_zombie_noone_looking);
 	replaceFunc(maps\mp\zombies\_zm_ai_mechz::mechz_set_starting_health, scripts\zm\replaced\_zm_ai_mechz::mechz_set_starting_health);
 	replaceFunc(maps\mp\zombies\_zm_ai_mechz::mechz_round_tracker, scripts\zm\replaced\_zm_ai_mechz::mechz_round_tracker);
 	replaceFunc(maps\mp\zombies\_zm_ai_mechz::mechz_explode, scripts\zm\replaced\_zm_ai_mechz::mechz_explode);
+	replaceFunc(maps\mp\zombies\_zm_ai_mechz_ft::mechz_watch_for_flamethrower_damage, scripts\zm\replaced\_zm_ai_mechz_ft::mechz_watch_for_flamethrower_damage);
 	replaceFunc(maps\mp\zombies\_zm_ai_quadrotor::quadrotor_movementupdate, scripts\zm\replaced\_zm_ai_quadrotor::quadrotor_movementupdate);
+	replaceFunc(maps\mp\zombies\_zm_challenges::onplayerspawned, scripts\zm\replaced\_zm_challenges::onplayerspawned);
+	replaceFunc(maps\mp\zombies\_zm_challenges::team_stats_init, scripts\zm\replaced\_zm_challenges::team_stats_init);
+	replaceFunc(maps\mp\zombies\_zm_challenges::stat_reward_available, scripts\zm\replaced\_zm_challenges::stat_reward_available);
+	replaceFunc(maps\mp\zombies\_zm_challenges::player_has_unclaimed_team_reward, scripts\zm\replaced\_zm_challenges::player_has_unclaimed_team_reward);
+	replaceFunc(maps\mp\zombies\_zm_challenges::get_reward_stat, scripts\zm\replaced\_zm_challenges::get_reward_stat);
+	replaceFunc(maps\mp\zombies\_zm_challenges::spawn_reward, scripts\zm\replaced\_zm_challenges::spawn_reward);
+	replaceFunc(maps\mp\zombies\_zm_challenges::update_box_prompt, scripts\zm\replaced\_zm_challenges::update_box_prompt);
 	replaceFunc(maps\mp\zombies\_zm_challenges::box_think, scripts\zm\replaced\_zm_challenges::box_think);
 	replaceFunc(maps\mp\zombies\_zm_craftables::choose_open_craftable, scripts\zm\replaced\_zm_craftables::choose_open_craftable);
 	replaceFunc(maps\mp\zombies\_zm_craftables::craftable_use_hold_think_internal, scripts\zm\replaced\_zm_craftables::craftable_use_hold_think_internal);
@@ -99,8 +118,15 @@ main()
 	level._effect["fire_ug_impact_exp_sm"] = loadfx("weapon/zmb_staff/fx_zmb_staff_fire_ug_impact_exp_sm");
 	level._effect["fire_ug_impact_exp_loop"] = loadfx("weapon/zmb_staff/fx_zmb_staff_fire_ug_impact_exp_loop");
 
+	if (is_gametype_active("zgrief"))
+	{
+		// need in main and init to load properly
+		level._effect["butterflies"] = loadfx("maps/zombie_alcatraz/fx_alcatraz_skull_elec");
+	}
+
 	maps\mp\_explosive_bolt::init();
 	scripts\zm\reimagined\_zm_weap_bouncingbetty::init();
+	register_clientfields();
 }
 
 init()
@@ -112,6 +138,22 @@ init()
 
 	level.zombie_vars["below_world_check"] = -3000;
 
+	if (!is_classic())
+	{
+		level.zombie_include_weapons["beacon_zm"] = 1;
+		level.zombie_weapons["beacon_zm"].is_in_box = 1;
+
+		level.perk_random_vo_func_usemachine = undefined;
+
+		arrayremovevalue(level.zombie_powerup_array, "zombie_blood");
+	}
+
+	if (is_gametype_active("zgrief"))
+	{
+		// need in main and init to load properly
+		level._effect["butterflies"] = loadfx("maps/zombie_alcatraz/fx_alcatraz_skull_elec");
+	}
+
 	maps\mp\zombies\_zm::spawn_life_brush((1839, 3574, -228), 512, 256);
 
 	register_melee_weapons_for_level();
@@ -119,12 +161,27 @@ init()
 	move_additionalprimaryweapon_machine();
 	change_stargate_teleport_return_player_angles();
 	delete_air_crystal_biplane_ent();
+	power_up_all_generators();
 
 	level thread divetonuke_on();
 	level thread electric_cherry_on();
 	level thread zombie_blood_dig_changes();
 	level thread attach_powerups_to_tank();
 	level thread updatecraftables();
+	level thread grief_mechz_spawn_after_time();
+}
+
+register_clientfields()
+{
+	if (is_classic())
+	{
+		return;
+	}
+
+	registerclientfield("toplayer", "sndMudSlow", 14000, 1, "int");
+	registerclientfield("scriptmover", "element_glow_fx", 14000, 4, "int", undefined, 0);
+	registerclientfield("scriptmover", "bryce_cake", 14000, 2, "int", undefined, 0);
+	registerclientfield("scriptmover", "switch_spark", 14000, 1, "int", undefined, 0);
 }
 
 zombie_init_done()
@@ -139,7 +196,7 @@ tomb_special_weapon_magicbox_check(weapon)
 {
 	if (weapon == "beacon_zm")
 	{
-		if (isDefined(self.beacon_ready) && self.beacon_ready)
+		if (!is_classic() || is_true(self.beacon_ready))
 		{
 			return 1;
 		}
@@ -221,7 +278,7 @@ spawn_custom_perk_machine_pipes()
 
 move_additionalprimaryweapon_machine()
 {
-	if (!is_gametype_active("zclassic"))
+	if (!is_classic())
 	{
 		return;
 	}
@@ -298,6 +355,26 @@ delete_air_crystal_biplane_ent()
 {
 	ent = getent("air_crystal_biplane", "targetname");
 	ent delete();
+}
+
+power_up_all_generators()
+{
+	if (is_classic())
+	{
+		return;
+	}
+
+	flag_wait("start_zombie_round_logic");
+	wait_network_frame();
+
+	foreach (zone in level.zone_capture.zones)
+	{
+		zone maps\mp\zm_tomb_capture_zones::set_player_controlled_area();
+		zone.n_current_progress = 100;
+		zone maps\mp\zm_tomb_capture_zones::generator_state_power_up();
+		level setclientfield(zone.script_noteworthy, zone.n_current_progress / 100);
+		wait_network_frame();
+	}
 }
 
 divetonuke_on()
@@ -882,4 +959,52 @@ craftablestub_update_prompt(player, unitrigger)
 	}
 
 	return true;
+}
+
+grief_mechz_spawn_after_time()
+{
+	if (!is_gametype_active("zgrief"))
+	{
+		return;
+	}
+
+	level endon("end_game");
+
+	level waittill("restart_round_start");
+
+	while (1)
+	{
+		time = randomIntRange(240, 360);
+
+		wait time;
+
+		level.mechz_left_to_spawn = 1;
+		level notify("spawn_mechz");
+
+		while (get_mechz_count() <= 0)
+		{
+			wait 1;
+		}
+
+		while (get_mechz_count() > 0)
+		{
+			wait 1;
+		}
+	}
+}
+
+get_mechz_count()
+{
+	mechz_count = 0;
+	zombies = getaispeciesarray(level.zombie_team, "all");
+
+	foreach (zombie in zombies)
+	{
+		if (is_true(zombie.is_mechz) && isalive(zombie))
+		{
+			mechz_count++;
+		}
+	}
+
+	return mechz_count;
 }

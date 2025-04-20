@@ -26,6 +26,11 @@
 
 main_quest_init()
 {
+	if (!is_classic())
+	{
+		return;
+	}
+
 	flag_init("dug");
 	flag_init("air_open");
 	flag_init("fire_open");

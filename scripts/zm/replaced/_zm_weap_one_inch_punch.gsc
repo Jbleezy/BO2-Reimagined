@@ -112,6 +112,7 @@ monitor_melee_swipe()
 
 		range_dist = getDvarInt("player_meleeRange") * range_mod;
 		a_zombies = getaispeciesarray(level.zombie_team, "all");
+		a_zombies = arraycombine(a_zombies, get_players(getotherteam(self.team)), 0, 0);
 		a_zombies = get_array_of_closest(self.origin, a_zombies, undefined, undefined, range_dist);
 
 		foreach (zombie in a_zombies)
@@ -152,16 +153,16 @@ zombie_punch_damage(ai_zombie, n_mod)
 
 		n_damage = int(n_base_damage * n_mod);
 
-		if (self maps\mp\zombies\_zm_powerups::is_insta_kill_active())
+		if (isai(ai_zombie) && !is_true(ai_zombie.is_mechz))
 		{
-			if (n_damage < ai_zombie.health)
+			if (self maps\mp\zombies\_zm_powerups::is_insta_kill_active())
 			{
-				n_damage = ai_zombie.health;
+				if (n_damage < ai_zombie.health)
+				{
+					n_damage = ai_zombie.health;
+				}
 			}
-		}
 
-		if (!(isdefined(ai_zombie.is_mechz) && ai_zombie.is_mechz))
-		{
 			if (n_damage >= ai_zombie.health)
 			{
 				self thread zombie_punch_death(ai_zombie);
@@ -223,7 +224,7 @@ zombie_punch_damage(ai_zombie, n_mod)
 			}
 		}
 
-		ai_zombie dodamage(n_damage, ai_zombie.origin, self, self, 0, "MOD_MELEE", 0, self.current_melee_weapon);
+		ai_zombie dodamage(n_damage, self gettagorigin("tag_weapon_right"), self, self, 0, "MOD_MELEE", 0, self.current_melee_weapon);
 	}
 }
 

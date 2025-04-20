@@ -26,9 +26,12 @@ robot_cycling()
 {
 	three_robot_round = 0;
 	last_robot = -1;
-	level thread giant_robot_intro_walk(1);
 
-	level waittill("giant_robot_intro_complete");
+	if (is_classic())
+	{
+		level thread giant_robot_intro_walk(1);
+		level waittill("giant_robot_intro_complete");
+	}
 
 	while (true)
 	{
@@ -46,15 +49,15 @@ robot_cycling()
 		{
 			random_number = randomint(3);
 
-			level thread giant_robot_start_walk(2);
+			level thread giant_robot_start_walk(2, is_classic());
 
 			wait 5;
 
-			level thread giant_robot_start_walk(0);
+			level thread giant_robot_start_walk(0, is_classic());
 
 			wait 5;
 
-			level thread giant_robot_start_walk(1);
+			level thread giant_robot_start_walk(1, is_classic());
 
 			level waittill("giant_robot_walk_cycle_complete");
 
@@ -84,11 +87,45 @@ robot_cycling()
 			}
 
 			last_robot = random_number;
-			level thread giant_robot_start_walk(random_number);
+			level thread giant_robot_start_walk(random_number, is_classic());
 
 			level waittill("giant_robot_walk_cycle_complete");
 
 			wait 5;
 		}
+	}
+}
+
+player_stomp_death(robot)
+{
+	self endon("death");
+	self endon("disconnect");
+
+	self.is_stomped = 1;
+	self playsound("zmb_zombie_arc");
+	self freezecontrols(1);
+
+	if (self player_is_in_laststand())
+	{
+		self shellshock("explosion", 7);
+	}
+	else
+	{
+		self dodamage(self.health, self.origin, robot);
+	}
+
+	self maps\mp\zombies\_zm_stats::increment_client_stat("tomb_giant_robot_stomped", 0);
+	self maps\mp\zombies\_zm_stats::increment_player_stat("tomb_giant_robot_stomped");
+	wait 5.0;
+	self.is_stomped = 0;
+
+	if (!(isdefined(self.hostmigrationcontrolsfrozen) && self.hostmigrationcontrolsfrozen))
+	{
+		self freezecontrols(0);
+	}
+
+	if (is_classic())
+	{
+		self thread play_robot_crush_player_vo();
 	}
 }

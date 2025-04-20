@@ -3422,6 +3422,11 @@ get_grief_vox_postfix()
 		return "_rich";
 	}
 
+	if (level.script == "zm_tomb")
+	{
+		return "_brutus";
+	}
+
 	return "";
 }
 

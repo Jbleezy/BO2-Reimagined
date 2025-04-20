@@ -16,6 +16,41 @@
 #include maps\mp\zombies\_zm_weap_staff_fire;
 #include maps\mp\zombies\_zm_spawner;
 
+init()
+{
+	registerclientfield("vehicle", "tank_tread_fx", 14000, 1, "int");
+	registerclientfield("vehicle", "tank_flamethrower_fx", 14000, 2, "int");
+	registerclientfield("vehicle", "tank_cooldown_fx", 14000, 2, "int");
+
+	if (!is_classic())
+	{
+		tank = getent("tank", "targetname");
+		tank delete();
+
+		trigs = getentarray("trig_tank_station_call", "targetname");
+
+		foreach (trig in trigs)
+		{
+			trig delete();
+		}
+
+		return;
+	}
+
+	tank_precache();
+	onplayerconnect_callback(::onplayerconnect);
+	level.enemy_location_override_func = ::enemy_location_override;
+	level.adjust_enemyoverride_func = ::adjust_enemyoverride;
+	level.zm_mantle_over_40_move_speed_override = ::zm_mantle_over_40_move_speed_override;
+	level.vh_tank = getent("tank", "targetname");
+	level.vh_tank tank_setup();
+	level.vh_tank thread tankuseanimtree();
+	level.vh_tank thread tank_discovery_vo();
+	level thread maps\mp\zm_tomb_vo::watch_occasional_line("tank", "tank_flame_zombie", "vo_tank_flame_zombie");
+	level thread maps\mp\zm_tomb_vo::watch_occasional_line("tank", "tank_leave", "vo_tank_leave");
+	level thread maps\mp\zm_tomb_vo::watch_occasional_line("tank", "tank_cooling", "vo_tank_cooling");
+}
+
 players_on_tank_update()
 {
 	flag_wait("start_zombie_round_logic");

@@ -575,7 +575,7 @@ function UpdateGameScoreboard(ScoreboardWidget)
 						FactionColorB = CoD.Zombie.SingleTeamColor.b
 					elseif GamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZSURVIVAL then
 						if CoD.Zombie.IsSurvivalUsingCIAModel == true then
-							if Mapname == CoD.Zombie.MAP_ZM_PRISON then
+							if Mapname == CoD.Zombie.MAP_ZM_PRISON or Mapname == CoD.Zombie.MAP_ZM_TOMB then
 								FactionColorR, FactionColorG, FactionColorB = Engine.GetFactionColor("inmates")
 							else
 								FactionColorR, FactionColorG, FactionColorB = Engine.GetFactionColor("cia")
@@ -799,7 +799,7 @@ ScoreboardUpdateTeamElement = function(TeamElement, FactionTeam, FactionColorR, 
 				if Dvar.ui_gametype:get() == CoD.Zombie.GAMETYPE_ZCLEANSED and ScoreboardTeam.team == CoD.TEAM_AXIS then
 					TeamElement.factionIcon:setImage(RegisterMaterial("faction_zombie"))
 				elseif CoD.Zombie.IsSurvivalUsingCIAModel == true then
-					if Mapname == CoD.Zombie.MAP_ZM_PRISON then
+					if Mapname == CoD.Zombie.MAP_ZM_PRISON or Mapname == CoD.Zombie.MAP_ZM_TOMB then
 						TeamElement.factionIcon:setImage(RegisterMaterial("faction_inmates"))
 					else
 						TeamElement.factionIcon:setImage(RegisterMaterial("faction_cia"))

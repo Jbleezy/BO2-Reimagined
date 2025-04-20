@@ -15,18 +15,6 @@
 
 init_shovel()
 {
-	precachemodel("p6_zm_tm_dig_mound");
-	precachemodel("p6_zm_tm_dig_mound_blood");
-	precachemodel("p6_zm_tm_shovel");
-	precachemodel("zombie_pickup_perk_bottle");
-	precachemodel("t6_wpn_claymore_world");
-	maps\mp\zombies\_zm_audio_announcer::createvox("blood_money", "powerup_blood_money");
-	onplayerconnect_callback(::init_shovel_player);
-
-	level.get_player_perk_purchase_limit = ::get_player_perk_purchase_limit;
-	level.bonus_points_powerup_override = ::bonus_points_powerup_override;
-	level thread dig_powerups_tracking();
-	level thread dig_spots_init();
 	registerclientfield("world", "shovel_player1", 14000, 2, "int", undefined, 0);
 	registerclientfield("world", "shovel_player2", 14000, 2, "int", undefined, 0);
 	registerclientfield("world", "shovel_player3", 14000, 2, "int", undefined, 0);
@@ -35,10 +23,36 @@ init_shovel()
 	registerclientfield("world", "helmet_player2", 14000, 1, "int", undefined, 0);
 	registerclientfield("world", "helmet_player3", 14000, 1, "int", undefined, 0);
 	registerclientfield("world", "helmet_player4", 14000, 1, "int", undefined, 0);
+
+	onplayerconnect_callback(::init_shovel_player);
+
+	if (!is_classic())
+	{
+		return;
+	}
+
+	precachemodel("p6_zm_tm_dig_mound");
+	precachemodel("p6_zm_tm_dig_mound_blood");
+	precachemodel("p6_zm_tm_shovel");
+	precachemodel("zombie_pickup_perk_bottle");
+	precachemodel("t6_wpn_claymore_world");
+	maps\mp\zombies\_zm_audio_announcer::createvox("blood_money", "powerup_blood_money");
+
+	level.get_player_perk_purchase_limit = ::get_player_perk_purchase_limit;
+	level.bonus_points_powerup_override = ::bonus_points_powerup_override;
+	level thread dig_powerups_tracking();
+	level thread dig_spots_init();
 }
 
 init_shovel_player()
 {
+	self.dig_vars = [];
+
+	if (!is_classic())
+	{
+		return;
+	}
+
 	self.dig_vars["has_shovel"] = 1;
 	self.dig_vars["has_upgraded_shovel"] = 0;
 	self.dig_vars["has_helmet"] = 0;

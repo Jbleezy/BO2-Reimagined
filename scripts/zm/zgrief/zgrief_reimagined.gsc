@@ -381,6 +381,7 @@ set_grief_vars()
 	level.zombie_vars["zombie_spawn_delay"] = 0.5;
 	level.brutus_health = 25000;
 	level.brutus_expl_dmg_req = 15000;
+	level.mechz_health = 22500;
 	level.player_starting_points = 10000;
 
 	level.zombie_vars["zombie_powerup_drop_increment"] = level.player_starting_points * 4;
@@ -2610,6 +2611,25 @@ containment_get_zones()
 			containment_zones = array("zone_maze", "zone_mansion_backyard", "zone_maze_staircase");
 		}
 	}
+	else if (level.script == "zm_tomb")
+	{
+		if (level.scr_zm_map_start_location == "trenches")
+		{
+			containment_zones = array("zone_start_b", "zone_bunker_3a", "zone_bunker_4a", "zone_bunker_5a");
+		}
+		else if (level.scr_zm_map_start_location == "excavation_site")
+		{
+			containment_zones = array("zone_nml_farm", "zone_nml_11", "zone_nml_18");
+		}
+		else if (level.scr_zm_map_start_location == "church")
+		{
+			containment_zones = array("zone_village_1", "zone_village_2", "zone_village_3a");
+		}
+		else if (level.scr_zm_map_start_location == "crazy_place")
+		{
+			containment_zones = array("zone_chamber_0", "zone_chamber_2", "zone_chamber_4", "zone_chamber_6", "zone_chamber_8");
+		}
+	}
 
 	containment_zones = array_randomize(containment_zones);
 
@@ -2955,6 +2975,69 @@ containment_get_zone_waypoint_origin(zone_name, zone)
 		else if (zone_name == "zone_maze_staircase")
 		{
 			return (6438, 577, 108);
+		}
+	}
+	else if (level.script == "zm_tomb")
+	{
+		if (zone_name == "zone_start_b")
+		{
+			return (2169, 4784, -291);
+		}
+		else if (zone_name == "zone_bunker_3a")
+		{
+			return (526, 2340, -107);
+		}
+		else if (zone_name == "zone_bunker_4a")
+		{
+			return (-352, 3448, -283);
+		}
+		else if (zone_name == "zone_bunker_5a")
+		{
+			return (-493, 2902, -256);
+		}
+		else if (zone_name == "zone_nml_farm")
+		{
+			return (-2626, 176, 254);
+		}
+		else if (zone_name == "zone_nml_11")
+		{
+			return (2368, 240, 132);
+		}
+		else if (zone_name == "zone_nml_18")
+		{
+			return (-156, -9, 320);
+		}
+		else if (zone_name == "zone_village_1")
+		{
+			return (515, -2642, 35);
+		}
+		else if (zone_name == "zone_village_2")
+		{
+			return (515, -2642, 369);
+		}
+		else if (zone_name == "zone_village_3a")
+		{
+			return (960, -3712, 311);
+		}
+		else if (zone_name == "zone_chamber_0")
+		{
+			return (9627, -7008, -346);
+		}
+		else if (zone_name == "zone_chamber_2")
+		{
+			return (11229, -7052, -346);
+		}
+		else if (zone_name == "zone_chamber_4")
+		{
+			return (10340, -7906, -412);
+		}
+		else if (zone_name == "zone_chamber_6")
+		{
+			return (9459, -8557, -398);
+		}
+		else if (zone_name == "zone_chamber_8")
+		{
+			return (11254, -8662, -408);
 		}
 	}
 

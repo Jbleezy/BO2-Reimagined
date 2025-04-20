@@ -38,6 +38,15 @@
 #include clientscripts\mp\zombies\_zm_ai_quadrotor;
 #include clientscripts\mp\_fx;
 
+init_gamemodes()
+{
+	add_map_gamemode("zclassic", undefined, undefined);
+	add_map_gamemode("zstandard", undefined, undefined);
+	add_map_gamemode("zgrief", undefined, undefined);
+
+	add_map_location_gamemode("zclassic", "tomb", clientscripts\mp\zm_tomb_classic::precache, clientscripts\mp\zm_tomb_classic::premain, clientscripts\mp\zm_tomb_classic::main);
+}
+
 entityspawned_tomb(localclientnum)
 {
 	if (!isdefined(self.type))

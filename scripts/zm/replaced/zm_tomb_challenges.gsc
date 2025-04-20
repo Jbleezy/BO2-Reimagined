@@ -14,6 +14,80 @@
 #include maps\mp\zombies\_zm_perks;
 #include maps\mp\zombies\_zm_weap_one_inch_punch;
 
+tomb_challenges_add_stats()
+{
+	if (is_classic())
+	{
+		n_kills = 115;
+		n_zone_caps = 6;
+		n_points_spent = 30000;
+		n_boxes_filled = 4;
+
+		add_stat("zc_headshots", 0, &"ZM_TOMB_CH1", n_kills, undefined, ::reward_packed_weapon);
+		add_stat("zc_zone_captures", 0, &"ZM_TOMB_CH2", n_zone_caps, undefined, ::reward_powerup_max_ammo);
+		add_stat("zc_points_spent", 0, &"ZM_TOMB_CH3", n_points_spent, undefined, ::reward_double_tap, ::track_points_spent);
+		add_stat("zc_boxes_filled", 1, &"ZM_TOMB_CHT", n_boxes_filled, undefined, ::reward_one_inch_punch, ::init_box_footprints);
+	}
+	else
+	{
+		add_stat("zc_boxes_filled", 1, &"ZM_TOMB_CHT", 0, undefined, ::reward_one_inch_punch, ::init_box_footprints);
+
+		level thread wait_and_set_stats();
+	}
+}
+
+wait_and_set_stats()
+{
+	flag_wait("start_zombie_round_logic");
+
+	s_team_stats = level._challenges.s_team;
+	s_team_stats.n_completed = 1;
+	s_team_stats.n_medals_held = 1;
+	a_keys = getarraykeys(level._challenges.s_team.a_stats);
+	s_stat = level._challenges.s_team.a_stats[a_keys[0]];
+	s_stat.b_medal_awarded = 1;
+	s_stat.b_reward_claimed = 0;
+	a_characters = array("d", "n", "r", "t");
+
+	foreach (m_board in level.a_m_challenge_boards)
+	{
+		foreach (character in a_characters)
+		{
+			for (i = 1; i <= 3; i++)
+			{
+				medal_tag = "j_" + character + "_medal_0" + i;
+				glow_tag = "j_" + character + "_glow_0" + i;
+
+				m_board hidepart(medal_tag);
+				m_board hidepart(glow_tag);
+			}
+		}
+
+		m_board showpart(s_stat.str_glow_tag);
+	}
+}
+
+init_box_footprints()
+{
+	if (!is_classic())
+	{
+		a_boxes = getentarray("foot_box", "script_noteworthy");
+
+		foreach (box in a_boxes)
+		{
+			box delete();
+		}
+
+		return;
+	}
+
+	level.n_soul_boxes_completed = 0;
+	flag_init("vo_soul_box_intro_played");
+	flag_init("vo_soul_box_continue_played");
+	a_boxes = getentarray("foot_box", "script_noteworthy");
+	array_thread(a_boxes, ::box_footprint_think);
+}
+
 reward_packed_weapon(player, s_stat)
 {
 	if (!isdefined(s_stat.str_reward_weapon))
@@ -236,12 +310,14 @@ box_footprint_think()
 
 one_inch_punch_watch_for_death(s_stat)
 {
-	self waittill_any("bled_out", "disconnect");
-
-	if (s_stat.b_reward_claimed)
+	if (is_gametype_active("zgrief"))
 	{
-		s_stat.b_reward_claimed = 0;
+		self waittill("disconnect");
+	}
+	else
+	{
+		self waittill_any("bled_out", "disconnect");
 	}
 
-	s_stat.a_b_player_rewarded[self.characterindex] = 0;
+	s_stat.a_b_player_rewarded[self.entity_num] = 0;
 }

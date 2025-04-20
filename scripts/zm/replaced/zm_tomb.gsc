@@ -59,6 +59,155 @@
 #include maps\mp\zombies\_zm_challenges;
 #include maps\mp\zombies\_zm_laststand;
 
+precache_personality_characters()
+{
+	if (!is_classic())
+	{
+		precache_team_characters();
+		return;
+	}
+
+	character\c_usa_dempsey_dlc4::precache();
+	character\c_rus_nikolai_dlc4::precache();
+	character\c_ger_richtofen_dlc4::precache();
+	character\c_jap_takeo_dlc4::precache();
+	precachemodel("c_zom_richtofen_viewhands");
+	precachemodel("c_zom_nikolai_viewhands");
+	precachemodel("c_zom_takeo_viewhands");
+	precachemodel("c_zom_dempsey_viewhands");
+}
+
+precache_team_characters()
+{
+	precachemodel("c_zom_player_grief_guard_fb");
+	precachemodel("c_zom_oleary_shortsleeve_viewhands");
+	precachemodel("c_zom_player_grief_inmate_fb");
+	precachemodel("c_zom_grief_guard_viewhands");
+}
+
+give_personality_characters()
+{
+	if (!is_classic())
+	{
+		give_team_characters();
+		return;
+	}
+
+	if (isdefined(level.hotjoin_player_setup) && [[level.hotjoin_player_setup]]("c_zom_arlington_coat_viewhands"))
+	{
+		return;
+	}
+
+	self detachall();
+
+	if (!isdefined(self.characterindex))
+	{
+		self.characterindex = assign_lowest_unused_character_index();
+	}
+
+	self.favorite_wall_weapons_list = [];
+	self.talks_in_danger = 0;
+
+	switch (self.characterindex)
+	{
+		case 0:
+			self character\c_usa_dempsey_dlc4::main();
+			self setviewmodel("c_zom_dempsey_viewhands");
+			level.vox maps\mp\zombies\_zm_audio::zmbvoxinitspeaker("player", "vox_plr_", self);
+			self set_player_is_female(0);
+			self.character_name = "Dempsey";
+			break;
+
+		case 1:
+			self character\c_rus_nikolai_dlc4::main();
+			self setviewmodel("c_zom_nikolai_viewhands");
+			level.vox maps\mp\zombies\_zm_audio::zmbvoxinitspeaker("player", "vox_plr_", self);
+			self set_player_is_female(0);
+			self.character_name = "Nikolai";
+			break;
+
+		case 2:
+			self character\c_ger_richtofen_dlc4::main();
+			self setviewmodel("c_zom_richtofen_viewhands");
+			level.vox maps\mp\zombies\_zm_audio::zmbvoxinitspeaker("player", "vox_plr_", self);
+			self set_player_is_female(0);
+			self.character_name = "Richtofen";
+			break;
+
+		case 3:
+			self character\c_jap_takeo_dlc4::main();
+			self setviewmodel("c_zom_takeo_viewhands");
+			level.vox maps\mp\zombies\_zm_audio::zmbvoxinitspeaker("player", "vox_plr_", self);
+			self set_player_is_female(0);
+			self.character_name = "Takeo";
+			break;
+	}
+
+	self setmovespeedscale(1);
+	self setsprintduration(4);
+	self setsprintcooldown(0);
+	self thread set_exert_id();
+}
+
+give_team_characters()
+{
+	self detachall();
+	self set_player_is_female(0);
+
+	if (isdefined(level.should_use_cia))
+	{
+		if (level.should_use_cia)
+		{
+			self setmodel("c_zom_player_grief_inmate_fb");
+			self setviewmodel("c_zom_oleary_shortsleeve_viewhands");
+			self.characterindex = 0;
+		}
+		else
+		{
+			self setmodel("c_zom_player_grief_guard_fb");
+			self setviewmodel("c_zom_grief_guard_viewhands");
+			self.characterindex = 1;
+		}
+	}
+	else
+	{
+		if (!isdefined(self.characterindex))
+		{
+			self.characterindex = 1;
+
+			if (self.team == "axis")
+			{
+				self.characterindex = 0;
+			}
+		}
+
+		switch (self.characterindex)
+		{
+			case 0:
+			case 2:
+				self setmodel("c_zom_player_grief_inmate_fb");
+				self.voice = "american";
+				self.skeleton = "base";
+				self setviewmodel("c_zom_oleary_shortsleeve_viewhands");
+				self.characterindex = 0;
+				break;
+
+			case 1:
+			case 3:
+				self setmodel("c_zom_player_grief_guard_fb");
+				self.voice = "american";
+				self.skeleton = "base";
+				self setviewmodel("c_zom_grief_guard_viewhands");
+				self.characterindex = 1;
+				break;
+		}
+	}
+
+	self setmovespeedscale(1);
+	self setsprintduration(4);
+	self setsprintcooldown(0);
+}
+
 custom_vending_precaching()
 {
 	if (level._custom_perks.size > 0)
@@ -198,6 +347,193 @@ custom_vending_precaching()
 	}
 }
 
+working_zone_init()
+{
+	flag_init("always_on");
+	flag_set("always_on");
+	add_adjacent_zone("zone_robot_head", "zone_robot_head", "always_on");
+	add_adjacent_zone("zone_start", "zone_start_a", "always_on");
+	add_adjacent_zone("zone_start", "zone_start_b", "always_on");
+	add_adjacent_zone("zone_start_a", "zone_start_b", "always_on");
+	add_adjacent_zone("zone_start_a", "zone_bunker_1a", "activate_zone_bunker_1");
+	add_adjacent_zone("zone_bunker_1a", "zone_bunker_1", "activate_zone_bunker_1");
+	add_adjacent_zone("zone_bunker_1a", "zone_bunker_1", "activate_zone_bunker_3a");
+	add_adjacent_zone("zone_bunker_1", "zone_bunker_3a", "activate_zone_bunker_3a");
+	add_adjacent_zone("zone_bunker_3a", "zone_bunker_3b", "activate_zone_bunker_3a");
+	add_adjacent_zone("zone_bunker_3a", "zone_bunker_3b", "activate_zone_bunker_3b");
+	add_adjacent_zone("zone_bunker_3b", "zone_bunker_5a", "activate_zone_bunker_3b");
+	add_adjacent_zone("zone_bunker_5a", "zone_bunker_5b", "activate_zone_bunker_3b");
+	add_adjacent_zone("zone_start_b", "zone_bunker_2a", "activate_zone_bunker_2");
+	add_adjacent_zone("zone_bunker_2a", "zone_bunker_2", "activate_zone_bunker_2");
+	add_adjacent_zone("zone_bunker_2a", "zone_bunker_2", "activate_zone_bunker_4a");
+	add_adjacent_zone("zone_bunker_2", "zone_bunker_4a", "activate_zone_bunker_4a");
+	add_adjacent_zone("zone_bunker_4a", "zone_bunker_4b", "activate_zone_bunker_4a");
+	add_adjacent_zone("zone_bunker_4a", "zone_bunker_4c", "activate_zone_bunker_4a");
+	add_adjacent_zone("zone_bunker_4b", "zone_bunker_4f", "activate_zone_bunker_4a");
+	add_adjacent_zone("zone_bunker_4c", "zone_bunker_4d", "activate_zone_bunker_4a");
+	add_adjacent_zone("zone_bunker_4c", "zone_bunker_4e", "activate_zone_bunker_4a");
+	add_adjacent_zone("zone_bunker_4e", "zone_bunker_tank_c1", "activate_zone_bunker_4a");
+	add_adjacent_zone("zone_bunker_4e", "zone_bunker_tank_d", "activate_zone_bunker_4a");
+	add_adjacent_zone("zone_bunker_tank_c", "zone_bunker_tank_c1", "activate_zone_bunker_4a");
+	add_adjacent_zone("zone_bunker_tank_d", "zone_bunker_tank_d1", "activate_zone_bunker_4a");
+	add_adjacent_zone("zone_bunker_4a", "zone_bunker_4b", "activate_zone_bunker_4b");
+	add_adjacent_zone("zone_bunker_4a", "zone_bunker_4c", "activate_zone_bunker_4b");
+	add_adjacent_zone("zone_bunker_4b", "zone_bunker_4f", "activate_zone_bunker_4b");
+	add_adjacent_zone("zone_bunker_4c", "zone_bunker_4d", "activate_zone_bunker_4b");
+	add_adjacent_zone("zone_bunker_4c", "zone_bunker_4e", "activate_zone_bunker_4b");
+	add_adjacent_zone("zone_bunker_4b", "zone_bunker_5a", "activate_zone_bunker_4b");
+	add_adjacent_zone("zone_bunker_5a", "zone_bunker_5b", "activate_zone_bunker_4b");
+	add_adjacent_zone("zone_bunker_4e", "zone_bunker_tank_c1", "activate_zone_bunker_4b");
+	add_adjacent_zone("zone_bunker_4e", "zone_bunker_tank_d", "activate_zone_bunker_4b");
+	add_adjacent_zone("zone_bunker_tank_c", "zone_bunker_tank_c1", "activate_zone_bunker_4b");
+	add_adjacent_zone("zone_bunker_tank_d", "zone_bunker_tank_d1", "activate_zone_bunker_4b");
+	add_adjacent_zone("zone_bunker_tank_a", "zone_nml_7", "activate_zone_nml");
+	add_adjacent_zone("zone_bunker_tank_a", "zone_nml_7a", "activate_zone_nml");
+	add_adjacent_zone("zone_bunker_tank_a", "zone_bunker_tank_a1", "activate_zone_nml");
+	add_adjacent_zone("zone_bunker_tank_a1", "zone_bunker_tank_a2", "activate_zone_nml");
+	add_adjacent_zone("zone_bunker_tank_a1", "zone_bunker_tank_b", "activate_zone_nml");
+	add_adjacent_zone("zone_bunker_tank_b", "zone_bunker_tank_c", "activate_zone_nml");
+	add_adjacent_zone("zone_bunker_tank_c", "zone_bunker_tank_c1", "activate_zone_nml");
+	add_adjacent_zone("zone_bunker_tank_d", "zone_bunker_tank_d1", "activate_zone_nml");
+	add_adjacent_zone("zone_bunker_tank_d1", "zone_bunker_tank_e", "activate_zone_nml");
+	add_adjacent_zone("zone_bunker_tank_e", "zone_bunker_tank_e1", "activate_zone_nml");
+	add_adjacent_zone("zone_bunker_tank_e1", "zone_bunker_tank_e2", "activate_zone_nml");
+	add_adjacent_zone("zone_bunker_tank_e1", "zone_bunker_tank_f", "activate_zone_nml");
+	add_adjacent_zone("zone_bunker_tank_f", "zone_nml_1", "activate_zone_nml");
+	add_adjacent_zone("zone_bunker_5b", "zone_nml_2a", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_0", "zone_nml_1", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_0", "zone_nml_farm", "activate_zone_farm");
+	add_adjacent_zone("zone_nml_1", "zone_nml_2", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_1", "zone_nml_4", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_1", "zone_nml_20", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_2", "zone_nml_2a", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_2", "zone_nml_2b", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_2", "zone_nml_3", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_3", "zone_nml_4", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_3", "zone_nml_13", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_4", "zone_nml_5", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_4", "zone_nml_13", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_5", "zone_nml_farm", "activate_zone_farm");
+	add_adjacent_zone("zone_nml_6", "zone_nml_2b", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_6", "zone_nml_7", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_6", "zone_nml_7a", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_6", "zone_nml_8", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_7", "zone_nml_7a", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_7", "zone_nml_9", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_7", "zone_nml_10", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_8", "zone_nml_10a", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_8", "zone_nml_14", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_8", "zone_nml_16", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_9", "zone_nml_7a", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_9", "zone_nml_9a", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_9", "zone_nml_11", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_10", "zone_nml_10a", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_10", "zone_nml_11", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_10a", "zone_nml_12", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_10a", "zone_village_4", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_11", "zone_nml_9a", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_11", "zone_nml_11a", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_11", "zone_nml_12", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_12", "zone_nml_11a", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_12", "zone_nml_12a", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_13", "zone_nml_15", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_14", "zone_nml_15", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_15", "zone_nml_17", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_15a", "zone_nml_14", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_15a", "zone_nml_15", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_16", "zone_nml_2b", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_16", "zone_nml_16a", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_16", "zone_nml_18", "activate_zone_ruins");
+	add_adjacent_zone("zone_nml_17", "zone_nml_17a", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_17", "zone_nml_18", "activate_zone_ruins");
+	add_adjacent_zone("zone_nml_18", "zone_nml_19", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_farm", "zone_nml_farm_1", "activate_zone_farm");
+	add_adjacent_zone("zone_nml_19", "ug_bottom_zone", "activate_zone_crypt");
+	add_adjacent_zone("zone_village_0", "zone_nml_15", "activate_zone_village_0");
+	add_adjacent_zone("zone_village_0", "zone_village_4b", "activate_zone_village_0");
+	add_adjacent_zone("zone_village_1", "zone_village_1a", "activate_zone_village_0");
+	add_adjacent_zone("zone_village_1", "zone_village_2", "activate_zone_village_1");
+	add_adjacent_zone("zone_village_1", "zone_village_4b", "activate_zone_village_0");
+	add_adjacent_zone("zone_village_1", "zone_village_5b", "activate_zone_village_0");
+	add_adjacent_zone("zone_village_2", "zone_village_3", "activate_zone_village_1");
+	add_adjacent_zone("zone_village_3", "zone_village_3a", "activate_zone_village_1");
+	add_adjacent_zone("zone_village_3a", "zone_village_3b", "activate_zone_village_1");
+	add_adjacent_zone("zone_village_4", "zone_nml_14", "activate_zone_village_0");
+	add_adjacent_zone("zone_village_4", "zone_village_4a", "activate_zone_village_0");
+	add_adjacent_zone("zone_village_4", "zone_village_4b", "activate_zone_village_0");
+	add_adjacent_zone("zone_village_5", "zone_nml_4", "activate_zone_village_0");
+	add_adjacent_zone("zone_village_5", "zone_village_5a", "activate_zone_village_0");
+	add_adjacent_zone("zone_village_5a", "zone_village_5b", "activate_zone_village_0");
+	add_adjacent_zone("zone_village_6", "zone_village_5b", "activate_zone_village_0");
+	add_adjacent_zone("zone_village_6", "zone_village_6a", "activate_zone_village_0");
+	add_adjacent_zone("zone_chamber_0", "zone_chamber_1", "activate_zone_chamber");
+	add_adjacent_zone("zone_chamber_0", "zone_chamber_3", "activate_zone_chamber");
+	add_adjacent_zone("zone_chamber_0", "zone_chamber_4", "activate_zone_chamber");
+	add_adjacent_zone("zone_chamber_1", "zone_chamber_2", "activate_zone_chamber");
+	add_adjacent_zone("zone_chamber_1", "zone_chamber_3", "activate_zone_chamber");
+	add_adjacent_zone("zone_chamber_1", "zone_chamber_4", "activate_zone_chamber");
+	add_adjacent_zone("zone_chamber_1", "zone_chamber_5", "activate_zone_chamber");
+	add_adjacent_zone("zone_chamber_2", "zone_chamber_4", "activate_zone_chamber");
+	add_adjacent_zone("zone_chamber_2", "zone_chamber_5", "activate_zone_chamber");
+	add_adjacent_zone("zone_chamber_3", "zone_chamber_4", "activate_zone_chamber");
+	add_adjacent_zone("zone_chamber_3", "zone_chamber_6", "activate_zone_chamber");
+	add_adjacent_zone("zone_chamber_3", "zone_chamber_7", "activate_zone_chamber");
+	add_adjacent_zone("zone_chamber_4", "zone_chamber_5", "activate_zone_chamber");
+	add_adjacent_zone("zone_chamber_4", "zone_chamber_6", "activate_zone_chamber");
+	add_adjacent_zone("zone_chamber_4", "zone_chamber_7", "activate_zone_chamber");
+	add_adjacent_zone("zone_chamber_4", "zone_chamber_8", "activate_zone_chamber");
+	add_adjacent_zone("zone_chamber_5", "zone_chamber_7", "activate_zone_chamber");
+	add_adjacent_zone("zone_chamber_5", "zone_chamber_8", "activate_zone_chamber");
+	add_adjacent_zone("zone_chamber_6", "zone_chamber_7", "activate_zone_chamber");
+	add_adjacent_zone("zone_chamber_7", "zone_chamber_8", "activate_zone_chamber");
+	add_adjacent_zone("zone_bunker_1", "zone_bunker_1a", "activate_zone_bunker_1_tank");
+	add_adjacent_zone("zone_bunker_2", "zone_bunker_2a", "activate_zone_bunker_2_tank");
+	add_adjacent_zone("zone_bunker_4a", "zone_bunker_4b", "activate_zone_bunker_4_tank");
+	add_adjacent_zone("zone_bunker_4a", "zone_bunker_4c", "activate_zone_bunker_4_tank");
+	add_adjacent_zone("zone_bunker_4c", "zone_bunker_4d", "activate_zone_bunker_4_tank");
+	add_adjacent_zone("zone_bunker_4c", "zone_bunker_4e", "activate_zone_bunker_4_tank");
+	add_adjacent_zone("zone_bunker_4e", "zone_bunker_tank_c1", "activate_zone_bunker_4_tank");
+	add_adjacent_zone("zone_bunker_4e", "zone_bunker_tank_d", "activate_zone_bunker_4_tank");
+	add_adjacent_zone("zone_bunker_tank_c", "zone_bunker_tank_c1", "activate_zone_bunker_4_tank");
+	add_adjacent_zone("zone_bunker_tank_d", "zone_bunker_tank_d1", "activate_zone_bunker_4_tank");
+	add_adjacent_zone("zone_bunker_tank_b", "zone_bunker_6", "activate_zone_bunker_6_tank");
+	add_adjacent_zone("zone_bunker_1", "zone_bunker_6", "activate_zone_bunker_6_tank");
+
+	if (is_classic())
+	{
+		add_adjacent_zone("zone_bunker_1a", "zone_fire_stairs", "activate_zone_bunker_1");
+		add_adjacent_zone("zone_fire_stairs", "zone_fire_stairs_1", "activate_zone_bunker_1");
+		add_adjacent_zone("zone_bunker_1a", "zone_fire_stairs", "activate_zone_bunker_3a");
+		add_adjacent_zone("zone_fire_stairs", "zone_fire_stairs_1", "activate_zone_bunker_3a");
+		add_adjacent_zone("zone_bunker_1a", "zone_fire_stairs", "activate_zone_bunker_1_tank");
+		add_adjacent_zone("zone_fire_stairs", "zone_fire_stairs_1", "activate_zone_bunker_1_tank");
+		add_adjacent_zone("zone_nml_9", "zone_air_stairs", "activate_zone_nml");
+		add_adjacent_zone("zone_air_stairs", "zone_air_stairs_1", "activate_zone_nml");
+		add_adjacent_zone("zone_nml_farm", "zone_nml_celllar", "activate_zone_farm");
+		add_adjacent_zone("zone_nml_celllar", "zone_bolt_stairs", "activate_zone_farm");
+		add_adjacent_zone("zone_bolt_stairs", "zone_bolt_stairs_1", "activate_zone_farm");
+		add_adjacent_zone("zone_village_3", "zone_ice_stairs", "activate_zone_village_1");
+		add_adjacent_zone("zone_ice_stairs", "zone_ice_stairs_1", "activate_zone_village_1");
+	}
+	else
+	{
+		zone_init("zone_fire_stairs");
+		zone_init("zone_fire_stairs_1");
+		zone_init("zone_air_stairs");
+		zone_init("zone_air_stairs_1");
+		zone_init("zone_nml_celllar");
+		zone_init("zone_bolt_stairs");
+		zone_init("zone_bolt_stairs_1");
+		zone_init("zone_ice_stairs");
+		zone_init("zone_ice_stairs_1");
+	}
+
+	level thread activate_zone_trig("trig_zone_bunker_1", "activate_zone_bunker_1_tank");
+	level thread activate_zone_trig("trig_zone_bunker_2", "activate_zone_bunker_2_tank");
+	level thread activate_zone_trig("trig_zone_bunker_4", "activate_zone_bunker_4_tank");
+	level thread activate_zone_trig("trig_zone_bunker_6", "activate_zone_bunker_6_tank", "activate_zone_bunker_1_tank");
+}
+
 tomb_can_track_ammo_custom(weap)
 {
 	if (!isdefined(weap))
@@ -254,6 +590,22 @@ tomb_can_track_ammo_custom(weap)
 	}
 
 	return true;
+}
+
+tomb_zombie_death_event_callback()
+{
+	if (!is_classic())
+	{
+		return;
+	}
+
+	if (isdefined(self) && isdefined(self.damagelocation) && isdefined(self.damagemod) && isdefined(self.damageweapon) && isdefined(self.attacker) && isplayer(self.attacker))
+	{
+		if (is_headshot(self.damageweapon, self.damagelocation, self.damagemod) && maps\mp\zombies\_zm_challenges::challenge_exists("zc_headshots") && !(!isdefined(self.script_noteworthy) && !isdefined("capture_zombie") || isdefined(self.script_noteworthy) && isdefined("capture_zombie") && self.script_noteworthy == "capture_zombie"))
+		{
+			self.attacker maps\mp\zombies\_zm_challenges::increment_stat("zc_headshots");
+		}
+	}
 }
 
 sndmeleewpnsound()

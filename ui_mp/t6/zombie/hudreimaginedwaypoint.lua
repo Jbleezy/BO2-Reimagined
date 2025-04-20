@@ -1069,7 +1069,7 @@ CoD.PlayerHeadIcon.update = function(Menu, ClientInstance)
 			end
 		elseif gamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZSURVIVAL then
 			if CoD.Zombie.IsSurvivalUsingCIAModel == true then
-				if mapName == CoD.Zombie.MAP_ZM_PRISON then
+				if mapName == CoD.Zombie.MAP_ZM_PRISON or mapName == CoD.Zombie.MAP_ZM_TOMB then
 					factionIcon = "faction_inmates"
 				else
 					factionIcon = "faction_cia"

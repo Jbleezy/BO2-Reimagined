@@ -49,6 +49,10 @@ precache_shaders()
 	precacheshader("menu_zm_prison_zsurvival_docks");
 	precacheshader("menu_zm_buried_zsurvival_street");
 	precacheshader("menu_zm_buried_zsurvival_maze");
+	precacheshader("menu_zm_tomb_zsurvival_trenches");
+	precacheshader("menu_zm_tomb_zsurvival_excavation_site");
+	precacheshader("menu_zm_tomb_zsurvival_church");
+	precacheshader("menu_zm_tomb_zsurvival_crazy_place");
 }
 
 set_dvars()
@@ -773,6 +777,22 @@ get_name_for_loc(map, location, gametype)
 	{
 		return &"ZMUI_CLASSIC_TOMB";
 	}
+	else if (location == "trenches")
+	{
+		return &"ZMUI_TRENCHES";
+	}
+	else if (location == "excavation_site")
+	{
+		return &"ZMUI_EXCAVATION_SITE";
+	}
+	else if (location == "church")
+	{
+		return &"ZMUI_CHURCH";
+	}
+	else if (location == "crazy_place")
+	{
+		return &"ZMUI_CRAZY_PLACE";
+	}
 
 	return &"";
 }
@@ -1382,6 +1402,22 @@ get_map_stat_str()
 		if (level.scr_zm_map_start_location == "tomb")
 		{
 			return "Origins";
+		}
+		else if (level.scr_zm_map_start_location == "trenches")
+		{
+			return "Trenches";
+		}
+		else if (level.scr_zm_map_start_location == "excavation_site")
+		{
+			return "Excavation Site";
+		}
+		else if (level.scr_zm_map_start_location == "church")
+		{
+			return "Church";
+		}
+		else if (level.scr_zm_map_start_location == "crazy_place")
+		{
+			return "The Crazy Place";
 		}
 	}
 

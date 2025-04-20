@@ -227,7 +227,8 @@ wait_and_do_weapon_beacon_damage(index)
 	v_damage_origin = self.a_v_land_spots[index];
 	level.n_weap_beacon_zombie_thrown_count = 0;
 	a_zombies_to_kill = [];
-	a_zombies = getaispeciesarray("axis", "all");
+	a_zombies = getaispeciesarray(level.zombie_team, "all");
+	a_zombies = arraycombine(a_zombies, get_players(getotherteam(self.owner.team)), 0, 0);
 
 	foreach (zombie in a_zombies)
 	{
@@ -261,8 +262,14 @@ weap_beacon_zombie_death(model, a_zombies_to_kill)
 			continue;
 		}
 
-		zombie thread set_beacon_damage();
 		zombie dodamage(zombie.health, zombie.origin, model.owner, model.owner, "none", "MOD_GRENADE_SPLASH", 0, "beacon_zm");
+
+		if (isplayer(zombie))
+		{
+			continue;
+		}
+
+		zombie thread set_beacon_damage();
 		zombie thread weapon_beacon_launch_ragdoll();
 	}
 }
