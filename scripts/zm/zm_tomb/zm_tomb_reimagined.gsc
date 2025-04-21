@@ -37,6 +37,7 @@ main()
 	replaceFunc(maps\mp\zm_tomb_capture_zones::register_elements_powered_by_zone_capture_generators, scripts\zm\replaced\zm_tomb_capture_zones::register_elements_powered_by_zone_capture_generators);
 	replaceFunc(maps\mp\zm_tomb_capture_zones::enable_mystery_boxes_in_zone, scripts\zm\replaced\zm_tomb_capture_zones::enable_mystery_boxes_in_zone);
 	replaceFunc(maps\mp\zm_tomb_capture_zones::disable_mystery_boxes_in_zone, scripts\zm\replaced\zm_tomb_capture_zones::disable_mystery_boxes_in_zone);
+	replaceFunc(maps\mp\zm_tomb_capture_zones::pack_a_punch_init, scripts\zm\replaced\zm_tomb_capture_zones::pack_a_punch_init);
 	replaceFunc(maps\mp\zm_tomb_capture_zones::pack_a_punch_enable, scripts\zm\replaced\zm_tomb_capture_zones::pack_a_punch_enable);
 	replaceFunc(maps\mp\zm_tomb_capture_zones::setup_perk_machines_not_controlled_by_zone_capture, scripts\zm\replaced\zm_tomb_capture_zones::setup_perk_machines_not_controlled_by_zone_capture);
 	replaceFunc(maps\mp\zm_tomb_capture_zones::init_recapture_zombie, scripts\zm\replaced\zm_tomb_capture_zones::init_recapture_zombie);
@@ -89,6 +90,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_craftables::update_open_table_status, scripts\zm\replaced\_zm_craftables::update_open_table_status);
 	replaceFunc(maps\mp\zombies\_zm_craftables::onbeginuseuts, scripts\zm\replaced\_zm_craftables::onbeginuseuts);
 	replaceFunc(maps\mp\zombies\_zm_magicbox_tomb::custom_magic_box_timer_til_despawn, scripts\zm\replaced\_zm_magicbox_tomb::custom_magic_box_timer_til_despawn);
+	replaceFunc(maps\mp\zombies\_zm_perk_random::machines_setup, scripts\zm\replaced\_zm_perk_random::machines_setup);
 	replaceFunc(maps\mp\zombies\_zm_perk_random::machine_selector, scripts\zm\replaced\_zm_perk_random::machine_selector);
 	replaceFunc(maps\mp\zombies\_zm_perk_random::start_perk_bottle_cycling, scripts\zm\replaced\_zm_perk_random::start_perk_bottle_cycling);
 	replaceFunc(maps\mp\zombies\_zm_perk_random::perk_bottle_motion, scripts\zm\replaced\_zm_perk_random::perk_bottle_motion);

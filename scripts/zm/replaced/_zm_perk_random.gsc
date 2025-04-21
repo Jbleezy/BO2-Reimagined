@@ -9,6 +9,53 @@
 #include maps\mp\zombies\_zm_audio;
 #include maps\mp\zombies\_zm_perks;
 
+#using_animtree("zm_perk_random");
+
+machines_setup()
+{
+	wait 0.5;
+	level.perk_bottle_weapon_array = arraycombine(level.machine_assets, level._custom_perks, 0, 1);
+	start_machines = getentarray("start_machine", "script_noteworthy");
+	assert(isdefined(start_machines.size != 0), "missing start random perk machine");
+
+	if (start_machines.size == 1)
+	{
+		level.random_perk_start_machine = start_machines[0];
+	}
+	else
+	{
+		level.random_perk_start_machine = start_machines[randomint(start_machines.size)];
+	}
+
+	machines = getentarray("random_perk_machine", "targetname");
+
+	foreach (machine in machines)
+	{
+		spawn_location = spawn("script_model", machine.origin);
+		spawn_location setmodel("tag_origin");
+		spawn_location.angles = machine.angles;
+		forward_dir = anglestoright(machine.angles);
+		spawn_location.origin = spawn_location.origin + vectorscale((0, 0, 1), 65.0);
+		machine.bottle_spawn_location = spawn_location;
+		machine useanimtree(#animtree );
+		machine thread machine_power_indicators();
+
+		if ((getdvar("g_gametype") == "zgrief" && getdvarintdefault("ui_gametype_pro", 0)) || machine != level.random_perk_start_machine)
+		{
+			machine hidepart("j_ball");
+			machine.is_current_ball_location = 0;
+		}
+		else
+		{
+			level.wunderfizz_starting_machine = machine;
+			level notify("wunderfizz_setup");
+			machine thread machine_think();
+		}
+
+		wait_network_frame();
+	}
+}
+
 machine_selector()
 {
 	while (true)

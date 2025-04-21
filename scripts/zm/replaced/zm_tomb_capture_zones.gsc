@@ -217,6 +217,24 @@ disable_mystery_boxes_in_zone()
 	}
 }
 
+pack_a_punch_init()
+{
+	vending_weapon_upgrade_trigger = getentarray("specialty_weapupgrade", "script_noteworthy");
+	level.pap_triggers = vending_weapon_upgrade_trigger;
+	t_pap = getent("specialty_weapupgrade", "script_noteworthy");
+
+	if (!isdefined(t_pap))
+	{
+		return;
+	}
+
+	t_pap.machine ghost();
+	t_pap.machine notsolid();
+	t_pap.bump enablelinkto();
+	t_pap.bump linkto(t_pap);
+	level thread pack_a_punch_think();
+}
+
 pack_a_punch_enable()
 {
 	t_pap = getent("specialty_weapupgrade", "script_noteworthy");
