@@ -324,7 +324,7 @@ box_think()
 		{
 			current_weapon = player getcurrentweapon();
 
-			if (isdefined(player.intermission) && player.intermission || is_melee_weapon(current_weapon) || is_placeable_mine(current_weapon) || is_equipment_that_blocks_purchase(current_weapon) || current_weapon == "none" || player maps\mp\zombies\_zm_laststand::player_is_in_laststand() || player isthrowinggrenade() || player in_revive_trigger() || player isswitchingweapons() || player.is_drinking > 0)
+			if (isdefined(player.intermission) && player.intermission || is_placeable_mine(current_weapon) || is_equipment_that_blocks_purchase(current_weapon) || current_weapon == "none" || player maps\mp\zombies\_zm_laststand::player_is_in_laststand() || player isthrowinggrenade() || player in_revive_trigger() || player isswitchingweapons() || player.is_drinking > 0)
 			{
 				wait 0.1;
 				continue;

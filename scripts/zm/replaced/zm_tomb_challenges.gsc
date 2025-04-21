@@ -110,6 +110,12 @@ reward_packed_weapon(player, s_stat)
 		return false;
 	}
 
+	if (is_melee_weapon(player getcurrentweapon()))
+	{
+		m_weapon thread bottle_reject_sink(player);
+		return false;
+	}
+
 	player maps\mp\zombies\_zm_weapons::weapon_give(s_stat.str_reward_weapon);
 
 	player switchtoweapon(s_stat.str_reward_weapon);
