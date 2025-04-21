@@ -921,19 +921,19 @@ REFERENCE           ZM_TOMB_ZONE_BUNKER_4D
 LANG_ENGLISH        "Above Tank Station"
 
 REFERENCE           ZM_TOMB_ZONE_BUNKER_TANK_C
-LANG_ENGLISH        "Generator 2 Tank Route 1"
+LANG_ENGLISH        "Generator 2 Before Tank Stop 2"
 
 REFERENCE           ZM_TOMB_ZONE_BUNKER_TANK_C1
-LANG_ENGLISH        "Generator 2 Tank Route 2"
+LANG_ENGLISH        "Generator 2 Before Tank Stop 1"
 
 REFERENCE           ZM_TOMB_ZONE_BUNKER_4E
-LANG_ENGLISH        "Generator 2 Tank Route 3"
+LANG_ENGLISH        "Generator 2 Tank Stop"
 
 REFERENCE           ZM_TOMB_ZONE_BUNKER_TANK_D
-LANG_ENGLISH        "Generator 2 Tank Route 4"
+LANG_ENGLISH        "Generator 2 After Tank Stop 1"
 
 REFERENCE           ZM_TOMB_ZONE_BUNKER_TANK_D1
-LANG_ENGLISH        "Generator 2 Tank Route 5"
+LANG_ENGLISH        "Generator 2 After Tank Stop 2"
 
 REFERENCE           ZM_TOMB_ZONE_BUNKER_5A
 LANG_ENGLISH        "Workshop Downstairs"
@@ -946,6 +946,27 @@ LANG_ENGLISH        "No Man's Land Walkway"
 
 REFERENCE           ZM_TOMB_ZONE_NML_2
 LANG_ENGLISH        "No Man's Land Entrance"
+
+REFERENCE           ZM_TOMB_ZONE_NML_2B
+LANG_ENGLISH        "No Man's Land Stairs"
+
+REFERENCE           ZM_TOMB_ZONE_NML_6
+LANG_ENGLISH        "No Man's Land Left Footstep"
+
+REFERENCE           ZM_TOMB_ZONE_NML_3
+LANG_ENGLISH        "No Man's Land Right Footstep 1"
+
+REFERENCE           ZM_TOMB_ZONE_NML_8
+LANG_ENGLISH        "No Man's Land Right Footstep 2"
+
+REFERENCE           ZM_TOMB_ZONE_NML_13
+LANG_ENGLISH        "No Man's Land Back Path 1"
+
+REFERENCE           ZM_TOMB_ZONE_NML_15
+LANG_ENGLISH        "No Man's Land Back Path 2"
+
+REFERENCE           ZM_TOMB_ZONE_NML_14
+LANG_ENGLISH        "No Man's Land Back Path 3"
 
 REFERENCE           ZM_TOMB_ZONE_BUNKER_TANK_E
 LANG_ENGLISH        "Generator 5 Tank Route 1"
@@ -966,7 +987,7 @@ REFERENCE           ZM_TOMB_ZONE_NML_0
 LANG_ENGLISH        "Generator 5 Left Footstep"
 
 REFERENCE           ZM_TOMB_ZONE_NML_5
-LANG_ENGLISH        "Generator 5 Right Footstep Walkway"
+LANG_ENGLISH        "Generator 5 Right Walkway"
 
 REFERENCE           ZM_TOMB_ZONE_NML_FARM
 LANG_ENGLISH        "Generator 5"
@@ -976,18 +997,6 @@ LANG_ENGLISH        "Generator 5 Cellar"
 
 REFERENCE           ZM_TOMB_ZONE_BOLT_STAIRS
 LANG_ENGLISH        "Lightning Tunnel"
-
-REFERENCE           ZM_TOMB_ZONE_NML_3
-LANG_ENGLISH        "No Man's Land 1st Right Footstep"
-
-REFERENCE           ZM_TOMB_ZONE_NML_2B
-LANG_ENGLISH        "No Man's Land Stairs"
-
-REFERENCE           ZM_TOMB_ZONE_NML_6
-LANG_ENGLISH        "No Man's Land Left Footstep"
-
-REFERENCE           ZM_TOMB_ZONE_NML_8
-LANG_ENGLISH        "No Man's Land 2nd Right Footstep"
 
 REFERENCE           ZM_TOMB_ZONE_NML_10A
 LANG_ENGLISH        "Generator 4 Tank Route 1"
@@ -1034,38 +1043,29 @@ LANG_ENGLISH        "Excavation Site Level 2"
 REFERENCE           ZM_TOMB_UG_BOTTOM_ZONE
 LANG_ENGLISH        "Excavation Site Level 1"
 
-REFERENCE           ZM_TOMB_ZONE_NML_13
-LANG_ENGLISH        "Generator 5 To Generator 6 Path"
-
-REFERENCE           ZM_TOMB_ZONE_NML_14
-LANG_ENGLISH        "Generator 4 To Generator 6 Path"
-
-REFERENCE           ZM_TOMB_ZONE_NML_15
-LANG_ENGLISH        "Generator 6 Entrance"
-
 REFERENCE           ZM_TOMB_ZONE_VILLAGE_0
 LANG_ENGLISH        "Generator 6 Left Footstep"
 
 REFERENCE           ZM_TOMB_ZONE_VILLAGE_5
-LANG_ENGLISH        "Generator 6 Tank Route 1"
+LANG_ENGLISH        "Generator 6 Before Tank Stop 3"
 
 REFERENCE           ZM_TOMB_ZONE_VILLAGE_5A
-LANG_ENGLISH        "Generator 6 Tank Route 2"
+LANG_ENGLISH        "Generator 6 Before Tank Stop 2"
 
 REFERENCE           ZM_TOMB_ZONE_VILLAGE_5B
-LANG_ENGLISH        "Generator 6 Tank Route 3"
+LANG_ENGLISH        "Generator 6 Before Tank Stop 1"
 
 REFERENCE           ZM_TOMB_ZONE_VILLAGE_1
-LANG_ENGLISH        "Generator 6 Tank Route 4"
+LANG_ENGLISH        "Generator 6 Tank Stop"
 
 REFERENCE           ZM_TOMB_ZONE_VILLAGE_4B
-LANG_ENGLISH        "Generator 6 Tank Route 5"
+LANG_ENGLISH        "Generator 6 After Tank Stop 1"
 
 REFERENCE           ZM_TOMB_ZONE_VILLAGE_4A
-LANG_ENGLISH        "Generator 6 Tank Route 6"
+LANG_ENGLISH        "Generator 6 After Tank Stop 2"
 
 REFERENCE           ZM_TOMB_ZONE_VILLAGE_4
-LANG_ENGLISH        "Generator 6 Tank Route 7"
+LANG_ENGLISH        "Generator 6 After Tank Stop 3"
 
 REFERENCE           ZM_TOMB_ZONE_VILLAGE_2
 LANG_ENGLISH        "Church"
