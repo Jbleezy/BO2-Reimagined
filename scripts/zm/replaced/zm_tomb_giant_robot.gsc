@@ -35,6 +35,28 @@ robot_cycling()
 
 	while (true)
 	{
+		if (!is_classic())
+		{
+			number = 0;
+
+			if (getdvar("ui_zm_mapstartlocation") == "trenches")
+			{
+				number = 1;
+			}
+			else if (getdvar("ui_zm_mapstartlocation") == "church")
+			{
+				number = 2;
+			}
+
+			level thread giant_robot_start_walk(number, 0);
+
+			level waittill("giant_robot_walk_cycle_complete");
+
+			wait 5;
+
+			continue;
+		}
+
 		if (!(level.round_number % 4) && three_robot_round != level.round_number)
 		{
 			flag_set("three_robot_round");
@@ -49,15 +71,15 @@ robot_cycling()
 		{
 			random_number = randomint(3);
 
-			level thread giant_robot_start_walk(2, is_classic());
+			level thread giant_robot_start_walk(2);
 
 			wait 5;
 
-			level thread giant_robot_start_walk(0, is_classic());
+			level thread giant_robot_start_walk(0);
 
 			wait 5;
 
-			level thread giant_robot_start_walk(1, is_classic());
+			level thread giant_robot_start_walk(1);
 
 			level waittill("giant_robot_walk_cycle_complete");
 
@@ -86,7 +108,7 @@ robot_cycling()
 			}
 
 			last_robot = random_number;
-			level thread giant_robot_start_walk(random_number, is_classic());
+			level thread giant_robot_start_walk(random_number);
 
 			level waittill("giant_robot_walk_cycle_complete");
 
