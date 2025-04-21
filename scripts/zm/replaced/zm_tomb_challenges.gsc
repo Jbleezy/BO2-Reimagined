@@ -125,11 +125,11 @@ reward_double_tap(player, s_stat)
 	{
 		player.tomb_reward_perk = player get_random_perk();
 	}
-	else if (isDefined(self.perk_purchased) && self.perk_purchased == player.tomb_reward_perk)
+	else if (isDefined(player.perk_purchased) && player.perk_purchased == player.tomb_reward_perk)
 	{
 		player.tomb_reward_perk = player get_random_perk();
 	}
-	else if (self hasperk(player.tomb_reward_perk) || self maps\mp\zombies\_zm_perks::has_perk_paused(player.tomb_reward_perk))
+	else if (player hasperk(player.tomb_reward_perk) || player maps\mp\zombies\_zm_perks::has_perk_paused(player.tomb_reward_perk))
 	{
 		player.tomb_reward_perk = player get_random_perk();
 	}
