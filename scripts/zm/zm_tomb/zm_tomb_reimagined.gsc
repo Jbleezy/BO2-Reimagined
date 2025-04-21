@@ -156,6 +156,7 @@ init()
 
 	maps\mp\zombies\_zm::spawn_life_brush((1839, 3574, -228), 512, 256);
 
+	player_respawn_override();
 	register_melee_weapons_for_level();
 	spawn_custom_perk_machine_pipes();
 	move_additionalprimaryweapon_machine();
@@ -215,6 +216,28 @@ tomb_special_weapon_magicbox_check(weapon)
 	}
 
 	return 1;
+}
+
+player_respawn_override()
+{
+	respawn_points = getstructarray("player_respawn_point", "targetname");
+
+	foreach (respawn_point in respawn_points)
+	{
+		if (respawn_point.script_noteworthy == "zone_bunker_5a")
+		{
+			respawn_array = getstructarray(respawn_point.target, "targetname");
+
+			foreach (respawn in respawn_array)
+			{
+				if (respawn.origin == (-832, 2304, -100))
+				{
+					respawn.origin = (-819, 2316, -244);
+					break;
+				}
+			}
+		}
+	}
 }
 
 register_melee_weapons_for_level()
