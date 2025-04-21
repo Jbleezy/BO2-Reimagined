@@ -75,7 +75,6 @@ machine_selector()
 		{
 			new_machine = machines[randomint(machines.size)];
 		}
-
 		while (new_machine == level.random_perk_start_machine);
 
 		level.random_perk_start_machine = new_machine;
