@@ -140,6 +140,9 @@ init()
 	level.zombie_init_done = ::zombie_init_done;
 	level.special_weapon_magicbox_check = ::tomb_special_weapon_magicbox_check;
 
+	level.mechz_min_round_fq = 4;
+	level.mechz_max_round_fq = 6;
+
 	level.zombie_vars["below_world_check"] = -3000;
 
 	if (!is_classic())

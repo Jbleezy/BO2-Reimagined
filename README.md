@@ -315,6 +315,7 @@
 * Teleports away less frequently
 
 ### Panzersoldat
+* Increased number of rounds for next Panzersoldat in coop from 3 to 4-5
 * Decreased amount that spawn per round in coop from 1-3 to 1
 * Death explosion kills zombies
 * Changed death explosion player damage from 100-25 to 75

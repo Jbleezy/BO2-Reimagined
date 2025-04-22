@@ -249,11 +249,6 @@ mechz_round_tracker()
 
 	mech_start_round_num = 8;
 
-	if (isdefined(level.is_forever_solo_game) && level.is_forever_solo_game)
-	{
-		mech_start_round_num = 8;
-	}
-
 	while (level.round_number < mech_start_round_num)
 	{
 		level waittill("between_round_over");
@@ -293,16 +288,7 @@ mechz_round_tracker()
 			mechz_spawning = level.mechz_left_to_spawn;
 			wait(randomfloatrange(10.0, 15.0));
 			level notify("spawn_mechz");
-
-			if (isdefined(level.is_forever_solo_game) && level.is_forever_solo_game)
-			{
-				n_round_gap = randomintrange(level.mechz_min_round_fq_solo, level.mechz_max_round_fq_solo);
-			}
-			else
-			{
-				n_round_gap = randomintrange(level.mechz_min_round_fq, level.mechz_max_round_fq);
-			}
-
+			n_round_gap = randomintrange(level.mechz_min_round_fq, level.mechz_max_round_fq);
 			level.next_mechz_round = level.round_number + n_round_gap;
 			level.mechz_round_count++;
 			level thread debug_print_mechz_round();
