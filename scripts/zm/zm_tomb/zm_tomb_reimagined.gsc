@@ -168,6 +168,7 @@ init()
 
 	player_respawn_override();
 	register_melee_weapons_for_level();
+	spawn_custom_wallbuy_chalks();
 	spawn_custom_perk_machine_pipes();
 	move_additionalprimaryweapon_machine();
 	change_stargate_teleport_return_player_angles();
@@ -258,6 +259,29 @@ register_melee_weapons_for_level()
 	register_melee_weapon_for_level("one_inch_punch_fire_zm");
 	register_melee_weapon_for_level("one_inch_punch_ice_zm");
 	register_melee_weapon_for_level("one_inch_punch_lightning_zm");
+}
+
+spawn_custom_wallbuy_chalks()
+{
+	if (is_classic())
+	{
+		return;
+	}
+
+	foreach (wallbuy in level._spawned_wallbuys)
+	{
+		if (isdefined(wallbuy.script_noteworthy) && issubstr(wallbuy.script_noteworthy, getdvar("ui_zm_mapstartlocation")))
+		{
+			wallbuy_target = getstruct(wallbuy.target, "targetname");
+
+			if (isdefined(wallbuy_target.script_string))
+			{
+				model = spawn("script_model", wallbuy_target.origin);
+				model.angles = wallbuy_target.angles;
+				model setmodel(wallbuy_target.script_string);
+			}
+		}
+	}
 }
 
 spawn_custom_perk_machine_pipes()
