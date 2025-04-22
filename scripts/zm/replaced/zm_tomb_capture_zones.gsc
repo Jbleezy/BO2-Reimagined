@@ -185,6 +185,21 @@ register_elements_powered_by_zone_capture_generators()
 		register_mystery_box_for_zone("generator_nml_left", "nml_farm_chest");
 		register_mystery_box_for_zone("generator_church", "village_church_chest");
 	}
+	else if (getdvar("ui_zm_mapstartlocation") == "trenches")
+	{
+		register_mystery_box_for_zone("generator_start_bunker", "bunker_start_chest");
+		register_mystery_box_for_zone("generator_tank_trench", "bunker_tank_chest");
+		register_mystery_box_for_zone("generator_mid_trench", "bunker_cp_chest");
+	}
+	else if (getdvar("ui_zm_mapstartlocation") == "excavation_site")
+	{
+		register_mystery_box_for_zone("generator_nml_right", "nml_open_chest");
+		register_mystery_box_for_zone("generator_nml_left", "nml_farm_chest");
+	}
+	else if (getdvar("ui_zm_mapstartlocation") == "church")
+	{
+		register_mystery_box_for_zone("generator_church", "village_church_chest");
+	}
 }
 
 enable_mystery_boxes_in_zone()
