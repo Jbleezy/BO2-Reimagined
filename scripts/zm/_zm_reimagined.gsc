@@ -194,7 +194,6 @@ init()
 	level.player_too_many_players_check = 0;
 	level.pregame_minplayers = getDvarInt("party_minplayers");
 	level.player_starting_health = 150;
-	level.player_obj_inds = array(0, 0, 0, 0, 0, 0, 0, 0);
 
 	if (!isdefined(level.item_meat_name))
 	{
@@ -672,8 +671,6 @@ on_player_disconnect()
 	objective_state(self.obj_ind, "invisible");
 	objective_clearentity(self.obj_ind, self);
 	objective_setgamemodeflags(self.obj_ind, 0);
-
-	level.player_obj_inds[self.obj_ind] = 0;
 }
 
 on_intermission()
@@ -2166,7 +2163,7 @@ player_waypoint()
 {
 	self endon("disconnect");
 
-	self.obj_ind = get_free_player_obj_ind();
+	self.obj_ind = self.entity_num;
 	self.clone_obj_ind = self.obj_ind + 8;
 
 	objective_state(self.obj_ind, "active");
@@ -2178,23 +2175,6 @@ player_waypoint()
 	flag_wait("hud_visible");
 
 	self thread player_waypoint_height_offset_think();
-}
-
-get_free_player_obj_ind()
-{
-	ind = 0;
-
-	for (i = 0; i < level.player_obj_inds.size; i++)
-	{
-		if (level.player_obj_inds[i] == 0)
-		{
-			ind = i;
-			break;
-		}
-	}
-
-	level.player_obj_inds[ind] = 1;
-	return ind;
 }
 
 player_waypoint_height_offset_think()
