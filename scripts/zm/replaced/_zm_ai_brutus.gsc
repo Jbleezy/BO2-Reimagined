@@ -61,7 +61,7 @@ init()
 	level.brutus_respawn_after_despawn = 1;
 	level.brutus_in_grief = 0;
 
-	if (getdvar("ui_gametype") == "zgrief" || getdvar("ui_gametype") == "zstandard")
+	if (getdvar("ui_gametype") == "zstandard" || getdvar("ui_gametype") == "zgrief")
 	{
 		level.brutus_in_grief = 1;
 	}
@@ -70,7 +70,7 @@ init()
 	level.brutus_custom_goalradius = 48;
 	registerclientfield("actor", "helmet_off", 9000, 1, "int");
 	registerclientfield("actor", "brutus_lock_down", 9000, 1, "int");
-	level thread maps\mp\zombies\_zm_ai_brutus::brutus_spawning_logic();
+	level thread brutus_spawning_logic();
 
 	if (!level.brutus_in_grief)
 	{
@@ -217,13 +217,45 @@ check_craftable_table_valid(player)
 	return true;
 }
 
+brutus_spawning_logic()
+{
+	level thread enable_brutus_rounds();
+
+	if (isdefined(level.chests))
+	{
+		for (i = 0; i < level.chests.size; i++)
+		{
+			level.chests[i] thread wait_on_box_alarm();
+		}
+	}
+
+	while (true)
+	{
+		level waittill("spawn_brutus", num);
+
+		for (i = 0; i < num; i++)
+		{
+			ai = spawn_zombie(level.brutus_spawners[0]);
+			ai thread brutus_spawn();
+		}
+
+		if (isdefined(ai))
+		{
+			ai playsound("zmb_ai_brutus_spawn_2d");
+		}
+	}
+}
+
 brutus_round_tracker()
 {
 	level.next_brutus_round = level.round_number + randomintrange(level.brutus_min_round_fq, level.brutus_max_round_fq);
 	old_spawn_func = level.round_spawn_func;
 	old_wait_func = level.round_wait_func;
 
-	flag_wait_any("activate_cellblock_east", "activate_cellblock_west");
+	if (is_classic())
+	{
+		flag_wait_any("activate_cellblock_east", "activate_cellblock_west");
+	}
 
 	while (true)
 	{
