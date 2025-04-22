@@ -131,6 +131,16 @@ tank_push_player_off_edge(trig)
 	}
 }
 
+entity_on_tank()
+{
+	if (isdefined(level.vh_tank) && (self istouching(level.vh_tank.e_roof) || self istouching(level.vh_tank.e_roof_extra)))
+	{
+		return true;
+	}
+
+	return false;
+}
+
 wait_for_tank_cooldown()
 {
 	self thread snd_fuel();
