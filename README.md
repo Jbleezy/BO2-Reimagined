@@ -735,6 +735,7 @@
 #### G-Strike Beacon
 * Kills on any round
 * Increased ammo from 2 to 3
+* No longer attracts after all missiles explode
 
 ### Equipment
 * Increased move speed from 100% to 110%

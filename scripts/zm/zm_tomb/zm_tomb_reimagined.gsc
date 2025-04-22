@@ -104,6 +104,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_weap_riotshield_tomb::riotshield_knockdown_zombie, scripts\zm\replaced\_zm_weap_riotshield_tomb::riotshield_knockdown_zombie);
 	replaceFunc(maps\mp\zombies\_zm_weap_one_inch_punch::one_inch_punch_melee_attack, scripts\zm\replaced\_zm_weap_one_inch_punch::one_inch_punch_melee_attack);
 	replaceFunc(maps\mp\zombies\_zm_weap_beacon::player_handle_beacon, scripts\zm\replaced\_zm_weap_beacon::player_handle_beacon);
+	replaceFunc(maps\mp\zombies\_zm_weap_beacon::artillery_barrage_logic, scripts\zm\replaced\_zm_weap_beacon::artillery_barrage_logic);
 	replaceFunc(maps\mp\zombies\_zm_weap_beacon::wait_and_do_weapon_beacon_damage, scripts\zm\replaced\_zm_weap_beacon::wait_and_do_weapon_beacon_damage);
 	replaceFunc(maps\mp\zombies\_zm_weap_staff_air::staff_air_position_source, scripts\zm\replaced\_zm_weap_staff_air::staff_air_position_source);
 	replaceFunc(maps\mp\zombies\_zm_weap_staff_air::staff_air_zombie_source, scripts\zm\replaced\_zm_weap_staff_air::staff_air_zombie_source);

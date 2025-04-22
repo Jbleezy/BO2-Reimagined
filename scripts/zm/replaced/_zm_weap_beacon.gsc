@@ -221,6 +221,62 @@ grenade_stolen_by_sam(ent_grenade, ent_model, ent_actor)
 	}
 }
 
+artillery_barrage_logic(grenade, b_ee)
+{
+	if (!isdefined(b_ee))
+	{
+		b_ee = 0;
+	}
+
+	if (isdefined(b_ee) && b_ee)
+	{
+		a_v_land_offsets = self build_weap_beacon_landing_offsets_ee();
+		a_v_start_offsets = self build_weap_beacon_start_offsets_ee();
+		n_num_missiles = 15;
+		n_clientfield = 2;
+	}
+	else
+	{
+		a_v_land_offsets = self build_weap_beacon_landing_offsets();
+		a_v_start_offsets = self build_weap_beacon_start_offsets();
+		n_num_missiles = 5;
+		n_clientfield = 1;
+	}
+
+	self.a_v_land_spots = [];
+	self.a_v_start_spots = [];
+
+	for (i = 0; i < n_num_missiles; i++)
+	{
+		self.a_v_start_spots[i] = self.origin + a_v_start_offsets[i];
+		self.a_v_land_spots[i] = self.origin + a_v_land_offsets[i];
+		v_start_trace = self.a_v_start_spots[i] - vectorscale((0, 0, 1), 5000.0);
+		trace = bullettrace(v_start_trace, self.a_v_land_spots[i], 0, undefined);
+		self.a_v_land_spots[i] = trace["position"];
+		wait 0.05;
+	}
+
+	for (i = 0; i < n_num_missiles; i++)
+	{
+		self setclientfield("play_artillery_barrage", n_clientfield);
+		self thread wait_and_do_weapon_beacon_damage(i);
+		wait_network_frame();
+		self setclientfield("play_artillery_barrage", 0);
+
+		if (i == 0)
+		{
+			wait 1.0;
+			continue;
+		}
+
+		wait 0.25;
+	}
+
+	level thread allow_beacons_to_be_targeted_by_giant_robot();
+	wait 3.0;
+	grenade notify("robot_artillery_barrage", self.origin);
+}
+
 wait_and_do_weapon_beacon_damage(index)
 {
 	wait 3.0;
