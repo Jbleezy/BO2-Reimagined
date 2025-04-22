@@ -49,14 +49,21 @@ increase_pap_collision()
 	{
 		if (isdefined(pap_trigger.clip))
 		{
-			collision = spawn("script_model", pap_trigger.clip.origin + anglestoforward(pap_trigger.clip.angles) * -8, 1);
+			move_amount = 8;
+
+			if (isdefined(pap_trigger.machine) && pap_trigger.machine.model == "p6_zm_tm_packapunch")
+			{
+				move_amount = 12;
+			}
+
+			collision = spawn("script_model", pap_trigger.clip.origin + anglestoforward(pap_trigger.clip.angles) * move_amount * -1, 1);
 			collision.angles = pap_trigger.clip.angles;
 			collision setmodel("zm_collision_perks1");
 			collision.script_noteworthy = "clip";
 			collision disconnectpaths();
 			pap_trigger.clip2 = collision;
 
-			pap_trigger.clip.origin += anglestoforward(pap_trigger.clip.angles) * 8;
+			pap_trigger.clip.origin += anglestoforward(pap_trigger.clip.angles) * move_amount;
 		}
 	}
 }
