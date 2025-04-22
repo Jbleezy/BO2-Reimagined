@@ -27880,14 +27880,28 @@
 "classname" "script_model"
 "model" "veh_t6_dlc_zm_robot_foot_hatch"
 "origin" "-2632 6120 -4512"
-"targetname" "target_sole_0"
+"targetname" "target_sole_left_0"
+"guid" "052BDF26"
+}
+{
+"classname" "script_model"
+"model" "veh_t6_dlc_zm_robot_foot_hatch"
+"origin" "-2632 6120 -4512"
+"targetname" "target_sole_right_0"
 "guid" "052BDF26"
 }
 {
 "classname" "script_model"
 "model" "veh_t6_dlc_zm_robot_foot_hatch"
 "origin" "-2632 8144 -4512"
-"targetname" "target_sole_1"
+"targetname" "target_sole_left_1"
+"guid" "CA6A8784"
+}
+{
+"classname" "script_model"
+"model" "veh_t6_dlc_zm_robot_foot_hatch"
+"origin" "-2632 8144 -4512"
+"targetname" "target_sole_right_1"
 "guid" "CA6A8784"
 }
 {
@@ -27957,7 +27971,14 @@
 "guid" "D01A27AB"
 }
 {
-"targetname" "target_sole_2"
+"targetname" "target_sole_left_2"
+"origin" "-2696 10632 -4512"
+"model" "veh_t6_dlc_zm_robot_foot_hatch"
+"classname" "script_model"
+"guid" "B5B06D46"
+}
+{
+"targetname" "target_sole_right_2"
 "origin" "-2696 10632 -4512"
 "model" "veh_t6_dlc_zm_robot_foot_hatch"
 "classname" "script_model"

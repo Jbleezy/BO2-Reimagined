@@ -59,8 +59,11 @@ main()
 	replaceFunc(maps\mp\zm_tomb_dig::init_shovel, scripts\zm\replaced\zm_tomb_dig::init_shovel);
 	replaceFunc(maps\mp\zm_tomb_dig::waittill_dug, scripts\zm\replaced\zm_tomb_dig::waittill_dug);
 	replaceFunc(maps\mp\zm_tomb_dig::increment_player_perk_purchase_limit, scripts\zm\replaced\zm_tomb_dig::increment_player_perk_purchase_limit);
+	replaceFunc(maps\mp\zm_tomb_giant_robot::init_giant_robot_glows, scripts\zm\replaced\zm_tomb_giant_robot::init_giant_robot_glows);
+	replaceFunc(maps\mp\zm_tomb_giant_robot::giant_robot_initial_spawns, scripts\zm\replaced\zm_tomb_giant_robot::giant_robot_initial_spawns);
 	replaceFunc(maps\mp\zm_tomb_giant_robot::robot_cycling, scripts\zm\replaced\zm_tomb_giant_robot::robot_cycling);
-	replaceFunc(maps\mp\zm_tomb_giant_robot::player_stomp_death, scripts\zm\replaced\zm_tomb_giant_robot::player_stomp_death);
+	replaceFunc(maps\mp\zm_tomb_giant_robot::activate_kill_trigger, scripts\zm\replaced\zm_tomb_giant_robot::activate_kill_trigger);
+	replaceFunc(maps\mp\zm_tomb_giant_robot::giant_robot_close_head_entrance, scripts\zm\replaced\zm_tomb_giant_robot::giant_robot_close_head_entrance);
 	replaceFunc(maps\mp\zm_tomb_tank::init, scripts\zm\replaced\zm_tomb_tank::init);
 	replaceFunc(maps\mp\zm_tomb_tank::players_on_tank_update, scripts\zm\replaced\zm_tomb_tank::players_on_tank_update);
 	replaceFunc(maps\mp\zm_tomb_tank::entity_on_tank, scripts\zm\replaced\zm_tomb_tank::entity_on_tank);
