@@ -231,7 +231,7 @@ brutus_round_tracker()
 
 		players = get_players();
 
-		if (level.round_number < 9 && (isdefined(level.is_forever_solo_game) && level.is_forever_solo_game))
+		if (level.round_number < 9)
 		{
 			continue;
 		}

@@ -303,11 +303,12 @@
 * Respawns on the same round if exited due to being too far away from players (normally respawns on the next round)
 
 ### Leapers
+* Initial round always happens on round 5 or 6
 * No longer give each player 2000 points when rewarded a free perk powerup
-* Initial leaper round always happens on round 5 or 6
 * Fixed getting kill points twice
 
 ### Brutus
+* Increased round for initial spawn in coop from 5-7 to 9
 * Smoke Grenade kills zombies
 * Increased player damage from 99 to 100
 * Decreased footstep screen shake by 25%
@@ -315,7 +316,7 @@
 * Teleports away less frequently
 
 ### Panzersoldat
-* Increased number of rounds for next Panzersoldat in coop from 3 to 4-5
+* Increased number of rounds for next spawn in coop from 3 to 4-5
 * Decreased amount that spawn per round in coop from 1-3 to 1
 * Death explosion kills zombies
 * Changed death explosion player damage from 100-25 to 75
