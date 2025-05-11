@@ -107,11 +107,25 @@ insta_kill_player(perks_can_respawn_player, kill_if_falling)
 		return;
 	}
 
+	touching_elevator = 0;
+
+	foreach (volume in level.elevator_volumes)
+	{
+		if (self istouching(volume))
+		{
+			touching_elevator = 1;
+			break;
+		}
+	}
+
 	self.insta_killed = 1;
 
 	self maps\mp\zombies\_zm_buildables::player_return_piece_to_original_spawn();
 
-	self playlocalsound(level.zmb_laugh_alias);
+	if (!touching_elevator)
+	{
+		self playlocalsound(level.zmb_laugh_alias);
+	}
 
 	self disableinvulnerability();
 	self.lives = 0;
