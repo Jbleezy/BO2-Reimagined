@@ -596,33 +596,16 @@ player_stomp_death(robot)
 	self endon("death");
 	self endon("disconnect");
 
+	self.insta_killed = 1;
 	self.is_stomped = 1;
-	self playsound("zmb_zombie_arc");
-	self freezecontrols(1);
 
-	if (self player_is_in_laststand())
-	{
-		self shellshock("explosion", 7);
-	}
-	else
-	{
-		self dodamage(self.health, self.origin, robot);
-	}
+	self disableinvulnerability();
+	self.lives = 0;
+	self dodamage(self.health + 1000, self.origin);
+	self scripts\zm\_zm_reimagined::player_suicide();
 
-	self maps\mp\zombies\_zm_stats::increment_client_stat("tomb_giant_robot_stomped", 0);
-	self maps\mp\zombies\_zm_stats::increment_player_stat("tomb_giant_robot_stomped");
-	wait 5.0;
 	self.is_stomped = 0;
-
-	if (!(isdefined(self.hostmigrationcontrolsfrozen) && self.hostmigrationcontrolsfrozen))
-	{
-		self freezecontrols(0);
-	}
-
-	if (is_classic())
-	{
-		self thread play_robot_crush_player_vo();
-	}
+	self.insta_killed = 0;
 }
 
 giant_robot_close_head_entrance(foot_side)

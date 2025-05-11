@@ -1416,6 +1416,7 @@
 * Generators: fixed capture round zombies not dropping Max Ammo when killed by a staff
 * Generators: fixed an issue where recapture sound and fx would play twice
 * Giant Robots: both feet always have an openable hatch
+* Giant Robots: players bleed out instantly when stomped
 * Giant Robots: zombie limit no longer decreased to 22 when 3 robots are active
 * Tank: players can go prone on the tank
 * Tank: powerups dropped within the tank are linked to the tank
