@@ -83,6 +83,125 @@ machine_selector()
 	}
 }
 
+machine_think()
+{
+	level notify("machine_think");
+	level endon("machine_think");
+	self thread machine_sounds();
+	self show();
+	self.num_time_used = 0;
+	self.num_til_moved = randomintrange(4, 7);
+	self.is_current_ball_location = 1;
+	self setclientfield("turn_on_location_indicator", 1);
+	self showpart("j_ball");
+	self thread update_animation("start");
+
+	while (isdefined(self.is_locked) && self.is_locked)
+	{
+		wait 1;
+	}
+
+	self conditional_power_indicators();
+
+	while (true)
+	{
+		self waittill("trigger", player);
+		flag_clear("machine_can_reset");
+		level notify("pmmove");
+
+		if (player.score < level._random_zombie_perk_cost)
+		{
+			self playsound("evt_perk_deny");
+			player maps\mp\zombies\_zm_audio::create_and_play_dialog("general", "perk_deny", undefined, 0);
+			continue;
+		}
+
+		if (self.num_time_used >= self.num_til_moved)
+		{
+			level notify("pmmove");
+			self thread update_animation("shut_down");
+			level notify("random_perk_moving");
+			self setclientfield("turn_on_location_indicator", 0);
+			self.is_current_ball_location = 0;
+			self conditional_power_indicators();
+			self hidepart("j_ball");
+			break;
+		}
+
+		self.machine_user = player;
+		self.num_time_used++;
+		player maps\mp\zombies\_zm_stats::increment_client_stat("use_perk_random");
+		player maps\mp\zombies\_zm_stats::increment_player_stat("use_perk_random");
+		player maps\mp\zombies\_zm_score::minus_to_player_score(level._random_zombie_perk_cost);
+		self thread update_animation("in_use");
+
+		if (isdefined(level.perk_random_vo_func_usemachine) && isdefined(player))
+		{
+			player thread [[level.perk_random_vo_func_usemachine]]();
+		}
+
+		while (true)
+		{
+			thread maps\mp\zombies\_zm_unitrigger::unregister_unitrigger(self.unitrigger_stub);
+			random_perk = get_weighted_random_perk(player);
+			self setclientfield("perk_bottle_cycle_state", 1);
+			level notify("pmstrt");
+			wait 1.0;
+			self thread start_perk_bottle_cycling();
+			self thread perk_bottle_motion();
+			model = get_perk_weapon_model(random_perk);
+			wait 3.0;
+			self notify("done_cycling");
+
+			if (self.num_time_used >= self.num_til_moved)
+			{
+				self.bottle_spawn_location setmodel("t6_wpn_zmb_perk_bottle_bear_world");
+				level notify("pmmove");
+				self thread update_animation("shut_down");
+				player maps\mp\zombies\_zm_score::add_to_player_score(level._random_zombie_perk_cost);
+				wait 3;
+				self.bottle_spawn_location setmodel("tag_origin");
+				level notify("random_perk_moving");
+				self setclientfield("perk_bottle_cycle_state", 0);
+				self setclientfield("turn_on_location_indicator", 0);
+				self.is_current_ball_location = 0;
+				self conditional_power_indicators();
+				self hidepart("j_ball");
+				self.machine_user = undefined;
+				thread maps\mp\zombies\_zm_unitrigger::register_static_unitrigger(self.unitrigger_stub, ::wunderfizz_unitrigger_think);
+				break;
+			}
+			else
+			{
+				self.bottle_spawn_location setmodel(model);
+			}
+
+			self.grab_perk_hint = 1;
+			thread maps\mp\zombies\_zm_unitrigger::register_static_unitrigger(self.unitrigger_stub, ::wunderfizz_unitrigger_think);
+			self thread grab_check(player, random_perk);
+			self thread time_out_check();
+			self waittill_either("grab_check", "time_out_check");
+			self.grab_perk_hint = 0;
+			thread maps\mp\zombies\_zm_unitrigger::unregister_unitrigger(self.unitrigger_stub);
+			thread maps\mp\zombies\_zm_unitrigger::register_static_unitrigger(self.unitrigger_stub, ::wunderfizz_unitrigger_think);
+			level notify("pmstop");
+
+			if (player.num_perks >= player get_player_perk_purchase_limit())
+			{
+				player maps\mp\zombies\_zm_score::add_to_player_score(level._random_zombie_perk_cost);
+			}
+
+			self setclientfield("perk_bottle_cycle_state", 0);
+			self.machine_user = undefined;
+			self.bottle_spawn_location setmodel("tag_origin");
+			self thread update_animation("idle");
+			break;
+		}
+
+		flag_wait("machine_can_reset");
+	}
+}
+
 start_perk_bottle_cycling()
 {
 	self endon("done_cycling");

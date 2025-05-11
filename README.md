@@ -1406,7 +1406,7 @@
 * Generators: increased capture reward points from 100 to 500
 * Generators: changed capture time from 10-40 seconds depending on how many players to 20 seconds
 * Generators: increased decay time from 20 seconds to 40 seconds
-* Generators: always give back refund points if player was on the generator when captured
+* Generators: always refund points if player was on the generator when captured
 * Generators: can no longer start capturing if another generator is being captured by zombies
 * Generators: no longer lose capture progress if any players are on the generator when zombies are capturing
 * Generators: no longer gain capture progress if no players are on the generator when recapturing
@@ -1436,6 +1436,7 @@
 * Mystery Box: uses the same trade weapon hint string as other maps
 * Der Wunderfizz: increased cost from 1500 to 2500
 * Der Wunderfizz: all perks have an equal chance of being obtained
+* Der Wunderfizz: refunds points when teddy bear perk bottle is shown
 * Der Wunderfizz: moves to new location instantly
 * Der Wunderfizz: players only see perk bottles cycling that they can currently obtain
 * Der Wunderfizz: perk bottle model shows at correct position when it first appears
