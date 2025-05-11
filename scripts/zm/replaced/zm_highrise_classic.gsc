@@ -2,6 +2,7 @@
 #include maps\mp\_utility;
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
+#include maps\mp\gametypes_zm\_hud;
 
 highrise_pap_move_in(trigger, origin_offset, angles_offset)
 {
@@ -122,7 +123,15 @@ insta_kill_player(perks_can_respawn_player, kill_if_falling)
 
 	self maps\mp\zombies\_zm_buildables::player_return_piece_to_original_spawn();
 
-	if (!touching_elevator)
+	if (touching_elevator)
+	{
+		start_wait = 0.0;
+		black_screen_wait = 5.0;
+		fade_in_time = 0.2;
+		fade_out_time = 0.01;
+		self thread fadetoblackforxsec(start_wait, black_screen_wait, fade_in_time, fade_out_time, "black", -1);
+	}
+	else
 	{
 		self playlocalsound(level.zmb_laugh_alias);
 	}
