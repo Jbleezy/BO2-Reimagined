@@ -42,6 +42,7 @@ machines_setup()
 
 		if ((getdvar("g_gametype") == "zgrief" && getdvarintdefault("ui_gametype_pro", 0)) || machine != level.random_perk_start_machine)
 		{
+			machine update_animation("shut_down");
 			machine hidepart("j_ball");
 			machine.is_current_ball_location = 0;
 		}

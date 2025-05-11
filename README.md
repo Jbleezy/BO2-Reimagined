@@ -1439,6 +1439,7 @@
 * Der Wunderfizz: moves to new location instantly
 * Der Wunderfizz: players only see perk bottles cycling that they can currently obtain
 * Der Wunderfizz: perk bottle model shows at correct position when it first appears
+* Der Wunderfizz: machines initially start with the top part open
 * Rituals of the Ancients: spend points challenge reward changed from Double Tap perk to a random perk that the player does not have (perk does not change if reward is reopened)
 * Rituals of the Ancients: fixed not being able to pick up One Inch Punch from reward chest after disconnecting and reconnecting to a match
 * Soul boxes: decreased number of souls to close from 30 to 20
