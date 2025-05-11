@@ -1418,6 +1418,7 @@
 * Giant Robots: both feet always have an openable hatch
 * Giant Robots: players bleed out instantly when stomped
 * Giant Robots: zombie limit no longer decreased to 22 when 3 robots are active
+* Tank: no longer kills players
 * Tank: players can go prone on the tank
 * Tank: powerups dropped within the tank are linked to the tank
 * Tank: standing on the tread pushes the player forward instead of backward if the tank is moving

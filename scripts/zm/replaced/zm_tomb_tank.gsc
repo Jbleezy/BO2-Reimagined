@@ -157,3 +157,8 @@ activate_tank_wait_with_no_cost()
 {
 	// removed
 }
+
+tank_kill_players()
+{
+	// removed
+}
