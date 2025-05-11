@@ -582,7 +582,7 @@ activate_kill_trigger(robot, foot_side)
 					black_screen_wait = 5.0;
 					fade_in_time = 0.01;
 					fade_out_time = 0.2;
-					players[i] thread fadetoblackforxsec(start_wait, black_screen_wait, fade_in_time, fade_out_time, "black", 1);
+					players[i] thread fadetoblackforxsec(start_wait, black_screen_wait, fade_in_time, fade_out_time, "black", -1);
 				}
 			}
 		}
