@@ -45,6 +45,10 @@ init_gamemodes()
 	add_map_gamemode("zgrief", undefined, undefined);
 
 	add_map_location_gamemode("zclassic", "tomb", clientscripts\mp\zm_tomb_classic::precache, clientscripts\mp\zm_tomb_classic::premain, clientscripts\mp\zm_tomb_classic::main);
+
+	add_map_location_gamemode("zstandard", "trenches", undefined, undefined, undefined);
+
+	add_map_location_gamemode("zgrief", "trenches", undefined, undefined, undefined);
 }
 
 entityspawned_tomb(localclientnum)

@@ -27,8 +27,13 @@ get_pack_a_punch_model(localclientnumber)
 
 	if (!isdefined(level.pack_a_punch_model[localclientnumber]))
 	{
-		pap_targetnames = array("pap_cs");
+		pap_targetnames = array("pap_cs", "pap_cs_trenches");
 		valid_pap_targetname = "pap_cs";
+
+		if (getdvar("ui_zm_mapstartlocation") == "trenches")
+		{
+			valid_pap_targetname = "pap_cs_trenches";
+		}
 
 		level.pack_a_punch_model[localclientnumber] = getent(localclientnumber, valid_pap_targetname, "targetname");
 

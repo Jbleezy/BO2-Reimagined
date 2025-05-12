@@ -27394,6 +27394,7 @@
 "guid" "C4E18241"
 }
 {
+"script_string" "zclassic_perks_tomb"
 "script_noteworthy" "specialty_weapupgrade"
 "targetname" "zm_perk_machine"
 "angles" "0 270 0"
@@ -32876,4 +32877,40 @@
 "angles" "0 -120 0"
 "script_noteworthy" "specialty_grenadepulldeath"
 "targetname" "zm_perk_machine"
+}
+{
+"script_string" "p6_zm_tm_wallbuy_five_seven"
+"script_noteworthy" "zstandard_trenches, zgrief_trenches"
+"origin" "-726 2289 -196"
+"angles" "0 0 0"
+"model" "t6_wpn_pistol_fiveseven_world"
+"classname" "script_struct"
+"targetname" "pf2221_auto38"
+}
+{
+"script_noteworthy" "zstandard_trenches, zgrief_trenches"
+"origin" "-726 2289 -196"
+"angles" "0 0 0"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "fiveseven_zm"
+"targetname" "weapon_upgrade"
+"target" "pf2221_auto38"
+}
+{
+"script_string" "zstandard_perks_trenches zgrief_perks_trenches"
+"script_noteworthy" "specialty_weapupgrade"
+"targetname" "zm_perk_machine"
+"angles" "0 90 0"
+"classname" "script_struct"
+"model" "p6_zm_tm_packapunch"
+"origin" "-704 2653 -184"
+"target" "pap_cs_trenches"
+}
+{
+"classname" "script_model"
+"model" "p6_zm_tm_packapunch"
+"angles" "0 90 0"
+"origin" "-704 2653 -184"
+"spawnflags" "2"
+"targetname" "pap_cs_trenches"
 }

@@ -161,6 +161,7 @@
 		* [Cell Block](#cell-block)
 		* [Docks](#docks)
 	* [Origins](#origins)
+		* [Trenches](#trenches)
 * [Game Modes](#game-modes)
 	* [Encounter](#encounter)
 		* [Grief](#grief)
@@ -1464,6 +1465,13 @@
 * Quest (freedom step): teleport trigger can be triggered without looking at it
 * Fixed being able to hit a death barrier when jumping off the Above Generator 3 Bunker zone
 * Fixed front part of tank model spawning in the Excavation Site Level 2 zone
+
+#### Trenches
+* Wallbuys: SMR, Ballista, B23R, Five-seven, Vector K10, MP40, Remington 870 MCS, Frag Grenade, Bouncing Betty
+* Perks: Quick Revive, Speed Cola, Deadshot Daiquiri
+* Der Wunderfizz
+* Pack-a-Punch
+* One Inch Punch buyable for 9000 points at Rituals of the Ancients reward chest
 
 ## Game Modes
 
