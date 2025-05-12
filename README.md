@@ -1436,8 +1436,10 @@
 * Mystery Box: uses the same trade weapon hint string as other maps
 * Der Wunderfizz: increased cost from 1500 to 2500
 * Der Wunderfizz: all perks have an equal chance of being obtained
+* Der Wunderfizz: available at all locations and costs 250 points when Fire Sale powerup is active
 * Der Wunderfizz: refunds points when teddy bear perk bottle is shown
 * Der Wunderfizz: moves to new location instantly
+* Der Wunderfizz: can no longer be activated while orb is moving down
 * Der Wunderfizz: players only see perk bottles cycling that they can currently obtain
 * Der Wunderfizz: perk bottle model shows at correct position when it first appears
 * Der Wunderfizz: machines initially start with the top part open

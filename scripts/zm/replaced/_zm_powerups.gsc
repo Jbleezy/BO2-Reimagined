@@ -1030,6 +1030,36 @@ start_fire_sale(item)
 	level notify("fire_sale_off");
 }
 
+func_should_drop_fire_sale()
+{
+	if (level.zombie_vars["zombie_powerup_fire_sale_on"] == 1)
+	{
+		return false;
+	}
+
+	if (isdefined(level.disable_firesale_drop) && level.disable_firesale_drop)
+	{
+		return false;
+	}
+
+	if (isdefined(level.random_perk_moves))
+	{
+		if (level.chest_moves < 1 && level.random_perk_moves < 1)
+		{
+			return false;
+		}
+	}
+	else
+	{
+		if (level.chest_moves < 1)
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
 powerup_hud_monitor()
 {
 	flag_wait("start_zombie_round_logic");

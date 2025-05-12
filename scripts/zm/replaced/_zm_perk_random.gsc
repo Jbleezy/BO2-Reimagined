@@ -14,6 +14,7 @@
 machines_setup()
 {
 	wait 0.5;
+	level.random_perk_moves = 0;
 	level.perk_bottle_weapon_array = arraycombine(level.machine_assets, level._custom_perks, 0, 1);
 	start_machines = getentarray("start_machine", "script_noteworthy");
 	assert(isdefined(start_machines.size != 0), "missing start random perk machine");
@@ -40,7 +41,7 @@ machines_setup()
 		machine useanimtree(#animtree );
 		machine thread machine_power_indicators();
 
-		if ((getdvar("g_gametype") == "zgrief" && getdvarintdefault("ui_gametype_pro", 0)) || machine != level.random_perk_start_machine)
+		if (machine != level.random_perk_start_machine || (getdvar("g_gametype") == "zgrief" && getdvarintdefault("ui_gametype_pro", 0)))
 		{
 			machine update_animation("shut_down");
 			machine hidepart("j_ball");
@@ -85,8 +86,8 @@ machine_selector()
 
 machine_think()
 {
-	level notify("machine_think");
-	level endon("machine_think");
+	self notify("machine_think");
+	self endon("machine_think");
 	self thread machine_sounds();
 	self show();
 	self.num_time_used = 0;
@@ -95,6 +96,12 @@ machine_think()
 	self setclientfield("turn_on_location_indicator", 1);
 	self showpart("j_ball");
 	self thread update_animation("start");
+
+	self.machine_user = level;
+
+	wait getanimlength(%o_zombie_dlc4_vending_diesel_turn_on);
+
+	self.machine_user = undefined;
 
 	while (isdefined(self.is_locked) && self.is_locked)
 	{
@@ -107,7 +114,7 @@ machine_think()
 	{
 		self waittill("trigger", player);
 		flag_clear("machine_can_reset");
-		level notify("pmmove");
+		self notify("pmmove");
 
 		if (player.score < level._random_zombie_perk_cost)
 		{
@@ -118,7 +125,8 @@ machine_think()
 
 		if (self.num_time_used >= self.num_til_moved)
 		{
-			level notify("pmmove");
+			level.random_perk_moves++;
+			self notify("pmmove");
 			self thread update_animation("shut_down");
 			level notify("random_perk_moving");
 			self setclientfield("turn_on_location_indicator", 0);
@@ -129,7 +137,12 @@ machine_think()
 		}
 
 		self.machine_user = player;
-		self.num_time_used++;
+
+		if (!is_true(level.zombie_vars["zombie_powerup_fire_sale_on"]))
+		{
+			self.num_time_used++;
+		}
+
 		player maps\mp\zombies\_zm_stats::increment_client_stat("use_perk_random");
 		player maps\mp\zombies\_zm_stats::increment_player_stat("use_perk_random");
 		player maps\mp\zombies\_zm_score::minus_to_player_score(level._random_zombie_perk_cost);
@@ -145,7 +158,7 @@ machine_think()
 			thread maps\mp\zombies\_zm_unitrigger::unregister_unitrigger(self.unitrigger_stub);
 			random_perk = get_weighted_random_perk(player);
 			self setclientfield("perk_bottle_cycle_state", 1);
-			level notify("pmstrt");
+			self notify("pmstrt");
 			wait 1.0;
 			self thread start_perk_bottle_cycling();
 			self thread perk_bottle_motion();
@@ -155,8 +168,9 @@ machine_think()
 
 			if (self.num_time_used >= self.num_til_moved)
 			{
+				level.random_perk_moves++;
 				self.bottle_spawn_location setmodel("t6_wpn_zmb_perk_bottle_bear_world");
-				level notify("pmmove");
+				self notify("pmmove");
 				self thread update_animation("shut_down");
 				player maps\mp\zombies\_zm_score::add_to_player_score(level._random_zombie_perk_cost);
 				wait 3;
@@ -184,7 +198,7 @@ machine_think()
 			self.grab_perk_hint = 0;
 			thread maps\mp\zombies\_zm_unitrigger::unregister_unitrigger(self.unitrigger_stub);
 			thread maps\mp\zombies\_zm_unitrigger::register_static_unitrigger(self.unitrigger_stub, ::wunderfizz_unitrigger_think);
-			level notify("pmstop");
+			self notify("pmstop");
 
 			if (player.num_perks >= player get_player_perk_purchase_limit())
 			{
@@ -199,6 +213,33 @@ machine_think()
 		}
 
 		flag_wait("machine_can_reset");
+	}
+}
+
+machine_sounds()
+{
+	self endon("machine_think");
+
+	while (true)
+	{
+		self waittill("pmstrt");
+		rndprk_ent = spawn("script_origin", self.origin);
+		rndprk_ent stopsounds();
+		rndprk_ent playsound("zmb_rand_perk_start");
+		rndprk_ent playloopsound("zmb_rand_perk_loop", 0.5);
+		state_switch = self waittill_any_return("pmstop", "pmmove");
+		rndprk_ent stoploopsound(1);
+
+		if (state_switch == "pmstop")
+		{
+			rndprk_ent playsound("zmb_rand_perk_stop");
+		}
+		else
+		{
+			rndprk_ent playsound("zmb_rand_perk_leave");
+		}
+
+		rndprk_ent delete();
 	}
 }
 

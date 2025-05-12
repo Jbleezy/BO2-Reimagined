@@ -131,6 +131,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_powerups::nuke_powerup, scripts\zm\replaced\_zm_powerups::nuke_powerup);
 	replaceFunc(maps\mp\zombies\_zm_powerups::insta_kill_powerup, scripts\zm\replaced\_zm_powerups::insta_kill_powerup);
 	replaceFunc(maps\mp\zombies\_zm_powerups::double_points_powerup, scripts\zm\replaced\_zm_powerups::double_points_powerup);
+	replaceFunc(maps\mp\zombies\_zm_powerups::func_should_drop_fire_sale, scripts\zm\replaced\_zm_powerups::func_should_drop_fire_sale);
 	replaceFunc(maps\mp\zombies\_zm_powerups::powerup_hud_monitor, scripts\zm\replaced\_zm_powerups::powerup_hud_monitor);
 	replaceFunc(maps\mp\zombies\_zm_pers_upgrades::is_pers_system_disabled, scripts\zm\replaced\_zm_pers_upgrades::is_pers_system_disabled);
 	replaceFunc(maps\mp\zombies\_zm_pers_upgrades_system::check_pers_upgrade, scripts\zm\replaced\_zm_pers_upgrades_system::check_pers_upgrade);

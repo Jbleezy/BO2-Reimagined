@@ -97,6 +97,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_magicbox_tomb::custom_magic_box_timer_til_despawn, scripts\zm\replaced\_zm_magicbox_tomb::custom_magic_box_timer_til_despawn);
 	replaceFunc(maps\mp\zombies\_zm_perk_random::machines_setup, scripts\zm\replaced\_zm_perk_random::machines_setup);
 	replaceFunc(maps\mp\zombies\_zm_perk_random::machine_selector, scripts\zm\replaced\_zm_perk_random::machine_selector);
+	replaceFunc(maps\mp\zombies\_zm_perk_random::machine_think, scripts\zm\replaced\_zm_perk_random::machine_think);
 	replaceFunc(maps\mp\zombies\_zm_perk_random::start_perk_bottle_cycling, scripts\zm\replaced\_zm_perk_random::start_perk_bottle_cycling);
 	replaceFunc(maps\mp\zombies\_zm_perk_random::perk_bottle_motion, scripts\zm\replaced\_zm_perk_random::perk_bottle_motion);
 	replaceFunc(maps\mp\zombies\_zm_perk_random::trigger_visible_to_player, scripts\zm\replaced\_zm_perk_random::trigger_visible_to_player);
@@ -183,6 +184,7 @@ init()
 	level thread zombie_blood_dig_changes();
 	level thread attach_powerups_to_tank();
 	level thread updatecraftables();
+	level thread random_perk_machine_watch_fire_sale();
 	level thread grief_mechz_spawn_after_time();
 }
 
@@ -1019,6 +1021,86 @@ craftablestub_update_prompt(player, unitrigger)
 	}
 
 	return true;
+}
+
+random_perk_machine_watch_fire_sale()
+{
+	machines = getentarray("random_perk_machine", "targetname");
+
+	foreach (machine in machines)
+	{
+		machine.is_temp_ball_location = 0;
+	}
+
+	while (1)
+	{
+		level waittill("powerup fire sale");
+
+		level._random_zombie_perk_old_cost = level._random_zombie_perk_cost;
+		level._random_zombie_perk_cost = 250;
+
+		foreach (machine in machines)
+		{
+			if (!machine.is_current_ball_location)
+			{
+				machine thread show_temp_random_perk_machine();
+			}
+			else
+			{
+				machine thread random_perk_machine_fire_sale_fix();
+			}
+		}
+
+		level waittill("fire_sale_off");
+
+		level._random_zombie_perk_cost = level._random_zombie_perk_old_cost;
+
+		foreach (machine in machines)
+		{
+			if (machine.is_temp_ball_location)
+			{
+				machine thread hide_temp_random_perk_machine();
+			}
+		}
+	}
+}
+
+random_perk_machine_fire_sale_fix()
+{
+	level endon("fire_sale_off");
+
+	level waittill("random_perk_moving");
+	waittillframeend;
+
+	level.random_perk_start_machine.is_temp_ball_location = 0;
+
+	self thread show_temp_random_perk_machine();
+}
+
+show_temp_random_perk_machine()
+{
+	self.is_temp_ball_location = 1;
+	self thread maps\mp\zombies\_zm_perk_random::machine_think();
+}
+
+hide_temp_random_perk_machine()
+{
+	level endon("powerup fire sale");
+
+	if (isdefined(self.machine_user))
+	{
+		self waittill_either("grab_check", "time_out_check");
+		waittillframeend;
+	}
+
+	self.is_temp_ball_location = 0;
+	self.is_current_ball_location = 0;
+	self notify("machine_think");
+	self thread maps\mp\zombies\_zm_perk_random::update_animation("shut_down");
+	wait 3;
+	self setclientfield("turn_on_location_indicator", 0);
+	self maps\mp\zombies\_zm_perk_random::conditional_power_indicators();
+	self hidepart("j_ball");
 }
 
 grief_mechz_spawn_after_time()
