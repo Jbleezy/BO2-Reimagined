@@ -362,7 +362,6 @@ working_zone_init()
 	add_adjacent_zone("zone_bunker_3a", "zone_bunker_3b", "activate_zone_bunker_3a");
 	add_adjacent_zone("zone_bunker_3a", "zone_bunker_3b", "activate_zone_bunker_3b");
 	add_adjacent_zone("zone_bunker_3b", "zone_bunker_5a", "activate_zone_bunker_3b");
-	add_adjacent_zone("zone_bunker_5a", "zone_bunker_5b", "activate_zone_bunker_3b");
 	add_adjacent_zone("zone_start_b", "zone_bunker_2a", "activate_zone_bunker_2");
 	add_adjacent_zone("zone_bunker_2a", "zone_bunker_2", "activate_zone_bunker_2");
 	add_adjacent_zone("zone_bunker_2a", "zone_bunker_2", "activate_zone_bunker_4a");
@@ -371,42 +370,15 @@ working_zone_init()
 	add_adjacent_zone("zone_bunker_4a", "zone_bunker_4c", "activate_zone_bunker_4a");
 	add_adjacent_zone("zone_bunker_4b", "zone_bunker_4f", "activate_zone_bunker_4a");
 	add_adjacent_zone("zone_bunker_4c", "zone_bunker_4d", "activate_zone_bunker_4a");
-	add_adjacent_zone("zone_bunker_4c", "zone_bunker_4e", "activate_zone_bunker_4a");
-	add_adjacent_zone("zone_bunker_4e", "zone_bunker_tank_c1", "activate_zone_bunker_4a");
-	add_adjacent_zone("zone_bunker_4e", "zone_bunker_tank_d", "activate_zone_bunker_4a");
-	add_adjacent_zone("zone_bunker_tank_c", "zone_bunker_tank_c1", "activate_zone_bunker_4a");
-	add_adjacent_zone("zone_bunker_tank_d", "zone_bunker_tank_d1", "activate_zone_bunker_4a");
 	add_adjacent_zone("zone_bunker_4a", "zone_bunker_4b", "activate_zone_bunker_4b");
 	add_adjacent_zone("zone_bunker_4a", "zone_bunker_4c", "activate_zone_bunker_4b");
 	add_adjacent_zone("zone_bunker_4b", "zone_bunker_4f", "activate_zone_bunker_4b");
 	add_adjacent_zone("zone_bunker_4c", "zone_bunker_4d", "activate_zone_bunker_4b");
-	add_adjacent_zone("zone_bunker_4c", "zone_bunker_4e", "activate_zone_bunker_4b");
 	add_adjacent_zone("zone_bunker_4b", "zone_bunker_5a", "activate_zone_bunker_4b");
-	add_adjacent_zone("zone_bunker_5a", "zone_bunker_5b", "activate_zone_bunker_4b");
-	add_adjacent_zone("zone_bunker_4e", "zone_bunker_tank_c1", "activate_zone_bunker_4b");
-	add_adjacent_zone("zone_bunker_4e", "zone_bunker_tank_d", "activate_zone_bunker_4b");
-	add_adjacent_zone("zone_bunker_tank_c", "zone_bunker_tank_c1", "activate_zone_bunker_4b");
-	add_adjacent_zone("zone_bunker_tank_d", "zone_bunker_tank_d1", "activate_zone_bunker_4b");
-	add_adjacent_zone("zone_bunker_tank_a", "zone_nml_7", "activate_zone_nml");
-	add_adjacent_zone("zone_bunker_tank_a", "zone_nml_7a", "activate_zone_nml");
-	add_adjacent_zone("zone_bunker_tank_a", "zone_bunker_tank_a1", "activate_zone_nml");
-	add_adjacent_zone("zone_bunker_tank_a1", "zone_bunker_tank_a2", "activate_zone_nml");
-	add_adjacent_zone("zone_bunker_tank_a1", "zone_bunker_tank_b", "activate_zone_nml");
-	add_adjacent_zone("zone_bunker_tank_b", "zone_bunker_tank_c", "activate_zone_nml");
-	add_adjacent_zone("zone_bunker_tank_c", "zone_bunker_tank_c1", "activate_zone_nml");
-	add_adjacent_zone("zone_bunker_tank_d", "zone_bunker_tank_d1", "activate_zone_nml");
-	add_adjacent_zone("zone_bunker_tank_d1", "zone_bunker_tank_e", "activate_zone_nml");
-	add_adjacent_zone("zone_bunker_tank_e", "zone_bunker_tank_e1", "activate_zone_nml");
-	add_adjacent_zone("zone_bunker_tank_e1", "zone_bunker_tank_e2", "activate_zone_nml");
-	add_adjacent_zone("zone_bunker_tank_e1", "zone_bunker_tank_f", "activate_zone_nml");
-	add_adjacent_zone("zone_bunker_tank_f", "zone_nml_1", "activate_zone_nml");
-	add_adjacent_zone("zone_bunker_5b", "zone_nml_2a", "activate_zone_nml");
 	add_adjacent_zone("zone_nml_0", "zone_nml_1", "activate_zone_nml");
 	add_adjacent_zone("zone_nml_0", "zone_nml_farm", "activate_zone_farm");
 	add_adjacent_zone("zone_nml_1", "zone_nml_2", "activate_zone_nml");
 	add_adjacent_zone("zone_nml_1", "zone_nml_4", "activate_zone_nml");
-	add_adjacent_zone("zone_nml_1", "zone_nml_20", "activate_zone_nml");
-	add_adjacent_zone("zone_nml_2", "zone_nml_2a", "activate_zone_nml");
 	add_adjacent_zone("zone_nml_2", "zone_nml_2b", "activate_zone_nml");
 	add_adjacent_zone("zone_nml_2", "zone_nml_3", "activate_zone_nml");
 	add_adjacent_zone("zone_nml_3", "zone_nml_4", "activate_zone_nml");
@@ -447,9 +419,6 @@ working_zone_init()
 	add_adjacent_zone("zone_nml_17", "zone_nml_17a", "activate_zone_nml");
 	add_adjacent_zone("zone_nml_17", "zone_nml_18", "activate_zone_ruins");
 	add_adjacent_zone("zone_nml_farm", "zone_nml_farm_1", "activate_zone_farm");
-	add_adjacent_zone("zone_nml_19", "ug_bottom_zone", "activate_zone_crypt");
-	add_adjacent_zone("zone_village_0", "zone_nml_15", "activate_zone_village_0");
-	add_adjacent_zone("zone_village_0", "zone_village_4b", "activate_zone_village_0");
 	add_adjacent_zone("zone_village_1", "zone_village_1a", "activate_zone_village_0");
 	add_adjacent_zone("zone_village_1", "zone_village_2", "activate_zone_village_1");
 	add_adjacent_zone("zone_village_1", "zone_village_4b", "activate_zone_village_0");
@@ -457,14 +426,6 @@ working_zone_init()
 	add_adjacent_zone("zone_village_2", "zone_village_3", "activate_zone_village_1");
 	add_adjacent_zone("zone_village_3", "zone_village_3a", "activate_zone_village_1");
 	add_adjacent_zone("zone_village_3a", "zone_village_3b", "activate_zone_village_1");
-	add_adjacent_zone("zone_village_4", "zone_nml_14", "activate_zone_village_0");
-	add_adjacent_zone("zone_village_4", "zone_village_4a", "activate_zone_village_0");
-	add_adjacent_zone("zone_village_4", "zone_village_4b", "activate_zone_village_0");
-	add_adjacent_zone("zone_village_5", "zone_nml_4", "activate_zone_village_0");
-	add_adjacent_zone("zone_village_5", "zone_village_5a", "activate_zone_village_0");
-	add_adjacent_zone("zone_village_5a", "zone_village_5b", "activate_zone_village_0");
-	add_adjacent_zone("zone_village_6", "zone_village_5b", "activate_zone_village_0");
-	add_adjacent_zone("zone_village_6", "zone_village_6a", "activate_zone_village_0");
 	add_adjacent_zone("zone_chamber_0", "zone_chamber_1", "activate_zone_chamber");
 	add_adjacent_zone("zone_chamber_0", "zone_chamber_3", "activate_zone_chamber");
 	add_adjacent_zone("zone_chamber_0", "zone_chamber_4", "activate_zone_chamber");
@@ -485,22 +446,49 @@ working_zone_init()
 	add_adjacent_zone("zone_chamber_5", "zone_chamber_8", "activate_zone_chamber");
 	add_adjacent_zone("zone_chamber_6", "zone_chamber_7", "activate_zone_chamber");
 	add_adjacent_zone("zone_chamber_7", "zone_chamber_8", "activate_zone_chamber");
-	add_adjacent_zone("zone_bunker_1", "zone_bunker_1a", "activate_zone_bunker_1_tank");
-	add_adjacent_zone("zone_bunker_2", "zone_bunker_2a", "activate_zone_bunker_2_tank");
-	add_adjacent_zone("zone_bunker_4a", "zone_bunker_4b", "activate_zone_bunker_4_tank");
-	add_adjacent_zone("zone_bunker_4a", "zone_bunker_4c", "activate_zone_bunker_4_tank");
-	add_adjacent_zone("zone_bunker_4c", "zone_bunker_4d", "activate_zone_bunker_4_tank");
-	add_adjacent_zone("zone_bunker_4c", "zone_bunker_4e", "activate_zone_bunker_4_tank");
-	add_adjacent_zone("zone_bunker_4e", "zone_bunker_tank_c1", "activate_zone_bunker_4_tank");
-	add_adjacent_zone("zone_bunker_4e", "zone_bunker_tank_d", "activate_zone_bunker_4_tank");
-	add_adjacent_zone("zone_bunker_tank_c", "zone_bunker_tank_c1", "activate_zone_bunker_4_tank");
-	add_adjacent_zone("zone_bunker_tank_d", "zone_bunker_tank_d1", "activate_zone_bunker_4_tank");
-	add_adjacent_zone("zone_bunker_tank_b", "zone_bunker_6", "activate_zone_bunker_6_tank");
-	add_adjacent_zone("zone_bunker_1", "zone_bunker_6", "activate_zone_bunker_6_tank");
 
 	if (is_classic())
 	{
+		add_adjacent_zone("zone_bunker_4c", "zone_bunker_4e", "activate_zone_bunker_4a");
+		add_adjacent_zone("zone_bunker_4e", "zone_bunker_tank_c1", "activate_zone_bunker_4a");
+		add_adjacent_zone("zone_bunker_4e", "zone_bunker_tank_d", "activate_zone_bunker_4a");
+		add_adjacent_zone("zone_bunker_tank_c", "zone_bunker_tank_c1", "activate_zone_bunker_4a");
+		add_adjacent_zone("zone_bunker_tank_d", "zone_bunker_tank_d1", "activate_zone_bunker_4a");
+		add_adjacent_zone("zone_bunker_4c", "zone_bunker_4e", "activate_zone_bunker_4b");
+		add_adjacent_zone("zone_bunker_4e", "zone_bunker_tank_c1", "activate_zone_bunker_4b");
+		add_adjacent_zone("zone_bunker_4e", "zone_bunker_tank_d", "activate_zone_bunker_4b");
+		add_adjacent_zone("zone_bunker_tank_c", "zone_bunker_tank_c1", "activate_zone_bunker_4b");
+		add_adjacent_zone("zone_bunker_tank_d", "zone_bunker_tank_d1", "activate_zone_bunker_4b");
+		add_adjacent_zone("zone_bunker_5a", "zone_bunker_5b", "activate_zone_bunker_3b");
+		add_adjacent_zone("zone_bunker_5a", "zone_bunker_5b", "activate_zone_bunker_4b");
+		add_adjacent_zone("zone_bunker_5b", "zone_nml_2a", "activate_zone_nml");
+		add_adjacent_zone("zone_nml_2", "zone_nml_2a", "activate_zone_nml");
 		add_adjacent_zone("zone_nml_18", "zone_nml_19", "activate_zone_ruins");
+		add_adjacent_zone("zone_nml_19", "ug_bottom_zone", "activate_zone_crypt");
+		add_adjacent_zone("zone_nml_1", "zone_nml_20", "activate_zone_nml");
+		add_adjacent_zone("zone_bunker_tank_a", "zone_nml_7", "activate_zone_nml");
+		add_adjacent_zone("zone_bunker_tank_a", "zone_nml_7a", "activate_zone_nml");
+		add_adjacent_zone("zone_bunker_tank_a", "zone_bunker_tank_a1", "activate_zone_nml");
+		add_adjacent_zone("zone_bunker_tank_a1", "zone_bunker_tank_a2", "activate_zone_nml");
+		add_adjacent_zone("zone_bunker_tank_a1", "zone_bunker_tank_b", "activate_zone_nml");
+		add_adjacent_zone("zone_bunker_tank_b", "zone_bunker_tank_c", "activate_zone_nml");
+		add_adjacent_zone("zone_bunker_tank_c", "zone_bunker_tank_c1", "activate_zone_nml");
+		add_adjacent_zone("zone_bunker_tank_d", "zone_bunker_tank_d1", "activate_zone_nml");
+		add_adjacent_zone("zone_bunker_tank_d1", "zone_bunker_tank_e", "activate_zone_nml");
+		add_adjacent_zone("zone_bunker_tank_e", "zone_bunker_tank_e1", "activate_zone_nml");
+		add_adjacent_zone("zone_bunker_tank_e1", "zone_bunker_tank_e2", "activate_zone_nml");
+		add_adjacent_zone("zone_bunker_tank_e1", "zone_bunker_tank_f", "activate_zone_nml");
+		add_adjacent_zone("zone_bunker_tank_f", "zone_nml_1", "activate_zone_nml");
+		add_adjacent_zone("zone_village_0", "zone_nml_15", "activate_zone_village_0");
+		add_adjacent_zone("zone_village_0", "zone_village_4b", "activate_zone_village_0");
+		add_adjacent_zone("zone_village_4", "zone_nml_14", "activate_zone_village_0");
+		add_adjacent_zone("zone_village_4", "zone_village_4a", "activate_zone_village_0");
+		add_adjacent_zone("zone_village_4", "zone_village_4b", "activate_zone_village_0");
+		add_adjacent_zone("zone_village_5", "zone_nml_4", "activate_zone_village_0");
+		add_adjacent_zone("zone_village_5", "zone_village_5a", "activate_zone_village_0");
+		add_adjacent_zone("zone_village_5a", "zone_village_5b", "activate_zone_village_0");
+		add_adjacent_zone("zone_village_6", "zone_village_5b", "activate_zone_village_0");
+		add_adjacent_zone("zone_village_6", "zone_village_6a", "activate_zone_village_0");
 		add_adjacent_zone("zone_bunker_1a", "zone_fire_stairs", "activate_zone_bunker_1");
 		add_adjacent_zone("zone_fire_stairs", "zone_fire_stairs_1", "activate_zone_bunker_1");
 		add_adjacent_zone("zone_bunker_1a", "zone_fire_stairs", "activate_zone_bunker_3a");
@@ -514,9 +502,46 @@ working_zone_init()
 		add_adjacent_zone("zone_bolt_stairs", "zone_bolt_stairs_1", "activate_zone_farm");
 		add_adjacent_zone("zone_village_3", "zone_ice_stairs", "activate_zone_village_1");
 		add_adjacent_zone("zone_ice_stairs", "zone_ice_stairs_1", "activate_zone_village_1");
+		add_adjacent_zone("zone_bunker_1", "zone_bunker_1a", "activate_zone_bunker_1_tank");
+		add_adjacent_zone("zone_bunker_2", "zone_bunker_2a", "activate_zone_bunker_2_tank");
+		add_adjacent_zone("zone_bunker_4a", "zone_bunker_4b", "activate_zone_bunker_4_tank");
+		add_adjacent_zone("zone_bunker_4a", "zone_bunker_4c", "activate_zone_bunker_4_tank");
+		add_adjacent_zone("zone_bunker_4c", "zone_bunker_4d", "activate_zone_bunker_4_tank");
+		add_adjacent_zone("zone_bunker_4c", "zone_bunker_4e", "activate_zone_bunker_4_tank");
+		add_adjacent_zone("zone_bunker_4e", "zone_bunker_tank_c1", "activate_zone_bunker_4_tank");
+		add_adjacent_zone("zone_bunker_4e", "zone_bunker_tank_d", "activate_zone_bunker_4_tank");
+		add_adjacent_zone("zone_bunker_tank_c", "zone_bunker_tank_c1", "activate_zone_bunker_4_tank");
+		add_adjacent_zone("zone_bunker_tank_d", "zone_bunker_tank_d1", "activate_zone_bunker_4_tank");
+		add_adjacent_zone("zone_bunker_tank_b", "zone_bunker_6", "activate_zone_bunker_6_tank");
+		add_adjacent_zone("zone_bunker_1", "zone_bunker_6", "activate_zone_bunker_6_tank");
+
+		level thread activate_zone_trig("trig_zone_bunker_1", "activate_zone_bunker_1_tank");
+		level thread activate_zone_trig("trig_zone_bunker_2", "activate_zone_bunker_2_tank");
+		level thread activate_zone_trig("trig_zone_bunker_4", "activate_zone_bunker_4_tank");
+		level thread activate_zone_trig("trig_zone_bunker_6", "activate_zone_bunker_6_tank", "activate_zone_bunker_1_tank");
 	}
 	else
 	{
+		zone_init("zone_bunker_5b");
+		zone_init("zone_nml_2a");
+		zone_init("zone_nml_19");
+		zone_init("zone_nml_20");
+		zone_init("ug_bottom_zone");
+		zone_init("zone_bunker_tank_a");
+		zone_init("zone_bunker_tank_a1");
+		zone_init("zone_bunker_tank_b");
+		zone_init("zone_bunker_tank_c");
+		zone_init("zone_bunker_tank_d");
+		zone_init("zone_bunker_tank_d1");
+		zone_init("zone_bunker_tank_e");
+		zone_init("zone_bunker_tank_e1");
+		zone_init("zone_bunker_tank_e2");
+		zone_init("zone_bunker_tank_f");
+		zone_init("zone_village_0");
+		zone_init("zone_village_4a");
+		zone_init("zone_village_5a");
+		zone_init("zone_village_6");
+		zone_init("zone_village_6a");
 		zone_init("zone_fire_stairs");
 		zone_init("zone_fire_stairs_1");
 		zone_init("zone_air_stairs");
@@ -527,11 +552,6 @@ working_zone_init()
 		zone_init("zone_ice_stairs");
 		zone_init("zone_ice_stairs_1");
 	}
-
-	level thread activate_zone_trig("trig_zone_bunker_1", "activate_zone_bunker_1_tank");
-	level thread activate_zone_trig("trig_zone_bunker_2", "activate_zone_bunker_2_tank");
-	level thread activate_zone_trig("trig_zone_bunker_4", "activate_zone_bunker_4_tank");
-	level thread activate_zone_trig("trig_zone_bunker_6", "activate_zone_bunker_6_tank", "activate_zone_bunker_1_tank");
 }
 
 tomb_can_track_ammo_custom(weap)
