@@ -1131,11 +1131,10 @@
 * Decreased brightness at Power Station
 * Changed spectator cycle color from grey to black
 * Zombies killed by the bus no longer respawn
-* Zombies no longer spawn in the Cornfield Building zone when in the Cornfield zone
-* Zombies no longer spawn in the Cornfield zone when in the Cornfield Building zone
-* Zombies spawn in the Warehouse zone when in the Outside Power Station zone before the Warehouse door is opened
-* Zombies spawn in the Outside Power Station zone when in the Fog After Power Station zone
-* Zombies spawn in the Warehouse zone when in the Fog After Power Station zone
+* Zombies no longer spawn in the Cornfield Building zone when players are in the Cornfield zone (and vice versa)
+* Zombies spawn in the Outside Power Station zone when players are in the Fog After Power Station zone
+* Zombies spawn in the Warehouse zone when players are in the Fog After Power Station zone
+* Zombies spawn in the Warehouse zone when players are in the Outside Power Station zone before the door between the Power Station Control Room zone and the Warehouse zone is opened
 * Added "Avenged Sevenfold - Carry On" song (activated by triggering the teddy bear at Farm last)
 * Added "Skrillex - Try It Out" song (activated by triggering the teddy bear at Bus Depot last)
 * Quest: added "Benn - Just Like You" song
@@ -1167,7 +1166,7 @@
 * No Pack-a-Punch
 
 #### Farm
-* Zombies spawn in the Farm zone when in the Barn zone
+* Zombies spawn in the Farm zone when players are in the Barn zone
 * Replaced Galvaknuckles wallbuy with Claymore wallbuy (also added to Grief)
 
 #### Power Station
@@ -1208,15 +1207,15 @@
 * Players no longer fall off the map when using the slide
 * Zombies killed by an elevator no longer respawn
 * Zombies are no longer killed while spawning in a stationary elevator
-* Zombies no longer spawn in the Dragon Rooftop area when in the Shopping Mall area
-* Zombies no longer spawn across from the debris in the Buddha Room area when the debris is closed
+* Zombies no longer spawn in the Dragon Rooftop area when players are in the Shopping Mall area
+* Zombies no longer spawn in the area across from the debris in the Buddha Room area when the debris is uncleared
 * Zombies no longer fall off the map when traversing down to the Shopping Mall Level 1A zone
 * Leapers no longer fall off the map when traversing up to the Escape Pod Ground zone
 * Fixed weapon model angle on upside down Mystery Box
 * Fixed height of the elevators in the Dragon Rooftop Level 1B zone
 * Fixed position of an elevator perk in the Sweatshop area and Dragon Rooftop area
 * Fixed zombies spawning in the elevator below the Shopping Mall Level 3B zone when in the Shopping Mall Level 3B zone
-* Fixed zombies not bleeding out in the Shopping Mall Level 1B zone when the debris is closed and there are no players in the zone
+* Fixed zombies not bleeding out in the Shopping Mall Level 1B zone when the debris is uncleared and there are no players in the zone
 * Fixed Who's Who vision filter showing momentarily when the game ended
 * Quest: added "Benn - High Risers" song
 * Quest: elevator symbols can be activated without players on every symbol
@@ -1321,6 +1320,10 @@
 * Afterlife icon fades when player has no afterlife lives
 * Removed afterlife lives counter
 * Key on HUD fades out
+* Removed background color from plane parts on HUD
+* Changed name of Zombie Shield recipe on HUD from "Shield" to "Zombie Shield"
+* Changed background color of Zombie Shield parts on HUD from green to grey
+* Changed background color of Acidgat Kit parts on HUD from blue to green
 * Plane parts are shared in coop
 * Plane parts must be all acquired to craft
 * Plane no longer has to be refueled
@@ -1338,6 +1341,7 @@
 * Added falling hands anim from Origins
 * Added crafting sound and item pick up sound
 * Removed player spawn point in the Acid Trap
+* Zombies spawn in the Docks Gates zone when players are in the Docks zone (and vice versa)
 * Acid Trap: kills on any round (normally stops killing after round 158 on PC)
 * Acid Trap: kills zombies instantly
 * Acid Trap: decreased player damage from 75% of max health to 50% of max health
@@ -1347,12 +1351,6 @@
 * Tower Trap (upgraded): stays upgraded until the end of the round
 * Tower Trap (upgraded): can be upgraded while the trap is not active
 * Tower Trap (upgraded): upgrading no longer resets the duration of the trap
-* Zombies spawn in the Docks zone when in the Docks Gates zone
-* Zombies spawn in the Docks Gates zone when in the Docks zone
-* Removed background color from plane parts on HUD
-* Changed name of Zombie Shield recipe on HUD from "Shield" to "Zombie Shield"
-* Changed background color of Zombie Shield parts on HUD from green to grey
-* Changed background color of Acidgat Kit parts on HUD from blue to green
 * Quest: added "Benn - Alcatraz" song
 * Quest: Blundergat gets full ammo when picked up (normally missing one clip)
 * Quest: number pad only needs each number to be shocked once in order to complete
@@ -1403,6 +1401,11 @@
 * Added attachment name on HUD for upgraded attachment weapons
 * Increased volume of crafting sound and item pick up sound
 * Moved player spawn point in Workshop Upstairs zone to Workshop Downstairs zone
+* Zombies no longer spawn in the Generator 5 Tank Route 5 zone when players are in the No Man's Land Back Path 1 zone (and vice versa)
+* Zombies no longer spawn in the Generator 6 After Tank Stop 3 zone when players are in the No Man's Land Back Path 3 zone (and vice versa)
+* Zombies no longer spawn in the Generator 6 After Tank Stop 3 zone when players are in the Generator 6 After Tank Stop 1 zone (and vice versa)
+* Zombies spawn in the Generator 6 After Tank Stop 3 zone when players are in the Generator 6 After Tank Stop 2 zone (and vice versa)
+* Zombies spawn in the Generator 6 Before Tank Stop 3 zone when players are in the Generator 5 Tank Route 5 zone before the debris between the No Man's Land Back Path 2 zone and the Generator 6 Left Footstep zone is cleared
 * Generators: changed cost from 200-800 depending on how many players to 500
 * Generators: increased capture reward points from 100 to 500
 * Generators: changed capture time from 10-40 seconds depending on how many players to 20 seconds

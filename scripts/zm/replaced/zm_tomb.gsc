@@ -384,7 +384,7 @@ working_zone_init()
 	add_adjacent_zone("zone_nml_3", "zone_nml_4", "activate_zone_nml");
 	add_adjacent_zone("zone_nml_3", "zone_nml_13", "activate_zone_nml");
 	add_adjacent_zone("zone_nml_4", "zone_nml_5", "activate_zone_nml");
-	add_adjacent_zone("zone_nml_4", "zone_nml_13", "activate_zone_nml");
+	add_adjacent_zone("zone_nml_4", "zone_village_5", "activate_zone_nml");
 	add_adjacent_zone("zone_nml_5", "zone_nml_farm", "activate_zone_farm");
 	add_adjacent_zone("zone_nml_6", "zone_nml_2b", "activate_zone_nml");
 	add_adjacent_zone("zone_nml_6", "zone_nml_7", "activate_zone_nml");
@@ -481,10 +481,8 @@ working_zone_init()
 		add_adjacent_zone("zone_bunker_tank_f", "zone_nml_1", "activate_zone_nml");
 		add_adjacent_zone("zone_village_0", "zone_nml_15", "activate_zone_village_0");
 		add_adjacent_zone("zone_village_0", "zone_village_4b", "activate_zone_village_0");
-		add_adjacent_zone("zone_village_4", "zone_nml_14", "activate_zone_village_0");
 		add_adjacent_zone("zone_village_4", "zone_village_4a", "activate_zone_village_0");
-		add_adjacent_zone("zone_village_4", "zone_village_4b", "activate_zone_village_0");
-		add_adjacent_zone("zone_village_5", "zone_nml_4", "activate_zone_village_0");
+		add_adjacent_zone("zone_village_4a", "zone_village_4b", "activate_zone_village_0");
 		add_adjacent_zone("zone_village_5", "zone_village_5a", "activate_zone_village_0");
 		add_adjacent_zone("zone_village_5a", "zone_village_5b", "activate_zone_village_0");
 		add_adjacent_zone("zone_village_6", "zone_village_5b", "activate_zone_village_0");
