@@ -23,3 +23,8 @@ update_charger_position()
 		}
 	}
 }
+
+player_spawn_fix()
+{
+	// fixed in zm_tomb::working_zone_init
+}

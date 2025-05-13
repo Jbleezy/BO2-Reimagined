@@ -446,7 +446,6 @@ working_zone_init()
 	add_adjacent_zone("zone_nml_16", "zone_nml_18", "activate_zone_ruins");
 	add_adjacent_zone("zone_nml_17", "zone_nml_17a", "activate_zone_nml");
 	add_adjacent_zone("zone_nml_17", "zone_nml_18", "activate_zone_ruins");
-	add_adjacent_zone("zone_nml_18", "zone_nml_19", "activate_zone_nml");
 	add_adjacent_zone("zone_nml_farm", "zone_nml_farm_1", "activate_zone_farm");
 	add_adjacent_zone("zone_nml_19", "ug_bottom_zone", "activate_zone_crypt");
 	add_adjacent_zone("zone_village_0", "zone_nml_15", "activate_zone_village_0");
@@ -501,6 +500,7 @@ working_zone_init()
 
 	if (is_classic())
 	{
+		add_adjacent_zone("zone_nml_18", "zone_nml_19", "activate_zone_ruins");
 		add_adjacent_zone("zone_bunker_1a", "zone_fire_stairs", "activate_zone_bunker_1");
 		add_adjacent_zone("zone_fire_stairs", "zone_fire_stairs_1", "activate_zone_bunker_1");
 		add_adjacent_zone("zone_bunker_1a", "zone_fire_stairs", "activate_zone_bunker_3a");

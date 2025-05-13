@@ -75,6 +75,7 @@ main()
 	replaceFunc(maps\mp\zm_tomb_utility::update_staff_accessories, scripts\zm\replaced\zm_tomb_utility::update_staff_accessories);
 	replaceFunc(maps\mp\zm_tomb_utility::check_solo_status, scripts\zm\replaced\zm_tomb_utility::check_solo_status);
 	replaceFunc(maps\mp\zm_tomb_ffotd::update_charger_position, scripts\zm\replaced\zm_tomb_ffotd::update_charger_position);
+	replaceFunc(maps\mp\zm_tomb_ffotd::player_spawn_fix, scripts\zm\replaced\zm_tomb_ffotd::player_spawn_fix);
 	replaceFunc(maps\mp\zm_tomb_distance_tracking::delete_zombie_noone_looking, scripts\zm\replaced\zm_tomb_distance_tracking::delete_zombie_noone_looking);
 	replaceFunc(maps\mp\zombies\_zm_ai_mechz::mechz_set_starting_health, scripts\zm\replaced\_zm_ai_mechz::mechz_set_starting_health);
 	replaceFunc(maps\mp\zombies\_zm_ai_mechz::mechz_round_tracker, scripts\zm\replaced\_zm_ai_mechz::mechz_round_tracker);
