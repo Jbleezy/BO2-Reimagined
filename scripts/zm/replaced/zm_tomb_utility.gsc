@@ -118,44 +118,32 @@ capture_zombie_spawn_init(animname_set = 0)
 	self notify("zombie_init_done");
 }
 
-init_weather_manager()
+weather_manager()
 {
-	level thread rotate_skydome();
-
 	if (!is_classic())
 	{
 		return;
 	}
 
-	level.weather_snow = 0;
-	level.weather_rain = 0;
-	level.weather_fog = 0;
-	level.weather_vision = 0;
-	level thread weather_manager();
-	onplayerconnect_callback(::set_weather_to_player);
-	level.force_weather = [];
+	level.last_snow_round = 0;
+	level.last_rain_round = 0;
 
-	if (cointoss())
+	while (true)
 	{
-		level.force_weather[3] = "snow";
-	}
-	else
-	{
-		level.force_weather[4] = "snow";
-	}
+		level waittill("end_of_round");
+		randomize_weather();
+		level setclientfield("rain_level", level.weather_rain);
+		level setclientfield("snow_level", level.weather_snow);
+		wait 2;
 
-	for (i = 5; i <= 9; i++)
-	{
-		if (cointoss())
+		foreach (player in getplayers())
 		{
-			level.force_weather[i] = "none";
-			continue;
+			if (is_player_valid(player, 0, 1))
+			{
+				player set_weather_to_player();
+			}
 		}
-
-		level.force_weather[i] = "rain";
 	}
-
-	level.force_weather[10] = "snow";
 }
 
 update_staff_accessories(n_element_index)
