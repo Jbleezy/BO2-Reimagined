@@ -294,7 +294,7 @@ perk_bottle_motion()
 	model = self.bottle_spawn_location.model;
 	self.bottle_spawn_location delete();
 	self.bottle_spawn_location = spawn("script_model", self.origin + (0, 0, 53) - v_float);
-	self.bottle_spawn_location.angles = self.angles + (0, 0, 10);
+	self.bottle_spawn_location.angles = self.angles;
 	self.bottle_spawn_location setmodel(model);
 
 	self.bottle_spawn_location moveto(self.bottle_spawn_location.origin + v_float, putouttime, putouttime * 0.5);
@@ -303,8 +303,24 @@ perk_bottle_motion()
 	self waittill("done_cycling");
 
 	self.bottle_spawn_location.angles = self.angles;
-	self.bottle_spawn_location moveto(self.bottle_spawn_location.origin - v_float, putbacktime, putbacktime * 0.5);
-	self.bottle_spawn_location rotateyaw(90, putbacktime, putbacktime * 0.5);
+
+	if (self.bottle_spawn_location.model == "t6_wpn_zmb_perk_bottle_bear_world")
+	{
+		wait 1;
+
+		self.bottle_spawn_location rotateyaw(1500, 2, 2);
+
+		wait 1.5;
+
+		self.bottle_spawn_location moveto(self.bottle_spawn_location.origin + v_float * 1.0, 0.25, 0.25);
+		self.bottle_spawn_location waittill("movedone");
+		self.bottle_spawn_location moveto(self.bottle_spawn_location.origin + v_float * -5.0, 0.25, 0.25);
+		self.bottle_spawn_location waittill("movedone");
+	}
+	else
+	{
+		self.bottle_spawn_location moveto(self.bottle_spawn_location.origin - v_float * 0.25, putbacktime, putbacktime * 0.5);
+	}
 }
 
 trigger_visible_to_player(player)

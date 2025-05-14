@@ -237,7 +237,7 @@
 * Disabled melee lunging
 * Disabled meleeing while doing falling hands anim
 * Removed ammo counter while doing falling hands anim
-* Can look up and down 90 degrees (previously 85 degrees)
+* Can look up and down 90 degrees (normally 85 degrees)
 * Changed low health threshold from 20% of player's max health to 50 health
 * Decreased normal health regeneration delay from 2.4 seconds to 2 seconds
 * Decreased low health regeneration delay from 5 seconds to 4 seconds
@@ -817,7 +817,7 @@
 * Moves to new location instantly
 * Special sound no longer plays when obtaining the Ray Gun
 * Special sound plays when obtaining the wonder weapon
-* Teddy bear model shows at correct angles when it first appears
+* Teddy bear shows at correct angles when it first appears
 * No longer disappears then reappears at end of Fire Sale if Fire Sale started while Mystery Box was moving
 
 ## Perks
@@ -1442,11 +1442,15 @@
 * Der Wunderfizz: all perks have an equal chance of being obtained
 * Der Wunderfizz: available at all locations and costs 250 points when Fire Sale powerup is active
 * Der Wunderfizz: decreased perk bottle pick up time from 10 seconds to 6 seconds
-* Der Wunderfizz: refunds points when teddy bear perk bottle is shown
+* Der Wunderfizz: players only see perk bottles cycling that they can currently obtain
+* Der Wunderfizz: perk bottle shows at correct position when it first appears
+* Der Wunderfizz: perk bottle is no longer at an angle when cycling
+* Der Wunderfizz: perk bottle no longer moves behind the activation fx after cycling
+* Der Wunderfizz: perk bottle no longer rotates after cycling
+* Der Wunderfizz: teddy bear perk bottle rotates fast, then moves forward, then moves backward before moving to new location
+* Der Wunderfizz: refunds points when teddy bear perk bottle is shown (normally refunds points when orb moves to new location)
 * Der Wunderfizz: moves to new location instantly
 * Der Wunderfizz: can no longer be activated while orb is moving down
-* Der Wunderfizz: players only see perk bottles cycling that they can currently obtain
-* Der Wunderfizz: perk bottle model shows at correct position when it first appears
 * Der Wunderfizz: machines initially start with the top part open
 * Rituals of the Ancients: spend points challenge reward changed from Double Tap perk to a random perk that the player does not have (perk does not change if reward is reopened)
 * Rituals of the Ancients: fixed not being able to pick up One Inch Punch from reward chest after disconnecting and reconnecting to a match
