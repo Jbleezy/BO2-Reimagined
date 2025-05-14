@@ -38,6 +38,13 @@ init()
 		t_birdbath = getent("trigger_oneinchpunch_church_birdbath", "targetname");
 		t_birdbath delete();
 
+		a_special_items = getentarray("quad_special_item", "script_noteworthy");
+
+		foreach (e_special_item in a_special_items)
+		{
+			e_special_item delete();
+		}
+
 		return;
 	}
 
