@@ -1441,6 +1441,7 @@
 * Der Wunderfizz: increased cost from 1500 to 2500
 * Der Wunderfizz: all perks have an equal chance of being obtained
 * Der Wunderfizz: available at all locations and costs 250 points when Fire Sale powerup is active
+* Der Wunderfizz: decreased perk bottle pick up time from 10 seconds to 6 seconds
 * Der Wunderfizz: refunds points when teddy bear perk bottle is shown
 * Der Wunderfizz: moves to new location instantly
 * Der Wunderfizz: can no longer be activated while orb is moving down

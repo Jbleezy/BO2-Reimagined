@@ -216,6 +216,14 @@ machine_think()
 	}
 }
 
+time_out_check()
+{
+	self endon("grab_check");
+	wait 6.0;
+	self notify("time_out_check");
+	flag_set("machine_can_reset");
+}
+
 machine_sounds()
 {
 	self endon("machine_think");
@@ -279,7 +287,7 @@ start_perk_bottle_cycling()
 perk_bottle_motion()
 {
 	putouttime = 3;
-	putbacktime = 10;
+	putbacktime = 6;
 	v_float = anglestoforward(self.angles - (0, 90, 0)) * 10;
 
 	// delete and respawn the bottle model so that it shows at correct origin right away
