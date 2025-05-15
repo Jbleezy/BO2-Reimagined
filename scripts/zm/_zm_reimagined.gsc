@@ -903,7 +903,7 @@ set_client_dvars()
 	    "cg_sonarAttachmentFadeEnemies", 0,
 	    "cg_sonarAttachmentFullscreenThermal", 0,
 	    "cg_sonarAttachmentFullscreenSightCheck", 1,
-	    "r_skinnedCacheVertsMaxScale", 2);
+	    "r_skinnedCacheScale", 2);
 
 	self setClientDvars(
 	    "waypointMaxDrawDist", 0,
