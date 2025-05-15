@@ -308,6 +308,77 @@ ee_mech_zombie_fight_active()
 	return flag("ee_quadrotor_disabled") && !flag("ee_mech_zombie_fight_completed");
 }
 
+mechz_death()
+{
+	self endon("mechz_cleanup");
+	thread mechz_cleanup();
+	self waittill("death");
+	death_origin = self.origin;
+
+	if (isdefined(self.robot_stomped) && self.robot_stomped)
+	{
+		death_origin = death_origin + vectorscale((0, 0, 1), 90.0);
+	}
+
+	self mechz_claw_detach();
+	self release_flamethrower_trigger();
+	self.fx_field = 0;
+	self setclientfield("mechz_fx", self.fx_field);
+	self thread maps\mp\zombies\_zm_spawner::zombie_eye_glow_stop();
+	self mechz_interrupt();
+
+	if (isdefined(self.favoriteenemy))
+	{
+		if (isdefined(self.favoriteenemy.hunted_by))
+		{
+			self.favoriteenemy.hunted_by--;
+		}
+	}
+
+	self thread mechz_explode("tag_powersupply", death_origin);
+
+	if (get_current_zombie_count() == 0 && level.zombie_total == 0)
+	{
+		level.last_mechz_origin = self.origin;
+		level notify("last_mechz_down");
+	}
+
+	if (isplayer(self.attacker))
+	{
+		event = "death";
+
+		if (issubstr(self.damageweapon, "knife_ballistic_"))
+		{
+			event = "ballistic_knife_death";
+		}
+
+		self.attacker delay_thread(4.0, maps\mp\zombies\_zm_audio::create_and_play_dialog, "general", "mech_defeated");
+		self.attacker maps\mp\zombies\_zm_score::player_add_points(event, self.damagemod, self.damagelocation, 1);
+		self.attacker maps\mp\zombies\_zm_stats::increment_client_stat("tomb_mechz_killed", 0);
+		self.attacker maps\mp\zombies\_zm_stats::increment_player_stat("tomb_mechz_killed");
+
+		if (!is_classic())
+		{
+			level.mechz_should_drop_powerup = 1;
+		}
+
+		if (isdefined(level.mechz_should_drop_powerup) && level.mechz_should_drop_powerup)
+		{
+			wait_network_frame();
+			wait_network_frame();
+			level.mechz_should_drop_powerup = 0;
+
+			if (level.powerup_drop_count >= level.zombie_vars["zombie_powerup_drop_max_per_round"])
+			{
+				level.powerup_drop_count = level.zombie_vars["zombie_powerup_drop_max_per_round"] - 1;
+			}
+
+			level.zombie_vars["zombie_drop_item"] = 1;
+			level thread maps\mp\zombies\_zm_powerups::powerup_drop(self.origin);
+		}
+	}
+}
+
 mechz_explode(str_tag, death_origin)
 {
 	wait 2.0;
