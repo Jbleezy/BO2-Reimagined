@@ -626,6 +626,21 @@ tomb_zombie_death_event_callback()
 	}
 }
 
+tomb_custom_divetonuke_explode(attacker, origin)
+{
+	maps\mp\zombies\_zm_perk_divetonuke::divetonuke_explode(attacker, origin);
+}
+
+tomb_custom_electric_cherry_reload_attack()
+{
+	maps\mp\zombies\_zm_perk_electric_cherry::electric_cherry_reload_attack();
+}
+
+tomb_custom_electric_cherry_laststand()
+{
+	maps\mp\zombies\_zm_perk_electric_cherry::electric_cherry_laststand();
+}
+
 sndmeleewpnsound()
 {
 	// added to all maps in _zm_reimagined

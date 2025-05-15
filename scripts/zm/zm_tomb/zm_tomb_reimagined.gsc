@@ -11,6 +11,9 @@ main()
 	replaceFunc(maps\mp\zm_tomb::working_zone_init, scripts\zm\replaced\zm_tomb::working_zone_init);
 	replaceFunc(maps\mp\zm_tomb::tomb_can_track_ammo_custom, scripts\zm\replaced\zm_tomb::tomb_can_track_ammo_custom);
 	replaceFunc(maps\mp\zm_tomb::tomb_zombie_death_event_callback, scripts\zm\replaced\zm_tomb::tomb_zombie_death_event_callback);
+	replaceFunc(maps\mp\zm_tomb::tomb_custom_divetonuke_explode, scripts\zm\replaced\zm_tomb::tomb_custom_divetonuke_explode);
+	replaceFunc(maps\mp\zm_tomb::tomb_custom_electric_cherry_reload_attack, scripts\zm\replaced\zm_tomb::tomb_custom_electric_cherry_reload_attack);
+	replaceFunc(maps\mp\zm_tomb::tomb_custom_electric_cherry_laststand, scripts\zm\replaced\zm_tomb::tomb_custom_electric_cherry_laststand);
 	replaceFunc(maps\mp\zm_tomb::sndmeleewpnsound, scripts\zm\replaced\zm_tomb::sndmeleewpnsound);
 	replaceFunc(maps\mp\zm_tomb_gamemodes::init, scripts\zm\replaced\zm_tomb_gamemodes::init);
 	replaceFunc(maps\mp\zm_tomb_main_quest::main_quest_init, scripts\zm\replaced\zm_tomb_main_quest::main_quest_init);

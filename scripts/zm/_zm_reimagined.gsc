@@ -735,8 +735,6 @@ post_init()
 	level.playersuicideallowed = undefined;
 	level.disable_free_perks_before_power = undefined;
 	level.custom_random_perk_weights = undefined;
-	level.zombiemode_divetonuke_perk_func = maps\mp\zombies\_zm_perk_divetonuke::divetonuke_explode;
-	level.custom_laststand_func = maps\mp\zombies\_zm_perk_electric_cherry::electric_cherry_laststand;
 	level.etrap_damage = maps\mp\zombies\_zm::ai_zombie_health(255);
 	level.slipgun_damage = maps\mp\zombies\_zm::ai_zombie_health(255);
 	level.should_respawn_func = ::should_respawn;
