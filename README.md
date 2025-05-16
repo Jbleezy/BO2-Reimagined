@@ -863,6 +863,7 @@
 * Increases bullet headshot damage by 100%
 * Move faster while aiming
 * Decreases sprint recovery time
+* Fixed not decreasing aim spread
 
 ### Mule Kick
 * Added additional weapon indicator

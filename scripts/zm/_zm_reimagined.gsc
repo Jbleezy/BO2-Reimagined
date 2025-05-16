@@ -808,6 +808,7 @@ set_dvars()
 	setDvar("penetrationCount", 100);
 
 	setDvar("perk_weapRateEnhanced", 0);
+	setDvar("perk_weapSpreadAds", 1);
 	setDvar("perk_speedMultiplier", 1.1);
 
 	setDvar("riotshield_melee_damage_scale", 1);
