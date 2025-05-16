@@ -1647,7 +1647,7 @@ actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, 
 		return damage;
 	}
 
-	if (scripts\zm\_zm_reimagined::is_tazer_weapon(weapon) || weapon == "jetgun_zm" || weapon == "riotshield_zm")
+	if (scripts\zm\_zm_reimagined::is_tazer_weapon(weapon) && meansofdeath == "MOD_MELEE" || weapon == "jetgun_zm" || weapon == "riotshield_zm")
 	{
 		self.knuckles_extinguish_flames = 1;
 	}
