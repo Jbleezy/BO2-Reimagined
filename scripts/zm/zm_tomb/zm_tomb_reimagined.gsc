@@ -180,6 +180,7 @@ init()
 	spawn_custom_wallbuy_chalks();
 	spawn_custom_perk_machine_pipes();
 	move_additionalprimaryweapon_machine();
+	change_player_respawn_points();
 	change_stargate_teleport_return_player_angles();
 	delete_air_crystal_biplane_ent();
 	power_up_all_generators();
@@ -383,6 +384,20 @@ move_additionalprimaryweapon_machine()
 			}
 
 			trig.machine.origin += anglestoup(trig.clip.angles) * 5;
+		}
+	}
+}
+
+change_player_respawn_points()
+{
+	respawnpoints = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
+
+	foreach (respawnpoint in respawnpoints)
+	{
+		if (respawnpoint.script_noteworthy == "zone_village_5")
+		{
+			respawnpoint.script_noteworthy = "zone_village_1";
+			break;
 		}
 	}
 }
