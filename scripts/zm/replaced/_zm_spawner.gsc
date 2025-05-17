@@ -61,7 +61,7 @@ zombie_damage(mod, hit_location, hit_origin, player, amount, team)
 		self [[self.zombie_damage_fx_func]](mod, hit_location, hit_origin, player);
 	}
 
-	if (is_placeable_mine(self.damageweapon))
+	if (is_placeable_mine(self.damageweapon) && mod != "MOD_IMPACT")
 	{
 		damage = level.round_number * 150;
 
