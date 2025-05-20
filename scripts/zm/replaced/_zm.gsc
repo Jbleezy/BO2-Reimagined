@@ -2951,7 +2951,7 @@ last_stand_pistol_swap()
 			left_clip_amt_add = amt;
 		}
 
-		self scripts\zm\_zm_reimagined::set_weapon_ammo_clip_left(self.laststandpistol, left_clip_amt_init + left_clip_amt_add);
+		self setweaponammoclip(dual_wield_wep, left_clip_amt_init + left_clip_amt_add);
 
 		amt -= left_clip_amt_add;
 	}
@@ -3005,7 +3005,7 @@ last_stand_restore_pistol_ammo(only_store_info = false)
 
 					if ("none" != dual_wield_name)
 					{
-						self scripts\zm\_zm_reimagined::set_weapon_ammo_clip_left(weapon, self.stored_weapon_info[weapon].left_clip_amt);
+						self setweaponammoclip(dual_wield_name, self.stored_weapon_info[weapon].left_clip_amt);
 					}
 
 					self setweaponammostock(weapon, self.stored_weapon_info[weapon].stock_amt);
@@ -3082,7 +3082,7 @@ last_stand_restore_pistol_ammo(only_store_info = false)
 
 				if ("none" != dual_wield_name)
 				{
-					self scripts\zm\_zm_reimagined::set_weapon_ammo_clip_left(weapon, self.stored_weapon_info[weapon].left_clip_amt);
+					self setweaponammoclip(dual_wield_name, self.stored_weapon_info[weapon].left_clip_amt);
 				}
 
 				self setweaponammostock(weapon, self.stored_weapon_info[weapon].stock_amt);

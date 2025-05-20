@@ -1482,30 +1482,6 @@ bleedout_bar_hud_updatebar(hud)
 	}
 }
 
-// setweaponammoclip on dual wield left weapons only works when the weapon is given
-set_weapon_ammo_clip_left(weapon, amount)
-{
-	dual_wield_weapon = weaponDualWieldWeaponName(weapon);
-	alt_weapon = weaponAltWeaponName(weapon);
-
-	clip_ammo = self getweaponammoclip(weapon);
-	stock_ammo = self getweaponammostock(weapon);
-	alt_clip_ammo = self getweaponammoclip(alt_weapon);
-	alt_stock_ammo = self getweaponammostock(alt_weapon);
-
-	self takeweapon(weapon);
-	self giveweapon(weapon, 0, self maps\mp\zombies\_zm_weapons::get_pack_a_punch_weapon_options(weapon));
-
-	self setweaponammoclip(weapon, clip_ammo);
-	self setweaponammostock(weapon, stock_ammo);
-	self setweaponammoclip(alt_weapon, alt_clip_ammo);
-	self setweaponammostock(alt_weapon, alt_stock_ammo);
-
-	self setweaponammoclip(dual_wield_weapon, amount);
-
-	self seteverhadweaponall(1);
-}
-
 setscoreboardcolumns_gametype()
 {
 	if (level.scr_zm_ui_gametype != "zgrief")
@@ -3245,12 +3221,11 @@ refill_after_time(primary)
 			curr_dw_ammo_clip = self getWeaponAmmoClip(curr_dw_primary);
 		}
 
-		// setWeaponAmmoClip changes both clips ammo on dual wield weapons so must calculate both left and right ammo before setting ammo
 		self setWeaponAmmoClip(primary, ammo_clip + missing_clip);
 
 		if (dw_primary != "none")
 		{
-			self set_weapon_ammo_clip_left(primary, dw_ammo_clip + dw_missing_clip);
+			self setWeaponAmmoClip(dw_primary, dw_ammo_clip + dw_missing_clip);
 		}
 
 		self setWeaponAmmoStock(primary, ammo_stock);
@@ -3258,7 +3233,7 @@ refill_after_time(primary)
 		// restore current dual wield weapon clip ammo
 		if (dw_primary != "none" && curr_dw_primary != "none")
 		{
-			self set_weapon_ammo_clip_left(curr_primary, curr_dw_ammo_clip);
+			self setWeaponAmmoClip(curr_dw_primary, curr_dw_ammo_clip);
 		}
 	}
 

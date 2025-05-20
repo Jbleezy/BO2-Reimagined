@@ -611,13 +611,17 @@ empty_clip_powerup(drop_item, player)
 			dual_wield_weapon = weaponDualWieldWeaponName(weapon);
 			alt_weapon = weaponAltWeaponName(weapon);
 
+			players[i] setweaponammoclip(weapon, 0);
+
 			if (dual_wield_weapon != "none")
 			{
-				players[i] scripts\zm\_zm_reimagined::set_weapon_ammo_clip_left(weapon, 0);
+				players[i] setweaponammoclip(dual_wield_weapon, 0);
 			}
 
-			players[i] setweaponammoclip(weapon, 0);
-			players[i] setweaponammoclip(alt_weapon, 0);
+			if (alt_weapon != "none")
+			{
+				players[i] setweaponammoclip(alt_weapon, 0);
+			}
 		}
 
 		if (isDefined(players[i] get_player_lethal_grenade()))
