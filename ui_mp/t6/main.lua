@@ -222,6 +222,7 @@ end
 
 CoD.SetDvars = function()
 	Engine.SetDvar("sv_voiceQuality", 9)
+	Engine.SetDvar("r_skinnedCacheScale", 2)
 end
 
 LUI.createMenu.main = function()
