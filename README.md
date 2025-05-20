@@ -58,7 +58,6 @@
 		* [Vector K10](#vector-k10)
 	* [Light Machine Guns](#light-machine-guns)
 		* [HAMR](#hamr)
-		* [MG08/15](#mg0815)
 		* [Mk 48](#mk-48)
 		* [QBB LSW](#qbb-lsw)
 	* [Sniper Rifles](#sniper-rifles)
@@ -329,6 +328,8 @@
 * Added alt weapon names on HUD
 * Added camo to all attachments
 * Added proper melee swing sound to all melee weapons
+* Ammo gets added to the clip at the same time that it gets added in the reload anim on all weapons
+* Removed aim spread on all weapons (except shotguns)
 * Fixed world model position of certain melee weapons
 * Fixed projectile angles of certain grenades and projectile weapons
 * Fixed alt weapons being switched from when trading weapons
@@ -372,7 +373,6 @@
 * Upgraded: decreased last stand ammo from 2 clips to 1 clip
 
 #### Mauser C96
-* Ammo gets added to the clip at the same time that it gets added in the reload anim
 * Upgraded: increased move speed while aiming from 100% to 110%
 * Upgraded: fixed not being able to melee while aiming
 * Upgraded: decreased last stand ammo from 2 clips to 1 clip
@@ -414,7 +414,6 @@
 
 #### SMR
 * Replaces M14
-* Removed aim spread
 * Unupgraded: increased damage from 80 to 100
 * Unupgraded: decreased clip ammo from 20 to 10
 * Unupgraded: decreased stock ammo from 140 to 100
@@ -424,7 +423,6 @@
 * Upgraded: decreased stock ammo from 420 to 200
 
 #### STG-44
-* Ammo gets added to the clip at the same time that it gets added in the reload anim
 * Upgraded: decreased stock ammo from 330 to 300
 * Upgraded: changed weapon name from "Spatz-447 +" to "Spatz-447"
 
@@ -457,7 +455,6 @@
 
 #### MP40
 * Increased move speed while aiming from 100% to 157.5% (move speed multiplied by 1.5)
-* Ammo gets added to the clip at the same time that it gets added in the reload anim
 * Adjustable Stock: increased move speed while aiming from 250% to 262.5% (move speed multiplied by 2.5)
 
 #### MP7
@@ -485,9 +482,6 @@
 #### HAMR
 * Decreased recoil
 * Upgraded: changed attachment from None to Fore Grip
-
-#### MG08/15
-* Ammo gets added to the clip at the same time that it gets added in the reload anim
 
 #### Mk 48
 * Replaces RPD (also added on Buried)
@@ -570,7 +564,6 @@
 * Added first raise and empty fire sound from Mob of the Dead to all maps
 * Increased move speed from 100% to 105%
 * Increased move speed while aiming from 100% to 157.5% (move speed multiplied by 1.5)
-* Ammo gets added to the clip at the same time that it gets added in the reload anim
 * No longer limited to 4 players
 * Unupgraded: increased impact damage from 1000 to 1500 (same as max splash damage)
 * Upgraded: increased impact damage from 1000 to 2000 (same as max splash damage)
@@ -580,7 +573,6 @@
 * Can be obtained if player has Ray Gun
 * Increased move speed from 100% to 105%
 * Increased move speed while aiming from 100% to 157.5% (move speed multiplied by 1.5)
-* Ammo gets added to the clip at the same time that it gets added in the reload anim
 * Limited to 1 player on all maps
 * Decreased last stand ammo from 3 clips to 1 clip
 * Unupgraded: increased stock ammo from 162 to 168
