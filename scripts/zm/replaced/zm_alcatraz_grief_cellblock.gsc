@@ -326,3 +326,17 @@ main()
 	level notify("Pack_A_Punch_on");
 	wait_network_frame();
 }
+
+grief_treasure_chest_init()
+{
+	chest1 = getstruct("start_chest", "script_noteworthy");
+	chest2 = getstruct("cafe_chest", "script_noteworthy");
+	setdvar("disableLookAtEntityLogic", 1);
+	level.chests = [];
+	level.chests[level.chests.size] = chest1;
+	level.chests[level.chests.size] = chest2;
+
+	chest_names = array("start_chest", "cafe_chest");
+	chest_name = random(chest_names);
+	maps\mp\zombies\_zm_magicbox::treasure_chest_init(chest_name);
+}

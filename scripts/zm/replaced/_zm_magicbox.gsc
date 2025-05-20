@@ -92,7 +92,7 @@ init_starting_chest_location(start_chest_name)
 	{
 		for (i = 0; i < level.chests.size; i++)
 		{
-			if (isdefined(level.random_pandora_box_start) && level.random_pandora_box_start == 1)
+			if (is_classic() && isdefined(level.random_pandora_box_start) && level.random_pandora_box_start == 1)
 			{
 				if (start_chest_found || isdefined(level.chests[i].start_exclude) && level.chests[i].start_exclude == 1)
 				{
