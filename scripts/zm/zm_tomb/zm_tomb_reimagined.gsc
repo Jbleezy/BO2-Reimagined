@@ -157,8 +157,6 @@ init()
 
 	if (!is_classic())
 	{
-		precachemodel("p6_zm_tm_wallbuy_five_seven");
-
 		level.zombie_include_weapons["beacon_zm"] = 1;
 		level.zombie_weapons["beacon_zm"].is_in_box = 1;
 
