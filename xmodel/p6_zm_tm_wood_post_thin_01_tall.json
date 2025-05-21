@@ -1,0 +1,17 @@
+{
+    "_type": "xmodel",
+    "_version": 1,
+    "flags": 2097152,
+    "lightingOriginOffset": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.5
+    },
+    "lightingOriginRange": 0.5,
+    "lods": [
+        {
+            "distance": 1280.0,
+            "file": "model_export/p6_zm_tm_wood_post_thin_01_tall_lod0.GLB"
+        }
+    ]
+}
