@@ -96,6 +96,7 @@ machine_think()
 	self setclientfield("turn_on_location_indicator", 1);
 	self showpart("j_ball");
 	self thread update_animation("start");
+	machines = getentarray("random_perk_machine", "targetname");
 
 	self.machine_user = level;
 
@@ -123,7 +124,7 @@ machine_think()
 			continue;
 		}
 
-		if (self.num_time_used >= self.num_til_moved)
+		if (machines.size > 1 && self.num_time_used >= self.num_til_moved)
 		{
 			level.random_perk_moves++;
 			self notify("pmmove");
@@ -166,7 +167,7 @@ machine_think()
 			wait 3.0;
 			self notify("done_cycling");
 
-			if (self.num_time_used >= self.num_til_moved)
+			if (machines.size > 1 && self.num_time_used >= self.num_til_moved)
 			{
 				level.random_perk_moves++;
 				self.bottle_spawn_location setmodel("t6_wpn_zmb_perk_bottle_bear_world");
