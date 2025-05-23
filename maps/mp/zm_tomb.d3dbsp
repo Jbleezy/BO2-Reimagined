@@ -27394,7 +27394,7 @@
 "guid" "C4E18241"
 }
 {
-"script_string" "zclassic_perks_tomb"
+"script_string" "zclassic_perks_tomb zstandard_perks_excavation_site zgrief_perks_excavation_site"
 "script_noteworthy" "specialty_weapupgrade"
 "targetname" "zm_perk_machine"
 "angles" "0 270 0"
@@ -32913,4 +32913,40 @@
 "origin" "-704 2653 -184"
 "spawnflags" "2"
 "targetname" "pap_cs_trenches"
+}
+{
+"script_string" "p6_zm_tm_wallbuy_ballista"
+"script_noteworthy" "zstandard_excavation_site, zgrief_excavation_site"
+"origin" "1991 802 171"
+"angles" "0 90 0"
+"model" "t6_wpn_sniper_ballista_world"
+"classname" "script_struct"
+"targetname" "pf2221_auto39"
+}
+{
+"script_noteworthy" "zstandard_excavation_site, zgrief_excavation_site"
+"origin" "1991 802 171"
+"angles" "0 90 0"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "ballista_zm"
+"targetname" "weapon_upgrade"
+"target" "pf2221_auto39"
+}
+{
+"script_string" "p6_zm_tm_wallbuy_870mcs"
+"script_noteworthy" "zstandard_excavation_site, zgrief_excavation_site"
+"origin" "-2432 593 268"
+"angles" "0 0 0"
+"model" "t6_wpn_shotty_870mcs_world"
+"classname" "script_struct"
+"targetname" "pf2221_auto40"
+}
+{
+"script_noteworthy" "zstandard_excavation_site, zgrief_excavation_site"
+"origin" "-2432 593 268"
+"angles" "0 0 0"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "870mcs_zm"
+"targetname" "weapon_upgrade"
+"target" "pf2221_auto40"
 }

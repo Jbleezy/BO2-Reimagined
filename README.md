@@ -161,6 +161,7 @@
 		* [Docks](#docks)
 	* [Origins](#origins)
 		* [Trenches](#trenches)
+		* [Excavation Site](#excavation-site)
 * [Game Modes](#game-modes)
 	* [Encounter](#encounter)
 		* [Grief](#grief)
@@ -1473,6 +1474,12 @@
 * Der Wunderfizz
 * Pack-a-Punch
 * One Inch Punch buyable for 9000 points at Rituals of the Ancients reward chest
+
+#### Excavation Site
+* Wallbuys: Ballista, Vector K10, MP40, Remington 870 MCS, Bouncing Betty
+* Perks: Jugger-Nog, Stamin-Up
+* Der Wunderfizz
+* Pack-a-Punch
 
 ## Game Modes
 

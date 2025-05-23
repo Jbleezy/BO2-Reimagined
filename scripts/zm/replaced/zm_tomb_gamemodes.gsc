@@ -16,11 +16,15 @@ init()
 	add_map_location_gamemode("zclassic", "tomb", maps\mp\zm_tomb_classic::precache, maps\mp\zm_tomb_classic::main);
 
 	add_map_location_gamemode("zstandard", "trenches", scripts\zm\locs\zm_tomb_loc_trenches::precache, scripts\zm\locs\zm_tomb_loc_trenches::main);
+	add_map_location_gamemode("zstandard", "excavation_site", scripts\zm\locs\zm_tomb_loc_excavation_site::precache, scripts\zm\locs\zm_tomb_loc_excavation_site::main);
 
 	add_map_location_gamemode("zgrief", "trenches", scripts\zm\locs\zm_tomb_loc_trenches::precache, scripts\zm\locs\zm_tomb_loc_trenches::main);
+	add_map_location_gamemode("zgrief", "excavation_site", scripts\zm\locs\zm_tomb_loc_excavation_site::precache, scripts\zm\locs\zm_tomb_loc_excavation_site::main);
 
 	scripts\zm\replaced\utility::add_struct_location_gamemode_func("zstandard", "trenches", scripts\zm\locs\zm_tomb_loc_trenches::struct_init);
 	scripts\zm\replaced\utility::add_struct_location_gamemode_func("zgrief", "trenches", scripts\zm\locs\zm_tomb_loc_trenches::struct_init);
+	scripts\zm\replaced\utility::add_struct_location_gamemode_func("zstandard", "excavation_site", scripts\zm\locs\zm_tomb_loc_excavation_site::struct_init);
+	scripts\zm\replaced\utility::add_struct_location_gamemode_func("zgrief", "excavation_site", scripts\zm\locs\zm_tomb_loc_excavation_site::struct_init);
 }
 
 zstandard_preinit()
