@@ -26,11 +26,6 @@
 
 main_quest_init()
 {
-	if (!is_classic())
-	{
-		return;
-	}
-
 	flag_init("dug");
 	flag_init("air_open");
 	flag_init("fire_open");
@@ -42,7 +37,6 @@ main_quest_init()
 	flag_init("chamber_puzzle_cheat");
 	flag_init("activate_zone_crypt");
 	level.callbackvehicledamage = ::aircrystalbiplanecallback_vehicledamage;
-	level.game_mode_custom_onplayerdisconnect = ::player_disconnect_callback;
 	onplayerconnect_callback(::onplayerconnect);
 	staff_air = getent("prop_staff_air", "targetname");
 	staff_fire = getent("prop_staff_fire", "targetname");
@@ -146,7 +140,6 @@ main_quest_init()
 	}
 
 	level.staffs_charged = 0;
-	array_thread(level.zombie_spawners, ::add_spawn_function, ::zombie_spawn_func);
 	level thread watch_for_staff_upgrades();
 	level thread chambers_init();
 	level thread maps\mp\zm_tomb_quest_air::main();
@@ -155,17 +148,23 @@ main_quest_init()
 	level thread maps\mp\zm_tomb_quest_elec::main();
 	level thread maps\mp\zm_tomb_quest_crypt::main();
 	level thread maps\mp\zm_tomb_chamber::main();
-	level thread maps\mp\zm_tomb_vo::watch_occasional_line("puzzle", "puzzle_confused", "vo_puzzle_confused");
-	level thread maps\mp\zm_tomb_vo::watch_occasional_line("puzzle", "puzzle_good", "vo_puzzle_good");
-	level thread maps\mp\zm_tomb_vo::watch_occasional_line("puzzle", "puzzle_bad", "vo_puzzle_bad");
-	level thread maps\mp\zm_tomb_vo::watch_one_shot_samantha_clue("vox_sam_ice_staff_clue_0", "sam_clue_dig", "elemental_staff_water_all_pieces_found");
-	level thread maps\mp\zm_tomb_vo::watch_one_shot_samantha_clue("vox_sam_fire_staff_clue_0", "sam_clue_mechz", "mechz_killed");
-	level thread maps\mp\zm_tomb_vo::watch_one_shot_samantha_clue("vox_sam_fire_staff_clue_1", "sam_clue_biplane", "biplane_down");
-	level thread maps\mp\zm_tomb_vo::watch_one_shot_samantha_clue("vox_sam_fire_staff_clue_2", "sam_clue_zonecap", "staff_piece_capture_complete");
-	level thread maps\mp\zm_tomb_vo::watch_one_shot_samantha_clue("vox_sam_lightning_staff_clue_0", "sam_clue_tank", "elemental_staff_lightning_all_pieces_found");
-	level thread maps\mp\zm_tomb_vo::watch_one_shot_samantha_clue("vox_sam_wind_staff_clue_0", "sam_clue_giant", "elemental_staff_air_all_pieces_found");
-	level.dig_spawners = getentarray("zombie_spawner_dig", "script_noteworthy");
-	array_thread(level.dig_spawners, ::add_spawn_function, ::dug_zombie_spawn_init);
+
+	if (is_classic())
+	{
+		level.game_mode_custom_onplayerdisconnect = ::player_disconnect_callback;
+		array_thread(level.zombie_spawners, ::add_spawn_function, ::zombie_spawn_func);
+		level thread maps\mp\zm_tomb_vo::watch_occasional_line("puzzle", "puzzle_confused", "vo_puzzle_confused");
+		level thread maps\mp\zm_tomb_vo::watch_occasional_line("puzzle", "puzzle_good", "vo_puzzle_good");
+		level thread maps\mp\zm_tomb_vo::watch_occasional_line("puzzle", "puzzle_bad", "vo_puzzle_bad");
+		level thread maps\mp\zm_tomb_vo::watch_one_shot_samantha_clue("vox_sam_ice_staff_clue_0", "sam_clue_dig", "elemental_staff_water_all_pieces_found");
+		level thread maps\mp\zm_tomb_vo::watch_one_shot_samantha_clue("vox_sam_fire_staff_clue_0", "sam_clue_mechz", "mechz_killed");
+		level thread maps\mp\zm_tomb_vo::watch_one_shot_samantha_clue("vox_sam_fire_staff_clue_1", "sam_clue_biplane", "biplane_down");
+		level thread maps\mp\zm_tomb_vo::watch_one_shot_samantha_clue("vox_sam_fire_staff_clue_2", "sam_clue_zonecap", "staff_piece_capture_complete");
+		level thread maps\mp\zm_tomb_vo::watch_one_shot_samantha_clue("vox_sam_lightning_staff_clue_0", "sam_clue_tank", "elemental_staff_lightning_all_pieces_found");
+		level thread maps\mp\zm_tomb_vo::watch_one_shot_samantha_clue("vox_sam_wind_staff_clue_0", "sam_clue_giant", "elemental_staff_air_all_pieces_found");
+		level.dig_spawners = getentarray("zombie_spawner_dig", "script_noteworthy");
+		array_thread(level.dig_spawners, ::add_spawn_function, ::dug_zombie_spawn_init);
+	}
 }
 
 zombie_spawn_func()
