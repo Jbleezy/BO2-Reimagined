@@ -1396,10 +1396,12 @@
 * Increased volume of crafting sound and item pick up sound
 * Moved player spawn point in Workshop Upstairs zone to Workshop Downstairs zone
 * Zombies no longer spawn in the Generator 5 Tank Route 5 zone when players are in the No Man's Land Back Path 1 zone (and vice versa)
-* Zombies no longer spawn in the Generator 6 After Tank Stop 3 zone when players are in the No Man's Land Back Path 3 zone (and vice versa)
-* Zombies no longer spawn in the Generator 6 After Tank Stop 3 zone when players are in the Generator 6 After Tank Stop 1 zone (and vice versa)
-* Zombies spawn in the Generator 6 After Tank Stop 3 zone when players are in the Generator 6 After Tank Stop 2 zone (and vice versa)
-* Zombies spawn in the Generator 6 Before Tank Stop 3 zone when players are in the Generator 5 Tank Route 5 zone before the debris between the No Man's Land Back Path 2 zone and the Generator 6 Left Footstep zone is cleared
+* Zombies no longer spawn in the Generator 6 After Tank Station 3 zone when players are in the No Man's Land Back Path 3 zone (and vice versa)
+* Zombies no longer spawn in the Generator 6 After Tank Station 3 zone when players are in the Generator 6 After Tank Station 1 zone (and vice versa)
+* Zombies spawn in the Generator 6 After Tank Station 3 zone when players are in the Generator 6 After Tank Station 2 zone (and vice versa)
+* Zombies spawn in the Generator 6 Before Tank Station 3 zone when players are in the Generator 5 Tank Route 5 zone before the debris between the No Man's Land Back Path 2 zone and the Generator 6 Left Footstep zone is cleared
+* Zombies spawn in the Above Generator 3 Bunker zone when players are in the Generator 3 Bunker 2 zone before any player has entered the Above Generator 3 Bunker zone
+* Zombies spawn in the Above Generator 3 Bunker zone when players are in the Generator 4 Tank Route 6 zone before any player has entered the Above Generator 3 Bunker zone
 * Generators: changed cost from 200-800 depending on how many players to 500
 * Generators: increased capture reward points from 100 to 500
 * Generators: changed capture time from 10-40 seconds depending on how many players to 20 seconds

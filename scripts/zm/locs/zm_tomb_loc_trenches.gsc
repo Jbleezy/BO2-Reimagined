@@ -136,7 +136,7 @@ open_doors()
 
 disable_zones()
 {
-	valid_zones = array("zone_start", "zone_start_a", "zone_start_b", "zone_bunker_1", "zone_bunker_1a", "zone_bunker_2", "zone_bunker_2a", "zone_bunker_3a", "zone_bunker_3b", "zone_bunker_4a", "zone_bunker_4b", "zone_bunker_4c", "zone_bunker_4d", "zone_bunker_5a");
+	valid_zones = array("zone_start", "zone_start_a", "zone_start_b", "zone_bunker_1", "zone_bunker_1a", "zone_bunker_2", "zone_bunker_2a", "zone_bunker_3a", "zone_bunker_3b", "zone_bunker_4a", "zone_bunker_4b", "zone_bunker_4c", "zone_bunker_4d", "zone_bunker_5a", "zone_bunker_6");
 	spawn_points = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
 
 	foreach (index, zone in level.zones)
