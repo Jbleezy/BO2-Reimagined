@@ -232,7 +232,7 @@
 * Increased strafing move speed from 80% to 100%
 * Decreased sprint time needed to be able to dive from 0.25 seconds to 0.1 seconds
 * Can move immediately after diving
-* Can dive again right away after just diving
+* Can dive again immediately after diving
 * Increased melee range by 16% (same as Black Ops 1)
 * Disabled melee lunging
 * Disabled meleeing while doing falling hands anim
@@ -1445,7 +1445,9 @@
 * Der Wunderfizz: refunds points when teddy bear perk bottle is shown (normally refunds points when orb moves to new location)
 * Der Wunderfizz: moves to new location instantly
 * Der Wunderfizz: can no longer be activated while orb is moving down
+* Der Wunderfizz: can be activated while the previous activator is drinking the perk
 * Der Wunderfizz: machines initially start with the top part open
+* Der Wunderfizz: fixed sound and fx not playing if activated immediately after becoming activatable
 * Rituals of the Ancients: spend points challenge reward changed from Double Tap perk to a random perk that the player does not have (perk does not change if reward is reopened)
 * Rituals of the Ancients: fixed not being able to pick up One Inch Punch from reward chest after disconnecting and reconnecting to a match
 * Soul boxes: decreased number of souls to close from 30 to 20

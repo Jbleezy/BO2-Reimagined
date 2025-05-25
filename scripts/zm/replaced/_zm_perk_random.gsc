@@ -198,7 +198,6 @@ machine_think()
 			self waittill_either("grab_check", "time_out_check");
 			self.grab_perk_hint = 0;
 			thread maps\mp\zombies\_zm_unitrigger::unregister_unitrigger(self.unitrigger_stub);
-			thread maps\mp\zombies\_zm_unitrigger::register_static_unitrigger(self.unitrigger_stub, ::wunderfizz_unitrigger_think);
 			self notify("pmstop");
 
 			if (player.num_perks >= player get_player_perk_purchase_limit())
@@ -210,10 +209,13 @@ machine_think()
 			self.machine_user = undefined;
 			self.bottle_spawn_location setmodel("tag_origin");
 			self thread update_animation("idle");
+
+			wait 0.5;
+
+			thread maps\mp\zombies\_zm_unitrigger::register_static_unitrigger(self.unitrigger_stub, ::wunderfizz_unitrigger_think);
+
 			break;
 		}
-
-		flag_wait("machine_can_reset");
 	}
 }
 
