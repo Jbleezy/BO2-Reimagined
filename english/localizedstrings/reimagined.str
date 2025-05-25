@@ -1080,13 +1080,13 @@ REFERENCE           ZM_TOMB_ZONE_ICE_STAIRS
 LANG_ENGLISH        "Ice Tunnel"
 
 REFERENCE           ZM_TOMB_ZONE_BUNKER_6
-LANG_ENGLISH        "Above Generator 3 Bunker"
+LANG_ENGLISH        "Generator 3 Above Bunker"
 
 REFERENCE           ZM_TOMB_ZONE_NML_20
 LANG_ENGLISH        "Above No Man's Land"
 
 REFERENCE           ZM_TOMB_ZONE_VILLAGE_6
-LANG_ENGLISH        "Behind Generator 6 Church"
+LANG_ENGLISH        "Generator 6 Behind Church"
 
 REFERENCE           ZM_TOMB_ZONE_CHAMBER_0
 LANG_ENGLISH        "The Crazy Place Lightning Chamber"

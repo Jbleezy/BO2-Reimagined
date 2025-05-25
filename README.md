@@ -643,7 +643,7 @@
 * Projectiles no longer seek toward zombies
 * Added projectile indicator
 * Removed projectile upward speed
-* Deadshot improves accuracy
+* Deadshot Daiquiri improves accuracy
 * Stuck zombie counts as a kill
 * Unupgraded: decreased stock ammo from 30 bursts to 15 bursts
 * Unupgraded: changed weapon name from "Acid Gat" to "Acidgat"
@@ -1400,8 +1400,8 @@
 * Zombies no longer spawn in the Generator 6 After Tank Station 3 zone when players are in the Generator 6 After Tank Station 1 zone (and vice versa)
 * Zombies spawn in the Generator 6 After Tank Station 3 zone when players are in the Generator 6 After Tank Station 2 zone (and vice versa)
 * Zombies spawn in the Generator 6 Before Tank Station 3 zone when players are in the Generator 5 Tank Route 5 zone before the debris between the No Man's Land Back Path 2 zone and the Generator 6 Left Footstep zone is cleared
-* Zombies spawn in the Above Generator 3 Bunker zone when players are in the Generator 3 Bunker 2 zone before any player has entered the Above Generator 3 Bunker zone
-* Zombies spawn in the Above Generator 3 Bunker zone when players are in the Generator 4 Tank Route 6 zone before any player has entered the Above Generator 3 Bunker zone
+* Zombies spawn in the Generator 3 Above Bunker zone when players are in the Generator 3 Bunker 2 zone before any player has entered the Generator 3 Above Bunker zone
+* Zombies spawn in the Generator 3 Above Bunker zone when players are in the Generator 4 Tank Route 6 zone before any player has entered the Generator 3 Above Bunker zone
 * Generators: changed cost from 200-800 depending on how many players to 500
 * Generators: increased capture reward points from 100 to 500
 * Generators: changed capture time from 10-40 seconds depending on how many players to 20 seconds
@@ -1469,7 +1469,7 @@
 * Quest (raise hell step): all staffs must be fully charged for souls to be collected
 * Quest (raise hell step): zombies in The Crazy Place get knocked down during the screen flash after collecting all of the souls
 * Quest (freedom step): teleport trigger can be triggered without looking at it
-* Fixed being able to hit a death barrier when jumping off the Above Generator 3 Bunker zone
+* Fixed being able to hit a death barrier when jumping off the Generator 3 Above Bunker zone
 * Fixed front part of tank model spawning in the Excavation Site Level 2 zone
 
 #### Trenches
