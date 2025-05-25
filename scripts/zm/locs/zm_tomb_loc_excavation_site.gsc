@@ -138,7 +138,7 @@ enable_zones()
 
 disable_zones()
 {
-	valid_zones = array("zone_nml_0", "zone_nml_1", "zone_nml_2", "zone_nml_2b", "zone_nml_3", "zone_nml_4", "zone_nml_5", "zone_nml_6", "zone_nml_7", "zone_nml_8", "zone_nml_9", "zone_nml_10", "zone_nml_10a", "zone_nml_11", "zone_nml_12", "zone_nml_13", "zone_nml_14", "zone_nml_15", "zone_nml_16", "zone_nml_17", "zone_nml_18", "zone_nml_20", "zone_nml_farm");
+	valid_zones = array("zone_nml_0", "zone_nml_1", "zone_nml_2", "zone_nml_2b", "zone_nml_3", "zone_nml_4", "zone_nml_5", "zone_nml_6", "zone_nml_7", "zone_nml_7a", "zone_nml_8", "zone_nml_9", "zone_nml_9a", "zone_nml_10", "zone_nml_10a", "zone_nml_11", "zone_nml_11a", "zone_nml_12", "zone_nml_12a", "zone_nml_13", "zone_nml_14", "zone_nml_15", "zone_nml_15a", "zone_nml_16", "zone_nml_16a", "zone_nml_17", "zone_nml_17a", "zone_nml_18", "zone_nml_20", "zone_nml_farm", "zone_nml_farm_1");
 	spawn_points = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
 
 	foreach (index, zone in level.zones)
