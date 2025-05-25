@@ -39,6 +39,16 @@ mechz_set_starting_health()
 	self.nuke_damage_func = ::mechz_nuke_override;
 }
 
+mechz_non_attacker_damage_override(damage, weapon, attacker)
+{
+	if (is_classic() && attacker == level.vh_tank)
+	{
+		self thread mechz_tank_hit_callback();
+	}
+
+	return false;
+}
+
 mechz_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, vpoint, vdir, shitloc, poffsettime, boneindex)
 {
 	num_tiers = level.mechz_armor_info.size + 1;
