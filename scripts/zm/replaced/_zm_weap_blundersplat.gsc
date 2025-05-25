@@ -84,11 +84,12 @@ _titus_locate_target(is_not_upgraded = 1, count)
 		n_fuse_timer = randomfloatrange(3.0, 4.0);
 	}
 
-	n_spread = 6;
+	spread_scalar = 1.5;
+	n_spread = 4 * spread_scalar;
 
 	if (self hasPerk("specialty_deadshot"))
 	{
-		n_spread *= getdvarfloat("perk_weapSpreadMultiplier");
+		n_spread *= getdvarfloat("perk_weapSpreadMultiplier") / spread_scalar;
 	}
 
 	if (count == 2)
@@ -97,11 +98,11 @@ _titus_locate_target(is_not_upgraded = 1, count)
 	}
 	else if (count == 0)
 	{
-		fire_angles += (0, n_spread / 3, 0);
+		fire_angles += (0, n_spread / (2 * spread_scalar), 0);
 	}
 	else if (count == 1)
 	{
-		fire_angles -= (0, n_spread / 3, 0);
+		fire_angles -= (0, n_spread / (2 * spread_scalar), 0);
 	}
 	else if (count == 3)
 	{
