@@ -879,10 +879,10 @@ REFERENCE           ZM_BURIED_ZONE_MAZE_STAIRCASE
 LANG_ENGLISH        "Maze Staircase"
 
 REFERENCE           ZM_TOMB_ZONE_START
-LANG_ENGLISH        "Lower Laboratory"
+LANG_ENGLISH        "Generator 1 Lower Laboratory"
 
 REFERENCE           ZM_TOMB_ZONE_START_A
-LANG_ENGLISH        "Upper Laboratory"
+LANG_ENGLISH        "Generator 1 Upper Laboratory"
 
 REFERENCE           ZM_TOMB_ZONE_START_B
 LANG_ENGLISH        "Generator 1"
@@ -915,25 +915,25 @@ REFERENCE           ZM_TOMB_ZONE_BUNKER_4B
 LANG_ENGLISH        "Generator 2 Bunker 3"
 
 REFERENCE           ZM_TOMB_ZONE_BUNKER_4C
-LANG_ENGLISH        "Tank Station"
+LANG_ENGLISH        "Generator 2 Tank Station Building"
 
 REFERENCE           ZM_TOMB_ZONE_BUNKER_4D
-LANG_ENGLISH        "Above Tank Station"
+LANG_ENGLISH        "Above Generator 2 Tank Station Building"
 
 REFERENCE           ZM_TOMB_ZONE_BUNKER_TANK_C
-LANG_ENGLISH        "Generator 2 Before Tank Stop 2"
+LANG_ENGLISH        "Generator 2 Before Tank Station 2"
 
 REFERENCE           ZM_TOMB_ZONE_BUNKER_TANK_C1
-LANG_ENGLISH        "Generator 2 Before Tank Stop 1"
+LANG_ENGLISH        "Generator 2 Before Tank Station 1"
 
 REFERENCE           ZM_TOMB_ZONE_BUNKER_4E
-LANG_ENGLISH        "Generator 2 Tank Stop"
+LANG_ENGLISH        "Generator 2 Tank Station"
 
 REFERENCE           ZM_TOMB_ZONE_BUNKER_TANK_D
-LANG_ENGLISH        "Generator 2 After Tank Stop 1"
+LANG_ENGLISH        "Generator 2 After Tank Station 1"
 
 REFERENCE           ZM_TOMB_ZONE_BUNKER_TANK_D1
-LANG_ENGLISH        "Generator 2 After Tank Stop 2"
+LANG_ENGLISH        "Generator 2 After Tank Station 2"
 
 REFERENCE           ZM_TOMB_ZONE_BUNKER_5A
 LANG_ENGLISH        "Workshop Downstairs"
@@ -1047,28 +1047,28 @@ REFERENCE           ZM_TOMB_ZONE_VILLAGE_0
 LANG_ENGLISH        "Generator 6 Left Footstep"
 
 REFERENCE           ZM_TOMB_ZONE_VILLAGE_5
-LANG_ENGLISH        "Generator 6 Before Tank Stop 3"
+LANG_ENGLISH        "Generator 6 Before Tank Station 3"
 
 REFERENCE           ZM_TOMB_ZONE_VILLAGE_5A
-LANG_ENGLISH        "Generator 6 Before Tank Stop 2"
+LANG_ENGLISH        "Generator 6 Before Tank Station 2"
 
 REFERENCE           ZM_TOMB_ZONE_VILLAGE_5B
-LANG_ENGLISH        "Generator 6 Before Tank Stop 1"
+LANG_ENGLISH        "Generator 6 Before Tank Station 1"
 
 REFERENCE           ZM_TOMB_ZONE_VILLAGE_1
-LANG_ENGLISH        "Generator 6 Tank Stop"
+LANG_ENGLISH        "Generator 6 Tank Station"
 
 REFERENCE           ZM_TOMB_ZONE_VILLAGE_4B
-LANG_ENGLISH        "Generator 6 After Tank Stop 1"
+LANG_ENGLISH        "Generator 6 After Tank Station 1"
 
 REFERENCE           ZM_TOMB_ZONE_VILLAGE_4A
-LANG_ENGLISH        "Generator 6 After Tank Stop 2"
+LANG_ENGLISH        "Generator 6 After Tank Station 2"
 
 REFERENCE           ZM_TOMB_ZONE_VILLAGE_4
-LANG_ENGLISH        "Generator 6 After Tank Stop 3"
+LANG_ENGLISH        "Generator 6 After Tank Station 3"
 
 REFERENCE           ZM_TOMB_ZONE_VILLAGE_2
-LANG_ENGLISH        "Church"
+LANG_ENGLISH        "Generator 6 Church"
 
 REFERENCE           ZM_TOMB_ZONE_VILLAGE_3
 LANG_ENGLISH        "Generator 6 Right Footstep"
@@ -1086,7 +1086,7 @@ REFERENCE           ZM_TOMB_ZONE_NML_20
 LANG_ENGLISH        "Above No Man's Land"
 
 REFERENCE           ZM_TOMB_ZONE_VILLAGE_6
-LANG_ENGLISH        "Behind Church"
+LANG_ENGLISH        "Behind Generator 6 Church"
 
 REFERENCE           ZM_TOMB_ZONE_CHAMBER_0
 LANG_ENGLISH        "The Crazy Place Lightning Chamber"
