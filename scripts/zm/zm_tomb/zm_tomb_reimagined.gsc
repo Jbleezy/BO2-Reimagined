@@ -243,7 +243,20 @@ player_respawn_override()
 
 	foreach (respawn_point in respawn_points)
 	{
-		if (respawn_point.script_noteworthy == "zone_bunker_5a")
+		if (respawn_point.script_noteworthy == "zone_bunker_1")
+		{
+			respawn_array = getstructarray(respawn_point.target, "targetname");
+
+			foreach (respawn in respawn_array)
+			{
+				if (respawn.origin == (2368, 4128, -328))
+				{
+					respawn.origin = (2268, 4128, -328);
+					break;
+				}
+			}
+		}
+		else if (respawn_point.script_noteworthy == "zone_bunker_5a")
 		{
 			respawn_array = getstructarray(respawn_point.target, "targetname");
 

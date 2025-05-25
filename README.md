@@ -1188,7 +1188,7 @@
 * Added PHD Flopper machine at Escape Pod area
 * Added Mystery Box at Sweatshop area
 * Added Mystery Box at Buddha Room area
-* Moved Mystery Box at Shopping Mall area from Shopping Mall Level 1D zone to Shopping Mall Level 1C zone
+* Moved Mystery Box at Shopping Mall area from the Shopping Mall Level 1D zone to the Shopping Mall Level 1C zone
 * Removed key
 * Elevators and escape pod can be called without key
 * Added purchase cost to call elevators and escape pod
@@ -1394,7 +1394,8 @@
 * Moved challenge medals and tablet icon above health bar and zone name
 * Added attachment name on HUD for upgraded attachment weapons
 * Increased volume of crafting sound and item pick up sound
-* Moved player spawn point in Workshop Upstairs zone to Workshop Downstairs zone
+* Moved player spawn point in the Workshop area from the Workshop Upstairs zone to the Workshop Downstairs zone
+* Moved player spawn point in the Generator 3 area to be closer to the area
 * Zombies no longer spawn in the Generator 5 Tank Route 5 zone when players are in the No Man's Land Back Path 1 zone (and vice versa)
 * Zombies no longer spawn in the Generator 6 After Tank Station 3 zone when players are in the No Man's Land Back Path 3 zone (and vice versa)
 * Zombies no longer spawn in the Generator 6 After Tank Station 3 zone when players are in the Generator 6 After Tank Station 1 zone (and vice versa)
