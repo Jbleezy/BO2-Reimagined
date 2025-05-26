@@ -277,6 +277,10 @@ player_respawn_override()
 		{
 			respawn_point.script_noteworthy = "zone_village_2";
 		}
+		else if (respawn_point.script_noteworthy == "zone_chamber")
+		{
+			respawn_point.script_noteworthy = "zone_chamber_4";
+		}
 	}
 }
 

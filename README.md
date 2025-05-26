@@ -1395,6 +1395,7 @@
 * Moved challenge medals and tablet icon above health bar and zone name
 * Added attachment name on HUD for upgraded attachment weapons
 * Increased volume of crafting sound and item pick up sound
+* Added player spawn points in The Crazy Place area
 * Moved player spawn point in the Workshop area from the Workshop Upstairs zone to the Workshop Downstairs zone
 * Moved player spawn point in the Generator 3 area to be closer to the area
 * Zombies no longer spawn in the Generator 5 Tank Route 5 zone when players are in the No Man's Land Back Path 1 zone (and vice versa)
