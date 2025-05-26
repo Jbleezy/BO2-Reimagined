@@ -273,6 +273,10 @@ player_respawn_override()
 		{
 			respawn_point.script_noteworthy = "zone_village_1";
 		}
+		else if (respawn_point.script_noteworthy == "zone_village_3")
+		{
+			respawn_point.script_noteworthy = "zone_village_2";
+		}
 	}
 }
 
