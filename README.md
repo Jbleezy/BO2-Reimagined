@@ -162,6 +162,7 @@
 	* [Origins](#origins)
 		* [Trenches](#trenches)
 		* [Excavation Site](#excavation-site)
+		* [Church](#church)
 * [Game Modes](#game-modes)
 	* [Encounter](#encounter)
 		* [Grief](#grief)
@@ -1485,6 +1486,12 @@
 * Perks: Jugger-Nog, Stamin-Up
 * Der Wunderfizz
 * Pack-a-Punch
+
+#### Church
+* Wallbuys: B23R, STG-44, Remington 870 MCS, Frag Grenade
+* Perks: Double Tap
+* Der Wunderfizz
+* One Inch Punch buyable for 9000 points at Rituals of the Ancients reward chest
 
 ## Game Modes
 
