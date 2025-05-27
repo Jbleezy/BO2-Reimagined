@@ -27358,6 +27358,7 @@
 "guid" "87D248DA"
 }
 {
+"script_string" "zclassic_perks_tomb zstandard_perks_excavation_site zgrief_perks_excavation_site"
 "targetname" "zm_perk_machine"
 "script_noteworthy" "specialty_armorvest"
 "angles" "0 180 0"
@@ -27367,6 +27368,7 @@
 "guid" "C308390D"
 }
 {
+"script_string" "zclassic_perks_tomb zstandard_perks_excavation_site zgrief_perks_excavation_site"
 "targetname" "zm_perk_machine"
 "script_noteworthy" "specialty_longersprint"
 "angles" "1.00179e-005 225 -4.43583e-012"
@@ -27385,6 +27387,7 @@
 "guid" "2F276C2D"
 }
 {
+"script_string" "zclassic_perks_tomb zstandard_perks_trenches zgrief_perks_trenches"
 "targetname" "zm_perk_machine"
 "script_noteworthy" "specialty_quickrevive"
 "angles" "0 6.83245e-007 0"
@@ -27422,6 +27425,7 @@
 "guid" "F2DE7BAA"
 }
 {
+"script_string" "zclassic_perks_tomb zstandard_perks_trenches zgrief_perks_trenches"
 "origin" "888 3288 -168"
 "model" "zombie_vending_sleight"
 "classname" "script_struct"
@@ -32847,6 +32851,7 @@
 "guid" "34A981B3"
 }
 {
+"script_string" "zclassic_perks_tomb zstandard_perks_church zgrief_perks_church"
 "origin" "165 -2417 302"
 "model" "zombie_vending_doubletap2"
 "classname" "script_struct"
@@ -32863,6 +32868,7 @@
 "targetname" "zm_perk_machine"
 }
 {
+"script_string" "zclassic_perks_tomb zstandard_perks_trenches zgrief_perks_trenches"
 "origin" "-543 3728 -296"
 "model" "p6_zm_al_vending_ads_on"
 "classname" "script_struct"
