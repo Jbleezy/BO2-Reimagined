@@ -918,7 +918,7 @@ REFERENCE           ZM_TOMB_ZONE_BUNKER_4C
 LANG_ENGLISH        "Generator 2 Tank Station Building"
 
 REFERENCE           ZM_TOMB_ZONE_BUNKER_4D
-LANG_ENGLISH        "Above Generator 2 Tank Station Building"
+LANG_ENGLISH        "Generator 2 Above Tank Station Building"
 
 REFERENCE           ZM_TOMB_ZONE_BUNKER_TANK_C
 LANG_ENGLISH        "Generator 2 Before Tank Station 2"
