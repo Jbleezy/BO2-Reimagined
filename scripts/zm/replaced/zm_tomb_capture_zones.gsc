@@ -260,6 +260,31 @@ setup_perk_machines_not_controlled_by_zone_capture()
 	level.zone_capture.perk_machines_always_on = array("specialty_additionalprimaryweapon", "specialty_flakjacket", "specialty_grenadepulldeath");
 }
 
+check_perk_machine_valid(player)
+{
+	if (!is_classic())
+	{
+		return 1;
+	}
+
+	if (isdefined(self.script_noteworthy) && isinarray(level.zone_capture.perk_machines_always_on, self.script_noteworthy))
+	{
+		b_machine_valid = 1;
+	}
+	else
+	{
+		assert(isdefined(self.str_zone_name), "str_zone_name field missing on perk machine! This is required by the zone capture system!");
+		b_machine_valid = level.zone_capture.zones[self.str_zone_name] ent_flag("player_controlled");
+	}
+
+	if (!b_machine_valid)
+	{
+		player create_and_play_dialog("lockdown", "power_off");
+	}
+
+	return b_machine_valid;
+}
+
 wait_for_capture_trigger()
 {
 	while (true)
