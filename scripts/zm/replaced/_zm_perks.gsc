@@ -355,7 +355,12 @@ vending_trigger_think()
 
 	self sethintstring(&"ZOMBIE_NEED_POWER");
 	self setcursorhint("HINT_NOICON");
-	self usetriggerrequirelookat();
+
+	if (!isdefined(level.perk_require_look_at_func) || self [[level.perk_require_look_at_func]]())
+	{
+		self usetriggerrequirelookat();
+	}
+
 	cost = level.zombie_vars["zombie_perk_cost"];
 
 	switch (perk)
@@ -789,7 +794,11 @@ vending_weapon_upgrade()
 		}
 	}
 
-	self usetriggerrequirelookat();
+	if (!isdefined(level.perk_require_look_at_func) || self [[level.perk_require_look_at_func]]())
+	{
+		self usetriggerrequirelookat();
+	}
+
 	self sethintstring(&"ZOMBIE_NEED_POWER");
 	self setcursorhint("HINT_NOICON");
 	power_off = !self maps\mp\zombies\_zm_power::pap_is_on();
@@ -1007,6 +1016,14 @@ third_person_weapon_upgrade(current_weapon, upgrade_weapon, packa_rollers, perk_
 {
 	level endon("Pack_A_Punch_off");
 	trigger endon("pap_player_disconnected");
+
+	if (is_true(level.pap_rotate_on_trigger))
+	{
+		perk_machine.angles = self.angles + (0, -90, 0);
+
+		wait 0.05;
+	}
+
 	rel_entity = trigger.perk_machine;
 	origin_offset = (0, 0, 0);
 	angles_offset = (0, 0, 0);
