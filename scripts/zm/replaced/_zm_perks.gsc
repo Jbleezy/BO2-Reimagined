@@ -1019,7 +1019,8 @@ third_person_weapon_upgrade(current_weapon, upgrade_weapon, packa_rollers, perk_
 
 	if (is_true(level.pap_rotate_on_trigger))
 	{
-		perk_machine.angles = self.angles + (0, -90, 0);
+		angles = vectortoangles(perk_machine.origin - self.origin) + (0, -90, 0);
+		perk_machine.angles = (0, angles[1], 0);
 
 		wait 0.05;
 	}
