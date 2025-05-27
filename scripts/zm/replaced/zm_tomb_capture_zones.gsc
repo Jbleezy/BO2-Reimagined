@@ -163,41 +163,33 @@ generator_unitrigger_think()
 
 register_elements_powered_by_zone_capture_generators()
 {
-	register_random_perk_machine_for_zone("generator_start_bunker", "starting_bunker");
-	register_perk_machine_for_zone("generator_start_bunker", "revive", "vending_revive", ::revive_perk_fx_think);
-	register_random_perk_machine_for_zone("generator_tank_trench", "trenches_right");
-	register_perk_machine_for_zone("generator_tank_trench", "deadshot", "vending_deadshot");
-	register_random_perk_machine_for_zone("generator_mid_trench", "trenches_left");
-	register_perk_machine_for_zone("generator_mid_trench", "sleight", "vending_sleight");
-	register_random_perk_machine_for_zone("generator_nml_right", "nml");
-	register_perk_machine_for_zone("generator_nml_right", "juggernog", "vending_jugg");
-	register_random_perk_machine_for_zone("generator_nml_left", "farmhouse");
-	register_perk_machine_for_zone("generator_nml_left", "marathon", "vending_marathon");
-	register_random_perk_machine_for_zone("generator_church", "church");
-	register_perk_machine_for_zone("generator_church", "doubletap", "vending_doubletap");
+	if (is_classic() || getdvar("ui_zm_mapstartlocation") == "trenches")
+	{
+		register_random_perk_machine_for_zone("generator_start_bunker", "starting_bunker");
+		register_perk_machine_for_zone("generator_start_bunker", "revive", "vending_revive", ::revive_perk_fx_think);
+		register_mystery_box_for_zone("generator_start_bunker", "bunker_start_chest");
+		register_random_perk_machine_for_zone("generator_tank_trench", "trenches_right");
+		register_perk_machine_for_zone("generator_tank_trench", "deadshot", "vending_deadshot");
+		register_mystery_box_for_zone("generator_tank_trench", "bunker_tank_chest");
+		register_random_perk_machine_for_zone("generator_mid_trench", "trenches_left");
+		register_perk_machine_for_zone("generator_mid_trench", "sleight", "vending_sleight");
+		register_mystery_box_for_zone("generator_mid_trench", "bunker_cp_chest");
+	}
 
-	if (is_classic())
+	if (is_classic() || getdvar("ui_zm_mapstartlocation") == "excavation_site")
 	{
-		register_mystery_box_for_zone("generator_start_bunker", "bunker_start_chest");
-		register_mystery_box_for_zone("generator_tank_trench", "bunker_tank_chest");
-		register_mystery_box_for_zone("generator_mid_trench", "bunker_cp_chest");
+		register_random_perk_machine_for_zone("generator_nml_right", "nml");
+		register_perk_machine_for_zone("generator_nml_right", "juggernog", "vending_jugg");
 		register_mystery_box_for_zone("generator_nml_right", "nml_open_chest");
-		register_mystery_box_for_zone("generator_nml_left", "nml_farm_chest");
-		register_mystery_box_for_zone("generator_church", "village_church_chest");
-	}
-	else if (getdvar("ui_zm_mapstartlocation") == "trenches")
-	{
-		register_mystery_box_for_zone("generator_start_bunker", "bunker_start_chest");
-		register_mystery_box_for_zone("generator_tank_trench", "bunker_tank_chest");
-		register_mystery_box_for_zone("generator_mid_trench", "bunker_cp_chest");
-	}
-	else if (getdvar("ui_zm_mapstartlocation") == "excavation_site")
-	{
-		register_mystery_box_for_zone("generator_nml_right", "nml_open_chest");
+		register_random_perk_machine_for_zone("generator_nml_left", "farmhouse");
+		register_perk_machine_for_zone("generator_nml_left", "marathon", "vending_marathon");
 		register_mystery_box_for_zone("generator_nml_left", "nml_farm_chest");
 	}
-	else if (getdvar("ui_zm_mapstartlocation") == "church")
+
+	if (is_classic() || getdvar("ui_zm_mapstartlocation") == "church")
 	{
+		register_random_perk_machine_for_zone("generator_church", "church");
+		register_perk_machine_for_zone("generator_church", "doubletap", "vending_doubletap");
 		register_mystery_box_for_zone("generator_church", "village_church_chest");
 	}
 }
