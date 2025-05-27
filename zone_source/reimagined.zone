@@ -171,6 +171,7 @@ script,scripts/zm/replaced/zm_tomb.csc
 script,scripts/zm/replaced/zm_tomb_amb.csc
 script,scripts/zm/replaced/zm_tomb_capture_zones.csc
 script,scripts/zm/replaced/zm_tomb_craftables.csc
+script,scripts/zm/replaced/zm_tomb_ee.csc
 script,scripts/zm/replaced/zgrief.csc
 
 localize,reimagined
