@@ -12,15 +12,6 @@ main()
 	replaceFunc(clientscripts\mp\zm_tomb_ee::set_ee_portal_fx, scripts\zm\replaced\zm_tomb_ee::set_ee_portal_fx);
 	replaceFunc(clientscripts\mp\zombies\_zm_ai_mechz::mechzfootstepcbfunc, scripts\zm\replaced\_zm_ai_mechz::mechzfootstepcbfunc);
 
-	if (!is_classic())
-	{
-		level thread scripts\zm\_zm_reimagined::toggle_vending_divetonuke_power_on_think();
-		level thread scripts\zm\_zm_reimagined::toggle_vending_divetonuke_power_off_think();
-
-		level thread scripts\zm\_zm_reimagined::toggle_vending_deadshot_power_on_think();
-		level thread scripts\zm\_zm_reimagined::toggle_vending_deadshot_power_off_think();
-	}
-
 	clientscripts\mp\_explosive_bolt::main();
 }
 

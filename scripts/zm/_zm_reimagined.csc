@@ -16,6 +16,11 @@ main()
 
 	perk_changes();
 	powerup_changes();
+
+	level thread toggle_vending_divetonuke_power_on_think();
+	level thread toggle_vending_divetonuke_power_off_think();
+	level thread toggle_vending_deadshot_power_on_think();
+	level thread toggle_vending_deadshot_power_off_think();
 }
 
 perk_changes()
@@ -34,17 +39,11 @@ perk_changes()
 	{
 		level.zombiemode_using_divetonuke_perk = 1;
 		clientscripts\mp\zombies\_zm_perk_divetonuke::enable_divetonuke_perk_for_level();
-
-		level thread toggle_vending_divetonuke_power_on_think();
-		level thread toggle_vending_divetonuke_power_off_think();
 	}
 
 	if (getdvar("mapname") == "zm_transit" || getdvar("mapname") == "zm_buried" || getdvar("mapname") == "zm_tomb")
 	{
 		level.zombiemode_using_deadshot_perk = 1;
-
-		level thread toggle_vending_deadshot_power_on_think();
-		level thread toggle_vending_deadshot_power_off_think();
 	}
 
 	if (getdvar("mapname") == "zm_transit" || getdvar("mapname") == "zm_prison")
