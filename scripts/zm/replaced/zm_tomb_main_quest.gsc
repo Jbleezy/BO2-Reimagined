@@ -237,7 +237,11 @@ place_staff_in_charger()
 		self.charge_trigger.staff_data = self;
 	}
 
-	self.trigger set_unitrigger_hint_string("");
+	if (isdefined(self.trigger))
+	{
+		self.trigger set_unitrigger_hint_string("");
+	}
+
 	insert_message = self staff_get_insert_message();
 	self.charge_trigger set_unitrigger_hint_string(insert_message);
 	self.charge_trigger trigger_on();
