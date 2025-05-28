@@ -1126,13 +1126,22 @@
 * Each lamp post portal teleports players to a set destination lamp post (randomizes each game)
 * Decreased brightness at Power Station
 * Changed spectator cycle color from grey to black
+* Added missing fog fx to all game modes
+* Added collision to area at Cornfield that was considered out of the map
+* Added "Avenged Sevenfold - Carry On" song (activated by triggering the teddy bear at Farm last)
+* Added "Skrillex - Try It Out" song (activated by triggering the teddy bear at Bus Depot last)
 * Zombies killed by the bus no longer respawn
 * Zombies no longer spawn in the Cornfield Building zone when players are in the Cornfield zone (and vice versa)
 * Zombies spawn in the Outside Power Station zone when players are in the Fog After Power Station zone
 * Zombies spawn in the Warehouse zone when players are in the Fog After Power Station zone
 * Zombies spawn in the Warehouse zone when players are in the Outside Power Station zone before the door between the Power Station Control Room zone and the Warehouse zone is opened
-* Added "Avenged Sevenfold - Carry On" song (activated by triggering the teddy bear at Farm last)
-* Added "Skrillex - Try It Out" song (activated by triggering the teddy bear at Bus Depot last)
+* Fixed bus wheels moving around while the bus wasn't moving
+* Fixed T.E.D.D. moving around while the bus was moving
+* Fixed zombie riser spawn points that were too high above ground
+* Fixed zombie pathing at Cornfield behind the pylon
+* Fixed zombie pathing at Town in Bookstore
+* Survival & Grief: power doors are buyable doors
+* Grief: added Ballistic Knife, Ray Gun, and Ray Gun Mark 2 to the Mystery Box
 * Quest: added "Benn - Just Like You" song
 * Quest: increased pylon powerup drop rate from 4-12 minutes to 2-6 minutes
 * Quest (Maxis): Avogadro step only requires 1 Turbine under the pylon
@@ -1142,15 +1151,6 @@
 * Quest (Maxis): fixed lamp post power on check being inaccurate
 * Quest (Richtofen): lamp posts step requires all 8 lamp posts to get powered off by an EMP
 * Quest (Richtofen): lamp posts step no longer requires all lamp posts to be powered off at the same time
-* Survival & Grief: power doors are buyable doors
-* Grief: added Ballistic Knife, Ray Gun, and Ray Gun Mark 2 to the Mystery Box
-* Added missing fog fx to all game modes
-* Added collision to area at Cornfield that was considered out of the map
-* Fixed bus wheels moving around while the bus wasn't moving
-* Fixed T.E.D.D. moving around while the bus was moving
-* Fixed zombie riser spawn points that were too high above ground
-* Fixed zombie pathing at Cornfield behind the pylon
-* Fixed zombie pathing at Town in Bookstore
 
 #### Bus Depot
 * Lava in starting area activates immediately
@@ -1337,6 +1337,10 @@
 * Added crafting sound and item pick up sound
 * Removed player spawn point in the Acid Trap
 * Zombies spawn in the Docks Gates zone when players are in the Docks zone (and vice versa)
+* Fixed afterlife icon showing when initially in afterlife at the start of the game
+* Fixed initial weapon raise anim happening after exiting afterlife
+* Fixed perk hint strings showing when in afterlife
+* Fixed being able to hit a death barrier when jumping off the Docks Bridge zone
 * Acid Trap: kills on any round (normally stops killing after round 158 on PC)
 * Acid Trap: kills zombies instantly
 * Acid Trap: decreased player damage from 75% of max health to 50% of max health
@@ -1358,10 +1362,6 @@
 * Quest: added player health regeneration during showdown
 * Quest: showdown target waypoint shows immediately after all players are revived from the electric chairs
 * Quest: showdown target waypoint shows offscreen
-* Fixed afterlife icon showing when initially in afterlife at the start of the game
-* Fixed initial weapon raise anim happening after exiting afterlife
-* Fixed perk hint strings showing when in afterlife
-* Fixed being able to hit a death barrier when jumping off the Docks Bridge zone
 
 ### Cell Block
 * Zombies spawn in the Cell Block 3rd Floor zone
@@ -1405,6 +1405,8 @@
 * Zombies spawn in the Generator 6 Before Tank Station 3 zone when players are in the Generator 5 Tank Route 5 zone before the debris between the No Man's Land Back Path 2 zone and the Generator 6 Left Footstep zone is cleared
 * Zombies spawn in the Generator 3 Above Bunker zone when players are in the Generator 3 Bunker 2 zone before any player has entered the Generator 3 Above Bunker zone
 * Zombies spawn in the Generator 3 Above Bunker zone when players are in the Generator 4 Tank Route 6 zone before any player has entered the Generator 3 Above Bunker zone
+* Fixed being able to hit a death barrier when jumping off the Generator 3 Above Bunker zone
+* Fixed front part of tank model spawning in the Excavation Site Level 2 zone
 * Generators: changed cost from 200-800 depending on how many players to 500
 * Generators: increased capture reward points from 100 to 500
 * Generators: changed capture time from 10-40 seconds depending on how many players to 20 seconds
@@ -1472,8 +1474,6 @@
 * Quest (raise hell step): all staffs must be fully charged for souls to be collected
 * Quest (raise hell step): zombies in The Crazy Place get knocked down during the screen flash after collecting all of the souls
 * Quest (freedom step): teleport trigger can be triggered without looking at it
-* Fixed being able to hit a death barrier when jumping off the Generator 3 Above Bunker zone
-* Fixed front part of tank model spawning in the Excavation Site Level 2 zone
 
 #### Trenches
 * Wallbuys: SMR, Ballista, B23R, Five-seven, Vector K10, MP40, Remington 870 MCS, Frag Grenade, Bouncing Betty
