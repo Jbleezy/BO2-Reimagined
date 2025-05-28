@@ -39,7 +39,7 @@ CoD.MapsList.Locations = {
 	"ZMUI_TRENCHES_CAPS",
 	"ZMUI_EXCAVATION_SITE_CAPS",
 	"ZMUI_CHURCH_CAPS",
-	-- "ZMUI_CRAZY_PLACE_CAPS", -- TODO: add
+	"ZMUI_CRAZY_PLACE_CAPS",
 }
 
 local function setGameModeDvars()

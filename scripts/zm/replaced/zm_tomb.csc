@@ -49,10 +49,12 @@ init_gamemodes()
 	add_map_location_gamemode("zstandard", "trenches", undefined, undefined, undefined);
 	add_map_location_gamemode("zstandard", "excavation_site", undefined, undefined, undefined);
 	add_map_location_gamemode("zstandard", "church", undefined, undefined, undefined);
+	add_map_location_gamemode("zstandard", "crazy_place", undefined, undefined, undefined);
 
 	add_map_location_gamemode("zgrief", "trenches", undefined, undefined, undefined);
 	add_map_location_gamemode("zgrief", "excavation_site", undefined, undefined, undefined);
 	add_map_location_gamemode("zgrief", "church", undefined, undefined, undefined);
+	add_map_location_gamemode("zgrief", "crazy_place", undefined, undefined, undefined);
 }
 
 entityspawned_tomb(localclientnum)

@@ -242,6 +242,11 @@ mechz_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, 
 
 mechz_round_tracker()
 {
+	if (level.scr_zm_map_start_location == "crazy_place")
+	{
+		return;
+	}
+
 	maps\mp\zombies\_zm_ai_mechz_ffotd::mechz_round_tracker_start();
 	level.num_mechz_spawned = 0;
 	old_spawn_func = level.round_spawn_func;

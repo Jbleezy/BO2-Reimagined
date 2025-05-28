@@ -2229,6 +2229,14 @@ containment_think()
 		{
 			zone_name_to_lock = "zone_mansion";
 		}
+		else if (zone_name == "zone_chamber_0" || zone_name == "zone_chamber_2" || zone_name == "zone_chamber_6" || zone_name == "zone_chamber_8")
+		{
+			zone_name_to_lock = "zone_chamber_4";
+		}
+		else if (zone_name == "zone_chamber_4")
+		{
+			zone_name_to_lock = "";
+		}
 
 		players = get_players();
 

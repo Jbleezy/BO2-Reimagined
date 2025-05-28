@@ -32956,3 +32956,121 @@
 "targetname" "weapon_upgrade"
 "target" "pf2221_auto40"
 }
+{
+"script_string" "disable_clientfield"
+"script_noteworthy" "zstandard_crazy_place, zgrief_crazy_place"
+"origin" "10576 -8142 -383"
+"angles" "0 315 0"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "evoskorpion_zm"
+"targetname" "weapon_upgrade"
+"target" "pf2221_auto41"
+}
+{
+"script_noteworthy" "zstandard_crazy_place, zgrief_crazy_place"
+"origin" "10576 -8142 -383"
+"angles" "0 315 0"
+"model" "t6_wpn_smg_scorpion_world"
+"classname" "script_struct"
+"targetname" "pf2221_auto41"
+}
+{
+"script_string" "disable_clientfield"
+"script_noteworthy" "zstandard_crazy_place, zgrief_crazy_place"
+"origin" "10104 -8142 -383"
+"angles" "0 225 0"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "scar_zm"
+"targetname" "weapon_upgrade"
+"target" "pf2221_auto42"
+}
+{
+"script_noteworthy" "zstandard_crazy_place, zgrief_crazy_place"
+"origin" "10104 -8142 -383"
+"angles" "0 225 0"
+"model" "t6_wpn_ar_scarh_world"
+"classname" "script_struct"
+"targetname" "pf2221_auto42"
+}
+{
+"script_string" "disable_clientfield"
+"script_noteworthy" "zstandard_crazy_place, zgrief_crazy_place"
+"origin" "10104 -7670 -383"
+"angles" "0 135 0"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "mg08_zm"
+"targetname" "weapon_upgrade"
+"target" "pf2221_auto43"
+}
+{
+"script_noteworthy" "zstandard_crazy_place, zgrief_crazy_place"
+"origin" "10104 -7670 -383"
+"angles" "0 135 0"
+"model" "t6_wpn_zmb_mg08_world"
+"classname" "script_struct"
+"targetname" "pf2221_auto43"
+}
+{
+"script_string" "disable_clientfield"
+"script_noteworthy" "zstandard_crazy_place, zgrief_crazy_place"
+"origin" "10576 -7670 -383"
+"angles" "0 45 0"
+"classname" "script_struct"
+"zombie_weapon_upgrade" "ksg_zm"
+"targetname" "weapon_upgrade"
+"target" "pf2221_auto44"
+}
+{
+"script_noteworthy" "zstandard_crazy_place, zgrief_crazy_place"
+"origin" "10576 -7670 -383"
+"angles" "0 45 0"
+"model" "t6_wpn_shotty_ksg_world"
+"classname" "script_struct"
+"targetname" "pf2221_auto44"
+}
+{
+"script_string" "zstandard_perks_crazy_place zgrief_perks_crazy_place"
+"origin" "9459 -8557 -398"
+"model" "zombie_vending_jugg"
+"classname" "script_struct"
+"angles" "0 75 0"
+"script_noteworthy" "specialty_armorvest"
+"targetname" "zm_perk_machine"
+}
+{
+"script_string" "zstandard_perks_crazy_place zgrief_perks_crazy_place"
+"origin" "11229 -7052 -346"
+"model" "p6_zm_tm_vending_revive"
+"classname" "script_struct"
+"angles" "0 -30 0"
+"script_noteworthy" "specialty_quickrevive"
+"targetname" "zm_perk_machine"
+}
+{
+"script_string" "zstandard_perks_crazy_place zgrief_perks_crazy_place"
+"origin" "11254 -8662 -408"
+"model" "zombie_vending_sleight"
+"classname" "script_struct"
+"angles" "0 240 0"
+"script_noteworthy" "specialty_fastreload"
+"targetname" "zm_perk_machine"
+}
+{
+"script_string" "zstandard_perks_crazy_place zgrief_perks_crazy_place"
+"origin" "9627 -7008 -346"
+"model" "zombie_vending_doubletap2"
+"classname" "script_struct"
+"angles" "0 -15 0"
+"script_noteworthy" "specialty_rof"
+"targetname" "zm_perk_machine"
+}
+{
+"script_string" "zstandard_perks_crazy_place zgrief_perks_crazy_place"
+"script_noteworthy" "specialty_weapupgrade"
+"targetname" "zm_perk_machine"
+"angles" "0 0 0"
+"classname" "script_struct"
+"model" "p6_zm_tm_packapunch"
+"origin" "10340 -7906 -412"
+"target" "pap_cs"
+}

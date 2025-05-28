@@ -163,6 +163,7 @@
 		* [Trenches](#trenches)
 		* [Excavation Site](#excavation-site)
 		* [Church](#church)
+		* [The Crazy Place](#the-crazy-place)
 * [Game Modes](#game-modes)
 	* [Encounter](#encounter)
 		* [Grief](#grief)
@@ -1158,7 +1159,6 @@
 #### Diner
 * Wallbuys: SMR, MSMC, Remington 870 MCS, Galvaknuckles
 * Perks: Jugger-Nog, Quick Revive, Speed Cola, Double Tap
-* No Pack-a-Punch
 
 #### Farm
 * Zombies spawn in the Farm zone when players are in the Barn zone
@@ -1181,8 +1181,8 @@
 
 #### Cornfield
 * Wallbuys: SMR, Ballista, B23R, MSMC, Vector K10, SWAT-556 Remington 870 MCS, Semtex, Claymore
-* No perks
 * Pack-a-Punch
+* No perks
 
 ### Die Rise
 * Added Stamin-Up machine at Buddha Room area
@@ -1493,6 +1493,13 @@
 * Perks: Double Tap
 * Der Wunderfizz
 * One Inch Punch buyable for 9000 points at Rituals of the Ancients reward chest
+
+#### The Crazy Place
+* Wallbuys: Vector K10, Skorpion EVO, STG-44, SCAR-H, MG08/15, KSG
+* Perks: Jugger-Nog, Quick Revive, Speed Cola, Double Tap, PHD Flopper, Electric Cherry
+* Pack-a-Punch
+* No Mystery Box
+* Perks on the teleport pads and wallbuys in the staff chargers are randomized each game
 
 ## Game Modes
 

@@ -321,6 +321,11 @@ spawn_custom_wallbuy_chalks()
 
 spawn_custom_perk_machine_pipes()
 {
+	if (level.scr_zm_map_start_location == "crazy_place")
+	{
+		return;
+	}
+
 	trigs = getentarray("zombie_vending", "targetname");
 
 	if (!isdefined(trigs))
@@ -1136,6 +1141,11 @@ hide_temp_random_perk_machine()
 grief_mechz_spawn_after_time()
 {
 	if (!is_gametype_active("zgrief"))
+	{
+		return;
+	}
+
+	if (level.scr_zm_map_start_location == "crazy_place")
 	{
 		return;
 	}
