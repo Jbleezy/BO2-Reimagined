@@ -140,6 +140,8 @@ robot_cycling()
 		level waittill("giant_robot_intro_complete");
 	}
 
+	flag_wait("initial_blackscreen_passed");
+
 	while (true)
 	{
 		if (!is_classic())
