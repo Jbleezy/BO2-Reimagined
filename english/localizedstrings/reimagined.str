@@ -1272,6 +1272,18 @@ LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Vector K10 [Cost: &&1]"
 REFERENCE           ZOMBIE_WEAPON_SIG556
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 for SWAT-556 [Cost: &&1]"
 
+REFERENCE           ZOMBIE_WEAPON_EVOSKORPION
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Skorpion EVO [Cost: &&1]"
+
+REFERENCE           ZOMBIE_WEAPON_SCAR
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 for SCAR-H [Cost: &&1]"
+
+REFERENCE           ZOMBIE_WEAPON_MG08
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 for MG08/15 [Cost: &&1]"
+
+REFERENCE           ZOMBIE_WEAPON_KSG
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 for KSG [Cost: &&1]"
+
 REFERENCE           ZOMBIE_WEAPON_BOUNCINGBETTY
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Bouncing Betty [Cost: &&1]"
 

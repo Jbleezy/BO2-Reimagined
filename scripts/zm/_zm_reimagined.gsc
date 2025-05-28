@@ -2086,6 +2086,30 @@ weapon_changes()
 		add_shared_ammo_weapon("mp44_fastads_zm", "mp44_zm");
 	}
 
+	if (isdefined(level.zombie_weapons["evoskorpion_zm"]))
+	{
+		level.zombie_weapons["evoskorpion_zm"].cost = 1400;
+		level.zombie_weapons["evoskorpion_zm"].ammo_cost = 700;
+	}
+
+	if (isdefined(level.zombie_weapons["scar_zm"]))
+	{
+		level.zombie_weapons["scar_zm"].cost = 1600;
+		level.zombie_weapons["scar_zm"].ammo_cost = 800;
+	}
+
+	if (isdefined(level.zombie_weapons["mg08_zm"]))
+	{
+		level.zombie_weapons["mg08_zm"].cost = 2000;
+		level.zombie_weapons["mg08_zm"].ammo_cost = 1000;
+	}
+
+	if (isdefined(level.zombie_weapons["ksg_zm"]))
+	{
+		level.zombie_weapons["ksg_zm"].cost = 1800;
+		level.zombie_weapons["ksg_zm"].ammo_cost = 900;
+	}
+
 	if (level.script == "zm_transit" || level.script == "zm_nuked" || level.script == "zm_highrise" || level.script == "zm_prison")
 	{
 		level.zombie_lethal_grenade_player_init = "sticky_grenade_zm";
