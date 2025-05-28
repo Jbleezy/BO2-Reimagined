@@ -189,13 +189,17 @@ pap_fx()
 		level.ee_ending_beam_fx.angles = vectorscale((0, 1, 0), 90.0);
 		level.ee_ending_beam_fx setmodel("tag_origin");
 		playfxontag(level._effect["ee_beam"], level.ee_ending_beam_fx, "tag_origin");
-		level.ee_ending_beam_fx playsound("zmb_squest_crystal_sky_pillar_start");
-		level.ee_ending_beam_fx playloopsound("zmb_squest_crystal_sky_pillar_loop", 3);
+		level.ee_ending_beam_sound = spawn("script_model", s_pos.origin + vectorscale((0, 0, -1), 800.0));
+		level.ee_ending_beam_sound.angles = vectorscale((0, 1, 0), 90.0);
+		level.ee_ending_beam_sound setmodel("tag_origin");
+		level.ee_ending_beam_sound playsound("zmb_squest_crystal_sky_pillar_start");
+		level.ee_ending_beam_sound playloopsound("zmb_squest_crystal_sky_pillar_loop", 3);
 
 		flag_waitopen("pack_machine_in_use");
 
-		level.ee_ending_beam_fx playsound("zmb_squest_crystal_sky_pillar_stop");
 		level.ee_ending_beam_fx delete();
+		level.ee_ending_beam_sound playsound("zmb_squest_crystal_sky_pillar_stop");
+		level.ee_ending_beam_sound delete();
 	}
 }
 
@@ -205,8 +209,13 @@ pap_fx_delete_on_intermission()
 
 	if (isdefined(level.ee_ending_beam_fx))
 	{
-		level.ee_ending_beam_fx playsound("zmb_squest_crystal_sky_pillar_stop");
 		level.ee_ending_beam_fx delete();
+	}
+
+	if (isdefined(level.ee_ending_beam_sound))
+	{
+		level.ee_ending_beam_sound playsound("zmb_squest_crystal_sky_pillar_stop");
+		level.ee_ending_beam_sound delete();
 	}
 }
 

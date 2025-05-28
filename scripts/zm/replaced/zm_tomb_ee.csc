@@ -30,5 +30,8 @@ set_ee_portal_fx(localclientnum, oldval, newval, bnewent, binitialsnap, fieldnam
 	else if (newval == 3)
 	{
 		e_fx.fx_id = playfxontag(localclientnum, level._effect["ee_vortex"], e_fx, "tag_origin");
+
+		e_sound = spawn(localclientnum, e_fx.origin + vectorscale((0, 0, 1), 500.0), "script_origin");
+		e_sound playloopsound("zmb_squest_sam_portal_open_loop", 1);
 	}
 }
