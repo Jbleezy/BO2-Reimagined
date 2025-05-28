@@ -1314,7 +1314,7 @@ zone_name_hud()
 		zone = player get_current_zone();
 		zone_name = player get_zone_display_name(zone);
 
-		if (zone_name == prev_zone_name)
+		if (zone_name == prev_zone_name && player == prev_player)
 		{
 			wait 0.05;
 			continue;
