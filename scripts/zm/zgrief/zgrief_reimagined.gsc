@@ -10,6 +10,7 @@ main()
 	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::onspawnplayer, scripts\zm\replaced\_zm_gametype::onspawnplayer);
 	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::onplayerspawned, scripts\zm\replaced\_zm_gametype::onplayerspawned);
 	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::menu_onmenuresponse, scripts\zm\replaced\_zm_gametype::menu_onmenuresponse);
+	replaceFunc(maps\mp\gametypes_zm\zgrief::onprecachegametype, scripts\zm\replaced\zgrief::onprecachegametype);
 	replaceFunc(maps\mp\gametypes_zm\zgrief::postinit_func, scripts\zm\replaced\zgrief::postinit_func);
 	replaceFunc(maps\mp\gametypes_zm\zgrief::zgrief_main, scripts\zm\replaced\zgrief::zgrief_main);
 	replaceFunc(maps\mp\gametypes_zm\zgrief::game_mode_spawn_player_logic, scripts\zm\replaced\zgrief::game_mode_spawn_player_logic);
@@ -28,13 +29,22 @@ main()
 	}
 
 	registerclientfield("toplayer", "meat_glow", 1, 1, "int");
+
+	if (getdvar("mapname") == "zm_prison" || getdvar("mapname") == "zm_tomb")
+	{
+		level._effect["butterflies"] = loadfx("maps/zombie_alcatraz/fx_alcatraz_skull_elec");
+	}
+	else
+	{
+		level._effect["butterflies"] = loadfx("maps/zombie/fx_zmb_impact_noharm");
+	}
+
+	level._effect["human_disappears"] = loadfx("maps/zombie/fx_zmb_returned_spawn_puff");
 }
 
 init()
 {
 	set_grief_vars();
-
-	level._effect["human_disappears"] = loadfx("maps/zombie/fx_zmb_returned_spawn_puff");
 
 	if (level.item_meat_name == "item_head_zm")
 	{

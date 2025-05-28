@@ -3,6 +3,22 @@
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 
+onprecachegametype()
+{
+	level.playersuicideallowed = 1;
+	level.canplayersuicide = ::canplayersuicide;
+	level.suicide_weapon = "death_self_zm";
+	precacheitem("death_self_zm");
+	precacheshellshock("grief_stab_zm");
+	precacheshader("faction_cdc");
+	precacheshader("faction_cia");
+	precacheshader("waypoint_revive_cdc_zm");
+	precacheshader("waypoint_revive_cia_zm");
+	level thread maps\mp\zombies\_zm_game_module_meat_utility::init_item_meat("zgrief");
+	level thread maps\mp\gametypes_zm\_zm_gametype::init();
+	maps\mp\gametypes_zm\_zm_gametype::rungametypeprecache("zgrief");
+}
+
 postinit_func()
 {
 	level.min_humans = 1;

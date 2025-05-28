@@ -134,12 +134,6 @@ main()
 	level._effect["fire_ug_impact_exp_sm"] = loadfx("weapon/zmb_staff/fx_zmb_staff_fire_ug_impact_exp_sm");
 	level._effect["fire_ug_impact_exp_loop"] = loadfx("weapon/zmb_staff/fx_zmb_staff_fire_ug_impact_exp_loop");
 
-	if (is_gametype_active("zgrief"))
-	{
-		// need in main and init to load properly
-		level._effect["butterflies"] = loadfx("maps/zombie_alcatraz/fx_alcatraz_skull_elec");
-	}
-
 	maps\mp\_explosive_bolt::init();
 	scripts\zm\reimagined\_zm_weap_bouncingbetty::init();
 	register_clientfields();
@@ -165,12 +159,6 @@ init()
 		level.perk_random_vo_func_usemachine = undefined;
 
 		arrayremovevalue(level.zombie_powerup_array, "zombie_blood");
-	}
-
-	if (is_gametype_active("zgrief"))
-	{
-		// need in main and init to load properly
-		level._effect["butterflies"] = loadfx("maps/zombie_alcatraz/fx_alcatraz_skull_elec");
 	}
 
 	maps\mp\zombies\_zm::spawn_life_brush((1839, 3574, -228), 512, 256);
