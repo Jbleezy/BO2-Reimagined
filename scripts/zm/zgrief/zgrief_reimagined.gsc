@@ -906,6 +906,7 @@ round_start_wait(time, initial)
 
 	if (level.scr_zm_ui_gametype_obj == "zsnr")
 	{
+		grief_score_hud_set_player_count("allies", 0, "axis", 0);
 		grief_score_hud_set_player_count("allies", get_number_of_valid_players_team("allies"), "axis", get_number_of_valid_players_team("axis"));
 	}
 
