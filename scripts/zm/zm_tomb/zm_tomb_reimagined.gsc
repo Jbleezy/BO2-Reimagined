@@ -9,6 +9,7 @@ main()
 	replaceFunc(maps\mp\zm_tomb::give_personality_characters, scripts\zm\replaced\zm_tomb::give_personality_characters);
 	replaceFunc(maps\mp\zm_tomb::custom_vending_precaching, scripts\zm\replaced\zm_tomb::custom_vending_precaching);
 	replaceFunc(maps\mp\zm_tomb::working_zone_init, scripts\zm\replaced\zm_tomb::working_zone_init);
+	replaceFunc(maps\mp\zm_tomb::chamber_capture_zombie_spawn_init, scripts\zm\replaced\zm_tomb::chamber_capture_zombie_spawn_init);
 	replaceFunc(maps\mp\zm_tomb::tomb_can_track_ammo_custom, scripts\zm\replaced\zm_tomb::tomb_can_track_ammo_custom);
 	replaceFunc(maps\mp\zm_tomb::tomb_zombie_death_event_callback, scripts\zm\replaced\zm_tomb::tomb_zombie_death_event_callback);
 	replaceFunc(maps\mp\zm_tomb::tomb_custom_divetonuke_explode, scripts\zm\replaced\zm_tomb::tomb_custom_divetonuke_explode);

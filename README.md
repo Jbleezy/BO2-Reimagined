@@ -1405,6 +1405,7 @@
 * Zombies spawn in the Generator 6 Before Tank Station 3 zone when players are in the Generator 5 Tank Route 5 zone before the debris between the No Man's Land Back Path 2 zone and the Generator 6 Left Footstep zone is cleared
 * Zombies spawn in the Generator 3 Above Bunker zone when players are in the Generator 3 Bunker 2 zone before any player has entered the Generator 3 Above Bunker zone
 * Zombies spawn in the Generator 3 Above Bunker zone when players are in the Generator 4 Tank Route 6 zone before any player has entered the Generator 3 Above Bunker zone
+* Fixed zombie eyes not showing correctly when they first spawn in The Crazy Place area
 * Fixed being able to hit a death barrier when jumping off the Generator 3 Above Bunker zone
 * Fixed front part of tank model spawning in the Excavation Site Level 2 zone
 * Generators: changed cost from 200-800 depending on how many players to 500

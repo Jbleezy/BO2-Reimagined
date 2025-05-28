@@ -553,6 +553,17 @@ working_zone_init()
 	}
 }
 
+chamber_capture_zombie_spawn_init()
+{
+	self endon("death");
+
+	self.no_eye_glow = 1;
+	self waittill("risen");
+	self.no_eye_glow = 0;
+
+	self setclientfield("zone_capture_zombie", 1);
+}
+
 tomb_can_track_ammo_custom(weap)
 {
 	if (!isdefined(weap))
