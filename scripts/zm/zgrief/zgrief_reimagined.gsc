@@ -2226,28 +2226,7 @@ containment_think()
 		objective_team(level.game_mode_next_obj_ind, "neutral");
 		objective_setgamemodeflags(level.game_mode_next_obj_ind, 0);
 
-		zone_name_to_lock = zone_name;
-
-		if (zone_name == "culdesac_yellow_zone")
-		{
-			zone_name_to_lock = "culdesac_green_zone";
-		}
-		else if (zone_name == "zone_street_fountain")
-		{
-			zone_name_to_lock = "zone_street_lighteast";
-		}
-		else if (zone_name == "zone_mansion_lawn")
-		{
-			zone_name_to_lock = "zone_mansion";
-		}
-		else if (zone_name == "zone_chamber_0" || zone_name == "zone_chamber_2" || zone_name == "zone_chamber_6" || zone_name == "zone_chamber_8")
-		{
-			zone_name_to_lock = "zone_chamber_4";
-		}
-		else if (zone_name == "zone_chamber_4")
-		{
-			zone_name_to_lock = "";
-		}
+		zone_name_to_lock = containment_get_zone_name_to_lock(zone_name);
 
 		players = get_players();
 
@@ -3061,6 +3040,45 @@ containment_get_zone_waypoint_origin(zone_name, zone)
 	}
 
 	return (0, 0, 0);
+}
+
+containment_get_zone_name_to_lock(zone_name)
+{
+	if (level.script == "zm_nuked")
+	{
+		if (zone_name == "culdesac_yellow_zone")
+		{
+			return "culdesac_green_zone";
+		}
+	}
+	else if (level.script == "zm_buried")
+	{
+		if (zone_name == "zone_street_fountain")
+		{
+			return "zone_street_lighteast";
+		}
+		else if (zone_name == "zone_mansion_lawn")
+		{
+			return "zone_mansion";
+		}
+	}
+	else if (level.script == "zm_tomb")
+	{
+		if (zone_name == "zone_start_b")
+		{
+			return "zone_start";
+		}
+		else if (zone_name == "zone_chamber_0" || zone_name == "zone_chamber_2" || zone_name == "zone_chamber_6" || zone_name == "zone_chamber_8")
+		{
+			return "zone_chamber_4";
+		}
+		else if (zone_name == "zone_chamber_4")
+		{
+			return "";
+		}
+	}
+
+	return zone_name;
 }
 
 containment_get_current_zone()
