@@ -1368,6 +1368,12 @@ LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft Sliquifier"
 REFERENCE           ZM_HIGHRISE_GRAB_SLIPGUN
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to take Sliquifier [Cost: &&1]"
 
+REFERENCE           ZM_PRISON_AFTERLIFE_DOOR
+LANG_ENGLISH        "Power must be turned on"
+
+REFERENCE           ZM_PRISON_GONDOLA_REQUIRES_POWER
+LANG_ENGLISH        "Power must be turned on"
+
 REFERENCE           ZM_PRISON_ELECTRIC_CHAIR_ACTIVATE
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to activate Electric Chair"
 
@@ -1432,7 +1438,19 @@ REFERENCE           ZM_BURIED_PU_VECTOR
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Vector K10 Chalk"
 
 REFERENCE           ZM_BURIED_WB_VECTOR
-LANG_ENGLISH        "Hold ^3[{+activate}]^7 to draw Vector K10 wallbuy"
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to draw Vector K10 Wallbuy"
+
+REFERENCE           ZM_BURIED_WB_PDW57
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to draw PDW-57 Wallbuy"
+
+REFERENCE           ZM_BURIED_WB_AN94
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to draw AN-94 Wallbuy"
+
+REFERENCE           ZM_BURIED_WB_SVU
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to draw SVU-AS Wallbuy"
+
+REFERENCE           ZM_BURIED_WB_TAZER
+LANG_ENGLISH        "Hold ^3[{+activate}]^7 to draw Galvaknuckles Wallbuy"
 
 REFERENCE           ZM_BURIED_BUILD_MTOWER
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to craft the Noose"
@@ -1464,11 +1482,14 @@ LANG_ENGLISH        "Hold ^3[{+activate}]^7 to take Maxis Drone [Cost: &&1]"
 REFERENCE           ZM_TOMB_DIHO
 LANG_ENGLISH        "Press ^3[{+actionslot 2}]^7 to use Maxis Drone"
 
-REFERENCE           ZM_TOMB_BOUGHT_MAXISDRONE
+REFERENCE           ZM_TOMB_TNKC
+LANG_ENGLISH        "The tank is cooling down"
+
+REFERENCE           ZM_TOMB_BOUGHT_QUADROTOR
 LANG_ENGLISH        "Took Maxis Drone"
 
-REFERENCE           ZM_TOMB_MAXISDRONE_COOLDOWN
-LANG_ENGLISH        "Cooling down"
+REFERENCE           ZM_TOMB_QUADROTOR_COOLDOWN
+LANG_ENGLISH        "Maxis Drone is cooling down"
 
 REFERENCE           ZM_TOMB_MISSING_WIND_STAFF
 LANG_ENGLISH        "Wind Staff Required"
@@ -1484,6 +1505,24 @@ LANG_ENGLISH        "Ice Staff Required"
 
 REFERENCE           ZM_TOMB_ALL_PERKS
 LANG_ENGLISH        "You have all perks"
+
+REFERENCE           ZOMBIE_NEED_POWER
+LANG_ENGLISH        "Power must be turned on"
+
+REFERENCE           ZOMBIE_NEED_LOCAL_POWER
+LANG_ENGLISH        "Power must be turned on"
+
+REFERENCE           ZOMBIE_TRAP_ACTIVE
+LANG_ENGLISH        "The trap is active"
+
+REFERENCE           ZOMBIE_TRAP_COOLDOWN
+LANG_ENGLISH        "The trap is recharging"
+
+REFERENCE           ZOMBIE_GO_TO_THE_BOX
+LANG_ENGLISH        "Now available from the Mystery Box"
+
+REFERENCE           ZOMBIE_GO_TO_THE_BOX_LIMITED
+LANG_ENGLISH        "Will be available from the Mystery Box later"
 
 REFERENCE           ZOMBIE_BANK_WITHDRAW_PROMPT
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 to withdraw &&1"

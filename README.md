@@ -220,6 +220,8 @@
 * Changed revive bar color to blue
 * Player is reviving you text gets removed instantly when player drops the revive
 * Player needs to be revived text updates to new player instantly
+* Changed need power hint string from "You must turn on the Power first!" to "Power must be turned on" on all maps
+* Changed need local power hint string from "You'll need a source of power!" to "Power must be turned on" on all maps
 * Increased number of times that the round number pulses between rounds from 2-7 to 10 (same as Black Ops 1)
 * Fixed powerup move animation being incorrect
 * Fixed scoreboard showing incorrect team on Survival after restart
@@ -1335,6 +1337,8 @@
 * Improved perk machine flicker
 * Added falling hands anim from Origins
 * Added crafting sound and item pick up sound
+* Changed afterlife doors need power hint string from "Door needs power" to "Power must be turned on"
+* Changed Gondola need power hint string from "Gondola requires Power" to "Power must be turned on"
 * Removed player spawn point in the Acid Trap
 * Zombies spawn in the Docks Gates zone when players are in the Docks zone (and vice versa)
 * Fixed afterlife icon showing when initially in afterlife at the start of the game
@@ -1430,6 +1434,7 @@
 * Tank: standing on the tread pushes the player forward instead of backward if the tank is moving
 * Tank: changed cooldown to 30 seconds (normally 2-120 seconds depending on how long players were on the tank)
 * Tank: no longer free to activate if called
+* Tank: changed cooling down hint string from "Tank engine cooling down" to "The tank is cooling down"
 * Teleporters: stay active after picking up gramophone
 * Teleporters: placing gramophone activates The Crazy Place teleporters
 * Teleporters: players face away from the teleporters when returning from The Crazy Place

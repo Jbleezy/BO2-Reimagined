@@ -1017,7 +1017,7 @@ craftablestub_update_prompt(player, unitrigger)
 			}
 			else if (flag("quadrotor_cooling_down"))
 			{
-				self.hint_string = &"ZM_TOMB_MAXISDRONE_COOLDOWN";
+				self.hint_string = &"ZM_TOMB_QUADROTOR_COOLDOWN";
 				return false;
 			}
 		}
