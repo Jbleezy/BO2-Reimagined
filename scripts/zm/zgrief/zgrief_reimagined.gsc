@@ -2125,7 +2125,7 @@ race_check_for_kills()
 		amount = 1;
 		score_msg = undefined;
 
-		if (is_true(zombie.is_brutus))
+		if (is_true(zombie.is_brutus) || is_true(zombie.is_mechz))
 		{
 			amount = 10;
 			score_msg = &"ZOMBIE_ZGRIEF_BOSS_KILLED_SCORE";
