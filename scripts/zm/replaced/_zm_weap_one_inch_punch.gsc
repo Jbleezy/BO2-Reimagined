@@ -93,14 +93,12 @@ monitor_melee_swipe()
 	self endon("disconnect");
 	self notify("stop_monitor_melee_swipe");
 	self endon("stop_monitor_melee_swipe");
-	self endon("bled_out");
-	self endon("gr_head_forced_bleed_out");
 
 	while (true)
 	{
 		self waittill("weapon_melee", weapon);
 
-		if (weapon == level.riotshield_name)
+		if (!issubstr(weapon, "one_inch_punch"))
 		{
 			continue;
 		}
