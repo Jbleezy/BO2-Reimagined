@@ -563,6 +563,38 @@ reward_players_in_capture_zone()
 	}
 }
 
+all_zones_captured_vo()
+{
+	if (!is_classic())
+	{
+		return;
+	}
+
+	flag_wait("all_zones_captured");
+	flag_waitopen("story_vo_playing");
+	set_players_dontspeak(1);
+	flag_set("story_vo_playing");
+	e_speaker = get_closest_player_to_richtofen();
+
+	if (isdefined(e_speaker))
+	{
+		e_speaker set_player_dontspeak(0);
+		e_speaker create_and_play_dialog("zone_capture", "all_generators_captured");
+		e_speaker waittill_any("done_speaking", "disconnect");
+	}
+
+	e_richtofen = get_player_named("Richtofen");
+
+	if (isdefined(e_richtofen))
+	{
+		e_richtofen set_player_dontspeak(0);
+		e_richtofen create_and_play_dialog("zone_capture", "all_generators_captured");
+	}
+
+	set_players_dontspeak(0);
+	flag_clear("story_vo_playing");
+}
+
 init_recapture_zombie(zone_struct, s_spawn_point)
 {
 	self endon("death");
