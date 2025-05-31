@@ -1393,7 +1393,12 @@ game_module_player_damage_callback(einflictor, eattacker, idamage, idflags, smea
 
 		self store_player_damage_info(eattacker, sweapon, smeansofdeath);
 
-		return 0;
+		return;
+	}
+
+	if (issubstr(sweapon, "one_inch_punch") && idamage <= 5)
+	{
+		return;
 	}
 
 	self.last_damage_from_zombie_or_player = 0;
@@ -1420,7 +1425,7 @@ game_module_player_damage_callback(einflictor, eattacker, idamage, idflags, smea
 	{
 		if (is_true(self._being_pushed))
 		{
-			return 0;
+			return;
 		}
 
 		if (isDefined(level._effect["butterflies"]))
@@ -1431,7 +1436,7 @@ game_module_player_damage_callback(einflictor, eattacker, idamage, idflags, smea
 		self thread do_game_mode_shellshock();
 		self playsound("zmb_player_hit_ding");
 
-		return 0;
+		return;
 	}
 
 	if (isplayer(eattacker) && isDefined(eattacker._encounters_team) && eattacker._encounters_team != self._encounters_team)
