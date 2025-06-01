@@ -46,6 +46,7 @@ main()
 	generatebuildabletarps();
 	open_doors();
 	disable_zones();
+	disable_zombie_spawn_locations();
 	scripts\zm\locs\loc_common::increase_pap_collision();
 	level thread scripts\zm\locs\loc_common::init();
 }
@@ -152,6 +153,23 @@ disable_zones()
 				{
 					spawn_point.locked = 1;
 					break;
+				}
+			}
+		}
+	}
+}
+
+disable_zombie_spawn_locations()
+{
+	foreach (index, zone in level.zones)
+	{
+		if (index == "zone_bunker_4c")
+		{
+			foreach (spawn_location in zone.spawn_locations)
+			{
+				if (spawn_location.origin == (256, 4864, -296))
+				{
+					spawn_location.is_enabled = false;
 				}
 			}
 		}
