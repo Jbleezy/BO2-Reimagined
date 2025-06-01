@@ -23,6 +23,7 @@ init()
 init_custom_perk_machine_smoke_structs()
 {
 	waitforclient(0);
+	wait 0.05;
 
 	custom_perk_machine_ents = get_custom_perk_machine_ents();
 	ents = getentarray(0);
