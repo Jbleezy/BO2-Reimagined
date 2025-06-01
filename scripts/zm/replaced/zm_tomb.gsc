@@ -529,6 +529,7 @@ working_zone_init()
 		zone_init("zone_bunker_tank_a1");
 		zone_init("zone_bunker_tank_b");
 		zone_init("zone_bunker_tank_c");
+		zone_init("zone_bunker_tank_c1");
 		zone_init("zone_bunker_tank_d");
 		zone_init("zone_bunker_tank_d1");
 		zone_init("zone_bunker_tank_e");
