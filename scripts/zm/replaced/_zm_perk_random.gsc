@@ -98,11 +98,11 @@ machine_think()
 	self thread update_animation("start");
 	machines = getentarray("random_perk_machine", "targetname");
 
-	self.machine_user = level;
+	thread maps\mp\zombies\_zm_unitrigger::unregister_unitrigger(self.unitrigger_stub);
 
 	wait getanimlength(%o_zombie_dlc4_vending_diesel_turn_on);
 
-	self.machine_user = undefined;
+	thread maps\mp\zombies\_zm_unitrigger::register_static_unitrigger(self.unitrigger_stub, ::wunderfizz_unitrigger_think);
 
 	while (isdefined(self.is_locked) && self.is_locked)
 	{

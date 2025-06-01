@@ -1123,10 +1123,12 @@ hide_temp_random_perk_machine()
 	self.is_current_ball_location = 0;
 	self notify("machine_think");
 	self thread maps\mp\zombies\_zm_perk_random::update_animation("shut_down");
+	thread maps\mp\zombies\_zm_unitrigger::unregister_unitrigger(self.unitrigger_stub);
 	wait 3;
 	self setclientfield("turn_on_location_indicator", 0);
 	self maps\mp\zombies\_zm_perk_random::conditional_power_indicators();
 	self hidepart("j_ball");
+	thread maps\mp\zombies\_zm_unitrigger::register_static_unitrigger(self.unitrigger_stub, ::wunderfizz_unitrigger_think);
 }
 
 grief_mechz_spawn_after_time()
