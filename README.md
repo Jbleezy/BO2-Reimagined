@@ -544,6 +544,7 @@
 * Projectiles get destroyed by lava
 * Projectiles can be picked up while the weapon is not reloaded
 * Projectiles can be picked up while the player is not on the ground
+* Upgraded: increased melee damage with Galvaknuckles from 1500 to 2000
 
 #### Crossbow
 * Added on Origins
@@ -1379,7 +1380,7 @@
 * Grief: Tower Trap targets and stuns players
 
 ### Origins
-* Added Double Tap machine at Church
+* Added Double Tap machine at Generator 6 Church
 * Added PHD Flopper machine at The Crazy Place Fire Chamber
 * Added Deadshot Daiquiri machine at Generator 2
 * Added Electric Cherry machine at The Crazy Place Ice Chamber
