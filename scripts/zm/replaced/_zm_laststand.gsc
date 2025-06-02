@@ -79,6 +79,8 @@ revive_trigger_think()
 				self cleanup_suicide_hud();
 				return;
 			}
+
+			break;
 		}
 	}
 }

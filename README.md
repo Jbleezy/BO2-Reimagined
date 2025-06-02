@@ -274,6 +274,7 @@
 * Fixed view model, player models, and zombie models flickering when there are many players and zombies nearby
 * Fixed last stand vision being changed when another player downs
 * Fixed certain player anims
+* Fixed being able to start reviving a player on the same frame that another player stopped reviving that player
 
 ## Zombies
 * Health capped at 100,000

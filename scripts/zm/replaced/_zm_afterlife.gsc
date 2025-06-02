@@ -293,6 +293,80 @@ afterlife_revive_invincible()
 	self.afterlife_revived = undefined;
 }
 
+afterlife_revive_trigger_think()
+{
+	self endon("disconnect");
+	self endon("stop_revive_trigger");
+	self endon("death");
+	wait 1;
+
+	while (true)
+	{
+		wait 0.1;
+		self.revivetrigger sethintstring("");
+		players = get_players();
+
+		for (i = 0; i < players.size; i++)
+		{
+			if (players[i] afterlife_can_revive(self))
+			{
+				self.revivetrigger setrevivehintstring(&"GAME_BUTTON_TO_REVIVE_PLAYER", self.team);
+				break;
+			}
+		}
+
+		for (i = 0; i < players.size; i++)
+		{
+			reviver = players[i];
+
+			if (self == reviver || !reviver is_reviving_afterlife(self))
+			{
+				continue;
+			}
+
+			gun = reviver getcurrentweapon();
+			assert(isdefined(gun));
+
+			if (gun == level.revive_tool || gun == level.afterlife_revive_tool)
+			{
+				continue;
+			}
+
+			if (isdefined(reviver.afterlife) && reviver.afterlife)
+			{
+				reviver giveweapon(level.afterlife_revive_tool);
+				reviver switchtoweapon(level.afterlife_revive_tool);
+				reviver setweaponammostock(level.afterlife_revive_tool, 1);
+			}
+			else
+			{
+				reviver giveweapon(level.revive_tool);
+				reviver switchtoweapon(level.revive_tool);
+				reviver setweaponammostock(level.revive_tool, 1);
+			}
+
+			revive_success = reviver afterlife_revive_do_revive(self, gun);
+			reviver revive_give_back_weapons(gun);
+
+			if (isplayer(self))
+			{
+				self allowjump(1);
+			}
+
+			self.laststand = undefined;
+
+			if (revive_success)
+			{
+				self thread revive_success(reviver);
+				self cleanup_suicide_hud();
+				return;
+			}
+
+			break;
+		}
+	}
+}
+
 afterlife_revive_do_revive(playerbeingrevived, revivergun)
 {
 	playerbeingrevived_player = undefined;

@@ -44,6 +44,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_afterlife::init_player, scripts\zm\replaced\_zm_afterlife::init_player);
 	replaceFunc(maps\mp\zombies\_zm_afterlife::afterlife_add, scripts\zm\replaced\_zm_afterlife::afterlife_add);
 	replaceFunc(maps\mp\zombies\_zm_afterlife::afterlife_laststand, scripts\zm\replaced\_zm_afterlife::afterlife_laststand);
+	replaceFunc(maps\mp\zombies\_zm_afterlife::afterlife_revive_trigger_think, scripts\zm\replaced\_zm_afterlife::afterlife_revive_trigger_think);
 	replaceFunc(maps\mp\zombies\_zm_afterlife::afterlife_revive_do_revive, scripts\zm\replaced\_zm_afterlife::afterlife_revive_do_revive);
 	replaceFunc(maps\mp\zombies\_zm_afterlife::afterlife_corpse_cleanup, scripts\zm\replaced\_zm_afterlife::afterlife_corpse_cleanup);
 	replaceFunc(maps\mp\zombies\_zm_afterlife::afterlife_player_damage_callback, scripts\zm\replaced\_zm_afterlife::afterlife_player_damage_callback);
