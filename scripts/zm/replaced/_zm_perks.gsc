@@ -598,11 +598,21 @@ vending_trigger_post_think(player, perk)
 		player.pre_temp_weapon = pre_temp_weapon;
 	}
 
-	evt = player waittill_any_return("fake_death", "death", "player_downed", "weapon_change_complete");
-
-	if (evt == "weapon_change_complete")
+	while (1)
 	{
-		player thread wait_give_perk(perk, 1);
+		evt = player waittill_any_return("fake_death", "death", "player_downed", "weapon_change_complete");
+
+		if (evt == "weapon_change_complete")
+		{
+			if (player getcurrentweapon() == pre_temp_weapon)
+			{
+				continue;
+			}
+
+			player thread wait_give_perk(perk, 1);
+		}
+
+		break;
 	}
 
 	player perk_give_bottle_end(player.pre_temp_weapon, perk);

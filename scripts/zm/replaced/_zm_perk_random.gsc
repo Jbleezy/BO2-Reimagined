@@ -268,11 +268,22 @@ grab_check(player, random_perk)
 	self notify("grab_check");
 	self notify("time_out_or_perk_grab");
 	gun = player maps\mp\zombies\_zm_perks::perk_give_bottle_begin(random_perk);
-	evt = player waittill_any_return("fake_death", "death", "player_downed", "weapon_change_complete");
 
-	if (evt == "weapon_change_complete")
+	while (1)
 	{
-		player thread maps\mp\zombies\_zm_perks::wait_give_perk(random_perk, 1);
+		evt = player waittill_any_return("fake_death", "death", "player_downed", "weapon_change_complete");
+
+		if (evt == "weapon_change_complete")
+		{
+			if (player getcurrentweapon() == gun)
+			{
+				continue;
+			}
+
+			player thread maps\mp\zombies\_zm_perks::wait_give_perk(random_perk, 1);
+		}
+
+		break;
 	}
 
 	player maps\mp\zombies\_zm_perks::perk_give_bottle_end(gun, random_perk);
