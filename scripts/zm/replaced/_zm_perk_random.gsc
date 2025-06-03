@@ -267,7 +267,12 @@ grab_check(player, random_perk)
 	player thread monitor_when_player_acquires_perk();
 	self notify("grab_check");
 	self notify("time_out_or_perk_grab");
-	gun = player maps\mp\zombies\_zm_perks::perk_give_bottle_begin(random_perk);
+	pre_temp_weapon = player maps\mp\zombies\_zm_perks::perk_give_bottle_begin(random_perk);
+
+	if (!isdefined(player.pre_temp_weapon))
+	{
+		player.pre_temp_weapon = pre_temp_weapon;
+	}
 
 	while (1)
 	{
@@ -275,7 +280,7 @@ grab_check(player, random_perk)
 
 		if (evt == "weapon_change_complete")
 		{
-			if (player getcurrentweapon() == gun)
+			if (player getcurrentweapon() == pre_temp_weapon)
 			{
 				continue;
 			}
@@ -286,7 +291,18 @@ grab_check(player, random_perk)
 		break;
 	}
 
-	player maps\mp\zombies\_zm_perks::perk_give_bottle_end(gun, random_perk);
+	player maps\mp\zombies\_zm_perks::perk_give_bottle_end(player.pre_temp_weapon, random_perk);
+
+	if (player maps\mp\zombies\_zm_laststand::player_is_in_laststand() || isdefined(player.intermission) && player.intermission)
+	{
+		player.lastactiveweapon = player.pre_temp_weapon;
+		return;
+	}
+
+	if (!player.is_drinking)
+	{
+		player.pre_temp_weapon = undefined;
+	}
 
 	if (!(isdefined(player.has_drunk_wunderfizz) && player.has_drunk_wunderfizz))
 	{
