@@ -219,6 +219,71 @@ machine_think()
 	}
 }
 
+grab_check(player, random_perk)
+{
+	self endon("time_out_check");
+	perk_is_bought = 0;
+
+	while (!perk_is_bought)
+	{
+		self waittill("trigger", e_triggerer);
+
+		if (e_triggerer == player)
+		{
+			if (player isthrowinggrenade())
+			{
+				wait 0.1;
+				continue;
+			}
+
+			if (player isswitchingweapons())
+			{
+				wait 0.1;
+				continue;
+			}
+
+			if (isdefined(player.is_drinking) && player.is_drinking > 0)
+			{
+				wait 0.1;
+				continue;
+			}
+
+			if (player.num_perks < player get_player_perk_purchase_limit())
+			{
+				perk_is_bought = 1;
+			}
+			else
+			{
+				self playsound("evt_perk_deny");
+				player maps\mp\zombies\_zm_audio::create_and_play_dialog("general", "sigh");
+				self notify("time_out_or_perk_grab");
+				return;
+			}
+		}
+	}
+
+	player maps\mp\zombies\_zm_stats::increment_client_stat("grabbed_from_perk_random");
+	player maps\mp\zombies\_zm_stats::increment_player_stat("grabbed_from_perk_random");
+	player thread monitor_when_player_acquires_perk();
+	self notify("grab_check");
+	self notify("time_out_or_perk_grab");
+	gun = player maps\mp\zombies\_zm_perks::perk_give_bottle_begin(random_perk);
+	evt = player waittill_any_return("fake_death", "death", "player_downed", "weapon_change_complete");
+
+	if (evt == "weapon_change_complete")
+	{
+		player thread maps\mp\zombies\_zm_perks::wait_give_perk(random_perk, 1);
+	}
+
+	player maps\mp\zombies\_zm_perks::perk_give_bottle_end(gun, random_perk);
+
+	if (!(isdefined(player.has_drunk_wunderfizz) && player.has_drunk_wunderfizz))
+	{
+		player do_player_general_vox("wunderfizz", "perk_wonder", undefined, 100);
+		player.has_drunk_wunderfizz = 1;
+	}
+}
+
 time_out_check()
 {
 	self endon("grab_check");
