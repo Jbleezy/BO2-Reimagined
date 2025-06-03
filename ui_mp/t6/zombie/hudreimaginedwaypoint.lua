@@ -353,7 +353,7 @@ CoD.GameModeObjectiveWaypoint.update = function(Menu, ClientInstance)
 		Menu.alphaController:setAlpha(0)
 	end
 
-	CoD.GameModeObjectiveWaypoint.super.update(Menu, ClientInstance)
+	Menu.super.update(Menu, ClientInstance)
 end
 
 CoD.GameModeObjectiveWaypoint.updatePlayerUsing = function(Menu, LocalClientIndex, IsPlayerTeamUsing, IsAnyOtherTeamUsing)
@@ -456,7 +456,7 @@ CoD.PlayerObjectiveWaypoint.update = function(Menu, ClientInstance)
 		Menu.alphaController:setAlpha(0)
 	end
 
-	CoD.PlayerObjectiveWaypoint.super.update(Menu, ClientInstance)
+	Menu.super.update(Menu, ClientInstance)
 end
 
 CoD.PlayerCloneWaypoint.new = function(Menu, ObjectiveIndex)
@@ -528,7 +528,7 @@ CoD.PlayerCloneWaypoint.update = function(Menu, ClientInstance)
 	Menu.mainImage:setImage(RegisterMaterial(cloneReviveIcon))
 	Menu.arrowImage:setImage(RegisterMaterial(cloneReviveArrow))
 
-	CoD.PlayerCloneWaypoint.super.update(Menu, ClientInstance)
+	Menu.super.update(Menu, ClientInstance)
 end
 
 CoD.PlayerCloneWaypoint.updatePlayerUsing = function(Menu, LocalClientIndex, IsPlayerTeamUsing, IsAnyOtherTeamUsing)
@@ -594,7 +594,7 @@ end
 
 CoD.PlayerReviveWaypoint.update = function(Menu, ClientInstance)
 	CoD.PlayerWaypoint.updateDownAndRevive(Menu, ClientInstance, false)
-	CoD.PlayerReviveWaypoint.super.update(Menu, ClientInstance)
+	Menu.super.update(Menu, ClientInstance)
 end
 
 CoD.PlayerReviveWaypoint.updatePlayerUsing = function(Menu, LocalClientIndex, IsPlayerTeamUsing, IsAnyOtherTeamUsing)
@@ -668,7 +668,7 @@ end
 
 CoD.PlayerDownWaypoint.update = function(Menu, ClientInstance)
 	CoD.PlayerWaypoint.updateDownAndRevive(Menu, ClientInstance, true)
-	CoD.PlayerDownWaypoint.super.update(Menu, ClientInstance)
+	Menu.super.update(Menu, ClientInstance)
 end
 
 CoD.PlayerDownWaypoint.updatePlayerUsing = function(Menu, LocalClientIndex, IsPlayerTeamUsing, IsAnyOtherTeamUsing)
@@ -813,7 +813,7 @@ CoD.PlayerEnemyWaypoint.update = function(Menu, ClientInstance)
 		Menu.alphaController:setAlpha(0)
 	end
 
-	CoD.PlayerEnemyWaypoint.super.update(Menu, ClientInstance)
+	Menu.super.update(Menu, ClientInstance)
 end
 
 CoD.PlayerAliveWaypoint.new = function(Menu, ObjectiveIndex)
@@ -897,7 +897,7 @@ CoD.PlayerAliveWaypoint.update = function(Menu, ClientInstance)
 	Menu.bounds2:setupEntityContainer(objectiveEntity, 0, 0, z / 2)
 	Menu.bounds3:setupEntityContainer(objectiveEntity, 0, 0, z)
 
-	CoD.PlayerAliveWaypoint.super.update(Menu, ClientInstance)
+	Menu.super.update(Menu, ClientInstance)
 end
 
 CoD.PlayerAliveWaypoint.BoundsClamped = function(Menu, ClientInstance)
@@ -1088,7 +1088,7 @@ CoD.PlayerHeadIcon.update = function(Menu, ClientInstance)
 		Menu.alphaController:setAlpha(0)
 	end
 
-	CoD.PlayerHeadIcon.super.update(Menu, ClientInstance)
+	Menu.super.update(Menu, ClientInstance)
 end
 
 CoD.ReimaginedWaypoint.TransitionCompleteSnapOut = function(Menu, Event)
