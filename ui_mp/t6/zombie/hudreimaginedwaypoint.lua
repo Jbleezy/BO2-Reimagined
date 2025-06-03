@@ -419,6 +419,7 @@ CoD.PlayerObjectiveWaypoint.new = function(Menu, ObjectiveIndex)
 	waypoint:registerEventHandler("objective_update_" .. objectiveName, waypoint.update)
 	waypoint:registerEventHandler("hud_update_team_change", waypoint.update)
 	waypoint:registerEventHandler("hud_update_other_player_team_change", waypoint.update)
+	waypoint:registerEventHandler("entity_container_update_offset", CoD.ReimaginedWaypoint.updateOffset)
 
 	return waypoint
 end
@@ -434,7 +435,6 @@ CoD.PlayerObjectiveWaypoint.update = function(Menu, ClientInstance)
 	local gamemodeGroup = UIExpression.DvarString(nil, "ui_zm_gamemodegroup")
 
 	if objectiveFlags == CoD.PlayerWaypoint.FLAG_OBJECTIVE then
-		local x, y, z = Engine.GetObjectivePosition(Menu, index)
 		local objectiveIcon = ""
 		local objectiveArrow = "waypoint_circle_arrow"
 
@@ -451,10 +451,11 @@ CoD.PlayerObjectiveWaypoint.update = function(Menu, ClientInstance)
 		Menu.alphaController:setAlpha(1)
 		Menu.mainImage:setImage(RegisterMaterial(objectiveIcon))
 		Menu.arrowImage:setImage(RegisterMaterial(objectiveArrow))
-		Menu.zOffset = z
 	else
 		Menu.alphaController:setAlpha(0)
 	end
+
+	Menu:processEvent({ name = "entity_container_update_offset" })
 
 	Menu.super.update(Menu, ClientInstance)
 end
@@ -480,18 +481,18 @@ end
 
 CoD.PlayerCloneWaypoint.update = function(Menu, ClientInstance)
 	local index = Menu.index
+	local controller = ClientInstance.controller
 	local objectiveFlags = Engine.GetObjectiveGamemodeFlags(Menu, index)
 	local mapName = CoD.Zombie.GetUIMapName()
 	local cloneReviveIcon = ""
 	local cloneReviveArrow = ""
 
 	if mapName == CoD.Zombie.MAP_ZM_PRISON then
-		local controller = ClientInstance.controller
 		local inAfterlife = UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IS_PLAYER_IN_AFTERLIFE) == 1
 
 		if inAfterlife then
 			local playerIndex = index - 8
-			local clientNum = Engine.GetClientNum(LocalClientIndex)
+			local clientNum = Engine.GetClientNum(controller)
 			local playerObjectiveEntity = Engine.GetObjectiveEntity(Menu, playerIndex)
 
 			if clientNum == playerObjectiveEntity then
@@ -594,7 +595,6 @@ end
 
 CoD.PlayerReviveWaypoint.update = function(Menu, ClientInstance)
 	CoD.PlayerWaypoint.updateDownAndRevive(Menu, ClientInstance, false)
-	Menu.super.update(Menu, ClientInstance)
 end
 
 CoD.PlayerReviveWaypoint.updatePlayerUsing = function(Menu, LocalClientIndex, IsPlayerTeamUsing, IsAnyOtherTeamUsing)
@@ -668,7 +668,6 @@ end
 
 CoD.PlayerDownWaypoint.update = function(Menu, ClientInstance)
 	CoD.PlayerWaypoint.updateDownAndRevive(Menu, ClientInstance, true)
-	Menu.super.update(Menu, ClientInstance)
 end
 
 CoD.PlayerDownWaypoint.updatePlayerUsing = function(Menu, LocalClientIndex, IsPlayerTeamUsing, IsAnyOtherTeamUsing)
@@ -766,6 +765,8 @@ CoD.PlayerWaypoint.updateDownAndRevive = function(Menu, ClientInstance, IsDownWa
 		Menu.alphaController:setAlpha(0)
 		Menu.showWaypoint = nil
 	end
+
+	Menu.super.update(Menu, ClientInstance)
 end
 
 CoD.PlayerEnemyWaypoint.new = function(Menu, ObjectiveIndex)
@@ -784,6 +785,7 @@ CoD.PlayerEnemyWaypoint.new = function(Menu, ObjectiveIndex)
 	waypoint:registerEventHandler("objective_update_" .. objectiveName, waypoint.update)
 	waypoint:registerEventHandler("hud_update_team_change", waypoint.update)
 	waypoint:registerEventHandler("hud_update_other_player_team_change", waypoint.update)
+	waypoint:registerEventHandler("entity_container_update_offset", CoD.ReimaginedWaypoint.updateOffset)
 
 	return waypoint
 end
@@ -797,7 +799,6 @@ CoD.PlayerEnemyWaypoint.update = function(Menu, ClientInstance)
 	local clientTeam = Engine.GetTeamID(controller, clientNum)
 	local objectiveEntityTeam = Engine.GetTeamID(controller, objectiveEntity)
 	local gamemodeGroup = UIExpression.DvarString(nil, "ui_zm_gamemodegroup")
-	local x, y, z = Engine.GetObjectivePosition(Menu, index)
 
 	if objectiveFlags == CoD.PlayerWaypoint.FLAG_ALIVE and clientTeam ~= objectiveEntityTeam and gamemodeGroup ~= CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
 		local killIcon = "waypoint_kill_red"
@@ -808,10 +809,11 @@ CoD.PlayerEnemyWaypoint.update = function(Menu, ClientInstance)
 		Menu.arrowImage:setRGB(1, 0, 0)
 		Menu.mainImage:setImage(RegisterMaterial(killIcon))
 		Menu.arrowImage:setImage(RegisterMaterial(killArrow))
-		Menu.zOffset = z
 	else
 		Menu.alphaController:setAlpha(0)
 	end
+
+	Menu:processEvent({ name = "entity_container_update_offset" })
 
 	Menu.super.update(Menu, ClientInstance)
 end
@@ -834,6 +836,7 @@ CoD.PlayerAliveWaypoint.new = function(Menu, ObjectiveIndex)
 	waypoint:registerEventHandler("objective_update_" .. objectiveName, waypoint.update)
 	waypoint:registerEventHandler("hud_update_team_change", waypoint.update)
 	waypoint:registerEventHandler("hud_update_other_player_team_change", waypoint.update)
+	waypoint:registerEventHandler("entity_container_update_offset", CoD.ReimaginedWaypoint.updateOffset)
 	waypoint:registerEventHandler("entity_container_clamped", CoD.NullFunction)
 	waypoint:registerEventHandler("entity_container_unclamped", CoD.NullFunction)
 
@@ -879,19 +882,20 @@ CoD.PlayerAliveWaypoint.update = function(Menu, ClientInstance)
 	local clientNum = Engine.GetClientNum(controller)
 	local objectiveFlags = Engine.GetObjectiveGamemodeFlags(Menu, index)
 	local objectiveEntity = Engine.GetObjectiveEntity(Menu, index)
+	local x, y, z = Engine.GetObjectivePosition(Menu, index)
 	local clientTeam = Engine.GetTeamID(controller, clientNum)
 	local objectiveEntityTeam = Engine.GetTeamID(controller, objectiveEntity)
-	local x, y, z = Engine.GetObjectivePosition(Menu, index)
 
 	if objectiveFlags == CoD.PlayerWaypoint.FLAG_ALIVE and clientTeam == objectiveEntityTeam and Menu.boundsClampedCount == Menu.boundsTotalCount then
 		local aliveArrow = "hud_offscreenobjectivepointer"
 
 		Menu.alphaController:setAlpha(1)
 		Menu.arrowImage:setImage(RegisterMaterial(aliveArrow))
-		Menu.zOffset = z / 2
 	else
 		Menu.alphaController:setAlpha(0)
 	end
+
+	Menu:processEvent({ name = "entity_container_update_offset" })
 
 	Menu.bounds1:setupEntityContainer(objectiveEntity, 0, 0, 0)
 	Menu.bounds2:setupEntityContainer(objectiveEntity, 0, 0, z / 2)
@@ -1036,6 +1040,7 @@ CoD.PlayerHeadIcon.new = function(Menu, ObjectiveIndex)
 	waypoint:registerEventHandler("objective_update_" .. objectiveName, waypoint.update)
 	waypoint:registerEventHandler("hud_update_team_change", waypoint.update)
 	waypoint:registerEventHandler("hud_update_other_player_team_change", waypoint.update)
+	waypoint:registerEventHandler("entity_container_update_offset", CoD.ReimaginedWaypoint.updateOffset)
 
 	return waypoint
 end
@@ -1050,7 +1055,6 @@ CoD.PlayerHeadIcon.update = function(Menu, ClientInstance)
 	local objectiveEntityTeam = Engine.GetTeamID(controller, objectiveEntity)
 
 	if objectiveFlags == CoD.PlayerWaypoint.FLAG_ALIVE and clientTeam == objectiveEntityTeam then
-		local x, y, z = Engine.GetObjectivePosition(Menu, index)
 		local gamemodeGroup = UIExpression.DvarString(nil, "ui_zm_gamemodegroup")
 		local mapName = CoD.Zombie.GetUIMapName()
 		local factionIcon = "faction_" .. Engine.GetFactionForTeam(objectiveEntityTeam)
@@ -1083,12 +1087,57 @@ CoD.PlayerHeadIcon.update = function(Menu, ClientInstance)
 
 		Menu.alphaController:setAlpha(1)
 		Menu.mainImage:setImage(RegisterMaterial(factionIcon))
-		Menu.zOffset = z
 	else
 		Menu.alphaController:setAlpha(0)
 	end
 
+	Menu:processEvent({ name = "entity_container_update_offset" })
+
 	Menu.super.update(Menu, ClientInstance)
+end
+
+CoD.ReimaginedWaypoint.updateOffset = function(Menu, ClientInstance)
+	local index = Menu.index
+	local x, y, z = Engine.GetObjectivePosition(Menu, index)
+	Menu.zOffsetNew = z
+
+	if Menu.zOffset == 0 then
+		Menu.zOffset = z
+	end
+
+	if Menu.zOffset ~= Menu.zOffsetNew then
+		local moveScale = UIExpression.DvarInt(nil, "com_maxfps") / 120
+
+		if moveScale == 0 then
+			moveScale = 1
+		end
+
+		local moveAmount = 1 / moveScale
+
+		if Menu.zOffset > Menu.zOffsetNew then
+			Menu.zOffset = math.max(Menu.zOffset - moveAmount, Menu.zOffsetNew)
+		else
+			Menu.zOffset = math.min(Menu.zOffset + moveAmount, Menu.zOffsetNew)
+		end
+	end
+
+	if Menu.timer ~= nil then
+		Menu.super.update(Menu, ClientInstance)
+	end
+
+	if Menu.zOffset == Menu.zOffsetNew then
+		if Menu.timer ~= nil then
+			Menu.timer:close()
+			Menu.timer = nil
+		end
+
+		return
+	end
+
+	if Menu.timer == nil then
+		Menu.timer = LUI.UITimer.new(1, "entity_container_update_offset", false)
+		Menu:addElement(Menu.timer)
+	end
 end
 
 CoD.ReimaginedWaypoint.TransitionCompleteSnapOut = function(Menu, Event)

@@ -672,6 +672,7 @@ on_player_disconnect()
 	objective_state(self.obj_ind, "invisible");
 	objective_clearentity(self.obj_ind, self);
 	objective_setgamemodeflags(self.obj_ind, 0);
+	objective_position(self.obj_ind, (0, 0, 0));
 }
 
 on_intermission()
@@ -2168,6 +2169,7 @@ player_waypoint()
 	objective_state(self.obj_ind, "active");
 	objective_onentity(self.obj_ind, self);
 	objective_setgamemodeflags(self.obj_ind, 0);
+	objective_position(self.obj_ind, (0, 0, getdvarint("waypointPlayerOffsetStand")));
 
 	self waittill_next_snapshot(1);
 
@@ -2181,24 +2183,15 @@ player_waypoint_height_offset_think()
 	self endon("disconnect");
 
 	prev_stance = "";
-	prev_in_last_stand = false;
-	self.obj_height_offset = getdvarint("waypointPlayerOffsetStand");
 
 	while (1)
 	{
 		stance = self getstance();
-		in_last_stand = self maps\mp\zombies\_zm_laststand::player_is_in_laststand();
 
 		if (!self isonground() && !is_true(self.divetoprone))
 		{
 			stance = "stand";
 		}
-		else if (prev_in_last_stand && !in_last_stand)
-		{
-			stance = "stand";
-		}
-
-		prev_in_last_stand = in_last_stand;
 
 		if (prev_stance == stance)
 		{
@@ -2218,46 +2211,7 @@ player_waypoint_height_offset_think()
 			height_offset = getdvarint("waypointPlayerOffsetProne");
 		}
 
-		self thread player_waypoint_height_offset_move_over_time(height_offset);
-
-		wait 0.05;
-	}
-}
-
-player_waypoint_height_offset_move_over_time(height_offset)
-{
-	self notify("player_waypoint_height_offset_move_over_time");
-	self endon("player_waypoint_height_offset_move_over_time");
-	self endon("disconnect");
-
-	move_amount = 5;
-	move_down = 0;
-
-	if (self.obj_height_offset > height_offset)
-	{
-		move_amount *= -1;
-		move_down = 1;
-	}
-
-	while (1)
-	{
-		self.obj_height_offset += move_amount;
-
-		if (move_down && self.obj_height_offset < height_offset)
-		{
-			self.obj_height_offset = height_offset;
-		}
-		else if (!move_down && self.obj_height_offset > height_offset)
-		{
-			self.obj_height_offset = height_offset;
-		}
-
-		objective_position(self.obj_ind, (0, 0, self.obj_height_offset));
-
-		if (self.obj_height_offset == height_offset)
-		{
-			break;
-		}
+		objective_position(self.obj_ind, (0, 0, height_offset));
 
 		wait 0.05;
 	}
