@@ -983,7 +983,6 @@ pregame_think()
 	ready_up_time = 0;
 	ready_up_timeout = 0;
 	ready_up_start_time = undefined;
-	ready_up_start_players = undefined;
 
 	if (isDedicated() && level.allow_teamchange == "0")
 	{
@@ -1008,7 +1007,6 @@ pregame_think()
 			if (num_ready > 0 && !isdefined(ready_up_start_time))
 			{
 				ready_up_start_time = getTime();
-				ready_up_start_players = get_players();
 
 				if (!isDefined(level.ready_up_countdown_hud))
 				{
@@ -1034,16 +1032,6 @@ pregame_think()
 				if (time >= ready_up_time * 1000)
 				{
 					ready_up_timeout = 1;
-
-					foreach (player in ready_up_start_players)
-					{
-						if (isDefined(player) && !isDefined(player.ready))
-						{
-							kick(player getEntityNumber());
-						}
-					}
-
-					wait 0.05;
 				}
 			}
 		}
