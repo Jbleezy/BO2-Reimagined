@@ -174,6 +174,106 @@ waittill_dug(s_dig_spot)
 	}
 }
 
+ee_zombie_blood_dig()
+{
+	self endon("disconnect");
+
+	self thread ee_zombie_blood_dig_disconnect_watch();
+
+	n_z_spots_found = 0;
+	a_z_spots = getstructarray("zombie_blood_dig_spot", "targetname");
+	a_randomized = array_randomize(a_z_spots);
+
+	while (n_z_spots_found < 4)
+	{
+		n_index = undefined;
+
+		for (i = 0; i < a_randomized.size; i++)
+		{
+			if (!isdefined(a_randomized[i].n_player))
+			{
+				n_index = i;
+				break;
+			}
+		}
+
+		assert(isdefined(n_index), "No more zombie blood dig spots.  Add more to the map.");
+		s_z_spot = a_randomized[n_index];
+
+		s_z_spot.t_zombie_blood_dig = spawn("trigger_radius_use", (0, 0, 0), 0, 100, 50);
+		s_z_spot.t_zombie_blood_dig.e_unique_player = self;
+		s_z_spot.t_zombie_blood_dig triggerignoreteam();
+		s_z_spot.t_zombie_blood_dig setcursorhint("HINT_NOICON");
+		s_z_spot.t_zombie_blood_dig sethintstring(&"ZM_TOMB_X2D");
+		s_z_spot.t_zombie_blood_dig maps\mp\zombies\_zm_powerup_zombie_blood::make_zombie_blood_entity();
+
+		s_z_spot.n_player = self getentitynumber();
+		s_z_spot thread create_zombie_blood_dig_spot(self);
+		n_z_spots_found++;
+	}
+}
+
+create_zombie_blood_dig_spot(e_player)
+{
+	self.m_dig = spawn("script_model", self.origin + vectorscale((0, 0, -1), 40.0));
+	self.m_dig.angles = self.angles;
+	self.m_dig setmodel("p6_zm_tm_dig_mound_blood");
+	self.m_dig maps\mp\zombies\_zm_powerup_zombie_blood::make_zombie_blood_entity();
+	self.m_dig moveto(self.origin, 3, 0, 1);
+	self.m_dig waittill("movedone");
+	self.m_dig.e_unique_player = e_player;
+	self.t_zombie_blood_dig.origin = self.origin + vectorscale((0, 0, 1), 20.0);
+	self.t_zombie_blood_dig waittill_zombie_blood_dug(self);
+}
+
+waittill_zombie_blood_dug(s_dig_spot)
+{
+	self endon("death");
+
+	while (true)
+	{
+		self waittill("trigger", player);
+
+		if (isdefined(player.dig_vars["has_shovel"]) && player.dig_vars["has_shovel"])
+		{
+			s_dig_spot.t_zombie_blood_dig.origin = (0, 0, 0);
+			player playsound("evt_dig");
+			playfx(level._effect["digging"], self.origin);
+			s_dig_spot.m_dig delete();
+			spawn_perk_upgrade_bottle(s_dig_spot.origin, player);
+			s_dig_spot.t_zombie_blood_dig delete();
+			return;
+		}
+	}
+}
+
+ee_zombie_blood_dig_disconnect_watch()
+{
+	n_player = self getentitynumber();
+
+	self waittill("disconnect");
+
+	a_z_spots = getstructarray("zombie_blood_dig_spot", "targetname");
+
+	foreach (s_pos in a_z_spots)
+	{
+		if (isdefined(s_pos.n_player) && s_pos.n_player == n_player)
+		{
+			if (isdefined(s_pos.t_zombie_blood_dig))
+			{
+				s_pos.t_zombie_blood_dig delete();
+			}
+
+			if (isdefined(s_pos.m_dig))
+			{
+				s_pos.m_dig delete();
+			}
+
+			s_pos.n_player = undefined;
+		}
+	}
+}
+
 increment_player_perk_purchase_limit()
 {
 	perk = maps\mp\zombies\_zm_perk_random::get_weighted_random_perk(self);

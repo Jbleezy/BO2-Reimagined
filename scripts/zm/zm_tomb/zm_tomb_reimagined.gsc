@@ -177,7 +177,6 @@ init()
 
 	level thread divetonuke_on();
 	level thread electric_cherry_on();
-	level thread zombie_blood_dig_changes();
 	level thread attach_powerups_to_tank();
 	level thread updatecraftables();
 	level thread random_perk_machine_watch_fire_sale();
@@ -477,55 +476,6 @@ electric_cherry_on()
 	flag_wait("start_zombie_round_logic");
 
 	level notify("electric_cherry_on");
-}
-
-zombie_blood_dig_changes()
-{
-	if (!is_classic())
-	{
-		return;
-	}
-
-	while (1)
-	{
-		for (i = 0; i < level.a_zombie_blood_entities.size; i++)
-		{
-			ent = level.a_zombie_blood_entities[i];
-
-			if (IsDefined(ent.e_unique_player))
-			{
-				if (!isDefined(ent.e_unique_player.initial_zombie_blood_dig))
-				{
-					ent.e_unique_player.initial_zombie_blood_dig = 0;
-				}
-
-				ent.e_unique_player.initial_zombie_blood_dig++;
-
-				if (ent.e_unique_player.initial_zombie_blood_dig <= 2)
-				{
-					ent setvisibletoplayer(ent.e_unique_player);
-				}
-				else
-				{
-					ent thread set_visible_after_rounds(ent.e_unique_player, 3);
-				}
-
-				arrayremovevalue(level.a_zombie_blood_entities, ent);
-			}
-		}
-
-		wait .5;
-	}
-}
-
-set_visible_after_rounds(player, num)
-{
-	for (i = 0; i < num; i++)
-	{
-		level waittill("end_of_round");
-	}
-
-	self setvisibletoplayer(player);
 }
 
 attach_powerups_to_tank()

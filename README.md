@@ -1470,8 +1470,8 @@
 * Dig spots: changed number of digs to obtain golden helmet to 40 (normally 5% chance to obtain after obtaining golden shovel)
 * Dig spots: dug up weapons get full ammo when picked up (normally missing one clip)
 * Perk bottle dig spots: give random perk
-* Perk bottle dig spots: visible and diggable without Zombie Blood
-* Perk bottle dig spots: increased number of rounds for next dig spot to spawn from 1 to 4
+* Perk bottle dig spots: all 4 spots are visible at the same time
+* Perk bottle dig spots: fixed spots behaving incorrectly after disconnecting and reconnecting to a match
 * Quest: added "Benn - The Divider" song
 * Quest (ascend from darkness step): 3 robots are always active during this step
 * Quest (ascend from darkness step): staffs can be placed at any staff holder
