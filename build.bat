@@ -52,7 +52,7 @@ if %ERRORLEVEL% neq 0 pause
 
 "%OAT_BASE%\Linker.exe" ^
 --load "%CD%\zone_source\dependencies\camo_materials.ff" ^
---load "%OAT_GAME%\zone\all\weapons!metalstorm_mms_sp.ff" ^
+--load "%CD%\zone\all\weapons!metalstorm_mms_sp.ff" ^
 --base-folder "%OAT_BASE%" ^
 --add-asset-search-path "%CD%" ^
 --add-source-search-path "%CD%\zone_source\includes" ^
@@ -63,7 +63,7 @@ if %ERRORLEVEL% neq 0 pause
 
 "%OAT_BASE%\Linker.exe" ^
 --load "%CD%\zone_source\dependencies\camo_materials.ff" ^
---load "%OAT_GAME%\zone\all\weapons!exptitus6_sp.ff" ^
+--load "%CD%\zone\all\weapons!exptitus6_sp.ff" ^
 --base-folder "%OAT_BASE%" ^
 --add-asset-search-path "%CD%" ^
 --add-source-search-path "%CD%\zone_source\includes" ^
