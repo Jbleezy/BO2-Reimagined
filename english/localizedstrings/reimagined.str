@@ -325,13 +325,25 @@ REFERENCE           ZOMBIE_GRIEF_LOSE
 LANG_ENGLISH        "YOU LOSE!"
 
 REFERENCE           ZOMBIE_ZGRIEF_PLAYER_BLED_OUT
-LANG_ENGLISH        "Enemy Down! [&&1 Remaining]"
+LANG_ENGLISH        "Enemy Down! [&&1 V &&2]"
 
 REFERENCE           ZOMBIE_ZGRIEF_PLAYER_REVIVED
-LANG_ENGLISH        "Enemy Revived! [&&1 Remaining]"
+LANG_ENGLISH        "Enemy Revived! [&&1 V &&2]"
+
+REFERENCE           ZOMBIE_ZGRIEF_ALLY_BLED_OUT
+LANG_ENGLISH        "Ally Down! [&&1 V &&2]"
+
+REFERENCE           ZOMBIE_ZGRIEF_ALLY_REVIVED
+LANG_ENGLISH        "Ally Revived! [&&1 V &&2]"
+
+REFERENCE           ZOMBIE_ZGRIEF_ALL_ALLIES_DOWN
+LANG_ENGLISH        "All Allies Down!"
 
 REFERENCE           ZOMBIE_ZGRIEF_PLAYER_DEAD
-LANG_ENGLISH        "Enemy Bled Out! [&&1 Remaining]"
+LANG_ENGLISH        "Enemy Bled Out! [&&1 V &&2]"
+
+REFERENCE           ZOMBIE_ZGRIEF_ALLY_DEAD
+LANG_ENGLISH        "Ally Bled Out! [&&1 V &&2]"
 
 REFERENCE           ZOMBIE_ZGRIEF_PLAYER_BLED_OUT_SCORE
 LANG_ENGLISH        "Enemy Down! [&&1 Score]"

@@ -1031,19 +1031,34 @@ update_players_on_downed(excluded_player)
 
 	grief_score_hud_set_player_count(team, players_remaining);
 
-	foreach (player in other_players)
+	foreach (player in players)
 	{
-		if (players_remaining == 0)
+		if (other_players_remaining > 0)
 		{
-			if (other_players_remaining > 0)
+			if (players_remaining == 0)
 			{
-				player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_ALL_PLAYERS_DOWN");
-				player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_SURVIVE", undefined, 30, 1);
+				player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_ALL_ALLIES_DOWN");
+			}
+			else
+			{
+				player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_ALLY_BLED_OUT", players_remaining, other_players_remaining);
 			}
 		}
-		else
+	}
+
+	foreach (player in other_players)
+	{
+		if (other_players_remaining > 0)
 		{
-			player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_PLAYER_BLED_OUT", players_remaining);
+			if (players_remaining == 0)
+			{
+				player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_ALL_PLAYERS_DOWN");
+				player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_SURVIVE", undefined, undefined, 30, 1);
+			}
+			else
+			{
+				player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_PLAYER_BLED_OUT", other_players_remaining, players_remaining);
+			}
 		}
 	}
 
@@ -1095,9 +1110,17 @@ update_players_on_revived(revived_player, reviver)
 
 	grief_score_hud_set_player_count(team, players_remaining);
 
+	foreach (player in players)
+	{
+		if (other_players_remaining > 0)
+		{
+			player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_ALLY_REVIVED", players_remaining, other_players_remaining);
+		}
+	}
+
 	foreach (player in other_players)
 	{
-		player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_PLAYER_REVIVED", players_remaining);
+		player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_PLAYER_REVIVED", other_players_remaining, players_remaining);
 	}
 }
 
@@ -1187,7 +1210,7 @@ is_respawn_gamemode()
 	return level.scr_zm_ui_gametype_obj != "zsnr";
 }
 
-show_grief_hud_msg(msg, msg_parm, offset, delay)
+show_grief_hud_msg(msg, msg_parm1, msg_parm2, offset, delay)
 {
 	if (!isDefined(offset))
 	{
@@ -1239,9 +1262,13 @@ show_grief_hud_msg(msg, msg_parm, offset, delay)
 		wait delay;
 	}
 
-	if (isDefined(msg_parm))
+	if (isDefined(msg_parm2))
 	{
-		zgrief_hudmsg settext(msg, msg_parm);
+		zgrief_hudmsg settext(msg, msg_parm1, msg_parm2);
+	}
+	else if (isDefined(msg_parm1))
+	{
+		zgrief_hudmsg settext(msg, msg_parm1);
 	}
 	else
 	{
@@ -3361,11 +3388,14 @@ increment_score(team, amount = 1, show_lead_msg = true, score_msg)
 {
 	level endon("end_game");
 
+	other_team = getOtherTeam(team);
 	encounters_team = "A";
+	other_encounters_team = "B";
 
 	if (team == "allies")
 	{
 		encounters_team = "B";
+		other_encounters_team = "A";
 	}
 
 	level.grief_score[encounters_team] += amount;
@@ -3396,22 +3426,31 @@ increment_score(team, amount = 1, show_lead_msg = true, score_msg)
 
 	if (level.scr_zm_ui_gametype_obj == "zgrief")
 	{
-		score_left = get_gamemode_winning_score() - level.grief_score[encounters_team];
+		score = level.grief_score[encounters_team];
+		other_score = level.grief_score[other_encounters_team];
+		score_remaining = get_gamemode_winning_score() - score;
+		other_score_remaining = get_gamemode_winning_score() - other_score;
 
 		players = get_players(team);
+		other_players = get_players(other_team);
 
 		foreach (player in players)
 		{
-			player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_PLAYER_DEAD", score_left);
+			player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_PLAYER_DEAD", other_score_remaining, score_remaining);
+		}
+
+		foreach (player in other_players)
+		{
+			player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_ALLY_DEAD", score_remaining, other_score_remaining);
 		}
 
 		if (level.grief_score[encounters_team] <= 3)
 		{
 			level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog(level.grief_score[encounters_team] + "_player_down", team);
 		}
-		else if (score_left <= 3)
+		else if (score_remaining <= 3)
 		{
-			level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog(score_left + "_player_left", team);
+			level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog(score_remaining + "_player_left", team);
 		}
 	}
 
@@ -3447,11 +3486,11 @@ increment_score(team, amount = 1, show_lead_msg = true, score_msg)
 			{
 				if (player.team == team)
 				{
-					player thread show_grief_hud_msg(&"ZOMBIE_GRIEF_GAIN_LEAD", undefined, 30, delay);
+					player thread show_grief_hud_msg(&"ZOMBIE_GRIEF_GAIN_LEAD", undefined, undefined, 30, delay);
 				}
 				else
 				{
-					player thread show_grief_hud_msg(&"ZOMBIE_GRIEF_LOSE_LEAD", undefined, 30, delay);
+					player thread show_grief_hud_msg(&"ZOMBIE_GRIEF_LOSE_LEAD", undefined, undefined, 30, delay);
 				}
 			}
 		}
