@@ -2301,12 +2301,7 @@ player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, s
 {
 	if (isDefined(level._game_module_player_damage_callback))
 	{
-		new_damage = self [[level._game_module_player_damage_callback]](einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime);
-
-		if (isDefined(new_damage))
-		{
-			idamage = new_damage;
-		}
+		self [[level._game_module_player_damage_callback]](einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime);
 	}
 
 	idamage = self maps\mp\zombies\_zm::check_player_damage_callbacks(einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime);
@@ -2404,10 +2399,17 @@ player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, s
 		return 0;
 	}
 
-	// fix turrets damaging players
 	if (sweapon == "zombie_bullet_crouch_zm")
 	{
 		return 0;
+	}
+
+	if (sweapon == "tower_trap_zm")
+	{
+		if (is_gametype_active("zgrief"))
+		{
+			idamage = 50;
+		}
 	}
 
 	if (isDefined(self.player_damage_override))

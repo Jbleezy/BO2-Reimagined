@@ -1378,7 +1378,7 @@
 * Wallbuys: SMR, Ballista, MSMC, Uzi, M1927
 * Perks: Jugger-Nog, Electric Cherry
 * Pack-a-Punch
-* Grief: Tower Trap targets and stuns players
+* Grief: Tower Trap targets and damages players
 
 ### Origins
 * Added Double Tap machine at Generator 6 Church

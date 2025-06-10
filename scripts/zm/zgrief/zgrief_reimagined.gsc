@@ -1448,24 +1448,6 @@ game_module_player_damage_callback(einflictor, eattacker, idamage, idflags, smea
 		return;
 	}
 
-	if (isDefined(sweapon) && isSubStr(sweapon, "tower_trap"))
-	{
-		if (is_true(self._being_pushed))
-		{
-			return;
-		}
-
-		if (isDefined(level._effect["butterflies"]))
-		{
-			self do_game_mode_stun_fx(einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime);
-		}
-
-		self thread do_game_mode_shellshock();
-		self playsound("zmb_player_hit_ding");
-
-		return;
-	}
-
 	if (isplayer(eattacker) && isDefined(eattacker._encounters_team) && eattacker._encounters_team != self._encounters_team)
 	{
 		if (is_true(self.hasriotshield) && isDefined(vdir))
