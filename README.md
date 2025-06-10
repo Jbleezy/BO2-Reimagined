@@ -1514,7 +1514,7 @@
 ### Encounter
 * Group of competitive game modes
 * Unlimited zombies
-* 2500 health zombies (25000 health boss zombies)
+* 2500 health zombies
 * 0.5 second zombie spawn rate
 * Only sprinting zombies
 * Crawlers bleed out if they have not dealt or taken damage within 30 seconds

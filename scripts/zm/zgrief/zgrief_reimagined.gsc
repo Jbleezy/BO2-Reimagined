@@ -391,8 +391,8 @@ set_grief_vars()
 	level.zombie_vars["zombie_health_increase"] = 0;
 	level.zombie_vars["zombie_health_increase_multiplier"] = 0;
 	level.zombie_vars["zombie_spawn_delay"] = 0.5;
-	level.brutus_health = 25000;
-	level.brutus_expl_dmg_req = 15000;
+	level.brutus_health = 20000;
+	level.brutus_expl_dmg_req = 18000;
 	level.mechz_health = 22500;
 	level.player_starting_points = 10000;
 
