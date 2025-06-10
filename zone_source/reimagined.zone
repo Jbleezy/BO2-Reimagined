@@ -134,6 +134,7 @@ material,hud_obit_revive
 material,waypoint_revive_arrow
 
 rawfile,animstatedefs/zm_nuked_dog.asd
+rawfile,shock/grief_stun_zm.shock
 rawfile,zm/gamesettings_zgrief.cfg
 rawfile,zm/playeranim.script
 

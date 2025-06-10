@@ -1521,15 +1521,14 @@
 * Boss zombies spawn every 4-6 minutes (on maps that have them)
 * Unlimited powerups
 * Unlimited barrier rebuild points
-* Unupgraded weapons stun enemy players for 0.5 seconds
-* Upgraded weapons stun enemy players for 0.75 seconds
-* Melee weapons stun enemy players for 0.75 seconds
+* Stunning enemy players with an unupgraded weapon decreases their move speed to 60%
+* Stunning enemy players with an upgraded weapon or a melee weapon decreases their move speed to 40%
 * Meleeing enemy players with an upgraded melee weapon pushes 33% more
 * Meleeing enemy players that are in the air pushes 100% more
 * Meleeing enemy players that are crouched pushes 33% less
 * Meleeing enemy players that are prone pushes 66% less
 * Meleeing enemy players that are reviving pushes 50% less
-* Meleeing enemy players that are already stunned from weapons will push and restun them
+* Meleeing enemy players that are already stunned will still push them
 * Ballistic knife projectile pushes enemy players
 * Claymores are no longer triggered by enemy players
 * Stun fx is linked to the player

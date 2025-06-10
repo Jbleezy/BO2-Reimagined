@@ -65,6 +65,8 @@ init()
 	precacheString(istring(toupper("ZMUI_" + level.scr_zm_ui_gametype_obj)));
 	precacheString(istring(toupper("ZMUI_" + level.scr_zm_ui_gametype_obj + "_PRO")));
 
+	precacheshellshock("grief_stun_zm");
+
 	grief_setscoreboardcolumns_gametype();
 	enemy_powerup_hud();
 	obj_waypoint();
@@ -1468,11 +1470,6 @@ game_module_player_damage_callback(einflictor, eattacker, idamage, idflags, smea
 			}
 		}
 
-		if (is_true(self._being_pushed))
-		{
-			return;
-		}
-
 		is_melee = false;
 
 		if (isDefined(eattacker) && isplayer(eattacker) && eattacker != self && eattacker.team != self.team && (smeansofdeath == "MOD_MELEE" || issubstr(sweapon, "knife_ballistic")))
@@ -1491,17 +1488,19 @@ game_module_player_damage_callback(einflictor, eattacker, idamage, idflags, smea
 			self setVelocity(amount * dir);
 		}
 
-		if (is_true(self._being_shellshocked) && !is_melee)
+		sweapon = get_nonalternate_weapon(sweapon);
+
+		if (!is_true(self._being_shellshocked) || is_melee)
+		{
+			self store_player_damage_info(eattacker, sweapon, smeansofdeath);
+		}
+
+		if (is_true(self._being_shellshocked))
 		{
 			return;
 		}
 
-		sweapon = get_nonalternate_weapon(sweapon);
-
-		if (!is_true(self._being_shellshocked))
-		{
-			self do_game_mode_stun_score_steal(eattacker);
-		}
+		self do_game_mode_stun_score_steal(eattacker);
 
 		if (isDefined(level._effect["butterflies"]))
 		{
@@ -1510,8 +1509,6 @@ game_module_player_damage_callback(einflictor, eattacker, idamage, idflags, smea
 
 		self thread do_game_mode_shellshock(is_melee, is_weapon_upgraded(sweapon));
 		self playsound("zmb_player_hit_ding");
-
-		self store_player_damage_info(eattacker, sweapon, smeansofdeath);
 	}
 }
 
@@ -1645,25 +1642,19 @@ do_game_mode_shellshock(is_melee = 0, is_upgraded = 0)
 	self endon("do_game_mode_shellshock");
 	self endon("disconnect");
 
-	time = 0.5;
+	name = "grief_stun_zm";
 
-	if (is_melee)
+	if (is_upgraded || is_melee)
 	{
-		time = 0.75;
-	}
-	else if (is_upgraded)
-	{
-		time = 0.75;
+		name = "grief_stab_zm";
 	}
 
 	self._being_shellshocked = 1;
-	self._being_pushed = is_melee;
-	self shellshock("grief_stab_zm", time);
+	self shellshock(name, 0.75);
 
 	wait 0.75;
 
 	self._being_shellshocked = 0;
-	self._being_pushed = 0;
 }
 
 stun_score_steal(attacker, score)
