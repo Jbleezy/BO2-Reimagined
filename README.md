@@ -1538,6 +1538,8 @@
 * Landing on top of an enemy player that is prone downs them
 * Increased max radius for landing on top of an enemy player by 16.66%
 * Decreased max height for landing on top of an enemy player by 50%
+* Players respawn after being down for 10 seconds (except Search & Rezurrect)
+* Players retain perks (except Search & Rezurrect)
 * Starting weapon (upgraded): decreased stock ammo by half
 * Max Ammo: decreased amount of ammo given from max stock to one clip
 * Max Ammo: unloads clip of all enemy players' weapons and takes away their grenades and claymores
@@ -1563,8 +1565,6 @@
 * Gain score by making enemy players bleed out
 * Make 10 enemy players bleed out to win the game
 * Bleeding out enemy players awards 1000 points to all teammates
-* Players respawn after being down for 10 seconds
-* Players retain perks
 
 #### Search & Rezurrect
 * Win a round by getting all enemy players down
@@ -1580,15 +1580,14 @@
 * Players respawn at initial spawn points
 
 #### Race
-* Gain score by getting zombie kills or getting enemy players down
+* Gain score by killing zombies or enemy players
 * Gain 500 score to win the game
 * Killing a zombie awards 1 score
 * Killing a boss zombie awards 10 score
-* Getting an enemy player down awards 10 score
+* Stunning an enemy player awards 1 score
+* Downing an enemy player awards 10 score
+* Bleeding out an enemy player awards 5 score
 * Reviving an ally player awards 5 score
-* Grabbing a Nuke powerup awards 10 score
-* Players respawn after being down for 10 seconds
-* Players retain perks
 
 #### Containment
 * Gain score by being the team with the most players alive in the containment zone
@@ -1601,8 +1600,6 @@
 * Containment zone moves every 60 seconds
 * Next containment zone waypoint shown when there is 10 seconds left on current containment zone
 * Amount of players alive in the containment zone on each team shown on HUD
-* Players respawn after being down for 10 seconds
-* Players retain perks
 
 #### Meat
 * Gain score by being the team holding the meat
@@ -1614,8 +1611,6 @@
 * Throwing the meat onto another player makes them grab the meat
 * Decreased meat powerup time on the ground by half
 * Team holding the meat shown on HUD
-* Players respawn after being down for 10 seconds
-* Players retain perks
 
 ### Encounter Pro
 * No Mystery Box

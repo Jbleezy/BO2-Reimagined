@@ -115,10 +115,6 @@ grief_setscoreboardcolumns_gametype()
 	{
 		setscoreboardcolumns("score", "captures", "killsconfirmed", "downs", "revives");
 	}
-	else if (level.scr_zm_ui_gametype_obj == "zrace")
-	{
-		setscoreboardcolumns("score", "kills", "killsconfirmed", "downs", "revives");
-	}
 	else
 	{
 		setscoreboardcolumns("score", "killsdenied", "killsconfirmed", "downs", "revives");
@@ -625,6 +621,11 @@ on_player_bled_out()
 			self.init_player_offhand_weapons_override = undefined;
 			self add_grief_bleedout_score();
 			level thread update_players_on_bleedout(self);
+		}
+
+		if (level.scr_zm_ui_gametype_obj == "zrace")
+		{
+			increment_score(getOtherTeam(self.team), 5, 1, &"ZOMBIE_ZGRIEF_PLAYER_DEAD_SCORE");
 		}
 
 		if (level.scr_zm_ui_gametype_obj == "zsnr" || is_true(self.playersuicided))
@@ -1608,6 +1609,11 @@ do_game_mode_stun_score_steal(eattacker)
 	self stun_score_steal(eattacker, score);
 
 	eattacker.killsdenied++;
+
+	if (level.scr_zm_ui_gametype_obj == "zrace")
+	{
+		increment_score(eattacker.team);
+	}
 }
 
 do_game_mode_stun_fx(einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime)

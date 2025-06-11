@@ -348,14 +348,14 @@ LANG_ENGLISH        "Ally Bled Out! [&&1 V &&2]"
 REFERENCE           ZOMBIE_ZGRIEF_PLAYER_BLED_OUT_SCORE
 LANG_ENGLISH        "Enemy Down! [&&1 Score]"
 
+REFERENCE           ZOMBIE_ZGRIEF_PLAYER_DEAD_SCORE
+LANG_ENGLISH        "Enemy Bled Out! [&&1 Score]"
+
 REFERENCE           ZOMBIE_ZGRIEF_ALLY_REVIVED_SCORE
 LANG_ENGLISH        "Ally Revived! [&&1 Score]"
 
 REFERENCE           ZOMBIE_ZGRIEF_BOSS_KILLED_SCORE
 LANG_ENGLISH        "Boss Killed! [&&1 Score]"
-
-REFERENCE           ZOMBIE_ZGRIEF_NUKE_GRABBED_SCORE
-LANG_ENGLISH        "Nuke Grabbed! [&&1 Score]"
 
 REFERENCE           ZOMBIE_NEW_CONTAINMENT_ZONE
 LANG_ENGLISH        "New containment zone!"

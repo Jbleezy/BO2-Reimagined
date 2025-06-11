@@ -801,14 +801,6 @@ nuke_powerup(drop_item, player_team)
 				players[i] thread scripts\zm\_zm_reimagined::player_suicide();
 			}
 		}
-
-		if (level.scr_zm_ui_gametype_obj == "zrace")
-		{
-			if (isDefined(level.increment_score_func))
-			{
-				[[level.increment_score_func]](player_team, 10, 1, &"ZOMBIE_ZGRIEF_NUKE_GRABBED_SCORE");
-			}
-		}
 	}
 }
 
