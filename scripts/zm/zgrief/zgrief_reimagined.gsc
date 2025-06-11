@@ -609,6 +609,11 @@ on_player_bled_out()
 			self [[level.zombie_last_stand_ammo_return]](1);
 		}
 
+		if (level.scr_zm_ui_gametype_obj == "zsnr" || is_true(self.playersuicided))
+		{
+			self thread bleedout_feed();
+		}
+
 		if (level.scr_zm_ui_gametype_obj == "zgrief")
 		{
 			increment_score(getOtherTeam(self.team));
@@ -626,11 +631,6 @@ on_player_bled_out()
 		if (level.scr_zm_ui_gametype_obj == "zrace")
 		{
 			increment_score(getOtherTeam(self.team), 5, 1, &"ZOMBIE_ZGRIEF_PLAYER_DEAD_SCORE");
-		}
-
-		if (level.scr_zm_ui_gametype_obj == "zsnr" || is_true(self.playersuicided))
-		{
-			self thread bleedout_feed();
 		}
 
 		if (is_respawn_gamemode())
