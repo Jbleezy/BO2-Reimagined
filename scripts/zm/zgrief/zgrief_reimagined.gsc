@@ -602,6 +602,7 @@ on_player_bled_out()
 	while (1)
 	{
 		self waittill_any("bled_out", "player_suicide");
+		waittillframeend;
 
 		if (isDefined(level.zombie_last_stand_ammo_return))
 		{
