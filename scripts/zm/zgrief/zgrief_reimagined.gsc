@@ -611,7 +611,6 @@ on_player_bled_out()
 
 		if (level.scr_zm_ui_gametype_obj == "zgrief")
 		{
-			self add_grief_bleedout_score();
 			increment_score(getOtherTeam(self.team));
 		}
 

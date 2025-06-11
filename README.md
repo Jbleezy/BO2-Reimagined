@@ -1538,6 +1538,7 @@
 * Landing on top of an enemy player that is prone downs them
 * Increased max radius for landing on top of an enemy player by 16.66%
 * Decreased max height for landing on top of an enemy player by 50%
+* Players start with 10000 points
 * Players respawn after being down for 10 seconds (except Search & Rezurrect)
 * Players retain perks (except Search & Rezurrect)
 * Starting weapon (upgraded): decreased stock ammo by half
@@ -1564,7 +1565,6 @@
 #### Grief
 * Gain score by making enemy players bleed out
 * Make 10 enemy players bleed out to win the game
-* Bleeding out enemy players awards 1000 points to all teammates
 
 #### Search & Rezurrect
 * Win a round by getting all enemy players down
