@@ -551,8 +551,6 @@ on_player_spawned()
 			self thread additionalprimaryweapon_indicator();
 			self thread additionalprimaryweapon_stowed_weapon_refill();
 
-			self thread electric_cherry_unlimited();
-
 			if (maps\mp\zombies\_zm_weapons::is_weapon_included("crossbow_zm"))
 			{
 				self thread scripts\zm\reimagined\_zm_weap_crossbow::watch_for_monkey_bolt();
@@ -3232,18 +3230,6 @@ refill_after_time(primary)
 	if (isDefined(reload_amount) && self getWeaponAmmoStock(primary) > 0 && self getWeaponAmmoClip(primary) < weaponClipSize(primary))
 	{
 		self refill_after_time(primary);
-	}
-}
-
-electric_cherry_unlimited()
-{
-	self endon("disconnect");
-
-	while (1)
-	{
-		self.consecutive_electric_cherry_attacks = 0;
-
-		wait 0.5;
 	}
 }
 

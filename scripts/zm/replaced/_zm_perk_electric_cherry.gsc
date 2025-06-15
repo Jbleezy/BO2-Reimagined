@@ -63,28 +63,7 @@ electric_cherry_reload_attack()
 
 		if (isdefined(self))
 		{
-			switch (self.consecutive_electric_cherry_attacks)
-			{
-				case 0:
-				case 1:
-					n_zombie_limit = undefined;
-					break;
-
-				case 2:
-					n_zombie_limit = 8;
-					break;
-
-				case 3:
-					n_zombie_limit = 4;
-					break;
-
-				case 4:
-					n_zombie_limit = 2;
-					break;
-
-				default:
-					n_zombie_limit = 0;
-			}
+			n_zombie_limit = undefined;
 
 			self thread electric_cherry_cooldown_timer(str_current_weapon);
 
@@ -144,8 +123,6 @@ electric_cherry_reload_attack()
 						}
 					}
 
-					wait 0.1;
-
 					if (isalive(a_zombies[i]))
 					{
 						a_zombies[i] dodamage(perk_dmg, self.origin, self, self, "none", "MOD_UNKNOWN", 0, "zombie_perk_bottle_cherry");
@@ -194,8 +171,6 @@ electric_cherry_laststand()
 						self maps\mp\zombies\_zm_score::add_to_player_score(40);
 					}
 				}
-
-				wait 0.1;
 
 				if (isalive(a_zombies[i]))
 				{

@@ -903,6 +903,7 @@
 * Fixed an error that would crash the game when entering Who's Who mode
 
 ### Electric Cherry
+* Stuns all zombies instantly
 * Removed cooldown after being used multiple times in a row
 * Last stand activation kills on any round
 * Decreased radius of last stand activation by 48.8%
