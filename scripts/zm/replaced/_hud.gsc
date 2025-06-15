@@ -2,6 +2,11 @@
 
 fadetoblackforxsec(startwait, blackscreenwait, fadeintime, fadeouttime, shadername, n_sort)
 {
+	self endon("disconnect");
+	self endon("fadetoblackforxsec_end");
+
+	self thread fadetoblackforxsec_cleanup_spawned_player();
+
 	if (!isdefined(n_sort))
 	{
 		n_sort = 50;
@@ -72,4 +77,22 @@ fadetoblackforxsec(startwait, blackscreenwait, fadeintime, fadeouttime, shaderna
 		self.blackscreen destroy();
 		self.blackscreen = undefined;
 	}
+
+	self notify("fadetoblackforxsec_end");
+}
+
+fadetoblackforxsec_cleanup_spawned_player()
+{
+	self endon("disconnect");
+	self endon("fadetoblackforxsec_end");
+
+	self waittill("spawned_player");
+
+	if (isdefined(self.blackscreen))
+	{
+		self.blackscreen destroy();
+		self.blackscreen = undefined;
+	}
+
+	self notify("fadetoblackforxsec_end");
 }
