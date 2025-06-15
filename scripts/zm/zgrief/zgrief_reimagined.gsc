@@ -1215,6 +1215,18 @@ is_respawn_gamemode()
 
 show_grief_hud_msg(msg, msg_parm1, msg_parm2, offset, delay)
 {
+	self endon("disconnect");
+
+	while (isDefined(level.hostmigrationtimer))
+	{
+		wait 0.05;
+	}
+
+	if (isDefined(delay))
+	{
+		wait delay;
+	}
+
 	if (!isDefined(offset))
 	{
 		self notify("show_grief_hud_msg");
@@ -1223,8 +1235,6 @@ show_grief_hud_msg(msg, msg_parm1, msg_parm2, offset, delay)
 	{
 		self notify("show_grief_hud_msg2");
 	}
-
-	self endon("disconnect");
 
 	zgrief_hudmsg = newclienthudelem(self);
 	zgrief_hudmsg.alignx = "center";
@@ -1254,16 +1264,6 @@ show_grief_hud_msg(msg, msg_parm1, msg_parm2, offset, delay)
 	zgrief_hudmsg endon("death");
 
 	zgrief_hudmsg thread show_grief_hud_msg_cleanup(self, offset);
-
-	while (isDefined(level.hostmigrationtimer))
-	{
-		wait 0.05;
-	}
-
-	if (isDefined(delay))
-	{
-		wait delay;
-	}
 
 	if (isDefined(msg_parm2))
 	{
