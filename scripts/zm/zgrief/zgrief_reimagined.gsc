@@ -1139,6 +1139,8 @@ grief_intro_msg()
 {
 	level endon("end_game");
 
+	flag_init("grief_intro_msg_complete");
+
 	level waittill("restart_round_start");
 
 	intro_str = istring(toupper("ZOMBIE_" + level.scr_zm_ui_gametype_obj + "_INTRO"));
@@ -1165,6 +1167,10 @@ grief_intro_msg()
 	{
 		player thread show_grief_hud_msg(to_win_str, get_gamemode_winning_score());
 	}
+
+	wait 5;
+
+	flag_set("grief_intro_msg_complete");
 }
 
 get_gamemode_display_name(gamemode = level.scr_zm_ui_gametype_obj)
@@ -1215,6 +1221,8 @@ is_respawn_gamemode()
 
 show_grief_hud_msg(msg, msg_parm1, msg_parm2, offset, delay)
 {
+	level endon("end_game");
+	level endon("restart_round");
 	self endon("disconnect");
 
 	while (isDefined(level.hostmigrationtimer))
@@ -1225,6 +1233,17 @@ show_grief_hud_msg(msg, msg_parm1, msg_parm2, offset, delay)
 	if (isDefined(delay))
 	{
 		wait delay;
+	}
+
+	if (!flag("grief_intro_msg_complete"))
+	{
+		if (isDefined(offset))
+		{
+			self notify("show_grief_hud_msg2_grief_intro_msg_complete");
+			self endon("show_grief_hud_msg2_grief_intro_msg_complete");
+
+			flag_wait("grief_intro_msg_complete");
+		}
 	}
 
 	if (!isDefined(offset))
@@ -1303,10 +1322,10 @@ show_grief_hud_msg_cleanup(player, offset)
 	self endon("death");
 
 	self thread show_grief_hud_msg_cleanup_end_game();
+	self thread show_grief_hud_msg_cleanup_restart_round();
 
 	if (!isDefined(offset))
 	{
-		self thread show_grief_hud_msg_cleanup_restart_round();
 		player waittill("show_grief_hud_msg");
 	}
 	else
