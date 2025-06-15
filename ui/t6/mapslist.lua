@@ -7,10 +7,10 @@ CoD.MapsList.GameModes = {
 	"ZMUI_ZCLASSIC_GAMEMODE_CAPS",
 	"ZMUI_ZSTANDARD_CAPS",
 	"ZMUI_ZGRIEF_CAPS",
-	"ZMUI_ZSNR_CAPS",
 	"ZMUI_ZRACE_CAPS",
 	"ZMUI_ZCONTAINMENT_CAPS",
 	"ZMUI_ZMEAT_CAPS",
+	"ZMUI_ZSNR_CAPS",
 	-- "ZMUI_ZCLEANSED_CAPS", -- TODO: add
 }
 CoD.MapsList.Maps = {
@@ -56,10 +56,6 @@ local function setGameModeDvars()
 		Engine.SetDvar("ui_zm_gamemodegroup", "zencounter")
 		Engine.SetDvar("ui_gametype", "zgrief")
 		Engine.SetDvar("ui_gametype_obj", "zgrief")
-	elseif gameMode == "ZMUI_ZSNR_CAPS" then
-		Engine.SetDvar("ui_zm_gamemodegroup", "zencounter")
-		Engine.SetDvar("ui_gametype", "zgrief")
-		Engine.SetDvar("ui_gametype_obj", "zsnr")
 	elseif gameMode == "ZMUI_ZRACE_CAPS" then
 		Engine.SetDvar("ui_zm_gamemodegroup", "zencounter")
 		Engine.SetDvar("ui_gametype", "zgrief")
@@ -72,6 +68,10 @@ local function setGameModeDvars()
 		Engine.SetDvar("ui_zm_gamemodegroup", "zencounter")
 		Engine.SetDvar("ui_gametype", "zgrief")
 		Engine.SetDvar("ui_gametype_obj", "zmeat")
+	elseif gameMode == "ZMUI_ZSNR_CAPS" then
+		Engine.SetDvar("ui_zm_gamemodegroup", "zencounter")
+		Engine.SetDvar("ui_gametype", "zgrief")
+		Engine.SetDvar("ui_gametype_obj", "zsnr")
 	elseif gameMode == "ZMUI_ZCLEANSED_CAPS" then
 		-- TODO: set dvars when game mode is added
 	end
@@ -87,12 +87,12 @@ local function setMapDvars()
 	elseif map == "ZMUI_ZCLASSIC_ZM_HIGHRISE_CAPS" then
 		Engine.SetDvar("ui_mapname", "zm_highrise")
 		Engine.SetDvar("ui_zm_mapstartlocation", "rooftop")
-	elseif map == "ZMUI_ZCLASSIC_ZM_PRISON_CAPS" then
-		Engine.SetDvar("ui_mapname", "zm_prison")
-		Engine.SetDvar("ui_zm_mapstartlocation", "prison")
 	elseif map == "ZMUI_ZCLASSIC_ZM_BURIED_CAPS" then
 		Engine.SetDvar("ui_mapname", "zm_buried")
 		Engine.SetDvar("ui_zm_mapstartlocation", "processing")
+	elseif map == "ZMUI_ZCLASSIC_ZM_PRISON_CAPS" then
+		Engine.SetDvar("ui_mapname", "zm_prison")
+		Engine.SetDvar("ui_zm_mapstartlocation", "prison")
 	elseif map == "ZMUI_ZCLASSIC_ZM_TOMB_CAPS" then
 		Engine.SetDvar("ui_mapname", "zm_tomb")
 		Engine.SetDvar("ui_zm_mapstartlocation", "tomb")
@@ -136,18 +136,18 @@ local function setLocationDvars()
 	elseif location == "ZMUI_SWEATSHOP_CAPS" then
 		Engine.SetDvar("ui_mapname", "zm_highrise")
 		Engine.SetDvar("ui_zm_mapstartlocation", "sweatshop")
-	elseif location == "ZMUI_CELLBLOCK_CAPS" then
-		Engine.SetDvar("ui_mapname", "zm_prison")
-		Engine.SetDvar("ui_zm_mapstartlocation", "cellblock")
-	elseif location == "ZMUI_DOCKS_CAPS" then
-		Engine.SetDvar("ui_mapname", "zm_prison")
-		Engine.SetDvar("ui_zm_mapstartlocation", "docks")
 	elseif location == "ZMUI_STREET_LOC_CAPS" then
 		Engine.SetDvar("ui_mapname", "zm_buried")
 		Engine.SetDvar("ui_zm_mapstartlocation", "street")
 	elseif location == "ZMUI_MAZE_CAPS" then
 		Engine.SetDvar("ui_mapname", "zm_buried")
 		Engine.SetDvar("ui_zm_mapstartlocation", "maze")
+	elseif location == "ZMUI_CELLBLOCK_CAPS" then
+		Engine.SetDvar("ui_mapname", "zm_prison")
+		Engine.SetDvar("ui_zm_mapstartlocation", "cellblock")
+	elseif location == "ZMUI_DOCKS_CAPS" then
+		Engine.SetDvar("ui_mapname", "zm_prison")
+		Engine.SetDvar("ui_zm_mapstartlocation", "docks")
 	elseif location == "ZMUI_TRENCHES_CAPS" then
 		Engine.SetDvar("ui_mapname", "zm_tomb")
 		Engine.SetDvar("ui_zm_mapstartlocation", "trenches")

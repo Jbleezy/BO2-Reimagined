@@ -1191,10 +1191,6 @@ get_gamemode_winning_score()
 	{
 		return 10;
 	}
-	else if (level.scr_zm_ui_gametype_obj == "zsnr")
-	{
-		return 3;
-	}
 	else if (level.scr_zm_ui_gametype_obj == "zrace")
 	{
 		return 500;
@@ -1206,6 +1202,10 @@ get_gamemode_winning_score()
 	else if (level.scr_zm_ui_gametype_obj == "zmeat")
 	{
 		return 200;
+	}
+	else if (level.scr_zm_ui_gametype_obj == "zsnr")
+	{
+		return 3;
 	}
 }
 

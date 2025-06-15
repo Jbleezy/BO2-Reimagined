@@ -167,10 +167,10 @@
 * [Game Modes](#game-modes)
 	* [Encounter](#encounter)
 		* [Grief](#grief)
-		* [Search & Rezurrect](#search--rezurrect)
 		* [Race](#race)
 		* [Containment](#containment)
 		* [Meat](#meat)
+		* [Search & Rezurrect](#search--rezurrect)
 	* [Encounter Pro](#encounter-pro)
 
 ## General
@@ -1567,19 +1567,6 @@
 * Gain score by making enemy players bleed out
 * Make 10 enemy players bleed out to win the game
 
-#### Search & Rezurrect
-* Win a round by getting all enemy players down
-* Win 3 rounds to win the game
-* Tie round if both teams die within 5 seconds of eachother
-* Players start each round with at least 10000 points
-* Bleeding out enemy players awards 1000 points to all teammates
-* Amount of players alive on each team shown on HUD
-* Enemies remaining audio and text displays when enemy players down instead of when enemy players bleed out
-* Last player alive audio only plays for the player who is alive instead of every player on the team
-* Audio plays when enemy players bleed out
-* Teams switch spawn points each round
-* Players respawn at initial spawn points
-
 #### Race
 * Gain score by killing zombies or enemy players
 * Gain 500 score to win the game
@@ -1612,6 +1599,19 @@
 * Throwing the meat onto another player makes them grab the meat
 * Decreased meat powerup time on the ground by half
 * Team holding the meat shown on HUD
+
+#### Search & Rezurrect
+* Win a round by getting all enemy players down
+* Win 3 rounds to win the game
+* Tie round if both teams die within 5 seconds of eachother
+* Players start each round with at least 10000 points
+* Bleeding out enemy players awards 1000 points to all teammates
+* Amount of players alive on each team shown on HUD
+* Enemies remaining audio and text displays when enemy players down instead of when enemy players bleed out
+* Last player alive audio only plays for the player who is alive instead of every player on the team
+* Audio plays when enemy players bleed out
+* Teams switch spawn points each round
+* Players respawn at initial spawn points
 
 ### Encounter Pro
 * No Mystery Box
