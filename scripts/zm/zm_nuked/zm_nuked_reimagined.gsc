@@ -20,7 +20,6 @@ main()
 
 init()
 {
-	level.dog_health = 1600;
 	level.mixed_rounds_enabled = 1;
 
 	level.zombie_init_done = ::zombie_init_done;
@@ -31,6 +30,8 @@ init()
 		maps\mp\zombies\_zm_ai_dogs::init();
 		sndswitchannouncervox("richtofen");
 	}
+
+	level thread increase_dog_health();
 }
 
 zombie_init_done()
@@ -49,4 +50,11 @@ zombie_init_done()
 nuked_special_weapon_magicbox_check(weapon)
 {
 	return 1;
+}
+
+increase_dog_health()
+{
+	flag_wait("start_zombie_round_logic");
+
+	level.dog_health = 1600;
 }
