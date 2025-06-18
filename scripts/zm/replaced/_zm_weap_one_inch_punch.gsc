@@ -222,7 +222,25 @@ zombie_punch_damage(ai_zombie, n_mod)
 			}
 		}
 
-		ai_zombie dodamage(n_damage, self gettagorigin("tag_weapon_right"), self, self, 0, "MOD_MELEE", 0, self.current_melee_weapon);
+		origin = ai_zombie.origin;
+
+		if (isplayer(ai_zombie))
+		{
+			start = self getplayercamerapos();
+			end = start + anglestoforward(self getplayerangles()) * 96;
+			point = ai_zombie getcentroid();
+			segment_point = pointonsegmentnearesttopoint(start, end, point);
+
+			min_height = ai_zombie.origin[2];
+			max_height = min_height + (ai_zombie getcentroid()[2] - min_height) * 2;
+			height = clamp(segment_point[2], min_height, max_height);
+
+			forward_dir = anglestoforward(self getplayerangles() * (0, 1, 0));
+			origin = ai_zombie getcentroid() + forward_dir * -8;
+			origin = (origin[0], origin[1], height);
+		}
+
+		ai_zombie dodamage(n_damage, origin, self, self, 0, "MOD_MELEE", 0, self.current_melee_weapon);
 	}
 }
 
