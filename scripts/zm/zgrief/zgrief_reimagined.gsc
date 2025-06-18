@@ -1638,14 +1638,12 @@ do_game_mode_stun_score_steal(eattacker)
 do_game_mode_stun_fx(einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime)
 {
 	pos = vpoint;
-	angle = vectorToAngles(eattacker getCentroid() - self getCentroid());
+	angle = vectortoangles(vpoint - self getcentroid());
+	is_perk_damage = isdefined(sweapon) && issubstr(sweapon, "zombie_perk_bottle");
 
-	if (isDefined(sweapon) && (weapontype(sweapon) == "grenade" || weapontype(sweapon) == "projectile"))
+	if (smeansofdeath == "MOD_GRENADE_SPLASH" || smeansofdeath == "MOD_PROJECTILE_SPLASH" || is_perk_damage)
 	{
-		pos_offset = vectorNormalize(vpoint - self getCentroid()) * 8;
-		pos_offset = (pos_offset[0], pos_offset[1], 0);
-		pos = self getCentroid() + pos_offset;
-		angle = vectorToAngles(vpoint - self getCentroid());
+		pos = self getcentroid() + vectornormalize((vpoint - self getcentroid()) * (1, 1, 0)) * 8;
 	}
 
 	angle = (0, angle[1], 0);
@@ -1654,7 +1652,7 @@ do_game_mode_stun_fx(einflictor, eattacker, idamage, idflags, smeansofdeath, swe
 	stun_fx_ent unlink();
 	stun_fx_ent.origin = pos;
 	stun_fx_ent.angles = angle;
-	stun_fx_ent linkTo(self);
+	stun_fx_ent linkto(self);
 
 	playfxontag(level._effect["butterflies"], stun_fx_ent, "tag_origin");
 

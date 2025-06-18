@@ -1533,7 +1533,7 @@
 * Ballistic knife projectile pushes enemy players
 * Claymores are no longer triggered by enemy players
 * Stun fx is linked to the player
-* Stun fx shows in the correct position for projectiles
+* Stun fx shows in the correct position for explosive damage and projectile impact damage
 * Stunning enemy players steals 100 points from them
 * Downing enemy players awards 500 points
 * Landing on top of an enemy player that is prone downs them
