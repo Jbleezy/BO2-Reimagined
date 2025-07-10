@@ -157,15 +157,16 @@ machine_think()
 		while (true)
 		{
 			thread maps\mp\zombies\_zm_unitrigger::unregister_unitrigger(self.unitrigger_stub);
-			random_perk = get_weighted_random_perk(player);
 			self setclientfield("perk_bottle_cycle_state", 1);
 			self notify("pmstrt");
 			wait 1.0;
 			self thread start_perk_bottle_cycling();
 			self thread perk_bottle_motion();
-			model = get_perk_weapon_model(random_perk);
 			wait 3.0;
 			self notify("done_cycling");
+			random_perk = self get_weighted_random_perk(player);
+			model = get_perk_weapon_model(random_perk);
+			self.prev_random_perk = undefined;
 
 			if (machines.size > 1 && self.num_time_used >= self.num_til_moved)
 			{
@@ -311,6 +312,14 @@ grab_check(player, random_perk)
 	}
 }
 
+monitor_when_player_acquires_perk()
+{
+	self.is_drinking_wunderfizz = 1;
+	self waittill_any("perk_acquired", "death_or_disconnect", "player_downed");
+	self.is_drinking_wunderfizz = undefined;
+	flag_set("machine_can_reset");
+}
+
 time_out_check()
 {
 	self endon("grab_check");
@@ -349,33 +358,14 @@ machine_sounds()
 start_perk_bottle_cycling()
 {
 	self endon("done_cycling");
-	array_key = array_randomize(getarraykeys(level._random_perk_machine_perk_list));
-	timer = 0;
 
 	while (true)
 	{
-		model_cycled = 0;
+		perk = self get_weighted_random_perk(self.machine_user);
+		model = get_perk_weapon_model(perk);
+		self.bottle_spawn_location setmodel(model);
 
-		for (i = 0; i < array_key.size; i++)
-		{
-			perk = level._random_perk_machine_perk_list[array_key[i]];
-
-			if (!isdefined(self.machine_user) || self.machine_user hasperk(perk))
-			{
-				continue;
-			}
-
-			model_cycled = 1;
-
-			model = get_perk_weapon_model(perk);
-			self.bottle_spawn_location setmodel(model);
-			wait 0.2;
-		}
-
-		if (!model_cycled)
-		{
-			wait 0.05;
-		}
+		wait 0.2;
 	}
 }
 
@@ -418,6 +408,39 @@ perk_bottle_motion()
 	}
 }
 
+get_weighted_random_perk(player)
+{
+	keys = array_randomize(getarraykeys(level._random_perk_machine_perk_list));
+
+	if (isdefined(level.custom_random_perk_weights) && isdefined(player))
+	{
+		keys = player [[level.custom_random_perk_weights]]();
+	}
+
+	ind = 0;
+
+	for (i = 0; i < keys.size; i++)
+	{
+		if (isdefined(player) && player hasperk(level._random_perk_machine_perk_list[keys[i]]))
+		{
+			continue;
+		}
+
+		ind = i;
+
+		if (isdefined(self.prev_random_perk) && level._random_perk_machine_perk_list[keys[i]] == self.prev_random_perk)
+		{
+			continue;
+		}
+
+		self.prev_random_perk = level._random_perk_machine_perk_list[keys[i]];
+
+		return level._random_perk_machine_perk_list[keys[i]];
+	}
+
+	return level._random_perk_machine_perk_list[keys[ind]];
+}
+
 trigger_visible_to_player(player)
 {
 	self setinvisibletoplayer(player);
@@ -447,6 +470,11 @@ trigger_visible_to_player(player)
 can_buy_perk()
 {
 	if (isdefined(self.is_drinking) && self.is_drinking > 0)
+	{
+		return false;
+	}
+
+	if (isdefined(self.is_drinking_wunderfizz) && self.is_drinking_wunderfizz > 0)
 	{
 		return false;
 	}
