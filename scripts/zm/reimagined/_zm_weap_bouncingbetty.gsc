@@ -186,8 +186,6 @@ betty_watch()
 			{
 				betty thread betty_wait_and_detonate();
 			}
-
-			self thread betty_last_shot_give_back_weapon(weapname);
 		}
 	}
 }
@@ -201,31 +199,6 @@ betty_wait_and_detonate()
 	wait 0.1;
 
 	self bouncingbettydetonate();
-}
-
-// weapon is taken after last shot when using `plantable\0\` attribute
-betty_last_shot_give_back_weapon(weapname)
-{
-	self endon("disconnect");
-
-	ammo = self getammocount(weapname);
-
-	if (ammo != 0)
-	{
-		return;
-	}
-
-	self waittill("weapon_change");
-
-	if (!self is_player_placeable_mine(weapname))
-	{
-		return;
-	}
-
-	ammo = self getammocount(weapname);
-	self takeweapon(weapname);
-	self giveweapon(weapname);
-	self setweaponammoclip(weapname, ammo);
 }
 
 betty_setup()
