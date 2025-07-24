@@ -637,6 +637,11 @@ empty_clip_powerup(drop_item, player)
 		if (isDefined(players[i] get_player_placeable_mine()))
 		{
 			players[i] setweaponammoclip(players[i] get_player_placeable_mine(), 0);
+
+			if (players[i] getcurrentweapon() == players[i] get_player_placeable_mine())
+			{
+				players[i] empty_clip_switch_to_primary_weapon();
+			}
 		}
 
 		if (players[i] hasweapon("time_bomb_zm") && players[i] getweaponammoclip("time_bomb_zm") == 1)
@@ -674,6 +679,27 @@ empty_clip_move_hud(team)
 	self.alpha = 0;
 	wait move_fade_time;
 	self destroy();
+}
+
+empty_clip_switch_to_primary_weapon()
+{
+	if (isdefined(self.last_held_primary_weapon) && self hasweapon(self.last_held_primary_weapon))
+	{
+		self switchtoweapon(self.last_held_primary_weapon);
+	}
+	else
+	{
+		primaryweapons = self getweaponslistprimaries();
+
+		if (isdefined(primaryweapons) && primaryweapons.size > 0)
+		{
+			self switchtoweapon(primaryweapons[0]);
+		}
+		else
+		{
+			self maps\mp\zombies\_zm_weapons::give_fallback_weapon();
+		}
+	}
 }
 
 empty_clip_swap_weapon_to_detonator()
