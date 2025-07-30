@@ -1741,6 +1741,7 @@ grief_laststand_weapon_save(einflictor, attacker, idamage, smeansofdeath, sweapo
 	self.grief_savedweapon_equipment = self get_player_equipment();
 	self.grief_hastimebomb = self hasweapon("time_bomb_zm") || self hasweapon("time_bomb_detonator_zm");
 	self.grief_hasriotshield = undefined;
+	self.grief_savedperks = [];
 
 	for (i = 0; i < self.grief_savedweapon_weapons.size; i++)
 	{
@@ -1820,7 +1821,15 @@ grief_laststand_weapon_save(einflictor, attacker, idamage, smeansofdeath, sweapo
 		self.grief_hasriotshield = 1;
 	}
 
-	self.grief_savedperks = self.perks_active;
+	if (isdefined(self.perks_active))
+	{
+		self.grief_savedperks = arraycombine(self.grief_savedperks, self.perks_active, 0, 0);
+	}
+
+	if (isdefined(self.perks_disabled))
+	{
+		self.grief_savedperks = arraycombine(self.grief_savedperks, self.perks_disabled, 0, 0);
+	}
 }
 
 grief_laststand_weapons_return()
