@@ -486,7 +486,10 @@ on_player_connect()
 	{
 		level waittill("connected", player);
 
-		player.statusicon = "hud_status_dead";
+		if (!is_true(level.intermission))
+		{
+			player.statusicon = "hud_status_dead";
+		}
 
 		player set_client_dvars();
 
