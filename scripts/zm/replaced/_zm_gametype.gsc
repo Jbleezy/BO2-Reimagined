@@ -212,7 +212,7 @@ hide_gump_loading_for_hotjoiners()
 		self setclientthirdperson(0);
 		self resetfov();
 		self.health = 100;
-		self thread [[level.custom_intermission]]();
+		self.sessionstate = "intermission";
 	}
 }
 
