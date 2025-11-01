@@ -22304,6 +22304,26 @@
 }
 {
 "classname" "node_pathnode"
+"origin" "6912 -256 -64"
+}
+{
+"classname" "node_pathnode"
+"origin" "6912 -384 -64"
+}
+{
+"classname" "node_pathnode"
+"origin" "6912 -512 -64"
+}
+{
+"classname" "node_pathnode"
+"origin" "6912 -640 -64"
+}
+{
+"classname" "node_pathnode"
+"origin" "6912 -768 -64"
+}
+{
+"classname" "node_pathnode"
 "origin" "6912 0 -56.7"
 "guid" "8A20963F"
 }
@@ -22316,6 +22336,26 @@
 "classname" "node_pathnode"
 "origin" "7040 -128 -68.2"
 "guid" "9EF3C89C"
+}
+{
+"classname" "node_pathnode"
+"origin" "7040 -256 -72"
+}
+{
+"classname" "node_pathnode"
+"origin" "7040 -384 -72"
+}
+{
+"classname" "node_pathnode"
+"origin" "7040 -512 -72"
+}
+{
+"classname" "node_pathnode"
+"origin" "7040 -640 -72"
+}
+{
+"classname" "node_pathnode"
+"origin" "7040 -768 -72"
 }
 {
 "classname" "node_pathnode"

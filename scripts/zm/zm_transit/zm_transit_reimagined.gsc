@@ -101,7 +101,6 @@ init()
 	buildable_table_models();
 	busdepot_remove_lava_collision();
 	cornfield_add_collision();
-	cornfield_spawn_path_nodes();
 	path_exploit_fixes();
 
 	level thread power_local_electric_doors_globally();
@@ -661,16 +660,6 @@ cornfield_add_collision()
 	model.angles = (0, -35, 0);
 	model setmodel("collision_wall_128x128x10_standard");
 	model disconnectpaths();
-}
-
-cornfield_spawn_path_nodes()
-{
-	new_origins = array((7040, -256, -196), (7040, -384, -196), (7040, -512, -196), (7040, -640, -196), (7040, -768, -196), (7168, -256, -196), (7168, -384, -196), (7168, -512, -196), (7168, -640, -196), (7168, -768, -196));
-
-	foreach (origin in new_origins)
-	{
-		spawn_path_node(origin, (0, 0, 0));
-	}
 }
 
 path_exploit_fixes()
