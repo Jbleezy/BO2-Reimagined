@@ -857,7 +857,6 @@ set_dvars()
 	setDvar("bg_chargeShotEmptyFire", 1);
 	setDvar("bg_chargeShotAllowChargingWithoutRepress", 1);
 	setDvar("bg_chargeShotPreventChargingWhileNotReady", 1);
-	setDvar("tu14_preventStartingChargeShotWhileFiring", 0);
 }
 
 set_client_dvars()
@@ -893,8 +892,7 @@ set_client_dvars()
 	    "bg_chargeShotQueueTime", getDvar("bg_chargeShotQueueTime"),
 	    "bg_chargeShotEmptyFire", getDvar("bg_chargeShotEmptyFire"),
 	    "bg_chargeShotAllowChargingWithoutRepress", getDvar("bg_chargeShotAllowChargingWithoutRepress"),
-	    "bg_chargeShotPreventChargingWhileNotReady", getDvar("bg_chargeShotPreventChargingWhileNotReady"),
-	    "tu14_preventStartingChargeShotWhileFiring", getDvar("tu14_preventStartingChargeShotWhileFiring"));
+	    "bg_chargeShotPreventChargingWhileNotReady", getDvar("bg_chargeShotPreventChargingWhileNotReady"));
 
 	self setClientDvars(
 	    "aim_automelee_enabled", 0,
