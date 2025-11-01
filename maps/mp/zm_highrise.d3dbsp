@@ -5453,7 +5453,7 @@
 {
 "model" "*68"
 "origin" "2627 -668 2934"
-"script_parameters" "5"
+"script_parameters" "6"
 "script_noteworthy" "bldg3b"
 "script_angles" "0 150 0"
 "classname" "trigger_use"
@@ -5464,7 +5464,7 @@
 {
 "model" "*69"
 "origin" "2627 -668 2758"
-"script_parameters" "4"
+"script_parameters" "5"
 "script_noteworthy" "bldg3b"
 "script_angles" "0 150 0"
 "classname" "trigger_use"
@@ -5475,7 +5475,7 @@
 {
 "model" "*70"
 "origin" "2627 -668 1349"
-"script_parameters" "1"
+"script_parameters" "2"
 "script_noteworthy" "bldg3b"
 "script_angles" "0 150 0"
 "classname" "trigger_use"
@@ -5486,7 +5486,7 @@
 {
 "model" "*71"
 "origin" "2627 -668 1173"
-"script_parameters" "2"
+"script_parameters" "3"
 "script_noteworthy" "bldg3b"
 "script_angles" "0 150 0"
 "classname" "trigger_use"
@@ -5497,7 +5497,7 @@
 {
 "model" "*72"
 "origin" "2401 -648 2934"
-"script_parameters" "5"
+"script_parameters" "6"
 "script_noteworthy" "bldg3"
 "script_angles" "0 330 0"
 "classname" "trigger_use"
@@ -5508,7 +5508,7 @@
 {
 "model" "*73"
 "origin" "2401 -648 2758"
-"script_parameters" "4"
+"script_parameters" "5"
 "script_noteworthy" "bldg3"
 "script_angles" "0 330 0"
 "classname" "trigger_use"
@@ -5519,7 +5519,7 @@
 {
 "model" "*74"
 "origin" "2401 -648 1349"
-"script_parameters" "1"
+"script_parameters" "2"
 "script_noteworthy" "bldg3"
 "script_angles" "0 330 0"
 "classname" "trigger_use"
@@ -5530,7 +5530,7 @@
 {
 "model" "*75"
 "origin" "2401 -648 1173"
-"script_parameters" "2"
+"script_parameters" "3"
 "script_noteworthy" "bldg3"
 "script_angles" "0 330 0"
 "classname" "trigger_use"
@@ -5902,6 +5902,58 @@
 "guid" "A3576DF6"
 }
 {
+"script_noteworthy" "elevator_bldg3b_floor2"
+"classname" "node_negotiation_begin"
+"angles" "0 150 0"
+"animscript" "zm_jump_up_from_elevator_top"
+"origin" "2698.41 -648.601 2672"
+"target" "pf1528_auto2110"
+"previewanim1" "ai_zombie_jump_up_from_elevator_top"
+"previewmdl1" "c_usa_jungmar_1_fb"
+"script_parameters" "roof_connect"
+}
+{
+"angles" "0 330 0"
+"script_noteworthy" "elevator_bldg3b_floor2"
+"origin" "2726.13 -664.601 2672"
+"targetname" "pf1528_auto2111"
+"classname" "node_negotiation_end"
+"script_parameters" "roof_connect"
+}
+{
+"angles" "0 330 0"
+"script_noteworthy" "elevator_bldg3b_floor2"
+"classname" "node_negotiation_end"
+"targetname" "pf1528_auto2110"
+"origin" "2626.2 -597.672 2720"
+"script_parameters" "ext_connect"
+}
+{
+"script_noteworthy" "elevator_bldg3b_floor2"
+"classname" "node_negotiation_begin"
+"angles" "0 330 0"
+"animscript" "zm_jump_down_to_elevator_top"
+"origin" "2653.92 -613.672 2720"
+"target" "pf1528_auto2111"
+"previewanim1" "ai_zombie_jump_down_to_elevator_top"
+"previewmdl1" "c_usa_jungmar_1_fb"
+"script_parameters" "ext_connect"
+}
+{
+"model" "*83"
+"origin" "2761 -680 2653"
+"script_noteworthy" "elevator_bldg3b_floor2"
+"classname" "script_brushmodel"
+"targetname" "elevator_delete"
+}
+{
+"model" "*84"
+"origin" "2676 -625 2667"
+"script_noteworthy" "elevator_bldg3b_floor2"
+"classname" "script_brushmodel"
+"targetname" "elevator_mantle"
+}
+{
 "script_noteworthy" "elevator_bldg3b_floor3"
 "classname" "node_negotiation_begin"
 "angles" "0 150 0"
@@ -6110,7 +6162,7 @@
 "angles" "0 330 0"
 "target" "pf1527_auto65"
 "targetname" "elevator_bldg3b_body"
-"script_location" "2"
+"script_location" "3"
 "origin" "2757.29 -679.128 1280"
 "model" "p6_anim_zm_hr_elevator_common"
 "classname" "script_model"
@@ -6118,27 +6170,36 @@
 }
 {
 "angles" "0 330 0"
-"target" "pf1527_auto68"
-"targetname" "pf1527_auto67"
+"target" "pf1527_auto69"
+"targetname" "pf1527_auto68"
 "classname" "script_struct"
 "model" "p6_anim_zm_hr_elevator_common"
 "origin" "2757.29 -679.128 1112"
-"script_location" "3"
+"script_location" "4"
 "guid" "D1C4246F"
 }
 {
 "angles" "0 330 0"
-"targetname" "pf1527_auto68"
+"targetname" "pf1527_auto69"
 "classname" "script_struct"
 "model" "p6_anim_zm_hr_elevator_common"
 "origin" "2757.29 -679.128 936"
-"script_location" "4"
+"script_location" "5"
 "guid" "9CBD6F87"
 }
 {
 "angles" "0 330 0"
 "target" "pf1527_auto66"
 "targetname" "pf1527_auto65"
+"script_location" "2"
+"origin" "2757.29 -679.128 2520"
+"model" "p6_anim_zm_hr_elevator_common"
+"classname" "script_struct"
+}
+{
+"angles" "0 330 0"
+"target" "pf1527_auto67"
+"targetname" "pf1527_auto66"
 "script_location" "1"
 "origin" "2757.29 -679.128 2696"
 "model" "p6_anim_zm_hr_elevator_common"
@@ -6147,8 +6208,8 @@
 }
 {
 "angles" "0 330 0"
-"target" "pf1527_auto67"
-"targetname" "pf1527_auto66"
+"target" "pf1527_auto68"
+"targetname" "pf1527_auto67"
 "script_location" "0"
 "origin" "2757.29 -679.128 2872"
 "model" "p6_anim_zm_hr_elevator_common"
@@ -6160,20 +6221,29 @@
 "classname" "script_model"
 "model" "p6_anim_zm_hr_elevator_common"
 "origin" "2389.75 -777.751 1288"
-"script_location" "2"
+"script_location" "3"
 "targetname" "elevator_bldg3_body"
 "target" "pf1531_auto65"
 "guid" "0AE4250D"
 }
 {
 "angles" "0 240 0"
-"script_location" "3"
+"script_location" "4"
 "origin" "2389.75 -777.751 1112"
+"model" "p6_anim_zm_hr_elevator_common"
+"classname" "script_struct"
+"targetname" "pf1531_auto68"
+"target" "pf1531_auto69"
+"guid" "D1C4246F"
+}
+{
+"angles" "0 240 0"
+"script_location" "2"
+"origin" "2389.75 -777.751 2520"
 "model" "p6_anim_zm_hr_elevator_common"
 "classname" "script_struct"
 "targetname" "pf1531_auto67"
 "target" "pf1531_auto68"
-"guid" "D1C4246F"
 }
 {
 "angles" "0 240 0"
@@ -6222,11 +6292,11 @@
 }
 {
 "angles" "0 240 0"
-"script_location" "4"
+"script_location" "5"
 "origin" "2389.75 -777.751 936"
 "model" "p6_anim_zm_hr_elevator_common"
 "classname" "script_struct"
-"targetname" "pf1531_auto68"
+"targetname" "pf1531_auto69"
 "guid" "44E54257"
 }
 {
@@ -6344,6 +6414,58 @@
 "classname" "script_brushmodel"
 "targetname" "elevator_mantle"
 "guid" "A3576DF6"
+}
+{
+"script_noteworthy" "elevator_bldg3_floor2"
+"classname" "node_negotiation_begin"
+"angles" "0 60 0"
+"animscript" "zm_jump_up_from_elevator_top"
+"origin" "2416.15 -726.021 2672"
+"target" "pf1533_auto2110"
+"previewanim1" "ai_zombie_jump_up_from_elevator_top"
+"previewmdl1" "c_usa_jungmar_1_fb"
+"script_parameters" "roof_connect"
+}
+{
+"angles" "0 240 0"
+"script_noteworthy" "elevator_bldg3_floor2"
+"origin" "2400.15 -753.734 2672"
+"targetname" "pf1533_auto2111"
+"classname" "node_negotiation_end"
+"script_parameters" "roof_connect"
+}
+{
+"angles" "0 240 0"
+"script_noteworthy" "elevator_bldg3_floor2"
+"classname" "node_negotiation_end"
+"targetname" "pf1533_auto2110"
+"origin" "2467.08 -653.811 2720"
+"script_parameters" "ext_connect"
+}
+{
+"script_noteworthy" "elevator_bldg3_floor2"
+"classname" "node_negotiation_begin"
+"angles" "0 240 0"
+"animscript" "zm_jump_down_to_elevator_top"
+"origin" "2451.08 -681.524 2720"
+"target" "pf1533_auto2111"
+"previewanim1" "ai_zombie_jump_down_to_elevator_top"
+"previewmdl1" "c_usa_jungmar_1_fb"
+"script_parameters" "ext_connect"
+}
+{
+"model" "*92"
+"origin" "2385 -789 2653"
+"script_noteworthy" "elevator_bldg3_floor2"
+"classname" "script_brushmodel"
+"targetname" "elevator_delete"
+}
+{
+"model" "*93"
+"origin" "2440 -703 2667"
+"script_noteworthy" "elevator_bldg3_floor2"
+"classname" "script_brushmodel"
+"targetname" "elevator_mantle"
 }
 {
 "model" "*94"

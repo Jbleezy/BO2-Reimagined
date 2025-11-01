@@ -32,13 +32,13 @@ main()
 
 	if (randomint(100) > 50)
 	{
-		level thread maps\mp\zm_highrise_elevators::init_elevator("3", 1, -1264);
-		level thread maps\mp\zm_highrise_elevators::init_elevator("3b", 2);
+		level thread maps\mp\zm_highrise_elevators::init_elevator("3", 2, -1088);
+		level thread maps\mp\zm_highrise_elevators::init_elevator("3b", 3);
 	}
 	else
 	{
-		level thread maps\mp\zm_highrise_elevators::init_elevator("3", 2);
-		level thread maps\mp\zm_highrise_elevators::init_elevator("3b", 1, -1264);
+		level thread maps\mp\zm_highrise_elevators::init_elevator("3", 3);
+		level thread maps\mp\zm_highrise_elevators::init_elevator("3b", 2, -1088);
 	}
 
 	level thread maps\mp\zm_highrise_elevators::init_elevator("3c", 3);

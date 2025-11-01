@@ -251,8 +251,8 @@ move_elevator_starting_floors()
 
 	if (getdvar("ui_zm_mapstartlocation") == "dragon_rooftop")
 	{
-		level.elevators["bldg3"] thread starting_floor(5);
-		level.elevators["bldg3b"] thread starting_floor(4);
+		level.elevators["bldg3"] thread starting_floor(1);
+		level.elevators["bldg3b"] thread starting_floor(5);
 	}
 	else if (getdvar("ui_zm_mapstartlocation") == "sweatshop")
 	{
@@ -374,35 +374,16 @@ elevator_call_think()
 
 elevator_floor_below(floor)
 {
-	if (self.floors.size == 5)
+	floors_above = self.floors.size - floor;
+
+	if (floors_above == 2)
 	{
-		if (floor == 0)
-		{
-			return 1;
-		}
-		else if (floor == 1)
-		{
-			return 2;
-		}
-		else if (floor == 3)
-		{
-			return 1;
-		}
+		return 1;
 	}
-	else if (self.floors.size == 6)
+
+	if (floors_above == 4 || floors_above == 5)
 	{
-		if (floor == 1)
-		{
-			return 2;
-		}
-		else if (floor == 2)
-		{
-			return 3;
-		}
-		else if (floor == 4)
-		{
-			return 1;
-		}
+		return floor + 1;
 	}
 
 	return floor - 1;

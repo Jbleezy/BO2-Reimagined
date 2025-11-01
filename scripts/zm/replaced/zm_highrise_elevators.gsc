@@ -414,7 +414,7 @@ elevator_next_floor(elevator, last, justchecking)
 			{
 				if (last == 1)
 				{
-					return 4;
+					return 5;
 				}
 			}
 			else if (elevator.name == "3c")
@@ -429,9 +429,9 @@ elevator_next_floor(elevator, last, justchecking)
 		{
 			if (elevator.name == "3" || elevator.name == "3b")
 			{
-				if (last == 3)
+				if (last == 4)
 				{
-					return 1;
+					return 2;
 				}
 			}
 			else if (elevator.name == "3c")
