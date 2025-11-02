@@ -23044,6 +23044,14 @@
 }
 {
 "classname" "node_pathnode"
+"origin" "7168 -256 -72"
+}
+{
+"classname" "node_pathnode"
+"origin" "7168 -768 -72"
+}
+{
+"classname" "node_pathnode"
 "origin" "7296 -128 -71.9"
 "guid" "4871F543"
 }
