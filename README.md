@@ -1220,6 +1220,7 @@
 * Fixed zombies not bleeding out in the Shopping Mall Level 1B zone when the debris is uncleared and there are no players in the zone
 * Fixed Who's Who vision filter showing momentarily when the game ended
 * Quest: added "Benn - High Risers" song
+* Quest: elevator symbols and floor symbols require the player to be on the ground to activate
 * Quest: elevator symbols can be activated without players on every symbol
 * Quest: elevator symbols stay active after activating once
 * Quest: floor symbols can be activated in any order
@@ -1361,7 +1362,7 @@
 * Tower Trap (upgraded): upgrading no longer resets the duration of the trap
 * Quest: added "Benn - Alcatraz" song
 * Quest: Blundergat gets full ammo when picked up (normally missing one clip)
-* Quest: number pad only needs each number to be shocked once in order to complete
+* Quest: number pad only needs each number to be shocked once to complete
 * Quest: can enter the plane in afterlife with any amount of players
 * Quest: can enter the plane in afterlife without Weasel
 * Quest: if Weasel is the only player in the game, the cycle breaks immediately after being revived from the electric chairs

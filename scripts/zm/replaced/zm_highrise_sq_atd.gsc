@@ -38,6 +38,18 @@ sq_atd_watch_elevator(str_flag)
 {
 	level endon("sq_atd_elevator_activated");
 
+	m_icon = undefined;
+	a_dragon_icons = getentarray("elevator_dragon_icon", "targetname");
+
+	foreach (e_dragon_icon in a_dragon_icons)
+	{
+		if (issubstr(self.targetname, e_dragon_icon.script_noteworthy))
+		{
+			m_icon = e_dragon_icon;
+			break;
+		}
+	}
+
 	while (true)
 	{
 		self waittill("trigger", e_who);
@@ -48,27 +60,31 @@ sq_atd_watch_elevator(str_flag)
 			continue;
 		}
 
-		a_dragon_icons = getentarray("elevator_dragon_icon", "targetname");
-
-		foreach (m_icon in a_dragon_icons)
+		if (!e_who isonground())
 		{
-			if (issubstr(self.targetname, m_icon.script_noteworthy))
-			{
-				v_off_pos = m_icon.m_lit_icon.origin;
-				m_icon.m_lit_icon unlink();
-				m_icon unlink();
-				m_icon.m_lit_icon.origin = m_icon.origin;
-				m_icon.origin = v_off_pos;
-				m_icon.m_lit_icon linkto(m_icon.m_elevator);
-				m_icon linkto(m_icon.m_elevator);
-				m_icon playsound("zmb_sq_symbol_light");
-				break;
-			}
+			wait 0.05;
+			continue;
 		}
 
-		flag_set(str_flag);
-		return;
+		if (!e_who istouching(m_icon))
+		{
+			wait 0.05;
+			continue;
+		}
+
+		break;
 	}
+
+	v_off_pos = m_icon.m_lit_icon.origin;
+	m_icon.m_lit_icon unlink();
+	m_icon unlink();
+	m_icon.m_lit_icon.origin = m_icon.origin;
+	m_icon.origin = v_off_pos;
+	m_icon.m_lit_icon linkto(m_icon.m_elevator);
+	m_icon linkto(m_icon.m_elevator);
+	m_icon playsound("zmb_sq_symbol_light");
+
+	flag_set(str_flag);
 }
 
 sq_atd_drg_puzzle()
@@ -99,7 +115,18 @@ drg_puzzle_trig_think(n_order_id)
 	v_top = m_unlit.origin;
 	v_hidden = m_lit.origin;
 
-	self waittill("trigger", e_who);
+	while (1)
+	{
+		self waittill("trigger", e_who);
+
+		if (!e_who isonground())
+		{
+			wait 0.05;
+			continue;
+		}
+
+		break;
+	}
 
 	m_lit.origin = v_top;
 	m_unlit.origin = v_hidden;
