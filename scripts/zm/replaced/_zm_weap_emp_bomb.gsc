@@ -317,6 +317,11 @@ player_perk_pause(perk)
 		return;
 	}
 
+	if (perk == "specialty_additionalprimaryweapon" || perk == "specialty_additionalprimaryweapon_upgrade")
+	{
+		self maps\mp\zombies\_zm::take_additionalprimaryweapon();
+	}
+
 	self unsetperk(perk);
 
 	if (perk == "specialty_armorvest" || perk == "specialty_armorvest_upgrade")
@@ -327,11 +332,6 @@ player_perk_pause(perk)
 		{
 			self.health = self.maxhealth;
 		}
-	}
-
-	if (perk == "specialty_additionalprimaryweapon" || perk == "specialty_additionalprimaryweapon_upgrade")
-	{
-		self maps\mp\zombies\_zm::take_additionalprimaryweapon();
 	}
 
 	if (issubstr(perk, "specialty_scavenger"))
