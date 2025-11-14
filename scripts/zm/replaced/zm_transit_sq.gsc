@@ -13,6 +13,22 @@
 #include maps\mp\zombies\_zm_buildables;
 #include maps\mp\zombies\_zm_unitrigger;
 
+maxis_sidequest()
+{
+	level endon("power_on");
+
+	if (flag("power_on") || (isdefined(level.maxcompleted) && level.maxcompleted) || (isdefined(level.richcompleted) && level.richcompleted))
+	{
+		return;
+	}
+
+	update_sidequest_stats("sq_transit_maxis_stage_1");
+	level thread maxis_sidequest_a();
+	level thread maxis_sidequest_b();
+	level thread maxis_sidequest_c();
+	level thread avogadro_stunned_vo();
+}
+
 maxis_sidequest_a()
 {
 	level endon("power_on");
@@ -214,6 +230,26 @@ maxis_sidequest_complete()
 	wait 1;
 	clientnotify("sqm");
 	level thread droppowerup("maxis");
+}
+
+richtofen_sidequest()
+{
+	level endon("power_turned_off");
+
+	if (!flag("power_on") || (isdefined(level.richcompleted) && level.richcompleted) || (isdefined(level.maxcompleted) && level.maxcompleted))
+	{
+		return;
+	}
+
+	if (!(isdefined(level.richtofen_sq_intro_said) && level.richtofen_sq_intro_said))
+	{
+		level thread wait_for_richtoffen_intro();
+	}
+
+	update_sidequest_stats("sq_transit_rich_stage_1");
+	level thread richtofen_sidequest_a();
+	level thread richtofen_sidequest_b();
+	level thread richtofen_sidequest_c();
 }
 
 richtofen_sidequest_c()

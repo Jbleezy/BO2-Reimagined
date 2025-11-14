@@ -13,11 +13,9 @@ main()
 	replaceFunc(character\c_transit_player_engineer::main, character\c_highrise_player_engineer::main);
 	replaceFunc(character\c_transit_player_reporter::main, character\c_highrise_player_reporter::main);
 	replaceFunc(maps\mp\zm_transit_sq::navcomputer_waitfor_navcard, scripts\zm\reimagined\_zm_sq::navcomputer_waitfor_navcard);
-	replaceFunc(maps\mp\zm_transit_sq::maxis_sidequest_a, scripts\zm\replaced\zm_transit_sq::maxis_sidequest_a);
-	replaceFunc(maps\mp\zm_transit_sq::maxis_sidequest_b, scripts\zm\replaced\zm_transit_sq::maxis_sidequest_b);
-	replaceFunc(maps\mp\zm_transit_sq::maxis_sidequest_c, scripts\zm\replaced\zm_transit_sq::maxis_sidequest_c);
+	replaceFunc(maps\mp\zm_transit_sq::maxis_sidequest, scripts\zm\replaced\zm_transit_sq::maxis_sidequest);
 	replaceFunc(maps\mp\zm_transit_sq::maxis_sidequest_complete, scripts\zm\replaced\zm_transit_sq::maxis_sidequest_complete);
-	replaceFunc(maps\mp\zm_transit_sq::richtofen_sidequest_c, scripts\zm\replaced\zm_transit_sq::richtofen_sidequest_c);
+	replaceFunc(maps\mp\zm_transit_sq::richtofen_sidequest, scripts\zm\replaced\zm_transit_sq::richtofen_sidequest);
 	replaceFunc(maps\mp\zm_transit_sq::richtofen_sidequest_complete, scripts\zm\replaced\zm_transit_sq::richtofen_sidequest_complete);
 	replaceFunc(maps\mp\zm_transit_sq::droppowerup, scripts\zm\replaced\zm_transit_sq::droppowerup);
 	replaceFunc(maps\mp\zm_transit::transit_zone_init, scripts\zm\replaced\zm_transit::transit_zone_init);
