@@ -258,6 +258,8 @@ local function mapListSelectionClickedEventHandler(self, event)
 	setGameModeDvars()
 	setMapDvars()
 
+	Engine.PartyHostClearUIState()
+
 	self:openMenu("PrivateOnlineGameLobby", self.controller)
 
 	self:close()
@@ -324,6 +326,8 @@ local function locationListSelectionClickedEventHandler(self, event)
 
 	setGameModeDvars()
 	setLocationDvars()
+
+	Engine.PartyHostClearUIState()
 
 	self:openMenu("PrivateOnlineGameLobby", self.controller)
 
