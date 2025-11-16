@@ -70,7 +70,7 @@ local CreateScoreboardHeaderTitle = function(ScoreboardWidget)
 				StringTable[2] = " - "
 				StringTable[3] = GetMapDisplayName()
 
-				if UIExpression.DvarString(nil, "ui_gametype") == "zgrief" and UIExpression.DvarString(nil, "ui_gametype_obj") == "zsnr" then
+				if UIExpression.DvarString(nil, "ui_gametype") == "zgrief" and UIExpression.DvarString(nil, "ui_gametype_obj") == "zsr" then
 					StringTable[4] = " - "
 					StringTable[5] = Engine.Localize("MPUI_ROUND_X", UIExpression.DvarString(nil, "ui_round_number"))
 				end

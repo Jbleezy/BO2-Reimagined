@@ -13,13 +13,13 @@ LANG_ENGLISH        "CLASSIC"
 REFERENCE           ZMUI_ZGRIEF_PRO
 LANG_ENGLISH        "Grief Pro"
 
-REFERENCE           ZMUI_ZSNR
+REFERENCE           ZMUI_ZSR
 LANG_ENGLISH        "Search & Rezurrect"
 
-REFERENCE           ZMUI_ZSNR_CAPS
+REFERENCE           ZMUI_ZSR_CAPS
 LANG_ENGLISH        "SEARCH & REZURRECT"
 
-REFERENCE           ZMUI_ZSNR_PRO
+REFERENCE           ZMUI_ZSR_PRO
 LANG_ENGLISH        "Search & Rezurrect Pro"
 
 REFERENCE           ZMUI_ZRACE_PRO
@@ -288,7 +288,7 @@ LANG_ENGLISH        "Press ^3[{+attack}]^7 or ^3[{+speed_throw}]^7 to change sel
 REFERENCE           ZOMBIE_ZGRIEF_INTRO
 LANG_ENGLISH        "Make enemy players bleed out to gain score!"
 
-REFERENCE           ZOMBIE_ZSNR_INTRO
+REFERENCE           ZOMBIE_ZSR_INTRO
 LANG_ENGLISH        "Get all enemy players down to win a round!"
 
 REFERENCE           ZOMBIE_ZRACE_INTRO

@@ -1148,7 +1148,7 @@ round_timer_hud_loop()
 	level endon("end_game");
 	level endon("stop_timers");
 
-	if (isDefined(level.scr_zm_ui_gametype_obj) && level.scr_zm_ui_gametype_obj != "zsnr")
+	if (isDefined(level.scr_zm_ui_gametype_obj) && level.scr_zm_ui_gametype_obj != "zsr")
 	{
 		return;
 	}

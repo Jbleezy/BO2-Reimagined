@@ -499,7 +499,7 @@ set_team(team)
 	self.killsdenied = 0;
 	self.captures = 0;
 
-	if (level.scr_zm_ui_gametype_obj == "zsnr" && flag("initial_blackscreen_passed") && !isdefined(level.gamemodulewinningteam))
+	if (level.scr_zm_ui_gametype_obj == "zsr" && flag("initial_blackscreen_passed") && !isdefined(level.gamemodulewinningteam))
 	{
 		if (isDefined(level.grief_score_hud_set_player_count_func))
 		{

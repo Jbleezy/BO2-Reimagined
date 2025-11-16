@@ -1432,10 +1432,6 @@ get_gamemode_stat_str()
 	{
 		gamemode = "Grief";
 	}
-	else if (level.scr_zm_ui_gametype_obj == "zsnr")
-	{
-		gamemode = "Search & Rezurrect";
-	}
 	else if (level.scr_zm_ui_gametype_obj == "zrace")
 	{
 		gamemode = "Race";
@@ -1447,6 +1443,10 @@ get_gamemode_stat_str()
 	else if (level.scr_zm_ui_gametype_obj == "zmeat")
 	{
 		gamemode = "Meat";
+	}
+	else if (level.scr_zm_ui_gametype_obj == "zsr")
+	{
+		gamemode = "Search & Rezurrect";
 	}
 
 	if (level.scr_zm_ui_gametype_pro)

@@ -329,8 +329,8 @@ set_grief_vars()
 
 	level.pregame_minplayers = getDvarInt("party_minplayers");
 
-	level.snr_round_number = 1;
-	setDvar("ui_round_number", level.snr_round_number);
+	level.sr_round_number = 1;
+	setDvar("ui_round_number", level.sr_round_number);
 	makedvarserverinfo("ui_round_number");
 
 	setDvar("ui_scorelimit", 1);
@@ -416,7 +416,7 @@ grief_onplayerconnect()
 	self.killsdenied = 0;
 	self.captures = 0;
 
-	if (level.scr_zm_ui_gametype_obj != "zsnr")
+	if (level.scr_zm_ui_gametype_obj != "zsr")
 	{
 		self._retain_perks = 1;
 	}
@@ -484,7 +484,7 @@ grief_onplayerdisconnect(disconnecting_player)
 
 	setDvar(team_var, getDvar(team_var) + disconnecting_player getguid() + " ");
 
-	if (level.scr_zm_ui_gametype_obj == "zsnr")
+	if (level.scr_zm_ui_gametype_obj == "zsr")
 	{
 		level thread update_players_on_disconnect(disconnecting_player);
 	}
@@ -515,7 +515,7 @@ on_player_spawned()
 			}
 		}
 
-		if (level.scr_zm_ui_gametype_obj == "zsnr")
+		if (level.scr_zm_ui_gametype_obj == "zsr")
 		{
 			// round_start_wait resets these
 			self freezeControls(1);
@@ -561,7 +561,7 @@ on_player_downed()
 			increment_score(getOtherTeam(self.team), 10, 1, &"ZOMBIE_ZGRIEF_PLAYER_BLED_OUT_SCORE");
 		}
 
-		if (level.scr_zm_ui_gametype_obj == "zsnr")
+		if (level.scr_zm_ui_gametype_obj == "zsr")
 		{
 			level thread update_players_on_downed(self);
 		}
@@ -586,7 +586,7 @@ on_player_revived()
 				increment_score(reviver.team, 5, 1, &"ZOMBIE_ZGRIEF_ALLY_REVIVED_SCORE");
 			}
 
-			if (level.scr_zm_ui_gametype_obj == "zsnr")
+			if (level.scr_zm_ui_gametype_obj == "zsr")
 			{
 				level thread update_players_on_revived(self, reviver);
 			}
@@ -609,7 +609,7 @@ on_player_bled_out()
 			self [[level.zombie_last_stand_ammo_return]](1);
 		}
 
-		if (level.scr_zm_ui_gametype_obj == "zsnr" || is_true(self.playersuicided))
+		if (level.scr_zm_ui_gametype_obj == "zsr" || is_true(self.playersuicided))
 		{
 			self thread bleedout_feed();
 		}
@@ -619,7 +619,7 @@ on_player_bled_out()
 			increment_score(getOtherTeam(self.team));
 		}
 
-		if (level.scr_zm_ui_gametype_obj == "zsnr")
+		if (level.scr_zm_ui_gametype_obj == "zsr")
 		{
 			self.init_player_offhand_weapons_override = 1;
 			self init_player_offhand_weapons();
@@ -917,7 +917,7 @@ round_start_wait(time, initial)
 		}
 	}
 
-	if (level.scr_zm_ui_gametype_obj == "zsnr")
+	if (level.scr_zm_ui_gametype_obj == "zsr")
 	{
 		grief_score_hud_set_player_count("allies", 0, "axis", 0);
 		grief_score_hud_set_player_count("allies", get_number_of_valid_players_team("allies"), "axis", get_number_of_valid_players_team("axis"));
@@ -930,10 +930,10 @@ round_start_wait(time, initial)
 	text = &"ZOMBIE_MATCH_BEGINS_IN_CAPS";
 	text_param = undefined;
 
-	if (level.scr_zm_ui_gametype_obj == "zsnr")
+	if (level.scr_zm_ui_gametype_obj == "zsr")
 	{
 		text = &"ZOMBIE_ROUND_BEGINS_IN_CAPS";
-		text_param = level.snr_round_number;
+		text_param = level.sr_round_number;
 	}
 
 	countdown_hud = scripts\zm\replaced\_zm::countdown_hud(text, text_param, time);
@@ -1156,7 +1156,7 @@ grief_intro_msg()
 
 	to_win_str = &"ZOMBIE_GRIEF_SCORE_TO_WIN";
 
-	if (level.scr_zm_ui_gametype_obj == "zsnr")
+	if (level.scr_zm_ui_gametype_obj == "zsr")
 	{
 		to_win_str = &"ZOMBIE_GRIEF_ROUNDS_TO_WIN";
 	}
@@ -1203,7 +1203,7 @@ get_gamemode_winning_score()
 	{
 		return 200;
 	}
-	else if (level.scr_zm_ui_gametype_obj == "zsnr")
+	else if (level.scr_zm_ui_gametype_obj == "zsr")
 	{
 		return 3;
 	}
@@ -1216,7 +1216,7 @@ is_respawn_gamemode()
 		return 0;
 	}
 
-	return level.scr_zm_ui_gametype_obj != "zsnr";
+	return level.scr_zm_ui_gametype_obj != "zsr";
 }
 
 show_grief_hud_msg(msg, msg_parm1, msg_parm2, offset, delay)

@@ -10,7 +10,7 @@ CoD.MapsList.GameModes = {
 	"ZMUI_ZRACE_CAPS",
 	"ZMUI_ZCONTAINMENT_CAPS",
 	"ZMUI_ZMEAT_CAPS",
-	"ZMUI_ZSNR_CAPS",
+	"ZMUI_ZSR_CAPS",
 	-- "ZMUI_ZCLEANSED_CAPS", -- TODO: add
 }
 CoD.MapsList.Maps = {
@@ -68,10 +68,10 @@ local function setGameModeDvars()
 		Engine.SetDvar("ui_zm_gamemodegroup", "zencounter")
 		Engine.SetDvar("ui_gametype", "zgrief")
 		Engine.SetDvar("ui_gametype_obj", "zmeat")
-	elseif gameMode == "ZMUI_ZSNR_CAPS" then
+	elseif gameMode == "ZMUI_ZSR_CAPS" then
 		Engine.SetDvar("ui_zm_gamemodegroup", "zencounter")
 		Engine.SetDvar("ui_gametype", "zgrief")
-		Engine.SetDvar("ui_gametype_obj", "zsnr")
+		Engine.SetDvar("ui_gametype_obj", "zsr")
 	elseif gameMode == "ZMUI_ZCLEANSED_CAPS" then
 		-- TODO: set dvars when game mode is added
 	end
