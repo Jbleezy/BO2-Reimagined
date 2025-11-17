@@ -79,6 +79,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_weapon_locker::triggerweaponslockerisvalidweaponpromptupdate, scripts\zm\replaced\_zm_weapon_locker::triggerweaponslockerisvalidweaponpromptupdate);
 	replaceFunc(maps\mp\zombies\_zm_weapon_locker::wl_set_stored_weapondata, scripts\zm\replaced\_zm_weapon_locker::wl_set_stored_weapondata);
 
+	include_powerups();
 	grief_include_weapons();
 	electric_door_changes();
 }
@@ -105,6 +106,11 @@ init()
 	level thread power_station_exposure_change();
 	level thread attach_powerups_to_bus();
 	level thread bus_hatch_open();
+}
+
+include_powerups()
+{
+	include_powerup("free_perk");
 }
 
 grief_include_weapons()

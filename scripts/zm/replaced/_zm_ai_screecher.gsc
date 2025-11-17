@@ -364,6 +364,13 @@ screecher_cleanup()
 		{
 			level thread maps\mp\zombies\_zm_audio::player_zombie_kill_vox(self.damagelocation, attacker, self.damagemod, self);
 		}
+
+		if (isdefined(self.origin) && issubstr(self getanimstatefromasd(), "zm_jump") && randomint(100) < 2)
+		{
+			trace = groundtrace(self.origin + vectorscale((0, 0, 1), 10.0), self.origin + vectorscale((0, 0, -1), 150.0), 0, undefined, 1);
+			power_up_origin = trace["position"];
+			level thread maps\mp\zombies\_zm_powerups::specific_powerup_drop("free_perk", power_up_origin);
+		}
 	}
 
 	if (isdefined(self.loopsoundent))

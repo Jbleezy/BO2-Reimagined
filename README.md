@@ -292,6 +292,7 @@
 * Fixed not being able to drop powerups after doing certain traversals
 
 ### Denizens
+* Added 2% chance to drop a free perk powerup when killed while flying to a player
 * Changed max amount that can be spawned at once from 2 total to 1 per player in the fog
 * No longer spawn for a player for 5 seconds after being killed
 * Decreased health from 200 to 150
@@ -1262,7 +1263,7 @@
 * Arthur barricades are buyable debris
 * Arthur can be purchased to feed him candy and make him run around and kill zombies for 30 seconds
 * Ghosts no longer spawn and go after players not in the Mansion during a ghost round
-* Ghosts no longer drop free perk powerup if any player gets damaged by the ghosts
+* Ghosts no longer drop a free perk powerup if any player gets damaged by the ghosts
 * Added controller aim assist to ghosts
 * Fountain portal automatically active
 * Players no longer take fall damage after using the fountain teleporter
