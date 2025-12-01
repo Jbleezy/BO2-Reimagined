@@ -49,9 +49,11 @@ local function setGameModeDvars()
 	if gameMode == "ZMUI_ZCLASSIC_GAMEMODE_CAPS" then
 		Engine.SetDvar("ui_zm_gamemodegroup", "zclassic")
 		Engine.SetDvar("ui_gametype", "zclassic")
+		Engine.SetDvar("ui_gametype_obj", "")
 	elseif gameMode == "ZMUI_ZSTANDARD_CAPS" then
 		Engine.SetDvar("ui_zm_gamemodegroup", "zsurvival")
 		Engine.SetDvar("ui_gametype", "zstandard")
+		Engine.SetDvar("ui_gametype_obj", "")
 	elseif gameMode == "ZMUI_ZGRIEF_CAPS" then
 		Engine.SetDvar("ui_zm_gamemodegroup", "zencounter")
 		Engine.SetDvar("ui_gametype", "zgrief")
