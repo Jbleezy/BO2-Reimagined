@@ -484,10 +484,8 @@ end
 CoD.PrivateGameLobby.OpenChangeStartLoc = function(PrivateGameLobbyWidget, ClientInstance)
 	if UIExpression.DvarString(nil, "ui_gameType") == "zclassic" then
 		local f27_local0 = PrivateGameLobbyWidget:openMenu("SelectMapListZM", ClientInstance.controller)
-		f27_local0:setPreviousMenu("SelectGameModeListZM")
 	else
 		local f27_local0 = PrivateGameLobbyWidget:openMenu("SelectLocationListZM", ClientInstance.controller)
-		f27_local0:setPreviousMenu("SelectGameModeListZM")
 	end
 	-- local f27_local0 = PrivateGameLobbyWidget:openMenu("SelectStartLocZM", ClientInstance.controller)
 	-- f27_local0:setPreviousMenu("SelectMapZM")

@@ -241,7 +241,6 @@ CoD.MainLobby.OpenPrivateGameLobbyAndSelectGameModeList = function(MainLobbyWidg
 	-- open both menus so map background is shown
 	local PrivateGameLobbyWidget = MainLobbyWidget:openMenu("PrivateOnlineGameLobby", ClientInstance.controller)
 	local SelectGameModeListWidget = PrivateGameLobbyWidget:openMenu("SelectGameModeListZM", ClientInstance.controller)
-	SelectGameModeListWidget:setPreviousMenu("PrivateOnlineGameLobby")
 	PrivateGameLobbyWidget:close()
 end
 
