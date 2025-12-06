@@ -1,186 +1,186 @@
 {
-    "_type": "material",
-    "_version": 1,
-    "cameraRegion": "none",
-    "constants": [
-        {
-            "literal": [
-                2.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "name": "VignetteSoftness"
-        },
-        {
-            "literal": [
-                3.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "name": "Boost"
-        },
-        {
-            "literal": [
-                0.2857140004634857,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "name": "VignetteColor"
-        },
-        {
-            "literal": [
-                2.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "name": "MaskSoftness"
-        },
-        {
-            "literal": [
-                0.0,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "name": "WaveWarpScale"
-        },
-        {
-            "literal": [
-                0.41999998688697815,
-                1.0,
-                0.0,
-                1.0
-            ],
-            "name": "VignetteRadius"
-        },
-        {
-            "literal": [
-                0.20000000298023224,
-                0.800000011920929,
-                0.0,
-                1.0
-            ],
-            "name": "MaskRadius"
-        },
-        {
-            "literal": [
-                -0.4000000059604645,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "name": "ScrollSpeed"
-        },
-        {
-            "literal": [
-                0.699999988079071,
-                0.0,
-                0.0,
-                1.0
-            ],
-            "name": "TransitionPower"
-        }
-    ],
-    "contents": 1,
-    "gameFlags": [],
-    "hashIndex": 0,
-    "layeredSurfaceTypes": 536870912,
-    "probeMipBits": 0,
-    "sortKey": 4,
-    "stateBits": [
-        {
-            "alphaTest": "disabled",
-            "blendOpAlpha": "disabled",
-            "blendOpRgb": "disabled",
-            "colorWriteAlpha": true,
-            "colorWriteRgb": true,
-            "cullFace": "back",
-            "depthTest": "disabled",
-            "depthWrite": false,
-            "dstBlendAlpha": "zero",
-            "dstBlendRgb": "zero",
-            "polygonOffset": "offset0",
-            "polymodeLine": false,
-            "srcBlendAlpha": "one",
-            "srcBlendRgb": "one"
-        }
-    ],
-    "stateBitsEntry": [
-        -1,
-        -1,
-        0,
-        -1,
-        -1,
-        -1,
-        -1,
-        -1,
-        -1,
-        -1,
-        -1,
-        -1,
-        -1,
-        -1,
-        -1,
-        -1,
-        -1,
-        -1,
-        -1,
-        -1,
-        -1,
-        -1,
-        -1,
-        -1,
-        -1,
-        -1,
-        -1,
-        -1,
-        -1,
-        -1,
-        -1,
-        -1,
-        -1,
-        -1,
-        -1,
-        -1
-    ],
-    "stateFlags": 0,
-    "surfaceFlags": 0,
-    "surfaceTypeBits": 0,
-    "techniqueSet": "sw4_2d_tomb_blood_741zj908",
-    "textureAtlas": {
-        "columns": 1,
-        "rows": 1
-    },
-    "textures": [
-        {
-            "image": "zm_tomb_vignette_noise",
-            "isMatureContent": false,
-            "name": "NoiseMap",
-            "samplerState": {
-                "clampU": false,
-                "clampV": false,
-                "clampW": false,
-                "filter": "linear",
-                "mipMap": "disabled"
-            },
-            "semantic": "colorMap"
-        },
-        {
-            "image": "zm_tomb_vignette_mockup",
-            "isMatureContent": false,
-            "name": "MaskMap",
-            "samplerState": {
-                "clampU": false,
-                "clampV": false,
-                "clampW": false,
-                "filter": "linear",
-                "mipMap": "disabled"
-            },
-            "semantic": "colorMap"
-        }
-    ]
+	"_type": "material",
+	"_version": 1,
+	"cameraRegion": "none",
+	"constants": [
+		{
+			"literal": [
+				2.0,
+				0.0,
+				0.0,
+				1.0
+			],
+			"name": "VignetteSoftness"
+		},
+		{
+			"literal": [
+				3.0,
+				0.0,
+				0.0,
+				1.0
+			],
+			"name": "Boost"
+		},
+		{
+			"literal": [
+				0.2857140004634857,
+				0.0,
+				0.0,
+				1.0
+			],
+			"name": "VignetteColor"
+		},
+		{
+			"literal": [
+				2.0,
+				0.0,
+				0.0,
+				1.0
+			],
+			"name": "MaskSoftness"
+		},
+		{
+			"literal": [
+				0.0,
+				0.0,
+				0.0,
+				1.0
+			],
+			"name": "WaveWarpScale"
+		},
+		{
+			"literal": [
+				0.41999998688697815,
+				1.0,
+				0.0,
+				1.0
+			],
+			"name": "VignetteRadius"
+		},
+		{
+			"literal": [
+				0.20000000298023224,
+				0.800000011920929,
+				0.0,
+				1.0
+			],
+			"name": "MaskRadius"
+		},
+		{
+			"literal": [
+				-0.4000000059604645,
+				0.0,
+				0.0,
+				1.0
+			],
+			"name": "ScrollSpeed"
+		},
+		{
+			"literal": [
+				0.699999988079071,
+				0.0,
+				0.0,
+				1.0
+			],
+			"name": "TransitionPower"
+		}
+	],
+	"contents": 1,
+	"gameFlags": [],
+	"hashIndex": 0,
+	"layeredSurfaceTypes": 536870912,
+	"probeMipBits": 0,
+	"sortKey": 4,
+	"stateBits": [
+		{
+			"alphaTest": "disabled",
+			"blendOpAlpha": "disabled",
+			"blendOpRgb": "disabled",
+			"colorWriteAlpha": true,
+			"colorWriteRgb": true,
+			"cullFace": "back",
+			"depthTest": "disabled",
+			"depthWrite": false,
+			"dstBlendAlpha": "zero",
+			"dstBlendRgb": "zero",
+			"polygonOffset": "offset0",
+			"polymodeLine": false,
+			"srcBlendAlpha": "one",
+			"srcBlendRgb": "one"
+		}
+	],
+	"stateBitsEntry": [
+		-1,
+		-1,
+		0,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1
+	],
+	"stateFlags": 0,
+	"surfaceFlags": 0,
+	"surfaceTypeBits": 0,
+	"techniqueSet": "sw4_2d_tomb_blood_741zj908",
+	"textureAtlas": {
+		"columns": 1,
+		"rows": 1
+	},
+	"textures": [
+		{
+			"image": "zm_tomb_vignette_noise",
+			"isMatureContent": false,
+			"name": "NoiseMap",
+			"samplerState": {
+				"clampU": false,
+				"clampV": false,
+				"clampW": false,
+				"filter": "linear",
+				"mipMap": "disabled"
+			},
+			"semantic": "colorMap"
+		},
+		{
+			"image": "zm_tomb_vignette_mockup",
+			"isMatureContent": false,
+			"name": "MaskMap",
+			"samplerState": {
+				"clampU": false,
+				"clampV": false,
+				"clampW": false,
+				"filter": "linear",
+				"mipMap": "disabled"
+			},
+			"semantic": "colorMap"
+		}
+	]
 }

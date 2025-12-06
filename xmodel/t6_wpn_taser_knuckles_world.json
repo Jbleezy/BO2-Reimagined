@@ -1,25 +1,25 @@
 {
-    "_type": "xmodel",
-    "_version": 1,
-    "flags": 2097152,
-    "lightingOriginOffset": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.5
-    },
-    "lightingOriginRange": 0.5,
-    "lods": [
-        {
-            "distance": 300.0,
-            "file": "model_export/t6_wpn_taser_knuckles_world_lod0.GLB"
-        },
-        {
-            "distance": 800.0,
-            "file": "model_export/t6_wpn_taser_knuckles_world_lod1.GLB"
-        },
-        {
-            "distance": 2500.0,
-            "file": "model_export/t6_wpn_taser_knuckles_world_lod2.GLB"
-        }
-    ]
+	"_type": "xmodel",
+	"_version": 1,
+	"flags": 2097152,
+	"lightingOriginOffset": {
+		"x": 0.0,
+		"y": 0.0,
+		"z": 0.5
+	},
+	"lightingOriginRange": 0.5,
+	"lods": [
+		{
+			"distance": 300.0,
+			"file": "model_export/t6_wpn_taser_knuckles_world_lod0.GLB"
+		},
+		{
+			"distance": 800.0,
+			"file": "model_export/t6_wpn_taser_knuckles_world_lod1.GLB"
+		},
+		{
+			"distance": 2500.0,
+			"file": "model_export/t6_wpn_taser_knuckles_world_lod2.GLB"
+		}
+	]
 }

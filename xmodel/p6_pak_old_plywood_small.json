@@ -1,22 +1,22 @@
 {
-    "_type": "xmodel",
-    "_version": 1,
-    "collLod": 1,
-    "flags": 2097152,
-    "lightingOriginOffset": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.5
-    },
-    "lightingOriginRange": 0.5,
-    "lods": [
-        {
-            "distance": 1000.0,
-            "file": "model_export/p6_pak_old_plywood_small_lod0.GLB"
-        },
-        {
-            "distance": 17324.853515625,
-            "file": "model_export/p6_pak_old_plywood_small_lod1.GLB"
-        }
-    ]
+	"_type": "xmodel",
+	"_version": 1,
+	"collLod": 1,
+	"flags": 2097152,
+	"lightingOriginOffset": {
+		"x": 0.0,
+		"y": 0.0,
+		"z": 0.5
+	},
+	"lightingOriginRange": 0.5,
+	"lods": [
+		{
+			"distance": 1000.0,
+			"file": "model_export/p6_pak_old_plywood_small_lod0.GLB"
+		},
+		{
+			"distance": 17324.853515625,
+			"file": "model_export/p6_pak_old_plywood_small_lod1.GLB"
+		}
+	]
 }

@@ -1,26 +1,26 @@
 {
-    "_type": "xmodel",
-    "_version": 1,
-    "collLod": 2,
-    "flags": 6291456,
-    "lightingOriginOffset": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.5
-    },
-    "lightingOriginRange": 0.5,
-    "lods": [
-        {
-            "distance": 2000.0,
-            "file": "model_export/p6_zm_vending_electric_cherry_on_lod0.GLB"
-        },
-        {
-            "distance": 3000.0,
-            "file": "model_export/p6_zm_vending_electric_cherry_on_lod1.GLB"
-        },
-        {
-            "distance": 4000.0,
-            "file": "model_export/p6_zm_vending_electric_cherry_on_lod2.GLB"
-        }
-    ]
+	"_type": "xmodel",
+	"_version": 1,
+	"collLod": 2,
+	"flags": 6291456,
+	"lightingOriginOffset": {
+		"x": 0.0,
+		"y": 0.0,
+		"z": 0.5
+	},
+	"lightingOriginRange": 0.5,
+	"lods": [
+		{
+			"distance": 2000.0,
+			"file": "model_export/p6_zm_vending_electric_cherry_on_lod0.GLB"
+		},
+		{
+			"distance": 3000.0,
+			"file": "model_export/p6_zm_vending_electric_cherry_on_lod1.GLB"
+		},
+		{
+			"distance": 4000.0,
+			"file": "model_export/p6_zm_vending_electric_cherry_on_lod2.GLB"
+		}
+	]
 }

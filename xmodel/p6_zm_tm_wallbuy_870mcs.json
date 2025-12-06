@@ -1,17 +1,17 @@
 {
-    "_type": "xmodel",
-    "_version": 1,
-    "flags": 2621440,
-    "lightingOriginOffset": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.5
-    },
-    "lightingOriginRange": 0.5,
-    "lods": [
-        {
-            "distance": 12861.443359375,
-            "file": "model_export/p6_zm_tm_wallbuy_870mcs_lod0.GLB"
-        }
-    ]
+	"_type": "xmodel",
+	"_version": 1,
+	"flags": 2621440,
+	"lightingOriginOffset": {
+		"x": 0.0,
+		"y": 0.0,
+		"z": 0.5
+	},
+	"lightingOriginRange": 0.5,
+	"lods": [
+		{
+			"distance": 12861.443359375,
+			"file": "model_export/p6_zm_tm_wallbuy_870mcs_lod0.GLB"
+		}
+	]
 }
