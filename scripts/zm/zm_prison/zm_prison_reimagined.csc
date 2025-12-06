@@ -26,7 +26,25 @@ main()
 
 init()
 {
+	hide_static_models();
 	docks_teleporter_fx();
+}
+
+hide_static_models()
+{
+	divetonuke_model_index = findstaticmodelindex((-599, 4832, -63));
+
+	if (isdefined(divetonuke_model_index))
+	{
+		hidestaticmodel(divetonuke_model_index);
+	}
+
+	additionalprimaryweapon_model_index = findstaticmodelindex((-552, 4846, -69));
+
+	if (isdefined(additionalprimaryweapon_model_index))
+	{
+		hidestaticmodel(additionalprimaryweapon_model_index);
+	}
 }
 
 docks_teleporter_fx()

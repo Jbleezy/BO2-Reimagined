@@ -31524,12 +31524,6 @@
 "guid" "CC9CDDB8"
 }
 {
-"origin" "1715.24 1249.43 2014.13"
-"angles" "105 60 0"
-"model" "p6_zm_hr_concrete_slabs_lrg_03"
-"classname" "script_model"
-}
-{
 "origin" "3740 1812 1577"
 "model" "zombie_vending_marathon"
 "classname" "script_struct"
