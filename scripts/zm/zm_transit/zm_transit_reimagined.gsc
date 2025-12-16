@@ -567,36 +567,42 @@ zombie_spawn_location_changes()
 buildable_table_models()
 {
 	// power switch
-	model = spawn("script_model", (12177.3, 8504.51, -731.375));
-	model.angles = (0, 88, 90);
-	model setmodel("p6_zm_core_panel_02");
-	model = spawn("script_model", (12162.3, 8504.51, -731.375));
-	model.angles = (0, 92, 90);
-	model setmodel("p6_zm_core_panel_02");
-	model = spawn("script_model", (12162.3, 8520.51, -731.375));
-	model.angles = (0, 92, 90);
-	model setmodel("p6_zm_core_panel_02");
-	model = spawn("script_model", (12177.3, 8520.51, -731.375));
-	model.angles = (0, 88, 90);
-	model setmodel("p6_zm_core_panel_02");
+	model = spawn("script_model", (12143, 8495, -752));
+	model.angles = (0, 90, 0);
+	model setmodel("p6_monsoon_crate_01_shell_small");
+	model = spawn("script_model", (12143, 8495, -722));
+	model.angles = (0, 90, 0);
+	model setmodel("p6_monsoon_crate_01_shell_small");
+	model = spawn("script_model", (12143, 8495, -692));
+	model.angles = (0, 90, 0);
+	model setmodel("p6_monsoon_crate_01_shell_small");
+	model = spawn("script_model", (12192, 8495, -752));
+	model.angles = (0, 90, 0);
+	model setmodel("p6_monsoon_crate_01_shell_small");
+	model = spawn("script_model", (12192, 8495, -722));
+	model.angles = (0, 90, 0);
+	model setmodel("p6_monsoon_crate_01_shell_small");
+	model = spawn("script_model", (12192, 8495, -692));
+	model.angles = (0, 90, 0);
+	model setmodel("p6_monsoon_crate_01_shell_small");
 
 	// pack-a-punch
-	model = spawn("script_model", (2266.47, -212.901, -303.875));
+	model = spawn("script_model", (2266, -213, -304));
 	model.angles = (0, 0, 0);
 	model setmodel("p_rus_crate_metal_1");
-	model = spawn("script_model", (2266.47, -212.901, -273.875));
+	model = spawn("script_model", (2266, -213, -274));
 	model.angles = (0, 0, 0);
 	model setmodel("p_rus_crate_metal_1");
-	model = spawn("script_model", (2266.47, -212.901, -243.875));
+	model = spawn("script_model", (2266, -213, -244));
 	model.angles = (0, 0, 0);
 	model setmodel("p_rus_crate_metal_1");
-	model = spawn("script_model", (2219.03, -212.725, -243.875));
+	model = spawn("script_model", (2219, -213, -304));
 	model.angles = (0, 0, 0);
 	model setmodel("p_rus_crate_metal_2");
-	model = spawn("script_model", (2219.03, -212.725, -303.875));
+	model = spawn("script_model", (2219, -213, -274));
 	model.angles = (0, 0, 0);
 	model setmodel("p_rus_crate_metal_2");
-	model = spawn("script_model", (2219.03, -212.725, -273.875));
+	model = spawn("script_model", (2219, -213, -244));
 	model.angles = (0, 0, 0);
 	model setmodel("p_rus_crate_metal_2");
 }

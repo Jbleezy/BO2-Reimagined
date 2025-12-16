@@ -1,0 +1,22 @@
+{
+	"_type": "xmodel",
+	"_version": 1,
+	"collLod": 1,
+	"flags": 6291456,
+	"lightingOriginOffset": {
+		"x": 0.0,
+		"y": 0.0,
+		"z": 0.5
+	},
+	"lightingOriginRange": 0.5,
+	"lods": [
+		{
+			"distance": 3000.0,
+			"file": "model_export/p6_monsoon_crate_01_shell_small_lod0.GLB"
+		},
+		{
+			"distance": 3001.0,
+			"file": "model_export/p6_monsoon_crate_01_shell_small_lod1.GLB"
+		}
+	]
+}

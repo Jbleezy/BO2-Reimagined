@@ -33,6 +33,7 @@ fx,fog/fx_zmb_fog_transition_600x600
 fx,fog/fx_zmb_fog_transition_1200x600
 fx,fog/fx_zmb_fog_transition_right_border
 
+xmodel,p6_monsoon_crate_01_shell_small
 xmodel,zm_collision_transit_cornfield_survival
 
 material,hud_icon_40mm_grenade_mp
