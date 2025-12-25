@@ -27,6 +27,7 @@ if CoD.isZombie == true then
 	require("T6.Zombie.SelectDifficultyLevelPopupZombie")
 	require("T6.Zombie.SelectStartLocZombie")
 	require("T6.Zombie.SelectMapZombie")
+	require("T6.Zombie.SelectMapListZombie")
 else
 	require("T6.Menus.CAC")
 	require("T6.Menus.CACChooseClass")

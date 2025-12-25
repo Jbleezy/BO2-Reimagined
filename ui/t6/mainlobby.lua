@@ -8,7 +8,6 @@ require("T6.Menus.CODTv")
 require("T6.Menus.SignOutPopup")
 require("T6.Menus.RejoinSessionPopup")
 require("T6.Mods")
-require("T6.MapsList")
 if CoD.isWIIU then
 	require("T6.WiiUControllerSettings")
 end

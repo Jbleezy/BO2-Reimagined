@@ -2,8 +2,8 @@ require("T6.Lobby")
 require("T6.Menus.PopupMenus")
 require("T6.ListBox")
 
-CoD.MapsList = {}
-CoD.MapsList.GameModes = {
+CoD.SelectMapListZombie = {}
+CoD.SelectMapListZombie.GameModes = {
 	"ZMUI_ZCLASSIC_GAMEMODE_CAPS",
 	"ZMUI_ZSTANDARD_CAPS",
 	"ZMUI_ZGRIEF_CAPS",
@@ -13,14 +13,14 @@ CoD.MapsList.GameModes = {
 	"ZMUI_ZSR_CAPS",
 	-- "ZMUI_ZCLEANSED_CAPS", -- TODO: add
 }
-CoD.MapsList.Maps = {
+CoD.SelectMapListZombie.Maps = {
 	"ZMUI_ZCLASSIC_ZM_TRANSIT_CAPS",
 	"ZMUI_ZCLASSIC_ZM_HIGHRISE_CAPS",
 	"ZMUI_ZCLASSIC_ZM_BURIED_CAPS",
 	"ZMUI_ZCLASSIC_ZM_PRISON_CAPS",
 	"ZMUI_ZCLASSIC_ZM_TOMB_CAPS",
 }
-CoD.MapsList.Locations = {
+CoD.SelectMapListZombie.Locations = {
 	"ZMUI_NUKED_STARTLOC_CAPS",
 	"ZMUI_TRANSIT_STARTLOC_CAPS",
 	"ZMUI_DINER_CAPS",
@@ -44,7 +44,7 @@ CoD.MapsList.Locations = {
 
 local function setGameModeDvars()
 	local index = math.max(1, UIExpression.DvarInt(nil, "ui_gametype_index"))
-	local gameMode = CoD.MapsList.GameModes[index]
+	local gameMode = CoD.SelectMapListZombie.GameModes[index]
 
 	if gameMode == "ZMUI_ZCLASSIC_GAMEMODE_CAPS" then
 		Engine.SetDvar("ui_zm_gamemodegroup", "zclassic")
@@ -81,7 +81,7 @@ end
 
 local function setMapDvars()
 	local index = math.max(1, UIExpression.DvarInt(nil, "ui_mapname_index"))
-	local map = CoD.MapsList.Maps[index]
+	local map = CoD.SelectMapListZombie.Maps[index]
 
 	if map == "ZMUI_ZCLASSIC_ZM_TRANSIT_CAPS" then
 		Engine.SetDvar("ui_mapname", "zm_transit")
@@ -103,7 +103,7 @@ end
 
 local function setLocationDvars()
 	local index = math.max(1, UIExpression.DvarInt(nil, "ui_zm_mapstartlocation_index"))
-	local location = CoD.MapsList.Locations[index]
+	local location = CoD.SelectMapListZombie.Locations[index]
 
 	if location == "ZMUI_TRANSIT_STARTLOC_CAPS" then
 		Engine.SetDvar("ui_mapname", "zm_transit")
@@ -172,9 +172,9 @@ end
 local function gameModeListSelectionClickedEventHandler(self, event)
 	local focusedIndex = self.listBox:getFocussedIndex()
 
-	CoD.MapsList.GameModeIndex = focusedIndex
+	CoD.SelectMapListZombie.GameModeIndex = focusedIndex
 
-	local gameMode = CoD.MapsList.GameModes[focusedIndex]
+	local gameMode = CoD.SelectMapListZombie.GameModes[focusedIndex]
 
 	if gameMode == "ZMUI_ZCLASSIC_GAMEMODE_CAPS" then
 		self:openMenu("SelectMapListZM", self.controller)
@@ -186,7 +186,7 @@ local function gameModeListSelectionClickedEventHandler(self, event)
 end
 
 local function gameModeListBackEventHandler(self, event)
-	CoD.MapsList.GameModeIndex = nil
+	CoD.SelectMapListZombie.GameModeIndex = nil
 	CoD.Menu.ButtonPromptBack(self, event)
 end
 
@@ -201,7 +201,7 @@ local function gameModeListCreateButtonMutables(controller, mutables)
 end
 
 local function gameModeListGetButtonData(controller, index, mutables, self)
-	local gameMode = CoD.MapsList.GameModes[index]
+	local gameMode = CoD.SelectMapListZombie.GameModes[index]
 	mutables.text:setText(Engine.Localize(gameMode))
 end
 
@@ -227,7 +227,7 @@ function LUI.createMenu.SelectGameModeListZM(controller)
 	if UIExpression.DvarBool(nil, "party_solo") == 1 then
 		listBox:setTotalItems(2, index)
 	else
-		listBox:setTotalItems(#CoD.MapsList.GameModes, index)
+		listBox:setTotalItems(#CoD.SelectMapListZombie.GameModes, index)
 	end
 
 	self:addElement(listBox)
@@ -250,9 +250,9 @@ end
 local function mapListSelectionClickedEventHandler(self, event)
 	local focusedIndex = self.listBox:getFocussedIndex()
 
-	if CoD.MapsList.GameModeIndex ~= nil then
-		Engine.SetDvar("ui_gametype_index", CoD.MapsList.GameModeIndex)
-		CoD.MapsList.GameModeIndex = nil
+	if CoD.SelectMapListZombie.GameModeIndex ~= nil then
+		Engine.SetDvar("ui_gametype_index", CoD.SelectMapListZombie.GameModeIndex)
+		CoD.SelectMapListZombie.GameModeIndex = nil
 	end
 
 	Engine.SetDvar("ui_mapname_index", focusedIndex)
@@ -276,7 +276,7 @@ local function mapListCreateButtonMutables(controller, mutables)
 end
 
 local function mapListGetButtonData(controller, index, mutables, self)
-	local map = CoD.MapsList.Maps[index]
+	local map = CoD.SelectMapListZombie.Maps[index]
 	mutables.text:setText(Engine.Localize(map))
 end
 
@@ -297,7 +297,7 @@ function LUI.createMenu.SelectMapListZM(controller)
 	listBox:setLeftRight(true, false, 0, 250)
 	listBox:setTopBottom(true, false, 75, 75 + 530)
 	listBox:addScrollBar()
-	listBox:setTotalItems(#CoD.MapsList.Maps, index)
+	listBox:setTotalItems(#CoD.SelectMapListZombie.Maps, index)
 	self:addElement(listBox)
 	self.listBox = listBox
 
@@ -317,9 +317,9 @@ end
 local function locationListSelectionClickedEventHandler(self, event)
 	local focusedIndex = self.listBox:getFocussedIndex()
 
-	if CoD.MapsList.GameModeIndex ~= nil then
-		Engine.SetDvar("ui_gametype_index", CoD.MapsList.GameModeIndex)
-		CoD.MapsList.GameModeIndex = nil
+	if CoD.SelectMapListZombie.GameModeIndex ~= nil then
+		Engine.SetDvar("ui_gametype_index", CoD.SelectMapListZombie.GameModeIndex)
+		CoD.SelectMapListZombie.GameModeIndex = nil
 	end
 
 	Engine.SetDvar("ui_zm_mapstartlocation_index", focusedIndex)
@@ -343,7 +343,7 @@ local function locationListCreateButtonMutables(controller, mutables)
 end
 
 local function locationListGetButtonData(controller, index, mutables, self)
-	local location = CoD.MapsList.Locations[index]
+	local location = CoD.SelectMapListZombie.Locations[index]
 	mutables.text:setText(Engine.Localize(location))
 end
 
@@ -364,7 +364,7 @@ function LUI.createMenu.SelectLocationListZM(controller)
 	listBox:setLeftRight(true, false, 0, 250)
 	listBox:setTopBottom(true, false, 75, 75 + 530)
 	listBox:addScrollBar()
-	listBox:setTotalItems(#CoD.MapsList.Locations, index)
+	listBox:setTotalItems(#CoD.SelectMapListZombie.Locations, index)
 	self:addElement(listBox)
 	self.listBox = listBox
 
