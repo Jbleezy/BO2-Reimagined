@@ -282,7 +282,13 @@ function GetGameModeDisplayName(gametype)
 	end
 
 	if gametype == CoD.Zombie.GAMETYPE_ZGRIEF then
-		return Engine.Localize("ZMUI_" .. UIExpression.DvarString(nil, "ui_gametype_obj") .. "_CAPS")
+		local obj = UIExpression.DvarString(nil, "ui_gametype_obj")
+
+		if obj == "" then
+			obj = gametype
+		end
+
+		return Engine.Localize("ZMUI_" .. obj .. "_CAPS")
 	end
 
 	return Engine.Localize("ZMUI_" .. gametype .. "_CAPS")
