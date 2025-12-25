@@ -22,5 +22,7 @@ LUI.createMenu.PrivateOnlineGameLobby = function(f1_arg0)
 		f1_local0:animateToState("show", 500)
 	end
 
+	Engine.PartyHostClearUIState()
+
 	return f1_local0
 end
