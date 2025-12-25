@@ -188,12 +188,12 @@ CoD.MainLobby.OpenCustomGamesLobby = function(MainLobbyWidget, ClientInstance)
 	if CoD.MainLobby.ShouldPreventCreateLobby() then
 		return
 	elseif CoD.MainLobby.OnlinePlayAvailable(MainLobbyWidget, ClientInstance) == 1 and CoD.MainLobby.IsControllerCountValid(MainLobbyWidget, ClientInstance.controller, UIExpression.DvarInt(ClientInstance.controller, "party_maxlocalplayers_privatematch")) == 1 then
-		CoD.MainLobby.SwitchToPrivateLobby(ClientInstance)
+		CoD.SwitchToPrivateLobby(ClientInstance.controller)
 		if CoD.isZombie == true then
 			CoD.MainLobby.InitMapDvars()
 			Engine.SetDvar("party_solo", 0)
-			CoD.MainLobby.OpenPrivateGameLobbyAndSelectGameModeList(MainLobbyWidget, ClientInstance)
-			-- CoD.GameGlobeZombie.MoveToCenter(ClientInstance.controller)
+			MainLobbyWidget:openMenu("SelectGameModeListZM", ClientInstance.controller)
+			CoD.GameGlobeZombie.MoveToUpDirectly()
 		else
 			local PrivateOnlineLobbyMenu = MainLobbyWidget:openMenu("PrivateOnlineGameLobby", ClientInstance.controller)
 		end
@@ -206,25 +206,17 @@ CoD.MainLobby.OpenSoloLobby_Zombie = function(MainLobbyWidget, ClientInstance)
 		return
 	elseif CoD.MainLobby.OnlinePlayAvailable(MainLobbyWidget, ClientInstance) == 1 then
 		if CoD.MainLobby.IsControllerCountValid(MainLobbyWidget, ClientInstance.controller, 1) == 1 then
-			CoD.MainLobby.SwitchToPrivateLobby(ClientInstance)
+			CoD.SwitchToPrivateLobby(ClientInstance.controller)
 			CoD.MainLobby.InitMapDvars()
 			MainLobbyWidget.lobbyPane.body.lobbyList.maxLocalPlayers = 1
 			Engine.SetDvar("party_solo", 1)
 			Dvar.party_maxplayers:set(1)
 			CoD.PlaylistCategoryFilter = CoD.Zombie.PLAYLIST_CATEGORY_FILTER_SOLOMATCH
-			CoD.MainLobby.OpenPrivateGameLobbyAndSelectGameModeList(MainLobbyWidget, ClientInstance)
-			-- CoD.GameGlobeZombie.MoveToCenter(ClientInstance.controller)
+			MainLobbyWidget:openMenu("SelectGameModeListZM", ClientInstance.controller)
+			CoD.GameGlobeZombie.MoveToUpDirectly()
 			MainLobbyWidget:close()
 		end
 	end
-end
-
-CoD.MainLobby.SwitchToPrivateLobby = function(ClientInstance)
-	local gameType = UIExpression.DvarString(nil, "ui_gametype")
-	local mapName = UIExpression.DvarString(nil, "ui_mapname")
-	CoD.SwitchToPrivateLobby(ClientInstance.controller) -- this changes these dvars
-	Engine.SetDvar("ui_gametype", gameType)
-	Engine.SetDvar("ui_mapname", mapName)
 end
 
 CoD.MainLobby.InitMapDvars = function()
@@ -235,13 +227,6 @@ CoD.MainLobby.InitMapDvars = function()
 	Engine.SetDvar("ui_mapname_index", 1)
 	Engine.SetDvar("ui_zm_mapstartlocation_index", 1)
 	Engine.SetDvar("ui_gametype_index", 1)
-end
-
-CoD.MainLobby.OpenPrivateGameLobbyAndSelectGameModeList = function(MainLobbyWidget, ClientInstance)
-	-- open both menus so map background is shown
-	local PrivateGameLobbyWidget = MainLobbyWidget:openMenu("PrivateOnlineGameLobby", ClientInstance.controller)
-	local SelectGameModeListWidget = PrivateGameLobbyWidget:openMenu("SelectGameModeListZM", ClientInstance.controller)
-	PrivateGameLobbyWidget:close()
 end
 
 CoD.MainLobby.OpenTheaterLobby = function(MainLobbyWidget, ClientInstance)
