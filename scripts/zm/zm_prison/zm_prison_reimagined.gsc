@@ -792,7 +792,7 @@ grief_brutus_spawn_after_time()
 
 		wait time;
 
-		level notify("spawn_brutus", 1);
+		maps\mp\zombies\_zm_ai_brutus::attempt_brutus_spawn(1);
 
 		while (level.brutus_count <= 0)
 		{

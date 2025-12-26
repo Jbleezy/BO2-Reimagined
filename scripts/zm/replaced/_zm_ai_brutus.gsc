@@ -246,6 +246,51 @@ brutus_spawning_logic()
 	}
 }
 
+wait_on_box_alarm()
+{
+	while (true)
+	{
+		self.zbarrier waittill("randomization_done");
+		level.num_pulls_since_brutus_spawn++;
+
+		if (level.brutus_in_grief)
+		{
+			level.brutus_min_pulls_between_box_spawns = randomintrange(7, 10);
+		}
+
+		if (level.num_pulls_since_brutus_spawn >= level.brutus_min_pulls_between_box_spawns)
+		{
+			rand = randomint(1000);
+
+			if (level.brutus_in_grief)
+			{
+				attempt_brutus_spawn(1);
+			}
+			else if (rand <= level.brutus_alarm_chance)
+			{
+				if (flag("moving_chest_now"))
+				{
+					continue;
+				}
+
+				if (attempt_brutus_spawn(1))
+				{
+					if (level.next_brutus_round == level.round_number + 1)
+					{
+						level.next_brutus_round++;
+					}
+
+					level.brutus_alarm_chance = level.brutus_min_alarm_chance;
+				}
+			}
+			else if (level.brutus_alarm_chance < level.brutus_max_alarm_chance)
+			{
+				level.brutus_alarm_chance = level.brutus_alarm_chance + level.brutus_alarm_chance_increment;
+			}
+		}
+	}
+}
+
 brutus_round_tracker()
 {
 	level.next_brutus_round = level.round_number + randomintrange(level.brutus_min_round_fq, level.brutus_max_round_fq);
