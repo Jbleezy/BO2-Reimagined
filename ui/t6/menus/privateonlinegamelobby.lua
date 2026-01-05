@@ -47,3 +47,31 @@ LUI.createMenu.PrivateOnlineGameLobby = function(f1_arg0)
 
 	return f1_local0
 end
+
+CoD.PrivateGameLobby.PopulateButtonPrompts = function(PrivateGameLobbyWidget)
+	if PrivateGameLobbyWidget.friendsButton ~= nil then
+		PrivateGameLobbyWidget.friendsButton:close()
+		PrivateGameLobbyWidget.friendsButton = nil
+	end
+
+	if PrivateGameLobbyWidget.partyPrivacyButton ~= nil then
+		PrivateGameLobbyWidget.partyPrivacyButton:close()
+		PrivateGameLobbyWidget.partyPrivacyButton = nil
+	end
+
+	if UIExpression.SessionMode_IsSystemlinkGame() == 0 and Engine.GameModeIsMode(CoD.GAMEMODE_LOCAL_SPLITSCREEN) == false then
+		PrivateGameLobbyWidget:addFriendsButton()
+	end
+
+	if Engine.GameModeIsMode(CoD.GAMEMODE_THEATER) == false then
+		CoD.PrivateGameLobby.PopulateButtonPrompts_Project(PrivateGameLobbyWidget)
+	end
+
+	if UIExpression.SessionMode_IsSystemlinkGame() == 0 then
+		if UIExpression.DvarBool(nil, "party_solo") == 0 then
+			PrivateGameLobbyWidget:addPartyPrivacyButton()
+		end
+
+		PrivateGameLobbyWidget:addNATType()
+	end
+end
