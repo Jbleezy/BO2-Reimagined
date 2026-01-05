@@ -280,10 +280,6 @@ local AddGameOptionsButtons = function(PrivateGameLobbyButtonPane, GameOptions, 
 end
 
 CoD.PrivateGameLobby.PopulateButtons_Project_Zombie = function(PrivateGameLobbyButtonPane, IsHost)
-	if UIExpression.DvarBool(nil, "party_solo") == 1 then
-		Dvar.party_maxplayers:set(1)
-	end
-
 	if IsHost == true then
 		PrivateGameLobbyButtonPane.body.changeMapButton = PrivateGameLobbyButtonPane.body.buttonList:addButton(Engine.Localize("ZMUI_MAP_CAPS"))
 		PrivateGameLobbyButtonPane.body.changeMapButton.hintText = Engine.Localize("ZMUI_MAP_SELECTION_DESC")
@@ -452,7 +448,6 @@ CoD.PrivateGameLobby.LeaveLobby_Project_Zombie_After_Animation = function(Privat
 end
 
 CoD.PrivateGameLobby.LeaveLobby_Project_Zombie = function(PrivateGameLobbyWidget, ClientInstance)
-	Engine.SetDvar("party_solo", 0)
 	PrivateGameLobbyWidget.leaveType = ClientInstance.name
 	CoD.GameGlobeZombie.gameGlobe.currentMenu = PrivateGameLobbyWidget
 	if PrivateGameLobbyWidget.menuName == "TheaterLobby" then

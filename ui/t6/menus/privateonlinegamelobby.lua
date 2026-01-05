@@ -21,6 +21,12 @@ LUI.createMenu.PrivateOnlineGameLobby = function(f1_arg0)
 		Engine.SetDvar("ui_gametype_pro_lobby", "")
 	end
 
+	if UIExpression.DvarBool(nil, "party_solo") == 1 then
+		Engine.PartySetMaxPlayerCount(1)
+	end
+
+	Engine.PartyHostClearUIState()
+
 	if CoD.PrivateGameLobby.FadeIn == true then
 		CoD.PrivateGameLobby.FadeIn = nil
 
@@ -33,8 +39,6 @@ LUI.createMenu.PrivateOnlineGameLobby = function(f1_arg0)
 		})
 		f1_local0:animateToState("show", 500)
 	end
-
-	Engine.PartyHostClearUIState()
 
 	return f1_local0
 end

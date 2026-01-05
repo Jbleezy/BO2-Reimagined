@@ -190,7 +190,6 @@ CoD.MainLobby.OpenCustomGamesLobby = function(MainLobbyWidget, ClientInstance)
 		CoD.SwitchToPrivateLobby(ClientInstance.controller)
 		if CoD.isZombie == true then
 			CoD.MainLobby.InitMapDvars()
-			Engine.SetDvar("party_solo", 0)
 			MainLobbyWidget:openMenu("SelectGameModeListZM", ClientInstance.controller)
 			CoD.GameGlobeZombie.MoveToUpDirectly()
 		else
@@ -206,11 +205,9 @@ CoD.MainLobby.OpenSoloLobby_Zombie = function(MainLobbyWidget, ClientInstance)
 	elseif CoD.MainLobby.OnlinePlayAvailable(MainLobbyWidget, ClientInstance) == 1 then
 		if CoD.MainLobby.IsControllerCountValid(MainLobbyWidget, ClientInstance.controller, 1) == 1 then
 			CoD.SwitchToPrivateLobby(ClientInstance.controller)
-			CoD.MainLobby.InitMapDvars()
-			MainLobbyWidget.lobbyPane.body.lobbyList.maxLocalPlayers = 1
 			Engine.SetDvar("party_solo", 1)
 			Dvar.party_maxplayers:set(1)
-			CoD.PlaylistCategoryFilter = CoD.Zombie.PLAYLIST_CATEGORY_FILTER_SOLOMATCH
+			CoD.MainLobby.InitMapDvars()
 			MainLobbyWidget:openMenu("SelectGameModeListZM", ClientInstance.controller)
 			CoD.GameGlobeZombie.MoveToUpDirectly()
 			MainLobbyWidget:close()
@@ -800,6 +797,7 @@ LUI.createMenu.MainLobby = function(LocalClientIndex)
 		CoD.CheckClasses.CheckClasses()
 	end
 	Engine.SessionModeSetOnlineGame(true)
+	Engine.SetDvar("party_solo", 0)
 	return MainLobbyWidget
 end
 
