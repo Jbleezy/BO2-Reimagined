@@ -12,7 +12,7 @@ title Building BO2-Reimagined
 --output-folder "%CD%\zone_source\dependencies" ^
 camo_materials!mp
 
-if %ERRORLEVEL% neq 0 pause
+if %ERRORLEVEL% neq 0 pause & exit
 
 "%OAT_BASE%\Linker.exe" ^
 --load "%OAT_GAME%\zone\all\zm_prison_patch.ff" ^
@@ -23,7 +23,7 @@ if %ERRORLEVEL% neq 0 pause
 --output-folder "%CD%\zone_source\dependencies" ^
 camo_materials!zmb_dlc2
 
-if %ERRORLEVEL% neq 0 pause
+if %ERRORLEVEL% neq 0 pause & exit
 
 "%OAT_BASE%\Linker.exe" ^
 --load "%OAT_GAME%\zone\all\zm_tomb_patch.ff" ^
@@ -34,7 +34,7 @@ if %ERRORLEVEL% neq 0 pause
 --output-folder "%CD%\zone_source\dependencies" ^
 camo_materials!zmb_dlc4
 
-if %ERRORLEVEL% neq 0 pause
+if %ERRORLEVEL% neq 0 pause & exit
 
 "%OAT_BASE%\Linker.exe" ^
 --load "%CD%\zone_source\dependencies\camo_materials!zmb_dlc4.ff" ^
@@ -46,7 +46,7 @@ if %ERRORLEVEL% neq 0 pause
 --output-folder "%CD%\zone_source\dependencies" ^
 camo_materials
 
-if %ERRORLEVEL% neq 0 pause
+if %ERRORLEVEL% neq 0 pause & exit
 
 "%OAT_BASE%\Linker.exe" ^
 --load "%CD%\zone_source\dependencies\camo_materials.ff" ^
@@ -57,7 +57,7 @@ if %ERRORLEVEL% neq 0 pause
 --output-folder "%CD%\zone_source\includes" ^
 weapons!metalstorm_mms_sp
 
-if %ERRORLEVEL% neq 0 pause
+if %ERRORLEVEL% neq 0 pause & exit
 
 "%OAT_BASE%\Linker.exe" ^
 --load "%CD%\zone_source\dependencies\camo_materials.ff" ^
@@ -68,7 +68,7 @@ if %ERRORLEVEL% neq 0 pause
 --output-folder "%CD%\zone_source\includes" ^
 weapons!exptitus6_sp
 
-if %ERRORLEVEL% neq 0 pause
+if %ERRORLEVEL% neq 0 pause & exit
 
 "%OAT_BASE%\Linker.exe" ^
 --load "%OAT_GAME%\zone\all\patch.ff" ^
@@ -79,7 +79,7 @@ if %ERRORLEVEL% neq 0 pause
 --output-folder "%CD%\zone_source\includes" ^
 common
 
-if %ERRORLEVEL% neq 0 pause
+if %ERRORLEVEL% neq 0 pause & exit
 
 "%OAT_BASE%\Linker.exe" ^
 --load "%OAT_GAME%\zone\all\code_post_gfx.ff" ^
@@ -89,7 +89,7 @@ if %ERRORLEVEL% neq 0 pause
 --output-folder "%CD%\zone_source\includes" ^
 code_post_gfx
 
-if %ERRORLEVEL% neq 0 pause
+if %ERRORLEVEL% neq 0 pause & exit
 
 "%OAT_BASE%\Linker.exe" ^
 --load "%OAT_GAME%\zone\all\frontend_patch.ff" ^
@@ -100,7 +100,7 @@ if %ERRORLEVEL% neq 0 pause
 --output-folder "%CD%\zone_source\includes" ^
 frontend
 
-if %ERRORLEVEL% neq 0 pause
+if %ERRORLEVEL% neq 0 pause & exit
 
 "%OAT_BASE%\Linker.exe" ^
 --load "%OAT_GAME%\zone\all\so_cmp_afghanistan.ff" ^
@@ -110,7 +110,7 @@ if %ERRORLEVEL% neq 0 pause
 --output-folder "%CD%\zone_source\includes" ^
 afghanistan
 
-if %ERRORLEVEL% neq 0 pause
+if %ERRORLEVEL% neq 0 pause & exit
 
 "%OAT_BASE%\Linker.exe" ^
 --load "%CD%\zone_source\dependencies\camo_materials.ff" ^
@@ -123,7 +123,7 @@ if %ERRORLEVEL% neq 0 pause
 --output-folder "%CD%\zone_source\includes" ^
 common_mp
 
-if %ERRORLEVEL% neq 0 pause
+if %ERRORLEVEL% neq 0 pause & exit
 
 "%OAT_BASE%\Linker.exe" ^
 --load "%OAT_GAME%\zone\all\code_post_gfx_mp.ff" ^
@@ -133,7 +133,7 @@ if %ERRORLEVEL% neq 0 pause
 --output-folder "%CD%\zone_source\includes" ^
 code_post_gfx_mp
 
-if %ERRORLEVEL% neq 0 pause
+if %ERRORLEVEL% neq 0 pause & exit
 
 "%OAT_BASE%\Linker.exe" ^
 --load "%OAT_GAME%\zone\english\en_code_post_gfx_mp.ff" ^
@@ -143,7 +143,7 @@ if %ERRORLEVEL% neq 0 pause
 --output-folder "%CD%\zone_source\includes" ^
 en_code_post_gfx_mp
 
-if %ERRORLEVEL% neq 0 pause
+if %ERRORLEVEL% neq 0 pause & exit
 
 "%OAT_BASE%\Linker.exe" ^
 --load "%CD%\zone_source\dependencies\camo_materials.ff" ^
@@ -155,7 +155,7 @@ if %ERRORLEVEL% neq 0 pause
 --output-folder "%CD%\zone_source\includes" ^
 common_zm
 
-if %ERRORLEVEL% neq 0 pause
+if %ERRORLEVEL% neq 0 pause & exit
 
 "%OAT_BASE%\Linker.exe" ^
 --load "%OAT_GAME%\zone\all\patch_ui_zm.ff" ^
@@ -166,7 +166,7 @@ if %ERRORLEVEL% neq 0 pause
 --output-folder "%CD%\zone_source\includes" ^
 ui_zm
 
-if %ERRORLEVEL% neq 0 pause
+if %ERRORLEVEL% neq 0 pause & exit
 
 "%OAT_BASE%\Linker.exe" ^
 --load "%CD%\zone_source\dependencies\camo_materials.ff" ^
@@ -181,7 +181,7 @@ if %ERRORLEVEL% neq 0 pause
 --output-folder "%CD%\zone_source\includes" ^
 zm_transit
 
-if %ERRORLEVEL% neq 0 pause
+if %ERRORLEVEL% neq 0 pause & exit
 
 "%OAT_BASE%\Linker.exe" ^
 --load "%CD%\zone_source\dependencies\camo_materials.ff" ^
@@ -193,7 +193,7 @@ if %ERRORLEVEL% neq 0 pause
 --output-folder "%CD%\zone_source\includes" ^
 zm_nuked
 
-if %ERRORLEVEL% neq 0 pause
+if %ERRORLEVEL% neq 0 pause & exit
 
 "%OAT_BASE%\Linker.exe" ^
 --load "%CD%\zone_source\dependencies\camo_materials.ff" ^
@@ -205,7 +205,7 @@ if %ERRORLEVEL% neq 0 pause
 --output-folder "%CD%\zone_source\includes" ^
 zm_highrise
 
-if %ERRORLEVEL% neq 0 pause
+if %ERRORLEVEL% neq 0 pause & exit
 
 "%OAT_BASE%\Linker.exe" ^
 --load "%CD%\zone_source\dependencies\camo_materials.ff" ^
@@ -218,7 +218,7 @@ if %ERRORLEVEL% neq 0 pause
 --output-folder "%CD%\zone_source\includes" ^
 zm_prison
 
-if %ERRORLEVEL% neq 0 pause
+if %ERRORLEVEL% neq 0 pause & exit
 
 "%OAT_BASE%\Linker.exe" ^
 --load "%CD%\zone_source\dependencies\camo_materials.ff" ^
@@ -231,7 +231,7 @@ if %ERRORLEVEL% neq 0 pause
 --output-folder "%CD%\zone_source\includes" ^
 zm_buried
 
-if %ERRORLEVEL% neq 0 pause
+if %ERRORLEVEL% neq 0 pause & exit
 
 "%OAT_BASE%\Linker.exe" ^
 --load "%CD%\zone_source\dependencies\camo_materials.ff" ^
@@ -243,7 +243,7 @@ if %ERRORLEVEL% neq 0 pause
 --output-folder "%CD%\zone_source\includes" ^
 zm_tomb
 
-if %ERRORLEVEL% neq 0 pause
+if %ERRORLEVEL% neq 0 pause & exit
 
 "%OAT_BASE%\Linker.exe" ^
 --load "%CD%\zone_source\dependencies\camo_materials.ff" ^
@@ -270,13 +270,13 @@ if %ERRORLEVEL% neq 0 pause
 --output-folder "%CD%" ^
 mod
 
-if %ERRORLEVEL% neq 0 pause
+if %ERRORLEVEL% neq 0 pause & exit
 
 del /s %CD%\zone_source\*.ff 1>nul
 
 pwsh -Command "Compress-Archive -Force -Path attachmentunique,images,maps,scripts,ui,ui_mp,weapons -DestinationPath mod.iwd"
 
-if %ERRORLEVEL% neq 0 pause
+if %ERRORLEVEL% neq 0 pause & exit
 
 for %%f in (ff,iwd,sabs,sabl,json) do xcopy /i /y *.%%f ..\zm_reimagined
 
