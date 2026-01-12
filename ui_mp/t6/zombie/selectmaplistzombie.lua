@@ -48,31 +48,31 @@ local function setGameModeDvars()
 
 	if gameMode == "ZMUI_ZCLASSIC_GAMEMODE_CAPS" then
 		Engine.SetDvar("ui_zm_gamemodegroup", "zclassic")
-		Engine.SetDvar("ui_gametype", "zclassic")
+		Engine.SetGametype("zclassic")
 		Engine.SetDvar("ui_gametype_obj", "")
 	elseif gameMode == "ZMUI_ZSTANDARD_CAPS" then
 		Engine.SetDvar("ui_zm_gamemodegroup", "zsurvival")
-		Engine.SetDvar("ui_gametype", "zstandard")
+		Engine.SetGametype("zstandard")
 		Engine.SetDvar("ui_gametype_obj", "")
 	elseif gameMode == "ZMUI_ZGRIEF_CAPS" then
 		Engine.SetDvar("ui_zm_gamemodegroup", "zencounter")
-		Engine.SetDvar("ui_gametype", "zgrief")
+		Engine.SetGametype("zgrief")
 		Engine.SetDvar("ui_gametype_obj", "zgrief")
 	elseif gameMode == "ZMUI_ZRACE_CAPS" then
 		Engine.SetDvar("ui_zm_gamemodegroup", "zencounter")
-		Engine.SetDvar("ui_gametype", "zgrief")
+		Engine.SetGametype("zgrief")
 		Engine.SetDvar("ui_gametype_obj", "zrace")
 	elseif gameMode == "ZMUI_ZCONTAINMENT_CAPS" then
 		Engine.SetDvar("ui_zm_gamemodegroup", "zencounter")
-		Engine.SetDvar("ui_gametype", "zgrief")
+		Engine.SetGametype("zgrief")
 		Engine.SetDvar("ui_gametype_obj", "zcontainment")
 	elseif gameMode == "ZMUI_ZMEAT_CAPS" then
 		Engine.SetDvar("ui_zm_gamemodegroup", "zencounter")
-		Engine.SetDvar("ui_gametype", "zgrief")
+		Engine.SetGametype("zgrief")
 		Engine.SetDvar("ui_gametype_obj", "zmeat")
 	elseif gameMode == "ZMUI_ZSR_CAPS" then
 		Engine.SetDvar("ui_zm_gamemodegroup", "zencounter")
-		Engine.SetDvar("ui_gametype", "zgrief")
+		Engine.SetGametype("zgrief")
 		Engine.SetDvar("ui_gametype_obj", "zsr")
 	elseif gameMode == "ZMUI_ZCLEANSED_CAPS" then
 		-- TODO: set dvars when game mode is added
