@@ -85,6 +85,8 @@ item_meat_on_spawn_retrieve_trigger(watcher, player, weaponname)
 		other_player thread scripts\zm\replaced\zgrief::print_meat_msg(player, "dropped");
 	}
 
+	level notify("attractor_positions_generated");
+
 	if (!(isdefined(self._fake_meat) && self._fake_meat))
 	{
 		level._meat_moving = 1;

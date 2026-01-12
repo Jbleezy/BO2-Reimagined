@@ -193,14 +193,7 @@ meat_drop(pos, prev_meat_ent)
 			prev_meat_ent hide();
 		}
 
-		if (level.scr_zm_ui_gametype_obj == "zmeat")
-		{
-			level.meat_powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop("meat_stink", meat_origin);
-		}
-		else
-		{
-			level thread meat_stink_on_ground(meat_origin);
-		}
+		level thread meat_stink_on_ground(meat_origin);
 	}
 	else
 	{
@@ -318,6 +311,8 @@ meat_stink(who, owner)
 
 		player thread print_meat_msg(who, "grabbed");
 	}
+
+	level notify("attractor_positions_generated");
 
 	who thread meat_stink_ignoreme_think(0);
 
@@ -467,6 +462,8 @@ meat_stink_cleanup_on_downed()
 		player thread print_meat_msg(self, "dropped", 1);
 	}
 
+	level notify("attractor_positions_generated");
+
 	if (level.scr_zm_ui_gametype_obj == "zmeat")
 	{
 		meat_drop(self.origin);
@@ -497,11 +494,18 @@ meat_stink_cleanup_on_disconnect()
 		}
 	}
 
+	level notify("attractor_positions_generated");
 	level notify("meat_inactive");
 }
 
 meat_stink_on_ground(position_to_play)
 {
+	if (level.scr_zm_ui_gametype_obj == "zmeat")
+	{
+		level.meat_powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop("meat_stink", position_to_play);
+		return;
+	}
+
 	level.meat_on_ground = 1;
 	attractor_point = spawn("script_model", position_to_play);
 	attractor_point setmodel("tag_origin");
@@ -559,6 +563,8 @@ meat_stink_player(who, owner)
 		player thread print_meat_msg(who, "has");
 	}
 
+	level notify("attractor_positions_generated");
+
 	who maps\mp\zombies\_zm_stats::increment_client_stat("contaminations_received");
 
 	who thread meat_stink_ignoreme_think(1);
@@ -583,6 +589,8 @@ meat_stink_player(who, owner)
 			player.ignoreme = 0;
 		}
 	}
+
+	level notify("attractor_positions_generated");
 
 	level.meat_player = undefined;
 
