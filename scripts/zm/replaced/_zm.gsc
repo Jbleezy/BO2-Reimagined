@@ -875,7 +875,7 @@ fade_out_intro_screen_zm(hold_black_time, fade_out_time, destroyed_afterwards)
 
 	flag_set("hud_visible");
 
-	if (isDedicated() || level.allow_teamchange == "1")
+	if (isDedicated())
 	{
 		flag_init("all_players_ready");
 
@@ -980,14 +980,9 @@ pregame_think()
 
 	level.ready_up_hud.alpha = 1;
 
-	ready_up_time = 0;
+	ready_up_time = 60;
 	ready_up_timeout = 0;
 	ready_up_start_time = undefined;
-
-	if (isDedicated() && level.allow_teamchange == "0")
-	{
-		ready_up_time = 60;
-	}
 
 	num_ready = get_number_of_ready_players();
 	players = get_players();
