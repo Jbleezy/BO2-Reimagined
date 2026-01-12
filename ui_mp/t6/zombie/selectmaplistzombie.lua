@@ -179,7 +179,7 @@ CoD.SelectMapListZombie.GetKeyValueIndex = function(table, key, value)
 	return 1
 end
 
-local function setGameModeDvars(controller)
+local function setGameModeDvars(controller, commit)
 	local index = CoD.SelectMapListZombie.GameModeIndex
 
 	Engine.SetDvar("ui_zm_gamemodegroup", CoD.SelectMapListZombie.GameModes[index].ui_zm_gamemodegroup)
@@ -191,24 +191,36 @@ local function setGameModeDvars(controller)
 	else
 		Engine.SetProfileVar(controller, CoD.profileKey_gametype, CoD.SelectMapListZombie.GameModes[index].ui_gametype)
 	end
+
+	if commit then
+		Engine.CommitProfileChanges(controller)
+	end
 end
 
-local function setMapDvars(controller)
+local function setMapDvars(controller, commit)
 	local index = CoD.SelectMapListZombie.MapIndex
 
 	Engine.SetDvar("ui_mapname", CoD.SelectMapListZombie.Maps[index].ui_mapname)
 	Engine.SetDvar("ui_zm_mapstartlocation", CoD.SelectMapListZombie.Maps[index].ui_zm_mapstartlocation)
 
 	Engine.SetProfileVar(controller, CoD.profileKey_map, CoD.SelectMapListZombie.Maps[index].ui_mapname)
+
+	if commit then
+		Engine.CommitProfileChanges(controller)
+	end
 end
 
-local function setLocationDvars(controller)
+local function setLocationDvars(controller, commit)
 	local index = CoD.SelectMapListZombie.LocationIndex
 
 	Engine.SetDvar("ui_mapname", CoD.SelectMapListZombie.Locations[index].ui_mapname)
 	Engine.SetDvar("ui_zm_mapstartlocation", CoD.SelectMapListZombie.Locations[index].ui_zm_mapstartlocation)
 
 	Engine.SetProfileVar(controller, CoD.profileKey_map, CoD.SelectMapListZombie.Locations[index].ui_zm_mapstartlocation)
+
+	if commit then
+		Engine.CommitProfileChanges(controller)
+	end
 end
 
 local function gameModeListFocusChangedEventHandler(self, event)
@@ -269,7 +281,7 @@ function LUI.createMenu.SelectGameModeListZM(controller)
 	if UIExpression.DvarBool(nil, "party_solo") == 1 then
 		if CoD.SelectMapListZombie.GameModeIndex > 2 then
 			CoD.SelectMapListZombie.GameModeIndex = 2
-			setGameModeDvars(controller)
+			setGameModeDvars(controller, true)
 		end
 
 		listBox:setTotalItems(2, CoD.SelectMapListZombie.GameModeIndex)
@@ -298,8 +310,8 @@ local function mapListSelectionClickedEventHandler(self, event)
 
 	local prevTeamCount = Engine.GetGametypeSetting("teamCount")
 
-	setGameModeDvars(self.controller)
-	setMapDvars(self.controller)
+	setGameModeDvars(self.controller, false)
+	setMapDvars(self.controller, true)
 
 	self:openMenu("PrivateOnlineGameLobby", self.controller)
 
@@ -369,8 +381,8 @@ local function locationListSelectionClickedEventHandler(self, event)
 
 	local prevTeamCount = Engine.GetGametypeSetting("teamCount")
 
-	setGameModeDvars(self.controller)
-	setLocationDvars(self.controller)
+	setGameModeDvars(self.controller, false)
+	setLocationDvars(self.controller, true)
 
 	self:openMenu("PrivateOnlineGameLobby", self.controller)
 

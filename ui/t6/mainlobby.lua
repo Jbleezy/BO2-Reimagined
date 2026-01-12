@@ -216,12 +216,6 @@ CoD.MainLobby.OpenSoloLobby_Zombie = function(MainLobbyWidget, ClientInstance)
 end
 
 CoD.MainLobby.InitMapDvars = function(controller)
-	if UIExpression.DvarBool(nil, "profileKey_map_init") == 0 then
-		Engine.SetDvar("profileKey_map_init", 1)
-		Engine.SetProfileVar(controller, CoD.profileKey_gametype, "zclassic")
-		Engine.SetProfileVar(controller, CoD.profileKey_map, "zm_transit")
-	end
-
 	local gametype = UIExpression.ProfileValueAsString(controller, CoD.profileKey_gametype)
 	local map = UIExpression.ProfileValueAsString(controller, CoD.profileKey_map)
 	local gametypeIndex = 1
