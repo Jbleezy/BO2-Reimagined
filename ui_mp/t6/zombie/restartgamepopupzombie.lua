@@ -12,6 +12,12 @@ end
 CoD.RestartGamePopup.YesButtonPressed = function(f6_arg0, f6_arg1)
 	Engine.SetDvar("cl_paused", 0)
 	Dvar.ui_busyBlockIngameMenu:set(1)
+	local blackScreen = LUI.UIImage.new()
+	blackScreen:setLeftRight(false, false, -CoD.Zombie.FullScreenSize.w * 0.5, CoD.Zombie.FullScreenSize.w * 0.5)
+	blackScreen:setTopBottom(false, false, -CoD.Zombie.FullScreenSize.h * 0.5, CoD.Zombie.FullScreenSize.h * 0.5)
+	blackScreen:setImage(RegisterMaterial("black"))
+	blackScreen:setAlpha(1)
+	f6_arg0:addElement(blackScreen)
 	Engine.Exec(f6_arg1.controller, "fast_restart")
 end
 
