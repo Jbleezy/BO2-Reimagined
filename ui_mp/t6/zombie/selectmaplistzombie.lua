@@ -257,10 +257,18 @@ local function mapListSelectionClickedEventHandler(self, event)
 
 	Engine.SetDvar("ui_mapname_index", focusedIndex)
 
+	local prevTeamCount = Engine.GetGametypeSetting("teamCount")
+
 	setGameModeDvars()
 	setMapDvars()
 
 	self:openMenu("PrivateOnlineGameLobby", self.controller)
+
+	local currTeamCount = Engine.GetGametypeSetting("teamCount")
+
+	if currTeamCount ~= prevTeamCount then
+		Engine.PartyHostReassignTeams()
+	end
 
 	self:close()
 end
@@ -324,10 +332,18 @@ local function locationListSelectionClickedEventHandler(self, event)
 
 	Engine.SetDvar("ui_zm_mapstartlocation_index", focusedIndex)
 
+	local prevTeamCount = Engine.GetGametypeSetting("teamCount")
+
 	setGameModeDvars()
 	setLocationDvars()
 
 	self:openMenu("PrivateOnlineGameLobby", self.controller)
+
+	local currTeamCount = Engine.GetGametypeSetting("teamCount")
+
+	if currTeamCount ~= prevTeamCount then
+		Engine.PartyHostReassignTeams()
+	end
 
 	self:close()
 end
