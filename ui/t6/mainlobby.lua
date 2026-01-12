@@ -189,7 +189,7 @@ CoD.MainLobby.OpenCustomGamesLobby = function(MainLobbyWidget, ClientInstance)
 	elseif CoD.MainLobby.OnlinePlayAvailable(MainLobbyWidget, ClientInstance) == 1 and CoD.MainLobby.IsControllerCountValid(MainLobbyWidget, ClientInstance.controller, UIExpression.DvarInt(ClientInstance.controller, "party_maxlocalplayers_privatematch")) == 1 then
 		CoD.SwitchToPrivateLobby(ClientInstance.controller)
 		if CoD.isZombie == true then
-			CoD.MainLobby.InitMapDvars()
+			CoD.MainLobby.InitMapDvars(ClientInstance.controller)
 			MainLobbyWidget:openMenu("SelectGameModeListZM", ClientInstance.controller)
 			CoD.GameGlobeZombie.MoveToUpDirectly()
 		else
@@ -207,7 +207,7 @@ CoD.MainLobby.OpenSoloLobby_Zombie = function(MainLobbyWidget, ClientInstance)
 			CoD.SwitchToPrivateLobby(ClientInstance.controller)
 			Engine.SetDvar("party_solo", 1)
 			Dvar.party_maxplayers:set(1)
-			CoD.MainLobby.InitMapDvars()
+			CoD.MainLobby.InitMapDvars(ClientInstance.controller)
 			MainLobbyWidget:openMenu("SelectGameModeListZM", ClientInstance.controller)
 			CoD.GameGlobeZombie.MoveToUpDirectly()
 			MainLobbyWidget:close()
@@ -215,11 +215,47 @@ CoD.MainLobby.OpenSoloLobby_Zombie = function(MainLobbyWidget, ClientInstance)
 	end
 end
 
-CoD.MainLobby.InitMapDvars = function()
-	Engine.SetDvar("ui_mapname", "zm_transit")
-	Engine.SetDvar("ui_zm_mapstartlocation", "transit")
-	Engine.SetDvar("ui_zm_gamemodegroup", "zclassic")
-	Engine.SetGametype("zclassic")
+CoD.MainLobby.InitMapDvars = function(controller)
+	if UIExpression.DvarBool(nil, "profileKey_map_init") == 0 then
+		Engine.SetDvar("profileKey_map_init", 1)
+		Engine.SetProfileVar(controller, CoD.profileKey_gametype, "zclassic")
+		Engine.SetProfileVar(controller, CoD.profileKey_map, "zm_transit")
+	end
+
+	local gametype = UIExpression.ProfileValueAsString(controller, CoD.profileKey_gametype)
+	local map = UIExpression.ProfileValueAsString(controller, CoD.profileKey_map)
+	local gametypeIndex = 1
+	local mapIndex = 1
+	local gametypeTable = CoD.SelectMapListZombie.GameModes
+	local mapTable = CoD.SelectMapListZombie.Maps
+	local defaultGametypes = Engine.GetGametypesBase()
+	local gametypeIsValid = false
+
+	for key, defaultGametype in pairs(defaultGametypes) do
+		if defaultGametype.gametype == gametype then
+			gametypeIsValid = true
+			break
+		end
+	end
+
+	if gametypeIsValid then
+		gametypeIndex = CoD.SelectMapListZombie.GetKeyValueIndex(gametypeTable, "ui_gametype", gametype)
+	else
+		gametypeIndex = CoD.SelectMapListZombie.GetKeyValueIndex(gametypeTable, "ui_gametype_obj", gametype)
+	end
+
+	if gametype == "zclassic" then
+		mapIndex = CoD.SelectMapListZombie.GetKeyValueIndex(mapTable, "ui_mapname", map)
+	else
+		mapTable = CoD.SelectMapListZombie.Locations
+		mapIndex = CoD.SelectMapListZombie.GetKeyValueIndex(mapTable, "ui_zm_mapstartlocation", map)
+	end
+
+	Engine.SetDvar("ui_zm_gamemodegroup", gametypeTable[gametypeIndex].ui_zm_gamemodegroup)
+	Engine.SetGametype(gametypeTable[gametypeIndex].ui_gametype)
+	Engine.SetDvar("ui_gametype_obj", gametypeTable[gametypeIndex].ui_gametype_obj)
+	Engine.SetDvar("ui_mapname", mapTable[mapIndex].ui_mapname)
+	Engine.SetDvar("ui_zm_mapstartlocation", mapTable[mapIndex].ui_zm_mapstartlocation)
 end
 
 CoD.MainLobby.OpenTheaterLobby = function(MainLobbyWidget, ClientInstance)

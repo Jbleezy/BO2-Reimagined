@@ -169,36 +169,46 @@ CoD.SelectMapListZombie.Locations[19] = {
 	ui_zm_mapstartlocation = "crazy_place",
 }
 
-local function getKeyValueIndex(table, key, value)
+CoD.SelectMapListZombie.GetKeyValueIndex = function(table, key, value)
 	for i, v in ipairs(table) do
 		if v[key] == value then
 			return i
 		end
 	end
 
-	return 0
+	return 1
 end
 
-local function setGameModeDvars()
+local function setGameModeDvars(controller)
 	local index = CoD.SelectMapListZombie.GameModeIndex
 
 	Engine.SetDvar("ui_zm_gamemodegroup", CoD.SelectMapListZombie.GameModes[index].ui_zm_gamemodegroup)
 	Engine.SetGametype(CoD.SelectMapListZombie.GameModes[index].ui_gametype)
 	Engine.SetDvar("ui_gametype_obj", CoD.SelectMapListZombie.GameModes[index].ui_gametype_obj)
+
+	if UIExpression.DvarString(nil, "ui_gametype_obj") ~= "" then
+		Engine.SetProfileVar(controller, CoD.profileKey_gametype, CoD.SelectMapListZombie.GameModes[index].ui_gametype_obj)
+	else
+		Engine.SetProfileVar(controller, CoD.profileKey_gametype, CoD.SelectMapListZombie.GameModes[index].ui_gametype)
+	end
 end
 
-local function setMapDvars()
+local function setMapDvars(controller)
 	local index = CoD.SelectMapListZombie.MapIndex
 
 	Engine.SetDvar("ui_mapname", CoD.SelectMapListZombie.Maps[index].ui_mapname)
 	Engine.SetDvar("ui_zm_mapstartlocation", CoD.SelectMapListZombie.Maps[index].ui_zm_mapstartlocation)
+
+	Engine.SetProfileVar(controller, CoD.profileKey_map, CoD.SelectMapListZombie.Maps[index].ui_mapname)
 end
 
-local function setLocationDvars()
+local function setLocationDvars(controller)
 	local index = CoD.SelectMapListZombie.LocationIndex
 
 	Engine.SetDvar("ui_mapname", CoD.SelectMapListZombie.Locations[index].ui_mapname)
 	Engine.SetDvar("ui_zm_mapstartlocation", CoD.SelectMapListZombie.Locations[index].ui_zm_mapstartlocation)
+
+	Engine.SetProfileVar(controller, CoD.profileKey_map, CoD.SelectMapListZombie.Locations[index].ui_zm_mapstartlocation)
 end
 
 local function gameModeListFocusChangedEventHandler(self, event)
@@ -243,12 +253,12 @@ function LUI.createMenu.SelectGameModeListZM(controller)
 
 	self:addTitle(Engine.Localize("MPUI_GAMEMODE_CAPS"))
 
-	local index = 1
+	CoD.SelectMapListZombie.GameModeIndex = 1
 
-	if UIExpression.DvarString(nil, "ui_gametype") == "zgrief" then
-		index = getKeyValueIndex(CoD.SelectMapListZombie.GameModes, "ui_gametype_obj", UIExpression.DvarString(nil, "ui_gametype_obj"))
+	if UIExpression.DvarString(nil, "ui_gametype_obj") ~= "" then
+		CoD.SelectMapListZombie.GameModeIndex = CoD.SelectMapListZombie.GetKeyValueIndex(CoD.SelectMapListZombie.GameModes, "ui_gametype_obj", UIExpression.DvarString(nil, "ui_gametype_obj"))
 	else
-		index = getKeyValueIndex(CoD.SelectMapListZombie.GameModes, "ui_gametype", UIExpression.DvarString(nil, "ui_gametype"))
+		CoD.SelectMapListZombie.GameModeIndex = CoD.SelectMapListZombie.GetKeyValueIndex(CoD.SelectMapListZombie.GameModes, "ui_gametype", UIExpression.DvarString(nil, "ui_gametype"))
 	end
 
 	local listBox = CoD.ListBox.new(nil, controller, 15, CoD.CoD9Button.Height, 250, gameModeListCreateButtonMutables, gameModeListGetButtonData, 5, 0)
@@ -257,9 +267,14 @@ function LUI.createMenu.SelectGameModeListZM(controller)
 	listBox:addScrollBar()
 
 	if UIExpression.DvarBool(nil, "party_solo") == 1 then
-		listBox:setTotalItems(2, index)
+		if CoD.SelectMapListZombie.GameModeIndex > 2 then
+			CoD.SelectMapListZombie.GameModeIndex = 2
+			setGameModeDvars(controller)
+		end
+
+		listBox:setTotalItems(2, CoD.SelectMapListZombie.GameModeIndex)
 	else
-		listBox:setTotalItems(#CoD.SelectMapListZombie.GameModes, index)
+		listBox:setTotalItems(#CoD.SelectMapListZombie.GameModes, CoD.SelectMapListZombie.GameModeIndex)
 	end
 
 	self:addElement(listBox)
@@ -283,8 +298,8 @@ local function mapListSelectionClickedEventHandler(self, event)
 
 	local prevTeamCount = Engine.GetGametypeSetting("teamCount")
 
-	setGameModeDvars()
-	setMapDvars()
+	setGameModeDvars(self.controller)
+	setMapDvars(self.controller)
 
 	self:openMenu("PrivateOnlineGameLobby", self.controller)
 
@@ -322,17 +337,17 @@ function LUI.createMenu.SelectMapListZM(controller)
 
 	self:addTitle(Engine.Localize("MPUI_MAPS_CAPS"))
 
-	local index = 1
+	CoD.SelectMapListZombie.MapIndex = 1
 
 	if UIExpression.DvarString(nil, "ui_gametype") == "zclassic" then
-		index = getKeyValueIndex(CoD.SelectMapListZombie.Maps, "ui_mapname", UIExpression.DvarString(nil, "ui_mapname"))
+		CoD.SelectMapListZombie.MapIndex = CoD.SelectMapListZombie.GetKeyValueIndex(CoD.SelectMapListZombie.Maps, "ui_mapname", UIExpression.DvarString(nil, "ui_mapname"))
 	end
 
 	local listBox = CoD.ListBox.new(nil, controller, 15, CoD.CoD9Button.Height, 250, mapListCreateButtonMutables, mapListGetButtonData, 5, 0)
 	listBox:setLeftRight(true, false, 0, 250)
 	listBox:setTopBottom(true, false, 75, 75 + 530)
 	listBox:addScrollBar()
-	listBox:setTotalItems(#CoD.SelectMapListZombie.Maps, index)
+	listBox:setTotalItems(#CoD.SelectMapListZombie.Maps, CoD.SelectMapListZombie.MapIndex)
 	self:addElement(listBox)
 	self.listBox = listBox
 
@@ -354,8 +369,8 @@ local function locationListSelectionClickedEventHandler(self, event)
 
 	local prevTeamCount = Engine.GetGametypeSetting("teamCount")
 
-	setGameModeDvars()
-	setLocationDvars()
+	setGameModeDvars(self.controller)
+	setLocationDvars(self.controller)
 
 	self:openMenu("PrivateOnlineGameLobby", self.controller)
 
@@ -393,17 +408,17 @@ function LUI.createMenu.SelectLocationListZM(controller)
 
 	self:addTitle(Engine.Localize("MPUI_MAPS_CAPS"))
 
-	local index = 1
+	CoD.SelectMapListZombie.LocationIndex = 1
 
 	if UIExpression.DvarString(nil, "ui_gametype") ~= "zclassic" then
-		index = getKeyValueIndex(CoD.SelectMapListZombie.Locations, "ui_zm_mapstartlocation", UIExpression.DvarString(nil, "ui_zm_mapstartlocation"))
+		CoD.SelectMapListZombie.LocationIndex = CoD.SelectMapListZombie.GetKeyValueIndex(CoD.SelectMapListZombie.Locations, "ui_zm_mapstartlocation", UIExpression.DvarString(nil, "ui_zm_mapstartlocation"))
 	end
 
 	local listBox = CoD.ListBox.new(nil, controller, 15, CoD.CoD9Button.Height, 250, locationListCreateButtonMutables, locationListGetButtonData, 5, 0)
 	listBox:setLeftRight(true, false, 0, 250)
 	listBox:setTopBottom(true, false, 75, 75 + 530)
 	listBox:addScrollBar()
-	listBox:setTotalItems(#CoD.SelectMapListZombie.Locations, index)
+	listBox:setTotalItems(#CoD.SelectMapListZombie.Locations, CoD.SelectMapListZombie.LocationIndex)
 	self:addElement(listBox)
 	self.listBox = listBox
 
