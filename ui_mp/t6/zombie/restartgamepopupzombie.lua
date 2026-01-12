@@ -11,7 +11,8 @@ end
 
 CoD.RestartGamePopup.YesButtonPressed = function(f6_arg0, f6_arg1)
 	Engine.SetDvar("cl_paused", 0)
-	Engine.ExecNow(f6_arg1.controller, "fast_restart")
+	Dvar.ui_busyBlockIngameMenu:set(1)
+	Engine.Exec(f6_arg1.controller, "fast_restart")
 end
 
 CoD.RestartGamePopup.NoButtonPressed = function(f7_arg0, f7_arg1)
