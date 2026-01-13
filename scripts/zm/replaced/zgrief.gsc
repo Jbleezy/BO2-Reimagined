@@ -320,6 +320,7 @@ meat_stink(who, owner)
 
 	who thread meat_stink_cleanup_on_downed();
 	who thread meat_stink_cleanup_on_disconnect();
+	who thread meat_stink_cleanup_on_intermission();
 }
 
 meat_disable_fire()
@@ -496,6 +497,20 @@ meat_stink_cleanup_on_disconnect()
 
 	level notify("attractor_positions_generated");
 	level notify("meat_inactive");
+}
+
+meat_stink_cleanup_on_intermission()
+{
+	level endon("meat_thrown");
+	level endon("meat_grabbed");
+	self endon("player_downed");
+	self endon("bled_out");
+	self endon("spawned_player");
+	self endon("disconnect");
+
+	level waittill("intermission");
+
+	self thread meat_glow_player_cleanup();
 }
 
 meat_stink_on_ground(position_to_play)
