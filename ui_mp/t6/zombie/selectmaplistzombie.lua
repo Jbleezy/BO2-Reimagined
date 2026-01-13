@@ -182,14 +182,16 @@ end
 local function setGameModeDvars(controller, commit)
 	local index = CoD.SelectMapListZombie.GameModeIndex
 
-	Engine.SetDvar("ui_zm_gamemodegroup", CoD.SelectMapListZombie.GameModes[index].ui_zm_gamemodegroup)
-	Engine.SetGametype(CoD.SelectMapListZombie.GameModes[index].ui_gametype)
-	Engine.SetDvar("ui_gametype_obj", CoD.SelectMapListZombie.GameModes[index].ui_gametype_obj)
+	if index ~= nil then
+		Engine.SetDvar("ui_zm_gamemodegroup", CoD.SelectMapListZombie.GameModes[index].ui_zm_gamemodegroup)
+		Engine.SetGametype(CoD.SelectMapListZombie.GameModes[index].ui_gametype)
+		Engine.SetDvar("ui_gametype_obj", CoD.SelectMapListZombie.GameModes[index].ui_gametype_obj)
 
-	if UIExpression.DvarString(nil, "ui_gametype_obj") ~= "" then
-		Engine.SetProfileVar(controller, CoD.profileKey_gametype, CoD.SelectMapListZombie.GameModes[index].ui_gametype_obj)
-	else
-		Engine.SetProfileVar(controller, CoD.profileKey_gametype, CoD.SelectMapListZombie.GameModes[index].ui_gametype)
+		if UIExpression.DvarString(nil, "ui_gametype_obj") ~= "" then
+			Engine.SetProfileVar(controller, CoD.profileKey_gametype, CoD.SelectMapListZombie.GameModes[index].ui_gametype_obj)
+		else
+			Engine.SetProfileVar(controller, CoD.profileKey_gametype, CoD.SelectMapListZombie.GameModes[index].ui_gametype)
+		end
 	end
 
 	if commit then
@@ -200,10 +202,12 @@ end
 local function setMapDvars(controller, commit)
 	local index = CoD.SelectMapListZombie.MapIndex
 
-	Engine.SetDvar("ui_mapname", CoD.SelectMapListZombie.Maps[index].ui_mapname)
-	Engine.SetDvar("ui_zm_mapstartlocation", CoD.SelectMapListZombie.Maps[index].ui_zm_mapstartlocation)
+	if index ~= nil then
+		Engine.SetDvar("ui_mapname", CoD.SelectMapListZombie.Maps[index].ui_mapname)
+		Engine.SetDvar("ui_zm_mapstartlocation", CoD.SelectMapListZombie.Maps[index].ui_zm_mapstartlocation)
 
-	Engine.SetProfileVar(controller, CoD.profileKey_map, CoD.SelectMapListZombie.Maps[index].ui_mapname)
+		Engine.SetProfileVar(controller, CoD.profileKey_map, CoD.SelectMapListZombie.Maps[index].ui_mapname)
+	end
 
 	if commit then
 		Engine.CommitProfileChanges(controller)
@@ -213,10 +217,12 @@ end
 local function setLocationDvars(controller, commit)
 	local index = CoD.SelectMapListZombie.LocationIndex
 
-	Engine.SetDvar("ui_mapname", CoD.SelectMapListZombie.Locations[index].ui_mapname)
-	Engine.SetDvar("ui_zm_mapstartlocation", CoD.SelectMapListZombie.Locations[index].ui_zm_mapstartlocation)
+	if index ~= nil then
+		Engine.SetDvar("ui_mapname", CoD.SelectMapListZombie.Locations[index].ui_mapname)
+		Engine.SetDvar("ui_zm_mapstartlocation", CoD.SelectMapListZombie.Locations[index].ui_zm_mapstartlocation)
 
-	Engine.SetProfileVar(controller, CoD.profileKey_map, CoD.SelectMapListZombie.Locations[index].ui_zm_mapstartlocation)
+		Engine.SetProfileVar(controller, CoD.profileKey_map, CoD.SelectMapListZombie.Locations[index].ui_zm_mapstartlocation)
+	end
 
 	if commit then
 		Engine.CommitProfileChanges(controller)
