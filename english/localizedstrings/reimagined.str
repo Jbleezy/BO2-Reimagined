@@ -252,12 +252,6 @@ LANG_ENGLISH        "Clip Ammo!"
 REFERENCE           ZOMBIE_POWERUP_CLIP_EMPTY
 LANG_ENGLISH        "Clip Empty!"
 
-REFERENCE           ZOMBIE_ONLY_CHANGE_TEAMS_UNBALANCED
-LANG_ENGLISH        "Can only change teams if unbalanced"
-
-REFERENCE           ZOMBIE_WAITING_FOR_TEAM_CHANGE
-LANG_ENGLISH        "Waiting for other player to change teams"
-
 REFERENCE           ZOMBIE_WAITING_FOR_MORE_PLAYER_CAPS
 LANG_ENGLISH        "WAITING FOR &&1 MORE PLAYER [&&2/&&3]"
 

@@ -15,7 +15,6 @@ main()
 	replaceFunc(maps\mp\gametypes_zm\_globallogic_player::callback_playerconnect, scripts\zm\replaced\_globallogic_player::callback_playerconnect);
 	replaceFunc(maps\mp\gametypes_zm\_hud::fadetoblackforxsec, scripts\zm\replaced\_hud::fadetoblackforxsec);
 	replaceFunc(maps\mp\gametypes_zm\_hud_message::onplayerconnect, scripts\zm\replaced\_hud_message::onplayerconnect);
-	replaceFunc(maps\mp\gametypes_zm\_serversettings::init, scripts\zm\replaced\_serversettings::init);
 	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::hide_gump_loading_for_hotjoiners, scripts\zm\replaced\_zm_gametype::hide_gump_loading_for_hotjoiners);
 	replaceFunc(maps\mp\zombies\_zm::init_client_flags, scripts\zm\replaced\_zm::init_client_flags);
 	replaceFunc(maps\mp\zombies\_zm::init_fx, scripts\zm\replaced\_zm::init_fx);

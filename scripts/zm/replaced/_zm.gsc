@@ -1175,11 +1175,6 @@ get_number_of_ready_players()
 
 check_for_team_change()
 {
-	if (level.allow_teamchange == "1")
-	{
-		return;
-	}
-
 	team_change_player = undefined;
 	axis_players = get_players("axis");
 	allies_players = get_players("allies");

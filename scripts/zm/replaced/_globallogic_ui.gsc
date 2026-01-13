@@ -38,7 +38,7 @@ menuautoassign(comingfrommenu)
 
 get_assigned_team()
 {
-	if (level.allow_teamchange == "1")
+	if (!isDedicated())
 	{
 		return getassignedteam(self);
 	}

@@ -358,30 +358,6 @@ menu_onmenuresponse()
 			continue;
 		}
 
-		if (menu == game["menu_team"] && level.allow_teamchange == "1")
-		{
-			switch (response)
-			{
-				case "allies":
-					self [[level.allies]]();
-					break;
-
-				case "axis":
-					self [[level.teammenu]](response);
-					break;
-
-				case "autoassign":
-					self [[level.autoassign]](1);
-					break;
-
-				case "spectator":
-					self [[level.spectator]]();
-					break;
-			}
-
-			continue;
-		}
-
 		if (menu == game["menu_changeclass"] || menu == game["menu_changeclass_offline"] || menu == game["menu_changeclass_wager"] || menu == game["menu_changeclass_custom"] || menu == game["menu_changeclass_barebones"])
 		{
 			self closemenu();
@@ -400,57 +376,16 @@ menu_onmenuresponse()
 
 do_team_change()
 {
-	if (level.allow_teamchange == "0")
-	{
-		teamplayers = get_players(self.pers["team"]).size;
-		otherteamplayers = get_players(getotherteam(self.pers["team"])).size;
+	teamplayers = get_players(self.pers["team"]).size;
+	otherteamplayers = get_players(getotherteam(self.pers["team"])).size;
 
-		if (teamplayers <= otherteamplayers)
-		{
-			self iprintln(&"ZOMBIE_ONLY_CHANGE_TEAMS_UNBALANCED");
-			return;
-		}
+	if (teamplayers <= otherteamplayers)
+	{
+		self iprintln(&"MP_CANTJOINTEAM");
+		return;
 	}
 
 	self.playernum = undefined;
-
-	level notify("team_change", self.pers["team"]);
-
-	num = 0;
-	valid_num = false;
-	other_team = getotherteam(self.pers["team"]);
-	players = get_players(other_team);
-
-	for (num = 0; num < 4; num++)
-	{
-		valid_num = true;
-
-		foreach (player in players)
-		{
-			if (isdefined(player.playernum) && player.playernum == num)
-			{
-				valid_num = false;
-				break;
-			}
-		}
-
-		if (valid_num)
-		{
-			break;
-		}
-	}
-
-	if (!valid_num)
-	{
-		self iprintln(&"ZOMBIE_WAITING_FOR_TEAM_CHANGE");
-
-		level waittill("team_change", team);
-
-		if (team == self.pers["team"])
-		{
-			return;
-		}
-	}
 
 	set_team(getotherteam(self.pers["team"]));
 

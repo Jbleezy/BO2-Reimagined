@@ -308,20 +308,6 @@ set_grief_vars()
 	makedvarserverinfo("ui_gametype_pro");
 	level.scr_zm_ui_gametype_pro = getDvarInt("ui_gametype_pro");
 
-	if (getDvar("ui_allow_teamchange") == "")
-	{
-		if (isDedicated())
-		{
-			setDvar("ui_allow_teamchange", "0");
-		}
-		else
-		{
-			setDvar("ui_allow_teamchange", "1");
-		}
-	}
-
-	level.allow_teamchange = getDvar("ui_allow_teamchange");
-
 	if (getDvarInt("party_minplayers") < 2)
 	{
 		setDvar("party_minplayers", 2);
@@ -2119,12 +2105,12 @@ unlimited_powerups()
 
 save_teams_on_intermission()
 {
-	level waittill("intermission");
-
-	if (level.allow_teamchange == "1")
+	if (!isDedicated())
 	{
 		return;
 	}
+
+	level waittill("intermission");
 
 	axis_guids = "";
 	allies_guids = "";
