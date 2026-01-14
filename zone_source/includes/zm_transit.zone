@@ -13,6 +13,7 @@ fx,weapon/crossbow/fx_trail_crossbow_blink_red_os
 weapon,xm8_zm
 weapon,xm8_upgraded_zm
 
+fx,,impacts/fx_flesh_hit_splat
 fx,maps/zombie/fx_zombie_dog_lightning_buildup
 fx,maps/zombie/fx_zombie_dog_eyes
 fx,maps/zombie/fx_zombie_dog_explosion
