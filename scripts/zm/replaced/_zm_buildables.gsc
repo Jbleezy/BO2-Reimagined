@@ -19,7 +19,12 @@ buildable_place_think()
 	{
 		self waittill("trigger", player);
 
-		bind_to = self.stub.buildable_pool scripts\zm\replaced\_zm_buildables_pooled::pooledbuildable_stub_for_equipname(self.stub);
+		bind_to = undefined;
+
+		if (isdefined(self.stub.buildable_pool))
+		{
+			bind_to = self.stub.buildable_pool scripts\zm\replaced\_zm_buildables_pooled::pooledbuildable_stub_for_equipname(self.stub);
+		}
 
 		if (player != self.parent_player)
 		{
@@ -70,7 +75,7 @@ buildable_place_think()
 				continue;
 			}
 
-			if (bind_to != self.stub)
+			if (isdefined(bind_to) && bind_to != self.stub)
 			{
 				scripts\zm\replaced\_zm_buildables_pooled::swap_buildable_fields(self.stub, bind_to);
 			}

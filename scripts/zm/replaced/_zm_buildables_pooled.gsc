@@ -1,7 +1,10 @@
 #include maps\mp\zombies\_zm_buildables_pooled;
-#include maps\mp\_utility;
 #include common_scripts\utility;
+#include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
+#include maps\mp\zombies\_zm_buildables;
+#include maps\mp\zombies\_zm_unitrigger;
+#include maps\mp\gametypes_zm\_hud_util;
 
 add_buildable_to_pool(stub, poolname)
 {
@@ -426,7 +429,7 @@ pooled_buildable_place_think()
 
 	if (isdefined(self.stub.built) && self.stub.built)
 	{
-		return scripts\zm\replaced\_zm_buildables::buildable_place_think();
+		return buildable_place_think();
 	}
 
 	while (!(isdefined(self.stub.built) && self.stub.built))
