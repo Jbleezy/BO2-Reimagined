@@ -270,7 +270,6 @@ precache_strings()
 	precacheString(&"r_lodBiasSkinned");
 
 	precacheString(&"hud_update_rounds_played");
-	precacheString(&"hud_update_ammo");
 	precacheString(&"hud_update_weapon_select");
 	precacheString(&"hud_update_overheat");
 	precacheString(&"hud_update_perk_order");
@@ -291,8 +290,6 @@ precache_strings()
 	precacheString(&"hud_fade_in_round_total_timer");
 	precacheString(&"hud_fade_out_quest_timer");
 	precacheString(&"hud_fade_in_quest_timer");
-
-	precacheString(istring(getweapondisplayname(level.revive_tool)));
 
 	foreach (zone_name in level.zone_keys)
 	{
@@ -3274,6 +3271,36 @@ player_suicide()
 
 	self maps\mp\zombies\_zm_laststand::bleed_out();
 	self.playersuicided = undefined;
+}
+
+temp_weapon_disable_fast_weapon_switch(temp_weapon)
+{
+	self endon("disconnect");
+
+	if (!self hasperk("specialty_fastweaponswitch"))
+	{
+		return;
+	}
+
+	if (self hasperk("specialty_fastreload"))
+	{
+		self unsetperk("specialty_fastweaponswitch");
+	}
+
+	while (1)
+	{
+		wait 0.05;
+
+		if (!self isswitchingweapons() || self getcurrentweapon() == temp_weapon || !self hasweapon(temp_weapon))
+		{
+			break;
+		}
+	}
+
+	if (self hasperk("specialty_fastreload"))
+	{
+		self setperk("specialty_fastweaponswitch");
+	}
 }
 
 should_respawn()

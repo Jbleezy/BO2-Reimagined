@@ -421,6 +421,8 @@ buildable_use_hold_think_internal(player, bind_stub = self.stub)
 		build_weapon = bind_stub.build_weapon;
 	}
 
+	player thread scripts\zm\_zm_reimagined::temp_weapon_disable_fast_weapon_switch(build_weapon);
+
 	player giveweapon(build_weapon);
 	player switchtoweapon(build_weapon);
 	bind_stub.buildablezone buildable_set_piece_building(bind_stub.buildablezone.pieces[0]);

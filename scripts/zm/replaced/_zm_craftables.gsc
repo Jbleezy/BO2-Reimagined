@@ -127,6 +127,9 @@ craftable_use_hold_think_internal(player)
 	player disable_player_move_states(1);
 	player increment_is_drinking();
 	orgweapon = player getcurrentweapon();
+
+	player thread scripts\zm\_zm_reimagined::temp_weapon_disable_fast_weapon_switch("zombie_builder_zm");
+
 	player giveweapon("zombie_builder_zm");
 	player switchtoweapon("zombie_builder_zm");
 	self.stub.craftablespawn craftable_set_piece_crafting(player.current_craftable_piece);

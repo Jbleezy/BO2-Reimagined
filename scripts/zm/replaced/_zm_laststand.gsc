@@ -46,14 +46,7 @@ revive_trigger_think()
 				continue;
 			}
 
-			foreach (player in players)
-			{
-				if (player scripts\zm\_zm_reimagined::get_current_spectating_player() == reviver)
-				{
-					player luinotifyevent(&"hud_update_ammo", 1, 0);
-					player luinotifyevent(&"hud_update_weapon_select", 1, istring(getweapondisplayname(level.revive_tool)));
-				}
-			}
+			reviver thread scripts\zm\_zm_reimagined::temp_weapon_disable_fast_weapon_switch(level.revive_tool);
 
 			reviver giveweapon(level.revive_tool);
 			reviver switchtoweapon(level.revive_tool);
