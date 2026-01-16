@@ -224,6 +224,7 @@
 * Changed need local power hint string from "You'll need a source of power!" to "Power must be turned on" on all maps
 * Increased number of times that the round number pulses between rounds from 2-7 to 10 (same as Black Ops 1)
 * Fixed powerup move animation being incorrect
+* Fixed low clip ammo pulse being out of sync after switching to another low ammo weapon
 * Fixed scoreboard showing incorrect team on Survival after restart
 * Removed NAV cards
 

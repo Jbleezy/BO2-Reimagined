@@ -401,6 +401,32 @@ CoD.AmmoAreaZombie.GetThreeDigits = function(f5_arg0)
 	return f5_local0, f5_local1, f5_arg0 - f5_local1 * 10
 end
 
+CoD.AmmoAreaZombie.SyncDigitsPulse = function(arg0)
+	local startedPulsing = false
+
+	for i = 1, #arg0.ammoDigits, 1 do
+		if arg0.ammoDigits[i].pulsing and not arg0.ammoDigits[i].wasPulsing then
+			startedPulsing = true
+			break
+		end
+	end
+
+	if startedPulsing then
+		for i = 1, #arg0.ammoDigits, 1 do
+			if arg0.ammoDigits[i].pulsing and arg0.ammoDigits[i].wasPulsing then
+				arg0.ammoDigits[i].foreground:completeAnimation()
+				arg0.ammoDigits[i].foreground:setRGB(1, 1, 1)
+				arg0.ammoDigits[i].foreground:beginAnimation("pulse_red", 500)
+				arg0.ammoDigits[i].foreground:setRGB(1, 0, 0)
+			end
+		end
+	end
+
+	for i = 1, #arg0.ammoDigits, 1 do
+		arg0.ammoDigits[i].wasPulsing = arg0.ammoDigits[i].pulsing
+	end
+end
+
 CoD.AmmoAreaZombie.UpdateAmmo = function(f6_arg0, f6_arg1)
 	if f6_arg1.ammoInClip == 0 and f6_arg1.ammoStock == 0 and f6_arg1.lowClip ~= true then
 		return
@@ -506,6 +532,9 @@ CoD.AmmoAreaZombie.UpdateAmmo = function(f6_arg0, f6_arg1)
 			f6_arg0.ammoDigits[f6_local15]:setDigit(0)
 			f6_arg0.ammoDigits[f6_local15]:setAlpha(0)
 		end
+
+		CoD.AmmoAreaZombie.SyncDigitsPulse(f6_arg0)
+
 		f6_arg0:dispatchEventToChildren(f6_arg1)
 	end
 end
@@ -545,7 +574,6 @@ CoD.AmmoAreaZombie.UpdateOverheat = function(f8_arg0, f8_arg1)
 		f8_arg1.heatPercent = f8_arg0.heatPercentOverride
 	end
 
-	local f8_local0 = f8_arg1.overheat
 	local f8_local1 = #f8_arg0.ammoDigits
 	if f8_arg0.hideAmmo then
 		for f8_local2 = 1, f8_local1, 1 do
@@ -553,6 +581,7 @@ CoD.AmmoAreaZombie.UpdateOverheat = function(f8_arg0, f8_arg1)
 		end
 		return
 	else
+		local f8_local0 = f8_arg1.overheat
 		local f8_local2 = CoD.AmmoAreaZombie.Right - 82
 		local f8_local3 = CoD.HUDDigit.Width
 		local f8_local4 = CoD.HUDDigit.Spacing + 2
@@ -619,6 +648,9 @@ CoD.AmmoAreaZombie.UpdateOverheat = function(f8_arg0, f8_arg1)
 			f8_arg0.ammoDigits[f8_local11]:setDigit(0)
 			f8_arg0.ammoDigits[f8_local11]:setAlpha(0)
 		end
+
+		CoD.AmmoAreaZombie.SyncDigitsPulse(f8_arg0)
+
 		f8_arg0:dispatchEventToChildren(f8_arg1)
 	end
 end
