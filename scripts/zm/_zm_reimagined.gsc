@@ -1436,9 +1436,7 @@ bleedout_bar_hud()
 // scaleovertime doesn't work past 30 seconds so here is a workaround
 bleedout_bar_hud_updatebar(hud)
 {
-	self endon("player_revived");
-	self endon("bled_out");
-	self endon("player_suicide");
+	hud endon("death");
 
 	bleedout_time = getDvarInt("player_lastStandBleedoutTime");
 	interval_time = 30;
