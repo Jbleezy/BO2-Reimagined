@@ -2371,26 +2371,6 @@ containment_think()
 				}
 			}
 
-			team_diff = abs(get_players("axis").size - get_players("allies").size);
-
-			if (team_diff > 0)
-			{
-				team = "axis";
-
-				if (get_players("allies").size < get_players("axis").size)
-				{
-					team = "allies";
-				}
-
-				if (in_containment_zone[team].size > 0)
-				{
-					for (i = 0; i < team_diff; i++)
-					{
-						in_containment_zone[team][in_containment_zone[team].size] = level;
-					}
-				}
-			}
-
 			grief_score_hud_set_player_count("allies", in_containment_zone["allies"].size, "axis", in_containment_zone["axis"].size);
 
 			if (in_containment_zone["axis"].size == in_containment_zone["allies"].size && in_containment_zone["axis"].size > 0 && in_containment_zone["allies"].size > 0)
