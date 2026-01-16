@@ -272,14 +272,6 @@ obj_waypoint()
 		objective_state(level.game_mode_obj_ind, "active");
 		objective_setgamemodeflags(level.game_mode_obj_ind, 0);
 	}
-
-	if (level.scr_zm_ui_gametype_obj == "zcontainment")
-	{
-		level.game_mode_next_obj_ind = level.game_mode_obj_ind + 1;
-
-		objective_state(level.game_mode_next_obj_ind, "active");
-		objective_setgamemodeflags(level.game_mode_next_obj_ind, 0);
-	}
 }
 
 set_grief_vars()
@@ -2196,32 +2188,7 @@ containment_think()
 	next_zone = level.zones[next_zone_name];
 	next_zone_origin = containment_get_zone_waypoint_origin(next_zone_name, next_zone);
 
-	objective_position(level.game_mode_next_obj_ind, next_zone_origin);
-	objective_team(level.game_mode_next_obj_ind, "neutral");
-	objective_setgamemodeflags(level.game_mode_next_obj_ind, 1);
-
-	start_time = getTime();
-
-	while ((getTime() - start_time) <= 10000)
-	{
-		players = get_players();
-
-		foreach (player in players)
-		{
-			player_zone_name = player containment_get_current_zone();
-
-			if (isDefined(player_zone_name) && player_zone_name == next_zone_name)
-			{
-				objective_setplayerusing(level.game_mode_next_obj_ind, player);
-			}
-			else
-			{
-				objective_clearplayerusing(level.game_mode_next_obj_ind, player);
-			}
-		}
-
-		wait 0.05;
-	}
+	wait 10;
 
 	while (1)
 	{
@@ -2244,10 +2211,6 @@ containment_think()
 		objective_position(level.game_mode_obj_ind, zone_origin);
 		objective_team(level.game_mode_obj_ind, "neutral");
 		objective_setgamemodeflags(level.game_mode_obj_ind, 1);
-
-		objective_position(level.game_mode_next_obj_ind, next_zone_origin);
-		objective_team(level.game_mode_next_obj_ind, "neutral");
-		objective_setgamemodeflags(level.game_mode_next_obj_ind, 0);
 
 		zone_name_to_lock = containment_get_zone_name_to_lock(zone_name);
 
@@ -2343,32 +2306,6 @@ containment_think()
 					objective_clearplayerusing(level.game_mode_obj_ind, player);
 				}
 
-			}
-
-			if (containment_zones.size > 1)
-			{
-				foreach (player in players)
-				{
-					player_zone_name = player containment_get_current_zone();
-
-					if (isDefined(player_zone_name) && player_zone_name == next_zone_name)
-					{
-						objective_setplayerusing(level.game_mode_next_obj_ind, player);
-					}
-					else
-					{
-						objective_clearplayerusing(level.game_mode_next_obj_ind, player);
-					}
-				}
-
-				if (show_next_obj_waypoint)
-				{
-					objective_setgamemodeflags(level.game_mode_next_obj_ind, 1);
-				}
-				else
-				{
-					objective_setgamemodeflags(level.game_mode_next_obj_ind, 0);
-				}
 			}
 
 			grief_score_hud_set_player_count("allies", in_containment_zone["allies"].size, "axis", in_containment_zone["axis"].size);
