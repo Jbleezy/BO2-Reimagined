@@ -178,6 +178,7 @@
 * Removed 5 second wait before match start
 * Added restart game button when in online solo game
 * Tick rate is always 20
+* Increased level of detail at longer distances
 * Announcer audio always plays
 * In-game menu no longer disabled instantly when the game ends
 * Fixed various engine related leaks with entities
@@ -188,7 +189,6 @@
 * Added option to change action slot area
 * Added option to enable or disable fog
 * Added option to enable or disable depth of field
-* Added option to change level of detail
 * Added option in private match lobby to enable or disable character dialog
 
 ## HUD

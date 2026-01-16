@@ -237,8 +237,6 @@ precache_menus()
 {
 	precacheMenu("r_fog");
 	precacheMenu("r_dof_enable");
-	precacheMenu("r_lodBiasRigid");
-	precacheMenu("r_lodBiasSkinned");
 }
 
 precache_strings()
@@ -267,8 +265,6 @@ precache_strings()
 	precacheString(&"get_dvar");
 	precacheString(&"r_fog");
 	precacheString(&"r_dof_enable");
-	precacheString(&"r_lodBiasRigid");
-	precacheString(&"r_lodBiasSkinned");
 
 	precacheString(&"hud_update_rounds_played");
 	precacheString(&"hud_update_weapon_select");
@@ -901,7 +897,9 @@ set_client_dvars()
 	    "cg_sonarAttachmentFadeFriendlies", 0,
 	    "cg_sonarAttachmentFadeEnemies", 0,
 	    "cg_sonarAttachmentFullscreenThermal", 0,
-	    "cg_sonarAttachmentFullscreenSightCheck", 1);
+	    "cg_sonarAttachmentFullscreenSightCheck", 1,
+	    "r_lodBiasRigid", -1000,
+	    "r_lodBiasSkinned", -1000);
 
 	self setClientDvars(
 	    "waypointMaxDrawDist", 0,
@@ -920,8 +918,6 @@ set_client_dvars()
 
 	self thread set_client_dvar_loop("r_fog");
 	self thread set_client_dvar_loop("r_dof_enable");
-	self thread set_client_dvar_loop("r_lodBiasRigid");
-	self thread set_client_dvar_loop("r_lodBiasSkinned");
 }
 
 set_client_dvar_loop(dvar)

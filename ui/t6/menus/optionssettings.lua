@@ -691,20 +691,6 @@ CoD.OptionsSettings.CreateGameTab = function(GameTab, LocalClientIndex)
 	DofSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChangedSendMenuResponse)
 	DofSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_ENABLED_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChangedSendMenuResponse)
 
-	local LodRigidSelector = GameTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_LEVEL_OF_DETAIL_RIGID_CAPS"), "r_lodBiasRigid_settings")
-	LodRigidSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_VERY_LOW_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChangedSendMenuResponse)
-	LodRigidSelector:addChoice(LocalClientIndex, Engine.Localize("PLATFORM_LOW_CAPS"), -250, nil, CoD.OptionsSettings.Button_ApplyDvarChangedSendMenuResponse)
-	LodRigidSelector:addChoice(LocalClientIndex, Engine.Localize("PLATFORM_MEDIUM_CAPS"), -500, nil, CoD.OptionsSettings.Button_ApplyDvarChangedSendMenuResponse)
-	LodRigidSelector:addChoice(LocalClientIndex, Engine.Localize("PLATFORM_HIGH_CAPS"), -750, nil, CoD.OptionsSettings.Button_ApplyDvarChangedSendMenuResponse)
-	LodRigidSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_VERY_HIGH_CAPS"), -1000, nil, CoD.OptionsSettings.Button_ApplyDvarChangedSendMenuResponse)
-
-	local LodSkinnedSelector = GameTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_LEVEL_OF_DETAIL_SKINNED_CAPS"), "r_lodBiasSkinned_settings")
-	LodSkinnedSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_VERY_LOW_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChangedSendMenuResponse)
-	LodSkinnedSelector:addChoice(LocalClientIndex, Engine.Localize("PLATFORM_LOW_CAPS"), -250, nil, CoD.OptionsSettings.Button_ApplyDvarChangedSendMenuResponse)
-	LodSkinnedSelector:addChoice(LocalClientIndex, Engine.Localize("PLATFORM_MEDIUM_CAPS"), -500, nil, CoD.OptionsSettings.Button_ApplyDvarChangedSendMenuResponse)
-	LodSkinnedSelector:addChoice(LocalClientIndex, Engine.Localize("PLATFORM_HIGH_CAPS"), -750, nil, CoD.OptionsSettings.Button_ApplyDvarChangedSendMenuResponse)
-	LodSkinnedSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_VERY_HIGH_CAPS"), -1000, nil, CoD.OptionsSettings.Button_ApplyDvarChangedSendMenuResponse)
-
 	return GameTabContainer
 end
 
