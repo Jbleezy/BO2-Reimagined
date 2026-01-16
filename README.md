@@ -1622,4 +1622,3 @@
 * No Pack-a-Punch
 * No Der Wunderfizz
 * No held melee weapons
-* Limited sprint
