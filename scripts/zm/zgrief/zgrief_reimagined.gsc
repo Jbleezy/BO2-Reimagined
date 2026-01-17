@@ -300,13 +300,6 @@ set_grief_vars()
 	makedvarserverinfo("ui_gametype_pro");
 	level.scr_zm_ui_gametype_pro = getDvarInt("ui_gametype_pro");
 
-	if (getDvarInt("party_minplayers") < 2)
-	{
-		setDvar("party_minplayers", 2);
-	}
-
-	level.pregame_minplayers = getDvarInt("party_minplayers");
-
 	level.sr_round_number = 1;
 	setDvar("ui_round_number", level.sr_round_number);
 	makedvarserverinfo("ui_round_number");

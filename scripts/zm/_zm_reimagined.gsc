@@ -193,7 +193,6 @@ init()
 	level.powerup_intro_vox = undefined;
 	level.hotjoin_player_setup = undefined;
 	level.player_too_many_players_check = 0;
-	level.pregame_minplayers = getDvarInt("party_minplayers");
 	level.player_starting_health = 150;
 
 	if (!isdefined(level.item_meat_name))

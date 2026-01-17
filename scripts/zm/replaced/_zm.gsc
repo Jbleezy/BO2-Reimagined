@@ -932,8 +932,14 @@ pregame_think()
 	}
 
 	num_players = get_number_of_waiting_players();
+	pregame_minplayers = level.teamcount;
 
-	while (num_players < level.pregame_minplayers)
+	if (pregame_minplayers < getdvarint("pregame_minplayers"))
+	{
+		pregame_minplayers = getdvarint("pregame_minplayers");
+	}
+
+	while (num_players < pregame_minplayers)
 	{
 		if (is_gametype_active("zgrief"))
 		{
@@ -952,7 +958,7 @@ pregame_think()
 			player freezecontrols(1);
 		}
 
-		num_waiting_for = level.pregame_minplayers - num_players;
+		num_waiting_for = pregame_minplayers - num_players;
 
 		players_str = &"ZOMBIE_WAITING_FOR_MORE_PLAYERS_CAPS";
 
@@ -961,7 +967,7 @@ pregame_think()
 			players_str = &"ZOMBIE_WAITING_FOR_MORE_PLAYER_CAPS";
 		}
 
-		level.pregame_hud setText(players_str, num_waiting_for, num_players, level.pregame_minplayers);
+		level.pregame_hud setText(players_str, num_waiting_for, num_players, pregame_minplayers);
 
 		wait 0.05;
 
@@ -993,7 +999,7 @@ pregame_think()
 		player playlocalsound("zmb_perks_packa_ready");
 	}
 
-	while (num_ready < players.size || players.size < level.pregame_minplayers)
+	while (num_ready < players.size || players.size < pregame_minplayers)
 	{
 		ready_up_timeout = 0;
 
@@ -1030,7 +1036,7 @@ pregame_think()
 
 		players = get_players();
 
-		if (players.size < level.pregame_minplayers)
+		if (players.size < pregame_minplayers)
 		{
 			foreach (player in players)
 			{
