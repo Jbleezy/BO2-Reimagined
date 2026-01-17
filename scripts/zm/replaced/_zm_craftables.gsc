@@ -35,6 +35,7 @@ choose_open_craftable(player)
 	hinttexthudelem.alpha = 1;
 	hinttexthudelem.color = (1, 1, 1);
 	hinttexthudelem settext(&"ZM_CRAFTABLES_CHANGE_BUILD");
+	hinttexthudelem thread scripts\zm\_zm_reimagined::hide_on_scoreboard(player);
 
 	if (!isdefined(self.opencraftablehudelem))
 	{
@@ -60,7 +61,10 @@ choose_open_craftable(player)
 			continue;
 		}
 
-		self.opencraftablehudelem[n_playernum].alpha = 1;
+		if (!player.scoreboard_open)
+		{
+			self.opencraftablehudelem[n_playernum].alpha = 1;
+		}
 
 		if (player actionslotonebuttonpressed())
 		{
@@ -192,6 +196,8 @@ player_progress_bar(start_time, craft_time)
 	self.usebar.barframe.foreground = 1;
 	self.usebartext.foreground = 1;
 	self.usebartext settext(&"ZOMBIE_BUILDING");
+	self.usebar thread scripts\zm\_zm_reimagined::hide_on_scoreboard(self);
+	self.usebartext thread scripts\zm\_zm_reimagined::hide_on_scoreboard(self);
 
 	if (isdefined(self) && isdefined(start_time) && isdefined(craft_time))
 	{

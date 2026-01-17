@@ -603,6 +603,7 @@ choose_open_buildable(player)
 	hud.alpha = 1;
 	hud.color = (1, 1, 1);
 	hud settext(&"ZM_CRAFTABLES_CHANGE_BUILD");
+	hud thread scripts\zm\_zm_reimagined::hide_on_scoreboard(player);
 	self.open_buildable_checking_input = 1;
 	self.openbuildablehudelem = hud;
 
@@ -620,7 +621,10 @@ choose_open_buildable(player)
 			continue;
 		}
 
-		hud.alpha = 1;
+		if (!player.scoreboard_open)
+		{
+			hud.alpha = 1;
+		}
 
 		if (player actionslotonebuttonpressed())
 		{

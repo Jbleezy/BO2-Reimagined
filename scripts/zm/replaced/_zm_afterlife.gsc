@@ -427,6 +427,7 @@ afterlife_revive_do_revive(playerbeingrevived, revivergun)
 		playerbeingrevived_player.beingrevivedprogressbar.sort = 1;
 		playerbeingrevived_player.beingrevivedprogressbar.bar.sort = 2;
 		playerbeingrevived_player.beingrevivedprogressbar.barframe.sort = 3;
+		playerbeingrevived_player.beingrevivedprogressbar thread scripts\zm\_zm_reimagined::hide_on_scoreboard(playerbeingrevived_player);
 		playerbeingrevived_player.beingrevivedprogressbar thread scripts\zm\_zm_reimagined::destroy_on_intermission();
 	}
 
@@ -443,6 +444,7 @@ afterlife_revive_do_revive(playerbeingrevived, revivergun)
 		self.reviveprogressbar.sort = 1;
 		self.reviveprogressbar.bar.sort = 2;
 		self.reviveprogressbar.barframe.sort = 3;
+		self.reviveprogressbar thread scripts\zm\_zm_reimagined::hide_on_scoreboard(self);
 		self.reviveprogressbar thread scripts\zm\_zm_reimagined::destroy_on_intermission();
 	}
 
@@ -492,6 +494,7 @@ afterlife_revive_do_revive(playerbeingrevived, revivergun)
 	}
 
 	self.revivetexthud settext(&"GAME_REVIVING");
+	self.revivetexthud thread scripts\zm\_zm_reimagined::hide_on_scoreboard(self);
 	self thread check_for_failed_revive(playerbeingrevived);
 	e_fx = spawn("script_model", playerbeingrevived.revivetrigger.origin);
 	e_fx setmodel("tag_origin");

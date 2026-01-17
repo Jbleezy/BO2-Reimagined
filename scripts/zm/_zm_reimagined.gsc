@@ -485,6 +485,7 @@ on_player_connect()
 		}
 
 		player set_client_dvars();
+		player notify_on_player_commands();
 
 		player thread lui_notify_events();
 
@@ -975,6 +976,37 @@ disable_lean()
 	self allowlean(0);
 }
 
+notify_on_player_commands()
+{
+	self notifyonplayercommand("open_scores", "+scores");
+	self notifyonplayercommand("close_scores", "-scores");
+
+	self thread notify_on_player_command_scores_think();
+}
+
+notify_on_player_command_scores_think()
+{
+	self endon("disconnect");
+
+	self.scoreboard_open = 0;
+
+	while (1)
+	{
+		result = self waittill_any_return("open_scores", "close_scores");
+
+		if (result == "open_scores")
+		{
+			self.scoreboard_open = 1;
+		}
+		else
+		{
+			self.scoreboard_open = 0;
+		}
+
+		self notify("scores");
+	}
+}
+
 lui_notify_events()
 {
 	self endon("disconnect");
@@ -1423,6 +1455,7 @@ bleedout_bar_hud()
 		hud.sort = 1;
 		hud.bar.sort = 2;
 		hud.barframe.sort = 3;
+		hud thread hide_on_scoreboard(self);
 		hud thread destroy_on_intermission();
 
 		self thread bleedout_bar_hud_updatebar(hud);
@@ -3451,6 +3484,57 @@ waittill_next_snapshot(require_playing = 0)
 		}
 
 		self waittill("spawned_player");
+	}
+}
+
+hide_on_scoreboard(player)
+{
+	self endon("death");
+
+	self.prev_alpha = self.alpha;
+
+	if (isDefined(self.bar))
+	{
+		self.bar.prev_alpha = self.bar.alpha;
+	}
+
+	if (isDefined(self.barframe))
+	{
+		self.barframe.prev_alpha = self.barframe.alpha;
+	}
+
+	while (1)
+	{
+		if (player.scoreboard_open)
+		{
+			self.alpha = 0;
+
+			if (isDefined(self.bar))
+			{
+				self.bar.alpha = 0;
+			}
+
+			if (isDefined(self.barframe))
+			{
+				self.barframe.alpha = 0;
+			}
+		}
+		else
+		{
+			self.alpha = self.prev_alpha;
+
+			if (isDefined(self.bar))
+			{
+				self.bar.alpha = self.bar.prev_alpha;
+			}
+
+			if (isDefined(self.barframe))
+			{
+				self.barframe.alpha = self.barframe.prev_alpha;
+			}
+		}
+
+		player waittill("scores");
 	}
 }
 

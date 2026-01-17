@@ -621,6 +621,9 @@ player_progress_bar(start_time, build_time, building_prompt)
 		self.usebartext settext(&"ZOMBIE_BUILDING");
 	}
 
+	self.usebar thread scripts\zm\_zm_reimagined::hide_on_scoreboard(self);
+	self.usebartext thread scripts\zm\_zm_reimagined::hide_on_scoreboard(self);
+
 	if (isdefined(self) && isdefined(start_time) && isdefined(build_time))
 	{
 		self player_progress_bar_update(start_time, build_time);

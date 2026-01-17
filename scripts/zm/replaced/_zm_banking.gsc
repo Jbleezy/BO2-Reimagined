@@ -194,6 +194,7 @@ show_balance(player)
 	hud.alpha = 1;
 	hud.color = (1, 1, 1);
 	hud.label = &"ZOMBIE_HUD_ACCOUNT_BALANCE";
+	hud thread scripts\zm\_zm_reimagined::hide_on_scoreboard(player);
 	stub.bankbalancehud[num] = hud;
 
 	hud thread update_balance(player);
@@ -207,7 +208,10 @@ show_balance(player)
 			continue;
 		}
 
-		hud.alpha = 1;
+		if (!player.scoreboard_open)
+		{
+			hud.alpha = 1;
+		}
 
 		wait 0.05;
 	}

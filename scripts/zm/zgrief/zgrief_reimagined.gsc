@@ -914,16 +914,24 @@ round_start_wait(time, initial)
 		text_param = level.sr_round_number;
 	}
 
-	countdown_hud = scripts\zm\replaced\_zm::countdown_hud(text, text_param, time);
+	players = get_players();
+
+	foreach (player in players)
+	{
+		player.countdown_hud = player scripts\zm\replaced\_zm::countdown_hud(text, text_param, time);
+	}
 
 	wait time;
-
-	countdown_hud scripts\zm\replaced\_zm::countdown_hud_destroy();
 
 	players = get_players();
 
 	foreach (player in players)
 	{
+		if (isdefined(player.countdown_hud))
+		{
+			player.countdown_hud scripts\zm\replaced\_zm::countdown_hud_destroy();
+		}
+
 		if (initial)
 		{
 			player.hostmigrationcontrolsfrozen = 0;

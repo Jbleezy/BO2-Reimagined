@@ -99,6 +99,7 @@ show_current_weapon(player)
 	hud.color = (1, 1, 1);
 	hud.label = &"ZOMBIE_HUD_PLACED_WEAPON";
 	hud settext(displayname);
+	hud thread scripts\zm\_zm_reimagined::hide_on_scoreboard(player);
 	stub.weaponlockerhud[num] = hud;
 
 	while (isDefined(self))
@@ -110,7 +111,10 @@ show_current_weapon(player)
 			continue;
 		}
 
-		hud.alpha = 1;
+		if (!player.scoreboard_open)
+		{
+			hud.alpha = 1;
+		}
 
 		wait 0.05;
 	}

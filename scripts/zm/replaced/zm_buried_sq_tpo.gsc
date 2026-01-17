@@ -168,6 +168,8 @@ unitrigger_think()
 				self.progress_bar updatebar(0.01, 1 / 1.5);
 				self.progress_bar_text = player createprimaryprogressbartext();
 				self.progress_bar_text settext(&"ZM_BURIED_SQ_SEARCHING");
+				self.progress_bar thread scripts\zm\_zm_reimagined::hide_on_scoreboard(player);
+				self.progress_bar_text thread scripts\zm\_zm_reimagined::hide_on_scoreboard(player);
 				self thread _kill_progress_bar();
 			}
 

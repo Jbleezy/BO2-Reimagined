@@ -386,6 +386,7 @@ chugabud_bleed_timeout_hud_create(delay)
 	hud.sort = 1;
 	hud.bar.sort = 2;
 	hud.barframe.sort = 3;
+	hud thread scripts\zm\_zm_reimagined::hide_on_scoreboard(self);
 	hud thread scripts\zm\_zm_reimagined::destroy_on_intermission();
 
 	hud updatebar(1);
