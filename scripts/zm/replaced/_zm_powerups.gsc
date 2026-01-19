@@ -437,7 +437,7 @@ full_ammo_powerup(drop_item, player)
 {
 	clip_only = 0;
 
-	if (level.scr_zm_ui_gametype == "zgrief")
+	if (is_encounter())
 	{
 		clip_only = 1;
 		drop_item.hint = &"ZOMBIE_POWERUP_CLIP_AMMO";
@@ -538,7 +538,7 @@ full_ammo_powerup(drop_item, player)
 
 	level thread full_ammo_on_hud(drop_item, player.team);
 
-	if (level.scr_zm_ui_gametype == "zgrief")
+	if (is_encounter())
 	{
 		level thread empty_clip_powerup(drop_item, player);
 	}
@@ -801,7 +801,7 @@ nuke_powerup(drop_item, player_team)
 		players[i] maps\mp\zombies\_zm_score::player_add_points("nuke_powerup", 400);
 	}
 
-	if (level.scr_zm_ui_gametype == "zgrief")
+	if (is_encounter())
 	{
 		players = get_players(getOtherTeam(player_team));
 
@@ -847,7 +847,7 @@ insta_kill_powerup(drop_item, player)
 
 	time = 30;
 
-	if (level.scr_zm_ui_gametype == "zgrief")
+	if (is_encounter())
 	{
 		time = 15;
 		level thread half_damage_powerup(drop_item, player);
@@ -933,7 +933,7 @@ double_points_powerup(drop_item, player)
 
 	time = 30;
 
-	if (level.scr_zm_ui_gametype == "zgrief")
+	if (is_encounter())
 	{
 		time = 15;
 		level thread half_points_powerup(drop_item, player);

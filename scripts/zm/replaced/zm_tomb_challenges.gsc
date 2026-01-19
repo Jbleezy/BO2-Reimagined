@@ -316,7 +316,7 @@ box_footprint_think()
 
 one_inch_punch_watch_for_death(s_stat)
 {
-	if (is_gametype_active("zgrief"))
+	if (is_encounter())
 	{
 		self waittill("disconnect");
 	}

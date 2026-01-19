@@ -452,8 +452,6 @@ CoD.RoundStatus.UpdateTeamChange = function(RoundStatusWidget, ClientInstance)
 			if FactionTeam ~= "" and RoundStatusWidget.gameTypeGroup == CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
 				if CoD.Zombie.GAMETYPE_ZCLEANSED == Dvar.ui_gametype:get() and RoundStatusWidget.team == CoD.TEAM_AXIS then
 					FactionTeam = "zombie"
-				elseif CoD.Zombie.GAMETYPE_ZMEAT == Dvar.ui_gametype:get() and RoundStatusWidget.team == CoD.TEAM_AXIS then
-					FactionTeam = "cia"
 				end
 				RoundStatusWidget.factionIcon:setImage(RegisterMaterial("faction_" .. FactionTeam))
 				RoundStatusWidget.factionIcon:setAlpha(1)

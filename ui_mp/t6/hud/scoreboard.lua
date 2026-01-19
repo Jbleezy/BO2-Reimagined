@@ -70,7 +70,7 @@ local CreateScoreboardHeaderTitle = function(ScoreboardWidget)
 				StringTable[2] = " - "
 				StringTable[3] = GetMapDisplayName()
 
-				if UIExpression.DvarString(nil, "ui_gametype") == "zgrief" and UIExpression.DvarString(nil, "ui_gametype_obj") == "zsr" then
+				if UIExpression.DvarString(nil, "ui_gametype") == "zsr" then
 					StringTable[4] = " - "
 					StringTable[5] = Engine.Localize("MPUI_ROUND_X", UIExpression.DvarString(nil, "ui_round_number"))
 				end
@@ -100,12 +100,10 @@ end
 function GetGameModeDisplayName()
 	if UIExpression.DvarString(nil, "ui_gametype") == "zclassic" then
 		return Engine.Localize("ZMUI_ZCLASSIC_GAMEMODE")
-	elseif UIExpression.DvarString(nil, "ui_gametype") == "zgrief" then
-		if UIExpression.DvarBool(nil, "ui_gametype_pro") == 1 then
-			return Engine.Localize("ZMUI_" .. UIExpression.DvarString(nil, "ui_gametype_obj") .. "_PRO")
-		else
-			return Engine.Localize("ZMUI_" .. UIExpression.DvarString(nil, "ui_gametype_obj"))
-		end
+	end
+
+	if UIExpression.DvarString(nil, "ui_zm_gamemodegroup") == "zencounter" and UIExpression.DvarBool(nil, "ui_gametype_pro") == 1 then
+		return Engine.Localize("ZMUI_" .. UIExpression.DvarString(nil, "ui_gametype") .. "_PRO")
 	end
 
 	return Engine.Localize("ZMUI_" .. UIExpression.DvarString(nil, "ui_gametype"))
@@ -808,8 +806,6 @@ ScoreboardUpdateTeamElement = function(TeamElement, FactionTeam, FactionColorR, 
 			elseif GamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
 				if Dvar.ui_gametype:get() == CoD.Zombie.GAMETYPE_ZCLEANSED and ScoreboardTeam.team == CoD.TEAM_AXIS then
 					TeamElement.factionIcon:setImage(RegisterMaterial("faction_zombie"))
-				elseif Dvar.ui_gametype:get() == CoD.Zombie.GAMETYPE_ZMEAT and ScoreboardTeam.team == CoD.TEAM_AXIS then
-					TeamElement.factionIcon:setImage(RegisterMaterial("faction_cia"))
 				end
 			end
 			if ShowTeamName then

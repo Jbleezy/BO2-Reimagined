@@ -8,43 +8,36 @@ CoD.SelectMapListZombie.GameModes[1] = {
 	localizedString = "ZMUI_ZCLASSIC_GAMEMODE_CAPS",
 	ui_zm_gamemodegroup = "zclassic",
 	ui_gametype = "zclassic",
-	ui_gametype_obj = "",
 }
 CoD.SelectMapListZombie.GameModes[2] = {
 	localizedString = "ZMUI_ZSTANDARD_CAPS",
 	ui_zm_gamemodegroup = "zsurvival",
 	ui_gametype = "zstandard",
-	ui_gametype_obj = "",
 }
 CoD.SelectMapListZombie.GameModes[3] = {
 	localizedString = "ZMUI_ZGRIEF_CAPS",
 	ui_zm_gamemodegroup = "zencounter",
 	ui_gametype = "zgrief",
-	ui_gametype_obj = "zgrief",
 }
 CoD.SelectMapListZombie.GameModes[4] = {
 	localizedString = "ZMUI_ZRACE_CAPS",
 	ui_zm_gamemodegroup = "zencounter",
-	ui_gametype = "zgrief",
-	ui_gametype_obj = "zrace",
+	ui_gametype = "zrace",
 }
 CoD.SelectMapListZombie.GameModes[5] = {
 	localizedString = "ZMUI_ZCONTAINMENT_CAPS",
 	ui_zm_gamemodegroup = "zencounter",
-	ui_gametype = "zgrief",
-	ui_gametype_obj = "zcontainment",
+	ui_gametype = "zcontainment",
 }
 CoD.SelectMapListZombie.GameModes[6] = {
 	localizedString = "ZMUI_ZMEAT_CAPS",
 	ui_zm_gamemodegroup = "zencounter",
-	ui_gametype = "zgrief",
-	ui_gametype_obj = "zmeat",
+	ui_gametype = "zmeat",
 }
 CoD.SelectMapListZombie.GameModes[7] = {
 	localizedString = "ZMUI_ZSR_CAPS",
 	ui_zm_gamemodegroup = "zencounter",
-	ui_gametype = "zgrief",
-	ui_gametype_obj = "zsr",
+	ui_gametype = "zsr",
 }
 CoD.SelectMapListZombie.Maps = {}
 CoD.SelectMapListZombie.Maps[1] = {
@@ -185,13 +178,8 @@ local function setGameModeDvars(controller, commit)
 	if index ~= nil then
 		Engine.SetDvar("ui_zm_gamemodegroup", CoD.SelectMapListZombie.GameModes[index].ui_zm_gamemodegroup)
 		Engine.SetGametype(CoD.SelectMapListZombie.GameModes[index].ui_gametype)
-		Engine.SetDvar("ui_gametype_obj", CoD.SelectMapListZombie.GameModes[index].ui_gametype_obj)
 
-		if UIExpression.DvarString(nil, "ui_gametype_obj") ~= "" then
-			Engine.SetProfileVar(controller, CoD.profileKey_gametype, CoD.SelectMapListZombie.GameModes[index].ui_gametype_obj)
-		else
-			Engine.SetProfileVar(controller, CoD.profileKey_gametype, CoD.SelectMapListZombie.GameModes[index].ui_gametype)
-		end
+		Engine.SetProfileVar(controller, CoD.profileKey_gametype, CoD.SelectMapListZombie.GameModes[index].ui_gametype)
 	end
 
 	if commit then
@@ -271,13 +259,7 @@ function LUI.createMenu.SelectGameModeListZM(controller)
 
 	self:addTitle(Engine.Localize("MPUI_GAMEMODE_CAPS"))
 
-	CoD.SelectMapListZombie.GameModeIndex = 1
-
-	if UIExpression.DvarString(nil, "ui_gametype_obj") ~= "" then
-		CoD.SelectMapListZombie.GameModeIndex = CoD.SelectMapListZombie.GetKeyValueIndex(CoD.SelectMapListZombie.GameModes, "ui_gametype_obj", UIExpression.DvarString(nil, "ui_gametype_obj"))
-	else
-		CoD.SelectMapListZombie.GameModeIndex = CoD.SelectMapListZombie.GetKeyValueIndex(CoD.SelectMapListZombie.GameModes, "ui_gametype", UIExpression.DvarString(nil, "ui_gametype"))
-	end
+	CoD.SelectMapListZombie.GameModeIndex = CoD.SelectMapListZombie.GetKeyValueIndex(CoD.SelectMapListZombie.GameModes, "ui_gametype", UIExpression.DvarString(nil, "ui_gametype"))
 
 	local listBox = CoD.ListBox.new(nil, controller, 15, CoD.CoD9Button.Height, 250, gameModeListCreateButtonMutables, gameModeListGetButtonData, 5, 0)
 	listBox:setLeftRight(true, false, 0, 250)

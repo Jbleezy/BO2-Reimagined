@@ -39,7 +39,7 @@ init_item_meat(gametype)
 
 func_should_drop_meat()
 {
-	if (level.scr_zm_ui_gametype_obj == "zmeat")
+	if (level.scr_zm_ui_gametype == "zmeat")
 	{
 		return 0;
 	}

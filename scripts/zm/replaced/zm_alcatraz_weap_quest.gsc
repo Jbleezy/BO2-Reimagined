@@ -52,7 +52,7 @@ grief_soul_catcher_state_manager()
 		self.souls_received = 0;
 		level thread wolf_spit_out_powerup();
 
-		if (is_gametype_active("zgrief"))
+		if (is_encounter())
 		{
 			wait 20;
 		}
@@ -94,7 +94,7 @@ wolf_spit_out_powerup()
 
 	foreach (powerup in powerup_array)
 	{
-		if (powerup == "meat_stink" && level.scr_zm_ui_gametype_obj != "zmeat")
+		if (powerup == "meat_stink" && level.scr_zm_ui_gametype != "zmeat")
 		{
 			continue;
 		}

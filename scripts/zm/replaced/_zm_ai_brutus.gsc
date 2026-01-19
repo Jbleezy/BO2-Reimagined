@@ -61,7 +61,7 @@ init()
 	level.brutus_respawn_after_despawn = 1;
 	level.brutus_in_grief = 0;
 
-	if (getdvar("ui_gametype") == "zstandard" || getdvar("ui_gametype") == "zgrief")
+	if (!is_classic())
 	{
 		level.brutus_in_grief = 1;
 	}
@@ -113,7 +113,7 @@ setup_interaction_matrix()
 	level.interaction_types["perk_machine"].num_times_to_scale = 3;
 	level.interaction_types["perk_machine"].unlock_cost = 2000;
 
-	if (!is_gametype_active("zgrief"))
+	if (!is_encounter())
 	{
 		level.interaction_types["blocker"] = spawnstruct();
 		level.interaction_types["blocker"].priority = 5;
@@ -715,7 +715,7 @@ brutus_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon,
 			{
 				self thread brutus_remove_helmet(vdir);
 
-				if (level.brutus_in_grief && getdvar("ui_gametype") == "zgrief")
+				if (level.brutus_in_grief && is_encounter())
 				{
 					player_points = level.brutus_points_for_helmet;
 				}
@@ -779,7 +779,7 @@ brutus_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon,
 		{
 			self thread brutus_remove_helmet(vectorScale((0, 1, 0), 10));
 
-			if (level.brutus_in_grief && getdvar("ui_gametype") == "zgrief")
+			if (level.brutus_in_grief && is_encounter())
 			{
 				player_points = level.brutus_points_for_helmet;
 			}
@@ -807,7 +807,7 @@ brutus_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon,
 
 brutus_health_increases()
 {
-	if (level.scr_zm_ui_gametype == "zgrief")
+	if (is_encounter())
 	{
 		return;
 	}

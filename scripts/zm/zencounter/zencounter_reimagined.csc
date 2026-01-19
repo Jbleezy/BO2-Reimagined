@@ -5,12 +5,16 @@ main()
 {
 	replaceFunc(clientscripts\mp\gametypes\zgrief::onprecachegametype, scripts\zm\replaced\zgrief::onprecachegametype);
 	replaceFunc(clientscripts\mp\gametypes\zgrief::premain, scripts\zm\replaced\zgrief::premain);
+	replaceFunc(clientscripts\mp\gametypes\zmeat::main, clientscripts\mp\gametypes\zgrief::main);
 
-	enemy_powerup_hud();
+	register_clientfields();
 }
 
-enemy_powerup_hud()
+register_clientfields()
 {
+	registerclientfield("toplayer", "meat_stink", 1, 1, "int", ::meat_stink_cb, 0, 1);
+	registerclientfield("toplayer", "meat_glow", 1, 1, "int", ::meat_glow_cb, 0, 1);
+
 	registerclientfield("toplayer", "powerup_instant_kill_enemy", 1, 2, "int", undefined, 0, 1);
 	registerclientfield("toplayer", "powerup_double_points_enemy", 1, 2, "int", undefined, 0, 1);
 

@@ -97,7 +97,7 @@ random_perk_machine_init()
 
 init_barriers()
 {
-	if (getdvar("g_gametype") == "zgrief" && getdvarintdefault("ui_gametype_pro", 0))
+	if (getdvarint("ui_gametype_pro"))
 	{
 		scripts\zm\locs\loc_common::barrier("collision_wall_128x128x10_standard", (-686, 2653, -120), (0, 90, 0), 1);
 		scripts\zm\locs\loc_common::barrier("p6_zm_tm_barricade_wall_02", (-686, 2653, -184), (0, 0, 0));

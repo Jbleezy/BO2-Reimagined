@@ -299,13 +299,13 @@ CoD.GameModeObjectiveWaypoint.update = function(Menu, ClientInstance)
 	local controller = ClientInstance.controller
 	local clientNum = Engine.GetClientNum(controller)
 	local objectiveFlags = Engine.GetObjectiveGamemodeFlags(Menu, index)
-	local gametypeObj = UIExpression.DvarString(nil, "ui_gametype_obj")
+	local gametype = UIExpression.DvarString(nil, "ui_gametype")
 
 	if objectiveFlags == CoD.GameModeObjectiveWaypoint.FLAG_SHOW then
 		local objectiveIcon = ""
 		local objectiveArrow = "waypoint_circle_arrow"
 
-		if gametypeObj == "zcontainment" then
+		if gametype == "zcontainment" then
 			local objectiveName = Engine.GetObjectiveName(controller, index)
 			local objectiveTeam = Engine.GetObjectiveTeam(Menu, index)
 			local clientTeam = Engine.GetTeamID(controller, clientNum)
@@ -339,7 +339,7 @@ CoD.GameModeObjectiveWaypoint.update = function(Menu, ClientInstance)
 			end
 
 			Menu.zOffset = 40
-		elseif gametypeObj == "zmeat" then
+		elseif gametype == "zmeat" then
 			objectiveIcon = "white_waypoint_grab"
 			Menu.mainImage:setRGB(1, 1, 1)
 			Menu.arrowImage:setRGB(1, 1, 1)

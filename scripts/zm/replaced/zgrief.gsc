@@ -1,7 +1,23 @@
 #include maps\mp\gametypes_zm\zgrief;
 #include maps\mp\_utility;
+#include maps\mp\gametypes_zm\_hud_util;
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
+#include maps\mp\gametypes_zm\_zm_gametype;
+#include maps\mp\zombies\_zm_stats;
+#include maps\mp\gametypes_zm\zmeat;
+#include maps\mp\zombies\_zm_powerups;
+#include maps\mp\zombies\_zm_game_module_meat_utility;
+#include maps\mp\zombies\_zm;
+#include maps\mp\zombies\_zm_game_module;
+#include maps\mp\zombies\_zm_magicbox;
+#include maps\mp\zombies\_zm_weap_cymbal_monkey;
+#include maps\mp\zombies\_zm_laststand;
+#include maps\mp\_demo;
+#include maps\mp\zombies\_zm_zonemgr;
+#include maps\mp\zombies\_zm_audio_announcer;
+#include maps\mp\zombies\_zm_weapons;
+#include maps\mp\zombies\_zm_equipment;
 
 onprecachegametype()
 {
@@ -256,7 +272,7 @@ meat_stink(who, owner)
 			}
 		}
 
-		if (level.scr_zm_ui_gametype_obj == "zmeat")
+		if (level.scr_zm_ui_gametype == "zmeat")
 		{
 			meat_drop(who.origin);
 		}
@@ -295,7 +311,7 @@ meat_stink(who, owner)
 
 	who thread meat_damage_over_time();
 
-	if (level.scr_zm_ui_gametype_obj == "zmeat")
+	if (level.scr_zm_ui_gametype == "zmeat")
 	{
 		objective_setgamemodeflags(who.obj_ind, 3);
 	}
@@ -465,7 +481,7 @@ meat_stink_cleanup_on_downed()
 
 	level notify("attractor_positions_generated");
 
-	if (level.scr_zm_ui_gametype_obj == "zmeat")
+	if (level.scr_zm_ui_gametype == "zmeat")
 	{
 		meat_drop(self.origin);
 	}
@@ -515,7 +531,7 @@ meat_stink_cleanup_on_intermission()
 
 meat_stink_on_ground(position_to_play)
 {
-	if (level.scr_zm_ui_gametype_obj == "zmeat")
+	if (level.scr_zm_ui_gametype == "zmeat")
 	{
 		level.meat_powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop("meat_stink", position_to_play);
 		return;
@@ -541,7 +557,7 @@ meat_stink_player(who, owner)
 	level notify("new_meat_stink_player");
 	level endon("new_meat_stink_player");
 
-	if (level.scr_zm_ui_gametype_obj == "zmeat")
+	if (level.scr_zm_ui_gametype == "zmeat")
 	{
 		level thread meat_stink(who, owner);
 		return;

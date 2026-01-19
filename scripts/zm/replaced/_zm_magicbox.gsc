@@ -47,7 +47,7 @@ treasure_chest_init(start_chest_name)
 		i++;
 	}
 
-	if ((getDvar("g_gametype") == "zgrief" && getDvarIntDefault("ui_gametype_pro", 0)) || !level.enable_magic)
+	if (!level.enable_magic || getdvarint("ui_gametype_pro"))
 	{
 		foreach (chest in level.chests)
 		{

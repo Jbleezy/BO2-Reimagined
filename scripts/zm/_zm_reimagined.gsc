@@ -13,8 +13,16 @@ main()
 	replaceFunc(maps\mp\animscripts\traverse\zm_shared::dotraverse, scripts\zm\replaced\zm_shared::dotraverse);
 	replaceFunc(maps\mp\gametypes_zm\_damagefeedback::onplayerconnect, scripts\zm\replaced\_damagefeedback::onplayerconnect);
 	replaceFunc(maps\mp\gametypes_zm\_globallogic_player::callback_playerconnect, scripts\zm\replaced\_globallogic_player::callback_playerconnect);
+	replaceFunc(maps\mp\gametypes_zm\_globallogic_ui::menuautoassign, scripts\zm\replaced\_globallogic_ui::menuautoassign);
 	replaceFunc(maps\mp\gametypes_zm\_hud::fadetoblackforxsec, scripts\zm\replaced\_hud::fadetoblackforxsec);
 	replaceFunc(maps\mp\gametypes_zm\_hud_message::onplayerconnect, scripts\zm\replaced\_hud_message::onplayerconnect);
+	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::rungametypeprecache, scripts\zm\replaced\_zm_gametype::rungametypeprecache);
+	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::rungametypemain, scripts\zm\replaced\_zm_gametype::rungametypemain);
+	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::post_init_gametype, scripts\zm\replaced\_zm_gametype::post_init_gametype);
+	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::onspawnplayer, scripts\zm\replaced\_zm_gametype::onspawnplayer);
+	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype, scripts\zm\replaced\_zm_gametype::get_player_spawns_for_gametype);
+	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::onplayerspawned, scripts\zm\replaced\_zm_gametype::onplayerspawned);
+	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::menu_onmenuresponse, scripts\zm\replaced\_zm_gametype::menu_onmenuresponse);
 	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::hide_gump_loading_for_hotjoiners, scripts\zm\replaced\_zm_gametype::hide_gump_loading_for_hotjoiners);
 	replaceFunc(maps\mp\zombies\_zm::init_client_flags, scripts\zm\replaced\_zm::init_client_flags);
 	replaceFunc(maps\mp\zombies\_zm::init_fx, scripts\zm\replaced\_zm::init_fx);
@@ -27,6 +35,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm::last_stand_best_pistol, scripts\zm\replaced\_zm::last_stand_best_pistol);
 	replaceFunc(maps\mp\zombies\_zm::can_track_ammo, scripts\zm\replaced\_zm::can_track_ammo);
 	replaceFunc(maps\mp\zombies\_zm::take_additionalprimaryweapon, scripts\zm\replaced\_zm::take_additionalprimaryweapon);
+	replaceFunc(maps\mp\zombies\_zm::getfreespawnpoint, scripts\zm\replaced\_zm::getfreespawnpoint);
 	replaceFunc(maps\mp\zombies\_zm::check_for_valid_spawn_near_team, scripts\zm\replaced\_zm::check_for_valid_spawn_near_team);
 	replaceFunc(maps\mp\zombies\_zm::get_valid_spawn_location, scripts\zm\replaced\_zm::get_valid_spawn_location);
 	replaceFunc(maps\mp\zombies\_zm::player_spawn_protection, scripts\zm\replaced\_zm::player_spawn_protection);
@@ -45,6 +54,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm::check_quickrevive_for_hotjoin, scripts\zm\replaced\_zm::check_quickrevive_for_hotjoin);
 	replaceFunc(maps\mp\zombies\_zm_audio::zmbvoxadd, scripts\zm\replaced\_zm_audio::zmbvoxadd);
 	replaceFunc(maps\mp\zombies\_zm_audio::create_and_play_dialog, scripts\zm\replaced\_zm_audio::create_and_play_dialog);
+	replaceFunc(maps\mp\zombies\_zm_audio_announcer::init_gamemodespecificvox, scripts\zm\replaced\_zm_audio_announcer::init_gamemodespecificvox);
 	replaceFunc(maps\mp\zombies\_zm_audio_announcer::playleaderdialogonplayer, scripts\zm\replaced\_zm_audio_announcer::playleaderdialogonplayer);
 	replaceFunc(maps\mp\zombies\_zm_stats::set_global_stat, scripts\zm\replaced\_zm_stats::set_global_stat);
 	replaceFunc(maps\mp\zombies\_zm_playerhealth::playerhealthregen, scripts\zm\replaced\_zm_playerhealth::playerhealthregen);
@@ -61,6 +71,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_utility::track_players_intersection_tracker, scripts\zm\replaced\_zm_utility::track_players_intersection_tracker);
 	replaceFunc(maps\mp\zombies\_zm_utility::place_navcard, scripts\zm\replaced\_zm_utility::place_navcard);
 	replaceFunc(maps\mp\zombies\_zm_zonemgr::create_spawner_list, scripts\zm\replaced\_zm_zonemgr::create_spawner_list);
+	replaceFunc(maps\mp\zombies\_zm_ffotd::main_start, scripts\zm\replaced\_zm_ffotd::main_start);
 	replaceFunc(maps\mp\zombies\_zm_ffotd::ffotd_melee_miss_func, scripts\zm\replaced\_zm_ffotd::ffotd_melee_miss_func);
 	replaceFunc(maps\mp\zombies\_zm_score::add_to_player_score, scripts\zm\replaced\_zm_score::add_to_player_score);
 	replaceFunc(maps\mp\zombies\_zm_score::minus_to_player_score, scripts\zm\replaced\_zm_score::minus_to_player_score);
@@ -73,7 +84,9 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_laststand::revive_hud_create, scripts\zm\replaced\_zm_laststand::revive_hud_create);
 	replaceFunc(maps\mp\zombies\_zm_blockers::door_buy, scripts\zm\replaced\_zm_blockers::door_buy);
 	replaceFunc(maps\mp\zombies\_zm_blockers::door_opened, scripts\zm\replaced\_zm_blockers::door_opened);
+	replaceFunc(maps\mp\zombies\_zm_blockers::handle_post_board_repair_rewards, scripts\zm\replaced\_zm_blockers::handle_post_board_repair_rewards);
 	replaceFunc(maps\mp\zombies\_zm_blockers::player_fails_blocker_repair_trigger_preamble, scripts\zm\replaced\_zm_blockers::player_fails_blocker_repair_trigger_preamble);
+	replaceFunc(maps\mp\zombies\_zm_blockers::should_delete_zbarriers, scripts\zm\replaced\_zm_blockers::should_delete_zbarriers);
 	replaceFunc(maps\mp\zombies\_zm_weapons::init_weapon_upgrade, scripts\zm\replaced\_zm_weapons::init_weapon_upgrade);
 	replaceFunc(maps\mp\zombies\_zm_weapons::add_dynamic_wallbuy, scripts\zm\replaced\_zm_weapons::add_dynamic_wallbuy);
 	replaceFunc(maps\mp\zombies\_zm_weapons::get_pack_a_punch_weapon_options, scripts\zm\replaced\_zm_weapons::get_pack_a_punch_weapon_options);
@@ -97,6 +110,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_magicbox::trigger_visible_to_player, scripts\zm\replaced\_zm_magicbox::trigger_visible_to_player);
 	replaceFunc(maps\mp\zombies\_zm_magicbox::can_buy_weapon, scripts\zm\replaced\_zm_magicbox::can_buy_weapon);
 	replaceFunc(maps\mp\zombies\_zm_magicbox::weapon_is_dual_wield, scripts\zm\replaced\_zm_magicbox::weapon_is_dual_wield);
+	replaceFunc(maps\mp\zombies\_zm_perks::perk_machine_spawn_init, scripts\zm\replaced\_zm_perks::perk_machine_spawn_init);
 	replaceFunc(maps\mp\zombies\_zm_perks::perks_register_clientfield, scripts\zm\replaced\_zm_perks::perks_register_clientfield);
 	replaceFunc(maps\mp\zombies\_zm_perks::default_vending_precaching, scripts\zm\replaced\_zm_perks::default_vending_precaching);
 	replaceFunc(maps\mp\zombies\_zm_perks::vending_trigger_think, scripts\zm\replaced\_zm_perks::vending_trigger_think);
@@ -148,6 +162,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_spawner::zombie_can_drop_powerups, scripts\zm\replaced\_zm_spawner::zombie_can_drop_powerups);
 	replaceFunc(maps\mp\zombies\_zm_spawner::zombie_complete_emerging_into_playable_area, scripts\zm\replaced\_zm_spawner::zombie_complete_emerging_into_playable_area);
 	replaceFunc(maps\mp\zombies\_zm_spawner::get_number_variants, scripts\zm\replaced\_zm_spawner::get_number_variants);
+	replaceFunc(maps\mp\zombies\_zm_game_module::wait_for_team_death_and_round_end, scripts\zm\replaced\_zm_game_module::wait_for_team_death_and_round_end);
 	replaceFunc(maps\mp\zombies\_zm_ai_basic::find_flesh, scripts\zm\replaced\_zm_ai_basic::find_flesh);
 	replaceFunc(maps\mp\zombies\_zm_ai_basic::inert_wakeup, scripts\zm\replaced\_zm_ai_basic::inert_wakeup);
 	replaceFunc(maps\mp\zombies\_zm_ai_dogs::enable_dog_rounds, scripts\zm\replaced\_zm_ai_dogs::enable_dog_rounds);
@@ -177,8 +192,15 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_chugabud::chugabud_laststand, scripts\zm\replaced\_zm_chugabud::chugabud_laststand);
 	replaceFunc(maps\mp\zombies\_zm_chugabud::is_weapon_available_in_chugabud_corpse, scripts\zm\replaced\_zm_chugabud::is_weapon_available_in_chugabud_corpse);
 
+	init_dvars();
 	perk_changes();
 	powerup_changes();
+	disable_navcards();
+
+	if (is_encounter())
+	{
+		scripts\zm\zencounter\zencounter_reimagined::main();
+	}
 }
 
 init()
@@ -189,7 +211,6 @@ init()
 
 	level.using_solo_revive = 0;
 	level.claymores_max_per_player = 20;
-	level.navcards = undefined;
 	level.powerup_intro_vox = undefined;
 	level.hotjoin_player_setup = undefined;
 	level.player_too_many_players_check = 0;
@@ -225,6 +246,11 @@ init()
 	level thread swap_marathon_perk();
 
 	level thread disable_story_vo();
+
+	if (is_encounter())
+	{
+		scripts\zm\zencounter\zencounter_reimagined::init();
+	}
 
 	if (isDedicated())
 	{
@@ -772,6 +798,26 @@ add_objectives()
 	objective_add(17, "invisible", (0, 0, 0), &"OBJ_GAME_MODE_2");
 }
 
+init_dvars()
+{
+	if (getDvar("character_dialog") == "")
+	{
+		setDvar("character_dialog", 1);
+	}
+
+	if (getDvar("ui_gametype_pro") == "" || !is_encounter())
+	{
+		setDvar("ui_gametype_pro", 0);
+	}
+
+	makedvarserverinfo("ui_gametype_pro");
+	level.scr_zm_ui_gametype_pro = getDvarInt("ui_gametype_pro");
+
+	setDvar("ui_round_number", 1);
+	makedvarserverinfo("ui_round_number");
+	level.scr_zm_ui_round_number = getDvarInt("ui_round_number");
+}
+
 set_dvars()
 {
 	setDvar("playerPushAmount", 1);
@@ -814,8 +860,6 @@ set_dvars()
 
 	setDvar("sv_rateBoostingEnabled", 1);
 	setDvar("sv_rateBoostingForce", 1);
-
-	setDvar("sv_voiceQuality", 9);
 
 	setDvar("g_fix_entity_leaks", 1);
 
@@ -913,7 +957,6 @@ set_client_dvars()
 	    "waypointTimeFadeLUIFix", 1,
 	    "weaponAltWeaponNames", "",
 	    "additionalPrimaryWeaponName", "",
-	    "ui_gametype_obj_lobby", getDvar("ui_gametype_obj"),
 	    "ui_gametype_pro_lobby", getDvar("ui_gametype_pro"));
 
 	self thread set_client_dvar_loop("r_fog");
@@ -1074,7 +1117,7 @@ enemy_counter_hud()
 {
 	flag_wait("hud_visible");
 
-	if (getDvar("g_gametype") == "zgrief")
+	if (is_encounter())
 	{
 		return;
 	}
@@ -1143,7 +1186,7 @@ timer_hud()
 		level waittill("initial_blackscreen_passed");
 	}
 
-	if (getDvar("g_gametype") == "zgrief")
+	if (is_encounter())
 	{
 		level waittill("restart_round_start");
 	}
@@ -1168,7 +1211,7 @@ round_timer_hud_loop()
 	level endon("end_game");
 	level endon("stop_timers");
 
-	if (isDefined(level.scr_zm_ui_gametype_obj) && level.scr_zm_ui_gametype_obj != "zsr")
+	if (is_encounter() && level.scr_zm_ui_gametype != "zsr")
 	{
 		return;
 	}
@@ -1187,7 +1230,7 @@ round_timer_hud_loop()
 		level waittill("initial_blackscreen_passed");
 	}
 
-	if (getDvar("g_gametype") == "zgrief")
+	if (is_encounter())
 	{
 		level waittill("restart_round_start");
 	}
@@ -1196,7 +1239,7 @@ round_timer_hud_loop()
 	{
 		level thread round_timer_hud();
 
-		if (getDvar("g_gametype") == "zgrief")
+		if (is_encounter())
 		{
 			level waittill("restart_round_start");
 		}
@@ -1215,7 +1258,7 @@ round_timer_hud()
 	level notify("round_timer_hud");
 	level endon("round_timer_hud");
 
-	if (getDvar("g_gametype") == "zgrief")
+	if (is_encounter())
 	{
 		level endon("restart_round");
 	}
@@ -1259,7 +1302,7 @@ round_total_timer_hud()
 	level notify("round_total_timer_hud");
 	level endon("round_total_timer_hud");
 
-	if (getDvar("g_gametype") == "zgrief")
+	if (is_encounter())
 	{
 		return;
 	}
@@ -1505,7 +1548,18 @@ bleedout_bar_hud_updatebar(hud)
 
 setscoreboardcolumns_gametype()
 {
-	if (level.scr_zm_ui_gametype != "zgrief")
+	if (is_encounter())
+	{
+		if (level.scr_zm_ui_gametype == "zcontainment" || level.scr_zm_ui_gametype == "zmeat")
+		{
+			setscoreboardcolumns("score", "captures", "killsconfirmed", "downs", "revives");
+		}
+		else
+		{
+			setscoreboardcolumns("score", "killsdenied", "killsconfirmed", "downs", "revives");
+		}
+	}
+	else
 	{
 		setscoreboardcolumns("score", "kills", "headshots", "downs", "revives");
 	}
@@ -1537,7 +1591,7 @@ swap_marathon_perk()
 
 disable_story_vo()
 {
-	if (getDvarIntDefault("character_dialog", 1))
+	if (getdvarint("character_dialog"))
 	{
 		return;
 	}
@@ -1709,24 +1763,6 @@ held_melee_weapon_world_model_fix()
 is_held_melee_weapon_offhand_melee(weaponname)
 {
 	return weaponname == "tazer_knuckles_zm";
-}
-
-disable_bank_teller()
-{
-	level notify("stop_bank_teller");
-	bank_teller_dmg_trig = getent("bank_teller_tazer_trig", "targetname");
-
-	if (IsDefined(bank_teller_dmg_trig))
-	{
-		bank_teller_transfer_trig = getent(bank_teller_dmg_trig.target, "targetname");
-		bank_teller_transfer_trig delete();
-		bank_teller_dmg_trig delete();
-	}
-}
-
-disable_carpenter()
-{
-	arrayremovevalue(level.zombie_powerup_array, "carpenter");
 }
 
 perk_changes()
@@ -2434,6 +2470,29 @@ play_sound_to_nearby_players(alias, range = 500)
 	}
 }
 
+disable_navcards()
+{
+	level._no_navcards = 1;
+}
+
+disable_carpenter()
+{
+	arrayremovevalue(level.zombie_powerup_array, "carpenter");
+}
+
+disable_bank_teller()
+{
+	level notify("stop_bank_teller");
+	bank_teller_dmg_trig = getent("bank_teller_tazer_trig", "targetname");
+
+	if (IsDefined(bank_teller_dmg_trig))
+	{
+		bank_teller_transfer_trig = getent(bank_teller_dmg_trig.target, "targetname");
+		bank_teller_transfer_trig delete();
+		bank_teller_dmg_trig delete();
+	}
+}
+
 buildbuildables()
 {
 	wait 1; // need a wait or else some buildables dont build
@@ -2583,8 +2642,10 @@ get_equipment_cost()
 	{
 		return 2500;
 	}
-
-	return 1000;
+	else
+	{
+		return 1000;
+	}
 }
 
 // adds updated hintstring and functionality

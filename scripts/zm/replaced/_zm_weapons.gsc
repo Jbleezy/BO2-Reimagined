@@ -25,18 +25,24 @@ init_spawnable_weapon_upgrade()
 	}
 
 	match_string = "";
+	gametype = level.scr_zm_ui_gametype;
 	location = level.scr_zm_map_start_location;
+
+	if (is_encounter())
+	{
+		gametype = "zgrief";
+	}
 
 	if ((location == "default" || location == "") && isdefined(level.default_start_location))
 	{
 		location = level.default_start_location;
 	}
 
-	match_string = level.scr_zm_ui_gametype;
+	match_string = gametype;
 
 	if ("" != location)
 	{
-		match_string = match_string + "_" + location;
+		match_string = gametype + "_" + location;
 	}
 
 	match_string_plus_space = " " + match_string;

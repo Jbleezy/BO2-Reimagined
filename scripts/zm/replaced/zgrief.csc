@@ -20,8 +20,7 @@ onprecachegametype()
 
 premain()
 {
-	registerclientfield("toplayer", "meat_stink", 1, 1, "int", ::meat_stink_cb, 0, 1);
-	registerclientfield("toplayer", "meat_glow", 1, 1, "int", ::meat_glow_cb, 0, 1);
+	// removed
 }
 
 meat_stink_cb(localclientnum, oldval, newval, bnewent, binitialsnap, fieldname, bwasdemojump)

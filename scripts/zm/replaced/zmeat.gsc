@@ -66,7 +66,7 @@ item_meat_on_spawn_retrieve_trigger(watcher, player, weaponname)
 
 	level.meat_player = undefined;
 
-	if (level.scr_zm_ui_gametype_obj == "zmeat")
+	if (level.scr_zm_ui_gametype == "zmeat")
 	{
 		objective_setgamemodeflags(player.obj_ind, 1);
 	}

@@ -14,15 +14,39 @@ struct_init()
 	scripts\zm\replaced\utility::register_perk_struct("specialty_scavenger", "zombie_vending_tombstone", (10946, 8308.77, -408), (0, 270, 0));
 	scripts\zm\replaced\utility::register_perk_struct("specialty_weapupgrade", "p6_anim_zm_buildable_pap_on", (12333, 8158, -752), (0, 180, 0));
 
-	ind = 0;
-	respawnpoints = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
+	structs = getstructarray("player_respawn_point", "targetname");
+	respawn_point = undefined;
+	zone = "zone_prr";
 
-	for (i = 0; i < respawnpoints.size; i++)
+	foreach (struct in structs)
 	{
-		if (respawnpoints[i].script_noteworthy == "zone_prr")
+		if (isdefined(struct.script_noteworthy) && struct.script_noteworthy == zone)
 		{
-			ind = i;
+			respawn_point = struct;
 			break;
+		}
+	}
+
+	if (isdefined(respawn_point))
+	{
+		scripts\zm\replaced\utility::register_map_spawn_group(respawn_point.origin, zone, respawn_point.script_int);
+
+		respawn_array = getstructarray(respawn_point.target, "targetname");
+
+		foreach (respawn in respawn_array)
+		{
+			angles = respawn.angles;
+
+			if (respawn.origin[0] < 12200)
+			{
+				angles += (0, 90, 0);
+			}
+			else
+			{
+				angles += (0, -90, 0);
+			}
+
+			scripts\zm\replaced\utility::register_map_spawn(respawn.origin, angles, zone);
 		}
 	}
 
@@ -37,27 +61,6 @@ struct_init()
 	scripts\zm\replaced\utility::register_map_spawn((10160, 7708, -541), (0, 0, 0), zone, 2);
 	scripts\zm\replaced\utility::register_map_spawn((10160, 7644, -541), (0, 0, 0), zone, 2);
 	scripts\zm\replaced\utility::register_map_spawn((10160, 7580, -541), (0, 0, 0), zone, 2);
-
-	zone = "zone_prr";
-	scripts\zm\replaced\utility::register_map_spawn_group(respawnpoints[ind].origin, zone, respawnpoints[ind].script_int);
-
-	respawn_array = getstructarray(respawnpoints[ind].target, "targetname");
-
-	foreach (respawn in respawn_array)
-	{
-		angles = respawn.angles;
-
-		if (respawn.origin[0] < 12200)
-		{
-			angles += (0, 90, 0);
-		}
-		else
-		{
-			angles += (0, -90, 0);
-		}
-
-		scripts\zm\replaced\utility::register_map_spawn(respawn.origin, angles, zone);
-	}
 
 	zone = "zone_pow_warehouse";
 	scripts\zm\replaced\utility::register_map_spawn_group((11033, 8587, -387), zone, 6000);

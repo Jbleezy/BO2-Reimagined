@@ -136,6 +136,10 @@ material,waypoint_revive_arrow
 rawfile,animstatedefs/zm_nuked_dog.asd
 rawfile,shock/grief_stun_zm.shock
 rawfile,zm/gamesettings_zgrief.cfg
+rawfile,zm/gamesettings_zrace.cfg
+rawfile,zm/gamesettings_zcontainment.cfg
+rawfile,zm/gamesettings_zmeat.cfg
+rawfile,zm/gamesettings_zsr.cfg
 rawfile,zm/playeranim.script
 
 stringtable,mp/weaponoptions_zm.csv
@@ -150,7 +154,7 @@ script,scripts/zm/zm_highrise/zm_highrise_reimagined.csc
 script,scripts/zm/zm_prison/zm_prison_reimagined.csc
 script,scripts/zm/zm_buried/zm_buried_reimagined.csc
 script,scripts/zm/zm_tomb/zm_tomb_reimagined.csc
-script,scripts/zm/zgrief/zgrief_reimagined.csc
+script,scripts/zm/zencounter/zencounter_reimagined.csc
 script,scripts/zm/replaced/_explosive_bolt.csc
 script,scripts/zm/replaced/_sticky_grenade.csc
 script,scripts/zm/replaced/_zm.csc
@@ -174,6 +178,9 @@ script,scripts/zm/replaced/zm_tomb_capture_zones.csc
 script,scripts/zm/replaced/zm_tomb_craftables.csc
 script,scripts/zm/replaced/zm_tomb_ee.csc
 script,scripts/zm/replaced/zgrief.csc
+script,clientscripts/mp/gametypes/zrace.csc
+script,clientscripts/mp/gametypes/zcontainment.csc
+script,clientscripts/mp/gametypes/zsr.csc
 
 localize,reimagined
 

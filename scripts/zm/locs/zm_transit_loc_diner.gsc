@@ -11,31 +11,36 @@ struct_init()
 	scripts\zm\replaced\utility::register_perk_struct("specialty_fastreload", "zombie_vending_sleight", (-5470, -7859.5, 0), (0, 270, 0));
 	scripts\zm\replaced\utility::register_perk_struct("specialty_rof", "zombie_vending_doubletap2", (-4170, -7592, -63), (0, 270, 0));
 
-	ind = 0;
-	respawnpoints = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
+	structs = getstructarray("player_respawn_point", "targetname");
+	respawn_point = [];
+	zone = "zone_gas";
 
-	for (i = 0; i < respawnpoints.size; i++)
+	foreach (struct in structs)
 	{
-		if (respawnpoints[i].script_noteworthy == "zone_gas")
+		if (isdefined(struct.script_noteworthy) && struct.script_noteworthy == zone)
 		{
-			ind = i;
+			respawn_point = struct;
 			break;
 		}
 	}
 
-	zone = "zone_gas";
-	scripts\zm\replaced\utility::register_map_spawn_group(respawnpoints[ind].origin, zone, respawnpoints[ind].script_int);
-
-	respawn_array = getstructarray(respawnpoints[ind].target, "targetname");
-
-	foreach (respawn in respawn_array)
+	if (isdefined(respawn_point))
 	{
-		if (respawn.script_int == 2)
-		{
-			respawn.angles += (0, 180, 0);
-		}
+		scripts\zm\replaced\utility::register_map_spawn_group(respawn_point.origin, zone, respawn_point.script_int);
 
-		scripts\zm\replaced\utility::register_map_spawn(respawn.origin, respawn.angles, zone, respawn.script_int);
+		respawn_array = getstructarray(respawn_point.target, "targetname");
+
+		foreach (respawn in respawn_array)
+		{
+			angles = respawn.angles;
+
+			if (respawn.script_int == 2)
+			{
+				angles += (0, 180, 0);
+			}
+
+			scripts\zm\replaced\utility::register_map_spawn(respawn.origin, angles, zone, respawn.script_int);
+		}
 	}
 
 	zone = "zone_roadside_east";
@@ -70,7 +75,7 @@ struct_init()
 		{
 			if (isDefined(object.script_gameobjectname) && object.script_gameobjectname == "zcleansed zturned")
 			{
-				object.script_gameobjectname = "zstandard zgrief zcleansed zturned";
+				object.script_gameobjectname = "zstandard zgrief";
 
 				if (object.origin == (-6460.7, -7115, 6.8))
 				{

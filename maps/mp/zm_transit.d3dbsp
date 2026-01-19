@@ -15377,7 +15377,6 @@
 "origin" "7035 -5614 -32"
 "classname" "script_brushmodel"
 "spawnflags" "1"
-"script_parameters" "race_remove meat_remove"
 "script_angles" "0 -90 0"
 "targetname" "auto2389"
 "script_sound" "zmb_door_fence_open"
@@ -15389,7 +15388,6 @@
 "classname" "script_brushmodel"
 "spawnflags" "1"
 "script_angles" "0 95 0"
-"script_parameters" "race_remove meat_remove"
 "targetname" "auto2389"
 "script_sound" "zmb_door_fence_open"
 "guid" "C13A2614"
@@ -15402,7 +15400,6 @@
 "target" "auto2389"
 "targetname" "zombie_door"
 "zombie_cost" "750"
-"script_parameters" "race_remove meat_remove"
 "guid" "ED75D9BD"
 }
 {
@@ -17448,7 +17445,6 @@
 "script_angles" "0 100 0"
 "targetname" "pow_door_rr"
 "script_string" "rotate"
-"script_parameters" "race_remove meat_remove turned_remove"
 "script_sound" "zmb_small_wood_door"
 "guid" "2F87B6DC"
 }
@@ -19598,7 +19594,6 @@
 "spawnflags" "1"
 "script_noteworthy" "clip"
 "targetname" "auto2434"
-"script_parameters" "race_remove meat_remove"
 "guid" "50DF1FBE"
 }
 {
@@ -26323,7 +26318,6 @@
 "targetname" "pf30_auto2282"
 "spawnflags" "1"
 "angles" "0 0 0"
-"script_parameters" "meat_remove race_remove"
 "script_sound" "zmb_small_wood_door"
 "guid" "AFADEBFB"
 }
@@ -26345,7 +26339,6 @@
 "targetname" "pf30_auto2282"
 "spawnflags" "1"
 "angles" "0 90 0"
-"script_parameters" "meat_remove race_remove"
 "script_sound" "zmb_small_wood_door"
 "guid" "0573D033"
 }
@@ -26357,7 +26350,6 @@
 "targetname" "pf30_auto2282"
 "spawnflags" "1"
 "angles" "0 270 0"
-"script_parameters" "meat_remove race_remove"
 "script_sound" "zmb_small_wood_door"
 "guid" "6C59ACE1"
 }
@@ -26379,7 +26371,6 @@
 "script_angles" "0 -100 0"
 "targetname" "pf30_auto2174"
 "spawnflags" "1"
-"script_parameters" "race_remove meat_remove turned_remove"
 "script_sound" "zmb_bank_door"
 "guid" "480D0C6F"
 }
@@ -26401,7 +26392,6 @@
 "targetname" "pf30_auto2433"
 "spawnflags" "1"
 "angles" "0 90 0"
-"script_parameters" "meat_remove race_remove"
 "guid" "D7756500"
 }
 {
@@ -26412,7 +26402,6 @@
 "targetname" "pf30_auto2433"
 "spawnflags" "1"
 "angles" "0 270 0"
-"script_parameters" "meat_remove race_remove"
 "guid" "FF89FA9C"
 }
 {
@@ -26432,7 +26421,6 @@
 "spawnflags" "1"
 "script_noteworthy" "clip"
 "targetname" "pf30_auto2282"
-"script_parameters" "meat_remove race_remove"
 "guid" "B720FABA"
 }
 {
@@ -26442,7 +26430,6 @@
 "script_noteworthy" "clip"
 "spawnflags" "1"
 "classname" "script_brushmodel"
-"script_parameters" "meat_remove"
 "guid" "B49E7ECC"
 }
 {
@@ -26452,7 +26439,6 @@
 "spawnflags" "1"
 "script_noteworthy" "clip"
 "targetname" "pf30_auto2174"
-"script_parameters" "race_remove meat_remove turned_remove"
 "guid" "8B1E23F8"
 }
 {
@@ -26462,12 +26448,10 @@
 "script_noteworthy" "clip"
 "spawnflags" "1"
 "classname" "script_brushmodel"
-"script_parameters" "meat_remove race_remove"
 "guid" "64E5688E"
 }
 {
 "script_sound" "zmb_bank_door"
-"script_parameters" "race_remove meat_remove turned_remove"
 "origin" "1001.1 -67.9 -40"
 "classname" "script_model"
 "model" "p_cub_door01_wood_fullsize"
@@ -26481,7 +26465,6 @@
 "model" "*121"
 "origin" "1821 228 -4"
 "classname" "script_brushmodel"
-"script_parameters" "race_remove meat_remove"
 "guid" "4C4D9058"
 }
 {
@@ -26489,7 +26472,6 @@
 "origin" "1111 470 16"
 "classname" "script_brushmodel"
 "script_noteworthy" "clip"
-"script_parameters" "race_remove meat_remove turned_remove"
 "targetname" "pf30_auto2174"
 "spawnflags" "1"
 "guid" "55C3A156"
@@ -26545,7 +26527,6 @@
 "targetname" "pf30_auto2174"
 "spawnflags" "1"
 "angles" "0 90 0"
-"script_parameters" "meat_remove race_remove"
 "script_sound" "zmb_small_wood_door"
 "guid" "B9276334"
 }
@@ -27904,7 +27885,6 @@
 "model" "*132"
 "origin" "1852 -828 -5"
 "classname" "script_brushmodel"
-"script_parameters" "meat_remove"
 "spawnflags" "1"
 "guid" "AA051BB9"
 }
@@ -27919,7 +27899,6 @@
 }
 {
 "spawnflags" "1"
-"script_parameters" "meat_remove"
 "origin" "1822 -827 -56"
 "angles" "0 1.00179e-005 0"
 "model" "p6_door_metal_no_decal_left"
@@ -31017,7 +30996,6 @@
 "spawnflags" "1"
 "classname" "script_brushmodel"
 "script_sound" "zmb_power_door"
-"script_parameters" "race_remove"
 "guid" "D8EE6DB3"
 }
 {
@@ -34709,7 +34687,6 @@
 "guid" "9B0CDE0B"
 }
 {
-"script_parameters" "race_remove meat_remove"
 "spawnflags" "1"
 "targetname" "auto2434"
 "script_angles" "0 308.8 0"
@@ -34729,7 +34706,6 @@
 "script_angles" "0 57.4 0"
 "targetname" "auto2434"
 "spawnflags" "1"
-"script_parameters" "race_remove meat_remove"
 "guid" "CA32CD74"
 }
 {
@@ -34854,7 +34830,6 @@
 "script_angles" "0 84.2 0"
 "targetname" "auto2434"
 "spawnflags" "1"
-"script_parameters" "race_remove meat_remove"
 "guid" "9FF98259"
 }
 {
@@ -34870,7 +34845,6 @@
 "script_noteworthy" "clip"
 "spawnflags" "1"
 "targetname" "auto2434"
-"script_parameters" "race_remove meat_remove"
 "guid" "C11A84AE"
 }
 {
@@ -34878,18 +34852,6 @@
 "origin" "8357.2 -6725.4 157.1"
 "classname" "node_pathnode"
 "guid" "74A1CB54"
-}
-{
-"model" "*238"
-"origin" "2328 -477 -61"
-"classname" "trigger_multiple"
-"targetname" "lava_damage"
-"spawnflags" "1"
-"script_noteworthy" "fire"
-"target" "auto2506"
-"script_float" "0.4"
-"script_string" "zrace_town"
-"guid" "4F20C94F"
 }
 {
 "model" "*239"
@@ -39153,18 +39115,6 @@
 "guid" "3DF91BCD"
 }
 {
-"model" "*243"
-"origin" "1721 761 -63"
-"classname" "trigger_multiple"
-"targetname" "lava_damage"
-"spawnflags" "1"
-"script_noteworthy" "fire"
-"target" "auto2510"
-"script_float" "0.4"
-"script_string" "zrace_town"
-"guid" "8ACC2EF1"
-}
-{
 "model" "*244"
 "origin" "1724 757 -60"
 "classname" "info_volume"
@@ -42779,17 +42729,6 @@
 "guid" "01176FAE"
 }
 {
-"model" "*253"
-"origin" "2865 -442 -123"
-"classname" "trigger_multiple"
-"targetname" "lava_damage"
-"spawnflags" "1"
-"script_noteworthy" "fire"
-"script_float" "0.1"
-"script_string" "zrace_town"
-"guid" "7E0716EB"
-}
-{
 "origin" "-7751 5084 -24"
 "classname" "node_pathnode"
 "guid" "7C72F35E"
@@ -45352,18 +45291,6 @@
 "guid" "B401457A"
 }
 {
-"model" "*275"
-"origin" "1517 451 -68"
-"classname" "trigger_multiple"
-"targetname" "lava_damage"
-"spawnflags" "1"
-"script_noteworthy" "fire"
-"target" "auto2518"
-"script_float" "0.4"
-"script_string" "zrace_town"
-"guid" "F653EF56"
-}
-{
 "model" "*276"
 "origin" "840 -504 -57"
 "classname" "info_volume"
@@ -45386,30 +45313,6 @@
 "script_noteworthy" "lava_volume"
 "classname" "info_volume"
 "guid" "40C7DD16"
-}
-{
-"model" "*279"
-"origin" "836 -504 -65"
-"classname" "trigger_multiple"
-"targetname" "lava_damage"
-"spawnflags" "1"
-"script_noteworthy" "fire"
-"script_float" "0.4"
-"script_string" "zrace_town"
-"target" "auto2521"
-"guid" "72A4C10C"
-}
-{
-"model" "*280"
-"origin" "1408 -1006 -57"
-"classname" "trigger_multiple"
-"targetname" "lava_damage"
-"spawnflags" "1"
-"script_noteworthy" "fire"
-"script_float" "0.4"
-"script_string" "zrace_town"
-"target" "auto2520"
-"guid" "CE62F237"
 }
 {
 "model" "*281"
@@ -46405,198 +46308,6 @@
 }
 {
 "classname" "script_struct"
-"origin" "-11376.4 -372.7 243"
-"angles" "0 82.2 0"
-"targetname" "race_transit_tunnel_team1_spawn"
-"script_int" "1"
-"script_noteworthy" "initial_spawn"
-"script_string" "zrace_tunnel"
-"_color" "1 0 1"
-"radius" "32"
-"guid" "558F2D35"
-}
-{
-"classname" "script_struct"
-"origin" "-11308.3 -384 243"
-"angles" "0 82.2 0"
-"targetname" "race_transit_tunnel_team2_spawn"
-"script_int" "2"
-"script_noteworthy" "initial_spawn"
-"script_string" "zrace_tunnel"
-"_color" "1 1 0"
-"radius" "32"
-"guid" "0BBC81DC"
-}
-{
-"classname" "script_struct"
-"origin" "-11367.7 -309.3 243"
-"angles" "0 82.2 0"
-"targetname" "race_transit_tunnel_team1_spawn"
-"script_int" "1"
-"script_noteworthy" "initial_spawn"
-"script_string" "zrace_tunnel"
-"_color" "1 0 1"
-"radius" "32"
-"guid" "03E6B159"
-}
-{
-"classname" "script_struct"
-"origin" "-11299.6 -320.6 243"
-"angles" "0 82.2 0"
-"targetname" "race_transit_tunnel_team2_spawn"
-"script_int" "2"
-"script_noteworthy" "initial_spawn"
-"script_string" "zrace_tunnel"
-"_color" "1 1 0"
-"radius" "32"
-"guid" "89F50442"
-}
-{
-"classname" "script_struct"
-"origin" "-11450.9 -363.5 243"
-"angles" "0 82.2 0"
-"targetname" "race_transit_tunnel_team1_spawn"
-"script_int" "1"
-"script_noteworthy" "initial_spawn"
-"script_string" "zrace_tunnel"
-"_color" "1 0 1"
-"radius" "32"
-"guid" "840092AE"
-}
-{
-"classname" "script_struct"
-"origin" "-11249.6 -395.4 243"
-"angles" "0 82.2 0"
-"targetname" "race_transit_tunnel_team2_spawn"
-"script_int" "2"
-"script_noteworthy" "initial_spawn"
-"script_string" "zrace_tunnel"
-"_color" "1 1 0"
-"radius" "32"
-"guid" "B308370F"
-}
-{
-"classname" "script_struct"
-"origin" "-11442.2 -300.1 243"
-"angles" "0 82.2 0"
-"targetname" "race_transit_tunnel_team1_spawn"
-"script_int" "1"
-"script_noteworthy" "initial_spawn"
-"script_string" "zrace_tunnel"
-"_color" "1 0 1"
-"radius" "32"
-"guid" "87D612BC"
-}
-{
-"classname" "script_struct"
-"origin" "-11241 -332 243"
-"angles" "0 82.2 0"
-"targetname" "race_transit_tunnel_team2_spawn"
-"script_int" "2"
-"script_noteworthy" "initial_spawn"
-"script_string" "zrace_tunnel"
-"_color" "1 1 0"
-"radius" "32"
-"guid" "6E15287C"
-}
-{
-"classname" "script_struct"
-"origin" "-10566.4 2434.4 228.5"
-"angles" "0 335 0"
-"targetname" "meat_tunnel_team_1_player_spawns"
-"script_string" "zmeat_tunnel"
-"script_int" "1"
-"_color" "1 0 1"
-"script_noteworthy" "initial_spawn"
-"radius" "32"
-"guid" "86347EEE"
-}
-{
-"classname" "script_struct"
-"origin" "-10593.8 2379.3 228.5"
-"angles" "0 335 0"
-"targetname" "meat_tunnel_team_1_player_spawns"
-"script_string" "zmeat_tunnel"
-"script_int" "1"
-"_color" "1 0 1"
-"script_noteworthy" "initial_spawn"
-"radius" "32"
-"guid" "B4AFAC0E"
-}
-{
-"classname" "script_struct"
-"origin" "-10622.4 2321.5 228.5"
-"angles" "0 335 0"
-"targetname" "meat_tunnel_team_1_player_spawns"
-"script_string" "zmeat_tunnel"
-"script_int" "1"
-"_color" "1 0 1"
-"script_noteworthy" "initial_spawn"
-"radius" "32"
-"guid" "A29120B2"
-}
-{
-"classname" "script_struct"
-"origin" "-10654.3 2251.9 228.5"
-"angles" "0 335 0"
-"targetname" "meat_tunnel_team_1_player_spawns"
-"script_string" "zmeat_tunnel"
-"script_int" "1"
-"_color" "1 0 1"
-"script_noteworthy" "initial_spawn"
-"radius" "32"
-"guid" "14F0CA92"
-}
-{
-"classname" "script_struct"
-"origin" "-10026.3 1944.1 228.5"
-"angles" "0 155 0"
-"targetname" "meat_tunnel_team_2_player_spawns"
-"script_string" "zmeat_tunnel"
-"script_int" "2"
-"_color" "1 1 0"
-"script_noteworthy" "initial_spawn"
-"radius" "32"
-"guid" "D815AA62"
-}
-{
-"classname" "script_struct"
-"origin" "-9999 1999.2 228.5"
-"angles" "0 155 0"
-"targetname" "meat_tunnel_team_2_player_spawns"
-"script_string" "zmeat_tunnel"
-"script_int" "2"
-"_color" "1 1 0"
-"script_noteworthy" "initial_spawn"
-"radius" "32"
-"guid" "81508EC5"
-}
-{
-"classname" "script_struct"
-"origin" "-9970.3 2057 228.5"
-"angles" "0 155 0"
-"targetname" "meat_tunnel_team_2_player_spawns"
-"script_string" "zmeat_tunnel"
-"script_int" "2"
-"_color" "1 1 0"
-"script_noteworthy" "initial_spawn"
-"radius" "32"
-"guid" "38B9E337"
-}
-{
-"classname" "script_struct"
-"origin" "-9938.5 2126.6 228.5"
-"angles" "0 155 0"
-"targetname" "meat_tunnel_team_2_player_spawns"
-"script_string" "zmeat_tunnel"
-"script_int" "2"
-"_color" "1 1 0"
-"script_noteworthy" "initial_spawn"
-"radius" "32"
-"guid" "BA2AD013"
-}
-{
-"classname" "script_struct"
 "targetname" "cornfield_nml_player_spawns"
 "angles" "0 180 0"
 "origin" "10384 -192 -189.17"
@@ -46630,324 +46341,6 @@
 "script_noteworthy" "initial_spawn"
 "script_string" "zgrief_cornfield znml_cornfield"
 "guid" "15190476"
-}
-{
-"classname" "script_struct"
-"origin" "8058.1 -9724.3 20.9"
-"targetname" "race_transit_farm_team2_spawn"
-"_color" "1 1 0.501961"
-"angles" "0 120 0"
-"script_noteworthy" "initial_spawn"
-"script_string" "zrace_farm"
-"script_int" "2"
-"guid" "8C7027F8"
-}
-{
-"classname" "script_struct"
-"origin" "8055.4 -9647.4 10.4"
-"targetname" "race_transit_farm_team2_spawn"
-"_color" "1 1 0.501961"
-"angles" "0 120 0"
-"script_noteworthy" "initial_spawn"
-"script_string" "zrace_farm"
-"script_int" "2"
-"guid" "DD6772B2"
-}
-{
-"classname" "script_struct"
-"origin" "8167.1 -9572.1 -0.8"
-"targetname" "race_transit_farm_team2_spawn"
-"_color" "1 1 0.501961"
-"angles" "0 120 0"
-"script_noteworthy" "initial_spawn"
-"script_string" "zrace_farm"
-"script_int" "2"
-"guid" "E03D99C1"
-}
-{
-"classname" "script_struct"
-"origin" "8171.7 -9672.2 12.9"
-"targetname" "race_transit_farm_team2_spawn"
-"_color" "1 1 0.501961"
-"angles" "0 120 0"
-"script_noteworthy" "initial_spawn"
-"script_string" "zrace_farm"
-"script_int" "2"
-"guid" "166286D1"
-}
-{
-"classname" "script_struct"
-"origin" "8113.5 -9703.9 17.7"
-"targetname" "race_transit_farm_team1_spawn"
-"_color" "1 0 1"
-"angles" "0 116.1 0"
-"script_noteworthy" "initial_spawn"
-"script_string" "zrace_farm"
-"script_int" "1"
-"guid" "63B9441B"
-}
-{
-"classname" "script_struct"
-"origin" "8097 -9619.7 6.3"
-"targetname" "race_transit_farm_team1_spawn"
-"_color" "1 0 1"
-"angles" "0 116.1 0"
-"script_noteworthy" "initial_spawn"
-"script_string" "zrace_farm"
-"script_int" "1"
-"guid" "B18A3B39"
-}
-{
-"classname" "script_struct"
-"origin" "8235.5 -9635.8 5.7"
-"targetname" "race_transit_farm_team1_spawn"
-"_color" "1 0 1"
-"angles" "0 116.1 0"
-"script_noteworthy" "initial_spawn"
-"script_string" "zrace_farm"
-"script_int" "1"
-"guid" "68DC62B8"
-}
-{
-"classname" "script_struct"
-"origin" "8226 -9540 -4.6"
-"targetname" "race_transit_farm_team1_spawn"
-"_color" "1 0 1"
-"angles" "0 116.1 0"
-"script_noteworthy" "initial_spawn"
-"script_string" "zrace_farm"
-"script_int" "1"
-"guid" "44D06167"
-}
-{
-"classname" "script_struct"
-"origin" "8405.6 -6423.1 139.38"
-"angles" "0 125 0"
-"targetname" "meat_farm_team_2_player_spawns"
-"script_string" "zmeat_farm"
-"script_int" "2"
-"_color" "1 1 0"
-"script_noteworthy" "initial_spawn"
-"guid" "0FFE12B0"
-}
-{
-"classname" "script_struct"
-"origin" "8511.4 -6337.4 137.06"
-"angles" "0 125 0"
-"targetname" "meat_farm_team_2_player_spawns"
-"script_string" "zmeat_farm"
-"script_int" "2"
-"_color" "1 1 0"
-"script_noteworthy" "initial_spawn"
-"guid" "B93940EC"
-}
-{
-"classname" "script_struct"
-"origin" "8459.3 -6412.2 138.89"
-"angles" "0 125 0"
-"targetname" "meat_farm_team_2_player_spawns"
-"script_string" "zmeat_farm"
-"script_int" "2"
-"_color" "1 1 0"
-"script_noteworthy" "initial_spawn"
-"guid" "932C3AE1"
-}
-{
-"classname" "script_struct"
-"origin" "8494.7 -6386.2 140.24"
-"angles" "0 125 0"
-"targetname" "meat_farm_team_2_player_spawns"
-"script_string" "zmeat_farm"
-"script_int" "2"
-"_color" "1 1 0"
-"script_noteworthy" "initial_spawn"
-"guid" "0BF2A852"
-}
-{
-"classname" "script_struct"
-"origin" "1842.6 1217.5 -43"
-"targetname" "race_transit_town_team2_spawn"
-"_color" "1 1 0"
-"angles" "0 244.8 0"
-"script_noteworthy" "initial_spawn"
-"script_string" "zrace_town"
-"script_int" "2"
-"radius" "32"
-"guid" "394C1CFB"
-}
-{
-"classname" "script_struct"
-"origin" "1891.4 1194.5 -43"
-"targetname" "race_transit_town_team2_spawn"
-"_color" "1 1 0"
-"angles" "0 244.8 0"
-"script_noteworthy" "initial_spawn"
-"script_string" "zrace_town"
-"script_int" "2"
-"radius" "32"
-"guid" "BCFFC4BF"
-}
-{
-"classname" "script_struct"
-"origin" "1724.5 1264.5 -46"
-"targetname" "race_transit_town_team2_spawn"
-"_color" "1 1 0"
-"angles" "0 270 0"
-"script_noteworthy" "initial_spawn"
-"script_string" "zrace_town"
-"script_int" "2"
-"radius" "32"
-"guid" "C2E43C87"
-}
-{
-"classname" "script_struct"
-"origin" "1788.5 1264.5 -46"
-"targetname" "race_transit_town_team2_spawn"
-"_color" "1 1 0"
-"angles" "0 270 0"
-"script_noteworthy" "initial_spawn"
-"script_string" "zrace_town"
-"script_int" "2"
-"radius" "32"
-"guid" "D6F076E8"
-}
-{
-"classname" "script_struct"
-"origin" "1535 1266 -46"
-"targetname" "race_transit_town_team1_spawn"
-"_color" "1 0 1"
-"angles" "0 270 0"
-"script_noteworthy" "initial_spawn"
-"script_string" "zrace_town"
-"script_int" "1"
-"radius" "32"
-"guid" "E0B4922A"
-}
-{
-"classname" "script_struct"
-"origin" "1589 1266 -46"
-"targetname" "race_transit_town_team1_spawn"
-"_color" "1 0 1"
-"angles" "0 270 0"
-"script_noteworthy" "initial_spawn"
-"script_string" "zrace_town"
-"script_int" "1"
-"radius" "32"
-"guid" "A464A495"
-}
-{
-"classname" "script_struct"
-"origin" "1395.5 1258.5 -46"
-"targetname" "race_transit_town_team1_spawn"
-"_color" "1 0 1"
-"angles" "0 270 0"
-"script_noteworthy" "initial_spawn"
-"script_string" "zrace_town"
-"script_int" "1"
-"radius" "32"
-"guid" "0509797F"
-}
-{
-"classname" "script_struct"
-"origin" "1459.5 1258.5 -46"
-"targetname" "race_transit_town_team1_spawn"
-"_color" "1 0 1"
-"angles" "0 270 0"
-"script_noteworthy" "initial_spawn"
-"script_string" "zrace_town"
-"script_int" "1"
-"radius" "32"
-"guid" "47E3F349"
-}
-{
-"classname" "script_struct"
-"origin" "1387 -1389 -39.5"
-"angles" "0 90 0"
-"targetname" "meat_2_team_1_player_spawns"
-"script_string" "zmeat_town"
-"script_int" "1"
-"_color" "1 0 1"
-"script_noteworthy" "initial_spawn"
-"guid" "875423AC"
-}
-{
-"classname" "script_struct"
-"origin" "536 -414.5 -34"
-"angles" "0 0 0"
-"targetname" "meat_2_team_1_player_spawns"
-"script_string" "zmeat_town"
-"script_int" "1"
-"_color" "1 0 1"
-"script_noteworthy" "initial_spawn"
-"guid" "01A53D5B"
-}
-{
-"classname" "script_struct"
-"origin" "534.5 -479 -41"
-"angles" "0 0 0"
-"targetname" "meat_2_team_1_player_spawns"
-"script_string" "zmeat_town"
-"script_int" "1"
-"_color" "1 0 1"
-"script_noteworthy" "initial_spawn"
-"guid" "4782FEF5"
-}
-{
-"classname" "script_struct"
-"origin" "1461.5 -1391.5 -39.5"
-"angles" "0 90 0"
-"targetname" "meat_2_team_1_player_spawns"
-"script_string" "zmeat_town"
-"script_int" "1"
-"_color" "1 0 1"
-"script_noteworthy" "initial_spawn"
-"guid" "F70A1579"
-}
-{
-"targetname" "meat_2_team_2_player_spawns"
-"angles" "0 270 0"
-"origin" "1506 666 -39.5"
-"classname" "script_struct"
-"script_string" "zmeat_town"
-"script_int" "2"
-"_color" "1 1 0"
-"script_noteworthy" "initial_spawn"
-"radius" "32"
-"guid" "EDC77508"
-}
-{
-"targetname" "meat_2_team_2_player_spawns"
-"angles" "0 180 0"
-"origin" "2341 -493.5 -33.8"
-"classname" "script_struct"
-"script_string" "zmeat_town"
-"script_int" "2"
-"_color" "1 1 0"
-"script_noteworthy" "initial_spawn"
-"guid" "B602A25B"
-}
-{
-"targetname" "meat_2_team_2_player_spawns"
-"angles" "0 180 0"
-"origin" "2342.5 -429 -34"
-"classname" "script_struct"
-"script_string" "zmeat_town"
-"script_int" "2"
-"_color" "1 1 0"
-"script_noteworthy" "initial_spawn"
-"guid" "72468664"
-}
-{
-"targetname" "meat_2_team_2_player_spawns"
-"angles" "0 270 0"
-"origin" "1431 665.5 -39.5"
-"classname" "script_struct"
-"script_string" "zmeat_town"
-"script_int" "2"
-"_color" "1 1 0"
-"script_noteworthy" "initial_spawn"
-"radius" "32"
-"guid" "A8CC70D7"
 }
 {
 "classname" "script_struct"
@@ -47248,94 +46641,6 @@
 "classname" "script_struct"
 "radius" "32"
 "guid" "7CCEA7D1"
-}
-{
-"classname" "script_struct"
-"origin" "10149.7 7687.8 -542"
-"targetname" "race_transit_power_team1_spawn"
-"_color" "1 0 1"
-"angles" "0 339.6 0"
-"script_noteworthy" "initial_spawn"
-"script_string" "zrace_power"
-"script_int" "1"
-"guid" "43159B3F"
-}
-{
-"classname" "script_struct"
-"origin" "10168.4 7738.4 -542"
-"targetname" "race_transit_power_team1_spawn"
-"_color" "1 0 1"
-"angles" "0 339.6 0"
-"script_noteworthy" "initial_spawn"
-"script_string" "zrace_power"
-"script_int" "1"
-"guid" "2B3E38CC"
-}
-{
-"classname" "script_struct"
-"origin" "10108 7554.4 -542"
-"targetname" "race_transit_power_team1_spawn"
-"_color" "1 0 1"
-"angles" "0 339.6 0"
-"script_noteworthy" "initial_spawn"
-"script_string" "zrace_power"
-"script_int" "1"
-"guid" "762603D1"
-}
-{
-"classname" "script_struct"
-"origin" "10130.4 7614.4 -542"
-"targetname" "race_transit_power_team1_spawn"
-"_color" "1 0 1"
-"angles" "0 339.6 0"
-"script_noteworthy" "initial_spawn"
-"script_string" "zrace_power"
-"script_int" "1"
-"guid" "B155C5D7"
-}
-{
-"script_int" "2"
-"script_string" "zrace_power"
-"script_noteworthy" "initial_spawn"
-"angles" "0 11.2 0"
-"_color" "1 1 0"
-"targetname" "race_transit_power_team2_spawn"
-"origin" "10095.5 7416.6 -555"
-"classname" "script_struct"
-"guid" "1860A7C6"
-}
-{
-"script_int" "2"
-"script_string" "zrace_power"
-"script_noteworthy" "initial_spawn"
-"angles" "0 11.2 0"
-"_color" "1 1 0"
-"targetname" "race_transit_power_team2_spawn"
-"origin" "10085.1 7469.5 -555"
-"classname" "script_struct"
-"guid" "CB6245A4"
-}
-{
-"script_int" "2"
-"script_string" "zrace_power"
-"script_noteworthy" "initial_spawn"
-"angles" "0 36.4 0"
-"_color" "1 1 0"
-"targetname" "race_transit_power_team2_spawn"
-"origin" "10127.8 7293.6 -555"
-"classname" "script_struct"
-"guid" "89C9C88A"
-}
-{
-"script_int" "2"
-"script_string" "zrace_power"
-"script_noteworthy" "initial_spawn"
-"angles" "0 36.4 0"
-"_color" "1 1 0"
-"targetname" "race_transit_power_team2_spawn"
-"origin" "10089.8 7345.1 -555"
-"classname" "script_struct"
-"guid" "3090FBE2"
 }
 {
 "_color" "0.000000 0.000000 1.000000"
@@ -47792,50 +47097,6 @@
 "_color" "1 0 1"
 "radius" "32"
 "guid" "2C528520"
-}
-{
-"classname" "script_struct"
-"origin" "8220 -5107 76"
-"angles" "0 270 0"
-"targetname" "meat_farm_team_1_player_spawns"
-"script_string" "zmeat_farm"
-"script_int" "1"
-"_color" "1 0 1"
-"script_noteworthy" "initial_spawn"
-"guid" "7020EAC7"
-}
-{
-"classname" "script_struct"
-"origin" "8165 -5102 76"
-"angles" "0 270 0"
-"targetname" "meat_farm_team_1_player_spawns"
-"script_string" "zmeat_farm"
-"script_int" "1"
-"_color" "1 0 1"
-"script_noteworthy" "initial_spawn"
-"guid" "11EA8BF0"
-}
-{
-"targetname" "meat_farm_team_1_player_spawns"
-"angles" "0 270 0"
-"origin" "8263.5 -5109 76"
-"classname" "script_struct"
-"script_string" "zmeat_farm"
-"script_int" "1"
-"_color" "1 0 1"
-"script_noteworthy" "initial_spawn"
-"guid" "65933CDF"
-}
-{
-"targetname" "meat_farm_team_1_player_spawns"
-"angles" "0 270 0"
-"origin" "8326.5 -5102.5 76"
-"classname" "script_struct"
-"script_string" "zmeat_farm"
-"script_int" "1"
-"_color" "1 0 1"
-"script_noteworthy" "initial_spawn"
-"guid" "A35913DD"
 }
 {
 "_color" "1 0 1"
@@ -49840,7 +49101,6 @@
 "targetname" "zone_pri2"
 "script_noteworthy" "player_volume"
 "target" "zone_pri2_spawners"
-"script_parameters" "race_remove meat_remove"
 "guid" "AB041305"
 }
 {
@@ -52992,44 +52252,6 @@
 "guid" "CEAAC437"
 }
 {
-"script_noteworthy" "zrace_town"
-"angles" "0 1.00179e-005 0"
-"origin" "643.5 -767 3"
-"classname" "script_struct"
-"zombie_weapon_upgrade" "870mcs_zm"
-"targetname" "weapon_upgrade"
-"target" "pf1899_auto37"
-"guid" "834D841B"
-}
-{
-"script_noteworthy" "zrace_town"
-"targetname" "pf1899_auto37"
-"classname" "script_struct"
-"model" "t6_wpn_shotty_870mcs_world"
-"angles" "0 1.00179e-005 0"
-"origin" "643.5 -767 3"
-"guid" "CEAAC437"
-}
-{
-"script_noteworthy" "zrace_town"
-"angles" "0 325.2 0"
-"origin" "1738.11 -754.154 -4"
-"classname" "script_struct"
-"zombie_weapon_upgrade" "870mcs_zm"
-"targetname" "weapon_upgrade"
-"target" "pf1900_auto37"
-"guid" "834D841B"
-}
-{
-"script_noteworthy" "zrace_town"
-"targetname" "pf1900_auto37"
-"classname" "script_struct"
-"model" "t6_wpn_shotty_870mcs_world"
-"angles" "0 325.2 0"
-"origin" "1738.11 -754.154 -4"
-"guid" "CEAAC437"
-}
-{
 "script_noteworthy" "zclassic_transit"
 "angles" "0 90.2 0"
 "origin" "8035.38 -5316.37 110"
@@ -53072,49 +52294,7 @@
 "guid" "C15AD568"
 }
 {
-"script_noteworthy" "zrace_town"
-"require_look_from" "1"
-"origin" "1801 564.2 3"
-"angles" "0 270 0"
-"model" "t6_wpn_ar_saritch_world"
-"classname" "script_struct"
-"targetname" "pf1903_auto37"
-"target" "pf1903_auto38"
-"guid" "7004ED06"
-}
-{
-"script_noteworthy" "zrace_town"
-"require_look_from" "1"
-"script_width" "40"
-"origin" "1801 564.2 3"
-"angles" "0 270 0"
-"classname" "script_struct"
-"zombie_weapon_upgrade" "saritch_zm"
-"targetname" "weapon_upgrade"
-"target" "pf1903_auto37"
-"guid" "C15AD568"
-}
-{
-"script_noteworthy" "zrace_town"
-"angles" "0 90 0"
-"origin" "2819.6 -1304.9 12.5"
-"classname" "script_struct"
-"zombie_weapon_upgrade" "insas_zm"
-"targetname" "weapon_upgrade"
-"target" "pf1904_auto37"
-"guid" "F0390DB3"
-}
-{
-"script_noteworthy" "zrace_town"
-"targetname" "pf1904_auto37"
-"classname" "script_struct"
-"model" "t6_wpn_smg_msmc_world"
-"angles" "0 90 0"
-"origin" "2819.6 -1304.9 12.5"
-"guid" "6D2A1B25"
-}
-{
-"script_noteworthy" "zrace_town, zstandard_town, zgrief_town"
+"script_noteworthy" "zstandard_town, zgrief_town"
 "angles" "0 270 0"
 "origin" "611.1 -993.1 181"
 "classname" "script_struct"
@@ -53124,7 +52304,7 @@
 "guid" "F0390DB3"
 }
 {
-"script_noteworthy" "zrace_town, zstandard_town, zgrief_town"
+"script_noteworthy" "zstandard_town, zgrief_town"
 "targetname" "pf1905_auto37"
 "classname" "script_struct"
 "model" "t6_wpn_smg_msmc_world"
@@ -53150,25 +52330,6 @@
 "angles" "0 270 0"
 "origin" "611.1 -993.1 181"
 "guid" "6D2A1B25"
-}
-{
-"script_noteworthy" "zrace_town"
-"origin" "1068.3 -1241 5"
-"angles" "0 270 0"
-"model" "t6_wpn_ar_sig556_world"
-"classname" "script_struct"
-"targetname" "pf1906_auto37"
-"guid" "45A420E3"
-}
-{
-"script_noteworthy" "zrace_town"
-"origin" "1068.3 -1241 5"
-"angles" "0 270 0"
-"classname" "script_struct"
-"zombie_weapon_upgrade" "sig556_zm"
-"targetname" "weapon_upgrade"
-"target" "pf1906_auto37"
-"guid" "FF59A3C9"
 }
 {
 "script_noteworthy" "zclassic_transit"
@@ -53207,25 +52368,6 @@
 "angles" "0 270 0"
 "origin" "1068.3 -1245 5"
 "guid" "6D2A1B25"
-}
-{
-"script_noteworthy" "zrace_town"
-"origin" "1968.5 -1280.8 5"
-"angles" "0 180 0"
-"model" "t6_wpn_ar_sig556_world"
-"classname" "script_struct"
-"targetname" "pf1909_auto37"
-"guid" "45A420E3"
-}
-{
-"script_noteworthy" "zrace_town"
-"origin" "1968.5 -1280.8 5"
-"angles" "0 180 0"
-"classname" "script_struct"
-"zombie_weapon_upgrade" "sig556_zm"
-"targetname" "weapon_upgrade"
-"target" "pf1909_auto37"
-"guid" "FF59A3C9"
 }
 {
 "script_noteworthy" "zstandard_transit, zgrief_transit"
@@ -53285,29 +52427,6 @@
 "guid" "FF59A3C9"
 }
 {
-"script_noteworthy" "zrace_town"
-"require_look_from" "1"
-"origin" "628 446 15"
-"angles" "0 270 0"
-"model" "t6_wpn_ar_saritch_world"
-"classname" "script_struct"
-"targetname" "pf1912_auto37"
-"target" "pf1912_auto38"
-"guid" "7004ED06"
-}
-{
-"script_noteworthy" "zrace_town"
-"require_look_from" "1"
-"script_width" "40"
-"origin" "628 446 15"
-"angles" "0 270 0"
-"classname" "script_struct"
-"zombie_weapon_upgrade" "saritch_zm"
-"targetname" "weapon_upgrade"
-"target" "pf1912_auto37"
-"guid" "C15AD568"
-}
-{
 "script_noteworthy" "zstandard_town, zgrief_town"
 "origin" "2411 438 4"
 "angles" "0 180 0"
@@ -53325,82 +52444,6 @@
 "angles" "0 180 0"
 "origin" "2419 438 4"
 "guid" "D1EECB49"
-}
-{
-"script_noteworthy" "zrace_farm"
-"angles" "0 300.6 0"
-"origin" "7903.36 -6574.63 177"
-"classname" "script_struct"
-"zombie_weapon_upgrade" "insas_zm"
-"targetname" "weapon_upgrade"
-"target" "pf1914_auto37"
-"guid" "F0390DB3"
-}
-{
-"script_noteworthy" "zrace_farm"
-"targetname" "pf1914_auto37"
-"classname" "script_struct"
-"model" "t6_wpn_smg_msmc_world"
-"angles" "0 300.6 0"
-"origin" "7903.36 -6574.63 177"
-"guid" "6D2A1B25"
-}
-{
-"script_noteworthy" "zrace_farm"
-"angles" "0 1.00179e-005 0"
-"origin" "8312 -5420 110"
-"classname" "script_struct"
-"zombie_weapon_upgrade" "vector_zm"
-"targetname" "weapon_upgrade"
-"target" "pf1915_auto37"
-"guid" "5018227C"
-}
-{
-"script_noteworthy" "zrace_farm"
-"targetname" "pf1915_auto37"
-"classname" "script_struct"
-"model" "t6_wpn_smg_vector_world"
-"angles" "0 1.00179e-005 0"
-"origin" "8312 -5420 110"
-"guid" "FCC3AFC8"
-}
-{
-"script_noteworthy" "zrace_farm"
-"angles" "0 210 0"
-"origin" "8171.27 -6605.7 179"
-"classname" "script_struct"
-"zombie_weapon_upgrade" "870mcs_zm"
-"targetname" "weapon_upgrade"
-"target" "pf1916_auto37"
-"guid" "834D841B"
-}
-{
-"script_noteworthy" "zrace_farm"
-"targetname" "pf1916_auto37"
-"classname" "script_struct"
-"model" "t6_wpn_shotty_870mcs_world"
-"angles" "0 210 0"
-"origin" "8171.27 -6605.7 179"
-"guid" "CEAAC437"
-}
-{
-"script_noteworthy" "zrace_farm"
-"angles" "0 90.2 0"
-"origin" "8035.37 -5316.88 110"
-"classname" "script_struct"
-"zombie_weapon_upgrade" "vector_zm"
-"targetname" "weapon_upgrade"
-"target" "pf1917_auto37"
-"guid" "5018227C"
-}
-{
-"script_noteworthy" "zrace_farm"
-"targetname" "pf1917_auto37"
-"classname" "script_struct"
-"model" "t6_wpn_smg_vector_world"
-"angles" "0 90.2 0"
-"origin" "8035.37 -5316.88 110"
-"guid" "FCC3AFC8"
 }
 {
 "script_noteworthy" "zstandard_farm, zgrief_farm"
@@ -53460,7 +52503,7 @@
 "guid" "D1EECB49"
 }
 {
-"script_noteworthy" "zstandard_farm, zgrief_farm, zrace_farm"
+"script_noteworthy" "zstandard_farm, zgrief_farm"
 "angles" "0 300 0"
 "origin" "7889.5 -6550.06 305"
 "classname" "script_struct"
@@ -53470,7 +52513,7 @@
 "guid" "F0390DB3"
 }
 {
-"script_noteworthy" "zstandard_farm, zgrief_farm, zrace_farm"
+"script_noteworthy" "zstandard_farm, zgrief_farm"
 "targetname" "pf1922_auto37"
 "classname" "script_struct"
 "model" "t6_wpn_smg_msmc_world"
@@ -53504,30 +52547,6 @@
 "script_noteworthy" "lava_volume"
 "classname" "info_volume"
 "guid" "162A1B92"
-}
-{
-"model" "*312"
-"origin" "1337 186 -68"
-"classname" "trigger_multiple"
-"targetname" "lava_damage"
-"spawnflags" "1"
-"script_noteworthy" "fire"
-"target" "auto2529"
-"script_float" "1"
-"script_string" "zrace_town"
-"guid" "803A6715"
-}
-{
-"model" "*313"
-"origin" "1492 -113 -68"
-"classname" "trigger_multiple"
-"targetname" "lava_damage"
-"spawnflags" "1"
-"script_noteworthy" "fire"
-"script_float" "0.4"
-"script_string" "zrace_town"
-"target" "auto2531"
-"guid" "C9854B34"
 }
 {
 "model" "*314"

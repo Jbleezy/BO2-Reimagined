@@ -301,7 +301,7 @@ round_spawning()
 		{
 			spawn_dog = 0;
 
-			if (level.round_number >= 25 || is_gametype_active("zgrief"))
+			if (level.round_number >= 25 || is_encounter())
 			{
 				if (randomint(100) < 4)
 				{
@@ -500,7 +500,7 @@ round_think(restart = 0)
 		}
 	}
 
-	if (!is_gametype_active("zgrief"))
+	if (!is_encounter())
 	{
 		if (level.round_number > 255)
 		{
@@ -519,7 +519,7 @@ round_think(restart = 0)
 
 	for (;;)
 	{
-		if (!is_gametype_active("zgrief"))
+		if (!is_encounter())
 		{
 			level.player_starting_points = (level.round_number + 1) * 500;
 
@@ -635,7 +635,7 @@ round_think(restart = 0)
 
 		level.round_number++;
 
-		if (!is_gametype_active("zgrief"))
+		if (!is_encounter())
 		{
 			if (level.round_number > 255)
 			{
@@ -797,7 +797,7 @@ onallplayersready()
 	{
 		players = get_players();
 
-		if (players.size == 1 && level.scr_zm_ui_gametype != "zgrief")
+		if (players.size == 1 && !is_encounter())
 		{
 			flag_set("solo_game");
 			level.solo_lives_given = 0;
@@ -941,7 +941,7 @@ pregame_think()
 
 	while (num_players < pregame_minplayers)
 	{
-		if (is_gametype_active("zgrief"))
+		if (is_encounter())
 		{
 			level thread check_for_team_change();
 		}
@@ -1062,7 +1062,7 @@ pregame_think()
 			break;
 		}
 
-		if (is_gametype_active("zgrief"))
+		if (is_encounter())
 		{
 			level thread check_for_team_change();
 		}
@@ -1094,7 +1094,7 @@ pregame_think()
 		players = get_players();
 	}
 
-	if (is_gametype_active("zgrief"))
+	if (is_encounter())
 	{
 		level thread check_for_team_change();
 	}
@@ -2435,7 +2435,7 @@ player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, s
 
 	if (sweapon == "tower_trap_zm")
 	{
-		if (is_gametype_active("zgrief"))
+		if (is_encounter())
 		{
 			idamage = 50;
 		}
@@ -3544,7 +3544,7 @@ end_game()
 
 check_quickrevive_for_hotjoin(disconnecting_player)
 {
-	if (level.scr_zm_ui_gametype == "zgrief")
+	if (is_encounter())
 	{
 		return;
 	}

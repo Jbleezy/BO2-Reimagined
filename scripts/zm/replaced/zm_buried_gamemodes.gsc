@@ -150,3 +150,29 @@ buildbuildable(buildable)
 		}
 	}
 }
+
+builddynamicwallbuy(location, weaponname)
+{
+	gametype = level.scr_zm_ui_gametype;
+
+	if (is_encounter())
+	{
+		gametype = "zgrief";
+	}
+
+	match_string = gametype + "_" + level.scr_zm_map_start_location;
+
+	foreach (stub in level.chalk_builds)
+	{
+		wallbuy = getstruct(stub.target, "targetname");
+
+		if (isdefined(wallbuy.script_location) && wallbuy.script_location == location)
+		{
+			if (!isdefined(wallbuy.script_noteworthy) || issubstr(wallbuy.script_noteworthy, match_string))
+			{
+				maps\mp\zombies\_zm_weapons::add_dynamic_wallbuy(weaponname, wallbuy.targetname, 1);
+				thread wait_and_remove(stub, stub.buildablezone.pieces[0]);
+			}
+		}
+	}
+}

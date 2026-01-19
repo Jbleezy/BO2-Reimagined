@@ -10,48 +10,63 @@ struct_init()
 	scripts\zm\replaced\utility::register_perk_struct("", "", (0, 0, 0), (0, 0, 0)); // need this for pap to work
 	scripts\zm\replaced\utility::register_perk_struct("specialty_weapupgrade", "p6_anim_zm_buildable_pap_on", (10460, -564, -220), (0, -35, 0));
 
-	zone_respawnpoints = [];
-	respawnpoints = maps\mp\gametypes_zm\_zm_gametype::get_player_spawns_for_gametype();
+	structs = getstructarray("player_respawn_point", "targetname");
+	respawn_point = undefined;
+	zone = "zone_cornfield_prototype";
 
-	for (i = 0; i < respawnpoints.size; i++)
+	foreach (struct in structs)
 	{
-		if (isDefined(respawnpoints[i].script_noteworthy) && respawnpoints[i].script_noteworthy == "zone_amb_cornfield")
+		if (isdefined(struct.script_noteworthy) && struct.script_noteworthy == zone)
 		{
-			if (isDefined(respawnpoints[i].script_string) && respawnpoints[i].script_string == "zgrief_cornfield")
-			{
-				zone_respawnpoints[respawnpoints[i].script_noteworthy] = respawnpoints[i];
-			}
+			respawn_point = struct;
+			break;
 		}
-		else if (isDefined(respawnpoints[i].script_noteworthy) && respawnpoints[i].script_noteworthy == "zone_cornfield_prototype")
+	}
+
+	respawn_point2 = undefined;
+	zone = "zone_amb_cornfield";
+	target = "cornfield_nml_player_spawns";
+
+	foreach (struct in structs)
+	{
+		if (isdefined(struct.script_noteworthy) && struct.script_noteworthy == zone)
 		{
-			zone_respawnpoints[respawnpoints[i].script_noteworthy] = respawnpoints[i];
+			if (isdefined(struct.target) && struct.target == target)
+			{
+				respawn_point2 = struct;
+				break;
+			}
 		}
 	}
 
 	level.struct_class_names["targetname"]["player_respawn_point"] = [];
 	level.struct_class_names["script_noteworthy"]["initial_spawn"] = [];
 
-	zone = "zone_cornfield_prototype";
-	scripts\zm\replaced\utility::register_map_spawn_group(zone_respawnpoints[zone].origin, zone, zone_respawnpoints[zone].script_int);
-
-	respawn_array = getstructarray(zone_respawnpoints[zone].target, "targetname");
-
-	foreach (respawn in respawn_array)
+	if (isdefined(respawn_point))
 	{
-		scripts\zm\replaced\utility::register_map_spawn(respawn.origin + (150, -150, 0), respawn.angles + (0, 180, 0), zone, respawn.script_int);
+		scripts\zm\replaced\utility::register_map_spawn_group(respawn_point.origin, zone, respawn_point.script_int);
+
+		respawn_array = getstructarray(respawn_point.target, "targetname");
+
+		foreach (respawn in respawn_array)
+		{
+			scripts\zm\replaced\utility::register_map_spawn(respawn.origin + (150, -150, 0), respawn.angles + (0, 180, 0), zone, respawn.script_int);
+		}
 	}
 
-	zone = "zone_amb_cornfield";
-	scripts\zm\replaced\utility::register_map_spawn_group(zone_respawnpoints[zone].origin, zone, zone_respawnpoints[zone].script_int);
+	if (isdefined(respawn_point2))
+	{
+		scripts\zm\replaced\utility::register_map_spawn_group(respawn_point2.origin, zone, respawn_point2.script_int);
 
-	scripts\zm\replaced\utility::register_map_spawn((11986, -1858, -132), (0, 80, 0), zone);
-	scripts\zm\replaced\utility::register_map_spawn((12158, -61, -141), (0, -85, 0), zone);
-	scripts\zm\replaced\utility::register_map_spawn((11366, 20, -193), (0, -5, 0), zone);
-	scripts\zm\replaced\utility::register_map_spawn((11199, -1768, -156), (0, -5, 0), zone);
-	scripts\zm\replaced\utility::register_map_spawn((10448, 90, -189), (0, -5, 0), zone);
-	scripts\zm\replaced\utility::register_map_spawn((10255, -1698, -186), (0, -5, 0), zone);
-	scripts\zm\replaced\utility::register_map_spawn((10046, -591, -192), (0, 0, 0), zone);
-	scripts\zm\replaced\utility::register_map_spawn((10036, -967, -186), (0, 0, 0), zone);
+		scripts\zm\replaced\utility::register_map_spawn((11986, -1858, -132), (0, 80, 0), zone);
+		scripts\zm\replaced\utility::register_map_spawn((12158, -61, -141), (0, -85, 0), zone);
+		scripts\zm\replaced\utility::register_map_spawn((11366, 20, -193), (0, -5, 0), zone);
+		scripts\zm\replaced\utility::register_map_spawn((11199, -1768, -156), (0, -5, 0), zone);
+		scripts\zm\replaced\utility::register_map_spawn((10448, 90, -189), (0, -5, 0), zone);
+		scripts\zm\replaced\utility::register_map_spawn((10255, -1698, -186), (0, -5, 0), zone);
+		scripts\zm\replaced\utility::register_map_spawn((10046, -591, -192), (0, 0, 0), zone);
+		scripts\zm\replaced\utility::register_map_spawn((10036, -967, -186), (0, 0, 0), zone);
+	}
 
 	structs = getstructarray("game_mode_object", "targetname");
 
@@ -89,7 +104,7 @@ main()
 	treasure_chest_init();
 	init_barriers();
 	disable_zombie_spawn_locations();
-	setup_standard_objects("cornfield");
+	maps\mp\gametypes_zm\_zm_gametype::setup_standard_objects("cornfield");
 	scripts\zm\locs\loc_common::increase_pap_collision();
 	level thread scripts\zm\locs\loc_common::init();
 }

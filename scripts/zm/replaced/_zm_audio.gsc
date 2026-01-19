@@ -65,7 +65,7 @@ create_and_play_dialog(category, type, response, force_variant, override)
 		return;
 	}
 
-	if (!getDvarIntDefault("character_dialog", 1))
+	if (!getdvarint("character_dialog"))
 	{
 		return;
 	}

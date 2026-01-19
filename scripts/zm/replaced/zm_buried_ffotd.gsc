@@ -9,7 +9,7 @@
 
 main_end()
 {
-	if (is_gametype_active("zgrief"))
+	if (is_encounter())
 	{
 		level thread zgrief_mode_fix();
 	}

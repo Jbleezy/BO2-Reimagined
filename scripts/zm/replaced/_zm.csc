@@ -2,6 +2,143 @@
 #include clientscripts\mp\_utility;
 #include clientscripts\mp\zombies\_zm_utility;
 
+zombe_gametype_premain()
+{
+	gamemode = getdvar("ui_gametype");
+
+	if (is_encounter())
+	{
+		gamemode = "zgrief";
+	}
+
+	if (!isdefined(level.gamemode_map_location_main) || !isdefined(level.gamemode_map_location_main[gamemode]))
+	{
+		return;
+	}
+
+	if (getdvar("createfx") != "")
+	{
+		return;
+	}
+
+	if (isdefined(level._zombie_gamemodepremain))
+	{
+		level thread [[level._zombie_gamemodepremain]]();
+	}
+
+	if (isdefined(level.gamemode_map_location_main[gamemode]))
+	{
+		loc = getdvar("ui_zm_mapstartlocation");
+
+		if (loc == "" && isdefined(level.default_start_location))
+		{
+			loc = level.default_start_location;
+		}
+
+		if (isdefined(level.gamemode_map_location_premain[gamemode][loc]))
+		{
+			level thread [[level.gamemode_map_location_premain[gamemode][loc]]]();
+		}
+	}
+}
+
+start_zombie_gametype()
+{
+	gamemode = getdvar("ui_gametype");
+
+	if (is_encounter())
+	{
+		gamemode = "zgrief";
+	}
+
+	if (!isdefined(level.gamemode_map_location_main) || !isdefined(level.gamemode_map_location_main[gamemode]))
+	{
+		return;
+	}
+
+	if (getdvar("createfx") != "")
+	{
+		return;
+	}
+
+	if (isdefined(level.gamemode_map_main))
+	{
+		if (isdefined(level.gamemode_map_main[gamemode]))
+		{
+			level thread delay_for_clients_then_execute(level.gamemode_map_main[gamemode]);
+		}
+	}
+
+	if (isdefined(level.gamemode_map_location_main))
+	{
+		if (isdefined(level.gamemode_map_location_main[gamemode]))
+		{
+			loc = getdvar("ui_zm_mapstartlocation");
+
+			if (loc == "" && isdefined(level.default_start_location))
+			{
+				loc = level.default_start_location;
+			}
+
+			if (isdefined(level.gamemode_map_location_main[gamemode][loc]))
+			{
+				level thread delay_for_clients_then_execute(level.gamemode_map_location_main[gamemode][loc]);
+			}
+		}
+	}
+
+	if (isdefined(level._zombie_gamemodemain))
+	{
+		level thread delay_for_clients_then_execute(level._zombie_gamemodemain);
+	}
+}
+
+precache_zombie_gametype()
+{
+	gamemode = getdvar("ui_gametype");
+
+	if (is_encounter())
+	{
+		gamemode = "zgrief";
+	}
+
+	if (!isdefined(level.gamemode_map_location_main) || !isdefined(level.gamemode_map_location_main[gamemode]))
+	{
+		return;
+	}
+
+	if (isdefined(level._zombie_gamemodeprecache))
+	{
+		[[level._zombie_gamemodeprecache]]();
+	}
+
+	if (isdefined(level.gamemode_map_precache))
+	{
+		if (isdefined(level.gamemode_map_precache[gamemode]))
+		{
+			[[level.gamemode_map_precache[gamemode]]]();
+		}
+	}
+
+	if (isdefined(level.gamemode_map_location_precache))
+	{
+		if (isdefined(level.gamemode_map_location_precache[gamemode]))
+		{
+			loc = getdvar("ui_zm_mapstartlocation");
+
+			if (loc == "" && isdefined(level.default_start_location))
+			{
+				loc = level.default_start_location;
+			}
+
+			if (isdefined(level.gamemode_map_location_precache[gamemode][loc]))
+			{
+				[[level.gamemode_map_location_precache[gamemode][loc]]]();
+			}
+		}
+	}
+}
+
 init_client_flag_callback_funcs()
 {
 	level.disable_deadshot_clientfield = undefined;

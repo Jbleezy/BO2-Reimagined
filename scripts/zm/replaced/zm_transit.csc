@@ -50,3 +50,14 @@ init_level_specific_wall_buy_fx()
 	level._effect["pdw57_zm_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_pdw57");
 	level._effect["svu_zm_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_svuas");
 }
+
+include_powerups()
+{
+	include_powerup("nuke");
+	include_powerup("insta_kill");
+	include_powerup("double_points");
+	include_powerup("full_ammo");
+	include_powerup("insta_kill_ug");
+	include_powerup("carpenter");
+	include_powerup("teller_withdrawl");
+}

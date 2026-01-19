@@ -16,14 +16,20 @@ init()
 		spawnable_weapon_spawns = arraycombine(spawnable_weapon_spawns, getstructarray("claymore_purchase", "targetname"), 1, 0);
 	}
 
+	gametype = level.scr_zm_ui_gametype;
 	location = level.scr_zm_map_start_location;
+
+	if (is_encounter())
+	{
+		gametype = "zgrief";
+	}
 
 	if ((location == "default" || location == "") && isdefined(level.default_start_location))
 	{
 		location = level.default_start_location;
 	}
 
-	match_string = level.scr_zm_ui_gametype + "_" + location;
+	match_string = gametype + "_" + location;
 	match_string_plus_space = " " + match_string;
 
 	for (i = 0; i < spawnable_weapon_spawns.size; i++)

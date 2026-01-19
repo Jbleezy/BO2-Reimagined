@@ -1083,7 +1083,7 @@ hide_temp_random_perk_machine()
 
 grief_mechz_spawn_after_time()
 {
-	if (!is_gametype_active("zgrief"))
+	if (!is_encounter())
 	{
 		return;
 	}

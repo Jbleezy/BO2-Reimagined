@@ -12,6 +12,7 @@ main()
 	replaceFunc(maps\mp\zm_alcatraz_gamemodes::init, scripts\zm\replaced\zm_alcatraz_gamemodes::init);
 	replaceFunc(maps\mp\zm_alcatraz_grief_cellblock::zgrief_init, scripts\zm\replaced\zm_alcatraz_grief_cellblock::zgrief_init);
 	replaceFunc(maps\mp\zm_alcatraz_grief_cellblock::main, scripts\zm\replaced\zm_alcatraz_grief_cellblock::main);
+	replaceFunc(maps\mp\zm_alcatraz_grief_cellblock::magicbox_face_spawn, scripts\zm\replaced\zm_alcatraz_grief_cellblock::magicbox_face_spawn);
 	replaceFunc(maps\mp\zm_alcatraz_utility::blundergat_upgrade_station, scripts\zm\replaced\zm_alcatraz_utility::blundergat_upgrade_station);
 	replaceFunc(maps\mp\zm_alcatraz_utility::alcatraz_audio_get_mod_type_override, scripts\zm\replaced\zm_alcatraz_utility::alcatraz_audio_get_mod_type_override);
 	replaceFunc(maps\mp\zm_alcatraz_utility::check_solo_status, scripts\zm\replaced\zm_alcatraz_utility::check_solo_status);
@@ -79,7 +80,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_weap_tomahawk::tomahawk_attack_zombies, scripts\zm\replaced\_zm_weap_tomahawk::tomahawk_attack_zombies);
 	replaceFunc(maps\mp\zombies\_zm_weap_tomahawk::tomahawk_return_player, scripts\zm\replaced\_zm_weap_tomahawk::tomahawk_return_player);
 
-	if (is_gametype_active("zstandard"))
+	if (!is_gametype_active("zclassic") && !is_gametype_active("zgrief"))
 	{
 		level.zombiemode_using_divetonuke_perk = 1;
 		maps\mp\zombies\_zm_perk_divetonuke::enable_divetonuke_perk_for_level();
@@ -777,7 +778,7 @@ docks_teleporter()
 
 grief_brutus_spawn_after_time()
 {
-	if (!is_gametype_active("zgrief"))
+	if (!is_encounter())
 	{
 		return;
 	}

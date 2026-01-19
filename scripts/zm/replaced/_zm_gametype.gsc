@@ -1,6 +1,192 @@
+#include maps\mp\gametypes_zm\_zm_gametype;
 #include maps\mp\_utility;
+#include maps\mp\gametypes_zm\_hud_util;
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
+#include maps\mp\gametypes_zm\_globallogic;
+#include maps\mp\gametypes_zm\_callbacksetup;
+#include maps\mp\gametypes_zm\_weapons;
+#include maps\mp\gametypes_zm\_gameobjects;
+#include maps\mp\gametypes_zm\_globallogic_spawn;
+#include maps\mp\gametypes_zm\_globallogic_defaults;
+#include maps\mp\gametypes_zm\_globallogic_score;
+#include maps\mp\gametypes_zm\_hud_message;
+#include maps\mp\gametypes_zm\_globallogic_ui;
+#include maps\mp\zombies\_zm_laststand;
+#include maps\mp\zombies\_zm;
+#include maps\mp\zombies\_zm_audio;
+#include maps\mp\zombies\_zm_audio_announcer;
+#include maps\mp\gametypes_zm\_hud;
+#include maps\mp\zombies\_zm_stats;
+#include maps\mp\gametypes_zm\_spawning;
+#include maps\mp\zombies\_zm_blockers;
+#include maps\mp\zombies\_zm_pers_upgrades_functions;
+#include maps\mp\zombies\_zm_game_module;
+#include maps\mp\zombies\_zm_spawner;
+
+rungametypeprecache(gamemode)
+{
+	if (is_encounter())
+	{
+		gamemode = "zgrief";
+	}
+
+	if (!isdefined(level.gamemode_map_location_main) || !isdefined(level.gamemode_map_location_main[gamemode]))
+	{
+		return;
+	}
+
+	if (isdefined(level.gamemode_map_precache))
+	{
+		if (isdefined(level.gamemode_map_precache[gamemode]))
+		{
+			[[level.gamemode_map_precache[gamemode]]]();
+		}
+	}
+
+	if (isdefined(level.gamemode_map_location_precache))
+	{
+		if (isdefined(level.gamemode_map_location_precache[gamemode]))
+		{
+			loc = getdvar(#"ui_zm_mapstartlocation" );
+
+			if (loc == "" && isdefined(level.default_start_location))
+				loc = level.default_start_location;
+
+			if (isdefined(level.gamemode_map_location_precache[gamemode][loc]))
+				[[level.gamemode_map_location_precache[gamemode][loc]]]();
+		}
+	}
+
+	if (isdefined(level.precachecustomcharacters))
+	{
+		self [[level.precachecustomcharacters]]();
+	}
+}
+
+rungametypemain(gamemode, mode_main_func, use_round_logic)
+{
+	if (is_encounter())
+	{
+		gamemode = "zgrief";
+	}
+
+	if (!isdefined(level.gamemode_map_location_main) || !isdefined(level.gamemode_map_location_main[gamemode]))
+	{
+		return;
+	}
+
+	level thread game_objects_allowed(get_gamemode_var("mode"), get_gamemode_var("location"));
+
+	if (isdefined(level.gamemode_map_main))
+	{
+		if (isdefined(level.gamemode_map_main[gamemode]))
+		{
+			level thread [[level.gamemode_map_main[gamemode]]]();
+		}
+	}
+
+	if (isdefined(level.gamemode_map_location_main))
+	{
+		if (isdefined(level.gamemode_map_location_main[gamemode]))
+		{
+			loc = getdvar(#"ui_zm_mapstartlocation" );
+
+			if (loc == "" && isdefined(level.default_start_location))
+				loc = level.default_start_location;
+
+			if (isdefined(level.gamemode_map_location_main[gamemode][loc]))
+				level thread [[level.gamemode_map_location_main[gamemode][loc]]]();
+		}
+	}
+
+	if (isdefined(mode_main_func))
+	{
+		if (isdefined(use_round_logic) && use_round_logic)
+		{
+			level thread round_logic(mode_main_func);
+		}
+		else
+		{
+			level thread non_round_logic(mode_main_func);
+		}
+	}
+
+	level thread game_end_func();
+}
+
+game_objects_allowed(mode, location)
+{
+	if (is_encounter())
+	{
+		mode = "zgrief";
+	}
+
+	allowed[0] = mode;
+	entities = getentarray();
+
+	foreach (entity in entities)
+	{
+		if (isdefined(entity.script_gameobjectname))
+		{
+			isallowed = maps\mp\gametypes_zm\_gameobjects::entity_is_allowed(entity, allowed);
+			isvalidlocation = maps\mp\gametypes_zm\_gameobjects::location_is_allowed(entity, location);
+
+			if (!isallowed || !isvalidlocation && !is_classic())
+			{
+				if (isdefined(entity.spawnflags) && entity.spawnflags == 1)
+				{
+					if (isdefined(entity.classname) && entity.classname != "trigger_multiple")
+					{
+						entity connectpaths();
+					}
+				}
+
+				entity delete();
+				continue;
+			}
+
+			if (isdefined(entity.script_vector))
+			{
+				entity moveto(entity.origin + entity.script_vector, 0.05);
+				entity waittill("movedone");
+
+				if (isdefined(entity.spawnflags) && entity.spawnflags == 1)
+				{
+					entity disconnectpaths();
+				}
+
+				continue;
+			}
+
+			if (isdefined(entity.spawnflags) && entity.spawnflags == 1)
+			{
+				if (isdefined(entity.classname) && entity.classname != "trigger_multiple")
+				{
+					entity connectpaths();
+				}
+			}
+		}
+	}
+}
+
+post_init_gametype()
+{
+	gametype = level.scr_zm_ui_gametype;
+
+	if (is_encounter())
+	{
+		gametype = "zgrief";
+	}
+
+	if (isdefined(level.gamemode_map_postinit))
+	{
+		if (isdefined(level.gamemode_map_postinit[gametype]))
+		{
+			[[level.gamemode_map_postinit[gametype]]]();
+		}
+	}
+}
 
 onspawnplayer(predictedspawn)
 {
@@ -30,30 +216,44 @@ onspawnplayer(predictedspawn)
 	}
 	else
 	{
-		location = level.scr_zm_map_start_location;
-
-		if ((location == "default" || location == "") && isDefined(level.default_start_location))
+		if (!is_encounter() && flag("begin_spawning"))
 		{
-			location = level.default_start_location;
+			spawnpoint = maps\mp\zombies\_zm::check_for_valid_spawn_near_team(self, 1);
 		}
 
-		match_string = level.scr_zm_ui_gametype + "_" + location;
-		spawnpoints = [];
-		structs = getstructarray("initial_spawn", "script_noteworthy");
-
-		if (isdefined(structs))
+		if (!isdefined(spawnpoint))
 		{
-			for (i = 0; i < structs.size; i++)
-			{
-				if (isdefined(structs[i].script_string))
-				{
-					tokens = strtok(structs[i].script_string, " ");
+			gametype = level.scr_zm_ui_gametype;
+			location = level.scr_zm_map_start_location;
 
-					foreach (token in tokens)
+			if (is_encounter())
+			{
+				gametype = "zgrief";
+			}
+
+			if ((location == "default" || location == "") && isDefined(level.default_start_location))
+			{
+				location = level.default_start_location;
+			}
+
+			match_string = gametype + "_" + location;
+			spawnpoints = [];
+			structs = getstructarray("initial_spawn", "script_noteworthy");
+
+			if (isdefined(structs))
+			{
+				for (i = 0; i < structs.size; i++)
+				{
+					if (isdefined(structs[i].script_string))
 					{
-						if (token == match_string)
+						tokens = strtok(structs[i].script_string, " ");
+
+						foreach (token in tokens)
 						{
-							spawnpoints[spawnpoints.size] = structs[i];
+							if (token == match_string)
+							{
+								spawnpoints[spawnpoints.size] = structs[i];
+							}
 						}
 					}
 				}
@@ -110,6 +310,49 @@ onspawnplayer(predictedspawn)
 	}
 
 	pixendevent();
+}
+
+get_player_spawns_for_gametype()
+{
+	match_string = "";
+	gametype = level.scr_zm_ui_gametype;
+	location = level.scr_zm_map_start_location;
+
+	if (is_encounter())
+	{
+		gametype = "zgrief";
+	}
+
+	if ((location == "default" || location == "") && isdefined(level.default_start_location))
+	{
+		location = level.default_start_location;
+	}
+
+	match_string = gametype + "_" + location;
+	player_spawns = [];
+	structs = getstructarray("player_respawn_point", "targetname");
+
+	foreach (struct in structs)
+	{
+		if (isdefined(struct.script_string))
+		{
+			tokens = strtok(struct.script_string, " ");
+
+			foreach (token in tokens)
+			{
+				if (token == match_string)
+				{
+					player_spawns[player_spawns.size] = struct;
+				}
+			}
+
+			continue;
+		}
+
+		player_spawns[player_spawns.size] = struct;
+	}
+
+	return player_spawns;
 }
 
 onplayerspawned()
@@ -190,29 +433,6 @@ onplayerspawned()
 		{
 			self [[level.gamemode_post_spawn_logic]]();
 		}
-	}
-}
-
-hide_gump_loading_for_hotjoiners()
-{
-	self endon("disconnect");
-
-	self.is_hotjoin = 1;
-
-	if (isDefined(level.should_respawn_func) && [[level.should_respawn_func]]())
-	{
-		return;
-	}
-
-	self maps\mp\zombies\_zm::spawnspectator();
-
-	if (is_true(level.intermission) || is_true(level.host_ended_game))
-	{
-		setclientsysstate("levelNotify", "zi", self);
-		self setclientthirdperson(0);
-		self resetfov();
-		self.health = 100;
-		self.sessionstate = "intermission";
 	}
 }
 
@@ -434,14 +654,37 @@ set_team(team)
 	self.killsdenied = 0;
 	self.captures = 0;
 
-	if (level.scr_zm_ui_gametype_obj == "zsr" && flag("initial_blackscreen_passed") && !isdefined(level.gamemodulewinningteam))
+	if (level.scr_zm_ui_gametype == "zsr" && flag("initial_blackscreen_passed") && !isdefined(level.gamemodulewinningteam))
 	{
 		if (isDefined(level.grief_score_hud_set_player_count_func))
 		{
-			allies_count = scripts\zm\zgrief\zgrief_reimagined::get_number_of_valid_players_team("allies");
-			axis_count = scripts\zm\zgrief\zgrief_reimagined::get_number_of_valid_players_team("axis");
+			allies_count = scripts\zm\zencounter\zencounter_reimagined::get_number_of_valid_players_team("allies");
+			axis_count = scripts\zm\zencounter\zencounter_reimagined::get_number_of_valid_players_team("axis");
 
 			[[level.grief_score_hud_set_player_count_func]]("allies", allies_count, "axis", axis_count);
 		}
+	}
+}
+
+hide_gump_loading_for_hotjoiners()
+{
+	self endon("disconnect");
+
+	self.is_hotjoin = 1;
+
+	if (isDefined(level.should_respawn_func) && [[level.should_respawn_func]]())
+	{
+		return;
+	}
+
+	self maps\mp\zombies\_zm::spawnspectator();
+
+	if (is_true(level.intermission) || is_true(level.host_ended_game))
+	{
+		setclientsysstate("levelNotify", "zi", self);
+		self setclientthirdperson(0);
+		self resetfov();
+		self.health = 100;
+		self.sessionstate = "intermission";
 	}
 }

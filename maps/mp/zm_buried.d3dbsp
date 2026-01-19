@@ -20921,7 +20921,6 @@
 }
 {
 "script_sound" "zmb_small_door"
-"script_parameters" "meat_remove race_remove"
 "angles" "0 180 0"
 "spawnflags" "1"
 "targetname" "pf728_auto2500"
@@ -21049,7 +21048,6 @@
 }
 {
 "script_sound" "zmb_small_door"
-"script_parameters" "meat_remove race_remove"
 "spawnflags" "1"
 "targetname" "pf728_auto2516"
 "script_angles" "0 158 0"
@@ -21132,13 +21130,11 @@
 "script_angles" "0 158 0"
 "targetname" "pf728_auto2520"
 "spawnflags" "1"
-"script_parameters" "meat_remove race_remove"
 "script_sound" "zmb_small_door"
 "guid" "CF00C979"
 }
 {
 "script_sound" "zmb_swinging_door"
-"script_parameters" "meat_remove race_remove"
 "angles" "0 224.8 0"
 "spawnflags" "1"
 "targetname" "pf728_auto2497"
@@ -21150,7 +21146,6 @@
 }
 {
 "script_sound" "zmb_swinging_door"
-"script_parameters" "meat_remove race_remove"
 "angles" "0 44.8 0"
 "spawnflags" "1"
 "targetname" "pf728_auto2497"
@@ -21181,7 +21176,6 @@
 {
 "script_firefx" "poltergeist"
 "script_noteworthy" "jiggle"
-"script_parameters" "meat_remove race_remove"
 "angles" "0 222.67 0"
 "spawnflags" "1"
 "targetname" "pf728_auto2529"
@@ -21298,7 +21292,6 @@
 "targetname" "pf728_auto2533"
 "spawnflags" "1"
 "angles" "359.551 1.24663 19.794"
-"script_parameters" "meat_remove race_remove"
 "script_noteworthy" "jiggle"
 "script_firefx" "poltergeist"
 "guid" "986C7FF8"
@@ -21349,7 +21342,6 @@
 "targetname" "pf728_auto2532"
 "spawnflags" "1"
 "angles" "354.143 1.29338 11.181"
-"script_parameters" "meat_remove race_remove"
 "script_noteworthy" "jiggle"
 "script_firefx" "poltergeist"
 "guid" "6E1871E8"
@@ -21357,7 +21349,6 @@
 {
 "script_firefx" "poltergeist"
 "script_noteworthy" "jiggle"
-"script_parameters" "meat_remove race_remove"
 "angles" "3.49773 358.72 12.7746"
 "spawnflags" "1"
 "targetname" "pf728_auto2534"
@@ -21370,7 +21361,6 @@
 {
 "script_firefx" "poltergeist"
 "script_noteworthy" "jiggle"
-"script_parameters" "meat_remove race_remove"
 "angles" "358.1 92.8523 33.6428"
 "spawnflags" "1"
 "targetname" "pf728_auto2528"
@@ -21404,7 +21394,6 @@
 "origin" "414.4 -10.35 171.7"
 "targetname" "pf728_auto2531"
 "spawnflags" "1"
-"script_parameters" "meat_remove race_remove"
 "script_noteworthy" "jiggle"
 "script_firefx" "poltergeist"
 "guid" "71A7E150"
@@ -21416,7 +21405,6 @@
 "origin" "-204.84 135.34 160.72"
 "targetname" "pf728_auto2530"
 "spawnflags" "1"
-"script_parameters" "meat_remove race_remove"
 "script_noteworthy" "jiggle"
 "script_firefx" "poltergeist"
 "angles" "332.175 258.555 -18.0967"
@@ -21430,7 +21418,6 @@
 "targetname" "pf728_auto2504"
 "spawnflags" "1"
 "angles" "0 270 0"
-"script_parameters" "meat_remove race_remove"
 "script_sound" "zmb_mansion_door"
 "guid" "8642F457"
 }
@@ -21447,7 +21434,6 @@
 }
 {
 "script_sound" "zmb_small_door"
-"script_parameters" "meat_remove race_remove"
 "angles" "5.00002 0 0"
 "spawnflags" "1"
 "targetname" "pf728_auto2527"
@@ -21465,13 +21451,11 @@
 "targetname" "pf728_auto2504"
 "spawnflags" "1"
 "angles" "0 270 0"
-"script_parameters" "meat_remove race_remove"
 "script_sound" "zmb_mansion_door"
 "guid" "3FFD4883"
 }
 {
 "script_sound" "zmb_small_door"
-"script_parameters" "meat_remove race_remove"
 "angles" "4.99993 1.00561e-005 8.76447e-007"
 "spawnflags" "1"
 "targetname" "pf728_auto2527"
@@ -21483,7 +21467,6 @@
 }
 {
 "script_sound" "zmb_small_door"
-"script_parameters" "meat_remove race_remove"
 "angles" "0 1.00179e-005 0"
 "spawnflags" "1"
 "targetname" "pf728_auto2495"
@@ -21501,7 +21484,6 @@
 "targetname" "pf728_auto2495"
 "spawnflags" "1"
 "angles" "0 0 0"
-"script_parameters" "meat_remove race_remove"
 "script_sound" "zmb_small_door"
 "guid" "A0AD89BC"
 }

@@ -6,21 +6,14 @@
 
 main()
 {
-	replaceFunc(maps\mp\gametypes_zm\_globallogic_ui::menuautoassign, scripts\zm\replaced\_globallogic_ui::menuautoassign);
-	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::onspawnplayer, scripts\zm\replaced\_zm_gametype::onspawnplayer);
-	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::onplayerspawned, scripts\zm\replaced\_zm_gametype::onplayerspawned);
-	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::menu_onmenuresponse, scripts\zm\replaced\_zm_gametype::menu_onmenuresponse);
 	replaceFunc(maps\mp\gametypes_zm\zgrief::onprecachegametype, scripts\zm\replaced\zgrief::onprecachegametype);
 	replaceFunc(maps\mp\gametypes_zm\zgrief::postinit_func, scripts\zm\replaced\zgrief::postinit_func);
 	replaceFunc(maps\mp\gametypes_zm\zgrief::zgrief_main, scripts\zm\replaced\zgrief::zgrief_main);
 	replaceFunc(maps\mp\gametypes_zm\zgrief::game_mode_spawn_player_logic, scripts\zm\replaced\zgrief::game_mode_spawn_player_logic);
 	replaceFunc(maps\mp\gametypes_zm\zgrief::meat_bounce_override, scripts\zm\replaced\zgrief::meat_bounce_override);
 	replaceFunc(maps\mp\gametypes_zm\zgrief::meat_stink, scripts\zm\replaced\zgrief::meat_stink);
+	replaceFunc(maps\mp\gametypes_zm\zmeat::main, maps\mp\gametypes_zm\zgrief::main);
 	replaceFunc(maps\mp\gametypes_zm\zmeat::create_item_meat_watcher, scripts\zm\replaced\zmeat::create_item_meat_watcher);
-	replaceFunc(maps\mp\zombies\_zm::getfreespawnpoint, scripts\zm\replaced\_zm::getfreespawnpoint);
-	replaceFunc(maps\mp\zombies\_zm_audio_announcer::init_griefvox, scripts\zm\replaced\_zm_audio_announcer::init_griefvox);
-	replaceFunc(maps\mp\zombies\_zm_blockers::handle_post_board_repair_rewards, scripts\zm\replaced\_zm_blockers::handle_post_board_repair_rewards);
-	replaceFunc(maps\mp\zombies\_zm_game_module::wait_for_team_death_and_round_end, scripts\zm\replaced\_zm_game_module::wait_for_team_death_and_round_end);
 	replaceFunc(maps\mp\zombies\_zm_game_module_meat_utility::init_item_meat, scripts\zm\replaced\_zm_game_module_meat_utility::init_item_meat);
 
 	if (getdvar("mapname") == "zm_nuked" || getdvar("mapname") == "zm_highrise" || getdvar("mapname") == "zm_tomb")
@@ -46,15 +39,6 @@ init()
 {
 	set_grief_vars();
 
-	if (level.item_meat_name == "item_head_zm")
-	{
-		level.item_meat_status_icon_name = "menu_zm_weapons_item_head";
-	}
-	else
-	{
-		level.item_meat_status_icon_name = "menu_zm_weapons_item_meat";
-	}
-
 	precacheStatusIcon(level.item_meat_status_icon_name);
 
 	precacheString(&"hud_update_game_mode_name");
@@ -62,21 +46,20 @@ init()
 	precacheString(&"hud_update_player_count");
 	precacheString(&"hud_update_containment_zone");
 	precacheString(&"hud_update_containment_time");
-	precacheString(istring(toupper("ZMUI_" + level.scr_zm_ui_gametype_obj)));
-	precacheString(istring(toupper("ZMUI_" + level.scr_zm_ui_gametype_obj + "_PRO")));
+	precacheString(istring(toupper("ZMUI_" + level.scr_zm_ui_gametype)));
+	precacheString(istring(toupper("ZMUI_" + level.scr_zm_ui_gametype + "_PRO")));
 
 	precacheshellshock("grief_stun_zm");
 
-	grief_setscoreboardcolumns_gametype();
 	enemy_powerup_hud();
 	obj_waypoint();
 
-	if (level.scr_zm_ui_gametype_obj == "zcontainment")
+	if (level.scr_zm_ui_gametype == "zcontainment")
 	{
 		containment_init();
 	}
 
-	if (level.scr_zm_ui_gametype_obj == "zmeat")
+	if (level.scr_zm_ui_gametype == "zmeat")
 	{
 		meat_init();
 	}
@@ -103,21 +86,9 @@ init()
 	level thread unlimited_powerups();
 	level thread save_teams_on_intermission();
 
-	if (level.scr_zm_ui_gametype_pro)
+	if (is_true(level.scr_zm_ui_gametype_pro))
 	{
 		level thread remove_held_melee_weapons();
-	}
-}
-
-grief_setscoreboardcolumns_gametype()
-{
-	if (level.scr_zm_ui_gametype_obj == "zcontainment" || level.scr_zm_ui_gametype_obj == "zmeat")
-	{
-		setscoreboardcolumns("score", "captures", "killsconfirmed", "downs", "revives");
-	}
-	else
-	{
-		setscoreboardcolumns("score", "killsdenied", "killsconfirmed", "downs", "revives");
 	}
 }
 
@@ -265,7 +236,7 @@ enemy_powerup_hud()
 
 obj_waypoint()
 {
-	if (level.scr_zm_ui_gametype_obj == "zcontainment" || level.scr_zm_ui_gametype_obj == "zmeat")
+	if (level.scr_zm_ui_gametype == "zcontainment" || level.scr_zm_ui_gametype == "zmeat")
 	{
 		level.game_mode_obj_ind = 16;
 
@@ -276,34 +247,6 @@ obj_waypoint()
 
 set_grief_vars()
 {
-	if (getDvar("ui_gametype_obj") == "")
-	{
-		gametype = "zgrief";
-
-		if (getDvar("sv_gametypeRotation") != "")
-		{
-			gametypes = strTok(getDvar("sv_gametypeRotation"), " ");
-			gametype = random(gametypes);
-		}
-
-		setDvar("ui_gametype_obj", gametype);
-	}
-
-	makedvarserverinfo("ui_gametype_obj");
-	level.scr_zm_ui_gametype_obj = getDvar("ui_gametype_obj");
-
-	if (getDvar("ui_gametype_pro") == "")
-	{
-		setDvar("ui_gametype_pro", 0);
-	}
-
-	makedvarserverinfo("ui_gametype_pro");
-	level.scr_zm_ui_gametype_pro = getDvarInt("ui_gametype_pro");
-
-	level.sr_round_number = 1;
-	setDvar("ui_round_number", level.sr_round_number);
-	makedvarserverinfo("ui_round_number");
-
 	setDvar("ui_scorelimit", 1);
 	setteamscore("axis", 0);
 	setteamscore("allies", 0);
@@ -319,21 +262,6 @@ set_grief_vars()
 	level._game_module_player_damage_callback = ::game_module_player_damage_callback;
 	level._game_module_player_laststand_callback = ::grief_laststand_weapon_save;
 	level.onplayerspawned_restore_previous_weapons = ::grief_laststand_weapons_return;
-
-	if (isDefined(level.zombie_weapons["knife_ballistic_zm"]))
-	{
-		level.zombie_weapons["knife_ballistic_zm"].is_in_box = 1;
-	}
-
-	if (isDefined(level.zombie_weapons["ray_gun_zm"]))
-	{
-		level.zombie_weapons["ray_gun_zm"].is_in_box = 1;
-	}
-
-	if (isDefined(level.zombie_weapons["raygun_mark2_zm"]))
-	{
-		level.zombie_weapons["raygun_mark2_zm"].is_in_box = 1;
-	}
 
 	level.grief_score = [];
 	level.grief_score["A"] = 0;
@@ -353,17 +281,27 @@ set_grief_vars()
 	level.zombie_vars["allies"]["zombie_powerup_half_damage_on"] = 0;
 	level.zombie_vars["allies"]["zombie_powerup_half_damage_time"] = 15;
 
+	level.player_starting_points = 10000;
+	level.zombie_vars["zombie_powerup_drop_increment"] = level.player_starting_points * 4;
+
 	level.zombie_move_speed = 100;
 	level.zombie_vars["zombie_health_start"] = 2500;
 	level.zombie_vars["zombie_health_increase"] = 0;
 	level.zombie_vars["zombie_health_increase_multiplier"] = 0;
 	level.zombie_vars["zombie_spawn_delay"] = 0.5;
+
 	level.brutus_health = 20000;
 	level.brutus_expl_dmg_req = 18000;
 	level.mechz_health = 22500;
-	level.player_starting_points = 10000;
 
-	level.zombie_vars["zombie_powerup_drop_increment"] = level.player_starting_points * 4;
+	if (level.item_meat_name == "item_head_zm")
+	{
+		level.item_meat_status_icon_name = "menu_zm_weapons_item_head";
+	}
+	else
+	{
+		level.item_meat_status_icon_name = "menu_zm_weapons_item_meat";
+	}
 
 	if (is_respawn_gamemode())
 	{
@@ -387,12 +325,12 @@ grief_onplayerconnect()
 	self.killsdenied = 0;
 	self.captures = 0;
 
-	if (level.scr_zm_ui_gametype_obj != "zsr")
+	if (level.scr_zm_ui_gametype != "zsr")
 	{
 		self._retain_perks = 1;
 	}
 
-	if (level.scr_zm_ui_gametype_obj == "zrace")
+	if (level.scr_zm_ui_gametype == "zrace")
 	{
 		self thread race_check_for_kills();
 	}
@@ -427,7 +365,7 @@ grief_onplayerdisconnect(disconnecting_player)
 		[[level.update_stats_func]](disconnecting_player);
 	}
 
-	if (level.scr_zm_ui_gametype_obj == "zgrief")
+	if (level.scr_zm_ui_gametype == "zgrief")
 	{
 		if (disconnecting_player maps\mp\zombies\_zm_laststand::player_is_in_laststand())
 		{
@@ -455,7 +393,7 @@ grief_onplayerdisconnect(disconnecting_player)
 
 	setDvar(team_var, getDvar(team_var) + disconnecting_player getguid() + " ");
 
-	if (level.scr_zm_ui_gametype_obj == "zsr")
+	if (level.scr_zm_ui_gametype == "zsr")
 	{
 		level thread update_players_on_disconnect(disconnecting_player);
 	}
@@ -486,14 +424,14 @@ on_player_spawned()
 			}
 		}
 
-		if (level.scr_zm_ui_gametype_obj == "zsr")
+		if (level.scr_zm_ui_gametype == "zsr")
 		{
 			// round_start_wait resets these
 			self freezeControls(1);
 			self enableInvulnerability();
 		}
 
-		if (level.scr_zm_ui_gametype_obj == "zcontainment")
+		if (level.scr_zm_ui_gametype == "zcontainment")
 		{
 			self.in_containment_zone = undefined;
 		}
@@ -527,12 +465,12 @@ on_player_downed()
 		self kill_feed();
 		self add_grief_downed_score();
 
-		if (level.scr_zm_ui_gametype_obj == "zrace")
+		if (level.scr_zm_ui_gametype == "zrace")
 		{
 			increment_score(getOtherTeam(self.team), 10, 1, &"ZOMBIE_ZGRIEF_PLAYER_BLED_OUT_SCORE");
 		}
 
-		if (level.scr_zm_ui_gametype_obj == "zsr")
+		if (level.scr_zm_ui_gametype == "zsr")
 		{
 			level thread update_players_on_downed(self);
 		}
@@ -552,12 +490,12 @@ on_player_revived()
 		{
 			self revive_feed(reviver);
 
-			if (level.scr_zm_ui_gametype_obj == "zrace")
+			if (level.scr_zm_ui_gametype == "zrace")
 			{
 				increment_score(reviver.team, 5, 1, &"ZOMBIE_ZGRIEF_ALLY_REVIVED_SCORE");
 			}
 
-			if (level.scr_zm_ui_gametype_obj == "zsr")
+			if (level.scr_zm_ui_gametype == "zsr")
 			{
 				level thread update_players_on_revived(self, reviver);
 			}
@@ -580,17 +518,17 @@ on_player_bled_out()
 			self [[level.zombie_last_stand_ammo_return]](1);
 		}
 
-		if (level.scr_zm_ui_gametype_obj == "zsr" || is_true(self.playersuicided))
+		if (level.scr_zm_ui_gametype == "zsr" || is_true(self.playersuicided))
 		{
 			self thread bleedout_feed();
 		}
 
-		if (level.scr_zm_ui_gametype_obj == "zgrief")
+		if (level.scr_zm_ui_gametype == "zgrief")
 		{
 			increment_score(getOtherTeam(self.team));
 		}
 
-		if (level.scr_zm_ui_gametype_obj == "zsr")
+		if (level.scr_zm_ui_gametype == "zsr")
 		{
 			self.init_player_offhand_weapons_override = 1;
 			self init_player_offhand_weapons();
@@ -599,7 +537,7 @@ on_player_bled_out()
 			level thread update_players_on_bleedout(self);
 		}
 
-		if (level.scr_zm_ui_gametype_obj == "zrace")
+		if (level.scr_zm_ui_gametype == "zrace")
 		{
 			increment_score(getOtherTeam(self.team), 5, 1, &"ZOMBIE_ZGRIEF_PLAYER_DEAD_SCORE");
 		}
@@ -888,7 +826,7 @@ round_start_wait(time, initial)
 		}
 	}
 
-	if (level.scr_zm_ui_gametype_obj == "zsr")
+	if (level.scr_zm_ui_gametype == "zsr")
 	{
 		grief_score_hud_set_player_count("allies", 0, "axis", 0);
 		grief_score_hud_set_player_count("allies", get_number_of_valid_players_team("allies"), "axis", get_number_of_valid_players_team("axis"));
@@ -901,10 +839,10 @@ round_start_wait(time, initial)
 	text = &"ZOMBIE_MATCH_BEGINS_IN_CAPS";
 	text_param = undefined;
 
-	if (level.scr_zm_ui_gametype_obj == "zsr")
+	if (level.scr_zm_ui_gametype == "zsr")
 	{
 		text = &"ZOMBIE_ROUND_BEGINS_IN_CAPS";
-		text_param = level.sr_round_number;
+		text_param = level.scr_zm_ui_round_number;
 	}
 
 	players = get_players();
@@ -1122,7 +1060,7 @@ grief_intro_msg()
 
 	level waittill("restart_round_start");
 
-	intro_str = istring(toupper("ZOMBIE_" + level.scr_zm_ui_gametype_obj + "_INTRO"));
+	intro_str = istring(toupper("ZOMBIE_" + level.scr_zm_ui_gametype + "_INTRO"));
 
 	players = get_players();
 
@@ -1135,7 +1073,7 @@ grief_intro_msg()
 
 	to_win_str = &"ZOMBIE_GRIEF_SCORE_TO_WIN";
 
-	if (level.scr_zm_ui_gametype_obj == "zsr")
+	if (level.scr_zm_ui_gametype == "zsr")
 	{
 		to_win_str = &"ZOMBIE_GRIEF_ROUNDS_TO_WIN";
 	}
@@ -1152,9 +1090,9 @@ grief_intro_msg()
 	flag_set("grief_intro_msg_complete");
 }
 
-get_gamemode_display_name(gamemode = level.scr_zm_ui_gametype_obj)
+get_gamemode_display_name(gamemode = level.scr_zm_ui_gametype)
 {
-	if (level.scr_zm_ui_gametype_pro)
+	if (is_true(level.scr_zm_ui_gametype_pro))
 	{
 		return istring(toupper("ZMUI_" + gamemode + "_PRO"));
 	}
@@ -1166,36 +1104,35 @@ get_gamemode_display_name(gamemode = level.scr_zm_ui_gametype_obj)
 
 get_gamemode_winning_score()
 {
-	if (level.scr_zm_ui_gametype_obj == "zgrief")
+	if (level.scr_zm_ui_gametype == "zgrief")
 	{
 		return 10;
 	}
-	else if (level.scr_zm_ui_gametype_obj == "zrace")
+	else if (level.scr_zm_ui_gametype == "zrace")
 	{
 		return 500;
 	}
-	else if (level.scr_zm_ui_gametype_obj == "zcontainment")
+	else if (level.scr_zm_ui_gametype == "zcontainment")
 	{
 		return 250;
 	}
-	else if (level.scr_zm_ui_gametype_obj == "zmeat")
+	else if (level.scr_zm_ui_gametype == "zmeat")
 	{
 		return 200;
 	}
-	else if (level.scr_zm_ui_gametype_obj == "zsr")
+	else if (level.scr_zm_ui_gametype == "zsr")
 	{
 		return 3;
+	}
+	else
+	{
+		return 1;
 	}
 }
 
 is_respawn_gamemode()
 {
-	if (!isDefined(level.scr_zm_ui_gametype_obj))
-	{
-		return 0;
-	}
-
-	return level.scr_zm_ui_gametype_obj != "zsr";
+	return is_encounter() && level.scr_zm_ui_gametype != "zsr";
 }
 
 show_grief_hud_msg(msg, msg_parm1, msg_parm2, offset, delay)
@@ -1608,7 +1545,7 @@ do_game_mode_stun_score_steal(eattacker)
 
 	eattacker.killsdenied++;
 
-	if (level.scr_zm_ui_gametype_obj == "zrace")
+	if (level.scr_zm_ui_gametype == "zrace")
 	{
 		increment_score(eattacker.team);
 	}
@@ -3333,7 +3270,7 @@ increment_score(team, amount = 1, show_lead_msg = true, score_msg)
 		scripts\zm\replaced\_zm_game_module::game_won(encounters_team);
 	}
 
-	if (level.scr_zm_ui_gametype_obj == "zgrief")
+	if (level.scr_zm_ui_gametype == "zgrief")
 	{
 		score = level.grief_score[encounters_team];
 		other_score = level.grief_score[other_encounters_team];
@@ -3363,7 +3300,7 @@ increment_score(team, amount = 1, show_lead_msg = true, score_msg)
 		}
 	}
 
-	if (level.scr_zm_ui_gametype_obj == "zrace")
+	if (level.scr_zm_ui_gametype == "zrace")
 	{
 		if (isDefined(score_msg))
 		{
@@ -3384,7 +3321,7 @@ increment_score(team, amount = 1, show_lead_msg = true, score_msg)
 
 			delay = undefined;
 
-			if (level.scr_zm_ui_gametype_obj == "zgrief" || level.scr_zm_ui_gametype_obj == "zrace")
+			if (level.scr_zm_ui_gametype == "zgrief" || level.scr_zm_ui_gametype == "zrace")
 			{
 				delay = 1;
 			}

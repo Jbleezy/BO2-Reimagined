@@ -873,7 +873,7 @@
 * Removed bottom part of perk machine model
 
 ### Tombstone Soda
-* Added in solo and Grief
+* Added in solo and Encounter
 * Powerup no longer removed when revived
 * Powerup removed when downed again after being revived or respawning
 * Unlimited time to pick up powerup
@@ -1147,8 +1147,8 @@
 * Fixed zombie riser spawn points that were too high above ground
 * Fixed zombie pathing at Cornfield behind the pylon
 * Fixed zombie pathing at Town in Bookstore
-* Survival & Grief: power doors are buyable doors
-* Grief: added Ballistic Knife, Ray Gun, and Ray Gun Mark 2 to the Mystery Box
+* Survival & Encounter: power doors are buyable doors
+* Encounter: added Ballistic Knife, Ray Gun, and Ray Gun Mark 2 to the Mystery Box
 * Quest: added "Benn - Just Like You" song
 * Quest: increased pylon powerup drop rate from 4-12 minutes to 2-6 minutes
 * Quest: fixed being able to complete both sides
@@ -1170,7 +1170,8 @@
 
 #### Farm
 * Zombies spawn in the Farm zone when players are in the Barn zone
-* Replaced Galvaknuckles wallbuy with Claymore wallbuy (also added to Grief)
+* Replaced Galvaknuckles wallbuy with Claymore wallbuy (also added to Encounter)
+* Encounter: removed collision in the Barn zone
 
 #### Power Station
 * Wallbuys: SMR, Ballista, MSMC, Vector K10, Remington 870 MCS, Bowie Knife
@@ -1384,7 +1385,7 @@
 * Wallbuys: SMR, Ballista, MSMC, Uzi, M1927
 * Perks: Jugger-Nog, Electric Cherry
 * Pack-a-Punch
-* Grief: Tower Trap targets and damages players
+* Encounter: Tower Trap targets and damages players
 
 ### Origins
 * Added Double Tap machine at Generator 6 Church

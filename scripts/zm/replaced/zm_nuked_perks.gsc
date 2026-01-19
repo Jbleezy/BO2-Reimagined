@@ -113,7 +113,7 @@ perks_from_the_sky()
 	machine_triggers[4] trigger_off();
 	flag_wait("initial_blackscreen_passed");
 
-	if (level.scr_zm_ui_gametype == "zgrief")
+	if (is_encounter())
 	{
 		grief_bring_random_perks(machines, machine_triggers);
 	}

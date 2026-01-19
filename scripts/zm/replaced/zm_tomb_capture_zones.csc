@@ -37,7 +37,7 @@ get_pack_a_punch_model(localclientnumber)
 
 		level.pack_a_punch_model[localclientnumber] = getent(localclientnumber, valid_pap_targetname, "targetname");
 
-		if (getdvar("g_gametype") == "zgrief" && getdvarintdefault("ui_gametype_pro", 0))
+		if (getdvarint("ui_gametype_pro"))
 		{
 			level.pack_a_punch_model[localclientnumber] hide();
 		}

@@ -339,3 +339,35 @@ grief_treasure_chest_init()
 	chest_name = random(chest_names);
 	maps\mp\zombies\_zm_magicbox::treasure_chest_init(chest_name);
 }
+
+magicbox_face_spawn()
+{
+	self endon("disconnect");
+
+	if (is_classic())
+	{
+		return;
+	}
+
+	while (true)
+	{
+		self waittill("user_grabbed_weapon");
+
+		if (randomint(50000) == 115)
+		{
+			self playsoundtoplayer("zmb_easteregg_face", self);
+			self.wth_elem = newclienthudelem(self);
+			self.wth_elem.horzalign = "fullscreen";
+			self.wth_elem.vertalign = "fullscreen";
+			self.wth_elem.sort = 1000;
+			self.wth_elem.foreground = 0;
+			self.wth_elem.alpha = 1.0;
+			self.wth_elem setshader("zm_al_wth_zombie", 640, 480);
+			self.wth_elem.hidewheninmenu = 1;
+			wait 0.25;
+			self.wth_elem destroy();
+		}
+
+		wait 0.05;
+	}
+}

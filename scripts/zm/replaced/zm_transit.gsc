@@ -215,38 +215,35 @@ include_weapons()
 		include_weapon("screecher_arms_zm", 0);
 	}
 
-	if (gametype != "zgrief")
-	{
-		include_weapon("ray_gun_zm");
-		include_weapon("ray_gun_upgraded_zm", 0);
-		include_weapon("jetgun_zm", 0, undefined, ::less_than_normal);
-		include_weapon("riotshield_zm", 0);
-		include_weapon("tazer_knuckles_zm", 0);
-		include_weapon("knife_ballistic_no_melee_zm", 0);
-		include_weapon("knife_ballistic_no_melee_upgraded_zm", 0);
-		include_weapon("knife_ballistic_zm");
-		include_weapon("knife_ballistic_upgraded_zm", 0);
-		include_weapon("knife_ballistic_bowie_zm", 0);
-		include_weapon("knife_ballistic_bowie_upgraded_zm", 0);
-		level._uses_retrievable_ballisitic_knives = 1;
-		add_limited_weapon("knife_ballistic_zm", 1);
-		add_limited_weapon("jetgun_zm", 1);
-		add_limited_weapon("ray_gun_zm", 4);
-		add_limited_weapon("ray_gun_upgraded_zm", 4);
-		add_limited_weapon("knife_ballistic_upgraded_zm", 0);
-		add_limited_weapon("knife_ballistic_no_melee_zm", 0);
-		add_limited_weapon("knife_ballistic_no_melee_upgraded_zm", 0);
-		add_limited_weapon("knife_ballistic_bowie_zm", 0);
-		add_limited_weapon("knife_ballistic_bowie_upgraded_zm", 0);
+	include_weapon("ray_gun_zm");
+	include_weapon("ray_gun_upgraded_zm", 0);
+	include_weapon("jetgun_zm", 0, undefined, ::less_than_normal);
+	include_weapon("riotshield_zm", 0);
+	include_weapon("tazer_knuckles_zm", 0);
+	include_weapon("knife_ballistic_no_melee_zm", 0);
+	include_weapon("knife_ballistic_no_melee_upgraded_zm", 0);
+	include_weapon("knife_ballistic_zm");
+	include_weapon("knife_ballistic_upgraded_zm", 0);
+	include_weapon("knife_ballistic_bowie_zm", 0);
+	include_weapon("knife_ballistic_bowie_upgraded_zm", 0);
+	level._uses_retrievable_ballisitic_knives = 1;
+	add_limited_weapon("knife_ballistic_zm", 1);
+	add_limited_weapon("jetgun_zm", 1);
+	add_limited_weapon("ray_gun_zm", 4);
+	add_limited_weapon("ray_gun_upgraded_zm", 4);
+	add_limited_weapon("knife_ballistic_upgraded_zm", 0);
+	add_limited_weapon("knife_ballistic_no_melee_zm", 0);
+	add_limited_weapon("knife_ballistic_no_melee_upgraded_zm", 0);
+	add_limited_weapon("knife_ballistic_bowie_zm", 0);
+	add_limited_weapon("knife_ballistic_bowie_upgraded_zm", 0);
 
-		if (isdefined(level.raygun2_included) && level.raygun2_included)
-		{
-			include_weapon("raygun_mark2_zm");
-			include_weapon("raygun_mark2_upgraded_zm", 0);
-			add_weapon_to_content("raygun_mark2_zm", "dlc3");
-			add_limited_weapon("raygun_mark2_zm", 1);
-			add_limited_weapon("raygun_mark2_upgraded_zm", 1);
-		}
+	if (isdefined(level.raygun2_included) && level.raygun2_included)
+	{
+		include_weapon("raygun_mark2_zm");
+		include_weapon("raygun_mark2_upgraded_zm", 0);
+		add_weapon_to_content("raygun_mark2_zm", "dlc3");
+		add_limited_weapon("raygun_mark2_zm", 1);
+		add_limited_weapon("raygun_mark2_upgraded_zm", 1);
 	}
 
 	add_limited_weapon("m1911_zm", 0);
@@ -259,6 +256,17 @@ init_level_specific_wall_buy_fx()
 	level._effect["an94_zm_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_an94");
 	level._effect["pdw57_zm_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_pdw57");
 	level._effect["svu_zm_fx"] = loadfx("maps/zombie/fx_zmb_wall_buy_svuas");
+}
+
+include_powerups()
+{
+	include_powerup("nuke");
+	include_powerup("insta_kill");
+	include_powerup("double_points");
+	include_powerup("full_ammo");
+	include_powerup("insta_kill_ug");
+	include_powerup("carpenter");
+	include_powerup("teller_withdrawl");
 }
 
 lava_damage_depot()

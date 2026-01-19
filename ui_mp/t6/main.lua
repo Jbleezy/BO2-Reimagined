@@ -167,6 +167,33 @@ local f0_local4 = function(f8_arg0, f8_arg1, f8_arg2, f8_arg3)
 	})
 end
 
+CoD.InitGlobalVars = function()
+	CoD.Zombie.GAMETYPE_ZRACE = "zrace"
+	CoD.Zombie.GAMETYPE_ZCONTAINMENT = "zcontainment"
+	CoD.Zombie.GAMETYPE_ZSR = "zsr"
+	CoD.Zombie.GameTypeGroups[CoD.Zombie.GAMETYPE_ZRACE] = {}
+	CoD.Zombie.GameTypeGroups[CoD.Zombie.GAMETYPE_ZRACE].maxPlayers = 8
+	CoD.Zombie.GameTypeGroups[CoD.Zombie.GAMETYPE_ZRACE].minPlayers = 2
+	CoD.Zombie.GameTypeGroups[CoD.Zombie.GAMETYPE_ZRACE].maxLocalPlayers = 2
+	CoD.Zombie.GameTypeGroups[CoD.Zombie.GAMETYPE_ZRACE].maxLocalSplitScreenPlayers = 4
+	CoD.Zombie.GameTypeGroups[CoD.Zombie.GAMETYPE_ZRACE].maxTeamPlayers = 4
+	CoD.Zombie.GameTypeGroups[CoD.Zombie.GAMETYPE_ZRACE].minTeamPlayers = 1
+	CoD.Zombie.GameTypeGroups[CoD.Zombie.GAMETYPE_ZCONTAINMENT] = {}
+	CoD.Zombie.GameTypeGroups[CoD.Zombie.GAMETYPE_ZCONTAINMENT].maxPlayers = 8
+	CoD.Zombie.GameTypeGroups[CoD.Zombie.GAMETYPE_ZCONTAINMENT].minPlayers = 2
+	CoD.Zombie.GameTypeGroups[CoD.Zombie.GAMETYPE_ZCONTAINMENT].maxLocalPlayers = 2
+	CoD.Zombie.GameTypeGroups[CoD.Zombie.GAMETYPE_ZCONTAINMENT].maxLocalSplitScreenPlayers = 4
+	CoD.Zombie.GameTypeGroups[CoD.Zombie.GAMETYPE_ZCONTAINMENT].maxTeamPlayers = 4
+	CoD.Zombie.GameTypeGroups[CoD.Zombie.GAMETYPE_ZCONTAINMENT].minTeamPlayers = 1
+	CoD.Zombie.GameTypeGroups[CoD.Zombie.GAMETYPE_ZSR] = {}
+	CoD.Zombie.GameTypeGroups[CoD.Zombie.GAMETYPE_ZSR].maxPlayers = 8
+	CoD.Zombie.GameTypeGroups[CoD.Zombie.GAMETYPE_ZSR].minPlayers = 2
+	CoD.Zombie.GameTypeGroups[CoD.Zombie.GAMETYPE_ZSR].maxLocalPlayers = 2
+	CoD.Zombie.GameTypeGroups[CoD.Zombie.GAMETYPE_ZSR].maxLocalSplitScreenPlayers = 4
+	CoD.Zombie.GameTypeGroups[CoD.Zombie.GAMETYPE_ZSR].maxTeamPlayers = 4
+	CoD.Zombie.GameTypeGroups[CoD.Zombie.GAMETYPE_ZSR].minTeamPlayers = 1
+end
+
 CoD.InitArchiveDvars = function()
 	if UIExpression.DvarString(nil, "ui_hud_enemy_counter") == "" then
 		Engine.Exec(nil, "seta ui_hud_enemy_counter 1")
@@ -219,6 +246,7 @@ CoD.SetDvars = function()
 end
 
 LUI.createMenu.main = function()
+	CoD.InitGlobalVars()
 	CoD.InitArchiveDvars()
 	CoD.SetDvars()
 

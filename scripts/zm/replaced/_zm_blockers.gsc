@@ -233,8 +233,11 @@ handle_post_board_repair_rewards(cost, zbarrier)
 	self maps\mp\zombies\_zm_pers_upgrades_functions::pers_boards_updated(zbarrier);
 	self.rebuild_barrier_reward += cost;
 
-	self maps\mp\zombies\_zm_score::player_add_points("rebuild_board", cost);
-	self play_sound_on_ent("purchase");
+	if (self.rebuild_barrier_reward < level.zombie_vars["rebuild_barrier_cap_per_round"] || is_encounter())
+	{
+		self maps\mp\zombies\_zm_score::player_add_points("rebuild_board", cost);
+		self play_sound_on_ent("purchase");
+	}
 
 	if (isDefined(self.board_repair))
 	{
@@ -279,5 +282,10 @@ player_fails_blocker_repair_trigger_preamble(player, players, trigger, hold_requ
 		return true;
 	}
 
+	return false;
+}
+
+should_delete_zbarriers()
+{
 	return false;
 }

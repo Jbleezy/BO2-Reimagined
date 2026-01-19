@@ -6,7 +6,7 @@ init_player_offhand_weapons()
 {
 	if (!is_true(self.init_player_offhand_weapons_override))
 	{
-		if (is_gametype_active("zgrief") && is_true(self.player_initialized))
+		if (is_encounter() && is_true(self.player_initialized))
 		{
 			return;
 		}

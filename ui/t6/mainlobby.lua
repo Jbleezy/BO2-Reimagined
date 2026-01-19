@@ -218,27 +218,13 @@ end
 CoD.MainLobby.InitMapDvars = function(controller)
 	local gametype = UIExpression.ProfileValueAsString(controller, CoD.profileKey_gametype)
 	local map = UIExpression.ProfileValueAsString(controller, CoD.profileKey_map)
-	local gametypeIndex = 1
-	local mapIndex = 1
 	local gametypeTable = CoD.SelectMapListZombie.GameModes
-	local mapTable = CoD.SelectMapListZombie.Maps
-	local defaultGametypes = Engine.GetGametypesBase()
-	local gametypeIsValid = false
-
-	for key, defaultGametype in pairs(defaultGametypes) do
-		if defaultGametype.gametype == gametype then
-			gametypeIsValid = true
-			break
-		end
-	end
-
-	if gametypeIsValid then
-		gametypeIndex = CoD.SelectMapListZombie.GetKeyValueIndex(gametypeTable, "ui_gametype", gametype)
-	else
-		gametypeIndex = CoD.SelectMapListZombie.GetKeyValueIndex(gametypeTable, "ui_gametype_obj", gametype)
-	end
+	local gametypeIndex = CoD.SelectMapListZombie.GetKeyValueIndex(gametypeTable, "ui_gametype", gametype)
+	local mapTable = {}
+	local mapIndex = 1
 
 	if gametype == "zclassic" then
+		mapTable = CoD.SelectMapListZombie.Maps
 		mapIndex = CoD.SelectMapListZombie.GetKeyValueIndex(mapTable, "ui_mapname", map)
 	else
 		mapTable = CoD.SelectMapListZombie.Locations
@@ -247,7 +233,6 @@ CoD.MainLobby.InitMapDvars = function(controller)
 
 	Engine.SetDvar("ui_zm_gamemodegroup", gametypeTable[gametypeIndex].ui_zm_gamemodegroup)
 	Engine.SetGametype(gametypeTable[gametypeIndex].ui_gametype)
-	Engine.SetDvar("ui_gametype_obj", gametypeTable[gametypeIndex].ui_gametype_obj)
 	Engine.SetDvar("ui_mapname", mapTable[mapIndex].ui_mapname)
 	Engine.SetDvar("ui_zm_mapstartlocation", mapTable[mapIndex].ui_zm_mapstartlocation)
 end

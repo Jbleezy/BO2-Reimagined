@@ -25,7 +25,7 @@ init()
 	level.zombie_init_done = ::zombie_init_done;
 	level.special_weapon_magicbox_check = ::nuked_special_weapon_magicbox_check;
 
-	if (is_gametype_active("zgrief"))
+	if (is_encounter())
 	{
 		maps\mp\zombies\_zm_ai_dogs::init();
 		sndswitchannouncervox("richtofen");

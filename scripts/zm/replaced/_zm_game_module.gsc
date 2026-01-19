@@ -7,7 +7,7 @@ wait_for_team_death_and_round_end()
 	level endon("game_module_ended");
 	level endon("end_game");
 
-	if (level.scr_zm_ui_gametype_obj != "zsr")
+	if (level.scr_zm_ui_gametype != "zsr")
 	{
 		return;
 	}
@@ -187,8 +187,8 @@ round_end(winner)
 	level notify("keep_griefing");
 	level notify("restart_round");
 
-	level.sr_round_number++;
-	setDvar("ui_round_number", level.sr_round_number);
+	level.scr_zm_ui_round_number++;
+	setDvar("ui_round_number", level.scr_zm_ui_round_number);
 
 	if (isDefined(level.show_grief_hud_msg_func))
 	{
@@ -219,7 +219,7 @@ round_end(winner)
 		}
 	}
 
-	zombie_goto_round(level.sr_round_number);
+	zombie_goto_round(level.scr_zm_ui_round_number);
 	level thread maps\mp\zombies\_zm_game_module::reset_grief();
 	level thread maps\mp\zombies\_zm::round_think(1);
 }

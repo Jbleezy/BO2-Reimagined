@@ -559,7 +559,7 @@ auto_revive(reviver, dont_enable_weapons)
 
 	valid_reviver = 1;
 
-	if (is_gametype_active("zgrief") && reviver == self)
+	if (is_encounter() && reviver == self)
 	{
 		valid_reviver = 0;
 	}

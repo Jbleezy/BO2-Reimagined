@@ -75,6 +75,11 @@ struct_class_init()
 	gametype = getDvar("g_gametype");
 	location = getDvar("ui_zm_mapstartlocation");
 
+	if (is_encounter())
+	{
+		gametype = "zgrief";
+	}
+
 	if (array_validate(level.add_struct_gamemode_location_funcs))
 	{
 		if (array_validate(level.add_struct_gamemode_location_funcs[gametype]))
@@ -168,13 +173,21 @@ register_perk_struct(name, model, origin, angles)
 
 register_map_spawn_group(origin, zone, dist)
 {
+	gametype = getDvar("g_gametype");
+	location = getDvar("ui_zm_mapstartlocation");
+
+	if (is_encounter())
+	{
+		gametype = "zgrief";
+	}
+
 	spawn_group_struct = spawnStruct();
 	spawn_group_struct.targetname = "player_respawn_point";
 	spawn_group_struct.origin = origin;
 	spawn_group_struct.locked = !zone_is_enabled(zone);
 	spawn_group_struct.script_int = dist;
 	spawn_group_struct.script_noteworthy = zone;
-	spawn_group_struct.script_string = getDvar("g_gametype") + "_" + getDvar("ui_zm_mapstartlocation");
+	spawn_group_struct.script_string = gametype + "_" + location;
 	spawn_group_struct.target = zone + "_player_spawns";
 
 	add_struct(spawn_group_struct);
@@ -182,11 +195,19 @@ register_map_spawn_group(origin, zone, dist)
 
 register_map_spawn(origin, angles, zone, team_num)
 {
+	gametype = getDvar("g_gametype");
+	location = getDvar("ui_zm_mapstartlocation");
+
+	if (is_encounter())
+	{
+		gametype = "zgrief";
+	}
+
 	spawn_struct = spawnStruct();
 	spawn_struct.targetname = zone + "_player_spawns";
 	spawn_struct.origin = origin;
 	spawn_struct.angles = angles;
-	spawn_struct.script_string = getDvar("g_gametype") + "_" + getDvar("ui_zm_mapstartlocation");
+	spawn_struct.script_string = gametype + "_" + location;
 
 	if (isDefined(team_num))
 	{

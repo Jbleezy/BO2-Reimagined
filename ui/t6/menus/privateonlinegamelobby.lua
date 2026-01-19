@@ -16,11 +16,6 @@ LUI.createMenu.PrivateOnlineGameLobby = function(f1_arg0)
 	f1_local0:addTitle(f1_local1)
 	f1_local0.panelManager.panels.buttonPane.titleText = f1_local1
 
-	if UIExpression.DvarString(nil, "ui_gametype_obj_lobby") ~= "" then
-		Engine.SetDvar("ui_gametype_obj", UIExpression.DvarString(nil, "ui_gametype_obj_lobby"))
-		Engine.SetDvar("ui_gametype_obj_lobby", "")
-	end
-
 	if UIExpression.DvarString(nil, "ui_gametype_pro_lobby") ~= "" then
 		Engine.SetDvar("ui_gametype_pro", UIExpression.DvarString(nil, "ui_gametype_pro_lobby"))
 		Engine.SetDvar("ui_gametype_pro_lobby", "")

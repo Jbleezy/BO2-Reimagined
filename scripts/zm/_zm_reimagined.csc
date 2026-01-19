@@ -5,6 +5,9 @@ main()
 {
 	replaceFunc(clientscripts\mp\_explosive_bolt::fx_think, scripts\zm\replaced\_explosive_bolt::fx_think);
 	replaceFunc(clientscripts\mp\_sticky_grenade::start_light_fx, scripts\zm\replaced\_sticky_grenade::start_light_fx);
+	replaceFunc(clientscripts\mp\zombies\_zm::zombe_gametype_premain, scripts\zm\replaced\_zm::zombe_gametype_premain);
+	replaceFunc(clientscripts\mp\zombies\_zm::start_zombie_gametype, scripts\zm\replaced\_zm::start_zombie_gametype);
+	replaceFunc(clientscripts\mp\zombies\_zm::precache_zombie_gametype, scripts\zm\replaced\_zm::precache_zombie_gametype);
 	replaceFunc(clientscripts\mp\zombies\_zm::init_client_flag_callback_funcs, scripts\zm\replaced\_zm::init_client_flag_callback_funcs);
 	replaceFunc(clientscripts\mp\zombies\_zm::init_wallbuy_fx, scripts\zm\replaced\_zm::init_wallbuy_fx);
 	replaceFunc(clientscripts\mp\zombies\_zm::entityspawned, scripts\zm\replaced\_zm::entityspawned);
@@ -16,11 +19,17 @@ main()
 
 	perk_changes();
 	powerup_changes();
+	disable_navcards();
 
 	level thread toggle_vending_divetonuke_power_on_think();
 	level thread toggle_vending_divetonuke_power_off_think();
 	level thread toggle_vending_deadshot_power_on_think();
 	level thread toggle_vending_deadshot_power_off_think();
+
+	if (is_encounter())
+	{
+		scripts\zm\zencounter\zencounter_reimagined::main();
+	}
 }
 
 perk_changes()
@@ -155,4 +164,9 @@ toggle_vending_deadshot_power_off_think()
 			}
 		}
 	}
+}
+
+disable_navcards()
+{
+	level._no_navcards = 1;
 }

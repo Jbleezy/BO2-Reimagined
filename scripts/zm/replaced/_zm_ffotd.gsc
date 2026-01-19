@@ -4,6 +4,26 @@
 #include maps\mp\zombies\_zm_utility;
 #include maps\mp\zombies\_zm_stats;
 
+main_start()
+{
+	mapname = tolower(getdvar("mapname"));
+	gametype = getdvar("ui_gametype");
+
+	if ("zm_transit" == tolower(getdvar("mapname")) && "zclassic" == getdvar("ui_gametype"))
+	{
+		level thread transit_navcomputer_remove_card_on_success();
+	}
+
+	if (("zm_transit" == mapname || "zm_highrise" == mapname) && "zclassic" == gametype)
+	{
+		level.pers_upgrade_sniper = 1;
+		level.pers_upgrade_pistol_points = 1;
+		level.pers_upgrade_perk_lose = 1;
+		level.pers_upgrade_double_points = 1;
+		level.pers_upgrade_nube = 1;
+	}
+}
+
 ffotd_melee_miss_func()
 {
 	if (isdefined(self.enemy))

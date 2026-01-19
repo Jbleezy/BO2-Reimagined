@@ -41,7 +41,7 @@ machines_setup()
 		machine useanimtree(#animtree );
 		machine thread machine_power_indicators();
 
-		if (machine != level.random_perk_start_machine || (getdvar("g_gametype") == "zgrief" && getdvarintdefault("ui_gametype_pro", 0)))
+		if (machine != level.random_perk_start_machine || getdvarint("ui_gametype_pro"))
 		{
 			machine update_animation("shut_down");
 			machine hidepart("j_ball");

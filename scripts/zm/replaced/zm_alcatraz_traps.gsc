@@ -369,7 +369,7 @@ activate_tower_trap()
 	{
 		zombies = getaiarray(level.zombie_team);
 
-		if (is_gametype_active("zgrief"))
+		if (is_encounter())
 		{
 			zombies = arraycombine(zombies, get_players(), 1, 0);
 		}

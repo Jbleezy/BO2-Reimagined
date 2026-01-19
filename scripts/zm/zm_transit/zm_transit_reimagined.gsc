@@ -20,12 +20,14 @@ main()
 	replaceFunc(maps\mp\zm_transit_sq::droppowerup, scripts\zm\replaced\zm_transit_sq::droppowerup);
 	replaceFunc(maps\mp\zm_transit::transit_zone_init, scripts\zm\replaced\zm_transit::transit_zone_init);
 	replaceFunc(maps\mp\zm_transit::include_weapons, scripts\zm\replaced\zm_transit::include_weapons);
+	replaceFunc(maps\mp\zm_transit::include_powerups, scripts\zm\replaced\zm_transit::include_powerups);
 	replaceFunc(maps\mp\zm_transit::lava_damage_depot, scripts\zm\replaced\zm_transit::lava_damage_depot);
 	replaceFunc(maps\mp\zm_transit::safety_light_power_off, scripts\zm\replaced\zm_transit::safety_light_power_off);
 	replaceFunc(maps\mp\zm_transit::grenade_safe_to_bounce, scripts\zm\replaced\zm_transit::grenade_safe_to_bounce);
 	replaceFunc(maps\mp\zm_transit::can_revive, scripts\zm\replaced\zm_transit::can_revive);
 	replaceFunc(maps\mp\zm_transit::insta_kill_player, scripts\zm\replaced\zm_transit::insta_kill_player);
 	replaceFunc(maps\mp\zm_transit::sndplaymusicegg, scripts\zm\replaced\zm_transit::sndplaymusicegg);
+	replaceFunc(maps\mp\zm_transit_ffotd::main_end, scripts\zm\replaced\zm_transit_ffotd::main_end);
 	replaceFunc(maps\mp\zm_transit_gamemodes::init, scripts\zm\replaced\zm_transit_gamemodes::init);
 	replaceFunc(maps\mp\zm_transit_classic::spawn_inert_zombies, scripts\zm\replaced\zm_transit_classic::spawn_inert_zombies);
 	replaceFunc(maps\mp\zm_transit_utility::solo_tombstone_removal, scripts\zm\replaced\zm_transit_utility::solo_tombstone_removal);
@@ -80,7 +82,6 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_weapon_locker::wl_set_stored_weapondata, scripts\zm\replaced\_zm_weapon_locker::wl_set_stored_weapondata);
 
 	include_powerups();
-	grief_include_weapons();
 	electric_door_changes();
 }
 
@@ -111,38 +112,6 @@ init()
 include_powerups()
 {
 	include_powerup("free_perk");
-}
-
-grief_include_weapons()
-{
-	if (getDvar("g_gametype") != "zgrief")
-	{
-		return;
-	}
-
-	include_weapon("ray_gun_zm");
-	include_weapon("ray_gun_upgraded_zm", 0);
-	include_weapon("tazer_knuckles_zm", 0);
-	include_weapon("knife_ballistic_no_melee_zm", 0);
-	include_weapon("knife_ballistic_no_melee_upgraded_zm", 0);
-	include_weapon("knife_ballistic_zm");
-	include_weapon("knife_ballistic_upgraded_zm", 0);
-	include_weapon("knife_ballistic_bowie_zm", 0);
-	include_weapon("knife_ballistic_bowie_upgraded_zm", 0);
-	level._uses_retrievable_ballisitic_knives = 1;
-	maps\mp\zombies\_zm_weapons::add_limited_weapon("knife_ballistic_zm", 1);
-	maps\mp\zombies\_zm_weapons::add_limited_weapon("ray_gun_zm", 4);
-	maps\mp\zombies\_zm_weapons::add_limited_weapon("ray_gun_upgraded_zm", 4);
-	maps\mp\zombies\_zm_weapons::add_limited_weapon("knife_ballistic_upgraded_zm", 0);
-	maps\mp\zombies\_zm_weapons::add_limited_weapon("knife_ballistic_no_melee_zm", 0);
-	maps\mp\zombies\_zm_weapons::add_limited_weapon("knife_ballistic_no_melee_upgraded_zm", 0);
-	maps\mp\zombies\_zm_weapons::add_limited_weapon("knife_ballistic_bowie_zm", 0);
-	maps\mp\zombies\_zm_weapons::add_limited_weapon("knife_ballistic_bowie_upgraded_zm", 0);
-	include_weapon("raygun_mark2_zm");
-	include_weapon("raygun_mark2_upgraded_zm", 0);
-	maps\mp\zombies\_zm_weapons::add_weapon_to_content("raygun_mark2_zm", "dlc3");
-	maps\mp\zombies\_zm_weapons::add_limited_weapon("raygun_mark2_zm", 1);
-	maps\mp\zombies\_zm_weapons::add_limited_weapon("raygun_mark2_upgraded_zm", 1);
 }
 
 zombie_init_done()

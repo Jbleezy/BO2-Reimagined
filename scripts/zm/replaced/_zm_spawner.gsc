@@ -65,7 +65,7 @@ zombie_damage(mod, hit_location, hit_origin, player, amount, team)
 	{
 		damage = level.round_number * 150;
 
-		if (level.scr_zm_ui_gametype == "zgrief")
+		if (is_encounter())
 		{
 			damage = 2000;
 		}
@@ -94,7 +94,7 @@ zombie_damage(mod, hit_location, hit_origin, player, amount, team)
 	{
 		damage = level.round_number * 25;
 
-		if (level.scr_zm_ui_gametype == "zgrief")
+		if (is_encounter())
 		{
 			damage = 500;
 		}
@@ -121,7 +121,7 @@ zombie_damage(mod, hit_location, hit_origin, player, amount, team)
 	{
 		damage = level.round_number * 50;
 
-		if (level.scr_zm_ui_gametype == "zgrief")
+		if (is_encounter())
 		{
 			damage = 1000;
 		}
@@ -295,7 +295,7 @@ zombie_gib_on_damage()
 					health *= 0.1;
 					self thread maps\mp\animscripts\zm_run::needsdelayedupdate();
 
-					if (level.scr_zm_ui_gametype == "zgrief")
+					if (is_encounter())
 					{
 						self thread bleedout_watcher();
 					}

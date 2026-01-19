@@ -10780,7 +10780,6 @@
 }
 {
 "script_sound" "zmb_small_wood_door"
-"script_parameters" "meat_remove race_remove"
 "angles" "0 2.50448e-006 0"
 "spawnflags" "1"
 "targetname" "pf1563_auto2471"
@@ -13879,7 +13878,6 @@
 "targetname" "pf1563_auto2473"
 "spawnflags" "1"
 "angles" "13.9999 95.157 -9.9943"
-"script_parameters" "meat_remove race_remove"
 "guid" "5F14820B"
 }
 {
@@ -14302,13 +14300,11 @@
 "targetname" "pf1563_auto2282"
 "spawnflags" "1"
 "angles" "0 134.8 0"
-"script_parameters" "meat_remove race_remove"
 "script_sound" "zmb_small_wood_door"
 "guid" "3251517A"
 }
 {
 "script_sound" "zmb_small_wood_door"
-"script_parameters" "meat_remove race_remove"
 "angles" "0 314.8 0"
 "spawnflags" "1"
 "targetname" "pf1563_auto2282"
@@ -15677,7 +15673,6 @@
 }
 {
 "script_sound" "zmb_small_wood_door"
-"script_parameters" "meat_remove race_remove"
 "angles" "0 240 0"
 "spawnflags" "1"
 "targetname" "pf1577_auto2493"
@@ -15695,7 +15690,6 @@
 "targetname" "pf1577_auto2493"
 "spawnflags" "1"
 "angles" "0 60 0"
-"script_parameters" "meat_remove race_remove"
 "script_sound" "zmb_small_wood_door"
 "guid" "7004629A"
 }
@@ -15726,7 +15720,6 @@
 "targetname" "pf1577_auto2494"
 "spawnflags" "1"
 "angles" "0 239.4 0"
-"script_parameters" "meat_remove race_remove"
 "script_sound" "zmb_small_wood_door"
 "guid" "9177C2D5"
 }
@@ -16067,13 +16060,11 @@
 "targetname" "pf1577_auto2498"
 "spawnflags" "1"
 "angles" "0 59.4 0"
-"script_parameters" "meat_remove race_remove"
 "script_sound" "zmb_small_wood_door"
 "guid" "7895E9B0"
 }
 {
 "script_sound" "zmb_small_wood_door"
-"script_parameters" "meat_remove race_remove"
 "angles" "0 59.4 0"
 "spawnflags" "1"
 "targetname" "pf1577_auto2497"
@@ -16693,7 +16684,6 @@
 }
 {
 "script_sound" "zmb_small_wood_door"
-"script_parameters" "meat_remove race_remove"
 "angles" "0 240 0"
 "spawnflags" "1"
 "targetname" "pf1577_auto2474"
@@ -16711,13 +16701,11 @@
 "targetname" "pf1577_auto2474"
 "spawnflags" "1"
 "angles" "0 60 0"
-"script_parameters" "meat_remove race_remove"
 "script_sound" "zmb_small_wood_door"
 "guid" "09EB46A3"
 }
 {
 "script_sound" "zmb_small_wood_door"
-"script_parameters" "meat_remove race_remove"
 "angles" "0 240 0"
 "spawnflags" "1"
 "targetname" "pf1577_auto2495"
@@ -16735,7 +16723,6 @@
 "targetname" "pf1577_auto2495"
 "spawnflags" "1"
 "angles" "0 60 0"
-"script_parameters" "meat_remove race_remove"
 "script_sound" "zmb_small_wood_door"
 "guid" "ADF96DC3"
 }
@@ -22939,7 +22926,6 @@
 "targetname" "pf1577_auto2492"
 "spawnflags" "1"
 "angles" "13.2746 330.163 30.2238"
-"script_parameters" "meat_remove race_remove"
 "script_noteworthy" "jiggle"
 "script_firefx" "poltergeist"
 "guid" "C2452C8F"
@@ -23926,7 +23912,6 @@
 "targetname" "pf1577_auto2496"
 "spawnflags" "1"
 "angles" "0 149.4 0"
-"script_parameters" "meat_remove race_remove"
 "script_sound" "zmb_small_wood_door"
 "guid" "C4898191"
 }

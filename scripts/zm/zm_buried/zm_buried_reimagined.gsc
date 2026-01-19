@@ -17,6 +17,7 @@ main()
 	replaceFunc(maps\mp\zm_buried_classic::insta_kill_player, scripts\zm\replaced\zm_buried_classic::insta_kill_player);
 	replaceFunc(maps\mp\zm_buried_gamemodes::init, scripts\zm\replaced\zm_buried_gamemodes::init);
 	replaceFunc(maps\mp\zm_buried_gamemodes::buildbuildable, scripts\zm\replaced\zm_buried_gamemodes::buildbuildable);
+	replaceFunc(maps\mp\zm_buried_gamemodes::builddynamicwallbuy, scripts\zm\replaced\zm_buried_gamemodes::builddynamicwallbuy);
 	replaceFunc(maps\mp\zm_buried_power::electric_switch, scripts\zm\replaced\zm_buried_power::electric_switch);
 	replaceFunc(maps\mp\zm_buried_ffotd::main_end, scripts\zm\replaced\zm_buried_ffotd::main_end);
 	replaceFunc(maps\mp\zm_buried_ffotd::jail_traversal_fix, scripts\zm\replaced\zm_buried_ffotd::jail_traversal_fix);

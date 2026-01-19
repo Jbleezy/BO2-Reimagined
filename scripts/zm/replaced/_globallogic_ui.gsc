@@ -38,7 +38,7 @@ menuautoassign(comingfrommenu)
 
 get_assigned_team()
 {
-	if (!isDedicated())
+	if (level.scr_zm_ui_gametype_group != "zencounter" || !isDedicated())
 	{
 		return getassignedteam(self);
 	}
