@@ -867,11 +867,6 @@ CoD.ScoreboardRow.new = function(LocalClientIndex, ScoreboardRowIndex)
 	ScoreboardRowWidget.statusIcon:setTopBottom(false, false, -f0_local24 / 2, f0_local24 / 2)
 	ScoreboardRowWidget.statusIcon:setAlpha(0)
 	ScoreboardRowWidget:addElement(ScoreboardRowWidget.statusIcon)
-	ScoreboardRowWidget.voipIcon = LUI.UIImage.new()
-	ScoreboardRowWidget.voipIcon:setLeftRight(true, false, f23_local4, f23_local4 + f0_local24)
-	ScoreboardRowWidget.voipIcon:setTopBottom(false, false, -f0_local24 / 2, f0_local24 / 2)
-	ScoreboardRowWidget.voipIcon:setAlpha(0)
-	ScoreboardRowWidget:addElement(ScoreboardRowWidget.voipIcon)
 	f23_local4 = f23_local4 + f0_local24
 	if not CoD.isZombie then
 		ScoreboardRowWidget.rankText = LUI.UIText.new()
@@ -888,6 +883,11 @@ CoD.ScoreboardRow.new = function(LocalClientIndex, ScoreboardRowIndex)
 	ScoreboardRowWidget.rankIcon:setTopBottom(false, false, -f0_local24 / 2, f0_local24 / 2)
 	ScoreboardRowWidget.rankIcon:setAlpha(0)
 	ScoreboardRowWidget:addElement(ScoreboardRowWidget.rankIcon)
+	ScoreboardRowWidget.voipIcon = LUI.UIImage.new()
+	ScoreboardRowWidget.voipIcon:setLeftRight(true, false, f23_local4, f23_local4 + f0_local24)
+	ScoreboardRowWidget.voipIcon:setTopBottom(false, false, -f0_local24 / 2, f0_local24 / 2)
+	ScoreboardRowWidget.voipIcon:setAlpha(0)
+	ScoreboardRowWidget:addElement(ScoreboardRowWidget.voipIcon)
 	f23_local4 = f23_local4 + f0_local24 + 4
 	local f23_local7 = f0_local16
 	ScoreboardRowWidget.playerName = LUI.UIText.new()

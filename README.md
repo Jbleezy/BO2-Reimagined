@@ -208,6 +208,7 @@
 * Added proper game mode and map name to scoreboard
 * Added icons on scoreboard when player is downed, bled out, in Who's Who mode, in afterlife, or has the meat
 * Changed player name color on scoreboard to match the player's color
+* Moved voice chat icon on scoreboard to the same position as the rank icon
 * Added teammate head icons
 * Decreased waypoint size
 * Increased waypoint offset from top and bottom of screen
