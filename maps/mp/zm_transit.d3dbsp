@@ -34854,6 +34854,17 @@
 "guid" "74A1CB54"
 }
 {
+"model" "*238"
+"origin" "2328 -477 -61"
+"classname" "trigger_multiple"
+"targetname" "lava_damage"
+"spawnflags" "1"
+"script_noteworthy" "fire"
+"target" "auto2506"
+"script_float" "0.4"
+"guid" "4F20C94F"
+}
+{
 "model" "*239"
 "origin" "2330 -477 -60"
 "classname" "info_volume"
@@ -39115,6 +39126,17 @@
 "guid" "3DF91BCD"
 }
 {
+"model" "*243"
+"origin" "1721 761 -63"
+"classname" "trigger_multiple"
+"targetname" "lava_damage"
+"spawnflags" "1"
+"script_noteworthy" "fire"
+"target" "auto2510"
+"script_float" "0.4"
+"guid" "8ACC2EF1"
+}
+{
 "model" "*244"
 "origin" "1724 757 -60"
 "classname" "info_volume"
@@ -42729,6 +42751,16 @@
 "guid" "01176FAE"
 }
 {
+"model" "*253"
+"origin" "2865 -442 -123"
+"classname" "trigger_multiple"
+"targetname" "lava_damage"
+"spawnflags" "1"
+"script_noteworthy" "fire"
+"script_float" "0.1"
+"guid" "7E0716EB"
+}
+{
 "origin" "-7751 5084 -24"
 "classname" "node_pathnode"
 "guid" "7C72F35E"
@@ -45291,6 +45323,17 @@
 "guid" "B401457A"
 }
 {
+"model" "*275"
+"origin" "1517 451 -68"
+"classname" "trigger_multiple"
+"targetname" "lava_damage"
+"spawnflags" "1"
+"script_noteworthy" "fire"
+"target" "auto2518"
+"script_float" "0.4"
+"guid" "F653EF56"
+}
+{
 "model" "*276"
 "origin" "840 -504 -57"
 "classname" "info_volume"
@@ -45313,6 +45356,28 @@
 "script_noteworthy" "lava_volume"
 "classname" "info_volume"
 "guid" "40C7DD16"
+}
+{
+"model" "*279"
+"origin" "836 -504 -65"
+"classname" "trigger_multiple"
+"targetname" "lava_damage"
+"spawnflags" "1"
+"script_noteworthy" "fire"
+"script_float" "0.4"
+"target" "auto2521"
+"guid" "72A4C10C"
+}
+{
+"model" "*280"
+"origin" "1408 -1006 -57"
+"classname" "trigger_multiple"
+"targetname" "lava_damage"
+"spawnflags" "1"
+"script_noteworthy" "fire"
+"script_float" "0.4"
+"target" "auto2520"
+"guid" "CE62F237"
 }
 {
 "model" "*281"
@@ -52547,6 +52612,28 @@
 "script_noteworthy" "lava_volume"
 "classname" "info_volume"
 "guid" "162A1B92"
+}
+{
+"model" "*312"
+"origin" "1337 186 -68"
+"classname" "trigger_multiple"
+"targetname" "lava_damage"
+"spawnflags" "1"
+"script_noteworthy" "fire"
+"target" "auto2529"
+"script_float" "1"
+"guid" "803A6715"
+}
+{
+"model" "*313"
+"origin" "1492 -113 -68"
+"classname" "trigger_multiple"
+"targetname" "lava_damage"
+"spawnflags" "1"
+"script_noteworthy" "fire"
+"script_float" "0.4"
+"target" "auto2531"
+"guid" "C9854B34"
 }
 {
 "model" "*314"
