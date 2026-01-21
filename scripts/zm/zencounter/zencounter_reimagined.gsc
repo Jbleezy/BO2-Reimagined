@@ -3267,19 +3267,18 @@ increment_score(team, amount = 1, show_lead_msg = true, score_msg)
 		score = level.grief_score[encounters_team];
 		other_score = level.grief_score[other_encounters_team];
 		score_remaining = get_gamemode_winning_score() - score;
-		other_score_remaining = get_gamemode_winning_score() - other_score;
 
 		players = get_players(team);
 		other_players = get_players(other_team);
 
 		foreach (player in players)
 		{
-			player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_PLAYER_DEAD", other_score_remaining, score_remaining);
+			player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_PLAYER_DEAD", score, other_score);
 		}
 
 		foreach (player in other_players)
 		{
-			player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_ALLY_DEAD", score_remaining, other_score_remaining);
+			player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_ALLY_DEAD", other_score, score);
 		}
 
 		if (level.grief_score[encounters_team] <= 3)
