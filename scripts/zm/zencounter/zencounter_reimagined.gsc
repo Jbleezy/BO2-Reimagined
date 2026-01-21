@@ -2189,7 +2189,7 @@ containment_think()
 				}
 			}
 
-			zombies = get_round_enemy_array();
+			zombies = getaispeciesarray(level.zombie_team, "all");
 			players = get_players();
 			in_containment_zone = [];
 			in_containment_zone["axis"] = [];
@@ -2374,14 +2374,11 @@ containment_think()
 
 		zombies = get_round_enemy_array();
 
-		if (isDefined(zombies))
+		for (i = 0; i < zombies.size; i++)
 		{
-			for (i = 0; i < zombies.size; i++)
+			if (!isDefined(zombies[i] containment_get_current_zone()) || zombies[i] containment_get_current_zone() == zone_name)
 			{
-				if (!isDefined(zombies[i] containment_get_current_zone()) || zombies[i] containment_get_current_zone() == zone_name)
-				{
-					zombies[i] dodamage(zombies[i].health + 666, zombies[i].origin);
-				}
+				zombies[i] dodamage(zombies[i].health + 666, zombies[i].origin);
 			}
 		}
 

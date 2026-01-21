@@ -296,12 +296,9 @@ zombie_goto_round(target_round)
 	level.zombie_total = 0;
 	zombies = get_round_enemy_array();
 
-	if (isDefined(zombies))
+	for (i = 0; i < zombies.size; i++)
 	{
-		for (i = 0; i < zombies.size; i++)
-		{
-			zombies[i] dodamage(zombies[i].health + 666, zombies[i].origin);
-		}
+		zombies[i] dodamage(zombies[i].health + 666, zombies[i].origin);
 	}
 
 	game["axis_spawnpoints_randomized"] = undefined;

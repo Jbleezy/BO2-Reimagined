@@ -415,7 +415,7 @@ meat_stink_ignoreme_think(check_meat_player_dist)
 
 	while (1)
 	{
-		zombies = get_round_enemy_array();
+		zombies = getaispeciesarray(level.zombie_team, "all");
 
 		players = get_players();
 
