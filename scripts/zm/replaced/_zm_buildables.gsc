@@ -15,6 +15,8 @@ buildable_place_think()
 	self endon("kill_trigger");
 	player_built = undefined;
 
+	self buildable_adjust_model_origin();
+
 	while (isDefined(self.stub.built) && !self.stub.built)
 	{
 		self waittill("trigger", player);
@@ -346,6 +348,18 @@ buildable_place_think()
 				}
 			}
 		}
+	}
+}
+
+buildable_adjust_model_origin()
+{
+	if (self.stub.equipname == "slipgun_zm")
+	{
+		self.stub.model.origin += (0, 0, -5);
+	}
+	else if (self.stub.equipname == "headchopper_zm")
+	{
+		self.stub.model.origin += (0, 0, -1);
 	}
 }
 
@@ -690,7 +704,7 @@ model_fly_away(weaponname)
 
 model_fly_away_think(weaponname)
 {
-	joker_model = spawn("script_model", self.origin - (0, 0, 14));
+	joker_model = spawn("script_model", self.origin - (0, 0, 9));
 	joker_model.angles = self.angles + (0, 90, 0);
 	joker_model setModel(level.chest_joker_model);
 

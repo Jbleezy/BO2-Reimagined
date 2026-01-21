@@ -989,6 +989,7 @@
 * Can no longer melee while holding (except Zombie Shield)
 * Removed dive anim
 * Added held world model
+* Adjusted buildable table model positions to make them all touch the buildable table
 * Changed crafting hint string from "Building..." to "Crafting..."
 * Changed purchase hint string from "for" to "to take" on all maps
 * Changed pick up hint string from "for" to "to pick up" on all maps
