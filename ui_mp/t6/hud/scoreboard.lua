@@ -369,10 +369,10 @@ ScoreboardWidgetCreateTeamElement = function(UnusedArg1)
 	ScoreboardFactionWidget.teamScore:setFont(CoD.fonts.Big)
 	ScoreboardFactionWidget.teamScore:setRGB(CoD.offWhite.r, CoD.offWhite.g, CoD.offWhite.b)
 	ScoreboardFactionWidget:addElement(ScoreboardFactionWidget.teamScore)
-	local f9_local5 = 96
+	local f9_local5 = -2
 	ScoreboardFactionWidget.factionName = LUI.UIText.new()
 	ScoreboardFactionWidget.factionName:setLeftRight(true, false, f9_local4, f9_local4)
-	ScoreboardFactionWidget.factionName:setTopBottom(true, false, f9_local5, f9_local5 + CoD.textSize.ExtraSmall)
+	ScoreboardFactionWidget.factionName:setTopBottom(false, true, f9_local5 - CoD.textSize.ExtraSmall, f9_local5)
 	ScoreboardFactionWidget.factionName:setFont(CoD.fonts.ExtraSmall)
 	ScoreboardFactionWidget.factionName:setRGB(CoD.offWhite.r, CoD.offWhite.g, CoD.offWhite.b)
 	ScoreboardFactionWidget:addElement(ScoreboardFactionWidget.factionName)
@@ -772,10 +772,6 @@ ScoreboardUpdateTeamElement = function(TeamElement, FactionTeam, FactionColorR, 
 		if ScoreboardTeamName == "" then
 			ScoreboardTeamName = Engine.Localize(CoD.MPZM("MPUI_", "ZMUI_") .. FactionTeam .. "_SHORT_CAPS")
 		end
-		local ShowTeamName = true
-		if UIExpression.DvarString(nil, "ui_zm_gamemodegroup") ~= CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
-			ShowTeamName = false
-		end
 		TeamElement.factionName:setText(ScoreboardTeamName)
 		TeamElement.teamScore:setText(ScoreboardTeam.score)
 		if CoD.isZombie == true then
@@ -808,7 +804,7 @@ ScoreboardUpdateTeamElement = function(TeamElement, FactionTeam, FactionColorR, 
 					TeamElement.factionIcon:setImage(RegisterMaterial("faction_zombie"))
 				end
 			end
-			if ShowTeamName then
+			if GamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
 				TeamElement.factionName:setAlpha(1)
 			else
 				TeamElement.factionName:setAlpha(0)
