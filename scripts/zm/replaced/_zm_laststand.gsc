@@ -678,6 +678,7 @@ playerlaststand(einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, shi
 
 laststand_bleedout(delay)
 {
+	level endon("end_game");
 	level endon("intermission");
 	self endon("player_revived");
 	self endon("player_suicide");
