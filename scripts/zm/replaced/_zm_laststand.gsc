@@ -11,6 +11,8 @@ revive_trigger_think()
 	level endon("end_game");
 	self endon("death");
 
+	self thread revive_trigger_clean_up_on_end_game();
+
 	while (true)
 	{
 		wait 0.1;
@@ -75,6 +77,20 @@ revive_trigger_think()
 
 			break;
 		}
+	}
+}
+
+revive_trigger_clean_up_on_end_game()
+{
+	self endon("disconnect");
+	self.revivetrigger endon("death");
+
+	level waittill("end_game");
+
+	if (isdefined(self.revivetrigger))
+	{
+		self notify("stop_revive_trigger");
+		self.revivetrigger delete();
 	}
 }
 
