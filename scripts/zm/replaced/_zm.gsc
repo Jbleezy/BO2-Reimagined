@@ -1009,7 +1009,10 @@ pregame_think()
 			{
 				ready_up_start_time = getTime();
 
-				level thread ready_up_countdown_hud_think(ready_up_time);
+				if (!isDefined(level.ready_up_countdown_hud))
+				{
+					level.ready_up_countdown_hud = scripts\zm\_zm_reimagined::countdown_hud(&"ZOMBIE_PRE_GAME_ENDING_IN", undefined, ready_up_time);
+				}
 			}
 
 			if (isdefined(ready_up_start_time))
@@ -1050,7 +1053,10 @@ pregame_think()
 
 			level.ready_up_hud.alpha = 0;
 
-			level notify("ready_up_countdown_hud_destroy");
+			if (isDefined(level.ready_up_countdown_hud))
+			{
+				level.ready_up_countdown_hud scripts\zm\_zm_reimagined::countdown_hud_destroy();
+			}
 
 			level thread pregame_think();
 
@@ -1116,7 +1122,10 @@ pregame_think()
 	level.ready_up_hud destroy();
 	level.pregame_hud destroy();
 
-	level notify("ready_up_countdown_hud_destroy");
+	if (isDefined(level.ready_up_countdown_hud))
+	{
+		level.ready_up_countdown_hud scripts\zm\_zm_reimagined::countdown_hud_destroy();
+	}
 
 	level.no_end_game_check = level.prev_no_end_game_check;
 
@@ -1195,109 +1204,6 @@ check_for_team_change()
 
 		team_change_player freezecontrols(1);
 	}
-}
-
-ready_up_countdown_hud_think(ready_up_time)
-{
-	level endon("ready_up_countdown_hud_destroy");
-	level endon("end_game");
-
-	level thread ready_up_countdown_hud_destroy_think();
-
-	for (i = 0; i < ready_up_time; i++)
-	{
-		players = get_players();
-
-		foreach (player in players)
-		{
-			if (!isDefined(player.ready_up_countdown_hud))
-			{
-				player.ready_up_countdown_hud = player countdown_hud(&"ZOMBIE_PRE_GAME_ENDS_IN_CAPS", undefined, ready_up_time - i);
-			}
-		}
-
-		wait 1;
-	}
-}
-
-ready_up_countdown_hud_destroy_think()
-{
-	level endon("end_game");
-
-	level waittill("ready_up_countdown_hud_destroy");
-
-	players = get_players();
-
-	foreach (player in players)
-	{
-		if (isDefined(player.ready_up_countdown_hud))
-		{
-			player.ready_up_countdown_hud countdown_hud_destroy();
-		}
-	}
-}
-
-countdown_hud(text, text_param, time)
-{
-	countdown_hud = self createFontString("objective", 2.2);
-	countdown_hud setPoint("CENTER", "CENTER", 0, 0);
-	countdown_hud.color = (1, 1, 0);
-	countdown_hud.foreground = 1;
-	countdown_hud.hidewheninmenu = 1;
-	countdown_hud maps\mp\gametypes_zm\_hud::fontpulseinit();
-
-	countdown_hud.countdown_text = self createFontString("objective", 1.5);
-	countdown_hud.countdown_text setPoint("CENTER", "CENTER", 0, -40);
-	countdown_hud.countdown_text.color = (1, 1, 1);
-	countdown_hud.countdown_text.foreground = 1;
-	countdown_hud.countdown_text.hidewheninmenu = 1;
-
-	if (isdefined(text_param))
-	{
-		countdown_hud.countdown_text setText(text, text_param);
-	}
-	else
-	{
-		countdown_hud.countdown_text setText(text);
-	}
-
-	countdown_hud.alpha = 1;
-	countdown_hud.countdown_text.alpha = 1;
-
-	countdown_hud thread countdown_hud_timer(time);
-	countdown_hud thread countdown_hud_end_game_watcher();
-	countdown_hud thread scripts\zm\_zm_reimagined::hide_on_scoreboard(self);
-	countdown_hud.countdown_text thread scripts\zm\_zm_reimagined::hide_on_scoreboard(self);
-
-	return countdown_hud;
-}
-
-countdown_hud_timer(time)
-{
-	self endon("death");
-
-	while (time > 0)
-	{
-		self setvalue(time);
-		self thread maps\mp\gametypes_zm\_hud::fontpulse(level);
-		wait 1;
-		time--;
-	}
-}
-
-countdown_hud_end_game_watcher()
-{
-	self endon("death");
-
-	level waittill("end_game");
-
-	self countdown_hud_destroy();
-}
-
-countdown_hud_destroy()
-{
-	self.countdown_text destroy();
-	self destroy();
 }
 
 last_stand_pistol_rank_init()

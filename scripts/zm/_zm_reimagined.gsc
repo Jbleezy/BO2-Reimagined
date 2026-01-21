@@ -1546,6 +1546,65 @@ bleedout_bar_hud_updatebar(hud)
 	}
 }
 
+countdown_hud(text, text_param, time)
+{
+	countdown_hud = createServerFontString("objective", 2.2);
+	countdown_hud setPoint("CENTER", "CENTER", 0, 0);
+	countdown_hud.color = (1, 1, 0);
+	countdown_hud.hidewheninmenu = 1;
+	countdown_hud maps\mp\gametypes_zm\_hud::fontpulseinit();
+
+	countdown_hud.countdown_text = createServerFontString("objective", 1.5);
+	countdown_hud.countdown_text setPoint("CENTER", "CENTER", 0, -40);
+	countdown_hud.countdown_text.color = (1, 1, 1);
+	countdown_hud.countdown_text.hidewheninmenu = 1;
+
+	if (isdefined(text_param))
+	{
+		countdown_hud.countdown_text setText(text, text_param);
+	}
+	else
+	{
+		countdown_hud.countdown_text setText(text);
+	}
+
+	countdown_hud.alpha = 1;
+	countdown_hud.countdown_text.alpha = 1;
+
+	countdown_hud thread countdown_hud_timer(time);
+	countdown_hud thread countdown_hud_end_game_watcher();
+
+	return countdown_hud;
+}
+
+countdown_hud_timer(time)
+{
+	self endon("death");
+
+	while (time > 0)
+	{
+		self setvalue(time);
+		self thread maps\mp\gametypes_zm\_hud::fontpulse(level);
+		wait 1;
+		time--;
+	}
+}
+
+countdown_hud_end_game_watcher()
+{
+	self endon("death");
+
+	level waittill("end_game");
+
+	self countdown_hud_destroy();
+}
+
+countdown_hud_destroy()
+{
+	self.countdown_text destroy();
+	self destroy();
+}
+
 setscoreboardcolumns_gametype()
 {
 	if (is_encounter())

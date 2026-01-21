@@ -836,33 +836,25 @@ round_start_wait(time, initial)
 
 	level thread zombie_spawn_wait(zombie_spawn_time);
 
-	text = &"ZOMBIE_MATCH_BEGINS_IN_CAPS";
+	text = &"MP_MATCH_STARTING_IN";
 	text_param = undefined;
 
 	if (level.scr_zm_ui_gametype == "zsr")
 	{
-		text = &"ZOMBIE_ROUND_BEGINS_IN_CAPS";
+		text = &"ZOMBIE_ROUND_STARTING_IN";
 		text_param = level.scr_zm_ui_round_number;
 	}
 
-	players = get_players();
-
-	foreach (player in players)
-	{
-		player.countdown_hud = player scripts\zm\replaced\_zm::countdown_hud(text, text_param, time);
-	}
+	countdown_hud = scripts\zm\_zm_reimagined::countdown_hud(text, text_param, time);
 
 	wait time;
 
+	countdown_hud scripts\zm\_zm_reimagined::countdown_hud_destroy();
+
 	players = get_players();
 
 	foreach (player in players)
 	{
-		if (isdefined(player.countdown_hud))
-		{
-			player.countdown_hud scripts\zm\replaced\_zm::countdown_hud_destroy();
-		}
-
 		if (initial)
 		{
 			player.hostmigrationcontrolsfrozen = 0;
