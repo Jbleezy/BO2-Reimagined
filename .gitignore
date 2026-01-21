@@ -1,5 +1,5 @@
-/.vscode
-/scriptdata
+/.vscode/
+/scriptdata/
 /zone_source/**/*.ff
 /*.ff
 *.iwd
@@ -7,6 +7,5 @@
 *.sabl
 *.dds
 *.log*
-zmStats
 _zm_test.gsc
 TODO.md
