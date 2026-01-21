@@ -187,12 +187,12 @@ buildable_place_think()
 
 			self.stub.bought = 1;
 
+			player maps\mp\zombies\_zm_weapons::weapon_give(self.stub.weaponname);
+
 			if (isDefined(self.stub.model))
 			{
 				self.stub.model thread model_fly_away(self.stub.weaponname);
 			}
-
-			player maps\mp\zombies\_zm_weapons::weapon_give(self.stub.weaponname);
 
 			if (isDefined(level.zombie_include_buildables[self.stub.equipname].onbuyweapon))
 			{
@@ -676,37 +676,13 @@ model_go_away(weaponname)
 
 model_fly_away(weaponname)
 {
-	origin = self.origin;
-	self moveto(self.origin + vectorscale((0, 0, 1), 40.0), 3);
-	direction = self.origin;
-	direction = (direction[1], direction[0], 0);
-
-	if (direction[1] < 0 || direction[0] > 0 && direction[1] > 0)
-	{
-		direction = (direction[0], direction[1] * -1, 0);
-	}
-	else if (direction[0] < 0)
-	{
-		direction = (direction[0] * -1, direction[1], 0);
-	}
-
-	self vibrate(direction, 10, 0.5, 3);
-
-	self waittill("movedone");
-
-	self.origin = origin;
-	self.angles = (0, self.angles[1], 0);
 	self hide();
-	playfx(level._effect["poltergeist"], self.origin);
 
-	self thread model_fly_away_think(weaponname);
-}
-
-model_fly_away_think(weaponname)
-{
 	joker_model = spawn("script_model", self.origin - (0, 0, 9));
 	joker_model.angles = self.angles + (0, 90, 0);
 	joker_model setModel(level.chest_joker_model);
+
+	playfx(level._effect["poltergeist"], joker_model.origin, anglestoforward(joker_model.angles));
 
 	while (1)
 	{
