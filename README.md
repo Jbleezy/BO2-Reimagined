@@ -272,8 +272,8 @@
 * Barriers can no longer be rebuilt while sprinting or thowing a grenade
 * Upgraded weapon camo is applied in last stand
 * Dual wield last stand weapon is switched to when ammo is only in left clip
-* Decreased friendly player name fade out time from 1.5 seconds to 0.25 seconds
-* Removed enemy player name fade in time
+* Decreased friendly player overhead name fade out time from 1.5 seconds to 0.25 seconds
+* Removed enemy player overhead name fade in time
 * Fixed view model, player models, and zombie models flickering when there are many players and zombies nearby
 * Fixed last stand vision being changed when another player downs
 * Fixed certain player anims
@@ -1563,6 +1563,8 @@
 * Added new CDC and CIA revive waypoint icons
 * Added kill feed (includes downs, revives, and bleed outs)
 * Added player kills on scoreboard (replaces headshots)
+* All teammates have the same color on player overhead names
+* All players have the same color on points and scoreboard
 * Scoreboard always shows your team on top
 * Spawn points are assigned to a team
 * Added limited weapon check for saved weapons on bleed out

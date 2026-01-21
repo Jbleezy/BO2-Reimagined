@@ -338,7 +338,12 @@ CoD.CompetitiveScoreboard.CompetitiveScoreTextShowPlayerColor = function(Text, C
 		AnimDelay = 0
 	end
 	Text:beginAnimation("showplayercolor", AnimDelay)
-	Text:setRGB(CoD.Zombie.PlayerColors[PlayerColorsIndex].r, CoD.Zombie.PlayerColors[PlayerColorsIndex].g, CoD.Zombie.PlayerColors[PlayerColorsIndex].b)
+	local GamemodeGroup = UIExpression.DvarString(nil, "ui_zm_gamemodegroup")
+	if GamemodeGroup ~= CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
+		Text:setRGB(CoD.Zombie.PlayerColors[PlayerColorsIndex].r, CoD.Zombie.PlayerColors[PlayerColorsIndex].g, CoD.Zombie.PlayerColors[PlayerColorsIndex].b)
+	else
+		Text:setRGB(CoD.offWhite.r, CoD.offWhite.g, CoD.offWhite.b)
+	end
 end
 
 CoD.CompetitiveScoreboard.UpdateVisibility = function(CompetitiveScoreboardWidget, ClientInstance)

@@ -937,6 +937,7 @@ set_client_dvars()
 	    "cg_friendlyNameFadeOut", 250,
 	    "cg_enemyNameFadeIn", 0,
 	    "cg_enemyNameFadeOut", 250,
+	    "cg_overheadNamesTeam", is_encounter() ? 1 : 0,
 	    "cg_sonarAttachmentHideFriendlies", 0,
 	    "cg_sonarAttachmentFadeFriendlies", 0,
 	    "cg_sonarAttachmentFadeEnemies", 0,

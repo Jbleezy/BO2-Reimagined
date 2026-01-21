@@ -840,7 +840,8 @@ ScoreboardUpdateTeamElement = function(TeamElement, FactionTeam, FactionColorR, 
 end
 
 CoD.ScoreboardRow.GetRowTextColor = function(ScoreboardRowIndex)
-	if CoD.isZombie == true then
+	local GamemodeGroup = UIExpression.DvarString(nil, "ui_zm_gamemodegroup")
+	if CoD.isZombie == true and GamemodeGroup ~= CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
 		local ZombiesColorIndex = (ScoreboardRowIndex - 1) % 4 + 1
 		return CoD.Zombie.PlayerColors[ZombiesColorIndex].r, CoD.Zombie.PlayerColors[ZombiesColorIndex].g, CoD.Zombie.PlayerColors[ZombiesColorIndex].b
 	else
