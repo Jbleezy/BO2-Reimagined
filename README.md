@@ -207,6 +207,7 @@
 * Added round chalk images from Mob of the Dead to all maps
 * Added proper game mode and map name to scoreboard
 * Added icons on scoreboard when player is downed, bled out, in Who's Who mode, in afterlife, or has the meat
+* Changed player name color on scoreboard to match the player's color
 * Added teammate head icons
 * Decreased waypoint size
 * Increased waypoint offset from top and bottom of screen

@@ -1016,11 +1016,6 @@ CoD.ScoreboardRow.setClient = function(ScoreboardRow, FactionColorR, FactionColo
 		end
 		ScoreboardRow.playerName:setText(PlayerGamerTag)
 		ScoreboardRow.playerName.gamertag = PlayerGamerTag
-		if PlayerScoreboardClientNum == ClientNum then
-			ScoreboardRow.playerName:setRGB(CoD.playerYellow.r, CoD.playerYellow.g, CoD.playerYellow.b)
-		else
-			ScoreboardRow.playerName:setRGB(1, 1, 1)
-		end
 		if PlayerScoreboardClientNum ~= nil and not IsTheaterMode then
 			if ScoreboardRow.voipIcon ~= nil then
 				if not ScoreboardFrontEndOnly then
