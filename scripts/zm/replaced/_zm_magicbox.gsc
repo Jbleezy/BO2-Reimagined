@@ -957,6 +957,30 @@ timer_til_despawn(v_float)
 	}
 }
 
+clean_up_hacked_box()
+{
+	self endon("box_spin_done");
+
+	self waittill("box_hacked_respin");
+
+	if (isdefined(self.weapon_model))
+	{
+		self.weapon_model delete();
+		self.weapon_model = undefined;
+	}
+
+	if (isdefined(self.weapon_model_dw))
+	{
+		self.weapon_model_dw delete();
+		self.weapon_model_dw = undefined;
+	}
+
+	self hidezbarrierpiece(3);
+	self hidezbarrierpiece(4);
+	self setzbarrierpiecestate(3, "closed");
+	self setzbarrierpiecestate(4, "closed");
+}
+
 decide_hide_show_hint(endon_notify, second_endon_notify, onlyplayer)
 {
 	self endon("death");
