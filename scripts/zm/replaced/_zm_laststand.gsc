@@ -678,7 +678,6 @@ playerlaststand(einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, shi
 
 laststand_bleedout(delay)
 {
-	level endon("end_game");
 	level endon("intermission");
 	self endon("player_revived");
 	self endon("player_suicide");
@@ -714,6 +713,11 @@ laststand_bleedout(delay)
 	while (isdefined(self.revivetrigger) && isdefined(self.revivetrigger.beingrevived) && self.revivetrigger.beingrevived == 1)
 	{
 		wait 0.1;
+	}
+
+	if (is_true(level.intermission))
+	{
+		return;
 	}
 
 	self notify("bled_out");
