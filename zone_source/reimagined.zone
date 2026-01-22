@@ -135,6 +135,11 @@ material,waypoint_revive_arrow
 
 rawfile,animstatedefs/zm_nuked_dog.asd
 rawfile,shock/grief_stun_zm.shock
+rawfile,maps/mp/gametypes_zm/_gametypes.txt
+rawfile,maps/mp/gametypes_zm/zrace.txt
+rawfile,maps/mp/gametypes_zm/zcontainment.txt
+rawfile,maps/mp/gametypes_zm/zmeat.txt
+rawfile,maps/mp/gametypes_zm/zsr.txt
 rawfile,zm/gamesettings_zgrief.cfg
 rawfile,zm/gamesettings_zrace.cfg
 rawfile,zm/gamesettings_zcontainment.cfg
