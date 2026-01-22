@@ -828,20 +828,14 @@ get_name_for_loc(map, location, gametype)
 
 get_name_for_gametype(gametype)
 {
-	if (gametype == "zclassic")
-	{
-		return &"ZMUI_ZCLASSIC_GAMEMODE";
-	}
-	else if (gametype == "zstandard")
-	{
-		return &"ZMUI_ZSTANDARD";
-	}
-	else if (isdefined(level.get_gamemode_display_name_func))
+	if (isdefined(level.get_gamemode_display_name_func))
 	{
 		return [[level.get_gamemode_display_name_func]](gametype);
 	}
-
-	return &"";
+	else
+	{
+		return istring(toupper("ZMUI_" + gametype));
+	}
 }
 
 get_image_for_loc(map, location, gametype)

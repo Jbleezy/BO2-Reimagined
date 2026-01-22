@@ -4,23 +4,14 @@ FILENOTES           ""
 
 // UI
 
-REFERENCE           ZMUI_ZCLASSIC_GAMEMODE
+REFERENCE           ZMUI_ZCLASSIC
 LANG_ENGLISH        "Classic"
 
-REFERENCE           ZMUI_ZCLASSIC_GAMEMODE_CAPS
+REFERENCE           ZMUI_ZCLASSIC_CAPS
 LANG_ENGLISH        "CLASSIC"
 
 REFERENCE           ZMUI_ZGRIEF_PRO
 LANG_ENGLISH        "Grief Pro"
-
-REFERENCE           ZMUI_ZSR
-LANG_ENGLISH        "Search & Rezurrect"
-
-REFERENCE           ZMUI_ZSR_CAPS
-LANG_ENGLISH        "SEARCH & REZURRECT"
-
-REFERENCE           ZMUI_ZSR_PRO
-LANG_ENGLISH        "Search & Rezurrect Pro"
 
 REFERENCE           ZMUI_ZRACE_PRO
 LANG_ENGLISH        "Race Pro"
@@ -31,23 +22,14 @@ LANG_ENGLISH        "Containment Pro"
 REFERENCE           ZMUI_ZMEAT_PRO
 LANG_ENGLISH        "Meat Pro"
 
-REFERENCE           ZMUI_CHARACTER_DIALOG_CAPS
-LANG_ENGLISH        "CHARACTER DIALOG"
+REFERENCE           ZMUI_ZSR
+LANG_ENGLISH        "Search & Rezurrect"
 
-REFERENCE           ZMUI_CHARACTER_DIALOG_DESC
-LANG_ENGLISH        "Allow character dialog to play."
+REFERENCE           ZMUI_ZSR_CAPS
+LANG_ENGLISH        "SEARCH & REZURRECT"
 
-REFERENCE           ZMUI_PRO_DESC
-LANG_ENGLISH        "No Mystery Box, no Pack-a-Punch, and no held melee weapons."
-
-REFERENCE           ZMUI_ZCLASSIC
-LANG_ENGLISH        "Tranzit"
-
-REFERENCE           ZMUI_CLASSIC
-LANG_ENGLISH        "Tranzit"
-
-REFERENCE           ZMUI_CLASSIC_TRANSIT
-LANG_ENGLISH        "Tranzit"
+REFERENCE           ZMUI_ZSR_PRO
+LANG_ENGLISH        "Search & Rezurrect Pro"
 
 REFERENCE           ZMUI_TRANSIT
 LANG_ENGLISH        "Tranzit"
@@ -109,12 +91,6 @@ LANG_ENGLISH        "Sweatshop"
 REFERENCE           ZMUI_SWEATSHOP_CAPS
 LANG_ENGLISH        "SWEATSHOP"
 
-REFERENCE           ZMUI_PRISON_LOC
-LANG_ENGLISH        "San Francisco Bay, U.S.A."
-
-REFERENCE           ZMUI_PRISON_LOC_CAPS
-LANG_ENGLISH        "SAN FRANCISCO BAY, U.S.A."
-
 REFERENCE           ZMUI_DOCKS
 LANG_ENGLISH        "Docks"
 
@@ -129,12 +105,6 @@ LANG_ENGLISH        "Maze"
 
 REFERENCE           ZMUI_MAZE_CAPS
 LANG_ENGLISH        "MAZE"
-
-REFERENCE           ZMUI_TOMB_LOC
-LANG_ENGLISH        "Northern France"
-
-REFERENCE           ZMUI_TOMB_LOC_CAPS
-LANG_ENGLISH        "NORTHERN FRANCE"
 
 REFERENCE           ZMUI_TRENCHES
 LANG_ENGLISH        "Trenches"
@@ -159,6 +129,24 @@ LANG_ENGLISH        "The Crazy Place"
 
 REFERENCE           ZMUI_CRAZY_PLACE_CAPS
 LANG_ENGLISH        "THE CRAZY PLACE"
+
+REFERENCE           ZMUI_NUKED_LOC
+LANG_ENGLISH        "NEVADA, U.S.A."
+
+REFERENCE           ZMUI_PRISON_LOC
+LANG_ENGLISH        "SAN FRANCISCO BAY, U.S.A."
+
+REFERENCE           ZMUI_TOMB_LOC
+LANG_ENGLISH        "NORTHERN FRANCE"
+
+REFERENCE           ZMUI_CHARACTER_DIALOG_CAPS
+LANG_ENGLISH        "CHARACTER DIALOG"
+
+REFERENCE           ZMUI_CHARACTER_DIALOG_DESC
+LANG_ENGLISH        "Allow character dialog to play."
+
+REFERENCE           ZMUI_PRO_DESC
+LANG_ENGLISH        "No Mystery Box, no Pack-a-Punch, and no held melee weapons."
 
 REFERENCE           ZMUI_INMATES_SHORT
 LANG_ENGLISH        "Prisoners"

@@ -98,39 +98,25 @@ local CreateScoreboardHeaderTitle = function(ScoreboardWidget)
 end
 
 function GetGameModeDisplayName()
-	if UIExpression.DvarString(nil, "ui_gametype") == "zclassic" then
-		return Engine.Localize("ZMUI_ZCLASSIC_GAMEMODE")
-	end
+	local gametype = UIExpression.DvarString(nil, "ui_gametype")
 
-	if UIExpression.DvarString(nil, "ui_zm_gamemodegroup") == "zencounter" and UIExpression.DvarBool(nil, "ui_gametype_pro") == 1 then
-		return Engine.Localize("ZMUI_" .. UIExpression.DvarString(nil, "ui_gametype") .. "_PRO")
+	if UIExpression.DvarBool(nil, "ui_gametype_pro") == 1 then
+		return Engine.Localize(UIExpression.TableLookup(nil, CoD.gametypesTable, 0, 0, 1, gametype, 7) .. "_PRO")
+	else
+		return Engine.Localize(UIExpression.TableLookup(nil, CoD.gametypesTable, 0, 0, 1, gametype, 7))
 	end
-
-	return Engine.Localize("ZMUI_" .. UIExpression.DvarString(nil, "ui_gametype"))
 end
 
 function GetMapDisplayName()
-	if UIExpression.DvarString(nil, "ui_gametype") ~= "zclassic" then
-		return GetLocationDisplayName()
+	local map = UIExpression.DvarString(nil, "ui_mapname")
+	local location = UIExpression.DvarString(nil, "ui_zm_mapstartlocation")
+	local gametype = UIExpression.DvarString(nil, "ui_gametype")
+
+	if gametype == CoD.Zombie.GAMETYPE_ZCLASSIC then
+		return Engine.Localize(UIExpression.TableLookup(nil, CoD.mapsTable, 0, map, 3))
+	else
+		return Engine.Localize(UIExpression.TableLookup(nil, CoD.gametypesTable, 0, 5, 3, location, 16))
 	end
-
-	if UIExpression.DvarString(nil, "ui_mapname") == "zm_transit" then
-		return Engine.Localize("ZMUI_ZCLASSIC")
-	end
-
-	return Engine.Localize("ZMUI_ZCLASSIC_" .. UIExpression.DvarString(nil, "ui_mapname"))
-end
-
-function GetLocationDisplayName()
-	if UIExpression.DvarString(nil, "ui_zm_mapstartlocation") == "transit" then
-		return Engine.Localize("ZMUI_TRANSIT_STARTLOC")
-	elseif UIExpression.DvarString(nil, "ui_zm_mapstartlocation") == "nuked" then
-		return Engine.Localize("ZMUI_NUKED_STARTLOC")
-	elseif UIExpression.DvarString(nil, "ui_zm_mapstartlocation") == "street" then
-		return Engine.Localize("ZMUI_STREET_LOC")
-	end
-
-	return Engine.Localize("ZMUI_" .. UIExpression.DvarString(nil, "ui_zm_mapstartlocation"))
 end
 
 function CreateScoreBoardBody(ScoreboardWidget, LocalClientIndex, UnusedArg1)

@@ -237,13 +237,11 @@ CoD.MapInfoImage.ZombieUpdate = function(f6_arg0, f6_arg1, f6_arg2)
 		if f6_local0 == "" then
 			f6_local0 = CoD.Zombie.START_LOCATION_TRANSIT
 		end
-		local materialName = GetMapMaterialName(f6_arg1, f6_local0, f6_local1)
 		f6_arg0.mapImage:registerAnimationState("change_map", {
-			material = RegisterMaterial(materialName),
+			material = RegisterMaterial(GetMapMaterialName(f6_arg1, f6_local0, f6_local1)),
 			alpha = 1,
 		})
 		f6_arg0.mapImage:animateToState("change_map", 100)
-
 		f6_arg0.mapNameText:setText(GetMapDisplayName(f6_arg1, f6_arg2, f6_local0))
 	end
 	local f6_local3 = nil
@@ -254,9 +252,7 @@ CoD.MapInfoImage.ZombieUpdate = function(f6_arg0, f6_arg1, f6_arg2)
 	if f6_arg2 then
 		f6_local4 = GetGameModeDisplayName(f6_arg2)
 	end
-
 	f6_arg0.gameTypeText:setText(f6_local4)
-
 	CoD.MapInfoImage.DLCWarningUpdate(f6_arg0)
 end
 
@@ -271,17 +267,13 @@ end
 function GetMapDisplayName(map, gametype, location)
 	if gametype == CoD.Zombie.GAMETYPE_ZCLASSIC then
 		return CoD.GetZombieGameTypeDescription(gametype, map)
+	else
+		return Engine.Localize(UIExpression.TableLookup(nil, CoD.gametypesTable, 0, 5, 3, location, 4))
 	end
-
-	return Engine.Localize(UIExpression.TableLookup(nil, CoD.gametypesTable, 0, 5, 3, location, 4))
 end
 
 function GetGameModeDisplayName(gametype)
-	if gametype == CoD.Zombie.GAMETYPE_ZCLASSIC then
-		return Engine.Localize("ZMUI_ZCLASSIC_GAMEMODE_CAPS")
-	end
-
-	return Engine.Localize("ZMUI_" .. gametype .. "_CAPS")
+	return Engine.Localize(UIExpression.TableLookup(nil, CoD.gametypesTable, 0, 0, 1, gametype, 2))
 end
 
 CoD.MapInfoImage.SetModifedCustomGame = function(f7_arg0, f7_arg1)

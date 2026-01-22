@@ -5,159 +5,128 @@ require("T6.ListBox")
 CoD.SelectMapListZombie = {}
 CoD.SelectMapListZombie.GameModes = {}
 CoD.SelectMapListZombie.GameModes[1] = {
-	localizedString = "ZMUI_ZCLASSIC_GAMEMODE_CAPS",
 	ui_zm_gamemodegroup = "zclassic",
 	ui_gametype = "zclassic",
 }
 CoD.SelectMapListZombie.GameModes[2] = {
-	localizedString = "ZMUI_ZSTANDARD_CAPS",
 	ui_zm_gamemodegroup = "zsurvival",
 	ui_gametype = "zstandard",
 }
 CoD.SelectMapListZombie.GameModes[3] = {
-	localizedString = "ZMUI_ZGRIEF_CAPS",
 	ui_zm_gamemodegroup = "zencounter",
 	ui_gametype = "zgrief",
 }
 CoD.SelectMapListZombie.GameModes[4] = {
-	localizedString = "ZMUI_ZRACE_CAPS",
 	ui_zm_gamemodegroup = "zencounter",
 	ui_gametype = "zrace",
 }
 CoD.SelectMapListZombie.GameModes[5] = {
-	localizedString = "ZMUI_ZCONTAINMENT_CAPS",
 	ui_zm_gamemodegroup = "zencounter",
 	ui_gametype = "zcontainment",
 }
 CoD.SelectMapListZombie.GameModes[6] = {
-	localizedString = "ZMUI_ZMEAT_CAPS",
 	ui_zm_gamemodegroup = "zencounter",
 	ui_gametype = "zmeat",
 }
 CoD.SelectMapListZombie.GameModes[7] = {
-	localizedString = "ZMUI_ZSR_CAPS",
 	ui_zm_gamemodegroup = "zencounter",
 	ui_gametype = "zsr",
 }
 CoD.SelectMapListZombie.Maps = {}
 CoD.SelectMapListZombie.Maps[1] = {
-	localizedString = "ZMUI_ZCLASSIC_ZM_TRANSIT_CAPS",
 	ui_mapname = "zm_transit",
 	ui_zm_mapstartlocation = "transit",
 }
 CoD.SelectMapListZombie.Maps[2] = {
-	localizedString = "ZMUI_ZCLASSIC_ZM_HIGHRISE_CAPS",
 	ui_mapname = "zm_highrise",
 	ui_zm_mapstartlocation = "rooftop",
 }
 CoD.SelectMapListZombie.Maps[3] = {
-	localizedString = "ZMUI_ZCLASSIC_ZM_BURIED_CAPS",
 	ui_mapname = "zm_buried",
 	ui_zm_mapstartlocation = "processing",
 }
 CoD.SelectMapListZombie.Maps[4] = {
-	localizedString = "ZMUI_ZCLASSIC_ZM_PRISON_CAPS",
 	ui_mapname = "zm_prison",
 	ui_zm_mapstartlocation = "prison",
 }
 CoD.SelectMapListZombie.Maps[5] = {
-	localizedString = "ZMUI_ZCLASSIC_ZM_TOMB_CAPS",
 	ui_mapname = "zm_tomb",
 	ui_zm_mapstartlocation = "tomb",
 }
 CoD.SelectMapListZombie.Locations = {}
 CoD.SelectMapListZombie.Locations[1] = {
-	localizedString = "ZMUI_NUKED_STARTLOC_CAPS",
 	ui_mapname = "zm_nuked",
 	ui_zm_mapstartlocation = "nuked",
 }
 CoD.SelectMapListZombie.Locations[2] = {
-	localizedString = "ZMUI_TRANSIT_STARTLOC_CAPS",
 	ui_mapname = "zm_transit",
 	ui_zm_mapstartlocation = "transit",
 }
 CoD.SelectMapListZombie.Locations[3] = {
-	localizedString = "ZMUI_DINER_CAPS",
 	ui_mapname = "zm_transit",
 	ui_zm_mapstartlocation = "diner",
 }
 CoD.SelectMapListZombie.Locations[4] = {
-	localizedString = "ZMUI_FARM_CAPS",
 	ui_mapname = "zm_transit",
 	ui_zm_mapstartlocation = "farm",
 }
 CoD.SelectMapListZombie.Locations[5] = {
-	localizedString = "ZMUI_POWER_CAPS",
 	ui_mapname = "zm_transit",
 	ui_zm_mapstartlocation = "power",
 }
 CoD.SelectMapListZombie.Locations[6] = {
-	localizedString = "ZMUI_TOWN_CAPS",
 	ui_mapname = "zm_transit",
 	ui_zm_mapstartlocation = "town",
 }
 CoD.SelectMapListZombie.Locations[7] = {
-	localizedString = "ZMUI_TUNNEL_CAPS",
 	ui_mapname = "zm_transit",
 	ui_zm_mapstartlocation = "tunnel",
 }
 CoD.SelectMapListZombie.Locations[8] = {
-	localizedString = "ZMUI_CORNFIELD_CAPS",
 	ui_mapname = "zm_transit",
 	ui_zm_mapstartlocation = "cornfield",
 }
 CoD.SelectMapListZombie.Locations[9] = {
-	localizedString = "ZMUI_SHOPPING_MALL_CAPS",
 	ui_mapname = "zm_highrise",
 	ui_zm_mapstartlocation = "shopping_mall",
 }
 CoD.SelectMapListZombie.Locations[10] = {
-	localizedString = "ZMUI_DRAGON_ROOFTOP_CAPS",
 	ui_mapname = "zm_highrise",
 	ui_zm_mapstartlocation = "dragon_rooftop",
 }
 CoD.SelectMapListZombie.Locations[11] = {
-	localizedString = "ZMUI_SWEATSHOP_CAPS",
 	ui_mapname = "zm_highrise",
 	ui_zm_mapstartlocation = "sweatshop",
 }
 CoD.SelectMapListZombie.Locations[12] = {
-	localizedString = "ZMUI_STREET_LOC_CAPS",
 	ui_mapname = "zm_buried",
 	ui_zm_mapstartlocation = "street",
 }
 CoD.SelectMapListZombie.Locations[13] = {
-	localizedString = "ZMUI_MAZE_CAPS",
 	ui_mapname = "zm_buried",
 	ui_zm_mapstartlocation = "maze",
 }
 CoD.SelectMapListZombie.Locations[14] = {
-	localizedString = "ZMUI_CELLBLOCK_CAPS",
 	ui_mapname = "zm_prison",
 	ui_zm_mapstartlocation = "cellblock",
 }
 CoD.SelectMapListZombie.Locations[15] = {
-	localizedString = "ZMUI_DOCKS_CAPS",
 	ui_mapname = "zm_prison",
 	ui_zm_mapstartlocation = "docks",
 }
 CoD.SelectMapListZombie.Locations[16] = {
-	localizedString = "ZMUI_TRENCHES_CAPS",
 	ui_mapname = "zm_tomb",
 	ui_zm_mapstartlocation = "trenches",
 }
 CoD.SelectMapListZombie.Locations[17] = {
-	localizedString = "ZMUI_EXCAVATION_SITE_CAPS",
 	ui_mapname = "zm_tomb",
 	ui_zm_mapstartlocation = "excavation_site",
 }
 CoD.SelectMapListZombie.Locations[18] = {
-	localizedString = "ZMUI_CHURCH_CAPS",
 	ui_mapname = "zm_tomb",
 	ui_zm_mapstartlocation = "church",
 }
 CoD.SelectMapListZombie.Locations[19] = {
-	localizedString = "ZMUI_CRAZY_PLACE_CAPS",
 	ui_mapname = "zm_tomb",
 	ui_zm_mapstartlocation = "crazy_place",
 }
@@ -244,7 +213,7 @@ local function gameModeListCreateButtonMutables(controller, mutables)
 end
 
 local function gameModeListGetButtonData(controller, index, mutables, self)
-	mutables.text:setText(Engine.Localize(CoD.SelectMapListZombie.GameModes[index].localizedString))
+	mutables.text:setText(Engine.Localize(UIExpression.TableLookup(nil, CoD.gametypesTable, 0, 0, 1, CoD.SelectMapListZombie.GameModes[index].ui_gametype, 2)))
 end
 
 function LUI.createMenu.SelectGameModeListZM(controller)
@@ -323,7 +292,7 @@ local function mapListCreateButtonMutables(controller, mutables)
 end
 
 local function mapListGetButtonData(controller, index, mutables, self)
-	mutables.text:setText(Engine.Localize(CoD.SelectMapListZombie.Maps[index].localizedString))
+	mutables.text:setText(CoD.GetZombieGameTypeDescription(CoD.Zombie.GAMETYPE_ZCLASSIC, CoD.SelectMapListZombie.Maps[index].ui_mapname))
 end
 
 function LUI.createMenu.SelectMapListZM(controller)
@@ -394,7 +363,7 @@ local function locationListCreateButtonMutables(controller, mutables)
 end
 
 local function locationListGetButtonData(controller, index, mutables, self)
-	mutables.text:setText(Engine.Localize(CoD.SelectMapListZombie.Locations[index].localizedString))
+	mutables.text:setText(Engine.Localize(UIExpression.TableLookup(nil, CoD.gametypesTable, 0, 5, 3, CoD.SelectMapListZombie.Locations[index].ui_zm_mapstartlocation, 4)))
 end
 
 function LUI.createMenu.SelectLocationListZM(controller)
