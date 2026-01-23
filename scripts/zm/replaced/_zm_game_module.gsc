@@ -1,6 +1,10 @@
-#include maps\mp\_utility;
+#include maps\mp\zombies\_zm_game_module;
 #include common_scripts\utility;
+#include maps\mp\_utility;
 #include maps\mp\zombies\_zm_utility;
+#include maps\mp\zombies\_zm;
+#include maps\mp\zombies\_zm_audio_announcer;
+#include maps\mp\gametypes_zm\_zm_gametype;
 
 wait_for_team_death_and_round_end()
 {
@@ -307,7 +311,7 @@ zombie_goto_round(target_round)
 
 	waittillframeend; // wait for active perks to be stopped
 
-	maps\mp\zombies\_zm_game_module::respawn_players();
+	respawn_players();
 
 	wait 0.05; // let all players fully respawn
 
@@ -316,6 +320,27 @@ zombie_goto_round(target_round)
 	if (isDefined(level.round_start_wait_func))
 	{
 		level thread [[level.round_start_wait_func]](5);
+	}
+}
+
+respawn_players()
+{
+	players = get_players();
+
+	foreach (player in players)
+	{
+		if (player maps\mp\zombies\_zm_laststand::player_is_in_laststand())
+		{
+			if (isdefined(player.revivetrigger))
+			{
+				player.revivetrigger delete();
+			}
+
+			player thread maps\mp\zombies\_zm_laststand::auto_revive(player);
+		}
+
+		player [[level.spawnplayer]]();
+		player freeze_player_controls(1);
 	}
 }
 
