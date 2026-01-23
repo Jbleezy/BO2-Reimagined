@@ -1610,7 +1610,11 @@ setscoreboardcolumns_gametype()
 {
 	if (is_encounter())
 	{
-		if (level.scr_zm_ui_gametype == "zcontainment" || level.scr_zm_ui_gametype == "zmeat")
+		if (level.scr_zm_ui_gametype == "zturned")
+		{
+			setscoreboardcolumns("score", "kills", "returns", "downs", "revives");
+		}
+		else if (level.scr_zm_ui_gametype == "zcontainment" || level.scr_zm_ui_gametype == "zmeat")
 		{
 			setscoreboardcolumns("score", "captures", "killsconfirmed", "downs", "revives");
 		}

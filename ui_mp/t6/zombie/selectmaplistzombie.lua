@@ -32,6 +32,10 @@ CoD.SelectMapListZombie.GameModes[7] = {
 	ui_zm_gamemodegroup = "zencounter",
 	ui_gametype = "zsr",
 }
+CoD.SelectMapListZombie.GameModes[8] = {
+	ui_zm_gamemodegroup = "zencounter",
+	ui_gametype = "zturned",
+}
 CoD.SelectMapListZombie.Maps = {}
 CoD.SelectMapListZombie.Maps[1] = {
 	ui_mapname = "zm_transit",

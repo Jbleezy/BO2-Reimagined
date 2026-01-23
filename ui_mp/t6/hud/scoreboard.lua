@@ -216,7 +216,7 @@ function CreateScoreBoardBody(ScoreboardWidget, LocalClientIndex, UnusedArg1)
 	f5_local5 = f5_local5 + f0_local24 + f5_local7
 	ScoreboardWidget.teamElements = {}
 	local ScoreboardTeamCount = Engine.GetGametypeSetting("teamCount")
-	if CoD.isZombie and Dvar.ui_gametype:get() == CoD.Zombie.GAMETYPE_ZCLEANSED then
+	if CoD.isZombie and Dvar.ui_gametype:get() == CoD.Zombie.GAMETYPE_ZTURNED then
 		if ScoreboardTeamCount < 2 then
 			ScoreboardTeamCount = 2
 		end
@@ -489,7 +489,7 @@ end
 
 function UpdateGameScoreboard(ScoreboardWidget)
 	local ScoreboardTeams = nil
-	if CoD.isZombie and Dvar.ui_gametype:get() == CoD.Zombie.GAMETYPE_ZCLEANSED then
+	if CoD.isZombie and Dvar.ui_gametype:get() == CoD.Zombie.GAMETYPE_ZTURNED then
 		ScoreboardTeams = Engine.GetTeamPositions(ScoreboardWidget:getOwner(), 2)
 	else
 		ScoreboardTeams = Engine.GetTeamPositions(ScoreboardWidget:getOwner())
@@ -527,16 +527,16 @@ function UpdateGameScoreboard(ScoreboardWidget)
 		end
 	end
 	local MinRowsPerTeam = CoD.MPZM(2, 4)
-	if GreatestNumberOfClientsOnATeam <= math.floor(SCOREBOARD_MAX_ROWS / #ScoreboardTeams) then
-		MinRowsPerTeam = math.max(MinRowsPerTeam, GreatestNumberOfClientsOnATeam)
-	end
-	if CoD.isZombie and Engine.GetGametypeSetting("teamCount") > 2 then
-		MinRowsPerTeam = 2
-	end
 	local f18_local12, f18_local13, f18_local14, f18_local15 = nil, nil, nil, nil
 	local FocusableRowIndex = 1
 	for Key, ScoreboardTeam in ipairs(ScoreboardTeams) do
-		if ScoreboardWidget.teamElements[TeamElementIndex] and ScoreboardTeam.numClients > 0 then
+		local ShowScoreboardTeam = ScoreboardTeam.numClients > 0
+
+		if Dvar.ui_gametype:get() == CoD.Zombie.GAMETYPE_ZTURNED then
+			ShowScoreboardTeam = true
+		end
+
+		if ScoreboardWidget.teamElements[TeamElementIndex] and ShowScoreboardTeam then
 			local FactionTeam = nil
 			FactionTeam = Engine.GetFactionForTeam(ScoreboardTeam.team)
 			if ScoreboardWidget.frontEndOnly then
@@ -758,6 +758,11 @@ ScoreboardUpdateTeamElement = function(TeamElement, FactionTeam, FactionColorR, 
 		if ScoreboardTeamName == "" then
 			ScoreboardTeamName = Engine.Localize(CoD.MPZM("MPUI_", "ZMUI_") .. FactionTeam .. "_SHORT_CAPS")
 		end
+
+		if Dvar.ui_gametype:get() == CoD.Zombie.GAMETYPE_ZTURNED and ScoreboardTeam.team == CoD.TEAM_AXIS then
+			ScoreboardTeamName = Engine.Localize("ZMUI_ZOMBIES_SHORT_CAPS")
+		end
+
 		TeamElement.factionName:setText(ScoreboardTeamName)
 		TeamElement.teamScore:setText(ScoreboardTeam.score)
 		if CoD.isZombie == true then
@@ -776,9 +781,7 @@ ScoreboardUpdateTeamElement = function(TeamElement, FactionTeam, FactionColorR, 
 					TeamElement.factionIcon:setImage(RegisterMaterial("faction_tranzit"))
 				end
 			elseif GamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZSURVIVAL then
-				if Dvar.ui_gametype:get() == CoD.Zombie.GAMETYPE_ZCLEANSED and ScoreboardTeam.team == CoD.TEAM_AXIS then
-					TeamElement.factionIcon:setImage(RegisterMaterial("faction_zombie"))
-				elseif CoD.Zombie.IsSurvivalUsingCIAModel == true then
+				if CoD.Zombie.IsSurvivalUsingCIAModel == true then
 					if Mapname == CoD.Zombie.MAP_ZM_PRISON or Mapname == CoD.Zombie.MAP_ZM_TOMB then
 						TeamElement.factionIcon:setImage(RegisterMaterial("faction_inmates"))
 					else
@@ -786,7 +789,7 @@ ScoreboardUpdateTeamElement = function(TeamElement, FactionTeam, FactionColorR, 
 					end
 				end
 			elseif GamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
-				if Dvar.ui_gametype:get() == CoD.Zombie.GAMETYPE_ZCLEANSED and ScoreboardTeam.team == CoD.TEAM_AXIS then
+				if Dvar.ui_gametype:get() == CoD.Zombie.GAMETYPE_ZTURNED and ScoreboardTeam.team == CoD.TEAM_AXIS then
 					TeamElement.factionIcon:setImage(RegisterMaterial("faction_zombie"))
 				end
 			end

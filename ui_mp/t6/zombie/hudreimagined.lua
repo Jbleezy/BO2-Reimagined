@@ -659,6 +659,15 @@ CoD.Reimagined.GameModeScoreArea.UpdateTeamChange = function(Menu, ClientInstanc
 		Menu.team = ClientInstance.team
 		local FactionTeam = Engine.GetFactionForTeam(ClientInstance.team)
 		local EnemyFactionTeam = Engine.GetFactionForTeam(CoD.Reimagined.GetOtherTeam(ClientInstance.team))
+
+		if Dvar.ui_gametype:get() == CoD.Zombie.GAMETYPE_ZTURNED then
+			if ClientInstance.team == CoD.TEAM_AXIS then
+				FactionTeam = "zombie"
+			else
+				EnemyFactionTeam = "zombie"
+			end
+		end
+
 		if FactionTeam ~= "" then
 			Menu.gameModeScoreFriendlyIcon:setImage(RegisterMaterial("faction_" .. FactionTeam))
 			Menu.gameModeScoreFriendlyIcon:setAlpha(1)

@@ -1465,6 +1465,10 @@ get_gamemode_stat_str()
 	{
 		gamemode = "Search & Rezurrect";
 	}
+	else if (level.scr_zm_ui_gametype == "zturned")
+	{
+		gamemode = "Turned";
+	}
 
 	if (is_true(level.scr_zm_ui_gametype_pro))
 	{

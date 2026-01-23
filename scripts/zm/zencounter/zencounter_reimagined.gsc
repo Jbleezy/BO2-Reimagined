@@ -1116,6 +1116,10 @@ get_gamemode_winning_score()
 	{
 		return 3;
 	}
+	else if (level.scr_zm_ui_gametype == "zturned")
+	{
+		return 0;
+	}
 	else
 	{
 		return 1;

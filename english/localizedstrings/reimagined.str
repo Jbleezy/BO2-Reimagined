@@ -154,11 +154,20 @@ LANG_ENGLISH        "Prisoners"
 REFERENCE           ZMUI_INMATES_SHORT_CAPS
 LANG_ENGLISH        "PRISONERS"
 
+REFERENCE           ZMUI_ZOMBIES_SHORT
+LANG_ENGLISH        "Zombies"
+
+REFERENCE           ZMUI_ZOMBIES_SHORT_CAPS
+LANG_ENGLISH        "ZOMBIES"
+
 REFERENCE           MPUI_KILLS_CONFIRMED
 LANG_ENGLISH        "Griefs"
 
 REFERENCE           MPUI_KILLS_DENIED
 LANG_ENGLISH        "Stuns"
+
+REFERENCE           MPUI_RETURNS
+LANG_ENGLISH        "Eliminations"
 
 REFERENCE           MENU_ENEMY_COUNTER_CAPS
 LANG_ENGLISH        "ENEMY COUNTER"
@@ -302,6 +311,9 @@ LANG_ENGLISH        "Control the containment zone to gain score!"
 
 REFERENCE           ZOMBIE_ZMEAT_INTRO
 LANG_ENGLISH        "Hold the meat to gain score!"
+
+REFERENCE           ZOMBIE_ZTURNED_INTRO
+LANG_ENGLISH        "Kill zombies to gain score!"
 
 REFERENCE           ZOMBIE_GRIEF_SCORE_TO_WIN
 LANG_ENGLISH        "Gain &&1 score to win the game!"

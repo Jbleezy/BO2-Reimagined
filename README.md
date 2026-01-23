@@ -171,6 +171,7 @@
 		* [Containment](#containment)
 		* [Meat](#meat)
 		* [Search & Rezurrect](#search--rezurrect)
+		* [Turned](#turned)
 	* [Encounter Pro](#encounter-pro)
 
 ## General
@@ -1624,6 +1625,11 @@
 * Audio plays when enemy players bleed out
 * Teams switch spawn points each round
 * Players respawn at initial spawn points
+
+#### Turned
+* Survivors win by killing zombies
+* Turned win by turning all survivors
+* All players start as survivors
 
 ### Encounter Pro
 * No Mystery Box

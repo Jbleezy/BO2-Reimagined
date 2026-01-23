@@ -450,7 +450,7 @@ CoD.RoundStatus.UpdateTeamChange = function(RoundStatusWidget, ClientInstance)
 		if RoundStatusWidget.team ~= CoD.TEAM_FREE then
 			local FactionTeam = Engine.GetFactionForTeam(ClientInstance.team)
 			if FactionTeam ~= "" and RoundStatusWidget.gameTypeGroup == CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
-				if CoD.Zombie.GAMETYPE_ZCLEANSED == Dvar.ui_gametype:get() and RoundStatusWidget.team == CoD.TEAM_AXIS then
+				if CoD.Zombie.GAMETYPE_ZTURNED == Dvar.ui_gametype:get() and RoundStatusWidget.team == CoD.TEAM_AXIS then
 					FactionTeam = "zombie"
 				end
 				RoundStatusWidget.factionIcon:setImage(RegisterMaterial("faction_" .. FactionTeam))

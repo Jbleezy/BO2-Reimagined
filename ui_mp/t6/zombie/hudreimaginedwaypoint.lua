@@ -1080,7 +1080,7 @@ CoD.PlayerHeadIcon.update = function(Menu, ClientInstance)
 				end
 			end
 		elseif gamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
-			if Dvar.ui_gametype:get() == CoD.Zombie.GAMETYPE_ZCLEANSED and objectiveEntityTeam == CoD.TEAM_AXIS then
+			if Dvar.ui_gametype:get() == CoD.Zombie.GAMETYPE_ZTURNED and objectiveEntityTeam == CoD.TEAM_AXIS then
 				factionIcon = "faction_zombie"
 			end
 		end
