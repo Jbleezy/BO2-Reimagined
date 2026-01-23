@@ -1071,17 +1071,17 @@ CoD.PlayerHeadIcon.update = function(Menu, ClientInstance)
 			else
 				factionIcon = "faction_tranzit"
 			end
-		elseif gamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZSURVIVAL then
-			if CoD.Zombie.IsSurvivalUsingCIAModel == true then
-				if mapName == CoD.Zombie.MAP_ZM_PRISON or mapName == CoD.Zombie.MAP_ZM_TOMB then
-					factionIcon = "faction_inmates"
-				else
-					factionIcon = "faction_cia"
-				end
-			end
 		elseif gamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
 			if Dvar.ui_gametype:get() == CoD.Zombie.GAMETYPE_ZTURNED and objectiveEntityTeam == CoD.TEAM_AXIS then
 				factionIcon = "faction_zombie"
+			end
+		end
+
+		if CoD.Zombie.IsSurvivalUsingCIAModel == true and clientTeam == CoD.TEAM_ALLIES then
+			if mapName == CoD.Zombie.MAP_ZM_PRISON or mapName == CoD.Zombie.MAP_ZM_TOMB then
+				factionIcon = "faction_inmates"
+			else
+				factionIcon = "faction_cia"
 			end
 		end
 

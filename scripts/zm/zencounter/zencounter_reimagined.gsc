@@ -64,6 +64,11 @@ init()
 		meat_init();
 	}
 
+	if (level.scr_zm_ui_gametype == "zturned")
+	{
+		turned_init();
+	}
+
 	add_custom_limited_weapon_check(::is_weapon_available_in_grief_saved_weapons);
 
 	level.dont_allow_meat_interaction = 1;
@@ -3198,6 +3203,17 @@ meat_powerup_reset_on_timeout()
 	}
 
 	level notify("meat_inactive");
+}
+
+turned_init()
+{
+	level.force_team_characters = 1;
+	level.should_use_cia = 0;
+
+	if (randomint(100) >= 50)
+	{
+		level.should_use_cia = 1;
+	}
 }
 
 can_revive(revivee)

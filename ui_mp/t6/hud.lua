@@ -225,6 +225,11 @@ end
 
 function HUD_UpdateSurvivalTeamZombie(HUDWidget, ClientInstance)
 	CoD.Zombie.IsSurvivalUsingCIAModel = ClientInstance.data[1] == 1
+
+	local ClientNum = Engine.GetClientNum(ClientInstance.controller)
+	ClientInstance.team = Engine.GetTeamID(ClientInstance.controller, ClientNum)
+
+	HUDWidget:dispatchEventToChildren(ClientInstance)
 end
 
 function HUD_FirstSnapshot(HUDWidget, ClientInstance)

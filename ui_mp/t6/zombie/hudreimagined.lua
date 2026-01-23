@@ -326,6 +326,7 @@ LUI.createMenu.ReimaginedArea = function(LocalClientIndex)
 	gameModeScoreWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_SCOPED, CoD.Reimagined.GameModeScoreArea.UpdateVisibility)
 	gameModeScoreWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_PLAYER_ZOMBIE, CoD.Reimagined.GameModeScoreArea.UpdateVisibility)
 	gameModeScoreWidget:registerEventHandler("hud_update_team_change", CoD.Reimagined.GameModeScoreArea.UpdateTeamChange)
+	gameModeScoreWidget:registerEventHandler("hud_update_survival_team", CoD.Reimagined.GameModeScoreArea.UpdateTeamChange)
 	gameModeScoreWidget:registerEventHandler("hud_update_scores", CoD.Reimagined.GameModeScoreArea.UpdateScores)
 
 	local gameModeScoreDetailedWidget = LUI.UIElement.new()
@@ -655,10 +656,27 @@ CoD.Reimagined.GameModeScoreArea.UpdateTeamChange = function(Menu, ClientInstanc
 		return
 	end
 
-	if Menu.team ~= ClientInstance.team then
+	if Menu.team ~= ClientInstance.team or ClientInstance.name == "hud_update_survival_team" then
 		Menu.team = ClientInstance.team
 		local FactionTeam = Engine.GetFactionForTeam(ClientInstance.team)
 		local EnemyFactionTeam = Engine.GetFactionForTeam(CoD.Reimagined.GetOtherTeam(ClientInstance.team))
+		local mapName = CoD.Zombie.GetUIMapName()
+
+		if CoD.Zombie.IsSurvivalUsingCIAModel == true then
+			if mapName == CoD.Zombie.MAP_ZM_PRISON or mapName == CoD.Zombie.MAP_ZM_TOMB then
+				if ClientInstance.team == CoD.TEAM_ALLIES then
+					FactionTeam = "inmates"
+				else
+					EnemyFactionTeam = "inmates"
+				end
+			else
+				if ClientInstance.team == CoD.TEAM_ALLIES then
+					FactionTeam = "cia"
+				else
+					EnemyFactionTeam = "cia"
+				end
+			end
+		end
 
 		if Dvar.ui_gametype:get() == CoD.Zombie.GAMETYPE_ZTURNED then
 			if ClientInstance.team == CoD.TEAM_AXIS then

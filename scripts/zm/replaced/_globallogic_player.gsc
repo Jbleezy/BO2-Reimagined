@@ -303,12 +303,10 @@ callback_playerconnect()
 			self maps\mp\zombies\_zm_stats::add_location_gametype_stat(level.scr_zm_map_start_location, level.scr_zm_ui_gametype, "losses", 1);
 		}
 	}
-	else if (level.scr_zm_ui_gametype_group == "zsurvival")
+
+	if (isdefined(level.should_use_cia))
 	{
-		if (isdefined(level.should_use_cia))
-		{
-			self luinotifyevent(&"hud_update_survival_team", 1, level.should_use_cia);
-		}
+		self luinotifyevent(&"hud_update_survival_team", 1, level.should_use_cia);
 	}
 
 	level endon("game_ended");

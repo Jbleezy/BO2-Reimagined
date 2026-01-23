@@ -557,13 +557,13 @@ function UpdateGameScoreboard(ScoreboardWidget)
 						FactionColorR = CoD.Zombie.SingleTeamColor.r
 						FactionColorG = CoD.Zombie.SingleTeamColor.g
 						FactionColorB = CoD.Zombie.SingleTeamColor.b
-					elseif GamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZSURVIVAL then
-						if CoD.Zombie.IsSurvivalUsingCIAModel == true then
-							if Mapname == CoD.Zombie.MAP_ZM_PRISON or Mapname == CoD.Zombie.MAP_ZM_TOMB then
-								FactionColorR, FactionColorG, FactionColorB = Engine.GetFactionColor("inmates")
-							else
-								FactionColorR, FactionColorG, FactionColorB = Engine.GetFactionColor("cia")
-							end
+					end
+
+					if CoD.Zombie.IsSurvivalUsingCIAModel == true and ScoreboardTeam.team == CoD.TEAM_ALLIES then
+						if Mapname == CoD.Zombie.MAP_ZM_PRISON or Mapname == CoD.Zombie.MAP_ZM_TOMB then
+							FactionColorR, FactionColorG, FactionColorB = Engine.GetFactionColor("inmates")
+						else
+							FactionColorR, FactionColorG, FactionColorB = Engine.GetFactionColor("cia")
 						end
 					end
 				end
@@ -780,19 +780,20 @@ ScoreboardUpdateTeamElement = function(TeamElement, FactionTeam, FactionColorR, 
 				else
 					TeamElement.factionIcon:setImage(RegisterMaterial("faction_tranzit"))
 				end
-			elseif GamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZSURVIVAL then
-				if CoD.Zombie.IsSurvivalUsingCIAModel == true then
-					if Mapname == CoD.Zombie.MAP_ZM_PRISON or Mapname == CoD.Zombie.MAP_ZM_TOMB then
-						TeamElement.factionIcon:setImage(RegisterMaterial("faction_inmates"))
-					else
-						TeamElement.factionIcon:setImage(RegisterMaterial("faction_cia"))
-					end
-				end
 			elseif GamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
 				if Dvar.ui_gametype:get() == CoD.Zombie.GAMETYPE_ZTURNED and ScoreboardTeam.team == CoD.TEAM_AXIS then
 					TeamElement.factionIcon:setImage(RegisterMaterial("faction_zombie"))
 				end
 			end
+
+			if CoD.Zombie.IsSurvivalUsingCIAModel == true and ScoreboardTeam.team == CoD.TEAM_ALLIES then
+				if Mapname == CoD.Zombie.MAP_ZM_PRISON or Mapname == CoD.Zombie.MAP_ZM_TOMB then
+					TeamElement.factionIcon:setImage(RegisterMaterial("faction_inmates"))
+				else
+					TeamElement.factionIcon:setImage(RegisterMaterial("faction_cia"))
+				end
+			end
+
 			if GamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
 				TeamElement.factionName:setAlpha(1)
 			else

@@ -121,6 +121,7 @@ LUI.createMenu.RoundStatus = function(LocalClientIndex)
 	RoundStatusWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN, CoD.RoundStatus.UpdateVisibility)
 	RoundStatusWidget:registerEventHandler("hud_update_rounds_played", CoD.RoundStatus.UpdateRoundsPlayed)
 	RoundStatusWidget:registerEventHandler("hud_update_team_change", CoD.RoundStatus.UpdateTeamChange)
+	RoundStatusWidget:registerEventHandler("hud_update_survival_team", CoD.RoundStatus.UpdateTeamChange)
 	RoundStatusWidget:registerEventHandler("sq_tpo_special_round_active", CoD.RoundStatus.UpdateSpecialRound)
 	RoundStatusWidget.timebombOverride = false
 	if CoD.Zombie.IsDLCMap(CoD.Zombie.DLC3Maps) then
@@ -445,14 +446,24 @@ CoD.RoundStatus.RoundSwitchHideFinish = function(RoundText, ClientInstance)
 end
 
 CoD.RoundStatus.UpdateTeamChange = function(RoundStatusWidget, ClientInstance)
-	if RoundStatusWidget.team ~= ClientInstance.team and type(ClientInstance.team) == "number" and ClientInstance.team < CoD.TEAM_SPECTATOR then
+	if (RoundStatusWidget.team ~= ClientInstance.team and type(ClientInstance.team) == "number" and ClientInstance.team < CoD.TEAM_SPECTATOR) or ClientInstance.name == "hud_update_survival_team" then
 		RoundStatusWidget.team = ClientInstance.team
 		if RoundStatusWidget.team ~= CoD.TEAM_FREE then
 			local FactionTeam = Engine.GetFactionForTeam(ClientInstance.team)
+			local Mapname = CoD.Zombie.GetUIMapName()
 			if FactionTeam ~= "" and RoundStatusWidget.gameTypeGroup == CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
-				if CoD.Zombie.GAMETYPE_ZTURNED == Dvar.ui_gametype:get() and RoundStatusWidget.team == CoD.TEAM_AXIS then
+				if Dvar.ui_gametype:get() == CoD.Zombie.GAMETYPE_ZTURNED and RoundStatusWidget.team == CoD.TEAM_AXIS then
 					FactionTeam = "zombie"
 				end
+
+				if CoD.Zombie.IsSurvivalUsingCIAModel == true and RoundStatusWidget.team == CoD.TEAM_ALLIES then
+					if Mapname == CoD.Zombie.MAP_ZM_PRISON or Mapname == CoD.Zombie.MAP_ZM_TOMB then
+						FactionTeam = "inmates"
+					else
+						FactionTeam = "cia"
+					end
+				end
+
 				RoundStatusWidget.factionIcon:setImage(RegisterMaterial("faction_" .. FactionTeam))
 				RoundStatusWidget.factionIcon:setAlpha(1)
 			else
