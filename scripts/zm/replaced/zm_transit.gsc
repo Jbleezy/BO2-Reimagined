@@ -59,6 +59,29 @@
 #include maps\mp\zombies\_zm_sidequests;
 #include maps\mp\zombies\_zm_tombstone;
 
+survival_init()
+{
+	level.force_team_characters = 1;
+	level.should_use_cia = 0;
+
+	if (randomint(100) >= 50)
+	{
+		level.should_use_cia = 1;
+	}
+
+	level.precachecustomcharacters = ::precache_team_characters;
+	level.givecustomcharacters = ::give_team_characters;
+	level.dog_spawn_func = ::dog_spawn_transit_logic;
+	level thread maps\mp\zombies\_zm_banking::delete_bank_teller();
+	flag_wait("start_zombie_round_logic");
+	level.custom_intermission = ::transit_standard_intermission;
+
+	if (isdefined(level.scr_zm_map_start_location) && level.scr_zm_map_start_location == "transit")
+	{
+		level thread lava_damage_depot();
+	}
+}
+
 transit_zone_init()
 {
 	flag_init("always_on");

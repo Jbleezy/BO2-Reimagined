@@ -278,6 +278,7 @@
 * Fixed last stand vision being changed when another player downs
 * Fixed certain player anims
 * Fixed being able to start reviving a player on the same frame that another player stopped reviving that player
+* Fixed randomization for teams on Survival
 
 ## Zombies
 * Health capped at 100,000
@@ -1305,7 +1306,7 @@
 * Moved Stamin-Up to Vulture Aid's location on Buried
 * Added Head Chopper buildable
 * Buildables can spawn at Church buildable table
-* Added better randomization for buildables
+* Fixed randomization for buildables
 
 #### Maze
 * Wallbuys: SMR, Ballista, B23R, PDW-57, AN-94, LSAT

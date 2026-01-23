@@ -42,13 +42,12 @@ zstandard_preinit()
 
 survival_init()
 {
-	level.force_team_characters = 1;
-
 	if (is_gametype_active("zstandard"))
 	{
+		level.force_team_characters = 1;
 		level.should_use_cia = 0;
 
-		if (randomint(100) > 50)
+		if (randomint(100) >= 50)
 		{
 			level.should_use_cia = 1;
 		}
