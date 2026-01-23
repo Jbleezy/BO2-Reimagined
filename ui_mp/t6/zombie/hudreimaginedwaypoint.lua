@@ -730,6 +730,14 @@ CoD.PlayerWaypoint.updateDownAndRevive = function(Menu, ClientInstance, IsDownWa
 		if gamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
 			local faction = Engine.GetFactionForTeam(objectiveEntityTeam)
 
+			if CoD.Zombie.IsSurvivalUsingCIAModel == true and objectiveEntityTeam == CoD.TEAM_ALLIES then
+				if mapName == CoD.Zombie.MAP_ZM_PRISON or mapName == CoD.Zombie.MAP_ZM_TOMB then
+					faction = "inmates"
+				else
+					faction = "cia"
+				end
+			end
+
 			if faction == "cdc" or faction == "cia" then
 				reviveIcon = "waypoint_revive_" .. faction .. "_zm"
 			else
