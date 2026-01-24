@@ -570,9 +570,7 @@ function UpdateGameScoreboard(ScoreboardWidget)
 				if CoD.isZombie == true then
 					local GamemodeGroup = UIExpression.DvarString(nil, "ui_zm_gamemodegroup")
 					if GamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZCLASSIC then
-						FactionColorR = CoD.Zombie.SingleTeamColor.r
-						FactionColorG = CoD.Zombie.SingleTeamColor.g
-						FactionColorB = CoD.Zombie.SingleTeamColor.b
+						FactionColorR, FactionColorG, FactionColorB = Engine.GetFactionColor("zombie")
 					end
 				end
 				ScoreboardUpdateTeamElement(ScoreboardWidget.teamElements[TeamElementIndex], FactionTeam, FactionColorR, FactionColorG, FactionColorB, ScoreboardTeam, math.max(MinRowsPerTeam, ScoreboardTeam.numClients), f18_local5)
