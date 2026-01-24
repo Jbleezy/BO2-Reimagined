@@ -6,6 +6,7 @@ main()
 {
 	replaceFunc(maps\mp\zm_buried_sq::navcomputer_waitfor_navcard, scripts\zm\reimagined\_zm_sq::navcomputer_waitfor_navcard);
 	replaceFunc(maps\mp\zm_buried::init_level_specific_wall_buy_fx, scripts\zm\replaced\zm_buried::init_level_specific_wall_buy_fx);
+	replaceFunc(maps\mp\zm_buried::give_team_characters, scripts\zm\replaced\zm_buried::give_team_characters);
 	replaceFunc(maps\mp\zm_buried_grief_street::precache, scripts\zm\replaced\zm_buried_grief_street::precache);
 	replaceFunc(maps\mp\zm_buried_grief_street::main, scripts\zm\replaced\zm_buried_grief_street::main);
 	replaceFunc(maps\mp\zm_buried_buildables::prepare_chalk_weapon_list, scripts\zm\replaced\zm_buried_buildables::prepare_chalk_weapon_list);

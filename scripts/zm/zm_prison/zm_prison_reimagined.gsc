@@ -11,6 +11,7 @@ main()
 	replaceFunc(maps\mp\zm_alcatraz_craftables::include_craftables, scripts\zm\replaced\zm_alcatraz_craftables::include_craftables);
 	replaceFunc(maps\mp\zm_alcatraz_gamemodes::init, scripts\zm\replaced\zm_alcatraz_gamemodes::init);
 	replaceFunc(maps\mp\zm_alcatraz_grief_cellblock::zgrief_init, scripts\zm\replaced\zm_alcatraz_grief_cellblock::zgrief_init);
+	replaceFunc(maps\mp\zm_alcatraz_grief_cellblock::give_team_characters, scripts\zm\replaced\zm_alcatraz_grief_cellblock::give_team_characters);
 	replaceFunc(maps\mp\zm_alcatraz_grief_cellblock::main, scripts\zm\replaced\zm_alcatraz_grief_cellblock::main);
 	replaceFunc(maps\mp\zm_alcatraz_grief_cellblock::magicbox_face_spawn, scripts\zm\replaced\zm_alcatraz_grief_cellblock::magicbox_face_spawn);
 	replaceFunc(maps\mp\zm_alcatraz_utility::blundergat_upgrade_station, scripts\zm\replaced\zm_alcatraz_utility::blundergat_upgrade_station);

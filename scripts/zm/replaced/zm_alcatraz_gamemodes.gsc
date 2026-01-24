@@ -45,29 +45,3 @@ zstandard_preinit()
 
 	flag_wait("start_zombie_round_logic");
 }
-
-give_team_characters()
-{
-	self detachall();
-	self set_player_is_female(0);
-
-	if (isdefined(level.should_use_cia))
-	{
-		if (level.should_use_cia)
-		{
-			self setmodel("c_zom_player_grief_inmate_fb");
-			self setviewmodel("c_zom_oleary_shortsleeve_viewhands");
-			self.characterindex = 0;
-		}
-		else
-		{
-			self setmodel("c_zom_player_grief_guard_fb");
-			self setviewmodel("c_zom_grief_guard_viewhands");
-			self.characterindex = 1;
-		}
-	}
-
-	self setmovespeedscale(1);
-	self setsprintduration(4);
-	self setsprintcooldown(0);
-}
