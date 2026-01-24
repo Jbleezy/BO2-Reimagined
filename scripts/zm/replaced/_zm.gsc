@@ -1870,7 +1870,7 @@ getfreespawnpoint(spawnpoints, player)
 		}
 	}
 
-	if (isdefined(player) && isdefined(player.team))
+	if (isdefined(player) && isdefined(player.team) && level.scr_zm_ui_gametype != "zturned")
 	{
 		i = 0;
 
@@ -1918,7 +1918,7 @@ getfreespawnpoint(spawnpoints, player)
 		num = 0;
 		players = get_players(self.team);
 
-		for (num = 0; num < 4; num++)
+		for (num = 0; num < 8; num++)
 		{
 			valid_num = true;
 
