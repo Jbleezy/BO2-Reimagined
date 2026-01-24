@@ -543,6 +543,23 @@ function UpdateGameScoreboard(ScoreboardWidget)
 				local AARScoreboardTable = Engine.GetAARScoreboard(ScoreboardWidget:getOwner())
 				FactionTeam = Engine.GetFactionForTeam(ScoreboardTeam.team, AARScoreboardTable.mapName)
 			end
+
+			if CoD.isZombie == true then
+				local Mapname = CoD.Zombie.GetUIMapName()
+
+				if CoD.Zombie.IsSurvivalUsingCIAModel == true and ScoreboardTeam.team == CoD.TEAM_ALLIES then
+					if Mapname == CoD.Zombie.MAP_ZM_PRISON or Mapname == CoD.Zombie.MAP_ZM_TOMB then
+						FactionTeam = "inmates"
+					else
+						FactionTeam = "cia"
+					end
+				end
+
+				if Dvar.ui_gametype:get() == CoD.Zombie.GAMETYPE_ZTURNED and ScoreboardTeam.team == CoD.TEAM_AXIS then
+					FactionTeam = "zombie"
+				end
+			end
+
 			if FactionTeam then
 				local FactionColorR, FactionColorG, FactionColorB = Engine.GetFactionColor(FactionTeam)
 				if ScoreboardTeam.team == CoD.TEAM_FREE then
@@ -552,19 +569,10 @@ function UpdateGameScoreboard(ScoreboardWidget)
 				end
 				if CoD.isZombie == true then
 					local GamemodeGroup = UIExpression.DvarString(nil, "ui_zm_gamemodegroup")
-					local Mapname = CoD.Zombie.GetUIMapName()
 					if GamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZCLASSIC then
 						FactionColorR = CoD.Zombie.SingleTeamColor.r
 						FactionColorG = CoD.Zombie.SingleTeamColor.g
 						FactionColorB = CoD.Zombie.SingleTeamColor.b
-					end
-
-					if CoD.Zombie.IsSurvivalUsingCIAModel == true and ScoreboardTeam.team == CoD.TEAM_ALLIES then
-						if Mapname == CoD.Zombie.MAP_ZM_PRISON or Mapname == CoD.Zombie.MAP_ZM_TOMB then
-							FactionColorR, FactionColorG, FactionColorB = Engine.GetFactionColor("inmates")
-						else
-							FactionColorR, FactionColorG, FactionColorB = Engine.GetFactionColor("cia")
-						end
 					end
 				end
 				ScoreboardUpdateTeamElement(ScoreboardWidget.teamElements[TeamElementIndex], FactionTeam, FactionColorR, FactionColorG, FactionColorB, ScoreboardTeam, math.max(MinRowsPerTeam, ScoreboardTeam.numClients), f18_local5)
@@ -747,18 +755,6 @@ ScoreboardUpdateTeamElement = function(TeamElement, FactionTeam, FactionColorR, 
 		TeamElement.factionName:setText("")
 		TeamElement.teamScore:setAlpha(0)
 	elseif ScoreboardTeam.team ~= CoD.TEAM_FREE then
-		if CoD.Zombie.IsSurvivalUsingCIAModel == true and ScoreboardTeam.team == CoD.TEAM_ALLIES then
-			if Mapname == CoD.Zombie.MAP_ZM_PRISON or Mapname == CoD.Zombie.MAP_ZM_TOMB then
-				FactionTeam = "inmates"
-			else
-				FactionTeam = "cia"
-			end
-		end
-
-		if Dvar.ui_gametype:get() == CoD.Zombie.GAMETYPE_ZTURNED and ScoreboardTeam.team == CoD.TEAM_AXIS then
-			FactionTeam = "zombie"
-		end
-
 		if TeamElement.highlightGlow then
 			TeamElement.highlightGlow:setRGB(FactionColorR, FactionColorG, FactionColorB)
 			TeamElement.highlightGlow:setTopBottom(false, true, -2, -VerticalOffset / 2)

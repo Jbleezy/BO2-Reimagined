@@ -722,26 +722,27 @@ CoD.PlayerWaypoint.updateDownAndRevive = function(Menu, ClientInstance, IsDownWa
 	local clientTeam = Engine.GetTeamID(controller, clientNum)
 	local objectiveEntityTeam = Engine.GetTeamID(controller, objectiveEntity)
 	local gamemodeGroup = UIExpression.DvarString(nil, "ui_zm_gamemodegroup")
+	local mapName = CoD.Zombie.GetUIMapName()
 
 	if objectiveFlags == CoD.PlayerWaypoint.FLAG_DOWN and (clientTeam == objectiveEntityTeam or gamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER) then
 		local reviveIcon = "waypoint_revive"
 		local reviveArrow = "waypoint_revive_arrow"
 
 		if gamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
-			local faction = Engine.GetFactionForTeam(objectiveEntityTeam)
+			local factionTeam = Engine.GetFactionForTeam(objectiveEntityTeam)
 
 			if CoD.Zombie.IsSurvivalUsingCIAModel == true and objectiveEntityTeam == CoD.TEAM_ALLIES then
 				if mapName == CoD.Zombie.MAP_ZM_PRISON or mapName == CoD.Zombie.MAP_ZM_TOMB then
-					faction = "inmates"
+					factionTeam = "inmates"
 				else
-					faction = "cia"
+					factionTeam = "cia"
 				end
 			end
 
-			if faction == "cdc" or faction == "cia" then
-				reviveIcon = "waypoint_revive_" .. faction .. "_zm"
+			if factionTeam == "cdc" or factionTeam == "cia" then
+				reviveIcon = "waypoint_revive_" .. factionTeam .. "_zm"
 			else
-				reviveIcon = "waypoint_revive_" .. faction
+				reviveIcon = "waypoint_revive_" .. factionTeam
 			end
 		end
 
@@ -1061,11 +1062,25 @@ CoD.PlayerHeadIcon.update = function(Menu, ClientInstance)
 	local objectiveEntity = Engine.GetObjectiveEntity(Menu, index)
 	local clientTeam = Engine.GetTeamID(controller, clientNum)
 	local objectiveEntityTeam = Engine.GetTeamID(controller, objectiveEntity)
+	local gamemodeGroup = UIExpression.DvarString(nil, "ui_zm_gamemodegroup")
+	local mapName = CoD.Zombie.GetUIMapName()
 
 	if objectiveFlags == CoD.PlayerWaypoint.FLAG_ALIVE and clientTeam == objectiveEntityTeam then
-		local gamemodeGroup = UIExpression.DvarString(nil, "ui_zm_gamemodegroup")
-		local mapName = CoD.Zombie.GetUIMapName()
-		local factionIcon = "faction_" .. Engine.GetFactionForTeam(objectiveEntityTeam)
+		local factionTeam = Engine.GetFactionForTeam(objectiveEntityTeam)
+
+		if CoD.Zombie.IsSurvivalUsingCIAModel == true and objectiveEntityTeam == CoD.TEAM_ALLIES then
+			if mapName == CoD.Zombie.MAP_ZM_PRISON or mapName == CoD.Zombie.MAP_ZM_TOMB then
+				factionTeam = "inmates"
+			else
+				factionTeam = "cia"
+			end
+		end
+
+		if Dvar.ui_gametype:get() == CoD.Zombie.GAMETYPE_ZTURNED and objectiveEntityTeam == CoD.TEAM_AXIS then
+			factionTeam = "zombie"
+		end
+
+		local factionIcon = "faction_" .. factionTeam
 
 		if gamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZCLASSIC then
 			if mapName == CoD.Zombie.MAP_ZM_TOMB then
@@ -1078,18 +1093,6 @@ CoD.PlayerHeadIcon.update = function(Menu, ClientInstance)
 				factionIcon = "faction_highrise"
 			else
 				factionIcon = "faction_tranzit"
-			end
-		elseif gamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
-			if Dvar.ui_gametype:get() == CoD.Zombie.GAMETYPE_ZTURNED and objectiveEntityTeam == CoD.TEAM_AXIS then
-				factionIcon = "faction_zombie"
-			end
-		end
-
-		if CoD.Zombie.IsSurvivalUsingCIAModel == true and clientTeam == CoD.TEAM_ALLIES then
-			if mapName == CoD.Zombie.MAP_ZM_PRISON or mapName == CoD.Zombie.MAP_ZM_TOMB then
-				factionIcon = "faction_inmates"
-			else
-				factionIcon = "faction_cia"
 			end
 		end
 
