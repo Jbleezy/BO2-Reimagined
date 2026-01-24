@@ -184,6 +184,17 @@ zm_transit
 if %ERRORLEVEL% neq 0 pause & exit
 
 "%OAT_BASE%\Linker.exe" ^
+--load "%OAT_GAME%\zone\all\zm_transit_dr_patch.ff" ^
+--load "%OAT_GAME%\zone\all\zm_transit_dr.ff" ^
+--base-folder "%OAT_BASE%" ^
+--add-asset-search-path "%CD%" ^
+--add-source-search-path "%CD%\zone_source\includes" ^
+--output-folder "%CD%\zone_source\includes" ^
+zm_transit_dr
+
+if %ERRORLEVEL% neq 0 pause & exit
+
+"%OAT_BASE%\Linker.exe" ^
 --load "%CD%\zone_source\dependencies\camo_materials.ff" ^
 --load "%OAT_GAME%\zone\all\zm_nuked_patch.ff" ^
 --load "%OAT_GAME%\zone\all\zm_nuked.ff" ^
@@ -259,6 +270,7 @@ if %ERRORLEVEL% neq 0 pause & exit
 --load "%CD%\zone_source\includes\common_zm.ff" ^
 --load "%CD%\zone_source\includes\ui_zm.ff" ^
 --load "%CD%\zone_source\includes\zm_transit.ff" ^
+--load "%CD%\zone_source\includes\zm_transit_dr.ff" ^
 --load "%CD%\zone_source\includes\zm_nuked.ff" ^
 --load "%CD%\zone_source\includes\zm_highrise.ff" ^
 --load "%CD%\zone_source\includes\zm_prison.ff" ^

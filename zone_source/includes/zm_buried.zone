@@ -1053,5 +1053,6 @@ script,maps/mp/zombies/_zm_game_module_utility.gsc
 script,maps/mp/zombies/_zm_game_module_meat_utility.gsc
 script,clientscripts/mp/gametypes/zgrief.csc
 script,clientscripts/mp/gametypes/zmeat.csc
+script,clientscripts/mp/zombies/_zm_turned.csc
 
 menulist,ui_mp/hud_zgrief.txt

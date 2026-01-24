@@ -3,3 +3,5 @@
 material,generic_filter_zm_turned
 
 camo,camo_raygun_mark2
+
+script,maps/mp/zombies/_zm_turned.gsc
