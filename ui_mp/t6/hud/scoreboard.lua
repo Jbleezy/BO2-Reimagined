@@ -747,6 +747,18 @@ ScoreboardUpdateTeamElement = function(TeamElement, FactionTeam, FactionColorR, 
 		TeamElement.factionName:setText("")
 		TeamElement.teamScore:setAlpha(0)
 	elseif ScoreboardTeam.team ~= CoD.TEAM_FREE then
+		if CoD.Zombie.IsSurvivalUsingCIAModel == true and ScoreboardTeam.team == CoD.TEAM_ALLIES then
+			if Mapname == CoD.Zombie.MAP_ZM_PRISON or Mapname == CoD.Zombie.MAP_ZM_TOMB then
+				FactionTeam = "inmates"
+			else
+				FactionTeam = "cia"
+			end
+		end
+
+		if Dvar.ui_gametype:get() == CoD.Zombie.GAMETYPE_ZTURNED and ScoreboardTeam.team == CoD.TEAM_AXIS then
+			FactionTeam = "zombie"
+		end
+
 		if TeamElement.highlightGlow then
 			TeamElement.highlightGlow:setRGB(FactionColorR, FactionColorG, FactionColorB)
 			TeamElement.highlightGlow:setTopBottom(false, true, -2, -VerticalOffset / 2)
@@ -757,10 +769,6 @@ ScoreboardUpdateTeamElement = function(TeamElement, FactionTeam, FactionColorR, 
 		local ScoreboardTeamName = Engine.GetCustomTeamName(ScoreboardTeam.team)
 		if ScoreboardTeamName == "" then
 			ScoreboardTeamName = Engine.Localize(CoD.MPZM("MPUI_", "ZMUI_") .. FactionTeam .. "_SHORT_CAPS")
-		end
-
-		if Dvar.ui_gametype:get() == CoD.Zombie.GAMETYPE_ZTURNED and ScoreboardTeam.team == CoD.TEAM_AXIS then
-			ScoreboardTeamName = Engine.Localize("ZMUI_ZOMBIES_SHORT_CAPS")
 		end
 
 		TeamElement.factionName:setText(ScoreboardTeamName)
@@ -779,18 +787,6 @@ ScoreboardUpdateTeamElement = function(TeamElement, FactionTeam, FactionColorR, 
 					TeamElement.factionIcon:setImage(RegisterMaterial("faction_highrise"))
 				else
 					TeamElement.factionIcon:setImage(RegisterMaterial("faction_tranzit"))
-				end
-			elseif GamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
-				if Dvar.ui_gametype:get() == CoD.Zombie.GAMETYPE_ZTURNED and ScoreboardTeam.team == CoD.TEAM_AXIS then
-					TeamElement.factionIcon:setImage(RegisterMaterial("faction_zombie"))
-				end
-			end
-
-			if CoD.Zombie.IsSurvivalUsingCIAModel == true and ScoreboardTeam.team == CoD.TEAM_ALLIES then
-				if Mapname == CoD.Zombie.MAP_ZM_PRISON or Mapname == CoD.Zombie.MAP_ZM_TOMB then
-					TeamElement.factionIcon:setImage(RegisterMaterial("faction_inmates"))
-				else
-					TeamElement.factionIcon:setImage(RegisterMaterial("faction_cia"))
 				end
 			end
 
