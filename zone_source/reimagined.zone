@@ -28,6 +28,7 @@ image,specialty_vulture_zombies
 image,minimap_icon_chugabud
 image,minimap_icon_electric_cherry
 image,hud_hell_dpad
+image,hud_obit_death_crush
 image,hud_obit_death_suicide
 image,hud_obit_death_falling
 image,waypoint_revive
@@ -50,6 +51,8 @@ material,menu_zm_weapons_one_inch_punch_air
 material,menu_zm_weapons_one_inch_punch_fire
 material,menu_zm_weapons_one_inch_punch_ice
 material,menu_zm_weapons_one_inch_punch_lightning
+material,menu_zm_weapons_syrette
+material,menu_zm_weapons_zombiemelee
 material,menu_zm_weapons_item_meat
 material,menu_zm_weapons_item_head
 material,menu_zm_transit_zsurvival_diner
@@ -129,8 +132,6 @@ material,hud_icon_scoring_team
 material,hud_indicator_blundersplat
 material,hud_status_revive
 material,hud_status_afterlife
-material,hud_obit_down
-material,hud_obit_revive
 material,waypoint_revive_arrow
 
 rawfile,animstatedefs/zm_nuked_dog.asd

@@ -613,7 +613,7 @@ kill_feed()
 	}
 	else
 	{
-		obituary(self, self, level.suicide_weapon, "MOD_UNKNOWN");
+		obituary(self, self, "none", "MOD_CRUSH");
 	}
 }
 

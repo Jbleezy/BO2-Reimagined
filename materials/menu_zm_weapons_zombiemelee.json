@@ -75,7 +75,7 @@
 	},
 	"textures": [
 		{
-			"image": "hud_obit_down",
+			"image": "menu_zm_weapons_zombiemelee",
 			"isMatureContent": false,
 			"name": "colorMap",
 			"samplerState": {
