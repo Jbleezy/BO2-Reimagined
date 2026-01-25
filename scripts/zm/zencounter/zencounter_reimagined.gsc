@@ -1390,6 +1390,11 @@ game_module_player_damage_callback(einflictor, eattacker, idamage, idflags, smea
 
 	if (isplayer(eattacker) && isDefined(eattacker._encounters_team) && eattacker._encounters_team != self._encounters_team)
 	{
+		if (is_true(eattacker.is_zombie) || is_true(self.is_zombie))
+		{
+			return;
+		}
+
 		if (is_true(self.hasriotshield) && isDefined(vdir))
 		{
 			if (is_true(self.hasriotshieldequipped))
