@@ -44,13 +44,16 @@ survival_init()
 	flag_wait("start_zombie_round_logic");
 }
 
+precache_team_characters()
+{
+	precachemodel("c_zom_player_cdc_dlc1_fb");
+	precachemodel("c_zom_hazmat_viewhands_light");
+	precachemodel("c_zom_player_cia_dlc1_fb");
+	precachemodel("c_zom_suit_viewhands");
+}
+
 give_team_characters()
 {
-	if (isdefined(level.hotjoin_player_setup) && [[level.hotjoin_player_setup]]("c_zom_suit_viewhands"))
-	{
-		return;
-	}
-
 	self detachall();
 	self set_player_is_female(0);
 
@@ -58,13 +61,13 @@ give_team_characters()
 	{
 		if (level.should_use_cia)
 		{
-			self setmodel("c_zom_player_cia_fb");
+			self setmodel("c_zom_player_cia_dlc1_fb");
 			self setviewmodel("c_zom_suit_viewhands");
 			self.characterindex = 0;
 		}
 		else
 		{
-			self setmodel("c_zom_player_cdc_fb");
+			self setmodel("c_zom_player_cdc_dlc1_fb");
 			self setviewmodel("c_zom_hazmat_viewhands_light");
 			self.characterindex = 1;
 		}
@@ -85,7 +88,7 @@ give_team_characters()
 		{
 			case 0:
 			case 2:
-				self setmodel("c_zom_player_cia_fb");
+				self setmodel("c_zom_player_cia_dlc1_fb");
 				self.voice = "american";
 				self.skeleton = "base";
 				self setviewmodel("c_zom_suit_viewhands");
@@ -94,7 +97,7 @@ give_team_characters()
 
 			case 1:
 			case 3:
-				self setmodel("c_zom_player_cdc_fb");
+				self setmodel("c_zom_player_cdc_dlc1_fb");
 				self.voice = "american";
 				self.skeleton = "base";
 				self setviewmodel("c_zom_hazmat_viewhands_light");

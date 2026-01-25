@@ -82,6 +82,74 @@ survival_init()
 	}
 }
 
+precache_team_characters()
+{
+	precachemodel("c_zom_player_cdc_dlc1_fb");
+	precachemodel("c_zom_hazmat_viewhands");
+	precachemodel("c_zom_player_cia_dlc1_fb");
+	precachemodel("c_zom_suit_viewhands");
+}
+
+give_team_characters()
+{
+	self detachall();
+	self set_player_is_female(0);
+
+	if (isdefined(level.should_use_cia))
+	{
+		if (level.should_use_cia)
+		{
+			self setmodel("c_zom_player_cia_dlc1_fb");
+			self setviewmodel("c_zom_suit_viewhands");
+			self.characterindex = 0;
+		}
+		else
+		{
+			self setmodel("c_zom_player_cdc_dlc1_fb");
+			self setviewmodel("c_zom_hazmat_viewhands");
+			self.characterindex = 1;
+		}
+	}
+	else
+	{
+		if (!isdefined(self.characterindex))
+		{
+			self.characterindex = 1;
+
+			if (self.team == "axis")
+			{
+				self.characterindex = 0;
+			}
+		}
+
+		switch (self.characterindex)
+		{
+			case 0:
+			case 2:
+				self setmodel("c_zom_player_cia_dlc1_fb");
+				self.voice = "american";
+				self.skeleton = "base";
+				self setviewmodel("c_zom_suit_viewhands");
+				self.characterindex = 0;
+				break;
+
+			case 1:
+			case 3:
+				self setmodel("c_zom_player_cdc_dlc1_fb");
+				self.voice = "american";
+				self.skeleton = "base";
+				self setviewmodel("c_zom_hazmat_viewhands");
+				self.characterindex = 1;
+				break;
+		}
+	}
+
+	self setmovespeedscale(1);
+	self setsprintduration(4);
+	self setsprintcooldown(0);
+	self set_player_tombstone_index();
+}
+
 transit_zone_init()
 {
 	flag_init("always_on");

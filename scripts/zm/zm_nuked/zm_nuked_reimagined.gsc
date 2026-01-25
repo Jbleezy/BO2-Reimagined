@@ -5,6 +5,7 @@
 main()
 {
 	replaceFunc(maps\mp\zm_nuked::survival_init, scripts\zm\replaced\zm_nuked::survival_init);
+	replaceFunc(maps\mp\zm_nuked::precache_team_characters, scripts\zm\replaced\zm_nuked::precache_team_characters);
 	replaceFunc(maps\mp\zm_nuked::give_team_characters, scripts\zm\replaced\zm_nuked::give_team_characters);
 	replaceFunc(maps\mp\zm_nuked::moon_rocket_follow_path, scripts\zm\replaced\zm_nuked::moon_rocket_follow_path);
 	replaceFunc(maps\mp\zm_nuked::sndgameend, scripts\zm\replaced\zm_nuked::sndgameend);

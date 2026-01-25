@@ -19,6 +19,8 @@ main()
 	replaceFunc(maps\mp\zm_transit_sq::richtofen_sidequest_complete, scripts\zm\replaced\zm_transit_sq::richtofen_sidequest_complete);
 	replaceFunc(maps\mp\zm_transit_sq::droppowerup, scripts\zm\replaced\zm_transit_sq::droppowerup);
 	replaceFunc(maps\mp\zm_transit::survival_init, scripts\zm\replaced\zm_transit::survival_init);
+	replaceFunc(maps\mp\zm_transit::precache_team_characters, scripts\zm\replaced\zm_transit::precache_team_characters);
+	replaceFunc(maps\mp\zm_transit::give_team_characters, scripts\zm\replaced\zm_transit::give_team_characters);
 	replaceFunc(maps\mp\zm_transit::transit_zone_init, scripts\zm\replaced\zm_transit::transit_zone_init);
 	replaceFunc(maps\mp\zm_transit::include_weapons, scripts\zm\replaced\zm_transit::include_weapons);
 	replaceFunc(maps\mp\zm_transit::include_powerups, scripts\zm\replaced\zm_transit::include_powerups);
