@@ -173,6 +173,7 @@ script,scripts/zm/replaced/_zm_audio.csc
 script,scripts/zm/replaced/_zm_gump.csc
 script,scripts/zm/replaced/_zm_perks.csc
 script,scripts/zm/replaced/_zm_perk_vulture.csc
+script,scripts/zm/replaced/_zm_powerups.csc
 script,scripts/zm/replaced/_zm_turned.csc
 script,scripts/zm/replaced/_zm_weapons.csc
 script,scripts/zm/replaced/zm_transit.csc

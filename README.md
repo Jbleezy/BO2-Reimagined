@@ -1632,6 +1632,7 @@
 * Survivors win by killing zombies
 * Turned win by turning all survivors
 * All players start as survivors
+* Initial turned is decided by a disease powerup that spawns at player initial spawn points after 10 seconds and chases after the closest player
 
 ### Encounter Pro
 * No Mystery Box

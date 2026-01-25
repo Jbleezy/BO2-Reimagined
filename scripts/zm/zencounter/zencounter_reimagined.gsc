@@ -74,6 +74,7 @@ init()
 	level.dont_allow_meat_interaction = 1;
 	level.can_revive_game_module = ::can_revive;
 	level._powerup_grab_check = ::powerup_can_player_grab;
+	level._zombiemode_powerup_grab = ::powerup_grab;
 	level.custom_spectate_permissions = undefined;
 
 	level.get_gamemode_display_name_func = ::get_gamemode_display_name;
@@ -3097,7 +3098,7 @@ meat_powerup_drop_think()
 
 	foreach (player in players)
 	{
-		player thread show_grief_hud_msg(&"ZOMBIE_KILL_ZOMBIE_DROP_MEAT");
+		player thread show_grief_hud_msg(&"ZOMBIE_KILL_ZOMBIE_TO_DROP_MEAT");
 	}
 
 	while (1)
@@ -3216,6 +3217,78 @@ turned_init()
 	{
 		level.should_use_cia = 1;
 	}
+
+	maps\mp\zombies\_zm_powerups::include_zombie_powerup("the_disease");
+	maps\mp\zombies\_zm_powerups::add_zombie_powerup("the_disease", "p6_zm_tm_blood_power_up", &"ZOMBIE_POWERUP_MAX_AMMO", ::func_should_never_drop, 0, 1, 0);
+
+	level thread turned_think();
+}
+
+turned_think()
+{
+	level waittill("restart_round_start");
+
+	players = get_players();
+	player = random(players);
+	origin = player.origin;
+
+	wait 10;
+
+	players = get_players();
+
+	foreach (player in players)
+	{
+		player thread show_grief_hud_msg(&"ZOMBIE_RUN_FROM_DISEASE");
+	}
+
+	level._powerup_timeout_override = ::the_disease_powerup_infinite_time;
+	powerup = maps\mp\zombies\_zm_powerups::specific_powerup_drop("the_disease", origin);
+	level._powerup_timeout_override = undefined;
+
+	powerup thread the_disease_powerup_do_chase();
+}
+
+the_disease_powerup(player)
+{
+	player maps\mp\zombies\_zm_turned::turn_to_zombie();
+
+	team = player.team;
+	other_team = getOtherTeam(team);
+	team_players = get_players(team);
+	other_team_players = get_players(other_team);
+
+	foreach (team_player in team_players)
+	{
+		team_player thread show_grief_hud_msg(&"ZOMBIE_PLAYER_TURNED", team_players.size, other_team_players.size);
+	}
+
+	foreach (other_team_player in other_team_players)
+	{
+		other_team_player thread show_grief_hud_msg(&"ZOMBIE_PLAYER_TURNED", other_team_players.size, team_players.size);
+	}
+}
+
+the_disease_powerup_do_chase()
+{
+	self endon("powerup_timedout");
+	self endon("powerup_grabbed");
+
+	while (1)
+	{
+		wait 0.05;
+
+		closest_player = get_closest_player(self.origin);
+		closest_player_origin = closest_player.origin + (0, 0, 40);
+
+		direction = vectornormalize(closest_player_origin - self.origin);
+
+		self.origin += direction * 15;
+	}
+}
+
+the_disease_powerup_infinite_time()
+{
+
 }
 
 can_revive(revivee)
@@ -3230,6 +3303,11 @@ can_revive(revivee)
 
 powerup_can_player_grab(player)
 {
+	if (is_true(player.is_zombie))
+	{
+		return false;
+	}
+
 	if (self.powerup_name == "meat_stink")
 	{
 		if (player hasWeapon(get_gamemode_var("item_meat_name")) || is_true(player.dont_touch_the_meat))
@@ -3239,6 +3317,20 @@ powerup_can_player_grab(player)
 	}
 
 	return true;
+}
+
+powerup_grab(powerup, player)
+{
+	switch (powerup.powerup_name)
+	{
+		case "meat_stink":
+			level thread maps\mp\gametypes_zm\zgrief::meat_stink(player);
+			break;
+
+		case "the_disease":
+			level thread the_disease_powerup(player);
+			break;
+	}
 }
 
 increment_score(team, amount = 1, show_lead_msg = true, score_msg)

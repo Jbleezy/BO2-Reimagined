@@ -41,7 +41,6 @@ postinit_func()
 	level.zombie_ai_limit = 24;
 	level.prevent_player_damage = ::player_prevent_damage;
 	level.lock_player_on_team_score = 1;
-	level._zombiemode_powerup_grab = ::meat_stink_powerup_grab;
 	level.meat_bounce_override = ::meat_bounce_override;
 	level._zombie_spawning = 0;
 	level._get_game_module_players = undefined;

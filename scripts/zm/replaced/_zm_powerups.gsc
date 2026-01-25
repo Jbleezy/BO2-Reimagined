@@ -2,6 +2,62 @@
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 
+init()
+{
+	precacheshader("specialty_doublepoints_zombies");
+	precacheshader("specialty_instakill_zombies");
+	precacheshader("specialty_firesale_zombies");
+	precacheshader("zom_icon_bonfire");
+	precacheshader("zom_icon_minigun");
+	precacheshader("black");
+	set_zombie_var("zombie_insta_kill", 0, undefined, undefined, 1);
+	set_zombie_var("zombie_point_scalar", 1, undefined, undefined, 1);
+	set_zombie_var("zombie_drop_item", 0);
+	set_zombie_var("zombie_timer_offset", 350);
+	set_zombie_var("zombie_timer_offset_interval", 30);
+	set_zombie_var("zombie_powerup_fire_sale_on", 0);
+	set_zombie_var("zombie_powerup_fire_sale_time", 30);
+	set_zombie_var("zombie_powerup_bonfire_sale_on", 0);
+	set_zombie_var("zombie_powerup_bonfire_sale_time", 30);
+	set_zombie_var("zombie_powerup_insta_kill_on", 0, undefined, undefined, 1);
+	set_zombie_var("zombie_powerup_insta_kill_time", 30, undefined, undefined, 1);
+	set_zombie_var("zombie_powerup_point_doubler_on", 0, undefined, undefined, 1);
+	set_zombie_var("zombie_powerup_point_doubler_time", 30, undefined, undefined, 1);
+	set_zombie_var("zombie_powerup_drop_increment", 2000);
+	set_zombie_var("zombie_powerup_drop_max_per_round", 4);
+	onplayerconnect_callback(::init_player_zombie_vars);
+	level._effect["powerup_on"] = loadfx("misc/fx_zombie_powerup_on");
+	level._effect["powerup_off"] = loadfx("misc/fx_zombie_powerup_off");
+	level._effect["powerup_grabbed"] = loadfx("misc/fx_zombie_powerup_grab");
+	level._effect["powerup_grabbed_wave"] = loadfx("misc/fx_zombie_powerup_wave");
+
+	if (isdefined(level.using_zombie_powerups) && level.using_zombie_powerups)
+	{
+		level._effect["powerup_on_red"] = loadfx("misc/fx_zombie_powerup_on_red");
+		level._effect["powerup_grabbed_red"] = loadfx("misc/fx_zombie_powerup_red_grab");
+		level._effect["powerup_grabbed_wave_red"] = loadfx("misc/fx_zombie_powerup_red_wave");
+	}
+
+	level._effect["powerup_on_solo"] = loadfx("misc/fx_zombie_powerup_solo_on");
+	level._effect["powerup_grabbed_solo"] = loadfx("misc/fx_zombie_powerup_solo_grab");
+	level._effect["powerup_grabbed_wave_solo"] = loadfx("misc/fx_zombie_powerup_solo_wave");
+	level._effect["powerup_on_caution"] = loadfx("misc/fx_zombie_powerup_on_red");
+	level._effect["powerup_grabbed_caution"] = loadfx("misc/fx_zombie_powerup_red_grab");
+	level._effect["powerup_grabbed_wave_caution"] = loadfx("misc/fx_zombie_powerup_red_wave");
+	init_powerups();
+
+	if (!level.enable_magic)
+	{
+		return;
+	}
+
+	thread watch_for_drop();
+	thread setup_firesale_audio();
+	thread setup_bonfiresale_audio();
+	level.use_new_carpenter_func = ::start_carpenter_new;
+	level.board_repair_distance_squared = 562500;
+}
+
 powerup_drop(drop_point)
 {
 	if (level.powerup_drop_count >= level.zombie_vars["zombie_powerup_drop_max_per_round"])

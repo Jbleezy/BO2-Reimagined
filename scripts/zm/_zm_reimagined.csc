@@ -14,6 +14,7 @@ main()
 	replaceFunc(clientscripts\mp\zombies\_zm_audio::sndmeleeswipe, scripts\zm\replaced\_zm_audio::sndmeleeswipe);
 	replaceFunc(clientscripts\mp\zombies\_zm_gump::watch_spectation_player, scripts\zm\replaced\_zm_gump::watch_spectation_player);
 	replaceFunc(clientscripts\mp\zombies\_zm_gump::demo_monitor, scripts\zm\replaced\_zm_gump::demo_monitor);
+	replaceFunc(clientscripts\mp\zombies\_zm_powerups::init, scripts\zm\replaced\_zm_powerups::init);
 	replaceFunc(clientscripts\mp\zombies\_zm_turned::init, scripts\zm\replaced\_zm_turned::init);
 	replaceFunc(clientscripts\mp\zombies\_zm_weapons::init, scripts\zm\replaced\_zm_weapons::init);
 	replaceFunc(clientscripts\mp\zombies\_zm_perks::perks_register_clientfield, scripts\zm\replaced\_zm_perks::perks_register_clientfield);

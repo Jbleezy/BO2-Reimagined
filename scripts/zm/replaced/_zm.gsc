@@ -1085,11 +1085,11 @@ pregame_think()
 
 		num_waiting_for = players.size - num_ready;
 
-		players_str = &"ZOMBIE_WAITING_FOR_PLAYERS_READY_CAPS";
+		players_str = &"ZOMBIE_WAITING_FOR_PLAYERS_TO_BE_READY_CAPS";
 
 		if (num_waiting_for == 1)
 		{
-			players_str = &"ZOMBIE_WAITING_FOR_PLAYER_READY_CAPS";
+			players_str = &"ZOMBIE_WAITING_FOR_PLAYER_TO_BE_READY_CAPS";
 		}
 
 		level.pregame_hud setText(players_str, num_waiting_for, num_ready, players.size);
@@ -1198,7 +1198,7 @@ check_for_team_change()
 	{
 		team_change_player endon("disconnect");
 
-		team_change_player scripts\zm\replaced\_zm_gametype::do_team_change();
+		team_change_player scripts\zm\_zm_reimagined::do_team_change();
 
 		wait 0.05;
 
