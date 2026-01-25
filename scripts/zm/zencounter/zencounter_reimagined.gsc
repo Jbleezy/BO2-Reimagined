@@ -1392,6 +1392,7 @@ game_module_player_damage_callback(einflictor, eattacker, idamage, idflags, smea
 	{
 		if (is_true(eattacker.is_zombie) || is_true(self.is_zombie))
 		{
+			self store_player_damage_info(eattacker, sweapon, smeansofdeath);
 			return;
 		}
 
