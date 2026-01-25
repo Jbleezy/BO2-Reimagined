@@ -10,6 +10,14 @@ main()
 	register_clientfields();
 }
 
+init()
+{
+	if (level.scr_zm_ui_gametype == "zturned")
+	{
+		turned_init();
+	}
+}
+
 register_clientfields()
 {
 	registerclientfield("toplayer", "meat_stink", 1, 1, "int", ::meat_stink_cb, 0, 1);
@@ -20,4 +28,9 @@ register_clientfields()
 
 	setupclientfieldcodecallbacks("toplayer", 1, "powerup_instant_kill_enemy");
 	setupclientfieldcodecallbacks("toplayer", 1, "powerup_double_points_enemy");
+}
+
+turned_init()
+{
+	clientscripts\mp\zombies\_zm_turned::init();
 }

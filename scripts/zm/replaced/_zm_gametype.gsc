@@ -48,13 +48,17 @@ rungametypeprecache(gamemode)
 	{
 		if (isdefined(level.gamemode_map_location_precache[gamemode]))
 		{
-			loc = getdvar(#"ui_zm_mapstartlocation" );
+			loc = getdvar("ui_zm_mapstartlocation");
 
 			if (loc == "" && isdefined(level.default_start_location))
+			{
 				loc = level.default_start_location;
+			}
 
 			if (isdefined(level.gamemode_map_location_precache[gamemode][loc]))
+			{
 				[[level.gamemode_map_location_precache[gamemode][loc]]]();
+			}
 		}
 	}
 
@@ -90,13 +94,17 @@ rungametypemain(gamemode, mode_main_func, use_round_logic)
 	{
 		if (isdefined(level.gamemode_map_location_main[gamemode]))
 		{
-			loc = getdvar(#"ui_zm_mapstartlocation" );
+			loc = getdvar("ui_zm_mapstartlocation");
 
 			if (loc == "" && isdefined(level.default_start_location))
+			{
 				loc = level.default_start_location;
+			}
 
 			if (isdefined(level.gamemode_map_location_main[gamemode][loc]))
+			{
 				level thread [[level.gamemode_map_location_main[gamemode][loc]]]();
+			}
 		}
 	}
 
@@ -472,7 +480,7 @@ menu_onmenuresponse()
 		{
 			self closemenu();
 			self closeingamemenu();
-			self thread do_team_change();
+			self thread scripts\zm\_zm_reimagined::do_team_change();
 			continue;
 		}
 
@@ -590,78 +598,6 @@ menu_onmenuresponse()
 
 			self.selectedclass = 1;
 			self [[level.class]](response);
-		}
-	}
-}
-
-do_team_change()
-{
-	teamplayers = get_players(self.pers["team"]).size;
-	otherteamplayers = get_players(getotherteam(self.pers["team"])).size;
-
-	if (teamplayers <= otherteamplayers)
-	{
-		self iprintln(&"MP_CANTJOINTEAM");
-		return;
-	}
-
-	self.playernum = undefined;
-
-	set_team(getotherteam(self.pers["team"]));
-
-	if (!flag("initial_blackscreen_passed"))
-	{
-		self [[level.spawnplayer]]();
-	}
-}
-
-set_team(team)
-{
-	if (team == "axis")
-	{
-		self.team = "axis";
-		self.sessionteam = "axis";
-		self.pers["team"] = "axis";
-		self._encounters_team = "A";
-		self.characterindex = 0;
-	}
-	else
-	{
-		self.team = "allies";
-		self.sessionteam = "allies";
-		self.pers["team"] = "allies";
-		self._encounters_team = "B";
-		self.characterindex = 1;
-	}
-
-	players = get_players();
-
-	foreach (player in players)
-	{
-		if (player != self)
-		{
-			player luinotifyevent(&"hud_update_other_player_team_change");
-		}
-	}
-
-	self [[level.givecustomcharacters]]();
-
-	self.kills = 0;
-	self.headshots = 0;
-	self.downs = 0;
-	self.revives = 0;
-	self.killsconfirmed = 0;
-	self.killsdenied = 0;
-	self.captures = 0;
-
-	if (level.scr_zm_ui_gametype == "zsr" && flag("initial_blackscreen_passed") && !isdefined(level.gamemodulewinningteam))
-	{
-		if (isDefined(level.grief_score_hud_set_player_count_func))
-		{
-			allies_count = scripts\zm\zencounter\zencounter_reimagined::get_number_of_valid_players_team("allies");
-			axis_count = scripts\zm\zencounter\zencounter_reimagined::get_number_of_valid_players_team("axis");
-
-			[[level.grief_score_hud_set_player_count_func]]("allies", allies_count, "axis", axis_count);
 		}
 	}
 }

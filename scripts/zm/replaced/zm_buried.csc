@@ -29,7 +29,6 @@
 
 init_gamemodes()
 {
-	clientscripts\mp\zombies\_zm_turned::init();
 	add_map_gamemode("zclassic", undefined, undefined);
 	add_map_gamemode("zstandard", undefined, undefined);
 	add_map_gamemode("zgrief", undefined, undefined);

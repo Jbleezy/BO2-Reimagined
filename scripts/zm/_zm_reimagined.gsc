@@ -161,6 +161,8 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_spawner::zombie_death_animscript, scripts\zm\replaced\_zm_spawner::zombie_death_animscript);
 	replaceFunc(maps\mp\zombies\_zm_spawner::zombie_can_drop_powerups, scripts\zm\replaced\_zm_spawner::zombie_can_drop_powerups);
 	replaceFunc(maps\mp\zombies\_zm_spawner::zombie_complete_emerging_into_playable_area, scripts\zm\replaced\_zm_spawner::zombie_complete_emerging_into_playable_area);
+	replaceFunc(maps\mp\zombies\_zm_turned::init, scripts\zm\replaced\_zm_turned::init);
+	replaceFunc(maps\mp\zombies\_zm_turned::turn_to_zombie, scripts\zm\replaced\_zm_turned::turn_to_zombie);
 	replaceFunc(maps\mp\zombies\_zm_spawner::get_number_variants, scripts\zm\replaced\_zm_spawner::get_number_variants);
 	replaceFunc(maps\mp\zombies\_zm_game_module::wait_for_team_death_and_round_end, scripts\zm\replaced\_zm_game_module::wait_for_team_death_and_round_end);
 	replaceFunc(maps\mp\zombies\_zm_ai_basic::find_flesh, scripts\zm\replaced\_zm_ai_basic::find_flesh);
@@ -3410,6 +3412,81 @@ zone_changes()
 		// Buddha Room debris
 		level.zones["zone_orange_level3a"].adjacent_zones["zone_orange_level3b"].is_connected = 0;
 		level.zones["zone_orange_level3b"].adjacent_zones["zone_orange_level3a"].is_connected = 0;
+	}
+}
+
+do_team_change()
+{
+	teamplayers = get_players(self.pers["team"]).size;
+	otherteamplayers = get_players(getotherteam(self.pers["team"])).size;
+
+	if (teamplayers <= otherteamplayers)
+	{
+		self iprintln(&"MP_CANTJOINTEAM");
+		return;
+	}
+
+	self.playernum = undefined;
+
+	set_team(getotherteam(self.pers["team"]));
+
+	if (!flag("initial_blackscreen_passed"))
+	{
+		self [[level.spawnplayer]]();
+	}
+}
+
+set_team(team)
+{
+	if (team == "axis")
+	{
+		self.team = "axis";
+		self.sessionteam = "axis";
+		self.pers["team"] = "axis";
+		self._encounters_team = "A";
+		self.characterindex = 0;
+	}
+	else
+	{
+		self.team = "allies";
+		self.sessionteam = "allies";
+		self.pers["team"] = "allies";
+		self._encounters_team = "B";
+		self.characterindex = 1;
+	}
+
+	players = get_players();
+
+	foreach (player in players)
+	{
+		if (player != self)
+		{
+			player luinotifyevent(&"hud_update_other_player_team_change");
+		}
+	}
+
+	if (level.scr_zm_ui_gametype != "zturned")
+	{
+		self [[level.givecustomcharacters]]();
+
+		self.kills = 0;
+		self.headshots = 0;
+		self.downs = 0;
+		self.revives = 0;
+		self.killsconfirmed = 0;
+		self.killsdenied = 0;
+		self.captures = 0;
+	}
+
+	if (level.scr_zm_ui_gametype == "zsr" && flag("initial_blackscreen_passed") && !isdefined(level.gamemodulewinningteam))
+	{
+		if (isDefined(level.grief_score_hud_set_player_count_func))
+		{
+			allies_count = scripts\zm\zencounter\zencounter_reimagined::get_number_of_valid_players_team("allies");
+			axis_count = scripts\zm\zencounter\zencounter_reimagined::get_number_of_valid_players_team("axis");
+
+			[[level.grief_score_hud_set_player_count_func]]("allies", allies_count, "axis", axis_count);
+		}
 	}
 }
 

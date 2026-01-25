@@ -3207,6 +3207,8 @@ meat_powerup_reset_on_timeout()
 
 turned_init()
 {
+	maps\mp\zombies\_zm_turned::init();
+
 	level.force_team_characters = 1;
 	level.should_use_cia = 0;
 
