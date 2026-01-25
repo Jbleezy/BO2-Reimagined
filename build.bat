@@ -235,6 +235,7 @@ if %ERRORLEVEL% neq 0 pause & exit
 --load "%CD%\zone_source\dependencies\camo_materials.ff" ^
 --load "%OAT_GAME%\zone\all\zm_buried_patch.ff" ^
 --load "%OAT_GAME%\zone\all\zm_buried.ff" ^
+--load "%OAT_GAME%\zone\all\so_zclassic_zm_buried.ff" ^
 --load "%OAT_GAME%\zone\all\so_zencounter_zm_buried.ff" ^
 --base-folder "%OAT_BASE%" ^
 --add-asset-search-path "%CD%" ^
