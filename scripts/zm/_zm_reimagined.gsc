@@ -2451,9 +2451,9 @@ sndmeleewpnsound()
 
 		alias = "zmb_melee_whoosh_npc";
 
-		if (is_true(self.is_player_zombie))
+		if (is_true(self.is_zombie))
 		{
-			alias = "zmb_melee_whoosh_zmb_npc";
+			alias = "zmb_attack_whoosh";
 		}
 		else if (issubstr(weapon, "shield_zm"))
 		{

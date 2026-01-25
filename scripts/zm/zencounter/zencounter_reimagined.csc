@@ -32,5 +32,6 @@ register_clientfields()
 
 turned_init()
 {
+	clientscripts\mp\zombies\_zm_turned::main();
 	clientscripts\mp\zombies\_zm_turned::init();
 }
