@@ -2,3 +2,8 @@
 
 weapon,hk416_zm
 weapon,hk416_upgraded_zm
+
+image,,~-gzombie_eye
+material,mc/mtl_nazi_hellhound_eyes
+material,mc/mtl_zombie_wolf
+material,mc/mtl_zombie_wolf_fur

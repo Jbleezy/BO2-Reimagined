@@ -117,4 +117,24 @@ material,chalkmarks_hellcatraz_3
 material,chalkmarks_hellcatraz_4
 material,chalkmarks_hellcatraz_5
 
+material,mc/mtl_c_zom_guard_body
+material,mc/mtl_c_zom_inmate_barechest
+material,mc/mtl_c_zom_inmate_details
+material,mc/mtl_c_zom_inmate_legs
+material,mc/mtl_c_zom_inmate_shirt
+material,mc/mtl_c_zom_vtn_nva1_body
+material,mc/mtl_c_zom_zombie_barbwire_head
+material,mc/mtl_c_zom_zombie_head_n_therm
+material,mc/mtl_c_zom_zombie_hellcatraz_head
+material,mc/mtl_c_zom_zombie_mask_head
+material,mc/mtl_c_zom_zombie_mask_head_device
+material,mc/mtl_c_zom_zombie_slackjaw_head
+
+material,mc/mtl_c_zom_brutus_alpha
+material,mc/mtl_c_zom_brutus_alpha_punch
+material,mc/mtl_c_zom_brutus_body
+material,mc/mtl_c_zom_brutus_gloves
+material,mc/mtl_c_zom_brutus_head
+material,mc/mtl_c_zom_brutus_helmet
+
 camo,camo_blundergat

@@ -18,6 +18,25 @@ xmodel,c_zom_player_oldman_dlc1_fb
 xmodel,c_zom_player_engineer_dlc1_fb
 xmodel,c_zom_player_reporter_dlc1_fb
 
+image,,$identitynormalmap
+material,mc/mtl_c_zom_chinese_zombie_head1
+material,mc/mtl_c_zom_chinese_zombie_head1_u
+material,mc/mtl_c_zom_chinese_zombie_head2
+material,mc/mtl_c_zom_chinese_zombie_head2_u
+material,mc/mtl_c_zom_chinese_zombie_head3
+material,mc/mtl_c_zom_chinese_zombie_head3_u
+material,mc/mtl_c_zom_chinese_zombie_head4
+material,mc/mtl_c_zom_chinese_zombie_head4_u
+material,mc/mtl_c_zom_chinese_zombie_helmet
+material,mc/mtl_c_zom_civ_shorts_body
+material,mc/mtl_c_zom_civ_shorts_body2
+material,mc/mtl_c_zom_civ_shorts_body3
+material,mc/mtl_c_zom_civ_shorts_body4
+material,mc/mtl_c_zom_civ_shorts_body5
+material,mc/mtl_c_zom_civ_shorts_body6
+material,mc/mtl_c_zom_scientist_body
+material,mc/mtl_c_zom_soldier_body1
+
 camo,camo_slipgun
 
 script,character/c_highrise_player_farmgirl.gsc

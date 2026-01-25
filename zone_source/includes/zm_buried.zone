@@ -1,5 +1,6 @@
 >game,T6
 
+image,,$identitynormalmap
 script,aitype/zm_buried_ghost_female.gsc
 xanim,ai_zombie_ghost_idle
 xanim,ai_zombie_ghost_supersprint

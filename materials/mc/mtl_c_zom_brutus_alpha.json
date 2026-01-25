@@ -1,0 +1,152 @@
+{
+	"_type": "material",
+	"_version": 1,
+	"cameraRegion": "litTrans",
+	"constants": [],
+	"contents": 1,
+	"gameFlags": [
+		"10"
+	],
+	"hashIndex": 0,
+	"layeredSurfaceTypes": 536870916,
+	"probeMipBits": 0,
+	"sortKey": 40,
+	"stateBits": [
+		{
+			"alphaTest": "gt0",
+			"blendOpAlpha": "add",
+			"blendOpRgb": "add",
+			"colorWriteAlpha": true,
+			"colorWriteRgb": true,
+			"cullFace": "back",
+			"depthTest": "less_equal",
+			"depthWrite": false,
+			"dstBlendAlpha": "one",
+			"dstBlendRgb": "invsrcalpha",
+			"polygonOffset": "offset0",
+			"polymodeLine": false,
+			"srcBlendAlpha": "invdestalpha",
+			"srcBlendRgb": "srcalpha"
+		},
+		{
+			"alphaTest": "disabled",
+			"blendOpAlpha": "disabled",
+			"blendOpRgb": "disabled",
+			"colorWriteAlpha": false,
+			"colorWriteRgb": true,
+			"cullFace": "back",
+			"depthTest": "less_equal",
+			"depthWrite": false,
+			"dstBlendAlpha": "zero",
+			"dstBlendRgb": "zero",
+			"polygonOffset": "offset2",
+			"polymodeLine": true,
+			"srcBlendAlpha": "one",
+			"srcBlendRgb": "one"
+		},
+		{
+			"alphaTest": "disabled",
+			"blendOpAlpha": "disabled",
+			"blendOpRgb": "add",
+			"colorWriteAlpha": true,
+			"colorWriteRgb": true,
+			"cullFace": "back",
+			"depthTest": "less_equal",
+			"depthWrite": false,
+			"dstBlendAlpha": "zero",
+			"dstBlendRgb": "one",
+			"polygonOffset": "offset0",
+			"polymodeLine": false,
+			"srcBlendAlpha": "one",
+			"srcBlendRgb": "one"
+		}
+	],
+	"stateBitsEntry": [
+		-1,
+		-1,
+		0,
+		-1,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		1,
+		-1,
+		-1,
+		2
+	],
+	"stateFlags": 21,
+	"surfaceFlags": 4194304,
+	"surfaceTypeBits": 8,
+	"techniqueSet": "mc_sw4_3d_char_cloth_51771697",
+	"textureAtlas": {
+		"columns": 1,
+		"rows": 1
+	},
+	"textures": [
+		{
+			"image": "~~-gc_zom_bruiser_alphas_s-rg~d0a51ee3",
+			"isMatureContent": false,
+			"name": "SpecularAndGloss",
+			"samplerState": {
+				"clampU": false,
+				"clampV": false,
+				"clampW": false,
+				"filter": "aniso4x",
+				"mipMap": "linear"
+			},
+			"semantic": "specularMap"
+		},
+		{
+			"image": "c_zom_bruiser_alphas_n",
+			"isMatureContent": false,
+			"name": "Normal_Map",
+			"samplerState": {
+				"clampU": false,
+				"clampV": false,
+				"clampW": false,
+				"filter": "aniso4x",
+				"mipMap": "linear"
+			},
+			"semantic": "normalMap"
+		},
+		{
+			"image": "~-gc_zom_bruiser_alphas_c",
+			"isMatureContent": false,
+			"name": "Diffuse_Map",
+			"samplerState": {
+				"clampU": false,
+				"clampV": false,
+				"clampW": false,
+				"filter": "aniso4x",
+				"mipMap": "linear"
+			},
+			"semantic": "colorMap"
+		}
+	],
+	"thermalMaterial": "mc/mtl_c_zom_brutus_alpha_thermal"
+}

@@ -1,0 +1,234 @@
+{
+	"_type": "material",
+	"_version": 1,
+	"cameraRegion": "litOpaque",
+	"constants": [
+		{
+			"literal": [
+				1.0,
+				0.0,
+				0.0,
+				1.0
+			],
+			"name": "Reflection_Amount"
+		},
+		{
+			"literal": [
+				0.75,
+				0.0,
+				0.0,
+				1.0
+			],
+			"name": "Diffuse_Normal_Height_Facing"
+		},
+		{
+			"literal": [
+				1.0,
+				0.0,
+				0.0,
+				1.0
+			],
+			"name": "Specular_Amount"
+		}
+	],
+	"contents": 1,
+	"gameFlags": [
+		"10",
+		"CASTS_SHADOW"
+	],
+	"hashIndex": 0,
+	"layeredSurfaceTypes": 536870916,
+	"probeMipBits": 0,
+	"sortKey": 4,
+	"stateBits": [
+		{
+			"alphaTest": "disabled",
+			"blendOpAlpha": "disabled",
+			"blendOpRgb": "disabled",
+			"colorWriteAlpha": false,
+			"colorWriteRgb": false,
+			"cullFace": "back",
+			"depthTest": "less_equal",
+			"depthWrite": true,
+			"dstBlendAlpha": "zero",
+			"dstBlendRgb": "zero",
+			"polygonOffset": "offset0",
+			"polymodeLine": false,
+			"srcBlendAlpha": "one",
+			"srcBlendRgb": "one",
+			"stencilFront": {
+				"fail": "keep",
+				"func": "equal",
+				"pass": "keep",
+				"zfail": "keep"
+			}
+		},
+		{
+			"alphaTest": "disabled",
+			"blendOpAlpha": "disabled",
+			"blendOpRgb": "disabled",
+			"colorWriteAlpha": false,
+			"colorWriteRgb": false,
+			"cullFace": "back",
+			"depthTest": "less_equal",
+			"depthWrite": true,
+			"dstBlendAlpha": "zero",
+			"dstBlendRgb": "zero",
+			"polygonOffset": "offsetShadowmap",
+			"polymodeLine": false,
+			"srcBlendAlpha": "one",
+			"srcBlendRgb": "one"
+		},
+		{
+			"alphaTest": "disabled",
+			"blendOpAlpha": "disabled",
+			"blendOpRgb": "disabled",
+			"colorWriteAlpha": true,
+			"colorWriteRgb": true,
+			"cullFace": "back",
+			"depthTest": "less_equal",
+			"depthWrite": true,
+			"dstBlendAlpha": "zero",
+			"dstBlendRgb": "zero",
+			"polygonOffset": "offset0",
+			"polymodeLine": false,
+			"srcBlendAlpha": "one",
+			"srcBlendRgb": "one"
+		},
+		{
+			"alphaTest": "disabled",
+			"blendOpAlpha": "disabled",
+			"blendOpRgb": "disabled",
+			"colorWriteAlpha": false,
+			"colorWriteRgb": true,
+			"cullFace": "back",
+			"depthTest": "less_equal",
+			"depthWrite": false,
+			"dstBlendAlpha": "zero",
+			"dstBlendRgb": "zero",
+			"polygonOffset": "offset2",
+			"polymodeLine": true,
+			"srcBlendAlpha": "one",
+			"srcBlendRgb": "one"
+		},
+		{
+			"alphaTest": "disabled",
+			"blendOpAlpha": "disabled",
+			"blendOpRgb": "add",
+			"colorWriteAlpha": true,
+			"colorWriteRgb": true,
+			"cullFace": "back",
+			"depthTest": "less_equal",
+			"depthWrite": true,
+			"dstBlendAlpha": "zero",
+			"dstBlendRgb": "one",
+			"polygonOffset": "offset0",
+			"polymodeLine": false,
+			"srcBlendAlpha": "one",
+			"srcBlendRgb": "one"
+		}
+	],
+	"stateBitsEntry": [
+		0,
+		1,
+		2,
+		-1,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		3,
+		-1,
+		-1,
+		4
+	],
+	"stateFlags": 121,
+	"surfaceFlags": 4194304,
+	"surfaceTypeBits": 8,
+	"techniqueSet": "mc_sw4_3d_char_skin_j92387z3",
+	"textureAtlas": {
+		"columns": 1,
+		"rows": 1
+	},
+	"textures": [
+		{
+			"image": "c_gen_arm_rim_mask_c",
+			"isMatureContent": false,
+			"nameEnd": "k",
+			"nameHash": 2247950716,
+			"nameStart": "R",
+			"samplerState": {
+				"clampU": false,
+				"clampV": false,
+				"clampW": false,
+				"filter": "aniso4x",
+				"mipMap": "linear"
+			},
+			"semantic": "colorMap"
+		},
+		{
+			"image": "~~-gmtl_c_zom_saloongirl_head~955e177e",
+			"isMatureContent": false,
+			"name": "SpecularAndGloss",
+			"samplerState": {
+				"clampU": false,
+				"clampV": false,
+				"clampW": false,
+				"filter": "aniso4x",
+				"mipMap": "linear"
+			},
+			"semantic": "specularMap"
+		},
+		{
+			"image": "mtl_c_zom_saloongirl_head1_n",
+			"isMatureContent": false,
+			"name": "Normal_Map",
+			"samplerState": {
+				"clampU": false,
+				"clampV": false,
+				"clampW": false,
+				"filter": "aniso4x",
+				"mipMap": "linear"
+			},
+			"semantic": "normalMap"
+		},
+		{
+			"image": "~-gmtl_c_zom_saloongirl_head1_c",
+			"isMatureContent": false,
+			"name": "Diffuse_Map",
+			"samplerState": {
+				"clampU": false,
+				"clampV": false,
+				"clampW": false,
+				"filter": "aniso4x",
+				"mipMap": "linear"
+			},
+			"semantic": "colorMap"
+		}
+	],
+	"thermalMaterial": "mc/mtl_c_zom_buried_saloongirl_head1_thermal"
+}
