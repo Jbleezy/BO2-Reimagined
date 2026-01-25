@@ -40,8 +40,6 @@ turn_to_zombie()
 {
 	self scripts\zm\_zm_reimagined::set_team(level.zombie_team);
 
-	self thread turned_player_buttons();
-
 	self notify("clear_red_flashing_overlay");
 	self notify("zombify");
 
@@ -101,6 +99,8 @@ turn_to_zombie()
 		self.skeleton = "base";
 		self setviewmodel("c_zom_zombie_viewhands");
 	}
+
+	self thread turned_player_buttons();
 }
 
 turned_disable_player_weapons()
