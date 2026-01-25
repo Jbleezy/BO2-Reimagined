@@ -36,4 +36,18 @@ xanim,viewmodel_bare_hands_falling
 
 material,generic_filter_zombie_blood_b
 
+image,,$blank
+techniqueset,,mc_unlit_replace_3j970129
+material,mc/mtl_veh_t6_dlc_zm_robot_eye
+material,mc/mtl_veh_t6_dlc_zm_robot_eye_on
+material,mc/mtl_veh_t6_dlc_zm_robot_foot
+material,mc/mtl_veh_t6_dlc_zm_robot_foot_in
+material,mc/mtl_veh_t6_dlc_zm_robot_guts
+material,mc/mtl_veh_t6_dlc_zm_robot_leg
+material,mc/mtl_veh_t6_dlc_zm_robot_light
+material,mc/mtl_veh_t6_dlc_zm_robot_light_off
+material,mc/mtl_veh_t6_dlc_zm_robot_light_on
+material,mc/mtl_veh_t6_dlc_zm_robot_limbs
+material,mc/mtl_veh_t6_dlc_zm_robot_upper
+
 camo,camo_raygun
