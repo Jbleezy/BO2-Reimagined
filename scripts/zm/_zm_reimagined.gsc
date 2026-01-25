@@ -947,8 +947,6 @@ set_client_dvars()
 	    "cg_sonarAttachmentHideFriendlies", 0,
 	    "cg_sonarAttachmentFadeFriendlies", 0,
 	    "cg_sonarAttachmentFadeEnemies", 0,
-	    "cg_sonarAttachmentFullscreenThermal", 0,
-	    "cg_sonarAttachmentFullscreenSightCheck", 1,
 	    "r_lodBiasRigid", -1000,
 	    "r_lodBiasSkinned", -1000);
 
