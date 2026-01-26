@@ -582,7 +582,7 @@ on_player_spawned()
 			}
 		}
 
-		if (!is_player_valid(self))
+		if (!is_player_valid(self) && !is_true(self.is_zombie))
 		{
 			continue;
 		}
