@@ -1554,8 +1554,6 @@
 * Increased max radius for landing on top of an enemy player by 16.66%
 * Decreased max height for landing on top of an enemy player by 50%
 * Players start with 10000 points
-* Players respawn after being down for 10 seconds (except Search & Rezurrect)
-* Players retain perks (except Search & Rezurrect)
 * Starting weapon (upgraded): decreased stock ammo by half
 * Max Ammo: decreased amount of ammo given from max stock to one clip
 * Max Ammo: unloads clip of all enemy players' weapons and takes away their grenades and claymores
@@ -1582,6 +1580,8 @@
 #### Grief
 * Gain score by making enemy players bleed out
 * Make 10 enemy players bleed out to win the game
+* Players respawn after being down for 10 seconds
+* Players retain perks
 
 #### Race
 * Gain score by killing zombies or enemy players
@@ -1592,6 +1592,8 @@
 * Downing an enemy player awards 10 score
 * Bleeding out an enemy player awards 5 score
 * Reviving an ally player awards 5 score
+* Players respawn after being down for 10 seconds
+* Players retain perks
 
 #### Containment
 * Gain score by being the team with the most players alive in the containment zone
@@ -1603,6 +1605,8 @@
 * Players in the containment zone gain 50 points when their team gains score
 * Containment zone moves every 60 seconds
 * Amount of players alive in the containment zone on each team shown on HUD
+* Players respawn after being down for 10 seconds
+* Players retain perks
 
 #### Meat
 * Gain score by being the team holding the meat
@@ -1614,6 +1618,8 @@
 * Throwing the meat onto another player makes them grab the meat
 * Decreased meat powerup time on the ground by half
 * Team holding the meat shown on HUD
+* Players respawn after being down for 10 seconds
+* Players retain perks
 
 #### Search & Rezurrect
 * Win a round by getting all enemy players down
@@ -1635,8 +1641,10 @@
 * Zombies reduce survivors score by turning survivors
 * Reduce the enemy score to 0 to win the game
 * All players start as survivors
+* All players that join mid game start as zombies
 * Disease powerup spawns at survivor initial spawn points after 10 seconds and chases after the closest survivor
 * Survivors become zombies when they bleed out
+* Zombies respawn after 10 seconds
 
 ### Encounter Pro
 * No Mystery Box

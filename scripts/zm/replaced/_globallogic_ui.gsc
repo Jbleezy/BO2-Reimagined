@@ -4,6 +4,7 @@
 #include maps\mp\gametypes_zm\_globallogic;
 #include maps\mp\gametypes_zm\_spectating;
 #include maps\mp\gametypes_zm\_globallogic_player;
+#include common_scripts\utility;
 
 menuautoassign(comingfrommenu)
 {
@@ -38,6 +39,18 @@ menuautoassign(comingfrommenu)
 
 get_assigned_team()
 {
+	if (level.scr_zm_ui_gametype == "zturned")
+	{
+		if (flag("initial_blackscreen_passed"))
+		{
+			return "axis";
+		}
+		else
+		{
+			return "allies";
+		}
+	}
+
 	if (level.scr_zm_ui_gametype_group != "zencounter" || !isDedicated())
 	{
 		return getassignedteam(self);

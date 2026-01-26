@@ -412,9 +412,12 @@ grief_onplayerdisconnect(disconnecting_player)
 		}
 	}
 
-	team_var = "team_" + disconnecting_player.team;
+	if (level.teamcount > 1)
+	{
+		team_var = "team_" + disconnecting_player.team;
 
-	setDvar(team_var, getDvar(team_var) + disconnecting_player getguid() + " ");
+		setDvar(team_var, getDvar(team_var) + disconnecting_player getguid() + " ");
+	}
 }
 
 on_player_spawned()
@@ -428,6 +431,15 @@ on_player_spawned()
 	{
 		self waittill("spawned_player");
 		waittillframeend;
+
+		if (level.scr_zm_ui_gametype == "zturned")
+		{
+			if (self.team == level.zombie_team)
+			{
+				self maps\mp\zombies\_zm_turned::turn_to_zombie();
+				continue;
+			}
+		}
 
 		self thread scripts\zm\replaced\_zm::player_spawn_protection();
 
@@ -480,14 +492,13 @@ on_player_downed()
 	{
 		self waittill("entering_last_stand");
 
-		if (is_true(self.is_zombie))
+		if (level.scr_zm_ui_gametype == "zturned")
 		{
-			if (level.scr_zm_ui_gametype == "zturned")
+			if (self.team == level.zombie_team)
 			{
 				self thread turned_spectate_and_respawn();
+				continue;
 			}
-
-			continue;
 		}
 
 		self kill_feed();
@@ -572,7 +583,10 @@ on_player_bled_out()
 
 		if (level.scr_zm_ui_gametype == "zturned")
 		{
-			self thread turned_turn_to_zombie_init();
+			if (self.team != level.zombie_team)
+			{
+				self thread turned_turn_to_zombie_init();
+			}
 		}
 
 		if (is_respawn_gamemode())
@@ -3353,11 +3367,6 @@ the_disease_powerup_infinite_time()
 
 turned_turn_to_zombie_init()
 {
-	if (self.team == level.zombie_team)
-	{
-		return;
-	}
-
 	self scripts\zm\_zm_reimagined::set_team(level.zombie_team);
 
 	self maps\mp\zombies\_zm_turned::turn_to_zombie();
@@ -3374,10 +3383,6 @@ turned_spectate_and_respawn()
 	self.sessionstate = "playing";
 
 	self maps\mp\zombies\_zm::spectator_respawn();
-
-	waittillframeend;
-
-	self maps\mp\zombies\_zm_turned::turn_to_zombie();
 }
 
 can_revive(revivee)

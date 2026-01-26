@@ -3556,6 +3556,11 @@ should_respawn()
 		return 1;
 	}
 
+	if (level.scr_zm_ui_gametype == "zturned")
+	{
+		return 1;
+	}
+
 	return 0;
 }
 
