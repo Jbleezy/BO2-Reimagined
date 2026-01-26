@@ -1635,7 +1635,7 @@
 * Zombies reduce survivors score by turning survivors
 * Reduce the enemy score to 0 to win the game
 * All players start as survivors
-* Initial zombie is decided by a disease powerup that spawns at player initial spawn points after 10 seconds and chases after the closest player
+* Disease powerup spawns at survivor initial spawn points after 10 seconds and chases after the closest survivor
 * Survivors become zombies when they bleed out
 
 ### Encounter Pro

@@ -3322,6 +3322,7 @@ the_disease_powerup_drop(origin)
 
 the_disease_powerup_do_chase()
 {
+	level endon("end_game");
 	self endon("powerup_timedout");
 	self endon("powerup_grabbed");
 
@@ -3329,7 +3330,14 @@ the_disease_powerup_do_chase()
 	{
 		wait 0.05;
 
-		closest_player = get_closest_player(self.origin);
+		players = get_players("allies");
+		closest_player = getclosest(self.origin, players);
+
+		if (!isdefined(closest_player))
+		{
+			continue;
+		}
+
 		closest_player_origin = closest_player.origin + (0, 0, 40);
 
 		direction = vectornormalize(closest_player_origin - self.origin);
