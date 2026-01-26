@@ -464,6 +464,16 @@ on_player_downed()
 	{
 		self waittill("entering_last_stand");
 
+		if (is_true(self.is_zombie))
+		{
+			if (level.scr_zm_ui_gametype == "zturned")
+			{
+				self thread turned_spectate_and_respawn();
+			}
+
+			continue;
+		}
+
 		self kill_feed();
 		self add_grief_downed_score();
 
@@ -520,7 +530,7 @@ on_player_bled_out()
 			self [[level.zombie_last_stand_ammo_return]](1);
 		}
 
-		if (level.scr_zm_ui_gametype == "zsr" || is_true(self.playersuicided))
+		if (!is_respawn_gamemode() || is_true(self.playersuicided))
 		{
 			self thread bleedout_feed();
 		}
@@ -542,6 +552,11 @@ on_player_bled_out()
 		if (level.scr_zm_ui_gametype == "zrace")
 		{
 			increment_score(getOtherTeam(self.team), 5, 1, &"ZOMBIE_ZGRIEF_PLAYER_DEAD_SCORE");
+		}
+
+		if (level.scr_zm_ui_gametype == "zturned")
+		{
+			self thread turned_turn_to_zombie_init();
 		}
 
 		if (is_respawn_gamemode())
@@ -1170,7 +1185,7 @@ get_gamemode_winning_score()
 
 is_respawn_gamemode()
 {
-	return is_encounter() && level.scr_zm_ui_gametype != "zsr";
+	return is_encounter() && level.scr_zm_ui_gametype != "zsr" && level.scr_zm_ui_gametype != "zturned";
 }
 
 show_grief_hud_msg(msg, msg_parm1, msg_parm2, offset, delay)
@@ -3230,6 +3245,7 @@ turned_init()
 {
 	maps\mp\zombies\_zm_turned::init();
 
+	level.is_zombie_level = undefined;
 	level.decrement_score = 1;
 	level.force_team_characters = 1;
 	level.should_use_cia = 0;
@@ -3278,17 +3294,7 @@ turned_think()
 
 the_disease_powerup(player)
 {
-	player maps\mp\zombies\_zm_turned::turn_to_zombie();
-
-	increment_score("allies", -1, 0);
-
-	players = get_players();
-	allies_players = get_players("allies");
-
-	foreach (other_player in players)
-	{
-		other_player thread show_grief_hud_msg(&"ZOMBIE_SURVIVOR_TURNED", allies_players.size);
-	}
+	player notify("player_suicide");
 }
 
 the_disease_powerup_do_chase()
@@ -3312,6 +3318,43 @@ the_disease_powerup_do_chase()
 the_disease_powerup_infinite_time()
 {
 
+}
+
+turned_turn_to_zombie_init()
+{
+	if (self.team == level.zombie_team)
+	{
+		return;
+	}
+
+	self scripts\zm\_zm_reimagined::set_team(level.zombie_team);
+
+	self maps\mp\zombies\_zm_turned::turn_to_zombie();
+
+	increment_score("allies", -1, 0);
+
+	players = get_players();
+	allies_players = get_players("allies");
+
+	foreach (player in players)
+	{
+		player thread show_grief_hud_msg(&"ZOMBIE_SURVIVOR_TURNED", allies_players.size);
+	}
+}
+
+turned_spectate_and_respawn()
+{
+	self maps\mp\zombies\_zm::spawnspectator();
+
+	wait 10;
+
+	self.sessionstate = "playing";
+
+	self maps\mp\zombies\_zm::spectator_respawn();
+
+	wait 0.05;
+
+	self maps\mp\zombies\_zm_turned::turn_to_zombie();
 }
 
 can_revive(revivee)

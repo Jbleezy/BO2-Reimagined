@@ -608,6 +608,11 @@ on_player_downed()
 	{
 		self waittill("entering_last_stand");
 
+		if (is_true(self.is_zombie))
+		{
+			continue;
+		}
+
 		self.statusicon = "hud_status_revive";
 		self.health = self.maxhealth;
 
@@ -1482,6 +1487,11 @@ bleedout_bar_hud()
 		self waittill("entering_last_stand");
 
 		if (is_true(self.playersuicided))
+		{
+			continue;
+		}
+
+		if (is_true(self.is_zombie))
 		{
 			continue;
 		}

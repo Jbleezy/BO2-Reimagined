@@ -38,10 +38,13 @@ init()
 
 turn_to_zombie()
 {
-	self scripts\zm\_zm_reimagined::set_team(level.zombie_team);
+	if (self maps\mp\zombies\_zm_laststand::player_is_in_laststand())
+	{
+		self thread maps\mp\zombies\_zm_laststand::auto_revive(self);
+	}
 
 	self notify("clear_red_flashing_overlay");
-	self notify("zombify");
+	self notify("zombified");
 
 	maps\mp\_visionset_mgr::vsmgr_activate("visionset", "zm_turned", self);
 	self setclientfield("player_has_eyes", 1);
