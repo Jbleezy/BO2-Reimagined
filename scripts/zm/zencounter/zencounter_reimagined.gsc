@@ -3331,8 +3331,6 @@ turned_turn_to_zombie_init()
 
 	self maps\mp\zombies\_zm_turned::turn_to_zombie();
 
-	increment_score("allies", -1, 0);
-
 	players = get_players();
 	allies_players = get_players("allies");
 
@@ -3340,6 +3338,8 @@ turned_turn_to_zombie_init()
 	{
 		player thread show_grief_hud_msg(&"ZOMBIE_SURVIVOR_TURNED", allies_players.size);
 	}
+
+	increment_score("allies", -1, 0);
 }
 
 turned_spectate_and_respawn()
