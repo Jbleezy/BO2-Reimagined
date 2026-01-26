@@ -3352,7 +3352,7 @@ turned_spectate_and_respawn()
 
 	self maps\mp\zombies\_zm::spectator_respawn();
 
-	wait 0.05;
+	waittillframeend;
 
 	self maps\mp\zombies\_zm_turned::turn_to_zombie();
 }
