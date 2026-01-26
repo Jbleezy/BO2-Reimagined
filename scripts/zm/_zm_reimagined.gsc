@@ -1563,12 +1563,14 @@ countdown_hud(text, text_param, time)
 	countdown_hud = createServerFontString("objective", 2.2);
 	countdown_hud setPoint("CENTER", "CENTER", 0, 0);
 	countdown_hud.color = (1, 1, 0);
+	countdown_hud.foreground = 1;
 	countdown_hud.hidewheninmenu = 1;
 	countdown_hud maps\mp\gametypes_zm\_hud::fontpulseinit();
 
 	countdown_hud.countdown_text = createServerFontString("objective", 1.5);
 	countdown_hud.countdown_text setPoint("CENTER", "CENTER", 0, -40);
 	countdown_hud.countdown_text.color = (1, 1, 1);
+	countdown_hud.countdown_text.foreground = 1;
 	countdown_hud.countdown_text.hidewheninmenu = 1;
 
 	if (isdefined(text_param))
