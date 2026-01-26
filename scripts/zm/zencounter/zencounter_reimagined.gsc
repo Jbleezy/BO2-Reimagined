@@ -321,6 +321,7 @@ grief_onplayerconnect()
 	self thread on_player_downed();
 	self thread on_player_revived();
 	self thread on_player_bled_out();
+	self thread on_player_zom_kill();
 
 	self thread stun_fx();
 	self thread headstomp_watcher();
@@ -334,11 +335,6 @@ grief_onplayerconnect()
 	if (level.scr_zm_ui_gametype != "zsr")
 	{
 		self._retain_perks = 1;
-	}
-
-	if (level.scr_zm_ui_gametype == "zrace")
-	{
-		self thread race_check_for_kills();
 	}
 }
 
@@ -560,6 +556,42 @@ on_player_bled_out()
 			playsoundatposition("evt_appear_3d", self.origin);
 			earthquake(0.5, 0.75, self.origin, 100);
 			playrumbleonposition("explosion_generic", self.origin);
+		}
+	}
+}
+
+on_player_zom_kill()
+{
+	level endon("end_game");
+	self endon("disconnect");
+
+	while (1)
+	{
+		self waittill("zom_kill", zombie);
+
+		if (level.scr_zm_ui_gametype == "zrace")
+		{
+			amount = 1;
+			score_msg = undefined;
+
+			if (is_true(zombie.is_brutus) || is_true(zombie.is_mechz))
+			{
+				amount = 10;
+				score_msg = &"ZOMBIE_ZGRIEF_BOSS_KILLED_SCORE";
+			}
+
+			increment_score(self.team, amount, 1, score_msg);
+		}
+		else if (level.scr_zm_ui_gametype == "zturned")
+		{
+			amount = -1;
+
+			if (is_true(zombie.is_brutus) || is_true(zombie.is_mechz))
+			{
+				amount = -10;
+			}
+
+			increment_score("axis", amount, 0);
 		}
 	}
 }
@@ -1074,6 +1106,10 @@ grief_intro_msg()
 	if (level.scr_zm_ui_gametype == "zsr")
 	{
 		to_win_str = &"ZOMBIE_GRIEF_ROUNDS_TO_WIN";
+	}
+	else if (level.scr_zm_ui_gametype == "zturned")
+	{
+		to_win_str = &"ZOMBIE_GRIEF_REDUCE_ENEMY_SCORE_TO_WIN";
 	}
 
 	players = get_players();
@@ -2072,28 +2108,6 @@ save_teams_on_intermission()
 
 	setDvar("team_axis", axis_guids);
 	setDvar("team_allies", allies_guids);
-}
-
-race_check_for_kills()
-{
-	level endon("end_game");
-	self endon("disconnect");
-
-	while (1)
-	{
-		self waittill("zom_kill", zombie);
-
-		amount = 1;
-		score_msg = undefined;
-
-		if (is_true(zombie.is_brutus) || is_true(zombie.is_mechz))
-		{
-			amount = 10;
-			score_msg = &"ZOMBIE_ZGRIEF_BOSS_KILLED_SCORE";
-		}
-
-		increment_score(self.team, amount, 1, score_msg);
-	}
 }
 
 containment_init()
@@ -3216,6 +3230,7 @@ turned_init()
 {
 	maps\mp\zombies\_zm_turned::init();
 
+	level.decrement_score = 1;
 	level.force_team_characters = 1;
 	level.should_use_cia = 0;
 
@@ -3232,6 +3247,13 @@ turned_init()
 
 turned_think()
 {
+	flag_wait("initial_blackscreen_passed");
+
+	allies_players = get_players("allies");
+
+	increment_score("allies", allies_players.size, 0);
+	increment_score("axis", allies_players.size * 50, 0);
+
 	level waittill("restart_round_start");
 
 	players = get_players();
@@ -3258,19 +3280,14 @@ the_disease_powerup(player)
 {
 	player maps\mp\zombies\_zm_turned::turn_to_zombie();
 
-	team = player.team;
-	other_team = getOtherTeam(team);
-	team_players = get_players(team);
-	other_team_players = get_players(other_team);
+	increment_score("allies", -1, 0);
 
-	foreach (team_player in team_players)
-	{
-		team_player thread show_grief_hud_msg(&"ZOMBIE_PLAYER_TURNED", team_players.size, other_team_players.size);
-	}
+	players = get_players();
+	allies_players = get_players("allies");
 
-	foreach (other_team_player in other_team_players)
+	foreach (other_player in players)
 	{
-		other_team_player thread show_grief_hud_msg(&"ZOMBIE_PLAYER_TURNED", other_team_players.size, team_players.size);
+		other_player thread show_grief_hud_msg(&"ZOMBIE_SURVIVOR_TURNED", allies_players.size);
 	}
 }
 
@@ -3355,28 +3372,57 @@ increment_score(team, amount = 1, show_lead_msg = true, score_msg)
 
 	level.grief_score[encounters_team] += amount;
 
-	if (level.grief_score[encounters_team] > get_gamemode_winning_score())
+	if (is_true(level.decrement_score))
 	{
-		level.grief_score[encounters_team] = get_gamemode_winning_score();
-	}
-
-	setteamscore(team, level.grief_score[encounters_team]);
-
-	if (level.highest_score < level.grief_score[encounters_team] && level.highest_score < 255)
-	{
-		level.highest_score = level.grief_score[encounters_team];
-
-		if (level.highest_score > 255)
+		if (level.grief_score[encounters_team] < get_gamemode_winning_score())
 		{
-			level.highest_score = 255;
+			level.grief_score[encounters_team] = get_gamemode_winning_score();
 		}
 
-		setroundsplayed(level.highest_score);
-	}
+		setteamscore(team, level.grief_score[encounters_team]);
 
-	if (level.grief_score[encounters_team] >= get_gamemode_winning_score())
+		if ((level.highest_score > level.grief_score[encounters_team] && level.highest_score < 255) || level.highest_score == 0)
+		{
+			level.highest_score = level.grief_score[encounters_team];
+
+			if (level.highest_score > 255)
+			{
+				level.highest_score = 255;
+			}
+
+			setroundsplayed(level.highest_score);
+		}
+
+		if (level.grief_score[encounters_team] <= get_gamemode_winning_score())
+		{
+			scripts\zm\replaced\_zm_game_module::game_won(encounters_team);
+		}
+	}
+	else
 	{
-		scripts\zm\replaced\_zm_game_module::game_won(encounters_team);
+		if (level.grief_score[encounters_team] > get_gamemode_winning_score())
+		{
+			level.grief_score[encounters_team] = get_gamemode_winning_score();
+		}
+
+		setteamscore(team, level.grief_score[encounters_team]);
+
+		if ((level.highest_score < level.grief_score[encounters_team] && level.highest_score < 255) || level.highest_score == 0)
+		{
+			level.highest_score = level.grief_score[encounters_team];
+
+			if (level.highest_score > 255)
+			{
+				level.highest_score = 255;
+			}
+
+			setroundsplayed(level.highest_score);
+		}
+
+		if (level.grief_score[encounters_team] >= get_gamemode_winning_score())
+		{
+			scripts\zm\replaced\_zm_game_module::game_won(encounters_team);
+		}
 	}
 
 	if (level.scr_zm_ui_gametype == "zgrief")

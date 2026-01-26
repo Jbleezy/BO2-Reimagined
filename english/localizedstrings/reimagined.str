@@ -313,13 +313,16 @@ REFERENCE           ZOMBIE_ZMEAT_INTRO
 LANG_ENGLISH        "Hold the meat to gain score!"
 
 REFERENCE           ZOMBIE_ZTURNED_INTRO
-LANG_ENGLISH        "Kill zombies to gain score!"
+LANG_ENGLISH        "Get kills to reduce the enemy score!"
 
 REFERENCE           ZOMBIE_GRIEF_SCORE_TO_WIN
 LANG_ENGLISH        "Gain &&1 score to win the game!"
 
 REFERENCE           ZOMBIE_GRIEF_ROUNDS_TO_WIN
 LANG_ENGLISH        "Win &&1 rounds to win the game!"
+
+REFERENCE           ZOMBIE_GRIEF_REDUCE_ENEMY_SCORE_TO_WIN
+LANG_ENGLISH        "Reduce the enemy score to &&1 to win the game!"
 
 REFERENCE           ZOMBIE_GRIEF_GAIN_LEAD
 LANG_ENGLISH        "Gained the lead!"
@@ -405,8 +408,8 @@ LANG_ENGLISH        "Meat reset!"
 REFERENCE           ZOMBIE_RUN_FROM_DISEASE
 LANG_ENGLISH        "Run from the disease!"
 
-REFERENCE           ZOMBIE_PLAYER_TURNED
-LANG_ENGLISH        "Player Turned! [&&1 V &&2]"
+REFERENCE           ZOMBIE_SURVIVOR_TURNED
+LANG_ENGLISH        "Survivor Turned! [&&1 Remaining]"
 
 REFERENCE           ZM_PRISON_SHIELD
 LANG_ENGLISH        "Zombie Shield"

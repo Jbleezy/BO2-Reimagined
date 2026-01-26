@@ -1629,10 +1629,13 @@
 * Players respawn at initial spawn points
 
 #### Turned
-* Survivors win by killing zombies
-* Turned win by turning all survivors
+* Survivors score starts at the amount of survivors
+* Zombies score starts at at the amount of survivors multiplied by 50
+* Survivors reduce zombies score by killing zombies
+* Zombies reduce survivors score by turning survivors
+* Reduce the enemy score to 0 to win the game
 * All players start as survivors
-* Initial turned is decided by a disease powerup that spawns at player initial spawn points after 10 seconds and chases after the closest player
+* Initial zombie is decided by a disease powerup that spawns at player initial spawn points after 10 seconds and chases after the closest player
 
 ### Encounter Pro
 * No Mystery Box
