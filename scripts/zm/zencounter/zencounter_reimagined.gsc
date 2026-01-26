@@ -367,6 +367,11 @@ grief_onplayerdisconnect(disconnecting_player)
 		[[level.update_stats_func]](disconnecting_player);
 	}
 
+	if (level.scr_zm_ui_gametype == "zsr")
+	{
+		level thread update_players_on_disconnect(disconnecting_player);
+	}
+
 	if (level.scr_zm_ui_gametype == "zgrief")
 	{
 		if (disconnecting_player maps\mp\zombies\_zm_laststand::player_is_in_laststand())
@@ -387,26 +392,29 @@ grief_onplayerdisconnect(disconnecting_player)
 
 	if (count <= 0)
 	{
-		encounters_team = "A";
-
-		if (getOtherTeam(disconnecting_player.team) == "allies")
+		if (level.scr_zm_ui_gametype == "zturned")
 		{
-			encounters_team = "B";
+			if (disconnecting_player.team == level.zombie_team)
+			{
+				level thread the_disease_powerup_drop(disconnecting_player.origin);
+			}
 		}
+		else
+		{
+			encounters_team = "A";
 
-		scripts\zm\replaced\_zm_game_module::game_won(encounters_team);
+			if (getOtherTeam(disconnecting_player.team) == "allies")
+			{
+				encounters_team = "B";
+			}
 
-		return;
+			scripts\zm\replaced\_zm_game_module::game_won(encounters_team);
+		}
 	}
 
 	team_var = "team_" + disconnecting_player.team;
 
 	setDvar(team_var, getDvar(team_var) + disconnecting_player getguid() + " ");
-
-	if (level.scr_zm_ui_gametype == "zsr")
-	{
-		level thread update_players_on_disconnect(disconnecting_player);
-	}
 }
 
 on_player_spawned()
@@ -3286,6 +3294,18 @@ turned_think()
 
 	wait 10;
 
+	level thread the_disease_powerup_drop(origin);
+}
+
+the_disease_powerup(player)
+{
+	player notify("player_suicide");
+}
+
+the_disease_powerup_drop(origin)
+{
+	waittillframeend; // wait for disconnecting player to disconnect when dropping from disconnecting player
+
 	players = get_players();
 
 	foreach (player in players)
@@ -3298,11 +3318,6 @@ turned_think()
 	level._powerup_timeout_override = undefined;
 
 	powerup thread the_disease_powerup_do_chase();
-}
-
-the_disease_powerup(player)
-{
-	player notify("player_suicide");
 }
 
 the_disease_powerup_do_chase()
