@@ -238,6 +238,8 @@ init()
 
 	level thread on_player_connect();
 
+	level thread pre_end_game();
+
 	level thread on_intermission();
 
 	level thread post_init();
@@ -556,8 +558,6 @@ on_player_spawned()
 			self thread health_bar_hud();
 			self thread zone_name_hud();
 
-			self thread bleedout_bar_hud();
-
 			self thread veryhurt_blood_fx();
 
 			self thread ignoreme_after_revived();
@@ -617,6 +617,8 @@ on_player_downed()
 		self.health = self.maxhealth;
 
 		objective_setgamemodeflags(self.obj_ind, 2);
+
+		self thread bleedout_bar_hud();
 	}
 }
 
@@ -701,6 +703,15 @@ on_player_disconnect()
 	objective_clearentity(self.obj_ind, self);
 	objective_setgamemodeflags(self.obj_ind, 0);
 	objective_position(self.obj_ind, (0, 0, 0));
+}
+
+pre_end_game()
+{
+	level.pre_intermission = 0;
+
+	level waittill("pre_end_game");
+
+	level.pre_intermission = 1;
 }
 
 on_intermission()
@@ -1476,51 +1487,37 @@ get_zone_display_name(zone)
 
 bleedout_bar_hud()
 {
-	level endon("pre_end_game");
-	level endon("end_game");
 	self endon("disconnect");
 
-	flag_wait("hud_visible");
-
-	while (1)
+	if (is_true(level.pre_intermission))
 	{
-		self waittill("entering_last_stand");
-
-		if (is_true(self.playersuicided))
-		{
-			continue;
-		}
-
-		if (is_true(self.is_zombie))
-		{
-			continue;
-		}
-
-		if (flag("solo_game"))
-		{
-			continue;
-		}
-
-		hud = self createbar((1, 0, 0), level.secondaryprogressbarwidth * 2, level.secondaryprogressbarheight);
-		hud setpoint("CENTER", undefined, level.secondaryprogressbarx, -1 * level.secondaryprogressbary);
-		hud.foreground = 1;
-		hud.bar.foreground = 1;
-		hud.barframe.foreground = 1;
-		hud.hidewheninmenu = 1;
-		hud.bar.hidewheninmenu = 1;
-		hud.barframe.hidewheninmenu = 1;
-		hud.sort = 1;
-		hud.bar.sort = 2;
-		hud.barframe.sort = 3;
-		hud thread hide_on_scoreboard(self);
-		hud thread destroy_on_intermission();
-
-		self thread bleedout_bar_hud_updatebar(hud);
-
-		self waittill_any("player_revived", "bled_out", "player_suicide");
-
-		hud destroyelem();
+		return;
 	}
+
+	if (is_true(self.playersuicided))
+	{
+		return;
+	}
+
+	hud = self createbar((1, 0, 0), level.secondaryprogressbarwidth * 2, level.secondaryprogressbarheight);
+	hud setpoint("CENTER", undefined, level.secondaryprogressbarx, -1 * level.secondaryprogressbary);
+	hud.foreground = 1;
+	hud.bar.foreground = 1;
+	hud.barframe.foreground = 1;
+	hud.hidewheninmenu = 1;
+	hud.bar.hidewheninmenu = 1;
+	hud.barframe.hidewheninmenu = 1;
+	hud.sort = 1;
+	hud.bar.sort = 2;
+	hud.barframe.sort = 3;
+	hud thread hide_on_scoreboard(self);
+	hud thread destroy_on_intermission();
+
+	self thread bleedout_bar_hud_updatebar(hud);
+
+	self waittill_any("player_revived", "bled_out", "player_suicide");
+
+	hud destroyelem();
 }
 
 // scaleovertime doesn't work past 30 seconds so here is a workaround
