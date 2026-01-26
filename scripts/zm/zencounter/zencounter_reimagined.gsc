@@ -3438,7 +3438,7 @@ increment_score(team, amount = 1, show_lead_msg = true, score_msg)
 
 		if (level.grief_score[encounters_team] <= get_gamemode_winning_score())
 		{
-			scripts\zm\replaced\_zm_game_module::game_won(encounters_team);
+			scripts\zm\replaced\_zm_game_module::game_won(other_encounters_team);
 		}
 	}
 	else
