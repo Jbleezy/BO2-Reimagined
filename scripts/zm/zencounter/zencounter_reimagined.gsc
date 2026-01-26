@@ -375,6 +375,14 @@ grief_onplayerdisconnect(disconnecting_player)
 		}
 	}
 
+	if (level.scr_zm_ui_gametype == "zturned")
+	{
+		if (disconnecting_player.team != level.zombie_team)
+		{
+			increment_score(disconnecting_player.team, -1, 0);
+		}
+	}
+
 	count = get_players(disconnecting_player.team).size - 1;
 
 	if (count <= 0)
@@ -3331,14 +3339,6 @@ turned_turn_to_zombie_init()
 
 	self maps\mp\zombies\_zm_turned::turn_to_zombie();
 
-	players = get_players();
-	allies_players = get_players("allies");
-
-	foreach (player in players)
-	{
-		player thread show_grief_hud_msg(&"ZOMBIE_SURVIVOR_TURNED", allies_players.size);
-	}
-
 	increment_score("allies", -1, 0);
 }
 
@@ -3506,6 +3506,19 @@ increment_score(team, amount = 1, show_lead_msg = true, score_msg)
 			foreach (player in players)
 			{
 				player thread show_grief_hud_msg(score_msg, amount);
+			}
+		}
+	}
+
+	if (level.scr_zm_ui_gametype == "zturned")
+	{
+		if (team != level.zombie_team)
+		{
+			players = get_players();
+
+			foreach (player in players)
+			{
+				player thread show_grief_hud_msg(&"ZOMBIE_SURVIVOR_TURNED", level.grief_score[encounters_team]);
 			}
 		}
 	}
