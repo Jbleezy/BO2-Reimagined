@@ -384,7 +384,7 @@ grief_onplayerdisconnect(disconnecting_player)
 	{
 		if (disconnecting_player.team != level.zombie_team)
 		{
-			increment_score(disconnecting_player.team, -1, 0);
+			increment_score(disconnecting_player.team, -1, 0, &"ZOMBIE_SURVIVOR_TURNED");
 		}
 	}
 
@@ -636,7 +636,7 @@ on_player_zom_kill()
 				amount = -10;
 			}
 
-			increment_score("axis", amount, 0);
+			increment_score(level.zombie_team, amount, 0);
 		}
 	}
 }
@@ -3371,7 +3371,7 @@ turned_turn_to_zombie_init()
 
 	self maps\mp\zombies\_zm_turned::turn_to_zombie();
 
-	increment_score("allies", -1, 0);
+	increment_score("allies", -1, 0, &"ZOMBIE_SURVIVOR_TURNED");
 }
 
 turned_spectate_and_respawn()
@@ -3431,7 +3431,7 @@ increment_score(team, amount = 1, show_lead_msg = true, score_msg)
 {
 	level endon("end_game");
 
-	other_team = getOtherTeam(team);
+	other_team = getotherteam(team);
 	encounters_team = "A";
 	other_encounters_team = "B";
 
@@ -3527,7 +3527,7 @@ increment_score(team, amount = 1, show_lead_msg = true, score_msg)
 
 	if (level.scr_zm_ui_gametype == "zrace")
 	{
-		if (isDefined(score_msg))
+		if (isdefined(score_msg))
 		{
 			players = get_players(team);
 
@@ -3540,20 +3540,20 @@ increment_score(team, amount = 1, show_lead_msg = true, score_msg)
 
 	if (level.scr_zm_ui_gametype == "zturned")
 	{
-		if (team != level.zombie_team)
+		if (isdefined(score_msg))
 		{
 			players = get_players();
 
 			foreach (player in players)
 			{
-				player thread show_grief_hud_msg(&"ZOMBIE_SURVIVOR_TURNED", level.grief_score[encounters_team]);
+				player thread show_grief_hud_msg(score_msg, level.grief_score[encounters_team]);
 			}
 		}
 	}
 
 	if (show_lead_msg)
 	{
-		if (!isDefined(level.prev_leader) || (level.prev_leader != encounters_team && level.grief_score[encounters_team] > level.grief_score[level.prev_leader]))
+		if (!isdefined(level.prev_leader) || (level.prev_leader != encounters_team && level.grief_score[encounters_team] > level.grief_score[level.prev_leader]))
 		{
 			level.prev_leader = encounters_team;
 
