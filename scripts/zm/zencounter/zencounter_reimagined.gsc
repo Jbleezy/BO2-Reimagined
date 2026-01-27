@@ -32,7 +32,7 @@ main()
 		level._effect["butterflies"] = loadfx("maps/zombie/fx_zmb_impact_noharm");
 	}
 
-	level._effect["human_disappears"] = loadfx("maps/zombie/fx_zmb_returned_spawn_puff");
+	level._effect["zombie_disappears"] = loadfx("maps/zombie/fx_zmb_returned_spawn_puff");
 }
 
 init()
@@ -447,7 +447,7 @@ on_player_spawned()
 
 			if (self.team == level.zombie_team)
 			{
-				self maps\mp\zombies\_zm_turned::turn_to_zombie();
+				self turned_zombie_spawn();
 				continue;
 			}
 		}
@@ -479,17 +479,7 @@ on_player_spawned()
 
 		if (is_respawn_gamemode())
 		{
-			min_points = level.player_starting_points;
-
-			if (min_points > 1500)
-			{
-				min_points = 1500;
-			}
-
-			if (self.score < min_points)
-			{
-				self.score = min_points;
-			}
+			self thread player_spawn();
 		}
 	}
 }
@@ -507,7 +497,7 @@ on_player_downed()
 		{
 			if (self.team == level.zombie_team)
 			{
-				self thread turned_spectate_and_respawn();
+				self thread turned_zombie_spectate_and_respawn();
 				continue;
 			}
 
@@ -609,7 +599,7 @@ on_player_bled_out()
 		{
 			if (self.team != level.zombie_team)
 			{
-				self thread turned_turn_to_zombie_init();
+				self thread turned_zombie_init();
 			}
 		}
 
@@ -617,14 +607,12 @@ on_player_bled_out()
 		{
 			if (is_true(self.playersuicided))
 			{
-				self wait_and_respawn();
+				self thread player_spectate_and_respawn();
 			}
-
-			self maps\mp\zombies\_zm::spectator_respawn();
-			playfx(level._effect["human_disappears"], self.origin);
-			playsoundatposition("evt_appear_3d", self.origin);
-			earthquake(0.5, 0.75, self.origin, 100);
-			playrumbleonposition("explosion_generic", self.origin);
+			else
+			{
+				self maps\mp\zombies\_zm::spectator_respawn();
+			}
 		}
 	}
 }
@@ -742,7 +730,23 @@ revive_feed(reviver)
 	obituary(self, reviver, weapon, "MOD_UNKNOWN");
 }
 
-wait_and_respawn()
+player_spawn()
+{
+	if (self.score < level.player_starting_points)
+	{
+		self.score = level.player_starting_points;
+	}
+
+	if (flag("initial_blackscreen_passed"))
+	{
+		playfx(level._effect["zombie_disappears"], self.origin);
+		playsoundatposition("evt_appear_3d", self.origin);
+		earthquake(0.5, 0.75, self.origin, 100);
+		playrumbleonposition("explosion_generic", self.origin);
+	}
+}
+
+player_spectate_and_respawn()
 {
 	self endon("disconnect");
 
@@ -758,6 +762,8 @@ wait_and_respawn()
 	wait time;
 
 	self.sessionstate = "playing";
+
+	self maps\mp\zombies\_zm::spectator_respawn();
 }
 
 get_held_melee_weapon(melee_weapon)
@@ -3389,7 +3395,7 @@ the_disease_powerup_infinite_time()
 
 }
 
-turned_turn_to_zombie_init()
+turned_zombie_init()
 {
 	team = self.team;
 	amount = -1;
@@ -3407,8 +3413,21 @@ turned_turn_to_zombie_init()
 	increment_score(team, amount, 0, &"ZOMBIE_SURVIVOR_TURNED");
 }
 
-turned_spectate_and_respawn()
+turned_zombie_spawn()
 {
+	self maps\mp\zombies\_zm_turned::turn_to_zombie();
+
+	playfx(level._effect["zombie_disappears"], self.origin);
+	playsoundatposition("evt_appear_3d", self.origin);
+	earthquake(0.5, 0.75, self.origin, 100);
+	playrumbleonposition("explosion_generic", self.origin);
+}
+
+turned_zombie_spectate_and_respawn()
+{
+	playfx(level._effect["zombie_disappears"], self.origin);
+	playsoundatposition("evt_disappear_3d", self.origin);
+
 	self maps\mp\zombies\_zm::spawnspectator();
 
 	wait 10;
