@@ -297,6 +297,7 @@ LUI.createMenu.CompetitiveScoreboard = function(LocalClientIndex)
 	CompetitiveScoreboardWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_SCOREBOARD_OPEN, CoD.CompetitiveScoreboard.UpdateVisibility)
 	CompetitiveScoreboardWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_PLAYER_DEAD, CoD.CompetitiveScoreboard.UpdateVisibility)
 	CompetitiveScoreboardWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_SCOPED, CoD.CompetitiveScoreboard.UpdateVisibility)
+	CompetitiveScoreboardWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_PLAYER_ZOMBIE, CoD.CompetitiveScoreboard.UpdateVisibility)
 	CompetitiveScoreboardWidget:registerEventHandler("hud_update_team_change", CoD.CompetitiveScoreboard.UpdateTeamChange)
 	CompetitiveScoreboardWidget.visible = true
 	return CompetitiveScoreboardWidget
@@ -348,7 +349,7 @@ end
 
 CoD.CompetitiveScoreboard.UpdateVisibility = function(CompetitiveScoreboardWidget, ClientInstance)
 	local LocalClientIndex = ClientInstance.controller
-	if UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_HUD_VISIBLE) == 1 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_IS_PLAYER_IN_AFTERLIFE) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_EMP_ACTIVE) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_IN_VEHICLE) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_IN_GUIDED_MISSILE) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_AMMO_COUNTER_HIDE) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_IS_FLASH_BANGED) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_UI_ACTIVE) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_SCOREBOARD_OPEN) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_IS_SCOPED) == 0 and (not CoD.IsShoutcaster(LocalClientIndex) or CoD.IsShoutcasterProfileVariableTrue(LocalClientIndex, "shoutcaster_scorestreaks") and Engine.IsSpectatingActiveClient(LocalClientIndex)) and CoD.FSM_VISIBILITY(LocalClientIndex) == 0 then
+	if UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_HUD_VISIBLE) == 1 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_IS_PLAYER_IN_AFTERLIFE) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_EMP_ACTIVE) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_IN_VEHICLE) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_IN_GUIDED_MISSILE) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_AMMO_COUNTER_HIDE) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_IS_FLASH_BANGED) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_UI_ACTIVE) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_SCOREBOARD_OPEN) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_IS_SCOPED) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_IS_PLAYER_ZOMBIE) == 0 and (not CoD.IsShoutcaster(LocalClientIndex) or CoD.IsShoutcasterProfileVariableTrue(LocalClientIndex, "shoutcaster_scorestreaks") and Engine.IsSpectatingActiveClient(LocalClientIndex)) and CoD.FSM_VISIBILITY(LocalClientIndex) == 0 then
 		if CompetitiveScoreboardWidget.visible ~= true then
 			CompetitiveScoreboardWidget:setAlpha(1)
 			CompetitiveScoreboardWidget.m_inputDisabled = nil
@@ -365,7 +366,7 @@ CoD.CompetitiveScoreboard.UpdateVisibility = function(CompetitiveScoreboardWidge
 end
 
 CoD.CompetitiveScoreboard.UpdateTeamChange = function(CompetitiveScoreboardWidget, ClientInstance)
-	if Dvar.ui_gametype:get() == CoD.Zombie.GAMETYPE_ZCLEANSED then
+	if Dvar.ui_gametype:get() == CoD.Zombie.GAMETYPE_ZCLEANSED or Dvar.ui_gametype:get() == CoD.Zombie.GAMETYPE_ZTURNED then
 		if ClientInstance.team == CoD.TEAM_AXIS then
 			if CompetitiveScoreboardWidget.visible == true then
 				CompetitiveScoreboardWidget:setAlpha(0)
