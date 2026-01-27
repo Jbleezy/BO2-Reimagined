@@ -498,6 +498,7 @@ on_player_downed()
 			if (self.team == level.zombie_team)
 			{
 				self thread turned_zombie_spectate_and_respawn();
+				increment_score(self.team, -1, 0);
 				continue;
 			}
 
