@@ -3465,8 +3465,9 @@ increment_score(team, amount = 1, show_lead_msg = true, score_msg)
 	level endon("end_game");
 
 	other_team = getotherteam(team);
-	players = get_players(team);
-	other_players = get_players(other_team);
+	players = get_players();
+	team_players = get_players(team);
+	other_team_players = get_players(other_team);
 	encounters_team = "A";
 	other_encounters_team = "B";
 
@@ -3537,12 +3538,12 @@ increment_score(team, amount = 1, show_lead_msg = true, score_msg)
 		other_score = level.grief_score[other_encounters_team];
 		score_remaining = get_gamemode_winning_score() - score;
 
-		foreach (player in players)
+		foreach (player in team_players)
 		{
 			player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_PLAYER_DEAD", score, other_score);
 		}
 
-		foreach (player in other_players)
+		foreach (player in other_team_players)
 		{
 			player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_ALLY_DEAD", other_score, score);
 		}
@@ -3561,9 +3562,7 @@ increment_score(team, amount = 1, show_lead_msg = true, score_msg)
 	{
 		if (isdefined(score_msg))
 		{
-			players = get_players(team);
-
-			foreach (player in players)
+			foreach (player in team_players)
 			{
 				player thread show_grief_hud_msg(score_msg, amount);
 			}
@@ -3575,14 +3574,14 @@ increment_score(team, amount = 1, show_lead_msg = true, score_msg)
 		if (isdefined(score_msg))
 		{
 			score = level.grief_score[encounters_team];
-			other_score = other_players.size;
+			other_score = other_team_players.size;
 
-			foreach (player in players)
+			foreach (player in team_players)
 			{
 				player thread show_grief_hud_msg(score_msg, score, other_score);
 			}
 
-			foreach (player in other_players)
+			foreach (player in other_team_players)
 			{
 				player thread show_grief_hud_msg(score_msg, other_score, score);
 			}
@@ -3631,16 +3630,14 @@ increment_score(team, amount = 1, show_lead_msg = true, score_msg)
 				delay = 1;
 			}
 
-			foreach (player in players)
+			foreach (player in team_players)
 			{
-				if (player.team == team)
-				{
-					player thread show_grief_hud_msg(&"ZOMBIE_GRIEF_GAIN_LEAD", undefined, undefined, 30, delay);
-				}
-				else
-				{
-					player thread show_grief_hud_msg(&"ZOMBIE_GRIEF_LOSE_LEAD", undefined, undefined, 30, delay);
-				}
+				player thread show_grief_hud_msg(&"ZOMBIE_GRIEF_GAIN_LEAD", undefined, undefined, 30, delay);
+			}
+
+			foreach (player in other_team_players)
+			{
+				player thread show_grief_hud_msg(&"ZOMBIE_GRIEF_LOSE_LEAD", undefined, undefined, 30, delay);
 			}
 		}
 	}
