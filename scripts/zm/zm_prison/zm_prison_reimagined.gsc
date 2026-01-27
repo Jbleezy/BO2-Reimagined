@@ -109,7 +109,6 @@ init()
 
 	level.zombie_init_done = ::zombie_init_done;
 	level.special_weapon_magicbox_check = ::check_for_special_weapon_limit_exist;
-	level.custom_door_buy_check = ::door_buy_afterlife_check;
 
 	level.zombie_vars["below_world_check"] = -15000;
 
@@ -228,16 +227,6 @@ check_for_special_weapon_limit_exist(weapon)
 	}
 
 	return 1;
-}
-
-door_buy_afterlife_check(door)
-{
-	if (isDefined(level.is_player_valid_override))
-	{
-		return [[level.is_player_valid_override]](self);
-	}
-
-	return true;
 }
 
 player_initial_spawn_override()

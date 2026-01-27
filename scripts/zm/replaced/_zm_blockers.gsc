@@ -41,43 +41,45 @@ door_buy()
 		return false;
 	}
 
-	if (is_player_valid(who))
+	if (!is_player_valid(who))
 	{
-		players = get_players();
-		cost = self.zombie_cost;
+		return false;
+	}
 
-		if (who maps\mp\zombies\_zm_pers_upgrades_functions::is_pers_double_points_active())
-		{
-			cost = who maps\mp\zombies\_zm_pers_upgrades_functions::pers_upgrade_double_points_cost(cost);
-		}
+	players = get_players();
+	cost = self.zombie_cost;
 
-		if (self._door_open == 1)
+	if (who maps\mp\zombies\_zm_pers_upgrades_functions::is_pers_double_points_active())
+	{
+		cost = who maps\mp\zombies\_zm_pers_upgrades_functions::pers_upgrade_double_points_cost(cost);
+	}
+
+	if (self._door_open == 1)
+	{
+		self.purchaser = undefined;
+	}
+	else if (who.score >= cost)
+	{
+		who maps\mp\zombies\_zm_score::minus_to_player_score(cost, 1);
+		maps\mp\_demo::bookmark("zm_player_door", gettime(), who);
+		who maps\mp\zombies\_zm_stats::increment_client_stat("doors_purchased");
+		who maps\mp\zombies\_zm_stats::increment_player_stat("doors_purchased");
+		self.purchaser = who;
+	}
+	else
+	{
+		play_sound_at_pos("no_purchase", self.origin);
+
+		if (isdefined(level.custom_generic_deny_vo_func))
 		{
-			self.purchaser = undefined;
-		}
-		else if (who.score >= cost)
-		{
-			who maps\mp\zombies\_zm_score::minus_to_player_score(cost, 1);
-			maps\mp\_demo::bookmark("zm_player_door", gettime(), who);
-			who maps\mp\zombies\_zm_stats::increment_client_stat("doors_purchased");
-			who maps\mp\zombies\_zm_stats::increment_player_stat("doors_purchased");
-			self.purchaser = who;
+			who thread [[level.custom_generic_deny_vo_func]](1);
 		}
 		else
 		{
-			play_sound_at_pos("no_purchase", self.origin);
-
-			if (isdefined(level.custom_generic_deny_vo_func))
-			{
-				who thread [[level.custom_generic_deny_vo_func]](1);
-			}
-			else
-			{
-				who maps\mp\zombies\_zm_audio::create_and_play_dialog("general", "door_deny");
-			}
-
-			return false;
+			who maps\mp\zombies\_zm_audio::create_and_play_dialog("general", "door_deny");
 		}
+
+		return false;
 	}
 
 	if (isdefined(level._door_open_rumble_func))
