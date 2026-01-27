@@ -73,9 +73,6 @@ turn_to_zombie()
 	self allowprone(0);
 	self allowcrouch(0);
 	self allowads(0);
-	self setmovespeedscale(1);
-	self setsprintduration(4);
-	self setsprintcooldown(0);
 	self setburn(0);
 	self stopshellshock();
 	self detachall();
