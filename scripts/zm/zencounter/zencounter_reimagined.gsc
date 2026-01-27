@@ -331,6 +331,7 @@ grief_onplayerconnect()
 	self.killsconfirmed = 0;
 	self.killsdenied = 0;
 	self.captures = 0;
+	self.returns = 0;
 
 	if (is_respawn_gamemode())
 	{
@@ -493,6 +494,8 @@ on_player_downed()
 	{
 		self waittill("entering_last_stand");
 
+		self kill_feed();
+
 		if (level.scr_zm_ui_gametype == "zturned")
 		{
 			if (self.team == level.zombie_team)
@@ -508,7 +511,6 @@ on_player_downed()
 			}
 		}
 
-		self kill_feed();
 		self add_grief_downed_score();
 
 		if (level.scr_zm_ui_gametype == "zrace")
@@ -574,7 +576,10 @@ on_player_bled_out()
 
 		if (!is_respawn_gamemode() || is_true(self.playersuicided))
 		{
-			self thread bleedout_feed();
+			if (!is_true(self.is_zombie))
+			{
+				self thread bleedout_feed();
+			}
 		}
 
 		if (level.scr_zm_ui_gametype == "zgrief")
@@ -656,39 +661,47 @@ on_player_zom_kill()
 
 kill_feed()
 {
-	if (isDefined(self.last_griefed_by))
+	if (isDefined(self.last_damaged_by))
 	{
-		self.last_griefed_by.attacker.killsconfirmed++;
+		if (is_true(self.is_zombie) || is_true(self.last_damaged_by.attacker.is_zombie))
+		{
+			self.last_damaged_by.attacker.returns++;
+			self.last_damaged_by.attacker.kills--;
+		}
+		else
+		{
+			self.last_damaged_by.attacker.killsconfirmed++;
+		}
 
 		// show weapon icon for melee damage
-		if (self.last_griefed_by.meansofdeath == "MOD_MELEE")
+		if (self.last_damaged_by.meansofdeath == "MOD_MELEE")
 		{
-			self.last_griefed_by.meansofdeath = "MOD_UNKNOWN";
+			self.last_damaged_by.meansofdeath = "MOD_UNKNOWN";
 
 			// show melee weapon icon on Ballistic Knife w/ Bowie melee or Ballistic Knife w/ Galvaknuckles melee
-			if (issubstr(self.last_griefed_by.weapon, "knife_ballistic_bowie"))
+			if (issubstr(self.last_damaged_by.weapon, "knife_ballistic_bowie"))
 			{
-				self.last_griefed_by.weapon = "held_bowie_knife_zm";
+				self.last_damaged_by.weapon = "held_bowie_knife_zm";
 			}
-			else if (issubstr(self.last_griefed_by.weapon, "knife_ballistic_no_melee"))
+			else if (issubstr(self.last_damaged_by.weapon, "knife_ballistic_no_melee"))
 			{
-				self.last_griefed_by.weapon = "held_tazer_knuckles_zm";
+				self.last_damaged_by.weapon = "held_tazer_knuckles_zm";
 			}
 		}
 
 		// show weapon icon for impact damage
-		if (self.last_griefed_by.meansofdeath == "MOD_IMPACT")
+		if (self.last_damaged_by.meansofdeath == "MOD_IMPACT")
 		{
-			self.last_griefed_by.meansofdeath = "MOD_UNKNOWN";
+			self.last_damaged_by.meansofdeath = "MOD_UNKNOWN";
 		}
 
 		// weapon icon only defined on held melee weapon
-		if (is_melee_weapon(self.last_griefed_by.weapon))
+		if (is_melee_weapon(self.last_damaged_by.weapon))
 		{
-			self.last_griefed_by.weapon = get_held_melee_weapon(self.last_griefed_by.weapon);
+			self.last_damaged_by.weapon = get_held_melee_weapon(self.last_damaged_by.weapon);
 		}
 
-		obituary(self, self.last_griefed_by.attacker, self.last_griefed_by.weapon, self.last_griefed_by.meansofdeath);
+		obituary(self, self.last_damaged_by.attacker, self.last_damaged_by.weapon, self.last_damaged_by.meansofdeath);
 	}
 	else if (isDefined(self.last_meated_by))
 	{
@@ -704,7 +717,14 @@ kill_feed()
 	}
 	else
 	{
-		obituary(self, self, "none", "MOD_CRUSH");
+		if (is_true(self.is_zombie))
+		{
+			obituary(self, self, "none", "MOD_SUICIDE");
+		}
+		else
+		{
+			obituary(self, self, "none", "MOD_CRUSH");
+		}
 	}
 }
 
@@ -781,9 +801,9 @@ add_grief_downed_score()
 {
 	downed_by = undefined;
 
-	if (isDefined(self.last_griefed_by))
+	if (isDefined(self.last_damaged_by))
 	{
-		downed_by = self.last_griefed_by;
+		downed_by = self.last_damaged_by;
 	}
 	else if (isDefined(self.last_meated_by))
 	{
@@ -1735,10 +1755,10 @@ stun_score_steal(attacker, score)
 
 store_player_damage_info(attacker, weapon, meansofdeath)
 {
-	self.last_griefed_by = spawnStruct();
-	self.last_griefed_by.attacker = attacker;
-	self.last_griefed_by.weapon = weapon;
-	self.last_griefed_by.meansofdeath = meansofdeath;
+	self.last_damaged_by = spawnStruct();
+	self.last_damaged_by.attacker = attacker;
+	self.last_damaged_by.weapon = weapon;
+	self.last_damaged_by.meansofdeath = meansofdeath;
 
 	self thread remove_player_damage_info();
 }
@@ -1753,12 +1773,12 @@ remove_player_damage_info()
 	time = getTime();
 	max_time = 3000;
 
-	while (((getTime() - time) < max_time || self.health < health) && is_player_valid(self))
+	while (((getTime() - time) < max_time || self.health < health) && (is_player_valid(self) || is_true(self.is_zombie)))
 	{
 		wait_network_frame();
 	}
 
-	self.last_griefed_by = undefined;
+	self.last_damaged_by = undefined;
 }
 
 grief_laststand_weapon_save(einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration)
