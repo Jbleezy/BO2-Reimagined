@@ -111,3 +111,48 @@ turned_give_melee_weapon()
 	self givemaxammo("zombiemelee_zm");
 	self switchtoweapon("zombiemelee_zm");
 }
+
+turned_player_buttons()
+{
+	self endon("disconnect");
+	self endon("spawned_spectator");
+	self endon("humanify");
+	level endon("end_game");
+
+	while (isdefined(self.is_zombie) && self.is_zombie)
+	{
+		if (self attackbuttonpressed() || self adsbuttonpressed() || self meleebuttonpressed())
+		{
+			if (cointoss())
+			{
+				self thread maps\mp\zombies\_zm_audio::do_zombies_playvocals("attack", undefined);
+			}
+
+			while (self attackbuttonpressed() || self adsbuttonpressed() || self meleebuttonpressed())
+			{
+				wait 0.05;
+			}
+		}
+
+		if (self usebuttonpressed())
+		{
+			self thread maps\mp\zombies\_zm_audio::do_zombies_playvocals("taunt", undefined);
+
+			while (self usebuttonpressed())
+			{
+				wait 0.05;
+			}
+		}
+
+		if (self issprinting())
+		{
+			while (self issprinting())
+			{
+				self thread maps\mp\zombies\_zm_audio::do_zombies_playvocals("sprint", undefined);
+				wait 0.05;
+			}
+		}
+
+		wait 0.05;
+	}
+}
