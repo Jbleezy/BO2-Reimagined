@@ -40,6 +40,7 @@ turn_to_zombie()
 {
 	self notify("clear_red_flashing_overlay");
 	self notify("zombified");
+	self notify("fake_death");
 
 	maps\mp\_visionset_mgr::vsmgr_activate("visionset", "zm_turned", self);
 	self setclientfield("player_has_eyes", 1);

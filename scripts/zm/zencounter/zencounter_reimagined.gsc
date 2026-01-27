@@ -332,7 +332,7 @@ grief_onplayerconnect()
 	self.killsdenied = 0;
 	self.captures = 0;
 
-	if (level.scr_zm_ui_gametype != "zsr")
+	if (is_respawn_gamemode())
 	{
 		self._retain_perks = 1;
 	}

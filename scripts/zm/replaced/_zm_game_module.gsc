@@ -160,17 +160,8 @@ round_end(winner)
 	{
 		if (is_player_valid(player))
 		{
-			// don't give perk
-			player notify("perk_abort_drinking");
-
-			// stop active perks
-			if (isDefined(player.perks_active))
-			{
-				foreach (perk in player.perks_active)
-				{
-					player notify(perk + "_stop");
-				}
-			}
+			// stop perks
+			player notify("fake_death");
 
 			// save weapons
 			player [[level._game_module_player_laststand_callback]]();
