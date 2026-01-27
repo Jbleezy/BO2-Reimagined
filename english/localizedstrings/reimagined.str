@@ -409,13 +409,13 @@ REFERENCE           ZOMBIE_RUN_FROM_DISEASE
 LANG_ENGLISH        "Run from the disease!"
 
 REFERENCE           ZOMBIE_SURVIVOR_DOWN
-LANG_ENGLISH        "Survivor Down! [&&1 Remaining]"
+LANG_ENGLISH        "Survivor Down! [&&1 V &&2]"
 
 REFERENCE           ZOMBIE_SURVIVOR_REVIVED
-LANG_ENGLISH        "Survivor Revived! [&&1 Remaining]"
+LANG_ENGLISH        "Survivor Revived! [&&1 V &&2]"
 
 REFERENCE           ZOMBIE_SURVIVOR_TURNED
-LANG_ENGLISH        "Survivor Turned! [&&1 Remaining]"
+LANG_ENGLISH        "Survivor Turned! [&&1 V &&2]"
 
 REFERENCE           ZM_PRISON_SHIELD
 LANG_ENGLISH        "Zombie Shield"

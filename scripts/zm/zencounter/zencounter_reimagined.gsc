@@ -426,6 +426,7 @@ on_player_spawned()
 	self endon("disconnect");
 
 	self.grief_initial_spawn = true;
+	self.turned_initial_spawn = true;
 
 	while (1)
 	{
@@ -434,6 +435,16 @@ on_player_spawned()
 
 		if (level.scr_zm_ui_gametype == "zturned")
 		{
+			if (self.turned_initial_spawn)
+			{
+				self.turned_initial_spawn = false;
+
+				if (self.team == level.zombie_team)
+				{
+					increment_score(getotherteam(self.team), 0, 0, &"ZOMBIE_SURVIVOR_TURNED");
+				}
+			}
+
 			if (self.team == level.zombie_team)
 			{
 				self maps\mp\zombies\_zm_turned::turn_to_zombie();
@@ -3380,6 +3391,7 @@ the_disease_powerup_infinite_time()
 
 turned_turn_to_zombie_init()
 {
+	team = self.team;
 	amount = -1;
 
 	if (self maps\mp\zombies\_zm_laststand::player_is_in_laststand())
@@ -3388,11 +3400,11 @@ turned_turn_to_zombie_init()
 		self thread maps\mp\zombies\_zm_laststand::auto_revive(self);
 	}
 
-	increment_score(self.team, amount, 0, &"ZOMBIE_SURVIVOR_TURNED");
-
 	self scripts\zm\_zm_reimagined::set_team(level.zombie_team);
 
 	self maps\mp\zombies\_zm_turned::turn_to_zombie();
+
+	increment_score(team, amount, 0, &"ZOMBIE_SURVIVOR_TURNED");
 }
 
 turned_spectate_and_respawn()
@@ -3453,6 +3465,8 @@ increment_score(team, amount = 1, show_lead_msg = true, score_msg)
 	level endon("end_game");
 
 	other_team = getotherteam(team);
+	players = get_players(team);
+	other_players = get_players(other_team);
 	encounters_team = "A";
 	other_encounters_team = "B";
 
@@ -3523,9 +3537,6 @@ increment_score(team, amount = 1, show_lead_msg = true, score_msg)
 		other_score = level.grief_score[other_encounters_team];
 		score_remaining = get_gamemode_winning_score() - score;
 
-		players = get_players(team);
-		other_players = get_players(other_team);
-
 		foreach (player in players)
 		{
 			player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_PLAYER_DEAD", score, other_score);
@@ -3563,11 +3574,46 @@ increment_score(team, amount = 1, show_lead_msg = true, score_msg)
 	{
 		if (isdefined(score_msg))
 		{
-			players = get_players();
+			score = level.grief_score[encounters_team];
+			other_score = other_players.size;
 
 			foreach (player in players)
 			{
-				player thread show_grief_hud_msg(score_msg, level.grief_score[encounters_team]);
+				player thread show_grief_hud_msg(score_msg, score, other_score);
+			}
+
+			foreach (player in other_players)
+			{
+				player thread show_grief_hud_msg(score_msg, other_score, score);
+			}
+
+			if (score_msg == &"ZOMBIE_SURVIVOR_TURNED")
+			{
+				if (other_score <= 3)
+				{
+					level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog(other_score + "_player_down");
+				}
+			}
+			else
+			{
+				if (score <= 1)
+				{
+					foreach (player in players)
+					{
+						if (player.team != level.zombie_team && is_player_valid(player))
+						{
+							player thread maps\mp\zombies\_zm_audio_announcer::leaderdialogonplayer("last_player");
+						}
+						else
+						{
+							player thread maps\mp\zombies\_zm_audio_announcer::leaderdialogonplayer(score + "_player_left");
+						}
+					}
+				}
+				else if (score <= 3)
+				{
+					level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog(score + "_player_left");
+				}
 			}
 		}
 	}
@@ -3584,8 +3630,6 @@ increment_score(team, amount = 1, show_lead_msg = true, score_msg)
 			{
 				delay = 1;
 			}
-
-			players = get_players();
 
 			foreach (player in players)
 			{
