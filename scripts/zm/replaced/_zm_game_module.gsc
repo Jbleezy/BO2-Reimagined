@@ -230,6 +230,8 @@ round_end(winner)
 
 game_won(winner)
 {
+	waittillframeend;
+
 	level.gamemodulewinningteam = winner;
 	level.zombie_vars["spectators_respawn"] = 0;
 	players = get_players();
