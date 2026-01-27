@@ -1636,7 +1636,7 @@
 
 #### Turned
 * Survivors score starts at the amount of survivors
-* Zombies score starts at at the amount of survivors multiplied by 50
+* Zombies score starts at the amount of survivors multiplied by 50
 * Survivors reduce zombies score by killing zombies
 * Zombies reduce survivors score by turning survivors
 * Reduce the enemy score to 0 to win the game
@@ -1644,6 +1644,7 @@
 * All players that join mid game start as zombies
 * Disease powerup spawns at survivor initial spawn points after 10 seconds and chases after the closest survivor
 * Survivors become zombies when they bleed out
+* Zombies see survivors and other zombies through walls
 * Zombies respawn after 10 seconds
 
 ### Encounter Pro

@@ -117,6 +117,8 @@ material,chalkmarks_hellcatraz_3
 material,chalkmarks_hellcatraz_4
 material,chalkmarks_hellcatraz_5
 
+material,waypoint_kill_red
+
 material,mc/mtl_c_zom_guard_body
 material,mc/mtl_c_zom_inmate_barechest
 material,mc/mtl_c_zom_inmate_details
