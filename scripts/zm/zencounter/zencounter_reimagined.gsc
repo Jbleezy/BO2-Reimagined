@@ -3306,7 +3306,6 @@ turned_init()
 {
 	maps\mp\zombies\_zm_turned::init();
 
-	level.is_zombie_level = undefined;
 	level.decrement_score = 1;
 	level.force_team_characters = 1;
 	level.should_use_cia = 0;
