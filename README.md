@@ -1638,7 +1638,7 @@
 * Survivors score starts at the amount of survivors
 * Zombies score starts at the amount of survivors multiplied by 50
 * Survivors reduce zombies score by killing zombies
-* Zombies reduce survivors score by turning survivors
+* Zombies reduce survivors score by downing survivors
 * Reduce the enemy score to 0 to win the game
 * All players start as survivors
 * All players that join mid game start as zombies

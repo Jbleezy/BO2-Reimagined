@@ -499,6 +499,11 @@ on_player_downed()
 				self thread turned_spectate_and_respawn();
 				continue;
 			}
+
+			if (self.team != level.zombie_team)
+			{
+				increment_score(self.team, -1, 0, &"ZOMBIE_SURVIVOR_DOWN");
+			}
 		}
 
 		self kill_feed();
@@ -537,6 +542,14 @@ on_player_revived()
 			if (level.scr_zm_ui_gametype == "zsr")
 			{
 				level thread update_players_on_revived(self, reviver);
+			}
+
+			if (level.scr_zm_ui_gametype == "zturned")
+			{
+				if (self.team != level.zombie_team)
+				{
+					increment_score(self.team, 1, 0, &"ZOMBIE_SURVIVOR_REVIVED");
+				}
 			}
 		}
 	}
@@ -3367,11 +3380,19 @@ the_disease_powerup_infinite_time()
 
 turned_turn_to_zombie_init()
 {
+	amount = -1;
+
+	if (self maps\mp\zombies\_zm_laststand::player_is_in_laststand())
+	{
+		amount = 0;
+		self thread maps\mp\zombies\_zm_laststand::auto_revive(self);
+	}
+
+	increment_score(self.team, amount, 0, &"ZOMBIE_SURVIVOR_TURNED");
+
 	self scripts\zm\_zm_reimagined::set_team(level.zombie_team);
 
 	self maps\mp\zombies\_zm_turned::turn_to_zombie();
-
-	increment_score("allies", -1, 0, &"ZOMBIE_SURVIVOR_TURNED");
 }
 
 turned_spectate_and_respawn()

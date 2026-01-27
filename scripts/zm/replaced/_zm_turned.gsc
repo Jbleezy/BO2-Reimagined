@@ -38,11 +38,6 @@ init()
 
 turn_to_zombie()
 {
-	if (self maps\mp\zombies\_zm_laststand::player_is_in_laststand())
-	{
-		self thread maps\mp\zombies\_zm_laststand::auto_revive(self);
-	}
-
 	self notify("clear_red_flashing_overlay");
 	self notify("zombified");
 
