@@ -62,3 +62,51 @@ CoD.PrivateGameLobby.PopulateButtonPrompts = function(PrivateGameLobbyWidget)
 		PrivateGameLobbyWidget:addNATType()
 	end
 end
+
+CoD.PrivateGameLobby.ShouldDisableStartButton_Zombie = function(StartMatchButton, ClientInstance)
+	local DisableStartButton = false
+	local GamemodeGroup = UIExpression.DvarString(nil, "ui_zm_gamemodegroup")
+	local Gametype = UIExpression.DvarString(nil, "ui_gametype")
+	local PartyPlayerCount = Engine.PartyGetPlayerCount()
+
+	if Engine.GameModeIsMode(CoD.GAMEMODE_LOCAL_SPLITSCREEN) == true and PartyPlayerCount > 2 then
+		if true == Dvar.r_dualPlayEnable:get() then
+			DisableStartButton = true
+			StartMatchButton.hintText = Engine.Localize("ZMUI_START_MATCH_DUALVIEW_DISABLED_DESC", CoD.Zombie.GameTypeGroups[Gametype].maxPlayers)
+		elseif true == Dvar.r_stereo3DOn:get() then
+			DisableStartButton = true
+			StartMatchButton.hintText = Engine.Localize("ZMUI_START_MATCH_STEREOSCOPIC3D_DISABLED_DESC", CoD.Zombie.GameTypeGroups[Gametype].maxPlayers)
+		else
+			StartMatchButton.hintText = Engine.Localize("MPUI_START_MATCH_DESC")
+		end
+
+		if DisableStartButton == true then
+			return DisableStartButton
+		end
+	end
+
+	if Engine.GetGametypeSetting("teamCount") > 1 then
+		local PartyTeamAlliesCount = Engine.PartyGetTeamMemberCount(CoD.TEAM_ALLIES)
+		local PartyTeamAxisCount = Engine.PartyGetTeamMemberCount(CoD.TEAM_AXIS)
+
+		if PartyTeamAlliesCount > CoD.Zombie.GameTypeGroups[Gametype].maxTeamPlayers or PartyTeamAxisCount > CoD.Zombie.GameTypeGroups[Gametype].maxTeamPlayers then
+			DisableStartButton = true
+			StartMatchButton.hintText = Engine.Localize("ZMUI_START_MATCH_MAX_TEAM_PLAYERS_DESC", CoD.Zombie.GameTypeGroups[Gametype].maxTeamPlayers)
+		elseif PartyTeamAlliesCount < CoD.Zombie.GameTypeGroups[Gametype].minTeamPlayers or PartyTeamAxisCount < CoD.Zombie.GameTypeGroups[Gametype].minTeamPlayers then
+			DisableStartButton = true
+			StartMatchButton.hintText = Engine.Localize("ZMUI_START_MATCH_MIN_TEAM_PLAYERS_DESC")
+		else
+			StartMatchButton.hintText = Engine.Localize("MPUI_START_MATCH_DESC")
+		end
+	elseif PartyPlayerCount > CoD.Zombie.GameTypeGroups[Gametype].maxPlayers then
+		DisableStartButton = true
+		StartMatchButton.hintText = Engine.Localize("ZMUI_START_MATCH_MAX_TOTAL_PLAYERS_DESC", CoD.Zombie.GameTypeGroups[Gametype].maxPlayers)
+	elseif PartyPlayerCount < CoD.Zombie.GameTypeGroups[Gametype].minPlayers then
+		DisableStartButton = true
+		StartMatchButton.hintText = Engine.Localize("ZMUI_START_MATCH_MIN_TOTAL_PLAYERS_DESC", CoD.Zombie.GameTypeGroups[Gametype].minPlayers)
+	else
+		StartMatchButton.hintText = Engine.Localize("MPUI_START_MATCH_DESC")
+	end
+
+	return DisableStartButton
+end
