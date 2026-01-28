@@ -285,10 +285,14 @@ end
 
 CoD.PrivateGameLobby.PopulateButtons_Project_Zombie = function(PrivateGameLobbyButtonPane, IsHost)
 	if IsHost == true then
-		PrivateGameLobbyButtonPane.body.changeMapButton = PrivateGameLobbyButtonPane.body.buttonList:addButton(Engine.Localize("ZMUI_MAP_CAPS"))
-		PrivateGameLobbyButtonPane.body.changeMapButton.hintText = Engine.Localize("ZMUI_MAP_SELECTION_DESC")
-		PrivateGameLobbyButtonPane.body.changeMapButton:setActionEventName("open_change_startLoc")
+		PrivateGameLobbyButtonPane.body.changeMapButton = PrivateGameLobbyButtonPane.body.buttonList:addButton(Engine.Localize("MPUI_CHANGE_MAP_CAPS"))
+		PrivateGameLobbyButtonPane.body.changeMapButton.hintText = Engine.Localize("MPUI_CHANGE_MAP_DESC")
+		PrivateGameLobbyButtonPane.body.changeMapButton:setActionEventName("open_change_map")
 		PrivateGameLobbyButtonPane.body.changeMapButton:registerEventHandler("button_update", CoD.PrivateGameLobby.Button_UpdateHostButton)
+		PrivateGameLobbyButtonPane.body.changeGameModeButton = PrivateGameLobbyButtonPane.body.buttonList:addButton(Engine.Localize("MPUI_CHANGE_GAME_MODE_CAPS"))
+		PrivateGameLobbyButtonPane.body.changeGameModeButton.hintText = Engine.Localize("MPUI_CHANGE_GAME_MODE_DESC")
+		PrivateGameLobbyButtonPane.body.changeGameModeButton:setActionEventName("open_change_game_mode")
+		PrivateGameLobbyButtonPane.body.changeGameModeButton:registerEventHandler("button_update", CoD.PrivateGameLobby.Button_UpdateHostButton)
 		PrivateGameLobbyButtonPane.body.buttonList:addSpacer(CoD.CoD9Button.Height * 1)
 		-- local SetupGameText = Engine.Localize("MPUI_SETUP_GAME_CAPS")
 		-- local f9_local1_1, f9_local1_2, f9_local1_3, f9_local1_4 = GetTextDimensions(SetupGameText, CoD.CoD9Button.Font, CoD.CoD9Button.TextHeight)
@@ -471,15 +475,21 @@ CoD.PrivateGameLobby.LeaveLobby_Project = function(PrivateGameLobbyWidget, Clien
 end
 
 CoD.PrivateGameLobby.OpenChangeStartLoc = function(PrivateGameLobbyWidget, ClientInstance)
-	if UIExpression.DvarString(nil, "ui_gameType") == "zclassic" then
-		local f27_local0 = PrivateGameLobbyWidget:openMenu("SelectMapListZM", ClientInstance.controller)
-	else
-		local f27_local0 = PrivateGameLobbyWidget:openMenu("SelectLocationListZM", ClientInstance.controller)
-	end
-	-- local f27_local0 = PrivateGameLobbyWidget:openMenu("SelectStartLocZM", ClientInstance.controller)
-	-- f27_local0:setPreviousMenu("SelectMapZM")
-	-- CoD.SelectStartLocZombie.GoToPreChoices(f27_local0, ClientInstance)
+	Engine.PartyHostSetUIState(CoD.PARTYHOST_STATE_SELECTING_GAMETYPE)
+	local f27_local0 = PrivateGameLobbyWidget:openMenu("SelectStartLocZM", ClientInstance.controller)
+	f27_local0:setPreviousMenu("SelectMapZM")
+	CoD.SelectStartLocZombie.GoToPreChoices(f27_local0, ClientInstance)
 	PrivateGameLobbyWidget:close()
+end
+
+CoD.PrivateGameLobby.OpenChangeMapZM = function(PrivateGameLobbyWidget, ClientInstance)
+	Engine.PartyHostSetUIState(CoD.PARTYHOST_STATE_SELECTING_MAP)
+	PrivateGameLobbyWidget:openPopup("SelectMapListZM", ClientInstance.controller)
+end
+
+CoD.PrivateGameLobby.OpenChangeGameModeZM = function(PrivateGameLobbyWidget, ClientInstance)
+	Engine.PartyHostSetUIState(CoD.PARTYHOST_STATE_SELECTING_GAMETYPE)
+	PrivateGameLobbyWidget:openPopup("SelectGameModeListZM", ClientInstance.controller)
 end
 
 CoD.PrivateGameLobby.OpenSetupGameFlyout = function(PrivateGameLobbyWidget, f28_arg1)
@@ -545,8 +555,8 @@ CoD.PrivateGameLobby.RegisterEventHandler_Project = function(PrivateGameLobbyWid
 	if CoD.isZombie == true then
 		PrivateGameLobbyWidget:registerEventHandler("open_change_startLoc", CoD.PrivateGameLobby.OpenChangeStartLoc)
 		PrivateGameLobbyWidget:registerEventHandler("open_setup_game_flyout", CoD.PrivateGameLobby.OpenSetupGameFlyout)
-		-- PrivateGameLobbyWidget:registerEventHandler("open_change_map", CoD.PrivateGameLobby.OpenChangeMap)
-		-- PrivateGameLobbyWidget:registerEventHandler("open_change_game_mode", CoD.PrivateGameLobby.OpenChangeGameMode)
+		PrivateGameLobbyWidget:registerEventHandler("open_change_map", CoD.PrivateGameLobby.OpenChangeMapZM)
+		PrivateGameLobbyWidget:registerEventHandler("open_change_game_mode", CoD.PrivateGameLobby.OpenChangeGameModeZM)
 		PrivateGameLobbyWidget:registerEventHandler("open_editGameOptions_menu", CoD.PrivateGameLobby.OpenEditGameOptionsMenu)
 		PrivateGameLobbyWidget:registerEventHandler("open_viewGameOptions_menu", CoD.PrivateGameLobby.OpenViewGameOptionsMenu)
 	else

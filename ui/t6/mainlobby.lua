@@ -133,7 +133,7 @@ CoD.MainLobby.OpenPlayerMatchPartyLobby = function(MainLobbyWidget, ClientInstan
 			if CoD.isZombie == true then
 				Engine.PartyHostSetUIState(CoD.PARTYHOST_STATE_SELECTING_PLAYLIST)
 				CoD.PlaylistCategoryFilter = "playermatch"
-				MainLobbyWidget:openMenu("SelectGameModeListZM", ClientInstance.controller)
+				MainLobbyWidget:openMenu("SelectMapZM", ClientInstance.controller)
 				CoD.GameGlobeZombie.MoveToCenter(ClientInstance.controller)
 			else
 				MainLobbyWidget:openMenu("PlayerMatchPartyLobby", ClientInstance.controller)
@@ -190,7 +190,7 @@ CoD.MainLobby.OpenCustomGamesLobby = function(MainLobbyWidget, ClientInstance)
 		CoD.SwitchToPrivateLobby(ClientInstance.controller)
 		if CoD.isZombie == true then
 			CoD.MainLobby.InitMapDvars(ClientInstance.controller)
-			MainLobbyWidget:openMenu("SelectGameModeListZM", ClientInstance.controller)
+			MainLobbyWidget:openMenu("PrivateOnlineGameLobby", ClientInstance.controller)
 			CoD.GameGlobeZombie.MoveToUpDirectly()
 		else
 			local PrivateOnlineLobbyMenu = MainLobbyWidget:openMenu("PrivateOnlineGameLobby", ClientInstance.controller)
@@ -208,7 +208,7 @@ CoD.MainLobby.OpenSoloLobby_Zombie = function(MainLobbyWidget, ClientInstance)
 			Engine.SetDvar("party_solo", 1)
 			Dvar.party_maxplayers:set(1)
 			CoD.MainLobby.InitMapDvars(ClientInstance.controller)
-			MainLobbyWidget:openMenu("SelectGameModeListZM", ClientInstance.controller)
+			MainLobbyWidget:openMenu("PrivateOnlineGameLobby", ClientInstance.controller)
 			CoD.GameGlobeZombie.MoveToUpDirectly()
 			MainLobbyWidget:close()
 		end
@@ -217,7 +217,18 @@ end
 
 CoD.MainLobby.InitMapDvars = function(controller)
 	local gametype = UIExpression.ProfileValueAsString(controller, CoD.profileKey_gametype)
-	local map = UIExpression.ProfileValueAsString(controller, CoD.profileKey_map)
+	local map, location = string.match(UIExpression.ProfileValueAsString(controller, CoD.profileKey_map), "(.*) (.*)")
+
+	if gametype == nil or map == nil or location == nil then
+		gametype = "zclassic"
+		map = "zm_transit"
+		location = "nuked"
+
+		Engine.SetProfileVar(controller, CoD.profileKey_gametype, gametype)
+		Engine.SetProfileVar(controller, CoD.profileKey_map, map .. " " .. location)
+		Engine.CommitProfileChanges(controller)
+	end
+
 	local gametypeTable = CoD.SelectMapListZombie.GameModes
 	local gametypeIndex = CoD.SelectMapListZombie.GetKeyValueIndex(gametypeTable, "ui_gametype", gametype)
 	local mapTable = {}
@@ -228,7 +239,7 @@ CoD.MainLobby.InitMapDvars = function(controller)
 		mapIndex = CoD.SelectMapListZombie.GetKeyValueIndex(mapTable, "ui_mapname", map)
 	else
 		mapTable = CoD.SelectMapListZombie.Locations
-		mapIndex = CoD.SelectMapListZombie.GetKeyValueIndex(mapTable, "ui_zm_mapstartlocation", map)
+		mapIndex = CoD.SelectMapListZombie.GetKeyValueIndex(mapTable, "ui_zm_mapstartlocation", location)
 	end
 
 	Engine.SetDvar("ui_zm_gamemodegroup", gametypeTable[gametypeIndex].ui_zm_gamemodegroup)

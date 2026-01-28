@@ -23,21 +23,13 @@ LUI.createMenu.PrivateOnlineGameLobby = function(f1_arg0)
 
 	if UIExpression.DvarBool(nil, "party_solo") == 1 then
 		Engine.PartySetMaxPlayerCount(1)
-	end
 
-	Engine.PartyHostClearUIState()
-
-	if CoD.PrivateGameLobby.FadeIn == true then
-		CoD.PrivateGameLobby.FadeIn = nil
-
-		f1_local0:registerAnimationState("hide", {
-			alpha = 0,
-		})
-		f1_local0:animateToState("hide")
-		f1_local0:registerAnimationState("show", {
-			alpha = 1,
-		})
-		f1_local0:animateToState("show", 500)
+		if UIExpression.DvarString(nil, "ui_zm_gamemodegroup") == "zencounter" then
+			Engine.SetDvar("ui_zm_gamemodegroup", "zsurvival")
+			Engine.SetDvar("ui_gametype", "zstandard")
+			Engine.SetProfileVar(f1_arg0, CoD.profileKey_gametype, "zstandard")
+			Engine.CommitProfileChanges(f1_arg0)
+		end
 	end
 
 	return f1_local0

@@ -145,65 +145,47 @@ CoD.SelectMapListZombie.GetKeyValueIndex = function(table, key, value)
 	return 1
 end
 
-local function setGameModeDvars(controller, commit)
-	local index = CoD.SelectMapListZombie.GameModeIndex
-
-	if index ~= nil then
-		Engine.SetDvar("ui_zm_gamemodegroup", CoD.SelectMapListZombie.GameModes[index].ui_zm_gamemodegroup)
-		Engine.SetGametype(CoD.SelectMapListZombie.GameModes[index].ui_gametype)
-
-		Engine.SetProfileVar(controller, CoD.profileKey_gametype, CoD.SelectMapListZombie.GameModes[index].ui_gametype)
-	end
-
-	if commit then
-		Engine.CommitProfileChanges(controller)
-	end
-end
-
-local function setMapDvars(controller, commit)
-	local index = CoD.SelectMapListZombie.MapIndex
-
-	if index ~= nil then
-		Engine.SetDvar("ui_mapname", CoD.SelectMapListZombie.Maps[index].ui_mapname)
-		Engine.SetDvar("ui_zm_mapstartlocation", CoD.SelectMapListZombie.Maps[index].ui_zm_mapstartlocation)
-
-		Engine.SetProfileVar(controller, CoD.profileKey_map, CoD.SelectMapListZombie.Maps[index].ui_mapname)
-	end
-
-	if commit then
-		Engine.CommitProfileChanges(controller)
-	end
-end
-
-local function setLocationDvars(controller, commit)
-	local index = CoD.SelectMapListZombie.LocationIndex
-
-	if index ~= nil then
-		Engine.SetDvar("ui_mapname", CoD.SelectMapListZombie.Locations[index].ui_mapname)
-		Engine.SetDvar("ui_zm_mapstartlocation", CoD.SelectMapListZombie.Locations[index].ui_zm_mapstartlocation)
-
-		Engine.SetProfileVar(controller, CoD.profileKey_map, CoD.SelectMapListZombie.Locations[index].ui_zm_mapstartlocation)
-	end
-
-	if commit then
-		Engine.CommitProfileChanges(controller)
-	end
-end
-
-local function gameModeListFocusChangedEventHandler(self, event)
-	CoD.SelectMapListZombie.GameModeIndex = self.listBox:getFocussedIndex()
-end
-
 local function gameModeListSelectionClickedEventHandler(self, event)
-	CoD.SelectMapListZombie.GameModeIndex = self.listBox:getFocussedIndex()
+	local index = self.listBox:getFocussedIndex()
 
-	if CoD.SelectMapListZombie.GameModes[CoD.SelectMapListZombie.GameModeIndex].ui_gametype == "zclassic" then
-		self:openMenu("SelectMapListZM", self.controller)
-	else
-		self:openMenu("SelectLocationListZM", self.controller)
+	if index ~= nil then
+		local prevTeamCount = Engine.GetGametypeSetting("teamCount")
+
+		local gameTable = CoD.SelectMapListZombie.GameModes
+
+		Engine.SetDvar("ui_zm_gamemodegroup", gameTable[index].ui_zm_gamemodegroup)
+		Engine.SetGametype(gameTable[index].ui_gametype)
+
+		local map, location = string.match(UIExpression.ProfileValueAsString(controller, CoD.profileKey_map), "(.*) (.*)")
+		local mapTable = {}
+		local mapIndex = 1
+
+		if gameTable[index].ui_gametype == "zclassic" then
+			mapTable = CoD.SelectMapListZombie.Maps
+			mapIndex = CoD.SelectMapListZombie.GetKeyValueIndex(mapTable, "ui_mapname", map)
+		else
+			mapTable = CoD.SelectMapListZombie.Locations
+			mapIndex = CoD.SelectMapListZombie.GetKeyValueIndex(mapTable, "ui_zm_mapstartlocation", location)
+		end
+
+		Engine.SetDvar("ui_mapname", mapTable[mapIndex].ui_mapname)
+		Engine.SetDvar("ui_zm_mapstartlocation", mapTable[mapIndex].ui_zm_mapstartlocation)
+
+		Engine.SetProfileVar(self.controller, CoD.profileKey_gametype, gameTable[index].ui_gametype)
+
+		Engine.CommitProfileChanges(self.controller)
+
+		local currTeamCount = Engine.GetGametypeSetting("teamCount")
+
+		if currTeamCount ~= prevTeamCount then
+			Engine.PartyHostReassignTeams()
+		end
 	end
 
-	self:close()
+	Engine.PartyHostClearUIState()
+
+	self.occludedMenu:swapMenu("PrivateOnlineGameLobby", self.controller)
+	self:goBack(self.controller)
 end
 
 local function gameModeListCreateButtonMutables(controller, mutables)
@@ -224,65 +206,61 @@ function LUI.createMenu.SelectGameModeListZM(controller)
 	local self = CoD.Menu.New("SelectGameModeListZM")
 	self.controller = controller
 
-	self:setPreviousMenu("PrivateOnlineGameLobby")
-
-	self:registerEventHandler("open_menu", CoD.Lobby.OpenMenu)
+	self:addLargePopupBackground()
 	self:addSelectButton()
 	self:addBackButton()
 
-	self:addTitle(Engine.Localize("MPUI_GAMEMODE_CAPS"))
-
-	CoD.SelectMapListZombie.GameModeIndex = CoD.SelectMapListZombie.GetKeyValueIndex(CoD.SelectMapListZombie.GameModes, "ui_gametype", UIExpression.DvarString(nil, "ui_gametype"))
+	self:addTitle(Engine.Localize("MPUI_CHANGE_GAME_MODE_CAPS"))
 
 	local listBox = CoD.ListBox.new(nil, controller, 15, CoD.CoD9Button.Height, 250, gameModeListCreateButtonMutables, gameModeListGetButtonData, 5, 0)
 	listBox:setLeftRight(true, false, 0, 250)
 	listBox:setTopBottom(true, false, 75, 75 + 530)
 	listBox:addScrollBar()
 
-	if UIExpression.DvarBool(nil, "party_solo") == 1 then
-		if CoD.SelectMapListZombie.GameModeIndex > 2 then
-			CoD.SelectMapListZombie.GameModeIndex = 2
-			setGameModeDvars(controller, true)
-		end
+	local index = CoD.SelectMapListZombie.GetKeyValueIndex(CoD.SelectMapListZombie.GameModes, "ui_gametype", UIExpression.DvarString(nil, "ui_gametype"))
 
-		listBox:setTotalItems(2, CoD.SelectMapListZombie.GameModeIndex)
+	if UIExpression.DvarBool(nil, "party_solo") == 1 then
+		listBox:setTotalItems(2, index)
 	else
-		listBox:setTotalItems(#CoD.SelectMapListZombie.GameModes, CoD.SelectMapListZombie.GameModeIndex)
+		listBox:setTotalItems(#CoD.SelectMapListZombie.GameModes, index)
 	end
 
 	self:addElement(listBox)
 	self.listBox = listBox
 
-	self:registerEventHandler("listbox_focus_changed", gameModeListFocusChangedEventHandler)
 	self:registerEventHandler("click", gameModeListSelectionClickedEventHandler)
-
-	Engine.PartyHostSetUIState(CoD.PARTYHOST_STATE_SELECTING_GAMETYPE)
-	CoD.PrivateGameLobby.FadeIn = true
 
 	return self
 end
 
-local function mapListFocusChangedEventHandler(self, event)
-	CoD.SelectMapListZombie.MapIndex = self.listBox:getFocussedIndex()
-end
-
 local function mapListSelectionClickedEventHandler(self, event)
-	CoD.SelectMapListZombie.MapIndex = self.listBox:getFocussedIndex()
+	local index = self.listBox:getFocussedIndex()
 
-	local prevTeamCount = Engine.GetGametypeSetting("teamCount")
+	if index ~= nil then
+		local mapTable = CoD.SelectMapListZombie.Maps
 
-	setGameModeDvars(self.controller, false)
-	setMapDvars(self.controller, true)
+		if UIExpression.DvarString(nil, "ui_gametype") ~= "zclassic" then
+			mapTable = CoD.SelectMapListZombie.Locations
+		end
 
-	self:openMenu("PrivateOnlineGameLobby", self.controller)
+		Engine.SetDvar("ui_mapname", mapTable[index].ui_mapname)
+		Engine.SetDvar("ui_zm_mapstartlocation", mapTable[index].ui_zm_mapstartlocation)
 
-	local currTeamCount = Engine.GetGametypeSetting("teamCount")
+		local map, location = string.match(UIExpression.ProfileValueAsString(controller, CoD.profileKey_map), "(.*) (.*)")
 
-	if currTeamCount ~= prevTeamCount then
-		Engine.PartyHostReassignTeams()
+		if UIExpression.DvarString(nil, "ui_gametype") == "zclassic" then
+			Engine.SetProfileVar(self.controller, CoD.profileKey_map, mapTable[index].ui_mapname .. " " .. location)
+		else
+			Engine.SetProfileVar(self.controller, CoD.profileKey_map, map .. " " .. mapTable[index].ui_zm_mapstartlocation)
+		end
+
+		Engine.CommitProfileChanges(self.controller)
 	end
 
-	self:close()
+	Engine.PartyHostClearUIState()
+
+	self.occludedMenu:swapMenu("PrivateOnlineGameLobby", self.controller)
+	self:goBack(self.controller)
 end
 
 local function mapListCreateButtonMutables(controller, mutables)
@@ -296,110 +274,40 @@ local function mapListCreateButtonMutables(controller, mutables)
 end
 
 local function mapListGetButtonData(controller, index, mutables, self)
-	mutables.text:setText(CoD.GetZombieGameTypeDescription(CoD.Zombie.GAMETYPE_ZCLASSIC, CoD.SelectMapListZombie.Maps[index].ui_mapname))
+	if UIExpression.DvarString(nil, "ui_gametype") == "zclassic" then
+		mutables.text:setText(CoD.GetZombieGameTypeDescription(CoD.Zombie.GAMETYPE_ZCLASSIC, CoD.SelectMapListZombie.Maps[index].ui_mapname))
+	else
+		mutables.text:setText(Engine.Localize(UIExpression.TableLookup(nil, CoD.gametypesTable, 0, 5, 3, CoD.SelectMapListZombie.Locations[index].ui_zm_mapstartlocation, 4)))
+	end
 end
 
 function LUI.createMenu.SelectMapListZM(controller)
 	local self = CoD.Menu.New("SelectMapListZM")
 	self.controller = controller
 
-	self:setPreviousMenu("SelectGameModeListZM")
-	self:registerEventHandler("open_menu", CoD.Lobby.OpenMenu)
+	self:addLargePopupBackground()
 	self:addSelectButton()
 	self:addBackButton()
 
-	self:addTitle(Engine.Localize("MPUI_MAPS_CAPS"))
-
-	CoD.SelectMapListZombie.MapIndex = 1
-
-	if UIExpression.DvarString(nil, "ui_gametype") == "zclassic" then
-		CoD.SelectMapListZombie.MapIndex = CoD.SelectMapListZombie.GetKeyValueIndex(CoD.SelectMapListZombie.Maps, "ui_mapname", UIExpression.DvarString(nil, "ui_mapname"))
-	end
+	self:addTitle(Engine.Localize("MPUI_CHANGE_MAP_CAPS"))
 
 	local listBox = CoD.ListBox.new(nil, controller, 15, CoD.CoD9Button.Height, 250, mapListCreateButtonMutables, mapListGetButtonData, 5, 0)
 	listBox:setLeftRight(true, false, 0, 250)
 	listBox:setTopBottom(true, false, 75, 75 + 530)
 	listBox:addScrollBar()
-	listBox:setTotalItems(#CoD.SelectMapListZombie.Maps, CoD.SelectMapListZombie.MapIndex)
+
+	if UIExpression.DvarString(nil, "ui_gametype") == "zclassic" then
+		local index = CoD.SelectMapListZombie.GetKeyValueIndex(CoD.SelectMapListZombie.Maps, "ui_mapname", UIExpression.DvarString(nil, "ui_mapname"))
+		listBox:setTotalItems(#CoD.SelectMapListZombie.Maps, index)
+	else
+		local index = CoD.SelectMapListZombie.GetKeyValueIndex(CoD.SelectMapListZombie.Locations, "ui_zm_mapstartlocation", UIExpression.DvarString(nil, "ui_zm_mapstartlocation"))
+		listBox:setTotalItems(#CoD.SelectMapListZombie.Locations, index)
+	end
+
 	self:addElement(listBox)
 	self.listBox = listBox
 
-	self:registerEventHandler("listbox_focus_changed", mapListFocusChangedEventHandler)
 	self:registerEventHandler("click", mapListSelectionClickedEventHandler)
-
-	Engine.PartyHostSetUIState(CoD.PARTYHOST_STATE_SELECTING_MAP)
-	CoD.PrivateGameLobby.FadeIn = true
-
-	return self
-end
-
-local function locationListFocusChangedEventHandler(self, event)
-	CoD.SelectMapListZombie.LocationIndex = self.listBox:getFocussedIndex()
-end
-
-local function locationListSelectionClickedEventHandler(self, event)
-	CoD.SelectMapListZombie.LocationIndex = self.listBox:getFocussedIndex()
-
-	local prevTeamCount = Engine.GetGametypeSetting("teamCount")
-
-	setGameModeDvars(self.controller, false)
-	setLocationDvars(self.controller, true)
-
-	self:openMenu("PrivateOnlineGameLobby", self.controller)
-
-	local currTeamCount = Engine.GetGametypeSetting("teamCount")
-
-	if currTeamCount ~= prevTeamCount then
-		Engine.PartyHostReassignTeams()
-	end
-
-	self:close()
-end
-
-local function locationListCreateButtonMutables(controller, mutables)
-	local text = LUI.UIText.new()
-	text:setLeftRight(true, false, 2, 2)
-	text:setTopBottom(true, true, 0, 0)
-	text:setRGB(1, 1, 1)
-	text:setAlpha(1)
-	mutables:addElement(text)
-	mutables.text = text
-end
-
-local function locationListGetButtonData(controller, index, mutables, self)
-	mutables.text:setText(Engine.Localize(UIExpression.TableLookup(nil, CoD.gametypesTable, 0, 5, 3, CoD.SelectMapListZombie.Locations[index].ui_zm_mapstartlocation, 4)))
-end
-
-function LUI.createMenu.SelectLocationListZM(controller)
-	local self = CoD.Menu.New("SelectLocationListZM")
-	self.controller = controller
-
-	self:setPreviousMenu("SelectGameModeListZM")
-	self:registerEventHandler("open_menu", CoD.Lobby.OpenMenu)
-	self:addSelectButton()
-	self:addBackButton()
-
-	self:addTitle(Engine.Localize("MPUI_MAPS_CAPS"))
-
-	CoD.SelectMapListZombie.LocationIndex = 1
-
-	if UIExpression.DvarString(nil, "ui_gametype") ~= "zclassic" then
-		CoD.SelectMapListZombie.LocationIndex = CoD.SelectMapListZombie.GetKeyValueIndex(CoD.SelectMapListZombie.Locations, "ui_zm_mapstartlocation", UIExpression.DvarString(nil, "ui_zm_mapstartlocation"))
-	end
-
-	local listBox = CoD.ListBox.new(nil, controller, 15, CoD.CoD9Button.Height, 250, locationListCreateButtonMutables, locationListGetButtonData, 5, 0)
-	listBox:setLeftRight(true, false, 0, 250)
-	listBox:setTopBottom(true, false, 75, 75 + 530)
-	listBox:addScrollBar()
-	listBox:setTotalItems(#CoD.SelectMapListZombie.Locations, CoD.SelectMapListZombie.LocationIndex)
-	self:addElement(listBox)
-	self.listBox = listBox
-
-	self:registerEventHandler("listbox_focus_changed", locationListFocusChangedEventHandler)
-	self:registerEventHandler("click", locationListSelectionClickedEventHandler)
-
-	Engine.PartyHostSetUIState(CoD.PARTYHOST_STATE_SELECTING_MAP)
-	CoD.PrivateGameLobby.FadeIn = true
 
 	return self
 end
