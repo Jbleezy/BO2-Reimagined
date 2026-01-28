@@ -753,9 +753,9 @@ revive_feed(reviver)
 
 player_spawn()
 {
-	if (self.score < level.player_starting_points)
+	if (self.score < 500)
 	{
-		self.score = level.player_starting_points;
+		self.score = 500;
 	}
 
 	if (flag("initial_blackscreen_passed"))
