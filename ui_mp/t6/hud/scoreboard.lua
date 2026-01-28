@@ -216,7 +216,8 @@ function CreateScoreBoardBody(ScoreboardWidget, LocalClientIndex, UnusedArg1)
 	f5_local5 = f5_local5 + f0_local24 + f5_local7
 	ScoreboardWidget.teamElements = {}
 	local ScoreboardTeamCount = Engine.GetGametypeSetting("teamCount")
-	if CoD.isZombie and Dvar.ui_gametype:get() == CoD.Zombie.GAMETYPE_ZTURNED then
+	local GamemodeGroup = UIExpression.DvarString(nil, "ui_zm_gamemodegroup")
+	if CoD.isZombie and GamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
 		if ScoreboardTeamCount < 2 then
 			ScoreboardTeamCount = 2
 		end
@@ -489,7 +490,8 @@ end
 
 function UpdateGameScoreboard(ScoreboardWidget)
 	local ScoreboardTeams = nil
-	if CoD.isZombie and Dvar.ui_gametype:get() == CoD.Zombie.GAMETYPE_ZTURNED then
+	local GamemodeGroup = UIExpression.DvarString(nil, "ui_zm_gamemodegroup")
+	if CoD.isZombie and GamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
 		ScoreboardTeams = Engine.GetTeamPositions(ScoreboardWidget:getOwner(), 2)
 	else
 		ScoreboardTeams = Engine.GetTeamPositions(ScoreboardWidget:getOwner())
@@ -531,8 +533,9 @@ function UpdateGameScoreboard(ScoreboardWidget)
 	local FocusableRowIndex = 1
 	for Key, ScoreboardTeam in ipairs(ScoreboardTeams) do
 		local ShowScoreboardTeam = ScoreboardTeam.numClients > 0
+		local GamemodeGroup = UIExpression.DvarString(nil, "ui_zm_gamemodegroup")
 
-		if Dvar.ui_gametype:get() == CoD.Zombie.GAMETYPE_ZTURNED then
+		if CoD.isZombie and GamemodeGroup == CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
 			ShowScoreboardTeam = true
 		end
 
