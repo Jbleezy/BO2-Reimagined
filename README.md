@@ -172,7 +172,6 @@
 		* [Containment](#containment)
 		* [Meat](#meat)
 		* [Turned](#turned)
-	* [Encounter Pro](#encounter-pro)
 
 ## General
 * Removed round cap
@@ -1576,6 +1575,10 @@
 * Player offscreen waypoint arrow only shows for your team
 * Can only spectate your team
 * Added option to change teams in game
+* Pro: no Mystery Box
+* Pro: no Pack-a-Punch
+* Pro: no Der Wunderfizz
+* Pro: no held melee weapons
 
 #### Search & Rezurrect
 * Win a round by getting all enemy players down
@@ -1646,9 +1649,3 @@
 * Survivors become zombies when they bleed out
 * Zombies see survivors and other zombies through walls
 * Zombies respawn after 10 seconds
-
-### Encounter Pro
-* No Mystery Box
-* No Pack-a-Punch
-* No Der Wunderfizz
-* No held melee weapons
