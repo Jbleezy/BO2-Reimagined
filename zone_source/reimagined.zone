@@ -137,16 +137,16 @@ material,waypoint_revive_arrow
 rawfile,animstatedefs/zm_nuked_dog.asd
 rawfile,shock/grief_stun_zm.shock
 rawfile,maps/mp/gametypes_zm/_gametypes.txt
+rawfile,maps/mp/gametypes_zm/zsr.txt
 rawfile,maps/mp/gametypes_zm/zrace.txt
 rawfile,maps/mp/gametypes_zm/zcontainment.txt
 rawfile,maps/mp/gametypes_zm/zmeat.txt
-rawfile,maps/mp/gametypes_zm/zsr.txt
 rawfile,maps/mp/gametypes_zm/zturned.txt
+rawfile,zm/gamesettings_zsr.cfg
 rawfile,zm/gamesettings_zgrief.cfg
 rawfile,zm/gamesettings_zrace.cfg
 rawfile,zm/gamesettings_zcontainment.cfg
 rawfile,zm/gamesettings_zmeat.cfg
-rawfile,zm/gamesettings_zsr.cfg
 rawfile,zm/gamesettings_zturned.cfg
 rawfile,zm/playeranim.script
 
@@ -189,9 +189,9 @@ script,scripts/zm/replaced/zm_tomb_capture_zones.csc
 script,scripts/zm/replaced/zm_tomb_craftables.csc
 script,scripts/zm/replaced/zm_tomb_ee.csc
 script,scripts/zm/replaced/zgrief.csc
+script,clientscripts/mp/gametypes/zsr.csc
 script,clientscripts/mp/gametypes/zrace.csc
 script,clientscripts/mp/gametypes/zcontainment.csc
-script,clientscripts/mp/gametypes/zsr.csc
 script,clientscripts/mp/gametypes/zturned.csc
 
 localize,reimagined

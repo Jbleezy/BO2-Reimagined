@@ -166,11 +166,11 @@
 		* [The Crazy Place](#the-crazy-place)
 * [Game Modes](#game-modes)
 	* [Encounter](#encounter)
+		* [Search & Rezurrect](#search--rezurrect)
 		* [Grief](#grief)
 		* [Race](#race)
 		* [Containment](#containment)
 		* [Meat](#meat)
-		* [Search & Rezurrect](#search--rezurrect)
 		* [Turned](#turned)
 	* [Encounter Pro](#encounter-pro)
 
@@ -210,8 +210,8 @@
 * Added icons on scoreboard when player is downed, bled out, in Who's Who mode, in afterlife, or has the meat
 * Changed player name color on scoreboard to match the player's color
 * Moved voice chat icon on scoreboard to the same position as the rank icon
-* Changed Classic scoreboard color from blue to grey
-* Changed CIA scoreboard color from grey to blue
+* Changed Classic faction color from blue to grey
+* Changed CIA faction color from grey to blue
 * Added teammate head icons
 * Decreased waypoint size
 * Increased waypoint offset from top and bottom of screen
@@ -1577,6 +1577,19 @@
 * Can only spectate your team
 * Added option to change teams in game
 
+#### Search & Rezurrect
+* Win a round by getting all enemy players down
+* Win 3 rounds to win the game
+* Tie round if both teams die within 5 seconds of eachother
+* Players start each round with at least 10000 points
+* Bleeding out enemy players awards 1000 points to all teammates
+* Amount of players alive on each team shown on HUD
+* Enemies remaining audio and text displays when enemy players down instead of when enemy players bleed out
+* Last player alive audio only plays for the player who is alive instead of every player on the team
+* Audio plays when enemy players bleed out
+* Teams switch spawn points each round
+* Players respawn at initial spawn points
+
 #### Grief
 * Gain score by making enemy players bleed out
 * Make 10 enemy players bleed out to win the game
@@ -1620,19 +1633,6 @@
 * Team holding the meat shown on HUD
 * Players respawn after being down for 10 seconds
 * Players retain perks
-
-#### Search & Rezurrect
-* Win a round by getting all enemy players down
-* Win 3 rounds to win the game
-* Tie round if both teams die within 5 seconds of eachother
-* Players start each round with at least 10000 points
-* Bleeding out enemy players awards 1000 points to all teammates
-* Amount of players alive on each team shown on HUD
-* Enemies remaining audio and text displays when enemy players down instead of when enemy players bleed out
-* Last player alive audio only plays for the player who is alive instead of every player on the team
-* Audio plays when enemy players bleed out
-* Teams switch spawn points each round
-* Players respawn at initial spawn points
 
 #### Turned
 * Survivors score starts at the amount of survivors

@@ -10,6 +10,15 @@ LANG_ENGLISH        "Classic"
 REFERENCE           ZMUI_ZCLASSIC_CAPS
 LANG_ENGLISH        "CLASSIC"
 
+REFERENCE           ZMUI_ZSR
+LANG_ENGLISH        "Search & Rezurrect"
+
+REFERENCE           ZMUI_ZSR_CAPS
+LANG_ENGLISH        "SEARCH & REZURRECT"
+
+REFERENCE           ZMUI_ZSR_PRO
+LANG_ENGLISH        "Search & Rezurrect Pro"
+
 REFERENCE           ZMUI_ZGRIEF_PRO
 LANG_ENGLISH        "Grief Pro"
 
@@ -21,15 +30,6 @@ LANG_ENGLISH        "Containment Pro"
 
 REFERENCE           ZMUI_ZMEAT_PRO
 LANG_ENGLISH        "Meat Pro"
-
-REFERENCE           ZMUI_ZSR
-LANG_ENGLISH        "Search & Rezurrect"
-
-REFERENCE           ZMUI_ZSR_CAPS
-LANG_ENGLISH        "SEARCH & REZURRECT"
-
-REFERENCE           ZMUI_ZSR_PRO
-LANG_ENGLISH        "Search & Rezurrect Pro"
 
 REFERENCE           ZMUI_TRANSIT
 LANG_ENGLISH        "Tranzit"
@@ -139,11 +139,11 @@ LANG_ENGLISH        "SAN FRANCISCO BAY, U.S.A."
 REFERENCE           ZMUI_TOMB_LOC
 LANG_ENGLISH        "NORTHERN FRANCE"
 
-REFERENCE           MPUI_CHANGE_GAME_MODE_DESC
-LANG_ENGLISH        "Change the game mode."
-
 REFERENCE           MPUI_CHANGE_MAP_DESC
 LANG_ENGLISH        "Change the map."
+
+REFERENCE           MPUI_CHANGE_GAME_MODE_DESC
+LANG_ENGLISH        "Change the game mode."
 
 REFERENCE           ZMUI_CHARACTER_DIALOG_CAPS
 LANG_ENGLISH        "CHARACTER DIALOG"
@@ -303,11 +303,11 @@ LANG_ENGLISH        "ROUND &&1 BEGINS IN"
 REFERENCE           ZOMBIE_VOTE_HOWTO
 LANG_ENGLISH        "Press ^3[{+attack}]^7 or ^3[{+speed_throw}]^7 to change selection, ^3[{+gostand}]^7 or ^3[{+activate}]^7 to vote"
 
-REFERENCE           ZOMBIE_ZGRIEF_INTRO
-LANG_ENGLISH        "Make enemy players bleed out to gain score!"
-
 REFERENCE           ZOMBIE_ZSR_INTRO
 LANG_ENGLISH        "Get all enemy players down to win a round!"
+
+REFERENCE           ZOMBIE_ZGRIEF_INTRO
+LANG_ENGLISH        "Make enemy players bleed out to gain score!"
 
 REFERENCE           ZOMBIE_ZRACE_INTRO
 LANG_ENGLISH        "Kill zombies or enemy players to gain score!"
@@ -321,11 +321,11 @@ LANG_ENGLISH        "Hold the meat to gain score!"
 REFERENCE           ZOMBIE_ZTURNED_INTRO
 LANG_ENGLISH        "Get kills to reduce the enemy score!"
 
-REFERENCE           ZOMBIE_GRIEF_SCORE_TO_WIN
-LANG_ENGLISH        "Gain &&1 score to win the game!"
-
 REFERENCE           ZOMBIE_GRIEF_ROUNDS_TO_WIN
 LANG_ENGLISH        "Win &&1 rounds to win the game!"
+
+REFERENCE           ZOMBIE_GRIEF_SCORE_TO_WIN
+LANG_ENGLISH        "Gain &&1 score to win the game!"
 
 REFERENCE           ZOMBIE_GRIEF_REDUCE_ENEMY_SCORE_TO_WIN
 LANG_ENGLISH        "Reduce the enemy score to &&1 to win the game!"

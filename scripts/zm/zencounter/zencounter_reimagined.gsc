@@ -513,14 +513,14 @@ on_player_downed()
 
 		self add_grief_downed_score();
 
-		if (level.scr_zm_ui_gametype == "zrace")
-		{
-			increment_score(getOtherTeam(self.team), 10, 1, &"ZOMBIE_ZGRIEF_PLAYER_BLED_OUT_SCORE");
-		}
-
 		if (level.scr_zm_ui_gametype == "zsr")
 		{
 			level thread update_players_on_downed(self);
+		}
+
+		if (level.scr_zm_ui_gametype == "zrace")
+		{
+			increment_score(getOtherTeam(self.team), 10, 1, &"ZOMBIE_ZGRIEF_PLAYER_BLED_OUT_SCORE");
 		}
 	}
 }
@@ -538,14 +538,14 @@ on_player_revived()
 		{
 			self revive_feed(reviver);
 
-			if (level.scr_zm_ui_gametype == "zrace")
-			{
-				increment_score(reviver.team, 5, 1, &"ZOMBIE_ZGRIEF_ALLY_REVIVED_SCORE");
-			}
-
 			if (level.scr_zm_ui_gametype == "zsr")
 			{
 				level thread update_players_on_revived(self, reviver);
+			}
+
+			if (level.scr_zm_ui_gametype == "zrace")
+			{
+				increment_score(reviver.team, 5, 1, &"ZOMBIE_ZGRIEF_ALLY_REVIVED_SCORE");
 			}
 
 			if (level.scr_zm_ui_gametype == "zturned")
@@ -1234,7 +1234,11 @@ get_gamemode_display_name(gamemode = level.scr_zm_ui_gametype)
 
 get_gamemode_winning_score()
 {
-	if (level.scr_zm_ui_gametype == "zgrief")
+	if (level.scr_zm_ui_gametype == "zsr")
+	{
+		return 3;
+	}
+	else if (level.scr_zm_ui_gametype == "zgrief")
 	{
 		return 10;
 	}
@@ -1249,10 +1253,6 @@ get_gamemode_winning_score()
 	else if (level.scr_zm_ui_gametype == "zmeat")
 	{
 		return 200;
-	}
-	else if (level.scr_zm_ui_gametype == "zsr")
-	{
-		return 3;
 	}
 	else if (level.scr_zm_ui_gametype == "zturned")
 	{
