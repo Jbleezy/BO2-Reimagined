@@ -4,6 +4,12 @@
 
 main()
 {
+	replaceFunc(character\c_transit_player_farmgirl::precache, character\c_highrise_player_farmgirl::precache);
+	replaceFunc(character\c_transit_player_oldman::precache, character\c_highrise_player_oldman::precache);
+	replaceFunc(character\c_transit_player_engineer::precache, character\c_highrise_player_engineer::precache);
+	replaceFunc(character\c_transit_player_farmgirl::main, character\c_highrise_player_farmgirl::main);
+	replaceFunc(character\c_transit_player_oldman::main, character\c_highrise_player_oldman::main);
+	replaceFunc(character\c_transit_player_engineer::main, character\c_highrise_player_engineer::main);
 	replaceFunc(maps\mp\zm_buried_sq::navcomputer_waitfor_navcard, scripts\zm\reimagined\_zm_sq::navcomputer_waitfor_navcard);
 	replaceFunc(maps\mp\zm_buried::init_level_specific_wall_buy_fx, scripts\zm\replaced\zm_buried::init_level_specific_wall_buy_fx);
 	replaceFunc(maps\mp\zm_buried::give_team_characters, scripts\zm\replaced\zm_buried::give_team_characters);

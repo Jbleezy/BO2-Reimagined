@@ -14,6 +14,15 @@
 		},
 		{
 			"literal": [
+				1.0,
+				0.0,
+				0.0,
+				1.0
+			],
+			"name": "Reflection_Amount"
+		},
+		{
+			"literal": [
 				2.059999942779541,
 				0.0,
 				0.0,
@@ -214,14 +223,29 @@
 	"stateFlags": 121,
 	"surfaceFlags": 7340032,
 	"surfaceTypeBits": 64,
-	"techniqueSet": "mc_sw4_3d_char_cloth_outline_qq617w4u",
+	"techniqueSet": "mc_sw4_3d_char_skin_outline_95j5w4z5",
 	"textureAtlas": {
 		"columns": 1,
 		"rows": 1
 	},
 	"textures": [
 		{
-			"image": "~~-gc_zom_player_reporter_gea~9d211327",
+			"image": "c_gen_arm_rim_mask_c",
+			"isMatureContent": false,
+			"nameEnd": "k",
+			"nameHash": 2247950716,
+			"nameStart": "R",
+			"samplerState": {
+				"clampU": false,
+				"clampV": false,
+				"clampW": false,
+				"filter": "aniso4x",
+				"mipMap": "linear"
+			},
+			"semantic": "colorMap"
+		},
+		{
+			"image": "~~-gc_zom_player_farmgirl_arm~bdc59267",
 			"isMatureContent": false,
 			"name": "SpecularAndGloss",
 			"samplerState": {
@@ -234,7 +258,7 @@
 			"semantic": "specularMap"
 		},
 		{
-			"image": "c_zom_player_reporter_gear_dam_n",
+			"image": "c_zom_player_farmgirl_arm_n",
 			"isMatureContent": false,
 			"name": "Normal_Map",
 			"samplerState": {
@@ -260,7 +284,7 @@
 			"semantic": "colorMap"
 		},
 		{
-			"image": "~-gc_zom_player_reporter_gear_dam_c",
+			"image": "~-gc_zom_player_farmgirl_arm_c",
 			"isMatureContent": false,
 			"name": "Diffuse_Map",
 			"samplerState": {
@@ -273,5 +297,5 @@
 			"semantic": "colorMap"
 		}
 	],
-    "thermalMaterial": "mc/mtl_c_zom_player_reporter_gear_dam_thermal"
+	"thermalMaterial": "mc/mtl_c_zom_player_farmgirl_arm_g_thermal"
 }

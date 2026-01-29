@@ -5,30 +5,75 @@
 	"constants": [
 		{
 			"literal": [
-				1.0,
+				3.5,
 				0.0,
 				0.0,
 				1.0
 			],
-			"name": "Reflection_Amount"
+			"name": "OutlineFalloff"
 		},
 		{
 			"literal": [
-				0.800000011920929,
+				2.059999942779541,
 				0.0,
 				0.0,
 				1.0
 			],
-			"name": "Diffuse_Normal_Height_Facing"
+			"name": "Sparkle_Swatch_2_Scale_Min"
 		},
 		{
 			"literal": [
-				1.5,
+				12.90999984741211,
 				0.0,
 				0.0,
 				1.0
 			],
-			"name": "Specular_Amount"
+			"name": "Sparkle_Swatch_2_Scale_Max"
+		},
+		{
+			"literal": [
+				0.10000000149011612,
+				0.09399999678134918,
+				0.0,
+				1.0
+			],
+			"name": "Sparkle_Swatch_1_Speed"
+		},
+		{
+			"literal": [
+				6.489999771118164,
+				0.0,
+				0.0,
+				1.0
+			],
+			"name": "Sparkle_Swatch_1_Scale"
+		},
+		{
+			"literal": [
+				0.10000000149011612,
+				0.03999999910593033,
+				0.0,
+				1.0
+			],
+			"name": "Sparkle_Swatch_2_Speed"
+		},
+		{
+			"literal": [
+				0.6000000238418579,
+				0.0,
+				0.0,
+				1.0
+			],
+			"name": "Sparkle_Swatch_2_Scale_Flicker_Speed"
+		},
+		{
+			"literal": [
+				150.0,
+				25.0,
+				0.0,
+				1.0
+			],
+			"name": "OutlineColor"
 		}
 	],
 	"contents": 1,
@@ -169,29 +214,14 @@
 	"stateFlags": 121,
 	"surfaceFlags": 7340032,
 	"surfaceTypeBits": 64,
-	"techniqueSet": "mc_sw4_3d_char_skin_j92387z3",
+	"techniqueSet": "mc_sw4_3d_char_cloth_outline_qq617w4u",
 	"textureAtlas": {
 		"columns": 1,
 		"rows": 1
 	},
 	"textures": [
 		{
-			"image": "c_gen_arm_rim_mask_norim_c",
-			"isMatureContent": false,
-			"nameEnd": "k",
-			"nameHash": 2247950716,
-			"nameStart": "R",
-			"samplerState": {
-				"clampU": false,
-				"clampV": false,
-				"clampW": false,
-				"filter": "aniso4x",
-				"mipMap": "linear"
-			},
-			"semantic": "colorMap"
-		},
-		{
-			"image": "~~-gc_zom_player_farmgirl_arm~f7de6d05",
+			"image": "~~-gc_zom_player_reporter_gea~a73dea05",
 			"isMatureContent": false,
 			"name": "SpecularAndGloss",
 			"samplerState": {
@@ -204,7 +234,7 @@
 			"semantic": "specularMap"
 		},
 		{
-			"image": "c_zom_player_farmgirl_arm_n",
+			"image": "c_zom_player_reporter_gear_n",
 			"isMatureContent": false,
 			"name": "Normal_Map",
 			"samplerState": {
@@ -217,7 +247,20 @@
 			"semantic": "normalMap"
 		},
 		{
-			"image": "~-gc_zom_player_farmgirl_arm_c",
+			"image": "c_gen_target_edgeeffect_h",
+			"isMatureContent": false,
+			"name": "Heat_Map",
+			"samplerState": {
+				"clampU": false,
+				"clampV": false,
+				"clampW": false,
+				"filter": "aniso4x",
+				"mipMap": "linear"
+			},
+			"semantic": "colorMap"
+		},
+		{
+			"image": "~-gc_zom_player_reporter_gear_c",
 			"isMatureContent": false,
 			"name": "Diffuse_Map",
 			"samplerState": {
@@ -230,5 +273,5 @@
 			"semantic": "colorMap"
 		}
 	],
-	"thermalMaterial": "mc/mtl_c_zom_player_farmgirl_arm_thermal"
+	"thermalMaterial": "mc/mtl_c_zom_player_reporter_gear_g_thermal"
 }

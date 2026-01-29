@@ -1,90 +1,36 @@
 {
 	"_type": "material",
 	"_version": 1,
-	"cameraRegion": "litOpaque",
+	"cameraRegion": "emissiveFx",
 	"constants": [
 		{
 			"literal": [
-				3.5,
+				0.30000001192092896,
 				0.0,
 				0.0,
 				1.0
 			],
-			"name": "OutlineFalloff"
+			"name": "Detail_Amount"
 		},
 		{
 			"literal": [
-				2.059999942779541,
+				3.0,
 				0.0,
 				0.0,
 				1.0
 			],
-			"name": "Sparkle_Swatch_2_Scale_Min"
-		},
-		{
-			"literal": [
-				12.90999984741211,
-				0.0,
-				0.0,
-				1.0
-			],
-			"name": "Sparkle_Swatch_2_Scale_Max"
-		},
-		{
-			"literal": [
-				0.10000000149011612,
-				0.09399999678134918,
-				0.0,
-				1.0
-			],
-			"name": "Sparkle_Swatch_1_Speed"
-		},
-		{
-			"literal": [
-				6.489999771118164,
-				0.0,
-				0.0,
-				1.0
-			],
-			"name": "Sparkle_Swatch_1_Scale"
-		},
-		{
-			"literal": [
-				0.10000000149011612,
-				0.03999999910593033,
-				0.0,
-				1.0
-			],
-			"name": "Sparkle_Swatch_2_Speed"
-		},
-		{
-			"literal": [
-				0.6000000238418579,
-				0.0,
-				0.0,
-				1.0
-			],
-			"name": "Sparkle_Swatch_2_Scale_Flicker_Speed"
-		},
-		{
-			"literal": [
-				150.0,
-				25.0,
-				0.0,
-				1.0
-			],
-			"name": "OutlineColor"
+			"name": "Emissive_Amount"
 		}
 	],
 	"contents": 1,
 	"gameFlags": [
-		"10",
-		"CASTS_SHADOW"
+		"CASTS_SHADOW",
+		"100"
 	],
 	"hashIndex": 0,
 	"layeredSurfaceTypes": 536870919,
 	"probeMipBits": 0,
-	"sortKey": 4,
+	"sortKey": 50,
 	"stateBits": [
 		{
 			"alphaTest": "disabled",
@@ -142,6 +88,22 @@
 		},
 		{
 			"alphaTest": "disabled",
+			"blendOpAlpha": "max",
+			"blendOpRgb": "add",
+			"colorWriteAlpha": true,
+			"colorWriteRgb": true,
+			"cullFace": "back",
+			"depthTest": "less_equal",
+			"depthWrite": true,
+			"dstBlendAlpha": "one",
+			"dstBlendRgb": "invsrcalpha",
+			"polygonOffset": "offset0",
+			"polymodeLine": false,
+			"srcBlendAlpha": "one",
+			"srcBlendRgb": "srcalpha"
+		},
+		{
+			"alphaTest": "disabled",
 			"blendOpAlpha": "disabled",
 			"blendOpRgb": "disabled",
 			"colorWriteAlpha": false,
@@ -177,53 +139,53 @@
 		0,
 		1,
 		2,
-		-1,
-		2,
-		2,
-		2,
-		2,
-		2,
-		2,
-		2,
-		2,
-		2,
-		2,
-		2,
-		2,
-		2,
-		2,
-		2,
-		2,
-		2,
-		2,
-		2,
-		2,
-		2,
-		2,
-		-1,
-		-1,
-		-1,
-		-1,
-		-1,
-		-1,
 		3,
 		-1,
 		-1,
-		4
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		4,
+		-1,
+		-1,
+		5
 	],
-	"stateFlags": 121,
+	"stateFlags": 125,
 	"surfaceFlags": 7340032,
 	"surfaceTypeBits": 64,
-	"techniqueSet": "mc_sw4_3d_char_cloth_outline_qq617w4u",
+	"techniqueSet": "mc_sw4_3d_thermal_w9wzw265",
 	"textureAtlas": {
 		"columns": 1,
 		"rows": 1
 	},
 	"textures": [
 		{
-			"image": "~~-gc_zom_player_reporter_gea~9d211327",
+			"image": "~-gc_zom_player_reporter_c",
 			"isMatureContent": false,
-			"name": "SpecularAndGloss",
+			"name": "Thermal_Map",
 			"samplerState": {
 				"clampU": false,
 				"clampV": false,
@@ -231,10 +193,23 @@
 				"filter": "aniso4x",
 				"mipMap": "linear"
 			},
-			"semantic": "specularMap"
+			"semantic": "colorMap"
 		},
 		{
-			"image": "c_zom_player_reporter_gear_dam_n",
+			"image": "thermal_gradient2",
+			"isMatureContent": false,
+			"name": "Thermal_Gradient",
+			"samplerState": {
+				"clampU": true,
+				"clampV": true,
+				"clampW": true,
+				"filter": "aniso4x",
+				"mipMap": "linear"
+			},
+			"semantic": "colorMap"
+		},
+		{
+			"image": "c_zom_player_reporter_n",
 			"isMatureContent": false,
 			"name": "Normal_Map",
 			"samplerState": {
@@ -247,22 +222,9 @@
 			"semantic": "normalMap"
 		},
 		{
-			"image": "c_gen_target_edgeeffect_h",
+			"image": "sw_radiant_default",
 			"isMatureContent": false,
-			"name": "Heat_Map",
-			"samplerState": {
-				"clampU": false,
-				"clampV": false,
-				"clampW": false,
-				"filter": "aniso4x",
-				"mipMap": "linear"
-			},
-			"semantic": "colorMap"
-		},
-		{
-			"image": "~-gc_zom_player_reporter_gear_dam_c",
-			"isMatureContent": false,
-			"name": "Diffuse_Map",
+			"name": "radiantDiffuseMap",
 			"samplerState": {
 				"clampU": false,
 				"clampV": false,
@@ -272,6 +234,5 @@
 			},
 			"semantic": "colorMap"
 		}
-	],
-    "thermalMaterial": "mc/mtl_c_zom_player_reporter_gear_dam_thermal"
+	]
 }

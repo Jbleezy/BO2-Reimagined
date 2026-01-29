@@ -49,6 +49,17 @@ camo_materials
 if %ERRORLEVEL% neq 0 pause & exit
 
 "%OAT_BASE%\Linker.exe" ^
+--load "%OAT_GAME%\zone\all\zm_highrise_patch.ff" ^
+--load "%OAT_GAME%\zone\all\zm_highrise.ff" ^
+--base-folder "%OAT_BASE%" ^
+--add-asset-search-path "%CD%" ^
+--add-source-search-path "%CD%\zone_source\dependencies" ^
+--output-folder "%CD%\zone_source\dependencies" ^
+outline_techniquesets
+
+if %ERRORLEVEL% neq 0 pause & exit
+
+"%OAT_BASE%\Linker.exe" ^
 --load "%CD%\zone_source\dependencies\camo_materials.ff" ^
 --load "%CD%\zone\all\weapons!metalstorm_mms_sp.ff" ^
 --base-folder "%OAT_BASE%" ^
@@ -208,6 +219,7 @@ if %ERRORLEVEL% neq 0 pause & exit
 
 "%OAT_BASE%\Linker.exe" ^
 --load "%CD%\zone_source\dependencies\camo_materials.ff" ^
+--load "%CD%\zone_source\dependencies\outline_techniquesets.ff" ^
 --load "%OAT_GAME%\zone\all\zm_highrise_patch.ff" ^
 --load "%OAT_GAME%\zone\all\zm_highrise.ff" ^
 --base-folder "%OAT_BASE%" ^
@@ -233,6 +245,7 @@ if %ERRORLEVEL% neq 0 pause & exit
 
 "%OAT_BASE%\Linker.exe" ^
 --load "%CD%\zone_source\dependencies\camo_materials.ff" ^
+--load "%CD%\zone_source\dependencies\outline_techniquesets.ff" ^
 --load "%OAT_GAME%\zone\all\zm_buried_patch.ff" ^
 --load "%OAT_GAME%\zone\all\zm_buried.ff" ^
 --load "%OAT_GAME%\zone\all\so_zclassic_zm_buried.ff" ^
@@ -259,6 +272,7 @@ if %ERRORLEVEL% neq 0 pause & exit
 
 "%OAT_BASE%\Linker.exe" ^
 --load "%CD%\zone_source\dependencies\camo_materials.ff" ^
+--load "%CD%\zone_source\dependencies\outline_techniquesets.ff" ^
 --load "%CD%\zone_source\includes\weapons!metalstorm_mms_sp.ff" ^
 --load "%CD%\zone_source\includes\weapons!exptitus6_sp.ff" ^
 --load "%CD%\zone_source\includes\common.ff" ^

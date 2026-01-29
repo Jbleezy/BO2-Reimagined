@@ -1,17 +1,36 @@
 {
 	"_type": "material",
 	"_version": 1,
-	"cameraRegion": "litOpaque",
-	"constants": [],
+	"cameraRegion": "emissiveFx",
+	"constants": [
+		{
+			"literal": [
+				0.30000001192092896,
+				0.0,
+				0.0,
+				1.0
+			],
+			"name": "Detail_Amount"
+		},
+		{
+			"literal": [
+				3.0,
+				0.0,
+				0.0,
+				1.0
+			],
+			"name": "Emissive_Amount"
+		}
+	],
 	"contents": 1,
 	"gameFlags": [
-		"10",
-		"CASTS_SHADOW"
+		"CASTS_SHADOW",
+		"100"
 	],
 	"hashIndex": 0,
 	"layeredSurfaceTypes": 536870919,
 	"probeMipBits": 0,
-	"sortKey": 4,
+	"sortKey": 50,
 	"stateBits": [
 		{
 			"alphaTest": "disabled",
@@ -69,6 +88,22 @@
 		},
 		{
 			"alphaTest": "disabled",
+			"blendOpAlpha": "max",
+			"blendOpRgb": "add",
+			"colorWriteAlpha": true,
+			"colorWriteRgb": true,
+			"cullFace": "back",
+			"depthTest": "less_equal",
+			"depthWrite": true,
+			"dstBlendAlpha": "one",
+			"dstBlendRgb": "invsrcalpha",
+			"polygonOffset": "offset0",
+			"polymodeLine": false,
+			"srcBlendAlpha": "one",
+			"srcBlendRgb": "srcalpha"
+		},
+		{
+			"alphaTest": "disabled",
 			"blendOpAlpha": "disabled",
 			"blendOpRgb": "disabled",
 			"colorWriteAlpha": false,
@@ -104,53 +139,53 @@
 		0,
 		1,
 		2,
-		-1,
-		2,
-		2,
-		2,
-		2,
-		2,
-		2,
-		2,
-		2,
-		2,
-		2,
-		2,
-		2,
-		2,
-		2,
-		2,
-		2,
-		2,
-		2,
-		2,
-		2,
-		2,
-		2,
-		-1,
-		-1,
-		-1,
-		-1,
-		-1,
-		-1,
 		3,
 		-1,
 		-1,
-		4
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		4,
+		-1,
+		-1,
+		5
 	],
-	"stateFlags": 121,
+	"stateFlags": 125,
 	"surfaceFlags": 7340032,
 	"surfaceTypeBits": 64,
-	"techniqueSet": "mc_sw4_3d_char_cloth_4z8fq5wu",
+	"techniqueSet": "mc_sw4_3d_thermal_w9wzw265",
 	"textureAtlas": {
 		"columns": 1,
 		"rows": 1
 	},
 	"textures": [
 		{
-			"image": "~~-gc_zom_player_oldman_s-rgb~d2f0bbbd",
+			"image": "~-gc_zom_player_reporter_head_c",
 			"isMatureContent": false,
-			"name": "SpecularAndGloss",
+			"name": "Thermal_Map",
 			"samplerState": {
 				"clampU": false,
 				"clampV": false,
@@ -158,10 +193,23 @@
 				"filter": "aniso4x",
 				"mipMap": "linear"
 			},
-			"semantic": "specularMap"
+			"semantic": "colorMap"
 		},
 		{
-			"image": "c_zom_player_oldman_n",
+			"image": "thermal_gradient2",
+			"isMatureContent": false,
+			"name": "Thermal_Gradient",
+			"samplerState": {
+				"clampU": true,
+				"clampV": true,
+				"clampW": true,
+				"filter": "aniso4x",
+				"mipMap": "linear"
+			},
+			"semantic": "colorMap"
+		},
+		{
+			"image": "c_zom_player_reporter_head_n",
 			"isMatureContent": false,
 			"name": "Normal_Map",
 			"samplerState": {
@@ -174,9 +222,9 @@
 			"semantic": "normalMap"
 		},
 		{
-			"image": "~-gc_zom_player_oldman_c",
+			"image": "sw_radiant_default",
 			"isMatureContent": false,
-			"name": "Diffuse_Map",
+			"name": "radiantDiffuseMap",
 			"samplerState": {
 				"clampU": false,
 				"clampV": false,
@@ -186,6 +234,5 @@
 			},
 			"semantic": "colorMap"
 		}
-	],
-	"thermalMaterial": "mc/mtl_c_zom_player_oldman_body_thermal"
+	]
 }

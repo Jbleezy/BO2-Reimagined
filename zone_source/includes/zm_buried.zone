@@ -1042,17 +1042,6 @@ material,hud_cymbal_monkey
 xmodel,zombie_firesale
 material,specialty_firesale_zombies
 
-material,mc/mtl_c_zom_player_engineer_body
-material,mc/mtl_c_zom_player_engineer_head
-material,mc/mtl_c_zom_player_farmgirl_arm
-material,mc/mtl_c_zom_player_farmgirl_body
-material,mc/mtl_c_zom_player_farmgirl_gear
-material,mc/mtl_c_zom_player_farmgirl_glove
-material,mc/mtl_c_zom_player_farmgirl_hair
-material,mc/mtl_c_zom_player_farmgirl_head
-material,mc/mtl_c_zom_player_farmgirl_skin
-material,mc/mtl_c_zom_player_oldman_body
-material,mc/mtl_c_zom_player_oldman_head
 material,mc/mtl_c_zom_player_reporter_arm_dam
 material,mc/mtl_c_zom_player_reporter_body_dam
 material,mc/mtl_c_zom_player_reporter_gear_dam

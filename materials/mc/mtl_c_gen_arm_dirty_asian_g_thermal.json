@@ -183,7 +183,7 @@
     },
     "textures": [
         {
-            "image": "~-gc_zom_player_reporter_arm_dam_c",
+            "image": "~-gc_gen_arm_dirty_asian_c",
             "isMatureContent": false,
             "name": "Thermal_Map",
             "samplerState": {
@@ -209,7 +209,7 @@
             "semantic": "colorMap"
         },
         {
-            "image": "c_zom_player_reporter_arm_dam_n",
+            "image": "c_gen_arm_clean_n",
             "isMatureContent": false,
             "name": "Normal_Map",
             "samplerState": {
