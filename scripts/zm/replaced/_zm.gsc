@@ -2126,6 +2126,7 @@ get_valid_spawn_location(revivee, spawn_points, closest_group, return_struct)
 player_spawn_protection()
 {
 	self endon("disconnect");
+	self endon("zombified");
 	self endon("player_downed");
 	self endon("meat_grabbed");
 	self endon("meat_stink_player_start");
@@ -2154,7 +2155,7 @@ player_spawn_protection_timeout()
 	self endon("disconnect");
 	self endon("player_spawn_protection_end");
 
-	self waittill_any("player_downed", "meat_grabbed", "meat_stink_player_start");
+	self waittill_any("zombified", "player_downed", "meat_grabbed", "meat_stink_player_start");
 
 	self.spawn_protection = 0;
 }

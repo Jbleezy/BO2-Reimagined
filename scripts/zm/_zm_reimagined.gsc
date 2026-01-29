@@ -560,8 +560,6 @@ on_player_spawned()
 
 			self thread veryhurt_blood_fx();
 
-			self thread ignoreme_after_revived();
-
 			self thread last_held_primary_weapon_tracker();
 
 			self thread held_melee_weapon_world_model_fix();
@@ -643,6 +641,11 @@ on_player_revived()
 		objective_setgamemodeflags(self.obj_ind, 1);
 
 		self useservervisionset(0);
+
+		if (!is_true(self.is_zombie))
+		{
+			self thread player_revive_protection();
+		}
 	}
 }
 
@@ -1726,21 +1729,10 @@ veryhurt_blood_fx()
 	}
 }
 
-ignoreme_after_revived()
-{
-	self endon("disconnect");
-
-	while (1)
-	{
-		self waittill("player_revived", reviver);
-
-		self thread player_revive_protection();
-	}
-}
-
 player_revive_protection()
 {
 	self endon("disconnect");
+	self endon("zombified");
 	self endon("player_downed");
 	self endon("meat_grabbed");
 	self endon("meat_stink_player_start");
@@ -1769,7 +1761,7 @@ player_revive_protection_timeout()
 	self endon("disconnect");
 	self endon("player_revive_protection_end");
 
-	self waittill_any("player_downed", "meat_grabbed", "meat_stink_player_start");
+	self waittill_any("zombified", "player_downed", "meat_grabbed", "meat_stink_player_start");
 
 	self.revive_protection = 0;
 }
