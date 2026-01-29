@@ -941,7 +941,7 @@ pregame_think()
 
 	while (num_players < pregame_minplayers)
 	{
-		if (is_encounter())
+		if (level.teamcount > 1)
 		{
 			level thread check_for_team_change();
 		}
@@ -1068,7 +1068,7 @@ pregame_think()
 			break;
 		}
 
-		if (is_encounter())
+		if (level.teamcount > 1)
 		{
 			level thread check_for_team_change();
 		}
@@ -1100,7 +1100,7 @@ pregame_think()
 		players = get_players();
 	}
 
-	if (is_encounter())
+	if (level.teamcount > 1)
 	{
 		level thread check_for_team_change();
 	}
