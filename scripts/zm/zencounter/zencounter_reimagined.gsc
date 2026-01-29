@@ -397,7 +397,7 @@ grief_onplayerdisconnect(disconnecting_player)
 		{
 			if (disconnecting_player.team == level.zombie_team)
 			{
-				level thread the_disease_powerup_drop(disconnecting_player.origin);
+				level thread the_disease_powerup_drop(disconnecting_player.origin, 1);
 			}
 		}
 		else
@@ -3343,6 +3343,8 @@ turned_init()
 
 turned_think()
 {
+	level endon("end_game");
+
 	flag_wait("initial_blackscreen_passed");
 
 	allies_players = get_players("allies");
@@ -3352,13 +3354,18 @@ turned_think()
 
 	level waittill("restart_round_start");
 
-	players = get_players();
-	player = random(players);
+	allies_players = get_players("allies");
+	player = random(allies_players);
 	origin = player.origin;
 
 	wait 10;
 
-	level thread the_disease_powerup_drop(origin);
+	zombie_players = get_players(level.zombie_team);
+
+	if (zombie_players.size <= 0)
+	{
+		level thread the_disease_powerup_drop(origin);
+	}
 }
 
 the_disease_powerup(player)
@@ -3366,9 +3373,12 @@ the_disease_powerup(player)
 	player notify("player_suicide");
 }
 
-the_disease_powerup_drop(origin)
+the_disease_powerup_drop(origin, drop_from_disconnecting_player = 0)
 {
-	waittillframeend; // wait for disconnecting player to disconnect when dropping from disconnecting player
+	if (drop_from_disconnecting_player)
+	{
+		waittillframeend; // wait for disconnecting player to disconnect
+	}
 
 	players = get_players();
 
