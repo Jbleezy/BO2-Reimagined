@@ -262,7 +262,7 @@
 * Pressing fire button while reviving no longer switches weapons
 * Weapon is no longer switched after reviving if player switched weapons during revive
 * No longer gain points back on self revives
-* Respawn near random player (normally respawn near the same player every time)
+* Respawn near a random player (normally respawn near the same player every time)
 * No longer spawn in for a second when joining mid game
 * Can activate triggers while switching weapons
 * Can shoot while looking at other players
@@ -1648,4 +1648,4 @@
 * Disease powerup spawns at survivor initial spawn points after 10 seconds and chases after the closest survivor
 * Survivors become zombies when they bleed out
 * Zombies see survivors and other zombies through walls
-* Zombies respawn after 10 seconds
+* Zombies respawn near a random zombie after 10 seconds

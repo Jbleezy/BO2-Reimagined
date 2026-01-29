@@ -321,6 +321,7 @@ grief_onplayerconnect()
 	self thread on_player_downed();
 	self thread on_player_revived();
 	self thread on_player_bled_out();
+	self thread on_player_spectate();
 	self thread on_player_zom_kill();
 
 	self thread stun_fx();
@@ -500,7 +501,7 @@ on_player_downed()
 		{
 			if (self.team == level.zombie_team)
 			{
-				self thread turned_zombie_spectate_and_respawn();
+				self thread turned_zombie_spectate();
 				increment_score(self.team, -1, 0);
 				continue;
 			}
@@ -611,14 +612,32 @@ on_player_bled_out()
 
 		if (is_respawn_gamemode())
 		{
-			if (is_true(self.playersuicided))
-			{
-				self thread player_spectate_and_respawn();
-			}
-			else
+			if (!is_true(self.playersuicided))
 			{
 				self maps\mp\zombies\_zm::spectator_respawn();
 			}
+		}
+	}
+}
+
+on_player_spectate()
+{
+	level endon("end_game");
+	self endon("disconnect");
+
+	while (1)
+	{
+		self waittill("spawned_spectator");
+		waittillframeend;
+
+		if (is_respawn_gamemode())
+		{
+			self thread player_wait_and_respawn();
+		}
+
+		if (level.scr_zm_ui_gametype == "zturned")
+		{
+			self thread turned_zombie_wait_and_respawn();
 		}
 	}
 }
@@ -767,7 +786,7 @@ player_spawn()
 	}
 }
 
-player_spectate_and_respawn()
+player_wait_and_respawn()
 {
 	self endon("disconnect");
 
@@ -3445,7 +3464,18 @@ turned_zombie_init()
 
 turned_zombie_spawn()
 {
+	if (!isdefined(self.turned_zombie_spawn_point))
+	{
+		self.turned_zombie_respawn_skip_wait = 1;
+		self maps\mp\zombies\_zm::spawnspectator();
+		return;
+	}
+
 	self maps\mp\zombies\_zm_turned::turn_to_zombie();
+
+	self setorigin(self.turned_zombie_spawn_point.origin);
+	self setplayerangles(self.turned_zombie_spawn_point.angles);
+	self.turned_zombie_spawn_point = undefined;
 
 	playfx(level._effect["zombie_disappears"], self.origin);
 	playsoundatposition("evt_appear_3d", self.origin);
@@ -3453,18 +3483,69 @@ turned_zombie_spawn()
 	playrumbleonposition("explosion_generic", self.origin);
 }
 
-turned_zombie_spectate_and_respawn()
+turned_zombie_spectate()
 {
 	playfx(level._effect["zombie_disappears"], self.origin);
 	playsoundatposition("evt_disappear_3d", self.origin);
 
 	self maps\mp\zombies\_zm::spawnspectator();
+}
 
-	wait 10;
+turned_zombie_wait_and_respawn()
+{
+	self endon("disconnect");
+
+	if (is_true(self.turned_zombie_respawn_skip_wait))
+	{
+		self.turned_zombie_respawn_skip_wait = undefined;
+	}
+	else
+	{
+		wait 10;
+	}
+
+	while (1)
+	{
+		self.turned_zombie_spawn_point = turned_zombie_get_spawn_point();
+
+		if (isdefined(self.turned_zombie_spawn_point))
+		{
+			break;
+		}
+
+		wait 0.05;
+	}
 
 	self.sessionstate = "playing";
 
 	self maps\mp\zombies\_zm::spectator_respawn();
+}
+
+turned_zombie_get_spawn_point()
+{
+	valid_zombies = [];
+	zombies = getaispeciesarray(level.zombie_team, "all");
+
+	foreach (zombie in zombies)
+	{
+		if (isalive(zombie) && zombie in_playable_area() && is_true(zombie.completed_emerging_into_playable_area) && !is_true(zombie.in_the_ground) && !is_true(zombie.in_the_ceiling) && !is_true(zombie.is_traversing))
+		{
+			valid_zombies[valid_zombies.size] = zombie;
+		}
+	}
+
+	if (valid_zombies.size <= 0)
+	{
+		return undefined;
+	}
+
+	zombie = random(valid_zombies);
+
+	spawn_point = spawnstruct();
+	spawn_point.origin = zombie.origin;
+	spawn_point.angles = zombie.angles;
+
+	return spawn_point;
 }
 
 can_revive(revivee)

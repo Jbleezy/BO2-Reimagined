@@ -675,6 +675,7 @@ on_player_spectate()
 	while (1)
 	{
 		self waittill("spawned_spectator");
+		waittillframeend;
 
 		self.statusicon = "hud_status_dead";
 
