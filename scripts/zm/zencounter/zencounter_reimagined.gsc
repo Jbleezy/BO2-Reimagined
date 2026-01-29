@@ -3467,7 +3467,7 @@ turned_zombie_spawn()
 	if (!isdefined(self.turned_zombie_spawn_point))
 	{
 		self.turned_zombie_respawn_skip_wait = 1;
-		self maps\mp\zombies\_zm::spawnspectator();
+		self turned_zombie_spectate(0);
 		return;
 	}
 
@@ -3483,12 +3483,18 @@ turned_zombie_spawn()
 	playrumbleonposition("explosion_generic", self.origin);
 }
 
-turned_zombie_spectate()
+turned_zombie_spectate(play_fx = 1)
 {
-	playfx(level._effect["zombie_disappears"], self.origin);
-	playsoundatposition("evt_disappear_3d", self.origin);
+	if (play_fx)
+	{
+		playfx(level._effect["zombie_disappears"], self.origin);
+		playsoundatposition("evt_disappear_3d", self.origin);
+	}
 
 	self maps\mp\zombies\_zm::spawnspectator();
+
+	self.maxhealth = level.zombie_vars["zombie_health_start"];
+	self.health = self.maxhealth;
 }
 
 turned_zombie_wait_and_respawn()
