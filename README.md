@@ -1648,4 +1648,5 @@
 * Disease powerup spawns at survivor initial spawn points after 10 seconds and chases after the closest survivor
 * Survivors become zombies when they bleed out
 * Zombies see survivors and other zombies through walls
-* Zombies respawn near a random zombie after 10 seconds
+* Zombies can jump and go prone
+* Zombies respawn near a random zombie after spectating for 10 seconds

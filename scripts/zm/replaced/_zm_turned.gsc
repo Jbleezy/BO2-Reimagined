@@ -66,8 +66,8 @@ turn_to_zombie()
 	self.ignoreme = 1;
 
 	self allowstand(1);
-	self allowprone(0);
 	self allowcrouch(0);
+	self allowprone(1);
 	self allowads(0);
 	self setburn(0);
 	self stopshellshock();

@@ -1797,6 +1797,14 @@ STATE COMBAT
 	turnright
 	{
 		// TURNED
+		playerAnimType turned, stance prone
+		{
+			both pb_hold_prone_turn_90right
+		}
+		playerAnimType turned, stance crouch
+		{
+			both pb_hold_prone_turn_90right
+		}
 		playerAnimType turned
 		{
 			both pb_zombie_stand_turn_r90
@@ -1997,6 +2005,14 @@ STATE COMBAT
 	turnleft
 	{
 		// TURNED
+		playerAnimType turned, stance prone
+		{
+			both pb_hold_prone_turn_90left
+		}
+		playerAnimType turned, stance crouch
+		{
+			both pb_hold_prone_turn_90left
+		}
 		playerAnimType turned
 		{
 			both pb_zombie_stand_turn_l90
