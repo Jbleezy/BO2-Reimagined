@@ -30,7 +30,8 @@ init()
 	if (is_encounter())
 	{
 		maps\mp\zombies\_zm_ai_dogs::init();
-		sndswitchannouncervox("richtofen");
+		level thread encounter_zombie_eye_glow_change();
+		level thread encounter_switch_announcer_to_richtofen();
 	}
 
 	level thread increase_dog_health();
@@ -52,6 +53,27 @@ zombie_init_done()
 nuked_special_weapon_magicbox_check(weapon)
 {
 	return 1;
+}
+
+encounter_zombie_eye_glow_change()
+{
+	flag_wait("start_zombie_round_logic");
+
+	level.zombie_spawners = getentarray("zombie_spawner_beyes", "script_noteworthy");
+
+	if (isdefined(level._game_module_custom_spawn_init_func))
+	{
+		[[level._game_module_custom_spawn_init_func]]();
+	}
+
+	level setclientfield("zombie_eye_change", 1);
+}
+
+encounter_switch_announcer_to_richtofen()
+{
+	flag_wait("start_zombie_round_logic");
+
+	sndswitchannouncervox("richtofen");
 }
 
 increase_dog_health()
