@@ -41,6 +41,19 @@ material,gfx_fxt_light_headlight_z20
 material,gfx_fxt_light_flare_halogen_z200
 fx,maps/zombie/fx_zmb_meat_glow_3p
 
+material,mc/mtl_t6_wpn_zmb_jet_gun
+
+material,mc/mtl_t6_wpn_zmb_shield
+material,mc/mtl_t6_wpn_zmb_shield_glass
+
+material,mc/mtl_p6_zm_buildable_turbine
+
+material,mc/mtl_p6_zm_buildable_turret_ammo
+material,mc/mtl_p6_zm_buildable_turret_mower
+material,mc/mtl_t6_wpn_zmb_rpd
+
+material,mc/mtl_p6_zm_buildable_etrap
+
 rawfile,rumble/heavygun_fire
 rawfile,rumble/heavygun_fire_h.rmb
 rawfile,rumble/heavygun_fire_l.rmb

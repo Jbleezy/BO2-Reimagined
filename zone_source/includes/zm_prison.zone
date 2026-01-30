@@ -139,4 +139,9 @@ material,mc/mtl_c_zom_brutus_gloves
 material,mc/mtl_c_zom_brutus_head
 material,mc/mtl_c_zom_brutus_helmet
 
+material,mc/mtl_t6_wpn_zmb_blundergat
+material,mc/mtl_t6_wpn_zmb_blundergat_acid
+material,mc/mtl_t6_wpn_zmb_blundergat_armor
+material,mc/mtl_t6_wpn_zmb_blundergat_armor_ember
+
 camo,camo_blundergat

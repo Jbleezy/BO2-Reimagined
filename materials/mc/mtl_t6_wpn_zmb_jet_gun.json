@@ -1,0 +1,236 @@
+{
+	"_type": "material",
+	"_version": 1,
+	"cameraRegion": "litOpaque",
+	"constants": [
+		{
+			"literal": [
+				8.0,
+				8.0,
+				1.0,
+				0.0
+			],
+			"name": "colorDetailScale"
+		},
+		{
+			"literal": [
+				1.0,
+				1.0,
+				1.0,
+				1.0
+			],
+			"name": "occlusionAmount"
+		}
+	],
+	"contents": 1,
+	"gameFlags": [
+		"10",
+		"CASTS_SHADOW"
+	],
+	"hashIndex": 0,
+	"layeredSurfaceTypes": 536870912,
+	"probeMipBits": 0,
+	"sortKey": 4,
+	"stateBits": [
+		{
+			"alphaTest": "disabled",
+			"blendOpAlpha": "disabled",
+			"blendOpRgb": "disabled",
+			"colorWriteAlpha": false,
+			"colorWriteRgb": false,
+			"cullFace": "back",
+			"depthTest": "less_equal",
+			"depthWrite": true,
+			"dstBlendAlpha": "zero",
+			"dstBlendRgb": "zero",
+			"polygonOffset": "offset0",
+			"polymodeLine": false,
+			"srcBlendAlpha": "one",
+			"srcBlendRgb": "one",
+			"stencilFront": {
+				"fail": "keep",
+				"func": "equal",
+				"pass": "keep",
+				"zfail": "keep"
+			}
+		},
+		{
+			"alphaTest": "disabled",
+			"blendOpAlpha": "disabled",
+			"blendOpRgb": "disabled",
+			"colorWriteAlpha": false,
+			"colorWriteRgb": false,
+			"cullFace": "back",
+			"depthTest": "less_equal",
+			"depthWrite": true,
+			"dstBlendAlpha": "zero",
+			"dstBlendRgb": "zero",
+			"polygonOffset": "offsetShadowmap",
+			"polymodeLine": false,
+			"srcBlendAlpha": "one",
+			"srcBlendRgb": "one"
+		},
+		{
+			"alphaTest": "disabled",
+			"blendOpAlpha": "disabled",
+			"blendOpRgb": "disabled",
+			"colorWriteAlpha": true,
+			"colorWriteRgb": true,
+			"cullFace": "back",
+			"depthTest": "less_equal",
+			"depthWrite": true,
+			"dstBlendAlpha": "zero",
+			"dstBlendRgb": "zero",
+			"polygonOffset": "offset0",
+			"polymodeLine": false,
+			"srcBlendAlpha": "one",
+			"srcBlendRgb": "one"
+		},
+		{
+			"alphaTest": "disabled",
+			"blendOpAlpha": "disabled",
+			"blendOpRgb": "disabled",
+			"colorWriteAlpha": false,
+			"colorWriteRgb": true,
+			"cullFace": "back",
+			"depthTest": "less_equal",
+			"depthWrite": false,
+			"dstBlendAlpha": "zero",
+			"dstBlendRgb": "zero",
+			"polygonOffset": "offset2",
+			"polymodeLine": true,
+			"srcBlendAlpha": "one",
+			"srcBlendRgb": "one"
+		},
+		{
+			"alphaTest": "disabled",
+			"blendOpAlpha": "disabled",
+			"blendOpRgb": "add",
+			"colorWriteAlpha": true,
+			"colorWriteRgb": true,
+			"cullFace": "back",
+			"depthTest": "less_equal",
+			"depthWrite": true,
+			"dstBlendAlpha": "zero",
+			"dstBlendRgb": "one",
+			"polygonOffset": "offset0",
+			"polymodeLine": false,
+			"srcBlendAlpha": "one",
+			"srcBlendRgb": "one"
+		}
+	],
+	"stateBitsEntry": [
+		0,
+		1,
+		2,
+		-1,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		3,
+		-1,
+		2,
+		4
+	],
+	"stateFlags": 121,
+	"surfaceFlags": 0,
+	"surfaceTypeBits": 0,
+	"techniqueSet": "mc_lit_sm_r0c0n0s0o0_3z86zq2z",
+	"textureAtlas": {
+		"columns": 1,
+		"rows": 1
+	},
+	"textures": [
+		{
+			"image": "~~-gmtl_t6_wpn_zmb_jet_gun_sp~c0cc0239",
+			"isMatureContent": false,
+			"name": "specularMap",
+			"samplerState": {
+				"clampU": false,
+				"clampV": false,
+				"clampW": false,
+				"filter": "aniso4x",
+				"mipMap": "linear"
+			},
+			"semantic": "specularMap"
+		},
+		{
+			"image": "mtl_t6_wpn_zmb_jet_gun_nml",
+			"isMatureContent": false,
+			"name": "normalMap",
+			"samplerState": {
+				"clampU": false,
+				"clampV": false,
+				"clampW": false,
+				"filter": "aniso4x",
+				"mipMap": "linear"
+			},
+			"semantic": "normalMap"
+		},
+		{
+			"image": "~mtl_t6_wpn_zmb_jet_gun_ao-l&~adbef55d",
+			"isMatureContent": false,
+			"name": "occlusionMap",
+			"samplerState": {
+				"clampU": false,
+				"clampV": false,
+				"clampW": false,
+				"filter": "aniso4x",
+				"mipMap": "linear"
+			},
+			"semantic": "occlusionMap"
+		},
+		{
+			"image": "~-gmtl_t6_wpn_zmb_jet_gun_col",
+			"isMatureContent": false,
+			"name": "colorMap",
+			"samplerState": {
+				"clampU": false,
+				"clampV": false,
+				"clampW": false,
+				"filter": "aniso4x",
+				"mipMap": "linear"
+			},
+			"semantic": "colorMap"
+		},
+		{
+			"image": "weapon_camo_neutral",
+			"isMatureContent": false,
+			"name": "colorDetailMap",
+			"samplerState": {
+				"clampU": false,
+				"clampV": false,
+				"clampW": false,
+				"filter": "aniso4x",
+				"mipMap": "linear"
+			},
+			"semantic": "color10Map"
+		}
+	],
+	"thermalMaterial": "mc/mtl_t6_wpn_zmb_jet_gun_thermal"
+}

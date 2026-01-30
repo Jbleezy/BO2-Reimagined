@@ -1052,6 +1052,27 @@ material,mc/mtl_c_zom_buried_sloth_body_a
 material,mc/mtl_c_zom_buried_sloth_head
 material,mc/mtl_c_zom_buried_sloth_head_hair
 
+techniqueset,,mc_lit_sm_r0c0n0s0o0_909j993q
+material,mc/mtl_t6_wpn_pistol_rnma_camo1
+material,mc/mtl_t6_wpn_pistol_rnma_camo2
+
+material,mc/mtl_t6_wpn_zmb_slowgun_chain
+
+material,mc/mtl_t6_wpn_claymore
+
+material,mc/mtl_t6_wpn_zmb_timebomb
+material,mc/mtl_t6_wpn_zmb_timebomb_clacker
+material,mc/mtl_t6_wpn_zmb_timebomb_glow
+
+material,mc/core_glass_plain_trans
+material,mc/decal_trim_fence_chainlink_old
+material,mc/mtl_p6_zm_buildable_tramplesteam
+material,mc/mtl_p6_zm_buildable_tramplesteam_bellows
+
+material,mc/mtl_t6_wpn_zmb_subwoofer
+
+material,mc/mtl_t6_wpn_zmb_chopper
+
 camo,camo_rnma
 camo,camo_slowgun
 camo,camo_vzoom_svu

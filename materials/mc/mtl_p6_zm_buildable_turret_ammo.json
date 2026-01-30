@@ -1,0 +1,201 @@
+{
+	"_type": "material",
+	"_version": 1,
+	"cameraRegion": "litOpaque",
+	"constants": [
+		{
+			"literal": [
+				1.0,
+				1.0,
+				1.0,
+				1.0
+			],
+			"name": "occlusionAmount"
+		}
+	],
+	"contents": 1,
+	"gameFlags": [
+		"10",
+		"CASTS_SHADOW"
+	],
+	"hashIndex": 0,
+	"layeredSurfaceTypes": 536870916,
+	"probeMipBits": 0,
+	"sortKey": 4,
+	"stateBits": [
+		{
+			"alphaTest": "disabled",
+			"blendOpAlpha": "disabled",
+			"blendOpRgb": "disabled",
+			"colorWriteAlpha": false,
+			"colorWriteRgb": false,
+			"cullFace": "back",
+			"depthTest": "less_equal",
+			"depthWrite": true,
+			"dstBlendAlpha": "zero",
+			"dstBlendRgb": "zero",
+			"polygonOffset": "offset0",
+			"polymodeLine": false,
+			"srcBlendAlpha": "one",
+			"srcBlendRgb": "one",
+			"stencilFront": {
+				"fail": "keep",
+				"func": "equal",
+				"pass": "keep",
+				"zfail": "keep"
+			}
+		},
+		{
+			"alphaTest": "disabled",
+			"blendOpAlpha": "disabled",
+			"blendOpRgb": "disabled",
+			"colorWriteAlpha": false,
+			"colorWriteRgb": false,
+			"cullFace": "back",
+			"depthTest": "less_equal",
+			"depthWrite": true,
+			"dstBlendAlpha": "zero",
+			"dstBlendRgb": "zero",
+			"polygonOffset": "offsetShadowmap",
+			"polymodeLine": false,
+			"srcBlendAlpha": "one",
+			"srcBlendRgb": "one"
+		},
+		{
+			"alphaTest": "disabled",
+			"blendOpAlpha": "disabled",
+			"blendOpRgb": "disabled",
+			"colorWriteAlpha": true,
+			"colorWriteRgb": true,
+			"cullFace": "back",
+			"depthTest": "less_equal",
+			"depthWrite": true,
+			"dstBlendAlpha": "zero",
+			"dstBlendRgb": "zero",
+			"polygonOffset": "offset0",
+			"polymodeLine": false,
+			"srcBlendAlpha": "one",
+			"srcBlendRgb": "one"
+		},
+		{
+			"alphaTest": "disabled",
+			"blendOpAlpha": "disabled",
+			"blendOpRgb": "disabled",
+			"colorWriteAlpha": false,
+			"colorWriteRgb": true,
+			"cullFace": "back",
+			"depthTest": "less_equal",
+			"depthWrite": false,
+			"dstBlendAlpha": "zero",
+			"dstBlendRgb": "zero",
+			"polygonOffset": "offset2",
+			"polymodeLine": true,
+			"srcBlendAlpha": "one",
+			"srcBlendRgb": "one"
+		},
+		{
+			"alphaTest": "disabled",
+			"blendOpAlpha": "disabled",
+			"blendOpRgb": "add",
+			"colorWriteAlpha": true,
+			"colorWriteRgb": true,
+			"cullFace": "back",
+			"depthTest": "less_equal",
+			"depthWrite": true,
+			"dstBlendAlpha": "zero",
+			"dstBlendRgb": "one",
+			"polygonOffset": "offset0",
+			"polymodeLine": false,
+			"srcBlendAlpha": "one",
+			"srcBlendRgb": "one"
+		}
+	],
+	"stateBitsEntry": [
+		0,
+		1,
+		2,
+		-1,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		2,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		3,
+		-1,
+		2,
+		4
+	],
+	"stateFlags": 121,
+	"surfaceFlags": 4194304,
+	"surfaceTypeBits": 8,
+	"techniqueSet": "mc_lit_sm_r0c0n0s0_zqq1fze7",
+	"textureAtlas": {
+		"columns": 1,
+		"rows": 1
+	},
+	"textures": [
+		{
+			"image": "~~-gp6_zm_buildable_turret_am~7c5152b7",
+			"isMatureContent": false,
+			"name": "specularMap",
+			"samplerState": {
+				"clampU": false,
+				"clampV": false,
+				"clampW": false,
+				"filter": "aniso4x",
+				"mipMap": "linear"
+			},
+			"semantic": "specularMap"
+		},
+		{
+			"image": "p6_zm_buildable_turret_ammo_n",
+			"isMatureContent": false,
+			"name": "normalMap",
+			"samplerState": {
+				"clampU": false,
+				"clampV": false,
+				"clampW": false,
+				"filter": "aniso4x",
+				"mipMap": "linear"
+			},
+			"semantic": "normalMap"
+		},
+		{
+			"image": "~-gp6_zm_buildable_turret_ammo_c",
+			"isMatureContent": false,
+			"name": "colorMap",
+			"samplerState": {
+				"clampU": false,
+				"clampV": false,
+				"clampW": false,
+				"filter": "aniso4x",
+				"mipMap": "linear"
+			},
+			"semantic": "colorMap"
+		}
+	],
+	"thermalMaterial": "mc/mtl_p6_zm_buildable_turret_ammo_thermal"
+}

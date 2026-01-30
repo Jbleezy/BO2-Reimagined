@@ -84,4 +84,9 @@ material,mc/mtl_veh_t6_dlc_zm_robot_light_on
 material,mc/mtl_veh_t6_dlc_zm_robot_limbs
 material,mc/mtl_veh_t6_dlc_zm_robot_upper
 
+material,mc/mtl_t6_wpn_zmb_mg08
+material,mc/mtl_t6_wpn_zmb_mg08_camo
+material,mc/mtl_t6_wpn_zmb_mg08_mag
+material,mc/mtl_t6_wpn_zmb_mg08_mag_camo
+
 camo,camo_raygun

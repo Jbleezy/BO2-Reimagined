@@ -1,0 +1,178 @@
+{
+	"_type": "material",
+	"_version": 1,
+	"cameraRegion": "litTrans",
+	"constants": [
+		{
+			"literal": [
+				1.0,
+				1.0,
+				1.0,
+				1.0
+			],
+			"name": "occlusionAmount"
+		}
+	],
+	"contents": 16,
+	"gameFlags": [
+		"10"
+	],
+	"hashIndex": 0,
+	"layeredSurfaceTypes": 536870921,
+	"probeMipBits": 0,
+	"sortKey": 40,
+	"stateBits": [
+		{
+			"alphaTest": "gt0",
+			"blendOpAlpha": "add",
+			"blendOpRgb": "add",
+			"colorWriteAlpha": true,
+			"colorWriteRgb": true,
+			"cullFace": "back",
+			"depthTest": "less_equal",
+			"depthWrite": false,
+			"dstBlendAlpha": "one",
+			"dstBlendRgb": "invsrcalpha",
+			"polygonOffset": "offset1",
+			"polymodeLine": false,
+			"srcBlendAlpha": "invdestalpha",
+			"srcBlendRgb": "srcalpha"
+		},
+		{
+			"alphaTest": "gt0",
+			"blendOpAlpha": "add",
+			"blendOpRgb": "add",
+			"colorWriteAlpha": true,
+			"colorWriteRgb": true,
+			"cullFace": "back",
+			"depthTest": "less_equal",
+			"depthWrite": false,
+			"dstBlendAlpha": "one",
+			"dstBlendRgb": "invsrcalpha",
+			"polygonOffset": "offset1",
+			"polymodeLine": false,
+			"srcBlendAlpha": "invdestalpha",
+			"srcBlendRgb": "one"
+		},
+		{
+			"alphaTest": "disabled",
+			"blendOpAlpha": "disabled",
+			"blendOpRgb": "disabled",
+			"colorWriteAlpha": false,
+			"colorWriteRgb": true,
+			"cullFace": "back",
+			"depthTest": "less_equal",
+			"depthWrite": false,
+			"dstBlendAlpha": "zero",
+			"dstBlendRgb": "zero",
+			"polygonOffset": "offset2",
+			"polymodeLine": true,
+			"srcBlendAlpha": "one",
+			"srcBlendRgb": "one"
+		},
+		{
+			"alphaTest": "disabled",
+			"blendOpAlpha": "disabled",
+			"blendOpRgb": "add",
+			"colorWriteAlpha": true,
+			"colorWriteRgb": true,
+			"cullFace": "back",
+			"depthTest": "less_equal",
+			"depthWrite": false,
+			"dstBlendAlpha": "zero",
+			"dstBlendRgb": "one",
+			"polygonOffset": "offset1",
+			"polymodeLine": false,
+			"srcBlendAlpha": "one",
+			"srcBlendRgb": "one"
+		}
+	],
+	"stateBitsEntry": [
+		-1,
+		-1,
+		0,
+		-1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		2,
+		-1,
+		0,
+		3
+	],
+	"stateFlags": 21,
+	"surfaceFlags": 9437184,
+	"surfaceTypeBits": 256,
+	"techniqueSet": "mc_lit_sm_b0c0s0_2q396f5e",
+	"textureAtlas": {
+		"columns": 1,
+		"rows": 1
+	},
+	"textures": [
+		{
+			"image": "~~-gcore_glass_plain_s-rgb&~-~5d01a350",
+			"isMatureContent": false,
+			"name": "specularMap",
+			"samplerState": {
+				"clampU": false,
+				"clampV": false,
+				"clampW": false,
+				"filter": "aniso4x",
+				"mipMap": "linear"
+			},
+			"semantic": "specularMap"
+		},
+		{
+			"image": "$identitynormalmap",
+			"isMatureContent": false,
+			"name": "normalMap",
+			"samplerState": {
+				"clampU": false,
+				"clampV": false,
+				"clampW": false,
+				"filter": "nearest",
+				"mipMap": "disabled"
+			},
+			"semantic": "normalMap"
+		},
+		{
+			"image": "~-gcore_glass_plain_c",
+			"isMatureContent": false,
+			"name": "colorMap",
+			"samplerState": {
+				"clampU": false,
+				"clampV": false,
+				"clampW": false,
+				"filter": "aniso4x",
+				"mipMap": "linear"
+			},
+			"semantic": "colorMap"
+		}
+	],
+	"thermalMaterial": "mc/core_glass_plain_trans_thermal"
+}

@@ -37,6 +37,12 @@ material,mc/mtl_c_zom_civ_shorts_body6
 material,mc/mtl_c_zom_scientist_body
 material,mc/mtl_c_zom_soldier_body1
 
+techniqueset,,mc_lit_sm_b0c0n0s0_91j5z9q9
+material,mc/mtl_t6_wpn_zmb_slipgun
+material,mc/mtl_t6_wpn_zmb_slipgun_glass
+material,mc/mtl_t6_wpn_zmb_slipgun_glass_sort
+material,mc/mtl_t6_wpn_zmb_slipgun_scroll
+
 camo,camo_slipgun
 
 script,character/c_highrise_player_farmgirl.gsc

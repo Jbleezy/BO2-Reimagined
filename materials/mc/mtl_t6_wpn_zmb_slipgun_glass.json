@@ -1,0 +1,193 @@
+{
+	"_type": "material",
+	"_version": 1,
+	"cameraRegion": "litTrans",
+	"constants": [
+		{
+			"literal": [
+				0.15000000596046448,
+				0.0,
+				0.0,
+				1.0
+			],
+			"name": "Reflection_Amount"
+		},
+		{
+			"literal": [
+				0.05000000074505806,
+				0.0,
+				0.0,
+				1.0
+			],
+			"name": "Specular_Decay_Threshold"
+		},
+		{
+			"literal": [
+				0.800000011920929,
+				0.0,
+				0.0,
+				1.0
+			],
+			"name": "Specular_Amount"
+		}
+	],
+	"contents": 16,
+	"gameFlags": [
+		"10"
+	],
+	"hashIndex": 0,
+	"layeredSurfaceTypes": 536870921,
+	"probeMipBits": 0,
+	"sortKey": 58,
+	"stateBits": [
+		{
+			"alphaTest": "gt0",
+			"blendOpAlpha": "add",
+			"blendOpRgb": "add",
+			"colorWriteAlpha": true,
+			"colorWriteRgb": true,
+			"cullFace": "back",
+			"depthTest": "less_equal",
+			"depthWrite": false,
+			"dstBlendAlpha": "one",
+			"dstBlendRgb": "invsrcalpha",
+			"polygonOffset": "offset0",
+			"polymodeLine": false,
+			"srcBlendAlpha": "invdestalpha",
+			"srcBlendRgb": "srcalpha"
+		},
+		{
+			"alphaTest": "disabled",
+			"blendOpAlpha": "disabled",
+			"blendOpRgb": "disabled",
+			"colorWriteAlpha": false,
+			"colorWriteRgb": true,
+			"cullFace": "back",
+			"depthTest": "less_equal",
+			"depthWrite": false,
+			"dstBlendAlpha": "zero",
+			"dstBlendRgb": "zero",
+			"polygonOffset": "offset2",
+			"polymodeLine": true,
+			"srcBlendAlpha": "one",
+			"srcBlendRgb": "one"
+		},
+		{
+			"alphaTest": "disabled",
+			"blendOpAlpha": "disabled",
+			"blendOpRgb": "add",
+			"colorWriteAlpha": true,
+			"colorWriteRgb": true,
+			"cullFace": "back",
+			"depthTest": "less_equal",
+			"depthWrite": false,
+			"dstBlendAlpha": "zero",
+			"dstBlendRgb": "one",
+			"polygonOffset": "offset0",
+			"polymodeLine": false,
+			"srcBlendAlpha": "one",
+			"srcBlendRgb": "one"
+		}
+	],
+	"stateBitsEntry": [
+		-1,
+		-1,
+		0,
+		-1,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		1,
+		-1,
+		-1,
+		2
+	],
+	"stateFlags": 21,
+	"surfaceFlags": 9437184,
+	"surfaceTypeBits": 256,
+	"techniqueSet": "mc_sw4_3d_optic_lens_4w47028j",
+	"textureAtlas": {
+		"columns": 1,
+		"rows": 1
+	},
+	"textures": [
+		{
+			"image": "mtl_t6_wpn_zmb_slipgun_glass_n",
+			"isMatureContent": false,
+			"name": "Normal_Map",
+			"samplerState": {
+				"clampU": false,
+				"clampV": false,
+				"clampW": false,
+				"filter": "aniso4x",
+				"mipMap": "linear"
+			},
+			"semantic": "normalMap"
+		},
+		{
+			"image": "~-gmtl_t6_wpn_zmb_slipgun_glass_g",
+			"isMatureContent": false,
+			"name": "Specular_Color_Map",
+			"samplerState": {
+				"clampU": false,
+				"clampV": false,
+				"clampW": false,
+				"filter": "aniso4x",
+				"mipMap": "linear"
+			},
+			"semantic": "specularMap"
+		},
+		{
+			"image": "~-gmtl_t6_wpn_zmb_slipgun_glass_c",
+			"isMatureContent": false,
+			"name": "Color_Map",
+			"samplerState": {
+				"clampU": false,
+				"clampV": false,
+				"clampW": false,
+				"filter": "aniso4x",
+				"mipMap": "linear"
+			},
+			"semantic": "colorMap"
+		},
+		{
+			"image": "~-rmtl_t6_wpn_zmb_slipgun_gla~616be9e7",
+			"isMatureContent": false,
+			"name": "Specular_Gloss_Map",
+			"samplerState": {
+				"clampU": false,
+				"clampV": false,
+				"clampW": false,
+				"filter": "aniso4x",
+				"mipMap": "linear"
+			},
+			"semantic": "colorMap"
+		}
+	],
+	"thermalMaterial": "mc/mtl_t6_wpn_zmb_slipgun_glass_thermal"
+}
