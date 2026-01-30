@@ -42,9 +42,15 @@ turn_to_zombie()
 	self notify("zombified");
 	self notify("fake_death");
 
-	maps\mp\_visionset_mgr::vsmgr_activate("visionset", "zm_turned", self);
+	if (level.script == "zm_nuked" || level.script == "zm_transit" || level.script == "zm_highrise" || level.script == "zm_buried")
+	{
+		self setclientfield("player_eyes_special", 1);
+	}
+
 	self setclientfield("player_has_eyes", 1);
 	self setclientfieldtoplayer("turned_ir", 1);
+
+	maps\mp\_visionset_mgr::vsmgr_activate("visionset", "zm_turned", self);
 	self maps\mp\zombies\_zm_audio::setexertvoice(1);
 
 	self setperk("specialty_noname");
