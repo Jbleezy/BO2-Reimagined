@@ -273,5 +273,5 @@
 			"semantic": "colorMap"
 		}
 	],
-    "thermalMaterial": "mc/mtl_c_zom_player_reporter_gear_dam_thermal"
+	"thermalMaterial": "mc/mtl_c_zom_player_reporter_gear_dam_thermal"
 }
