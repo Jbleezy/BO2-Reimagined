@@ -428,7 +428,6 @@ on_player_spawned()
 	self endon("disconnect");
 
 	self.grief_initial_spawn = true;
-	self.turned_initial_spawn = true;
 
 	while (1)
 	{
@@ -437,16 +436,6 @@ on_player_spawned()
 
 		if (level.scr_zm_ui_gametype == "zturned")
 		{
-			if (self.turned_initial_spawn)
-			{
-				self.turned_initial_spawn = false;
-
-				if (self.team == level.zombie_team)
-				{
-					increment_score(getotherteam(self.team), 0, 0, &"ZOMBIE_SURVIVOR_TURNED");
-				}
-			}
-
 			if (self.team == level.zombie_team)
 			{
 				self turned_zombie_spawn();
