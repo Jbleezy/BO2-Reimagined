@@ -841,6 +841,7 @@ CoD.PlayerAliveWaypoint.new = function(Menu, ObjectiveIndex)
 	waypoint.updatePlayerUsing = CoD.NullFunction
 	waypoint.boundsClampedCount = 0
 	waypoint.boundsTotalCount = 0
+	waypoint.zOffsetCenter = true
 
 	local objectiveName = Engine.GetObjectiveName(Menu, ObjectiveIndex)
 	waypoint:registerEventHandler("objective_update_" .. objectiveName, waypoint.update)
@@ -1201,6 +1202,11 @@ end
 CoD.ReimaginedWaypoint.updateOffset = function(Menu, ClientInstance)
 	local index = Menu.index
 	local x, y, z = Engine.GetObjectivePosition(Menu, index)
+
+	if Menu.zOffsetCenter then
+		z = z / 2
+	end
+
 	Menu.zOffsetNew = z
 
 	if Menu.zOffset == 0 then
