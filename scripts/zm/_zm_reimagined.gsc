@@ -157,6 +157,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_equipment::limited_equipment_in_use, scripts\zm\replaced\_zm_equipment::limited_equipment_in_use);
 	replaceFunc(maps\mp\zombies\_zm_clone::spawn_player_clone, scripts\zm\replaced\_zm_clone::spawn_player_clone);
 	replaceFunc(maps\mp\zombies\_zm_spawner::zombie_damage, scripts\zm\replaced\_zm_spawner::zombie_damage);
+	replaceFunc(maps\mp\zombies\_zm_spawner::enemy_death_detection, scripts\zm\replaced\_zm_spawner::enemy_death_detection);
 	replaceFunc(maps\mp\zombies\_zm_spawner::zombie_gib_on_damage, scripts\zm\replaced\_zm_spawner::zombie_gib_on_damage);
 	replaceFunc(maps\mp\zombies\_zm_spawner::head_should_gib, scripts\zm\replaced\_zm_spawner::head_should_gib);
 	replaceFunc(maps\mp\zombies\_zm_spawner::zombie_death_animscript, scripts\zm\replaced\_zm_spawner::zombie_death_animscript);
@@ -1060,11 +1061,6 @@ notify_on_player_command_scores_think()
 	while (1)
 	{
 		result = self waittill_any_return("open_scores", "close_scores");
-
-		if (!isdefined(result))
-		{
-			continue;
-		}
 
 		if (result == "open_scores")
 		{

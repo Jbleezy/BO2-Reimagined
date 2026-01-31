@@ -496,6 +496,8 @@ on_player_downed()
 		self waittill("entering_last_stand");
 
 		self kill_feed();
+		self kill_scoreboard();
+		self player_downed_reward();
 
 		if (level.scr_zm_ui_gametype == "zturned")
 		{
@@ -511,8 +513,6 @@ on_player_downed()
 				increment_score(self.team, -1, 0, &"ZOMBIE_SURVIVOR_DOWN");
 			}
 		}
-
-		self add_grief_downed_score();
 
 		if (level.scr_zm_ui_gametype == "zsr")
 		{
@@ -593,7 +593,9 @@ on_player_bled_out()
 			self.init_player_offhand_weapons_override = 1;
 			self init_player_offhand_weapons();
 			self.init_player_offhand_weapons_override = undefined;
-			self add_grief_bleedout_score();
+
+			self player_bled_out_reward();
+
 			level thread update_players_on_bleedout(self);
 		}
 
@@ -682,16 +684,6 @@ kill_feed()
 {
 	if (isDefined(self.last_damaged_by))
 	{
-		if (is_true(self.is_zombie) || is_true(self.last_damaged_by.attacker.is_zombie))
-		{
-			self.last_damaged_by.attacker.returns++;
-			self.last_damaged_by.attacker.kills--;
-		}
-		else
-		{
-			self.last_damaged_by.attacker.killsconfirmed++;
-		}
-
 		// show weapon icon for melee damage
 		if (self.last_damaged_by.meansofdeath == "MOD_MELEE")
 		{
@@ -724,14 +716,10 @@ kill_feed()
 	}
 	else if (isDefined(self.last_meated_by))
 	{
-		self.last_meated_by.attacker.killsconfirmed++;
-
 		obituary(self, self.last_meated_by.attacker, level.item_meat_name, "MOD_UNKNOWN");
 	}
 	else if (isDefined(self.last_emped_by))
 	{
-		self.last_emped_by.attacker.killsconfirmed++;
-
 		obituary(self, self.last_emped_by.attacker, "emp_grenade_zm", "MOD_UNKNOWN");
 	}
 	else
@@ -768,6 +756,37 @@ revive_feed(reviver)
 	}
 
 	obituary(self, reviver, weapon, "MOD_UNKNOWN");
+}
+
+kill_scoreboard()
+{
+	damaged_by = undefined;
+
+	if (isDefined(self.last_damaged_by))
+	{
+		damaged_by = self.last_damaged_by;
+	}
+	else if (isDefined(self.last_meated_by))
+	{
+		damaged_by = self.last_meated_by;
+	}
+	else if (isDefined(self.last_emped_by))
+	{
+		damaged_by = self.last_emped_by;
+	}
+
+	if (isDefined(damaged_by))
+	{
+		if (is_true(self.is_zombie) || is_true(damaged_by.attacker.is_zombie))
+		{
+			damaged_by.attacker.returns++;
+			damaged_by.attacker.kills--;
+		}
+		else
+		{
+			damaged_by.attacker.killsconfirmed++;
+		}
+	}
 }
 
 player_spawn()
@@ -816,31 +835,38 @@ get_held_melee_weapon(melee_weapon)
 	return melee_weapon;
 }
 
-add_grief_downed_score()
+player_downed_reward()
 {
-	downed_by = undefined;
+	damaged_by = undefined;
 
 	if (isDefined(self.last_damaged_by))
 	{
-		downed_by = self.last_damaged_by;
+		damaged_by = self.last_damaged_by;
 	}
 	else if (isDefined(self.last_meated_by))
 	{
-		downed_by = self.last_meated_by;
+		damaged_by = self.last_meated_by;
 	}
 	else if (isDefined(self.last_emped_by))
 	{
-		downed_by = self.last_emped_by;
+		damaged_by = self.last_emped_by;
 	}
 
-	if (isDefined(downed_by) && is_player_valid(downed_by.attacker))
+	if (isDefined(damaged_by) && is_player_valid(damaged_by.attacker))
 	{
-		score = 500 * maps\mp\zombies\_zm_score::get_points_multiplier(downed_by.attacker);
-		downed_by.attacker maps\mp\zombies\_zm_score::add_to_player_score(score);
+		if (is_true(self.is_zombie))
+		{
+			level maps\mp\zombies\_zm_spawner::zombie_death_points(self.origin, self.damagemod, self.damagelocation, damaged_by.attacker, self);
+		}
+		else
+		{
+			score = 500 * maps\mp\zombies\_zm_score::get_points_multiplier(damaged_by.attacker);
+			damaged_by.attacker maps\mp\zombies\_zm_score::add_to_player_score(score);
+		}
 	}
 }
 
-add_grief_bleedout_score()
+player_bled_out_reward()
 {
 	players = get_players();
 

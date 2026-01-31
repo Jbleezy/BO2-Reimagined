@@ -71,6 +71,12 @@ turn_to_zombie()
 	self.score = 0;
 	self.ignoreme = 1;
 
+	self.a = spawnstruct();
+	self.has_legs = 1;
+	self.no_gib = 1;
+	self.delayeddeath = 0;
+	self.deathpoints_already_given = 0;
+
 	self allowstand(1);
 	self allowcrouch(0);
 	self allowprone(1);
@@ -102,6 +108,8 @@ turn_to_zombie()
 	}
 
 	self thread turned_player_buttons();
+
+	self thread maps\mp\zombies\_zm_spawner::enemy_death_detection();
 }
 
 turned_disable_player_weapons()

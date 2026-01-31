@@ -1748,58 +1748,61 @@ actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, 
 		final_damage = self scale_damage(final_damage);
 	}
 
-	if (attacker HasPerk("specialty_rof"))
+	if (isplayer(attacker))
 	{
-		if (meansofdeath == "MOD_PISTOL_BULLET" || meansofdeath == "MOD_RIFLE_BULLET")
-		{
-			if (!issubstr(weapon, "metalstorm"))
-			{
-				final_damage *= 1.5;
-			}
-		}
-	}
-
-	if (attacker HasPerk("specialty_deadshot"))
-	{
-		if (is_headshot(weapon, shitloc, meansofdeath))
+		if (attacker HasPerk("specialty_rof"))
 		{
 			if (meansofdeath == "MOD_PISTOL_BULLET" || meansofdeath == "MOD_RIFLE_BULLET")
 			{
-				if (!isSubStr(weaponClass(weapon), "spread") || maps\mp\zombies\_zm_weapons::get_base_weapon_name(weapon, 1) == "ksg_zm")
+				if (!issubstr(weapon, "metalstorm"))
 				{
-					if (!issubstr(weapon, "metalstorm"))
+					final_damage *= 1.5;
+				}
+			}
+		}
+
+		if (attacker HasPerk("specialty_deadshot"))
+		{
+			if (is_headshot(weapon, shitloc, meansofdeath))
+			{
+				if (meansofdeath == "MOD_PISTOL_BULLET" || meansofdeath == "MOD_RIFLE_BULLET")
+				{
+					if (!isSubStr(weaponClass(weapon), "spread") || maps\mp\zombies\_zm_weapons::get_base_weapon_name(weapon, 1) == "ksg_zm")
 					{
-						final_damage *= 2;
+						if (!issubstr(weapon, "metalstorm"))
+						{
+							final_damage *= 2;
+						}
 					}
 				}
 			}
 		}
-	}
 
-	if (attacker maps\mp\zombies\_zm_pers_upgrades_functions::pers_mulit_kill_headshot_active() && is_headshot(weapon, shitloc, meansofdeath))
-	{
-		final_damage *= 2;
-	}
-
-	if (is_true(level.zombie_vars[attacker.team]["zombie_half_damage"]) && !is_true(self.marked_for_death))
-	{
-		final_damage /= 2;
-	}
-
-	if (is_true(level.headshots_only) && isDefined(attacker) && isplayer(attacker))
-	{
-		if (meansofdeath == "MOD_MELEE" && shitloc == "head" || meansofdeath == "MOD_MELEE" && shitloc == "helmet")
+		if (attacker maps\mp\zombies\_zm_pers_upgrades_functions::pers_mulit_kill_headshot_active() && is_headshot(weapon, shitloc, meansofdeath))
 		{
-			return int(final_damage);
+			final_damage *= 2;
 		}
 
-		if (is_explosive_damage(meansofdeath))
+		if (is_true(level.zombie_vars[attacker.team]["zombie_half_damage"]) && !is_true(self.marked_for_death))
 		{
-			return int(final_damage);
+			final_damage /= 2;
 		}
-		else if (!is_headshot(weapon, shitloc, meansofdeath))
+
+		if (is_true(level.headshots_only))
 		{
-			return 0;
+			if (meansofdeath == "MOD_MELEE" && shitloc == "head" || meansofdeath == "MOD_MELEE" && shitloc == "helmet")
+			{
+				return int(final_damage);
+			}
+
+			if (is_explosive_damage(meansofdeath))
+			{
+				return int(final_damage);
+			}
+			else if (!is_headshot(weapon, shitloc, meansofdeath))
+			{
+				return 0;
+			}
 		}
 	}
 
@@ -2235,6 +2238,15 @@ callback_playerdamage(einflictor, eattacker, idamage, idflags, smeansofdeath, sw
 
 player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime)
 {
+	if (is_true(self.is_zombie))
+	{
+		self.damagemod = smeansofdeath;
+		self.damageweapon = sweapon;
+		self.damagelocation = shitloc;
+
+		return actor_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime);
+	}
+
 	if (isDefined(level._game_module_player_damage_callback))
 	{
 		self [[level._game_module_player_damage_callback]](einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime);

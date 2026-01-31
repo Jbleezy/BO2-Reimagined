@@ -177,6 +177,41 @@ zombie_damage(mod, hit_location, hit_origin, player, amount, team)
 	self thread maps\mp\zombies\_zm_powerups::check_for_instakill(player, mod, hit_location);
 }
 
+enemy_death_detection()
+{
+	self endon("death");
+	self endon("disconnect");
+	self endon("spawned_spectator");
+
+	for (;;)
+	{
+		self waittill("damage", amount, attacker, direction_vec, point, type);
+
+		if (!isdefined(amount))
+		{
+			continue;
+		}
+
+		if (!isalive(self) || self.delayeddeath)
+		{
+			return;
+		}
+
+		if (!player_attacker(attacker))
+		{
+			continue;
+		}
+
+		if (isplayer(self))
+		{
+			self [[level.store_player_damage_info_func]](attacker, self.damageweapon, type);
+		}
+
+		self.has_been_damaged_by_player = 1;
+		self player_attacks_enemy(attacker, amount, type, point);
+	}
+}
+
 zombie_gib_on_damage()
 {
 	while (true)
