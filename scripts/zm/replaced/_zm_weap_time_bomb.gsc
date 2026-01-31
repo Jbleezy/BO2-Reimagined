@@ -337,11 +337,11 @@ _time_bomb_kill_all_active_enemies()
 		}
 	}
 
-	if (level.scr_zm_ui_gametype == "zturned")
-	{
-		players = get_players(level.zombie_team);
+	players = get_players(getotherteam(level.time_bomb_save_data.player_used.team));
 
-		foreach (player in players)
+	foreach (player in players)
+	{
+		if (is_true(player.is_zombie))
 		{
 			if (player.sessionstate == "playing")
 			{

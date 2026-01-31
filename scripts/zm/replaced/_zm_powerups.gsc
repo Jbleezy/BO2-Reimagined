@@ -863,7 +863,7 @@ nuke_powerup(drop_item, player_team)
 
 		for (i = 0; i < players.size; i++)
 		{
-			if (level.scr_zm_ui_gametype == "zturned")
+			if (is_true(players[i].is_zombie))
 			{
 				if (players[i].sessionstate == "playing")
 				{
