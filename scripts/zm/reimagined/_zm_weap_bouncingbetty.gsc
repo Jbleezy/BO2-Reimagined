@@ -351,7 +351,7 @@ betty_detonation()
 			continue;
 		}
 
-		if (isDefined(ent.pers) && isDefined(ent.pers["team"]) && ent.pers["team"] == getOtherTeam(self.team))
+		if (isDefined(ent.pers) && isDefined(ent.pers["team"]) && ent.pers["team"] == getOtherTeam(self.team) && !is_true(ent.is_zombie))
 		{
 			continue;
 		}
