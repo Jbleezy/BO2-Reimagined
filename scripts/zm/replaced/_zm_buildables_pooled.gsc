@@ -472,7 +472,7 @@ pooled_buildable_place_think()
 			continue;
 		}
 
-		status = player scripts\zm\replaced\_zm_buildables::player_can_build(bind_to.buildablezone);
+		status = player player_can_build(bind_to.buildablezone);
 
 		if (!status)
 		{
@@ -491,7 +491,7 @@ pooled_buildable_place_think()
 				self.stub [[bind_to.onbeginuse]](player);
 			}
 
-			result = self scripts\zm\replaced\_zm_buildables::buildable_use_hold_think(player, bind_to);
+			result = self buildable_use_hold_think(player, bind_to);
 			team = player.pers["team"];
 
 			if (result)
@@ -527,12 +527,12 @@ pooled_buildable_place_think()
 				self.stub [[self.stub.onuse]](player);
 			}
 
-			prompt = player scripts\zm\replaced\_zm_buildables::player_build(self.stub.buildablezone);
+			prompt = player player_build(self.stub.buildablezone);
 			self.stub.hint_string = self.stub.trigger_hintstring;
 		}
 	}
 
-	self.stub maps\mp\zombies\_zm_buildables::buildablestub_remove();
+	self.stub buildablestub_remove();
 	arrayremovevalue(level.buildables_available, self.stub.equipname);
 
 	if (level.buildables_available.size == 0)

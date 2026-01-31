@@ -87,7 +87,7 @@ buildable_place_think()
 				self.stub [[self.stub.onuse]](player);
 			}
 
-			prompt = player maps\mp\zombies\_zm_buildables::player_build(self.stub.buildablezone);
+			prompt = player player_build(self.stub.buildablezone);
 			player_built = player;
 			self.stub.hint_string = prompt;
 			self sethintstring(self.stub.hint_string);
@@ -102,14 +102,14 @@ buildable_place_think()
 
 	if (self.stub.persistent == 0)
 	{
-		self.stub maps\mp\zombies\_zm_buildables::buildablestub_remove();
+		self.stub buildablestub_remove();
 		thread maps\mp\zombies\_zm_unitrigger::unregister_unitrigger(self.stub);
 		return;
 	}
 
 	if (self.stub.persistent == 3)
 	{
-		maps\mp\zombies\_zm_buildables::stub_unbuild_buildable(self.stub, 1);
+		stub_unbuild_buildable(self.stub, 1);
 		return;
 	}
 
@@ -216,7 +216,7 @@ buildable_place_think()
 			}
 
 			self sethintstring(self.stub.hint_string);
-			player maps\mp\zombies\_zm_buildables::track_buildables_pickedup(self.stub.weaponname);
+			player track_buildables_pickedup(self.stub.weaponname);
 		}
 	}
 	else
@@ -301,7 +301,7 @@ buildable_place_think()
 
 						self.stub.hint_string = &"ZOMBIE_BOUGHT_RIOT_REPAIR";
 						self sethintstring(self.stub.hint_string);
-						player maps\mp\zombies\_zm_buildables::track_buildables_pickedup(self.stub.weaponname);
+						player track_buildables_pickedup(self.stub.weaponname);
 
 						continue;
 					}
@@ -338,7 +338,7 @@ buildable_place_think()
 					}
 
 					self sethintstring(self.stub.hint_string);
-					player maps\mp\zombies\_zm_buildables::track_buildables_pickedup(self.stub.weaponname);
+					player track_buildables_pickedup(self.stub.weaponname);
 					continue;
 				}
 				else
@@ -558,6 +558,7 @@ player_build(buildable, pieces)
 	foreach (piece in buildable.pieces)
 	{
 		buildable buildable_set_piece_built(piece);
+		player_destroy_piece(piece);
 	}
 
 	if (isdefined(buildable.stub.model))
