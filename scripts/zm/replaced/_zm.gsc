@@ -2244,6 +2244,12 @@ player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, s
 		self.damageweapon = sweapon;
 		self.damagelocation = shitloc;
 
+		if (!isdefined(eattacker))
+		{
+			self notify("new_attacker");
+			self.last_damaged_by = undefined;
+		}
+
 		return actor_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime);
 	}
 

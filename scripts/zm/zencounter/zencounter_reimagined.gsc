@@ -1799,8 +1799,8 @@ store_player_damage_info(attacker, weapon, meansofdeath)
 
 remove_player_damage_info()
 {
-	self notify("new_griefer");
-	self endon("new_griefer");
+	self notify("new_attacker");
+	self endon("new_attacker");
 	self endon("disconnect");
 
 	health = self.health;
