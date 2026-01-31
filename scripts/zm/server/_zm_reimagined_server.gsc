@@ -338,12 +338,7 @@ map_vote()
 	maps[2]["loc_name"] = get_value_from_rotation(map_rotation, "loc");
 	maps[2]["gametype_name"] = get_value_from_rotation(gametype_rotation, "gametype");
 
-	y = 87;
-
-	if (is_encounter())
-	{
-		y += 81;
-	}
+	y = -142;
 
 	level.zombie_vars["vote_timer_hud"] = create_map_vote_timer_hud(0, y - 58, time);
 
