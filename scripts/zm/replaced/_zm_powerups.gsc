@@ -863,24 +863,34 @@ nuke_powerup(drop_item, player_team)
 
 		for (i = 0; i < players.size; i++)
 		{
-			if (is_player_valid(players[i]))
+			if (level.scr_zm_ui_gametype == "zturned")
 			{
-				score = 400 * maps\mp\zombies\_zm_score::get_points_multiplier(player);
-
-				if (players[i].score < score)
+				if (players[i].sessionstate == "playing")
 				{
-					players[i] maps\mp\zombies\_zm_score::minus_to_player_score(players[i].score);
+					players[i] dodamage(players[i].health, players[i].origin);
 				}
-				else
-				{
-					players[i] maps\mp\zombies\_zm_score::minus_to_player_score(score);
-				}
-
-				radiusDamage(players[i].origin + (0, 0, 5), 10, 75, 75);
 			}
-			else if (players[i] maps\mp\zombies\_zm_laststand::player_is_in_laststand())
+			else
 			{
-				players[i] thread scripts\zm\_zm_reimagined::player_suicide();
+				if (is_player_valid(players[i]))
+				{
+					score = 400 * maps\mp\zombies\_zm_score::get_points_multiplier(player);
+
+					if (players[i].score < score)
+					{
+						players[i] maps\mp\zombies\_zm_score::minus_to_player_score(players[i].score);
+					}
+					else
+					{
+						players[i] maps\mp\zombies\_zm_score::minus_to_player_score(score);
+					}
+
+					radiusDamage(players[i].origin + (0, 0, 5), 10, 75, 75);
+				}
+				else if (players[i] maps\mp\zombies\_zm_laststand::player_is_in_laststand())
+				{
+					players[i] thread scripts\zm\_zm_reimagined::player_suicide();
+				}
 			}
 		}
 	}
