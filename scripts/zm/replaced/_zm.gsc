@@ -1560,11 +1560,6 @@ actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, 
 		}
 	}
 
-	if (issubstr(weapon, "one_inch_punch") && damage <= 5)
-	{
-		return 0;
-	}
-
 	if (!isDefined(self) || !isDefined(attacker))
 	{
 		return damage;
@@ -1597,6 +1592,11 @@ actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, 
 		{
 			return self [[self.non_attacker_func]](damage, weapon);
 		}
+	}
+
+	if (meansofdeath == "MOD_MELEE")
+	{
+		damage -= damage % 50; // fix for melee weapons dealing up to 5 extra damage
 	}
 
 	if (weapon == "zombie_bullet_crouch_zm")
