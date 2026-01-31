@@ -1061,6 +1061,11 @@ notify_on_player_command_scores_think()
 	{
 		result = self waittill_any_return("open_scores", "close_scores");
 
+		if (!isdefined(result))
+		{
+			continue;
+		}
+
 		if (result == "open_scores")
 		{
 			self.scoreboard_open = 1;
