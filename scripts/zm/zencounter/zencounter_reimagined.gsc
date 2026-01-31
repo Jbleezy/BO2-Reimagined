@@ -3459,6 +3459,8 @@ turned_zombie_init()
 
 	self maps\mp\zombies\_zm_turned::turn_to_zombie();
 
+	level notify("attractor_positions_generated");
+
 	increment_score(team, amount, 0, &"ZOMBIE_SURVIVOR_TURNED");
 }
 
