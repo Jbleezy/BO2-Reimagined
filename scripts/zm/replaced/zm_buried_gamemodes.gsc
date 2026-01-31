@@ -74,6 +74,7 @@ buildbuildable(buildable)
 		{
 			if (isdefined(buildable) || stub.persistent != 3)
 			{
+				stub maps\mp\zombies\_zm_buildables::buildablestub_finish_build(player);
 				stub maps\mp\zombies\_zm_buildables::buildablestub_remove();
 
 				foreach (piece in stub.buildablezone.pieces)
@@ -81,10 +82,10 @@ buildbuildable(buildable)
 					piece maps\mp\zombies\_zm_buildables::piece_unspawn();
 				}
 
-				stub maps\mp\zombies\_zm_buildables::buildablestub_finish_build(player);
-
 				stub.model notsolid();
 				stub.model show();
+
+				stub.buildablezone scripts\zm\replaced\_zm_buildables::buildable_adjust_model_origin();
 
 				return;
 			}

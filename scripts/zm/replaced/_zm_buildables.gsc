@@ -15,8 +15,6 @@ buildable_place_think()
 	self endon("kill_trigger");
 	player_built = undefined;
 
-	self buildable_adjust_model_origin();
-
 	while (isDefined(self.stub.built) && !self.stub.built)
 	{
 		self waittill("trigger", player);
@@ -351,18 +349,6 @@ buildable_place_think()
 	}
 }
 
-buildable_adjust_model_origin()
-{
-	if (self.stub.equipname == "slipgun_zm")
-	{
-		self.stub.model.origin += (0, 0, -5);
-	}
-	else if (self.stub.equipname == "headchopper_zm")
-	{
-		self.stub.model.origin += (0, 0, -1);
-	}
-}
-
 player_can_build(buildable, continuing)
 {
 	if (!isdefined(buildable))
@@ -579,6 +565,8 @@ player_build(buildable, pieces)
 				buildable.stub.model showpart(buildable.pieces[i].part_name);
 			}
 		}
+
+		buildable buildable_adjust_model_origin();
 	}
 
 	if (isplayer(self))
@@ -616,6 +604,18 @@ player_build(buildable, pieces)
 	}
 
 	return "";
+}
+
+buildable_adjust_model_origin()
+{
+	if (self.stub.equipname == "slipgun_zm")
+	{
+		self.stub.model.origin += (0, 0, -5);
+	}
+	else if (self.stub.equipname == "headchopper_zm")
+	{
+		self.stub.model.origin += (0, 0, -1);
+	}
 }
 
 player_progress_bar(start_time, build_time, building_prompt)
