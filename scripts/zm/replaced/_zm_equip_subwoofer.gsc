@@ -3,6 +3,56 @@
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 
+hit_player(action, doshellshock)
+{
+	if (action == "burst")
+	{
+		if (is_true(self.is_zombie))
+		{
+			if (is_true(doshellshock))
+			{
+				self dodamage(self.maxhealth, self.origin);
+			}
+		}
+		else
+		{
+			self playrumbleonentity("subwoofer_heavy");
+
+			if (is_true(doshellshock))
+			{
+				self shellshock("frag_grenade_mp", 1.5);
+			}
+		}
+	}
+	else if (action == "fling")
+	{
+		if (is_true(self.is_zombie))
+		{
+			if (is_true(doshellshock))
+			{
+				self dodamage(self.maxhealth, self.origin);
+			}
+		}
+		else
+		{
+			self playrumbleonentity("subwoofer_medium");
+
+			if (is_true(doshellshock))
+			{
+				self shellshock("frag_grenade_mp", 0.5);
+			}
+		}
+	}
+	else if (action == "stumble")
+	{
+		if (is_true(doshellshock))
+		{
+			self playrumbleonentity("subwoofer_light");
+			self shellshock("frag_grenade_mp", 0.13);
+		}
+	}
+}
+
 startsubwooferdecay(weapon)
 {
 	self endon("death");

@@ -190,10 +190,13 @@ headchopper_add_chop_ents(weapon, trigger)
 
 	foreach (player in players)
 	{
-		if (is_player_valid(player) && player istouching(trigger))
+		if (is_player_valid(player) || (is_true(player.is_zombie) && player.sessionstate == "playing"))
 		{
-			weapon headchopper_add_chop_ent(player);
-			weapon.zombies_only = 0;
+			if (player istouching(trigger))
+			{
+				weapon headchopper_add_chop_ent(player);
+				weapon.zombies_only = 0;
+			}
 		}
 	}
 }
@@ -258,14 +261,32 @@ headchopperattack(weapon, ent)
 
 	if (isplayer(ent))
 	{
-		if (isdefined(is_headchop) && is_headchop)
+		damage = 0;
+
+		if (is_true(ent.is_zombie))
 		{
-			radiusdamage(ent.origin + (0, 0, 5), 10, 50, 50, weapon, "MOD_MELEE");
+			if (is_true(is_headchop))
+			{
+				damage = ent.maxhealth;
+			}
+			else
+			{
+				damage = int(ent.maxhealth / 2);
+			}
 		}
 		else
 		{
-			radiusdamage(ent.origin + (0, 0, 5), 10, 25, 25, weapon, "MOD_MELEE");
+			if (is_true(is_headchop))
+			{
+				damage = 50;
+			}
+			else
+			{
+				damage = 25;
+			}
 		}
+
+		radiusdamage(ent.origin + (0, 0, 5), 10, damage, damage, weapon, "MOD_MELEE");
 	}
 	else
 	{

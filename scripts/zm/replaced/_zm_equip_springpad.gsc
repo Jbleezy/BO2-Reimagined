@@ -53,7 +53,15 @@ springpadthink(weapon, electricradius, armed)
 			{
 				if (isplayer(ent))
 				{
-					ent thread player_fling(weapon.origin + vectorscale((0, 0, 1), 30.0), weapon.angles, direction_vector, weapon);
+					if (is_true(ent.is_zombie))
+					{
+						ent dodamage(ent.maxhealth, ent.origin);
+					}
+					else
+					{
+						ent thread player_fling(weapon.origin + vectorscale((0, 0, 1), 30.0), weapon.angles, direction_vector, weapon);
+					}
+
 					continue;
 				}
 
@@ -112,6 +120,62 @@ springpadthink(weapon, electricradius, armed)
 		{
 			wait 0.1;
 		}
+	}
+}
+
+targeting_thread(weapon, trigger)
+{
+	self endon("death");
+	self endon("disconnect");
+	self endon("equip_springpad_zm_taken");
+	weapon endon("death");
+	weapon.zombies_only = 1;
+
+	while (isdefined(weapon))
+	{
+		if (weapon.is_armed)
+		{
+			zombies = getaiarray(level.zombie_team);
+
+			foreach (zombie in zombies)
+			{
+				if (!isdefined(zombie) || !isalive(zombie))
+				{
+					continue;
+				}
+
+				if (isdefined(zombie.ignore_spring_pad) && zombie.ignore_spring_pad)
+				{
+					continue;
+				}
+
+				if (zombie istouching(trigger))
+				{
+					weapon springpad_add_fling_ent(zombie);
+				}
+			}
+
+			players = get_players();
+
+			foreach (player in players)
+			{
+				if (is_player_valid(player) || (is_true(player.is_zombie) && player.sessionstate == "playing"))
+				{
+					if (player istouching(trigger))
+					{
+						weapon springpad_add_fling_ent(player);
+						weapon.zombies_only = 0;
+					}
+				}
+			}
+
+			if (!weapon.zombies_only)
+			{
+				weapon notify("hi_priority_target");
+			}
+		}
+
+		wait 0.05;
 	}
 }
 
