@@ -115,6 +115,11 @@ monitor_melee_swipe()
 
 		foreach (zombie in a_zombies)
 		{
+			if (isplayer(zombie) && zombie.sessionstate != "playing")
+			{
+				continue;
+			}
+
 			if (self is_player_facing(zombie, v_punch_yaw))
 			{
 				self thread zombie_punch_damage(zombie, 1);
@@ -238,6 +243,8 @@ zombie_punch_damage(ai_zombie, n_mod)
 			forward_dir = anglestoforward(self getplayerangles() * (0, 1, 0));
 			origin = ai_zombie getcentroid() + forward_dir * -8;
 			origin = (origin[0], origin[1], height);
+
+			ai_zombie [[level.store_player_damage_info_func]](self, self.current_melee_weapon, "MOD_MELEE");
 		}
 
 		ai_zombie dodamage(n_damage, origin, self, self, 0, "MOD_MELEE", 0, self.current_melee_weapon);
