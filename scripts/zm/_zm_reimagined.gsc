@@ -783,8 +783,6 @@ post_init()
 	level.playersuicideallowed = undefined;
 	level.disable_free_perks_before_power = undefined;
 	level.custom_random_perk_weights = undefined;
-	level.etrap_damage = maps\mp\zombies\_zm::ai_zombie_health(255);
-	level.slipgun_damage = maps\mp\zombies\_zm::ai_zombie_health(255);
 	level.should_respawn_func = ::should_respawn;
 
 	disable_carpenter();

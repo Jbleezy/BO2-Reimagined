@@ -102,6 +102,27 @@ cleanupoldtrap()
 	}
 }
 
+zap_zombie(zombie)
+{
+	if (isdefined(zombie.ignore_electric_trap) && zombie.ignore_electric_trap)
+	{
+		return;
+	}
+
+	self playsound("wpn_zmb_electrap_zap");
+
+	if (!(isdefined(level.electrocuting_zombie) && level.electrocuting_zombie))
+	{
+		thread electrocution_lockout(2);
+		zombie thread play_elec_vocals();
+		zombie thread maps\mp\zombies\_zm_traps::electroctute_death_fx();
+		zombie.is_on_fire = 0;
+		zombie notify("stop_flame_damage");
+	}
+
+	zombie thread electrictrapkill(self);
+}
+
 electrictrapkill(weapon)
 {
 	self endon("death");
