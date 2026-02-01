@@ -1088,3 +1088,7 @@ script,clientscripts/mp/gametypes/zmeat.csc
 script,clientscripts/mp/zombies/_zm_turned.csc
 
 menulist,ui_mp/hud_zgrief.txt
+
+rawfile,rumble/quadrotor_fly
+rawfile,rumble/quadrotor_fly_h.rmb
+rawfile,rumble/quadrotor_fly_l.rmb
