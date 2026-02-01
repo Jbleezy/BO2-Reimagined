@@ -219,6 +219,12 @@ player_acid_damage(t_damage)
 	self endon("disconnect");
 	t_damage endon("acid_trap_finished");
 
+	if (is_true(self.is_zombie))
+	{
+		self dodamage(self.health, self.origin);
+		return;
+	}
+
 	if (!isdefined(self.is_in_acid) && !self player_is_in_laststand())
 	{
 		self.is_in_acid = 1;
@@ -428,6 +434,12 @@ tower_trap_fires(a_zombies)
 		}
 
 		if (isplayer(e_target) && e_target maps\mp\zombies\_zm_laststand::player_is_in_laststand())
+		{
+			arrayremovevalue(a_zombies, e_target, 0);
+			continue;
+		}
+
+		if (isplayer(e_target) && e_target.sessionstate != "playing")
 		{
 			arrayremovevalue(a_zombies, e_target, 0);
 			continue;

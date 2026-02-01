@@ -1667,7 +1667,10 @@ actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, 
 		}
 	}
 
-	attacker thread maps\mp\gametypes_zm\_weapons::checkhit(weapon);
+	if (isplayer(attacker))
+	{
+		attacker thread maps\mp\gametypes_zm\_weapons::checkhit(weapon);
+	}
 
 	if (weapon == "blundergat_zm")
 	{
