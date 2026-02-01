@@ -15,6 +15,24 @@
 
 slipgun_zombie_1st_hit_response(upgraded, player)
 {
+	if (isplayer(self) && is_true(self.is_zombie))
+	{
+		if (self.sessionstate == "playing")
+		{
+			if (!isdefined(self.goo_chain_depth))
+			{
+				self.goo_chain_depth = 0;
+			}
+
+			self.goo_upgraded = upgraded;
+
+			self [[level.store_player_damage_info_func]](player, "slipgun_zm", "MOD_UNKNOWN");
+			self dodamage(self.health, self.origin, player, player, "none", level.slipgun_damage_mod, 0, "slip_goo_zm");
+			self explode_into_goo(player, 0);
+			return;
+		}
+	}
+
 	self notify("stop_find_flesh");
 	self notify("zombie_acquire_enemy");
 	self orientmode("face default");
@@ -68,7 +86,11 @@ explode_into_goo(player, chain_depth)
 		tag = "tag_origin";
 	}
 
-	self.guts_explosion = 1;
+	if (isai(self))
+	{
+		self.guts_explosion = 1;
+	}
+
 	self playsound("wpn_slipgun_zombie_explode");
 
 	if (isdefined(level._effect["slipgun_explode"]))
@@ -106,6 +128,19 @@ explode_to_near_zombies(player, origin, radius, chain_depth, goo_upgraded)
 	}
 
 	enemies = get_round_enemy_array();
+	enemy_players = get_players(getotherteam(player.team));
+
+	foreach (enemy_player in enemy_players)
+	{
+		if (is_true(enemy_player.is_zombie))
+		{
+			if (enemy_player.sessionstate == "playing")
+			{
+				enemies[enemies.size] = enemy_player;
+			}
+		}
+	}
+
 	enemies = get_array_of_closest(origin, enemies);
 
 	minchainwait = level.zombie_vars["slipgun_chain_wait_min"];
@@ -163,6 +198,11 @@ explode_to_near_zombies(player, origin, radius, chain_depth, goo_upgraded)
 						if (player maps\mp\zombies\_zm_powerups::is_insta_kill_active())
 						{
 							enemy.health = 1;
+						}
+
+						if (isplayer(enemy))
+						{
+							enemy [[level.store_player_damage_info_func]](player, "slipgun_zm", "MOD_UNKNOWN");
 						}
 
 						enemy dodamage(enemy.health, origin, player, player, "none", level.slipgun_damage_mod, 0, "slip_goo_zm");
