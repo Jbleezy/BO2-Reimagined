@@ -89,6 +89,7 @@ revive_trigger_clean_up_on_end_game()
 
 	if (isdefined(self.revivetrigger))
 	{
+		self.no_revive_trigger = 1;
 		self notify("stop_revive_trigger");
 		self.revivetrigger delete();
 	}
