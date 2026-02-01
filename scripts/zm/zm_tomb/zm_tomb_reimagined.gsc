@@ -90,6 +90,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_ai_mechz::mechz_round_tracker, scripts\zm\replaced\_zm_ai_mechz::mechz_round_tracker);
 	replaceFunc(maps\mp\zombies\_zm_ai_mechz::mechz_death, scripts\zm\replaced\_zm_ai_mechz::mechz_death);
 	replaceFunc(maps\mp\zombies\_zm_ai_mechz_ft::mechz_watch_for_flamethrower_damage, scripts\zm\replaced\_zm_ai_mechz_ft::mechz_watch_for_flamethrower_damage);
+	replaceFunc(maps\mp\zombies\_zm_ai_mechz_ft::explode_on_death, scripts\zm\replaced\_zm_ai_mechz_ft::explode_on_death);
 	replaceFunc(maps\mp\zombies\_zm_ai_quadrotor::quadrotor_movementupdate, scripts\zm\replaced\_zm_ai_quadrotor::quadrotor_movementupdate);
 	replaceFunc(maps\mp\zombies\_zm_challenges::onplayerspawned, scripts\zm\replaced\_zm_challenges::onplayerspawned);
 	replaceFunc(maps\mp\zombies\_zm_challenges::team_stats_init, scripts\zm\replaced\_zm_challenges::team_stats_init);

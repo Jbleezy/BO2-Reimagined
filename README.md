@@ -334,6 +334,7 @@
 * Decreased amount that spawn per round in coop from 1-3 to 1
 * Death explosion kills zombies
 * Changed death explosion player damage from 100-25 to 75
+* Decreased fire zombie death explosion max damage from 30 to 15
 * Decreased footstep screen shake by 25%
 * No longer receives additional damage from Boomhilda or Ray Gun Mark 2
 
@@ -863,7 +864,8 @@
 * Added perk bottle model from Origins to all maps
 * Deals same damage on all maps
 * Damages all zombies at once on all maps
-* Players no longer take 1 fall damage when not diving
+* Players no longer take damage from fire zombie death explosions
+* Players no longer take 1 damage from falling when not diving
 * Fixed player hit audio playing from explosive damage
 
 ### Deadshot Daiquiri

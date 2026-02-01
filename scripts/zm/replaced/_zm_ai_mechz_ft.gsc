@@ -62,3 +62,48 @@ mechz_watch_for_flamethrower_damage()
 		}
 	}
 }
+
+explode_on_death()
+{
+	self endon("stop_flame_damage");
+	self waittill("death");
+
+	if (!isdefined(self))
+	{
+		return;
+	}
+
+	tag = "J_SpineLower";
+
+	if (isdefined(self.animname) && self.animname == "zombie_dog")
+	{
+		tag = "tag_origin";
+	}
+
+	if (is_mature())
+	{
+		if (isdefined(level._effect["zomb_gib"]))
+		{
+			playfx(level._effect["zomb_gib"], self gettagorigin(tag));
+		}
+	}
+	else if (isdefined(level._effect["spawn_cloud"]))
+	{
+		playfx(level._effect["spawn_cloud"], self gettagorigin(tag));
+	}
+
+	level.use_adjusted_grenade_damage = true;
+	self radiusdamage(self.origin, 128, 15, 15, undefined, "MOD_EXPLOSIVE");
+	level.use_adjusted_grenade_damage = undefined;
+
+	self ghost();
+
+	if (isdefined(self.isdog) && self.isdog)
+	{
+		self hide();
+	}
+	else
+	{
+		self delay_thread(1, ::self_delete);
+	}
+}
