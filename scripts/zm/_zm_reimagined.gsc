@@ -849,8 +849,8 @@ set_dvars()
 
 	setDvar("player_backSpeedScale", 1);
 	setDvar("player_strafeSpeedScale", 1);
-	setDvar("player_zombieSpeedScale", 1.1);
-	setDvar("player_zombieSprintSpeedScale", 1.1);
+	setDvar("player_zombieSpeedScale", 1);
+	setDvar("player_zombieSprintSpeedScale", 1);
 
 	setDvar("player_meleeRange", 64);
 	setDvar("player_zombieMeleeRange", 64);
