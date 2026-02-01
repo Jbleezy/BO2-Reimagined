@@ -1653,5 +1653,4 @@
 * Zombies move at 100% move speed
 * Zombies can jump and go prone
 * Zombies have 2500 health
-* Zombies regenerate 500 health per second after a 5 second delay
 * Zombies respawn near a random zombie after spectating for 10 seconds

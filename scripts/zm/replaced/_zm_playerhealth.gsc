@@ -66,9 +66,7 @@ playerhealthregen()
 
 		if (is_true(self.is_zombie))
 		{
-			regenrate = 0.25 / maxhealthratio;
-			regularregendelay = 5000;
-			longregendelay = 5000;
+			continue;
 		}
 
 		if (self hasPerk("specialty_quickrevive"))
