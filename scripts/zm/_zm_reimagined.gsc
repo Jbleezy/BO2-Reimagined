@@ -3493,6 +3493,19 @@ set_team(team)
 	}
 }
 
+set_move_speed_scale(move_scale)
+{
+	if (isdefined(self.n_move_scale_modifiers))
+	{
+		foreach (move_scale_modifier in self.n_move_scale_modifiers)
+		{
+			move_scale *= move_scale_modifier;
+		}
+	}
+
+	self setmovespeedscale(move_scale);
+}
+
 player_suicide()
 {
 	self.playersuicided = 1;

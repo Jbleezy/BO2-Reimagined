@@ -77,10 +77,20 @@ turn_to_zombie()
 	self.delayeddeath = 0;
 	self.deathpoints_already_given = 0;
 
+	if (!isdefined(self.n_move_scale))
+	{
+		self.n_move_scale = 1;
+	}
+
+	self.n_move_scale_modifiers = [];
+
 	self allowstand(1);
 	self allowcrouch(0);
 	self allowprone(1);
+	self allowjump(1);
 	self allowads(0);
+	self setstance("stand");
+	self setmovespeedscale(self.n_move_scale);
 	self setburn(0);
 	self stopshellshock();
 	self detachall();
@@ -108,6 +118,8 @@ turn_to_zombie()
 	}
 
 	self thread turned_player_buttons();
+	self thread turned_melee_watcher();
+	self thread turned_jump_watcher();
 
 	self thread maps\mp\zombies\_zm_spawner::enemy_death_detection();
 }
@@ -169,4 +181,109 @@ turned_player_buttons()
 
 		wait 0.05;
 	}
+}
+
+turned_melee_watcher()
+{
+	self endon("disconnect");
+	self endon("spawned_spectator");
+	self endon("humanify");
+	level endon("end_game");
+
+	while (isdefined(self.is_zombie) && self.is_zombie)
+	{
+		self waittill("weapon_melee", weapon);
+
+		self thread turned_melee_disable_movement();
+	}
+}
+
+turned_melee_disable_movement()
+{
+	self notify("turned_melee_disable_movement");
+	self endon("turned_melee_disable_movement");
+	self endon("disconnect");
+	self endon("spawned_spectator");
+	self endon("humanify");
+	level endon("end_game");
+
+	if (self is_jumping() && !isdefined(self.n_move_scale_modifiers["turned_melee"]))
+	{
+		self setvelocity((0, 0, 0));
+	}
+
+	if (self getstance() == "stand")
+	{
+		self allowstand(1);
+		self allowprone(0);
+	}
+	else if (self getstance() == "prone")
+	{
+		self allowstand(0);
+		self allowprone(1);
+	}
+
+	self allowjump(0);
+
+	self.n_move_scale_modifiers["turned_melee"] = 0;
+
+	self scripts\zm\_zm_reimagined::set_move_speed_scale(self.n_move_scale);
+
+	wait 0.5;
+
+	while (self is_jumping())
+	{
+		wait 0.05;
+	}
+
+	self allowstand(1);
+	self allowprone(1);
+	self allowjump(1);
+
+	self.n_move_scale_modifiers["turned_melee"] = undefined;
+
+	self scripts\zm\_zm_reimagined::set_move_speed_scale(self.n_move_scale);
+}
+
+turned_jump_watcher()
+{
+	self endon("disconnect");
+	self endon("spawned_spectator");
+	self endon("humanify");
+	level endon("end_game");
+
+	while (isdefined(self.is_zombie) && self.is_zombie)
+	{
+		while (!self is_jumping())
+		{
+			wait 0.05;
+		}
+
+		while (self is_jumping())
+		{
+			wait 0.05;
+		}
+
+		self thread turned_jump_disable_movement();
+	}
+}
+
+turned_jump_disable_movement()
+{
+	self notify("turned_jump_disable_movement");
+	self endon("turned_jump_disable_movement");
+	self endon("disconnect");
+	self endon("spawned_spectator");
+	self endon("humanify");
+	level endon("end_game");
+
+	self.n_move_scale_modifiers["turned_jump"] = 0.5;
+
+	self scripts\zm\_zm_reimagined::set_move_speed_scale(self.n_move_scale);
+
+	wait 0.5;
+
+	self.n_move_scale_modifiers["turned_jump"] = undefined;
+
+	self scripts\zm\_zm_reimagined::set_move_speed_scale(self.n_move_scale);
 }

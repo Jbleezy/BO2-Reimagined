@@ -1650,7 +1650,9 @@
 * Disease powerup spawns at survivor initial spawn points after 10 seconds and chases after the closest survivor
 * Survivors become zombies when they bleed out
 * Zombies see survivors and other zombies through walls
+* Zombies have 2500 health
 * Zombies move at 100% move speed
 * Zombies can jump and go prone
-* Zombies have 2500 health
+* Zombies can't move while attacking
+* Zombies move at 50% move speed for 0.5 seconds after jumping
 * Zombies respawn near a random zombie after spectating for 10 seconds

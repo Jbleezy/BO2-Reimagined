@@ -282,6 +282,65 @@ get_punch_element_from_index(ind)
 	return "upgraded";
 }
 
+player_slow_movement_speed_monitor()
+{
+	self endon("disconnect");
+	n_movescale_delta_no_perk = 0.4 / 4.0;
+	n_movescale_delta_staminup = 0.3 / 6.0;
+	n_new_move_scale = 1.0;
+	n_move_scale_delta = 1.0;
+	self.n_move_scale = n_new_move_scale;
+
+	while (true)
+	{
+		is_player_slowed = 0;
+		self.is_player_slowed = 0;
+
+		foreach (area in level.a_e_slow_areas)
+		{
+			if (self istouching(area))
+			{
+				self setclientfieldtoplayer("sndMudSlow", 1);
+				is_player_slowed = 1;
+				self.is_player_slowed = 1;
+
+				if (!(isdefined(self.played_mud_vo) && self.played_mud_vo) && !(isdefined(self.dontspeak) && self.dontspeak))
+				{
+					self thread maps\mp\zm_tomb_vo::struggle_mud_vo();
+				}
+
+				n_new_move_scale = 0.6;
+				n_move_scale_delta = n_movescale_delta_no_perk;
+
+				break;
+			}
+		}
+
+		if (!is_player_slowed)
+		{
+			self setclientfieldtoplayer("sndMudSlow", 0);
+			self notify("mud_slowdown_cleared");
+			n_new_move_scale = 1.0;
+		}
+
+		if (self.n_move_scale != n_new_move_scale)
+		{
+			if (self.n_move_scale > n_new_move_scale + n_move_scale_delta)
+			{
+				self.n_move_scale = self.n_move_scale - n_move_scale_delta;
+			}
+			else
+			{
+				self.n_move_scale = n_new_move_scale;
+			}
+
+			self scripts\zm\_zm_reimagined::set_move_speed_scale(self.n_move_scale);
+		}
+
+		wait 0.1;
+	}
+}
+
 check_solo_status()
 {
 	level.is_forever_solo_game = 0;
