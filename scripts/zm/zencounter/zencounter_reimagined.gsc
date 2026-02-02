@@ -386,7 +386,10 @@ grief_onplayerdisconnect(disconnecting_player)
 	{
 		if (disconnecting_player.team != level.zombie_team)
 		{
-			increment_score(disconnecting_player.team, -1, 0, &"ZOMBIE_SURVIVOR_TURNED");
+			if (!disconnecting_player maps\mp\zombies\_zm_laststand::player_is_in_laststand())
+			{
+				increment_score(disconnecting_player.team, -1, 0);
+			}
 		}
 	}
 
