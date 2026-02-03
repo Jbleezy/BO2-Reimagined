@@ -799,6 +799,7 @@ player_spawn()
 
 player_wait_and_respawn()
 {
+	level endon("end_game");
 	self endon("disconnect");
 
 	time = self.bleedout_time;
@@ -3525,6 +3526,7 @@ turned_zombie_spectate(play_fx = 1)
 
 turned_zombie_wait_and_respawn()
 {
+	level endon("end_game");
 	self endon("disconnect");
 
 	if (is_true(self.turned_zombie_respawn_skip_wait))
