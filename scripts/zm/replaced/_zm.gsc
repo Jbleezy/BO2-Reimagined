@@ -2349,8 +2349,11 @@ player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, s
 
 		if (is_true(eattacker.is_zombie))
 		{
-			self.ignoreattacker = eattacker;
-			self thread maps\mp\zombies\_zm::remove_ignore_attacker();
+			if (isai(eattacker))
+			{
+				self.ignoreattacker = eattacker;
+				self thread maps\mp\zombies\_zm::remove_ignore_attacker();
+			}
 
 			if (isDefined(eattacker.custom_damage_func))
 			{
