@@ -932,7 +932,12 @@ pregame_think()
 	}
 
 	num_players = get_number_of_waiting_players();
-	pregame_minplayers = level.teamcount;
+	pregame_minplayers = 1;
+
+	if (is_encounter())
+	{
+		pregame_minplayers = 2;
+	}
 
 	if (pregame_minplayers < getdvarint("pregame_minplayers"))
 	{
