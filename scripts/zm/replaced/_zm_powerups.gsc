@@ -58,6 +58,43 @@ init()
 	level.board_repair_distance_squared = 562500;
 }
 
+watch_for_drop()
+{
+	if (is_encounter())
+	{
+		return;
+	}
+
+	flag_wait("start_zombie_round_logic");
+	flag_wait("begin_spawning");
+	players = get_players();
+	score_to_drop = players.size * level.zombie_vars["zombie_score_start_" + players.size + "p"] + level.zombie_vars["zombie_powerup_drop_increment"];
+
+	while (true)
+	{
+		flag_wait("zombie_drop_powerups");
+		players = get_players();
+		curr_total_score = 0;
+
+		for (i = 0; i < players.size; i++)
+		{
+			if (isdefined(players[i].score_total))
+			{
+				curr_total_score = curr_total_score + players[i].score_total;
+			}
+		}
+
+		if (curr_total_score > score_to_drop)
+		{
+			level.zombie_vars["zombie_powerup_drop_increment"] = level.zombie_vars["zombie_powerup_drop_increment"] * 1.14;
+			score_to_drop = curr_total_score + level.zombie_vars["zombie_powerup_drop_increment"];
+			level.zombie_vars["zombie_drop_item"] = 1;
+		}
+
+		wait 0.5;
+	}
+}
+
 powerup_drop(drop_point)
 {
 	if (level.powerup_drop_count >= level.zombie_vars["zombie_powerup_drop_max_per_round"])

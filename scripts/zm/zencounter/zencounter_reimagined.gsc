@@ -288,7 +288,6 @@ set_grief_vars()
 	level.zombie_vars["allies"]["zombie_powerup_half_damage_time"] = 15;
 
 	level.player_starting_points = 10000;
-	level.zombie_vars["zombie_powerup_drop_increment"] = level.player_starting_points * 4;
 
 	level.zombie_move_speed = 100;
 	level.zombie_vars["zombie_health_start"] = 2500;
