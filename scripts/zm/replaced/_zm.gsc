@@ -1543,6 +1543,11 @@ additionalprimaryweapon_canplayerreceiveweapon(player, weapon, pap_triggers)
 
 actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, vpoint, vdir, shitloc, psoffsettime, boneindex)
 {
+	if (isdefined(attacker) && isplayer(attacker) && is_true(attacker.is_zombie))
+	{
+		return 0;
+	}
+
 	if (is_true(self.is_sloth))
 	{
 		return 0;
@@ -2241,6 +2246,11 @@ callback_playerdamage(einflictor, eattacker, idamage, idflags, smeansofdeath, sw
 
 player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime)
 {
+	if (is_true(self.is_zombie) && isdefined(eattacker) && isplayer(eattacker) && is_true(eattacker.is_zombie))
+	{
+		return 0;
+	}
+
 	if (is_true(self.is_zombie) || (isdefined(eattacker) && isplayer(eattacker) && is_true(eattacker.is_zombie)))
 	{
 		// don't store damage info on non-weapon scripted damage
