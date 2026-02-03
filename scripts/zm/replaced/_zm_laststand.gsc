@@ -689,6 +689,11 @@ player_last_stand_stats(einflictor, attacker, idamage, smeansofdeath, sweapon, v
 		if (is_true(self.is_zombie) || is_true(attacker.is_zombie))
 		{
 			attacker.returns++;
+
+			if (is_true(self.is_zombie))
+			{
+				self.killed_by_player = 1;
+			}
 		}
 		else
 		{
