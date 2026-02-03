@@ -769,12 +769,7 @@ kill_scoreboard()
 
 	if (isDefined(damaged_by))
 	{
-		if (is_true(self.is_zombie) || is_true(damaged_by.attacker.is_zombie))
-		{
-			damaged_by.attacker.returns++;
-			damaged_by.attacker.kills--;
-		}
-		else
+		if (!is_true(self.is_zombie) && !is_true(damaged_by.attacker.is_zombie))
 		{
 			damaged_by.attacker.killsconfirmed++;
 		}
@@ -1559,9 +1554,8 @@ game_module_player_damage_callback(einflictor, eattacker, idamage, idflags, smea
 
 	if (isplayer(eattacker) && isDefined(eattacker._encounters_team) && eattacker._encounters_team != self._encounters_team)
 	{
-		if (is_true(eattacker.is_zombie) || is_true(self.is_zombie))
+		if (is_true(self.is_zombie) || is_true(eattacker.is_zombie))
 		{
-			self store_player_damage_info(eattacker, sweapon, smeansofdeath);
 			return;
 		}
 
@@ -1797,22 +1791,29 @@ store_player_damage_info(attacker, weapon, meansofdeath)
 	self.last_damaged_by.weapon = weapon;
 	self.last_damaged_by.meansofdeath = meansofdeath;
 
-	self thread remove_player_damage_info();
+	self thread remove_player_damage_info_after_time();
 }
 
-remove_player_damage_info()
+remove_player_damage_info_after_time()
 {
-	self notify("new_attacker");
-	self endon("new_attacker");
+	self notify("remove_player_damage_info_after_time");
+	self endon("remove_player_damage_info_after_time");
 	self endon("disconnect");
 
-	health = self.health;
-	time = getTime();
-	max_time = 3000;
-
-	while (((getTime() - time) < max_time || self.health < health) && (is_player_valid(self) || is_true(self.is_zombie)))
+	if (is_true(self.is_zombie) || is_true(self.last_damaged_by.attacker.is_zombie))
 	{
-		wait_network_frame();
+		waittillframeend;
+	}
+	else
+	{
+		health = self.health;
+		time = getTime();
+		max_time = 3000;
+
+		while (((getTime() - time) < max_time || self.health < health) && is_player_valid(self))
+		{
+			wait 0.05;
+		}
 	}
 
 	self.last_damaged_by = undefined;

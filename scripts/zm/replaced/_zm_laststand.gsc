@@ -677,6 +677,58 @@ playerlaststand(einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, shi
 	self thread cleanup_laststand_on_disconnect();
 }
 
+player_last_stand_stats(einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration)
+{
+	if (isdefined(attacker) && isplayer(attacker) && attacker != self)
+	{
+		if (is_true(self.is_zombie) || is_true(attacker.is_zombie))
+		{
+			maps\mp\_demo::bookmark("kill", gettime(), self, attacker, 0, einflictor);
+		}
+
+		if (is_true(self.is_zombie) || is_true(attacker.is_zombie))
+		{
+			attacker.returns++;
+		}
+		else
+		{
+			attacker.kills++;
+		}
+
+		attacker maps\mp\zombies\_zm_stats::increment_client_stat("kills");
+		attacker maps\mp\zombies\_zm_stats::increment_player_stat("kills");
+
+		if (isdefined(sweapon))
+		{
+			dmgweapon = sweapon;
+
+			if (is_alt_weapon(dmgweapon))
+			{
+				dmgweapon = weaponaltweaponname(dmgweapon);
+			}
+
+			attacker addweaponstat(dmgweapon, "kills", 1);
+		}
+
+		if (is_headshot(sweapon, shitloc, smeansofdeath))
+		{
+			attacker.headshots++;
+			attacker maps\mp\zombies\_zm_stats::increment_client_stat("headshots");
+			attacker addweaponstat(sweapon, "headshots", 1);
+			attacker maps\mp\zombies\_zm_stats::increment_player_stat("headshots");
+		}
+	}
+
+	self increment_downed_stat();
+
+	if (flag("solo_game") && !self.lives && getnumconnectedplayers() < 2)
+	{
+		self maps\mp\zombies\_zm_stats::increment_client_stat("deaths");
+		self maps\mp\zombies\_zm_stats::increment_player_stat("deaths");
+		self maps\mp\zombies\_zm_pers_upgrades_functions::pers_upgrade_jugg_player_death_stat();
+	}
+}
+
 laststand_bleedout(delay)
 {
 	level endon("intermission");

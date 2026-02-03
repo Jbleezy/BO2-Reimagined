@@ -20,11 +20,6 @@ slowgun_zombie_damage_response(mod, hit_location, hit_origin, player, amount)
 			{
 				if (isalive(self))
 				{
-					if (isplayer(self))
-					{
-						self [[level.store_player_damage_info_func]](player, "slowgun_zm", "MOD_UNKNOWN");
-					}
-
 					self dodamage(extra_damage, hit_origin, player, player, hit_location, level.slowgun_damage_mod, 0, "slowgun_zm");
 				}
 
@@ -55,11 +50,6 @@ slowgun_zombie_damage_response(mod, hit_location, hit_origin, player, amount)
 
 	if (isalive(self))
 	{
-		if (isplayer(self))
-		{
-			self [[level.store_player_damage_info_func]](player, "slowgun_zm", "MOD_UNKNOWN");
-		}
-
 		self dodamage(amount, hit_origin, player, player, hit_location, mod, 0, "slowgun_zm");
 	}
 
@@ -161,11 +151,6 @@ zombie_paralyzed(player, upgraded)
 
 		if (isalive(self))
 		{
-			if (isplayer(self))
-			{
-				self [[level.store_player_damage_info_func]](player, "slowgun_zm", "MOD_UNKNOWN");
-			}
-
 			self dodamage(damage, player.origin, player, player, "none", level.slowgun_damage_mod, 0, "slowgun_zm");
 		}
 

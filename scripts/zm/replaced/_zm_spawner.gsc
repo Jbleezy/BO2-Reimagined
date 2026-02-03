@@ -202,11 +202,6 @@ enemy_death_detection()
 			continue;
 		}
 
-		if (isplayer(self))
-		{
-			self [[level.store_player_damage_info_func]](attacker, self.damageweapon, type);
-		}
-
 		self.has_been_damaged_by_player = 1;
 		self player_attacks_enemy(attacker, amount, type, point);
 	}

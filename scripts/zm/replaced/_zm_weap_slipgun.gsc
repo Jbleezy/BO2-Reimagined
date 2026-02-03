@@ -26,8 +26,7 @@ slipgun_zombie_1st_hit_response(upgraded, player)
 
 			self.goo_upgraded = upgraded;
 
-			self [[level.store_player_damage_info_func]](player, "slipgun_zm", "MOD_UNKNOWN");
-			self dodamage(self.health, self.origin, player, player, "none", level.slipgun_damage_mod, 0, "slip_goo_zm");
+			self dodamage(self.health, self.origin, player, player, "none", level.slipgun_damage_mod, 0, "slipgun_zm");
 			self explode_into_goo(player, 0);
 			return;
 		}
@@ -55,7 +54,7 @@ slipgun_zombie_1st_hit_response(upgraded, player)
 				self.health = 1;
 			}
 
-			self dodamage(self.health, self.origin, player, player, "none", level.slipgun_damage_mod, 0, "slip_goo_zm");
+			self dodamage(self.health, self.origin, player, player, "none", level.slipgun_damage_mod, 0, "slipgun_zm");
 		}
 	}
 }
@@ -200,12 +199,7 @@ explode_to_near_zombies(player, origin, radius, chain_depth, goo_upgraded)
 							enemy.health = 1;
 						}
 
-						if (isplayer(enemy))
-						{
-							enemy [[level.store_player_damage_info_func]](player, "slipgun_zm", "MOD_UNKNOWN");
-						}
-
-						enemy dodamage(enemy.health, origin, player, player, "none", level.slipgun_damage_mod, 0, "slip_goo_zm");
+						enemy dodamage(enemy.health, origin, player, player, "none", level.slipgun_damage_mod, 0, "slipgun_zm");
 					}
 
 					if (level.slippery_spot_count < level.zombie_vars["slipgun_reslip_max_spots"])

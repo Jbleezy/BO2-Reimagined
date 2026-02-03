@@ -345,7 +345,6 @@ _time_bomb_kill_all_active_enemies()
 		{
 			if (player.sessionstate == "playing")
 			{
-				player [[level.store_player_damage_info_func]](level.time_bomb_save_data.player_used, "time_bomb_zm", "MOD_UNKNOWN");
 				player disableInvulnerability();
 				player dodamage(player.health, player.origin, level.time_bomb_save_data.player_used, level.time_bomb_save_data.player_used, player.origin);
 			}
