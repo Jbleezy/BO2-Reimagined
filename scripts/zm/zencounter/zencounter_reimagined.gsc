@@ -802,6 +802,13 @@ player_wait_and_respawn()
 	level endon("end_game");
 	self endon("disconnect");
 
+	if (isdefined(self.player_wait_and_respawn))
+	{
+		return;
+	}
+
+	self.player_wait_and_respawn = 1;
+
 	time = self.bleedout_time;
 
 	if (!isdefined(time))
@@ -816,6 +823,8 @@ player_wait_and_respawn()
 	self.sessionstate = "playing";
 
 	self maps\mp\zombies\_zm::spectator_respawn();
+
+	self.player_wait_and_respawn = undefined;
 }
 
 get_held_melee_weapon(melee_weapon)
@@ -3493,7 +3502,6 @@ turned_zombie_spawn()
 {
 	if (!isdefined(self.turned_zombie_spawn_point))
 	{
-		self.turned_zombie_respawn_skip_wait = 1;
 		self turned_zombie_spectate(0);
 		return;
 	}
@@ -3501,8 +3509,12 @@ turned_zombie_spawn()
 	self maps\mp\zombies\_zm_turned::turn_to_zombie();
 
 	self setorigin(self.turned_zombie_spawn_point.origin);
-	self setplayerangles(self.turned_zombie_spawn_point.angles);
 	self.turned_zombie_spawn_point = undefined;
+
+	player = self turned_zombie_get_closest_valid_survivor();
+	angles = vectortoangles(player.origin - self.origin);
+	angles = (0, angles[1], 0);
+	self setplayerangles(angles);
 
 	playfx(level._effect["zombie_disappears"], self.origin);
 	playsoundatposition("evt_appear_3d", self.origin);
@@ -3529,57 +3541,64 @@ turned_zombie_wait_and_respawn()
 	level endon("end_game");
 	self endon("disconnect");
 
-	if (is_true(self.turned_zombie_respawn_skip_wait))
+	if (isdefined(self.turned_zombie_wait_and_respawn))
 	{
-		self.turned_zombie_respawn_skip_wait = undefined;
-	}
-	else
-	{
-		wait 10;
+		return;
 	}
 
-	while (1)
-	{
-		self.turned_zombie_spawn_point = turned_zombie_get_spawn_point();
+	self.turned_zombie_wait_and_respawn = 1;
 
-		if (isdefined(self.turned_zombie_spawn_point))
-		{
-			break;
-		}
+	self.turned_zombie_spawn_point = turned_zombie_get_spawn_point();
 
-		wait 0.05;
-	}
+	wait 10;
 
 	self.sessionstate = "playing";
 
 	self maps\mp\zombies\_zm::spectator_respawn();
+
+	self.turned_zombie_wait_and_respawn = undefined;
 }
 
 turned_zombie_get_spawn_point()
 {
-	valid_zombies = [];
-	zombies = getaispeciesarray(level.zombie_team, "all");
+	player = turned_zombie_get_random_valid_survivor();
 
-	foreach (zombie in zombies)
+	spawn_point = spawnstruct();
+	spawn_point.origin = player.origin;
+
+	return spawn_point;
+}
+
+turned_zombie_get_closest_valid_survivor()
+{
+	valid_players = [];
+	players = get_players("allies");
+
+	foreach (player in players)
 	{
-		if (isalive(zombie) && zombie in_playable_area() && is_true(zombie.completed_emerging_into_playable_area) && !is_true(zombie.in_the_ground) && !is_true(zombie.in_the_ceiling) && !is_true(zombie.is_traversing))
+		if (is_player_valid(player))
 		{
-			valid_zombies[valid_zombies.size] = zombie;
+			valid_players[valid_players.size] = player;
 		}
 	}
 
-	if (valid_zombies.size <= 0)
+	return getclosest(self.origin, valid_players);
+}
+
+turned_zombie_get_random_valid_survivor()
+{
+	valid_players = [];
+	players = get_players("allies");
+
+	foreach (player in players)
 	{
-		return undefined;
+		if (is_player_valid(player))
+		{
+			valid_players[valid_players.size] = player;
+		}
 	}
 
-	zombie = random(valid_zombies);
-
-	spawn_point = spawnstruct();
-	spawn_point.origin = zombie.origin;
-	spawn_point.angles = zombie.angles;
-
-	return spawn_point;
+	return random(valid_players);
 }
 
 can_revive(revivee)

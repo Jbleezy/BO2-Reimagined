@@ -1655,4 +1655,4 @@
 * Zombies can jump and go prone
 * Zombies can't move while attacking
 * Zombies move at 50% move speed for 0.5 seconds after jumping
-* Zombies respawn near a random zombie after spectating for 10 seconds
+* Zombies respawn at the position of a random survivor when they died after spectating for 10 seconds
