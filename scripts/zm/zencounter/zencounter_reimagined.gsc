@@ -3552,6 +3552,8 @@ turned_zombie_wait_and_respawn()
 
 	wait 10;
 
+	flag_wait("spawn_zombies");
+
 	self.sessionstate = "playing";
 
 	self maps\mp\zombies\_zm::spectator_respawn();
