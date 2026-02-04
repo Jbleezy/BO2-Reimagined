@@ -90,6 +90,29 @@ game_mode_spawn_player_logic()
 	return 0;
 }
 
+player_prevent_damage(einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime)
+{
+	if (isdefined(eattacker) && isplayer(eattacker) && self != eattacker)
+	{
+		if (!is_true(self.is_zombie) && !is_true(eattacker.is_zombie))
+		{
+			return true;
+		}
+
+		if (is_true(self.is_zombie) && is_true(eattacker.is_zombie))
+		{
+			return true;
+		}
+
+		if (is_true(eattacker.is_zombie) && sweapon != eattacker getcurrentweapon())
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
 meat_bounce_override(pos, normal, ent, bounce)
 {
 	if (isdefined(ent) && isplayer(ent) && is_player_valid(ent) && !ent hasWeapon(level.item_meat_name) && !is_true(ent.dont_touch_the_meat))
