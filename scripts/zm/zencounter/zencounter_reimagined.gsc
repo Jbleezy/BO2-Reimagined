@@ -516,6 +516,11 @@ on_player_downed()
 			level thread update_players_on_downed(self);
 		}
 
+		if (level.scr_zm_ui_gametype == "zgrief")
+		{
+			level thread update_score_on_downed(self);
+		}
+
 		if (level.scr_zm_ui_gametype == "zrace")
 		{
 			increment_score(getOtherTeam(self.team), 10, 1, &"ZOMBIE_ZGRIEF_PLAYER_BLED_OUT_SCORE");
@@ -538,7 +543,12 @@ on_player_revived()
 
 			if (level.scr_zm_ui_gametype == "zsr")
 			{
-				level thread update_players_on_revived(self, reviver);
+				level thread update_players_on_revived(self);
+			}
+
+			if (level.scr_zm_ui_gametype == "zgrief")
+			{
+				level thread update_score_on_revived(self);
 			}
 
 			if (level.scr_zm_ui_gametype == "zrace")
@@ -1192,7 +1202,7 @@ update_players_on_bleedout(excluded_player)
 	level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog(team_bledout + "_player_down", other_team);
 }
 
-update_players_on_revived(revived_player, reviver)
+update_players_on_revived(revived_player)
 {
 	team = revived_player.team;
 	other_team = getOtherTeam(team);
@@ -1222,6 +1232,64 @@ update_players_on_disconnect(excluded_player)
 	if (is_player_valid(excluded_player))
 	{
 		update_players_on_downed(excluded_player);
+	}
+}
+
+update_score_on_downed(excluded_player)
+{
+	team = excluded_player.team;
+	other_team = getOtherTeam(team);
+	players = get_players(team);
+	other_players = get_players(other_team);
+	encounters_team = "A";
+	other_encounters_team = "B";
+
+	if (team == "allies")
+	{
+		encounters_team = "B";
+		other_encounters_team = "A";
+	}
+
+	score = level.grief_score[encounters_team];
+	other_score = level.grief_score[other_encounters_team];
+
+	foreach (player in players)
+	{
+		player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_ALLY_BLED_OUT", score, other_score);
+	}
+
+	foreach (player in other_players)
+	{
+		player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_PLAYER_BLED_OUT", other_score, score);
+	}
+}
+
+update_score_on_revived(excluded_player)
+{
+	team = excluded_player.team;
+	other_team = getOtherTeam(team);
+	players = get_players(team);
+	other_players = get_players(other_team);
+	encounters_team = "A";
+	other_encounters_team = "B";
+
+	if (team == "allies")
+	{
+		encounters_team = "B";
+		other_encounters_team = "A";
+	}
+
+	score = level.grief_score[encounters_team];
+	other_score = level.grief_score[other_encounters_team];
+
+	foreach (player in players)
+	{
+		player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_ALLY_REVIVED", score, other_score);
+	}
+
+	foreach (player in other_players)
+	{
+		player thread show_grief_hud_msg(&"ZOMBIE_ZGRIEF_PLAYER_REVIVED", other_score, score);
 	}
 }
 
