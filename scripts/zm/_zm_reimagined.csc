@@ -11,6 +11,8 @@ main()
 	replaceFunc(clientscripts\mp\zombies\_zm::init_client_flag_callback_funcs, scripts\zm\replaced\_zm::init_client_flag_callback_funcs);
 	replaceFunc(clientscripts\mp\zombies\_zm::init_wallbuy_fx, scripts\zm\replaced\_zm::init_wallbuy_fx);
 	replaceFunc(clientscripts\mp\zombies\_zm::entityspawned, scripts\zm\replaced\_zm::entityspawned);
+	replaceFunc(clientscripts\mp\zombies\_zm::player_eyes_clientfield_cb, scripts\zm\replaced\_zm::player_eyes_clientfield_cb);
+	replaceFunc(clientscripts\mp\zombies\_zm::player_eye_color_clientfield_cb, scripts\zm\replaced\_zm::player_eye_color_clientfield_cb);
 	replaceFunc(clientscripts\mp\zombies\_zm_audio::sndmeleeswipe, scripts\zm\replaced\_zm_audio::sndmeleeswipe);
 	replaceFunc(clientscripts\mp\zombies\_zm_gump::watch_spectation_player, scripts\zm\replaced\_zm_gump::watch_spectation_player);
 	replaceFunc(clientscripts\mp\zombies\_zm_gump::demo_monitor, scripts\zm\replaced\_zm_gump::demo_monitor);

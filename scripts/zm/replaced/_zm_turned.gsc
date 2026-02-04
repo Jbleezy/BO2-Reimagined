@@ -42,14 +42,7 @@ turn_to_zombie()
 	self notify("zombified");
 	self notify("fake_death");
 
-	if (level.script == "zm_nuked" || level.script == "zm_transit" || level.script == "zm_highrise" || level.script == "zm_buried")
-	{
-		self setclientfield("player_eyes_special", 1);
-	}
-
-	self setclientfield("player_has_eyes", 1);
 	self setclientfieldtoplayer("turned_ir", 1);
-
 	maps\mp\_visionset_mgr::vsmgr_activate("visionset", "zm_turned", self);
 	self maps\mp\zombies\_zm_audio::setexertvoice(1);
 
@@ -117,6 +110,7 @@ turn_to_zombie()
 		self setviewmodel("c_zom_zombie_viewhands");
 	}
 
+	self thread delay_turning_on_eyes();
 	self thread turned_player_buttons();
 	self thread turned_melee_watcher();
 	self thread turned_jump_watcher();
@@ -136,6 +130,20 @@ turned_give_melee_weapon()
 	self giveweapon("zombiemelee_zm");
 	self givemaxammo("zombiemelee_zm");
 	self switchtoweapon("zombiemelee_zm");
+}
+
+delay_turning_on_eyes()
+{
+	self endon("disconnect");
+
+	wait 0.05;
+
+	if (level.script == "zm_nuked" || level.script == "zm_transit" || level.script == "zm_highrise" || level.script == "zm_buried")
+	{
+		self setclientfield("player_eyes_special", 1);
+	}
+
+	self setclientfield("player_has_eyes", 1);
 }
 
 turned_player_buttons()

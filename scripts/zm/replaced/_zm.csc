@@ -268,3 +268,82 @@ entityspawned(localclientnum)
 		}
 	}
 }
+
+player_eyes_clientfield_cb(localclientnum, oldval, newval, bnewent, binitialsnap, fieldname, bwasdemojump)
+{
+	if (newval == oldval)
+	{
+		return;
+	}
+
+	if (self isplayer())
+	{
+		self.zombie_face = newval;
+		self notify("face", "face_advance");
+
+		if (is_true(self.special_eyes))
+		{
+			self._eyeglow_fx_override = level._effect["player_eye_glow_blue"];
+		}
+		else
+		{
+			self._eyeglow_fx_override = level._effect["player_eye_glow_orng"];
+		}
+	}
+
+	if (self isplayer() && self islocalplayer() && !isdemoplaying())
+	{
+		if (isdefined(self getlocalclientnumber()) && localclientnum == self getlocalclientnumber())
+		{
+			return;
+		}
+	}
+
+	if (!isdemoplaying())
+	{
+		zombie_eyes_clientfield_cb(localclientnum, oldval, newval, bnewent, binitialsnap, fieldname, bwasdemojump);
+	}
+	else
+	{
+		zombie_eyes_demo_clientfield_cb(localclientnum, oldval, newval, bnewent, binitialsnap, fieldname, bwasdemojump);
+	}
+}
+
+player_eye_color_clientfield_cb(localclientnum, oldval, newval, bnewent, binitialsnap, fieldname, bwasdemojump)
+{
+	if (newval == oldval)
+	{
+		return;
+	}
+
+	if (self isplayer() && self islocalplayer() && !isdemoplaying())
+	{
+		if (isdefined(self getlocalclientnumber()) && localclientnum == self getlocalclientnumber())
+		{
+			return;
+		}
+	}
+
+	if (!isdefined(self.special_eyes) || self.special_eyes != newval)
+	{
+		self.special_eyes = newval;
+
+		if (is_true(self.special_eyes))
+		{
+			self._eyeglow_fx_override = level._effect["player_eye_glow_blue"];
+		}
+		else
+		{
+			self._eyeglow_fx_override = level._effect["player_eye_glow_orng"];
+		}
+
+		if (!isdemoplaying())
+		{
+			zombie_eyes_clientfield_cb(localclientnum, 0, is_true(self.zombie_face), bnewent, binitialsnap, fieldname, bwasdemojump);
+		}
+		else
+		{
+			zombie_eyes_demo_clientfield_cb(localclientnum, 0, is_true(self.zombie_face), bnewent, binitialsnap, fieldname, bwasdemojump);
+		}
+	}
+}
