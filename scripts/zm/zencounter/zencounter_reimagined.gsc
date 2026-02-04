@@ -3508,13 +3508,13 @@ turned_zombie_spawn()
 
 	self maps\mp\zombies\_zm_turned::turn_to_zombie();
 
-	self setorigin(self.turned_zombie_spawn_point.origin);
-	self.turned_zombie_spawn_point = undefined;
-
 	player = self turned_zombie_get_closest_valid_survivor();
-	angles = vectortoangles(player.origin - self.origin);
+	angles = vectortoangles(player.origin - self.turned_zombie_spawn_point.origin);
 	angles = (0, angles[1], 0);
+
+	self setorigin(self.turned_zombie_spawn_point.origin);
 	self setplayerangles(angles);
+	self.turned_zombie_spawn_point = undefined;
 
 	playfx(level._effect["zombie_disappears"], self.origin);
 	playsoundatposition("evt_appear_3d", self.origin);
