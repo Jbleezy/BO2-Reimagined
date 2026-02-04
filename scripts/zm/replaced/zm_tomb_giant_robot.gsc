@@ -574,17 +574,17 @@ activate_kill_trigger(robot, foot_side)
 					if (isdefined(players[i].dig_vars["has_helmet"]) && players[i].dig_vars["has_helmet"])
 					{
 						players[i] thread player_stomp_fake_death(robot);
+
+						start_wait = 0.0;
+						black_screen_wait = 5.0;
+						fade_in_time = 0.01;
+						fade_out_time = 0.2;
+						players[i] thread fadetoblackforxsec(start_wait, black_screen_wait, fade_in_time, fade_out_time, "black", -1);
 					}
 					else
 					{
 						players[i] thread player_stomp_death(robot);
 					}
-
-					start_wait = 0.0;
-					black_screen_wait = 5.0;
-					fade_in_time = 0.01;
-					fade_out_time = 0.2;
-					players[i] thread fadetoblackforxsec(start_wait, black_screen_wait, fade_in_time, fade_out_time, "black", -1);
 				}
 			}
 		}
