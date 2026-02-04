@@ -2258,7 +2258,7 @@ player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, s
 		{
 			if (isdefined(level.store_player_damage_info_func))
 			{
-				self [[level.store_player_damage_info_func]](eattacker, sweapon, smeansofdeath);
+				self [[level.store_player_damage_info_func]](eattacker, maps\mp\zombies\_zm_weapons::get_nonalternate_weapon(sweapon), smeansofdeath);
 			}
 		}
 	}
