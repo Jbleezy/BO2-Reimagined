@@ -113,7 +113,13 @@ item_watch_damage()
 	while (1)
 	{
 		self.health = 1000000;
-		self waittill("damage", amount);
+		self waittill("damage", amount, attacker);
+
+		if (isdefined(attacker) && isplayer(attacker) && is_true(attacker.is_zombie))
+		{
+			amount = 1500;
+		}
+
 		self item_damage(amount);
 	}
 }
