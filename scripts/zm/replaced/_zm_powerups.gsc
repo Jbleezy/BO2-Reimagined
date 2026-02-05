@@ -526,6 +526,34 @@ powerup_grab(powerup_team)
 	}
 }
 
+powerup_emp()
+{
+	self endon("powerup_timedout");
+	self endon("powerup_grabbed");
+
+	if (!should_watch_for_emp())
+	{
+		return;
+	}
+
+	if (self.caution || self.zombie_grabbable)
+	{
+		return;
+	}
+
+	while (true)
+	{
+		level waittill("emp_detonate", origin, radius);
+
+		if (distancesquared(origin, self.origin) < radius * radius)
+		{
+			playfx(level._effect["powerup_off"], self.origin);
+			self thread powerup_delete_delayed();
+			self notify("powerup_timedout");
+		}
+	}
+}
+
 full_ammo_powerup(drop_item, player)
 {
 	clip_only = 0;

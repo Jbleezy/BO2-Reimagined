@@ -145,6 +145,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_powerups::powerup_move, scripts\zm\replaced\_zm_powerups::powerup_move);
 	replaceFunc(maps\mp\zombies\_zm_powerups::get_next_powerup, scripts\zm\replaced\_zm_powerups::get_next_powerup);
 	replaceFunc(maps\mp\zombies\_zm_powerups::powerup_grab, scripts\zm\replaced\_zm_powerups::powerup_grab);
+	replaceFunc(maps\mp\zombies\_zm_powerups::powerup_emp, scripts\zm\replaced\_zm_powerups::powerup_emp);
 	replaceFunc(maps\mp\zombies\_zm_powerups::full_ammo_powerup, scripts\zm\replaced\_zm_powerups::full_ammo_powerup);
 	replaceFunc(maps\mp\zombies\_zm_powerups::nuke_powerup, scripts\zm\replaced\_zm_powerups::nuke_powerup);
 	replaceFunc(maps\mp\zombies\_zm_powerups::insta_kill_powerup, scripts\zm\replaced\_zm_powerups::insta_kill_powerup);
