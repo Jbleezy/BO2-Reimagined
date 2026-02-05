@@ -161,6 +161,11 @@ inert_wakeup()
 
 		foreach (player in players)
 		{
+			if (player == self)
+			{
+				continue;
+			}
+
 			dist_sq = distancesquared(self.origin, player.origin);
 
 			if (dist_sq < 4096)
