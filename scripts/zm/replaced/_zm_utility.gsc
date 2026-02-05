@@ -91,13 +91,13 @@ shock_onpain()
 
 		if (mod == "MOD_PROJECTILE" || mod == "MOD_PROJECTILE_SPLASH" || mod == "MOD_GRENADE_SPLASH" || mod == "MOD_GRENADE" || mod == "MOD_EXPLOSIVE" || mod == "MOD_BURNED")
 		{
-			if (is_true(self.is_burning))
+			if (mod == "MOD_BURNED")
 			{
-				self shock_onexplosion(damage, "lava", "lava_small");
+				self shellshock("lava_small", 0);
 			}
 			else if (mod == "MOD_EXPLOSIVE")
 			{
-				self shock_onexplosion(damage);
+				self shellshock("explosion", 1);
 			}
 			else
 			{
