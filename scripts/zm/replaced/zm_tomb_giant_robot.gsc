@@ -505,7 +505,7 @@ activate_kill_trigger(robot, foot_side)
 
 		for (i = 0; i < players.size; i++)
 		{
-			if (is_player_valid(players[i], 0, 1))
+			if (is_player_valid(players[i], 0, 1) || is_true(players[i].is_zombie))
 			{
 				if (!players[i] istouching(self))
 				{
@@ -523,6 +523,11 @@ activate_kill_trigger(robot, foot_side)
 				}
 
 				if (isdefined(players[i].is_stomped) && players[i].is_stomped)
+				{
+					continue;
+				}
+
+				if (players[i].sessionstate != "playing")
 				{
 					continue;
 				}
