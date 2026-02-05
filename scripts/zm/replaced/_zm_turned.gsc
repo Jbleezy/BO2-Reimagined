@@ -261,14 +261,9 @@ turned_jump_watcher()
 	self endon("humanify");
 	level endon("end_game");
 
-	while (self is_jumping())
-	{
-		wait 0.05;
-	}
-
 	while (isdefined(self.is_zombie) && self.is_zombie)
 	{
-		while (!self is_jumping())
+		while (!self jumpbuttonpressed() || !self is_jumping())
 		{
 			wait 0.05;
 		}
