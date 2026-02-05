@@ -6,11 +6,12 @@
 onplayerconnect_bank_deposit_box()
 {
 	self.account_value = 0;
+	self.deposit_value = 0;
 }
 
 bank_deposit_box()
 {
-	level.bank_deposit_max_amount = 250000;
+	level.bank_deposit_max_amount = 100000;
 	level.bank_deposit_ddl_increment_amount = 1000;
 	level.bank_account_max = level.bank_deposit_max_amount / level.bank_deposit_ddl_increment_amount;
 	level.bank_account_increment = int(level.bank_deposit_ddl_increment_amount / 1000);
@@ -64,6 +65,7 @@ trigger_deposit_think()
 			player playsoundtoplayer("zmb_vault_bank_deposit", player);
 			player.score -= score;
 			player.account_value += account_value;
+			player.deposit_value += account_value;
 
 			if (isDefined(level.custom_bank_deposit_vo))
 			{
@@ -112,6 +114,11 @@ trigger_withdraw_think()
 			player.score += score;
 			level notify("bank_withdrawal");
 			player.account_value -= account_value;
+
+			if (player.deposit_value > player.account_value)
+			{
+				player.deposit_value = player.account_value;
+			}
 
 			if (isDefined(level.custom_bank_withdrawl_vo))
 			{

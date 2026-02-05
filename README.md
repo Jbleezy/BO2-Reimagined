@@ -1083,7 +1083,8 @@
 
 ## Bank
 * Deposited points resets each game
-* Gain 10% interest on deposited points at the end of each round
+* Gain 100% interest on deposited points at the end of each round (no compound interest)
+* Decreased points limit from 250,000 to 100,000
 * No longer costs 100 points to withdraw
 * Players can deposit and withdraw less than 1000 points
 * Account balance displayed on HUD
