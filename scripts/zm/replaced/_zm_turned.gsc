@@ -263,6 +263,8 @@ turned_jump_watcher()
 
 	while (isdefined(self.is_zombie) && self.is_zombie)
 	{
+		disable_movement = 1;
+
 		while (!self jumpbuttonpressed() || !self is_jumping())
 		{
 			wait 0.05;
@@ -270,10 +272,18 @@ turned_jump_watcher()
 
 		while (self is_jumping())
 		{
+			if (self ismantling() || self isonladder())
+			{
+				disable_movement = 0;
+			}
+
 			wait 0.05;
 		}
 
-		self thread turned_jump_disable_movement();
+		if (disable_movement)
+		{
+			self thread turned_jump_disable_movement();
+		}
 	}
 }
 
