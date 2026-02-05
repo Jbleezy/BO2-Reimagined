@@ -25,6 +25,7 @@ electic_cherry_precache()
 	precachemodel("p6_zm_vending_electric_cherry_off");
 	precachemodel("p6_zm_vending_electric_cherry_on");
 	precachestring(&"ZOMBIE_PERK_CHERRY");
+	precacheshellshock("electrocution");
 	level._effect["electriccherry"] = loadfx("misc/fx_zombie_cola_on");
 	level._effect["electric_cherry_explode"] = loadfx("maps/zombie_alcatraz/fx_alcatraz_electric_cherry_down");
 	level._effect["electric_cherry_reload_small"] = loadfx("maps/zombie_alcatraz/fx_alcatraz_electric_cherry_sm");
@@ -123,6 +124,22 @@ electric_cherry_reload_attack()
 						}
 					}
 
+					if (isplayer(a_zombies[i]) && is_true(a_zombies[i].is_zombie) && a_zombies[i].sessionstate == "playing")
+					{
+						if (a_zombies[i].health <= perk_dmg)
+						{
+							if (is_player_valid(self))
+							{
+								self maps\mp\zombies\_zm_score::add_to_player_score(40);
+							}
+						}
+						else
+						{
+							a_zombies[i] thread electric_cherry_stun_player();
+							a_zombies[i] thread electric_cherry_shock_fx_player();
+						}
+					}
+
 					if (isalive(a_zombies[i]))
 					{
 						a_zombies[i] dodamage(perk_dmg, self.origin, self, self, "none", "MOD_UNKNOWN", 0, "zombie_perk_bottle_cherry");
@@ -165,11 +182,6 @@ electric_cherry_laststand()
 					{
 						self.cherry_kills++;
 					}
-
-					if (is_player_valid(self))
-					{
-						self maps\mp\zombies\_zm_score::add_to_player_score(40);
-					}
 				}
 
 				if (isalive(a_zombies[i]))
@@ -181,4 +193,55 @@ electric_cherry_laststand()
 
 		self notify("electric_cherry_end");
 	}
+}
+
+electric_cherry_stun_player()
+{
+	self notify("stun_player");
+	self endon("stun_player");
+	self endon("disconnect");
+	self endon("spawned_spectator");
+	self endon("humanify");
+	level endon("end_game");
+
+	self thread electric_cherry_unstun_player_after_time();
+
+	self shellshock("electrocution", 2);
+
+	self disableweapons();
+
+	while (self is_jumping())
+	{
+		wait 0.05;
+	}
+
+	self freezecontrols(1);
+}
+
+electric_cherry_unstun_player_after_time()
+{
+	self endon("stun_player");
+	self endon("disconnect");
+	self endon("spawned_spectator");
+	self endon("humanify");
+	level endon("end_game");
+
+	wait 2;
+
+	self enableweapons();
+	self freezecontrols(0);
+	self stopshellshock();
+
+	self notify("stun_player");
+}
+
+electric_cherry_shock_fx_player()
+{
+	self endon("disconnect");
+
+	tag = "J_SpineUpper";
+	fx = "tesla_shock_secondary";
+
+	self playsound("zmb_elec_jib_zombie");
+	network_safe_play_fx_on_tag("tesla_shock_fx", 2, level._effect[fx], self, tag);
 }

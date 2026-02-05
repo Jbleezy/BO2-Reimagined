@@ -55,6 +55,7 @@ material,mc/mtl_t6_wpn_zmb_rpd
 material,mc/mtl_p6_zm_buildable_etrap
 
 rawfile,shock/lava_small.shock
+rawfile,shock/electrocution.shock
 
 rawfile,rumble/heavygun_fire
 rawfile,rumble/heavygun_fire_h.rmb
