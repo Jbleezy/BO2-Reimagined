@@ -71,14 +71,14 @@ player_flame_damage()
 	n_player_dmg = 30;
 	n_burn_time = 1.5;
 
-	if (isdefined(self.is_zombie) && self.is_zombie)
+	if (self.sessionstate != "playing")
 	{
 		return;
 	}
 
 	self thread player_stop_burning();
 
-	if (!isdefined(self.is_burning) && is_player_valid(self, 1, 0))
+	if (!isdefined(self.is_burning) && (is_player_valid(self) || is_true(self.is_zombie)))
 	{
 		self.is_burning = 1;
 		maps\mp\_visionset_mgr::vsmgr_activate("overlay", "zm_transit_burn", self, n_burn_time, level.zm_transit_burn_max_duration);
