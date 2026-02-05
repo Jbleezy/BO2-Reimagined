@@ -646,6 +646,9 @@ on_player_spectate()
 
 		if (level.scr_zm_ui_gametype == "zturned")
 		{
+			self.maxhealth = level.zombie_vars["zombie_health_start"];
+			self.health = self.maxhealth;
+
 			self thread turned_zombie_wait_and_respawn();
 		}
 	}
@@ -3559,6 +3562,8 @@ turned_zombie_init()
 
 	self scripts\zm\_zm_reimagined::set_team(level.zombie_team);
 
+	self scripts\zm\_zm_reimagined::delete_placeable_mines();
+
 	self maps\mp\zombies\_zm_turned::turn_to_zombie();
 
 	level notify("attractor_positions_generated");
@@ -3599,9 +3604,6 @@ turned_zombie_spectate(play_fx = 1)
 	}
 
 	self maps\mp\zombies\_zm::spawnspectator();
-
-	self.maxhealth = level.zombie_vars["zombie_health_start"];
-	self.health = self.maxhealth;
 }
 
 turned_zombie_wait_and_respawn()

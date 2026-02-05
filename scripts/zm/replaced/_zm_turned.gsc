@@ -52,7 +52,6 @@ turn_to_zombie()
 
 	self turned_disable_player_weapons();
 	self turned_give_melee_weapon();
-	self delete_placeable_mines();
 	self increment_is_drinking();
 
 	self.is_zombie = 1;
@@ -131,19 +130,6 @@ turned_give_melee_weapon()
 	self giveweapon("zombiemelee_zm");
 	self givemaxammo("zombiemelee_zm");
 	self switchtoweapon("zombiemelee_zm");
-}
-
-delete_placeable_mines()
-{
-	if (isdefined(self.claymores))
-	{
-		array_thread(self.claymores, ::self_delete);
-	}
-
-	if (isdefined(self.betties))
-	{
-		array_thread(self.betties, ::self_delete);
-	}
 }
 
 delay_turning_on_eyes()

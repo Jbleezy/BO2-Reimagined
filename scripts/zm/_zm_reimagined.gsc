@@ -610,13 +610,14 @@ on_player_downed()
 	{
 		self waittill("entering_last_stand");
 
+		self.health = self.maxhealth;
+
 		if (is_true(self.is_zombie))
 		{
 			continue;
 		}
 
 		self.statusicon = "hud_status_revive";
-		self.health = self.maxhealth;
 
 		objective_setgamemodeflags(self.obj_ind, 2);
 
@@ -669,6 +670,7 @@ on_player_fake_revive()
 		else if (is_true(level.zombiemode_using_afterlife))
 		{
 			self.statusicon = "hud_status_afterlife";
+
 			objective_setgamemodeflags(self.obj_ind, 0);
 		}
 	}
@@ -3515,6 +3517,19 @@ player_suicide()
 
 	self maps\mp\zombies\_zm_laststand::bleed_out();
 	self.playersuicided = undefined;
+}
+
+delete_placeable_mines()
+{
+	if (isdefined(self.claymores))
+	{
+		array_thread(self.claymores, ::self_delete);
+	}
+
+	if (isdefined(self.betties))
+	{
+		array_thread(self.betties, ::self_delete);
+	}
 }
 
 temp_weapon_disable_fast_weapon_switch(temp_weapon)
