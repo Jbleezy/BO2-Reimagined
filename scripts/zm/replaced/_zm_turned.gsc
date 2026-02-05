@@ -58,6 +58,7 @@ turn_to_zombie()
 	self.animname = "zombie";
 	self.maxhealth = level.zombie_vars["zombie_health_start"];
 	self.health = self.maxhealth;
+	self.premaxhealth = self.maxhealth;
 	self.meleedamage = 50;
 	self.laststand = undefined;
 	self.shock_onpain = 0;
