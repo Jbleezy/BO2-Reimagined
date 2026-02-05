@@ -72,10 +72,9 @@ slowgun_fired(upgraded)
 				{
 					target thread player_paralyzed(self, upgraded);
 				}
-
-				if (is_true(target.is_zombie) && target.sessionstate == "playing" && self.team != target.team)
+				else if (is_true(target.is_zombie) && target.sessionstate == "playing" && self.team != target.team)
 				{
-					target thread zombie_paralyzed(self, upgraded);
+					target thread player_paralyzed(self, upgraded, 1);
 				}
 
 				continue;
@@ -96,6 +95,45 @@ slowgun_fired(upgraded)
 	if (dot > 0.8)
 	{
 		self thread player_paralyzed(self, upgraded);
+	}
+}
+
+player_paralyzed(byplayer, upgraded, player_zombie = 0)
+{
+	self notify("player_paralyzed");
+	self endon("player_paralyzed");
+	self endon("death");
+
+	if (isdefined(level.slowgun_allow_player_paralyze))
+	{
+		if (!self [[level.slowgun_allow_player_paralyze]]())
+		{
+			return;
+		}
+	}
+
+	if (self != byplayer)
+	{
+		sizzle = "player_slowgun_sizzle";
+
+		if (upgraded)
+		{
+			sizzle = "player_slowgun_sizzle_ug";
+		}
+
+		if (isdefined(level._effect[sizzle]))
+		{
+			playfxontag(level._effect[sizzle], self, "J_SpineLower");
+		}
+	}
+
+	if (player_zombie)
+	{
+		self thread zombie_paralyzed(byplayer, upgraded);
+	}
+	else
+	{
+		self thread player_slow_for_time(0.25);
 	}
 }
 
@@ -283,6 +321,34 @@ zombie_slow_for_time(time, multiplier)
 	self stoploopsound(0.1);
 }
 
+zombie_change_rate(time, newrate)
+{
+	if (isplayer(self))
+	{
+		self.ignore_slowgun_anim_rates = 1;
+
+		self.n_move_scale_modifiers["slowgun"] = newrate;
+
+		self scripts\zm\_zm_reimagined::set_move_speed_scale(self.n_move_scale);
+	}
+
+	self set_anim_rate(newrate);
+
+	if (isdefined(self.reset_anim))
+	{
+		self thread [[self.reset_anim]]();
+	}
+	else
+	{
+		self thread reset_anim();
+	}
+
+	if (time > 0)
+	{
+		wait(time);
+	}
+}
+
 slowgun_zombie_death_response()
 {
 	if (!self is_slowgun_damage(self.damagemod, self.damageweapon))
@@ -343,6 +409,11 @@ watch_reset_anim_rate()
 		self waittill_any("spawned_player", "entering_last_stand", "player_revived", "player_suicide");
 		self setclientfieldtoplayer("slowgun_fx", 0);
 		self set_anim_rate(1.0);
+
+		if (isdefined(self.n_move_scale_modifiers))
+		{
+			self.n_move_scale_modifiers["slowgun"] = undefined;
+		}
 
 		self.paralyzer_hit_callback = ::zombie_paralyzed;
 		self.paralyzer_damaged_multiplier = 1;
