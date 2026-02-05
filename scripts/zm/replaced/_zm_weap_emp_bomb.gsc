@@ -193,7 +193,12 @@ emp_players(origin, radius, owner)
 	{
 		if (distancesquared(origin, player.origin) < rsquared)
 		{
-			if (is_player_valid(player) || player maps\mp\zombies\_zm_laststand::player_is_in_laststand())
+			if (is_true(player.is_zombie) && player.sessionstate == "playing")
+			{
+				player shellshock("flashbang", 1);
+				player thread player_disable_sprint(1.25);
+			}
+			else if (is_player_valid(player) || player maps\mp\zombies\_zm_laststand::player_is_in_laststand())
 			{
 				time = level.zombie_vars["emp_stun_time"];
 				player shellshock("flashbang", 1);
@@ -388,4 +393,17 @@ player_perk_unpause(perk)
 	self.perks_active[self.perks_active.size] = perk;
 
 	self notify("perk_acquired");
+}
+
+player_disable_sprint(time)
+{
+	self notify("player_disable_sprint");
+	self endon("player_disable_sprint");
+	self endon("disconnect");
+
+	self allowsprint(0);
+
+	wait time;
+
+	self allowsprint(1);
 }
