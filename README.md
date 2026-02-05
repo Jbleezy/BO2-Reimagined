@@ -332,6 +332,8 @@
 ### Panzersoldat
 * Increased number of rounds for next spawn in coop from 3 to 4-5
 * Decreased amount that spawn per round in coop from 1-3 to 1
+* Flamethrower damage no longer changes based on player's health
+* Decreased flamethrower damage from 45 to 30
 * Death explosion kills zombies
 * Changed death explosion player damage from 100-25 to 75
 * Decreased fire zombie death explosion max damage from 30 to 15

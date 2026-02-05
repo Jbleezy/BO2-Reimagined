@@ -63,6 +63,35 @@ mechz_watch_for_flamethrower_damage()
 	}
 }
 
+player_flame_damage()
+{
+	self endon("zombified");
+	self endon("death");
+	self endon("disconnect");
+	n_player_dmg = 30;
+	n_burn_time = 1.5;
+
+	if (isdefined(self.is_zombie) && self.is_zombie)
+	{
+		return;
+	}
+
+	self thread player_stop_burning();
+
+	if (!isdefined(self.is_burning) && is_player_valid(self, 1, 0))
+	{
+		self.is_burning = 1;
+		maps\mp\_visionset_mgr::vsmgr_activate("overlay", "zm_transit_burn", self, n_burn_time, level.zm_transit_burn_max_duration);
+		self notify("burned");
+
+		radiusdamage(self.origin, 10, n_player_dmg, n_player_dmg, undefined, "MOD_BURNED");
+
+		wait 0.5;
+
+		self.is_burning = undefined;
+	}
+}
+
 explode_on_death()
 {
 	self endon("stop_flame_damage");
