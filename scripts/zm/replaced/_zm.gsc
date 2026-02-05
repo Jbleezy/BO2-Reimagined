@@ -2251,7 +2251,7 @@ callback_playerdamage(einflictor, eattacker, idamage, idflags, smeansofdeath, sw
 
 player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime)
 {
-	if (is_true(self.is_zombie) || (isdefined(eattacker) && isplayer(eattacker) && is_true(eattacker.is_zombie)))
+	if (isdefined(eattacker) && isplayer(eattacker) && (is_true(self.is_zombie) || is_true(eattacker.is_zombie)))
 	{
 		// don't store damage info on non-weapon scripted damage
 		if (sweapon != self getcurrentweapon())
