@@ -210,9 +210,14 @@ electric_cherry_stun_player()
 
 	self disableweapons();
 
-	while (self is_jumping())
+	if (self is_jumping())
 	{
-		wait 0.05;
+		self setvelocity((0, 0, 0));
+
+		while (self is_jumping())
+		{
+			wait 0.05;
+		}
 	}
 
 	self freezecontrols(1);
