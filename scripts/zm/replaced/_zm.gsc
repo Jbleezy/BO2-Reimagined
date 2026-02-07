@@ -2349,11 +2349,8 @@ player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, s
 
 		if (is_true(eattacker.is_zombie))
 		{
-			if (isai(eattacker))
-			{
-				self.ignoreattacker = eattacker;
-				self thread maps\mp\zombies\_zm::remove_ignore_attacker();
-			}
+			self.ignoreattacker = eattacker;
+			self thread remove_ignore_attacker();
 
 			if (isDefined(eattacker.custom_damage_func))
 			{
@@ -2639,6 +2636,29 @@ player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, s
 		surface = "flesh";
 		return finaldamage;
 	}
+}
+
+remove_ignore_attacker(attacker)
+{
+	self notify("new_ignore_attacker");
+	self endon("new_ignore_attacker");
+	self endon("disconnect");
+
+	if (!isdefined(level.ignore_enemy_timer))
+	{
+		level.ignore_enemy_timer = 0.4;
+	}
+
+	if (isplayer(self.ignoreattacker))
+	{
+		wait 0.25;
+	}
+	else
+	{
+		wait level.ignore_enemy_timer;
+	}
+
+	self.ignoreattacker = undefined;
 }
 
 is_solo_death(players)

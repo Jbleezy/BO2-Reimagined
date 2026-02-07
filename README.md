@@ -1651,6 +1651,7 @@
 * All players start as survivors
 * All players that join mid game start as zombies
 * Disease powerup spawns at survivor initial spawn points after 10 seconds and chases after the closest survivor
+* Survivors can't be damaged by the same zombie for 0.25 seconds
 * Survivors become zombies when they bleed out
 * Zombies see survivors and other zombies through walls
 * Zombies have 2500 health
