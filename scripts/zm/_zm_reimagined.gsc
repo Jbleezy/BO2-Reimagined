@@ -223,6 +223,8 @@ init()
 	level.hotjoin_player_setup = undefined;
 	level.player_too_many_players_check = 0;
 	level.player_starting_health = 150;
+	level.lowertextyalign = "CENTER";
+	level.lowertexty = 40;
 
 	if (!isdefined(level.item_meat_name))
 	{
@@ -1626,6 +1628,74 @@ countdown_hud_destroy()
 {
 	self.countdown_text destroy();
 	self destroy();
+}
+
+setlowermessage(text, time, combinemessageandtimer)
+{
+	if (!isdefined(self.lowermessage))
+	{
+		self.lowermessage = createfontstring("default", level.lowertextfontsize);
+		self.lowermessage setpoint("CENTER", level.lowertextyalign, 0, level.lowertexty);
+		self.lowermessage settext("");
+		self.lowermessage.archived = 0;
+		self.lowermessage.foreground = 1;
+		self.lowermessage.hidewheninmenu = 1;
+		self.lowermessage thread hide_on_scoreboard(self);
+		self.lowermessage thread destroy_on_intermission();
+
+		self.lowertimer = createfontstring("default", 1.5);
+		self.lowertimer setparent(self.lowermessage);
+		self.lowertimer setpoint("TOP", "BOTTOM", 0, 0);
+		self.lowertimer settext("");
+		self.lowertimer.archived = 0;
+		self.lowertimer.foreground = 1;
+		self.lowertimer.hidewheninmenu = 1;
+		self.lowertimer thread hide_on_scoreboard(self);
+		self.lowertimer thread destroy_on_intermission();
+	}
+
+	if (isdefined(self.lowermessageoverride) && text != &"")
+	{
+		text = self.lowermessageoverride;
+		time = undefined;
+	}
+
+	self notify("lower_message_set");
+	self.lowermessage settext(text);
+
+	if (isdefined(time) && time > 0)
+	{
+		if (!isdefined(combinemessageandtimer) || !combinemessageandtimer)
+		{
+			self.lowertimer.label = &"";
+		}
+		else
+		{
+			self.lowermessage settext("");
+			self.lowertimer.label = text;
+		}
+
+		self.lowertimer settimer(time);
+	}
+	else
+	{
+		self.lowertimer settext("");
+		self.lowertimer.label = &"";
+	}
+
+	if (self issplitscreen())
+	{
+		self.lowermessage.fontscale = 1.4;
+	}
+}
+
+clearlowermessage()
+{
+	if (isdefined(self.lowermessage))
+	{
+		self.lowermessage destroyelem();
+		self.lowertimer destroyelem();
+	}
 }
 
 setscoreboardcolumns_gametype()
@@ -3777,25 +3847,6 @@ hide_on_scoreboard(player)
 
 		player waittill("scores");
 	}
-}
-
-destroy_on_end_game()
-{
-	self endon("death");
-
-	level waittill("end_game");
-
-	if (isDefined(self.bar))
-	{
-		self.bar destroy();
-	}
-
-	if (isDefined(self.barframe))
-	{
-		self.barframe destroy();
-	}
-
-	self destroy();
 }
 
 destroy_on_intermission()

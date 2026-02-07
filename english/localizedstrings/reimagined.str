@@ -232,6 +232,9 @@ LANG_ENGLISH        "Restart Game?"
 REFERENCE           MENU_SELECTING_GAMETYPE
 LANG_ENGLISH        "Choosing a Game Mode"
 
+REFERENCE           GAME_RESPAWNING
+LANG_ENGLISH        "Respawning"
+
 REFERENCE           CGAME_QUAKE_SUICIDE
 LANG_ENGLISH        ""
 

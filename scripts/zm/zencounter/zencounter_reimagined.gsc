@@ -54,28 +54,21 @@ init()
 	enemy_powerup_hud();
 	obj_waypoint();
 
-	if (level.scr_zm_ui_gametype == "zcontainment")
-	{
-		containment_init();
-	}
-
-	if (level.scr_zm_ui_gametype == "zmeat")
-	{
-		meat_init();
-	}
-
-	if (level.scr_zm_ui_gametype == "zturned")
-	{
-		turned_init();
-	}
-
 	add_custom_limited_weapon_check(::is_weapon_available_in_grief_saved_weapons);
 
 	level.dont_allow_meat_interaction = 1;
 	level.can_revive_game_module = ::can_revive;
 	level._powerup_grab_check = ::powerup_can_player_grab;
 	level._zombiemode_powerup_grab = ::powerup_grab;
-	level.custom_spectate_permissions = undefined;
+
+	if (level.scr_zm_ui_gametype == "zsr")
+	{
+		level.custom_spectate_permissions = undefined;
+	}
+	else
+	{
+		level.custom_spectate_permissions = ::setspectatepermissions;
+	}
 
 	level.get_gamemode_display_name_func = ::get_gamemode_display_name;
 	level.is_respawn_gamemode_func = ::is_respawn_gamemode;
@@ -91,6 +84,21 @@ init()
 	level thread unlimited_zombies();
 	level thread unlimited_powerups();
 	level thread save_teams_on_intermission();
+
+	if (level.scr_zm_ui_gametype == "zcontainment")
+	{
+		containment_init();
+	}
+
+	if (level.scr_zm_ui_gametype == "zmeat")
+	{
+		meat_init();
+	}
+
+	if (level.scr_zm_ui_gametype == "zturned")
+	{
+		turned_init();
+	}
 
 	if (is_true(level.scr_zm_ui_gametype_pro))
 	{
@@ -828,7 +836,11 @@ player_wait_and_respawn()
 
 	time += 1;
 
+	self scripts\zm\_zm_reimagined::setlowermessage(&"GAME_RESPAWNING", time);
+
 	wait time;
+
+	self scripts\zm\_zm_reimagined::clearlowermessage();
 
 	self.sessionstate = "playing";
 
@@ -3620,9 +3632,15 @@ turned_zombie_wait_and_respawn()
 
 	self.turned_zombie_spawn_point = turned_zombie_get_spawn_point();
 
-	wait 10;
+	time = 10;
+
+	self scripts\zm\_zm_reimagined::setlowermessage(&"GAME_RESPAWNING", time);
+
+	wait time;
 
 	flag_wait("spawn_zombies");
+
+	self scripts\zm\_zm_reimagined::clearlowermessage();
 
 	self.sessionstate = "playing";
 
@@ -3713,6 +3731,14 @@ powerup_grab(powerup, player)
 			level thread the_disease_powerup(player);
 			break;
 	}
+}
+
+setspectatepermissions()
+{
+	self allowspectateteam("allies", 0);
+	self allowspectateteam("axis", 0);
+	self allowspectateteam("freelook", 0);
+	self allowspectateteam("none", 1);
 }
 
 increment_score(team, amount = 1, show_lead_msg = true, score_msg)
