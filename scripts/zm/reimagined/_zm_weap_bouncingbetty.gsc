@@ -145,9 +145,9 @@ betty_safe_to_plant()
 		return 0;
 	}
 
-	if (isdefined(level.betty_safe_to_plant))
+	if (isdefined(level.claymore_safe_to_plant))
 	{
-		return self [[level.betty_safe_to_plant]]();
+		return self [[level.claymore_safe_to_plant]]();
 	}
 
 	return 1;

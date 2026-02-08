@@ -13,6 +13,7 @@ init()
 	precachemodel("t6_wpn_tac_insert_world");
 	level._effect["tacticalInsertionFriendly"] = loadfx("misc/fx_equip_tac_insert_light_grn");
 	level._effect["tacticalInsertionEnemy"] = loadfx("misc/fx_equip_tac_insert_light_red");
+	level._effect["tacticalInsertionFizzle"] = loadfx("misc/fx_equip_tac_insert_exp");
 }
 
 waitanddelete(time)
@@ -122,7 +123,7 @@ spawntacticalinsertion()
 	self.tacticalinsertion setweapon(level.tacticalinsertionweapon);
 	self.tacticalinsertion setinvisibletoall();
 	self.tacticalinsertion setvisibletoplayer(self);
-	self.tacticalinsertion play_tacticalinsertion_effects();
+	self.tacticalinsertion play_tactical_insertion_effects();
 	self.tacticalinsertion endon("delete");
 	triggerheight = 64;
 	triggerradius = 128;
@@ -143,13 +144,70 @@ spawntacticalinsertion()
 	self thread watchdisconnect();
 	watcher = maps\mp\gametypes_zm\_weaponobjects::getweaponobjectwatcherbyweapon(level.tacticalinsertionweapon);
 	self.tacticalinsertion thread watchusetrigger(self.tacticalinsertion.friendlytrigger, ::pickup, watcher.pickupsoundplayer, watcher.pickupsound);
+
+	if (!self.tacticalinsertion tactical_insertion_safe_to_plant())
+	{
+		self.tacticalinsertion tactical_insertion_wait_and_fizzle();
+	}
 }
 
-play_tacticalinsertion_effects()
+play_tactical_insertion_effects()
 {
 	self endon("death");
 	self waittill_not_moving();
 	playfxontag(level._effect["tacticalInsertionEnemy"], self, "tag_flash");
+}
+
+tactical_insertion_safe_to_plant()
+{
+	if (isdefined(level.claymore_safe_to_plant))
+	{
+		return self [[level.claymore_safe_to_plant]]();
+	}
+
+	return 1;
+}
+
+tactical_insertion_wait_and_fizzle()
+{
+	wait 0.1;
+	self thread fizzle(self.owner, 1);
+}
+
+fizzle(attacker, pickup)
+{
+	if (isdefined(self.fizzle) && self.fizzle)
+	{
+		return;
+	}
+
+	self.fizzle = 1;
+	self thread fizzle_fx();
+
+	if (pickup)
+	{
+		self playsoundtoplayer("dst_tac_insert_break", self.owner);
+		self pickup(attacker);
+	}
+	else
+	{
+		self.owner playlocalsound("dst_tac_insert_break");
+		self destroy_tactical_insertion(attacker);
+	}
+}
+
+fizzle_fx()
+{
+	temp_ent = spawn("script_model", self.origin);
+	temp_ent setmodel("tag_origin");
+	temp_ent setinvisibletoall();
+	temp_ent setvisibletoplayer(self.owner);
+
+	playfxontag(level._effect["tacticalInsertionFizzle"], temp_ent, "tag_origin");
+
+	wait 1;
+
+	temp_ent delete();
 }
 
 cancel_button_think()
@@ -168,7 +226,7 @@ cancel_button_think()
 
 	if (event == "tactical_insertion_canceled")
 	{
-		self.tacticalinsertion destroy_tactical_insertion();
+		self.tacticalinsertion thread fizzle(self.owner, 0);
 	}
 
 	if (isdefined(text))
@@ -177,7 +235,7 @@ cancel_button_think()
 	}
 }
 
-canceltackinsertionbutton()
+canceltacinsertbutton()
 {
 	if (level.console)
 	{
@@ -199,7 +257,7 @@ cancel_button_press()
 	{
 		wait 0.05;
 
-		if (self canceltackinsertionbutton())
+		if (self canceltacinsertbutton())
 		{
 			break;
 		}
