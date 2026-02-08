@@ -3589,6 +3589,8 @@ turned_zombie_init()
 
 	self scripts\zm\_zm_reimagined::delete_placeable_mines();
 
+	self notify("zmb_lost_knife");
+
 	self maps\mp\zombies\_zm_turned::turn_to_zombie();
 
 	level notify("attractor_positions_generated");

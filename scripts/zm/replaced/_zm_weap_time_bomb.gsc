@@ -135,6 +135,15 @@ swap_weapon_to_time_bomb()
 	}
 }
 
+destroy_time_bomb_save_if_user_bleeds_out_or_disconnects()
+{
+	self endon("player_lost_time_bomb");
+
+	self waittill_any("bled_out", "player_suicide", "disconnect");
+
+	destroy_time_bomb_save();
+}
+
 time_bomb_think()
 {
 	self notify("_time_bomb_kill_thread");
