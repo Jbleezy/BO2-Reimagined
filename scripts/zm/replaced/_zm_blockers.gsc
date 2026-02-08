@@ -41,6 +41,11 @@ door_buy()
 		return false;
 	}
 
+	if (is_true(who.is_zombie))
+	{
+		return true;
+	}
+
 	if (!is_player_valid(who))
 	{
 		return false;
@@ -218,6 +223,131 @@ door_opened(cost, quick_close)
 		for (i = 0; i < all_trigs.size; i++)
 		{
 			all_trigs[i] trigger_on();
+		}
+	}
+}
+
+debris_think()
+{
+	if (isdefined(level.custom_debris_function))
+	{
+		self [[level.custom_debris_function]]();
+	}
+
+	while (true)
+	{
+		self waittill("trigger", who, force);
+
+		if (getdvarint("zombie_unlock_all") > 0 || isdefined(force) && force)
+		{
+
+		}
+		else
+		{
+			if (!who usebuttonpressed())
+			{
+				continue;
+			}
+
+			if (who in_revive_trigger())
+			{
+				continue;
+			}
+		}
+
+		if (is_player_valid(who) || is_true(who.is_zombie))
+		{
+			players = get_players();
+
+			if (getdvarint("zombie_unlock_all") > 0 || is_true(who.is_zombie))
+			{
+
+			}
+			else if (who.score >= self.zombie_cost)
+			{
+				who maps\mp\zombies\_zm_score::minus_to_player_score(self.zombie_cost);
+				maps\mp\_demo::bookmark("zm_player_door", gettime(), who);
+				who maps\mp\zombies\_zm_stats::increment_client_stat("doors_purchased");
+				who maps\mp\zombies\_zm_stats::increment_player_stat("doors_purchased");
+			}
+			else
+			{
+				play_sound_at_pos("no_purchase", self.origin);
+				who maps\mp\zombies\_zm_audio::create_and_play_dialog("general", "door_deny");
+				continue;
+			}
+
+			bbprint("zombie_uses", "playername %s playerscore %d round %d cost %d name %s x %f y %f z %f type %s", who.name, who.score, level.round_number, self.zombie_cost, self.script_flag, self.origin, "door");
+			junk = getentarray(self.target, "targetname");
+
+			if (isdefined(self.script_flag))
+			{
+				tokens = strtok(self.script_flag, ",");
+
+				for (i = 0; i < tokens.size; i++)
+				{
+					flag_set(tokens[i]);
+				}
+			}
+
+			play_sound_at_pos("purchase", self.origin);
+			level notify("junk purchased");
+			move_ent = undefined;
+			clip = undefined;
+
+			for (i = 0; i < junk.size; i++)
+			{
+				junk[i] connectpaths();
+
+				if (isdefined(junk[i].script_noteworthy))
+				{
+					if (junk[i].script_noteworthy == "clip")
+					{
+						clip = junk[i];
+						continue;
+					}
+				}
+
+				struct = undefined;
+
+				if (isdefined(junk[i].script_linkto))
+				{
+					struct = getstruct(junk[i].script_linkto, "script_linkname");
+
+					if (isdefined(struct))
+					{
+						move_ent = junk[i];
+						junk[i] thread debris_move(struct);
+					}
+					else
+					{
+						junk[i] delete();
+					}
+
+					continue;
+				}
+
+				junk[i] delete();
+			}
+
+			all_trigs = getentarray(self.target, "target");
+
+			for (i = 0; i < all_trigs.size; i++)
+			{
+				all_trigs[i] delete();
+			}
+
+			if (isdefined(clip))
+			{
+				if (isdefined(move_ent))
+				{
+					move_ent waittill("movedone");
+				}
+
+				clip delete();
+			}
+
+			break;
 		}
 	}
 }

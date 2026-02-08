@@ -84,6 +84,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_laststand::revive_hud_create, scripts\zm\replaced\_zm_laststand::revive_hud_create);
 	replaceFunc(maps\mp\zombies\_zm_blockers::door_buy, scripts\zm\replaced\_zm_blockers::door_buy);
 	replaceFunc(maps\mp\zombies\_zm_blockers::door_opened, scripts\zm\replaced\_zm_blockers::door_opened);
+	replaceFunc(maps\mp\zombies\_zm_blockers::debris_think, scripts\zm\replaced\_zm_blockers::debris_think);
 	replaceFunc(maps\mp\zombies\_zm_blockers::handle_post_board_repair_rewards, scripts\zm\replaced\_zm_blockers::handle_post_board_repair_rewards);
 	replaceFunc(maps\mp\zombies\_zm_blockers::player_fails_blocker_repair_trigger_preamble, scripts\zm\replaced\_zm_blockers::player_fails_blocker_repair_trigger_preamble);
 	replaceFunc(maps\mp\zombies\_zm_blockers::should_delete_zbarriers, scripts\zm\replaced\_zm_blockers::should_delete_zbarriers);

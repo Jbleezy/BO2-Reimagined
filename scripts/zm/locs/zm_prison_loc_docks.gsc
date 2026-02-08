@@ -250,6 +250,7 @@ create_key_door_unitrigger(piece_num, width, height, length)
 	t_key_door.unitrigger_stub.script_length = length;
 	t_key_door.unitrigger_stub.n_door_index = piece_num;
 	t_key_door.unitrigger_stub.require_look_at = 0;
+	t_key_door.unitrigger_stub.ignore_player_valid = 1;
 	t_key_door.unitrigger_stub.prompt_and_visibility_func = ::key_door_trigger_visibility;
 	t_key_door.unitrigger_stub.cost = 2000;
 	maps\mp\zombies\_zm_unitrigger::register_static_unitrigger(t_key_door.unitrigger_stub, ::master_key_door_trigger_thread);
@@ -273,23 +274,27 @@ master_key_door_trigger_thread()
 	{
 		self waittill("trigger", e_triggerer);
 
-		if (is_player_valid(e_triggerer))
+		if (is_player_valid(e_triggerer) || is_true(e_triggerer.is_zombie))
 		{
-			if (e_triggerer.score >= self.stub.cost)
+			if (!is_true(e_triggerer.is_zombie))
 			{
-				e_triggerer maps\mp\zombies\_zm_score::minus_to_player_score(self.stub.cost);
-				e_triggerer play_sound_on_ent("purchase");
+				if (e_triggerer.score >= self.stub.cost)
+				{
+					e_triggerer maps\mp\zombies\_zm_score::minus_to_player_score(self.stub.cost);
+					e_triggerer play_sound_on_ent("purchase");
+				}
+				else
+				{
+					play_sound_at_pos("no_purchase", self.stub.origin);
+					continue;
+				}
+			}
 
-				self.stub.master_key_door_opened = 1;
-				self.stub maps\mp\zombies\_zm_unitrigger::run_visibility_function_for_all_triggers();
-				level thread open_custom_door_master_key(n_door_index, e_triggerer);
-				self playsound("evt_quest_door_open");
-				b_door_open = 1;
-			}
-			else
-			{
-				play_sound_at_pos("no_purchase", self.stub.origin);
-			}
+			self.stub.master_key_door_opened = 1;
+			self.stub maps\mp\zombies\_zm_unitrigger::run_visibility_function_for_all_triggers();
+			level thread open_custom_door_master_key(n_door_index, e_triggerer);
+			self playsound("evt_quest_door_open");
+			b_door_open = 1;
 		}
 	}
 
