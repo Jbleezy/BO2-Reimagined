@@ -1090,11 +1090,11 @@ pregame_think()
 
 		num_waiting_for = players.size - num_ready;
 
-		players_str = &"ZOMBIE_WAITING_FOR_PLAYERS_TO_BE_READY_CAPS";
+		players_str = &"ZOMBIE_WAITING_FOR_MORE_PLAYERS_TO_BE_READY_CAPS";
 
 		if (num_waiting_for == 1)
 		{
-			players_str = &"ZOMBIE_WAITING_FOR_PLAYER_TO_BE_READY_CAPS";
+			players_str = &"ZOMBIE_WAITING_FOR_MORE_PLAYER_TO_BE_READY_CAPS";
 		}
 
 		level.pregame_hud setText(players_str, num_waiting_for, num_ready, players.size);
