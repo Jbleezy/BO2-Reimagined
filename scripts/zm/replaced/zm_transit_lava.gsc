@@ -42,12 +42,15 @@ player_lava_damage(trig)
 		maps\mp\_visionset_mgr::vsmgr_activate("overlay", "zm_transit_burn", self, burn_time, level.zm_transit_burn_max_duration);
 		self notify("burned");
 
-		if (isdefined(trig.script_float) && trig.script_float >= 0.1)
+		if (!is_true(self.is_zombie))
 		{
-			self thread player_burning_fx();
-		}
+			if (isdefined(trig.script_float) && trig.script_float >= 0.1)
+			{
+				self thread player_burning_fx();
+			}
 
-		radiusdamage(self.origin, 10, player_dmg, player_dmg, undefined, "MOD_BURNED");
+			radiusdamage(self.origin, 10, player_dmg, player_dmg, undefined, "MOD_BURNED");
+		}
 
 		wait 0.5;
 

@@ -84,7 +84,10 @@ player_flame_damage()
 		maps\mp\_visionset_mgr::vsmgr_activate("overlay", "zm_transit_burn", self, n_burn_time, level.zm_transit_burn_max_duration);
 		self notify("burned");
 
-		radiusdamage(self.origin, 10, n_player_dmg, n_player_dmg, undefined, "MOD_BURNED");
+		if (!is_true(self.is_zombie))
+		{
+			radiusdamage(self.origin, 10, n_player_dmg, n_player_dmg, undefined, "MOD_BURNED");
+		}
 
 		wait 0.5;
 

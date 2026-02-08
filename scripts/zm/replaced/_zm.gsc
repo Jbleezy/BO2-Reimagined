@@ -2269,6 +2269,11 @@ player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, s
 		self.damageweapon = sweapon;
 		self.damagelocation = shitloc;
 
+		if (is_true(level.use_adjusted_grenade_damage))
+		{
+			return 0;
+		}
+
 		return actor_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime);
 	}
 
