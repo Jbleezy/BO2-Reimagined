@@ -3582,6 +3582,10 @@ turned_zombie_init()
 	if (self maps\mp\zombies\_zm_laststand::player_is_in_laststand())
 	{
 		amount = 0;
+
+		self notify("stop_revive_trigger");
+		self.revivetrigger delete();
+
 		self thread maps\mp\zombies\_zm_laststand::auto_revive(self);
 	}
 
