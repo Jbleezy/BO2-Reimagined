@@ -330,19 +330,23 @@ elevator_call_think()
 
 		self waittill("trigger", who);
 
-		if (!is_player_valid(who))
+		if (!is_true(who.is_zombie))
 		{
-			continue;
+			if (!is_player_valid(who))
+			{
+				continue;
+			}
+
+			if (who.score < self.cost)
+			{
+				play_sound_at_pos("no_purchase", self.origin);
+				who maps\mp\zombies\_zm_audio::create_and_play_dialog("general", "door_deny");
+				continue;
+			}
+
+			who maps\mp\zombies\_zm_score::minus_to_player_score(self.cost);
 		}
 
-		if (who.score < self.cost)
-		{
-			play_sound_at_pos("no_purchase", self.origin);
-			who maps\mp\zombies\_zm_audio::create_and_play_dialog("general", "door_deny");
-			continue;
-		}
-
-		who maps\mp\zombies\_zm_score::minus_to_player_score(self.cost);
 		play_sound_at_pos("purchase", self.origin);
 
 		self playsound("zmb_elevator_ding");

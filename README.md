@@ -1661,6 +1661,7 @@
 * Zombies can't move while attacking
 * Zombies move at 50% move speed for 0.5 seconds after jumping
 * Zombies can open doors
+* Zombies can activate traps
 * Zombies can't damage the same survivor for 0.25 seconds
 * Zombies have a Tactical Insertion (stays placed until picked up, can be cancelled while spectating, no other players can see it)
 * Zombies respawn at the position of a random survivor when they died if they did not have a Tactical Insertion placed

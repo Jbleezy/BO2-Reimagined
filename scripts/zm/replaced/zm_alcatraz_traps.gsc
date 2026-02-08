@@ -48,9 +48,9 @@ fan_trap_think()
 			continue;
 		}
 
-		if (is_player_valid(who))
+		if (is_player_valid(who) || is_true(who.is_zombie))
 		{
-			if (who.score >= self.cost)
+			if (who.score >= self.cost || is_true(who.is_zombie))
 			{
 				if (!self.zombie_dmg_trig.in_use)
 				{
@@ -73,7 +73,11 @@ fan_trap_think()
 
 					self waittill("switch_activated");
 
-					who minus_to_player_score(self.cost);
+					if (!is_true(who.is_zombie))
+					{
+						who minus_to_player_score(self.cost);
+					}
+
 					level.trapped_track["fan"] = 1;
 					level notify("trap_activated");
 					who maps\mp\zombies\_zm_stats::increment_client_stat("prison_fan_trap_used", 0);
@@ -135,9 +139,9 @@ acid_trap_think()
 			continue;
 		}
 
-		if (is_player_valid(who))
+		if (is_player_valid(who) || is_true(who.is_zombie))
 		{
-			if (who.score >= self.cost)
+			if (who.score >= self.cost || is_true(who.is_zombie))
 			{
 				if (!self.zombie_dmg_trig.in_use)
 				{
@@ -160,7 +164,11 @@ acid_trap_think()
 
 					self waittill("switch_activated");
 
-					who minus_to_player_score(self.cost);
+					if (!is_true(who.is_zombie))
+					{
+						who minus_to_player_score(self.cost);
+					}
+
 					level.trapped_track["acid"] = 1;
 					level notify("trap_activated");
 					who maps\mp\zombies\_zm_stats::increment_client_stat("prison_acid_trap_used", 0);
@@ -283,9 +291,9 @@ tower_trap_trigger_think()
 			continue;
 		}
 
-		if (is_player_valid(who))
+		if (is_player_valid(who) || is_true(who.is_zombie))
 		{
-			if (who.score >= self.cost)
+			if (who.score >= self.cost || is_true(who.is_zombie))
 			{
 				if (!self.in_use)
 				{
@@ -308,7 +316,11 @@ tower_trap_trigger_think()
 
 					self waittill("switch_activated");
 
-					who minus_to_player_score(self.cost);
+					if (!is_true(who.is_zombie))
+					{
+						who minus_to_player_score(self.cost);
+					}
+
 					level.trapped_track["tower"] = 1;
 					level notify("trap_activated");
 					who maps\mp\zombies\_zm_stats::increment_client_stat("prison_sniper_tower_used", 0);
