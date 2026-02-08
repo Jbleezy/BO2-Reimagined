@@ -2317,6 +2317,13 @@ weapon_changes()
 	{
 		level.zombie_lethal_grenade_player_init = "sticky_grenade_zm";
 	}
+
+	if (level.scr_zm_ui_gametype == "zturned")
+	{
+		include_weapon("tactical_insertion_zm", 0);
+		add_zombie_weapon("tactical_insertion_zm", undefined, &"WEAPON_TACTICAL_INSERTION", 250, "wpck_tacinsert", "", 250);
+		register_tactical_grenade_for_level("tactical_insertion_zm");
+	}
 }
 
 player_give_willy_pete()
@@ -2437,6 +2444,11 @@ grenade_fire_watcher()
 		{
 			grenade.angles = (0, grenade.angles[1], 0);
 		}
+
+		if (isdefined(level.tacticalinsertionweapon) && weapname == level.tacticalinsertionweapon)
+		{
+			grenade thread scripts\zm\reimagined\_zm_weap_tacticalinsertion::watch(self);
+		}
 	}
 }
 
@@ -2452,7 +2464,7 @@ temp_disable_offhand_weapons()
 		wait 0.05;
 	}
 
-	if (!is_true(self.is_drinking))
+	if (!is_true(self.is_drinking) || is_true(self.is_zombie))
 	{
 		self enableOffhandWeapons();
 	}

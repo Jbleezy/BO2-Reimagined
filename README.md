@@ -1659,4 +1659,6 @@
 * Zombies can jump and go prone
 * Zombies can't move while attacking
 * Zombies move at 50% move speed for 0.5 seconds after jumping
-* Zombies respawn at the position of a random survivor when they died after spectating for 10 seconds
+* Zombies have a Tactical Insertion (stays placed until picked up, can be cancelled while spectating, no other players can see it)
+* Zombies respawn at the position of a random survivor when they died if they did not have a Tactical Insertion placed
+* Zombies respawn after spectating for 10 seconds

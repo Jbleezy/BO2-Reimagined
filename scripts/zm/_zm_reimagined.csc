@@ -39,6 +39,8 @@ main()
 
 init()
 {
+	setmaplatlong(0, 0, 115.5, 115.5);
+
 	if (is_encounter())
 	{
 		scripts\zm\zencounter\zencounter_reimagined::init();

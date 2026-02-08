@@ -1344,6 +1344,12 @@ LANG_ENGLISH        "Hold ^3&&1^7 to pick up Bouncing Betty"
 REFERENCE           ZOMBIE_BOUNCINGBETTY_HOWTO
 LANG_ENGLISH        "Press ^3[{+actionslot 4}]^7 to equip ^3[{+attack}]^7 to place a Bouncing Betty"
 
+REFERENCE           MP_TACTICAL_INSERTION_PICKUP
+LANG_ENGLISH        "Hold ^3&&1^7 to pick up Tactical Insertion"
+
+REFERENCE           PLATFORM_PRESS_TO_CANCEL_TACTICAL_INSERTION
+LANG_ENGLISH        "Press ^3[{+gostand}]^7 to cancel Tactical Insertion"
+
 REFERENCE           ZOMBIE_PERK_QUICKREVIVE
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Quick Revive [Cost: &&1]"
 

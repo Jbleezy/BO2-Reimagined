@@ -49,10 +49,11 @@ turn_to_zombie()
 	self setperk("specialty_noname");
 	self setperk("specialty_unlimitedsprint");
 	self setperk("specialty_fallheight");
+	self setperk("specialty_fasttoss");
 
 	self turned_disable_player_weapons();
 	self turned_give_melee_weapon();
-	self increment_is_drinking();
+	self turned_give_tactical_insertion();
 
 	self.is_zombie = 1;
 	self.animname = "zombie";
@@ -64,6 +65,7 @@ turn_to_zombie()
 	self.shock_onpain = 0;
 	self.score = 0;
 	self.ignoreme = 1;
+	self.is_drinking = 1;
 
 	self.a = spawnstruct();
 	self.has_legs = 1;
@@ -114,6 +116,7 @@ turn_to_zombie()
 	self thread delay_turning_on_eyes();
 	self thread turned_player_buttons();
 	self thread turned_melee_watcher();
+	self thread turned_grenade_watcher();
 	self thread turned_jump_watcher();
 
 	self thread maps\mp\zombies\_zm_spawner::enemy_death_detection();
@@ -123,7 +126,6 @@ turned_disable_player_weapons()
 {
 	self takeallweapons();
 	self disableweaponcycling();
-	self disableoffhandweapons();
 }
 
 turned_give_melee_weapon()
@@ -131,6 +133,15 @@ turned_give_melee_weapon()
 	self giveweapon("zombiemelee_zm");
 	self givemaxammo("zombiemelee_zm");
 	self switchtoweapon("zombiemelee_zm");
+}
+
+turned_give_tactical_insertion()
+{
+	if (!isdefined(self.tacticalinsertion))
+	{
+		self giveweapon("tactical_insertion_zm");
+		self set_player_tactical_grenade("tactical_insertion_zm");
+	}
 }
 
 delay_turning_on_eyes()
@@ -169,11 +180,11 @@ turned_player_buttons()
 			}
 		}
 
-		if (self usebuttonpressed())
+		if (self usebuttonpressed() || self isthrowinggrenade())
 		{
 			self thread maps\mp\zombies\_zm_audio::do_zombies_playvocals("taunt", undefined);
 
-			while (self usebuttonpressed())
+			while (self usebuttonpressed() || self isthrowinggrenade())
 			{
 				wait 0.05;
 			}
@@ -240,16 +251,70 @@ turned_melee_disable_movement()
 
 	wait 0.5;
 
-	while (self is_jumping())
+	self allowstand(1);
+	self allowprone(1);
+
+	if (!self isthrowinggrenade())
+	{
+		self allowjump(1);
+	}
+
+	self.n_move_scale_modifiers["turned_melee"] = undefined;
+
+	self scripts\zm\_zm_reimagined::set_move_speed_scale(self.n_move_scale);
+}
+
+turned_grenade_watcher()
+{
+	self endon("disconnect");
+	self endon("spawned_spectator");
+	self endon("humanify");
+	level endon("end_game");
+
+	while (isdefined(self.is_zombie) && self.is_zombie)
+	{
+		while (self isthrowinggrenade())
+		{
+			wait 0.05;
+		}
+
+		while (!self isthrowinggrenade())
+		{
+			wait 0.05;
+		}
+
+		self thread turned_grenade_disable_movement();
+	}
+}
+
+turned_grenade_disable_movement()
+{
+	self notify("turned_grenade_disable_movement");
+	self endon("turned_grenade_disable_movement");
+	self endon("disconnect");
+	self endon("spawned_spectator");
+	self endon("humanify");
+	level endon("end_game");
+
+	if (self is_jumping() && !isdefined(self.n_move_scale_modifiers["turned_grenade"]))
+	{
+		self setvelocity((0, 0, 0));
+	}
+
+	self allowjump(0);
+
+	self.n_move_scale_modifiers["turned_grenade"] = 0;
+
+	self scripts\zm\_zm_reimagined::set_move_speed_scale(self.n_move_scale);
+
+	while (self isthrowinggrenade())
 	{
 		wait 0.05;
 	}
 
-	self allowstand(1);
-	self allowprone(1);
 	self allowjump(1);
 
-	self.n_move_scale_modifiers["turned_melee"] = undefined;
+	self.n_move_scale_modifiers["turned_grenade"] = undefined;
 
 	self scripts\zm\_zm_reimagined::set_move_speed_scale(self.n_move_scale);
 }

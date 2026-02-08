@@ -33,6 +33,8 @@ main()
 	}
 
 	level._effect["zombie_disappears"] = loadfx("maps/zombie/fx_zmb_returned_spawn_puff");
+
+	scripts\zm\reimagined\_zm_weap_tacticalinsertion::init();
 }
 
 init()
@@ -3590,12 +3592,21 @@ turned_zombie_spawn()
 
 	self maps\mp\zombies\_zm_turned::turn_to_zombie();
 
-	player = self turned_zombie_get_closest_valid_survivor();
-	angles = vectortoangles(player.origin - self.turned_zombie_spawn_point.origin);
-	angles = (0, angles[1], 0);
+	if (isdefined(self.tacticalinsertion))
+	{
+		self setorigin(self.tacticalinsertion.origin);
+		self setplayerangles(self.tacticalinsertion.angles);
+	}
+	else
+	{
+		player = self turned_zombie_get_closest_valid_survivor();
+		angles = vectortoangles(player.origin - self.turned_zombie_spawn_point.origin);
+		angles = (0, angles[1], 0);
 
-	self setorigin(self.turned_zombie_spawn_point.origin);
-	self setplayerangles(angles);
+		self setorigin(self.turned_zombie_spawn_point.origin);
+		self setplayerangles(angles);
+	}
+
 	self.turned_zombie_spawn_point = undefined;
 
 	playfx(level._effect["zombie_disappears"], self.origin);
@@ -3631,6 +3642,8 @@ turned_zombie_wait_and_respawn()
 	self.turned_zombie_wait_and_respawn = 1;
 
 	self.turned_zombie_spawn_point = turned_zombie_get_spawn_point();
+
+	self thread scripts\zm\reimagined\_zm_weap_tacticalinsertion::cancel_button_think();
 
 	time = 10;
 

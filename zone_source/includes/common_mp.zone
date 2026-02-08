@@ -1124,6 +1124,21 @@ material,gfx_fxt_light_flare_halogen_eo4_z2
 fx,weapon/bouncing_betty/fx_betty_light_green
 fx,weapon/bouncing_betty/fx_betty_light_red
 
+material,mc/mtl_t6_wpn_tac_insert
+material,mc/mtl_t6_wpn_tac_insert_screen
+xmodel,t6_wpn_tac_insert_view
+xmodel,t6_wpn_tac_insert_stow
+xmodel,t6_wpn_tac_insert_world
+material,hud_tact_insert
+xanim,viewmodel_tac_insert_t6_idle
+xanim,viewmodel_tac_insert_t6_throw
+xanim,viewmodel_tac_insert_t6_pullpin
+xanim,viewmodel_tac_insert_t6_ads_up
+xanim,viewmodel_tac_insert_t6_ads_down
+fx,misc/fx_equip_tac_insert_light_grn
+fx,misc/fx_equip_tac_insert_light_red
+fx,misc/fx_equip_tac_insert_exp
+
 material,tactical_gren_reticle
 material,waypoint_circle_arrow
 
