@@ -3103,7 +3103,11 @@ give_additional_perks()
 		{
 			self UnsetPerk("specialty_fastads");
 			self UnsetPerk("specialty_fastweaponswitch");
-			self Unsetperk("specialty_fasttoss");
+
+			if (!is_true(self.is_zombie))
+			{
+				self Unsetperk("specialty_fasttoss");
+			}
 		}
 
 		if (self HasPerk("specialty_deadshot"))
