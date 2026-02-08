@@ -584,7 +584,7 @@ on_player_bled_out()
 
 	while (1)
 	{
-		self waittill_any("bled_out", "player_suicide");
+		self waittill("bled_out");
 		waittillframeend;
 
 		if (isDefined(level.zombie_last_stand_ammo_return))
@@ -3519,7 +3519,7 @@ turned_think()
 
 the_disease_powerup(player)
 {
-	player notify("player_suicide");
+	player notify("bled_out");
 }
 
 the_disease_powerup_drop(origin, drop_from_disconnecting_player = 0)

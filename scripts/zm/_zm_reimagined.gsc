@@ -1526,7 +1526,7 @@ bleedout_bar_hud()
 
 	self thread bleedout_bar_hud_updatebar(hud);
 
-	self waittill_any("player_revived", "bled_out", "player_suicide");
+	self waittill_any("player_revived", "bled_out");
 
 	hud destroyelem();
 }
@@ -3594,7 +3594,7 @@ set_move_speed_scale(move_scale)
 player_suicide()
 {
 	self.playersuicided = 1;
-	self notify("player_suicide");
+	self notify("bled_out");
 
 	wait_network_frame();
 

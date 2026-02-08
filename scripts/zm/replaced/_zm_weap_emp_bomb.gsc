@@ -256,7 +256,7 @@ player_perk_pause_and_unpause_all_perks(time, owner)
 	self player_perk_pause_all_perks();
 	self thread player_perk_pause_all_perks_acquired(time);
 
-	self waittill_any_or_timeout(time, "spawned_player", "bled_out", "player_suicide");
+	self waittill_any_or_timeout(time, "spawned_player", "bled_out");
 
 	self setclientfieldtoplayer("perks_paused", 0);
 	self player_perk_unpause_all_perks();
