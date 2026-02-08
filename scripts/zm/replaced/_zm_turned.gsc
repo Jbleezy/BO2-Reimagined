@@ -126,6 +126,7 @@ turned_disable_player_weapons()
 {
 	self takeallweapons();
 	self disableweaponcycling();
+	self enableoffhandweapons();
 }
 
 turned_give_melee_weapon()
