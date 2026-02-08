@@ -3133,7 +3133,7 @@ bank_gain_interest_after_rounds()
 
 		if (isDefined(self.account_value))
 		{
-			self.account_value += self.deposit_value;
+			self.account_value *= 1.2;
 
 			if (self.account_value > level.bank_account_max)
 			{
