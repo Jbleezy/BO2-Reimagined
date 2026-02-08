@@ -273,6 +273,8 @@ onspawnplayer(predictedspawn)
 			spawnpoints = getstructarray("initial_spawn_points", "targetname");
 		}
 
+		level.initial_spawn_points = spawnpoints;
+
 		spawnpoint = maps\mp\zombies\_zm::getfreespawnpoint(spawnpoints, self);
 
 		if (predictedspawn)
