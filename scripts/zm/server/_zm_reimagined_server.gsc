@@ -578,11 +578,7 @@ player_choose_map(y)
 	self.map_select.hud[self.map_select.ind].color = (1, 1, 0);
 
 	self notifyonplayercommand("left", "+speed_throw");
-	self notifyonplayercommand("left", "+moveleft");
 	self notifyonplayercommand("right", "+attack");
-	self notifyonplayercommand("right", "+moveright");
-	self notifyonplayercommand("select", "+usereload");
-	self notifyonplayercommand("select", "+activate");
 	self notifyonplayercommand("select", "+gostand");
 
 	self thread left_watcher();

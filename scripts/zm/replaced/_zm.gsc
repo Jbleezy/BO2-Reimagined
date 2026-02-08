@@ -1165,7 +1165,7 @@ get_number_of_ready_players()
 
 	for (i = 0; i < players.size; i++)
 	{
-		if (players[i] jumpbuttonpressed() || players[i] usebuttonpressed())
+		if (players[i] jumpbuttonpressed())
 		{
 			players[i].ready = 1;
 		}
