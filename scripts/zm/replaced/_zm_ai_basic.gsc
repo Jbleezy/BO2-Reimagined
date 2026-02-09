@@ -187,3 +187,22 @@ inert_wakeup()
 		wait 0.1;
 	}
 }
+
+grenade_watcher(grenade)
+{
+	grenade waittill("explode", grenade_origin);
+
+	zombies = get_round_enemy_array();
+	zombies = arraycombine(zombies, get_players(), 1, 0);
+	zombies = get_array_of_closest(grenade_origin, zombies, undefined, undefined, 2400);
+
+	if (!isdefined(zombies))
+	{
+		return;
+	}
+
+	foreach (zombie in zombies)
+	{
+		zombie maps\mp\zombies\_zm_ai_basic::stop_inert();
+	}
+}
