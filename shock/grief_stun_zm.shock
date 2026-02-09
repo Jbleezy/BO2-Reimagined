@@ -23,7 +23,6 @@ bg_shock_soundWetLevel "0.0"
 bg_shock_soundModEndDelay "0.1"
 bg_shock_soundSnapshot "default"
 
-
 bg_shock_lookControl "1"
 bg_shock_lookControl_maxpitchspeed "20"
 bg_shock_lookControl_maxyawspeed "20"

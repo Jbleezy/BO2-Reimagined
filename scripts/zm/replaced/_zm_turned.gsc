@@ -21,6 +21,8 @@ init()
 
 	precachemodel("c_zom_tomb_german_player_fb");
 
+	precacheshellshock("zombie_stun_zm");
+
 	if (!isdefined(level.vsmgr_prio_visionset_zombie_turned))
 	{
 		level.vsmgr_prio_visionset_zombie_turned = 123;
@@ -166,8 +168,14 @@ turned_player_buttons()
 	self endon("humanify");
 	level endon("end_game");
 
-	while (isdefined(self.is_zombie) && self.is_zombie)
+	while (is_true(self.is_zombie))
 	{
+		if (is_true(self.is_inert) || is_true(self.is_stunned))
+		{
+			wait 0.05;
+			continue;
+		}
+
 		if (self attackbuttonpressed() || self adsbuttonpressed() || self meleebuttonpressed())
 		{
 			if (cointoss())
@@ -211,7 +219,7 @@ turned_melee_watcher()
 	self endon("humanify");
 	level endon("end_game");
 
-	while (isdefined(self.is_zombie) && self.is_zombie)
+	while (is_true(self.is_zombie))
 	{
 		self waittill("weapon_melee", weapon);
 
@@ -272,7 +280,7 @@ turned_grenade_watcher()
 	self endon("humanify");
 	level endon("end_game");
 
-	while (isdefined(self.is_zombie) && self.is_zombie)
+	while (is_true(self.is_zombie))
 	{
 		while (self isthrowinggrenade())
 		{
@@ -327,7 +335,7 @@ turned_jump_watcher()
 	self endon("humanify");
 	level endon("end_game");
 
-	while (isdefined(self.is_zombie) && self.is_zombie)
+	while (is_true(self.is_zombie))
 	{
 		disable_movement = 1;
 

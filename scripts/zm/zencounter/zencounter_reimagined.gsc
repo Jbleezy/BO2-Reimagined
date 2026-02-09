@@ -3589,11 +3589,11 @@ turned_zombie_init()
 		self thread maps\mp\zombies\_zm_laststand::auto_revive(self);
 	}
 
-	self scripts\zm\_zm_reimagined::set_team(level.zombie_team);
-
 	self scripts\zm\_zm_reimagined::delete_placeable_mines();
 
 	self notify("zmb_lost_knife");
+
+	self scripts\zm\_zm_reimagined::set_team(level.zombie_team);
 
 	self maps\mp\zombies\_zm_turned::turn_to_zombie();
 

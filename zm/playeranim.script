@@ -248,11 +248,6 @@ STATE COMBAT
 		{
 			both pb_hold_idle grenadeAnim
 		}
-		// ZIPLINE
-		//playerAnimType zipline
-		//{
-		//	both pb_zipline_loop
-		//}
 		// CREATE A CLASS
 		//playerAnimType dualwield, cac
 		//{
@@ -1796,6 +1791,11 @@ STATE COMBAT
 
 	turnright
 	{
+		// LAST STAND
+		perk laststand
+		{
+			both pb_laststand_turn_r90
+		}
 		// TURNED
 		playerAnimType turned, stance prone
 		{
@@ -1809,11 +1809,6 @@ STATE COMBAT
 		{
 			both pb_zombie_stand_turn_r90
 		}
-		// LAST STAND
-		perk laststand
-		{
-			both pb_laststand_turn_r90
-		}
 		// NONE
 		playerAnimType briefcase, stance prone
 		{
@@ -1826,10 +1821,6 @@ STATE COMBAT
 		playerAnimType briefcase
 		{
 			both pb_briefcase_stand_turn_r90
-		}
-		playerAnimType zipline
-		{
-			both pb_zipline_loop
 		}
 		// RIOTSHIELD
 		playerAnimType riotshield, stance crouch
@@ -2004,6 +1995,11 @@ STATE COMBAT
 	}
 	turnleft
 	{
+		// LAST STAND
+		perk laststand
+		{
+			both pb_laststand_turn_l90
+		}
 		// TURNED
 		playerAnimType turned, stance prone
 		{
@@ -2017,11 +2013,6 @@ STATE COMBAT
 		{
 			both pb_zombie_stand_turn_l90
 		}
-		// LAST STAND
-		perk laststand
-		{
-			both pb_laststand_turn_l90
-		}
 		// NONE
 		playerAnimType briefcase, stance prone
 		{
@@ -2034,10 +2025,6 @@ STATE COMBAT
 		playerAnimType briefcase
 		{
 			both pb_briefcase_stand_turn_l90
-		}
-		playerAnimType zipline
-		{
-			both pb_zipline_loop
 		}
 		// RIOTSHIELD
 		playerAnimType riotshield, stance crouch
@@ -3768,11 +3755,6 @@ dropweapon
 	{
 		torso pt_tablet_stand_putaway weaponTimeScale blendOutTime 48
 	}
-	// ZIPLINE
-	playerAnimType zipline
-	{
-		torso pb_zipline_release
-	}
 	// STAFF
 	playerAnimType staff, stance prone
 	{
@@ -3936,11 +3918,6 @@ raiseweapon
 	playerAnimType hatchet
 	{
 		torso pt_tomahawk_stand_pullout
-	}
-	// ZIPLINE
-	playerAnimType zipline
-	{
-		torso pb_zipline_grab
 	}
 	// STAFF
 	playerAnimType staff, stance prone
@@ -4861,11 +4838,6 @@ shellshock
 	{
 		torso pb_dw_stand_shellshock blendtime 50
 	}
-	// ZIPLINE
-	playerAnimType zipline
-	{
-		// No animation
-	}
 	// DEFAULT
 	stance prone
 	{
@@ -5135,11 +5107,6 @@ flinch
 //		{
 //			torso pt_rc_stand_flinch_right
 //		}
-	// ZIPLINE
-		playerAnimType zipline
-		{
-			// No animation
-		}
 	// STAFF
 		// Prone
 		playerAnimType staff, dmgdirection right, stance prone

@@ -195,7 +195,7 @@ emp_players(origin, radius, owner)
 			if (is_true(player.is_zombie) && player.sessionstate == "playing")
 			{
 				player shellshock("flashbang", 1);
-				player thread player_zombie_freeze_controls();
+				player thread player_zombie_inert();
 			}
 			else if (is_player_valid(player) || player maps\mp\zombies\_zm_laststand::player_is_in_laststand())
 			{
@@ -394,11 +394,12 @@ player_perk_unpause(perk)
 	self notify("perk_acquired");
 }
 
-player_zombie_freeze_controls()
+player_zombie_inert()
 {
 	self endon("disconnect");
 	self endon("spawned_spectator");
 	self endon("humanify");
+	self endon("stop_zombie_inert");
 	level endon("end_game");
 
 	if (is_true(self.is_inert))
@@ -408,7 +409,9 @@ player_zombie_freeze_controls()
 
 	self.is_inert = 1;
 
-	self thread player_zombie_freeze_controls_cleanup();
+	self thread maps\mp\zombies\_zm_ai_basic::inert_wakeup();
+
+	self thread player_zombie_inert_think();
 
 	self setclientfield("player_has_eyes", 0);
 	self disableweapons();
@@ -424,26 +427,22 @@ player_zombie_freeze_controls()
 	}
 
 	self freezecontrols(1);
-
-	self thread maps\mp\zombies\_zm_ai_basic::inert_wakeup();
-
-	self waittill("stop_zombie_inert");
-
-	self setclientfield("player_has_eyes", 1);
-	self enableweapons();
-	self freezecontrols(0);
-	self stopshellshock();
-
-	self.is_inert = undefined;
 }
 
-player_zombie_freeze_controls_cleanup()
+player_zombie_inert_think()
 {
 	self endon("disconnect");
-	self endon("stop_zombie_inert");
 	level endon("end_game");
 
-	self waittill_any("spawned_spectator", "humanify");
+	result = self waittill_any_return("stop_zombie_inert", "spawned_spectator", "humanify");
+
+	if (result == "stop_zombie_inert")
+	{
+		self setclientfield("player_has_eyes", 1);
+		self enableweapons();
+		self freezecontrols(0);
+		self stopshellshock();
+	}
 
 	self.is_inert = undefined;
 }

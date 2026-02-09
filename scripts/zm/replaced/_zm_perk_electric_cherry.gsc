@@ -25,7 +25,6 @@ electic_cherry_precache()
 	precachemodel("p6_zm_vending_electric_cherry_off");
 	precachemodel("p6_zm_vending_electric_cherry_on");
 	precachestring(&"ZOMBIE_PERK_CHERRY");
-	precacheshellshock("electrocution");
 	level._effect["electriccherry"] = loadfx("misc/fx_zombie_cola_on");
 	level._effect["electric_cherry_explode"] = loadfx("maps/zombie_alcatraz/fx_alcatraz_electric_cherry_down");
 	level._effect["electric_cherry_reload_small"] = loadfx("maps/zombie_alcatraz/fx_alcatraz_electric_cherry_sm");
@@ -135,8 +134,8 @@ electric_cherry_reload_attack()
 						}
 						else
 						{
-							a_zombies[i] thread electric_cherry_stun_player();
-							a_zombies[i] thread electric_cherry_shock_fx_player();
+							a_zombies[i] thread electric_cherry_stun_player_zombie();
+							a_zombies[i] thread electric_cherry_shock_fx_player_zombie();
 						}
 					}
 
@@ -195,19 +194,20 @@ electric_cherry_laststand()
 	}
 }
 
-electric_cherry_stun_player()
+electric_cherry_stun_player_zombie()
 {
-	self notify("stun_player");
-	self endon("stun_player");
+	self notify("stun_zombie");
+	self endon("stun_zombie");
 	self endon("disconnect");
 	self endon("spawned_spectator");
 	self endon("humanify");
 	level endon("end_game");
 
-	self thread electric_cherry_unstun_player_after_time();
+	self.is_stunned = 1;
 
-	self shellshock("electrocution", 2);
+	self thread electric_cherry_stun_player_zombie_think();
 
+	self shellshock("zombie_stun_zm", 2);
 	self disableweapons();
 
 	if (self is_jumping())
@@ -223,30 +223,40 @@ electric_cherry_stun_player()
 	self freezecontrols(1);
 }
 
-electric_cherry_unstun_player_after_time()
+electric_cherry_stun_player_zombie_think()
 {
-	self endon("stun_player");
+	self endon("stun_zombie");
 	self endon("disconnect");
-	self endon("spawned_spectator");
-	self endon("humanify");
 	level endon("end_game");
 
-	wait 2;
+	result = self waittill_any_timeout(2, "spawned_spectator", "humanify");
 
-	self enableweapons();
-	self freezecontrols(0);
-	self stopshellshock();
+	if (result == "timeout")
+	{
+		self enableweapons();
+		self freezecontrols(0);
+		self stopshellshock();
+	}
 
-	self notify("stun_player");
+	self.is_stunned = undefined;
+
+	self notify("stun_zombie");
 }
 
-electric_cherry_shock_fx_player()
+electric_cherry_shock_fx_player_zombie()
 {
-	self endon("disconnect");
-
 	tag = "J_SpineUpper";
 	fx = "tesla_shock_secondary";
 
+	player_fx_ent = spawn("script_model", self gettagorigin(tag));
+	player_fx_ent.angles = self gettagangles(tag);
+	player_fx_ent setmodel("tag_origin");
+	player_fx_ent linkto(self, tag);
+
 	self playsound("zmb_elec_jib_zombie");
-	network_safe_play_fx_on_tag("tesla_shock_fx", 2, level._effect[fx], self, tag);
+	playfxontag(level._effect[fx], player_fx_ent, "tag_origin");
+
+	self waittill_any("stun_zombie", "disconnect");
+
+	player_fx_ent delete();
 }
