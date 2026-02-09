@@ -724,7 +724,7 @@
 * No longer disables HUD
 * Disables player's perks for 12 seconds
 * Increased ammo from 2 to 3
-* Decreased raise time from 0.5 seconds to 0.15 seconds
+* Increased throw time from 1 second to 1.35 seconds (same as Black Ops 2 Multiplayer)
 * Decreased projectile speed by 30% (same as Black Ops 2 Multiplayer)
 * Decreased zombie EMP radius by 17% (same as Black Ops 2 Multiplayer)
 * Increased perk machine EMP radius by 22% (same as Black Ops 2 Multiplayer)
@@ -732,8 +732,11 @@
 * Can be cancelled while holding
 * Added fx to EMP'd players
 * Can destroy deployed Zombie Shields
+* EMP's all zombies instantly
+* Increased min zombie EMP time from 0.1 seconds to 1 second
 * Sprinting no longer wakes up EMP'd zombies
 * Zombies that are in the ground can no longer get EMP'd
+* Fixed throw anim
 * Fixed an issue where zombies would sometimes not wake up from firing projectile weapons
 
 #### Smoke Grenade

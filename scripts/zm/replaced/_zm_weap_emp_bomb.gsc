@@ -100,7 +100,6 @@ emp_detonate_zombies(origin, radius, owner)
 
 		stunned++;
 		zombies[i] thread stun_zombie();
-		wait 0.05;
 	}
 
 	if (stunned >= 10 && isdefined(owner))

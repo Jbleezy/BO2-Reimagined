@@ -149,7 +149,7 @@ inert_wakeup()
 	self endon("death");
 	self endon("stop_zombie_inert");
 
-	wait 0.1;
+	wait 1;
 
 	self thread maps\mp\zombies\_zm_ai_basic::inert_damage();
 	self thread maps\mp\zombies\_zm_ai_basic::inert_bump();
@@ -161,7 +161,7 @@ inert_wakeup()
 
 		foreach (player in players)
 		{
-			if (player == self)
+			if (is_true(player.is_inert))
 			{
 				continue;
 			}
