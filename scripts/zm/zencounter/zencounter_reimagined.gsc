@@ -402,30 +402,6 @@ grief_onplayerdisconnect(disconnecting_player)
 		}
 	}
 
-	team_player_count = get_players(disconnecting_player.team).size - 1;
-
-	if (team_player_count == 0)
-	{
-		if (level.scr_zm_ui_gametype == "zturned")
-		{
-			if (disconnecting_player.team == level.zombie_team)
-			{
-				level thread the_disease_powerup_drop(disconnecting_player.origin, 1);
-			}
-		}
-		else
-		{
-			encounters_team = "A";
-
-			if (getOtherTeam(disconnecting_player.team) == "allies")
-			{
-				encounters_team = "B";
-			}
-
-			scripts\zm\replaced\_zm_game_module::game_won(encounters_team);
-		}
-	}
-
 	player_count = get_players().size - 1;
 
 	if (player_count == 1)
@@ -450,6 +426,38 @@ grief_onplayerdisconnect(disconnecting_player)
 		}
 
 		scripts\zm\replaced\_zm_game_module::game_won(encounters_team);
+	}
+
+	team_player_count = get_players(disconnecting_player.team).size - 1;
+
+	if (team_player_count == 0)
+	{
+		if (level.scr_zm_ui_gametype == "zturned")
+		{
+			if (disconnecting_player.team == level.zombie_team)
+			{
+				level thread the_disease_powerup_drop(disconnecting_player.origin, 1);
+			}
+		}
+		else
+		{
+			encounters_team = "A";
+
+			if (getOtherTeam(disconnecting_player.team) == "allies")
+			{
+				encounters_team = "B";
+			}
+
+			scripts\zm\replaced\_zm_game_module::game_won(encounters_team);
+		}
+	}
+
+	if (level.scr_zm_ui_gametype == "zmeat")
+	{
+		if (isdefined(level.meat_player) && disconnecting_player == level.meat_player)
+		{
+			level thread scripts\zm\replaced\zgrief::meat_drop(disconnecting_player.origin, 1);
+		}
 	}
 
 	if (level.teamcount > 1)

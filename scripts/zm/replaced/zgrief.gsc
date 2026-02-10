@@ -206,11 +206,16 @@ meat_bounce_override(pos, normal, ent, bounce)
 		return;
 	}
 
-	meat_drop(pos, self);
+	meat_drop(pos, 0, self);
 }
 
-meat_drop(pos, prev_meat_ent)
+meat_drop(pos, drop_from_disconnecting_player = 0, prev_meat_ent)
 {
+	if (drop_from_disconnecting_player)
+	{
+		waittillframeend; // wait for disconnecting player to disconnect
+	}
+
 	valid_drop = scripts\zm\replaced\_zm_utility::check_point_in_life_brush(pos) || (check_point_in_enabled_zone(pos) && !scripts\zm\replaced\_zm_utility::check_point_in_kill_brush(pos));
 
 	if (valid_drop)
@@ -356,8 +361,7 @@ meat_stink(who, owner)
 
 	who thread meat_glow_player_create();
 
-	who thread meat_stink_cleanup_on_downed();
-	who thread meat_stink_cleanup_on_disconnect();
+	who thread meat_stink_cleanup_on_downed_or_disconnect();
 	who thread meat_stink_cleanup_on_intermission();
 }
 
@@ -475,13 +479,12 @@ meat_stink_ignoreme_think(check_meat_player_dist)
 	}
 }
 
-meat_stink_cleanup_on_downed()
+meat_stink_cleanup_on_downed_or_disconnect()
 {
 	level endon("meat_thrown");
 	level endon("meat_grabbed");
-	self endon("disconnect");
 
-	self waittill_any("player_downed", "bled_out", "spawned_player");
+	result = self waittill_any_return("player_downed", "bled_out", "spawned_player", "disconnect");
 
 	self.lastactiveweapon = self.pre_temp_weapon;
 
@@ -498,43 +501,22 @@ meat_stink_cleanup_on_downed()
 			player.ignoreme = 0;
 		}
 
-		player thread print_meat_msg(self, "dropped", 1);
+		if (result != "disconnect")
+		{
+			player thread print_meat_msg(self, "dropped", 1);
+		}
 	}
 
 	level notify("attractor_positions_generated");
 
 	if (level.scr_zm_ui_gametype == "zmeat")
 	{
-		meat_drop(self.origin);
-	}
-}
-
-meat_stink_cleanup_on_disconnect()
-{
-	level endon("meat_thrown");
-	level endon("meat_grabbed");
-	self endon("player_downed");
-	self endon("bled_out");
-	self endon("spawned_player");
-
-	self waittill("disconnect");
-
-	self thread meat_glow_player_cleanup();
-
-	level.meat_player = undefined;
-
-	players = get_players();
-
-	foreach (player in players)
-	{
-		if (is_player_valid(player) && !is_true(player.spawn_protection) && !is_true(player.revive_protection))
+		// if disconnect, meat_drop is called from grief_onplayerdisconnect since self.origin is undefined after disconnect
+		if (result != "disconnect")
 		{
-			player.ignoreme = 0;
+			meat_drop(self.origin);
 		}
 	}
-
-	level notify("attractor_positions_generated");
-	level notify("meat_inactive");
 }
 
 meat_stink_cleanup_on_intermission()
@@ -623,7 +605,7 @@ meat_stink_player(who, owner)
 	who thread meat_stink_ignoreme_think(1);
 	who thread meat_stink_player_create();
 
-	who waittill_any_or_timeout(15, "disconnect", "player_downed", "bled_out", "spawned_player");
+	who waittill_any_or_timeout(15, "player_downed", "bled_out", "spawned_player", "disconnect");
 
 	if (is_player_valid(who))
 	{
