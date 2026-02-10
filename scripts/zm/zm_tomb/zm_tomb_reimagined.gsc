@@ -99,6 +99,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_challenges::player_has_unclaimed_team_reward, scripts\zm\replaced\_zm_challenges::player_has_unclaimed_team_reward);
 	replaceFunc(maps\mp\zombies\_zm_challenges::get_reward_stat, scripts\zm\replaced\_zm_challenges::get_reward_stat);
 	replaceFunc(maps\mp\zombies\_zm_challenges::spawn_reward, scripts\zm\replaced\_zm_challenges::spawn_reward);
+	replaceFunc(maps\mp\zombies\_zm_challenges::box_init, scripts\zm\replaced\_zm_challenges::box_init);
 	replaceFunc(maps\mp\zombies\_zm_challenges::update_box_prompt, scripts\zm\replaced\_zm_challenges::update_box_prompt);
 	replaceFunc(maps\mp\zombies\_zm_challenges::box_think, scripts\zm\replaced\_zm_challenges::box_think);
 	replaceFunc(maps\mp\zombies\_zm_craftables::choose_open_craftable, scripts\zm\replaced\_zm_craftables::choose_open_craftable);

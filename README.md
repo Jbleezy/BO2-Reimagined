@@ -1165,7 +1165,7 @@
 * Fixed zombie riser spawn points that were too high above ground
 * Fixed zombie pathing at Cornfield behind the pylon
 * Fixed zombie pathing at Town in Bookstore
-* Survival & Encounter: power doors are buyable doors
+* Survival and Encounter: power doors are buyable doors
 * Encounter: added Ballistic Knife, Ray Gun, and Ray Gun Mark 2 to the Mystery Box
 * Quest: added "Benn - Just Like You" song
 * Quest: increased pylon powerup drop rate from 4-12 minutes to 2-6 minutes
@@ -1485,11 +1485,12 @@
 * Der Wunderfizz: moves to new location instantly
 * Der Wunderfizz: can no longer be activated while orb is moving down
 * Der Wunderfizz: can be activated while the previous activator is drinking the perk
-* Der Wunderfizz: no longer takes an additional 0.5 seconds to be given the perk
-* Der Wunderfizz: machines initially start with the top part open
+* Der Wunderfizz: obtaining the perk no longer takes an additional 0.5 seconds
+* Der Wunderfizz: fixed top part of inactive machines not being open initially
 * Der Wunderfizz: fixed sound and fx not playing if activated immediately after becoming activatable
 * Rituals of the Ancients: spend points challenge reward changed from Double Tap perk to a random perk that the player does not have (perk does not change if reward is reopened)
-* Rituals of the Ancients: fixed not being able to pick up One Inch Punch from reward chest after disconnecting and reconnecting to a match
+* Rituals of the Ancients: fixed reward chests glowing initially
+* Rituals of the Ancients: fixed not being able to pick up One Inch Punch from reward chests after disconnecting and reconnecting to a match
 * Soul boxes: decreased number of souls to close from 30 to 20
 * Dig spots: decreased number of digs to obtain golden shovel from 30 to 20
 * Dig spots: changed number of digs to obtain golden helmet to 40 (normally 5% chance to obtain after obtaining golden shovel)
@@ -1497,6 +1498,7 @@
 * Perk bottle dig spots: give random perk
 * Perk bottle dig spots: all 4 spots are visible at the same time
 * Perk bottle dig spots: fixed spots behaving incorrectly after disconnecting and reconnecting to a match
+* Survival and Encounter: One Inch Punch buyable for 9000 points at Rituals of the Ancients reward chests
 * Quest: added "Benn - The Divider" song
 * Quest (ascend from darkness step): 3 robots are always active during this step
 * Quest (ascend from darkness step): staffs can be placed at any staff holder
@@ -1513,7 +1515,7 @@
 * Perks: Quick Revive, Speed Cola, Deadshot Daiquiri
 * Der Wunderfizz
 * Pack-a-Punch
-* One Inch Punch buyable for 9000 points at Rituals of the Ancients reward chest
+* One Inch Punch
 
 #### Excavation Site
 * Wallbuys: Ballista, Vector K10, MP40, Remington 870 MCS, Bouncing Betty
@@ -1525,7 +1527,7 @@
 * Wallbuys: B23R, STG-44, Remington 870 MCS, Frag Grenade
 * Perks: Double Tap
 * Der Wunderfizz
-* One Inch Punch buyable for 9000 points at Rituals of the Ancients reward chest
+* One Inch Punch
 
 #### The Crazy Place
 * Wallbuys: Vector K10, Skorpion EVO, STG-44, SCAR-H, MG08/15, KSG
