@@ -123,7 +123,7 @@ spawntacticalinsertion()
 	self.tacticalinsertion setweapon(level.tacticalinsertionweapon);
 	self.tacticalinsertion setinvisibletoall();
 	self.tacticalinsertion setvisibletoplayer(self);
-	self.tacticalinsertion play_tactical_insertion_effects();
+	self.tacticalinsertion thread play_tactical_insertion_effects();
 	self.tacticalinsertion endon("delete");
 	triggerheight = 64;
 	triggerradius = 128;
@@ -154,7 +154,7 @@ spawntacticalinsertion()
 play_tactical_insertion_effects()
 {
 	self endon("death");
-	self waittill_not_moving();
+	wait 0.05;
 	playfxontag(level._effect["tacticalInsertionEnemy"], self, "tag_flash");
 }
 
