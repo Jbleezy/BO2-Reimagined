@@ -3630,7 +3630,7 @@ turned_zombie_init()
 
 turned_zombie_spawn()
 {
-	if (!isdefined(self.turned_zombie_spawn_point))
+	if (!isdefined(self.turned_zombie_spawn_point_ent))
 	{
 		self turned_zombie_spectate(0);
 		return;
@@ -3646,14 +3646,14 @@ turned_zombie_spawn()
 	else
 	{
 		player = self turned_zombie_get_closest_valid_survivor();
-		angles = vectortoangles(player.origin - self.turned_zombie_spawn_point.origin);
+		angles = vectortoangles(player.origin - self.turned_zombie_spawn_point_ent.origin);
 		angles = (0, angles[1], 0);
 
-		self setorigin(self.turned_zombie_spawn_point.origin);
+		self setorigin(self.turned_zombie_spawn_point_ent.origin);
 		self setplayerangles(angles);
 	}
 
-	self.turned_zombie_spawn_point = undefined;
+	self.turned_zombie_spawn_point_ent delete();
 
 	playfx(level._effect["zombie_disappears"], self.origin);
 	playsoundatposition("evt_appear_3d", self.origin);
@@ -3687,7 +3687,7 @@ turned_zombie_wait_and_respawn()
 
 	self.turned_zombie_wait_and_respawn = 1;
 
-	self.turned_zombie_spawn_point = turned_zombie_get_spawn_point();
+	self.turned_zombie_spawn_point_ent = self turned_zombie_get_spawn_point_ent();
 
 	self thread scripts\zm\reimagined\_zm_weap_tacticalinsertion::cancel_button_think();
 
@@ -3708,14 +3708,52 @@ turned_zombie_wait_and_respawn()
 	self.turned_zombie_wait_and_respawn = undefined;
 }
 
-turned_zombie_get_spawn_point()
+turned_zombie_get_spawn_point_ent()
 {
 	player = turned_zombie_get_random_valid_survivor();
 
-	spawn_point = spawnstruct();
-	spawn_point.origin = player.origin;
+	spawn_point_ent = spawn("script_origin", player.origin);
 
-	return spawn_point;
+	if (isdefined(level.elevators) && isdefined(level.elevator_volumes))
+	{
+		is_touching_elevator_volume = undefined;
+
+		foreach (volume in level.elevator_volumes)
+		{
+			if (player istouching(volume))
+			{
+				is_touching_elevator_volume = 1;
+				break;
+			}
+		}
+
+		if (is_touching_elevator_volume)
+		{
+			elevator_bodies = [];
+
+			foreach (elevator in level.elevators)
+			{
+				elevator_bodies[elevator_bodies.size] = elevator.body;
+			}
+
+			elevator_body = get_closest_2d(player.origin, elevator_bodies);
+
+			spawn_point_ent linkto(elevator_body);
+		}
+	}
+
+	spawn_point_ent thread turned_zombie_spawn_point_ent_cleanup(self);
+
+	return spawn_point_ent;
+}
+
+turned_zombie_spawn_point_ent_cleanup(owner)
+{
+	self endon("death");
+
+	owner waittill("disconnect");
+
+	self delete();
 }
 
 turned_zombie_get_closest_valid_survivor()
