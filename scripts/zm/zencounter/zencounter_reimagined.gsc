@@ -754,9 +754,11 @@ kill_feed()
 
 bleedout_feed()
 {
+	self endon("disconnect");
+
 	if (is_true(self.playersuicided))
 	{
-		wait 0.05;
+		wait_network_frame();
 	}
 
 	obituary(self, self, "none", "MOD_SUICIDE");
@@ -3562,13 +3564,19 @@ the_disease_powerup_infinite_time()
 
 turned_zombie_init()
 {
-	team = self.team;
+	level endon("end_game");
+
 	amount = -1;
 
 	if (self maps\mp\zombies\_zm_laststand::player_is_in_laststand())
 	{
 		amount = 0;
+	}
 
+	increment_score(self.team, amount, 0, &"ZOMBIE_SURVIVOR_TURNED");
+
+	if (self maps\mp\zombies\_zm_laststand::player_is_in_laststand())
+	{
 		self notify("stop_revive_trigger");
 		self.revivetrigger delete();
 
@@ -3584,8 +3592,6 @@ turned_zombie_init()
 	self maps\mp\zombies\_zm_turned::turn_to_zombie();
 
 	level notify("attractor_positions_generated");
-
-	increment_score(team, amount, 0, &"ZOMBIE_SURVIVOR_TURNED");
 }
 
 turned_zombie_spawn()
@@ -3875,6 +3881,11 @@ increment_score(team, amount = 1, show_lead_msg = true, score_msg)
 		{
 			score = level.grief_score[encounters_team];
 			other_score = other_team_players.size;
+
+			if (score_msg == &"ZOMBIE_SURVIVOR_TURNED")
+			{
+				other_score++;
+			}
 
 			foreach (player in team_players)
 			{
