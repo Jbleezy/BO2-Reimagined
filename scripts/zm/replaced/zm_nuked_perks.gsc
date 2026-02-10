@@ -149,7 +149,6 @@ grief_bring_random_perks(machines, machine_triggers)
 {
 	level waittill("restart_round_start");
 
-	wait(randomintrange(10, 20));
 	grief_bring_random_perk(machines, machine_triggers);
 	grief_bring_random_perk(machines, machine_triggers);
 	grief_bring_random_perk(machines, machine_triggers);

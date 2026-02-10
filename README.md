@@ -1114,11 +1114,12 @@
 ### Nuketown
 * Hellhounds spawn mid round starting at round 25 (4% chance to spawn)
 * Initial perk is no longer always Quick Revive in solo
-* Initial perk no longer always spawns in the starting area in solo
-* Initial perk spawns at round 1 in coop
-* Perks spawn every 5 rounds
+* Initial perk no longer always drops in the starting area in solo
+* Initial perk drops at round 1 in coop
+* Perks drop every 5 rounds
 * Increased intermission time from 7.5 seconds to 15 seconds
 * Fixed Mystery Box floating in the sky at the start of the game
+* Encounter: all perks drop at the start of the game
 
 ### Tranzit
 * Added AN-94 wallbuy at Town
