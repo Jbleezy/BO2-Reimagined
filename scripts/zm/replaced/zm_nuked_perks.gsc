@@ -278,3 +278,51 @@ grief_bring_perk(machine, trigger)
 		machine thread maps\mp\zombies\_zm_perks::perk_fx("sleight_light");
 	}
 }
+
+bring_perk_landing_damage()
+{
+	player_prone_damage_radius = 300;
+	zombie_damage_radius = 500;
+	earthquake(0.7, 2.5, self.origin, 1000);
+	exploder(500 + self.script_int);
+	exploder(511);
+	players = get_players();
+
+	for (i = 0; i < players.size; i++)
+	{
+		if (is_true(players[i].is_zombie) && players[i].sessionstate == "playing")
+		{
+			if (distancesquared(players[i].origin, self.origin) <= zombie_damage_radius * zombie_damage_radius)
+			{
+				players[i] dodamage(players[i].health, players[i].origin);
+			}
+		}
+		else
+		{
+			if (distancesquared(players[i].origin, self.origin) <= player_prone_damage_radius * player_prone_damage_radius)
+			{
+				players[i] setstance("prone");
+				players[i] shellshock("default", 1.5);
+			}
+		}
+	}
+
+	zombies = getaiarray(level.zombie_team);
+
+	for (i = 0; i < zombies.size; i++)
+	{
+		zombie = zombies[i];
+
+		if (!isdefined(zombie) || !isalive(zombie))
+		{
+			continue;
+		}
+
+		if (distancesquared(zombie.origin, self.origin) > zombie_damage_radius * zombie_damage_radius)
+		{
+			continue;
+		}
+
+		zombie thread perk_machine_knockdown_zombie(self.origin);
+	}
+}

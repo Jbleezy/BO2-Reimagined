@@ -13,6 +13,7 @@ main()
 	replaceFunc(maps\mp\zm_nuked_standard::main, scripts\zm\replaced\zm_nuked_standard::main);
 	replaceFunc(maps\mp\zm_nuked_perks::init_nuked_perks, scripts\zm\replaced\zm_nuked_perks::init_nuked_perks);
 	replaceFunc(maps\mp\zm_nuked_perks::perks_from_the_sky, scripts\zm\replaced\zm_nuked_perks::perks_from_the_sky);
+	replaceFunc(maps\mp\zm_nuked_perks::bring_perk_landing_damage, scripts\zm\replaced\zm_nuked_perks::bring_perk_landing_damage);
 
 	level._effect["dog_phase_trail"] = loadfx("maps/zombie/fx_zombie_tesla_bolt_secondary");
 	level._effect["dog_phasing"] = loadfx("maps/zombie/fx_zmb_avog_phasing");
