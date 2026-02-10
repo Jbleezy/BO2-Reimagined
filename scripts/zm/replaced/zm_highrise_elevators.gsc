@@ -556,6 +556,70 @@ elevator_roof_watcher()
 	}
 }
 
+elevator_depart_early(elevator)
+{
+	touchent = elevator.body;
+
+	if (isdefined(elevator.body.trig))
+	{
+		touchent = elevator.body.trig;
+	}
+
+	while (true)
+	{
+		while (is_true(elevator.body.is_moving))
+		{
+			wait 0.5;
+		}
+
+		someone_touching_elevator = 0;
+		players = get_players();
+
+		foreach (player in players)
+		{
+			if (player.sessionstate != "playing")
+			{
+				continue;
+			}
+
+			if (player istouching(touchent))
+			{
+				someone_touching_elevator = 1;
+			}
+		}
+
+		if (is_true(someone_touching_elevator))
+		{
+			someone_still_touching_elevator = 0;
+			wait 5;
+			players = get_players();
+
+			foreach (player in players)
+			{
+				if (player.sessionstate != "playing")
+				{
+					continue;
+				}
+
+				if (player istouching(touchent))
+				{
+					someone_still_touching_elevator = 1;
+				}
+			}
+
+			if (is_true(someone_still_touching_elevator))
+			{
+				elevator.body.departing_early = 1;
+				elevator.body notify("depart_early");
+				wait 3;
+				elevator.body.departing_early = 0;
+			}
+		}
+
+		wait 1;
+	}
+}
+
 zombie_climb_elevator(elev)
 {
 	self endon("death");
