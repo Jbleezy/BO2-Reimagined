@@ -147,11 +147,11 @@ zombie_punch_damage(ai_zombie, n_mod)
 	{
 		if (isdefined(self.b_punch_upgraded) && self.b_punch_upgraded)
 		{
-			n_base_damage = 11275;
+			n_base_damage = 10000;
 		}
 		else
 		{
-			n_base_damage = 2250;
+			n_base_damage = 2500;
 		}
 
 		n_damage = int(n_base_damage * n_mod);

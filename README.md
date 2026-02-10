@@ -770,8 +770,10 @@
 * Decreased damage from 10000 to 5000
 
 #### One Inch Punch
+* Increased damage from 2250 to 2500
 * Deals same damage at any range
 * Decreased range by 4% (exactly 50% more range than normal melee)
+* Upgraded: decreased damage from 11275 to 10000
 * Upgraded: elemental punch changes based on which staff the player currently has
 * Upgraded: uses melee lunge anim as normal melee anim
 * Wind: knocks down zombies that are damaged
