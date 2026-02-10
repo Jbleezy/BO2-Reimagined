@@ -269,7 +269,7 @@ turned_melee_disable_movement()
 	self allowstand(1);
 	self allowprone(1);
 
-	if (!self isthrowinggrenade())
+	if (!isdefined(self.n_move_scale_modifiers["turned_grenade"]))
 	{
 		self allowjump(1);
 	}
@@ -327,7 +327,10 @@ turned_grenade_disable_movement()
 		wait 0.05;
 	}
 
-	self allowjump(1);
+	if (!isdefined(self.n_move_scale_modifiers["turned_melee"]))
+	{
+		self allowjump(1);
+	}
 
 	self.n_move_scale_modifiers["turned_grenade"] = undefined;
 
@@ -344,8 +347,26 @@ turned_jump_watcher()
 	while (is_true(self.is_zombie))
 	{
 		disable_movement = 1;
+		prev_jumping = self is_jumping();
 
-		while (!self jumpbuttonpressed() || !self is_jumping())
+		while (self jumpbuttonpressed())
+		{
+			wait 0.05;
+		}
+
+		while (!self jumpbuttonpressed())
+		{
+			prev_jumping = self is_jumping();
+
+			wait 0.05;
+		}
+
+		if (prev_jumping)
+		{
+			disable_movement = 0;
+		}
+
+		while (!self is_jumping())
 		{
 			wait 0.05;
 		}
@@ -394,10 +415,10 @@ turned_stance_watcher()
 	self endon("humanify");
 	level endon("end_game");
 
-	prev_stance = self getstance();
-
 	while (is_true(self.is_zombie))
 	{
+		prev_stance = self getstance();
+
 		while (self getstance() == prev_stance)
 		{
 			wait 0.05;
@@ -407,8 +428,6 @@ turned_stance_watcher()
 		{
 			self thread turned_stance_disable_movement();
 		}
-
-		prev_stance = self getstance();
 	}
 }
 
