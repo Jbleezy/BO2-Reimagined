@@ -402,9 +402,9 @@ grief_onplayerdisconnect(disconnecting_player)
 		}
 	}
 
-	count = get_players(disconnecting_player.team).size - 1;
+	team_player_count = get_players(disconnecting_player.team).size - 1;
 
-	if (count <= 0)
+	if (team_player_count == 0)
 	{
 		if (level.scr_zm_ui_gametype == "zturned")
 		{
@@ -424,6 +424,32 @@ grief_onplayerdisconnect(disconnecting_player)
 
 			scripts\zm\replaced\_zm_game_module::game_won(encounters_team);
 		}
+	}
+
+	player_count = get_players().size - 1;
+
+	if (player_count == 1)
+	{
+		last_player = undefined;
+		players = get_players();
+
+		foreach (player in players)
+		{
+			if (player != disconnecting_player)
+			{
+				last_player = player;
+				break;
+			}
+		}
+
+		encounters_team = "A";
+
+		if (last_player.team == "allies")
+		{
+			encounters_team = "B";
+		}
+
+		scripts\zm\replaced\_zm_game_module::game_won(encounters_team);
 	}
 
 	if (level.teamcount > 1)
