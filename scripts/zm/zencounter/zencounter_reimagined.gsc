@@ -3888,31 +3888,22 @@ increment_score(team, amount = 1, show_lead_msg = true, score_msg)
 
 			if (score_msg == &"ZOMBIE_SURVIVOR_TURNED")
 			{
-				if (other_score <= 3)
-				{
-					level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog(other_score + "_player_down");
-				}
+				level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog(other_score + "_player_down", team);
 			}
 			else
 			{
-				if (score <= 1)
+				if (score == 1)
 				{
 					foreach (player in players)
 					{
-						if (player.team != level.zombie_team && is_player_valid(player))
+						if (player.team == team && is_player_valid(player))
 						{
 							player thread maps\mp\zombies\_zm_audio_announcer::leaderdialogonplayer("last_player");
 						}
-						else
-						{
-							player thread maps\mp\zombies\_zm_audio_announcer::leaderdialogonplayer(score + "_player_left");
-						}
 					}
 				}
-				else if (score <= 3)
-				{
-					level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog(score + "_player_left");
-				}
+
+				level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog(score + "_player_left", other_team);
 			}
 		}
 	}
