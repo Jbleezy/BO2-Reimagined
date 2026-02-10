@@ -3716,7 +3716,7 @@ turned_zombie_get_spawn_point_ent()
 
 	if (isdefined(level.elevators) && isdefined(level.elevator_volumes))
 	{
-		is_touching_elevator_volume = undefined;
+		is_touching_elevator_volume = 0;
 
 		foreach (volume in level.elevator_volumes)
 		{
