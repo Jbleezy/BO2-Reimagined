@@ -120,6 +120,7 @@ turn_to_zombie()
 	self thread turned_melee_watcher();
 	self thread turned_grenade_watcher();
 	self thread turned_jump_watcher();
+	self thread turned_stance_watcher();
 
 	self thread maps\mp\zombies\_zm_spawner::enemy_death_detection();
 }
@@ -241,10 +242,15 @@ turned_melee_disable_movement()
 		self setvelocity((0, 0, 0));
 	}
 
-	if (self getstance() == "stand")
+	if (self getstance() == "stand" || self getstance() == "crouch")
 	{
 		self allowstand(1);
 		self allowprone(0);
+
+		if (self getstance() == "crouch")
+		{
+			self setstance("stand");
+		}
 	}
 	else if (self getstance() == "prone")
 	{
@@ -377,6 +383,51 @@ turned_jump_disable_movement()
 	wait 0.5;
 
 	self.n_move_scale_modifiers["turned_jump"] = undefined;
+
+	self scripts\zm\_zm_reimagined::set_move_speed_scale(self.n_move_scale);
+}
+
+turned_stance_watcher()
+{
+	self endon("disconnect");
+	self endon("spawned_spectator");
+	self endon("humanify");
+	level endon("end_game");
+
+	prev_stance = self getstance();
+
+	while (is_true(self.is_zombie))
+	{
+		while (self getstance() == prev_stance)
+		{
+			wait 0.05;
+		}
+
+		if (prev_stance == "stand" || prev_stance == "prone")
+		{
+			self thread turned_stance_disable_movement();
+		}
+
+		prev_stance = self getstance();
+	}
+}
+
+turned_stance_disable_movement()
+{
+	self notify("turned_stance_disable_movement");
+	self endon("turned_stance_disable_movement");
+	self endon("disconnect");
+	self endon("spawned_spectator");
+	self endon("humanify");
+	level endon("end_game");
+
+	self.n_move_scale_modifiers["turned_stance"] = 0;
+
+	self scripts\zm\_zm_reimagined::set_move_speed_scale(self.n_move_scale);
+
+	wait 0.5;
+
+	self.n_move_scale_modifiers["turned_stance"] = undefined;
 
 	self scripts\zm\_zm_reimagined::set_move_speed_scale(self.n_move_scale);
 }

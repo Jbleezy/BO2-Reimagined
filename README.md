@@ -1656,16 +1656,15 @@
 * Disease powerup spawns near survivor initial spawn points after 10 seconds and chases after the closest survivor
 * Survivors become zombies when they bleed out
 * Zombies see survivors and other zombies through walls
+* Zombies have a Tactical Insertion (stays placed until picked up, can be cancelled while spectating, no other players can see it)
 * Zombies have the same health as AI zombies
 * Zombies have the same melee damage as AI zombies
 * Zombies have the same melee range as survivors
 * Zombies have the same move speed as survivors
 * Zombies can jump and go prone
-* Zombies can't move while attacking
+* Zombies can't move while attacking, changing stances, or placing a Tactical Insertion
 * Zombies move at 50% move speed for 0.5 seconds after jumping
-* Zombies can open doors
-* Zombies can activate traps
+* Zombies can open doors and activate traps
 * Zombies can't damage the same survivor for 0.25 seconds
-* Zombies have a Tactical Insertion (stays placed until picked up, can be cancelled while spectating, no other players can see it)
 * Zombies respawn at the position of a random survivor when they died if they did not have a Tactical Insertion placed
 * Zombies respawn after spectating for 10 seconds
