@@ -1118,6 +1118,7 @@
 * Initial perk drops at round 1 in coop
 * Perks drop every 5 rounds
 * Landing perks no longer deal damage to players
+* Decreased brightness of CDC view hands
 * Increased intermission time from 7.5 seconds to 15 seconds
 * Fixed Mystery Box floating in the sky at the start of the game
 * Encounter: all perks drop at the start of the game

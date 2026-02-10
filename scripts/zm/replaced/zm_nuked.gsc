@@ -47,7 +47,7 @@ survival_init()
 precache_team_characters()
 {
 	precachemodel("c_zom_player_cdc_dlc1_fb");
-	precachemodel("c_zom_hazmat_viewhands_light");
+	precachemodel("c_zom_hazmat_viewhands");
 	precachemodel("c_zom_player_cia_dlc1_fb");
 	precachemodel("c_zom_suit_viewhands");
 }
@@ -68,7 +68,7 @@ give_team_characters()
 		else
 		{
 			self setmodel("c_zom_player_cdc_dlc1_fb");
-			self setviewmodel("c_zom_hazmat_viewhands_light");
+			self setviewmodel("c_zom_hazmat_viewhands");
 			self.characterindex = 1;
 		}
 	}
@@ -100,7 +100,7 @@ give_team_characters()
 				self setmodel("c_zom_player_cdc_dlc1_fb");
 				self.voice = "american";
 				self.skeleton = "base";
-				self setviewmodel("c_zom_hazmat_viewhands_light");
+				self setviewmodel("c_zom_hazmat_viewhands");
 				self.characterindex = 1;
 				break;
 		}
