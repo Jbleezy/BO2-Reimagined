@@ -3489,23 +3489,9 @@ turned_think()
 
 	level waittill("restart_round_start");
 
-	origin = (0, 0, 0);
-
-	if (isdefined(level.initial_spawn_points))
-	{
-		foreach (initial_spawn_point in level.initial_spawn_points)
-		{
-			origin += initial_spawn_point.origin;
-		}
-
-		origin /= level.initial_spawn_points.size;
-	}
-	else
-	{
-		allies_players = get_players("allies");
-		player = random(allies_players);
-		origin = player.origin;
-	}
+	allies_players = get_players("allies");
+	player = random(allies_players);
+	origin = player.origin;
 
 	wait 10;
 
