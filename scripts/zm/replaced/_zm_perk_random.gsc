@@ -305,6 +305,8 @@ grab_check(player, random_perk)
 		player.pre_temp_weapon = undefined;
 	}
 
+	player notify("burp");
+
 	if (!(isdefined(player.has_drunk_wunderfizz) && player.has_drunk_wunderfizz))
 	{
 		player do_player_general_vox("wunderfizz", "perk_wonder", undefined, 100);

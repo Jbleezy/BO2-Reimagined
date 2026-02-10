@@ -1335,7 +1335,7 @@
 * Added one-way teleporter at Docks
 * 1 afterlife max in solo
 * Entering afterlife from a shock box no longer takes away afterlife
-* Entering afterlife no longer takes 2 additional seconds if the player had Electric Cherry
+* Entering afterlife no longer takes an additional 2 seconds if the player had Electric Cherry
 * Spawn facing towards the afterlife player model when entering afterlife
 * Can no longer see other player's waypoints when in afterlife
 * Afterlife player model has collision
@@ -1485,6 +1485,7 @@
 * Der Wunderfizz: moves to new location instantly
 * Der Wunderfizz: can no longer be activated while orb is moving down
 * Der Wunderfizz: can be activated while the previous activator is drinking the perk
+* Der Wunderfizz: no longer takes an additional 0.5 seconds to be given the perk
 * Der Wunderfizz: machines initially start with the top part open
 * Der Wunderfizz: fixed sound and fx not playing if activated immediately after becoming activatable
 * Rituals of the Ancients: spend points challenge reward changed from Double Tap perk to a random perk that the player does not have (perk does not change if reward is reopened)
