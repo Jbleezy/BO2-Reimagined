@@ -3952,43 +3952,7 @@ increment_score(team, amount = 1, show_lead_msg = true, score_msg)
 	{
 		if (isdefined(score_msg))
 		{
-			score = level.grief_score[encounters_team];
-			other_score = other_team_players.size;
-
-			if (score_msg == &"ZOMBIE_SURVIVOR_TURNED")
-			{
-				other_score++;
-			}
-
-			foreach (player in team_players)
-			{
-				player thread show_grief_hud_msg(score_msg, score, other_score);
-			}
-
-			foreach (player in other_team_players)
-			{
-				player thread show_grief_hud_msg(score_msg, other_score, score);
-			}
-
-			if (score_msg == &"ZOMBIE_SURVIVOR_TURNED")
-			{
-				level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog(other_score + "_player_down", team);
-			}
-			else
-			{
-				if (score == 1)
-				{
-					foreach (player in players)
-					{
-						if (player.team == team && is_player_valid(player))
-						{
-							player thread maps\mp\zombies\_zm_audio_announcer::leaderdialogonplayer("last_player");
-						}
-					}
-				}
-
-				level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog(score + "_player_left", other_team);
-			}
+			level thread turned_score_msg(team, score_msg);
 		}
 	}
 
@@ -4015,6 +3979,57 @@ increment_score(team, amount = 1, show_lead_msg = true, score_msg)
 				player thread show_grief_hud_msg(&"ZOMBIE_GRIEF_LOSE_LEAD", undefined, undefined, 30, delay);
 			}
 		}
+	}
+}
+
+turned_score_msg(team, score_msg)
+{
+	level endon("end_game");
+
+	waittillframeend; // wait for player to change teams
+
+	other_team = getotherteam(team);
+	players = get_players();
+	team_players = get_players(team);
+	other_team_players = get_players(other_team);
+	encounters_team = "A";
+
+	if (team == "allies")
+	{
+		encounters_team = "B";
+	}
+
+	score = level.grief_score[encounters_team];
+	other_score = other_team_players.size;
+
+	foreach (player in team_players)
+	{
+		player thread show_grief_hud_msg(score_msg, score, other_score);
+	}
+
+	foreach (player in other_team_players)
+	{
+		player thread show_grief_hud_msg(score_msg, other_score, score);
+	}
+
+	if (score_msg == &"ZOMBIE_SURVIVOR_TURNED")
+	{
+		level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog(other_score + "_player_down", team);
+	}
+	else
+	{
+		if (score == 1)
+		{
+			foreach (player in players)
+			{
+				if (player.team == team && is_player_valid(player))
+				{
+					player thread maps\mp\zombies\_zm_audio_announcer::leaderdialogonplayer("last_player");
+				}
+			}
+		}
+
+		level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog(score + "_player_left", other_team);
 	}
 }
 
