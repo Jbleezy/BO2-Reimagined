@@ -788,6 +788,7 @@ kill_feed()
 
 bleedout_feed()
 {
+	level endon("end_game");
 	self endon("disconnect");
 
 	if (is_true(self.playersuicided))
