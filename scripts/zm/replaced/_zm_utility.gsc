@@ -89,6 +89,12 @@ shock_onpain()
 			continue;
 		}
 
+		if (isdefined(attacker.animname) && attacker.animname == "zombie_dog")
+		{
+			self shellshock("dog_bite", 0.5);
+			continue;
+		}
+
 		if (mod == "MOD_PROJECTILE" || mod == "MOD_PROJECTILE_SPLASH" || mod == "MOD_GRENADE_SPLASH" || mod == "MOD_GRENADE" || mod == "MOD_EXPLOSIVE" || mod == "MOD_BURNED")
 		{
 			if (mod == "MOD_BURNED")
