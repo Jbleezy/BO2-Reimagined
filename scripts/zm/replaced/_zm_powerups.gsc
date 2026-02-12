@@ -307,7 +307,7 @@ powerup_grab(powerup_team)
 
 	while (isdefined(self))
 	{
-		players = array_randomize(get_players());
+		players = get_array_of_closest(self.origin, get_players());
 
 		for (i = 0; i < players.size; i++)
 		{
