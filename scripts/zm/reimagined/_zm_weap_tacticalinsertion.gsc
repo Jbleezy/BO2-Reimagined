@@ -250,17 +250,18 @@ canceltacinsertbutton()
 cancel_button_press()
 {
 	self endon("disconnect");
-	self endon("end_killcam");
-	self endon("abort_killcam");
+	self endon("spawned_player");
+	self endon("tactical_insertion_destroyed");
+	level endon("end_game");
 
-	while (true)
+	while (self canceltacinsertbutton())
 	{
 		wait 0.05;
+	}
 
-		if (self canceltacinsertbutton())
-		{
-			break;
-		}
+	while (!self canceltacinsertbutton())
+	{
+		wait 0.05;
 	}
 
 	self notify("tactical_insertion_canceled");
