@@ -635,7 +635,7 @@
 
 #### Paralyzer
 * Kills on any round
-* Players fall to the ground faster after reaching max fly height
+* Decreased player fly duration
 * Added heat percentage on HUD
 * Fixed zombie spawn delay after zombie being killed
 

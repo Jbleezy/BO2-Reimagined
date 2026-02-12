@@ -389,14 +389,34 @@ player_slow_for_time(time)
 		self thread player_fly_rumble();
 	}
 
+	if (self isonground())
+	{
+		self.slowgun_flying_rate = undefined;
+	}
+
+	if (!isdefined(self.slowgun_flying_rate))
+	{
+		self.slowgun_flying_rate = 0.05;
+	}
+	else
+	{
+		self.slowgun_flying_rate += 0.01;
+
+		if (self.slowgun_flying_rate > 1.0)
+		{
+			self.slowgun_flying_rate = 1.0;
+		}
+	}
+
 	self setclientfieldtoplayer("slowgun_fx", 1);
-	self set_anim_rate(0.1);
+	self set_anim_rate(self.slowgun_flying_rate);
 
 	wait(time);
 
 	self set_anim_rate(1.0);
 	self setclientfieldtoplayer("slowgun_fx", 0);
 	self.slowgun_flying = 0;
+	self.slowgun_flying_rate = undefined;
 }
 
 watch_reset_anim_rate()
