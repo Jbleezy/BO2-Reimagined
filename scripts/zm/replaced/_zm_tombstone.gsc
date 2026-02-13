@@ -42,8 +42,12 @@ tombstone_spawn(ent)
 	level.active_powerups[level.active_powerups.size] = powerup;
 	level notify("powerup_dropped", powerup);
 
+	powerup endon("tombstone_grabbed");
+	powerup endon("tombstone_timedout");
+
 	self thread maps\mp\zombies\_zm_tombstone::tombstone_clear();
 	powerup thread tombstone_wobble();
+	powerup thread tombstone_bled_out();
 	powerup thread tombstone_emp();
 	powerup thread tombstone_move();
 	powerup thread tombstone_handle_multiple_instances();
@@ -83,6 +87,21 @@ tombstone_wobble()
 		self rotateyaw(360, 3);
 		wait 2.9;
 	}
+}
+
+tombstone_bled_out()
+{
+	self endon("tombstone_grabbed");
+	self endon("tombstone_timedout");
+
+	if (level.scr_zm_ui_gametype != "zturned")
+	{
+		return;
+	}
+
+	self.player waittill("bled_out");
+
+	self thread tombstone_delete();
 }
 
 tombstone_emp()
