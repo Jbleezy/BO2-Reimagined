@@ -87,7 +87,6 @@ turn_to_zombie()
 	self allowprone(1);
 	self allowjump(1);
 	self allowads(0);
-	self allowmelee(1);
 	self setstance("stand");
 	self setmovespeedscale(self.n_move_scale);
 	self setburn(0);
@@ -225,25 +224,8 @@ turned_melee_watcher()
 	{
 		self waittill("weapon_melee", weapon);
 
-		self thread turned_melee_disable_melee();
 		self thread turned_melee_disable_movement();
 	}
-}
-
-turned_melee_disable_melee()
-{
-	self notify("turned_melee_disable_melee");
-	self endon("turned_melee_disable_melee");
-	self endon("disconnect");
-	self endon("spawned_spectator");
-	self endon("humanify");
-	level endon("end_game");
-
-	self allowmelee(0);
-
-	wait 0.25;
-
-	self allowmelee(1);
 }
 
 turned_melee_disable_movement()
