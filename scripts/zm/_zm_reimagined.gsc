@@ -1512,6 +1512,11 @@ bleedout_bar_hud()
 		return;
 	}
 
+	if (flag("solo_game"))
+	{
+		return;
+	}
+
 	hud = self createbar((1, 0, 0), level.secondaryprogressbarwidth * 2, level.secondaryprogressbarheight);
 	hud setpoint("CENTER", undefined, level.secondaryprogressbarx, -1 * level.secondaryprogressbary);
 	hud.foreground = 1;
