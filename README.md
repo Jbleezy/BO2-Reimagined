@@ -208,7 +208,7 @@
 * Added proper game mode and map name to scoreboard
 * Added icons on scoreboard when player is downed, bled out, in Who's Who mode, in afterlife, or has the meat
 * Changed player name color on scoreboard to match the player's color
-* Moved voice chat icon on scoreboard to the same position as the rank icon
+* Moved voice chat icon on scoreboard to the end of the player name column
 * Changed Classic faction color from blue to grey
 * Changed CIA faction color from grey to blue
 * Added teammate head icons
@@ -235,6 +235,7 @@
 ## Players
 * Unlimited sprint
 * Increased health from 100 to 150
+* Always have shotgun rank
 * Self revives in solo are active whenever the player has at least 1 perk
 * Upgraded starting pistol given as self revive pistol above all others except Ray Gun Mark 2
 * Increased backwards move speed from 70% to 100%

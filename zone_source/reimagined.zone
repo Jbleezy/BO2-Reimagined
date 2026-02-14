@@ -152,6 +152,7 @@ rawfile,zm/gamesettings_zmeat.cfg
 rawfile,zm/gamesettings_zturned.cfg
 rawfile,zm/playeranim.script
 
+stringtable,mp/rankicontable_zm.csv
 stringtable,mp/weaponoptions_zm.csv
 stringtable,zm/factiontable.csv
 stringtable,zm/gametypestable.csv
