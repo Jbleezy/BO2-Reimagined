@@ -3527,8 +3527,8 @@ turned_think()
 	level waittill("restart_round_start");
 
 	allies_players = get_players("allies");
-	player = random(allies_players);
-	origin = player.origin;
+	level.disease_powerup_player = random(allies_players);
+	origin = level.disease_powerup_player.origin;
 
 	wait 10;
 
@@ -3542,6 +3542,7 @@ turned_think()
 
 the_disease_powerup(player)
 {
+	level.disease_powerup_player = undefined;
 	player notify("bled_out");
 }
 
@@ -3576,17 +3577,20 @@ the_disease_powerup_do_chase()
 	{
 		wait 0.05;
 
-		players = get_players("allies");
-		closest_player = getclosest(self.origin, players);
-
-		if (!isdefined(closest_player))
+		if (!isdefined(level.disease_powerup_player) || level.disease_powerup_player.team != "allies")
 		{
-			continue;
+			allies_players = get_players("allies");
+			level.disease_powerup_player = random(allies_players);
+
+			if (!isdefined(level.disease_powerup_player))
+			{
+				continue;
+			}
 		}
 
-		closest_player_origin = closest_player.origin + (0, 0, 40);
+		disease_powerup_player_origin = level.disease_powerup_player.origin + (0, 0, 40);
 
-		direction = vectornormalize(closest_player_origin - self.origin);
+		direction = vectornormalize(disease_powerup_player_origin - self.origin);
 
 		self.origin += direction * 15;
 	}

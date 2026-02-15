@@ -1662,7 +1662,7 @@
 * Reduce the enemy score to 0 to win the game
 * All players start as survivors
 * All players that join mid game start as zombies
-* Disease powerup spawns at survivor initial spawn points after 10 seconds and chases after the closest survivor
+* Disease powerup spawns at survivor initial spawn points after 10 seconds and chases after a random survivor
 * Survivors become zombies when they bleed out
 * Zombies see survivors and other zombies through walls
 * Zombies have a Tactical Insertion (stays placed until picked up, can be cancelled while spectating, no other players can see it)
