@@ -1570,7 +1570,7 @@
 * Increased max radius for landing on top of an enemy player by 16.66%
 * Decreased max height for landing on top of an enemy player by 50%
 * Players start with 10000 points
-* Starting weapon (upgraded): decreased stock ammo by half
+* Decreased upgraded starting weapon, Ray Gun, and Ray Gun Mark 2 stock ammo by half
 * Max Ammo: decreased amount of ammo given from max stock to one clip
 * Max Ammo: unloads clip of all enemy players' weapons and takes away their grenades and placeable mines
 * Double Points: decreased duration from 30 seconds to 15 seconds

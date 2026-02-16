@@ -335,7 +335,7 @@ grief_onplayerconnect()
 
 	self thread stun_fx();
 	self thread headstomp_watcher();
-	self thread decrease_upgraded_start_weapon_ammo();
+	self thread decrease_weapon_ammo();
 	self thread maps\mp\gametypes_zm\zmeat::create_item_meat_watcher();
 
 	self.killsconfirmed = 0;
@@ -993,14 +993,13 @@ headstomp_watcher()
 	}
 }
 
-decrease_upgraded_start_weapon_ammo()
+decrease_weapon_ammo()
 {
 	self endon("disconnect");
 
 	flag_wait("initial_blackscreen_passed");
 
-	upgraded_start_weapon = level.zombie_weapons[level.start_weapon].upgrade_name;
-	max_ammo = int(weaponmaxammo(upgraded_start_weapon) / 2);
+	decreased_ammo_weapons = array(level.zombie_weapons[level.start_weapon].upgrade_name, "ray_gun_zm", "ray_gun_upgraded_zm", "raygun_mark2_zm", "raygun_mark2_upgraded_zm");
 
 	while (1)
 	{
@@ -1008,10 +1007,12 @@ decrease_upgraded_start_weapon_ammo()
 
 		foreach (weapon in self getweaponslistprimaries())
 		{
-			if (weapon != upgraded_start_weapon)
+			if (!isinarray(decreased_ammo_weapons, weapon))
 			{
 				continue;
 			}
+
+			max_ammo = int(weaponmaxammo(weapon) / 2);
 
 			ammo = self getweaponammostock(weapon);
 
