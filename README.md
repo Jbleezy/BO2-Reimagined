@@ -1561,7 +1561,7 @@
 * Meleeing enemy players that are reviving pushes 50% less
 * Meleeing enemy players that are already stunned will still push them
 * Ballistic knife projectile pushes enemy players
-* Claymores are no longer triggered by enemy players
+* Placeable mines are no longer triggered by enemy players
 * Stun fx is linked to the player
 * Stun fx shows in the correct position for explosive damage and projectile impact damage
 * Stunning enemy players steals 100 points from them
@@ -1572,7 +1572,7 @@
 * Players start with 10000 points
 * Starting weapon (upgraded): decreased stock ammo by half
 * Max Ammo: decreased amount of ammo given from max stock to one clip
-* Max Ammo: unloads clip of all enemy players' weapons and takes away their grenades and claymores
+* Max Ammo: unloads clip of all enemy players' weapons and takes away their grenades and placeable mines
 * Double Points: decreased duration from 30 seconds to 15 seconds
 * Double Points: enemy players gain half points
 * Insta Kill: decreased duration from 30 seconds to 15 seconds

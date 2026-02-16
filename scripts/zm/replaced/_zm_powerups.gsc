@@ -659,7 +659,7 @@ full_ammo_powerup(drop_item, player)
 
 	level thread full_ammo_on_hud(drop_item, player.team);
 
-	if (is_encounter())
+	if (is_encounter() && level.scr_zm_ui_gametype != "zturned")
 	{
 		level thread empty_clip_powerup(drop_item, player);
 	}
