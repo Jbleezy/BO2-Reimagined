@@ -31,6 +31,9 @@ LANG_ENGLISH        "Containment Pro"
 REFERENCE           ZMUI_ZMEAT_PRO
 LANG_ENGLISH        "Meat Pro"
 
+REFERENCE           ZMUI_ZTURNED_PRO
+LANG_ENGLISH        "Turned Pro"
+
 REFERENCE           ZMUI_TRANSIT
 LANG_ENGLISH        "Tranzit"
 
