@@ -409,8 +409,6 @@ player_zombie_inert()
 
 	self.is_inert = 1;
 
-	self thread maps\mp\zombies\_zm_ai_basic::inert_wakeup();
-
 	self thread player_zombie_inert_think();
 
 	self setclientfield("player_has_eyes", 0);
@@ -434,9 +432,9 @@ player_zombie_inert_think()
 	self endon("disconnect");
 	level endon("end_game");
 
-	result = self waittill_any_return("stop_zombie_inert", "spawned_spectator", "humanify");
+	result = self waittill_any_timeout(1, "spawned_spectator", "humanify");
 
-	if (result == "stop_zombie_inert")
+	if (result == "timeout")
 	{
 		self setclientfield("player_has_eyes", 1);
 		self enableweapons();
@@ -445,4 +443,6 @@ player_zombie_inert_think()
 	}
 
 	self.is_inert = undefined;
+
+	self notify("stop_zombie_inert");
 }
