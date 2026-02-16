@@ -3675,8 +3675,7 @@ the_disease_powerup_infinite_time()
 
 turned_zombie_init()
 {
-	level endon("end_game");
-
+	team = self.team;
 	amount = -1;
 
 	if (self maps\mp\zombies\_zm_laststand::player_is_in_laststand())
@@ -3684,25 +3683,30 @@ turned_zombie_init()
 		amount = 0;
 	}
 
-	increment_score(self.team, amount, 0, &"ZOMBIE_SURVIVOR_TURNED");
+	team_players = get_players(team);
 
-	if (self maps\mp\zombies\_zm_laststand::player_is_in_laststand())
+	if (team_players.size > 1)
 	{
-		self notify("stop_revive_trigger");
-		self.revivetrigger delete();
+		if (self maps\mp\zombies\_zm_laststand::player_is_in_laststand())
+		{
+			self notify("stop_revive_trigger");
+			self.revivetrigger delete();
 
-		self thread maps\mp\zombies\_zm_laststand::auto_revive(self);
+			self thread maps\mp\zombies\_zm_laststand::auto_revive(self);
+		}
+
+		self scripts\zm\_zm_reimagined::delete_placeable_mines();
+
+		self notify("zmb_lost_knife");
+
+		self scripts\zm\_zm_reimagined::set_team(level.zombie_team);
+
+		self maps\mp\zombies\_zm_turned::turn_to_zombie();
+
+		level notify("attractor_positions_generated");
 	}
 
-	self scripts\zm\_zm_reimagined::delete_placeable_mines();
-
-	self notify("zmb_lost_knife");
-
-	self scripts\zm\_zm_reimagined::set_team(level.zombie_team);
-
-	self maps\mp\zombies\_zm_turned::turn_to_zombie();
-
-	level notify("attractor_positions_generated");
+	increment_score(team, amount, 0, &"ZOMBIE_SURVIVOR_TURNED");
 }
 
 turned_zombie_spawn()
