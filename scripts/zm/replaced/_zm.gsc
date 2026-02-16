@@ -2253,8 +2253,8 @@ player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, s
 {
 	if (isdefined(eattacker) && isplayer(eattacker) && (is_true(self.is_zombie) || is_true(eattacker.is_zombie)))
 	{
-		// don't store damage info on non-weapon scripted damage
-		if (sweapon != self getcurrentweapon())
+		// don't store damage info from non-weapon scripted damage
+		if (!self hasweapon(sweapon))
 		{
 			if (isdefined(level.store_player_damage_info_func))
 			{
