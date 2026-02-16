@@ -3524,9 +3524,11 @@ turned_think()
 	allies_players = get_players("allies");
 
 	increment_score("allies", allies_players.size, 0);
-	increment_score("axis", allies_players.size * 50, 0);
+	increment_score("axis", allies_players.size * 100, 0);
 
 	level waittill("restart_round_start");
+
+	level thread turned_decrease_zombie_score();
 
 	allies_players = get_players("allies");
 	level.disease_powerup_player = random(allies_players);
@@ -3595,6 +3597,18 @@ turned_zombie_move_speed_think()
 		prev_fast_move_speed = fast_move_speed;
 
 		wait 0.05;
+	}
+}
+
+turned_decrease_zombie_score()
+{
+	level endon("end_game");
+
+	while (1)
+	{
+		wait 1;
+
+		increment_score(level.zombie_team, -1, 0);
 	}
 }
 
