@@ -3512,6 +3512,7 @@ turned_init()
 	maps\mp\zombies\_zm_powerups::add_zombie_powerup("the_disease", "p6_zm_tm_blood_power_up", &"ZOMBIE_POWERUP_MAX_AMMO", ::func_should_never_drop, 0, 1, 0);
 
 	level thread turned_think();
+	level thread turned_zombie_move_speed_think();
 }
 
 turned_think()
@@ -3538,6 +3539,62 @@ turned_think()
 	if (zombie_players.size <= 0)
 	{
 		level thread the_disease_powerup_drop(origin);
+	}
+}
+
+turned_zombie_move_speed_think()
+{
+	level endon("end_game");
+
+	flag_wait("initial_blackscreen_passed");
+
+	prev_fast_move_speed = 0;
+
+	while (1)
+	{
+		fast_move_speed = 0;
+		zombie_players = get_players(level.zombie_team);
+
+		if (zombie_players.size <= 1)
+		{
+			any_allies_player_is_in_laststand = 0;
+			allies_players = get_players("allies");
+
+			foreach (allies_player in allies_players)
+			{
+				if (allies_player maps\mp\zombies\_zm_laststand::player_is_in_laststand())
+				{
+					any_allies_player_is_in_laststand = 1;
+					break;
+				}
+			}
+
+			if (!any_allies_player_is_in_laststand)
+			{
+				fast_move_speed = 1;
+			}
+		}
+
+		if (fast_move_speed == prev_fast_move_speed)
+		{
+			wait 0.05;
+			continue;
+		}
+
+		if (fast_move_speed)
+		{
+			setDvar("player_zombieSpeedScale", 1.1);
+			setDvar("player_zombieSprintSpeedScale", 1.1);
+		}
+		else
+		{
+			setDvar("player_zombieSpeedScale", 1);
+			setDvar("player_zombieSprintSpeedScale", 1);
+		}
+
+		prev_fast_move_speed = fast_move_speed;
+
+		wait 0.05;
 	}
 }
 

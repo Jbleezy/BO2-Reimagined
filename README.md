@@ -1664,6 +1664,7 @@
 * All players that join mid game start as zombies
 * Disease powerup spawns at survivor initial spawn points after 10 seconds and chases after a random survivor
 * Survivors become zombies when they bleed out
+* Initial zombie moves at 110% move speed while there are no survivors down
 * Zombies see survivors and other zombies through walls
 * Zombies have a Tactical Insertion (stays placed until picked up, can be cancelled while spectating, no other players can see it)
 * Zombies have the same health as AI zombies
