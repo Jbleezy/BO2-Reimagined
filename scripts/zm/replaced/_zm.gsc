@@ -2256,9 +2256,16 @@ player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, s
 		// don't store damage info from non-weapon scripted damage
 		if (!self hasweapon(sweapon))
 		{
+			damage_weapon = maps\mp\zombies\_zm_weapons::get_nonalternate_weapon(sweapon);
+
+			if (is_true(eattacker.is_zombie))
+			{
+				damage_weapon = "zombiemelee_zm";
+			}
+
 			if (isdefined(level.store_player_damage_info_func))
 			{
-				self [[level.store_player_damage_info_func]](eattacker, maps\mp\zombies\_zm_weapons::get_nonalternate_weapon(sweapon), smeansofdeath);
+				self [[level.store_player_damage_info_func]](eattacker, damage_weapon, smeansofdeath);
 			}
 		}
 	}
