@@ -72,7 +72,7 @@ slowgun_fired(upgraded)
 				{
 					target thread player_paralyzed(self, upgraded);
 				}
-				else if (is_true(target.is_zombie) && target.sessionstate == "playing" && self.team != target.team)
+				else if (is_true(target.is_zombie) && target.sessionstate == "playing" && !is_true(target.turned_zombie_spawn_protection) && self.team != target.team)
 				{
 					target thread player_paralyzed(self, upgraded, 1);
 				}

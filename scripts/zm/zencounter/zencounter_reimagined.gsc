@@ -3664,6 +3664,60 @@ turned_zombie_spawn()
 	playsoundatposition("evt_appear_3d", self.origin);
 	earthquake(0.5, 0.75, self.origin, 100);
 	playrumbleonposition("explosion_generic", self.origin);
+
+	self thread turned_zombie_spawn_protection_think();
+}
+
+turned_zombie_spawn_protection_think()
+{
+	self endon("disconnect");
+	self endon("spawned_spectator");
+	self endon("humanify");
+	level endon("end_game");
+
+	self.turned_zombie_spawn_protection = 1;
+
+	tag = "j_spineupper";
+
+	player_fx_ent = spawn("script_model", self gettagorigin(tag));
+	player_fx_ent.angles = self gettagangles(tag);
+	player_fx_ent setmodel("tag_origin");
+	player_fx_ent linkto(self, tag);
+
+	playfxontag(level._effect["powerup_on_caution"], player_fx_ent, "tag_origin");
+
+	clientnotify("start_turned_zombie_spawn_protection_fx");
+
+	self thread turned_zombie_spawn_protection_cleanup(player_fx_ent);
+
+	origin = self.origin;
+
+	while (distance2dsquared(self.origin, origin) < 32 * 32)
+	{
+		wait 0.05;
+	}
+
+	self notify("turned_zombie_spawn_protection_fx_end");
+
+	player_fx_ent delete();
+
+	clientnotify("stop_turned_zombie_spawn_protection_fx");
+
+	self.turned_zombie_spawn_protection = undefined;
+}
+
+turned_zombie_spawn_protection_cleanup(player_fx_ent)
+{
+	self endon("turned_zombie_spawn_protection_fx_end");
+	level endon("end_game");
+
+	self waittill_any("spawned_spectator", "humanify", "disconnect");
+
+	player_fx_ent delete();
+
+	clientnotify("stop_turned_zombie_spawn_protection_fx");
+
+	self.turned_zombie_spawn_protection = undefined;
 }
 
 turned_zombie_spectate(play_fx = 1)

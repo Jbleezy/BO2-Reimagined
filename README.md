@@ -1675,5 +1675,6 @@
 * Zombies move at 50% move speed for 0.5 seconds after jumping
 * Zombies can open doors and activate traps
 * Zombies can't damage the same survivor for 0.25 seconds
+* Zombies can't be damaged by survivors until they move away from their spawn point
 * Zombies respawn at the position of a random survivor when they died if they did not have a Tactical Insertion placed
 * Zombies respawn after spectating for 10 seconds

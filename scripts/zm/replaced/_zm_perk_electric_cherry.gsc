@@ -123,7 +123,7 @@ electric_cherry_reload_attack()
 						}
 					}
 
-					if (isplayer(a_zombies[i]) && is_true(a_zombies[i].is_zombie) && a_zombies[i].sessionstate == "playing")
+					if (isplayer(a_zombies[i]) && is_true(a_zombies[i].is_zombie) && a_zombies[i].sessionstate == "playing" && !is_true(a_zombies[i].turned_zombie_spawn_protection))
 					{
 						if (a_zombies[i].health <= perk_dmg)
 						{

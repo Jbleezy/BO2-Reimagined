@@ -341,13 +341,10 @@ _time_bomb_kill_all_active_enemies()
 
 	foreach (player in players)
 	{
-		if (is_true(player.is_zombie))
+		if (is_true(player.is_zombie) && player.sessionstate == "playing" && !is_true(player.turned_zombie_spawn_protection))
 		{
-			if (player.sessionstate == "playing")
-			{
-				player disableInvulnerability();
-				player dodamage(player.health, player.origin, level.time_bomb_save_data.player_used, level.time_bomb_save_data.player_used, player.origin);
-			}
+			player disableInvulnerability();
+			player dodamage(player.health, player.origin, level.time_bomb_save_data.player_used, level.time_bomb_save_data.player_used, player.origin);
 		}
 	}
 }

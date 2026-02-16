@@ -192,7 +192,7 @@ emp_players(origin, radius, owner)
 	{
 		if (distancesquared(origin, player.origin) < rsquared)
 		{
-			if (is_true(player.is_zombie) && player.sessionstate == "playing")
+			if (is_true(player.is_zombie) && player.sessionstate == "playing" && !is_true(player.turned_zombie_spawn_protection))
 			{
 				player shellshock("flashbang", 1);
 				player thread player_zombie_inert();

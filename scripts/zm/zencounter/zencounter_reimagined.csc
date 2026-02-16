@@ -34,4 +34,22 @@ turned_init()
 {
 	clientscripts\mp\zombies\_zm_turned::main();
 	clientscripts\mp\zombies\_zm_turned::init();
+
+	level thread turned_zombie_spawn_protection_fx_think();
+}
+
+turned_zombie_spawn_protection_fx_think()
+{
+	while (1)
+	{
+		level waittill("start_turned_zombie_spawn_protection_fx");
+
+		player = getlocalplayers()[0];
+
+		fx = playfxontag(0, level._effect["powerup_on_caution"], player, "j_spineupper");
+
+		level waittill("stop_turned_zombie_spawn_protection_fx");
+
+		deletefx(0, fx);
+	}
 }
