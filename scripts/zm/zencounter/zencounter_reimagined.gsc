@@ -54,6 +54,8 @@ init()
 	precacheString(&"hud_update_player_count");
 	precacheString(&"hud_update_containment_zone");
 	precacheString(&"hud_update_containment_time");
+	precacheString(&"show_dead_spectate_hud");
+	precacheString(&"hide_dead_spectate_hud");
 	precacheString(istring(toupper("ZMUI_" + level.scr_zm_ui_gametype)));
 	precacheString(istring(toupper("ZMUI_" + level.scr_zm_ui_gametype + "_PRO")));
 
@@ -883,9 +885,13 @@ player_wait_and_respawn()
 
 	self scripts\zm\_zm_reimagined::setlowermessage(&"GAME_RESPAWNING", time);
 
+	self luinotifyevent(&"show_dead_spectate_hud");
+
 	wait time;
 
 	self scripts\zm\_zm_reimagined::clearlowermessage();
+
+	self luinotifyevent(&"hide_dead_spectate_hud");
 
 	self.sessionstate = "playing";
 
@@ -3852,11 +3858,15 @@ turned_zombie_wait_and_respawn()
 
 	self scripts\zm\_zm_reimagined::setlowermessage(&"GAME_RESPAWNING", time);
 
+	self luinotifyevent(&"show_dead_spectate_hud");
+
 	wait time;
 
 	flag_wait("spawn_zombies");
 
 	self scripts\zm\_zm_reimagined::clearlowermessage();
+
+	self luinotifyevent(&"hide_dead_spectate_hud");
 
 	self.sessionstate = "playing";
 
@@ -3992,7 +4002,7 @@ setspectatepermissions()
 	self allowspectateteam("allies", 0);
 	self allowspectateteam("axis", 0);
 	self allowspectateteam("freelook", 0);
-	self allowspectateteam("none", 1);
+	self allowspectateteam("none", 0);
 }
 
 increment_score(team, amount = 1, show_lead_msg = true, score_msg)
