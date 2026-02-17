@@ -3614,6 +3614,17 @@ turned_decrease_zombie_score()
 	{
 		wait 1;
 
+		allies_players = get_players("allies");
+
+		foreach (allies_player in allies_players)
+		{
+			if (is_player_valid(allies_player))
+			{
+				score = 10 * maps\mp\zombies\_zm_score::get_points_multiplier(allies_player);
+				allies_player maps\mp\zombies\_zm_score::add_to_player_score(score);
+			}
+		}
+
 		increment_score(level.zombie_team, -1, 0);
 	}
 }
