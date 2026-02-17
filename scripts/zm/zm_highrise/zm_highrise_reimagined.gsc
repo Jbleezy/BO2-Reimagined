@@ -108,7 +108,15 @@ door_changes()
 	{
 		new_target = undefined;
 
-		if (zombie_doors[i].target == "pf1577_auto2497")
+		if (zombie_doors[i].target == "pf1577_auto2493" || zombie_doors[i].target == "pf1577_auto2494")
+		{
+			new_target = "pf1577_auto2474";
+		}
+		else if (zombie_doors[i].target == "blocker_blue_level1b_to_level2a_parts")
+		{
+			new_target = "blocker_blue_level2a_to_level2c_parts";
+		}
+		else if (zombie_doors[i].target == "pf1577_auto2497")
 		{
 			new_target = "pf1577_auto2496";
 		}

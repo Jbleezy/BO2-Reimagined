@@ -1232,7 +1232,7 @@
 * Moved weapon locker to the downstairs fridge
 * Quick Revive elevator randomizes with Speed Cola and Who's Who elevators
 * Pack-a-Punch can be used while elevator is moving
-* Doors that open the same zone in the Sweatshop area open together
+* Doors that open the same zone open together
 * Players no longer fall off the map when using the slide
 * Zombies killed by an elevator no longer respawn
 * Zombies are no longer killed while spawning in a stationary elevator
@@ -1361,7 +1361,7 @@
 * Zombies spawn sooner after crashing at the Golden Gate Bridge
 * All barriers are initially built
 * Decreased starting room doors cost from 1000 to 750
-* Opening one of the starting room doors no longer opens the other
+* Starting room doors no longer open together
 * Brutus no longer spawns if no doors have been opened
 * Activating the laundry machine always spawns zombies instead of Brutus
 * Docks gate no longer closes when shock box is shocked in afterlife
