@@ -642,9 +642,13 @@ on_player_bled_out()
 			}
 		}
 
-		if (level.scr_zm_ui_gametype == "zgrief")
+		if (is_respawn_gamemode())
 		{
-			increment_score(getOtherTeam(self.team));
+			if (!is_true(self.playersuicided))
+			{
+				self maps\mp\zombies\_zm::spectator_respawn();
+				waittillframeend; // wait for spawned_player
+			}
 		}
 
 		if (level.scr_zm_ui_gametype == "zsr")
@@ -658,6 +662,11 @@ on_player_bled_out()
 			level thread update_players_on_bleedout(self);
 		}
 
+		if (level.scr_zm_ui_gametype == "zgrief")
+		{
+			increment_score(getOtherTeam(self.team));
+		}
+
 		if (level.scr_zm_ui_gametype == "zrace")
 		{
 			increment_score(getOtherTeam(self.team), 5, 1, &"ZOMBIE_ZGRIEF_PLAYER_DEAD_SCORE");
@@ -668,14 +677,6 @@ on_player_bled_out()
 			if (self.team != level.zombie_team)
 			{
 				self thread turned_zombie_init();
-			}
-		}
-
-		if (is_respawn_gamemode())
-		{
-			if (!is_true(self.playersuicided))
-			{
-				self maps\mp\zombies\_zm::spectator_respawn();
 			}
 		}
 	}

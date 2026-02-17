@@ -545,7 +545,7 @@ on_player_connect()
 
 on_player_spawned()
 {
-	level endon("game_ended");
+	level endon("end_game");
 	self endon("disconnect");
 
 	self.initial_spawn = true;
