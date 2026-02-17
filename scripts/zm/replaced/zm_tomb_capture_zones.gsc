@@ -546,11 +546,10 @@ reward_players_in_capture_zone()
 		{
 			if (isdefined(self.purchaser) && self.purchaser == player)
 			{
-				self refund_generator_cost_if_player_captured_it(player);
+				player add_to_player_score(self.generator_cost * 2);
 			}
 
 			player notify("completed_zone_capture");
-			player maps\mp\zombies\_zm_score::player_add_points("bonus_points_powerup", self.generator_cost);
 
 			if (b_challenge_exists)
 			{

@@ -320,7 +320,7 @@
 ### Leapers
 * Initial round always happens on round 5 or 6
 * No longer give each player 2000 points when rewarded a free perk powerup
-* Fixed getting kill points twice
+* Fixed gaining kill points twice
 
 ### Brutus
 * Increased round for initial spawn in coop from 5-7 to 9
@@ -1446,6 +1446,7 @@
 * Fixed front part of tank model spawning in the Excavation Site Level 2 zone
 * Generators: changed cost from 200-800 depending on how many players to 500
 * Generators: increased capture reward points from 100 to 500
+* Generators: capture reward points are only awarded to the activator
 * Generators: changed capture time from 10-40 seconds depending on how many players to 20 seconds
 * Generators: increased decay time from 20 seconds to 40 seconds
 * Generators: always refund points if player was on the generator when captured
