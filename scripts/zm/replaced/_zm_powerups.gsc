@@ -581,6 +581,12 @@ full_ammo_powerup(drop_item, player)
 			continue;
 		}
 
+		if (is_true(players[i].is_zombie))
+		{
+			i++;
+			continue;
+		}
+
 		primary_weapons = players[i] getweaponslist(1);
 
 		players[i] notify("zmb_max_ammo");
@@ -659,7 +665,7 @@ full_ammo_powerup(drop_item, player)
 
 	level thread full_ammo_on_hud(drop_item, player.team);
 
-	if (is_encounter() && level.scr_zm_ui_gametype != "zturned")
+	if (is_encounter())
 	{
 		level thread empty_clip_powerup(drop_item, player);
 	}
@@ -707,6 +713,12 @@ empty_clip_powerup(drop_item, player)
 	while (i < players.size)
 	{
 		if (players[i] maps\mp\zombies\_zm_laststand::player_is_in_laststand())
+		{
+			i++;
+			continue;
+		}
+
+		if (is_true(players[i].is_zombie))
 		{
 			i++;
 			continue;
