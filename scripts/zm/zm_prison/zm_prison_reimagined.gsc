@@ -750,10 +750,10 @@ docks_teleporter()
 {
 	flag_wait("initial_blackscreen_passed");
 
-	teleporter = getstruct("docks_teleporter", "targetname");
-	teleporter_end = getstruct(teleporter.target, "targetname");
+	teleporter_start_origin = (-253, 5660, -72);
+	teleporter_end_origin = (-265, 5699, 17);
 
-	trig = spawn("trigger_radius", teleporter.origin, 0, teleporter.radius, teleporter.height);
+	trig = spawn("trigger_radius", teleporter_start_origin, 0, 8, 64);
 
 	while (1)
 	{
@@ -762,7 +762,7 @@ docks_teleporter()
 		height_diff = player.origin[2] - groundpos(player.origin)[2];
 
 		playsoundatposition("zmb_afterlife_zombie_warp_out", player.origin);
-		player setorigin(teleporter_end.origin + (0, 0, height_diff));
+		player setorigin(teleporter_end_origin + (0, 0, height_diff));
 	}
 }
 

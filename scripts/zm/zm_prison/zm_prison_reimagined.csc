@@ -49,7 +49,8 @@ hide_static_models()
 
 docks_teleporter_fx()
 {
-	teleporter = getstruct("docks_teleporter", "targetname");
+	teleporter_fx_origin = (-262, 5677, -50);
+	teleporter_fx_angles = (0, 280, 0);
 
-	playfx(0, level._effect["hell_portal"], teleporter.origin, anglestoforward(teleporter.angles));
+	playfx(0, level._effect["hell_portal"], teleporter_fx_origin, anglestoforward(teleporter_fx_angles));
 }
