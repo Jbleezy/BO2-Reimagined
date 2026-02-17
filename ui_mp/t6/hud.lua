@@ -379,7 +379,7 @@ function HUD_FirstSnapshot_Zombie(HUDWidget, ClientInstance)
 	Widget:addElement(LUI.createMenu.PlayerReviveWaypointArea(ClientInstance.controller))
 	Widget:addElement(LUI.createMenu.PlayerCloneWaypointArea(ClientInstance.controller))
 	Widget:addElement(LUI.createMenu.PlayerEnemyHeadIconArea(ClientInstance.controller))
-	Widget:addElement(LUI.createMenu.PlayerEnemyWaypointArea(ClientInstance.controller))
+	Widget:addElement(LUI.createMenu.PlayerEnemyAliveWaypointArea(ClientInstance.controller))
 	Widget:addElement(LUI.createMenu.PlayerObjectiveWaypointArea(ClientInstance.controller))
 	Widget:addElement(LUI.createMenu.GameModeObjectiveWaypointArea(ClientInstance.controller))
 

@@ -2,20 +2,20 @@ CoD.ReimaginedWaypoint = {}
 CoD.GameModeObjectiveWaypoint = InheritFrom(CoD.ObjectiveWaypoint)
 CoD.GameModeObjectiveWaypoint.FLAG_HIDE = 0
 CoD.GameModeObjectiveWaypoint.FLAG_SHOW = 1
-CoD.PlayerObjectiveWaypoint = InheritFrom(CoD.ObjectiveWaypoint)
-CoD.PlayerEnemyWaypoint = InheritFrom(CoD.ObjectiveWaypoint)
-CoD.PlayerCloneWaypoint = InheritFrom(CoD.ObjectiveWaypoint)
-CoD.PlayerReviveWaypoint = InheritFrom(CoD.ObjectiveWaypoint)
-CoD.PlayerDownWaypoint = InheritFrom(CoD.ObjectiveWaypoint)
-CoD.PlayerAliveWaypoint = InheritFrom(CoD.ObjectiveWaypoint)
 CoD.PlayerWaypoint = InheritFrom(CoD.ObjectiveWaypoint)
 CoD.PlayerWaypoint.FLAG_DEAD = 0
 CoD.PlayerWaypoint.FLAG_ALIVE = 1
 CoD.PlayerWaypoint.FLAG_DOWN = 2
 CoD.PlayerWaypoint.FLAG_OBJECTIVE = 3
+CoD.PlayerObjectiveWaypoint = InheritFrom(CoD.ObjectiveWaypoint)
+CoD.PlayerCloneWaypoint = InheritFrom(CoD.ObjectiveWaypoint)
+CoD.PlayerReviveWaypoint = InheritFrom(CoD.ObjectiveWaypoint)
+CoD.PlayerDownWaypoint = InheritFrom(CoD.ObjectiveWaypoint)
+CoD.PlayerEnemyAliveWaypoint = InheritFrom(CoD.ObjectiveWaypoint)
+CoD.PlayerAliveWaypoint = InheritFrom(CoD.ObjectiveWaypoint)
 CoD.TombstoneWaypoint = InheritFrom(CoD.ObjectiveWaypoint)
-CoD.PlayerHeadIcon = InheritFrom(CoD.ObjectiveWaypoint)
 CoD.PlayerEnemyHeadIcon = InheritFrom(CoD.ObjectiveWaypoint)
+CoD.PlayerHeadIcon = InheritFrom(CoD.ObjectiveWaypoint)
 
 LUI.createMenu.GameModeObjectiveWaypointArea = function(LocalClientIndex)
 	local safeArea = CoD.GametypeBase.new("GameModeObjectiveWaypointArea", LocalClientIndex)
@@ -156,17 +156,17 @@ LUI.createMenu.PlayerDownWaypointArea = function(LocalClientIndex)
 	return safeArea
 end
 
-LUI.createMenu.PlayerEnemyWaypointArea = function(LocalClientIndex)
-	local safeArea = CoD.GametypeBase.new("PlayerEnemyWaypointArea", LocalClientIndex)
+LUI.createMenu.PlayerEnemyAliveWaypointArea = function(LocalClientIndex)
+	local safeArea = CoD.GametypeBase.new("PlayerEnemyAliveWaypointArea", LocalClientIndex)
 
-	safeArea.objectiveTypes.OBJ_PLAYER_1 = CoD.PlayerEnemyWaypoint
-	safeArea.objectiveTypes.OBJ_PLAYER_2 = CoD.PlayerEnemyWaypoint
-	safeArea.objectiveTypes.OBJ_PLAYER_3 = CoD.PlayerEnemyWaypoint
-	safeArea.objectiveTypes.OBJ_PLAYER_4 = CoD.PlayerEnemyWaypoint
-	safeArea.objectiveTypes.OBJ_PLAYER_5 = CoD.PlayerEnemyWaypoint
-	safeArea.objectiveTypes.OBJ_PLAYER_6 = CoD.PlayerEnemyWaypoint
-	safeArea.objectiveTypes.OBJ_PLAYER_7 = CoD.PlayerEnemyWaypoint
-	safeArea.objectiveTypes.OBJ_PLAYER_8 = CoD.PlayerEnemyWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_1 = CoD.PlayerEnemyAliveWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_2 = CoD.PlayerEnemyAliveWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_3 = CoD.PlayerEnemyAliveWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_4 = CoD.PlayerEnemyAliveWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_5 = CoD.PlayerEnemyAliveWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_6 = CoD.PlayerEnemyAliveWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_7 = CoD.PlayerEnemyAliveWaypoint
+	safeArea.objectiveTypes.OBJ_PLAYER_8 = CoD.PlayerEnemyAliveWaypoint
 
 	safeArea:registerEventHandler("hud_update_refresh", CoD.GametypeBase.Refresh)
 	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_VISIBLE, CoD.PlayerWaypoint.UpdateVisibility)
@@ -779,53 +779,107 @@ CoD.PlayerWaypoint.updateDownAndRevive = function(Menu, ClientInstance, IsDownWa
 	Menu.super.update(Menu, ClientInstance)
 end
 
-CoD.PlayerEnemyWaypoint.new = function(Menu, ObjectiveIndex)
+CoD.PlayerEnemyAliveWaypoint.new = function(Menu, ObjectiveIndex)
 	local waypoint = CoD.ObjectiveWaypoint.new(Menu, ObjectiveIndex, 0)
-	waypoint:setClass(CoD.PlayerEnemyWaypoint)
+	waypoint:setClass(CoD.PlayerEnemyAliveWaypoint)
 	waypoint:setLeftRight(false, false, -waypoint.iconWidth / 2, waypoint.iconWidth / 2)
 	waypoint:setTopBottom(false, true, -waypoint.iconHeight, 0)
-	waypoint.mainImage:setLeftRight(false, false, -24, 24)
-	waypoint.mainImage:setTopBottom(false, false, -39, 9)
-	waypoint.arrowImage:setLeftRight(false, false, -12, 12)
-	waypoint.arrowImage:setTopBottom(false, false, 21, 45)
+	waypoint.mainImage:setAlpha(0)
+	waypoint.arrowImage:setLeftRight(false, false, -18, 18)
+	waypoint.arrowImage:setTopBottom(false, false, 24, 42)
 	waypoint.edgePointerContainer:setTopBottom(true, true, -15, -15)
+	waypoint.edgePointerContainer:setupEdgePointer(90)
 	waypoint.updatePlayerUsing = CoD.NullFunction
+	waypoint.boundsClampedCount = 0
+	waypoint.boundsTotalCount = 0
+	waypoint.zOffsetCenter = true
 
 	local objectiveName = Engine.GetObjectiveName(Menu, ObjectiveIndex)
 	waypoint:registerEventHandler("objective_update_" .. objectiveName, waypoint.update)
 	waypoint:registerEventHandler("hud_update_team_change", waypoint.update)
 	waypoint:registerEventHandler("hud_update_other_player_team_change", waypoint.update)
 	waypoint:registerEventHandler("entity_container_update_offset", CoD.ReimaginedWaypoint.updateOffset)
+	waypoint:registerEventHandler("entity_container_clamped", CoD.NullFunction)
+	waypoint:registerEventHandler("entity_container_unclamped", CoD.NullFunction)
+
+	local bounds1 = LUI.UIElement.new()
+	bounds1:setClass(CoD.PlayerEnemyAliveWaypoint)
+	bounds1:setupEntityContainer(-1)
+	bounds1:setEntityContainerClamp(true)
+	waypoint:addElement(bounds1)
+	waypoint.bounds1 = bounds1
+	waypoint.boundsTotalCount = waypoint.boundsTotalCount + 1
+	bounds1.waypoint = waypoint
+	bounds1:registerEventHandler("entity_container_clamped", waypoint.BoundsClamped)
+	bounds1:registerEventHandler("entity_container_unclamped", waypoint.BoundsUnclamped)
+
+	local bounds2 = LUI.UIElement.new()
+	bounds2:setClass(CoD.PlayerEnemyAliveWaypoint)
+	bounds2:setupEntityContainer(-1)
+	bounds2:setEntityContainerClamp(true)
+	waypoint:addElement(bounds2)
+	waypoint.bounds2 = bounds2
+	waypoint.boundsTotalCount = waypoint.boundsTotalCount + 1
+	bounds2.waypoint = waypoint
+	bounds2:registerEventHandler("entity_container_clamped", waypoint.BoundsClamped)
+	bounds2:registerEventHandler("entity_container_unclamped", waypoint.BoundsUnclamped)
+
+	local bounds3 = LUI.UIElement.new()
+	bounds3:setClass(CoD.PlayerEnemyAliveWaypoint)
+	bounds3:setupEntityContainer(-1)
+	bounds3:setEntityContainerClamp(true)
+	waypoint:addElement(bounds3)
+	waypoint.bounds3 = bounds3
+	waypoint.boundsTotalCount = waypoint.boundsTotalCount + 1
+	bounds3.waypoint = waypoint
+	bounds3:registerEventHandler("entity_container_clamped", waypoint.BoundsClamped)
+	bounds3:registerEventHandler("entity_container_unclamped", waypoint.BoundsUnclamped)
 
 	return waypoint
 end
 
-CoD.PlayerEnemyWaypoint.update = function(Menu, ClientInstance)
+CoD.PlayerEnemyAliveWaypoint.update = function(Menu, ClientInstance)
 	local index = Menu.index
 	local controller = ClientInstance.controller
 	local clientNum = Engine.GetClientNum(controller)
 	local objectiveFlags = Engine.GetObjectiveGamemodeFlags(Menu, index)
 	local objectiveEntity = Engine.GetObjectiveEntity(Menu, index)
+	local x, y, z = Engine.GetObjectivePosition(Menu, index)
 	local clientTeam = Engine.GetTeamID(controller, clientNum)
 	local objectiveEntityTeam = Engine.GetTeamID(controller, objectiveEntity)
+	local gametype = Dvar.ui_gametype:get()
 	local gamemodeGroup = UIExpression.DvarString(nil, "ui_zm_gamemodegroup")
+	local isTurnedZombie = gametype == CoD.Zombie.GAMETYPE_ZTURNED and clientTeam == CoD.TEAM_AXIS
 
-	if objectiveFlags == CoD.PlayerWaypoint.FLAG_ALIVE and clientTeam ~= objectiveEntityTeam and gamemodeGroup ~= CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
-		local enemyIcon = "waypoint_kill_red"
-		local enemyArrow = "waypoint_revive_arrow"
+	if objectiveFlags == CoD.PlayerWaypoint.FLAG_ALIVE and clientTeam ~= objectiveEntityTeam and (gamemodeGroup ~= CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER or isTurnedZombie) and Menu.boundsClampedCount == Menu.boundsTotalCount then
+		local aliveArrow = "hud_offscreenobjectivepointer"
 
 		Menu.alphaController:setAlpha(1)
-		Menu.mainImage:setRGB(1, 0, 0)
 		Menu.arrowImage:setRGB(1, 0, 0)
-		Menu.mainImage:setImage(RegisterMaterial(enemyIcon))
-		Menu.arrowImage:setImage(RegisterMaterial(enemyArrow))
+		Menu.arrowImage:setImage(RegisterMaterial(aliveArrow))
 	else
 		Menu.alphaController:setAlpha(0)
 	end
 
 	Menu:processEvent({ name = "entity_container_update_offset" })
 
+	Menu.bounds1:setupEntityContainer(objectiveEntity, 0, 0, 0)
+	Menu.bounds2:setupEntityContainer(objectiveEntity, 0, 0, z / 2)
+	Menu.bounds3:setupEntityContainer(objectiveEntity, 0, 0, z)
+
 	Menu.super.update(Menu, ClientInstance)
+end
+
+CoD.PlayerEnemyAliveWaypoint.BoundsClamped = function(Menu, ClientInstance)
+	Menu.waypoint.boundsClampedCount = Menu.waypoint.boundsClampedCount + 1
+
+	CoD.PlayerEnemyAliveWaypoint.update(Menu.waypoint, ClientInstance)
+end
+
+CoD.PlayerEnemyAliveWaypoint.BoundsUnclamped = function(Menu, ClientInstance)
+	Menu.waypoint.boundsClampedCount = Menu.waypoint.boundsClampedCount - 1
+
+	CoD.PlayerEnemyAliveWaypoint.update(Menu.waypoint, ClientInstance)
 end
 
 CoD.PlayerAliveWaypoint.new = function(Menu, ObjectiveIndex)
@@ -1183,8 +1237,10 @@ CoD.PlayerEnemyHeadIcon.update = function(Menu, ClientInstance)
 	local clientTeam = Engine.GetTeamID(controller, clientNum)
 	local objectiveEntityTeam = Engine.GetTeamID(controller, objectiveEntity)
 	local gametype = Dvar.ui_gametype:get()
+	local gamemodeGroup = UIExpression.DvarString(nil, "ui_zm_gamemodegroup")
+	local isTurnedZombie = gametype == CoD.Zombie.GAMETYPE_ZTURNED and clientTeam == CoD.TEAM_AXIS
 
-	if objectiveFlags == CoD.PlayerWaypoint.FLAG_ALIVE and gametype == CoD.Zombie.GAMETYPE_ZTURNED and clientTeam == CoD.TEAM_AXIS and clientTeam ~= objectiveEntityTeam then
+	if objectiveFlags == CoD.PlayerWaypoint.FLAG_ALIVE and clientTeam ~= objectiveEntityTeam and (gamemodeGroup ~= CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER or isTurnedZombie) then
 		local enemyIcon = "waypoint_kill_red"
 
 		Menu.alphaController:setAlpha(1)
