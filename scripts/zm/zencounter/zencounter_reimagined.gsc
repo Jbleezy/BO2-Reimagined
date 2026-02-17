@@ -3749,6 +3749,7 @@ turned_zombie_spawn_protection_think()
 	self endon("disconnect");
 	self endon("spawned_spectator");
 	self endon("humanify");
+	self endon("turned_zombie_spawn_protection_fx_end");
 	level endon("end_game");
 
 	self.turned_zombie_spawn_protection = 1;
@@ -3773,13 +3774,13 @@ turned_zombie_spawn_protection_think()
 		wait 0.05;
 	}
 
-	self notify("turned_zombie_spawn_protection_fx_end");
-
 	player_fx_ent delete();
 
 	clientnotify("stop_turned_zombie_spawn_protection_fx");
 
 	self.turned_zombie_spawn_protection = undefined;
+
+	self notify("turned_zombie_spawn_protection_fx_end");
 }
 
 turned_zombie_spawn_protection_cleanup(player_fx_ent)
@@ -3787,13 +3788,15 @@ turned_zombie_spawn_protection_cleanup(player_fx_ent)
 	self endon("turned_zombie_spawn_protection_fx_end");
 	level endon("end_game");
 
-	self waittill_any("spawned_spectator", "humanify", "disconnect");
+	self waittill_any("weapon_melee", "spawned_spectator", "humanify", "disconnect");
 
 	player_fx_ent delete();
 
 	clientnotify("stop_turned_zombie_spawn_protection_fx");
 
 	self.turned_zombie_spawn_protection = undefined;
+
+	self notify("turned_zombie_spawn_protection_fx_end");
 }
 
 turned_zombie_spectate(play_fx = 1)
