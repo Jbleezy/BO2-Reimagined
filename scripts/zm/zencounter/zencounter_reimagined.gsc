@@ -34,6 +34,12 @@ main()
 
 	level._effect["zombie_disappears"] = loadfx("maps/zombie/fx_zmb_returned_spawn_puff");
 
+	if (getdvar("g_gametype") == "zturned")
+	{
+		level._effect["zombie_blood"] = loadfx("maps/zombie_tomb/fx_tomb_pwr_up_zmb_blood");
+		level._effect["zombie_blood_1st"] = loadfx("maps/zombie_tomb/fx_zm_blood_overlay_pclouds");
+	}
+
 	scripts\zm\reimagined\_zm_weap_tacticalinsertion::init();
 }
 
@@ -3754,14 +3760,16 @@ turned_zombie_spawn_protection_think()
 
 	self.turned_zombie_spawn_protection = 1;
 
-	tag = "j_spineupper";
+	tag = "j_spinelower";
 
 	player_fx_ent = spawn("script_model", self gettagorigin(tag));
 	player_fx_ent.angles = self gettagangles(tag);
 	player_fx_ent setmodel("tag_origin");
 	player_fx_ent linkto(self, tag);
 
-	playfxontag(level._effect["powerup_on_caution"], player_fx_ent, "tag_origin");
+	playfxontag(level._effect["zombie_blood"], player_fx_ent, "tag_origin");
+
+	player_fx_ent playloopsound("zmb_zombieblood_3rd_loop", 1);
 
 	clientnotify("start_turned_zombie_spawn_protection_fx");
 

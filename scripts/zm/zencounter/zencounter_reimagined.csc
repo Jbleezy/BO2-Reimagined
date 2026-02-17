@@ -1,11 +1,18 @@
 #include clientscripts\mp\_utility;
 #include clientscripts\mp\zombies\_zm_utility;
+#include clientscripts\mp\_audio;
 
 main()
 {
 	replaceFunc(clientscripts\mp\gametypes\zgrief::onprecachegametype, scripts\zm\replaced\zgrief::onprecachegametype);
 	replaceFunc(clientscripts\mp\gametypes\zgrief::premain, scripts\zm\replaced\zgrief::premain);
 	replaceFunc(clientscripts\mp\gametypes\zmeat::main, clientscripts\mp\gametypes\zgrief::main);
+
+	if (getdvar("g_gametype") == "zturned")
+	{
+		level._effect["zombie_blood"] = loadfx("maps/zombie_tomb/fx_tomb_pwr_up_zmb_blood");
+		level._effect["zombie_blood_1st"] = loadfx("maps/zombie_tomb/fx_zm_blood_overlay_pclouds");
+	}
 
 	register_clientfields();
 }
@@ -46,10 +53,14 @@ turned_zombie_spawn_protection_fx_think()
 
 		player = getlocalplayers()[0];
 
-		fx = playfxontag(0, level._effect["powerup_on_caution"], player, "j_spineupper");
+		fx = playviewmodelfx(0, level._effect["zombie_blood_1st"], "tag_camera");
+
+		playloopat("zmb_zombieblood_loop", (0, 0, 0));
 
 		level waittill("stop_turned_zombie_spawn_protection_fx");
 
 		deletefx(0, fx);
+
+		stoploopat("zmb_zombieblood_loop", (0, 0, 0));
 	}
 }

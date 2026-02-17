@@ -36,6 +36,9 @@ xanim,viewmodel_bare_hands_falling
 
 material,generic_filter_zombie_blood_b
 
+fx,maps/zombie_tomb/fx_tomb_pwr_up_zmb_blood
+fx,maps/zombie_tomb/fx_zm_blood_overlay_pclouds
+
 material,mc/mtl_c_zom_tomb_german_gear_1
 material,mc/mtl_c_zom_tomb_german_gear_2
 material,mc/mtl_c_zom_tomb_german_gear_3
