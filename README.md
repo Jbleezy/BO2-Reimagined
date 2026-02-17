@@ -1221,6 +1221,7 @@
 * Added Mystery Box at Sweatshop area
 * Added Mystery Box at Buddha Room area
 * Moved Mystery Box at Shopping Mall area from the Shopping Mall Level 1D zone to the Shopping Mall Level 1C zone
+* Added one-way teleporter at Dragon Rooftop area
 * Removed key
 * Elevators and escape pod can be called without key
 * Added purchase cost to call elevators and escape pod

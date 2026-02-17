@@ -21,6 +21,8 @@ fx,maps/zombie/fx_zombie_dog_fire_trail
 fx,maps/zombie/fx_zombie_dog_ash_trail
 rawfile,shock/dog_bite.shock
 
+fx,maps/zombie/fx_zmb_screecher_vortex
+
 fx,maps/zombie/fx_zombie_tesla_bolt_secondary
 fx,maps/zombie/fx_zmb_avog_phasing
 

@@ -54,6 +54,8 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_weapon_locker::triggerweaponslockerisvalidweaponpromptupdate, scripts\zm\replaced\_zm_weapon_locker::triggerweaponslockerisvalidweaponpromptupdate);
 	replaceFunc(maps\mp\zombies\_zm_weapon_locker::wl_set_stored_weapondata, scripts\zm\replaced\_zm_weapon_locker::wl_set_stored_weapondata);
 
+	level._effect["screecher_vortex"] = loadfx("maps/zombie/fx_zmb_screecher_vortex");
+
 	register_clientfields();
 	door_changes();
 }
@@ -75,6 +77,7 @@ init()
 
 	level thread elevator_call();
 	level thread escape_pod_call();
+	level thread dragon_rooftop_teleporter();
 	level thread slide_push_watcher();
 	level thread zombie_bad_zone_watcher();
 	level thread disable_pap_elevator();
@@ -550,6 +553,34 @@ escape_pod_call_think()
 		level notify("reset_escape_pod");
 
 		flag_waitopen("escape_pod_needs_reset");
+	}
+}
+
+dragon_rooftop_teleporter()
+{
+	flag_wait("initial_blackscreen_passed");
+
+	teleporter_fx_origin = (2847, 226, 2754);
+	teleporter_fx_angles = (90, -30, 0);
+
+	fx = spawn("script_model", teleporter_fx_origin);
+	fx.angles = teleporter_fx_angles;
+	fx setmodel("tag_origin");
+	playfxontag(level._effect["screecher_vortex"], fx, "tag_origin");
+
+	teleporter_start_origin = (2866, 215, 2704);
+	teleporter_end_origin = (2830, 240, 2704);
+
+	trig = spawn("trigger_radius", teleporter_start_origin, 0, 8, 64);
+
+	while (1)
+	{
+		trig waittill("trigger", player);
+
+		height_diff = player.origin[2] - groundpos(player.origin)[2];
+
+		playsoundatposition("evt_appear_3d", player.origin);
+		player setorigin(teleporter_end_origin + (0, 0, height_diff));
 	}
 }
 
