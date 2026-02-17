@@ -549,7 +549,7 @@
 
 #### Ballistic Knife
 * Added model and anims from Black Ops 2 Multiplayer
-* Added sounds on all maps
+* Added sounds to all maps
 * Increased melee time from 0.5 seconds to 0.7 seconds
 * Held with Galvaknuckles
 * Projectiles are no longer destroyed when other players walk over them
@@ -580,7 +580,7 @@
 
 #### Ray Gun
 * Added model from Buried to all maps
-* Added first raise and empty fire sound from Mob of the Dead to all maps
+* Added first raise and empty fire sounds from Mob of the Dead to all maps
 * Increased move speed from 100% to 105%
 * Increased move speed while aiming from 100% to 157.5% (move speed multiplied by 1.5)
 * No longer limited to 4 players
@@ -966,6 +966,7 @@
 * No longer changes FOV
 
 ### Meat Stink
+* Added pick up, throw, and land sounds to all maps
 * All zombies go after player holding the meat
 * 75% move speed while holding the meat
 * Take 50 damage per second if stationary while holding the meat
