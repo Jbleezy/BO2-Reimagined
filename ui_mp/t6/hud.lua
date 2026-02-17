@@ -257,7 +257,7 @@ function HUD_FirstSnapshot(HUDWidget, ClientInstance)
 end
 
 CoD.DeadSpectate.UpdateVisibility = function(DeadSpectateWidget, ClientInstance)
-	if DeadSpectateWidget.ForceShowDeadSpectateHud or (UIExpression.IsVisibilityBitSet(ClientInstance.controller, CoD.BIT_TEAM_SPECTATOR) == 0 and UIExpression.IsVisibilityBitSet(ClientInstance.controller, CoD.BIT_SPECTATING_CLIENT) == 1 and UIExpression.IsVisibilityBitSet(ClientInstance.controller, CoD.BIT_DRAW_SPECTATOR_MESSAGES) == 1 and UIExpression.IsVisibilityBitSet(ClientInstance.controller, CoD.BIT_IN_KILLCAM) == 0 and UIExpression.IsVisibilityBitSet(ClientInstance.controller, CoD.BIT_FINAL_KILLCAM) == 0 and UIExpression.IsVisibilityBitSet(ClientInstance.controller, CoD.BIT_UI_ACTIVE) == 0) then
+	if (DeadSpectateWidget.ForceShowDeadSpectateHud and UIExpression.IsVisibilityBitSet(ClientInstance.controller, CoD.BIT_UI_ACTIVE) == 0) or (UIExpression.IsVisibilityBitSet(ClientInstance.controller, CoD.BIT_TEAM_SPECTATOR) == 0 and UIExpression.IsVisibilityBitSet(ClientInstance.controller, CoD.BIT_SPECTATING_CLIENT) == 1 and UIExpression.IsVisibilityBitSet(ClientInstance.controller, CoD.BIT_DRAW_SPECTATOR_MESSAGES) == 1 and UIExpression.IsVisibilityBitSet(ClientInstance.controller, CoD.BIT_IN_KILLCAM) == 0 and UIExpression.IsVisibilityBitSet(ClientInstance.controller, CoD.BIT_FINAL_KILLCAM) == 0 and UIExpression.IsVisibilityBitSet(ClientInstance.controller, CoD.BIT_UI_ACTIVE) == 0) then
 		if not DeadSpectateWidget.visible then
 			DeadSpectateWidget:setAlpha(1)
 			DeadSpectateWidget.visible = true
