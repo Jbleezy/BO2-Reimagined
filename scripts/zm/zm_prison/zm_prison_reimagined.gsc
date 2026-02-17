@@ -750,6 +750,14 @@ docks_teleporter()
 {
 	flag_wait("initial_blackscreen_passed");
 
+	teleporter_fx_origin = (-262, 5677, -50);
+	teleporter_fx_angles = (0, 280, 0);
+
+	fx = spawn("script_model", teleporter_fx_origin);
+	fx.angles = teleporter_fx_angles;
+	fx setmodel("tag_origin");
+	playfxontag(level._effect["hell_portal"], fx, "tag_origin");
+
 	teleporter_start_origin = (-253, 5660, -72);
 	teleporter_end_origin = (-265, 5699, 17);
 
