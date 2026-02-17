@@ -629,22 +629,30 @@ on_player_bled_out()
 		self waittill("bled_out");
 		waittillframeend;
 
+		playersuicided = is_true(self.playersuicided);
+		is_zombie = is_true(self.is_zombie);
+
+		if (playersuicided)
+		{
+			wait_network_frame();
+		}
+
 		if (isDefined(level.zombie_last_stand_ammo_return))
 		{
 			self [[level.zombie_last_stand_ammo_return]](1);
 		}
 
-		if (!is_respawn_gamemode() || is_true(self.playersuicided))
+		if (!is_respawn_gamemode() || playersuicided)
 		{
-			if (!is_true(self.is_zombie))
+			if (!is_zombie)
 			{
-				self thread bleedout_feed();
+				self bleedout_feed();
 			}
 		}
 
 		if (is_respawn_gamemode())
 		{
-			if (!is_true(self.playersuicided))
+			if (!playersuicided)
 			{
 				self maps\mp\zombies\_zm::spectator_respawn();
 				waittillframeend; // wait for spawned_player
@@ -797,14 +805,6 @@ kill_feed()
 
 bleedout_feed()
 {
-	level endon("end_game");
-	self endon("disconnect");
-
-	if (is_true(self.playersuicided))
-	{
-		wait_network_frame();
-	}
-
 	obituary(self, self, "none", "MOD_SUICIDE");
 }
 
