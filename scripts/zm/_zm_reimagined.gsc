@@ -981,8 +981,8 @@ set_client_dvars()
 
 	self setClientDvars(
 	    "waypointMaxDrawDist", 0,
-	    "waypointOffscreenPadTop", 40,
-	    "waypointOffscreenPadBottom", 20,
+	    "waypointOffscreenPadTop", 50,
+	    "waypointOffscreenPadBottom", 50,
 	    "waypointOffscreenPadLeft", 10,
 	    "waypointOffscreenPadRight", 10,
 	    "waypointOffscreenPadLUIFix", 1,
