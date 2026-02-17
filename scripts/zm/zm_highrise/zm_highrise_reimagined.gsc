@@ -560,14 +560,6 @@ dragon_rooftop_teleporter()
 {
 	flag_wait("initial_blackscreen_passed");
 
-	teleporter_fx_origin = (2847, 226, 2754);
-	teleporter_fx_angles = (90, -30, 0);
-
-	fx = spawn("script_model", teleporter_fx_origin);
-	fx.angles = teleporter_fx_angles;
-	fx setmodel("tag_origin");
-	playfxontag(level._effect["screecher_vortex"], fx, "tag_origin");
-
 	teleporter_start_origin = (2866, 215, 2704);
 	teleporter_end_origin = (2830, 240, 2704);
 
