@@ -256,6 +256,7 @@ player_acid_damage_cooldown()
 
 tower_trap_trigger_think()
 {
+	self.is_tower_trap = 1;
 	self.range_trigger = getent(self.target, "targetname");
 	self.upgrade_trigger = getent(self.script_string, "script_noteworthy");
 	self.cost = 1000;
@@ -461,7 +462,7 @@ tower_trap_fires(a_zombies)
 
 		if (sighttracepassed(e_org.origin, v_zombietarget, 1, undefined))
 		{
-			magicbullet(self.weapon_name, e_org.origin, v_zombietarget);
+			magicbullet(self.weapon_name, e_org.origin, v_zombietarget, self);
 
 			wait(self.trap_reload_time);
 

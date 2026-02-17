@@ -434,7 +434,7 @@ player_zombie_inert_think()
 	self endon("disconnect");
 	level endon("end_game");
 
-	result = self waittill_any_timeout(12, "stop_zombie_inert", "spawned_spectator", "humanify");
+	result = self waittill_any_timeout(level.zombie_vars["emp_stun_time"], "stop_zombie_inert", "spawned_spectator", "humanify");
 
 	if (result == "timeout" || result == "stop_zombie_inert")
 	{

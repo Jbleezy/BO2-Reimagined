@@ -89,6 +89,11 @@ shock_onpain()
 			continue;
 		}
 
+		if (is_true(attacker.is_tower_trap))
+		{
+			continue;
+		}
+
 		if (isdefined(attacker.animname) && attacker.animname == "zombie_dog")
 		{
 			self shellshock("dog_bite", 0.5);
