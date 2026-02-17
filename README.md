@@ -237,7 +237,7 @@
 * Increased health from 100 to 150
 * Always have shotgun rank
 * Self revives in solo are active whenever the player has at least 1 perk
-* Upgraded starting pistol given as self revive pistol above all others except Ray Gun Mark 2
+* Upgraded starting weapon given as self revive weapon above all others except Ray Gun Mark 2
 * Increased backwards move speed from 70% to 100%
 * Increased strafing move speed from 80% to 100%
 * Decreased sprint time needed to be able to dive from 0.25 seconds to 0.1 seconds

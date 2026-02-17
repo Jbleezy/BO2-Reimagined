@@ -229,7 +229,15 @@ game_won(winner)
 
 	foreach (player in players)
 	{
-		player freezecontrols(1);
+		if (player maps\mp\zombies\_zm_laststand::player_is_in_laststand() && isdefined(player.laststandpistol) && player getcurrentweapon() != player.laststandpistol)
+		{
+			// fixes player not switching to last stand weapon if game ended from their down
+			player thread scripts\zm\zencounter\zencounter_reimagined::wait_and_freeze();
+		}
+		else
+		{
+			player freezecontrols(1);
+		}
 
 		if (player._encounters_team == winner)
 		{
