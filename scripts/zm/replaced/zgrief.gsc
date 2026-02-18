@@ -459,7 +459,7 @@ meat_stink_ignoreme_think(check_meat_player_dist)
 			{
 				meat_player_dist = distanceSquared(player.origin, self.origin);
 				max_dist = 768 * 768;
-				close_meat_player = meat_player_dist <= max_dist;
+				close_meat_player = meat_player_dist < max_dist;
 			}
 
 			player.ignoreme = close_zombies.size == 0 && close_meat_player;
@@ -590,7 +590,7 @@ meat_stink_player(who, owner)
 	who thread meat_stink_ignoreme_think(1);
 	who thread meat_stink_player_create();
 
-	who waittill_any_or_timeout(15, "player_downed", "bled_out", "spawned_player", "disconnect");
+	who waittill_any_or_timeout(20, "player_downed", "bled_out", "spawned_player", "disconnect");
 
 	if (is_player_valid(who))
 	{
