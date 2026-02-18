@@ -108,14 +108,18 @@ shock_onpain()
 			}
 			else if (mod == "MOD_EXPLOSIVE")
 			{
-				if (damage >= 50)
+				time = 0;
+
+				if (damage >= 75)
 				{
-					self shellshock("explosion", 1);
+					time = 2;
 				}
-				else
+				else if (damage >= 50)
 				{
-					self shellshock("explosion", 0);
+					time = 1;
 				}
+
+				self shellshock("explosion", time);
 			}
 			else
 			{
