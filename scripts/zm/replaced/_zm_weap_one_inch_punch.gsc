@@ -120,8 +120,9 @@ monitor_melee_swipe()
 				continue;
 			}
 
-			if (self is_player_facing(zombie, v_punch_yaw))
+			if (self is_player_facing(zombie, v_punch_yaw) || is_true(zombie.one_inch_punch_damage))
 			{
+				zombie.one_inch_punch_damage = undefined;
 				self thread zombie_punch_damage(zombie, 1);
 				continue;
 			}

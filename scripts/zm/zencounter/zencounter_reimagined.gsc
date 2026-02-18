@@ -1677,6 +1677,7 @@ game_module_player_damage_callback(einflictor, eattacker, idamage, idflags, smea
 
 	if (issubstr(sweapon, "one_inch_punch") && idamage <= 5)
 	{
+		self.one_inch_punch_damage = 1;
 		return;
 	}
 

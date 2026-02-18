@@ -1609,6 +1609,11 @@ actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, 
 		damage -= damage % 50; // fix for melee weapons dealing up to 5 extra damage
 	}
 
+	if (issubstr(weapon, "one_inch_punch") && damage <= 5)
+	{
+		self.one_inch_punch_damage = 1;
+	}
+
 	if (weapon == "zombie_bullet_crouch_zm")
 	{
 		damage = self scale_damage(damage, 600);
