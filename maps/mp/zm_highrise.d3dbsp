@@ -2328,7 +2328,7 @@
 }
 {
 "angles" "0 330.4 0"
-"origin" "2890.91 743.777 1182"
+"origin" "2889.91 741.777 1182"
 "classname" "script_struct"
 "zombie_weapon_upgrade" "vector_zm"
 "targetname" "weapon_upgrade"
@@ -2340,7 +2340,7 @@
 "classname" "script_struct"
 "model" "t6_wpn_smg_vector_world"
 "angles" "0 330.4 0"
-"origin" "2890.91 743.777 1182"
+"origin" "2889.91 741.777 1182"
 "guid" "FCC3AFC8"
 }
 {
