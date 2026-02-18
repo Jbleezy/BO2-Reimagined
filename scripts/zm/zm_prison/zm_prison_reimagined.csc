@@ -27,7 +27,7 @@ main()
 init()
 {
 	hide_static_models();
-	docks_teleporter_fx();
+	teleporters_fx();
 }
 
 hide_static_models()
@@ -47,10 +47,17 @@ hide_static_models()
 	}
 }
 
-docks_teleporter_fx()
+teleporters_fx()
 {
-	teleporter_fx_origin = (-262, 5677, -50);
-	teleporter_fx_angles = (0, 280, 0);
+	teleporters_fx = [];
 
-	playfx(0, level._effect["hell_portal"], teleporter_fx_origin, anglestoforward(teleporter_fx_angles));
+	teleporter_fx = spawnstruct();
+	teleporter_fx.origin = (-262, 5677, -50);
+	teleporter_fx.angles = (0, 280, 0);
+	teleporters_fx[teleporters_fx.size] = teleporter_fx;
+
+	foreach (teleporter_fx in teleporters_fx)
+	{
+		playfx(0, level._effect["hell_portal"], teleporter_fx.origin, anglestoforward(teleporter_fx.angles));
+	}
 }

@@ -11,7 +11,7 @@ main()
 init()
 {
 	hide_static_models();
-	dragon_rooftop_teleporter_fx();
+	teleporters_fx();
 }
 
 hide_static_models()
@@ -24,10 +24,27 @@ hide_static_models()
 	}
 }
 
-dragon_rooftop_teleporter_fx()
+teleporters_fx()
 {
-	teleporter_fx_origin = (2847, 226, 2754);
-	teleporter_fx_angles = (90, 150, 0);
+	teleporters_fx = [];
 
-	playfx(0, level._effect["screecher_vortex"], teleporter_fx_origin, anglestoforward(teleporter_fx_angles));
+	teleporter_fx = spawnstruct();
+	teleporter_fx.origin = (2847, 226, 2754);
+	teleporter_fx.angles = (90, 150, 0);
+	teleporters_fx[teleporters_fx.size] = teleporter_fx;
+
+	teleporter_fx = spawnstruct();
+	teleporter_fx.origin = (3218, 543, 1170);
+	teleporter_fx.angles = (90, 240, 0);
+	teleporters_fx[teleporters_fx.size] = teleporter_fx;
+
+	teleporter_fx = spawnstruct();
+	teleporter_fx.origin = (2720, 831, 1170);
+	teleporter_fx.angles = (90, 240, 0);
+	teleporters_fx[teleporters_fx.size] = teleporter_fx;
+
+	foreach (teleporter_fx in teleporters_fx)
+	{
+		playfx(0, level._effect["screecher_vortex"], teleporter_fx.origin, anglestoforward(teleporter_fx.angles));
+	}
 }

@@ -77,7 +77,7 @@ init()
 
 	level thread elevator_call();
 	level thread escape_pod_call();
-	level thread dragon_rooftop_teleporter();
+	level thread teleporters();
 	level thread slide_push_watcher();
 	level thread zombie_bad_zone_watcher();
 	level thread disable_pap_elevator();
@@ -564,13 +564,35 @@ escape_pod_call_think()
 	}
 }
 
-dragon_rooftop_teleporter()
+teleporters()
 {
 	flag_wait("initial_blackscreen_passed");
 
-	teleporter_start_origin = (2866, 215, 2704);
-	teleporter_end_origin = (2830, 240, 2704);
+	teleporters = [];
 
+	teleporter = spawnstruct();
+	teleporter.start_origin = (2866, 215, 2704);
+	teleporter.end_origin = (2830, 240, 2704);
+	teleporters[teleporters.size] = teleporter;
+
+	teleporter = spawnstruct();
+	teleporter.start_origin = (3228, 563, 1120);
+	teleporter.end_origin = (3200, 514, 1296);
+	teleporters[teleporters.size] = teleporter;
+
+	teleporter = spawnstruct();
+	teleporter.start_origin = (2730, 851, 1120);
+	teleporter.end_origin = (2700, 800, 1296);
+	teleporters[teleporters.size] = teleporter;
+
+	foreach (teleporter in teleporters)
+	{
+		level thread teleporter_think(teleporter.start_origin, teleporter.end_origin);
+	}
+}
+
+teleporter_think(teleporter_start_origin, teleporter_end_origin)
+{
 	trig = spawn("trigger_radius", teleporter_start_origin, 0, 8, 64);
 
 	while (1)

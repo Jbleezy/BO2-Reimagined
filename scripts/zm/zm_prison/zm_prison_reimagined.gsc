@@ -124,7 +124,7 @@ init()
 	level thread maps\mp\_sticky_grenade::init();
 
 	level thread updatecraftables();
-	level thread docks_teleporter();
+	level thread teleporters();
 	level thread grief_brutus_spawn_after_time();
 }
 
@@ -746,13 +746,25 @@ docks_gates_remain_open()
 	}
 }
 
-docks_teleporter()
+teleporters()
 {
 	flag_wait("initial_blackscreen_passed");
 
-	teleporter_start_origin = (-253, 5660, -72);
-	teleporter_end_origin = (-265, 5699, 17);
+	teleporters = [];
 
+	teleporter = spawnstruct();
+	teleporter.start_origin = (-253, 5660, -72);
+	teleporter.end_origin = (-265, 5699, 17);
+	teleporters[teleporters.size] = teleporter;
+
+	foreach (teleporter in teleporters)
+	{
+		level thread teleporter_think(teleporter.start_origin, teleporter.end_origin);
+	}
+}
+
+teleporter_think(teleporter_start_origin, teleporter_end_origin)
+{
 	trig = spawn("trigger_radius", teleporter_start_origin, 0, 8, 64);
 
 	while (1)
