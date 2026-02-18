@@ -3700,18 +3700,18 @@ the_disease_powerup_infinite_time()
 turned_zombie_init()
 {
 	team = self.team;
-	amount = -1;
+	amount = 0;
 
-	if (self maps\mp\zombies\_zm_laststand::player_is_in_laststand())
+	if (is_player_valid(self))
 	{
-		amount = 0;
+		amount = -1;
 	}
 
 	team_players = get_players(team);
 
 	if (team_players.size > 1)
 	{
-		if (self maps\mp\zombies\_zm_laststand::player_is_in_laststand())
+		if (self maps\mp\zombies\_zm_laststand::player_is_in_laststand() && !is_true(self.playersuicided))
 		{
 			self notify("stop_revive_trigger");
 			self.revivetrigger delete();
