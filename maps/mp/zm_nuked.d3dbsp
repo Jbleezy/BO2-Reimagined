@@ -77,7 +77,7 @@
 "script_disable_bleeder" "1"
 "script_forcespawn" "1"
 "count" "9999"
-"origin" "0 0 0"
+"origin" "0 -1000 0"
 "guid" "16872E72"
 }
 {
@@ -3592,7 +3592,7 @@
 "model" "zombie_wolf"
 "export" "4"
 "spawnflags" "17"
-"origin" "0 0 0"
+"origin" "0 -1000 0"
 "script_noteworthy" "zombie_dog_spawner"
 "guid" "B357A2C8"
 }
@@ -3681,7 +3681,7 @@
 "guid" "E4BDEA76"
 }
 {
-"origin" "32 0 0"
+"origin" "32 -1000 0"
 "script_disable_bleeder" "1"
 "script_noteworthy" "zombie_spawner"
 "spawnflags" "3"
@@ -10981,7 +10981,7 @@
 "spawnflags" "3"
 "script_noteworthy" "zombie_spawner_beyes"
 "script_disable_bleeder" "1"
-"origin" "80 0 0"
+"origin" "80 -1000 0"
 "guid" "AFF50659"
 }
 {
@@ -10993,7 +10993,7 @@
 "spawnflags" "3"
 "script_noteworthy" "zombie_spawner_beyes"
 "script_disable_bleeder" "1"
-"origin" "56 0 0"
+"origin" "56 -1000 0"
 "guid" "0968B92C"
 }
 {

@@ -1123,6 +1123,7 @@
 * Decreased brightness of CDC view hands
 * Increased intermission time from 7.5 seconds to 15 seconds
 * Fixed Mystery Box floating in the sky at the start of the game
+* Fixed an issue where invisible collision would appear in the starting area when zombies were spawning
 * Encounter: all perks drop at the start of the game
 
 ### Tranzit
