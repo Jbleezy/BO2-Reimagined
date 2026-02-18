@@ -289,16 +289,6 @@ meat_stink(who, owner)
 
 	if (!is_player_valid(who))
 	{
-		if (isDefined(owner))
-		{
-			players = get_players();
-
-			foreach (player in players)
-			{
-				player thread print_meat_msg(owner, "dropped");
-			}
-		}
-
 		if (level.scr_zm_ui_gametype == "zmeat")
 		{
 			meat_drop(who.origin);
@@ -499,11 +489,6 @@ meat_stink_cleanup_on_downed_or_disconnect()
 		if (is_player_valid(player) && !is_true(player.spawn_protection) && !is_true(player.revive_protection))
 		{
 			player.ignoreme = 0;
-		}
-
-		if (result != "disconnect")
-		{
-			player thread print_meat_msg(self, "dropped", 1);
 		}
 	}
 

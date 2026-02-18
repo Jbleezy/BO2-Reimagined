@@ -82,7 +82,7 @@ item_meat_on_spawn_retrieve_trigger(watcher, player, weaponname)
 			other_player.ignoreme = 0;
 		}
 
-		other_player thread scripts\zm\replaced\zgrief::print_meat_msg(player, "dropped");
+		other_player thread scripts\zm\replaced\zgrief::print_meat_msg(player, "threw");
 	}
 
 	level notify("attractor_positions_generated");
