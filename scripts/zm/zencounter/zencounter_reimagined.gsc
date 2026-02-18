@@ -3555,6 +3555,10 @@ turned_think()
 	{
 		level thread the_disease_powerup_drop(origin);
 	}
+	else
+	{
+		increment_score("allies", 0, 0, &"ZOMBIE_SURVIVOR_TURNED");
+	}
 }
 
 turned_zombie_move_speed_think()
