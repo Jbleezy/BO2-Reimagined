@@ -80,7 +80,6 @@ init()
 	level thread escape_pod_call();
 	level thread teleporters();
 	level thread slide_push_watcher();
-	level thread zombie_bad_zone_watcher();
 	level thread disable_pap_elevator();
 }
 
@@ -631,48 +630,6 @@ slide_push_and_wait(angles)
 	wait 0.05;
 
 	self.being_pushed_by_slide = undefined;
-}
-
-zombie_bad_zone_watcher()
-{
-	level endon("end_game");
-	level endon("green_level3_door2");
-
-	elevator_volume = getent("elevator_1d", "targetname");
-
-	while (1)
-	{
-		wait 0.05;
-
-		if (maps\mp\zombies\_zm_zonemgr::player_in_zone("zone_green_level3c"))
-		{
-			continue;
-		}
-
-		zombies = getaiarray(level.zombie_team);
-
-		foreach (zombie in zombies)
-		{
-			if (is_true(zombie.completed_emerging_into_playable_area) && zombie maps\mp\zombies\_zm_zonemgr::entity_in_zone("zone_green_level3c") && !zombie istouching(elevator_volume))
-			{
-				if (is_true(zombie.is_leaper))
-				{
-					self maps\mp\zombies\_zm_ai_leaper::leaper_cleanup();
-				}
-				else
-				{
-					level.zombie_total++;
-
-					if (self.health < level.zombie_health)
-					{
-						level.zombie_respawned_health[level.zombie_respawned_health.size] = self.health;
-					}
-				}
-
-				zombie dodamage(zombie.health + 100, zombie.origin);
-			}
-		}
-	}
 }
 
 disable_pap_elevator()

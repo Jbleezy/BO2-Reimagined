@@ -1245,8 +1245,8 @@
 * Fixed weapon model angle on upside down Mystery Box
 * Fixed height of the elevators in the Dragon Rooftop Level 1B zone
 * Fixed position of an elevator perk in the Sweatshop area and Dragon Rooftop area
+* Fixed zombies going to specific locations when they can't find a path to any players
 * Fixed zombies spawning in the elevator below the Shopping Mall Level 3B zone when in the Shopping Mall Level 3B zone
-* Fixed zombies not bleeding out in the Shopping Mall Level 1B zone when the debris is uncleared and there are no players in the zone
 * Fixed Who's Who vision filter showing momentarily when the game ended
 * Quest: added "Benn - High Risers" song
 * Quest: elevator symbols and floor symbols require the player to be on the ground to activate
