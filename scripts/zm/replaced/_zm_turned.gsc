@@ -391,11 +391,14 @@ turned_jump_disable_movement()
 	self endon("humanify");
 	level endon("end_game");
 
-	self.n_move_scale_modifiers["turned_jump"] = 0.5;
+	for (i = 0; i < 10; i++)
+	{
+		self.n_move_scale_modifiers["turned_jump"] = 0.5 + (0.05 * i);
 
-	self scripts\zm\_zm_reimagined::set_move_speed_scale(self.n_move_scale);
+		self scripts\zm\_zm_reimagined::set_move_speed_scale(self.n_move_scale);
 
-	wait 0.5;
+		wait 0.05;
+	}
 
 	self.n_move_scale_modifiers["turned_jump"] = undefined;
 

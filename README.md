@@ -1680,7 +1680,7 @@
 * Zombies have the same move speed as survivors
 * Zombies can jump and go prone
 * Zombies can't move while attacking, changing stances, or placing a Tactical Insertion
-* Zombies move at 50% move speed for 0.5 seconds after jumping
+* Zombies move at 50% fading move speed for 0.5 seconds after jumping
 * Zombies can open doors and activate traps
 * Zombies can't damage the same survivor for 0.25 seconds
 * Zombies can't be damaged by survivors until they attack or move away from their spawn point
