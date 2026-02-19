@@ -1397,6 +1397,15 @@ grief_intro_msg()
 
 	wait 5;
 
+	if (level.grief_score["A"] > level.grief_score["B"])
+	{
+		level.prev_leader = "A";
+	}
+	else if (level.grief_score["B"] > level.grief_score["A"])
+	{
+		level.prev_leader = "B";
+	}
+
 	flag_set("grief_intro_msg_complete");
 }
 
@@ -1463,17 +1472,6 @@ show_grief_hud_msg(msg, msg_parm1, msg_parm2, offset, delay)
 	if (isDefined(delay))
 	{
 		wait delay;
-	}
-
-	if (!flag("grief_intro_msg_complete"))
-	{
-		if (isDefined(offset))
-		{
-			self notify("show_grief_hud_msg2_grief_intro_msg_complete");
-			self endon("show_grief_hud_msg2_grief_intro_msg_complete");
-
-			flag_wait("grief_intro_msg_complete");
-		}
 	}
 
 	if (!isDefined(offset))
@@ -4076,6 +4074,11 @@ increment_score(team, amount = 1, show_lead_msg = true, score_msg)
 		{
 			scripts\zm\replaced\_zm_game_module::game_won(encounters_team);
 		}
+	}
+
+	if (!flag("grief_intro_msg_complete"))
+	{
+		return;
 	}
 
 	if (level.scr_zm_ui_gametype == "zgrief")
