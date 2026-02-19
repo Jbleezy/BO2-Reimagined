@@ -577,12 +577,12 @@ teleporters()
 
 	teleporter = spawnstruct();
 	teleporter.start_origin = (3228, 563, 1120);
-	teleporter.end_origin = (3200, 514, 1296);
+	teleporter.end_origin = (3220, 548, 1300);
 	teleporters[teleporters.size] = teleporter;
 
 	teleporter = spawnstruct();
 	teleporter.start_origin = (2730, 851, 1120);
-	teleporter.end_origin = (2700, 800, 1296);
+	teleporter.end_origin = (2721, 836, 1300);
 	teleporters[teleporters.size] = teleporter;
 
 	foreach (teleporter in teleporters)
