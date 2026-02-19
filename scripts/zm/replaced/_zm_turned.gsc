@@ -237,10 +237,7 @@ turned_melee_disable_movement()
 	self endon("humanify");
 	level endon("end_game");
 
-	if (self is_jumping() && !isdefined(self.n_move_scale_modifiers["turned_melee"]))
-	{
-		self setvelocity((0, 0, 0));
-	}
+	self thread turned_is_jumping_set_velocity();
 
 	if (self getstance() == "stand" || self getstance() == "crouch")
 	{
@@ -311,10 +308,7 @@ turned_grenade_disable_movement()
 	self endon("humanify");
 	level endon("end_game");
 
-	if (self is_jumping() && !isdefined(self.n_move_scale_modifiers["turned_grenade"]))
-	{
-		self setvelocity((0, 0, 0));
-	}
+	self thread turned_is_jumping_set_velocity();
 
 	self allowjump(0);
 
@@ -449,4 +443,30 @@ turned_stance_disable_movement()
 	self.n_move_scale_modifiers["turned_stance"] = undefined;
 
 	self scripts\zm\_zm_reimagined::set_move_speed_scale(self.n_move_scale);
+}
+
+turned_is_jumping_set_velocity()
+{
+	self endon("disconnect");
+
+	if (!self is_jumping())
+	{
+		return;
+	}
+
+	if (is_true(self.turned_is_jumping_set_velocity))
+	{
+		return;
+	}
+
+	self.turned_is_jumping_set_velocity = 1;
+
+	self setvelocity((0, 0, 0));
+
+	while (self is_jumping())
+	{
+		wait 0.05;
+	}
+
+	self.turned_is_jumping_set_velocity = undefined;
 }
