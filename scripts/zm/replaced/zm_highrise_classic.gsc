@@ -279,6 +279,8 @@ squashed_death_init(kill_if_falling)
 					continue;
 				}
 
+				who.insta_killed = 1;
+
 				playfx(level._effect["zomb_gib"], who.origin);
 
 				if (isdefined(who.is_leaper) && who.is_leaper)
@@ -290,8 +292,6 @@ squashed_death_init(kill_if_falling)
 				{
 					who delete();
 				}
-
-				who.insta_killed = 1;
 			}
 		}
 	}
