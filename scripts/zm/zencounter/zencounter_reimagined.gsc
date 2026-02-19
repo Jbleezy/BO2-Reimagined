@@ -3712,28 +3712,23 @@ turned_zombie_init()
 		amount = -1;
 	}
 
-	team_players = get_players(team);
-
-	if (team_players.size > 1)
+	if (self maps\mp\zombies\_zm_laststand::player_is_in_laststand() && !is_true(self.playersuicided))
 	{
-		if (self maps\mp\zombies\_zm_laststand::player_is_in_laststand() && !is_true(self.playersuicided))
-		{
-			self notify("stop_revive_trigger");
-			self.revivetrigger delete();
+		self notify("stop_revive_trigger");
+		self.revivetrigger delete();
 
-			self thread maps\mp\zombies\_zm_laststand::auto_revive(self);
-		}
-
-		self scripts\zm\_zm_reimagined::delete_placeable_mines();
-
-		self notify("zmb_lost_knife");
-
-		self scripts\zm\_zm_reimagined::set_team(level.zombie_team);
-
-		self maps\mp\zombies\_zm_turned::turn_to_zombie();
-
-		level notify("attractor_positions_generated");
+		self thread maps\mp\zombies\_zm_laststand::auto_revive(self);
 	}
+
+	self scripts\zm\_zm_reimagined::delete_placeable_mines();
+
+	self notify("zmb_lost_knife");
+
+	self scripts\zm\_zm_reimagined::set_team(level.zombie_team);
+
+	self maps\mp\zombies\_zm_turned::turn_to_zombie();
+
+	level notify("attractor_positions_generated");
 
 	increment_score(team, amount, 0, &"ZOMBIE_SURVIVOR_TURNED");
 }
