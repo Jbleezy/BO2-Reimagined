@@ -6,6 +6,43 @@
 #include maps\mp\zombies\_zm_zonemgr;
 #include maps\mp\zombies\_zm_ai_basic;
 
+escaped_zombies_cleanup_init()
+{
+	self endon("death");
+	self.zombie_path_bad = 0;
+
+	while (true)
+	{
+		if (!self.zombie_path_bad)
+		{
+			self waittill("bad_path");
+		}
+
+		found_player = undefined;
+		players = get_players();
+
+		for (i = 0; i < players.size; i++)
+		{
+			if (is_player_valid(players[i]) && !is_true(players[i].is_in_ghost_zone) && self maymovetopoint(players[i].origin, 1))
+			{
+				self.favoriteenemy = players[i];
+				found_player = 1;
+				continue;
+			}
+		}
+
+		n_delete_distance = 800;
+		n_delete_height = 300;
+
+		if (!isdefined(found_player) && is_true(self.completed_emerging_into_playable_area))
+		{
+			self thread delete_zombie_noone_looking(n_delete_distance, n_delete_height);
+		}
+
+		wait 0.1;
+	}
+}
+
 delete_zombie_noone_looking(how_close, how_high)
 {
 	self endon("death");

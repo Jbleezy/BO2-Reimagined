@@ -39,7 +39,8 @@ main()
 	replaceFunc(maps\mp\zm_highrise_elevators::elevator_depart_early, scripts\zm\replaced\zm_highrise_elevators::elevator_depart_early);
 	replaceFunc(maps\mp\zm_highrise_elevators::faller_location_logic, scripts\zm\replaced\zm_highrise_elevators::faller_location_logic);
 	replaceFunc(maps\mp\zm_highrise_elevators::watch_for_elevator_during_faller_spawn, scripts\zm\replaced\zm_highrise_elevators::watch_for_elevator_during_faller_spawn);
-	replaceFunc(maps\mp\zm_highrise_distance_tracking::zombie_tracking_init, scripts\zm\replaced\zm_highrise_distance_tracking::zombie_tracking_init);
+	replaceFunc(maps\mp\zm_highrise_distance_tracking::escaped_zombies_cleanup_init, scripts\zm\replaced\zm_highrise_distance_tracking::escaped_zombies_cleanup_init);
+	replaceFunc(maps\mp\zm_highrise_distance_tracking::zombies_off_building, scripts\zm\replaced\zm_highrise_distance_tracking::zombies_off_building);
 	replaceFunc(maps\mp\zm_highrise_distance_tracking::delete_zombie_noone_looking, scripts\zm\replaced\zm_highrise_distance_tracking::delete_zombie_noone_looking);
 	replaceFunc(maps\mp\zombies\_zm_ai_leaper::leaper_round_tracker, scripts\zm\replaced\_zm_ai_leaper::leaper_round_tracker);
 	replaceFunc(maps\mp\zombies\_zm_ai_leaper::leaper_round_accuracy_tracking, scripts\zm\replaced\_zm_ai_leaper::leaper_round_accuracy_tracking);

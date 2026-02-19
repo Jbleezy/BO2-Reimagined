@@ -5,56 +5,46 @@
 #include maps\mp\zombies\_zm_spawner;
 #include maps\mp\zombies\_zm_ai_basic;
 
-zombie_tracking_init()
+escaped_zombies_cleanup_init()
 {
-	level.zombie_respawned_health = [];
-
-	if (!isdefined(level.zombie_tracking_dist))
-	{
-		level.zombie_tracking_dist = 1000;
-	}
-
-	if (!isdefined(level.zombie_tracking_high))
-	{
-		level.zombie_tracking_high = 500;
-	}
-
-	if (!isdefined(level.zombie_tracking_wait))
-	{
-		level.zombie_tracking_wait = 10;
-	}
-
-	building_trigs = getentarray("zombie_fell_off", "targetname");
-
-	if (isdefined(building_trigs))
-	{
-		array_thread(building_trigs, ::zombies_off_building);
-	}
-
-	level.distance_tracker_aggressive_distance = 500;
-	level.distance_tracker_aggressive_height = 200;
+	self endon("death");
+	self.zombie_path_bad = 0;
 
 	while (true)
 	{
-		zombies = get_round_enemy_array();
-
-		if (!isdefined(zombies) || isdefined(level.ignore_distance_tracking) && level.ignore_distance_tracking)
+		if (!self.zombie_path_bad)
 		{
-			wait(level.zombie_tracking_wait);
-			continue;
+			self waittill("bad_path");
 		}
-		else
+
+		found_player = undefined;
+		players = get_players();
+
+		for (i = 0; i < players.size; i++)
 		{
-			for (i = 0; i < zombies.size; i++)
+			if (is_player_valid(players[i]) && self maymovetopoint(players[i].origin, 1))
 			{
-				if (isdefined(zombies[i]) && !(isdefined(zombies[i].ignore_distance_tracking) && zombies[i].ignore_distance_tracking))
-				{
-					zombies[i] thread delete_zombie_noone_looking(level.zombie_tracking_dist, level.zombie_tracking_high);
-				}
+				self.favoriteenemy = players[i];
+				found_player = 1;
+				continue;
 			}
 		}
 
-		wait(level.zombie_tracking_wait);
+		n_delete_distance = 800;
+		n_delete_height = 300;
+
+		if (is_player_in_inverted_elevator_shaft())
+		{
+			n_delete_distance = level.distance_tracker_aggressive_distance;
+			n_delete_height = level.distance_tracker_aggressive_height;
+		}
+
+		if (!isdefined(found_player) && is_true(self.completed_emerging_into_playable_area))
+		{
+			self thread delete_zombie_noone_looking(n_delete_distance, n_delete_height);
+		}
+
+		wait 0.1;
 	}
 }
 
