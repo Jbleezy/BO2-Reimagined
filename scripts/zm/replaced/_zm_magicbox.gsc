@@ -1041,7 +1041,7 @@ decide_hide_show_hint(endon_notify, second_endon_notify, onlyplayer)
 		}
 		else if (isdefined(onlyplayer))
 		{
-			if (is_grenade || onlyplayer can_buy_weapon())
+			if (is_grenade || onlyplayer can_buy_weapon(self.zombie_weapon_upgrade))
 			{
 				self setinvisibletoplayer(onlyplayer, 0);
 			}
@@ -1056,7 +1056,7 @@ decide_hide_show_hint(endon_notify, second_endon_notify, onlyplayer)
 
 			for (i = 0; i < players.size; i++)
 			{
-				if (is_grenade || players[i] can_buy_weapon())
+				if (is_grenade || players[i] can_buy_weapon(self.zombie_weapon_upgrade))
 				{
 					self setinvisibletoplayer(players[i], 0);
 					continue;
@@ -1132,7 +1132,7 @@ trigger_visible_to_player(player)
 	return true;
 }
 
-can_buy_weapon()
+can_buy_weapon(weapon)
 {
 	if (isdefined(self.is_drinking) && self.is_drinking > 0)
 	{
@@ -1145,11 +1145,16 @@ can_buy_weapon()
 	}
 
 	current_weapon = self getcurrentweapon();
-
 	primaries = self getweaponslistprimaries();
 	weapon_limt = get_player_weapon_limit(self);
+	has_weapon = 0;
 
-	if (primaries.size >= weapon_limt && (is_melee_weapon(current_weapon) || is_placeable_mine(current_weapon) || is_equipment_that_blocks_purchase(current_weapon)))
+	if (isdefined(weapon))
+	{
+		has_weapon = self maps\mp\zombies\_zm_weapons::has_weapon_or_upgrade(weapon);
+	}
+
+	if (primaries.size >= weapon_limt && !has_weapon && (is_melee_weapon(current_weapon) || is_placeable_mine(current_weapon) || is_equipment_that_blocks_purchase(current_weapon)))
 	{
 		return false;
 	}

@@ -719,7 +719,7 @@ weapon_spawn_think()
 			continue;
 		}
 
-		if (!is_grenade && !player maps\mp\zombies\_zm_magicbox::can_buy_weapon())
+		if (!is_grenade && !player scripts\zm\replaced\_zm_magicbox::can_buy_weapon(self.zombie_weapon_upgrade))
 		{
 			wait 0.1;
 			continue;
