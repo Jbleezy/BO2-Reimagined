@@ -229,15 +229,7 @@ game_won(winner)
 
 	foreach (player in players)
 	{
-		if (player maps\mp\zombies\_zm_laststand::player_is_in_laststand() && isdefined(player.laststandpistol) && player getcurrentweapon() != player.laststandpistol)
-		{
-			// fixes player not switching to last stand weapon if game ended from their down
-			player thread scripts\zm\zencounter\zencounter_reimagined::wait_and_freeze();
-		}
-		else
-		{
-			player freezecontrols(1);
-		}
+		player thread game_won_freeze_controls_think();
 
 		if (player._encounters_team == winner)
 		{
@@ -287,6 +279,19 @@ game_won(winner)
 	level._game_module_game_end_check = undefined;
 	maps\mp\gametypes_zm\_zm_gametype::track_encounters_win_stats(level.gamemodulewinningteam);
 	level notify("end_game");
+}
+
+game_won_freeze_controls_think()
+{
+	self endon("disconnect");
+
+	// fixes player not switching to last stand weapon if game ended from their down
+	while (self maps\mp\zombies\_zm_laststand::player_is_in_laststand() && isdefined(self.laststandpistol) && self getcurrentweapon() != self.laststandpistol)
+	{
+		wait 0.05;
+	}
+
+	self freezecontrols(1);
 }
 
 zombie_goto_round(target_round)
