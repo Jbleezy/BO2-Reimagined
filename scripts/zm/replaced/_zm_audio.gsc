@@ -123,3 +123,25 @@ create_and_play_dialog(category, type, response, force_variant, override)
 		}
 	}
 }
+
+is_last_zombie()
+{
+	if (isplayer(self))
+	{
+		if (getdvarfloat("player_zombieSpeedScale") > 1)
+		{
+			return true;
+		}
+
+		return false;
+	}
+	else
+	{
+		if (get_current_zombie_count() <= 1)
+		{
+			return true;
+		}
+
+		return false;
+	}
+}

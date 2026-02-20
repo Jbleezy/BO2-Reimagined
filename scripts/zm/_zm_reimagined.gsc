@@ -54,6 +54,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm::check_quickrevive_for_hotjoin, scripts\zm\replaced\_zm::check_quickrevive_for_hotjoin);
 	replaceFunc(maps\mp\zombies\_zm_audio::zmbvoxadd, scripts\zm\replaced\_zm_audio::zmbvoxadd);
 	replaceFunc(maps\mp\zombies\_zm_audio::create_and_play_dialog, scripts\zm\replaced\_zm_audio::create_and_play_dialog);
+	replaceFunc(maps\mp\zombies\_zm_audio::is_last_zombie, scripts\zm\replaced\_zm_audio::is_last_zombie);
 	replaceFunc(maps\mp\zombies\_zm_audio_announcer::init_gamemodespecificvox, scripts\zm\replaced\_zm_audio_announcer::init_gamemodespecificvox);
 	replaceFunc(maps\mp\zombies\_zm_audio_announcer::playleaderdialogonplayer, scripts\zm\replaced\_zm_audio_announcer::playleaderdialogonplayer);
 	replaceFunc(maps\mp\zombies\_zm_stats::set_global_stat, scripts\zm\replaced\_zm_stats::set_global_stat);
