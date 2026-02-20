@@ -454,7 +454,7 @@ buildable_use_hold_think_internal(player, bind_stub = self.stub)
 		player maps\mp\zombies\_zm_weapons::switch_back_primary_weapon(orgweapon);
 	}
 
-	player takeweapon("zombie_builder_zm");
+	player takeweapon(build_weapon);
 
 	if (isdefined(player.is_drinking) && player.is_drinking)
 	{

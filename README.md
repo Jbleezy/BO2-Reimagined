@@ -1298,6 +1298,7 @@
 * Players can no longer get into the corner next to Jugger-Nog
 * Removed buildable table hint icons
 * Added buildable table hint strings on buildable purchase
+* Fixed not switching back to weapon immediately after drawing wallbuy
 * Quest: added "Benn - Bury Me" song
 * Quest: all 5 signs must be meleed for wisp to spawn
 * Quest: changed number of targets that need to be hit to 20 multiplied by the amount of players
