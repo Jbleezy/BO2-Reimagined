@@ -9,6 +9,8 @@ main()
 	replaceFunc(clientscripts\mp\zombies\_zm_perk_vulture::vulture_vision_disable, scripts\zm\replaced\_zm_perk_vulture::vulture_vision_disable);
 	replaceFunc(clientscripts\mp\zombies\_zm_perk_vulture::vulture_vision_update_wallbuy_list, scripts\zm\replaced\_zm_perk_vulture::vulture_vision_update_wallbuy_list);
 	replaceFunc(clientscripts\mp\zombies\_zm_perk_vulture::vulture_vision_mystery_box, scripts\zm\replaced\_zm_perk_vulture::vulture_vision_mystery_box);
+
+	setsoundcontext("grass", "no_grass");
 }
 
 init()

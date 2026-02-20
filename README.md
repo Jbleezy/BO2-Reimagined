@@ -1287,12 +1287,13 @@
 * Moved MSMC wallbuy to its location on Borough
 * Moved buildable wallbuy in Courthouse to AN-94 wallbuy location on Borough
 * Adjusted buildable wallbuy positions
-* Drawing weapons no longer gives points
+* Drawing wallbuys no longer gives points
 * Arthur barricades are buyable debris
 * Arthur can be purchased to feed him candy and make him run around and kill zombies for 30 seconds
 * Ghosts no longer spawn and go after players not in the Mansion during a ghost round
 * Ghosts no longer drop a free perk powerup if any player gets damaged by the ghosts
 * Added controller aim assist to ghosts
+* Adjusted volume of zombie vocals
 * Fountain portal automatically active
 * Players no longer take fall damage after using the fountain teleporter
 * Players can no longer get into the corner next to Jugger-Nog
