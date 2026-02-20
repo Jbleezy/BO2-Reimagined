@@ -183,7 +183,7 @@
 	},
 	"textures": [
 		{
-			"image": "~-gusa_knife_bowie_c",
+			"image": "_mtl_t6_wpn_base_noheat_ir",
 			"isMatureContent": false,
 			"name": "Thermal_Map",
 			"samplerState": {
