@@ -183,7 +183,7 @@
 	},
 	"textures": [
 		{
-			"image": "~-gc_zom_grief_guard_body_c",
+			"image": "~-gc_zom_grief_guard_body_c_light",
 			"isMatureContent": false,
 			"name": "Thermal_Map",
 			"samplerState": {
