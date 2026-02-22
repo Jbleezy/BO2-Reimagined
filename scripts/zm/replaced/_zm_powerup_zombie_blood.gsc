@@ -62,12 +62,12 @@ zombie_blood_powerup(m_powerup, e_player)
 
 	if (!isdefined(e_player.m_fx))
 	{
-		v_origin = e_player gettagorigin("J_Eyeball_LE");
-		v_angles = e_player gettagangles("J_Eyeball_LE");
+		v_origin = e_player gettagorigin("J_SpineLower");
+		v_angles = e_player gettagangles("J_SpineLower");
 		m_fx = spawn("script_model", v_origin);
 		m_fx setmodel("tag_origin");
 		m_fx.angles = v_angles;
-		m_fx linkto(e_player, "J_Eyeball_LE", (0, 0, 0), (0, 0, 0));
+		m_fx linkto(e_player, "J_SpineLower", (0, 0, 0), (0, 0, 0));
 		m_fx thread fx_disconnect_watch(e_player);
 		playfxontag(level._effect["zombie_blood"], m_fx, "tag_origin");
 		e_player.m_fx = m_fx;

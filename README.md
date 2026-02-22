@@ -964,6 +964,8 @@
 * No longer makes zombies ignore the player
 * Makes the player invulnerable to zombie melee swipes
 * No longer changes FOV
+* Changed player world fx position
+* Player view fx is removed instantly when powerup ends
 
 ### Meat Stink
 * Added pick up, throw, and land sounds to all maps
