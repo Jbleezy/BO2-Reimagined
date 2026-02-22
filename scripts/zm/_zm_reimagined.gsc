@@ -3605,6 +3605,12 @@ set_move_speed_scale(move_scale)
 
 player_suicide()
 {
+	if (is_true(self.is_zombie))
+	{
+		wait_network_frame();
+		return;
+	}
+
 	self.playersuicided = 1;
 	self notify("bled_out");
 
