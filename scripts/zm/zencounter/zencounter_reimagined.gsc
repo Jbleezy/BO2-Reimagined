@@ -982,7 +982,7 @@ headstomp_watcher()
 
 	while (1)
 	{
-		if (self.sessionstate != "playing")
+		if (!is_player_valid(self))
 		{
 			wait 0.05;
 			continue;
@@ -997,7 +997,7 @@ headstomp_watcher()
 				if (distance2d(self.origin, player.origin) <= 21 && (self.origin[2] - player.origin[2]) <= 30)
 				{
 					player store_player_damage_info(self, "none", "MOD_FALLING");
-					player dodamage(1000, (0, 0, 0));
+					player dodamage(player.health, player.origin);
 				}
 			}
 		}
