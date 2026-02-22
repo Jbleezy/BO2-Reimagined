@@ -1069,15 +1069,7 @@ round_start_wait(time, initial)
 
 		foreach (player in players)
 		{
-			ground_origin = groundpos(player.origin);
-			dist = distancesquared(player.origin, ground_origin);
-
-			// distance check because sometimes groundpos goes below walkable surface
-			if (dist <= 4096)
-			{
-				player setOrigin(ground_origin); // players normally spawn slightly above the ground
-			}
-
+			player setOrigin(groundpos_ignore_water_new(player.origin)); // players normally spawn slightly above the ground
 			player setPlayerAngles(player.spectator_respawn.angles); // fixes angles if player was looking around while spawning in
 		}
 	}
