@@ -402,6 +402,8 @@ player_zombie_inert()
 	self endon("stop_zombie_inert");
 	level endon("end_game");
 
+	self thread player_zombie_inert_think();
+
 	if (is_true(self.is_inert))
 	{
 		return;
@@ -410,8 +412,6 @@ player_zombie_inert()
 	self.is_inert = 1;
 
 	self thread maps\mp\zombies\_zm_ai_basic::inert_wakeup();
-
-	self thread player_zombie_inert_think();
 
 	self setclientfield("player_has_eyes", 0);
 	self disableweapons();
@@ -431,6 +431,8 @@ player_zombie_inert()
 
 player_zombie_inert_think()
 {
+	self notify("player_zombie_inert_think");
+	self endon("player_zombie_inert_think");
 	self endon("disconnect");
 	level endon("end_game");
 
