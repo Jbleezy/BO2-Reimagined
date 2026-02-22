@@ -112,22 +112,20 @@ pickup(attacker)
 spawntacticalinsertion()
 {
 	self endon("disconnect");
-	self.tacticalinsertion = spawn("script_model", self.origin + (0, 0, 1));
+	self.tacticalinsertion = spawn("script_model", self.origin);
 	self.tacticalinsertion setmodel("t6_wpn_tac_insert_world");
-	self.tacticalinsertion.origin = self.origin + (0, 0, 1);
+	self.tacticalinsertion.origin = self.origin;
 	self.tacticalinsertion.angles = self.angles;
 	self.tacticalinsertion.team = self.team;
 	self.tacticalinsertion setteam(self.team);
 	self.tacticalinsertion.owner = self;
 	self.tacticalinsertion setowner(self);
 	self.tacticalinsertion setweapon(level.tacticalinsertionweapon);
-	self.tacticalinsertion setinvisibletoall();
-	self.tacticalinsertion setvisibletoplayer(self);
 	self.tacticalinsertion thread play_tactical_insertion_effects();
 	self.tacticalinsertion endon("delete");
 	triggerheight = 64;
 	triggerradius = 128;
-	self.tacticalinsertion.friendlytrigger = spawn("trigger_radius_use", self.tacticalinsertion.origin + vectorscale((0, 0, 1), 3.0));
+	self.tacticalinsertion.friendlytrigger = spawn("trigger_radius_use", self.tacticalinsertion.origin + vectorscale((0, 0, 1), 4.0));
 	self.tacticalinsertion.friendlytrigger setcursorhint("HINT_NOICON", self.tacticalinsertion);
 	self.tacticalinsertion.friendlytrigger sethintstring(&"MP_TACTICAL_INSERTION_PICKUP");
 
@@ -170,6 +168,7 @@ tactical_insertion_safe_to_plant()
 
 tactical_insertion_wait_and_fizzle()
 {
+	self endon("death");
 	wait 0.1;
 	self thread fizzle(self.owner, 1);
 }
@@ -182,32 +181,17 @@ fizzle(attacker, pickup)
 	}
 
 	self.fizzle = 1;
-	self thread fizzle_fx();
+	playfx(level._effect["tacticalInsertionFizzle"], self.origin);
+	self playsound("dst_tac_insert_break");
 
 	if (pickup)
 	{
-		self playsoundtoplayer("dst_tac_insert_break", self.owner);
 		self pickup(attacker);
 	}
 	else
 	{
-		self.owner playlocalsound("dst_tac_insert_break");
 		self destroy_tactical_insertion(attacker);
 	}
-}
-
-fizzle_fx()
-{
-	temp_ent = spawn("script_model", self.origin);
-	temp_ent setmodel("tag_origin");
-	temp_ent setinvisibletoall();
-	temp_ent setvisibletoplayer(self.owner);
-
-	playfxontag(level._effect["tacticalInsertionFizzle"], temp_ent, "tag_origin");
-
-	wait 1;
-
-	temp_ent delete();
 }
 
 cancel_button_think()

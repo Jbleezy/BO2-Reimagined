@@ -117,6 +117,7 @@ turn_to_zombie()
 
 	self thread delay_turning_on_eyes();
 	self thread turned_player_buttons();
+	self thread turned_spawn_protection();
 	self thread turned_melee_watcher();
 	self thread turned_grenade_watcher();
 	self thread turned_jump_watcher();
@@ -141,11 +142,13 @@ turned_give_melee_weapon()
 
 turned_give_tactical_insertion()
 {
-	if (!isdefined(self.tacticalinsertion))
+	if (isdefined(self.tacticalinsertion))
 	{
-		self giveweapon("tactical_insertion_zm");
-		self set_player_tactical_grenade("tactical_insertion_zm");
+		self.tacticalinsertion scripts\zm\reimagined\_zm_weap_tacticalinsertion::destroy_tactical_insertion();
 	}
+
+	self giveweapon("tactical_insertion_zm");
+	self set_player_tactical_grenade("tactical_insertion_zm");
 }
 
 delay_turning_on_eyes()
@@ -211,6 +214,54 @@ turned_player_buttons()
 
 		wait 0.05;
 	}
+}
+
+turned_spawn_protection()
+{
+	level endon("end_game");
+
+	if (self.sessionstate != "playing" || is_true(self.playersuicided))
+	{
+		return;
+	}
+
+	if (self issprinting())
+	{
+		clientnotify("turned_spawn_protection_start_and_stop");
+		return;
+	}
+
+	self.turned_zombie_spawn_protection = 1;
+
+	tag = "j_spinelower";
+
+	turned_spawn_protection_ent = spawn("script_model", self gettagorigin(tag));
+	turned_spawn_protection_ent.angles = self gettagangles(tag);
+	turned_spawn_protection_ent setmodel("tag_origin");
+	turned_spawn_protection_ent linkto(self, tag);
+
+	turned_spawn_protection_ent thread turned_spawn_protection_ent_play_fx();
+
+	turned_spawn_protection_ent playloopsound("zmb_zombieblood_3rd_loop", 1);
+
+	clientnotify("turned_spawn_protection_start");
+
+	self waittill_any("weapon_melee", "sprint_begin", "spawned_spectator", "humanify", "disconnect");
+
+	turned_spawn_protection_ent delete();
+
+	clientnotify("turned_spawn_protection_stop");
+
+	self.turned_zombie_spawn_protection = undefined;
+}
+
+turned_spawn_protection_ent_play_fx()
+{
+	self endon("death");
+
+	wait 0.05;
+
+	playfxontag(level._effect["zombie_blood"], self, "tag_origin");
 }
 
 turned_melee_watcher()

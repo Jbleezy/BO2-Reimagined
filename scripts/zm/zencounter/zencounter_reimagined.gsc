@@ -3733,20 +3733,18 @@ turned_zombie_init()
 
 turned_zombie_spawn()
 {
-	if (!isdefined(self.turned_zombie_spawn_point_ent))
+	if (!isdefined(self.turned_zombie_spawn_point_ent) && !isdefined(self.tacticalinsertion))
 	{
 		self turned_zombie_spectate(0);
 		return;
 	}
-
-	self maps\mp\zombies\_zm_turned::turn_to_zombie();
 
 	if (isdefined(self.tacticalinsertion))
 	{
 		self setorigin(self.tacticalinsertion.origin);
 		self setplayerangles(self.tacticalinsertion.angles);
 	}
-	else
+	else if (isdefined(self.turned_zombie_spawn_point_ent))
 	{
 		player = self turned_zombie_get_closest_valid_survivor();
 		angles = vectortoangles(player.origin - self.turned_zombie_spawn_point_ent.origin);
@@ -3754,73 +3752,16 @@ turned_zombie_spawn()
 
 		self setorigin(self.turned_zombie_spawn_point_ent.origin);
 		self setplayerangles(angles);
+
+		self.turned_zombie_spawn_point_ent delete();
 	}
 
-	self.turned_zombie_spawn_point_ent delete();
+	self maps\mp\zombies\_zm_turned::turn_to_zombie();
 
 	playfx(level._effect["zombie_disappears"], self.origin);
 	playsoundatposition("evt_appear_3d", self.origin);
 	earthquake(0.5, 0.75, self.origin, 100);
 	playrumbleonposition("explosion_generic", self.origin);
-
-	self thread turned_zombie_spawn_protection_think();
-}
-
-turned_zombie_spawn_protection_think()
-{
-	self endon("disconnect");
-	self endon("spawned_spectator");
-	self endon("humanify");
-	self endon("turned_zombie_spawn_protection_fx_end");
-	level endon("end_game");
-
-	self.turned_zombie_spawn_protection = 1;
-
-	tag = "j_spinelower";
-
-	player_fx_ent = spawn("script_model", self gettagorigin(tag));
-	player_fx_ent.angles = self gettagangles(tag);
-	player_fx_ent setmodel("tag_origin");
-	player_fx_ent linkto(self, tag);
-
-	playfxontag(level._effect["zombie_blood"], player_fx_ent, "tag_origin");
-
-	player_fx_ent playloopsound("zmb_zombieblood_3rd_loop", 1);
-
-	clientnotify("start_turned_zombie_spawn_protection_fx");
-
-	self thread turned_zombie_spawn_protection_cleanup(player_fx_ent);
-
-	origin = self.origin;
-
-	while (distance2dsquared(self.origin, origin) < 32 * 32)
-	{
-		wait 0.05;
-	}
-
-	player_fx_ent delete();
-
-	clientnotify("stop_turned_zombie_spawn_protection_fx");
-
-	self.turned_zombie_spawn_protection = undefined;
-
-	self notify("turned_zombie_spawn_protection_fx_end");
-}
-
-turned_zombie_spawn_protection_cleanup(player_fx_ent)
-{
-	self endon("turned_zombie_spawn_protection_fx_end");
-	level endon("end_game");
-
-	self waittill_any("weapon_melee", "spawned_spectator", "humanify", "disconnect");
-
-	player_fx_ent delete();
-
-	clientnotify("stop_turned_zombie_spawn_protection_fx");
-
-	self.turned_zombie_spawn_protection = undefined;
-
-	self notify("turned_zombie_spawn_protection_fx_end");
 }
 
 turned_zombie_spectate(play_fx = 1)
@@ -3849,9 +3790,10 @@ turned_zombie_wait_and_respawn()
 
 	self.turned_zombie_wait_and_respawn = 1;
 
-	self.turned_zombie_spawn_point_ent = self turned_zombie_get_spawn_point_ent();
-
-	self thread scripts\zm\reimagined\_zm_weap_tacticalinsertion::cancel_button_think();
+	if (!isdefined(self.tacticalinsertion))
+	{
+		self.turned_zombie_spawn_point_ent = self turned_zombie_get_spawn_point_ent();
+	}
 
 	time = 10;
 
@@ -3878,7 +3820,22 @@ turned_zombie_get_spawn_point_ent()
 {
 	player = turned_zombie_get_random_valid_survivor();
 
-	spawn_point_ent = spawn("script_origin", player.origin);
+	origin = player.origin;
+
+	if (player is_jumping())
+	{
+		ground_origin = groundpos_ignore_water_new(player.origin + (0, 0, 40));
+
+		if (check_point_in_enabled_zone(ground_origin))
+		{
+			origin = ground_origin;
+		}
+	}
+
+	spawn_point_ent = spawn("script_model", origin);
+	spawn_point_ent.angles = player.angles;
+	spawn_point_ent setmodel("t6_wpn_tac_insert_world");
+	spawn_point_ent.owner = self;
 
 	if (isdefined(level.elevators) && isdefined(level.elevator_volumes))
 	{
@@ -3908,16 +3865,26 @@ turned_zombie_get_spawn_point_ent()
 		}
 	}
 
-	spawn_point_ent thread turned_zombie_spawn_point_ent_cleanup(self);
+	spawn_point_ent thread turned_zombie_spawn_point_ent_play_fx();
+	spawn_point_ent thread turned_zombie_spawn_point_ent_cleanup();
 
 	return spawn_point_ent;
 }
 
-turned_zombie_spawn_point_ent_cleanup(owner)
+turned_zombie_spawn_point_ent_play_fx()
 {
 	self endon("death");
 
-	owner waittill("disconnect");
+	wait 0.05;
+
+	playfxontag(level._effect["tacticalInsertionEnemy"], self, "tag_flash");
+}
+
+turned_zombie_spawn_point_ent_cleanup(ent)
+{
+	self endon("death");
+
+	self.owner waittill("disconnect");
 
 	self delete();
 }
