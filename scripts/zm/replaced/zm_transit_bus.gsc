@@ -409,7 +409,7 @@ busshowleavinghud(time)
 				hud.alpha = 1;
 				hud.color = (1, 1, 1);
 				hud.label = &"ZM_TRANSIT_BUS_DEPART_TIME";
-				hud setTimer(time);
+				hud setTimer(time - 0.05);
 				player.busleavehud = hud;
 			}
 

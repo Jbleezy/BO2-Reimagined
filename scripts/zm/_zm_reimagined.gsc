@@ -1683,7 +1683,7 @@ setlowermessage(text, time, combinemessageandtimer)
 			self.lowertimer.label = text;
 		}
 
-		self.lowertimer settimer(time);
+		self.lowertimer settimer(time - 0.05);
 	}
 	else
 	{

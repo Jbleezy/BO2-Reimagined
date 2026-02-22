@@ -543,7 +543,7 @@ create_map_vote_timer_hud(x, y, time)
 	hud.foreground = 1;
 	hud.alpha = 1;
 	hud.label = &"ZOMBIE_HUD_VOTE_TIME";
-	hud setTimer(time);
+	hud setTimer(time - 0.05);
 
 	return hud;
 }
