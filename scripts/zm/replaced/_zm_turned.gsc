@@ -64,6 +64,7 @@ turn_to_zombie()
 	self.premaxhealth = self.maxhealth;
 	self.meleedamage = 50;
 	self.laststand = undefined;
+	self.no_revive_trigger = 1;
 	self.shock_onpain = 0;
 	self.score = 0;
 	self.ignoreme = 1;
@@ -142,11 +143,6 @@ turned_give_melee_weapon()
 
 turned_give_tactical_insertion()
 {
-	if (isdefined(self.tacticalinsertion))
-	{
-		self.tacticalinsertion scripts\zm\reimagined\_zm_weap_tacticalinsertion::destroy_tactical_insertion();
-	}
-
 	self giveweapon("tactical_insertion_zm");
 	self set_player_tactical_grenade("tactical_insertion_zm");
 }

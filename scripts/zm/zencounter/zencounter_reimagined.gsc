@@ -886,7 +886,7 @@ player_wait_and_respawn()
 
 	self scripts\zm\_zm_reimagined::setlowermessage(&"GAME_RESPAWNING", time);
 
-	self luinotifyevent(&"show_dead_spectate_hud");
+	self thread wait_and_show_dead_spectate_hud();
 
 	wait time;
 
@@ -899,6 +899,19 @@ player_wait_and_respawn()
 	self maps\mp\zombies\_zm::spectator_respawn();
 
 	self.player_wait_and_respawn = undefined;
+}
+
+wait_and_show_dead_spectate_hud()
+{
+	self endon("disconnect");
+
+	if (is_true(self.wait_and_show_dead_spectate_hud))
+	{
+		self.wait_and_show_dead_spectate_hud = undefined;
+		self scripts\zm\_zm_reimagined::waittill_next_snapshot();
+	}
+
+	self luinotifyevent(&"show_dead_spectate_hud");
 }
 
 get_held_melee_weapon(melee_weapon)
@@ -3725,9 +3738,12 @@ turned_zombie_init()
 
 turned_zombie_spawn()
 {
+	self maps\mp\zombies\_zm_turned::turn_to_zombie();
+
 	if (!isdefined(self.turned_zombie_spawn_point_ent) && !isdefined(self.tacticalinsertion))
 	{
-		self turned_zombie_spectate(0);
+		self.wait_and_show_dead_spectate_hud = 1;
+		self maps\mp\zombies\_zm::spawnspectator();
 		return;
 	}
 
@@ -3735,6 +3751,8 @@ turned_zombie_spawn()
 	{
 		self setorigin(self.tacticalinsertion.origin);
 		self setplayerangles(self.tacticalinsertion.angles);
+
+		self.tacticalinsertion scripts\zm\reimagined\_zm_weap_tacticalinsertion::destroy_tactical_insertion();
 	}
 	else if (isdefined(self.turned_zombie_spawn_point_ent))
 	{
@@ -3748,26 +3766,22 @@ turned_zombie_spawn()
 		self.turned_zombie_spawn_point_ent delete();
 	}
 
-	self maps\mp\zombies\_zm_turned::turn_to_zombie();
-
 	playfx(level._effect["zombie_disappears"], self.origin);
 	playsoundatposition("evt_appear_3d", self.origin);
 	earthquake(0.5, 0.75, self.origin, 100);
 	playrumbleonposition("explosion_generic", self.origin);
 }
 
-turned_zombie_spectate(play_fx = 1)
+turned_zombie_spectate()
 {
-	if (play_fx)
-	{
-		playfx(level._effect["zombie_disappears"], self.origin);
-		playsoundatposition("evt_disappear_3d", self.origin);
-	}
+	self freezecontrols(1);
+	self forcegrenadethrow();
+	self disableweapons();
+	self stopsounds();
+	self ghost();
 
-	self maps\mp\zombies\_zm::spawnspectator();
-
-	self.maxhealth = level.zombie_vars["zombie_health_start"];
-	self.health = self.maxhealth;
+	playfx(level._effect["zombie_disappears"], self.origin);
+	playsoundatposition("evt_disappear_3d", self.origin);
 }
 
 turned_zombie_wait_and_respawn()
@@ -3791,7 +3805,7 @@ turned_zombie_wait_and_respawn()
 
 	self scripts\zm\_zm_reimagined::setlowermessage(&"GAME_RESPAWNING", time);
 
-	self luinotifyevent(&"show_dead_spectate_hud");
+	self thread wait_and_show_dead_spectate_hud();
 
 	wait time;
 
