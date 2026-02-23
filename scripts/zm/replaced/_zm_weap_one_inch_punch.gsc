@@ -38,41 +38,44 @@ one_inch_punch_melee_attack()
 	self giveweapon(flourish_weapon);
 	self switchtoweapon(flourish_weapon);
 
-	result = self waittill_any_return("player_downed", "weapon_change");
+	result = self waittill_any_return("fake_death", "death", "player_downed", "weapon_change");
 
-	current_melee = self get_player_melee_weapon();
-
-	if (issubstr(current_melee, "staff"))
+	if (result != "fake_death" && result != "death")
 	{
-		self takeweapon(current_melee);
-	}
+		current_melee = self get_player_melee_weapon();
 
-	current_melee_weapon = self scripts\zm\replaced\zm_tomb_utility::get_melee_weapon_from_held();
-	self takeweapon(current_melee_weapon);
-	self takeweapon("held_" + current_melee_weapon);
-	self giveweapon(punch_weapon);
-	self set_player_melee_weapon(punch_weapon);
-	self giveweapon("held_" + punch_weapon);
-
-	if (!self hasweapon("equip_dieseldrone_zm"))
-	{
-		self setactionslot(2, "weapon", "held_" + punch_weapon);
-	}
-
-	if (result != "player_downed")
-	{
-		result = self waittill_any_return("player_downed", "weapon_change_complete");
-	}
-
-	if (result != "player_downed")
-	{
-		if (is_melee_weapon(str_weapon))
+		if (issubstr(current_melee, "staff"))
 		{
-			self switchtoweapon("held_" + punch_weapon);
+			self takeweapon(current_melee);
 		}
-		else
+
+		current_melee_weapon = self scripts\zm\replaced\zm_tomb_utility::get_melee_weapon_from_held();
+		self takeweapon(current_melee_weapon);
+		self takeweapon("held_" + current_melee_weapon);
+		self giveweapon(punch_weapon);
+		self set_player_melee_weapon(punch_weapon);
+		self giveweapon("held_" + punch_weapon);
+
+		if (!self hasweapon("equip_dieseldrone_zm"))
 		{
-			self switchtoweapon(str_weapon);
+			self setactionslot(2, "weapon", "held_" + punch_weapon);
+		}
+
+		if (result == "weapon_change")
+		{
+			result = self waittill_any_return("fake_death", "death", "player_downed", "weapon_change_complete");
+		}
+
+		if (result == "weapon_change_complete")
+		{
+			if (is_melee_weapon(str_weapon))
+			{
+				self switchtoweapon("held_" + punch_weapon);
+			}
+			else
+			{
+				self switchtoweapon(str_weapon);
+			}
 		}
 	}
 
