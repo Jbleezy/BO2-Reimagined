@@ -403,10 +403,18 @@ grief_onplayerdisconnect(disconnecting_player)
 	{
 		if (disconnecting_player.team != level.zombie_team)
 		{
+			amount = 0;
+
 			if (!disconnecting_player maps\mp\zombies\_zm_laststand::player_is_in_laststand())
 			{
-				increment_score(disconnecting_player.team, -1, 0);
+				amount = -1;
 			}
+
+			increment_score("allies", amount, 0, &"ZOMBIE_SURVIVOR_DISAPPEARED");
+		}
+		else
+		{
+			increment_score("allies", 0, 0, &"ZOMBIE_ZOMBIE_DISAPPEARED");
 		}
 	}
 
@@ -3744,6 +3752,7 @@ turned_zombie_spawn()
 	{
 		self.wait_and_show_dead_spectate_hud = 1;
 		self maps\mp\zombies\_zm::spawnspectator();
+		increment_score("allies", 0, 0, &"ZOMBIE_ZOMBIE_APPEARED");
 		return;
 	}
 
@@ -4192,11 +4201,7 @@ turned_score_msg(team, score_msg)
 		player thread show_grief_hud_msg(score_msg, other_score, score);
 	}
 
-	if (score_msg == &"ZOMBIE_SURVIVOR_TURNED")
-	{
-		level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog(other_score + "_player_down", team);
-	}
-	else
+	if (score_msg == &"ZOMBIE_SURVIVOR_DOWN" || score_msg == &"ZOMBIE_SURVIVOR_REVIVED" || score_msg == &"ZOMBIE_SURVIVOR_DISAPPEARED")
 	{
 		if (score == 1)
 		{
@@ -4210,6 +4215,10 @@ turned_score_msg(team, score_msg)
 		}
 
 		level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog(score + "_player_left", other_team);
+	}
+	else
+	{
+		level thread maps\mp\zombies\_zm_audio_announcer::leaderdialog(other_score + "_player_down", team);
 	}
 }
 

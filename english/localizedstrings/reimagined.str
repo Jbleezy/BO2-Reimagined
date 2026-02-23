@@ -426,6 +426,15 @@ LANG_ENGLISH        "Survivor Revived! [&&1 V &&2]"
 REFERENCE           ZOMBIE_SURVIVOR_TURNED
 LANG_ENGLISH        "Survivor Turned! [&&1 V &&2]"
 
+REFERENCE           ZOMBIE_SURVIVOR_DISAPPEARED
+LANG_ENGLISH        "Survivor Disappeared! [&&1 V &&2]"
+
+REFERENCE           ZOMBIE_ZOMBIE_APPEARED
+LANG_ENGLISH        "Zombie Appeared! [&&1 V &&2]"
+
+REFERENCE           ZOMBIE_ZOMBIE_DISAPPEARED
+LANG_ENGLISH        "Zombie Disappeared! [&&1 V &&2]"
+
 REFERENCE           ZM_PRISON_SHIELD
 LANG_ENGLISH        "Zombie Shield"
 
