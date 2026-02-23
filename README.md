@@ -296,6 +296,7 @@
 * Removed headless zombies
 * Neck counts as headshot
 * All body shot kills award 50 points
+* Loud vocals only play for last zombie of the round
 * 4 round and 5 round special rounds happen more equally
 * Fixed not being able to drop powerups after doing certain traversals
 

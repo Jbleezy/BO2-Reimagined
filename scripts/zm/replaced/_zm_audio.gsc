@@ -137,7 +137,7 @@ is_last_zombie()
 	}
 	else
 	{
-		if (get_current_zombie_count() <= 1)
+		if (get_current_zombie_count() + level.zombie_total <= 1)
 		{
 			return true;
 		}

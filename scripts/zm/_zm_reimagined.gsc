@@ -1168,7 +1168,7 @@ enemy_counter_hud()
 
 	while (1)
 	{
-		enemies = get_round_enemy_array().size + level.zombie_total;
+		enemies = get_current_zombie_count() + level.zombie_total;
 
 		if (level flag_exists("spawn_ghosts") && flag("spawn_ghosts") && isdefined(level.get_current_ghost_count_func))
 		{
