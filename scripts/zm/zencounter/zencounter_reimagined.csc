@@ -42,16 +42,15 @@ turned_init()
 	clientscripts\mp\zombies\_zm_turned::main();
 	clientscripts\mp\zombies\_zm_turned::init();
 
-	level thread turned_spawn_protection_start_think();
-	level thread turned_spawn_protection_stop_think();
-	level thread turned_spawn_protection_start_and_stop_think();
+	level thread turned_zombie_spawn_protection_start_think();
+	level thread turned_zombie_spawn_protection_stop_think();
 }
 
-turned_spawn_protection_start_think()
+turned_zombie_spawn_protection_start_think()
 {
 	while (1)
 	{
-		level waittill("turned_spawn_protection_start");
+		level waittill("turned_zombie_spawn_protection_start");
 
 		player = getlocalplayers()[0];
 
@@ -63,11 +62,11 @@ turned_spawn_protection_start_think()
 	}
 }
 
-turned_spawn_protection_stop_think()
+turned_zombie_spawn_protection_stop_think()
 {
 	while (1)
 	{
-		level waittill("turned_spawn_protection_stop");
+		level waittill("turned_zombie_spawn_protection_stop");
 
 		player = getlocalplayers()[0];
 
@@ -79,17 +78,5 @@ turned_spawn_protection_stop_think()
 		playsound(0, "zmb_zombieblood_stop", (0, 0, 0));
 
 		stoploopat("zmb_zombieblood_loop", (0, 0, 0));
-	}
-}
-
-turned_spawn_protection_start_and_stop_think()
-{
-	while (1)
-	{
-		level waittill("turned_spawn_protection_start_and_stop");
-
-		playsound(0, "zmb_zombieblood_start", (0, 0, 0));
-
-		playsound(0, "zmb_zombieblood_stop", (0, 0, 0));
 	}
 }

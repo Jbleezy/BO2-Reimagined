@@ -1684,7 +1684,7 @@
 * Zombies can't move while attacking, changing stances, or deploying a Tactical Insertion
 * Zombies move at 50% fading move speed for 0.5 seconds after jumping
 * Zombies can open doors and activate traps
-* Zombies can't damage the same survivor for 0.25 seconds
-* Zombies can't be damaged by survivors until they attack or sprint
+* Zombies can't damage the same survivor for 0.25 seconds after damaging them
+* Zombies can't be damaged by survivors for 3 seconds after respawn or until they attack
 * Zombies respawn at the position of a random survivor when they died if they did not deploy a Tactical Insertion
 * Zombies respawn after spectating for 10 seconds

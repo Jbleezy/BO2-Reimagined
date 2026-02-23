@@ -3770,6 +3770,43 @@ turned_zombie_spawn()
 	playsoundatposition("evt_appear_3d", self.origin);
 	earthquake(0.5, 0.75, self.origin, 100);
 	playrumbleonposition("explosion_generic", self.origin);
+
+	self thread turned_zombie_spawn_protection();
+}
+
+turned_zombie_spawn_protection()
+{
+	self.turned_zombie_spawn_protection = 1;
+
+	tag = "j_spinelower";
+
+	turned_zombie_spawn_protection_ent = spawn("script_model", self gettagorigin(tag));
+	turned_zombie_spawn_protection_ent.angles = self gettagangles(tag);
+	turned_zombie_spawn_protection_ent setmodel("tag_origin");
+	turned_zombie_spawn_protection_ent linkto(self, tag);
+
+	turned_zombie_spawn_protection_ent thread turned_zombie_spawn_protection_ent_play_fx();
+
+	turned_zombie_spawn_protection_ent playloopsound("zmb_zombieblood_3rd_loop", 1);
+
+	clientnotify("turned_zombie_spawn_protection_start");
+
+	self waittill_any_timeout(3, "weapon_melee", "spawned_spectator", "humanify", "disconnect");
+
+	turned_zombie_spawn_protection_ent delete();
+
+	clientnotify("turned_zombie_spawn_protection_stop");
+
+	self.turned_zombie_spawn_protection = undefined;
+}
+
+turned_zombie_spawn_protection_ent_play_fx()
+{
+	self endon("death");
+
+	wait 0.05;
+
+	playfxontag(level._effect["zombie_blood"], self, "tag_origin");
 }
 
 turned_zombie_spectate()
