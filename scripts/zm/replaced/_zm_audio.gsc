@@ -128,12 +128,7 @@ is_last_zombie()
 {
 	if (isplayer(self))
 	{
-		if (getdvarfloat("player_zombieSpeedScale") > 1)
-		{
-			return true;
-		}
-
-		return false;
+		return true;
 	}
 	else
 	{
