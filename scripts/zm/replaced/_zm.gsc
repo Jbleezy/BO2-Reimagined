@@ -2281,6 +2281,11 @@ player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, s
 		self.damageweapon = sweapon;
 		self.damagelocation = shitloc;
 
+		if (self maps\mp\zombies\_zm_laststand::player_is_in_laststand())
+		{
+			return 0;
+		}
+
 		if (isdefined(eattacker) && isplayer(eattacker) && is_true(self.turned_zombie_spawn_protection))
 		{
 			return 0;
