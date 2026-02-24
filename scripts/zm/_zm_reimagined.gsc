@@ -248,8 +248,6 @@ init()
 
 	level thread on_player_connect();
 
-	level thread pre_end_game();
-
 	level thread on_intermission();
 
 	level thread post_init();
@@ -719,15 +717,6 @@ on_player_disconnect()
 	objective_clearentity(self.obj_ind, self);
 	objective_setgamemodeflags(self.obj_ind, 0);
 	objective_position(self.obj_ind, (0, 0, 0));
-}
-
-pre_end_game()
-{
-	level.pre_intermission = 0;
-
-	level waittill("pre_end_game");
-
-	level.pre_intermission = 1;
 }
 
 on_intermission()
@@ -1503,7 +1492,7 @@ bleedout_bar_hud()
 {
 	self endon("disconnect");
 
-	if (is_true(level.pre_intermission))
+	if (is_true(self.intermission))
 	{
 		return;
 	}

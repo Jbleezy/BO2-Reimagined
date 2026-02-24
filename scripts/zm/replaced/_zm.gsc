@@ -2601,6 +2601,7 @@ player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, s
 
 	if ((solo_death || non_solo_death) && !is_true(level.no_end_game_check))
 	{
+		self.intermission = 1;
 		level notify("stop_suicide_trigger");
 		self thread scripts\zm\replaced\_zm_laststand::playerlaststand(einflictor, eattacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime);
 
