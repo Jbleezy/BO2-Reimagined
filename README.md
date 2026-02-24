@@ -820,7 +820,7 @@
 * Decreased upgraded ammo cost from 4500 to 2500
 * Ammo can be purchased if only alt weapon ammo has been used
 * Purchasing no longer shows the weapon model at other wallbuys of the same weapon
-* Melee weapons are given when flourish anim starts
+* Melee weapons are given instantly when purchased
 * Changed all hint strings from "to buy" to "for"
 * Lethal grenade hint string no longer displays "ammo" after purchasing
 * Increased brightness of wallbuy chalks

@@ -203,14 +203,15 @@ give_melee_weapon(vo_dialog_id, flourish_weapon_name, weapon_name, ballistic_wea
 		self thread [[flourish_fn]]();
 	}
 
-	self thread do_melee_weapon_change(weapon_name);
-
 	pre_temp_weapon = self do_melee_weapon_flourish_begin(flourish_weapon_name);
 
 	if (!isdefined(self.pre_temp_weapon))
 	{
 		self.pre_temp_weapon = pre_temp_weapon;
 	}
+
+	self giveweapon(weapon_name);
+	change_melee_weapon(weapon_name, self.pre_temp_weapon);
 
 	self maps\mp\zombies\_zm_audio::create_and_play_dialog("weapon_pickup", vo_dialog_id);
 	self waittill_any("fake_death", "death", "player_downed", "weapon_change_complete");
@@ -234,24 +235,6 @@ give_melee_weapon(vo_dialog_id, flourish_weapon_name, weapon_name, ballistic_wea
 		}
 
 		self trigger_hide_all();
-	}
-}
-
-do_melee_weapon_change(weapon_name)
-{
-	self endon("disconnect");
-	self endon("death");
-	self endon("fake_death");
-	self endon("player_downed");
-
-	self waittill_any("weapon_change", "weapon_change_complete");
-
-	self giveweapon(weapon_name);
-	pre_temp_weapon = change_melee_weapon(weapon_name, self.pre_temp_weapon);
-
-	if (!isdefined(self.pre_temp_weapon))
-	{
-		self.pre_temp_weapon = pre_temp_weapon;
 	}
 }
 
