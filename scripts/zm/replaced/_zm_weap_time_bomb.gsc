@@ -387,6 +387,25 @@ _time_bomb_revive_all_downed_players()
 	}
 }
 
+destroy_time_bomb_save_if_user_bleeds_out_or_disconnects()
+{
+	self endon("player_lost_time_bomb");
+
+	while (1)
+	{
+		result = self waittill_any_return("bled_out", "disconnect");
+
+		if (result == "bled_out" && is_encounter() && level.scr_zm_ui_gametype != "zturned")
+		{
+			continue;
+		}
+
+		break;
+	}
+
+	destroy_time_bomb_save();
+}
+
 time_bomb_post_init()
 {
 	maps\mp\_visionset_mgr::vsmgr_register_info("overlay", "zombie_time_bomb_overlay", 12000, 200, 20, 0, ::time_bomb_overlay_lerp_thread);
