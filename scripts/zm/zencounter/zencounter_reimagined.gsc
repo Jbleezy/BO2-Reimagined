@@ -3879,11 +3879,15 @@ turned_zombie_get_spawn_point_ent()
 
 	if (player is_jumping())
 	{
-		ground_origin = groundpos_ignore_water_new(player.origin + (0, 0, 40));
-
-		if (check_point_in_enabled_zone(ground_origin))
+		if (!isdefined(player.ground_origin))
 		{
-			origin = ground_origin;
+			player.ground_origin = groundpos_ignore_water_new(player.origin + (0, 0, 40));
+			player thread wait_and_reset_ground_origin();
+		}
+
+		if (check_point_in_enabled_zone(player.ground_origin))
+		{
+			origin = player.ground_origin;
 		}
 	}
 
@@ -3974,6 +3978,15 @@ turned_zombie_get_random_valid_survivor()
 	}
 
 	return random(valid_players);
+}
+
+wait_and_reset_ground_origin()
+{
+	self endon("disconnect");
+
+	wait 0.05;
+
+	self.ground_origin = undefined;
 }
 
 can_revive(revivee)
