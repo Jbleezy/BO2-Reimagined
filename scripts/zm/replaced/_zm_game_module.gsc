@@ -231,13 +231,16 @@ game_won(winner)
 	{
 		player thread game_won_freeze_controls_think();
 
+		player scripts\zm\_zm_reimagined::clearlowermessage();
+
 		if (player._encounters_team == winner)
 		{
 			player thread maps\mp\zombies\_zm_audio_announcer::leaderdialogonplayer("grief_won");
-			continue;
 		}
-
-		player thread maps\mp\zombies\_zm_audio_announcer::leaderdialogonplayer("grief_lost");
+		else
+		{
+			player thread maps\mp\zombies\_zm_audio_announcer::leaderdialogonplayer("grief_lost");
+		}
 	}
 
 	if (isdefined(level.game_mode_scoring_team_hud_value))
