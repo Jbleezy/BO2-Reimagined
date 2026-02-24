@@ -452,7 +452,7 @@ meat_stink_ignoreme_think(check_meat_player_dist)
 				continue;
 			}
 
-			close_zombies = get_array_of_closest(player.origin, zombies, undefined, 1, 64);
+			close_zombies = get_array_of_closest(player.origin, zombies, undefined, 1, 48);
 			close_meat_player = 1;
 
 			if (check_meat_player_dist)

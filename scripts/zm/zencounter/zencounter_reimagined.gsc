@@ -2554,7 +2554,7 @@ containment_think()
 				{
 					if (is_player_valid(player) && !isDefined(level.meat_player) && !is_true(player.spawn_protection) && !is_true(player.revive_protection))
 					{
-						close_zombies = get_array_of_closest(player.origin, zombies, undefined, 1, 64);
+						close_zombies = get_array_of_closest(player.origin, zombies, undefined, 1, 48);
 
 						player.ignoreme = close_zombies.size == 0;
 					}
