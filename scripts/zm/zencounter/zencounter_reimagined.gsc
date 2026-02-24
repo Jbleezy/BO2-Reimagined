@@ -284,8 +284,17 @@ set_grief_vars()
 	level.game_module_onplayerconnect = ::grief_onplayerconnect;
 	level.game_mode_custom_onplayerdisconnect = ::grief_onplayerdisconnect;
 	level._game_module_player_damage_callback = ::game_module_player_damage_callback;
-	level._game_module_player_laststand_callback = ::grief_laststand_weapon_save;
-	level.onplayerspawned_restore_previous_weapons = ::grief_laststand_weapons_return;
+
+	if (level.scr_zm_ui_gametype == "zturned")
+	{
+		level._game_module_player_laststand_callback = undefined;
+		level.onplayerspawned_restore_previous_weapons = undefined;
+	}
+	else
+	{
+		level._game_module_player_laststand_callback = ::grief_laststand_weapon_save;
+		level.onplayerspawned_restore_previous_weapons = ::grief_laststand_weapons_return;
+	}
 
 	level.grief_score = [];
 	level.grief_score["A"] = 0;
