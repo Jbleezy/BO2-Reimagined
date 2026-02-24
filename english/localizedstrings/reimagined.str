@@ -307,10 +307,10 @@ REFERENCE           ZOMBIE_VOTE_HOWTO
 LANG_ENGLISH        "Press ^3[{+speed_throw}]^7 or ^3[{+attack}]^7 to change selection ^3[{+gostand}]^7 to vote"
 
 REFERENCE           ZOMBIE_ZSR_INTRO
-LANG_ENGLISH        "Get all enemy players down to win a round!"
+LANG_ENGLISH        "Down all enemy players to win a round!"
 
 REFERENCE           ZOMBIE_ZGRIEF_INTRO
-LANG_ENGLISH        "Make enemy players bleed out to gain score!"
+LANG_ENGLISH        "Bleed out enemy players to gain score!"
 
 REFERENCE           ZOMBIE_ZRACE_INTRO
 LANG_ENGLISH        "Kill zombies or enemy players to gain score!"
@@ -322,7 +322,7 @@ REFERENCE           ZOMBIE_ZMEAT_INTRO
 LANG_ENGLISH        "Hold the meat to gain score!"
 
 REFERENCE           ZOMBIE_ZTURNED_INTRO
-LANG_ENGLISH        "Get kills to reduce the enemy score!"
+LANG_ENGLISH        "Survive or kill to reduce the enemy score!"
 
 REFERENCE           ZOMBIE_GRIEF_ROUNDS_TO_WIN
 LANG_ENGLISH        "Win &&1 rounds to win the game!"
