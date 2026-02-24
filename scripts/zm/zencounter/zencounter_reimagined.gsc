@@ -3408,23 +3408,27 @@ meat_powerup_drop_think()
 {
 	level endon("end_game");
 
-	players = get_players();
-
-	foreach (player in players)
-	{
-		player thread show_grief_hud_msg(&"ZOMBIE_KILL_ZOMBIE_TO_DROP_MEAT");
-	}
-
 	while (1)
 	{
-		level.zombie_powerup_ape = "meat_stink";
-		level.zombie_vars["zombie_drop_item"] = 1;
+		players = get_players();
 
-		level waittill("powerup_dropped", powerup);
-
-		if (powerup.powerup_name != "meat_stink")
+		foreach (player in players)
 		{
-			continue;
+			player thread show_grief_hud_msg(&"ZOMBIE_KILL_ZOMBIE_TO_DROP_MEAT");
+		}
+
+		while (1)
+		{
+			level.zombie_powerup_ape = "meat_stink";
+			level.zombie_vars["zombie_drop_item"] = 1;
+
+			level waittill("powerup_dropped", powerup);
+
+			if (powerup.powerup_name == "meat_stink")
+			{
+				level.meat_powerup = powerup;
+				break;
+			}
 		}
 
 		players = get_players();
@@ -3434,16 +3438,7 @@ meat_powerup_drop_think()
 			player thread show_grief_hud_msg(&"ZOMBIE_MEAT_DROPPED");
 		}
 
-		level.meat_powerup = powerup;
-
 		level waittill("meat_inactive");
-
-		players = get_players();
-
-		foreach (player in players)
-		{
-			player thread show_grief_hud_msg(&"ZOMBIE_MEAT_RESET");
-		}
 	}
 }
 
@@ -3537,7 +3532,6 @@ turned_init()
 	maps\mp\zombies\_zm_powerups::add_zombie_powerup("the_disease", "p6_zm_tm_blood_power_up", &"ZOMBIE_POWERUP_MAX_AMMO", ::func_should_never_drop, 0, 1, 0);
 
 	level thread turned_think();
-	level thread turned_zombie_move_speed_think();
 }
 
 turned_think()
@@ -3545,6 +3539,8 @@ turned_think()
 	level endon("end_game");
 
 	flag_wait("initial_blackscreen_passed");
+
+	level thread turned_zombie_move_speed_think();
 
 	allies_players = get_players("allies");
 
@@ -3576,8 +3572,6 @@ turned_think()
 turned_zombie_move_speed_think()
 {
 	level endon("end_game");
-
-	flag_wait("initial_blackscreen_passed");
 
 	prev_fast_move_speed = 0;
 
@@ -3669,7 +3663,7 @@ the_disease_powerup_drop(origin, drop_from_disconnecting_player = 0)
 
 	foreach (player in players)
 	{
-		player thread show_grief_hud_msg(&"ZOMBIE_RUN_FROM_DISEASE");
+		player thread show_grief_hud_msg(&"ZOMBIE_RUN_AWAY_FROM_DISEASE_TO_SURVIVE");
 	}
 
 	level._powerup_timeout_override = ::the_disease_powerup_infinite_time;

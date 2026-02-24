@@ -411,11 +411,8 @@ LANG_ENGLISH        "Kill a zombie to drop the meat!"
 REFERENCE           ZOMBIE_MEAT_DROPPED
 LANG_ENGLISH        "Meat dropped!"
 
-REFERENCE           ZOMBIE_MEAT_RESET
-LANG_ENGLISH        "Meat reset!"
-
-REFERENCE           ZOMBIE_RUN_FROM_DISEASE
-LANG_ENGLISH        "Run from the disease!"
+REFERENCE           ZOMBIE_RUN_AWAY_FROM_DISEASE_TO_SURVIVE
+LANG_ENGLISH        "Run away from the disease to survive!"
 
 REFERENCE           ZOMBIE_SURVIVOR_DOWN
 LANG_ENGLISH        "Survivor Down! [&&1 V &&2]"

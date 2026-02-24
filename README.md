@@ -820,9 +820,9 @@
 * Decreased upgraded ammo cost from 4500 to 2500
 * Ammo can be purchased if only alt weapon ammo has been used
 * Purchasing no longer shows the weapon model at other wallbuys of the same weapon
+* Melee weapons are given when flourish anim starts
 * Changed all hint strings from "to buy" to "for"
 * Lethal grenade hint string no longer displays "ammo" after purchasing
-* Downing while purchasing a melee weapon gives the melee weapon
 * Increased brightness of wallbuy chalks
 * Added melee wallbuy HUD icons to all maps
 
@@ -1621,8 +1621,8 @@
 #### Grief
 * Gain score by making enemy players bleed out
 * Make 10 enemy players bleed out to win the game
-* Players respawn after being down for 10 seconds
 * Players retain perks
+* Players respawn after being down for 10 seconds
 
 #### Race
 * Gain score by killing zombies or enemy players
@@ -1633,8 +1633,8 @@
 * Downing an enemy player awards 10 score
 * Bleeding out an enemy player awards 5 score
 * Reviving an ally player awards 5 score
-* Players respawn after being down for 10 seconds
 * Players retain perks
+* Players respawn after being down for 10 seconds
 
 #### Containment
 * Gain score by being the team with the most players alive in the containment zone
@@ -1646,8 +1646,8 @@
 * Players in the containment zone gain 50 points when their team gains score
 * Containment zone moves every 60 seconds
 * Amount of players alive in the containment zone on each team shown on HUD
-* Players respawn after being down for 10 seconds
 * Players retain perks
+* Players respawn after being down for 10 seconds
 
 #### Meat
 * Gain score by being the team holding the meat
@@ -1659,8 +1659,8 @@
 * Throwing the meat onto another player makes them grab the meat
 * Decreased meat powerup time on the ground by half
 * Team holding the meat shown on HUD
-* Players respawn after being down for 10 seconds
 * Players retain perks
+* Players respawn after being down for 10 seconds
 
 #### Turned
 * Survivors score starts at the amount of survivors
@@ -1671,7 +1671,7 @@
 * Reduce the enemy score to 0 to win the game
 * All players start as survivors
 * All players that join mid game start as zombies
-* Disease powerup spawns at survivor initial spawn points after 10 seconds and chases after a random survivor
+* Disease powerup spawns at a random survivor's spawn point after 10 seconds and chases that survivor to turn them into the initial zombie
 * Survivors gain 10 points every second
 * Survivors become zombies when they bleed out
 * Initial zombie moves at 110% move speed while there are no survivors down
@@ -1687,5 +1687,5 @@
 * Zombies can open doors and activate traps
 * Zombies can't damage the same survivor for 0.25 seconds after damaging them
 * Zombies can't be damaged by survivors for 3 seconds after respawn or until they attack
-* Zombies respawn at the position of a random survivor when they died if they did not deploy a Tactical Insertion
+* Zombies automatically deploy a Tactical Insertion at the position of a random survivor when they die if they did not already deploy a Tactical Insertion
 * Zombies respawn after spectating for 10 seconds
