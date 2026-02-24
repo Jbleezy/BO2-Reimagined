@@ -117,8 +117,9 @@ turn_to_zombie()
 	}
 
 	self thread delay_turning_on_eyes();
-	self thread turned_player_buttons();
 	self thread turned_melee_watcher();
+	self thread turned_sprint_watcher();
+	self thread turned_use_watcher();
 	self thread turned_grenade_watcher();
 	self thread turned_jump_watcher();
 	self thread turned_stance_watcher();
@@ -160,57 +161,6 @@ delay_turning_on_eyes()
 	self setclientfield("player_has_eyes", 1);
 }
 
-turned_player_buttons()
-{
-	self endon("disconnect");
-	self endon("spawned_spectator");
-	self endon("humanify");
-	level endon("end_game");
-
-	while (is_true(self.is_zombie))
-	{
-		if (is_true(self.is_inert) || is_true(self.is_stunned))
-		{
-			wait 0.05;
-			continue;
-		}
-
-		if (self attackbuttonpressed() || self adsbuttonpressed() || self meleebuttonpressed())
-		{
-			if (cointoss())
-			{
-				self thread maps\mp\zombies\_zm_audio::do_zombies_playvocals("attack", undefined);
-			}
-
-			while (self attackbuttonpressed() || self adsbuttonpressed() || self meleebuttonpressed())
-			{
-				wait 0.05;
-			}
-		}
-
-		if (self usebuttonpressed() || self isthrowinggrenade())
-		{
-			self thread maps\mp\zombies\_zm_audio::do_zombies_playvocals("taunt", undefined);
-
-			while (self usebuttonpressed() || self isthrowinggrenade())
-			{
-				wait 0.05;
-			}
-		}
-
-		if (self issprinting())
-		{
-			while (self issprinting())
-			{
-				self thread maps\mp\zombies\_zm_audio::do_zombies_playvocals("sprint", undefined);
-				wait 0.05;
-			}
-		}
-
-		wait 0.05;
-	}
-}
-
 turned_melee_watcher()
 {
 	self endon("disconnect");
@@ -221,6 +171,8 @@ turned_melee_watcher()
 	while (is_true(self.is_zombie))
 	{
 		self waittill("weapon_melee", weapon);
+
+		self thread maps\mp\zombies\_zm_audio::do_zombies_playvocals("attack", undefined);
 
 		self thread turned_melee_disable_movement();
 	}
@@ -274,6 +226,52 @@ turned_melee_disable_movement()
 	self scripts\zm\_zm_reimagined::set_move_speed_scale(self.n_move_scale);
 }
 
+turned_sprint_watcher()
+{
+	self endon("disconnect");
+	self endon("spawned_spectator");
+	self endon("humanify");
+	level endon("end_game");
+
+	while (is_true(self.is_zombie))
+	{
+		while (self issprinting())
+		{
+			self thread maps\mp\zombies\_zm_audio::do_zombies_playvocals("sprint", undefined);
+
+			wait 0.05;
+		}
+
+		while (!self issprinting())
+		{
+			wait 0.05;
+		}
+	}
+}
+
+turned_use_watcher()
+{
+	self endon("disconnect");
+	self endon("spawned_spectator");
+	self endon("humanify");
+	level endon("end_game");
+
+	while (is_true(self.is_zombie))
+	{
+		while (self usebuttonpressed())
+		{
+			wait 0.05;
+		}
+
+		while (!self usebuttonpressed())
+		{
+			wait 0.05;
+		}
+
+		self thread maps\mp\zombies\_zm_audio::do_zombies_playvocals("taunt", undefined);
+	}
+}
+
 turned_grenade_watcher()
 {
 	self endon("disconnect");
@@ -292,6 +290,8 @@ turned_grenade_watcher()
 		{
 			wait 0.05;
 		}
+
+		self thread maps\mp\zombies\_zm_audio::do_zombies_playvocals("taunt", undefined);
 
 		self thread turned_grenade_disable_movement();
 	}
