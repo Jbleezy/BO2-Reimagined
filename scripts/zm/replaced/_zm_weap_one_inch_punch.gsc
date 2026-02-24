@@ -32,7 +32,11 @@ one_inch_punch_melee_attack()
 		flourish_weapon = "zombie_one_inch_punch_upgrade_flourish";
 	}
 
-	str_weapon = self getcurrentweapon();
+	if (!isdefined(self.pre_temp_weapon))
+	{
+		self.pre_temp_weapon = self getcurrentweapon();
+	}
+
 	self increment_is_drinking();
 	self disable_player_move_states(1);
 	self giveweapon(flourish_weapon);
@@ -68,13 +72,16 @@ one_inch_punch_melee_attack()
 
 		if (result == "weapon_change_complete")
 		{
-			if (is_melee_weapon(str_weapon))
+			if (!self is_multiple_drinking())
 			{
-				self switchtoweapon("held_" + punch_weapon);
-			}
-			else
-			{
-				self switchtoweapon(str_weapon);
+				if (is_melee_weapon(self.pre_temp_weapon))
+				{
+					self switchtoweapon("held_" + punch_weapon);
+				}
+				else
+				{
+					self switchtoweapon(self.pre_temp_weapon);
+				}
 			}
 		}
 	}
@@ -82,6 +89,16 @@ one_inch_punch_melee_attack()
 	self takeweapon(flourish_weapon);
 	self decrement_is_drinking();
 	self enable_player_move_states();
+
+	if (self maps\mp\zombies\_zm_laststand::player_is_in_laststand() || isdefined(self.intermission) && self.intermission)
+	{
+		self.lastactiveweapon = self.pre_temp_weapon;
+	}
+
+	if (!self.is_drinking)
+	{
+		self.pre_temp_weapon = undefined;
+	}
 
 	if (!isdefined(self.b_punch_upgraded) || !self.b_punch_upgraded)
 	{
