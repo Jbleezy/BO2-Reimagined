@@ -3727,6 +3727,8 @@ turned_zombie_init()
 
 	self notify("zmb_lost_knife");
 
+	self notify("player_lost_time_bomb");
+
 	self scripts\zm\_zm_reimagined::set_team(level.zombie_team);
 
 	self maps\mp\zombies\_zm_turned::turn_to_zombie();
