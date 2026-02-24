@@ -2180,6 +2180,20 @@ turn_tombstone_on()
 	}
 }
 
+thread_bump_trigger()
+{
+	for (;;)
+	{
+		self waittill("trigger", trigplayer);
+		trigplayer playsound(self.script_sound);
+
+		while (trigplayer.sessionstate == "playing" && trigplayer istouching(self))
+		{
+			wait 0.5;
+		}
+	}
+}
+
 check_player_has_perk(perk)
 {
 	self endon("death");

@@ -127,6 +127,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_perks::turn_tombstone_on, scripts\zm\replaced\_zm_perks::turn_tombstone_on);
 	replaceFunc(maps\mp\zombies\_zm_perks::turn_chugabud_on, scripts\zm\replaced\_zm_perks::turn_chugabud_on);
 	replaceFunc(maps\mp\zombies\_zm_perks::wait_for_player_to_take, scripts\zm\replaced\_zm_perks::wait_for_player_to_take);
+	replaceFunc(maps\mp\zombies\_zm_perks::thread_bump_trigger, scripts\zm\replaced\_zm_perks::thread_bump_trigger);
 	replaceFunc(maps\mp\zombies\_zm_perks::check_player_has_perk, scripts\zm\replaced\_zm_perks::check_player_has_perk);
 	replaceFunc(maps\mp\zombies\_zm_perks::set_perk_clientfield, scripts\zm\replaced\_zm_perks::set_perk_clientfield);
 	replaceFunc(maps\mp\zombies\_zm_perks::get_perk_array, scripts\zm\replaced\_zm_perks::get_perk_array);

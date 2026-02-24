@@ -206,7 +206,7 @@
 * Ammo counter no longer shows while scoped on all maps
 * Added round chalk images from Mob of the Dead to all maps
 * Added proper game mode and map name to scoreboard
-* Added icons on scoreboard when player is downed, bled out, in Who's Who mode, in afterlife, or has the meat
+* Added icons on scoreboard when player is down, bled out, in Who's Who mode, in afterlife, or has the meat
 * Changed player name color on scoreboard to match the player's color
 * Moved voice chat icon on scoreboard to the end of the player name column
 * Changed Classic faction color from blue to grey
@@ -219,8 +219,8 @@
 * All waypoints fade when targeted
 * Revive waypoints move to center of screen for the player who is reviving
 * Revive waypoints no longer show at incorrect position when they first appear
-* Bleed out bar displayed when downed
-* Revive bar displayed for downed player
+* Bleed out bar displayed when down
+* Revive bar displayed for down player
 * Changed revive bar color to blue
 * Player is reviving you text gets removed instantly when player drops the revive
 * Player needs to be revived text updates to new player instantly
@@ -805,7 +805,7 @@
 * Added to all game modes
 * No longer sends players back in time
 * Kills all zombies
-* Revives all downed players
+* Revives all down players
 * Can have with Monkey Bombs
 * Switches to detonator at correct time after throwing
 * Fixed detonator raise and drop anims
@@ -843,6 +843,7 @@
 * No longer deactivated if the perk machine is powered off
 * Perk order on HUD is restored whenever perks are restored to the player
 * Perk order on HUD is shown correctly when spectating
+* Fixed perk machine bump sound continuously playing when player is down
 
 ### Jugger-Nog
 * Increases current health by 100 upon purchase (normally sets current health to max)
@@ -890,8 +891,8 @@
 
 ### Tombstone Soda
 * Added in solo and Encounter
-* Powerup no longer removed when revived
-* Powerup removed when downed again after being revived or respawning
+* Powerup no longer removed when player is revived
+* Powerup removed when player is down after being revived or respawning
 * Unlimited time to pick up powerup
 * Changed perk machine light fx from Speed Cola's fx to Quick Revive's fx
 * Changed powerup fx color to blue
@@ -911,7 +912,7 @@
 * Ignored by zombies for 1 second after entering Who's Who mode
 * Invulnerable for 2 seconds after entering and exiting Who's Who mode
 * Controls are frozen for 0.5 seconds after entering and exiting Who's Who mode
-* Clone spawns facing the same angles as the player downed
+* Clone spawns facing the same angles as the player down
 * Player spawns facing towards the clone when entering Who's Who mode
 * Purchasing Who's Who in Who's Who mode no longer destroys the clone
 * Downing with Who's Who in Who's Who mode destroys the clone
@@ -1587,7 +1588,7 @@
 * Insta Kill: enemy players deal half damage
 * Nuke: enemy players lose 400 points
 * Nuke: deals 75 damage to all alive enemy players
-* Nuke: makes all downed enemy players bleed out
+* Nuke: makes all down enemy players bleed out
 * Added new CDC and CIA revive waypoint icons
 * Added kill feed (includes downs, revives, and bleed outs)
 * Added player kills on scoreboard (replaces headshots)
