@@ -248,6 +248,11 @@ brutus_spawning_logic()
 
 wait_on_box_alarm()
 {
+	if (!is_classic())
+	{
+		return;
+	}
+
 	while (true)
 	{
 		self.zbarrier waittill("randomization_done");

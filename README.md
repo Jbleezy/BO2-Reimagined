@@ -1395,6 +1395,8 @@
 * Tower Trap (upgraded): stays upgraded until the end of the round
 * Tower Trap (upgraded): can be upgraded while the trap is not active
 * Tower Trap (upgraded): upgrading no longer resets the duration of the trap
+* Survival and Encounter: using the Mystery Box no longer spawns Brutus
+* Encounter: Tower Trap targets and damages players
 * Quest: added "Benn - Alcatraz" song
 * Quest: Blundergat gets full ammo when picked up (normally missing one clip)
 * Quest: number pad only needs each number to be shocked once to complete
@@ -1417,7 +1419,6 @@
 * Wallbuys: SMR, Ballista, MSMC, Uzi, M1927
 * Perks: Jugger-Nog, Electric Cherry
 * Pack-a-Punch
-* Encounter: Tower Trap targets and damages players
 
 ### Origins
 * Added Double Tap machine at Generator 6 Church
