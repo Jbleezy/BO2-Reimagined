@@ -4067,7 +4067,7 @@ increment_score(team, amount = 1, show_lead_msg = true, score_msg, other_score_m
 
 		setteamscore(team, level.grief_score[encounters_team]);
 
-		if ((level.highest_score > level.grief_score[encounters_team] && level.highest_score < 255) || level.highest_score == 0)
+		if (team == "allies" && level.highest_score != level.grief_score[encounters_team] && level.highest_score < 255)
 		{
 			level.highest_score = level.grief_score[encounters_team];
 
