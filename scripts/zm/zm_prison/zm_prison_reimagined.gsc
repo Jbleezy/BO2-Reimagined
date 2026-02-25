@@ -773,7 +773,7 @@ teleporter_think(teleporter_start_origin, teleporter_end_origin)
 
 		height_diff = player.origin[2] - groundpos(player.origin)[2];
 
-		playsoundatposition("zmb_afterlife_zombie_warp_out", player.origin);
+		playsoundatposition("evt_teleport_3d", player.origin);
 		player setorigin(teleporter_end_origin + (0, 0, height_diff));
 	}
 }
