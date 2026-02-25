@@ -590,6 +590,7 @@
 * Upgraded: increased impact damage from 1000 to 2000 (same as max splash damage)
 
 #### Ray Gun Mark 2
+* Added empty fire sound from Ray Gun
 * Same probability to obtain as other weapons
 * Can be obtained if player has Ray Gun
 * Increased move speed from 100% to 105%
