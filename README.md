@@ -585,6 +585,7 @@
 * Increased move speed from 100% to 105%
 * Increased move speed while aiming from 100% to 157.5% (move speed multiplied by 1.5)
 * No longer limited to 4 players
+* Decreased volume of empty fire sound
 * Unupgraded: increased impact damage from 1000 to 1500 (same as max splash damage)
 * Upgraded: increased impact damage from 1000 to 2000 (same as max splash damage)
 
