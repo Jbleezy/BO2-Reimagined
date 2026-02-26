@@ -5,7 +5,6 @@
 init()
 {
 	level.update_stats_func = ::update_stats;
-	level.server_stat_message_func = ::server_stat_message;
 
 	precache_shaders();
 	set_dvars();
@@ -130,13 +129,9 @@ server_message(message_str, player, tell = 0)
 	{
 		text = "Donate: " + getDvar("donate_link");
 	}
-	else if (message == "stat")
+	else if (getSubStr(message, 0, 4) == "stat")
 	{
-		if (isdefined(level.server_stat_message_func))
-		{
-			[[level.server_stat_message_func]](message_str, player);
-		}
-
+		server_stat_message(message_str, player, tell);
 		return;
 	}
 	else
@@ -151,6 +146,117 @@ server_message(message_str, player, tell = 0)
 	else
 	{
 		say(text);
+	}
+}
+
+server_stat_message(message_str, player, tell = 0)
+{
+	stat_player = undefined;
+	message_array = strTok(message_str, " ");
+
+	if (message_array.size == 1)
+	{
+		stat_player = player;
+	}
+	else
+	{
+		players = get_players();
+
+		foreach (other_player in players)
+		{
+			if (message_array[1] == getSubStr(toLower(other_player.name), 0, message_array[1].size))
+			{
+				stat_player = other_player;
+				break;
+			}
+		}
+	}
+
+	if (!isDefined(stat_player))
+	{
+		player tell("Player not found");
+		return;
+	}
+
+	text = "";
+	path = "stats/" + stat_player getguid() + ".csv";
+
+	if (fs_testfile(path))
+	{
+		file = fs_fopen(path, "read");
+		text = fs_read(file);
+		fs_fclose(file);
+	}
+
+	text_array = strTok(text, ",\n");
+
+	if (is_encounter())
+	{
+		wins = 0;
+		losses = 0;
+		total_wins = 0;
+		total_losses = 0;
+
+		gamemode_str = get_gamemode_stat_str();
+		total_str = "total";
+
+		for (i = 2; i < text_array.size; i += 2)
+		{
+			if (text_array[i] == total_str + " wins")
+			{
+				total_wins = text_array[i + 1];
+			}
+			else if (text_array[i] == total_str + " losses")
+			{
+				total_losses = text_array[i + 1];
+			}
+			else if (text_array[i] == gamemode_str + " wins")
+			{
+				wins = text_array[i + 1];
+			}
+			else if (text_array[i] == gamemode_str + " losses")
+			{
+				losses = text_array[i + 1];
+			}
+		}
+
+		message1 = "" + stat_player.name + " - Current Game Mode: Wins - " + wins + ", Losses - " + losses;
+		message2 = "" + stat_player.name + " - All Game Modes: Wins - " + total_wins + ", Losses - " + total_losses;
+
+		if (tell)
+		{
+			player tell(message1);
+			player tell(message2);
+		}
+		else
+		{
+			say(message1);
+			say(message2);
+		}
+	}
+	else
+	{
+		round = 0;
+		map_str = get_map_stat_str();
+
+		for (i = 2; i < text_array.size; i += 2)
+		{
+			if (text_array[i] == map_str)
+			{
+				round = text_array[i + 1];
+			}
+		}
+
+		message1 = "" + stat_player.name + " - Current Map: Highest Round - " + round;
+
+		if (tell)
+		{
+			player tell(message1);
+		}
+		else
+		{
+			say(message1);
+		}
 	}
 }
 
@@ -920,107 +1026,6 @@ remove_loss_on_reconnect()
 	}
 }
 
-server_stat_message(message_str, player)
-{
-	stat_player = undefined;
-	message_array = strTok(message_str, " ");
-
-	if (message_array.size == 1)
-	{
-		stat_player = player;
-	}
-	else
-	{
-		players = get_players();
-
-		foreach (other_player in players)
-		{
-			if (message_array[1] == getSubStr(toLower(other_player.name), 0, message_array[1].size))
-			{
-				stat_player = other_player;
-				break;
-			}
-		}
-	}
-
-	if (!isDefined(stat_player))
-	{
-		player tell("Player not found");
-		return;
-	}
-
-	text = "";
-	path = "stats/" + stat_player getguid() + ".csv";
-
-	if (fs_testfile(path))
-	{
-		file = fs_fopen(path, "read");
-		text = fs_read(file);
-		fs_fclose(file);
-	}
-
-	text_array = strTok(text, ",\n");
-
-	if (is_encounter())
-	{
-		wins = 0;
-		losses = 0;
-		total_wins = 0;
-		total_losses = 0;
-
-		gamemode_str = get_gamemode_stat_str();
-		total_str = "Total";
-
-		if (is_true(level.scr_zm_ui_gametype_pro))
-		{
-			total_str += " Pro";
-		}
-
-		for (i = 2; i < text_array.size; i += 2)
-		{
-			if (text_array[i] == total_str + " Wins")
-			{
-				total_wins = text_array[i + 1];
-			}
-			else if (text_array[i] == total_str + " Losses")
-			{
-				total_losses = text_array[i + 1];
-			}
-			else if (text_array[i] == gamemode_str + " Wins")
-			{
-				wins = text_array[i + 1];
-			}
-			else if (text_array[i] == gamemode_str + " Losses")
-			{
-				losses = text_array[i + 1];
-			}
-		}
-
-		say(gamemode_str + " - " + stat_player.name + ":");
-		say("Wins - " + wins + ", Losses - " + losses);
-
-		say(total_str + " - " + stat_player.name + ":");
-		say("Wins - " + total_wins + ", Losses - " + total_losses);
-	}
-	else
-	{
-		round = 0;
-
-		map_str = get_map_stat_str();
-
-		for (i = 2; i < text_array.size; i += 2)
-		{
-			if (text_array[i] == map_str)
-			{
-				round = text_array[i + 1];
-			}
-		}
-
-		say(map_str + " - " + stat_player.name + ":");
-		say("Highest Round - " + round);
-	}
-}
-
 update_stats_on_end_game()
 {
 	level waittill("end_game");
@@ -1029,14 +1034,11 @@ update_stats_on_end_game()
 
 	update_stats();
 
-	if (is_encounter())
-	{
-		players = get_players();
+	players = get_players();
 
-		foreach (player in players)
-		{
-			player tell_grief_stats();
-		}
+	foreach (player in players)
+	{
+		server_message("stat", player, 1);
 	}
 }
 
@@ -1105,7 +1107,7 @@ update_stats(disconnecting_player, remove_loss = 0)
 
 		if (text_array.size == 0)
 		{
-			text_array[0] = "Name";
+			text_array[0] = "name";
 		}
 
 		if (!isDefined(text_array[1]) || text_array[1] != player.name)
@@ -1116,20 +1118,15 @@ update_stats(disconnecting_player, remove_loss = 0)
 		if (is_encounter())
 		{
 			found = 0;
-			stat_str = "Total";
-
-			if (is_true(level.scr_zm_ui_gametype_pro))
-			{
-				stat_str += " Pro";
-			}
+			stat_str = "total";
 
 			if (win)
 			{
-				stat_str += " Wins";
+				stat_str += " wins";
 			}
 			else
 			{
-				stat_str += " Losses";
+				stat_str += " losses";
 			}
 
 			for (i = 2; i < text_array.size; i += 2)
@@ -1164,16 +1161,11 @@ update_stats(disconnecting_player, remove_loss = 0)
 
 			if (!found)
 			{
-				stat_str = "Total";
+				stat_str = "total";
 
-				if (is_true(level.scr_zm_ui_gametype_pro))
-				{
-					stat_str += " Pro";
-				}
+				text_array[text_array.size] = stat_str + " wins";
 
-				text_array[text_array.size] = stat_str + " Wins";
-
-				if (is_true(win))
+				if (win)
 				{
 					text_array[text_array.size] = 1;
 				}
@@ -1182,9 +1174,9 @@ update_stats(disconnecting_player, remove_loss = 0)
 					text_array[text_array.size] = 0;
 				}
 
-				text_array[text_array.size] = stat_str + " Losses";
+				text_array[text_array.size] = stat_str + " losses";
 
-				if (!is_true(win))
+				if (!win)
 				{
 					text_array[text_array.size] = 1;
 				}
@@ -1199,11 +1191,11 @@ update_stats(disconnecting_player, remove_loss = 0)
 
 			if (win)
 			{
-				stat_str += " Wins";
+				stat_str += " wins";
 			}
 			else
 			{
-				stat_str += " Losses";
+				stat_str += " losses";
 			}
 
 			for (i = 2; i < text_array.size; i += 2)
@@ -1219,7 +1211,7 @@ update_stats(disconnecting_player, remove_loss = 0)
 						text_array[i + 1] = int(text_array[i + 1]);
 					}
 
-					if (isDefined(disconnecting_player) && is_true(remove_loss))
+					if (isDefined(disconnecting_player) && remove_loss)
 					{
 						if (text_array[i + 1] > 0)
 						{
@@ -1240,9 +1232,9 @@ update_stats(disconnecting_player, remove_loss = 0)
 			{
 				stat_str = get_gamemode_stat_str();
 
-				text_array[text_array.size] = stat_str + " Wins";
+				text_array[text_array.size] = stat_str + " wins";
 
-				if (is_true(win))
+				if (win)
 				{
 					text_array[text_array.size] = 1;
 				}
@@ -1251,9 +1243,9 @@ update_stats(disconnecting_player, remove_loss = 0)
 					text_array[text_array.size] = 0;
 				}
 
-				text_array[text_array.size] = stat_str + " Losses";
+				text_array[text_array.size] = stat_str + " losses";
 
-				if (!is_true(win))
+				if (!win)
 				{
 					text_array[text_array.size] = 1;
 				}
@@ -1311,216 +1303,19 @@ update_stats(disconnecting_player, remove_loss = 0)
 
 get_map_stat_str()
 {
-	if (level.script == "zm_transit")
+	if (is_classic())
 	{
-		if (level.scr_zm_map_start_location == "transit")
-		{
-			if (is_classic())
-			{
-				return "TranZit";
-			}
-			else
-			{
-				return "Bus Depot";
-			}
-		}
-		else if (level.scr_zm_map_start_location == "diner")
-		{
-			return "Diner";
-		}
-		else if (level.scr_zm_map_start_location == "farm")
-		{
-			return "Farm";
-		}
-		else if (level.scr_zm_map_start_location == "power")
-		{
-			return "Power Station";
-		}
-		else if (level.scr_zm_map_start_location == "town")
-		{
-			return "Town";
-		}
-		else if (level.scr_zm_map_start_location == "tunnel")
-		{
-			return "Tunnel";
-		}
-		else if (level.scr_zm_map_start_location == "cornfield")
-		{
-			return "Cornfield";
-		}
+		return level.script;
 	}
-	else if (level.script == "zm_nuked")
+	else
 	{
-		if (level.scr_zm_map_start_location == "nuked")
-		{
-			return "Nuketown";
-		}
+		return level.scr_zm_map_start_location;
 	}
-	else if (level.script == "zm_highrise")
-	{
-		if (level.scr_zm_map_start_location == "rooftop")
-		{
-			return "Die Rise";
-		}
-		else if (level.scr_zm_map_start_location == "shopping_mall")
-		{
-			return "Shopping Mall";
-		}
-		else if (level.scr_zm_map_start_location == "dragon_rooftop")
-		{
-			return "Dragon Rooftop";
-		}
-		else if (level.scr_zm_map_start_location == "sweatshop")
-		{
-			return "Sweatshop";
-		}
-	}
-	else if (level.script == "zm_prison")
-	{
-		if (level.scr_zm_map_start_location == "prison")
-		{
-			return "Mob of the Dead";
-		}
-		else if (level.scr_zm_map_start_location == "cellblock")
-		{
-			return "Cell Block";
-		}
-		else if (level.scr_zm_map_start_location == "docks")
-		{
-			return "Docks";
-		}
-	}
-	else if (level.script == "zm_buried")
-	{
-		if (level.scr_zm_map_start_location == "processing")
-		{
-			return "Buried";
-		}
-		else if (level.scr_zm_map_start_location == "street")
-		{
-			return "Borough";
-		}
-		else if (level.scr_zm_map_start_location == "maze")
-		{
-			return "Maze";
-		}
-	}
-	else if (level.script == "zm_tomb")
-	{
-		if (level.scr_zm_map_start_location == "tomb")
-		{
-			return "Origins";
-		}
-		else if (level.scr_zm_map_start_location == "trenches")
-		{
-			return "Trenches";
-		}
-		else if (level.scr_zm_map_start_location == "excavation_site")
-		{
-			return "Excavation Site";
-		}
-		else if (level.scr_zm_map_start_location == "church")
-		{
-			return "Church";
-		}
-		else if (level.scr_zm_map_start_location == "crazy_place")
-		{
-			return "The Crazy Place";
-		}
-	}
-
-	return "";
 }
 
 get_gamemode_stat_str()
 {
-	gamemode = "";
-
-	if (level.scr_zm_ui_gametype == "zsr")
-	{
-		gamemode = "Search & Rezurrect";
-	}
-	else if (level.scr_zm_ui_gametype == "zgrief")
-	{
-		gamemode = "Grief";
-	}
-	else if (level.scr_zm_ui_gametype == "zrace")
-	{
-		gamemode = "Race";
-	}
-	else if (level.scr_zm_ui_gametype == "zcontainment")
-	{
-		gamemode = "Containment";
-	}
-	else if (level.scr_zm_ui_gametype == "zmeat")
-	{
-		gamemode = "Meat";
-	}
-	else if (level.scr_zm_ui_gametype == "zturned")
-	{
-		gamemode = "Turned";
-	}
-
-	if (is_true(level.scr_zm_ui_gametype_pro))
-	{
-		gamemode += " Pro";
-	}
-
-	return gamemode;
-}
-
-tell_grief_stats()
-{
-	text = "";
-	path = "stats/" + self getguid() + ".csv";
-
-	if (fs_testfile(path))
-	{
-		file = fs_fopen(path, "read");
-		text = fs_read(file);
-		fs_fclose(file);
-	}
-
-	text_array = strTok(text, ",\n");
-
-	wins = 0;
-	losses = 0;
-	total_wins = 0;
-	total_losses = 0;
-
-	gamemode_str = get_gamemode_stat_str();
-	total_str = "Total";
-
-	if (is_true(level.scr_zm_ui_gametype_pro))
-	{
-		total_str += " Pro";
-	}
-
-	for (i = 2; i < text_array.size; i += 2)
-	{
-		if (text_array[i] == total_str + " Wins")
-		{
-			total_wins = text_array[i + 1];
-		}
-		else if (text_array[i] == total_str + " Losses")
-		{
-			total_losses = text_array[i + 1];
-		}
-		else if (text_array[i] == gamemode_str + " Wins")
-		{
-			wins = text_array[i + 1];
-		}
-		else if (text_array[i] == gamemode_str + " Losses")
-		{
-			losses = text_array[i + 1];
-		}
-	}
-
-	self tell(gamemode_str + ":");
-	self tell("Wins - " + wins + ", Losses - " + losses);
-
-	self tell(total_str + ":");
-	self tell("Wins - " + total_wins + ", Losses - " + total_losses);
+	return level.scr_zm_ui_gametype;
 }
 
 connect_timeout_changes()

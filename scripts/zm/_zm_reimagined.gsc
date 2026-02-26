@@ -3571,6 +3571,7 @@ set_team(team)
 		self.killsconfirmed = 0;
 		self.killsdenied = 0;
 		self.captures = 0;
+		self.returns = 0;
 	}
 
 	if (level.scr_zm_ui_gametype == "zsr" && flag("initial_blackscreen_passed") && !isdefined(level.gamemodulewinningteam))
