@@ -844,6 +844,7 @@ init_dvars()
 set_dvars()
 {
 	setDvar("sv_hostname", "Reimagined");
+	makedvarserverinfo("sv_hostname");
 
 	setDvar("sv_rateBoostingEnabled", 1);
 	setDvar("sv_rateBoostingForce", 1);
