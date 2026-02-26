@@ -10,6 +10,48 @@
 #include maps\mp\zombies\_zm_powerups;
 #include maps\mp\animscripts\shared;
 
+staff_air_find_source(v_detonate, str_weapon)
+{
+	self endon("disconnect");
+
+	if (!isdefined(v_detonate))
+	{
+		return;
+	}
+
+	a_zombies = getaiarray(level.zombie_team);
+	a_zombies = get_array_of_closest(v_detonate, a_zombies);
+
+	if (a_zombies.size)
+	{
+		for (i = 0; i < a_zombies.size; i++)
+		{
+			if (isalive(a_zombies[i]))
+			{
+				if (is_true(a_zombies[i].staff_hit))
+				{
+					continue;
+				}
+
+				if (distance2dsquared(v_detonate, a_zombies[i].origin) <= 10000)
+				{
+					self thread staff_air_zombie_source(a_zombies[i], str_weapon);
+				}
+				else
+				{
+					self thread staff_air_position_source(v_detonate, str_weapon);
+				}
+
+				return;
+			}
+		}
+	}
+	else
+	{
+		self thread staff_air_position_source(v_detonate, str_weapon);
+	}
+}
+
 staff_air_position_source(v_detonate, str_weapon)
 {
 	self endon("disconnect");
@@ -52,6 +94,20 @@ staff_air_position_source(v_detonate, str_weapon)
 	wait 0.5;
 	e_whirlwind.player_owner = self;
 	e_whirlwind thread whirlwind_seek_zombies(charge_level, str_weapon);
+}
+
+staff_air_zombie_source(ai_zombie, str_weapon)
+{
+	self endon("disconnect");
+	ai_zombie.staff_hit = 1;
+	ai_zombie.is_source = 1;
+	v_whirlwind_pos = ai_zombie.origin;
+	self thread staff_air_position_source(v_whirlwind_pos, str_weapon);
+
+	if (!isdefined(ai_zombie.is_mechz))
+	{
+		self thread source_zombie_death(ai_zombie, str_weapon);
+	}
 }
 
 whirlwind_seek_zombies(n_level, str_weapon)
@@ -128,20 +184,6 @@ whirlwind_kill_zombies(n_level, str_weapon)
 		}
 
 		wait_network_frame();
-	}
-}
-
-staff_air_zombie_source(ai_zombie, str_weapon)
-{
-	self endon("disconnect");
-	ai_zombie.staff_hit = 1;
-	ai_zombie.is_source = 1;
-	v_whirlwind_pos = ai_zombie.origin;
-	self thread staff_air_position_source(v_whirlwind_pos, str_weapon);
-
-	if (!isdefined(ai_zombie.is_mechz))
-	{
-		self thread source_zombie_death(ai_zombie, str_weapon);
 	}
 }
 

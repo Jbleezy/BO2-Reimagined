@@ -126,8 +126,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_weap_beacon::player_handle_beacon, scripts\zm\replaced\_zm_weap_beacon::player_handle_beacon);
 	replaceFunc(maps\mp\zombies\_zm_weap_beacon::artillery_barrage_logic, scripts\zm\replaced\_zm_weap_beacon::artillery_barrage_logic);
 	replaceFunc(maps\mp\zombies\_zm_weap_beacon::wait_and_do_weapon_beacon_damage, scripts\zm\replaced\_zm_weap_beacon::wait_and_do_weapon_beacon_damage);
-	replaceFunc(maps\mp\zombies\_zm_weap_staff_air::staff_air_position_source, scripts\zm\replaced\_zm_weap_staff_air::staff_air_position_source);
-	replaceFunc(maps\mp\zombies\_zm_weap_staff_air::staff_air_zombie_source, scripts\zm\replaced\_zm_weap_staff_air::staff_air_zombie_source);
+	replaceFunc(maps\mp\zombies\_zm_weap_staff_air::staff_air_find_source, scripts\zm\replaced\_zm_weap_staff_air::staff_air_find_source);
 	replaceFunc(maps\mp\zombies\_zm_weap_staff_air::staff_air_zombie_damage_response, scripts\zm\replaced\_zm_weap_staff_air::staff_air_zombie_damage_response);
 	replaceFunc(maps\mp\zombies\_zm_weap_staff_fire::fire_spread_shots, scripts\zm\replaced\_zm_weap_staff_fire::fire_spread_shots);
 	replaceFunc(maps\mp\zombies\_zm_weap_staff_fire::fire_additional_shots, scripts\zm\replaced\_zm_weap_staff_fire::fire_additional_shots);
