@@ -925,14 +925,7 @@ get_name_for_loc(map, location, gametype)
 
 get_name_for_gametype(gametype)
 {
-	if (isdefined(level.get_gamemode_display_name_func))
-	{
-		return [[level.get_gamemode_display_name_func]](gametype);
-	}
-	else
-	{
-		return istring(toupper("ZMUI_" + gametype));
-	}
+	return istring(toupper("ZMUI_" + gametype));
 }
 
 get_image_for_loc(map, location, gametype)
