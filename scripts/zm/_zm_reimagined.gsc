@@ -828,7 +828,7 @@ init_dvars()
 		setDvar("character_dialog", 1);
 	}
 
-	if (getDvar("ui_gametype_pro") == "" || !is_encounter())
+	if (getDvar("ui_gametype_pro") == "")
 	{
 		setDvar("ui_gametype_pro", 0);
 	}

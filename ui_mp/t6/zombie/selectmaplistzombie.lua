@@ -156,6 +156,10 @@ local function gameModeListSelectionClickedEventHandler(self, event)
 		Engine.SetDvar("ui_zm_gamemodegroup", gameTable[index].ui_zm_gamemodegroup)
 		Engine.SetGametype(gameTable[index].ui_gametype)
 
+		if gameTable[index].ui_zm_gamemodegroup ~= "zencounter" then
+			Engine.SetDvar("ui_gametype_pro", 0)
+		end
+
 		local map, location = string.match(UIExpression.ProfileValueAsString(controller, CoD.profileKey_map), "(.*) (.*)")
 		local mapTable = {}
 		local mapIndex = 1
