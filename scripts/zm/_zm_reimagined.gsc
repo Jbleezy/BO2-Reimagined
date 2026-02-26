@@ -843,6 +843,13 @@ init_dvars()
 
 set_dvars()
 {
+	setDvar("sv_hostname", "Reimagined");
+
+	setDvar("sv_rateBoostingEnabled", 1);
+	setDvar("sv_rateBoostingForce", 1);
+
+	setDvar("sv_voiceQuality", 9);
+
 	setDvar("playerPushAmount", 1);
 
 	setDvar("player_backSpeedScale", 1);
@@ -883,11 +890,6 @@ set_dvars()
 	setDvar("riotshield_explosive_damage_scale", 1);
 	setDvar("riotshield_projectile_damage_scale", 1);
 	setDvar("riotshield_deployed_health", 1500);
-
-	setDvar("sv_rateBoostingEnabled", 1);
-	setDvar("sv_rateBoostingForce", 1);
-
-	setDvar("sv_voiceQuality", 9);
 
 	setDvar("g_fix_entity_leaks", 1);
 
