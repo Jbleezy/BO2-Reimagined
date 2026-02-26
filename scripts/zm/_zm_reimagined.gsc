@@ -887,6 +887,8 @@ set_dvars()
 	setDvar("sv_rateBoostingEnabled", 1);
 	setDvar("sv_rateBoostingForce", 1);
 
+	setDvar("sv_voiceQuality", 9);
+
 	setDvar("g_fix_entity_leaks", 1);
 
 	setDvar("g_friendlyfireDist", 0);
