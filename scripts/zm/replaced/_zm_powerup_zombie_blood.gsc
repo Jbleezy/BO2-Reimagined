@@ -14,6 +14,7 @@ init(str_zombie_model)
 	registerclientfield("allplayers", "player_zombie_blood_fx", 14000, 1, "int");
 	level._effect["zombie_blood"] = loadfx("maps/zombie_tomb/fx_tomb_pwr_up_zmb_blood");
 	level._effect["zombie_blood_1st"] = loadfx("maps/zombie_tomb/fx_zm_blood_overlay_pclouds");
+	level._effect["player_eye_glow_orng"] = loadfx("maps/zombie/fx_zombie_eye_returned_orng");
 	add_zombie_powerup("zombie_blood", "p6_zm_tm_blood_power_up", &"ZOMBIE_POWERUP_MAX_AMMO", ::func_should_always_drop, 1, 0, 0, undefined, "powerup_zombie_blood", "zombie_powerup_zombie_blood_time", "zombie_powerup_zombie_blood_on");
 	powerup_set_can_pick_up_in_last_stand("zombie_blood", 0);
 	onplayerconnect_callback(::init_player_zombie_blood_vars);
