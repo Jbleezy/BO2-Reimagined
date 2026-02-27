@@ -68,6 +68,8 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_utility::get_current_zone, scripts\zm\replaced\_zm_utility::get_current_zone);
 	replaceFunc(maps\mp\zombies\_zm_utility::is_alt_weapon, scripts\zm\replaced\_zm_utility::is_alt_weapon);
 	replaceFunc(maps\mp\zombies\_zm_utility::is_temporary_zombie_weapon, scripts\zm\replaced\_zm_utility::is_temporary_zombie_weapon);
+	replaceFunc(maps\mp\zombies\_zm_utility::flag_wait_or_timeout, scripts\zm\replaced\_zm_utility::flag_wait_or_timeout);
+	replaceFunc(maps\mp\zombies\_zm_utility::ent_flag_wait_or_timeout, scripts\zm\replaced\_zm_utility::ent_flag_wait_or_timeout);
 	replaceFunc(maps\mp\zombies\_zm_utility::wait_network_frame, scripts\zm\replaced\_zm_utility::wait_network_frame);
 	replaceFunc(maps\mp\zombies\_zm_utility::track_players_intersection_tracker, scripts\zm\replaced\_zm_utility::track_players_intersection_tracker);
 	replaceFunc(maps\mp\zombies\_zm_utility::place_navcard, scripts\zm\replaced\_zm_utility::place_navcard);

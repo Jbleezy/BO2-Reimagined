@@ -415,6 +415,28 @@ is_alt_weapon(weapname)
 	return false;
 }
 
+flag_wait_or_timeout(flagname, timer)
+{
+	if (level.flag[flagname])
+	{
+		return;
+	}
+
+	wait_for_flag_or_time_elapses(flagname, timer);
+}
+
+ent_flag_wait_or_timeout(flagname, timer)
+{
+	self endon("death");
+
+	if (self.ent_flag[flagname])
+	{
+		return;
+	}
+
+	self ent_wait_for_flag_or_time_elapses(flagname, timer);
+}
+
 wait_network_frame()
 {
 	wait 0.1;
