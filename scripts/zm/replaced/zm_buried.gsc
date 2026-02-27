@@ -62,6 +62,55 @@ init_level_specific_wall_buy_fx()
 	level._effect["svu_zm_chalk_fx"] = loadfx("maps/zombie/fx_zmb_wall_dyn_svuas");
 }
 
+buried_zone_init()
+{
+	flag_init("always_on");
+	flag_set("always_on");
+	add_adjacent_zone("zone_tunnels_center", "zone_tunnels_north", "always_on");
+	add_adjacent_zone("zone_tunnels_north", "zone_tunnels_north2", "tunnels2courthouse");
+	add_adjacent_zone("zone_tunnels_south", "zone_tunnels_south2", "tunnel2saloon");
+	add_adjacent_zone("zone_tunnels_south3", "zone_tunnels_south2", "always_on");
+	add_adjacent_zone("zone_tunnels_center", "zone_tunnels_south", "always_on");
+	add_adjacent_zone("zone_street_lightwest", "zone_general_store", "general_store_door1");
+	add_adjacent_zone("zone_street_lighteast", "zone_general_store", "always_on");
+	add_adjacent_zone("zone_street_darkwest", "zone_general_store", "general_store_door2");
+	add_adjacent_zone("zone_street_lightwest", "zone_morgue_upstairs", "always_on");
+	add_adjacent_zone("zone_street_fountain", "zone_mansion_lawn", "mansion_lawn_door1");
+	add_adjacent_zone("zone_street_darkwest", "zone_gun_store", "gun_store_door1");
+	add_adjacent_zone("zone_stables", "zone_street_lightwest", "always_on", 1);
+	add_adjacent_zone("zone_street_darkwest", "zone_street_darkwest_nook", "darkwest_nook_door1");
+	add_adjacent_zone("zone_street_darkwest", "zone_general_store", "general_store_door3");
+	add_adjacent_zone("zone_street_darkwest_nook", "zone_stables", "stables_door2");
+	add_adjacent_zone("zone_street_darkeast", "zone_underground_bar", "bar_door1");
+	add_adjacent_zone("zone_street_darkeast", "zone_street_darkeast_nook", "always_on");
+	add_adjacent_zone("zone_underground_courthouse2", "zone_underground_courthouse", "always_on");
+	add_adjacent_zone("zone_street_lighteast", "zone_underground_courthouse", "courthouse_door1");
+	add_adjacent_zone("zone_street_lightwest", "zone_underground_jail", "jail_door1");
+	add_adjacent_zone("zone_street_lightwest", "zone_street_lightwest_alley", "jail_jugg");
+	add_adjacent_zone("zone_underground_jail", "zone_underground_jail2", "always_on");
+	add_adjacent_zone("zone_underground_jail2", "zone_street_lightwest", "always_on");
+	add_adjacent_zone("zone_street_lighteast", "zone_candy_store", "candy_store_door1");
+	add_adjacent_zone("zone_candy_store", "zone_candy_store_floor2", "always_on");
+	add_adjacent_zone("zone_toy_store_floor2", "zone_candy_store_floor2", "always_on");
+	add_adjacent_zone("zone_toy_store", "zone_candy_store", "always_on");
+	add_adjacent_zone("zone_toy_store", "zone_toy_store_floor2", "always_on");
+	add_adjacent_zone("zone_street_darkeast", "zone_toy_store_floor2", "always_on");
+	add_adjacent_zone("zone_street_darkeast", "zone_toy_store", "candy_store_door2");
+	add_adjacent_zone("zone_street_lighteast", "zone_candy_store_floor2", "candy2lighteast", 1);
+	add_adjacent_zone("zone_street_darkeast", "zone_candy_store_floor2", "always_on", 1);
+	add_adjacent_zone("zone_toy_store_tunnel", "zone_toy_store_floor2", "always_on", 1);
+	add_adjacent_zone("zone_street_lighteast", "zone_street_fountain", "always_on");
+	add_adjacent_zone("zone_street_fountain", "zone_church_graveyard", "always_on");
+	add_adjacent_zone("zone_church_graveyard", "zone_church_main", "church_door1");
+	add_adjacent_zone("zone_church_main", "zone_church_upstairs", "church_door1");
+	add_adjacent_zone("zone_gun_store", "zone_tunnel_gun2stables", "gunshop2tunnel");
+	add_adjacent_zone("zone_tunnel_gun2saloon", "zone_underground_bar", "always_on");
+	add_adjacent_zone("zone_maze", "zone_mansion_backyard", "mansion_door1", 1);
+	add_adjacent_zone("zone_maze", "zone_maze_staircase", "mansion_door1", 1);
+	add_adjacent_zone("zone_stables", "zone_tunnel_gun2stables2", "always_on");
+	add_adjacent_zone("zone_tunnel_gun2stables2", "zone_tunnel_gun2stables", "always_on");
+}
+
 give_team_characters()
 {
 	self detachall();
