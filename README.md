@@ -964,7 +964,7 @@
 * Added on Tranzit and Die Rise
 
 ### Zombie Blood
-* Added view model and zombie eyes from Turned
+* Added view model and zombie eye fx from Turned
 * No longer makes zombies ignore the player
 * Makes the player invulnerable to zombie melee swipes
 * No longer changes FOV
@@ -1126,7 +1126,7 @@
 * Initial perk drops at round 1 in coop
 * Perks drop every 5 rounds
 * Landing perks no longer deal damage to players
-* Decreased brightness of CDC view hands
+* Decreased brightness of CDC view model
 * Increased intermission time from 7.5 seconds to 15 seconds
 * Fixed Mystery Box floating in the sky at the start of the game
 * Fixed an issue where invisible collision would appear in the starting area when zombies were spawning
@@ -1453,7 +1453,7 @@
 * Zombies spawn in the Generator 6 Before Tank Station 3 zone when players are in the Generator 5 Tank Route 5 zone before the debris between the No Man's Land Back Path 2 zone and the Generator 6 Left Footstep zone is cleared
 * Zombies spawn in the Generator 3 Above Bunker zone when players are in the Generator 3 Bunker 2 zone before any player has entered the Generator 3 Above Bunker zone
 * Zombies spawn in the Generator 3 Above Bunker zone when players are in the Generator 4 Tank Route 6 zone before any player has entered the Generator 3 Above Bunker zone
-* Fixed zombie eyes not showing correctly when they first spawn in The Crazy Place area
+* Fixed zombie eye fx not showing correctly when they first spawn in The Crazy Place area
 * Fixed being able to hit a death barrier when jumping off the Generator 3 Above Bunker zone
 * Fixed front part of tank model spawning in the Excavation Site Level 2 zone
 * Generators: changed cost from 200-800 depending on how many players to 500
