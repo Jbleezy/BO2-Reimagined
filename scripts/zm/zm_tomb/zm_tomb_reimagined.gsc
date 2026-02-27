@@ -116,6 +116,7 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_perk_random::perk_bottle_motion, scripts\zm\replaced\_zm_perk_random::perk_bottle_motion);
 	replaceFunc(maps\mp\zombies\_zm_perk_random::trigger_visible_to_player, scripts\zm\replaced\_zm_perk_random::trigger_visible_to_player);
 	replaceFunc(maps\mp\zombies\_zm_perk_random::wunderfizzstub_update_prompt, scripts\zm\replaced\_zm_perk_random::wunderfizzstub_update_prompt);
+	replaceFunc(maps\mp\zombies\_zm_powerup_zombie_blood::init, scripts\zm\replaced\_zm_powerup_zombie_blood::init);
 	replaceFunc(maps\mp\zombies\_zm_powerup_zombie_blood::zombie_blood_powerup, scripts\zm\replaced\_zm_powerup_zombie_blood::zombie_blood_powerup);
 	replaceFunc(maps\mp\zombies\_zm_riotshield_tomb::doriotshielddeploy, scripts\zm\replaced\_zm_riotshield_tomb::doriotshielddeploy);
 	replaceFunc(maps\mp\zombies\_zm_riotshield_tomb::trackriotshield, scripts\zm\replaced\_zm_riotshield_tomb::trackriotshield);

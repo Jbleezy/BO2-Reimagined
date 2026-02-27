@@ -964,6 +964,7 @@
 * Added on Tranzit and Die Rise
 
 ### Zombie Blood
+* Added view model from Turned
 * No longer makes zombies ignore the player
 * Makes the player invulnerable to zombie melee swipes
 * No longer changes FOV

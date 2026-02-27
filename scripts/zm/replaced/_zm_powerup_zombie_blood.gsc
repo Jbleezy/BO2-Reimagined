@@ -5,6 +5,35 @@
 #include maps\mp\zombies\_zm_utility;
 #include maps\mp\_visionset_mgr;
 
+init(str_zombie_model)
+{
+	level.str_zombie_blood_model = str_zombie_model;
+	precachemodel(level.str_zombie_blood_model);
+	level.str_zombie_blood_view = "c_zom_zombie_viewhands";
+	precachemodel(level.str_zombie_blood_view);
+	registerclientfield("allplayers", "player_zombie_blood_fx", 14000, 1, "int");
+	level._effect["zombie_blood"] = loadfx("maps/zombie_tomb/fx_tomb_pwr_up_zmb_blood");
+	level._effect["zombie_blood_1st"] = loadfx("maps/zombie_tomb/fx_zm_blood_overlay_pclouds");
+	add_zombie_powerup("zombie_blood", "p6_zm_tm_blood_power_up", &"ZOMBIE_POWERUP_MAX_AMMO", ::func_should_always_drop, 1, 0, 0, undefined, "powerup_zombie_blood", "zombie_powerup_zombie_blood_time", "zombie_powerup_zombie_blood_on");
+	powerup_set_can_pick_up_in_last_stand("zombie_blood", 0);
+	onplayerconnect_callback(::init_player_zombie_blood_vars);
+	level.a_zombie_blood_entities = [];
+	array_thread(getentarray("zombie_blood_visible", "targetname"), ::make_zombie_blood_entity);
+
+	if (!isdefined(level.vsmgr_prio_visionset_zm_powerup_zombie_blood))
+	{
+		level.vsmgr_prio_visionset_zm_powerup_zombie_blood = 15;
+	}
+
+	if (!isdefined(level.vsmgr_prio_overlay_zm_powerup_zombie_blood))
+	{
+		level.vsmgr_prio_overlay_zm_powerup_zombie_blood = 16;
+	}
+
+	maps\mp\_visionset_mgr::vsmgr_register_info("visionset", "zm_powerup_zombie_blood_visionset", 14000, level.vsmgr_prio_visionset_zm_powerup_zombie_blood, 15, 1);
+	maps\mp\_visionset_mgr::vsmgr_register_info("overlay", "zm_powerup_zombie_blood_overlay", 14000, level.vsmgr_prio_overlay_zm_powerup_zombie_blood, 15, 1);
+}
+
 zombie_blood_powerup(m_powerup, e_player)
 {
 	e_player notify("zombie_blood");
@@ -78,6 +107,12 @@ zombie_blood_powerup(m_powerup, e_player)
 			e_player.hero_model = e_player.model;
 			e_player setmodel(level.str_zombie_blood_model);
 		}
+
+		if (isdefined(level.str_zombie_blood_view))
+		{
+			e_player.hero_view = e_player getviewmodel();
+			e_player setviewmodel(level.str_zombie_blood_view);
+		}
 	}
 
 	e_player thread watch_zombie_blood_early_exit();
@@ -132,5 +167,11 @@ zombie_blood_powerup(m_powerup, e_player)
 	{
 		e_player setmodel(e_player.hero_model);
 		e_player.hero_model = undefined;
+	}
+
+	if (isdefined(e_player.hero_view))
+	{
+		e_player setviewmodel(e_player.hero_view);
+		e_player.hero_view = undefined;
 	}
 }
