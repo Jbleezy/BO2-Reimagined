@@ -1510,7 +1510,7 @@ bleedout_bar_hud()
 		return;
 	}
 
-	if (flag("solo_game"))
+	if (flag("wait_and_revive"))
 	{
 		return;
 	}
