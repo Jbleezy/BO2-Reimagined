@@ -1687,7 +1687,6 @@ give_perk(perk, bought)
 	{
 		switch_to_additional_primary_weapon = is_true(bought);
 		self scripts\zm\replaced\_zm::restore_additionalprimaryweapon(switch_to_additional_primary_weapon);
-		self notify("perk_additionalprimaryweapon_activated");
 	}
 
 	if (isDefined(level._custom_perks[perk]) && isDefined(level._custom_perks[perk].player_thread_give))
@@ -1724,6 +1723,7 @@ give_perk(perk, bought)
 
 	self.perks_active[self.perks_active.size] = perk;
 	self notify("perk_acquired");
+	self notify(perk + "_start");
 	self thread perk_think(perk);
 }
 

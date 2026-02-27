@@ -724,6 +724,8 @@ empty_clip_powerup(drop_item, player)
 			continue;
 		}
 
+		players[i] notify("zmb_empty_clip");
+
 		primaries = players[i] getweaponslist();
 
 		foreach (weapon in primaries)

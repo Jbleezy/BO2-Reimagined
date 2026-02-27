@@ -3338,7 +3338,7 @@ additionalprimaryweapon_stowed_weapon_refill()
 
 	while (1)
 	{
-		result = self waittill_any_return("weapon_change", "perk_additionalprimaryweapon_activated", "specialty_additionalprimaryweapon_stop", "spawned_player");
+		result = self waittill_any_return("weapon_change", "specialty_additionalprimaryweapon_start", "specialty_additionalprimaryweapon_stop", "zmb_empty_clip", "spawned_player");
 
 		if (self hasPerk("specialty_additionalprimaryweapon"))
 		{
