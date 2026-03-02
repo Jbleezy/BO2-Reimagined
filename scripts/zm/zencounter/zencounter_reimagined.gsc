@@ -3592,28 +3592,8 @@ turned_zombie_move_speed_think()
 
 	while (1)
 	{
-		fast_move_speed = 0;
 		zombie_players = get_players(level.zombie_team);
-
-		if (zombie_players.size <= 1)
-		{
-			any_allies_player_is_in_laststand = 0;
-			allies_players = get_players("allies");
-
-			foreach (allies_player in allies_players)
-			{
-				if (allies_player maps\mp\zombies\_zm_laststand::player_is_in_laststand())
-				{
-					any_allies_player_is_in_laststand = 1;
-					break;
-				}
-			}
-
-			if (!any_allies_player_is_in_laststand)
-			{
-				fast_move_speed = 1;
-			}
-		}
+		fast_move_speed = zombie_players.size <= 1;
 
 		if (fast_move_speed == prev_fast_move_speed)
 		{
