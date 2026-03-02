@@ -1305,6 +1305,15 @@ LANG_ENGLISH        "Hold ^3&&1^7 to pick up"
 REFERENCE           GAME_BUTTON_TO_REVIVE_PLAYER
 LANG_ENGLISH        "Hold ^3&&1^7 to revive"
 
+REFERENCE           ZOMBIE_BUTTON_TO_EXECUTE_PLAYER
+LANG_ENGLISH        "Hold ^3&&1^7 to execute"
+
+REFERENCE           ZOMBIE_PLAYER_IS_EXECUTING_YOU
+LANG_ENGLISH        "&&1 is executing you"
+
+REFERENCE           ZOMBIE_EXECUTING
+LANG_ENGLISH        "Executing"
+
 REFERENCE           ZMWEAPON_BALLISTA_WALLBUY
 LANG_ENGLISH        "Hold ^3[{+activate}]^7 for Ballista [Cost: &&1]"
 

@@ -1689,10 +1689,11 @@
 * Zombies have the same melee range as survivors
 * Zombies have the same move speed as survivors
 * Zombies can jump and go prone
-* Zombies can't move while attacking, changing stances, or deploying a Tactical Insertion
-* Zombies move at 50% fading move speed for 0.5 seconds after jumping
 * Zombies can open doors and activate traps
+* Zombies can execute down survivors
+* Zombies can't move while attacking, executing, changing stances, or deploying a Tactical Insertion
+* Zombies move at 50% fading move speed for 0.5 seconds after jumping
 * Zombies can't damage the same survivor for 0.25 seconds after damaging them
-* Zombies can't be damaged by survivors for 3 seconds after respawn or until they attack
+* Zombies can't be damaged by survivors for 3 seconds after respawning or until they attack
 * Zombies automatically deploy a Tactical Insertion at the position of a random survivor when they die if they did not already deploy a Tactical Insertion
 * Zombies respawn after spectating for 10 seconds

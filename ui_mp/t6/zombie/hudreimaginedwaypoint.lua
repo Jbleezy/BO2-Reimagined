@@ -601,12 +601,24 @@ end
 CoD.PlayerReviveWaypoint.updatePlayerUsing = function(Menu, LocalClientIndex, IsPlayerTeamUsing, IsAnyOtherTeamUsing)
 	local index = Menu.index
 	local clientNum = Engine.GetClientNum(LocalClientIndex)
+	local objectiveEntity = Engine.GetObjectiveEntity(Menu, index)
+	local clientTeam = Engine.GetTeamID(LocalClientIndex, clientNum)
+	local objectiveEntityTeam = Engine.GetTeamID(LocalClientIndex, objectiveEntity)
 	local objectiveIsPlayerUsing = Engine.ObjectiveIsPlayerUsing(LocalClientIndex, index, clientNum)
 	local isAnyTeamUsing = IsPlayerTeamUsing or IsAnyOtherTeamUsing
+	local isObjectiveEntityTeamUsing = (clientTeam == objectiveEntityTeam and IsPlayerTeamUsing) or (clientTeam ~= objectiveEntityTeam and IsAnyOtherTeamUsing)
 
 	if isAnyTeamUsing then
 		if Menu.showWaypoint then
 			Menu.alphaController:setAlpha(1)
+		end
+
+		if not isObjectiveEntityTeamUsing then
+			Menu.mainImage:setRGB(0.5, 0, 0)
+			Menu.arrowImage:setRGB(0.5, 0, 0)
+		else
+			Menu.mainImage:setRGB(1, 1, 1)
+			Menu.arrowImage:setRGB(1, 1, 1)
 		end
 
 		if Menu.playerUsing == objectiveIsPlayerUsing then

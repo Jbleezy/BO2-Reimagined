@@ -820,7 +820,15 @@ kill_feed()
 
 bleedout_feed()
 {
-	obituary(self, self, "none", "MOD_SUICIDE");
+	attacker = self;
+
+	if (isdefined(self.bled_out_by_attacker))
+	{
+		attacker = self.bled_out_by_attacker;
+		self.bled_out_by_attacker = undefined;
+	}
+
+	obituary(self, attacker, "none", "MOD_SUICIDE");
 }
 
 revive_feed(reviver)

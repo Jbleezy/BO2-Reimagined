@@ -121,6 +121,7 @@ turn_to_zombie()
 	self thread turned_sprint_watcher();
 	self thread turned_use_watcher();
 	self thread turned_grenade_watcher();
+	self thread turned_revive_watcher();
 	self thread turned_jump_watcher();
 	self thread turned_stance_watcher();
 
@@ -216,7 +217,7 @@ turned_melee_disable_movement()
 	self allowstand(1);
 	self allowprone(1);
 
-	if (!isdefined(self.n_move_scale_modifiers["turned_grenade"]))
+	if (!isdefined(self.n_move_scale_modifiers["turned_grenade"]) && !isdefined(self.n_move_scale_modifiers["turned_revive"]))
 	{
 		self allowjump(1);
 	}
@@ -237,14 +238,19 @@ turned_sprint_watcher()
 	{
 		while (self issprinting())
 		{
-			self thread maps\mp\zombies\_zm_audio::do_zombies_playvocals("sprint", undefined);
+			if (!self maps\mp\zombies\_zm_laststand::is_reviving_any() && !self isthrowinggrenade())
+			{
+				self thread maps\mp\zombies\_zm_audio::do_zombies_playvocals("sprint", undefined);
+			}
 
 			wait 0.05;
+			waittillframeend;
 		}
 
 		while (!self issprinting())
 		{
 			wait 0.05;
+			waittillframeend;
 		}
 	}
 }
@@ -319,12 +325,76 @@ turned_grenade_disable_movement()
 		wait 0.05;
 	}
 
-	if (!isdefined(self.n_move_scale_modifiers["turned_melee"]))
+	if (!isdefined(self.n_move_scale_modifiers["turned_melee"]) && !isdefined(self.n_move_scale_modifiers["turned_revive"]))
 	{
 		self allowjump(1);
 	}
 
 	self.n_move_scale_modifiers["turned_grenade"] = undefined;
+
+	self scripts\zm\_zm_reimagined::set_move_speed_scale(self.n_move_scale);
+}
+
+turned_revive_watcher()
+{
+	self endon("disconnect");
+	self endon("spawned_spectator");
+	self endon("humanify");
+	level endon("end_game");
+
+	while (is_true(self.is_zombie))
+	{
+		while (self maps\mp\zombies\_zm_laststand::is_reviving_any())
+		{
+			wait 0.05;
+			waittillframeend;
+		}
+
+		while (!self maps\mp\zombies\_zm_laststand::is_reviving_any())
+		{
+			wait 0.05;
+			waittillframeend;
+		}
+
+		self thread turned_revive_disable_movement();
+	}
+}
+
+turned_revive_disable_movement()
+{
+	self notify("turned_revive_disable_movement");
+	self endon("turned_revive_disable_movement");
+	self endon("disconnect");
+	self endon("spawned_spectator");
+	self endon("humanify");
+	level endon("end_game");
+
+	self thread turned_is_jumping_set_velocity();
+
+	self allowjump(0);
+	self allowmelee(0);
+	self forcegrenadethrow();
+	self disableoffhandweapons();
+
+	self.n_move_scale_modifiers["turned_revive"] = 0;
+
+	self scripts\zm\_zm_reimagined::set_move_speed_scale(self.n_move_scale);
+
+	while (self maps\mp\zombies\_zm_laststand::is_reviving_any())
+	{
+		wait 0.05;
+		waittillframeend;
+	}
+
+	if (!isdefined(self.n_move_scale_modifiers["turned_melee"]) && !isdefined(self.n_move_scale_modifiers["turned_grenade"]))
+	{
+		self allowjump(1);
+	}
+
+	self allowmelee(1);
+	self enableoffhandweapons();
+
+	self.n_move_scale_modifiers["turned_revive"] = undefined;
 
 	self scripts\zm\_zm_reimagined::set_move_speed_scale(self.n_move_scale);
 }

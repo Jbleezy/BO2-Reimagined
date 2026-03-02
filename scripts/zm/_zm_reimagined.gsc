@@ -79,12 +79,14 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_score::add_to_player_score, scripts\zm\replaced\_zm_score::add_to_player_score);
 	replaceFunc(maps\mp\zombies\_zm_score::minus_to_player_score, scripts\zm\replaced\_zm_score::minus_to_player_score);
 	replaceFunc(maps\mp\zombies\_zm_score::player_add_points_kill_bonus, scripts\zm\replaced\_zm_score::player_add_points_kill_bonus);
-	replaceFunc(maps\mp\zombies\_zm_laststand::revive_trigger_think, scripts\zm\replaced\_zm_laststand::revive_trigger_think);
+	replaceFunc(maps\mp\zombies\_zm_laststand::init, scripts\zm\replaced\_zm_laststand::init);
+	replaceFunc(maps\mp\zombies\_zm_laststand::revive_trigger_spawn, scripts\zm\replaced\_zm_laststand::revive_trigger_spawn);
+	replaceFunc(maps\mp\zombies\_zm_laststand::can_revive, scripts\zm\replaced\_zm_laststand::can_revive);
 	replaceFunc(maps\mp\zombies\_zm_laststand::revive_do_revive, scripts\zm\replaced\_zm_laststand::revive_do_revive);
-	replaceFunc(maps\mp\zombies\_zm_laststand::revive_give_back_weapons, scripts\zm\replaced\_zm_laststand::revive_give_back_weapons);
-	replaceFunc(maps\mp\zombies\_zm_laststand::revive_hud_think, scripts\zm\replaced\_zm_laststand::revive_hud_think);
 	replaceFunc(maps\mp\zombies\_zm_laststand::auto_revive, scripts\zm\replaced\_zm_laststand::auto_revive);
+	replaceFunc(maps\mp\zombies\_zm_laststand::bleed_out, scripts\zm\replaced\_zm_laststand::bleed_out);
 	replaceFunc(maps\mp\zombies\_zm_laststand::revive_hud_create, scripts\zm\replaced\_zm_laststand::revive_hud_create);
+	replaceFunc(maps\mp\zombies\_zm_laststand::revive_hud_think, scripts\zm\replaced\_zm_laststand::revive_hud_think);
 	replaceFunc(maps\mp\zombies\_zm_blockers::door_buy, scripts\zm\replaced\_zm_blockers::door_buy);
 	replaceFunc(maps\mp\zombies\_zm_blockers::door_opened, scripts\zm\replaced\_zm_blockers::door_opened);
 	replaceFunc(maps\mp\zombies\_zm_blockers::debris_think, scripts\zm\replaced\_zm_blockers::debris_think);
