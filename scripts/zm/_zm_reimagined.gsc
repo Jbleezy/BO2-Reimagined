@@ -571,6 +571,7 @@ on_player_spawned()
 			self thread health_bar_hud();
 			self thread zone_name_hud();
 
+			self thread damaged_blood_fx();
 			self thread veryhurt_blood_fx();
 
 			self thread last_held_primary_weapon_tracker();
@@ -625,6 +626,8 @@ on_player_downed()
 		{
 			continue;
 		}
+
+		self.play_damaged_blood_fx = 1;
 
 		self.statusicon = "hud_status_revive";
 
@@ -1382,6 +1385,8 @@ health_bar_hud()
 		if (player.health == prev_health && player.maxhealth == prev_maxhealth && shield_health == prev_shield_health)
 		{
 			wait 0.05;
+			waittillframeend;
+			waittillframeend; // wait for playerhealthregen
 			continue;
 		}
 
@@ -1392,6 +1397,8 @@ health_bar_hud()
 		prev_shield_health = shield_health;
 
 		wait 0.05;
+		waittillframeend;
+		waittillframeend; // wait for playerhealthregen
 	}
 }
 
@@ -1791,6 +1798,31 @@ ent_cleanup_on_disconnect(ent)
 	}
 }
 
+damaged_blood_fx()
+{
+	level endon("intermission");
+	self endon("disconnect");
+
+	while (1)
+	{
+		prev_health = self.health;
+
+		wait 0.05;
+		waittillframeend;
+		waittillframeend; // wait for playerhealthregen
+
+		damage = prev_health - self.health;
+
+		if ((is_player_valid(self) && damage >= 25) || is_true(self.play_damaged_blood_fx))
+		{
+			self.play_damaged_blood_fx = undefined;
+
+			playfxontag(level._effect["headshot"], self.player_fx_ent, "tag_origin");
+			playfxontag(level._effect["headshot_nochunks"], self.player_fx_ent, "tag_origin");
+		}
+	}
+}
+
 veryhurt_blood_fx()
 {
 	level endon("intermission");
@@ -1798,16 +1830,18 @@ veryhurt_blood_fx()
 
 	while (1)
 	{
-		if (is_player_valid(self) && self.health <= 50)
+		wait 0.05;
+		waittillframeend;
+		waittillframeend; // wait for playerhealthregen
+
+		while (is_player_valid(self) && self.health <= 50)
 		{
 			playfxontag(level._effect["zombie_guts_explosion"], self.player_fx_ent, "tag_origin");
 
 			wait 1;
-
-			continue;
+			waittillframeend;
+			waittillframeend; // wait for playerhealthregen
 		}
-
-		wait 0.05;
 	}
 }
 
