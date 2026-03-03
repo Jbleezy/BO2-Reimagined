@@ -280,6 +280,7 @@
 * Fixed being able to open doors when player is not valid
 * Fixed view model, player models, and zombie models flickering when there are many players and zombies nearby
 * Fixed last stand vision being changed when another player downs
+* Fixed revive hint string showing when another player drops the revive
 * Fixed certain player anims
 * Fixed being able to start reviving a player on the same frame that another player stopped reviving that player
 * Fixed randomization for teams on Survival

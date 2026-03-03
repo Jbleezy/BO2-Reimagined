@@ -617,13 +617,6 @@ revive_do_revive(playerbeingrevived, revivergun)
 		}
 	}
 
-	playerbeingrevived.revivetrigger sethintstring(&"ZOMBIE_BUTTON_TO_REVIVE_PLAYER");
-
-	if (isdefined(playerbeingrevived.executetrigger))
-	{
-		playerbeingrevived.executetrigger sethintstring(&"ZOMBIE_BUTTON_TO_EXECUTE_PLAYER");
-	}
-
 	playerbeingrevived.revivetrigger.beingrevived = 0;
 	self notify("do_revive_ended_normally");
 	self.is_reviving_any--;
