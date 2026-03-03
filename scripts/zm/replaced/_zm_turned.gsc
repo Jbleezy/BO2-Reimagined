@@ -480,6 +480,8 @@ turned_stance_watcher()
 	self endon("humanify");
 	level endon("end_game");
 
+	wait 0.05; // wait for last stand get up
+
 	while (is_true(self.is_zombie))
 	{
 		prev_stance = self getstance();
