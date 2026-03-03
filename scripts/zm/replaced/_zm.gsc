@@ -2259,7 +2259,7 @@ player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, s
 	if (isdefined(eattacker) && isplayer(eattacker) && (is_true(self.is_zombie) || is_true(eattacker.is_zombie)))
 	{
 		// don't store damage info from non-weapon scripted damage
-		if (!self hasweapon(sweapon))
+		if (!self maps\mp\zombies\_zm_laststand::player_is_in_laststand() && !self hasweapon(sweapon))
 		{
 			damage_weapon = maps\mp\zombies\_zm_weapons::get_nonalternate_weapon(sweapon);
 
@@ -2277,10 +2277,6 @@ player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, s
 
 	if (is_true(self.is_zombie))
 	{
-		self.damagemod = smeansofdeath;
-		self.damageweapon = sweapon;
-		self.damagelocation = shitloc;
-
 		if (self maps\mp\zombies\_zm_laststand::player_is_in_laststand())
 		{
 			return 0;
@@ -2295,6 +2291,10 @@ player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, s
 		{
 			return 0;
 		}
+
+		self.damagemod = smeansofdeath;
+		self.damageweapon = sweapon;
+		self.damagelocation = shitloc;
 
 		return actor_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime);
 	}
