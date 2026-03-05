@@ -863,7 +863,11 @@ kill_scoreboard()
 
 	if (isDefined(damaged_by))
 	{
-		if (!is_true(self.is_zombie) && !is_true(damaged_by.attacker.is_zombie))
+		if (is_true(self.is_zombie) || is_true(damaged_by.attacker.is_zombie))
+		{
+			damaged_by.attacker.returns++;
+		}
+		else
 		{
 			damaged_by.attacker.killsconfirmed++;
 		}
@@ -1977,9 +1981,20 @@ remove_player_damage_info_after_time()
 	self endon("remove_player_damage_info");
 	self endon("disconnect");
 
-	if (is_true(self.is_zombie) || is_true(self.last_damaged_by.attacker.is_zombie))
+	waittillframeend; // wait for damage
+
+	if (is_true(self.is_zombie))
 	{
-		waittillframeend;
+		// remove at end of frame
+	}
+	else if (is_true(self.last_damaged_by.attacker.is_zombie))
+	{
+		health = self.health;
+
+		while (self.health <= health && is_player_valid(self))
+		{
+			wait 0.05;
+		}
 	}
 	else
 	{
