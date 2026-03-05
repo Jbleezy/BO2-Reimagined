@@ -1967,12 +1967,14 @@ store_player_damage_info(attacker, weapon, meansofdeath)
 	self.last_damaged_by.meansofdeath = meansofdeath;
 
 	self thread remove_player_damage_info_after_time();
+	self thread remove_player_damage_info_on_attacker_disconnect();
 }
 
 remove_player_damage_info_after_time()
 {
 	self notify("remove_player_damage_info_after_time");
 	self endon("remove_player_damage_info_after_time");
+	self endon("remove_player_damage_info");
 	self endon("disconnect");
 
 	if (is_true(self.is_zombie) || is_true(self.last_damaged_by.attacker.is_zombie))
@@ -1992,6 +1994,22 @@ remove_player_damage_info_after_time()
 	}
 
 	self.last_damaged_by = undefined;
+
+	self notify("remove_player_damage_info");
+}
+
+remove_player_damage_info_on_attacker_disconnect()
+{
+	self notify("remove_player_damage_info_on_attacker_disconnect");
+	self endon("remove_player_damage_info_on_attacker_disconnect");
+	self endon("remove_player_damage_info");
+	self endon("disconnect");
+
+	self.last_damaged_by.attacker waittill("disconnect");
+
+	self.last_damaged_by = undefined;
+
+	self notify("remove_player_damage_info");
 }
 
 grief_laststand_weapon_save(einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, shitloc, psoffsettime, deathanimduration)
