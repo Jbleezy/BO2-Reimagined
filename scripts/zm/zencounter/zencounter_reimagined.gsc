@@ -3774,9 +3774,13 @@ turned_zombie_spawn()
 
 	if (!isdefined(self.turned_zombie_spawn_point_ent) && !isdefined(self.tacticalinsertion))
 	{
-		self.wait_and_show_dead_spectate_hud = 1;
-		self maps\mp\zombies\_zm::spawnspectator();
-		increment_score("allies", 0, 0, &"ZOMBIE_ZTURNED_ZOMBIE_APPEARED");
+		if (!isdefined(level.gamemodulewinningteam))
+		{
+			self.wait_and_show_dead_spectate_hud = 1;
+			self maps\mp\zombies\_zm::spawnspectator();
+			increment_score("allies", 0, 0, &"ZOMBIE_ZTURNED_ZOMBIE_APPEARED");
+		}
+
 		return;
 	}
 
