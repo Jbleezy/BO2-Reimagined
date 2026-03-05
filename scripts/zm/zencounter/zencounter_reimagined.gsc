@@ -3322,15 +3322,9 @@ containment_get_zone_name_to_lock(zone_name)
 
 containment_get_current_zone()
 {
-	if (isdefined(level.elevator_volumes))
+	if (self scripts\zm\_zm_reimagined::is_touching_elevator())
 	{
-		foreach (volume in level.elevator_volumes)
-		{
-			if (self istouching(volume))
-			{
-				return "";
-			}
-		}
+		return "";
 	}
 
 	return self get_current_zone();
@@ -3921,32 +3915,18 @@ turned_zombie_get_spawn_point_ent()
 	spawn_point_ent setmodel("t6_wpn_tac_insert_world");
 	spawn_point_ent.owner = self;
 
-	if (isdefined(level.elevators) && isdefined(level.elevator_volumes))
+	if (isdefined(level.elevators) && player scripts\zm\_zm_reimagined::is_touching_elevator())
 	{
-		is_touching_elevator_volume = 0;
+		elevator_bodies = [];
 
-		foreach (volume in level.elevator_volumes)
+		foreach (elevator in level.elevators)
 		{
-			if (player istouching(volume))
-			{
-				is_touching_elevator_volume = 1;
-				break;
-			}
+			elevator_bodies[elevator_bodies.size] = elevator.body;
 		}
 
-		if (is_touching_elevator_volume)
-		{
-			elevator_bodies = [];
+		elevator_body = get_closest_2d(player.origin, elevator_bodies);
 
-			foreach (elevator in level.elevators)
-			{
-				elevator_bodies[elevator_bodies.size] = elevator.body;
-			}
-
-			elevator_body = get_closest_2d(player.origin, elevator_bodies);
-
-			spawn_point_ent linkto(elevator_body);
-		}
+		spawn_point_ent linkto(elevator_body);
 	}
 
 	spawn_point_ent thread turned_zombie_spawn_point_ent_play_fx();

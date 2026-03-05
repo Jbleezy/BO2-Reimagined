@@ -1480,7 +1480,7 @@ get_zone_display_name(zone)
 {
 	if (isdefined(self) && (isplayer(self) || isai(self)))
 	{
-		if (isdefined(level.elevator_volumes))
+		if (isdefined(level.elevator_volumes) && self is_touching_elevator())
 		{
 			foreach (volume in level.elevator_volumes)
 			{
@@ -3732,6 +3732,56 @@ is_overheat_weapon(weapon)
 is_magicbox_wonder_weapon(weapon)
 {
 	return weapon == "metalstorm_mms_zm" || weapon == "titus6_zm" || weapon == "slipgun_zm" || weapon == "slowgun_zm" || weapon == "blundergat_zm";
+}
+
+is_touching_elevator()
+{
+	return self is_touching_elevator_volume() && self is_touching_elevator_body();
+}
+
+is_touching_elevator_volume()
+{
+	is_touching = 0;
+
+	if (isdefined(level.elevator_volumes))
+	{
+		foreach (volume in level.elevator_volumes)
+		{
+			if (self istouching(volume))
+			{
+				is_touching = 1;
+				break;
+			}
+		}
+	}
+
+	return is_touching;
+}
+
+is_touching_elevator_body()
+{
+	is_touching = 0;
+
+	ent = spawn("script_model", self.origin);
+	ent setmodel("tag_origin");
+
+	if (isdefined(level.elevators))
+	{
+		foreach (elevator in level.elevators)
+		{
+			ent.origin = (self.origin[0], self.origin[1], elevator.body.origin[2]);
+
+			if (ent istouching(elevator.body))
+			{
+				is_touching = 1;
+				break;
+			}
+		}
+	}
+
+	ent delete();
+
+	return is_touching;
 }
 
 get_player_speed()
