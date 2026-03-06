@@ -1024,15 +1024,6 @@ pregame_think()
 			{
 				players = get_players();
 
-				foreach (player in players)
-				{
-					if (!isDefined(player.playing_loop_sound))
-					{
-						player.playing_loop_sound = 1;
-						player playloopsound("zmb_perks_packa_ticktock");
-					}
-				}
-
 				time = getTime() - ready_up_start_time;
 
 				if (time >= ready_up_time * 1000)
@@ -1051,9 +1042,6 @@ pregame_think()
 				player.ready = undefined;
 				player.statusicon = "";
 				player playlocalsound("zmb_perks_packa_deny");
-
-				player.playing_loop_sound = undefined;
-				player stoploopsound();
 			}
 
 			level.ready_up_hud.alpha = 0;
@@ -1114,9 +1102,6 @@ pregame_think()
 	{
 		player.ready = undefined;
 		player.statusicon = "";
-
-		player.playing_loop_sound = undefined;
-		player stoploopsound();
 
 		if (is_true(player.afterlife))
 		{

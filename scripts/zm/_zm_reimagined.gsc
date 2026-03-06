@@ -1620,11 +1620,17 @@ countdown_hud_timer(time)
 {
 	self endon("death");
 
+	clockobject = spawn("script_origin", (0, 0, 0));
+
 	while (time > 0)
 	{
 		self setvalue(time);
 		self thread maps\mp\gametypes_zm\_hud::fontpulse(level);
+
+		clockobject playsound("mpl_ui_timer_countdown");
+
 		wait 1;
+
 		time--;
 	}
 }
