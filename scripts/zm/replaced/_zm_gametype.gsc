@@ -224,7 +224,7 @@ onspawnplayer(predictedspawn)
 	}
 	else
 	{
-		if (!is_encounter() && flag("begin_spawning"))
+		if (!is_encounter() && flag("initial_blackscreen_passed"))
 		{
 			spawnpoint = maps\mp\zombies\_zm::check_for_valid_spawn_near_team(self, 1);
 		}
