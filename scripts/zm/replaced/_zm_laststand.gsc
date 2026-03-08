@@ -553,6 +553,16 @@ revive_do_revive(playerbeingrevived, revivergun)
 	}
 
 	self.revivetexthud thread scripts\zm\_zm_reimagined::hide_on_scoreboard(self);
+
+	if (self.team != playerbeingrevived_player.team)
+	{
+		playerbeingrevived_player.pre_execute_weapon = playerbeingrevived_player getcurrentweapon();
+		playerbeingrevived_player giveweapon("death_throe_zm");
+		playerbeingrevived_player switchtoweapon("death_throe_zm");
+
+		playerbeingrevived_player thread docowardswayanims_loop(self);
+	}
+
 	self thread maps\mp\zombies\_zm_laststand::check_for_failed_revive(playerbeingrevived);
 
 	while (self maps\mp\zombies\_zm_laststand::is_reviving(playerbeingrevived))
@@ -603,6 +613,13 @@ revive_do_revive(playerbeingrevived, revivergun)
 	if (isDefined(self.revivetexthud))
 	{
 		self.revivetexthud destroy();
+	}
+
+	if (self.team != playerbeingrevived_player.team)
+	{
+		playerbeingrevived_player takeweapon("death_throe_zm");
+		playerbeingrevived_player switchtoweapon(playerbeingrevived_player.pre_execute_weapon);
+		playerbeingrevived_player.pre_execute_weapon = undefined;
 	}
 
 	if (isDefined(playerbeingrevived.revivetrigger.auto_revive) && playerbeingrevived.revivetrigger.auto_revive == 1)
@@ -1264,5 +1281,20 @@ revive_hud_think()
 
 			playertorevive.revivetrigger.createtime = undefined;
 		}
+	}
+}
+
+docowardswayanims_loop(reviver)
+{
+	self endon("disconnect");
+	self endon("zombified");
+	self endon("stop_revive_trigger");
+	reviver endon("do_revive_ended_normally");
+
+	while (1)
+	{
+		duration = self docowardswayanims();
+
+		wait duration;
 	}
 }
