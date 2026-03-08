@@ -3822,7 +3822,7 @@ turned_zombie_spawn_protection()
 
 	clientnotify("turned_zombie_spawn_protection_start");
 
-	self waittill_any_timeout(3, "weapon_melee", "spawned_spectator", "humanify", "disconnect");
+	self waittill_any_timeout(3, "spawned_spectator", "humanify", "disconnect");
 
 	turned_zombie_spawn_protection_ent delete();
 
