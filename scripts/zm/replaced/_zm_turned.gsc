@@ -189,43 +189,21 @@ turned_melee_disable_movement()
 	self endon("humanify");
 	level endon("end_game");
 
-	self thread turned_is_jumping_set_velocity();
-
-	if (self getstance() == "stand" || self getstance() == "crouch")
-	{
-		self allowstand(1);
-		self allowprone(0);
-
-		if (self getstance() == "crouch")
-		{
-			self setstance("stand");
-		}
-	}
-	else if (self getstance() == "prone")
-	{
-		self allowstand(0);
-		self allowprone(1);
-	}
-
-	self allowjump(0);
-
 	self.n_move_scale_modifiers["turned_melee"] = 0;
 
 	self scripts\zm\_zm_reimagined::set_move_speed_scale(self.n_move_scale);
 
+	self thread turned_is_jumping_set_velocity();
+
+	self turned_disable_stance();
+
 	wait 0.5;
-
-	self allowstand(1);
-	self allowprone(1);
-
-	if (!isdefined(self.n_move_scale_modifiers["turned_grenade"]) && !isdefined(self.n_move_scale_modifiers["turned_revive"]))
-	{
-		self allowjump(1);
-	}
 
 	self.n_move_scale_modifiers["turned_melee"] = undefined;
 
 	self scripts\zm\_zm_reimagined::set_move_speed_scale(self.n_move_scale);
+
+	self turned_enable_stance();
 }
 
 turned_sprint_watcher()
@@ -313,27 +291,24 @@ turned_grenade_disable_movement()
 	self endon("humanify");
 	level endon("end_game");
 
-	self thread turned_is_jumping_set_velocity();
-
-	self allowjump(0);
-
 	self.n_move_scale_modifiers["turned_grenade"] = 0;
 
 	self scripts\zm\_zm_reimagined::set_move_speed_scale(self.n_move_scale);
+
+	self thread turned_is_jumping_set_velocity();
+
+	self allowjump(0);
 
 	while (self isthrowinggrenade())
 	{
 		wait 0.05;
 	}
 
-	if (!isdefined(self.n_move_scale_modifiers["turned_melee"]) && !isdefined(self.n_move_scale_modifiers["turned_revive"]))
-	{
-		self allowjump(1);
-	}
-
 	self.n_move_scale_modifiers["turned_grenade"] = undefined;
 
 	self scripts\zm\_zm_reimagined::set_move_speed_scale(self.n_move_scale);
+
+	self turned_enable_stance();
 }
 
 turned_revive_watcher()
@@ -370,16 +345,17 @@ turned_revive_disable_movement()
 	self endon("humanify");
 	level endon("end_game");
 
-	self thread turned_is_jumping_set_velocity();
-
-	self allowjump(0);
-	self allowmelee(0);
-	self forcegrenadethrow();
-	self disableoffhandweapons();
-
 	self.n_move_scale_modifiers["turned_revive"] = 0;
 
 	self scripts\zm\_zm_reimagined::set_move_speed_scale(self.n_move_scale);
+
+	self thread turned_is_jumping_set_velocity();
+
+	self turned_disable_stance();
+
+	self allowmelee(0);
+	self forcegrenadethrow();
+	self disableoffhandweapons();
 
 	while (self maps\mp\zombies\_zm_laststand::is_reviving_any())
 	{
@@ -387,17 +363,14 @@ turned_revive_disable_movement()
 		waittillframeend;
 	}
 
-	if (!isdefined(self.n_move_scale_modifiers["turned_melee"]) && !isdefined(self.n_move_scale_modifiers["turned_grenade"]))
-	{
-		self allowjump(1);
-	}
-
-	self allowmelee(1);
-	self enableoffhandweapons();
-
 	self.n_move_scale_modifiers["turned_revive"] = undefined;
 
 	self scripts\zm\_zm_reimagined::set_move_speed_scale(self.n_move_scale);
+
+	self turned_enable_stance();
+
+	self allowmelee(1);
+	self enableoffhandweapons();
 }
 
 turned_jump_watcher()
@@ -517,6 +490,37 @@ turned_stance_disable_movement()
 	self.n_move_scale_modifiers["turned_stance"] = undefined;
 
 	self scripts\zm\_zm_reimagined::set_move_speed_scale(self.n_move_scale);
+}
+
+turned_disable_stance()
+{
+	if (self getstance() == "stand" || self getstance() == "crouch")
+	{
+		self allowstand(1);
+		self allowprone(0);
+
+		if (self getstance() == "crouch")
+		{
+			self setstance("stand");
+		}
+	}
+	else if (self getstance() == "prone")
+	{
+		self allowstand(0);
+		self allowprone(1);
+	}
+
+	self allowjump(0);
+}
+
+turned_enable_stance()
+{
+	if (!isdefined(self.n_move_scale_modifiers["turned_melee"]) && !isdefined(self.n_move_scale_modifiers["turned_grenade"]) && !isdefined(self.n_move_scale_modifiers["turned_revive"]))
+	{
+		self allowstand(1);
+		self allowprone(1);
+		self allowjump(1);
+	}
 }
 
 turned_is_jumping_set_velocity()
