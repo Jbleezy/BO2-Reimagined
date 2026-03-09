@@ -51,6 +51,7 @@ turn_to_zombie()
 	self setperk("specialty_noname");
 	self setperk("specialty_unlimitedsprint");
 	self setperk("specialty_fallheight");
+	self setperk("specialty_bulletflinch");
 	self setperk("specialty_fasttoss");
 
 	self turned_disable_player_weapons();
