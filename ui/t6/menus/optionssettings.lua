@@ -691,6 +691,12 @@ CoD.OptionsSettings.CreateGameTab = function(GameTab, LocalClientIndex)
 	DofSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChangedSendMenuResponse)
 	DofSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_ENABLED_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChangedSendMenuResponse)
 
+	GameTabButtonList:addSpacer(CoD.CoD9Button.Height / 2)
+
+	local CharacterDialogSelector = GameTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_CHARACTER_DIALOG_CAPS"), "character_dialog")
+	CharacterDialogSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
+	CharacterDialogSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_ENABLED_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
+
 	return GameTabContainer
 end
 

@@ -189,7 +189,7 @@
 * Added option to change action slot area
 * Added option to enable or disable fog
 * Added option to enable or disable depth of field
-* Added option in private match lobby to enable or disable character dialog
+* Added option to enable or disable character dialog
 
 ## HUD
 * Enemy counter displayed on top left of screen

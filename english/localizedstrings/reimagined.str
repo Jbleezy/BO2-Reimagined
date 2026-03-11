@@ -148,12 +148,6 @@ LANG_ENGLISH        "Change the map."
 REFERENCE           MPUI_CHANGE_GAME_MODE_DESC
 LANG_ENGLISH        "Change the game mode."
 
-REFERENCE           ZMUI_CHARACTER_DIALOG_CAPS
-LANG_ENGLISH        "CHARACTER DIALOG"
-
-REFERENCE           ZMUI_CHARACTER_DIALOG_DESC
-LANG_ENGLISH        "Allow character dialog to play."
-
 REFERENCE           ZMUI_PRO_DESC
 LANG_ENGLISH        "No Mystery Box, no Pack-a-Punch, and no held melee weapons."
 
@@ -207,6 +201,9 @@ LANG_ENGLISH        "ACTION SLOT AREA"
 
 REFERENCE           MENU_FOG_CAPS
 LANG_ENGLISH        "FOG"
+
+REFERENCE           MENU_CHARACTER_DIALOG_CAPS
+LANG_ENGLISH        "CHARACTER DIALOG"
 
 REFERENCE           MENU_MINIMAL_CAPS
 LANG_ENGLISH        "MINIMAL"

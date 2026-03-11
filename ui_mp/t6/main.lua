@@ -211,6 +211,10 @@ CoD.InitArchiveDvars = function()
 	if UIExpression.DvarString(nil, "r_dof_enable_settings") == "" then
 		Engine.Exec(nil, "seta r_dof_enable_settings 0")
 	end
+
+	if UIExpression.DvarString(nil, "character_dialog") == "" then
+		Engine.Exec(nil, "seta character_dialog 1")
+	end
 end
 
 CoD.SetDvars = function()
