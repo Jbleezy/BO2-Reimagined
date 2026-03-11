@@ -25,7 +25,13 @@ LANG_ENGLISH        "Grief Pro"
 REFERENCE           ZMUI_ZRACE_PRO
 LANG_ENGLISH        "Race Pro"
 
-REFERENCE           ZMUI_ZCONTAINMENT_PRO
+REFERENCE           ZMUI_ZCONTAIN
+LANG_ENGLISH        "Containment"
+
+REFERENCE           ZMUI_ZCONTAIN_CAPS
+LANG_ENGLISH        "CONTAINMENT"
+
+REFERENCE           ZMUI_ZCONTAIN_PRO
 LANG_ENGLISH        "Containment Pro"
 
 REFERENCE           ZMUI_ZMEAT_PRO
@@ -312,7 +318,7 @@ LANG_ENGLISH        "Bleed out enemy players to gain score!"
 REFERENCE           ZOMBIE_ZRACE_INTRO
 LANG_ENGLISH        "Kill zombies or enemy players to gain score!"
 
-REFERENCE           ZOMBIE_ZCONTAINMENT_INTRO
+REFERENCE           ZOMBIE_ZCONTAIN_INTRO
 LANG_ENGLISH        "Control the containment zone to gain score!"
 
 REFERENCE           ZOMBIE_ZMEAT_INTRO

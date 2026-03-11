@@ -1,6 +1,6 @@
 zclassic
 zstandard
-zcontainment
+zcontain
 zrace
 zdeadpool
 zmeat

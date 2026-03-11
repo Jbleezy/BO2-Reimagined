@@ -1726,7 +1726,7 @@ setscoreboardcolumns_gametype()
 		{
 			setscoreboardcolumns("score", "kills", "returns", "downs", "revives");
 		}
-		else if (level.scr_zm_ui_gametype == "zcontainment" || level.scr_zm_ui_gametype == "zmeat")
+		else if (level.scr_zm_ui_gametype == "zcontain" || level.scr_zm_ui_gametype == "zmeat")
 		{
 			setscoreboardcolumns("score", "captures", "killsconfirmed", "downs", "revives");
 		}

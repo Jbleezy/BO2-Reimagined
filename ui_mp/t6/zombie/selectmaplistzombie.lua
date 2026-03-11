@@ -26,7 +26,7 @@ CoD.SelectMapListZombie.GameModes[5] = {
 }
 CoD.SelectMapListZombie.GameModes[6] = {
 	ui_zm_gamemodegroup = "zencounter",
-	ui_gametype = "zcontainment",
+	ui_gametype = "zcontain",
 }
 CoD.SelectMapListZombie.GameModes[7] = {
 	ui_zm_gamemodegroup = "zencounter",

@@ -95,7 +95,7 @@ init()
 	level thread unlimited_powerups();
 	level thread save_teams_on_intermission();
 
-	if (level.scr_zm_ui_gametype == "zcontainment")
+	if (level.scr_zm_ui_gametype == "zcontain")
 	{
 		containment_init();
 	}
@@ -260,7 +260,7 @@ enemy_powerup_hud()
 
 obj_waypoint()
 {
-	if (level.scr_zm_ui_gametype == "zcontainment" || level.scr_zm_ui_gametype == "zmeat")
+	if (level.scr_zm_ui_gametype == "zcontain" || level.scr_zm_ui_gametype == "zmeat")
 	{
 		level.game_mode_obj_ind = 16;
 
@@ -534,7 +534,7 @@ on_player_spawned()
 			self enableInvulnerability();
 		}
 
-		if (level.scr_zm_ui_gametype == "zcontainment")
+		if (level.scr_zm_ui_gametype == "zcontain")
 		{
 			self.in_containment_zone = undefined;
 		}
@@ -1467,7 +1467,7 @@ get_gamemode_winning_score()
 	{
 		return 500;
 	}
-	else if (level.scr_zm_ui_gametype == "zcontainment")
+	else if (level.scr_zm_ui_gametype == "zcontain")
 	{
 		return 250;
 	}

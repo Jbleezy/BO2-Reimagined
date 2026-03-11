@@ -16,7 +16,7 @@ CoD.PrivateGameLobby.Dvars[1].gameTypes = {}
 CoD.PrivateGameLobby.Dvars[1].gameTypes[1] = "zsr"
 CoD.PrivateGameLobby.Dvars[1].gameTypes[2] = "zgrief"
 CoD.PrivateGameLobby.Dvars[1].gameTypes[3] = "zrace"
-CoD.PrivateGameLobby.Dvars[1].gameTypes[4] = "zcontainment"
+CoD.PrivateGameLobby.Dvars[1].gameTypes[4] = "zcontain"
 CoD.PrivateGameLobby.Dvars[1].gameTypes[5] = "zmeat"
 CoD.PrivateGameLobby.Dvars[1].gameTypes[6] = "zturned"
 

@@ -306,7 +306,7 @@ CoD.GameModeObjectiveWaypoint.update = function(Menu, ClientInstance)
 		local objectiveIcon = ""
 		local objectiveArrow = "waypoint_circle_arrow"
 
-		if gametype == "zcontainment" then
+		if gametype == "zcontain" then
 			local objectiveName = Engine.GetObjectiveName(controller, index)
 			local objectiveTeam = Engine.GetObjectiveTeam(Menu, index)
 			local clientTeam = Engine.GetTeamID(controller, clientNum)
