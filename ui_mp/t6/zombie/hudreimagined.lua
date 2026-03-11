@@ -373,45 +373,45 @@ LUI.createMenu.ReimaginedArea = function(LocalClientIndex)
 	gameModeScoreDetailedWidget:registerEventHandler("hud_update_scoring_team", CoD.Reimagined.GameModeScoreDetailedArea.UpdateScoringTeam)
 	gameModeScoreDetailedWidget:registerEventHandler("hud_update_player_count", CoD.Reimagined.GameModeScoreDetailedArea.UpdatePlayerCount)
 
-	local containmentWidget = LUI.UIElement.new()
-	containmentWidget:setLeftRight(true, true, 7, 7)
-	containmentWidget:setTopBottom(true, false, 3, 3)
-	containmentWidget:setAlpha(0)
-	safeArea:addElement(containmentWidget)
+	local gameModeInfoWidget = LUI.UIElement.new()
+	gameModeInfoWidget:setLeftRight(true, true, 7, 7)
+	gameModeInfoWidget:setTopBottom(true, false, 3, 3)
+	gameModeInfoWidget:setAlpha(0)
+	safeArea:addElement(gameModeInfoWidget)
 
 	local containmentZoneText = LUI.UIText.new()
 	containmentZoneText:setLeftRight(true, true, 0, 0)
 	containmentZoneText:setTopBottom(true, false, 0, CoD.textSize.Default)
 	containmentZoneText:setFont(CoD.fonts.Big)
 	containmentZoneText:setAlignment(LUI.Alignment.Left)
-	containmentWidget:addElement(containmentZoneText)
-	containmentWidget.containmentZoneText = containmentZoneText
+	gameModeInfoWidget:addElement(containmentZoneText)
+	gameModeInfoWidget.containmentZoneText = containmentZoneText
 
 	local containmentTimeText = LUI.UIText.new()
 	containmentTimeText:setLeftRight(true, true, 0, 0)
 	containmentTimeText:setTopBottom(true, false, 0 + 23, CoD.textSize.Default + 23)
 	containmentTimeText:setFont(CoD.fonts.Big)
 	containmentTimeText:setAlignment(LUI.Alignment.Left)
-	containmentWidget:addElement(containmentTimeText)
-	containmentWidget.containmentTimeText = containmentTimeText
+	gameModeInfoWidget:addElement(containmentTimeText)
+	gameModeInfoWidget.containmentTimeText = containmentTimeText
 
-	containmentWidget:registerEventHandler("hud_update_refresh", CoD.Reimagined.ContainmentArea.UpdateVisibility)
-	containmentWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_VISIBLE, CoD.Reimagined.ContainmentArea.UpdateVisibility)
-	containmentWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_EMP_ACTIVE, CoD.Reimagined.ContainmentArea.UpdateVisibility)
-	containmentWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM, CoD.Reimagined.ContainmentArea.UpdateVisibility)
-	containmentWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN, CoD.Reimagined.ContainmentArea.UpdateVisibility)
-	containmentWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_VEHICLE, CoD.Reimagined.ContainmentArea.UpdateVisibility)
-	containmentWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_GUIDED_MISSILE, CoD.Reimagined.ContainmentArea.UpdateVisibility)
-	containmentWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC, CoD.Reimagined.ContainmentArea.UpdateVisibility)
-	containmentWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_AMMO_COUNTER_HIDE, CoD.Reimagined.ContainmentArea.UpdateVisibility)
-	containmentWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_FLASH_BANGED, CoD.Reimagined.ContainmentArea.UpdateVisibility)
-	containmentWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_UI_ACTIVE, CoD.Reimagined.ContainmentArea.UpdateVisibility)
-	containmentWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_SPECTATING_CLIENT, CoD.Reimagined.ContainmentArea.UpdateVisibility)
-	containmentWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_SCOREBOARD_OPEN, CoD.Reimagined.ContainmentArea.UpdateVisibility)
-	containmentWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_PLAYER_DEAD, CoD.Reimagined.ContainmentArea.UpdateVisibility)
-	containmentWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_SCOPED, CoD.Reimagined.ContainmentArea.UpdateVisibility)
-	containmentWidget:registerEventHandler("hud_update_containment_zone", CoD.Reimagined.ContainmentArea.UpdateContainmentZone)
-	containmentWidget:registerEventHandler("hud_update_containment_time", CoD.Reimagined.ContainmentArea.UpdateContainmentTime)
+	gameModeInfoWidget:registerEventHandler("hud_update_refresh", CoD.Reimagined.GameModeInfoArea.UpdateVisibility)
+	gameModeInfoWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_VISIBLE, CoD.Reimagined.GameModeInfoArea.UpdateVisibility)
+	gameModeInfoWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_EMP_ACTIVE, CoD.Reimagined.GameModeInfoArea.UpdateVisibility)
+	gameModeInfoWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM, CoD.Reimagined.GameModeInfoArea.UpdateVisibility)
+	gameModeInfoWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN, CoD.Reimagined.GameModeInfoArea.UpdateVisibility)
+	gameModeInfoWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_VEHICLE, CoD.Reimagined.GameModeInfoArea.UpdateVisibility)
+	gameModeInfoWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_GUIDED_MISSILE, CoD.Reimagined.GameModeInfoArea.UpdateVisibility)
+	gameModeInfoWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC, CoD.Reimagined.GameModeInfoArea.UpdateVisibility)
+	gameModeInfoWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_AMMO_COUNTER_HIDE, CoD.Reimagined.GameModeInfoArea.UpdateVisibility)
+	gameModeInfoWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_FLASH_BANGED, CoD.Reimagined.GameModeInfoArea.UpdateVisibility)
+	gameModeInfoWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_UI_ACTIVE, CoD.Reimagined.GameModeInfoArea.UpdateVisibility)
+	gameModeInfoWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_SPECTATING_CLIENT, CoD.Reimagined.GameModeInfoArea.UpdateVisibility)
+	gameModeInfoWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_SCOREBOARD_OPEN, CoD.Reimagined.GameModeInfoArea.UpdateVisibility)
+	gameModeInfoWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_PLAYER_DEAD, CoD.Reimagined.GameModeInfoArea.UpdateVisibility)
+	gameModeInfoWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_SCOPED, CoD.Reimagined.GameModeInfoArea.UpdateVisibility)
+	gameModeInfoWidget:registerEventHandler("hud_update_containment_zone", CoD.Reimagined.GameModeInfoArea.UpdateContainmentZone)
+	gameModeInfoWidget:registerEventHandler("hud_update_containment_time", CoD.Reimagined.GameModeInfoArea.UpdateContainmentTime)
 
 	return safeArea
 end
@@ -860,10 +860,10 @@ CoD.Reimagined.GameModeScoreDetailedArea.UpdatePlayerCount = function(Menu, Clie
 	end
 end
 
-CoD.Reimagined.ContainmentArea = {}
-CoD.Reimagined.ContainmentArea.UpdateVisibility = function(Menu, ClientInstance)
+CoD.Reimagined.GameModeInfoArea = {}
+CoD.Reimagined.GameModeInfoArea.UpdateVisibility = function(Menu, ClientInstance)
 	local controller = ClientInstance.controller
-	if UIExpression.DvarBool(nil, "ui_hud_containment") == 1 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_HUD_VISIBLE) == 1 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_EMP_ACTIVE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_VEHICLE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_GUIDED_MISSILE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_AMMO_COUNTER_HIDE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IS_FLASH_BANGED) == 0 and (UIExpression.IsVisibilityBitSet(controller, CoD.BIT_UI_ACTIVE) == 0 or UIExpression.IsVisibilityBitSet(controller, CoD.BIT_SCOREBOARD_OPEN) == 1) and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_KILLCAM) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IS_SCOPED) == 0 and (not CoD.IsShoutcaster(controller) or CoD.ExeProfileVarBool(controller, "shoutcaster_scorestreaks") and Engine.IsSpectatingActiveClient(controller)) and CoD.FSM_VISIBILITY(controller) == 0 then
+	if UIExpression.DvarBool(nil, "ui_hud_game_mode_info") == 1 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_HUD_VISIBLE) == 1 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_EMP_ACTIVE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_VEHICLE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_GUIDED_MISSILE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_AMMO_COUNTER_HIDE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IS_FLASH_BANGED) == 0 and (UIExpression.IsVisibilityBitSet(controller, CoD.BIT_UI_ACTIVE) == 0 or UIExpression.IsVisibilityBitSet(controller, CoD.BIT_SCOREBOARD_OPEN) == 1) and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_KILLCAM) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IS_SCOPED) == 0 and (not CoD.IsShoutcaster(controller) or CoD.ExeProfileVarBool(controller, "shoutcaster_scorestreaks") and Engine.IsSpectatingActiveClient(controller)) and CoD.FSM_VISIBILITY(controller) == 0 then
 		if Menu.visible ~= true then
 			Menu:setAlpha(1)
 			Menu.visible = true
@@ -874,13 +874,13 @@ CoD.Reimagined.ContainmentArea.UpdateVisibility = function(Menu, ClientInstance)
 	end
 end
 
-CoD.Reimagined.ContainmentArea.UpdateContainmentZone = function(Menu, ClientInstance)
+CoD.Reimagined.GameModeInfoArea.UpdateContainmentZone = function(Menu, ClientInstance)
 	local zoneName = Engine.Localize(Engine.GetIString(ClientInstance.data[1], "CS_LOCALIZED_STRINGS"))
 
 	Menu.containmentZoneText:setText(Engine.Localize("ZOMBIE_HUD_CONTAINMENT_ZONE") .. zoneName)
 end
 
-CoD.Reimagined.ContainmentArea.UpdateContainmentTime = function(Menu, ClientInstance)
+CoD.Reimagined.GameModeInfoArea.UpdateContainmentTime = function(Menu, ClientInstance)
 	local timeNum = ClientInstance.data[1]
 	local time = ""
 

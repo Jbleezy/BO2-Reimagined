@@ -192,8 +192,8 @@ CoD.InitArchiveDvars = function()
 		Engine.Exec(nil, "seta ui_hud_game_mode_score 1")
 	end
 
-	if UIExpression.DvarString(nil, "ui_hud_containment") == "" then
-		Engine.Exec(nil, "seta ui_hud_containment 1")
+	if UIExpression.DvarString(nil, "ui_hud_game_mode_info") == "" then
+		Engine.Exec(nil, "seta ui_hud_game_mode_info 1")
 	end
 
 	if UIExpression.DvarString(nil, "ui_hud_head_icons") == "" then
