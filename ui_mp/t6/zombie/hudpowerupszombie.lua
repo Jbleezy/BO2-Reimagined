@@ -139,11 +139,35 @@ LUI.createMenu.PowerUpsArea = function(LocalClientIndex)
 	PowerupsAreaWidget:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN, CoD.PowerUps.UpdateVisibility)
 	PowerupsAreaWidget:registerEventHandler("powerups_update_position", CoD.PowerUps.UpdatePosition)
 	PowerupsAreaWidget.visible = true
+
+	PowerupsAreaWidget.forceHidePowerupsHud = false
+	PowerupsAreaWidget:registerEventHandler("show_dead_spectate_hud", CoD.PowerUps.HidePowerupsHud)
+	PowerupsAreaWidget:registerEventHandler("hide_dead_spectate_hud", CoD.PowerUps.ShowPowerupsHud)
+
 	return PowerupsAreaWidget
+end
+
+CoD.PowerUps.HidePowerupsHud = function(PowerupsAreaWidget, ClientInstance)
+	PowerupsAreaWidget.forceHidePowerupsHud = true
+	CoD.PowerUps.UpdateVisibility(PowerupsAreaWidget, ClientInstance)
+end
+
+CoD.PowerUps.ShowPowerupsHud = function(PowerupsAreaWidget, ClientInstance)
+	PowerupsAreaWidget.forceHidePowerupsHud = false
+	CoD.PowerUps.UpdateVisibility(PowerupsAreaWidget, ClientInstance)
 end
 
 CoD.PowerUps.UpdateVisibility = function(Menu, ClientInstance)
 	local LocalClientIndex = ClientInstance.controller
+
+	if Menu.forceHidePowerupsHud then
+		if Menu.visible then
+			Menu:setAlpha(0)
+			Menu.visible = nil
+		end
+		return
+	end
+
 	if UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_HUD_VISIBLE) == 1 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_IS_PLAYER_IN_AFTERLIFE) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_EMP_ACTIVE) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_UI_ACTIVE) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_IN_KILLCAM) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_SCOREBOARD_OPEN) == 0 and (not CoD.IsShoutcaster(LocalClientIndex) or CoD.ExeProfileVarBool(LocalClientIndex, "shoutcaster_teamscore")) and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_IN_GUIDED_MISSILE) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_IS_SCOPED) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_IN_VEHICLE) == 0 and UIExpression.IsVisibilityBitSet(LocalClientIndex, CoD.BIT_IS_FLASH_BANGED) == 0 then
 		if not Menu.visible then
 			Menu:setAlpha(1)
