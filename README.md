@@ -291,6 +291,7 @@
 * Changed height to 60 (normally either 48 or 72)
 * Increased damage taken to make a crawler from 10% of current health to 25% of current health
 * Amount of zombies scales linearly with the amount of players
+* Zombies that bleed out and respawn no longer keep their previous health
 * Zombies that are deleted due to being too far away always respawn
 * Attracted towards points of interest immediately
 * Removed walkers in high rounds
@@ -1597,7 +1598,7 @@
 * Insta Kill: enemy players deal half damage
 * Nuke: enemy players lose 400 points
 * Nuke: deals 75 damage to all alive enemy players
-* Nuke: makes all down enemy players bleed out
+* Nuke: bleeds out all down enemy players
 * Added new CDC and CIA revive waypoint icons
 * Added kill feed (includes downs, revives, and bleed outs)
 * Added player kills on scoreboard (replaces headshots)

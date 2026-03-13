@@ -79,6 +79,7 @@ main()
 	replaceFunc(maps\mp\zm_tomb_tank::activate_tank_wait_with_no_cost, scripts\zm\replaced\zm_tomb_tank::activate_tank_wait_with_no_cost);
 	replaceFunc(maps\mp\zm_tomb_tank::tank_kill_players, scripts\zm\replaced\zm_tomb_tank::tank_kill_players);
 	replaceFunc(maps\mp\zm_tomb_teleporter::run_chamber_entrance_teleporter, scripts\zm\replaced\zm_tomb_teleporter::run_chamber_entrance_teleporter);
+	replaceFunc(maps\mp\zm_tomb_utility::dug_zombie_spawn_init, scripts\zm\replaced\zm_tomb_utility::dug_zombie_spawn_init);
 	replaceFunc(maps\mp\zm_tomb_utility::capture_zombie_spawn_init, scripts\zm\replaced\zm_tomb_utility::capture_zombie_spawn_init);
 	replaceFunc(maps\mp\zm_tomb_utility::weather_manager, scripts\zm\replaced\zm_tomb_utility::weather_manager);
 	replaceFunc(maps\mp\zm_tomb_utility::update_staff_accessories, scripts\zm\replaced\zm_tomb_utility::update_staff_accessories);

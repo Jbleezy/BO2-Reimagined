@@ -3,6 +3,125 @@
 #include common_scripts\utility;
 #include maps\mp\zombies\_zm_utility;
 
+zombie_spawn_init(animname_set)
+{
+	if (!isdefined(animname_set))
+	{
+		animname_set = 0;
+	}
+
+	self.targetname = "zombie";
+	self.script_noteworthy = undefined;
+	recalc_zombie_array();
+
+	if (!animname_set)
+	{
+		self.animname = "zombie";
+	}
+
+	if (isdefined(get_gamemode_var("pre_init_zombie_spawn_func")))
+	{
+		self [[get_gamemode_var("pre_init_zombie_spawn_func")]]();
+	}
+
+	self thread play_ambient_zombie_vocals();
+	self.zmb_vocals_attack = "zmb_vocals_zombie_attack";
+	self.ignoreall = 1;
+	self.ignoreme = 1;
+	self.allowdeath = 1;
+	self.force_gib = 1;
+	self.is_zombie = 1;
+	self.has_legs = 1;
+	self allowedstances("stand");
+	self.zombie_damaged_by_bar_knockdown = 0;
+	self.gibbed = 0;
+	self.head_gibbed = 0;
+	self setphysparams(15, 0, 72);
+	self.disablearrivals = 1;
+	self.disableexits = 1;
+	self.grenadeawareness = 0;
+	self.badplaceawareness = 0;
+	self.ignoresuppression = 1;
+	self.suppressionthreshold = 1;
+	self.nododgemove = 1;
+	self.dontshootwhilemoving = 1;
+	self.pathenemylookahead = 0;
+	self.badplaceawareness = 0;
+	self.chatinitialized = 0;
+	self.a.disablepain = 1;
+	self disable_react();
+
+	if (isdefined(level.zombie_health))
+	{
+		self.maxhealth = level.zombie_health;
+		self.health = self.maxhealth;
+	}
+	else
+	{
+		self.maxhealth = level.zombie_vars["zombie_health_start"];
+		self.health = self.maxhealth;
+	}
+
+	self.freezegun_damage = 0;
+	self.dropweapon = 0;
+	level thread zombie_death_event(self);
+	self init_zombie_run_cycle();
+	self thread zombie_think();
+	self thread zombie_gib_on_damage();
+	self thread zombie_damage_failsafe();
+	self thread enemy_death_detection();
+
+	if (isdefined(level._zombie_custom_spawn_logic))
+	{
+		if (isarray(level._zombie_custom_spawn_logic))
+		{
+			for (i = 0; i < level._zombie_custom_spawn_logic.size; i++)
+			{
+				self thread [[level._zombie_custom_spawn_logic[i]]]();
+			}
+		}
+		else
+		{
+			self thread [[level._zombie_custom_spawn_logic]]();
+		}
+	}
+
+	if (!isdefined(self.no_eye_glow) || !self.no_eye_glow)
+	{
+		if (!(isdefined(self.is_inert) && self.is_inert))
+		{
+			self thread delayed_zombie_eye_glow();
+		}
+	}
+
+	self.deathfunction = ::zombie_death_animscript;
+	self.flame_damage_time = 0;
+	self.meleedamage = 60;
+	self.no_powerups = 1;
+	self zombie_history("zombie_spawn_init -> Spawned = " + self.origin);
+	self.thundergun_knockdown_func = level.basic_zombie_thundergun_knockdown;
+	self.tesla_head_gib_func = ::zombie_tesla_head_gib;
+	self.team = level.zombie_team;
+
+	if (isdefined(level.achievement_monitor_func))
+	{
+		self [[level.achievement_monitor_func]]();
+	}
+
+	if (isdefined(get_gamemode_var("post_init_zombie_spawn_func")))
+	{
+		self [[get_gamemode_var("post_init_zombie_spawn_func")]]();
+	}
+
+	if (isdefined(level.zombie_init_done))
+	{
+		self [[level.zombie_init_done]]();
+	}
+
+	self.zombie_init_done = 1;
+	self notify("zombie_init_done");
+}
+
 zombie_damage(mod, hit_location, hit_origin, player, amount, team)
 {
 	if (is_magic_bullet_shield_enabled(self))
