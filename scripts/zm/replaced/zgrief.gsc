@@ -347,8 +347,7 @@ meat_stink(who, owner)
 
 	level notify("attractor_positions_generated");
 
-	who thread meat_stink_ignoreme_think(0);
-
+	who thread meat_stink_ignoreme_think();
 	who thread meat_glow_player_create();
 
 	who thread meat_stink_cleanup_on_downed_or_disconnect();
@@ -455,7 +454,7 @@ meat_stink_ignoreme_think(check_meat_player_dist)
 			close_zombies = get_array_of_closest(player.origin, zombies, undefined, 1, 48);
 			close_meat_player = 1;
 
-			if (check_meat_player_dist)
+			if (level.scr_zm_ui_gametype != "zmeat")
 			{
 				meat_player_dist = distanceSquared(player.origin, self.origin);
 				max_dist = 768 * 768;
@@ -587,7 +586,7 @@ meat_stink_player(who, owner)
 
 	who maps\mp\zombies\_zm_stats::increment_client_stat("contaminations_received");
 
-	who thread meat_stink_ignoreme_think(1);
+	who thread meat_stink_ignoreme_think();
 	who thread meat_stink_player_create();
 
 	who waittill_any_or_timeout(20, "player_downed", "bled_out", "spawned_player", "disconnect");

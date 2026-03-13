@@ -974,7 +974,7 @@
 
 ### Meat Stink
 * Added pick up, throw, and land sounds to all maps
-* All zombies go after player holding the meat
+* Zombies are attracted towards player holding the meat
 * 75% move speed while holding the meat
 * Take 50 damage per second if stationary while holding the meat
 * Decreased throw speed by 25%
