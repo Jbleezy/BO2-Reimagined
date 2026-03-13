@@ -55,6 +55,11 @@ zombie_spawn_init(animname_set)
 	{
 		self.maxhealth = level.zombie_health;
 		self.health = self.maxhealth;
+
+		if (isdefined(level.zombie_respawned_health) && level.zombie_respawned_health.size > 0)
+		{
+			arrayremovevalue(level.zombie_respawned_health, level.zombie_respawned_health[0]);
+		}
 	}
 	else
 	{
