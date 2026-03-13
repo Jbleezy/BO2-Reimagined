@@ -556,7 +556,6 @@ revive_do_revive(playerbeingrevived, revivergun)
 
 	if (self.team != playerbeingrevived_player.team)
 	{
-		playerbeingrevived_player.pre_execute_weapon = playerbeingrevived_player getcurrentweapon();
 		playerbeingrevived_player giveweapon("death_throe_zm");
 		playerbeingrevived_player switchtoweapon("death_throe_zm");
 
@@ -618,8 +617,7 @@ revive_do_revive(playerbeingrevived, revivergun)
 	if (self.team != playerbeingrevived_player.team)
 	{
 		playerbeingrevived_player takeweapon("death_throe_zm");
-		playerbeingrevived_player switchtoweapon(playerbeingrevived_player.pre_execute_weapon);
-		playerbeingrevived_player.pre_execute_weapon = undefined;
+		playerbeingrevived_player switchtoweapon(playerbeingrevived_player.laststandpistol);
 	}
 
 	if (isDefined(playerbeingrevived.revivetrigger.auto_revive) && playerbeingrevived.revivetrigger.auto_revive == 1)
