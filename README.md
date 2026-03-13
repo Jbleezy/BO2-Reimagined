@@ -255,7 +255,7 @@
 * Changed health regeneration rate to 100 health per second (normally fully restored health in 0.5 seconds)
 * Fall damage no longer increases when max health is increased
 * Added blood fx when taking damage and at low health
-* Removed blur after getting damaged
+* Removed blur after taking damage
 * Removed shellshock from explosive damage
 * No longer killed when landing on top of another player
 * Ignored by zombies for 1 second after being revived
@@ -1297,8 +1297,9 @@
 * Drawing wallbuys no longer gives points
 * Arthur barricades are buyable debris
 * Arthur can be purchased to feed him candy and make him run around and kill zombies for 30 seconds
+* Ghosts take 20% of player's points instead of 2000 points
+* Ghosts no longer drop a free perk powerup if any player takes damage from ghosts during a ghost round
 * Ghosts no longer spawn and go after players not in the Mansion during a ghost round
-* Ghosts no longer drop a free perk powerup if any player gets damaged by the ghosts
 * Added controller aim assist to ghosts
 * Adjusted volume of zombie vocals
 * Fountain portal automatically active

@@ -178,6 +178,137 @@ ghost_zone_spawning_think()
 	}
 }
 
+drain_player(player)
+{
+	self endon("death");
+	self.is_draining = 1;
+	player_drained = 0;
+	points_to_drain = round_up_to_ten(int(player.score * 0.2));
+
+	if (player.score < points_to_drain)
+	{
+		if (player.score > 0)
+		{
+			points_to_drain = player.score;
+		}
+		else
+		{
+			points_to_drain = 0;
+		}
+	}
+
+	if (points_to_drain > 0)
+	{
+		player maps\mp\zombies\_zm_score::minus_to_player_score(points_to_drain);
+		player_drained = 1;
+		player playsoundtoplayer("zmb_ai_ghost_money_drain", player);
+		level notify("ghost_drained_player", player);
+	}
+	else if (player.health > 0 && !player maps\mp\zombies\_zm_laststand::player_is_in_laststand())
+	{
+		player dodamage(25, self.origin, self);
+		player_drained = 1;
+		level notify("ghost_damaged_player", player);
+	}
+
+	if (player_drained)
+	{
+		give_player_rewards(player);
+		player maps\mp\zombies\_zm_stats::increment_client_stat("buried_ghost_drained_player", 0);
+		player maps\mp\zombies\_zm_stats::increment_player_stat("buried_ghost_drained_player");
+		wait 2;
+	}
+
+	self.is_draining = 0;
+}
+
+player_moving_speed_scale_think()
+{
+	level endon("intermission");
+
+	if (isdefined(level.intermission) && level.intermission)
+	{
+		return;
+	}
+
+	level endon("ghost_round_end");
+
+	while (true)
+	{
+		players = get_players();
+
+		foreach (player in players)
+		{
+			if (!is_player_valid(player, undefined, 1))
+			{
+				continue;
+			}
+
+			if (player maps\mp\zombies\_zm_laststand::player_is_in_laststand())
+			{
+				set_player_moving_speed_scale(player, 1);
+				continue;
+			}
+
+			if (isdefined(player.ghost_next_drain_time_left))
+			{
+				player.ghost_next_drain_time_left = player.ghost_next_drain_time_left - 0.1;
+			}
+
+			player_slow_down = 0;
+			ais = getaiarray(level.zombie_team);
+
+			foreach (ai in ais)
+			{
+				if (isdefined(ai.is_ghost) && ai.is_ghost && can_drain_points(ai.origin, player.origin))
+				{
+					player_slow_down = 1;
+					set_player_moving_speed_scale(player, 0.5);
+
+					if ((!isdefined(player.ghost_next_drain_time_left) || player.ghost_next_drain_time_left < 0) && isdefined(ai.favoriteenemy) && player != ai.favoriteenemy)
+					{
+						give_player_rewards(player);
+						points_to_drain = round_up_to_ten(int(player.score * 0.2));;
+
+						if (player.score < points_to_drain)
+						{
+							if (player.score > 0)
+							{
+								points_to_drain = player.score;
+							}
+							else
+							{
+								points_to_drain = 0;
+							}
+						}
+
+						if (points_to_drain > 0)
+						{
+							player maps\mp\zombies\_zm_score::minus_to_player_score(points_to_drain);
+							player playsoundtoplayer("zmb_ai_ghost_money_drain", player);
+						}
+						else if (player.health > 0 && !player maps\mp\zombies\_zm_laststand::player_is_in_laststand())
+						{
+							player dodamage(25, ai.origin, ai);
+						}
+
+						player.ghost_next_drain_time_left = 2;
+					}
+
+					break;
+				}
+			}
+
+			if (player_slow_down == 0)
+			{
+				set_player_moving_speed_scale(player, 1);
+			}
+		}
+
+		wait 0.1;
+	}
+}
+
 should_last_ghost_drop_powerup()
 {
 	if (flag("time_bomb_restore_active"))

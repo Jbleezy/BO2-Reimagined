@@ -47,6 +47,8 @@ main()
 	replaceFunc(maps\mp\zm_buried_distance_tracking::delete_zombie_noone_looking, scripts\zm\replaced\zm_buried_distance_tracking::delete_zombie_noone_looking);
 	replaceFunc(maps\mp\zombies\_zm_ai_ghost::prespawn, scripts\zm\replaced\_zm_ai_ghost::prespawn);
 	replaceFunc(maps\mp\zombies\_zm_ai_ghost::ghost_zone_spawning_think, scripts\zm\replaced\_zm_ai_ghost::ghost_zone_spawning_think);
+	replaceFunc(maps\mp\zombies\_zm_ai_ghost::drain_player, scripts\zm\replaced\_zm_ai_ghost::drain_player);
+	replaceFunc(maps\mp\zombies\_zm_ai_ghost::player_moving_speed_scale_think, scripts\zm\replaced\_zm_ai_ghost::player_moving_speed_scale_think);
 	replaceFunc(maps\mp\zombies\_zm_ai_ghost::should_last_ghost_drop_powerup, scripts\zm\replaced\_zm_ai_ghost::should_last_ghost_drop_powerup);
 	replaceFunc(maps\mp\zombies\_zm_ai_sloth::start_jail_run, scripts\zm\replaced\_zm_ai_sloth::start_jail_run);
 	replaceFunc(maps\mp\zombies\_zm_ai_sloth::start_jail_wait, scripts\zm\replaced\_zm_ai_sloth::start_jail_wait);
