@@ -1397,6 +1397,7 @@
 * Acid Trap: increased time between player damage from 1 second to 1.5 seconds
 * Fan Trap: fixed rumble continuously playing after respawn if player bled out near the trap
 * Tower Trap: kills on any round in 1 shot
+* Tower Trap: fixed line of sight check
 * Tower Trap (upgraded): kills on any round in 1-2 shots
 * Tower Trap (upgraded): stays upgraded until the end of the round
 * Tower Trap (upgraded): can be upgraded while the trap is not active

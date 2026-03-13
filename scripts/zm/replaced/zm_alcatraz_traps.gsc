@@ -460,7 +460,7 @@ tower_trap_fires(a_zombies)
 
 		v_zombietarget = e_target gettagorigin(self.tag_to_target);
 
-		if (sighttracepassed(e_org.origin, v_zombietarget, 1, undefined))
+		if (bullettracepassed(e_org.origin, v_zombietarget, 1, undefined))
 		{
 			magicbullet(self.weapon_name, e_org.origin, v_zombietarget, self);
 
