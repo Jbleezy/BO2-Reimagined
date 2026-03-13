@@ -105,3 +105,26 @@ flicker_in_and_out(localclientnum)
 		s_timer reset_timer();
 	}
 }
+
+rumble_fan_trap(localclientnum, oldval, newval, bnewent, binitialsnap, fieldname, bwasdemojump)
+{
+	self endon("death");
+	self endon("disconnect");
+
+	if (newval == 1)
+	{
+		self endon("rumble_fan_trap_finished");
+
+		while (isdefined(self) && self islocalplayer() && isdefined(localclientnum))
+		{
+			self earthquake(0.15, 1, self.origin, 1500);
+			self playrumbleonentity(localclientnum, "damage_light");
+
+			wait 0.25;
+		}
+	}
+	else
+	{
+		self notify("rumble_fan_trap_finished");
+	}
+}
