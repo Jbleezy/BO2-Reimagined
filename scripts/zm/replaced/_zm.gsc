@@ -2243,8 +2243,7 @@ player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, s
 {
 	if (isdefined(eattacker) && isplayer(eattacker) && (is_true(self.is_zombie) || is_true(eattacker.is_zombie)))
 	{
-		// don't store damage info from non-weapon scripted damage
-		if (!self maps\mp\zombies\_zm_laststand::player_is_in_laststand() && !self hasweapon(sweapon))
+		if (!self maps\mp\zombies\_zm_laststand::player_is_in_laststand() && !is_true(self.enemy_death_detection_damage))
 		{
 			damage_weapon = maps\mp\zombies\_zm_weapons::get_nonalternate_weapon(sweapon);
 

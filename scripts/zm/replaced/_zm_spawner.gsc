@@ -203,7 +203,9 @@ enemy_death_detection()
 		}
 
 		self.has_been_damaged_by_player = 1;
+		self.enemy_death_detection_damage = 1;
 		self player_attacks_enemy(attacker, amount, type, point);
+		self.enemy_death_detection_damage = undefined;
 	}
 }
 
