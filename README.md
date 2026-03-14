@@ -283,6 +283,7 @@
 * Fixed revive hint string showing when another player drops the revive
 * Fixed certain player anims
 * Fixed being able to start reviving a player on the same frame that another player stopped reviving that player
+* Fixed not being revived instantly by instant revive sources if another player was reviving
 * Fixed randomization for teams on Survival
 
 ## Zombies

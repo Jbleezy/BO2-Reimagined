@@ -890,18 +890,8 @@ auto_revive(reviver, dont_enable_weapons)
 
 		if (self.revivetrigger.beingrevived == 1)
 		{
-			while (true)
-			{
-				if (self.revivetrigger.beingrevived == 0)
-				{
-					break;
-				}
-
-				wait_network_frame();
-			}
+			waittillframeend; // wait for revive_do_revive
 		}
-
-		self.revivetrigger.auto_trigger = 0;
 	}
 
 	self reviveplayer();
