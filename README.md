@@ -1687,13 +1687,12 @@
 * Disease powerup spawns at a random survivor's spawn point after 10 seconds and chases that survivor to turn them into the initial zombie
 * Survivors gain 10 points every second
 * Survivors become zombies when they bleed out
-* Initial zombie moves at 110% move speed
 * Zombies see survivors and other zombies through walls
 * Zombies have a Tactical Insertion
 * Zombies have the same health as AI zombies
 * Zombies have the same melee damage as AI zombies
 * Zombies have the same melee range as survivors
-* Zombies have the same move speed as survivors
+* Zombies move at 110% move speed (initial zombie moves at 120% move speed)
 * Zombies can jump and go prone
 * Zombies can open doors and activate traps
 * Zombies can execute down survivors

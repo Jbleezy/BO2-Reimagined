@@ -3625,23 +3625,25 @@ turned_zombie_move_speed_think()
 		if (fast_move_speed == prev_fast_move_speed)
 		{
 			wait 0.05;
+			waittillframeend;
 			continue;
 		}
 
 		if (fast_move_speed)
 		{
-			setDvar("player_zombieSpeedScale", 1.1);
-			setDvar("player_zombieSprintSpeedScale", 1.1);
+			setDvar("player_zombieSpeedScale", 1.2);
+			setDvar("player_zombieSprintSpeedScale", 1.2);
 		}
 		else
 		{
-			setDvar("player_zombieSpeedScale", 1);
-			setDvar("player_zombieSprintSpeedScale", 1);
+			setDvar("player_zombieSpeedScale", 1.1);
+			setDvar("player_zombieSprintSpeedScale", 1.1);
 		}
 
 		prev_fast_move_speed = fast_move_speed;
 
 		wait 0.05;
+		waittillframeend;
 	}
 }
 
@@ -3652,6 +3654,7 @@ turned_decrease_zombie_score()
 	while (1)
 	{
 		wait 1;
+		waittillframeend;
 
 		allies_players = get_players("allies");
 
