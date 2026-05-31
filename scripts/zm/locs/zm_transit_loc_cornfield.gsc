@@ -126,13 +126,14 @@ init_barriers()
 	// cornfield left
 	origin = (9720, -1090, -212);
 	angles = (0, 90, 0);
-	scripts\zm\locs\loc_common::barrier("collision_wall_256x256x10_standard", origin + (anglesToRight(angles) * 24) + (anglesToUp(angles) * 128), angles, 1);
+	scripts\zm\locs\loc_common::barrier("collision_wall_512x512x10_standard", origin + (anglesToRight(angles) * 24) + (anglesToUp(angles) * 256), angles, 1);
 	scripts\zm\locs\loc_common::barrier("veh_t6_civ_smallwagon_dead", origin, angles);
 
 	// cornfield right
 	origin = (9900, -232, -217);
 	angles = (0, -90, 0);
-	scripts\zm\locs\loc_common::barrier("collision_wall_256x256x10_standard", origin + (anglesToRight(angles) * -48) + (anglesToUp(angles) * 128), angles, 1);
+	scripts\zm\locs\loc_common::barrier("collision_wall_512x512x10_standard", origin + (anglesToRight(angles) * -48) + (anglesToUp(angles) * 256), angles, 1);
+	scripts\zm\locs\loc_common::barrier("collision_wall_512x512x10_standard", origin + (anglesToForward(angles) * 256) + (anglesToRight(angles) * -48) + (anglesToUp(angles) * 256), angles, 1);
 	scripts\zm\locs\loc_common::barrier("veh_t6_civ_microbus_dead", origin, angles);
 
 	// cornfield right corner
