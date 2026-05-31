@@ -2348,7 +2348,12 @@ player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, s
 
 	if (isDefined(eattacker))
 	{
-		if (isDefined(self.ignoreattacker) && self.ignoreattacker == eattacker)
+		if (!isdefined(self.ignoreattacker))
+		{
+			self.ignoreattacker = [];
+		}
+
+		if (isinarray(self.ignoreattacker, eattacker))
 		{
 			return 0;
 		}
@@ -2360,8 +2365,8 @@ player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, s
 
 		if (is_true(eattacker.is_zombie))
 		{
-			self.ignoreattacker = eattacker;
-			self thread remove_ignore_attacker();
+			self.ignoreattacker[self.ignoreattacker.size] = eattacker;
+			self thread remove_ignore_attacker(eattacker);
 
 			if (isDefined(eattacker.custom_damage_func))
 			{
@@ -2652,25 +2657,18 @@ player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, s
 
 remove_ignore_attacker(attacker)
 {
-	self notify("new_ignore_attacker");
-	self endon("new_ignore_attacker");
 	self endon("disconnect");
 
-	if (!isdefined(level.ignore_enemy_timer))
-	{
-		level.ignore_enemy_timer = 0.4;
-	}
-
-	if (isplayer(self.ignoreattacker))
+	if (isplayer(attacker))
 	{
 		wait 0.25;
 	}
 	else
 	{
-		wait level.ignore_enemy_timer;
+		wait 0.4;
 	}
 
-	self.ignoreattacker = undefined;
+	arrayremovevalue(self.ignoreattacker, attacker);
 }
 
 is_solo_death(players)
