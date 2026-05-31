@@ -1,4 +1,5 @@
 CoD.ReimaginedWaypoint = {}
+CoD.PlayerEnemyNearby = InheritFrom(CoD.ObjectiveWaypoint)
 CoD.GameModeObjectiveWaypoint = InheritFrom(CoD.ObjectiveWaypoint)
 CoD.GameModeObjectiveWaypoint.FLAG_HIDE = 0
 CoD.GameModeObjectiveWaypoint.FLAG_SHOW = 1
@@ -16,6 +17,53 @@ CoD.PlayerAliveWaypoint = InheritFrom(CoD.ObjectiveWaypoint)
 CoD.TombstoneWaypoint = InheritFrom(CoD.ObjectiveWaypoint)
 CoD.PlayerEnemyHeadIcon = InheritFrom(CoD.ObjectiveWaypoint)
 CoD.PlayerHeadIcon = InheritFrom(CoD.ObjectiveWaypoint)
+
+LUI.createMenu.PlayerEnemyNearbyArea = function(LocalClientIndex)
+	local safeArea = CoD.GametypeBase.new("PlayerEnemyNearbyArea", LocalClientIndex)
+
+	safeArea:registerEventHandler("hud_update_refresh", CoD.GametypeBase.Refresh)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_HUD_VISIBLE, CoD.PlayerEnemyNearby.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM, CoD.PlayerEnemyNearby.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN, CoD.PlayerEnemyNearby.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_VEHICLE, CoD.PlayerEnemyNearby.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_GUIDED_MISSILE, CoD.PlayerEnemyNearby.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC, CoD.PlayerEnemyNearby.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_AMMO_COUNTER_HIDE, CoD.PlayerEnemyNearby.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_UI_ACTIVE, CoD.PlayerEnemyNearby.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_SCOREBOARD_OPEN, CoD.PlayerEnemyNearby.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_PLAYER_DEAD, CoD.PlayerEnemyNearby.UpdateVisibility)
+	safeArea:registerEventHandler("hud_update_bit_" .. CoD.BIT_IS_SCOPED, CoD.PlayerEnemyNearby.UpdateVisibility)
+
+	local waypoint = CoD.ObjectiveWaypoint.new(Menu, ObjectiveIndex, 0)
+	waypoint:setClass(CoD.PlayerEnemyNearby)
+	waypoint:setEntityContainerClamp(false)
+	waypoint:setLeftRight(false, false, -waypoint.iconWidth / 2, waypoint.iconWidth / 2)
+	waypoint:setTopBottom(false, true, -waypoint.iconHeight, 0)
+	waypoint.alphaController:setAlpha(0)
+	waypoint.arrowImage:setAlpha(0)
+	waypoint.mainImage:setLeftRight(false, false, -24, 24)
+	waypoint.mainImage:setTopBottom(false, false, -39, 9)
+	waypoint.updatePlayerUsing = CoD.NullFunction
+	waypoint.snapToHeight = -250
+	waypoint:beginAnimation("snap_in", waypoint.snapToTime, true, true)
+	waypoint:setEntityContainerStopUpdating(true)
+	waypoint:setLeftRight(false, false, -waypoint.largeIconWidth / 2, waypoint.largeIconWidth / 2)
+	waypoint:setTopBottom(false, false, -waypoint.largeIconHeight - waypoint.snapToHeight, -waypoint.snapToHeight)
+	waypoint.edgePointerContainer:setAlpha(0)
+
+	local mainText = LUI.UIText.new()
+	mainText:setLeftRight(false, false, 0, 0)
+	mainText:setTopBottom(false, false, 6, 30)
+	mainText:setFont(CoD.fonts.Big)
+	waypoint.alphaController:addElement(mainText)
+	waypoint.mainText = mainText
+
+	safeArea:addElement(waypoint)
+
+	waypoint:registerEventHandler("objective_update_enemy_player_nearby", waypoint.update)
+
+	return safeArea
+end
 
 LUI.createMenu.GameModeObjectiveWaypointArea = function(LocalClientIndex)
 	local safeArea = CoD.GametypeBase.new("GameModeObjectiveWaypointArea", LocalClientIndex)
@@ -216,6 +264,22 @@ LUI.createMenu.PlayerAliveWaypointArea = function(LocalClientIndex)
 	return safeArea
 end
 
+CoD.PlayerEnemyNearby.UpdateVisibility = function(Menu, ClientInstance)
+	local controller = ClientInstance.controller
+	if UIExpression.DvarBool(nil, "ui_hud_game_mode_info") == 1 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_HUD_VISIBLE) == 1 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_HUD_SHOWOBJICONS) == 1 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IS_PLAYER_IN_AFTERLIFE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_VEHICLE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_GUIDED_MISSILE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_AMMO_COUNTER_HIDE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_UI_ACTIVE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_SCOREBOARD_OPEN) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IS_SCOPED) == 0 and (not CoD.IsShoutcaster(controller) or CoD.ExeProfileVarBool(controller, "shoutcaster_scorestreaks") and Engine.IsSpectatingActiveClient(controller)) and CoD.FSM_VISIBILITY(controller) == 0 then
+		if Menu.visible ~= true then
+			Menu:setAlpha(1)
+			Menu.m_inputDisabled = nil
+			Menu.visible = true
+		end
+	elseif Menu.visible == true then
+		Menu:setAlpha(0)
+		Menu.m_inputDisabled = true
+		Menu.visible = nil
+	end
+	Menu:dispatchEventToChildren(ClientInstance)
+end
+
 CoD.GameModeObjectiveWaypoint.UpdateVisibility = function(Menu, ClientInstance)
 	local controller = ClientInstance.controller
 	if UIExpression.IsVisibilityBitSet(controller, CoD.BIT_HUD_VISIBLE) == 1 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_DEMO_CAMERA_MODE_MOVIECAM) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_DEMO_ALL_GAME_HUD_HIDDEN) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_VEHICLE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_GUIDED_MISSILE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IN_REMOTE_KILLSTREAK_STATIC) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_AMMO_COUNTER_HIDE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_UI_ACTIVE) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_SCOREBOARD_OPEN) == 0 and UIExpression.IsVisibilityBitSet(controller, CoD.BIT_IS_SCOPED) == 0 and (not CoD.IsShoutcaster(controller) or CoD.ExeProfileVarBool(controller, "shoutcaster_scorestreaks") and Engine.IsSpectatingActiveClient(controller)) and CoD.FSM_VISIBILITY(controller) == 0 then
@@ -262,6 +326,20 @@ CoD.PlayerWaypoint.UpdateVisibility = function(Menu, ClientInstance)
 		Menu.visible = nil
 	end
 	Menu:dispatchEventToChildren(ClientInstance)
+end
+
+CoD.PlayerEnemyNearby.update = function(Menu, ClientInstance)
+	if ClientInstance.data ~= nil and ClientInstance.data[1] > 0 then
+		local enemyIcon = "waypoint_kill_red"
+
+		Menu.alphaController:setAlpha(1)
+		Menu.mainImage:setRGB(1, 0, 0)
+		Menu.mainImage:setImage(RegisterMaterial(enemyIcon))
+		Menu.mainText:setRGB(1, 0, 0)
+		Menu.mainText:setText(ClientInstance.data[1])
+	else
+		Menu.alphaController:setAlpha(0)
+	end
 end
 
 CoD.GameModeObjectiveWaypoint.new = function(Menu, ObjectiveIndex)

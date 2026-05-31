@@ -3583,6 +3583,7 @@ turned_think()
 	flag_wait("initial_blackscreen_passed");
 
 	level thread turned_zombie_move_speed_think();
+	level thread turned_survivor_nearby_zombie_indicator_think();
 
 	allies_players = get_players("allies");
 
@@ -3644,6 +3645,54 @@ turned_zombie_move_speed_think()
 
 		wait 0.05;
 		waittillframeend;
+	}
+}
+
+turned_survivor_nearby_zombie_indicator_think()
+{
+	level endon("end_game");
+
+	while (1)
+	{
+		players = get_players();
+		valid_zombie_players = [];
+
+		foreach (player in players)
+		{
+			if (player.team == level.zombie_team && player.sessionstate == "playing" && !player maps\mp\zombies\_zm_laststand::player_is_in_laststand())
+			{
+				valid_zombie_players[valid_zombie_players.size] = player;
+			}
+		}
+
+		foreach (player in players)
+		{
+			if (!isdefined(player.nearby_zombie_count))
+			{
+				player.nearby_zombie_count = 0;
+			}
+
+			nearby_zombie_count = 0;
+
+			if (player.team != level.zombie_team && is_player_valid(player))
+			{
+				nearby_zombies = get_array_of_closest(player.origin, valid_zombie_players, undefined, undefined, 256);
+				nearby_zombie_count = nearby_zombies.size;
+			}
+
+			if (player.nearby_zombie_count == nearby_zombie_count)
+			{
+				continue;
+			}
+
+			player.nearby_zombie_count = nearby_zombie_count;
+
+			player luinotifyevent(&"objective_update_enemy_player_nearby", 1, nearby_zombie_count);
+		}
+
+		wait 0.05;
+		waittillframeend;
+		waittillframeend; // wait for zombie to change spawn points
 	}
 }
 
