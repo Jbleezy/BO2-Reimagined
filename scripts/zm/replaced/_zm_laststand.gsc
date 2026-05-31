@@ -559,7 +559,8 @@ revive_do_revive(playerbeingrevived, revivergun)
 		playerbeingrevived_player giveweapon("death_throe_zm");
 		playerbeingrevived_player switchtoweapon("death_throe_zm");
 
-		playerbeingrevived_player thread docowardswayanims_loop(self);
+		playerbeingrevived_player thread execute_wait_and_freeze(self);
+		playerbeingrevived_player thread execute_docowardswayanims_loop(self);
 	}
 
 	self thread maps\mp\zombies\_zm_laststand::check_for_failed_revive(playerbeingrevived);
@@ -618,6 +619,8 @@ revive_do_revive(playerbeingrevived, revivergun)
 	{
 		playerbeingrevived_player takeweapon("death_throe_zm");
 		playerbeingrevived_player switchtoweapon(playerbeingrevived_player.laststandpistol);
+
+		playerbeingrevived_player freezecontrols(0);
 	}
 
 	if (isDefined(playerbeingrevived.revivetrigger.auto_revive) && playerbeingrevived.revivetrigger.auto_revive == 1)
@@ -1272,7 +1275,19 @@ revive_hud_think()
 	}
 }
 
-docowardswayanims_loop(reviver)
+execute_wait_and_freeze(reviver)
+{
+	self endon("disconnect");
+	self endon("zombified");
+	self endon("stop_revive_trigger");
+	reviver endon("do_revive_ended_normally");
+
+	wait 0.05;
+
+	self freezecontrols(1);
+}
+
+execute_docowardswayanims_loop(reviver)
 {
 	self endon("disconnect");
 	self endon("zombified");
