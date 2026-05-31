@@ -119,6 +119,7 @@ init()
 
 	player_initial_spawn_override();
 	player_respawn_override();
+	spawn_kill_brushes();
 	docks_gates_remain_open();
 
 	level thread maps\mp\_sticky_grenade::init();
@@ -287,6 +288,23 @@ player_respawn_override()
 				arrayremovevalue(respawn_array, respawn);
 			}
 		}
+	}
+}
+
+spawn_kill_brushes()
+{
+	t_killbrush_1 = spawn("trigger_box", (1612, 9531, 1472), 0, 420, 160, 64);
+	t_killbrush_1.script_noteworthy = "kill_brush";
+
+	t_killbrush_2 = spawn("trigger_box", (1572, 9807, 1472), 0, 380, 160, 64);
+	t_killbrush_2.script_noteworthy = "kill_brush";
+}
+
+docks_gates_remain_open()
+{
+	if (flag_exists("docks_gates_remain_open"))
+	{
+		flag_set("docks_gates_remain_open");
 	}
 }
 
@@ -736,14 +754,6 @@ craftablestub_update_prompt(player, unitrigger)
 	}
 
 	return true;
-}
-
-docks_gates_remain_open()
-{
-	if (flag_exists("docks_gates_remain_open"))
-	{
-		flag_set("docks_gates_remain_open");
-	}
 }
 
 teleporters()
