@@ -89,6 +89,11 @@ shock_onpain()
 			continue;
 		}
 
+		if (mod == "MOD_FALLING")
+		{
+			continue;
+		}
+
 		if (is_true(attacker.is_tower_trap))
 		{
 			continue;
