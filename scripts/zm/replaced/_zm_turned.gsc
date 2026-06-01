@@ -56,7 +56,6 @@ turn_to_zombie()
 
 	self turned_disable_player_weapons();
 	self turned_give_melee_weapon();
-	self turned_give_tactical_insertion();
 
 	self.is_zombie = 1;
 	self.animname = "zombie";
@@ -133,7 +132,7 @@ turned_disable_player_weapons()
 {
 	self takeallweapons();
 	self disableweaponcycling();
-	self enableoffhandweapons();
+	self disableoffhandweapons();
 }
 
 turned_give_melee_weapon()
@@ -141,12 +140,6 @@ turned_give_melee_weapon()
 	self giveweapon("zombiemelee_zm");
 	self givemaxammo("zombiemelee_zm");
 	self switchtoweapon("zombiemelee_zm");
-}
-
-turned_give_tactical_insertion()
-{
-	self giveweapon("tactical_insertion_zm");
-	self set_player_tactical_grenade("tactical_insertion_zm");
 }
 
 delay_turning_on_eyes()

@@ -39,8 +39,6 @@ main()
 		level._effect["zombie_blood"] = loadfx("maps/zombie_tomb/fx_tomb_pwr_up_zmb_blood");
 		level._effect["zombie_blood_1st"] = loadfx("maps/zombie_tomb/fx_zm_blood_overlay_pclouds");
 	}
-
-	scripts\zm\reimagined\_zm_weap_tacticalinsertion::init();
 }
 
 init()
@@ -2596,7 +2594,6 @@ containment_think()
 					if (is_player_valid(player) && !isDefined(level.meat_player) && !is_true(player.spawn_protection) && !is_true(player.revive_protection))
 					{
 						close_zombies = get_array_of_closest(player.origin, zombies, undefined, 1, 48);
-
 						player.ignoreme = close_zombies.size == 0;
 					}
 
@@ -3818,7 +3815,7 @@ turned_zombie_spawn()
 {
 	self maps\mp\zombies\_zm_turned::turn_to_zombie();
 
-	if (!isdefined(self.turned_zombie_spawn_point_ent) && !isdefined(self.tacticalinsertion))
+	if (!isdefined(self.turned_zombie_spawn_origin))
 	{
 		if (!isdefined(level.gamemodulewinningteam))
 		{
@@ -3830,24 +3827,11 @@ turned_zombie_spawn()
 		return;
 	}
 
-	if (isdefined(self.tacticalinsertion))
-	{
-		self setorigin(self.tacticalinsertion.origin);
-		self setplayerangles(self.tacticalinsertion.angles);
+	self setorigin(self.turned_zombie_spawn_origin);
+	self setplayerangles(self.turned_zombie_spawn_angles);
 
-		self.tacticalinsertion scripts\zm\reimagined\_zm_weap_tacticalinsertion::destroy_tactical_insertion();
-	}
-	else if (isdefined(self.turned_zombie_spawn_point_ent))
-	{
-		player = self turned_zombie_get_closest_valid_survivor();
-		angles = vectortoangles(player.origin - self.turned_zombie_spawn_point_ent.origin);
-		angles = (0, angles[1], 0);
-
-		self setorigin(self.turned_zombie_spawn_point_ent.origin);
-		self setplayerangles(angles);
-
-		self.turned_zombie_spawn_point_ent delete();
-	}
+	self.turned_zombie_spawn_origin = undefined;
+	self.turned_zombie_spawn_angles = undefined;
 
 	playfx(level._effect["zombie_disappears"], self.origin);
 	playsoundatposition("evt_appear_3d", self.origin);
@@ -3916,11 +3900,6 @@ turned_zombie_wait_and_respawn()
 
 	self.turned_zombie_wait_and_respawn = 1;
 
-	if (!isdefined(self.tacticalinsertion))
-	{
-		self.turned_zombie_spawn_point_ent = self turned_zombie_get_spawn_point_ent();
-	}
-
 	time = 10;
 
 	self scripts\zm\_zm_reimagined::setlowermessage(&"GAME_RESPAWNING", time);
@@ -3930,6 +3909,8 @@ turned_zombie_wait_and_respawn()
 	wait time;
 
 	flag_wait("spawn_zombies");
+
+	self turned_zombie_get_spawn_origin();
 
 	self scripts\zm\_zm_reimagined::clearlowermessage();
 
@@ -3942,108 +3923,123 @@ turned_zombie_wait_and_respawn()
 	self.turned_zombie_wait_and_respawn = undefined;
 }
 
-turned_zombie_get_spawn_point_ent()
+turned_zombie_get_spawn_origin()
 {
-	player = turned_zombie_get_random_valid_survivor();
+	valid_allies_players = [];
+	allies_players = array_randomize(get_players("allies"));
 
-	origin = player.origin;
-
-	if (player is_jumping())
-	{
-		if (!isdefined(player.ground_origin))
-		{
-			player.ground_origin = groundpos_ignore_water_new(player.origin + (0, 0, 40));
-			player thread wait_and_reset_ground_origin();
-		}
-
-		if (check_point_in_enabled_zone(player.ground_origin))
-		{
-			origin = player.ground_origin;
-		}
-	}
-
-	spawn_point_ent = spawn("script_model", origin);
-	spawn_point_ent.angles = player.angles;
-	spawn_point_ent setmodel("t6_wpn_tac_insert_world");
-	spawn_point_ent.owner = self;
-
-	if (isdefined(level.elevators) && player scripts\zm\_zm_reimagined::is_touching_elevator())
-	{
-		elevator_bodies = [];
-
-		foreach (elevator in level.elevators)
-		{
-			elevator_bodies[elevator_bodies.size] = elevator.body;
-		}
-
-		elevator_body = get_closest_2d(player.origin, elevator_bodies);
-
-		spawn_point_ent linkto(elevator_body);
-	}
-
-	spawn_point_ent thread turned_zombie_spawn_point_ent_play_fx();
-	spawn_point_ent thread turned_zombie_spawn_point_ent_cleanup();
-
-	return spawn_point_ent;
-}
-
-turned_zombie_spawn_point_ent_play_fx()
-{
-	self endon("death");
-
-	wait 0.05;
-
-	playfxontag(level._effect["tacticalInsertionEnemy"], self, "tag_flash");
-}
-
-turned_zombie_spawn_point_ent_cleanup(ent)
-{
-	self endon("death");
-
-	self.owner waittill("disconnect");
-
-	self delete();
-}
-
-turned_zombie_get_closest_valid_survivor()
-{
-	valid_players = [];
-	players = get_players("allies");
-
-	foreach (player in players)
+	foreach (player in allies_players)
 	{
 		if (is_player_valid(player))
 		{
-			valid_players[valid_players.size] = player;
+			valid_allies_players[valid_allies_players.size] = player;
 		}
 	}
 
-	return getclosest(self.origin, valid_players);
-}
-
-turned_zombie_get_random_valid_survivor()
-{
-	valid_players = [];
-	players = get_players("allies");
-
-	foreach (player in players)
+	if (!isdefined(self.turned_zombie_spawn_origin))
 	{
-		if (is_player_valid(player))
+		self turned_zombie_get_spawn_origin_from_nodes(valid_allies_players, 512, 1024, 256);
+	}
+
+	if (!isdefined(self.turned_zombie_spawn_origin))
+	{
+		self turned_zombie_get_spawn_origin_from_nodes(valid_allies_players, 256, 512, 256);
+	}
+
+	if (!isdefined(self.turned_zombie_spawn_origin))
+	{
+		self turned_zombie_get_spawn_origin_from_nodes(valid_allies_players, 0, 256, 256);
+	}
+
+	if (!isdefined(self.turned_zombie_spawn_origin))
+	{
+		player = random(valid_allies_players);
+
+		self.turned_zombie_spawn_origin = player.origin;
+		self.turned_zombie_spawn_angles = (0, player.angles[1], 0);
+	}
+}
+
+turned_zombie_get_spawn_origin_from_nodes(valid_allies_players, min_radius, max_radius, max_height)
+{
+	spawn_origin = undefined;
+	spawn_angles = undefined;
+
+	foreach (player in valid_allies_players)
+	{
+		origin = groundpos_ignore_water_new(player.origin);
+		nodes = array_randomize(getnodesinradius(origin, max_radius, min_radius, max_height, "pathnodes"));
+
+		foreach (node in nodes)
 		{
-			valid_players[valid_players.size] = player;
+			if (isdefined(node.target))
+			{
+				continue;
+			}
+
+			if (isdefined(node.script_parameters) && node.script_parameters == "roof_connect")
+			{
+				continue;
+			}
+
+			is_node_valid = scripts\zm\replaced\_zm_utility::check_point_in_life_brush(node.origin) || (check_point_in_enabled_zone(node.origin) && !scripts\zm\replaced\_zm_utility::check_point_in_kill_brush(node.origin));
+
+			if (is_node_valid)
+			{
+				is_node_valid = findpath(origin, node.origin) && findpath(node.origin, origin);
+			}
+
+			if (is_node_valid)
+			{
+				nearby_valid_allies_players = get_array_of_closest(node.origin, valid_allies_players, undefined, 1, min_radius);
+				is_node_valid = nearby_valid_allies_players.size == 0;
+			}
+
+			if (is_node_valid)
+			{
+				spawn_origin = node.origin;
+
+				linked_nodes = [];
+				nearby_nodes = array_randomize(getnodesinradius(node.origin, 256, 0, max_height, "pathnodes"));
+
+				foreach (nearby_node in nearby_nodes)
+				{
+					if (isdefined(nearby_node.target))
+					{
+						continue;
+					}
+
+					if (isdefined(nearby_node.script_parameters) && nearby_node.script_parameters == "roof_connect")
+					{
+						continue;
+					}
+
+					if (!nodesarelinked(node, nearby_node))
+					{
+						continue;
+					}
+
+					linked_nodes[linked_nodes.size] = nearby_node;
+				}
+
+				closest_linked_nodes = get_array_of_closest(origin, linked_nodes, undefined, 1);
+				closest_linked_node = closest_linked_nodes[0];
+
+				spawn_angles = vectortoangles(closest_linked_node.origin - node.origin);
+				spawn_angles = (0, spawn_angles[1], 0);
+
+				break;
+			}
+		}
+
+		if (isdefined(spawn_origin))
+		{
+			break;
 		}
 	}
 
-	return random(valid_players);
-}
-
-wait_and_reset_ground_origin()
-{
-	self endon("disconnect");
-
-	wait 0.05;
-
-	self.ground_origin = undefined;
+	self.turned_zombie_spawn_origin = spawn_origin;
+	self.turned_zombie_spawn_angles = spawn_angles;
 }
 
 can_revive(revivee)

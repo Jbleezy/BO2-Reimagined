@@ -1690,7 +1690,6 @@
 * Survivors gain 10 points every second
 * Survivors become zombies when they bleed out
 * Zombies see survivors and other zombies through walls
-* Zombies have a Tactical Insertion
 * Zombies have the same health as AI zombies
 * Zombies have the same melee damage as AI zombies
 * Zombies have the same melee range as survivors
@@ -1698,9 +1697,9 @@
 * Zombies can jump and go prone
 * Zombies can open doors and activate traps
 * Zombies can execute down survivors
-* Zombies can't move while attacking, executing, changing stances, or deploying a Tactical Insertion
+* Zombies can't move while attacking, executing, or changing stances
 * Zombies move at 50% fading move speed for 0.5 seconds after jumping
 * Zombies can't damage the same survivor for 0.25 seconds after damaging them
 * Zombies can't be damaged by survivors for 3 seconds after respawning
-* Zombies automatically deploy a Tactical Insertion at the position of a random survivor when they die if they did not already deploy a Tactical Insertion
+* Zombies respawn near a random survivor
 * Zombies respawn after spectating for 10 seconds
