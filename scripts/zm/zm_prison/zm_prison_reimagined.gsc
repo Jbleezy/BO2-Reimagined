@@ -126,6 +126,7 @@ init()
 
 	level thread updatecraftables();
 	level thread teleporters();
+	level thread admin_powerhouse_puzzle_door_disconnect_paths_think();
 	level thread grief_brutus_spawn_after_time();
 }
 
@@ -786,6 +787,24 @@ teleporter_think(teleporter_start_origin, teleporter_end_origin)
 		playsoundatposition("evt_teleport_3d", player.origin);
 		player setorigin(teleporter_end_origin + (0, 0, height_diff));
 	}
+}
+
+admin_powerhouse_puzzle_door_disconnect_paths_think()
+{
+	admin_powerhouse_puzzle_door_clip = getent("admin_powerhouse_puzzle_door_clip", "targetname");
+
+	barrier = spawn("script_model", admin_powerhouse_puzzle_door_clip.origin + anglestoright(admin_powerhouse_puzzle_door_clip.angles) * -3, 1);
+	barrier.angles = admin_powerhouse_puzzle_door_clip.angles;
+	barrier setmodel("collision_wall_64x64x10_standard");
+	barrier disconnectpaths();
+
+	while (isdefined(admin_powerhouse_puzzle_door_clip))
+	{
+		wait 0.05;
+	}
+
+	barrier connectpaths();
+	barrier delete();
 }
 
 grief_brutus_spawn_after_time()
