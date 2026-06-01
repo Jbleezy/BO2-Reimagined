@@ -1700,6 +1700,5 @@
 * Zombies can't move while attacking, executing, or changing stances
 * Zombies move at 50% fading move speed for 0.5 seconds after jumping
 * Zombies can't damage the same survivor for 0.25 seconds after damaging them
-* Zombies can't be damaged by survivors for 3 seconds after respawning
 * Zombies respawn near a random survivor
 * Zombies respawn after spectating for 10 seconds

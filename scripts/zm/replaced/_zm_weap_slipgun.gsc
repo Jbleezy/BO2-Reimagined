@@ -131,7 +131,7 @@ explode_to_near_zombies(player, origin, radius, chain_depth, goo_upgraded)
 
 	foreach (enemy_player in enemy_players)
 	{
-		if (is_true(enemy_player.is_zombie) && enemy_player.sessionstate == "playing" && !is_true(enemy_player.turned_zombie_spawn_protection))
+		if (is_true(enemy_player.is_zombie) && enemy_player.sessionstate == "playing")
 		{
 			enemies[enemies.size] = enemy_player;
 		}

@@ -2266,11 +2266,6 @@ player_damage_override(einflictor, eattacker, idamage, idflags, smeansofdeath, s
 			return 0;
 		}
 
-		if (isdefined(eattacker) && isplayer(eattacker) && is_true(self.turned_zombie_spawn_protection))
-		{
-			return 0;
-		}
-
 		if (is_true(level.use_adjusted_grenade_damage))
 		{
 			return 0;
