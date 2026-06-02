@@ -3934,12 +3934,12 @@ turned_zombie_get_spawn_origin_from_nodes(valid_allies_players, min_radius, max_
 				continue;
 			}
 
-			if (isdefined(node.script_parameters) && node.script_parameters == "roof_connect")
-			{
-				continue;
-			}
+			is_node_valid = 1;
 
-			is_node_valid = scripts\zm\replaced\_zm_utility::check_point_in_life_brush(node.origin) || (check_point_in_enabled_zone(node.origin) && !scripts\zm\replaced\_zm_utility::check_point_in_kill_brush(node.origin));
+			if (is_node_valid)
+			{
+				is_node_valid = scripts\zm\replaced\_zm_utility::check_point_in_life_brush(node.origin) || (check_point_in_enabled_zone(node.origin, 1) && !scripts\zm\replaced\_zm_utility::check_point_in_kill_brush(node.origin));
+			}
 
 			if (is_node_valid)
 			{
@@ -3954,6 +3954,15 @@ turned_zombie_get_spawn_origin_from_nodes(valid_allies_players, min_radius, max_
 
 			if (is_node_valid)
 			{
+				if (isdefined(level._chugabud_reject_node_override_func))
+				{
+					reject_node = [[level._chugabud_reject_node_override_func]](origin, node);
+					is_node_valid = !reject_node;
+				}
+			}
+
+			if (is_node_valid)
+			{
 				spawn_origin = node.origin;
 
 				linked_nodes = [];
@@ -3962,11 +3971,6 @@ turned_zombie_get_spawn_origin_from_nodes(valid_allies_players, min_radius, max_
 				foreach (nearby_node in nearby_nodes)
 				{
 					if (isdefined(nearby_node.target))
-					{
-						continue;
-					}
-
-					if (isdefined(nearby_node.script_parameters) && nearby_node.script_parameters == "roof_connect")
 					{
 						continue;
 					}

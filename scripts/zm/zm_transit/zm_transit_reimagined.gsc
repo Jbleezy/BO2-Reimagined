@@ -210,28 +210,48 @@ power_local_electric_doors_globally()
 
 transit_chugabud_reject_node_func(corpse_origin, node)
 {
-	if (self maps\mp\zombies\_zm_zonemgr::entity_in_zone("zone_amb_cornfield"))
+	reject = 0;
+
+	if (!reject)
 	{
-		a_player_volumes = getentarray("player_volume", "script_noteworthy");
+		node_zone = maps\mp\zombies\_zm_zonemgr::get_zone_from_position(node.origin);
 
-		origins = [];
-		origins[origins.size] = node.origin + anglestoforward(node.angles) * 128;
-		origins[origins.size] = node.origin + anglestoforward(node.angles) * -128;
-		origins[origins.size] = node.origin + anglestoright(node.angles) * 128;
-		origins[origins.size] = node.origin + anglestoright(node.angles) * -128;
-
-		foreach (origin in origins)
+		if (isdefined(node_zone) && node_zone == "zone_amb_cornfield")
 		{
-			if (!maps\mp\zombies\_zm_utility::check_point_in_enabled_zone(origin, 1, a_player_volumes))
+			origins = [];
+			origins[origins.size] = node.origin + anglestoforward(node.angles) * 128;
+			origins[origins.size] = node.origin + anglestoforward(node.angles) * -128;
+			origins[origins.size] = node.origin + anglestoright(node.angles) * 128;
+			origins[origins.size] = node.origin + anglestoright(node.angles) * -128;
+
+			foreach (origin in origins)
 			{
-				return 1;
+				if (!maps\mp\zombies\_zm_utility::check_point_in_enabled_zone(origin, 1))
+				{
+					reject = 1;
+					break;
+				}
 			}
 		}
-
-		return 0;
 	}
 
-	return !findpath(corpse_origin, node.origin);
+	if (!reject)
+	{
+		if (!findpath(corpse_origin, node.origin))
+		{
+			reject = 1;
+		}
+	}
+
+	if (!reject)
+	{
+		if (!findpath(node.origin, corpse_origin))
+		{
+			reject = 1;
+		}
+	}
+
+	return reject;
 }
 
 player_initial_spawn_override()
