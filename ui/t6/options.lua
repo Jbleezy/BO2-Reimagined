@@ -531,3 +531,266 @@ LUI.createMenu.OptionsMenu = function(LocalClientIndex)
 	CoD.Options.AddOptionCategories(OptionsMenuWidget)
 	return OptionsMenuWidget
 end
+
+CoD.OptionsSettings.TabChanged = function(OptionsSettingsWidget, SettingsTab)
+	OptionsSettingsWidget.buttonList = OptionsSettingsWidget.tabManager.buttonList
+	local NextFocusableTab = OptionsSettingsWidget.buttonList:getFirstChild()
+	while not NextFocusableTab.m_focusable do
+		NextFocusableTab = NextFocusableTab:getNextSibling()
+	end
+	if NextFocusableTab ~= nil then
+		NextFocusableTab:processEvent({
+			name = "gain_focus",
+		})
+	end
+	CoD.OptionsSettings.CurrentTabIndex = SettingsTab.tabIndex
+
+	if OptionsSettingsWidget.tabManager ~= nil and OptionsSettingsWidget.tabManager.currentTabHeader ~= nil and OptionsSettingsWidget.tabManager.currentTabHeader.tabBg ~= nil then
+		OptionsSettingsWidget.tabManager.currentTabHeader.tabBg:setAlpha(0)
+	end
+end
+
+CoD.OptionsSettings.CreateModTab = function(ModTab, LocalClientIndex)
+	local ModTabContainer = LUI.UIContainer.new()
+	local InGame = UIExpression.IsInGame() == 1
+	local ModTabButtonList = CoD.Options.CreateButtonList()
+	ModTab.buttonList = ModTabButtonList
+	ModTabContainer.buttonList = ModTabButtonList
+	ModTabContainer:addElement(ModTabButtonList)
+
+	local EnemyCounterSelector = ModTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_ENEMY_COUNTER_CAPS"), "ui_hud_enemy_counter")
+	EnemyCounterSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
+	EnemyCounterSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_ENABLED_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
+
+	local TimerSelector = ModTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_TIMER_CAPS"), "ui_hud_timer")
+	TimerSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
+	TimerSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_ENABLED_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
+
+	local HealthBarSelector = ModTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_HEALTH_BAR_CAPS"), "ui_hud_health_bar")
+	HealthBarSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
+	HealthBarSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_ENABLED_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
+
+	local ZoneNameSelector = ModTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_ZONE_NAME_CAPS"), "ui_hud_zone_name")
+	ZoneNameSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
+	ZoneNameSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_ENABLED_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
+
+	ModTabButtonList:addSpacer(CoD.CoD9Button.Height / 2)
+
+	local GameModeNameSelector = ModTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_GAME_MODE_NAME_CAPS"), "ui_hud_game_mode_name")
+	GameModeNameSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
+	GameModeNameSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_ENABLED_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
+
+	local GameModeScoreSelector = ModTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_GAME_MODE_SCORE_CAPS"), "ui_hud_game_mode_score")
+	GameModeScoreSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
+	GameModeScoreSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_ENABLED_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
+	GameModeScoreSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_MINIMAL_CAPS"), 2, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
+
+	local GameModeInfoSelector = ModTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_GAME_MODE_INFO_CAPS"), "ui_hud_game_mode_info")
+	GameModeInfoSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
+	GameModeInfoSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_ENABLED_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
+
+	ModTabButtonList:addSpacer(CoD.CoD9Button.Height / 2)
+
+	local HeadIconSelector = ModTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_HEAD_ICONS_CAPS"), "ui_hud_head_icons")
+	HeadIconSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
+	HeadIconSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_ENABLED_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
+
+	local ActionSlotAreaSelector = ModTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_ACTION_SLOT_AREA_CAPS"), "ui_hud_action_slot_area")
+	ActionSlotAreaSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_AUTOMATIC_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChangedUpdateActionSlots)
+	ActionSlotAreaSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DPAD_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChangedUpdateActionSlots)
+	ActionSlotAreaSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_KEY_PROMPT_CAPS"), 2, nil, CoD.OptionsSettings.Button_ApplyDvarChangedUpdateActionSlots)
+
+	ModTabButtonList:addSpacer(CoD.CoD9Button.Height / 2)
+
+	local FogSelector = ModTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_FOG_CAPS"), "r_fog_settings")
+	FogSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChangedSendMenuResponse)
+	FogSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_ENABLED_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChangedSendMenuResponse)
+
+	local DofSelector = ModTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("PLATFORM_DEPTH_OF_FIELD_CAPS"), "r_dof_enable_settings")
+	DofSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChangedSendMenuResponse)
+	DofSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_ENABLED_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChangedSendMenuResponse)
+
+	ModTabButtonList:addSpacer(CoD.CoD9Button.Height / 2)
+
+	local CharacterDialogSelector = ModTabButtonList:addDvarLeftRightSelector(LocalClientIndex, Engine.Localize("MENU_CHARACTER_DIALOG_CAPS"), "character_dialog")
+	CharacterDialogSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_DISABLED_CAPS"), 0, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
+	CharacterDialogSelector:addChoice(LocalClientIndex, Engine.Localize("MENU_ENABLED_CAPS"), 1, nil, CoD.OptionsSettings.Button_ApplyDvarChanged)
+
+	return ModTabContainer
+end
+
+LUI.createMenu.OptionsSettingsMenu = function(LocalClientIndex)
+	local OptionsSettingsWidget = nil
+	local InGame = UIExpression.IsInGame() == 1
+	if InGame then
+		OptionsSettingsWidget = CoD.InGameMenu.New("OptionsSettingsMenu", LocalClientIndex, Engine.Localize("MENU_SETTINGS_CAPS"))
+	else
+		OptionsSettingsWidget = CoD.Menu.New("OptionsSettingsMenu")
+		OptionsSettingsWidget:addTitle(Engine.Localize("MENU_SETTINGS_CAPS"), LUI.Alignment.Center)
+		OptionsSettingsWidget:addLargePopupBackground()
+	end
+	OptionsSettingsWidget.addApplyPrompt = CoD.Options.AddApplyPrompt
+	OptionsSettingsWidget.addResetPrompt = CoD.Options.AddResetPrompt
+	OptionsSettingsWidget:setPreviousMenu("OptionsMenu")
+	OptionsSettingsWidget:setOwner(LocalClientIndex)
+	OptionsSettingsWidget:registerEventHandler("add_apply_prompt", CoD.Options.AddApplyPrompt)
+	OptionsSettingsWidget:registerEventHandler("button_prompt_back", CoD.OptionsSettings.Back)
+	OptionsSettingsWidget:registerEventHandler("tab_changed", CoD.OptionsSettings.TabChanged)
+	OptionsSettingsWidget:registerEventHandler("selector_changed", CoD.OptionsSettings.SelectorChanged)
+	OptionsSettingsWidget:registerEventHandler("resolution_changed", CoD.OptionsSettings.ResolutionChanged)
+	OptionsSettingsWidget:registerEventHandler("apply_changes", CoD.OptionsSettings.ApplyChanges)
+	OptionsSettingsWidget:registerEventHandler("restore_default_settings", CoD.OptionsSettings.RestoreDefaultSettings)
+	OptionsSettingsWidget:registerEventHandler("open_brightness", CoD.OptionsSettings.OpenBrightness)
+	OptionsSettingsWidget:registerEventHandler("open_mature_content", CoD.OptionsSettings.OpenMatureContent)
+	OptionsSettingsWidget:registerEventHandler("open_speaker_setup", CoD.AudioSettings.OpenSpeakerSetup)
+	OptionsSettingsWidget:registerEventHandler("open_apply_popup", CoD.OptionsSettings.OpenApplyPopup)
+	OptionsSettingsWidget:registerEventHandler("open_default_popup", CoD.OptionsSettings.OpenDefaultPopup)
+	OptionsSettingsWidget:registerEventHandler("open_safe_area", CoD.OptionsSettings.OpenSafeArea)
+	OptionsSettingsWidget:addSelectButton()
+	OptionsSettingsWidget:addBackButton()
+	if not InGame then
+		OptionsSettingsWidget:addResetPrompt()
+	end
+	if CoD.OptionsSettings.NeedVidRestart or CoD.OptionsSettings.NeedPicmip or CoD.OptionsSettings.NeedSndRestart then
+		OptionsSettingsWidget:addApplyPrompt()
+	end
+	if not CoD.OptionsSettings.DoNotSyncProfile then
+		Engine.SyncHardwareProfileWithDvars()
+	end
+	CoD.OptionsSettings.DoNotSyncProfile = nil
+	local SettingsTabs = CoD.Options.SetupTabManager(OptionsSettingsWidget, 700)
+	SettingsTabs:addTab(LocalClientIndex, "MENU_GRAPHICS_CAPS", CoD.OptionsSettings.CreateGraphicsTab)
+	SettingsTabs:addTab(LocalClientIndex, "MENU_ADVANCED_CAPS", CoD.OptionsSettings.CreateAdvancedTab)
+	SettingsTabs:addTab(LocalClientIndex, "MENU_SOUND_CAPS", CoD.OptionsSettings.CreateSoundTab)
+	SettingsTabs:addTab(LocalClientIndex, "MENU_VOICECHAT_CAPS", CoD.OptionsSettings.CreateVoiceChatTab)
+	SettingsTabs:addTab(LocalClientIndex, "MENU_GAME_CAPS", CoD.OptionsSettings.CreateGameTab)
+	SettingsTabs:addTab(LocalClientIndex, "MENU_MOD_CAPS", CoD.OptionsSettings.CreateModTab)
+	if CoD.OptionsSettings.CurrentTabIndex then
+		SettingsTabs:loadTab(LocalClientIndex, CoD.OptionsSettings.CurrentTabIndex)
+	else
+		SettingsTabs:refreshTab(LocalClientIndex)
+	end
+	return OptionsSettingsWidget
+end
+
+CoD.OptionsControls.TabChanged = function(controlsWidget, controlsTab)
+	controlsWidget.buttonList = controlsWidget.tabManager.buttonList
+	local child = controlsWidget.buttonList:getFirstChild()
+	while not child.m_focusable do
+		child = child:getNextSibling()
+	end
+	if child ~= nil then
+		child:processEvent({
+			name = "gain_focus",
+		})
+	end
+	CoD.OptionsControls.CurrentTabIndex = controlsTab.tabIndex
+
+	if controlsWidget.tabManager ~= nil and controlsWidget.tabManager.currentTabHeader ~= nil and controlsWidget.tabManager.currentTabHeader.tabBg ~= nil then
+		controlsWidget.tabManager.currentTabHeader.tabBg:setAlpha(0)
+	end
+end
+
+CoD.OptionsControls.CreateInteractTab = function(interactTab, localClientIndex)
+	local interactTabContainer = LUI.UIContainer.new()
+	local interactTabButtonList = CoD.Options.CreateButtonList()
+	interactTab.buttonList = interactTabButtonList
+	interactTabContainer:addElement(interactTabButtonList)
+	local interactTabContents = {}
+	if CoD.isZombie then
+		interactTabContents = {
+			{
+				command = "+activate",
+				label = "MENU_USE_CAPS",
+			},
+			{
+				command = "break",
+			},
+			{
+				command = "+actionslot 3",
+				label = "PLATFORM_ACTIONSLOT_3",
+			},
+			{
+				command = "+actionslot 1",
+				label = "MENU_EQUIPMENT_CAPS",
+			},
+			{
+				command = "+actionslot 2",
+				label = "MENU_MELEE_WEAPON_CAPS",
+			},
+			{
+				command = "+actionslot 4",
+				label = "MENU_PLACEABLE_MINE_CAPS",
+			},
+			{
+				command = "break",
+			},
+			{
+				command = "screenshotjpeg",
+				label = "MENU_SCREENSHOT_CAPS",
+			},
+		}
+	elseif CoD.isMultiplayer then
+		interactTabContents = {
+			{
+				command = "+activate",
+				label = "MENU_USE_CAPS",
+			},
+			{
+				command = "break",
+			},
+			{
+				command = "+actionslot 3",
+				label = "PLATFORM_ACTIONSLOT_3",
+			},
+			{
+				command = "+actionslot 1",
+				label = "PLATFORM_NEXT_SCORE_STREAK_CAPS",
+			},
+			{
+				command = "+actionslot 2",
+				label = "PLATFORM_PREVIOUS_SCORE_STREAK_CAPS",
+			},
+			{
+				command = "+actionslot 4",
+				label = "PLATFORM_ACTIVATE_SCORE_STREAK_CAPS",
+			},
+			{
+				command = "break",
+			},
+			{
+				command = "screenshotjpeg",
+				label = "MENU_SCREENSHOT_CAPS",
+			},
+		}
+	end
+	table.insert(interactTabContents, {
+		command = "chooseclass_hotkey",
+		label = "MPUI_CHOOSE_CLASS_CAPS",
+	})
+	table.insert(interactTabContents, {
+		command = "+scores",
+		label = "PLATFORM_SCOREBOARD_CAPS",
+	})
+	table.insert(interactTabContents, {
+		command = "togglescores",
+		label = "PLATFORM_SCOREBOARD_TOGGLE_CAPS",
+	})
+	table.insert(interactTabContents, {
+		command = "break",
+	})
+	table.insert(interactTabContents, {
+		command = "+talk",
+		label = "MENU_VOICE_CHAT_BUTTON_CAPS",
+	})
+	table.insert(interactTabContents, {
+		command = "chatmodepublic",
+		label = "MENU_CHAT_CAPS",
+	})
+	table.insert(interactTabContents, {
+		command = "chatmodeteam",
+		label = "MENU_TEAM_CHAT_CAPS",
+	})
+	CoD.OptionsControls.AddKeyBindingElements(localClientIndex, interactTabButtonList, interactTabContents)
+	return interactTabContainer
+end
