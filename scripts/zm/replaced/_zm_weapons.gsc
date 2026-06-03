@@ -1257,6 +1257,30 @@ get_nonalternate_weapon(altweapon)
 		return alt;
 	}
 
+	if (issubstr(altweapon, "slip"))
+	{
+		alt = "slipgun_zm";
+
+		if (issubstr(altweapon, "upgraded"))
+		{
+			alt = "slipgun_upgraded_zm";
+		}
+
+		return alt;
+	}
+
+	if (issubstr(altweapon, "blundersplat"))
+	{
+		alt = "blundersplat_zm";
+
+		if (issubstr(altweapon, "upgraded"))
+		{
+			alt = "blundersplat_upgraded_zm";
+		}
+
+		return alt;
+	}
+
 	if (issubstr(altweapon, "crossbow"))
 	{
 		alt = "crossbow_zm";
