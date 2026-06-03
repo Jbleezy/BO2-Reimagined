@@ -497,6 +497,11 @@ on_player_spawned()
 		self waittill("spawned_player");
 		waittillframeend;
 
+		if (self.sessionstate != "playing")
+		{
+			continue;
+		}
+
 		if (level.scr_zm_ui_gametype == "zturned")
 		{
 			if (self.team == level.zombie_team)

@@ -596,7 +596,7 @@ on_player_spawned()
 			}
 		}
 
-		if (!is_player_valid(self) && !is_true(self.is_zombie))
+		if (self.sessionstate != "playing")
 		{
 			continue;
 		}
