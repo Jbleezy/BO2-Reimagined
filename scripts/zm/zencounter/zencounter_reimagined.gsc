@@ -910,7 +910,7 @@ player_wait_and_respawn()
 
 	self scripts\zm\_zm_reimagined::setlowermessage(&"GAME_RESPAWNING", time);
 
-	self thread wait_and_show_dead_spectate_hud();
+	self luinotifyevent(&"show_dead_spectate_hud");
 
 	wait time;
 
@@ -923,19 +923,6 @@ player_wait_and_respawn()
 	self maps\mp\zombies\_zm::spectator_respawn();
 
 	self.player_wait_and_respawn = undefined;
-}
-
-wait_and_show_dead_spectate_hud()
-{
-	self endon("disconnect");
-
-	if (is_true(self.wait_and_show_dead_spectate_hud))
-	{
-		self.wait_and_show_dead_spectate_hud = undefined;
-		self scripts\zm\_zm_reimagined::waittill_next_snapshot();
-	}
-
-	self luinotifyevent(&"show_dead_spectate_hud");
 }
 
 get_held_melee_weapon(melee_weapon)
@@ -3816,14 +3803,9 @@ turned_zombie_spawn()
 
 	if (!isdefined(self.turned_zombie_spawn_origin))
 	{
-		if (!isdefined(level.gamemodulewinningteam))
-		{
-			self.wait_and_show_dead_spectate_hud = 1;
-			self maps\mp\zombies\_zm::spawnspectator();
-			increment_score("allies", 0, 0, &"ZOMBIE_ZTURNED_ZOMBIE_APPEARED");
-		}
+		self turned_zombie_get_spawn_origin();
 
-		return;
+		increment_score("allies", 0, 0, &"ZOMBIE_ZTURNED_ZOMBIE_APPEARED");
 	}
 
 	self setorigin(self.turned_zombie_spawn_origin);
@@ -3866,7 +3848,7 @@ turned_zombie_wait_and_respawn()
 
 	self scripts\zm\_zm_reimagined::setlowermessage(&"GAME_RESPAWNING", time);
 
-	self thread wait_and_show_dead_spectate_hud();
+	self luinotifyevent(&"show_dead_spectate_hud");
 
 	wait time;
 
