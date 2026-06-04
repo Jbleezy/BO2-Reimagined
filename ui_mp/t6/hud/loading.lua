@@ -136,7 +136,7 @@ CoD.Loading.DidYouKnow.sas = {
 	"MPTIP_WAGER_STICKS_SPYPLANE",
 }
 CoD.Loading.DidYouKnow.zombies = {
-	"Without the hard work of all of the Plutonium developers the games we love would have died off long ago.",
+	"MPTIP_PLUTONIUM",
 }
 
 CoD.Loading.FadeInTime = 1000
