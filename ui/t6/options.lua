@@ -794,3 +794,37 @@ CoD.OptionsControls.CreateInteractTab = function(interactTab, localClientIndex)
 	CoD.OptionsControls.AddKeyBindingElements(localClientIndex, interactTabButtonList, interactTabContents)
 	return interactTabContainer
 end
+
+LUI.createMenu.OptionsControlsMenu = function(localClientIndex)
+	local controlsWidget = nil
+	if UIExpression.IsInGame() == 1 then
+		controlsWidget = CoD.InGameMenu.New("OptionsControlsMenu", localClientIndex, Engine.Localize("MENU_CONTROLS_CAPS"))
+	else
+		controlsWidget = CoD.Menu.New("OptionsControlsMenu")
+		controlsWidget:addTitle(Engine.Localize("MENU_CONTROLS_CAPS"), LUI.Alignment.Center)
+		controlsWidget:addLargePopupBackground()
+	end
+	controlsWidget:setPreviousMenu("OptionsMenu")
+	controlsWidget:setOwner(localClientIndex)
+	controlsWidget:registerEventHandler("button_prompt_back", CoD.OptionsControls.Back)
+	controlsWidget:registerEventHandler("restore_default_controls", CoD.OptionsControls.RestoreDefaultControls)
+	controlsWidget:registerEventHandler("tab_changed", CoD.OptionsControls.TabChanged)
+	controlsWidget:registerEventHandler("open_button_layout", CoD.OptionsControls.OpenButtonLayout)
+	controlsWidget:registerEventHandler("open_stick_layout", CoD.OptionsControls.OpenStickLayout)
+	controlsWidget:registerEventHandler("open_default_popup", CoD.OptionsControls.OpenDefaultPopup)
+	controlsWidget:addSelectButton()
+	controlsWidget:addBackButton()
+	CoD.Options.AddResetPrompt(controlsWidget)
+	local controlsTabs = CoD.Options.SetupTabManager(controlsWidget, 600)
+	controlsTabs:addTab(localClientIndex, "MENU_LOOK_CAPS", CoD.OptionsControls.CreateLookTab)
+	controlsTabs:addTab(localClientIndex, "MENU_MOVE_CAPS", CoD.OptionsControls.CreateMoveTab)
+	controlsTabs:addTab(localClientIndex, "MENU_COMBAT_CAPS", CoD.OptionsControls.CreateCombatTab)
+	controlsTabs:addTab(localClientIndex, "MENU_INTERACT_CAPS", CoD.OptionsControls.CreateInteractTab)
+	controlsTabs:addTab(localClientIndex, "PLATFORM_GAMEPAD_CAPS", CoD.OptionsControls.CreateGamepadTab)
+	if CoD.OptionsControls.CurrentTabIndex then
+		controlsTabs:loadTab(localClientIndex, CoD.OptionsControls.CurrentTabIndex)
+	else
+		controlsTabs:refreshTab(localClientIndex)
+	end
+	return controlsWidget
+end
