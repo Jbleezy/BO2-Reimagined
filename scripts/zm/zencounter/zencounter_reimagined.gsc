@@ -3952,6 +3952,7 @@ turned_zombie_get_spawn_origin_from_nodes(valid_allies_players, min_radius, max_
 			{
 				spawn_origin = node.origin;
 
+				look_at_origin = player.origin;
 				linked_nodes = [];
 				nearby_nodes = array_randomize(getnodesinradius(node.origin, 256, 0, max_height, "pathnodes"));
 
@@ -3962,7 +3963,7 @@ turned_zombie_get_spawn_origin_from_nodes(valid_allies_players, min_radius, max_
 						continue;
 					}
 
-					if (!nodesarelinked(node, nearby_node))
+					if (!nodesarelinked(node, nearby_node) && !nodesarelinked(nearby_node, node))
 					{
 						continue;
 					}
@@ -3970,10 +3971,14 @@ turned_zombie_get_spawn_origin_from_nodes(valid_allies_players, min_radius, max_
 					linked_nodes[linked_nodes.size] = nearby_node;
 				}
 
-				closest_linked_nodes = get_array_of_closest(origin, linked_nodes, undefined, 1);
-				closest_linked_node = closest_linked_nodes[0];
+				if (linked_nodes.size > 0)
+				{
+					closest_linked_nodes = get_array_of_closest(origin, linked_nodes, undefined, 1);
+					closest_linked_node = closest_linked_nodes[0];
+					look_at_origin = closest_linked_node.origin;
+				}
 
-				spawn_angles = vectortoangles(closest_linked_node.origin - node.origin);
+				spawn_angles = vectortoangles(look_at_origin - node.origin);
 				spawn_angles = (0, spawn_angles[1], 0);
 
 				break;
