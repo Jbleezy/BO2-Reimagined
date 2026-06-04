@@ -3755,7 +3755,7 @@ the_disease_powerup_do_chase()
 
 		direction = vectornormalize(disease_powerup_player_origin - self.origin);
 
-		self.origin += direction * 15;
+		self.origin += direction * 16;
 	}
 }
 
