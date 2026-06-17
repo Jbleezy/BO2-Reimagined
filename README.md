@@ -1678,13 +1678,11 @@
 
 #### Turned
 * Survivors score starts at the amount of survivors
-* Zombies score starts at the amount of survivors multiplied by 100
+* Zombies score starts at the amount of survivors multiplied by 50
+* Survivors score reduces when a survivor downs
 * Zombies score reduces by 1 every second
-* Survivors reduce zombies score by killing zombies
-* Zombies reduce survivors score by downing survivors
 * Reduce the enemy score to 0 to win the game
-* All players start as survivors
-* All players that join mid game start as zombies
+* All players start as survivors (except players that join mid game start as zombies)
 * Disease powerup spawns at a random survivor's spawn point after 10 seconds and chases that survivor to turn them into the initial zombie
 * Survivors have an indicator when there are zombies nearby
 * Survivors gain 10 points every second

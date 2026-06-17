@@ -1035,14 +1035,6 @@ player_last_stand_stats(einflictor, attacker, idamage, smeansofdeath, sweapon, v
 		{
 			maps\mp\_demo::bookmark("kill", gettime(), self, attacker, 0, einflictor);
 		}
-
-		if (is_true(self.is_zombie) || is_true(attacker.is_zombie))
-		{
-			if (is_true(self.is_zombie))
-			{
-				self.killed_by_player = 1;
-			}
-		}
 		else
 		{
 			attacker.kills++;

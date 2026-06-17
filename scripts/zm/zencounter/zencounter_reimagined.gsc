@@ -561,13 +561,6 @@ on_player_downed()
 			if (self.team == level.zombie_team)
 			{
 				self thread turned_zombie_spectate();
-
-				if (is_true(self.killed_by_player))
-				{
-					self.killed_by_player = undefined;
-					increment_score(self.team, -1, 0);
-				}
-
 				continue;
 			}
 
@@ -745,17 +738,6 @@ on_player_zom_kill()
 			}
 
 			increment_score(self.team, amount, 1);
-		}
-		else if (level.scr_zm_ui_gametype == "zturned")
-		{
-			amount = -1;
-
-			if (is_true(zombie.is_brutus) || is_true(zombie.is_mechz))
-			{
-				amount = -10;
-			}
-
-			increment_score(level.zombie_team, amount, 0);
 		}
 	}
 }
@@ -3571,7 +3553,7 @@ turned_think()
 	allies_players = get_players("allies");
 
 	increment_score("allies", allies_players.size, 0);
-	increment_score("axis", allies_players.size * 100, 0);
+	increment_score("axis", allies_players.size * 50, 0);
 
 	level waittill("restart_round_start");
 
