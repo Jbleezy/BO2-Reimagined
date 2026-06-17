@@ -559,7 +559,7 @@ revive_do_revive(playerbeingrevived, revivergun)
 		playerbeingrevived_player giveweapon("death_throe_zm");
 		playerbeingrevived_player switchtoweapon("death_throe_zm");
 
-		playerbeingrevived_player thread execute_wait_and_freeze(self);
+		playerbeingrevived_player thread execute_freeze_controls_think(self);
 		playerbeingrevived_player thread execute_docowardswayanims_loop(self);
 	}
 
@@ -1275,14 +1275,17 @@ revive_hud_think()
 	}
 }
 
-execute_wait_and_freeze(reviver)
+execute_freeze_controls_think(reviver)
 {
 	self endon("disconnect");
 	self endon("zombified");
 	self endon("stop_revive_trigger");
 	reviver endon("do_revive_ended_normally");
 
-	wait 0.05;
+	while (self getcurrentweapon() != "death_throe_zm")
+	{
+		wait 0.05;
+	}
 
 	self freezecontrols(1);
 }
