@@ -1683,7 +1683,7 @@
 * Zombies score reduces by 1 every second
 * Reduce the enemy score to 0 to win the game
 * All players start as survivors (except players that join mid game start as zombies)
-* Disease powerup spawns at a random survivor's spawn point after 10 seconds and chases that survivor to turn them into the initial zombie
+* Disease powerup spawns near a random survivor after 10 seconds and chases the closest survivor to turn them into the initial zombie
 * Survivors have an indicator when there are zombies nearby
 * Survivors gain 10 points every second
 * Survivors become zombies when they bleed out

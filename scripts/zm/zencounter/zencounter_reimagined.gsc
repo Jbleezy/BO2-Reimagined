@@ -3559,16 +3559,16 @@ turned_think()
 
 	level thread turned_decrease_zombie_score();
 
-	allies_players = get_players("allies");
-	level.disease_powerup_player = random(allies_players);
-	origin = level.disease_powerup_player.origin;
-
 	wait 10;
+
+	level thread the_disease_powerup_speed_think();
 
 	zombie_players = get_players(level.zombie_team);
 
 	if (zombie_players.size <= 0)
 	{
+		origin = the_disease_powerup_get_spawn_origin();
+
 		level thread the_disease_powerup_drop(origin);
 	}
 	else
@@ -3687,8 +3687,34 @@ turned_decrease_zombie_score()
 
 the_disease_powerup(player)
 {
-	level.disease_powerup_player = undefined;
 	player notify("bled_out");
+}
+
+the_disease_powerup_speed_think()
+{
+	level endon("end_game");
+
+	level.disease_powerup_speed = 10;
+
+	while (level.disease_powerup_speed < 20)
+	{
+		wait 5;
+
+		level.disease_powerup_speed++;
+	}
+}
+
+the_disease_powerup_get_spawn_origin()
+{
+	allies_players = get_players("allies");
+	allies_player = random(allies_players);
+	allies_player turned_zombie_get_spawn_origin();
+	origin = allies_player.turned_zombie_spawn_origin;
+
+	allies_player.turned_zombie_spawn_origin = undefined;
+	allies_player.turned_zombie_spawn_angles = undefined;
+
+	return origin;
 }
 
 the_disease_powerup_drop(origin, drop_from_disconnecting_player = 0)
@@ -3722,22 +3748,19 @@ the_disease_powerup_do_chase()
 	{
 		wait 0.05;
 
-		if (!isdefined(level.disease_powerup_player) || level.disease_powerup_player.team != "allies")
-		{
-			allies_players = get_players("allies");
-			level.disease_powerup_player = random(allies_players);
+		allies_players = get_players("allies");
+		allies_player = getclosest(self.origin, allies_players);
 
-			if (!isdefined(level.disease_powerup_player))
-			{
-				continue;
-			}
+		if (!isdefined(allies_player))
+		{
+			continue;
 		}
 
-		disease_powerup_player_origin = level.disease_powerup_player.origin + (0, 0, 40);
+		allies_player_origin = allies_player.origin + (0, 0, 40);
 
-		direction = vectornormalize(disease_powerup_player_origin - self.origin);
+		direction = vectornormalize(allies_player_origin - self.origin);
 
-		self.origin += direction * 16;
+		self.origin += direction * level.disease_powerup_speed;
 	}
 }
 
@@ -3955,8 +3978,7 @@ turned_zombie_get_spawn_origin_from_nodes(valid_allies_players, min_radius, max_
 
 				if (linked_nodes.size > 0)
 				{
-					closest_linked_nodes = get_array_of_closest(origin, linked_nodes, undefined, 1);
-					closest_linked_node = closest_linked_nodes[0];
+					closest_linked_node = getclosest(origin, linked_nodes);
 					look_at_origin = closest_linked_node.origin;
 				}
 
