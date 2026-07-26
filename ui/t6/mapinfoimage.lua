@@ -273,7 +273,11 @@ function GetMapDisplayName(map, gametype, location)
 end
 
 function GetGameModeDisplayName(gametype)
-	return Engine.Localize(UIExpression.TableLookup(nil, CoD.gametypesTable, 0, 0, 1, gametype, 2))
+	if gametype == CoD.Zombie.GAMETYPE_ZCLASSIC then
+		return UIExpression.ToUpper(nil, Engine.Localize("MPUI_ZCLASSIC"))
+	else
+		return Engine.Localize(UIExpression.TableLookup(nil, CoD.gametypesTable, 0, 0, 1, gametype, 2))
+	end
 end
 
 CoD.MapInfoImage.SetModifedCustomGame = function(f7_arg0, f7_arg1)

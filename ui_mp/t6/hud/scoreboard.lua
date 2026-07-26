@@ -99,12 +99,19 @@ end
 
 function GetGameModeDisplayName()
 	local gametype = UIExpression.DvarString(nil, "ui_gametype")
+	local reference_gametype = ""
+
+	if gametype == CoD.Zombie.GAMETYPE_ZCLASSIC then
+		reference_gametype = "MPUI_ZCLASSIC"
+	else
+		reference_gametype = UIExpression.TableLookup(nil, CoD.gametypesTable, 0, 0, 1, gametype, 7)
+	end
 
 	if UIExpression.DvarBool(nil, "ui_gametype_pro") == 1 then
-		return Engine.Localize(UIExpression.TableLookup(nil, CoD.gametypesTable, 0, 0, 1, gametype, 7) .. "_PRO")
-	else
-		return Engine.Localize(UIExpression.TableLookup(nil, CoD.gametypesTable, 0, 0, 1, gametype, 7))
+		reference_gametype = reference_gametype .. "_PRO"
 	end
+
+	return Engine.Localize(reference_gametype)
 end
 
 function GetMapDisplayName()

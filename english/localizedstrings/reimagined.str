@@ -4,12 +4,6 @@ FILENOTES           ""
 
 // UI
 
-REFERENCE           ZMUI_ZCLASSIC
-LANG_ENGLISH        "Classic"
-
-REFERENCE           ZMUI_ZCLASSIC_CAPS
-LANG_ENGLISH        "CLASSIC"
-
 REFERENCE           ZMUI_ZSR
 LANG_ENGLISH        "Search & Rezurrect"
 

@@ -203,7 +203,11 @@ local function gameModeListCreateButtonMutables(controller, mutables)
 end
 
 local function gameModeListGetButtonData(controller, index, mutables, self)
-	mutables.text:setText(Engine.Localize(UIExpression.TableLookup(nil, CoD.gametypesTable, 0, 0, 1, CoD.SelectMapListZombie.GameModes[index].ui_gametype, 2)))
+	if CoD.SelectMapListZombie.GameModes[index].ui_gametype == "zclassic" then
+		mutables.text:setText(UIExpression.ToUpper(nil, Engine.Localize("MPUI_ZCLASSIC")))
+	else
+		mutables.text:setText(Engine.Localize(UIExpression.TableLookup(nil, CoD.gametypesTable, 0, 0, 1, CoD.SelectMapListZombie.GameModes[index].ui_gametype, 2)))
+	end
 end
 
 function LUI.createMenu.SelectGameModeListZM(controller)

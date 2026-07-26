@@ -565,7 +565,13 @@ end
 
 function CoD.Loading.SetGametypeText(LoadingWidget)
 	local gametype = UIExpression.DvarString(nil, "ui_gametype")
-	local gametypeText = Engine.Localize(UIExpression.TableLookup(nil, CoD.gametypesTable, 0, 0, 1, gametype, 2))
+	local gametypeText = ""
+
+	if gametype == CoD.Zombie.GAMETYPE_ZCLASSIC then
+		gametypeText = UIExpression.ToUpper(nil, Engine.Localize("MPUI_ZCLASSIC"))
+	else
+		gametypeText = Engine.Localize(UIExpression.TableLookup(nil, CoD.gametypesTable, 0, 0, 1, gametype, 2))
+	end
 
 	LoadingWidget.gametypeLabel:setText(gametypeText)
 end
