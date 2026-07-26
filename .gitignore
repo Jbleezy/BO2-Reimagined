@@ -7,5 +7,6 @@
 *.sabl
 *.dds
 *.log*
+missingasset.csv
 _zm_test.gsc
 TODO.md
