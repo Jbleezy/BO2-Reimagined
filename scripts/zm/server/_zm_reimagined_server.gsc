@@ -820,112 +820,33 @@ get_map_winner()
 
 get_name_for_loc(map, location, gametype)
 {
-	if (location == "transit")
+	if (gametype == "zclassic")
 	{
-		if (gametype == "zclassic")
-		{
-			return &"ZMUI_CLASSIC_TRANSIT";
-		}
-		else
-		{
-			return &"ZMUI_TRANSIT_STARTLOC";
-		}
-	}
-	else if (location == "farm")
-	{
-		return &"ZMUI_FARM";
-	}
-	else if (location == "town")
-	{
-		return &"ZMUI_TOWN";
-	}
-	else if (location == "diner")
-	{
-		return &"ZMUI_DINER";
-	}
-	else if (location == "power")
-	{
-		return &"ZMUI_POWER";
-	}
-	else if (location == "tunnel")
-	{
-		return &"ZMUI_TUNNEL";
-	}
-	else if (location == "cornfield")
-	{
-		return &"ZMUI_CORNFIELD";
-	}
-	else if (location == "nuked")
-	{
-		return &"ZMUI_NUKED_STARTLOC";
-	}
-	else if (location == "rooftop")
-	{
-		return &"ZMUI_CLASSIC_ROOFTOP";
-	}
-	else if (location == "shopping_mall")
-	{
-		return &"ZMUI_SHOPPING_MALL";
-	}
-	else if (location == "dragon_rooftop")
-	{
-		return &"ZMUI_DRAGON_ROOFTOP";
-	}
-	else if (location == "sweatshop")
-	{
-		return &"ZMUI_SWEATSHOP";
-	}
-	else if (location == "prison")
-	{
-		return &"ZMUI_CLASSIC_PRISON";
-	}
-	else if (location == "cellblock")
-	{
-		return &"ZMUI_CELLBLOCK";
-	}
-	else if (location == "docks")
-	{
-		return &"ZMUI_DOCKS";
-	}
-	else if (location == "processing")
-	{
-		return &"ZMUI_CLASSIC_BURIED";
-	}
-	else if (location == "street")
-	{
-		return &"ZMUI_STREET_LOC";
-	}
-	else if (location == "maze")
-	{
-		return &"ZMUI_MAZE";
-	}
-	else if (location == "tomb")
-	{
-		return &"ZMUI_CLASSIC_TOMB";
-	}
-	else if (location == "trenches")
-	{
-		return &"ZMUI_TRENCHES";
-	}
-	else if (location == "excavation_site")
-	{
-		return &"ZMUI_EXCAVATION_SITE";
-	}
-	else if (location == "church")
-	{
-		return &"ZMUI_CHURCH";
-	}
-	else if (location == "crazy_place")
-	{
-		return &"ZMUI_CRAZY_PLACE";
-	}
+		reference_map = tablelookup("zm/gametypestable.csv", 0, 0, 1, gametype, 7);
 
-	return &"";
+		if (map != "zm_transit")
+		{
+			reference_map += "_" + map;
+		}
+
+		return istring(reference_map);
+	}
+	else
+	{
+		return istring(tablelookup("zm/gametypestable.csv", 0, 5, 3, location, 16));
+	}
 }
 
 get_name_for_gametype(gametype)
 {
-	return istring(toupper("ZMUI_" + gametype));
+	if (gametype == "zclassic")
+	{
+		return &"MPUI_ZCLASSIC";
+	}
+	else
+	{
+		return istring(tablelookup("zm/gametypestable.csv", 0, 0, 1, gametype, 7));
+	}
 }
 
 get_image_for_loc(map, location, gametype)
