@@ -113,7 +113,7 @@ function GetMapDisplayName()
 	local gametype = UIExpression.DvarString(nil, "ui_gametype")
 
 	if gametype == CoD.Zombie.GAMETYPE_ZCLASSIC then
-		return Engine.Localize(UIExpression.TableLookup(nil, CoD.mapsTable, 0, map, 3))
+		return CoD.GetZombieGameTypeName(gametype, map)
 	else
 		return Engine.Localize(UIExpression.TableLookup(nil, CoD.gametypesTable, 0, 5, 3, location, 16))
 	end
