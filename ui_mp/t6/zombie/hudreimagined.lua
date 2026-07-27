@@ -623,9 +623,26 @@ CoD.Reimagined.GameModeNameArea.UpdateVisibility = function(Menu, ClientInstance
 end
 
 CoD.Reimagined.GameModeNameArea.UpdateGameModeName = function(Menu, ClientInstance)
-	local gameModeNameName = Engine.Localize(Engine.GetIString(ClientInstance.data[1], "CS_LOCALIZED_STRINGS"))
+	if UIExpression.DvarString(nil, "ui_zm_gamemodegroup") ~= CoD.Zombie.GAMETYPEGROUP_ZENCOUNTER then
+		return
+	end
 
-	Menu.gameModeNameText:setText(gameModeNameName)
+	local gametype = UIExpression.DvarString(nil, "ui_gametype")
+	local reference_gametype = ""
+
+	if gametype == CoD.Zombie.GAMETYPE_ZCLASSIC then
+		reference_gametype = "MPUI_ZCLASSIC"
+	else
+		reference_gametype = UIExpression.TableLookup(nil, CoD.gametypesTable, 0, 0, 1, gametype, 7)
+	end
+
+	if UIExpression.DvarBool(nil, "ui_gametype_pro") == 1 then
+		reference_gametype = reference_gametype .. "_PRO"
+	end
+
+	local gameModeName = Engine.Localize(reference_gametype)
+
+	Menu.gameModeNameText:setText(gameModeName)
 end
 
 CoD.Reimagined.GameModeScoreArea = {}

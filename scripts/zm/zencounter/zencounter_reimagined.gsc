@@ -48,8 +48,6 @@ init()
 	precacheString(&"hud_update_containment_time");
 	precacheString(&"show_dead_spectate_hud");
 	precacheString(&"hide_dead_spectate_hud");
-	precacheString(istring(toupper("ZMUI_" + level.scr_zm_ui_gametype)));
-	precacheString(istring(toupper("ZMUI_" + level.scr_zm_ui_gametype + "_PRO")));
 
 	precacheshellshock("grief_stun_zm");
 
@@ -72,7 +70,6 @@ init()
 		level.custom_spectate_permissions = ::setspectatepermissions;
 	}
 
-	level.get_gamemode_display_name_func = ::get_gamemode_display_name;
 	level.is_respawn_gamemode_func = ::is_respawn_gamemode;
 	level.round_start_wait_func = ::round_start_wait;
 	level.increment_score_func = ::increment_score;
@@ -112,7 +109,7 @@ grief_gamemode_name_hud()
 {
 	flag_wait("hud_visible");
 
-	level.game_mode_name_hud_value = get_gamemode_display_name();
+	level.game_mode_name_hud_value = &"";
 
 	players = get_players();
 
@@ -1405,18 +1402,6 @@ grief_intro_msg()
 	}
 
 	flag_set("grief_intro_msg_complete");
-}
-
-get_gamemode_display_name(gamemode = level.scr_zm_ui_gametype)
-{
-	if (is_true(level.scr_zm_ui_gametype_pro))
-	{
-		return istring(toupper("ZMUI_" + gamemode + "_PRO"));
-	}
-	else
-	{
-		return istring(toupper("ZMUI_" + gamemode));
-	}
 }
 
 get_gamemode_winning_score()
