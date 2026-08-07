@@ -286,7 +286,7 @@ random_map_rotation()
 
 	// make sure current map isn't first
 	// except for initially since map hasn't been played
-	if (getDvarInt("sv_mapRotationRandomized"))
+	if (getDvarInt("sv_mapRotationRandomized") && map_rotation_array.size > 1)
 	{
 		map = get_value_from_rotation(map_rotation_array[0], "map");
 		loc = get_value_from_rotation(map_rotation_array[0], "loc");
