@@ -44,6 +44,8 @@ give_player_spoon_upon_receipt(m_tomahawk, m_player_spoon)
 	{
 		current_weapon = self getcurrentweapon();
 
+		self takeweapon("knife_zm_alcatraz");
+		self takeweapon("held_knife_zm_alcatraz");
 		self giveweapon("spoon_zm_alcatraz");
 		self set_player_melee_weapon("spoon_zm_alcatraz");
 		self giveweapon("held_spoon_zm_alcatraz");
@@ -55,18 +57,8 @@ give_player_spoon_upon_receipt(m_tomahawk, m_player_spoon)
 		}
 
 		level thread maps\mp\zombies\_zm_audio::sndmusicstingerevent("spoon", self);
-		weapons = self getweaponslist();
-
-		for (i = 0; i < weapons.size; i++)
-		{
-			if (issubstr(weapons[i], "knife"))
-			{
-				self takeweapon(weapons[i]);
-			}
-		}
 	}
 
-	weapons = self getweaponslist();
 	wait 1.0;
 	self thread do_player_general_vox("quest", "pick_up_easter_egg");
 }
