@@ -118,6 +118,7 @@ change_melee_weapon(weapon_name, current_weapon)
 		unacquire_weapon_toggle(current_melee_weapon);
 	}
 
+	self giveweapon(weapon_name);
 	self set_player_melee_weapon(weapon_name);
 	had_ballistic = 0;
 	had_ballistic_upgraded = 0;
@@ -210,7 +211,6 @@ give_melee_weapon(vo_dialog_id, flourish_weapon_name, weapon_name, ballistic_wea
 		self.pre_temp_weapon = pre_temp_weapon;
 	}
 
-	self giveweapon(weapon_name);
 	change_melee_weapon(weapon_name, self.pre_temp_weapon);
 
 	self maps\mp\zombies\_zm_audio::create_and_play_dialog("weapon_pickup", vo_dialog_id);

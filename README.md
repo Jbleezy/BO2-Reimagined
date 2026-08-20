@@ -353,6 +353,7 @@
 * Added proper melee swing sound to all melee weapons
 * Ammo gets added to the clip at the same time that it gets added in the reload anim on all weapons
 * Removed aim spread on all weapons (except shotguns)
+* Fixed weapon slot order changing when purchasing a melee wallbuy
 * Fixed world model position of certain melee weapons
 * Fixed projectile angles of certain grenades and projectile weapons
 * Fixed alt weapons being switched from when trading weapons
