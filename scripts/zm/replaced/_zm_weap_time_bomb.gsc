@@ -183,8 +183,6 @@ swap_weapon_to_detonator(e_grenade)
 	{
 		self switchtoweapon("time_bomb_detonator_zm");
 	}
-
-	self giveweapon("time_bomb_zm");
 }
 
 detonator_think()
