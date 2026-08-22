@@ -598,15 +598,6 @@ full_ammo_powerup(drop_item, player)
 
 		while (x < primary_weapons.size)
 		{
-			base_weapon = maps\mp\zombies\_zm_weapons::get_base_weapon_name(primary_weapons[x], 1);
-
-			if (scripts\zm\_zm_reimagined::is_overheat_weapon(base_weapon))
-			{
-				players[i] setweaponoverheating(0, 0, primary_weapons[x]);
-				x++;
-				continue;
-			}
-
 			if (level.headshots_only && is_lethal_grenade(primary_weapons[x]))
 			{
 				x++;
@@ -627,6 +618,15 @@ full_ammo_powerup(drop_item, player)
 
 			if (players[i] hasweapon(primary_weapons[x]))
 			{
+				base_weapon = maps\mp\zombies\_zm_weapons::get_base_weapon_name(primary_weapons[x], 1);
+
+				if (scripts\zm\_zm_reimagined::is_overheat_weapon(base_weapon))
+				{
+					players[i] setweaponoverheating(0, 0, primary_weapons[x]);
+					x++;
+					continue;
+				}
+
 				if (clip_only)
 				{
 					if (weaponMaxAmmo(primary_weapons[x]) == 0)
@@ -730,16 +730,16 @@ empty_clip_powerup(drop_item, player)
 
 		foreach (weapon in primaries)
 		{
+			if (!isweaponprimary(weapon))
+			{
+				continue;
+			}
+
 			base_weapon = maps\mp\zombies\_zm_weapons::get_base_weapon_name(weapon, 1);
 
 			if (scripts\zm\_zm_reimagined::is_overheat_weapon(base_weapon))
 			{
 				players[i] setweaponoverheating(1, 100, weapon);
-				continue;
-			}
-
-			if (!isweaponprimary(weapon))
-			{
 				continue;
 			}
 
@@ -777,11 +777,6 @@ empty_clip_powerup(drop_item, player)
 			{
 				players[i] empty_clip_switch_to_primary_weapon();
 			}
-		}
-
-		if (players[i] hasweapon("time_bomb_zm") && players[i] getweaponammoclip("time_bomb_zm") == 1)
-		{
-			players[i] empty_clip_swap_weapon_to_detonator();
 		}
 
 		i++;
@@ -835,29 +830,6 @@ empty_clip_switch_to_primary_weapon()
 			self maps\mp\zombies\_zm_weapons::give_fallback_weapon();
 		}
 	}
-}
-
-empty_clip_swap_weapon_to_detonator()
-{
-	switch_to_weapon = 0;
-
-	if (self getcurrentweapon() == "time_bomb_zm")
-	{
-		switch_to_weapon = 1;
-	}
-
-	self takeweapon("time_bomb_zm");
-	self giveweapon("time_bomb_detonator_zm");
-	self setweaponammoclip("time_bomb_detonator_zm", 0);
-	self setweaponammostock("time_bomb_detonator_zm", 0);
-	self setactionslot(2, "weapon", "time_bomb_detonator_zm");
-
-	if (switch_to_weapon)
-	{
-		self switchtoweapon("time_bomb_detonator_zm");
-	}
-
-	self giveweapon("time_bomb_zm");
 }
 
 nuke_powerup(drop_item, player_team)

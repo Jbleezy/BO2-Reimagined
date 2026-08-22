@@ -95,46 +95,6 @@ show_time_bomb_hints()
 	}
 }
 
-time_bomb_inventory_slot_think()
-{
-	self notify("_time_bomb_inventory_think_done");
-	self endon("_time_bomb_inventory_think_done");
-	self endon("death_or_disconnect");
-	self endon("player_lost_time_bomb");
-	self.time_bomb_detonator_only = 0;
-
-	while (true)
-	{
-		self waittill("zmb_max_ammo");
-
-		if (self.time_bomb_detonator_only)
-		{
-			self.time_bomb_detonator_only = 0;
-		}
-
-		self swap_weapon_to_time_bomb();
-	}
-}
-
-swap_weapon_to_time_bomb()
-{
-	switch_to_weapon = 0;
-
-	if (self getcurrentweapon() == "time_bomb_detonator_zm")
-	{
-		switch_to_weapon = 1;
-	}
-
-	self takeweapon("time_bomb_detonator_zm");
-	self giveweapon("time_bomb_zm");
-	self setactionslot(2, "weapon", "time_bomb_zm");
-
-	if (switch_to_weapon)
-	{
-		self switchtoweapon("time_bomb_zm");
-	}
-}
-
 time_bomb_think()
 {
 	self notify("_time_bomb_kill_thread");
@@ -158,30 +118,6 @@ time_bomb_think()
 				self thread time_bomb_thrown_vo();
 			}
 		}
-	}
-}
-
-swap_weapon_to_detonator(e_grenade)
-{
-	self endon("death_or_disconnect");
-	self endon("player_lost_time_bomb");
-	b_switch_to_weapon = 0;
-
-	if (isdefined(e_grenade))
-	{
-		b_switch_to_weapon = 1;
-		wait 0.4;
-	}
-
-	self takeweapon("time_bomb_zm");
-	self giveweapon("time_bomb_detonator_zm");
-	self setweaponammoclip("time_bomb_detonator_zm", 0);
-	self setweaponammostock("time_bomb_detonator_zm", 0);
-	self setactionslot(2, "weapon", "time_bomb_detonator_zm");
-
-	if (b_switch_to_weapon)
-	{
-		self switchtoweapon("time_bomb_detonator_zm");
 	}
 }
 
@@ -382,6 +318,72 @@ _time_bomb_revive_all_downed_players()
 			player.revived_by_weapon = "time_bomb_zm";
 			player maps\mp\zombies\_zm_laststand::auto_revive(level.time_bomb_save_data.player_used);
 		}
+	}
+}
+
+time_bomb_inventory_slot_think()
+{
+	self notify("_time_bomb_inventory_think_done");
+	self endon("_time_bomb_inventory_think_done");
+	self endon("death_or_disconnect");
+	self endon("player_lost_time_bomb");
+	self.time_bomb_detonator_only = 0;
+
+	while (true)
+	{
+		result = self waittill_any_return("zmb_max_ammo", "zmb_empty_clip");
+
+		if (self.time_bomb_detonator_only)
+		{
+			self.time_bomb_detonator_only = 0;
+		}
+
+		if (result == "zmb_max_ammo")
+		{
+			self swap_weapon_to_time_bomb();
+		}
+		else if (result == "zmb_empty_clip")
+		{
+			self swap_weapon_to_detonator();
+		}
+	}
+}
+
+swap_weapon_to_time_bomb()
+{
+	current_weapon = self getcurrentweapon();
+
+	self takeweapon("time_bomb_detonator_zm");
+	self giveweapon("time_bomb_zm");
+	self setactionslot(2, "weapon", "time_bomb_zm");
+
+	if (current_weapon == "time_bomb_detonator_zm")
+	{
+		self switchtoweapon("time_bomb_zm");
+	}
+}
+
+swap_weapon_to_detonator(e_grenade)
+{
+	self endon("death_or_disconnect");
+	self endon("player_lost_time_bomb");
+
+	current_weapon = self getcurrentweapon();
+
+	if (isdefined(e_grenade))
+	{
+		wait 0.4;
+	}
+
+	self takeweapon("time_bomb_zm");
+	self giveweapon("time_bomb_detonator_zm");
+	self setweaponammoclip("time_bomb_detonator_zm", 0);
+	self setweaponammostock("time_bomb_detonator_zm", 0);
+	self setactionslot(2, "weapon", "time_bomb_detonator_zm");
+
+	if (current_weapon == "time_bomb_zm")
+	{
+		self switchtoweapon("time_bomb_detonator_zm");
 	}
 }
 
