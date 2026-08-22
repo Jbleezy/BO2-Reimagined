@@ -1338,7 +1338,7 @@ can_track_ammo(weap)
 
 take_additionalprimaryweapon()
 {
-	self.a_saved_weapon = undefined;
+	self.additionalprimaryweapon_data = undefined;
 
 	if (isdefined(self._retain_perks) && self._retain_perks || isdefined(self._retain_perks_array) && (isdefined(self._retain_perks_array["specialty_additionalprimaryweapon"]) && self._retain_perks_array["specialty_additionalprimaryweapon"]))
 	{
@@ -1352,46 +1352,46 @@ take_additionalprimaryweapon()
 		return undefined;
 	}
 
-	self.a_saved_weapon = maps\mp\zombies\_zm_weapons::get_player_weapondata(self, weapon_to_take);
+	self.additionalprimaryweapon_data = maps\mp\zombies\_zm_weapons::get_player_weapondata(self, weapon_to_take);
 
-	name = self.a_saved_weapon["name"];
+	name = self.additionalprimaryweapon_data["name"];
 	dw_name = weaponDualWieldWeaponName(name);
 	alt_name = weaponAltWeaponName(name);
 
-	clip_missing = weaponClipSize(name) - self.a_saved_weapon["clip"];
+	clip_missing = weaponClipSize(name) - self.additionalprimaryweapon_data["clip"];
 
-	if (clip_missing > self.a_saved_weapon["stock"])
+	if (clip_missing > self.additionalprimaryweapon_data["stock"])
 	{
-		clip_missing = self.a_saved_weapon["stock"];
+		clip_missing = self.additionalprimaryweapon_data["stock"];
 	}
 
-	self.a_saved_weapon["clip"] += clip_missing;
-	self.a_saved_weapon["stock"] -= clip_missing;
+	self.additionalprimaryweapon_data["clip"] += clip_missing;
+	self.additionalprimaryweapon_data["stock"] -= clip_missing;
 
 	if (dw_name != "none")
 	{
-		clip_dualwield_missing = weaponClipSize(dw_name) - self.a_saved_weapon["lh_clip"];
+		clip_dualwield_missing = weaponClipSize(dw_name) - self.additionalprimaryweapon_data["lh_clip"];
 
-		if (clip_dualwield_missing > self.a_saved_weapon["stock"])
+		if (clip_dualwield_missing > self.additionalprimaryweapon_data["stock"])
 		{
-			clip_dualwield_missing = self.a_saved_weapon["stock"];
+			clip_dualwield_missing = self.additionalprimaryweapon_data["stock"];
 		}
 
-		self.a_saved_weapon["lh_clip"] += clip_dualwield_missing;
-		self.a_saved_weapon["stock"] -= clip_dualwield_missing;
+		self.additionalprimaryweapon_data["lh_clip"] += clip_dualwield_missing;
+		self.additionalprimaryweapon_data["stock"] -= clip_dualwield_missing;
 	}
 
 	if (alt_name != "none")
 	{
-		clip_alt_missing = weaponClipSize(alt_name) - self.a_saved_weapon["alt_clip"];
+		clip_alt_missing = weaponClipSize(alt_name) - self.additionalprimaryweapon_data["alt_clip"];
 
-		if (clip_alt_missing > self.a_saved_weapon["alt_stock"])
+		if (clip_alt_missing > self.additionalprimaryweapon_data["alt_stock"])
 		{
-			clip_alt_missing = self.a_saved_weapon["alt_stock"];
+			clip_alt_missing = self.additionalprimaryweapon_data["alt_stock"];
 		}
 
-		self.a_saved_weapon["alt_clip"] += clip_alt_missing;
-		self.a_saved_weapon["alt_stock"] -= clip_alt_missing;
+		self.additionalprimaryweapon_data["alt_clip"] += clip_alt_missing;
+		self.additionalprimaryweapon_data["alt_stock"] -= clip_alt_missing;
 	}
 
 	self takeweapon(weapon_to_take);
@@ -1406,20 +1406,20 @@ take_additionalprimaryweapon()
 
 restore_additionalprimaryweapon(switch_to_weapon = 1)
 {
-	if (!isDefined(self.a_saved_weapon))
+	if (!isDefined(self.additionalprimaryweapon_data))
 	{
 		return;
 	}
 
 	pap_triggers = getentarray("specialty_weapupgrade", "script_noteworthy");
 
-	if (!additionalprimaryweapon_canplayerreceiveweapon(self, self.a_saved_weapon["name"], pap_triggers))
+	if (!additionalprimaryweapon_canplayerreceiveweapon(self, self.additionalprimaryweapon_data["name"], pap_triggers))
 	{
-		self.a_saved_weapon = undefined;
+		self.additionalprimaryweapon_data = undefined;
 		return;
 	}
 
-	current = get_player_weapon_with_same_base(self.a_saved_weapon["name"]);
+	current = get_player_weapon_with_same_base(self.additionalprimaryweapon_data["name"]);
 
 	if (isdefined(current))
 	{
@@ -1428,7 +1428,7 @@ restore_additionalprimaryweapon(switch_to_weapon = 1)
 		weapondata = merge_weapons(curweapondata, weapondata);
 	}
 
-	name = self.a_saved_weapon["name"];
+	name = self.additionalprimaryweapon_data["name"];
 	dw_name = weapondualwieldweaponname(name);
 	alt_name = weaponaltweaponname(name);
 
@@ -1443,29 +1443,29 @@ restore_additionalprimaryweapon(switch_to_weapon = 1)
 
 	if (name != "none")
 	{
-		self setweaponammoclip(name, self.a_saved_weapon["clip"]);
-		self setweaponammostock(name, self.a_saved_weapon["stock"]);
+		self setweaponammoclip(name, self.additionalprimaryweapon_data["clip"]);
+		self setweaponammostock(name, self.additionalprimaryweapon_data["stock"]);
 
-		if (isdefined(self.a_saved_weapon["fuel"]))
+		if (isdefined(self.additionalprimaryweapon_data["fuel"]))
 		{
-			self setweaponammofuel(name, self.a_saved_weapon["fuel"]);
+			self setweaponammofuel(name, self.additionalprimaryweapon_data["fuel"]);
 		}
 
-		if (isdefined(self.a_saved_weapon["heat"]) && isdefined(self.a_saved_weapon["overheat"]))
+		if (isdefined(self.additionalprimaryweapon_data["heat"]) && isdefined(self.additionalprimaryweapon_data["overheat"]))
 		{
-			self setweaponoverheating(self.a_saved_weapon["overheat"], self.a_saved_weapon["heat"], name);
+			self setweaponoverheating(self.additionalprimaryweapon_data["overheat"], self.additionalprimaryweapon_data["heat"], name);
 		}
 	}
 
 	if (dw_name != "none")
 	{
-		self setweaponammoclip(dw_name, self.a_saved_weapon["lh_clip"]);
+		self setweaponammoclip(dw_name, self.additionalprimaryweapon_data["lh_clip"]);
 	}
 
 	if (alt_name != "none")
 	{
-		self setweaponammoclip(alt_name, self.a_saved_weapon["alt_clip"]);
-		self setweaponammostock(alt_name, self.a_saved_weapon["alt_stock"]);
+		self setweaponammoclip(alt_name, self.additionalprimaryweapon_data["alt_clip"]);
+		self setweaponammostock(alt_name, self.additionalprimaryweapon_data["alt_stock"]);
 	}
 
 	if (switch_to_weapon)
@@ -1477,7 +1477,7 @@ restore_additionalprimaryweapon(switch_to_weapon = 1)
 		self seteverhadweaponall(1);
 	}
 
-	self.a_saved_weapon = undefined;
+	self.additionalprimaryweapon_data = undefined;
 }
 
 additionalprimaryweapon_canplayerreceiveweapon(player, weapon, pap_triggers)
