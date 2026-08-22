@@ -125,17 +125,9 @@ buried_special_weapon_magicbox_check(weapon)
 {
 	if (weapon == "time_bomb_zm")
 	{
-		players = get_players();
-		i = 0;
-
-		while (i < players.size)
+		if (self hasweapon("time_bomb_detonator_zm"))
 		{
-			if (is_player_valid(players[i], undefined, 1) && players[i] is_player_tactical_grenade(weapon))
-			{
-				return 0;
-			}
-
-			i++;
+			return 0;
 		}
 	}
 
