@@ -1338,7 +1338,6 @@ can_track_ammo(weap)
 
 take_additionalprimaryweapon()
 {
-	weapon_to_take = undefined;
 	self.a_saved_weapon = undefined;
 
 	if (isdefined(self._retain_perks) && self._retain_perks || isdefined(self._retain_perks_array) && (isdefined(self._retain_perks_array["specialty_additionalprimaryweapon"]) && self._retain_perks_array["specialty_additionalprimaryweapon"]))
@@ -1346,11 +1345,9 @@ take_additionalprimaryweapon()
 		return undefined;
 	}
 
-	self scripts\zm\_zm_reimagined::additionalprimaryweapon_update_weapon_slots();
+	weapon_to_take = self scripts\zm\_zm_reimagined::get_weapon_to_take_by_losing_specialty_additionalprimaryweapon();
 
-	weapon_to_take = self.weapon_to_take_by_losing_specialty_additionalprimaryweapon;
-
-	if (!isDefined(weapon_to_take) || !self hasWeapon(weapon_to_take))
+	if (!isDefined(weapon_to_take))
 	{
 		return undefined;
 	}
@@ -1397,19 +1394,12 @@ take_additionalprimaryweapon()
 		self.a_saved_weapon["alt_stock"] -= clip_alt_missing;
 	}
 
+	self takeweapon(weapon_to_take);
+
 	if (weapon_to_take == self getcurrentweapon())
 	{
-		for (i = 0; i < self.weapon_slots.size; i++)
-		{
-			if (isdefined(self.weapon_slots[i]) && self.weapon_slots[i] != weapon_to_take)
-			{
-				self switchtoweapon(self.weapon_slots[i]);
-				break;
-			}
-		}
+		self switchtoweapon(self getweaponslistprimaries()[0]);
 	}
-
-	self takeweapon(weapon_to_take);
 
 	return weapon_to_take;
 }

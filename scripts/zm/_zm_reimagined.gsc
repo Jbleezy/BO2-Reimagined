@@ -3248,6 +3248,32 @@ alt_weapon_name_hud()
 	}
 }
 
+get_weapon_to_take_by_losing_specialty_additionalprimaryweapon()
+{
+	if (!self hasperk("specialty_additionalprimaryweapon"))
+	{
+		return undefined;
+	}
+
+	primaries_that_can_be_taken = [];
+	primaries = self getweaponslistprimaries();
+
+	for (i = 0; i < primaries.size; i++)
+	{
+		if (maps\mp\zombies\_zm_weapons::is_weapon_included(primaries[i]) || maps\mp\zombies\_zm_weapons::is_weapon_upgraded(primaries[i]))
+		{
+			primaries_that_can_be_taken[primaries_that_can_be_taken.size] = primaries[i];
+		}
+	}
+
+	if (primaries_that_can_be_taken.size < get_player_weapon_limit(self))
+	{
+		return undefined;
+	}
+
+	return primaries_that_can_be_taken[primaries_that_can_be_taken.size - 1];
+}
+
 additionalprimaryweapon_indicator()
 {
 	self endon("disconnect");
@@ -3262,22 +3288,12 @@ additionalprimaryweapon_indicator()
 	while (1)
 	{
 		weapon_name = "";
-
 		player = self get_current_spectating_player();
+		weapon = player get_weapon_to_take_by_losing_specialty_additionalprimaryweapon();
 
-		if (player == self)
+		if (isdefined(weapon))
 		{
-			self additionalprimaryweapon_update_weapon_slots();
-		}
-
-		if (player hasPerk("specialty_additionalprimaryweapon"))
-		{
-			weapon = player.weapon_to_take_by_losing_specialty_additionalprimaryweapon;
-
-			if (isDefined(weapon))
-			{
-				weapon_name = getweapondisplayname(weapon);
-			}
+			weapon_name = getweapondisplayname(weapon);
 		}
 
 		if (prev_weapon_name != weapon_name)
@@ -3287,77 +3303,6 @@ additionalprimaryweapon_indicator()
 		}
 
 		wait 0.05;
-	}
-}
-
-additionalprimaryweapon_update_weapon_slots()
-{
-	if (!isDefined(self.weapon_slots))
-	{
-		self.weapon_slots = [];
-	}
-
-	primaries_that_can_be_taken = [];
-	primaries = self getweaponslistprimaries();
-
-	for (i = 0; i < primaries.size; i++)
-	{
-		if (maps\mp\zombies\_zm_weapons::is_weapon_included(primaries[i]) || maps\mp\zombies\_zm_weapons::is_weapon_upgraded(primaries[i]))
-		{
-			primaries_that_can_be_taken[primaries_that_can_be_taken.size] = primaries[i];
-		}
-	}
-
-	for (i = 0; i < self.weapon_slots.size; i++)
-	{
-		if (!self hasWeapon(self.weapon_slots[i]))
-		{
-			self.weapon_slots[i] = "none";
-		}
-	}
-
-	for (i = 0; i < primaries_that_can_be_taken.size; i++)
-	{
-		weapon = primaries_that_can_be_taken[i];
-
-		if (!isInArray(self.weapon_slots, weapon))
-		{
-			added = 0;
-
-			for (j = 0; j < self.weapon_slots.size; j++)
-			{
-				if (self.weapon_slots[j] == "none")
-				{
-					added = 1;
-					self.weapon_slots[j] = weapon;
-					break;
-				}
-			}
-
-			if (!added)
-			{
-				self.weapon_slots[self.weapon_slots.size] = weapon;
-			}
-		}
-	}
-
-	num_weapons = 0;
-
-	for (i = 0; i < self.weapon_slots.size; i++)
-	{
-		if (self.weapon_slots[i] != "none")
-		{
-			num_weapons++;
-		}
-	}
-
-	if (num_weapons >= get_player_weapon_limit(self))
-	{
-		self.weapon_to_take_by_losing_specialty_additionalprimaryweapon = self.weapon_slots[self.weapon_slots.size - 1];
-	}
-	else
-	{
-		self.weapon_to_take_by_losing_specialty_additionalprimaryweapon = undefined;
 	}
 }
 

@@ -1685,8 +1685,8 @@ give_perk(perk, bought)
 
 	if (perk == "specialty_additionalprimaryweapon")
 	{
-		switch_to_additional_primary_weapon = is_true(bought);
-		self scripts\zm\replaced\_zm::restore_additionalprimaryweapon(switch_to_additional_primary_weapon);
+		switch_to_additionalprimaryweapon = is_true(bought);
+		self scripts\zm\replaced\_zm::restore_additionalprimaryweapon(switch_to_additionalprimaryweapon);
 	}
 
 	if (isDefined(level._custom_perks[perk]) && isDefined(level._custom_perks[perk].player_thread_give))
