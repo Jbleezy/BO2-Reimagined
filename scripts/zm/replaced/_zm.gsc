@@ -1425,7 +1425,7 @@ restore_additionalprimaryweapon(switch_to_weapon = 1)
 	{
 		curweapondata = get_player_weapondata(self, current);
 		self takeweapon(current);
-		weapondata = merge_weapons(curweapondata, weapondata);
+		self.additionalprimaryweapon_data = merge_weapons(curweapondata, self.additionalprimaryweapon_data);
 	}
 
 	name = self.additionalprimaryweapon_data["name"];
