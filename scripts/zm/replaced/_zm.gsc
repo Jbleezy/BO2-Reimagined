@@ -1419,15 +1419,6 @@ restore_additionalprimaryweapon(switch_to_weapon = 1)
 		return;
 	}
 
-	current = get_player_weapon_with_same_base(self.additionalprimaryweapon_data["name"]);
-
-	if (isdefined(current))
-	{
-		curweapondata = get_player_weapondata(self, current);
-		self takeweapon(current);
-		self.additionalprimaryweapon_data = merge_weapons(curweapondata, self.additionalprimaryweapon_data);
-	}
-
 	name = self.additionalprimaryweapon_data["name"];
 	dw_name = weapondualwieldweaponname(name);
 	alt_name = weaponaltweaponname(name);
@@ -1482,24 +1473,26 @@ restore_additionalprimaryweapon(switch_to_weapon = 1)
 
 additionalprimaryweapon_canplayerreceiveweapon(player, weapon, pap_triggers)
 {
-	if (isDefined(player) && player maps\mp\zombies\_zm_weapons::has_weapon_or_upgrade(weapon))
+	base_weapon = maps\mp\zombies\_zm_weapons::get_base_weapon_name(weapon, 1);
+
+	if (isDefined(player) && player maps\mp\zombies\_zm_weapons::has_weapon_or_upgrade(base_weapon))
 	{
 		return 0;
 	}
 
-	if (!maps\mp\zombies\_zm_weapons::limited_weapon_below_quota(weapon, player, pap_triggers))
+	if (!maps\mp\zombies\_zm_weapons::limited_weapon_below_quota(base_weapon, player, pap_triggers))
 	{
 		return 0;
 	}
 
-	if (!player maps\mp\zombies\_zm_weapons::player_can_use_content(weapon))
+	if (!player maps\mp\zombies\_zm_weapons::player_can_use_content(base_weapon))
 	{
 		return 0;
 	}
 
 	if (isDefined(level.custom_magic_box_selection_logic))
 	{
-		if (!([[level.custom_magic_box_selection_logic]](weapon, player, pap_triggers)))
+		if (!([[level.custom_magic_box_selection_logic]](base_weapon, player, pap_triggers)))
 		{
 			return 0;
 		}
@@ -1507,13 +1500,13 @@ additionalprimaryweapon_canplayerreceiveweapon(player, weapon, pap_triggers)
 
 	if (isDefined(player) && isDefined(level.special_weapon_magicbox_check))
 	{
-		if (!player [[level.special_weapon_magicbox_check]](weapon))
+		if (!player [[level.special_weapon_magicbox_check]](base_weapon))
 		{
 			return 0;
 		}
 	}
 
-	if (isSubStr(weapon, "staff"))
+	if (isSubStr(base_weapon, "staff"))
 	{
 		return 0;
 	}
