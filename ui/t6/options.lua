@@ -619,6 +619,47 @@ CoD.OptionsSettings.CreateModTab = function(ModTab, LocalClientIndex)
 	return ModTabContainer
 end
 
+CoD.OptionsSettings.Button_ApplyDvarChangedUpdateActionSlots = function(Button)
+	CoD.OptionsSettings.Button_ApplyDvarChanged(Button)
+
+	if not Engine.IsInGame() then
+		return
+	end
+
+	if Button.parentSelectorButton.dvarChangedCount == nil then
+		Button.parentSelectorButton.dvarChangedCount = 0
+	end
+
+	Button.parentSelectorButton.dvarChangedCount = Button.parentSelectorButton.dvarChangedCount + 1
+
+	-- don't process event unless button was clicked
+	if Button.parentSelectorButton.dvarChangedCount > 2 then
+		CoD.AmmoAreaZombie.Widget:processEvent({
+			name = "hud_update_actionslots",
+			controller = Button.parentSelectorButton.m_currentController,
+		})
+	end
+end
+
+CoD.OptionsSettings.Button_ApplyDvarChangedSendMenuResponse = function(Button)
+	CoD.OptionsSettings.Button_ApplyDvarChanged(Button)
+
+	if not Engine.IsInGame() then
+		return
+	end
+
+	if Button.parentSelectorButton.dvarChangedCount == nil then
+		Button.parentSelectorButton.dvarChangedCount = 0
+	end
+
+	Button.parentSelectorButton.dvarChangedCount = Button.parentSelectorButton.dvarChangedCount + 1
+
+	-- don't send menu response unless button was clicked
+	if Button.parentSelectorButton.dvarChangedCount > 2 then
+		Engine.SendMenuResponse(Button.parentSelectorButton.m_currentController, string.gsub(Button.parentSelectorButton.m_dvarName, "_settings", ""), Button.value)
+	end
+end
+
 LUI.createMenu.OptionsSettingsMenu = function(LocalClientIndex)
 	local OptionsSettingsWidget = nil
 	local InGame = UIExpression.IsInGame() == 1
