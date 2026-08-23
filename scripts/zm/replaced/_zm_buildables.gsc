@@ -544,7 +544,11 @@ player_build(buildable, pieces)
 	foreach (piece in buildable.pieces)
 	{
 		buildable buildable_set_piece_built(piece);
-		player_destroy_piece(piece);
+
+		if (!isdefined(buildable.stub.buildable_pool))
+		{
+			player_destroy_piece(piece);
+		}
 	}
 
 	if (isdefined(buildable.stub.model))
