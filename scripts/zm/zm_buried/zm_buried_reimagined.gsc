@@ -41,6 +41,7 @@ main()
 	replaceFunc(maps\mp\zm_buried_sq_ts::ts_sign_damage_watch, scripts\zm\replaced\zm_buried_sq_ts::ts_sign_damage_watch);
 	replaceFunc(maps\mp\zm_buried_sq_tpo::stage_logic, scripts\zm\replaced\zm_buried_sq_tpo::stage_logic);
 	replaceFunc(maps\mp\zm_buried_sq_tpo::promote_to_corpse_model, scripts\zm\replaced\zm_buried_sq_tpo::promote_to_corpse_model);
+	replaceFunc(maps\mp\zm_buried_sq_tpo::get_randomized_corpse_list, scripts\zm\replaced\zm_buried_sq_tpo::get_randomized_corpse_list);
 	replaceFunc(maps\mp\zm_buried_sq_ip::stage_logic, scripts\zm\replaced\zm_buried_sq_ip::stage_logic);
 	replaceFunc(maps\mp\zm_buried_sq_ows::ows_targets_start, scripts\zm\replaced\zm_buried_sq_ows::ows_targets_start);
 	replaceFunc(maps\mp\zm_buried_distance_tracking::escaped_zombies_cleanup_init, scripts\zm\replaced\zm_buried_distance_tracking::escaped_zombies_cleanup_init);

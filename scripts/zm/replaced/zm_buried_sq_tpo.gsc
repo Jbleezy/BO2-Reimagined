@@ -210,3 +210,10 @@ unitrigger_think()
 		self thread maps\mp\zombies\_zm_unitrigger::unregister_unitrigger(self.stub);
 	}
 }
+
+get_randomized_corpse_list()
+{
+	a_corpses = array("c_zom_player_farmgirl_dlc1_fb", "c_zom_player_oldman_dlc1_fb", "c_zom_player_reporter_dam_fb", "c_zom_player_engineer_dlc1_fb");
+	a_corpses = array_randomize(a_corpses);
+	return a_corpses;
+}
