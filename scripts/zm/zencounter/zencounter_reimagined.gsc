@@ -2282,7 +2282,6 @@ grief_laststand_weapons_return()
 			self setweaponammoclip("time_bomb_detonator_zm", 0);
 			self setweaponammostock("time_bomb_detonator_zm", 0);
 			self setactionslot(2, "weapon", "time_bomb_detonator_zm");
-			self giveweapon("time_bomb_zm");
 		}
 	}
 
