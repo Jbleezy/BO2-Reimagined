@@ -55,7 +55,6 @@ LUI.createMenu.AmmoAreaZombie = function(f1_arg0)
 	Widget.visible = true
 	Widget:registerEventHandler("hud_update_actionslots", CoD.AmmoAreaZombie.UpdateActionSlots)
 	Widget:registerEventHandler("hud_update_inventory_weapon", CoD.AmmoAreaZombie.UpdateInventoryWeapon)
-	-- Widget:registerEventHandler("hud_fade_dpad", CoD.AmmoAreaZombie.UpdateFading)
 	local f1_local5 = 256
 	local f1_local6 = f1_local5 / 16
 	local f1_local7 = f1_local2 + CoD.AmmoAreaZombie.CircleSize / 2
@@ -713,6 +712,7 @@ CoD.AmmoAreaZombie.UpdateWeapon = function(f12_arg0, f12_arg1)
 	else
 		f12_arg0.hideAmmo = nil
 	end
+
 	CoD.AmmoAreaZombie.UpdateVisibility(f12_arg0, f12_arg1)
 	f12_arg0:dispatchEventToChildren(f12_arg1)
 end
@@ -724,34 +724,35 @@ CoD.AmmoAreaZombie.UpdateWeaponSelect = function(f13_arg0, f13_arg1)
 		f13_arg0.weaponDisplayName = f13_arg1.weaponDisplayName
 	end
 
-	f13_arg0.weaponLabelName = UIExpression.ToUpper(nil, Engine.Localize(f13_arg1.weaponDisplayName))
-	f13_arg0.additionalPrimaryWeaponName = UIExpression.ToUpper(nil, Engine.Localize(UIExpression.DvarString(nil, "additionalPrimaryWeaponName")))
-
 	f13_arg0.weaponLabelContainer:setAlpha(1)
 
-	local altWeaponName = nil
+	f13_arg0.localizedWeaponName = UIExpression.ToUpper(nil, Engine.Localize(f13_arg1.weaponDisplayName))
+	f13_arg0.localizedNonAltWeaponName = nil
+	f13_arg0.localizedAltWeaponName = nil
 
-	if f13_arg0.useAltWeaponName ~= nil then
-		local weaponAltWeaponNames = UIExpression.DvarString(nil, "weaponAltWeaponNames")
+	local weaponAltWeaponNames = UIExpression.DvarString(nil, "weaponAltWeaponNames")
 
-		for weapon, altWeapon in string.gmatch(weaponAltWeaponNames, "(.-):(.-);") do
-			if f13_arg0.weaponLabelName == UIExpression.ToUpper(nil, Engine.Localize(weapon)) then
-				altWeaponName = UIExpression.ToUpper(nil, Engine.Localize(altWeapon))
-				break
-			end
+	for nonAltWeaponName, altWeaponName in string.gmatch(weaponAltWeaponNames, "(.-):(.-);") do
+		local localizedNonAltWeaponName = UIExpression.ToUpper(nil, Engine.Localize(nonAltWeaponName))
+		local localizedAltWeaponName = UIExpression.ToUpper(nil, Engine.Localize(altWeaponName))
+
+		if f13_arg0.localizedWeaponName == localizedNonAltWeaponName or f13_arg0.localizedWeaponName == localizedAltWeaponName then
+			f13_arg0.localizedNonAltWeaponName = localizedNonAltWeaponName
+			f13_arg0.localizedAltWeaponName = localizedAltWeaponName
+			break
 		end
 	end
 
-	if altWeaponName ~= nil then
-		f13_arg0.weaponText:setText(f13_arg0.weaponLabelName .. " " .. altWeaponName)
+	if f13_arg0.useAltWeaponName ~= nil and f13_arg0.localizedAltWeaponName ~= nil then
+		f13_arg0.weaponText:setText(f13_arg0.localizedAltWeaponName)
 	else
-		f13_arg0.weaponText:setText(f13_arg0.weaponLabelName)
+		f13_arg0.weaponText:setText(f13_arg0.localizedWeaponName)
 	end
 
-	-- f13_arg0.weaponLabelContainer:beginAnimation("fade_out", CoD.WeaponLabel.FadeTime)
-	-- f13_arg0.weaponLabelContainer:setAlpha(0)
+	local additionalPrimaryWeaponName = UIExpression.DvarString(nil, "additionalPrimaryWeaponName")
+	local localizedAdditionalPrimaryWeaponName = UIExpression.ToUpper(nil, Engine.Localize(additionalPrimaryWeaponName))
 
-	if UIExpression.DvarString(nil, "additionalPrimaryWeaponName") ~= "" and f13_arg0.additionalPrimaryWeaponName == f13_arg0.weaponLabelName then
+	if additionalPrimaryWeaponName ~= "" and (localizedAdditionalPrimaryWeaponName == f13_arg0.localizedWeaponName or localizedAdditionalPrimaryWeaponName == f13_arg0.localizedNonAltWeaponName or localizedAdditionalPrimaryWeaponName == f13_arg0.localizedAltWeaponName) then
 		f13_arg0.additionalPrimaryWeaponImage:setAlpha(1)
 	else
 		f13_arg0.additionalPrimaryWeaponImage:setAlpha(0)

@@ -3222,17 +3222,28 @@ alt_weapon_name_hud()
 
 		foreach (primary in primaries)
 		{
-			if (weaponaltweaponname(primary) == "none")
+			alt_primary = weaponaltweaponname(primary);
+
+			if (issubstr(primary, "staff") && issubstr(primary, "upgraded"))
+			{
+				alt_primary = "staff_revive_zm";
+			}
+
+			if (alt_primary == "none")
 			{
 				continue;
 			}
 
 			weapon_name = getweapondisplayname(primary);
-			alt_weapon_name = getweapondisplayname(weaponaltweaponname(primary));
+			alt_weapon_name = getweapondisplayname(alt_primary);
 
-			if (weapon_name == alt_weapon_name)
+			if (getsubstr(alt_primary, 0, 3) == "gl_" || getsubstr(alt_primary, 0, 3) == "mk_")
 			{
-				continue;
+				alt_weapon_name = weapon_name + " " + alt_weapon_name;
+			}
+			else if (getsubstr(alt_primary, 0, 3) == "sf_" || getsubstr(alt_primary, 0, 10) == "dualoptic_")
+			{
+				alt_weapon_name = weapon_name;
 			}
 
 			alt_weapon_names += weapon_name + ":" + alt_weapon_name + ";";
