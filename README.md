@@ -84,6 +84,9 @@
 		* [Blundergat](#blundergat)
 		* [Acidgat](#acidgat)
 		* [Staffs](#staffs)
+	* [Lethal Grenades](#lethal-grenades)
+		* [Frag Grenade](#frag-grenade)
+		* [Semtex](#semtex)
 	* [Tactical Grenades](#tactical-grenades)
 		* [Monkey Bomb](#monkey-bomb)
 		* [EMP Grenade](#emp-grenade)
@@ -96,8 +99,6 @@
 		* [Silver Spoon](#silver-spoon)
 		* [Golden Spork](#golden-spork)
 		* [One Inch Punch](#one-inch-punch)
-		* [Frag Grenade](#frag-grenade)
-		* [Semtex](#semtex)
 		* [Claymore](#claymore)
 		* [Bouncing Betty](#bouncing-betty)
 		* [Time Bomb](#time-bomb)
@@ -720,6 +721,14 @@
 * Wind upgraded: whirlwind stops pulling in zombies when the whirlwind fx starts to end instead of when the whirlwind fx completely ends
 * Wind upgraded: fixed whirlwind not being created and impact blast radius being incorrect if the player started reloading or throwing a grenade in between the time that the charged shot was fired and impacted a surface
 
+### Lethal Grenades
+
+#### Frag Grenade
+* Replaces Semtex on Origins
+
+#### Semtex
+* Replaces Frag Grenade on Mob of the Dead
+
 ### Tactical Grenades
 
 #### Monkey Bomb
@@ -790,12 +799,6 @@
 * Fixed players gaining damage score multiple times
 * Fixed zombies not being flung when Insta Kill powerup is active
 * Fixed an issue where a player's melee weapon wouldn't reset if the player bled out in the Giant Robots
-
-#### Frag Grenade
-* Replaces Semtex on Origins
-
-#### Semtex
-* Replaces Frag Grenade on Mob of the Dead
 
 #### Claymore
 * Added plant and alert sounds to all maps
