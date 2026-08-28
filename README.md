@@ -17,6 +17,7 @@
 ## Table of Contents
 * [General](#general)
 * [Settings](#settings)
+* [Controls](#controls)
 * [HUD](#hud)
 * [Players](#players)
 * [Zombies](#zombies)
@@ -192,6 +193,11 @@
 * Added option to enable or disable depth of field
 * Added option to enable or disable character dialog
 
+## Controls
+* Changed option name from "NEXT SCORESTREAK" to "EQUIPMENT"
+* Changed option name from "PREVIOUS SCORESTREAK" to "MELEE WEAPON"
+* Changed option name from "ACTIVATE SCORESTREAK" to "PLACEABLE MINE"
+
 ## HUD
 * Enemy counter displayed on top left of screen
 * Timer displayed on top right of screen
@@ -348,7 +354,7 @@
 * No longer receives additional damage from Boomhilda or Ray Gun Mark 2
 
 ## Weapons
-* Switch to melee weapon by pressing the Melee Weapon button (same button as Time Bomb and Maxis Drone)
+* Switch to melee weapon by pressing the Melee Weapon button (same button as the Time Bomb and Maxis Drone)
 * Added alt weapon names on HUD
 * Added camo to all attachments
 * Added proper melee swing sound to all melee weapons
