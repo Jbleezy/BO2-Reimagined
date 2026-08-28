@@ -3262,11 +3262,6 @@ alt_weapon_name_hud()
 
 get_weapon_to_take_by_losing_specialty_additionalprimaryweapon()
 {
-	if (!self hasperk("specialty_additionalprimaryweapon"))
-	{
-		return undefined;
-	}
-
 	primaries_that_can_be_taken = [];
 	primaries = self getweaponslistprimaries();
 
@@ -3301,7 +3296,12 @@ additionalprimaryweapon_indicator()
 	{
 		weapon_name = "";
 		player = self get_current_spectating_player();
-		weapon = player get_weapon_to_take_by_losing_specialty_additionalprimaryweapon();
+		weapon = undefined;
+
+		if (player hasperk("specialty_additionalprimaryweapon"))
+		{
+			weapon = player get_weapon_to_take_by_losing_specialty_additionalprimaryweapon();
+		}
 
 		if (isdefined(weapon))
 		{

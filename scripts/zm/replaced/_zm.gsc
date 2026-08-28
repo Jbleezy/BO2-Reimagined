@@ -2758,7 +2758,7 @@ player_laststand(einflictor, attacker, idamage, smeansofdeath, sweapon, vdir, sh
 
 	if (self hasperk("specialty_additionalprimaryweapon"))
 	{
-		self.weapon_taken_by_losing_specialty_additionalprimaryweapon = maps\mp\zombies\_zm::take_additionalprimaryweapon();
+		self maps\mp\zombies\_zm::take_additionalprimaryweapon();
 	}
 
 	self clear_is_drinking();
@@ -2944,8 +2944,6 @@ last_stand_pistol_swap()
 
 last_stand_restore_pistol_ammo(only_store_info = false)
 {
-	self.weapon_taken_by_losing_specialty_additionalprimaryweapon = undefined;
-
 	if (!isDefined(self.stored_weapon_info))
 	{
 		return;

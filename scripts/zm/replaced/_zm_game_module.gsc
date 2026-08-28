@@ -160,6 +160,11 @@ round_end(winner)
 	{
 		if (is_player_valid(player))
 		{
+			if (player hasperk("specialty_additionalprimaryweapon"))
+			{
+				player maps\mp\zombies\_zm::take_additionalprimaryweapon();
+			}
+
 			// stop perks
 			player notify("fake_death");
 
