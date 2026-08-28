@@ -359,7 +359,10 @@ swap_weapon_to_time_bomb()
 
 	if (current_weapon == "time_bomb_detonator_zm")
 	{
-		self switchtoweapon("time_bomb_zm");
+		if (!is_true(self.is_drinking))
+		{
+			self switchtoweapon("time_bomb_zm");
+		}
 	}
 }
 
@@ -368,12 +371,12 @@ swap_weapon_to_detonator(e_grenade)
 	self endon("death_or_disconnect");
 	self endon("player_lost_time_bomb");
 
-	current_weapon = self getcurrentweapon();
-
 	if (isdefined(e_grenade))
 	{
 		wait 0.4;
 	}
+
+	current_weapon = self getcurrentweapon();
 
 	self takeweapon("time_bomb_zm");
 	self giveweapon("time_bomb_detonator_zm");
@@ -383,7 +386,10 @@ swap_weapon_to_detonator(e_grenade)
 
 	if (current_weapon == "time_bomb_zm")
 	{
-		self switchtoweapon("time_bomb_detonator_zm");
+		if (!is_true(self.is_drinking))
+		{
+			self switchtoweapon("time_bomb_detonator_zm");
+		}
 	}
 }
 
