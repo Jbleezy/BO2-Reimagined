@@ -3218,7 +3218,8 @@ alt_weapon_name_hud()
 	while (1)
 	{
 		alt_weapon_names = "";
-		primaries = self getweaponslistprimaries();
+		player = self get_current_spectating_player();
+		primaries = player getweaponslistprimaries();
 
 		foreach (primary in primaries)
 		{
