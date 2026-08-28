@@ -815,6 +815,7 @@
 * Kills all zombies
 * Revives all down players
 * Can have with Monkey Bombs
+* Removed impact damage
 * Switches to detonator at correct time after throwing
 * Fixed detonator raise and drop anims
 
