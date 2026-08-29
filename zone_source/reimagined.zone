@@ -187,6 +187,7 @@ script,scripts/zm/replaced/zm_nuked.csc
 script,scripts/zm/replaced/zm_highrise.csc
 script,scripts/zm/replaced/zm_prison.csc
 script,scripts/zm/replaced/zm_buried.csc
+script,scripts/zm/replaced/zm_buried_buildables.csc
 script,scripts/zm/replaced/zm_tomb.csc
 script,scripts/zm/replaced/zm_tomb_amb.csc
 script,scripts/zm/replaced/zm_tomb_capture_zones.csc

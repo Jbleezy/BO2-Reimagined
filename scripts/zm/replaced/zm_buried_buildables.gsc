@@ -79,8 +79,16 @@ prepare_chalk_weapon_list()
 
 	foreach (buildable_wallbuy_weapon in level.buildable_wallbuy_weapons)
 	{
-		level.buildable_wallbuy_weapon_models[buildable_wallbuy_weapon] = undefined;
-		level.buildable_wallbuy_weapon_angles[buildable_wallbuy_weapon] = undefined;
+		if (buildable_wallbuy_weapon == "tazer_knuckles_zm")
+		{
+			level.buildable_wallbuy_weapon_models[buildable_wallbuy_weapon] = "t6_wpn_taser_knuckles_view";
+			level.buildable_wallbuy_weapon_angles[buildable_wallbuy_weapon] = undefined;
+		}
+		else
+		{
+			level.buildable_wallbuy_weapon_models[buildable_wallbuy_weapon] = undefined;
+			level.buildable_wallbuy_weapon_angles[buildable_wallbuy_weapon] = undefined;
+		}
 	}
 
 	foreach (model in level.buildable_wallbuy_weapon_models)
