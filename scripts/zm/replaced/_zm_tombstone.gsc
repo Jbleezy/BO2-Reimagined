@@ -297,21 +297,15 @@ tombstone_laststand()
 	self.tombstone_savedweapon_weaponsammo_stock = [];
 	self.tombstone_savedweapon_weaponsammo_clip_alt = [];
 	self.tombstone_savedweapon_weaponsammo_stock_alt = [];
-	self.tombstone_savedweapon_currentweapon = self getcurrentweapon();
+	self.tombstone_savedweapon_currentweapon = maps\mp\zombies\_zm_weapons::get_nonalternate_weapon(self getcurrentweapon()); // can't switch to alt weapon
 	self.tombstone_savedweapon_melee = self get_player_melee_weapon();
 	self.tombstone_savedweapon_grenades = self get_player_lethal_grenade();
 	self.tombstone_savedweapon_tactical = self get_player_tactical_grenade();
 	self.tombstone_savedweapon_mine = self get_player_placeable_mine();
 	self.tombstone_savedweapon_equipment = self get_player_equipment();
-	self.tombstone_hastimebomb = self hasweapon("time_bomb_zm") || self hasweapon("time_bomb_detonator_zm");
 	self.tombstone_hasriotshield = undefined;
+	self.tombstone_hastimebomb = undefined;
 	self.tombstone_perks = tombstone_save_perks(self);
-
-	// can't switch to alt weapon
-	if (is_alt_weapon(self.tombstone_savedweapon_currentweapon))
-	{
-		self.tombstone_savedweapon_currentweapon = maps\mp\zombies\_zm_weapons::get_nonalternate_weapon(self.tombstone_savedweapon_currentweapon);
-	}
 
 	for (i = 0; i < self.tombstone_savedweapon_weapons.size; i++)
 	{
@@ -377,19 +371,23 @@ tombstone_laststand()
 		self.tombstone_savedweapon_mine_clip = self getweaponammoclip(self.tombstone_savedweapon_mine);
 	}
 
-	if (is_true(self.tombstone_hastimebomb))
+	if (isDefined(self.hasriotshield) && self.hasriotshield)
 	{
-		self.tombstone_savedweapon_timebomb_clip = 1;
+		self.tombstone_hasriotshield = 1;
+	}
+
+	if (self hasweapon("time_bomb_zm") || self hasweapon("time_bomb_detonator_zm"))
+	{
+		self.tombstone_hastimebomb = 1;
 
 		if (self hasweapon("time_bomb_detonator_zm"))
 		{
 			self.tombstone_savedweapon_timebomb_clip = 0;
 		}
-	}
-
-	if (isDefined(self.hasriotshield) && self.hasriotshield)
-	{
-		self.tombstone_hasriotshield = 1;
+		else
+		{
+			self.tombstone_savedweapon_timebomb_clip = 1;
+		}
 	}
 }
 
@@ -547,6 +545,14 @@ tombstone_give()
 		self.do_not_display_equipment_pickup_hint = undefined;
 	}
 
+	if (isDefined(self.tombstone_hasriotshield) && self.tombstone_hasriotshield)
+	{
+		if (isDefined(self.player_shield_reset_health))
+		{
+			self [[self.player_shield_reset_health]]();
+		}
+	}
+
 	if (is_true(self.tombstone_hastimebomb))
 	{
 		if (self.tombstone_savedweapon_timebomb_clip == 1)
@@ -560,14 +566,6 @@ tombstone_give()
 			self setweaponammoclip("time_bomb_detonator_zm", 0);
 			self setweaponammostock("time_bomb_detonator_zm", 0);
 			self setactionslot(2, "weapon", "time_bomb_detonator_zm");
-		}
-	}
-
-	if (isDefined(self.tombstone_hasriotshield) && self.tombstone_hasriotshield)
-	{
-		if (isDefined(self.player_shield_reset_health))
-		{
-			self [[self.player_shield_reset_health]]();
 		}
 	}
 
@@ -595,8 +593,6 @@ tombstone_give()
 	}
 	else
 	{
-		self seteverhadweaponall(0);
-
 		switched = 0;
 		primaries = self getweaponslistprimaries();
 

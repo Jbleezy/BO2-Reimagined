@@ -1992,8 +1992,8 @@ grief_laststand_weapon_save(einflictor, attacker, idamage, smeansofdeath, sweapo
 	self.grief_savedweapon_tactical = self get_player_tactical_grenade();
 	self.grief_savedweapon_mine = self get_player_placeable_mine();
 	self.grief_savedweapon_equipment = self get_player_equipment();
-	self.grief_hastimebomb = self hasweapon("time_bomb_zm") || self hasweapon("time_bomb_detonator_zm");
 	self.grief_hasriotshield = undefined;
+	self.grief_hastimebomb = undefined;
 	self.grief_savedperks = [];
 
 	for (i = 0; i < self.grief_savedweapon_weapons.size; i++)
@@ -2059,19 +2059,23 @@ grief_laststand_weapon_save(einflictor, attacker, idamage, smeansofdeath, sweapo
 		self.grief_savedweapon_mine_clip = self getweaponammoclip(self.grief_savedweapon_mine);
 	}
 
-	if (is_true(self.grief_hastimebomb))
+	if (isDefined(self.hasriotshield) && self.hasriotshield)
 	{
-		self.grief_savedweapon_timebomb_clip = 1;
+		self.grief_hasriotshield = 1;
+	}
+
+	if (self hasweapon("time_bomb_zm") || self hasweapon("time_bomb_detonator_zm"))
+	{
+		self.grief_hastimebomb = 1;
 
 		if (self hasweapon("time_bomb_detonator_zm"))
 		{
 			self.grief_savedweapon_timebomb_clip = 0;
 		}
-	}
-
-	if (isDefined(self.hasriotshield) && self.hasriotshield)
-	{
-		self.grief_hasriotshield = 1;
+		else
+		{
+			self.grief_savedweapon_timebomb_clip = 1;
+		}
 	}
 
 	if (isdefined(self.perks_active))
@@ -2269,6 +2273,14 @@ grief_laststand_weapons_return()
 		self.do_not_display_equipment_pickup_hint = undefined;
 	}
 
+	if (isDefined(self.grief_hasriotshield) && self.grief_hasriotshield)
+	{
+		if (isDefined(self.player_shield_reset_health))
+		{
+			self [[self.player_shield_reset_health]]();
+		}
+	}
+
 	if (is_true(self.grief_hastimebomb))
 	{
 		if (self.grief_savedweapon_timebomb_clip == 1)
@@ -2282,14 +2294,6 @@ grief_laststand_weapons_return()
 			self setweaponammoclip("time_bomb_detonator_zm", 0);
 			self setweaponammostock("time_bomb_detonator_zm", 0);
 			self setactionslot(2, "weapon", "time_bomb_detonator_zm");
-		}
-	}
-
-	if (isDefined(self.grief_hasriotshield) && self.grief_hasriotshield)
-	{
-		if (isDefined(self.player_shield_reset_health))
-		{
-			self [[self.player_shield_reset_health]]();
 		}
 	}
 
