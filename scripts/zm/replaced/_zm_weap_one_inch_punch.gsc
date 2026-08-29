@@ -175,6 +175,10 @@ zombie_punch_damage(ai_zombie, n_mod)
 					n_damage = ai_zombie.health;
 				}
 			}
+			else if (is_true(level.zombie_vars[self.team]["zombie_half_damage"]))
+			{
+				n_damage = int(n_damage / 2);
+			}
 
 			if (n_damage >= ai_zombie.health)
 			{

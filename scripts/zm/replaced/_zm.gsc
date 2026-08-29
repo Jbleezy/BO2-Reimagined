@@ -1769,7 +1769,7 @@ actor_damage_override(inflictor, attacker, damage, flags, meansofdeath, weapon, 
 			final_damage *= 2;
 		}
 
-		if (is_true(level.zombie_vars[attacker.team]["zombie_half_damage"]) && !is_true(self.marked_for_death))
+		if (is_true(level.zombie_vars[attacker.team]["zombie_half_damage"]) && !is_true(self.marked_for_death) && !issubstr(weapon, "one_inch_punch"))
 		{
 			final_damage /= 2;
 		}
