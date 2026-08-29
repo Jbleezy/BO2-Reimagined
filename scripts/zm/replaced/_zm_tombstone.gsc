@@ -611,6 +611,10 @@ tombstone_give()
 			{
 				self switchtoweapon(primaries[0]);
 			}
+			else
+			{
+				self maps\mp\zombies\_zm_weapons::give_fallback_weapon();
+			}
 		}
 	}
 
