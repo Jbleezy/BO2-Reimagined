@@ -586,9 +586,14 @@ tombstone_give()
 		self scripts\zm\_zm_reimagined::update_perk_order();
 	}
 
-	current_wep = self getCurrentWeapon();
-
-	if (!isSubStr(current_wep, "perk_bottle") && !isSubStr(current_wep, "knuckle_crack") && !isSubStr(current_wep, "flourish") && current_wep != level.item_meat_name)
+	if (self.is_drinking)
+	{
+		if (isdefined(self.pre_temp_weapon))
+		{
+			self.pre_temp_weapon = self.tombstone_savedweapon_currentweapon;
+		}
+	}
+	else
 	{
 		self seteverhadweaponall(0);
 
