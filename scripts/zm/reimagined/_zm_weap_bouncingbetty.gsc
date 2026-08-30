@@ -213,6 +213,7 @@ betty_setup()
 	self set_player_placeable_mine("bouncingbetty_zm");
 	self setactionslot(4, "weapon", "bouncingbetty_zm");
 	self setweaponammostock("bouncingbetty_zm", 2);
+	self notify("zmb_disable_betty_prompt");
 }
 
 adjust_trigger_origin(origin)

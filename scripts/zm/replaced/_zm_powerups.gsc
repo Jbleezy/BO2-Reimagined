@@ -593,6 +593,7 @@ full_ammo_powerup(drop_item, player)
 		players[i] notify("zmb_lost_knife");
 		players[i] notify("zmb_disable_claymore_prompt");
 		players[i] notify("zmb_disable_spikemore_prompt");
+		players[i] notify("zmb_disable_betty_prompt");
 
 		x = 0;
 
@@ -725,6 +726,9 @@ empty_clip_powerup(drop_item, player)
 		}
 
 		players[i] notify("zmb_empty_clip");
+		players[i] notify("zmb_enable_claymore_prompt");
+		players[i] notify("zmb_enable_spikemore_prompt");
+		players[i] notify("zmb_enable_betty_prompt");
 
 		primaries = players[i] getweaponslist();
 
