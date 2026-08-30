@@ -99,7 +99,6 @@ init()
 	maps\mp\zm_buried::buried_add_player_dialogue("player", "perk", "specialty_scavenger", "perk_tombstone", undefined, 100);
 
 	player_initial_spawn_override();
-	power_switch_model();
 	sloth_barricades_buyable();
 	add_mansion_backyard_collision();
 	add_jug_collision();
@@ -208,24 +207,6 @@ player_initial_spawn_override()
 			level.struct_class_names["script_noteworthy"][struct.script_noteworthy][size] = struct;
 		}
 	}
-}
-
-power_switch_model()
-{
-	model = spawn("script_model", (626.36, -401.555, 133.149), 1);
-	model.angles = (0, 0, 0);
-	model setmodel("collision_geo_32x32x128_standard");
-	model disconnectpaths();
-	model = spawn("script_model", (660.36, -401.555, 133.149), 1);
-	model.angles = (7, 0, 0);
-	model setmodel("collision_geo_32x32x128_standard");
-	model disconnectpaths();
-	model = spawn("script_model", (642.556, -411.68, 131.538));
-	model.angles = (3, 0, -8);
-	model setmodel("p6_zm_bu_victorian_bookshelf");
-	model = spawn("script_model", (642.556, -420.68, 132.838));
-	model.angles = (3, 0, -8);
-	model setmodel("p6_zm_bu_victorian_bookshelf");
 }
 
 sloth_barricades_buyable()
