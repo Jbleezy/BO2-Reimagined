@@ -1024,6 +1024,7 @@
 * Added weapon name on HUD to all buildables
 * Increased move speed while holding from 100% to 110% (except Zombie Shield)
 * Can no longer melee while holding (except Zombie Shield)
+* Removed deploy delay
 * Removed dive anim
 * Added held world model
 * Adjusted buildable table model positions to make them all touch the buildable table
