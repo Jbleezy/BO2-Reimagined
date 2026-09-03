@@ -3237,16 +3237,6 @@ alt_weapon_name_hud()
 
 			weapon_name = getweapondisplayname(primary);
 			alt_weapon_name = getweapondisplayname(alt_primary);
-
-			if (getsubstr(alt_primary, 0, 3) == "gl_" || getsubstr(alt_primary, 0, 3) == "mk_")
-			{
-				alt_weapon_name = weapon_name + " " + alt_weapon_name;
-			}
-			else if (getsubstr(alt_primary, 0, 3) == "sf_" || getsubstr(alt_primary, 0, 10) == "dualoptic_")
-			{
-				alt_weapon_name = weapon_name;
-			}
-
 			alt_weapon_names += weapon_name + ":" + alt_weapon_name + ";";
 		}
 
