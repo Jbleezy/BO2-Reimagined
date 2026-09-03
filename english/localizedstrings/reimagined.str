@@ -1153,6 +1153,9 @@ LANG_ENGLISH        "Actuated Neutralizer 9400"
 REFERENCE           ZMWEAPON_BERETTA93R_EXTCLIP_UPGRADED
 LANG_ENGLISH        "B34R Extended Clip"
 
+REFERENCE           ZMWEAPON_MP40_STALKER
+LANG_ENGLISH        "MP40 Adjustable Stock"
+
 REFERENCE           ZMWEAPON_MP40_STALKER_UPGRADED
 LANG_ENGLISH        "The Afterburner Adjustable Stock"
 

@@ -488,6 +488,7 @@
 #### MP40
 * Increased move speed while aiming from 100% to 157.5% (move speed multiplied by 1.5)
 * Adjustable Stock: increased move speed while aiming from 250% to 262.5% (move speed multiplied by 2.5)
+* Adjustable Stock: changed weapon name from "MP-40" to "MP40"
 
 #### MP7
 * Added on Nuketown, Tranzit, Die Rise, and Buried
