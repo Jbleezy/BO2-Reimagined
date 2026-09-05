@@ -269,12 +269,18 @@ quadrotor_control_thread()
 	{
 		if (self actionslottwobuttonpressed() && self hasweapon("equip_dieseldrone_zm"))
 		{
-			prev_wep = self getCurrentWeapon();
+			prev_wep = self getcurrentweapon();
+
+			self waittill("weapon_change");
+
+			wep = self getcurrentweapon();
+
+			if (wep != "equip_dieseldrone_zm")
+			{
+				continue;
+			}
 
 			self increment_is_drinking();
-			self disable_player_move_states(1);
-
-			self switchtoweapon("equip_dieseldrone_zm");
 
 			self waittill("weapon_change_complete");
 
@@ -300,7 +306,6 @@ quadrotor_control_thread()
 			}
 
 			self decrement_is_drinking();
-			self enable_player_move_states();
 
 			str_vehicle = "heli_quadrotor_zm";
 
