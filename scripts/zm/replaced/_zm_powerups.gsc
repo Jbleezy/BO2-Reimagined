@@ -599,6 +599,15 @@ full_ammo_powerup(drop_item, player)
 
 		while (x < primary_weapons.size)
 		{
+			base_weapon = maps\mp\zombies\_zm_weapons::get_base_weapon_name(primary_weapons[x], 1);
+
+			if (scripts\zm\_zm_reimagined::is_overheat_weapon(base_weapon))
+			{
+				players[i] setweaponoverheating(0, 0, primary_weapons[x]);
+				x++;
+				continue;
+			}
+
 			if (level.headshots_only && is_lethal_grenade(primary_weapons[x]))
 			{
 				x++;
@@ -619,15 +628,6 @@ full_ammo_powerup(drop_item, player)
 
 			if (players[i] hasweapon(primary_weapons[x]))
 			{
-				base_weapon = maps\mp\zombies\_zm_weapons::get_base_weapon_name(primary_weapons[x], 1);
-
-				if (scripts\zm\_zm_reimagined::is_overheat_weapon(base_weapon))
-				{
-					players[i] setweaponoverheating(0, 0, primary_weapons[x]);
-					x++;
-					continue;
-				}
-
 				if (clip_only)
 				{
 					if (weaponMaxAmmo(primary_weapons[x]) == 0)
@@ -734,16 +734,16 @@ empty_clip_powerup(drop_item, player)
 
 		foreach (weapon in primaries)
 		{
-			if (!isweaponprimary(weapon))
-			{
-				continue;
-			}
-
 			base_weapon = maps\mp\zombies\_zm_weapons::get_base_weapon_name(weapon, 1);
 
 			if (scripts\zm\_zm_reimagined::is_overheat_weapon(base_weapon))
 			{
 				players[i] setweaponoverheating(1, 100, weapon);
+				continue;
+			}
+
+			if (!isweaponprimary(weapon))
+			{
 				continue;
 			}
 
