@@ -1396,6 +1396,7 @@
 * Docks gate no longer closes when shock box is shocked in afterlife
 * Decreased brightness of perk machines
 * Improved perk machine flicker
+* Added Electric Cherry machine flicker
 * Added falling hands anim from Origins
 * Added crafting sound and item pick up sound
 * Changed afterlife doors need power hint string from "Door needs power" to "Power must be turned on"

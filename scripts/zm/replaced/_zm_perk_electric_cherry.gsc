@@ -25,13 +25,95 @@ electic_cherry_precache()
 	precachemodel("p6_zm_vending_electric_cherry_off");
 	precachemodel("p6_zm_vending_electric_cherry_on");
 	precachestring(&"ZOMBIE_PERK_CHERRY");
-	level._effect["electriccherry"] = loadfx("misc/fx_zombie_cola_on");
+
+	if (getdvar("mapname") == "zm_prison")
+	{
+		level._effect["electriccherry"] = loadfx("maps/zombie_alcatraz/fx_alcatraz_perk_smk");
+	}
+	else
+	{
+		level._effect["electriccherry"] = loadfx("misc/fx_zombie_cola_on");
+	}
+
 	level._effect["electric_cherry_explode"] = loadfx("maps/zombie_alcatraz/fx_alcatraz_electric_cherry_down");
 	level._effect["electric_cherry_reload_small"] = loadfx("maps/zombie_alcatraz/fx_alcatraz_electric_cherry_sm");
 	level._effect["electric_cherry_reload_medium"] = loadfx("maps/zombie_alcatraz/fx_alcatraz_electric_cherry_player");
 	level._effect["electric_cherry_reload_large"] = loadfx("maps/zombie_alcatraz/fx_alcatraz_electric_cherry_lg");
 	level._effect["tesla_shock"] = loadfx("maps/zombie/fx_zombie_tesla_shock");
 	level._effect["tesla_shock_secondary"] = loadfx("maps/zombie/fx_zombie_tesla_shock_secondary");
+	level.machine_assets["electriccherry"] = spawnstruct();
+	level.machine_assets["electriccherry"].power_on_callback = ::vending_electriccherry_power_on;
+	level.machine_assets["electriccherry"].power_off_callback = ::vending_electriccherry_power_off;
+}
+
+vending_electriccherry_power_on()
+{
+	if (level.script == "zm_prison")
+	{
+		self setclientfield("toggle_perk_machine_power", 2);
+	}
+	else
+	{
+		level thread scripts\zm\_zm_reimagined::clientnotifyloop("toggle_vending_electriccherry_power_on", "electric_cherry_off");
+	}
+}
+
+vending_electriccherry_power_off()
+{
+	if (level.script == "zm_prison")
+	{
+		self setclientfield("toggle_perk_machine_power", 1);
+	}
+	else
+	{
+		level thread scripts\zm\_zm_reimagined::clientnotifyloop("toggle_vending_electriccherry_power_off", "electric_cherry_on");
+	}
+}
+
+electric_cherry_perk_machine_think()
+{
+	init_electric_cherry();
+
+	while (true)
+	{
+		machine = getentarray("vendingelectric_cherry", "targetname");
+		machine_triggers = getentarray("vending_electriccherry", "target");
+
+		for (i = 0; i < machine.size; i++)
+		{
+			machine[i] setmodel("p6_zm_vending_electric_cherry_off");
+		}
+
+		level thread do_initial_power_off_callback(machine, "electriccherry");
+		array_thread(machine_triggers, maps\mp\zombies\_zm_perks::set_power_on, 0);
+		level waittill("electric_cherry_on");
+
+		for (i = 0; i < machine.size; i++)
+		{
+			machine[i] setmodel("p6_zm_vending_electric_cherry_on");
+			machine[i] vibrate(vectorscale((0, -1, 0), 100.0), 0.3, 0.4, 3);
+			machine[i] playsound("zmb_perks_power_on");
+			machine[i] thread perk_fx("electriccherry");
+			machine[i] thread play_loop_on_machine();
+		}
+
+		level notify("specialty_grenadepulldeath_power_on");
+		array_thread(machine_triggers, maps\mp\zombies\_zm_perks::set_power_on, 1);
+
+		if (isdefined(level.machine_assets["electriccherry"].power_on_callback))
+		{
+			array_thread(machine, level.machine_assets["electriccherry"].power_on_callback);
+		}
+
+		level waittill("electric_cherry_off");
+
+		if (isdefined(level.machine_assets["electriccherry"].power_off_callback))
+		{
+			array_thread(machine, level.machine_assets["electriccherry"].power_off_callback);
+		}
+
+		array_thread(machine, maps\mp\zombies\_zm_perks::turn_perk_off);
+	}
 }
 
 electric_cherry_reload_attack()

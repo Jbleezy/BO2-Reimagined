@@ -26,10 +26,12 @@ main()
 	powerup_changes();
 	disable_navcards();
 
-	level thread toggle_vending_divetonuke_power_on_think();
-	level thread toggle_vending_divetonuke_power_off_think();
-	level thread toggle_vending_deadshot_power_on_think();
-	level thread toggle_vending_deadshot_power_off_think();
+	level thread toggle_vending_power_on_think("toggle_vending_divetonuke_power_on", "p6_zm_al_vending_nuke_on");
+	level thread toggle_vending_power_off_think("toggle_vending_divetonuke_power_off", "p6_zm_al_vending_nuke_on");
+	level thread toggle_vending_power_on_think("toggle_vending_deadshot_power_on", "p6_zm_al_vending_ads_on");
+	level thread toggle_vending_power_off_think("toggle_vending_deadshot_power_off", "p6_zm_al_vending_ads_on");
+	level thread toggle_vending_power_on_think("toggle_vending_electriccherry_power_on", "p6_zm_vending_electric_cherry_on");
+	level thread toggle_vending_power_off_think("toggle_vending_electriccherry_power_off", "p6_zm_vending_electric_cherry_on");
 
 	if (is_encounter())
 	{
@@ -105,17 +107,17 @@ powerup_changes()
 	}
 }
 
-toggle_vending_divetonuke_power_on_think()
+toggle_vending_power_on_think(notify_str, model)
 {
 	while (1)
 	{
-		level waittill("toggle_vending_divetonuke_power_on");
+		level waittill(notify_str);
 
 		ents = getentarray(0);
 
 		foreach (ent in ents)
 		{
-			if (isdefined(ent.model) && ent.model == "p6_zm_al_vending_nuke_on")
+			if (isdefined(ent.model) && ent.model == model)
 			{
 				ent mapshaderconstant(0, 1, "ScriptVector0");
 				ent setshaderconstant(0, 1, 0, 0.5, 0, 0);
@@ -124,55 +126,17 @@ toggle_vending_divetonuke_power_on_think()
 	}
 }
 
-toggle_vending_divetonuke_power_off_think()
+toggle_vending_power_off_think(notify_str, model)
 {
 	while (1)
 	{
-		level waittill("toggle_vending_divetonuke_power_off");
+		level waittill(notify_str);
 
 		ents = getentarray(0);
 
 		foreach (ent in ents)
 		{
-			if (isdefined(ent.model) && ent.model == "p6_zm_al_vending_nuke_on")
-			{
-				ent mapshaderconstant(0, 1, "ScriptVector0");
-				ent setshaderconstant(0, 1, 0, 0, 0, 0);
-			}
-		}
-	}
-}
-
-toggle_vending_deadshot_power_on_think()
-{
-	while (1)
-	{
-		level waittill("toggle_vending_deadshot_power_on");
-
-		ents = getentarray(0);
-
-		foreach (ent in ents)
-		{
-			if (isdefined(ent.model) && ent.model == "p6_zm_al_vending_ads_on")
-			{
-				ent mapshaderconstant(0, 1, "ScriptVector0");
-				ent setshaderconstant(0, 1, 0, 0.5, 0, 0);
-			}
-		}
-	}
-}
-
-toggle_vending_deadshot_power_off_think()
-{
-	while (1)
-	{
-		level waittill("toggle_vending_deadshot_power_off");
-
-		ents = getentarray(0);
-
-		foreach (ent in ents)
-		{
-			if (isdefined(ent.model) && ent.model == "p6_zm_al_vending_ads_on")
+			if (isdefined(ent.model) && ent.model == model)
 			{
 				ent mapshaderconstant(0, 1, "ScriptVector0");
 				ent setshaderconstant(0, 1, 0, 0, 0, 0);
