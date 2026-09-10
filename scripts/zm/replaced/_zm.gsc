@@ -52,11 +52,6 @@ init_fx()
 		level.disable_fx_zmb_wall_buy_semtex = 0;
 	}
 
-	if (level.script == "zm_prison")
-	{
-		register_lethal_grenade_for_level("sticky_grenade_zm");
-	}
-
 	level.createfx_callback_thread = ::delete_in_createfx;
 	level._effect["wood_chunk_destory"] = loadfx("impacts/fx_large_woodhit");
 	level._effect["fx_zombie_bar_break"] = loadfx("maps/zombie/fx_zombie_bar_break");
