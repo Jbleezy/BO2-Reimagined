@@ -662,12 +662,13 @@
 * Infinite penetration
 * Increased pellet count from 7 to 8
 * Increased pellet impact size
+* Centered view kick yaw
 * Unupgraded: decreased stock ammo from 60 to 30
 * Upgraded: decreased stock ammo from 120 to 60
 * Upgraded: added camo
 
 #### Acidgat
-* Kills on any round in 1-2 bursts
+* Kills on any round in 1-2 shots
 * Increased player damage from 10 to 15
 * Increased move speed while aiming from 100% to 200% (same as Blundergat)
 * Decreased explosion radius by 50%
@@ -677,12 +678,13 @@
 * Projectiles no longer seek toward zombies
 * Added projectile indicator
 * Removed projectile upward speed
+* Centered view kick yaw
 * Deadshot Daiquiri improves accuracy
 * Stuck zombie counts as a kill
-* Unupgraded: decreased stock ammo from 30 bursts to 15 bursts
+* Unupgraded: decreased stock ammo from 30 to 15
 * Unupgraded: changed weapon name from "Acid Gat" to "Acidgat"
-* Upgraded: increased clip ammo from 1 burst to 2 bursts
-* Upgraded: decreased stock ammo from 50 bursts to 30 bursts
+* Upgraded: increased clip ammo from 1 to 2
+* Upgraded: decreased stock ammo from 50 to 30
 * Upgraded: increased max splash damage from 1000 to 2000
 * Upgraded: increased min splash damage from 500 to 1000
 * Upgraded: added camo
