@@ -769,9 +769,10 @@
 
 #### Hell's Retriever
 * No longer ricochets to other zombies when not charged
-* Each charge exponentially increases total zombies attacked (3 -> 6 -> 10)
-* Unupgraded: changed damage to 2000 (normally does 1000-2000 damage based on number of charges)
+* Decreased charge level 1 max attacks from 6 to 3
+* Unupgraded: increased damage from 1000-2000 depending on charge level to 2000
 * Upgraded: kills on any round when not charged
+* Upgraded: increased charge level 3 max attacks from 6 to 9
 
 #### G-Strike Beacon
 * Kills on any round
@@ -1499,7 +1500,7 @@
 * Tank: players can go prone on the tank
 * Tank: powerups dropped within the tank are linked to the tank
 * Tank: standing on the tread pushes the player forward instead of backward if the tank is moving
-* Tank: changed cooldown to 30 seconds (normally 2-120 seconds depending on how long players were on the tank)
+* Tank: changed cooldown from 2-120 seconds depending on how long players were on the tank to 30 seconds
 * Tank: no longer free to activate if called
 * Tank: changed cooling down hint string from "Tank engine cooling down" to "The tank is cooling down"
 * Teleporters: stay active after picking up gramophone
