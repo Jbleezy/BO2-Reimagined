@@ -255,7 +255,7 @@
 * Disabled meleeing while doing falling hands anim
 * Removed ammo counter while doing falling hands anim
 * Can look up and down 90 degrees (normally 85 degrees)
-* Changed low health threshold from 20% of player's max health to 50 health
+* Changed low health threshold from 20% of max health to 50
 * Decreased normal health regeneration delay from 2.4 seconds to 2 seconds
 * Decreased low health regeneration delay from 5 seconds to 4 seconds
 * Normal health regeneration rate is no longer instant
@@ -1413,8 +1413,7 @@
 * Fixed being able to hit a death barrier when jumping off the Docks Bridge zone
 * Acid Trap: kills on any round (normally stops killing after round 158 on PC)
 * Acid Trap: kills zombies instantly
-* Acid Trap: decreased player damage from 75% of max health to 50% of max health
-* Acid Trap: increased time between player damage from 1 second to 1.5 seconds
+* Acid Trap: decreased player damage from 75% of max health to 75
 * Fan Trap: fixed rumble continuously playing after respawn if player bled out near the trap
 * Tower Trap: kills on any round in 1 shot
 * Tower Trap: fixed line of sight check

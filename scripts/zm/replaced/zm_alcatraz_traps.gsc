@@ -238,19 +238,8 @@ player_acid_damage(t_damage)
 		self.is_in_acid = 1;
 		self thread player_acid_damage_cooldown();
 
-		self dodamage(self.maxhealth / 2, self.origin, t_damage, t_damage, "none", "MOD_UNKNOWN", 0, "none");
-		wait 1.5;
-	}
-}
-
-player_acid_damage_cooldown()
-{
-	self endon("disconnect");
-	wait 1.5;
-
-	if (isdefined(self))
-	{
-		self.is_in_acid = undefined;
+		self dodamage(75, self.origin, t_damage, t_damage, "none", "MOD_UNKNOWN", 0, "none");
+		wait 1;
 	}
 }
 
