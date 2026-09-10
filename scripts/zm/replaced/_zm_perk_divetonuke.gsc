@@ -12,16 +12,7 @@ divetonuke_precache()
 	precacheshader("specialty_divetonuke_zombies");
 	precachemodel("p6_zm_al_vending_nuke_on");
 	precachestring(&"ZOMBIE_PERK_DIVETONUKE");
-
-	if (getdvar("mapname") == "zm_prison")
-	{
-		level._effect["divetonuke_light"] = loadfx("maps/zombie_alcatraz/fx_alcatraz_perk_smk");
-	}
-	else
-	{
-		level._effect["divetonuke_light"] = loadfx("misc/fx_zombie_cola_dtap_on");
-	}
-
+	level._effect["divetonuke_light"] = loadfx("misc/fx_zombie_cola_dtap_on");
 	level.machine_assets["divetonuke"] = spawnstruct();
 	level.machine_assets["divetonuke"].weapon = "zombie_perk_bottle_nuke";
 	level.machine_assets["divetonuke"].off_model = "p6_zm_al_vending_nuke_on";
@@ -32,26 +23,12 @@ divetonuke_precache()
 
 vending_divetonuke_power_on()
 {
-	if (level.script == "zm_prison")
-	{
-		self setclientfield("toggle_perk_machine_power", 2);
-	}
-	else
-	{
-		level thread scripts\zm\_zm_reimagined::clientnotifyloop("toggle_vending_divetonuke_power_on", "divetonuke_off");
-	}
+	level thread scripts\zm\_zm_reimagined::clientnotifyloop("toggle_vending_divetonuke_power_on", "divetonuke_off");
 }
 
 vending_divetonuke_power_off()
 {
-	if (level.script == "zm_prison")
-	{
-		self setclientfield("toggle_perk_machine_power", 1);
-	}
-	else
-	{
-		level thread scripts\zm\_zm_reimagined::clientnotifyloop("toggle_vending_divetonuke_power_off", "divetonuke_on");
-	}
+	level thread scripts\zm\_zm_reimagined::clientnotifyloop("toggle_vending_divetonuke_power_off", "divetonuke_on");
 }
 
 divetonuke_perk_machine_setup(use_trigger, perk_machine, bump_trigger, collision)

@@ -188,7 +188,7 @@ custom_vending_precaching()
 		precacheshader("specialty_additionalprimaryweapon_zombies");
 		precachemodel("p6_zm_al_vending_three_gun_on");
 		precachestring(&"ZOMBIE_PERK_ADDITIONALWEAPONPERK");
-		level._effect["additionalprimaryweapon_light"] = loadfx("maps/zombie_alcatraz/fx_alcatraz_perk_smk");
+		level._effect["additionalprimaryweapon_light"] = loadfx("misc/fx_zombie_cola_arsenal_on");
 		level.machine_assets["additionalprimaryweapon"] = spawnstruct();
 		level.machine_assets["additionalprimaryweapon"].weapon = "zombie_perk_bottle_additionalprimaryweapon";
 		level.machine_assets["additionalprimaryweapon"].off_model = "p6_zm_al_vending_three_gun_on";
@@ -203,7 +203,7 @@ custom_vending_precaching()
 		precacheshader("specialty_ads_zombies");
 		precachemodel("p6_zm_al_vending_ads_on");
 		precachestring(&"ZOMBIE_PERK_DEADSHOT");
-		level._effect["deadshot_light"] = loadfx("maps/zombie_alcatraz/fx_alcatraz_perk_smk");
+		level._effect["deadshot_light"] = loadfx("misc/fx_zombie_cola_dtap_on");
 		level.machine_assets["deadshot"] = spawnstruct();
 		level.machine_assets["deadshot"].weapon = "zombie_perk_bottle_deadshot";
 		level.machine_assets["deadshot"].off_model = "p6_zm_al_vending_ads_on";
@@ -218,7 +218,7 @@ custom_vending_precaching()
 		precacheshader("specialty_doubletap_zombies");
 		precachemodel("p6_zm_al_vending_doubletap2_on");
 		precachestring(&"ZOMBIE_PERK_DOUBLETAP");
-		level._effect["doubletap_light"] = loadfx("maps/zombie_alcatraz/fx_alcatraz_perk_smk");
+		level._effect["doubletap_light"] = loadfx("misc/fx_zombie_cola_dtap_on");
 		level.machine_assets["doubletap"] = spawnstruct();
 		level.machine_assets["doubletap"].weapon = "zombie_perk_bottle_doubletap";
 		level.machine_assets["doubletap"].off_model = "p6_zm_al_vending_doubletap2_on";
@@ -233,7 +233,7 @@ custom_vending_precaching()
 		precacheshader("specialty_juggernaut_zombies");
 		precachemodel("p6_zm_al_vending_jugg_on");
 		precachestring(&"ZOMBIE_PERK_JUGGERNAUT");
-		level._effect["jugger_light"] = loadfx("maps/zombie_alcatraz/fx_alcatraz_perk_smk");
+		level._effect["jugger_light"] = loadfx("misc/fx_zombie_cola_jugg_on");
 		level.machine_assets["juggernog"] = spawnstruct();
 		level.machine_assets["juggernog"].weapon = "zombie_perk_bottle_jugg";
 		level.machine_assets["juggernog"].off_model = "p6_zm_al_vending_jugg_on";
@@ -277,13 +277,44 @@ custom_vending_precaching()
 		precacheshader("specialty_fastreload_zombies");
 		precachemodel("p6_zm_al_vending_sleight_on");
 		precachestring(&"ZOMBIE_PERK_FASTRELOAD");
-		level._effect["sleight_light"] = loadfx("maps/zombie_alcatraz/fx_alcatraz_perk_smk");
+		level._effect["sleight_light"] = loadfx("misc/fx_zombie_cola_on");
 		level.machine_assets["speedcola"] = spawnstruct();
 		level.machine_assets["speedcola"].weapon = "zombie_perk_bottle_sleight";
 		level.machine_assets["speedcola"].off_model = "p6_zm_al_vending_sleight_on";
 		level.machine_assets["speedcola"].on_model = "p6_zm_al_vending_sleight_on";
 		level.machine_assets["speedcola"].power_on_callback = maps\mp\zm_prison::custom_vending_power_on;
 		level.machine_assets["speedcola"].power_off_callback = maps\mp\zm_prison::custom_vending_power_off;
+	}
+
+	if (isdefined(level.machine_assets["divetonuke"]))
+	{
+		level.machine_assets["divetonuke"].power_on_callback = maps\mp\zm_prison::custom_vending_power_on;
+		level.machine_assets["divetonuke"].power_off_callback = maps\mp\zm_prison::custom_vending_power_off;
+	}
+
+	if (isdefined(level.machine_assets["electriccherry"]))
+	{
+		level.machine_assets["electriccherry"].power_on_callback = maps\mp\zm_prison::custom_vending_power_on;
+		level.machine_assets["electriccherry"].power_off_callback = maps\mp\zm_prison::custom_vending_power_off;
+	}
+
+	level._effect["fx_alcatraz_perk_smk"] = loadfx("maps/zombie_alcatraz/fx_alcatraz_perk_smk");
+}
+
+custom_vending_power_on()
+{
+	self setclientfield("toggle_perk_machine_power", 2);
+
+	if (isdefined(self.targetname) && self.targetname == "vending_packapunch")
+	{
+		return;
+	}
+
+	wait 3;
+
+	if (isdefined(self))
+	{
+		playfxontag(level._effect["fx_alcatraz_perk_smk"], self, "tag_origin");
 	}
 }
 

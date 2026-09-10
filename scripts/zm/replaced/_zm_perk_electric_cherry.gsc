@@ -25,16 +25,7 @@ electic_cherry_precache()
 	precachemodel("p6_zm_vending_electric_cherry_off");
 	precachemodel("p6_zm_vending_electric_cherry_on");
 	precachestring(&"ZOMBIE_PERK_CHERRY");
-
-	if (getdvar("mapname") == "zm_prison")
-	{
-		level._effect["electriccherry"] = loadfx("maps/zombie_alcatraz/fx_alcatraz_perk_smk");
-	}
-	else
-	{
-		level._effect["electriccherry"] = loadfx("misc/fx_zombie_cola_on");
-	}
-
+	level._effect["electriccherry"] = loadfx("misc/fx_zombie_cola_on");
 	level._effect["electric_cherry_explode"] = loadfx("maps/zombie_alcatraz/fx_alcatraz_electric_cherry_down");
 	level._effect["electric_cherry_reload_small"] = loadfx("maps/zombie_alcatraz/fx_alcatraz_electric_cherry_sm");
 	level._effect["electric_cherry_reload_medium"] = loadfx("maps/zombie_alcatraz/fx_alcatraz_electric_cherry_player");
@@ -48,26 +39,12 @@ electic_cherry_precache()
 
 vending_electriccherry_power_on()
 {
-	if (level.script == "zm_prison")
-	{
-		self setclientfield("toggle_perk_machine_power", 2);
-	}
-	else
-	{
-		level thread scripts\zm\_zm_reimagined::clientnotifyloop("toggle_vending_electriccherry_power_on", "electric_cherry_off");
-	}
+	level thread scripts\zm\_zm_reimagined::clientnotifyloop("toggle_vending_electriccherry_power_on", "electric_cherry_off");
 }
 
 vending_electriccherry_power_off()
 {
-	if (level.script == "zm_prison")
-	{
-		self setclientfield("toggle_perk_machine_power", 1);
-	}
-	else
-	{
-		level thread scripts\zm\_zm_reimagined::clientnotifyloop("toggle_vending_electriccherry_power_off", "electric_cherry_on");
-	}
+	level thread scripts\zm\_zm_reimagined::clientnotifyloop("toggle_vending_electriccherry_power_off", "electric_cherry_on");
 }
 
 electric_cherry_perk_machine_think()

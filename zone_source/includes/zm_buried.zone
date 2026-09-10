@@ -991,6 +991,8 @@ fx,maps/zombie/fx_zmb_meat_stink_torso_os
 fx,maps/zombie/fx_zmb_meat_stink_torso
 footsteptable,fly_step_ghost
 
+fx,misc/fx_zombie_cola_on
+
 xmodel,zombie_vending_doubletap2
 xmodel,zombie_vending_doubletap2_on
 fx,misc/fx_zombie_cola_dtap_on

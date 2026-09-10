@@ -34,6 +34,7 @@ main()
 	replaceFunc(maps\mp\zm_alcatraz_distance_tracking::delete_zombie_noone_looking, scripts\zm\replaced\zm_alcatraz_distance_tracking::delete_zombie_noone_looking);
 	replaceFunc(maps\mp\zm_prison::working_zone_init, scripts\zm\replaced\zm_prison::working_zone_init);
 	replaceFunc(maps\mp\zm_prison::custom_vending_precaching, scripts\zm\replaced\zm_prison::custom_vending_precaching);
+	replaceFunc(maps\mp\zm_prison::custom_vending_power_on, scripts\zm\replaced\zm_prison::custom_vending_power_on);
 	replaceFunc(maps\mp\zm_prison::delete_perk_machine_clip, scripts\zm\replaced\zm_prison::delete_perk_machine_clip);
 	replaceFunc(maps\mp\zm_prison_spoon::init, scripts\zm\replaced\zm_prison_spoon::init);
 	replaceFunc(maps\mp\zm_prison_spoon::give_player_spoon_upon_receipt, scripts\zm\replaced\zm_prison_spoon::give_player_spoon_upon_receipt);

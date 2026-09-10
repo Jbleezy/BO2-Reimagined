@@ -1394,9 +1394,10 @@
 * Brutus no longer spawns if no doors have been opened
 * Activating the laundry machine always spawns zombies instead of Brutus
 * Docks gate no longer closes when shock box is shocked in afterlife
+* Added perk machine light fx
+* Added Electric Cherry machine flicker and smoke fx
 * Decreased brightness of perk machines
 * Improved perk machine flicker
-* Added Electric Cherry machine flicker
 * Added falling hands anim from Origins
 * Added crafting sound and item pick up sound
 * Changed afterlife doors need power hint string from "Door needs power" to "Power must be turned on"
