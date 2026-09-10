@@ -74,11 +74,11 @@
 		* [Ballistic Knife](#ballistic-knife)
 		* [Crossbow](#crossbow)
 		* [Death Machine](#death-machine)
-		* [Storm PSR](#storm-psr)
-		* [Titus-6](#titus-6)
 	* [Wonder Weapons](#wonder-weapons)
 		* [Ray Gun](#ray-gun)
 		* [Ray Gun Mark 2](#ray-gun-mark-2)
+		* [Titus-6](#titus-6)
+		* [Storm PSR](#storm-psr)
 		* [Jet Gun](#jet-gun)
 		* [Sliquifier](#sliquifier)
 		* [Paralyzer](#paralyzer)
@@ -581,16 +581,6 @@
 * No longer spins up by pressing aim button
 * No longer spins up while not idle
 
-#### Storm PSR
-* Added on Tranzit
-* Kills on any round fully charged
-* Infinite penetration
-
-#### Titus-6
-* Added on Nuketown
-* Kills on any round in 1-2 bursts
-* Buckshot: kills on any round in 1-2 shots
-
 ### Wonder Weapons
 
 #### Ray Gun
@@ -614,6 +604,16 @@
 * Unupgraded: increased stock ammo from 162 to 168
 * Upgraded: increased stock ammo from 201 to 210
 * Upgraded: added secondary camo
+
+#### Titus-6
+* Added on Nuketown
+* Kills on any round in 1-2 bursts
+* Buckshot: kills on any round in 1-2 shots
+
+#### Storm PSR
+* Added on Tranzit
+* Kills on any round fully charged
+* Infinite penetration
 
 #### Jet Gun
 * Pulls in zombies from far away
