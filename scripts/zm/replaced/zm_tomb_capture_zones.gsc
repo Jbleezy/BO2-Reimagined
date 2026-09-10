@@ -866,7 +866,14 @@ magic_box_stub_update_prompt(player)
 
 	if (isdefined(self.stub.trigger_target.grab_weapon_hint) && self.stub.trigger_target.grab_weapon_hint)
 	{
-		self.stub.hint_string = &"ZOMBIE_TRADE_WEAPON";
+		if (isdefined(level.magic_box_check_equipment) && [[level.magic_box_check_equipment]](self.stub.trigger_target.grab_weapon_name))
+		{
+			self.stub.hint_string = &"ZOMBIE_TRADE_EQUIP";
+		}
+		else
+		{
+			self.stub.hint_string = &"ZOMBIE_TRADE_WEAPON";
+		}
 	}
 	else if (!level.zone_capture.zones[self.stub.zone] ent_flag("player_controlled"))
 	{
