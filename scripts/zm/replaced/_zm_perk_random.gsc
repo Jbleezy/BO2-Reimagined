@@ -512,14 +512,14 @@ wunderfizzstub_update_prompt(player)
 
 	self.hint_parm1 = undefined;
 
-	if (isdefined(self.stub.trigger_target.is_locked) && self.stub.trigger_target.is_locked)
+	if (self.stub.trigger_target.is_current_ball_location)
 	{
-		self.hint_string = &"ZM_TOMB_RPU";
-		return false;
-	}
-	else if (self.stub.trigger_target.is_current_ball_location)
-	{
-		if (isdefined(self.stub.trigger_target.machine_user))
+		if (isdefined(self.stub.trigger_target.is_locked) && self.stub.trigger_target.is_locked)
+		{
+			self.hint_string = &"ZM_TOMB_RPU";
+			return false;
+		}
+		else if (isdefined(self.stub.trigger_target.machine_user))
 		{
 			if (isdefined(self.stub.trigger_target.grab_perk_hint) && self.stub.trigger_target.grab_perk_hint)
 			{
@@ -560,7 +560,7 @@ wunderfizzstub_update_prompt(player)
 	}
 	else
 	{
-		self.hint_string = &"ZM_TOMB_RPE";
+		self.hint_string = &"";
 		return false;
 	}
 }

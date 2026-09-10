@@ -1527,6 +1527,7 @@
 * Der Wunderfizz: can no longer be activated while orb is moving down
 * Der Wunderfizz: can be activated while the previous activator is drinking the perk
 * Der Wunderfizz: obtaining the perk no longer takes an additional 0.5 seconds
+* Der Wunderfizz: hint string no longer displays at inactive machines
 * Der Wunderfizz: fixed top part of inactive machines not being open initially
 * Der Wunderfizz: fixed sound and fx not playing if activated immediately after becoming activatable
 * Rituals of the Ancients: spend points challenge reward changed from Double Tap perk to a random perk that the player does not have (perk does not change if reward is reopened)
