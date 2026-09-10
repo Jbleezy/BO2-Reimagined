@@ -691,16 +691,8 @@
 * Upgraded: added proper fire sound
 
 #### Staffs
-* Upgrade only requires collecting souls in The Crazy Place
-* Can collect souls in The Crazy Place after upgrading to recharge (fills 5% of max ammo per soul)
-* Can no longer collect souls in The Crazy Place from staff kills
-* Picking up a staff in The Crazy Place while holding a staff places the other staff in The Crazy Place
-* Insterting a staff in The Crazy Place requires player's current weapon to be the staff
-* Fixed triggers for inserting and picking up staffs in The Crazy Place
-* Fixed being able to carry multiple staffs by picking up a staff with staff revive weapon out
-* Get full ammo when initially picked up after upgrading (normally missing one clip)
-* Max ammo no longer fills clip ammo
-* Upgraded: kill on any round
+* Max Ammo powerup no longer fills clip ammo
+* Upgraded: kills on any round
 * Upgraded: no longer charges up while not idle
 * Upgraded: fire button no longer has to be re-pressed to start charging if fire button was pressed before charging was ready
 * Upgraded: weapon is switched when attempting to fire while having no ammo
@@ -1467,6 +1459,10 @@
 * Moved challenge medals and tablet icon above health bar and zone name
 * Added attachment name on HUD for upgraded attachment weapons
 * Increased volume of crafting sound and item pick up sound
+* Can collect souls in The Crazy Place after upgrading a staff to recharge it (fills 5% of max ammo per soul)
+* Can no longer collect souls in The Crazy Place from staff kills
+* Picking up a staff in The Crazy Place while holding a staff places the other staff in The Crazy Place
+* Insterting a staff in The Crazy Place requires player's current weapon to be the staff
 * Added player spawn points in The Crazy Place area
 * Moved player spawn point in the Workshop area from the Workshop Upstairs zone to the Workshop Downstairs zone
 * Moved player spawn point in the Generator 3 area to be closer to the area
@@ -1477,6 +1473,8 @@
 * Zombies spawn in the Generator 6 Before Tank Station 3 zone when players are in the Generator 5 Tank Route 5 zone before the debris between the No Man's Land Back Path 2 zone and the Generator 6 Left Footstep zone is cleared
 * Zombies spawn in the Generator 3 Above Bunker zone when players are in the Generator 3 Bunker 2 zone before any player has entered the Generator 3 Above Bunker zone
 * Zombies spawn in the Generator 3 Above Bunker zone when players are in the Generator 4 Tank Route 6 zone before any player has entered the Generator 3 Above Bunker zone
+* Fixed triggers for inserting and picking up staffs in The Crazy Place
+* Fixed being able to carry multiple staffs by picking up a staff with upgraded staff alt weapon out
 * Fixed zombie eye fx not showing correctly when they first spawn in The Crazy Place area
 * Fixed being able to hit a death barrier when jumping off the Generator 3 Above Bunker zone
 * Fixed front part of tank model spawning in the Excavation Site Level 2 zone
@@ -1489,10 +1487,10 @@
 * Generators: can no longer start capturing if another generator is being captured by zombies
 * Generators: no longer lose capture progress if any players are on the generator when zombies are capturing
 * Generators: no longer gain capture progress if no players are on the generator when recapturing
-* Generators: capture round zombies only drop Max Ammo if killed before taking first generator
+* Generators: capture round zombies only drop Max Ammo powerup if killed before taking first generator
 * Generators: capture round zombie waypoint no longer shows offscreen
 * Generators: added capture round zombie waypoint to all capture round zombies
-* Generators: fixed capture round zombies not dropping Max Ammo when killed by a staff
+* Generators: fixed capture round zombies not dropping Max Ammo powerup when killed by a staff
 * Generators: fixed an issue where recapture sound and fx would play twice
 * Giant Robots: both feet always have an openable hatch
 * Giant Robots: players bleed out instantly when stomped
@@ -1543,6 +1541,8 @@
 * Perk bottle dig spots: fixed spots behaving incorrectly after disconnecting and reconnecting to a match
 * Survival and Encounter: One Inch Punch buyable for 9000 points at Rituals of the Ancients reward chests
 * Quest: added "Benn - The Divider" song
+* Quest (secure the keys step): staff upgrades only require collecting souls in The Crazy Place
+* Quest (secure the keys step): staffs get full ammo when initially picked up after upgrading (normally missing one clip)
 * Quest (ascend from darkness step): 3 robots are always active during this step
 * Quest (ascend from darkness step): staffs can be placed at any staff holder
 * Quest (ascend from darkness step): fixed an issue where staffs were able to be picked up at their build location when placed in the staff holders
