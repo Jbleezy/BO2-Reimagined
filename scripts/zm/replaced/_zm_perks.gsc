@@ -541,26 +541,12 @@ default_vending_precaching()
 
 vending_deadshot_power_on()
 {
-	if (level.script == "zm_prison")
-	{
-		self setclientfield("toggle_perk_machine_power", 2);
-	}
-	else
-	{
-		level thread scripts\zm\_zm_reimagined::clientnotifyloop("toggle_vending_deadshot_power_on", "deadshot_off");
-	}
+	level thread scripts\zm\_zm_reimagined::clientnotifyloop("toggle_vending_deadshot_power_on", "deadshot_off");
 }
 
 vending_deadshot_power_off()
 {
-	if (level.script == "zm_prison")
-	{
-		self setclientfield("toggle_perk_machine_power", 1);
-	}
-	else
-	{
-		level thread scripts\zm\_zm_reimagined::clientnotifyloop("toggle_vending_deadshot_power_off", "deadshot_on");
-	}
+	level thread scripts\zm\_zm_reimagined::clientnotifyloop("toggle_vending_deadshot_power_off", "deadshot_on");
 }
 
 turn_chugabud_on()
