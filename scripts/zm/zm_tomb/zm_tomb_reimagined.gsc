@@ -137,8 +137,9 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_weap_staff_fire::get_impact_damage, scripts\zm\replaced\_zm_weap_staff_fire::get_impact_damage);
 	replaceFunc(maps\mp\zombies\_zm_weap_staff_fire::staff_fire_zombie_damage_response, scripts\zm\replaced\_zm_weap_staff_fire::staff_fire_zombie_damage_response);
 	replaceFunc(maps\mp\zombies\_zm_weap_staff_fire::fire_staff_update_grenade_fuse, scripts\zm\replaced\_zm_weap_staff_fire::fire_staff_update_grenade_fuse);
-	replaceFunc(maps\mp\zombies\_zm_weap_staff_lightning::staff_lightning_ball_kill_zombies, scripts\zm\replaced\_zm_weap_staff_lightning::staff_lightning_ball_kill_zombies);
+	replaceFunc(maps\mp\zombies\_zm_weap_staff_lightning::staff_lightning_position_source, scripts\zm\replaced\_zm_weap_staff_lightning::staff_lightning_position_source);
 
+	level._effect["elec_ug_impact"] = loadfx("weapon/zmb_staff/fx_zmb_staff_elec_ug_impact");
 	level._effect["fire_ug_impact_exp_sm"] = loadfx("weapon/zmb_staff/fx_zmb_staff_fire_ug_impact_exp_sm");
 	level._effect["fire_ug_impact_exp_loop"] = loadfx("weapon/zmb_staff/fx_zmb_staff_fire_ug_impact_exp_loop");
 

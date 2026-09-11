@@ -692,7 +692,7 @@
 
 #### Staffs
 * Max Ammo powerup no longer fills clip ammo
-* Upgraded: kills on any round
+* Upgraded: charged shots kill on any round
 * Upgraded: no longer charges up while not idle
 * Upgraded: fire button no longer has to be re-pressed to start charging if fire button was pressed before charging was ready
 * Upgraded: weapon is switched when attempting to fire while having no ammo
@@ -709,13 +709,19 @@
 * Fire upgraded: increased charge level 2 projectile count from 2 to 3
 * Fire upgraded: increased charge level 3 lava duration from 5 seconds to 7.5 seconds
 * Fire upgraded: decreased charge level 3 lava damage radius by 20% (same as charge level 2)
-* Fire upgraded: plays smaller explosion fx at end of lava
+* Fire upgraded: plays smaller explosion fx at end of lava duration
 * Fire upgraded: charged shots no longer deal additional damage to Panzersoldat
 * Fire upgraded: fixed lava not being created if the player fired the charged shot on a wall or too close to themselves
 * Ice upgraded: fixed melee sound
 * Lightning upgraded: decreased clip ammo from 18 to 15
 * Lightning upgraded: decreased stock ammo from 180 to 150
 * Lightning upgraded: decreased kill points from 100 to 50
+* Lightning upgraded: increased charge level 2 projectile speed by 50% (same as charge level 3)
+* Lightning upgraded: decreased charge level 2 projectile duration from 8 seconds to 6 seconds
+* Lightning upgraded: increased charge level 3 projectile duration from 8 seconds to 9 seconds
+* Lightning upgraded: charged shot always kills after zapping
+* Lightning upgraded: charged shot projectile no longer stops moving until it impacts a surface
+* Lightning upgraded: plays impact fx at end of charged shot projectile duration
 * Wind: awards points for damage
 * Wind unupgraded: decreased stock ammo from 40 to 30
 * Wind upgraded: whirlwind pulls in multiple zombies significantly faster

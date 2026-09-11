@@ -10,6 +10,69 @@
 #include maps\mp\zombies\_zm_score;
 #include maps\mp\animscripts\shared;
 
+staff_lightning_position_source(v_detonate, v_angles, str_weapon)
+{
+	self endon("disconnect");
+	level notify("lightning_ball_created");
+
+	if (!isdefined(v_angles))
+	{
+		v_angles = (0, 0, 0);
+	}
+
+	e_ball_fx = spawn("script_model", v_detonate + anglestoforward(v_angles) * 100.0);
+	e_ball_fx.angles = v_angles;
+	e_ball_fx.str_weapon = str_weapon;
+	e_ball_fx setmodel("tag_origin");
+	e_ball_fx.n_range = get_lightning_blast_range(self.chargeshotlevel);
+	e_ball_fx.n_damage_per_sec = get_lightning_ball_damage_per_sec(self.chargeshotlevel);
+	e_ball_fx setclientfield("lightning_miss_fx", 1);
+	n_shot_range = staff_lightning_get_shot_range(self.chargeshotlevel);
+	v_end = e_ball_fx.origin + anglestoforward(v_angles) * n_shot_range;
+	trace = bullettrace(e_ball_fx.origin, v_end, 0, undefined);
+
+	if (trace["fraction"] != 1)
+	{
+		v_end = trace["position"];
+	}
+
+	n_max_movetime_s = self.chargeshotlevel * 3.0;
+	staff_lightning_ball_speed = n_shot_range / n_max_movetime_s;
+	n_dist = distance(e_ball_fx.origin, v_end);
+	n_movetime_s = n_dist / staff_lightning_ball_speed;
+	n_leftover_time = n_max_movetime_s - n_movetime_s;
+
+	if (n_leftover_time < 0)
+	{
+		n_leftover_time = 0;
+	}
+
+	e_ball_fx thread staff_lightning_ball_kill_zombies(self);
+	e_ball_fx moveto(v_end, n_movetime_s);
+	finished_playing = e_ball_fx lightning_ball_wait(n_leftover_time);
+	e_ball_fx notify("stop_killing");
+	e_ball_fx notify("stop_debug_position");
+
+	playfx(level._effect["elec_ug_impact"], e_ball_fx.origin);
+
+	if (isdefined(e_ball_fx))
+	{
+		e_ball_fx delete();
+	}
+}
+
+staff_lightning_get_shot_range(n_charge)
+{
+	switch (n_charge)
+	{
+		case 3:
+			return 1350;
+
+		default:
+			return 900;
+	}
+}
+
 staff_lightning_ball_kill_zombies(e_attacker)
 {
 	self endon("death");
@@ -103,9 +166,11 @@ staff_lightning_ball_damage_over_time(e_source, e_target, e_attacker)
 	e_attacker endon("disconnect");
 	e_target setclientfield("lightning_impact_fx", 1);
 	e_target thread maps\mp\zombies\_zm_audio::do_zombies_playvocals("electrocute", e_target.animname);
+	str_weapon = e_source.str_weapon;
 	n_range_sq = e_source.n_range * e_source.n_range;
 	e_target.is_being_zapped = 1;
 	e_target setclientfield("lightning_arc_fx", 1);
+	level thread staff_lightning_arc_fx_cleanup(e_source, e_target, e_attacker);
 	wait 0.5;
 
 	if (isdefined(e_source))
@@ -118,25 +183,31 @@ staff_lightning_ball_damage_over_time(e_source, e_target, e_attacker)
 		n_damage_per_pulse = e_source.n_damage_per_sec * 1.0;
 	}
 
-	while (isdefined(e_source) && isalive(e_target))
+	e_target thread stun_zombie();
+
+	wait 1.0;
+
+	if (isalive(e_target))
 	{
-		e_target thread stun_zombie();
-		wait 1.0;
-
-		if (!isdefined(e_source) || !isalive(e_target))
-		{
-			break;
-		}
-
-		if (isalive(e_target) && isdefined(e_source))
-		{
-			e_target thread zombie_shock_eyes();
-			e_target thread staff_lightning_kill_zombie(e_attacker, e_source.str_weapon);
-			break;
-		}
+		e_target thread zombie_shock_eyes();
+		e_target thread staff_lightning_kill_zombie(e_attacker, str_weapon);
 	}
 
-	if (isdefined(e_target))
+	if (isdefined(e_target) && is_true(e_target.is_being_zapped))
+	{
+		e_target.is_being_zapped = 0;
+		e_target setclientfield("lightning_arc_fx", 0);
+	}
+}
+
+staff_lightning_arc_fx_cleanup(e_source, e_target, e_attacker)
+{
+	e_attacker endon("disconnect");
+	e_target endon("death");
+
+	e_source waittill("stop_killing");
+
+	if (isdefined(e_target) && is_true(e_target.is_being_zapped))
 	{
 		e_target.is_being_zapped = 0;
 		e_target setclientfield("lightning_arc_fx", 0);
