@@ -1479,6 +1479,7 @@
 * Zombies spawn in the Generator 6 Before Tank Station 3 zone when players are in the Generator 5 Tank Route 5 zone before the debris between the No Man's Land Back Path 2 zone and the Generator 6 Left Footstep zone is cleared
 * Zombies spawn in the Generator 3 Above Bunker zone when players are in the Generator 3 Bunker 2 zone before any player has entered the Generator 3 Above Bunker zone
 * Zombies spawn in the Generator 3 Above Bunker zone when players are in the Generator 4 Tank Route 6 zone before any player has entered the Generator 3 Above Bunker zone
+* Fixed Mule Kick machine not using powered on model
 * Fixed glow fx position of fully charged staffs in The Crazy Place staff chargers
 * Fixed triggers for inserting and picking up staffs in The Crazy Place staff chargers
 * Fixed being able to carry multiple staffs by picking up a staff with upgraded staff alt weapon out

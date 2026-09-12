@@ -239,13 +239,14 @@ custom_vending_precaching()
 	{
 		precacheitem("zombie_perk_bottle_additionalprimaryweapon");
 		precacheshader("specialty_additionalprimaryweapon_zombies");
-		precachemodel("p6_zm_tm_vending_three_gun");
+		precachemodel("zombie_vending_three_gun");
+		precachemodel("zombie_vending_three_gun_on");
 		precachestring(&"ZOMBIE_PERK_ADDITIONALWEAPONPERK");
 		level._effect["additionalprimaryweapon_light"] = loadfx("misc/fx_zombie_cola_arsenal_on");
 		level.machine_assets["additionalprimaryweapon"] = spawnstruct();
 		level.machine_assets["additionalprimaryweapon"].weapon = "zombie_perk_bottle_additionalprimaryweapon";
-		level.machine_assets["additionalprimaryweapon"].off_model = "p6_zm_tm_vending_three_gun";
-		level.machine_assets["additionalprimaryweapon"].on_model = "p6_zm_tm_vending_three_gun";
+		level.machine_assets["additionalprimaryweapon"].off_model = "zombie_vending_three_gun";
+		level.machine_assets["additionalprimaryweapon"].on_model = "zombie_vending_three_gun_on";
 		level.machine_assets["additionalprimaryweapon"].power_on_callback = maps\mp\zm_tomb_capture_zones::custom_vending_power_on;
 		level.machine_assets["additionalprimaryweapon"].power_off_callback = maps\mp\zm_tomb_capture_zones::custom_vending_power_off;
 	}
