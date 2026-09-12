@@ -535,7 +535,7 @@ staff_upgraded_reload()
 
 	clip_size = weaponclipsize(self.weapname);
 	max_ammo = weaponmaxammo(self.weapname);
-	revive_max_ammo = weaponmaxammo("staff_revive_zm");
+	revive_clip_size = weaponclipsize("staff_revive_zm");
 	n_count = int(max_ammo / 20);
 	b_reloaded = 0;
 
@@ -554,16 +554,10 @@ staff_upgraded_reload()
 			self.prev_ammo_stock -= clip_add;
 		}
 
-		if (self.revive_ammo_clip < 1 && self.revive_ammo_stock >= 1)
-		{
-			self.revive_ammo_clip += 1;
-			self.revive_ammo_stock -= 1;
-		}
-
-		if (self.prev_ammo_stock >= max_ammo && self.revive_ammo_stock >= revive_max_ammo)
+		if (self.prev_ammo_stock >= max_ammo && self.revive_ammo_clip >= revive_clip_size)
 		{
 			self.prev_ammo_stock = max_ammo;
-			self.revive_ammo_stock = revive_max_ammo;
+			self.revive_ammo_clip = revive_clip_size;
 			self setclientfield("staff_charger", 0);
 			self.charger.full = 1;
 			self thread staff_glow_fx();
@@ -573,7 +567,7 @@ staff_upgraded_reload()
 		self.charger waittill("soul_received");
 
 		self.prev_ammo_stock += n_count;
-		self.revive_ammo_stock += 1;
+		self.revive_ammo_clip += 1;
 	}
 }
 
