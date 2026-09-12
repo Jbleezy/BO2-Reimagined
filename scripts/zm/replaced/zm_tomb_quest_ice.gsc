@@ -10,8 +10,7 @@
 
 ice_puzzle_1_run()
 {
-	level waittill("elemental_staff_water_crafted", player);
-	flag_set("staff_water_zm_upgrade_unlocked");
+	// removed
 }
 
 ice_puzzle_1_init()

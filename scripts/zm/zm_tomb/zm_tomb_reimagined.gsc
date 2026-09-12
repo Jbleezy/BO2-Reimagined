@@ -22,6 +22,7 @@ main()
 	replaceFunc(maps\mp\zm_tomb_main_quest::watch_for_player_pickup_staff, scripts\zm\replaced\zm_tomb_main_quest::watch_for_player_pickup_staff);
 	replaceFunc(maps\mp\zm_tomb_main_quest::staff_upgraded_reload_monitor, scripts\zm\replaced\zm_tomb_main_quest::staff_upgraded_reload_monitor);
 	replaceFunc(maps\mp\zm_tomb_main_quest::watch_staff_ammo_reload, scripts\zm\replaced\zm_tomb_main_quest::watch_staff_ammo_reload);
+	replaceFunc(maps\mp\zm_tomb_quest_crypt::run_crypt_gem_pos, scripts\zm\replaced\zm_tomb_quest_crypt::run_crypt_gem_pos);
 	replaceFunc(maps\mp\zm_tomb_quest_air::air_puzzle_1_run, scripts\zm\replaced\zm_tomb_quest_air::air_puzzle_1_run);
 	replaceFunc(maps\mp\zm_tomb_quest_elec::electric_puzzle_1_run, scripts\zm\replaced\zm_tomb_quest_elec::electric_puzzle_1_run);
 	replaceFunc(maps\mp\zm_tomb_quest_elec::electric_puzzle_2_init, scripts\zm\replaced\zm_tomb_quest_elec::electric_puzzle_2_init);

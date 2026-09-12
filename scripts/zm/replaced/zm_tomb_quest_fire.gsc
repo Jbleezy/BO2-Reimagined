@@ -11,6 +11,5 @@
 
 fire_puzzle_1_run()
 {
-	level waittill("elemental_staff_fire_crafted", player);
-	flag_set("staff_fire_zm_upgrade_unlocked");
+	// removed
 }
