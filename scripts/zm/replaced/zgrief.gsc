@@ -475,6 +475,8 @@ meat_stink_cleanup_on_downed_or_disconnect()
 
 	result = self waittill_any_return("player_downed", "bled_out", "spawned_player", "disconnect");
 
+	level thread print_meat_msg_wait();
+
 	self.lastactiveweapon = self.pre_temp_weapon;
 
 	self thread meat_glow_player_cleanup();
@@ -675,25 +677,13 @@ meat_glow_player_cleanup()
 	self setclientfieldtoplayer("meat_glow", 0);
 }
 
-print_meat_msg(meat_player, verb, show_after_obituaries = 0)
+print_meat_msg(meat_player, verb)
 {
 	self endon("disconnect");
 	meat_player endon("disconnect");
 
-	while (is_true(self.printing_meat_msg))
+	if (is_true(level.print_meat_msg_wait))
 	{
-		wait 0.05;
-	}
-
-	self.printing_meat_msg = 1;
-
-	if (show_after_obituaries)
-	{
-		if (is_true(self.playersuicided))
-		{
-			wait 0.05;
-		}
-
 		wait 0.05;
 	}
 
@@ -707,6 +697,13 @@ print_meat_msg(meat_player, verb, show_after_obituaries = 0)
 	hint_string = istring(toupper("ZOMBIE_" + verb + meat));
 
 	self iprintln(hint_string, meat_player.name);
+}
 
-	self.printing_meat_msg = undefined;
+print_meat_msg_wait()
+{
+	level.print_meat_msg_wait = 1;
+
+	wait 0.05;
+
+	level.print_meat_msg_wait = undefined;
 }
