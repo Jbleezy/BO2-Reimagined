@@ -580,19 +580,14 @@ staff_upgraded_reload()
 staff_glow_fx()
 {
 	e_staff_standard = get_staff_info_from_element_index(self.enum);
-
-	if (isDefined(e_staff_standard.e_fx))
-	{
-		return;
-	}
-
-	e_staff_standard.e_fx = spawn("script_model", e_staff_standard.upgrade gettagorigin("tag_crystal"));
-	e_staff_standard.e_fx setmodel("tag_origin");
-	e_staff_standard.e_fx setclientfield("element_glow_fx", e_staff_standard.upgrade.enum);
+	e_staff_standard_upgraded = e_staff_standard.upgrade;
+	e_fx = spawn("script_model", e_staff_standard_upgraded gettagorigin("tag_crystal"));
+	e_fx setmodel("tag_origin");
+	e_fx setclientfield("element_glow_fx", e_staff_standard.enum);
 
 	self waittill("staff_equip");
 
-	e_staff_standard.e_fx delete();
+	e_fx delete();
 }
 
 chambers_init()
