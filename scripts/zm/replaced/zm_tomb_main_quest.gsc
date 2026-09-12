@@ -438,6 +438,73 @@ swap_staff_hint_charger(player)
 	self.playertrigger[num] sethintstring(self.hint_string);
 }
 
+staff_charger_check()
+{
+	self.charger.is_charged = 0;
+	flag_wait(self.weapname + "_upgrade_unlocked");
+	self useweaponmodel(self.weapname);
+	self showallparts();
+
+	while (true)
+	{
+		if (self.charger.charges_received >= 20 || getdvarint("zombie_cheat") >= 2 && self.charger.is_inserted)
+		{
+			self.charger.is_charged = 1;
+			e_player = get_closest_player(self.charger.origin);
+			e_player thread maps\mp\zm_tomb_vo::say_puzzle_completion_line(self.enum);
+			self setclientfield("staff_charger", 0);
+			self.charger.full = 1;
+			level setclientfield(self.quest_clientfield, 4);
+			level thread spawn_upgraded_staff_triggers(self.enum);
+			level.staffs_charged++;
+
+			if (level.staffs_charged == 4)
+			{
+				flag_set("ee_all_staffs_upgraded");
+			}
+
+			self thread staff_sound();
+			break;
+		}
+
+		self.charger waittill("soul_received");
+	}
+}
+
+spawn_upgraded_staff_triggers(n_index)
+{
+	e_staff_standard = get_staff_info_from_element_index(n_index);
+	e_staff_standard_upgraded = e_staff_standard.upgrade;
+	e_staff_standard.charge_trigger trigger_on();
+	e_staff_standard.charge_trigger.require_look_at = 1;
+	pickup_message = e_staff_standard staff_get_pickup_message();
+	e_staff_standard.charge_trigger set_unitrigger_hint_string(pickup_message);
+	e_staff_standard_upgraded.trigger = e_staff_standard.charge_trigger;
+	e_staff_standard_upgraded.angles = e_staff_standard.angles;
+	e_staff_standard_upgraded moveto(e_staff_standard.origin, 0.05);
+	e_staff_standard_upgraded waittill("movedone");
+	e_staff_standard ghost();
+	e_staff_standard_upgraded show();
+	e_fx = spawn("script_model", e_staff_standard_upgraded gettagorigin("tag_crystal"));
+	e_fx setmodel("tag_origin");
+	e_fx setclientfield("element_glow_fx", e_staff_standard.enum);
+	e_staff_standard_upgraded watch_for_player_pickup_staff();
+	e_staff_standard_upgraded.trigger trigger_off();
+	player = e_staff_standard_upgraded.owner;
+	e_fx delete();
+
+	while (true)
+	{
+		if (e_staff_standard.charger.is_charged)
+		{
+			e_staff_standard_upgraded thread staff_upgraded_reload_monitor();
+			break;
+		}
+
+		wait_network_frame();
+	}
+}
+
 staff_upgraded_reload_monitor()
 {
 	self.weaponname = self.weapname;
@@ -519,7 +586,7 @@ staff_glow_fx()
 		return;
 	}
 
-	e_staff_standard.e_fx = spawn("script_model", e_staff_standard.upgrade.origin + vectorscale((0, 0, 1), 8.0));
+	e_staff_standard.e_fx = spawn("script_model", e_staff_standard.upgrade gettagorigin("tag_crystal"));
 	e_staff_standard.e_fx setmodel("tag_origin");
 	e_staff_standard.e_fx setclientfield("element_glow_fx", e_staff_standard.upgrade.enum);
 

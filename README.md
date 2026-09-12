@@ -1479,7 +1479,8 @@
 * Zombies spawn in the Generator 6 Before Tank Station 3 zone when players are in the Generator 5 Tank Route 5 zone before the debris between the No Man's Land Back Path 2 zone and the Generator 6 Left Footstep zone is cleared
 * Zombies spawn in the Generator 3 Above Bunker zone when players are in the Generator 3 Bunker 2 zone before any player has entered the Generator 3 Above Bunker zone
 * Zombies spawn in the Generator 3 Above Bunker zone when players are in the Generator 4 Tank Route 6 zone before any player has entered the Generator 3 Above Bunker zone
-* Fixed triggers for inserting and picking up staffs in The Crazy Place
+* Fixed glow fx position of fully charged staffs in The Crazy Place staff chargers
+* Fixed triggers for inserting and picking up staffs in The Crazy Place staff chargers
 * Fixed being able to carry multiple staffs by picking up a staff with upgraded staff alt weapon out
 * Fixed zombie eye fx not showing correctly when they first spawn in The Crazy Place area
 * Fixed being able to hit a death barrier when jumping off the Generator 3 Above Bunker zone
@@ -1550,6 +1551,8 @@
 * Quest: added "Benn - The Divider" song
 * Quest (secure the keys step): staff upgrades only require collecting souls in The Crazy Place
 * Quest (secure the keys step): staffs get full ammo when initially picked up after upgrading (normally missing one clip)
+* Quest (secure the keys step): fixed staffs disappearing momentarily when they get upgraded
+* Quest (secure the keys step): fixed timing of staff upgrades
 * Quest (ascend from darkness step): 3 robots are always active during this step
 * Quest (ascend from darkness step): staffs can be placed at any staff holder
 * Quest (ascend from darkness step): fixed an issue where staffs were able to be picked up at their build location when placed in the staff holders
