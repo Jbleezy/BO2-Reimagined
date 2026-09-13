@@ -5,6 +5,7 @@ main()
 {
 	replaceFunc(clientscripts\mp\zm_tomb::init_gamemodes, scripts\zm\replaced\zm_tomb::init_gamemodes);
 	replaceFunc(clientscripts\mp\zm_tomb::entityspawned_tomb, scripts\zm\replaced\zm_tomb::entityspawned_tomb);
+	replaceFunc(clientscripts\mp\zm_tomb::staff_charger_init, scripts\zm\replaced\zm_tomb::staff_charger_init);
 	replaceFunc(clientscripts\mp\zm_tomb::zombie_soul_fx, scripts\zm\replaced\zm_tomb::zombie_soul_fx);
 	replaceFunc(clientscripts\mp\zm_tomb_amb::sndchargeshot, scripts\zm\replaced\zm_tomb_amb::sndchargeshot);
 	replaceFunc(clientscripts\mp\zm_tomb_capture_zones::register_perk_machine_smoke_struct_references, scripts\zm\replaced\zm_tomb_capture_zones::register_perk_machine_smoke_struct_references);

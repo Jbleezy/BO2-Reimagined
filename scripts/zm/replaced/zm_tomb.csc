@@ -89,6 +89,38 @@ entityspawned_tomb(localclientnum)
 	}
 }
 
+staff_charger_init(localclientnum, oldval, newval, bnewent, binitialsnap, fieldname, bwasdemojump)
+{
+	v_origin = self gettagorigin("tag_crystal");
+
+	if (!isdefined(level.charger_origins))
+	{
+		level.charger_origins = [];
+	}
+
+	if (newval != 0)
+	{
+		level.charger_origins[newval] = v_origin;
+	}
+	else
+	{
+		keys = getarraykeys(level.charger_origins);
+
+		foreach (i in keys)
+		{
+			if (!isdefined(level.charger_origins[i]))
+			{
+				continue;
+			}
+
+			if (distancesquared(level.charger_origins[i], v_origin) < 100)
+			{
+				level.charger_origins[i] = undefined;
+			}
+		}
+	}
+}
+
 zombie_soul_fx(localclientnum, oldval, newval, bnewent, binitialsnap, fieldname, bwasdemojump)
 {
 	v_origin = self gettagorigin("J_SpineUpper");

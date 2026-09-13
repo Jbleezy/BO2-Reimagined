@@ -1480,7 +1480,7 @@
 * Zombies spawn in the Generator 3 Above Bunker zone when players are in the Generator 3 Bunker 2 zone before any player has entered the Generator 3 Above Bunker zone
 * Zombies spawn in the Generator 3 Above Bunker zone when players are in the Generator 4 Tank Route 6 zone before any player has entered the Generator 3 Above Bunker zone
 * Fixed Mule Kick machine not using powered on model
-* Fixed glow fx position of fully charged staffs in the staff chargers
+* Fixed zombie soul destination and fully charged staff glow fx position in the staff chargers
 * Fixed staff charger triggers
 * Fixed being able to carry multiple staffs by picking up a staff with upgraded staff alt weapon out
 * Fixed zombie eye fx not showing correctly when they first spawn in The Crazy Place area
