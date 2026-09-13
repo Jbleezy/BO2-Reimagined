@@ -560,7 +560,7 @@ staff_upgraded_reload()
 			self.revive_ammo_clip = revive_clip_size;
 			self setclientfield("staff_charger", 0);
 			self.charger.full = 1;
-			self thread staff_glow_fx();
+			self thread staff_upgraded_reload_fx_and_sound();
 			return;
 		}
 
@@ -571,17 +571,20 @@ staff_upgraded_reload()
 	}
 }
 
-staff_glow_fx()
+staff_upgraded_reload_fx_and_sound()
 {
 	e_staff_standard = get_staff_info_from_element_index(self.enum);
 	e_staff_standard_upgraded = e_staff_standard.upgrade;
 	e_fx = spawn("script_model", e_staff_standard_upgraded gettagorigin("tag_crystal"));
 	e_fx setmodel("tag_origin");
 	e_fx setclientfield("element_glow_fx", e_staff_standard.enum);
+	self playsound("zmb_squest_charge_soul_full");
+	self playloopsound("zmb_squest_charge_soul_full_loop", 0.1);
 
 	self waittill("staff_equip");
 
 	e_fx delete();
+	self stoploopsound(0.1);
 }
 
 chambers_init()
