@@ -741,23 +741,26 @@ clear_player_crystal(n_element)
 
 staff_fullycrafted(modelname, elementenum)
 {
-	player = get_closest_player(self.origin);
 	staff_model = getent(modelname, "targetname");
+
+	if (isdefined(staff_model.inused))
+	{
+		return true;
+	}
+
+	player = get_closest_player(self.origin);
 	staff_info = get_staff_info_from_element_index(elementenum);
 	staff_model useweaponmodel(staff_info.weapname);
 	staff_model showallparts();
 	level notify("quest_progressed", player, 0);
 
-	if (!isdefined(staff_model.inused))
-	{
-		staff_model show();
-		staff_model.inused = 1;
-		level.n_staffs_crafted++;
+	staff_model show();
+	staff_model.inused = 1;
+	level.n_staffs_crafted++;
 
-		if (level.n_staffs_crafted == 4)
-		{
-			flag_set("ee_all_staffs_crafted");
-		}
+	if (level.n_staffs_crafted == 4)
+	{
+		flag_set("ee_all_staffs_crafted");
 	}
 
 	player clear_player_crystal(elementenum);
