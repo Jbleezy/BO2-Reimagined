@@ -4452,7 +4452,7 @@
 {
 "model" "p6_zm_tm_orb_fire"
 "targetname" "fire_orb_plinth_final"
-"origin" "10104 -8142 -409"
+"origin" "10104 -8142 -411"
 "classname" "script_struct"
 "guid" "2665B08A"
 }
@@ -4487,15 +4487,15 @@
 "guid" "E1CBB41C"
 }
 {
-"origin" "10576 -8142 -410"
+"origin" "10576 -8142 -411"
 "classname" "script_struct"
 "model" "p6_zm_tm_orb_wind"
 "targetname" "air_orb_plinth_final"
 "guid" "0FB1036E"
 }
 {
-"angles" "345.1 270 -1.75682e-007"
-"origin" "10576 -7679.9 -363.39"
+"angles" "345 225 0"
+"origin" "10569 -7677 -363"
 "script_noteworthy" "staff_ice_charger"
 "targetname" "staff_charger"
 "classname" "script_struct"
@@ -4503,9 +4503,9 @@
 "guid" "E78E2C1D"
 }
 {
-"angles" "344.8 270 -1.79139e-007"
+"angles" "345 45 0"
 "classname" "script_struct"
-"origin" "10104 -8151.88 -361.38"
+"origin" "10111 -8135 -363"
 "targetname" "staff_charger"
 "script_noteworthy" "staff_fire_charger"
 "model" "t6_wpn_zmb_staff_fire_world"
@@ -4749,9 +4749,9 @@
 "model" "t6_wpn_zmb_staff_air_world"
 "script_noteworthy" "staff_air_charger"
 "targetname" "staff_charger"
-"origin" "10585.9 -8142 -362.42"
+"origin" "10569 -8135 -363"
 "classname" "script_struct"
-"angles" "344.9 0 0"
+"angles" "345 135 0"
 "guid" "01A9413B"
 }
 {
@@ -4962,10 +4962,10 @@
 {
 "model" "t6_wpn_zmb_staff_bolt_world"
 "classname" "script_struct"
-"origin" "10104 -7680.44 -363.42"
+"origin" "10111 -7677 -363"
 "targetname" "staff_charger"
 "script_noteworthy" "zone_bolt_chamber"
-"angles" "345.9 270 -1.66447e-007"
+"angles" "345 315 0"
 "guid" "63F7CA4A"
 }
 {
