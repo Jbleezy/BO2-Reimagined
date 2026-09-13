@@ -1465,10 +1465,10 @@
 * Moved challenge medals and tablet icon above health bar and zone name
 * Added attachment name on HUD for upgraded attachment weapons
 * Increased volume of crafting sound and item pick up sound
-* Can collect souls in The Crazy Place after upgrading a staff to recharge it (fills 5% of max ammo per soul)
-* Can no longer collect souls in The Crazy Place from staff kills
-* Picking up a staff in The Crazy Place while holding a staff places the other staff in The Crazy Place
-* Insterting a staff in The Crazy Place requires player's current weapon to be the staff
+* Staff chargers can collect souls after upgrading a staff to recharge it (fills 5% of max ammo per soul)
+* Staff chargers no longer collect souls from staff kills
+* Inserting a staff into the staff chargers requires player's current weapon to be the staff
+* Picking up a staff from the staff chargers while holding a staff inserts the other staff into its staff charger
 * Added player spawn points in The Crazy Place area
 * Moved player spawn point in the Workshop area from the Workshop Upstairs zone to the Workshop Downstairs zone
 * Moved player spawn point in the Generator 3 area to be closer to the area
@@ -1480,8 +1480,8 @@
 * Zombies spawn in the Generator 3 Above Bunker zone when players are in the Generator 3 Bunker 2 zone before any player has entered the Generator 3 Above Bunker zone
 * Zombies spawn in the Generator 3 Above Bunker zone when players are in the Generator 4 Tank Route 6 zone before any player has entered the Generator 3 Above Bunker zone
 * Fixed Mule Kick machine not using powered on model
-* Fixed glow fx position of fully charged staffs in The Crazy Place staff chargers
-* Fixed triggers for inserting and picking up staffs in The Crazy Place staff chargers
+* Fixed glow fx position of fully charged staffs in the staff chargers
+* Fixed staff charger triggers
 * Fixed being able to carry multiple staffs by picking up a staff with upgraded staff alt weapon out
 * Fixed zombie eye fx not showing correctly when they first spawn in The Crazy Place area
 * Fixed being able to hit a death barrier when jumping off the Generator 3 Above Bunker zone
@@ -1550,13 +1550,14 @@
 * Perk bottle dig spots: fixed spots behaving incorrectly after disconnecting and reconnecting to a match
 * Survival and Encounter: One Inch Punch buyable for 9000 points at Rituals of the Ancients reward chests
 * Quest: added "Benn - The Divider" song
-* Quest (secure the keys step): staff upgrades only require collecting souls in The Crazy Place
+* Quest (secure the keys step): staff upgrades only require collecting souls
+* Quest (secure the keys step): removed delay between zombie death and zombie soul spawn
 * Quest (secure the keys step): staffs get full ammo when initially picked up after upgrading (normally missing one clip)
 * Quest (secure the keys step): fixed staffs disappearing momentarily when they get upgraded
 * Quest (secure the keys step): fixed timing of staff upgrades
 * Quest (ascend from darkness step): 3 robots are always active during this step
-* Quest (ascend from darkness step): staffs can be placed at any staff holder
-* Quest (ascend from darkness step): fixed an issue where staffs were able to be picked up at their build location when placed in the staff holders
+* Quest (ascend from darkness step): staffs can be inserted into any upgraded staff holder
+* Quest (ascend from darkness step): fixed an issue where staffs were able to be picked up from the original staff holders when inserted into the upgraded staff holders
 * Quest (rain fire step): button no longer deactivates after activating
 * Quest (unleash the horde step): decreased amount of Panzersoldats that spawn from 8 to 4
 * Quest (unleash the horde step): Panzersoldat round and this step can no longer happen at the same time

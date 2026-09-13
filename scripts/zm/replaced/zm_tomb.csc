@@ -88,3 +88,54 @@ entityspawned_tomb(localclientnum)
 		}
 	}
 }
+
+zombie_soul_fx(localclientnum, oldval, newval, bnewent, binitialsnap, fieldname, bwasdemojump)
+{
+	v_origin = self gettagorigin("J_SpineUpper");
+	v_dest = undefined;
+	closest_dist_sq = -1.0;
+
+	if (!isdefined(level.charger_origins))
+	{
+		level.charger_origins = [];
+	}
+
+	foreach (v_charger in level.charger_origins)
+	{
+		dist_sq = distancesquared(self.origin, v_charger);
+
+		if (!isdefined(v_dest))
+		{
+			closest_dist_sq = dist_sq;
+			v_dest = v_charger;
+			continue;
+		}
+
+		if (dist_sq < closest_dist_sq)
+		{
+			closest_dist_sq = dist_sq;
+			v_dest = v_charger;
+		}
+	}
+
+	if (!isdefined(v_dest) || !isdefined(v_origin))
+	{
+		return;
+	}
+
+	if (isdefined(self))
+	{
+		v_origin = self gettagorigin("J_SpineUpper");
+	}
+
+	e_fx = spawn(localclientnum, v_origin, "script_model");
+	e_fx setmodel("tag_origin");
+	e_fx playsound(localclientnum, "zmb_squest_charge_soul_leave");
+	playfxontag(localclientnum, level._effect["staff_soul"], e_fx, "tag_origin");
+	e_fx moveto(v_dest + vectorscale((0, 0, 1), 5.0), 0.5);
+	e_fx waittill("movedone");
+	e_fx playsound(localclientnum, "zmb_squest_charge_soul_impact");
+	playfxontag(localclientnum, level._effect["staff_charge"], e_fx, "tag_origin");
+	serverwait(localclientnum, 0.3);
+	e_fx delete();
+}

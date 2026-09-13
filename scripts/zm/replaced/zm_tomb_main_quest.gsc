@@ -216,12 +216,19 @@ zombie_killed_override(einflictor, attacker, idamage, smeansofdeath, sweapon, vd
 			}
 		}
 
-		if (isdefined(s_nearest_staff) && !isSubStr(sweapon, "staff"))
+		if (isdefined(s_nearest_staff) && !issubstr(sweapon, "staff"))
 		{
 			s_nearest_staff.charger.charges_received++;
 			s_nearest_staff.charger thread zombie_soul_to_charger(self, s_nearest_staff.enum);
 		}
 	}
+}
+
+zombie_soul_to_charger(ai_zombie, n_element)
+{
+	ai_zombie setclientfield("zombie_soul", 1);
+	wait 0.5;
+	self notify("soul_received");
 }
 
 place_staff_in_charger()
