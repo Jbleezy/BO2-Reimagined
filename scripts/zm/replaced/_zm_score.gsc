@@ -37,6 +37,7 @@ minus_to_player_score(points, ignore_double_points_upgrade)
 	points = int(points); // points must be an int
 	self.score -= points;
 	self.pers["score"] = self.score;
+	level notify("spent_points", self, points);
 }
 
 player_add_points_kill_bonus(mod, hit_location)
