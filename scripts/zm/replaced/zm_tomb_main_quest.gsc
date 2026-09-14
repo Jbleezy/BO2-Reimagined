@@ -256,6 +256,24 @@ place_staff_in_charger()
 	waittill_staff_inserted();
 }
 
+staff_charger_get_player_msg(e_player)
+{
+	if (!self.stub.staff_data.charger.is_inserted)
+	{
+		msg = self.stub.staff_data staff_get_insert_message();
+		return msg;
+	}
+	else if (self.stub.staff_data.charger.is_inserted && self.stub.staff_data.charger.is_charged)
+	{
+		msg = self.stub.staff_data staff_get_pickup_message();
+		return msg;
+	}
+	else
+	{
+		return "";
+	}
+}
+
 waittill_staff_inserted()
 {
 	while (true)
