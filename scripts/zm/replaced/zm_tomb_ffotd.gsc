@@ -12,6 +12,7 @@ update_charger_position()
 		foreach (e_staff in level.a_elemental_staffs)
 		{
 			e_staff moveto(e_staff.charger.origin, 0.05);
+			e_staff.angles = e_staff.charger.angles;
 		}
 	}
 
@@ -20,6 +21,7 @@ update_charger_position()
 		foreach (e_staff in level.a_elemental_staffs_upgraded)
 		{
 			e_staff moveto(e_staff.charger.origin, 0.05);
+			e_staff.angles = e_staff.charger.angles;
 		}
 	}
 }

@@ -281,16 +281,6 @@ waittill_staff_inserted()
 			maps\mp\zm_tomb_craftables::clear_player_staff(self.weapname);
 			self.charge_trigger set_unitrigger_hint_string("");
 			self.charge_trigger trigger_off();
-
-			if (isdefined(self.charger.angles))
-			{
-				self.angles = self.charger.angles;
-			}
-
-			self moveto(self.charger.origin, 0.05);
-
-			self waittill("movedone");
-
 			self setclientfield("staff_charger", self.enum);
 			self.charger.full = 0;
 			self show();
@@ -487,9 +477,6 @@ spawn_upgraded_staff_triggers(n_index)
 	pickup_message = e_staff_standard staff_get_pickup_message();
 	e_staff_standard.charge_trigger set_unitrigger_hint_string(pickup_message);
 	e_staff_standard_upgraded.trigger = e_staff_standard.charge_trigger;
-	e_staff_standard_upgraded.angles = e_staff_standard.angles;
-	e_staff_standard_upgraded moveto(e_staff_standard.origin, 0.05);
-	e_staff_standard_upgraded waittill("movedone");
 	e_staff_standard ghost();
 	e_staff_standard_upgraded show();
 	e_fx = spawn("script_model", e_staff_standard_upgraded gettagorigin("tag_crystal"));
