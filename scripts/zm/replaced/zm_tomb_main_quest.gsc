@@ -393,15 +393,35 @@ get_staff_enum_from_element_weapon(weapon_drop)
 
 can_pickup_staff()
 {
-	if (is_melee_weapon(self getcurrentweapon()) || is_placeable_mine(self getcurrentweapon()))
+	b_primary_equipped = 0;
+	a_weapons = self getweaponslistprimaries();
+	n_max_other_weapons = get_player_weapon_limit(self) - 1;
+
+	if (a_weapons.size > n_max_other_weapons)
 	{
-		return 0;
+		foreach (weapon in a_weapons)
+		{
+			if (self getcurrentweapon() == weapon)
+			{
+				b_primary_equipped = 1;
+				break;
+			}
+		}
+	}
+	else
+	{
+		b_primary_equipped = 1;
 	}
 
 	b_has_staff = self player_has_staff();
 	b_staff_equipped = issubstr(self getcurrentweapon(), "staff") && self getcurrentweapon() != "staff_revive_zm";
 
-	return !b_has_staff || b_staff_equipped;
+	if (b_primary_equipped && (!b_has_staff || b_staff_equipped))
+	{
+		return 1;
+	}
+
+	return 0;
 }
 
 insert_staff_hint_charger(player, enum)
