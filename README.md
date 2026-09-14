@@ -1469,6 +1469,8 @@
 * Staff chargers no longer collect souls from staff kills
 * Inserting a staff into the staff chargers requires player's current weapon to be the staff
 * Picking up a staff from the staff chargers while holding a staff inserts the other staff into its staff charger
+* Adjusted staff positions and angles in the staff holders and staff chargers
+* Adjusted zombie soul destination and fully charged staff glow fx position in the staff chargers
 * Added player spawn points in The Crazy Place area
 * Moved player spawn point in the Workshop area from the Workshop Upstairs zone to the Workshop Downstairs zone
 * Moved player spawn point in the Generator 3 area to be closer to the area
@@ -1480,8 +1482,6 @@
 * Zombies spawn in the Generator 3 Above Bunker zone when players are in the Generator 3 Bunker 2 zone before any player has entered the Generator 3 Above Bunker zone
 * Zombies spawn in the Generator 3 Above Bunker zone when players are in the Generator 4 Tank Route 6 zone before any player has entered the Generator 3 Above Bunker zone
 * Fixed Mule Kick machine not using powered on model
-* Fixed staff angles in the staff chargers
-* Fixed zombie soul destination and fully charged staff glow fx position in the staff chargers
 * Fixed staff charger triggers
 * Fixed being able to carry multiple staffs by picking up a staff with upgraded staff alt weapon out
 * Fixed zombie eye fx not showing correctly when they first spawn in The Crazy Place area

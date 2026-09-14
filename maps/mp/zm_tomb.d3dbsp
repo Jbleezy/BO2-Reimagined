@@ -29019,36 +29019,36 @@
 "classname" "script_model"
 "model" "t6_wpn_zmb_staff_water_world"
 "targetname" "craftable_staff_water_zm"
-"origin" "-65.79 271.19 -702.45"
+"origin" "-64.79 270.19 -712"
 "script_noteworthy" "craftable_staff_model"
-"angles" "345 105.7 5.60365e-005"
+"angles" "345 105.7 0"
 "guid" "00BD5034"
 }
 {
 "classname" "script_model"
 "model" "t6_wpn_zmb_staff_bolt_world"
 "targetname" "craftable_staff_lightning_zm"
-"origin" "63.7 270.57 -700.95"
+"origin" "63.7 270.57 -712"
 "script_noteworthy" "craftable_staff_model"
-"angles" "345.1 77.6 3.82667e-005"
+"angles" "345.1 77.6 0"
 "guid" "D8D46C18"
 }
 {
-"angles" "345.447 55.307 0.713097"
+"angles" "345 55.307 0"
 "script_noteworthy" "craftable_staff_model"
 "classname" "script_model"
 "model" "t6_wpn_zmb_staff_fire_world"
 "targetname" "craftable_staff_fire_zm"
-"origin" "167.96 220.35 -699.44"
+"origin" "167.96 220.35 -712"
 "guid" "B6EFCB7C"
 }
 {
 "classname" "script_model"
 "model" "t6_wpn_zmb_staff_air_world"
 "targetname" "craftable_staff_air_zm"
-"origin" "-168.91 219.53 -699.8"
+"origin" "-168.91 219.53 -712"
 "script_noteworthy" "craftable_staff_model"
-"angles" "346 133.2 4.178e-006"
+"angles" "345 133.2 0"
 "guid" "853FF942"
 }
 {
@@ -30029,10 +30029,10 @@
 }
 {
 "classname" "script_struct"
-"origin" "-0.62 168.63 -749.5"
+"origin" "-0.62 168.63 -742.5"
 "targetname" "robot_head_staff"
 "script_noteworthy" "fire"
-"angles" "0 1.00179e-005 0"
+"angles" "0 0 0"
 "model" "p6_zm_tm_staff_holder"
 "guid" "204EB678"
 }
