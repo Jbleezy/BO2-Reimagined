@@ -13,6 +13,7 @@ main()
 	replaceFunc(clientscripts\mp\zm_tomb_craftables::register_clientfields, scripts\zm\replaced\zm_tomb_craftables::register_clientfields);
 	replaceFunc(clientscripts\mp\zm_tomb_ee::set_ee_portal_fx, scripts\zm\replaced\zm_tomb_ee::set_ee_portal_fx);
 	replaceFunc(clientscripts\mp\zombies\_zm_ai_mechz::mechzfootstepcbfunc, scripts\zm\replaced\_zm_ai_mechz::mechzfootstepcbfunc);
+	replaceFunc(clientscripts\mp\zombies\_zm_magicbox_tomb::magicbox_ambient_fx, scripts\zm\replaced\_zm_magicbox_tomb::magicbox_ambient_fx);
 	replaceFunc(clientscripts\mp\zombies\_zm_powerup_zombie_blood::init, scripts\zm\replaced\_zm_powerup_zombie_blood::init);
 	replaceFunc(clientscripts\mp\zombies\_zm_powerup_zombie_blood::toggle_player_zombie_blood_fx, scripts\zm\replaced\_zm_powerup_zombie_blood::toggle_player_zombie_blood_fx);
 

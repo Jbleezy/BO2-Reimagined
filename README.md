@@ -1519,6 +1519,7 @@
 * Mystery Box: removed B23R Extended Clip
 * Mystery Box: Five-seven Dual Wield can no longer be obtained if player has Five-seven
 * Mystery Box: Five-seven Dual Wield ammo can be purchased from Five-seven wallbuys
+* Mystery Box: removed red light when powered off
 * Mystery Box: rotated weapon model angle 180 degrees
 * Mystery Box: uses the same trade weapon hint string as other maps
 * Der Wunderfizz: increased cost from 1500 to 2500
