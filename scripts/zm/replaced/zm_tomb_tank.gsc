@@ -51,6 +51,39 @@ init()
 	level thread maps\mp\zm_tomb_vo::watch_occasional_line("tank", "tank_cooling", "vo_tank_cooling");
 }
 
+tank_call_box()
+{
+	while (true)
+	{
+		self waittill("trigger", e_player);
+		cooling_down = level.vh_tank ent_flag("tank_cooldown");
+
+		if (!level.vh_tank ent_flag("tank_activated") && e_player.score >= 500 && !cooling_down)
+		{
+			level.vh_tank notify("call_box_used");
+			level.vh_tank.b_call_box_used = 1;
+			level.vh_tank.t_use useby(e_player);
+			e_switch = getent(self.target, "targetname");
+			e_switch rotatepitch(-180, 0.5);
+			e_switch waittill("rotatedone");
+			e_switch rotatepitch(180, 0.5);
+			level.vh_tank waittill("tank_stop");
+		}
+	}
+}
+
+wait_for_tank_cooldown()
+{
+	self thread snd_fuel();
+
+	self.n_cooldown_timer = 30;
+
+	wait(self.n_cooldown_timer);
+	level notify("stp_cd");
+	self playsound("zmb_tank_ready");
+	self playloopsound("zmb_tank_idle");
+}
+
 players_on_tank_update()
 {
 	flag_wait("start_zombie_round_logic");
@@ -139,18 +172,6 @@ entity_on_tank()
 	}
 
 	return false;
-}
-
-wait_for_tank_cooldown()
-{
-	self thread snd_fuel();
-
-	self.n_cooldown_timer = 30;
-
-	wait(self.n_cooldown_timer);
-	level notify("stp_cd");
-	self playsound("zmb_tank_ready");
-	self playloopsound("zmb_tank_idle");
 }
 
 activate_tank_wait_with_no_cost()

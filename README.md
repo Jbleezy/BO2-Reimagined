@@ -1511,6 +1511,7 @@
 * Tank: powerups dropped within the tank are linked to the tank
 * Tank: standing on the tread pushes the player forward instead of backward if the tank is moving
 * Tank: changed cooldown from 2-120 seconds depending on how long players were on the tank to 30 seconds
+* Tank: removed delay between calling tank and tank moving
 * Tank: no longer free to activate if called
 * Tank: changed cooling down hint string from "Tank engine cooling down" to "The tank is cooling down"
 * Teleporters: stay active after picking up gramophone

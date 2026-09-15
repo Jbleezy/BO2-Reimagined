@@ -77,9 +77,10 @@ main()
 	replaceFunc(maps\mp\zm_tomb_giant_robot::activate_kill_trigger, scripts\zm\replaced\zm_tomb_giant_robot::activate_kill_trigger);
 	replaceFunc(maps\mp\zm_tomb_giant_robot::giant_robot_close_head_entrance, scripts\zm\replaced\zm_tomb_giant_robot::giant_robot_close_head_entrance);
 	replaceFunc(maps\mp\zm_tomb_tank::init, scripts\zm\replaced\zm_tomb_tank::init);
+	replaceFunc(maps\mp\zm_tomb_tank::tank_call_box, scripts\zm\replaced\zm_tomb_tank::tank_call_box);
+	replaceFunc(maps\mp\zm_tomb_tank::wait_for_tank_cooldown, scripts\zm\replaced\zm_tomb_tank::wait_for_tank_cooldown);
 	replaceFunc(maps\mp\zm_tomb_tank::players_on_tank_update, scripts\zm\replaced\zm_tomb_tank::players_on_tank_update);
 	replaceFunc(maps\mp\zm_tomb_tank::entity_on_tank, scripts\zm\replaced\zm_tomb_tank::entity_on_tank);
-	replaceFunc(maps\mp\zm_tomb_tank::wait_for_tank_cooldown, scripts\zm\replaced\zm_tomb_tank::wait_for_tank_cooldown);
 	replaceFunc(maps\mp\zm_tomb_tank::activate_tank_wait_with_no_cost, scripts\zm\replaced\zm_tomb_tank::activate_tank_wait_with_no_cost);
 	replaceFunc(maps\mp\zm_tomb_tank::tank_kill_players, scripts\zm\replaced\zm_tomb_tank::tank_kill_players);
 	replaceFunc(maps\mp\zm_tomb_teleporter::run_chamber_entrance_teleporter, scripts\zm\replaced\zm_tomb_teleporter::run_chamber_entrance_teleporter);
