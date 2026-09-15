@@ -1481,6 +1481,7 @@
 * Zombies spawn in the Generator 6 Before Tank Station 3 zone when players are in the Generator 5 Tank Route 5 zone before the debris between the No Man's Land Back Path 2 zone and the Generator 6 Left Footstep zone is cleared
 * Zombies spawn in the Generator 3 Above Bunker zone when players are in the Generator 3 Bunker 2 zone before any player has entered the Generator 3 Above Bunker zone
 * Zombies spawn in the Generator 3 Above Bunker zone when players are in the Generator 4 Tank Route 6 zone before any player has entered the Generator 3 Above Bunker zone
+* Fixed various fx, sounds, and rumbles playing too fast
 * Fixed Mule Kick machine not using powered on model
 * Fixed timings of receiving zombie souls
 * Fixed staff charger triggers
@@ -1526,6 +1527,7 @@
 * Der Wunderfizz: increased cost from 1500 to 2500
 * Der Wunderfizz: all perks have an equal chance of being obtained
 * Der Wunderfizz: available at all locations and costs 250 points when Fire Sale powerup is active
+* Der Wunderfizz: decreased time between location indicator fx from 3-4 seconds to 1.5 seconds
 * Der Wunderfizz: decreased perk bottle pick up time from 10 seconds to 6 seconds
 * Der Wunderfizz: players only see perk bottles cycling that they can currently obtain
 * Der Wunderfizz: perk bottle shows at correct position when it first appears

@@ -5,15 +5,31 @@ main()
 {
 	replaceFunc(clientscripts\mp\zm_tomb::init_gamemodes, scripts\zm\replaced\zm_tomb::init_gamemodes);
 	replaceFunc(clientscripts\mp\zm_tomb::entityspawned_tomb, scripts\zm\replaced\zm_tomb::entityspawned_tomb);
+	replaceFunc(clientscripts\mp\zm_tomb::sndweatherupdate, scripts\zm\replaced\zm_tomb::sndweatherupdate);
+	replaceFunc(clientscripts\mp\zm_tomb::_rain_thread, scripts\zm\replaced\zm_tomb::_rain_thread);
+	replaceFunc(clientscripts\mp\zm_tomb::_snow_thread, scripts\zm\replaced\zm_tomb::_snow_thread);
+	replaceFunc(clientscripts\mp\zm_tomb::player_continuous_rumble, scripts\zm\replaced\zm_tomb::player_continuous_rumble);
+	replaceFunc(clientscripts\mp\zm_tomb::player_staff_charge_rumble, scripts\zm\replaced\zm_tomb::player_staff_charge_rumble);
 	replaceFunc(clientscripts\mp\zm_tomb::staff_charger_init, scripts\zm\replaced\zm_tomb::staff_charger_init);
 	replaceFunc(clientscripts\mp\zm_tomb::zombie_soul_fx, scripts\zm\replaced\zm_tomb::zombie_soul_fx);
+	replaceFunc(clientscripts\mp\zm_tomb::foot_print_box_fx, scripts\zm\replaced\zm_tomb::foot_print_box_fx);
+	replaceFunc(clientscripts\mp\zm_tomb::loop_cooldown_fx, scripts\zm\replaced\zm_tomb::loop_cooldown_fx);
 	replaceFunc(clientscripts\mp\zm_tomb_amb::sndchargeshot, scripts\zm\replaced\zm_tomb_amb::sndchargeshot);
 	replaceFunc(clientscripts\mp\zm_tomb_capture_zones::register_perk_machine_smoke_struct_references, scripts\zm\replaced\zm_tomb_capture_zones::register_perk_machine_smoke_struct_references);
 	replaceFunc(clientscripts\mp\zm_tomb_capture_zones::get_pack_a_punch_model, scripts\zm\replaced\zm_tomb_capture_zones::get_pack_a_punch_model);
 	replaceFunc(clientscripts\mp\zm_tomb_craftables::register_clientfields, scripts\zm\replaced\zm_tomb_craftables::register_clientfields);
+	replaceFunc(clientscripts\mp\zm_tomb_ee::wagon_fire_fx_loop, scripts\zm\replaced\zm_tomb_ee::wagon_fire_fx_loop);
+	replaceFunc(clientscripts\mp\zm_tomb_ee::tablet_fx, scripts\zm\replaced\zm_tomb_ee::tablet_fx);
+	replaceFunc(clientscripts\mp\zm_tomb_ee::create_beacon_portal, scripts\zm\replaced\zm_tomb_ee::create_beacon_portal);
+	replaceFunc(clientscripts\mp\zm_tomb_ee::zombie_soul_portal_fx, scripts\zm\replaced\zm_tomb_ee::zombie_soul_portal_fx);
 	replaceFunc(clientscripts\mp\zm_tomb_ee::set_ee_portal_fx, scripts\zm\replaced\zm_tomb_ee::set_ee_portal_fx);
 	replaceFunc(clientscripts\mp\zombies\_zm_ai_mechz::mechzfootstepcbfunc, scripts\zm\replaced\_zm_ai_mechz::mechzfootstepcbfunc);
 	replaceFunc(clientscripts\mp\zombies\_zm_magicbox_tomb::magicbox_ambient_fx, scripts\zm\replaced\_zm_magicbox_tomb::magicbox_ambient_fx);
+	replaceFunc(clientscripts\mp\zombies\_zm_magicbox_tomb::fx_magicbox_portal, scripts\zm\replaced\_zm_magicbox_tomb::fx_magicbox_portal);
+	replaceFunc(clientscripts\mp\zombies\_zm_perk_random::start_vortex_fx, scripts\zm\replaced\_zm_perk_random::start_vortex_fx);
+	replaceFunc(clientscripts\mp\zombies\_zm_perk_random::stop_vortex_fx, scripts\zm\replaced\_zm_perk_random::stop_vortex_fx);
+	replaceFunc(clientscripts\mp\zombies\_zm_perk_random::fx_departure_steam, scripts\zm\replaced\_zm_perk_random::fx_departure_steam);
+	replaceFunc(clientscripts\mp\zombies\_zm_perk_random::fx_location_indicator, scripts\zm\replaced\_zm_perk_random::fx_location_indicator);
 	replaceFunc(clientscripts\mp\zombies\_zm_powerup_zombie_blood::init, scripts\zm\replaced\_zm_powerup_zombie_blood::init);
 	replaceFunc(clientscripts\mp\zombies\_zm_powerup_zombie_blood::toggle_player_zombie_blood_fx, scripts\zm\replaced\_zm_powerup_zombie_blood::toggle_player_zombie_blood_fx);
 

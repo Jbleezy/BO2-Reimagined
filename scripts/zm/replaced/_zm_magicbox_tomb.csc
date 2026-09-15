@@ -48,3 +48,16 @@ magicbox_ambient_fx(localclientnum, oldval, newval, bnewent, binitialsnap, field
 		playsound(0, "zmb_hellbox_leave", self.fx_obj.origin);
 	}
 }
+
+fx_magicbox_portal(localclientnum)
+{
+	self endon("magicbox_portal_finished");
+
+	serverwait(localclientnum, 0.5);
+
+	while (true)
+	{
+		self.fx_obj_2.curr_portal_fx = playfxontag(localclientnum, level._effect["box_portal"], self.fx_obj_2, "tag_origin");
+		serverwait(localclientnum, 0.1);
+	}
+}

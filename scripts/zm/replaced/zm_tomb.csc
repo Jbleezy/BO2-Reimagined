@@ -89,6 +89,137 @@ entityspawned_tomb(localclientnum)
 	}
 }
 
+sndweatherupdate(player)
+{
+	level notify("sndWeatherUpdating");
+	level endon("sndWeatherUpdating");
+
+	serverwait(0, 0.5);
+	level notify("sndWeatherUpdate");
+	player thread sndupdateroomweather();
+}
+
+sndupdateroomweather()
+{
+	serverwait(0, 0.1);
+	name = level.activeambientpackage;
+
+	if (isdefined(level.sndambweathernames) && isinarray(level.sndambweathernames, name))
+	{
+		playsound(0, "amb_thunder_flash_2d", (0, 0, 0));
+		stoploopsound(0, level.ambientrooms[name].ent, level.ambientrooms[name].fadeout);
+		serverwait(0, 0.5);
+		level.ambientrooms[name].id = playloopsound(0, level.ambientrooms[name].ent, level.ambientrooms[name].tone, level.ambientrooms[name].fadein);
+	}
+}
+
+_rain_thread(n_level, localclientnum)
+{
+	level notify("_rain_thread" + localclientnum);
+	level notify("_rain_begin" + localclientnum);
+	level endon("_snow_begin" + localclientnum);
+	level endon("_rain_thread" + localclientnum);
+	self endon("disconnect");
+	self endon("entityshutdown");
+
+	n_wait = 0.35 / n_level;
+
+	if (n_wait < 0.15)
+	{
+		n_wait = 0.15;
+	}
+
+	while (true)
+	{
+		if (!isdefined(self))
+		{
+			return;
+		}
+
+		playfx(localclientnum, level._effect["player_rain"], self.origin);
+		serverwait(localclientnum, n_wait);
+	}
+}
+
+_snow_thread(n_level, localclientnum)
+{
+	level notify("_snow_thread" + localclientnum);
+	level notify("_snow_begin" + localclientnum);
+	level endon("_rain_begin" + localclientnum);
+	level endon("_snow_thread" + localclientnum);
+	self endon("disconnect");
+	self endon("entityshutdown");
+
+	n_wait = 0.5 / n_level;
+	self.b_lightning = 0;
+
+	while (true)
+	{
+		if (!isdefined(self))
+		{
+			return;
+		}
+
+		playfx(localclientnum, level._effect["player_snow"], self.origin);
+		wait(n_wait);
+	}
+}
+
+player_continuous_rumble(localclientnum, rumble_level, shake_camera)
+{
+	if (!isdefined(shake_camera))
+	{
+		shake_camera = 1;
+	}
+
+	self notify("stop_rumble_and_shake");
+	self endon("disconnect");
+	self endon("stop_rumble_and_shake");
+
+	while (true)
+	{
+		if (isdefined(self) && self islocalplayer() && isdefined(self))
+		{
+			if (rumble_level == 1)
+			{
+				if (shake_camera)
+				{
+					self earthquake(0.2, 1.0, self.origin, 100);
+				}
+
+				self playrumbleonentity(localclientnum, "reload_small");
+				serverwait(localclientnum, 0.05);
+			}
+			else
+			{
+				if (shake_camera)
+				{
+					self earthquake(0.3, 1.0, self.origin, 100);
+				}
+
+				self playrumbleonentity(localclientnum, "damage_light");
+			}
+		}
+
+		serverwait(localclientnum, 0.1);
+	}
+}
+
+player_staff_charge_rumble(localclientnum, str_rumble)
+{
+	self endon("stop_charge_rumble");
+	self endon("disconnect");
+
+	delta_time = 0.1;
+	n_max_time = 10.0;
+
+	while (true)
+	{
+		self playrumbleonentity(localclientnum, str_rumble);
+		serverwait(localclientnum, 0.1);
+	}
+}
+
 staff_charger_init(localclientnum, oldval, newval, bnewent, binitialsnap, fieldname, bwasdemojump)
 {
 	v_origin = self gettagorigin("tag_crystal");
@@ -170,4 +301,31 @@ zombie_soul_fx(localclientnum, oldval, newval, bnewent, binitialsnap, fieldname,
 	playfxontag(localclientnum, level._effect["staff_charge"], e_fx, "tag_origin");
 	serverwait(localclientnum, 0.3);
 	e_fx delete();
+}
+
+foot_print_box_fx(localclientnum, oldval, newval, bnewent, binitialsnap, fieldname, bwasdemojump)
+{
+	a_structs = getstructarray("foot_box_pos", "targetname");
+	s_box = get_array_of_closest(self.origin, a_structs)[0];
+	e_fx = spawn(localclientnum, self gettagorigin("J_SpineUpper"), "script_model");
+	e_fx setmodel("tag_origin");
+	e_fx playsound(localclientnum, "zmb_squest_charge_soul_leave");
+	playfxontag(localclientnum, level._effect["staff_soul"], e_fx, "tag_origin");
+	e_fx moveto(s_box.origin, 1);
+	e_fx waittill("movedone");
+	playsound(localclientnum, "zmb_squest_charge_soul_impact", e_fx.origin);
+	playfxontag(localclientnum, level._effect["staff_charge"], e_fx, "tag_origin");
+	serverwait(localclientnum, 0.3);
+	e_fx delete();
+}
+
+loop_cooldown_fx(localclientnum)
+{
+	level endon("stop_cooldown_fx");
+
+	while (true)
+	{
+		playfx(localclientnum, level._effect["perk_machine_steam"], self.origin);
+		serverwait(localclientnum, 0.1);
+	}
 }
