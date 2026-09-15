@@ -16,6 +16,7 @@ main()
 	replaceFunc(maps\mp\gametypes_zm\_globallogic_ui::menuautoassign, scripts\zm\replaced\_globallogic_ui::menuautoassign);
 	replaceFunc(maps\mp\gametypes_zm\_hud::fadetoblackforxsec, scripts\zm\replaced\_hud::fadetoblackforxsec);
 	replaceFunc(maps\mp\gametypes_zm\_hud_message::onplayerconnect, scripts\zm\replaced\_hud_message::onplayerconnect);
+	replaceFunc(maps\mp\gametypes_zm\_weaponobjects::watchusetrigger, scripts\zm\replaced\_weaponobjects::watchusetrigger);
 	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::rungametypeprecache, scripts\zm\replaced\_zm_gametype::rungametypeprecache);
 	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::rungametypemain, scripts\zm\replaced\_zm_gametype::rungametypemain);
 	replaceFunc(maps\mp\gametypes_zm\_zm_gametype::post_init_gametype, scripts\zm\replaced\_zm_gametype::post_init_gametype);

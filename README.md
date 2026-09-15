@@ -571,8 +571,8 @@
 * Projectiles are no longer destroyed when other players walk over them
 * Projectiles are no longer destroyed when purchasing a melee wallbuy
 * Projectiles get destroyed by lava
-* Projectiles can be picked up while the weapon is not reloaded
-* Projectiles can be picked up while the player is not on the ground
+* Projectiles can be picked up while not reloaded
+* Projectiles can be picked up while in the air
 * Upgraded: increased melee damage with Galvaknuckles from 1500 to 2000
 
 #### Crossbow
@@ -812,7 +812,7 @@
 #### Claymore
 * Added place and activate sounds to all maps
 * Can be repurchased
-* Can be placed while in the air
+* Can be placed and picked up while in the air
 * Decreased place time from 1 second to 0.5 seconds
 * Increased explosion radius by 28% (same as Black Ops 2 Multiplayer)
 * Increased max amount that can be placed from 12 to 20
