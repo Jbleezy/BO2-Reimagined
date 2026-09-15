@@ -810,9 +810,10 @@
 * Fixed an issue where a player's melee weapon wouldn't reset if the player bled out in the Giant Robots
 
 #### Claymore
-* Added plant and alert sounds to all maps
+* Added place and activate sounds to all maps
 * Can be repurchased
 * Can be placed while in the air
+* Decreased place time from 1 second to 0.5 seconds
 * Increased explosion radius by 28% (same as Black Ops 2 Multiplayer)
 * Increased max amount that can be placed from 12 to 20
 * Added weapon name on HUD
