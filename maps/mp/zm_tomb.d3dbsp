@@ -2050,19 +2050,19 @@
 {
 "classname" "script_struct"
 "targetname" "cooldown_steam_2"
-"origin" "-888 2312 -212"
+"origin" "-888 2308 -195"
 "guid" "19C6293D"
 }
 {
 "classname" "script_struct"
 "targetname" "cooldown_steam_3"
-"origin" "128 -2992 96"
+"origin" "128 -2996 109"
 "guid" "14500C48"
 }
 {
 "classname" "script_struct"
 "targetname" "cooldown_steam_1"
-"origin" "2312 704 24"
+"origin" "2312 700 41"
 "guid" "A1E54A60"
 }
 {

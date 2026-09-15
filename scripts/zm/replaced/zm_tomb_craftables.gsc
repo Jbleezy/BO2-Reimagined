@@ -253,7 +253,7 @@ onfullycrafted_quadrotor(player)
 	level.quadrotor_status.pickup_indicator = spawn("script_model", pickup_trig.model.origin + vectorscale((0, 0, -1), 10.0));
 	level.quadrotor_status.pickup_indicator.angles = pickup_trig.model.angles;
 	level.quadrotor_status.pickup_indicator setmodel("p6_zm_tm_quadrotor_stand");
-	pickup_trig.model.origin += (0, 0, 6.5);
+	pickup_trig.model.origin += (0, 0, 7);
 	pickup_trig.model.angles += (0, -90, 0);
 
 	level notify("quest_progressed", player, 1);
