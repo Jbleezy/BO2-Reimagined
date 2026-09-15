@@ -51,6 +51,24 @@ init()
 	level thread maps\mp\zm_tomb_vo::watch_occasional_line("tank", "tank_cooling", "vo_tank_cooling");
 }
 
+tank_station()
+{
+	self thread tank_watch_use();
+	self thread tank_movement();
+
+	a_call_boxes = getentarray("trig_tank_station_call", "targetname");
+
+	foreach (t_call_box in a_call_boxes)
+	{
+		t_call_box thread tank_call_box();
+	}
+
+	flag_wait("activate_zone_village_0");
+
+	level.tank_boxes_enabled = 1;
+	tank_call_boxes_update();
+}
+
 tank_call_box()
 {
 	while (true)

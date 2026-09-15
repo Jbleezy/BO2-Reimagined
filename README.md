@@ -1183,8 +1183,8 @@
 * Changed spectator cycle color from grey to black
 * Added missing fog fx to all game modes
 * Added collision to area at Cornfield that was considered out of the map
-* Added "Avenged Sevenfold - Carry On" song (activated by triggering the teddy bear at Farm last)
-* Added "Skrillex - Try It Out" song (activated by triggering the teddy bear at Bus Depot last)
+* Added "Avenged Sevenfold - Carry On" song (played by activating the teddy bear at Farm last)
+* Added "Skrillex - Try It Out" song (played by activating the teddy bear at Bus Depot last)
 * Zombies killed by the bus no longer respawn
 * Zombies no longer spawn in the Cornfield Building zone when players are in the Cornfield zone (and vice versa)
 * Zombies spawn in the Outside Power Station zone when players are in the Fog After Power Station zone
@@ -1511,6 +1511,7 @@
 * Tank: powerups dropped within the tank are linked to the tank
 * Tank: standing on the tread pushes the player forward instead of backward if the tank is moving
 * Tank: changed cooldown from 2-120 seconds depending on how long players were on the tank to 30 seconds
+* Tank: can be called without activating initially
 * Tank: removed delay between calling tank and tank moving
 * Tank: no longer free to activate if called
 * Tank: changed cooling down hint string from "Tank engine cooling down" to "The tank is cooling down"
@@ -1568,7 +1569,7 @@
 * Quest (unleash the horde step): Panzersoldat round and this step can no longer happen at the same time
 * Quest (raise hell step): all staffs must be fully charged for souls to be collected
 * Quest (raise hell step): zombies in The Crazy Place get knocked down during the screen flash after collecting all of the souls
-* Quest (freedom step): teleport trigger can be triggered without looking at it
+* Quest (freedom step): teleport trigger can be activated without looking at it
 
 #### Trenches
 * Wallbuys: SMR, Ballista, B23R, Five-seven, Vector K10, MP40, Remington 870 MCS, Frag Grenade, Bouncing Betty
@@ -1617,7 +1618,7 @@
 * Meleeing enemy players that are reviving pushes 50% less
 * Meleeing enemy players that are already stunned will still push them
 * Ballistic knife projectile pushes enemy players
-* Placeable mines are no longer triggered by enemy players
+* Placeable mines are no longer activated by enemy players
 * Stun fx is linked to the player
 * Stun fx shows in the correct position for explosive damage and projectile impact damage
 * Stunning enemy players steals 100 points from them
