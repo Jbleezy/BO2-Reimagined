@@ -94,16 +94,18 @@
 		* [Smoke Grenade](#smoke-grenade)
 		* [Hell's Retriever](#hells-retriever)
 		* [G-Strike Beacon](#g-strike-beacon)
+	* [Placeable Mines](#placeable-mines)
+		* [Claymore](#claymore)
+		* [Bouncing Betty](#bouncing-betty)
 	* [Equipment](#equipment)
+		* [Syrette](#syrette)
+		* [Time Bomb](#time-bomb)
+	* [Melee Weapons](#melee-weapons)
 		* [Combat Knife](#combat-knife)
 		* [Bowie Knife](#bowie-knife)
 		* [Silver Spoon](#silver-spoon)
 		* [Golden Spork](#golden-spork)
 		* [One Inch Punch](#one-inch-punch)
-		* [Claymore](#claymore)
-		* [Bouncing Betty](#bouncing-betty)
-		* [Time Bomb](#time-bomb)
-		* [Syrette](#syrette)
 * [Wallbuys](#wallbuys)
 * [Mystery Box](#mystery-box)
 * [Perks](#perks)
@@ -780,7 +782,40 @@
 * Increased ammo from 2 to 3
 * No longer attracts after all missiles explode
 
+### Placeable Mines
+* Increased move speed from 100% to 110%
+* Can be repurchased
+* Can be placed and picked up while in the air
+* Increased max amount that can be placed from 12 to 20
+* Added weapon name on HUD
+
+#### Claymore
+* Added place and activate sounds to all maps
+* Decreased place time from 1 second to 0.5 seconds
+* Increased explosion radius by 28% (same as Black Ops 2 Multiplayer)
+* Removed initial weapon raise anim
+
+#### Bouncing Betty
+* Replaces Claymore on Origins
+
 ### Equipment
+
+#### Syrette
+* Added weapon name on HUD
+* Fixed being able to see view model at end of anim
+
+#### Time Bomb
+* Added to all game modes
+* No longer sends players back in time
+* Kills all zombies
+* Revives all down players
+* Increased move speed from 100% to 110%
+* Can have with Monkey Bombs
+* Removed impact damage
+* Switches to detonator at correct time after throwing
+* Fixed detonator raise and drop anims
+
+### Melee Weapons
 * Increased move speed from 100% to 110%
 
 #### Combat Knife
@@ -808,33 +843,6 @@
 * Fixed players gaining damage score multiple times
 * Fixed zombies not being flung when Insta Kill powerup is active
 * Fixed an issue where a player's melee weapon wouldn't reset if the player bled out in the Giant Robots
-
-#### Claymore
-* Added place and activate sounds to all maps
-* Can be repurchased
-* Can be placed and picked up while in the air
-* Decreased place time from 1 second to 0.5 seconds
-* Increased explosion radius by 28% (same as Black Ops 2 Multiplayer)
-* Increased max amount that can be placed from 12 to 20
-* Added weapon name on HUD
-* Removed initial weapon raise anim
-
-#### Bouncing Betty
-* Replaces Claymore on Origins
-
-#### Time Bomb
-* Added to all game modes
-* No longer sends players back in time
-* Kills all zombies
-* Revives all down players
-* Can have with Monkey Bombs
-* Removed impact damage
-* Switches to detonator at correct time after throwing
-* Fixed detonator raise and drop anims
-
-#### Syrette
-* Added weapon name on HUD
-* Fixed being able to see view model at end of anim
 
 ## Wallbuys
 * Purchasing ammo refills clip ammo
