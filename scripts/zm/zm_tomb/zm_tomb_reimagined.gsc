@@ -34,6 +34,7 @@ main()
 	replaceFunc(maps\mp\zm_tomb_ee_main_step_3::ready_to_activate, scripts\zm\replaced\zm_tomb_ee_main_step_3::ready_to_activate);
 	replaceFunc(maps\mp\zm_tomb_ee_main_step_4::stage_logic, scripts\zm\replaced\zm_tomb_ee_main_step_4::stage_logic);
 	replaceFunc(maps\mp\zm_tomb_ee_main_step_4::mechz_death_ee, scripts\zm\replaced\zm_tomb_ee_main_step_4::mechz_death_ee);
+	replaceFunc(maps\mp\zm_tomb_ee_main_step_7::ee_zombie_killed_override, scripts\zm\replaced\zm_tomb_ee_main_step_7::ee_zombie_killed_override);
 	replaceFunc(maps\mp\zm_tomb_ee_main_step_8::stage_logic, scripts\zm\replaced\zm_tomb_ee_main_step_8::stage_logic);
 	replaceFunc(maps\mp\zm_tomb_ee_side::init, scripts\zm\replaced\zm_tomb_ee_side::init);
 	replaceFunc(maps\mp\zm_tomb_ee_side::swap_mg, scripts\zm\replaced\zm_tomb_ee_side::swap_mg);
