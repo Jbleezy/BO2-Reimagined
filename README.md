@@ -455,6 +455,7 @@
 * Upgraded: decreased stock ammo from 420 to 200
 
 #### STG-44
+* Unupgraded: increased stock ammo from 210 to 240
 * Upgraded: decreased stock ammo from 330 to 300
 * Upgraded: changed weapon name from "Spatz-447 +" to "Spatz-447"
 
