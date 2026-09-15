@@ -100,3 +100,95 @@ swap_mg(e_player)
 		return false;
 	}
 }
+
+church_volume_death_check()
+{
+	self waittill("death");
+
+	if (!isdefined(self))
+	{
+		return;
+	}
+
+	volume_name = "oneinchpunch_church_volume";
+	volume = getent(volume_name, "targetname");
+	assert(isdefined(volume), volume_name + " does not exist");
+	attacker = self.attacker;
+
+	if (isdefined(attacker) && isplayer(attacker))
+	{
+		if (attacker.sq_one_inch_punch_stage == 2 && (self.damagemod == "MOD_MELEE" || self.damageweapon == "tomb_shield_zm"))
+		{
+			if (self istouching(volume))
+			{
+				self setclientfield("ee_zombie_tablet_fx", 1);
+				attacker.sq_one_inch_punch_kills++;
+
+				if (attacker.sq_one_inch_punch_kills >= 20)
+				{
+					wait 1;
+
+					if (attacker.sq_one_inch_punch_stage != 2)
+					{
+						return;
+					}
+
+					attacker.sq_one_inch_punch_stage++;
+					attacker.sq_one_inch_punch_kills = 0;
+					attacker.sq_one_inch_punch_tablet delete();
+					attacker.sq_one_inch_punch_tablet = spawn_tablet_model(attacker.sq_one_inch_punch_tablet_num, "church", "clean");
+					level thread maps\mp\zombies\_zm_audio::sndmusicstingerevent("side_sting_6");
+				}
+			}
+		}
+	}
+}
+
+bunker_volume_death_check()
+{
+	self waittill("death");
+
+	if (!isdefined(self))
+	{
+		return;
+	}
+
+	volume_name = "oneinchpunch_bunker_volume";
+	volume = getent(volume_name, "targetname");
+	assert(isdefined(volume), volume_name + " does not exist");
+	attacker = self.attacker;
+
+	if (isdefined(attacker) && isplayer(attacker))
+	{
+		if (attacker.sq_one_inch_punch_stage == 5 && (self.damagemod == "MOD_MELEE" || self.damageweapon == "tomb_shield_zm"))
+		{
+			if (self istouching(volume))
+			{
+				self setclientfield("ee_zombie_tablet_fx", 1);
+				attacker.sq_one_inch_punch_kills++;
+
+				if (attacker.sq_one_inch_punch_kills >= 20)
+				{
+					wait 1;
+
+					if (attacker.sq_one_inch_punch_stage != 5)
+					{
+						return;
+					}
+
+					attacker.sq_one_inch_punch_stage++;
+					attacker thread bunker_spawn_reward();
+					level thread maps\mp\zombies\_zm_audio::sndmusicstingerevent("side_sting_3");
+				}
+			}
+		}
+	}
+}
+
+bunker_spawn_reward()
+{
+	self endon("disconnect");
+	self setclientfieldtoplayer("ee_beacon_reward", 1);
+	wait 1;
+	self.beacon_ready = 1;
+}

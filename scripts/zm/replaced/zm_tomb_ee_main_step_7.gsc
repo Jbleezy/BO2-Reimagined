@@ -11,26 +11,38 @@ ee_zombie_killed_override(einflictor, attacker, idamage, smeansofdeath, sweapon,
 {
 	if (isdefined(attacker) && isplayer(attacker) && !issubstr(sweapon, "staff") && maps\mp\zm_tomb_chamber::is_point_in_chamber(self.origin))
 	{
-		level.n_ee_portal_souls++;
+		level thread zombie_soul_to_portal(self);
+	}
+}
 
-		if (level.n_ee_portal_souls == 1)
-		{
-			level thread ee_samantha_say("vox_sam_generic_encourage_3");
-		}
-		else if (level.n_ee_portal_souls == floor(33.3333))
-		{
-			level thread ee_samantha_say("vox_sam_generic_encourage_4");
-		}
-		else if (level.n_ee_portal_souls == floor(66.6667))
-		{
-			level thread ee_samantha_say("vox_sam_generic_encourage_5");
-		}
-		else if (level.n_ee_portal_souls == 100)
-		{
-			level thread ee_samantha_say("vox_sam_generic_encourage_0");
-			flag_set("ee_souls_absorbed");
-		}
+zombie_soul_to_portal(ai_zombie)
+{
+	ai_zombie setclientfield("ee_zombie_soul_portal", 1);
 
-		self setclientfield("ee_zombie_soul_portal", 1);
+	wait 1;
+
+	if (flag("ee_souls_absorbed"))
+	{
+		return;
+	}
+
+	level.n_ee_portal_souls++;
+
+	if (level.n_ee_portal_souls == 1)
+	{
+		level thread ee_samantha_say("vox_sam_generic_encourage_3");
+	}
+	else if (level.n_ee_portal_souls == floor(33.3333))
+	{
+		level thread ee_samantha_say("vox_sam_generic_encourage_4");
+	}
+	else if (level.n_ee_portal_souls == floor(66.6667))
+	{
+		level thread ee_samantha_say("vox_sam_generic_encourage_5");
+	}
+	else if (level.n_ee_portal_souls == 100)
+	{
+		level thread ee_samantha_say("vox_sam_generic_encourage_0");
+		flag_set("ee_souls_absorbed");
 	}
 }

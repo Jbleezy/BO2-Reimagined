@@ -38,6 +38,8 @@ main()
 	replaceFunc(maps\mp\zm_tomb_ee_main_step_8::stage_logic, scripts\zm\replaced\zm_tomb_ee_main_step_8::stage_logic);
 	replaceFunc(maps\mp\zm_tomb_ee_side::init, scripts\zm\replaced\zm_tomb_ee_side::init);
 	replaceFunc(maps\mp\zm_tomb_ee_side::swap_mg, scripts\zm\replaced\zm_tomb_ee_side::swap_mg);
+	replaceFunc(maps\mp\zm_tomb_ee_side::church_volume_death_check, scripts\zm\replaced\zm_tomb_ee_side::church_volume_death_check);
+	replaceFunc(maps\mp\zm_tomb_ee_side::bunker_volume_death_check, scripts\zm\replaced\zm_tomb_ee_side::bunker_volume_death_check);
 	replaceFunc(maps\mp\zm_tomb_capture_zones::precache_everything, scripts\zm\replaced\zm_tomb_capture_zones::precache_everything);
 	replaceFunc(maps\mp\zm_tomb_capture_zones::declare_objectives, scripts\zm\replaced\zm_tomb_capture_zones::declare_objectives);
 	replaceFunc(maps\mp\zm_tomb_capture_zones::init_capture_zone, scripts\zm\replaced\zm_tomb_capture_zones::init_capture_zone);

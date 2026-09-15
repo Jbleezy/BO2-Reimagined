@@ -1482,6 +1482,7 @@
 * Zombies spawn in the Generator 3 Above Bunker zone when players are in the Generator 3 Bunker 2 zone before any player has entered the Generator 3 Above Bunker zone
 * Zombies spawn in the Generator 3 Above Bunker zone when players are in the Generator 4 Tank Route 6 zone before any player has entered the Generator 3 Above Bunker zone
 * Fixed Mule Kick machine not using powered on model
+* Fixed timings of receiving zombie souls
 * Fixed staff charger triggers
 * Fixed being able to carry multiple staffs by picking up a staff with upgraded staff alt weapon out
 * Fixed zombie eye fx not showing correctly when they first spawn in The Crazy Place area
@@ -1556,7 +1557,6 @@
 * Quest (secure the keys step): removed delay between zombie death and zombie soul spawn
 * Quest (secure the keys step): staffs get full ammo when initially picked up after upgrading (normally missing one clip)
 * Quest (secure the keys step): fixed staffs disappearing momentarily when they get upgraded
-* Quest (secure the keys step): fixed timing of staff upgrades
 * Quest (ascend from darkness step): 3 robots are always active during this step
 * Quest (ascend from darkness step): staffs can be inserted into any upgraded staff holder
 * Quest (ascend from darkness step): fixed an issue where staffs were able to be picked up from the original staff holders when inserted into the upgraded staff holders
