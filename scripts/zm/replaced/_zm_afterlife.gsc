@@ -346,7 +346,7 @@ afterlife_revive_trigger_think()
 			}
 
 			revive_success = reviver afterlife_revive_do_revive(self, gun);
-			reviver revive_give_back_weapons(gun);
+			reviver afterlife_revive_give_back_weapons(self, gun);
 
 			if (isplayer(self))
 			{
@@ -580,6 +580,49 @@ afterlife_revive_do_revive(playerbeingrevived, revivergun)
 	objective_clearplayerusing(playerbeingrevived_player.clone_obj_ind, self);
 
 	return revived;
+}
+
+afterlife_revive_give_back_weapons(playerbeingrevived, gun)
+{
+	revive_tool = level.afterlife_revive_tool;
+
+	cur_wep = self getCurrentWeapon();
+
+	self takeweapon(revive_tool);
+
+	if (self maps\mp\zombies\_zm_laststand::player_is_in_laststand())
+	{
+		return;
+	}
+
+	if (cur_wep != revive_tool && is_true(self.revive_weapon_changed))
+	{
+		return;
+	}
+
+	if (self hasWeapon(level.item_meat_name))
+	{
+		return;
+	}
+
+	if (self hasWeapon("screecher_arms_zm"))
+	{
+		return;
+	}
+
+	if (gun != "none" && gun != "equip_gasmask_zm" && gun != "lower_equip_gasmask_zm" && self hasweapon(gun))
+	{
+		self switchtoweapon(gun);
+	}
+	else
+	{
+		primaryweapons = self getweaponslistprimaries();
+
+		if (isDefined(primaryweapons) && primaryweapons.size > 0)
+		{
+			self switchtoweapon(primaryweapons[0]);
+		}
+	}
 }
 
 afterlife_corpse_cleanup(corpse)

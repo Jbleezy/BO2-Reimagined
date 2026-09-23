@@ -84,6 +84,9 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_laststand::revive_trigger_spawn, scripts\zm\replaced\_zm_laststand::revive_trigger_spawn);
 	replaceFunc(maps\mp\zombies\_zm_laststand::can_revive, scripts\zm\replaced\_zm_laststand::can_revive);
 	replaceFunc(maps\mp\zombies\_zm_laststand::revive_do_revive, scripts\zm\replaced\_zm_laststand::revive_do_revive);
+	replaceFunc(maps\mp\zombies\_zm_laststand::revive_success, scripts\zm\replaced\_zm_laststand::revive_success);
+	replaceFunc(maps\mp\zombies\_zm_laststand::laststand_clean_up_on_disconnect, scripts\zm\replaced\_zm_laststand::laststand_clean_up_on_disconnect);
+	replaceFunc(maps\mp\zombies\_zm_laststand::laststand_clean_up_reviving_any, scripts\zm\replaced\_zm_laststand::laststand_clean_up_reviving_any);
 	replaceFunc(maps\mp\zombies\_zm_laststand::auto_revive, scripts\zm\replaced\_zm_laststand::auto_revive);
 	replaceFunc(maps\mp\zombies\_zm_laststand::bleed_out, scripts\zm\replaced\_zm_laststand::bleed_out);
 	replaceFunc(maps\mp\zombies\_zm_laststand::revive_hud_create, scripts\zm\replaced\_zm_laststand::revive_hud_create);

@@ -1416,7 +1416,8 @@
 * Removed player spawn point in the Acid Trap
 * Zombies spawn in the Docks Gates zone when players are in the Docks zone (and vice versa)
 * Fixed afterlife icon showing when initially in afterlife at the start of the game
-* Fixed initial weapon raise anim happening after exiting afterlife
+* Fixed afterlife revive anim not playing after dropping the afterlife revive
+* Fixed initial weapon raise anim playing after exiting afterlife
 * Fixed perk hint strings showing when in afterlife
 * Fixed being able to hit a death barrier when jumping off the Docks Bridge zone
 * Acid Trap: kills on any round (normally stops killing after round 158 on PC)
