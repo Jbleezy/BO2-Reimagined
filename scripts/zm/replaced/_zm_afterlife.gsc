@@ -584,7 +584,12 @@ afterlife_revive_do_revive(playerbeingrevived, revivergun)
 
 afterlife_revive_give_back_weapons(playerbeingrevived, gun)
 {
-	revive_tool = level.afterlife_revive_tool;
+	revive_tool = level.revive_tool;
+
+	if (is_true(self.afterlife))
+	{
+		revive_tool = level.afterlife_revive_tool;
+	}
 
 	cur_wep = self getCurrentWeapon();
 
