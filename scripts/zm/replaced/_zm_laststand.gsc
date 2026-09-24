@@ -145,8 +145,6 @@ revive_trigger_think()
 				continue;
 			}
 
-			reviver thread scripts\zm\_zm_reimagined::temp_weapon_disable_fast_weapon_switch(revive_tool);
-
 			reviver giveweapon(revive_tool);
 			reviver switchtoweapon(revive_tool);
 			reviver setweaponammostock(revive_tool, 1);

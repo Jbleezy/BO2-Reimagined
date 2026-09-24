@@ -98,7 +98,6 @@
 		* [Claymore](#claymore)
 		* [Bouncing Betty](#bouncing-betty)
 	* [Equipment](#equipment)
-		* [Syrette](#syrette)
 		* [Time Bomb](#time-bomb)
 	* [Melee Weapons](#melee-weapons)
 		* [Combat Knife](#combat-knife)
@@ -272,6 +271,7 @@
 * Disabled meleeing while reviving (except if player switches weapons)
 * Pressing fire button while reviving no longer switches weapons
 * Weapon is no longer switched after reviving if player switched weapons during revive
+* Weapon name no longer shows while reviving
 * No longer gain points back on self revives
 * Respawn near a random player (normally respawn near the same player every time)
 * No longer spawn in for a second when joining mid game
@@ -292,6 +292,7 @@
 * Fixed last stand vision being changed when another player downs
 * Fixed revive hint string showing when another player drops the revive
 * Fixed certain player anims
+* Fixed being able to see view model at end of revive anim
 * Fixed being able to start reviving a player on the same frame that another player stopped reviving that player
 * Fixed not being revived instantly by instant revive sources if another player was reviving
 * Fixed randomization for teams on Survival
@@ -799,10 +800,6 @@
 * Replaces Claymore on Origins
 
 ### Equipment
-
-#### Syrette
-* Added weapon name on HUD
-* Fixed being able to see view model at end of anim
 
 #### Time Bomb
 * Added to all game modes

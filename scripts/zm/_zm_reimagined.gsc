@@ -3608,36 +3608,6 @@ delete_placeable_mines()
 	}
 }
 
-temp_weapon_disable_fast_weapon_switch(temp_weapon)
-{
-	self endon("disconnect");
-
-	if (!self hasperk("specialty_fastweaponswitch"))
-	{
-		return;
-	}
-
-	if (self hasperk("specialty_fastreload"))
-	{
-		self unsetperk("specialty_fastweaponswitch");
-	}
-
-	while (1)
-	{
-		wait 0.05;
-
-		if (!self isswitchingweapons() || self getcurrentweapon() == temp_weapon || !self hasweapon(temp_weapon))
-		{
-			break;
-		}
-	}
-
-	if (self hasperk("specialty_fastreload"))
-	{
-		self setperk("specialty_fastweaponswitch");
-	}
-}
-
 should_respawn()
 {
 	if (is_true(level.intermission))
