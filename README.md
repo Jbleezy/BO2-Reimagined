@@ -795,6 +795,7 @@
 * Decreased place time from 1 second to 0.5 seconds
 * Increased explosion radius by 28% (same as Black Ops 2 Multiplayer)
 * Removed initial weapon raise anim
+* Fixed laser fx occasionally playing at incorrect position
 
 #### Bouncing Betty
 * Replaces Claymore on Origins

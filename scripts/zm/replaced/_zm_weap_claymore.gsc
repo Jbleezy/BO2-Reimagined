@@ -228,3 +228,13 @@ claymore_detonation()
 		}
 	}
 }
+
+play_claymore_effects()
+{
+	self endon("death");
+
+	self waittill_not_moving();
+	wait 0.05;
+
+	playfxontag(level._effect["claymore_laser"], self, "tag_fx");
+}
