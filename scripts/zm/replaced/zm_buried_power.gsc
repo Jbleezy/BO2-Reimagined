@@ -9,10 +9,12 @@ electric_switch()
 {
 	trig = getent("use_elec_switch", "targetname");
 	master_switch = getent("elec_switch", "targetname");
-	master_switch notsolid();
 	trig sethintstring(&"ZOMBIE_ELECTRIC_SWITCH");
 	trig setvisibletoall();
 
+	trig waittill("trigger");
+
+	master_switch notsolid();
 	trig setinvisibletoall();
 	master_switch rotateroll(-90, 0.3);
 	master_switch playsound("zmb_switch_flip");

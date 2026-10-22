@@ -211,7 +211,7 @@ capture_zombie_spawn_init(animname_set = 0)
 
 	self.deathfunction = ::zombie_death_animscript;
 	self.flame_damage_time = 0;
-	self.meleedamage = 50;
+	self.meleedamage = 60;
 	self.no_powerups = 1;
 	self zombie_history("zombie_spawn_init -> Spawned = " + self.origin);
 	self.thundergun_knockdown_func = level.basic_zombie_thundergun_knockdown;

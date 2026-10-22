@@ -25,8 +25,8 @@ playerhealthregen()
 	self player_flag_clear("player_is_invulnerable");
 	self thread maps\mp\zombies\_zm_playerhealth::healthoverlay();
 
-	level.playerhealth_regularregendelay = 2000;
-	level.longregentime = 4000;
+	level.playerhealth_regularregendelay = 2400;
+	level.longregentime = 5000;
 
 	oldratio = 1;
 	veryhurt = 0;
@@ -60,7 +60,7 @@ playerhealthregen()
 
 		health_ratio = self.health / self.maxhealth;
 		maxhealthratio = self.maxhealth / 100;
-		regenrate = 0.05 / maxhealthratio;
+		regenrate = 0.1 / maxhealthratio;
 		regularregendelay = level.playerhealth_regularregendelay;
 		longregendelay = level.longregentime;
 
@@ -75,7 +75,7 @@ playerhealthregen()
 			longregendelay *= 0.75;
 		}
 
-		if (self.health > 50)
+		if (health_ratio > healthoverlaycutoff)
 		{
 			if (self player_flag("player_has_red_flashing_overlay"))
 			{
@@ -99,7 +99,7 @@ playerhealthregen()
 
 		wasveryhurt = veryhurt;
 
-		if (self.health <= 50)
+		if (health_ratio <= healthoverlaycutoff)
 		{
 			veryhurt = 1;
 
