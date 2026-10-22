@@ -119,7 +119,7 @@ include_powerups()
 
 zombie_init_done()
 {
-	self.meleedamage = 50;
+	self.meleedamage = 60;
 	self.allowpain = 0;
 	self setphysparams(15, 0, 48);
 }

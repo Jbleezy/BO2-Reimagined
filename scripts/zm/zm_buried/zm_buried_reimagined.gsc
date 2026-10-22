@@ -26,7 +26,6 @@ main()
 	replaceFunc(maps\mp\zm_buried_gamemodes::init, scripts\zm\replaced\zm_buried_gamemodes::init);
 	replaceFunc(maps\mp\zm_buried_gamemodes::buildbuildable, scripts\zm\replaced\zm_buried_gamemodes::buildbuildable);
 	replaceFunc(maps\mp\zm_buried_gamemodes::builddynamicwallbuy, scripts\zm\replaced\zm_buried_gamemodes::builddynamicwallbuy);
-	replaceFunc(maps\mp\zm_buried_power::electric_switch, scripts\zm\replaced\zm_buried_power::electric_switch);
 	replaceFunc(maps\mp\zm_buried_ffotd::main_end, scripts\zm\replaced\zm_buried_ffotd::main_end);
 	replaceFunc(maps\mp\zm_buried_ffotd::jail_traversal_fix, scripts\zm\replaced\zm_buried_ffotd::jail_traversal_fix);
 	replaceFunc(maps\mp\zm_buried_ffotd::time_bomb_takeaway, scripts\zm\replaced\zm_buried_ffotd::time_bomb_takeaway);
@@ -51,16 +50,6 @@ main()
 	replaceFunc(maps\mp\zombies\_zm_ai_ghost::drain_player, scripts\zm\replaced\_zm_ai_ghost::drain_player);
 	replaceFunc(maps\mp\zombies\_zm_ai_ghost::player_moving_speed_scale_think, scripts\zm\replaced\_zm_ai_ghost::player_moving_speed_scale_think);
 	replaceFunc(maps\mp\zombies\_zm_ai_ghost::should_last_ghost_drop_powerup, scripts\zm\replaced\_zm_ai_ghost::should_last_ghost_drop_powerup);
-	replaceFunc(maps\mp\zombies\_zm_ai_sloth::start_jail_run, scripts\zm\replaced\_zm_ai_sloth::start_jail_run);
-	replaceFunc(maps\mp\zombies\_zm_ai_sloth::start_jail_wait, scripts\zm\replaced\_zm_ai_sloth::start_jail_wait);
-	replaceFunc(maps\mp\zombies\_zm_ai_sloth::update_jail_idle, scripts\zm\replaced\_zm_ai_sloth::update_jail_idle);
-	replaceFunc(maps\mp\zombies\_zm_ai_sloth::update_jail_wait, scripts\zm\replaced\_zm_ai_sloth::update_jail_wait);
-	replaceFunc(maps\mp\zombies\_zm_ai_sloth::update_eat, scripts\zm\replaced\_zm_ai_sloth::update_eat);
-	replaceFunc(maps\mp\zombies\_zm_ai_sloth::sloth_check_ragdolls, scripts\zm\replaced\_zm_ai_sloth::sloth_check_ragdolls);
-	replaceFunc(maps\mp\zombies\_zm_ai_sloth::sloth_ragdoll_zombie, scripts\zm\replaced\_zm_ai_sloth::sloth_ragdoll_zombie);
-	replaceFunc(maps\mp\zombies\_zm_ai_sloth::wait_start_candy_booze, scripts\zm\replaced\_zm_ai_sloth::wait_start_candy_booze);
-	replaceFunc(maps\mp\zombies\_zm_buildables_pooled::add_buildable_to_pool, scripts\zm\replaced\_zm_buildables_pooled::add_buildable_to_pool);
-	replaceFunc(maps\mp\zombies\_zm_buildables_pooled::randomize_pooled_buildables, scripts\zm\replaced\_zm_buildables_pooled::randomize_pooled_buildables);
 	replaceFunc(maps\mp\zombies\_zm_equip_subwoofer::hit_player, scripts\zm\replaced\_zm_equip_subwoofer::hit_player);
 	replaceFunc(maps\mp\zombies\_zm_equip_subwoofer::startsubwooferdecay, scripts\zm\replaced\_zm_equip_subwoofer::startsubwooferdecay);
 	replaceFunc(maps\mp\zombies\_zm_equip_subwoofer::subwoofer_network_choke, scripts\zm\replaced\_zm_equip_subwoofer::subwoofer_network_choke);
@@ -99,7 +88,6 @@ init()
 	maps\mp\zm_buried::buried_add_player_dialogue("player", "perk", "specialty_scavenger", "perk_tombstone", undefined, 100);
 
 	player_initial_spawn_override();
-	sloth_barricades_buyable();
 	add_mansion_backyard_collision();
 	add_jug_collision();
 	move_divetonuke_collision();
@@ -109,12 +97,11 @@ init()
 	level thread remove_chalk_draw_points();
 	level thread enable_fountain_transport();
 	level thread disable_ghost_free_perk_on_damage();
-	level thread sloth_trap();
 }
 
 zombie_init_done()
 {
-	self.meleedamage = 50;
+	self.meleedamage = 60;
 	self.allowpain = 0;
 	self.zombie_path_bad = 0;
 	self thread maps\mp\zm_buried_distance_tracking::escaped_zombies_cleanup_init();
@@ -206,143 +193,6 @@ player_initial_spawn_override()
 			size = level.struct_class_names["script_noteworthy"][struct.script_noteworthy].size;
 			level.struct_class_names["script_noteworthy"][struct.script_noteworthy][size] = struct;
 		}
-	}
-}
-
-sloth_barricades_buyable()
-{
-	if (!is_gametype_active("zclassic"))
-	{
-		return;
-	}
-
-	sloth_trigs = getentarray("sloth_barricade", "targetname");
-
-	foreach (trig in sloth_trigs)
-	{
-		if (isDefined(trig.script_noteworthy) && trig.script_noteworthy == "courtyard_fountain")
-		{
-			parts = getentarray(trig.target, "targetname");
-			array_thread(parts, ::self_delete);
-
-			continue;
-		}
-
-		debris_trig = spawn("trigger_box_use", trig.origin, 0, 128, 128, 128);
-		debris_trig.targetname = "zombie_debris";
-		debris_trig.target = trig.target;
-		debris_trig.script_noteworthy = trig.script_noteworthy;
-		debris_trig.script_int = trig.script_int;
-		debris_trig.script_flag = trig.script_flag;
-		debris_trig.script_location = trig.script_location;
-
-		switch (debris_trig.script_location)
-		{
-			case "juggernaut_alley":
-			case "stables_alley":
-				debris_trig.zombie_cost = 750;
-				break;
-
-			case "jail":
-			case "gunstore":
-			case "mansion":
-				debris_trig.zombie_cost = 1000;
-				break;
-
-			case "candystore_alley":
-			case "church":
-				debris_trig.zombie_cost = 1250;
-				break;
-
-			default:
-				debris_trig.zombie_cost = 1000;
-				break;
-		}
-
-		debris_trig thread sloth_barricade_think();
-	}
-
-	maps\mp\zm_buried_gamemodes::deleteslothbarricades(1);
-}
-
-sloth_barricade_think()
-{
-	self sethintstring(&"ZOMBIE_BUTTON_BUY_CLEAR_DEBRIS_COST", self.zombie_cost);
-	self setcursorhint("HINT_NOICON");
-
-	while (1)
-	{
-		self waittill("trigger", who);
-
-		if (who in_revive_trigger())
-		{
-			continue;
-		}
-
-		if (is_player_valid(who))
-		{
-			if (who.score >= self.zombie_cost)
-			{
-				who maps\mp\zombies\_zm_score::minus_to_player_score(self.zombie_cost);
-			}
-			else
-			{
-				play_sound_at_pos("no_purchase", self.origin);
-				who maps\mp\zombies\_zm_audio::create_and_play_dialog("general", "door_deny");
-				continue;
-			}
-
-			self hide();
-
-			if (isdefined(self.script_flag) && level flag_exists(self.script_flag))
-			{
-				flag_set(self.script_flag);
-
-				if (self.script_flag == "jail_door1")
-				{
-					level notify("jail_barricade_down");
-				}
-			}
-
-			pieces = getentarray(self.target, "targetname");
-			pieces[1] sloth_barricade_move();
-
-			if (isdefined(self.script_int))
-			{
-				exploder(self.script_int);
-			}
-
-			foreach (piece in pieces)
-			{
-				piece delete();
-			}
-
-			self thread maps\mp\zombies\_zm_equip_headchopper::destroyheadchopperstouching(0);
-			self playsound("zmb_sloth_barrier_break");
-			level notify("sloth_breaks_barrier");
-
-			self delete();
-
-			break;
-		}
-	}
-}
-
-sloth_barricade_move()
-{
-	self play_sound_on_ent("debris_move");
-	playsoundatposition("zmb_lightning_l", self.origin);
-	playfx(level._effect["poltergeist"], self.origin);
-
-	num = randomintrange(3, 5);
-	og_angles = self.angles;
-
-	for (i = 0; i < num; i++)
-	{
-		angles = og_angles + (-5 + randomfloat(10), -5 + randomfloat(10), -5 + randomfloat(10));
-		time = randomfloatrange(0.1, 0.4);
-		self rotateto(angles, time);
-		wait(time - 0.05);
 	}
 }
 
@@ -548,120 +398,4 @@ move_tombstone_collision()
 			trig.clip.origin += anglestoright(trig.clip.angles) * 8;
 		}
 	}
-}
-
-sloth_trap()
-{
-	if (!is_gametype_active("zclassic"))
-	{
-		return;
-	}
-
-	trig = spawn("trigger_box_use", level.cell_door.origin, 0, 64, 64, 64);
-	trig.cost = 1000;
-	trig setcursorhint("HINT_NOICON");
-	level.sloth_trap_trig = trig;
-
-	flag_wait("initial_blackscreen_passed");
-
-	level.sloth.actor_damage_func = ::sloth_damage_func;
-
-	level.candy_context = [];
-	maps\mp\zombies\_zm_ai_sloth::register_candy_context("protect", 100, maps\mp\zombies\_zm_ai_sloth::protect_condition, maps\mp\zombies\_zm_ai_sloth::protect_start, maps\mp\zombies\_zm_ai_sloth::protect_update, maps\mp\zombies\_zm_ai_sloth::protect_action);
-
-	while (1)
-	{
-		trig sethintstring(&"ZM_BURIED_CANDY_GV", trig.cost);
-
-		trig waittill("trigger", who);
-
-		if (!is_player_valid(who))
-		{
-			continue;
-		}
-
-		if (who.score < trig.cost)
-		{
-			play_sound_at_pos("no_purchase", trig.origin);
-			who maps\mp\zombies\_zm_audio::create_and_play_dialog("general", "door_deny");
-			continue;
-		}
-
-		trig sethintstring("");
-
-		who maps\mp\zombies\_zm_score::minus_to_player_score(trig.cost);
-		play_sound_at_pos("purchase", trig.origin);
-
-		who thread maps\mp\zombies\_zm_audio::create_and_play_dialog("general", "sloth_generic_feed");
-
-		who maps\mp\zm_buried_buildables::onuseplantobject_key(who);
-
-		level.sloth maps\mp\zombies\_zm_ai_sloth::sloth_set_state("jail_cower");
-
-		wait 0.5;
-
-		level.sloth maps\mp\zombies\_zm_ai_sloth::sloth_set_state("eat", who);
-
-		while (level.sloth.state == "eat")
-		{
-			wait 0.05;
-		}
-
-		wait 30;
-
-		while (level.sloth maps\mp\zombies\_zm_ai_sloth_utility::sloth_is_traversing())
-		{
-			wait 0.05;
-		}
-
-		level.sloth maps\mp\zombies\_zm_ai_sloth::sloth_set_state("jail_run", 0);
-
-		while (level.sloth.state == "jail_run")
-		{
-			wait 0.05;
-		}
-
-		level.sloth notify("stop_action");
-		level.sloth dance_action();
-
-		level.sloth maps\mp\zombies\_zm_ai_sloth::sloth_set_state("jail_wait");
-
-		while (level.sloth.state != "jail_idle")
-		{
-			wait 0.05;
-		}
-	}
-}
-
-sloth_damage_func()
-{
-	return 0;
-}
-
-dance_action()
-{
-	self endon("death");
-	self endon("stop_action");
-	self setclientfield("sloth_vomit", 0);
-	self.dance_end = gettime() + 30000;
-	level.sloth_protect = 0;
-	self.dance_action = 1;
-
-	while (true)
-	{
-		if (gettime() >= self.dance_end)
-		{
-			break;
-		}
-
-		self animscripted(self.origin, self.jail_start.angles, "zm_dance");
-		maps\mp\animscripts\zm_shared::donotetracks("dance_anim", maps\mp\zombies\_zm_ai_sloth::vomit_notetrack);
-		wait 0.1;
-	}
-
-	self notify("stop_dance");
-	self animscripted(self.origin, self.jail_start.angles, "zm_vomit");
-	maps\mp\animscripts\zm_shared::donotetracks("vomit_anim", maps\mp\zombies\_zm_ai_sloth::vomit_notetrack);
-	self.context_done = 1;
-	self.dance_action = 0;
 }

@@ -8,33 +8,8 @@
 
 add_buildable_to_pool(stub, poolname)
 {
-	if (!isdefined(level.buildablepools))
-	{
-		level.buildablepools = [];
-	}
-
-	if (!isdefined(level.buildablepools[poolname]))
-	{
-		level.buildablepools[poolname] = spawnstruct();
-		level.buildablepools[poolname].stubs = [];
-	}
-
-	level.buildablepools[poolname].stubs[level.buildablepools[poolname].stubs.size] = stub;
-
-	if (!isdefined(level.buildablepools[poolname].buildable_slot))
-	{
-		level.buildablepools[poolname].buildable_slot = stub.buildablestruct.buildable_slot;
-	}
-	else
-	{
-		assert(level.buildablepools[poolname].buildable_slot == stub.buildablestruct.buildable_slot);
-	}
-
-	stub.buildable_pool = level.buildablepools[poolname];
-	stub.original_prompt_and_visibility_func = stub.prompt_and_visibility_func;
-	stub.original_trigger_func = stub.trigger_func;
-	stub.prompt_and_visibility_func = ::pooledbuildabletrigger_update_prompt;
-	reregister_unitrigger(stub, ::pooled_buildable_place_think);
+	// Classic buildables remain bound to their stock tables and part spawns.
+	return;
 }
 
 reregister_unitrigger(unitrigger_stub, new_trigger_func)
@@ -61,25 +36,8 @@ reregister_unitrigger(unitrigger_stub, new_trigger_func)
 
 randomize_pooled_buildables(poolname)
 {
-	level waittill("buildables_setup");
-
-	if (isdefined(level.buildablepools[poolname]))
-	{
-		count = level.buildablepools[poolname].stubs.size;
-
-		if (count > 1)
-		{
-			for (i = 0; i < count; i++)
-			{
-				rand = randomint(count);
-
-				if (rand != i)
-				{
-					swap_buildable_fields(level.buildablepools[poolname].stubs[i], level.buildablepools[poolname].stubs[rand]);
-				}
-			}
-		}
-	}
+	// Pooled-table randomization is part of the Reimagined buildable redesign.
+	return;
 }
 
 pooledbuildabletrigger_update_prompt(player)

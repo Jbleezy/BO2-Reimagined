@@ -235,7 +235,7 @@ init()
 	level.powerup_intro_vox = undefined;
 	level.hotjoin_player_setup = undefined;
 	level.player_too_many_players_check = 0;
-	level.player_starting_health = 150;
+	level.player_starting_health = 100;
 	level.lowertextyalign = "CENTER";
 	level.lowertexty = 40;
 
@@ -806,8 +806,7 @@ post_init()
 
 	level thread wallbuy_cost_changes();
 
-	level thread buildbuildables();
-	level thread buildcraftables();
+	// Classic buildables use their stock map initialization, part pickup, and table rules.
 }
 
 add_objectives()
@@ -1843,7 +1842,7 @@ veryhurt_blood_fx()
 		waittillframeend;
 		waittillframeend; // wait for playerhealthregen
 
-		while (is_player_valid(self) && self.health <= 50)
+		while (is_player_valid(self) && self.health <= self.maxhealth * 0.2)
 		{
 			playfxontag(level._effect["zombie_guts_explosion"], self.player_fx_ent, "tag_origin");
 
@@ -2690,71 +2689,7 @@ disable_bank_teller()
 
 buildbuildables()
 {
-	wait 1; // need a wait or else some buildables dont build
-
-	if (is_classic())
-	{
-		if (level.script == "zm_transit")
-		{
-			level.buildables_available = array("turbine", "riotshield_zm", "turret", "electric_trap", "jetgun_zm");
-
-			buildbuildable("turbine");
-			buildbuildable("electric_trap");
-			buildbuildable("turret");
-			buildbuildable("riotshield_zm");
-			buildbuildable("jetgun_zm");
-			buildbuildable("powerswitch", 1);
-			buildbuildable("pap", 1);
-			buildbuildable("sq_common", 1);
-			buildbuildable("dinerhatch", 1, 0);
-
-			// power switch is not showing up from forced build
-			show_powerswitch();
-		}
-		else if (level.script == "zm_highrise")
-		{
-			level.buildables_available = array("springpad_zm", "slipgun_zm");
-
-			buildbuildable("slipgun_zm");
-			buildbuildable("springpad_zm");
-			buildbuildable("sq_common", 1);
-		}
-		else if (level.script == "zm_buried")
-		{
-			flag_wait("initial_blackscreen_passed"); // wait for buildables to randomize
-			wait 1;
-
-			level.buildables_available = array("subwoofer_zm", "springpad_zm", "headchopper_zm");
-
-			removebuildable("keys_zm");
-			removebuildable("booze");
-			removebuildable("candy");
-			removebuildable("sloth");
-			buildbuildable("turbine");
-			buildbuildable("subwoofer_zm");
-			buildbuildable("springpad_zm");
-			buildbuildable("headchopper_zm");
-			buildbuildable("sq_common", 1);
-			buildbuildable("buried_sq_bt_m_tower", 0, 1, 1, ::onuseplantobject_mtower);
-			buildbuildable("buried_sq_bt_r_tower", 0, 1, 1, ::onuseplantobject_rtower);
-		}
-	}
-	else
-	{
-		if (level.script == "zm_highrise")
-		{
-			buildbuildable("springpad_zm", 1);
-			buildbuildable("slipgun_zm", 1);
-		}
-		else if (level.script == "zm_buried" && level.scr_zm_map_start_location == "street")
-		{
-			flag_wait("initial_blackscreen_passed"); // wait for buildables to be built
-			wait 1;
-
-			updatebuildables();
-			removebuildable("turbine", "buried");
-		}
-	}
+	// Classic buildables use their stock map initialization, part pickup, and table rules.
 }
 
 buildbuildable(buildable, craft = 0, remove_pieces = 1, solo_pool = 0, onuse)
@@ -2821,26 +2756,7 @@ buildbuildable(buildable, craft = 0, remove_pieces = 1, solo_pool = 0, onuse)
 
 get_equipment_cost()
 {
-	if (self.equipname == "turbine")
-	{
-		return 500;
-	}
-	else if (self.equipname == "jetgun_zm")
-	{
-		return 10000;
-	}
-	else if (self.equipname == "slipgun_zm")
-	{
-		return 10000;
-	}
-	else if (self.equipname == "packasplat")
-	{
-		return 2500;
-	}
-	else
-	{
-		return 1000;
-	}
+	return 0;
 }
 
 // adds updated hintstring and functionality
@@ -2947,27 +2863,7 @@ unregister_tower_unitriggers()
 // MOTD\Origins style buildables
 buildcraftables()
 {
-	flag_wait("initial_blackscreen_passed");
-
-	if (is_true(level.zombiemode_using_afterlife))
-	{
-		flag_wait("afterlife_start_over");
-	}
-
-	if (is_classic())
-	{
-		if (level.script == "zm_prison")
-		{
-			buildcraftable("alcatraz_shield_zm");
-			buildcraftable("packasplat");
-		}
-		else if (level.script == "zm_tomb")
-		{
-			buildcraftable("tomb_shield_zm");
-			buildcraftable("equip_dieseldrone_zm");
-			takecraftableparts("gramophone");
-		}
-	}
+	// Stock craftables retain manual part pickup and their original crafting tables.
 }
 
 takecraftableparts(buildable)
